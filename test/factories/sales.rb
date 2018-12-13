@@ -7,7 +7,7 @@ FactoryBot.define do
     downpayment_amount { 0.0 }
     pretax_amount { 5000 }
     currency { 'EUR' }
-    payment_delay { '12 days, eom, 1 week ago' }
+    payment_delay { '1 week' }
     state { 'invoice' }
 
     after(:build) do |sale|

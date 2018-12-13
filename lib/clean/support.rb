@@ -42,7 +42,7 @@ module Clean
       end
 
       def yaml_to_hash(filename)
-        hash = YAML.safe_load(IO.read(filename).gsub(/^(\s*)(no|yes|false|true):(.*)$/, '\1__\2__:\3'))
+        hash = YAML.safe_load(IO.read(filename).gsub(/^(\s*)(no|yes|false|true):(.*)$/, '\1__\2__:\3'), [], [], true)
         deep_symbolize_keys(hash)
       end
 
