@@ -36,6 +36,28 @@
       if event.preventDefault
         event.preventDefault()
 
+  # Watch for element insertion via javascript
+  listeners = []
+  # Wait for dom loaded event before starting to watch. Otherwise we get A LOT of events.
+  $ =>
+    observer = new MutationObserver (mutationList, observer) ->
+      for mutation in mutationList
+        for listener in listeners
+          $element = $(listener.selector, mutation.addedNodes)
+          listener.callback $element if $element.length
+      return
+    observer.observe(document, {childList: true, subtree: true})
 
+  addListener = (selector, callback) =>
+    listeners.push
+      selector: selector
+      callback: callback
+
+  E.onDOMElementAdded = (selectorOrObj, callback) =>
+    if !callback && typeof selectorOrObj == 'object'
+      for selector,callback of selectorOrObj
+        addListener selector, callback
+    else
+      addListener selectorOrObj, callback
 
 ) ekylibre, jQuery
