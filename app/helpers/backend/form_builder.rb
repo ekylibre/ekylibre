@@ -175,6 +175,14 @@ module Backend
         autocomplete[:format] ||= :json
         options[:input_html]['data-autocomplete'] = @template.url_for(autocomplete)
       end
+      filter = options[:filter]
+      if filter
+        options[:input_html]['data-filter-on'] = filter[:on]
+        options[:input_html]['data-filter-with'] = filter[:with]
+        es = filter[:collection].items.values.group_by(&filter[:on].to_sym).map {|category, items| [category, items.map(&:name)] }.to_h
+
+        options[:input_html]['data-filter-elements'] = es.to_json
+      end
       super(attribute_name, options, &block)
     end
 
