@@ -177,11 +177,19 @@ module Backend
       end
       filter = options[:filter]
       if filter
-        options[:input_html]['data-filter-on'] = filter[:on]
-        options[:input_html]['data-filter-with'] = filter[:with]
-        es = filter[:collection].items.values.group_by(&filter[:on].to_sym).map {|category, items| [category, items.map(&:name)] }.to_h
-
-        options[:input_html]['data-filter-elements'] = es.to_json
+        data_filters = filter[:rules].map do |filter|
+          data = {}
+          data[:elements] = if filter.key? :elements
+                       filter[:elements]
+                     elsif filter.key?(:collection) && filter.key?(:key)
+                       filter[:collection].items.values.group_by(&filter[:key].to_sym).map {|category, items| [category, items.map(&:name)] }.to_h
+                     end
+          data[:watch] = filter[:watch]
+          data[:emptyBehavior] = filter[:empty_behavior] if filter.key? :empty_behavior
+          data
+        end
+        options[:input_html]['data-filter-on-empty'] = filter[:on_empty].to_s if filter.key? :on_empty
+        options[:input_html]['data-filter-rules'] = data_filters.to_json
       end
       super(attribute_name, options, &block)
     end
