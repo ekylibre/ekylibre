@@ -374,7 +374,7 @@
   displayDetails = (detailedInput) ->
     cell = $(detailedInput).closest('td')
     $(cell).find('.added-details').remove()
-    $(cell).css('padding', '7px')
+    $(cell).removeClass('with-details')
     id = $(detailedInput).next('.selector-value').val()
     date = $(detailedInput).closest('form').find($(detailedInput).data('add-details-on')).val()
     return unless id && date
@@ -383,7 +383,7 @@
 
     request.success (data) ->
       $(detailedInput).closest('.selector').append(data)
-      $(cell).css('padding', '20px 7px 0px 7px')
+      $(cell).addClass('with-details')
 
   return
 ) ekylibre, jQuery
