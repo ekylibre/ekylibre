@@ -80,6 +80,8 @@ eng:
         fr_pcga: "French PCGA"
         pt_snc: "Portuguese SNC"
       name: "Accounting systems"
+      property_natures:
+        # country: "Country"
     accounts:
       items:
         accrued_bank_interests: "Accrued bank interests"

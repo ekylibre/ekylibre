@@ -9,7 +9,7 @@ class CentralizingJournalPrinter
   end
 
   def compute_dataset
-    monthly_data = (@financial_year.started_on..@financial_year.stopped_on).group_by { |d| [Date::MONTHNAMES[d.month], d.year] }.map do |month, dates|
+    monthly_data = (@financial_year.started_on..@financial_year.stopped_on).group_by { |d| [I18n.t('date.month_names')[d.month], d.year] }.map do |month, dates|
 
       journals_data = Journal.all.map do |journal|
         entries = journal.entries.where('printed_on BETWEEN ? AND ?', dates.first, dates.last).where.not(state: 'draft')
