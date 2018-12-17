@@ -1240,6 +1240,7 @@ eng:
     # cell: "Cell"
     centralize: "Centralize account"
     centralized_account: "Centralized account %{name}"
+    centralizing_journal: "Centralizing journal"
     change: "Change"
     change_password: "Change password"
     change_state: "Change state"
@@ -1491,6 +1492,7 @@ eng:
     export_as_odt: "Export as ODT" #?!
     export_as_pdf: "Export as PDF"
     export_as_xcsv: "Export as Excel CSV"
+    export_centralizing_journal: "Export centralizing journal"
     export_fec_all: "Export FEC corporate tax"
     export_fec_ba_bnc_ir_commercial_accountancy: "Export FEC for agriculture and professional operations income taxation commercial accountancy"
     export_fec_ba_ir_cash_accountancy: "Export FEC agriculture income taxation cash accountancy"
@@ -2571,6 +2573,7 @@ eng:
     distribute_sales_and_purchases_on_activities: "Distribute sales and purchases on activities"
     distribute_sales_and_purchases_on_teams: "Distribute sales and purchases on teams"
     employee_account_radix: "Employee account radix"
+    fiscal_position: "Fiscal position"
     # entry_autocompletion: "Entry autocompletion"
     # host: "Host"
     language: "Language"

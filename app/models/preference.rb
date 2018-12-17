@@ -42,7 +42,7 @@
 class Preference < Ekylibre::Record::Base
   # attr_accessible :nature, :name, :value
   enumerize :nature, in: %i[accounting_system country currency boolean
-                            decimal language integer record
+                            decimal language integer record fiscal_position
                             spatial_reference_system string], predicates: true
   @@conversions = { float: :decimal, true_class: :boolean, false_class: :boolean, fixnum: :integer }
   cattr_reader :reference
@@ -70,6 +70,7 @@ class Preference < Ekylibre::Record::Base
   alias_attribute :currency_value, :string_value
   alias_attribute :language_value, :string_value
   alias_attribute :spatial_reference_system_value, :string_value
+  alias_attribute :fiscal_position_value, :string_value
 
   scope :global, -> { where(name: @@reference.keys.map(&:to_s), user_id: nil) }
 
@@ -184,6 +185,7 @@ class Preference < Ekylibre::Record::Base
   prefer :use_entity_codes_for_account_numbers, :boolean, true
   prefer :sales_conditions, :string, ''
   prefer :accounting_system, :accounting_system, Nomen::AccountingSystem.default('fr_pcga')
+  prefer :fiscal_position, :fiscal_position, Nomen::FiscalPosition.default('fr_ba_ir')
   prefer :language, :language, Nomen::Language.default
   prefer :country,  :country, Nomen::Country.default
   prefer :currency, :currency, Nomen::Currency.default
