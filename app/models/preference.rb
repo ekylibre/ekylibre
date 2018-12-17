@@ -70,6 +70,7 @@ class Preference < Ekylibre::Record::Base
   alias_attribute :currency_value, :string_value
   alias_attribute :language_value, :string_value
   alias_attribute :spatial_reference_system_value, :string_value
+  alias_attribute :fiscal_position_value, :string_value
 
   scope :global, -> { where(name: @@reference.keys.map(&:to_s), user_id: nil) }
 
