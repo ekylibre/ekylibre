@@ -30,7 +30,8 @@
             listener.callback $element if $element.length
         return
 
-    _observe: () -> @observer.observe(@element, {childList: true, subtree: true})
+    _observe: () ->
+      $ => @observer.observe(@element, {childList: true, subtree: true})
 
   #
   # AJAX error handler
