@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20181213153405">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20181217155149">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -2046,16 +2046,17 @@
   </nomenclature>
   <nomenclature name="fiscal_positions" translateable="true">
     <properties>
+      <property name="accounting_system" type="item" choices="accounting_systems" required="true"/>
       <property name="code" type="string" required="true"/>
       <property name="country" type="item" choices="countries" required="true"/>
     </properties>
     <items>
-      <item name="fr_ba_ir" country="fr" code="BA-IR"/>
-      <item name="fr_ba_is" country="fr" code="BA-IS"/>
-      <item name="fr_bic_ir" country="fr" code="BIC-IR"/>
-      <item name="fr_bic_is" country="fr" code="BIC-IS"/>
-      <item name="fr_bnc_ir" country="fr" code="BNC-IR"/>
-      <item name="fr_bnc_is" country="fr" code="BNC-IS"/>
+      <item name="fr_ba_ir" country="fr" code="BA-IR" accounting_system="fr_pcga"/>
+      <item name="fr_ba_is" country="fr" code="BA-IS" accounting_system="fr_pgca"/>
+      <item name="fr_bic_ir" country="fr" code="BIC-IR" accounting_system="fr_pcg82"/>
+      <item name="fr_bic_is" country="fr" code="BIC-IS" accounting_system="fr_pcg82"/>
+      <item name="fr_bnc_ir" country="fr" code="BNC-IR" accounting_system="fr_pcg82"/>
+      <item name="fr_bnc_is" country="fr" code="BNC-IS" accounting_system="fr_pcg82"/>
     </items>
   </nomenclature>
   <nomenclature name="guide_natures" translateable="true">
