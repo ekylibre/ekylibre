@@ -4,7 +4,7 @@ class FixedAssetExportJob < ActiveJob::Base
 
   def perform(document_nature, key, nature, period, user)
     begin
-      printer_class_name = "#{nature.split('_').map(&:capitalize).join}FixedAssetPrinter"
+      printer_class_name = "#{nature.camelize}FixedAssetPrinter"
       printer_class = printer_class_name.constantize
       fixed_asset_printer = printer_class.new(document_nature: document_nature, key: key, nature: nature, period: period)
       file_path = fixed_asset_printer.run_pdf
