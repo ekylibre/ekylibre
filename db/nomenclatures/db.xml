@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20181025121101">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20181213153405">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -73,10 +73,13 @@
     </items>
   </nomenclature>
   <nomenclature name="accounting_systems" translateable="true">
+    <properties>
+      <property name="country" type="item" choices="countries" required="true"/>
+    </properties>
     <items>
-      <item name="fr_pcg82"/>
-      <item name="fr_pcga"/>
-      <item name="pt_snc"/>
+      <item name="fr_pcg82" country="fr"/>
+      <item name="fr_pcga" country="fr"/>
+      <item name="pt_snc" country="pt"/>
     </items>
   </nomenclature>
   <nomenclature name="accounts" translateable="true">
