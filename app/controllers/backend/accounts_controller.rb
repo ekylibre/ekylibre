@@ -148,18 +148,6 @@ module Backend
       redirect_to_back
     end
 
-    def load
-      if request.post?
-        Account.accounting_system = params[:accounting_system]
-        if Nomen::Account.property_natures.keys.include?(Account.accounting_system.to_s)
-          Account.load_defaults
-        else
-          raise 'Arrrggggg'
-        end
-        redirect_to action: :index
-      end
-    end
-
     def mask_lettered_items
       preference_name = 'backend/accounts'
       preference_name << ".#{params[:context]}" if params[:context]

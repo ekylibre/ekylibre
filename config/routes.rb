@@ -196,7 +196,6 @@ Rails.application.routes.draw do
       collection do
         get :reconciliation
         get :list_reconciliation
-        match 'load', via: %i[get post]
         patch :mask_lettered_items
       end
       member do
