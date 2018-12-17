@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20181217155149">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20181217173101">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -2052,7 +2052,7 @@
     </properties>
     <items>
       <item name="fr_ba_ir" country="fr" code="BA-IR" accounting_system="fr_pcga"/>
-      <item name="fr_ba_is" country="fr" code="BA-IS" accounting_system="fr_pgca"/>
+      <item name="fr_ba_is" country="fr" code="BA-IS" accounting_system="fr_pcga"/>
       <item name="fr_bic_ir" country="fr" code="BIC-IR" accounting_system="fr_pcg82"/>
       <item name="fr_bic_is" country="fr" code="BIC-IS" accounting_system="fr_pcg82"/>
       <item name="fr_bnc_ir" country="fr" code="BNC-IR" accounting_system="fr_pcg82"/>
