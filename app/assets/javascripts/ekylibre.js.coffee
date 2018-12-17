@@ -36,6 +36,11 @@
       if event.preventDefault
         event.preventDefault()
 
-
+  domObserver = new DOMMutationObserver(document)
+  E.onDOMElementAdded = (selectorOrObj, callback) =>
+    if !callback && typeof selectorOrObj == 'object'
+      domObserver.addListeners selectorOrObj
+    else
+      domObserver.addListener selectorOrObj, callback
 
 ) ekylibre, jQuery
