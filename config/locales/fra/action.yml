@@ -1228,6 +1228,7 @@ fra:
     created_between: "Enregistré entre le %{started_at} et le %{stopped_at}"
     created_by_ago: "Créé par %{author} %{when}"
     credit: "Crédit"
+    credit_account_balance: "Solde créditeur: %{value}€"
     credited_quantity: "Qté. à passer en avoir"
     credits: "Avoirs"
     criterion_modes: #?
@@ -1268,6 +1269,7 @@ fra:
     days: "Jours"
     deals: "Transactions"
     debit: "Débit"
+    debit_account_balance: "Solde débiteur: %{value}€"
     debts: "Dettes"
     debts_on_assets: "Taux d’endettement (Dettes / Actifs) %{financial_year}"
     decimal_case: "Options pour un décimal" #?
