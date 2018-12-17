@@ -81,10 +81,8 @@ module Backend
           redirect_to :back
         end
         format.pdf do
-          if params[:n] == 'balance_sheet'
-            render_print_balance_sheet(@financial_year)
-          else
-            render_print_income_statement(@financial_year)
+          if params[:n].any?
+            ClosingDocumentExportJob.perform_later(@financial_year, params[:n], current_user)
           end
         end
         format.json
