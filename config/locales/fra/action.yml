@@ -2909,6 +2909,7 @@ fra:
     distribute_sales_and_purchases_on_activities: "Répartir les ventes et les achats sur les activités"
     distribute_sales_and_purchases_on_teams: "Répartir les ventes et les achats sur les équipes"
     employee_account_radix: "Radical comptable du compte salarié"
+    fiscal_position: "Type d'imposition"
     language: "Langue"
     map_measure_srs: "SRS de mesure cartographique"
     permanent_stock_inventory: "Mode stock permanent (tenue des écritures comptables de stock)"

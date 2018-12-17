@@ -2573,6 +2573,7 @@ eng:
     distribute_sales_and_purchases_on_activities: "Distribute sales and purchases on activities"
     distribute_sales_and_purchases_on_teams: "Distribute sales and purchases on teams"
     employee_account_radix: "Employee account radix"
+    fiscal_position: "Fiscal position"
     # entry_autocompletion: "Entry autocompletion"
     # host: "Host"
     language: "Language"
