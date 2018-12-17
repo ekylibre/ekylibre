@@ -107,8 +107,6 @@ GEM
       sass (>= 3.3.4)
     bootstrap-slider-rails (9.8.0)
       railties (>= 3.2, < 6.0)
-    bootstrap3-datetimepicker-rails (4.17.47)
-      momentjs-rails (>= 2.8.1)
     browser (2.5.3)
     builder (3.2.3)
     bullet (5.5.1)
@@ -205,6 +203,7 @@ GEM
     ffi (1.9.25)
     figaro (1.1.1)
       thor (~> 0.14)
+    flatpickr (4.5.2.0)
     foreman (0.85.0)
       thor (~> 0.19.1)
     formize (2.1.0)
@@ -622,7 +621,6 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-sass (~> 3.1)
   bootstrap-slider-rails
-  bootstrap3-datetimepicker-rails
   browser
   bullet (< 5.6.0)
   capybara
@@ -647,6 +645,7 @@ DEPENDENCIES
   feedjira
   ffaker (>= 2.0.0)
   figaro
+  flatpickr (~> 4.5, >= 4.5.2.0)
   foreman
   formize (~> 2.1.0)
   gpgme
@@ -730,4 +729,4 @@ RUBY VERSION
    ruby 2.3.7p456
 
 BUNDLED WITH
-   1.16.4
+   1.17.1

@@ -1,4 +1,58 @@
 jpn:
+  activemodel:
+    errors:
+      messages:
+        # accepted: "%{attribute} must be accepted"
+        # after: "%{attribute} must be after %{restriction}"
+        # already_confirmed: "was already confirmed, please try signing in"
+        # before: "%{attribute} must be before %{restriction}"
+        # blank: "%{attribute} can't be blank"
+        # confirmation: "%{attribute} doesn't match confirmation"
+        # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
+        # currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
+        # empty: "%{attribute} can't be empty"
+        # equal_to: "%{attribute} must be equal to %{count}"
+        # even: "%{attribute} must be even"
+        # exclusion: "%{attribute} is reserved"
+        # expired: "has expired, please request a new one"
+        # greater_than: "%{attribute} must be greater than %{count}"
+        # greater_than_or_equal_to: "%{attribute} must be greater than or equal to %{count}"
+        # included_in: "The value of %{attribute} must be included between %{minimum} and %{maximum}"
+        # inclusion: "%{attribute} is not included in the list"
+        # invalid: "%{attribute} is invalid"
+        # invalid_at: "%{attribute} is_invalid. Error near %{error}"
+        # invalid_date: "%{attribute} is not a valid date"
+        # invalid_datetime: "%{attribute} is not a valid datetime"
+        # invalid_time: "%{attribute} is not a valid time"
+        # invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
+        # is: "%{attribute} must be a %{thing}"
+        # is_at: "%{attribute} must be at %{restriction}"
+        # less_than: "%{attribute} must be less than %{count}"
+        # less_than_or_equal_to: "%{attribute} must be less than or equal to %{count}"
+        # missing_bank_details_for_sepa: "Values for IBAN and/or Account owner are missing for the cash account selected."
+        # must_be_a_mail_address: "%{attribute} must be a mail address"
+        # not_a_number: "%{attribute} is not a number"
+        # not_an_end_of_month: "%{attribute} must be an end of month"
+        # not_an_integer: "%{attribute} must be an integer"
+        # not_enough: "not enough %{resource} to complete task"
+        # not_found: "not found"
+        # not_locked: "was not locked"
+        not_saved:
+          # one: "1 error prohibited this %{resource} from being saved:"
+          # other: "%{count} errors prohibited this %{resource} from being saved:"
+        # nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
+        # odd: "%{attribute} must be odd"
+        # on_or_after: "%{attribute} must be on or after %{restriction}"
+        # on_or_before: "%{attribute} must be on or before %{restriction}"
+        # overlap: "%{attribute} overlaps an existing record"
+        # overlap_sibling: "%{attribute} overlaps sibling"
+        # posterior: "%{attribute} must be posterior to %{to}"
+        # record_invalid: "Validations failed: %{errors}"
+        # taken: "%{attribute} has already been taken"
+        # too_long: "%{attribute} is too long (maximum is %{count} characters)"
+        # too_short: "%{attribute} is too short (minimum is %{count} characters)"
+        # unitary_in_parcel: "Unitary items can only be sent one by one"
+        # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
   activerecord:
     attributes:
       account:
@@ -99,14 +153,17 @@ jpn:
       messages:
         # accepted: "%{attribute} must be accepted"
         # after: "%{attribute} must be after %{restriction}"
+        # already_confirmed: "was already confirmed, please try signing in"
         # before: "%{attribute} must be before %{restriction}"
         # blank: "%{attribute} can't be blank"
         # confirmation: "%{attribute} doesn't match confirmation"
+        # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
         # currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
         # empty: "%{attribute} can't be empty"
         # equal_to: "%{attribute} must be equal to %{count}"
         # even: "%{attribute} must be even"
         # exclusion: "%{attribute} is reserved"
+        # expired: "has expired, please request a new one"
         # greater_than: "%{attribute} must be greater than %{count}"
         # greater_than_or_equal_to: "%{attribute} must be greater than or equal to %{count}"
         # included_in: "The value of %{attribute} must be included between %{minimum} and %{maximum}"
@@ -126,6 +183,12 @@ jpn:
         # not_a_number: "%{attribute} is not a number"
         # not_an_end_of_month: "%{attribute} must be an end of month"
         # not_an_integer: "%{attribute} must be an integer"
+        # not_enough: "not enough %{resource} to complete task"
+        # not_found: "not found"
+        # not_locked: "was not locked"
+        not_saved:
+          # one: "1 error prohibited this %{resource} from being saved:"
+          # other: "%{count} errors prohibited this %{resource} from being saved:"
         nothing_to_pay: "支払うために何もありません。あなたは頭金を登録したい場合は、その点に注意してくださいすることを忘れないでください。"
         # odd: "%{attribute} must be odd"
         # on_or_after: "%{attribute} must be on or after %{restriction}"
@@ -139,120 +202,50 @@ jpn:
         # too_short: "%{attribute} is too short (minimum is %{count} characters)"
         unitary_in_parcel: "ユニタリアイテムは一つ一つを送信することができます"
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
-      models:
-        account:
-          # cant_start_with_0: "The number can't start with a '0'"
-          # centralizing_number: "The number can't start with '401' or '411' which are numbers used for auxiliary accounts"
-          # incorrect_length: "The number has not the correct lenght (%{number_length} caracters)"
-          # radical_class: "The account can't correpsond to a radical class"
-        activity:
-          checked_off_with_inspections: "検査は既にこの活動のために作成されています"
-          checked_without_measures: "検査が求められていたときに少なくとも、1小節の種類を選択する必要があります"
-        bank_statement:
-          no_cash_match_ofx: "ファイルで指定された銀行口座番号が見つかり代引き不可"
-          ofx_file_has_multiple_bank_accounts: "複数の銀行口座を持つOFXファイルはサポートされていません。"
-          ofx_file_invalid: "OFXファイルは無効です。"
-        bank_statement_item:
-          unvalid_amounts: "ジャーナルエントリは、同時にデビットカードまたはクレジットではなく、どちらかを満たさなければなりません。"
-        cash:
-          # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
-          # different_of_main_account: "%{attribute} must be different of main account (%{account})"
-          unvalid_bban: "Unvalid BBAN。一つ以上の要素が間違っています。"
-        cash_transfer:
-          attributes:
-            transfered_at:
-              # financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
-              # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
-              # not_opened_financial_year: "An opened financial year is necessary"
-        deposit:
-          # must_be_a_bank_account: "%{attribute} must be a bank account and not a cash"
-        entity:
-          # missing_title: "%{attribute} must contains the title “%{title}”"
-          # nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
-        financial_year:
-          attributes:
-            accountant:
-              # frozen: "%{attribute} cannot be changed while an exchange is opened"
-            started_on:
-              consecutive: "会計年度はconsecutivesでなければなりません。これは、前回の終了後に開始する必要があります。"
-              frozen: "交換が作成されたときの会計年度の日付を変更することはできません。"
-              # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
-            stopped_on:
-              # end_of_month: "%{attribute} must be an end of month"
-          # can_only_have_two_years_opened: "You can only have two financial years opened"
-          # can_only_update_code: "You can only update the code of a closed or locked financial year"
-          # overlap: "%{attribute} overlaps an existing financial year"
-        financial_year_exchange:
-          csv_file_entry_dates_invalid: "CSVでのいくつかのエントリは、会計年度の為替日付範囲外であります"
-          # csv_file_entry_invalid: "Some entries in the CSV are invalid ('%{entry_number}')"
-          csv_file_headers_invalid: "CSVヘッダーが無効です"
-          csv_file_invalid: "CSVファイルが不正です"
-          # csv_file_journals_invalid: "Some journals are present in the CSV but not in Ekylibre : %{codes}"
-        fixed_asset:
-          attributes:
-            started_on:
-              # financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
-              # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
-              # not_opened_financial_year: "An opened financial year is necessary"
-        fixed_asset_depreciation:
-          attributes:
-            started_on:
-              # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
-        incoming_parcel_item:
-          # greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
-        integration:
-          attributes:
-            parameters:
-              check_errored: "コネクションチェックがエラーを起こしました。あなたの入力の有効性を確認するか、後でやり直してください。"
-        journal:
-          attributes:
-            accountant:
-              # entity_frozen: "Booked journals of this %{attribute} cannot change while an exchange is opened for its financial years"
-              present: "会計士は、様々な動作雑誌のためにのみ設定することができます"
-              # previous_entity_frozen: "Booked journals of the previous %{attribute} cannot change while an exchange is opened for its financial years"
-            closed_on:
-              # end_of_month: "%{attribute} must be an end of month (%{closed_on})"
-        journal_entry:
-          # closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
-          # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
-          frozen_by_financial_year_exchange: "ジャーナルエントリは、会計年度交換に対応する期間内に記録することはできません。"
-          # not_opened_financial_year: "An opened financial year is necessary"
-          out_of_existing_financial_year: "ジャーナルエントリは、既存の会計年度に対応する期間内に記録されなければなりません。"
-          unbalanced: "ジャーナルエントリはアンバランスであります"
-        journal_entry_item:
-          closed_entry: "ジャーナルエントリはロックされています。あなたはそれを更新することはできません。"
-          empty_amounts: "仕訳は、デビットカードやクレジットのどちらかを入力する必要があります"
-          unvalid_amounts: "ジャーナルエントリは、同時にデビットカードまたはクレジットではなく、どちらかを満たさなければなりません。"
-        outgoing_parcel_item:
-          # greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
-        parcel:
-          # financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
-          # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
-          # not_opened_financial_year: "An opened financial year is necessary"
-        purchase:
-          # financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
-          # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
-          # not_opened_financial_year: "An opened financial year is necessary"
-          # payment_delay_custom_validation_message: "Accepted formats : %{values}"
-        purchase_item:
-          # building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
-          # serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
-        sale:
-          # financial_year_exchange_on_this_period: "There is a financial year exchange at this period"
-          # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
-          # not_opened_financial_year: "An opened financial year is necessary"
-        sale_item:
-          # building_can_not_transfer_product: "%{product} can not be found in %{building}, it only contains %{contained_product}."
-          # can_not_use_this_tracking: "You can not user the S/N %{tracking}, the quantity is greater than the available quantity"
-          currency_is_not_sale_currency: "通貨は、売却通貨と同一ではありません"
-          error_no_found_price: "いいえ見つから価格はありません"
-        subscription:
-          entity_must_be_the_same_as_the_contact_entity: "人は、担当者と同じである必要があります"
-      template:
-        body: "次のフィールドに問題がありました："
-        header:
-          # one: "1 error prohibited this %{model} from being saved"
-          # other: "%{count} errors prohibited this %{model} from being saved"
+      models: #?
+        activity: #?
+          checked_off_with_inspections: "検査は既にこの活動のために作成されています" #?
+          checked_without_measures: "検査が求められていたときに少なくとも、1小節の種類を選択する必要があります" #?
+        bank_statement: #?
+          no_cash_match_ofx: "ファイルで指定された銀行口座番号が見つかり代引き不可" #?
+          ofx_file_has_multiple_bank_accounts: "複数の銀行口座を持つOFXファイルはサポートされていません。" #?
+          ofx_file_invalid: "OFXファイルは無効です。" #?
+        bank_statement_item: #?
+          unvalid_amounts: "ジャーナルエントリは、同時にデビットカードまたはクレジットではなく、どちらかを満たさなければなりません。" #?
+        cash: #?
+          unvalid_bban: "Unvalid BBAN。一つ以上の要素が間違っています。" #?
+        financial_year: #?
+          attributes: #?
+            started_on: #?
+              consecutive: "会計年度はconsecutivesでなければなりません。これは、前回の終了後に開始する必要があります。" #?
+              frozen: "交換が作成されたときの会計年度の日付を変更することはできません。" #?
+        financial_year_exchange: #?
+          csv_file_entry_dates_invalid: "CSVでのいくつかのエントリは、会計年度の為替日付範囲外であります" #?
+          csv_file_headers_invalid: "CSVヘッダーが無効です" #?
+          csv_file_invalid: "CSVファイルが不正です" #?
+        integration: #?
+          attributes: #?
+            parameters: #?
+              check_errored: "コネクションチェックがエラーを起こしました。あなたの入力の有効性を確認するか、後でやり直してください。" #?
+        journal: #?
+          attributes: #?
+            accountant: #?
+              present: "会計士は、様々な動作雑誌のためにのみ設定することができます" #?
+        journal_entry: #?
+          frozen_by_financial_year_exchange: "ジャーナルエントリは、会計年度交換に対応する期間内に記録することはできません。" #?
+          out_of_existing_financial_year: "ジャーナルエントリは、既存の会計年度に対応する期間内に記録されなければなりません。" #?
+          unbalanced: "ジャーナルエントリはアンバランスであります" #?
+        journal_entry_item: #?
+          closed_entry: "ジャーナルエントリはロックされています。あなたはそれを更新することはできません。" #?
+          empty_amounts: "仕訳は、デビットカードやクレジットのどちらかを入力する必要があります" #?
+          unvalid_amounts: "ジャーナルエントリは、同時にデビットカードまたはクレジットではなく、どちらかを満たさなければなりません。" #?
+        sale_item: #?
+          currency_is_not_sale_currency: "通貨は、売却通貨と同一ではありません" #?
+          error_no_found_price: "いいえ見つから価格はありません" #?
+        subscription: #?
+          entity_must_be_the_same_as_the_contact_entity: "人は、担当者と同じである必要があります" #?
+      template: #?
+        body: "次のフィールドに問題がありました：" #?
     models:
       account: "アカウント"
       account_balance: "勘定残高"
@@ -619,6 +612,8 @@ jpn:
     commission_base_amount: "手数料の基準額"
     commission_percentage: "欧州委員会の割合"
     commissioned_incoming_payment_modes: "委託入金モード"
+    # company_creation_date: "Company creation date"
+    # company_name: "Company name"
     component: "成分"
     components: "コンポーネント"
     computation_method: "計算方法"
@@ -1637,6 +1632,59 @@ jpn:
     working_zone_area: "ワーキングゾーン領域"
     zone_memberships: "ゾーンメンバーシップ"
     zones: "ゾーン"
+  errors:
+    messages:
+      # accepted: "%{attribute} must be accepted"
+      # after: "%{attribute} must be after %{restriction}"
+      # already_confirmed: "was already confirmed, please try signing in"
+      # before: "%{attribute} must be before %{restriction}"
+      # blank: "%{attribute} can't be blank"
+      # confirmation: "%{attribute} doesn't match confirmation"
+      # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
+      # currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
+      # empty: "%{attribute} can't be empty"
+      # equal_to: "%{attribute} must be equal to %{count}"
+      # even: "%{attribute} must be even"
+      # exclusion: "%{attribute} is reserved"
+      # expired: "has expired, please request a new one"
+      # greater_than: "%{attribute} must be greater than %{count}"
+      # greater_than_or_equal_to: "%{attribute} must be greater than or equal to %{count}"
+      # included_in: "The value of %{attribute} must be included between %{minimum} and %{maximum}"
+      # inclusion: "%{attribute} is not included in the list"
+      # invalid: "%{attribute} is invalid"
+      # invalid_at: "%{attribute} is_invalid. Error near %{error}"
+      # invalid_date: "%{attribute} is not a valid date"
+      # invalid_datetime: "%{attribute} is not a valid datetime"
+      # invalid_time: "%{attribute} is not a valid time"
+      # invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
+      # is: "%{attribute} must be a %{thing}"
+      # is_at: "%{attribute} must be at %{restriction}"
+      # less_than: "%{attribute} must be less than %{count}"
+      # less_than_or_equal_to: "%{attribute} must be less than or equal to %{count}"
+      # missing_bank_details_for_sepa: "Values for IBAN and/or Account owner are missing for the cash account selected."
+      # must_be_a_mail_address: "%{attribute} must be a mail address"
+      # not_a_number: "%{attribute} is not a number"
+      # not_an_end_of_month: "%{attribute} must be an end of month"
+      # not_an_integer: "%{attribute} must be an integer"
+      # not_enough: "not enough %{resource} to complete task"
+      # not_found: "not found"
+      # not_locked: "was not locked"
+      not_saved:
+        # one: "1 error prohibited this %{resource} from being saved:"
+        # other: "%{count} errors prohibited this %{resource} from being saved:"
+      # nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
+      # odd: "%{attribute} must be odd"
+      # on_or_after: "%{attribute} must be on or after %{restriction}"
+      # on_or_before: "%{attribute} must be on or before %{restriction}"
+      # overlap: "%{attribute} overlaps an existing record"
+      # overlap_sibling: "%{attribute} overlaps sibling"
+      # posterior: "%{attribute} must be posterior to %{to}"
+      # record_invalid: "Validations failed: %{errors}"
+      # taken: "%{attribute} has already been taken"
+      # too_long: "%{attribute} is too long (maximum is %{count} characters)"
+      # too_short: "%{attribute} is too short (minimum is %{count} characters)"
+      # unitary_in_parcel: "Unitary items can only be sent one by one"
+      # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
   models:
     account:
       # label: "%{number} - %{name}"

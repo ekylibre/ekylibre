@@ -922,15 +922,57 @@ eng:
   errors:
     format: "%{message}"
     messages:
+      accepted: "%{attribute} must be accepted"
+      after: "%{attribute} must be after %{restriction}"
       already_confirmed: "was already confirmed, please try signing in"
+      before: "%{attribute} must be before %{restriction}"
+      blank: "%{attribute} can't be blank"
+      confirmation: "%{attribute} doesn't match confirmation"
       confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
+      currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
+      empty: "%{attribute} can't be empty"
+      equal_to: "%{attribute} must be equal to %{count}"
+      even: "%{attribute} must be even"
+      exclusion: "%{attribute} is reserved"
       expired: "has expired, please request a new one"
+      greater_than: "%{attribute} must be greater than %{count}"
+      greater_than_or_equal_to: "%{attribute} must be greater than or equal to %{count}"
+      included_in: "The value of %{attribute} must be included between %{minimum} and %{maximum}"
+      inclusion: "%{attribute} is not included in the list"
+      invalid: "%{attribute} is invalid"
+      invalid_at: "%{attribute} is_invalid. Error near %{error}"
+      invalid_date: "%{attribute} is not a valid date"
+      invalid_datetime: "%{attribute} is not a valid datetime"
+      invalid_time: "%{attribute} is not a valid time"
+      invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
+      is: "%{attribute} must be a %{thing}"
+      is_at: "%{attribute} must be at %{restriction}"
+      less_than: "%{attribute} must be less than %{count}"
+      less_than_or_equal_to: "%{attribute} must be less than or equal to %{count}"
+      missing_bank_details_for_sepa: "Values for IBAN and/or Account owner are missing for the cash account selected."
+      must_be_a_mail_address: "%{attribute} must be a mail address"
+      not_a_number: "%{attribute} is not a number"
+      not_an_end_of_month: "%{attribute} must be an end of month"
+      not_an_integer: "%{attribute} must be an integer"
       not_enough: "not enough %{resource} to complete task"
       not_found: "not found"
       not_locked: "was not locked"
       not_saved:
         one: "1 error prohibited this %{resource} from being saved:"
         other: "%{count} errors prohibited this %{resource} from being saved:"
+      nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
+      odd: "%{attribute} must be odd"
+      on_or_after: "%{attribute} must be on or after %{restriction}"
+      on_or_before: "%{attribute} must be on or before %{restriction}"
+      overlap: "%{attribute} overlaps an existing record"
+      overlap_sibling: "%{attribute} overlaps sibling"
+      posterior: "%{attribute} must be posterior to %{to}"
+      record_invalid: "Validations failed: %{errors}"
+      taken: "%{attribute} has already been taken"
+      too_long: "%{attribute} is too long (maximum is %{count} characters)"
+      too_short: "%{attribute} is too short (minimum is %{count} characters)"
+      unitary_in_parcel: "Unitary items can only be sent one by one"
+      wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
     template:
       body: "There were problems with the following fields:"
       header:
@@ -1107,6 +1149,7 @@ eng:
     all_columns: "All columns" #?
     all_conditions: "All conditions" #?!
     all_entries_balanced: "All entries are balanced" #?
+    all_exchanges_closed: "All exchanges are closed" #?
     all_financial_years_closed_or_locked: "All financial years are closed or locked" #?
     all_financial_years_not_closed_or_locked: "All financial years are not closed or locked" #?
     all_periods: "All financial years"
@@ -1198,6 +1241,7 @@ eng:
     # cell: "Cell"
     centralize: "Centralize account"
     centralized_account: "Centralized account %{name}"
+    centralizing_journal: "Centralizing journal"
     change: "Change"
     change_password: "Change password"
     change_state: "Change state"
@@ -1309,6 +1353,7 @@ eng:
     # date: "Date"
     dated_cash: "%{cash}: %{on}"
     dates: "Select period start date and Period end date" #?
+    date_range: "%{from} to %{to}"
     days: "Days"
     deals: "Deals"
     debit: "Debit" #?
@@ -1430,6 +1475,7 @@ eng:
     exchange: "Exchange"
     exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     exchanges: "Exchanges"
+    exchanges_to_close: "There is at least one exchange to close: " #?
     exercice_production: "Exercice production"
     exercice_result: "Exercice result" #?
     existing: "Existing" #?
@@ -1447,6 +1493,7 @@ eng:
     export_as_odt: "Export as ODT" #?!
     export_as_pdf: "Export as PDF"
     export_as_xcsv: "Export as Excel CSV"
+    export_centralizing_journal: "Export centralizing journal"
     export_fec_all: "Export FEC corporate tax"
     export_fec_ba_bnc_ir_commercial_accountancy: "Export FEC for agriculture and professional operations income taxation commercial accountancy"
     export_fec_ba_ir_cash_accountancy: "Export FEC agriculture income taxation cash accountancy"
@@ -1506,6 +1553,7 @@ eng:
     geolocation: "Geolocation" #?
     global_preferences: "Global preferences"
     go: "Go" #?
+    go_back_to_financial_year_details: "Go back to financial year details"
     gradings: "Gradings" #?
     grain_yield: "Grain yield" #?
     grains_yield: "Grains yield"
@@ -2428,7 +2476,7 @@ eng:
       financial_years_missing: "You must create every missing financial years since the first registered"
       financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}" #?
       implemented_with_dummy_data: "Implemented with dummy data"
-      import_creation_successful_suggest_execute: "Creation successful! You can now import the file with the button \"Run\"."
+      import_creation_successful_suggest_execute: "Creation successful! You can now import the file with the button 'Run'."
       import_failed: "Import %{name} failed: %{message}"
       import_finished_successfully: "Import %{name} finished successfully"
       importation_finished: "The import is complete."
@@ -2531,6 +2579,7 @@ eng:
     distribute_sales_and_purchases_on_activities: "Distribute sales and purchases on activities"
     distribute_sales_and_purchases_on_teams: "Distribute sales and purchases on teams"
     employee_account_radix: "Employee account radix"
+    fiscal_position: "Fiscal position"
     # entry_autocompletion: "Entry autocompletion"
     # host: "Host"
     language: "Language"

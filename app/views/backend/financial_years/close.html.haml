@@ -14,6 +14,7 @@
 
       = checks(@financial_year,
                closed_previous_years: @financial_year.all_previous_financial_years_closed_or_locked?,
+               no_opened_exchange: !@financial_year.opened_exchange?,
                drafts_empty: @financial_year.no_draft_entry?,
                entries_balanced: @financial_year.no_entry_to_balance?,
                no_entries_on_radicals: @financial_year.unbalanced_radical_account_classes_array.empty?)
@@ -24,7 +25,6 @@
           - result = AccountancyComputation.new(@financial_year).sum_entry_items_by_line(:profit_and_loss_statement, :exercice_result)
           - profit = (result >= 0)
           - account_number = profit ? '12000000' : '12900000'
-          - color_to_apply = profit ? 'green' : 'red'
           - result_direction = profit ? :profit : :loss
           - localized_currency = number_to_accountancy(result.abs, @financial_year.currency)
           - result_label = "#{result_direction}_is_x_for_account".tl(x: localized_currency, account_number: account_number)

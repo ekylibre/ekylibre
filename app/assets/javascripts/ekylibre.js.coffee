@@ -1,5 +1,37 @@
 ((E, $) ->
   "use strict"
+  class DOMMutationObserver
+    constructor: (element) ->
+      @element = element
+      @observer = null
+      @listeners = []
+
+    started: () -> @observer != null
+
+    start: () ->
+      @_createObserver()
+      @_observe()
+
+    addListener: (selector, callback) ->
+      @listeners.push
+        selector: selector
+        callback: callback
+      @start() unless @started()
+
+    addListeners: (hash) ->
+      for selector,callback of hash
+        @addListener selector, callback
+
+    _createObserver: () ->
+      @observer = new MutationObserver (mutationList, observer) =>
+        for mutation in mutationList
+          for listener in @listeners
+            $element = $(listener.selector, mutation.addedNodes)
+            listener.callback $element if $element.length
+        return
+
+    _observe: () ->
+      $ => @observer.observe(@element, {childList: true, subtree: true})
 
   #
   # AJAX error handler
@@ -36,6 +68,11 @@
       if event.preventDefault
         event.preventDefault()
 
-
+  domObserver = new DOMMutationObserver(document)
+  E.onDOMElementAdded = (selectorOrObj, callback) =>
+    if !callback && typeof selectorOrObj == 'object'
+      domObserver.addListeners selectorOrObj
+    else
+      domObserver.addListener selectorOrObj, callback
 
 ) ekylibre, jQuery

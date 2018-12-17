@@ -88,6 +88,7 @@ class Entity < Ekylibre::Record::Base
   refers_to :language
   refers_to :country
   enumerize :nature, in: %i[organization contact], default: :organization, predicates: true
+  enumerize :supplier_payment_delay, in: ['1 week', '30 days', '30 days, end of month', '60 days', '60 days, end of month']
   versionize exclude: [:full_name]
   belongs_to :client_account, class_name: 'Account'
   belongs_to :employee_account, class_name: 'Account'
@@ -160,7 +161,7 @@ class Entity < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, :client, :employee, :locked, :of_company, :prospect, :reminder_submissive, :supplier, :transporter, :vat_subjected, inclusion: { in: [true, false] }
-  validates :activity_code, :bank_account_holder_name, :bank_identifier_code, :deliveries_conditions, :first_name, :iban, :meeting_origin, :number, :picture_content_type, :picture_file_name, :siret_number, :supplier_payment_delay, :title, :vat_number, length: { maximum: 500 }, allow_blank: true
+  validates :activity_code, :bank_account_holder_name, :bank_identifier_code, :deliveries_conditions, :first_name, :iban, :meeting_origin, :number, :picture_content_type, :picture_file_name, :siret_number, :title, :vat_number, length: { maximum: 500 }, allow_blank: true
   validates :born_at, :dead_at, :first_met_at, :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :currency, :language, :nature, presence: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
@@ -175,7 +176,7 @@ class Entity < Ekylibre::Record::Base
   validates :activity_code, length: { allow_nil: true, maximum: 30 }
   validates :deliveries_conditions, :number, length: { allow_nil: true, maximum: 60 }
   validates :iban, iban: true, allow_blank: true
-  validates :siret_number, siret_format: true, allow_blank: true
+  validates :siret_number, siret_format: { if: :in_france? }, allow_blank: true
   validates_attachment_content_type :picture, content_type: /image/
   validates_delay_format_of :supplier_payment_delay
 
@@ -297,6 +298,10 @@ class Entity < Ekylibre::Record::Base
 
   def unbalanced?
     EconomicSituation.unbalanced.pluck(:id).include? id
+  end
+
+  def in_france?
+    country == 'fr'
   end
 
   def client_accounting_balance

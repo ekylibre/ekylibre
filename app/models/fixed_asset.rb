@@ -238,6 +238,13 @@ class FixedAsset < Ekylibre::Record::Base
     end
   end
 
+  def update_amounts
+    unless depreciations.any?(&:journal_entry)
+      amount = purchase_items.map(&:pretax_amount).sum
+      update(purchase_amount: amount, depreciable_amount: amount)
+    end
+  end
+
   def started_during_financial_year_exchange?
     FinancialYearExchange.opened.where('? BETWEEN started_on AND stopped_on', started_on).any?
   end

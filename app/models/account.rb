@@ -775,8 +775,8 @@ class Account < Ekylibre::Record::Base
         entry_count = 0
 
         account_entry[:account_number] = account.number
-        account_entry [:account_name] = account.name
-        account_entry [:currency] = journal_entry_items.first.currency if journal_entry_items.any?
+        account_entry[:account_name] = account.name
+        account_entry[:currency] = journal_entry_items.first.currency if journal_entry_items.any?
 
         account_entry[:items] = []
 
