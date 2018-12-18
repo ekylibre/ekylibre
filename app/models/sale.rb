@@ -72,7 +72,6 @@ class Sale < Ekylibre::Record::Base
   include Attachable
   include Customizable
   attr_readonly :currency
-  enumerize :payment_delay, in: ['1 week', '30 days', '30 days, end of month', '60 days', '60 days, end of month']
   refers_to :currency
   belongs_to :affair
   belongs_to :client, class_name: 'Entity'
@@ -182,6 +181,7 @@ class Sale < Ekylibre::Record::Base
       end
       self.currency ||= self.nature.currency
     end
+    self.payment_delay = '1 week' if payment_delay.blank?
     true
   end
 
