@@ -1330,6 +1330,7 @@ eng:
     created_between: "Created between %{started_at} and %{stopped_at}"
     created_by_ago: "Created by %{author} %{when}"
     credit: "Credit" #?
+    credit_account_balance: "Credit balance: %{value}€"
     credited_quantity: "Quantity to credit" #?
     credits: "Credits"
     cropping_plan: "Cropping plan"
@@ -1356,6 +1357,7 @@ eng:
     days: "Days"
     deals: "Deals"
     debit: "Debit" #?
+    debit_account_balance: "Debit balance: %{value}€"
     debts: "Debts" #?!
     debts_on_assets: "Debts on assets %{financial_year}" #?!
     decision_making: "Decision-making"

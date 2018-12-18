@@ -208,6 +208,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :account_balances, only: :show
+
     resources :activities, concerns: %i[list unroll] do
       collection do
         get :family
