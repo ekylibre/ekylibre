@@ -779,6 +779,7 @@ fra:
       # overlap_sibling: "%{attribute} overlaps sibling"
       # posterior: "%{attribute} must be posterior to %{to}"
       # record_invalid: "Validations failed: %{errors}"
+      # should_be_the_last_day_of_month: "%{attribute} should be the last day of the month."
       # taken: "%{attribute} has already been taken"
       # too_long: "%{attribute} is too long (maximum is %{count} characters)"
       # too_short: "%{attribute} is too short (minimum is %{count} characters)"
@@ -1261,8 +1262,8 @@ fra:
     data_to_export: "Données à exporter" #?
     data_to_extract: "Données à extraire" #?
     date: "Date" #?
-    dated_cash: "%{cash}\_: %{on}"
     date_range: "%{from} au %{to}"
+    dated_cash: "%{cash}\_: %{on}"
     dates: "Saisissez les dates de début et de fin de la période"
     day: "Jour" #?
     days: "Jours"

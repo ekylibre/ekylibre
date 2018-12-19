@@ -968,6 +968,7 @@ eng:
       overlap_sibling: "%{attribute} overlaps sibling"
       posterior: "%{attribute} must be posterior to %{to}"
       record_invalid: "Validations failed: %{errors}"
+      should_be_the_last_day_of_month: "%{attribute} should be the last day of the month."
       taken: "%{attribute} has already been taken"
       too_long: "%{attribute} is too long (maximum is %{count} characters)"
       too_short: "%{attribute} is too short (minimum is %{count} characters)"
@@ -1224,7 +1225,7 @@ eng:
     cancelation: "Cancelation"
     cap_islets: "CAP islets"
     cap_land_parcels: "CAP land parcels"
-    capitalised_production: "Capitalised production" #?!
+    capitalised_production: "Capitalised production" #?
     capitals: "Capitals" #?!
     cartography: "Cartography"
     cash: "Cash"
@@ -1240,7 +1241,7 @@ eng:
     # cell: "Cell"
     centralize: "Centralize account"
     centralized_account: "Centralized account %{name}"
-    centralizing_journal: "Centralizing journal"
+    centralizing_journal: "Centralizing journal" #?
     change: "Change"
     change_password: "Change password"
     change_state: "Change state"
@@ -1350,13 +1351,13 @@ eng:
     # data: "Data"
     # data_transmissions: "Data transmissions"
     # date: "Date"
+    date_range: "%{from} to %{to}"
     dated_cash: "%{cash}: %{on}"
     dates: "Select period start date and Period end date" #?
-    date_range: "%{from} to %{to}"
     days: "Days"
     deals: "Deals"
     debit: "Debit" #?
-    debts: "Debts" #?!
+    debts: "Debts" #?
     debts_on_assets: "Debts on assets %{financial_year}" #?!
     decision_making: "Decision-making"
     default_letter_conclusion: "Please accept, Dear Madam, Dear Sir, the assurances of my highest consideration."
@@ -1441,7 +1442,7 @@ eng:
     emissions_and_reevaluation_gaps: "Emissions and reevaluation gaps" #?!
     employee_and_wages: "Employee and wages" #?!
     employee_informations: "Employee informations"
-    employee_involvement: "Employee involvement" #?!
+    employee_involvement: "Employee involvement" #?
     end: "to" #?
     entities: "Entities"
     entity_links: "Entity links" #?
@@ -1468,9 +1469,9 @@ eng:
     events: "Events"
     evolution: "Evolution"
     example: "Example: %{value}" #?
-    exceptional_expenses: "Exceptional expenses" #??
-    exceptional_products: "Exceptional products" #?!
-    exceptional_result: "Exceptional result" #?!
+    exceptional_expenses: "Exceptional expenses" #?
+    exceptional_products: "Exceptional products" #?
+    exceptional_result: "Exceptional result" #?
     exchange: "Exchange"
     exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     exchanges: "Exchanges"
@@ -1484,7 +1485,7 @@ eng:
     expenses_by_product_nature_category: "Expenses by product nature category" #?
     expired_since: "Expired since" #?
     expired_within: "Expired within" #?
-    exploitation_result: "Exploitation result" #?!
+    exploitation_result: "Exploitation result" #?
     exploitation_results: "Exploitation results" #?!
     export: "Export documents" #?
     export_as_csv: "Export as CSV"
@@ -1492,11 +1493,13 @@ eng:
     export_as_odt: "Export as ODT" #?!
     export_as_pdf: "Export as PDF"
     export_as_xcsv: "Export as Excel CSV"
+    # export_balance_sheet: "Export balance sheet"
     export_centralizing_journal: "Export centralizing journal"
     export_fec_all: "Export FEC corporate tax"
     export_fec_ba_bnc_ir_commercial_accountancy: "Export FEC for agriculture and professional operations income taxation commercial accountancy"
     export_fec_ba_ir_cash_accountancy: "Export FEC agriculture income taxation cash accountancy"
     export_fec_bnc_ir_cash_accountancy: "Export FEC professional operations income taxation cash accountancy"
+    # export_income_statement: "Export income statement"
     field_distribution: "Field distribution"
     file_nature: "File type"
     file_preview: "Preview" #?
@@ -1506,9 +1509,9 @@ eng:
     filter_on: "Filter on"
     final_balance: "Final balance"
     financial_assets: "Financial assets" #?
-    financial_expenses: "Financial expenses" #??
-    financial_products: "Financial products" #??
-    financial_result: "Financial result" #??
+    financial_expenses: "Financial expenses" #?
+    financial_products: "Financial products" #?
+    financial_result: "Financial result" #?
     financial_year: "Financial year"
     financial_year_close_message: "<p> The close will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. </p>"
     financial_year_closing: "Financial year closure in progress"
@@ -1718,8 +1721,8 @@ eng:
     maximum_amount: "Maximum amount"
     members: "Members"
     menus: "Menus"
-    merchandises_purchases: "Merchandises purchases" #?!
-    merchandises_purchases_stocks_variation: "Merchandises purchases stocks variation" #?!
+    merchandises_purchases: "Merchandises purchases" #?
+    merchandises_purchases_stocks_variation: "Merchandises purchases stocks variation" #?
     merge: "Merge"
     method: "Method" #?
     minimal_temperature: "Minimal temperature"
@@ -1827,10 +1830,10 @@ eng:
     organic_matter_concentration: "Organic matter concentration" #?
     original_component: "original"
     other_debts: "Other debts" #?!
-    other_expenses: "Other expenses" #??
+    other_expenses: "Other expenses" #?
     other_financial_debts: "Other financial debts" #?!
-    other_products: "Other products" #?!
-    other_purchases: "Other purchases" #??
+    other_products: "Other products" #?
+    other_purchases: "Other purchases" #?
     other_receivables: "Other receivables" #?!
     others: "Others" #?
     outgoing_parcel_quantities: "Quantities (Outgoing parcel)"
@@ -1913,25 +1916,25 @@ eng:
     production_purchases: "Production purchases"
     production_support: "Production support"
     productions: "Productions"
-    productions_sales: "Productions sales" #??
+    productions_sales: "Productions sales" #?
     products: "Products"
-    products_purchases: "Products purchases" #??
-    products_sales: "Products sales" #??
+    products_purchases: "Products purchases" #?
+    products_sales: "Products sales" #?
     profile: "Profile"
     profit_and_loss: "Profit and loss"
     profit_is_x_for_account: "<span class='profit'> Profit of %{x} </span> to account for the account %{account_number}"
     profit_or_loss: "Fiscal year result" #?!
-    profit_taxe: "Profit taxe" #??
+    profit_taxe: "Profit taxe" #?
     profits: "Profits" #?
     profits_and_losses: "Profits and losses"
     progress_bar_current_step: "Step %{current}/%{total} : %{label}..." #?
-    provisions_revenues: "Provisions revenues" #?!
+    provisions_revenues: "Provisions revenues" #?
     purchase: "Purchase"
     purchase_items: "Purchase items" #?
     purchase_number: "Purchase number" #?
     purchase_payments: "Purchase payments"
     purchases: "Purchases"
-    purchases_stocks_variation: "Purchases stocks variation" #?!
+    purchases_stocks_variation: "Purchases stocks variation" #?
     quality: "Quality"
     quandl: "Quandl" #?
     quantity: "Quantity" #?
@@ -2046,7 +2049,7 @@ eng:
     simplified: "Simplified Accounting" #?
     simplified_linear_options: "Simplified linear options" #?!
     social_debts: "Social debts" #?!
-    social_expenses: "Social expenses" #?!
+    social_expenses: "Social expenses" #?
     sold_on: "Sold on"
     source: "Source" #?
     start: "From" #?
@@ -2573,8 +2576,8 @@ eng:
     distribute_sales_and_purchases_on_activities: "Distribute sales and purchases on activities"
     distribute_sales_and_purchases_on_teams: "Distribute sales and purchases on teams"
     employee_account_radix: "Employee account radix"
-    fiscal_position: "Fiscal position"
     # entry_autocompletion: "Entry autocompletion"
+    fiscal_position: "Fiscal position"
     # host: "Host"
     language: "Language"
     map_measure_srs: "Map measure SRS"

@@ -5,8 +5,9 @@ class BalanceSheetPrinter
   def initialize(options)
     @document_nature = Nomen::DocumentNature.find(options[:document_nature])
     @key             = options[:key]
-    @template_path   = find_open_document_template("#{options[:state]}_#{options[:document_nature]}")
+    @template_path   = find_open_document_template(options[:document_nature])
     @params          = options[:params]
+    @financial_year  = options[:financial_year]
   end
 
   def compute_dataset

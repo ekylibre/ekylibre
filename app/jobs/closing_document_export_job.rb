@@ -2,27 +2,24 @@ class ClosingDocumentExportJob < ActiveJob::Base
   queue_as :default
   include Rails.application.routes.url_helpers
 
-  def perform(financial_year, nature, user)
+  def perform(financial_year, nature, key, user, params = {})
       begin
         if nature == 'income_statement'
-          r = IncomeStatementPrinter.initialize()
+          # puts nature.inspect.red
+          r = IncomeStatementPrinter.new(financial_year: financial_year, key: key, document_nature: nature, params: params)
         elsif nature == 'balance_sheet'
-          r = BalanceSheetPrinter.initialize()
+          r = BalanceSheetPrinter.new()
         end
 
-        report_path = r.run_pdf
+        file_path = r.run_pdf
+        document = Document.find_by(key: key)
 
-        file_path = Ekylibre::Tenant.private_directory.join('tmp', "#{filename}")
-        FileUtils.mkdir_p(file_path.dirname)
-
-
-        document = Document.create!(nature: nature, key: "#{Time.now.to_i}-#{filename}", name: filename, file: File.open(file_path))
-        notification = user.notifications.build(valid_generation_notification_params(file_path, filename, document.id))
+        notification = user.notifications.build(valid_generation_notification_params(file_path, key, document.id))
       rescue => error
         Rails.logger.error $!
         Rails.logger.error $!.backtrace.join("\n")
         ExceptionNotifier.notify_exception($!, data: { message: error })
-        notification = user.notifications.build(error_generation_notification_params(filename, nature, error.message))
+        notification = user.notifications.build(error_generation_notification_params(key, nature, error.message))
       end
       notification.save
   end

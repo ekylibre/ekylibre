@@ -906,6 +906,7 @@ arb:
       # overlap_sibling: "%{attribute} overlaps sibling"
       # posterior: "%{attribute} must be posterior to %{to}"
       # record_invalid: "Validations failed: %{errors}"
+      # should_be_the_last_day_of_month: "%{attribute} should be the last day of the month."
       # taken: "%{attribute} has already been taken"
       # too_long: "%{attribute} is too long (maximum is %{count} characters)"
       # too_short: "%{attribute} is too short (minimum is %{count} characters)"
@@ -1238,6 +1239,7 @@ arb:
     category: "فئة"
     centralize: "مركزية حسابات المحاسب"
     centralized_account: "مركزية الحسابات %{name}"
+    # centralizing_journal: "Centralizing journal"
     # change: "Change"
     change_password: "تغيير كلمة السر"
     change_price: "تغيير وحدة السعر" #?
@@ -1368,6 +1370,7 @@ arb:
     custom_fields: "الحقول المخصصة"
     data_to_export: "تصدير البيانات" #?
     data_to_extract: "استخراج البيانات" #?
+    # date_range: "%{from} to %{to}"
     # dated_cash: "%{cash}: %{on}"
     dates: "ادخل تواريخ بداية ونهاية المدة"
     days: "أيام"
@@ -1553,6 +1556,7 @@ arb:
     # export_as_odt: "Export as ODT"
     # export_as_pdf: "Export as PDF"
     export_as_xcsv: "تصدير واكسل CSV"
+    # export_centralizing_journal: "Export centralizing journal"
     # export_fec_all: "Export FEC corporate tax"
     # export_fec_ba_bnc_ir_commercial_accountancy: "Export FEC for agriculture and professional operations income taxation commercial accountancy"
     # export_fec_ba_ir_cash_accountancy: "Export FEC agriculture income taxation cash accountancy"
@@ -3026,6 +3030,7 @@ arb:
     distribute_sales_and_purchases_on_activities: "توزيع البيع والشراء على الأنشطة"
     distribute_sales_and_purchases_on_teams: "توزيع البيع والشراء على فرق"
     employee_account_radix: "جذر حساب الموظف"
+    # fiscal_position: "Fiscal position"
     general: #?
       language: "اللغة المفترضة" #?
     language: "لغة"
