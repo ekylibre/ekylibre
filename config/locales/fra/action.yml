@@ -1017,6 +1017,8 @@ fra:
     animal_life_state: "Phase du bioprocessus de vie d’un animal" #?
     animal_pie: "Animaux par lot" #?
     animal_productions: "Productions animales" #?
+    animal_purchases: "Achats d'animaux"
+    animal_sales: "Ventes d'animaux"
     animals: "Animaux"
     any_journal: "Tous les journaux"
     apply: "Appliquer" #?
@@ -1067,6 +1069,7 @@ fra:
     bank_statement_number: "N° du relevé de compte bancaire"
     bank_statements: "Relevés de compte bancaire"
     bban: "Relevé d’identité bancaire (RIB)"
+    before_taxe_result: "Résultat courant avant impôts"
     beginning: "Début"
     begins: "Commence par" #?
     beta: "Beta"
@@ -1117,6 +1120,7 @@ fra:
     change_status_of_selected_interventions: "Modifier l’état d’interventions sélectionnées"
     charge_value: "Achats et charges externes"
     charges: "Charges"
+    charges_total: "Total des charges (II + IV + VI + VII + VIII)"
     chart: "Graphique"
     check: "Vérifier"
     check_fields: "Vous devez cocher au moins une case pour effectuer la modification" #?
@@ -1406,7 +1410,15 @@ fra:
     evolution: "Evolution"
     example: "Exemple\_: %{value}"
     exceptional_expenses: "Charges exceptionnelles"
+    exceptional_expenses_on_assets_cessions: "Charges comptables des élèments d'actif"
+    exceptional_expenses_on_capital_operations: "Autres charges exceptionnelles sur opérations en capital"
+    exceptional_expenses_on_management_operations: "Charges exceptionnelles sur opérations de gestion"
+    exceptional_expenses_on_provisions: "Dotations aux ammortissements, dépréciations et provisions"
     exceptional_products: "Produits exceptionnels"
+    exceptional_products_on_assets_cessions: "Produits de cessions d'élèments d'actif"
+    exceptional_products_on_capital_operations: "Autres produits exceptionnels sur opérations en capital"
+    exceptional_products_on_management_operations: "Produits exceptionnels sur opérations de gestion"
+    exceptional_products_on_provisions: "Reprises sur dépréciations et provisions, transferts de charges"
     exceptional_result: "Résultat exceptionnel"
     exchange: "Échange"
     exchange_rate_from_x_to_y: "Taux de change de %{x} à %{y}"
@@ -1433,11 +1445,13 @@ fra:
     export_as_pdf: "Exporter en PDF"
     export_as_xcsv: "Exporter en CSV pour Excel"
     export_backup: "Export d’un fichier de sauvegarde" #?
+    export_balance_sheet: "Export bilan"
     export_centralizing_journal: "Exporter le journal centralisateur"
     export_fec_all: "Export FEC - Cas général - impôt sur les sociétés"
     export_fec_ba_bnc_ir_commercial_accountancy: "Export FEC - Cas BA BNC IR - comptabilité commerciale"
     export_fec_ba_ir_cash_accountancy: "Export FEC - Cas BA IR - comptabilité de trésorerie"
     export_fec_bnc_ir_cash_accountancy: "Export FEC - Cas BNC IR - comptabilité de trésorerie"
+    export_income_statement: "Export compte de résultat"
     exportation: "Exportation" #?
     extract: "Extraire" #?
     fat_matters_concentration: "Teneur en matières grasses" #?
@@ -1454,8 +1468,18 @@ fra:
     filter_entries_with: "Filtrer les écritures avec" #?
     filter_on: "Filtrer sur"
     final_balance: "Solde final"
+    financial_asset_dotations: "Dotations aux ammortissemnts, dépréciations et provisions"
     financial_assets: "Immobilisations financières"
+    financial_debts: "Valeurs mobilières et créances de l'actif immobilisé"
+    financial_depreciations: "Reprises sur depreciations et provisions, transferts de charges"
     financial_expenses: "Charges financières"
+    financial_interests_and_charges: "Intérêts et charges assimilées"
+    financial_negative_change: "Différences négatives de change"
+    financial_net_cession_debts: "Charges nettes sur cessions de valeurs mobilières de placement"
+    financial_net_cession_values: "Produits nets sur cessions de valeurs mobilières de placement"
+    financial_others_interests: "Autres intérêts et produits assimilées"
+    financial_participations: "Participations"
+    financial_positive_change: "Différences positives de change"
     financial_products: "Produits financiers"
     financial_result: "Résultat financier"
     financial_state: "État financier" #?
@@ -2021,6 +2045,7 @@ fra:
     products: "Produits"
     products_purchases: "Approvisionnement"
     products_sales: "Ventes de marchandises"
+    products_total: "Total des produits (I + III + V)"
     profile: "Profil"
     profit_and_loss: "Produits et charges"
     profit_is_x_for_account: "<span class='profit'> Bénéfice de %{x} </span> à comptabiliser sur le compte %{account_number}"
@@ -2952,6 +2977,7 @@ fra:
       edit_many: "Modifier plusieurs"
       evaluate: "Évaluer"
       export: "Exporter"
+      export_closing_documents: "Export Bilan / Compte de résultat"
       export_fec: "Export FEC"
       export_to_sepa: "Export SEPA"
       extract: "Extraire"

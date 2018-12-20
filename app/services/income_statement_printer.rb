@@ -25,7 +25,7 @@ class IncomeStatementPrinter
       items.each do |item|
         current_value = current_compute.sum_entry_items_by_line(document_scope, item)
         previous_value = previous_compute.sum_entry_items_by_line(document_scope, item)
-        g1[:items] << {name: item.to_s.l, current_value: current_value, previous_value: previous_value}.with_indifferent_access
+        g1[:items] << {name: item.to_s.tl, current_value: current_value, previous_value: previous_value}.with_indifferent_access
         # puts g1.inspect.yellow
       end
       g1[:sum_name] = "Total I"
@@ -43,7 +43,7 @@ class IncomeStatementPrinter
       items.each do |item|
         current_value = current_compute.sum_entry_items_by_line(document_scope, item)
         previous_value = previous_compute.sum_entry_items_by_line(document_scope, item)
-        g2[:items] << {name: item.to_s.l, current_value: current_value, previous_value: previous_value}.with_indifferent_access
+        g2[:items] << {name: item.to_s.tl, current_value: current_value, previous_value: previous_value}.with_indifferent_access
       end
       g2[:sum_name] = "Total II"
       g2[:current_sum] = current_compute.sum_entry_items_by_line(document_scope, :charges_subtotal)
@@ -62,7 +62,7 @@ class IncomeStatementPrinter
       items.each do |item|
         current_value = current_compute.sum_entry_items_by_line(document_scope, item)
         previous_value = previous_compute.sum_entry_items_by_line(document_scope, item)
-        g3[:items] << {name: item.to_s.l, current_value: current_value, previous_value: previous_value}.with_indifferent_access
+        g3[:items] << {name: item.to_s.tl, current_value: current_value, previous_value: previous_value}.with_indifferent_access
         # puts g3.inspect.yellow
       end
       g3[:sum_name] = "Total III"
@@ -79,7 +79,7 @@ class IncomeStatementPrinter
       items.each do |item|
         current_value = current_compute.sum_entry_items_by_line(document_scope, item)
         previous_value = previous_compute.sum_entry_items_by_line(document_scope, item)
-        g4[:items] << {name: item.to_s.l, current_value: current_value, previous_value: previous_value}.with_indifferent_access
+        g4[:items] << {name: item.to_s.tl, current_value: current_value, previous_value: previous_value}.with_indifferent_access
         # puts g4.inspect.yellow
       end
       g4[:sum_name] = "Total IV"
@@ -93,7 +93,7 @@ class IncomeStatementPrinter
       g5 = HashWithIndifferentAccess.new
       g5[:group_name] = ""
       g5[:items] = []
-      g5[:sub_result_name] = "Résultat courant avant impôts (I - II - III - IV)"
+      g5[:sub_result_name] = "#{:before_taxe_result.tl} (I - II - III - IV)"
       g5[:sub_result_current_value] = current_compute.sum_entry_items_by_line(document_scope, :before_taxe_result)
       g5[:sub_result_previous_value] = previous_compute.sum_entry_items_by_line(document_scope, :before_taxe_result)
       dataset << g5
@@ -107,7 +107,7 @@ class IncomeStatementPrinter
       items.each do |item|
         current_value = current_compute.sum_entry_items_by_line(document_scope, item)
         previous_value = previous_compute.sum_entry_items_by_line(document_scope, item)
-        g6[:items] << {name: item.to_s.l, current_value: current_value, previous_value: previous_value}.with_indifferent_access
+        g6[:items] << {name: item.to_s.tl, current_value: current_value, previous_value: previous_value}.with_indifferent_access
         # puts g6.inspect.yellow
       end
       g6[:sum_name] = "Total V"
@@ -124,13 +124,13 @@ class IncomeStatementPrinter
       items.each do |item|
         current_value = current_compute.sum_entry_items_by_line(document_scope, item)
         previous_value = previous_compute.sum_entry_items_by_line(document_scope, item)
-        g7[:items] << {name: item.to_s.l, current_value: current_value, previous_value: previous_value}.with_indifferent_access
+        g7[:items] << {name: item.to_s.tl, current_value: current_value, previous_value: previous_value}.with_indifferent_access
         # puts g7.inspect.yellow
       end
       g7[:sum_name] = "Total VI"
       g7[:current_sum] = current_compute.sum_entry_items_by_line(document_scope, :exceptional_expenses_subtotal)
       g7[:previous_sum] = previous_compute.sum_entry_items_by_line(document_scope, :exceptional_expenses_subtotal)
-      g7[:sub_result_name] = "Résultat exceptionnel (V - VI)"
+      g7[:sub_result_name] =  "#{:exceptional_result.tl} (V - VI)"
       g7[:sub_result_current_value] = current_compute.sum_entry_items_by_line(document_scope, :exceptional_result)
       g7[:sub_result_previous_value] = previous_compute.sum_entry_items_by_line(document_scope, :exceptional_result)
       dataset << g7
@@ -144,13 +144,13 @@ class IncomeStatementPrinter
       items.each do |item|
         current_value = current_compute.sum_entry_items_by_line(document_scope, item)
         previous_value = previous_compute.sum_entry_items_by_line(document_scope, item)
-        g8[:items] << {name: item.to_s.l, current_value: current_value, previous_value: previous_value}.with_indifferent_access
+        g8[:items] << {name: item.to_s.tl, current_value: current_value, previous_value: previous_value}.with_indifferent_access
         # puts g8.inspect.yellow
       end
       g8[:sum_name] = ""
       g8[:current_sum] = ""
       g8[:previous_sum] = ""
-      g8[:sub_result_name] = "Bénéfice ou perte"
+      g8[:sub_result_name] = :profit_or_loss.tl
       g8[:sub_result_current_value] = current_compute.sum_entry_items_by_line(document_scope, :exercice_result)
       g8[:sub_result_previous_value] = previous_compute.sum_entry_items_by_line(document_scope, :exercice_result)
       dataset << g8
@@ -195,7 +195,12 @@ class IncomeStatementPrinter
           t.add_column(:previous_value) { |item| item[:previous_value] }
           t.add_column(:variation_value) do |v|
             if v[:previous_value].to_i != 0
-              (((v[:current_value] - v[:previous_value]) / v[:previous_value].abs) * 100).round(2)
+              a = (((v[:current_value] - v[:previous_value]) / v[:previous_value].abs) * 100).round(2)
+              if a > 0.0
+                "+#{a} %"
+              else
+                "#{a} %"
+              end
             end
           end
         end
@@ -204,7 +209,12 @@ class IncomeStatementPrinter
         s.add_field(:previous_sum, :previous_sum) if :previous_sum?
         s.add_field(:variation_sum) do |v_s|
           if v_s[:previous_sum].to_i != 0
-            (((v_s[:current_sum] - v_s[:previous_sum]) / v_s[:previous_sum].abs) * 100).round(2)
+            a = (((v_s[:current_sum] - v_s[:previous_sum]) / v_s[:previous_sum].abs) * 100).round(2)
+            if a > 0.0
+              "+#{a} %"
+            else
+              "#{a} %"
+            end
           end
         end
         s.add_field(:sub_result_name, :sub_result_name) if :sub_result_name?
