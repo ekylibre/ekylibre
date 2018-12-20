@@ -859,7 +859,7 @@ fra:
     activity_productions: "Productions"
     add: "Ajouter"
     add_a_worker: "Ajouter un équipier"
-    add_animal: "Ajouter un animal"
+    add_animals: "Ajouter une bande d'animaux"
     add_animal_group: "Ajouter un troupeau"
     add_annotation: "Ajouter une annotation"
     add_attachment: "Ajouter une pièce jointe"
