@@ -7,13 +7,6 @@ class CollectionValidatable
   validates :collection, collection: true
 end
 
-class CollectionNotEmptyValidatable
-  include ActiveModel::Validations
-  attr_accessor :collection
-
-  validates :collection, collection: {allow_empty: false}
-end
-
 class CollectionValidatorTest < ActiveSupport::TestCase
   setup do
     @obj = CollectionValidatable.new
@@ -48,12 +41,4 @@ class CollectionValidatorTest < ActiveSupport::TestCase
     refute @obj.valid?
   end
 
-  test 'allow_empty option' do
-    alo = CollectionNotEmptyValidatable.new
-    alo.collection = []
-    refute alo.valid?
-
-    alo.collection = [@valid]
-    assert alo.valid?
-  end
 end
