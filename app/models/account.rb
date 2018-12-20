@@ -415,7 +415,7 @@ class Account < Ekylibre::Record::Base
     end
 
     # Load a accounting system
-    def load_defaults
+    def load_defaults(**_options)
       transaction do
         # Destroy unused existing accounts
         find_each do |account|

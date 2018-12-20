@@ -183,7 +183,7 @@ class Tax < Ekylibre::Record::Base
     end
 
     # Load default taxes of instance country
-    def load_defaults
+    def load_defaults(**_options)
       import_all_from_nomenclature(country: Preference[:country].to_sym, active: true)
     end
   end

@@ -533,9 +533,13 @@ class ProductNatureVariant < Ekylibre::Record::Base
     end
 
     def load_defaults(_options = {})
-      Nomen::ProductNatureVariant.all.flatten.collect do |p|
+      pcg82_variants = %i[accommodation_taxe accommodation_travel associate_social_contribution bank_service battery building building_division building_insurance cap_subsidies car car_moving_travel computer_display computer_item daily_project_management daily_software_engineering daily_training_course discount_and_reduction electricity fiscal_fine forwarding_agent_fees_expense freelance_sofware_development gas gasoline hourly_project_management hourly_software_engineering hourly_training_course hourly_user_support infirmity_and_death_insurance ink_cartridge insurance internet_line_subscription ip_address_subscription legal_registration loan_interest maintenance manager meal_travel monthly_enterprise_support natural_water office_building office_building_division phone_line_subscription portable_computer portable_hard_disk postal_charges postal_stamp printer product_warranty project_study rent representation_suit responsibility_insurance salary_social_contribution screed_building settlement subscription_professional_society taxe truck various_loan_interest]
+      variants_to_load = Nomen::ProductNatureVariant.all
+      variants_to_load = pcg82_variants if _options.fetch(:preferences, {}).fetch(:accounting_system, '') == 'fr_pcg82'
+      variants_to_load.flatten.collect do |p|
         import_from_nomenclature(p.to_s)
       end
+
     end
   end
 end

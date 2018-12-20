@@ -60,12 +60,12 @@ module Ekylibre
       end
 
       # Load default data of models with default data
-      def load_defaults
+      def load_defaults(**_options)
         default_datasets.each do |dataset|
           next if @defaults[dataset].is_a?(FalseClass)
           puts "Load default #{dataset}..."
           model = dataset.to_s.classify.constantize
-          model.load_defaults
+          model.load_defaults(**_options, preferences: @preferences)
           @progress.increment!
         end
       end

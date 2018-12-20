@@ -84,7 +84,7 @@ class SaleNature < Ekylibre::Record::Base
 
   class << self
     # Load default sale natures
-    def load_defaults
+    def load_defaults(**_options)
       nature = :sales
       usage = :sale
       currency = Preference[:currency]

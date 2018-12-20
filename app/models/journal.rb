@@ -217,7 +217,7 @@ class Journal < Ekylibre::Record::Base
     end
 
     # Load default journal if not exist
-    def load_defaults
+    def load_defaults(**_options)
       nature.values.each do |nature|
         next if find_by(nature: nature)
         financial_year = FinancialYear.first_of_all

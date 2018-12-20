@@ -371,7 +371,7 @@ class ProductNature < Ekylibre::Record::Base
     end
 
     # Load all product nature from product nature nomenclature
-    def load_defaults
+    def load_defaults(**_options)
       Nomen::ProductNature.find_each do |product_nature|
         import_from_nomenclature(product_nature.name)
       end

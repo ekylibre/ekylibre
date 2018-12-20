@@ -71,7 +71,7 @@ class PurchaseNature < Ekylibre::Record::Base
 
   class << self
     # Load default purchase nature
-    def load_defaults
+    def load_defaults(**_options)
       nature = :purchases
       currency = Preference[:currency]
       journal = Journal.find_by(nature: nature, currency: currency)
