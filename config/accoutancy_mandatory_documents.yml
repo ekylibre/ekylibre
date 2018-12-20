@@ -63,12 +63,45 @@ fr_pcga:
     operating_margin: '70 71 72 73 756 707 7097 742 743 744 745 C, - 607 6097 6037 601 602 6091 6092 6031 6032 605 606 61 62 6355 6095 6096 6098 63 64'
   balance_sheet:
     unsubcribed_capital: '109'
-    incorporeal_assets: '20 237'
-    incorporeal_asset_depreciations: '280 290 C'
-    corporeal_assets: '21 231 2381'
-    corporeal_asset_depreciations: '281 291 2931 C'
-    alive_corporeal_assets: '24 234 2384'
-    alive_corporeal_asset_depreciations: '284 294 2934 C'
+    incorporeal_assets_creation_costs: '201'
+    incorporeal_assets_creation_costs_depreciations: '2801 C'
+    incorporeal_assets_others: '203 205 206 207 208'
+    incorporeal_assets_others_depreciations: '2803 2805 2807 2808 2905 2906 2907 2908 C'
+    incorporeal_assets_advances: '237'
+    incorporeal_assets_total: '109 201 203 205 206 207 208 237'
+    incorporeal_assets_total_depreciations: '2801 2803 2805 2807 2808 2905 2906 2907 2908 C'
+    corporeal_assets_land_parcels: '211'
+    corporeal_assets_land_parcels_depreciations: '2811 2911 C'
+    corporeal_assets_settlements: '212'
+    corporeal_assets_settlements_depreciations: '2812 2912 C'
+    corporeal_assets_enhancement: '217'
+    corporeal_assets_enhancement_depreciations: '2817 2917 C'
+    corporeal_assets_buildings: '213 214'
+    corporeal_assets_buildings_depreciations: '2813 2814 2913 2914 C'
+    corporeal_assets_equipments: '215'
+    corporeal_assets_equipments_depreciations: '2815 2915 C'
+    corporeal_assets_others: '218'
+    corporeal_assets_others_depreciations: '2818 2918 C'
+    corporeal_assets_in_progress: '231'
+    corporeal_assets_in_progress_depreciations: '2931 C'
+    corporeal_assets_advances: '2381'
+    corporeal_assets_total: '21 231 2381'
+    corporeal_assets_total_depreciations: '281 291 2931 C'
+    alive_corporeal_assets_adult_animals:
+    alive_corporeal_assets_adult_animals_depreciations:
+    alive_corporeal_assets_young_animals:
+    alive_corporeal_assets_young_animals_depreciations:
+    alive_corporeal_assets_service_animals:
+    alive_corporeal_assets_service_animals_depreciations:
+    alive_corporeal_assets_perennial_plants:
+    alive_corporeal_assets_perennial_plants_depreciations:
+    alive_corporeal_assets_others: '247'
+    alive_corporeal_assets_others_depreciations: '2847 2947 C'
+    alive_corporeal_assets_in_progress: '234'
+    alive_corporeal_assets_in_progress_depreciations: '2934 C'
+    alive_corporeal_assets_advances: '2384'
+    alive_corporeal_assets_total: '24 234 2384'
+    alive_corporeal_asset_total_depreciations: '284 294 2934 C'
     financial_assets: '26 27'
     financial_asset_depreciations: '296 297 C'
     long_cycle_alive_products: '31 33 35'

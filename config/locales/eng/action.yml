@@ -1145,6 +1145,14 @@ eng:
     affair: "Affair"
     affair_number: "Affair number" #?
     affairs: "Affairs" #?
+    # alive_corporeal_assets: "Alive corporeal assets"
+    alive_corporeal_assets_adult_animals: "Alive corporeal assets adult animals" #?
+    alive_corporeal_assets_advances: "Alive corporeal assets advances" #?
+    alive_corporeal_assets_in_progress: "Alive corporeal assets in progress" #?
+    alive_corporeal_assets_others: "Alive corporeal assets others" #?
+    alive_corporeal_assets_perennial_plants: "Alive corporeal assets perennial plants" #?
+    alive_corporeal_assets_service_animals: "Alive corporeal assets service animals" #?
+    alive_corporeal_assets_young_animals: "Alive corporeal assets young animals" #?
     all: "All"
     all_accounts: "All accounts"
     all_columns: "All columns" #?
@@ -1315,7 +1323,15 @@ eng:
     copy_from_previous_campaign: "Copy from previous campaign" #?!
     copy_of: "Copy of %{source}"
     copy_previous_budget: "Copy previous budget"
-    corporeal_assets: "Corporeal assets" #?
+    corporeal_assets: "Corporeal assets"
+    corporeal_assets_advances: "Advances" #?
+    corporeal_assets_buildings: "Buildings" #?
+    corporeal_assets_enhancement: "Enhancement" #?
+    corporeal_assets_equipments: "Equipments" #?
+    corporeal_assets_in_progress: "In progress" #?
+    corporeal_assets_land_parcels: "Land parcels" #?
+    corporeal_assets_others: "Others" #?
+    corporeal_assets_settlements: "Settlements" #?
     cost_per_net_surface_area: "Cost per net surface area"
     costs: "Costs"
     costs_per_hectare: "Costs per hectare"
@@ -1346,7 +1362,7 @@ eng:
     currency: "Currency" #?
     currency_conversion_rate: "Currency conversion rate"
     current: "Current"
-    current_assets: "Current assets" #?!
+    current_assets: "Current assets" #??
     current_cultivation: "Current cultivation"
     current_result_before_taxe: "Current result before taxe" #?!
     current_stocks_by_variety: "Current stocks by variety" #?
@@ -1608,7 +1624,10 @@ eng:
     incoming_payment: "Incoming payment" #?
     incoming_payments: "Incoming payments"
     incoming_payments_to_deposit: "Incoming payments to deposit" #?
-    incorporeal_assets: "Incorporeal assets" #?
+    incorporeal_assets: "Incorporeal assets"
+    incorporeal_assets_advances: "Advances" #?
+    incorporeal_assets_creation_costs: "Creation costs" #?
+    incorporeal_assets_others: "Others" #?
     indicative_group_size: "Indicative group size"
     indicator: "Indicators"
     indicator_value: "Indicator value"
@@ -2227,7 +2246,7 @@ eng:
     unpaid_purchases: "Unpaid purchases" #?
     unpaid_sales: "Unpaid sales" #?
     unset_reconcilable_old_third_accounts: "Unset reconcilable old third accounts (clients, suppliers and attorneys)" #?
-    unsubcribed_capital: "Unsubcribed capital" #?!
+    unsubcribed_capital: "Unsubcribed capital"
     until: "until"
     up: "Up" #?
     up_to: "Up to"
