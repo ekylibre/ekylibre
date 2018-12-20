@@ -23,6 +23,14 @@ class CollectionValidatorTest < ActiveSupport::TestCase
     end
   end
 
+  test 'other type than array are not valid' do
+    @obj.collection = 42
+    refute @obj.valid?
+
+    @obj.collection = nil
+    refute @obj.valid?
+  end
+
   test 'empty collection should be valid' do
     @obj.collection = []
 
