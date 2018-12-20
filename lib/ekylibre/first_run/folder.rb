@@ -26,7 +26,7 @@ module Ekylibre
 
       def run
         step = 0
-        [@preferences, @imports, @company[:users], defaults].each { |d| step += d.try(:count) || 0 }
+        [@preferences, @imports, @company[:users], default_datasets].each { |d| step += d.try(:count) || 0 }
         step += 1 if @preferences[:map_measure_srs].nil?
         @progress = Progress.new('first_run', max: step)
         ActiveRecord::Base.transaction do
