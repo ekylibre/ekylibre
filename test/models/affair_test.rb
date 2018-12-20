@@ -144,6 +144,17 @@ class AffairTest < ActiveSupport::TestCase
     assert_equal lettered_items_on_first_save, JournalEntryItem.where(letter: [letter_on_first_save, letter_on_first_save + '*']).pluck(:id).to_set
   end
 
+  test "updating a sale's client also changes the affair's third" do
+    client_one = create(:entity, :client, full_name: 'Duck Mirack')
+    client_two = create(:entity, :client, full_name: 'Nick Celio')
+
+    sale = create(:sale, client: client_one)
+    assert sale.affair.third, client_one
+
+    sale.update!(client: client_two)
+    assert sale.affair.third, client_two
+  end
+
   # Check that affair of given sale is actually closed perfectly
   def check_closed_state(affair)
     assert affair.balanced?,

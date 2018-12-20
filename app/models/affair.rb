@@ -154,6 +154,16 @@ class Affair < Ekylibre::Record::Base
       @affairable_types ||= %w[SaleGap PurchaseGap Sale Purchase Payslip IncomingPayment OutgoingPayment Regularization DebtTransfer].freeze
     end
 
+    def affairable_types_entity_foreign_keys
+      { sale_gap: :entity_id,
+        purchase_gap: :entity_id,
+        sale: :client_id,
+        purchase: :supplier_id,
+        payslip: :employee_id,
+        incoming_payment: :payer_id,
+        outgoing_payment: :payee_id }
+    end
+
     # Removes empty affairs in the whole table
     def clean_deads
       query = "journal_entry_id NOT IN (SELECT id FROM #{connection.quote_table_name(:journal_entries)})"
@@ -240,7 +250,17 @@ class Affair < Ekylibre::Record::Base
   # Reload and save! affair to force counts and sums computation
   def refresh!
     reload
+    update_third
     save!
+  end
+
+  def update_third
+    entities_ids = []
+    self.class.affairable_types_entity_foreign_keys.each do |model, foreign_key|
+      entities_ids << model.to_s.camelize.constantize.where(affair_id: id).pluck(foreign_key)
+    end
+    uniq_ids = entities_ids.flatten.uniq
+    self.third_id = uniq_ids.first if uniq_ids.count == 1
   end
 
   # Returns if the affair is bad for us...
