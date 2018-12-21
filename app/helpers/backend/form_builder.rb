@@ -175,6 +175,22 @@ module Backend
         autocomplete[:format] ||= :json
         options[:input_html]['data-autocomplete'] = @template.url_for(autocomplete)
       end
+      filter = options[:filter]
+      if filter
+        data_filters = filter[:rules].map do |filter|
+          data = {}
+          data[:elements] = if filter.key? :elements
+                       filter[:elements]
+                     elsif filter.key?(:collection) && filter.key?(:key)
+                       filter[:collection].items.values.group_by(&filter[:key].to_sym).map {|category, items| [category, items.map(&:name)] }.to_h
+                     end
+          data[:watch] = filter[:watch]
+          data[:emptyBehavior] = filter[:empty_behavior] if filter.key? :empty_behavior
+          data
+        end
+        options[:input_html]['data-filter-on-empty'] = filter[:on_empty].to_s if filter.key? :on_empty
+        options[:input_html]['data-filter-rules'] = data_filters.to_json
+      end
       super(attribute_name, options, &block)
     end
 
