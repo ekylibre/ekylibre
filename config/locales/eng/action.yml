@@ -1214,6 +1214,7 @@ eng:
     budget: "Budget"
     budget_per_working_indicator: "Budget per working indicator"
     budgets: "Budgets" #?
+    by_account_fixed_assets: "Fixed assets by account on %{to}"
     by_year: "By year"
     calculate: "Calculate" #?
     calculated_hours: "Calculated hours"
@@ -1500,6 +1501,9 @@ eng:
     export_fec_ba_bnc_ir_commercial_accountancy: "Export FEC for agriculture and professional operations income taxation commercial accountancy"
     export_fec_ba_ir_cash_accountancy: "Export FEC agriculture income taxation cash accountancy"
     export_fec_bnc_ir_cash_accountancy: "Export FEC professional operations income taxation cash accountancy"
+    export_fixed_assets_by_account: "Fixed assets by account"
+    export_fixed_assets_gain_and_loss: "Added values and capital losses"
+    export_fixed_assets_general: "Fixed assets"
     field_distribution: "Field distribution"
     file_nature: "File type"
     file_preview: "Preview" #?
@@ -1536,8 +1540,10 @@ eng:
     function: "Function"
     fungi: "Fungi" #?
     future_events: "Future events"
+    gain_and_loss_fixed_assets: "Gains and losses on %{to}"
     genealogy: "Genealogy"
     general: "General" #?
+    general_fixed_assets: "Fixed assets on %{to}"
     general_informations: "General informations"
     general_ledger: "General ledger"
     general_total: "General total"
