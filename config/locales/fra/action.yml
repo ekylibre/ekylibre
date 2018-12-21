@@ -1304,7 +1304,12 @@ fra:
     debit: "Débit"
     debit_account_balance: "Solde débiteur: %{value}€"
     debts: "Dettes"
+    debts_associate_locked_debts: "Associés (comptes courants bloqué)"
+    debts_cashe_debts: "Découverts bancaires courants"
+    debts_land_parcel_loans: "Emprunts fonciers"
     debts_on_assets: "Taux d’endettement (Dettes / Actifs) %{financial_year}"
+    debts_other_financial_debts: "Autres emprunts et dettes"
+    debts_others_loans: "Autres"
     decimal_case: "Options pour un décimal" #?
     decision_making: "Décision"
     default_letter_conclusion: "Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations distinguées."
@@ -1977,7 +1982,7 @@ fra:
     order_print: "Imprimer la commande" #?
     organic_matter_concentration: "Teneur en matière organique"
     original_component: "D’origine"
-    other_debts: "Autres dettes"
+    other_debts: "Autres dettes" #?
     other_expenses: "Autres charges d’exploitation"
     other_financial_debts: "Autres dettes financières"
     other_products: "Autres produits"
@@ -1985,6 +1990,16 @@ fra:
     other_receivables: "Autres créances"
     other_results: "Autres résultats…" #?
     others: "Autres"
+    others_debts: "Autres dettes"
+    others_debts_advance_products: "Produits constatés d'avance"
+    others_debts_advance_receivables: "Avances et acomptes reçu sur commandes"
+    others_debts_associate_debts: "Associés (compte courant)"
+    others_debts_fixed_asset_debts: "Dettes sur immobilisations"
+    others_debts_liabilities_gaps: "Ecart de conversion"
+    others_debts_others: "Autres"
+    others_debts_social_debts: "Autres dettes fiscales et sociales"
+    others_debts_state_debts: "Etat (TVA et taxes)"
+    others_debts_supplier_receivables: "Fournisseurs d'exploitation et comptes rattachés"
     outgoing: "Sortant" #?
     outgoing_parcel_quantities: "Quantités (Colis sortant)"
     outgoing_parcels: "Colis sortants"

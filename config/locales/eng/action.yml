@@ -1143,8 +1143,8 @@ eng:
     added_value: "Added value"
     advance_charges: "Advance charges" #?
     advance_giveables: "Advance giveables" #?
-    advance_products: "Advance products" #?!
-    advance_receivables: "Advance receivables" #??
+    advance_products: "Advance products" #?
+    advance_receivables: "Advance receivables" #?
     affair: "Affair"
     affair_number: "Affair number" #?
     affairs: "Affairs" #?
@@ -1197,8 +1197,8 @@ eng:
     asset_exists: "Asset exists"
     assets: "Assets" #?
     assets_gaps: "Assets gaps" #?
-    associate_debts: "Associate debts" #?!
-    associate_locked_debts: "Associate locked debts" #?!
+    associate_debts: "Associate debts" #?
+    associate_locked_debts: "Associate locked debts" #?
     associate_receivables: "Associate receivables" #?
     at_the_address: "At the address"
     attach_deal: "Add a deal"
@@ -1254,7 +1254,7 @@ eng:
     cartography: "Cartography"
     cash: "Cash"
     cash_balance: "Cash balance"
-    cashe_debts: "Cashe debts" #?!
+    cashe_debts: "Cashe debts" #?
     cashes_balance: "Cashes balance" #?
     cashes_balance_evolution: "Cashes balance evolution"
     casting: "Casting" #?
@@ -1392,8 +1392,13 @@ eng:
     deals: "Deals"
     debit: "Debit" #?
     debit_account_balance: "Debit balance: %{value}€" #?
-    debts: "Debts" #?
+    debts: "Debts"
+    debts_associate_locked_debts: "debts_associate_locked_debts" #?
+    debts_cashe_debts: "debts_cashe_debts" #?
+    debts_land_parcel_loans: "debts_land_parcel_loans" #?
     debts_on_assets: "Debts on assets %{financial_year}" #?!
+    debts_other_financial_debts: "debts_other_financial_debts" #?
+    debts_others_loans: "debts_others_loans" #?
     decision_making: "Decision-making"
     default_letter_conclusion: "Please accept, Dear Madam, Dear Sir, the assurances of my highest consideration."
     default_letter_function_title: "Dear madam, dear sir"
@@ -1595,7 +1600,7 @@ eng:
     finish: "Finish" #?
     finished: "Finished"
     first_line_as_title: "First line as title"
-    fixed_asset_debts: "Fixed asset debts" #?!
+    fixed_asset_debts: "Fixed asset debts" #?
     fixed_asset_depreciations: "Fixed asset depreciations"
     fixed_asset_depreciations_not_accounted_on_current_financial_year: "Fixed asset depreciations not accounted on current financial year"
     fixed_assets: "Fixed assets"
@@ -1751,8 +1756,8 @@ eng:
     letterable: "Letterable"
     lettered: "Lettered"
     lettering_state: "Lettering state"
-    liabilities: "Liabilities" #?!
-    liabilities_gaps: "Liabilities gaps" #?!
+    liabilities: "Liabilities" #?
+    liabilities_gaps: "Liabilities gaps" #?
     liability_reserves: "Liability reserves" #?
     line_number: "Line #%{number}"
     linear_options: "Linear options"
@@ -1761,7 +1766,7 @@ eng:
     list: "List" #?
     load: "Load" #?
     loan_repayments_not_accounted_on_current_financial_year: "Loan repayments not accounted on current financial year"
-    loans_debts: "Loans debts" #?!
+    loans_debts: "Loans debts" #??
     locale: "Language"
     localization: "Localization" #?
     lock: "Lock" #?
@@ -1909,13 +1914,22 @@ eng:
     or: "Or"
     organic_matter_concentration: "Organic matter concentration" #?
     original_component: "original"
-    other_debts: "Other debts" #?!
     other_expenses: "Other expenses" #?
-    other_financial_debts: "Other financial debts" #?!
+    other_financial_debts: "Other financial debts" #?
     other_products: "Other products" #?
     other_purchases: "Other purchases" #?
     other_receivables: "Other receivables" #?
     others: "Others" #?
+    others_debts: "Others debts" #?
+    others_debts_advance_products: "others_debts_advance_products" #?
+    others_debts_advance_receivables: "others_debts_advance_receivables" #?
+    others_debts_associate_debts: "others_debts_associate_debts" #?
+    others_debts_fixed_asset_debts: "others_debts_fixed_asset_debts" #?
+    others_debts_liabilities_gaps: "others_debts_liabilities_gaps" #?
+    others_debts_others: "others_debts_others" #?
+    others_debts_social_debts: "others_debts_social_debts" #?
+    others_debts_state_debts: "others_debts_state_debts" #?
+    others_debts_supplier_receivables: "others_debts_supplier_receivables" #?
     outgoing_parcel_quantities: "Quantities (Outgoing parcel)"
     outgoing_parcels: "Outgoing parcels"
     outgoing_payment: "Disbursement" #?
@@ -2134,7 +2148,7 @@ eng:
     signature_html: "Signature (<a href='%{url}' target='_blank'>Public key</a>)" #?
     simplified: "Simplified Accounting" #?
     simplified_linear_options: "Simplified linear options" #?!
-    social_debts: "Social debts" #?!
+    social_debts: "Social debts" #?
     social_expenses: "Social expenses" #?
     sold_on: "Sold on"
     source: "Source" #?
@@ -2142,7 +2156,7 @@ eng:
     start_new_intervention_here: "Start new intervention here"
     started: "Started"
     state: "State"
-    state_debts: "State debts" #?!
+    state_debts: "State debts" #?
     state_receivables: "State receivables" #?
     statistics: "Statistics" #?
     stewardship: "Stewardship"
@@ -2176,7 +2190,7 @@ eng:
     supplier: "Purchase prices of the supplier"
     supplier_informations: "Supplier informations"
     supplier_payment_mode: "Supplier payment mode"
-    supplier_receivables: "Supplier receivables" #?!
+    supplier_receivables: "Supplier receivables" #?
     suppliers: "Suppliers" #?
     supply: "Supply" #?
     support: "Support" #?

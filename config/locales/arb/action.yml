@@ -1410,7 +1410,12 @@ arb:
     debit: "الدين"
     # debit_account_balance: "Debit balance: %{value}€"
     debts: "الديون"
+    # debts_associate_locked_debts: "debts_associate_locked_debts"
+    # debts_cashe_debts: "debts_cashe_debts"
+    # debts_land_parcel_loans: "debts_land_parcel_loans"
     debts_on_assets: "الديون على الأصول"
+    # debts_other_financial_debts: "debts_other_financial_debts"
+    # debts_others_loans: "debts_others_loans"
     decimal_case: "خيارات للكسر العشري" #?
     decision_making: "اتخاذ القرار"
     default_letter_conclusion: "وتفضلوا، سيدتي، سيدي العزيز، بقبول أسمى عبارات التقدير."
@@ -2105,7 +2110,7 @@ arb:
     organic_matter_concentration: "تركيز المواد العضوية"
     original_component: "أصلي"
     other_assessable_operations: "اجراءات ضريبية اخرى" #?
-    other_debts: "ديون أخرى"
+    other_debts: "ديون أخرى" #?
     other_expenses: "نفقات أخرى"
     other_financial_debts: "الديون المالية الأخرى"
     other_not_assessable_operations: "اجراءات غير ضريبية اخرى" #?
@@ -2115,6 +2120,16 @@ arb:
     other_results: "...نتائج اخرى" #?
     other_services: "احتياجات وخدمات اخرى" #?
     others: "اقتطاع القيم الضريبية المضافة الاخرى"
+    # others_debts: "Others debts"
+    # others_debts_advance_products: "others_debts_advance_products"
+    # others_debts_advance_receivables: "others_debts_advance_receivables"
+    # others_debts_associate_debts: "others_debts_associate_debts"
+    # others_debts_fixed_asset_debts: "others_debts_fixed_asset_debts"
+    # others_debts_liabilities_gaps: "others_debts_liabilities_gaps"
+    # others_debts_others: "others_debts_others"
+    # others_debts_social_debts: "others_debts_social_debts"
+    # others_debts_state_debts: "others_debts_state_debts"
+    # others_debts_supplier_receivables: "others_debts_supplier_receivables"
     out_line_create: "اضافة منتج صادر" #?
     out_vat_amount: "مبلغ الضريبة على القيمة المضافة" #?
     outgoing_delivery: "التسليم" #?

@@ -1191,7 +1191,12 @@ spa:
     debit: "Flujo"
     # debit_account_balance: "Debit balance: %{value}€"
     debts: "Deudas"
+    # debts_associate_locked_debts: "debts_associate_locked_debts"
+    # debts_cashe_debts: "debts_cashe_debts"
+    # debts_land_parcel_loans: "debts_land_parcel_loans"
     debts_on_assets: "Deudas de los activos"
+    # debts_other_financial_debts: "debts_other_financial_debts"
+    # debts_others_loans: "debts_others_loans"
     decision_making: "Toma de decisiones"
     default_letter_conclusion: "Por favor, acepte, Estimada Señora, Estimado Señor, el testimonio de mi más alta consideración."
     default_letter_function_title: "Estimada señora, estimado señor"
@@ -1775,7 +1780,7 @@ spa:
     organic_matter_concentration: "Concentración de materia orgánica"
     original_component: "Original"
     other_assessable_operations: "Autras operaciones imponibles" #?
-    other_debts: "Otras deudas"
+    other_debts: "Otras deudas" #?
     other_expenses: "Otros gastos"
     other_financial_debts: "Otras deudas financieras"
     other_not_assessable_operations: "Autras operaciones no imponibles" #?
@@ -1785,6 +1790,16 @@ spa:
     other_results: "Otros resultados" #?
     other_services: "Otros bienes y servicios" #?
     others: "Otra TVA a deducir"
+    # others_debts: "Others debts"
+    # others_debts_advance_products: "others_debts_advance_products"
+    # others_debts_advance_receivables: "others_debts_advance_receivables"
+    # others_debts_associate_debts: "others_debts_associate_debts"
+    # others_debts_fixed_asset_debts: "others_debts_fixed_asset_debts"
+    # others_debts_liabilities_gaps: "others_debts_liabilities_gaps"
+    # others_debts_others: "others_debts_others"
+    # others_debts_social_debts: "others_debts_social_debts"
+    # others_debts_state_debts: "others_debts_state_debts"
+    # others_debts_supplier_receivables: "others_debts_supplier_receivables"
     out_vat_amount: "Basa fuera de tarifa" #?
     outgoing_parcel_quantities: "Cantidades (parcela Saliente)"
     outgoing_parcels: "Paquetes salientes"

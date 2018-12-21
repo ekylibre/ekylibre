@@ -288,11 +288,51 @@ class BalanceSheetPrinter
       # puts g5.inspect.yellow
     end
     h[:sum_name] = ''
-    h[:current_raw_total] = current_compute.sum_entry_items_by_line(document_scope, :stocks_total)
-    h[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :stocks_total)
+    h[:current_raw_total] = ''
+    h[:previous_raw_total] = ''
     passif << h
 
+    # Dettes - 1641...
+    h = HashWithIndifferentAccess.new
+    h[:group_name] = :debts.tl
+    h[:items] = []
+    items = [:debts_land_parcel_loans, :debts_others_loans,
+             :debts_associate_locked_debts, :debts_cashe_debts,
+             :debts_other_financial_debts]
+    items.each do |item|
+      i = HashWithIndifferentAccess.new
+      i[:name] = item.to_s.tl
+      i[:current_raw_value] = current_compute.sum_entry_items_by_line(document_scope, item)
+      i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
+      h[:items] << i
+      # puts g5.inspect.yellow
+    end
+    h[:sum_name] = ''
+    h[:current_raw_total] = ''
+    h[:previous_raw_total] = ''
+    passif << h
 
+    # Autres dettes - 401...
+    h = HashWithIndifferentAccess.new
+    h[:group_name] = :others_debts.tl
+    h[:items] = []
+    items = [:others_debts_advance_receivables, :others_debts_supplier_receivables,
+             :others_debts_state_debts, :others_debts_social_debts,
+             :others_debts_associate_debts, :others_debts_fixed_asset_debts,
+             :others_debts_others, :others_debts_advance_products,
+             :others_debts_liabilities_gaps]
+    items.each do |item|
+      i = HashWithIndifferentAccess.new
+      i[:name] = item.to_s.tl
+      i[:current_raw_value] = current_compute.sum_entry_items_by_line(document_scope, item)
+      i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
+      h[:items] << i
+      # puts g5.inspect.yellow
+    end
+    h[:sum_name] = ''
+    h[:current_raw_total] = ''
+    h[:previous_raw_total] = ''
+    passif << h
 
     dataset << passif
 
