@@ -91,6 +91,8 @@ class Purchase < Ekylibre::Record::Base
   validates_associated :items
   validates_delay_format_of :payment_delay
 
+  alias_attribute :third_id, :supplier_id
+
   acts_as_numbered
   acts_as_affairable :supplier
   accepts_nested_attributes_for :items, reject_if: proc { |item| item[:variant_id].blank? && item[:variant].blank? }, allow_destroy: true
