@@ -490,7 +490,7 @@ eng:
     backend/loan_repayments:
       edit: "Edit repayment due on %{due_on} of loan %{loan_name}"
       # index: "Loan repayments"
-      # new: "New loan repayment"
+      new: "New loan repayment"
       # show: "Loan repayment: %{name}"
     backend/loans:
       # bookkeep: "Bookkeep loan: %{name}"
@@ -1071,6 +1071,7 @@ eng:
     activity_production: "Activity production"
     activity_productions: "Activity productions"
     add: "Add"
+    add_a_repayment: "Add a loan repayment"
     add_a_worker: "Add a worker"
     add_an_account: "Add an account"
     add_animal: "Add animal"

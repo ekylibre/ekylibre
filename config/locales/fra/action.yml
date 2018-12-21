@@ -417,6 +417,7 @@ fra:
       mail: "Envoyer un e-mail pour\_: %{name}"
       new: "Nouvelle extraction"
     backend/loan_repayments:
+      new: "Nouvelle échéance"
       edit: "Modifier le remboursement du %{due_on} de l’emprunt %{loan_name}"
     backend/loans:
       edit: "Modifier l’emprunt\_: %{name}"
@@ -908,6 +909,7 @@ fra:
     activity_production: "Production"
     activity_productions: "Productions"
     add: "Ajouter"
+    add_a_repayment: "Ajouter une échéance"
     add_a_worker: "Ajouter un équipier"
     add_an_account: "Ajouter un compte"
     add_animal: "Ajouter un animal"
