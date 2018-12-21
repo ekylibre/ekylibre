@@ -1380,7 +1380,7 @@
         <page to="backend/accounts#list_entities"/>
         <page to="backend/accounts#list_journal_entry_items"/>
         <page to="backend/accounts#list_product_nature_variants"/>
-        <page to="backend/accounts#load"/>
+        <page to="backend/accounts#load" nonexistent="true"/>
         <page to="backend/accounts#new"/>
         <page to="backend/accounts#show"/>
         <page to="backend/accounts#unroll"/>
@@ -2070,6 +2070,9 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
+      <item name="account_balances">
+        <page to="backend/account_balances#show"/>
+      </item>
       <item name="draft_journals">
         <page to="backend/draft_journals#confirm_all"/>
         <page to="backend/draft_journals#list"/>

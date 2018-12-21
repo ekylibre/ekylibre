@@ -2050,6 +2050,7 @@ eng:
         fr_bnc_is: "French professional operations corporate taxation"
       name: "Fiscal positions"
       property_natures:
+        # accounting_system: "Accounting system"
         code: "Code"
         country: "Country"
     guide_natures:

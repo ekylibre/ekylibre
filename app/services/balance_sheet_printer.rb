@@ -214,7 +214,7 @@ class BalanceSheetPrinter
     g8 = HashWithIndifferentAccess.new
     g8[:group_name] = :stocks.tl
     g8[:items] = []
-    items = []
+    items = [:stocks_supply, :stocks_end_products, :stocks_others_products]
     items.each do |item|
       i = HashWithIndifferentAccess.new
       i[:name] = item.to_s.tl
@@ -236,8 +236,65 @@ class BalanceSheetPrinter
     g8[:previous_net_total] = (g8[:previous_raw_total].to_d - g8[:previous_variations_total].to_d).round(2)
     actif << g8
 
+    # Others - 40...
+    g9 = HashWithIndifferentAccess.new
+    g9[:group_name] = :entities.tl
+    g9[:items] = []
+    items = [:entities_advance_giveables, :entities_client_receivables,
+             :entities_others_clients, :entities_state_receivables,
+             :entities_associate_receivables, :entities_other_receivables,
+             :entities_investment_security, :entities_reserve,
+             :entities_advance_charges, :entities_assets_gaps]
+    items.each do |item|
+      i = HashWithIndifferentAccess.new
+      i[:name] = item.to_s.tl
+      i[:current_raw_value] = current_compute.sum_entry_items_by_line(document_scope, item)
+      i[:current_variations] = current_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
+      i[:current_net_value] = (i[:current_raw_value].to_d - i[:current_variations].to_d).round(2)
+      i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
+      i[:previous_variations] = previous_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
+      i[:previous_net_value] = (i[:previous_raw_value].to_d - i[:previous_variations].to_d).round(2)
+      g9[:items] << i
+      # puts g5.inspect.yellow
+    end
+    g9[:sum_name] = ''
+    g9[:current_raw_total] = current_compute.sum_entry_items_by_line(document_scope, :stocks_total)
+    g9[:current_variations_total] = current_compute.sum_entry_items_by_line(document_scope, :stocks_total_depreciations)
+    g9[:current_net_total] = (g9[:current_raw_total].to_d - g9[:current_variations_total].to_d).round(2)
+    g9[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :stocks_total)
+    g9[:previous_variations_total] = previous_compute.sum_entry_items_by_line(document_scope, :stocks_total_depreciations)
+    g9[:previous_net_total] = (g9[:previous_raw_total].to_d - g9[:previous_variations_total].to_d).round(2)
+    actif << g9
+
     dataset << actif
 
+    passif = []
+
+    # Capitals - 1...
+    h = HashWithIndifferentAccess.new
+    h[:group_name] = :capitals.tl
+    h[:items] = []
+    items = [:capitals_values, :capitals_emissions_and_reevaluation_gaps,
+             :capitals_liability_reserves, :capitals_anew_reports,
+             :capitals_profit_or_loss, :capitals_investment_subsidies,
+             :capitals_derogatory_depreciations, :capitals_mandatory_provisions,
+             :capitals_risk_and_charges_provisions]
+    items.each do |item|
+      i = HashWithIndifferentAccess.new
+      i[:name] = item.to_s.tl
+      i[:current_raw_value] = current_compute.sum_entry_items_by_line(document_scope, item)
+      i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
+      h[:items] << i
+      # puts g5.inspect.yellow
+    end
+    h[:sum_name] = ''
+    h[:current_raw_total] = current_compute.sum_entry_items_by_line(document_scope, :stocks_total)
+    h[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :stocks_total)
+    passif << h
+
+
+
+    dataset << passif
 
     dataset.compact
   end
@@ -288,6 +345,19 @@ class BalanceSheetPrinter
         s.add_field(:p_r_total, :previous_raw_total)
         s.add_field(:p_v_total, :previous_variations_total)
         s.add_field(:p_n_total, :previous_net_total)
+
+      end
+
+      r.add_section('Section2', dataset[1]) do |s|
+        s.add_field(:group_name, :group_name)
+        s.add_table('Tableau5', :items, header: true) do |t|
+          t.add_column(:name) { |item| item[:name] }
+          t.add_column(:current_raw_value) { |item| item[:current_raw_value] }
+          t.add_column(:previous_raw_value) { |item| item[:previous_raw_value] }
+        end
+        s.add_field(:sum_name, :sum_name)
+        s.add_field(:c_r_total, :current_raw_total)
+        s.add_field(:p_r_total, :previous_raw_total)
 
       end
 

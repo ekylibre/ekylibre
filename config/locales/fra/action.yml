@@ -417,8 +417,8 @@ fra:
       mail: "Envoyer un e-mail pour\_: %{name}"
       new: "Nouvelle extraction"
     backend/loan_repayments:
-      new: "Nouvelle échéance"
       edit: "Modifier le remboursement du %{due_on} de l’emprunt %{loan_name}"
+      new: "Nouvelle échéance"
     backend/loans:
       edit: "Modifier l’emprunt\_: %{name}"
       index: "Emprunts"
@@ -1107,6 +1107,15 @@ fra:
     cap_land_parcels: "Parcelles PAC"
     capitalised_production: "Production immobilisée"
     capitals: "Capital social"
+    capitals_anew_reports: "Report à nouveau"
+    capitals_derogatory_depreciations: "Amortissements dérogatoires"
+    capitals_emissions_and_reevaluation_gaps: "Primes d'émissions, fusion, d'apport et écart de réévaluation"
+    capitals_investment_subsidies: "SUbventions d'investissemnts"
+    capitals_liability_reserves: "Réserves"
+    capitals_mandatory_provisions: "Provisions réglementées"
+    capitals_profit_or_loss: "Résultat de l'exercice"
+    capitals_risk_and_charges_provisions: "Provisions pour risques et charges"
+    capitals_values: "Capitals"
     care: "soins" #?
     cartography: "Cartographie"
     cash: "Trésorerie"
@@ -1397,6 +1406,16 @@ fra:
     employee_name: "Employé" #?
     end: "au"
     entities: "Tiers"
+    entities_advance_charges: "Charges constatées d'avance"
+    entities_advance_giveables: "Avances et acomptes versés"
+    entities_assets_gaps: "Ecart de conversion"
+    entities_associate_receivables: "Associés"
+    entities_client_receivables: "Clients"
+    entities_investment_security: "Valeurs mobilières de placement"
+    entities_other_receivables: "Autres créances"
+    entities_others_clients: "Autres clients et conventions"
+    entities_reserve: "Disponibilités"
+    entities_state_receivables: "Etat (TVA et taxes)"
     entity: "Tiers" #?
     entity_links: "Liens entre entité"
     entity_to_delete: "Doublon à fusionner (et faire disparaitre)"
@@ -1472,10 +1491,10 @@ fra:
     export_fec_ba_bnc_ir_commercial_accountancy: "Export FEC - Cas BA BNC IR - comptabilité commerciale"
     export_fec_ba_ir_cash_accountancy: "Export FEC - Cas BA IR - comptabilité de trésorerie"
     export_fec_bnc_ir_cash_accountancy: "Export FEC - Cas BNC IR - comptabilité de trésorerie"
-    export_income_statement: "Export compte de résultat"
     export_fixed_assets_by_account: "Etat des immobilisations par compte"
     export_fixed_assets_gain_and_loss: "Etat des plus et moins values"
     export_fixed_assets_general: "Etat des immobilisations"
+    export_income_statement: "Export compte de résultat"
     exportation: "Exportation" #?
     extract: "Extraire" #?
     fat_matters_concentration: "Teneur en matières grasses" #?
@@ -2335,8 +2354,11 @@ fra:
     stock_of_x: "Stock de %{x}"
     stocks: "Stocks"
     stocks_by_calibrations: "Stock en terre par calibre" #?
+    stocks_end_products: "Produits finis"
     stocks_in_ground: "Stock en terre" #?
+    stocks_others_products: "Autres produits"
     stocks_preferences: "Gestion des stocks" #?
+    stocks_supply: "Approvisionnements et marchandises"
     stop: "Jusqu’au"
     stopped: "Arrêtés"
     stopped_on: "Nous nous sommes arrêtés sur"
