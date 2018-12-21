@@ -196,7 +196,6 @@ Rails.application.routes.draw do
       collection do
         get :reconciliation
         get :list_reconciliation
-        match 'load', via: %i[get post]
         patch :mask_lettered_items
       end
       member do
@@ -207,6 +206,8 @@ Rails.application.routes.draw do
         get :list_product_nature_variants
       end
     end
+
+    resources :account_balances, only: :show
 
     resources :activities, concerns: %i[list unroll] do
       collection do
@@ -714,7 +715,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :loan_repayments, only: %i[index show edit update], path: 'loan-repayments'
+    resources :loan_repayments, only: %i[index new create show edit update], path: 'loan-repayments'
 
     resources :manure_management_plans, concerns: %i[list unroll], path: 'manure-management-plans' do
       member do

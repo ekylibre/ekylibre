@@ -417,6 +417,7 @@ fra:
       mail: "Envoyer un e-mail pour\_: %{name}"
       new: "Nouvelle extraction"
     backend/loan_repayments:
+      new: "Nouvelle échéance"
       edit: "Modifier le remboursement du %{due_on} de l’emprunt %{loan_name}"
     backend/loans:
       edit: "Modifier l’emprunt\_: %{name}"
@@ -909,6 +910,7 @@ fra:
     activity_production: "Production"
     activity_productions: "Productions"
     add: "Ajouter"
+    add_a_repayment: "Ajouter une échéance"
     add_a_worker: "Ajouter un équipier"
     add_an_account: "Ajouter un compte"
     add_animal: "Ajouter un animal"
@@ -1090,6 +1092,7 @@ fra:
     budgets: "Budgets"
     building_name: "Sortie de" #?
     buildings_map: "Carte des bâtiments" #?
+    by_account_fixed_assets: "Etat de immobilisations par compte au %{to}"
     by_year: "Par an"
     calculate: "Calculer"
     calculated_hours: "Horaires calculées"
@@ -1249,6 +1252,7 @@ fra:
     created_between: "Enregistré entre le %{started_at} et le %{stopped_at}"
     created_by_ago: "Créé par %{author} %{when}"
     credit: "Crédit"
+    credit_account_balance: "Solde créditeur: %{value}€"
     credited_quantity: "Qté. à passer en avoir"
     credits: "Avoirs"
     criterion_modes: #?
@@ -1289,6 +1293,7 @@ fra:
     days: "Jours"
     deals: "Transactions"
     debit: "Débit"
+    debit_account_balance: "Solde débiteur: %{value}€"
     debts: "Dettes"
     debts_on_assets: "Taux d’endettement (Dettes / Actifs) %{financial_year}"
     decimal_case: "Options pour un décimal" #?
@@ -1468,6 +1473,9 @@ fra:
     export_fec_ba_ir_cash_accountancy: "Export FEC - Cas BA IR - comptabilité de trésorerie"
     export_fec_bnc_ir_cash_accountancy: "Export FEC - Cas BNC IR - comptabilité de trésorerie"
     export_income_statement: "Export compte de résultat"
+    export_fixed_assets_by_account: "Etat des immobilisations par compte"
+    export_fixed_assets_gain_and_loss: "Etat des plus et moins values"
+    export_fixed_assets_general: "Etat des immobilisations"
     exportation: "Exportation" #?
     extract: "Extraire" #?
     fat_matters_concentration: "Teneur en matières grasses" #?
@@ -1530,8 +1538,10 @@ fra:
     function: "Fonction"
     fungi: "Champignons"
     future_events: "Futurs événements"
+    gain_and_loss_fixed_assets: "Etat des plus et moins values au %{to}"
     genealogy: "Généalogie"
     general: "Informations générales"
+    general_fixed_assets: "Etat des immobilisations au %{to}"
     general_informations: "Informations générales"
     general_ledger: "Grand livre"
     general_total: "Total général"

@@ -18,11 +18,26 @@
 
 module Backend
   class LoanRepaymentsController < Backend::BaseController
-    manage_restfully except: %i[create show destroy], t3e: { loan_name: :name }
+    manage_restfully except: %i[new create show destroy], t3e: { loan_name: :name }
 
     def index
       redirect_to backend_loans_path
     end
+
+    def new
+      loan = Loan.find(params[:loan])
+      last_repayment = loan.repayments.last
+      next_due_date = last_repayment.due_on + 1.send(loan.repayment_period)
+      next_position = last_repayment.position + 1
+      @loan_repayment = LoanRepayment.new(loan_id: params[:loan], due_on: next_due_date, position: next_position)
+    end
+
+    def create
+      @loan_repayment = resource_model.new(permitted_params)
+      return if save_and_redirect(@loan_repayment, url: backend_loan_path(permitted_params[:loan_id]), notify: :record_x_created, identifier: :id)
+      render(locals: { cancel_url: {:action=>:index}, with_continue: false })
+    end
+
 
     def show
       if @loan_repayment = LoanRepayment.find_by(id: params[:id])

@@ -272,6 +272,7 @@
         <page to="backend/loan_repayments#edit"/>
         <page to="backend/loan_repayments#new"/>
         <page to="backend/loan_repayments#update"/>
+        <page to="backend/loan_repayments#create"/>
       </item>
       <item name="cash_transfers">
         <page to="backend/cash_transfers#index"/>

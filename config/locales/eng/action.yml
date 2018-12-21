@@ -490,7 +490,7 @@ eng:
     backend/loan_repayments:
       edit: "Edit repayment due on %{due_on} of loan %{loan_name}"
       # index: "Loan repayments"
-      # new: "New loan repayment"
+      new: "New loan repayment"
       # show: "Loan repayment: %{name}"
     backend/loans:
       # bookkeep: "Bookkeep loan: %{name}"
@@ -1072,6 +1072,7 @@ eng:
     activity_production: "Activity production"
     activity_productions: "Activity productions"
     add: "Add"
+    add_a_repayment: "Add a loan repayment"
     add_a_worker: "Add a worker"
     add_an_account: "Add an account"
     add_animal: "Add animal"
@@ -1225,6 +1226,7 @@ eng:
     budget: "Budget"
     budget_per_working_indicator: "Budget per working indicator"
     budgets: "Budgets" #?
+    by_account_fixed_assets: "Fixed assets by account on %{to}"
     by_year: "By year"
     calculate: "Calculate" #?
     calculated_hours: "Calculated hours"
@@ -1351,6 +1353,7 @@ eng:
     created_between: "Created between %{started_at} and %{stopped_at}"
     created_by_ago: "Created by %{author} %{when}"
     credit: "Credit" #?
+    credit_account_balance: "Credit balance: %{value}€"
     credited_quantity: "Quantity to credit" #?
     credits: "Credits"
     cropping_plan: "Cropping plan"
@@ -1377,7 +1380,8 @@ eng:
     days: "Days"
     deals: "Deals"
     debit: "Debit" #?
-    debts: "Debts" #?
+    debit_account_balance: "Debit balance: %{value}€"
+    debts: "Debts" #?!
     debts_on_assets: "Debts on assets %{financial_year}" #?!
     decision_making: "Decision-making"
     default_letter_conclusion: "Please accept, Dear Madam, Dear Sir, the assurances of my highest consideration."
@@ -1528,6 +1532,9 @@ eng:
     export_fec_ba_ir_cash_accountancy: "Export FEC agriculture income taxation cash accountancy"
     export_fec_bnc_ir_cash_accountancy: "Export FEC professional operations income taxation cash accountancy"
     export_income_statement: "Export income statement"
+    export_fixed_assets_by_account: "Fixed assets by account"
+    export_fixed_assets_gain_and_loss: "Added values and capital losses"
+    export_fixed_assets_general: "Fixed assets"
     field_distribution: "Field distribution"
     file_nature: "File type"
     file_preview: "Preview" #?
@@ -1577,8 +1584,10 @@ eng:
     function: "Function"
     fungi: "Fungi" #?
     future_events: "Future events"
+    gain_and_loss_fixed_assets: "Gains and losses on %{to}"
     genealogy: "Genealogy"
     general: "General" #?
+    general_fixed_assets: "Fixed assets on %{to}"
     general_informations: "General informations"
     general_ledger: "General ledger"
     general_total: "General total"
