@@ -8,6 +8,7 @@ class BalanceSheetPrinter
     @template_path   = find_open_document_template(options[:document_nature])
     @params          = options[:params]
     @financial_year  = options[:financial_year]
+    @accounting_system = Preference[:accounting_system].to_sym
   end
 
   def compute_dataset
@@ -110,37 +111,39 @@ class BalanceSheetPrinter
     actif << g3
 
     # alive corporeal_assets - 211...
-    g4 = HashWithIndifferentAccess.new
-    g4[:group_name] = :alive_corporeal_assets.tl
-    g4[:items] = []
-    items = [:alive_corporeal_assets_adult_animals, :alive_corporeal_assets_young_animals,
-             :alive_corporeal_assets_service_animals, :alive_corporeal_assets_perennial_plants,
-             :alive_corporeal_assets_others, :alive_corporeal_assets_in_progress,
-             :alive_corporeal_assets_advances]
-    items.each do |item|
-      i = HashWithIndifferentAccess.new
-      i[:name] = item.to_s.tl
-      i[:current_raw_value] = current_compute.sum_entry_items_by_line(document_scope, item)
-      i[:current_variations] = current_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
-      i[:current_net_value] = (i[:current_raw_value].to_d - i[:current_variations].to_d).round(2)
-      if @financial_year.previous
-        i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
-        i[:previous_variations] = previous_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
-        i[:previous_net_value] = (i[:previous_raw_value].to_d - i[:previous_variations].to_d).round(2)
+    if @accounting_system == :fr_pcga
+      g4 = HashWithIndifferentAccess.new
+      g4[:group_name] = :alive_corporeal_assets.tl
+      g4[:items] = []
+      items = [:alive_corporeal_assets_adult_animals, :alive_corporeal_assets_young_animals,
+               :alive_corporeal_assets_service_animals, :alive_corporeal_assets_perennial_plants,
+               :alive_corporeal_assets_others, :alive_corporeal_assets_in_progress,
+               :alive_corporeal_assets_advances]
+      items.each do |item|
+        i = HashWithIndifferentAccess.new
+        i[:name] = item.to_s.tl
+        i[:current_raw_value] = current_compute.sum_entry_items_by_line(document_scope, item)
+        i[:current_variations] = current_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
+        i[:current_net_value] = (i[:current_raw_value].to_d - i[:current_variations].to_d).round(2)
+        if @financial_year.previous
+          i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
+          i[:previous_variations] = previous_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
+          i[:previous_net_value] = (i[:previous_raw_value].to_d - i[:previous_variations].to_d).round(2)
+        end
+        g4[:items] << i
+        # puts g3.inspect.yellow
       end
-      g4[:items] << i
-      # puts g3.inspect.yellow
+      g4[:sum_name] = ''
+      g4[:current_raw_total] = current_compute.sum_entry_items_by_line(document_scope, :alive_corporeal_assets_total)
+      g4[:current_variations_total] = current_compute.sum_entry_items_by_line(document_scope, :alive_corporeal_assets_total_depreciations)
+      g4[:current_net_total] = (g4[:current_raw_total].to_d - g4[:current_variations_total].to_d).round(2)
+      if @financial_year.previous
+        g4[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :alive_corporeal_assets_total)
+        g4[:previous_variations_total] = previous_compute.sum_entry_items_by_line(document_scope, :alive_corporeal_assets_total_depreciations)
+        g4[:previous_net_total] = (g4[:previous_raw_total].to_d - g4[:previous_variations_total].to_d).round(2)
+      end
+      actif << g4
     end
-    g4[:sum_name] = ''
-    g4[:current_raw_total] = current_compute.sum_entry_items_by_line(document_scope, :alive_corporeal_assets_total)
-    g4[:current_variations_total] = current_compute.sum_entry_items_by_line(document_scope, :alive_corporeal_assets_total_depreciations)
-    g4[:current_net_total] = (g4[:current_raw_total].to_d - g4[:current_variations_total].to_d).round(2)
-    if @financial_year.previous
-      g4[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :alive_corporeal_assets_total)
-      g4[:previous_variations_total] = previous_compute.sum_entry_items_by_line(document_scope, :alive_corporeal_assets_total_depreciations)
-      g4[:previous_net_total] = (g4[:previous_raw_total].to_d - g4[:previous_variations_total].to_d).round(2)
-    end
-    actif << g4
 
     # financial_assets - 261...
     g5 = HashWithIndifferentAccess.new
@@ -174,67 +177,71 @@ class BalanceSheetPrinter
     actif << g5
 
     # long_cycle_alive_products - 31...
-    g6 = HashWithIndifferentAccess.new
-    g6[:group_name] = :long_cycle_alive_products.tl
-    g6[:items] = []
-    items = [:long_cycle_alive_products_animals, :long_cycle_alive_products_plant_advance,
-             :long_cycle_alive_products_plant_in_ground, :long_cycle_alive_products_wine,
-             :long_cycle_alive_products_others]
-    items.each do |item|
-      i = HashWithIndifferentAccess.new
-      i[:name] = item.to_s.tl
-      i[:current_raw_value] = current_compute.sum_entry_items_by_line(document_scope, item)
-      i[:current_variations] = current_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
-      i[:current_net_value] = (i[:current_raw_value].to_d - i[:current_variations].to_d).round(2)
-      if @financial_year.previous
-        i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
-        i[:previous_variations] = previous_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
-        i[:previous_net_value] = (i[:previous_raw_value].to_d - i[:previous_variations].to_d).round(2)
+    if @accounting_system == :fr_pcga
+      g6 = HashWithIndifferentAccess.new
+      g6[:group_name] = :long_cycle_alive_products.tl
+      g6[:items] = []
+      items = [:long_cycle_alive_products_animals, :long_cycle_alive_products_plant_advance,
+               :long_cycle_alive_products_plant_in_ground, :long_cycle_alive_products_wine,
+               :long_cycle_alive_products_others]
+      items.each do |item|
+        i = HashWithIndifferentAccess.new
+        i[:name] = item.to_s.tl
+        i[:current_raw_value] = current_compute.sum_entry_items_by_line(document_scope, item)
+        i[:current_variations] = current_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
+        i[:current_net_value] = (i[:current_raw_value].to_d - i[:current_variations].to_d).round(2)
+        if @financial_year.previous
+          i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
+          i[:previous_variations] = previous_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
+          i[:previous_net_value] = (i[:previous_raw_value].to_d - i[:previous_variations].to_d).round(2)
+        end
+        g6[:items] << i
+        # puts g5.inspect.yellow
       end
-      g6[:items] << i
-      # puts g5.inspect.yellow
+      g6[:sum_name] = ''
+      g6[:current_raw_total] = current_compute.sum_entry_items_by_line(document_scope, :long_cycle_alive_products_total)
+      g6[:current_variations_total] = current_compute.sum_entry_items_by_line(document_scope, :long_cycle_alive_products_total_depreciations)
+      g6[:current_net_total] = (g6[:current_raw_total].to_d - g6[:current_variations_total].to_d).round(2)
+      if @financial_year.previous
+        g6[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :long_cycle_alive_products_total)
+        g6[:previous_variations_total] = previous_compute.sum_entry_items_by_line(document_scope, :long_cycle_alive_products_total_depreciations)
+        g6[:previous_net_total] = (g6[:previous_raw_total].to_d - g6[:previous_variations_total].to_d).round(2)
+      end
+      actif << g6
     end
-    g6[:sum_name] = ''
-    g6[:current_raw_total] = current_compute.sum_entry_items_by_line(document_scope, :long_cycle_alive_products_total)
-    g6[:current_variations_total] = current_compute.sum_entry_items_by_line(document_scope, :long_cycle_alive_products_total_depreciations)
-    g6[:current_net_total] = (g6[:current_raw_total].to_d - g6[:current_variations_total].to_d).round(2)
-    if @financial_year.previous
-      g6[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :long_cycle_alive_products_total)
-      g6[:previous_variations_total] = previous_compute.sum_entry_items_by_line(document_scope, :long_cycle_alive_products_total_depreciations)
-      g6[:previous_net_total] = (g6[:previous_raw_total].to_d - g6[:previous_variations_total].to_d).round(2)
-    end
-    actif << g6
 
     # short_cycle_alive_products - 32...
-    g7 = HashWithIndifferentAccess.new
-    g7[:group_name] = :short_cycle_alive_products.tl
-    g7[:items] = []
-    items = [:short_cycle_alive_products_animals, :short_cycle_alive_products_plant_advance,
-             :short_cycle_alive_products_plant_in_ground, :short_cycle_alive_products_others]
-    items.each do |item|
-      i = HashWithIndifferentAccess.new
-      i[:name] = item.to_s.tl
-      i[:current_raw_value] = current_compute.sum_entry_items_by_line(document_scope, item)
-      i[:current_variations] = current_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
-      i[:current_net_value] = (i[:current_raw_value].to_d - i[:current_variations].to_d).round(2)
-      if @financial_year.previous
-        i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
-        i[:previous_variations] = previous_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
-        i[:previous_net_value] = (i[:previous_raw_value].to_d - i[:previous_variations].to_d).round(2)
+    if @accounting_system == :fr_pcga
+      g7 = HashWithIndifferentAccess.new
+      g7[:group_name] = :short_cycle_alive_products.tl
+      g7[:items] = []
+      items = [:short_cycle_alive_products_animals, :short_cycle_alive_products_plant_advance,
+               :short_cycle_alive_products_plant_in_ground, :short_cycle_alive_products_others]
+      items.each do |item|
+        i = HashWithIndifferentAccess.new
+        i[:name] = item.to_s.tl
+        i[:current_raw_value] = current_compute.sum_entry_items_by_line(document_scope, item)
+        i[:current_variations] = current_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
+        i[:current_net_value] = (i[:current_raw_value].to_d - i[:current_variations].to_d).round(2)
+        if @financial_year.previous
+          i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
+          i[:previous_variations] = previous_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
+          i[:previous_net_value] = (i[:previous_raw_value].to_d - i[:previous_variations].to_d).round(2)
+        end
+        g7[:items] << i
+        # puts g5.inspect.yellow
       end
-      g7[:items] << i
-      # puts g5.inspect.yellow
+      g7[:sum_name] = ''
+      g7[:current_raw_total] = current_compute.sum_entry_items_by_line(document_scope, :short_cycle_alive_products_total)
+      g7[:current_variations_total] = current_compute.sum_entry_items_by_line(document_scope, :short_cycle_alive_products_total_depreciations)
+      g7[:current_net_total] = (g7[:current_raw_total].to_d - g7[:current_variations_total].to_d).round(2)
+      if @financial_year.previous
+        g7[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :short_cycle_alive_products_total)
+        g7[:previous_variations_total] = previous_compute.sum_entry_items_by_line(document_scope, :short_cycle_alive_products_total_depreciations)
+        g7[:previous_net_total] = (g7[:previous_raw_total].to_d - g7[:previous_variations_total].to_d).round(2)
+      end
+      actif << g7
     end
-    g7[:sum_name] = ''
-    g7[:current_raw_total] = current_compute.sum_entry_items_by_line(document_scope, :short_cycle_alive_products_total)
-    g7[:current_variations_total] = current_compute.sum_entry_items_by_line(document_scope, :short_cycle_alive_products_total_depreciations)
-    g7[:current_net_total] = (g7[:current_raw_total].to_d - g7[:current_variations_total].to_d).round(2)
-    if @financial_year.previous
-      g7[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :short_cycle_alive_products_total)
-      g7[:previous_variations_total] = previous_compute.sum_entry_items_by_line(document_scope, :short_cycle_alive_products_total_depreciations)
-      g7[:previous_net_total] = (g7[:previous_raw_total].to_d - g7[:previous_variations_total].to_d).round(2)
-    end
-    actif << g7
 
     # Stock - 30...
     g8 = HashWithIndifferentAccess.new
@@ -385,6 +392,7 @@ class BalanceSheetPrinter
 
       # build filters
       data_filters = []
+      data_filters <<  :accounting_system.tl + " : " + Nomen::AccountingSystem.find(@accounting_system).human_name
 
       # build started and stopped
       started_on = @financial_year.started_on

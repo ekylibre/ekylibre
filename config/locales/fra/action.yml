@@ -753,6 +753,7 @@ fra:
       # inclusion: "%{attribute} is not included in the list"
       # invalid: "%{attribute} is invalid"
       # invalid_at: "%{attribute} is_invalid. Error near %{error}"
+      # invalid_child: "At least one value of %{attribute} is invalid."
       # invalid_date: "%{attribute} is not a valid date"
       # invalid_datetime: "%{attribute} is not a valid datetime"
       # invalid_time: "%{attribute} is not a valid time"
@@ -892,6 +893,7 @@ fra:
     accountancy_preferences: "Préférences de la comptabilité"
     accounting: "Passer en comptabilité"
     accounting_balance: "Balance comptable" #?
+    accounting_system: "Plan de comptes"
     accounts: "Comptes comptables"
     accounts_only_used_at: "Comptes utilisés seulement sur"
     accounts_to_change: "Plan de comptes à changer"
@@ -2113,7 +2115,7 @@ fra:
     production_support: "Support de production"
     productions: "Productions"
     productions_map: "Carte des productions" #?
-    productions_sales: "Ventes et variation d’inventaire"
+    productions_sales: "Ventes de biens"
     products: "Produits"
     products_purchases: "Approvisionnement"
     products_sales: "Ventes de marchandises"
@@ -2323,6 +2325,7 @@ fra:
     sensors: "Capteurs"
     sent_vat_declaration: "Déclaration de TVA"
     sequences_load: "Charger les séquences manquantes" #?
+    services_sale: "Vente de services"
     sessions: "Sessions"
     set_reconcilable_new_but_existing_third_accounts: "Rendre lettrables les nouveaux comptes tiers déjà existants"
     settings: "Configuration"

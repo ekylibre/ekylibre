@@ -943,6 +943,7 @@ eng:
       inclusion: "%{attribute} is not included in the list"
       invalid: "%{attribute} is invalid"
       invalid_at: "%{attribute} is_invalid. Error near %{error}"
+      invalid_child: "At least one value of %{attribute} is invalid."
       invalid_date: "%{attribute} is not a valid date"
       invalid_datetime: "%{attribute} is not a valid datetime"
       invalid_time: "%{attribute} is not a valid time"
@@ -1060,6 +1061,7 @@ eng:
     accountancy_balance: "Accountancy balance"
     accountancy_preferences: "Accountancy preferences"
     accounting: "Accounting"
+    accounting_system: "Accounting system"
     accounts: "Accounts"
     accounts_only_used_at: "Accounts only used at"
     accounts_to_change: "Accounts to change" #?!
@@ -1920,7 +1922,7 @@ eng:
     other_purchases: "Other purchases" #?
     other_receivables: "Other receivables" #?
     others: "Others" #?
-    others_debts: "Others debts" #?
+    others_debts: "Others debts"
     others_debts_advance_products: "others_debts_advance_products" #?
     others_debts_advance_receivables: "others_debts_advance_receivables" #?
     others_debts_associate_debts: "others_debts_associate_debts" #?
@@ -2130,6 +2132,7 @@ eng:
     sensors: "Sensors" #?
     # sent: "Sent"
     sent_vat_declaration: "VAT declaration" #?!
+    services_sale: "Service sale" #?
     sessions: "Sessions" #?
     set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)" #?!
     settings: "Settings"

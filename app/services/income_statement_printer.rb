@@ -8,6 +8,7 @@ class IncomeStatementPrinter
     @template_path   = find_open_document_template(options[:document_nature])
     @params          = options[:params]
     @financial_year  = options[:financial_year]
+    @accounting_system = Preference[:accounting_system].to_sym
   end
 
   def compute_dataset
@@ -16,12 +17,19 @@ class IncomeStatementPrinter
     current_compute = AccountancyComputation.new(@financial_year)
     previous_compute = AccountancyComputation.new(@financial_year.previous) if @financial_year.previous
       # products
+      # puts @accounting_system.inspect.red
       g1 = HashWithIndifferentAccess.new
       g1[:group_name] = "Produits d'exploitation"
       g1[:items] = []
-      items = [:products_sales, :animal_sales, :productions_sales,
-               :inventory_variations, :capitalised_production, :subsidies,
-               :provisions_revenues, :other_products]
+      if @accounting_system == :fr_pcga
+        items = [:products_sales, :animal_sales, :productions_sales,
+                 :inventory_variations, :capitalised_production, :subsidies,
+                 :provisions_revenues, :other_products]
+      elsif @accounting_system == :fr_pcg82
+        items = [:products_sales, :productions_sales, :services_sales,
+                 :inventory_variations, :capitalised_production, :subsidies,
+                 :provisions_revenues, :other_products]
+      end
       items.each do |item|
         current_value = current_compute.sum_entry_items_by_line(document_scope, item)
         previous_value = previous_compute.sum_entry_items_by_line(document_scope, item) if @financial_year.previous
@@ -37,9 +45,15 @@ class IncomeStatementPrinter
       g2 = HashWithIndifferentAccess.new
       g2[:group_name] = "Charges d'exploitation"
       g2[:items] = []
-      items = [:merchandises_purchases, :merchandises_purchases_stocks_variation, :products_purchases,
+      if @accounting_system == :fr_pcga
+        items = [:merchandises_purchases, :merchandises_purchases_stocks_variation, :products_purchases,
                :purchases_stocks_variation, :animal_purchases, :other_purchases,
                :taxes, :wages, :social_expenses, :depreciations_inputations_expenses, :other_expenses]
+      elsif @accounting_system == :fr_pcg82
+        items = [:merchandises_purchases, :merchandises_purchases_stocks_variation, :products_purchases,
+               :purchases_stocks_variation, :other_purchases,
+               :taxes, :wages, :social_expenses, :depreciations_inputations_expenses, :other_expenses]
+      end
       items.each do |item|
         current_value = current_compute.sum_entry_items_by_line(document_scope, item)
         previous_value = previous_compute.sum_entry_items_by_line(document_scope, item) if @financial_year.previous
@@ -171,6 +185,7 @@ class IncomeStatementPrinter
 
       # build filters
       data_filters = []
+      data_filters <<  :accounting_system.tl + " : " + Nomen::AccountingSystem.find(@accounting_system).human_name
 
       # build started and stopped
       started_on = @financial_year.started_on

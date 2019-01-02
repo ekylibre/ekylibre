@@ -880,6 +880,7 @@ arb:
       # inclusion: "%{attribute} is not included in the list"
       # invalid: "%{attribute} is invalid"
       # invalid_at: "%{attribute} is_invalid. Error near %{error}"
+      # invalid_child: "At least one value of %{attribute} is invalid."
       # invalid_date: "%{attribute} is not a valid date"
       # invalid_datetime: "%{attribute} is not a valid datetime"
       # invalid_time: "%{attribute} is not a valid time"
@@ -1020,6 +1021,7 @@ arb:
     accountancy_balance: "ميزان المحاسبة"
     accountancy_preferences: "تفضيلات المحاسبة"
     accounting: "محاسبة"
+    # accounting_system: "Accounting system"
     accounts: "حسابات المحاسب المستخدمة"
     accounts_only_used_at: "حسابات تستخدم فقط في"
     # accounts_to_change: "Accounts to change"
@@ -2438,6 +2440,7 @@ arb:
     sequence_create: "اضافة تسلسل" #?
     sequences: "التسلسل" #?
     sequences_load: "تحميل التسلسلات المفقودة" #?
+    # services_sale: "Service sale"
     sessions: "جلسات"
     set_reconcilable_new_but_existing_third_accounts: "تعيين مصالحتها حسابات الثالثة الجديدة ولكن القائمة (العملاء والموردين والمحامين)"
     settings: "إعدادات"
