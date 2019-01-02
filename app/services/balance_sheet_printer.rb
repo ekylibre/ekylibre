@@ -14,7 +14,7 @@ class BalanceSheetPrinter
     dataset = []
     document_scope = :balance_sheet
     current_compute = AccountancyComputation.new(@financial_year)
-    previous_compute = AccountancyComputation.new(@financial_year.previous)
+    previous_compute = AccountancyComputation.new(@financial_year.previous) if @financial_year.previous
     ## ACTIF
     actif = []
 
@@ -29,9 +29,11 @@ class BalanceSheetPrinter
       i[:current_raw_value] = current_compute.sum_entry_items_by_line(document_scope, item)
       i[:current_variations] = ''
       i[:current_net_value] = current_compute.sum_entry_items_by_line(document_scope, item)
-      i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
-      i[:previous_variations] = ''
-      i[:previous_net_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
+      if @financial_year.previous
+        i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
+        i[:previous_variations] = ''
+        i[:previous_net_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
+      end
       g1[:items] << i
       # puts g1.inspect.yellow
     end
@@ -55,9 +57,11 @@ class BalanceSheetPrinter
       i[:current_raw_value] = current_compute.sum_entry_items_by_line(document_scope, item)
       i[:current_variations] = current_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
       i[:current_net_value] = (i[:current_raw_value].to_d - i[:current_variations].to_d).round(2)
-      i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
-      i[:previous_variations] = previous_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
-      i[:previous_net_value] = (i[:previous_raw_value].to_d - i[:previous_variations].to_d).round(2)
+      if @financial_year.previous
+        i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
+        i[:previous_variations] = previous_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
+        i[:previous_net_value] = (i[:previous_raw_value].to_d - i[:previous_variations].to_d).round(2)
+      end
       g2[:items] << i
       # puts g2.inspect.yellow
     end
@@ -65,9 +69,11 @@ class BalanceSheetPrinter
     g2[:current_raw_total] = current_compute.sum_entry_items_by_line(document_scope, :incorporeal_assets_total)
     g2[:current_variations_total] = current_compute.sum_entry_items_by_line(document_scope, :incorporeal_assets_total_depreciations)
     g2[:current_net_total] = (g2[:current_raw_total].to_d - g2[:current_variations_total].to_d).round(2)
-    g2[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :incorporeal_assets_total)
-    g2[:previous_variations_total] = previous_compute.sum_entry_items_by_line(document_scope, :incorporeal_assets_total_depreciations)
-    g2[:previous_net_total] = (g2[:previous_raw_total].to_d - g2[:previous_variations_total].to_d).round(2)
+    if @financial_year.previous
+      g2[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :incorporeal_assets_total)
+      g2[:previous_variations_total] = previous_compute.sum_entry_items_by_line(document_scope, :incorporeal_assets_total_depreciations)
+      g2[:previous_net_total] = (g2[:previous_raw_total].to_d - g2[:previous_variations_total].to_d).round(2)
+    end
     actif << g2
 
     # corporeal_assets - 211...
@@ -84,9 +90,11 @@ class BalanceSheetPrinter
       i[:current_raw_value] = current_compute.sum_entry_items_by_line(document_scope, item)
       i[:current_variations] = current_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
       i[:current_net_value] = (i[:current_raw_value].to_d - i[:current_variations].to_d).round(2)
-      i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
-      i[:previous_variations] = previous_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
-      i[:previous_net_value] = (i[:previous_raw_value].to_d - i[:previous_variations].to_d).round(2)
+      if @financial_year.previous
+        i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
+        i[:previous_variations] = previous_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
+        i[:previous_net_value] = (i[:previous_raw_value].to_d - i[:previous_variations].to_d).round(2)
+      end
       g3[:items] << i
       # puts g3.inspect.yellow
     end
@@ -94,9 +102,11 @@ class BalanceSheetPrinter
     g3[:current_raw_total] = current_compute.sum_entry_items_by_line(document_scope, :corporeal_assets_total)
     g3[:current_variations_total] = current_compute.sum_entry_items_by_line(document_scope, :corporeal_assets_total_depreciations)
     g3[:current_net_total] = (g3[:current_raw_total].to_d - g3[:current_variations_total].to_d).round(2)
-    g3[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :corporeal_assets_total)
-    g3[:previous_variations_total] = previous_compute.sum_entry_items_by_line(document_scope, :corporeal_assets_total_depreciations)
-    g3[:previous_net_total] = (g3[:previous_raw_total].to_d - g3[:previous_variations_total].to_d).round(2)
+    if @financial_year.previous
+      g3[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :corporeal_assets_total)
+      g3[:previous_variations_total] = previous_compute.sum_entry_items_by_line(document_scope, :corporeal_assets_total_depreciations)
+      g3[:previous_net_total] = (g3[:previous_raw_total].to_d - g3[:previous_variations_total].to_d).round(2)
+    end
     actif << g3
 
     # alive corporeal_assets - 211...
@@ -113,9 +123,11 @@ class BalanceSheetPrinter
       i[:current_raw_value] = current_compute.sum_entry_items_by_line(document_scope, item)
       i[:current_variations] = current_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
       i[:current_net_value] = (i[:current_raw_value].to_d - i[:current_variations].to_d).round(2)
-      i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
-      i[:previous_variations] = previous_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
-      i[:previous_net_value] = (i[:previous_raw_value].to_d - i[:previous_variations].to_d).round(2)
+      if @financial_year.previous
+        i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
+        i[:previous_variations] = previous_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
+        i[:previous_net_value] = (i[:previous_raw_value].to_d - i[:previous_variations].to_d).round(2)
+      end
       g4[:items] << i
       # puts g3.inspect.yellow
     end
@@ -123,9 +135,11 @@ class BalanceSheetPrinter
     g4[:current_raw_total] = current_compute.sum_entry_items_by_line(document_scope, :alive_corporeal_assets_total)
     g4[:current_variations_total] = current_compute.sum_entry_items_by_line(document_scope, :alive_corporeal_assets_total_depreciations)
     g4[:current_net_total] = (g4[:current_raw_total].to_d - g4[:current_variations_total].to_d).round(2)
-    g4[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :alive_corporeal_assets_total)
-    g4[:previous_variations_total] = previous_compute.sum_entry_items_by_line(document_scope, :alive_corporeal_assets_total_depreciations)
-    g4[:previous_net_total] = (g4[:previous_raw_total].to_d - g4[:previous_variations_total].to_d).round(2)
+    if @financial_year.previous
+      g4[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :alive_corporeal_assets_total)
+      g4[:previous_variations_total] = previous_compute.sum_entry_items_by_line(document_scope, :alive_corporeal_assets_total_depreciations)
+      g4[:previous_net_total] = (g4[:previous_raw_total].to_d - g4[:previous_variations_total].to_d).round(2)
+    end
     actif << g4
 
     # financial_assets - 261...
@@ -140,9 +154,11 @@ class BalanceSheetPrinter
       i[:current_raw_value] = current_compute.sum_entry_items_by_line(document_scope, item)
       i[:current_variations] = current_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
       i[:current_net_value] = (i[:current_raw_value].to_d - i[:current_variations].to_d).round(2)
-      i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
-      i[:previous_variations] = previous_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
-      i[:previous_net_value] = (i[:previous_raw_value].to_d - i[:previous_variations].to_d).round(2)
+      if @financial_year.previous
+        i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
+        i[:previous_variations] = previous_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
+        i[:previous_net_value] = (i[:previous_raw_value].to_d - i[:previous_variations].to_d).round(2)
+      end
       g5[:items] << i
       # puts g5.inspect.yellow
     end
@@ -150,9 +166,11 @@ class BalanceSheetPrinter
     g5[:current_raw_total] = current_compute.sum_entry_items_by_line(document_scope, :financial_assets_total)
     g5[:current_variations_total] = current_compute.sum_entry_items_by_line(document_scope, :financial_assets_total_depreciations)
     g5[:current_net_total] = (g5[:current_raw_total].to_d - g5[:current_variations_total].to_d).round(2)
-    g5[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :financial_assets_total)
-    g5[:previous_variations_total] = previous_compute.sum_entry_items_by_line(document_scope, :financial_assets_total_depreciations)
-    g5[:previous_net_total] = (g5[:previous_raw_total].to_d - g5[:previous_variations_total].to_d).round(2)
+    if @financial_year.previous
+      g5[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :financial_assets_total)
+      g5[:previous_variations_total] = previous_compute.sum_entry_items_by_line(document_scope, :financial_assets_total_depreciations)
+      g5[:previous_net_total] = (g5[:previous_raw_total].to_d - g5[:previous_variations_total].to_d).round(2)
+    end
     actif << g5
 
     # long_cycle_alive_products - 31...
@@ -168,9 +186,11 @@ class BalanceSheetPrinter
       i[:current_raw_value] = current_compute.sum_entry_items_by_line(document_scope, item)
       i[:current_variations] = current_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
       i[:current_net_value] = (i[:current_raw_value].to_d - i[:current_variations].to_d).round(2)
-      i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
-      i[:previous_variations] = previous_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
-      i[:previous_net_value] = (i[:previous_raw_value].to_d - i[:previous_variations].to_d).round(2)
+      if @financial_year.previous
+        i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
+        i[:previous_variations] = previous_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
+        i[:previous_net_value] = (i[:previous_raw_value].to_d - i[:previous_variations].to_d).round(2)
+      end
       g6[:items] << i
       # puts g5.inspect.yellow
     end
@@ -178,9 +198,11 @@ class BalanceSheetPrinter
     g6[:current_raw_total] = current_compute.sum_entry_items_by_line(document_scope, :long_cycle_alive_products_total)
     g6[:current_variations_total] = current_compute.sum_entry_items_by_line(document_scope, :long_cycle_alive_products_total_depreciations)
     g6[:current_net_total] = (g6[:current_raw_total].to_d - g6[:current_variations_total].to_d).round(2)
-    g6[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :long_cycle_alive_products_total)
-    g6[:previous_variations_total] = previous_compute.sum_entry_items_by_line(document_scope, :long_cycle_alive_products_total_depreciations)
-    g6[:previous_net_total] = (g6[:previous_raw_total].to_d - g6[:previous_variations_total].to_d).round(2)
+    if @financial_year.previous
+      g6[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :long_cycle_alive_products_total)
+      g6[:previous_variations_total] = previous_compute.sum_entry_items_by_line(document_scope, :long_cycle_alive_products_total_depreciations)
+      g6[:previous_net_total] = (g6[:previous_raw_total].to_d - g6[:previous_variations_total].to_d).round(2)
+    end
     actif << g6
 
     # short_cycle_alive_products - 32...
@@ -195,9 +217,11 @@ class BalanceSheetPrinter
       i[:current_raw_value] = current_compute.sum_entry_items_by_line(document_scope, item)
       i[:current_variations] = current_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
       i[:current_net_value] = (i[:current_raw_value].to_d - i[:current_variations].to_d).round(2)
-      i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
-      i[:previous_variations] = previous_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
-      i[:previous_net_value] = (i[:previous_raw_value].to_d - i[:previous_variations].to_d).round(2)
+      if @financial_year.previous
+        i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
+        i[:previous_variations] = previous_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
+        i[:previous_net_value] = (i[:previous_raw_value].to_d - i[:previous_variations].to_d).round(2)
+      end
       g7[:items] << i
       # puts g5.inspect.yellow
     end
@@ -205,9 +229,11 @@ class BalanceSheetPrinter
     g7[:current_raw_total] = current_compute.sum_entry_items_by_line(document_scope, :short_cycle_alive_products_total)
     g7[:current_variations_total] = current_compute.sum_entry_items_by_line(document_scope, :short_cycle_alive_products_total_depreciations)
     g7[:current_net_total] = (g7[:current_raw_total].to_d - g7[:current_variations_total].to_d).round(2)
-    g7[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :short_cycle_alive_products_total)
-    g7[:previous_variations_total] = previous_compute.sum_entry_items_by_line(document_scope, :short_cycle_alive_products_total_depreciations)
-    g7[:previous_net_total] = (g7[:previous_raw_total].to_d - g7[:previous_variations_total].to_d).round(2)
+    if @financial_year.previous
+      g7[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :short_cycle_alive_products_total)
+      g7[:previous_variations_total] = previous_compute.sum_entry_items_by_line(document_scope, :short_cycle_alive_products_total_depreciations)
+      g7[:previous_net_total] = (g7[:previous_raw_total].to_d - g7[:previous_variations_total].to_d).round(2)
+    end
     actif << g7
 
     # Stock - 30...
@@ -221,9 +247,11 @@ class BalanceSheetPrinter
       i[:current_raw_value] = current_compute.sum_entry_items_by_line(document_scope, item)
       i[:current_variations] = current_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
       i[:current_net_value] = (i[:current_raw_value].to_d - i[:current_variations].to_d).round(2)
-      i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
-      i[:previous_variations] = previous_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
-      i[:previous_net_value] = (i[:previous_raw_value].to_d - i[:previous_variations].to_d).round(2)
+      if @financial_year.previous
+        i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
+        i[:previous_variations] = previous_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
+        i[:previous_net_value] = (i[:previous_raw_value].to_d - i[:previous_variations].to_d).round(2)
+      end
       g8[:items] << i
       # puts g5.inspect.yellow
     end
@@ -231,9 +259,11 @@ class BalanceSheetPrinter
     g8[:current_raw_total] = current_compute.sum_entry_items_by_line(document_scope, :stocks_total)
     g8[:current_variations_total] = current_compute.sum_entry_items_by_line(document_scope, :stocks_total_depreciations)
     g8[:current_net_total] = (g8[:current_raw_total].to_d - g8[:current_variations_total].to_d).round(2)
-    g8[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :stocks_total)
-    g8[:previous_variations_total] = previous_compute.sum_entry_items_by_line(document_scope, :stocks_total_depreciations)
-    g8[:previous_net_total] = (g8[:previous_raw_total].to_d - g8[:previous_variations_total].to_d).round(2)
+    if @financial_year.previous
+      g8[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :stocks_total)
+      g8[:previous_variations_total] = previous_compute.sum_entry_items_by_line(document_scope, :stocks_total_depreciations)
+      g8[:previous_net_total] = (g8[:previous_raw_total].to_d - g8[:previous_variations_total].to_d).round(2)
+    end
     actif << g8
 
     # Others - 40...
@@ -251,9 +281,11 @@ class BalanceSheetPrinter
       i[:current_raw_value] = current_compute.sum_entry_items_by_line(document_scope, item)
       i[:current_variations] = current_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
       i[:current_net_value] = (i[:current_raw_value].to_d - i[:current_variations].to_d).round(2)
-      i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
-      i[:previous_variations] = previous_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
-      i[:previous_net_value] = (i[:previous_raw_value].to_d - i[:previous_variations].to_d).round(2)
+      if @financial_year.previous
+        i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
+        i[:previous_variations] = previous_compute.sum_entry_items_by_line(document_scope, (item.to_s + "_depreciations").to_sym)
+        i[:previous_net_value] = (i[:previous_raw_value].to_d - i[:previous_variations].to_d).round(2)
+      end
       g9[:items] << i
       # puts g5.inspect.yellow
     end
@@ -261,9 +293,11 @@ class BalanceSheetPrinter
     g9[:current_raw_total] = current_compute.sum_entry_items_by_line(document_scope, :stocks_total)
     g9[:current_variations_total] = current_compute.sum_entry_items_by_line(document_scope, :stocks_total_depreciations)
     g9[:current_net_total] = (g9[:current_raw_total].to_d - g9[:current_variations_total].to_d).round(2)
-    g9[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :stocks_total)
-    g9[:previous_variations_total] = previous_compute.sum_entry_items_by_line(document_scope, :stocks_total_depreciations)
-    g9[:previous_net_total] = (g9[:previous_raw_total].to_d - g9[:previous_variations_total].to_d).round(2)
+    if @financial_year.previous
+      g9[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :stocks_total)
+      g9[:previous_variations_total] = previous_compute.sum_entry_items_by_line(document_scope, :stocks_total_depreciations)
+      g9[:previous_net_total] = (g9[:previous_raw_total].to_d - g9[:previous_variations_total].to_d).round(2)
+    end
     actif << g9
 
     dataset << actif
@@ -283,7 +317,7 @@ class BalanceSheetPrinter
       i = HashWithIndifferentAccess.new
       i[:name] = item.to_s.tl
       i[:current_raw_value] = current_compute.sum_entry_items_by_line(document_scope, item)
-      i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
+      i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item) if @financial_year.previous
       h[:items] << i
       # puts g5.inspect.yellow
     end
@@ -303,7 +337,7 @@ class BalanceSheetPrinter
       i = HashWithIndifferentAccess.new
       i[:name] = item.to_s.tl
       i[:current_raw_value] = current_compute.sum_entry_items_by_line(document_scope, item)
-      i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
+      i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item) if @financial_year.previous
       h[:items] << i
       # puts g5.inspect.yellow
     end
@@ -325,7 +359,7 @@ class BalanceSheetPrinter
       i = HashWithIndifferentAccess.new
       i[:name] = item.to_s.tl
       i[:current_raw_value] = current_compute.sum_entry_items_by_line(document_scope, item)
-      i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item)
+      i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item) if @financial_year.previous
       h[:items] << i
       # puts g5.inspect.yellow
     end
@@ -363,7 +397,7 @@ class BalanceSheetPrinter
       r.add_field 'DATE', Date.today.l
       r.add_field 'STARTED_ON', started_on.to_date.l
       r.add_field 'N', stopped_on.to_date.l
-      r.add_field 'N_1', @financial_year.previous.stopped_on.to_date.l
+      r.add_field 'N_1', @financial_year.previous.stopped_on.to_date.l if @financial_year.previous
       r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
       r.add_field 'DATA_FILTERS', data_filters * ' | '
 
