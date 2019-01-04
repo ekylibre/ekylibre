@@ -84,7 +84,7 @@ fra:
       reset: "Ré-initialiser la cellule: %{name}"
     backend/building_divisions:
       edit: "Modifier la zone\_: %{name}"
-      index: "Zones de bâtiments"
+      index: "Découpes de bâtiments"
       new: "Nouvelle zone"
       show: "Zone\_: %{name}"
     backend/buildings:
@@ -917,7 +917,7 @@ fra:
     add_annotation: "Ajouter une annotation"
     add_attachment: "Ajouter une pièce jointe"
     add_bank_statement: "Ajouter un relevé de compte"
-    add_building_division: "Ajouter une zone de bâtiment"
+    add_building_division: "Ajouter une découpe de bâtiment"
     add_catalog_price: "Ajouter un prix catalogue"
     add_child: "Ajouter un sous-composant"
     add_choice: "Ajouter un choix"
