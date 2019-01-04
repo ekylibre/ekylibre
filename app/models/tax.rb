@@ -76,6 +76,8 @@ class Tax < Ekylibre::Record::Base
 
   scope :current, -> { where(active: true).order(:country, :amount) }
 
+  scope :intracommunity, -> { where(intracommunity: true, nature: 'eu_vat') }
+
   before_validation do
     if Nomen::TaxNature.find(nature)
       self.name = short_label if name.blank?

@@ -38,10 +38,10 @@
           %th{ colspan: 2 }= :totals.tl
           - columns.each do |column|
             %td.decimal
-              .tax-amount= resource.items.sum("#{column}_tax_amount").l(currency: resource.currency)
-              %small.pretax-amount= resource.items.sum("#{column}_pretax_amount").l(currency: resource.currency)
+              .tax-amount= resource.items.where.not(tax_id: Tax.intracommunity.pluck(:id)).sum("#{column}_tax_amount").l(currency: resource.currency)
+              %small.pretax-amount= resource.items.where.not(tax_id: Tax.intracommunity.pluck(:id)).sum("#{column}_pretax_amount").l(currency: resource.currency)
         %tr.total
-          - to_pay = resource.items.sum(:balance_tax_amount)
+          - to_pay = resource.items.where.not(tax_id: Tax.intracommunity.pluck(:id)).sum(:balance_tax_amount)
           - if to_pay >= 0
             %th{ colspan: 5}= :to_pay.tl
             %td= to_pay.l(currency: resource.currency)
@@ -49,7 +49,7 @@
             %th{ colspan: 5}= :to_reclaim.tl
             %td= (-to_pay).l(currency: resource.currency)
 
-      - resource.items.joins(:tax).reorder("taxes.amount DESC").each do |item|
+      - resource.items.where.not(tax_id: Tax.intracommunity.pluck(:id)).joins(:tax).reorder("taxes.amount DESC").each do |item|
         - tax = Tax.find(item.tax_id)
         %tbody
           %tr
