@@ -1201,7 +1201,7 @@ eng:
     balance_of_selection: "Balance of selection"
     balanced: "Balanced"
     bank_account: "Bank account"
-    # bank_guarantees: "Bank guarantees"
+    bank_guarantees: "Bank guarantees"
     bank_statement_number: "Bank statement number" #?
     bank_statements: "Bank statements" #?
     bban: "Basic Bank Account Number (BBAN)" #?
