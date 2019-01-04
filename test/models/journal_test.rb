@@ -117,7 +117,7 @@ class JournalTest < ActiveSupport::TestCase
     client = create(:entity, :client)
     sale = create(:sale_with_accounting, client: client)
     sale_item = create(:sale_item, sale: sale)
-    sale.invoice!
+    sale.invoice! Date.new(2018, 04, 30)
     params = {
       period: '2018-01-01_2018-12-31',
       started_on: '2018-01-01',
