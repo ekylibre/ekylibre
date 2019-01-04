@@ -1588,6 +1588,7 @@ fra:
       provisional: "Prévisionnelle" #?
       recommended: "Préconisée" #?
       undone: "En attente" #?
+    intracommunautary_vat: "TVA Intra-communautaire"
     invalid_file: "Fichier invalide"
     invalid_format: "Format invalide"
     inventories: "Inventaires"
@@ -2246,6 +2247,7 @@ fra:
     sowable: "Semable" #?
     sowed_at: "Semé le" #?
     spraying_map: "Carte de pulvérisation" #?
+    standard_vat: "TVA Standard"
     start: "Du"
     start_new_intervention_here: "Commencer une nouvelle intervention ici"
     started: "Nouveaux"

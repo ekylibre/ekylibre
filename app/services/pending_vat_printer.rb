@@ -197,7 +197,9 @@ class PendingVatPrinter
         :tax_amount.tl
       ]
 
-      dataset[0...-2].each do |tax_nature|
+      csv << [:standard_vat.tl]
+
+      dataset[0...3].each do |tax_nature|
         csv << [
           "#{:vat.tl} #{tax_nature[:name]}"
         ]
@@ -227,10 +229,12 @@ class PendingVatPrinter
       end
 
       csv << [
-        "#{:vat.tl} #{dataset[-2]}",
+        "#{:vat.tl} #{dataset[3]}",
         "",
-        dataset[-1]
+        dataset[4]
       ]
+
+      csv << [:intracommunautary_vat.tl]
     end
   end
 end
