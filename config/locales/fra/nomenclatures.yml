@@ -1341,7 +1341,7 @@ fra:
         ghs_toxic: "Toxique "
         ghs-h360fd2: "Peut nuire à la fertilité. Peut nuire au fœtus."
       name: "Classifications chimiques"
-    
+
     chemical_elements:
       items:
         actinium: "Actinium"
@@ -3151,8 +3151,8 @@ fra:
         biological_auxiliary: "Auxiliaire biologique"
         bonus_staff_expense: "Primes et gratifications au personnel"
         building: "Bâtiment"
-        building_division: "Pièce ou zone d’un bâtiment"
-        building_rental: "Location de bâtiment"
+        building_division: "Pièce ou découpe d’un bâtiment"
+        building_rental: "Location de bâtiment" #?
         calf: "Veau"
         car_rental: "Location de véhicule"
         carriage: "Transport"
@@ -3398,7 +3398,7 @@ fra:
         buckwheat_grain: "Graine de sarrasin"
         buckwheat_seed: "Semence de sarrasin"
         building: "Bâtiment"
-        building_division: "Pièce ou zone d’un bâtiment"
+        building_division: "Pièce ou découpe d’un bâtiment"
         building_insurance: "Assurance (bâtiment)"
         building_material: "Matériaux de construction"
         building_material_in_own_outstanding_installation: "Matériaux de construction (en cours d’utilisation et sur sol propre)"
@@ -4085,7 +4085,7 @@ fra:
         bonus_staff_expense: "Primes et gratifications du personnel"
         bottle: "Bouteille"
         building: "Bâtiment"
-        building_division: "Pièce ou zone d’un bâtiment"
+        building_division: "Pièce ou découpe d’un bâtiment"
         bumblebee_band: "Colonie de bourdon"
         cabbage: "Chou"
         calf: "Veau"
@@ -5111,7 +5111,7 @@ fra:
         bromeliaceae: "Bromeliacée"
         bromus: "Bromus"
         building: "Bâtiment"
-        building_division: "Zone de bâtiment"
+        building_division: "Découpe de bâtiment"
         cairina: "Cairina"
         cairina_moschata: "Canard musqué"
         camelina: "Camelina"

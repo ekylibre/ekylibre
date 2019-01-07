@@ -605,10 +605,15 @@ class Account < Ekylibre::Record::Base
 
   # Compute debit, credit, balance, balance_debit and balance_credit of the account
   # with.all the entry items
-  def totals
+  def totals(on = nil, validated = false)
+    financial_year = FinancialYear.on(on) if on
+    entry_items = journal_entry_items
+    entry_items = entry_items.between(financial_year.started_on, financial_year.stopped_on) if financial_year
+    entry_items = entry_items.where.not(state: 'draft') if validated
+
     hash = {}
-    hash[:debit]  = journal_entry_items.sum(:debit)
-    hash[:credit] = journal_entry_items.sum(:credit)
+    hash[:debit]  = entry_items.sum(:debit)
+    hash[:credit] = entry_items.sum(:credit)
     hash[:balance_debit] = 0.0
     hash[:balance_credit] = 0.0
     hash[:balance] = (hash[:debit] - hash[:credit]).abs

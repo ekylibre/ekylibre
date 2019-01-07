@@ -272,6 +272,7 @@
         <page to="backend/loan_repayments#edit"/>
         <page to="backend/loan_repayments#new"/>
         <page to="backend/loan_repayments#update"/>
+        <page to="backend/loan_repayments#create"/>
       </item>
       <item name="cash_transfers">
         <page to="backend/cash_transfers#index"/>
@@ -863,7 +864,7 @@
         <page to="backend/cultivable_zones#list_productions"/>
         <page to="backend/cultivable_zones#unroll"/>
       </item>
-      <item name="land_parcels">
+<!--       <item name="land_parcels">
         <page to="backend/land_parcels#index"/>
         <page to="backend/land_parcels#create"/>
         <page to="backend/land_parcels#destroy"/>
@@ -921,7 +922,7 @@
         <page to="backend/plants#edit_many"/>
         <page to="backend/plants#update_many"/>
         <page to="backend/visualizations/plants_visualizations#show"/>
-      </item>
+      </item> -->
     </group>
     <group name="animal_management" icon="cow">
       <item name="animals">
