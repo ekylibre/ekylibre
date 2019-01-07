@@ -28,7 +28,7 @@ module Backend
           when 'done' then 'validated'
         end
       end
-      Intervention.state.options.find { |i| i[1] == next_state } if next_state
+      Intervention.state.options.find { |_, v| v == next_state } if next_state
     end
 
     def taskboard_task(intervention)
