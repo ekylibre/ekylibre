@@ -62,10 +62,10 @@ module Backend
         format.odt do
           get_dataset_account
           if params[:non_letter] == 'true'
-            filename = "Extrait_de_compte_non_lettrés_#{@account.number}"
+            filename = :extract_unlettered_account_x.tl(account_number: @account.number).tr(' ', '_')
             send_data non_letter_odt.generate, type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
           else
-            filename = "Extrait_de_compte_#{@account.number}"
+            filename = :extract_account_x.tl(account_number: @account.number).tr(' ', '_')
             send_data to_odt.generate, type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
           end
         end
@@ -198,14 +198,13 @@ module Backend
 
     def to_pdf
       if params[:non_letter] == 'true'
-        filename = "Extrait_de_compte_non_lettrés_#{@account.number}"
+        filename = :extract_unlettered_account_x.tl(account_number: @account.number).tr(' ', '_')
         file_odt = non_letter_odt.generate
-        generate_pdf_from_odt(file_odt, filename)
       else
-        filename = "Extrait_de_compte_#{@account.number}"
+        filename = :extract_account_x.tl(account_number: @account.number).tr(' ', '_')
         file_odt = to_odt.generate
-        generate_pdf_from_odt(file_odt, filename)
       end
+      generate_pdf_from_odt(file_odt, filename)
     end
 
     def generate_pdf_from_odt(file_odt, filename)

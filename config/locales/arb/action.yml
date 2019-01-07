@@ -1432,6 +1432,10 @@ arb:
     draft: "المسودات"
     # driver: "Driver"
     duplicate: "تكرار"
+    # duplicate_intervention: "Duplicate intervention"
+    duplicate_x_selected_interventions:
+      # one: "Duplicate selected intervention"
+      # other: "Duplicate selected interventions"
     duration: "%{hours}ساعة %{minutes}دقيقة"
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     during: "أثناء"
@@ -1512,6 +1516,8 @@ arb:
     export_as_ods: "التصدير، المواد المستنفدة للأوزون"
     export_as_xcsv: "تصدير واكسل CSV"
     extract: "يستخرج" #?
+    # extract_account_x: "Extract account %{account_number}"
+    # extract_unlettered_account_x: "Extract unlettered account %{account_number}"
     # fees: "Fees"
     # field: "Field %{counter}"
     field_distribution: "مجال التوزيع"
@@ -2029,6 +2035,7 @@ arb:
     placeholder: "نائب"
     places: "الأماكن"
     # planned: "Planned"
+    # planned_again_intervention_in: "Plan again this intervention on"
     planned_at: "قرر يوم" #?
     # planning: "Planning"
     plant: "نبات"

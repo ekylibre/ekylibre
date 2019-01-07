@@ -875,11 +875,6 @@ fra:
       zoomInTitle: "Zoomer"
       zoomOutTitle: "Dézoomer"
   labels:
-    duplicate_x_selected_interventions:
-      one: "Dupliquer l'intervention sélectionnée"
-      other: "Dupliquer les interventions sélectionnées"
-    duplicate_intervention: "Dupliquer l'intervention"
-    planned_again_intervention_in: "Planifier de nouveau cette intervention le"
     abilities: "Compétences" #?
     accepted: "Acceptée"
     accepted_for_paiment: "Acceptée pour paiement"
@@ -1349,6 +1344,10 @@ fra:
     driver: "Conducteur"
     drug: "Médicament" #?
     duplicate: "Dupliquer"
+    duplicate_intervention: "Dupliquer l'intervention"
+    duplicate_x_selected_interventions:
+      one: "Dupliquer l'intervention sélectionnée"
+      other: "Dupliquer les interventions sélectionnées"
     duration: "Durée"
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     during: "Pendant"
@@ -1426,8 +1425,10 @@ fra:
     export_backup: "Export d’un fichier de sauvegarde" #?
     exportation: "Exportation" #?
     extract: "Extraire" #?
+    extract_account_x: "Extrait de compte %{account_number}"
     extract_non_letter_odt: "Extrait de compte - Non lettrés en ODT" #?
     extract_non_letter_pdf: "Extrait de compte - Non lettrés en PDF" #?
+    extract_unlettered_account_x: "Extrait de compte non lettrés %{account_number}"
     fat_matters_concentration: "Teneur en matières grasses" #?
     fax: "Fax" #?
     fees: "Frais"
@@ -1941,6 +1942,7 @@ fra:
     planned: #? String expected ("Planned")
       one: "Planifiée" #?
       other: "Planifiées" #?
+    planned_again_intervention_in: "Planifier de nouveau cette intervention le"
     planned_at: "Date prévisionnelle" #?
     planned_by: "Planifiée par" #?
     # planning: "Planning"

@@ -66,7 +66,6 @@ eng:
     backend/analysis_items:
       new: "New analysis item"
     backend/animal_groups:
-      # available_time_or_quantity: "Available time or quantity animal group: %{name}"
       edit: "Edit animal group: %{name}"
       # edit_many: "Edit many animal group: %{name}"
       index: "Animal groups"
@@ -79,7 +78,6 @@ eng:
       # add_to_container: "Add to container animal: %{name}"
       add_to_group: "Add to group"
       # add_to_variant: "Add to variant animal: %{name}"
-      # available_time_or_quantity: "Available time or quantity animal: %{name}"
       # change: "Change animal: %{name}"
       edit: "Edit animal: %{name}"
       # edit_many: "Edit many animal: %{name}"
@@ -109,7 +107,6 @@ eng:
     backend/beehives:
       reset: "Reset beehive: %{name}"
     backend/building_divisions:
-      # available_time_or_quantity: "Available time or quantity building division: %{name}"
       edit: "Edit building division: %{name}"
       # edit_many: "Edit many building division: %{name}"
       index: "Building divisions"
@@ -118,7 +115,6 @@ eng:
       # take: "Take building division: %{name}"
       # update_many: "Update many building division: %{name}"
     backend/buildings:
-      # available_time_or_quantity: "Available time or quantity building: %{name}"
       edit: "Edit building: %{name}"
       # edit_many: "Edit many building: %{name}"
       index: "Buildings"
@@ -277,7 +273,6 @@ eng:
       new: "New link"
       # show: "Entity link: %{name}"
     backend/equipments:
-      # available_time_or_quantity: "Available time or quantity equipment: %{name}"
       edit: "Edit equipment: %{name}"
       # edit_many: "Edit many equipment: %{name}"
       index: "Equipment"
@@ -328,7 +323,6 @@ eng:
       show: "Fixed asset: %{name}"
       # start_up: "Start up fixed asset: %{name}"
     backend/fungi:
-      # available_time_or_quantity: "Available time or quantity fungus: %{name}"
       edit: "Edit fungus: %{name}"
       # edit_many: "Edit many fungus: %{name}"
       index: "Fungi"
@@ -406,10 +400,13 @@ eng:
       # change_state: "Change state intervention: %{name}"
       # compare_realised_with_planned: "Compare realised with planned intervention: %{name}"
       # compute: "Compute intervention: %{name}"
+      # create_duplicate_intervention: "Create duplicate intervention intervention: %{name}"
+      # duplicate_interventions: "Duplicate interventions intervention: %{name}"
       edit: "Edit"
       edit_request: "Edit request" #?
       edit_specified: "Edit %{procedure_name} #%{number}" #?
       edit_specified_request: "Edit %{procedure_name} request #%{number}" #?
+      # generate_buttons: "Generate buttons intervention: %{name}"
       index: "Interventions"
       # modal: "Modal intervention: %{name}"
       new: "New intervention"
@@ -465,7 +462,6 @@ eng:
       new: "New label"
       show: "Label: %{name}"
     backend/land_parcels:
-      # available_time_or_quantity: "Available time or quantity land parcel: %{name}"
       edit: "Edit land parcel: %{name}"
       # edit_many: "Edit many land parcel: %{name}"
       index: "Land parcels"
@@ -513,7 +509,6 @@ eng:
       star: "Star map layer: %{name}"
       toggle: "Toggle map layer: %{name}"
     backend/matters:
-      # available_time_or_quantity: "Available time or quantity matter: %{name}"
       edit: "Edit matter: %{name}"
       # edit_many: "Edit many matter: %{name}"
       index: "Matters"
@@ -604,7 +599,6 @@ eng:
     backend/plant_density_abacus_items:
       # new: "New plant density abacus item"
     backend/plants:
-      # available_time_or_quantity: "Available time or quantity plant: %{name}"
       edit: "Edit crop: %{name}"
       # edit_many: "Edit many plant: %{name}"
       index: "Crops"
@@ -624,7 +618,6 @@ eng:
       new: "New prescription"
       show: "Prescription: %{reference_number}"
     backend/product_groups:
-      # available_time_or_quantity: "Available time or quantity product group: %{name}"
       edit: "Edit group: %{name}"
       # edit_many: "Edit many product group: %{name}"
       index: "Product groups"
@@ -669,7 +662,6 @@ eng:
     backend/products/search_variants:
       # search_by_expression: "Search by expression search variant: %{name}"
     backend/products:
-      # available_time_or_quantity: "Available time or quantity product: %{name}"
       edit: "Edit product: %{name}"
       edit_many: "Distribute unaffected products"
       index: "Products"
@@ -824,7 +816,6 @@ eng:
     backend/settings:
       about: "About Ekylibre"
     backend/settlements:
-      # available_time_or_quantity: "Available time or quantity settlement: %{name}"
       edit: "Edit settlement: %{name}"
       # edit_many: "Edit many settlement: %{name}"
       index: "Settlements"
@@ -838,6 +829,7 @@ eng:
       edit: "Edit shipment: %{number}"
       give: "Give shipment: %{number}"
       index: "Shipments"
+      # invoice: "Invoice shipment: %{name}"
       new: "New shipment"
       order: "Order shipment: %{number}"
       prepare: "Prepare shipment: %{number}"
@@ -927,7 +919,6 @@ eng:
     backend/wine_tanks:
       index: "Wine tanks"
     backend/workers:
-      # available_time_or_quantity: "Available time or quantity worker: %{name}"
       edit: "Edit worker: %{name}"
       # edit_many: "Edit many worker: %{name}"
       index: "Workers"
@@ -1048,11 +1039,6 @@ eng:
       zoomInTitle: "Zoom in"
       zoomOutTitle: "Zoom out"
   labels:
-    duplicate_x_selected_interventions:
-      one: Duplicate selected intervention
-      other: Duplicate selected interventions
-    duplicate_intervention: Duplicate intervention 
-    planned_again_intervention_in: 'Plan again this intervention on'
     accepted: "Accepted"
     accepted_for_paiment: "Accepted for paiment"
     access: "Access"
@@ -1408,6 +1394,10 @@ eng:
     draft: "Draft" #?
     driver: "Driver"
     duplicate: "Duplicate"
+    duplicate_intervention: "Duplicate intervention"
+    duplicate_x_selected_interventions:
+      one: "Duplicate selected intervention"
+      other: "Duplicate selected interventions"
     duration: "Duration"
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     during: "During"
@@ -1468,8 +1458,10 @@ eng:
     # export_as_odt: "Export as odt"
     # export_as_pdf: "Export as pdf"
     export_as_xcsv: "Export as Excel CSV"
+    extract_account_x: "Extract account %{account_number}"
     # extract_non_letter_odt: "Extract non letter odt"
     # extract_non_letter_pdf: "Extract non letter pdf"
+    extract_unlettered_account_x: "Extract unlettered account %{account_number}"
     fees: "Fees" #?
     field: "Field %{counter}" #?
     field_distribution: "Field distribution"
@@ -1840,6 +1832,7 @@ eng:
     placeholder: "Placeholder" #?
     places: "Places"
     planned: "Planned"
+    planned_again_intervention_in: "Plan again this intervention on"
     planning: "Planning" #?
     plant: "Crop"
     plant_counting: "Counting" #?
@@ -2408,7 +2401,7 @@ eng:
       accountant_notified: "The accountant has been notified"
       accountant_without_email: "Please set the accountant email"
       all_fixed_assets_must_be_depreciable: "All fixed assets must be depreciable"
-      all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "All parcels must be invoiceable and of same nature and third" #?
+      all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "All parcels must be invoiceable and of same nature and third"
       all_purchases_must_be_ordered_or_invoiced: "All purchases must be ordered or invoiced."
       all_tax_declarations_have_already_existing: "All tax declarations have already existing"
       bookkeeping_is_finished: "The commercial data transfer is finished."
@@ -2568,7 +2561,6 @@ eng:
       # add_to_variant: "Add to variant"
       attach: "Attach"
       # autocomplete: "Autocomplete"
-      # available_time_or_quantity: "Available time or quantity"
       bookkeep: "Bookkeep"
       # build_example: "Build example"
       cancel: "Cancel"
@@ -2588,6 +2580,7 @@ eng:
       correct: "Correct"
       # count: "Count"
       create: "Create"
+      # create_duplicate_intervention: "Create duplicate intervention"
       # csv: "Csv"
       # currency_state: "Currency state"
       # current: "Current"
@@ -2600,6 +2593,7 @@ eng:
       detail: "Detail"
       down: "Down"
       duplicate: "Duplicate"
+      # duplicate_interventions: "Duplicate interventions"
       edit: "Edit"
       edit_interval: "Reconciliate"
       edit_many: "Edit many"
@@ -2612,6 +2606,7 @@ eng:
       family: "Family"
       finish: "Finish"
       # fixed_assets_datas: "Fixed assets datas"
+      # generate_buttons: "Generate buttons"
       generate_last_journal_entry: "Generate last journal entry" #?
       give: "Give"
       # has_harvesting: "Has harvesting"

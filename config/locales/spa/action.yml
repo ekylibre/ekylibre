@@ -1205,6 +1205,10 @@ spa:
     draft_entries: "niebla" #?
     # driver: "Driver"
     duplicate: "Duplicar"
+    # duplicate_intervention: "Duplicate intervention"
+    duplicate_x_selected_interventions:
+      # one: "Duplicate selected intervention"
+      # other: "Duplicate selected interventions"
     duration: "Duración"
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     during: "Durante"
@@ -1267,6 +1271,8 @@ spa:
     export_as_csv: "Exportar como CSV"
     export_as_ods: "Exportar como ODS"
     export_as_xcsv: "Exportar como Excel CSV"
+    # extract_account_x: "Extract account %{account_number}"
+    # extract_unlettered_account_x: "Extract unlettered account %{account_number}"
     # fees: "Fees"
     # field: "Field %{counter}"
     field_distribution: "Distribución de campo"
@@ -1687,6 +1693,7 @@ spa:
     placeholder: "Marcador de posición"
     places: "Lugares"
     # planned: "Planned"
+    # planned_again_intervention_in: "Plan again this intervention on"
     # planning: "Planning"
     plant: "Planta"
     plant_counting: "Contando"
