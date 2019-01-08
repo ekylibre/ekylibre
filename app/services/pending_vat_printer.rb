@@ -76,10 +76,11 @@ class PendingVatPrinter
     intra_taxes = Tax.where(id: tax_declaration.items.pluck(:tax_id), intracommunity: true, nature: :eu_vat).reorder(amount: :desc)
     # intra_columns = [:collected, :intracommunity_payable, :deductible, :fixed_asset_deductible]
     intra_columns = [:collected, :deductible]
+    intra_column_labels = { collected: :sales.tl, deductible: :purchases.tl }
 
     intra_columns.each do |c|
       intra_cat = HashWithIndifferentAccess.new
-      intra_cat[:name] = TaxDeclarationItem.human_attribute_name(c)
+      intra_cat[:name] = intra_column_labels[c]
       intra_cat[:items] = []
 
       intra_taxes.each do |t|
@@ -121,7 +122,6 @@ class PendingVatPrinter
 
   def run_pdf
     dataset = compute_dataset
-    pp dataset
 
     report = generate_document(@document_nature, @key, @template_path) do |r|
 

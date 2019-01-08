@@ -104,7 +104,7 @@ class PurchaseTest < ActiveSupport::TestCase
       tax = Tax.create_with(
         collect_account: Account.find_or_create_by_number('4566'),
         deduction_account: Account.find_or_create_by_number('4567'),
-        intracommunity_payable_account: Account.find_or_create_by_number('4452'),
+        intracommunity_payable_account: Account.find_or_create_by_number('44520000'),
         country: :fr
       ).find_or_create_by!(amount: 20, intracommunity: true, nature: :normal_vat)
       quantity = index + 1
