@@ -154,10 +154,6 @@ class Affair < Ekylibre::Record::Base
       @affairable_types ||= %w[SaleGap PurchaseGap Sale Purchase Payslip IncomingPayment OutgoingPayment Regularization DebtTransfer].freeze
     end
 
-    def affairable_types_with_third
-      %w[SaleGap PurchaseGap Sale Purchase Payslip IncomingPayment OutgoingPayment]
-    end
-
     # Removes empty affairs in the whole table
     def clean_deads
       query = "journal_entry_id NOT IN (SELECT id FROM #{connection.quote_table_name(:journal_entries)})"
@@ -250,8 +246,9 @@ class Affair < Ekylibre::Record::Base
 
   def update_third
     entities_ids = []
-    self.class.affairable_types_with_third.each do |model|
-      entities_ids << model.constantize.where(affair: self).pluck(:third_id)
+    affairable_types_with_third = self.class.affairable_types.map(&:constantize).select { |model| model.method_defined? :third_id }
+    affairable_types_with_third.each do |model|
+      entities_ids << model.where(affair: self).pluck(:third_id)
     end
     uniq_ids = entities_ids.flatten.uniq
     self.third_id = uniq_ids.first if uniq_ids.count == 1
