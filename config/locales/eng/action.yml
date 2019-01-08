@@ -1074,7 +1074,7 @@ eng:
     add_a_repayment: "Add a loan repayment"
     add_a_worker: "Add a worker"
     add_an_account: "Add an account"
-    add_animal: "Add animal"
+    add_animals: "Add animals"
     add_animal_group: "Add animal group"
     add_annotation: "Add annotation"
     add_attachment: "Add attachment"
@@ -1201,7 +1201,7 @@ eng:
     balance_of_selection: "Balance of selection"
     balanced: "Balanced"
     bank_account: "Bank account"
-    # bank_guarantees: "Bank guarantees"
+    bank_guarantees: "Bank guarantees"
     bank_statement_number: "Bank statement number" #?
     bank_statements: "Bank statements" #?
     bban: "Basic Bank Account Number (BBAN)" #?
