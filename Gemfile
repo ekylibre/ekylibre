@@ -19,6 +19,8 @@ gem 'apartment-sidekiq'
 # Ruby syntax extensions
 gem 'possibly'
 
+gem 'better_errors'
+
 # Code manipulation
 gem 'charlock_holmes'
 gem 'code_string', '>= 0.0.1'

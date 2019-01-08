@@ -73,6 +73,14 @@ module Agroedi
         # parse interventions from daplos file and create each one
         imported_crop_interventions = crop.interventions.map do |i|
           w.info '------------------------------INTERVENTION-----------------------------------'
+
+          # check dates from production_name
+          if (activity_production.started_on > i.intervention_started_at.to_date) ||
+             (activity_production.stopped_on < i.intervention_started_at.to_date)
+             w.error "The intervention date : #{i.intervention_started_at.to_date} must be between
+              #{activity_production.started_on} and #{activity_production.stopped_on} for #{activity_production.name}".inspect.red
+          end
+
           # get intervention nature
           intervention_agroedi_code = RegisteredAgroediCode.where(repository_id: 14, reference_code: i.intervention_nature_edicode).first
           w.info "intervention_agroedi_code : #{intervention_agroedi_code.reference_label}".inspect.green
