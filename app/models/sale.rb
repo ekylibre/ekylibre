@@ -106,6 +106,8 @@ class Sale < Ekylibre::Record::Base
   validates :invoiced_at, presence: { if: :invoice? }, financial_year_writeable: true, allow_blank: true
   validates_delay_format_of :payment_delay, :expiration_delay
 
+  alias_attribute :third_id, :client_id
+
   acts_as_numbered :number, readonly: false
   acts_as_affairable :client, debit: :credit?
   accepts_nested_attributes_for :items, reject_if: proc { |item| item[:variant_id].blank? }, allow_destroy: true

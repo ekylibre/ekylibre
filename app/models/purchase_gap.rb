@@ -43,6 +43,8 @@
 class PurchaseGap < Gap
   belongs_to :supplier, foreign_key: :entity_id, class_name: 'Entity'
 
+  alias_attribute :third_id, :entity_id
+
   acts_as_affairable :supplier, good: :profit?, debit: :loss?, class_name: 'PurchaseAffair'
 
   bookkeep do |b|
