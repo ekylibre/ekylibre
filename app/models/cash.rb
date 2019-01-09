@@ -223,7 +223,7 @@ class Cash < Ekylibre::Record::Base
   end
 
   # Load default cashes (1 bank account and 1 cash box)
-  def self.load_defaults
+  def self.load_defaults(**_options)
     [
       %i[bank_account bank banks],
       %i[cash_box cash cashes]
