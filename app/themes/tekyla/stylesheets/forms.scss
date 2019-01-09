@@ -403,3 +403,14 @@ div.nested-fields {
 td.with-details {
   padding: 20px 7px 0px 7px;
 }
+
+.action-form {
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+
+    a {
+      pointer-events: none;
+    }
+  }
+}
