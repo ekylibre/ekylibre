@@ -1,33 +1,27 @@
 require 'minitest/mock'
 require 'rake'
 
-if ENV['CI']
-  require 'codacy-coverage'
-  require 'codecov'
-else
-  require 'simplecov'
-end
 ENV['RAILS_ENV'] ||= 'test'
 
-# if ENV['CI']
-  # SimpleCov.formatters = [
-    # SimpleCov::Formatter::Codecov,
-    # Codacy::Formatter
-  # ]
+if ENV['CI']
+  SimpleCov.formatters = [
+    SimpleCov::Formatter::Codecov,
+    Codacy::Formatter
+  ]
 
-  # SimpleCov.start
-# else
-  # require 'simplecov'
+  SimpleCov.start
+else
+  require 'simplecov'
 
-  # SimpleCov.start do
-    # load_profile 'rails'
-    # add_group 'Exchangers', 'app/exchangers'
-    # add_group 'Inputs', 'app/inputs'
-    # add_group 'Integrations', 'app/integrations'
-    # add_group 'Services', 'app/services'
-    # add_group 'Validators', 'app/validators'
-  # end
-# end
+  SimpleCov.start do
+    load_profile 'rails'
+    add_group 'Exchangers', 'app/exchangers'
+    add_group 'Inputs', 'app/inputs'
+    add_group 'Integrations', 'app/integrations'
+    add_group 'Services', 'app/services'
+    add_group 'Validators', 'app/validators'
+  end
+end
 
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
