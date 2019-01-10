@@ -253,7 +253,7 @@ module Ekylibre
               end
             elsif indics.empty?
               if unit == 'hour'
-                indicator = 'working_duration'
+                indicator = 'usage_duration'
               else
                 raise ActiveExchanger::NotWellFormedFileError, "Unit #{unit.inspect} is invalid for variant #{item_variant.name.inspect}. No indicator can be used with this unit."
               end
@@ -261,7 +261,7 @@ module Ekylibre
               indicator = indics.first
             end
           end
-          
+
           unless r.item_unit_price_amount
             raise ActiveExchanger::NotWellFormedFileError, "No price given for #{r.item_name}"
           end
