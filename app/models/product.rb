@@ -372,10 +372,10 @@ class Product < Ekylibre::Record::Base
   after_initialize :choose_default_name
 
   after_save do
-    set_initial_values if initializeable?
+    if initializeable?
+      set_initial_values
 
-    unless initializeable?
-
+    else
       product_phases = phases.where(product_id: id,
                                     variant_id: variant.id,
                                     nature_id: variant.nature.id,
