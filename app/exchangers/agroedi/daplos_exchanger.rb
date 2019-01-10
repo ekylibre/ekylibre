@@ -96,6 +96,10 @@ module Agroedi
             activity_production.stopped_on = i.intervention_started_at.to_date
             activity_production.save!
             w.info "The actvity production started_on has been updated with : #{i.intervention_started_at.to_date}"
+          elsif i.intervention_stopped_at && activity_production.stopped_on < i.intervention_stopped_at.to_date
+            activity_production.stopped_on = i.intervention_stopped_at.to_date
+            activity_production.save!
+            w.info "The actvity production started_on has been updated with : #{i.intervention_started_at.to_date}"
           end
 
           # get intervention nature
