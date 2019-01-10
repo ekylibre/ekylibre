@@ -88,10 +88,14 @@ module Agroedi
           w.info '------------------------------INTERVENTION-----------------------------------'
 
           # check dates from production_name
-          if (activity_production.started_on > i.intervention_started_at.to_date) ||
-             (activity_production.stopped_on < i.intervention_started_at.to_date)
-             w.error "The intervention date : #{i.intervention_started_at.to_date} must be between
-              #{activity_production.started_on} and #{activity_production.stopped_on} for #{activity_production.name}".inspect.red
+          if activity_production.started_on > i.intervention_started_at.to_date
+             activity_production.started_on = i.intervention_started_at.to_date
+             activity_production.save!
+             w.info "The actvity production started_on has been updated with : #{i.intervention_started_at.to_date}"
+          elsif activity_production.stopped_on < i.intervention_started_at.to_date
+            activity_production.stopped_on = i.intervention_started_at.to_date
+            activity_production.save!
+            w.info "The actvity production started_on has been updated with : #{i.intervention_started_at.to_date}"
           end
 
           # get intervention nature
