@@ -34,6 +34,19 @@ module Agroedi
 
       recorded_interventions_with_inputs = {}
 
+      #HACK: Probs a better way to handle this: this is to avoid a conflict in
+      # naming in Intervention's bookkeep journal creation
+      stock_journal = Journal.find_by(nature: :various, used_for_permanent_stock_inventory: true)
+      unless stock_journal
+        stock_journal = Journal.new(name: :stocks.tl, nature: :various, used_for_permanent_stock_inventory: true).tap(&:valid?)
+        [stock_journal.code, *%i(STOC IVNT)].each do |new_code|
+          conflicting_journals = Journal.where(code: new_code)
+          next if conflicting_journals.any?
+          stock_journal.code = new_code
+          break if stock_journal.save
+        end
+      end
+
       # crop
       imported_interventions = daplos.interchange.crops.map do |crop|
         # get specie and area
@@ -428,7 +441,7 @@ module Agroedi
         existing_intervention.targets.create!(intervention_attributes[:targets_attributes]['0'])
         existing_intervention.inputs.each do |input|
           new_input = input_attributes.find { |i| i[:reference_name].to_s == input.reference_name && i[:product_id] == input.product_id }
-          byebug unless new_input
+          # byebug unless new_input
           input.quantity_value += new_input[:quantity]
           input.save!
         end
