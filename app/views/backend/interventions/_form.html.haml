@@ -26,7 +26,12 @@
       = f.input :state, as: :hidden
       = hidden_field_tag('is_harvesting', f.object.decorate.harvesting?)
 
-      = f.referenced_association :issue, new: false
+      #working-periods
+        - unless f.object.working_periods.any?
+          - stopped_at ||= Time.zone.now
+          - started_at ||= stopped_at - 1.hour
+          - f.object.working_periods.new(started_at: started_at, stopped_at: stopped_at)
+        = f.nested_association(:working_periods, minimum: 1, locals: {namespace: 'working_periods'}, collection: f.object.working_periods.sort_by(&:started_at), partial: '/backend/interventions/working_period_fields')
       - if f.object.record?
         = f.referenced_association :request_intervention, new: false, as: :hidden
       = f.input :description
@@ -37,17 +42,12 @@
       - if f.object.record?
         = f.input :trouble_encountered, show: '#problem-description'
         #problem-description
+          = f.referenced_association :issue, new: false
           = f.input :trouble_description, as: :text
       = f.custom_fields
       #prescriptions
         = f.referenced_association :prescription
         -#= f.referenced_association :recommender
-      #working-periods
-        - unless f.object.working_periods.any?
-          - stopped_at ||= Time.zone.now
-          - started_at ||= stopped_at - 1.hour
-          - f.object.working_periods.new(started_at: started_at, stopped_at: stopped_at)
-        = f.nested_association(:working_periods, minimum: 1, locals: {namespace: 'working_periods'}, collection: f.object.working_periods.sort_by(&:started_at), partial: '/backend/interventions/working_period_fields')
       #labellings
         = f.nested_association(:labellings, partial: '/backend/interventions/labelling_fields')
 
