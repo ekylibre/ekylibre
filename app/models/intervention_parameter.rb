@@ -163,7 +163,6 @@ class InterventionParameter < Ekylibre::Record::Base
 
   def self.compare_with_planned
     result = true
-    accepted_error = { intervention_doer: 1.2, intervention_tool: 1.2, intervention_input: 1.2 }
     associations = { InterventionDoer: :doers, InterventionTool: :tools, InterventionInput: :inputs }
 
     return true if self.all.empty?
@@ -195,7 +194,7 @@ class InterventionParameter < Ekylibre::Record::Base
           self_quantity = self_param.map(&:quantity_population).compact.sum
           request_quantity = request_param.map(&:quantity_population).compact.sum
 
-          percent = accepted_error[request_param.first.type.underscore.to_sym] || 1.2
+          percent = Intervention::PLANNED_REALISED_ACCEPTED_GAP[request_param.first.type.underscore.to_sym] || 1.2
           intervals = (request_quantity / percent..request_quantity * percent)
 
           return false unless intervals.include?(self_quantity)
@@ -206,7 +205,7 @@ class InterventionParameter < Ekylibre::Record::Base
           self_duration = 0
           self_param.each { |param| self_duration += calculate_cost_amount_computation(param).quantity }
 
-          percent = accepted_error[request_param.first.type.underscore.to_sym] || 1.2
+          percent = Intervention::PLANNED_REALISED_ACCEPTED_GAP[request_param.first.type.underscore.to_sym] || 1.2
           intervals = (rq_duration / percent..rq_duration * percent)
 
           return false unless intervals.include?(self_duration)

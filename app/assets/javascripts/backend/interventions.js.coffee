@@ -4,6 +4,8 @@
 ((E, $) ->
   'use strict'
 
+  PLANNED_REALISED_ACCEPTED_GAP = { intervention_doer: 1.2, intervention_tool: 1.2 , intervention_input: 1.2}
+
   E.value = (element) ->
     if element.is(":ui-selector")
       return element.selector("value")
@@ -538,7 +540,6 @@
       realised_elements = $('.realised .details[data-product-id=' + product_id + '][data-type=' + type + ']')
       planned_duration_sum = 0
       realised_duration_sum = 0
-      accepted_error = { intervention_doer: 1.2, intervention_tool: 1.2 , intervention_input: 1.2}
       data_selector = if type == 'InterventionInput' then 'quantity-population' else 'duration'
       planned_elements.each ->
         planned_quantity = $(this).data(data_selector)
@@ -549,8 +550,8 @@
         realised_quantity = parseFloat(realised_quantity)
         realised_duration_sum += realised_quantity
 
-      min_interval_error = planned_duration_sum / accepted_error[_.snakeCase(type)]
-      max_interval_error = planned_duration_sum * accepted_error[_.snakeCase(type)]
+      min_interval_error = planned_duration_sum / PLANNED_REALISED_ACCEPTED_GAP[_.snakeCase(type)]
+      max_interval_error = planned_duration_sum * PLANNED_REALISED_ACCEPTED_GAP[_.snakeCase(type)]
       if min_interval_error >= realised_duration_sum || max_interval_error <= realised_duration_sum
         $('.details[data-product-id=' + product_id + '][data-type=' + type + ']').find('.quantity').addClass("warning")
 
