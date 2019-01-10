@@ -369,16 +369,18 @@ class Intervention < Ekylibre::Record::Base
   # | outputs      | stock (3X)                | stock_movement (603X/71X) |
   # | inputs       | stock_movement (603X/71X) | stock (3X)                |
   bookkeep do |b|
-    stock_journal = Journal.find_by(nature: :various, used_for_permanent_stock_inventory: true)
-    #HACK: adding other code choices instead of properly addressing the problem
-    #of code collision
-    unless stock_journal
-      stock_journal = Journal.new(name: :stocks.tl, nature: :various, used_for_permanent_stock_inventory: true).tap(&:valid?)
-      [stock_journal.code, *%i(STOC IVNT)].each do |new_code|
-        conflicting_journals = Journal.where(code: new_code)
-        next if conflicting_journals.any?
-        stock_journal.code = new_code
-        break if stock_journal.save
+    if Preference[:permanent_stock_inventory]
+      stock_journal = Journal.find_by(nature: :various, used_for_permanent_stock_inventory: true)
+      #HACK: adding other code choices instead of properly addressing the problem
+      #of code collision
+      unless stock_journal
+        stock_journal = Journal.new(name: :stocks.tl, nature: :various, used_for_permanent_stock_inventory: true).tap(&:valid?)
+        [stock_journal.code, *%i(STOC IVNT)].each do |new_code|
+          conflicting_journals = Journal.where(code: new_code)
+          next if conflicting_journals.any?
+          stock_journal.code = new_code
+          break if stock_journal.save
+        end
       end
     end
 
