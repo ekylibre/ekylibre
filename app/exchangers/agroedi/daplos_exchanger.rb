@@ -307,7 +307,7 @@ module Agroedi
 
       ## DURATION
       # get duration from EDI DAPLOS file
-      if i.intervention_duration.present? && i.intervention_duration.nonzero?
+      if i.intervention_duration.present? && !(i.intervention_duration.match /^0+$/)
         # TODO: with format #JJHHMM ex : 010430 => 01 day 4 hour 30 minute
         j = Measure.new(i.intervention_duration[0, 2].to_i, :day).convert(:second)
         h = Measure.new(i.intervention_duration[2, 2].to_i, :hour).convert(:second)
@@ -457,7 +457,7 @@ module Agroedi
 
       ## DURATION
       # get duration from EDI DAPLOS file
-      if i.intervention_duration.present? && i.intervention_duration.nonzero?
+      if i.intervention_duration.present? && !(i.intervention_duration.match /^0+$/)
         # TODO: with format #JJHHMM ex : 010430 => 01 day 4 hour 30 minute
         j = Measure.new(i.intervention_duration[0, 2].to_i, :day).convert(:second)
         h = Measure.new(i.intervention_duration[2, 2].to_i, :hour).convert(:second)
