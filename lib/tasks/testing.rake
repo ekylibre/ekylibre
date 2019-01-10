@@ -1,26 +1,30 @@
 Rake::Task['test:run'].clear
 
 SLOW_TESTS = %w[
-  Backend::ProductNaturesControllerTest
-  Ekylibre::SettingsExchangerTest
-  UPRA::ReproductorsExchangerTest
-  Synel::AnimalsExchangerTest
-  Ekylibre::FirstRunTest
-  Backend::AccountsControllerTest
-  FinancialYearCloseTest
-  AggeratioTest
-  Backend::MattersControllerTest
-  CustomFieldTest
-  FixturesTest
-  CharentesAlliance::IncomingDeliveriesExchangerTest
-  Lilco::MilkAnalysesExchangerTest
-  Backend::ActivitiesControllerTest
-  FIEA::GalacteaExchangerTest
-  Backend::JournalEntriesControllerTest
-  Backend::ProductNatureVariantsControllerTest
-  FinancialYearTest
   AccountTest
+  AggeratioTest
+  Backend::AccountsControllerTest
+  Backend::ActivitiesControllerTest
+  Backend::JournalEntriesControllerTest
+  Backend::MattersControllerTest
+  Backend::ProductNatureVariantsControllerTest
+  Backend::ProductNaturesControllerTest
+  Backend::SalesControllerTest
+  CharentesAlliance::IncomingDeliveriesExchangerTest
+  CustomFieldTest
   Ekylibre::AccountsExchangerTest
+  Ekylibre::FirstRunTest
+  Ekylibre::SettingsExchangerTest
+  Ekylibre::TenantTest
+  FIEA::GalacteaExchangerTest
+  FinancialYearCloseTest
+  FinancialYearTest
+  FixturesTest
+  Lilco::MilkAnalysesExchangerTest
+  PdfPrinterTest
+  Synel::AnimalsExchangerTest
+  TaxDeclarationItemTest
+  UPRA::ReproductorsExchangerTest
 ].freeze
 
 def slow_test_paths
