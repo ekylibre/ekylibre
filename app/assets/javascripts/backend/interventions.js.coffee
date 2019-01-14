@@ -835,6 +835,7 @@
   true
   
   $(document).ready ->
+    #TODO: Refacto this to not be coupled so tight to URL
     if window.location.pathname.includes('/backend/interventions/')
       path = window.location.pathname
       intervention = path.substring(path.lastIndexOf('/') + 1);
