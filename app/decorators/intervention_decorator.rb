@@ -53,7 +53,7 @@ class InterventionDecorator < Draper::Decorator
   end
 
   def add_actionner_name(title, name)
-  h.content_tag(:div, nil, class: 'info') do
+    h.content_tag(:div, nil, class: 'info') do
       h.concat(h.content_tag(:span, title.tl, class: :title))
       h.concat(h.content_tag(:span, name, class: :value))
     end
