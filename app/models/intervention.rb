@@ -418,7 +418,7 @@ class Intervention < Ekylibre::Record::Base
   def compare_planned_and_realised
     return :no_request if request_intervention.nil? || request_intervention.parameters.blank?
     return false if request_intervention.duration != self.duration
-    accepted_error = { intervention_doer: 1.2, intervention_tool: 1.2, intervention_input: 1.2 }
+    accepted_error = PLANNED_REALISED_ACCEPTED_GAP
     params_result = true
 
     associations = %i[doers tools inputs targets]
