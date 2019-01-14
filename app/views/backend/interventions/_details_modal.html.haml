@@ -64,9 +64,15 @@
             - title = input.product.name
             - detail = ""
 
-            - unless input.quantity_value.nil? || input.quantity_handler_reference.unit.nil?
+            - unless input.quantity_value.nil?
               - detail = input.quantity_value.round(2).l(precision: 0)
-              - detail << " " + input.quantity_handler_reference.unit.symbol
+
+              - if input.is_population?
+                - unit = input.variant.unit_name.mb_chars.downcase
+              - else
+                - unit = input.quantity_handler_reference.unit.symbol
+
+              - detail << " " + unit
 
             = add_detail_to_modal_block(title, detail, {icon: 'picto-matter'})
 
