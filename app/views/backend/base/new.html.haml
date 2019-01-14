@@ -11,9 +11,11 @@
   - f.add(:submit, :create.tl, data: { disable_with: :please_wait.tl }, class: 'primary')
   - if local_assigns[:with_continue] && !params[:continue]
     - f.add(:submit, :create_and_continue.tl, data: { disable_with: :please_wait.tl }, class: 'primary', name: :create_and_continue)
-
-  = f.fields(params[:form_partial]) if params[:form_partial]
-  = f.fields unless params[:form_partial]
+ 
+  - if params[:form_partial]
+   = f.fields(params[:form_partial])
+  - else
+    = f.fields
 
   - f.add(:link, :cancel.tl, (params[:redirect] || local_assigns[:cancel_url] || {action: :index}), (params[:dialog] ? {class: 'btn', data: {close_dialog: params[:dialog]}} : {class: 'btn'}))
   = f.actions
