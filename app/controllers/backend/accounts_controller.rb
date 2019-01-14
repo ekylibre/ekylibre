@@ -192,6 +192,7 @@ module Backend
 
     protected
 
+     #TODO: Move this into a `Printer` service class.
     def get_dataset_account
       @dataset_account = @account.account_statement_reporting(params[:non_letter])
     end
