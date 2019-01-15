@@ -37,7 +37,7 @@ module Backend
       conn = Intervention.connection
       # , productions: [:name], campaigns: [:name], activities: [:name], products: [:name]
       expressions = []
-      expressions << 'CASE ' + Procedo.selection.map { |l, n| "WHEN procedure_name = #{conn.quote(n)} THEN #{conn.quote(l)}" }.join(' ') + " ELSE '' END"
+      expressions << 'CASE ' + Procedo.selection.map { |l, n| "WHEN #{Intervention.table_name}.procedure_name = #{conn.quote(n)} THEN #{conn.quote(l)}" }.join(' ') + " ELSE '' END"
       code = search_conditions({ interventions: %i[state procedure_name number] }, expressions: expressions) + " ||= []\n"
       code << "unless params[:state].blank?\n"
       code << "  c[0] << ' AND #{Intervention.table_name}.state IN (?)'\n"
@@ -49,9 +49,10 @@ module Backend
       code << "  c << params[:nature]\n"
       code << "end\n"
 
-      code << "c[0] << ' AND ((#{Intervention.table_name}.nature = ? AND #{Intervention.table_name}.state != ? AND (#{Intervention.table_name}.request_intervention_id IS NULL OR #{Intervention.table_name}.request_intervention_id NOT IN (SELECT id from #{Intervention.table_name})) OR #{Intervention.table_name}.nature = ?))'\n"
-      code << "c << 'request'\n"
+      code << "c[0] << ' AND #{Intervention.table_name}.state != ?'\n"
+      code << "c[0] << ' AND ((#{Intervention.table_name}.nature = ? AND I.request_intervention_id IS NULL) OR #{Intervention.table_name}.nature = ?)'\n"
       code << "c << '#{Intervention.state.rejected}'\n"
+      code << "c << 'request'\n"
       code << "c << 'record'\n"
 
       code << "unless params[:procedure_name].blank?\n"
@@ -98,7 +99,7 @@ module Backend
 
       # Support
       code << "if params[:product_id].to_i > 0\n"
-      code << "  c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = \\'InterventionTarget\\' AND product_id IN (?))'\n"
+      code << "  c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE product_id IN (?))'\n"
       code << "  c << params[:product_id].to_i\n"
       code << "end\n"
 
@@ -113,7 +114,7 @@ module Backend
       code << "  c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = \\'InterventionTarget\\' AND product_id IN (SELECT target_id FROM target_distributions WHERE activity_production_id = ?))'\n"
       code << "  c << params[:production_id].to_i\n"
       code << "elsif params[:activity_id].to_i > 0\n"
-      code << "  c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = \\'InterventionTarget\\' AND product_id IN (SELECT target_id FROM target_distributions WHERE activity_id = ?))'\n"
+      code << "  c[0] << 'AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM interventions INNER JOIN activities_interventions ON activities_interventions.intervention_id = interventions.id INNER JOIN activities ON activities.id = activities_interventions.activity_id WHERE activities.id = ?)'\n"
       code << "  c << params[:activity_id].to_i\n"
       code << "end\n"
 
@@ -137,7 +138,7 @@ module Backend
     # @TODO conditions: list_conditions, joins: [:production, :activity, :campaign, :support]
 
     # conditions: list_conditions,
-    list(conditions: list_conditions, order: { started_at: :desc }, line_class: :status) do |t|
+    list(conditions: list_conditions, order: { started_at: :desc }, line_class: :status, includes: [:receptions, :activities, :targets, :participations], joins:'LEFT OUTER JOIN interventions I ON interventions.id = I.request_intervention_id') do |t|
       t.action :purchase, on: :both, method: :post
       t.action :sell,     on: :both, method: :post
       t.action :edit, if: :updateable?
@@ -390,7 +391,6 @@ module Backend
     def purchase_order_items
       purchase_order = Purchase.find(params[:purchase_order_id])
       reception = Intervention.find(params[:intervention_id]).receptions.first if params[:intervention_id].present?
-
       order_hash = if reception.present? && reception.purchase_id == purchase_order.id
                      find_items(reception.id, reception.pretax_amount, reception.items)
                    else
@@ -461,8 +461,22 @@ module Backend
 
           if intervention.nature == :request
             new_intervention = intervention.dup
-            new_intervention.parameters = intervention.parameters
+            intervention.parameters.each do |parameter|
+              new_intervention.parameters.build(parameter.dup.attributes)
+            end
+            intervention.participations.includes(:working_periods).each do |participation|
+              dup_participation = participation.dup.attributes.merge({state: 'in_progress'})
+              new_participation = new_intervention.participations.build(dup_participation)
+              participation.working_periods.each do |wp|
+                new_participation.working_periods.build(wp.dup.attributes)
+              end
+            end
             new_intervention.request_intervention_id = intervention.id
+          end
+
+
+          if new_state == :validated
+            new_intervention.validator = current_user
           end
 
           new_intervention.state = new_state
@@ -470,6 +484,14 @@ module Backend
 
           next unless new_intervention.valid?
           new_intervention.save!
+        end
+      end
+
+      if @interventions.count == 1 && !(params[:intervention][:redirect] == 'false')
+        intervention = @interventions.first
+        if intervention.request? && intervention.record_interventions.any?
+          record_intervention = intervention.record_interventions.first
+          return redirect_to backend_intervention_path(record_intervention)
         end
       end
 
@@ -488,6 +510,47 @@ module Backend
         finished:  Intervention.with_unroll(options.merge(nature: :record, state: :done)),
         validated: Intervention.with_unroll(options.merge(nature: :record, state: :validated))
       }
+      respond_to do |format|
+        format.js
+      end
+    end
+
+    def generate_buttons
+      get_interventions
+
+      if interventions_validations
+        render json: nil
+      elsif params[:icon_btn] == 'true'
+        render json: { translation: :duplicate_x_selected_interventions.tl(count: @interventions.count) }
+      else
+        render partial: 'generate_buttons'
+      end
+    end
+
+    def duplicate_interventions
+      get_interventions
+      if interventions_validations
+        render json: nil
+      else
+        render partial: 'duplicate_modal',
+        locals: { intervention: @interventions.first }
+      end
+    end
+
+    def create_duplicate_intervention
+      find_intervention
+      new_intervention
+      if @new_intervention.save
+        params[:interventions].delete(params[:intervention])
+        duplicate_interventions
+      else
+        render json: { errors: @new_intervention.errors.full_messages.join(', ') }
+      end
+    end
+
+    def compare_realised_with_planned
+      @intervention = Intervention.find(params[:intervention_id])
+      @request_intervention = @intervention.request_intervention
       respond_to do |format|
         format.js
       end
@@ -554,6 +617,76 @@ module Backend
                                 role: item.role }
       end
       order_hash
+    end
+
+
+    def get_interventions
+      @interventions = Intervention.where(id: params[:interventions])
+    end
+
+    def interventions_validations
+      @interventions.empty? || @interventions.select { |i| i.nature == 'record' }.present?
+    end
+
+    def new_intervention
+
+      new_date = params[:date].to_time if params[:date].present?
+
+      @new_intervention = @intervention.dup
+      @new_intervention.started_at = @new_intervention.started_at.change(year: new_date.year, month: new_date.month, day: new_date.day) if new_date
+      @new_intervention.stopped_at = @new_intervention.started_at + @intervention.duration.seconds
+      @new_intervention.parent_id = @intervention.id
+
+      @intervention.working_periods.each do |working_period|
+        duplicate_working_period = working_period.dup
+        duplicate_working_period.intervention = @new_intervention
+        duplicate_working_period.started_at = duplicate_working_period.started_at.change(year: new_date.year, month: new_date.month, day: new_date.day) if new_date
+        duplicate_working_period.stopped_at = duplicate_working_period.started_at + duplicate_working_period.duration.seconds
+        @new_intervention.working_periods << duplicate_working_period
+      end
+
+      @intervention.group_parameters.each do |group_parameter|
+        duplicate_group_parameter = group_parameter.dup
+        duplicate_group_parameter.intervention = @new_intervention
+
+        [:doers, :inputs, :outputs, :targets, :tools].each do |k|
+          group_parameter.send(k).each do |parameter|
+            duplicate_parameter = parameter.dup
+            duplicate_parameter.group = duplicate_group_parameter
+            duplicate_parameter.intervention = @new_intervention
+            duplicate_group_parameter.send(k) << duplicate_parameter
+          end
+        end
+        
+        @new_intervention.group_parameters << duplicate_group_parameter
+      end
+
+      @intervention.product_parameters.where(group_id: nil).each do |parameter|
+        duplicate_parameter = parameter.dup
+        duplicate_parameter.intervention = @new_intervention
+        @new_intervention.product_parameters << duplicate_parameter
+      end
+
+      @intervention.participations.each do |participation|
+        duplicate_participation = participation.dup
+        duplicate_participation.intervention = @new_intervention
+
+        participation.working_periods.each do |working_period|
+          duplicate_working_period = working_period.dup
+          duplicate_working_period.intervention_participation = duplicate_participation
+          duplicate_working_period.started_at = duplicate_working_period.started_at.change(year: new_date.year, month: new_date.month, day: new_date.day) if new_date
+          duplicate_working_period.stopped_at = duplicate_working_period.started_at + duplicate_working_period.duration.seconds
+          duplicate_participation.working_periods << duplicate_working_period
+        end
+
+        @new_intervention.participations << duplicate_participation
+      end
+      @new_intervention.intervention_proposal_id = @intervention.intervention_proposal_id if @intervention.respond_to?(:intervention_proposal_id)
+      @new_intervention
+    end
+
+    def find_intervention
+      @intervention = Intervention.find(params[:intervention])
     end
   end
 end

@@ -18,6 +18,7 @@
 
 module Backend
   class MattersController < Backend::ProductsController
+    before_action :save_search_preference, only: :index
     list(conditions: list_conditions) do |t|
       t.action :edit
       t.action :destroy, if: :destroyable?

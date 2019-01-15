@@ -32,6 +32,13 @@ jpn:
         started_on: "起動日付"
       fixed_asset_depreciation:
         asset_amount: "責任値"
+      intervention_working_period:
+        started_at:
+          # one: "Started at is inferior than expected"
+          # other: "{{count}} Started at is inferior than expected"
+        stopped_at:
+          # one: "Stopped at is inferior than expected"
+          # other: "{{count}} Stopped at is inferior than expected"
       land_parcel:
         born_at: "で作成されました"
       land_parcel_group:
@@ -178,6 +185,12 @@ jpn:
           attributes:
             parameters:
               check_errored: "コネクションチェックがエラーを起こしました。あなたの入力の有効性を確認するか、後でやり直してください。"
+        intervention_working_period:
+          attributes:
+            started_at:
+              # inferior: "Started at is inferior than expected"
+            stopped_at:
+              # inferior: "Stopped at is inferior than expected"
         journal:
           attributes:
             accountant:
@@ -197,6 +210,8 @@ jpn:
           unvalid_amounts: "ジャーナルエントリは、同時にデビットカードまたはクレジットではなく、どちらかを満たさなければなりません。"
         outgoing_parcel_item:
           # greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
+        purchase:
+          # payment_delay_custom_validation_message: "Accepted formats : %{values}"
         purchase_item:
           attributes:
             fixed:
@@ -533,7 +548,9 @@ jpn:
     bank_statement_letter: "銀行取引明細書の手紙"
     bank_statements: "銀行取引明細書"
     base_amount: "基準額"
+    # batch: "Batch"
     # batch_number: "Batch number"
+    # batch_planting: "Batch planting"
     battery_level: "バッテリー残量"
     birth_date_completeness: "生年月日の完全性"
     birth_farm_number: "出生農場数"
@@ -673,6 +690,7 @@ jpn:
     custom_fields: "カスタムフィールド"
     custom_fields_columns: "カスタムフィールドの列"
     customized_type: "カスタマイズされたタイプ"
+    # daily_charges: "Daily charges"
     daily_nitrogen_production: "毎日の窒素製造"
     dashboards: "ダッシュボード"
     dead: "デッド"
@@ -963,6 +981,10 @@ jpn:
     intervention_participation: "介入参加"
     intervention_participations: "介入参加"
     intervention_product_parameters: "介入キャスト"
+    # intervention_proposal: "Intervention proposal"
+    # intervention_proposals: "Intervention proposals"
+    # intervention_template: "Intervention template"
+    # intervention_templates: "Intervention templates"
     interventions: "介入"
     interventions_used_in: "介入に使用されます"
     intracommunity: "イントラコミュニティ"
@@ -981,6 +1003,7 @@ jpn:
     invoiced_at: "上の請求済み"
     invoiced_on: "上の請求済み"
     ip_address: "IPアドレス"
+    # irregular_batch: "Irregular batch"
     irrigated: "灌漑"
     irrigation_water_nitrogen: "灌漑水の窒素"
     islet: "小島"
@@ -1154,6 +1177,7 @@ jpn:
     number: "番号"
     number_format: "数値形式"
     number_increment: "数の増加"
+    # number_of_batch: "Number of batch"
     number_start: "数開始"
     observations: "観測"
     observed_at: "で観測"
@@ -1475,6 +1499,7 @@ jpn:
     source: "ソース"
     source_product: "ソース製品"
     # source_product_movement: "Source product movement"
+    # sowing_interval: "Sowing interval"
     spaced_iban: "間隔をあけIBAN"
     # specie: "Specie"
     sql_type: "SQLタイプ"
@@ -1548,6 +1573,7 @@ jpn:
     tax_payability: "税採算性"
     taxations: "課税"
     team: "チーム"
+    # technical_itinerary: "Technical itinerary"
     template: "テンプレート"
     theme: "テーマ"
     theoretical_number: "理論数"

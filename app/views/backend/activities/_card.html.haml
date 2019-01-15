@@ -13,12 +13,6 @@
       .activity-indicators
         .activity-indicator.size
           = activity.size_during(campaign).round(1).l(precision: 1) rescue nil
-        .activity-indicator.pfi
-          - if activity.production_nature
-            = activity.pfi_activity_ratio(campaign)
-        .activity-indicator.opened-issues
-          - if issues.any?
-            = issues.opened.count.to_s + '/' + issues.count.to_s
         .activity-indicator.cumulated-time
           - interventions = Intervention.real.of_campaign(campaign).of_activity(activity)
           - if interventions.any?
@@ -27,7 +21,12 @@
             - targets = Product.where(id: activity.productions.select(:support_id))
             - if targets.any?
               = Intervention.real.with_targets(targets).of_civil_year(campaign.harvest_year).sum(:working_duration).to_d.in(:second).convert(:hour).round.l(precision: 0)
+        .activity-indicator.opened-issues
+          = issues.opened.count.to_s + '/' + issues.count.to_s
         .activity-indicator.cash
           = activity.decorate.production_costs(current_campaign)[:global_costs][:total].l(currency: currency.name)
+        - if activity.production_nature
+          .activity-indicator.pfi
+            = activity.pfi_activity_ratio(campaign)
     - else
       = link_to(:new_production.tl, {controller: :activity_productions, action: :new, activity_id: activity.id, campaign_id: campaign.id}, class: 'btn btn-default')

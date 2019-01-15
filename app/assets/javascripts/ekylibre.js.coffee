@@ -22,7 +22,7 @@
     if !event
       return;
 
-    if event.stopped == 'undefined'
+    if event.stopped == 'undefined' || event.stopped == undefined
 
       event.cancelBubble = true
       event.returnValue = false
@@ -35,6 +35,7 @@
 
       if event.preventDefault
         event.preventDefault()
+
 
   E.toggleValidateButton = (container) ->
     requiredFields = container.find('input[data-required]:visible')

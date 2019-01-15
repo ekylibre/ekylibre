@@ -17,7 +17,7 @@
     = :home.tl
 
   - if current_part
-    = link_to(current_part.human_name, { controller: "/backend/dashboards", action: current_part.name }, id: "part")
+    = link_to(current_part.human_name, { controller: "/#{ current_part.default_page.controller }", action: current_part.default_page.action }, id: "part")
 
   .collapse
 
@@ -30,7 +30,7 @@
             attrs = {id: "#{part.name}-part"}
             attrs[:class] = :active if current_part == part
           %li{attrs}
-            = link_to(controller: "/backend/dashboards", action: part.name) do
+            = link_to(controller: "/#{ part.default_page.controller }", action: part.default_page.action) do
               %i
               = part.human_name
 

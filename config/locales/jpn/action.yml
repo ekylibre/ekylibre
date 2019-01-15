@@ -745,6 +745,8 @@ jpn:
         # one: "%{count} error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
+    bank_reconciliation:
+      # remove: "Remove"
     leaflet:
       draw:
         handlers:
@@ -1032,6 +1034,7 @@ jpn:
     conditions:
       filter_on_attribute_of_class: "クラスの属性にフィルター"
       special-subscriber: "特別加入者"
+    # conducted: "Conducted"
     configure: "設定します"
     # confirmation_update_historical_plans: "Confirmation update historical plans"
     connect: "ログイン"
@@ -1156,6 +1159,10 @@ jpn:
     draft: "ドラフト"
     # driver: "Driver"
     duplicate: "複製"
+    # duplicate_intervention: "Duplicate intervention"
+    duplicate_x_selected_interventions:
+      # one: "Duplicate selected intervention"
+      # other: "Duplicate selected interventions"
     duration: "デュレーション"
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     during: "間に"
@@ -1213,6 +1220,8 @@ jpn:
     export_as_csv: "CSVとしてエクスポート"
     export_as_ods: "ODSとしてエクスポート"
     export_as_xcsv: "Excel CSVとしてエクスポート"
+    # extract_account_x: "Extract account %{account_number}"
+    # extract_unlettered_account_x: "Extract unlettered account %{account_number}"
     # fees: "Fees"
     # field: "Field %{counter}"
     field_distribution: "電界分布"
@@ -1560,6 +1569,7 @@ jpn:
     payment_amount: "支払額"
     payment_at: "お支払いについて"
     payment_conditions: "支払条件"
+    # payment_delay_placeholder: "eom, 5 days before"
     payment_mode: "お支払いモード"
     payments: "支払い"
     payments_count: "支払いは数えます"
@@ -1577,6 +1587,9 @@ jpn:
     picture: "画像"
     placeholder: "プレースホルダー"
     places: "場所"
+    # planned: "Planned"
+    # planned_again_intervention_in: "Plan again this intervention on"
+    # planning: "Planning"
     plant: "工場"
     plant_counting: "集計"
     plant_countings: "カウント"
@@ -1609,6 +1622,7 @@ jpn:
     production_cost: "生産コスト"
     # production_costs: "Production costs"
     production_distribution: "生産流通"
+    # production_nature: "Production nature"
     production_support: "生産支援"
     productions: "プロダクション"
     productions_sales: "プロダクションの販売"
@@ -1630,6 +1644,7 @@ jpn:
     # purchase_order: "Purchase order"
     purchase_payments: "購入の支払い"
     purchases: "購入"
+    # purchases_prices: "Purchases prices"
     purchases_stocks_variation: "購入株式の変動"
     quality: "品質"
     # quandl: "Quandl"
@@ -1894,6 +1909,7 @@ jpn:
     unit: "単位"
     # unit_amount: "Unit cost excl. taxes"
     # unit_and_indicator: "%{unit} (%{indicator})"
+    # unit_pretax_amount: "Unit pretax amount"
     unknown: "不明"
     unknown_condition: "未知の状態"
     unknown_user: "不明なユーザー"
@@ -1944,6 +1960,7 @@ jpn:
     # wice_grid_columns: "Columns"
     wind_speed: "風速"
     with_fixed_assets_depreciations: "固定資産の減価償却と"
+    # worked_zone_not_corresponding: "The worked zone is not corresponding to the planned one"
     workers: "労働者"
     # workforce: "Workforce"
     working_duration: "作業期間"

@@ -1,12 +1,6 @@
 require 'minitest/mock'
 require 'rake'
 
-if ENV['CI']
-  require 'codacy-coverage'
-  require 'codecov'
-else
-  require 'simplecov'
-end
 ENV['RAILS_ENV'] ||= 'test'
 
 if ENV['CI']

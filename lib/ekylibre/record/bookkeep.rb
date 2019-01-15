@@ -143,7 +143,7 @@ module Ekylibre
           end
 
           raise ArgumentError, 'Neither bookkeeping class nor block given' unless klass || block
-            
+
           configuration = { on: Ekylibre::Record::Bookkeep.actions, column: :accounted_at, method_name: __method__ }
           configuration.update(options) if options.is_a?(Hash)
           configuration[:column] = configuration[:column].to_s

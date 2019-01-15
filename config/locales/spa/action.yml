@@ -717,6 +717,8 @@ spa:
         # one: "%{count} error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
+    bank_reconciliation:
+      # remove: "Remove"
     leaflet:
       draw:
         handlers:
@@ -1057,6 +1059,7 @@ spa:
     conditions:
       filter_on_attribute_of_class: "Filtro de atributo de la clase"
       special-subscriber: "Especial abonado"
+    # conducted: "Conducted"
     configure: "Configurar"
     # confirmation_update_historical_plans: "Confirmation update historical plans"
     confirmed: "Confirmadas" #?
@@ -1202,6 +1205,10 @@ spa:
     draft_entries: "niebla" #?
     # driver: "Driver"
     duplicate: "Duplicar"
+    # duplicate_intervention: "Duplicate intervention"
+    duplicate_x_selected_interventions:
+      # one: "Duplicate selected intervention"
+      # other: "Duplicate selected interventions"
     duration: "Duración"
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     during: "Durante"
@@ -1264,6 +1271,8 @@ spa:
     export_as_csv: "Exportar como CSV"
     export_as_ods: "Exportar como ODS"
     export_as_xcsv: "Exportar como Excel CSV"
+    # extract_account_x: "Extract account %{account_number}"
+    # extract_unlettered_account_x: "Extract unlettered account %{account_number}"
     # fees: "Fees"
     # field: "Field %{counter}"
     field_distribution: "Distribución de campo"
@@ -1665,6 +1674,7 @@ spa:
     payment_amount: "Cantidad de pago"
     payment_at: "El pago de"
     payment_conditions: "Condiciones de pago"
+    # payment_delay_placeholder: "eom, 5 days before"
     payment_mode: "Modo de pago"
     payments: "Encajonamientos"
     payments_count: "Nombre de %{mode}"
@@ -1682,6 +1692,9 @@ spa:
     picture: "Imagen"
     placeholder: "Marcador de posición"
     places: "Lugares"
+    # planned: "Planned"
+    # planned_again_intervention_in: "Plan again this intervention on"
+    # planning: "Planning"
     plant: "Planta"
     plant_counting: "Contando"
     plant_countings: "Los recuentos"
@@ -1717,6 +1730,7 @@ spa:
     production_cost: "Costo de producción"
     # production_costs: "Production costs"
     production_distribution: "Distribución de la producción"
+    # production_nature: "Production nature"
     production_support: "Soporte de producción"
     productions: "Producciones"
     productions_sales: "Producciones ventas"
@@ -1741,6 +1755,7 @@ spa:
       products: "Creación de la compra" #?
       summary: "Desembolsos" #?
     purchases: "Compras"
+    # purchases_prices: "Purchases prices"
     purchases_stocks_variation: "Variación de existencias compras"
     quality: "Calidad"
     # quandl: "Quandl"
@@ -2052,6 +2067,7 @@ spa:
     # unit_amount: "Unit cost excl. taxes"
     # unit_and_indicator: "%{unit} (%{indicator})"
     unit_create: "Añadir una nueva unidad de medida" #?
+    # unit_pretax_amount: "Unit pretax amount"
     unit_price_amount: "PU HT" #?
     unit_price_amount_with_taxes: "PU TTC" #?
     units_load: "Cargar las unidades de base que falten" #?
@@ -2110,6 +2126,7 @@ spa:
     wind_speed: "Velocidad del viento"
     with_fixed_assets_depreciations: "Con activos fijos amortizaciones"
     with_prints: "Incluir las impresiones (facturas, encargos...)" #?
+    # worked_zone_not_corresponding: "The worked zone is not corresponding to the planned one"
     workers: "Trabajadores"
     # workforce: "Workforce"
     working_duration: "Duración de trabajo"

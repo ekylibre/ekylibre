@@ -136,7 +136,7 @@ module ApplicationHelper
     vals = []
     vals << (seconds / 1.hour).floor
     seconds -= 1.hour * (seconds / 1.hour).floor
-    vals << (seconds / 1.minute).floor.to_s.rjust(2, '0')
+    vals << (seconds / 1.minute).round.to_s.rjust(2, '0')
     seconds -= 1.minute * (seconds / 1.minute).floor
     # vals << seconds.round.to_s.rjust(2, "0")
     vals.join(':')
@@ -893,6 +893,19 @@ module ApplicationHelper
     simple_fields_for(object, *(args << options.merge(builder: Backend::FormBuilder)), &block)
   end
 
+  def ekylibre_form_for(object, *args, &block)
+    options = args.extract_options!
+
+    if options[:namespace] == :none
+      return simple_form_for(object, *(args << options.merge(builder: Backend::FormBuilder)), &block)
+    end
+
+    namespace = options[:namespace]
+    namespace ||= :backend
+
+    simple_form_for([namespace, object], *(args << options.merge(builder: Backend::FormBuilder)), &block)
+  end
+
   # Wraps a label and its input in a standard wrapper
   def field(label, input, options = {}, &block)
     options[:label] ||= {}
@@ -1071,6 +1084,14 @@ module ApplicationHelper
     result << filler if unbalanced
 
     safe_join(result)
+  end
+
+  def no_turbolink?
+    if content_for(:no_turbolink)
+      { data: { no_turbolink: true }}
+    else
+      { data: nil }
+    end
   end
 
   private

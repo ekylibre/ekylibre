@@ -22,6 +22,8 @@ module Backend
 
     unroll
 
+    before_action :save_search_preference, only: :index
+
     respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
     # params:

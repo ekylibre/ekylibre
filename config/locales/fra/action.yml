@@ -344,9 +344,9 @@ fra:
       edit_specified_request: "Modifier la demande de %{procedure_name} n°%{number}"
       index: "Interventions"
       new: "Nouvelle intervention"
-      new_request: "Nouvelle demande d’intervention"
+      new_request: "Nouvelle planification d’intervention"
       new_specified: "Nouvelle intervention de %{procedure_name}"
-      new_specified_request: "Nouvelle demande de %{procedure_name}"
+      new_specified_request: "Nouvelle planification de %{procedure_name}"
       show: "%{procedure_name} n°%{number}"
     backend/inventories:
       edit: "Modifier l’inventaire"
@@ -921,6 +921,7 @@ fra:
     activity_productions: "Productions"
     add: "Ajouter"
     add_a_worker: "Ajouter un équipier"
+    add_an_evaluation_for_this_intervention: "Evaluer cette intervention avant de la valider" #?
     add_animal: "Ajouter un animal"
     add_animal_group: "Ajouter un troupeau"
     add_annotation: "Ajouter une annotation"
@@ -951,7 +952,7 @@ fra:
     add_inspection_calibration_scale: "Ajouter une échelle de calibre"
     add_inspection_point_nature: "Ajouter un critère de qualité"
     add_intervention_record: "Enregistrer une intervention"
-    add_intervention_request: "Demander une intervention"
+    add_intervention_request: "Planifier une intervention"
     add_item: "Ajouter un élément"
     add_labelling: "Ajouter l’étiquette"
     add_line: "Ajouter une ligne"
@@ -1010,6 +1011,7 @@ fra:
     all_conditions: "toutes les conditions"
     all_f: "Toutes" #?
     all_periods: "Tous les exercices"
+    all_the_categories: "Toutes les categories" #?
     already_credited_quantity: "Qté. déjà passée en avoir" #?
     amount: "Montant"
     amount_computed_from: "Montant calculé à partir de %{source}"
@@ -1118,6 +1120,7 @@ fra:
     category: "Catégorie"
     category_code: "Code catégorie" #?
     category_name: "Catégorie" #?
+    category_of_product: "Catégorie de produit" #?
     cells_concentration: "Dénombrement des cellules somatiques" #?
     centralize: "Comptes comptables centralisateurs"
     centralized_account: "Compte centralisateur %{name}"
@@ -1162,6 +1165,7 @@ fra:
     comment: "Commentaire"
     commission: "Commission"
     company: "Société"
+    compare_planned_and_realised: "Comparer avec les interventions planifiées" #?
     complement_sort: "Trier les choix par nom" #?
     complements: "Champs personnalisés" #?
     completed: "Terminées"
@@ -1173,6 +1177,7 @@ fra:
     conditions:
       filter_on_attribute_of_class: "Filtre sur %{attribute} (%{class})"
       special-subscriber: "Filtre Abonné"
+    conducted: "Réalisée"
     configure: "Configurer"
     confirmation_update_historical_plans: "Voulez-vous appliquer ces modifications sur l'historique des noms de parcelles ?"
     confirmed: "Confirmées" #?
@@ -1217,6 +1222,7 @@ fra:
     create_or_import_incoming_parcels: "Créer ou importer des colis à réceptionner"
     create_or_import_interventions: "Créer ou importer des interventions"
     create_or_import_workers: "Créer ou importer des équipiers"
+    create_shipment: "Créer une expédition" #?
     created_at: "Créée le"
     created_at_by: "Créé le %{at} par %{author}"
     created_between: "Enregistré entre le %{started_at} et le %{stopped_at}"
@@ -1325,7 +1331,7 @@ fra:
     documentation: "Documentation"
     doer_cost: "Coût de main d’œuvre"
     doers: "Opérateurs" #?
-    done: "Fait"
+    done: "Terminée"
     dont_generate_carrying_forward_entries: "— Ne pas générer les écritures de report à nouveau —"
     dont_generate_closure_entries: "— Ne pas générer les écritures de clôture —"
     dont_generate_result_entries: "— Ne pas générer les écritures de résultat —"
@@ -1338,6 +1344,10 @@ fra:
     driver: "Conducteur"
     drug: "Médicament" #?
     duplicate: "Dupliquer"
+    duplicate_intervention: "Dupliquer l'intervention"
+    duplicate_x_selected_interventions:
+      one: "Dupliquer l'intervention sélectionnée"
+      other: "Dupliquer les interventions sélectionnées"
     duration: "Durée"
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     during: "Pendant"
@@ -1377,6 +1387,8 @@ fra:
     estimate: "Devis" #?
     estimate_to_order: "Passer le devis en commande" #?
     estimate_yield: "Rendement estimé"
+    etract_account_as_odt: "Extrait de compte en ODT" #?
+    etract_account_as_pdf: "Extrait de compte en PDF" #?
     europe_out_export: "Exportations hors CE" #?
     evaluated_direct_margin: "Marge directe évaluée" #?
     evaluated_doer_cost: "Coût main d’œuvre"
@@ -1413,6 +1425,10 @@ fra:
     export_backup: "Export d’un fichier de sauvegarde" #?
     exportation: "Exportation" #?
     extract: "Extraire" #?
+    extract_account_x: "Extrait de compte %{account_number}"
+    extract_non_letter_odt: "Extrait de compte - Non lettrés en ODT" #?
+    extract_non_letter_pdf: "Extrait de compte - Non lettrés en PDF" #?
+    extract_unlettered_account_x: "Extrait de compte non lettrés %{account_number}"
     fat_matters_concentration: "Teneur en matières grasses" #?
     fax: "Fax" #?
     fees: "Frais"
@@ -1456,7 +1472,7 @@ fra:
     general_ledger: "Grand livre" #?
     generate: "Générer"
     generate_last_journal_entry: "Générer la dernière écriture"
-    generate_parcel: "Générer bon de préparation"
+    generate_parcel: "Créer une réception"
     generate_repayments: "Passer en comptabilité"
     geolocation: "Géolocalisation"
     give_discount: "Octroyer une remise" #?
@@ -1923,7 +1939,13 @@ fra:
     picture: "Photo"
     placeholder: "Espace réservé"
     places: "Lieux"
+    planned: #? String expected ("Planned")
+      one: "Planifiée" #?
+      other: "Planifiées" #?
+    planned_again_intervention_in: "Planifier de nouveau cette intervention le"
     planned_at: "Date prévisionnelle" #?
+    planned_by: "Planifiée par" #?
+    # planning: "Planning"
     plant: "Culture"
     plant_counting: "Comptage"
     plant_countings: "Comptages"
@@ -1978,6 +2000,7 @@ fra:
     production_cost: "Coût de production"
     production_costs: "Coûts de production"
     production_distribution: "Répartition de la production"
+    production_nature: "Type de production"
     production_support: "Support de production"
     productions: "Productions"
     productions_map: "Carte des productions" #?
@@ -2009,6 +2032,7 @@ fra:
     purchases: "Achats"
     purchases_bar: "Achats par type" #?
     purchases_expense_bar: "Dépenses par mois" #?
+    purchases_prices: "Evolution du prix d'achat"
     purchases_selections: #?
       aborted: "Annulée" #?
       draft: "Brouillon" #?
@@ -2399,6 +2423,7 @@ fra:
     unit: "Unité"
     unit_amount: "Prix unit. HT"
     unit_and_indicator: "%{unit} (%{indicator})"
+    unit_pretax_amount: "Prix unitaire HT"
     unit_price_amount: "PU HT" #?
     unit_price_amount_with_taxes: "PU TTC" #?
     units_load: "Charger les unités de base manquantes" #?
@@ -2447,7 +2472,8 @@ fra:
       one: "Valider mes miettes pour %{count} intervention"
       other: "Valider mes miettes pour %{count} interventions"
     validate_selected_entries: "Valider les écritures sélectionnées"
-    validated: "Validé"
+    validated: "Validée"
+    validated_by: "Validée par" #?
     values: "Valeurs"
     variable_indicators: "Indicateurs variables"
     variant: "Variante"
@@ -2482,6 +2508,7 @@ fra:
     with_fixed_assets_depreciations: "Inclure les amortissements des immobilisations"
     with_prints: "Inclure les impressions (factures, commandes…)" #?
     worked_on: "Travaillé le" #?
+    worked_zone_not_corresponding: "La zone travaillée ne correspond pas à celle planifiée"
     worker: "Équipier" #?
     workers: "Équipiers"
     workforce: "Main d'oeuvre"

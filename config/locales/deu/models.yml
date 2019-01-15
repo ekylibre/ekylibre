@@ -32,6 +32,13 @@ deu:
         started_on: "Update starten"
       fixed_asset_depreciation:
         asset_amount: "verantwortlich Wert"
+      intervention_working_period:
+        started_at:
+          # one: "Started at is inferior than expected"
+          # other: "{{count}} Started at is inferior than expected"
+        stopped_at:
+          # one: "Stopped at is inferior than expected"
+          # other: "{{count}} Stopped at is inferior than expected"
       land_parcel:
         born_at: "Hergestellt in"
       land_parcel_group:
@@ -178,6 +185,12 @@ deu:
           attributes:
             parameters:
               check_errored: "Connexion check fehlerhaft Bitte stellen Sie die Gültigkeit Ihrer Eingabe sicher oder versuchen Sie es später erneut."
+        intervention_working_period:
+          attributes:
+            started_at:
+              # inferior: "Started at is inferior than expected"
+            stopped_at:
+              # inferior: "Stopped at is inferior than expected"
         journal:
           attributes:
             accountant:
@@ -197,6 +210,8 @@ deu:
           unvalid_amounts: "Der Journaleintrag muss entweder Debit- oder Kredit aber nicht gleichzeitig gefüllt werden."
         outgoing_parcel_item:
           # greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
+        purchase:
+          # payment_delay_custom_validation_message: "Accepted formats : %{values}"
         purchase_item:
           attributes:
             fixed:
@@ -533,7 +548,9 @@ deu:
     bank_statement_letter: "Kontoauszug Brief"
     bank_statements: "Kontoauszüge"
     base_amount: "Grundbetrag"
+    # batch: "Batch"
     # batch_number: "Batch number"
+    # batch_planting: "Batch planting"
     battery_level: "Batterie Level"
     birth_date_completeness: "Geburtsdatum Vollständigkeit"
     birth_farm_number: "Geburt Bauernhof Nummer"
@@ -673,6 +690,7 @@ deu:
     custom_fields: "Benutzerdefinierte Felder"
     custom_fields_columns: "Benutzerdefinierte Felder Spalten"
     customized_type: "Customized Art"
+    # daily_charges: "Daily charges"
     daily_nitrogen_production: "Täglich Stickstoffproduktion"
     dashboards: "Armaturenbretter"
     dead: "Tot"
@@ -963,6 +981,10 @@ deu:
     intervention_participation: "Intervention Teilnahme"
     intervention_participations: "Intervention Beteiligungen"
     intervention_product_parameters: "Intervention Abgüsse"
+    # intervention_proposal: "Intervention proposal"
+    # intervention_proposals: "Intervention proposals"
+    # intervention_template: "Intervention template"
+    # intervention_templates: "Intervention templates"
     interventions: "Interventionen"
     interventions_used_in: "Interventionen in"
     intracommunity: "Innergemeinschaftlichen"
@@ -981,6 +1003,7 @@ deu:
     invoiced_at: "in Rechnung zu"
     invoiced_on: "Die fakturierten auf"
     ip_address: "IP-Adresse"
+    # irregular_batch: "Irregular batch"
     irrigated: "bewässerte"
     irrigation_water_nitrogen: "Bewässerungswasser Stickstoff"
     islet: "Inselchen"
@@ -1154,6 +1177,7 @@ deu:
     number: "Nummer"
     number_format: "Zahlenformat"
     number_increment: "Anzahl Schritt"
+    # number_of_batch: "Number of batch"
     number_start: "Anzahl Start"
     observations: "Beobachtungen"
     observed_at: "Beobachtung:"
@@ -1475,6 +1499,7 @@ deu:
     source: "Quelle"
     source_product: "Source Produkt"
     # source_product_movement: "Source product movement"
+    # sowing_interval: "Sowing interval"
     # spaced_iban: "Spaced IBAN"
     # specie: "Specie"
     sql_type: "SQL-Typ"
@@ -1548,6 +1573,7 @@ deu:
     tax_payability: "Steuer Zahlbarkeitsfaktoren"
     taxations: "Besteuerungen"
     team: "Mannschaft"
+    # technical_itinerary: "Technical itinerary"
     template: "Vorlage"
     theme: "Thema"
     theoretical_number: "Theoretische Zahl"

@@ -32,6 +32,13 @@ ita:
         started_on: "Inizia l’aggiornamento"
       fixed_asset_depreciation:
         asset_amount: "valore contabile"
+      intervention_working_period:
+        started_at:
+          # one: "Started at is inferior than expected"
+          # other: "{{count}} Started at is inferior than expected"
+        stopped_at:
+          # one: "Stopped at is inferior than expected"
+          # other: "{{count}} Stopped at is inferior than expected"
       land_parcel:
         born_at: "creato a"
       land_parcel_group:
@@ -187,6 +194,12 @@ ita:
           attributes:
             parameters:
               check_errored: "Verifica di connessione errata. Assicurati la validità del tuo contributo o riprova più tardi."
+        intervention_working_period:
+          attributes:
+            started_at:
+              # inferior: "Started at is inferior than expected"
+            stopped_at:
+              # inferior: "Stopped at is inferior than expected"
         journal:
           attributes:
             accountant:
@@ -206,6 +219,8 @@ ita:
           unvalid_amounts: "La voce di diario deve essere compilato o di debito o di credito, ma non allo stesso tempo."
         outgoing_parcel_item:
           # greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
+        purchase:
+          # payment_delay_custom_validation_message: "Accepted formats : %{values}"
         purchase_item:
           attributes:
             fixed:
@@ -564,7 +579,9 @@ ita:
     bank_statement_letter: "Lettera estratto conto bancario"
     bank_statements: "estratti conto"
     base_amount: "importo di base"
+    # batch: "Batch"
     # batch_number: "Batch number"
+    # batch_planting: "Batch planting"
     battery_level: "Livello batteria"
     birth_date_completeness: "Data di nascita completezza"
     birth_farm_number: "Numero di farm di nascita"
@@ -704,6 +721,7 @@ ita:
     custom_fields: "Campi personalizzati"
     custom_fields_columns: "I campi personalizzati colonne"
     customized_type: "tipo personalizzato"
+    # daily_charges: "Daily charges"
     daily_nitrogen_production: "produzione di azoto giornaliera"
     dashboards: "Dashboard"
     dead: "Morto"
@@ -994,6 +1012,10 @@ ita:
     intervention_participation: "Partecipazione intervento"
     intervention_participations: "Partecipazioni di intervento"
     intervention_product_parameters: "calchi di intervento"
+    # intervention_proposal: "Intervention proposal"
+    # intervention_proposals: "Intervention proposals"
+    # intervention_template: "Intervention template"
+    # intervention_templates: "Intervention templates"
     interventions: "interventi"
     interventions_used_in: "Interventi utilizzato in"
     intracommunity: "Intracomunitario"
@@ -1012,6 +1034,7 @@ ita:
     invoiced_at: "fatturato su"
     invoiced_on: "Fatturato su"
     ip_address: "Indirizzo IP"
+    # irregular_batch: "Irregular batch"
     irrigated: "Irrigato"
     irrigation_water_nitrogen: "azoto Irrigazione"
     islet: "Isolotto"
@@ -1185,6 +1208,7 @@ ita:
     number: "Numero"
     number_format: "formato numero"
     number_increment: "incremento numero"
+    # number_of_batch: "Number of batch"
     number_start: "numero di inizio"
     observations: "osservazioni"
     observed_at: "osservata alle"
@@ -1506,6 +1530,7 @@ ita:
     source: "fonte"
     source_product: "prodotto di origine"
     # source_product_movement: "Source product movement"
+    # sowing_interval: "Sowing interval"
     spaced_iban: "IBAN distanziati"
     # specie: "Specie"
     sql_type: "tipo SQL"
@@ -1579,6 +1604,7 @@ ita:
     tax_payability: "Pagabilità fiscale"
     taxations: "tassazioni"
     team: "Squadra"
+    # technical_itinerary: "Technical itinerary"
     template: "Modello"
     theme: "Tema"
     theoretical_number: "Numero teorico"

@@ -32,6 +32,13 @@ por:
         started_on: "Começar atualização"
       fixed_asset_depreciation:
         asset_amount: "Valor contábil"
+      intervention_working_period:
+        started_at:
+          # one: "Started at is inferior than expected"
+          # other: "{{count}} Started at is inferior than expected"
+        stopped_at:
+          # one: "Stopped at is inferior than expected"
+          # other: "{{count}} Stopped at is inferior than expected"
       land_parcel:
         born_at: "Criado em"
       land_parcel_group:
@@ -178,6 +185,12 @@ por:
           attributes:
             parameters:
               check_errored: "Cheque de conexão com erro. Certifique-se da validade da sua entrada ou tente novamente mais tarde."
+        intervention_working_period:
+          attributes:
+            started_at:
+              # inferior: "Started at is inferior than expected"
+            stopped_at:
+              # inferior: "Stopped at is inferior than expected"
         journal:
           attributes:
             accountant:
@@ -197,6 +210,8 @@ por:
           unvalid_amounts: "A entrada de diário deve ser preenchido tanto de débito ou de crédito, mas não ao mesmo tempo."
         outgoing_parcel_item:
           # greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
+        purchase:
+          # payment_delay_custom_validation_message: "Accepted formats : %{values}"
         purchase_item:
           attributes:
             fixed:
@@ -533,7 +548,9 @@ por:
     bank_statement_letter: "Carta extrato bancário"
     bank_statements: "Extratos bancários"
     base_amount: "Valor base"
+    # batch: "Batch"
     # batch_number: "Batch number"
+    # batch_planting: "Batch planting"
     battery_level: "Nível de bateria"
     birth_date_completeness: "Data de nascimento integralidade"
     birth_farm_number: "Número fazenda Nascimento"
@@ -673,6 +690,7 @@ por:
     custom_fields: "Os campos personalizados"
     custom_fields_columns: "Campos personalizados colunas"
     customized_type: "Tipo personalizado"
+    # daily_charges: "Daily charges"
     daily_nitrogen_production: "A produção diária de azoto"
     dashboards: "Dashboards"
     dead: "Morto"
@@ -963,6 +981,10 @@ por:
     intervention_participation: "Participação intervenção"
     intervention_participations: "Participações de intervenção"
     intervention_product_parameters: "Elencos de intervenção"
+    # intervention_proposal: "Intervention proposal"
+    # intervention_proposals: "Intervention proposals"
+    # intervention_template: "Intervention template"
+    # intervention_templates: "Intervention templates"
     interventions: "Intervenções"
     interventions_used_in: "Utilizado em intervenções"
     intracommunity: "Intracomunitário"
@@ -981,6 +1003,7 @@ por:
     invoiced_at: "Facturado"
     invoiced_on: "Facturado"
     ip_address: "Endereço de IP"
+    # irregular_batch: "Irregular batch"
     irrigated: "Irrigada"
     irrigation_water_nitrogen: "Azoto água de irrigação"
     islet: "Ilhota"
@@ -1154,6 +1177,7 @@ por:
     number: "Número"
     number_format: "Formato de número"
     number_increment: "Incremento de número"
+    # number_of_batch: "Number of batch"
     number_start: "Número inicial"
     observations: "Observações"
     observed_at: "Observado em"
@@ -1475,6 +1499,7 @@ por:
     source: "Fonte"
     source_product: "Produto de origem"
     # source_product_movement: "Source product movement"
+    # sowing_interval: "Sowing interval"
     spaced_iban: "Espaçados IBAN"
     # specie: "Specie"
     sql_type: "Tipo de SQL"
@@ -1548,6 +1573,7 @@ por:
     tax_payability: "Payability fiscal"
     taxations: "Taxations"
     team: "Equipe"
+    # technical_itinerary: "Technical itinerary"
     template: "Modelo"
     theme: "Tema"
     theoretical_number: "Número teórico"

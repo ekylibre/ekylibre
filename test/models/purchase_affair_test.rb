@@ -57,7 +57,6 @@ class PurchaseAffairTest < ActiveSupport::TestCase
 
   test 'homogeneousity' do
     purchase = create(:purchase_invoice)
-    # byebug
     assert_equal PurchaseAffair, purchase.affair.class
     assert_raise Exception do
       purchase.affair.deal_with! Sale.first

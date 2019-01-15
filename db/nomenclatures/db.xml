@@ -3446,7 +3446,7 @@
       <item name="hard_wheat_seed_25" nature="seed" derivative_of="triticum_durum" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 50gram" unit_name="25kg_bag"/>
       <item name="harrow" nature="harrow" frozen_indicators_values="" unit_name="equipment"/>
       <item name="harvester" nature="harvester" frozen_indicators_values="" unit_name="equipment"/>
-      <item name="harvesting_making_service" nature="vegetals_making_services"/>
+      <item name="harvesting_making_service" nature="vegetals_making_services" frozen_indicators_values="usage_duration: 1hour" unit_name="hour"/>
       <item name="hay_big_rectangular_bales" nature="fodder_bale" derivative_of="poaceae" frozen_indicators_values="net_mass: 438.00kilogram, net_volume: 2.30cubic_meter, fodder_bales_count: 1" unit_name="big_rectangular_bale"/>
       <item name="hay_rake" nature="hay_rake" frozen_indicators_values="" unit_name="equipment"/>
       <item name="hay_round_bales" nature="fodder_bale" derivative_of="poaceae" frozen_indicators_values="net_mass: 300.00kilogram, net_volume: 1.87cubic_meter, fodder_bales_count: 1" unit_name="round_bale"/>
@@ -4102,7 +4102,7 @@
       <item name="various_loan_interest" category="various_loan_interest" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="vegetable" category="vegetable" variety="vegetable" derivative_of="plant" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass, net_volume"/>
       <item name="vegetable_crop" category="crop" variety="plant" population_counting="decimal" abilities="consume(water), consume(preparation), produce(vegetable)" variable_indicators="fresh_mass, plant_life_state, plant_reproduction_state, plants_count, shape, tiller_count" frozen_indicators="net_surface_area" derivatives="vegetable"/>
-      <item name="vegetals_making_services" category="vegetals_making_services" variety="service" population_counting="decimal" variable_indicators=""/>
+      <item name="vegetals_making_services" category="vegetals_making_services" variety="service" population_counting="decimal" variable_indicators="" frozen_indicators="usage_duration"/>
       <item name="vial" category="animal_reproduction" variety="vial" derivative_of="animal" population_counting="integer" abilities="inseminate(animal)" variable_indicators="economical_milk_index, sex, unique_synthesis_index"/>
       <item name="walnut" category="fruit" variety="walnut" derivative_of="juglans" population_counting="decimal" variable_indicators="impurity_concentration, water_content_rate" frozen_indicators="net_mass"/>
       <item name="walnut_crop" category="crop" variety="plant" population_counting="decimal" abilities="consume(water), consume(preparation), produce(fruit), produce(straw)" variable_indicators="plant_life_state, plants_count, plants_interval, rows_interval, shape" frozen_indicators="net_surface_area" derivatives="walnut, straw"/>

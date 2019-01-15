@@ -73,6 +73,22 @@ module Agroedi
         # parse interventions from daplos file and create each one
         imported_crop_interventions = crop.interventions.map do |i|
           w.info '------------------------------INTERVENTION-----------------------------------'
+
+          # check dates from production_name
+          if activity_production.started_on > i.intervention_started_at.to_date
+             activity_production.started_on = i.intervention_started_at.to_date
+             activity_production.save!
+             w.info "The actvity production started_on has been updated with : #{i.intervention_started_at.to_date}"
+          elsif activity_production.stopped_on < i.intervention_started_at.to_date
+            activity_production.stopped_on = i.intervention_started_at.to_date
+            activity_production.save!
+            w.info "The actvity production started_on has been updated with : #{i.intervention_started_at.to_date}"
+          elsif i.intervention_stopped_at && activity_production.stopped_on < i.intervention_stopped_at.to_date
+            activity_production.stopped_on = i.intervention_stopped_at.to_date
+            activity_production.save!
+            w.info "The actvity production started_on has been updated with : #{i.intervention_started_at.to_date}"
+          end
+
           # get intervention nature
           intervention_agroedi_code = RegisteredAgroediCode.where(repository_id: 14, reference_code: i.intervention_nature_edicode).first
           w.info "intervention_agroedi_code : #{intervention_agroedi_code.reference_label}".inspect.green
@@ -299,7 +315,7 @@ module Agroedi
 
       ## DURATION
       # get duration from EDI DAPLOS file
-      if i.intervention_duration.present? && i.intervention_duration.nonzero?
+      if i.intervention_duration.present? && !(i.intervention_duration.match /^0+$/)
         # TODO: with format #JJHHMM ex : 010430 => 01 day 4 hour 30 minute
         j = Measure.new(i.intervention_duration[0, 2].to_i, :day).convert(:second)
         h = Measure.new(i.intervention_duration[2, 2].to_i, :hour).convert(:second)
@@ -420,7 +436,7 @@ module Agroedi
         existing_intervention.targets.create!(intervention_attributes[:targets_attributes]['0'])
         existing_intervention.inputs.each do |input|
           new_input = input_attributes.find { |i| i[:reference_name].to_s == input.reference_name && i[:product_id] == input.product_id }
-          byebug unless new_input
+          # byebug unless new_input
           input.quantity_value += new_input[:quantity]
           input.save!
         end
@@ -449,7 +465,7 @@ module Agroedi
 
       ## DURATION
       # get duration from EDI DAPLOS file
-      if i.intervention_duration.present? && i.intervention_duration.nonzero?
+      if i.intervention_duration.present? && !(i.intervention_duration.match /^0+$/)
         # TODO: with format #JJHHMM ex : 010430 => 01 day 4 hour 30 minute
         j = Measure.new(i.intervention_duration[0, 2].to_i, :day).convert(:second)
         h = Measure.new(i.intervention_duration[2, 2].to_i, :hour).convert(:second)

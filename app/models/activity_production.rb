@@ -259,6 +259,15 @@ class ActivityProduction < Ekylibre::Record::Base
     end
     support.name = name
     support.initial_shape = self.support_shape
+
+    if support.initial_movement
+      support.initial_movement.delta = support_shape_area.to_d(size_unit_name)
+      support.initial_movement.started_at = started_on
+      support.initial_movement.product = support
+      support.initial_movement.save!
+    end
+
+    support.initial_population = support_shape_area.to_d(size_unit_name)
     support.initial_born_at = started_on
     support.initial_dead_at = stopped_on
     support.born_at = started_on

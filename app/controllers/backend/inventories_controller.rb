@@ -44,6 +44,10 @@ module Backend
       end
     end
 
+    def new
+      @inventory = Inventory.new(product_nature_category_id: params[:product_nature_category_id])
+    end
+
     def show
       return unless @inventory = find_and_check
       t3e @inventory

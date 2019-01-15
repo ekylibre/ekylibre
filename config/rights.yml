@@ -25,11 +25,15 @@
 #     - "authentication/sessions#new"
 #     - "backend/activities#family"
 #     - "backend/activity_inspection_point_natures#autocomplete"
+#     - "backend/animal_groups#available_time_or_quantity"
+#     - "backend/animals#available_time_or_quantity"
 #     - "backend/attachments#create"
 #     - "backend/attachments#destroy"
 #     - "backend/attachments#show"
 #     - "backend/beehives#reset"
 #     - "backend/beehives#update"
+#     - "backend/building_divisions#available_time_or_quantity"
+#     - "backend/buildings#available_time_or_quantity"
 #     - "backend/calculators/grains_commercialization_threshold_simulators#show"
 #     - "backend/cells/accountancy_balance_cells#show"
 #     - "backend/cells/calendar_cells#show"
@@ -101,23 +105,32 @@
 #     - "backend/dashboards#settings"
 #     - "backend/dashboards#stocks"
 #     - "backend/dashboards#tools"
+#     - "backend/equipments#available_time_or_quantity"
+#     - "backend/fungi#available_time_or_quantity"
 #     - "backend/golumns#reset"
 #     - "backend/golumns#show"
 #     - "backend/golumns#update"
 #     - "backend/helps#index"
 #     - "backend/helps#show"
 #     - "backend/helps#toggle"
+#     - "backend/interventions#compare_realised_with_planned"
 #     - "backend/januses#toggle"
 #     - "backend/kujakus#toggle"
+#     - "backend/land_parcels#available_time_or_quantity"
 #     - "backend/map_editor_shapes#index"
 #     - "backend/map_editors#upload"
 #     - "backend/master_production_natures#unroll"
+#     - "backend/matters#available_time_or_quantity"
 #     - "backend/notifications#destroy"
 #     - "backend/notifications#index"
 #     - "backend/notifications#show"
+#     - "backend/plants#available_time_or_quantity"
 #     - "backend/preferences#update"
+#     - "backend/product_groups#available_time_or_quantity"
 #     - "backend/product_nature_variants#quantifiers"
+#     - "backend/products#available_time_or_quantity"
 #     - "backend/sensors#last_locations"
+#     - "backend/settlements#available_time_or_quantity"
 #     - "backend/snippets#toggle"
 #     - "backend/tours#finish"
 #     - "backend/users/wice_grid_preferences#save_column"
@@ -127,6 +140,7 @@
 #     - "backend/visualizations/plants_visualizations#show"
 #     - "backend/visualizations/resources_visualizations#show"
 #     - "backend/visuals#picture"
+#     - "backend/workers#available_time_or_quantity"
 #     - "devise/confirmations#create"
 #     - "devise/confirmations#new"
 #     - "devise/confirmations#show"
@@ -1171,6 +1185,14 @@ integrations:
     - "backend/net_services#new"
     - "backend/net_services#update"
 
+intervention_templates:
+  read:
+    dependencies:
+    - read-intervention_templates
+  write:
+    dependencies:
+    - read-intervention_templates
+
 interventions:
   read:
     actions:
@@ -2185,6 +2207,14 @@ sales:
     - "backend/sale_credits#new"
     - "backend/sales#cancel"
 
+schedulings:
+  read:
+    dependencies:
+    - read-schedulings
+  write:
+    dependencies:
+    - read-schedulings
+
 sensors:
   read:
     actions:
@@ -2398,6 +2428,14 @@ teams:
     - "backend/teams#edit"
     - "backend/teams#new"
     - "backend/teams#update"
+
+technical_itineraries:
+  read:
+    dependencies:
+    - read-technical_itineraries
+  write:
+    dependencies:
+    - read-technical_itineraries
 
 trackings:
   read:

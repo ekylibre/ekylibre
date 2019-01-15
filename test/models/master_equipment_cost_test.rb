@@ -29,10 +29,10 @@
 #  indicator_unit         :string
 #  maximal_value          :decimal(19, 4)
 #  minimal_value          :decimal(19, 4)
-#  segment_1_amount       :decimal(19, 4)   not null
-#  segment_1_threshold    :decimal(19, 4)   not null
-#  segment_2_amount       :decimal(19, 4)   not null
-#  segment_2_threshold    :decimal(19, 4)   not null
+#  segment_1_amount       :decimal(19, 4)
+#  segment_1_threshold    :decimal(19, 4)
+#  segment_2_amount       :decimal(19, 4)
+#  segment_2_threshold    :decimal(19, 4)
 #  segment_3_amount       :decimal(19, 4)
 #  segment_3_threshold    :decimal(19, 4)
 #  segment_average_amount :decimal(19, 4)   not null

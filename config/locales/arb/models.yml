@@ -229,6 +229,13 @@ arb:
         amount: "قيمة المخصصة للبيع" #?
         expense_id: "تكلفة" #?
         updated_at: "تم تحديثها في" #?
+      intervention_working_period:
+        started_at:
+          # one: "Started at is inferior than expected"
+          # other: "{{count}} Started at is inferior than expected"
+        stopped_at:
+          # one: "Stopped at is inferior than expected"
+          # other: "{{count}} Stopped at is inferior than expected"
       inventory: #?
         comment: "تعليق" #?
         created_at: "اكتمل يوم" #?
@@ -746,6 +753,12 @@ arb:
           attributes:
             parameters:
               check_errored: "التحقق من خطأ كونيكسيون. يرجى التأكد من صلاحية الإدخال أو إعادة المحاولة لاحقا."
+        intervention_working_period:
+          attributes:
+            started_at:
+              # inferior: "Started at is inferior than expected"
+            stopped_at:
+              # inferior: "Stopped at is inferior than expected"
         journal:
           attributes:
             accountant:
@@ -784,6 +797,8 @@ arb:
           building_can_not_transfer_product: "لا يمكنك تحويل المنتج %{product} من موقع التخزين %{building}, لاحتوائه على منتج %{contained_product}" #?
           building_can_not_waste_product: "لا يمكنك تسجيل الخسارة للمنتج %{product} من موقع التخزين %{building}, هذا ويحتوي المنتج %{contained_product}" #?
           buildings_can_not_be_identical: "مواقع التخزين (المغادرة والواصلة) قد لا تكون متطابقة" #?
+        purchase:
+          # payment_delay_custom_validation_message: "Accepted formats : %{values}"
         purchase_item:
           attributes:
             fixed:
@@ -1202,7 +1217,9 @@ arb:
     banks_accounts: "كتاب الحسابات المصرفية" #?
     base: "القاعدة" #?
     base_amount: "كمية قاعدة"
+    # batch: "Batch"
     # batch_number: "Batch number"
+    # batch_planting: "Batch planting"
     battery_level: "مستوى البطارية"
     bban: "RIB" #?
     bic: "BIC" #?
@@ -1385,6 +1402,7 @@ arb:
     custom_fields: "الحقول الاضافية"
     custom_fields_columns: "الحقول المخصصة الأعمدة"
     customized_type: "نوع مرغوب"
+    # daily_charges: "Daily charges"
     daily_nitrogen_production: "إنتاج النيتروجين اليومي"
     dashboards: "لوحات"
     data: "بيانات اضافية" #?
@@ -1753,6 +1771,10 @@ arb:
     intervention_participation: "مشاركة التدخل"
     intervention_participations: "المساهمات تدخل"
     intervention_product_parameters: "يلقي تدخل"
+    # intervention_proposal: "Intervention proposal"
+    # intervention_proposals: "Intervention proposals"
+    # intervention_template: "Intervention template"
+    # intervention_templates: "Intervention templates"
     interventions: "التدخلات"
     interventions_used_in: "التدخلات المستخدمة في"
     # intracommunity: "Intracommunity"
@@ -1776,6 +1798,7 @@ arb:
     invoiced_at: "فواتير على"
     invoiced_on: "فواتير على"
     ip_address: "عنوان بروتوكول الإنترنت"
+    # irregular_batch: "Irregular batch"
     irrigated: "المروية"
     irrigation_water_nitrogen: "الري النيتروجين المياه"
     is_debit: "مدين" #?
@@ -1987,6 +2010,7 @@ arb:
     number: "الرقم"
     number_format: "التصميم"
     number_increment: "الاضافة"
+    # number_of_batch: "Number of batch"
     number_start: "بدأ الترقيم"
     observations: "ملاحظات"
     observed_at: "لوحظ في"
@@ -2411,6 +2435,7 @@ arb:
     source: "المصدر"
     source_product: "مصدر المنتج"
     # source_product_movement: "Source product movement"
+    # sowing_interval: "Sowing interval"
     spaced_iban: "متباعدة IBAN"
     # specie: "Specie"
     sql_type: "SQL نوع"
@@ -2508,6 +2533,7 @@ arb:
     taxations: "الأنظمة الضريبية"
     taxes: "الضرائب" #?
     team: "الفريق"
+    # technical_itinerary: "Technical itinerary"
     template: "نموذج"
     template_id: "نموذج" #?
     text_importance: "ذو شأن" #?

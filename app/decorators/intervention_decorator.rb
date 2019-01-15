@@ -34,6 +34,31 @@ class InterventionDecorator < Draper::Decorator
     land_parcels
   end
 
+  def planned_by
+    name = if object.request?
+      object.creator&.full_name
+    elsif object.request_intervention.present?
+      object.request_intervention.creator&.full_name
+    end
+    if name.present?
+      add_actionner_name(:planned_by, name)
+    end
+  end
+
+  def validated_by
+    if object.validated?
+      name = object.validator&.full_name
+      add_actionner_name(:validated_by, name) if name.present?
+    end
+  end
+
+  def add_actionner_name(title, name)
+    h.content_tag(:div, nil, class: 'info') do
+      h.concat(h.content_tag(:span, title.tl, class: :title))
+      h.concat(h.content_tag(:span, name, class: :value))
+    end
+  end
+
   def sum_working_zone_area_of_product(_product)
     parameters = object.targets unless planting?
     parameters = object.outputs if planting?

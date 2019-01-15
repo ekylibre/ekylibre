@@ -89,18 +89,19 @@
                 %td= usage.pre_harvest_interval.l if usage.pre_harvest_interval
                 %td= usage.untreated_zone_margin.l if usage.untreated_zone_margin
 
-  - if resource.reception_items.any?
-    - c.cobble(:purchases_prices) do
-      :ruby
-        series = []
-        data = []
-        dataset = ReceptionItem.where(variant_id: resource.id).joins(:reception).reorder("parcels.planned_at").pluck('unit_pretax_amount', 'parcels.planned_at')
-        dataset.each do |item|
-          data << [ item[1].to_usec, item[0].to_f  ]
-        end
-        series << {name: resource.name, data: data }
+  -#TODO Rely on PurchaseItem instead of ReceptionItem
+  -# - if resource.reception_items.any?
+    -# - c.cobble(:purchases_prices) do
+      -# :ruby
+        -# series = []
+        -# data = []
+        -# dataset = ReceptionItem.where(variant_id: resource.id).joins(:reception).reorder("parcels.planned_at").pluck('unit_pretax_amount', 'parcels.planned_at')
+        -# dataset.each do |item|
+          -# data << [ item[1].to_usec, item[0].to_f  ]
+        -# end
+        -# series << {name: resource.name, data: data }
 
-      = spline_highcharts(series, legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom', border_width: 0 }, y_axis: {title: { text: :population.tl}, min: 0}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}})
+      -# = spline_highcharts(series, legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom', border_width: 0 }, y_axis: {title: { text: :unit_pretax_amount.tl}, min: 0}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}})
 
 
   - if resource.products.any?

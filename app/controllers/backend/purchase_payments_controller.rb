@@ -1,5 +1,14 @@
 module Backend
   class PurchasePaymentsController < Backend::OutgoingPaymentsController
+    manage_restfully(
+      to_bank_at: 'Time.zone.today'.c,
+      paid_at: 'Time.zone.today'.c,
+      responsible_id: 'current_user.id'.c,
+      t3e: {
+        payee: 'RECORD&.payee&.full_name'.c
+      }
+    )
+
     def self.list_conditions
       code = search_conditions(outgoing_payments: %i[amount bank_check_number number], entities: %i[number full_name]) + " ||= []\n"
       code << "if params[:s] == 'not_delivered'\n"

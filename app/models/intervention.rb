@@ -38,6 +38,7 @@
 #  lock_version                   :integer          default(0), not null
 #  nature                         :string           not null
 #  number                         :string
+#  parent_id                      :integer
 #  prescription_id                :integer
 #  procedure_name                 :string           not null
 #  purchase_id                    :integer
@@ -50,6 +51,7 @@
 #  trouble_encountered            :boolean          default(FALSE), not null
 #  updated_at                     :datetime         not null
 #  updater_id                     :integer
+#  validator_id                   :integer
 #  whole_duration                 :integer          not null
 #  working_duration               :integer          not null
 #
@@ -58,6 +60,9 @@ class Intervention < Ekylibre::Record::Base
   include CastGroupable
   include PeriodicCalculable
   include Customizable
+
+  PLANNED_REALISED_ACCEPTED_GAP = { intervention_doer: 1.2, intervention_tool: 1.2, intervention_input: 1.2 }.freeze
+
   attr_readonly :procedure_name, :production_id, :currency
   refers_to :currency
   enumerize :procedure_name, in: Procedo.procedure_names, i18n_scope: ['procedures']
@@ -70,6 +75,7 @@ class Intervention < Ekylibre::Record::Base
   belongs_to :journal_entry, dependent: :destroy
   belongs_to :purchase
   belongs_to :costing, class_name: 'InterventionCosting'
+  belongs_to :validator, class_name: 'User', foreign_key: :validator_id
   has_many :receptions, class_name: 'Reception', dependent: :destroy
   has_many :labellings, class_name: 'InterventionLabelling', dependent: :destroy, inverse_of: :intervention
   has_many :labels, through: :labellings
@@ -170,7 +176,7 @@ class Intervention < Ekylibre::Record::Base
       search_params << if procedures.empty?
                          "#{Intervention.table_name}.number ILIKE '%#{params[:q]}%'"
                        else
-                         "(#{Intervention.table_name}.number ILIKE '%#{params[:q]}%' OR procedure_name IN (#{procedures}))"
+                         "(#{Intervention.table_name}.number ILIKE '%#{params[:q]}%' OR #{Intervention.table_name}.procedure_name IN (#{procedures}))"
                       end
     end
 
@@ -179,7 +185,7 @@ class Intervention < Ekylibre::Record::Base
     end
 
     if params[:product_id].present?
-      search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id = '#{params[:product_id]}')"
+      search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE product_id = '#{params[:product_id]}')"
     end
 
     if params[:cultivable_zone_id].present?
@@ -214,7 +220,7 @@ class Intervention < Ekylibre::Record::Base
       search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id IN (SELECT target_id FROM target_distributions WHERE activity_production_id = '#{params[:production_id]}'))"
       # search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id = '#{params[:product_id]}')"
     elsif params[:activity_id].present?
-      search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id IN (SELECT target_id FROM target_distributions WHERE activity_id = '#{params[:activity_id]}'))"
+      search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM interventions INNER JOIN activities_interventions ON activities_interventions.intervention_id = interventions.id INNER JOIN activities ON activities.id = activities_interventions.activity_id WHERE activities.id = '#{params[:activity_id]}')"
     end
 
     if params[:driver_id].present?
@@ -229,7 +235,7 @@ class Intervention < Ekylibre::Record::Base
     if params[:nature].present?
       search_params << "#{Intervention.table_name}.nature = '#{params[:nature]}'"
       if params[:nature] == :request
-        search_params << "#{Intervention.table_name}.state != '#{Intervention.state.rejected}' AND #{Intervention.table_name}.id NOT IN (SELECT request_intervention_id from #{Intervention.table_name} WHERE request_intervention_id IS NOT NULL)"
+        search_params << "#{Intervention.table_name}.state != '#{Intervention.state.rejected}' AND I.request_intervention_id IS NULL"
       end
     end
 
@@ -241,7 +247,9 @@ class Intervention < Ekylibre::Record::Base
     page ||= 1
 
     request = where(search_params.join(' AND '))
+              .joins('LEFT OUTER JOIN interventions I ON interventions.id = I.request_intervention_id')
               .includes(:doers)
+              .includes(:targets)
               .references(product_parameters: [:product])
               .order(started_at: :desc)
 
@@ -361,7 +369,21 @@ class Intervention < Ekylibre::Record::Base
   # | outputs      | stock (3X)                | stock_movement (603X/71X) |
   # | inputs       | stock_movement (603X/71X) | stock (3X)                |
   bookkeep do |b|
-    stock_journal = Journal.find_or_create_by!(name: :stocks.tl, nature: :various, used_for_permanent_stock_inventory: true)
+    if Preference[:permanent_stock_inventory]
+      stock_journal = Journal.find_by(nature: :various, used_for_permanent_stock_inventory: true)
+      #HACK: adding other code choices instead of properly addressing the problem
+      #of code collision
+      unless stock_journal
+        stock_journal = Journal.new(name: :stocks.tl, nature: :various, used_for_permanent_stock_inventory: true).tap(&:valid?)
+        [stock_journal.code, *%i(STOC IVNT)].each do |new_code|
+          conflicting_journals = Journal.where(code: new_code)
+          next if conflicting_journals.any?
+          stock_journal.code = new_code
+          break if stock_journal.save
+        end
+      end
+    end
+
     b.journal_entry(stock_journal, printed_on: printed_on, if: (Preference[:permanent_stock_inventory] && record?)) do |entry|
       write_parameter_entry_items = lambda do |parameter, input|
         variant      = parameter.variant
@@ -380,6 +402,7 @@ class Intervention < Ekylibre::Record::Base
 
   def update_costing
     attributes = {}
+
     %i[input tool doer].each do |type|
       attributes["#{type.to_s.pluralize}_cost"] = cost(type) || 0
     end
@@ -390,6 +413,77 @@ class Intervention < Ekylibre::Record::Base
     else
       update_columns(costing_id: InterventionCosting.create!(attributes))
     end
+  end
+
+  def compare_planned_and_realised
+    return :no_request if request_intervention.nil? || request_intervention.parameters.blank?
+    return false if request_intervention.duration != self.duration
+    accepted_error = PLANNED_REALISED_ACCEPTED_GAP
+    params_result = true
+
+    associations = %i[doers tools inputs targets]
+    associations.each do |association|
+      self_parameters = send(association)
+      request_parameters = request_intervention.send(association)
+      if (self_parameters.empty? && request_parameters.any?) || (self_parameters.any? && request_parameters.empty?)
+        params_result = false
+        break false
+      end
+      unless self_parameters.empty? && request_parameters.empty?
+        if self_parameters.group_by(&:product_id).count != request_parameters.group_by(&:product_id).count
+          params_result = false
+          break false
+        end
+        request_parameters.group_by(&:product_id).each do |product_id, request_param|
+          self_param = product_parameters.where(product_id: product_id)
+
+          return false if self_param.empty?
+
+          # For InterventionDoer and InterventionTool
+          request_duration = 0
+          request_param.each { |param| request_duration += calculate_cost_amount_computation(param).quantity }
+
+          self_duration = 0
+          self_param.each { |param| self_duration += calculate_cost_amount_computation(param).quantity }
+
+          percent = accepted_error[request_param.first.type.underscore.to_sym] || 1.2
+          intervals = (request_duration / percent..request_duration * percent)
+
+          unless intervals.include?(self_duration)
+            params_result = false
+            break false
+          end
+          # For InterventionTarget
+          if self_param.map(&:working_zone).compact.sum != request_param.map(&:working_zone).compact.sum
+            params_result = false
+            break false
+          end
+
+          # For InterventionInput
+          request_quantity = request_param.map(&:quantity_population).compact.sum
+          self_quantity = self_param.map(&:quantity_population).compact.sum
+
+          percent = accepted_error[request_param.first.type.underscore.to_sym] || 1.2
+          intervals = (request_quantity / percent..request_quantity * percent)
+          unless intervals.include?(self_quantity)
+            params_result = false
+            break false
+          end
+        end
+      end
+    end
+    params_result
+  end
+
+  def calculate_cost_amount_computation(product_parameter)
+    if product_parameter.product.is_a?(Worker)
+      computation = product_parameter.cost_amount_computation
+    elsif product_parameter.product.try(:tractor?) && product_parameter.participation.present?
+      computation = product_parameter.cost_amount_computation(natures: %i[travel intervention])
+    else
+      computation = product_parameter.cost_amount_computation(natures: %i[intervention])
+    end
+    computation
   end
 
   def create_missing_costing
@@ -445,7 +539,7 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def with_undestroyable_products?
-    outputs.map(&:product).detect do |product|
+    outputs.includes(:product).map(&:product).detect do |product|
       next unless product
       InterventionProductParameter.of_actor(product).where.not(type: 'InterventionOutput').any?
     end

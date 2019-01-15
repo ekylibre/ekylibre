@@ -595,6 +595,11 @@ Rails.application.routes.draw do
         post :change_state
         get :change_page
         get :purchase_order_items
+        get :duplicate_interventions
+        get :generate_buttons
+
+        post :create_duplicate_intervention
+        get :compare_realised_with_planned
       end
       member do
         post :sell
@@ -615,7 +620,7 @@ Rails.application.routes.draw do
 
     resources :intervention_participations, only: %i[index update destroy] do
       collection do
-        get :participations_modal
+        post :participations_modal
       end
       member do
         post :convert
@@ -790,7 +795,7 @@ Rails.application.routes.draw do
         get :list_items
 
         post :ship
-
+        post :invoice
         post :order
         post :prepare
         post :check
@@ -935,6 +940,7 @@ Rails.application.routes.draw do
     resources :purchase_orders, concerns: %i[list unroll] do
       member do
         get :list_items
+        get :list_service_deliveries
         post :open
         post :close
       end

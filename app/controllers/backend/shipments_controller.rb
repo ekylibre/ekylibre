@@ -1,6 +1,11 @@
 module Backend
   class ShipmentsController < Backend::ParcelsController
-    manage_restfully
+    manage_restfully continue: true
+    before_action :save_search_preference, only: :index
+
+    before_action only: :new do
+      params[:planned_at] ||= Time.zone.now
+    end
 
     respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
@@ -18,13 +23,19 @@ module Backend
     def self.shipments_conditions
       code = search_conditions(shipments: %i[number reference_number], entities: %i[full_name number]) + " ||= []\n"
       code << "unless params[:period].blank? || params[:period].is_a?(Symbol)\n"
+
       code << "  if params[:period] != 'all'\n"
-      code << "    interval = params[:period].split('_')\n"
-      code << "    first_date = interval.first\n"
-      code << "    last_date = interval.last\n"
+      code << "    if params[:period] == 'interval' \n"
+      code << "      started_on = params[:started_on] \n"
+      code << "      stopped_on = params[:stopped_on] \n"
+      code << "    else \n"
+      code << "      interval = params[:period].split('_')\n"
+      code << "      started_on = interval.first\n"
+      code << "      stopped_on = interval.last\n"
+      code << "    end \n"
       code << "    c[0] << \" AND #{Shipment.table_name}.planned_at::DATE BETWEEN ? AND ?\"\n"
-      code << "    c << first_date\n"
-      code << "    c << last_date\n"
+      code << "    c << started_on\n"
+      code << "    c << stopped_on\n"
       code << "  end\n "
       code << "end\n "
       code << "if params[:recipient_id].to_i > 0\n"
@@ -59,6 +70,7 @@ module Backend
     end
 
     list(conditions: shipments_conditions, order: { planned_at: :desc }) do |t|
+      t.action :invoice, on: :both, method: :post, if: :invoiceable?
       t.action :ship, on: :both, method: :post, if: :shippable?
       t.action :edit, if: :updateable?
       t.action :destroy
@@ -98,6 +110,23 @@ module Backend
       end
     end
 
+    # Converts parcel to trade
+    def invoice
+      parcels = find_parcels
+      return unless parcels
+      parcel = parcels.first
+      if parcels.all? { |p| p.incoming? && p.third_id == parcel.third_id && p.invoiceable? }
+        purchase = Parcel.convert_to_purchase(parcels)
+        redirect_to backend_purchase_path(purchase)
+      elsif parcels.all? { |p| p.outgoing? && p.third_id == parcel.third_id && p.invoiceable? }
+        sale = Parcel.convert_to_sale(parcels)
+        redirect_to backend_sale_path(sale)
+      else
+        notify_error(:all_parcels_must_be_invoiceable_and_of_same_nature_and_third)
+        redirect_to(params[:redirect] || { action: :index })
+      end
+    end
+    #
     # Pre-fill delivery form with given parcels. Nothing else.
     # Only a shortcut now.
     def ship

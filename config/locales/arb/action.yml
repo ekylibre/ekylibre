@@ -914,6 +914,8 @@ arb:
         # one: "%{count} error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
+    bank_reconciliation:
+      # remove: "Remove"
     leaflet:
       draw:
         handlers:
@@ -1269,6 +1271,7 @@ arb:
     conditions:
       filter_on_attribute_of_class: "التصفية وفق %{attribute} (%{class})"
       special-subscriber: "تصفية وفق الاشتراك"
+    # conducted: "Conducted"
     configure: "تكوين"
     # confirmation_update_historical_plans: "Confirmation update historical plans"
     confirmed: "تأكيد" #?
@@ -1429,6 +1432,10 @@ arb:
     draft: "المسودات"
     # driver: "Driver"
     duplicate: "تكرار"
+    # duplicate_intervention: "Duplicate intervention"
+    duplicate_x_selected_interventions:
+      # one: "Duplicate selected intervention"
+      # other: "Duplicate selected interventions"
     duration: "%{hours}ساعة %{minutes}دقيقة"
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     during: "أثناء"
@@ -1509,6 +1516,8 @@ arb:
     export_as_ods: "التصدير، المواد المستنفدة للأوزون"
     export_as_xcsv: "تصدير واكسل CSV"
     extract: "يستخرج" #?
+    # extract_account_x: "Extract account %{account_number}"
+    # extract_unlettered_account_x: "Extract unlettered account %{account_number}"
     # fees: "Fees"
     # field: "Field %{counter}"
     field_distribution: "مجال التوزيع"
@@ -2002,6 +2011,7 @@ arb:
     payment_amount: "المبلغ المدفوع"
     payment_at: "سدد في"
     payment_conditions: "شروط الدفع"
+    # payment_delay_placeholder: "eom, 5 days before"
     payment_label: "%{number}. %{amount} (%{usable_amount} المتبقي)  %{date} بواسطة %{mode} لاجل %{entity}" #?
     payment_mode: "طريقة تسديد الدفعة"
     payment_uses: "الدفعات" #?
@@ -2024,7 +2034,10 @@ arb:
     picture: "صورة"
     placeholder: "نائب"
     places: "الأماكن"
+    # planned: "Planned"
+    # planned_again_intervention_in: "Plan again this intervention on"
     planned_at: "قرر يوم" #?
+    # planning: "Planning"
     plant: "نبات"
     plant_counting: "عد"
     plant_countings: "فرزان"
@@ -2068,6 +2081,7 @@ arb:
     production_cost: "تكلفة الانتاج"
     # production_costs: "Production costs"
     production_distribution: "توزيع الانتاج"
+    # production_nature: "Production nature"
     production_support: "دعم الإنتاج"
     productions: "المنتجات"
     productions_sales: "مبيعات المنتجات"
@@ -2099,6 +2113,7 @@ arb:
     purchases: "المشتريات"
     purchases_number: "" #?
     purchases_price_create: "اضافة سعر الشراء" #?
+    # purchases_prices: "Purchases prices"
     purchases_stocks_variation: "تباين الأسهم مشتريات"
     quality: "جودة"
     # quandl: "Quandl"
@@ -2454,6 +2469,7 @@ arb:
     # unit_amount: "Unit cost excl. taxes"
     # unit_and_indicator: "%{unit} (%{indicator})"
     unit_create: "اضافة وحدة قياس جديدة" #?
+    # unit_pretax_amount: "Unit pretax amount"
     unit_price_amount: "PU HT" #?
     unit_price_amount_with_taxes: "PU TTC" #?
     units_load: "تحميل الوحدات الاساسية المفقودة" #?
@@ -2525,6 +2541,7 @@ arb:
     wind_speed: "سرعة الرياح"
     with_fixed_assets_depreciations: "مع انخفاض قيمة الأصول الثابتة"
     with_prints: "(وتشمل الطباعة (الفواتير والاوامر" #?
+    # worked_zone_not_corresponding: "The worked zone is not corresponding to the planned one"
     workers: "العمال"
     # workforce: "Workforce"
     working_duration: "مدة العمل"

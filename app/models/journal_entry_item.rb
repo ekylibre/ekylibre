@@ -202,6 +202,10 @@ class JournalEntryItem < Ekylibre::Record::Base
     lettered? && !partially_lettered?
   end
 
+  def semi_lettered?
+    lettered? || !partially_lettered?
+  end
+
   def letter_radix
     return nil unless letter
     letter.delete('*')

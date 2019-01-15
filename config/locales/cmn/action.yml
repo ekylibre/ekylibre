@@ -679,6 +679,8 @@ cmn:
         # one: "%{count} error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
+    bank_reconciliation:
+      # remove: "Remove"
     leaflet:
       draw:
         handlers:
@@ -965,6 +967,7 @@ cmn:
     conditions:
       filter_on_attribute_of_class: "在类的属性过滤器"
       special-subscriber: "特殊用户"
+    # conducted: "Conducted"
     configure: "配置"
     # confirmation_update_historical_plans: "Confirmation update historical plans"
     connect: "接"
@@ -1088,6 +1091,10 @@ cmn:
     draft: "草案"
     # driver: "Driver"
     duplicate: "重复"
+    # duplicate_intervention: "Duplicate intervention"
+    duplicate_x_selected_interventions:
+      # one: "Duplicate selected intervention"
+      # other: "Duplicate selected interventions"
     duration: "为期"
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     during: "中"
@@ -1145,6 +1152,8 @@ cmn:
     export_as_csv: "导出为CSV"
     export_as_ods: "作为ODS出口"
     export_as_xcsv: "导出为Excel CSV"
+    # extract_account_x: "Extract account %{account_number}"
+    # extract_unlettered_account_x: "Extract unlettered account %{account_number}"
     # fees: "Fees"
     # field: "Field %{counter}"
     field_distribution: "场分布"
@@ -1489,6 +1498,7 @@ cmn:
     payment_amount: "支付金额"
     payment_at: "关于支付"
     payment_conditions: "支付条款"
+    # payment_delay_placeholder: "eom, 5 days before"
     payment_mode: "付款方式"
     payments: "支付"
     payments_count: "算上付款"
@@ -1506,6 +1516,9 @@ cmn:
     picture: "图片"
     placeholder: "占位符"
     places: "地方"
+    # planned: "Planned"
+    # planned_again_intervention_in: "Plan again this intervention on"
+    # planning: "Planning"
     plant: "厂"
     plant_counting: "数数"
     # plant_countings: "Countings"
@@ -1538,6 +1551,7 @@ cmn:
     production_cost: "生产成本"
     # production_costs: "Production costs"
     production_distribution: "制作发行"
+    # production_nature: "Production nature"
     production_support: "生产支持"
     productions: "制作"
     productions_sales: "生产销售"
@@ -1559,6 +1573,7 @@ cmn:
     # purchase_order: "Purchase order"
     purchase_payments: "购买付款"
     purchases: "购买"
+    # purchases_prices: "Purchases prices"
     purchases_stocks_variation: "采购库存变化"
     quality: "质量"
     # quandl: "Quandl"
@@ -1823,6 +1838,7 @@ cmn:
     unit: "单元"
     # unit_amount: "Unit cost excl. taxes"
     # unit_and_indicator: "%{unit} (%{indicator})"
+    # unit_pretax_amount: "Unit pretax amount"
     unknown: "未知"
     unknown_condition: "未知状态"
     unknown_user: "未知的用户"
@@ -1872,6 +1888,7 @@ cmn:
     # wice_grid_columns: "Columns"
     wind_speed: "风速"
     with_fixed_assets_depreciations: "拥有固定资产折旧"
+    # worked_zone_not_corresponding: "The worked zone is not corresponding to the planned one"
     workers: "工人"
     # workforce: "Workforce"
     working_duration: "工作时间"

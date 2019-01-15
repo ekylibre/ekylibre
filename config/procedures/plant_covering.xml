@@ -17,6 +17,7 @@
                  forward="VALUE / (PRODUCT..length(meter) * PRODUCT..width(meter))"/>
       </input>
       <doer name="driver"  filter="can drive(equipment) and can move" cardinality="*"/>
+      <doer name="doer" filter="is worker" cardinality="*"/>
       <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
       <tool name="cover_implanter"  filter="is equipment and can cover(plant)" cardinality="*"/>
     </parameters>

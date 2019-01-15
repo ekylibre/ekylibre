@@ -100,6 +100,22 @@ class ShipmentItem < ParcelItem
     true
   end
 
+
+  ALLOWED = %w[
+    product_localization_id
+    product_movement_id
+    product_enjoyment_id
+    product_ownership_id
+    unit_pretax_stock_amount
+    unit_pretax_amount
+    pretax_amount
+    purchase_item_id
+    sale_item_id
+    updated_at
+    updater_id
+    delivery_mode
+  ].freeze
+
   protect(allow_update_on: ALLOWED, on: %i[create destroy update]) do
     !shipment_allow_items_update?
   end

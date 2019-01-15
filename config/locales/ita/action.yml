@@ -745,6 +745,8 @@ ita:
         # one: "%{count} error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
+    bank_reconciliation:
+      # remove: "Remove"
     leaflet:
       draw:
         handlers:
@@ -1031,6 +1033,7 @@ ita:
     conditions:
       filter_on_attribute_of_class: "Filtro su attributo della classe"
       special-subscriber: "Special-abbonato"
+    # conducted: "Conducted"
     configure: "Configurazione"
     # confirmation_update_historical_plans: "Confirmation update historical plans"
     connect: "Collegare"
@@ -1154,6 +1157,10 @@ ita:
     draft: "Bozza"
     # driver: "Driver"
     duplicate: "Duplicare"
+    # duplicate_intervention: "Duplicate intervention"
+    duplicate_x_selected_interventions:
+      # one: "Duplicate selected intervention"
+      # other: "Duplicate selected interventions"
     duration: "Durata"
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     during: "Durante"
@@ -1211,6 +1218,8 @@ ita:
     export_as_csv: "Esportazione in formato CSV"
     export_as_ods: "Esporta come ODS"
     export_as_xcsv: "Esportare come Excel CSV"
+    # extract_account_x: "Extract account %{account_number}"
+    # extract_unlettered_account_x: "Extract unlettered account %{account_number}"
     # fees: "Fees"
     # field: "Field %{counter}"
     field_distribution: "Distribuzione del campo"
@@ -1554,6 +1563,7 @@ ita:
     payment_amount: "Importo del pagamento"
     payment_at: "pagamento su"
     payment_conditions: "Condizioni di pagamento"
+    # payment_delay_placeholder: "eom, 5 days before"
     payment_mode: "Metodo di pagamento"
     payments: "Pagamenti"
     payments_count: "contano Pagamenti"
@@ -1571,6 +1581,9 @@ ita:
     picture: "Immagine"
     placeholder: "segnaposto"
     places: "posti"
+    # planned: "Planned"
+    # planned_again_intervention_in: "Plan again this intervention on"
+    # planning: "Planning"
     plant: "pianta"
     plant_counting: "Conteggio"
     plant_countings: "Conteggi"
@@ -1603,6 +1616,7 @@ ita:
     production_cost: "Costo di produzione"
     # production_costs: "Production costs"
     production_distribution: "produzione distribuzione"
+    # production_nature: "Production nature"
     production_support: "supporto alla produzione"
     productions: "produzioni"
     productions_sales: "Vendite Productions"
@@ -1624,6 +1638,7 @@ ita:
     # purchase_order: "Purchase order"
     purchase_payments: "Pagamenti d’acquisto"
     purchases: "acquisti"
+    # purchases_prices: "Purchases prices"
     purchases_stocks_variation: "Scorte Acquisti variazione"
     quality: "Qualità"
     # quandl: "Quandl"
@@ -1888,6 +1903,7 @@ ita:
     unit: "Unità"
     # unit_amount: "Unit cost excl. taxes"
     # unit_and_indicator: "%{unit} (%{indicator})"
+    # unit_pretax_amount: "Unit pretax amount"
     unknown: "Sconosciuto"
     unknown_condition: "Condition unknown"
     unknown_user: "Utente sconosciuto"
@@ -1937,6 +1953,7 @@ ita:
     # wice_grid_columns: "Columns"
     wind_speed: "Velocità del vento"
     with_fixed_assets_depreciations: "Con un patrimonio ammortamenti fisse"
+    # worked_zone_not_corresponding: "The worked zone is not corresponding to the planned one"
     workers: "Lavoratori"
     # workforce: "Workforce"
     working_duration: "durata di funzionamento"

@@ -32,6 +32,13 @@ spa:
         started_on: "Iniciar la actualización"
       fixed_asset_depreciation:
         asset_amount: "Valor contable"
+      intervention_working_period:
+        started_at:
+          # one: "Started at is inferior than expected"
+          # other: "{{count}} Started at is inferior than expected"
+        stopped_at:
+          # one: "Stopped at is inferior than expected"
+          # other: "{{count}} Stopped at is inferior than expected"
       land_parcel:
         born_at: "Creado en"
       land_parcel_group:
@@ -178,6 +185,12 @@ spa:
           attributes:
             parameters:
               check_errored: "Comprobación de conexión errónea. Asegúrese de que la entrada es válida o vuelva a intentarlo más tarde."
+        intervention_working_period:
+          attributes:
+            started_at:
+              # inferior: "Started at is inferior than expected"
+            stopped_at:
+              # inferior: "Stopped at is inferior than expected"
         journal:
           attributes:
             accountant:
@@ -197,6 +210,8 @@ spa:
           unvalid_amounts: "El asiento debe ser llenado ya sea de débito o de crédito, pero no al mismo tiempo."
         outgoing_parcel_item:
           # greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
+        purchase:
+          # payment_delay_custom_validation_message: "Accepted formats : %{values}"
         purchase_item:
           attributes:
             fixed:
@@ -534,7 +549,9 @@ spa:
     bank_statement_letter: "Carta de estado de cuenta bancaria"
     bank_statements: "Estados de cuenta bancarios"
     base_amount: "Cantidad base"
+    # batch: "Batch"
     # batch_number: "Batch number"
+    # batch_planting: "Batch planting"
     battery_level: "Nivel de bateria"
     birth_date_completeness: "Fecha de nacimiento exhaustividad"
     birth_farm_number: "Número de granja nacimiento"
@@ -676,6 +693,7 @@ spa:
     custom_fields: "Campos Personalizados"
     custom_fields_columns: "Campos personalizados columnas"
     customized_type: "Tipo personalizado"
+    # daily_charges: "Daily charges"
     daily_nitrogen_production: "La producción diaria de nitrógeno"
     dashboards: "Cuadros de mando"
     dead: "Muerto"
@@ -967,6 +985,10 @@ spa:
     intervention_participation: "La participación de la intervención"
     intervention_participations: "Participaciones de intervención"
     intervention_product_parameters: "Moldes de intervención"
+    # intervention_proposal: "Intervention proposal"
+    # intervention_proposals: "Intervention proposals"
+    # intervention_template: "Intervention template"
+    # intervention_templates: "Intervention templates"
     interventions: "Intervenciones"
     interventions_used_in: "Las intervenciones se utiliza en"
     intracommunity: "Intracomunitario"
@@ -985,6 +1007,7 @@ spa:
     invoiced_at: "Facturado sobre"
     invoiced_on: "Facturado sobre"
     ip_address: "Dirección IP"
+    # irregular_batch: "Irregular batch"
     irrigated: "Regadío"
     irrigation_water_nitrogen: "Irrigación de nitrógeno del agua"
     islet: "Isleta"
@@ -1158,6 +1181,7 @@ spa:
     number: "Número"
     number_format: "Formato numérico"
     number_increment: "Incremento de número"
+    # number_of_batch: "Number of batch"
     number_start: "Número de inicio"
     observations: "Observaciones"
     observed_at: "Observado a las"
@@ -1479,6 +1503,7 @@ spa:
     source: "Fuente"
     source_product: "Producto de código"
     # source_product_movement: "Source product movement"
+    # sowing_interval: "Sowing interval"
     spaced_iban: "IBAN espaciado"
     # specie: "Specie"
     sql_type: "Tipo de SQL"
@@ -1552,6 +1577,7 @@ spa:
     tax_payability: "Exigibilidad de Impuestos"
     taxations: "Tasaciones"
     team: "Equipo"
+    # technical_itinerary: "Technical itinerary"
     template: "Modelo"
     theme: "Tema"
     theoretical_number: "Número teórico"

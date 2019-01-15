@@ -35,7 +35,7 @@
 
     $(document).on 'click', '.nested-fields .edit-item[data-edit="item-form"]', (event) ->
       vatSelectedValue = $(event.target).closest('.nested-fields').find('.item-display .vat-rate').attr('data-selected-value')
-      $(event.target).closest('.nested-fields').find('.nested-item-form:visible .order-vat-total').val(vatSelectedValue)
+      $(event.target).closest('.nested-fields').find('.nested-item-form:visible .order-vat-total').val(vatSelectedValue) unless vatSelectedValue == undefined
 
     $(document).on 'selector:change', 'input#purchase_invoice_supplier_id', ->
       supplier_id = $(this).parent().find('.selector-value').val()

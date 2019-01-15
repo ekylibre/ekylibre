@@ -27,7 +27,8 @@ module Backend
     before_action :check_variant_availability, only: :new
     before_action :clean_attachments, only: [:update]
 
-    unroll :name, :number, :work_number, :identification_number, container: :name # , 'population:!', 'unit_name:!'
+    #TODO: ProductsController shoudln't rely on  an Intervention partial. Polymorphism maybe?
+    unroll :name, :number, :work_number, :identification_number, container: :name, partial: 'backend/interventions/available_time_or_quantity'
 
     # params:
     #   :q Text search

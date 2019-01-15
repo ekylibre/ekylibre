@@ -684,6 +684,8 @@ por:
         # one: "%{count} error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
+    bank_reconciliation:
+      # remove: "Remove"
     leaflet:
       draw:
         handlers:
@@ -970,6 +972,7 @@ por:
     conditions:
       filter_on_attribute_of_class: "Filtrar atributo da classe"
       special-subscriber: "Especial assinante"
+    # conducted: "Conducted"
     configure: "Configurar"
     # confirmation_update_historical_plans: "Confirmation update historical plans"
     connect: "Conectar"
@@ -1093,6 +1096,10 @@ por:
     draft: "Esboço"
     # driver: "Driver"
     duplicate: "Duplicado"
+    # duplicate_intervention: "Duplicate intervention"
+    duplicate_x_selected_interventions:
+      # one: "Duplicate selected intervention"
+      # other: "Duplicate selected interventions"
     duration: "Duração"
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     during: "Durante"
@@ -1150,6 +1157,8 @@ por:
     export_as_csv: "Exportar como CSV"
     export_as_ods: "Exportar como ODS"
     export_as_xcsv: "Exportar como Excel CSV"
+    # extract_account_x: "Extract account %{account_number}"
+    # extract_unlettered_account_x: "Extract unlettered account %{account_number}"
     # fees: "Fees"
     # field: "Field %{counter}"
     field_distribution: "Distribuição do campo"
@@ -1493,6 +1502,7 @@ por:
     payment_amount: "Quantidade de pagamento"
     payment_at: "Sobre o pagamento"
     payment_conditions: "Condições de pagamento"
+    # payment_delay_placeholder: "eom, 5 days before"
     payment_mode: "Modo de pagamento"
     payments: "Pagamentos"
     payments_count: "Pagamentos contar"
@@ -1510,6 +1520,9 @@ por:
     picture: "Fotografia"
     placeholder: "Espaço reservado"
     places: "Locais"
+    # planned: "Planned"
+    # planned_again_intervention_in: "Plan again this intervention on"
+    # planning: "Planning"
     plant: "Plantar"
     plant_counting: "Contando"
     plant_countings: "Contagens"
@@ -1542,6 +1555,7 @@ por:
     production_cost: "Custo de produção"
     # production_costs: "Production costs"
     production_distribution: "Distribuição da produção"
+    # production_nature: "Production nature"
     production_support: "Apoio à produção"
     productions: "Produções"
     productions_sales: "Vendas Productions"
@@ -1563,6 +1577,7 @@ por:
     # purchase_order: "Purchase order"
     purchase_payments: "Pagamentos de compra"
     purchases: "Compras"
+    # purchases_prices: "Purchases prices"
     purchases_stocks_variation: "Variação Compras stocks"
     quality: "Qualidade"
     # quandl: "Quandl"
@@ -1827,6 +1842,7 @@ por:
     unit: "Unidade"
     # unit_amount: "Unit cost excl. taxes"
     # unit_and_indicator: "%{unit} (%{indicator})"
+    # unit_pretax_amount: "Unit pretax amount"
     unknown: "Desconhecido"
     unknown_condition: "Condição desconhecida"
     unknown_user: "Usuário desconhecido"
@@ -1876,6 +1892,7 @@ por:
     # wice_grid_columns: "Columns"
     wind_speed: "Velocidade do vento"
     with_fixed_assets_depreciations: "Com depreciações de ativos fixos"
+    # worked_zone_not_corresponding: "The worked zone is not corresponding to the planned one"
     workers: "Trabalhadores"
     # workforce: "Workforce"
     working_duration: "Duração de trabalho"

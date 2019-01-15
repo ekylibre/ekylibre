@@ -32,4 +32,15 @@
 #  updater_id   :integer
 #
 class NamingFormatLandParcel < NamingFormat
+  # Load default
+  def self.load_defaults
+    create!(
+      name: I18n.t('labels.land_parcels', locale: Preference[:language]),
+      fields_attributes: [
+        { field_name: :cultivable_zone_name, position: 1, type: 'NamingFormatFieldLandParcel' },
+        { field_name: :activity, position: 2, type: 'NamingFormatFieldLandParcel' },
+        { field_name: :campaign, position: 3, type: 'NamingFormatFieldLandParcel' }
+      ]
+    )
+  end
 end

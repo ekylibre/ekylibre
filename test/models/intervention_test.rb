@@ -38,6 +38,7 @@
 #  lock_version                   :integer          default(0), not null
 #  nature                         :string           not null
 #  number                         :string
+#  parent_id                      :integer
 #  prescription_id                :integer
 #  procedure_name                 :string           not null
 #  purchase_id                    :integer
@@ -50,6 +51,7 @@
 #  trouble_encountered            :boolean          default(FALSE), not null
 #  updated_at                     :datetime         not null
 #  updater_id                     :integer
+#  validator_id                   :integer
 #  whole_duration                 :integer          not null
 #  working_duration               :integer          not null
 #
@@ -123,7 +125,7 @@ class InterventionTest < ActiveSupport::TestCase
   test 'killing target' do
     plant = Plant.all.detect { |p| p.dead_first_at.nil? && p.dead_at.nil? }
     assert plant
-    now = Time.utc(2016, 10, 25, 20, 20, 20)
+    now = Time.utc(2016, 07, 25, 20, 20, 20)
 
     last_death_at = now + 1.year
     last_intervention = add_harvesting_intervention(plant, last_death_at)

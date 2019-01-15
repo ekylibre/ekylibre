@@ -1,6 +1,6 @@
 = modal_header(intervention.name)
 
-.modal-body
+.modal-body{ data: { intervention_id: intervention.id }}
 
   .indicators
     .med-info.total-cost
@@ -53,7 +53,7 @@
         - intervention.doers.each do |doer|
           - title = doer.product.name
           - detail = doer.name
-          = add_detail_to_modal_block(title, detail, {icon: 'picto-male'})
+          = add_detail_to_modal_block(title, detail, doer, {icon: 'picto-male'})
 
     - if intervention.inputs.any?
       .block
@@ -78,7 +78,7 @@
         - intervention.tools.each do |tool|
           - title = tool.product.name
           - detail = tool.product.nature.name
-          = add_detail_to_modal_block(title, detail, {icon: "picto-tractor"})
+          = add_detail_to_modal_block(title, detail, tool, {icon: "picto-tractor", natures: [:travel, :intervention]})
 
     - if intervention.receptions.any?
       .block
@@ -94,10 +94,15 @@
   - displayed_state = intervention.state.tl
   - displayed_state = intervention.nature.l if intervention.nature.to_sym == :request
 
-  = dropdown_menu_button(displayed_state, class: 'btn btn-primary dropup', icon: false, disable_with: tl(:please_wait)) do |menu|
-    - Intervention.state.options.each do |state, option|
-      - unless option.to_sym == :rejected || ( option.to_sym == intervention.state.to_sym && intervention.nature.to_sym != :request)
-        - menu.item state, change_state_backend_interventions_path(:intervention => { :interventions_ids => ([intervention.id]).to_json, :state => option.to_sym }), method: :post
+  - if next_state.present?
+    - if next_state[1] == 'validated'
+      .evaluation-part
+        %p= :add_an_evaluation_for_this_intervention.tl
+        - 4.times do |i|
+          %i.picto.picto-star-o{data: { index: i }}
+
+    = dropdown_menu_button(displayed_state, class: "btn btn-primary change-status dropup #{'disabled' if next_state[1] == 'validated'}", icon: false, force_menu: true, disable_with: tl(:please_wait)) do |menu|
+      - menu.item(next_state[0], change_state_backend_interventions_path(:intervention => { :interventions_ids => ([intervention.id]).to_json, state: next_state[1].to_sym, redirect: false }), method: :post) if next_state
 
   = link_to :see_details.tl, backend_intervention_path(intervention), class: 'btn btn-default'
   = link_to :edit.tl, edit_backend_intervention_path(intervention), class: 'btn btn-default'

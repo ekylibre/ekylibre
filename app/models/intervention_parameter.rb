@@ -156,4 +156,73 @@ class InterventionParameter < Ekylibre::Record::Base
   def earn
     earn_amount_computation.amount
   end
+
+  def self.order_by_product_name
+    joins(:product).order('products.name')
+  end
+
+  def self.compare_with_planned
+    result = true
+    associations = { InterventionDoer: :doers, InterventionTool: :tools, InterventionInput: :inputs }
+
+    return true if self.all.empty?
+
+    param = self.first
+    if param.intervention.record?
+      intervention = param.intervention.reload
+      request_intervention = intervention.request_intervention.reload
+    else
+      request_intervention = param.intervention.reload
+      intervention = request_intervention.record_interventions.first.reload
+    end
+
+    association = associations[param.type.to_sym]
+    self_parameters = intervention.send(association)
+    request_parameters = request_intervention.send(association)
+
+    return false if (self_parameters.empty? && request_parameters.any?) || (self_parameters.any? && request_parameters.empty?)
+
+    unless self_parameters.empty? && request_parameters.empty?
+      return false if self_parameters.group_by(&:product_id).count != request_parameters.group_by(&:product_id).count
+
+      request_parameters.group_by(&:product_id).each do |product_id, request_param|
+        self_param = intervention.product_parameters.where(product_id: product_id)
+
+        return false if self_param.empty?
+
+        if self_param.first.input?
+          self_quantity = self_param.map(&:quantity_population).compact.sum
+          request_quantity = request_param.map(&:quantity_population).compact.sum
+
+          percent = Intervention::PLANNED_REALISED_ACCEPTED_GAP[request_param.first.type.underscore.to_sym] || 1.2
+          intervals = (request_quantity / percent..request_quantity * percent)
+
+          return false unless intervals.include?(self_quantity)
+        else
+          rq_duration = 0
+          request_param.each { |param| rq_duration += calculate_cost_amount_computation(param).quantity }
+
+          self_duration = 0
+          self_param.each { |param| self_duration += calculate_cost_amount_computation(param).quantity }
+
+          percent = Intervention::PLANNED_REALISED_ACCEPTED_GAP[request_param.first.type.underscore.to_sym] || 1.2
+          intervals = (rq_duration / percent..rq_duration * percent)
+
+          return false unless intervals.include?(self_duration)
+        end
+      end
+    end
+    result
+  end
+
+  def self.calculate_cost_amount_computation(product_parameter)
+    if product_parameter.product.is_a?(Worker)
+      computation = product_parameter.cost_amount_computation
+    elsif product_parameter.product.try(:tractor?) && product_parameter.participation.present?
+      computation = product_parameter.cost_amount_computation(natures: %i[travel intervention])
+    else
+      computation = product_parameter.cost_amount_computation(natures: %i[intervention])
+    end
+    computation
+  end
 end

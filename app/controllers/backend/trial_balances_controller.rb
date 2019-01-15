@@ -20,6 +20,9 @@
 
 module Backend
   class TrialBalancesController < Backend::BaseController
+
+    before_action :save_search_preference, only: :show
+
     def show
       filename = "#{human_action_name} #{Time.zone.now.l(format: '%Y-%m-%d')}"
       @balance = Journal.trial_balance(params) if params[:period]

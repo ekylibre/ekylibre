@@ -679,6 +679,8 @@ deu:
         # one: "%{count} error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
+    bank_reconciliation:
+      # remove: "Remove"
     leaflet:
       draw:
         handlers:
@@ -965,6 +967,7 @@ deu:
     conditions:
       filter_on_attribute_of_class: "Filter auf Attribut der Klasse"
       special-subscriber: "Spezial-Teilnehmer"
+    # conducted: "Conducted"
     configure: "Konfigurieren"
     # confirmation_update_historical_plans: "Confirmation update historical plans"
     connect: "Verbinden"
@@ -1088,6 +1091,10 @@ deu:
     draft: "Entwurf"
     # driver: "Driver"
     duplicate: "Duplikat"
+    # duplicate_intervention: "Duplicate intervention"
+    duplicate_x_selected_interventions:
+      # one: "Duplicate selected intervention"
+      # other: "Duplicate selected interventions"
     duration: "Dauer"
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     during: "Während"
@@ -1145,6 +1152,8 @@ deu:
     export_as_csv: "Export als CSV"
     export_as_ods: "Export als ODS"
     export_as_xcsv: "Export als Excel CSV"
+    # extract_account_x: "Extract account %{account_number}"
+    # extract_unlettered_account_x: "Extract unlettered account %{account_number}"
     # fees: "Fees"
     # field: "Field %{counter}"
     field_distribution: "Feldverteilung"
@@ -1488,6 +1497,7 @@ deu:
     payment_amount: "Höhe der Zahlung"
     payment_at: "Zahlung auf"
     payment_conditions: "Zahlungsbedingungen"
+    # payment_delay_placeholder: "eom, 5 days before"
     payment_mode: "Zahlungsart"
     payments: "Zahlungen"
     payments_count: "Zahlungen rechnen"
@@ -1505,6 +1515,9 @@ deu:
     picture: "Bild"
     placeholder: "Platzhalter"
     places: "Setzt"
+    # planned: "Planned"
+    # planned_again_intervention_in: "Plan again this intervention on"
+    # planning: "Planning"
     plant: "Pflanze"
     plant_counting: "Zählen"
     plant_countings: "Zählungen"
@@ -1537,6 +1550,7 @@ deu:
     production_cost: "Produktionskosten"
     # production_costs: "Production costs"
     production_distribution: "Produktion Vertrieb"
+    # production_nature: "Production nature"
     production_support: "Produktionsunterstützung"
     productions: "Produktionen"
     productions_sales: "Productions Vertrieb"
@@ -1558,6 +1572,7 @@ deu:
     # purchase_order: "Purchase order"
     purchase_payments: "Kaufzahlungen"
     purchases: "Käufe"
+    # purchases_prices: "Purchases prices"
     purchases_stocks_variation: "Käufe Bestände Variation"
     quality: "Qualität"
     # quandl: "Quandl"
@@ -1822,6 +1837,7 @@ deu:
     unit: "Einheit"
     # unit_amount: "Unit cost excl. taxes"
     # unit_and_indicator: "%{unit} (%{indicator})"
+    # unit_pretax_amount: "Unit pretax amount"
     unknown: "Unbekannt"
     unknown_condition: "unbekannt Zustand"
     unknown_user: "Unbekannter Benutzer"
@@ -1871,6 +1887,7 @@ deu:
     # wice_grid_columns: "Columns"
     wind_speed: "Windgeschwindigkeit"
     with_fixed_assets_depreciations: "Mit Anlagevermögen Abschreibungen"
+    # worked_zone_not_corresponding: "The worked zone is not corresponding to the planned one"
     workers: "Arbeitskräfte"
     # workforce: "Workforce"
     working_duration: "Arbeitsdauer"

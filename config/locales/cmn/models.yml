@@ -32,6 +32,13 @@ cmn:
         started_on: "开始升级"
       fixed_asset_depreciation:
         asset_amount: "问责值"
+      intervention_working_period:
+        started_at:
+          # one: "Started at is inferior than expected"
+          # other: "{{count}} Started at is inferior than expected"
+        stopped_at:
+          # one: "Stopped at is inferior than expected"
+          # other: "{{count}} Stopped at is inferior than expected"
       land_parcel:
         born_at: "创建时间"
       land_parcel_group:
@@ -178,6 +185,12 @@ cmn:
           attributes:
             parameters:
               check_errored: "连接检查错误。请确保输入的有效性或稍后再试。"
+        intervention_working_period:
+          attributes:
+            started_at:
+              # inferior: "Started at is inferior than expected"
+            stopped_at:
+              # inferior: "Stopped at is inferior than expected"
         journal:
           attributes:
             accountant:
@@ -197,6 +210,8 @@ cmn:
           unvalid_amounts: "日记条目必须同时填写无论是借记卡还是信用卡，但并非如此。"
         outgoing_parcel_item:
           # greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
+        purchase:
+          # payment_delay_custom_validation_message: "Accepted formats : %{values}"
         purchase_item:
           attributes:
             fixed:
@@ -533,7 +548,9 @@ cmn:
     bank_statement_letter: "银行对账单的信"
     bank_statements: "银行对账单"
     base_amount: "基数"
+    # batch: "Batch"
     # batch_number: "Batch number"
+    # batch_planting: "Batch planting"
     battery_level: "电池电量"
     birth_date_completeness: "出生日期完整性"
     birth_farm_number: "农场出生数"
@@ -673,6 +690,7 @@ cmn:
     custom_fields: "自定义字段"
     custom_fields_columns: "自定义字段列"
     customized_type: "定制型"
+    # daily_charges: "Daily charges"
     daily_nitrogen_production: "每日制氮"
     dashboards: "仪表板"
     dead: "死"
@@ -963,6 +981,10 @@ cmn:
     intervention_participation: "参与干预"
     intervention_participations: "干预参股"
     intervention_product_parameters: "干预铸件"
+    # intervention_proposal: "Intervention proposal"
+    # intervention_proposals: "Intervention proposals"
+    # intervention_template: "Intervention template"
+    # intervention_templates: "Intervention templates"
     interventions: "干预"
     interventions_used_in: "干预中使用"
     intracommunity: "社区内"
@@ -981,6 +1003,7 @@ cmn:
     invoiced_at: "开具发票的上"
     invoiced_on: "开具发票的上"
     ip_address: "IP地址"
+    # irregular_batch: "Irregular batch"
     irrigated: "灌溉"
     irrigation_water_nitrogen: "灌溉水氮"
     islet: "坻"
@@ -1154,6 +1177,7 @@ cmn:
     number: "数"
     number_format: "数字格式"
     number_increment: "数增量"
+    # number_of_batch: "Number of batch"
     number_start: "编号开始"
     observations: "意见"
     observed_at: "在观察"
@@ -1475,6 +1499,7 @@ cmn:
     source: "资源"
     source_product: "产品来源"
     # source_product_movement: "Source product movement"
+    # sowing_interval: "Sowing interval"
     spaced_iban: "间隔IBAN"
     # specie: "Specie"
     sql_type: "SQL类型"
@@ -1548,6 +1573,7 @@ cmn:
     tax_payability: "税务payability"
     taxations: "税费"
     team: "球队"
+    # technical_itinerary: "Technical itinerary"
     template: "模板"
     theme: "主题"
     theoretical_number: "理论数量"

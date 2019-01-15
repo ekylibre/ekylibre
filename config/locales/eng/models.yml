@@ -32,6 +32,13 @@ eng:
         started_on: "start-up date"
       fixed_asset_depreciation:
         asset_amount: "Accountable value"
+      intervention_working_period:
+        started_at:
+          one: "Started at is inferior than expected"
+          other: "{{count}} Started at is inferior than expected"
+        stopped_at:
+          one: "Stopped at is inferior than expected"
+          other: "{{count}} Stopped at is inferior than expected"
       land_parcel:
         born_at: "Created at"
       land_parcel_group:
@@ -175,6 +182,12 @@ eng:
           attributes:
             parameters:
               check_errored: "Connexion check errored. Please ensure the validity of your input or try again later."
+        intervention_working_period:
+          attributes:
+            started_at:
+              inferior: "Started at is inferior than expected"
+            stopped_at:
+              inferior: "Stopped at is inferior than expected"
         journal:
           attributes:
             accountant:
@@ -546,7 +559,9 @@ eng:
     bank_statement_letter: "Bank statement letter"
     bank_statements: "Bank statements"
     base_amount: "Base amount"
+    batch: "Batch" #?
     batch_number: "Batch number"
+    batch_planting: "Batch planting" #?
     battery_level: "Battery level"
     birth_date_completeness: "Birth date completeness"
     birth_farm_number: "Birth farm number"
@@ -698,6 +713,7 @@ eng:
     custom_fields: "Custom fields"
     custom_fields_columns: "Custom fields columns"
     customized_type: "Customized type"
+    daily_charges: "Daily charges" #?
     daily_nitrogen_production: "Daily nitrogen production"
     dashboards: "Dashboards"
     # data: "Data"
@@ -1012,6 +1028,10 @@ eng:
     intervention_participation: "Intervention participation"
     intervention_participations: "Intervention participations"
     intervention_product_parameters: "Intervention casts"
+    intervention_proposal: "Intervention proposal" #?
+    intervention_proposals: "Intervention proposals" #?
+    intervention_template: "Intervention template" #?
+    intervention_templates: "Intervention templates" #?
     interventions: "Interventions"
     interventions_used_in: "Interventions used in"
     intracommunity: "Intracommunity"
@@ -1033,6 +1053,7 @@ eng:
     invoiced_at: "Invoiced on"
     invoiced_on: "Invoiced on"
     ip_address: "IP address"
+    irregular_batch: "Irregular batch" #?
     irrigated: "Irrigated"
     irrigation_water_nitrogen: "Irrigation water nitrogen"
     islet: "Islet"
@@ -1214,6 +1235,7 @@ eng:
     number: "Number"
     number_format: "Number format"
     number_increment: "Number increment"
+    number_of_batch: "Number of batch" #?
     number_start: "Number start"
     observations: "Observations"
     observed_at: "Observed at"
@@ -1576,6 +1598,7 @@ eng:
     source_product: "Source product"
     source_product_movement: "Source product movement"
     # source_type: "Source type"
+    sowing_interval: "Sowing interval" #?
     spaced_iban: "Spaced IBAN"
     specie: "Specie"
     sql_type: "SQL type"
@@ -1657,6 +1680,7 @@ eng:
     tax_payability: "Tax payability"
     taxations: "Taxations"
     team: "Team"
+    technical_itinerary: "Technical itinerary" #?
     template: "Template"
     theme: "Theme"
     theoretical_number: "Theoretical number" #?
@@ -1741,6 +1765,7 @@ eng:
     user: "User"
     users: "Users"
     uuid: "UUID"
+    # validator: "Validator"
     value: "Value"
     variable_indicators_list: "Variable indicators list"
     variant: "Variant"

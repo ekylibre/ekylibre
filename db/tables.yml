@@ -3677,6 +3677,9 @@ interventions:
     required: true
   number:
     type: string
+  parent_id:
+    type: integer
+    references: intervention
   prescription_id:
     type: integer
     references: prescription
@@ -3710,6 +3713,9 @@ interventions:
     type: datetime
     required: true
   updater_id:
+    type: integer
+    references: user
+  validator_id:
     type: integer
     references: user
   whole_duration:
@@ -3751,6 +3757,9 @@ inventories:
   number:
     type: string
     required: true
+  product_nature_category_id:
+    type: integer
+    references: product_nature_category
   reflected:
     type: boolean
     required: true
@@ -4769,22 +4778,18 @@ master_equipment_costs:
     type: decimal
     precision: 19
     scale: 4
-    required: true
   segment_1_threshold:
     type: decimal
     precision: 19
     scale: 4
-    required: true
   segment_2_amount:
     type: decimal
     precision: 19
     scale: 4
-    required: true
   segment_2_threshold:
     type: decimal
     precision: 19
     scale: 4
-    required: true
   segment_3_amount:
     type: decimal
     precision: 19

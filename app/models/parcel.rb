@@ -80,6 +80,8 @@ class Parcel < Ekylibre::Record::Base
   belongs_to :responsible, class_name: 'User'
   belongs_to :transporter, class_name: 'Entity'
   belongs_to :contract
+  belongs_to :sender, class_name: 'Entity'
+  belongs_to :recipient, class_name: 'Entity'
   has_many :items, class_name: 'ParcelItem', inverse_of: :parcel, foreign_key: :parcel_id, dependent: :destroy
   has_many :products, through: :items, source: :product
   has_many :issues, as: :target
@@ -98,6 +100,8 @@ class Parcel < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :delivery_mode, :address, presence: true
   validates :transporter, presence: { if: :delivery_mode_transporter? }
+  validates :recipient, presence: { if: :outgoing? }
+  validates :sender, presence: { if: :incoming? }
 
   validates :transporter, match: { with: :delivery, if: ->(p) { p.delivery&.transporter } }, allow_blank: true
 

@@ -370,7 +370,20 @@ class Product < Ekylibre::Record::Base
            to: :nature
 
   after_initialize :choose_default_name
-  after_save :set_initial_values, if: :initializeable?
+
+  after_save do
+    if initializeable?
+      set_initial_values
+
+    else
+      product_phases = phases.where(product_id: id,
+                                    variant_id: variant.id,
+                                    nature_id: variant.nature.id,
+                                    category_id: variant.category.id)
+
+      build_new_phase unless product_phases.any?
+    end
+  end
 
   before_validation do
     self.initial_born_at ||= Time.zone.now
@@ -492,6 +505,21 @@ class Product < Ekylibre::Record::Base
     localization.container = self.initial_container
     localization.save!
 
+    # Add first frozen indicator on a product from his variant
+    if variant
+      phase = phases.first_of_all || phases.build
+      phase.variant = variant
+      phase.save!
+      # set indicators from variant in products readings
+      variant.readings.each do |variant_reading|
+        reading = readings.first_of_all(variant_reading.indicator_name) ||
+        readings.new(indicator_name: variant_reading.indicator_name)
+        reading.value = variant_reading.value
+        reading.read_at = born_at
+        reading.save!
+      end
+    end
+
     if born_at
       # Configure initial_movement
       movement = initial_movement || build_initial_movement
@@ -510,22 +538,19 @@ class Product < Ekylibre::Record::Base
         ProductReading.destroy readings.where.not(id: reading.id).where(indicator_name: :shape, read_at: reading.read_at).pluck(:id)
       end
     end
-
-    # Add first frozen indicator on a product from his variant
-    if variant
-      phase = phases.first_of_all || phases.build
-      phase.variant = variant
-      phase.save!
-      # set indicators from variant in products readings
-      variant.readings.each do |variant_reading|
-        reading = readings.first_of_all(variant_reading.indicator_name) ||
-                  readings.new(indicator_name: variant_reading.indicator_name)
-        reading.value = variant_reading.value
-        reading.read_at = born_at
-        reading.save!
-      end
-    end
   end
+
+  def build_new_phase
+    phases.build(
+      product_id: id,
+      variant_id: variant.id,
+      category_id: variant.category.id,
+      nature_id: variant.nature.id
+    )
+
+    save
+  end
+
 
   def shape=(new_shape)
     reading_cache[:shape] = new_shape
@@ -845,5 +870,27 @@ class Product < Ekylibre::Record::Base
       update_column(:reading_cache, reading_cache.merge(indicator.to_s => indicator_value))
     end
     indicator_value
+  end
+
+  def time_use_in_date(date)
+    intervention_parameters = InterventionParameter.joins(:intervention).where(product_id: self, interventions: { started_at: date }).includes(:intervention).uniq { |p| p.intervention.number }
+    intervention_numbers = intervention_parameters.includes(:intervention).map { |p| p.intervention.number }
+    intervention_proposal_parameters = Planning::InterventionProposal::Parameter
+                                       .joins(:intervention_proposal)
+                                       .where(product_id: self, intervention_proposals: { estimated_date: date })
+                                       .where.not(intervention_proposals: { number: intervention_numbers })
+    duration = intervention_parameters.includes(:intervention).map(&:duration).inject(:+) || 0
+    duration += (intervention_proposal_parameters.map { |p| p.intervention_proposal.estimated_working_time }.inject(:+) || 0) * 3600
+    (duration / 3600.0).round(1) if duration.present?
+  end
+
+  def stock_info
+    info = "#{self.population.round(2)} #{self.variant.unit_name.downcase}"
+    info
+  end
+
+  def working_duration_info(date)
+    info = "#{self.time_use_in_date(date).to_s.gsub!(/\./,",")} h"
+    info
   end
 end

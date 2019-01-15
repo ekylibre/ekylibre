@@ -2,6 +2,7 @@ test:
   adapter: postgis
   encoding: unicode
   database: ekylibre_test
-  schema_search_path: public,postgis
-  username: postgres
+  schema_search_path: public,postgis,lexicon
+  username: runner
+  password: $password
   postgis_extension: []

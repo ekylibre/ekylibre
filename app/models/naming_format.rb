@@ -38,16 +38,4 @@ class NamingFormat < Ekylibre::Record::Base
   # ]VALIDATORS]
 
   accepts_nested_attributes_for :fields, reject_if: :all_blank, allow_destroy: true
-
-  # Load default
-  def load_defaults
-    create!(
-      name: I18n.t('labels.land_parcels', locale: Preference[:language]),
-      fields: [
-        new_land_parcel_field(:cultivable_zone_name, 1),
-        new_land_parcel_field(:activity, 2),
-        new_land_parcel_field(:campaign, 3)
-      ]
-    )
-  end
 end

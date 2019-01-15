@@ -61,6 +61,8 @@
 class PurchaseOrder < Purchase
   enumerize :command_mode, in: %i[letter fax mail oral sms market_place], default: :mail
 
+  has_many :receptions, class_name: Reception, foreign_key: :purchase_id
+
   state_machine :state, initial: :opened do
     state :opened
     state :closed
@@ -80,8 +82,6 @@ class PurchaseOrder < Purchase
   scope :with_state, lambda { |state|
     where(state: state)
   }
-  scope :of_supplier, ->(supplier) { where(supplier: supplier) }
-
   scope :of_supplier, ->(supplier) { where(supplier: supplier) }
 
   def self.third_attribute

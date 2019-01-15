@@ -19,6 +19,8 @@ gem 'apartment-sidekiq'
 # Ruby syntax extensions
 gem 'possibly'
 
+gem 'better_errors'
+
 # Code manipulation
 gem 'charlock_holmes'
 gem 'code_string', '>= 0.0.1'
@@ -33,6 +35,8 @@ gem 'figaro'
 # Maintenance mode
 gem 'turnout'
 
+gem 'lodash-rails'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -44,6 +48,7 @@ gem 'therubyracer', platforms: :ruby
 
 # Exception analysis and metrics
 gem 'binding_of_caller'
+gem 'redis-namespace'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -177,6 +182,7 @@ gem 'rubyzip'
 gem 'sepa_king'
 # gem 'sepa_king', path: '/home/jonathan/Workspace/sepa_king'
 gem 'quandl'
+gem 'odf-report'
 gem 'rodf'
 
 # Demo data
@@ -245,6 +251,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'puma'
   gem 'shoulda-context'
 
   gem 'capybara'

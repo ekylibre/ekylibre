@@ -4,6 +4,8 @@
 ((E, $) ->
   'use strict'
 
+  PLANNED_REALISED_ACCEPTED_GAP = { intervention_doer: 1.2, intervention_tool: 1.2 , intervention_input: 1.2}
+
   E.value = (element) ->
     if element.is(":ui-selector")
       return element.selector("value")
@@ -206,25 +208,35 @@
         interventionStartedAt = $('#intervention_working_periods_attributes_0_started_at').val()
 
         participations = []
-        $('.intervention-participation').each ->
+
+        doersParameters = targetted_element.closest('.nested-doers')
+        tractorsParameters = targetted_element.closest('.nested-tractor').closest('.nested-tools')
+        doersToolsParameters = $('.nested-parameters.nested-doers, .nested-parameters.nested-tools')
+
+        if doersParameters.length > 0
+          interventionParticipations = doersParameters.find('.intervention-participation')
+        else if tractorsParameters.length > 0
+          interventionParticipations = doersToolsParameters.find('.nested-product-parameter.nested-driver, .nested-product-parameter.nested-tractor').find('.intervention-participation')
+        else
+          interventionParticipations = doersToolsParameters.find('.nested-product-parameter').not('.nested-tractor').find('.intervention-participation')
+
+        interventionParticipations.each ->
           participations.push($(this).val())
 
         autoCalculMode = $('#intervention_auto_calculate_working_periods').val()
-
 
         datas = {}
         datas['intervention_id'] = intervention_id
         datas['product_id'] = product_id
         datas['existing_participation'] = existingParticipation
-        datas['participations'] = participations
+        # datas['participations'] = participations
         datas['intervention_started_at'] = interventionStartedAt
         datas['auto_calcul_mode'] = autoCalculMode
 
-        $.ajax
+        $.post
           url: "/backend/intervention_participations/participations_modal",
           data: datas
           success: (data, status, request) ->
-
             @workingTimesModal = new ekylibre.modal('#working_times')
             @workingTimesModal.removeModalContent()
             @workingTimesModal.getModalContent().append(data)
@@ -250,10 +262,12 @@
           params['page'] = currentPage
 
           loadContent = true
+          if $('#compare-planned-and-realised').attr('checked')
+            comparePlannedRealised = true
 
           $.ajax
             url: "/backend/interventions/change_page",
-            data: { interventions_taskboard: params }
+            data: { interventions_taskboard: params, compare_planned_realised: comparePlannedRealised }
             success: (data, status, request) ->
               loadContent = false
               taskboard.addTaskClickEvent()
@@ -283,6 +297,8 @@
             itemLine.push("<span class='item-role'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][role]' value='#{item.role}' type='hidden'></input></span>")
             itemLine.push("<span class='item-purchase-order-item-id'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][purchase_order_item_id]' value='#{item.purchase_order_item}' type='hidden'></input></span>")
             $('.purchase-items-array').append("<li class='item-line'>" + itemLine.join('') + "</li>")
+            if $('.cant-be-update').length > 0
+              $('.purchase-items-array').find('.item-line input').attr('disabled',true)
 
     updateTotalAmount: (input) ->
       quantity = input.val()
@@ -295,6 +311,8 @@
         purchaseInput.attr("disabled",true)
       else
         purchaseInput.attr("disabled",false)
+      if $('.cant-be-update').length > 0
+        input.parents('.fieldset-fields').find('input').attr('disabled', true)
 
   ##############################################################################
   # Triggers
@@ -471,6 +489,71 @@
     E.interventionForm.checkPlantLandParcelSelector(productId, landParcelPlantSelectorElement)
     E.interventionForm.checkHarvestInProgress(event, productId, landParcelPlantSelectorElement)
 
+  $(document).on 'change', '#compare-planned-and-realised', (event) ->
+    $.ajax
+      url: '/backend/preferences/compare_planned_and_realised'
+      type: 'PATCH'
+      data: { value: event.target.checked }
+      success: (data) =>
+        window.location.reload(true)
+
+  $(document).on 'click', '.calendar-img', (event) ->
+    return if $(event.target).parents('.task-data').attr('class').includes('no-request')
+    intervention_id = $(event.target).parents('.task').data('intervention').id
+    $.ajax
+      url: '/backend/interventions/compare_realised_with_planned'
+      data: { intervention_id: intervention_id }
+      dataType: 'script'
+      success: (data) =>
+
+  # Add value to unroll of product in intervention form
+  $(document).on 'selector:menu-opened', '#intervention-form .nested-product-parameter .selector-search', (event) =>
+    unless $(event.target).parents('.control-group').hasClass('intervention_targets_product')
+      items = $(event.target).parents('.controls').find('.item')
+      type = $(event.target).parents('.parameter-type').data('type')
+      date = $('.intervention-started-at').val()
+      items_id = $(items).map(->
+        $(this).attr 'data-item-id'
+      ).get()
+      $.ajax
+        url: '/backend/products/available_time_or_quantity'
+        data: { items: items_id, date: date }
+        success: (data) =>
+          items.each (index) ->
+            $(this).find('.time-part').remove()
+            product_id = parseInt($(this).attr('data-item-id'))
+            product = data.products_duration.find (e) ->
+              e.product_id == product_id
+            $(this).append "<strong class='time-part'>(#{product.quantity || 0})</strong>"
+
+  $(document).on 'shown.bs.modal', '#compare-planned-with-realised', (event) ->
+
+    $('.details').each ->
+      product_id = $(this).data('productId')
+      type = $(this).data('type')
+      same_elements = $('.details[data-product-id=' + product_id + '][data-type=' + type + ']')
+      if same_elements.length == 1
+        $(this).find('h4').addClass("warning")
+        return true
+
+      planned_elements = $('.planned .details[data-product-id=' + product_id + '][data-type=' + type + ']')
+      realised_elements = $('.realised .details[data-product-id=' + product_id + '][data-type=' + type + ']')
+      planned_duration_sum = 0
+      realised_duration_sum = 0
+      data_selector = if type == 'InterventionInput' then 'quantity-population' else 'duration'
+      planned_elements.each ->
+        planned_quantity = $(this).data(data_selector)
+        planned_quantity = parseFloat(planned_quantity)
+        planned_duration_sum += planned_quantity
+      realised_elements.each ->
+        realised_quantity = $(this).data(data_selector)
+        realised_quantity = parseFloat(realised_quantity)
+        realised_duration_sum += realised_quantity
+
+      min_interval_error = planned_duration_sum / PLANNED_REALISED_ACCEPTED_GAP[_.snakeCase(type)]
+      max_interval_error = planned_duration_sum * PLANNED_REALISED_ACCEPTED_GAP[_.snakeCase(type)]
+      if min_interval_error >= realised_duration_sum || max_interval_error <= realised_duration_sum
+        $('.details[data-product-id=' + product_id + '][data-type=' + type + ']').find('.quantity').addClass("warning")
 
   E.interventionForm =
     displayCost: (target, quantity, unitName) ->
@@ -611,7 +694,6 @@
       @taskboard.getHeaderActions().find('.edit-tasks').on('click', (event) ->
 
         interventionsIds = instance._getSelectedInterventionsIds(event.target)
-
         $.ajax
           url: "/backend/interventions/modal",
           data: {interventions_ids: interventionsIds}
@@ -720,13 +802,12 @@
 
         element = $(event.target)
 
-        if (element.is(':input[type="checkbox"]'))
+        if (element.is(':input[type="checkbox"]') || $(event.target).attr('class') == 'calendar-img')
           return
 
         task = element.closest('.task')
 
         intervention = JSON.parse(task.attr('data-intervention'))
-
         $.ajax
           url: "/backend/interventions/modal",
           data: {intervention_id: intervention.id}
@@ -752,4 +833,98 @@
       @taskboardModal.getModal().modal 'show'
 
   true
+  
+  $(document).ready ->
+    #TODO: Refacto this to not be coupled so tight to URL
+    if window.location.pathname.includes('/backend/interventions/')
+      path = window.location.pathname
+      intervention = path.substring(path.lastIndexOf('/') + 1);
+      $.ajax
+        url: '/backend/interventions/generate_buttons'
+        data: { interventions: [intervention] }
+        success: (data) =>
+          unless data == null
+            $('.main-toolbar').append(data)
+
+    $(document).on 'change', '#interventions-list .list-selector', (e) =>
+      e.stopImmediatePropagation();
+      interventions = $.map( $(".list-data input:checked"), (n, i) ->
+          n.value
+      )
+      $('.duplicate-intervention').remove()
+
+      $.ajax
+        url: '/backend/interventions/generate_buttons'
+        data: { interventions: interventions }
+        success: (data) =>
+          $('.main-toolbar').append(data)
+
+    $(document).on 'change', '.requests #check_nature', (e) =>
+      e.stopImmediatePropagation();
+      $(e.currentTarget).parent('.task')
+      $(e.currentTarget).closest('.taskboard-column').find(".taskboard-header")
+      interventions = $.map($('.requests .tasks input:checked'), (n, i) ->
+        $(n).closest('.task').data().intervention.id
+      )
+      $('.requests .duplicate-intervention').remove()
+      $.ajax
+        url: '/backend/interventions/generate_buttons'
+        data: { interventions: interventions, icon_btn: true }
+        success: (data) =>
+          unless data == null
+            $('.requests .edit-tasks').after("<i class='picto picto-plus duplicate-intervention' title='#{data.translation}'></i>")
+            $('.duplicate-intervention').data('interventions', interventions)
+
+
+    $('#taskboard-modal').on 'show.bs.modal', (e) =>
+      e.stopImmediatePropagation();
+      intervention = $(e.currentTarget).find(".modal-body").data().interventionId
+      $.ajax
+        url: '/backend/interventions/generate_buttons'
+        data: { interventions: [intervention] }
+        success: (data) =>
+          unless data == null
+            $(e.currentTarget).find('.duplicate-intervention').remove()
+            $(e.currentTarget).find('.modal-footer').append(data)
+
+    $(document).on 'click', '.duplicate-intervention', (e) =>
+      e.stopImmediatePropagation();
+      interventions = $(e.currentTarget).data().interventions
+      $.ajax
+        url: '/backend/interventions/duplicate_interventions'
+        data: { interventions: interventions }
+        success: (data) =>
+          if $('#taskboard-modal').length > 0
+            interventionModal = new ekylibre.modal('#taskboard-modal')
+            interventionModal.getModal().modal 'hide'
+          else
+            interventionModal = new ekylibre.modal('#create-intervention-modal')
+            interventionModal.getModal().modal 'hide'
+          $('#wrap').after(data)
+          duplicateModal = new ekylibre.modal('#duplicate-modal')
+          duplicateModal.getModal().modal 'show'
+
+    $(document).on 'click', '#duplicate-modal #validate-duplication', (e) =>
+      e.stopImmediatePropagation();
+      intervention = $(e.currentTarget).data().intervention
+      interventions = $(e.currentTarget).data().interventions
+      duplicateModal = new ekylibre.modal('#duplicate-modal')
+      date = $('#duplicate-modal #duplicate_date').val()
+      $.ajax
+        type: 'post'
+        url: '/backend/interventions/create_duplicate_intervention'
+        data: { intervention: intervention, interventions: interventions, date: date }
+        success: (data) =>
+          if data == null
+            duplicateModal.getModal().modal 'hide'
+            location.reload();
+          else if data.errors != undefined
+            $('#duplicate-modal .modal-header').append("<div class='errors'>#{data.errors}</div>")
+          else
+            duplicateModal.getModal().modal 'hide'
+            $('#duplicate-modal').remove()
+            $('#wrap').after(data)
+            duplicateModal = new ekylibre.modal('#duplicate-modal')
+            duplicateModal.getModal().modal 'show'
+
 ) ekylibre, jQuery
