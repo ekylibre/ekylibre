@@ -151,11 +151,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     colored (1.2)
-<<<<<<< ours
-    concurrent-ruby (1.0.5)
-=======
     concurrent-ruby (1.1.4)
->>>>>>> theirs
     connection_pool (2.2.2)
     crass (1.0.4)
     daemons (1.2.6)
