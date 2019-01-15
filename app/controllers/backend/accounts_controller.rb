@@ -182,6 +182,29 @@ module Backend
       end
     end
 
+    def reconciliable_list 
+      return unless @account = Account.find_by_id(params[:id])
+
+      if params.key?(:masked)
+        preference_name = 'backend/accounts'
+        preference_name << ".#{params[:context]}" if params[:context]
+        preference_name << '.lettered_items.masked'
+        current_user.prefer!(preference_name, params[:masked].to_s == 'true', :boolean)
+      end
+
+      lettered_items_preference = current_user.preference(preference_name, 'true', :boolean)
+
+      @items = @account.reconcilable_entry_items(params[:period], params[:started_on], params[:stopped_on], hide_lettered: lettered_items_preference.value)
+
+      @unmark_label = :unmark.ta    
+      @unmark_title = :unmark.tl    
+      @confirm_label = :are_you_sure.tl
+      @account_id = @account.id
+      @currency = Preference[:currency]
+      @precision = Nomen::Currency[@currency].precision
+
+    end
+
     def mask_lettered_items
       preference_name = 'backend/accounts'
       preference_name << ".#{params[:context]}" if params[:context]
