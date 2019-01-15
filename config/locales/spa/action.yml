@@ -798,6 +798,8 @@ spa:
     account_fixed_assets: "Activo inmobilisado" #?
     account_for: "Cuenta para"
     account_inventories_assets: "Stocks" #?
+    # account_lettered: "Lettered"
+    # account_lettering_state: "Lettering state"
     account_mark: "Letra de cuento" #?
     account_name: "Cuento contable" #?
     account_number: "Numero de cuenta" #?
@@ -1128,6 +1130,7 @@ spa:
     # dated_cash: "%{cash}: %{on}"
     dates: "Marcar las fechas de empezo y termino por los periodos"
     days: "Días"
+    # dccepted_for_paiment: "Accepted for paiment"
     deals: "Ofertas"
     debit: "Flujo"
     debts: "Deudas"
@@ -1659,6 +1662,7 @@ spa:
     parcel_items: "Artículos de paquetería"
     parcels: "Parcelas"
     partially_lettered: "Parcialmente con letras"
+    # partially_lettered_unlettered: "Partially lettered / unlettered"
     participants: "Los participantes"
     participations: "Participaciones"
     parts: "Modulos"

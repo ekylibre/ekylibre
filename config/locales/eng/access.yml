@@ -60,6 +60,7 @@ eng:
       labels: "Labels"
       land_parcels: "Land parcels"
       listings: "Listings"
+      # load_plans: "Load plans"
       loans: "Loans"
       manure_management_plans: "Manure management plans"
       map_layers: "Map layers"

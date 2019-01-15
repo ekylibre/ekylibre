@@ -330,6 +330,54 @@ module Backend
         code.c
       end
 
+      def account_lettering_states_crit(variable, _conditions = 'c', _table_name = nil)
+        variable = "params[:#{variable}]" unless variable.is_a? String
+        code = ''
+        code << "unless #{variable}[:account_lettering_state].blank?\n"
+        code << "  conditions = ['1=1'] \n"
+        code << "  account_lettering_states = #{variable}[:account_lettering_state].map{ |s| s.split(',') }.flatten.compact \n"
+        code << "  account_lettering_states.each_with_index do |current_lettering_state, index|\n"
+        code << "    if index == 0\n"
+        code << "      conditions[0] << ' AND('\n"
+        code << "      if current_lettering_state == 'lettered'\n"
+        code << "        conditions[0] << '(#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter NOT ILIKE ?)'\n"
+        code << "        conditions << '%*'\n"
+        code << "      end\n"
+
+        code << "      if current_lettering_state == 'unlettered'\n"
+        code << "        conditions[0] << '#{JournalEntryItem.table_name}.letter IS NULL'\n"
+        code << "      end\n"
+
+        code << "      if current_lettering_state == 'partially_lettered'\n"
+        code << "        conditions[0] << '(#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter ILIKE ?)'\n"
+        code << "        conditions << '%*'\n"
+        code << "      end\n"
+        code << "    else\n"
+        code << "      if current_lettering_state == 'lettered'\n"
+        code << "        conditions[0] << ' OR (#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter NOT ILIKE ?)'\n"
+        code << "        conditions << '%*'\n"
+        code << "      end\n"
+
+        code << "      if current_lettering_state == 'unlettered'\n"
+        code << "        conditions[0] << ' OR #{JournalEntryItem.table_name}.letter IS NULL'\n"
+        code << "      end\n"
+
+        code << "      if current_lettering_state == 'partially_lettered'\n"
+        code << "        conditions[0] << ' OR (#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter ILIKE ?)'\n"
+        code << "        conditions << '%*'\n"
+        code << "      end\n"
+        code << "    end\n"
+        code << "  end\n"
+        code << "  conditions[0] << ')'\n"
+        code << journal_period_crit('params', 'conditions')
+        code << "  subquery = #{JournalEntryItem}.joins(:entry).select(:account_id).where(conditions).to_sql\n"
+        code << "  c[0] << ' AND accounts.id IN (' \n"
+        code << "  c[0] << subquery \n"
+        code << "  c[0] << ')' \n"
+        code << "end\n"
+        code.c
+      end
+
       # accountancy -> accounts_range_crit
       def accounts_range_crit(variable, conditions = 'c')
         variable = "params[:#{variable}]" unless variable.is_a? String
