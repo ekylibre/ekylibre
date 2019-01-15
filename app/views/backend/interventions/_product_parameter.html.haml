@@ -10,25 +10,31 @@
     - is_equipment = product.try(:tractor?) || product.try(:self_prepelled_equipment?)
     .periods
       - if (!participation.nil? && participation.has_period_with_nature?(nature: :preparation))
-        .period
-          .period-type
-            = image_tag('intervention_participations/action-preparation.svg', class: "period-icon")
-            %h3{ class: "period-label" }= t('enumerize.intervention_working_period.nature.preparation')
-          = add_working_period_cost(product_parameter, nature: :preparation)
+        - comp = product_parameter.cost_amount_computation(nature: :preparation)
+        - unless comp.failed? || comp.none? || comp.quantity.zero?
+          .period
+            .period-type
+              = image_tag('intervention_participations/action-preparation.svg', class: "period-icon")
+              %h3{ class: "period-label" }= t('enumerize.intervention_working_period.nature.preparation')
+            = add_working_period_cost(product_parameter, nature: :preparation)
 
       - if !participation.nil? && participation.has_period_with_nature?(nature: :travel) || product.try(:tractor?)
-        .period
-          .period-type
-            = image_tag('intervention_participations/action-travel.svg', class: "period-icon")
-            %h3{ class: "period-label" }= t('enumerize.intervention_working_period.nature.travel')
-          = add_working_period_cost(product_parameter, nature: :travel)
+        - comp = product_parameter.cost_amount_computation(nature: :travel)
+        - unless comp.failed? || comp.none? || comp.quantity.zero?
+          .period
+            .period-type
+              = image_tag('intervention_participations/action-travel.svg', class: "period-icon")
+              %h3{ class: "period-label" }= t('enumerize.intervention_working_period.nature.travel')
+            = add_working_period_cost(product_parameter, nature: :travel)
 
       - if (!participation.nil? && participation.has_period_with_nature?(nature: :intervention)) || product.is_a?(Equipment)
-        .period
-          .period-type
-            = image_tag('intervention_participations/action-intervention.svg', class: "period-icon")
-            %h3{ class: "period-label" }= t('enumerize.intervention_working_period.nature.intervention')
-          = add_working_period_cost(product_parameter, nature: :intervention)
+        - comp = product_parameter.cost_amount_computation(nature: :intervention)
+        - unless comp.failed? || comp.none? || comp.quantity.zero?
+          .period
+            .period-type
+              = image_tag('intervention_participations/action-intervention.svg', class: "period-icon")
+              %h3{ class: "period-label" }= t('enumerize.intervention_working_period.nature.intervention')
+            = add_working_period_cost(product_parameter, nature: :intervention)
 
       - if !participation.nil? || is_equipment || product.is_a?(Equipment)
         .total
