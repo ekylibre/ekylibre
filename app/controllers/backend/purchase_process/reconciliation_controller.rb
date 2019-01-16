@@ -31,7 +31,7 @@ module Backend
       def receptions_to_reconciliate
         receptions = Reception.where(id: ParcelItem.where(purchase_invoice_item_id: nil).map(&:parcel_id),
                                      sender_id: params[:supplier],
-                                     state: :given)
+                                     state: :given).order(given_at: :asc)
 
         items_to_reconcile(receptions, purchase_orders: false)
       end
