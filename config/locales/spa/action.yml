@@ -1130,7 +1130,6 @@ spa:
     # dated_cash: "%{cash}: %{on}"
     dates: "Marcar las fechas de empezo y termino por los periodos"
     days: "Días"
-    # dccepted_for_paiment: "Accepted for paiment"
     deals: "Ofertas"
     debit: "Flujo"
     debts: "Deudas"

@@ -1030,7 +1030,6 @@ deu:
     # dated_cash: "%{cash}: %{on}"
     dates: "Wählen Sie Zeitraum Startdatum und Enddatum der Periode"
     days: "Tage"
-    # dccepted_for_paiment: "Accepted for paiment"
     deals: "Angebote"
     debit: "Soll"
     debts: "Schuldenlast"

@@ -1097,7 +1097,6 @@ jpn:
     # dated_cash: "%{cash}: %{on}"
     dates: "期間開始日と期間終了日を選択"
     days: "日々"
-    # dccepted_for_paiment: "Accepted for paiment"
     deals: "お得な情報"
     debit: "借方"
     debts: "債務"

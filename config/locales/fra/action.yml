@@ -1270,7 +1270,6 @@ fra:
     dates: "Saisissez les dates de début et de fin de la période"
     day: "Jour" #?
     days: "Jours"
-    # dccepted_for_paiment: "Accepted for paiment"
     deals: "Transactions"
     debit: "Débit"
     debts: "Dettes"

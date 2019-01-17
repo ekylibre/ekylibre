@@ -1096,7 +1096,6 @@ ita:
     # dated_cash: "%{cash}: %{on}"
     dates: "Selezionare data di inizio periodo e periodo data di fine"
     days: "giorni"
-    # dccepted_for_paiment: "Accepted for paiment"
     deals: "offerte"
     debit: "Addebito"
     debts: "Debiti"

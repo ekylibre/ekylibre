@@ -1332,7 +1332,6 @@ eng:
     dated_cash: "%{cash}: %{on}"
     dates: "Select period start date and Period end date" #?
     days: "Days"
-    dccepted_for_paiment: "Accepted for paiment" #?!
     deals: "Deals"
     debit: "Debit" #?
     debts: "Debts" #?!
