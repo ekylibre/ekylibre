@@ -206,7 +206,7 @@ Rails.application.routes.draw do
         patch :mask_lettered_items
       end
       member do
-        patch :reconciliable_list
+        get :reconciliable_list
         match 'mark', via: %i[get post]
         post :unmark
         get :list_journal_entry_items

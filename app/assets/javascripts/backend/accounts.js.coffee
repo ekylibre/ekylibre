@@ -15,7 +15,7 @@
 
       $.ajax
         url: $input.data('refresh-list-url')
-        type: 'PATCH'
+        type: 'GET'
         data:
           masked: $input.is(':checked') ? 'true' : 'false'
           period: $input.data('period')
