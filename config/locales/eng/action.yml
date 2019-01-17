@@ -1616,6 +1616,7 @@ eng:
     interventions: "Interventions"
     interventions_count: "Interventions count"
     interventions_paths: "Interventions paths" #?
+    intracommunautary_vat: "Intra-communautary VAT"
     invalid_file: "Invalid file" #?
     invalid_format: "Invalid format" #?
     inventories: "Inventories" #?
@@ -2058,6 +2059,7 @@ eng:
     social_expenses: "Social expenses" #?!
     sold_on: "Sold on"
     source: "Source" #?
+    standard_vat: "Standard VAT"
     start: "From" #?
     start_new_intervention_here: "Start new intervention here"
     started: "Started"

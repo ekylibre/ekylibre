@@ -13,26 +13,24 @@ class PendingVatPrinter
     vat_dataset = []
 
     tax_declaration = TaxDeclaration.find(@params[:id])
-    taxes = Tax.where(id: tax_declaration.items.pluck(:tax_id)).reorder(amount: :desc)
-
-    columns = [:collected, :intracommunity_payable, :deductible, :fixed_asset_deductible]
-    account_transcode = { collected: :collect_account_id, deductible: :deduction_account_id, fixed_asset_deductible: :fixed_asset_deduction_account_id, intracommunity_payable: :intracommunity_payable_account_id }
+    taxes = Tax.where(id: tax_declaration.items.pluck(:tax_id), intracommunity: false).where.not(nature: :eu_vat).reorder(amount: :desc)
+    columns = [:collected, :deductible, :fixed_asset_deductible]
 
     columns.each do |c|
-      #section 1
       cat = HashWithIndifferentAccess.new
       cat[:name] = TaxDeclarationItem.human_attribute_name(c)
       cat[:items] = []
+
       taxes.each do |t|
-        #section 2
         cat_tax = HashWithIndifferentAccess.new
         cat_tax[:name] = t.name
         cat_tax[:parts] = []
         tax_total_tax = 0.0
         tax_total_pretax = 0.0
+
         tax_declaration.items.where(tax_id: t.id).includes(parts: { journal_entry_item: :entry }).each do |i|
-          #table 1
-          i.parts.each do |p|
+
+          i.parts.where(direction: c).each do |p|
             jei = p.journal_entry_item
             e = jei.entry
             item = HashWithIndifferentAccess.new
@@ -49,24 +47,76 @@ class PendingVatPrinter
           tax_total_tax += i.send("#{c}_tax_amount")
           tax_total_pretax += i.send("#{c}_pretax_amount")
         end
+
         cat_tax[:pretax_amount] = tax_total_pretax
         cat_tax[:tax_amount] = tax_total_tax
         cat[:items] << cat_tax
       end
-      cat[:pretax_amount] = tax_declaration.items.sum("#{c}_pretax_amount")
-      cat[:tax_amount] = tax_declaration.items.sum("#{c}_tax_amount")
+
+      cat[:pretax_amount] = cat[:items].map { |i| i[:pretax_amount] }.sum
+      cat[:tax_amount] = cat[:items].map { |i| i[:tax_amount] }.sum
       vat_dataset << cat
     end
-    to_pay = tax_declaration.items.sum(:balance_tax_amount)
+
+    tax_amounts = vat_dataset.map { |d| d[:tax_amount] }
+    to_pay = tax_amounts.first - tax_amounts[1..-1].sum
+
     if to_pay >= 0.0
-      vat_label  = :to_pay.tl
+      vat_label = :to_pay.tl
       vat_balance = to_pay
     else
       vat_label = :to_reclaim.tl
       vat_balance = -to_pay
     end
+
     vat_dataset << vat_label
     vat_dataset << vat_balance
+
+
+    intra_taxes = Tax.where(id: tax_declaration.items.pluck(:tax_id), intracommunity: true, nature: :eu_vat).reorder(amount: :desc)
+    # intra_columns = [:collected, :intracommunity_payable, :deductible, :fixed_asset_deductible]
+    intra_columns = [:collected, :deductible]
+    intra_column_labels = { collected: :sales.tl, deductible: :purchases.tl }
+
+    intra_columns.each do |c|
+      intra_cat = HashWithIndifferentAccess.new
+      intra_cat[:name] = intra_column_labels[c]
+      intra_cat[:items] = []
+
+      intra_taxes.each do |t|
+        intra_cat_tax = HashWithIndifferentAccess.new
+        intra_cat_tax[:name] = t.name
+        intra_cat_tax[:parts] = []
+        intra_tax_total_tax = 0.0
+        intra_tax_total_pretax = 0.0
+
+        tax_declaration.items.where(tax_id: t.id).includes(parts: { journal_entry_item: :entry }).each do |i|
+          i.parts.where(direction: c).each do |p|
+            next if c == :collected && p.tax_amount > 0
+            jei = p.journal_entry_item
+            e = jei.entry
+            intra_item = HashWithIndifferentAccess.new
+            intra_item[:entry_number] = e.number
+            intra_item[:entry_printed_on] = e.printed_on.l
+            intra_item[:item_account] = jei.vat_item_to_product_account
+            intra_item[:entry_item_name] = jei.name
+            intra_item[:tax_amount] = p.tax_amount.to_f
+            intra_item[:pretax_amount] = p.pretax_amount.to_f
+            intra_item[:amount] = (p.pretax_amount.to_f + p.tax_amount.to_f).round(2)
+            intra_cat_tax[:parts] << intra_item
+          end
+        end
+
+        intra_cat_tax[:pretax_amount] = intra_cat_tax[:parts].map { |p| p[:pretax_amount] }.sum
+        intra_cat_tax[:tax_amount] = intra_cat_tax[:parts].map { |p| p[:tax_amount] }.sum
+        intra_cat[:items] << intra_cat_tax
+      end
+
+      intra_cat[:pretax_amount] = intra_cat[:items].map { |i| i[:pretax_amount] }.sum
+      intra_cat[:tax_amount] = intra_cat[:items].map { |i| i[:tax_amount] }.sum
+      vat_dataset << intra_cat
+    end
+
     vat_dataset.compact
   end
 
@@ -97,10 +147,10 @@ class PendingVatPrinter
       r.add_field 'STOPPED_ON', stopped_on.to_date.l
       r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
       r.add_field 'DATA_FILTERS', data_filters * ' | '
-      r.add_field 'VAT_BALANCE', dataset[-2]
-      r.add_field 'VAT_BALANCE_AMOUNT', dataset[-1]
+      r.add_field 'VAT_BALANCE', dataset[3]
+      r.add_field 'VAT_BALANCE_AMOUNT', dataset[4]
 
-      r.add_section('Section1', dataset[0...-2]) do |first_section|
+      r.add_section('Section1', dataset[0...3]) do |first_section|
         first_section.add_field(:vat_header) { |item| item[:name] }
         first_section.add_field(:general_pretax_amount) { |item| item[:pretax_amount] }
         first_section.add_field(:general_tax_amount) { |item| item[:tax_amount] }
@@ -111,6 +161,25 @@ class PendingVatPrinter
           second_section.add_field(:total_tax_amount) { |item| item[:tax_amount] }
 
           second_section.add_table('Table6', :parts, header: false) do |first_table|
+            first_table.add_column(:printed_on) { |part| part[:entry_printed_on] }
+            first_table.add_column(:label) { |part| part[:entry_item_name] }
+            first_table.add_column(:pretax_amount) { |part| part[:pretax_amount] }
+            first_table.add_column(:tax_amount) { |part| part[:tax_amount] }
+          end
+        end
+      end
+
+      r.add_section('Section3', dataset[-2..-1]) do |first_section|
+        first_section.add_field(:vat_header) { |item| item[:name] }
+        first_section.add_field(:general_pretax_amount) { |item| item[:pretax_amount] }
+        first_section.add_field(:general_tax_amount) { |item| item[:tax_amount] }
+
+        first_section.add_section('Section4', :items) do |second_section|
+          second_section.add_field(:vat_rate) { |item| item[:name] }
+          second_section.add_field(:total_pretax_amount) { |item| item[:pretax_amount] }
+          second_section.add_field(:total_tax_amount) { |item| item[:tax_amount] }
+
+          second_section.add_table('Table12', :parts, header: false) do |first_table|
             first_table.add_column(:printed_on) { |part| part[:entry_printed_on] }
             first_table.add_column(:label) { |part| part[:entry_item_name] }
             first_table.add_column(:pretax_amount) { |part| part[:pretax_amount] }
@@ -132,7 +201,9 @@ class PendingVatPrinter
         :tax_amount.tl
       ]
 
-      dataset[0...-2].each do |tax_nature|
+      csv << [:standard_vat.tl]
+
+      dataset[0...3].each do |tax_nature|
         csv << [
           "#{:vat.tl} #{tax_nature[:name]}"
         ]
@@ -162,10 +233,38 @@ class PendingVatPrinter
       end
 
       csv << [
-        "#{:vat.tl} #{dataset[-2]}",
+        "#{:vat.tl} #{dataset[3]}",
         "",
-        dataset[-1]
+        dataset[4]
       ]
+
+      csv << [:intracommunautary_vat.tl]
+
+      dataset[-2..-1].each do |tax_nature|
+        csv << [
+          "#{:vat.tl} #{tax_nature[:name]}"
+        ]
+
+        tax_nature[:items].each do |tax|
+
+          tax[:parts].each do |part|
+            csv << [
+              "#{part[:entry_printed_on]} #{part[:entry_item_name]}",
+              part[:pretax_amount]
+            ]
+          end
+
+          csv << [
+            "#{:total.tl} #{tax[:name]}",
+            tax[:pretax_amount]
+          ]
+        end
+
+        csv << [
+          "#{:general_total.tl} #{:vat.tl} #{tax_nature[:name]}",
+          tax_nature[:pretax_amount]
+        ]
+      end
     end
   end
 end

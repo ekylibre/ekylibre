@@ -172,12 +172,18 @@ class Account < Ekylibre::Record::Base
   }
 
   scope :collected_vat, -> {
-    of_usages(:collected_vat, :enterprise_collected_vat)
+    of_usages(:collected_vat, :enterprise_collected_vat, :collected_intra_eu_vat)
   }
 
   scope :deductible_vat, -> {
-    of_usages(:deductible_vat, :enterprise_deductible_vat)
+    of_usages(:deductible_vat, :enterprise_deductible_vat, :deductible_intra_eu_vat)
   }
+
+  scope :intracommunity_payable, -> {
+    of_usages(:collected_intra_eu_vat)
+  }
+
+
 
   scope :general, -> {
     where(nature: 'general')
