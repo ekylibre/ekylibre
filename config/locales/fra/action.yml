@@ -417,8 +417,8 @@ fra:
       mail: "Envoyer un e-mail pour\_: %{name}"
       new: "Nouvelle extraction"
     backend/loan_repayments:
-      new: "Nouvelle échéance"
       edit: "Modifier le remboursement du %{due_on} de l’emprunt %{loan_name}"
+      new: "Nouvelle échéance"
     backend/loans:
       edit: "Modifier l’emprunt\_: %{name}"
       index: "Emprunts"
@@ -753,6 +753,7 @@ fra:
       # inclusion: "%{attribute} is not included in the list"
       # invalid: "%{attribute} is invalid"
       # invalid_at: "%{attribute} is_invalid. Error near %{error}"
+      # invalid_child: "At least one value of %{attribute} is invalid."
       # invalid_date: "%{attribute} is not a valid date"
       # invalid_datetime: "%{attribute} is not a valid datetime"
       # invalid_time: "%{attribute} is not a valid time"
@@ -780,6 +781,7 @@ fra:
       # overlap_sibling: "%{attribute} overlaps sibling"
       # posterior: "%{attribute} must be posterior to %{to}"
       # record_invalid: "Validations failed: %{errors}"
+      # should_be_the_last_day_of_month: "%{attribute} should be the last day of the month."
       # taken: "%{attribute} has already been taken"
       # too_long: "%{attribute} is too long (maximum is %{count} characters)"
       # too_short: "%{attribute} is too short (minimum is %{count} characters)"
@@ -891,6 +893,7 @@ fra:
     accountancy_preferences: "Préférences de la comptabilité"
     accounting: "Passer en comptabilité"
     accounting_balance: "Balance comptable" #?
+    accounting_system: "Plan de comptes"
     accounts: "Comptes comptables"
     accounts_only_used_at: "Comptes utilisés seulement sur"
     accounts_to_change: "Plan de comptes à changer"
@@ -985,6 +988,14 @@ fra:
     affair: "Affaire"
     affair_number: "N° d’affaire"
     affairs: "Affaires"
+    alive_corporeal_assets: "Immobilisations corporelles (biens vivants)" #?
+    alive_corporeal_assets_adult_animals: "Animaux reproducteurs (adultes)"
+    alive_corporeal_assets_advances: "Avances et acomptes"
+    alive_corporeal_assets_in_progress: "Immobilisations corporelles (bien vivants) en cours"
+    alive_corporeal_assets_others: "Autres végétaux en terres immobilisés"
+    alive_corporeal_assets_perennial_plants: "Plantations pérennes"
+    alive_corporeal_assets_service_animals: "Animaux de service"
+    alive_corporeal_assets_young_animals: "Animaux reproducteurs (jeunes)"
     all: "Tous"
     all_accounts: "Tous les comptes"
     all_areas: "— Toutes les zones postales —" #?
@@ -1018,6 +1029,8 @@ fra:
     animal_life_state: "Phase du bioprocessus de vie d’un animal" #?
     animal_pie: "Animaux par lot" #?
     animal_productions: "Productions animales" #?
+    animal_purchases: "Achats d'animaux"
+    animal_sales: "Ventes d'animaux"
     animals: "Animaux"
     any_journal: "Tous les journaux"
     apply: "Appliquer" #?
@@ -1069,6 +1082,7 @@ fra:
     bank_statement_number: "N° du relevé de compte bancaire"
     bank_statements: "Relevés de compte bancaire"
     bban: "Relevé d’identité bancaire (RIB)"
+    before_taxe_result: "Résultat courant avant impôts"
     beginning: "Début"
     begins: "Commence par" #?
     beta: "Beta"
@@ -1096,6 +1110,15 @@ fra:
     cap_land_parcels: "Parcelles PAC"
     capitalised_production: "Production immobilisée"
     capitals: "Capital social"
+    capitals_anew_reports: "Report à nouveau"
+    capitals_derogatory_depreciations: "Amortissements dérogatoires"
+    capitals_emissions_and_reevaluation_gaps: "Primes d'émissions, fusion, d'apport et écart de réévaluation"
+    capitals_investment_subsidies: "SUbventions d'investissemnts"
+    capitals_liability_reserves: "Réserves"
+    capitals_mandatory_provisions: "Provisions réglementées"
+    capitals_profit_or_loss: "Résultat de l'exercice"
+    capitals_risk_and_charges_provisions: "Provisions pour risques et charges"
+    capitals_values: "Capitals"
     care: "soins" #?
     cartography: "Cartographie"
     cash: "Trésorerie"
@@ -1120,6 +1143,7 @@ fra:
     change_status_of_selected_interventions: "Modifier l’état d’interventions sélectionnées"
     charge_value: "Achats et charges externes"
     charges: "Charges"
+    charges_total: "Total des charges (II + IV + VI + VII + VIII)"
     chart: "Graphique"
     check: "Vérifier"
     check_fields: "Vous devez cocher au moins une case pour effectuer la modification" #?
@@ -1208,6 +1232,14 @@ fra:
     copy_of: "Copie de %{source}"
     copy_previous_budget: "Copier à partir du budget précédent"
     corporeal_assets: "Immobilisations corporelles"
+    corporeal_assets_advances: "Avances et acomptes"
+    corporeal_assets_buildings: "Constructions"
+    corporeal_assets_enhancement: "Amélioration du fonds"
+    corporeal_assets_equipments: "Installations techniques, matériel et outillage"
+    corporeal_assets_in_progress: "Immobilisations corporelles en cours"
+    corporeal_assets_land_parcels: "Terrains"
+    corporeal_assets_others: "Autres"
+    corporeal_assets_settlements: "Aménagements fonciers"
     cost: "Coût" #?
     cost_income_statement: "Charges" #?
     cost_per_net_surface_area: "Coût par surface"
@@ -1266,8 +1298,8 @@ fra:
     data_to_export: "Données à exporter" #?
     data_to_extract: "Données à extraire" #?
     date: "Date" #?
-    dated_cash: "%{cash}\_: %{on}"
     date_range: "%{from} au %{to}"
+    dated_cash: "%{cash}\_: %{on}"
     dates: "Saisissez les dates de début et de fin de la période"
     day: "Jour" #?
     days: "Jours"
@@ -1275,7 +1307,12 @@ fra:
     debit: "Débit"
     debit_account_balance: "Solde débiteur: %{value}€"
     debts: "Dettes"
+    debts_associate_locked_debts: "Associés (comptes courants bloqué)"
+    debts_cashe_debts: "Découverts bancaires courants"
+    debts_land_parcel_loans: "Emprunts fonciers"
     debts_on_assets: "Taux d’endettement (Dettes / Actifs) %{financial_year}"
+    debts_other_financial_debts: "Autres emprunts et dettes"
+    debts_others_loans: "Autres"
     decimal_case: "Options pour un décimal" #?
     decision_making: "Décision"
     default_letter_conclusion: "Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations distinguées."
@@ -1377,6 +1414,16 @@ fra:
     employee_name: "Employé" #?
     end: "au"
     entities: "Tiers"
+    entities_advance_charges: "Charges constatées d'avance"
+    entities_advance_giveables: "Avances et acomptes versés"
+    entities_assets_gaps: "Ecart de conversion"
+    entities_associate_receivables: "Associés"
+    entities_client_receivables: "Clients"
+    entities_investment_security: "Valeurs mobilières de placement"
+    entities_other_receivables: "Autres créances"
+    entities_others_clients: "Autres clients et conventions"
+    entities_reserve: "Disponibilités"
+    entities_state_receivables: "Etat (TVA et taxes)"
     entity: "Tiers" #?
     entity_links: "Liens entre entité"
     entity_to_delete: "Doublon à fusionner (et faire disparaitre)"
@@ -1411,7 +1458,15 @@ fra:
     evolution: "Evolution"
     example: "Exemple\_: %{value}"
     exceptional_expenses: "Charges exceptionnelles"
+    exceptional_expenses_on_assets_cessions: "Charges comptables des élèments d'actif"
+    exceptional_expenses_on_capital_operations: "Autres charges exceptionnelles sur opérations en capital"
+    exceptional_expenses_on_management_operations: "Charges exceptionnelles sur opérations de gestion"
+    exceptional_expenses_on_provisions: "Dotations aux ammortissements, dépréciations et provisions"
     exceptional_products: "Produits exceptionnels"
+    exceptional_products_on_assets_cessions: "Produits de cessions d'élèments d'actif"
+    exceptional_products_on_capital_operations: "Autres produits exceptionnels sur opérations en capital"
+    exceptional_products_on_management_operations: "Produits exceptionnels sur opérations de gestion"
+    exceptional_products_on_provisions: "Reprises sur dépréciations et provisions, transferts de charges"
     exceptional_result: "Résultat exceptionnel"
     exchange: "Échange"
     exchange_rate_from_x_to_y: "Taux de change de %{x} à %{y}"
@@ -1438,6 +1493,7 @@ fra:
     export_as_pdf: "Exporter en PDF"
     export_as_xcsv: "Exporter en CSV pour Excel"
     export_backup: "Export d’un fichier de sauvegarde" #?
+    export_balance_sheet: "Export bilan"
     export_centralizing_journal: "Exporter le journal centralisateur"
     export_fec_all: "Export FEC - Cas général - impôt sur les sociétés"
     export_fec_ba_bnc_ir_commercial_accountancy: "Export FEC - Cas BA BNC IR - comptabilité commerciale"
@@ -1446,6 +1502,7 @@ fra:
     export_fixed_assets_by_account: "Etat des immobilisations par compte"
     export_fixed_assets_gain_and_loss: "Etat des plus et moins values"
     export_fixed_assets_general: "Etat des immobilisations"
+    export_income_statement: "Export compte de résultat"
     exportation: "Exportation" #?
     extract: "Extraire" #?
     fat_matters_concentration: "Teneur en matières grasses" #?
@@ -1462,8 +1519,21 @@ fra:
     filter_entries_with: "Filtrer les écritures avec" #?
     filter_on: "Filtrer sur"
     final_balance: "Solde final"
+    financial_asset_dotations: "Dotations aux ammortissemnts, dépréciations et provisions"
     financial_assets: "Immobilisations financières"
+    financial_assets_others: "Autres"
+    financial_assets_participations: "Participations"
+    financial_assets_participations_debts: "Créances rattachées à des participations"
+    financial_debts: "Valeurs mobilières et créances de l'actif immobilisé"
+    financial_depreciations: "Reprises sur depreciations et provisions, transferts de charges"
     financial_expenses: "Charges financières"
+    financial_interests_and_charges: "Intérêts et charges assimilées"
+    financial_negative_change: "Différences négatives de change"
+    financial_net_cession_debts: "Charges nettes sur cessions de valeurs mobilières de placement"
+    financial_net_cession_values: "Produits nets sur cessions de valeurs mobilières de placement"
+    financial_others_interests: "Autres intérêts et produits assimilées"
+    financial_participations: "Participations"
+    financial_positive_change: "Différences positives de change"
     financial_products: "Produits financiers"
     financial_result: "Résultat financier"
     financial_state: "État financier" #?
@@ -1566,6 +1636,9 @@ fra:
       waiting: "À encaisser plus tard" #?
     incoming_payments_to_deposit: "Encaissements à déposer"
     incorporeal_assets: "Immobilisations incorporelles "
+    incorporeal_assets_advances: "Avances et acomptes"
+    incorporeal_assets_creation_costs: "Frais d'établissement"
+    incorporeal_assets_others: "Autres"
     indicative_group_size: "Taille indicative du groupe"
     indicator: "Indicateur"
     indicator_value: "Valeur de l’indicateur"
@@ -1712,6 +1785,12 @@ fra:
     lock_settings: "Paramètres de verrouillage"
     lock_the_financial_year: "Verrouiller l’exercice"
     logout: "Déconnexion" #?
+    long_cycle_alive_products: "Bien-vivants et en-cours (cycle long)"
+    long_cycle_alive_products_animals: "Animaux"
+    long_cycle_alive_products_others: "Autres-en-cours"
+    long_cycle_alive_products_plant_advance: "Avances aux cultures"
+    long_cycle_alive_products_plant_in_ground: "Autres végétaux en terres"
+    long_cycle_alive_products_wine: "Vins et alcools"
     loss_is_x_for_account: "<span class='loss'> Perte de %{x} </span> à comptabiliser sur le compte %{account_number}"
     losses: "Charges d’exploitations"
     mail: "Envoyer un courriel"
@@ -1907,7 +1986,7 @@ fra:
     order_print: "Imprimer la commande" #?
     organic_matter_concentration: "Teneur en matière organique"
     original_component: "D’origine"
-    other_debts: "Autres dettes"
+    other_debts: "Autres dettes" #?
     other_expenses: "Autres charges d’exploitation"
     other_financial_debts: "Autres dettes financières"
     other_products: "Autres produits"
@@ -1915,6 +1994,16 @@ fra:
     other_receivables: "Autres créances"
     other_results: "Autres résultats…" #?
     others: "Autres"
+    others_debts: "Autres dettes"
+    others_debts_advance_products: "Produits constatés d'avance"
+    others_debts_advance_receivables: "Avances et acomptes reçu sur commandes"
+    others_debts_associate_debts: "Associés (compte courant)"
+    others_debts_fixed_asset_debts: "Dettes sur immobilisations"
+    others_debts_liabilities_gaps: "Ecart de conversion"
+    others_debts_others: "Autres"
+    others_debts_social_debts: "Autres dettes fiscales et sociales"
+    others_debts_state_debts: "Etat (TVA et taxes)"
+    others_debts_supplier_receivables: "Fournisseurs d'exploitation et comptes rattachés"
     outgoing: "Sortant" #?
     outgoing_parcel_quantities: "Quantités (Colis sortant)"
     outgoing_parcels: "Colis sortants"
@@ -2028,10 +2117,11 @@ fra:
     production_support: "Support de production"
     productions: "Productions"
     productions_map: "Carte des productions" #?
-    productions_sales: "Ventes et variation d’inventaire"
+    productions_sales: "Ventes de biens"
     products: "Produits"
     products_purchases: "Approvisionnement"
     products_sales: "Ventes de marchandises"
+    products_total: "Total des produits (I + III + V)"
     profile: "Profil"
     profit_and_loss: "Produits et charges"
     profit_is_x_for_account: "<span class='profit'> Bénéfice de %{x} </span> à comptabiliser sur le compte %{account_number}"
@@ -2237,6 +2327,7 @@ fra:
     sensors: "Capteurs"
     sent_vat_declaration: "Déclaration de TVA"
     sequences_load: "Charger les séquences manquantes" #?
+    services_sale: "Vente de services"
     sessions: "Sessions"
     set_reconcilable_new_but_existing_third_accounts: "Rendre lettrables les nouveaux comptes tiers déjà existants"
     settings: "Configuration"
@@ -2244,6 +2335,11 @@ fra:
     sex: "Sexe"
     shape: "Forme"
     ship: "Prévue le"
+    short_cycle_alive_products: "Bien-vivants et en cours (cycle court)"
+    short_cycle_alive_products_animals: "Animaux"
+    short_cycle_alive_products_others: "En cours"
+    short_cycle_alive_products_plant_advance: "Avances aux cultures"
+    short_cycle_alive_products_plant_in_ground: "Autres végétaux en terres"
     show: "Afficher"
     show_export_preview: "Afficher un aperçu du document (peut augmenter le temps de chargement)" #?
     sign_out: "Se déconnecter"
@@ -2279,8 +2375,11 @@ fra:
     stock_of_x: "Stock de %{x}"
     stocks: "Stocks"
     stocks_by_calibrations: "Stock en terre par calibre" #?
+    stocks_end_products: "Produits finis"
     stocks_in_ground: "Stock en terre" #?
+    stocks_others_products: "Autres produits"
     stocks_preferences: "Gestion des stocks" #?
+    stocks_supply: "Approvisionnements et marchandises"
     stop: "Jusqu’au"
     stopped: "Arrêtés"
     stopped_on: "Nous nous sommes arrêtés sur"
@@ -2964,6 +3063,7 @@ fra:
       edit_many: "Modifier plusieurs"
       evaluate: "Évaluer"
       export: "Exporter"
+      export_closing_documents: "Export Bilan / Compte de résultat"
       export_fec: "Export FEC"
       export_to_sepa: "Export SEPA"
       extract: "Extraire"

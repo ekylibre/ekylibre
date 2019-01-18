@@ -81,10 +81,11 @@ module Backend
           redirect_to :back
         end
         format.pdf do
-          if params[:n] == 'balance_sheet'
-            render_print_balance_sheet(@financial_year)
-          else
-            render_print_income_statement(@financial_year)
+          if params[:n].present?
+            key = "#{Nomen::DocumentNature.find(params[:n]).name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
+            ClosingDocumentExportJob.perform_later(@financial_year, params[:n], key, current_user)
+            notify_success(:document_in_preparation)
+            redirect_to :back
           end
         end
         format.json

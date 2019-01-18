@@ -474,13 +474,6 @@ cmn:
       nature:
         payslip: "工资单"
         purchase: "采购"
-    sale:
-      payment_delay:
-        # 1 week: "at reception"
-        # 30 days: "30 days"
-        # 30 days, end of month: "30 days end of month"
-        # 60 days: "60 days"
-        # 60 days, end of month: "60 days end of month"
     sale_item: #?
       compute_from: #?
         pretax_amount: "税前金额" #?

@@ -327,6 +327,7 @@ eng:
         country: "Country"
         currency: "Currency"
         decimal: "Decimal"
+        # fiscal_position: "Fiscal position"
         integer: "Integer"
         language: "Language"
         record: "Record"
@@ -464,13 +465,6 @@ eng:
       nature:
         payslip: "Payslip"
         purchase: "Purchase"
-    sale:
-      payment_delay:
-        1 week: "at reception"
-        30 days: "30 days"
-        30 days, end of month: "30 days end of month"
-        60 days: "60 days"
-        60 days, end of month: "60 days end of month"
     sale_gap:
       direction:
         # loss: "Loss"
