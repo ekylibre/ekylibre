@@ -997,6 +997,8 @@ arb:
     account_fixed_assets: "الموجودات الثابتة" #?
     account_for: "حساب ل"
     account_inventories_assets: "أسهم" #?
+    # account_lettered: "Lettered"
+    # account_lettering_state: "Lettering state"
     account_mark: "تسجيل الحسابات" #?
     account_other_assets: "موجودات اخرى" #?
     account_provision: "احتياطات لمواجهة المخاطر والتكاليف" #?
@@ -1996,6 +1998,7 @@ arb:
     parcel_items: "عناصر لا يتجزأ"
     parcels: "الطرود"
     partially_lettered: "بحروف جزئيا"
+    # partially_lettered_unlettered: "Partially lettered / unlettered"
     participants: "مشتركين"
     participations: "بالمشاركات"
     parts: "وحدات"

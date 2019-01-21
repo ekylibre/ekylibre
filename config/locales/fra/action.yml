@@ -890,6 +890,8 @@ fra:
     account_fixed_assets: "Actif immobilisé" #?
     account_for: "Passer en comptabilité"
     account_inventories_assets: "Stocks" #?
+    account_lettered: "Lettrées"
+    account_lettering_state: "État des écritures"
     account_mark: "Lettrer le compte" #?
     account_other_assets: "Divers" #?
     account_provision: "Provisions pour risques et charges" #?
@@ -1904,6 +1906,7 @@ fra:
     parcels: "Colis"
     part: "Pièce" #?
     partially_lettered: "Partiellement lettré"
+    partially_lettered_unlettered: "Partiellement/Non lettrées"
     participants: "Participants"
     participations: "Participations"
     parts: "Modules"

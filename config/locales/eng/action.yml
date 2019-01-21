@@ -1044,6 +1044,8 @@ eng:
     access: "Access"
     access_parameters: "Access parameters"
     account_for: "Account for"
+    account_lettered: "Lettered" #?
+    account_lettering_state: "Lettering state"
     accountancy: "Accountancy"
     accountancy_balance: "Accountancy balance"
     accountancy_preferences: "Accountancy preferences"
@@ -1800,6 +1802,7 @@ eng:
     parcel_items: "Parcel items"
     parcels: "Parcels" #?
     partially_lettered: "Partially lettered" #?
+    partially_lettered_unlettered: "Partially lettered / unlettered" #??
     participants: "Participants"
     participations: "Participations"
     parts: "Modules"
