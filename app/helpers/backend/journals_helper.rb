@@ -163,5 +163,26 @@ module Backend
           :mask_lettered_items.tl
       end
     end
+
+    def refresh_lettered_items_button(*args)
+      options = args.extract_options!
+      list_id = args.shift || options[:list_id] || :journal_entry_items
+      mask_context = options[:context] || list_id
+      options[:controller] ||= controller_path
+      options[:default_value] ||= 'true'
+      
+      label_tag do
+        check_box_tag(:masked, options[:default_value], current_user.mask_lettered_items?(controller: options[:controller].dup, context: mask_context),
+                      data: {
+                        refresh_lettered_items: '#' + list_id.to_s,
+                        refresh_list_url: reconciliable_list_backend_account_url(id: options[:account_id], context: mask_context),
+                        period: options[:period],
+                        started_on: options[:started_on],
+                        stopped_on: options[:stopped_on]
+                      }) +
+          :mask_lettered_items.tl
+      end
+    end
+
   end
 end

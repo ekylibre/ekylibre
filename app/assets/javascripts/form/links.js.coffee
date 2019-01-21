@@ -129,4 +129,8 @@
 
   $(document).behave 'load', 'a[data-complete-link-with-checked-row-ids]', E.links.addEventOnCheckboxes
 
+  $(document).on 'after-refresh-list', 'a[data-update-link-with]', E.links.setUpdateTriggers
+
+  $(document).on 'after-refresh-list', 'a[data-complete-link-with-checked-row-ids]', E.links.addEventOnCheckboxes
+
 ) jQuery, ekylibre
