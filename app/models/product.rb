@@ -228,6 +228,13 @@ class Product < Ekylibre::Record::Base
 
   scope :generic_supports, -> { where(type: %w[Animal AnimalGroup Plant LandParcel Equipment EquipmentFleet]) }
 
+  scope :with_campaign, lambda { |campaign|
+    through_production  = joins(activity_production: :campaign).where("campaigns.id = #{campaign.id}").select(:id)
+    through_productions = joins(activity_productions: :campaigns).where("campaigns.id = #{campaign.id}").select(:id)
+    where(arel_table[:id].in(through_productions.arel)
+      .or(arel_table[:id].in(through_production.arel)))
+  }
+
   scope :supports_of_campaign, lambda { |campaign|
     joins(:supports).merge(ActivityProduction.of_campaign(campaign))
   }
