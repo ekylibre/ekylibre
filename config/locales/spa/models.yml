@@ -1,6 +1,63 @@
 spa:
+  activemodel:
+    errors:
+      messages:
+        # accepted: "%{attribute} must be accepted"
+        # after: "%{attribute} must be after %{restriction}"
+        # already_confirmed: "was already confirmed, please try signing in"
+        # before: "%{attribute} must be before %{restriction}"
+        # blank: "%{attribute} can't be blank"
+        # confirmation: "%{attribute} doesn't match confirmation"
+        # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
+        # currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
+        # empty: "%{attribute} can't be empty"
+        # equal_to: "%{attribute} must be equal to %{count}"
+        # even: "%{attribute} must be even"
+        # exclusion: "%{attribute} is reserved"
+        # expired: "has expired, please request a new one"
+        # greater_than: "%{attribute} must be greater than %{count}"
+        # greater_than_or_equal_to: "%{attribute} must be greater than or equal to %{count}"
+        # included_in: "The value of %{attribute} must be included between %{minimum} and %{maximum}"
+        # inclusion: "%{attribute} is not included in the list"
+        # invalid: "%{attribute} is invalid"
+        # invalid_at: "%{attribute} is_invalid. Error near %{error}"
+        # invalid_date: "%{attribute} is not a valid date"
+        # invalid_datetime: "%{attribute} is not a valid datetime"
+        # invalid_time: "%{attribute} is not a valid time"
+        # invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
+        # is: "%{attribute} must be a %{thing}"
+        # is_at: "%{attribute} must be at %{restriction}"
+        # less_than: "%{attribute} must be less than %{count}"
+        # less_than_or_equal_to: "%{attribute} must be less than or equal to %{count}"
+        # missing_bank_details_for_sepa: "Values for IBAN and/or Account owner are missing for the cash account selected."
+        # must_be_a_mail_address: "%{attribute} must be a mail address"
+        # not_a_number: "%{attribute} is not a number"
+        # not_an_end_of_month: "%{attribute} must be an end of month"
+        # not_an_integer: "%{attribute} must be an integer"
+        # not_enough: "not enough %{resource} to complete task"
+        # not_found: "not found"
+        # not_locked: "was not locked"
+        not_saved:
+          # one: "1 error prohibited this %{resource} from being saved:"
+          # other: "%{count} errors prohibited this %{resource} from being saved:"
+        # nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
+        # odd: "%{attribute} must be odd"
+        # on_or_after: "%{attribute} must be on or after %{restriction}"
+        # on_or_before: "%{attribute} must be on or before %{restriction}"
+        # overlap: "%{attribute} overlaps an existing record"
+        # overlap_sibling: "%{attribute} overlaps sibling"
+        # posterior: "%{attribute} must be posterior to %{to}"
+        # record_invalid: "Validations failed: %{errors}"
+        # taken: "%{attribute} has already been taken"
+        # too_long: "%{attribute} is too long (maximum is %{count} characters)"
+        # too_short: "%{attribute} is too short (minimum is %{count} characters)"
+        # unitary_in_parcel: "Unitary items can only be sent one by one"
+        # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
   activerecord:
     attributes:
+      account:
+        # cumulated_absolute_credit_balance: "Credit balance"
+        # cumulated_absolute_debit_balance: "Debit balance"
       activity_budget:
         expenses_amount: "Importe los gastos"
         revenues_amount: "Monto de los ingresos"
@@ -32,6 +89,10 @@ spa:
         started_on: "Iniciar la actualización"
       fixed_asset_depreciation:
         asset_amount: "Valor contable"
+      journal_entry_item:
+        # cumulated_absolute_credit_balance: "Credit balance"
+        # cumulated_absolute_debit_balance: "Debit balance"
+        # name: "Entry item label"
       land_parcel:
         born_at: "Creado en"
       land_parcel_group:
@@ -79,6 +140,10 @@ spa:
         status: "Estado"
       tax:
         amount: "Valor"
+      tax_declaration:
+        # no_financial_year_button: "Manage financial years"
+        # no_financial_year_message: "Please choose your tax declarartion mode in one of your financial years to access to your tax declarations"
+        # no_financial_year_title: "No financial year entered"
       tax_declaration_item:
         collected: "Recogido"
         deductible: "Deducible"
@@ -88,14 +153,17 @@ spa:
       messages:
         # accepted: "%{attribute} must be accepted"
         # after: "%{attribute} must be after %{restriction}"
+        # already_confirmed: "was already confirmed, please try signing in"
         # before: "%{attribute} must be before %{restriction}"
         # blank: "%{attribute} can't be blank"
         # confirmation: "%{attribute} doesn't match confirmation"
+        # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
         # currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
         # empty: "%{attribute} can't be empty"
         # equal_to: "%{attribute} must be equal to %{count}"
         # even: "%{attribute} must be even"
         # exclusion: "%{attribute} is reserved"
+        # expired: "has expired, please request a new one"
         # greater_than: "%{attribute} must be greater than %{count}"
         # greater_than_or_equal_to: "%{attribute} must be greater than or equal to %{count}"
         # included_in: "The value of %{attribute} must be included between %{minimum} and %{maximum}"
@@ -115,6 +183,12 @@ spa:
         # not_a_number: "%{attribute} is not a number"
         # not_an_end_of_month: "%{attribute} must be an end of month"
         # not_an_integer: "%{attribute} must be an integer"
+        # not_enough: "not enough %{resource} to complete task"
+        # not_found: "not found"
+        # not_locked: "was not locked"
+        not_saved:
+          # one: "1 error prohibited this %{resource} from being saved:"
+          # other: "%{count} errors prohibited this %{resource} from being saved:"
         nothing_to_pay: "No hay nada que pagar. Si desea registrar un pago inicial, no se olvide de tener en cuenta que."
         # odd: "%{attribute} must be odd"
         # on_or_after: "%{attribute} must be on or after %{restriction}"
@@ -128,86 +202,50 @@ spa:
         # too_short: "%{attribute} is too short (minimum is %{count} characters)"
         unitary_in_parcel: "artículos unitarios sólo se pueden enviar una a una"
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
-      models:
-        activity:
-          checked_off_with_inspections: "Inspecciones ya se han creado para esta actividad"
-          checked_without_measures: "Al menos, un tipo de medida debe seleccionarse cuando se quieren inspecciones"
-        bank_statement:
-          no_cash_match_ofx: "No hay resultados para el número de cuenta bancaria que figura en el archivo de efectivo"
-          ofx_file_has_multiple_bank_accounts: "archivo OFX con varias cuentas bancarias no se admite"
-          ofx_file_invalid: "archivo OFX es válido"
-        bank_statement_item:
-          unvalid_amounts: "El asiento debe ser llenado ya sea de débito o de crédito, pero no al mismo tiempo."
-        cash:
-          # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
-          # different_of_main_account: "%{attribute} must be different of main account (%{account})"
-          unvalid_bban: "Unvalid BBAN. Uno o más elementos son incorrectos."
-        deposit:
-          # must_be_a_bank_account: "%{attribute} must be a bank account and not a cash"
-        entity:
-          # missing_title: "%{attribute} must contains the title “%{title}”"
-          # nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
-        financial_year:
-          attributes:
-            accountant:
-              # frozen: "%{attribute} cannot be changed while an exchange is opened"
-            started_on:
-              consecutive: "Los ejercicios deben ser consecutivos. Debe comenzar tras el fin de la anterior."
-              frozen: "La fecha de ejercicio no se puede cambiar cuando se ha creado un intercambio."
-              # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
-            stopped_on:
-              # end_of_month: "%{attribute} must be an end of month"
-          # overlap: "%{attribute} overlaps an existing financial year"
-        financial_year_exchange:
-          csv_file_entry_dates_invalid: "Algunas entradas de la CSV están fuera del intervalo de fechas de cambio ejercicio"
-          # csv_file_entry_invalid: "Some entries in the CSV are invalid ('%{entry_number}')"
-          csv_file_headers_invalid: "Cabeceras CSV no son válidos"
-          csv_file_invalid: "Archivo CSV no es válido"
-          # csv_file_journals_invalid: "Some journals are present in the CSV but not in Ekylibre : %{codes}"
-        fixed_asset_depreciation:
-          attributes:
-            started_on:
-              # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
-        incoming_parcel_item:
-          # greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
-        integration:
-          attributes:
-            parameters:
-              check_errored: "Comprobación de conexión errónea. Asegúrese de que la entrada es válida o vuelva a intentarlo más tarde."
-        journal:
-          attributes:
-            accountant:
-              # entity_frozen: "Booked journals of this %{attribute} cannot change while an exchange is opened for its financial years"
-              present: "Contador sólo se puede configurar para diversas revistas de operaciones"
-              # previous_entity_frozen: "Booked journals of the previous %{attribute} cannot change while an exchange is opened for its financial years"
-            closed_on:
-              # end_of_month: "%{attribute} must be an end of month (%{closed_on})"
-        journal_entry:
-          # closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
-          frozen_by_financial_year_exchange: "La entrada de diario no se puede grabar en un período que corresponde a un cambio de ejercicio."
-          out_of_existing_financial_year: "El asiento debe ser registrada en un periodo correspondiente a un ejercicio ya existente."
-          unbalanced: "La entrada de diario no es equilibrada"
-        journal_entry_item:
-          closed_entry: "El asiento está bloqueado. No se puede actualizarlo."
-          empty_amounts: "El asiento debe ser llenado ya sea de débito o de crédito"
-          unvalid_amounts: "El asiento debe ser llenado ya sea de débito o de crédito, pero no al mismo tiempo."
-        outgoing_parcel_item:
-          # greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
-        purchase_item:
-          # building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
-          # serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
-        sale_item:
-          # building_can_not_transfer_product: "%{product} can not be found in %{building}, it only contains %{contained_product}."
-          # can_not_use_this_tracking: "You can not user the S/N %{tracking}, the quantity is greater than the available quantity"
-          currency_is_not_sale_currency: "La moneda no es idéntica a la moneda de venta"
-          error_no_found_price: "No hay precio encontrado"
-        subscription:
-          entity_must_be_the_same_as_the_contact_entity: "La persona tiene que ser la misma que la persona de contacto"
-      template:
-        body: "Hubo problemas con los siguientes campos:"
-        header:
-          # one: "1 error prohibited this %{model} from being saved"
-          # other: "%{count} errors prohibited this %{model} from being saved"
+      models: #?
+        activity: #?
+          checked_off_with_inspections: "Inspecciones ya se han creado para esta actividad" #?
+          checked_without_measures: "Al menos, un tipo de medida debe seleccionarse cuando se quieren inspecciones" #?
+        bank_statement: #?
+          no_cash_match_ofx: "No hay resultados para el número de cuenta bancaria que figura en el archivo de efectivo" #?
+          ofx_file_has_multiple_bank_accounts: "archivo OFX con varias cuentas bancarias no se admite" #?
+          ofx_file_invalid: "archivo OFX es válido" #?
+        bank_statement_item: #?
+          unvalid_amounts: "El asiento debe ser llenado ya sea de débito o de crédito, pero no al mismo tiempo." #?
+        cash: #?
+          unvalid_bban: "Unvalid BBAN. Uno o más elementos son incorrectos." #?
+        financial_year: #?
+          attributes: #?
+            started_on: #?
+              consecutive: "Los ejercicios deben ser consecutivos. Debe comenzar tras el fin de la anterior." #?
+              frozen: "La fecha de ejercicio no se puede cambiar cuando se ha creado un intercambio." #?
+        financial_year_exchange: #?
+          csv_file_entry_dates_invalid: "Algunas entradas de la CSV están fuera del intervalo de fechas de cambio ejercicio" #?
+          csv_file_headers_invalid: "Cabeceras CSV no son válidos" #?
+          csv_file_invalid: "Archivo CSV no es válido" #?
+        integration: #?
+          attributes: #?
+            parameters: #?
+              check_errored: "Comprobación de conexión errónea. Asegúrese de que la entrada es válida o vuelva a intentarlo más tarde." #?
+        journal: #?
+          attributes: #?
+            accountant: #?
+              present: "Contador sólo se puede configurar para diversas revistas de operaciones" #?
+        journal_entry: #?
+          frozen_by_financial_year_exchange: "La entrada de diario no se puede grabar en un período que corresponde a un cambio de ejercicio." #?
+          out_of_existing_financial_year: "El asiento debe ser registrada en un periodo correspondiente a un ejercicio ya existente." #?
+          unbalanced: "La entrada de diario no es equilibrada" #?
+        journal_entry_item: #?
+          closed_entry: "El asiento está bloqueado. No se puede actualizarlo." #?
+          empty_amounts: "El asiento debe ser llenado ya sea de débito o de crédito" #?
+          unvalid_amounts: "El asiento debe ser llenado ya sea de débito o de crédito, pero no al mismo tiempo." #?
+        sale_item: #?
+          currency_is_not_sale_currency: "La moneda no es idéntica a la moneda de venta" #?
+          error_no_found_price: "No hay precio encontrado" #?
+        subscription: #?
+          entity_must_be_the_same_as_the_contact_entity: "La persona tiene que ser la misma que la persona de contacto" #?
+      template: #?
+        body: "Hubo problemas con los siguientes campos:" #?
     models:
       account: "Cuenta"
       account_balance: "Saldo de la cuenta"
@@ -423,6 +461,7 @@ spa:
     accountant: "Contador"
     accounted_at: "Representaron en"
     accounting_balance: "Saldo contable"
+    # accounting_label: "Accounting label"
     accuracy: "Exactitud"
     achieved_at: "Alcanzado en"
     actions: "Comportamiento"
@@ -456,6 +495,7 @@ spa:
     all_addresses: "Todas las direcciones"
     all_taxes_included: "Todos los impuestos incluidos"
     allocation_account: "Cuenta de la asignación"
+    # already_existing: "Already existing"
     amount: "Cantidad"
     analysed_at: "Analizado en"
     analyser: "Analizador"
@@ -480,6 +520,7 @@ spa:
     author: "Autor"
     authorized_payments_count: "Pagos autorizados cuentan"
     auto_updateable_addresses: "Actualizables direcciones de automóviles"
+    # auxiliary_number: "Auxiliary number"
     average_value: "Valor promedio"
     balance: "Equilibrar"
     balance_pretax_amount: "Equilibrar la cantidad antes de impuestos"
@@ -531,6 +572,8 @@ spa:
     category: "Categoría"
     ceded: "Cedido"
     ceded_on: "Cedido en"
+    # centralizing_account: "Centralizing account"
+    # centralizing_account_name: "Centralizing account name"
     charge_account: "Cuenta de cargo"
     charges_categories: "Cargos categorías"
     checks: "Los cheques"
@@ -571,7 +614,9 @@ spa:
     commission_percentage: "Porcentaje de comisión"
     commissioned_incoming_payment_modes: "Modos de pagos recibidos por encargo"
     company: "Compañía" #?
+    # company_creation_date: "Company creation date"
     company_id: "Compañía" #?
+    # company_name: "Company name"
     component: "Componente"
     components: "Componentes"
     computation_method: "Método de cálculo"
@@ -589,6 +634,7 @@ spa:
     content: "Contenido"
     content_localizations: "Localizaciones de contenido"
     contents: "Contenido"
+    # continuous_number: "Continuous number"
     contract: "Contrato"
     contract_items: "Las posiciones de contrato"
     contracts: "Contratos"
@@ -676,6 +722,7 @@ spa:
     depreciable_amount: "Importe depreciable"
     depreciable_product: "Producto depreciable"
     depreciated_amount: "Importe amortizado"
+    # depreciation_fiscal_coefficient: "Depreciation fiscal coefficient"
     depreciation_method: "Método de depreciación"
     depreciation_percentage: "Porcentaje de depreciación"
     depreciation_period: "Período de depreciación"
@@ -1016,6 +1063,7 @@ spa:
     main_production: "La principal producción"
     managed: "Gestionado"
     managed_sales: "Ventas gestionadas"
+    # mandatory: "Mandatory"
     manure_management_plan_zones: "Zonas del plan de manejo del estiércol"
     marketable: "Vendible"
     marketable_items_count: "cuentan artículos negociables"
@@ -1025,7 +1073,7 @@ spa:
     marketable_yield: "rendimiento comercial"
     mass: "Masa (kg)"
     max_inputs_count: "Las potencias máximas cuentan"
-    max_zoom: "Zoom máximo"
+    # max_zoom: "Max zoom"
     maximal_grantable_reduction_percentage: "Porcentaje de reducción máxima otorgable"
     maximal_length: "Longitud máxima"
     maximal_size: "tamaño máximo"
@@ -1324,6 +1372,7 @@ spa:
     responses: "Respuestas"
     responsible: "Responsable"
     restricted: "Restringido"
+    # result_journal: "Result journal"
     retrieval_message: "De recuperación de mensajes"
     retrieval_mode: "Modo de recuperación"
     retrieval_status: "El estado de la recuperación"
@@ -1379,10 +1428,12 @@ spa:
     serial: "De serie"
     serial_number: "Número de serie"
     sessions: "Sesiones"
+    # sha256_fingerprint: "Sha256 fingerprint"
     shape: "Forma"
     shift_duration: "Duración Shift"
     shift_method: "Método de desplazamiento"
     sign_in_count: "Iniciar sesión en la cuenta"
+    # signature: "Signature"
     signup_at: "Inscripción en el"
     siren: "SIRENA"
     siret_number: "SIRET"
@@ -1397,7 +1448,7 @@ spa:
     sold_on: "Vendido en"
     source: "Fuente"
     source_product: "Producto de código"
-    spaced_iban: "IBAN espaciado"
+    # spaced_iban: "Spaced IBAN"
     sql_type: "Tipo de SQL"
     ssl: "Ssl"
     start: "Comienzo"
@@ -1476,6 +1527,7 @@ spa:
     third_role: "Tercera papel"
     thread: "Hilo"
     time_window: "Ventana de tiempo (en segundos)"
+    # timing: "Timing"
     title: "Título"
     # tms: "TMS"
     to: "A"
@@ -1548,6 +1600,7 @@ spa:
     user: "Usuario"
     users: "Usuarios"
     # uuid: "UUID"
+    # validated_at: "Validated at"
     value: "Valor"
     variable_indicators_list: "Lista de indicadores variables"
     variant: "Variante"
@@ -1583,6 +1636,59 @@ spa:
     working_zone_area: "área de la zona de trabajo"
     zone_memberships: "Zona de miembro"
     zones: "Zonas"
+  errors:
+    messages:
+      # accepted: "%{attribute} must be accepted"
+      # after: "%{attribute} must be after %{restriction}"
+      # already_confirmed: "was already confirmed, please try signing in"
+      # before: "%{attribute} must be before %{restriction}"
+      # blank: "%{attribute} can't be blank"
+      # confirmation: "%{attribute} doesn't match confirmation"
+      # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
+      # currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
+      # empty: "%{attribute} can't be empty"
+      # equal_to: "%{attribute} must be equal to %{count}"
+      # even: "%{attribute} must be even"
+      # exclusion: "%{attribute} is reserved"
+      # expired: "has expired, please request a new one"
+      # greater_than: "%{attribute} must be greater than %{count}"
+      # greater_than_or_equal_to: "%{attribute} must be greater than or equal to %{count}"
+      # included_in: "The value of %{attribute} must be included between %{minimum} and %{maximum}"
+      # inclusion: "%{attribute} is not included in the list"
+      # invalid: "%{attribute} is invalid"
+      # invalid_at: "%{attribute} is_invalid. Error near %{error}"
+      # invalid_date: "%{attribute} is not a valid date"
+      # invalid_datetime: "%{attribute} is not a valid datetime"
+      # invalid_time: "%{attribute} is not a valid time"
+      # invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
+      # is: "%{attribute} must be a %{thing}"
+      # is_at: "%{attribute} must be at %{restriction}"
+      # less_than: "%{attribute} must be less than %{count}"
+      # less_than_or_equal_to: "%{attribute} must be less than or equal to %{count}"
+      # missing_bank_details_for_sepa: "Values for IBAN and/or Account owner are missing for the cash account selected."
+      # must_be_a_mail_address: "%{attribute} must be a mail address"
+      # not_a_number: "%{attribute} is not a number"
+      # not_an_end_of_month: "%{attribute} must be an end of month"
+      # not_an_integer: "%{attribute} must be an integer"
+      # not_enough: "not enough %{resource} to complete task"
+      # not_found: "not found"
+      # not_locked: "was not locked"
+      not_saved:
+        # one: "1 error prohibited this %{resource} from being saved:"
+        # other: "%{count} errors prohibited this %{resource} from being saved:"
+      # nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
+      # odd: "%{attribute} must be odd"
+      # on_or_after: "%{attribute} must be on or after %{restriction}"
+      # on_or_before: "%{attribute} must be on or before %{restriction}"
+      # overlap: "%{attribute} overlaps an existing record"
+      # overlap_sibling: "%{attribute} overlaps sibling"
+      # posterior: "%{attribute} must be posterior to %{to}"
+      # record_invalid: "Validations failed: %{errors}"
+      # taken: "%{attribute} has already been taken"
+      # too_long: "%{attribute} is too long (maximum is %{count} characters)"
+      # too_short: "%{attribute} is too short (minimum is %{count} characters)"
+      # unitary_in_parcel: "Unitary items can only be sent one by one"
+      # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
   models:
     account:
       # label: "%{number} - %{name}"
@@ -1866,7 +1972,7 @@ spa:
       # tracking: "S/N: %{serial}"
     sale_nature:
       default:
-        name: "Venta estándar"
+        # name: "Standard sale"
     sale_opportunity:
       state_machine:
         states:
@@ -1911,6 +2017,11 @@ spa:
           todo: "Que hacer"
     tax_declaration:
       # bookkeep: "[%{resource} %{number}] From %{started_on} to %{stopped_on}"
+      state_machine:
+        states:
+          # draft: "Draft"
+          # sent: "Sent"
+          # validated: "Validated"
     team:
       default: "Equipo principal"
     user:

@@ -7,7 +7,7 @@ ita:
     bovins_croissance_cattle_performance_controls: "Bovins Croissance controlli delle prestazioni del bestiame"
     charentes_alliance_incoming_deliveries: "Charentes Alliance consegne in arrivo"
     charentes_alliance_outgoing_deliveries: "Charentes Alliance consegne in uscita"
-    ebp_edi: "EDI EBP"
+    # ebp_edi: "EBP EDI"
     ekylibre_accounts: "Conti Ekylibre"
     ekylibre_activities: "attività Ekylibre"
     ekylibre_animal_groups: "gruppi di animali Ekylibre"
@@ -18,6 +18,7 @@ ita:
     ekylibre_buildings_json: "edifici Ekylibre JSON"
     ekylibre_cap_land_parcel_clusters_json: "Ekylibre cluster pacchi terra tappo JSON" #?
     ekylibre_cap_land_parcels_json: "Ekylibre appezzamenti tappo JSON" #?
+    # ekylibre_cash_transfers: "Ekylibre cash transfers"
     ekylibre_crumbs: "Ekylibre Briciole" #?
     ekylibre_cultivable_zones: "zone coltivabili Ekylibre"
     ekylibre_cultivable_zones_json: "Ekylibre zone coltivabili JSON"
@@ -44,7 +45,7 @@ ita:
     fiea_galactea: "FIEA Galactea"
     isagri_isacompta_export: "Isagri esportazione isacompta"
     isagri_isacompta_fixed_assets: "ISAGRI beni isacompta fisso"
-    isagri_isaculture_csv_import: "Importazione di Isagri Isaculture CSV"
+    # isagri_isaculture_csv_import: "Isagri isaculture csv import"
     la_graine_informatique_vinifera_entities: "La entità vinifera graine informatique"
     la_graine_informatique_vinifera_products: "La prodotti vinifera graine informatique"
     la_graine_informatique_vinifera_sales: "La vendita vinifera graine informatique"

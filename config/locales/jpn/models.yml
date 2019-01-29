@@ -1,6 +1,63 @@
 jpn:
+  activemodel:
+    errors:
+      messages:
+        # accepted: "%{attribute} must be accepted"
+        # after: "%{attribute} must be after %{restriction}"
+        # already_confirmed: "was already confirmed, please try signing in"
+        # before: "%{attribute} must be before %{restriction}"
+        # blank: "%{attribute} can't be blank"
+        # confirmation: "%{attribute} doesn't match confirmation"
+        # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
+        # currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
+        # empty: "%{attribute} can't be empty"
+        # equal_to: "%{attribute} must be equal to %{count}"
+        # even: "%{attribute} must be even"
+        # exclusion: "%{attribute} is reserved"
+        # expired: "has expired, please request a new one"
+        # greater_than: "%{attribute} must be greater than %{count}"
+        # greater_than_or_equal_to: "%{attribute} must be greater than or equal to %{count}"
+        # included_in: "The value of %{attribute} must be included between %{minimum} and %{maximum}"
+        # inclusion: "%{attribute} is not included in the list"
+        # invalid: "%{attribute} is invalid"
+        # invalid_at: "%{attribute} is_invalid. Error near %{error}"
+        # invalid_date: "%{attribute} is not a valid date"
+        # invalid_datetime: "%{attribute} is not a valid datetime"
+        # invalid_time: "%{attribute} is not a valid time"
+        # invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
+        # is: "%{attribute} must be a %{thing}"
+        # is_at: "%{attribute} must be at %{restriction}"
+        # less_than: "%{attribute} must be less than %{count}"
+        # less_than_or_equal_to: "%{attribute} must be less than or equal to %{count}"
+        # missing_bank_details_for_sepa: "Values for IBAN and/or Account owner are missing for the cash account selected."
+        # must_be_a_mail_address: "%{attribute} must be a mail address"
+        # not_a_number: "%{attribute} is not a number"
+        # not_an_end_of_month: "%{attribute} must be an end of month"
+        # not_an_integer: "%{attribute} must be an integer"
+        # not_enough: "not enough %{resource} to complete task"
+        # not_found: "not found"
+        # not_locked: "was not locked"
+        not_saved:
+          # one: "1 error prohibited this %{resource} from being saved:"
+          # other: "%{count} errors prohibited this %{resource} from being saved:"
+        # nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
+        # odd: "%{attribute} must be odd"
+        # on_or_after: "%{attribute} must be on or after %{restriction}"
+        # on_or_before: "%{attribute} must be on or before %{restriction}"
+        # overlap: "%{attribute} overlaps an existing record"
+        # overlap_sibling: "%{attribute} overlaps sibling"
+        # posterior: "%{attribute} must be posterior to %{to}"
+        # record_invalid: "Validations failed: %{errors}"
+        # taken: "%{attribute} has already been taken"
+        # too_long: "%{attribute} is too long (maximum is %{count} characters)"
+        # too_short: "%{attribute} is too short (minimum is %{count} characters)"
+        # unitary_in_parcel: "Unitary items can only be sent one by one"
+        # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
   activerecord:
     attributes:
+      account:
+        # cumulated_absolute_credit_balance: "Credit balance"
+        # cumulated_absolute_debit_balance: "Debit balance"
       activity_budget:
         expenses_amount: "費用額"
         revenues_amount: "収益額"
@@ -32,6 +89,10 @@ jpn:
         started_on: "起動日付"
       fixed_asset_depreciation:
         asset_amount: "責任値"
+      journal_entry_item:
+        # cumulated_absolute_credit_balance: "Credit balance"
+        # cumulated_absolute_debit_balance: "Debit balance"
+        # name: "Entry item label"
       land_parcel:
         born_at: "で作成されました"
       land_parcel_group:
@@ -79,6 +140,10 @@ jpn:
         status: "状態"
       tax:
         amount: "値"
+      tax_declaration:
+        # no_financial_year_button: "Manage financial years"
+        # no_financial_year_message: "Please choose your tax declarartion mode in one of your financial years to access to your tax declarations"
+        # no_financial_year_title: "No financial year entered"
       tax_declaration_item:
         collected: "集めました"
         deductible: "控除できます"
@@ -88,14 +153,17 @@ jpn:
       messages:
         # accepted: "%{attribute} must be accepted"
         # after: "%{attribute} must be after %{restriction}"
+        # already_confirmed: "was already confirmed, please try signing in"
         # before: "%{attribute} must be before %{restriction}"
         # blank: "%{attribute} can't be blank"
         # confirmation: "%{attribute} doesn't match confirmation"
+        # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
         # currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
         # empty: "%{attribute} can't be empty"
         # equal_to: "%{attribute} must be equal to %{count}"
         # even: "%{attribute} must be even"
         # exclusion: "%{attribute} is reserved"
+        # expired: "has expired, please request a new one"
         # greater_than: "%{attribute} must be greater than %{count}"
         # greater_than_or_equal_to: "%{attribute} must be greater than or equal to %{count}"
         # included_in: "The value of %{attribute} must be included between %{minimum} and %{maximum}"
@@ -115,6 +183,12 @@ jpn:
         # not_a_number: "%{attribute} is not a number"
         # not_an_end_of_month: "%{attribute} must be an end of month"
         # not_an_integer: "%{attribute} must be an integer"
+        # not_enough: "not enough %{resource} to complete task"
+        # not_found: "not found"
+        # not_locked: "was not locked"
+        not_saved:
+          # one: "1 error prohibited this %{resource} from being saved:"
+          # other: "%{count} errors prohibited this %{resource} from being saved:"
         nothing_to_pay: "支払うために何もありません。あなたは頭金を登録したい場合は、その点に注意してくださいすることを忘れないでください。"
         # odd: "%{attribute} must be odd"
         # on_or_after: "%{attribute} must be on or after %{restriction}"
@@ -128,86 +202,50 @@ jpn:
         # too_short: "%{attribute} is too short (minimum is %{count} characters)"
         unitary_in_parcel: "ユニタリアイテムは一つ一つを送信することができます"
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
-      models:
-        activity:
-          checked_off_with_inspections: "検査は既にこの活動のために作成されています"
-          checked_without_measures: "検査が求められていたときに少なくとも、1小節の種類を選択する必要があります"
-        bank_statement:
-          no_cash_match_ofx: "ファイルで指定された銀行口座番号が見つかり代引き不可"
-          ofx_file_has_multiple_bank_accounts: "複数の銀行口座を持つOFXファイルはサポートされていません。"
-          ofx_file_invalid: "OFXファイルは無効です。"
-        bank_statement_item:
-          unvalid_amounts: "ジャーナルエントリは、同時にデビットカードまたはクレジットではなく、どちらかを満たさなければなりません。"
-        cash:
-          # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
-          # different_of_main_account: "%{attribute} must be different of main account (%{account})"
-          unvalid_bban: "Unvalid BBAN。一つ以上の要素が間違っています。"
-        deposit:
-          # must_be_a_bank_account: "%{attribute} must be a bank account and not a cash"
-        entity:
-          # missing_title: "%{attribute} must contains the title “%{title}”"
-          # nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
-        financial_year:
-          attributes:
-            accountant:
-              # frozen: "%{attribute} cannot be changed while an exchange is opened"
-            started_on:
-              consecutive: "会計年度はconsecutivesでなければなりません。これは、前回の終了後に開始する必要があります。"
-              frozen: "交換が作成されたときの会計年度の日付を変更することはできません。"
-              # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
-            stopped_on:
-              # end_of_month: "%{attribute} must be an end of month"
-          # overlap: "%{attribute} overlaps an existing financial year"
-        financial_year_exchange:
-          csv_file_entry_dates_invalid: "CSVでのいくつかのエントリは、会計年度の為替日付範囲外であります"
-          # csv_file_entry_invalid: "Some entries in the CSV are invalid ('%{entry_number}')"
-          csv_file_headers_invalid: "CSVヘッダーが無効です"
-          csv_file_invalid: "CSVファイルが不正です"
-          # csv_file_journals_invalid: "Some journals are present in the CSV but not in Ekylibre : %{codes}"
-        fixed_asset_depreciation:
-          attributes:
-            started_on:
-              # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
-        incoming_parcel_item:
-          # greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
-        integration:
-          attributes:
-            parameters:
-              check_errored: "コネクションチェックがエラーを起こしました。あなたの入力の有効性を確認するか、後でやり直してください。"
-        journal:
-          attributes:
-            accountant:
-              # entity_frozen: "Booked journals of this %{attribute} cannot change while an exchange is opened for its financial years"
-              present: "会計士は、様々な動作雑誌のためにのみ設定することができます"
-              # previous_entity_frozen: "Booked journals of the previous %{attribute} cannot change while an exchange is opened for its financial years"
-            closed_on:
-              # end_of_month: "%{attribute} must be an end of month (%{closed_on})"
-        journal_entry:
-          # closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
-          frozen_by_financial_year_exchange: "ジャーナルエントリは、会計年度交換に対応する期間内に記録することはできません。"
-          out_of_existing_financial_year: "ジャーナルエントリは、既存の会計年度に対応する期間内に記録されなければなりません。"
-          unbalanced: "ジャーナルエントリはアンバランスであります"
-        journal_entry_item:
-          closed_entry: "ジャーナルエントリはロックされています。あなたはそれを更新することはできません。"
-          empty_amounts: "仕訳は、デビットカードやクレジットのどちらかを入力する必要があります"
-          unvalid_amounts: "ジャーナルエントリは、同時にデビットカードまたはクレジットではなく、どちらかを満たさなければなりません。"
-        outgoing_parcel_item:
-          # greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
-        purchase_item:
-          # building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
-          # serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
-        sale_item:
-          # building_can_not_transfer_product: "%{product} can not be found in %{building}, it only contains %{contained_product}."
-          # can_not_use_this_tracking: "You can not user the S/N %{tracking}, the quantity is greater than the available quantity"
-          currency_is_not_sale_currency: "通貨は、売却通貨と同一ではありません"
-          error_no_found_price: "いいえ見つから価格はありません"
-        subscription:
-          entity_must_be_the_same_as_the_contact_entity: "人は、担当者と同じである必要があります"
-      template:
-        body: "次のフィールドに問題がありました："
-        header:
-          # one: "1 error prohibited this %{model} from being saved"
-          # other: "%{count} errors prohibited this %{model} from being saved"
+      models: #?
+        activity: #?
+          checked_off_with_inspections: "検査は既にこの活動のために作成されています" #?
+          checked_without_measures: "検査が求められていたときに少なくとも、1小節の種類を選択する必要があります" #?
+        bank_statement: #?
+          no_cash_match_ofx: "ファイルで指定された銀行口座番号が見つかり代引き不可" #?
+          ofx_file_has_multiple_bank_accounts: "複数の銀行口座を持つOFXファイルはサポートされていません。" #?
+          ofx_file_invalid: "OFXファイルは無効です。" #?
+        bank_statement_item: #?
+          unvalid_amounts: "ジャーナルエントリは、同時にデビットカードまたはクレジットではなく、どちらかを満たさなければなりません。" #?
+        cash: #?
+          unvalid_bban: "Unvalid BBAN。一つ以上の要素が間違っています。" #?
+        financial_year: #?
+          attributes: #?
+            started_on: #?
+              consecutive: "会計年度はconsecutivesでなければなりません。これは、前回の終了後に開始する必要があります。" #?
+              frozen: "交換が作成されたときの会計年度の日付を変更することはできません。" #?
+        financial_year_exchange: #?
+          csv_file_entry_dates_invalid: "CSVでのいくつかのエントリは、会計年度の為替日付範囲外であります" #?
+          csv_file_headers_invalid: "CSVヘッダーが無効です" #?
+          csv_file_invalid: "CSVファイルが不正です" #?
+        integration: #?
+          attributes: #?
+            parameters: #?
+              check_errored: "コネクションチェックがエラーを起こしました。あなたの入力の有効性を確認するか、後でやり直してください。" #?
+        journal: #?
+          attributes: #?
+            accountant: #?
+              present: "会計士は、様々な動作雑誌のためにのみ設定することができます" #?
+        journal_entry: #?
+          frozen_by_financial_year_exchange: "ジャーナルエントリは、会計年度交換に対応する期間内に記録することはできません。" #?
+          out_of_existing_financial_year: "ジャーナルエントリは、既存の会計年度に対応する期間内に記録されなければなりません。" #?
+          unbalanced: "ジャーナルエントリはアンバランスであります" #?
+        journal_entry_item: #?
+          closed_entry: "ジャーナルエントリはロックされています。あなたはそれを更新することはできません。" #?
+          empty_amounts: "仕訳は、デビットカードやクレジットのどちらかを入力する必要があります" #?
+          unvalid_amounts: "ジャーナルエントリは、同時にデビットカードまたはクレジットではなく、どちらかを満たさなければなりません。" #?
+        sale_item: #?
+          currency_is_not_sale_currency: "通貨は、売却通貨と同一ではありません" #?
+          error_no_found_price: "いいえ見つから価格はありません" #?
+        subscription: #?
+          entity_must_be_the_same_as_the_contact_entity: "人は、担当者と同じである必要があります" #?
+      template: #?
+        body: "次のフィールドに問題がありました：" #?
     models:
       account: "アカウント"
       account_balance: "勘定残高"
@@ -278,7 +316,7 @@ jpn:
       fungus: "菌"
       gap: "ギャップ"
       gap_item: "ギャップアイテム"
-      georeading: "ジオレディング"
+      # georeading: "Georeading"
       guide: "ガイド"
       guide_analysis: "ガイド分析"
       guide_analysis_point: "ガイド解析ポイント"
@@ -422,6 +460,7 @@ jpn:
     accountant: "会計士"
     accounted_at: "で会計処理"
     accounting_balance: "会計収支"
+    # accounting_label: "Accounting label"
     accuracy: "精度"
     achieved_at: "で達成"
     actions: "アクション"
@@ -455,6 +494,7 @@ jpn:
     all_addresses: "すべてのアドレス"
     all_taxes_included: "すべての税金が含ま"
     allocation_account: "割り当てアカウント"
+    # already_existing: "Already existing"
     amount: "量"
     analysed_at: "でAnalysed"
     analyser: "アナライザ"
@@ -479,6 +519,7 @@ jpn:
     author: "著者"
     authorized_payments_count: "認定支払いカウント"
     auto_updateable_addresses: "自動更新可能なアドレス"
+    # auxiliary_number: "Auxiliary number"
     average_value: "平均値"
     balance: "バランス"
     balance_pretax_amount: "税引前量のバランスをとります"
@@ -530,6 +571,8 @@ jpn:
     category: "カテゴリ"
     ceded: "割譲"
     ceded_on: "上の割譲"
+    # centralizing_account: "Centralizing account"
+    # centralizing_account_name: "Centralizing account name"
     charge_account: "掛売口座"
     charges_categories: "料金カテゴリー"
     checks: "チェック"
@@ -569,6 +612,8 @@ jpn:
     commission_base_amount: "手数料の基準額"
     commission_percentage: "欧州委員会の割合"
     commissioned_incoming_payment_modes: "委託入金モード"
+    # company_creation_date: "Company creation date"
+    # company_name: "Company name"
     component: "成分"
     components: "コンポーネント"
     computation_method: "計算方法"
@@ -586,6 +631,7 @@ jpn:
     content: "コンテンツ"
     content_localizations: "コンテンツのローカライズ"
     contents: "コンテンツ"
+    # continuous_number: "Continuous number"
     contract: "契約する"
     contract_items: "契約項目"
     contracts: "契約"
@@ -673,6 +719,7 @@ jpn:
     depreciable_amount: "償却可能価額"
     depreciable_product: "減価償却製品"
     depreciated_amount: "減価償却額"
+    # depreciation_fiscal_coefficient: "Depreciation fiscal coefficient"
     depreciation_method: "減価償却法"
     depreciation_percentage: "減価償却率"
     depreciation_period: "減価償却期間"
@@ -716,7 +763,7 @@ jpn:
     enabled: "使用可能"
     encrypted_password: "暗号化されたパスワード"
     end_of_life_reason: "人生の理由の終わり"
-    enjoyer: "エンジニア"
+    # enjoyer: "Enjoyer"
     enjoyments: "楽しみ"
     entity: "人1"
     entity_link_direction: "エンティティリンク方向"
@@ -905,7 +952,7 @@ jpn:
     intervention_product_parameters: "介入キャスト"
     interventions: "介入"
     interventions_used_in: "介入に使用されます"
-    intracommunity: "イントラコミュニティ"
+    # intracommunity: "Intracommunity"
     intracommunity_payable_account: "Intracommunity買掛金勘定"
     introduction: "導入"
     inventory: "インベントリ"
@@ -947,7 +994,7 @@ jpn:
     journal_entry_items: "仕訳項目"
     key: "キー"
     label: "ラベル"
-    labellings: "ラベリング"
+    # labellings: "Labellings"
     labels: "ラベル"
     land_parcel_number: "土地区画番号"
     land_parcels: "土地区画"
@@ -1012,6 +1059,7 @@ jpn:
     main_production: "主な生産"
     managed: "マネージド"
     managed_sales: "マネージド販売"
+    # mandatory: "Mandatory"
     manure_management_plan_zones: "肥料管理計画区域"
     marketable: "市場性のあります"
     marketable_items_count: "有価項目はカウント"
@@ -1179,7 +1227,7 @@ jpn:
     preferences: "環境設定"
     prepared_at: "で調製"
     prescription: "処方"
-    prescriptor: "プリクリプタ"
+    # prescriptor: "Prescriptor"
     pretax_amount: "税引前量"
     previous_cultivation_residue_mineralization: "前の栽培残留物鉱化"
     price: "価格"
@@ -1278,7 +1326,7 @@ jpn:
     record_interventions: "レコード介入"
     record_value: "レコードの値"
     record_value_type: "レコード値の型"
-    reductible: "還元可能"
+    # reductible: "Reductible"
     reduction_percentage: "縮小率"
     reference_name: "参照名"
     reference_number: "参照番号"
@@ -1292,7 +1340,7 @@ jpn:
     reflected_at: "で反射"
     reflection_nodes: "リフレクションノード"
     reflections: "リフレクションズ"
-    regularizations: "正規化"
+    # regularizations: "Regularizations"
     remain_owner: "所有者のまま"
     remaining_amount: "残量"
     remaining_lifespan: "残りの寿命"
@@ -1320,6 +1368,7 @@ jpn:
     responses: "反応"
     responsible: "責任"
     restricted: "制限されました"
+    # result_journal: "Result journal"
     retrieval_message: "検索メッセージ"
     retrieval_mode: "検索モード"
     retrieval_status: "検索のステータス"
@@ -1344,7 +1393,7 @@ jpn:
     sale_opportunity: "販売機会"
     sale_taxations: "販売taxations"
     sale_taxes: "販売税"
-    saleable: "売り手"
+    # saleable: "Saleable"
     sales: "セールス"
     sales_conditions: "販売条件"
     sales_invoices: "売上請求書"
@@ -1375,10 +1424,12 @@ jpn:
     serial: "シリアル"
     serial_number: "シリアルナンバー"
     sessions: "セッション"
+    # sha256_fingerprint: "Sha256 fingerprint"
     shape: "形状"
     shift_duration: "シフト期間"
     shift_method: "シフト法"
     sign_in_count: "カウントログイン"
+    # signature: "Signature"
     signup_at: "でサインアップ"
     siren: "サイレン"
     siret_number: "シレト番号"
@@ -1462,7 +1513,7 @@ jpn:
     tax_declaration_mode: "税務申告モード"
     tax_declarations: "税務申告"
     tax_payability: "税採算性"
-    taxations: "課税"
+    # taxations: "Taxations"
     team: "チーム"
     template: "テンプレート"
     theme: "テーマ"
@@ -1472,6 +1523,7 @@ jpn:
     third_role: "第三の役割"
     thread: "糸"
     time_window: "（秒）の時間窓"
+    # timing: "Timing"
     title: "タイトル"
     # tms: "TMS"
     to: "に"
@@ -1490,7 +1542,7 @@ jpn:
     total_tool_cost: "ツール総コスト"
     town_number: "タウン番号"
     tracking: "追跡"
-    trackings: "トラッキング"
+    # trackings: "Trackings"
     trade_balance: "貿易収支"
     transaction_number: "トランザクション数"
     transfered_at: "移し"
@@ -1544,6 +1596,7 @@ jpn:
     user: "ユーザー"
     users: "ユーザー"
     # uuid: "UUID"
+    # validated_at: "Validated at"
     value: "値"
     variable_indicators_list: "可変指標一覧"
     variant: "バリアント"
@@ -1579,6 +1632,59 @@ jpn:
     working_zone_area: "ワーキングゾーン領域"
     zone_memberships: "ゾーンメンバーシップ"
     zones: "ゾーン"
+  errors:
+    messages:
+      # accepted: "%{attribute} must be accepted"
+      # after: "%{attribute} must be after %{restriction}"
+      # already_confirmed: "was already confirmed, please try signing in"
+      # before: "%{attribute} must be before %{restriction}"
+      # blank: "%{attribute} can't be blank"
+      # confirmation: "%{attribute} doesn't match confirmation"
+      # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
+      # currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
+      # empty: "%{attribute} can't be empty"
+      # equal_to: "%{attribute} must be equal to %{count}"
+      # even: "%{attribute} must be even"
+      # exclusion: "%{attribute} is reserved"
+      # expired: "has expired, please request a new one"
+      # greater_than: "%{attribute} must be greater than %{count}"
+      # greater_than_or_equal_to: "%{attribute} must be greater than or equal to %{count}"
+      # included_in: "The value of %{attribute} must be included between %{minimum} and %{maximum}"
+      # inclusion: "%{attribute} is not included in the list"
+      # invalid: "%{attribute} is invalid"
+      # invalid_at: "%{attribute} is_invalid. Error near %{error}"
+      # invalid_date: "%{attribute} is not a valid date"
+      # invalid_datetime: "%{attribute} is not a valid datetime"
+      # invalid_time: "%{attribute} is not a valid time"
+      # invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
+      # is: "%{attribute} must be a %{thing}"
+      # is_at: "%{attribute} must be at %{restriction}"
+      # less_than: "%{attribute} must be less than %{count}"
+      # less_than_or_equal_to: "%{attribute} must be less than or equal to %{count}"
+      # missing_bank_details_for_sepa: "Values for IBAN and/or Account owner are missing for the cash account selected."
+      # must_be_a_mail_address: "%{attribute} must be a mail address"
+      # not_a_number: "%{attribute} is not a number"
+      # not_an_end_of_month: "%{attribute} must be an end of month"
+      # not_an_integer: "%{attribute} must be an integer"
+      # not_enough: "not enough %{resource} to complete task"
+      # not_found: "not found"
+      # not_locked: "was not locked"
+      not_saved:
+        # one: "1 error prohibited this %{resource} from being saved:"
+        # other: "%{count} errors prohibited this %{resource} from being saved:"
+      # nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
+      # odd: "%{attribute} must be odd"
+      # on_or_after: "%{attribute} must be on or after %{restriction}"
+      # on_or_before: "%{attribute} must be on or before %{restriction}"
+      # overlap: "%{attribute} overlaps an existing record"
+      # overlap_sibling: "%{attribute} overlaps sibling"
+      # posterior: "%{attribute} must be posterior to %{to}"
+      # record_invalid: "Validations failed: %{errors}"
+      # taken: "%{attribute} has already been taken"
+      # too_long: "%{attribute} is too long (maximum is %{count} characters)"
+      # too_short: "%{attribute} is too short (minimum is %{count} characters)"
+      # unitary_in_parcel: "Unitary items can only be sent one by one"
+      # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
   models:
     account:
       # label: "%{number} - %{name}"
@@ -1907,6 +2013,11 @@ jpn:
           todo: "実行します"
     tax_declaration:
       # bookkeep: "[%{resource} %{number}] From %{started_on} to %{stopped_on}"
+      state_machine:
+        states:
+          # draft: "Draft"
+          # sent: "Sent"
+          # validated: "Validated"
     team:
       default: "メインチーム"
     user:
