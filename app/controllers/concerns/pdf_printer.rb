@@ -33,7 +33,7 @@ module PdfPrinter
   # nature must a Nomen::DocumentNature object
   def archive_report(nature, key, data_or_path, mandatory = false, closer = nil, options = { archiving: :last })
     data = data_or_path.is_a?(File) ? data_or_path : StringIO.new(data_or_path)
-    name = options[:name] || [nature.human_name, key].join(' ')
+    name = options[:name] ? [options[:name], key].join(' ') : [nature.human_name, key].join(' ')
     document = Document.create!(
                  nature: nature,
                  key: key,
