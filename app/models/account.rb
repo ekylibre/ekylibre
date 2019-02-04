@@ -199,6 +199,9 @@ class Account < Ekylibre::Record::Base
       errors.add(:number, :centralizing_number) if number.match(/\A401|\A411/).present?
       errors.add(:number, :radical_class) if number.match(/\A[1-9]0*\z/).present?
       self.number = number.ljust(Preference[:account_number_digits], '0')
+    elsif auxiliary? && centralizing_account
+      centralizing_account_number = centralizing_account.send(Account.accounting_system)
+      self.number = centralizing_account_number + auxiliary_number
     end
   end
 
@@ -209,9 +212,6 @@ class Account < Ekylibre::Record::Base
       self.centralizing_account = nil
       errors.add(:number, :incorrect_length, number_length: Preference[:account_number_digits]) if number.length != Preference[:account_number_digits] && !already_existing
       errors.add(:number, :cant_start_with_0) if number.match(/\A0/).present? && !already_existing
-    elsif auxiliary? && centralizing_account
-      centralizing_account_number = centralizing_account.send(Account.accounting_system)
-      self.number = centralizing_account_number + auxiliary_number
     end
     self.reconcilable = reconcilableable? if reconcilable.nil?
     self.label = tc(:label, number: number.to_s, name: name.to_s)
