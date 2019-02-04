@@ -18,6 +18,8 @@ class BalanceSheetPrinter
     previous_compute = AccountancyComputation.new(@financial_year.previous) if @financial_year.previous
     ## ACTIF
     actif = []
+    current_net_total_actif = 0.0
+    previous_net_total_actif = 0.0
 
     # unsubcribed_capital - 109
     g1 = HashWithIndifferentAccess.new
@@ -39,12 +41,14 @@ class BalanceSheetPrinter
       # puts g1.inspect.yellow
     end
     g1[:sum_name] = ""
-    g1[:current_raw_total] = ''
+    g1[:current_raw_total] = current_compute.sum_entry_items_by_line(document_scope, :unsubcribed_capital)
     g1[:current_variations_total] = ''
-    g1[:current_net_total] = ''
-    g1[:previous_raw_total] = ''
+    g1[:current_net_total] = current_compute.sum_entry_items_by_line(document_scope, :unsubcribed_capital)
+    g1[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :unsubcribed_capital)
     g1[:previous_variations_total] = ''
-    g1[:previous_net_total] = ''
+    g1[:previous_net_total] = previous_compute.sum_entry_items_by_line(document_scope, :unsubcribed_capital)
+    current_net_total_actif += g1[:current_net_total]
+    previous_net_total_actif += g1[:previous_net_total]
     actif << g1
 
     # incorporeal_assets - 201...
@@ -70,10 +74,13 @@ class BalanceSheetPrinter
     g2[:current_raw_total] = current_compute.sum_entry_items_by_line(document_scope, :incorporeal_assets_total)
     g2[:current_variations_total] = current_compute.sum_entry_items_by_line(document_scope, :incorporeal_assets_total_depreciations)
     g2[:current_net_total] = (g2[:current_raw_total].to_d - g2[:current_variations_total].to_d).round(2)
+    current_net_total_actif += g2[:current_net_total]
+
     if @financial_year.previous
       g2[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :incorporeal_assets_total)
       g2[:previous_variations_total] = previous_compute.sum_entry_items_by_line(document_scope, :incorporeal_assets_total_depreciations)
       g2[:previous_net_total] = (g2[:previous_raw_total].to_d - g2[:previous_variations_total].to_d).round(2)
+      previous_net_total_actif += g2[:previous_net_total]
     end
     actif << g2
 
@@ -103,10 +110,12 @@ class BalanceSheetPrinter
     g3[:current_raw_total] = current_compute.sum_entry_items_by_line(document_scope, :corporeal_assets_total)
     g3[:current_variations_total] = current_compute.sum_entry_items_by_line(document_scope, :corporeal_assets_total_depreciations)
     g3[:current_net_total] = (g3[:current_raw_total].to_d - g3[:current_variations_total].to_d).round(2)
+    current_net_total_actif += g3[:current_net_total]
     if @financial_year.previous
       g3[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :corporeal_assets_total)
       g3[:previous_variations_total] = previous_compute.sum_entry_items_by_line(document_scope, :corporeal_assets_total_depreciations)
       g3[:previous_net_total] = (g3[:previous_raw_total].to_d - g3[:previous_variations_total].to_d).round(2)
+      previous_net_total_actif += g3[:previous_net_total]
     end
     actif << g3
 
@@ -137,10 +146,12 @@ class BalanceSheetPrinter
       g4[:current_raw_total] = current_compute.sum_entry_items_by_line(document_scope, :alive_corporeal_assets_total)
       g4[:current_variations_total] = current_compute.sum_entry_items_by_line(document_scope, :alive_corporeal_assets_total_depreciations)
       g4[:current_net_total] = (g4[:current_raw_total].to_d - g4[:current_variations_total].to_d).round(2)
+      current_net_total_actif += g4[:current_net_total]
       if @financial_year.previous
         g4[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :alive_corporeal_assets_total)
         g4[:previous_variations_total] = previous_compute.sum_entry_items_by_line(document_scope, :alive_corporeal_assets_total_depreciations)
         g4[:previous_net_total] = (g4[:previous_raw_total].to_d - g4[:previous_variations_total].to_d).round(2)
+        previous_net_total_actif += g4[:previous_net_total]
       end
       actif << g4
     end
@@ -169,10 +180,12 @@ class BalanceSheetPrinter
     g5[:current_raw_total] = current_compute.sum_entry_items_by_line(document_scope, :financial_assets_total)
     g5[:current_variations_total] = current_compute.sum_entry_items_by_line(document_scope, :financial_assets_total_depreciations)
     g5[:current_net_total] = (g5[:current_raw_total].to_d - g5[:current_variations_total].to_d).round(2)
+    current_net_total_actif += g5[:current_net_total]
     if @financial_year.previous
       g5[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :financial_assets_total)
       g5[:previous_variations_total] = previous_compute.sum_entry_items_by_line(document_scope, :financial_assets_total_depreciations)
       g5[:previous_net_total] = (g5[:previous_raw_total].to_d - g5[:previous_variations_total].to_d).round(2)
+      previous_net_total_actif += g5[:previous_net_total]
     end
     actif << g5
 
@@ -202,10 +215,12 @@ class BalanceSheetPrinter
       g6[:current_raw_total] = current_compute.sum_entry_items_by_line(document_scope, :long_cycle_alive_products_total)
       g6[:current_variations_total] = current_compute.sum_entry_items_by_line(document_scope, :long_cycle_alive_products_total_depreciations)
       g6[:current_net_total] = (g6[:current_raw_total].to_d - g6[:current_variations_total].to_d).round(2)
+      current_net_total_actif += g6[:current_net_total]
       if @financial_year.previous
         g6[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :long_cycle_alive_products_total)
         g6[:previous_variations_total] = previous_compute.sum_entry_items_by_line(document_scope, :long_cycle_alive_products_total_depreciations)
         g6[:previous_net_total] = (g6[:previous_raw_total].to_d - g6[:previous_variations_total].to_d).round(2)
+        previous_net_total_actif += g6[:previous_net_total]
       end
       actif << g6
     end
@@ -235,10 +250,12 @@ class BalanceSheetPrinter
       g7[:current_raw_total] = current_compute.sum_entry_items_by_line(document_scope, :short_cycle_alive_products_total)
       g7[:current_variations_total] = current_compute.sum_entry_items_by_line(document_scope, :short_cycle_alive_products_total_depreciations)
       g7[:current_net_total] = (g7[:current_raw_total].to_d - g7[:current_variations_total].to_d).round(2)
+      current_net_total_actif += g7[:current_net_total]
       if @financial_year.previous
         g7[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :short_cycle_alive_products_total)
         g7[:previous_variations_total] = previous_compute.sum_entry_items_by_line(document_scope, :short_cycle_alive_products_total_depreciations)
         g7[:previous_net_total] = (g7[:previous_raw_total].to_d - g7[:previous_variations_total].to_d).round(2)
+        previous_net_total_actif += g7[:previous_net_total]
       end
       actif << g7
     end
@@ -266,10 +283,12 @@ class BalanceSheetPrinter
     g8[:current_raw_total] = current_compute.sum_entry_items_by_line(document_scope, :stocks_total)
     g8[:current_variations_total] = current_compute.sum_entry_items_by_line(document_scope, :stocks_total_depreciations)
     g8[:current_net_total] = (g8[:current_raw_total].to_d - g8[:current_variations_total].to_d).round(2)
+    current_net_total_actif += g8[:current_net_total]
     if @financial_year.previous
       g8[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :stocks_total)
       g8[:previous_variations_total] = previous_compute.sum_entry_items_by_line(document_scope, :stocks_total_depreciations)
       g8[:previous_net_total] = (g8[:previous_raw_total].to_d - g8[:previous_variations_total].to_d).round(2)
+      previous_net_total_actif += g8[:previous_net_total]
     end
     actif << g8
 
@@ -297,19 +316,38 @@ class BalanceSheetPrinter
       # puts g5.inspect.yellow
     end
     g9[:sum_name] = ''
-    g9[:current_raw_total] = current_compute.sum_entry_items_by_line(document_scope, :stocks_total)
-    g9[:current_variations_total] = current_compute.sum_entry_items_by_line(document_scope, :stocks_total_depreciations)
+    g9[:current_raw_total] = current_compute.sum_entry_items_by_line(document_scope, :entities_total)
+    g9[:current_variations_total] = current_compute.sum_entry_items_by_line(document_scope, :entities_total_depreciations)
     g9[:current_net_total] = (g9[:current_raw_total].to_d - g9[:current_variations_total].to_d).round(2)
+    current_net_total_actif += g9[:current_net_total]
     if @financial_year.previous
-      g9[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :stocks_total)
-      g9[:previous_variations_total] = previous_compute.sum_entry_items_by_line(document_scope, :stocks_total_depreciations)
+      g9[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :entities_total)
+      g9[:previous_variations_total] = previous_compute.sum_entry_items_by_line(document_scope, :entities_total_depreciations)
       g9[:previous_net_total] = (g9[:previous_raw_total].to_d - g9[:previous_variations_total].to_d).round(2)
+      previous_net_total_actif += g9[:previous_net_total]
     end
     actif << g9
+
+    # Total Actif
+    g10 = HashWithIndifferentAccess.new
+    g10[:group_name] = :total_actif.tl
+    g10[:items] = []
+    g10[:sum_name] = ''
+    g10[:current_raw_total] = ''
+    g10[:current_variations_total] = ''
+    g10[:current_net_total] = current_net_total_actif
+    if @financial_year.previous
+      g10[:previous_raw_total] = ''
+      g10[:previous_variations_total] = ''
+      g10[:previous_net_total] = previous_net_total_actif
+    end
+    actif << g10
 
     dataset << actif
 
     passif = []
+    current_net_total_passif = 0.0
+    previous_net_total_passif = 0.0
 
     # Capitals - 1...
     h = HashWithIndifferentAccess.new
@@ -325,12 +363,14 @@ class BalanceSheetPrinter
       i[:name] = item.to_s.tl
       i[:current_raw_value] = current_compute.sum_entry_items_by_line(document_scope, item)
       i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item) if @financial_year.previous
+      current_net_total_passif += i[:current_raw_value]
+      previous_net_total_passif += i[:previous_raw_value] if i[:previous_raw_value]
       h[:items] << i
       # puts g5.inspect.yellow
     end
     h[:sum_name] = ''
-    h[:current_raw_total] = ''
-    h[:previous_raw_total] = ''
+    h[:current_net_total] = ''
+    h[:previous_net_total] = ''
     passif << h
 
     # Dettes - 1641...
@@ -345,12 +385,14 @@ class BalanceSheetPrinter
       i[:name] = item.to_s.tl
       i[:current_raw_value] = current_compute.sum_entry_items_by_line(document_scope, item)
       i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item) if @financial_year.previous
+      current_net_total_passif += i[:current_raw_value]
+      previous_net_total_passif += i[:previous_raw_value] if i[:previous_raw_value]
       h[:items] << i
       # puts g5.inspect.yellow
     end
     h[:sum_name] = ''
-    h[:current_raw_total] = ''
-    h[:previous_raw_total] = ''
+    h[:current_net_total] = ''
+    h[:previous_net_total] = ''
     passif << h
 
     # Autres dettes - 401...
@@ -367,12 +409,23 @@ class BalanceSheetPrinter
       i[:name] = item.to_s.tl
       i[:current_raw_value] = current_compute.sum_entry_items_by_line(document_scope, item)
       i[:previous_raw_value] = previous_compute.sum_entry_items_by_line(document_scope, item) if @financial_year.previous
+      current_net_total_passif += i[:current_raw_value]
+      previous_net_total_passif += i[:previous_raw_value] if i[:previous_raw_value]
       h[:items] << i
       # puts g5.inspect.yellow
     end
     h[:sum_name] = ''
-    h[:current_raw_total] = ''
-    h[:previous_raw_total] = ''
+    h[:current_net_total] = ''
+    h[:previous_net_total] = ''
+    passif << h
+
+    # Total Passif
+    h = HashWithIndifferentAccess.new
+    h[:group_name] = :total_passif.tl
+    h[:items] = []
+    h[:sum_name] = ''
+    h[:current_net_total] = current_net_total_passif
+    h[:previous_net_total] = previous_net_total_passif
     passif << h
 
     dataset << passif
@@ -427,7 +480,6 @@ class BalanceSheetPrinter
         s.add_field(:p_r_total, :previous_raw_total)
         s.add_field(:p_v_total, :previous_variations_total)
         s.add_field(:p_n_total, :previous_net_total)
-
       end
 
       r.add_section('Section2', dataset[1]) do |s|
@@ -438,9 +490,8 @@ class BalanceSheetPrinter
           t.add_column(:previous_raw_value) { |item| item[:previous_raw_value] }
         end
         s.add_field(:sum_name, :sum_name)
-        s.add_field(:c_r_total, :current_raw_total)
-        s.add_field(:p_r_total, :previous_raw_total)
-
+        s.add_field(:c_r_total, :current_net_total)
+        s.add_field(:p_r_total, :previous_net_total)
       end
 
     end
