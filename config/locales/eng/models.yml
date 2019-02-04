@@ -948,6 +948,7 @@ eng:
     last_value: "Last value"
     last_year: "Last year"
     latest: "Latest"
+    latest_closure_on: "Latest closure on"
     leaves_parameters: "Leaves parameters"
     lender: "Lender"
     letter: "Letter"

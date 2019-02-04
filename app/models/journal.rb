@@ -91,6 +91,8 @@ class Journal < Ekylibre::Record::Base
   scope :fixed_assets,    -> { where(nature: 'fixed_asset') }
   scope :banks_or_cashes, -> { where(nature: %w[cashes bank]) }
 
+  alias_attribute :closed_on, :latest_closure_on
+
   before_validation(on: :create) do
     self.closed_on ||= FinancialYear.last_closure
     if (year = FinancialYear.first_of_all)
