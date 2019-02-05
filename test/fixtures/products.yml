@@ -173,6 +173,7 @@ animals_004:
   variety: bos
   work_number: '1526'
 animal_groups_001:
+  activity_production_id: 13
   born_at: 2014-05-04 17:28:40.089209000 Z
   category_id: 16
   created_at: 2014-11-04 17:28:40.064178000 Z
@@ -197,6 +198,7 @@ animal_groups_001:
   variety: animal_group
   work_number: TGA
 animal_groups_002:
+  activity_production_id: 15
   born_at: 2014-11-04 17:32:45.997952000 Z
   category_id: 16
   created_at: 2014-11-04 17:32:45.765155000 Z
@@ -835,6 +837,7 @@ fungi_002:
   variant_id: 1
   variety: fungus
 land_parcels_001:
+  activity_production_id: 14
   born_at: 1974-05-11 23:00:00.000000000 Z
   category_id: 15
   created_at: 2014-11-04 17:12:23.238580000 Z
@@ -863,6 +866,7 @@ land_parcels_001:
   variety: land_parcel
   work_number: ZC1
 land_parcels_002:
+  activity_production_id: 12
   born_at: 1965-01-22 23:00:00.000000000 Z
   category_id: 15
   created_at: 2014-11-04 17:15:04.591592000 Z
@@ -891,6 +895,7 @@ land_parcels_002:
   variety: land_parcel
   work_number: ZC0
 land_parcels_003:
+  activity_production_id: 10
   born_at: 1975-06-01 23:00:00.000000000 Z
   category_id: 15
   created_at: 2014-11-04 17:17:04.657670000 Z
@@ -919,6 +924,7 @@ land_parcels_003:
   variety: land_parcel
   work_number: ZC2
 land_parcels_004:
+  activity_production_id: 8
   born_at: 1983-12-11 23:00:00.000000000 Z
   category_id: 15
   created_at: 2014-11-04 17:19:31.120097000 Z
@@ -949,6 +955,7 @@ land_parcels_004:
   variety: land_parcel
   work_number: ZC3
 land_parcels_005:
+  activity_production_id: 9
   born_at: 1985-11-03 23:00:00.000000000 Z
   category_id: 15
   created_at: 2014-11-04 17:22:31.656517000 Z
@@ -980,6 +987,7 @@ land_parcels_005:
   variety: land_parcel
   work_number: ZC4
 land_parcels_006:
+  activity_production_id: 17
   born_at: 1971-06-17 23:00:00.000000000 Z
   category_id: 15
   created_at: 2014-11-07 16:26:53.115665000 Z
@@ -1015,6 +1023,7 @@ land_parcels_006:
   variety: land_parcel
   work_number: ZC5
 land_parcels_007:
+  activity_production_id: 18
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:47.074116000 Z
@@ -1054,6 +1063,7 @@ land_parcels_007:
   variant_id: 69
   variety: land_parcel
 land_parcels_008:
+  activity_production_id: 19
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:47.379437000 Z
@@ -1099,6 +1109,7 @@ land_parcels_008:
   variant_id: 69
   variety: land_parcel
 land_parcels_009:
+  activity_production_id: 20
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:47.522400000 Z
@@ -1126,6 +1137,7 @@ land_parcels_009:
   variant_id: 69
   variety: land_parcel
 land_parcels_010:
+  activity_production_id: 21
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:47.656120000 Z
@@ -1152,6 +1164,7 @@ land_parcels_010:
   variant_id: 69
   variety: land_parcel
 land_parcels_011:
+  activity_production_id: 22
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:47.819779000 Z
@@ -1182,6 +1195,7 @@ land_parcels_011:
   variant_id: 69
   variety: land_parcel
 land_parcels_012:
+  activity_production_id: 23
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:47.992691000 Z
@@ -1223,6 +1237,7 @@ land_parcels_012:
   variant_id: 69
   variety: land_parcel
 land_parcels_013:
+  activity_production_id: 24
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:48.142936000 Z
@@ -1258,6 +1273,7 @@ land_parcels_013:
   variant_id: 69
   variety: land_parcel
 land_parcels_014:
+  activity_production_id: 25
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:48.294847000 Z
@@ -1286,6 +1302,7 @@ land_parcels_014:
   variant_id: 69
   variety: land_parcel
 land_parcels_015:
+  activity_production_id: 26
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:48.430151000 Z
@@ -1319,6 +1336,7 @@ land_parcels_015:
   variant_id: 69
   variety: land_parcel
 land_parcels_016:
+  activity_production_id: 27
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:48.567356000 Z
@@ -1352,6 +1370,7 @@ land_parcels_016:
   variant_id: 69
   variety: land_parcel
 land_parcels_017:
+  activity_production_id: 28
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:48.717643000 Z
@@ -1383,6 +1402,7 @@ land_parcels_017:
   variant_id: 69
   variety: land_parcel
 land_parcels_018:
+  activity_production_id: 29
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:48.862205000 Z
@@ -1412,6 +1432,7 @@ land_parcels_018:
   variant_id: 69
   variety: land_parcel
 land_parcels_019:
+  activity_production_id: 30
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:49.046450000 Z
@@ -1447,6 +1468,7 @@ land_parcels_019:
   variant_id: 69
   variety: land_parcel
 land_parcels_020:
+  activity_production_id: 31
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:49.212525000 Z
@@ -1474,6 +1496,7 @@ land_parcels_020:
   variant_id: 69
   variety: land_parcel
 land_parcels_021:
+  activity_production_id: 32
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:49.396249000 Z
@@ -1505,6 +1528,7 @@ land_parcels_021:
   variant_id: 69
   variety: land_parcel
 land_parcels_022:
+  activity_production_id: 33
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:49.614832000 Z
@@ -1536,6 +1560,7 @@ land_parcels_022:
   variant_id: 69
   variety: land_parcel
 land_parcels_023:
+  activity_production_id: 34
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:49.780958000 Z
@@ -1568,6 +1593,7 @@ land_parcels_023:
   variant_id: 69
   variety: land_parcel
 land_parcels_024:
+  activity_production_id: 35
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:49.918693000 Z
@@ -1595,6 +1621,7 @@ land_parcels_024:
   variant_id: 69
   variety: land_parcel
 land_parcels_025:
+  activity_production_id: 36
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:50.090478000 Z
@@ -1620,6 +1647,7 @@ land_parcels_025:
   variant_id: 69
   variety: land_parcel
 land_parcels_026:
+  activity_production_id: 37
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:50.268765000 Z
@@ -1643,6 +1671,7 @@ land_parcels_026:
   variant_id: 69
   variety: land_parcel
 land_parcels_027:
+  activity_production_id: 38
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:50.398602000 Z
@@ -1670,6 +1699,7 @@ land_parcels_027:
   variant_id: 69
   variety: land_parcel
 land_parcels_028:
+  activity_production_id: 39
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:50.524778000 Z
@@ -1692,6 +1722,7 @@ land_parcels_028:
   variant_id: 69
   variety: land_parcel
 land_parcels_029:
+  activity_production_id: 40
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:50.648074000 Z
@@ -1714,6 +1745,7 @@ land_parcels_029:
   variant_id: 69
   variety: land_parcel
 land_parcels_030:
+  activity_production_id: 41
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:50.781805000 Z
@@ -1744,6 +1776,7 @@ land_parcels_030:
   variant_id: 69
   variety: land_parcel
 land_parcels_031:
+  activity_production_id: 42
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:50.914231000 Z
@@ -1768,6 +1801,7 @@ land_parcels_031:
   variant_id: 69
   variety: land_parcel
 land_parcels_032:
+  activity_production_id: 43
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:51.043055000 Z
@@ -1791,6 +1825,7 @@ land_parcels_032:
   variant_id: 69
   variety: land_parcel
 land_parcels_033:
+  activity_production_id: 44
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:51.174139000 Z
@@ -1814,6 +1849,7 @@ land_parcels_033:
   variant_id: 69
   variety: land_parcel
 land_parcels_034:
+  activity_production_id: 45
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:51.335702000 Z
@@ -1840,6 +1876,7 @@ land_parcels_034:
   variant_id: 69
   variety: land_parcel
 land_parcels_035:
+  activity_production_id: 46
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:51.487653000 Z
@@ -1889,6 +1926,7 @@ land_parcels_035:
   variant_id: 69
   variety: land_parcel
 land_parcels_036:
+  activity_production_id: 47
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:51.624402000 Z
@@ -1914,6 +1952,7 @@ land_parcels_036:
   variant_id: 69
   variety: land_parcel
 land_parcels_037:
+  activity_production_id: 48
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:51.759263000 Z
@@ -1939,6 +1978,7 @@ land_parcels_037:
   variant_id: 69
   variety: land_parcel
 land_parcels_038:
+  activity_production_id: 49
   born_at: 2016-02-29 23:00:00.000000000 Z
   category_id: 25
   created_at: 2016-05-10 19:12:52.671463000 Z
@@ -3194,6 +3234,7 @@ plants_001:
   variant_id: 16
   variety: triticum_aestivum
 plants_002:
+  activity_production_id: 9
   born_at: 2012-10-17 10:09:00.000000000 Z
   category_id: 8
   created_at: 2014-11-06 17:50:07.013572000 Z
@@ -3221,6 +3262,7 @@ plants_002:
   variant_id: 16
   variety: triticum_aestivum
 plants_003:
+  activity_production_id: 14
   born_at: 2007-09-29 10:59:00.000000000 Z
   category_id: 8
   created_at: 2014-11-07 15:45:45.794867000 Z
@@ -3245,6 +3287,7 @@ plants_003:
   variant_id: 40
   variety: poa
 plants_004:
+  activity_production_id: 17
   born_at: 2008-03-15 15:39:00.000000000 Z
   category_id: 8
   created_at: 2014-11-07 16:50:07.190626000 Z
@@ -3276,6 +3319,7 @@ plants_004:
   variant_id: 44
   variety: vitis_vinifera
 plants_005:
+  activity_production_id: 49
   born_at: 2016-04-06 17:23:00.000000000 Z
   category_id: 8
   created_at: 2016-12-20 18:24:29.477242000 Z

@@ -68,7 +68,7 @@ product_nature_categories_001:
   lock_version: 2
   name: Generic Product Nature Category
   number: PNC001
-  product_account_id: 535
+  product_account_id: 152
   purchasable: true
   reductible: true
   saleable: true
@@ -115,7 +115,7 @@ product_nature_categories_003:
   name: Produit phytosanitaire
   number: PNC003
   pictogram: beaker
-  product_account_id: 535
+  product_account_id: 152
   purchasable: true
   reductible: false
   reference_name: plant_medicine
@@ -160,7 +160,7 @@ product_nature_categories_005:
   name: Semence
   number: PNC005
   pictogram: matter
-  product_account_id: 535
+  product_account_id: 152
   purchasable: true
   reductible: false
   reference_name: seed
@@ -231,7 +231,7 @@ product_nature_categories_008:
   reductible: false
   reference_name: crop
   saleable: true
-  stock_account_id: 470
+  stock_account_id: 160
   stock_movement_account_id: 535
   storable: true
   subscribing: false
@@ -321,7 +321,7 @@ product_nature_categories_012:
   name: Produit vétérinaire
   number: PNC012
   pictogram: pill
-  product_account_id: 535
+  product_account_id: 152
   purchasable: true
   reductible: false
   reference_name: animal_medicine
@@ -344,7 +344,7 @@ product_nature_categories_013:
   name: Responsable
   number: PNC013
   pictogram: male
-  product_account_id: 535
+  product_account_id: 152
   purchasable: true
   reductible: false
   reference_name: worker
@@ -429,7 +429,7 @@ product_nature_categories_017:
   name: Engrais
   number: PNC017
   pictogram: matter
-  product_account_id: 535
+  product_account_id: 152
   purchasable: true
   reductible: false
   reference_name: fertilizer
@@ -478,7 +478,7 @@ product_nature_categories_019:
   name: Plant
   number: PNC019
   pictogram: matter
-  product_account_id: 535
+  product_account_id: 152
   purchasable: true
   reductible: false
   reference_name: plant
@@ -545,7 +545,7 @@ product_nature_categories_022:
   name: Produit œnologique
   number: PNC022
   pictogram: beaker
-  product_account_id: 535
+  product_account_id: 152
   purchasable: true
   reductible: false
   reference_name: oenological_product
@@ -568,7 +568,7 @@ product_nature_categories_023:
   name: Matières sèches (vin)
   number: PNC023
   pictogram: matter
-  product_account_id: 535
+  product_account_id: 152
   purchasable: true
   reductible: false
   reference_name: wine_package_consumable

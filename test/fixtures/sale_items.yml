@@ -158,7 +158,7 @@ sale_items_005:
   updater_id: 1
   variant_id: 18
 sale_items_006:
-  account_id: 535
+  account_id: 152
   amount: 24.0
   annotation: ''
   compute_from: unit_pretax_amount
@@ -180,7 +180,7 @@ sale_items_006:
   updater_id: 1
   variant_id: 57
 sale_items_007:
-  account_id: 535
+  account_id: 152
   amount: 187.2
   annotation: ''
   compute_from: unit_pretax_amount
@@ -202,7 +202,7 @@ sale_items_007:
   updater_id: 1
   variant_id: 8
 sale_items_008:
-  account_id: 535
+  account_id: 152
   amount: 119.6
   annotation: ''
   compute_from: unit_pretax_amount
@@ -224,7 +224,7 @@ sale_items_008:
   updater_id: 1
   variant_id: 8
 sale_items_009:
-  account_id: 535
+  account_id: 152
   amount: 200.0
   annotation: Arigato
   compute_from: unit_pretax_amount
@@ -246,7 +246,7 @@ sale_items_009:
   updater_id: 1
   variant_id: 58
 sale_items_010:
-  account_id: 535
+  account_id: 152
   amount: 500.0
   annotation: ''
   compute_from: unit_pretax_amount
@@ -268,7 +268,7 @@ sale_items_010:
   updater_id: 1
   variant_id: 63
 sale_items_011:
-  account_id: 535
+  account_id: 152
   amount: -500.0
   compute_from: unit_pretax_amount
   created_at: 2015-05-30 20:00:46.769726000 Z
@@ -357,7 +357,7 @@ sale_items_014:
   updater_id: 1
   variant_id: 70
 sale_items_015:
-  account_id: 535
+  account_id: 152
   amount: 148.8
   annotation: wjbdkjxfs hdskfh gds
   compute_from: unit_pretax_amount
@@ -467,7 +467,7 @@ sale_items_019:
   updater_id: 1
   variant_id: 18
 sale_items_020:
-  account_id: 535
+  account_id: 152
   amount: 2676.0
   annotation: ''
   compute_from: unit_pretax_amount
@@ -489,7 +489,7 @@ sale_items_020:
   updater_id: 1
   variant_id: 39
 sale_items_021:
-  account_id: 535
+  account_id: 152
   amount: -2676.0
   compute_from: unit_pretax_amount
   created_at: 2016-11-20 22:12:25.310161000 Z
@@ -512,7 +512,7 @@ sale_items_021:
   updater_id: 1
   variant_id: 39
 sale_items_022:
-  account_id: 535
+  account_id: 152
   amount: 400.0
   annotation: ''
   compute_from: amount

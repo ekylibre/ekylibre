@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :journal do
-    closed_on { Date.parse('1997-12-31') }
+    latest_closure_on { Date.parse('1997-12-31') }
     sequence(:name) { |i| "Journal #{i}" }
     sequence(:code) { |i| "OP#{i}" }
     currency { 'EUR' }
