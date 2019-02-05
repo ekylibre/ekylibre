@@ -96,7 +96,7 @@ sales_001:
   nature_id: 1
   number: F2014000001
   payment_at: 2014-11-23 22:59:59.999999000 Z
-  payment_delay: 12 days, eom, 1 week ago
+  payment_delay: 1 week
   pretax_amount: 970.0
   responsible_id: 9
   state: invoice
@@ -129,7 +129,7 @@ sales_002:
   lock_version: 1
   nature_id: 1
   number: SO000000000003
-  payment_delay: 12 days, eom, 1 week ago
+  payment_delay: 1 week
   pretax_amount: 660.0
   responsible_id: 9
   state: draft
@@ -163,7 +163,7 @@ sales_003:
   nature_id: 1
   number: F2014000002
   payment_at: 2014-11-23 22:59:59.999999000 Z
-  payment_delay: 12 days, eom, 1 week ago
+  payment_delay: 1 week
   pretax_amount: 9.36
   responsible_id: 9
   state: invoice
@@ -193,7 +193,7 @@ sales_004:
   lock_version: 0
   nature_id: 1
   number: SO000000000005
-  payment_delay: 12 days, eom, 1 week ago
+  payment_delay: 1 week
   pretax_amount: 16.0
   responsible_id: 9
   state: draft
@@ -226,7 +226,7 @@ sales_005:
   lock_version: 0
   nature_id: 1
   number: SO000000000006
-  payment_delay: 12 days, eom, 1 week ago
+  payment_delay: 1 week
   pretax_amount: 20.0
   responsible_id: 9
   state: draft
@@ -259,7 +259,7 @@ sales_006:
   lock_version: 0
   nature_id: 1
   number: SO000000000007
-  payment_delay: 12 days, eom, 1 week ago
+  payment_delay: 1 week
   pretax_amount: 156.0
   responsible_id: 9
   state: draft
@@ -292,7 +292,7 @@ sales_007:
   lock_version: 1
   nature_id: 1
   number: SO000000000008
-  payment_delay: 12 days, eom, 1 week ago
+  payment_delay: 1 week
   pretax_amount: 266.67
   responsible_id: 9
   state: estimate
@@ -325,7 +325,7 @@ sales_008:
   nature_id: 1
   number: F2015000001
   payment_at: 2015-06-23 21:59:59.999999000 Z
-  payment_delay: 12 days, eom, 1 week ago
+  payment_delay: 1 week
   pretax_amount: 417.5
   responsible_id: 9
   state: invoice
@@ -356,7 +356,7 @@ sales_009:
   nature_id: 1
   number: F2015000002
   payment_at: 2015-06-23 21:59:59.999999000 Z
-  payment_delay: 12 days, eom, 1 week ago
+  payment_delay: 1 week
   pretax_amount: -417.5
   responsible_id: 9
   state: invoice
@@ -389,7 +389,7 @@ sales_010:
   lock_version: 2
   nature_id: 1
   number: SO000000000011
-  payment_delay: 12 days, eom, 1 week ago
+  payment_delay: 1 week
   pretax_amount: 45000.0
   responsible_id: 9
   state: order
@@ -426,7 +426,7 @@ sales_011:
   nature_id: 1
   number: F2016000001
   payment_at: 2016-06-23 21:59:59.999999000 Z
-  payment_delay: 12 days, eom, 1 week ago
+  payment_delay: 1 week
   pretax_amount: 140.0
   responsible_id: 9
   state: invoice
@@ -462,7 +462,7 @@ sales_012:
   nature_id: 1
   number: F2016000002
   payment_at: 2016-06-23 21:59:59.999999000 Z
-  payment_delay: 12 days, eom, 1 week ago
+  payment_delay: 1 week
   pretax_amount: 70.0
   state: invoice
   subject: ''
@@ -498,7 +498,7 @@ sales_013:
   nature_id: 1
   number: F2016000003
   payment_at: 2016-07-24 21:59:59.999999000 Z
-  payment_delay: 12 days, eom, 1 week ago
+  payment_delay: 1 week
   pretax_amount: 124.0
   responsible_id: 9
   state: invoice
@@ -536,7 +536,7 @@ sales_014:
   nature_id: 1
   number: F2016000004
   payment_at: 2016-12-24 22:59:59.999999000 Z
-  payment_delay: 12 days, eom, 1 week ago
+  payment_delay: 1 week
   pretax_amount: 372.6
   quantity_gap_on_invoice_journal_entry_id: 90
   responsible_id: 9
@@ -575,7 +575,7 @@ sales_015:
   nature_id: 1
   number: F2016000005
   payment_at: 2016-12-24 22:59:59.999999000 Z
-  payment_delay: 12 days, eom, 1 week ago
+  payment_delay: 1 week
   pretax_amount: 31.2
   quantity_gap_on_invoice_journal_entry_id: 93
   responsible_id: 9
@@ -614,7 +614,7 @@ sales_016:
   nature_id: 1
   number: F2016000006
   payment_at: 2016-12-24 22:59:59.999999000 Z
-  payment_delay: 12 days, eom, 1 week ago
+  payment_delay: 1 week
   pretax_amount: 3.12
   quantity_gap_on_invoice_journal_entry_id: 96
   responsible_id: 9
@@ -650,7 +650,7 @@ sales_017:
   nature_id: 1
   number: F2016000007
   payment_at: 2016-12-24 22:59:59.999999000 Z
-  payment_delay: 12 days, eom, 1 week ago
+  payment_delay: 1 week
   pretax_amount: 2230.0
   quantity_gap_on_invoice_journal_entry_id: 99
   responsible_id: 9
@@ -683,7 +683,7 @@ sales_018:
   nature_id: 1
   number: F2016000008
   payment_at: 2016-12-24 22:59:59.999999000 Z
-  payment_delay: 12 days, eom, 1 week ago
+  payment_delay: 1 week
   pretax_amount: -2230.0
   quantity_gap_on_invoice_journal_entry_id: 101
   responsible_id: 9
@@ -721,7 +721,7 @@ sales_019:
   nature_id: 1
   number: F2016000009
   payment_at: 2017-01-24 22:59:59.999999000 Z
-  payment_delay: 12 days, eom, 1 week ago
+  payment_delay: 1 week
   pretax_amount: 363.64
   responsible_id: 9
   state: invoice

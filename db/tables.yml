@@ -4116,6 +4116,9 @@ journals:
   accountant_id:
     type: integer
     references: entity
+  closed_on:
+    type: date
+    required: true
   code:
     type: string
     required: true
@@ -4132,9 +4135,6 @@ journals:
     type: jsonb
   id:
     type: integer
-    required: true
-  latest_closure_on:
-    type: date
     required: true
   lock_version:
     type: integer

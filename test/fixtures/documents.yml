@@ -68,7 +68,6 @@ documents_001:
   id: 3
   key: '000000000001'
   lock_version: 11
-  mandatory: false
   name: Facture de vente 000000000001
   nature: sales_invoice
   number: D000000000001
@@ -95,7 +94,6 @@ documents_002:
   id: 4
   key: F2014000001
   lock_version: 1
-  mandatory: false
   name: Facture de vente F2014000001
   nature: sales_invoice
   number: D000000000002
@@ -121,7 +119,6 @@ documents_003:
   id: 5
   key: SO000000000005
   lock_version: 1
-  mandatory: false
   name: Devis de vente SO000000000005
   nature: sales_estimate
   number: D000000000003
@@ -147,7 +144,6 @@ documents_004:
   id: 6
   key: F2014000002
   lock_version: 1
-  mandatory: false
   name: Facture de vente F2014000002
   nature: sales_invoice
   number: D000000000004
@@ -176,7 +172,6 @@ documents_005:
   id: 7
   key: A201411000004
   lock_version: 0
-  mandatory: false
   name: Facture d’achat A201411000004
   nature: purchases_invoice
   number: D000000000005
@@ -206,7 +201,6 @@ documents_006:
   id: 8
   key: 1453468436-beardley_o1cvf5_zuiwjon.pdf
   lock_version: 0
-  mandatory: false
   name: beardley_o1cvf5_zuiwjon.pdf
   nature: sales_order
   number: D000000000006
@@ -236,7 +230,6 @@ documents_007:
   id: 9
   key: 1453468464-beardley_o1cvfz_6ra0q9t.pdf
   lock_version: 0
-  mandatory: false
   name: beardley_o1cvfz_6ra0q9t.pdf
   nature: sales_order
   number: D000000000007
@@ -266,7 +259,6 @@ documents_008:
   id: 10
   key: 1453468667-beardley_o1cvlm_dddh0bi.pdf
   lock_version: 0
-  mandatory: false
   name: beardley_o1cvlm_dddh0bi.pdf
   nature: sales_order
   number: D000000000008
@@ -293,7 +285,6 @@ documents_009:
   id: 11
   key: 1453469168-beardley_o1cvzj_ws69rny.pdf
   lock_version: 0
-  mandatory: false
   name: beardley_o1cvzj_ws69rny.pdf
   nature: sales_invoice
   number: D000000000009
@@ -320,7 +311,6 @@ documents_010:
   id: 19
   key: F2015000002
   lock_version: 0
-  mandatory: false
   name: Facture de vente F2015000002
   nature: sales_invoice
   number: D000000000017
@@ -351,7 +341,6 @@ documents_011:
   id: 20
   key: F2016000003
   lock_version: 0
-  mandatory: false
   name: Facture de vente F2016000003
   nature: sales_invoice
   number: D000000000018
@@ -372,7 +361,6 @@ documents_012:
   id: 21
   key: 1482242899977-logo.png
   lock_version: 0
-  mandatory: false
   name: logo.png
   number: D000000000019
   updated_at: 2016-12-20 14:08:20.703181000 Z
@@ -405,7 +393,6 @@ documents_013:
   id: 22
   key: 1482242907415-outgoing_deliveries.pdf
   lock_version: 0
-  mandatory: false
   name: outgoing_deliveries.pdf
   number: D000000000020
   updated_at: 2016-12-20 14:08:30.041420000 Z

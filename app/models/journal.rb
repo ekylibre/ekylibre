@@ -56,7 +56,7 @@ class Journal < Ekylibre::Record::Base
   has_many :sale_natures, dependent: :restrict_with_exception
   enumerize :nature, in: %i[sales purchases fixed_assets bank forward various cash stocks closure result], default: :various, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :latest_closure_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :closed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates :code, :name, presence: true, length: { maximum: 500 }
   validates :currency, :nature, presence: true
   validates :used_for_affairs, :used_for_gaps, :used_for_permanent_stock_inventory, :used_for_tax_declarations, :used_for_unbilled_payables, inclusion: { in: [true, false] }

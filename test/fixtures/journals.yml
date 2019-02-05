@@ -24,13 +24,13 @@
 # == Table: journals
 #
 #  accountant_id                      :integer
+#  latest_closure_on                          :date             not null
 #  code                               :string           not null
 #  created_at                         :datetime         not null
 #  creator_id                         :integer
 #  currency                           :string           not null
 #  custom_fields                      :jsonb
 #  id                                 :integer          not null, primary key
-#  latest_closure_on                  :date             not null
 #  lock_version                       :integer          default(0), not null
 #  name                               :string           not null
 #  nature                             :string           not null
@@ -44,12 +44,12 @@
 #
 ---
 journals_001:
+  latest_closure_on: 2007-06-30
   code: VOP
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
   id: 1
-  latest_closure_on: 2007-06-30
   lock_version: 0
   name: Various operations
   nature: various
@@ -61,12 +61,12 @@ journals_001:
   used_for_tax_declarations: false
   used_for_unbilled_payables: false
 journals_002:
+  latest_closure_on: 2009-07-31
   code: BNK
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
   id: 2
-  latest_closure_on: 2009-07-31
   lock_version: 1
   name: Banque GHB
   nature: bank
@@ -78,12 +78,12 @@ journals_002:
   used_for_tax_declarations: false
   used_for_unbilled_payables: false
 journals_003:
+  latest_closure_on: 2007-06-30
   code: SAL
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
   id: 3
-  latest_closure_on: 2007-06-30
   lock_version: 0
   name: Sales
   nature: sales
@@ -95,12 +95,12 @@ journals_003:
   used_for_tax_declarations: false
   used_for_unbilled_payables: false
 journals_004:
+  latest_closure_on: 2007-06-30
   code: PUR
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
   id: 4
-  latest_closure_on: 2007-06-30
   lock_version: 0
   name: Purchases
   nature: purchases
@@ -112,12 +112,12 @@ journals_004:
   used_for_tax_declarations: false
   used_for_unbilled_payables: false
 journals_005:
+  latest_closure_on: 2007-06-30
   code: PUD
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: USD
   id: 5
-  latest_closure_on: 2007-06-30
   lock_version: 0
   name: Purchases USD
   nature: purchases
@@ -129,12 +129,12 @@ journals_005:
   used_for_tax_declarations: false
   used_for_unbilled_payables: false
 journals_006:
+  latest_closure_on: 1992-11-16
   code: CUN
   created_at: 2014-11-05 12:08:09.491204000 Z
   creator_id: 1
   currency: EUR
   id: 6
-  latest_closure_on: 1992-11-16
   lock_version: 0
   name: Caisse 1
   nature: cash
@@ -146,12 +146,12 @@ journals_006:
   used_for_tax_declarations: false
   used_for_unbilled_payables: false
 journals_007:
+  latest_closure_on: 1992-11-16
   code: BCA
   created_at: 2014-11-05 12:13:12.680296000 Z
   creator_id: 1
   currency: USD
   id: 7
-  latest_closure_on: 1992-11-16
   lock_version: 1
   name: Banque Capitalis
   nature: bank
@@ -163,12 +163,12 @@ journals_007:
   used_for_tax_declarations: false
   used_for_unbilled_payables: false
 journals_008:
+  latest_closure_on: 1992-11-16
   code: RESE
   created_at: 2016-11-20 22:08:58.338278000 Z
   creator_id: 1
   currency: EUR
   id: 8
-  latest_closure_on: 1992-11-16
   lock_version: 0
   name: Réserves
   nature: stocks
@@ -180,12 +180,12 @@ journals_008:
   used_for_tax_declarations: false
   used_for_unbilled_payables: false
 journals_009:
+  latest_closure_on: 1992-11-16
   code: FNOP
   created_at: 2016-11-20 22:08:58.347492000 Z
   creator_id: 1
   currency: EUR
   id: 9
-  latest_closure_on: 1992-11-16
   lock_version: 0
   name: Factures non parvenues
   nature: various
@@ -197,12 +197,12 @@ journals_009:
   used_for_tax_declarations: false
   used_for_unbilled_payables: false
 journals_010:
+  latest_closure_on: 1992-11-16
   code: RE
   created_at: 2016-12-20 08:53:53.385377000 Z
   creator_id: 1
   currency: EUR
   id: 10
-  latest_closure_on: 1992-11-16
   lock_version: 0
   name: Inventaire des stocks permanent
   nature: stocks
@@ -214,12 +214,12 @@ journals_010:
   used_for_tax_declarations: false
   used_for_unbilled_payables: false
 journals_011:
+  latest_closure_on: 1992-11-16
   code: OP
   created_at: 2016-12-20 09:05:17.945307000 Z
   creator_id: 1
   currency: EUR
   id: 11
-  latest_closure_on: 1992-11-16
   lock_version: 0
   name: Taxes
   nature: various
@@ -231,12 +231,12 @@ journals_011:
   used_for_tax_declarations: true
   used_for_unbilled_payables: true
 journals_012:
+  latest_closure_on: 1992-11-16
   code: CR
   created_at: 2014-11-05 12:13:12.680296000 Z
   creator_id: 1
   currency: USD
   id: 12
-  latest_closure_on: 1992-11-16
   lock_version: 1
   name: Journal Comptable Reserve
   nature: various
@@ -248,12 +248,12 @@ journals_012:
   used_for_tax_declarations: false
   used_for_unbilled_payables: false
 journals_013:
+  latest_closure_on: 1992-11-16
   code: SA
   created_at: 2017-06-07 16:08:42.092471000 Z
   creator_id: 1
   currency: EUR
   id: 13
-  latest_closure_on: 1992-11-16
   lock_version: 1
   name: Salaires
   nature: purchases
