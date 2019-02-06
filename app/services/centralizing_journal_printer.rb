@@ -35,14 +35,14 @@ class CentralizingJournalPrinter
   def run_pdf
     dataset = compute_dataset
 
-    report = generate_document(@document_nature, @key, @template_path) do |r|
+    report = generate_document(@document_nature, @key, @template_path, false, nil, name: "#{:centralizing_journal.tl} (#{@financial_year.code})") do |r|
 
       e = Entity.of_company
       company_name = e.full_name
       company_address = e.default_mail_address&.coordinate
 
       r.add_field 'COMPANY_ADDRESS', company_address
-      r.add_field 'DOCUMENT_NAME', I18n.translate('labels.centralizing_journal')
+      r.add_field 'DOCUMENT_NAME', "#{:centralizing_journal.tl} (#{@financial_year.code})"
       r.add_field 'FILE_NAME', @key
       r.add_field 'STARTED_ON', @financial_year.started_on.l
       r.add_field 'STOPPED_ON', @financial_year.stopped_on.l
