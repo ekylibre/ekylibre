@@ -365,7 +365,8 @@ module Backend
       else
         siblings = @object.class.where("#{attribute_name} IS NOT NULL").order(id: :desc)
         if siblings.any?
-          marker[:view] = { center: Charta.new_geometry(siblings.first.send(attribute_name)).centroid }
+          sibling_point = siblings.first.send(attribute_name).to_rgeo
+          marker[:view] = { center: [sibling_point.lat, sibling_point.lon] }
         elsif zone = CultivableZone.first
           marker[:view] = { center: zone.shape_centroid }
         end
