@@ -192,6 +192,8 @@ fra:
         storage: "Support" #?
       inventory_item: #?
         quantity: "Quantité constatée" #?
+      journal:
+        closed_on: "Dernière fermeture le"
       journal_entry_item:
         closed: "Cloturée" #?
         cumulated_absolute_credit_balance: "Solde crédit"
