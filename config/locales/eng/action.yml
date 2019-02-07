@@ -1591,7 +1591,7 @@ eng:
     financial_year: "Financial year"
     financial_year_close_message: "<p> The close will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. </p>"
     financial_year_closing: "Financial year closure in progress"
-    financial_year_closure_in_preparation_initiated_by_someone_else: "Closure of %{code} in preparation, you can't edit entries related to this financial year anymore."
+    financial_year_closure_in_preparation_initiated_by_someone_else: "Closure of %{code} in preparation, you can't edit entries related to this financial year. Reach out for the person in charge of the closure."
     financial_year_closure_in_preparation_initiated_by_you: "Closure of %{code} in preparation, you're the only person able to edit entries related to this financial year."
     financial_year_lock_message: "<p> The lock will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. <br/> You will need to get in contact the person who did the close out of the software to get back your year-end documents. </p>"
     financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager"
