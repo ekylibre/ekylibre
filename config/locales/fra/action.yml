@@ -1172,6 +1172,7 @@ fra:
     close: "Fermer"
     close_carry_forward: "Génération des report à nouveau"
     close_financial_year: "Clôturer %{code}"
+    close_financial_year_exchange_before_preparing_for_closure: "Vous ne pourrez enclencher le processus de clôture de cet exercice qu'après avoir mis fin à l'échange comptable en place."
     close_journal: "Clôturer le journal"
     close_result_entry: "Génération des écritures de résultat"
     close_settings: "Paramètres de clôture"
