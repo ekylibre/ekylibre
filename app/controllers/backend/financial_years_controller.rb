@@ -64,6 +64,9 @@ module Backend
       return unless @financial_year = find_and_check
       respond_to do |format|
         format.html do
+          if FinancialYear.closables_or_lockables.pluck(:id).include?(@financial_year.id) && @financial_year.exchanges.opened.any?
+            notify_now(:close_financial_year_exchange_before_preparing_for_closure.tl)
+          end
           if @financial_year.closed? && @financial_year.account_balances.empty?
             @financial_year.compute_balances!
           end

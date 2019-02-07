@@ -1296,6 +1296,7 @@ eng:
     close: "Close"
     close_carry_forward: "Generating carrying forward entries" #?
     close_financial_year: "Close %{code}"
+    close_financial_year_exchange_before_preparing_for_closure: "You won't be able to begin the closure process for this financial year until you have closed the current exchange in place."
     close_journal: "Close the journal"
     close_result_entry: "Generating result entries" #?
     close_settings: "Close settings"
