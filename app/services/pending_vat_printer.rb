@@ -130,9 +130,6 @@ class PendingVatPrinter
       company_name = e.full_name
       company_address = e.default_mail_address&.coordinate
 
-      # build filters
-      data_filters = []
-
       # build started and stopped
       tax_declaration = TaxDeclaration.find(@params[:id])
       started_on = tax_declaration.started_on
@@ -146,7 +143,6 @@ class PendingVatPrinter
       r.add_field 'STARTED_ON', started_on.to_date.l
       r.add_field 'STOPPED_ON', stopped_on.to_date.l
       r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
-      r.add_field 'DATA_FILTERS', data_filters * ' | '
       r.add_field 'VAT_BALANCE', dataset[3]
       r.add_field 'VAT_BALANCE_AMOUNT', dataset[4]
 

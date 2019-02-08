@@ -2330,6 +2330,7 @@ fra:
     sensor_informations: "Informations du capteur" #?
     sensor_model: "Modèle du capteur"
     sensors: "Capteurs"
+    sent: "Envoyées"
     sent_vat_declaration: "Déclaration de TVA"
     sequences_load: "Charger les séquences manquantes" #?
     services_sale: "Vente de services"
@@ -2424,6 +2425,7 @@ fra:
     tasks: "Tâches"
     tax_amount: "Montant TVA"
     tax_declarations: "Déclarations de TVA"
+    tax_declarations_states: "États des déclarations TVA"
     tax_label: "Nom Taxe"
     taxations: "Taxations"
     taxes: "Taxes"
