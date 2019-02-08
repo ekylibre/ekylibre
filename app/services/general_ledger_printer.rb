@@ -14,8 +14,13 @@ class GeneralLedgerPrinter
   def run
     report = generate_document(@document_nature, @key, @template_path, @mandatory, @closer) do |r|
       data_filters = []
-      if @params[:accounts]
-        data_filters << Account.human_attribute_name(:account) + ' : ' + @params[:accounts].to_sentence
+
+      if @params[:ledger]
+        if @params[:ledger] == 'general_ledger'
+          data_filters << "#{:centralizing_accounts.tl} : 401, 411"
+        else
+          data_filters << "#{:centralizing_account.tl} : #{@params[:ledger]}"
+        end
       end
 
       if @params[:lettering_state]
