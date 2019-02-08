@@ -94,6 +94,8 @@ eng:
         started_on: "start-up date"
       fixed_asset_depreciation:
         asset_amount: "Accountable value"
+      journal:
+        closed_on: "Latest closure on"
       journal_entry_item:
         cumulated_absolute_credit_balance: "Credit balance"
         cumulated_absolute_debit_balance: "Debit balance"
@@ -569,6 +571,7 @@ eng:
     cultivation_variety: "Cultivation variety"
     cumulated_absolute_credit: "Cumulated absolute credit"
     cumulated_absolute_debit: "Cumulated absolute debit"
+    cumulated_balance: "Cumulated balance"
     currency: "Currency"
     currency_precision: "Currency precision"
     currency_rate: "Currency rate"
@@ -802,6 +805,7 @@ eng:
     groups: "Groups"
     gtin: "GTIN"
     guide: "Guide"
+    journal_name: "Journal name"
     harvest_year: "Harvest year"
     has_downpayment: "Has downpayment"
     headers: "Headers"

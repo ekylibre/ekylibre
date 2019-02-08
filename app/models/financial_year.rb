@@ -83,8 +83,8 @@ class FinancialYear < Ekylibre::Record::Base
   scope :in_preparation, -> { where(state: 'closure_in_preparation').reorder(:started_on) }
   scope :closables_or_lockables, -> { where(state: %i[opened closure_in_preparation]).where('started_on <= ?', Time.zone.now).where.not('? BETWEEN started_on AND stopped_on', Time.zone.now).reorder(:started_on) }
   scope :with_tax_declaration, -> { where.not(tax_declaration_mode: :none) }
-  scope :with_missing_tax_declaration, -> { where('id NOT IN (SELECT f.id FROM financial_years AS f JOIN tax_declarations AS d ON (f.stopped_on BETWEEN d.started_on AND d.stopped_on))') }
-  scope :with_validated_entries, -> { where("id IN (SELECT f.id FROM financial_years AS f JOIN journal_entries AS j ON j.financial_year_id = f.id WHERE j.state != 'draft')") }
+  scope :with_missing_tax_declaration, -> { where('id NOT IN (SELECT f.id FROM financial_years AS f JOIN tax_declarations AS d ON (f.stopped_on BETWEEN d.started_on AND d.stopped_on))').reorder(:started_on) }
+  scope :with_validated_entries, -> { where("id IN (SELECT f.id FROM financial_years AS f JOIN journal_entries AS j ON j.financial_year_id = f.id WHERE j.state != 'draft')").reorder(:started_on) }
 
   protect on: :destroy do
     tax_declarations.any? || journal_entries.any? || inventories.any? || !opened?
