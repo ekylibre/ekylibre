@@ -481,11 +481,17 @@ por:
       nature:
         payslip: "Recibo de Pagamento"
         purchase: "Compra"
-    sale: #?
+    sale:
       computation_method: #?
         adaptative: "Adaptativo" #?
         quantity_tax: "Quantidade-Imposto" #?
         tax_quantity: "Imposto-Quantidade" #?
+      payment_delay:
+        # 1 week: "at reception"
+        # 30 days: "30 days"
+        # 30 days, end of month: "30 days end of month"
+        # 60 days: "60 days"
+        # 60 days, end of month: "60 days end of month"
     sale_item: #?
       compute_from: #?
         pretax_amount: "Montante pretax" #?
