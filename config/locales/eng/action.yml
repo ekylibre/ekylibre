@@ -1064,6 +1064,7 @@ eng:
     accounting_system: "Accounting system"
     accounts: "Accounts"
     accounts_only_used_at: "Accounts only used at"
+    accounts_starting_with: "Accounts starting with"
     accounts_to_change: "Accounts to change" #?!
     accounts_to_load: "Accounts to load" #?!
     action_duration: "Action duration"
@@ -1638,6 +1639,7 @@ eng:
     grass_yield: "Grass yield" #?
     gross_profit: "Gross profit"
     group: "Group" #?
+    group_by_centralizing_accounts: "Group by centralizing accounts"
     groups: "Groups"
     # gtin: "Gtin"
     guide_evolution: "Guide evolution"

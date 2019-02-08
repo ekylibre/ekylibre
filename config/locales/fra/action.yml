@@ -896,6 +896,7 @@ fra:
     accounting_system: "Plan de comptes"
     accounts: "Comptes comptables"
     accounts_only_used_at: "Comptes utilisés seulement sur"
+    accounts_starting_with: "Comptes commençant par"
     accounts_to_change: "Plan de comptes à changer"
     accounts_to_load: "Plan de comptes à charger"
     action_duration: "Durée de l'action"
@@ -1595,6 +1596,7 @@ fra:
     gross_profit_per_working_unit: "Marge brute par unité d’œuvre" #?
     ground_appearance: "Aspect du sol" #?
     group: "Groupe"
+    group_by_centralizing_accounts: "Groupement par comptes centralisateurs"
     groups: "Groupes"
     guide_evolution: "Évolution du guide"
     guides: "Référentiels" #?

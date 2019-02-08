@@ -87,7 +87,7 @@ module Backend
                                                document_nature: document_nature,
                                                key: key,
                                                template_path: template_path,
-                                               period: params[:period])
+                                               params: params)
           send_file balance_printer.run, type: 'application/pdf', disposition: 'attachment', filename: key << '.pdf'
         end
       end
