@@ -23,6 +23,7 @@ eng:
       edit: "Edit account: %{label}"
       index: "Accounting plans"
       load: "Load an accounting plan" #?
+      load: "Load an accounting plan"
       mark: "Reconciliate account: %{label}"
       # mask_lettered_items: "Mask lettered items account: %{name}"
       new: "New account"
@@ -1066,6 +1067,7 @@ eng:
     accounts_only_used_at: "Accounts only used at"
     accounts_starting_with: "Accounts starting with"
     accounts_to_change: "Accounts to change" #?!
+    accounts_to_change: "Accounts to change"
     accounts_to_load: "Accounts to load" #?!
     action_duration: "Action duration"
     activate_entry_autocompletion: "Activate entry autocompletion"
@@ -1081,6 +1083,7 @@ eng:
     add_a_worker: "Add a worker"
     add_an_account: "Add an account"
     add_animals: "Add animals"
+    add_animal: "Add animal"
     add_animal_group: "Add animal group"
     add_annotation: "Add annotation"
     add_attachment: "Add attachment"
@@ -1258,6 +1261,7 @@ eng:
     cash: "Cash"
     cash_balance: "Cash balance"
     cashe_debts: "Cashe debts" #?
+    cashe_debts: "Cashe debts" #?!
     cashes_balance: "Cashes balance" #?
     cashes_balance_evolution: "Cashes balance evolution"
     casting: "Casting" #?
@@ -1272,6 +1276,7 @@ eng:
     centralizing_accounts: "Centralizing accounts"
     centralizing_journal: "Centralizing journal" #?
     change: "Change" #?
+    change: "Change"
     change_password: "Change password"
     change_state: "Change state"
     change_status_of_selected_interventions: "Change the status of selected interventions"
@@ -1295,6 +1300,7 @@ eng:
     client: "Client" #?
     client_informations: "Client informations"
     client_receivables: "Client receivables" #?
+    client_receivables: "Client receivables" #?!
     clients: "Clients" #?
     close: "Close"
     close_carry_forward: "Generating carrying forward entries" #?
@@ -1437,6 +1443,7 @@ eng:
     depreciations_inputations_expenses: "Depreciations inputations expenses" #?
     derogatory_depreciation_explanation: "Ekylibre doesn't handle derogatory depreciations"
     derogatory_depreciations: "Derogatory depreciations" #?
+    derogatory_depreciations: "Derogatory depreciations" #?!
     description: "Description"
     destroy: "Destroy"
     destroyed_at_by: "Destroyed at %{at} by %{author}"
@@ -1536,6 +1543,9 @@ eng:
     exceptional_products_on_management_operations: "Exceptional products on management operations" #?
     exceptional_products_on_provisions: "Exceptional products on provisions" #?
     exceptional_result: "Exceptional result"
+    exceptional_expenses: "Exceptional expenses" #??
+    exceptional_products: "Exceptional products" #?!
+    exceptional_result: "Exceptional result" #?!
     exchange: "Exchange"
     exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     exchanges: "Exchanges"
@@ -1550,6 +1560,7 @@ eng:
     expired_since: "Expired since" #?
     expired_within: "Expired within" #?
     exploitation_result: "Exploitation result" #?
+    exploitation_result: "Exploitation result" #?!
     exploitation_results: "Exploitation results" #?!
     export: "Export documents" #?
     export_as_csv: "Export as CSV"
@@ -1592,6 +1603,10 @@ eng:
     financial_positive_change: "Financial positive change" #?
     financial_products: "Financial products" #?
     financial_result: "Financial result" #?
+    financial_assets: "Financial assets" #?
+    financial_expenses: "Financial expenses" #??
+    financial_products: "Financial products" #??
+    financial_result: "Financial result" #??
     financial_year: "Financial year"
     financial_year_close_message: "<p> The close will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. </p>"
     financial_year_closing: "Financial year closure in progress"
@@ -1775,6 +1790,7 @@ eng:
     load: "Load" #?
     loan_repayments_not_accounted_on_current_financial_year: "Loan repayments not accounted on current financial year"
     loans_debts: "Loans debts" #??
+    loans_debts: "Loans debts" #?!
     locale: "Language"
     localization: "Localization" #?
     lock: "Lock" #?
@@ -1799,6 +1815,7 @@ eng:
     manage_activities: "Manage activities"
     manage_financial_years: "Manage financial years"
     mandatory_provisions: "Mandatory provisions" #?
+    mandatory_provisions: "Mandatory provisions" #?!
     manual: "Manual" #?
     manual_period: "from %{start} to %{finish}"
     manure_management_plan_chart: "Manure management plan chart"
@@ -2032,6 +2049,12 @@ eng:
     profits_and_losses: "Profits and losses"
     progress_bar_current_step: "Step %{current}/%{total} : %{label}..." #?
     provisions_revenues: "Provisions revenues" #?
+    profit_or_loss: "Fiscal year result" #?!
+    profit_taxe: "Profit taxe" #??
+    profits: "Profits" #?
+    profits_and_losses: "Profits and losses"
+    progress_bar_current_step: "Step %{current}/%{total} : %{label}..." #?
+    provisions_revenues: "Provisions revenues" #?!
     purchase: "Purchase"
     purchase_items: "Purchase items" #?
     purchase_number: "Purchase number" #?
@@ -2159,6 +2182,8 @@ eng:
     simplified_linear_options: "Simplified linear options" #?!
     social_debts: "Social debts" #?
     social_expenses: "Social expenses" #?
+    social_debts: "Social debts" #?!
+    social_expenses: "Social expenses" #?!
     sold_on: "Sold on"
     source: "Source" #?
     standard_vat: "Standard VAT"
@@ -2201,11 +2226,13 @@ eng:
     supplier_informations: "Supplier informations"
     supplier_payment_mode: "Supplier payment mode"
     supplier_receivables: "Supplier receivables" #?
+    supplier_receivables: "Supplier receivables" #?!
     suppliers: "Suppliers" #?
     supply: "Supply" #?
     support: "Support" #?
     supports: "Supports" #?
     switch_accounting_plan: "Switch accounting plan" #?!
+    switch_accounting_plan: "Switch accounting plan"
     synthesis: "Synthesis"
     target: "Target"
     tasks: "Tasks" #?
@@ -2318,6 +2345,8 @@ eng:
     unpaid_sales: "Unpaid sales" #?
     unset_reconcilable_old_third_accounts: "Unset reconcilable old third accounts (clients, suppliers and attorneys)" #?!
     unsubcribed_capital: "Unsubcribed capital"
+    unset_reconcilable_old_third_accounts: "Unset reconcilable old third accounts (clients, suppliers and attorneys)" #?
+    unsubcribed_capital: "Unsubcribed capital" #?!
     until: "until"
     up: "Up" #?
     up_to: "Up to"

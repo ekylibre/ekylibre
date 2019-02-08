@@ -474,6 +474,13 @@ deu:
       nature:
         # payslip: "Payslip"
         purchase: "Kauf"
+    sale:
+      payment_delay:
+        # 1 week: "at reception"
+        # 30 days: "30 days"
+        # 30 days, end of month: "30 days end of month"
+        # 60 days: "60 days"
+        # 60 days, end of month: "60 days end of month"
     sale_item: #?
       compute_from: #?
         pretax_amount: "Vor Steuern in Höhe" #?
