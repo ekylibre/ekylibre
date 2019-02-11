@@ -39,35 +39,22 @@
       %span.value= Nomen::Currency.find(resource.currency).human_name.upcase
 
     - if resource.closed?
-      .med-info.important
-        %span.title= :archive_prior_to_closure.tl
-        = link_to backend_financial_year_archive_path(resource, timing: 'prior_to_closure'), method: :post do
-          %button.btn.btn-default.icn.btn-download= :download_archive.tl
-        %br
-        %span.signature-trigger
-          %i.lock-picto
-          = :this_archive_is_digitally_signed.tl
-          %i.chevron
-        .signature-details
-          .signature-title= :fingerprint_sha256.tl
-          = resource.prior_to_closure_archive.sha256_fingerprint
-          .signature-title= t('labels.signature_html', url: "#{FinancialYearArchive::PUBLIC_KEY_URL}?signature=#{resource.prior_to_closure_archive.signature.gsub(/\n/, '¤').gsub(/\+/, '§')}")
-          = resource.prior_to_closure_archive.signature.gsub(/\n/, '<br />').html_safe
-
-      .med-info.important
-        %span.title= :archive_post_closure.tl
-        = link_to backend_financial_year_archive_path(resource, timing: 'post_closure'), method: :post do
-          %button.btn.btn-default.icn.btn-download= :download_archive.tl
-        %br
-        %span.signature-trigger
-          %i.lock-picto
-          = :this_archive_is_digitally_signed.tl
-          %i.chevron
-        .signature-details
-          .signature-title= :fingerprint_sha256.tl
-          = resource.post_closure_archive.sha256_fingerprint
-          .signature-title= t('labels.signature_html', url: "#{FinancialYearArchive::PUBLIC_KEY_URL}?signature=#{resource.post_closure_archive.signature.gsub(/\n/, '¤').gsub(/\+/, '§')}")
-          = resource.post_closure_archive.signature.gsub(/\n/, '<br />').html_safe
+      - ['prior_to', 'post'].each do |timing|
+        .med-info.important
+          %span.title= "archive_#{timing}_closure".tl
+          = link_to backend_financial_year_archive_path(resource, timing: "#{timing}_closure"), method: :post do
+            %button.btn.btn-default.icn.btn-download= :download_archive.tl
+          %br
+          %span.signature-trigger
+            %i.lock-picto
+            = :this_archive_is_digitally_signed.tl
+            %i.chevron
+          .signature-details
+            .signature-title= :fingerprint_sha256.tl
+            = resource.send("#{timing}_closure_archive").sha256_fingerprint
+            - signature_for_url = resource.send("#{timing}_closure_archive").signature.gsub(/\n/, '¤').gsub(/\+/, '§')
+            .signature-title= t('labels.signature_html', url: "#{FinancialYearArchive::PUBLIC_KEY_URL}?signature=#{signature_for_url}")
+            = resource.send("#{timing}_closure_archive").signature.gsub(/\n/, '<br />').html_safe
 
   = render 'progress', value: @progress_status[:value], resource: resource, refresh: false, current_step: @progress_status[:step], steps_count: @progress_status[:total], step_label: @progress_status[:label]
 
