@@ -475,22 +475,26 @@ class FinancialYearClose
     document_nature = Nomen::DocumentNature.find(:trial_balance)
     key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
     template_path = find_open_document_template(:trial_balance)
-    period = "#{@year.started_on}_#{@year.stopped_on}"
+    full_params = params.merge(states: { "confirmed" => "1" },
+                               started_on: @year.started_on,
+                               stopped_on: @year.stopped_on,
+                               period: "#{@year.started_on}_#{@year.stopped_on}",
+                               balance: "all")
 
-    balance = Journal.trial_balance(started_on: @year.started_on,
-                                    stopped_on: @year.stopped_on,
-                                    period: period,
-                                    states: { "confirmed" => "1" },
-                                    balance: "all",
-                                    accounts: params[:accounts],
-                                    centralize: params[:centralize])
+    balance = Journal.trial_balance(started_on: full_params[:started_on],
+                                    stopped_on: full_params[:stopped_on],
+                                    period: full_params[:period],
+                                    states: full_params[:states],
+                                    balance: full_params[:balance],
+                                    accounts: full_params[:accounts],
+                                    centralize: full_params[:centralize])
 
     balance_printer = BalancePrinter.new(balance: balance,
                                          prev_balance: [],
                                          document_nature: document_nature,
                                          key: key,
                                          template_path: template_path,
-                                         period: period,
+                                         params: full_params,
                                          mandatory: true,
                                          closer: @closer)
     file_path = balance_printer.run

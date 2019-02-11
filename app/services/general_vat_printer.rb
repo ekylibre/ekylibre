@@ -22,15 +22,11 @@ class GeneralVatPrinter
         stopped_on = @params[:period].split("_").last if @params[:period]
       end
 
-      # options[:states]
-      if @params[:state]&.any?
-        a = @params[:state].select { |_k, v| }.map { |pair| "'#{pair.first}'" }.join(', ')
-        states_array = "state IN (#{a})"
-      else
-        states_array = '1=1'
-      end
-
-      taxe_declarations = TaxDeclaration.where(states_array).where('started_on >= ? AND stopped_on <= ?', started_on, stopped_on)
+      taxe_declarations = if @params[:state]&.any?
+                            TaxDeclaration.where(state: @params[:state]).where('started_on >= ? AND stopped_on <= ?', started_on, stopped_on)
+                          else
+                            TaxDeclaration.where('started_on >= ? AND stopped_on <= ?', started_on, stopped_on)
+                          end
 
       taxe_declarations.each do |td|
         td.items.includes(parts: { journal_entry_item: :entry }).each do |i|
@@ -69,11 +65,11 @@ class GeneralVatPrinter
         # build filters
         data_filters = []
         if @params[:state]&.any?
-            content = []
-            content << :draft.tl if @params[:state].include?('draft')
-            content << :validated.tl if @params[:state].include?('validated')
-            content << :sent.tl if @params[:state].include?('sent')
-            data_filters << :tax_declarations_states.tl + ' : ' + content.to_sentence
+          content = []
+          content << :draft.tl if @params[:state].include?('draft')
+          content << :confirmed.tl if @params[:state].include?('validated')
+          content << :sent.tl if @params[:state].include?('sent')
+          data_filters << :tax_declarations_states.tl + ' : ' + content.to_sentence
         end
 
         # build started and stopped
