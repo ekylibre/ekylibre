@@ -3011,7 +3011,7 @@ fra:
       you_need_to_review_your_application_configuration: "Vous devez revoir la configuration de votre application"
       you_will_lose_all_your_current_data: "Si vous continuez, vous allez perdre toutes vos données en cours de saisie. Voulez-vous poursuivre\_?" #?
   preferences:
-    account_number_digits: "Nombre de caractères des numéros de compte"
+    account_number_digits: "Nombre de caractères des comptes généraux"
     accounting_system: "Plan comptable"
     bookkeep_automatically: "Activer la bascule automatique des données comptables"
     bookkeep_in_draft: "Enregistrer les pièces dans le brouillard lors de la bascule automatique"
