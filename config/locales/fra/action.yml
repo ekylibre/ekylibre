@@ -2350,7 +2350,7 @@ fra:
     show: "Afficher"
     show_export_preview: "Afficher un aperçu du document (peut augmenter le temps de chargement)" #?
     sign_out: "Se déconnecter"
-    signature_html: "Signature (<a href='%{url}' target='_blank'>Clé publique</a>)"
+    signature_html: "Signature (<a href='%{url}' target='_blank'>Vérifier la signature</a>)"
     simplified: "Régime du réel simplifié"
     simplified_linear_options: "Options linéaire simplifié"
     social_debts: "Dettes sociales"
