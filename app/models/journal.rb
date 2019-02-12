@@ -241,7 +241,6 @@ class Journal < Ekylibre::Record::Base
   # Test if journal is closable
   def closable?(new_closed_on = nil)
     new_closed_on ||= (Time.zone.today << 1).end_of_month
-    return false if booked_for_accountant?
     return false if new_closed_on.end_of_month != new_closed_on
     return false if new_closed_on < self.closed_on
     true
