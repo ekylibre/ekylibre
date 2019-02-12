@@ -41,6 +41,8 @@ class BalancePrinter
       company_address = e.default_mail_address&.coordinate
       balances = @balance.map.with_index { |_item, index| [@balance[index], @prev_balance[index] || []] }
 
+      pp balances
+
       r.add_field 'COMPANY_ADDRESS', company_address
       r.add_field 'DOCUMENT_NAME', @document_nature.human_name
       r.add_field 'FILE_NAME', @key
@@ -50,9 +52,17 @@ class BalancePrinter
       r.add_field 'DATA_FILTERS', data_filters * ' | '
 
       r.add_table('Tableau2', balances, header: false) do |t|
-        t.add_column(:a) { |item| item[0][0] }
+        t.add_column(:a) { |item| item[0][0] if item[0][1].to_i > 0 }
         t.add_column(:b) do |item|
-          Account.find(item[0][1]).name if item[0][1].to_i > 0
+          if item[0][1].to_i > 0
+            Account.find(item[0][1]).name
+          elsif item[0][1] == '-1'
+            :total.tl
+          elsif item[0][1] == '-2'
+            I18n.translate('labels.subtotal', name: item[0][0])
+          elsif item[0][1] == '-3'
+            I18n.translate('labels.centralized_account', name: item[0][0])
+          end
         end
         t.add_column(:debit) { |item| item[0][2].to_f }
         t.add_column(:credit) { |item| item[0][3].to_f }
