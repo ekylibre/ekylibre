@@ -734,6 +734,7 @@ fra:
     accounted_at: "Date comptabilisation"
     accounting_balance: "Solde comptable"
     accounting_label: "Libellé comptable"
+    accounting_system: "Plan de comptes"
     accuracy: "Précision"
     achieved_at: "Achevé le"
     actions: "Actions"
@@ -1163,6 +1164,7 @@ fra:
     first_number: "Premier numéro"
     first_producer: "Premier producteur" #?
     first_producer_way: "Voie du premier producteur" #?
+    fiscal_position: "Régime fiscal"
     fixed: "Immobilisé"
     fixed_asset: "Immobilisation"
     fixed_asset_account: "Compte d’immobilisation"
@@ -1191,6 +1193,7 @@ fra:
     function_title: "Civilités"
     gap: "Écart"
     gaps: "Écarts"
+    account_number_digits: Nombre de caractères des comptes généraux
     geolocation: "Géolocalisation"
     geometry_value: "Valeur géométrique"
     germination_percentage: "Pourcentage de germination attendu"

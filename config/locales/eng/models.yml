@@ -369,6 +369,7 @@ eng:
     accounted_at: "Accounted at"
     accounting_balance: "Accounting balance"
     accounting_label: "Accounting label"
+    accounting_system: "Accounting system"
     accuracy: "Accuracy"
     achieved_at: "Achieved at"
     actions: "Actions"
@@ -753,6 +754,7 @@ eng:
     first_met_at: "First met on"
     first_name: "First name"
     first_number: "First number" #?
+    fiscal_position: "Fiscal position"
     fixed: "Fixed"
     fixed_asset: "Fixed asset"
     fixed_asset_account: "Fixed asset account"
@@ -777,6 +779,7 @@ eng:
     function_title: "Function title"
     gap: "Gap"
     gaps: "Gaps"
+    account_number_digits: General accounts number length
     geolocation: "Geolocation"
     geometry_value: "Geometry value"
     germination_percentage: "Germination percentage"
