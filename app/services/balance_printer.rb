@@ -41,8 +41,6 @@ class BalancePrinter
       company_address = e.default_mail_address&.coordinate
       balances = @balance.map.with_index { |_item, index| [@balance[index], @prev_balance[index] || []] }
 
-      pp balances
-
       r.add_field 'COMPANY_ADDRESS', company_address
       r.add_field 'DOCUMENT_NAME', @document_nature.human_name
       r.add_field 'FILE_NAME', @key
