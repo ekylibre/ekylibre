@@ -351,23 +351,23 @@
       selectedJournalItems   = @_journalEntryLines().filter(".selected")
       if selectedBankStatements.length > 0
         @_updateIdsInButtons()
-        $("a.from-selected-bank").show()
-        $("a.from-selected-bank").parents('.btn-group').show()
+        $("a.from-selected-bank").attr("disabled", false)
+        $("a.from-selected-bank").parents('.btn-group').attr("disabled", false)
       else
-        $("a.from-selected-bank").hide()
-        $("a.from-selected-bank").parents('.btn-group').hide()
+        $("a.from-selected-bank").attr("disabled", true)
+        $("a.from-selected-bank").parents('.btn-group').attr("disabled", true)
 
       if selectedJournalItems.length > 0
         @_updateIdsInButtons()
-        $("a.from-selected-journal").show()
-        $("a.from-selected-journal").parents('.btn-group').show()
+        $("a.from-selected-journal").attr("disabled", false)
+        $("a.from-selected-journal").parents('.btn-group').attr("disabled", false)
       else
-        $("a.from-selected-journal").hide()
-        $("a.from-selected-journal").parents('.btn-group').hide()
+        $("a.from-selected-journal").attr("disabled", true)
+        $("a.from-selected-journal").parents('.btn-group').attr("disabled", true)
 
       unless selectedBankStatements.length > 0 and selectedJournalItems.length > 0
-        $("a.from-selected-journal.from-selected-bank").hide()
-        $("a.from-selected-journal.from-selected-bank").parents('.btn-group').hide()
+        $("a.from-selected-journal.from-selected-bank").attr("disabled", true)
+        $("a.from-selected-journal.from-selected-bank").parents('.btn-group').attr("disabled", true)
 
     _showOrHideReconciliatedLines: ->
       if $("#hide-lettered").is(":checked")

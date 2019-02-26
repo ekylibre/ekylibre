@@ -3097,7 +3097,7 @@ fra:
       move: "Déplacer" #?
       negociate: "Négocier"
       new: "Nouveau"
-      new_purchase: "Nouveau achat"
+      new_purchase: "Nouvel achat"
       new_sale: "Nouvelle vente"
       notify_accountant: "Notifier le comptable"
       open: "Ouvrir"
