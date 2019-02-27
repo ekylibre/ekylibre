@@ -122,19 +122,16 @@ class PendingVatPrinter
 
   def run_pdf
     dataset = compute_dataset
-
-    report = generate_document(@document_nature, @key, @template_path) do |r|
-
+    tax_declaration = TaxDeclaration.find(@params[:id])
+    report = generate_document(@document_nature, @key, @template_path, false, nil, name: I18n.translate("labels.#{tax_declaration.state}_vat_declaration")) do |r|
       # build header
       e = Entity.of_company
       company_name = e.full_name
       company_address = e.default_mail_address&.coordinate
 
       # build started and stopped
-      tax_declaration = TaxDeclaration.find(@params[:id])
       started_on = tax_declaration.started_on
       stopped_on = tax_declaration.stopped_on
-
       r.add_field 'COMPANY_ADDRESS', company_address
       r.add_field 'DOCUMENT_NAME', I18n.translate("labels.#{tax_declaration.state}_vat_declaration")
       r.add_field 'FILE_NAME', @key
@@ -150,6 +147,7 @@ class PendingVatPrinter
         first_section.add_field(:vat_header) { |item| item[:name] }
         first_section.add_field(:general_pretax_amount) { |item| item[:pretax_amount] }
         first_section.add_field(:general_tax_amount) { |item| item[:tax_amount] }
+
 
         first_section.add_section('Section2', :items) do |second_section|
           second_section.add_field(:vat_rate) { |item| item[:name] }

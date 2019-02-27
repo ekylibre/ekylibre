@@ -8,6 +8,7 @@
           - attrs[:active] = true if item == current[:item]
           - m.link(item, item.default_page.to_hash, attrs)
 
+
 - snippet :user, title: Entity.of_company.full_name do
   %ul
     %li= link_to(current_user.person.full_name, backend_myself_path, :class => :user)
