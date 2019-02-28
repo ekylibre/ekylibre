@@ -7,14 +7,14 @@
   i {
     position: absolute;
     left: 32px;
-    top: 68px;
+    top: 80px;
     @include is-icon(108px);
-    @include use-icon(warning);
+    @include use-icon(exclamation-triangle);
   }
   .warning-message {
     position: absolute;
     left: 183px;
-    top: 21px;
+    top: 30px;
     .warning-title b {
       font-size: 20px;
       line-height: 24px;

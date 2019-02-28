@@ -668,7 +668,7 @@ arb:
         nature: "نظام التصريح" #?
         # no_financial_year_button: "Manage financial years"
         # no_financial_year_message: "Please choose your tax declarartion mode in one of your financial years to access to your tax declarations"
-        # no_financial_year_title: "No financial year entered"
+        # no_financial_year_title: "No exercise subject to VAT at the current date"
         updated_at: "تم تحديثها في" #?
       tax_declaration_item:
         collected: "جمع"

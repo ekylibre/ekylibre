@@ -312,7 +312,7 @@ fra:
         nature: "Régime de la déclaration" #?
         no_financial_year_button: "Gérer les exercices comptables"
         no_financial_year_message: "Veuillez paramétrer le mode de déclaration de TVA dans un exercice comptable pour accéder à vos déclarations de TVA"
-        no_financial_year_title: "Aucun exercice soumis"
+        no_financial_year_title: "Aucun exercice soumis à la TVA à la date actuelle"
         period: "Période" #?
       tax_declaration_item:
         collected: "Collectée"
