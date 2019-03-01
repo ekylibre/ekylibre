@@ -1,5 +1,9 @@
 por:
   enumerize:
+    account:
+      nature:
+        # auxiliary: "Auxiliary"
+        # general: "General"
     activity:
       nature:
         auxiliary: "Auxiliar"
@@ -46,7 +50,7 @@ por:
         sensor_error: "Erro do sensor"
     analysis_item:
       indicator_datatype:
-        boolean: "Boleano"
+        # boolean: "Boolean"
         choice: "Escolha"
         # decimal: "Decimal"
         geometry: "Geometria"
@@ -138,6 +142,12 @@ por:
       nature:
         contact: "Contato"
         organization: "Organização"
+      supplier_payment_delay:
+        # 1 week: "at reception"
+        # 30 days: "30 days"
+        # 30 days, end of month: "30 days end of month"
+        # 60 days: "60 days"
+        # 60 days, end of month: "60 days end of month"
     entity_address:
       canal:
         email: "Email"
@@ -153,6 +163,12 @@ por:
         refused: "Recusado"
         waiting: "Esperando"
     financial_year:
+      state:
+        # closed: "Closed"
+        # closing: "Closure in progress"
+        # closure_in_preparation: "Closure in preparation"
+        # locked: "Locked"
+        # opened: "Opened"
       tax_declaration_frequency:
         monthly: "Por mês"
         none: "Nenhum"
@@ -168,7 +184,7 @@ por:
         linear: "Linear"
         none: "Nenhum"
         regressive: "Regressivo"
-        simplified_linear: "Linear simplificado"
+        simplified_linear: "Linear simplificado" #?
       depreciation_period:
         monthly: "Por mês"
         quarterly: "Trimestral"
@@ -186,7 +202,7 @@ por:
     guide:
       frequency:
         daily: "Diariamente"
-        decadely: "Decentemente"
+        # decadely: "Decadely"
         hourly: "De hora em hora"
         monthly: "Por mês"
         none: "Nenhum"
@@ -194,7 +210,7 @@ por:
         yearly: "Anual"
     guide_analysis:
       acceptance_status:
-        errored: "Errado"
+        # errored: "Errored"
         failed: "Fracassado"
         passed: "Passado"
         passed_with_warnings: "Aprovada com avisos"
@@ -205,14 +221,14 @@ por:
         passed_with_warnings: "Passou com avisos" #?
     guide_analysis_point:
       acceptance_status:
-        errored: "Errado"
+        # errored: "Errored"
         failed: "Fracassado"
         passed: "Passado"
         passed_with_warnings: "Aprovada com avisos"
     import:
       state:
         aborted: "Abortado"
-        errored: "Errado"
+        # errored: "Errored"
         finished: "Acabado"
         in_progress: "Em progresso"
         undone: "Desfeito"
@@ -229,7 +245,7 @@ por:
         validated: "Validado"
     intervention_parameter_reading:
       indicator_datatype:
-        boolean: "Boleano"
+        # boolean: "Boolean"
         choice: "Escolha"
         # decimal: "Decimal"
         geometry: "Geometria"
@@ -264,7 +280,7 @@ por:
     listing_node:
       nature:
         belongs_to: "Pertence a"
-        boolean: "Boleano"
+        # boolean: "Boolean"
         column: "Coluna"
         custom: "Personalizadas"
         datetime: "Data hora"
@@ -338,7 +354,7 @@ por:
     preference:
       nature:
         accounting_system: "Sistema de contabilidade"
-        boolean: "Boleano"
+        # boolean: "Boolean"
         country: "País"
         currency: "Moeda"
         # decimal: "Decimal"
@@ -434,7 +450,7 @@ por:
         sale: "Venda"
     product_nature_variant_reading:
       indicator_datatype:
-        boolean: "Boleano"
+        # boolean: "Boolean"
         choice: "Escolha"
         # decimal: "Decimal"
         geometry: "Geometria"
@@ -450,7 +466,7 @@ por:
         unknown: "Desconhecido"
     product_reading:
       indicator_datatype:
-        boolean: "Boleano"
+        # boolean: "Boolean"
         choice: "Escolha"
         # decimal: "Decimal"
         geometry: "Geometria"
@@ -465,6 +481,12 @@ por:
         manual: "Manual" #?
         quantity_tax: "Quantidade-Imposto" #?
         tax_quantity: "Imposto-Quantidade" #?
+      payment_delay:
+        # 1 week: "at reception"
+        # 30 days: "30 days"
+        # 30 days, end of month: "30 days end of month"
+        # 60 days: "60 days"
+        # 60 days, end of month: "60 days end of month"
       tax_payability:
         at_invoicing: "No facturação"
         at_paying: "Ao pagar"
@@ -472,15 +494,28 @@ por:
       nature:
         payslip: "Recibo de Pagamento"
         purchase: "Compra"
-    sale: #?
+    sale:
       computation_method: #?
         adaptative: "Adaptativo" #?
         quantity_tax: "Quantidade-Imposto" #?
         tax_quantity: "Imposto-Quantidade" #?
+      payment_delay:
+        # 1 week: "at reception"
+        # 30 days: "30 days"
+        # 30 days, end of month: "30 days end of month"
+        # 60 days: "60 days"
+        # 60 days, end of month: "60 days end of month"
     sale_item: #?
       compute_from: #?
         pretax_amount: "Montante pretax" #?
         unit_pretax_amount: "Montante pretax unidade" #?
+    sale_nature:
+      payment_delay:
+        # 1 week: "at reception"
+        # 30 days: "30 days"
+        # 30 days, end of month: "30 days end of month"
+        # 60 days: "60 days"
+        # 60 days, end of month: "60 days end of month"
     sensor:
       retrieval_mode:
         integration: "Integração"
@@ -541,7 +576,7 @@ por:
         get_urls: "Obter urls"
       state:
         aborted: "Abortado"
-        errored: "Errado"
+        # errored: "Errored"
         finished: "Acabado"
         in_progress: "Em progresso"
         undone: "Desfeito"
