@@ -24,7 +24,7 @@ module Backend
 
     unroll
 
-    before_action :save_search_preference, only: %i[index mark]
+    before_action :save_search_preference, only: %i[index mark show]
 
     def self.accounts_conditions
       code = ''
