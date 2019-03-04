@@ -478,7 +478,7 @@ class Intervention < Ekylibre::Record::Base
   def calculate_cost_amount_computation(product_parameter)
     if product_parameter.product.is_a?(Worker)
       computation = product_parameter.cost_amount_computation
-    elsif product_parameter.product.try(:tractor?) && product_parameter.participation.present?
+    elsif product_parameter.product.try(:tractor?) && product_parameter.try(:participation) && product_parameter.participation.present?
       computation = product_parameter.cost_amount_computation(natures: %i[travel intervention])
     else
       computation = product_parameter.cost_amount_computation(natures: %i[intervention])
