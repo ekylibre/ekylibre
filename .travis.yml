@@ -2,16 +2,21 @@ language: ruby
 bundler_args: "--full-index --without development"
 # cache: bundler
 sudo: required
+
 rvm:
-- 2.3.4
+  - 2.3.4
+  - 2.6.1
+env:
+  - NAME=Main TASK='test:fast'
+  - NAME=Long TASK='test:slow'
+#name: $NAME test suite
+script: travis_wait 60 xvfb-run bundle exec rake ${TASK} DRIVER=webkit
+matrix:
+  allow_failures:
+    - rvm: 2.6.1
+
 before_install: test/ci/before_install
 before_script: test/ci/before_script
-jobs:
-  include:
-    - name: "Main test suite"
-      script: travis_wait 60 xvfb-run bundle exec rake test:fast DRIVER=webkit
-    - name: "Long running tests"
-      script: travis_wait 60 xvfb-run bundle exec rake test:slow DRIVER=webkit
 services:
 - redis-server
 notifications:
