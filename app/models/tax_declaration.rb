@@ -185,10 +185,10 @@ class TaxDeclaration < Ekylibre::Record::Base
   # FIXME: Too french
   def undeclared_tax_journal_entry_items
     JournalEntryItem
-      .includes(:entry, account: %i[collected_taxes paid_taxes])
+      .includes(:entry, :tax_declaration_item_parts, account: %i[collected_taxes paid_taxes])
       .order('journal_entries.printed_on, accounts.number')
       .where(printed_on: financial_year.started_on..stopped_on)
-      .where.not(id: TaxDeclarationItemPart.select('journal_entry_item_id'))
+      .where('tax_declaration_item_parts.id IS NULL')
       .where.not(resource_type: 'TaxDeclarationItem')
       .where('accounts.number LIKE ?', '445%')
   end

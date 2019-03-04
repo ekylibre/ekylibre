@@ -67,6 +67,7 @@ eng:
     backend/analysis_items:
       new: "New analysis item"
     backend/animal_groups:
+      # available_time_or_quantity: "Available time or quantity animal group: %{name}"
       edit: "Edit animal group: %{name}"
       # edit_many: "Edit many animal group: %{name}"
       index: "Animal groups"
@@ -79,6 +80,7 @@ eng:
       # add_to_container: "Add to container animal: %{name}"
       add_to_group: "Add to group"
       # add_to_variant: "Add to variant animal: %{name}"
+      # available_time_or_quantity: "Available time or quantity animal: %{name}"
       # change: "Change animal: %{name}"
       edit: "Edit animal: %{name}"
       # edit_many: "Edit many animal: %{name}"
@@ -108,6 +110,7 @@ eng:
     backend/beehives:
       reset: "Reset beehive: %{name}"
     backend/building_divisions:
+      # available_time_or_quantity: "Available time or quantity building division: %{name}"
       edit: "Edit building division: %{name}"
       # edit_many: "Edit many building division: %{name}"
       index: "Building divisions"
@@ -116,6 +119,7 @@ eng:
       # take: "Take building division: %{name}"
       # update_many: "Update many building division: %{name}"
     backend/buildings:
+      # available_time_or_quantity: "Available time or quantity building: %{name}"
       edit: "Edit building: %{name}"
       # edit_many: "Edit many building: %{name}"
       index: "Buildings"
@@ -272,6 +276,7 @@ eng:
       new: "New link"
       # show: "Entity link: %{name}"
     backend/equipments:
+      # available_time_or_quantity: "Available time or quantity equipment: %{name}"
       edit: "Edit equipment: %{name}"
       # edit_many: "Edit many equipment: %{name}"
       index: "Equipment"
@@ -322,6 +327,7 @@ eng:
       show: "Fixed asset: %{name}"
       # start_up: "Start up fixed asset: %{name}"
     backend/fungi:
+      # available_time_or_quantity: "Available time or quantity fungus: %{name}"
       edit: "Edit fungus: %{name}"
       # edit_many: "Edit many fungus: %{name}"
       index: "Fungi"
@@ -457,6 +463,7 @@ eng:
       new: "New label"
       show: "Label: %{name}"
     backend/land_parcels:
+      # available_time_or_quantity: "Available time or quantity land parcel: %{name}"
       edit: "Edit land parcel: %{name}"
       # edit_many: "Edit many land parcel: %{name}"
       index: "Land parcels"
@@ -504,6 +511,7 @@ eng:
       star: "Star map layer: %{name}"
       toggle: "Toggle map layer: %{name}"
     backend/matters:
+      # available_time_or_quantity: "Available time or quantity matter: %{name}"
       edit: "Edit matter: %{name}"
       # edit_many: "Edit many matter: %{name}"
       index: "Matters"
@@ -594,6 +602,7 @@ eng:
     backend/plant_density_abacus_items:
       # new: "New plant density abacus item"
     backend/plants:
+      # available_time_or_quantity: "Available time or quantity plant: %{name}"
       edit: "Edit crop: %{name}"
       # edit_many: "Edit many plant: %{name}"
       index: "Crops"
@@ -613,6 +622,7 @@ eng:
       new: "New prescription"
       show: "Prescription: %{reference_number}"
     backend/product_groups:
+      # available_time_or_quantity: "Available time or quantity product group: %{name}"
       edit: "Edit group: %{name}"
       # edit_many: "Edit many product group: %{name}"
       index: "Product groups"
@@ -655,6 +665,7 @@ eng:
     backend/products/search_variants:
       # search_by_expression: "Search by expression search variant: %{name}"
     backend/products:
+      # available_time_or_quantity: "Available time or quantity product: %{name}"
       edit: "Edit product: %{name}"
       edit_many: "Distribute unaffected products"
       index: "Products"
@@ -809,6 +820,7 @@ eng:
     backend/settings:
       about: "About Ekylibre"
     backend/settlements:
+      # available_time_or_quantity: "Available time or quantity settlement: %{name}"
       edit: "Edit settlement: %{name}"
       # edit_many: "Edit many settlement: %{name}"
       index: "Settlements"
@@ -911,6 +923,7 @@ eng:
     backend/wine_tanks:
       index: "Wine tanks"
     backend/workers:
+      # available_time_or_quantity: "Available time or quantity worker: %{name}"
       edit: "Edit worker: %{name}"
       # edit_many: "Edit many worker: %{name}"
       index: "Workers"
@@ -1545,6 +1558,7 @@ eng:
     invoiced: "Invoiced"
     invoices: "Invoices" #?
     is: "Is" #?
+    is_equipment_set_as_inactive_by_intervention: "This intervention set the equipment as inactive ?"
     issue: "Issue"
     issues: "Issues"
     issues_count: "Issues count"
@@ -1656,6 +1670,7 @@ eng:
     month_period: "%{code} - %{month} %{year}"
     monthly: "Monthly" #?
     months: "Months"
+    # more_details: "More details"
     move_animal: "Move animals" #??
     movements: "Movements"
     n: "No"
@@ -2514,6 +2529,7 @@ eng:
       # add_to_variant: "Add to variant"
       attach: "Attach"
       # autocomplete: "Autocomplete"
+      # available_time_or_quantity: "Available time or quantity"
       bookkeep: "Bookkeep"
       # build_example: "Build example"
       cancel: "Cancel"
@@ -2627,6 +2643,7 @@ eng:
       select: "Select"
       sell: "Turn into sale"
       # set_interval_preference: "Set interval preference"
+      # set_locale: "Set locale"
       ship: "Ship"
       show: "Show"
       show_export_preview: "View a preview of the document (may increase loading time)" #?
