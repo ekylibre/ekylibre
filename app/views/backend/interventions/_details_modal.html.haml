@@ -70,6 +70,20 @@
 
             = add_detail_to_modal_block(title, detail, {icon: 'picto-matter'})
 
+    - if intervention.outputs.any?
+      .block
+        %h3.block-title= Intervention.human_attribute_name(:outputs)
+
+        - intervention.outputs.each do |output|
+          - unless output.product.blank?
+            - title = output.product.name
+            - detail = ""
+
+            - unless output.quantity_value.nil? || output.quantity_handler_reference.unit.nil?
+              - detail = output.quantity_value.round(2).l(precision: 0)
+              - detail << " " + output.quantity_handler_reference.unit.symbol
+            = add_detail_to_modal_block(title, detail, {icon: 'picto-matter'})
+
 
     - if intervention.tools.any?
       .block
