@@ -50,11 +50,13 @@ class PendingVatPrinter
 
         cat_tax[:pretax_amount] = tax_total_pretax
         cat_tax[:tax_amount] = tax_total_tax
+        cat_tax[:amount] = tax_total_tax + tax_total_pretax
         cat[:items] << cat_tax
       end
 
       cat[:pretax_amount] = cat[:items].map { |i| i[:pretax_amount] }.sum
       cat[:tax_amount] = cat[:items].map { |i| i[:tax_amount] }.sum
+      cat[:amount] = cat[:pretax_amount] + cat[:tax_amount]
       vat_dataset << cat
     end
 
@@ -109,11 +111,13 @@ class PendingVatPrinter
 
         intra_cat_tax[:pretax_amount] = intra_cat_tax[:parts].map { |p| p[:pretax_amount] }.sum
         intra_cat_tax[:tax_amount] = intra_cat_tax[:parts].map { |p| p[:tax_amount] }.sum
+        intra_cat_tax[:amount] = intra_cat_tax[:parts].map { |p| p[:amount] }.sum
         intra_cat[:items] << intra_cat_tax
       end
 
       intra_cat[:pretax_amount] = intra_cat[:items].map { |i| i[:pretax_amount] }.sum
       intra_cat[:tax_amount] = intra_cat[:items].map { |i| i[:tax_amount] }.sum
+      intra_cat[:amount] = intra_cat[:items].map { |i| i[:amount] }.sum
       vat_dataset << intra_cat
     end
 
@@ -122,6 +126,7 @@ class PendingVatPrinter
 
   def run_pdf
     dataset = compute_dataset
+    p dataset
     tax_declaration = TaxDeclaration.find(@params[:id])
     report = generate_document(@document_nature, @key, @template_path, false, nil, name: I18n.translate("labels.#{tax_declaration.state}_vat_declaration")) do |r|
       # build header
@@ -147,18 +152,20 @@ class PendingVatPrinter
         first_section.add_field(:vat_header) { |item| item[:name] }
         first_section.add_field(:general_pretax_amount) { |item| item[:pretax_amount] }
         first_section.add_field(:general_tax_amount) { |item| item[:tax_amount] }
-
+        first_section.add_field(:general_amount) { |item| item[:amount] }
 
         first_section.add_section('Section2', :items) do |second_section|
           second_section.add_field(:vat_rate) { |item| item[:name] }
           second_section.add_field(:total_pretax_amount) { |item| item[:pretax_amount] }
           second_section.add_field(:total_tax_amount) { |item| item[:tax_amount] }
+          second_section.add_field(:total_amount) { |item| item[:amount] }
 
           second_section.add_table('Table6', :parts, header: false) do |first_table|
             first_table.add_column(:printed_on) { |part| part[:entry_printed_on] }
             first_table.add_column(:label) { |part| part[:entry_item_name] }
             first_table.add_column(:pretax_amount) { |part| part[:pretax_amount] }
             first_table.add_column(:tax_amount) { |part| part[:tax_amount] }
+            first_table.add_column(:amount) { |part| part[:amount] }
           end
         end
       end
@@ -172,6 +179,7 @@ class PendingVatPrinter
           second_section.add_field(:vat_rate) { |item| item[:name] }
           second_section.add_field(:total_pretax_amount) { |item| item[:pretax_amount] }
           second_section.add_field(:total_tax_amount) { |item| item[:tax_amount] }
+          second_section.add_field(:total_amount) { |item| item[:amount] }
 
           second_section.add_table('Table12', :parts, header: false) do |first_table|
             first_table.add_column(:printed_on) { |part| part[:entry_printed_on] }

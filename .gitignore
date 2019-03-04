@@ -87,3 +87,6 @@ Procfile.*
 
 .byebug_history
 .gitconfig
+
+.tags
+.tags1
