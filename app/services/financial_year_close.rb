@@ -408,8 +408,8 @@ class FinancialYearClose
 
   def generate_closing_or_opening_entry!(journal, account_info, items, result, printed_on: @to_close_on)
     return unless journal
-    account = Account.find_by(number: account_info[:number].ljust(8, '0'))
-    account ||= Account.create!(number: account_info[:number].ljust(8, '0'), name: account_info[:name])
+    account = Account.find_by(number: account_info[:number].ljust(Preference[:account_number_digits], '0'))
+    account ||= Account.create!(number: account_info[:number].ljust(Preference[:account_number_digits], '0'), name: account_info[:name])
 
     journal.entries.create!(
       state: :confirmed,
