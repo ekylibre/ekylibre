@@ -2036,6 +2036,11 @@ por:
           todo: "Façam"
     tax_declaration:
       # bookkeep: "[%{resource} %{number}] From %{started_on} to %{stopped_on}"
+      state_machine:
+        states:
+          # draft: "Brouillon"
+          # sent: "Sent"
+          # validated: "Validated"
     team:
       default: "Equipa principal"
     user:
