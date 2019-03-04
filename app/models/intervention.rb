@@ -891,6 +891,60 @@ class Intervention < Ekylibre::Record::Base
     end
   end
 
+  def build_duplicate_intervention_attributes
+    associations_parameters = { intervention: {} }
+    %w[targets tools inputs doers outputs participations working_periods].each do |product_parameter|
+      next unless self.send(product_parameter).any?
+      key = (product_parameter + '_attributes').to_sym
+      associations_parameters[:intervention][key] = {}
+      self.send(product_parameter).each_with_index do |parameter, parameter_index|
+        parameter_attributes = build_has_many_association(product_parameter, parameter)
+        associations_parameters[:intervention][key][parameter_index] = parameter_attributes
+      end
+    end
+
+    if self.group_parameters.any?
+      associations_group_parameters = { intervention: { group_parameters_attributes: {} } }
+      self.group_parameters.each_with_index do |gp, gp_index|
+        associations_group_parameters[:intervention][:group_parameters_attributes][gp_index] = { reference_name: gp.reference_name}
+        %w[targets tools inputs doers outputs participations working_periods].each do |product_parameter|
+          next unless gp.send(product_parameter).any?
+          key = (product_parameter + '_attributes').to_sym
+          associations_group_parameters[:intervention][:group_parameters_attributes][gp_index][key] = {}
+          gp.send(product_parameter).each_with_index do |parameter, parameter_index|
+            parameter_attributes = build_has_many_association(product_parameter, parameter)
+            associations_group_parameters[:intervention][:group_parameters_attributes][gp_index][key][parameter_index] = parameter_attributes
+          end
+        end
+      end
+      associations_parameters.deep_merge!(associations_group_parameters)
+    end
+
+    parameters = self.attributes.merge(associations_parameters)
+    parameters
+  end
+
+  def build_has_many_association(product_parameter, parameter)
+    if product_parameter == 'inputs'
+      parameter_attributes = { product_id: parameter.product_id.to_s, reference_name: parameter.reference_name, quantity_value: parameter.quantity_value, quantity_handler: parameter.quantity_handler, quantity_population: parameter.quantity_population }
+    elsif product_parameter == 'outputs'
+      parameter_attributes = { variant_id: parameter.variant_id.to_s, reference_name: parameter.reference_name, quantity_value: parameter.quantity_value, quantity_handler: parameter.quantity_handler, quantity_population: parameter.quantity_population }
+    elsif product_parameter == 'participations'
+      parameter_attributes = { product_id: parameter.product_id, state: parameter.state, working_periods_attributes: []}
+      parameter.working_periods.each_with_index do |wp, wp_index|
+        wp_attributes = { nature: wp.nature, started_at: wp.started_at, stopped_at: wp.stopped_at }
+        parameter_attributes[:working_periods_attributes][wp_index] = wp_attributes
+      end
+    elsif product_parameter == 'working_periods'
+      parameter_attributes = { started_at: parameter.started_at, stopped_at: parameter.stopped_at }
+    elsif product_parameter == 'targets'
+      parameter_attributes = { product_id: parameter.product_id.to_s, reference_name: parameter.reference_name, working_zone: parameter.working_zone }
+    else
+      parameter_attributes = { product_id: parameter.product_id.to_s, reference_name: parameter.reference_name }
+    end
+    parameter_attributes
+  end
+
   class << self
     def used_procedures
       select(:procedure_name).distinct.pluck(:procedure_name).map do |name|

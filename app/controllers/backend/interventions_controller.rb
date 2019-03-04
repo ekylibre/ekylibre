@@ -251,6 +251,11 @@ module Backend
         end
       end
 
+      %i[doers inputs outputs tools participations working_periods].each do |param|
+        next unless params.include? :intervention
+        options[:"#{param}_attributes"] = permitted_params["#{param}_attributes"] || []
+      end
+
       # consume preference and erase
       if params[:keeper_id] && (p = current_user.preferences.get(params[:keeper_id])) && p.value.present?
 
