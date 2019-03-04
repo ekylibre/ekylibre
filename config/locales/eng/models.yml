@@ -2146,7 +2146,7 @@ eng:
       bookkeep: "[%{resource} %{number}] From %{started_on} to %{stopped_on}"
       state_machine:
         states:
-          draft: "Brouillon"
+          draft: "Draft"
           sent: "Sent"
           validated: "Validated"
     team:
