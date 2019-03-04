@@ -834,7 +834,7 @@
       @taskboardModal.getModal().modal 'show'
 
   true
-  
+
   $(document).ready ->
     #TODO: Refacto this to not be coupled so tight to URL
     if window.location.pathname.includes('/backend/interventions/')
@@ -911,10 +911,11 @@
       interventions = $(e.currentTarget).data().interventions
       duplicateModal = new ekylibre.modal('#duplicate-modal')
       date = $('#duplicate-modal #duplicate_date').val()
+      form = $('.edit_intervention:visible')
       $.ajax
         type: 'post'
         url: '/backend/interventions/create_duplicate_intervention'
-        data: { intervention: intervention, interventions: interventions, date: date }
+        data: { intervention: intervention, interventions: interventions, date: date, form: form.serialize() }
         success: (data) =>
           if data == null
             duplicateModal.getModal().modal 'hide'

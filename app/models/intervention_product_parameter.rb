@@ -230,4 +230,17 @@ class InterventionProductParameter < InterventionParameter
     end
     false
   end
+
+  def units_selector_list
+    options = self.reference.handlers.map do |handler|
+      if handler.population?
+        [Nomen::Unit.find(:unity).human_name, handler.name]
+      elsif handler.widget == :number
+        unit = handler.unit? ? handler.unit : Nomen::Unit.find(:unity)
+        ["#{unit.symbol} (#{handler.human_name})", handler.name]
+      else
+        fail "Cannot handler #{handler.widget} handlers"
+      end
+    end
+  end
 end
