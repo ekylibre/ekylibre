@@ -32,7 +32,7 @@ module EBP
             end
             line = line.encode('utf-8').split(/\;/)
             if line[0] == 'C'
-              unless Account.find_by(number: [line[1], line[1].ljust(8, '0')])
+              unless Account.find_by(number: [line[1], line[1].ljust(Preference[:account_number_digits], '0')])
                 # Attributes are set for a general account by default
                 attributes = {
                   name: line[2],
@@ -61,7 +61,7 @@ module EBP
                   items: []
                 }
               end
-              unless account = Account.find_by(number: [line[1], line[1].ljust(8, '0')])
+              unless account = Account.find_by(number: [line[1], line[1].ljust(Preference[:account_number_digits], '0')])
                 account = Account.create!(name: line[1], number: line[1], already_existing: true)
               end
               entries[number][:items] << JournalEntryItem.new_for(line[6], account, line[8].strip.to_f, letter: line[10], credit: (line[7] != 'D'))
