@@ -129,7 +129,12 @@ module Backend
     def save_and_redirect(record, options = {})
       record.attributes = options[:attributes] if options[:attributes]
       ActiveRecord::Base.transaction do
-        if options[:saved] || record.send(:save)
+        can_be_saved = if record.new_record?
+                         record.createable?
+                       else
+                         record.updateable?
+                       end
+        if can_be_saved && (options[:saved] || record.send(:save))
           response.headers['X-Return-Code'] = 'success'
           response.headers['X-Saved-Record-Id'] = record.id.to_s
           if params[:dialog]
@@ -154,6 +159,7 @@ module Backend
           return true
         end
       end
+      notify_error_now :record_cannot_be_saved.tl
       response.headers['X-Return-Code'] = 'invalid'
       false
     end
