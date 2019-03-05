@@ -173,7 +173,7 @@ module Backend
 
       if FinancialYear.closables_or_lockables.count > 1
         @title = :you_can_close_financial_year_to_open_a_new_one
-      elsif FinancialYear.current && FinancialYear.current.stopped_on < (Date.today + 6.months) && FinancialYear.next_year.nil? && FinancialYear.previous_year&.opened?
+      elsif FinancialYear.on(Time.zone.today) && FinancialYear.on(Time.zone.today).stopped_on < (Date.today + 6.months) && FinancialYear.next_year.nil? && FinancialYear.previous_year&.opened?
         @title = :you_can_close_financial_year
       else
         @title = ''

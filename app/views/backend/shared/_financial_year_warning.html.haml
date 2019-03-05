@@ -1,4 +1,4 @@
-- if FinancialYear.current.nil?
+- unless FinancialYear.on(Time.zone.today)&.opened?
   .warning-container
     %i
     .warning-message
