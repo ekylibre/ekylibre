@@ -72,7 +72,6 @@ fra:
         # not_enough: "not enough %{resource} to complete task"
         # not_found: "not found"
         # not_locked: "was not locked"
-        missing_bank_details_for_sepa: "Les valeurs IBAN et/ou Titulaire du compte sont manquantes pour la trésorerie sélectionnée." #?
         nothing_to_pay: "Il n’y a rien à payer. Si vous voulez enregistrer un acompte, n’oubliez pas de le préciser."
         odd: "%{attribute} doit être pair"
         on_or_after: "%{attribute} doit être le ou après le %{restriction}"
