@@ -34,7 +34,7 @@ gem 'figaro'
 gem 'turnout'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sassc-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
@@ -186,10 +186,11 @@ gem 'bootstrap-sass', '~> 3.1'
 gem 'twitter-typeahead-rails'
 
 # Iconic font
-gem 'agric', '~> 3.0'
+gem 'agric', github: 'ekylibre/agric', tag: 'v3.0.2'
 
 # Web services
 gem 'mechanize'
+gem 'rest-client', require: false
 gem 'rest-client', require: false
 gem 'rubyntlm', '>= 0.3.2'
 gem 'savon'
