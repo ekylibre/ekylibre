@@ -4,7 +4,7 @@ class ReadingsCoder
                     .tap { |h| h[Charta::Point]        = proc { |_, value| value.to_ewkt } }
                     .tap { |h| h[Charta::MultiPolygon] = proc { |_, value| value.to_ewkt } }
 
-  UNSERIALIZE = Hash.new { proc { |klass, value| klass.new(value) } }
+  UNSERIALIZE = Hash.new { proc { |klass, value| klass == BigDecimal ? BigDecimal(value) : klass.new(value) } }
                     .tap { |h| h[Charta::MultiPolygon] = proc { |_, value| Charta.new_geometry(value) } }
                     .tap { |h| h[Charta::Point]        = proc { |_, value| Charta.new_geometry(value) } }
                     .tap { |h| h[FalseClass]           = proc { |_, _| false                          } }

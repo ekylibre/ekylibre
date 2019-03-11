@@ -121,11 +121,11 @@ class JournalTest < ActiveSupport::TestCase
       centralize: '301 302 310 320 330 340 374 401 411 421 467 603'
     }
     balance = Journal.trial_balance(params)
-    assert_equal BigDecimal.new(balance[0][2]), sale.amount
-    assert_equal BigDecimal.new(balance[2][3]), sale.pretax_amount
-    assert_equal BigDecimal.new(balance[1][3]), sale.amount - sale.pretax_amount
-    assert_equal BigDecimal.new(balance[3][2]), sale.amount
-    assert_equal BigDecimal.new(balance[3][3]), sale.amount
+    assert_equal BigDecimal(balance[0][2]), sale.amount
+    assert_equal BigDecimal(balance[2][3]), sale.pretax_amount
+    assert_equal BigDecimal(balance[1][3]), sale.amount - sale.pretax_amount
+    assert_equal BigDecimal(balance[3][2]), sale.amount
+    assert_equal BigDecimal(balance[3][3]), sale.amount
   end
 
   private
