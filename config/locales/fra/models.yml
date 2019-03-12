@@ -331,6 +331,7 @@ fra:
         # already_confirmed: "was already confirmed, please try signing in"
         before: "%{attribute} doit être avant le %{restriction}"
         blank: "%{attribute} ne peut pas être vide"
+        can_only_have_two_years_opened: "Vous ne pouvez avoir que deux exercices comptables ouverts en même temps."
         confirmation: "%{attribute} est différent du champ de confirmation"
         # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
         contains_blank_line: "%{attribute} contient une ligne vide" #?
@@ -338,6 +339,7 @@ fra:
         currency_does_not_match: "La devise de «\_%{attribute}\_» ne correspond pas celle attendue\_: %{currency}"
         empty: "%{attribute} ne peut pas être vide"
         entry_has_been_already_validated: "La pièce a été validée et ne peut plus être modifiée" #?
+        end_of_month: "%{attribute} doit être le dernier jour du mois."
         equal_to: "%{attribute} doit être égal à %{count}"
         even: "%{attribute} doit être impair"
         exclusion: "%{attribute} est reservé"
