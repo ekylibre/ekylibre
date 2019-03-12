@@ -115,11 +115,11 @@ class ListingNode < Ekylibre::Record::Base
     self.listing_id = parent.listing_id if parent
 
     self.key = 'k' + User.send(:generate_password, 31, :normal) if key.blank?
-    if root?
+    if root? && listing
       self.name = listing.root_model
     elsif reflection?
       self.name = attribute_name.to_s + '_0'
-    else
+    elsif parent
       if nature == 'custom'
         self.sql_type = convert_sql_type(parent.model.custom_fields.find_by(column_name: attribute_name).nature.to_s)
         self.name = parent.name.underscore + ".custom_fields->'" + attribute_name
