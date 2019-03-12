@@ -25,6 +25,7 @@ module ReadingStorable
     validates :multi_polygon_value, presence: { if: :indicator_datatype_multi_polygon? }
     validates :point_value,    presence: { if: :indicator_datatype_point? }
     validates :string_value,   presence: { if: :indicator_datatype_string? }
+    validates :indicator, presence: true
 
     # Keep this format to ensure inheritance
     before_validation :set_datatype
@@ -33,10 +34,9 @@ module ReadingStorable
   end
 
   def set_datatype
-    unless indicator
-      raise "Unknown indicator name in #{self.class.name}##{id}: #{indicator_name.inspect}"
+    if indicator
+      self.indicator_datatype = indicator.datatype
     end
-    self.indicator_datatype = indicator.datatype
   end
 
   def absolutize_measure
