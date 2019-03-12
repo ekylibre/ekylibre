@@ -60,7 +60,7 @@ module FEC
             end
           end
         end
-        builder.to_xml
+        builder.to_xml.gsub("&#8217;", "'")
       end
     end
   end
