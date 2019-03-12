@@ -57,6 +57,6 @@ class ProductLink < Ekylibre::Record::Base
 
   # Returns all the siblings
   def siblings
-    product.links.with(nature)
+    product&.links&.with(nature) || ProductLink.none
   end
 end
