@@ -55,7 +55,7 @@ module Backend
     end
 
     list(conditions: list_conditions, selectable: true) do |t|
-      t.action :edit, if: :updateable?
+      t.action :edit, if: :updateable? && :draft?
       t.action :destroy, if: :destroyable?
       t.column :name, url: true
       t.column :amount, currency: true
@@ -68,7 +68,7 @@ module Backend
     end
 
     list :repayments, model: :loan_repayments, conditions: { loan_id: 'params[:id]'.c } do |t|
-      t.action :edit
+      t.action :edit, if: :updateable?
       t.column :position
       t.column :accountable
       t.column :locked
