@@ -267,4 +267,12 @@ class FinancialYearTest < ActiveSupport::TestCase
     assert_raise(ActiveRecord::RecordInvalid) { create(:parcel, given_at: accounting_date) }
   end
 
+  # Non-regression test
+  test 'FinancialYear::valid? should not throw on empty record' do
+    assert_nothing_raised do
+      record = FinancialYear.new
+      assert_not record.valid?
+    end
+  end
+
 end
