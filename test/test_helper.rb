@@ -148,6 +148,13 @@ module ActiveSupport
       model = to_s.slice(0..-5).constantize
       FixtureRetriever.new(model)
 
+      test 'validation with empty model should not throw' do
+        # TODO: Clear all fixtures ?
+        assert_nothing_raised do
+          model.new.valid?
+        end
+      end
+
       #     test 'create' do
       #       fixture = fixtures_to_use.invoke(:first)
       #       object = send(fixture[0], fixture[1])
