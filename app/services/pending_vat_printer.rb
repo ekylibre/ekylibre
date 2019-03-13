@@ -129,7 +129,7 @@ class PendingVatPrinter
 
   def run_pdf
     dataset = compute_dataset
-    pp dataset[-2..-1]
+    dataset[-2..-1]
     tax_declaration = TaxDeclaration.find(@params[:id])
     report = generate_document(@document_nature, @key, @template_path, false, nil, name: I18n.translate("labels.#{tax_declaration.state}_vat_declaration")) do |r|
       # build header
