@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.11
--- Dumped by pg_dump version 9.6.11
+-- Dumped from database version 9.6.12
+-- Dumped by pg_dump version 9.6.12
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -3066,7 +3066,7 @@ ALTER SEQUENCE public.fixed_asset_depreciations_id_seq OWNED BY public.fixed_ass
 
 CREATE TABLE public.fixed_assets (
     id integer NOT NULL,
-    allocation_account_id integer NOT NULL,
+    allocation_account_id integer,
     journal_id integer NOT NULL,
     name character varying NOT NULL,
     number character varying NOT NULL,
@@ -3080,7 +3080,7 @@ CREATE TABLE public.fixed_assets (
     sale_item_id integer,
     purchase_amount numeric(19,4),
     started_on date NOT NULL,
-    stopped_on date NOT NULL,
+    stopped_on date,
     depreciable_amount numeric(19,4) NOT NULL,
     depreciated_amount numeric(19,4) NOT NULL,
     depreciation_method character varying NOT NULL,
@@ -18038,4 +18038,6 @@ INSERT INTO schema_migrations (version) VALUES ('20181123102741');
 INSERT INTO schema_migrations (version) VALUES ('20181126152417');
 
 INSERT INTO schema_migrations (version) VALUES ('20190104105501');
+
+INSERT INTO schema_migrations (version) VALUES ('20190313140443');
 

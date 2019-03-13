@@ -89,7 +89,7 @@ class FixedAsset < Ekylibre::Record::Base
   validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :ceded, inclusion: { in: [true, false] }, allow_blank: true
   validates :ceded_on, :purchased_on, :scrapped_on, :sold_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
-  validates :allocation_account, :currency, :depreciation_method, :journal, presence: true
+  validates :currency, :depreciation_method, :journal, presence: true
   validates :current_amount, :depreciation_percentage, :purchase_amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :depreciable_amount, :depreciated_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :depreciation_fiscal_coefficient, numericality: true, allow_blank: true
@@ -97,14 +97,15 @@ class FixedAsset < Ekylibre::Record::Base
   validates :name, :number, presence: true, length: { maximum: 500 }
   validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates :state, length: { maximum: 500 }, allow_blank: true
-  validates :stopped_on, presence: true, timeliness: { on_or_after: ->(fixed_asset) { fixed_asset.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :stopped_on, timeliness: { on_or_after: ->(fixed_asset) { fixed_asset.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
   # ]VALIDATORS]
   validates :name, uniqueness: true
   validates :depreciation_method, inclusion: { in: depreciation_method.values }
-  validates :asset_account, :expenses_account, presence: true
+  validates :asset_account, presence: true
   validates :currency, match: { with: :journal, to_invalidate: :journal }
   validates :depreciation_fiscal_coefficient, presence: true, if: -> { depreciation_method_regressive? }
   validates :started_on, financial_year_writeable: true, allow_blank: true
+  validates :stopped_on, :allocation_account, :expenses_account, presence: { unless: :depreciation_method_none? }
 
   enumerize :depreciation_period, in: %i[monthly quarterly yearly], default: -> { Preference.get(:default_depreciation_period).value || Preference.set!(:default_depreciation_period, :yearly, :string) }
 
@@ -378,26 +379,30 @@ class FixedAsset < Ekylibre::Record::Base
 
   def depreciate!
     planned_depreciations.clear
-    # Computes periods
-    starts = [started_on, self.stopped_on + 1]
-    starts += depreciations.pluck(:started_on)
 
-    first_day_of_month = ->(date) { date.day == 1 } # date.succ.day < date.day }
-    new_months = (started_on...stopped_on).select(&first_day_of_month)
+    unless depreciation_method_none?
+      # Computes periods
+      starts = [started_on, self.stopped_on + 1]
+      starts += depreciations.pluck(:started_on)
 
-    case depreciation_period
-    when /monthly/
-      starts += new_months
-    when /quarterly/
-      new_trimesters = new_months.select { |date| date.month.multiple_of? 3 }
-      starts += new_trimesters
-    when /yearly/
-      new_years = new_months.select { |date| date.month == 1 }
-      starts += new_years
+      first_day_of_month = ->(date) { date.day == 1 } # date.succ.day < date.day }
+      new_months = (started_on...stopped_on).select(&first_day_of_month)
+
+      case depreciation_period
+      when /monthly/
+        starts += new_months
+      when /quarterly/
+        new_trimesters = new_months.select { |date| date.month.multiple_of? 3 }
+        starts += new_trimesters
+      when /yearly/
+        new_years = new_months.select { |date| date.month == 1 }
+        starts += new_years
+      end
+
+      starts = starts.uniq.sort
+      send("depreciate_with_#{depreciation_method}_method", starts)
     end
 
-    starts = starts.uniq.sort
-    send("depreciate_with_#{depreciation_method}_method", starts)
     self
   end
 
@@ -474,11 +479,6 @@ class FixedAsset < Ekylibre::Record::Base
       depreciation.save!
       remaining_days -= duration
     end
-  end
-
-  # Depreciate using regressive method
-  def depreciate_with_none_method(starts)
-    # TODO
   end
 
   def depreciable?

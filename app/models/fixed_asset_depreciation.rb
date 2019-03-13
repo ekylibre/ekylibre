@@ -65,10 +65,12 @@ class FixedAssetDepreciation < Ekylibre::Record::Base
 
   bookkeep do |b|
     if fixed_asset.in_use?
-      b.journal_entry(fixed_asset.journal, printed_on: stopped_on.end_of_month, if: accountable && !locked) do |entry|
-        name = tc(:bookkeep, resource: FixedAsset.model_name.human, number: fixed_asset.number, name: fixed_asset.name, position: position, total: fixed_asset.depreciations.count)
-        entry.add_debit(name, fixed_asset.expenses_account, amount)
-        entry.add_credit(name, fixed_asset.allocation_account, amount)
+      unless fixed_asset.depreciation_method_none?
+        b.journal_entry(fixed_asset.journal, printed_on: stopped_on.end_of_month, if: accountable && !locked) do |entry|
+          name = tc(:bookkeep, resource: FixedAsset.model_name.human, number: fixed_asset.number, name: fixed_asset.name, position: position, total: fixed_asset.depreciations.count)
+          entry.add_debit(name, fixed_asset.expenses_account, amount)
+          entry.add_credit(name, fixed_asset.allocation_account, amount)
+        end
       end
     elsif fixed_asset.sold? || fixed_asset.scrapped?
       b.journal_entry(fixed_asset.journal, printed_on: stopped_on.end_of_month, if: accountable && !locked) do |entry|
