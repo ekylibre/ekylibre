@@ -70,7 +70,7 @@ module Backend
       t.column :human_received_quantity, label: :received_quantity, datatype: :decimal
       t.column :quantity_to_receive, label: :quantity_to_receive, datatype: :decimal
       t.column :unit_pretax_amount, currency: true
-      t.column :unit_amount, currency: true
+      t.column :unit_amount, currency: true, hidden: true
       t.column :reduction_percentage
       t.column :tax, url: true, hidden: true
       t.column :pretax_amount, currency: true
