@@ -313,6 +313,22 @@ class FixedAssetTest < ActiveSupport::TestCase
     assert_equal 100_000, fa.depreciations.map(&:amount).reduce(&:+)
   end
 
+  test 'A FixedAsset is valid when there is no FinancialYear at its started_on date' do
+    FinancialYear.delete_all
+    fa = FixedAsset.new(
+      allocation_account: @allocation_account,
+      depreciation_method: :linear,
+      journal: @journal,
+      depreciable_amount: 50_000,
+      name: @product.name,
+      started_on: '2018-05-01',
+      stopped_on: '2028-04-30',
+      asset_account: @asset_account,
+      expenses_account: @expenses_account
+    )
+    assert fa.valid?
+  end
+
   private
 
     def depreciate_up_to(_depreciations, date)

@@ -104,7 +104,6 @@ class FixedAsset < Ekylibre::Record::Base
   validates :asset_account, presence: true
   validates :currency, match: { with: :journal, to_invalidate: :journal }
   validates :depreciation_fiscal_coefficient, presence: true, if: -> { depreciation_method_regressive? }
-  validates :started_on, financial_year_writeable: true, allow_blank: true
   validates :stopped_on, :allocation_account, :expenses_account, presence: { unless: :depreciation_method_none? }
 
   enumerize :depreciation_period, in: %i[monthly quarterly yearly], default: -> { Preference.get(:default_depreciation_period).value || Preference.set!(:default_depreciation_period, :yearly, :string) }
@@ -286,7 +285,7 @@ class FixedAsset < Ekylibre::Record::Base
         entry.add_debit(label, asset_account.id, amount.compact.sum, resource: self, as: :fixed_asset)
       end
 
-      # fixed asset link to nothing
+    # fixed asset link to nothing
     elsif in_use?
       # puts "without purchase".inspect.green
       b.journal_entry(journal, printed_on: started_on, if: (in_use? && asset_account)) do |entry|
@@ -294,7 +293,7 @@ class FixedAsset < Ekylibre::Record::Base
         entry.add_debit(label, asset_account.id, depreciable_amount, resource: self, as: :fixed_asset)
       end
 
-      # fixed asset sold or scrapped
+    # fixed asset sold or scrapped
     elsif (sold? && !sold_journal_entry) || (scrapped? && !scrapped_journal_entry)
 
       out_on = sold_on
@@ -380,16 +379,18 @@ class FixedAsset < Ekylibre::Record::Base
 
   def depreciate!
     planned_depreciations.clear
-
-    if depreciation_method_linear? || depreciation_method_regressive?
+    
+    # Computes periods
+    unless depreciation_method_none?
       fy_reference = FinancialYear.at(started_on) || FinancialYear.opened.first
-      # Computes periods
+
       periods = DepreciationCalculator.new(fy_reference, depreciation_period.to_sym).depreciation_period(started_on, depreciation_percentage)
 
       starts = periods.map(&:first) << (periods.last.second + 1.day)
 
       send("depreciate_with_#{depreciation_method}_method", starts)
     end
+
     self
   end
 
