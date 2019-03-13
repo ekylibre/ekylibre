@@ -1651,6 +1651,7 @@ fra:
     inactive: "Inactif"
     incident: "Incident" #?
     include_blank: "— Aucune organisation —"
+    including_vat: "TTC"
     income_statement: "Compte de résultat"
     incoming: "Entrant" #?
     incoming_parcels: "Colis entrants"
@@ -2117,6 +2118,7 @@ fra:
     prerequisites_checks_before_closure: "Vérifications préalables à la clôture"
     prescription: "Prescription"
     prescriptions: "Prescriptions"
+    pretax: "HT"
     pretax_amount: "Montant HT"
     previous: "Précédent"
     previous_plant_name: "Nom de la culture précédente" #?

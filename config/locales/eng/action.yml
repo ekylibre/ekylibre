@@ -1689,6 +1689,7 @@ eng:
     in_progress: "In progress" #?
     inactive: "Inactive" #?
     include_blank: "Include blank" #?
+    including_vat: "incl. VAT"
     income_statement: "Income Statement" #?
     incoming_parcels: "Incoming parcels"
     incoming_payment: "Incoming payment" #?
@@ -2031,6 +2032,7 @@ eng:
     prerequisites_checks_before_closure: "Prerequisites checks before closure"
     prescription: "Prescription" #?
     prescriptions: "Prescriptions" #?
+    pretax: "pre-tax"
     pretax_amount: "Pre-tax amount"
     previous: "Previous"
     price: "Price" #?

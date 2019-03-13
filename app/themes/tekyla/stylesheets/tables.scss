@@ -188,7 +188,7 @@ table {
 
 .active-list[data-list-source], .active-list {
   table.list {
-    border-collapse: collapse;
+    border-collapse: separate;
     width: 100%;
     th, td {
       max-width: 20em;

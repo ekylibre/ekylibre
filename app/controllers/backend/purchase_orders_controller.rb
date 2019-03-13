@@ -58,7 +58,8 @@ module Backend
       t.column :reference_number, url: true
       t.column :created_at
       t.column :supplier, url: true
-      t.column :pretax_amount, currency: true, on_select: :sum, hidden: true
+      t.column :pretax_amount, currency: true, on_select: :sum
+      t.column :amount, currency: true, on_select: :sum
     end
 
     list(:items, model: :purchase_items, order: { id: :asc }, conditions: { purchase_id: 'params[:id]'.c }) do |t|
@@ -69,11 +70,11 @@ module Backend
       t.column :human_received_quantity, label: :received_quantity, datatype: :decimal
       t.column :quantity_to_receive, label: :quantity_to_receive, datatype: :decimal
       t.column :unit_pretax_amount, currency: true
-      t.column :unit_amount, currency: true, hidden: true
+      t.column :unit_amount, currency: true
       t.column :reduction_percentage
       t.column :tax, url: true, hidden: true
       t.column :pretax_amount, currency: true
-      t.column :amount, currency: true, hidden: :true
+      t.column :amount, currency: true
       t.column :activity_budget, hidden: true
       t.column :team, hidden: true
       t.column :fixed_asset, url: true, hidden: true
@@ -171,10 +172,13 @@ module Backend
           t.add_column(:quantity)
           t.add_column(:unity)
           t.add_column(:unit_pretax_amount)
+          t.add_column(:unit_amount)
           t.add_column(:pretax_amount)
+          t.add_column(:amount)
         end
 
         r.add_field 'PURCHASE_PRETAX_AMOUNT', order_reporting[:purchase_pretax_amount]
+        r.add_field 'PURCHASE_AMOUNT', order_reporting[:purchase_amount]
         r.add_field 'PURCHASE_CURRENCY', order_reporting[:purchase_currency]
       end
     end
