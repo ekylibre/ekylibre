@@ -4629,11 +4629,6 @@ fra:
         algerian_vat_null: "TVA null Algérie"
         algerian_vat_reduced: "TVA algérienne réduite"
         algerian_vat_reduced_2017: "TVA algérienne réduite 2017"
-        fr_vat_intermediate: "TVA française intermédiaire"
-        fr_vat_normal: "TVA française normale"
-        fr_vat_null: "TVA française nulle"
-        fr_vat_particular: "TVA française particuliere"
-        fr_vat_reduced: "TVA française normale réduite"
         fr_vat_intermediate: "TVA française intermédiaire" #?
         fr_vat_normal: "TVA française normale" #?
         fr_vat_null: "TVA française nulle" #?
