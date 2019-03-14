@@ -55,7 +55,7 @@ module Backend
     end
 
     list(conditions: list_conditions, selectable: true) do |t|
-      t.action :edit, if: :updateable? && :draft?
+      t.action :edit, if: :editable?
       t.action :destroy, if: :destroyable?
       t.column :name, url: true
       t.column :amount, currency: true
