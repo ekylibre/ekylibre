@@ -138,12 +138,6 @@ class Purchase < Ekylibre::Record::Base
                       end
   end
 
-  after_update do
-    affair.update_attributes(third_id: third.id) if affair && affair.deals.count == 1
-    affair.reload_gaps if affair
-    true
-  end
-
   after_create do
     supplier.add_event(:purchase_creation, updater.person) if updater
   end
