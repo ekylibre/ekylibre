@@ -101,7 +101,7 @@ class ActivityProduction < Ekylibre::Record::Base
   delegate :animal_farming?, :plant_farming?, :tool_maintaining?,
            :at_cycle_start?, :at_cycle_end?, :use_seasons?, :use_tactics?,
            :with_cultivation, :cultivation_variety, :with_supports, :support_variety,
-           :color, :annual?, :perennial?, to: :activity
+           :color, :annual?, :perennial?, to: :activity, allow_nil: true
 
   scope :of_campaign, lambda { |campaign|
     where(id: HABTM_Campaigns.select(:activity_production_id).where(campaign: campaign))
