@@ -4,7 +4,7 @@ class ReadingsCoder
                     .tap { |h| h[Charta::Point]        = proc { |_, value| value.to_ewkt } }
                     .tap { |h| h[Charta::MultiPolygon] = proc { |_, value| value.to_ewkt } }
 
-  UNSERIALIZE = Hash.new { proc { |klass, value| klass == BigDecimal ? BigDecimal(value) : klass.new(value) } }
+  UNSERIALIZE = Hash.new { proc { |klass, value| klass.new(value) } }
                     .tap { |h| h[Charta::MultiPolygon] = proc { |_, value| Charta.new_geometry(value) } }
                     .tap { |h| h[Charta::Point]        = proc { |_, value| Charta.new_geometry(value) } }
                     .tap { |h| h[FalseClass]           = proc { |_, _| false                          } }
@@ -14,6 +14,7 @@ class ReadingsCoder
                     .tap { |h| h[Bignum]               = proc { |_, value| value.to_i } }
                     .tap { |h| h[Fixnum]               = proc { |_, value| value.to_i } }
                     .tap { |h| h[Float]                = proc { |_, value| value.to_f } }
+                    .tap { |h| h[BigDecimal]           = proc { |_, value| BigDecimal(value) } }
                     .freeze
 
   def self.load(json)
