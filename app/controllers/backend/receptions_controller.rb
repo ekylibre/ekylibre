@@ -115,26 +115,36 @@ module Backend
     end
 
     def new
-      if params[:purchase_order_id]
-        purchase_order = PurchaseOrder.find(params[:purchase_order_id])
-        reception_attributes = { sender_id: purchase_order.supplier_id, given_at: Date.today, reconciliation_state: 'reconcile' }
-        reception_items = purchase_order.items.map do |item|
-                            reception_item_attributes = { variant_id: item.variant_id,
-                                                          purchase_order_item_id: item.id,
-                                                          currency: item.currency,
-                                                          unit_pretax_amount: item.unit_pretax_amount,
-                                                          pretax_amount: item.pretax_amount,
-                                                          role: item.role }
-                            reception_item_storage_attributes = { quantity: item.quantity }
-                            reception_item = ReceptionItem.new(reception_item_attributes)
-                            reception_item.storings << ParcelItemStoring.new(reception_item_storage_attributes)
-                            reception_item
+      if params[:purchase_order_ids]
+        purchase_orders = params[:purchase_order_ids].map { |id| PurchaseOrder.find(id) }
+        supplier_ids = purchase_orders.map(&:supplier_id)
+
+        reception_attributes = { sender_id: supplier_ids.uniq.length > 1 ? nil : supplier_ids.first,
+                                 given_at: Date.today,
+                                 reconciliation_state: 'reconcile' }
+
+        reception_items = purchase_orders.map do |purchase_order|
+                            purchase_order.items.map do |item|
+                              reception_item_attributes = { variant_id: item.variant_id,
+                                                            purchase_order_item_id: item.id,
+                                                            currency: item.currency,
+                                                            unit_pretax_amount: item.unit_pretax_amount,
+                                                            pretax_amount: item.pretax_amount,
+                                                            role: item.role,
+                                                            population: item.quantity }
+                              reception_item_storage_attributes = { quantity: item.quantity }
+                              reception_item = ReceptionItem.new(reception_item_attributes)
+                              reception_item.storings << ParcelItemStoring.new(reception_item_storage_attributes)
+                              reception_item
+                            end
                           end
+
         @reception = Reception.new(reception_attributes)
-        @reception.items << reception_items
+        @reception.items << reception_items.flatten
       else
         @reception = Reception.new
       end
+
       render locals: { with_continue: true }
     end
 
