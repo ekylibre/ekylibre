@@ -30,12 +30,9 @@ module Backend
 
     def index
       DocumentTemplate.load_defaults unless DocumentTemplate.any?
-      # @agg_blacklist = BLACKLIST.map { |agg| Aggeratio[agg] }
-      @aggregators = HashWithIndifferentAccess.new
-      export_categories.each do |export_category|
-        @aggregators[export_category] = (Aggeratio.of_category(export_category.name) - BLACKLIST.map { |agg| Aggeratio[agg] })
+      @aggregators = export_categories.each_with_object({}) do |export_category, hash|
+        hash[export_category] = (Aggeratio.of_category(export_category.name) - BLACKLIST.map { |agg| Aggeratio[agg] })
       end
-      @aggregators
     end
 
     def show
