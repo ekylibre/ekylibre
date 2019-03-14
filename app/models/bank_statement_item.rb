@@ -53,6 +53,8 @@ class BankStatementItem < Ekylibre::Record::Base
   validates :initiated_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
   validates :letter, :memo, :transaction_number, length: { maximum: 500 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
+  validates :started_on, presence: true
+  validates :stopped_on, presence: true
   validates :transfered_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   # ]VALIDATORS]
 
@@ -71,7 +73,7 @@ class BankStatementItem < Ekylibre::Record::Base
     if (debit.nonzero? && credit.nonzero?) || (debit.zero? && credit.zero?)
       errors.add(:credit, :unvalid_amounts)
     end
-    if bank_statement && transfered_on
+    if bank_statement && transfered_on && started_on && stopped_on
       unless started_on <= transfered_on && transfered_on <= stopped_on
         errors.add(:transfered_on, :invalid)
       end
