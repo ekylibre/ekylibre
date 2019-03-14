@@ -18,11 +18,24 @@
 
 module Backend
   class ExportsController < Backend::BaseController
+    include Backend::ExportsHelper
     respond_to :pdf, :odt, :ods, :docx, :xlsx, :xml, :json, :html, :csv
+    BLACKLIST = [ "fr_pcg82_balance_sheet",
+                  "fr_pcg82_profit_and_loss_statement",
+                  "fr_pcga_balance_sheet",
+                  "fr_pcga_profit_and_loss_statement",
+                  "vat_register",
+                  "income_statement"]
+
 
     def index
-      # FIXME: It should not be necessary to do that
       DocumentTemplate.load_defaults unless DocumentTemplate.any?
+      # @agg_blacklist = BLACKLIST.map { |agg| Aggeratio[agg] }
+      @aggregators = HashWithIndifferentAccess.new
+      export_categories.each do |export_category|
+        @aggregators[export_category] = (Aggeratio.of_category(export_category.name) - BLACKLIST.map { |agg| Aggeratio[agg] })
+      end
+      @aggregators
     end
 
     def show
