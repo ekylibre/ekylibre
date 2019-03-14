@@ -95,6 +95,10 @@ class FixedAssetDepreciation < Ekylibre::Record::Base
     end
   end
 
+  def accounted
+    !locked && accountable
+  end
+
   # Returns the duration of the depreciation
   def duration
     FixedAsset.duration(started_on, stopped_on, mode: fixed_asset.depreciation_method.to_sym)

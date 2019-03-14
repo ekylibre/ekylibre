@@ -96,6 +96,7 @@ eng:
         started_on: "start-up date"
       fixed_asset_depreciation:
         asset_amount: "Accountable value"
+        accounted: "Accounted"
       journal:
         closed_on: "Latest closure on"
       journal_entry_item:
