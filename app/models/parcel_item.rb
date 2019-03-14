@@ -98,7 +98,7 @@ class ParcelItem < Ekylibre::Record::Base
   delegate :allow_items_update?, :remain_owner, :planned_at, :draft?,
            :ordered_at, :recipient, :in_preparation?, :in_preparation_at,
            :prepared?, :prepared_at, :given?, :given_at, :outgoing?, :incoming?,
-           :separated_stock?, :currency, to: :parcel, prefix: true, allow_nil: true
+           :separated_stock?, :currency, to: :parcel, prefix: true
 
   before_validation do
     self.currency = parcel_currency if parcel
