@@ -59,7 +59,7 @@ class ProductMovement < Ekylibre::Record::Base
   before_validation do
     # NOTE: -! Deprecated !- only there for it to work until 3.0
     self.population = 0.0
-    self.stopped_at = started_at + 1.day if started_at
+    self.stopped_at = started_at + 1.day
   end
 
   def population

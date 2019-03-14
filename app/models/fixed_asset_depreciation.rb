@@ -80,10 +80,8 @@ class FixedAssetDepreciation < Ekylibre::Record::Base
   end
 
   before_validation do
-    if fixed_asset
-      self.depreciated_amount = fixed_asset.depreciations.where('stopped_on < ?', started_on).sum(:amount) + amount
-      self.depreciable_amount = fixed_asset.depreciable_amount - depreciated_amount
-    end
+    self.depreciated_amount = fixed_asset.depreciations.where('stopped_on < ?', started_on).sum(:amount) + amount
+    self.depreciable_amount = fixed_asset.depreciable_amount - depreciated_amount
   end
 
   validate do
