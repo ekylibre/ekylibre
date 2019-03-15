@@ -53,10 +53,11 @@ class BankStatementItem < Ekylibre::Record::Base
   validates :initiated_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
   validates :letter, :memo, :transaction_number, length: { maximum: 500 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
-  validates :started_on, presence: true
-  validates :stopped_on, presence: true
   validates :transfered_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   # ]VALIDATORS]
+
+  validates :started_on, presence: true
+  validates :stopped_on, presence: true
 
   scope :transfered_between, lambda { |period_start, period_end|
     where('transfered_on >= ? AND transfered_on <= ?', period_start, period_end)
