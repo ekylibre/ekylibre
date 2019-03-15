@@ -175,6 +175,12 @@ class Parcel < Ekylibre::Record::Base
     end
   end
 
+  validate do
+    if Preference[:permanent_stock_inventory]
+      errors.add(:planned_at, :financial_year_exchange_on_this_period)
+    end 
+  end
+
   protect on: :destroy do
     prepared? || given?
   end
