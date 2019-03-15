@@ -285,7 +285,7 @@ class FixedAsset < Ekylibre::Record::Base
         entry.add_debit(label, asset_account.id, amount.compact.sum, resource: self, as: :fixed_asset)
       end
 
-    # fixed asset link to nothing
+      # fixed asset link to nothing
     elsif in_use?
       # puts "without purchase".inspect.green
       b.journal_entry(journal, printed_on: started_on, if: (in_use? && asset_account)) do |entry|
@@ -293,7 +293,7 @@ class FixedAsset < Ekylibre::Record::Base
         entry.add_debit(label, asset_account.id, depreciable_amount, resource: self, as: :fixed_asset)
       end
 
-    # fixed asset sold or scrapped
+      # fixed asset sold or scrapped
     elsif (sold? && !sold_journal_entry) || (scrapped? && !scrapped_journal_entry)
 
       out_on = sold_on
@@ -397,6 +397,8 @@ class FixedAsset < Ekylibre::Record::Base
   # Depreciate using linear method
   # Years have 12 months with 30 days
   def depreciate_with_linear_method(starts)
+    first_fy = FinancialYear.opened.first
+
     depreciable_days = duration
     depreciable_amount = self.depreciable_amount
     reload.depreciations.each do |depreciation|
@@ -415,6 +417,8 @@ class FixedAsset < Ekylibre::Record::Base
         duration = depreciation.duration
         depreciation.amount = [remaining_amount, currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
         remaining_amount -= depreciation.amount
+
+        depreciation.locked = depreciation.started_on < first_fy.started_on
       end
       # depreciation.financial_year = FinancialYear.at(depreciation.started_on)
 
@@ -426,6 +430,8 @@ class FixedAsset < Ekylibre::Record::Base
 
   # Depreciate using regressive method
   def depreciate_with_regressive_method(starts)
+    first_fy = FinancialYear.opened.first
+
     depreciable_days = duration
     depreciable_amount = self.depreciable_amount
     reload.depreciations.each do |depreciation|
@@ -459,6 +465,8 @@ class FixedAsset < Ekylibre::Record::Base
 
         depreciation.amount = currency.to_currency.round(remaining_amount * (percentage / 100) * (duration / 360))
         remaining_amount -= depreciation.amount
+
+        depreciation.locked = depreciation.started_on < first_fy.started_on
       end
       next if depreciation.amount.to_f == 0.0
 

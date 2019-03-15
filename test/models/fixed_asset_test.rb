@@ -329,6 +329,38 @@ class FixedAssetTest < ActiveSupport::TestCase
     assert fa.valid?
   end
 
+  test 'A FixedAsset created before the first opened FinancialYear creates the correct depreciations entries' do
+    FinancialYear.delete_all
+    (2010...2015).each do |year|
+      assert fy = FinancialYear.create(started_on: Date.new(year, 1, 1), stopped_on: Date.new(year, 12, 31), state: :locked)
+    end
+    [2016, 2017].each do |year|
+      assert fy = FinancialYear.create(started_on: Date.new(year, 1, 1), stopped_on: Date.new(year, 12, 31))
+    end
+
+    fa = FixedAsset.new(
+      name: @product.name,
+      depreciable_amount: 50_000,
+      depreciation_method: :linear,
+      depreciation_percentage: 10,
+      started_on: '2008-01-01',
+      journal: @journal,
+      asset_account: @asset_account,
+      expenses_account: @expenses_account,
+      allocation_account: @allocation_account
+    )
+
+    assert fa.save
+    deps = fa.depreciations.to_a
+    assert_equal 10, deps.length
+    partitionned = deps.partition { |dep| dep.started_on.year < 2016 }
+
+    assert_equal 8, partitionned[0].length
+    assert partitionned[0].all? &:locked?
+
+    assert_not partitionned[1].any? &:locked?
+  end
+
   private
 
     def depreciate_up_to(_depreciations, date)
