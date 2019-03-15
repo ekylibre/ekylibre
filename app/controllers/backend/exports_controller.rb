@@ -28,6 +28,7 @@ module Backend
 
 
     def index
+      # FIXME: It should not be necessary to do that
       DocumentTemplate.load_defaults unless DocumentTemplate.any?
       @aggregators = helpers.export_categories.each_with_object({}) do |export_category, hash|
         hash[export_category] = (Aggeratio.of_category(export_category.name) - HIDDEN_AGGREGATORS.map { |agg| Aggeratio[agg] })
