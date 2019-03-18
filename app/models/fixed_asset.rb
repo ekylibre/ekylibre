@@ -207,6 +207,12 @@ class FixedAsset < Ekylibre::Record::Base
     depreciate! if @auto_depreciate
   end
 
+  def start_up
+    result = super
+    depreciations.up_to(FinancialYear.opened.first.started_on).each &:save
+    result
+  end
+
   def on_unclosed_periods?
     started_on > journal.closed_on
   end
