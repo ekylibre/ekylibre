@@ -342,7 +342,7 @@ eng:
       index: "%{ledger}"
       # mask_draft_items: "Mask draft items general ledger: %{name}"
       # mask_lettered_items: "Mask lettered items general ledger: %{name}"
-      show: "General ledger\_: %{account}"
+      show: "General ledger"
     backend/georeadings:
       edit: "Edit georeading: %{name}"
       index: "Georeadings"
