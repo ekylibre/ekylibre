@@ -10,6 +10,15 @@ GIT
       rubyzip (>= 1.0)
 
 GIT
+  remote: git://github.com/ekylibre/agric.git
+  revision: b381676ba0f6d8b55414b28100c19e1f813e500c
+  tag: v3.0.2
+  specs:
+    agric (3.0.2)
+      railties (>= 3.2, < 6)
+      sassc-rails (~> 2)
+
+GIT
   remote: git://github.com/influitive/apartment.git
   revision: a4332c3222210b11f5e8c27fa4c1a18b492e9629
   branch: development
@@ -68,9 +77,6 @@ GEM
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
     afm (0.2.2)
-    agric (3.0.1)
-      railties (>= 3.2, < 6.0)
-      sass-rails
     akami (1.3.1)
       gyoku (>= 0.4.0)
       nokogiri
@@ -472,12 +478,15 @@ GEM
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
-    sass-rails (5.0.7)
-      railties (>= 4.0.0, < 6)
-      sass (~> 3.1)
-      sprockets (>= 2.8, < 4.0)
-      sprockets-rails (>= 2.0, < 4.0)
-      tilt (>= 1.1, < 3)
+    sassc (2.0.1)
+      ffi (~> 1.9)
+      rake
+    sassc-rails (2.1.0)
+      railties (>= 4.0.0)
+      sassc (>= 2.0)
+      sprockets (> 3.0)
+      sprockets-rails
+      tilt
     savon (2.12.0)
       akami (~> 1.2)
       builder (>= 2.1.2)
@@ -612,7 +621,7 @@ DEPENDENCIES
   active_list!
   activerecord-postgis-adapter (>= 3.0.0)
   acts_as_list
-  agric (~> 3.0)
+  agric!
   apartment!
   apartment-sidekiq
   awesome_nested_set (~> 3.1.1)
@@ -699,7 +708,7 @@ DEPENDENCIES
   ruby-prof
   rubyntlm (>= 0.3.2)
   rubyzip
-  sass-rails (~> 5.0)
+  sassc-rails
   savon
   sdoc (~> 0.4.0)
   selenium-webdriver
