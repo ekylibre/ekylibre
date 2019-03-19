@@ -135,6 +135,15 @@ class PurchaseOrder < Purchase
     items.any?
   end
 
+  def fully_reconciled?
+    return false unless has_content?
+    items.each do |item|
+      reception_items = ReceptionItem.where(purchase_order_item_id: item.id)
+      return false unless reception_items.sum(:population) == item.quantity
+    end
+    true
+  end
+
   # this method generate a dataset for one purchase order
   def order_reporting(_options = {})
     report = HashWithIndifferentAccess.new

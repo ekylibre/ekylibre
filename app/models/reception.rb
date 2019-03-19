@@ -91,6 +91,14 @@ class Reception < Parcel
     self.address ||= Entity.of_company.default_mail_address if new_record?
   end
 
+  after_save do
+    purchase_order_ids = items.map { |item| item.purchase_order_item.purchase_id }.uniq
+    purchase_order_ids.each do |purchase_order_id|
+      purchase_order = PurchaseOrder.find(purchase_order_id)
+      purchase_order.update!(reconciliation_state: 'reconcile') if purchase_order.fully_reconciled?
+    end
+  end
+
   protect on: :destroy do
     given?
   end

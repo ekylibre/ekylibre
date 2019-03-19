@@ -19,7 +19,7 @@
 
       @line.trigger("iceberg:inserted", [@line])
 
-      unless mode is "add" or @line.find('.error').length > 0
+      unless mode is "add" or @line.find('.error').length > 0 or @line.find('.prefilled').length > 0
         @display.removeClass('hidden')
         @oldForm().remove()
         @_bindSelectorsInitialization()

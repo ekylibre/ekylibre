@@ -10,4 +10,6 @@
       = select_tag(:responsible_id, options_for_select([[]] +  responsibles.map{|u| [u.label, u.id]}, params[:responsible_id].to_i))
 - main_toolbar do |t|
   = t.new params: { redirect: nil }
-= main_list
+  = link_to :generate_parcel.tl, { controller: :receptions, action: :new }, { class: 'btn btn-default no-icn disabled', id: 'generate-parcel-btn' }
+
+= main_list data: 'reconciliation_state'

@@ -31,7 +31,7 @@
     %td.delivery-mode-column
       %label{ data: { item_value: "input.item-delivery-mode:checked" } }= f.object.delivery_mode if f.object.delivery_mode != "none"
 
-  %tr.nested-item-form
+  %tr.nested-item-form{ class: mode == 'prefilled' ? 'prefilled' : '' }
     %td.cell-form{colspan: 6}
       .item-form
         = f.hidden_field :purchase_order_to_close_id, class: "purchase-order-to-close-id"
