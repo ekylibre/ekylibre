@@ -7,15 +7,19 @@
       newParcelUrl = $newParcelBtn.prop('href')
 
       $(document).on 'change', 'input[data-list-selector]', ->
-        selectedOrders = $('input[data-list-selector]').filter ->
-                           /\d/.test($(this).data('list-selector')) && $(this).is(':checked')
+        selectedOrders = $('input[data-list-selector]:checked').filter ->
+                           /\d/.test($(this).data('list-selector'))
         selectedOrdersIds = selectedOrders.map ->
                               $(this).data('list-selector')
                             .toArray()
         reconciledOrders = selectedOrders.filter ->
                              $(this).closest('tr').data('reconciliation-state') == 'reconcile'
 
-        if selectedOrdersIds.length > 0 then $newParcelBtn.prop('href', "#{newParcelUrl}?mode=prefilled&purchase_order_ids=#{selectedOrdersIds}") else $newParcelBtn.prop('href', newParcelUrl)
+        if selectedOrdersIds.length > 0
+          $newParcelBtn.prop('href', "#{newParcelUrl}?mode=prefilled&purchase_order_ids=#{selectedOrdersIds}")
+        else
+          $newParcelBtn.prop('href', newParcelUrl)
+
         if selectedOrders.length > 0 && reconciledOrders.length < 1 then $newParcelBtn.removeClass('disabled') else $newParcelBtn.addClass('disabled')
 
 ) ekylibre, jQuery

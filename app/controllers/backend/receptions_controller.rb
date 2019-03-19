@@ -116,7 +116,7 @@ module Backend
 
     def new
       if params[:purchase_order_ids]
-        purchase_orders = params[:purchase_order_ids].split(',').map { |id| PurchaseOrder.find(id) }
+        purchase_orders = PurchaseOrder.find(params[:purchase_order_ids].split(','))
         supplier_ids = purchase_orders.map(&:supplier_id)
 
         reception_attributes = { sender_id: supplier_ids.uniq.length > 1 ? nil : supplier_ids.first,
@@ -131,8 +131,8 @@ module Backend
                                                             unit_pretax_amount: item.unit_pretax_amount,
                                                             pretax_amount: item.pretax_amount,
                                                             role: item.role,
-                                                            population: item.quantity_to_receive.to_f }
-                              reception_item_storage_attributes = { quantity: item.quantity_to_receive.to_f }
+                                                            population: item.quantity_to_receive }
+                              reception_item_storage_attributes = { quantity: item.quantity_to_receive }
                               reception_item = ReceptionItem.new(reception_item_attributes)
                               reception_item.storings << ParcelItemStoring.new(reception_item_storage_attributes)
                               reception_item
@@ -140,7 +140,7 @@ module Backend
                           end
 
         @reception = Reception.new(reception_attributes)
-        @reception.items << reception_items.flatten
+        @reception.items = reception_items.flatten
       else
         @reception = Reception.new
       end

@@ -339,7 +339,11 @@ class PurchaseItem < Ekylibre::Record::Base
   def quantity_to_receive
     return unless purchase.is_a?(PurchaseOrder) ||  parcels_purchase_orders_items.empty?
 
-    (quantity - received_quantity).l(precision: 3)
+    (quantity - received_quantity)
+  end
+
+  def human_quantity_to_receive
+    quantity_to_receive.l(precision: 3)
   end
 
   private

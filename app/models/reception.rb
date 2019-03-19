@@ -93,10 +93,8 @@ class Reception < Parcel
 
   after_save do
     purchase_order_ids = items.map { |item| item.purchase_order_item.purchase_id }.uniq
-    purchase_order_ids.each do |purchase_order_id|
-      purchase_order = PurchaseOrder.find(purchase_order_id)
-      purchase_order.update!(reconciliation_state: 'reconcile') if purchase_order.fully_reconciled?
-    end
+    purchase_orders = PurchaseOrder.find(purchase_order_ids)
+    purchase_orders.each { |order| order.update!(reconciliation_state: 'reconcile') if order.fully_reconciled? }
   end
 
   protect on: :destroy do
