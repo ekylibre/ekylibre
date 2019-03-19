@@ -460,6 +460,10 @@ fra:
           attributes: #?
             parameters: #?
               check_errored: "La connexion au partenaire a échoué. Veuillez vérifier les informations saisies ou réessayer plus tard." #?
+        intervention_working_period:
+          attributes:
+            started_at:
+              not_opened_financial_year: "Un exercice comptable ouvert est nécessaire"
         journal: #?
           attributes: #?
             accountant: #?
