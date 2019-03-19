@@ -8,7 +8,7 @@ module Backend
         v.control :scale
         v.control :fullscreen
         v.control :layer_selector
-        if LandParcel.last.shape_centroid.present?
+        if LandParcel.last && LandParcel.last.shape_centroid.present?
           v.center LandParcel.last.shape_centroid
         end
       end
