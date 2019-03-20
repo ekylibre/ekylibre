@@ -1,0 +1,15 @@
+@import "variables";
+@import "vendor/flatpickr";
+
+.flatpickr-time input.flatpickr-hour, .flatpickr-time input.flatpickr-minute, .flatpickr-time input.flatpickr-second {
+  height: inherit; // Override reset rule
+  font-size: 18px;
+  padding: 0;
+}
+.flatpickr-calendar {
+  background-color: white;
+}
+
+.flatpickr-confirm {
+  background-color: $base-color;
+}
