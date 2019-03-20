@@ -579,9 +579,9 @@ fra:
       new: "Créer un produit"
       show: "%{nature}\_: %{name}"
     backend/project_budgets: #?
-      edit: "Modifier le budget\_: %{name}" #?
-      index: "Budgets " #?
-      new: "Nouveau budget" #?
+      edit: "Modifier le budget interne\_: %{name}" #?
+      index: "Budgets internes " #?
+      new: "Nouveau budget interne" #?
     backend/purchase_invoices:
       edit: "Modifier la facture: %{number}"
       index: "Factures"
