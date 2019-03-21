@@ -34,9 +34,8 @@ module ReadingStorable
   end
 
   def set_datatype
-    if indicator
-      self.indicator_datatype = indicator.datatype
-    end
+    return unless indicator
+    self.indicator_datatype = indicator.datatype
   end
 
   def absolutize_measure
