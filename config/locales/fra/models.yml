@@ -460,6 +460,10 @@ fra:
           attributes: #?
             parameters: #?
               check_errored: "La connexion au partenaire a échoué. Veuillez vérifier les informations saisies ou réessayer plus tard." #?
+        intervention:
+          attributes:
+            printed_on:
+              not_opened_financial_year: "Un exercice comptable ouvert est nécessaire pour la (les) période(s) ci-dessous"
         intervention_working_period:
           attributes:
             started_at:
@@ -2233,7 +2237,6 @@ fra:
     inspection:
       items_count: "Nombre de pièces"
       net_mass: "Masse"
-    intervention:
       bookkeep: "[%{resource}] %{name}" #?
       name: "%{intervention} n°%{number}"
     inventory:

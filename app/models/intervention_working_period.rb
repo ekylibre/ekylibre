@@ -89,12 +89,6 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
   end
 
   validate do
-    if started_at
-      errors.add(:base, :not_opened_financial_year) if Preference[:permanent_stock_inventory] && !during_financial_year_exchange?
-    end
-  end
-
-  validate do
     errors.add(:intervention, :empty) unless intervention || intervention_participated_to || intervention_participation
     if started_at && stopped_at && stopped_at <= started_at
       errors.add(:stopped_at, :posterior, to: started_at.l)

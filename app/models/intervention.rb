@@ -267,6 +267,12 @@ class Intervention < Ekylibre::Record::Base
     true
   end
 
+  validate do
+    if printed_on
+      errors.add(:printed_on, :not_opened_financial_year) if Preference[:permanent_stock_inventory] && !during_financial_year?
+    end
+  end
+
   before_save do
     columns = { name: name, started_at: started_at, stopped_at: stopped_at, nature: :production_intervention }
 
@@ -384,6 +390,10 @@ class Intervention < Ekylibre::Record::Base
 
   def printed_on
     printed_at.to_date
+  end
+
+  def during_financial_year?
+    FinancialYear.opened.where('? BETWEEN started_on AND stopped_on', printed_at).any?
   end
 
   def with_undestroyable_products?
