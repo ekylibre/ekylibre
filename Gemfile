@@ -13,7 +13,7 @@ gem 'activerecord-postgis-adapter', '>= 3.0.0'
 gem 'pg', '~> 0.20.0' # Needed for some tasks
 
 # Multi-tenancy
-gem 'apartment', github:'influitive/apartment', branch: 'development'
+gem 'apartment', github: 'influitive/apartment', branch: 'development'
 gem 'apartment-sidekiq'
 
 # Ruby syntax extensions
@@ -257,7 +257,7 @@ group :test do
 
   gem 'pdf-reader'
 
-  gem 'factory_bot'
+  gem 'factory_bot', '< 5'
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles
