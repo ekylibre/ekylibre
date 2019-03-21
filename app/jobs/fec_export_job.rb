@@ -11,7 +11,11 @@ class FecExportJob < ActiveJob::Base
         fec = FEC::Exporter::XML.new(financial_year, fiscal_position, period.first, period.last)
         file_path = Ekylibre::Tenant.private_directory.join('tmp', "#{filename}")
         FileUtils.mkdir_p(file_path.dirname)
-        File.write(file_path, fec.generate)
+
+        File.open(file_path, "wb:ISO-8859-15") do |fout|
+          fout.write(fec.generate)
+        end
+
         document = Document.create!(nature: "exchange_accountancy_file_fr", key: "#{Time.now.to_i}-#{filename}", name: filename, file: File.open(file_path))
         notification = user.notifications.build(valid_generation_notification_params(file_path, filename, document.id))
       rescue => error
