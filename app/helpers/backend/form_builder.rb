@@ -650,7 +650,7 @@ module Backend
       prefix = @lookup_model_names.first + @lookup_model_names[1..-1].collect { |x| "[#{x}]" }.join
       html = ''.html_safe
       reference = (@object.send(name) || {}).with_indifferent_access
-      for resource, rights in Ekylibre::Access.resources.sort { |a, b| Ekylibre::Access.human_resource_name(a.first) <=> Ekylibre::Access.human_resource_name(b.first) }
+      for resource, rights in Ekylibre::Access.resources.sort { |a, b| Ekylibre::Access.human_resource_name(a.first).ascii <=> Ekylibre::Access.human_resource_name(b.first).ascii }
         resource_reference = reference[resource] || []
         html << @template.content_tag(:div, class: 'control-group booleans') do
           @template.content_tag(:label, class: 'control-label') do

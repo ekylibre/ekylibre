@@ -1343,7 +1343,7 @@ fra:
     # intervention_proposal: "Intervention proposal"
     # intervention_proposals: "Intervention proposals"
     # intervention_template: "Intervention template"
-    # intervention_templates: "Intervention templates"
+    intervention_templates: "Modèles d'intervention"
     interventions: "Interventions"
     interventions_used_in: "Interventions utilisées dans"
     intracommunity: "Intracommunautaire"
@@ -1907,7 +1907,7 @@ fra:
     shift_method: "Méthode de différé"
     shipment: "Expédition" #?
     # shipment_items: "Shipment items"
-    # shipments: "Shipments"
+    shipments: "Expéditions"
     sign_in_count: "Nombre de connexions"
     # signature: "Signature"
     signup_at: "Inscription au"

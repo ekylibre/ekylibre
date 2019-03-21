@@ -5,6 +5,7 @@
     end
     hash
   end.sort{|a,b| Ekylibre::Access.human_resource_name(a.first).ascii <=> Ekylibre::Access.human_resource_name(b.first).ascii }
+- byebug
 .access-control-list
   - list.each do |resource, interactions|
     %span.access
