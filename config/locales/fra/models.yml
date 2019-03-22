@@ -1,6 +1,6 @@
 fra:
-  activemodel:
-    errors:
+  errors:
+    messages: &error_messages
       accepted: "%{attribute} doit être accepté" #?
       after: "%{attribute} doit être après le %{restriction}" #?
       before: "%{attribute} doit être avant le %{restriction}" #?
@@ -94,6 +94,7 @@ fra:
       must_be_a_mail_address: "%{attribute} doit être une adresse e-mail" #?
       not_a_number: "%{attribute} n’est pas un nombre" #?
       not_an_end_of_month: "%{attribute} doit être une fin de mois" #?
+      not_opened_financial_year: "Un exercice comptable ouvert est nécessaire pour la (les) période(s)"
       not_an_integer: "%{attribute} doit être un nombre entier" #?
       nothing_to_pay: "Il n’y a rien à payer. Si vous voulez enregistrer un acompte, n’oubliez pas de le préciser." #?
       odd: "%{attribute} doit être pair" #?
@@ -110,6 +111,10 @@ fra:
       too_short: "%{attribute} est trop court (%{count} caractères minimum)" #?
       unitary_in_parcel: "Articles unitaires ne peuvent être envoyés un par un" #?
       wrong_length: "%{attribute} n’est pas d’une bonne longueur (%{count} caractères)" #?
+  activemodel:
+    errors:
+      messages:
+        <<: *error_messages
   activerecord:
     attributes:
       account:
@@ -327,67 +332,7 @@ fra:
         variety: "Qualification" #?
     errors:
       messages:
-        accepted: "%{attribute} doit être accepté"
-        after: "%{attribute} doit être après le %{restriction}"
-        # already_confirmed: "was already confirmed, please try signing in"
-        before: "%{attribute} doit être avant le %{restriction}"
-        blank: "%{attribute} ne peut pas être vide"
-        can_only_have_two_years_opened: "Vous ne pouvez avoir que deux exercices comptables ouverts en même temps."
-        confirmation: "%{attribute} est différent du champ de confirmation"
-        # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
-        contains_blank_line: "%{attribute} contient une ligne vide" #?
-        contains_blank_page: "%{attribute} contient une page vide" #?
-        currency_does_not_match: "La devise de «\_%{attribute}\_» ne correspond pas celle attendue\_: %{currency}"
-        empty: "%{attribute} ne peut pas être vide"
-        entry_has_been_already_validated: "La pièce a été validée et ne peut plus être modifiée" #?
-        end_of_month: "%{attribute} doit être le dernier jour du mois."
-        equal_to: "%{attribute} doit être égal à %{count}"
-        even: "%{attribute} doit être impair"
-        exclusion: "%{attribute} est reservé"
-        # expired: "has expired, please request a new one"
-        greater_than: "%{attribute} doit être plus grand que %{count}"
-        greater_than_or_equal_to: "%{attribute} doit être plus grand ou égal à %{count}"
-        included_in: "La valeur de %{attribute} doit être comprise entre %{minimum} et %{maximum}"
-        inclusion: "%{attribute} n’est pas inclus dans la liste"
-        invalid: "%{attribute} est invalide"
-        invalid_at: "%{attribute} est invalide. Erreur près de %{error}"
-        # invalid_child: "At least one value of %{attribute} is invalid."
-        invalid_date: "Veuillez saisir une date au format jj-mm-aaaa ou jj/mm/aaaa"
-        invalid_datetime: "%{attribute} est invalide"
-        invalid_siret: "%{value} n'est pas un numéro de SIRET valide" #?
-        invalid_syntax: "%{attribute} comporte des erreurs de syntaxe : %{errors}" #?
-        invalid_time: "%{attribute} est invalide"
-        invalid_token: "%{attribute} est invalide. Symbole inconnu %{error}. Les symboles acceptés sont %{accepted}."
-        is: "%{attribute} doit être un(e) %{thing}"
-        is_at: "%{attribute} doit être le %{restriction}"
-        less_than: "%{attribute} doit être inférieur à %{count}"
-        less_than_or_equal_to: "%{attribute} doit être inférieur ou égal à %{count}"
-        missing_bank_details_for_sepa: "Les valeurs IBAN et/ou Titulaire du compte sont manquantes pour la trésorerie sélectionnée."
-        must_be_a_mail_address: "%{attribute} doit être une adresse e-mail"
-        not_a_number: "%{attribute} n’est pas un nombre"
-        not_an_end_of_month: "%{attribute} doit être une fin de mois"
-        not_an_integer: "%{attribute} doit être un nombre entier"
-        # not_enough: "not enough %{resource} to complete task"
-        # not_found: "not found"
-        # not_locked: "was not locked"
-        not_saved:
-          # one: "1 error prohibited this %{resource} from being saved:"
-          # other: "%{count} errors prohibited this %{resource} from being saved:"
-        nothing_to_pay: "Il n’y a rien à payer. Si vous voulez enregistrer un acompte, n’oubliez pas de le préciser."
-        odd: "%{attribute} doit être pair"
-        on_or_after: "%{attribute} doit être le ou après le %{restriction}"
-        on_or_before: "%{attribute} doit être le ou avant le %{restriction}"
-        overlap: "%{attribute} se trouve sur un enregistrement existant"
-        overlap_sibling: "%{attribute} se trouve sur une période d'un autre enregistrement"
-        period_overlap: "%{attribute} se trouve sur une période d’un enregistrement existant" #?
-        posterior: "%{attribute} doit être postérieure à %{to}"
-        record_invalid: "Validations échouées\_: %{errors}"
-        should_be_the_last_day_of_month: "%{attribute} doit être le dernier jour du mois."
-        taken: "%{attribute} a déjà été pris"
-        too_long: "%{attribute} est trop long (%{count} caractères maximum)"
-        too_short: "%{attribute} est trop court (%{count} caractères minimum)"
-        unitary_in_parcel: "Articles unitaires ne peuvent être envoyés un par un"
-        wrong_length: "%{attribute} n’est pas d’une bonne longueur (%{count} caractères)"
+        <<: *error_messages
       models: #?
         account: #?
           attributes: #?
@@ -460,10 +405,6 @@ fra:
           attributes: #?
             parameters: #?
               check_errored: "La connexion au partenaire a échoué. Veuillez vérifier les informations saisies ou réessayer plus tard." #?
-        intervention:
-          attributes:
-            printed_on:
-              not_opened_financial_year: "Un exercice comptable ouvert est nécessaire pour la (les) période(s) ci-dessous"
         intervention_working_period:
           attributes:
             started_at:
