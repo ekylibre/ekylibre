@@ -11,7 +11,6 @@
 
         = backend_form_for(intervention, url: create_duplicate_intervention_backend_interventions_path) do |f|
           = hidden_field_tag :updater, compute_backend_interventions_path(format: :json), data: { procedure_computing: f.object.procedure.name }
-
           = f.input :procedure_name, as: :hidden, input_html: { data: { procedure: compute_backend_interventions_path(format: :json) }}
 
           = f.simple_fields_for :targets do |target|
