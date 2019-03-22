@@ -3120,7 +3120,7 @@ fra:
     country: "Pays"
     create_activities_from_telepac: "Créer automatiquement les activités lors de l’import TelePAC"
     currency: "Monnaie"
-    default_depreciation_period: "Période d’amortissement par default"
+    default_depreciation_period: "Période d’amortissement par défaut"
     detail_payments_in_deposit_bookkeeping: "Détailler la liste des règlements lors de la comptabilisation d’une remise en banque"
     distribute_sales_and_purchases_on_activities: "Répartir les ventes et les achats sur les activités"
     distribute_sales_and_purchases_on_teams: "Répartir les ventes et les achats sur les équipes"
