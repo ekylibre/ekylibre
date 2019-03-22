@@ -1440,6 +1440,7 @@ eng:
     # data_transmissions: "Data transmissions"
     # date: "Date"
     dated_cash: "%{cash}: %{on}"
+    date_range: "%{from} to %{to}"
     dates: "Select period start date and Period end date" #?
     days: "Days"
     deals: "Deals"

@@ -61,9 +61,10 @@ gem 'turbolinks', '~> 2.0'
 # jQuery UI Javascript framework
 gem 'jquery-ui-rails'
 # gem 'jquery_mobile_rails'
-gem 'bootstrap3-datetimepicker-rails'
 gem 'jquery-scrollto-rails'
 gem 'momentjs-rails', '>= 2.9.0'
+
+gem 'flatpickr', '~> 4.5', '>= 4.5.2.0'
 
 # Forms helper
 gem 'formize', '~> 2.1.0'
