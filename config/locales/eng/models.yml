@@ -159,6 +159,11 @@ eng:
     errors:
       messages:
         <<: *error_messages
+      models:
+        journal_entry:
+          attributes:
+            printed_on:
+              financial_year_not_found: "There is no financial year at this date"
     models:
       account: "Account"
       account_balance: "Account balance"

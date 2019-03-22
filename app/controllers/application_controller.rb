@@ -212,4 +212,13 @@ class ApplicationController < ActionController::Base
     end
     Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
+
+  def helpers
+    return @helper_object if @helper_object
+    helper_module = _helpers
+    helper_klass = Class.new do
+      include helper_module
+    end
+    @helper_object = helper_klass.new
+  end
 end

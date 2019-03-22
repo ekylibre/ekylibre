@@ -265,4 +265,8 @@ class Loan < Ekylibre::Record::Base
     save!
     super
   end
+
+  def editable?
+    updateable? && draft?
+  end
 end

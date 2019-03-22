@@ -478,6 +478,7 @@ fra:
         suppliers_invoices_not_received: "Fournisseurs ‒ factures non parvenues"
         supply_stock: "Approvisionnements"
         supply_stocks_variation: "Variation de stocks d’approvisonnements"
+        suspense: "Compte d'attente"
         sustainable_packaging_asset_depreciations: "Amortissements des emballages réutilisables"
         sustainable_packaging_assets: "Emballages récupérables"
         sustainables_plants_asset_depreciations: "Amortissements des plantations pérennes"

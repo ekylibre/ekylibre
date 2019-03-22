@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20181217173101">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20190315154040">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -481,6 +481,7 @@
       <item name="suppliers_invoices_not_received" fr_pcg82="408" pt_snc="22500000" fr_pcga="408"/>
       <item name="supply_stock" fr_pcga="301" centralizing="false" fr_pcg82="301"/>
       <item name="supply_stocks_variation" fr_pcga="6031" fr_pcg82="6031"/>
+      <item name="suspense" fr_pcga="471" fr_pcg82="471"/>
       <item name="sustainable_packaging_asset_depreciations" fr_pcga="28186" fr_pcg82="28186"/>
       <item name="sustainable_packaging_assets" fr_pcga="2186" fr_pcg82="2186"/>
       <item name="sustainables_plants_asset_depreciations" fr_pcga="2846" fr_pcg82="2846"/>
