@@ -27,13 +27,14 @@
     %span.purchase-process-reconciliation.reconciliation-state.reconcile-state.hidden= :reconcile.tl
     = hidden_field_tag('reception[reconciliation_state]', 'to_reconcile')
 
-  .control-group.button-modal-reconciliation
-    .controls
-      = button_tag :reconciliate_with_purchases_orders.tl, id: 'showReconciliationModal', class: 'btn btn-default', type: :button
+  - if f.object.allow_items_update?
+    .control-group.button-modal-reconciliation
+      .controls
+        = button_tag :reconciliate_with_purchases_orders.tl, id: 'showReconciliationModal', class: 'btn btn-default', type: :button
 
-  = modal(id: "purchase_process_reconciliation", class: "", size: :large) do
-    .modal-body
-    .modal-footer
+    = modal(id: "purchase_process_reconciliation", class: "", size: :large) do
+      .modal-body
+      .modal-footer
 
   = f.custom_fields
   = f.attachments
