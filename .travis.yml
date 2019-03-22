@@ -4,16 +4,13 @@ bundler_args: "--full-index --without development"
 sudo: required
 
 rvm:
-  - 2.3.4
-  - 2.6.1
+  - 2.3.8
+  - 2.6.2
 env:
   - NAME=Main TASK='test:fast'
   - NAME=Long TASK='test:slow'
 #name: $NAME test suite
 script: travis_wait 60 xvfb-run bundle exec rake ${TASK} DRIVER=webkit
-matrix:
-  allow_failures:
-    - rvm: 2.6.1
 
 before_install: test/ci/before_install
 before_script: test/ci/before_script
