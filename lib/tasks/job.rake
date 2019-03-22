@@ -23,7 +23,7 @@ namespace :job do
       running ||= jobs.any?
 
       puts "\nMatching running jobs:" if jobs.any?
-      jobs.each do |entry|
+      jobs.sort_by(&:at).each do |entry|
         job = entry.item['args'].first['job_class']
         puts " - #{job} on #{entry.item['apartment']} on queue #{queue.name}"
       end
@@ -40,7 +40,7 @@ namespace :job do
         (!job_tenant || entry.item['apartment'] == job_tenant)
     end
     puts "\nMatching jobs done:" if jobs.any?
-    jobs.each do |entry|
+    jobs.sort_by(&:at).each do |entry|
       job = entry.item['args'].first['job_class']
       print " - #{job} on #{entry.item['apartment']}\n     — Finished at #{entry.at}"
       if entry.error?
@@ -65,7 +65,7 @@ namespace :job do
     end
 
     puts "\nMatching errored jobs:" if jobs.any?
-    jobs.each do |entry|
+    jobs.sort_by(&:at).each do |entry|
       job = entry.item['args'].first['job_class']
       error_class = entry.item["error_class"]
       error_message = entry.item["error_message"]
