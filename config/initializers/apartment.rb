@@ -105,6 +105,10 @@ module Apartment
         #   raise TenantNotFound, "One of the following schema(s) is invalid: \"#{tenant}\" #{full_search_path}"
       end
     end
+
+    class PostgresqlSchemaFromSqlAdapter < PostgresqlSchemaAdapter
+       PSQL_DUMP_BLACKLISTED_STATEMENTS << /CREATE SCHEMA/i
+    end
   end
 end
 

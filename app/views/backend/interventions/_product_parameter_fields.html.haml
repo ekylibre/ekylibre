@@ -43,6 +43,19 @@
         - field_value = decorated_object.participation_to_json
         = hidden_field_tag field_name, field_value, { class: 'intervention-participation', data: { product_id: f.object.product_id }}
 
+    -# This case appends when duplicating an intervention with participations
+    - if f.object.new_record? && @intervention.participations.any?
+      - @intervention.participations.each_with_index do |participation, i|
+        - unless participation.product_id == f.object.product_id
+          - participation_picto = 'timer-off'
+          - next
+        - participation_picto = 'timer'
+        - field_name = "intervention[participations_attributes][#{i}]"
+        - participation_json = JSON.parse(participation.to_json(include: :working_periods))
+        - participation_json['working_periods_attributes'] = participation_json.delete('working_periods')
+        - field_value = participation_json.to_json
+        = hidden_field_tag field_name, field_value, { class: 'intervention-participation', data: { product_id: f.object.product_id }}
+        %div{ class: "has-intervention-participations picto picto-#{participation_picto}" }
 
     = modal(id: "working_times", class: "working-times", size: :large) do
       .modal-body
