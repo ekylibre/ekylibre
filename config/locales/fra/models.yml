@@ -72,7 +72,6 @@ fra:
         # not_enough: "not enough %{resource} to complete task"
         # not_found: "not found"
         # not_locked: "was not locked"
-        missing_bank_details_for_sepa: "Les valeurs IBAN et/ou Titulaire du compte sont manquantes pour la trésorerie sélectionnée." #?
         nothing_to_pay: "Il n’y a rien à payer. Si vous voulez enregistrer un acompte, n’oubliez pas de le préciser."
         odd: "%{attribute} doit être pair"
         on_or_after: "%{attribute} doit être le ou après le %{restriction}"
@@ -180,6 +179,7 @@ fra:
       fixed_asset_depreciation:
         asset_amount: "Valeur comptable"
         depreciable_amount: "Valeur nette comptable (VNC)" #?
+        accounted: "Comptabilisé"
       incoming_payment: #?
         to_bank_at: "À encaisser le" #?
       inspection: #?
@@ -332,6 +332,7 @@ fra:
         # already_confirmed: "was already confirmed, please try signing in"
         before: "%{attribute} doit être avant le %{restriction}"
         blank: "%{attribute} ne peut pas être vide"
+        can_only_have_two_years_opened: "Vous ne pouvez avoir que deux exercices comptables ouverts en même temps."
         confirmation: "%{attribute} est différent du champ de confirmation"
         # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
         contains_blank_line: "%{attribute} contient une ligne vide" #?
@@ -339,6 +340,7 @@ fra:
         currency_does_not_match: "La devise de «\_%{attribute}\_» ne correspond pas celle attendue\_: %{currency}"
         empty: "%{attribute} ne peut pas être vide"
         entry_has_been_already_validated: "La pièce a été validée et ne peut plus être modifiée" #?
+        end_of_month: "%{attribute} doit être le dernier jour du mois."
         equal_to: "%{attribute} doit être égal à %{count}"
         even: "%{attribute} doit être impair"
         exclusion: "%{attribute} est reservé"
@@ -468,6 +470,9 @@ fra:
               draft_entry_items: "Des écritures du brouillard sont encore présente avant le %{closed_on}" #?
               end_of_month: "%{attribute} doit correspondre à une date de fin de mois (%{closed_on})" #?
         journal_entry: #?
+          attributes:
+            printed_on:
+              financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date"
           closed_journal: "Le journal est clôturé au %{closed_on} donc vous ne pouvez plus créer, modifier ou supprimer de pièces jusqu’à cette date-là." #?
           financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
           frozen_by_financial_year_exchange: "L'écriture ne peut être enregistrée lors d'un échange d'exercice comptable." #?

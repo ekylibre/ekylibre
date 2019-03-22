@@ -152,16 +152,20 @@ class FixedAsset < Ekylibre::Record::Base
     self.purchased_on ||= started_on
     if depreciation_method_linear?
       self.depreciation_percentage = 20 if depreciation_percentage.blank? || depreciation_percentage <= 0
-      months = 12 * (100.0 / depreciation_percentage.to_f)
-      self.stopped_on = started_on >> months.floor
-      self.stopped_on += (months - months.floor) * 30.0 - 1
+      if started_on
+        months = 12 * (100.0 / depreciation_percentage.to_f)
+        self.stopped_on = started_on >> months.floor
+        self.stopped_on += (months - months.floor) * 30.0 - 1
+      end
     end
     if depreciation_method_regressive?
       self.depreciation_percentage = 20 if depreciation_percentage.blank? || depreciation_percentage <= 0
       self.depreciation_fiscal_coefficient ||= 1.75
-      months = 12 * (100.0 / depreciation_percentage.to_f)
-      self.stopped_on = started_on >> months.floor
-      self.stopped_on += (months - months.floor) * 30.0 - 1
+      if started_on
+        months = 12 * (100.0 / depreciation_percentage.to_f)
+        self.stopped_on = started_on >> months.floor
+        self.stopped_on += (months - months.floor) * 30.0 - 1
+      end
     end
     # self.currency = self.journal.currency
     true
@@ -281,7 +285,7 @@ class FixedAsset < Ekylibre::Record::Base
         entry.add_debit(label, asset_account.id, amount.compact.sum, resource: self, as: :fixed_asset)
       end
 
-    # fixed asset link to nothing
+      # fixed asset link to nothing
     elsif in_use?
       # puts "without purchase".inspect.green
       b.journal_entry(journal, printed_on: started_on, if: (in_use? && asset_account)) do |entry|
@@ -289,7 +293,7 @@ class FixedAsset < Ekylibre::Record::Base
         entry.add_debit(label, asset_account.id, depreciable_amount, resource: self, as: :fixed_asset)
       end
 
-    # fixed asset sold or scrapped
+      # fixed asset sold or scrapped
     elsif (sold? && !sold_journal_entry) || (scrapped? && !scrapped_journal_entry)
 
       out_on = sold_on
@@ -375,26 +379,16 @@ class FixedAsset < Ekylibre::Record::Base
 
   def depreciate!
     planned_depreciations.clear
-    # Computes periods
-    starts = [started_on, self.stopped_on + 1]
-    starts += depreciations.pluck(:started_on)
 
-    first_day_of_month = ->(date) { date.day == 1 } # date.succ.day < date.day }
-    new_months = (started_on...stopped_on).select(&first_day_of_month)
+    if depreciation_method_linear? || depreciation_method_regressive?
+      fy_reference = FinancialYear.at(started_on) || FinancialYear.opened.first
+      # Computes periods
+      periods = DepreciationCalculator.new(fy_reference, depreciation_period.to_sym).depreciation_period(started_on, depreciation_percentage)
 
-    case depreciation_period
-    when /monthly/
-      starts += new_months
-    when /quarterly/
-      new_trimesters = new_months.select { |date| date.month.multiple_of? 3 }
-      starts += new_trimesters
-    when /yearly/
-      new_years = new_months.select { |date| date.month == 1 }
-      starts += new_years
+      starts = periods.map(&:first) << (periods.last.second + 1.day)
+
+      send("depreciate_with_#{depreciation_method}_method", starts)
     end
-
-    starts = starts.uniq.sort
-    send("depreciate_with_#{depreciation_method}_method", starts)
     self
   end
 

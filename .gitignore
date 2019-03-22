@@ -88,5 +88,5 @@ Procfile.*
 .byebug_history
 .gitconfig
 
-.tags
-.tags1
+.DS_Store
+

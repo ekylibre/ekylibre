@@ -10,6 +10,15 @@ GIT
       rubyzip (>= 1.0)
 
 GIT
+  remote: git://github.com/ekylibre/agric.git
+  revision: b381676ba0f6d8b55414b28100c19e1f813e500c
+  tag: v3.0.2
+  specs:
+    agric (3.0.2)
+      railties (>= 3.2, < 6)
+      sassc-rails (~> 2)
+
+GIT
   remote: git://github.com/influitive/apartment.git
   revision: a4332c3222210b11f5e8c27fa4c1a18b492e9629
   branch: development
@@ -24,41 +33,41 @@ GEM
   remote: https://rubygems.org/
   specs:
     Ascii85 (1.0.3)
-    actionmailer (4.2.10)
-      actionpack (= 4.2.10)
-      actionview (= 4.2.10)
-      activejob (= 4.2.10)
+    actionmailer (4.2.11.1)
+      actionpack (= 4.2.11.1)
+      actionview (= 4.2.11.1)
+      activejob (= 4.2.11.1)
       mail (~> 2.5, >= 2.5.4)
       rails-dom-testing (~> 1.0, >= 1.0.5)
-    actionpack (4.2.10)
-      actionview (= 4.2.10)
-      activesupport (= 4.2.10)
+    actionpack (4.2.11.1)
+      actionview (= 4.2.11.1)
+      activesupport (= 4.2.11.1)
       rack (~> 1.6)
       rack-test (~> 0.6.2)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
     actionpack-xml_parser (1.0.2)
       actionpack (>= 4.0.0, < 5)
-    actionview (4.2.10)
-      activesupport (= 4.2.10)
+    actionview (4.2.11.1)
+      activesupport (= 4.2.11.1)
       builder (~> 3.1)
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
-    activejob (4.2.10)
-      activesupport (= 4.2.10)
+    activejob (4.2.11.1)
+      activesupport (= 4.2.11.1)
       globalid (>= 0.3.0)
-    activemodel (4.2.10)
-      activesupport (= 4.2.10)
+    activemodel (4.2.11.1)
+      activesupport (= 4.2.11.1)
       builder (~> 3.1)
-    activerecord (4.2.10)
-      activemodel (= 4.2.10)
-      activesupport (= 4.2.10)
+    activerecord (4.2.11.1)
+      activemodel (= 4.2.11.1)
+      activesupport (= 4.2.11.1)
       arel (~> 6.0)
     activerecord-postgis-adapter (3.1.5)
       activerecord (~> 4.2)
       rgeo-activerecord (>= 4.0.4)
-    activesupport (4.2.10)
+    activesupport (4.2.11.1)
       i18n (~> 0.7)
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
@@ -68,9 +77,6 @@ GEM
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
     afm (0.2.2)
-    agric (3.0.1)
-      railties (>= 3.2, < 6.0)
-      sass-rails
     akami (1.3.1)
       gyoku (>= 0.4.0)
       nokogiri
@@ -157,7 +163,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     colored (1.2)
-    concurrent-ruby (1.1.3)
+    concurrent-ruby (1.1.5)
     connection_pool (2.2.2)
     crass (1.0.4)
     daemons (1.2.6)
@@ -218,7 +224,7 @@ GEM
     fugit (1.1.6)
       et-orbi (~> 1.1, >= 1.1.6)
       raabro (~> 1.1)
-    globalid (0.4.1)
+    globalid (0.4.2)
       activesupport (>= 4.2.0)
     gpgme (2.0.16)
       mini_portile2 (~> 2.3)
@@ -304,7 +310,7 @@ GEM
     mini_mime (1.0.1)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
-    minitest-reporters (1.3.5)
+    minitest-reporters (1.3.6)
       ansi
       builder
       minitest (>= 5.0)
@@ -381,16 +387,16 @@ GEM
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
-    rails (4.2.10)
-      actionmailer (= 4.2.10)
-      actionpack (= 4.2.10)
-      actionview (= 4.2.10)
-      activejob (= 4.2.10)
-      activemodel (= 4.2.10)
-      activerecord (= 4.2.10)
-      activesupport (= 4.2.10)
+    rails (4.2.11.1)
+      actionmailer (= 4.2.11.1)
+      actionpack (= 4.2.11.1)
+      actionview (= 4.2.11.1)
+      activejob (= 4.2.11.1)
+      activemodel (= 4.2.11.1)
+      activerecord (= 4.2.11.1)
+      activesupport (= 4.2.11.1)
       bundler (>= 1.3.0, < 2.0)
-      railties (= 4.2.10)
+      railties (= 4.2.11.1)
       sprockets-rails
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
@@ -408,15 +414,15 @@ GEM
       json
       require_all (~> 2.0)
       ruby-progressbar
-    railties (4.2.10)
-      actionpack (= 4.2.10)
-      activesupport (= 4.2.10)
+    railties (4.2.11.1)
+      actionpack (= 4.2.11.1)
+      activesupport (= 4.2.11.1)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rainbow (2.2.2)
       rake
     raindrops (0.19.0)
-    rake (12.3.1)
+    rake (12.3.2)
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
@@ -472,12 +478,15 @@ GEM
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
-    sass-rails (5.0.7)
-      railties (>= 4.0.0, < 6)
-      sass (~> 3.1)
-      sprockets (>= 2.8, < 4.0)
-      sprockets-rails (>= 2.0, < 4.0)
-      tilt (>= 1.1, < 3)
+    sassc (2.0.1)
+      ffi (~> 1.9)
+      rake
+    sassc-rails (2.1.0)
+      railties (>= 4.0.0)
+      sassc (>= 2.0)
+      sprockets (> 3.0)
+      sprockets-rails
+      tilt
     savon (2.12.0)
       akami (~> 1.2)
       builder (>= 2.1.2)
@@ -612,7 +621,7 @@ DEPENDENCIES
   active_list!
   activerecord-postgis-adapter (>= 3.0.0)
   acts_as_list
-  agric (~> 3.0)
+  agric!
   apartment!
   apartment-sidekiq
   awesome_nested_set (~> 3.1.1)
@@ -647,7 +656,7 @@ DEPENDENCIES
   ekylibre-ofx-parser
   enumerize
   exception_notification
-  factory_bot
+  factory_bot (< 5)
   feedjira
   ffaker (>= 2.0.0)
   figaro
@@ -686,7 +695,7 @@ DEPENDENCIES
   pry-byebug
   pry-rails
   quiet_assets
-  rails (= 4.2.10)
+  rails (= 4.2.11.1)
   rails_best_practices
   redis-namespace
   remotipart (~> 1.2)
@@ -699,7 +708,7 @@ DEPENDENCIES
   ruby-prof
   rubyntlm (>= 0.3.2)
   rubyzip
-  sass-rails (~> 5.0)
+  sassc-rails
   savon
   sdoc (~> 0.4.0)
   selenium-webdriver

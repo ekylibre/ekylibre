@@ -78,6 +78,10 @@ class LoanRepayment < Ekylibre::Record::Base
     journal_entry
   end
 
+  protect on: :update do
+    locked
+  end
+
   bookkeep do |b|
     # when payment arrive (due_on)
     financial_year = FinancialYear.on(due_on)

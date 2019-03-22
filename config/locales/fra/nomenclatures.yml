@@ -478,6 +478,7 @@ fra:
         suppliers_invoices_not_received: "Fournisseurs ‒ factures non parvenues"
         supply_stock: "Approvisionnements"
         supply_stocks_variation: "Variation de stocks d’approvisonnements"
+        suspense: "Compte d'attente"
         sustainable_packaging_asset_depreciations: "Amortissements des emballages réutilisables"
         sustainable_packaging_assets: "Emballages récupérables"
         sustainables_plants_asset_depreciations: "Amortissements des plantations pérennes"
@@ -3734,7 +3735,7 @@ fra:
         insurance: "Assurance"
         internet_line_subscription: "Abonnement Internet"
         intership: "Stagiaire"
-        ip_address_subscription: "Acchat d’adresse IP"
+        ip_address_subscription: "Achat d’adresse IP"
         irrigation_pivot: "Pivot d'irrigation"
         irrigation_water: "Eau (irrigation)"
         jemstegaard_hazelnut: "Noisette Jemstegaard"
@@ -4629,11 +4630,6 @@ fra:
         algerian_vat_null: "TVA null Algérie"
         algerian_vat_reduced: "TVA algérienne réduite"
         algerian_vat_reduced_2017: "TVA algérienne réduite 2017"
-        fr_vat_intermediate: "TVA française intermédiaire"
-        fr_vat_normal: "TVA française normale"
-        fr_vat_null: "TVA française nulle"
-        fr_vat_particular: "TVA française particuliere"
-        fr_vat_reduced: "TVA française normale réduite"
         fr_vat_intermediate: "TVA française intermédiaire" #?
         fr_vat_normal: "TVA française normale" #?
         fr_vat_null: "TVA française nulle" #?

@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '>= 2.3.3', '< 3.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.10'
+gem 'rails', '4.2.11.1'
 
 # Security fix for mail
 gem 'mail', '~> 2.6.6.rc1'
@@ -13,7 +13,7 @@ gem 'activerecord-postgis-adapter', '>= 3.0.0'
 gem 'pg', '~> 0.20.0' # Needed for some tasks
 
 # Multi-tenancy
-gem 'apartment', github:'influitive/apartment', branch: 'development'
+gem 'apartment', github: 'influitive/apartment', branch: 'development'
 gem 'apartment-sidekiq'
 
 # Ruby syntax extensions
@@ -34,7 +34,7 @@ gem 'figaro'
 gem 'turnout'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sassc-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
@@ -186,10 +186,11 @@ gem 'bootstrap-sass', '~> 3.1'
 gem 'twitter-typeahead-rails'
 
 # Iconic font
-gem 'agric', '~> 3.0'
+gem 'agric', github: 'ekylibre/agric', tag: 'v3.0.2'
 
 # Web services
 gem 'mechanize'
+gem 'rest-client', require: false
 gem 'rest-client', require: false
 gem 'rubyntlm', '>= 0.3.2'
 gem 'savon'
@@ -256,7 +257,7 @@ group :test do
 
   gem 'pdf-reader'
 
-  gem 'factory_bot'
+  gem 'factory_bot', '< 5'
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles

@@ -472,6 +472,7 @@ eng:
         suppliers_invoices_not_received: "Suppliers invoices not received"
         supply_stock: "Supply stock"
         supply_stocks_variation: "Supply stocks variation"
+        suspense: "Suspense account"
         sustainable_packaging_asset_depreciations: "Sustainable packaging asset depreciations"
         sustainable_packaging_assets: "Sustainable packaging assets"
         sustainables_plants_asset_depreciations: "Sustainables plants asset depreciations"
