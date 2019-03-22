@@ -1,5 +1,10 @@
 source 'https://rubygems.org'
 
+git_source(:github) do |repo_name|
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  "https://github.com/#{repo_name}.git"
+end
+
 ruby '>= 2.3.3', '< 3.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -190,7 +195,6 @@ gem 'agric', github: 'ekylibre/agric', tag: 'v3.0.2'
 
 # Web services
 gem 'mechanize'
-gem 'rest-client', require: false
 gem 'rest-client', require: false
 gem 'rubyntlm', '>= 0.3.2'
 gem 'savon'
