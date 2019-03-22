@@ -87,3 +87,5 @@ Procfile.*
 
 .byebug_history
 .gitconfig
+
+.DS_Store
