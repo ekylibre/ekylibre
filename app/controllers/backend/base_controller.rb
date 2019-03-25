@@ -253,13 +253,14 @@ module Backend
       redirect_to_back(options.merge(direct: true))
     end
 
-    def fire_event(event)
+    def fire_event(event, **options)
       return unless record = find_and_check
       state, msg = record.send(event)
       if state == false && msg.respond_to?(:map)
         notify_error(map.collect(&:messages).map(&:values).flatten.join(', '))
       end
-      redirect_to params[:redirect] || { action: :show, id: record.id }
+      redirect_to params[:redirect] || { action: options.fetch(:redirect_action, :show), id: record.id }
+      record
     end
 
     class << self

@@ -2878,6 +2878,7 @@ fra:
       error_client_account_empty: "Opération impossible, le compte client est vide"
       error_during_file_generation: "Une erreur est survenue durant la génération d'un fichier"
       error_during_vat_declaration_generation: "Une erreur est survenue durant la génération de la déclaration de TVA."
+      error_on_field: "La valeur pour le champ %{field} est invalide\_: %{message}"
       expired_session: "Session expirée. Veuillez vous reconnecter." #?
       fails_to_extract_listing: "L’extraction n’a pas pu s’effectuer\_: %{message}"
       file_generated: "Votre fichier a été généré avec succès"
