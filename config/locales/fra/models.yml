@@ -14,6 +14,9 @@ fra:
       equal_to: "%{attribute} doit être égal à %{count}" #?
       even: "%{attribute} doit être impair" #?
       exclusion: "%{attribute} est reservé" #?
+      financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période" #?
+      financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
+      financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
       greater_than: "%{attribute} doit être plus grand que %{count}" #?
       greater_than_or_equal_to: "%{attribute} doit être plus grand ou égal à %{count}" #?
       included_in: "La valeur de %{attribute} doit être comprise entre %{minimum} et %{maximum}" #?
@@ -303,13 +306,6 @@ fra:
           currency_does_not_match: "La monnaie du journal %{journal} est différente de celle de la trésorerie" #?
           different_of_main_account: "%{attribute} doit être différent du compte comptable principal (%{account})" #?
           unvalid_bban: "La clé ne correspond pas. Un ou plusieurs éléments du RIB sont incorrects." #?
-        cash_transfer: #?
-          attributes: #?
-            transfered_at: #?
-              financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période" #?
-              financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
-              financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
-              not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
         deposit: #?
           must_be_a_bank_account: "%{attribute} doit être un compte bancaire et non une caisse" #?
         entity: #?
@@ -334,13 +330,6 @@ fra:
           csv_file_headers_invalid: "Les en-têtes du fichier CSV sont invalides" #?
           csv_file_invalid: "Fichier CSV invalide" #?
           csv_file_journals_invalid: "Certains journaux sont présents dans le CSV mais n'existent pas dans Ekylibre : %{codes}" #?
-        fixed_asset: #?
-          attributes: #?
-            started_on: #?
-              financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période" #?
-              financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
-              financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
-              not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
         fixed_asset_depreciation: #?
           attributes: #?
             started_on: #?
@@ -351,10 +340,6 @@ fra:
           attributes: #?
             parameters: #?
               check_errored: "La connexion au partenaire a échoué. Veuillez vérifier les informations saisies ou réessayer plus tard." #?
-        intervention_working_period:
-          attributes:
-            started_at:
-              not_opened_financial_year: "Un exercice comptable ouvert est nécessaire"
         journal: #?
           attributes: #?
             accountant: #?
@@ -365,11 +350,7 @@ fra:
               draft_entry_items: "Des écritures du brouillard sont encore présente avant le %{closed_on}" #?
               end_of_month: "%{attribute} doit correspondre à une date de fin de mois (%{closed_on})" #?
         journal_entry: #?
-          attributes:
-            printed_on:
-              financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date"
           closed_journal: "Le journal est clôturé au %{closed_on} donc vous ne pouvez plus créer, modifier ou supprimer de pièces jusqu’à cette date-là." #?
-          financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
           frozen_by_financial_year_exchange: "L'écriture ne peut être enregistrée lors d'un échange d'exercice comptable." #?
           not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
           out_of_existing_financial_year: "L’écriture doit être enregistrée dans un exercice comptable existant." #?
@@ -384,25 +365,11 @@ fra:
               not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
         outgoing_parcel_item: #?
           greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})" #?
-        parcel: #?
-          financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période" #?
-          financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
-          financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
-          not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
         purchase: #?
-          financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période" #?
-          financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
-          financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
-          not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
           payment_delay_custom_validation_message: "Formats acceptés : %{values}" #?
         purchase_item: #?
           building_can_not_receive_product: "Le réservoir %{building} ne peut pas recevoir le produit %{product}, il contient déjà le produit %{contained_product}." #?
           serial_already_used_with_an_other_product: "%{attribute} a déjà été utilisé pour un autre type de produit du même fournisseur" #?
-        sale: #?
-          financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période" #?
-          financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
-          financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
-          not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
         sale_item: #?
           building_can_not_transfer_product: "Le produit %{product} ne peut être sorti du réservoir %{building}, celui-ci contient %{contained_product}." #?
           can_not_use_this_tracking: "Vous ne  pouvez pas utiliser le lot %{tracking}, la quantité commandée est supérieure à la quantité disponible" #?
