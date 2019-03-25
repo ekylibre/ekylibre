@@ -259,7 +259,7 @@ fra:
         started_at: "Entrée" #?
         stopped_at: "Sortie" #?
       product_nature_category: #?
-        depreciable: "Ammortissable" #?
+        depreciable: "Amortissable" #?
         duration: "Nombre de numéros OU période d’abonnement" #?
         fixed_asset_allocation_account: "Compte d’amortissement" #?
         fixed_asset_expenses_account: "Compte de dotation aux amortissements" #?
