@@ -177,7 +177,7 @@ module Backend
       @sale = if params[:intervention_ids]
                 Intervention.convert_to_sale(params[:intervention_ids])
               else
-                Sale.new(nature: nature)
+                Sale.new(nature: nature, payment_delay: nature.payment_delay)
               end
       @sale.currency = @sale.nature.currency
       if client = Entity.find_by(id: @sale.client_id || params[:client_id] || params[:entity_id] || session[:current_entity_id])
