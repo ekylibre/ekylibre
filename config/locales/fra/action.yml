@@ -2332,7 +2332,7 @@ fra:
     sensor_model: "Modèle du capteur"
     sensors: "Capteurs"
     sent: "Envoyées"
-    sent_vat_declaration: "Déclaration de TVA"
+    sent_vat_declaration: "État de TVA définitif"
     sequences_load: "Charger les séquences manquantes" #?
     services_sale: "Vente de services"
     sessions: "Sessions"
@@ -2599,7 +2599,7 @@ fra:
       one: "Valider l'écriture"
       other: "Valider les %{count} écritures"
     validated: "Validé"
-    validated_vat_declaration: "Etat de TVA préparatoire"
+    validated_vat_declaration: "Etat de TVA définitif"
     values: "Valeurs"
     variable_indicators: "Indicateurs variables"
     variants: "Variantes"
@@ -2608,6 +2608,7 @@ fra:
     vat_amount: "Taxe due" #?
     vat_collected: "TVA BRUTE" #?
     vat_paid: "TVA DEDUCTIBLE" #?
+    vat_register: "Registre de TVA"
     video: "Vidéo" #?
     view: "Affichage"
     view_map_when_creating_an_intervention: "Afficher la carte lors de la création d'interventions"
@@ -2983,6 +2984,7 @@ fra:
       synchronization_operation_failed: "L’opération %{operation_name} a échoué: %{target} %{message}"
       synchronization_operation_finished_successfully: "L’opération %{operation_name} s’est finie correctement"
       synchronization_operation_in_progress: "L’opération %{operation_name} est en cours"
+      tax_declaration_warning: "L’actuel système de déclaration de TVA ne couvre pas l’ensemble des TVA et taxes assimilées à reporter sur les formulaires de déclaration de TVA."
       the_automatic_lettering_cannot_be_done_in_accountancy: "Le lettrage automatique ne peut pas être fait en comptabilité"
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "Le lettrage automatique ne peut pas être fait en comptabilité parce que trop de tiers sont présents"
       the_bookkeep_date_format_is_invalid: "Le format de la date de comptabilisation n’est pas valide"
@@ -3097,7 +3099,7 @@ fra:
       move: "Déplacer" #?
       negociate: "Négocier"
       new: "Nouveau"
-      new_purchase: "Nouveau achat"
+      new_purchase: "Nouvel achat"
       new_sale: "Nouvelle vente"
       notify_accountant: "Notifier le comptable"
       open: "Ouvrir"

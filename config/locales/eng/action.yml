@@ -2138,7 +2138,7 @@ eng:
     sensor_model: "Sensor model"
     sensors: "Sensors" #?
     sent: "Sent"
-    sent_vat_declaration: "VAT declaration" #?!
+    sent_vat_declaration: "Definitive VAT declaration" #?!
     services_sale: "Service sale" #?
     sessions: "Sessions" #?
     set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)" #?!
@@ -2339,7 +2339,7 @@ eng:
       one: "Validate the entry" #?
       other: "Validate %{count} entries" #?
     validated: "Validated"
-    validated_vat_declaration: "Pending VAT declaration" #?!
+    validated_vat_declaration: "Definitive VAT declaration" #?!
     values: "Values"
     variable_indicators: "Variable indicators"
     variants: "Variants" #?
