@@ -430,6 +430,7 @@ eng:
     assembly: "Assembly"
     asset_account: "Asset account"
     asset_exists: "Asset exists" #?
+    asset_fixable: "Fixed asset registrable"
     attachments: "Attachments"
     attribute_name: "Attribute name"
     attribution: "Attribution"
