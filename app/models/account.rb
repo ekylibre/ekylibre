@@ -207,15 +207,17 @@ class Account < Ekylibre::Record::Base
 
   # This method:allows to create the parent accounts if it is necessary.
   before_validation(on: :create) do
-    if general?
-      self.auxiliary_number = nil
-      self.centralizing_account = nil
-      errors.add(:number, :incorrect_length, number_length: Preference[:account_number_digits]) if number.length != Preference[:account_number_digits] && !already_existing
-      errors.add(:number, :cant_start_with_0) if number.match(/\A0/).present? && !already_existing
+    if number
+      if general?
+        self.auxiliary_number = nil
+        self.centralizing_account = nil
+        errors.add(:number, :incorrect_length, number_length: Preference[:account_number_digits]) if number.length != Preference[:account_number_digits] && !already_existing
+        errors.add(:number, :cant_start_with_0) if number.match(/\A0/).present? && !already_existing
+      end
+      self.reconcilable = reconcilableable? if reconcilable.nil?
+      self.label = tc(:label, number: number.to_s, name: name.to_s)
+      self.usages = Account.find_parent_usage(number) if usages.blank? && number
     end
-    self.reconcilable = reconcilableable? if reconcilable.nil?
-    self.label = tc(:label, number: number.to_s, name: name.to_s)
-    self.usages = Account.find_parent_usage(number) if usages.blank? && number
   end
 
   after_validation do
