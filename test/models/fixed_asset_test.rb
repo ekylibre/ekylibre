@@ -199,6 +199,60 @@ class FixedAssetTest < ActiveSupport::TestCase
     end
   end
 
+  test 'a fixed asset with regressive depreciation and all mandatory parameters should be valid' do
+    started_on = Date.parse('2018-06-15')
+    attributes = {
+      name: @product.name,
+      depreciable_amount: 50_000,
+      depreciation_method: :regressive,
+      started_on: started_on,
+      depreciation_period: :yearly,
+      depreciation_percentage: 20.00,
+      depreciation_fiscal_coefficient: 1.75,
+      asset_account: @asset_account,
+      allocation_account: @allocation_account,
+      expenses_account: @expenses_account,
+      product: @product,
+      journal_id: @journal.id
+    }
+
+    fixed_asset = FixedAsset.create!(attributes)
+    valid = fixed_asset.valid?
+
+    assert valid, fixed_asset.errors.messages
+  end
+
+  test 'stopped_on, allocation_account, expenses_account are not mandatory when a FixedAsset uses the :none depreciation method' do
+    attributes = {
+      name: @product.name,
+      depreciable_amount: 50_000,
+      depreciation_method: :none,
+      started_on: Date.parse('2018-06-15'),
+      asset_account: @asset_account,
+      journal_id: @journal.id
+    }
+
+    fixed_asset = FixedAsset.new attributes
+    valid = fixed_asset.valid?
+
+    assert valid, fixed_asset.errors.messages.map {|_, v| v}.flatten
+  end
+
+  test 'a FixedAsset depreciated with :none method should not have any FixedAssetDepreciation' do
+    attributes = {
+      name: @product.name,
+      depreciable_amount: 50_000,
+      depreciation_method: :none,
+      started_on: Date.parse('2018-06-15'),
+      asset_account: @asset_account,
+      journal_id: @journal.id
+    }
+
+    fixed_asset = FixedAsset.create! attributes
+
+    assert_equal 0, fixed_asset.depreciations.count, "Should not have a depreciation"
+  end
+
   test 'depreciations periods are computed correctly when the FinancialYear does not start the first day of the year' do
     FinancialYear.delete_all
     [2017, 2018].each do |year|
