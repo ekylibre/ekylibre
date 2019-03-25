@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.11
--- Dumped by pg_dump version 9.6.11
+-- Dumped from database version 9.6.12
+-- Dumped by pg_dump version 9.6.12
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -5531,7 +5531,8 @@ CREATE TABLE public.product_nature_categories (
     fixed_asset_depreciation_percentage numeric(19,4) DEFAULT 0.0,
     fixed_asset_depreciation_method character varying,
     custom_fields jsonb,
-    stock_movement_account_id integer
+    stock_movement_account_id integer,
+    asset_fixable boolean DEFAULT false
 );
 
 
@@ -18038,4 +18039,6 @@ INSERT INTO schema_migrations (version) VALUES ('20181123102741');
 INSERT INTO schema_migrations (version) VALUES ('20181126152417');
 
 INSERT INTO schema_migrations (version) VALUES ('20190104105501');
+
+INSERT INTO schema_migrations (version) VALUES ('20190325145542');
 
