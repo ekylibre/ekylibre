@@ -221,15 +221,13 @@ class FixedAsset < Ekylibre::Record::Base
   end
 
   def sell
-    self.sold_on = Date.today unless self.sold_on
-
+    self.sold_on ||= Date.today
     return false unless can_sell?
     super
   end
 
   def scrap
-    self.scrapped_on = Date.today unless self.scrapped_on
-
+    self.scrapped_on ||= Date.today
     return false unless can_scrap?
     super
   end
