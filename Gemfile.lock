@@ -1,8 +1,8 @@
 GIT
-  remote: git://github.com/ekylibre/active_list.git
-  revision: 1e9245968abc6ad2c59b01df844858455ca969ac
+  remote: https://github.com/ekylibre/active_list.git
+  revision: e1c666f20e1666e42800cd11b294d0b31b85b4f5
   specs:
-    active_list (6.9.4)
+    active_list (6.10.0)
       arel (>= 5.0.0)
       code_string (>= 0.0.1)
       i18n-complements
@@ -10,7 +10,7 @@ GIT
       rubyzip (>= 1.0)
 
 GIT
-  remote: git://github.com/ekylibre/agric.git
+  remote: https://github.com/ekylibre/agric.git
   revision: b381676ba0f6d8b55414b28100c19e1f813e500c
   tag: v3.0.2
   specs:
@@ -19,7 +19,7 @@ GIT
       sassc-rails (~> 2)
 
 GIT
-  remote: git://github.com/influitive/apartment.git
+  remote: https://github.com/influitive/apartment.git
   revision: a4332c3222210b11f5e8c27fa4c1a18b492e9629
   branch: development
   specs:
@@ -86,7 +86,7 @@ GEM
       sidekiq (>= 2.11)
     arel (6.0.4)
     ast (2.4.0)
-    autoprefixer-rails (9.3.1)
+    autoprefixer-rails (9.5.0)
       execjs
     awesome_nested_set (3.1.4)
       activerecord (>= 4.0.0, < 5.3)
@@ -112,9 +112,9 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
-    bootstrap-sass (3.3.7)
+    bootstrap-sass (3.4.1)
       autoprefixer-rails (>= 5.2.1)
-      sass (>= 3.3.4)
+      sassc (>= 2.0.0)
     bootstrap-slider-rails (9.8.0)
       railties (>= 3.2, < 6.0)
     browser (2.5.3)
@@ -211,7 +211,7 @@ GEM
       loofah (>= 2.0)
       sax-machine (>= 1.0)
     ffaker (2.10.0)
-    ffi (1.9.25)
+    ffi (1.10.0)
     figaro (1.1.1)
       thor (~> 0.14)
     flatpickr (4.5.2.0)
@@ -423,9 +423,6 @@ GEM
       rake
     raindrops (0.19.0)
     rake (12.3.2)
-    rb-fsevent (0.10.3)
-    rb-inotify (0.9.10)
-      ffi (>= 0.5.0, < 2)
     rdoc (4.3.0)
     redis (3.3.5)
     redis-namespace (1.6.0)
@@ -473,11 +470,6 @@ GEM
     ruby-rc4 (0.1.5)
     rubyntlm (0.6.2)
     rubyzip (1.2.2)
-    sass (3.7.2)
-      sass-listen (~> 4.0.0)
-    sass-listen (4.0.0)
-      rb-fsevent (~> 0.9, >= 0.9.4)
-      rb-inotify (~> 0.9, >= 0.9.7)
     sassc (2.0.1)
       ffi (~> 1.9)
       rake
