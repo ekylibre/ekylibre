@@ -39,6 +39,7 @@ eng:
       not_enough: "not enough %{resource} to complete task"
       not_found: "not found"
       not_locked: "was not locked"
+      not_opened_financial_year: "An open accounting period is required"
       not_saved:
         one: "1 error prohibited this %{resource} from being saved:"
         other: "%{count} errors prohibited this %{resource} from being saved:"

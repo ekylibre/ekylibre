@@ -171,9 +171,10 @@ class Parcel < Ekylibre::Record::Base
 
   validate do
     if given_at
-      errors.add(:given_at, :financial_year_exchange_on_this_period) if given_during_financial_year_exchange?
+      errors.add(:given_at, :financial_year_exchange_on_this_period) if Preference[:permanent_stock_inventory] && given_during_financial_year_exchange?
     end
   end
+
 
   protect on: :destroy do
     prepared? || given?
