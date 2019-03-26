@@ -104,6 +104,12 @@ class JournalEntryItemTest < ActiveSupport::TestCase
     end
   end
 
+  test 'should not be valid when the name contains a translation error' do
+    jei = JournalEntryItem.new(account: Account.first, real_debit: 125, real_credit: 0, name: I18n.translate('this.key.should.not.exist'))
+    assert_not jei.valid?
+    assert jei.errors.messages[:name]
+  end
+
   test 'lettering is indicated as partial (*) when lettered items are not balanced' do
     first_account = Account.create!(name: 'First account', number: '123FIRST')
     random_account = Account.create!(name: 'Random account', number: '123RANDOM')
