@@ -112,6 +112,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
 
   before_validation do
     self.storable = false unless deliverable?
+    asset_fixable = true if depreciable
     true
   end
 
