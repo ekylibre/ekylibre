@@ -72,8 +72,9 @@ module RestfullyManageable
       creation_t3e = options[:creation_t3e].is_a?(TrueClass)
 
       code = ''
+      class_code = ''
 
-      code << "respond_to :html, :xml, :json\n"
+      class_code << "respond_to :html, :xml, :json\n"
       # code << "respond_to :pdf, :odt, :ods, :csv, :docx, :xlsx, :only => [:show, :index]\n"
 
       if actions.include?(:index)
@@ -127,10 +128,10 @@ module RestfullyManageable
 
       if options[:subclass_inheritance]
         if self != Backend::BaseController
-          code << "def self.inherited(subclass)\n"
+          class_code << "def self.inherited(subclass)\n"
           # TODO: inherit from superclass parameters (superclass.manage_restfully_options)
-          code << "  subclass.manage_restfully(#{options.inspect})\n"
-          code << "end\n"
+          class_code << "  subclass.manage_restfully(#{options.inspect})\n"
+          class_code << "end\n"
         end
       end
 
@@ -244,11 +245,19 @@ module RestfullyManageable
         file = Rails.root.join('tmp', 'code', 'manage_restfully', "#{controller_path}.rb")
         FileUtils.mkdir_p(file.dirname)
         File.open(file, 'wb') do |f|
+          f.write class_code
           f.write code
         end
       end
 
-      class_eval(code)
+      restful_module = Module.new
+      restful_module.class_eval(code)
+      restful_module.extend ActiveSupport::Concern
+      restful_module.send(:included) do
+        eval class_code
+      end
+      include restful_module
+      self
     end
 
     # Build standard actions to manage records of a model
