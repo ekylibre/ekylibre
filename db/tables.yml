@@ -5776,6 +5776,9 @@ product_nature_categories:
     type: boolean
     required: true
     default: false
+  asset_fixable:
+    type: boolean
+    default: false
   charge_account_id:
     type: integer
     references: account

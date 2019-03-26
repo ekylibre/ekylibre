@@ -24,6 +24,7 @@
 # == Table: product_nature_categories
 #
 #  active                              :boolean          default(FALSE), not null
+#  asset_fixable                       :boolean          default(FALSE)
 #  charge_account_id                   :integer
 #  created_at                          :datetime         not null
 #  creator_id                          :integer
