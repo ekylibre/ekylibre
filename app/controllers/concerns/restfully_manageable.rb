@@ -251,6 +251,7 @@ module RestfullyManageable
       end
 
       restful_module = Module.new
+      name_module(restful_module, '')
       restful_module.class_eval(code)
       restful_module.extend ActiveSupport::Concern
       restful_module.send(:included) do
@@ -268,6 +269,7 @@ module RestfullyManageable
       records = model.name.underscore.pluralize
       raise ArgumentError, "Unknown column for #{model.name}" unless model.columns_definition[order_by]
       code = ''
+      class_code = ''
 
       sort = ''
       position = "#{record_name}_position_column"
@@ -296,7 +298,15 @@ module RestfullyManageable
       code << "end\n"
 
       # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
-      class_eval(code)
+      restful_module = Module.new
+      name_module(restful_module, :list)
+      restful_module.class_eval(code)
+      restful_module.extend ActiveSupport::Concern
+      restful_module.send(:included) do
+        eval class_code
+      end
+      include restful_module
+      self
     end
 
     # Build standard actions to manage records of a model
@@ -306,6 +316,7 @@ module RestfullyManageable
       model = name.to_s.singularize.classify.constantize
       records = model.name.underscore.pluralize
       code = ''
+      class_code = ''
 
       columns = model.columns_definition.keys
       columns = columns.delete_if { |c| %i[depth rgt lft id lock_version updated_at updater_id creator_id created_at].include?(c.to_sym) }
@@ -337,7 +348,16 @@ module RestfullyManageable
       code << "  render 'pick'\n"
       code << "end\n"
 
-      class_eval(code)
+      restful_module = Module.new
+      # naming the module
+      name_module(restful_module, :incorporation)
+      restful_module.class_eval(code)
+      restful_module.extend ActiveSupport::Concern
+      restful_module.send(:included) do
+        eval class_code
+      end
+      include restful_module
+      self
     end
 
     #
@@ -345,6 +365,7 @@ module RestfullyManageable
       name = controller_name
       record_name = name.to_s.singularize
       code = ''
+      class_code = ''
       code << "def picture\n"
       code << "  return unless #{record_name} = find_and_check(:#{record_name})\n"
       code << "  if #{record_name}.picture.file?\n"
@@ -353,7 +374,23 @@ module RestfullyManageable
       code << "    head :not_found\n"
       code << "  end\n"
       code << "end\n"
-      class_eval(code)
+
+      restful_module = Module.new
+      name_module(restful_module, :picture)
+      restful_module.class_eval(code)
+      restful_module.extend ActiveSupport::Concern
+      restful_module.send(:included) do
+        eval class_code
+      end
+      include restful_module
+      self
+    end
+
+    private
+
+    def name_module(mod, kind)
+      mod_name = "#{controller_name.classify}#{kind.to_s.classify}"
+      RestfullyManageable.const_set mod_name, mod
     end
   end
 end
