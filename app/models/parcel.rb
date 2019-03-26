@@ -82,7 +82,7 @@ class Parcel < Ekylibre::Record::Base
   belongs_to :contract
   belongs_to :sender, class_name: 'Entity'
   belongs_to :recipient, class_name: 'Entity'
-  has_many :items, class_name: 'ParcelItem', inverse_of: :parcel, foreign_key: :parcel_id, dependent: :destroy
+  has_many :items, class_name: 'ParcelItem', foreign_key: :parcel_id, dependent: :destroy
   has_many :products, through: :items, source: :product
   has_many :issues, as: :target
   # has_many :interventions, class_name: 'Intervention', as: :resource
@@ -138,8 +138,6 @@ class Parcel < Ekylibre::Record::Base
   protect on: :destroy do
     prepared? || given?
   end
-
-  bookkeep
 
   def entity
     incoming? ? sender : recipient
