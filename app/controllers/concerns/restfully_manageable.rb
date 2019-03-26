@@ -6,7 +6,7 @@ module RestfullyManageable
     def manage_restfully(defaults = {})
       name = controller_name
       path = controller_path
-      options = defaults.extract!(:t3e, :creation_t3e, :redirect_to, :xhr, :destroy_to, :subclass_inheritance, :partial, :multipart, :except, :only, :cancel_url, :scope, :identifier, :continue)
+      options = defaults.extract!(:t3e, :creation_t3e, :redirect_to, :xhr, :destroy_to, :subclass_inheritance, :partial, :multipart, :except, :only, :cancel_url, :scope, :identifier, :continue, :model_name)
       after_save_url    = options[:redirect_to]
       after_destroy_url = options[:destroy_to] || :index
       actions  = %i[index show new create edit update destroy]
@@ -14,7 +14,7 @@ module RestfullyManageable
       actions -= [options[:except]].flatten if options[:except]
 
       record_name = name.to_s.singularize
-      model_name  = name.to_s.classify
+      model_name  = options[:model_name] || name.to_s.classify
       model = model_name.constantize
       columns = model.columns_definition.keys
 
