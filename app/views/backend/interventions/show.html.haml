@@ -70,7 +70,11 @@
         .big-info
           - unit = Nomen::Unit.find(:hectare)
           %span.title= Intervention.human_attribute_name(:costs_per_unit, unit: unit.human_name)
-          %span.value= resource.total_cost_per_area(unit).round(currency.precision).l(currency: currency.name) + "/" + unit.symbol
+          - total_cost_per_area = resource.total_cost_per_area(unit)
+          - if total_cost_per_area
+            - localized_cost = total_cost_per_area.round(currency.precision).l(currency: currency.name)
+            - displayed_cost_per_area = "#{localized_cost}/#{unit.symbol}"
+          %span.value= displayed_cost_per_area || ""
 
       .big-info.cost.important
         %span.title= :total_cost.tl
