@@ -2230,6 +2230,9 @@ fra:
         price_quote: "Quotation"
         prospecting: "Prospection"
         won: "Gagné"
+    debt_transfer:
+      purchase_regularization: "Régularisation d'achat"
+      sale_regularization: "Régularisation de vente"
     delivery:
       state_machine:
         states:

@@ -1885,6 +1885,9 @@ eng:
         price_quote: "Price quote"
         prospecting: "Prospecting"
         won: "Won"
+    debt_transfer:
+      purchase_regularization: "Purchase regularization"
+      sale_regularization: "Sale regularization"
     delivery:
       state_machine:
         states:
