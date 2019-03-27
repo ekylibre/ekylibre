@@ -346,7 +346,7 @@ eng:
       index: "%{ledger}"
       # mask_draft_items: "Mask draft items general ledger: %{name}"
       # mask_lettered_items: "Mask lettered items general ledger: %{name}"
-      show: "General ledger\_: %{account}"
+      show: "General ledger"
     backend/georeadings:
       edit: "Edit georeading: %{name}"
       index: "Georeadings"
@@ -2109,6 +2109,7 @@ eng:
     reconciliate_with_purchases_orders: "Reconciliate with purchases orders"
     reconciliate_with_receptions: "Reconciliate with receptions"
     record: "Record" #?
+    record_cannot_be_saved: "The record can not be saved"
     record_maintenance: "Record maintenance"
     reference_supplier: "Reference supplier : %{reference_number}"
     reflect: "Reflect" #?
