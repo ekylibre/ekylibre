@@ -13,6 +13,18 @@ module Ekylibre
       module Protected #:nodoc:
         def self.included(base)
           base.extend(ClassMethods)
+
+          def createable?
+            true
+          end
+
+          def updateable?
+            true
+          end
+
+          def destroyable?
+            true
+          end
         end
 
         module ClassMethods

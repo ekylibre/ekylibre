@@ -1944,6 +1944,7 @@ eng:
     received: "Received" #?
     recent_events: "Recent events"
     record: "Record" #?
+    record_cannot_be_saved: "The record can not be saved"
     record_maintenance: "Record maintenance"
     reflect: "Reflect" #?
     reflected: "Reflected changes" #?
