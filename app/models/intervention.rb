@@ -552,7 +552,7 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def total_cost_per_area(area_unit = :hectare)
-    zone_area = working_zone_area(area_unit).to_f.round(2)
+    zone_area = working_zone_area(area_unit).to_f
     (total_cost / zone_area) * area_cost_coefficient if zone_area > 0.0
   end
 
