@@ -528,6 +528,7 @@ eng:
     administrator: "Administrator"
     advice_reference_name: "Advice reference"
     affair: "Affair"
+    affair_balance: "Affair balance"
     affairs: "Affairs"
     affectation_percentage: "Affectation percentage"
     affected_at: "Affected at" #?

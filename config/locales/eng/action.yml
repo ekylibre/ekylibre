@@ -1892,7 +1892,7 @@ eng:
     new_email: "New email"
     new_financial_year_exchange: "New exchange"
     new_group: "New group"
-    new_incoming_parcel: "New incoming parcel"
+    new_incoming_parcel: "New reception"
     new_incoming_payment: "New incoming payment"
     # new_inspection: "New inspection"
     new_inventory: "New inventory"
@@ -2045,8 +2045,11 @@ eng:
     product_account_number: "Product account number" #?
     product_category: "Product category" #?
     product_name: "Product name" #?
+    product_nature: "Product type"
     # product_nature_variants: "Product nature variants"
+    product_nature_category: "Product category"
     product_natures: "Product types"
+    product_variant: "Product variant"
     product_value: "Product value %{financial_year}" #??
     production: "Production"
     production_cost: "Production cost"
@@ -2275,6 +2278,7 @@ eng:
     taxes_and_wages: "Taxes and wages"
     third_is_unbalanced: "Third is unbalanced. (balance - supplier account balance)"
     this_archive_is_digitally_signed: "This archive is digitally signed."
+    threshold_commercialization_by_production: "Threshold commercialization by production"
     thumb: "Thumb" #?
     time_cost: "Time cost" #?
     time_spent_by_activity: "Time spent by activity"
