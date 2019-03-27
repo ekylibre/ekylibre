@@ -7,12 +7,19 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/ruby:2.3.8-jessie
+      - image: circleci/ruby:2.3.8-stretch
+        environment:
+          - PGHOST: 127.0.0.1
+          - PGUSER: postgres
+          - RAILS_ENV: test
+          - JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64/
+      - image: xcgd/libreoffice
+      - image: redis
       - image: mdillon/postgis:9.6
-        env:
-          - POSTGRES_USER=postgres
-          - PGUSER=postgres
-          - POSTGRES_DB=ekylibre_test
+        environment:
+          - POSTGRES_USER: postgres
+          - PGUSER: postgres
+          - POSTGRES_DB: ekylibre_test
           - POSTGRES_PASSWORD=
 
     working_directory: ~/repo
@@ -21,22 +28,23 @@ jobs:
       - checkout
 
       # Packages dependencies TODO: move to docker image?
-      - run:
-        - sudo apt-get install libproj-dev libgeos-dev
-        - sudo apt-get install libreoffice pd
-        - sudo apt-get install graphicsmagick
-        - sudo apt-get install tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa poppler-utils
+      - run: sudo apt-get install openjdk-8-jdk
+      - run: sudo apt-get install libproj-dev libgeos-dev
+      - run: sudo apt-get install pdftk
+      - run: sudo apt-get install graphicsmagick
+      - run: sudo apt-get install tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa poppler-utils poppler-data
+      - run: sudo apt-get install qt5-default libqt5webkit5-dev gstreamer1.0-x gstreamer1.0-tools gstreamer1.0-plugins-base
 
       # Install postgres extensions
-      - run:
-        - psql -U postgres -c 'CREATE DATABASE ekylibre_test;'
-        - psql -U postgres -d ekylibre_test -c 'CREATE SCHEMA IF NOT EXISTS postgis;'
-        - psql -U postgres -d ekylibre_test -c 'CREATE EXTENSION IF NOT EXISTS postgis SCHEMA postgis;'
-        - psql -U postgres -d ekylibre_test -c 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp" SCHEMA postgis;'
-        - psql -U postgres -d ekylibre_test -c 'CREATE EXTENSION IF NOT EXISTS "unaccent" SCHEMA postgis;'
+      - run: sudo apt install -y postgresql-client || true
+      - run: psql -U postgres -d ekylibre_test -c 'CREATE SCHEMA IF NOT EXISTS postgis;'
+      - run: psql -U postgres -d ekylibre_test -c 'CREATE EXTENSION IF NOT EXISTS postgis SCHEMA postgis;'
+      - run: psql -U postgres -d ekylibre_test -c 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp" SCHEMA postgis;'
+      - run: psql -U postgres -d ekylibre_test -c 'CREATE EXTENSION IF NOT EXISTS "unaccent" SCHEMA postgis;'
+
 
       # Set test database.yml config
-        - run: cp -f test/ci/database.yml config/database.yml
+      - run: cp -f test/ci/database.yml config/database.yml
 
       # Download and cache dependencies
       - restore_cache:
@@ -48,7 +56,7 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            bundle install --full-index --without-development --jobs=4 --retry=3 --path vendor/bundle
+            bundle install --full-index --without development --jobs=4 --retry=3 --path vendor/bundle
 
       - save_cache:
           paths:
