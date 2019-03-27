@@ -460,6 +460,7 @@ fra:
       index: "Formats de nommage" #?
     backend/naming_formats:
       index: "Formats de nommage"
+      new: "Nouveau format de nommage"
     backend/net_services:
       edit: "Modifier un service en ligne"
       index: "Services en ligne"
@@ -1930,7 +1931,7 @@ fra:
     new_financial_year_exchange: "Nouvel échange"
     new_group: "Nouveau troupeau"
     new_in_line: "Ajouter un produit intrant" #?
-    new_incoming_parcel: "Nouveau colis entrant"
+    new_incoming_parcel: "Nouvelle réception"
     new_incoming_payment: "Nouveau encaissement"
     new_inspection: "Nouvel agréage" #?
     new_inventory: "Nouvel inventaire"
@@ -2147,11 +2148,14 @@ fra:
     product_bar: "Produit par catégories" #?
     product_category: "Produits"
     product_name: "Produit"
+    product_nature: "Type de produit"
+    product_nature_category: "Catégorie de produit"
     product_nature_variants: "Variantes" #?
     product_natures: "Types de produit"
     product_price_listings: "Listes de prix" #?
     product_price_templates: "Types de prix" #?
     product_value: "Chiffre d’affaire de l’exercice %{financial_year}"
+    product_variant: "Variante de produit"
     production: "Production"
     production_cost: "Coût de production"
     production_costs: "Coûts de production"
@@ -2591,6 +2595,7 @@ fra:
       shipped: "Expédié" #?
       waiting: "En attente" #?
     treatment: "Traitement" #?
+    threshold_commercialization_by_production: "Seuil de commercialisation par production"
     trimester: "Trimestre"
     true: "Vrai" #?
     type_of_structure: "Type de structure"

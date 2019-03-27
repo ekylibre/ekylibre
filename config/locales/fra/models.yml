@@ -116,7 +116,7 @@ fra:
         initial_born_at: "Construit à"
         initial_dead_at: "Demantelé au"
         parent_place: "Lieu de parking" #?
-        variety: "Marque" #?
+        variety: "Type" #?
       event: #?
         duration: "Durée (en minutes)" #?
         place: "Lieu" #?
@@ -764,6 +764,7 @@ fra:
     administrator: "Administrateur système"
     advice_reference_name: "Référence du conseil"
     affair: "Affaire"
+    affair_balance: "Solde"
     affairs: "Affaires"
     affectation_percentage: "Pourcentage d’affectation"
     affected_at: "Affecté le"
