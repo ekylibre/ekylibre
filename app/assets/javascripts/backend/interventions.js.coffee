@@ -284,7 +284,7 @@
     $(this).each ->
       E.interventions.refresh $(this)
 
-  $(document).on 'keyup change', 'input[data-intervention-updater]:not([data-selector])', (e) ->
+  $(document).on 'keyup change', 'input[data-intervention-updater]:not([data-selector], .flatpickr-input)', (event) ->
     $(this).each ->
       E.interventions.refresh $(this)
 
