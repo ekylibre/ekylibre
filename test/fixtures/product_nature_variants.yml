@@ -414,7 +414,7 @@ product_nature_variants_022:
   creator_id: 1
   id: 23
   lock_version: 0
-  name: Emyé
+  name: Employé
   nature_id: 20
   number: '00000023'
   reference_name: employee
