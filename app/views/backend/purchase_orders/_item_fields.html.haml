@@ -73,12 +73,12 @@
         = f.input_field :pretax_amount, class: "pta order-total middle-input", data: {trade_component: "pretax_amount", required: true}
         %span.add-on
           = Nomen::Currency.find(f.object.currency).symbol
+    %td.form-field.decimal= f.input(:tax_id, label: :vat_rate.tl, collection: Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.usable_amount)/100)}]}, selected: f.object.tax_id, input_html: { class: "order-vat-total", data: {value: 'rate', trade_component: "tax"}})
     %td.form-field.decimal
       = f.input :amount, wrapper: :append do
         = f.input_field :amount, class: "pta order-total middle-input", data: {trade_component: "amount", required: true}
         %span.add-on
           = Nomen::Currency.find(f.object.currency).symbol
-    %td.form-field.decimal= f.input(:tax_id, label: :vat_rate.tl, collection: Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.usable_amount)/100)}]}, selected: f.object.tax_id, input_html: { class: "order-vat-total", data: {value: 'rate', trade_component: "tax"}})
     -#%td.action= link_to_remove_association(content_tag(:i) + h(:destroy.ta), f, 'data-no-turbolink' => true, class: 'remove-item')
 
     %td.second-row
