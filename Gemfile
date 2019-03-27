@@ -1,6 +1,11 @@
 source 'https://rubygems.org'
 
-ruby '>= 2.3.3', '< 3.0.0'
+git_source(:github) do |repo_name|
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  "https://github.com/#{repo_name}.git"
+end
+
+ruby '>= 2.3.8', '< 3.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.11.1'
@@ -38,7 +43,7 @@ gem 'turnout'
 gem 'lodash-rails'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sassc-rails', '~> 2.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
@@ -201,7 +206,7 @@ gem 'bootstrap-sass', '~> 3.4.1'
 gem 'twitter-typeahead-rails'
 
 # Iconic font
-gem 'agric', '~> 3.0'
+gem 'agric', github: 'ekylibre/agric', tag: 'v3.0.2'
 
 # Web services
 gem 'mechanize'
@@ -264,7 +269,7 @@ group :test do
 
   gem 'minitest-reporters'
 
-  gem 'factory_bot'
+  gem 'factory_bot', '< 5'
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles
