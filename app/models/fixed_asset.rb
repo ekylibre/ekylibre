@@ -105,6 +105,8 @@ class FixedAsset < Ekylibre::Record::Base
   validates :currency, match: { with: :journal, to_invalidate: :journal }
   validates :depreciation_fiscal_coefficient, presence: true, if: -> { depreciation_method_regressive? }
   validates :stopped_on, :allocation_account, :expenses_account, presence: { unless: :depreciation_method_none? }
+  validates :scrapped_on, financial_year_writeable: { if: :scrapped? }
+  validates :sold_on, financial_year_writeable: { if: :sold? }
 
   enumerize :depreciation_period, in: %i[monthly quarterly yearly], default: -> { Preference.get(:default_depreciation_period).value || Preference.set!(:default_depreciation_period, :yearly, :string) }
 
@@ -224,14 +226,14 @@ class FixedAsset < Ekylibre::Record::Base
   end
 
   def sell
+    self.sold_on ||= Date.today
     return false unless can_sell?
-    update_column(:sold_on, Date.today) unless sold_on
     super
   end
 
   def scrap
+    self.scrapped_on ||= Date.today
     return false unless can_scrap?
-    update_column(:scrapped_on, Date.today) unless scrapped_on
     super
   end
 

@@ -163,7 +163,7 @@ module Backend
       end
       unless options.key?(:disabled)
         if @object.is_a?(ActiveRecord::Base) && !@object.new_record? &&
-           @object.class.readonly_attributes.include?(attribute_name.to_s)
+          @object.class.readonly_attributes.include?(attribute_name.to_s)
           options[:disabled] = true unless options[:as] == :hidden
         end
       end
