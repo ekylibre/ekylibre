@@ -56,7 +56,6 @@ class ParcelBookkeeper < Ekylibre::Bookkeeper
   end
 
   def generate_entry(entry_recorder, amount, label:, from:, to:, item:)
-    from, to = to, from if outgoing?
     from_as, from_account = *from
     to_as,   to_account = *to
     entry_recorder.add_debit  label, from_account, amount, resource: item, as: from_as, variant: item.variant
