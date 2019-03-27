@@ -263,7 +263,6 @@ class FinancialYearTest < ActiveSupport::TestCase
     assert_raise(ActiveRecord::RecordInvalid) { create(:sale, invoiced_at: accounting_date) }
     assert_raise(ActiveRecord::RecordInvalid) { create(:purchase, invoiced_at: accounting_date) }
     assert_raise(ActiveRecord::RecordInvalid) { create(:cash_transfer, transfered_at: accounting_date) }
-    assert_raise(ActiveRecord::RecordInvalid) { create(:fixed_asset, started_on: accounting_date) }
     assert_raise(ActiveRecord::RecordInvalid) { create(:parcel, given_at: accounting_date) }
   end
 

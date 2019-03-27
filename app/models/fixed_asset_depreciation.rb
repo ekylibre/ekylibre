@@ -63,23 +63,7 @@ class FixedAssetDepreciation < Ekylibre::Record::Base
 
   sums :fixed_asset, :depreciations, amount: :depreciated_amount
 
-  bookkeep do |b|
-    if fixed_asset.in_use?
-      unless fixed_asset.depreciation_method_none?
-        b.journal_entry(fixed_asset.journal, printed_on: stopped_on.end_of_month, if: accountable && !locked) do |entry|
-          name = tc(:bookkeep, resource: FixedAsset.model_name.human, number: fixed_asset.number, name: fixed_asset.name, position: position, total: fixed_asset.depreciations.count)
-          entry.add_debit(name, fixed_asset.expenses_account, amount)
-          entry.add_credit(name, fixed_asset.allocation_account, amount)
-        end
-      end
-    elsif fixed_asset.sold? || fixed_asset.scrapped?
-      b.journal_entry(fixed_asset.journal, printed_on: stopped_on.end_of_month, if: accountable && !locked) do |entry|
-        name = tc(:bookkeep_partial, resource: FixedAsset.model_name.human, number: fixed_asset.number, name: fixed_asset.name, position: position, total: fixed_asset.depreciations.count)
-        entry.add_debit(name, fixed_asset.expenses_account, amount)
-        entry.add_credit(name, fixed_asset.allocation_account, amount)
-      end
-    end
-  end
+  bookkeep
 
   before_validation do
     if fixed_asset
@@ -101,6 +85,10 @@ class FixedAssetDepreciation < Ekylibre::Record::Base
 
   def accounted
     !locked && accountable
+  end
+
+  def has_journal_entry?
+    !journal_entry.nil?
   end
 
   # Returns the duration of the depreciation
