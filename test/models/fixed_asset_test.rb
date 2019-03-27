@@ -235,7 +235,7 @@ class FixedAssetTest < ActiveSupport::TestCase
     fixed_asset = FixedAsset.new attributes
     valid = fixed_asset.valid?
 
-    assert valid, fixed_asset.errors.messages.map {|_, v| v}.flatten
+    assert valid, fixed_asset.errors.messages.map { |_, v| v }.flatten
   end
 
   test 'a FixedAsset depreciated with :none method should not have any FixedAssetDepreciation' do
@@ -311,6 +311,32 @@ class FixedAssetTest < ActiveSupport::TestCase
 
     assert_equal 10, fa.depreciations.count
     assert_equal 100_000, fa.depreciations.map(&:amount).reduce(&:+)
+  end
+
+  test 'cannot sell a FixedAsset if the sold_on date is not during an opened FinancialYear' do
+    FinancialYear.delete_all
+    [2017, 2018].each do |year|
+      start = Date.new year, 3, 1
+      assert FinancialYear.create started_on: start, stopped_on: start + 1.year - 1.day
+    end
+
+    attributes = {
+      name: @product.name,
+      depreciable_amount: 50_000,
+      depreciation_method: :linear,
+      started_on: Date.new(2017, 3, 1),
+      depreciation_period: :yearly,
+      depreciation_percentage: 20.00,
+      asset_account: @asset_account,
+      allocation_account: @allocation_account,
+      expenses_account: @expenses_account,
+      product: @product,
+      journal_id: @journal.id
+    }
+
+    fa = FixedAsset.create!(attributes)
+    assert fa.start_up
+    assert_not fa.sell
   end
 
   private
