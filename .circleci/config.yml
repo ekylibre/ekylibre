@@ -32,7 +32,7 @@ jobs:
       - run: sudo apt-get install libproj-dev libgeos-dev
       - run: sudo apt-get install pdftk
       - run: sudo apt-get install graphicsmagick
-      - run: sudo apt-get install tesseract-ocrtesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa
+      - run: sudo apt-get install tesseract-ocr tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa
       - run: sudo apt-get install poppler-utils poppler-data
       - run: sudo apt-get install qt5-default libqt5webkit5-dev gstreamer1.0-x gstreamer1.0-tools gstreamer1.0-plugins-base
 
