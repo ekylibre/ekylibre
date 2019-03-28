@@ -2022,8 +2022,6 @@ arb:
         spheroid: "الكرواني جسم شبيه بالكرة"
         vehicle: "مركبة"
       name: "الأرقام"
-    fiscal_positions:
-      
     
     guide_natures:
       items:
@@ -2952,7 +2950,6 @@ arb:
         construction_materials_in_own_outstanding_installation: "مواد البناء التركيب المتميز الخاص"
         consumer_goods_office_item: "السلع الاستهلاكية البند مكتب"
         crop: "محصول"
-        cultivable_zone: "منطقة القابلة للزراعة"
         discount_and_reduction: "الخصم والحد من"
         duty_and_taxe: "واجب وو taxe"
         egg: "بيضة"
@@ -2984,6 +2981,7 @@ arb:
         installing_charge: "تثبيت تهمة"
         insurance: "تأمين"
         irrigation_water: "مياه الري"
+        land: "منطقة القابلة للزراعة"
         land_parcel: "قطعة أرض"
         land_parcel_cluster: "كتلة قطعة أرض"
         land_parcel_construction: "بناء قطعة أرض"

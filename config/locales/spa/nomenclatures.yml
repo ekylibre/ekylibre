@@ -696,7 +696,6 @@ spa:
         senescence: "Senectud"
       name: "Estados vida animal"
     cation_exchange_capacity_analysis_methods:
-      
       name: "Métodos de análisis de capacidad de intercambio catiónico"
     certification_labels:
       items:
@@ -2009,8 +2008,6 @@ spa:
         spheroid: "Esferoide"
         vehicle: "Vehículo"
       name: "Figuras"
-    fiscal_positions:
-      
     
     guide_natures:
       items:
@@ -2922,7 +2919,6 @@ spa:
         construction_materials_in_own_outstanding_installation: "Materiales para construcción en propia instalación excepcional"
         consumer_goods_office_item: "Los bienes de consumo de artículos de oficina"
         crop: "Cultivo"
-        cultivable_zone: "Zona cultivable"
         discount_and_reduction: "De descuento y la reducción"
         duty_and_taxe: "El deber y el taxe"
         egg: "Huevo"
@@ -2953,6 +2949,7 @@ spa:
         installing_charge: "Instalación de carga"
         insurance: "Seguro"
         irrigation_water: "El agua de riego"
+        land: "Zona cultivable"
         land_parcel: "Parcela de tierra"
         land_parcel_cluster: "Agrupación de parcelas"
         land_parcel_construction: "La construcción de parcelas"

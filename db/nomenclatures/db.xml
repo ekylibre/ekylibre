@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20190326110849">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20190326135443">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -268,6 +268,8 @@
       <item name="invoice_to_create_clients" fr_pcg82="418" pt_snc="21500000" fr_pcga="418"/>
       <item name="irrecoverable_losses_on_debt_obligation_expenses" fr_pcg82="654" fr_pcga="654"/>
       <item name="irrigation_expenses" fr_pcga="6065" fr_pcg82="6065"/>
+      <item name="land_charges" fr_pcga="6752" fr_pcg82="6752"/>
+      <item name="land_fixed_assets" fr_pcga="2111" fr_pcg82="2111"/>
       <item name="land_loans" fr_pcg82="1641" fr_pcga="1641"/>
       <item name="land_loans_interests" fr_pcg82="6611" fr_pcga="6611"/>
       <item name="land_parcel_asset_depreciations" fr_pcga="2811" fr_pcg82="2811"/>
@@ -278,6 +280,7 @@
       <item name="land_parcel_locative_expenses" fr_pcga="6141" fr_pcg82="6141"/>
       <item name="land_parcel_rent_expenses" fr_pcga="6131" fr_pcg82="6131"/>
       <item name="land_parcel_sell_revenues" fr_pcga="7752" fr_pcg82="7752"/>
+      <item name="land_sales" fr_pcga="7152" fr_pcg82="7152"/>
       <item name="leasing_expenses" fr_pcg82="612" fr_pcga="612"/>
       <item name="legal_reserves" fr_pcg82="1061" fr_pcga="1061"/>
       <item name="licences_expenses" fr_pcga="651" fr_pcg82="651"/>
@@ -3004,7 +3007,6 @@
       <item name="consumer_goods_office_item" charge_account="office_supply_matter_expenses" purchasable="true" pictogram="fax"/>
       <item name="cooperative_participation" charge_account="cooperative_participation_assets" product_account="cooperative_participation_assets" purchasable="true" saleable="true" pictogram="legal"/>
       <item name="crop" product_account="plant_derivatives_revenues" stock_account="short_cycle_vegetals_stock" saleable="true" storable="true" pictogram="leaf" stock_movement_account="short_cycle_vegetals_inventory_variations"/>
-      <item name="cultivable_zone" pictogram="land_parcels"/>
       <item name="discount_and_reduction" charge_account="discount_and_reductions_expenses" product_account="discount_and_reductions_revenues" purchasable="true" saleable="true" pictogram="gift"/>
       <item name="duty_and_taxe" charge_account="government_tax_expenses" purchasable="true" pictogram="legal"/>
       <item name="egg" charge_account="raw_material_expenses" product_account="animal_derivatives_revenues" stock_account="animal_derivative_stock" purchasable="true" saleable="true" storable="true" pictogram="drop" stock_movement_account="products_inventory_variations"/>
@@ -3037,6 +3039,7 @@
       <item name="installing_charge" charge_account="fees_expenses" fixed_asset_account="establishment_charge_assets" fixed_asset_allocation_account="incorporeal_asset_depreciations" fixed_asset_expenses_account="incorporeals_depreciations_inputations_expenses" depreciation_percentage="25.0" purchasable="true" depreciable="true" pictogram="book" asset_fixable="true"/>
       <item name="insurance" charge_account="insurance_expenses" purchasable="true" pictogram="umbrella"/>
       <item name="irrigation_water" charge_account="irrigation_expenses" purchasable="true" pictogram="drop"/>
+      <item name="land" pictogram="land_parcels" purchasable="true" saleable="true" asset_fixable="true" depreciable="false" charge_account="land_charges" product_account="land_sales" fixed-asset_account="land_tangible_fixed_assets"/>
       <item name="land_parcel" charge_account="land_parcel_rent_expenses" product_account="land_parcel_sell_revenues" purchasable="true" saleable="true" pictogram="land_parcels"/>
       <item name="land_parcel_cluster" pictogram="land_parcels"/>
       <item name="land_parcel_construction" charge_account="redeemable_land_parcel_construction_assets" product_account="sales_assets_revenues" stock_account="other_materials_stock" purchasable="true" saleable="true" storable="false" pictogram="barn"/>
@@ -3887,7 +3890,7 @@
       <item name="crop_protective_item" category="small_equipment" derivative_of="equipment" variety="matter" population_counting="integer" abilities="care(plant)" variable_indicators="length, width"/>
       <item name="crop_residue" category="straw" variety="straw" derivative_of="plant" population_counting="decimal" variable_indicators="" frozen_indicators="net_mass, net_volume"/>
       <item name="crop_taxe" category="agricultural_taxe" variety="service" population_counting="decimal" variable_indicators=""/>
-      <item name="cultivable_zone" category="cultivable_zone" variety="cultivable_zone" population_counting="decimal" abilities="consume(water), consume(seed), produce(plant), store(plant), store(animal), store(fungus)" variable_indicators="fence_perimeter, shape, soil_cultural_state" frozen_indicators="net_surface_area"/>
+      <item name="cultivable_zone" category="land" variety="cultivable_zone" population_counting="decimal" abilities="consume(water), consume(seed), produce(plant), store(plant), store(animal), store(fungus)" variable_indicators="fence_perimeter, shape, soil_cultural_state" frozen_indicators="net_surface_area"/>
       <item name="discount_and_reduction" category="discount_and_reduction" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="disinfectant_product" category="other_consumable" variety="preparation" population_counting="decimal" abilities="clean(building_division), kill(bacteria)" frozen_indicators="net_mass, net_volume"/>
       <item name="draining_item" category="small_equipment" derivative_of="equipment" variety="matter" population_counting="integer" abilities="drain" variable_indicators="diameter, length"/>

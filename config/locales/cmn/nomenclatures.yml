@@ -1803,7 +1803,6 @@ cmn:
         precision: "精确"
         symbol: "符号"
     delivery_modes:
-      
       items:
         delivered_at_place: "在交货地点"
         delivered_at_terminal: "在终端交付"
@@ -2004,8 +2003,6 @@ cmn:
         spheroid: "球体"
         vehicle: "车辆"
       name: "人物"
-    fiscal_positions:
-      
     
     guide_natures:
       items:
@@ -2945,7 +2942,6 @@ cmn:
         construction_materials_in_own_outstanding_installation: "建筑材料在自身优秀的安装"
         consumer_goods_office_item: "消费品办公项目"
         crop: "作物"
-        cultivable_zone: "可种植区"
         discount_and_reduction: "折扣和减少"
         duty_and_taxe: "关税和taxe"
         egg: "蛋"
@@ -2977,6 +2973,7 @@ cmn:
         installing_charge: "安装费"
         insurance: "保险"
         irrigation_water: "灌溉用水"
+        land: "可种植区"
         land_parcel: "地块"
         land_parcel_cluster: "地块集群"
         land_parcel_construction: "地块建设"

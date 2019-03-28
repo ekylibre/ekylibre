@@ -700,7 +700,6 @@ ita:
     cation_exchange_capacity_analysis_methods:
       name: "metodi di analisi capacità di scambio cationico"
     certification_labels:
-      
       name: "marchi di certificazione"
     certifications:
       items:
@@ -1618,7 +1617,6 @@ ita:
         precision: "Precisione"
         symbol: "Simbolo"
     delivery_modes:
-      
       items:
         delivered_at_place: "Recapitato sul posto"
         delivered_at_terminal: "Consegnato al terminal"
@@ -1811,8 +1809,6 @@ ita:
         spheroid: "Sferoide"
         vehicle: "Veicolo"
       name: "figure"
-    fiscal_positions:
-      
     
     guide_natures:
       items:
@@ -2689,7 +2685,6 @@ ita:
         construction_materials_in_own_outstanding_installation: "Materiali da costruzione in proprio di installazione in sospeso"
         consumer_goods_office_item: "Beni di consumo voce ufficio"
         crop: "raccolto"
-        cultivable_zone: "zone coltivabili"
         discount_and_reduction: "Sconto e la riduzione"
         duty_and_taxe: "Dovere e Taxe"
         egg: "Uovo"
@@ -2720,6 +2715,7 @@ ita:
         installing_charge: "Installazione di carica"
         insurance: "Assicurazione"
         irrigation_water: "irrigazione"
+        land: "zone coltivabili"
         land_parcel: "parcelle"
         land_parcel_cluster: "grappolo parcelle"
         land_parcel_construction: "la costruzione delle parcelle agricole"

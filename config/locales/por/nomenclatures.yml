@@ -700,7 +700,6 @@ por:
         senescence: "Senescência"
       name: "Estados vida animal"
     cation_exchange_capacity_analysis_methods:
-      
       name: "Métodos de análise de capacidade de troca catiônica"
     certification_labels:
       items:
@@ -1663,7 +1662,6 @@ por:
         precision: "Precisão"
         symbol: "Símbolo"
     delivery_modes:
-      
       items:
         delivered_at_place: "Entregue no local"
         delivered_at_terminal: "Entregue no terminal"
@@ -1856,8 +1854,6 @@ por:
         spheroid: "Esferóide"
         vehicle: "Veículo"
       name: "Figuras"
-    fiscal_positions:
-      
     
     guide_natures:
       items:
@@ -2724,7 +2720,6 @@ por:
         construction_materials_in_own_outstanding_installation: "Materiais de construção em própria instalação excelente"
         consumer_goods_office_item: "Bens de consumo de itens de escritório"
         crop: "Colheita"
-        cultivable_zone: "Zona cultivável"
         discount_and_reduction: "De desconto e redução"
         duty_and_taxe: "Dever e taxe"
         egg: "Ovo"
@@ -2756,6 +2751,7 @@ por:
         installing_charge: "Instalação de carga"
         insurance: "Seguro"
         irrigation_water: "Água de irrigação"
+        land: "Zona cultivável"
         land_parcel: "Parcela de terra"
         land_parcel_cluster: "Conjunto de parcelas de terreno"
         land_parcel_construction: "Construção parcela de terra"

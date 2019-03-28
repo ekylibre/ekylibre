@@ -694,7 +694,6 @@ deu:
         senescence: "Vergreisung"
       name: "Das Tierleben Staaten"
     cation_exchange_capacity_analysis_methods:
-      
       name: "Kationenaustauschkapazität Analysemethoden"
     certification_labels:
       items:
@@ -707,7 +706,6 @@ deu:
         eau_de_vie_de_cognac: "Eau de vie de Cognac"
         eau_de_vie_des_charentes: "Eau de vie des Charentes"
       name: "Zertifizierungen"
-    
     chemical_classifications:
       items:
         dsd_corrosive: "Ätzend"
@@ -1565,7 +1563,6 @@ deu:
         number: "Nummer"
         precision: "Präzision"
     delivery_modes:
-      
       items:
         delivered_at_place: "Lieferung Vor-Ort"
         delivered_at_terminal: "Geliefert Terminal"
@@ -1755,8 +1752,6 @@ deu:
         spheroid: "Sphäroid"
         vehicle: "Fahrzeug"
       name: "Figuren"
-    fiscal_positions:
-      
     
     guide_natures:
       items:
@@ -2609,7 +2604,6 @@ deu:
         construction_materials_in_own_outstanding_installation: "Baustoffe in eigenen hervorragenden Installations"
         consumer_goods_office_item: "Konsumgüter Büro Artikel"
         crop: "Ernte"
-        cultivable_zone: "Anbauzone"
         discount_and_reduction: "Ermäßigungs"
         duty_and_taxe: "Pflicht und taxe"
         egg: "Ei"
@@ -2639,6 +2633,7 @@ deu:
         installing_charge: "Installieren Ladung"
         insurance: "Versicherung"
         irrigation_water: "Bewässerungswasser"
+        land: "Anbauzone"
         land_parcel: "Parzelle"
         land_parcel_cluster: "Parzelle Cluster"
         land_parcel_construction: "Parzelle Bau"

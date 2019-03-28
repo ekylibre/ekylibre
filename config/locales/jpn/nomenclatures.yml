@@ -699,7 +699,6 @@ jpn:
         senescence: "老化"
       name: "動物の生活状態"
     cation_exchange_capacity_analysis_methods:
-      
       name: "陽イオン交換容量の分析方法"
     certification_labels:
       items:
@@ -1821,7 +1820,6 @@ jpn:
         precision: "精度"
         symbol: "シンボル"
     delivery_modes:
-      
       items:
         delivered_at_place: "場所でお届け"
         delivered_at_terminal: "ターミナルでお届け"
@@ -2022,8 +2020,6 @@ jpn:
         spheroid: "回転楕円体"
         vehicle: "車両"
       name: "統計"
-    fiscal_positions:
-      
     
     guide_natures:
       items:
@@ -2962,7 +2958,6 @@ jpn:
         construction_materials_in_own_outstanding_installation: "自身の優れたインストールで建設資材"
         consumer_goods_office_item: "消費財オフィスアイテム"
         crop: "作物"
-        cultivable_zone: "耕作地帯"
         discount_and_reduction: "ディスカウントおよび還元"
         duty_and_taxe: "義務とtaxe"
         egg: "卵"
@@ -2994,6 +2989,7 @@ jpn:
         installing_charge: "電荷をインストール"
         insurance: "保険"
         irrigation_water: "かんがい用水"
+        land: "耕作地帯"
         land_parcel: "土地区画"
         land_parcel_cluster: "土地区画クラスタ"
         land_parcel_construction: "土地区画建設"
