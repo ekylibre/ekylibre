@@ -137,11 +137,10 @@ class PurchaseOrder < Purchase
 
   def fully_reconciled?
     return false unless has_content?
-    items.each do |item|
-      reception_items = ReceptionItem.where(purchase_order_item_id: item.id)
-      return false unless reception_items.sum(:population) == item.quantity
-    end
-    true
+    items.joins(:parcels_purchase_orders_items)
+         .group(:id)
+         .select("quantity = SUM(population) AS balanced")
+         .all?(&:balanced?)
   end
 
   # this method generate a dataset for one purchase order
