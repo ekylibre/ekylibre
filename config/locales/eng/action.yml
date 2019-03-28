@@ -1204,6 +1204,7 @@ eng:
     associate_debts: "Associate debts" #?
     associate_locked_debts: "Associate locked debts" #?
     associate_receivables: "Associate receivables" #?
+    assuming_you_want_to_close_a_financial_year_in_the_future: "Assuming you want to close a financial year in the future, you will have to provide an opening balance sheet."
     at_the_address: "At the address"
     attach_deal: "Add a deal"
     attachment: "Attachment"
@@ -1598,7 +1599,6 @@ eng:
     financial_year_closing: "Financial year closure in progress"
     financial_year_closure_in_preparation_initiated_by_someone_else: "Closure of %{code} in preparation, you can't edit entries related to this financial year. Reach out for the person in charge of the closure."
     financial_year_closure_in_preparation_initiated_by_you: "Closure of %{code} in preparation, you're the only person able to edit entries related to this financial year."
-    financial_year_lock_message: "<p> The lock will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. <br/> You will need to get in contact the person who did the close out of the software to get back your year-end documents. </p>"
     financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager"
     financial_year_results: "Financial year results : %{results}"
     financial_year_warning: "<p> If the financial year is not closed or locked before the %{last_financial_year_end_date}, you will not be able to open a financial year on %{new_financial_year_start_date}. Indeed, it is not possible to have more than 2 financial years opened simultaneously. Furthermore, it is necessary to have an opened financial year on the ongoing date to input commercial and financial operations. <br/> If you don't manage your accountacy with Ekylibre, you have the possibility to lock your financial year. <br/> Attention : locked financial years can't be modified like a closed financial year."
@@ -1782,6 +1782,7 @@ eng:
     lock_financial_year: "Lock %{code}"
     lock_settings: "Lock settings"
     lock_the_financial_year: "Lock the financial year"
+    locking_will_validate_every_journal_entries_for_this_financial_year: "Locking will definitively validate any journal entries related to the financial year, resulting in the impossibility to edit or delete them. As well as it will not be possible to add new ones."
     long_cycle_alive_products: "Long cycle alive products"
     long_cycle_alive_products_animals: "Long cycle alive products animals" #?
     long_cycle_alive_products_others: "Long cycle alive products others" #?
@@ -1986,6 +1987,7 @@ eng:
     plant_countings: "Countings" #?
     plantation_density: "Plantation density" #?
     plants: "Crops" #?
+    please_reach_out_for_the_person_in_charge_of_the_closure: "Please reach out for the person in charge of the closure outside of the software to get your documents."
     please_wait: "Please wait…"
     point: "Point" #?
     points: "Points"
@@ -2000,6 +2002,7 @@ eng:
     prescriptions: "Prescriptions" #?
     pretax_amount: "Pre-tax amount"
     previous: "Previous"
+    previous_financial_year_was_locked_warning: "As the previous financial year was locked, remember to provide an opening balance sheet before performing the closure."
     price: "Price" #?
     prices: "Prices" #?
     print: "Print" #?

@@ -10,7 +10,8 @@
                   incoming_parcels: :not_given_incoming_parcel,
                   purchases: :not_invoiced_or_aborted_purchase,
                   outgoing_parcels: :not_given_outgoing_parcel,
-                  sales: :not_invoiced_or_aborted_sale)
+                  sales: :not_invoiced_or_aborted_sale,
+                  previous_financial_year_locked: @financial_year.previous_record&.locked? ? [@financial_year.previous_record] : [])
 
       = checks(@financial_year,
                closed_previous_years: @financial_year.all_previous_financial_years_closed_or_locked?,
