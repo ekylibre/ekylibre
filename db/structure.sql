@@ -5531,7 +5531,8 @@ CREATE TABLE public.product_nature_categories (
     fixed_asset_depreciation_percentage numeric(19,4) DEFAULT 0.0,
     fixed_asset_depreciation_method character varying,
     custom_fields jsonb,
-    stock_movement_account_id integer
+    stock_movement_account_id integer,
+    asset_fixable boolean DEFAULT false
 );
 
 
@@ -18040,4 +18041,6 @@ INSERT INTO schema_migrations (version) VALUES ('20181126152417');
 INSERT INTO schema_migrations (version) VALUES ('20190104105501');
 
 INSERT INTO schema_migrations (version) VALUES ('20190313140443');
+
+INSERT INTO schema_migrations (version) VALUES ('20190325145542');
 

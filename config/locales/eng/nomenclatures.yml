@@ -80,8 +80,6 @@ eng:
         fr_pcga: "French PCGA"
         pt_snc: "Portuguese SNC"
       name: "Accounting systems"
-      property_natures:
-        # country: "Country"
     accounts:
       items:
         accrued_bank_interests: "Accrued bank interests"
@@ -2050,7 +2048,6 @@ eng:
         fr_bnc_is: "French professional operations corporate taxation"
       name: "Fiscal positions"
       property_natures:
-        # accounting_system: "Accounting system"
         code: "Code"
         country: "Country"
     guide_natures:
@@ -3013,7 +3010,6 @@ eng:
         consumer_goods_office_item: "Consumer goods office item"
         cooperative_participation: "Cooperative participation"
         crop: "Crop"
-        cultivable_zone: "Cultivable zone"
         discount_and_reduction: "Discount and reduction"
         duty_and_taxe: "Duty and taxe"
         egg: "Egg"
@@ -3046,6 +3042,7 @@ eng:
         installing_charge: "Installing charge"
         insurance: "Insurance"
         irrigation_water: "Irrigation water"
+        land: "Land"
         land_parcel: "Land parcel"
         land_parcel_cluster: "Land parcel cluster"
         land_parcel_construction: "Land parcel construction"

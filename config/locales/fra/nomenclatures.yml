@@ -183,14 +183,11 @@ fra:
         equity_securities: "Titres de participations"
         equity_security_asset_impairment_losses: "Provisions pour dépréciations des participations et créances rattachées à des participations"
         establishment_charge_assets: "Immobilisations des frais d’établissement"
-        # exceptional_charge_transfer_revenues: "Exceptional charge transfer revenues"
-        # exceptional_depreciations_inputations_expenses: "Exceptional depreciations inputations expenses"
-        # exceptional_depreciations_inputations_revenues: "Exceptional depreciations inputations revenues"
         exceptional_expenses: "Charges exceptionnelles"
         exceptional_revenues: "Revenus exceptionnelles"
-        exceptionnal_charge_transfer_revenues: "Transferts de charges exceptionnelles" #?
-        exceptionnal_depreciations_inputations_expenses: "Dotations aux amortissements et aux provisions - Charges exceptionnelles" #?
-        exceptionnal_incorporeal_asset_depreciation_revenues: "Reprises sur provisions (produits exceptionnels) " #?
+        exceptionnal_charge_transfer_revenues: "Transferts de charges exceptionnelles"
+        exceptionnal_depreciations_inputations_expenses: "Dotations aux amortissements et aux provisions - Charges exceptionnelles"
+        exceptionnal_incorporeal_asset_depreciation_revenues: "Reprises sur provisions (produits exceptionnels) "
         expenses: "Comptes de charges"
         exploitation_depreciations_inputations_expenses: "Dotations aux amortissements et aux provisions - Charges d'exploitation"
         exploitation_expenses_transfers: "Transferts de expenses d’exploitation"
@@ -256,7 +253,7 @@ fra:
         initial_society_capital: "Capital sociétaire initial"
         installation_sustainable_plant_assets: "Aménagements des plantations pérennes"
         insurance_expenses: "Primes d’assurance"
-        interests_expenses: "Charges d’intérêts" #?
+        interests_expenses: "Charges d’intérêts"
         internal_transfers: "Virements internes"
         inventory_variations: "Variations d’inventaires"
         invoice_to_create_clients: "Clients - Produits non encore facturés"
@@ -352,7 +349,7 @@ fra:
         other_supplies: "Autres approvisionnements"
         other_supply_expenses: "Achats stockés - Autres approvisionnements"
         other_supply_stocks_variation: "Variation des stocks autres approvisionnements"
-        other_taxes: "Autres impôts, taxes et versements assimilés" #?
+        other_taxes: "Autres impôts, taxes et versements assimilés"
         other_usual_running_expenses: "Charges diverses de gestion courante"
         other_usual_running_profits: "Produits divers de gestion courante"
         other_various_interests_expenses: "Autres charges diverses d’intérêts"
@@ -485,7 +482,7 @@ fra:
         sustainables_plants_assets: "Plantations pérennes"
         sustainables_plants_on_other_land_parcel_assets: "Plantations pérennes sur sol d’autrui"
         sustainables_plants_on_own_land_parcel_assets: "Plantations pérennes sur sol propre"
-        tax_depreciation_revenues: "Recettes Taxe d’amortissement" #?
+        tax_depreciation_revenues: "Recettes Taxe d’amortissement"
         taxes_expenses: "Taxes"
         technical_installation_equipment_and_tools_assets: "Installation technique, équipement et outils"
         technical_installation_on_other_land_parcel_assets: "Installation technique sur sol d’autrui"
@@ -519,7 +516,6 @@ fra:
         young_reproductor_animals_inventory_variations: "Variations de stock d'animaux reproducteurs (jeunes de renouvellement)"
       name: "Comptes comptables"
       property_natures:
-        # centralizing: "Centralizing"
         debtor: "Compte de débit"
         fr_pcg82: "Numéro dans le PCG1982"
         fr_pcga: "Numéro dans le PCGA"
@@ -3156,7 +3152,7 @@ fra:
         bonus_staff_expense: "Primes et gratifications au personnel"
         building: "Bâtiment"
         building_division: "Pièce ou découpe d’un bâtiment"
-        building_rental: "Location de bâtiment" #?
+        building_rental: "Location de bâtiment"
         calf: "Veau"
         car_rental: "Location de véhicule"
         carriage: "Transport"
@@ -3167,7 +3163,6 @@ fra:
         consumer_goods_office_item: "Fourniture de bureau (consommable)"
         cooperative_participation: "Titre de participation (coopérative)"
         crop: "Culture"
-        cultivable_zone: "Zone cultivable"
         discount_and_reduction: "Réduction"
         duty_and_taxe: "Frais et taxe"
         egg: "Œuf"
@@ -3200,6 +3195,7 @@ fra:
         installing_charge: "Frais d’installation"
         insurance: "Assurance"
         irrigation_water: "Eau (irrigation)"
+        land: "Terrains"
         land_parcel: "Parcelle"
         land_parcel_cluster: "Îlot"
         land_parcel_construction: "Aménagement foncier"
@@ -4630,11 +4626,11 @@ fra:
         algerian_vat_null: "TVA null Algérie"
         algerian_vat_reduced: "TVA algérienne réduite"
         algerian_vat_reduced_2017: "TVA algérienne réduite 2017"
-        fr_vat_intermediate: "TVA française intermédiaire" #?
-        fr_vat_normal: "TVA française normale" #?
-        fr_vat_null: "TVA française nulle" #?
-        fr_vat_particular: "TVA française particuliere" #?
-        fr_vat_reduced: "TVA française normale réduite" #?
+        fr_vat_intermediate: "TVA française intermédiaire"
+        fr_vat_normal: "TVA française normale"
+        fr_vat_null: "TVA française nulle"
+        fr_vat_particular: "TVA française particuliere"
+        fr_vat_reduced: "TVA française normale réduite"
         french_vat_eu: "TVA intra-communautaire"
         french_vat_import_export: "TVA import/export"
         french_vat_intermediate_2012: "TVA 7.0 % (2012)"
