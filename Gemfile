@@ -253,10 +253,6 @@ group :test do
   gem 'capybara-webkit', '>= 1.14.0'
   gem 'selenium-webdriver'
 
-  gem 'codacy-coverage', require: false
-  gem 'codecov', require: false
-  gem 'simplecov', require: false
-
   gem 'minitest-reporters'
 
   gem 'pdf-reader'
