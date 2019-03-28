@@ -1061,6 +1061,7 @@ fra:
     associate_debts: "Comptes courants"
     associate_locked_debts: "Comptes courants bloqués"
     associate_receivables: "Créances associés - comptes courants"
+    assuming_you_want_to_close_a_financial_year_in_the_future: "Si vous souhaitez clôturer un exercice ultérieurement, vous devrez enregistrer un bilan de début d'exercice."
     at_the_address: "À l’adresse"
     attach_an_incoming_payment_to_expense: "Rattacher un encaissement\_: %{type} N°%{number}" #?
     attach_an_outgoing_payment_to_expense: "Rattacher un décaissement\_: %{type} N°%{number}" #?
@@ -1547,7 +1548,6 @@ fra:
     financial_year_closing: "Clôture de l'exercice en cours"
     financial_year_closure_in_preparation_initiated_by_someone_else: "Clôture de %{code} en préparation, vous n'êtes pas autorisé à modifier les écritures sur cet exercice. Rapprochez-vous de la personne qui a initié la préparation."
     financial_year_closure_in_preparation_initiated_by_you: "Clôture de %{code} en préparation, vous êtes le seul à pouvoir modifier les écritures sur cet exercice."
-    financial_year_lock_message: "<p>Le verrouillage validera définitivement toutes les écritures de l’exercice, qui ne pourront plus être modifiées ou supprimées. Il ne sera pas non plus possible d'ajouter de nouvelles écritures. <br/> Il faudra vous rapprocher de la personne qui a effectué la clôture en dehors du logiciel pour récupérer vos documents de fin d’exercice. </p>"
     financial_year_needed: "<p> Toutes les opérations commerciales et financières doivent être comptabilisées sur un exercice ouvert. <br/> Veuillez ouvrir un exercice pour la période en cours ou demander à votre responsable. </p>"
     financial_year_results: "Résultat de l'exercice : %{results}"
     financial_year_warning: "<p> Si l’exercice n’est pas clôturé ou verrouillé avant le %{last_financial_year_end_date}, vous ne pourrez pas ouvrir d’exercice au %{new_financial_year_start_date}. En effet, il n’est pas possible d’avoir plus de 2 exercices ouverts simultanément. De plus, il est nécessaire d’avoir un exercice ouvert à la date en cours pour saisir des opérations commerciales et financières. <br/> Si vous ne gérez pas votre comptabilité avec Ekylibre, vous avez aussi la possibilité de verrouiller votre exercice. <br/> Attention : les exercices verrouillés ou clôturés ne peuvent plus être modifiés."
@@ -1790,6 +1790,7 @@ fra:
     lock_financial_year: "Verrouiller %{code}"
     lock_settings: "Paramètres de verrouillage"
     lock_the_financial_year: "Verrouiller l’exercice"
+    locking_will_validate_every_journal_entries_for_this_financial_year: "Le verrouillage validera définitivement toutes les écritures de l’exercice, qui ne pourront plus être modifiées ou supprimées. Il ne sera pas non plus possible d'ajouter de nouvelles écritures."
     logout: "Déconnexion" #?
     long_cycle_alive_products: "Bien-vivants et en-cours (cycle long)"
     long_cycle_alive_products_animals: "Animaux"
@@ -2070,6 +2071,7 @@ fra:
     plant_productions: "Productions végétales" #?
     plantation_density: "Densité de plantation"
     plants: "Plantes"
+    please_reach_out_for_the_person_in_charge_of_the_closure: "Il faudra vous rapprocher de la personne qui a effectué la clôture en dehors du logiciel pour récupérer vos documents de fin d’exercice."
     please_wait: "Merci de patienter…"
     point: "Point"
     points: "Points"
@@ -2086,6 +2088,7 @@ fra:
     prescriptions: "Prescriptions"
     pretax_amount: "Montant HT"
     previous: "Précédent"
+    previous_financial_year_was_locked_warning: "L'exercice précédent ayant été vérouillé, pensez à fournir un bilan de début d'exercice avant d'effectuer la clotûre."
     previous_plant_name: "Nom de la culture précédente" #?
     previous_production_name: "Nom de la production précédente" #?
     price: "Prix"
