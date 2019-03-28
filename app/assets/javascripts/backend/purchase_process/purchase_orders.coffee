@@ -19,7 +19,9 @@
           $newParcelBtn.prop('href', "#{newParcelUrl}?mode=prefilled&purchase_order_ids=#{selectedOrdersIds}")
         else
           $newParcelBtn.prop('href', newParcelUrl)
-
-        if selectedOrders.length > 0 && reconciledOrders.length < 1 then $newParcelBtn.removeClass('disabled') else $newParcelBtn.addClass('disabled')
+         
+        disabled = !selectedOrders.length || reconciledOrders.length
+        # !! so we're sure disabled is a Boolean and not just truthy/falsy — for jQuery 
+        $newParcelBtn.toggleClass('disabled', !!disabled)
 
 ) ekylibre, jQuery
