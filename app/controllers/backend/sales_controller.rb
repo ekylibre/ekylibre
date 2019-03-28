@@ -194,6 +194,7 @@ module Backend
       @sale.introduction = :default_letter_introduction.tl
       @sale.conclusion = :default_letter_conclusion.tl
       @sale.items_attributes = params[:items_attributes] if params[:items_attributes]
+      @sale.payment_delay = nature.payment_delay
       render locals: { with_continue: true }
     end
 

@@ -2054,6 +2054,7 @@ eng:
     received: "Received" #?
     recent_events: "Recent events"
     record: "Record" #?
+    record_cannot_be_saved: "The record can not be saved"
     record_maintenance: "Record maintenance"
     reflect: "Reflect" #?
     reflected: "Reflected changes" #?
@@ -2138,7 +2139,7 @@ eng:
     sensor_model: "Sensor model"
     sensors: "Sensors" #?
     sent: "Sent"
-    sent_vat_declaration: "VAT declaration" #?!
+    sent_vat_declaration: "Definitive VAT declaration" #?!
     services_sale: "Service sale" #?
     sessions: "Sessions" #?
     set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)" #?!
@@ -2339,7 +2340,7 @@ eng:
       one: "Validate the entry" #?
       other: "Validate %{count} entries" #?
     validated: "Validated"
-    validated_vat_declaration: "Pending VAT declaration" #?!
+    validated_vat_declaration: "Definitive VAT declaration" #?!
     values: "Values"
     variable_indicators: "Variable indicators"
     variants: "Variants" #?
@@ -2576,6 +2577,7 @@ eng:
       error_client_account_empty: "Can not operate, client account is empty"
       error_during_file_generation: "An error occurred while generating a file" #?
       error_during_vat_declaration_generation: "An error occured while generating the VAT declaration." #?
+      error_on_field: "The value for the field %{field} in invalid\_: %{message}"
       fails_to_extract_listing: "The listing can't be made: %{message}"
       file_generated: "Your file was successfully generated" #?
       financial_year_already_closed: "The financial year has already been closed." #?

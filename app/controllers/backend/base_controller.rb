@@ -129,7 +129,9 @@ module Backend
     def save_and_redirect(record, options = {})
       record.attributes = options[:attributes] if options[:attributes]
       ActiveRecord::Base.transaction do
-        if options[:saved] || record.send(:save)
+        can_be_saved =  record.new_record? ? record.createable? : record.updateable?
+
+        if can_be_saved && (options[:saved] || record.save)
           response.headers['X-Return-Code'] = 'success'
           response.headers['X-Saved-Record-Id'] = record.id.to_s
           if params[:dialog]
@@ -154,6 +156,7 @@ module Backend
           return true
         end
       end
+      notify_error_now :record_cannot_be_saved.tl
       response.headers['X-Return-Code'] = 'invalid'
       false
     end
@@ -253,13 +256,14 @@ module Backend
       redirect_to_back(options.merge(direct: true))
     end
 
-    def fire_event(event)
+    def fire_event(event, **options)
       return unless record = find_and_check
       state, msg = record.send(event)
       if state == false && msg.respond_to?(:map)
         notify_error(map.collect(&:messages).map(&:values).flatten.join(', '))
       end
-      redirect_to params[:redirect] || { action: :show, id: record.id }
+      redirect_to params[:redirect] || { action: options.fetch(:redirect_action, :show), id: record.id }
+      record
     end
 
     class << self

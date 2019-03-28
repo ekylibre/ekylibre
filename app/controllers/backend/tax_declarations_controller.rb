@@ -60,6 +60,7 @@ module Backend
 
     def index
       key = "#{Nomen::DocumentNature.find(:vat_register).name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
+      notify_warning_now :tax_declaration_warning
 
       respond_to do |format|
         format.html do
