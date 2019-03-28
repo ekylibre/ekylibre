@@ -172,13 +172,14 @@ module Backend
     FixedAsset.state_machine.events.each do |event|
       if %i[sell scrap].include? event.name
         define_method event.name do
-          record = fire_event(event.name, redirect_action: :edit)
-          if record.errors.messages.length > 0
-            record.errors.messages.each do |field, message|
-              notify_error :error_on_field, { field: FixedAsset.human_attribute_name(field), message: message.join(", ") }
-            end
+          record, state = do_fire_event event.name
+          record.errors.messages.each do |field, message|
+            notify_error :error_on_field, { field: FixedAsset.human_attribute_name(field), message: message.join(", ") }
           end
 
+          redirect_action = state ? :show : :edit
+          redirect_to params[:redirect] || { action: redirect_action, id: record.id }
+          record
         end
       else
         define_method event.name do

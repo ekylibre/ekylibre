@@ -257,13 +257,20 @@ module Backend
     end
 
     def fire_event(event, **options)
+      record, _ = do_fire_event event
+      redirect_to params[:redirect] || { action: :show, id: record.id }
+
+      record
+    end
+
+    def do_fire_event(event)
       return unless record = find_and_check
       state, msg = record.send(event)
       if state == false && msg.respond_to?(:map)
         notify_error(map.collect(&:messages).map(&:values).flatten.join(', '))
       end
-      redirect_to params[:redirect] || { action: options.fetch(:redirect_action, :show), id: record.id }
-      record
+
+      [record, state]
     end
 
     class << self
