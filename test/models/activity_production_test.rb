@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -63,5 +63,15 @@ class ActivityProductionTest < ActiveSupport::TestCase
     assert p.save, p.errors.inspect
     p = activity.productions.new(started_on: '2017-07-01', stopped_on: '2016-01-15', campaign: Campaign.of(2016), cultivable_zone: CultivableZone.first)
     assert !p.save, p.errors.inspect
+  end
+
+  test 'harvest_yield returns a measure' do
+    cultivable_zone = create(:cultivable_zone)
+    activity_production = create(:activity_production, cultivable_zone: cultivable_zone)
+    result = activity_production.harvest_yield(:grass, procedure_category: :harvesting,
+                                                       size_indicator_name: :net_mass,
+                                                       size_unit_name: :ton,
+                                                       surface_unit_name: :hectare)
+    assert_equal Measure, result.class
   end
 end

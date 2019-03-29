@@ -181,6 +181,9 @@ namespace :tenant do
   end
 
   task restore: :environment do
+    if Rails.env.production? && !ENV['DANGEROUS_MODE']
+      raise Ekylibre::ForbiddenImport, 'No restore is allowed on the production server.'
+    end
     archive = ENV['ARCHIVE'] || ENV['archive']
     tenant = ENV['TENANT'] || ENV['name']
     options = {}
@@ -188,9 +191,20 @@ namespace :tenant do
       archive ||= Rails.root.join('tmp', 'archives', "#{tenant}.zip")
       options[:tenant] = tenant
     end
+    archive = Pathname.new(archive) unless archive.is_a? Pathname
     raise 'Need ARCHIVE env variable to find archive' unless archive
     if Ekylibre::Tenant.exist?(tenant) && ENV['FORCE'].to_i.zero?
-      unless confirm("Tenant \"#{tenant}\" already exists. Do you really want to erase it and restore archive?", false) && confirm('Really sure?', false)
+      warnings = ["Tenant \"#{tenant}\" already exists. Do you really want to erase it and restore archive?",
+                  'Really sure?']
+      if Rails.env.production?
+        warnings << 'Reeeeeaaaaally sure?'
+        warnings << 'For sure?'
+        warnings << 'There\'ll be no coming back. Can you confirm once more?'
+      end
+      confirmed = warnings.reduce(true) do |choice, question|
+        choice && confirm(question, false)
+      end
+      unless confirmed
         puts 'Nothing restored'.yellow
         exit(0)
       end

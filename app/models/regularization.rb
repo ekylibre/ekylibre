@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -42,6 +42,8 @@ class Regularization < Ekylibre::Record::Base
   validates :affair, :journal_entry, presence: true
   # ]VALIDATORS]
   validates :journal_entry, uniqueness: true
+  validates :currency, match: { with: :affair, message: :currency_does_not_match }
+  validates :currency, match: { with: :journal_entry, message: :currency_does_not_match }
 
   delegate :number, to: :journal_entry
 
@@ -49,15 +51,6 @@ class Regularization < Ekylibre::Record::Base
 
   before_validation do
     self.currency ||= journal_entry.currency if journal_entry
-  end
-
-  validate do
-    if affair && affair.currency != currency
-      errors.add(:affair, :currency_does_not_match)
-    end
-    if journal_entry && journal_entry.currency != currency
-      errors.add(:journal_entry, :currency_does_not_match)
-    end
   end
 
   after_save do

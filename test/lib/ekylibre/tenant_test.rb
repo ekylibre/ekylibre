@@ -18,5 +18,30 @@ module Ekylibre
       assert !Ekylibre::Tenant.exist?('foobar')
       assert !Ekylibre::Tenant.exist?('foobarbaz')
     end
+
+    def test_backup_v3
+      # We use public schema because outside dump is not possible outside
+      # of a transaction. So we backup an existing schema
+      name = 'public'
+
+      # Dump
+      Ekylibre::Tenant.send(:dump_v3, name)
+      file = Rails.root.join('tmp', 'archives', "#{name}.zip")
+      path = Rails.root.join('tmp', "test-#{name}-unzipped")
+      FileUtils.rm_rf path.to_s
+      FileUtils.mkdir_p path.to_s
+      # Open zip and check manifest.yml
+      Zip::File.open(file.to_s) do |zile|
+        zile.each do |entry|
+          entry.extract(path.join(entry.name))
+        end
+      end
+      infos = YAML.load_file(path.join('manifest.yml'))
+      assert_equal name, infos['tenant']
+
+      # # Restore
+      # Ekylibre::Tenant.send(:restore, file, tenant: 'foobarbaz')
+      # assert Ekylibre::Tenant.exist?('foobarbaz')
+    end
   end
 end

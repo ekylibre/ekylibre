@@ -120,7 +120,11 @@ por:
     formats:
       compact: "% M /% d /% Y% H:% M"
       default: "%a, %d de %B de %Y, %H:%M:%S"
+      full: "% M /% d /% Y% H:% M:% S"
       long: "%d de %B de %Y, %H:%M"
       short: "%d de %B, %H:%M"
       time: "%H:%M" #?
+    js_formats:
+      compact: "MM / DD / AAAA HH: mm"
+      full: "MM / DD / AAAA HH: mm: ss"
     pm: "pm"

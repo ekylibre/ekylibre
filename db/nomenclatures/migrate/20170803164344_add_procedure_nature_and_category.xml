@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add procedure nature and category">
+  <item-creation item="procedure_actions#packaging"/>
+  <item-creation item="procedure_categories#packaging" activity_family="processing"/>
+</migration>

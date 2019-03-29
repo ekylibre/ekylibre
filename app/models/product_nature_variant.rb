@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -194,14 +194,6 @@ class ProductNatureVariant < Ekylibre::Record::Base
           errors.add(:derivative_of, :blank)
         end
       end
-      # if storable?
-      #  unless self.stock_account
-      #    errors.add(:stock_account, :not_defined)
-      #  end
-      # unless self.stock_movement_account
-      #    errors.add(:stock_movement_account, :not_defined)
-      #  end
-      # end
     end
     if variety && products.any?
       if products.detect { |p| Nomen::Variety.find(p.variety) > variety }
@@ -434,9 +426,23 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   # Return current quantity of all products link to the variant currently ordered or invoiced but not delivered
   def current_outgoing_stock_ordered_not_delivered
-    sales = Sale.where(state: %w[order invoice])
-    sale_items = SaleItem.where(variant_id: id, sale_id: sales.pluck(:id)).includes(:parcel_items).where(parcel_items: { sale_item_id: nil })
-    sale_items.map(&:quantity).compact.sum.to_f
+    undelivereds = sale_items.includes(:sale).map do |si|
+      undelivered = 0
+      variants_in_parcel_in_sale = ParcelItem.where(parcel_id: si.sale.parcels.select(:id), variant: self)
+      variants_in_transit_parcel_in_sale = ParcelItem.where(parcel_id: si.sale.parcels.where.not(state: %i[given draft]).select(:id), variant: self)
+      delivered_variants_in_parcel_in_sale = ParcelItem.where(parcel_id: si.sale.parcels.where(state: :given).select(:id), variant: self)
+
+      undelivered = si.quantity if variants_in_parcel_in_sale.none? && !si.sale.draft? && !si.sale.refused? && !si.sale.aborted?
+      undelivered = [undelivered, si.quantity - delivered_variants_in_parcel_in_sale.sum(:population)].max if variants_in_parcel_in_sale.present?
+      sale_not_canceled = (si.sale.draft? || si.sale.estimate? || si.sale.order? || si.sale.invoice?)
+      undelivered = [undelivered, variants_in_transit_parcel_in_sale.sum(:population)].max if sale_not_canceled && variants_in_transit_parcel_in_sale.present?
+
+      undelivered
+    end
+
+    undelivereds += parcel_items.joins(:parcel).where.not(parcels: { state: %i[given draft] }).where(parcels: { sale_id: nil, nature: :outgoing }).pluck(:population)
+
+    undelivereds.compact.sum
   end
 
   def picture_path(style = :original)

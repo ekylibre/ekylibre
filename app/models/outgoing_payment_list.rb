@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -135,14 +135,15 @@ class OutgoingPaymentList < Ekylibre::Record::Base
   def self.build_from_affairs(affairs, mode, responsible, initial_check_number = nil, ignore_empty_affair = false)
     thirds = affairs.map(&:third).uniq
     position = 0
-    purchase_payments = thirds.map.with_index do |third|
+
+    purchase_payments = thirds.map do |third|
       third_affairs = affairs.select { |a| a.third == third }.sort_by(&:created_at)
-      first_affair = third_affairs.first
-      third_affairs.each_with_index do |affair, index|
-        first_affair.absorb!(affair) if index > 0
-      end
+      first_affair = third_affairs.shift
+      third_affairs.map { |affair| first_affair.absorb!(affair) }
+
       next if first_affair.balanced?
       next if ignore_empty_affair && first_affair.third_credit_balance <= 0
+
       op = PurchasePayment.new(
         affair: first_affair,
         amount: first_affair.third_credit_balance,

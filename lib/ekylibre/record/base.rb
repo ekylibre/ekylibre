@@ -77,9 +77,12 @@ module Ekylibre
 
       def unsuppress
         yield
-      rescue ActiveRecord::RecordInvalid => e
-        Rails.logger.info e.inspect
-        raise Ekylibre::Record::RecordInvalid.new(e.message, e.record)
+      rescue ActiveRecord::RecordInvalid => would_be_silently_dropped
+        Rails.logger.info would_be_silently_dropped.inspect
+        wont_be_dropped = Ekylibre::Record::RecordInvalid.new(would_be_silently_dropped.message,
+                                                              would_be_silently_dropped.record)
+        wont_be_dropped.set_backtrace(would_be_silently_dropped.backtrace)
+        raise wont_be_dropped
       end
 
       class << self

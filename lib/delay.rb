@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 class InvalidDelayExpression < ArgumentError
 end
 
@@ -7,37 +6,52 @@ end
 class Delay
   SEPARATOR = ','.freeze
   TRANSLATIONS = {
-    'an' => :year,
-    'ans' => :year,
-    'année' => :year,
-    'années' => :year,
-    'annee' => :year,
-    'annees' => :year,
-    'year' => :year,
-    'years' => :year,
-    'mois' => :month,
-    'month' => :month,
-    'months' => :month,
-    'week' => :week,
-    'semaine' => :week,
-    'weeks' => :week,
-    'semaines' => :week,
-    'jour' => :day,
-    'day' => :day,
-    'jours' => :day,
-    'days' => :day,
-    'heure' => :hour,
-    'hour' => :hour,
-    'heures' => :hour,
-    'hours' => :hour,
-    'minute' => :minute,
-    'minutes' => :minute,
-    'seconde' => :second,
-    'second' => :second,
-    'secondes' => :second,
-    'seconds' => :second
+    fra: {
+      'an' => :year,
+      'ans' => :year,
+      'année' => :year,
+      'années' => :year,
+      'annee' => :year,
+      'annees' => :year,
+      'mois' => :month,
+      'semaine' => :week,
+      'semaines' => :week,
+      'jour' => :day,
+      'jours' => :day,
+      'heure' => :hour,
+      'heures' => :hour,
+      'minute' => :minute,
+      'minutes' => :minute,
+      'seconde' => :second,
+      'secondes' => :second
+    },
+    eng: {
+      'year' => :year,
+      'years' => :year,
+      'month' => :month,
+      'months' => :month,
+      'week' => :week,
+      'weeks' => :week,
+      'day' => :day,
+      'days' => :day,
+      'hour' => :hour,
+      'hours' => :hour,
+      'minute' => :minute,
+      'minutes' => :minute,
+      'second' => :second,
+      'seconds' => :second,
+    }
   }.freeze
-  KEYS = TRANSLATIONS.keys.join('|').freeze
+  KEYS = TRANSLATIONS.values.reduce(&:merge).keys.join('|').freeze
+  ALL_TRANSLATIONS = TRANSLATIONS.values.reduce(&:merge)
+  MONTH_KEYWORDS = {
+      bom: {
+        eng: ['bom', 'beginning of month'],
+        fra: ['ddm', 'début du mois'] },
+      eom: {
+        eng: ['eom', 'end of month'],
+        fra: ['fdm', 'fin du mois'] }
+    }
 
   attr_reader :expression
 
@@ -50,16 +64,16 @@ class Delay
     end
     @expression = expression.collect do |step|
       # step = step.mb_chars.downcase
-      if step =~ /\A(eom|end of month|fdm|fin de mois)\z/
+      if step =~ /\A(#{MONTH_KEYWORDS[:eom].values.flatten.join('|')})\z/
         [:eom]
-      elsif step =~ /\A(bom|beginning of month|ddm|debut de mois|début de mois)\z/
+      elsif step =~ /\A(#{MONTH_KEYWORDS[:bom].values.flatten.join('|')})\z/
         [:bom]
       elsif step =~ /\A\d+\ (#{KEYS})(\ (avant|ago))?\z/
         words = step.split(/\s+/).map(&:to_s)
-        if TRANSLATIONS[words[1]].nil?
+        if ALL_TRANSLATIONS[words[1]].nil?
           raise InvalidDelayExpression, "#{words[1].inspect} is an undefined period (#{step.inspect} of #{base.inspect})"
         end
-        [TRANSLATIONS[words[1]], (words[2].blank? ? 1 : -1) * words[0].to_i]
+        [ALL_TRANSLATIONS[words[1]], (words[2].blank? ? 1 : -1) * words[0].to_i]
       elsif step.present?
         raise InvalidDelayExpression, "#{step.inspect} is an invalid step. (From #{base.inspect} => #{expression.inspect})"
       end
@@ -163,7 +177,31 @@ end
 class DelayValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     Delay.new(value)
-  rescue InvalidDelayExpression => e
-    record.errors.add(attribute, :invalid, options.merge(value: value))
+  rescue InvalidDelayExpression
+    record.errors.add(attribute, method(:bad_delay_message).to_proc, options.merge(value: value))
   end
+
+  private
+
+  def bad_delay_message(*_args)
+    message_key = 'activerecord.errors.models.purchase.payment_delay_custom_validation_message'
+    delay_arguments = delay_arguments_for(Preference[:language]) || delay_arguments_for(:eng)
+    month_keywords = month_keywords_for(Preference[:language]) || month_keywords_for(:eng)
+    values = delay_arguments + month_keywords
+    I18n.translate(message_key, values: values.join(', '))
+  end
+
+  def delay_arguments_for(language)
+    language = language.to_sym
+    keywords = Delay::TRANSLATIONS[language]&.keys
+  end
+
+  def month_keywords_for(language)
+    language = language.to_sym
+    bom = Delay::MONTH_KEYWORDS[:bom][language]
+    eom = Delay::MONTH_KEYWORDS[:eom][language]
+    return nil unless bom || eom
+    (bom || []) + (eom || [])
+  end
+
 end

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -101,6 +101,8 @@ class Parcel < Ekylibre::Record::Base
   validates :transporter, presence: { if: :delivery_mode_transporter? }
   validates :storage, presence: { unless: :outgoing? }
 
+  validates :transporter, match: { with: :delivery, if: ->(p) { p.delivery&.transporter } }, allow_blank: true
+
   scope :without_transporter, -> { with_delivery_mode(:transporter).where(transporter_id: nil) }
   scope :with_delivery, -> { where(with_delivery: true) }
   scope :to_deliver, -> { with_delivery.where(delivery_id: nil).where.not(state: :given) }
@@ -151,14 +153,6 @@ class Parcel < Ekylibre::Record::Base
     self.pretax_amount = items.sum(:pretax_amount)
   end
 
-  validate do
-    if delivery && delivery.transporter && transporter
-      if delivery.transporter != transporter
-        errors.add :transporter_id, :invalid
-      end
-    end
-  end
-
   after_initialize do
     if new_record? && incoming?
       self.address ||= Entity.of_company.default_mail_address
@@ -177,62 +171,7 @@ class Parcel < Ekylibre::Record::Base
     prepared? || given?
   end
 
-  # This method permits to add stock journal entries corresponding to the
-  # incoming or outgoing parcels.
-  # It depends on the preferences which permit to activate the "permanent stock
-  # inventory" and "automatic bookkeeping".
-  #
-  # | Parcel mode            | Debit                      | Credit                    |
-  # | incoming parcel        | stock (3X)                 | stock_movement (603X/71X) |
-  # | outgoing parcel        | stock_movement (603X/71X)  | stock (3X)                |
-  bookkeep do |b|
-    # For purchase_not_received or sale_not_emitted
-    invoice = lambda do |usage, order|
-      lambda do |entry|
-        label = tc(:undelivered_invoice,
-                   resource: self.class.model_name.human,
-                   number: number, entity: entity.full_name, mode: nature.l)
-        account = Account.find_or_import_from_nomenclature(usage)
-        items.each do |item|
-          amount = (item.trade_item && item.trade_item.pretax_amount) || item.stock_amount
-          next unless item.variant && item.variant.charge_account && amount.nonzero?
-          if order
-            entry.add_credit label, account.id, amount, resource: item, as: :unbilled, variant: item.variant
-            entry.add_debit  label, item.variant.charge_account.id, amount, resource: item, as: :expense, variant: item.variant
-          else
-            entry.add_debit  label, account.id, amount, resource: item, as: :unbilled, variant: item.variant
-            entry.add_credit label, item.variant.charge_account.id, amount, resource: item, as: :expense, variant: item.variant
-          end
-        end
-      end
-    end
-
-    ufb_accountable = Preference[:unbilled_payables] && given?
-    # For unbilled payables
-    journal = unsuppress { Journal.used_for_unbilled_payables!(currency: self.currency) }
-    b.journal_entry(journal, printed_on: printed_on, as: :undelivered_invoice, if: ufb_accountable && incoming?, &invoice.call(:suppliers_invoices_not_received, true))
-
-    b.journal_entry(journal, printed_on: printed_on, as: :undelivered_invoice, if: ufb_accountable && outgoing?, &invoice.call(:invoice_to_create_clients, false))
-
-    accountable = Preference[:permanent_stock_inventory] && given?
-    # For permanent stock inventory
-    journal = unsuppress { Journal.used_for_permanent_stock_inventory!(currency: self.currency) }
-    b.journal_entry(journal, printed_on: printed_on, if: (Preference[:permanent_stock_inventory] && given?)) do |entry|
-      label = tc(:bookkeep, resource: self.class.model_name.human,
-                            number: number, entity: entity.full_name, mode: nature.l)
-      items.each do |item|
-        variant = item.variant
-        next unless variant && variant.storable? && item.stock_amount.nonzero?
-        if incoming?
-          entry.add_credit(label, variant.stock_movement_account_id, item.stock_amount, resource: item, as: :stock_movement, variant: item.variant)
-          entry.add_debit(label, variant.stock_account_id, item.stock_amount, resource: item, as: :stock, variant: item.variant)
-        elsif outgoing?
-          entry.add_debit(label, variant.stock_movement_account_id, item.stock_amount, resource: item, as: :stock_movement, variant: item.variant)
-          entry.add_credit(label, variant.stock_account_id, item.stock_amount, resource: item, as: :stock, variant: item.variant)
-        end
-      end
-    end
-  end
+  bookkeep
 
   def entity
     incoming? ? sender : recipient
@@ -436,7 +375,7 @@ class Parcel < Ekylibre::Record::Base
         end.sort_by(&:first_available_date)
         third = detect_third(parcels)
         planned_at = parcels.last.first_available_date || Time.zone.now
-        unless nature = SaleNature.actives.first
+        unless nature = SaleNature.by_default
           unless journal = Journal.sales.opened_on(planned_at).first
             raise 'No sale journal'
           end
@@ -458,14 +397,28 @@ class Parcel < Ekylibre::Record::Base
 
         # Adds items
         parcels.each do |parcel|
-          parcel.items.each do |item|
+          parcel.items.order(:id).each do |item|
             # raise "#{item.variant.name} cannot be sold" unless item.variant.saleable?
             next unless item.variant.saleable? && item.population && item.population > 0
             catalog_item = Catalog.by_default!(:sale).items.find_by(variant: item.variant)
+            # check all taxes included to build unit_pretax_amount and tax from catalog with all taxes included
+            unit_pretax_amount = item.pretax_amount.zero? ? nil : item.pretax_amount
+            tax = Tax.current.first
+            if catalog_item && catalog_item.all_taxes_included
+              unit_pretax_amount ||= catalog_item.reference_tax.pretax_amount_of(catalog_item.amount)
+              tax = catalog_item.reference_tax || item.variant.category.sale_taxes.first || Tax.current.first
+            # from catalog without taxes
+            elsif catalog_item
+              unit_pretax_amount ||= catalog_item.amount
+            # from last sale item
+            elsif (last_sale_items = SaleItem.where(variant: item.variant)) && last_sale_items.any?
+              unit_pretax_amount ||= last_sale_items.order(id: :desc).first.unit_pretax_amount
+              tax = last_sale_items.order(id: :desc).first.tax
+            end
             item.sale_item = sale.items.create!(
               variant: item.variant,
-              unit_pretax_amount: (catalog_item ? catalog_item.amount : 0.0),
-              tax: item.variant.category.sale_taxes.first || Tax.first,
+              unit_pretax_amount: unit_pretax_amount || 0.0,
+              tax: tax,
               quantity: item.population
             )
             item.save!
@@ -491,7 +444,7 @@ class Parcel < Ekylibre::Record::Base
         end.sort_by(&:first_available_date)
         third = detect_third(parcels)
         planned_at = parcels.last.first_available_date || Time.zone.now
-        unless nature = PurchaseNature.actives.first
+        unless nature = PurchaseNature.by_default
           unless journal = Journal.purchases.opened_on(planned_at).first
             raise 'No purchase journal'
           end
@@ -513,13 +466,27 @@ class Parcel < Ekylibre::Record::Base
 
         # Adds items
         parcels.each do |parcel|
-          parcel.items.each do |item|
+          parcel.items.order(:id).each do |item|
             next unless item.variant.purchasable? && item.population && item.population > 0
             catalog_item = Catalog.by_default!(:purchase).items.find_by(variant: item.variant)
+            unit_pretax_amount = item.pretax_amount.zero? ? nil : item.pretax_amount
+            tax = Tax.current.first
+            # check all taxes included to build unit_pretax_amount and tax from catalog with all taxes included
+            if catalog_item && catalog_item.all_taxes_included
+              unit_pretax_amount ||= catalog_item.reference_tax.pretax_amount_of(catalog_item.amount)
+              tax = catalog_item.reference_tax || item.variant.category.purchase_taxes.first || Tax.current.first
+            # from catalog without taxes
+            elsif catalog_item
+              unit_pretax_amount ||= catalog_item.amount
+            # from last purchase item
+            elsif (last_purchase_items = PurchaseItem.where(variant: item.variant)) && last_purchase_items.any?
+              unit_pretax_amount ||= last_purchase_items.order(id: :desc).first.unit_pretax_amount
+              tax = last_purchase_items.order(id: :desc).first.tax
+            end
             item.purchase_item = purchase.items.create!(
               variant: item.variant,
-              unit_pretax_amount: (item.unit_pretax_amount.nil? || item.unit_pretax_amount.zero? ? (catalog_item ? catalog_item.amount : 0.0) : item.unit_pretax_amount),
-              tax: item.variant.category.purchase_taxes.first || Tax.first,
+              unit_pretax_amount: unit_pretax_amount || 0.0,
+              tax: tax,
               quantity: item.population
             )
             item.save!

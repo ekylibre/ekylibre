@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -76,7 +76,7 @@ class FixedAssetTest < ActiveSupport::TestCase
     @storage = BuildingDivision.create!(
       variant: @building_division_variant,
       name: 'Tractor Stockage',
-      initial_shape: Charta::MultiPolygon.new('SRID=4326;MULTIPOLYGON(((-0.813218951225281 45.5985699786537,-0.813113003969193 45.5985455816635,-0.81300538033247 45.5987766488858,-0.813106298446655 45.5987876744046,-0.813218951225281 45.5985699786537)))')
+      initial_shape: Charta.new_geometry('SRID=4326;MULTIPOLYGON(((-0.813218951225281 45.5985699786537,-0.813113003969193 45.5985455816635,-0.81300538033247 45.5987766488858,-0.813106298446655 45.5987876744046,-0.813218951225281 45.5985699786537)))')
     )
 
     @product = @variant.products.create!(
@@ -156,9 +156,20 @@ class FixedAssetTest < ActiveSupport::TestCase
     assert_equal @sold_on, fixed_asset.sold_journal_entry.printed_on
   end
 
+  test 'depreciate class method returns the amount of depreciations according to until option provided' do
+    FixedAssetDepreciation.delete_all
+    FixedAsset.delete_all
+    fixed_asset = create(:fixed_asset, depreciation_period: :yearly, depreciation_percentage: 100.0 / 3)
+    fixed_asset.update(state: 'in_use')
+    # create(:fixed_asset_depreciation, fixed_asset: fixed_asset)
+    assert_equal 1, FixedAsset.count
+    count = FixedAsset.depreciate(until: Date.civil(2020, 8, 15))
+    assert_equal 4, count, 'Count of depreciations is invalid' + fixed_asset.depreciations.pluck(:started_on, :amount).to_yaml.yellow
+  end
+
   private
 
-  def depreciate_up_to(depreciations, date)
+  def depreciate_up_to(_depreciations, date)
     depreciations = FixedAssetDepreciation.with_active_asset.up_to(date)
     success = true
 

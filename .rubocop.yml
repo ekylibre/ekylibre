@@ -13,7 +13,7 @@ AllCops:
 
 Rails:
   Enabled: true
-  
+
 Rails/HttpPositionalArguments:
   Enabled: false
 
@@ -26,5 +26,11 @@ Rails/ApplicationJob:
 Metrics/LineLength:
   Enabled: false
 
+Lint/AssignmentInCondition:
+  Enabled: false
+
+Lint/UnifiedInteger:
+  Enabled: false
+  
 Metrics/MethodLength:
   Max: 60

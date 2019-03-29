@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-ruby '>= 2.2.3', '< 3.0.0'
+ruby '>= 2.3.3', '< 3.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.8'
+gem 'rails', '4.2.11.1'
 
 # Security fix for mail
 gem 'mail', '~> 2.6.6.rc1'
@@ -13,7 +13,7 @@ gem 'activerecord-postgis-adapter', '>= 3.0.0'
 gem 'pg', '~> 0.20.0' # Needed for some tasks
 
 # Multi-tenancy
-gem 'apartment', '>= 1.2.0', '< 2.0'
+gem 'apartment', github:'influitive/apartment', branch: 'development'
 gem 'apartment-sidekiq'
 
 # Ruby syntax extensions
@@ -76,6 +76,9 @@ gem 'kaminari'
 # Freeze time for demo and/or tests
 gem 'timecop'
 
+# Manipulate map data
+gem 'charta', '>= 0.1.9'
+
 # Manage daemons
 gem 'foreman'
 
@@ -132,8 +135,14 @@ gem 'humanize'
 gem 'i18n-complements', '>= 0.0.14'
 gem 'i18n-js', '>= 3.0.0.rc12'
 
+# Dates management
+gem 'time_diff'
+
+# Bool management
+gem 'wannabe_bool'
+
 # XML Parsing/Writing, HTML extraction
-gem 'nokogiri', '~> 1.7.1'
+gem 'nokogiri', '~> 1.8.1'
 
 # Parse LALR or LR-1 grammars
 gem 'treetop'
@@ -189,7 +198,7 @@ gem 'luhn'
 gem 'bootstrap-slider-rails'
 
 group :development do
-  gem 'bullet'
+  gem 'bullet', '< 5.6.0'
 
   gem 'quiet_assets'
   # gem 'rack-mini-profiler'
@@ -215,7 +224,7 @@ end
 
 group :development, :test do
   gem 'pry-byebug'
-  gem 'pry-inline'
+  # gem 'pry-inline'
   gem 'pry-rails'
   gem 'teaspoon-jasmine'
 
@@ -230,17 +239,17 @@ group :test do
   gem 'shoulda-context'
 
   gem 'capybara'
-  gem 'capybara-webkit'
+  gem 'capybara-webkit', '>= 1.14.0'
   gem 'selenium-webdriver'
 
   gem 'codacy-coverage', require: false
-  gem 'coveralls', '>= 0.6', require: false
+  gem 'codecov', require: false
   gem 'database_cleaner'
   gem 'simplecov', require: false
 
   gem 'minitest-reporters'
 
-  gem 'factory_girl'
+  gem 'factory_bot'
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles

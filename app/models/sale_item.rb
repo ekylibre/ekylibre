@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -96,6 +96,7 @@ class SaleItem < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :tax, presence: true
+  validates :quantity, presence: true, exclusion: { in: [0], message: :invalid }
 
   # return all sale items  between two dates
   scope :between, lambda { |started_at, stopped_at|
@@ -133,6 +134,7 @@ class SaleItem < Ekylibre::Record::Base
           self.amount = nil
         end
         self.unit_pretax_amount ||= 0.0
+        self.quantity ||= 0.0
         raw_pretax_amount = unit_pretax_amount * quantity * reduction_coefficient
         self.unit_amount ||= tax.amount_of(unit_pretax_amount).round(precision)
         self.pretax_amount ||= raw_pretax_amount.round(precision)
@@ -164,24 +166,17 @@ class SaleItem < Ekylibre::Record::Base
     end
     if variant
       self.account_id = variant.nature.category.product_account_id
-      self.label ||= variant.commercial_name
+      self.label = variant.commercial_name
     end
   end
 
-  validate do
-    errors.add(:quantity, :invalid) if quantity && quantity.zero?
-    # TODO: validates responsible can make reduction and reduction percentage is convenient
-  end
-
   after_save do
-    if Preference[:catalog_price_item_addition_if_blank]
-      %i[stock sale].each do |usage|
-        # set stock catalog price if blank
-        catalog = Catalog.by_default!(usage)
-        unless variant.catalog_items.of_usage(usage).any? || unit_pretax_amount.blank? || unit_pretax_amount.zero?
-          variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: unit_pretax_amount, currency: currency) if catalog
-        end
-      end
+    next unless Preference[:catalog_price_item_addition_if_blank]
+    %i[stock sale].each do |usage|
+      # set stock catalog price if blank
+      next unless catalog = Catalog.by_default!(usage)
+      next if variant.catalog_items.of_usage(usage).any? || unit_pretax_amount.blank? || unit_pretax_amount.zero?
+      variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: unit_pretax_amount, currency: currency)
     end
   end
 
@@ -198,7 +193,7 @@ class SaleItem < Ekylibre::Record::Base
   end
 
   def designation
-    d = self.label
+    d = label
     d << "\n" + annotation.to_s if annotation.present?
     d << "\n" + tc(:tracking, serial: tracking.serial.to_s) if tracking
     d

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -47,23 +47,15 @@ class Integration < Ekylibre::Record::Base
               converter: proc { |parameters| ActionIntegration::Parameters.cipher(parameters) }
 
   validate do
-    if ciphered_parameters_changed?
-      if integration_type
-        if authentication_mode == :check
-          check_connection attributes do |c|
-            c.redirect do
-              errors.add(:parameters, :check_redirected)
-            end
-            c.error do
-              errors.add(:parameters, :check_errored)
-            end
-          end
-        elsif authentication_mode == :check
-          list = parameters.keys.map(&:to_s)
-          unless parameters && !integration_type.parameters.detect { |p| list.include?(p.to_s) }
-            errors.add(:parameters, :check_errored)
-          end
-        end
+    next unless ciphered_parameters_changed?
+    next unless integration_type
+    next unless authentication_mode == :check
+    check_connection attributes do |c|
+      c.redirect do
+        errors.add(:parameters, :check_redirected)
+      end
+      c.error do
+        errors.add(:parameters, :check_errored)
       end
     end
   end

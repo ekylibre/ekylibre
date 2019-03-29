@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -99,6 +99,8 @@ class FixedAsset < Ekylibre::Record::Base
   validates :name, uniqueness: true
   validates :depreciation_method, inclusion: { in: depreciation_method.values }
   validates :asset_account, :expenses_account, presence: true
+  validates :currency, match: { with: :journal, to_invalidate: :journal }
+
   enumerize :depreciation_period, in: %i[monthly quarterly yearly], default: -> { Preference.get(:default_depreciation_period).value || Preference.set!(:default_depreciation_period, :yearly, :string) }
 
   scope :drafts, -> { where(state: %w[draft]) }
@@ -114,7 +116,7 @@ class FixedAsset < Ekylibre::Record::Base
     state :sold
     state :scrapped
     event :start_up do
-      transition draft: :in_use
+      transition draft: :in_use, if: :on_unclosed_periods?
     end
     event :sell do
       transition in_use: :sold
@@ -146,23 +148,19 @@ class FixedAsset < Ekylibre::Record::Base
     elsif depreciation_method_simplified_linear?
       self.depreciation_percentage = 20 if depreciation_percentage.blank? || depreciation_percentage <= 0
       months = 12 * (100.0 / depreciation_percentage.to_f)
-      self.stopped_on = started_on >> months.floor
-      self.stopped_on += (months - months.floor) * 30.0 - 1
+      if self.started_on
+        # TODO: use proper duration operations here
+        self.stopped_on = started_on >> months.floor
+        self.stopped_on += (months - months.floor) * 30.0 - 1
+      end
     end
     # self.currency = self.journal.currency
     true
   end
 
   validate do
-    if currency && journal
-      errors.add(:journal, :invalid) if currency != journal.currency
-    end
-    if started_on
-      if self.stopped_on
-        unless self.stopped_on >= started_on
-          errors.add(:stopped_on, :posterior, to: started_on.l)
-        end
-      end
+    if started_on && self.stopped_on && stopped_on < started_on
+      errors.add(:stopped_on, :posterior, to: started_on.l)
     end
     true
   end
@@ -191,6 +189,10 @@ class FixedAsset < Ekylibre::Record::Base
     # end
     # end
     depreciate! if @auto_depreciate
+  end
+
+  def on_unclosed_periods?
+    started_on > journal.closed_on
   end
 
   def status
@@ -335,7 +337,9 @@ class FixedAsset < Ekylibre::Record::Base
       depreciations.find_each do |dep|
         dep.update!(accountable: true)
       end
+      return depreciations.count
     end
+    0
   end
 
   def depreciate!
@@ -359,6 +363,9 @@ class FixedAsset < Ekylibre::Record::Base
     when /quarterly/
       new_trimesters = new_months.select { |date| date.month.multiple_of? 3 }
       starts += new_trimesters
+    when /yearly/
+      new_years = new_months.select { |date| date.month == 1 }
+      starts += new_years
     end
 
     starts = starts.uniq.sort

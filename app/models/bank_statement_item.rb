@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -56,6 +56,13 @@ class BankStatementItem < Ekylibre::Record::Base
   validates :transfered_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   # ]VALIDATORS]
 
+  validates :started_on, presence: true
+  validates :stopped_on, presence: true
+
+  scope :transfered_between, lambda { |period_start, period_end|
+    where('transfered_on >= ? AND transfered_on <= ?', period_start, period_end)
+  }
+
   before_validation do
     self.currency = bank_statement.currency if bank_statement
     self.debit ||= 0
@@ -67,7 +74,7 @@ class BankStatementItem < Ekylibre::Record::Base
     if (debit.nonzero? && credit.nonzero?) || (debit.zero? && credit.zero?)
       errors.add(:credit, :unvalid_amounts)
     end
-    if bank_statement && transfered_on
+    if bank_statement && transfered_on && started_on && stopped_on
       unless started_on <= transfered_on && transfered_on <= stopped_on
         errors.add(:transfered_on, :invalid)
       end

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -84,6 +84,9 @@ class IncomingPayment < Ekylibre::Record::Base
   validates :payer, presence: true
   validates :commission_account, presence: { if: :with_commission? }
 
+  validates :currency, match: { with: :mode }
+  validates :mode, match: { with: :deposit, to_invalidate: :deposit_id }, allow_blank: true
+
   acts_as_numbered
   acts_as_affairable :payer, dealt_at: :to_bank_at, class_name: 'SaleAffair'
 
@@ -106,7 +109,7 @@ class IncomingPayment < Ekylibre::Record::Base
 
   before_validation(on: :create) do
     self.to_bank_at ||= Time.zone.now
-    self.scheduled = (self.to_bank_at > Time.zone.now ? true : false)
+    self.scheduled = (self.to_bank_at > Time.zone.now)
     self.received = false if scheduled
     true
   end
@@ -118,15 +121,6 @@ class IncomingPayment < Ekylibre::Record::Base
       self.currency = mode.currency
     end
     true
-  end
-
-  validate do
-    if mode
-      errors.add(:currency, :invalid) if currency != mode.currency
-      if deposit
-        errors.add(:deposit_id, :invalid) if mode_id != deposit.mode_id
-      end
-    end
   end
 
   protect do

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -70,23 +70,65 @@ class InterventionAgent < InterventionProductParameter
     end
   end
 
-  # compute working duration from participation if exist or from intervention directly
-  def working_duration
-    if participation
-      participation.working_periods.sum(:duration)
-    else
-      intervention_working_duration
-    end
-  end
-
-  def cost_amount_computation
+  def cost_amount_computation(nature: nil, natures: {})
     return InterventionParameter::AmountComputation.failed unless product
+
+    quantity = if natures.empty?
+                 nature_quantity(nature)
+               else
+                 natures_quantity(natures)
+               end
+
+    unit_name = Nomen::Unit.find(:hour).human_name
+    unit_name = unit_name.pluralize if quantity > 1
+
+    catalog_item = if nature.present? && nature != :intervention
+                     begin
+                       product.variant.catalog_items.joins(:catalog).where('catalogs.usage': "#{nature}_cost").first.catalog.usage
+                     rescue
+                       catalog_usage
+                     end
+                   else
+                     begin
+                       product.variant.catalog_items.joins(:catalog).where('catalogs.usage': 'cost').first.catalog.usage
+                     rescue
+                       catalog_usage
+                     end
+      end
+
     options = {
-      catalog_usage: :cost,
-      quantity: working_duration.to_d / 3600,
-      unit_name: Nomen::Unit.find(:hour).human_name
+      catalog_usage: catalog_item,
+      quantity: quantity.to_d,
+      unit_name: unit_name
     }
+
     options[:catalog_item] = product.default_catalog_item(options[:catalog_usage])
     InterventionParameter::AmountComputation.quantity(:catalog, options)
+  end
+
+  def working_duration_params
+    { intervention: intervention,
+      participations: intervention.participations,
+      product: product }
+  end
+
+  def natures_quantity(natures)
+    quantity = 0
+
+    natures.each do |nature|
+      quantity += nature_quantity(nature)
+    end
+
+    quantity
+  end
+
+  def nature_quantity(nature)
+    InterventionWorkingTimeDurationCalculationService
+      .new(**working_duration_params)
+      .perform(nature: nature)
+  end
+
+  def catalog_usage
+    :cost
   end
 end

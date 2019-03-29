@@ -1,5 +1,3 @@
-# coding: utf-8
-
 # ##### BEGIN LICENSE BLOCK #####
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2009 Brice Texier, Thibaud Merigon
@@ -71,7 +69,6 @@ module ApplicationHelper
   end
 
   def radio_check_box(object_name, method, _options = {}, checked_value = '1', unchecked_value = '0')
-    # raise StandardError.new eval("@#{object_name}.#{method}").inspect
     radio_button_tag(object_name, method, TrueClass, id: "#{object_name}_#{method}_#{checked_value}") << ' ' <<
       content_tag(:label, ::I18n.translate('general.y'), for: "#{object_name}_#{method}_#{checked_value}") << ' ' <<
       radio_button_tag(object_name, method, FalseClass, id: "#{object_name}_#{method}_#{unchecked_value}") << ' ' <<
@@ -873,7 +870,13 @@ module ApplicationHelper
   end
 
   def form_actions(&block)
-    content_tag(:div, capture(&block), class: 'form-actions')
+    content_tag(:div, class: 'form-actions') do
+      html = ''.html_safe
+      html << content_for(:before_form_actions) if content_for?(:before_form_actions)
+      html << capture(&block)
+      html << content_for(:after_form_actions) if content_for?(:after_form_actions)
+      html
+    end
   end
 
   def form_fields(&block)

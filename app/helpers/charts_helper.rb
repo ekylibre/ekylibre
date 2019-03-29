@@ -208,36 +208,34 @@ module ChartsHelper
     '#' + r.to_i.to_s(16).rjust(2, '0') + g.to_i.to_s(16).rjust(2, '0') + b.to_i.to_s(16).rjust(2, '0')
   end
 
-  for type, absolute_type in TYPES
-    code = "def #{type}_highcharts(series, options = {}, html_options = {})\n"
-    code << "  options[:chart] ||= {}\n"
-    code << "  options[:chart][:type] = '#{absolute_type}'\n"
-    code << "  options[:chart][:style] ||= {}\n"
-    code << "  options[:chart][:style][:font_family] ||= theme_font_family\n"
-    code << "  options[:chart][:style][:font_size]   ||= theme_font_size\n"
-    code << "  options[:colors] ||= theme_colors\n"
-    code << "  if options[:title].is_a?(String)\n"
-    code << "    options[:title] = {text: options[:title].dup}\n"
-    code << "  end\n"
-    code << "  if options[:subtitle].is_a?(String)\n"
-    code << "    options[:subtitle] = {text: options[:subtitle].dup}\n"
-    code << "  end\n"
-    code << "  series = [series] unless series.is_a?(Array)\n"
-    code << "  options[:series] = series\n"
-    for name, absolute_name in OPTIONS
-      if %i[legend credits].include?(name)
-        code << "  if options.has_key?(:#{name})\n"
-        code << "    options[:#{name}] = {enabled: true} if options[:#{name}].is_a?(TrueClass)\n"
-        code << "  end\n"
+  TYPES.each do |type, absolute_type|
+    define_method "#{type}_highcharts" do |series, options = {}, html_options = {}|
+      options[:chart] ||= {}
+      options[:chart][:type] = absolute_type
+      options[:chart][:style] ||= {}
+      options[:chart][:style][:font_family] ||= theme_font_family
+      options[:chart][:style][:font_size]   ||= theme_font_size
+      options[:colors] ||= theme_colors
+      if options[:title].is_a?(String)
+        options[:title] = {text: options[:title].dup}
       end
-      code << "  options[:#{name}][:enabled] = true if options[:#{name}].is_a?(Hash) and !options[:#{name}].has_key?(:enabled)\n"
+      if options[:subtitle].is_a?(String)
+        options[:subtitle] = {text: options[:subtitle].dup}
+      end
+      series = [series] unless series.is_a?(Array)
+      options[:series] = series
+      OPTIONS.each do |name, _absolute_name|
+        if %i[legend credits].include?(name)
+          if options.has_key?(name.to_sym)
+            options[name.to_sym] = { enabled: true } if options[name.to_sym].is_a?(TrueClass)
+          end
+        end
+        options[name.to_sym][:enabled] = true if options[name.to_sym].is_a?(Hash) and !options[name.to_sym].has_key?(:enabled)
+      end
+      html_options[:data] ||= {}
+      html_options[:data][:highcharts] = options.jsonize_keys.to_json
+      return content_tag(:div, nil, html_options)
     end
-    code << "  html_options[:data] ||= {}\n"
-    code << "  html_options[:data][:highcharts] = options.jsonize_keys.to_json\n"
-    code << "  return content_tag(:div, nil, html_options)\n"
-    code << "end\n"
-    # code.split("\n").each_with_index{|x, i| puts((i+1).to_s.rjust(4)+": "+x)}
-    eval(code)
   end
 
   def normalize_serie(values, x_values, default = 0.0)

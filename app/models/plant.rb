@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,6 +22,7 @@
 #
 # == Table: products
 #
+#  activity_production_id       :integer
 #  address_id                   :integer
 #  birth_date_completeness      :string
 #  birth_farm_number            :string
@@ -73,6 +74,7 @@
 #  picture_file_name            :string
 #  picture_file_size            :integer
 #  picture_updated_at           :datetime
+#  reading_cache                :jsonb            default("{}")
 #  team_id                      :integer
 #  tracking_id                  :integer
 #  type                         :string
@@ -103,12 +105,16 @@ class Plant < Bioproduct
     # Compute population
     if initial_shape && nature
       if variable_indicators_list.include?(:net_surface_area)
-        read!(:net_surface_area, ::Charta.new_geometry(initial_shape).area, at: initial_born_at)
+        read!(:net_surface_area, initial_shape_area, at: initial_born_at)
       end
       if frozen_indicators_list.include?(:net_surface_area) && variant.net_surface_area.nonzero?
-        self.initial_population = ::Charta.new_geometry(initial_shape).area / variant.net_surface_area
+        self.initial_population = initial_shape_area / variant.net_surface_area
       end
     end
+  end
+
+  after_create do
+    link_to_production
   end
 
   def status
@@ -144,10 +150,6 @@ class Plant < Bioproduct
     item = analysis.items.find_by(indicator_name: 'ready_to_harvest')
     return false unless item
     item.value
-  end
-
-  def best_activity_production(options = {})
-    ActivityProduction.where(support: LandParcel.shape_intersecting(shape)).current.first || super
   end
 
   # INSPECTIONS RELATED
@@ -208,5 +210,13 @@ class Plant < Bioproduct
       .group_by(&:first)
       .map { |crit, g_pairs| [crit, g_pairs.map(&:last)] }
       .to_h
+  end
+
+  def link_to_production
+    outputs = InterventionOutput.where(product: self, reference_name: 'plant')
+    unless outputs.empty?
+      ap = outputs.first.intervention.targets.where(reference_name: 'land_parcel').first.product.activity_production
+      update(activity_production: ap)
+    end
   end
 end

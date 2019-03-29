@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -173,6 +173,7 @@ class Entity < Ekylibre::Record::Base
   validates :activity_code, length: { allow_nil: true, maximum: 30 }
   validates :deliveries_conditions, :number, length: { allow_nil: true, maximum: 60 }
   validates :iban, iban: true, allow_blank: true
+  validates :siret_number, siret_format: true, allow_blank: true
   validates_attachment_content_type :picture, content_type: /image/
   validates_delay_format_of :supplier_payment_delay
 
@@ -184,6 +185,7 @@ class Entity < Ekylibre::Record::Base
   scope :transporters, -> { where(transporter: true) }
   scope :clients,      -> { where(client: true) }
   scope :employees,    -> { where(employee: true) }
+  scope :company,      -> { where(of_company: true) }
   scope :related_to, lambda { |entity|
     where("id IN (SELECT linked_id FROM #{EntityLink.table_name} WHERE entity_id = ?) OR id IN (SELECT entity_id FROM #{EntityLink.table_name} WHERE linked_id = ?)", entity.id, entity.id)
   }
@@ -210,6 +212,7 @@ class Entity < Ekylibre::Record::Base
     self.first_name = first_name.to_s.strip
     self.first_name = nil if organization?
     self.last_name  = last_name.to_s.strip
+    self.number = unique_predictable_number if number.empty?
     # FIXME: I18nize full name computation
     self.full_name = (title.to_s + ' ' + first_name.to_s + ' ' + last_name.to_s).strip
     # unless self.nature.nil?
@@ -217,6 +220,7 @@ class Entity < Ekylibre::Record::Base
     # end
     full_name.strip!
     # self.name = self.name.to_s.strip.downcase.gsub(/[^a-z0-9\.\_]/,'')
+    self.siret_number = siret_number&.strip
     self.language = Preference[:language] if language.blank?
     self.currency = Preference[:currency] if currency.blank?
     self.country  = Preference[:country]  if country.blank?
@@ -225,17 +229,6 @@ class Entity < Ekylibre::Record::Base
     self.bank_account_holder_name = full_name if bank_account_holder_name.blank?
     self.bank_account_holder_name = I18n.transliterate(bank_account_holder_name) unless bank_account_holder_name.nil?
     self.supplier_payment_delay = '30 days' if supplier_payment_delay.blank?
-  end
-
-  validate do
-    if siret_number.present?
-      errors.add(:siret_number, :invalid) unless Luhn.valid?(siret_number.strip)
-    end
-    # if self.nature
-    #   if self.nature.in_name and not self.last_name.match(/( |^)#{self.nature.title}( |$)/i)
-    #     errors.add(:last_name, :missing_title, :title => self.nature.title)
-    #   end
-    # end
   end
 
   before_save do
@@ -487,7 +480,7 @@ class Entity < Ekylibre::Record::Base
       # Add summary observation of the merge
       if author
         content = "Merged entity (ID=#{other.id}):\n"
-        other.attributes.sort.each do |attr, value|
+        other.attributes.sort.each do |attr, _value|
           value = other.send(attr).to_s
           content << "  - #{Entity.human_attribute_name(attr)} : #{value}\n" if value.present?
         end

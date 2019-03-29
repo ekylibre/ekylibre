@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -62,7 +62,11 @@ class SaleNature < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :journal, presence: { if: :with_accounting? }
+
   validates :currency, presence: true
+  validates :currency, match: { with: :journal, message: :currency_does_not_match }
+  validates :currency, match: { with: :payment_mode, message: :currency_does_not_match }
+
   validates :name, uniqueness: true
   validates_delay_format_of :payment_delay, :expiration_delay
 
@@ -75,19 +79,6 @@ class SaleNature < Ekylibre::Record::Base
     self.payment_delay    = '0 minutes' if payment_delay.blank?
     self.downpayment_minimum ||= 0
     self.downpayment_percentage ||= 0
-  end
-
-  validate do
-    if journal
-      unless currency == journal.currency
-        errors.add(:journal, :currency_does_not_match, currency: currency)
-      end
-    end
-    if payment_mode
-      unless currency == payment_mode.currency
-        errors.add(:payment_mode, :currency_does_not_match, currency: currency)
-      end
-    end
   end
 
   class << self

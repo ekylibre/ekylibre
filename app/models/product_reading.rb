@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -88,6 +88,19 @@ class ProductReading < Ekylibre::Record::Base
         errors.add(:read_at, :posterior, to: product.born_at)
       end
     end
+  end
+
+  after_save do
+    last_reading = product.readings.where(indicator_name: indicator_name).last
+    if last_reading && last_reading.read_at <= read_at
+      product.send("#{indicator_name}=", value)
+      product.update_column(:reading_cache, product.reading_cache)
+    end
+
+    # if product && product.initial_shape_changed?
+    #   product.net_surface_area = product.initial_shape.area.in(:hectare).round(3)
+    #   # binding.pry
+    # end
   end
 
   def self.first_of_all(indicator_name)

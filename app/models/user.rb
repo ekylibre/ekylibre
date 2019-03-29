@@ -1,5 +1,3 @@
-# coding: utf-8
-
 # = Informations
 #
 # == License
@@ -7,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -75,6 +73,13 @@
 #
 
 class User < Ekylibre::Record::Base
+  # No point accepted in preference name
+  PREFERENCE_SHOW_MAP_INTERVENTION_FORM = 'show_map_on_intervention_form'.freeze
+  PREFERENCE_SHOW_EXPORT_PREVIEW        = 'show_export_preview'.freeze
+  PREFERENCES = {
+    PREFERENCE_SHOW_MAP_INTERVENTION_FORM => :boolean,
+    PREFERENCE_SHOW_EXPORT_PREVIEW => :boolean
+  }.freeze
   include Rightable
   refers_to :language
   belongs_to :team

@@ -54,7 +54,7 @@ module Ekylibre
               value = pair.second.to_s
               type = schema[table][attribute][:type].to_sym
               if type == :boolean
-                value = (value == 'true' ? true : false)
+                value = (value == 'true')
               elsif type == :integer
                 value = (value.blank? ? nil : value.to_i)
               elsif type == :decimal
@@ -210,8 +210,8 @@ module Ekylibre
 
     def import
       # CAUTION Fixed manually by counting points
-      # grep -rin check_point app/exchangers/ekylibre/backup_exchanger.rb | wc -l
-      w.count = 20 - 1
+      # `grep -rinE "^\s*\w\.check_point" app/exchangers/ekylibre/backup_exchanger.rb | wc -l`
+      w.count = 18
 
       # Unzip file
       dir = w.tmp_dir
@@ -248,11 +248,11 @@ module Ekylibre
 
       # :accounts, :cultivations, :custom_fields, :delays, :districts, :document_templates, :entity_categories, :entity_link_natures, :entity_natures, :establishments, :event_natures, :incoming_delivery_modes, :journals, :land_parcel_groups, :listings, :operation_natures, :outgoing_delivery_modes, :production_chains, :professions, :roles, :sequences, :tools, :units
 
-      delays = data[:delay].each_with_object({}) do |item, hash|
-        hash[item.id] = item.expression
-        hash
-      end
-      w.check_point
+      # delays = data[:delay].each_with_object({}) do |item, hash|
+      #   hash[item.id] = item.expression
+      #   hash
+      # end
+      # w.check_point
 
       # Import accounts
       accounting_system = Preference[:accounting_system]

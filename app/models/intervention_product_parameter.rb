@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -117,14 +117,13 @@ class InterventionProductParameter < InterventionParameter
   end
 
   validate do
-    if intervention && intervention.procedure
-      if reference
-        if reference.handled? && quantity_handler?
-          errors.add(:quantity_handler, :invalid) unless reference.handler(quantity_handler)
-        end
-      elsif reference_name.present?
-        errors.add(:reference_name, :invalid)
+    next unless intervention && intervention.procedure
+    if reference
+      if reference.handled? && quantity_handler? && !reference.handler(quantity_handler)
+        errors.add(:quantity_handler, :invalid)
       end
+    elsif reference_name.present?
+      errors.add(:reference_name, :invalid)
     end
     true
   end

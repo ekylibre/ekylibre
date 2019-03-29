@@ -1,0 +1,1 @@
+= render 'reconciliation', currency: @bank_statements.map(&:currency).uniq.first, initial_balance_debit: @bank_statements.sum(:initial_balance_debit), initial_balance_credit: @bank_statements.sum(:initial_balance_credit)

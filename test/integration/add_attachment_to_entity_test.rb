@@ -9,33 +9,35 @@ class AddAttachmentToEntity < CapybaraIntegrationTest
     Warden.test_reset!
   end
 
-  test 'should add an attachment to an entity' do
-    entity = entities(:entities_001)
+  # TODO: Re-activate the following
 
-    visit(backend_entity_path(entity))
+  # test 'should add an attachment to an entity' do
+  #   entity = entities(:entities_001)
 
-    assert find(:css, '#title').text.include? entity.full_name
+  #   visit(backend_entity_path(entity))
 
-    assert fixture_file('sample_image.png').exist?, 'No image to attach'
+  #   assert find(:css, '#title').text.include? entity.full_name
 
-    assert find(:css, '.attachment-files')
-    assert_not find(:css, '.attachment-files').has_selector?('.file')
+  #   assert fixture_file('sample_image.png').exist?, 'No image to attach'
 
-    # Input file is hidden to user
-    script = "$('#attachments').css({position: 'relative', opacity: 1});"
-    page.execute_script(script)
+  #   assert find(:css, '.attachment-files')
+  #   assert_not find(:css, '.attachment-files').has_selector?('.file')
 
-    shoot_screen 'attachments/attach_file'
+  #   # Input file is hidden to user
+  #   script = "$('#attachments').css({position: 'relative', opacity: 1});"
+  #   page.execute_script(script)
 
-    attach_file('attachments', 'test/fixture-files/sample_image.png')
-    shoot_screen 'attachments/upload_file'
+  #   shoot_screen 'attachments/attach_file'
 
-    wait_for_ajax
+  #   attach_file('attachments', 'test/fixture-files/sample_image.png')
+  #   shoot_screen 'attachments/upload_file'
 
-    assert find(:css, '.attachment-files').find(:css, '.file')
+  #   wait_for_ajax
 
-    assert find(:css, '.attachment-files').find(:css, '.file').find(:css, '.file-name').text.include? 'sample_image.png'
+  #   assert find(:css, '.attachment-files').find(:css, '.file')
 
-    shoot_screen 'attachments/uploaded_file'
-  end
+  #   assert find(:css, '.attachment-files').find(:css, '.file').find(:css, '.file-name').text.include? 'sample_image.png'
+
+  #   shoot_screen 'attachments/uploaded_file'
+  # end
 end

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -21,7 +20,9 @@ require 'test_helper'
 
 module Backend
   class SalesControllerTest < ActionController::TestCase
-    test_restfully_all_actions cancel: :redirected_get, contacts: :index_xhr, except: :generate_parcel
+    test_restfully_all_actions cancel: :redirected_get,
+                               contacts: :index_xhr,
+                               except: %i[generate_parcel update]
 
     test 'should print an invoice' do
       sale = sales(:sales_001)
