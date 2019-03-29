@@ -8,6 +8,7 @@ module ActionIntegration
     include_protocol ActionIntegration::Protocols::HTML
     include_protocol ActionIntegration::Protocols::JSON
     include_protocol ActionIntegration::Protocols::Savon
+    include_protocol ActionIntegration::Protocols::XML
 
     def initialize(call)
       # Call object to which we'll delegate the http requests making up
@@ -126,9 +127,9 @@ module ActionIntegration
         @parameters || []
       end
 
-      def parameter(name)
+      def parameter(name, &default_value)
         @parameters ||= []
-        @parameters << name
+        @parameters << ActionIntegration::Parameter.new(name, &default_value)
       end
 
       # TODO: fetch shouldn't raise exceptions, fetch! does

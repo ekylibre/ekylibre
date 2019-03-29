@@ -98,7 +98,7 @@ module Ekylibre
           elsif actor.variant.is_a?(ProductNatureVariant)
             valid = true
           # w.info "#{prompt} Actor ##{i + 1} exist in DB as a variant (#{actor.variant.name})"
-          elsif item = Nomen::ProductNatureVariants.find(actor.target_variant)
+          elsif item = Nomen::ProductNatureVariant.find(actor.target_variant)
             valid = true
           # w.info "#{prompt} Actor ##{i + 1} exist in NOMENCLATURE as a variant (#{item.name})"
           else
@@ -109,10 +109,10 @@ module Ekylibre
           # PROCEDURE GIVE PRODUCTS OR VARIANTS BUT NOT EXIST IN DB
           #
           unit_name = actor.input_unit_name
-          if Nomen::Units[unit_name]
+          if Nomen::Unit[unit_name]
             valid = true
           # w.info "#{prompt} #{unit_name} exist in NOMENCLATURE as a unit"
-          elsif u = Nomen::Units.find_by(symbol: unit_name)
+          elsif u = Nomen::Unit.find_by(symbol: unit_name)
             valid = true
           # w.info "#{prompt} #{unit_name} exist in NOMENCLATURE as a symbol of #{u.name}"
           else
@@ -242,15 +242,15 @@ module Ekylibre
         u = unit
       end
       # case units are symbol
-      if u && !Nomen::Units[u]
-        if u = Nomen::Units.find_by(symbol: u)
+      if u && !Nomen::Unit[u]
+        if u = Nomen::Unit.find_by(symbol: u)
           u = u.name.to_s
         else
           raise ActiveExchanger::NotWellFormedFileError, "Unknown unit #{u.inspect}."
         end
       end
       u = u.to_sym if u
-      nomen_unit = Nomen::Units[u] if u
+      nomen_unit = Nomen::Unit[u] if u
       if value >= 0.0 && nomen_unit
         measure = Measure.new(value, u)
         return measure
@@ -274,15 +274,15 @@ module Ekylibre
       value = population
       nomen_unit = nil
       # convert symbol into unit if needed
-      if unit.present? && !Nomen::Units[unit]
-        if u = Nomen::Units.find_by(symbol: unit)
+      if unit.present? && !Nomen::Unit[unit]
+        if u = Nomen::Unit.find_by(symbol: unit)
           unit = u.name.to_s
         else
           raise ActiveExchanger::NotWellFormedFileError, "Unknown unit #{unit.inspect} for variant #{item_variant.name.inspect}."
         end
       end
       unit = unit.to_sym if unit
-      nomen_unit = Nomen::Units[unit] if unit
+      nomen_unit = Nomen::Unit[unit] if unit
       #
       w.debug value.inspect.yellow
       if value >= 0.0 && nomen_unit

@@ -8,6 +8,15 @@ module Nomen
       @version = 0
     end
 
+    def load_data_from_xml(nomenclature_name)
+      Rails.logger.info "Loading #{nomenclature_name}..."
+      start = Time.now
+      element = Nomen.reference_document.xpath("/xmlns:nomenclatures/xmlns:nomenclature[@name='#{nomenclature_name}']")
+      nomenclature = harvest_nomenclature(element)
+      Rails.logger.info "Loaded #{nomenclature_name} in #{(Time.now - start).round(2)} seconds..."
+      nomenclature
+    end
+
     def self.load_file(file)
       set = new
       f = File.open(file, 'rb')

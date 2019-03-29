@@ -69,5 +69,9 @@ module Backend
       yield taskboard
       render partial: 'backend/shared/taskboard', locals: { taskboard: taskboard }
     end
+
+    def task(titles, datas, actions, can_select, colors, options)
+      Backend::TaskboardHelper::Taskboard::Task.new(titles, datas, actions, can_select, colors, options)
+    end
   end
 end

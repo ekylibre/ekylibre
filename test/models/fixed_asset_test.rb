@@ -156,6 +156,17 @@ class FixedAssetTest < ActiveSupport::TestCase
     assert_equal @sold_on, fixed_asset.sold_journal_entry.printed_on
   end
 
+  test 'depreciate class method returns the amount of depreciations according to until option provided' do
+    FixedAssetDepreciation.delete_all
+    FixedAsset.delete_all
+    fixed_asset = create(:fixed_asset, depreciation_period: :yearly, depreciation_percentage: 100.0 / 3)
+    fixed_asset.update(state: 'in_use')
+    # create(:fixed_asset_depreciation, fixed_asset: fixed_asset)
+    assert_equal 1, FixedAsset.count
+    count = FixedAsset.depreciate(until: Date.civil(2020, 8, 15))
+    assert_equal 4, count, 'Count of depreciations is invalid' + fixed_asset.depreciations.pluck(:started_on, :amount).to_yaml.yellow
+  end
+
   private
 
   def depreciate_up_to(depreciations, date)

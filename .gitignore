@@ -44,11 +44,6 @@ config/locales/*/reporting/*.pdf
 
 # Ignore private files
 private/*
-!private/test/
-private/test/tmp
-private/test/reporting
-# private/test/attachments
-private/test/plugins
 
 # Ignore compiled assets
 /public/assets

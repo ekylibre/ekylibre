@@ -104,9 +104,12 @@ namespace :tenant do
     Ekylibre::Tenant.create(tenant) unless Ekylibre::Tenant.exist?(tenant)
     Ekylibre::Tenant.switch(tenant) do
       # Set basic preferences
-      Preference.set! :language, ENV['LANGUAGE'] || 'fra'
-      Preference.set! :country, ENV['COUNTRY'] || 'fr'
-      Preference.set! :currency, ENV['CURRENCY'] || 'EUR'
+      language = Nomen::Language.find(ENV['LANGUAGE'])
+      Preference.set! :language, language ? language.name : 'fra'
+      country = Nomen::Country.find(ENV['COUNTRY'])
+      Preference.set! :country, country ? country.name : 'fr'
+      currency = Nomen::Currency.find(ENV['CURRENCY'])
+      Preference.set! :currency, currency ? currency.name : 'EUR'
       Preference.set! :map_measure_srs, ENV['MAP_MEASURE_SRS'] || ENV['SRS'] || 'WGS84'
       # Add user
       email = ENV['EMAIL'] || 'admin@ekylibre.org'
@@ -151,9 +154,10 @@ namespace :tenant do
     raise 'Need TENANT env variable to dump' unless tenant
     options = {}
     options[:path] = Pathname.new(archive) if archive
-    options[:path] ||= Rails.root.join('tmp', 'archives', "#{tenant}.zip") if tenant
-    if options[:path] && options[:path].exist? && ENV['FORCE'].to_i.zero?
-      unless confirm("An archive #{options[:path].relative_path_from(Rails.root)} already exists. Do you want to overwrite it?", false)
+    options[:path] ||= Rails.root.join('tmp', 'archives') if tenant
+    path_to_archive = options[:path] && options[:path].join("#{tenant}.zip")
+    if path_to_archive && path_to_archive.exist? && ENV['FORCE'].to_i.zero?
+      unless confirm("An archive #{path_to_archive.relative_path_from(Rails.root)} already exists. Do you want to overwrite it?", false)
         puts 'Nothing dumped'.yellow
         exit(0)
       end

@@ -403,7 +403,7 @@ class BankStatementTest < ActiveSupport::TestCase
     wipe_db
 
     ::Preference.set!(:bookkeep_automatically, options[:no_journal_entry].blank?)
-    journal     = Journal.create!
+    journal     = Journal.create!(name: 'Record')
     fuel_act    = Account.create!(name: 'Fuel', number: '002')
     caps_act    = Account.create!(name: 'Caps', number: '001')
 

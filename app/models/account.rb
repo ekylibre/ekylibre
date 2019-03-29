@@ -418,9 +418,8 @@ class Account < Ekylibre::Record::Base
   end
 
   def reconcilable_entry_items(period, started_at, stopped_at)
-    relation_name = 'journal_entries'
+    relation_name = 'journal_entry_items'
     journal_entry_items
-      .includes(:journal, :entry)
       .where(JournalEntry.period_condition(period, started_at, stopped_at, relation_name))
       .reorder(relation_name + '.printed_on, ' + relation_name + '.real_credit, ' + relation_name + '.real_debit')
   end
@@ -446,7 +445,6 @@ class Account < Ekylibre::Record::Base
     items = journal_entry_items.where(conditions)
     return nil unless item_ids.size > 1 && items.count == item_ids.size &&
                       items.collect { |l| l.debit - l.credit }.sum.to_f.zero?
-    letter ||= items.order(:letter).pluck(:letter).compact.first
     letter ||= new_letter
     journal_entry_items.where(conditions).update_all(letter: letter)
     letter

@@ -1,0 +1,33 @@
+- unless working_period.hide?
+
+  - working_periods_attributes = "intervention_participation[working_periods_attributes]"
+
+  .participation
+    = hidden_field_tag 'working_period_id', working_period.id
+
+    = hidden_field_tag "working_period_nature", working_period.nature, data: { 'is-nature-hidden-field': true }
+    = hidden_field_tag "working_period_started_at", working_period.started_at.l(format: :full), data: { 'is-hours-hidden-field': true  }
+    = hidden_field_tag "working_period_stopped_at", working_period.stopped_at.l(format: :full), data: { 'is-minutes-hidden-field': true }
+
+    .participation-icon
+      .picto.picto-timelapse
+      = working_period.nature.l
+
+    .participation-form
+      .participation-field
+        = text_field_tag "working_period_hours", working_period.hours_gap, { class: "participation-input", data: { 'is-hours-field': true  }}
+        %span= t('labels.hours')
+
+      .participation-field
+        = text_field_tag "working_period_minutes", working_period.minutes_gap, { class: "participation-input", data: { 'is-minutes-field': true  }}
+        %span= t('labels.minutes')
+
+    - classes = "hidden" unless tool.nil?
+    .participation-result
+      %div{ class: "results #{classes}"}
+        %span{ class: "previous-working-date" }= working_period.started_at.l(format: :full)
+        %span &#8594;
+        %span{ class: "next-working-date" }= working_period.stopped_at.l(format: :full)
+
+    .clear-period
+      %i.picto.picto-clear

@@ -25,6 +25,7 @@
 #  ciphered_parameters    :jsonb
 #  created_at             :datetime         not null
 #  creator_id             :integer
+#  data                   :jsonb
 #  id                     :integer          not null, primary key
 #  initialization_vectors :jsonb
 #  lock_version           :integer          default(0), not null

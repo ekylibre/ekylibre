@@ -56,7 +56,6 @@ module Aggeratio
     end
 
     def build_section(element)
-      name = element.attr('name').to_s
       code = ''
       code << "xml.section do\n"
       if title = element.xpath('xmlns:title').first
@@ -94,7 +93,6 @@ module Aggeratio
     def build_matrix(element, mode = :table, vertical = false)
       item = element.attr('for')
       columns = element.xpath("*[(self::xmlns:cell or self::xmlns:matrix) and (not(@level) or @level != 'api')]")
-      code = ''
       code = "xml.table(:class => 'matrix') do\n"
 
       if mode == :table || mode == :head

@@ -4,12 +4,15 @@ ita:
     started_on: "iniziato il"
     stopped_on: "Arrestato su"
   aggregator_properties:
+    active: "Attivo"
     area: "La zona"
     area_in_hectare: "Area in ettari"
     born_at: "nato a"
     breeding_number: "numero di allevamento"
     campaigns: "campagne"
     capitalised_production: "produzione capitalizzati" #?
+    catalog_name: "Nome del catalogo"
+    charge_account_label: "Etichetta dell’account di carica"
     company: "Società"
     container_name: "nome del contenitore"
     current_result_before_taxes: "risultato corrente al lordo delle imposte"
@@ -62,6 +65,7 @@ ita:
     other_purchases: "altri acquisti" #?
     owner_name: "Nome del proprietario"
     payment_ratio: "rapporto di pagamento"
+    person_name: "Nome della persona"
     pictogram: "pittogramma"
     picture_path: "percorso Picture"
     plan: "Piano"
@@ -85,6 +89,7 @@ ita:
     raw_matters_stocks_variation: "Raw conta scorte variazione" #?
     sex: "Sesso"
     social_expenses: "spese sociali" #?
+    stock_account_label: "Etichetta del conto di riserva"
     stock_production: "produzione della" #?
     stocks_variation: "Azioni variazione" #?
     subsidies: "sussidi" #?
@@ -92,3 +97,4 @@ ita:
     vine_yield: "Produzione in vigna"
     wages: "Salari" #?
     working_area: "Area di lavoro"
+    working_duration_in_hours: "Durata di lavoro in ore"

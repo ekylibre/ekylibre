@@ -1,5 +1,5 @@
 .activity-productions
-  - productions.each do |production|
+  - productions.includes(:interventions).each do |production|
     .activity-production
       .activity-production-infos
         = link_to(production.name, {action: :show, controller: :activity_productions, id: production.id})

@@ -22,6 +22,7 @@
 #
 # == Table: activities
 #
+#  codes                        :jsonb
 #  created_at                   :datetime         not null
 #  creator_id                   :integer
 #  cultivation_variety          :string
@@ -61,7 +62,7 @@
 class Activity < Ekylibre::Record::Base
   include Attachable
   include Customizable
-  refers_to :family, class_name: 'ActivityFamily'
+  refers_to :family, class_name: 'ActivityFamily', predicates: true
   refers_to :cultivation_variety, class_name: 'Variety'
   refers_to :support_variety, class_name: 'Variety'
   refers_to :size_unit, class_name: 'Unit'

@@ -20,6 +20,6 @@
 require 'test_helper'
 module Backend
   class PurchasesControllerTest < ActionController::TestCase
-    test_restfully_all_actions
+    test_restfully_all_actions pay: { mode: :create, id: '16,17', mode_id: 1 }, except: :payment_mode
   end
 end

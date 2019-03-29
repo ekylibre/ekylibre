@@ -26,7 +26,6 @@ module Backend
 
     # management -> sales_conditions
     def self.sales_conditions
-      code = ''
       code = search_conditions(sales: %i[pretax_amount amount number initial_number description], entities: %i[number full_name]) + " ||= []\n"
       code << "if params[:period].present? && params[:period].to_s != 'all'\n"
       code << "  c[0] << ' AND #{Sale.table_name}.invoiced_at::DATE BETWEEN ? AND ?'\n"
@@ -223,7 +222,6 @@ module Backend
 
     def contacts
       if request.xhr?
-        client = nil
         address_id = nil
         client = if params[:selected] && address = EntityAddress.find_by(id: params[:selected])
                    address.entity

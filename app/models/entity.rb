@@ -136,7 +136,6 @@ class Entity < Ekylibre::Record::Base
   has_many :trackings, foreign_key: :producer_id
   has_many :deliveries, foreign_key: :transporter_id, dependent: :restrict_with_error
   has_many :transporter_sales, -> { order(created_at: :desc) }, foreign_key: :transporter_id, class_name: 'Sale'
-  has_many :usable_incoming_payments, -> { where('used_amount < amount') }, class_name: 'IncomingPayment', foreign_key: :payer_id
   has_many :waiting_deliveries, -> { where(state: 'ready_to_send') }, class_name: 'Parcel', foreign_key: :transporter_id
   has_many :booked_journals, class_name: 'Journal', foreign_key: :accountant_id
   has_many :financial_years, class_name: 'FinancialYear', foreign_key: :accountant_id
@@ -185,6 +184,7 @@ class Entity < Ekylibre::Record::Base
   scope :transporters, -> { where(transporter: true) }
   scope :clients,      -> { where(client: true) }
   scope :employees,    -> { where(employee: true) }
+  scope :company,      -> { where(of_company: true) }
   scope :related_to, lambda { |entity|
     where("id IN (SELECT linked_id FROM #{EntityLink.table_name} WHERE entity_id = ?) OR id IN (SELECT entity_id FROM #{EntityLink.table_name} WHERE linked_id = ?)", entity.id, entity.id)
   }

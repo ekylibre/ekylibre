@@ -280,7 +280,7 @@ module Ekylibre
     def app(*requirements)
       options = requirements.extract_options!
       requirements.each do |requirement|
-        unless requirement =~ /\A((~>|>=|>|<|<=)\s+)?\d.\d(\.[a-z0-9]+)*\z/
+        unless requirement =~ /\A((~>|>=|>|<|<=)\s+)?\d+.\d+(\.[a-z0-9]+)*\z/
           raise PluginRequirementError, "Invalid version requirement expression: #{requirement}"
         end
       end

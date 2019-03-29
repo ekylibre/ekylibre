@@ -4,12 +4,15 @@ arb:
     started_on: "بدأت يوم"
     stopped_on: "توقفت على"
   aggregator_properties:
+    active: "نشيط"
     area: "منطقة"
     area_in_hectare: "منطقة في الهكتار"
     born_at: "ولد في"
     breeding_number: "عدد التربية"
     campaigns: "حملات"
     capitalised_production: "إنتاج يبلغ رأس مال" #?
+    catalog_name: "اسم الكتالوج"
+    charge_account_label: "تحصيل رسوم الحساب"
     company: "شركة"
     container_name: "اسم حاوية"
     current_result_before_taxes: "نتيجة الحالية قبل الضرائب"
@@ -63,6 +66,7 @@ arb:
     other_purchases: "مشتريات أخرى" #?
     owner_name: "اسم المالك"
     payment_ratio: "نسبة الدفع"
+    person_name: "اسم الشخص"
     pictogram: "الرسم التخطيطي لل"
     picture_path: "مسار الصورة"
     plan: "خطة"
@@ -86,6 +90,7 @@ arb:
     sex: "جنس"
     social_expenses: "النفقات الاجتماعية" #?
     soil_varieties: "أصناف التربة" #?
+    stock_account_label: "تصنيف حساب الأسهم"
     stock_production: "إنتاج الأوراق المالية" #?
     stocks_variation: "الأسهم الاختلاف" #?
     subsidies: "الدعم" #?
@@ -96,3 +101,4 @@ arb:
     vine_yield: "العائد كرمة"
     wages: "أجور" #?
     working_area: "منطقة العمل"
+    working_duration_in_hours: "مدة العمل بالساعات"

@@ -31,7 +31,6 @@ module Backend
     #   :variant_id
     #   :activity_id
     def self.fixed_assets_conditions
-      code = ''
       code = search_conditions(fixed_assets: %i[name number description]) + " ||= []\n"
       code << "if params[:period].present? && params[:period].to_s != 'all'\n"
       code << "  c[0] << ' AND #{FixedAsset.table_name}.started_on BETWEEN ? AND ?'\n"
@@ -100,6 +99,7 @@ module Backend
 
       return unless @fixed_asset = find_and_check
       t3e @fixed_asset
+      notify_warning_now(:closed_financial_periods) unless @fixed_asset.on_unclosed_periods?
       respond_with(@fixed_asset, methods: %i[net_book_value duration],
                                  include: [
                                    {
@@ -118,28 +118,16 @@ module Backend
                                  procs: proc { |options| options[:builder].tag!(:url, backend_fixed_asset_url(@fixed_asset)) })
     end
 
-    def depreciate_up_to
+    def depreciate_all
       begin
-        date = Date.parse(params[:'depreciation-date'])
+        bookkeep_until = Date.parse(params[:until])
       rescue
-        notify_error(:error_while_depreciating)
+        notify_error(:the_bookkeep_date_format_is_invalid)
         return redirect_to(params[:redirect] || { action: :index })
       end
 
-      depreciations = FixedAssetDepreciation.with_active_asset.up_to(date)
-      success = true
-
-      ActiveRecord::Base.transaction do
-        # trusting the bookkeep to take care of the accounting
-        depreciations.find_each { |dep| success &&= dep.update(accountable: true) }
-        raise ActiveRecord::Rollback unless success
-      end
-
-      if success
-        notify_success(:depreciation_successful)
-      else
-        notify_error(:depreciation_failed)
-      end
+      count = FixedAsset.depreciate(until: bookkeep_until)
+      notify_success(:x_fixed_asset_depreciations_have_been_bookkept_successfully, count: count)
       redirect_to(params[:redirect] || { action: :index })
     end
 

@@ -270,22 +270,26 @@ Rails.application.routes.draw do
 
     resources :attachments, only: %i[show create destroy]
 
-    resources :bank_statements, concerns: %i[list unroll], path: 'bank-statements' do
-      resources :bank_statement_items, only: %i[new create destroy], path: 'items'
-      resources :bank_reconciliation_gaps, only: [:create], path: 'gaps'
+    namespace :bank_reconciliation, path: 'bank-reconciliation' do
+      resources :gaps, only: %i[create]
+      resources :items, only: [:index] do
+        collection do
+          get :reconciliate
+          get :count
+        end
+      end
+      resources :letters, only: %i[create destroy]
+    end
 
+    resources :bank_statements, concerns: %i[list unroll], path: 'bank-statements' do
       collection do
         get :list_items
         match :import, via: %i[get post]
-      end
-      member do
-        get  :reconciliation
-        put   :letter
-        patch :letter
-        put   :unletter
-        patch :unletter
+        get :edit_interval
       end
     end
+
+    resources :bank_statement_items, only: %i[new create destroy], path: 'bank-statement-items'
 
     resources :beehives, only: [:update] do
       member do
@@ -479,7 +483,7 @@ Rails.application.routes.draw do
 
     resources :fixed_assets, concerns: %i[list unroll], path: 'fixed-assets' do
       collection do
-        get :depreciate_up_to
+        post :depreciate, action: :depreciate_all
       end
 
       member do
@@ -576,6 +580,7 @@ Rails.application.routes.draw do
         patch :compute
         get :modal
         post :change_state
+        get :change_page
       end
       member do
         post :sell
@@ -586,6 +591,9 @@ Rails.application.routes.draw do
     end
 
     resources :intervention_participations, only: %i[index update destroy] do
+      collection do
+        get :participations_modal
+      end
       member do
         post :convert
       end
@@ -662,7 +670,7 @@ Rails.application.routes.draw do
 
     resources :loans, concerns: %i[list unroll] do
       collection do
-        get :accounting
+        post :bookkeep
       end
 
       member do
@@ -786,6 +794,8 @@ Rails.application.routes.draw do
     end
 
     resources :plant_countings, concerns: [:list]
+
+    resources :preferences, only: %i[update]
 
     resources :product_groups, concerns: :products
 

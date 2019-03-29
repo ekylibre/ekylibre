@@ -4,12 +4,15 @@ deu:
     started_on: "Erste auf"
     stopped_on: "gestoppt auf"
   aggregator_properties:
+    active: "Aktiv"
     area: "Bereich"
     area_in_hectare: "Fläche in ha"
     born_at: "geboren an"
     breeding_number: "Zuchtnummer"
     campaigns: "Kampagnen"
     capitalised_production: "Die aktivierten Herstellungs" #?
+    catalog_name: "Katalogname"
+    charge_account_label: "Ladekonto-Label"
     company: "Unternehmen"
     container_name: "Container Name"
     current_result_before_taxes: "Laufendes Ergebnis vor Steuern"
@@ -62,6 +65,7 @@ deu:
     other_purchases: "andere Käufe" #?
     owner_name: "Besitzername"
     payment_ratio: "Payment-Verhältnis"
+    person_name: "Name der Person"
     pictogram: "Piktogramm"
     picture_path: "Bildpfad"
     plan: "Planen"
@@ -85,6 +89,7 @@ deu:
     raw_matters_stocks_variation: "Rohmassen Aktien Variation" #?
     # sex: "Sex"
     social_expenses: "Sozialkosten" #?
+    stock_account_label: "Aktienkonto-Label"
     stock_production: "Auf Produktions" #?
     stocks_variation: "Aktien Variation" #?
     subsidies: "Subventionen" #?
@@ -92,3 +97,4 @@ deu:
     vine_yield: "Vine Ausbeute"
     wages: "Lohn" #?
     working_area: "Arbeitsbereich"
+    working_duration_in_hours: "Arbeitszeit in Stunden"

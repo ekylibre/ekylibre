@@ -27,6 +27,7 @@
 #  birth_farm_number            :string
 #  born_at                      :datetime
 #  category_id                  :integer          not null
+#  codes                        :jsonb
 #  country                      :string
 #  created_at                   :datetime         not null
 #  creator_id                   :integer
@@ -92,5 +93,14 @@ class ProductTest < ActiveSupport::TestCase
     Nomen::WorkingSet.list.each do |item|
       assert Product.of_working_set(item.name).count >= 0
     end
+  end
+
+  test 'product has a way to get its intervention_participations' do
+    category = create :product_nature_category
+    nature   = create(:product_nature, category: category)
+    variant  = create(:product_nature_variant, category: category, nature: nature)
+    product  = create(:product, category: category, nature: nature, variant: variant)
+    intervention_participation = create(:intervention_participation, product: product)
+    assert_includes product.intervention_participations, intervention_participation
   end
 end

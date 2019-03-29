@@ -143,7 +143,7 @@ cmn:
           # different_of_main_account: "%{attribute} must be different of main account (%{account})"
           unvalid_bban: "Unvalid BBAN。一个或多个元素是不正确的。"
         deposit:
-          # must_be_a_bank_account: "%{field} must be a bank account and not a cash"
+          # must_be_a_bank_account: "%{attribute} must be a bank account and not a cash"
         entity:
           # missing_title: "%{attribute} must contains the title “%{title}”"
           # nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
@@ -154,6 +154,7 @@ cmn:
             started_on:
               consecutive: "该财政年度必须consecutives。它必须与先前的结束后开始。"
               frozen: "交易所已创建时的财政年度日期不能更改。"
+              # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
           # overlap: "%{attribute} overlaps an existing financial year"
@@ -169,6 +170,10 @@ cmn:
               # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
         incoming_parcel_item:
           # greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
+        integration:
+          attributes:
+            parameters:
+              check_errored: "连接检查错误。请确保输入的有效性或稍后再试。"
         journal:
           attributes:
             accountant:

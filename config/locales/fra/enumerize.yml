@@ -94,6 +94,7 @@ fra:
         purchase: "Achat"
         sale: "Vente"
         stock: "Stock"
+        travel_cost: "Déplacement"
     crumb:
       nature:
         hard_start: "Dur début"
@@ -233,6 +234,7 @@ fra:
     intervention_working_period:
       nature:
         intervention: "Intervention"
+        pause: "Pause"
         preparation: "Préparation"
         travel: "Déplacement"
     journal:
@@ -500,9 +502,9 @@ fra:
         outgoing_email: "Courriel sortant"
         outgoing_mail: "Courrier sortant"
       state:
-        doing: "Faire"
+        doing: "En cours"
         done: "Terminé"
-        todo: "Faire"
+        todo: "À faire"
     tax_declaration:
       mode:
         debit: "Débit"

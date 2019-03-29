@@ -159,6 +159,7 @@ module Ekylibre
           @nomenclature_reflections ||= {}.with_indifferent_access
           @nomenclature_reflections[reflection.name] = reflection
           enumerize reflection.foreign_key, in: reflection.all(reflection.scope),
+                                            predicates: options[:predicates],
                                             i18n_scope: ["nomenclatures.#{reflection.nomenclature}.items"]
 
           if reflection.foreign_key != reflection.name

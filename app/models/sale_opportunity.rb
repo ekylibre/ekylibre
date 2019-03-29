@@ -41,7 +41,7 @@
 #  letter                 :string
 #  lock_version           :integer          default(0), not null
 #  name                   :string
-#  number                 :string           not null
+#  number                 :string
 #  origin                 :string
 #  pretax_amount          :decimal(19, 4)   default(0.0)
 #  probability_percentage :decimal(19, 4)   default(0.0)

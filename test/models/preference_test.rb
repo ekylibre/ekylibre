@@ -79,26 +79,40 @@ class PreferenceTest < ActiveSupport::TestCase
   end
 
   test 'concurrency' do
-    preference_1 = Preference.get('myfavoritepref', 'foo')
-    preference_2 = Preference.find(preference_1.id)
+    preference_one = Preference.get('myfavoritepref', 'foo')
+    preference_two = Preference.find(preference_one.id)
 
-    preference_1.set! 'bar'
+    preference_one.set! 'bar'
 
-    preference_2.set! 'baz'
+    preference_two.set! 'baz'
 
     assert_equal 'baz', Preference.value('myfavoritepref', 'qux')
   end
 
   test 'optimistic locking absence' do
-    preference_1 = Preference.get('myfavoritepref', 'foo')
-    preference_2 = Preference.find(preference_1.id)
+    preference_one = Preference.get('myfavoritepref', 'foo')
+    preference_two = Preference.find(preference_one.id)
 
-    preference_2.value = 'yeah!'
-    preference_2.save!
+    preference_two.value = 'yeah!'
+    preference_two.save!
 
-    preference_1.value = 'yo!'
-    preference_1.save!
+    preference_one.value = 'yo!'
+    preference_one.save!
 
     assert_equal 'yo!', Preference.value('myfavoritepref', 'qux')
+  end
+
+  test 'double name preference' do
+    preference = Preference.create!(name: 'preforef', nature: :string, value: 'Yo')
+    5.times do |i|
+      Preference.create!(name: "preforef#{i}", nature: :string, value: 'Yes')
+    end
+    Preference.connection.execute("UPDATE preferences SET name = 'preforef' WHERE name LIKE 'preforef%'")
+
+    p = Preference.set!('preforef', 'Yi')
+    assert p
+    assert p.string?, "Expect to find string. Got: #{p.nature.inspect}"
+    assert_equal preference.id, p.id
+    assert_equal 'Yi', p.value
   end
 end
