@@ -7,6 +7,9 @@ module Ekylibre
     end
 
     class Base < ActiveRecord::Base
+      include Userstamp::Stamper
+      include Userstamp::Stampable
+
       self.abstract_class = true
 
       # Replaces old module: ActiveRecord::Acts::Tree
