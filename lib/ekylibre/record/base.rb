@@ -7,6 +7,8 @@ module Ekylibre
     end
 
     class Base < ActiveRecord::Base
+      include ConditionalReadonly # TODO: move to ApplicationRecord
+
       self.abstract_class = true
 
       # Replaces old module: ActiveRecord::Acts::Tree
@@ -201,30 +203,6 @@ module Ekylibre
           human_attribute_name_without_id(attribute.to_s.gsub(/_id\z/, ''), options)
         end
         alias_method_chain :human_attribute_name, :id
-
-        # Permits to add conditions on attr_readonly
-        def attr_readonly_with_conditions(*args)
-          options = args.extract_options!
-          return attr_readonly_without_conditions(*args) unless options[:if]
-          if options[:if].is_a?(Symbol)
-            method_name = options[:if]
-          else
-            self.readonly_counter ||= 0
-            method_name = "readonly_#{self.readonly_counter += 1}?"
-            send(:define_method, method_name, options[:if])
-          end
-          code = ''
-          code << "before_update do\n"
-          code << "  if self.#{method_name}\n"
-          code << "    old = #{name}.find(self.id)\n"
-          args.each do |attribute|
-            code << "  self['#{attribute}'] = old['#{attribute}']\n"
-          end
-          code << "  end\n"
-          code << "end\n"
-          class_eval code
-        end
-        alias_method_chain :attr_readonly, :conditions
       end
     end
   end
