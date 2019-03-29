@@ -2003,7 +2003,6 @@ cmn:
         spheroid: "球体"
         vehicle: "车辆"
       name: "人物"
-    
     guide_natures:
       items:
         best_practices: "最佳实践"

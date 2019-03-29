@@ -2022,7 +2022,6 @@ arb:
         spheroid: "الكرواني جسم شبيه بالكرة"
         vehicle: "مركبة"
       name: "الأرقام"
-    
     guide_natures:
       items:
         best_practices: "أفضل الممارسات"
