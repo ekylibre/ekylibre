@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,6 +22,7 @@
 #
 # == Table: products
 #
+#  activity_production_id       :integer
 #  address_id                   :integer
 #  birth_date_completeness      :string
 #  birth_farm_number            :string
@@ -73,6 +74,7 @@
 #  picture_file_name            :string
 #  picture_file_size            :integer
 #  picture_updated_at           :datetime
+#  reading_cache                :jsonb            default("{}")
 #  team_id                      :integer
 #  tracking_id                  :integer
 #  type                         :string
@@ -96,7 +98,10 @@ class Worker < Product
     self.team_id = user.team_id if user && user.team
   end
 
-  # Returns working duration from interventions
+  def participation(intervention)
+    InterventionParticipation.find_by(product: self, intervention: intervention)
+  end
+
   def working_duration(_options = {})
     InterventionWorkingPeriod.with_intervention_parameter(:doer, self)
                              .sum(:duration).in_second

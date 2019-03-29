@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -152,6 +152,7 @@ class JournalEntryItem < Ekylibre::Record::Base
       letter_balance = letter_group.sum(:debit) - letter_group.sum(:credit)
       letter_balance += (credit_was || 0) - (debit_was || 0)
       letter_balance += debit - credit
+      self.letter = letter_radix
       self.letter += '*' unless letter_balance.zero?
     end
     # END OF DANGER ZONE
@@ -181,10 +182,6 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   #
   validate do
-    # unless self.updateable?
-    #   errors.add(:number, :closed_entry)
-    #   return
-    # end
     errors.add(:credit, :unvalid_amounts) if debit.nonzero? && credit.nonzero?
     errors.add(:real_credit, :unvalid_amounts) if real_debit.nonzero? && real_credit.nonzero?
     errors.add(:absolute_credit, :unvalid_amounts) if absolute_debit.nonzero? && absolute_credit.nonzero?

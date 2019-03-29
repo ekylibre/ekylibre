@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -64,6 +64,10 @@ class BankStatement < Ekylibre::Record::Base
   accepts_nested_attributes_for :items, allow_destroy: true
 
   delegate :name, :currency, :journal, :account, :account_id, :next_reconciliation_letters, to: :cash, prefix: true
+
+  scope :find_by_date, lambda { |started_on, stopped_on, cash_id|
+    find_by('started_on <= ? AND stopped_on >= ? AND cash_id = ?', started_on, stopped_on, cash_id)
+  }
 
   before_validation do
     self.currency = cash_currency if cash
@@ -162,9 +166,14 @@ class BankStatement < Ekylibre::Record::Base
   end
 
   def eligible_journal_entry_items
-    # margin = 20.days
-    unpointed = cash.unpointed_journal_entry_items # .between(started_on - margin, stopped_on + margin)
+    unpointed = cash.unpointed_journal_entry_items
     pointed = JournalEntryItem.pointed_by(self)
+    JournalEntryItem.where(id: unpointed.pluck(:id) + pointed.pluck(:id))
+  end
+
+  def eligible_entries_in(start, finish)
+    unpointed = cash.unpointed_journal_entry_items.between(start, finish)
+    pointed = JournalEntryItem.pointed_by(self).between(start, finish)
     JournalEntryItem.where(id: unpointed.pluck(:id) + pointed.pluck(:id))
   end
 

@@ -2,6 +2,9 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="plants_sorting" categories="plants_transformation" actions="plants_sorting">
     <parameters>
+      <target name="cultivation" filter="(is plant or is land_parcel) and has indicator shape" cardinality="*">
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+      </target>
       <input name="product_to_sort" filter="derives from plant">
         <handler name="population"/>
         <handler name="net_mass_in_kilogram" indicator="net_mass" unit="kilogram"

@@ -1,5 +1,3 @@
-# coding: utf-8
-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2013 Brice Texier
@@ -48,7 +46,6 @@ module Backend
     end
 
     def help_shown?
-      Preference[:use_contextual_help] &&
         !current_user.preference('interface.helps.collapsed', true, :boolean).value
     end
 

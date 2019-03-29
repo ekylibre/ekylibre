@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -67,6 +67,14 @@ class InterventionParticipation < Ekylibre::Record::Base
     where(intervention_id: intervention)
   }
 
+  scope :of_product, lambda { |product_id|
+    where(product_id: product_id)
+  }
+
+  scope :sum_periods, lambda { |product_id, nature|
+    InterventionParticipation.where(product_id: product_id, nature: nature)
+  }
+
   scope :of_actor, ->(actor) { where(product_id: actor.id) }
 
   before_save do
@@ -82,6 +90,14 @@ class InterventionParticipation < Ekylibre::Record::Base
 
   def human_name
     intervention ? intervention.name : procedure_name ? I18n.t(procedure_name, scope: :procedures) : nil
+  end
+
+  def sum_periods_of_nature(nature)
+    working_periods.where(nature: nature).sum(:duration)
+  end
+
+  def has_period_with_nature?(nature: nil)
+    !working_periods.where(nature: nature).empty?
   end
 
   def qualified_human_name
@@ -177,12 +193,12 @@ class InterventionParticipation < Ekylibre::Record::Base
           targets = Product.shape_covering(zone, 0) if targets.empty?
           targets = targets.of_expression(parameter.filter) if parameter.filter.present?
           targets.each do |target|
-            intersection = zone.intersection(target.shape)
-            next unless intersection.area > DEFAULT_ACCURACY.in_square_meter
+            intersection = zone.intersection(target.shape.to_rgeo)
+            next unless intersection.area.in_square_meter > DEFAULT_ACCURACY.in_square_meter
             attributes[key] << {
               reference_name: parameter.name,
               # working_zone: target.shape,
-              working_zone: intersection,
+              working_zone: Charta.new_geometry(intersection).convert_to(:multi_polygon),
               product_id: target.id
             }
           end

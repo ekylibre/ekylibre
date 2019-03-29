@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,6 +22,7 @@
 #
 # == Table: products
 #
+#  activity_production_id       :integer
 #  address_id                   :integer
 #  birth_date_completeness      :string
 #  birth_farm_number            :string
@@ -73,6 +74,7 @@
 #  picture_file_name            :string
 #  picture_file_size            :integer
 #  picture_updated_at           :datetime
+#  reading_cache                :jsonb            default("{}")
 #  team_id                      :integer
 #  tracking_id                  :integer
 #  type                         :string
@@ -90,9 +92,12 @@ class Equipment < Matter
   has_many :part_replacements, class_name: 'InterventionInput', foreign_key: :assembly_id
   refers_to :variety, scope: :equipment
 
-  def best_activity_production(options = {})
-    at = options[:at] || Time.zone.now
-    ActivityProduction.where(support: groups_at(at)).at(at).first || super
+  def tractor?
+    variety == :tractor
+  end
+
+  def self_prepelled_equipment?
+    variety == :self_prepelled_equipment
   end
 
   ##################################################

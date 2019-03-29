@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -48,6 +48,7 @@ class PayslipNature < Ekylibre::Record::Base
   validates :currency, :journal, presence: true
   validates :name, presence: true, uniqueness: true, length: { maximum: 500 }
   # ]VALIDATORS]
+  validates :currency, match: { with: :journal }
 
   selects_among_all
 
@@ -58,9 +59,5 @@ class PayslipNature < Ekylibre::Record::Base
 
   protect on: :destroy do
     payslips.any?
-  end
-
-  validate do
-    errors.add(:currency, :invalid) if journal && currency.present? && journal.currency != currency
   end
 end

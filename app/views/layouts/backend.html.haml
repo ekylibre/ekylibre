@@ -14,7 +14,7 @@
     - attrs[:data][:tour] = content_for(:tour)
   %body.body-backend{ attrs }
     = navigation_tag
-    - attrs = (help_shown? ? {class: "show-help"} : {})
+    - attrs = {}
     #wrap{attrs}
       %aside#side.visible
         .inner
@@ -42,7 +42,4 @@
           = notifications_tag
           = main_state_bar_tag
           #core= yield
-      - if Preference[:use_contextual_help]
-        #help
-          .inner= render(partial: "backend/helps/search", object: @article)
     = yield :popover

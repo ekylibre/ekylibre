@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -197,7 +197,7 @@ class Sale < Ekylibre::Record::Base
   end
 
   before_update do
-    if old_record.invoice?
+    if old_record.present? && old_record.invoice?
       self.class.columns_definition.keys.each do |attr|
         send(attr + '=', old_record.send(attr))
       end
@@ -231,7 +231,7 @@ class Sale < Ekylibre::Record::Base
 
     # For undelivered invoice
     # exchange undelivered invoice from parcel
-    journal = unsuppress { Journal.used_for_unbilled_payables!(currency: self.currency) }
+    journal = Journal.used_for_unbilled_payables!(currency: self.currency)
     b.journal_entry(journal, printed_on: invoiced_on, as: :undelivered_invoice, if: (with_accounting && invoice?)) do |entry|
       parcels.each do |parcel|
         next unless parcel.undelivered_invoice_journal_entry
@@ -246,7 +246,7 @@ class Sale < Ekylibre::Record::Base
 
     # For gap between parcel item quantity and sale item quantity
     # if more quantity on sale than parcel then i have value in C of stock account
-    journal = unsuppress { Journal.used_for_permanent_stock_inventory!(currency: self.currency) }
+    journal = Journal.used_for_permanent_stock_inventory!(currency: self.currency)
     b.journal_entry(journal, printed_on: invoiced_on, as: :quantity_gap_on_invoice, if: (with_accounting && invoice? && items.any?)) do |entry|
       label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: client.full_name)
       items.each do |item|
@@ -343,10 +343,9 @@ class Sale < Ekylibre::Record::Base
     items.any? && delivery_address && (order? || invoice?)
   end
 
-  # Remove all bad dependencies and return at draft state with no parcels
+  # Return at draft state
   def correct
     return false unless can_correct?
-    parcels.clear
     super
   end
 

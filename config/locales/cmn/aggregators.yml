@@ -95,6 +95,8 @@ cmn:
     stocks_variation: "库存变化" #?
     subsidies: "补贴" #?
     target_name: "指标名称" #?
+    # targets_name: "Targets name"
+    # tools_name: "Tools name"
     variable_name: "变量名" #?
     variant_name: "版本名称"
     variant_variety: "变异品种" #?

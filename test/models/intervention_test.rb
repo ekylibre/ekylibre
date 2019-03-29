@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,33 +22,34 @@
 #
 # == Table: interventions
 #
-#  accounted_at            :datetime
-#  actions                 :string
-#  created_at              :datetime         not null
-#  creator_id              :integer
-#  currency                :string
-#  custom_fields           :jsonb
-#  description             :text
-#  event_id                :integer
-#  id                      :integer          not null, primary key
-#  issue_id                :integer
-#  journal_entry_id        :integer
-#  lock_version            :integer          default(0), not null
-#  nature                  :string           not null
-#  number                  :string
-#  prescription_id         :integer
-#  procedure_name          :string           not null
-#  request_compliant       :boolean
-#  request_intervention_id :integer
-#  started_at              :datetime         not null
-#  state                   :string           not null
-#  stopped_at              :datetime         not null
-#  trouble_description     :text
-#  trouble_encountered     :boolean          default(FALSE), not null
-#  updated_at              :datetime         not null
-#  updater_id              :integer
-#  whole_duration          :integer          not null
-#  working_duration        :integer          not null
+#  accounted_at                   :datetime
+#  actions                        :string
+#  auto_calculate_working_periods :boolean          default(FALSE)
+#  created_at                     :datetime         not null
+#  creator_id                     :integer
+#  currency                       :string
+#  custom_fields                  :jsonb
+#  description                    :text
+#  event_id                       :integer
+#  id                             :integer          not null, primary key
+#  issue_id                       :integer
+#  journal_entry_id               :integer
+#  lock_version                   :integer          default(0), not null
+#  nature                         :string           not null
+#  number                         :string
+#  prescription_id                :integer
+#  procedure_name                 :string           not null
+#  request_compliant              :boolean
+#  request_intervention_id        :integer
+#  started_at                     :datetime         not null
+#  state                          :string           not null
+#  stopped_at                     :datetime         not null
+#  trouble_description            :text
+#  trouble_encountered            :boolean          default(FALSE), not null
+#  updated_at                     :datetime         not null
+#  updater_id                     :integer
+#  whole_duration                 :integer          not null
+#  working_duration               :integer          not null
 #
 require 'test_helper'
 
@@ -117,11 +118,6 @@ class InterventionTest < ActiveSupport::TestCase
     refute intervention.save, 'Intervention with invalid actions should not be saved: ' + intervention.errors.full_messages.to_sentence(locale: :eng)
   end
 
-  test 'destroy intervention update intervention_activities_db_view' do
-    first_activity_intervention = Intervention::HABTM_Activities.first
-    assert Intervention.destroy(first_activity_intervention.intervention_id)
-  end
-
   test 'killing target' do
     plant = Plant.all.detect { |p| p.dead_first_at.nil? && p.dead_at.nil? }
     assert plant
@@ -158,6 +154,14 @@ class InterventionTest < ActiveSupport::TestCase
     last_intervention.destroy
     plant.reload
     assert plant.dead_at.nil?, 'Dead_at of plant should be nil when no death registered'
+  end
+
+  test 'cost_per_area' do
+    cultivable_zone = create(:cultivable_zone)
+    activity_production = create(:activity_production, cultivable_zone: cultivable_zone)
+    intervention = create(:intervention)
+    create(:intervention_target, intervention: intervention, product: activity_production.support, working_zone: activity_production.support.initial_shape)
+    assert_equal 0.0, intervention.cost_per_area(:target)
   end
 
   def add_harvesting_intervention(target, stopped_at)

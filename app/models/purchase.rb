@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -148,11 +148,7 @@ class Purchase < Ekylibre::Record::Base
     if payment_delay.blank? && supplier && supplier.supplier_payment_delay
       self.payment_delay = supplier.supplier_payment_delay
     end
-    self.payment_at = if payment_delay.blank?
-                        invoiced_at || self.planned_at
-                      else
-                        Delay.new(payment_delay).compute(invoiced_at || self.planned_at)
-                      end
+
     self.pretax_amount = items.sum(:pretax_amount)
     self.amount = items.sum(:amount)
   end
@@ -161,6 +157,14 @@ class Purchase < Ekylibre::Record::Base
     if invoiced_at
       errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
     end
+  end
+
+  after_validation do
+    self.payment_at = if payment_delay.blank?
+                        invoiced_at || self.planned_at
+                      elsif errors[:payment_delay].none?
+                        Delay.new(payment_delay).compute(invoiced_at || self.planned_at)
+                      end
   end
 
   after_update do
@@ -200,7 +204,7 @@ class Purchase < Ekylibre::Record::Base
 
     # For undelivered invoice
     # exchange undelivered invoice from parcel
-    journal = unsuppress { Journal.used_for_unbilled_payables!(currency: currency) }
+    journal = Journal.used_for_unbilled_payables!(currency: currency)
     b.journal_entry(journal, printed_on: invoiced_on, as: :undelivered_invoice, if: (with_accounting && invoice?)) do |entry|
       parcels.each do |parcel|
         next unless parcel.undelivered_invoice_journal_entry
@@ -215,7 +219,7 @@ class Purchase < Ekylibre::Record::Base
 
     # For gap between parcel item quantity and purchase item quantity
     # if more quantity on purchase than parcel then i have value in D of stock account
-    journal = unsuppress { Journal.used_for_permanent_stock_inventory!(currency: currency) }
+    journal = Journal.used_for_permanent_stock_inventory!(currency: currency)
     b.journal_entry(journal, printed_on: invoiced_on, as: :quantity_gap_on_invoice, if: (with_accounting && invoice? && items.any?)) do |entry|
       label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: supplier.full_name)
       items.each do |item|

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -72,7 +72,10 @@ class PurchaseItem < Ekylibre::Record::Base
   validates :preexisting_asset, inclusion: { in: [true, false] }, allow_blank: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
+  validates :currency, match: { with: :purchase }
   validates :account, :tax, :reduction_percentage, presence: true
+  validates :quantity, exclusion: { in: [0], message: :invalid }
+
   validates_associated :fixed_asset
 
   delegate :invoiced_at, :journal_entry, :number, :computation_method, :computation_method_quantity_tax?, :computation_method_tax_quantity?, :computation_method_adaptative?, :computation_method_manual?, to: :purchase
@@ -136,7 +139,7 @@ class PurchaseItem < Ekylibre::Record::Base
     end
 
     if variant
-      self.label ||= variant.commercial_name
+      self.label = variant.commercial_name
       self.account = if fixed && purchase.purchased?
                        # select outstanding_assets during purchase
                        Account.find_or_import_from_nomenclature(:outstanding_assets)
@@ -160,10 +163,6 @@ class PurchaseItem < Ekylibre::Record::Base
       fixed_asset.add_amount(-pretax_amount.to_f) if fixed_asset
     end
     true
-  end
-  validate do
-    errors.add(:currency, :invalid) if purchase && currency != purchase_currency
-    errors.add(:quantity, :invalid) if self.quantity.zero?
   end
 
   after_save do

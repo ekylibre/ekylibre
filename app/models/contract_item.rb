@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -44,6 +44,7 @@ class ContractItem < Ekylibre::Record::Base
   validates :pretax_amount, :quantity, :unit_pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :contract, :variant, presence: true
   # ]VALIDATORS]
+  validates :quantity, exclusion: { in: [0], message: :invalid }
 
   delegate :currency, to: :contract
   sums :contract, :items, :pretax_amount
@@ -60,9 +61,5 @@ class ContractItem < Ekylibre::Record::Base
 
   before_validation do
     self.quantity ||= 0
-  end
-
-  validate do
-    errors.add(:quantity, :invalid) if self.quantity.zero?
   end
 end

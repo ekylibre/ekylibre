@@ -299,8 +299,9 @@ module Backend
 
       geom = @object.send(attribute_name)
       if geom
-        editor[:edit] = Charta.new_geometry(geom).to_json_object
-        editor[:view] = { center: Charta.new_geometry(geom).centroid, zoom: 16 }
+        geometry = Charta.new_geometry(geom)
+        editor[:edit] = geometry.to_json_object
+        editor[:view] = { center: geometry.centroid, zoom: 16 }
       else
         if sibling = @object.class.where("#{attribute_name} IS NOT NULL").first
           editor[:view] = { center: Charta.new_geometry(sibling.send(attribute_name)).centroid }
@@ -319,12 +320,19 @@ module Backend
             union = show.geom_union(attribute_name)
             editor[:show] = union.to_json_object unless union.empty?
           end
+        else
+          editor[:show] = {}
+          editor[:show][:series] = {}
         end
+        editor[:useFeatures] = true
       end
       editor[:back] ||= MapLayer.available_backgrounds.collect(&:to_json_object)
       editor[:overlays] ||= MapLayer.available_overlays.collect(&:to_json_object)
 
-      input(attribute_name, options.deep_merge(input_html: { data: { map_editor: editor } }))
+      no_map = options.delete(:no_map)
+      map_options = {}
+      map_options = { input_html: { data: { map_editor: editor } } } unless no_map
+      input(attribute_name, options.deep_merge(map_options))
     end
 
     def shape_field(attribute_name = :shape, options = {})
@@ -357,7 +365,8 @@ module Backend
       else
         siblings = @object.class.where("#{attribute_name} IS NOT NULL").order(id: :desc)
         if siblings.any?
-          marker[:view] = { center: Charta.new_geometry(siblings.first.send(attribute_name)).centroid }
+          sibling_point = siblings.first.send(attribute_name).to_rgeo
+          marker[:view] = { center: [sibling_point.lat, sibling_point.lon] }
         elsif zone = CultivableZone.first
           marker[:view] = { center: zone.shape_centroid }
         end
@@ -619,8 +628,8 @@ module Backend
       if !derivatives.nil? && derivatives.any?
         return input(:variety, wrapper: :append, class: :inline) do
           field = ('<span class="add-on">' <<
-                   ERB::Util.h(:x_of_y.tl(x: '{@@@@VARIETY@@@@}', y: '{@@@@DERIVATIVE@@@@}')) <<
-                   '</span>')
+              ERB::Util.h(:x_of_y.tl(x: '{@@@@VARIETY@@@@}', y: '{@@@@DERIVATIVE@@@@}')) <<
+              '</span>')
           field.gsub!('{@@', '</span>')
           field.gsub!('@@}', '<span class="add-on">')
           field.gsub!('<span class="add-on"></span>', '')

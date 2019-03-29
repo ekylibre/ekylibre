@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,33 +22,34 @@
 #
 # == Table: interventions
 #
-#  accounted_at            :datetime
-#  actions                 :string
-#  created_at              :datetime         not null
-#  creator_id              :integer
-#  currency                :string
-#  custom_fields           :jsonb
-#  description             :text
-#  event_id                :integer
-#  id                      :integer          not null, primary key
-#  issue_id                :integer
-#  journal_entry_id        :integer
-#  lock_version            :integer          default(0), not null
-#  nature                  :string           not null
-#  number                  :string
-#  prescription_id         :integer
-#  procedure_name          :string           not null
-#  request_compliant       :boolean
-#  request_intervention_id :integer
-#  started_at              :datetime         not null
-#  state                   :string           not null
-#  stopped_at              :datetime         not null
-#  trouble_description     :text
-#  trouble_encountered     :boolean          default(FALSE), not null
-#  updated_at              :datetime         not null
-#  updater_id              :integer
-#  whole_duration          :integer          not null
-#  working_duration        :integer          not null
+#  accounted_at                   :datetime
+#  actions                        :string
+#  auto_calculate_working_periods :boolean          default(FALSE)
+#  created_at                     :datetime         not null
+#  creator_id                     :integer
+#  currency                       :string
+#  custom_fields                  :jsonb
+#  description                    :text
+#  event_id                       :integer
+#  id                             :integer          not null, primary key
+#  issue_id                       :integer
+#  journal_entry_id               :integer
+#  lock_version                   :integer          default(0), not null
+#  nature                         :string           not null
+#  number                         :string
+#  prescription_id                :integer
+#  procedure_name                 :string           not null
+#  request_compliant              :boolean
+#  request_intervention_id        :integer
+#  started_at                     :datetime         not null
+#  state                          :string           not null
+#  stopped_at                     :datetime         not null
+#  trouble_description            :text
+#  trouble_encountered            :boolean          default(FALSE), not null
+#  updated_at                     :datetime         not null
+#  updater_id                     :integer
+#  whole_duration                 :integer          not null
+#  working_duration               :integer          not null
 #
 
 class Intervention < Ekylibre::Record::Base
@@ -90,9 +91,9 @@ class Intervention < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :actions, :number, length: { maximum: 500 }, allow_blank: true
+  validates :auto_calculate_working_periods, :request_compliant, inclusion: { in: [true, false] }, allow_blank: true
   validates :description, :trouble_description, length: { maximum: 500_000 }, allow_blank: true
   validates :nature, :procedure_name, :state, presence: true
-  validates :request_compliant, inclusion: { in: [true, false] }, allow_blank: true
   validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   validates :stopped_at, presence: true, timeliness: { on_or_after: ->(intervention) { intervention.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   validates :trouble_encountered, inclusion: { in: [true, false] }
@@ -108,7 +109,7 @@ class Intervention < Ekylibre::Record::Base
   calculable period: :month, column: :working_duration, at: :started_at, name: :sum
 
   acts_as_numbered
-  accepts_nested_attributes_for :group_parameters, :doers, :inputs, :outputs, :targets, :tools, :working_periods, allow_destroy: true
+  accepts_nested_attributes_for :group_parameters, :participations, :doers, :inputs, :outputs, :targets, :tools, :working_periods, allow_destroy: true
   accepts_nested_attributes_for :labellings, allow_destroy: true
 
   scope :between, lambda { |started_at, stopped_at|
@@ -133,7 +134,9 @@ class Intervention < Ekylibre::Record::Base
   scope :of_activity, lambda { |activity|
     where(id: InterventionTarget.of_activity(activity).select(:intervention_id))
   }
-  scope :of_activities, ->(*activities) { of_activity(activities.flatten) }
+  scope :of_activities, lambda { |*activities|
+    where(id: InterventionTarget.of_activities(activities.flatten))
+  }
   scope :provisional, -> { where('stopped_at > ?', Time.zone.now) }
   scope :real, -> { where(nature: :record).where('stopped_at <= ?', Time.zone.now) }
 
@@ -317,7 +320,7 @@ class Intervention < Ekylibre::Record::Base
   # | outputs                | stock (3X)                 | stock_movement (603X/71X) |
   # | inputs                 | stock_movement (603X/71X)  | stock (3X)                |
   bookkeep do |b|
-    stock_journal = unsuppress { Journal.find_or_create_by!(nature: :stocks) }
+    stock_journal = Journal.find_or_create_by!(nature: :stocks)
     b.journal_entry(stock_journal, printed_on: printed_on, if: (Preference[:permanent_stock_inventory] && record?)) do |entry|
       write_parameter_entry_items = lambda do |parameter, input|
         variant      = parameter.variant
@@ -394,10 +397,6 @@ class Intervention < Ekylibre::Record::Base
     activities.map(&:name).to_sentence
   end
 
-  def product_parameters
-    InterventionProductParameter.where(intervention: self)
-  end
-
   # The Procedo::Procedure behind intervention
   def procedure
     Procedo.find(procedure_name)
@@ -411,7 +410,7 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def targets_list
-    targets.map(&:product).compact.map(&:work_name).sort
+    targets.includes(:product).map(&:product).compact.map(&:work_name).sort
   end
 
   # Returns human target names
@@ -518,9 +517,11 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def cost_per_area(role = :input, area_unit = :hectare)
-    if working_zone_area > 0.0.in_square_meter
+    zone_area = working_zone_area(area_unit).to_f.round(2)
+    if zone_area > 0.0
       params = product_parameters.of_generic_role(role)
-      return (params.map(&:cost).compact.sum / working_zone_area(area_unit).to_d) if params.any?
+      costs = params.map(&:cost).compact
+      return (costs.sum / zone_area) * area_cost_coefficient if costs.any?
       nil
     end
     nil
@@ -539,9 +540,19 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def total_cost_per_area(area_unit = :hectare)
-    if working_zone_area > 0.0.in_square_meter
-      (total_cost / working_zone_area(area_unit).to_d)
+    zone_area = working_zone_area(area_unit).to_f
+    (total_cost / zone_area) * area_cost_coefficient if zone_area > 0.0
+  end
+
+  def area_cost_coefficient
+    zone_area = working_zone_area(:hectare).to_f.round(2)
+    global_area = activity_production_zone_area(:hectare).to_f.round(2)
+    coef = 1.0
+    # build coef for area's
+    if zone_area && global_area && global_area > 0.0
+      coef = zone_area / global_area
     end
+    coef
   end
 
   def currency
@@ -554,11 +565,24 @@ class Intervention < Ekylibre::Record::Base
     nil
   end
 
+  # return all working zone area of targets
   def working_zone_area(*args)
     options = args.extract_options!
     unit = args.shift || options[:unit] || :hectare
     if targets.any?
       area = targets.with_working_zone.map(&:working_zone_area).sum.in(unit)
+    end
+    area ||= 0.0.in(unit)
+    area
+  end
+
+  # return all initial area of supports of targets
+  def activity_production_zone_area(*args)
+    options = args.extract_options!
+    unit = args.shift || options[:unit] || :hectare
+    if targets.any?
+      ap = ActivityProduction.where(support_id: targets.pluck(:product_id))
+      area = ap.map(&:support_shape_area).sum.in(:square_meter).convert(unit)
     end
     area ||= 0.0.in(unit)
     area
@@ -626,6 +650,35 @@ class Intervention < Ekylibre::Record::Base
     compliances[modifier.keys.first] = modifier.values.first
     update(request_compliant: false) if compliances.values.index(false)
     update(request_compliant: true) if (compliances.values - [true]).empty?
+  end
+
+  def participation(product)
+    InterventionParticipation.of_intervention(self).of_product(product).first
+  end
+
+  def worker_working_periods(nature: nil, not_nature: nil)
+    workers_participations = participations.select { |participation| participation.product.is_a?(Worker) }
+    working_periods = nil
+
+    if nature.nil? && not_nature.nil?
+      working_periods = workers_participations.map(&:working_periods)
+    elsif !nature.nil?
+      working_periods = workers_participations.map { |participation| participation.working_periods.where(nature: nature) }
+    elsif !not_nature.nil?
+      working_periods = workers_participations.map { |participation| participation.working_periods.where.not(nature: not_nature) }
+    end
+
+    working_periods.flatten
+  end
+
+  def drivers_times(nature: nil, not_nature: nil)
+    worker_working_periods(nature: nature, not_nature: not_nature)
+      .map(&:duration)
+      .reduce(0, :+)
+  end
+
+  def first_worker_working_period(nature: nil, not_nature: nil)
+    test = worker_working_periods(nature: nature, not_nature: not_nature)
   end
 
   class << self

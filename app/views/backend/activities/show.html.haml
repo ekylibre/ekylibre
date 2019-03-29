@@ -2,11 +2,11 @@
   = t.edit resource
   - budget = resource.budget_of(current_campaign)
   - if budget && budget.items.any?
-    = t.edit params: {controller: :activity_budgets, id: budget.id}, label: :edit_budget.tl
+    = tool_to(:edit_budget.tl, { controller: :activity_budgets, action: :edit, id: budget.id })
   - if current_campaign && resource.productions.of_campaign(current_campaign).empty?
     = tool_to(:close.ta, { controller: :campaigns, action: :close, id: current_campaign.id, activity_id: resource.id, redirect: url_for(controller: :campaigns, action: :show, id: current_campaign.id) }, method: :delete, data: { confirm: :are_you_sure.tl }, tool: :remove)
   - if resource.productions.any? && Product.of_variety(resource.cultivation_variety, resource.support_variety).any?
-    = tool_to(:distribute_unaffected_products.tl, { controller: :target_distributions, action: :edit_many, activity_id: resource.id }, icon: false)
+    = tool_to(:distribute_unaffected_products.tl, { controller: :products, action: :edit_many, activity_id: resource.id }, icon: false)
 
 - main_period_selector(:year)
 
@@ -43,12 +43,11 @@
         - l.attribute :support_variety
       - l.attribute :production_cycle
 
-  - if resource.plant_farming? && current_campaign && resource.productions.of_campaign(current_campaign).any?
+  - if resource.plant_farming? && resource.productions.of_campaign(current_campaign).any?
 
     - inspection_data = nil
     - if resource.inspectionable?
       - dimension = resource.unit_preference(current_user)
-      - symbol_measure = resource.inspections.last.quantity_unit(dimension).symbol
       - inspection_data = inspection_series(dimension, resource.inspections)
 
     - c.cobble :map do
@@ -76,38 +75,19 @@
   - if resource.auxiliary? && resource.distributions.any?
     - c.cobble(:distributions, title: Activity.human_attribute_name(:distributions)) do
       :ruby
-        data = []
-        resource.distributions.reorder(:affectation_percentage).find_each do |distribution|
-          y = distribution.affectation_percentage.to_s.to_f
-          data << {name: :label_value.th(label: distribution.main_activity_name, value: number_to_percentage(y, precision: 2)), y: y }
+        resource.distributions.reorder(:affectation_percentage).find_each.map do |distribution|
+          percentage = distribution.affectation_percentage.to_s.to_f
+          { name: :label_value.th(label: distribution.main_activity_name, value: number_to_percentage(y, precision: 2)), y: percentage }
         end
         series = [{type: 'pie', name: Activity.human_attribute_name(:distributions), data: data}]
 
       = pie_highcharts(series, legend: true)
 
   - if resource.inspectionable?
-    - dimension = resource.unit_preference(current_user)
-    - symbol_measure = Nomen::Unit.find(resource.inspections.last.user_quantity_unit(dimension)).symbol
-    - yield_symbol = Nomen::Unit.find(resource.inspections.last.user_per_area_unit(dimension)).symbol
-
-    - c.cobble(:stock_in_ground) do
+    - dimension  = resource.unit_preference(current_user)
+    - async_cobble :stock_in_ground, params: { id: resource.id, dimension: dimension }, cobble: c  do
       = render 'backend/inspections/unit_selector', activity: resource
-      .chart-table
-        - resource.inspection_calibration_scales.each do |scale|
-          - if scale.natures.includes(:inspection_calibrations).any? { |n| n.inspection_calibrations.any? }
-            - base_series = caliber_series(dimension, scale, resource.inspections)
-            - stock_series = base_series[:stock]
-            - yield_series = base_series[:yield]
 
-            - stock_chart = column_highcharts(stock_series, title: {text: :stock_in_ground_by_calibration_x.tl(x: scale.name)}, x_axis: { categories: [''] }, y_axis: {reversed_stacks: false, title: {text: "#{symbol_measure}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{symbol_measure}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}}) if resource.inspections.any? { |i| i.calibrations.of_scale(scale).any? }
-            - yield_chart = column_highcharts(yield_series, title: {text: :yield_by_calibration_x.tl(x: scale.name)}, x_axis: { categories: [''] },y_axis: {reversed_stacks: false, title: {text: "#{yield_symbol}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{yield_symbol}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}}) if resource.inspections.any? { |i| i.calibrations.of_scale(scale).any? }
-            - evolt_chart = spline_highcharts(spline_series(dimension, resource.inspections), x_axis: {categories: spline_categories(resource.inspections).map(&:l)}, y_axis: { title: {text: "%"} }, title: {text: :unmarketable_inspection_categories_evolution.tl}, legend: true, tooltip: {point_format: "{point.y: 1f} %"}, plot_options: {}) if resource.inspection_point_natures.any? && resource.inspections.any? { |i| i.points.any? }
-            - unless [stock_chart, yield_chart, evolt_chart].compact.blank?
-              .chart-line
-                - [stock_chart, yield_chart, evolt_chart].each do |chart|
-                  .chart-cell
-                    = chart
-                -# = even_cells(stock_chart, yield_chart, evolt_chart, cell_class: "chart-cell")
 
     - c.cobble(:inspections) do
       = cobble_list :inspections

@@ -25,7 +25,6 @@ module Ekylibre
 
       rows.each_with_index do |row, index|
         line_number = index + 2
-        prompt = "L#{line_number.to_s.yellow}"
         r = {
           invoiced_at:        (row[0].blank? ? nil : Date.parse(row[0].to_s)),
           payer_full_name:    (row[1].blank? ? nil : row[1]),
@@ -132,17 +131,15 @@ module Ekylibre
             mode: payment_mode,
             amount: r.amount
           )
-          unless incoming_payment
-            incoming_payment = IncomingPayment.create!(
-              mode: payment_mode,
-              paid_at: paid_at,
-              to_bank_at: paid_at,
-              amount: r.amount,
-              payer: entity,
-              received: true,
-              responsible: responsible
-            )
-          end
+          incoming_payment ||= IncomingPayment.create!(
+            mode: payment_mode,
+            paid_at: paid_at,
+            to_bank_at: paid_at,
+            amount: r.amount,
+            payer: entity,
+            received: true,
+            responsible: responsible
+          )
         end
 
         # find an affair througt purchase and link affair and payment

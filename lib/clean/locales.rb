@@ -113,7 +113,7 @@ module Clean
       end
 
       def clean_action!
-        untranslated = to_translate = translated = 0
+        untranslated = to_translate = 0
         warnings = []
         translation = "#{locale}:\n"
 
@@ -131,7 +131,7 @@ module Clean
           next unless translateable_actions.any?
           translation << '    ' + controller_path + ":\n"
           translateable_actions.each do |action_name|
-            name = ::I18n.hardtranslate("actions.#{controller_path}.#{action_name}")
+            name = ::I18n.translate_or_nil("actions.#{controller_path}.#{action_name}")
             to_translate += 1
             untranslated += 1 if actions.include?(action_name) && name.blank?
             translation << "      #{missing_prompt if name.blank?}#{action_name}: " + Clean::Support.yaml_value(name.blank? ? Clean::Support.default_action_title(controller_path, action_name) : name, 3)
@@ -313,7 +313,7 @@ module Clean
           to_translate += 1
           if (name = ref[:aggregator_parameters][param_name]) && name.present?
             translation << "    #{param_name}: " + Clean::Support.yaml_value(name) + "\n"
-          elsif name = I18n.hardtranslate("labels.#{param_name}") || I18n.hardtranslate("attributes.#{param_name}")
+          elsif name = I18n.translate_or_nil("labels.#{param_name}") || I18n.hardtranslate("attributes.#{param_name}")
             to_translate -= 1
             translation << "    #~ #{param_name}: " + Clean::Support.yaml_value(name) + "\n"
           else
@@ -337,7 +337,7 @@ module Clean
           elsif property_name.to_s.underscore != property_name.to_s
             to_translate -= 1
             translation << "    #~ #{property_name}: " + Clean::Support.yaml_value(property_name.to_s.underscore.humanize) + "\n"
-          elsif name = I18n.hardtranslate("attributes.#{property_name}") || I18n.hardtranslate("labels.#{property_name}") || I18n.hardtranslate("activerecord.models.#{property_name}")
+          elsif name = I18n.translate_or_nil("attributes.#{property_name}") || I18n.hardtranslate("labels.#{property_name}") || I18n.hardtranslate("activerecord.models.#{property_name}")
             to_translate -= 1
             translation << "    #~ #{property_name}: " + Clean::Support.yaml_value(name) + "\n"
           else

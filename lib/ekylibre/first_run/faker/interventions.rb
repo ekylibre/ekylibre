@@ -8,9 +8,9 @@ module Ekylibre
             Nomen::Variety[n]
           end
 
-          spring_sowables = %i[hordeum_vernum pisum_vernum helianthus].collect do |n|
-            Nomen::Variety[n]
-          end
+          # spring_sowables = %i[hordeum_vernum pisum_vernum helianthus].collect do |n|
+          #   Nomen::Variety[n]
+          # end
 
           later_spring_sowables = [:zea].collect do |n|
             Nomen::Variety[n]

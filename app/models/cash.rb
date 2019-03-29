@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -293,5 +293,22 @@ class Cash < Ekylibre::Record::Base
   # Returns (theoric) suspense account cash balance in the global currency
   def suspended_balance(_at = Time.zone.now)
     suspended_journal_entry_items.sum('real_debit - real_credit') || 0.0
+  end
+
+  def letter_items(statement_items, journal_entry_items)
+    new_letter = next_reconciliation_letter
+    return false if (journal_entry_items + statement_items).length.zero?
+
+    statement_entries = JournalEntryItem.where(resource: statement_items)
+    to_letter = journal_entry_items + statement_entries
+    suspense_account.mark(to_letter) if suspend_until_reconciliation
+
+    saved = true
+    saved &&= statement_items.update_all(letter: new_letter)
+    saved &&= journal_entry_items.update_all(
+      bank_statement_letter: new_letter
+    )
+
+    saved && new_letter
   end
 end

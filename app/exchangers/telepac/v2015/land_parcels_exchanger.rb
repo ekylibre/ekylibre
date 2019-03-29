@@ -23,14 +23,6 @@ module Telepac
 
             pacage_number = record.attributes['PACAGE'].to_s
 
-            cap_statement_attributes = {
-              campaign: campaign,
-              declarant: Entity.of_company,
-              farm_name: Entity.of_company.full_name,
-              pacage_number: pacage_number,
-              siret_number: Entity.of_company.siret_number
-            }
-
             ## find or create cap statement
             unless cap_statement = CapStatement.find_by(campaign: campaign, pacage_number: pacage_number)
               w.info 'Cap statement will be created'
@@ -38,7 +30,7 @@ module Telepac
 
             islet_number = record.attributes['NUMERO'].to_s
             # Find an existing islet or stop importing
-            unless cap_islet = CapIslet.find_by(cap_statement: cap_statement, islet_number: islet_number)
+            unless CapIslet.find_by(cap_statement: cap_statement, islet_number: islet_number)
               w.error "No way to find pacage #{pacage_number} - islet number #{islet_number}. You have to import islets first"
               valid = false
             end
@@ -125,9 +117,9 @@ module Telepac
               cap_islet: cap_islet,
               land_parcel_number: record.attributes['NUMERO_SI'].to_s,
               main_crop_code: record.attributes['TYPE'].to_s,
-              main_crop_commercialisation: (record.attributes['COMMERC'].to_s == '1' ? true : false),
+              main_crop_commercialisation: (record.attributes['COMMERC'].to_s == '1'),
               main_crop_precision: record.attributes['CODE_VAR'].to_s,
-              main_crop_seed_production: (record.attributes['PROD_SEM'].to_s == '1' ? true : false),
+              main_crop_seed_production: (record.attributes['PROD_SEM'].to_s == '1'),
               shape: ::Charta.new_geometry(record.geometry).transform(:WGS84).to_rgeo
             }
 
@@ -144,8 +136,8 @@ module Telepac
               nature: :polygon,
               content: cap_land_parcel.shape
             }
-            unless georeading = Georeading.find_by(georeadings_attributes.slice(:number))
-              georeading = Georeading.create!(georeadings_attributes)
+            unless Georeading.find_by(georeadings_attributes.slice(:number))
+              Georeading.create!(georeadings_attributes)
             end
 
             # Create activities if option true

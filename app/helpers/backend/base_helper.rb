@@ -78,7 +78,7 @@ module Backend
     def basic_calendar(all_records, options = {}, &block)
       # options[:events] = all_records
       options[:param_name] ||= :started_on
-      BasicCalendar.new(self, options).render do |event_on, records|
+      BasicCalendar.new(self, options).render do |event_on, _records|
         records = all_records.select do |event|
           event_on == event.started_at.to_date
         end
@@ -256,6 +256,14 @@ module Backend
       end
     end
 
+    def heading_toolbar(&block)
+      content_for(:heading_toolbar, &block)
+    end
+
+    def form_action_content(side = :after, &block)
+      content_for(:"#{side}_form_actions", &block)
+    end
+
     def period_selector(*intervals)
       options = intervals.extract_options!
       current_period = current_user.current_period.to_date
@@ -365,7 +373,6 @@ module Backend
           end
         end
       end
-
       html_code
     end
 
@@ -466,6 +473,11 @@ module Backend
           end
         end
       end
+    end
+
+    def user_preference_value(name, default = nil)
+      preference = current_user.preferences.find_by(name: name)
+      preference ? preference.value : default
     end
 
     # Build a JSON for a data-tour parameter and put it on <body> element

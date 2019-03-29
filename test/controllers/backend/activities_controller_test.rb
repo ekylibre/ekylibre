@@ -15,5 +15,17 @@ module Backend
         assert_not_nil assigns(:activity)
       end
     end
+
+    test 'show action with inspections displays the inspection chart' do
+      inspected_activity = create :corn_activity, :fully_inspectable
+      get :show, id: inspected_activity.id, locale: @locale
+      assert_response :success
+      assert_select 'div.cobble-stock-in-ground'
+
+      activity_wo_inspections = create :corn_activity
+      get :show, id: activity_wo_inspections.id, locale: @locale
+      assert_response :success
+      assert_select 'div.cobble-stock-in-ground', count: 0
+    end
   end
 end

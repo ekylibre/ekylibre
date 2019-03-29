@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2017 Brice Texier, David Joulin
+# Copyright (C) 2012-2018 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -59,6 +59,7 @@ class CustomField < Ekylibre::Record::Base
   validates :column_name, uniqueness: { scope: [:customized_type] }
   validates :column_name, format: { with: /\A([a-z]+(\_[a-z]+)*)+\z/ }
   validates :column_name, exclusion: { in: ['_destroy'] }
+  validates :customized_type, presence: true
 
   accepts_nested_attributes_for :choices
   acts_as_list scope: 'customized_type = \'#{customized_type}\''
@@ -76,7 +77,7 @@ class CustomField < Ekylibre::Record::Base
   end
 
   validate do
-    unless customized_type.to_s.constantize.respond_to?(:custom_fields)
+    if customized_type.present? && !customized_type.to_s.constantize.respond_to?(:custom_fields)
       errors.add(:customized_type, :invalid)
     end
   end

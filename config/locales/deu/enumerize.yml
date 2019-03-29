@@ -1,5 +1,9 @@
 deu:
   enumerize:
+    account:
+      nature:
+        # auxiliary: "Auxiliary"
+        # general: "General"
     activity:
       nature:
         auxiliary: "Hilfs"
@@ -94,6 +98,7 @@ deu:
         purchase: "Kauf"
         sale: "Verkauf"
         # stock: "Stock"
+        travel_cost: "Reise"
     crumb:
       nature:
         hard_start: "Harte Start"
@@ -135,6 +140,12 @@ deu:
       nature:
         contact: "Kontakt"
         organization: "Organisation"
+      supplier_payment_delay:
+        # 1 week: "at reception"
+        # 30 days: "30 days"
+        # 30 days, end of month: "30 days end of month"
+        # 60 days: "60 days"
+        # 60 days, end of month: "60 days end of month"
     entity_address:
       canal:
         # email: "Email"
@@ -150,6 +161,12 @@ deu:
         refused: "Verweigert"
         waiting: "Warten"
     financial_year:
+      state:
+        # closed: "Closed"
+        # closing: "Closure in progress"
+        # closure_in_preparation: "Closure in preparation"
+        # locked: "Locked"
+        # opened: "Opened"
       tax_declaration_frequency:
         monthly: "Monatlich"
         none: "Keiner"
@@ -165,7 +182,7 @@ deu:
         # linear: "Linear"
         none: "Keiner"
         regressive: "Regressiv"
-        simplified_linear: "vereinfachte lineare"
+        simplified_linear: "vereinfachte lineare" #?
       depreciation_period:
         monthly: "Monatlich"
         quarterly: "Vierteljährlich"
@@ -243,6 +260,7 @@ deu:
     intervention_working_period:
       nature:
         # intervention: "Intervention"
+        # pause: "Pause"
         preparation: "Vorbereitung"
         travel: "Reise"
     journal:
@@ -443,6 +461,12 @@ deu:
         point: "Punkt"
         string: "Schnur"
     purchase:
+      payment_delay:
+        # 1 week: "at reception"
+        # 30 days: "30 days"
+        # 30 days, end of month: "30 days end of month"
+        # 60 days: "60 days"
+        # 60 days, end of month: "60 days end of month"
       tax_payability:
         at_invoicing: "Bei Fakturierung"
         at_paying: "Zu zahlen"
@@ -450,10 +474,24 @@ deu:
       nature:
         # payslip: "Payslip"
         purchase: "Kauf"
+    sale:
+      payment_delay:
+        # 1 week: "at reception"
+        # 30 days: "30 days"
+        # 30 days, end of month: "30 days end of month"
+        # 60 days: "60 days"
+        # 60 days, end of month: "60 days end of month"
     sale_item: #?
       compute_from: #?
         pretax_amount: "Vor Steuern in Höhe" #?
         unit_pretax_amount: "Einheit vor Steuern Menge" #?
+    sale_nature:
+      payment_delay:
+        # 1 week: "at reception"
+        # 30 days: "30 days"
+        # 30 days, end of month: "30 days end of month"
+        # 60 days: "60 days"
+        # 60 days, end of month: "60 days end of month"
     sensor:
       retrieval_mode:
         # integration: "Integration"
