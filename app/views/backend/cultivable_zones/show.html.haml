@@ -1,6 +1,9 @@
 - main_toolbar do |t|
   = t.edit resource
+  = t.export :cultivable_zone_sheet, key: :work_number
   = t.destroy
+
+- main_period_selector(:year)
 
 = main_informations attachment: true do
   = mini_map(resource)
