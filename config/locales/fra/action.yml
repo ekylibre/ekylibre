@@ -273,7 +273,7 @@ fra:
       show: "Perte ou profit N°%{number}"
     backend/general_ledgers:
       index: "%{ledger}"
-      show: "Grand-livre\_: %{account}"
+      show: "Grand livre"
     backend/georeadings:
       edit: "Modifier le relevé topographique\_: %{name}"
       index: "Relevés topographiques"
@@ -460,6 +460,7 @@ fra:
       index: "Formats de nommage" #?
     backend/naming_formats:
       index: "Formats de nommage"
+      new: "Nouveau format de nommage"
     backend/net_services:
       edit: "Modifier un service en ligne"
       index: "Services en ligne"
@@ -579,9 +580,9 @@ fra:
       new: "Créer un produit"
       show: "%{nature}\_: %{name}"
     backend/project_budgets: #?
-      edit: "Modifier le budget\_: %{name}" #?
-      index: "Budgets " #?
-      new: "Nouveau budget" #?
+      edit: "Modifier le budget interne\_: %{name}" #?
+      index: "Budgets internes " #?
+      new: "Nouveau budget interne" #?
     backend/purchase_invoices:
       edit: "Modifier la facture: %{number}"
       index: "Factures"
@@ -1349,6 +1350,7 @@ fra:
     data_to_extract: "Données à extraire" #?
     date: "Date" #?
     dated_cash: "%{cash}\_: %{on}"
+    date_range: "%{from} au %{to}"
     dates: "Saisissez les dates de début et de fin de la période"
     day: "Jour" #?
     days: "Jours"
@@ -1651,6 +1653,7 @@ fra:
     inactive: "Inactif"
     incident: "Incident" #?
     include_blank: "— Aucune organisation —"
+    including_vat: "TTC"
     income_statement: "Compte de résultat"
     incoming: "Entrant" #?
     incoming_parcels: "Colis entrants"
@@ -1928,7 +1931,7 @@ fra:
     new_financial_year_exchange: "Nouvel échange"
     new_group: "Nouveau troupeau"
     new_in_line: "Ajouter un produit intrant" #?
-    new_incoming_parcel: "Nouveau colis entrant"
+    new_incoming_parcel: "Nouvelle réception"
     new_incoming_payment: "Nouveau encaissement"
     new_inspection: "Nouvel agréage" #?
     new_inventory: "Nouvel inventaire"
@@ -2117,6 +2120,7 @@ fra:
     prerequisites_checks_before_closure: "Vérifications préalables à la clôture"
     prescription: "Prescription"
     prescriptions: "Prescriptions"
+    pretax: "HT"
     pretax_amount: "Montant HT"
     previous: "Précédent"
     previous_plant_name: "Nom de la culture précédente" #?
@@ -2144,11 +2148,14 @@ fra:
     product_bar: "Produit par catégories" #?
     product_category: "Produits"
     product_name: "Produit"
+    product_nature: "Type de produit"
+    product_nature_category: "Catégorie de produit"
     product_nature_variants: "Variantes" #?
     product_natures: "Types de produit"
     product_price_listings: "Listes de prix" #?
     product_price_templates: "Types de prix" #?
     product_value: "Chiffre d’affaire de l’exercice %{financial_year}"
+    product_variant: "Variante de produit"
     production: "Production"
     production_cost: "Coût de production"
     production_costs: "Coûts de production"
@@ -2233,6 +2240,7 @@ fra:
     reconciliate_with_purchases_orders: "Rapprocher avec une ou des commandes"
     reconciliate_with_receptions: "Rapprocher avec une ou des réceptions"
     record: "Enregistrement"
+    record_cannot_be_saved: "L'enregistrement n'a pas pu être sauvegardé."
     record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement." #?
     record_has_not_been_removed: "L’enregistrement n’a pu être supprimé." #?
     record_maintenance: "Enregistrer une maintenance"
@@ -2587,6 +2595,7 @@ fra:
       shipped: "Expédié" #?
       waiting: "En attente" #?
     treatment: "Traitement" #?
+    threshold_commercialization_by_production: "Seuil de commercialisation par production"
     trimester: "Trimestre"
     true: "Vrai" #?
     type_of_structure: "Type de structure"
@@ -3117,7 +3126,7 @@ fra:
     country: "Pays"
     create_activities_from_telepac: "Créer automatiquement les activités lors de l’import TelePAC"
     currency: "Monnaie"
-    default_depreciation_period: "Période d’amortissement par default"
+    default_depreciation_period: "Période d’amortissement par défaut"
     detail_payments_in_deposit_bookkeeping: "Détailler la liste des règlements lors de la comptabilisation d’une remise en banque"
     distribute_sales_and_purchases_on_activities: "Répartir les ventes et les achats sur les activités"
     distribute_sales_and_purchases_on_teams: "Répartir les ventes et les achats sur les équipes"

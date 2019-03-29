@@ -47,7 +47,7 @@ module Backend
       t.action :destroy
       t.column :number, url: true
       t.column :nature
-      t.column :state
+      t.column :state, label_method: :human_state_name
       t.status
       # t.column :sender, url: true
       # t.column :recipient, url: true
@@ -60,7 +60,7 @@ module Backend
       t.action :edit
       t.action :destroy
       t.column :number, url: true
-      t.column :state
+      t.column :state, label_method: :human_state_name
       t.status
       t.column :sender, url: true
       # t.column :purchase, url: true, hidden: true
@@ -71,7 +71,7 @@ module Backend
       t.action :edit
       t.action :destroy
       t.column :number, url: true
-      t.column :state
+      t.column :state, label_method: :human_state_name
       t.status
       t.column :recipient, url: true
       t.column :sale, url: true, hidden: true

@@ -1,7 +1,5 @@
 //= require bootstrap/tooltip
 //= require bootstrap/dropdown
-//= require bootstrap-datetimepicker
-//= require daterangepicker
 //= require jquery-ui/widgets/slider
 
 (function ($) {
@@ -423,7 +421,7 @@
     // this.select();
   };
   $.behave("*[data-autofocus]", "load", $.autoFocus);
-  $.behave("input[type='text']:first", "load", $.autoFocus);
+  $.behave("input[type='text']:not([class*='flatpickr']):first", "load", $.autoFocus);
   /*    $.behave("*:input:visible:first", "load", $.autoFocus);
         $.behave("*[data-autofocus]:visible", "load", $.autoFocus);*/
 

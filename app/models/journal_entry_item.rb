@@ -109,6 +109,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   validates :state, length: { allow_nil: true, maximum: 30 }
   validates :debit, :credit, :real_debit, :real_credit, numericality: { greater_than_or_equal_to: 0 }
   validates :account, presence: true
+  validates_format_of :name, with: /\A(?!translation missing: [a-z][a-z_]*).*\z/, allow_blank: true
 
   delegate :balanced?, to: :entry, prefix: true
   delegate :name, :number, to: :account, prefix: true

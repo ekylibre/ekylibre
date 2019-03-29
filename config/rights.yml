@@ -916,16 +916,6 @@ financial_years:
     actions:
     - "backend/financial_years#close"
     - "backend/financial_years#compute_balances"
-  reopen:
-    dependencies:
-    - read-financial_years
-    actions:
-    - "backend/financial_years#compute_balances"
-    - "backend/financial_years#create"
-    - "backend/financial_years#destroy"
-    - "backend/financial_years#edit"
-    - "backend/financial_years#new"
-    - "backend/financial_years#update"
 
 fixed_assets:
   read:
@@ -1343,11 +1333,6 @@ journals:
     - read-journals
     actions:
     - "backend/journals#close"
-  reopen:
-    dependencies:
-    - read-journals
-    actions:
-    - "backend/journals#reopen"
 
 labels:
   read:

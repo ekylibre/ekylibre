@@ -351,7 +351,7 @@
     $(this).each ->
       E.interventions.refresh $(this)
 
-  $(document).on 'keyup change', 'input[data-intervention-updater]:not([data-selector])', (event) ->
+  $(document).on 'keyup change', 'input[data-intervention-updater]:not([data-selector], .flatpickr-input)', (event) ->
     $(this).each ->
       options = {}
       options['display_cost'] = true
@@ -369,7 +369,10 @@
 
   $(document).on "keyup change dp.change", ".nested-fields.working-period:first-child input.intervention-started-at", (e) ->
     value = $(this).val()
-    $('#intervention_working_periods_attributes_0_stopped_at').val(moment(new Date(value)).add(1, 'hours').format('Y-MM-DD H:m'))
+    $hiddenInput = $('#intervention_working_periods_attributes_0_stopped_at')
+    $displayedInput = $hiddenInput.next('.flatpickr-input')
+    $hiddenInput.val(moment(new Date(value)).add(1, 'hours').format('Y-MM-DD H:mm'))
+    $displayedInput.val(moment(new Date(value)).add(1, 'hours').format('DD-MM-Y H:mm'))
     started_at = $('#intervention_working_periods_attributes_0_started_at').val()
     $(this).each ->
       E.interventions.updateAvailabilityInstant(started_at)
@@ -834,7 +837,7 @@
       @taskboardModal.getModal().modal 'show'
 
   true
-  
+
   $(document).ready ->
     #TODO: Refacto this to not be coupled so tight to URL
     if window.location.pathname.includes('/backend/interventions/')
@@ -911,10 +914,11 @@
       interventions = $(e.currentTarget).data().interventions
       duplicateModal = new ekylibre.modal('#duplicate-modal')
       date = $('#duplicate-modal #duplicate_date').val()
+      form = $('.edit_intervention:visible')
       $.ajax
         type: 'post'
         url: '/backend/interventions/create_duplicate_intervention'
-        data: { intervention: intervention, interventions: interventions, date: date }
+        data: { intervention: intervention, interventions: interventions, date: date, form: form.serialize() }
         success: (data) =>
           if data == null
             duplicateModal.getModal().modal 'hide'

@@ -14,9 +14,7 @@ class ParcelBookkeeper < Ekylibre::Bookkeeper
                resource: resource.class.model_name.human,
                number: number, entity: entity.full_name, mode: nature.l)
 
-    usages = { incoming: :suppliers_invoices_not_received,
-               outgoing: :invoice_to_create_clients        }
-    account = Account.find_or_import_from_nomenclature(usages[nature.to_sym])
+    account = Account.find_or_import_from_nomenclature(payables_not_billed_account)
 
     # For unbilled payables
     journal = Journal.used_for_unbilled_payables!(currency: currency)
@@ -58,7 +56,6 @@ class ParcelBookkeeper < Ekylibre::Bookkeeper
   end
 
   def generate_entry(entry_recorder, amount, label:, from:, to:, item:)
-    from, to = to, from if outgoing?
     from_as, from_account = *from
     to_as,   to_account = *to
     entry_recorder.add_debit  label, from_account, amount, resource: item, as: from_as, variant: item.variant

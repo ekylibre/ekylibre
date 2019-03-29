@@ -63,7 +63,8 @@ class PurchaseInvoice < Purchase
   belongs_to :undelivered_invoice_journal_entry, class_name: 'JournalEntry', dependent: :destroy
   belongs_to :quantity_gap_on_invoice_journal_entry, class_name: 'JournalEntry', dependent: :destroy
   has_many :journal_entries, as: :resource
-
+  has_many :reception_items, through: :items, source: :parcels_purchase_invoice_items
+  has_many :receptions, through: :reception_items
   acts_as_affairable :supplier, class_name: 'PurchaseAffair'
 
   scope :invoiced_between, lambda { |started_at, stopped_at|

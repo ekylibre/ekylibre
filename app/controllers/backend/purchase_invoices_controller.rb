@@ -96,7 +96,7 @@ module Backend
       t.column :fixed_asset, url: true, hidden: true
     end
 
-    list(:receptions, children: :items, conditions: { purchase_id: 'params[:id]'.c }) do |t|
+    list(:receptions, children: :items, conditions: { id: "PurchaseInvoice.find_by(id: params[:id]).receptions".c }) do |t|
       t.action :edit, if: :draft?
       t.action :destroy, if: :draft?
       t.column :number, url: true

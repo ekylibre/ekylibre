@@ -1,5 +1,5 @@
 = main_toolbar do |t|
   - if ProductNatureCategory.any_reference_available?
-    = t.pick
+    = t.pick params: { selector_label: :product_nature_category.tl }
 
 = main_list

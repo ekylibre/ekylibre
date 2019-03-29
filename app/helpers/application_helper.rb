@@ -332,6 +332,8 @@ module ApplicationHelper
       value = value.send(:text)
     elsif attribute.to_s =~ /(^|_)currency$/
       value = Nomen::Currency[value].human_name
+    elsif attribute.to_s =~ /^state$/
+      value = I18n.translate("models.#{model_name}.states.#{value}")
     elsif options[:currency] && value.is_a?(Numeric)
       value = ::I18n.localize(value, currency: (options[:currency].is_a?(TrueClass) ? object.send(:currency) : options[:currency].is_a?(Symbol) ? object.send(options[:currency]) : options[:currency]))
       value = link_to(value.to_s, options[:url]) if options[:url]

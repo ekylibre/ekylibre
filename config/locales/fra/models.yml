@@ -116,7 +116,7 @@ fra:
         initial_born_at: "Construit à"
         initial_dead_at: "Demantelé au"
         parent_place: "Lieu de parking" #?
-        variety: "Marque" #?
+        variety: "Type" #?
       event: #?
         duration: "Durée (en minutes)" #?
         place: "Lieu" #?
@@ -764,6 +764,7 @@ fra:
     administrator: "Administrateur système"
     advice_reference_name: "Référence du conseil"
     affair: "Affaire"
+    affair_balance: "Solde"
     affairs: "Affaires"
     affectation_percentage: "Pourcentage d’affectation"
     affected_at: "Affecté le"
@@ -1343,7 +1344,7 @@ fra:
     # intervention_proposal: "Intervention proposal"
     # intervention_proposals: "Intervention proposals"
     # intervention_template: "Intervention template"
-    # intervention_templates: "Intervention templates"
+    intervention_templates: "Modèles d'intervention"
     interventions: "Interventions"
     interventions_used_in: "Interventions utilisées dans"
     intracommunity: "Intracommunautaire"
@@ -1730,7 +1731,7 @@ fra:
     products: "Produits"
     products_categories: "Catégories de produits avec produit"
     progression_percentage: "Progression (%)"
-    project_budget: "Budget"
+    project_budget: "Budget interne"
     proposer: "Parrain"
     prospect: "Prospect"
     provisional: "Prévisionnel"
@@ -1907,7 +1908,7 @@ fra:
     shift_method: "Méthode de différé"
     shipment: "Expédition" #?
     # shipment_items: "Shipment items"
-    # shipments: "Shipments"
+    shipments: "Expéditions"
     sign_in_count: "Nombre de connexions"
     # signature: "Signature"
     signup_at: "Inscription au"
@@ -2230,6 +2231,9 @@ fra:
         price_quote: "Quotation"
         prospecting: "Prospection"
         won: "Gagné"
+    debt_transfer:
+      purchase_regularization: "Régularisation d'achat"
+      sale_regularization: "Régularisation de vente"
     delivery:
       state_machine:
         states:
@@ -2454,6 +2458,7 @@ fra:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} pour %{payee}"
       label: "%{number}. %{amount} du %{date} en %{mode} pour %{payee}"
     reception:
+      bookkeep: "[%{resource} %{number}] %{entity}"
       state_machine:
         states:
           draft: "Brouillon"
@@ -2542,6 +2547,7 @@ fra:
         subscriptions: "ABO[number|8]"
         transports: "TR[number|8]"
     shipment:
+      bookkeep: "[%{resource} %{number}] %{entity}"
       state_machine:
         states:
           draft: "Brouillon"
