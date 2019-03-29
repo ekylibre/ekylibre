@@ -356,7 +356,7 @@ module RestfullyManageable
     private
 
     def name_module(mod, kind)
-      mod_name = "#{controller_name.classify}#{kind.to_s.classify}"
+      mod_name = "#{controller_name.classify}#{kind.to_s.classify}Actions"
       RestfullyManageable.const_set mod_name, mod
     end
 
