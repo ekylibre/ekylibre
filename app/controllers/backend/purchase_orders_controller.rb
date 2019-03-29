@@ -126,8 +126,8 @@ module Backend
     protected
 
     def to_pdf
-      filename = "#{:purchase_order.tl.gsub(' ', '_')}_#{@purchase_order.reference_number}"
-      key = "#{filename}_#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
+      filename = "#{:purchase_order.tl} #{@purchase_order.reference_number}"
+      key = "#{filename}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
       @dataset_purchase_order = @purchase_order.order_reporting
       file_odt = to_odt(@dataset_purchase_order, filename, params).generate
       tmp_dir = Ekylibre::Tenant.private_directory.join('tmp')
