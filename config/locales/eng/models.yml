@@ -2037,6 +2037,9 @@ eng:
       states:
         draft: "Draft"
         invoice: "Invoice"
+    payslip_payment: #?
+      bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}" #?
+      label: "%{number}. %{amount} on %{date} in %{mode} for %{payee}" #?
     product:
       informations:
         with_components: "%{product} (%{unit}) (transformed material)"
@@ -2080,6 +2083,9 @@ eng:
         refused: "Refused order"
     purchase_gap:
       bookkeep: "[%{resource} %{number}] %{supplier}"
+    purchase_invoice: #?
+      bookkeep: "[%{resource} %{number}] %{products} from %{supplier}" #?
+      quantity_gap_on_invoice: "Gap on stock quantity [%{resource} %{number}] from %{entity}" #?
     purchase_item:
       name: "%{product} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}"
       name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}"
@@ -2091,6 +2097,7 @@ eng:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
       label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
     reception:
+      bookkeep: "[%{resource} %{number}] %{entity}"
       state_machine:
         states:
           draft: "Draft"
@@ -2179,6 +2186,7 @@ eng:
         subscriptions: "SUB[number|8]"
         transports: "TR[number|8]"
     shipment:
+      bookkeep: "[%{resource} %{number}] %{entity}"
       state_machine:
         states:
           draft: "Draft"
