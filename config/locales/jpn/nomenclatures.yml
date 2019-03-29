@@ -2020,7 +2020,6 @@ jpn:
         spheroid: "回転楕円体"
         vehicle: "車両"
       name: "統計"
-    
     guide_natures:
       items:
         best_practices: "ベストプラクティス"

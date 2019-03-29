@@ -3039,7 +3039,7 @@
       <item name="installing_charge" charge_account="fees_expenses" fixed_asset_account="establishment_charge_assets" fixed_asset_allocation_account="incorporeal_asset_depreciations" fixed_asset_expenses_account="incorporeals_depreciations_inputations_expenses" depreciation_percentage="25.0" purchasable="true" depreciable="true" pictogram="book" asset_fixable="true"/>
       <item name="insurance" charge_account="insurance_expenses" purchasable="true" pictogram="umbrella"/>
       <item name="irrigation_water" charge_account="irrigation_expenses" purchasable="true" pictogram="drop"/>
-      <item name="land" pictogram="land_parcels" purchasable="true" saleable="true" asset_fixable="true" depreciable="false" charge_account="land_charges" product_account="land_sales" fixed-asset_account="land_tangible_fixed_assets"/>
+      <item name="land" pictogram="land_parcels" purchasable="true" saleable="true" asset_fixable="true" depreciable="false" charge_account="land_charges" product_account="land_sales" fixed_asset_account="land_tangible_fixed_assets"/>
       <item name="land_parcel" charge_account="land_parcel_rent_expenses" product_account="land_parcel_sell_revenues" purchasable="true" saleable="true" pictogram="land_parcels"/>
       <item name="land_parcel_cluster" pictogram="land_parcels"/>
       <item name="land_parcel_construction" charge_account="redeemable_land_parcel_construction_assets" product_account="sales_assets_revenues" stock_account="other_materials_stock" purchasable="true" saleable="true" storable="false" pictogram="barn"/>

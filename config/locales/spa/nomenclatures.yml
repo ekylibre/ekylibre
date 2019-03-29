@@ -2008,7 +2008,6 @@ spa:
         spheroid: "Esferoide"
         vehicle: "Vehículo"
       name: "Figuras"
-    
     guide_natures:
       items:
         best_practices: "Mejores prácticas"

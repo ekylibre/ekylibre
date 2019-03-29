@@ -1809,7 +1809,6 @@ ita:
         spheroid: "Sferoide"
         vehicle: "Veicolo"
       name: "figure"
-    
     guide_natures:
       items:
         best_practices: "Migliori pratiche"

@@ -1854,7 +1854,6 @@ por:
         spheroid: "Esferóide"
         vehicle: "Veículo"
       name: "Figuras"
-    
     guide_natures:
       items:
         best_practices: "Melhores práticas"

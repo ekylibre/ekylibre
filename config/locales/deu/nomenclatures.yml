@@ -1752,7 +1752,6 @@ deu:
         spheroid: "Sphäroid"
         vehicle: "Fahrzeug"
       name: "Figuren"
-    
     guide_natures:
       items:
         best_practices: "best Practices"

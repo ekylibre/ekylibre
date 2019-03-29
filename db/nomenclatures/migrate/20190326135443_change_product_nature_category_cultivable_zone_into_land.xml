@@ -14,7 +14,7 @@
     depreciable="false"
     charge_account="land_charges"
     product_account="land_sales"
-    fixed-asset_account="land_tangible_fixed_assets"
+    fixed_asset_account="land_tangible_fixed_assets"
   />
 
   <item-change item="product_natures#cultivable_zone" category="land"/>
