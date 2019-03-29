@@ -1,6 +1,10 @@
 module Autocastable
   extend ActiveSupport::Concern
 
+  included do
+    prepend KlassMethods
+  end
+
   module KlassMethods
     # Auto-cast product to best matching class with type column
     def new(*attributes, &block)
@@ -13,7 +17,4 @@ module Autocastable
     end
   end
 
-  included do
-    prepend KlassMethods
-  end
 end
