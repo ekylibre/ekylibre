@@ -23,7 +23,7 @@ fra:
       inclusion: "%{attribute} n’est pas inclus dans la liste" #?
       invalid: "%{attribute} est invalide" #?
       invalid_at: "%{attribute} est invalide. Erreur près de %{error}" #?
-      invalid_child: "Au moins une des valeurs de %{attributes} n'est pas valide." #?
+      invalid_child: "Au moins une des valeurs de %{attribute} n'est pas valide." #?
       invalid_date: "Veuillez saisir une date au format jj-mm-aaaa ou jj/mm/aaaa" #?
       invalid_datetime: "%{attribute} est invalide" #?
       invalid_siret: "%{value} n'est pas un numéro de SIRET valide" #?
