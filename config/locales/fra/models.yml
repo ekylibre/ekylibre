@@ -2458,6 +2458,7 @@ fra:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} pour %{payee}"
       label: "%{number}. %{amount} du %{date} en %{mode} pour %{payee}"
     reception:
+      bookkeep: "[%{resource} %{number}] %{entity}"
       state_machine:
         states:
           draft: "Brouillon"
@@ -2546,6 +2547,7 @@ fra:
         subscriptions: "ABO[number|8]"
         transports: "TR[number|8]"
     shipment:
+      bookkeep: "[%{resource} %{number}] %{entity}"
       state_machine:
         states:
           draft: "Brouillon"
