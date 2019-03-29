@@ -19,6 +19,7 @@
 module Backend
   class BaseController < ::BaseController
     include Autocomplete
+    prepend RespondWithTemplate
     include RestfullyManageable
     include Unrollable
     protect_from_forgery
@@ -85,20 +86,6 @@ module Backend
         end
       end
     end
-
-    # Overrides respond_with method in order to use specific parameters for reports
-    # Adds :with and :key, :name parameters
-    def respond_with_with_template(*resources, &block)
-      resources << {} unless resources.last.is_a?(Hash)
-      resources[-1][:with] = (params[:template].to_s =~ /^\d+$/ ? params[:template].to_i : params[:template].to_s) if params[:template]
-      for param in %i[key name]
-        resources[-1][param] = params[param] if params[param]
-      end
-      respond_with_without_template(*resources, &block)
-    end
-
-    hide_action :respond_with, :respond_with_without_template
-    alias_method_chain :respond_with, :template
 
     # Find a record with the current environment or given parameters and check availability of it
     def find_and_check(*args)
