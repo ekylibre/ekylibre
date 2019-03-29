@@ -200,26 +200,27 @@ module Backend
 
     protected
 
-    def find_fixed_assets
-      fixed_asset_ids = params[:id].split(',')
-      fixed_assets = fixed_asset_ids.map { |id| FixedAsset.find_by(id: id) }.compact
-      unless fixed_assets.any?
-        notify_error :no_fixed_assets_given
-        redirect_to(params[:redirect] || { action: :index })
-        return nil
+      def find_fixed_assets
+        fixed_asset_ids = params[:id].split(',')
+        fixed_assets = FixedAsset.where(id: fixed_asset_ids)
+        unless fixed_assets.any?
+          notify_error :no_fixed_assets_given
+          redirect_to(params[:redirect] || { action: :index })
+          return nil
+        end
+        fixed_assets
       end
-      fixed_assets
-    end
 
 
-    def parameters_with_processed_percentage
-      parameters = permitted_params.dup
-      parameters['depreciation_percentage'] = case parameters['depreciation_method']
-        when 'linear' then parameters.delete('linear_depreciation_percentage')
-        when 'regressive' then parameters.delete('regressive_depreciation_percentage')
-        else ''
+      def parameters_with_processed_percentage
+        parameters = permitted_params.to_h
+        method = parameters.fetch('depreciation_method', nil)
+        if method
+          percentage_key = "#{method}_depreciation_percentage"
+          depreciation_percentage = parameters.fetch(percentage_key, '')
+          parameters['depreciation_percentage'] = depreciation_percentage if depreciation_percentage.present?
+        end
+        parameters.except('linear_depreciation_percentage', 'regressive_depreciation_percentage')
       end
-      parameters.to_h.except('linear_depreciation_percentage', 'regressive_depreciation_percentage')
-    end
   end
 end
