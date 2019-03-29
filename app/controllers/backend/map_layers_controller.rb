@@ -13,8 +13,8 @@ module Backend
       begin
         MapLayer.load_defaults
         redirect_to params[:redirect] || { action: :index }
-      rescue 
-        notify_error :locking_vesrsion_error
+      rescue ActiveRecord::StaleObjectError
+        notify_error :locking_version_error
         redirect_to params[:redirect] || { action: :index }
       end
     end
