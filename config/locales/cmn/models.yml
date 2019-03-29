@@ -2036,6 +2036,11 @@ cmn:
           todo: "去做"
     tax_declaration:
       # bookkeep: "[%{resource} %{number}] From %{started_on} to %{stopped_on}"
+      state_machine:
+        states:
+          # draft: "Brouillon"
+          # sent: "Sent"
+          # validated: "Validated"
     team:
       default: "主队"
     user:
