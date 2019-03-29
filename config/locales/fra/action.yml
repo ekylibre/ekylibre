@@ -2196,6 +2196,7 @@ fra:
     purchases: "Achats"
     purchases_bar: "Achats par type" #?
     purchases_expense_bar: "Dépenses par mois" #?
+    purchase_order: "Bon de commande"
     purchases_prices: "Evolution du prix d'achat"
     purchases_selections: #?
       aborted: "Annulée" #?
