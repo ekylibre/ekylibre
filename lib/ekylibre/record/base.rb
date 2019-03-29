@@ -7,6 +7,8 @@ module Ekylibre
     end
 
     class Base < ActiveRecord::Base
+      include ScopeIntrospection # TODO: move to ApplicationRecord
+
       self.abstract_class = true
 
       # Replaces old module: ActiveRecord::Acts::Tree
@@ -86,7 +88,6 @@ module Ekylibre
       end
 
       class << self
-        attr_accessor :scopes
         attr_accessor :readonly_counter
 
         def has_picture(options = {})
@@ -110,37 +111,6 @@ module Ekylibre
         def columns_definition
           Ekylibre::Schema.tables[table_name] || {}.with_indifferent_access
         end
-
-        def simple_scopes
-          (scopes || []).select { |x| x.arity.zero? }
-        end
-
-        def complex_scopes
-          (scopes || []).reject { |x| x.arity.zero? }
-        end
-
-        # Permits to consider something and something_id like the same
-        def scope_with_registration(name, body, &block)
-          self.scopes ||= []
-          # Check body.is_a?(Relation) to prevent the relation actually being
-          # loaded by respond_to?
-          if body.is_a?(::ActiveRecord::Relation) || !body.respond_to?(:call)
-            ActiveSupport::Deprecation.warn('Using #scope without passing a callable object is deprecated. For ' \
-                                            "example `scope :red, where(color: 'red')` should be changed to " \
-                                            "`scope :red, -> { where(color: 'red') }`. There are numerous gotchas " \
-                                            'in the former usage and it makes the implementation more complicated ' \
-                                            'and buggy. (If you prefer, you can just define a class method named ' \
-                                            "`self.red`.)\n" + caller.join("\n"))
-          end
-          arity = begin
-                    body.arity
-                  rescue
-                    0
-                  end
-          self.scopes << Scope.new(name.to_sym, arity)
-          scope_without_registration(name, body, &block)
-        end
-        alias_method_chain :scope, :registration
 
         def nomenclature_reflections
           @nomenclature_reflections ||= {}.with_indifferent_access
