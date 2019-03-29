@@ -252,14 +252,14 @@ module Backend
           target_attributes[:targets_attributes][-index].merge!(new_attributes)
 
           procedure = Procedo::Procedure.find(params[:procedure_name])
-          element = procedure.find_element_with_name(target_name)
+          element = procedure.find_parameter_by_name(target_name)
 
           next target_attributes if element.cardinality != 1
 
           parents = element.ancestors
           first_duplicatable_parent = parents.index { |p| p.position != 1 }
           nonduplicatable_parents = parents[0...first_duplicatable_parent]
-
+          
           if nonduplicatable_parents == parents
             raise "Can't select multiple targets for intervention #{params[:procedure_name]}"
           end
@@ -274,6 +274,7 @@ module Backend
           end
         end.compact
       end
+
       if attributes.present?
         attributes = attributes.reduce(&:deep_merge)
 
@@ -289,7 +290,6 @@ module Backend
       else
         @intervention = Intervention.new(options)
       end
-
       render(locals: { cancel_url: { action: :index }, with_continue: true })
     end
 
@@ -300,7 +300,6 @@ module Backend
         participations.each_pair do |key, value|
           participations[key] = JSON.parse(value)
         end
-
         permitted_params[:participations_attributes] = participations
       end
 

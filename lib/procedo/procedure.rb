@@ -12,7 +12,7 @@ module Procedo
              :product_parameters, :group_parameters,
              :position_of, :parameters_of_type, to: :root_group
 
-    def find_element_with_name(name)
+    def find_parameter_by_name(name)
       parameters.find { |e| e.name == name.to_sym }
     end
 
