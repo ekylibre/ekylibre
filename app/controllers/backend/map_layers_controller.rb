@@ -10,8 +10,13 @@ module Backend
     end
 
     def load
-      MapLayer.load_defaults
-      redirect_to params[:redirect] || { action: :index }
+      begin
+        MapLayer.load_defaults
+        redirect_to params[:redirect] || { action: :index }
+      rescue ActiveRecord::StaleObjectError
+        notify_error :locking_version_error
+        redirect_to params[:redirect] || { action: :index }
+      end
     end
 
     def toggle
