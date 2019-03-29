@@ -2,7 +2,9 @@ module Autocastable
   extend ActiveSupport::Concern
 
   included do
-    prepend KlassMethods
+    class << self
+      prepend KlassMethods
+    end
   end
 
   module KlassMethods
