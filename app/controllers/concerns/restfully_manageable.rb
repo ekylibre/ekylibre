@@ -250,15 +250,7 @@ module RestfullyManageable
         end
       end
 
-      restful_module = Module.new
-      name_module(restful_module, '')
-      restful_module.class_eval(code)
-      restful_module.extend ActiveSupport::Concern
-      restful_module.send(:included) do
-        eval class_code
-      end
-      include restful_module
-      self
+      insert_module(code, class_code)
     end
 
     # Build standard actions to manage records of a model
@@ -298,15 +290,7 @@ module RestfullyManageable
       code << "end\n"
 
       # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
-      restful_module = Module.new
-      name_module(restful_module, :list)
-      restful_module.class_eval(code)
-      restful_module.extend ActiveSupport::Concern
-      restful_module.send(:included) do
-        eval class_code
-      end
-      include restful_module
-      self
+      insert_module(code, class_code, name: :list)
     end
 
     # Build standard actions to manage records of a model
@@ -348,16 +332,7 @@ module RestfullyManageable
       code << "  render 'pick'\n"
       code << "end\n"
 
-      restful_module = Module.new
-      # naming the module
-      name_module(restful_module, :incorporation)
-      restful_module.class_eval(code)
-      restful_module.extend ActiveSupport::Concern
-      restful_module.send(:included) do
-        eval class_code
-      end
-      include restful_module
-      self
+      insert_module(code, class_code, name: :incorporation)
     end
 
     #
@@ -375,15 +350,7 @@ module RestfullyManageable
       code << "  end\n"
       code << "end\n"
 
-      restful_module = Module.new
-      name_module(restful_module, :picture)
-      restful_module.class_eval(code)
-      restful_module.extend ActiveSupport::Concern
-      restful_module.send(:included) do
-        eval class_code
-      end
-      include restful_module
-      self
+      insert_module(code, class_code, name: :picture)
     end
 
     private
@@ -391,6 +358,18 @@ module RestfullyManageable
     def name_module(mod, kind)
       mod_name = "#{controller_name.classify}#{kind.to_s.classify}"
       RestfullyManageable.const_set mod_name, mod
+    end
+
+    def insert_module(code, class_code, name: '')
+      restful_module = Module.new
+      name_module(restful_module, name)
+      restful_module.class_eval(code)
+      restful_module.extend ActiveSupport::Concern
+      restful_module.send(:included) do
+        eval class_code
+      end
+      include restful_module
+      self
     end
   end
 end
