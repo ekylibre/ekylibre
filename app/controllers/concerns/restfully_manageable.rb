@@ -356,7 +356,11 @@ module RestfullyManageable
     private
 
     def name_module(mod, kind)
-      mod_name = "#{controller_name.classify}#{kind.to_s.classify}Actions"
+      # Ensure we don't collide with other controllers but still don't need
+      # intermediate namespacing modules
+      unique_controller_name = controller_path.camelize.simpleize
+      kind_name = kind.to_s.classify
+      mod_name = "#{unique_controller_name}#{kind_name}Actions"
       RestfullyManageable.const_set mod_name, mod
     end
 
