@@ -457,6 +457,7 @@ module ApplicationHelper
           options = args.extract_options!
           item_options = {}
           item_options[:class] = options.delete(:as) if options.key?(:as)
+          item_options.merge!(options.delete(:html_options)) if options.key?(:html_options)
           content_tag(:li, link_to(*args, options, &item.block), item_options)
         elsif item.name == :separator
           content_tag(:li, '', class: 'separator')
