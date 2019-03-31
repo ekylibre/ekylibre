@@ -1,3 +1,5 @@
+# coding: utf-8
+
 { cmn: {
   i18n: {
     dir: 'ltr',

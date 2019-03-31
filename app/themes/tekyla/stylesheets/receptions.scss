@@ -467,6 +467,9 @@
     }
     .reception_items_project_budget {
       display: block;
+      .control-label {
+        max-width: 75%;
+      }
       .controls {
         margin-left: 0%;
         input {

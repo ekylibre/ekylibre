@@ -1,5 +1,9 @@
 eng:
   enumerize:
+    account:
+      nature:
+        auxiliary: "Auxiliary"
+        general: "General"
     activity:
       nature:
         auxiliary: "Auxiliary"
@@ -134,6 +138,12 @@ eng:
       nature:
         contact: "Contact"
         organization: "Organization"
+      supplier_payment_delay:
+        1 week: "at reception"
+        30 days: "30 days"
+        30 days, end of month: "30 days end of month"
+        60 days: "60 days"
+        60 days, end of month: "60 days end of month"
     entity_address:
       canal:
         email: "Email"
@@ -149,6 +159,12 @@ eng:
         refused: "Refused"
         waiting: "Waiting"
     financial_year:
+      state:
+        closed: "Closed"
+        closing: "Closure in progress"
+        closure_in_preparation: "Closure in preparation"
+        locked: "Locked"
+        opened: "Opened"
       tax_declaration_frequency:
         monthly: "Monthly"
         none: "None"
@@ -158,12 +174,15 @@ eng:
         debit: "Debit"
         none: "None"
         payment: "Payment"
+    financial_year_archive:
+      timing:
+        # post_closure: "Post closure"
+        # prior_to_closure: "Prior to closure"
     fixed_asset:
       depreciation_method:
         linear: "Linear"
         none: "None"
         regressive: "Regressive"
-        simplified_linear: "Simplified linear"
       depreciation_period:
         monthly: "Monthly"
         quarterly: "Quarterly"
@@ -445,6 +464,12 @@ eng:
         point: "Point"
         string: "String"
     purchase:
+      payment_delay:
+        1 week: "at reception"
+        30 days: "30 days"
+        30 days, end of month: "30 days end of month"
+        60 days: "60 days"
+        60 days, end of month: "60 days end of month"
       reconciliation_state:
         # accepted: "Accepted"
         # reconcile: "Reconcile"
@@ -500,6 +525,13 @@ eng:
         # third: "Third"
         # transporter: "Transporter"
         # us: "Us"
+    sale:
+      payment_delay:
+        1 week: "at reception"
+        30 days: "30 days"
+        30 days, end of month: "30 days end of month"
+        60 days: "60 days"
+        60 days, end of month: "60 days end of month"
     sale_gap:
       direction:
         # loss: "Loss"
@@ -509,6 +541,13 @@ eng:
         # amount: "Amount"
         # pretax_amount: "Pretax amount"
         # unit_pretax_amount: "Unit pretax amount"
+    sale_nature:
+      payment_delay:
+        1 week: "at reception"
+        30 days: "30 days"
+        30 days, end of month: "30 days end of month"
+        60 days: "60 days"
+        60 days, end of month: "60 days end of month"
     sensor:
       retrieval_mode:
         integration: "Integration"

@@ -58,7 +58,8 @@ module Backend
       t.column :reference_number, url: true
       t.column :created_at
       t.column :supplier, url: true
-      t.column :pretax_amount, currency: true, on_select: :sum, hidden: true
+      t.column :pretax_amount, currency: true, on_select: :sum
+      t.column :amount, currency: true, on_select: :sum
     end
 
     list(:items, model: :purchase_items, order: { id: :asc }, conditions: { purchase_id: 'params[:id]'.c }) do |t|
@@ -73,7 +74,7 @@ module Backend
       t.column :reduction_percentage
       t.column :tax, url: true, hidden: true
       t.column :pretax_amount, currency: true
-      t.column :amount, currency: true, hidden: :true
+      t.column :amount, currency: true
       t.column :activity_budget, hidden: true
       t.column :team, hidden: true
       t.column :fixed_asset, url: true, hidden: true
@@ -125,7 +126,8 @@ module Backend
     protected
 
     def to_pdf
-      filename = "Bon_de_commande_#{@purchase_order.reference_number}"
+      filename = "#{:purchase_order.tl} #{@purchase_order.reference_number}"
+      key = "#{filename}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
       @dataset_purchase_order = @purchase_order.order_reporting
       file_odt = to_odt(@dataset_purchase_order, filename, params).generate
       tmp_dir = Ekylibre::Tenant.private_directory.join('tmp')
@@ -135,6 +137,13 @@ module Backend
       FileUtils.mkdir_p tmp_dir
       File.write source, file_odt
       `soffice  --headless --convert-to pdf --outdir #{Shellwords.escape(tmp_dir.to_s)} #{Shellwords.escape(source)}`
+      Document.create!(
+                 nature: 'purchases_order',
+                 key: key,
+                 name: filename,
+                 file: File.open(dest),
+                 file_file_name: "#{key}.pdf"
+               )
       send_data(File.read(dest), type: 'application/pdf', disposition: 'attachment', filename: filename + '.pdf')
     end
 
@@ -172,9 +181,11 @@ module Backend
           t.add_column(:unity)
           t.add_column(:unit_pretax_amount)
           t.add_column(:pretax_amount)
+          t.add_column(:amount)
         end
 
         r.add_field 'PURCHASE_PRETAX_AMOUNT', order_reporting[:purchase_pretax_amount]
+        r.add_field 'PURCHASE_AMOUNT', order_reporting[:purchase_amount]
         r.add_field 'PURCHASE_CURRENCY', order_reporting[:purchase_currency]
       end
     end

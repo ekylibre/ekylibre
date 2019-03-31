@@ -10,7 +10,6 @@
         %input{ type: :date, id: :duplicate_date, value: intervention.started_at.to_date }
 
         = backend_form_for(intervention, url: create_duplicate_intervention_backend_interventions_path) do |f|
-
           = hidden_field_tag :updater, compute_backend_interventions_path(format: :json), data: { procedure_computing: f.object.procedure.name }
           = f.input :procedure_name, as: :hidden, input_html: { data: { procedure: compute_backend_interventions_path(format: :json) }}
 
@@ -60,7 +59,6 @@
                         = parameter_form.referenced_association :product,
                         label: false,
                         source: { controller: 'backend/products', scope: { of_nature: parameter.product_nature}}
-
                         = parameter_form.input :reference_name, as: :hidden
 
           .parameters.inputs-outputs
@@ -91,7 +89,6 @@
                           label: false,
                           source: options,
                           new: false
-
                           = parameter_form.input :reference_name, as: :hidden
 
                           - unless product_parameter == :outputs && parameter.reference.name == :plant

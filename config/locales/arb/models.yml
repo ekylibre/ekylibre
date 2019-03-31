@@ -1,10 +1,66 @@
 arb:
+  activemodel:
+    errors:
+      messages:
+        # accepted: "%{attribute} must be accepted"
+        # after: "%{attribute} must be after %{restriction}"
+        # already_confirmed: "was already confirmed, please try signing in"
+        # before: "%{attribute} must be before %{restriction}"
+        # blank: "%{attribute} can't be blank"
+        # confirmation: "%{attribute} doesn't match confirmation"
+        # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
+        # currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
+        # empty: "%{attribute} can't be empty"
+        # equal_to: "%{attribute} must be equal to %{count}"
+        # even: "%{attribute} must be even"
+        # exclusion: "%{attribute} is reserved"
+        # expired: "has expired, please request a new one"
+        # greater_than: "%{attribute} must be greater than %{count}"
+        # greater_than_or_equal_to: "%{attribute} must be greater than or equal to %{count}"
+        # included_in: "The value of %{attribute} must be included between %{minimum} and %{maximum}"
+        # inclusion: "%{attribute} is not included in the list"
+        # invalid: "%{attribute} is invalid"
+        # invalid_at: "%{attribute} is_invalid. Error near %{error}"
+        # invalid_date: "%{attribute} is not a valid date"
+        # invalid_datetime: "%{attribute} is not a valid datetime"
+        # invalid_time: "%{attribute} is not a valid time"
+        # invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
+        # is: "%{attribute} must be a %{thing}"
+        # is_at: "%{attribute} must be at %{restriction}"
+        # less_than: "%{attribute} must be less than %{count}"
+        # less_than_or_equal_to: "%{attribute} must be less than or equal to %{count}"
+        # missing_bank_details_for_sepa: "Values for IBAN and/or Account owner are missing for the cash account selected."
+        # must_be_a_mail_address: "%{attribute} must be a mail address"
+        # not_a_number: "%{attribute} is not a number"
+        # not_an_end_of_month: "%{attribute} must be an end of month"
+        # not_an_integer: "%{attribute} must be an integer"
+        # not_enough: "not enough %{resource} to complete task"
+        # not_found: "not found"
+        # not_locked: "was not locked"
+        not_saved:
+          # one: "1 error prohibited this %{resource} from being saved:"
+          # other: "%{count} errors prohibited this %{resource} from being saved:"
+        # nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
+        # odd: "%{attribute} must be odd"
+        # on_or_after: "%{attribute} must be on or after %{restriction}"
+        # on_or_before: "%{attribute} must be on or before %{restriction}"
+        # overlap: "%{attribute} overlaps an existing record"
+        # overlap_sibling: "%{attribute} overlaps sibling"
+        # posterior: "%{attribute} must be posterior to %{to}"
+        # record_invalid: "Validations failed: %{errors}"
+        # taken: "%{attribute} has already been taken"
+        # too_long: "%{attribute} is too long (maximum is %{count} characters)"
+        # too_short: "%{attribute} is too short (minimum is %{count} characters)"
+        # unitary_in_parcel: "Unitary items can only be sent one by one"
+        # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
   activerecord:
     attributes:
-      account: #?
+      account:
         comment: "تعليق" #?
         company_id: "الشركة" #?
         created_at: "انشأت بي" #?
+        # cumulated_absolute_credit_balance: "Credit balance"
+        # cumulated_absolute_debit_balance: "Debit balance"
         label: "مملصق" #?
         parent: "الاقرباء" #?
         parent_id: "الاقرباء" #?
@@ -256,10 +312,13 @@ arb:
         incoming_payments: "دفعات" #?
         outgoing_payment_uses: "اجزاء الدفعات" #?
         outgoing_payments: "دفعات" #?
-      journal_entry_item: #?
+      journal_entry_item:
         account: "حساب" #?
         comment: "تعليق" #?
         created_at: "انشأت ففي" #?
+        # cumulated_absolute_credit_balance: "Credit balance"
+        # cumulated_absolute_debit_balance: "Debit balance"
+        # name: "Entry item label"
         real_credit: "ائتمان" #?
       land_parcel:
         born_at: "أنشئت في"
@@ -608,13 +667,16 @@ arb:
       tax:
         amount: "القيمة المالية"
         nature_label: "النوع" #?
-      tax_declaration: #?
+      tax_declaration:
         accounted_at: "تمت محاسبتها يوم" #?
         address: "عنوان خدمة المستلم" #?
         amount: "مجموع قيمة الضريبة الاضافية" #?
         financial_year: "المدة المقدرة" #?
         financial_year_id: "المدة المقدرة" #?
         nature: "نظام التصريح" #?
+        # no_financial_year_button: "Manage financial years"
+        # no_financial_year_message: "Please choose your tax declarartion mode in one of your financial years to access to your tax declarations"
+        # no_financial_year_title: "No financial year entered"
         updated_at: "تم تحديثها في" #?
       tax_declaration_item:
         collected: "جمع"
@@ -661,14 +723,17 @@ arb:
       messages:
         accepted: "%{attribute} يجب أن تكون مقبولة"
         # after: "%{attribute} must be after %{restriction}"
+        # already_confirmed: "was already confirmed, please try signing in"
         # before: "%{attribute} must be before %{restriction}"
         blank: "%{attribute} لا يمكن أن تكون فارغة"
         confirmation: "%{attribute} لا تطابق التثبيت"
+        # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
         # currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
         empty: "%{attribute} لا يمكن أن تكون فارغة"
         equal_to: "%{attribute} يجب أن يكون مساو ل %{count}"
         even: "%{attribute} يجب ان يكون متساو"
         exclusion: "%{attribute} محجوز"
+        # expired: "has expired, please request a new one"
         greater_than: "%{attribute} يجب ان يكون اكبر من %{count}"
         greater_than_or_equal_to: "%{attribute} يجب ان يكون اكبر او مساو %{count}"
         included_in: "يجب ان تشمل القيمة %{attribute} بين %{minimum} و %{maximum}"
@@ -688,6 +753,12 @@ arb:
         not_a_number: "%{attribute} ليس برقم"
         # not_an_end_of_month: "%{attribute} must be an end of month"
         # not_an_integer: "%{attribute} must be an integer"
+        # not_enough: "not enough %{resource} to complete task"
+        # not_found: "not found"
+        # not_locked: "was not locked"
+        not_saved:
+          # one: "1 error prohibited this %{resource} from being saved:"
+          # other: "%{count} errors prohibited this %{resource} from being saved:"
         nothing_to_pay: ".ليس هنالك ما يدفع، اذا رغبت بتسجيل القسط، فتذكر تحديد ذلك"
         odd: "%{attribute} يجب ان يكون فردي"
         # on_or_after: "%{attribute} must be on or after %{restriction}"
@@ -702,20 +773,18 @@ arb:
         too_short: "%{attribute} قصير جدا (%{count}الحد الادنى للاحرف)"
         unitary_in_parcel: "لا يمكن إلا أن ترسل وحدات موحدة واحدا تلو الآخر"
         wrong_length: "%{attribute} الطول الخاطئ  ( %{count} يجب ان يكون عدد الاحرف)"
-      models:
-        activity:
-          checked_off_with_inspections: "وقد تم بالفعل خلق التفتيش لهذا النشاط"
-          checked_without_measures: "على الأقل، يجب أن يتم اختيار نوع واحد الاجراء عندما أراد التفتيش"
-        bank_statement:
-          no_cash_match_ofx: "لم يتم العثور على رقم الحساب المصرفي الواردة في الملف النقدية"
-          ofx_file_has_multiple_bank_accounts: "غير معتمد ملف OFX مع حسابات مصرفية متعددة"
-          ofx_file_invalid: "ملف OFX غير صالح"
-        bank_statement_item:
-          unvalid_amounts: "يجب ان تكون المدخلات معرفة اما بالدين او بالائتمان، وليس الاثنان معا"
-        cash:
-          # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
-          # different_of_main_account: "%{attribute} must be different of main account (%{account})"
-          unvalid_bban: ".مكون واحد أو اكثر من موجه قاعدة المعلومات غير صحيح"
+      models: #?
+        activity: #?
+          checked_off_with_inspections: "وقد تم بالفعل خلق التفتيش لهذا النشاط" #?
+          checked_without_measures: "على الأقل، يجب أن يتم اختيار نوع واحد الاجراء عندما أراد التفتيش" #?
+        bank_statement: #?
+          no_cash_match_ofx: "لم يتم العثور على رقم الحساب المصرفي الواردة في الملف النقدية" #?
+          ofx_file_has_multiple_bank_accounts: "غير معتمد ملف OFX مع حسابات مصرفية متعددة" #?
+          ofx_file_invalid: "ملف OFX غير صالح" #?
+        bank_statement_item: #?
+          unvalid_amounts: "يجب ان تكون المدخلات معرفة اما بالدين او بالائتمان، وليس الاثنان معا" #?
+        cash: #?
+          unvalid_bban: ".مكون واحد أو اكثر من موجه قاعدة المعلومات غير صحيح" #?
         custom_field_datum: #?
           greater_than: "%{field} اكبر من (%{maximum} كحد اقصى)" #?
           less_than: "%{field} اقل من (%{minimum} كحد ادنى)" #?
@@ -767,20 +836,18 @@ arb:
               # previous_entity_frozen: "Booked journals of the previous %{attribute} cannot change while an exchange is opened for its financial years"
             closed_at: #?
               end_of_month: "%{attribute} يجب ان تطابق تاريخ نهاية الشهر (%{closed_at})" #?
-            closed_on:
-              # end_of_month: "%{attribute} must be an end of month (%{closed_on})"
-        journal_entry:
-          closed_journal: ".مما لا يمكنك انشاءخ او تعديله او الغاءه لغاية هذا التاريخ %{closed_at} تم اغلاق الدفتر اليومي في"
-          frozen_by_financial_year_exchange: "لا يمكن تسجيل الدخول للمجلة في الفترة المقابلة لتبادل السنة المالية."
-          out_of_existing_financial_year: "يجب تسجيل الدخول للمجلة في الفترة المقابلة لعام المالي الحالي."
+        journal_entry: #?
+          closed_journal: ".مما لا يمكنك انشاءخ او تعديله او الغاءه لغاية هذا التاريخ %{closed_at} تم اغلاق الدفتر اليومي في" #?
+          frozen_by_financial_year_exchange: "لا يمكن تسجيل الدخول للمجلة في الفترة المقابلة لتبادل السنة المالية." #?
+          out_of_existing_financial_year: "يجب تسجيل الدخول للمجلة في الفترة المقابلة لعام المالي الحالي." #?
           out_of_financial_year: "يجب اغتنام السجل خلال السنة المالية" #?
-          unbalanced: "ان السجل غير متعادل"
-        journal_entry_item:
-          closed_entry: ".تم اغلاق المدخلات، ولا يمكن التعديل عليها"
-          empty_amounts: "يجب أن تكون المدخلات معرفة اما بالدين او بالائتمان"
-          unvalid_amounts: "يجب ان تكون المدخلات معرفة اما بالدين او بالائتمان، وليس الاثنان معا"
-        outgoing_parcel_item:
-          greater_than_undelivered_quantity: "%{product} كمية الانتاج المسلمة تفوق الكمية الغير مسلمة (%{maximum}%{unit})"
+          unbalanced: "ان السجل غير متعادل" #?
+        journal_entry_item: #?
+          closed_entry: ".تم اغلاق المدخلات، ولا يمكن التعديل عليها" #?
+          empty_amounts: "يجب أن تكون المدخلات معرفة اما بالدين او بالائتمان" #?
+          unvalid_amounts: "يجب ان تكون المدخلات معرفة اما بالدين او بالائتمان، وليس الاثنان معا" #?
+        outgoing_parcel_item: #?
+          greater_than_undelivered_quantity: "%{product} كمية الانتاج المسلمة تفوق الكمية الغير مسلمة (%{maximum}%{unit})" #?
         price: #?
           already_defined: "قد تم تحديد السعر لهذا المنتج وقائمة الاسعار سابقا" #?
           range_overlap: "تداخل فاصل زمني اخر للكمية (  %{min} الى\_ %{max})" #?
@@ -821,17 +888,17 @@ arb:
           building_can_not_transfer_product: "لا يمكنك تحويل المنتج %{product} من موقع التخزين %{building}, لاحتوائه على منتج %{contained_product}" #?
           building_can_not_waste_product: "لا يمكنك تسجيل الخسارة للمنتج %{product} من موقع التخزين %{building}, هذا ويحتوي المنتج %{contained_product}" #?
           buildings_can_not_be_identical: "مواقع التخزين (المغادرة والواصلة) قد لا تكون متطابقة" #?
-        subscription:
-          entity_must_be_the_same_as_the_contact_entity: "يجب على الشخص المشترك ان يكون نفس الشخص المراد الاتصال به"
+        subscription: #?
+          entity_must_be_the_same_as_the_contact_entity: "يجب على الشخص المشترك ان يكون نفس الشخص المراد الاتصال به" #?
         tax_declaration: #?
           declaration_date_after_period: ".يجب علك عمل التصريح الخاص بك بعد المدة المقررة" #?
           one_data_to_record_tax_declaration: ".يجب ان يكون لديك على الاقل قيمة غير صفرية واحدة" #?
           overlapped_period_declaration: ".يجب ان لا تتداخل مدة التصريح مع اي مدة اخرى" #?
-      template:
-        body: ":كان هنالك مشاكل مع الحقوا التالية "
-        header:
-          one: " من عملية الحفظ%{model} يمنع الخطأ هذا"
-          other: "%{count} تمنع الاخطاء تلك  %{model} من عملية الحفظ"
+      template: #?
+        body: ":كان هنالك مشاكل مع الحقوا التالية " #?
+        header: #?
+          one: " من عملية الحفظ%{model} يمنع الخطأ هذا" #?
+          other: "%{count} تمنع الاخطاء تلك  %{model} من عملية الحفظ" #?
     models:
       account: "الحساب"
       account_balance: "رصيد الحساب"
@@ -1112,6 +1179,7 @@ arb:
     accountant: "محاسب"
     accounted_at: "تمت محاسبته يوم"
     accounting_balance: "ميزان المحاسبة"
+    # accounting_label: "Accounting label"
     accounts: "الحسابات" #?
     accuracy: "دقة"
     achieved_at: "تحقق في"
@@ -1150,6 +1218,7 @@ arb:
     all_addresses: "جميع العناوين"
     all_taxes_included: "وتشمل جميع الضرائب"
     allocation_account: "حساب توزيع"
+    # already_existing: "Already existing"
     amount: "القيمة من دون الضرائب"
     amount_with_taxes: "القيمة مع كامل الضرائب" #?
     analysed_at: "تم تحليل المعلومات في"
@@ -1187,6 +1256,7 @@ arb:
     author: "مؤلف"
     authorized_payments_count: "عدد الدفعات المصرحة بها"
     auto_updateable_addresses: "السيارات عناوين للتحديث"
+    # auxiliary_number: "Auxiliary number"
     available_prices: "الاسعار المتوفرة" #?
     available_products: "المنتجات المتوفرة" #?
     average_value: "متوسط ​​القيمة"
@@ -1264,6 +1334,8 @@ arb:
     category_id: "الفئة" #?
     ceded: "تنازلت"
     ceded_on: "تنازلت عن"
+    # centralizing_account: "Centralizing account"
+    # centralizing_account_name: "Centralizing account name"
     # centroid: "Centroid"
     charge_account: "حساب المسؤول"
     charges_categories: "فئات الرسوم"
@@ -1318,7 +1390,9 @@ arb:
     commission_percentage: "نسبة العمولة"
     commissioned_incoming_payment_modes: "بتكليف وسائل الدفع واردة"
     company: "الشركة" #?
+    # company_creation_date: "Company creation date"
     company_id: "شركة" #?
+    # company_name: "Company name"
     component: "محتوى العبوة"
     component_id: "محتوى العبوة" #?
     components: "مكونات المنتج"
@@ -1344,6 +1418,7 @@ arb:
     content: "محتوى"
     content_localizations: "تعريب المحتوى"
     contents: "محتويات"
+    # continuous_number: "Continuous number"
     contract: "عقد"
     contract_items: "بنود العقد"
     contracts: "عقود"
@@ -1467,6 +1542,7 @@ arb:
     depreciable_amount: "قيمة الاستهلاك"
     depreciable_product: "المنتج للاستهلاك"
     depreciated_amount: "كمية المستهلكة"
+    # depreciation_fiscal_coefficient: "Depreciation fiscal coefficient"
     depreciation_method: "طريقة الاستهلاك"
     depreciation_percentage: "نسبة الاستهلاك"
     depreciation_period: "فترة الاستهلاك"
@@ -1917,6 +1993,7 @@ arb:
     managed: "تمكنت"
     managed_sales: "مبيعات المدارة"
     mandates: "تفويضات" #?
+    # mandatory: "Mandatory"
     manure_management_plan_zones: "مناطق خطة إدارة السماد"
     marketable: "تسويق"
     marketable_items_count: "البنود تسويق عد"
@@ -2335,6 +2412,7 @@ arb:
     responsible: "المسؤول"
     responsible_id: "المسؤول" #?
     restricted: "مقيد"
+    # result_journal: "Result journal"
     retrieval_message: "رسالة استرجاع"
     retrieval_mode: "وضع استرجاع"
     retrieval_status: "وضع استرجاع"
@@ -2411,6 +2489,7 @@ arb:
     service_coeff: "معامل كمية الخدمة" #?
     sessions: "جلسات"
     sha256: "SHA256" #?
+    # sha256_fingerprint: "Sha256 fingerprint"
     shape: "شكل"
     shift_duration: "مدة التحول"
     shift_method: "طريقة التحول"
@@ -2419,6 +2498,7 @@ arb:
     shipped: "المستلم" #?
     shipped_at: "شحنها يوم" #?
     sign_in_count: "تسجيل الدخول العد"
+    # signature: "Signature"
     signup_at: "الاشتراك في"
     siren: "رقم صفارة الانذار"
     siret_number: "SIRET رقم"
@@ -2546,6 +2626,7 @@ arb:
     third_role: "دور الثالث"
     thread: "خيط"
     time_window: "نافذة الوقت (بالثواني)"
+    # timing: "Timing"
     title: "اللقب"
     # tms: "TMS"
     to: "ل"
@@ -2637,6 +2718,7 @@ arb:
     users: "المستخدمين"
     uses: "المعدات المستخدمة" #?
     # uuid: "UUID"
+    # validated_at: "Validated at"
     value: "القيمة"
     value_format: "التصميم" #?
     variable_indicators_list: "قائمة مؤشرات متغيرة"
@@ -2679,6 +2761,59 @@ arb:
     working_zone_area: "منطقة منطقة العمل"
     zone_memberships: "عضوية منطقة"
     zones: "المناطق"
+  errors:
+    messages:
+      # accepted: "%{attribute} must be accepted"
+      # after: "%{attribute} must be after %{restriction}"
+      # already_confirmed: "was already confirmed, please try signing in"
+      # before: "%{attribute} must be before %{restriction}"
+      # blank: "%{attribute} can't be blank"
+      # confirmation: "%{attribute} doesn't match confirmation"
+      # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
+      # currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
+      # empty: "%{attribute} can't be empty"
+      # equal_to: "%{attribute} must be equal to %{count}"
+      # even: "%{attribute} must be even"
+      # exclusion: "%{attribute} is reserved"
+      # expired: "has expired, please request a new one"
+      # greater_than: "%{attribute} must be greater than %{count}"
+      # greater_than_or_equal_to: "%{attribute} must be greater than or equal to %{count}"
+      # included_in: "The value of %{attribute} must be included between %{minimum} and %{maximum}"
+      # inclusion: "%{attribute} is not included in the list"
+      # invalid: "%{attribute} is invalid"
+      # invalid_at: "%{attribute} is_invalid. Error near %{error}"
+      # invalid_date: "%{attribute} is not a valid date"
+      # invalid_datetime: "%{attribute} is not a valid datetime"
+      # invalid_time: "%{attribute} is not a valid time"
+      # invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
+      # is: "%{attribute} must be a %{thing}"
+      # is_at: "%{attribute} must be at %{restriction}"
+      # less_than: "%{attribute} must be less than %{count}"
+      # less_than_or_equal_to: "%{attribute} must be less than or equal to %{count}"
+      # missing_bank_details_for_sepa: "Values for IBAN and/or Account owner are missing for the cash account selected."
+      # must_be_a_mail_address: "%{attribute} must be a mail address"
+      # not_a_number: "%{attribute} is not a number"
+      # not_an_end_of_month: "%{attribute} must be an end of month"
+      # not_an_integer: "%{attribute} must be an integer"
+      # not_enough: "not enough %{resource} to complete task"
+      # not_found: "not found"
+      # not_locked: "was not locked"
+      not_saved:
+        # one: "1 error prohibited this %{resource} from being saved:"
+        # other: "%{count} errors prohibited this %{resource} from being saved:"
+      # nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
+      # odd: "%{attribute} must be odd"
+      # on_or_after: "%{attribute} must be on or after %{restriction}"
+      # on_or_before: "%{attribute} must be on or before %{restriction}"
+      # overlap: "%{attribute} overlaps an existing record"
+      # overlap_sibling: "%{attribute} overlaps sibling"
+      # posterior: "%{attribute} must be posterior to %{to}"
+      # record_invalid: "Validations failed: %{errors}"
+      # taken: "%{attribute} has already been taken"
+      # too_long: "%{attribute} is too long (maximum is %{count} characters)"
+      # too_short: "%{attribute} is too short (minimum is %{count} characters)"
+      # unitary_in_parcel: "Unitary items can only be sent one by one"
+      # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
   models:
     account:
       default_account_name: "دفتر الحسابات %{number}" #?
@@ -3323,7 +3458,7 @@ arb:
       # bookkeep: "[%{resource} %{number}] From %{started_on} to %{stopped_on}"
       state_machine:
         states:
-          # draft: "Brouillon"
+          # draft: "Draft"
           # sent: "Sent"
           # validated: "Validated"
     team:

@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '>= 2.3.3', '< 3.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.10'
+gem 'rails', '4.2.11.1'
 
 # Security fix for mail
 gem 'mail', '~> 2.6.6.rc1'
@@ -61,9 +61,10 @@ gem 'turbolinks', '~> 2.0'
 # jQuery UI Javascript framework
 gem 'jquery-ui-rails'
 # gem 'jquery_mobile_rails'
-gem 'bootstrap3-datetimepicker-rails'
 gem 'jquery-scrollto-rails'
 gem 'momentjs-rails', '>= 2.9.0'
+
+gem 'flatpickr', '~> 4.5', '>= 4.5.2.0'
 
 # Forms helper
 gem 'formize', '~> 2.1.0'

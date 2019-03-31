@@ -55,7 +55,8 @@ module Procedo
         end
 
         def value=(val)
-          @value = val.convert_to(:multi_polygon)
+          val = val.convert_to(:multi_polygon) if val.respond_to? :convert_to
+          @value = val
           impact_dependencies!
         end
 

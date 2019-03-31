@@ -107,7 +107,6 @@ module Backend
       if params[:started_at].present? && params[:stopped_at].present? && params[:outgoing_payment_list] && params[:outgoing_payment_list][:mode_id]
         mode = OutgoingPaymentMode.find_by(id: params[:outgoing_payment_list][:mode_id])
         @outgoing_payment_list.mode = mode
-
         if @outgoing_payment_list.valid?
           @currency = mode.cash.currency
           @affairs = PurchaseAffair
@@ -115,9 +114,8 @@ module Backend
                      .joins(:supplier)
                      .includes(:supplier)
                      .where(closed: false, currency: mode.cash.currency)
-                     .where("((purchases.payment_at IS NOT NULL AND purchases.payment_at BETWEEN ? AND ?) OR (purchases.payment_at IS NULL AND purchases.invoiced_at BETWEEN ? AND ?)) AND purchases.state = 'invoice'", params[:started_at], params[:stopped_at], params[:started_at], params[:stopped_at])
+                     .where("((purchases.payment_at IS NOT NULL AND purchases.payment_at BETWEEN ? AND ?) OR (purchases.payment_at IS NULL AND purchases.invoiced_at BETWEEN ? AND ?))", params[:started_at], params[:stopped_at], params[:started_at], params[:stopped_at])
                      .where(entities: { supplier_payment_mode_id: mode.id })
-                     .where(purchases: { reconciliation_state: %w[accepted reconcile] })
                      .where.not(purchases: { id: nil })
                      .order('entities.full_name ASC')
                      .order('purchases.payment_at ASC', :number)

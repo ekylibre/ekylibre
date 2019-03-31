@@ -1,5 +1,9 @@
 spa:
   enumerize:
+    account:
+      nature:
+        # auxiliary: "Auxiliary"
+        # general: "General"
     activity:
       nature:
         auxiliary: "Auxiliar"
@@ -136,6 +140,12 @@ spa:
       nature:
         contact: "Contacto"
         organization: "Organización"
+      supplier_payment_delay:
+        # 1 week: "at reception"
+        # 30 days: "30 days"
+        # 30 days, end of month: "30 days end of month"
+        # 60 days: "60 days"
+        # 60 days, end of month: "60 days end of month"
     entity_address:
       canal:
         # email: "Email"
@@ -151,6 +161,12 @@ spa:
         refused: "Negado"
         waiting: "Esperando"
     financial_year:
+      state:
+        # closed: "Closed"
+        # closing: "Closure in progress"
+        # closure_in_preparation: "Closure in preparation"
+        # locked: "Locked"
+        # opened: "Opened"
       tax_declaration_frequency:
         monthly: "Mensual"
         none: "Ninguna"
@@ -166,7 +182,7 @@ spa:
         linear: "Lineal"
         none: "Ninguna"
         regressive: "Regresivo"
-        simplified_linear: "Lineal simplificado"
+        simplified_linear: "Lineal simplificado" #?
       depreciation_period:
         monthly: "Mensual"
         quarterly: "Trimestral"
@@ -458,6 +474,12 @@ spa:
         point: "Punto"
         string: "Cuerda"
     purchase:
+      payment_delay:
+        # 1 week: "at reception"
+        # 30 days: "30 days"
+        # 30 days, end of month: "30 days end of month"
+        # 60 days: "60 days"
+        # 60 days, end of month: "60 days end of month"
       tax_payability:
         at_invoicing: "En la facturación"
         at_paying: "Al pagar"
@@ -465,10 +487,24 @@ spa:
       nature:
         payslip: "Recibo de sueldo"
         purchase: "Compra"
+    sale:
+      payment_delay:
+        # 1 week: "at reception"
+        # 30 days: "30 days"
+        # 30 days, end of month: "30 days end of month"
+        # 60 days: "60 days"
+        # 60 days, end of month: "60 days end of month"
     sale_item: #?
       compute_from: #?
         pretax_amount: "Cantidad antes de impuestos" #?
         unit_pretax_amount: "Unidades de la cantidad antes de impuestos" #?
+    sale_nature:
+      payment_delay:
+        # 1 week: "at reception"
+        # 30 days: "30 days"
+        # 30 days, end of month: "30 days end of month"
+        # 60 days: "60 days"
+        # 60 days, end of month: "60 days end of month"
     sensor:
       retrieval_mode:
         integration: "Integración"

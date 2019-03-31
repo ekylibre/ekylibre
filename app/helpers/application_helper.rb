@@ -332,6 +332,8 @@ module ApplicationHelper
       value = value.send(:text)
     elsif attribute.to_s =~ /(^|_)currency$/
       value = Nomen::Currency[value].human_name
+    elsif attribute.to_s =~ /^state$/
+      value = I18n.translate("models.#{model_name}.states.#{value}")
     elsif options[:currency] && value.is_a?(Numeric)
       value = ::I18n.localize(value, currency: (options[:currency].is_a?(TrueClass) ? object.send(:currency) : options[:currency].is_a?(Symbol) ? object.send(options[:currency]) : options[:currency]))
       value = link_to(value.to_s, options[:url]) if options[:url]
@@ -455,6 +457,7 @@ module ApplicationHelper
           options = args.extract_options!
           item_options = {}
           item_options[:class] = options.delete(:as) if options.key?(:as)
+          item_options.merge!(options.delete(:html_options)) if options.key?(:html_options)
           content_tag(:li, link_to(*args, options, &item.block), item_options)
         elsif item.name == :separator
           content_tag(:li, '', class: 'separator')

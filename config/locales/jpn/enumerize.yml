@@ -1,5 +1,9 @@
 jpn:
   enumerize:
+    account:
+      nature:
+        # auxiliary: "Auxiliary"
+        # general: "General"
     activity:
       nature:
         auxiliary: "補助"
@@ -136,6 +140,12 @@ jpn:
       nature:
         contact: "連絡先"
         organization: "組織"
+      supplier_payment_delay:
+        # 1 week: "at reception"
+        # 30 days: "30 days"
+        # 30 days, end of month: "30 days end of month"
+        # 60 days: "60 days"
+        # 60 days, end of month: "60 days end of month"
     entity_address:
       canal:
         email: "Eメール"
@@ -151,10 +161,16 @@ jpn:
         refused: "拒否されました"
         waiting: "待っています"
     financial_year:
+      state:
+        # closed: "Closed"
+        # closing: "Closure in progress"
+        # closure_in_preparation: "Closure in preparation"
+        # locked: "Locked"
+        # opened: "Opened"
       tax_declaration_frequency:
         monthly: "毎月"
         none: "なし"
-        quaterly: "随時"
+        # quaterly: "Quaterly"
         yearly: "毎年"
       tax_declaration_mode:
         debit: "借方"
@@ -166,7 +182,7 @@ jpn:
         linear: "リニア"
         none: "なし"
         regressive: "回帰"
-        simplified_linear: "簡体リニア"
+        simplified_linear: "簡体リニア" #?
       depreciation_period:
         monthly: "毎月"
         quarterly: "季刊"
@@ -184,7 +200,7 @@ jpn:
     guide:
       frequency:
         daily: "デイリー"
-        decadely: "デカデリー"
+        # decadely: "Decadely"
         hourly: "毎時"
         monthly: "毎月"
         none: "なし"
@@ -458,6 +474,12 @@ jpn:
         point: "ポイント"
         string: "文字列"
     purchase:
+      payment_delay:
+        # 1 week: "at reception"
+        # 30 days: "30 days"
+        # 30 days, end of month: "30 days end of month"
+        # 60 days: "60 days"
+        # 60 days, end of month: "60 days end of month"
       tax_payability:
         at_invoicing: "請求書発行で"
         at_paying: "支払う時"
@@ -465,10 +487,24 @@ jpn:
       nature:
         payslip: "給料明細書"
         purchase: "購入"
+    sale:
+      payment_delay:
+        # 1 week: "at reception"
+        # 30 days: "30 days"
+        # 30 days, end of month: "30 days end of month"
+        # 60 days: "60 days"
+        # 60 days, end of month: "60 days end of month"
     sale_item: #?
       compute_from: #?
         pretax_amount: "税引前金額" #?
         unit_pretax_amount: "ユニット税引前金額" #?
+    sale_nature:
+      payment_delay:
+        # 1 week: "at reception"
+        # 30 days: "30 days"
+        # 30 days, end of month: "30 days end of month"
+        # 60 days: "60 days"
+        # 60 days, end of month: "60 days end of month"
     sensor:
       retrieval_mode:
         integration: "統合"
