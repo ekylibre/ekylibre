@@ -83,7 +83,7 @@
             item.find(options.tax or "*[data-trade-component='tax']").val(data.tax_id)
 
           # Compute totals
-          if event.type == "change"
+          if ['change', 'readystatechange'].includes event.type
             E.trade.updateUnitPretaxAmount(item)
 
         error: (request, status, error) ->
