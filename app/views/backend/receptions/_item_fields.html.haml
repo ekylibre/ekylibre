@@ -31,7 +31,7 @@
     %td.delivery-mode-column
       %label{ data: { item_value: "input.item-delivery-mode:checked" } }= f.object.delivery_mode if f.object.delivery_mode != "none"
 
-  %tr.nested-item-form
+  %tr.nested-item-form{ class: mode == 'prefilled' ? 'prefilled' : '' }
     %td.cell-form{colspan: 6}
       .item-form
         = f.hidden_field :purchase_order_to_close_id, class: "purchase-order-to-close-id"
@@ -106,9 +106,12 @@
           = f.input :purchase_order_item_id, as: :hidden, input_html: { class: "purchase-item-attribute" }
           .item-form
             .control-group.reconciliation-item-state-block
+              - reconciliation_state = f.object.reception.reconciliation_state
               %label.reconciliation-item-state= :element_status.tl
-              %span.purchase-process-reconciliation.reconciliation-state.no-reconciliate-state= :to_reconciliate.tl
-              %span.purchase-process-reconciliation.reconciliation-state.reconcile-state.hidden= :reconcile.tl
+              %span.purchase-process-reconciliation.reconciliation-state.no-reconciliate-state{ class: reconciliation_state == 'to_reconcile' ? '' : 'hidden' }
+                = :to_reconciliate.tl
+              %span.purchase-process-reconciliation.reconciliation-state.reconcile-state{ class: reconciliation_state == 'reconcile' ? '' : 'hidden' }
+                = :reconcile.tl
 
             = f.referenced_association :project_budget
             .equipment_and_reconciliate

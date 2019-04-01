@@ -67,6 +67,7 @@ class ReceptionItem < ParcelItem
   belongs_to :reception, inverse_of: :items, class_name: 'Reception', foreign_key: :parcel_id
   belongs_to :project_budget, class_name: 'ProjectBudget', foreign_key: :project_budget_id
   belongs_to :purchase_order_to_close, class_name: 'PurchaseOrder', foreign_key: :purchase_order_to_close_id
+  belongs_to :purchase_order_item, class_name: 'PurchaseItem', foreign_key: :purchase_order_item_id
 
   has_one :storage, through: :reception
   has_one :contract, through: :reception

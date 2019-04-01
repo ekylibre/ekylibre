@@ -33,7 +33,7 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
-    active_list (6.9.4)
+    active_list (6.10.0)
       arel (>= 5.0.0)
       code_string (>= 0.0.1)
       i18n-complements
@@ -596,7 +596,7 @@ PLATFORMS
 
 DEPENDENCIES
   actionpack-xml_parser
-  active_list (>= 6.9.3)
+  active_list (>= 6.10.0)
   activerecord-postgis-adapter (>= 3.0.0)
   acts_as_list
   agric (~> 3.0)

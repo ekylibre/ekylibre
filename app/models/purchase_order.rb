@@ -135,6 +135,14 @@ class PurchaseOrder < Purchase
     items.any?
   end
 
+  def fully_reconciled?
+    return false unless has_content?
+    items.joins(:parcels_purchase_orders_items)
+         .group(:id)
+         .select("quantity = SUM(population) AS balanced")
+         .all?(&:balanced?)
+  end
+
   # this method generate a dataset for one purchase order
   def order_reporting(_options = {})
     report = HashWithIndifferentAccess.new
