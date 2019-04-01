@@ -226,6 +226,7 @@ class FinancialYear < Ekylibre::Record::Base
     end_on
   end
 
+  # TODO: Check if this is used.
   def previous_codes_with_missing_tax_declaration
     FinancialYear.with_missing_tax_declaration
                  .where('financial_years.stopped_on < ?', stopped_on)
