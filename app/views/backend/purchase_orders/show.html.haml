@@ -3,7 +3,7 @@
   = dropdown_menu_button(:export.ta, icon: :download) do |d|
     - export_params = params.slice(:states)
     - d.item :export_as_odt.tl, params: export_params.merge(format: :odt)
-    - d.item :export_as_pdf.tl, params: export_params.merge(format: :pdf)
+    - d.item :export_as_pdf.tl, html_options: { data: { no_turbolink: true } }, params: export_params.merge(format: :pdf)
   = t.destroy
   - if current_user.can?(:write, :incoming_deliveries) && resource.can_generate_parcel?
     = t.new(params: { controller: :receptions, purchase_order_ids: resource.id, nature: :incoming, mode: 'prefilled' }, label: :generate_parcel.tl)

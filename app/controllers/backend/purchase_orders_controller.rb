@@ -126,7 +126,8 @@ module Backend
     protected
 
     def to_pdf
-      filename = "Bon_de_commande_#{@purchase_order.reference_number}"
+      filename = "#{:purchase_order.tl} #{@purchase_order.reference_number}"
+      key = "#{filename}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
       @dataset_purchase_order = @purchase_order.order_reporting
       file_odt = to_odt(@dataset_purchase_order, filename, params).generate
       tmp_dir = Ekylibre::Tenant.private_directory.join('tmp')
@@ -136,6 +137,13 @@ module Backend
       FileUtils.mkdir_p tmp_dir
       File.write source, file_odt
       `soffice  --headless --convert-to pdf --outdir #{Shellwords.escape(tmp_dir.to_s)} #{Shellwords.escape(source)}`
+      Document.create!(
+                 nature: 'purchases_order',
+                 key: key,
+                 name: filename,
+                 file: File.open(dest),
+                 file_file_name: "#{key}.pdf"
+               )
       send_data(File.read(dest), type: 'application/pdf', disposition: 'attachment', filename: filename + '.pdf')
     end
 
@@ -172,7 +180,6 @@ module Backend
           t.add_column(:quantity)
           t.add_column(:unity)
           t.add_column(:unit_pretax_amount)
-          t.add_column(:unit_amount)
           t.add_column(:pretax_amount)
           t.add_column(:amount)
         end
