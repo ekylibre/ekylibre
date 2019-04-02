@@ -7,8 +7,9 @@ module Ekylibre
     end
 
     class Base < ActiveRecord::Base
-      include ScopeIntrospection # TODO: move to ApplicationRecord
       include ConditionalReadonly # TODO: move to ApplicationRecord
+      prepend IdHumanizable
+      include ScopeIntrospection # TODO: move to ApplicationRecord
 
       self.abstract_class = true
 
@@ -166,12 +167,6 @@ module Ekylibre
             self[reflection.foreign_key].present? && item >= self[reflection.foreign_key]
           end
         end
-
-        # Permits to consider something and something_id like the same
-        def human_attribute_name_with_id(attribute, options = {})
-          human_attribute_name_without_id(attribute.to_s.gsub(/_id\z/, ''), options)
-        end
-        alias_method_chain :human_attribute_name, :id
       end
     end
   end
