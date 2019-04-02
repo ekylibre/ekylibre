@@ -165,7 +165,7 @@ gem 'ekylibre-ofx-parser'
 gem 'rgeo-geojson'
 gem 'rgeo-shapefile'
 gem 'roo'
-gem 'rubyzip'
+gem 'rubyzip', '~> 1.2.2'
 gem 'sepa_king'
 # gem 'sepa_king', path: '/home/jonathan/Workspace/sepa_king'
 gem 'rodf'
@@ -180,7 +180,7 @@ gem 'feedjira', require: false
 gem 'colored' # , require: false
 
 # S/CSS Framework
-gem 'bootstrap-sass', '~> 3.1'
+gem 'bootstrap-sass', '~> 3.4.1'
 gem 'twitter-typeahead-rails'
 
 # Iconic font
