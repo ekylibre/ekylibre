@@ -172,7 +172,9 @@ module Backend
     FixedAsset.state_machine.events.each do |event|
       if %i[sell scrap].include? event.name
         define_method event.name do
-          record, state = do_fire_event event.name
+          next unless record = find_and_check
+
+          state = do_fire_event record, event.name
           record.errors.messages.each do |field, message|
             notify_error :error_on_field, { field: FixedAsset.human_attribute_name(field), message: message.join(", ") }
           end
