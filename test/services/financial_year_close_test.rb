@@ -70,7 +70,7 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
     @beginning = (@today - 1.month).beginning_of_month
     @end = (@today - 1.month).end_of_month
     @year = FinancialYear.create!(started_on: @beginning, stopped_on: @end)
-    @next_year = FinancialYear.create!(started_on: Date.today.beginning_of_month, stopped_on: Date.today.end_of_month)
+    @next_year = FinancialYear.create!(started_on: @today.beginning_of_month, stopped_on: @today.end_of_month)
     @profits = Account.create!(name: 'FinancialYear result profit', number: '120', usages: :financial_year_result_profit)
     @losses = Account.create!(name: 'FinancialYear result loss', number: '129', usages: :financial_year_result_loss)
     @open  = Account.create!(number: '89', name: 'Opening account')
@@ -81,7 +81,7 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
     FileUtils.rm_rf Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}")
   end
 
-  test 'products & expenses balance' do
+  test 'products and expenses balance' do
     result = Journal.create!(name: 'Results TEST', code: 'RSTST', nature: :result)
     test_accounts = {
       6012 => Account.create!(name: 'Test6x', number: '6012'),
