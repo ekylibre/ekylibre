@@ -560,8 +560,13 @@ module Backend
 
           html << @template.field_set(:indicators) do
             fs = ''.html_safe
-            @object.readings.each do |reading|
-              indicator = reading.indicator
+            readings_without_shape = @object.readings.reject do |reading|
+              # Based on L551 delete_if block
+              indicator = reading.indicator_name
+              whole_indicators.include?(indicator) ||
+                %i[geolocation shape].include?(indicator.to_sym)
+            end
+            readings_without_shape.each do |reading|
               # error message for indicators
               if Rails.env.development?
                 fs << reading.errors.inspect if reading.errors.any?
