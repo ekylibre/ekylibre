@@ -269,6 +269,7 @@
                 frame.dialog "close"
               invalid: (frame, data, status, request) ->
                 frame.html request.responseText
+                frame.trigger('dialog:show')
         else
           console.log "Don't known how to manage this option"
           console.log selected

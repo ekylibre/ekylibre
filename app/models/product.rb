@@ -357,7 +357,7 @@ class Product < Ekylibre::Record::Base
   end
 
   accepts_nested_attributes_for :readings, allow_destroy: true, reject_if: lambda { |reading|
-    !reading['indicator_name'] != 'population' && reading[ProductReading.value_column(reading['indicator_name']).to_s].blank?
+    !(reading['indicator_name'] != 'population') && reading[ProductReading.value_column(reading['indicator_name']).to_s].blank?
   }
   accepts_nested_attributes_for :memberships, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :labellings, reject_if: :all_blank, allow_destroy: true

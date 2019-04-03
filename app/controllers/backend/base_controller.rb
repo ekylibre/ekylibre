@@ -141,6 +141,8 @@ module Backend
           end
           redirect_to(url)
           return true
+        else
+          raise ActiveRecord::Rollback
         end
       end
       notify_error_now :record_cannot_be_saved.tl
