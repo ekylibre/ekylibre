@@ -12,4 +12,5 @@
   - else
     %td= purchase_affair.created_at.l
     %td=link_to purchase_affair.class.model_name.human + ' ' + purchase_affair.number, backend_purchase_affair_path(purchase_affair)
+    %td
   %td{data: { outgoing_payment_purchase_affair_amount: purchase_affair.balance }}= purchase_affair.balance.l(currency: f.object.mode.currency)
