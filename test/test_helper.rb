@@ -134,8 +134,8 @@ module ActiveSupport
       Rails.root.join('test', 'fixture-files')
     end
 
-    def self.test_model_actions(_options = {})
-      model = to_s.slice(0..-5).constantize
+    def self.test_model_actions(options = {})
+      model = options.fetch(:class, to_s.split('::').last.slice(0..-5).constantize)
       FixtureRetriever.new(model)
 
       test 'validation with empty model should not throw' do
