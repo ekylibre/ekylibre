@@ -302,7 +302,7 @@ module Backend
       editor[:withoutLabel] = true
 
       geom = @object.send(attribute_name)
-      if geom
+      if geom.present?
         geometry = Charta.new_geometry(geom)
         editor[:edit] = geometry.to_json_object
         editor[:view] = { center: geometry.centroid, zoom: 16 }
