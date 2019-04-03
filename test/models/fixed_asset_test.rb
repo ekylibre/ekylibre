@@ -448,6 +448,28 @@ class FixedAssetTest < ActiveSupport::TestCase
     assert_not fa.sell
   end
 
+  test 'cannot create a FixedAsset when no FinancialYear present in database' do
+    FinancialYear.delete_all
+
+    attributes = {
+      name: @product.name,
+      depreciable_amount: 50_000,
+      depreciation_method: :linear,
+      started_on: Date.new(2017, 3, 1),
+      depreciation_period: :yearly,
+      depreciation_percentage: 20.00,
+      asset_account: @asset_account,
+      allocation_account: @allocation_account,
+      expenses_account: @expenses_account,
+      product: @product,
+      journal_id: @journal.id
+    }
+
+    fa = FixedAsset.new attributes
+    assert_not fa.valid?
+    assert fa.errors.messages.key? :base
+  end
+
   private
 
     def depreciate_up_to(_depreciations, date)

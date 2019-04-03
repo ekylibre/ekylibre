@@ -161,6 +161,10 @@ eng:
       messages:
         <<: *error_messages
       models:
+        fixed_asset:
+          attributes:
+            base:
+              no_financial_year: "A financial year is needed to create a fixed asset."
         journal_entry:
           attributes:
             printed_on:
