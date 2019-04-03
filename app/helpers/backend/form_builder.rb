@@ -681,7 +681,7 @@ module Backend
     end
 
     def fields(partial = 'form')
-      @template.content_tag(:div, @template.render(partial, f: self), class: 'form-fields')
+      @template.content_tag(:div, base_form_error_tags + @template.render(partial, f: self), class: 'form-fields')
     end
 
     def yes_no_radio(attribute_name, options = {})
@@ -772,6 +772,12 @@ module Backend
       end
       @template.content_tag(:span, units_values.tl, class: 'add-on')
     end
+
+    private
+
+      def base_form_error_tags
+        @template.resource.errors.messages.fetch(:base, []).map { |error_message| @template.flash_message_tag :error, error_message }.join.html_safe
+      end
   end
 end
 
