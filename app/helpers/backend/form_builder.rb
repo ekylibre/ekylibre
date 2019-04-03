@@ -687,7 +687,7 @@ module Backend
       return nil unless @actions.any?
       @template.form_actions do
         html = ''.html_safe
-        for action in @actions
+        @actions.each do |action|
           html += if action[:type] == :block
                     action[:content].html_safe
                   else
