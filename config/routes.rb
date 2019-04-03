@@ -353,7 +353,7 @@ Rails.application.routes.draw do
 
     resources :cash_transfers, concerns: %i[list unroll], path: 'cash-transfers'
 
-    resources :catalog_items, concerns: %i[list unroll]
+    resources :catalog_items, concerns: %i[list unroll], except: [:index]
 
     resources :catalogs, concerns: %i[list unroll] do
       member do

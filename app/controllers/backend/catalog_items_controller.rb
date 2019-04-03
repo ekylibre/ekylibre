@@ -24,7 +24,7 @@ module Backend
 
     def new
       @catalog_item = CatalogItem.new(catalog_id: params[:catalog_id], variant_id: params[:variant_id])
-      render locals: { with_continue: true }
+      render locals: { with_continue: true, cancel_url: :back }
     end
 
     list do |t|
