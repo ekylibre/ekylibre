@@ -216,8 +216,8 @@ fra:
         asset_fixable: "Immobilisable"
         depreciable: "Amortissable" #?
         duration: "Nombre de numéros OU période d’abonnement" #?
-        fixed_asset_allocation_account: "Compte de dotation aux amortissements" #?
-        fixed_asset_expenses_account: "Compte de charge" #?
+        fixed_asset_allocation_account: "Compte d'amortissements" #?
+        fixed_asset_expenses_account: "Compte de dotation aux amortissements" #?
         price: "Prix de revient" #?
         subscribing: "Abonnement ?" #?
       product_nature_variant: #?
