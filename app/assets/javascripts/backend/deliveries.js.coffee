@@ -117,6 +117,10 @@
           # else
           #   shape.hide()
 
+        # Overrides flatpickr input
+        flatpickrInput = $('input.datetime.required.flatpickr-input.form-control.input')
+        flatpickrInput.attr("data-when-item", "achieved_at") && flatpickrInput.attr("data-when-set-value", "RECORD_VALUE")
+
         error: (request, status, error) ->
           console.log("Error while retrieving price and tax fields content: #{error}")
     else
