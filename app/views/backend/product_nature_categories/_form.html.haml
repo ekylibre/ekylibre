@@ -8,7 +8,7 @@
 
 = field_set(:nature) do
   = f.input :reductible
-  = f.input :asset_fixable
+  = f.input :asset_fixable, :show => :financials_assets
   = f.input :depreciable, :show => :financials_assets
   = f.input :storable, :show => :stocks
   = f.input :purchasable, :show => :purchases
