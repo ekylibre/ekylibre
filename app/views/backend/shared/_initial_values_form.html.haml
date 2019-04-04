@@ -19,7 +19,7 @@
     - errors = shape_reading.errors.messages.values.flatten
     - errors.each do |error|
       - f.object.errors.add(:initial_shape, error)
-  = f.shape(:initial_shape, label: Product.human_attribute_name(:shape), input_html: { data: { "when-item": :shape, "when-set-value": "RECORD_VALUE" }})
+  = f.shape(:initial_shape, label: Product.human_attribute_name(:shape), input_html: { data: { "when-item": :shape, "when-set-value": "RECORD_VALUE" }}, required: f.object.nature.variable_indicators_list.include?(:shape))
 
 - if f.object.indicators_list.include? :geolocation
   = f.geolocation(:initial_geolocation, label: Product.human_attribute_name(:geolocation))
