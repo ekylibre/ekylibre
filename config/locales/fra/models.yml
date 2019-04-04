@@ -638,7 +638,7 @@ fra:
     alerts: "Alertes"
     all_addresses: "Toutes les adresses"
     all_taxes_included: "Toutes taxes comprises"
-    allocation_account: "Compte de dotation"
+    allocation_account: "Compte d'amortissement"
     # already_existing: "Already existing"
     amount: "Montant"
     analysed_at: "Analysé le"
@@ -988,7 +988,7 @@ fra:
     expected_stop_amount: "Montant final attendu"
     expected_yield: "Rendement évalué (y)"
     expenses: "Dépenses"
-    expenses_account: "Compte de charge"
+    expenses_account: "Compte de dotation aux amortissements"
     expenses_accounts: "Comptes de charge" #?
     expiration_delay: "Délai d’expiration"
     expired_at: "Date d’expiration"
