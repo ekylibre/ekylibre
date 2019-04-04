@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20190329133808">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20190404085545">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -280,7 +280,7 @@
       <item name="land_parcel_locative_expenses" fr_pcga="6141" fr_pcg82="6141"/>
       <item name="land_parcel_rent_expenses" fr_pcga="6131" fr_pcg82="6131"/>
       <item name="land_parcel_sell_revenues" fr_pcga="7752" fr_pcg82="7752"/>
-      <item name="land_sales" fr_pcga="7152" fr_pcg82="7152"/>
+      <item name="land_sales" fr_pcga="7752" fr_pcg82="7752"/>
       <item name="leasing_expenses" fr_pcg82="612" fr_pcga="612"/>
       <item name="legal_reserves" fr_pcg82="1061" fr_pcga="1061"/>
       <item name="licences_expenses" fr_pcga="651" fr_pcg82="651"/>
