@@ -1247,7 +1247,7 @@ eng:
     mother_variety: "Mother variety"
     movements: "Movements"
     moves: "Moves" #?
-    multi_polygon_value: "Multi polygon value"
+    multi_polygon_value: "The outline of the shape"
     name: "Name"
     naming_format: "Naming format"
     nature: "Type"
