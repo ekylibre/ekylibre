@@ -45,13 +45,16 @@ class FixedAssetBookkeeper < Ekylibre::Bookkeeper
           entry.add_debit(@label, asset_account.id, depreciable_amount, resource: resource, as: :fixed_asset)
         end
       else
-        # This is a FixedAsset import
         current_fy = FinancialYear.opened.first
-        waiting_account = Account.find_or_import_from_nomenclature(:suspense)
 
-        journal_entry(journal, printed_on: current_fy.started_on, if: (in_use? && asset_account)) do |entry|
-          entry.add_credit @label, waiting_account.id, depreciable_amount
-          entry.add_debit @label, asset_account.id, depreciable_amount
+        if current_fy && started_on < current_fy.started_on
+          # This is a FixedAsset import
+          waiting_account = Account.find_or_import_from_nomenclature(:suspense)
+
+          journal_entry(journal, printed_on: current_fy.started_on, if: (in_use? && asset_account)) do |entry|
+            entry.add_credit @label, waiting_account.id, depreciable_amount
+            entry.add_debit @label, asset_account.id, depreciable_amount
+          end
         end
       end
     end
