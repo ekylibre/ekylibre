@@ -1,8 +1,9 @@
 - financial_year = FinancialYear.find_by(id: params[:current_financial_year])
 - financial_year ||= FinancialYear.current
-- main_financial_year_selector(financial_year)
-- params[:period] = financial_year.started_on.to_s << '_' << financial_year.stopped_on.to_s
-- params[:current_financial_year] ||= financial_year.id
+- if financial_year
+  - main_financial_year_selector(financial_year)
+  - params[:period] = financial_year.started_on.to_s << '_' << financial_year.stopped_on.to_s
+  - params[:current_financial_year] ||= financial_year.id
 
 - if params[:period]
   = main_toolbar do |t|
