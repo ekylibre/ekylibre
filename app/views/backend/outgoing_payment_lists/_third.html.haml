@@ -13,6 +13,7 @@
     = render partial: 'purchase_affair', collection: @affairs.where(supplier: third), locals: {f:f}
   %tfoot
     %tr.total
-      %td{colspan: 3}= :total.tl
-      %td{data: {outgoing_payment_total: true}}= 0.0
-      %td= @currency
+      %td{colspan: 4}= :total.tl
+      %td
+        %span{data: {outgoing_payment_total: true}}= 0.0
+        %span= @currency
