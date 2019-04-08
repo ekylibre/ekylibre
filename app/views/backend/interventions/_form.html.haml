@@ -34,6 +34,7 @@
         = f.nested_association(:working_periods, minimum: 1, locals: {namespace: 'working_periods'}, collection: f.object.working_periods.sort_by(&:started_at), partial: '/backend/interventions/working_period_fields')
       - if f.object.record?
         = f.referenced_association :request_intervention, new: false, as: :hidden
+      = f.referenced_association :issue, new: false
       = f.input :description
       - procedure.mandatory_actions.each do |a|
         = hidden_field_tag('intervention[actions][]', a.name)
@@ -42,7 +43,6 @@
       - if f.object.record?
         = f.input :trouble_encountered, show: '#problem-description'
         #problem-description
-          = f.referenced_association :issue, new: false
           = f.input :trouble_description, as: :text
       = f.custom_fields
       #prescriptions
