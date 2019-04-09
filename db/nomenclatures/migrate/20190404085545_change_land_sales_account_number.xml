@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<migration name="Change land sales account number">
-  <item-change item="accounts#land_sales" fr_pcga="7752" fr_pcg82="7752"/>
-</migration>
