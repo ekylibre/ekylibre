@@ -552,7 +552,7 @@ fra:
       show: "Variante de produit\_: %{name}"
     backend/product_natures:
       edit: "Modifier le type de produit\_: %{name}"
-      index: "Types de produit"
+      index: "Types de produits"
       new: "Nouveau type de produit"
       pick: "Importer un type de produit"
       show: "Type de produit\_: %{name}"

@@ -61,6 +61,7 @@ fra:
     telepac_v2015_cap_land_parcels: "Îlots 2015 (SHP/ZIP) ‒ TéléPAC"
     telepac_v2015_cap_statements: "Déclaration PAC 2015 (XML) ‒ TéléPAC" #?
     telepac_v2015_land_parcels: "Parcelles 2015 (SHP/ZIP) ‒ TéléPAC"
+    telepac_v2018_cap_statements: "Déclaration TelePAC 2018 (XML)"
     unicoque_outgoing_deliveries: "Apports de récole ‒ Unicoque"
     unicoque_plant_zones: "Plantations (SHP/ZIP) ‒ Unicoque"
     upra_reproductors: "Liste des reproducteurs ‒ UPRA"
