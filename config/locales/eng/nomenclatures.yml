@@ -3180,6 +3180,7 @@ eng:
           kilowatt_hour: "Kilowatt hour"
           liter: "Liter"
           meal: "Meal"
+          meter: "Meter"
           month: "Month"
           night: "Night"
           package: "Package"
