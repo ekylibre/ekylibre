@@ -204,24 +204,24 @@
 	<field name="reference_number" class="java.lang.String">
 		<fieldDescription><![CDATA[reference-number]]></fieldDescription>
 	</field>
+	<field name="mail-coordinate" class="java.lang.String">
+		<fieldDescription><![CDATA[delivery-address/mail-coordinate]]></fieldDescription>
+	</field>
 	<title>
 		<band height="203" splitType="Prevent">
 			<image onErrorType="Blank">
-				<reportElement isPrintRepeatedValues="false" x="0" y="0" width="160" height="80" uuid="2d16fc74-a19d-4df0-a5d6-06465493c786">
+				<reportElement isPrintRepeatedValues="false" x="0" y="0" width="138" height="61" uuid="2d16fc74-a19d-4df0-a5d6-06465493c786">
 					<printWhenExpression><![CDATA[$F{picture-path}.isEmpty() == false]]></printWhenExpression>
 				</reportElement>
 				<imageExpression><![CDATA[$F{picture-path}]]></imageExpression>
 			</image>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement style="base" x="0" y="85" width="160" height="66" uuid="e3405f7a-d77a-4973-8477-7c5f4db54cc9"/>
+				<reportElement style="base" x="0" y="61" width="160" height="66" uuid="e3405f7a-d77a-4973-8477-7c5f4db54cc9"/>
 				<textFieldExpression><![CDATA[$F{supplier-mail-coordinate}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement style="table-td-info" isPrintRepeatedValues="false" mode="Opaque" x="298" y="110" width="220" height="78" uuid="26697e66-338b-4015-ae81-9e889924a3a0"/>
-				<textElement verticalAlignment="Top">
-					<font fontName="Monospaced"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{client-mail-coordinate}.toUpperCase()]]></textFieldExpression>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="base" x="297" y="114" width="226" height="73" uuid="66f24e07-c751-4e66-8eb4-9b3fd8b9e2a2"/>
+				<textFieldExpression><![CDATA[$F{mail-coordinate}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -263,8 +263,10 @@
 					</textElement>
 					<textFieldExpression><![CDATA[( $F{credit}== "true" ? ("Avoir "+$F{number}) : ("Facture "+$F{number}) )]]></textFieldExpression>
 				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="413" y="38" width="128" height="20" uuid="8d1b42e1-8cf8-4a8b-8af0-db42e3ae3ec1"/>
+				<textField isBlankWhenNull="false">
+					<reportElement x="413" y="38" width="128" height="20" isPrintWhenDetailOverflows="true" uuid="8d1b42e1-8cf8-4a8b-8af0-db42e3ae3ec1">
+						<printWhenExpression><![CDATA[$F{reference_number} == "true"]]></printWhenExpression>
+					</reportElement>
 					<textElement textAlignment="Right" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA["Ref :  "+ $F{reference_number}]]></textFieldExpression>
 				</textField>
