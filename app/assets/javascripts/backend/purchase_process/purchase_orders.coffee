@@ -1,7 +1,7 @@
 ((E, $) ->
   'use strict'
 
-  createNewParcelReception = () ->
+  toggleNewReceptionButton = () ->
     $newParcelBtn = $('#generate-parcel-btn')
     newParcelUrl = $newParcelBtn.prop('href')
 
@@ -23,10 +23,7 @@
       # !! so we're sure disabled is a Boolean and not just truthy/falsy — for jQuery 
       $newParcelBtn.toggleClass('disabled', !!disabled)
 
-
   $(document).ready -> 
-    createNewParcelReception() if $('#purchase_orders-list, #unreceived_purchase_orders-list').length > 0
-    
-  
+    toggleNewReceptionButton() if $('#purchase_orders-list, #unreceived_purchase_orders-list').length > 0
 
 ) ekylibre, jQuery
