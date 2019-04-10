@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Delete land sales account and assign land parcels sell revenues to land">
+  <item-change item="product_nature_categories#land" product_account="land_parcel_sell_revenues"/>
+  <item-removal item="accounts#land_sales"/>
+</migration>

@@ -16,6 +16,8 @@
         - l.attribute :charge_account, url: true
 
       - l.attribute :asset_fixable
+      - if resource.purchasable
+        - l.attribute :fixed_asset_account, url: true
 
       - l.attribute :depreciable
       - if resource.depreciable

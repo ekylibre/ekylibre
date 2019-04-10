@@ -159,6 +159,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
         name: item.human_name,
         reference_name: item.name,
         pictogram: item.pictogram,
+        asset_fixable: item.asset_fixable,
         depreciable: item.depreciable,
         purchasable: item.purchasable,
         reductible: item.reductible,

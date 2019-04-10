@@ -216,8 +216,8 @@ fra:
         asset_fixable: "Immobilisable"
         depreciable: "Amortissable" #?
         duration: "Nombre de numéros OU période d’abonnement" #?
-        fixed_asset_allocation_account: "Compte de dotation aux amortissements" #?
-        fixed_asset_expenses_account: "Compte de charge" #?
+        fixed_asset_allocation_account: "Compte d'amortissements" #?
+        fixed_asset_expenses_account: "Compte de dotation aux amortissements" #?
         price: "Prix de revient" #?
         subscribing: "Abonnement ?" #?
       product_nature_variant: #?
@@ -642,7 +642,7 @@ fra:
     alerts: "Alertes"
     all_addresses: "Toutes les adresses"
     all_taxes_included: "Toutes taxes comprises"
-    allocation_account: "Compte de dotation"
+    allocation_account: "Compte d'amortissement"
     # already_existing: "Already existing"
     amount: "Montant"
     analysed_at: "Analysé le"
@@ -992,7 +992,7 @@ fra:
     expected_stop_amount: "Montant final attendu"
     expected_yield: "Rendement évalué (y)"
     expenses: "Dépenses"
-    expenses_account: "Compte de charge"
+    expenses_account: "Compte de dotation aux amortissements"
     expenses_accounts: "Comptes de charge" #?
     expiration_delay: "Délai d’expiration"
     expired_at: "Date d’expiration"
