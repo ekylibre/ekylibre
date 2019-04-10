@@ -1,5 +1,10 @@
 source 'https://rubygems.org'
 
+git_source(:github) do |repo_name|
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  "https://github.com/#{repo_name}.git"
+end
+
 ruby '>= 2.3.3', '< 3.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -13,7 +18,7 @@ gem 'activerecord-postgis-adapter', '>= 3.0.0'
 gem 'pg', '~> 0.20.0' # Needed for some tasks
 
 # Multi-tenancy
-gem 'apartment', github:'influitive/apartment', branch: 'development'
+gem 'apartment', github: 'influitive/apartment', branch: 'development'
 gem 'apartment-sidekiq'
 
 # Ruby syntax extensions
@@ -34,7 +39,7 @@ gem 'figaro'
 gem 'turnout'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sassc-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
@@ -58,9 +63,10 @@ gem 'turbolinks', '~> 2.0'
 # jQuery UI Javascript framework
 gem 'jquery-ui-rails'
 # gem 'jquery_mobile_rails'
-gem 'bootstrap3-datetimepicker-rails'
 gem 'jquery-scrollto-rails'
 gem 'momentjs-rails', '>= 2.9.0'
+
+gem 'flatpickr', '~> 4.5', '>= 4.5.2.0'
 
 # Forms helper
 gem 'formize', '~> 2.1.0'
@@ -100,7 +106,7 @@ gem 'unicorn', group: :production
 gem 'exception_notification'
 
 # Views helpers
-gem 'active_list', '>= 6.9.3' # , path: "../active_list"
+gem 'active_list', github: 'ekylibre/active_list'
 gem 'haml'
 gem 'simple_calendar'
 
@@ -168,6 +174,7 @@ gem 'roo'
 gem 'rubyzip', '~> 1.2.2'
 gem 'sepa_king'
 # gem 'sepa_king', path: '/home/jonathan/Workspace/sepa_king'
+gem 'odf-report'
 gem 'rodf'
 
 # Demo data
@@ -184,7 +191,7 @@ gem 'bootstrap-sass', '~> 3.4.1'
 gem 'twitter-typeahead-rails'
 
 # Iconic font
-gem 'agric', '~> 3.0'
+gem 'agric', github: 'ekylibre/agric', tag: 'v3.0.2'
 
 # Web services
 gem 'mechanize'
@@ -197,6 +204,8 @@ gem 'luhn'
 # For interval selector
 gem 'bootstrap-slider-rails'
 
+gem 'gpgme'
+
 group :development do
   gem 'bullet', '< 5.6.0'
 
@@ -205,6 +214,8 @@ group :development do
 
   # Get the time of a process
   gem 'ruby-prof'
+
+  gem 'better_errors'
 
   # Code metrics
   gem 'rails_best_practices', require: false
@@ -242,14 +253,11 @@ group :test do
   gem 'capybara-webkit', '>= 1.14.0'
   gem 'selenium-webdriver'
 
-  gem 'codacy-coverage', require: false
-  gem 'codecov', require: false
-  gem 'database_cleaner'
-  gem 'simplecov', require: false
-
   gem 'minitest-reporters'
 
-  gem 'factory_bot'
+  gem 'pdf-reader'
+
+  gem 'factory_bot', '< 5'
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles

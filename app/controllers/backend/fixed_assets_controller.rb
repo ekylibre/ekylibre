@@ -43,6 +43,10 @@ module Backend
       code << "    c << interval.second\n"
       code << "  end\n"
       code << "end\n"
+      code << "unless params[:state].blank?\n"
+      code << "  c[0] << ' AND #{FixedAsset.table_name}.state IN (?)'\n"
+      code << "  c << params[:state]\n"
+      code << "end\n"
       code << "if params[:fixed_asset_id].to_i > 0\n"
       code << "  c[0] += ' AND #{FixedAsset.table_name}.id = ?'\n"
       code << "  c << params[:fixed_asset_id]\n"
@@ -71,7 +75,7 @@ module Backend
     list(:depreciations, model: :fixed_asset_depreciations, conditions: { fixed_asset_id: 'params[:id]'.c }, order: :position) do |t|
       # t.action :edit, if: "RECORD.journal_entry.nil?".c
       t.column :position
-      t.column :accountable
+      t.column :accounted, datatype: :boolean
       t.column :locked
       t.column :amount, currency: true
       t.column :depreciable_amount, currency: true
@@ -84,12 +88,24 @@ module Backend
 
     # Show a list of fixed_assets
     def index
-      @fixed_assets = FixedAsset.all.reorder(:started_on)
-      # passing a parameter to Jasper for company full name and id
-      @entity_of_company_full_name = Entity.of_company.full_name
-      @entity_of_company_id = Entity.of_company.id
+      key = "#{Nomen::DocumentNature.find(:fixed_asset_registry).name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
 
-      respond_with @fixed_assets, methods: [:net_book_value], include: %i[asset_account expenses_account allocation_account product]
+      respond_to do |format|
+        format.html do
+          @fixed_assets = FixedAsset.all.reorder(:started_on)
+          # passing a parameter to Jasper for company full name and id
+          @entity_of_company_full_name = Entity.of_company.full_name
+          @entity_of_company_id = Entity.of_company.id
+
+          respond_with @fixed_assets, methods: [:net_book_value], include: %i[asset_account expenses_account allocation_account product]
+        end
+
+        format.pdf do
+          FixedAssetExportJob.perform_later('fixed_asset_registry', key, params[:nature], params[:period], current_user)
+          notify_success(:document_in_preparation)
+          redirect_to :back
+        end
+      end
     end
 
     def show
@@ -118,6 +134,20 @@ module Backend
                                  procs: proc { |options| options[:builder].tag!(:url, backend_fixed_asset_url(@fixed_asset)) })
     end
 
+    def create
+      @fixed_asset = resource_model.new(parameters_with_processed_percentage)
+      return if save_and_redirect(@fixed_asset, url: (params[:create_and_continue] ? {:action=>:new, :continue=>true} : (params[:redirect] || ({ action: :show, id: 'id'.c }))), notify: ((params[:create_and_continue] || params[:redirect]) ? :record_x_created : false), identifier: :name)
+      render(locals: { cancel_url: {:action=>:index}, with_continue: false })
+    end
+
+    def update
+      return unless @fixed_asset = find_and_check(:fixed_asset)
+      t3e(@fixed_asset.attributes)
+      @fixed_asset.attributes = parameters_with_processed_percentage
+      return if save_and_redirect(@fixed_asset, url: params[:redirect] || ({ action: :show, id: 'id'.c }), notify: (params[:redirect] ? :record_x_updated : false), identifier: :name)
+      render(locals: { cancel_url: {:action=>:index}, with_continue: false })
+    end
+
     def depreciate_all
       begin
         bookkeep_until = Date.parse(params[:until])
@@ -140,8 +170,23 @@ module Backend
     # end
 
     FixedAsset.state_machine.events.each do |event|
-      define_method event.name do
-        fire_event(event.name)
+      if %i[sell scrap].include? event.name
+        define_method event.name do
+          next unless record = find_and_check
+
+          state = do_fire_event record, event.name
+          record.errors.messages.each do |field, message|
+            notify_error :error_on_field, { field: FixedAsset.human_attribute_name(field), message: message.join(", ") }
+          end
+
+          redirect_action = state ? :show : :edit
+          redirect_to params[:redirect] || { action: redirect_action, id: record.id }
+          record
+        end
+      else
+        define_method event.name do
+          fire_event(event.name)
+        end
       end
     end
 
@@ -158,15 +203,27 @@ module Backend
 
     protected
 
-    def find_fixed_assets
-      fixed_asset_ids = params[:id].split(',')
-      fixed_assets = fixed_asset_ids.map { |id| FixedAsset.find_by(id: id) }.compact
-      unless fixed_assets.any?
-        notify_error :no_fixed_assets_given
-        redirect_to(params[:redirect] || { action: :index })
-        return nil
+      def find_fixed_assets
+        fixed_asset_ids = params[:id].split(',')
+        fixed_assets = FixedAsset.where(id: fixed_asset_ids)
+        unless fixed_assets.any?
+          notify_error :no_fixed_assets_given
+          redirect_to(params[:redirect] || { action: :index })
+          return nil
+        end
+        fixed_assets
       end
-      fixed_assets
-    end
+
+
+      def parameters_with_processed_percentage
+        parameters = permitted_params.to_h
+        method = parameters.fetch('depreciation_method', nil)
+        if method
+          percentage_key = "#{method}_depreciation_percentage"
+          depreciation_percentage = parameters.fetch(percentage_key, '')
+          parameters['depreciation_percentage'] = depreciation_percentage if depreciation_percentage.present?
+        end
+        parameters.except('linear_depreciation_percentage', 'regressive_depreciation_percentage')
+      end
   end
 end

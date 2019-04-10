@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,6 +24,7 @@
 # == Table: product_nature_categories
 #
 #  active                              :boolean          default(FALSE), not null
+#  asset_fixable                       :boolean          default(FALSE)
 #  charge_account_id                   :integer
 #  created_at                          :datetime         not null
 #  creator_id                          :integer
@@ -67,7 +69,7 @@ product_nature_categories_001:
   lock_version: 2
   name: Generic Product Nature Category
   number: PNC001
-  product_account_id: 152
+  product_account_id: 535
   purchasable: true
   reductible: true
   saleable: true
@@ -114,7 +116,7 @@ product_nature_categories_003:
   name: Produit phytosanitaire
   number: PNC003
   pictogram: beaker
-  product_account_id: 152
+  product_account_id: 535
   purchasable: true
   reductible: false
   reference_name: plant_medicine
@@ -159,7 +161,7 @@ product_nature_categories_005:
   name: Semence
   number: PNC005
   pictogram: matter
-  product_account_id: 152
+  product_account_id: 535
   purchasable: true
   reductible: false
   reference_name: seed
@@ -230,7 +232,7 @@ product_nature_categories_008:
   reductible: false
   reference_name: crop
   saleable: true
-  stock_account_id: 160
+  stock_account_id: 470
   stock_movement_account_id: 535
   storable: true
   subscribing: false
@@ -320,7 +322,7 @@ product_nature_categories_012:
   name: Produit vétérinaire
   number: PNC012
   pictogram: pill
-  product_account_id: 152
+  product_account_id: 535
   purchasable: true
   reductible: false
   reference_name: animal_medicine
@@ -343,7 +345,7 @@ product_nature_categories_013:
   name: Responsable
   number: PNC013
   pictogram: male
-  product_account_id: 152
+  product_account_id: 535
   purchasable: true
   reductible: false
   reference_name: worker
@@ -428,7 +430,7 @@ product_nature_categories_017:
   name: Engrais
   number: PNC017
   pictogram: matter
-  product_account_id: 152
+  product_account_id: 535
   purchasable: true
   reductible: false
   reference_name: fertilizer
@@ -477,7 +479,7 @@ product_nature_categories_019:
   name: Plant
   number: PNC019
   pictogram: matter
-  product_account_id: 152
+  product_account_id: 535
   purchasable: true
   reductible: false
   reference_name: plant
@@ -544,7 +546,7 @@ product_nature_categories_022:
   name: Produit œnologique
   number: PNC022
   pictogram: beaker
-  product_account_id: 152
+  product_account_id: 535
   purchasable: true
   reductible: false
   reference_name: oenological_product
@@ -567,7 +569,7 @@ product_nature_categories_023:
   name: Matières sèches (vin)
   number: PNC023
   pictogram: matter
-  product_account_id: 152
+  product_account_id: 535
   purchasable: true
   reductible: false
   reference_name: wine_package_consumable

@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -104,7 +105,7 @@ class PurchaseTest < ActiveSupport::TestCase
       tax = Tax.create_with(
         collect_account: Account.find_or_create_by_number('4566'),
         deduction_account: Account.find_or_create_by_number('4567'),
-        intracommunity_payable_account: Account.find_or_create_by_number('4452'),
+        intracommunity_payable_account: Account.find_or_create_by_number('44520000'),
         country: :fr
       ).find_or_create_by!(amount: 20, intracommunity: true, nature: :normal_vat)
       quantity = index + 1
@@ -218,13 +219,13 @@ class PurchaseTest < ActiveSupport::TestCase
     )
     assert_equal Date.civil(2015, 1, 1), purchase.payment_at
 
-    purchase.payment_delay = '1 year'
+    purchase.payment_delay = '1 week'
     purchase.save!
-    assert_equal Date.civil(2016, 1, 1), purchase.payment_at
+    assert_equal Date.civil(2015, 1, 8), purchase.payment_at
 
-    purchase.payment_delay = '2 months'
+    purchase.payment_delay = '60 days'
     purchase.save!
-    assert_equal Date.civil(2015, 3, 1), purchase.payment_at
+    assert_equal Date.civil(2015, 3, 2), purchase.payment_at
   end
 
   test 'updating third updates third in affair if purchase is alone in the deals' do
@@ -279,5 +280,21 @@ class PurchaseTest < ActiveSupport::TestCase
 
     purchase.update(supplier: original_supplier)
     assert_equal replacement_supplier, purchase.affair.third
+  end
+
+  test "updating a purchase's pretax amount correctly computes the corresponding fixed asset depreciable amount" do
+    tax = create(:tax)
+    fixed_asset = create(:fixed_asset)
+    purchase_item = create(:purchase_item, pretax_amount: 1000, fixed: true, preexisting_asset: true, fixed_asset_id: fixed_asset.id, tax: tax)
+
+    purchase_item.purchase.invoice
+    fixed_asset.reload
+    assert_equal purchase_item.pretax_amount, fixed_asset.depreciable_amount
+
+    purchase_item.reload
+
+    purchase_item.update!(pretax_amount: 2000)
+    fixed_asset.reload
+    assert_equal purchase_item.pretax_amount, fixed_asset.depreciable_amount
   end
 end

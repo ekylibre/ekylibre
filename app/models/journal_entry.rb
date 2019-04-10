@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -26,6 +27,7 @@
 #  absolute_currency          :string           not null
 #  absolute_debit             :decimal(19, 4)   default(0.0), not null
 #  balance                    :decimal(19, 4)   default(0.0), not null
+#  continuous_number          :integer
 #  created_at                 :datetime         not null
 #  creator_id                 :integer
 #  credit                     :decimal(19, 4)   default(0.0), not null
@@ -43,12 +45,14 @@
 #  real_currency              :string           not null
 #  real_currency_rate         :decimal(19, 10)  default(0.0), not null
 #  real_debit                 :decimal(19, 4)   default(0.0), not null
+#  reference_number           :string
 #  resource_id                :integer
 #  resource_prism             :string
 #  resource_type              :string
 #  state                      :string           not null
 #  updated_at                 :datetime         not null
 #  updater_id                 :integer
+#  validated_at               :datetime
 #
 
 # There is 3 types of set of values (debit, credit...). These types
@@ -79,13 +83,19 @@ class JournalEntry < Ekylibre::Record::Base
   has_one :financial_year_as_last, foreign_key: :last_journal_entry_id, class_name: 'FinancialYear', dependent: :nullify
   has_many :bank_statements, through: :useful_items
 
+  def resource_label
+    @resource_label ||= [resource&.class&.model_name&.human, resource&.number].compact.join(' ')
+  end
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :absolute_credit, :absolute_debit, :balance, :credit, :debit, :real_balance, :real_credit, :real_debit, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :absolute_currency, :currency, :journal, :real_currency, presence: true
+  validates :continuous_number, uniqueness: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :number, :state, presence: true, length: { maximum: 500 }
   validates :printed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates :real_currency_rate, presence: true, numericality: { greater_than: -1_000_000_000, less_than: 1_000_000_000 }
-  validates :resource_prism, :resource_type, length: { maximum: 500 }, allow_blank: true
+  validates :reference_number, :resource_prism, :resource_type, length: { maximum: 500 }, allow_blank: true
+  validates :validated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   # ]VALIDATORS]
   validates :absolute_currency, :currency, :real_currency, length: { allow_nil: true, maximum: 3 }
   validates :state, length: { allow_nil: true, maximum: 30 }
@@ -93,6 +103,7 @@ class JournalEntry < Ekylibre::Record::Base
   validates :number, format: { with: /\A[\dA-Z]+\z/ }
   validates :real_currency_rate, numericality: { greater_than: 0 }
   validates :number, uniqueness: { scope: %i[journal_id financial_year_id] }
+  validates :printed_on, financial_year_writeable: true, allow_blank: true
 
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
 
@@ -104,6 +115,9 @@ class JournalEntry < Ekylibre::Record::Base
     state :draft
     state :confirmed
     state :closed
+    before_transition to: :confirmed do |model, _transition|
+      model.validated_at = Time.zone.now
+    end
     event :confirm do
       transition draft: :confirmed, if: :balanced?
     end
@@ -111,9 +125,9 @@ class JournalEntry < Ekylibre::Record::Base
       transition draft: :closed, if: :balanced?
       transition confirmed: :closed, if: :balanced?
     end
-    #     event :reopen do
-    #       transition :closed => :confirmed
-    #     end
+    # event :reopen do
+    #   transition :closed => :confirmed
+    # end
   end
 
   # Build an SQL condition based on options which should contains acceptable states
@@ -154,6 +168,20 @@ class JournalEntry < Ekylibre::Record::Base
       end
       return connection.quoted_false if conditions.empty?
       return '(' + conditions.join(' AND ') + ')'
+    end
+  end
+
+  # return the letter if any on items
+  def letter
+    items.pluck(:letter).compact.uniq.first
+  end
+
+  # return the date of the first payment (incomming or outgoing)
+  def first_payment
+    if purchase_payments.any?
+      purchase_payments.reorder(:paid_at).first
+    elsif incoming_payments.any?
+      incoming_payments.reorder(:paid_at).first
     end
   end
 
@@ -244,7 +272,7 @@ class JournalEntry < Ekylibre::Record::Base
     # TODO: Validates number has journal's code as prefix
     if printed_on
       if journal
-        errors.add(:printed_on, :closed_journal, journal: journal.name, closed_on: ::I18n.localize(journal.closed_on)) if printed_on <= journal.closed_on
+        errors.add(:printed_on, :closed_journal, journal: journal.name, closed_on: ::I18n.localize(journal.closed_on)) if printed_on < journal.closed_on
       end
       unless financial_year
         errors.add(:printed_on, :out_of_existing_financial_year)
@@ -277,13 +305,16 @@ class JournalEntry < Ekylibre::Record::Base
     items.each(&:clear_bank_statement_reconciliation)
   end
 
-  protect do
-    !importing_from_exchange && (printed_on <= journal.closed_on || old_record.closed?)
+  protect on: :update do
+    !importing_from_exchange && (printed_on <= journal.closed_on || old_record.closed? || (old_record.confirmed? && (changes.keys - %w[state updated_at]).any?))
   end
 
-  # A journal generated by a resource is not editable!
+  protect on: :destroy do
+    !importing_from_exchange && (printed_on <= journal.closed_on || old_record.closed? || old_record.confirmed?)
+  end
+
   def editable?
-    resource.nil?
+    state_name == :draft
   end
 
   def need_currency_change?
@@ -409,6 +440,95 @@ class JournalEntry < Ekylibre::Record::Base
 
   def in_financial_year_exchange?
     return unless financial_year
-    financial_year.exchanges.any? { |e| (e.started_on..e.stopped_on).cover?(printed_on) }
+    financial_year.exchanges.opened.any? { |e| (e.started_on..e.stopped_on).cover?(printed_on) }
   end
+
+  # this method loads the journal ledger for.the given financial year
+  def self.journal_ledger(options = {}, selected_journal_id = 0)
+    ledger = []
+
+    # fy = financial_year if financial_year.is_a? FinancialYear
+    if options[:period] == 'all'
+      started_on = FinancialYear.order(:started_on).pluck(:started_on).first.to_s
+      stopped_on = FinancialYear.order(:stopped_on).pluck(:stopped_on).last.to_s
+    else
+      started_on = options[:period].split("_").first if options[:period]
+      stopped_on = options[:period].split("_").last if options[:period]
+    end
+
+    # options[:states]
+    if options[:states]&.any?
+      a = options[:states].select { |_k, v| v.to_i == 1 }.map { |pair| "'#{pair.first}'" }.join(', ')
+      states_array = "state IN (#{a})"
+    else
+      states_array = '1=1'
+    end
+
+    # options[:journal]
+    if selected_journal_id > 0
+      select_journal = "journal_id = #{selected_journal_id}"
+    else
+      select_journal = "1=1"
+    end
+
+    total_debit = 0.0
+    total_credit = 0.0
+    entry_count = 0
+
+    je = JournalEntry.between(started_on, stopped_on)
+                     .where(select_journal)
+                     .where(states_array)
+                     .order('journal_entries.printed_on ASC, journal_entries.number ASC')
+
+    je.group_by { |e| [e.printed_on.month, e.printed_on.year] }.each do |((month_number, year), entries)|
+      month = HashWithIndifferentAccess.new
+      month[:name] = I18n.t('date.month_names')[month_number].capitalize + '/' + year.to_s
+      month[:items] = []
+      month_total_debit = 0.0
+      month_total_credit = 0.0
+      month_entry_count = entries.count
+      entries.each do |e|
+        item = HashWithIndifferentAccess.new
+        item[:entry_number] = e.number
+        item[:printed_on] = e.printed_on.strftime('%d/%m/%Y')
+        item[:journal_name] = e.journal.name.to_s
+        item[:continuous_number] = e.continuous_number.to_s if e.continuous_number
+        item[:reference_number] = e.reference_number.to_s
+        item[:label] = e.items.first.displayed_label_in_accountancy.to_s
+        item[:state] = e.state_label
+        item[:real_debit] = e.real_debit
+        item[:real_credit] = e.real_credit
+        item[:balance] = e.balance
+        item[:entry_items] = []
+        e.items.each do |i|
+          entry_item = HashWithIndifferentAccess.new
+          entry_item[:account_number] = i.account.number.to_s
+          entry_item[:account_name] = i.account.name.to_s
+          entry_item[:real_debit] = i.real_debit
+          entry_item[:real_credit] = i.real_credit
+          item[:entry_items] << entry_item
+        end
+        month_total_debit += e.real_debit
+        month_total_credit += e.real_credit
+        month[:items] << item
+        total_debit += e.real_debit
+        total_credit += e.real_credit
+        entry_count += 1
+      end
+      month[:total_debit] = month_total_debit
+      month[:total_credit] = month_total_credit
+      month[:balance] = month_total_debit - month_total_credit
+      month[:entry_count] = month_entry_count
+
+      ledger << month
+
+    end
+
+    total_balance = total_debit - total_credit
+
+    ledger << {entry_count: entry_count, total_credit: total_credit, total_debit: total_debit, total_balance: total_balance}
+
+    ledger.compact
+  end
+
 end

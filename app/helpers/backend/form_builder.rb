@@ -163,7 +163,7 @@ module Backend
       end
       unless options.key?(:disabled)
         if @object.is_a?(ActiveRecord::Base) && !@object.new_record? &&
-           @object.class.readonly_attributes.include?(attribute_name.to_s)
+          @object.class.readonly_attributes.include?(attribute_name.to_s)
           options[:disabled] = true unless options[:as] == :hidden
         end
       end
@@ -174,6 +174,22 @@ module Backend
         autocomplete[:action] ||= :autocomplete
         autocomplete[:format] ||= :json
         options[:input_html]['data-autocomplete'] = @template.url_for(autocomplete)
+      end
+      filter = options[:filter]
+      if filter
+        data_filters = filter[:rules].map do |rule|
+          data = {}
+          data[:elements] = if rule.key? :elements
+                              rule[:elements]
+                            elsif rule.key?(:collection) && rule.key?(:key)
+                              rule[:collection].group_by(&rule[:key].to_sym).map {|category, items| [category, items.map(&:name)]}.to_h
+                            end
+          data[:watch] = rule[:watch]
+          data[:emptyBehavior] = rule[:empty_behavior] if rule.key? :empty_behavior
+          data
+        end
+        options[:input_html]['data-filter-on-empty'] = filter[:on_empty].to_s if filter.key? :on_empty
+        options[:input_html]['data-filter-rules'] = data_filters.to_json
       end
       super(attribute_name, options, &block)
     end
@@ -672,7 +688,7 @@ module Backend
     end
 
     def fields(partial = 'form')
-      @template.content_tag(:div, @template.render(partial, f: self), class: 'form-fields')
+      @template.content_tag(:div, base_form_error_tags + @template.render(partial, f: self), class: 'form-fields')
     end
 
     def yes_no_radio(attribute_name, options = {})
@@ -763,6 +779,12 @@ module Backend
       end
       @template.content_tag(:span, units_values.tl, class: 'add-on')
     end
+
+    private
+
+      def base_form_error_tags
+        @template.resource.errors.messages.fetch(:base, []).map { |error_message| @template.flash_message_tag :error, error_message }.join.html_safe
+      end
   end
 end
 

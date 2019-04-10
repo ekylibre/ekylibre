@@ -1,5 +1,9 @@
+= render 'backend/shared/financial_year_warning'
+
 = kujaku do |k|
   - k.text
+  - sm = FixedAsset.state_machine.states
+  - k.multi_choice :state, [:draft, :in_use, :sold, :scrapped].map{|s| [sm[s].human_name, s] }, label: FixedAsset.human_attribute_name(:state)
   - k.helper :journal_period_crit
   - p_ids = FixedAsset.all.pluck(:product_id).compact.uniq
   - products = Product.where(id: p_ids).reorder(:name)
@@ -8,7 +12,7 @@
       %label= Product.human_attribute_name(:name)
       = select_tag(:product_id, options_for_select([[]] +  products.map{|u| [u.name, u.id]}, params[:product_id].to_i))
 - main_toolbar do |t|
-  = t.new params: { redirect: nil }
+  = t.new params: { redirect: nil }, class: ("disabled" if FinancialYear.count == 0)
   = t.export :fixed_asset_registry, key: Time.zone.now.to_s, resource: @fixed_assets
 
   %span.btn-group.action-form
@@ -16,5 +20,9 @@
     = link_to :account_for.tl, { action: :depreciate_all, until: depreciate_until.iso8601, redirect: request.fullpath }, { class: 'btn btn-default', data: { confirm: :are_you_sure.tl, update_link_with: '#depreciate-fixed-assets-until' }, method: :post }
     %span.add-on= :up_to.tl.downcase
     = date_field_tag(:until, depreciate_until, id: 'depreciate-fixed-assets-until', data: { max_date: Time.zone.today.iso8601 })
+  = dropdown_menu_button(:export.ta, icon: :download) do |d|
+    -# %i[general by_account gain_and_loss].each do |nature|
+    - %i[general by_account].each do |nature|
+      - d.item "export_fixed_assets_#{nature}".tl, nature: nature, period: params[:period], format: :pdf
 
 = main_list

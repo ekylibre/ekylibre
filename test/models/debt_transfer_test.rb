@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -45,8 +46,9 @@ class DebtTransferTest < ActiveSupport::TestCase
     purchase_amount = 500
 
     ### sale
-    sale_nature = SaleNature.first
-    sale = Sale.create!(nature: sale_nature, client: Entity.normal.first)
+    sale_nature = create :sale_nature_with_accounting
+    entity = create(:entity, :supplier, :client)
+    sale = Sale.create!(nature: sale_nature, client: entity)
     variants = ProductNatureVariant.where(nature: ProductNature.where(population_counting: :decimal))
 
     options = {
@@ -64,8 +66,8 @@ class DebtTransferTest < ActiveSupport::TestCase
     sale.invoice
 
     ### purchase
-    purchase_nature = PurchaseNature.first
-    purchase = Purchase.create!(nature: purchase_nature, supplier: Entity.normal.first)
+    purchase_nature = create(:purchase_nature, :with_accounting)
+    purchase = Purchase.create!(nature: purchase_nature, supplier: entity)
     purchase.items.create!(variant: variants.first, quantity: 1, unit_pretax_amount: purchase_amount, tax: tax)
     purchase.invoice
 

@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -59,6 +60,7 @@ class Purchase < Ekylibre::Record::Base
   include Customizable
   attr_readonly :currency, :nature_id
   enumerize :tax_payability, in: %i[at_paying at_invoicing], default: :at_invoicing
+  enumerize :payment_delay, in: ['1 week', '30 days', '30 days, end of month', '60 days', '60 days, end of month']
   refers_to :currency
   belongs_to :delivery_address, class_name: 'EntityAddress'
   belongs_to :journal_entry, dependent: :destroy
@@ -81,13 +83,16 @@ class Purchase < Ekylibre::Record::Base
   validates :currency, :payee, :supplier, :tax_payability, presence: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :number, :state, presence: true, length: { maximum: 500 }
-  validates :payment_delay, :reference_number, length: { maximum: 500 }, allow_blank: true
+  validates :reference_number, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   validates :number, :state, length: { allow_nil: true, maximum: 60 }
   validates :created_at, :state, :nature, presence: true
   validates :number, uniqueness: true
+  validates :invoiced_at, financial_year_writeable: true, allow_blank: true
   validates_associated :items
   validates_delay_format_of :payment_delay
+
+  alias_attribute :third_id, :supplier_id
 
   acts_as_numbered
   acts_as_affairable :supplier
@@ -155,6 +160,7 @@ class Purchase < Ekylibre::Record::Base
 
   validate do
     if invoiced_at
+      errors.add(:invoiced_at, :financial_year_exchange_on_this_period) if invoiced_during_financial_year_exchange?
       errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
     end
   end
@@ -184,19 +190,19 @@ class Purchase < Ekylibre::Record::Base
   # This callback permits to add journal entries corresponding to the purchase order/invoice
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
-    b.journal_entry(nature.journal, printed_on: invoiced_on, if: (with_accounting && invoice? && items.any?)) do |entry|
+    b.journal_entry(nature.journal, reference_number: reference_number, printed_on: invoiced_on, if: (with_accounting && invoice? && items.any?)) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, number: number, supplier: supplier.full_name, products: (description.blank? ? items.collect(&:name).to_sentence : description))
       items.each do |item|
-        entry.add_debit(label, item.account, item.pretax_amount, activity_budget: item.activity_budget, team: item.team, as: :item_product, resource: item, variant: item.variant)
+        entry.add_debit(label, item.account, item.pretax_amount, activity_budget: item.activity_budget, team: item.team, as: :item_product, resource: item, variant: item.variant, accounting_label: item.accounting_label)
         tax = item.tax
         account_id = item.fixed? ? tax.fixed_asset_deduction_account_id : nil
         account_id ||= tax.deduction_account_id # TODO: Check if it is good to do that
         if tax.intracommunity
           reverse_charge_amount = tax.compute(item.pretax_amount, intracommunity: true).round(precision)
-          entry.add_debit(label, account_id, reverse_charge_amount, tax: tax, pretax_amount: item.pretax_amount, as: :item_tax, resource: item, variant: item.variant)
-          entry.add_credit(label, tax.intracommunity_payable_account_id, reverse_charge_amount, tax: tax, pretax_amount: item.pretax_amount, resource: item, as: :item_tax_reverse_charge, variant: item.variant)
+          entry.add_debit(label, account_id, reverse_charge_amount, tax: tax, pretax_amount: item.pretax_amount, as: :item_tax, resource: item, variant: item.variant, accounting_label: item.accounting_label)
+          entry.add_credit(label, tax.intracommunity_payable_account_id, reverse_charge_amount, tax: tax, pretax_amount: item.pretax_amount, resource: item, as: :item_tax_reverse_charge, variant: item.variant, accounting_label: item.accounting_label)
         else
-          entry.add_debit(label, account_id, item.taxes_amount, tax: tax, pretax_amount: item.pretax_amount, as: :item_tax, resource: item, variant: item.variant)
+          entry.add_debit(label, account_id, item.taxes_amount, tax: tax, pretax_amount: item.pretax_amount, as: :item_tax, resource: item, variant: item.variant, accounting_label: item.accounting_label)
         end
       end
       entry.add_credit(label, supplier.account(nature.payslip? ? :employee : :supplier).id, amount, as: :supplier)
@@ -205,14 +211,14 @@ class Purchase < Ekylibre::Record::Base
     # For undelivered invoice
     # exchange undelivered invoice from parcel
     journal = Journal.used_for_unbilled_payables!(currency: currency)
-    b.journal_entry(journal, printed_on: invoiced_on, as: :undelivered_invoice, if: (with_accounting && invoice?)) do |entry|
+    b.journal_entry(journal, printed_on: invoiced_on, reference_number: reference_number, as: :undelivered_invoice, if: (with_accounting && invoice?)) do |entry|
       parcels.each do |parcel|
         next unless parcel.undelivered_invoice_journal_entry
         label = tc(:exchange_undelivered_invoice, resource: parcel.class.model_name.human, number: parcel.number, entity: supplier.full_name, mode: parcel.nature.l)
         undelivered_items = parcel.undelivered_invoice_journal_entry.items
         undelivered_items.each do |undelivered_item|
           next unless undelivered_item.real_balance.nonzero?
-          entry.add_credit(label, undelivered_item.account.id, undelivered_item.real_balance, resource: undelivered_item, as: :undelivered_item, variant: undelivered_item.variant)
+          entry.add_credit(label, undelivered_item.account.id, undelivered_item.real_balance, resource: undelivered_item, as: :undelivered_item, variant: undelivered_item.variant, accounting_label: undelivered_item.accounting_label)
         end
       end
     end
@@ -220,7 +226,7 @@ class Purchase < Ekylibre::Record::Base
     # For gap between parcel item quantity and purchase item quantity
     # if more quantity on purchase than parcel then i have value in D of stock account
     journal = Journal.used_for_permanent_stock_inventory!(currency: currency)
-    b.journal_entry(journal, printed_on: invoiced_on, as: :quantity_gap_on_invoice, if: (with_accounting && invoice? && items.any?)) do |entry|
+    b.journal_entry(journal, printed_on: invoiced_on, reference_number: reference_number, as: :quantity_gap_on_invoice, if: (with_accounting && invoice? && items.any?)) do |entry|
       label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: supplier.full_name)
       items.each do |item|
         next unless item.variant.storable?
@@ -230,8 +236,8 @@ class Purchase < Ekylibre::Record::Base
         quantity = item.parcel_items.first.unit_pretax_stock_amount
         gap_value = gap * quantity
         next if gap_value.zero?
-        entry.add_debit(label, item.variant.stock_account_id, gap_value, resource: item, as: :stock, variant: item.variant)
-        entry.add_credit(label, item.variant.stock_movement_account_id, gap_value, resource: item, as: :stock_movement, variant: item.variant)
+        entry.add_debit(label, item.variant.stock_account_id, gap_value, resource: item, as: :stock, variant: item.variant, accounting_label: item.accounting_label)
+        entry.add_credit(label, item.variant.stock_movement_account_id, gap_value, resource: item, as: :stock_movement, variant: item.variant, accounting_label: item.accounting_label)
       end
     end
   end
@@ -282,6 +288,18 @@ class Purchase < Ekylibre::Record::Base
 
   def has_content?
     items.any?
+  end
+
+  def invoiced_during_financial_year_exchange?
+    FinancialYearExchange.opened.where('? BETWEEN started_on AND stopped_on', invoiced_at).any?
+  end
+
+  def opened_financial_year?
+    FinancialYear.on(invoiced_at)&.opened?
+  end
+
+  def invoiced_during_financial_year_closure_preparation?
+    FinancialYear.on(invoiced_at)&.closure_in_preparation?
   end
 
   def purchased?

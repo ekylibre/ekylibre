@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Change land fixed assets account usage">
+  <item-change 
+    item="product_nature_categories#land" 
+    fixed_asset_account="land_fixed_assets"
+  />
+</migration>

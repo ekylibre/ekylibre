@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -217,7 +218,7 @@ class Journal < Ekylibre::Record::Base
     end
 
     # Load default journal if not exist
-    def load_defaults
+    def load_defaults(**_options)
       nature.values.each do |nature|
         next if find_by(nature: nature)
         financial_year = FinancialYear.first_of_all
@@ -240,7 +241,6 @@ class Journal < Ekylibre::Record::Base
   # Test if journal is closable
   def closable?(new_closed_on = nil)
     new_closed_on ||= (Time.zone.today << 1).end_of_month
-    return false if booked_for_accountant?
     return false if new_closed_on.end_of_month != new_closed_on
     return false if new_closed_on < self.closed_on
     true
@@ -277,36 +277,12 @@ class Journal < Ekylibre::Record::Base
   def close!(closed_on)
     finished = false
     ActiveRecord::Base.transaction do
-      JournalEntryItem.where('printed_on < ?', closed_on).where.not(state: :closed).update_all(state: :closed)
-      JournalEntry.where('printed_on < ?', closed_on).where.not(state: :closed).update_all(state: :closed)
+      JournalEntryItem.where(journal_id: id).where('printed_on <= ?', closed_on).where.not(state: :closed).update_all(state: :closed)
+      JournalEntry.where(journal_id: id).where('printed_on <= ?', closed_on).where.not(state: :closed).update_all(state: :closed)
       update_column(:closed_on, closed_on)
       finished = true
     end
     finished
-  end
-
-  def reopenable?
-    !booked_for_accountant? && reopenings.any?
-  end
-
-  def reopenings
-    year = FinancialYear.current
-    return [] if year.nil?
-    array = []
-    date = year.started_on - 1
-    while date < self.closed_on
-      array << date
-      date = (date + 1).end_of_month
-    end
-    array
-  end
-
-  def reopen(closed_on)
-    ActiveRecord::Base.transaction do
-      entries.where(printed_on: (closed_on + 1)..self.closed_on).find_each(&:reopen)
-      update_column :closed_on, closed_on
-    end
-    true
   end
 
   # Takes the very last created entry in the journal to generate the entry number
@@ -435,6 +411,7 @@ class Journal < Ekylibre::Record::Base
     account_range_condition = Account.range_condition(options[:accounts], accounts)
     account_range = ' AND (' + account_range_condition + ')' if account_range_condition
 
+    # FIXME: There no centralizing account anymore in DB, the query needs to be adjusted
     centralize = options[:centralize].to_s.strip.split(/[^A-Z0-9]+/)
     centralized = '(' + centralize.collect { |c| "#{accounts}.number LIKE #{conn.quote(c + '%')}" }.join(' OR ') + ')'
 

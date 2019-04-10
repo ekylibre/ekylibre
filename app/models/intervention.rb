@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -87,6 +88,7 @@ class Intervention < Ekylibre::Record::Base
     has_many :tools, class_name: 'InterventionTool'
     has_many :working_periods, class_name: 'InterventionWorkingPeriod'
     has_many :leaves_parameters, -> { where.not(type: InterventionGroupParameter) }, class_name: 'InterventionParameter'
+    has_many :agents, class_name: 'InterventionAgent'
   end
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
@@ -266,6 +268,12 @@ class Intervention < Ekylibre::Record::Base
     true
   end
 
+  validate do
+    if printed_on
+      errors.add(:printed_on, :not_opened_financial_year) if Preference[:permanent_stock_inventory] && !during_financial_year?
+    end
+  end
+
   before_save do
     columns = { name: name, started_at: started_at, stopped_at: stopped_at, nature: :production_intervention }
 
@@ -383,6 +391,10 @@ class Intervention < Ekylibre::Record::Base
 
   def printed_on
     printed_at.to_date
+  end
+
+  def during_financial_year?
+    FinancialYear.opened.where('? BETWEEN started_on AND stopped_on', printed_at).any?
   end
 
   def with_undestroyable_products?

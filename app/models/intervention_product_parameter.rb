@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -82,7 +83,7 @@ class InterventionProductParameter < InterventionParameter
   delegate :name, to: :product_nature, prefix: true
   delegate :evaluated_price, to: :product
   delegate :tracking, to: :product
-  delegate :started_at, :stopped_at, :duration, :procedure, :currency, to: :intervention
+  delegate :started_at, :stopped_at, :duration, :procedure, :currency, to: :intervention, allow_nil: true
   delegate :currency, to: :intervention, prefix: true
   delegate :matching_model, to: :variant
 

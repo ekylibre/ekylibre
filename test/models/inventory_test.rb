@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -58,10 +59,10 @@ class InventoryTest < ActiveSupport::TestCase
       code: 'inventory_test',
       currency: 'EUR',
       currency_precision: 2,
-      started_on: Date.civil(2015, 1, 1),
-      stopped_on: Date.civil(2015, 12, 31)
+      started_on: Date.today.beginning_of_year,
+      stopped_on: Date.today.end_of_year
     )
-    inventory = Inventory.create!(name: '2015', achieved_at: Date.civil(2015, 12, 15), financial_year: year)
+    inventory = Inventory.create!(name: Date.today.year.to_s, achieved_at: Date.today.end_of_year - 16.day, financial_year: year)
     inventory.refresh!
     inventory.reflect
   end
@@ -74,11 +75,11 @@ class InventoryTest < ActiveSupport::TestCase
       code: 'inventory_test',
       currency: 'EUR',
       currency_precision: 2,
-      started_on: Date.civil(2015, 1, 1),
-      stopped_on: Date.civil(2015, 12, 31)
+      started_on: Date.today.beginning_of_year,
+      stopped_on: Date.today.end_of_year
     )
 
-    inventory = Inventory.create!(name: '2015', achieved_at: Date.civil(2015, 12, 15), financial_year: year)
+    inventory = Inventory.create!(name: Date.today.year.to_s, achieved_at: Date.today.end_of_year - 16.day, financial_year: year)
     inventory.items.create!(product: @product, actual_population: 4, expected_population: 10, unit_pretax_stock_amount: 10)
     inventory.refresh!
     inventory.reflect

@@ -1,15 +1,17 @@
-- if kujaku.feathers.count > 1
+- if kujaku.visible_feathers.count > 1
   = link_to(toggle_backend_kujaku_path(kujaku.uid), data: {toggle: "kujaku"}) do
     %i
 .feathers
   - kujaku.feathers.each_with_index do |feather, index|
-    .feather{class: "feather-#{feather.feather_name}"}
+    .feather{class: "feather-#{feather.feather_name.to_s.dasherize}"}
       = feather.to_html
-      - if index.zero?
+      - if index.zero? && with_actions
         = button_tag(data: {disable: true}, name: nil, class: "btn btn-default btn-filter") do
           %i
           = :search.tl
-.search-actions
-  = button_tag(data: {disable: true}, name: nil, class: "btn btn-default btn-filter") do
-    %i
-    = :search.tl
+
+- if with_actions
+  .search-actions
+    = button_tag(data: {disable: true}, name: nil, class: "btn btn-default btn-filter") do
+      %i
+      = :search.tl

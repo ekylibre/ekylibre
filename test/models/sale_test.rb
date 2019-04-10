@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -315,5 +316,15 @@ class SaleTest < ActiveSupport::TestCase
     # jei_s variant must be defined
     assert_not jei_s.variant.nil?
     assert_equal jei_s.variant, @variant
+  end
+
+  test 'Cannot create a sale during a financial year exchange' do
+    FinancialYear.delete_all
+    financial_year = create(:financial_year, started_on: Date.today.beginning_of_year, stopped_on: Date.today.end_of_year)
+    exchange = FinancialYearExchange.create(financial_year: financial_year, stopped_on: Date.today - 2.day)
+    assert create(:sale, invoiced_at: Date.today - 1.day)
+    assert_raises ActiveRecord::RecordInvalid do
+      create(:sale, invoiced_at: Date.today - 3.day)
+    end
   end
 end

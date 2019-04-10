@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -49,7 +50,7 @@ class PostalZone < Ekylibre::Record::Base
   validates :country, length: { allow_nil: true, maximum: 2 }
 
   before_validation do
-    self.name = name.gsub(/\s+/, ' ').strip
+    self.name = name.gsub(/\s+/, ' ').strip if name
     words = name.to_s.split(' ')
     start = (words[0].to_s.ascii.length <= 3 ? 2 : 1)
     self.postal_code = ''

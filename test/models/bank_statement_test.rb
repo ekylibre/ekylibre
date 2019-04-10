@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -182,9 +183,9 @@ class BankStatementTest < ActiveSupport::TestCase
     now = Time.new(2016, 11, 17, 19)
     currency = FinancialYear.at(now).currency
 
-    main = Account.find_or_create_by_number('512INR001')
+    main = Account.find_or_create_by_number('512INR01')
     assert main
-    suspense = Account.find_or_create_by_number('511INR001')
+    suspense = Account.find_or_create_by_number('511INR01')
     assert suspense
 
     client = Entity.normal.order(:id).where(client: true).first
@@ -265,8 +266,8 @@ class BankStatementTest < ActiveSupport::TestCase
   test 'delete bank statement delete journal entry' do
     now = Time.new(2016, 11, 17, 19)
     currency = FinancialYear.at(now).currency
-    main = Account.find_or_create_by_number('512INR001')
-    suspense = Account.find_or_create_by_number('511INR001')
+    main = Account.find_or_create_by_number('512INR01')
+    suspense = Account.find_or_create_by_number('511INR01')
     client = Entity.normal.order(:id).where(client: true).first
 
     cash = Cash.create!(
@@ -404,8 +405,8 @@ class BankStatementTest < ActiveSupport::TestCase
 
     ::Preference.set!(:bookkeep_automatically, options[:no_journal_entry].blank?)
     journal     = Journal.create!(name: 'Record')
-    fuel_act    = Account.create!(name: 'Fuel', number: '002')
-    caps_act    = Account.create!(name: 'Caps', number: '001')
+    fuel_act    = Account.create!(name: 'Fuel', number: '102')
+    caps_act    = Account.create!(name: 'Caps', number: '101')
 
     @warrig_tank = Cash.create!(journal: journal, main_account: fuel_act, name: 'War-rig\'s Tank')
     @caps_stash  = Cash.create!(journal: journal, main_account: caps_act, name: 'Stash o\' Caps')
@@ -445,7 +446,7 @@ class BankStatementTest < ActiveSupport::TestCase
   def setup_payment(cash_match)
     cash = cash_match ? @caps_stash : @warrig_tank
 
-    Account.create!(name: 'Citadel', number: '6')
+    Account.create!(name: 'Citadel', number: '106')
 
     diesel      = "#{@payment_class == IncomingPayment ? 'Incoming' : 'Outgoing'}PaymentMode".constantize.create!(cash: cash, with_accounting: true, name: 'Diesel')
     max         = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)

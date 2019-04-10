@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -27,6 +28,7 @@
 #  absolute_debit            :decimal(19, 4)   default(0.0), not null
 #  absolute_pretax_amount    :decimal(19, 4)   default(0.0), not null
 #  account_id                :integer          not null
+#  accounting_label          :string
 #  activity_budget_id        :integer
 #  balance                   :decimal(19, 4)   default(0.0), not null
 #  bank_statement_id         :integer
@@ -95,7 +97,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :absolute_credit, :absolute_debit, :absolute_pretax_amount, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :debit, :pretax_amount, :real_balance, :real_credit, :real_debit, :real_pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :absolute_currency, :account, :currency, :entry, :financial_year, :journal, :real_currency, presence: true
-  validates :bank_statement_letter, :letter, :resource_prism, :resource_type, :tax_declaration_mode, length: { maximum: 500 }, allow_blank: true
+  validates :accounting_label, :bank_statement_letter, :letter, :resource_prism, :resource_type, :tax_declaration_mode, length: { maximum: 500 }, allow_blank: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :entry_number, :name, :state, presence: true, length: { maximum: 500 }
   validates :printed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
@@ -108,13 +110,12 @@ class JournalEntryItem < Ekylibre::Record::Base
   validates :account, presence: true
 
   delegate :balanced?, to: :entry, prefix: true
-  delegate :name, :number, to: :account, prefix: true
-  delegate :entity_country, :expected_financial_year, to: :entry
+  delegate :name, :number, :label, to: :account, prefix: true
+  delegate :entity_country, :expected_financial_year, :continuous_number, to: :entry
+  delegate :resource_label, to: :entry, prefix: true
 
   acts_as_list scope: :entry
 
-  before_update  :uncumulate
-  before_destroy :uncumulate
   after_destroy  :unmark
 
   scope :between, lambda { |started_at, stopped_at|
@@ -166,7 +167,7 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   validate(on: :update) do
     old = old_record
-    list = changed - %w[printed_on cumulated_absolute_debit cumulated_absolute_credit]
+    list = changed - %w[printed_on]
     if old.closed? && list.any?
       list.each do |attribute|
         if !entry.respond_to?(attribute) || (entry.send(attribute) != send(attribute))
@@ -185,10 +186,6 @@ class JournalEntryItem < Ekylibre::Record::Base
     errors.add(:credit, :unvalid_amounts) if debit.nonzero? && credit.nonzero?
     errors.add(:real_credit, :unvalid_amounts) if real_debit.nonzero? && real_credit.nonzero?
     errors.add(:absolute_credit, :unvalid_amounts) if absolute_debit.nonzero? && absolute_credit.nonzero?
-  end
-
-  after_save do
-    followings.update_all("cumulated_absolute_debit = cumulated_absolute_debit + #{absolute_debit}, cumulated_absolute_credit = cumulated_absolute_credit + #{absolute_credit}")
   end
 
   before_destroy :clear_bank_statement_reconciliation
@@ -254,12 +251,6 @@ class JournalEntryItem < Ekylibre::Record::Base
         raise JournalEntry::IncompatibleCurrencies, "You cannot create an entry where the absolute currency (#{absolute_currency.inspect}) is not the real (#{real_currency.inspect}) or current one (#{currency.inspect})"
       end
     end
-    self.cumulated_absolute_debit  = absolute_debit
-    self.cumulated_absolute_credit = absolute_credit
-    if previous
-      self.cumulated_absolute_debit += previous.cumulated_absolute_debit
-      self.cumulated_absolute_credit += previous.cumulated_absolute_credit
-    end
     self.balance = debit - credit
     self.real_balance = real_debit - real_credit
   end
@@ -310,16 +301,6 @@ class JournalEntryItem < Ekylibre::Record::Base
     entry.refresh
   end
 
-  # Cancel old values if specific columns have been updated
-  def uncumulate
-    old = old_record
-    if absolute_debit != old.absolute_debit || absolute_credit != old.absolute_credit || printed_on != old.printed_on
-      # self.cumulated_absolute_debit  -= old.absolute_debit
-      # self.cumulated_absolute_credit -= old.absolute_credit
-      old.followings.update_all("cumulated_absolute_debit = cumulated_absolute_debit - #{old.absolute_debit}, cumulated_absolute_credit = cumulated_absolute_credit - #{old.absolute_debit}")
-    end
-  end
-
   def lettered?
     letter.present?
   end
@@ -347,11 +328,6 @@ class JournalEntryItem < Ekylibre::Record::Base
     else
       account.journal_entry_items.where('(printed_on = ? AND id > ?) OR printed_on > ?', printed_on, id, printed_on)
     end
-  end
-
-  # Returns the balance as cumulated_absolute_debit - cumulated_absolute_credit
-  def cumulated_absolute_balance
-    (self.cumulated_absolute_debit - self.cumulated_absolute_credit)
   end
 
   #   # this method allows to lock the entry_item.
@@ -432,5 +408,9 @@ class JournalEntryItem < Ekylibre::Record::Base
     return unless account
     third_parties = Entity.uniq.where('client_account_id = ? OR supplier_account_id = ? OR employee_account_id = ?', account.id, account.id, account.id)
     third_parties.take if third_parties.count == 1
+  end
+
+  def displayed_label_in_accountancy
+    accounting_label.present? ? accounting_label : name
   end
 end

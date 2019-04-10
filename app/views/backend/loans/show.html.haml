@@ -1,5 +1,6 @@
 - main_toolbar do |t|
-  = t.edit resource
+  = link_to :edit.tl, edit_backend_loan_path(resource), { class: [('btn btn-default icn btn-edit'),('disabled' unless resource.editable?)] }
+  = link_to :add_a_repayment.tl, { controller: :loan_repayments, action: :new, loan: resource }, { class: 'btn btn-default icn btn-new' }
 
 = main_state_bar(resource)
 

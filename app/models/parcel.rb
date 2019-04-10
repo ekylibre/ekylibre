@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -100,12 +101,13 @@ class Parcel < Ekylibre::Record::Base
   validates :sender, presence: { if: :incoming? }
   validates :transporter, presence: { if: :delivery_mode_transporter? }
   validates :storage, presence: { unless: :outgoing? }
-
+  validates :given_at, financial_year_writeable: true, allow_blank: true
   validates :transporter, match: { with: :delivery, if: ->(p) { p.delivery&.transporter } }, allow_blank: true
 
   scope :without_transporter, -> { with_delivery_mode(:transporter).where(transporter_id: nil) }
   scope :with_delivery, -> { where(with_delivery: true) }
   scope :to_deliver, -> { with_delivery.where(delivery_id: nil).where.not(state: :given) }
+  scope :not_given, -> { where.not(state: :given) }
 
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
 
@@ -166,6 +168,13 @@ class Parcel < Ekylibre::Record::Base
       end
     end
   end
+
+  validate do
+    if given_at
+      errors.add(:given_at, :financial_year_exchange_on_this_period) if Preference[:permanent_stock_inventory] && given_during_financial_year_exchange?
+    end
+  end
+
 
   protect on: :destroy do
     prepared? || given?
@@ -268,6 +277,18 @@ class Parcel < Ekylibre::Record::Base
 
   def third
     (incoming? ? sender : recipient)
+  end
+
+  def given_during_financial_year_exchange?
+    FinancialYearExchange.opened.where('? BETWEEN started_on AND stopped_on', given_at).any?
+  end
+
+  def opened_financial_year?
+    FinancialYear.on(given_at)&.opened?
+  end
+
+  def given_during_financial_year_closure_preparation?
+    FinancialYear.on(given_at)&.closure_in_preparation?
   end
 
   def order
@@ -469,7 +490,7 @@ class Parcel < Ekylibre::Record::Base
           parcel.items.order(:id).each do |item|
             next unless item.variant.purchasable? && item.population && item.population > 0
             catalog_item = Catalog.by_default!(:purchase).items.find_by(variant: item.variant)
-            unit_pretax_amount = item.pretax_amount.zero? ? nil : item.pretax_amount
+            unit_pretax_amount = item.unit_pretax_amount.zero? ? nil : item.unit_pretax_amount
             tax = Tax.current.first
             # check all taxes included to build unit_pretax_amount and tax from catalog with all taxes included
             if catalog_item && catalog_item.all_taxes_included

@@ -39,6 +39,7 @@
     #prescriptions
       = f.referenced_association :prescription
       -#= f.referenced_association :recommender
+    = f.error :printed_on
     #working-periods
       - unless f.object.working_periods.any?
         - stopped_at ||= Time.zone.now

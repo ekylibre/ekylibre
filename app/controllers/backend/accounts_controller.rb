@@ -45,7 +45,7 @@ module Backend
       t.column :number, url: true
       t.column :name, url: true
       t.column :usages, hidden: true
-      t.column :reconcilable
+      t.column :nature
       t.column :description
     end
 
@@ -146,18 +146,6 @@ module Backend
       return unless @account = find_and_check
       @account.unmark(params[:letter]) if params[:letter]
       redirect_to_back
-    end
-
-    def load
-      if request.post?
-        Account.accounting_system = params[:accounting_system]
-        if Nomen::Account.property_natures.keys.include?(Account.accounting_system.to_s)
-          Account.load_defaults
-        else
-          raise 'Arrrggggg'
-        end
-        redirect_to action: :index
-      end
     end
 
     def mask_lettered_items

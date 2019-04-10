@@ -575,9 +575,14 @@ html.exception {
   clear: both;
   @include calc(height, "100vh - #{$header-height + $topbar-height}");
   .toolbar + & {
-    @include calc(height, "100vh - #{$header-height + $topbar-height + $toolbar-height}");
+    @include calc(height, "100vh - #{$header-height + $topbar-height + $toolbar-height} - 1px");
+  }
+  .flash + & {
+    height: unset;
   }
 }
+
+
 
 #about-us {
   padding: 15vh 15vw;
@@ -827,6 +832,19 @@ form.search {
   // border: 1px solid #DDD;
   // margin: 0 $default-gap $default-gap;
 
+  a > button {
+    margin: 10px 0px 5px 0px;
+  }
+  .signature-trigger {
+    cursor: pointer;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+  .signature-details {
+    display: none;
+    overflow-wrap: break-word;
+  }
   .title {
     display: block;
     @include legend-label;
@@ -1254,6 +1272,13 @@ html.backend {
 }
 
 
+#general-ledger {
+  .feathers {
+    position: relative;
+    padding : 12px;
+  }
+}
+
 .kujaku {
   $color: $text-color;
   $background-color: lighten($active-color, 23%);
@@ -1324,6 +1349,20 @@ html.backend {
           .btn-filter {
             display: inline;
           }
+        }
+        &.feather-previous-navigation, &.feather-next-navigation{
+          display: block;
+          position:absolute;
+          top: 0;
+          border: none;
+          margin-left: $default-gap;
+          margin-right: $default-gap;
+        }
+        &.feather-previous-navigation {
+          left: 0;
+        }
+        &.feather-next-navigation {
+          right: 0;
         }
       }
     }

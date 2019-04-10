@@ -1,17 +1,21 @@
 FactoryBot.define do
   factory :sale do
-    # needs sale_nature
+    association :nature, factory: :sale_nature
     association :affair, factory: :sale_affair
     sequence(:number) { |n| "S00#{n}" }
-    amount { 5000.0 }
+    amount { 5500 }
     downpayment_amount { 0.0 }
-    pretax_amount { 4180.602 }
+    pretax_amount { 5000 }
     currency { 'EUR' }
-    payment_delay { '12 days, eom, 1 week ago' }
+    payment_delay { '1 week' }
     state { 'invoice' }
 
     after(:build) do |sale|
       sale.client = sale.affair.client unless sale.client
+    end
+
+    factory :sale_with_accounting do
+      association :nature, factory: :sale_nature_with_accounting
     end
   end
 end

@@ -1,4 +1,11 @@
 - main_toolbar do |t|
   = t.new params: { redirect: nil }
-  = t.bookkeep
+  = link_to t("labels.consult_the_day_book", count: @draft_entries_count), { controller: :draft_journals, action: :show, redirection: backend_journals_path }, { class: [('btn btn-default no-icn'),('disabled' if @draft_entries_count < 1)] }
+  - unless @unbalanced_entries_count < 1
+    = link_to t("labels.consult_unbalanced_entries", count: @unbalanced_entries_count), { controller: :invalid_journal_entries, action: :index }, { class: 'btn btn-default no-icn' }
+  - if @financial_years_with_entries.any?
+    = dropdown_menu_button(:export_centralizing_journal.tl, icon: :download) do |d|
+      - @financial_years_with_entries.each do |financial_year|
+        - d.item financial_year.code, financial_year: financial_year, format: :pdf
+
 = main_list

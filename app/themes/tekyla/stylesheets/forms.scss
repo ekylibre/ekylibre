@@ -384,3 +384,33 @@ div.nested-fields {
   padding-right: $default-gap;
   @include inline-block;
 }
+
+.filter-form {
+  > * {
+    margin: 0px 3px;
+  }
+  input[type='submit'] {
+    margin: 0px 3px;
+  }
+}
+
+.added-details {
+  font-size: 11px;
+  text-align: right;
+  font-style: italic;
+}
+
+td.with-details {
+  padding: 20px 7px 0px 7px;
+}
+
+.action-form {
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+
+    a {
+      pointer-events: none;
+    }
+  }
+}

@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -54,7 +55,7 @@ class InventoryItem < Ekylibre::Record::Base
 
   scope :of_variant, ->(variant) { joins(:product).merge(Product.of_variant(variant)) }
 
-  delegate :name, :unit_name, :population_counting_unitary?, to: :product
+  delegate :name, :unit_name, :population_counting_unitary?, to: :product, allow_nil: true
   delegate :reflected?, :achieved_at, to: :inventory
   delegate :storable?, to: :variant
   delegate :currency, to: :inventory, prefix: true

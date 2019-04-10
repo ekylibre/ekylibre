@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -40,8 +41,8 @@ require 'test_helper'
 class EconomicSituationTest < ActiveSupport::TestCase
   setup do
     @entity = Entity.create!(first_name: 'John', last_name: 'Doe')
-    @client_account = Account.create!(name: 'John the client', number: '411123')
-    @supplier_account = Account.create!(name: 'John the supplier', number: '401123')
+    @client_account = create(:account, :client)
+    @supplier_account = create(:account, :supplier)
     trash_account = Account.create!(name: 'Just needed', number: '666')
     @entity.update(client: true, client_account: @client_account)
     @entity.update(supplier: true, supplier_account: @supplier_account)

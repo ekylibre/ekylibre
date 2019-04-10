@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,6 +24,7 @@
 # == Table: sale_items
 #
 #  account_id           :integer
+#  accounting_label     :string
 #  activity_budget_id   :integer
 #  amount               :decimal(19, 4)   default(0.0), not null
 #  annotation           :text
@@ -89,6 +91,7 @@ class SaleItem < Ekylibre::Record::Base
   sums :sale, :items, :pretax_amount, :amount
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :accounting_label, length: { maximum: 500 }, allow_blank: true
   validates :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :annotation, :label, length: { maximum: 500_000 }, allow_blank: true
   validates :compute_from, :currency, :sale, :variant, presence: true
@@ -118,7 +121,7 @@ class SaleItem < Ekylibre::Record::Base
   before_validation do
     self.currency = sale.currency if sale
     self.compute_from ||= :unit_pretax_amount
-    if sale_credit
+    if sale && sale_credit
       self.credited_quantity ||= 0.0
       self.quantity = -1 * credited_quantity
     end

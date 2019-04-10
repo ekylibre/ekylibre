@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -76,7 +77,7 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     # Global balance
     #   -356 (= 24 - 380)
 
-    tax = taxes(:taxes_003)
+    tax = create(:tax)
 
     financial_year = financial_year_in_debit_mode
     started_on = financial_year.started_on
@@ -84,14 +85,14 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     printed_on = started_on + 1.day
 
     purchases_account = create(:account, name: 'Purchases')
-    suppliers_account = create(:account, name: 'Suppliers')
-    clients_account = create(:account, name: 'Clients')
+    suppliers_account = create(:account, :supplier)
+    clients_account = create(:account, :client)
     revenues_account = create(:account, name: 'Revenues')
     vat_deductible_account = tax.deduction_account
     vat_collected_account = tax.collect_account
 
     purchase1 = create(:purchase,
-                       nature: purchase_natures(:purchase_natures_001),
+                       nature: create(:purchase_nature),
                        tax_payability: 'at_invoicing')
     purchase1_item = create(:purchase_item,
                             purchase: purchase1,
@@ -120,7 +121,7 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     assert purchase1_entry.save
 
     purchase2 = create(:purchase,
-                       nature: purchase_natures(:purchase_natures_001),
+                       nature: create(:purchase_nature),
                        tax_payability: 'at_invoicing')
     purchase2_item = create(:purchase_item,
                             purchase: purchase2,
@@ -148,7 +149,7 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     ]
     assert purchase2_entry.save
 
-    sale1 = create(:sale, nature: sale_natures(:sale_natures_001))
+    sale1 = create(:sale, nature: create(:sale_nature))
     sale1_item = create(:sale_item, sale: sale1, tax: tax)
     sale1_entry = build(:journal_entry,
                         printed_on: printed_on,
@@ -242,7 +243,7 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     # Global balance
     #   -380
 
-    tax = taxes(:taxes_003)
+    tax = create(:tax)
 
     financial_year = financial_year_in_debit_mode
     started_on = financial_year.started_on
@@ -250,8 +251,8 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     printed_on = started_on + 1.day
 
     purchases_account = create(:account, name: 'Purchases')
-    suppliers_account = create(:account, name: 'Suppliers')
-    clients_account = create(:account, name: 'Clients')
+    suppliers_account = create(:account, :supplier)
+    clients_account = create(:account, :client)
     revenues_account = create(:account, name: 'Revenues')
     vat_deductible_account = tax.deduction_account
     vat_collected_account = tax.collect_account
@@ -262,7 +263,7 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     assert_equal 0, previous.global_balance
 
     purchase1 = create(:purchase,
-                       nature: purchase_natures(:purchase_natures_001),
+                       nature: create(:purchase_nature),
                        tax_payability: 'at_invoicing')
     purchase1_item = create(:purchase_item,
                             purchase: purchase1,
@@ -310,7 +311,7 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     #
     # Global balance 0 (no payment)
 
-    tax = taxes(:taxes_003)
+    tax = create(:tax)
 
     financial_year = financial_year_in_debit_mode
     started_on = financial_year.started_on
@@ -318,12 +319,12 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     printed_on = started_on + 1.day
 
     purchases_account = create(:account, name: 'Purchases')
-    suppliers_account = create(:account, name: 'Suppliers')
+    suppliers_account = create(:account, :supplier)
     bank_account = create(:account, name: 'Brank')
     vat_deductible_account = tax.deduction_account
 
     purchase1 = create(:purchase,
-                       nature: purchase_natures(:purchase_natures_001),
+                       nature: create(:purchase_nature),
                        tax_payability: 'at_paying')
     purchase1_item = create(:purchase_item,
                             purchase: purchase1,
@@ -395,7 +396,7 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     # Global balance
     #   -66.67
 
-    tax = taxes(:taxes_003)
+    tax = create(:tax)
 
     financial_year = financial_year_in_debit_mode
     started_on = financial_year.started_on
@@ -403,12 +404,12 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     printed_on = started_on + 1.day
 
     purchases_account = create(:account, name: 'Purchases')
-    suppliers_account = create(:account, name: 'Suppliers')
+    suppliers_account = create(:account, :supplier)
     bank_account = create(:account, name: 'Brank')
     vat_deductible_account = tax.deduction_account
 
     purchase1 = create(:purchase,
-                       nature: purchase_natures(:purchase_natures_001),
+                       nature: create(:purchase_nature),
                        tax_payability: 'at_paying')
     purchase1_item = create(:purchase_item,
                             purchase: purchase1,
@@ -550,7 +551,7 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     # Global balance
     #   4.00 (= 14 - 10)
 
-    tax = taxes(:taxes_003)
+    tax = create(:tax)
 
     financial_year = financial_year_in_payment_mode
 
@@ -563,15 +564,15 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     printed_on = started_on + 1.day
 
     purchases_account = create(:account, name: 'Purchases')
-    suppliers_account = create(:account, name: 'Suppliers')
-    clients_account = create(:account, name: 'Clients')
+    suppliers_account = create(:account, :supplier)
+    clients_account = create(:account, :client)
     bank_account = create(:account, name: 'Brank')
     revenues_account = create(:account, name: 'Revenues')
     vat_deductible_account = tax.deduction_account
     vat_collected_account = tax.collect_account
 
     purchase1 = create(:purchase,
-                       nature: purchase_natures(:purchase_natures_001),
+                       nature: create(:purchase_nature),
                        tax_payability: 'at_paying')
     purchase1_item = create(:purchase_item,
                             purchase: purchase1,
@@ -636,7 +637,7 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     ]
     assert payment2.save
 
-    sale1 = create(:sale, nature: sale_natures(:sale_natures_001))
+    sale1 = create(:sale, nature: create(:sale_nature))
     sale1_item = create(:sale_item, sale: sale1, tax: tax)
     sale1_entry = build(:journal_entry,
                         printed_on: previous_declaration_printed_on,
@@ -770,7 +771,7 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     #
     # Global balance
     #   -50.00
-    tax = taxes(:taxes_003)
+    tax = create(:tax)
 
     financial_year = financial_year_in_debit_mode
     started_on = financial_year.started_on
@@ -778,14 +779,14 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     printed_on = started_on + 1.day
 
     purchases_account = create(:account, name: 'Purchases')
-    suppliers_account = create(:account, name: 'Suppliers')
+    suppliers_account = create(:account, :supplier)
     bank_account = create(:account, name: 'Brank')
     vat_deductible_account = tax.deduction_account
 
     purchase_affair = create(:purchase_affair, letter: 'A')
 
     purchase1 = create(:purchase,
-                       nature: purchase_natures(:purchase_natures_001),
+                       nature: create(:purchase_nature),
                        affair: purchase_affair,
                        tax_payability: 'at_paying')
     purchase1_item = create(:purchase_item,
@@ -816,7 +817,7 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     assert purchase1_entry.save
 
     purchase2 = create(:purchase,
-                       nature: purchase_natures(:purchase_natures_001),
+                       nature: create(:purchase_nature),
                        affair: purchase_affair,
                        tax_payability: 'at_paying')
     purchase2_item = create(:purchase_item,
@@ -904,7 +905,7 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     assert_equal -50.0, subject.global_balance
   end
   test 'does not create tax declaration item parts with zero amount' do
-    tax = taxes(:taxes_003)
+    tax = create(:tax)
 
     financial_year = financial_year_in_debit_mode
     started_on = financial_year.started_on
@@ -912,12 +913,12 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     printed_on = started_on + 1.day
 
     purchases_account = create(:account, name: 'Purchases')
-    suppliers_account = create(:account, name: 'Suppliers')
+    suppliers_account = create(:account, :supplier)
     bank_account = create(:account, name: 'Brank')
     vat_deductible_account = tax.deduction_account
 
     purchase1 = create(:purchase,
-                       nature: purchase_natures(:purchase_natures_001),
+                       nature: create(:purchase_nature),
                        tax_payability: 'at_paying')
     purchase1_item = create(:purchase_item,
                             purchase: purchase1,

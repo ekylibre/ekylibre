@@ -66,6 +66,14 @@ account_balances:
     type: integer
     references: user
 accounts:
+  already_existing:
+    type: boolean
+    required: true
+    default: false
+  auxiliary_number:
+    type: string
+  centralizing_account_name:
+    type: string
   created_at:
     type: datetime
     required: true
@@ -94,6 +102,8 @@ accounts:
   name:
     type: string
     required: true
+  nature:
+    type: string
   number:
     type: string
     required: true
@@ -2051,6 +2061,9 @@ documents:
   lock_version:
     type: integer
     required: true
+  mandatory:
+    type: boolean
+    default: false
   name:
     type: string
     required: true
@@ -2059,6 +2072,10 @@ documents:
   number:
     type: string
     required: true
+  sha256_fingerprint:
+    type: string
+  signature:
+    type: text
   template_id:
     type: integer
     references: document_template
@@ -2122,6 +2139,8 @@ entities:
   employee_account_id:
     type: integer
     references: account
+  first_financial_year_ends_on:
+    type: date
   first_met_at:
     type: datetime
   first_name:
@@ -2399,6 +2418,26 @@ events:
   updater_id:
     type: integer
     references: user
+financial_year_archives:
+  financial_year_id:
+    type: integer
+    references: financial_year
+    required: true
+  id:
+    type: integer
+    required: true
+  path:
+    type: string
+    required: true
+  sha256_fingerprint:
+    type: string
+    required: true
+  signature:
+    type: text
+    required: true
+  timing:
+    type: string
+    required: true
 financial_year_exchanges:
   closed_at:
     type: datetime
@@ -2446,10 +2485,17 @@ financial_years:
   accountant_id:
     type: integer
     references: entity
+  already_existing:
+    type: boolean
+    required: true
+    default: false
   closed:
     type: boolean
     required: true
     default: false
+  closer_id:
+    type: integer
+    references: user
   code:
     type: string
     required: true
@@ -2478,6 +2524,8 @@ financial_years:
   started_on:
     type: date
     required: true
+  state:
+    type: string
   stopped_on:
     type: date
     required: true
@@ -2591,6 +2639,8 @@ fixed_assets:
     precision: 19
     scale: 4
     required: true
+  depreciation_fiscal_coefficient:
+    type: decimal
   depreciation_method:
     type: string
     required: true
@@ -3813,6 +3863,8 @@ journal_entries:
     precision: 19
     scale: 4
     required: true
+  continuous_number:
+    type: integer
   created_at:
     type: datetime
     required: true
@@ -3877,6 +3929,8 @@ journal_entries:
     precision: 19
     scale: 4
     required: true
+  reference_number:
+    type: string
   resource_id:
     type: integer
     references: "~resource_type"
@@ -3893,6 +3947,8 @@ journal_entries:
   updater_id:
     type: integer
     references: user
+  validated_at:
+    type: datetime
 journal_entry_items:
   absolute_credit:
     type: decimal
@@ -3916,6 +3972,8 @@ journal_entry_items:
     type: integer
     references: account
     required: true
+  accounting_label:
+    type: string
   activity_budget_id:
     type: integer
     references: activity_budget
@@ -5718,6 +5776,9 @@ product_nature_categories:
     type: boolean
     required: true
     default: false
+  asset_fixable:
+    type: boolean
+    default: false
   charge_account_id:
     type: integer
     references: account
@@ -6423,6 +6484,8 @@ purchase_items:
     type: integer
     references: account
     required: true
+  accounting_label:
+    type: string
   activity_budget_id:
     type: integer
     references: activity_budget
@@ -6701,6 +6764,8 @@ sale_items:
   account_id:
     type: integer
     references: account
+  accounting_label:
+    type: string
   activity_budget_id:
     type: integer
     references: activity_budget

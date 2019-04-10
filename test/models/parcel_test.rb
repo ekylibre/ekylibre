@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -222,6 +223,19 @@ class ParcelTest < ActiveSupport::TestCase
     # must have GTZ on credit to S ACCOUNT (3%)
     assert_operator 0, :<, jei_s.credit.to_i
     assert_operator 0, :<, jei_s.real_credit.to_i
+  end
+
+  test 'convert to purchase should have the correct amount' do
+    v = ProductNatureVariant.import_from_nomenclature(:fungicide, true)
+    to_recieve = [{
+        unit_pretax_amount: 10,
+        quantity: 10,
+        variant: v
+                  }]
+    parcel = new_parcel(items_attributes: to_recieve)
+    purchase = Parcel.convert_to_purchase [parcel]
+
+    assert_equal 100.to_d, purchase.amount
   end
 
   test 'unitary items in parcels' do

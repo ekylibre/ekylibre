@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,6 +24,7 @@
 # == Table: purchase_items
 #
 #  account_id             :integer          not null
+#  accounting_label       :string
 #  activity_budget_id     :integer
 #  amount                 :decimal(19, 4)   default(0.0), not null
 #  annotation             :text
@@ -65,6 +67,7 @@ class PurchaseItem < Ekylibre::Record::Base
   has_many :products, through: :parcel_items
   has_one :product_nature_category, through: :variant, source: :category
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :accounting_label, length: { maximum: 500 }, allow_blank: true
   validates :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :annotation, :label, length: { maximum: 500_000 }, allow_blank: true
   validates :account, :currency, :purchase, :tax, :variant, presence: true
@@ -144,7 +147,7 @@ class PurchaseItem < Ekylibre::Record::Base
                        # select outstanding_assets during purchase
                        Account.find_or_import_from_nomenclature(:outstanding_assets)
                      else
-                       variant.charge_account || Account.find_in_nomenclature(:expenses)
+                       variant.charge_account || Account.find_by(usages: :expenses)
                      end
     end
   end
@@ -187,7 +190,7 @@ class PurchaseItem < Ekylibre::Record::Base
       started_on: purchase.invoiced_at.to_date,
       depreciable_amount: pretax_amount.to_f,
       depreciation_period: Preference.get(:default_depreciation_period).value,
-      depreciation_method: variant.fixed_asset_depreciation_method || :simplified_linear,
+      depreciation_method: variant.fixed_asset_depreciation_method || :linear,
       depreciation_percentage: variant.fixed_asset_depreciation_percentage || 20,
       journal: Journal.find_by(nature: :purchases),
       asset_account: variant.fixed_asset_account, # 2
@@ -213,7 +216,7 @@ class PurchaseItem < Ekylibre::Record::Base
       return errors.add(:fixed_asset, :fixed_asset_missing) unless fixed_asset
       return errors.add(:fixed_asset, :fixed_asset_cannot_be_modified) unless fixed_asset.draft?
       fixed_asset.reload
-      fixed_asset.add_amount(pretax_amount.to_f)
+      fixed_asset.update_amounts
     else
       a = new_fixed_asset
       a.save!

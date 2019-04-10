@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -68,6 +69,6 @@ class ProductLinkage < Ekylibre::Record::Base
 
   # Returns all siblings in the chronological line
   def siblings
-    carrier.linkages.with(point)
+    carrier&.linkages&.with(point) || ProductLinkage.none
   end
 end

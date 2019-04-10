@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -67,8 +68,8 @@ class PurchasePaymentTest < ActiveSupport::TestCase
   test 'delete outgoing payment delete journal entry' do
     now = Time.new(2016, 11, 17, 19)
     currency = FinancialYear.at(now).currency
-    main = Account.find_or_create_by_number('512INR001')
-    suspense = Account.find_or_create_by_number('511INR001')
+    main = Account.find_or_create_by_number('512INR1')
+    suspense = Account.find_or_create_by_number('511INR1')
 
     cash = Cash.create!(
       name: 'Namaste Bank',

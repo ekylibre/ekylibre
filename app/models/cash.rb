@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -223,7 +224,7 @@ class Cash < Ekylibre::Record::Base
   end
 
   # Load default cashes (1 bank account and 1 cash box)
-  def self.load_defaults
+  def self.load_defaults(**_options)
     [
       %i[bank_account bank banks],
       %i[cash_box cash cashes]
@@ -299,6 +300,7 @@ class Cash < Ekylibre::Record::Base
     new_letter = next_reconciliation_letter
     return false if (journal_entry_items + statement_items).length.zero?
 
+    bank_statement_id = statement_items.map(&:bank_statement_id).uniq.first
     statement_entries = JournalEntryItem.where(resource: statement_items)
     to_letter = journal_entry_items + statement_entries
     suspense_account.mark(to_letter) if suspend_until_reconciliation
@@ -306,7 +308,8 @@ class Cash < Ekylibre::Record::Base
     saved = true
     saved &&= statement_items.update_all(letter: new_letter)
     saved &&= journal_entry_items.update_all(
-      bank_statement_letter: new_letter
+      bank_statement_letter: new_letter,
+      bank_statement_id: bank_statement_id
     )
 
     saved && new_letter

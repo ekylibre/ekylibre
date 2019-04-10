@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -58,7 +59,7 @@ class ProductMovement < Ekylibre::Record::Base
   before_validation do
     # NOTE: -! Deprecated !- only there for it to work until 3.0
     self.population = 0.0
-    self.stopped_at = started_at + 1.day
+    self.stopped_at = started_at + 1.day if started_at
   end
 
   def population

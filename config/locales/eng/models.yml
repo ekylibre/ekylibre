@@ -6,10 +6,12 @@ eng:
       already_confirmed: "was already confirmed, please try signing in"
       before: "%{attribute} must be before %{restriction}"
       blank: "%{attribute} can't be blank"
+      can_only_have_two_years_opened: "You can have only have two financial years opened at the same time."
       confirmation: "%{attribute} doesn't match confirmation"
       confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
       currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
       empty: "%{attribute} can't be empty"
+      end_of_month: "%{attribute} should be at the end of the month"
       equal_to: "%{attribute} must be equal to %{count}"
       even: "%{attribute} must be even"
       exclusion: "%{attribute} is reserved"
@@ -20,6 +22,7 @@ eng:
       inclusion: "%{attribute} is not included in the list"
       invalid: "%{attribute} is invalid"
       invalid_at: "%{attribute} is_invalid. Error near %{error}"
+      invalid_child: "At least one value of %{attribute} is invalid."
       invalid_date: "%{attribute} is not a valid date"
       invalid_datetime: "%{attribute} is not a valid datetime"
       invalid_time: "%{attribute} is not a valid time"
@@ -36,6 +39,7 @@ eng:
       not_enough: "not enough %{resource} to complete task"
       not_found: "not found"
       not_locked: "was not locked"
+      not_opened_financial_year: "An open accounting period is required"
       not_saved:
         one: "1 error prohibited this %{resource} from being saved:"
         other: "%{count} errors prohibited this %{resource} from being saved:"
@@ -47,6 +51,7 @@ eng:
       overlap_sibling: "%{attribute} overlaps sibling"
       posterior: "%{attribute} must be posterior to %{to}"
       record_invalid: "Validations failed: %{errors}"
+      should_be_the_last_day_of_month: "%{attribute} should be the last day of the month."
       taken: "%{attribute} has already been taken"
       too_long: "%{attribute} is too long (maximum is %{count} characters)"
       too_short: "%{attribute} is too short (minimum is %{count} characters)"
@@ -92,6 +97,9 @@ eng:
         started_on: "start-up date"
       fixed_asset_depreciation:
         asset_amount: "Accountable value"
+        accounted: "Accounted"
+      journal:
+        closed_on: "Latest closure on"
       journal_entry_item:
         cumulated_absolute_credit_balance: "Credit balance"
         cumulated_absolute_debit_balance: "Debit balance"
@@ -143,7 +151,7 @@ eng:
       tax_declaration:
         no_financial_year_button: "Manage financial years"
         no_financial_year_message: "Please choose your tax declarartion mode in one of your financial years to access to your tax declarations"
-        no_financial_year_title: "No financial year entered"
+        no_financial_year_title: "No exercise subject to VAT at the current date"
       tax_declaration_item:
         collected: "Collected"
         deductible: "Deductible"
@@ -152,6 +160,15 @@ eng:
     errors:
       messages:
         <<: *error_messages
+      models:
+        fixed_asset:
+          attributes:
+            base:
+              no_financial_year: "A financial year is needed to create a fixed asset."
+        journal_entry:
+          attributes:
+            printed_on:
+              financial_year_not_found: "There is no financial year at this date"
     models:
       account: "Account"
       account_balance: "Account balance"
@@ -365,6 +382,7 @@ eng:
     accounted_at: "Accounted at"
     accounting_balance: "Accounting balance"
     accounting_label: "Accounting label"
+    accounting_system: "Accounting system"
     accuracy: "Accuracy"
     achieved_at: "Achieved at"
     actions: "Actions"
@@ -417,6 +435,7 @@ eng:
     assembly: "Assembly"
     asset_account: "Asset account"
     asset_exists: "Asset exists" #?
+    asset_fixable: "Fixed asset registrable"
     attachments: "Attachments"
     attribute_name: "Attribute name"
     attribution: "Attribution"
@@ -567,6 +586,7 @@ eng:
     cultivation_variety: "Cultivation variety"
     cumulated_absolute_credit: "Cumulated absolute credit"
     cumulated_absolute_debit: "Cumulated absolute debit"
+    cumulated_balance: "Cumulated balance"
     currency: "Currency"
     currency_precision: "Currency precision"
     currency_rate: "Currency rate"
@@ -748,6 +768,7 @@ eng:
     first_met_at: "First met on"
     first_name: "First name"
     first_number: "First number" #?
+    fiscal_position: "Fiscal position"
     fixed: "Fixed"
     fixed_asset: "Fixed asset"
     fixed_asset_account: "Fixed asset account"
@@ -772,6 +793,7 @@ eng:
     function_title: "Function title"
     gap: "Gap"
     gaps: "Gaps"
+    account_number_digits: General accounts number length
     geolocation: "Geolocation"
     geometry_value: "Geometry value"
     germination_percentage: "Germination percentage"
@@ -800,6 +822,7 @@ eng:
     groups: "Groups"
     gtin: "GTIN"
     guide: "Guide"
+    journal_name: "Journal name"
     harvest_year: "Harvest year"
     has_downpayment: "Has downpayment"
     headers: "Headers"

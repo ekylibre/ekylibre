@@ -62,6 +62,10 @@ $brand-info: $neutral-color;
 $brand-warning: $caution-color;
 $brand-danger: $invalid-color;
 
+$background-debit-balance: #FCFCFC;
+$background-credit-balance: #f2f5f7;
+
+
 $hover-transparency: 0.92 !default;
 $hover-mask: transparentize($neutral-color, $hover-transparency);
 
@@ -167,5 +171,7 @@ $zen-header-font-size: $fs-very-huge;
 $zen-header-line-height: $lh-very-huge;
 $zen-height: 100vh - 2 * $zen-vertical-padding;
 $zen-width: 100vw - 2 * $zen-horizontal-padding;
+
+$fixed-footer-line-height: 30px;
 
 @import "bootstrap/variables";

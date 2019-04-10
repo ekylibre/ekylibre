@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -36,7 +37,13 @@
 require 'test_helper'
 
 class OutgoingPaymentListTest < ActiveSupport::TestCase
-  setup { @list = outgoing_payment_lists(:outgoing_payment_lists_001) }
+  setup do
+    @list = outgoing_payment_lists(:outgoing_payment_lists_001)
+  end
+
+  teardown do
+    Timecop.return
+  end
 
   test 'to_sepa' do
     Timecop.freeze(Time.new(2016, 10, 1, 11, 1, 35, '+02:00')) do

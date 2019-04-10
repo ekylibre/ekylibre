@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :product_nature_category do
     sequence(:name) { |n| "Category #{n}" }
+    association :product_account, factory: :account
     factory :deliverable_category do
       storable { true }
       purchasable { true }

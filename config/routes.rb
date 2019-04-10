@@ -196,7 +196,6 @@ Rails.application.routes.draw do
       collection do
         get :reconciliation
         get :list_reconciliation
-        match 'load', via: %i[get post]
         patch :mask_lettered_items
       end
       member do
@@ -207,6 +206,8 @@ Rails.application.routes.draw do
         get :list_product_nature_variants
       end
     end
+
+    resources :account_balances, only: :show
 
     resources :activities, concerns: %i[list unroll] do
       collection do
@@ -435,6 +436,8 @@ Rails.application.routes.draw do
     resource :draft_journal, only: [:show] do
       member do
         post :confirm
+        post :confirm_all
+        get :list
         get :list_journal_entry_items
       end
     end
@@ -503,12 +506,18 @@ Rails.application.routes.draw do
     resources :fixed_asset_depreciations, path: 'fixed-asset-depreciations', only: [:show]
 
     resources :financial_years, concerns: %i[list unroll], path: 'financial-years' do
+      collection do
+        delete :destroy_all_empty
+      end
+
       member do
         match 'close', via: %i[get post]
         post :compute_balances
         get :list_account_balances
         get :list_fixed_asset_depreciations
         get :list_exchanges
+        get :run_progress
+        match 'lock', via: %i[get post]
       end
     end
 
@@ -523,11 +532,25 @@ Rails.application.routes.draw do
       end
     end
 
+    resource :financial_year_closure_preparations, only: %i[create destroy]
+
+    resources :financial_year_archives, only: [] do
+      member do
+        post :create
+      end
+    end
+
     resources :fungi, concerns: :products
 
-    resource :general_ledger, only: [:show], path: 'general-ledger' do
+    resources :general_ledgers, only: %i[index show], path: 'general-ledgers', param: :account_number do
+      collection do
+        patch :mask_lettered_items
+        patch :mask_draft_items
+        get :list_subledger_accounts
+        get :list_centralized_ledger_accounts
+      end
       member do
-        get :list_journal_entry_items
+        get :list_subledger_journal_entry_items
       end
     end
 
@@ -604,6 +627,13 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :invalid_journal_entries, only: :index do
+      collection do
+        get :delete_all
+        get :list
+      end
+    end
+
     resources :inventories, concerns: %i[list unroll] do
       member do
         post :reflect
@@ -637,7 +667,6 @@ Rails.application.routes.draw do
         get :list_items
         get :list_entries
         match 'close', via: %i[get post]
-        match 'reopen', via: %i[get post]
       end
     end
 
@@ -686,7 +715,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :loan_repayments, only: %i[index show edit update], path: 'loan-repayments'
+    resources :loan_repayments, only: %i[index new create show edit update], path: 'loan-repayments'
 
     resources :manure_management_plans, concerns: %i[list unroll], path: 'manure-management-plans' do
       member do
