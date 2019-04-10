@@ -51,7 +51,7 @@ class FinancialYear < Ekylibre::Record::Base
   attr_readonly :currency
   refers_to :currency
   enumerize :tax_declaration_frequency, in: %i[monthly quaterly yearly none],
-                                        default: :monthly, predicates: { prefix: true }
+            default: :monthly, predicates: { prefix: true }
   enumerize :tax_declaration_mode, in: %i[debit payment none], default: :none, predicates: { prefix: true }
   enumerize :state, in: %i[opened closure_in_preparation closing closed locked], default: :opened, predicates: true
   belongs_to :last_journal_entry, class_name: 'JournalEntry'
@@ -76,10 +76,14 @@ class FinancialYear < Ekylibre::Record::Base
   validates :code, uniqueness: true, length: { allow_nil: true, maximum: 20 }
   validates :tax_declaration_frequency, presence: { unless: :tax_declaration_mode_none? }
 
+
   # This order must be the natural order
   # It permit to find the first and the last financial year
-  scope :closed, -> { where(state: 'closed').reorder(:started_on) }
-  scope :opened, -> { where(state: 'opened').reorder(:started_on) }
+  scope :with_state, -> (*states) { where(state: states).reorder(:started_on) }
+  scope :closed, -> { with_state :closed }
+  scope :opened, -> { with_state :opened }
+  scope :started_after, -> (date) { where('? < started_on', date).order(:started_on) }
+  scope :stopped_before, ->(date) { where('stopped_on < ?', date).order(:started_on) }
   scope :in_preparation, -> { where(state: 'closure_in_preparation').reorder(:started_on) }
   scope :closables_or_lockables, -> { where(state: %i[opened closure_in_preparation]).where('started_on <= ?', Time.zone.now).where.not('? BETWEEN started_on AND stopped_on', Time.zone.now).reorder(:started_on) }
   scope :with_tax_declaration, -> { where.not(tax_declaration_mode: :none) }
@@ -120,10 +124,10 @@ class FinancialYear < Ekylibre::Record::Base
       closables_or_lockables.first
     end
 
-    def consecutive_destroyables(from = Date.new(1,1,1), upto = FinancialYear.current&.started_on)
+    def consecutive_destroyables(from = Date.new(1, 1, 1), upto = FinancialYear.current&.started_on)
       upto ||= FinancialYear.where('started_on < ?', Date.today).order(started_on: :desc).first.started_on
       years = FinancialYear.where("started_on BETWEEN ? AND ?", from, upto)
-                           .order(:started_on)
+                .order(:started_on)
       years.to_a.select!.with_index { |year, index| years[0..index].all?(&:destroyable?) }
       FinancialYear.where(id: years.map(&:id))
     end
@@ -160,6 +164,14 @@ class FinancialYear < Ekylibre::Record::Base
     self.code = default_code if started_on && stopped_on && code.blank?
     code.upper! if code
     code&.succ! while self.class.where(code: code).where.not(id: id || 0).any?
+  end
+
+  # Enforces the fact that there should not be a gap between two FinancialYear
+  validate do
+    next_fy = FinancialYear.started_after(stopped_on).first
+    previous_fy = FinancialYear.stopped_before(started_on).last
+    errors.add(:stopped_on, :should_be_at) if next_fy && stopped_on + 1.day != next_fy.started_on
+    errors.add(:started_on, :should_be_at) if previous_fy && started_on != previous_fy.stopped_on + 1.day
   end
 
   validate do
@@ -229,9 +241,9 @@ class FinancialYear < Ekylibre::Record::Base
   # TODO: Check if this is used.
   def previous_codes_with_missing_tax_declaration
     FinancialYear.with_missing_tax_declaration
-                 .where('financial_years.stopped_on < ?', stopped_on)
-                 .order(:started_on)
-                 .pluck(:code)
+      .where('financial_years.stopped_on < ?', stopped_on)
+      .order(:started_on)
+      .pluck(:code)
   end
 
   def previous_consecutives?
@@ -519,31 +531,31 @@ class FinancialYear < Ekylibre::Record::Base
 
   private
 
-  def compute_ranges(number_of_months)
-    start_date = started_on
-    stop_date = started_on + number_of_months.month - 1.day
-    return [[started_on, stopped_on]] if stopped_on <= stop_date
-    ranges = []
-    i = 0
-    while stopped_on >= stop_date do
-      i += 1
-      ranges << [start_date, stop_date]
-      start_date = started_on + (number_of_months * i).month
-      stop_date = started_on + (number_of_months * (i + 1)).month - 1.day
+    def compute_ranges(number_of_months)
+      start_date = started_on
+      stop_date = started_on + number_of_months.month - 1.day
+      return [[started_on, stopped_on]] if stopped_on <= stop_date
+      ranges = []
+      i = 0
+      while stopped_on >= stop_date do
+        i += 1
+        ranges << [start_date, stop_date]
+        start_date = started_on + (number_of_months * i).month
+        stop_date = started_on + (number_of_months * (i + 1)).month - 1.day
+      end
+      ranges << [start_date, stopped_on] unless start_date >= stopped_on
+      ranges
     end
-    ranges << [start_date, stopped_on] unless start_date >= stopped_on
-    ranges
-  end
 
-  def accountant_with_booked_journal?
-    accountant && accountant.booked_journals.any?
-  end
+    def accountant_with_booked_journal?
+      accountant && accountant.booked_journals.any?
+    end
 
   # Filter account balances with given accounts and with non-null balance
-  def account_balances_for(account_numbers)
-    account_balances.joins(:account)
-                    .where('local_balance != ?', 0)
-                    .where('accounts.number ~ ?', "^(#{account_numbers.join('|')})")
-                    .order('accounts.number')
-  end
+    def account_balances_for(account_numbers)
+      account_balances.joins(:account)
+        .where('local_balance != ?', 0)
+        .where('accounts.number ~ ?', "^(#{account_numbers.join('|')})")
+        .order('accounts.number')
+    end
 end

@@ -258,7 +258,7 @@ class FixedAssetTest < ActiveSupport::TestCase
     FinancialYear.delete_all
     [2017, 2018].each do |year|
       start = Date.new year, 3, 1
-      assert FinancialYear.create started_on: start, stopped_on: start + 1.year - 1.day
+      FinancialYear.create! started_on: start, stopped_on: start + 1.year - 1.day
     end
 
     attributes = {
@@ -275,7 +275,7 @@ class FixedAssetTest < ActiveSupport::TestCase
       journal_id: @journal.id
     }
 
-    assert fa = FixedAsset.create(attributes)
+    fa = FixedAsset.create!(attributes)
     fa.reload
     assert fa.depreciations.to_a.all? { |dep| dep.started_on.month == 3 }, "All depreciations periods should start on the same month as the begining of the FinancialYear"
   end
@@ -284,7 +284,7 @@ class FixedAssetTest < ActiveSupport::TestCase
     FinancialYear.delete_all
     [2017, 2018].each do |year|
       start = Date.new year, 3, 1
-      assert FinancialYear.create started_on: start, stopped_on: start + 1.year - 1.day
+      FinancialYear.create! started_on: start, stopped_on: start + 1.year - 1.day
     end
 
     attributes = {
@@ -333,11 +333,13 @@ class FixedAssetTest < ActiveSupport::TestCase
 
   test 'A FixedAsset created before the first opened FinancialYear creates the correct depreciations entries' do
     FinancialYear.delete_all
-    (2010...2015).each do |year|
-      assert fy = FinancialYear.create(started_on: Date.new(year, 1, 1), stopped_on: Date.new(year, 12, 31), state: :locked)
+    (2010..2015).each do |year|
+      fy = FinancialYear.new(started_on: Date.new(year, 1, 1), stopped_on: Date.new(year, 12, 31), state: :locked)
+      assert fy.save
     end
     [2016, 2017].each do |year|
-      assert fy = FinancialYear.create(started_on: Date.new(year, 1, 1), stopped_on: Date.new(year, 12, 31))
+      fy = FinancialYear.new(started_on: Date.new(year, 1, 1), stopped_on: Date.new(year, 12, 31))
+      assert fy.save
     end
 
     fa = FixedAsset.new(
@@ -365,11 +367,11 @@ class FixedAssetTest < ActiveSupport::TestCase
 
   test 'enabling a FixedAssed on a date where no FinancialYear opened creates the correct journal entries' do
     FinancialYear.delete_all
-    (2010...2015).each do |year|
-      assert fy = FinancialYear.create(started_on: Date.new(year, 1, 1), stopped_on: Date.new(year, 12, 31), state: :locked)
+    (2010..2015).each do |year|
+      FinancialYear.create!(started_on: Date.new(year, 1, 1), stopped_on: Date.new(year, 12, 31), state: :locked)
     end
     [2016, 2017].each do |year|
-      assert fy = FinancialYear.create(started_on: Date.new(year, 1, 1), stopped_on: Date.new(year, 12, 31))
+      FinancialYear.create!(started_on: Date.new(year, 1, 1), stopped_on: Date.new(year, 12, 31))
     end
 
     fa = FixedAsset.new(
@@ -426,7 +428,7 @@ class FixedAssetTest < ActiveSupport::TestCase
     FinancialYear.delete_all
     [2017, 2018].each do |year|
       start = Date.new year, 3, 1
-      assert FinancialYear.create started_on: start, stopped_on: start + 1.year - 1.day
+      FinancialYear.create! started_on: start, stopped_on: start + 1.year - 1.day
     end
 
     attributes = {
