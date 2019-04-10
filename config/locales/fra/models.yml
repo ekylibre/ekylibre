@@ -331,6 +331,10 @@ fra:
           csv_file_headers_invalid: "Les en-têtes du fichier CSV sont invalides" #?
           csv_file_invalid: "Fichier CSV invalide" #?
           csv_file_journals_invalid: "Certains journaux sont présents dans le CSV mais n'existent pas dans Ekylibre : %{codes}" #?
+        fixed_asset:
+          attributes:
+            base:
+              no_financial_year: "Un exercice comptable est nécessaire pour la création d'une immobilisation."
         fixed_asset_depreciation: #?
           attributes: #?
             started_on: #?
