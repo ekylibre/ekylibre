@@ -399,7 +399,7 @@
       </item>
     </group>
   </part>
-  <part name="purchases" icon="bar-chart">
+  <part name="purchases" icon="shopping-cart">
     <page to="backend/dashboards#purchases"/>
     <group name="purchases" icon="shopping-cart">
       <item name="purchase_orders">
