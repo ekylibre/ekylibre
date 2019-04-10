@@ -203,4 +203,13 @@ class ApplicationController < ActionController::Base
     title = exception.class.name.underscore.t(scope: 'exceptions')
     render '/public/configure_application', layout: 'exception', locals: { title: title, message: exception.message, class_name: exception.class.name }, status: 500
   end
+
+  def helpers
+    return @helper_object if @helper_object
+    helper_module = _helpers
+    helper_klass = Class.new do
+      include helper_module
+    end
+    @helper_object = helper_klass.new
+  end
 end
