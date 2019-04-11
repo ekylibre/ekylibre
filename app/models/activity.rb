@@ -241,6 +241,7 @@ class Activity < Ekylibre::Record::Base
   end
 
   def pfi_activity_ratio(campaign)
+    pfi_activity = 0
     global_area = []
     production_pfi_per_area = []
     productions.of_campaign(campaign).each do |production|
