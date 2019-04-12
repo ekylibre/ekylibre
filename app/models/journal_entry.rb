@@ -250,7 +250,7 @@ class JournalEntry < Ekylibre::Record::Base
         errors.add(:printed_on, :out_of_existing_financial_year)
       end
     end
-    if in_financial_year_exchange? && !importing_from_exchange
+    if in_opened_financial_year_exchange? && !importing_from_exchange
       errors.add(:printed_on, :frozen_by_financial_year_exchange)
     end
     errors.add(:items, :empty) unless items.any?
@@ -400,15 +400,15 @@ class JournalEntry < Ekylibre::Record::Base
 
   private
 
-  attr_accessor :importing_from_exchange
+    attr_accessor :importing_from_exchange
 
-  #
-  def add!(name, account, amount, options = {})
-    items.create!(JournalEntryItem.attributes_for(name, account, amount, options))
-  end
+    #
+    def add!(name, account, amount, options = {})
+      items.create!(JournalEntryItem.attributes_for(name, account, amount, options))
+    end
 
-  def in_financial_year_exchange?
-    return unless financial_year
-    financial_year.exchanges.any? { |e| (e.started_on..e.stopped_on).cover?(printed_on) }
-  end
+    def in_opened_financial_year_exchange?
+      return unless financial_year
+      financial_year.exchanges.opened.any? { |e| (e.started_on..e.stopped_on).cover?(printed_on) }
+    end
 end
