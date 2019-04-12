@@ -471,7 +471,7 @@ fra:
         purchase: "Achat"
     purchase_order: #?
       command_mode: #?
-        fax: "fax" #?
+        fax: "Fax" #?
         letter: "Courrier" #?
         mail: "Email" #?
         market_place: "" #?
