@@ -8,7 +8,7 @@
   = f.input :conditionning, wrapper: :conditionning_append do
     = f.input_field :conditionning , class: "conditionning", data: { trade_component: 'conditionning' }
     %span.add-on.storage-unit-name{data: { 'when-item': 'unit_name', 'when-set-value': 'RECORD_VALUE', 'when-scope': 'unit'}}
-      = variant.unit_name.or_else('#')
+      = variant.unit_name.or_else('unité')
   %div.control-group.multiplicator X
   = f.input :conditionning_quantity, wrapper: :conditionning_append do
     = f.input_field :conditionning_quantity , class: "conditionning-quantity", data: { trade_component: 'conditionning_quantity'}
