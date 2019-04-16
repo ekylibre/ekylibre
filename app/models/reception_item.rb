@@ -72,6 +72,8 @@ class ReceptionItem < ParcelItem
   has_one :storage, through: :reception
   has_one :contract, through: :reception
 
+  enumerize :role, in: %i[merchandise fees service], predicates: true
+
   validates :product_name, presence: { if: -> { product_is_identifiable? } }
 
   delegate :allow_items_update?, :remain_owner, :planned_at,
