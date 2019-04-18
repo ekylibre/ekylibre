@@ -314,27 +314,6 @@ class FixedAssetTest < ActiveSupport::TestCase
     assert_equal 100_000, fa.depreciations.map(&:amount).reduce(&:+)
   end
 
-
-  test 'A FixedAsset is valid when there is no FinancialYear at its started_on date' do
-    FinancialYear.delete_all
-    FinancialYear.create!(started_on: Date.new(2015, 1, 1), stopped_on: Date.new(2015, 12, 31))
-
-    fa = FixedAsset.new(
-      allocation_account: @allocation_account,
-      depreciation_method: :linear,
-      journal: @journal,
-      depreciable_amount: 50_000,
-      name: @product.name,
-      started_on: '2018-05-01',
-      stopped_on: '2028-04-30',
-      asset_account: @asset_account,
-      expenses_account: @expenses_account
-    )
-
-    valid = fa.valid?
-    assert valid, "FixedAsset should be valid, got errors: #{fa.errors.messages}"
-  end
-
   test 'A FixedAsset created before the first opened FinancialYear creates the correct depreciations entries' do
     FinancialYear.delete_all
     (2010..2015).each do |year|
@@ -474,6 +453,35 @@ class FixedAssetTest < ActiveSupport::TestCase
     fa = FixedAsset.new attributes
     assert_not fa.valid?
     assert fa.errors.messages.key? :base
+  end
+
+  [
+    [:opened, false],
+    [:closed, false],
+    [:locked, true]
+  ].each do |(fy_state, expected_validation_result)|
+    test "a FixedAsset without a FinancialYear but after one that is #{fy_state} should be #{expected_validation_result ? 'valid' : 'invalid'}" do
+      FinancialYear.delete_all
+      FinancialYear.create! started_on: Date.new(2015, 3, 1), stopped_on: Date.new(2015, 3, 1) + 1.year - 1.day, state: fy_state
+
+      attributes = {
+        name: @product.name,
+        depreciable_amount: 50_000,
+        depreciation_method: :linear,
+        started_on: Date.new(2017, 3, 1),
+        depreciation_period: :yearly,
+        depreciation_percentage: 20.00,
+        asset_account: @asset_account,
+        allocation_account: @allocation_account,
+        expenses_account: @expenses_account,
+        product: @product,
+        journal_id: @journal.id
+      }
+
+      fa = FixedAsset.new attributes
+      byebug
+      assert_equal expected_validation_result, fa.valid?
+    end
   end
 
   private
