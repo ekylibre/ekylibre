@@ -165,6 +165,10 @@ eng:
           attributes:
             base:
               no_financial_year: "A financial year is needed to create a fixed asset."
+        fixed_asset_depreciation: #?
+          attributes: #?
+            started_on: #?
+              invalid_start_date: "The depreciation period should start on %{start} or at the begining of a month." #?
         journal_entry:
           attributes:
             printed_on:
