@@ -317,6 +317,8 @@ class FixedAssetTest < ActiveSupport::TestCase
 
   test 'A FixedAsset is valid when there is no FinancialYear at its started_on date' do
     FinancialYear.delete_all
+    FinancialYear.create!(started_on: Date.new(2015, 1, 1), stopped_on: Date.new(2015, 12, 31))
+
     fa = FixedAsset.new(
       allocation_account: @allocation_account,
       depreciation_method: :linear,
@@ -328,7 +330,9 @@ class FixedAssetTest < ActiveSupport::TestCase
       asset_account: @asset_account,
       expenses_account: @expenses_account
     )
-    assert fa.valid?
+
+    valid = fa.valid?
+    assert valid, "FixedAsset should be valid, got errors: #{fa.errors.messages}"
   end
 
   test 'A FixedAsset created before the first opened FinancialYear creates the correct depreciations entries' do

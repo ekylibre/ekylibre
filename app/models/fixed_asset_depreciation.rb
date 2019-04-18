@@ -79,7 +79,7 @@ class FixedAssetDepreciation < Ekylibre::Record::Base
         started_on != fixed_asset.started_on &&
         started_on != financial_year.started_on &&
         started_on != started_on.beginning_of_month
-      errors.add(:started_on, :invalid_date, start: fixed_asset.started_on)
+      errors.add(:started_on, :invalid_start_date, start: fixed_asset.started_on)
     end
   end
 

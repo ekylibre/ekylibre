@@ -47,32 +47,32 @@
 ---
 financial_years_001:
   closed: false
-  code: EX1992-93
+  code: EX1991-92
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: FRF
   currency_precision: 2
   id: 1
   lock_version: 1
-  started_on: 1992-11-17
+  started_on: 1991-11-17
   state: opened
-  stopped_on: 1993-08-31
+  stopped_on: 1992-08-31
   tax_declaration_frequency: yearly
   tax_declaration_mode: payment
   updated_at: 2017-05-01 23:43:15.087793000 Z
   updater_id: 1
 financial_years_002:
   closed: false
-  code: LOREMUM2
+  code: EX1992-93
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: FRF
   currency_precision: 2
   id: 2
   lock_version: 1
-  started_on: 2050-09-01
+  started_on: 1992-09-01
   state: opened
-  stopped_on: 2051-08-31
+  stopped_on: 1993-08-31
   tax_declaration_frequency: yearly
   tax_declaration_mode: payment
   updated_at: 2017-05-01 23:43:15.098562000 Z
