@@ -1,7 +1,6 @@
 - main_toolbar do |t|
   = t.edit resource if resource.updateable?
   = t.destroy resource if resource.destroyable?
-  = t.export :fixed_asset_sheet, key: :number
 
 = main_state_bar(resource)
 
