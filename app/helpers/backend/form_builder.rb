@@ -178,6 +178,17 @@ module Backend
       super(attribute_name, options, &block)
     end
 
+
+    def find_input(attribute_name, options = nil, &block)
+      input = super
+
+      if is_nomenclature_select?(attribute_name)
+        input&.options&.fetch(:collection)&.sort_by! &:first
+      end
+
+      input
+    end
+
     def picture(attribute_name = :picture, options = {})
       format = options.delete(:format) || :thumb
       input(attribute_name, options) do
@@ -763,6 +774,12 @@ module Backend
       end
       @template.content_tag(:span, units_values.tl, class: 'add-on')
     end
+
+    private
+
+      def is_nomenclature_select?(attribute_name)
+        @object.class.respond_to?(:nomenclature_reflections) && @object.class.nomenclature_reflections.key?(attribute_name)
+      end
   end
 end
 
