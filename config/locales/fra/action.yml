@@ -1711,6 +1711,7 @@ fra:
     investment_subsidies: "Subventions d’investissement"
     invitation_status: "État"
     invoice: "Facture"
+    invoice_date: "Facturation"
     invoice_period: "Période de facturation"
     invoice_status: "État de facturation"
     invoiced: "Facturés"
@@ -2069,6 +2070,7 @@ fra:
     payment_at: "Payé le"
     payment_conditions: "Conditions de règlement"
     payment_delay_placeholder: "fdm, 5 jours avant"
+    payment_due_date: "Échéance"
     payment_label: "%{number}. %{amount} (%{usable_amount} restants) du %{date} par %{mode} de %{entity}" #?
     payment_mode: "Mode d’encaissement"
     payments: "Règlements"
@@ -2078,7 +2080,8 @@ fra:
     people: "Personnes"
     percentage_by_calibration: "Pourcentage de stock en terre net par calibre"
     percentage_by_calibration_x: "Pourcentage de stock en terre net par calibre - %{x}" #?
-    period: "Période prédéfinie"
+    period: "Période"
+    period_to_take_into_account: "Période à prendre en compte"
     periods: "Périodes"
     permanent_stock_inventory: "Inventaire des stocks permanent"
     permute: "Permuter les fiches"

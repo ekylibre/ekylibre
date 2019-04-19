@@ -1743,6 +1743,7 @@ eng:
     investment_subsidies: "Investment subsidies" #?!
     invitation_status: "Status" #?
     invoice: "Invoice" #?
+    invoice_date: "Invoice date"
     invoice_period: "Invoice period"
     invoice_status: "Invoice status"
     invoiced: "Invoiced"
@@ -2006,6 +2007,7 @@ eng:
     payment_at: "Payment on" #?
     payment_conditions: "Payment conditions"
     payment_delay_placeholder: "eom, 5 days before"
+    payment_due_date: "Payment due date"
     payment_mode: "Payment mode" #?
     payments: "Payments"
     payments_count: "Payments count"
@@ -2015,6 +2017,7 @@ eng:
     percentage_by_calibration: "Percentage by calibration"
     # percentage_by_calibration_x: "Percentage by calibration x"
     period: "Period"
+    period_to_take_into_account: "Period to take into account"
     periods: "Periods" #?
     permanent_stock_inventory: "Permanent stock inventory"
     permute: "Permute" #?

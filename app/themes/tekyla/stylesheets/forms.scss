@@ -406,3 +406,23 @@ div.nested-fields {
     font-size: 16px !important;
   }
 }
+
+.inline-date-fields {
+  span {
+    border: 1px solid #dedede;
+    padding: 5px;
+    font-size: 12px;
+    background: #EEEEEE;
+    &:first-child {
+      border-radius: 3px 0 0 3px;
+    }
+  }
+  input {
+    border-radius: 0;
+    margin: 1px -5px 1px -4px !important;
+    padding: 3px !important;
+    &:last-child {
+      border-radius: 0 3px 3px 0;
+    }
+  }
+}

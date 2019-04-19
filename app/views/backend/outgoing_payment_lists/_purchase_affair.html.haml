@@ -3,7 +3,8 @@
 
 %tr{data: { outgoing_payment_purchase_affair: purchase_affair.id} }
   = hidden_field_tag 'purchase_affairs[]', nil, data: { outgoing_payment_purchase_affair_selection: true }
-  %td= check_box_tag :check, '1', false, data: { outgoing_payment_purchase_affair_selector: true, outgoing_payment_selected_amount: 0 }
+  - checked = purchase_affair.third.supplier_payment_mode_id == params[:outgoing_payment_list][:mode_id].to_i
+  %td= check_box_tag :check, '1', checked, data: { outgoing_payment_purchase_affair_selector: true, outgoing_payment_selected_amount: 0 }
   - if purchases.count == 1
     - purchase = purchases.first
     %td= purchase.payment_at.nil? ? purchase.invoiced_at.l : purchase.payment_at.l
