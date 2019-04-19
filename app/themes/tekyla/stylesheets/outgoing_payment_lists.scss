@@ -1,6 +1,88 @@
 #new_outgoing_payment_list {
+
   input[type='radio'] + label {
     margin-right: 20px;
     line-height: 29px;
+  }
+}
+
+.payment[data-outgoing-payment-third] {
+  margin-top: 20px;
+
+  .third {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background: #EEE;
+
+    .third-details {
+      font-weight: 600;
+    }
+
+    i {
+      cursor: pointer;
+      @include is-icon();
+      @include use-icon(minus-square-o);
+      &.plus {
+        @include use-icon(plus-square-o);
+      }
+    }
+  }
+
+  .invoices-list {
+    padding: 10px;
+
+    & > div {
+      display: flex;
+      align-items: center;
+      padding: 5px;
+    }
+
+    .list-header, .list-footer {
+      font-weight: bold;
+      & .payment-at {
+        line-height: 23px;
+      }
+    }
+
+    .list-footer {
+      .payment-at, span {
+        font-size: 18px;
+      }
+    }
+
+    .list-content {
+      box-sizing: border-box;
+      border-bottom: 1px solid #F0F0F0;
+      &:hover {
+        background: #F0F0F0;
+      }
+    }
+
+    .check {
+      flex: 0 0 5%;
+    }
+
+    .invoiced-at, .reference, .accepted-for-payment, .payment-at {
+      flex: 0 0 20%;
+      text-align: center;
+    }
+
+    .amount {
+      flex: 0 0 15%;
+      text-align: right;
+    }
+
+    .list-content {
+
+      .accepted-for-payment {
+
+        i {
+          @include is-icon();
+          @include use-icon(check);
+        }
+      }
+    }
   }
 }

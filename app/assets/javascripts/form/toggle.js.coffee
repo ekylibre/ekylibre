@@ -37,5 +37,16 @@
   $(document).behave "load", "input[type='radio'][data-show], input[type='radio'][data-hide]", $.toggleRadios
   $(document).on   "change", "input[type='radio'][data-show], input[type='radio'][data-hide]", $.toggleRadios
 
+
+  $(document).ready ->
+    $('.trigger-container i.trigger').on 'click', ->
+      $(this).toggleClass('plus')
+      $(this).closest('.trigger-container').find('.triggerable').slideToggle()
+
+    $(".checkable .list-header input[type='checkbox'][name='check_all']").on 'click', ->
+      value = $(this).prop('checked')
+      $(this).closest('.checkable').find("input[type='checkbox'][name='check']").each ->
+        $(this).click() if $(this).prop('checked') != value
+
   return
 ) jQuery

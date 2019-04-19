@@ -1444,6 +1444,7 @@ fra:
     draft_vat_declaration: "Etat de TVA préparatoire"
     driver: "Conducteur"
     drug: "Médicament" #?
+    due_date: "À régler le"
     duplicate: "Dupliquer"
     duplicate_intervention: "Dupliquer l'intervention"
     duplicate_x_selected_interventions:
@@ -1455,6 +1456,7 @@ fra:
     earns: "Gains" #?
     edit: "Modifier"
     edit_budget: "Modifier le budget"
+    edition_date: "Date d'édition"
     ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "Temps passé par activité"
     element_status: "Statut"
@@ -2248,6 +2250,7 @@ fra:
     record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement." #?
     record_has_not_been_removed: "L’enregistrement n’a pu être supprimé." #?
     record_maintenance: "Enregistrer une maintenance"
+    reference: "Référence"
     reference_supplier: "Référence fournisseur : %{reference_number}"
     reflect: "Refléter"
     reflected: "Changements répercutés"
@@ -2498,6 +2501,7 @@ fra:
     temperature: "Température" #?
     theoric_quantity: "Quantité théorique" #?
     third_informations: "Informations tierces" #?
+    third_balance: "(solde - solde comptable fournisseur : %{balance} - %{supplier_account_balance})"
     third_is_unbalanced: "Tiers à soldes non-rapprochés. (solde - solde comptable fournisseur)"
     this_archive_is_digitally_signed: "Cette archive est signée numériquement."
     thumb: "Miniature"

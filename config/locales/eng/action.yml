@@ -1534,6 +1534,7 @@ eng:
     draft_loan_on_current_financial_year: "You have draft loans ongoing. Once the financial year closed, it won't be possible to enter them into service on this financial year (%{code})."
     draft_vat_declaration: "Pending VAT declaration" #?!
     driver: "Driver"
+    due_date: "Due date"
     duplicate: "Duplicate"
     duplicate_intervention: "Duplicate intervention"
     duplicate_x_selected_interventions:
@@ -1544,6 +1545,7 @@ eng:
     during: "During"
     edit: "Edit"
     edit_budget: "Edit budget"
+    edition_date: "Edition date"
     ekylibre: "www.ekylibre.org" #?
     elapsed_interventions_times_by_activities: "Elapsed interventions times by activities" #?
     element_status: "Status"
@@ -2132,6 +2134,7 @@ eng:
     record: "Record" #?
     record_cannot_be_saved: "The record can not be saved"
     record_maintenance: "Record maintenance"
+    reference: "Reference"
     reference_supplier: "Reference supplier : %{reference_number}"
     reflect: "Reflect" #?
     reflected: "Reflected changes" #?
@@ -2295,6 +2298,7 @@ eng:
     taxations: "Taxations"
     taxes: "Taxes"
     taxes_and_wages: "Taxes and wages"
+    third_balance: "(balance - supplier account balance : %{balance} - %{supplier_account_balance})"
     third_is_unbalanced: "Third is unbalanced. (balance - supplier account balance)"
     this_archive_is_digitally_signed: "This archive is digitally signed."
     threshold_commercialization_by_production: "Threshold commercialization by production"

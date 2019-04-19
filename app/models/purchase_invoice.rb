@@ -72,6 +72,7 @@ class PurchaseInvoice < Purchase
   }
 
   scope :accepted_reconcile, -> { where(reconciliation_state: %w[accepted reconcile]) }
+  scope :accepted, -> { where(reconciliation_state: %w[accepted]) }
   scope :unpaid, -> { where(state: %w[order invoice]).where.not(affair: Affair.closeds) }
   scope :current, -> { unpaid }
   scope :current_or_self, ->(purchase) { where(unpaid).or(where(id: (purchase.is_a?(Purchase) ? purchase.id : purchase))) }
