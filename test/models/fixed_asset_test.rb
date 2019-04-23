@@ -479,7 +479,6 @@ class FixedAssetTest < ActiveSupport::TestCase
       }
 
       fa = FixedAsset.new attributes
-      byebug
       assert_equal expected_validation_result, fa.valid?
     end
   end
