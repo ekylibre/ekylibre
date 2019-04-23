@@ -166,32 +166,44 @@ module Backend
       end
     end
 
-    # def cede
-    #   return unless @fixed_asset = find_and_check
-    # end
+    def sell
+      return unless record = find_and_check
 
-    # def sell
-    #   return unless @fixed_asset = find_and_check
-    # end
-    FixedAsset.state_machine.events.each do |event|
-      if %i[sell scrap].include? event.name
-        define_method event.name do
-          next unless record = find_and_check
-
-          state = do_fire_event record, event.name
-          record.errors.messages.each do |field, message|
-            notify_error :error_on_field, { field: FixedAsset.human_attribute_name(field), message: message.join(", ") }
-          end
-
-          redirect_action = state ? :show : :edit
-          redirect_to params[:redirect] || { action: redirect_action, id: record.id }
-          record
-        end
-      else
-        define_method event.name do
-          fire_event(event.name)
-        end
+      ok = record.sell
+      record.errors.messages.each do |field, message|
+        notify_error :error_on_field, { field: FixedAsset.human_attribute_name(field), message: message.join(", ") }
       end
+
+      redirect_action = ok ? :show : :edit
+      redirect_to params[:redirect] || { action: redirect_action, id: record.id }
+      record
+    end
+
+    def scrap
+      return unless record = find_and_check
+
+      ok = record.scrap
+      record.errors.messages.each do |field, message|
+        notify_error :error_on_field, { field: FixedAsset.human_attribute_name(field), message: message.join(", ") }
+      end
+
+      redirect_action = ok ? :show : :edit
+      redirect_to params[:redirect] || { action: redirect_action, id: record.id }
+      record
+    end
+
+    def start_up
+      return unless record = find_and_check
+
+      ok = record.start_up
+
+      if ok == false && msg.respond_to?(:map)
+        notify_error(map.collect(&:messages).map(&:values).flatten.join(', '))
+      end
+
+      redirect_to params[:redirect] || { action: :show, id: record.id }
+
+      record
     end
 
     def depreciate

@@ -165,7 +165,7 @@ eng:
         fixed_asset:
           attributes:
             base:
-              no_financial_year: "A financial year is needed to create a fixed asset."
+              no_opened_financial_year: "An opened financial year is needed to create a fixed asset."
         fixed_asset_depreciation: #?
           attributes: #?
             started_on: #?

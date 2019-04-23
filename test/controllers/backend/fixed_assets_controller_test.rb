@@ -36,8 +36,9 @@ module Backend
 
     cases.each do |(action, field), (state, date, redirect_action)|
       test "#{action} action with #{state} #{field} date should redirect to #{redirect_action} page" do
+        # assert FixedAsset.count == 0
         manual_setup
-        @fixed_asset.send "#{field}=", date # No financial year for this date
+        @fixed_asset.send "#{field}=", date
         @fixed_asset.save!
 
         post action, id: @fixed_asset.id
@@ -92,8 +93,13 @@ module Backend
           expenses_account: @expenses_account,
           allocation_account: @allocation_account
         )
+
+        assert @fixed_asset.valid?
         @fixed_asset.save!
+
         @fixed_asset.start_up
+
+        @fixed_asset.reload
       end
   end
 end
