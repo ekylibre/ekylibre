@@ -777,6 +777,7 @@ Rails.application.routes.draw do
       member do
         post :up
         post :down
+        get :sepa
       end
     end
 

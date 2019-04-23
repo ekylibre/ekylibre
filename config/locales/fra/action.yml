@@ -1579,6 +1579,7 @@ fra:
     finished_income_statement: "Produits" #?
     finished_sum: "Total produits d’exploitation" #?
     finishes: "Termine par" #?
+    first_check_number: "Numéro du premier chèque"
     first_contact: "Adresse principale" #?
     first_line_as_title: "Titre en première ligne"
     fixed_asset_debts: "Dettes sur immobilisations"
@@ -2075,6 +2076,7 @@ fra:
     payment_due_date: "Échéance"
     payment_label: "%{number}. %{amount} (%{usable_amount} restants) du %{date} par %{mode} de %{entity}" #?
     payment_mode: "Mode d’encaissement"
+    payment_mode_form_label: "Mode de règlement"
     payments: "Règlements"
     payments_count: "Nombre de %{mode}"
     payslip_number: "N° du salaire"

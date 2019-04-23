@@ -31,9 +31,9 @@
   }
 
   .invoices-list {
-    padding: 10px;
+    padding: 0 10px;
 
-    & > div {
+    .list-header, .list-content, .list-footer {
       display: flex;
       align-items: center;
       padding: 5px;

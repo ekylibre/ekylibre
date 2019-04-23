@@ -1643,6 +1643,7 @@ eng:
     fingerprint_sha256: "Fingerprint (SHA256)"
     finish: "Finish" #?
     finished: "Finished"
+    first_check_number: "Number of the first check"
     first_line_as_title: "First line as title"
     fixed_asset_debts: "Fixed asset debts" #?!
     fixed_asset_depreciations: "Fixed asset depreciations"
@@ -2011,6 +2012,7 @@ eng:
     payment_delay_placeholder: "eom, 5 days before"
     payment_due_date: "Payment due date"
     payment_mode: "Payment mode" #?
+    payment_mode_form_label: "Payment mode"
     payments: "Payments"
     payments_count: "Payments count"
     payslip_number: "Payslip #" #?

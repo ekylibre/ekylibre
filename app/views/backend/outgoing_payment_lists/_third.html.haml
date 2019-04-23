@@ -5,22 +5,23 @@
       = t('labels.third_balance', balance: third.balance, supplier_account_balance: third.supplier_accounting_balance)
     %i.trigger
 
-  .invoices-list.triggerable.checkable
-    .list-header
-      .check
-        = check_box_tag :check_all, '1', false
-      .invoiced-at
-        = :edition_date.tl
-      .reference
-        = :reference.tl
-      .accepted-for-payment
-        = :accepted_for_paiment.tl
-      .payment-at
-        = :due_date.tl
-      .amount
-        = :amount.tl
+  .invoices-list.checkable
+    .triggerable
+      .list-header
+        .check
+          = check_box_tag :check_all, '1', false
+        .invoiced-at
+          = :edition_date.tl
+        .reference
+          = :reference.tl
+        .accepted-for-payment
+          = :accepted_for_paiment.tl
+        .payment-at
+          = :due_date.tl
+        .amount
+          = :amount.tl
 
-    = render partial: 'purchase_affair', collection: @affairs.where(supplier: third), locals: { f: f }
+      = render partial: 'purchase_affair', collection: @affairs.where(supplier: third), locals: { f: f }
 
     .list-footer
       .check

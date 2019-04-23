@@ -48,5 +48,21 @@
       $(this).closest('.checkable').find("input[type='checkbox'][name='check']").each ->
         $(this).click() if $(this).prop('checked') != value
 
+    $("select[data-trigger-visibility]").on 'change', ->
+      id = $(this).val()
+      affectedElement = $(this).data('trigger-visibility')
+      return $("#{affectedElement}").hide() unless id
+      url = window.location.origin + $(this).data('trigger-visibility-url').replace(/:id/, id)
+
+      $.ajax url,
+        type: 'GET'
+        dataType: 'json'
+
+        success: (data, textStatus, jqXHR) ->
+          $("#{affectedElement}").toggle(!data['sepa'])
+
+    $("input[type='checkbox'][data-check-on-load='true']").click()
+    $("select[data-trigger-visibility]").trigger('change')
+
   return
 ) jQuery
