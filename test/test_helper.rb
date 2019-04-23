@@ -10,7 +10,7 @@ require 'minitest/reporters'
 require 'database_cleaner'
 
 Minitest::Reporters.use!(
-  (ENV['CI'] ? Minitest::Reporters::DefaultReporter.new : Ekylibre::Testing::SpecReporter.new),
+  (ENV['CI'] || !$stdout.isatty ? Minitest::Reporters::DefaultReporter.new : Ekylibre::Testing::SpecReporter.new),
   ENV,
   Minitest.backtrace_filter
 )
