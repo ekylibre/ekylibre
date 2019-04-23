@@ -17,7 +17,7 @@
   - c.cobble(:entities) do
     = cobble_list(:entities)
 
-  - c.cobble(:product_nature_variants) do
+  - c.cobble(:product_nature_variant) do
     = cobble_list(:product_nature_variants)
 
   - c.cobble(:journal_entry_items) do
@@ -25,8 +25,6 @@
       - k.text name: :b
       - k.helper :journal_period_crit, :period
       - k.helper :journal_entries_states_crit
-
-
 
     - items = JournalEntryItem.joins([:entry]).joins('LEFT OUTER JOIN "product_nature_variants" ON "product_nature_variants"."id" = "journal_entry_items"."variant_id"').where(eval(controller.class.account_moves_conditions))
     - totals = {}
