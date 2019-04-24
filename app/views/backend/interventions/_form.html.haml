@@ -55,9 +55,9 @@
       - procedure.each_parameter do |parameter|
         = render '/backend/interventions/parameter_form', reference: parameter, f: f, namespace: ''
 
-      - if procedure.parameters.any?{|p| p.is_a?(Procedo::Procedure::ProductParameter) and p.beta?}
-        %span.beta
-          = :beta_description.tl
+      -# - if procedure.parameters.any?{|p| p.is_a?(Procedo::Procedure::ProductParameter) and p.beta?}
+      -#   %span.beta
+      -#     = :beta_description.tl
     = field_set :service_delivering do
       = f.nested_association(:receptions, maximum: 1, button_label: :add_service_delivering.tl, partial: '/backend/interventions/reception_fields')
   - else # Root Procedure Natures
