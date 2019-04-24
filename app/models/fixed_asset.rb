@@ -177,6 +177,9 @@ class FixedAsset < Ekylibre::Record::Base
     errors.add(:base, :no_financial_year) if FinancialYear.count == 0
 
     if started_on
+      # Should not be valid if not during a FinancialYear AND it exists a previous FinancialYear either closed or opened
+      errors.add(:started_on, :invalid_date) if FinancialYear.on(started_on).nil? && FinancialYear.with_state(:opened, :closed).stopped_before(started_on).count > 0
+
       errors.add(:started_on, :financial_year_exchange_on_this_period) if started_during_financial_year_exchange?
       if self.stopped_on && stopped_on < started_on
         errors.add(:stopped_on, :posterior, to: started_on.l)

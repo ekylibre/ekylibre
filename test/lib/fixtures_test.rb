@@ -2,11 +2,12 @@ require 'test_helper'
 
 class FixturesTest < ActiveSupport::TestCase
   # Checks the validity of references files for models
-  test 'all fixtures validity' do
-    invalids = []
-    Ekylibre::Schema.models.sort.each do |model_name|
-      model = model_name.to_s.classify.constantize
-      record_type = model.name.underscore
+
+  Ekylibre::Schema.models.sort.each do |model_name|
+    model = model_name.to_s.classify.constantize
+
+    test "all fixtures validity: #{model.name}" do
+      invalids = []
       # print "#{model.name.green}"
       reflections = model.reflect_on_all_associations(:belongs_to).delete_if { |r| r.name.to_s == 'item' && model == Version }
       model.includes(reflections.collect(&:name)).find_each do |record|
@@ -24,7 +25,8 @@ class FixturesTest < ActiveSupport::TestCase
           end
         end
       end
+      assert invalids.empty?, "#{invalids.count} records are invalid: \n" + invalids.join("\n").dig(2)
     end
-    assert invalids.empty?, "#{invalids.count} records are invalid: \n" + invalids.join("\n").dig(2)
+
   end
 end
