@@ -1,5 +1,5 @@
-%div.merchandise-row
-  .item-block.merchandise
+%div.role-row.role-row--merchandise
+  .item-block__merchandise
     - if f.object.role == 'merchandise'
       = f.referenced_association(:variant, label: :merchandise.tl, source: { scope: :purchaseables_stockables_or_depreciables }, input_html: { class: 'parcel-item-variant', data: { product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json), scope: 'unit'}, required: true }})
 
@@ -11,30 +11,38 @@
         = f.input :work_number, wrapper: :nested_append do
           = f.input_field :product_work_number, placeholder: ParcelItem.human_attribute_name(:product_work_number)
 
-  .item-block.item-delivery-mode
-    = f.input :delivery_mode, as: :radio_buttons, collection: f.object.class.delivery_mode.values - ['none'], label_method: :l, input_html: { class: 'item-delivery-mode', data: {  input_to_show: '.transporter-delivery-mode', with_value: "transporter", use_as_value: '.transporter-delivery-mode > input.hidden' } }
+  .item-block__delivery-mode{style: "display: flex"}
+    = f.input :delivery_mode, as: :radio_buttons, collection: f.object.class.delivery_mode.values.sort_by(&:l) - ['none'], label_method: :l, input_html: { class: 'item-delivery-mode', data: {  input_to_show: '.transporter-delivery-mode', with_value: "transporter", use_as_value: '.transporter-delivery-mode > input.hidden' } }
     .transporter-delivery-mode.hidden.delivery-item
-      = f.referenced_association :transporter, source: :transporters, new: {transporter: 1}, input_html: { class: 'transporter-delivery-mode', data: { product_of_delivery_item: { url: backend_entity_path("RECORD_ID", format: :json) } } }
+      = f.referenced_association :transporter, source: :transporters, label: false, new: {transporter: 1}, input_html: { class: 'transporter-delivery-mode', data: { product_of_delivery_item: { url: backend_entity_path("RECORD_ID", format: :json) } } }
       - full_name = f.object.transporter.full_name if f.object.transporter
-      %input.hidden{data: { 'when-item': 'full_name', 'when-set-value': 'RECORD_VALUE' }, value: full_name }
+    %input.hidden{data: { 'when-item': 'full_name', 'when-set-value': 'RECORD_VALUE' }, value: full_name }
 
-%div
-  .item-block.item-add-storing.nested-association#add-storing{ data: { association_insertion_minimum: 1 }}
-  .storing-labels.control-group
-    .storage-label
-      = f.label :storage.tl, class: "control-label", required: true
-    .quantity-label
-      = f.label :quantity.tl, class: "control-label", required: true
+%div.storing-row.storing-row--merchandise
+  .item-block__storing.control-group
+    .div.storing__content
 
-  - f.object.storings.new if f.object.storings.size == 0
-  = f.simple_fields_for :storings, f.object.storings do |storing|
-    = render 'storing_fields', f: storing
-  .storings-footer
-    = link_to_add_association :add_storing.tl, f, :storings, partial: 'storing_fields', class: "link-add-storing", data: { :'association-insertion-traversal' => :closest, :'association-insertion-node' => '.storings-footer', :'association-insertion-method' => :before }
-    %label.total-labels
-      %span.total= :total.tl
-      %span.total-quantity{ data: { calculate: "sum", use: ".storing-fields:not(.removed-nested-fields) .storing-quantity", use_closest: ".nested-item-form", calculate_round: 2 } }= 0.0
-      %span{data: { 'when-item': 'unit_name', 'when-set-value': 'RECORD_VALUE', 'when-scope': 'unit'}}
-        = variant.unit_name.or_else('unité(s)')
-  .merge-stock
-    = f.input :merge_stock
+      - f.object.storings.new if f.object.storings.size == 0
+      = f.simple_fields_for :storings, f.object.storings do |storing|
+        = render 'storing_fields', f: storing
+    .div.storing__footer
+      = link_to_add_association :add_storing.tl, f, :storings, partial: 'storing_fields', class: "link-add-storing", data: { :'association-insertion-traversal' => :closest, :'association-insertion-node' => '.storings-footer', :'association-insertion-method' => :before }
+      %label.total-labels
+        %span.total= :total.tl
+        %span.total-quantity{ data: { calculate: "sum", use: ".storing-fields:not(.removed-nested-fields) .storing-quantity", use_closest: ".nested-item-form", calculate_round: 2 } }= 0.0
+        %span{data: { 'when-item': 'unit_name', 'when-set-value': 'RECORD_VALUE', 'when-scope': 'unit'}}
+          = variant.unit_name.or_else('unité(s)')
+
+      = f.input :merge_stock
+
+      %div.current-stock
+        .merchandise-current-stock
+          %span.stock-label= :current_stock.tl
+          %span.stock-value= variant.current_stock.or_else(0)
+          %span.stock-unit= variant.unit_name.or_else("")
+
+        .merchandise-stock-after-order
+          %span.stock-label= :stock_after_order.tl
+          %span.stock-value= f.object.decorate.merchandise_stock_after_reception(variant.current_stock.or_else(0))
+          %span.stock-unit= f.object.decorate.merchandise_stock_unit(variant.unit_name.or_else(""))
+          .storing__merging-state
