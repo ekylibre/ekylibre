@@ -1472,6 +1472,8 @@ eng:
     quantity_indicator: "Quantity indicator" #?
     quantity_indicator_name: "Quantity indicator name"
     quantity_population: "Quantity population"
+    quantity_purchased: "Purchased quantity"
+    quantity_received: "Used quantity"
     quantity_unit: "Quantity unit"
     quantity_unit_name: "Quantity unit name"
     quantity_value: "Quantity value"

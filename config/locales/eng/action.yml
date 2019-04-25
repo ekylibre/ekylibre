@@ -844,6 +844,8 @@ eng:
       load: "Load missing sequences"
       new: "New sequence"
       # show: "Sequence: %{name}"
+    backend/services:
+      index: "Services"
     backend/settings:
       about: "About Ekylibre"
     backend/settlements:
