@@ -128,10 +128,20 @@
     }
     }
   }
-  .item-block__delivery-mode .control-group {
+  .item-block__delivery-mode {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    .control-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    }
+  }
+
+  .delivery-mode__input {
+    display: flex;
+    align-items: center;
   }
 
   .item-block__storing .controls {
