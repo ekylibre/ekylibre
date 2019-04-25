@@ -6,22 +6,15 @@ module RestfullyManageable
     def manage_restfully(defaults = {})
       name = controller_name
       path = controller_path
-      options = defaults.extract!(:t3e, :creation_t3e, :redirect_to, :xhr, :destroy_to, :subclass_inheritance, :partial, :multipart, :except, :only, :cancel_url, :scope, :identifier, :continue, :model)
+      options = defaults.extract!(:t3e, :creation_t3e, :redirect_to, :xhr, :destroy_to, :subclass_inheritance, :partial, :multipart, :except, :only, :cancel_url, :scope, :identifier, :continue, :model_name)
       after_save_url    = options[:redirect_to]
       after_destroy_url = options[:destroy_to] || :index
       actions  = %i[index show new create edit update destroy]
       actions &= [options[:only]].flatten   if options[:only]
       actions -= [options[:except]].flatten if options[:except]
 
-      model_custom = options[:model] if options[:model]
-      if model_custom.blank?
-        record_name = name.to_s.singularize
-        model_name  = name.to_s.classify
-      else
-        record_name = model_custom.underscore
-        model_name  = model_custom
-      end
-
+      model_name  = options[:model_name] || name.to_s.classify
+      record_name = model_name.underscore.singularize
       model = model_name.constantize
       columns = model.columns_definition.keys
 
@@ -79,8 +72,9 @@ module RestfullyManageable
       creation_t3e = options[:creation_t3e].is_a?(TrueClass)
 
       code = ''
+      class_code = ''
 
-      code << "respond_to :html, :xml, :json\n"
+      class_code << "respond_to :html, :xml, :json\n"
       # code << "respond_to :pdf, :odt, :ods, :csv, :docx, :xlsx, :only => [:show, :index]\n"
 
       if actions.include?(:index)
@@ -134,10 +128,10 @@ module RestfullyManageable
 
       if options[:subclass_inheritance]
         if self != Backend::BaseController
-          code << "def self.inherited(subclass)\n"
+          class_code << "def self.inherited(subclass)\n"
           # TODO: inherit from superclass parameters (superclass.manage_restfully_options)
-          code << "  subclass.manage_restfully(#{options.inspect})\n"
-          code << "end\n"
+          class_code << "  subclass.manage_restfully(#{options.inspect})\n"
+          class_code << "end\n"
         end
       end
 
@@ -251,11 +245,12 @@ module RestfullyManageable
         file = Rails.root.join('tmp', 'code', 'manage_restfully', "#{controller_path}.rb")
         FileUtils.mkdir_p(file.dirname)
         File.open(file, 'wb') do |f|
+          f.write class_code
           f.write code
         end
       end
 
-      class_eval(code)
+      insert_module(code, class_code)
     end
 
     # Build standard actions to manage records of a model
@@ -266,6 +261,7 @@ module RestfullyManageable
       records = model.name.underscore.pluralize
       raise ArgumentError, "Unknown column for #{model.name}" unless model.columns_definition[order_by]
       code = ''
+      class_code = ''
 
       sort = ''
       position = "#{record_name}_position_column"
@@ -294,7 +290,7 @@ module RestfullyManageable
       code << "end\n"
 
       # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
-      class_eval(code)
+      insert_module(code, class_code, name: :list)
     end
 
     # Build standard actions to manage records of a model
@@ -304,6 +300,7 @@ module RestfullyManageable
       model = name.to_s.singularize.classify.constantize
       records = model.name.underscore.pluralize
       code = ''
+      class_code = ''
 
       columns = model.columns_definition.keys
       columns = columns.delete_if { |c| %i[depth rgt lft id lock_version updated_at updater_id creator_id created_at].include?(c.to_sym) }
@@ -335,7 +332,7 @@ module RestfullyManageable
       code << "  render 'pick'\n"
       code << "end\n"
 
-      class_eval(code)
+      insert_module(code, class_code, name: :incorporation)
     end
 
     #
@@ -343,6 +340,7 @@ module RestfullyManageable
       name = controller_name
       record_name = name.to_s.singularize
       code = ''
+      class_code = ''
       code << "def picture\n"
       code << "  return unless #{record_name} = find_and_check(:#{record_name})\n"
       code << "  if #{record_name}.picture.file?\n"
@@ -351,7 +349,31 @@ module RestfullyManageable
       code << "    head :not_found\n"
       code << "  end\n"
       code << "end\n"
-      class_eval(code)
+
+      insert_module(code, class_code, name: :picture)
+    end
+
+    private
+
+    def name_module(mod, kind)
+      # Ensure we don't collide with other controllers but still don't need
+      # intermediate namespacing modules
+      unique_controller_name = controller_path.camelize.simpleize
+      kind_name = kind.to_s.classify
+      mod_name = "#{unique_controller_name}#{kind_name}Actions"
+      RestfullyManageable.const_set mod_name, mod
+    end
+
+    def insert_module(code, class_code, name: '')
+      restful_module = Module.new
+      name_module(restful_module, name)
+      restful_module.class_eval(code)
+      restful_module.extend ActiveSupport::Concern
+      restful_module.send(:included) do
+        eval class_code
+      end
+      include restful_module
+      self
     end
   end
 end

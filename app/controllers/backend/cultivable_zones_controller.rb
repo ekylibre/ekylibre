@@ -20,6 +20,8 @@ module Backend
   class CultivableZonesController < Backend::BaseController
     manage_restfully(t3e: { name: :name })
 
+    respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
+
     unroll
 
     list do |t|
@@ -44,6 +46,24 @@ module Backend
       t.column :grains_yield, datatype: :measure
       t.column :started_on
       t.column :stopped_on
+    end
+
+    # Show one cultivable zone with params_id
+    def show
+      return unless @cultivable_zone = find_and_check
+      t3e @cultivable_zone
+      respond_with(@cultivable_zone, methods: %i[shape_svg cap_number human_shape_area],
+                                     include: [
+                                       { activity_productions: {
+                                         methods: %i[name implanted_at harvested_at],
+                                         include: {
+                                           interventions: {
+                                             methods: %i[started_at stopped_at status name human_working_duration human_working_zone_area human_actions_names human_input_quantity_names],
+                                             include: {}
+                                           }
+                                         }
+                                       } }
+                                     ], procs: proc { |options| options[:builder].tag!(:url, backend_cultivable_zone_url(@cultivable_zone)) })
     end
   end
 end

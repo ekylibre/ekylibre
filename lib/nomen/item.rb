@@ -178,7 +178,13 @@ module Nomen
 
     # Return human name of item
     def human_name(options = {})
-      "nomenclatures.#{nomenclature.name}.items.#{name}".t(options.merge(default: ["items.#{name}".to_sym, "enumerize.#{nomenclature.name}.#{name}".to_sym, "labels.#{name}".to_sym, name.humanize]))
+      "nomenclatures.#{I18n.escape_key(nomenclature.name)}.items.#{I18n.escape_key(name)}"
+        .t(options.merge(default: [
+                           "items.#{I18n.escape_key(name)}".to_sym,
+                           "enumerize.#{I18n.escape_key(nomenclature.name)}.#{I18n.escape_key(name)}".to_sym,
+                           "labels.#{I18n.escape_key(name)}".to_sym,
+                           name.humanize
+                         ]))
     end
     alias humanize human_name
     alias localize human_name
