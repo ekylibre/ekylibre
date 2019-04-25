@@ -431,11 +431,11 @@ class ProductNatureVariant < Ekylibre::Record::Base
   end
 
   def quantity_purchased
-    purchase_items.pluck(:quantity).compact.sum
+    purchase_items.sum(:quantity)
   end
 
   def quantity_received
-    reception_items.joins(:reception).where(parcels: { state: :given }).pluck(:population).compact.sum
+    reception_items.joins(:reception).where(parcels: { state: :given }).sum(:population)
   end
 
   # Return current stock of all products link to the variant
