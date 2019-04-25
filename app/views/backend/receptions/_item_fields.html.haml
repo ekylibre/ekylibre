@@ -66,7 +66,8 @@
               = :reconcile.tl
             = button_tag :reconciliate_with_purchases_orders.tl, id: 'showItemReconciliationModal', class: 'btn btn-default item-form__reconciliation-state', type: :button
           .item-form__compliant-state
-            = f.input :non_compliant, input_html: { class: 'item-non-compliant', data: { warn_if_checked: non_compliant_message, input_to_show: '.non_compliant_detail_text', with_value: true } }
+            = f.input :non_compliant, input_html: { class: 'item-non-compliant', data: { closest: '.item-form__compliant-state', warn_in: '.warn-message', warn_if_checked: non_compliant_message, input_to_show: '.non_compliant_detail_text', with_value: true } }
+            %span.warn-message
           .non_compliant_detail_text.hidden
             = f.input :non_compliant_detail, label: :detail.tl, input_html: { class: 'item-non-compliant-detail', data: { interpolate_if_input: 'input.item-non-compliant', with_value: true } }
         .item-form__btn

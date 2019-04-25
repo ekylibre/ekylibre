@@ -46,6 +46,7 @@
   }
 
   .item-form__compliant-state {
+    display: flex;
     .control-label {
       max-width: 100% !important;
       margin: 0 !important;
@@ -94,6 +95,7 @@
   }
 
   .role-row--non-merchandise {
+    max-width: 40%;
     display: flex;
     justify-content: space-between;
     .control-label {
@@ -106,10 +108,15 @@
     }
   }
 
-  .item-form__role--fees {
-    max-width: 40%;
+  .item-block__role {
+    width: 70%;
+    .control-group {
+      width: 100%;
+    }
+    .selector {
+      width: 100%;
+    }
   }
-
 
   .item-block__merchandise {
     width: 40%;
@@ -117,7 +124,7 @@
     display: flex;
     flex-direction: column;
     .selector {
-      width: 90%;
+      width: 70%;
     }
     }
   }
@@ -166,6 +173,14 @@
 
   .current-stock span {
     color: #999;
+  }
+
+  .row-footer {
+    display: flex;
+  }
+
+  .warning-container {
+    display: inline-block;
   }
 
 }

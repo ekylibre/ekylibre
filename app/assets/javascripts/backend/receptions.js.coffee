@@ -4,17 +4,29 @@
   $(document).ready ->
     $('input[data-warn-if-checked]').behave 'load', ->
       $('input[data-warn-if-checked]').each ->
-        input = $(this)
-        container = input.closest('.item-form__compliant-state')
-        if container.find('.warn-message').length is 0
-          container.prepend($('<span class="warn-message"></span>').html(input.data('warn-if-checked')).hide())
-        if input.prop('checked')
-          container.find('.warn-message').show()
-        input.click ->
-          if input.prop('checked')
-            container.find('.warn-message').show()
+        $input = $(this)
+
+        messageText     = $input.data('warn-if-checked')
+        messageSelector = $input.data('warn-in')
+        $message        = $input.formScopedSelect(messageSelector)
+
+        # Fallback if messageSelector doesn't match anything in scope
+        $defaultMessage = $('<span class="warn-message"></span>')
+        if $message.length is 0
+          $input.formScope().append($defaultMessage)
+          $message = $defaultMessage
+
+        showOrHideMessage = (input) ->
+          if $input.prop('checked')
+            $message.show()
           else
-            container.find('.warn-message').hide()
+            $message.hide()
+
+        $message.html(messageText) if $message.is(':empty')
+
+        showOrHideMessage($input) # Initial display
+        $input.click showOrHideMessage # Update on input change
+
 
     $('h2[data-warn-if-checked]').behave 'load', ->
       $('h2[data-warn-if-checked]').each ->
