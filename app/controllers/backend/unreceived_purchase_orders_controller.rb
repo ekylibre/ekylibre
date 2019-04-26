@@ -26,6 +26,8 @@ module Backend
       code = search_conditions(purchase_order: %i[number reference_number created_at pretax_amount], entities: %i[number full_name]) + " ||= []\n"
       code << "c[0] << ' AND #{PurchaseOrder.table_name}.state = ?'\n"
       code << "c << 'opened'\n"
+      code << "c[0] << ' AND #{PurchaseOrder.table_name}.reconciliation_state = ?'\n"
+      code << "c << 'to_reconcile'\n"
       code << "if params[:responsible_id].to_i > 0\n"
       code << "  c[0] += ' AND #{PurchaseOrder.table_name}.responsible_id = ?'\n"
       code << "  c << params[:responsible_id]\n"
