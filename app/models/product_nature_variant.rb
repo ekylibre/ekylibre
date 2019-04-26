@@ -430,14 +430,26 @@ class ProductNatureVariant < Ekylibre::Record::Base
       .last
   end
 
+  def quantity_purchased
+    purchase_items.sum(:quantity)
+  end
+
+  def quantity_received
+    reception_items.joins(:reception).where(parcels: { state: :given }).sum(:population)
+  end
+
   # Return current stock of all products link to the variant
   def current_stock
-    products
-      .select { |product| product.dead_at.nil? || product.dead_at >= Time.now }
-      .map(&:population)
-      .compact
-      .sum
-      .to_f
+    if variety == 'service'
+      quantity_purchased - quantity_received
+    else
+      products
+        .select { |product| product.dead_at.nil? || product.dead_at >= Time.now }
+        .map(&:population)
+        .compact
+        .sum
+        .to_f
+    end
   end
 
   # Return current quantity of all products link to the variant currently ordered or invoiced but not delivered

@@ -28,4 +28,12 @@ FactoryBot.define do
 
     association         :category, factory: :deliverable_category
   end
+
+  factory :services_nature, class: ProductNature do
+    sequence(:name)     { |n| "Service #{n}" }
+    population_counting { :integer }
+    variety             { 'service' }
+
+    association         :category, factory: :deliverable_category
+  end
 end

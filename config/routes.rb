@@ -743,6 +743,8 @@ Rails.application.routes.draw do
       concerns :products, :list
     end
 
+    resources :services, only: :index, concerns: :list
+
     resources :naming_formats
 
     resources :naming_format_land_parcels do

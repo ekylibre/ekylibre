@@ -691,6 +691,8 @@ fra:
       index: "Séquences"
       load: "Charger les séquences manquantes"
       new: "Nouvelle séquence"
+    backend/services:
+      index: "Prestations de service"
     backend/settings:
       about: "À propos…"
     backend/settlements:
