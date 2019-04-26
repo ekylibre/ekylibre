@@ -241,6 +241,7 @@ class Activity < Ekylibre::Record::Base
   end
 
   def pfi_activity_ratio(campaign)
+    pfi_activity = 0
     global_area = []
     production_pfi_per_area = []
     productions.of_campaign(campaign).each do |production|
@@ -248,7 +249,7 @@ class Activity < Ekylibre::Record::Base
       production_pfi_per_area << (production.pfi_parcel_ratio * area_in_hectare).round(2)
       global_area << area_in_hectare
     end
-    pfi_activity = (production_pfi_per_area.compact.sum / global_area.compact.sum).round(2)
+    pfi_activity = (production_pfi_per_area.compact.sum / global_area.compact.sum).round(2) unless global_area.compact.empty? || global_area.compact.sum.zero?
     pfi_activity
   end
 
