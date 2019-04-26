@@ -175,7 +175,7 @@ eng:
         enterprise_deductible_vat: "Enterprise deductible VAT"
         entity_collectable_taxes: "Entity collectable taxes"
         equipment_assets: "Equipment assets"
-        equipment_asset_depreciations: "Equipment asset depreciations"
+        equipment_asset_depreciations: "Equipment assets depreciations"
         equipment_assets_amortization: "Equipment assets amortization"
         equipment_cooperative_participation_assets: "Equipment cooperative participation assets"
         equipment_depreciations_inputations_expenses: "Equipment depreciations inputations expenses"
