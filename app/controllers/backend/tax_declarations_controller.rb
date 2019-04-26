@@ -66,8 +66,8 @@ module Backend
         format.html do
           no_financial_year_opened = FinancialYear.opened.empty?
           financial_years_without_tax_declaration = FinancialYear.with_tax_declaration.empty?
-          vat_declarations_fullfilled = FinancialYear.with_tax_declaration.select { |fy| fy.missing_tax_declaration? }.empty?
-          render "alert_no_VAT_declaration" if no_financial_year_opened || financial_years_without_tax_declaration || vat_declarations_fullfilled
+          all_vat_declarations_fulfilled = FinancialYear.with_tax_declaration.all? &:fulfilled_tax_declaration?
+          render "alert_no_VAT_declaration" if no_financial_year_opened || financial_years_without_tax_declaration || all_vat_declarations_fulfilled
         end
         format.pdf do
           VatExportJob.perform_later('vat_register', key, 'general', 'pdf', params, current_user)
