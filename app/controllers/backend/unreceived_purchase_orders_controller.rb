@@ -19,7 +19,7 @@
 module Backend
   class UnreceivedPurchaseOrdersController < Backend::BaseController
     manage_restfully planned_at: 'Time.zone.today+2'.c, redirect_to: '{action: :show, id: "id".c}'.c,
-                     except: :new, continue: [:nature_id], model: 'PurchaseOrder'
+                     except: :new, continue: [:nature_id], model_name: 'PurchaseOrder'
 
     def self.list_conditions
       code = ''
