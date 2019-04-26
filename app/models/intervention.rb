@@ -581,6 +581,15 @@ class Intervention < Ekylibre::Record::Base
     tools.map(&:product).compact.map(&:work_name).sort.to_sentence
   end
 
+  # Returns human inputs names and quantity
+  def human_input_quantity_names
+    names = []
+    inputs.each do |input|
+      names << "#{input.name} : #{input.human_quantity}"
+    end
+    names.sort.to_sentence
+  end
+
   # Returns human actions names
   def human_actions_names
     actions.map { |action| Nomen::ProcedureAction.find(action).human_name }
@@ -711,7 +720,7 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def total_cost_per_area(area_unit = :hectare)
-    zone_area = working_zone_area(area_unit).to_f.round(2)
+    zone_area = working_zone_area(area_unit).to_f
     (total_cost / zone_area) * area_cost_coefficient if zone_area > 0.0
   end
 
@@ -770,6 +779,19 @@ class Intervention < Ekylibre::Record::Base
   def working_area(unit = :hectare)
     ActiveSupport::Deprecation.warn 'Intervention#working_area is deprecated. Please use Intervention#working_zone_area instead.'
     working_zone_area(unit)
+  end
+  
+  def activity_imputation(activity)
+    if activity.size_indicator == :net_surface_area
+      unit = :hectare
+      precision = 2
+      if targets.any?
+        at = targets.of_activity(activity).with_working_zone.map(&:working_zone_area).sum.in(unit)
+        coeff = (at.to_d / working_zone_area.to_d) if working_zone_area.to_d != 0.0
+        return nil unless coeff
+        coeff.round(precision)
+      end
+    end
   end
 
   def status

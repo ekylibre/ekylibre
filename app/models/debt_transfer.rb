@@ -57,7 +57,7 @@ class DebtTransfer < Ekylibre::Record::Base
   validates :affair, :debt_transfer_affair, :nature, presence: true
   validates :number, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
-  validates :debt_transfer_affair_id, uniqueness: { scope: :affair_id }
+  validates :debt_transfer_affair_id, uniqueness: { scope: :affair_id }, presence: true
   validates :amount, presence: { message: :empty }, exclusion: { in: [0], message: :empty }
 
   validates :third, match: { with: :affair, middleman: :debt_transfer_affair }
