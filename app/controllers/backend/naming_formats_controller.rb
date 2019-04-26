@@ -20,7 +20,7 @@ module Backend
   class NamingFormatsController < Backend::BaseController
     before_action :set_naming_format, only: [:update]
 
-    manage_restfully subclass_inheritance: true
+    manage_restfully subclass_inheritance: true, except: :index
 
     def index
       @naming_formats_grid = initialize_grid(NamingFormat.all)

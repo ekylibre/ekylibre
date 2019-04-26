@@ -28,10 +28,6 @@ module Backend
       render json: { example: build_example_interactor.error } if build_example_interactor.fail?
     end
 
-    def index
-      super
-    end
-
     def update
       @naming_format.update(valid_permitted_params)
 
