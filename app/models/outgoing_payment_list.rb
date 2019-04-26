@@ -133,11 +133,10 @@ class OutgoingPaymentList < Ekylibre::Record::Base
   end
 
   def self.build_from_affairs(affairs, mode, responsible, initial_check_number = nil, ignore_empty_affair = false)
-    thirds = affairs.map(&:third).uniq
+    thirds = Entity.where(id: affairs.select(:third_id))
     position = 0
-
     purchase_payments = thirds.map do |third|
-      third_affairs = affairs.select { |a| a.third == third }.sort_by(&:created_at)
+      third_affairs = affairs.where(third: third).order(:created_at).to_a
       first_affair = third_affairs.shift
       third_affairs.map { |affair| first_affair.absorb!(affair) }
 

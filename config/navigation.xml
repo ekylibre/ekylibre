@@ -581,6 +581,10 @@
         <page to="backend/product_groups#unroll"/>
         <page to="backend/product_groups#update"/>
       </item>
+      <item name="services">
+        <page to="backend/services#index"/>
+        <page to="backend/services#list"/>
+      </item>
       <item name="trackings">
         <page to="backend/trackings#index"/>
         <page to="backend/trackings#create"/>

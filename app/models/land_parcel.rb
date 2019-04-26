@@ -106,6 +106,12 @@ class LandParcel < Easement
   def destroyable?
     super && !(activity_productions.any? || analyses.any?)
   end
+  
+  def human_initial_shape_area_unit
+    a = activity_productions.first.activity if activity_productions.first
+    return nil unless a
+    a.size_unit
+  end
 
   def administrative_area
     # TODO: Find best administrative area with its shape

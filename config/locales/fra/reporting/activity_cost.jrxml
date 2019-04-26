@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="activity_cost" language="groovy" pageWidth="595" pageHeight="842" columnWidth="539" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
-	<property name="ireport.zoom" value="0.9090909090909095"/>
+	<property name="ireport.zoom" value="1.7715610000000015"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="524"/>
-	<template><![CDATA["/home/djoulin/projects/ekylibre/config/corporate_identity/reporting_style.jrtx"]]></template>
+	<property name="ireport.y" value="1346"/>
+	<template><![CDATA["../../../corporate_identity/reporting_style.xml"]]></template>
 	<style name="Title" fontName="Open Sans" fontSize="30" isBold="true" pdfFontName="Open Sans"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Open Sans" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Open Sans" fontSize="12" isBold="true"/>
@@ -75,45 +75,43 @@
 	<field name="intervention_tool_cost" class="java.lang.Double">
 		<fieldDescription><![CDATA[tool-cost]]></fieldDescription>
 	</field>
-	<field name="intervention_support_area" class="java.lang.Double">
+	<field name="intervention_support_area" class="java.lang.String">
 		<fieldDescription><![CDATA[production-support-area-value-in-hectare]]></fieldDescription>
 	</field>
-	<field name="intervention_working_area" class="java.lang.Double">
+	<field name="intervention_working_area" class="java.lang.String">
 		<fieldDescription><![CDATA[working-area-value-in-hectare]]></fieldDescription>
+	</field>
+	<field name="intervention_ratio" class="java.lang.Double">
+		<fieldDescription><![CDATA[ratio]]></fieldDescription>
 	</field>
 	<sortField name="campaign" order="Descending"/>
 	<sortField name="activity_name"/>
-	<sortField name="intervention_support"/>
 	<sortField name="intervention_started_at"/>
-	<variable name="intervention_duration_1" class="java.lang.Double" resetType="Group" resetGroup="intervention_support" calculation="Sum">
-		<variableExpression><![CDATA[$F{intervention_duration}]]></variableExpression>
+	<variable name="intervention_id_1" class="java.lang.Integer" resetType="Group" resetGroup="activity_group" calculation="Count">
+		<variableExpression><![CDATA[$F{intervention_id}]]></variableExpression>
 	</variable>
-	<variable name="intervention_input_cost_1" class="java.lang.Double" resetType="Group" resetGroup="intervention_support" calculation="Sum">
-		<variableExpression><![CDATA[$F{intervention_input_cost}]]></variableExpression>
+	<variable name="intervention_input_cost_1" class="java.lang.Double" resetType="Group" resetGroup="activity_group" calculation="Sum">
+		<variableExpression><![CDATA[$F{intervention_input_cost} * $F{intervention_ratio}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
 	</variable>
-	<variable name="intervention_doer_cost_1" class="java.lang.Double" resetType="Group" resetGroup="intervention_support" calculation="Sum">
-		<variableExpression><![CDATA[$F{intervention_doer_cost}]]></variableExpression>
+	<variable name="intervention_duration_1" class="java.lang.Double" resetType="Group" resetGroup="activity_group" calculation="Sum">
+		<variableExpression><![CDATA[$F{intervention_duration} * $F{intervention_ratio}]]></variableExpression>
 	</variable>
-	<variable name="intervention_tool_cost_1" class="java.lang.Double" resetType="Group" resetGroup="intervention_support" calculation="Sum">
-		<variableExpression><![CDATA[$F{intervention_tool_cost}]]></variableExpression>
+	<variable name="intervention_doer_cost_1" class="java.lang.Double" resetType="Group" resetGroup="activity_group" calculation="Sum">
+		<variableExpression><![CDATA[$F{intervention_doer_cost} * $F{intervention_ratio}]]></variableExpression>
 	</variable>
-	<variable name="input_cost_per_working_area" class="java.lang.Double">
-		<variableExpression><![CDATA[($F{intervention_working_area}.doubleValue() > 0.00 ? $F{intervention_input_cost}/$F{intervention_working_area} : $F{intervention_input_cost})]]></variableExpression>
+	<variable name="intervention_tool_cost_1" class="java.lang.Double" resetType="Group" resetGroup="activity_group" calculation="Sum">
+		<variableExpression><![CDATA[$F{intervention_tool_cost} * $F{intervention_ratio}]]></variableExpression>
 	</variable>
-	<variable name="input_cost_support_per_area" class="java.lang.Double" resetType="Group" resetGroup="intervention_support" calculation="Sum">
-		<variableExpression><![CDATA[$V{input_cost_per_working_area}]]></variableExpression>
+	<variable name="intervention_input_cost_per_area" class="java.lang.Double" resetType="Group" resetGroup="activity_group" calculation="Sum">
+		<variableExpression><![CDATA[($F{intervention_input_cost} * $F{intervention_ratio}) / $F{activity_area_value}]]></variableExpression>
+		<initialValueExpression><![CDATA[0.00]]></initialValueExpression>
 	</variable>
-	<variable name="doer_cost_per_working_area" class="java.lang.Double">
-		<variableExpression><![CDATA[($F{intervention_working_area}.doubleValue() > 0.00 ? $F{intervention_doer_cost}/$F{intervention_working_area} : $F{intervention_doer_cost})]]></variableExpression>
+	<variable name="intervention_doer_cost_per_area" class="java.lang.Double" resetType="Group" resetGroup="activity_group" calculation="Sum">
+		<variableExpression><![CDATA[($F{activity_area_value}.intValue() > 0 ? ($F{intervention_doer_cost} * $F{intervention_ratio}) / $F{activity_area_value} : $F{intervention_doer_cost} * $F{intervention_ratio})]]></variableExpression>
 	</variable>
-	<variable name="doer_cost_support_per_area" class="java.lang.Double" resetType="Group" resetGroup="intervention_support" calculation="Sum">
-		<variableExpression><![CDATA[$V{doer_cost_per_working_area}]]></variableExpression>
-	</variable>
-	<variable name="tool_cost_per_working_area" class="java.lang.Double">
-		<variableExpression><![CDATA[($F{intervention_working_area}.doubleValue() > 0.00 ? $F{intervention_tool_cost}/$F{intervention_working_area} : $F{intervention_tool_cost})]]></variableExpression>
-	</variable>
-	<variable name="tool_cost_support_per_area" class="java.lang.Double" resetType="Group" resetGroup="intervention_support" calculation="Sum">
-		<variableExpression><![CDATA[$V{tool_cost_per_working_area}]]></variableExpression>
+	<variable name="intervention_tool_cost_per_area" class="java.lang.Double" resetType="Group" resetGroup="activity_group" calculation="Sum">
+		<variableExpression><![CDATA[($F{activity_area_value}.intValue() > 0 ? ($F{intervention_tool_cost} * $F{intervention_ratio}) / $F{activity_area_value} : $F{intervention_tool_cost} * $F{intervention_ratio} )]]></variableExpression>
 	</variable>
 	<group name="campaign" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{campaign}]]></groupExpression>
@@ -128,14 +126,57 @@
 				</textField>
 			</band>
 		</groupHeader>
+		<groupFooter>
+			<band height="320">
+				<componentElement>
+					<reportElement x="2" y="16" width="537" height="294" uuid="66cb4e65-f48d-4b54-a801-5a60ca74360a"/>
+					<sc:spiderChart xmlns:sc="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+						<sc:chartSettings>
+							<chartTitle/>
+							<chartSubtitle>
+								<subtitleExpression><![CDATA["Couts par activité - campagne " + $F{campaign}]]></subtitleExpression>
+							</chartSubtitle>
+							<chartLegend/>
+						</sc:chartSettings>
+						<sc:spiderDataset>
+							<dataset resetType="Group" resetGroup="campaign"/>
+							<categorySeries>
+								<seriesExpression><![CDATA["Intrants"]]></seriesExpression>
+								<categoryExpression><![CDATA[$F{activity_name}]]></categoryExpression>
+								<valueExpression><![CDATA[$V{intervention_input_cost_per_area}]]></valueExpression>
+							</categorySeries>
+							<categorySeries>
+								<seriesExpression><![CDATA["Main Oeuvre"]]></seriesExpression>
+								<categoryExpression><![CDATA[$F{activity_name}]]></categoryExpression>
+								<valueExpression><![CDATA[$V{intervention_doer_cost_per_area}]]></valueExpression>
+							</categorySeries>
+							<categorySeries>
+								<seriesExpression><![CDATA["Outils"]]></seriesExpression>
+								<categoryExpression><![CDATA[$F{activity_name}]]></categoryExpression>
+								<valueExpression><![CDATA[$V{intervention_tool_cost_per_area}]]></valueExpression>
+							</categorySeries>
+						</sc:spiderDataset>
+						<sc:spiderPlot isWebFilled="true"/>
+					</sc:spiderChart>
+				</componentElement>
+				<staticText>
+					<reportElement style="strong" mode="Opaque" x="2" y="9" width="539" height="2" backcolor="#7C9DDD" uuid="e97e275e-8823-47ce-96e0-a8f155d9bcc7"/>
+					<textElement verticalAlignment="Middle">
+						<font pdfFontName="Open Sans"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
 	</group>
-	<group name="activity_group" isStartNewPage="true">
+	<group name="activity_group" isStartNewPage="true" keepTogether="true">
 		<groupExpression><![CDATA[$F{activity_id}]]></groupExpression>
 		<groupHeader>
 			<band height="122">
 				<textField isBlankWhenNull="true">
 					<reportElement style="sub-title" x="0" y="0" width="539" height="24" uuid="767321ef-0cb0-45b7-9d28-e511bc11c4d2"/>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="12"/>
 						<paragraph leftIndent="5"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{activity_name} + " " + $F{campaign}]]></textFieldExpression>
@@ -147,62 +188,52 @@
 					</textElement>
 					<text><![CDATA[]]></text>
 				</staticText>
-				<textField evaluationTime="Group" evaluationGroup="activity_group" isBlankWhenNull="true">
-					<reportElement style="base" x="423" y="0" width="116" height="22" uuid="7ffc3808-a292-4169-9bac-7bf545fc238e"/>
-					<textElement verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{activity_family}]]></textFieldExpression>
-				</textField>
 				<textField pattern="###0.00 ha" isBlankWhenNull="true">
-					<reportElement style="base" x="293" y="0" width="116" height="22" uuid="b3834841-2c13-4098-90f2-dd5003f7e126"/>
-					<textElement verticalAlignment="Middle"/>
+					<reportElement style="base" x="434" y="0" width="105" height="22" uuid="b3834841-2c13-4098-90f2-dd5003f7e126"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{activity_area}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement style="table-th" x="0" y="69" width="57" height="53" uuid="a7abb3d2-f689-49cd-8a09-f7a392353233"/>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Open Sans" size="10"/>
+						<font fontName="Open Sans" size="8"/>
 					</textElement>
 					<text><![CDATA[Début]]></text>
 				</staticText>
 				<staticText>
 					<reportElement style="table-th" x="57" y="69" width="57" height="53" uuid="1b538556-a066-4e5d-838b-076f41bae267"/>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Open Sans" size="10"/>
+						<font fontName="Open Sans" size="8"/>
 					</textElement>
 					<text><![CDATA[Fin]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="table-th" x="199" y="69" width="178" height="53" uuid="1802a171-77a4-49b9-9a5a-2f6ad77f2599"/>
-					<textElement verticalAlignment="Middle">
-						<font fontName="Open Sans" size="10"/>
-					</textElement>
-					<text><![CDATA[Casting]]></text>
-				</staticText>
-				<staticText>
 					<reportElement style="table-th" x="377" y="87" width="57" height="35" uuid="1ee9da2e-3a36-40b7-b70a-3de8338f1b05"/>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Open Sans" size="10"/>
+						<font fontName="Open Sans" size="8"/>
 					</textElement>
 					<text><![CDATA[Intrants]]></text>
 				</staticText>
 				<staticText>
 					<reportElement style="table-th" x="434" y="87" width="49" height="35" uuid="8e187241-b157-4b6e-b58d-181ba9de1534"/>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Open Sans" size="10"/>
+						<font fontName="Open Sans" size="8"/>
 					</textElement>
 					<text><![CDATA[M.O.]]></text>
 				</staticText>
 				<staticText>
 					<reportElement style="table-th" x="483" y="87" width="56" height="35" uuid="db9ac3a4-49a9-4973-8943-d522f70ca10b"/>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Open Sans" size="10"/>
+						<font fontName="Open Sans" size="8"/>
 					</textElement>
 					<text><![CDATA[Outils]]></text>
 				</staticText>
 				<staticText>
 					<reportElement style="table-th" x="114" y="69" width="85" height="53" uuid="b26948e4-82ea-46af-b24b-ba1b00065735"/>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Open Sans" size="10"/>
+						<font fontName="Open Sans" size="8"/>
 					</textElement>
 					<text><![CDATA[Nom de l’intervention]]></text>
 				</staticText>
@@ -213,124 +244,114 @@
 				<staticText>
 					<reportElement style="table-th" x="377" y="69" width="162" height="18" uuid="0cb7b757-4d7c-4d9b-9014-301f24a9a992"/>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Open Sans" size="10"/>
+						<font fontName="Open Sans" size="8"/>
 					</textElement>
-					<text><![CDATA[Coûts (€)]]></text>
+					<text><![CDATA[Coûts imputés à l'activité (€)]]></text>
 				</staticText>
-			</band>
-		</groupHeader>
-		<groupFooter>
-			<band height="391">
-				<barChart>
-					<chart evaluationTime="Group" evaluationGroup="activity_group">
-						<reportElement x="0" y="0" width="539" height="391" uuid="ab77f9c1-5b4c-44c9-a0e2-1ebdae92b34e"/>
-						<chartTitle>
-							<titleExpression><![CDATA[" Coûts de production par support et par hectare : " + $F{activity_name} + " "+$F{campaign}]]></titleExpression>
-						</chartTitle>
-						<chartSubtitle/>
-						<chartLegend/>
-					</chart>
-					<categoryDataset>
-						<dataset resetType="Group" resetGroup="activity_group">
-							<incrementWhenExpression><![CDATA[!$F{intervention_support}.isEmpty()]]></incrementWhenExpression>
-						</dataset>
-						<categorySeries>
-							<seriesExpression><![CDATA["Intrants"]]></seriesExpression>
-							<categoryExpression><![CDATA[$F{intervention_support}]]></categoryExpression>
-							<valueExpression><![CDATA[$V{input_cost_support_per_area}]]></valueExpression>
-							<labelExpression><![CDATA[$V{input_cost_support_per_area}.toString()]]></labelExpression>
-						</categorySeries>
-						<categorySeries>
-							<seriesExpression><![CDATA["Main d’œuvre"]]></seriesExpression>
-							<categoryExpression><![CDATA[$F{intervention_support}]]></categoryExpression>
-							<valueExpression><![CDATA[$V{doer_cost_support_per_area}]]></valueExpression>
-							<labelExpression><![CDATA[$V{doer_cost_support_per_area}.toString()]]></labelExpression>
-						</categorySeries>
-						<categorySeries>
-							<seriesExpression><![CDATA["Outils"]]></seriesExpression>
-							<categoryExpression><![CDATA[$F{intervention_support}]]></categoryExpression>
-							<valueExpression><![CDATA[$V{tool_cost_support_per_area}]]></valueExpression>
-							<labelExpression><![CDATA[$V{tool_cost_support_per_area}.toString()]]></labelExpression>
-						</categorySeries>
-					</categoryDataset>
-					<barPlot>
-						<plot labelRotation="45.0"/>
-						<itemLabel/>
-						<categoryAxisFormat labelRotation="45.0">
-							<axisFormat>
-								<labelFont>
-									<font fontName="Open Sans" size="8"/>
-								</labelFont>
-							</axisFormat>
-						</categoryAxisFormat>
-						<valueAxisFormat>
-							<axisFormat/>
-						</valueAxisFormat>
-					</barPlot>
-				</barChart>
-			</band>
-		</groupFooter>
-	</group>
-	<group name="intervention_support" keepTogether="true">
-		<groupExpression><![CDATA[$F{intervention_support}]]></groupExpression>
-		<groupHeader>
-			<band height="20">
-				<textField isBlankWhenNull="true">
-					<reportElement style="label-strong" x="0" y="0" width="539" height="20" uuid="5a49c522-8e80-410e-8a36-f4b1e23864b8"/>
-					<box>
-						<pen lineWidth="1.5"/>
-						<topPen lineWidth="1.5"/>
-						<leftPen lineWidth="1.5"/>
-						<bottomPen lineWidth="0.0"/>
-						<rightPen lineWidth="1.5"/>
-					</box>
-					<textElement textAlignment="Center">
-						<paragraph leftIndent="40"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{intervention_support} + " (" + $F{intervention_support_area}+" Ha)"]]></textFieldExpression>
-				</textField>
-			</band>
-		</groupHeader>
-		<groupFooter>
-			<band height="89">
-				<textField pattern="###0.00" isBlankWhenNull="true">
-					<reportElement x="57" y="6" width="57" height="20" uuid="034b2988-074e-4105-abdd-8c82d8b99d03"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<paragraph rightIndent="5"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{intervention_duration_1}]]></textFieldExpression>
-				</textField>
 				<staticText>
-					<reportElement style="base" x="114" y="6" width="117" height="20" uuid="79978752-6d26-4b6b-9374-6b3053cabb46"/>
-					<text><![CDATA[heures d’interventions]]></text>
+					<reportElement style="table-th" x="307" y="69" width="32" height="53" uuid="9403cdd7-e92e-41ca-a209-5fb7d8a31138"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Open Sans" size="8"/>
+					</textElement>
+					<text><![CDATA[Durée (h)]]></text>
 				</staticText>
-				<textField pattern="###0.00" isBlankWhenNull="true">
-					<reportElement x="379" y="7" width="55" height="20" uuid="335d82da-ac56-46b6-89e6-24e788e9b90e"/>
+				<staticText>
+					<reportElement style="table-th" x="339" y="69" width="38" height="53" uuid="3e5c2509-8174-4233-99a2-16439a130332"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Open Sans" size="8"/>
+					</textElement>
+					<text><![CDATA[ratio activité]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="table-th" x="199" y="69" width="108" height="53" uuid="9e48ec84-0425-43f8-ae58-aea8c3ed6677"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Open Sans" size="8"/>
+					</textElement>
+					<text><![CDATA[Supports]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="78">
+				<staticText>
+					<reportElement style="base" x="228" y="24" width="74" height="20" uuid="79978752-6d26-4b6b-9374-6b3053cabb46"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[interventions]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="base" x="307" y="44" width="61" height="19" uuid="c50552b6-2961-4c4f-9cf2-379813fc1b1c"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[Total (€/Ha)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="base" x="307" y="25" width="61" height="19" uuid="2e60e69b-40f4-45ac-9f8a-16d8115cecf5"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[Total (€)]]></text>
+				</staticText>
+				<textField evaluationTime="Group" evaluationGroup="activity_group" pattern="###0.00" isBlankWhenNull="true">
+					<reportElement x="199" y="24" width="29" height="20" uuid="72146efc-b976-4fd7-a1f8-639409b669ad"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$V{intervention_id_1}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="activity_group" pattern="###0.00" isBlankWhenNull="true">
+					<reportElement x="377" y="24" width="57" height="19" uuid="d985146e-1d3b-453a-bb9b-132346c35aa9"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$V{intervention_input_cost_1}]]></textFieldExpression>
 				</textField>
-				<textField pattern="###0.00" isBlankWhenNull="true">
-					<reportElement x="434" y="7" width="49" height="20" uuid="d73eefdb-ff0c-4963-8136-e3be88c7ecb7"/>
+				<textField isBlankWhenNull="true">
+					<reportElement style="sub-title" x="0" y="24" width="187" height="40" uuid="a3ebc26e-8538-4a40-9373-49870c4ad28e"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<paragraph leftIndent="5"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{activity_name} + " " + $F{campaign}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="activity_group" pattern="###0.00" isBlankWhenNull="true">
+					<reportElement x="199" y="44" width="29" height="20" uuid="22edcfdd-1622-49cd-a81d-76cc90562941"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$V{intervention_duration_1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement style="base" x="228" y="44" width="36" height="20" uuid="9c595b21-4bc2-46c3-b335-fd59e2983c01"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[heures]]></text>
+				</staticText>
+				<textField evaluationTime="Group" evaluationGroup="activity_group" pattern="###0.00" isBlankWhenNull="true">
+					<reportElement x="434" y="24" width="49" height="19" uuid="026d463c-3001-4384-90fd-2eb48b40f3aa"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$V{intervention_doer_cost_1}]]></textFieldExpression>
 				</textField>
-				<textField pattern="###0.00" isBlankWhenNull="true">
-					<reportElement x="483" y="7" width="56" height="20" uuid="7436b3c5-896d-4215-91ab-2e6fef4eb12d"/>
+				<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="activity_group" pattern="###0.00" isBlankWhenNull="true">
+					<reportElement x="483" y="24" width="56" height="19" uuid="ca7bcc40-5329-47f0-8ca7-691b0cf822da"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$V{intervention_tool_cost_1}]]></textFieldExpression>
 				</textField>
-				<textField pattern="###0.00" isBlankWhenNull="true">
-					<reportElement x="377" y="36" width="57" height="20" uuid="2de1b347-49e0-41d9-9d56-db1eee422df2"/>
+				<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="activity_group" pattern="###0.00" isBlankWhenNull="true">
+					<reportElement x="377" y="44" width="57" height="20" uuid="2278b663-70a3-4e89-9d30-88fbd935d994">
+						<printWhenExpression><![CDATA[!$F{activity_area_value}.isNaN()]]></printWhenExpression>
+					</reportElement>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$V{input_cost_support_per_area}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{intervention_input_cost_per_area}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="activity_group" pattern="###0.00" isBlankWhenNull="true">
+					<reportElement x="434" y="44" width="49" height="20" uuid="1a58889d-1f41-414a-b0ae-6621b6df804b">
+						<printWhenExpression><![CDATA[!$F{activity_area_value}.isNaN()]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$V{intervention_doer_cost_per_area}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="activity_group" pattern="###0.00" isBlankWhenNull="true">
+					<reportElement x="483" y="44" width="56" height="20" uuid="0c440d17-a384-4ced-b238-367d3b1f5119">
+						<printWhenExpression><![CDATA[!$F{activity_area_value}.isNaN()]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$V{intervention_tool_cost_per_area}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement style="base" x="316" y="7" width="61" height="19" uuid="2e60e69b-40f4-45ac-9f8a-16d8115cecf5"/>
-					<text><![CDATA[Total (€)]]></text>
-				</staticText>
-				<staticText>
-					<reportElement style="base" x="316" y="36" width="61" height="19" uuid="c50552b6-2961-4c4f-9cf2-379813fc1b1c"/>
-					<text><![CDATA[Total (€/Ha)]]></text>
+					<reportElement style="table-th" x="378" y="6" width="162" height="18" uuid="665eab8d-772d-4afd-81f8-79e913c71f62"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Open Sans" size="10"/>
+					</textElement>
+					<text><![CDATA[Intrants / M.O. / Outils]]></text>
 				</staticText>
 			</band>
 		</groupFooter>
@@ -352,7 +373,7 @@
 				<textElement>
 					<font fontName="Open Sans" size="16" pdfFontName="Open Sans"/>
 				</textElement>
-				<text><![CDATA[Coûts de production (activités / supports / interventions)]]></text>
+				<text><![CDATA[Coûts de production par campagne et activités]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="0" y="161" width="539" height="40" uuid="d09492f4-a25a-4c31-b4ec-8b846e4b6968"/>
@@ -373,36 +394,89 @@
 	</pageHeader>
 	<detail>
 		<band height="33" splitType="Stretch">
-			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy HH.mm" isBlankWhenNull="true">
 				<reportElement style="table-td" x="0" y="0" width="57" height="33" isPrintInFirstWholeBand="true" uuid="1e6653e4-ff27-4ed8-8e62-e3358c682bd2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{intervention_started_at}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy HH.mm" isBlankWhenNull="true">
 				<reportElement style="table-td" x="57" y="0" width="57" height="33" isPrintInFirstWholeBand="true" uuid="0045af3e-d7fe-4832-9420-5843e022bc4c"/>
-				<textFieldExpression><![CDATA[$F{intervention_stopped_at}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement style="table-td" x="199" y="0" width="178" height="33" uuid="8e9f3ff8-d719-4cf4-9a64-ad0fbf5af86c"/>
-				<textElement>
-					<font size="8"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{intervention_casting}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{intervention_stopped_at}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="###0.00" isBlankWhenNull="true">
 				<reportElement style="table-td" x="377" y="0" width="57" height="33" isPrintInFirstWholeBand="true" uuid="bf628837-cd2a-477d-a345-d9dc292f4d87"/>
-				<textFieldExpression><![CDATA[$F{intervention_input_cost}]]></textFieldExpression>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{intervention_input_cost} * $F{intervention_ratio}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="###0.00" isBlankWhenNull="true">
 				<reportElement style="table-td" x="434" y="0" width="49" height="33" isPrintInFirstWholeBand="true" uuid="5c089255-6d22-4181-a6ce-17010b3a9e0d"/>
-				<textFieldExpression><![CDATA[$F{intervention_doer_cost}]]></textFieldExpression>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{intervention_doer_cost} * $F{intervention_ratio}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement style="table-td" x="114" y="0" width="85" height="33" isPrintInFirstWholeBand="true" uuid="db743646-04d7-4989-8ca2-e448925f0c48"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{intervention_name}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="###0.00" isBlankWhenNull="true">
 				<reportElement style="table-td" x="483" y="0" width="56" height="33" isPrintInFirstWholeBand="true" uuid="77719530-7bda-4d7d-bde1-233d8c0a0fd4"/>
-				<textFieldExpression><![CDATA[$F{intervention_tool_cost}]]></textFieldExpression>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{intervention_tool_cost} * $F{intervention_ratio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="true">
+				<reportElement x="307" y="0" width="32" height="33" uuid="cf68031b-db46-4369-b4c7-6c46ebfe6836"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{intervention_duration}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="true">
+				<reportElement x="339" y="0" width="38" height="33" uuid="3fce0cc3-9252-4958-bdfe-81741b410883"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{intervention_ratio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="199" y="0" width="108" height="33" uuid="439c3b71-d8af-4098-b6c7-1e0b39294a8b"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{intervention_support}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -476,151 +550,6 @@
 		</band>
 	</lastPageFooter>
 	<summary>
-		<band height="205">
-			<crosstab>
-				<reportElement x="0" y="64" width="539" height="141" uuid="0890bc87-cce0-4029-aaf8-715e5d4b417f"/>
-				<rowGroup name="activity_name" width="70" totalPosition="End">
-					<bucket class="java.lang.String">
-						<bucketExpression><![CDATA[$F{activity_name}]]></bucketExpression>
-					</bucket>
-					<crosstabRowHeader>
-						<cellContents backcolor="#F0F8FF" mode="Opaque">
-							<box>
-								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
-							</box>
-							<textField>
-								<reportElement style="Crosstab Data Text" x="0" y="0" width="70" height="25" uuid="12537151-46c4-419b-a96f-668a9cbe0f6a"/>
-								<textElement verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$V{activity_name}]]></textFieldExpression>
-							</textField>
-						</cellContents>
-					</crosstabRowHeader>
-					<crosstabTotalRowHeader>
-						<cellContents backcolor="#005FB3" mode="Opaque">
-							<box>
-								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
-							</box>
-						</cellContents>
-					</crosstabTotalRowHeader>
-				</rowGroup>
-				<rowGroup name="intervention_support" width="104" totalPosition="End">
-					<bucket class="java.lang.String">
-						<bucketExpression><![CDATA[$F{intervention_support}]]></bucketExpression>
-					</bucket>
-					<crosstabRowHeader>
-						<cellContents backcolor="#F0F8FF" mode="Opaque">
-							<box>
-								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
-							</box>
-							<textField>
-								<reportElement style="Crosstab Data Text" x="0" y="0" width="104" height="25" uuid="84b3b3bc-4b39-4a59-b5bc-7520ac20c268"/>
-								<textElement verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$V{intervention_support}]]></textFieldExpression>
-							</textField>
-						</cellContents>
-					</crosstabRowHeader>
-					<crosstabTotalRowHeader>
-						<cellContents backcolor="#BFE1FF" mode="Opaque">
-							<box>
-								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
-							</box>
-						</cellContents>
-					</crosstabTotalRowHeader>
-				</rowGroup>
-				<columnGroup name="campaign" height="30" totalPosition="End">
-					<bucket class="java.lang.String">
-						<bucketExpression><![CDATA[$F{campaign}]]></bucketExpression>
-					</bucket>
-					<crosstabColumnHeader>
-						<cellContents backcolor="#F0F8FF" mode="Opaque">
-							<box>
-								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
-							</box>
-							<textField>
-								<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="30" uuid="934e7aae-5e6f-4773-8cb3-ecb55deafb13"/>
-								<textElement verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$V{campaign}]]></textFieldExpression>
-							</textField>
-						</cellContents>
-					</crosstabColumnHeader>
-					<crosstabTotalColumnHeader>
-						<cellContents backcolor="#BFE1FF" mode="Opaque">
-							<box>
-								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
-							</box>
-						</cellContents>
-					</crosstabTotalColumnHeader>
-				</columnGroup>
-				<measure name="input_cost_per_working_areaMeasure" class="java.lang.Double" calculation="Sum">
-					<measureExpression><![CDATA[$V{input_cost_per_working_area}]]></measureExpression>
-				</measure>
-				<measure name="average_input" class="java.lang.Double" calculation="Average" percentageOf="GrandTotal">
-					<measureExpression><![CDATA[$V{input_cost_per_working_area}]]></measureExpression>
-				</measure>
-				<crosstabCell width="50" height="25">
-					<cellContents>
-						<box>
-							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
-						</box>
-						<textField pattern="###0.00" isBlankWhenNull="true">
-							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="ae191977-aa04-4bc4-8fb1-11ed8b51d69e">
-								<printWhenExpression><![CDATA[$V{input_cost_per_working_areaMeasure}.doubleValue() > 0.00]]></printWhenExpression>
-							</reportElement>
-							<textElement verticalAlignment="Middle"/>
-							<textFieldExpression><![CDATA[$V{input_cost_per_working_areaMeasure}]]></textFieldExpression>
-						</textField>
-					</cellContents>
-				</crosstabCell>
-				<crosstabCell height="0" rowTotalGroup="activity_name">
-					<cellContents backcolor="#005FB3" mode="Opaque">
-						<box>
-							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
-						</box>
-					</cellContents>
-				</crosstabCell>
-				<crosstabCell width="0" columnTotalGroup="campaign">
-					<cellContents backcolor="#BFE1FF" mode="Opaque">
-						<box>
-							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
-						</box>
-					</cellContents>
-				</crosstabCell>
-				<crosstabCell width="0" height="0" rowTotalGroup="activity_name" columnTotalGroup="campaign">
-					<cellContents backcolor="#005FB3" mode="Opaque">
-						<box>
-							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
-						</box>
-					</cellContents>
-				</crosstabCell>
-				<crosstabCell height="0" rowTotalGroup="intervention_support">
-					<cellContents backcolor="#BFE1FF" mode="Opaque">
-						<box>
-							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
-						</box>
-					</cellContents>
-				</crosstabCell>
-				<crosstabCell width="0" height="0" rowTotalGroup="intervention_support" columnTotalGroup="campaign">
-					<cellContents backcolor="#BFE1FF" mode="Opaque">
-						<box>
-							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
-						</box>
-					</cellContents>
-				</crosstabCell>
-			</crosstab>
-			<staticText>
-				<reportElement style="sub-title" x="10" y="10" width="424" height="24" forecolor="#688ED8" uuid="b473dc42-15c3-4b61-b72e-70a9eb4d6714"/>
-				<textElement>
-					<font fontName="Open Sans" pdfFontName="Open Sans"/>
-				</textElement>
-				<text><![CDATA[Coût des intrants (€/Ha travaillé) par support  / activité / campagne]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="strong" mode="Opaque" x="10" y="34" width="530" height="2" backcolor="#7C9DDD" uuid="916e4deb-7242-413f-b915-c239769c90ae"/>
-				<textElement verticalAlignment="Middle">
-					<font pdfFontName="Open Sans"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-		</band>
+		<band height="28"/>
 	</summary>
 </jasperReport>

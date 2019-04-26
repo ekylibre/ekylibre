@@ -117,4 +117,24 @@ class ProductNatureVariantTest < ActiveSupport::TestCase
     shipment.update(state: 'prepared')
     assert_equal 1, variant.current_outgoing_stock_ordered_not_delivered
   end
+
+  test "services' stocks are computed correctly" do
+    service = create(:service_variant)
+    purchase = create(:purchase_order)
+    create(:purchase_item, purchase: purchase, variant: service, quantity: 50)
+
+    assert_equal service.quantity_purchased, 50
+    assert_equal service.current_stock, 50
+
+    reception = create(:reception)
+    create(:reception_item, reception: reception, variant: service, population: 30)
+
+    assert_equal service.quantity_received, 0
+    assert_equal service.current_stock, 50
+
+    reception.update(state: 'given')
+
+    assert_equal service.quantity_received, 30
+    assert_equal service.current_stock, 20
+  end
 end

@@ -217,9 +217,9 @@ class JournalEntryTest < ActiveSupport::TestCase
     assert_equal ['is it me you\'re looking for?', 'EUR', 1.0], item_attributes
   end
 
-  test 'cannot be created when in financial year exchange date range' do
+  test 'cannot be created when in opened financial year exchange date range' do
     financial_year = financial_years(:financial_years_025)
-    exchange = create(:financial_year_exchange, financial_year: financial_year)
+    exchange = create(:financial_year_exchange, :opened, financial_year: financial_year)
     journal = create(:journal)
     entry = JournalEntry.new(journal: journal, printed_on: exchange.stopped_on + 1.day, items: fake_items)
     assert entry.valid?
@@ -227,13 +227,33 @@ class JournalEntryTest < ActiveSupport::TestCase
     refute entry.valid?
   end
 
-  test 'cannot be updated to a date in financial year exchange date range' do
+  test 'can be created when in closed financial year exchange date range' do
     financial_year = financial_years(:financial_years_025)
     exchange = create(:financial_year_exchange, financial_year: financial_year)
+    journal = create(:journal)
+    entry = JournalEntry.new(journal: journal, printed_on: exchange.stopped_on + 1.day, items: fake_items)
+    assert entry.valid?
+    entry.printed_on = exchange.started_on + 1.day
+    assert entry.valid?
+  end
+
+  test 'cannot be updated to a date in opened financial year exchange date range' do
+    financial_year = financial_years(:financial_years_025)
+    exchange = create(:financial_year_exchange, :opened, financial_year: financial_year)
     entry = create(:journal_entry, printed_on: exchange.stopped_on + 1.day, items: fake_items)
     assert entry.valid?
     entry.printed_on = exchange.started_on + 1.day
     refute entry.valid?
+  end
+
+  test 'can be updated to a date in closed financial year exchange date range' do
+    financial_year = financial_years(:financial_years_025)
+    exchange = create(:financial_year_exchange, financial_year: financial_year)
+    exchange.close!
+    entry = create(:journal_entry, printed_on: exchange.stopped_on + 1.day, items: fake_items)
+    assert entry.valid?
+    entry.printed_on = exchange.started_on + 1.day
+    assert entry.valid?
   end
 
   def fake_items(options = {})

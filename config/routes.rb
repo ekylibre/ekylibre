@@ -743,6 +743,8 @@ Rails.application.routes.draw do
       concerns :products, :list
     end
 
+    resources :services, only: :index, concerns: :list
+
     resources :naming_formats
 
     resources :naming_format_land_parcels do
@@ -1154,6 +1156,7 @@ Rails.application.routes.draw do
     post 'invitations', to: 'invitations#create'
 
     resources :registrations, only: %i[index edit update destroy], concerns: [:list]
+    resources :gaps, only: %i[index show destroy]
   end
 
   namespace :public do

@@ -619,7 +619,8 @@ module Backend
                                 is_reception: item.class == ReceptionItem,
                                 purchase_order_item: item.try(:purchase_order_item_id) || item.id,
                                 pretax_amount: item.pretax_amount,
-                                role: item.role }
+                                role: item.role,
+                                current_stock: item.variant&.current_stock }
       end
       order_hash
     end
