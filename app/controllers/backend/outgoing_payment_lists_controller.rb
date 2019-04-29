@@ -124,7 +124,7 @@ module Backend
           notify_warning :no_purchase_affair_found_on_given_period if @affairs.empty?
         end
       end
-      @submit_label = @affairs.any? ? :create.tl : :search.tl
+      @submit_label = :search.tl if @affairs.none?
     end
 
     def create

@@ -39,13 +39,13 @@
 
 
   $(document).ready ->
-    $('.trigger-container i.trigger').on 'click', ->
+    $("[data-trigger-container] i[data-trigger]").on 'click', ->
       $(this).toggleClass('plus')
-      $(this).closest('.trigger-container').find('.triggerable').slideToggle()
+      $(this).closest("[data-trigger-container]").find("[data-triggerable]").slideToggle()
 
-    $(".checkable .list-header input[type='checkbox'][name='check_all']").on 'click', ->
+    $("[data-checkable] input[type='checkbox'][name='check_all']").on 'click', ->
       value = $(this).prop('checked')
-      $(this).closest('.checkable').find("input[type='checkbox'][name='check']").each ->
+      $(this).closest('[data-checkable]').find("input[type='checkbox'][name='check']").each ->
         $(this).click() if $(this).prop('checked') != value
 
     $("select[data-trigger-visibility]").on 'change', ->
@@ -54,12 +54,10 @@
       return $("#{affectedElement}").hide() unless id
       url = window.location.origin + $(this).data('trigger-visibility-url').replace(/:id/, id)
 
-      $.ajax url,
-        type: 'GET'
-        dataType: 'json'
+      toggleUnlessSepa = (data) ->
+        $("#{affectedElement}").toggle(!data['sepa'])
 
-        success: (data, textStatus, jqXHR) ->
-          $("#{affectedElement}").toggle(!data['sepa'])
+      $.getJSON url, toggleUnlessSepa
 
     $("input[type='checkbox'][data-check-on-load='true']").click()
     $("select[data-trigger-visibility]").trigger('change')
