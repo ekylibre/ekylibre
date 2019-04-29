@@ -31,7 +31,7 @@ class FixedAssetDepreciationBookkeeper < Ekylibre::Bookkeeper
     end
 
     def bookkeep_sold_scrapped
-      journal_entry(fixed_asset.journal, printed_on: stopped_on.end_of_month, if: accountable && !locked) do |entry|
+      journal_entry(fixed_asset.journal, printed_on: stopped_on, if: accountable && !locked) do |entry|
         name = tc(:bookkeep_partial, resource: FixedAsset.model_name.human, number: fixed_asset.number, name: fixed_asset.name, position: position, total: fixed_asset.depreciations.count)
         entry.add_debit(name, fixed_asset.expenses_account, amount)
         entry.add_credit(name, fixed_asset.allocation_account, amount)
