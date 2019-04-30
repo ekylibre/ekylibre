@@ -44,11 +44,11 @@
           = render 'non_merchandise_fields', f: f, variant: variant, non_compliant_message: non_compliant_message
 
       .item-form__information
-        .item-form__project-budget
+        .item-form__activity
           = f.referenced_association :project_budget
         .item-form__project-budget
           = f.referenced_association :project_budget
-        .item-form__equipment
+        .item-form__product_work_number
           = f.referenced_association :equipment, source: :tools, label: :equipment.tl, input_html: {data: { remember: 'equipment'}}
         .item-form__equipment
           = f.referenced_association :equipment, source: :tools, label: :equipment.tl, input_html: {data: { remember: 'equipment'}}

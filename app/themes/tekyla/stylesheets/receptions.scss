@@ -9,6 +9,8 @@
   font-weight: bold;
   font-size: $fs-small;
   color: white;
+  vertical-align: middle;
+  line-height: 39px;
 }
 
 .global-incident-warning {
@@ -49,11 +51,15 @@
     display: flex;
     .control-label {
       max-width: 100% !important;
-      margin: 0 !important;
+      margin: 1 !important;
     }
     .controls  {
       margin-left: 0 !important;
       max-width: 20% !important;
+    }
+    .control-group {
+      display: flex;
+      align-items: center;
     }
   }
 
@@ -78,7 +84,7 @@
 
   .role-row--merchandise {
     display: flex;
-
+    min-height: 110px;
     .control-group {
       display: flex;
       flex-direction: row;
@@ -123,15 +129,22 @@
     .control-group {
     display: flex;
     flex-direction: column;
-    .selector {
-      width: 70%;
-    }
+      .selector {
+        width: 70%;
+      }
     }
   }
+
+  .unitary-variant-fields {
+    display: flex;
+
+  }
+
   .item-block__delivery-mode {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    max-height: 63px;
     .control-group {
     display: flex;
     flex-direction: column;
@@ -165,6 +178,12 @@
     .current-stock {
       align-self: flex-end;
     }
+  }
+
+  .nested-remove{
+    right: 0 !important;
+    top: 0 !important;
+    position: unset !important;
   }
 
   .storing__footer {

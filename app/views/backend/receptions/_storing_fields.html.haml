@@ -2,11 +2,12 @@
 - variant = Maybe(storing.parcel_item.variant)
 - storage_name = storing.storage.name if storing.storage
 
-.storing__fields
+.nested-fields.storing__fields
   %input.hidden{data: { 'when-item': 'name', 'when-set-value': 'RECORD_VALUE', 'when-scope': 'storage'}, value: storage_name}
   .nested-remove.act
     - if f.object.destroyable?
       = link_to_remove_association(content_tag(:i) + h(:destroy.tl), f, 'data-no-turbolink' => true, class: 'destroy remove remove-item')
+
   = f.input :conditionning, wrapper: :conditionning_append do
     = f.input_field :conditionning , class: "conditionning", data: { trade_component: 'conditionning' }
     %span.add-on.storage-unit-name{data: { 'when-item': 'unit_name', 'when-set-value': 'RECORD_VALUE', 'when-scope': 'unit'}}

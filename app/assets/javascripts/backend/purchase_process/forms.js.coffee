@@ -16,7 +16,7 @@
 
   $(document).on "keyup change", "*[data-trade-component]", (event) ->
     component = $(this)
-    item = component.closest(".storing-fields")
+    item = component.closest('.storing__fields')
     component_name = component.data('trade-component')
     if component_name == 'conditionning' || component_name == 'conditionning_quantity' && item.length > 0
       conditionning = item.find('.conditionning')

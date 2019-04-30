@@ -5,11 +5,11 @@
 
       - display = ""
       - display = "display: none;" unless variant.identifiable?.or_else(false)
-      .unitary-variant-fields{style: display, data: {"when-item": "identifiable", "when-display-value": 'true', "when-scope": 'unit'}}
-        = f.input :name, wrapper: :nested_append do
-          = f.input_field :product_name, placeholder: ParcelItem.human_attribute_name(:product_name)
-        = f.input :work_number, wrapper: :nested_append do
-          = f.input_field :product_work_number, placeholder: ParcelItem.human_attribute_name(:product_work_number)
+    .unitary-variant-fields{style: display, data: {"when-item": "identifiable", "when-display-value": 'true', "when-scope": 'unit'}}
+      = f.input :name, wrapper: :nested_append do
+        = f.input_field :product_name, placeholder: ParcelItem.human_attribute_name(:product_name)
+      = f.input :work_number, wrapper: :nested_append do
+        = f.input_field :product_work_number, placeholder: ParcelItem.human_attribute_name(:product_work_number)
 
   .item-block__delivery-mode{style: "display: flex"}
     = f.label :delivery_mode.tl
@@ -28,7 +28,7 @@
       = f.simple_fields_for :storings, f.object.storings do |storing|
         = render 'storing_fields', f: storing
     .div.storing__footer
-      = link_to_add_association :add_storing.tl, f, :storings, partial: 'storing_fields', class: "link-add-storing", data: { :'association-insertion-traversal' => :closest, :'association-insertion-node' => '.storings-footer', :'association-insertion-method' => :before }
+      = link_to_add_association :add_storing.tl, f, :storings, partial: 'storing_fields', class: "link-add-storing", data: { :'association-insertion-traversal' => :closest, :'association-insertion-node' => '.storing__footer', :'association-insertion-method' => :before }
       %label.total-labels
         %span.total= :total.tl
         %span.total-quantity{ data: { calculate: "sum", use: ".storing-fields:not(.removed-nested-fields) .storing-quantity", use_closest: ".nested-item-form", calculate_round: 2 } }= 0.0
