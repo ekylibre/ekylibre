@@ -231,6 +231,25 @@ module ActionController
         end
       end
 
+      def setup_locale
+        setup do
+          Ekylibre::Tenant.switch!('test')
+          @locale = ENV['LOCALE'] || I18n.default_locale
+        end
+      end
+
+      def setup_sign_in
+        setup do
+          @request.env['HTTP_REFERER'] = 'http://test.ekylibre.farm/backend'
+          @user = users(:users_001)
+          @user.update_column(:language, @locale)
+          sign_in(@user)
+        end
+        teardown do
+          sign_out(@user)
+        end
+      end
+
       def test_restfully_all_actions(options = {}, &_block)
         controller_name = controller_class.controller_name
         controller_path = controller_class.controller_path
@@ -273,32 +292,8 @@ module ActionController
 
         code = ''
 
-        code << "setup do\n"
-        code << "  Ekylibre::Tenant.switch!('test')\n"
-        # Check locale
-        # code << "  @locale = I18n.locale = ENV['LOCALE'] || I18n.default_locale\n"
-        code << "  @locale = ENV['LOCALE'] || I18n.default_locale\n"
-        # code << "  assert_not_nil I18n.locale\n"
-        # code << "  assert_equal I18n.locale, I18n.locale, I18n.locale.inspect\n"
-        # Check document templates
-        # code << "  DocumentTemplate.load_defaults(locale: I18n.locale)\n"
-        unless options[:sign_in].is_a?(FalseClass)
-          # Connect user
-          code << "  @request.env['HTTP_REFERER'] = 'http://test.ekylibre.farm/backend'\n"
-          code << "  @user = users(:users_001)\n"
-          code << "  @user.update_column(:language, @locale)\n"
-          code << "  sign_in(@user)\n"
-        end
-        # Setup finished!
-        code << "end\n"
-        code << "\n"
-
-        unless options[:sign_in].is_a?(FalseClass)
-          code << "teardown do\n"
-          code << "  sign_out(@user)\n"
-          code << "end\n"
-          code << "\n"
-        end
+        setup_locale
+        setup_sign_in unless options[:sign_in].is_a?(FalseClass)
 
         code << "def beautify(value, back = true)\n"
         code << "  if value.is_a?(Hash)\n"

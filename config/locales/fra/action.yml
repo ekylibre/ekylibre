@@ -3142,6 +3142,7 @@ fra:
       sort: "Trier"
       star: "Étoile"
       start: "Commencer"
+      start_up: "Mise en service"
       stop: "Arrêter"
       suspend: "Suspendre"
       take: "Prendre"

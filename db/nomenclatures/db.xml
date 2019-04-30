@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20190405120711">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20190412071057">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -131,7 +131,9 @@
       <item name="biocorporeal_asset_depreciations" fr_pcga="284" fr_pcg82="284"/>
       <item name="bonus_staff_expenses" fr_pcg82="NONE" fr_pcga="6413"/>
       <item name="brands_and_patents_assets" fr_pcga="205" fr_pcg82="205"/>
+      <item name="brands_and_patents_assets_amortization" fr_pcga="2805" fr_pcg82="2805"/>
       <item name="building_assets" fr_pcga="2131" fr_pcg82="2131"/>
+      <item name="building_assets_amortization" fr_pcga="28131" fr_pcg82="28131"/>
       <item name="building_depreciations_inputations_expenses" fr_pcga="68113" fr_pcg82="68113"/>
       <item name="campaigns_interests" fr_pcg82="6614" fr_pcga="6614"/>
       <item name="capital" fr_pcg82="101" fr_pcga="101"/>
@@ -144,6 +146,8 @@
       <item name="collected_intra_eu_vat" fr_pcg82="4452" fr_pcga="4452"/>
       <item name="collected_vat" fr_pcg82="44571" pt_snc="24330000" fr_pcga="44571"/>
       <item name="collected_vat_to_resolve" fr_pcg82="44575" fr_pcga="44575"/>
+      <item name="commercial_property" fr_pcga="207" fr_pcg82="207"/>
+      <item name="commercial_property_amortization" fr_pcga="2807" fr_pcg82="2807"/>
       <item name="compensation_operations" fr_pcg82="472" fr_pcga="472"/>
       <item name="concession_asset_depreciations" fr_pcg82="282" fr_pcga="282"/>
       <item name="concession_assets" fr_pcga="22" fr_pcg82="22"/>
@@ -183,6 +187,7 @@
       <item name="entity_collectable_taxes" fr_pcg82="442" fr_pcga="442"/>
       <item name="equipment_asset_depreciations" fr_pcga="2815" fr_pcg82="2815"/>
       <item name="equipment_assets" fr_pcga="2154" fr_pcg82="2154"/>
+      <item name="equipment_assets_amortization" fr_pcga="28154" fr_pcg82="28154"/>
       <item name="equipment_cooperative_participation_assets" fr_pcga="2622" fr_pcg82="2622"/>
       <item name="equipment_depreciations_inputations_expenses" fr_pcga="68115" fr_pcg82="68115"/>
       <item name="equipment_expenses" fr_pcg82="605" fr_pcga="NONE"/>
@@ -193,6 +198,7 @@
       <item name="equity_securities" fr_pcg82="261" fr_pcga="261"/>
       <item name="equity_security_asset_impairment_losses" fr_pcg82="296" fr_pcga="296"/>
       <item name="establishment_charge_assets" fr_pcga="201" fr_pcg82="201"/>
+      <item name="establishment_charge_assets_amortization" fr_pcga="2801" fr_pcg82="2801"/>
       <item name="exceptional_charge_transfer_revenues" fr_pcg82="797" fr_pcga="797"/>
       <item name="exceptional_depreciations_inputations_expenses" fr_pcg82="687" fr_pcga="687"/>
       <item name="exceptional_depreciations_inputations_revenues" fr_pcg82="787" fr_pcga="787"/>
@@ -229,6 +235,8 @@
       <item name="fixed_assets" fr_pcg82="2" pt_snc="40000000" fr_pcga="2"/>
       <item name="fixed_assets_suppliers" fr_pcg82="404" fr_pcga="404"/>
       <item name="fixed_assets_values" fr_pcg82="675" fr_pcga="675"/>
+      <item name="fixtures_and_fittings_for_equipment_and_tools" fr_pcga="2157" fr_pcg82="2157"/>
+      <item name="fixtures_and_fittings_for_equipment_and_tools_amortization" fr_pcga="28157" fr_pcg82="28157"/>
       <item name="flat_rate_taxes_expenses" fr_pcg82="697" fr_pcga="697"/>
       <item name="foreign_exchange_expenses" fr_pcg82="666" fr_pcga="666"/>
       <item name="foreign_exchange_financials_revenues" fr_pcg82="766" fr_pcga="766"/>
@@ -240,6 +248,7 @@
       <item name="gas_stock" fr_pcga="3018" fr_pcg82="3018"/>
       <item name="general_installation_asset_depreciations" fr_pcga="28181" fr_pcg82="28181"/>
       <item name="general_installation_assets" fr_pcga="2135" fr_pcg82="2135"/>
+      <item name="general_installation_assets_amortization" fr_pcga="28135" fr_pcg82="28135"/>
       <item name="global_land_parcel_assets" fr_pcg82="211" fr_pcga="211"/>
       <item name="government_payroll_tax_expenses" fr_pcg82="631" fr_pcga="631"/>
       <item name="government_tax_expenses" fr_pcg82="635" fr_pcga="635"/>
@@ -247,6 +256,8 @@
       <item name="holding_accounts" fr_pcg82="451" fr_pcga="451"/>
       <item name="holding_company_and_associate_accounts" fr_pcg82="45" pt_snc="26000000" fr_pcga="45"/>
       <item name="home_consumption_production" fr_pcga="726" fr_pcg82="726"/>
+      <item name="improvement_of_commercial_property" fr_pcga="217" fr_pcg82="217"/>
+      <item name="improvement_of_commercial_property_amortization" fr_pcga="2817" fr_pcg82="2817"/>
       <item name="in_cycle_products_stock" fr_pcg82="33" centralizing="false" fr_pcga="NONE"/>
       <item name="in_cycle_services_stock" fr_pcg82="34" centralizing="false" fr_pcga="NONE"/>
       <item name="income_taxes" fr_pcg82="444" pt_snc="24100000" fr_pcga="444"/>
@@ -258,6 +269,8 @@
       <item name="incorporeals_depreciations_inputations_expenses" fr_pcga="68111" fr_pcg82="68111"/>
       <item name="industrial_cooperative_participation_assets" fr_pcga="2624" fr_pcg82="2624"/>
       <item name="infirmity_and_death_insurance_expenses" fr_pcga="6168" fr_pcg82="6168"/>
+      <item name="infrastructure_works" fr_pcga="2138" fr_pcg82="2138"/>
+      <item name="infrastructure_works_amortization" fr_pcga="28138" fr_pcg82="28138"/>
       <item name="initial_individual_capital" fr_pcg82="1011" fr_pcga="1011"/>
       <item name="initial_individual_capital_variations" fr_pcg82="1012" fr_pcga="1012"/>
       <item name="initial_society_capital" fr_pcg82="1015" fr_pcga="1015"/>
@@ -345,6 +358,8 @@
       <item name="other_financials_asset_revenues" fr_pcg82="762" fr_pcga="762"/>
       <item name="other_financials_revenues" fr_pcg82="768" fr_pcga="768"/>
       <item name="other_general_installation_assets" fr_pcga="2181" fr_pcg82="2181"/>
+      <item name="other_immobilized_plants" fr_pcga="247" fr_pcg82="247"/>
+      <item name="other_immobilized_plants_amortization" fr_pcga="2847" fr_pcg82="2847"/>
       <item name="other_incorporeal_asset_depreciations" fr_pcga="2808" fr_pcg82="2808"/>
       <item name="other_incorporeal_assets" fr_pcga="208" fr_pcg82="208"/>
       <item name="other_interests_expenses" fr_pcga="6618" fr_pcg82="6618"/>
@@ -421,6 +436,7 @@
       <item name="rent_expenses" fr_pcg82="613" fr_pcga="613"/>
       <item name="report_vat_credit" fr_pcg82="44567" fr_pcga="44567"/>
       <item name="research_and_development_charge_assets" fr_pcga="203" fr_pcg82="203"/>
+      <item name="research_and_development_charge_assets_amortization" fr_pcga="2803" fr_pcg82="2803"/>
       <item name="reserves" fr_pcg82="106" fr_pcga="106"/>
       <item name="residual_products_revenues" fr_pcga="705" fr_pcg82="705"/>
       <item name="residual_products_stock" fr_pcga="377" fr_pcg82="377"/>
@@ -493,11 +509,14 @@
       <item name="taxes_expenses" fr_pcg82="63" fr_pcga="63"/>
       <item name="technical_installation_equipment_and_tools_assets" fr_pcga="215" fr_pcg82="215"/>
       <item name="technical_installation_on_other_land_parcel_assets" fr_pcga="2152" fr_pcg82="2152"/>
+      <item name="technical_installation_on_other_land_parcel_assets_amortization" fr_pcga="28152" fr_pcg82="28152"/>
       <item name="technical_installation_on_own_land_parcel_assets" fr_pcga="2151" fr_pcg82="2151"/>
+      <item name="technical_installation_on_own_land_parcel_assets_amortization" fr_pcga="28151" fr_pcg82="28151"/>
       <item name="telecommunications_expenses" fr_pcga="626" fr_pcg82="626"/>
       <item name="temporary_operations" fr_pcg82="47" fr_pcga="47"/>
       <item name="third_party" fr_pcg82="4" pt_snc="20000000" fr_pcga="4"/>
       <item name="tools_assets" fr_pcga="2155" fr_pcg82="2155"/>
+      <item name="tools_assets_amortization" fr_pcga="28155" fr_pcg82="28155"/>
       <item name="trade_show_expenses" fr_pcg82="6233" fr_pcga="6233"/>
       <item name="transfer_revenues" fr_pcg82="79" fr_pcga="79"/>
       <item name="transport_vehicle_asset_depreciations" fr_pcga="28182" fr_pcg82="28182"/>

@@ -2834,7 +2834,7 @@ eng:
       sort: "Sort"
       star: "Star"
       start: "Start"
-      # start_up: "Start up"
+      start_up: "Commission"
       stop: "Stop" #?
       suspend: "Suspend"
       take: "Take"
