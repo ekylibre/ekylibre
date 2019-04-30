@@ -59,4 +59,15 @@
   $ =>
     $(selector).each -> activateFilter $(@)
 
+
+  $(document).ready ->
+    $('[data-filter-collection]').on 'keyup', ->
+      value = $(this).val()
+      $selectInput = $($(this).data('filter-collection'))
+      url = $selectInput.data('filter-collection-url')
+
+      $.ajax url,
+        type: 'GET'
+        data: { filter_value: value }
+
 ) ekylibre, jQuery

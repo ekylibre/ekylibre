@@ -196,6 +196,7 @@ Rails.application.routes.draw do
       collection do
         get :reconciliation
         get :list_reconciliation
+        get :filter_select_collection
         patch :mask_lettered_items
       end
       member do
