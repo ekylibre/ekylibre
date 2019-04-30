@@ -833,6 +833,7 @@ fra:
     bank_name: "Nom de la banque"
     bank_statement: "Relevé de compte bancaire"
     bank_statement_letter: "Lettre de déclaration de la Banque"
+    bank_statement_number: "N° du relevé de compte bancaire"
     bank_statements: "Relevés de compte bancaire"
     base_amount: "Montant de base"
     # batch: "Batch"
@@ -851,6 +852,7 @@ fra:
     building: "Bâtiment" #?
     buildings: "Bâtiments"
     by_default: "Par défaut"
+    cached_payment_count: "Nombre de paiements"
     calibrations: "Stock en terre par calibre"
     campaign: "Campagne"
     campaigns: "Campagnes"
