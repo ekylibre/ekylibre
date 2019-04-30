@@ -212,6 +212,10 @@ class FinancialYear < Ekylibre::Record::Base
       TaxDeclaration.where('? BETWEEN started_on AND stopped_on', stopped_on).empty?
   end
 
+  def fulfilled_tax_declaration?
+    !missing_tax_declaration?
+  end
+
   def next_tax_declaration_on
     declarations = TaxDeclaration.where('stopped_on BETWEEN ? AND ?', started_on, stopped_on)
     if declarations.any?

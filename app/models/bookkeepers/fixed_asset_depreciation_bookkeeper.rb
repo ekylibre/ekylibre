@@ -1,5 +1,7 @@
 class FixedAssetDepreciationBookkeeper < Ekylibre::Bookkeeper
   def call
+    return unless accountable
+
     if fixed_asset.in_use?
       bookkeep_in_use unless fixed_asset.depreciation_method_none?
     elsif fixed_asset.sold? || fixed_asset.scrapped?

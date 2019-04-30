@@ -66,8 +66,9 @@
 #
 require 'test_helper'
 
-class FixedAssetTest < ActiveSupport::TestCase
-  test_model_actions
+
+class FixedAssetTest::FixedAssetTest < ActiveSupport::TestCase
+  test_model_actions class: FixedAsset
 
   setup do
     @variant = ProductNatureVariant.import_from_nomenclature(:tractor)
@@ -125,8 +126,7 @@ class FixedAssetTest < ActiveSupport::TestCase
 
     # test when in_use fixed asset
 
-    fixed_asset.state = :in_use
-    fixed_asset.save!
+    assert fixed_asset.start_up
 
     assert_equal 150_000.00, fixed_asset.journal_entry.real_credit
     assert_equal 150_000.00, fixed_asset.journal_entry.real_debit
@@ -145,8 +145,7 @@ class FixedAssetTest < ActiveSupport::TestCase
     # test when sold fixed asset
 
     fixed_asset.sold_on = @sold_on
-    fixed_asset.state = :sold
-    fixed_asset.save!
+    assert fixed_asset.sell
 
     fixed_asset.reload
 
@@ -223,37 +222,6 @@ class FixedAssetTest < ActiveSupport::TestCase
     assert valid, fixed_asset.errors.messages
   end
 
-  test 'stopped_on, allocation_account, expenses_account are not mandatory when a FixedAsset uses the :none depreciation method' do
-    attributes = {
-      name: @product.name,
-      depreciable_amount: 50_000,
-      depreciation_method: :none,
-      started_on: Date.parse('2018-06-15'),
-      asset_account: @asset_account,
-      journal_id: @journal.id
-    }
-
-    fixed_asset = FixedAsset.new attributes
-    valid = fixed_asset.valid?
-
-    assert valid, fixed_asset.errors.messages.map { |_, v| v }.flatten
-  end
-
-  test 'a FixedAsset depreciated with :none method should not have any FixedAssetDepreciation' do
-    attributes = {
-      name: @product.name,
-      depreciable_amount: 50_000,
-      depreciation_method: :none,
-      started_on: Date.parse('2018-06-15'),
-      asset_account: @asset_account,
-      journal_id: @journal.id
-    }
-
-    fixed_asset = FixedAsset.create! attributes
-
-    assert_equal 0, fixed_asset.depreciations.count, "Should not have a depreciation"
-  end
-
   test 'depreciations periods are computed correctly when the FinancialYear does not start the first day of the year' do
     FinancialYear.delete_all
     [2017, 2018].each do |year|
@@ -315,115 +283,6 @@ class FixedAssetTest < ActiveSupport::TestCase
   end
 
 
-  test 'A FixedAsset is valid when there is no FinancialYear at its started_on date' do
-    FinancialYear.delete_all
-    fa = FixedAsset.new(
-      allocation_account: @allocation_account,
-      depreciation_method: :linear,
-      journal: @journal,
-      depreciable_amount: 50_000,
-      name: @product.name,
-      started_on: '2018-05-01',
-      stopped_on: '2028-04-30',
-      asset_account: @asset_account,
-      expenses_account: @expenses_account
-    )
-    assert fa.valid?
-  end
-
-  test 'A FixedAsset created before the first opened FinancialYear creates the correct depreciations entries' do
-    FinancialYear.delete_all
-    (2010..2015).each do |year|
-      fy = FinancialYear.new(started_on: Date.new(year, 1, 1), stopped_on: Date.new(year, 12, 31), state: :locked)
-      assert fy.save
-    end
-    [2016, 2017].each do |year|
-      fy = FinancialYear.new(started_on: Date.new(year, 1, 1), stopped_on: Date.new(year, 12, 31))
-      assert fy.save
-    end
-
-    fa = FixedAsset.new(
-      name: @product.name,
-      depreciable_amount: 50_000,
-      depreciation_method: :linear,
-      depreciation_percentage: 10,
-      started_on: '2008-01-01',
-      journal: @journal,
-      asset_account: @asset_account,
-      expenses_account: @expenses_account,
-      allocation_account: @allocation_account
-    )
-
-    assert fa.save
-    deps = fa.depreciations.to_a
-    assert_equal 10, deps.length
-    partitionned = deps.partition { |dep| dep.started_on.year < 2016 }
-
-    assert_equal 8, partitionned[0].length
-    assert partitionned[0].all? &:locked?
-
-    assert_not partitionned[1].any? &:locked?
-  end
-
-  test 'enabling a FixedAssed on a date where no FinancialYear opened creates the correct journal entries' do
-    FinancialYear.delete_all
-    (2010..2015).each do |year|
-      FinancialYear.create!(started_on: Date.new(year, 1, 1), stopped_on: Date.new(year, 12, 31), state: :locked)
-    end
-    [2016, 2017].each do |year|
-      FinancialYear.create!(started_on: Date.new(year, 1, 1), stopped_on: Date.new(year, 12, 31))
-    end
-
-    fa = FixedAsset.new(
-      name: @product.name,
-      depreciable_amount: 50_000,
-      depreciation_method: :linear,
-      depreciation_percentage: 10,
-      started_on: '2008-01-01',
-      journal: @journal,
-      asset_account: @asset_account,
-      expenses_account: @expenses_account,
-      allocation_account: @allocation_account
-    )
-
-    assert fa.save
-
-    state, _ = fa.start_up
-    assert state
-    fa.reload
-
-    fa_je = fa.journal_entry
-    assert fa_je.balanced?
-
-    jeis_debit, jeis_credit = fa_je.items.partition { |e| e.debit > 0 }
-    assert_equal 50_000, jeis_debit[0].debit
-    assert_equal 50_000, jeis_credit[0].credit
-
-    current_fy = FinancialYear.opened.first
-
-    locked, opened = fa.depreciations.partition { |fad| fad.started_on < current_fy.started_on }
-    locked.each do |dep|
-      assert dep.locked?, "All depreciations before the first FinancialYear should be locked"
-      assert dep.has_journal_entry?, "All locked depreciations should be automatically accounted"
-
-      je = dep.journal_entry
-      assert_equal Date.new(2016, 1, 1), je.printed_on, "The journal entry should be printed on at the begining of the first opened FinancialYear"
-
-      debit, credit = je.items.partition { |i| i.debit > 0 }
-      debit = debit.first
-      credit = credit.first
-
-      assert_equal 5_000, debit.debit, "The amount of the journal entry should be 5000"
-      assert_equal 5_000, credit.credit, "The amount of the journal entry should be 5000"
-
-      assert_equal @waiting_account, debit.account, "The debit account should be the waiting account (471)"
-      assert_equal @allocation_account, credit.account, "The credited account should be the allocation account of the linked FixedAsset"
-    end
-
-    assert_not opened.any?(&:locked?), "All depreciations after the first opened FinancialYear should not be locked"
-    assert_not opened.any?(&:has_journal_entry?), "All depreciations after the first opened FinancialYear should not have a journal entry"
-  end
-
   test 'cannot sell a FixedAsset if the sold_on date is not during an opened FinancialYear' do
     FinancialYear.delete_all
     [2017, 2018].each do |year|
@@ -470,6 +329,34 @@ class FixedAssetTest < ActiveSupport::TestCase
     fa = FixedAsset.new attributes
     assert_not fa.valid?
     assert fa.errors.messages.key? :base
+  end
+
+  [
+    [:opened, false],
+    [:closed, false],
+    [:locked, true]
+  ].each do |(fy_state, expected_validation_result)|
+    test "a FixedAsset without a FinancialYear but after one that is #{fy_state} should be #{expected_validation_result ? 'valid' : 'invalid'}" do
+      FinancialYear.delete_all
+      FinancialYear.create! started_on: Date.new(2015, 3, 1), stopped_on: Date.new(2015, 3, 1) + 1.year - 1.day, state: fy_state
+
+      attributes = {
+        name: @product.name,
+        depreciable_amount: 50_000,
+        depreciation_method: :linear,
+        started_on: Date.new(2017, 3, 1),
+        depreciation_period: :yearly,
+        depreciation_percentage: 20.00,
+        asset_account: @asset_account,
+        allocation_account: @allocation_account,
+        expenses_account: @expenses_account,
+        product: @product,
+        journal_id: @journal.id
+      }
+
+      fa = FixedAsset.new attributes
+      assert_equal expected_validation_result, fa.valid?
+    end
   end
 
   private

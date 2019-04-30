@@ -338,7 +338,7 @@ fra:
         fixed_asset_depreciation: #?
           attributes: #?
             started_on: #?
-              invalid_date: "La période d’amortissement doit débuter le %{start} ou en début de mois" #?
+              invalid_start_date: "La période d’amortissement doit débuter le %{start} ou en début de mois" #?
         incoming_parcel_item: #?
           greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})" #?
         integration: #?
