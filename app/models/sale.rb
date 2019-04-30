@@ -320,6 +320,7 @@ class Sale < Ekylibre::Record::Base
   end
 
   delegate :number, to: :client, prefix: true
+  delegate :vat_number, to: :client, prefix: true
   delegate :third_attribute, to: :class
 
   def nature=(value)
