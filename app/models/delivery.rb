@@ -119,7 +119,7 @@ class Delivery < Ekylibre::Record::Base
   end
 
   def available_shipments
-    available_parcels.where(type: :Shipment)
+    available_parcels.where(type: 'Shipment')
   end
 
   def order
