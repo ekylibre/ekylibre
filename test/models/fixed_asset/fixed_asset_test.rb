@@ -153,7 +153,7 @@ class FixedAssetTest::FixedAssetTest < ActiveSupport::TestCase
 
     assert_equal 833.33, fourth_f_d.amount
     assert_equal 833.33, fourth_f_d.journal_entry.real_credit
-    assert_equal Date.parse('2017-04-30'), fourth_f_d.journal_entry.printed_on
+    assert_equal @sold_on, fourth_f_d.journal_entry.printed_on
     assert_equal 150_000.00, fixed_asset.sold_journal_entry.real_credit
     assert_equal @sold_on, fixed_asset.sold_journal_entry.printed_on
   end
