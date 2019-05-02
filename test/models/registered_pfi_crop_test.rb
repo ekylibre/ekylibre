@@ -27,6 +27,6 @@
 #
 require 'test_helper'
 
-class RegisteredPfiCropTest < ActiveSupport::TestCase
+class RegisteredPfiCropTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

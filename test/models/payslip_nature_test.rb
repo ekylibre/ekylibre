@@ -38,6 +38,6 @@
 #
 require 'test_helper'
 
-class PayslipNatureTest < ActiveSupport::TestCase
+class PayslipNatureTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

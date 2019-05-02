@@ -18,7 +18,7 @@
 
 require 'test_helper'
 module Backend
-  class FinancialYearsControllerTest < ActionController::TestCase
+  class FinancialYearsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions generate_last_journal_entry: :get_and_post, close: :get_and_post, compute_balances: :touch, except: [:synthesis]
   end
 end

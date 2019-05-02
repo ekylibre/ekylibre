@@ -1,5 +1,5 @@
 require 'test_helper'
 module Authentication
-  class PasswordsControllerTest < ActionController::TestCase
+  class PasswordsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
   end
 end

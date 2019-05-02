@@ -34,7 +34,7 @@
 #
 require 'test_helper'
 
-class IdentifierTest < ActiveSupport::TestCase
+class IdentifierTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

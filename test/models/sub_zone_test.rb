@@ -87,7 +87,7 @@
 #
 require 'test_helper'
 
-class SubZoneTest < ActiveSupport::TestCase
+class SubZoneTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

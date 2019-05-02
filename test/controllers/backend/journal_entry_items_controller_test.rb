@@ -18,7 +18,7 @@
 
 require 'test_helper'
 module Backend
-  class JournalEntryItemsControllerTest < ActionController::TestCase
+  class JournalEntryItemsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions show: :redirected_get
   end
 end

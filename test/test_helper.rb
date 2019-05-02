@@ -8,16 +8,35 @@ require 'rails/test_help'
 require 'capybara/rails'
 
 require 'minitest/reporters'
-Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new
-# DefaultReporter => ...........
-# SpecRemporter   => Test names (1 test/line)
+require 'database_cleaner'
+
+Minitest::Reporters.use!(
+  (ENV['CI'] ? Minitest::Reporters::DefaultReporter.new : Ekylibre::Testing::SpecReporter.new),
+  ENV,
+  Minitest.backtrace_filter
+)
 
 # Permits to test locales
 I18n.locale = ENV['LOCALE'] if ENV['LOCALE']
 
 # Configure tenants.yml
+
+puts "Setup tenant: #{'sekindovall'.green}".yellow
 Ekylibre::Tenant.setup!('sekindovall')
+
+puts "Setup tenant: #{'test_without_fixtures'.green}".yellow
+Ekylibre::Tenant.setup!('test_without_fixtures')
+
+puts "Setup tenant: #{'test'.green}".yellow
 Ekylibre::Tenant.setup!('test', keep_files: true)
+
+
+Ekylibre::Tenant.switch 'test_without_fixtures' do
+  puts "Cleaning tenant: #{'test_without_fixtures'.green}".yellow
+  DatabaseCleaner.clean_with :truncation, { except: ['spatial_ref_sys'] }
+end
+
+DatabaseCleaner.strategy = :transaction
 
 FactoryBot.find_definitions
 
@@ -39,123 +58,9 @@ if RUBY_VERSION >= '2.6.0'
   end
 end
 
-class FixtureRetriever
-  ROLES = %w[zeroth first second third fourth fifth sixth seventh eighth nineth tenth].freeze
-  @@truc = {}
-
-  def initialize(model, options = {}, fixture_options = nil)
-    if model && model < Ekylibre::Record::Base
-      fixture_options ||= {}
-      @model  = fixture_options.delete(:model) || model
-      @prefix = fixture_options.delete(:prefix) || @model.name.underscore.pluralize
-      @table  = fixture_options.delete(:table) || @model.table_name
-      options = { first: normalize(options) } if options && !options.is_a?(Hash)
-      @options = options || {}
-    end
-  end
-
-  def retrieve(role = :first, default_value = nil)
-    if @model
-      "#{@table}(#{normalize(@options[role] || default_value || role).inspect})"
-    else
-      raise 'No valid model given, cannot retrieve fixture from that'
-    end
-  end
-
-  def invoke(role = :first, default_value = nil)
-    if @model
-      [@table.to_s, normalize(@options[role] || default_value || role)]
-    else
-      raise 'No valid model given, cannot retrieve fixture from that'
-    end
-  end
-
-  protected
-
-  def normalize(value)
-    if value.is_a?(Integer)
-      unless @@truc[@table]
-        @@truc[@table] = YAML.load_file(Rails.root.join('test', 'fixtures', "#{@table}.yml")).each_with_object({}) do |pair, hash|
-          hash[pair.second['id'].to_i] = pair.first.to_sym
-          hash
-        end
-      end
-      unless name = @@truc[@table][value]
-        raise "Cannot find fixture in #{@table} with id=#{value.inspect}"
-      end
-      name
-    elsif value.is_a?(Symbol)
-      if ROLES.include?(value.to_s)
-        "#{@prefix}_#{ROLES.index(value.to_s).to_s.rjust(3, '0')}".to_sym
-      elsif value.to_s =~ /^\d+$/
-        "#{@prefix}_#{value.to_s.rjust(3, '0')}".to_sym
-      else
-        value
-      end
-    elsif value.is_a?(CodeString)
-      value
-    else
-      raise "What kind of value (#{value.class.name}:#{value.inspect})"
-    end
-  end
-end
+ActionView::TestCase.send :include, FactoryBot::Syntax::Methods
 
 module ActiveSupport
-  class TestCase
-    include FactoryBot::Syntax::Methods
-
-    # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-    fixtures :all
-
-    # Add more helper methods to be used by all tests here...
-
-    # Returns ID of the given label
-    def self.identify(label)
-      # ActiveRecord::FixtureSet.identify(label)
-      elements = label.to_s.split('_')
-      model = elements[0...-1].join('_').classify.constantize
-      @@fixtures ||= {}
-      @@fixtures[model.table_name] ||= YAML.load_file(Rails.root.join('test', 'fixtures', "#{model.table_name}.yml"))
-      unless attrs = @@fixtures[model.table_name][label.to_s]
-        raise "Unknown fixture #{label}"
-      end
-      attrs['id'].to_i
-    end
-
-    def fixture_file(*levels)
-      fixture_files_path.join(*levels)
-    end
-
-    def fixture_files_path
-      self.class.fixture_files_path
-    end
-
-    def self.fixture_files_path
-      Rails.root.join('test', 'fixture-files')
-    end
-
-    def self.test_model_actions(_options = {})
-      model = to_s.slice(0..-5).constantize
-      FixtureRetriever.new(model)
-
-      #     test 'create' do
-      #       fixture = fixtures_to_use.invoke(:first)
-      #       object = send(fixture[0], fixture[1])
-      #       assert object.save!
-      #     end
-      #
-      #     # TODO: improve date validations
-      #     test 'dates validations' do
-      #       fixture = fixtures_to_use.invoke(:first)
-      #       object = send(fixture[0], fixture[1])
-      #       columns = model.content_columns.select{ |c| c.type == :datetime || c.type == :date || c.type == :timestamp }
-      #       columns.each do |c|
-      #         object[c.name] = DateTime.new(72016, 1, 1)
-      #       end
-      #       assert !object.save, object.errors.inspect
-      #     end
-    end
-  end
 
   def omniauth_mock(uid: '123',
                     email: 'john.doe@ekylibre.org',
@@ -166,14 +71,15 @@ module ActiveSupport
       provider: 'ekylibre',
       uid: uid,
       info:
-      {
-        email: email,
-        first_name: first_name,
-        last_name: last_name
-      }
+        {
+          email: email,
+          first_name: first_name,
+          last_name: last_name
+        }
     )
   end
 end
+
 class HashCollector
   def initialize
     @hash = {}
@@ -211,6 +117,7 @@ module ActionController
             end
             @token = @user.authentication_token
           end
+
           def add_auth_header
             @request.headers['Authorization'] = 'simple-token admin@ekylibre.org ' + @token
           end
@@ -223,10 +130,10 @@ module ActionController
         table_name = options.delete(:table_name) || controller_name
         model_name = options.delete(:class_name) || table_name.classify
         model = begin
-                  model_name.constantize
-                rescue
-                  nil
-                end
+          model_name.constantize
+        rescue
+          nil
+        end
         record = model_name.underscore
         other_record = "other_#{record}"
         attributes = nil
@@ -243,12 +150,12 @@ module ActionController
 
           attributes += options.delete(:other_attributes) || []
           attributes = ('{' + attributes.map(&:to_sym).uniq.collect do |a|
-                                if file_columns[a]
-                                  "#{a}: fixture_file_upload('files/sample_image.png')"
-                                else
-                                  "#{a}: #{record}.#{a}"
-                                end
-                              end.join(', ') + '}').c
+            if file_columns[a]
+              "#{a}: fixture_file_upload('files/sample_image.png')"
+            else
+              "#{a}: #{record}.#{a}"
+            end
+          end.join(', ') + '}').c
         end
 
         if block_given?
@@ -304,7 +211,7 @@ module ActionController
         actions -= [options.delete(:except)].flatten if options[:except]
 
         ignored = controller_class.action_methods.to_a.map(&:to_sym) - actions
-        puts "Ignore in #{controller_path}: " + ignored.map(&:to_s).map(&:yellow).join(', ') if ignored.any?
+        puts "Ignore in #{controller_path}: " + ignored.map(&:to_s).map(&:yellow).join(', ') if ENV.fetch('RESTFULLY_VERBOSE', false) && ignored.any?
 
         infos = []
         infos << '"Response code: " + @response.response_code.to_s'
@@ -339,16 +246,16 @@ module ActionController
           mode ||= choose_mode(action_label)
 
           params.deep_symbolize_keys!
-          fixtures_to_use = FixtureRetriever.new(model, params.delete(:fixture), params.delete(:fixture_options))
+          fixtures_to_use = Ekylibre::Testing::FixtureRetriever.new(model, params.delete(:fixture), params.delete(:fixture_options))
           test_code = ''
 
           sanitized_params = proc do |p = {}|
             p.deep_symbolize_keys
-             .merge(locale: '@locale'.c)
-             .deep_merge(params)
-             .inspect
-             .gsub('OTHER_RECORD', other_record)
-             .gsub('RECORD', record)
+              .merge(locale: '@locale'.c)
+              .deep_merge(params)
+              .inspect
+              .gsub('OTHER_RECORD', other_record)
+              .gsub('RECORD', record)
           end
           if mode == :index
             test_code << "get :#{action}, #{sanitized_params[]}\n"
@@ -356,7 +263,7 @@ module ActionController
             test_code << "get :#{action}, #{sanitized_params[q: 'abc']}\n"
             test_code << "assert_response :success, 'Try to get action: #{action} #{sanitized_params[]}. ' + #{context}\n"
             if params[:format] == :json
-            # TODO: JSON parsing test
+              # TODO: JSON parsing test
             else
               test_code << "assert_select('html body #main #content', 1, 'Cannot find #main #content element')\n"
             end
@@ -481,7 +388,7 @@ module ActionController
             test_code << "xhr :get, :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
             test_code << "assert_not_nil assigns(:#{record})\n"
           elsif mode == :resource
-          # TODO: Adds test for resource
+            # TODO: Adds test for resource
           elsif mode == :unroll
             test_code << "xhr :get, :#{action}, #{sanitized_params[]}\n"
             test_code << "assert_response :success, #{context}\n"
@@ -554,17 +461,17 @@ module ActionController
         # /\Abackend\/cells\/.*\#list\z/ => :index_xhr,
         /\#(index|new|pick|set)\z/ => :index,
         /\#(show|edit|detail)\z/ => :show,
-        /\#picture\z/       => :picture,
-        /\#list\_\w+\z/     => :list_things,
-        /\#list\z/          => :list,
+        /\#picture\z/ => :picture,
+        /\#list\_\w+\z/ => :list_things,
+        /\#list\z/ => :list,
         /\#(create|load|incorporate)\z/ => :create,
-        /\#update\z/        => :update,
-        /\#evolve\z/        => :evolve,
-        /\#destroy\z/       => :destroy,
-        /\#attachments\z/   => :resource,
+        /\#update\z/ => :update,
+        /\#evolve\z/ => :evolve,
+        /\#destroy\z/ => :destroy,
+        /\#attachments\z/ => :resource,
         /\#(decrement|duplicate|down|lock|toggle|unlock|up|increment|propose|confirm|refuse|invoice|abort|correct|finish|propose_and_invoice|sort|run|qualify|evaluate|quote|negociate|win|lose|reset|start|prospect|retrieve)\z/ => :touch,
-        /\#take\z/          => :take,
-        /\#unroll\z/        => :unroll
+        /\#take\z/ => :take,
+        /\#unroll\z/ => :unroll
       }.freeze
 
       def choose_mode(action)
@@ -572,17 +479,17 @@ module ActionController
         action_name = array.last.to_sym
         if action_name == :new
           model = begin
-                    array.first.split(/\//).last.classify.constantize
-                  rescue
-                    nil
-                  end
+            array.first.split(/\//).last.classify.constantize
+          rescue
+            nil
+          end
           return :new_product if model && model <= Product
         elsif action_name == :show
           model = begin
-                    array.first.split(/\//).last.classify.constantize
-                  rescue
-                    nil
-                  end
+            array.first.split(/\//).last.classify.constantize
+          rescue
+            nil
+          end
           return :show_sti_record if model && (model <= Product || model <= Affair)
         end
         MODES.each do |exp, mode|
@@ -600,8 +507,8 @@ end
 #   Capybara::Poltergeist::Driver.new(app, debug: true, inspector: true)
 # end
 
-Capybara.default_driver    = (ENV['DRIVER'] || 'webkit').to_sym
-Capybara.current_driver    = Capybara.default_driver
+Capybara.default_driver = (ENV['DRIVER'] || 'webkit').to_sym
+Capybara.current_driver = Capybara.default_driver
 Capybara.javascript_driver = Capybara.default_driver
 # Capybara.default_max_wait_time = 5
 # Capybara.server_port = 3333
@@ -627,6 +534,7 @@ end
 
 class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
+  include Ekylibre::Testing::Concerns::FixturesModule
   # include Capybara::Screenshot
   include Warden::Test::Helpers
   Warden.test_mode!

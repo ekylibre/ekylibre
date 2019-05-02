@@ -36,7 +36,7 @@
 #
 require 'test_helper'
 
-class PrescriptionTest < ActiveSupport::TestCase
+class PrescriptionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

@@ -7,7 +7,7 @@ class DelayValidatable
   validates_with DelayValidator, attributes: :delay
 end
 
-class DelayValidatorTest < ActiveSupport::TestCase
+class DelayValidatorTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   setup do
     @obj = DelayValidatable.new
   end

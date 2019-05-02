@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class InterventionWorkingTimeDurationCalculationServiceTest < ActiveSupport::TestCase
+class InterventionWorkingTimeDurationCalculationServiceTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   setup do
     @now = Time.zone.now
 

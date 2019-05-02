@@ -34,7 +34,7 @@
 #
 require 'test_helper'
 
-class DashboardTest < ActiveSupport::TestCase
+class DashboardTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

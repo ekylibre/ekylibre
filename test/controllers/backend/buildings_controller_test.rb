@@ -18,7 +18,7 @@
 
 require 'test_helper'
 module Backend
-  class BuildingsControllerTest < ActionController::TestCase
+  class BuildingsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions except: %i[update_many edit_many], destroy: { fixture: 13 }
   end
 end
