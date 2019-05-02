@@ -38,12 +38,12 @@
       = f.input :merge_stock
 
       %div.current-stock
-        .merchandise-current-stock
+        .merchandise-total-current-stock
           %span.stock-label= :current_stock.tl
           %span.stock-value= variant.current_stock.or_else(0)
           %span.stock-unit= variant.unit_name.or_else("")
 
-        .merchandise-stock-after-order
+        .merchandise-total-stock-after-reception
           %span.stock-label= :stock_after_order.tl
           %span.stock-value= f.object.decorate.merchandise_stock_after_reception(variant.current_stock.or_else(0))
           %span.stock-unit= f.object.decorate.merchandise_stock_unit(variant.unit_name.or_else(""))
