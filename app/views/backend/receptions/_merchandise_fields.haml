@@ -1,5 +1,5 @@
 %div.role-row.role-row--merchandise
-  .item-block__merchandise
+  .item-block-merchandise
     - if f.object.role == 'merchandise'
       = f.referenced_association(:variant, label: :merchandise.tl, source: { scope: :purchaseables_stockables_or_depreciables }, input_html: { class: 'parcel-item-variant', data: { product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json), scope: 'unit'}, required: true }})
 
@@ -11,7 +11,7 @@
       = f.input :work_number, wrapper: :nested_append do
         = f.input_field :product_work_number, placeholder: ParcelItem.human_attribute_name(:product_work_number)
 
-  .item-block__delivery-mode{style: "display: flex"}
+  .item-block-delivery-mode{style: "display: flex"}
     = f.label :delivery_mode.tl
     %div.delivery-mode__input
       = f.input :delivery_mode, as: :radio_buttons, collection: f.object.class.delivery_mode.values.sort_by(&:l) - ['none'],label: false, label_method: :l, input_html: { class: 'item-delivery-mode', data: {  input_to_show: '.transporter-delivery-mode', with_value: "transporter", use_as_value: '.transporter-delivery-mode > input.hidden' } }

@@ -32,7 +32,7 @@
 .new_reception,
 .edit_reception {
 
-	.item-form__information {
+	.item-form-information {
     max-width: 93%;
     display: flex;
     justify-content: space-between;
@@ -47,7 +47,7 @@
     }
   }
 
-  .item-form__compliant-state {
+  .item-form-compliant-state {
     display: flex;
     .control-label {
       max-width: 100% !important;
@@ -63,13 +63,13 @@
     }
   }
 
-  .item-form__button {
+  .item-form-button {
     display: flex;
     justify-content: space-between;
   }
 
 
-  .item-form__state--reception {
+  .item-form-state {
     display: flex;
     align-items: center;
   }
@@ -124,7 +124,7 @@
     }
   }
 
-  .item-block__merchandise {
+  .item-block-merchandise {
     width: 40%;
     .control-group {
     display: flex;
@@ -137,10 +137,9 @@
 
   .unitary-variant-fields {
     display: flex;
-
   }
 
-  .item-block__delivery-mode {
+  .item-block-delivery-mode {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -163,21 +162,42 @@
   }
 
   .storing__fields {
-    max-width:90%;
+    max-width:85%;
     display: flex;
     justify-content: space-between;
-    align-items: last baseline;
+    align-items: flex-end;
     .control-label {
       max-width: 100% !important;
       overflow: visible !important;
     }
     .control-group.multiplicator {
-      margin-right: 10px;
+      margin-right: 20px;
       margin-left: 10px;
     }
     .current-stock {
       align-self: flex-end;
     }
+    .nested-remove {
+      align-self: center;
+    }
+  }
+
+  .storing-area {
+    width: 25%;
+    .selector {
+      width: 100%;
+      .controls {
+        max-width: auto;
+      }
+    }
+  }
+  .storing-calculation {
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .storing-conditionning-quantity--merchandise {
+    max-width: 15%;
   }
 
   .nested-remove{
@@ -190,8 +210,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 90%;
+    width: 85%;
     border-top: 1px solid #999;
+    padding-top: 5px;
+    margin-top: 5px;
     .control-group{
       display: flex;
     }

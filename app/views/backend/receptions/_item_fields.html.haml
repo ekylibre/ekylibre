@@ -43,7 +43,7 @@
         - else
           = render 'non_merchandise_fields', f: f, variant: variant, non_compliant_message: non_compliant_message
 
-      .item-form__information
+      .item-form-information
         .item-form__activity
           = f.referenced_association :activity_budget
         .item-form__project-budget
@@ -53,11 +53,11 @@
         .item-form__equipment
           = f.referenced_association :equipment, source: :tools, label: :equipment.tl, input_html: {data: { remember: 'equipment'}}
 
-      .item-form__button
-        .item-form__state.item-form__state--reception
+      .item-form-button
+        .item-form-state
           = f.input :purchase_order_item_id, as: :hidden, input_html: { class: "purchase-item-attribute" }
 
-          .control-group.item-form__reconciliation
+          .control-group.item-form-reconciliation
             - reconciliation_state = f.object.reception.reconciliation_state
             %label.item-form__reconciliation-state= :element_status.tl
             %span.item-form__reconciliation-state.purchase-process-reconciliation.no-reconciliate-state.reconciliation-state{ class: reconciliation_state == 'to_reconcile' ? '' : 'hidden' }
@@ -65,8 +65,8 @@
             %span.item-form__reconciliation-state.purchase-process-reconciliation.reconcile-state.reconciliation-state{ class: reconciliation_state == 'reconcile' ? '' : 'hidden' }
               = :reconcile.tl
             = button_tag :reconciliate_with_purchases_orders.tl, id: 'showItemReconciliationModal', class: 'btn btn-default item-form__reconciliation-state', type: :button
-          .item-form__compliant-state
-            = f.input :non_compliant, input_html: { class: 'item-non-compliant', data: { closest: '.item-form__compliant-state', warn_in: '.warn-message', warn_if_checked: non_compliant_message, input_to_show: '.non_compliant_detail_text', with_value: true } }
+          .item-form-compliant-state
+            = f.input :non_compliant, input_html: { class: 'item-non-compliant', data: { closest: '.item-form-compliant-state', warn_in: '.warn-message', warn_if_checked: non_compliant_message, input_to_show: '.non_compliant_detail_text', with_value: true } }
             %span.warn-message
           .non_compliant_detail_text.hidden
             = f.input :non_compliant_detail, label: :detail.tl, input_html: { class: 'item-non-compliant-detail', data: { interpolate_if_input: 'input.item-non-compliant', with_value: true } }
