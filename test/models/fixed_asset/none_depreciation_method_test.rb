@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module FixedAssetTest
-  class NoneDepreciationMethodTest < ActiveSupport::TestCase
+  class NoneDepreciationMethodTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     setup do
       @variant = ProductNatureVariant.import_from_nomenclature(:tractor)
       @entity = Entity.create!(last_name: 'JOHN DEERE SA')

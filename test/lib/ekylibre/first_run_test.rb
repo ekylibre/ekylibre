@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Ekylibre
-  class FirstRunTest < ActiveSupport::TestCase
+  class FirstRunTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     teardown do
       Ekylibre::Tenant.switch!('test')
     end

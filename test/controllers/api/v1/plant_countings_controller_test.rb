@@ -1,7 +1,7 @@
 require 'test_helper'
 module Api
   module V1
-    class PlantCountingsControllerTest < ActionController::TestCase
+    class PlantCountingsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
       connect_with_token
 
       # TODO: Re-activate the following

@@ -33,7 +33,7 @@
 #
 require 'test_helper'
 
-class NetServiceTest < ActiveSupport::TestCase
+class NetServiceTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

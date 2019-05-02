@@ -1,5 +1,5 @@
 require 'test_helper'
 
-class ByAccountFixedAssetPrinterTest < ActiveSupport::TestCase
+class ByAccountFixedAssetPrinterTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

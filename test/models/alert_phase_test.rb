@@ -35,7 +35,7 @@
 #
 require 'test_helper'
 
-class AlertPhaseTest < ActiveSupport::TestCase
+class AlertPhaseTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # test "the truth" do
   #   assert true
   # end

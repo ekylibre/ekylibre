@@ -40,7 +40,7 @@
 #
 require 'test_helper'
 
-class CashSessionTest < ActiveSupport::TestCase
+class CashSessionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

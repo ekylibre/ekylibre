@@ -37,7 +37,7 @@
 #
 require 'test_helper'
 
-class CampaignTest < ActiveSupport::TestCase
+class CampaignTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

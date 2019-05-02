@@ -47,7 +47,7 @@
 #
 require 'test_helper'
 
-class ProductNatureVariantReadingTest < ActiveSupport::TestCase
+class ProductNatureVariantReadingTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

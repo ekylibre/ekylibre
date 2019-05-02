@@ -1,6 +1,6 @@
 require 'test_helper'
 module Backend
-  class SensorsControllerTest < ActionController::TestCase
+  class SensorsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     # TODO: Re-activate the following
     test_restfully_all_actions except: %i[detail models retrieve]
 

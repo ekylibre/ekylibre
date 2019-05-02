@@ -40,7 +40,7 @@
 #
 require 'test_helper'
 
-class DebtTransferTest < ActiveSupport::TestCase
+class DebtTransferTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'debt transfer from purchase affair to sale affair' do
     sale_amount = 1000
     purchase_amount = 500

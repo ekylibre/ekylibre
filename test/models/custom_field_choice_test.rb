@@ -37,7 +37,7 @@
 
 require 'test_helper'
 
-class CustomFieldChoiceTest < ActiveSupport::TestCase
+class CustomFieldChoiceTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

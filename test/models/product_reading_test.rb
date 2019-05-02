@@ -50,7 +50,7 @@
 #
 require 'test_helper'
 
-class ProductReadingTest < ActiveSupport::TestCase
+class ProductReadingTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

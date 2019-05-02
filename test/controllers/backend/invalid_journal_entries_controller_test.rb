@@ -1,6 +1,6 @@
 require 'test_helper'
 module Backend
-  class InvalidJournalEntriesControllerTest < ActionController::TestCase
+  class InvalidJournalEntriesControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions except: %i[list delete_all]
 
     test 'delete all invalid journal entries' do

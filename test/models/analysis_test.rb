@@ -49,6 +49,6 @@
 #
 require 'test_helper'
 
-class AnalysisTest < ActiveSupport::TestCase
+class AnalysisTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 end

@@ -23,7 +23,7 @@
 
 require 'test_helper'
 
-class FinancialYearWriteableValidatorTest < ActiveSupport::TestCase
+class FinancialYearWriteableValidatorTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
   class ValidatableWithFinancialYear
     include ActiveModel::Validations

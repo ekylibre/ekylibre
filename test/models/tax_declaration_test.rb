@@ -45,7 +45,7 @@
 #
 require 'test_helper'
 
-class TaxDeclarationTest < ActiveSupport::TestCase
+class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'compute declaration with journal entry items on debit' do
     #
     # Tax: 20%

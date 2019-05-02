@@ -35,6 +35,6 @@
 #
 require 'test_helper'
 
-class ActivityInspectionPointNatureTest < ActiveSupport::TestCase
+class ActivityInspectionPointNatureTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

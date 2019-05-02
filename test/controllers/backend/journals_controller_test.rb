@@ -18,7 +18,7 @@
 
 require 'test_helper'
 module Backend
-  class JournalsControllerTest < ActionController::TestCase
+  class JournalsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions close: :get_and_post, except: %i[generate_report generate_report_file generate_document archive_report find_open_document_template]
   end
 end

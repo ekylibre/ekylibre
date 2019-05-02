@@ -67,7 +67,7 @@
 require 'test_helper'
 
 
-class FixedAssetTest::FixedAssetTest < ActiveSupport::TestCase
+class FixedAssetTest::FixedAssetTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions class: FixedAsset
 
   setup do

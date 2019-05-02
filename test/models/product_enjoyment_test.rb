@@ -40,7 +40,7 @@
 #
 require 'test_helper'
 
-class ProductEnjoymentTest < ActiveSupport::TestCase
+class ProductEnjoymentTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

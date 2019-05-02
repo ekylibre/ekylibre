@@ -18,7 +18,7 @@
 
 require 'test_helper'
 module Backend
-  class SubscriptionsControllerTest < ActionController::TestCase
+  class SubscriptionsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     # TODO: Re-activate #suspend, #takeover and #renew tests
     test_restfully_all_actions except: %i[suspend takeover renew]
   end

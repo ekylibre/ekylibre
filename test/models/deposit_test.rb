@@ -44,7 +44,7 @@
 
 require 'test_helper'
 
-class DepositTest < ActiveSupport::TestCase
+class DepositTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

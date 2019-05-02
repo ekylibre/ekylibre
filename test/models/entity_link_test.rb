@@ -43,7 +43,7 @@
 
 require 'test_helper'
 
-class EntityLinkTest < ActiveSupport::TestCase
+class EntityLinkTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
   test 'link end' do

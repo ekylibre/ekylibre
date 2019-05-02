@@ -40,7 +40,7 @@
 #
 require 'test_helper'
 
-class PurchaseNatureTest < ActiveSupport::TestCase
+class PurchaseNatureTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

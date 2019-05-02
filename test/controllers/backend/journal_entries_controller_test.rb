@@ -19,7 +19,7 @@
 require 'test_helper'
 
 module Backend
-  class JournalEntriesControllerTest < ActionController::TestCase
+  class JournalEntriesControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions(
       new: { journal_id: 3 },
       toggle_autocompletion: { format: :json },

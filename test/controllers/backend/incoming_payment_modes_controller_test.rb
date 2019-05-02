@@ -18,7 +18,7 @@
 
 require 'test_helper'
 module Backend
-  class IncomingPaymentModesControllerTest < ActionController::TestCase
+  class IncomingPaymentModesControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions reflect: :touch, show: :redirected_get
   end
 end

@@ -46,7 +46,7 @@
 
 require 'test_helper'
 
-class SubscriptionTest < ActiveSupport::TestCase
+class SubscriptionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end
