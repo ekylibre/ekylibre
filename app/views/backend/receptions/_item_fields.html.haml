@@ -45,11 +45,11 @@
 
       .item-form__information
         .item-form__activity
-          = f.referenced_association :project_budget
+          = f.referenced_association :activity_budget
         .item-form__project-budget
           = f.referenced_association :project_budget
         .item-form__product_work_number
-          = f.referenced_association :equipment, source: :tools, label: :equipment.tl, input_html: {data: { remember: 'equipment'}}
+          = f.referenced_association :team
         .item-form__equipment
           = f.referenced_association :equipment, source: :tools, label: :equipment.tl, input_html: {data: { remember: 'equipment'}}
 
