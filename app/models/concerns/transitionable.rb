@@ -31,7 +31,7 @@ module Transitionable
     end
 
     def can_run?
-      from.include? resource.send(attribute)
+      self.class.from.include? resource.send(attribute).to_sym
     end
 
     def run
@@ -40,53 +40,67 @@ module Transitionable
       transition
     end
 
+    def run!
+      res = run
+      unless res
+        raise StandardError.new "Error in transition #{self.class.name} for #{resource}"
+      end
+
+      res
+    end
+
     protected
 
       def transition
-        # Should be implemented in subclasses
+        raise NotImplementedError
       end
   end
 
   module ClassMethods
     def transitionable
-      transitions_mod = self::Transitions
-      transitions_mod.module_eval do
-        Dir.glob(Rails.root.join('app', 'services', name.underscore, '*.rb'))
-            .map { |path| [File.basename(path, '.rb').classify, path] }
-            .each do |class_name, path|
-          autoload class_name.to_sym, path
-        end
+      Dir.glob(Rails.root.join('app', 'services', self.name.underscore, 'transitions', '*.rb'))
+        .map { |path| [File.basename(path, '.rb').classify, path] }
+        .select { |(_, b)| File.exist? b }
+        .each do |class_name, path|
+        autoload class_name.to_sym, path
+        require_dependency path
       end
 
+      return unless self.constants.include? :Transitions
+
+      transitions_mod = self::Transitions
       transitions = transitions_mod.constants
-                        .map { |cname| transitions_mod.const_get cname }
-                        .select { |constant| constant < Transition }
+                      .map { |cname| transitions_mod.const_get cname }
+                      .select { |constant| constant < Transition }
 
       @transitionable_transitions = transitions.map { |transition| [transition.event, transition] }.to_h
 
-      define_methods
+      define_transition_getter
+      define_methods_for self.transitions
     end
 
     def transitions
-      @transitionable_transitions
+      @transitionable_transitions || {}
     end
 
     private
 
-      def define_methods
+      def define_transition_getter
         define_method :_get_transition do |e|
-          @transitionable_transitions[e]
+          self.class.transitions[e]
         end
+      end
 
+      def define_methods_for(transitions)
         transitions.keys.each do |event|
-          define_method "can_#{event}?" do
-            _get_transition(event)&.can_run?
+          define_method "can_#{event}?" do |**options|
+            _get_transition(event).new(self, **options).can_run?
           end
 
-          define_method event do
+          define_method event do |**options|
             transition = _get_transition event
 
-            transition.new(self).run if transition
+            transition.new(self, **options).run if transition
           end
         end
       end
