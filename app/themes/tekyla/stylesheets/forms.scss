@@ -272,7 +272,7 @@ $form-actions-height: 48px;
   }
   & > input, & > .btn {
     @include inline-block;
-    margin-left: $fs-normal;
+    margin-left: $fs-normal !important;
     &:first-child {
       margin-left: 0;
     }
