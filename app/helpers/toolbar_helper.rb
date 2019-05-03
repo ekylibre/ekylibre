@@ -158,6 +158,6 @@ module ToolbarHelper
       html = content_tag(:div, html, class: 'toolbar' + (options[:class] ? ' ' << options[:class].to_s : ''))
     end
 
-    html
+    html.html_safe
   end
 end
