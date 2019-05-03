@@ -11,20 +11,18 @@ class StateBarBuilder
     transitions = extract_possible_transitions_from resource
 
     buttons = states_from(resource)
-                .map { |state|
-                  transition = transitions.fetch(state.to_sym, nil)
-                  StateBarHelper::Button.new(
-                    state,
-                    current: (state.to_sym == resource.send(attribute).to_sym),
-                    transition: transition,
-                    label: rename(state)
-                  )
-                }
+                .map do |state|
+      transition = transitions.fetch(state.to_sym, nil)
+      StateBarHelper::Button.new(
+        state,
+        current: (state.to_sym == resource.send(attribute).to_sym),
+        transition: transition,
+        label: rename(state)
+      )
+    end
 
     StateBarHelper::StateBar.new *buttons, transitions_enabled: transitions_enabled?
   end
-
-
 
   private
 
@@ -75,9 +73,7 @@ class StateBarBuilder
 
     def extract_possible_transitions_from_state_machine(resource)
       resource.state_transitions
-        .map { |t|
-          [t.to.to_sym, t]
-        }
+        .map { |t| [t.to.to_sym, t] }
         .to_h
     end
 

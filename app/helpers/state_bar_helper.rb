@@ -1,14 +1,12 @@
 module StateBarHelper
-  Colors = {
+  COLORS = {
     intermediate: %i[draft],
     rejected: %i[aborted lost refused scrapped sold],
     validated: %i[done finished given in_use invoice ongoing order repaid won]
-  }.flat_map { |key, values| values.map { |v| [v, key] } }
-             .group_by(&:first)
-             .map { |key, values| [key, values.first.second] }.to_h
+  }.reverse
 
   def self.color_for(state, default = :intermediate)
-    Colors[state.to_sym] || default
+    COLORS[state.to_sym] || default
   end
 
   class StateBar
