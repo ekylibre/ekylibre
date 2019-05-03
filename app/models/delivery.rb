@@ -118,6 +118,10 @@ class Delivery < Ekylibre::Record::Base
     Parcel.where('(delivery_id = ?) OR ((delivery_id IS ?) AND (state != ?))', id, nil, :given).order(:number)
   end
 
+  def available_shipments
+    available_parcels.where(type: 'Shipment')
+  end
+
   def order
     return false unless can_order?
     parcels.each do |parcel|

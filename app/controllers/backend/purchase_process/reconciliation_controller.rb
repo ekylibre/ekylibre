@@ -20,7 +20,7 @@ module Backend
   module PurchaseProcess
     class ReconciliationController < Backend::BaseController
       def purchase_orders_to_reconciliate
-        opened_purchases_orders = PurchaseOrder.with_state(:opened)
+        opened_purchases_orders = PurchaseOrder.with_state(:opened).where(reconciliation_state: 'to_reconcile')
         if params[:supplier].present?
           opened_purchases_orders = opened_purchases_orders.where(supplier: params[:supplier])
         end
