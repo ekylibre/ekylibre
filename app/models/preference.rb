@@ -189,7 +189,7 @@ class Preference < Ekylibre::Record::Base
   prefer :fiscal_position, :fiscal_position, Nomen::FiscalPosition.default('fr_ba_ir')
   prefer :language, :language, Nomen::Language.default
   prefer :country,  :country, Nomen::Country.default
-  prefer :currency, :currency, Nomen::Currency.default
+  prefer :currency, :currency, :EUR
   prefer :map_measure_srs, :spatial_reference_system, Nomen::SpatialReferenceSystem.default
   prefer :create_activities_from_telepac, :boolean, false
   prefer :catalog_price_item_addition_if_blank, :boolean, true
