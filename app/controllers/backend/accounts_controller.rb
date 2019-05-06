@@ -155,5 +155,11 @@ module Backend
       current_user.prefer!(preference_name, params[:masked].to_s == 'true', :boolean)
       head :ok
     end
+
+    def filter_select_collection
+      regexp = /\A#{Regexp.quote(params[:filter_value])}/
+      @filtered_accounts = Nomen::Account.list.reject { |a| a.send(Account.accounting_system) == 'NONE' || !a.send(Account.accounting_system).match(regexp) }
+      @filtered_accounts = @filtered_accounts.sort_by { |a| a.send(Account.accounting_system) }
+    end
   end
 end
