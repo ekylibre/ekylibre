@@ -26,8 +26,6 @@
       - k.helper :journal_period_crit, :period
       - k.helper :journal_entries_states_crit
 
-
-
     - items = JournalEntryItem.joins([:entry]).joins('LEFT OUTER JOIN "product_nature_variants" ON "product_nature_variants"."id" = "journal_entry_items"."variant_id"').where(eval(controller.class.account_moves_conditions))
     - totals = {}
     - totals[:debit]  = items.sum(:absolute_debit)
