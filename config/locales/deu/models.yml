@@ -759,7 +759,7 @@ deu:
     current_localization: "aktuelle Lokalisierungs"
     current_memberships: "aktuelle Mitgliedschaften"
     current_mother_link: "Aktuelle Mutter Link"
-    current_outgoing_stock_ordered_not_delivered: "Abgehende Lager nicht geliefert"
+    current_outgoing_stock_ordered_not_delivered_displayed: "Abgehende Lager nicht geliefert"
     current_ownership: "aktuelle Eigentum"
     current_password: "Aktuelles Passwort"
     current_phase: "aktuelle Phase"

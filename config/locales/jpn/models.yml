@@ -759,7 +759,7 @@ jpn:
     current_localization: "現在のローカライズ"
     current_memberships: "現在のメンバーシップ"
     current_mother_link: "現在のマザーリンク"
-    current_outgoing_stock_ordered_not_delivered: "発信株価は配信されません"
+    current_outgoing_stock_ordered_not_delivered_displayed: "発信株価は配信されません"
     current_ownership: "現在の所有権"
     current_password: "現在のパスワード"
     current_phase: "現在のフェーズ"

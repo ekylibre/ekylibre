@@ -55,8 +55,8 @@ module Backend
       t.column :number
       t.column :nature, url: true
       t.column :category, url: true
-      t.column :current_stock
-      t.column :current_outgoing_stock_ordered_not_delivered
+      t.column :current_stock_displayed, label: :current_stock
+      t.column :current_outgoing_stock_ordered_not_delivered_displayed
       t.column :unit_name
       t.column :variety
       t.column :derivative_of

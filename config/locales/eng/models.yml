@@ -740,7 +740,7 @@ eng:
     current_localization: "Current localization"
     current_memberships: "Current memberships"
     current_mother_link: "Current mother link"
-    current_outgoing_stock_ordered_not_delivered: "Outgoing stock not delivered"
+    current_outgoing_stock_ordered_not_delivered_displayed: "Outgoing stock not delivered"
     current_ownership: "Current ownership"
     current_password: "Current password"
     current_phase: "Current phase"

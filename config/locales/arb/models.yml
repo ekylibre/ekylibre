@@ -1461,7 +1461,7 @@ arb:
     current_localization: "التعريب الحالي"
     current_memberships: "عضوية الحالية"
     current_mother_link: "رابط الأم الحالي"
-    current_outgoing_stock_ordered_not_delivered: "الأسهم المنتهية ولايته لم يتم تسليمها"
+    current_outgoing_stock_ordered_not_delivered_displayed: "الأسهم المنتهية ولايته لم يتم تسليمها"
     current_ownership: "الملكية الحالية"
     current_password: "كلمة السر الحالية"
     current_phase: "المرحلة الحالية"
