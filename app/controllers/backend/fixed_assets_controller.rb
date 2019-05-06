@@ -156,9 +156,14 @@ module Backend
         return redirect_to(params[:redirect] || { action: :index })
       end
 
-      count = FixedAsset.depreciate(until: bookkeep_until)
-      notify_success(:x_fixed_asset_depreciations_have_been_bookkept_successfully, count: count)
-      redirect_to(params[:redirect] || { action: :index })
+      if FinancialYear.on(bookkeep_until)
+        count = FixedAsset.depreciate(until: bookkeep_until)
+        notify_success(:x_fixed_asset_depreciations_have_been_bookkept_successfully, count: count)
+        redirect_to(params[:redirect] || { action: :index })
+      else
+        notify_error(:need_financial_year_over_entire_period)
+        redirect_to(params[:redirect] || { action: :index })
+      end
     end
 
     # def cede
@@ -168,7 +173,6 @@ module Backend
     # def sell
     #   return unless @fixed_asset = find_and_check
     # end
-
     FixedAsset.state_machine.events.each do |event|
       if %i[sell scrap].include? event.name
         define_method event.name do
