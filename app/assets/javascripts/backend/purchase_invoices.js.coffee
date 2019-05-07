@@ -60,6 +60,12 @@
       stoppedOnField.val('')
 
 
+    $(document).on 'selector:change', '.invoice-variant.selector-search', (event) ->
+      E.Purchases.fillStocksCounters(event)
+
+    $(document).on 'keyup change', '.form-field .storing-quantifier .storing-quantity', (event) ->
+      E.Purchases.fillStocksCounters(event)
+
     $(document).on 'change', '.nested-fields .form-field .purchase_invoice_items_quantity .invoice-quantity', (event) ->
       E.Purchases.fillStocksCounters(event)
 

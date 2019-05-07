@@ -1,230 +1,32 @@
-.new_purchase_invoice,
-.edit_purchase_invoice {
+.invoice-totals {
+  margin: $default-gap * 3 0 $default-gap * 3 0.6%;
 
-  .invoice-totals {
-    margin: $default-gap * 3 0 $default-gap * 3 0.6%;
-
-    .invoice-total-row {
-      @include flex-row(flex-start, flex-start);
-      margin-bottom: $default-gap;
-    }
-
-    .total-label {
-      flex-basis: 29%;
-    }
-
-    .total-value {
-      flex-basis: 3%;
-      text-align: right;
-    }
-
-    .total-label,
-    .total-value,
-    .total-currency {
-      color: #999;
-      font-weight: bold;
-    }
-
-    .total-currency {
-      margin-left: $default-gap;
-    }
+  .invoice-total-row {
+    @include flex-row(flex-start, flex-start);
+    margin-bottom: $default-gap;
   }
 
-  #items-table {
-    @include flex-column(flex-start, flex-start);
-    width: 100%;
+  .total-label {
+    flex-basis: 29%;
   }
 
-  .list {
-	.purchase-invoice-items:hover td,
-	.nested-item-form:hover td {
-	  background-color: $white !important;
-	}
-
-	.nested-item-form:not(.hidden) {
-	  @include flex-row(flex-start, flex-start);
-	  flex-wrap: wrap;
-	  width: 100%;
-	}
-
-    .item-display:not(.hidden) {
-      @include flex-row(flex-start, flex-start);
-      width: 100%;
-    }
-
-    tbody {
-      border-top: none;
-    }
-
-    .table-head,
-    .table-headers{
-      @include flex-row(flex-start, flex-start);
-      width: 100%;
-    }
-
-    .act {
-      flex-basis: 1%;
-    }
-
-    .product-column {
-      flex: 3;
-    }
-
-    .quantity-column,
-    .unit-amount-column,
-    .total-column {
-      flex: 1;
-      text-align: center;
-    }
-
-    .two-rows-column {
-      @include flex-column(center, center);
-    }
-
-    .invoice-second-row-label {
-      color: $darkened-grey;
-      margin-top: $default-gap * 2;
-      font-weight: bold;
-    }
+  .total-value {
+    flex-basis: 3%;
+    text-align: right;
   }
 
-  .nested-fields {
-    @include flex-column(flex-start);
-    width: 100%;
-
-    .form-block {
-      @include flex-row(flex-start, flex-start);
-      width: 100%;
-    }
-
-    .control-group {
-      @include flex-column(flex-start);
-    }
-
-    .control-label {
-      margin-left: 0 !important;
-      max-width: inherit;
-    }
-
-    .controls {
-      @include flex-row(flex-start, flex-start);
-      margin-left: 0 !important;
-    }
-
-    .fixed-asset-fields {
-      .control-group {
-        flex-direction: unset;
-        justify-content: flex-start;
-        .controls {
-          width: auto;
-        }
-      }
-    }
-
-    .form-field {
-      flex-basis: 10%;
-
-      .supplier-ref-label {
-        font-weight: bold;
-      }
-    }
-
-    .form-field.third-row {
-      @include flex-row(flex-start, flex-start);
-      border-top: none;
-      flex-basis: 100%;
-
-      .item-form {
-        @include flex-row(flex-start, flex-start);
-        width: 100%;
-      }
-
-      .purchase_invoice_items_activity_budget {
-        flex-basis: 30%;
-        .controls {
-          width: 70%
-        }
-      }
-
-      .purchase_invoice_items_project_budget {
-        flex-basis: 30%;
-        .controls {
-          width: 70%
-        }
-      }
-
-      .purchase_invoice_items_team {
-        flex-basis: 45%;
-      }
-
-      .purchase_invoice_items_equipment {
-        flex-basis: 35%
-      }
-
-      .controls {
-        max-width: 100%;
-          width: 45%;
-      }
-
-      .selector {
-        width: 100%;
-      }
-    }
-
-    .form-field:not(.merchandise) {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .merchandise {
-      flex-basis: 40%;
-    }
-
-    .merchandise .controls {
-      max-width: inherit;
-      width: 100%;
-    }
-
-    .merchandise .selector {
-      width: 80%;
-	}
-
-	.nested-item-form .buttons {
-	  @include flex-row(flex-end, center);
-      width: 100%;
-      border: none;
-      margin-top: $default-gap * 3;
-
-      .btn:first-child {
-        margin-right: $default-gap * 2;
-      }
-    }
+  .total-label,
+  .total-value,
+  .total-currency {
+    color: #999;
+    font-weight: bold;
   }
 
-  tfoot {
-    margin-top: $default-gap * 2;
-    width: 100%;
-
-    .total {
-      @include flex-row(flex-start);
-      background: #f7f7f7;
-      border: 1px solid #e8e8e8;
-    }
-
-    .links:first-child {
-      flex-basis: 11%;
-    }
-
-    .links {
-      @include flex-row();
-      flex-basis: 7%;
-      padding: $default-gap / 2 $default-gap * 3;
-      width: 100%;
-      border: none;
-    }
+  .total-currency {
+    margin-left: $default-gap;
   }
 }
+
 
 .fieldset .fieldset-fields .nested-fields .input-append {
   .invoice-unit-amount, .pre-tax-invoice-total, .invoice-total, .middle-input {
@@ -232,12 +34,88 @@
   }
 }
 
-.purchase_order_items_tax_id, .purchase_invoice_items_tax_id {
-  .controls {
-    max-width: none;
-    .order-vat-total, .invoice-vat-total {
-      max-width: none;
-    }
+.control-label {
+  max-width: none !important;
+  overflow: visible !important;
+}
 
+.nested-fields .controls {
+  margin-left: 0 !important;
+}
+
+.decimal-row {
+  .invoice-vat-total {
+    display: block;
   }
 }
+
+.item-form-information {
+    max-width: 93%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    .control-label {
+      max-width: 100% !important;
+      margin: 0 !important;
+    }
+    .controls  {
+      margin-left: 0 !important;
+      max-width: 100% !important;
+    }
+  }
+
+  .item-form-button {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+   .storing-calculation {
+    display: flex;
+    align-items: flex-end;
+  }
+
+.role-row {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+
+ .storing-calculation {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    width: 30%;
+  }
+
+.item-block-merchandise {
+  display: flex;
+    width: 40%;
+    .control-group {
+      display: flex;
+    width: 100%;
+    flex-direction: column;
+    .selector {
+      width: 100%;
+    }
+    }
+}
+.decimal-row {
+  display: flex;
+  width: 70%;
+  justify-content: space-between;
+  .invoice-vat-total {
+    max-width: unset !important;
+  }
+}
+
+.current-stock {
+  align-self: center;
+  span {
+    color: #999;
+  }
+}
+
+ .row-footer {
+    display: flex;
+  }

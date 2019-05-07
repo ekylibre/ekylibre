@@ -65,4 +65,3 @@
           %tr.row-footer
             - ReceptionItem.role.values.each do |role|
               %th{colspan: 6, class: "links add-#{role}"}= link_to_add_association :"add_#{role}".tl, f, :items, partial: 'item_fields', render_options: { locals: { role: role, mode: params[:mode] } }, 'data-association-insertion-node' => '#items__footer', 'data-association-insertion-method' => :before
-

@@ -79,6 +79,8 @@ class PurchaseItem < Ekylibre::Record::Base
   has_many :products, through: :parcels_purchase_invoice_items
   has_one :product_nature_category, through: :variant, source: :category
 
+  enumerize :role, in: %i[merchandise fees service], predicates: true
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :annotation, :label, length: { maximum: 500_000 }, allow_blank: true
