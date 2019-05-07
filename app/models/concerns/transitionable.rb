@@ -7,6 +7,7 @@ module Transitionable
 
   class Transition
     attr_reader :attribute, :resource
+    attr_accessor :error
 
     class << self
       def from(*states)
@@ -38,6 +39,9 @@ module Transitionable
       return unless can_run?
 
       transition
+    rescue
+      @error = $!
+      false
     end
 
     def run!
