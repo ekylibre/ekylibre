@@ -282,6 +282,10 @@ $form-actions-height: 48px;
   }
 }
 
+.form-actions--first-run {
+  border: 0;
+  background: initial;
+}
 
 .nested-fields {
   .nested-remove {
