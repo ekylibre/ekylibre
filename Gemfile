@@ -115,7 +115,7 @@ gem 'acts_as_list'
 gem 'awesome_nested_set', '~> 3.1.1'
 gem 'deep_cloneable', '~> 2.2.1'
 gem 'enumerize'
-gem 'jc-validates_timeliness', '~> 3.1.1'
+gem 'validates_timeliness', '~> 4'
 gem 'state_machine'
 gem 'uuidtools'
 
