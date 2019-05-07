@@ -2,10 +2,9 @@
 
 - main_toolbar do |t|
   = t.export :stocks
-  - if Product.any?
-    - if FinancialYear.any?
-      = t.new params: { redirect: nil }
-    - else
-      = t.new params: { redirect: nil }, disabled: "disabled"
+  - if FinancialYear.any? && Product.any?
+    = t.new params: { redirect: nil }
+  - else
+    = t.new params: { redirect: nil }, disabled: "disabled"
 
 = main_list
