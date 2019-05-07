@@ -759,7 +759,7 @@ por:
     current_localization: "Localização atual"
     current_memberships: "Sociedades atuais"
     current_mother_link: "Ligação mãe atual"
-    current_outgoing_stock_ordered_not_delivered: "As saídas de stock não entregues"
+    current_outgoing_stock_ordered_not_delivered_displayed: "As saídas de stock não entregues"
     current_ownership: "Posse atual"
     current_password: "Senha atual"
     current_phase: "Fase atual"

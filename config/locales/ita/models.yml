@@ -790,7 +790,7 @@ ita:
     current_localization: "localizzazione corrente"
     current_memberships: "appartenenze di corrente"
     current_mother_link: "Link madre corrente"
-    current_outgoing_stock_ordered_not_delivered: "In uscita magazzino non consegnati"
+    current_outgoing_stock_ordered_not_delivered_displayed: "In uscita magazzino non consegnati"
     current_ownership: "proprietà corrente"
     current_password: "Password attuale"
     current_phase: "corrente fase"

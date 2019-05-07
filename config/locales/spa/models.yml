@@ -762,7 +762,7 @@ spa:
     current_localization: "La localización actual"
     current_memberships: "Membresías actuales"
     current_mother_link: "Enlace de la madre actual"
-    current_outgoing_stock_ordered_not_delivered: "Stock saliente no entregado"
+    current_outgoing_stock_ordered_not_delivered_displayed: "Stock saliente no entregado"
     current_ownership: "Propiedad actual"
     current_password: "Contraseña actual"
     current_phase: "Fase actual"

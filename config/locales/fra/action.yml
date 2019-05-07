@@ -1446,6 +1446,7 @@ fra:
     draft_vat_declaration: "Etat de TVA préparatoire"
     driver: "Conducteur"
     drug: "Médicament" #?
+    due_date: "À régler le"
     duplicate: "Dupliquer"
     duplicate_intervention: "Dupliquer l'intervention"
     duplicate_x_selected_interventions:
@@ -1457,6 +1458,7 @@ fra:
     earns: "Gains" #?
     edit: "Modifier"
     edit_budget: "Modifier le budget"
+    edition_date: "Date d'édition"
     ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "Temps passé par activité"
     element_status: "Statut"
@@ -1579,6 +1581,7 @@ fra:
     finished_income_statement: "Produits" #?
     finished_sum: "Total produits d’exploitation" #?
     finishes: "Termine par" #?
+    first_check_number: "Numéro du premier chèque"
     first_contact: "Adresse principale" #?
     first_line_as_title: "Titre en première ligne"
     fixed_asset_debts: "Dettes sur immobilisations"
@@ -1713,6 +1716,7 @@ fra:
     investment_subsidies: "Subventions d’investissement"
     invitation_status: "État"
     invoice: "Facture"
+    invoice_date: "Facturation"
     invoice_period: "Période de facturation"
     invoice_status: "État de facturation"
     invoiced: "Facturés"
@@ -2071,8 +2075,10 @@ fra:
     payment_at: "Payé le"
     payment_conditions: "Conditions de règlement"
     payment_delay_placeholder: "fdm, 5 jours avant"
+    payment_due_date: "Échéance"
     payment_label: "%{number}. %{amount} (%{usable_amount} restants) du %{date} par %{mode} de %{entity}" #?
     payment_mode: "Mode d’encaissement"
+    payment_mode_form_label: "Mode de règlement"
     payments: "Règlements"
     payments_count: "Nombre de %{mode}"
     payslip_number: "N° du salaire"
@@ -2080,7 +2086,8 @@ fra:
     people: "Personnes"
     percentage_by_calibration: "Pourcentage de stock en terre net par calibre"
     percentage_by_calibration_x: "Pourcentage de stock en terre net par calibre - %{x}" #?
-    period: "Période prédéfinie"
+    period: "Période"
+    period_to_take_into_account: "Période à prendre en compte"
     periods: "Périodes"
     permanent_stock_inventory: "Inventaire des stocks permanent"
     permute: "Permuter les fiches"
@@ -2247,6 +2254,7 @@ fra:
     record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement." #?
     record_has_not_been_removed: "L’enregistrement n’a pu être supprimé." #?
     record_maintenance: "Enregistrer une maintenance"
+    reference: "Référence"
     reference_supplier: "Référence fournisseur : %{reference_number}"
     reflect: "Refléter"
     reflected: "Changements répercutés"
@@ -2497,6 +2505,7 @@ fra:
     temperature: "Température" #?
     theoric_quantity: "Quantité théorique" #?
     third_informations: "Informations tierces" #?
+    third_balance: "(solde - solde comptable fournisseur : %{balance} - %{supplier_account_balance})"
     third_is_unbalanced: "Tiers à soldes non-rapprochés. (solde - solde comptable fournisseur)"
     this_archive_is_digitally_signed: "Cette archive est signée numériquement."
     thumb: "Miniature"

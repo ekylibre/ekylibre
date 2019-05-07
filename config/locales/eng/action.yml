@@ -1536,6 +1536,7 @@ eng:
     draft_loan_on_current_financial_year: "You have draft loans ongoing. Once the financial year closed, it won't be possible to enter them into service on this financial year (%{code})."
     draft_vat_declaration: "Pending VAT declaration" #?!
     driver: "Driver"
+    due_date: "Due date"
     duplicate: "Duplicate"
     duplicate_intervention: "Duplicate intervention"
     duplicate_x_selected_interventions:
@@ -1546,6 +1547,7 @@ eng:
     during: "During"
     edit: "Edit"
     edit_budget: "Edit budget"
+    edition_date: "Edition date"
     ekylibre: "www.ekylibre.org" #?
     elapsed_interventions_times_by_activities: "Elapsed interventions times by activities" #?
     element_status: "Status"
@@ -1643,6 +1645,7 @@ eng:
     fingerprint_sha256: "Fingerprint (SHA256)"
     finish: "Finish" #?
     finished: "Finished"
+    first_check_number: "Number of the first check"
     first_line_as_title: "First line as title"
     fixed_asset_debts: "Fixed asset debts" #?!
     fixed_asset_depreciations: "Fixed asset depreciations"
@@ -1745,6 +1748,7 @@ eng:
     investment_subsidies: "Investment subsidies" #?!
     invitation_status: "Status" #?
     invoice: "Invoice" #?
+    invoice_date: "Invoice date"
     invoice_period: "Invoice period"
     invoice_status: "Invoice status"
     invoiced: "Invoiced"
@@ -2008,7 +2012,9 @@ eng:
     payment_at: "Payment on" #?
     payment_conditions: "Payment conditions"
     payment_delay_placeholder: "eom, 5 days before"
+    payment_due_date: "Payment due date"
     payment_mode: "Payment mode" #?
+    payment_mode_form_label: "Payment mode"
     payments: "Payments"
     payments_count: "Payments count"
     payslip_number: "Payslip #" #?
@@ -2017,6 +2023,7 @@ eng:
     percentage_by_calibration: "Percentage by calibration"
     # percentage_by_calibration_x: "Percentage by calibration x"
     period: "Period"
+    period_to_take_into_account: "Period to take into account"
     periods: "Periods" #?
     permanent_stock_inventory: "Permanent stock inventory"
     permute: "Permute" #?
@@ -2131,6 +2138,7 @@ eng:
     record: "Record" #?
     record_cannot_be_saved: "The record can not be saved"
     record_maintenance: "Record maintenance"
+    reference: "Reference"
     reference_supplier: "Reference supplier : %{reference_number}"
     reflect: "Reflect" #?
     reflected: "Reflected changes" #?
@@ -2294,6 +2302,7 @@ eng:
     taxations: "Taxations"
     taxes: "Taxes"
     taxes_and_wages: "Taxes and wages"
+    third_balance: "(balance - supplier account balance : %{balance} - %{supplier_account_balance})"
     third_is_unbalanced: "Third is unbalanced. (balance - supplier account balance)"
     this_archive_is_digitally_signed: "This archive is digitally signed."
     threshold_commercialization_by_production: "Threshold commercialization by production"

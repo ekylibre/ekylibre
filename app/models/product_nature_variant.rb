@@ -452,6 +452,10 @@ class ProductNatureVariant < Ekylibre::Record::Base
     end
   end
 
+  def current_stock_displayed
+    variety == 'service' ? '' : current_stock
+  end
+
   # Return current quantity of all products link to the variant currently ordered or invoiced but not delivered
   def current_outgoing_stock_ordered_not_delivered
     undelivereds = sale_items.includes(:sale).map do |si|
@@ -471,6 +475,10 @@ class ProductNatureVariant < Ekylibre::Record::Base
     undelivereds += shipment_items.joins(:shipment).where.not(parcels: { state: %i[given draft] }).where(parcels: { sale_id: nil, nature: :outgoing }).pluck(:population)
 
     undelivereds.compact.sum
+  end
+
+  def current_outgoing_stock_ordered_not_delivered_displayed
+    variety == 'service' ? '' : current_outgoing_stock_ordered_not_delivered
   end
 
   def picture_path(style = :original)

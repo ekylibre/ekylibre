@@ -741,9 +741,19 @@ module ApplicationHelper
     code = ''.html_safe
     return code unless messages
     messages.each do |message|
-      code << "<div class='flash #{mode}' data-alert=\"true\"><a href=\"#\" class=\"close\">&times;</a><div class='icon'></div><div class='message'><h3>#{mode.t(scope: 'notifications.levels')}</h3><p>#{h(message).gsub(/\n/, '<br/>')}</p></div></div>".html_safe
+      code << flash_message_tag(mode, h(message).gsub(/\n/, '<br/>').html_safe)
     end
     code
+  end
+
+  def flash_message_tag(mode, message)
+    content_tag :div, { class: "flash #{mode}", data: { alert: true } } do
+      content_tag(:a, "&times;".html_safe, { class: :close, href: '#' }) +
+        content_tag(:div, '', { class: :icon }) +
+        content_tag(:div, { class: :message }) do
+          content_tag(:h3, mode.t(scope: 'notifications.levels').html_safe) + content_tag(:p, message)
+        end
+    end
   end
 
   def notifications_tag

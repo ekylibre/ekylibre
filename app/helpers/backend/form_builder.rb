@@ -182,6 +182,17 @@ module Backend
       super(attribute_name, options, &block)
     end
 
+
+    def find_input(attribute_name, options = {}, &block)
+      input = super
+
+      if is_nomenclature_select?(attribute_name)
+        input&.options&.fetch(:collection)&.sort_by! &options.fetch(:label_method, :first)
+      end
+
+      input
+    end
+
     def picture(attribute_name = :picture, options = {})
       format = options.delete(:format) || :thumb
       input(attribute_name, options) do
@@ -681,7 +692,7 @@ module Backend
     end
 
     def fields(partial = 'form')
-      @template.content_tag(:div, @template.render(partial, f: self), class: 'form-fields')
+      @template.content_tag(:div, base_form_error_tags + @template.render(partial, f: self), class: 'form-fields')
     end
 
     def yes_no_radio(attribute_name, options = {})
@@ -772,6 +783,16 @@ module Backend
       end
       @template.content_tag(:span, units_values.tl, class: 'add-on')
     end
+
+    private
+
+      def is_nomenclature_select?(attribute_name)
+        @object.class.respond_to?(:nomenclature_reflections) && @object.class.nomenclature_reflections.key?(attribute_name)
+      end
+
+      def base_form_error_tags
+        @template.resource.errors.messages.fetch(:base, []).map { |error_message| @template.flash_message_tag :error, error_message }.join.html_safe
+      end
   end
 end
 

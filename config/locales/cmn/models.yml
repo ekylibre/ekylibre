@@ -759,7 +759,7 @@ cmn:
     current_localization: "目前国产化"
     current_memberships: "当前成员"
     current_mother_link: "目前母亲链接"
-    current_outgoing_stock_ordered_not_delivered: "即将离任的股票未交付"
+    current_outgoing_stock_ordered_not_delivered_displayed: "即将离任的股票未交付"
     current_ownership: "目前的所有权"
     current_password: "当前密码"
     current_phase: "当前阶段"
