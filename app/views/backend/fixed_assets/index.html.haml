@@ -10,16 +10,17 @@
   - if products.any?
     - k.helper do
       %label= Product.human_attribute_name(:name)
-      = select_tag(:product_id, options_for_select([[]] +  products.map{|u| [u.name, u.id]}, params[:product_id].to_i))
+      = select_tag(:product_id, options_for_select([[]] + products.map{|u| [u.name, u.id]}, params[:product_id].to_i))
 
 - main_toolbar do |t|
   = t.new params: { redirect: nil }, class: ("disabled" if FinancialYear.count == 0)
 
   %span.btn-group.action-form
-    - depreciate_until = FinancialYear.opened.order(:stopped_on).first.stopped_on
-    = link_to :account_for.tl, { action: :depreciate_all, until: depreciate_until.iso8601, redirect: request.fullpath }, { class: 'btn btn-default', data: { confirm: :are_you_sure.tl, update_link_with: '#depreciate-fixed-assets-until' }, method: :post }
+    - depreciate_until = FinancialYear.opened.first&.stopped_on
+    - max_date = FinancialYear.opened.last&.stopped_on
+    = link_to :account_for.tl, { action: :depreciate_all, until: depreciate_until&.iso8601, redirect: request.fullpath }, { class: ['btn btn-default', ('disabled' if depreciate_until == nil)], data: { confirm: :are_you_sure.tl, update_link_with: '#depreciate-fixed-assets-until' }, method: :post }
     %span.add-on= :up_to.tl.downcase
-    = date_field_tag(:until, depreciate_until, id: 'depreciate-fixed-assets-until', data: { max_date: Time.zone.today.iso8601 })
+    = date_field_tag(:until, depreciate_until, id: 'depreciate-fixed-assets-until', data: { max_date: FinancialYear.any? ? max_date.iso8601 : Time.zone.today.iso8601 })
   = dropdown_menu_button(:export.ta, icon: :download) do |d|
     -# %i[general by_account gain_and_loss].each do |nature|
     - %i[general by_account].each do |nature|
