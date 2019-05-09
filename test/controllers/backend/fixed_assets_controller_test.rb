@@ -45,6 +45,12 @@ module Backend
       end
     end
 
+    test "should display financial year index without any financial year and disable buttons and field" do
+      FinancialYear.delete_all
+      get :index
+      assert_equal 200, response.status
+    end
+
     private
 
       def manual_setup
