@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class TransitionableTest < ActiveSupport::TestCase
+class TransitionableTest < Ekylibre::Testing::ApplicationTestCase
   test 'creates transitionable class method' do
     class DummyTransition
       include Transitionable
@@ -66,7 +66,7 @@ class TransitionableTest < ActiveSupport::TestCase
     assert res.can_tut?
   end
 
-  class TransitionTest < ActiveSupport::TestCase
+  class TransitionTest < Ekylibre::Testing::ApplicationTestCase
     test 'from, event and to sets values on the class and return them when called without parameters' do
       class TransitionFromEventTo < Transitionable::Transition
         from :state1
