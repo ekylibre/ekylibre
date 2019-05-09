@@ -48,28 +48,29 @@ class FixedAsset
         assert_mock mock
       end
 
-      test 'should change the state of the fixed_asset' do
-        fa = create :fixed_asset, :in_use, :monthly,
-                    started_on: Date.new(2018, 1, 1)
-        t = new_transition_for fa, scrapped_on: Date.new(2018, 9, 5)
-
-        # byebug
-        assert t.run, t_err(t)
-        assert_equal 'scrapped', fa.state
-        assert_equal Date.new(2018, 9, 5), fa.scrapped_on
-      end
-
-      test 'should split the depreciation record on the scrapped_on date and bookkeep the one before the scrapped_on date' do
+      test 'should change the state of the fixed_asset and bookkeep correctly the depreciations records' do
+        exceptional_expenses_account = Account.find_or_import_from_nomenclature :exceptional_depreciations_imputations_expenses_for_fixed_assets
         scrapped_on = Date.new(2018, 9, 5)
-
         fa = create :fixed_asset, :in_use, :monthly,
                     started_on: Date.new(2018, 1, 1)
         t = new_transition_for fa, scrapped_on: scrapped_on
 
+        # byebug
         assert t.run, t_err(t)
+
+        assert_equal 'scrapped', fa.state
+        assert_equal Date.new(2018, 9, 5), fa.scrapped_on
+        assert fa.depreciations.all? &:has_journal_entry?
+
         before_scrap = fa.reload.depreciations.up_to scrapped_on
         assert_equal scrapped_on, before_scrap.last.stopped_on
-        assert before_scrap.all? &:has_journal_entry?
+        assert_equal scrapped_on, before_scrap.last.journal_entry.printed_on
+        before_scrap.each { |d| assert_equal fa.expenses_account, d.journal_entry.items.debit.first.account }
+
+        after_scrap = fa.depreciations.following(before_scrap.last)
+        assert_equal fa.depreciations.count, before_scrap.count + after_scrap.count
+        after_scrap.each { |d| assert_equal exceptional_expenses_account, d.journal_entry.items.debit.first.account }
+        after_scrap.each { |d| assert_equal scrapped_on, d.journal_entry.printed_on }
       end
 
       def new_transition_for(fa, **options)

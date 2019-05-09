@@ -207,10 +207,6 @@ class FixedAsset < Ekylibre::Record::Base
     depreciate! if @auto_depreciate
   end
 
-  def depreciate_imported_depreciations!
-    depreciations.up_to(FinancialYear.opened.first.started_on).map { |fad| fad.update(accountable: true) }
-  end
-
   def on_unclosed_periods?
     started_on > journal.closed_on
   end
