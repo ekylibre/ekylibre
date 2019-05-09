@@ -13,14 +13,20 @@ class FixedAsset
 
       def transition
         resource.scrapped_on ||= @scrapped_on
-        resource.state = :scrapped
         resource.transaction do
-          resource.save!
-
-          resource.depreciations.up_to(@scrapped_on).each { |d| d.update! accountable: true }
-
           active = resource.depreciations.on @scrapped_on
           split_depreciation! active, @scrapped_on unless active.stopped_on == @scrapped_on
+
+          # Bookkeep normally the depreciations before the scrap date
+          resource.depreciations.up_to(@scrapped_on).each { |d| d.update! accountable: true }
+
+          resource.update! state: :scrapped
+
+          # # Bookkeep the following with a FixedAsset marked as scrapped
+          resource.depreciations.following(active).each { |d| d.update! accountable: true, fixed_asset: resource }
+
+          # Lock all depreciations as the scrap transition is not-reversible
+          resource.depreciations.update_all locked: true
           true
         end
       end
@@ -39,8 +45,7 @@ class FixedAsset
           before, after = period.split date
 
           depreciation.update! stopped_on: before.stop,
-                               amount: round(total_amount * before.days / period.days),
-                               accountable: true
+                               amount: round(total_amount * before.days / period.days)
 
           shift_depreciations! resource.depreciations.following(depreciation)
           resource.depreciations.create! position: depreciation.position + 1,
