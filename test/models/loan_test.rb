@@ -60,7 +60,7 @@
 #
 require 'test_helper'
 
-class LoanTest < ActiveSupport::TestCase
+class LoanTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
   setup do

@@ -55,7 +55,7 @@
 #
 require 'test_helper'
 
-class ProductNatureCategoryTest < ActiveSupport::TestCase
+class ProductNatureCategoryTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

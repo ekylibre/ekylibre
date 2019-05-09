@@ -45,7 +45,7 @@
 
 require 'test_helper'
 
-class JournalTest < ActiveSupport::TestCase
+class JournalTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
   test 'presence of nature scopes' do

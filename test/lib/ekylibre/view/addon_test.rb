@@ -2,7 +2,7 @@ require 'test_helper'
 
 module Ekylibre
   module View
-    class AddonTest < ActiveSupport::TestCase
+    class AddonTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       test 'add' do
         Ekylibre::View::Addon.list
 

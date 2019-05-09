@@ -63,7 +63,7 @@
 
 require 'test_helper'
 
-class ParcelTest < ActiveSupport::TestCase
+class ParcelTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
   setup do

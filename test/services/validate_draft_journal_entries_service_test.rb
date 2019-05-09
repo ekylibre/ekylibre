@@ -1,5 +1,5 @@
 require 'test_helper'
 
-class ValidateDraftJournalEntriesServiceTest < ActiveSupport::TestCase
+class ValidateDraftJournalEntriesServiceTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

@@ -54,7 +54,7 @@
 require 'test_helper'
 require 'test/affairable'
 
-class SaleAffairTest < ActiveSupport::TestCase
+class SaleAffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   include Test::Affairable
 
   test 'homogeneousity' do

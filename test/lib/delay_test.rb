@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class DelayTest < ActiveSupport::TestCase
+class DelayTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   setup do
     @date = Date.civil(2016, 5, 12)
   end

@@ -34,6 +34,6 @@
 #
 require 'test_helper'
 
-class ActivitySeasonTest < ActiveSupport::TestCase
+class ActivitySeasonTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

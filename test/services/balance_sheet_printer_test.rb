@@ -1,5 +1,5 @@
 require 'test_helper'
 
-class BalanceSheetPrinterTest < ActiveSupport::TestCase
+class BalanceSheetPrinterTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

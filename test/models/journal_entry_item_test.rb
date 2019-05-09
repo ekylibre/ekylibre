@@ -73,7 +73,7 @@
 
 require 'test_helper'
 
-class JournalEntryItemTest < ActiveSupport::TestCase
+class JournalEntryItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
   test 'the validity of entries' do

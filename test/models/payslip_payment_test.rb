@@ -51,6 +51,6 @@
 #
 require 'test_helper'
 
-class PayslipPaymentTest < ActiveSupport::TestCase
+class PayslipPaymentTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

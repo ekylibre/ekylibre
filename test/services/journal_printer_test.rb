@@ -1,5 +1,5 @@
 require 'test_helper'
 
-class JournalPrinterTest < ActiveSupport::TestCase
+class JournalPrinterTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

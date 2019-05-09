@@ -46,6 +46,6 @@
 #
 require 'test_helper'
 
-class MapLayerTest < ActiveSupport::TestCase
+class MapLayerTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

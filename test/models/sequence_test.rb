@@ -43,7 +43,7 @@
 
 require 'test_helper'
 
-class SequenceTest < ActiveSupport::TestCase
+class SequenceTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
   test 'next values' do

@@ -1,5 +1,5 @@
 require 'test_helper'
 
-class PendingVatPrinterTest < ActiveSupport::TestCase
+class PendingVatPrinterTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

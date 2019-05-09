@@ -1,7 +1,7 @@
 require 'test_helper'
 module Api
   module V1
-    class InterventionTargetsControllerTest < ActionController::TestCase
+    class InterventionTargetsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
       # test_restfully_all_actions
     end
   end

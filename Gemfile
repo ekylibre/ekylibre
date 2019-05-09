@@ -258,6 +258,9 @@ group :test do
   gem 'pdf-reader'
 
   gem 'factory_bot', '< 5'
+  gem 'ruby-terminfo'
+
+  gem 'database_cleaner'
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles

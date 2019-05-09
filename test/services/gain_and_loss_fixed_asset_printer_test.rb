@@ -1,5 +1,5 @@
 require 'test_helper'
 
-class GainAndLossFixedAssetPrinterTest < ActiveSupport::TestCase
+class GainAndLossFixedAssetPrinterTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

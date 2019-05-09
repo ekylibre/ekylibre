@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class MeasureTest < ActiveSupport::TestCase
+class MeasureTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'instanciation' do
     assert_raise ArgumentError do
       Measure.new

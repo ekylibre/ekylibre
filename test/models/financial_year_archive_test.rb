@@ -32,6 +32,6 @@
 #
 require 'test_helper'
 
-class FinancialYearArchiveTest < ActiveSupport::TestCase
+class FinancialYearArchiveTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

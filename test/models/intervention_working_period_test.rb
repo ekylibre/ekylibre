@@ -38,7 +38,7 @@
 #
 require 'test_helper'
 
-class InterventionWorkingPeriodTest < ActiveSupport::TestCase
+class InterventionWorkingPeriodTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

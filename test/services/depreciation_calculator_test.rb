@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class DepreciationCalculatorTest < ActiveSupport::TestCase
+class DepreciationCalculatorTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   setup do
     FinancialYear.delete_all
   end

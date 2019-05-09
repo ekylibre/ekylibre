@@ -48,7 +48,7 @@
 require 'test_helper'
 
 module FinancialYearTest
-  class FinancialYearTest < ActiveSupport::TestCase
+  class FinancialYearTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     test_model_actions class: FinancialYear
 
     test 'chronology' do
