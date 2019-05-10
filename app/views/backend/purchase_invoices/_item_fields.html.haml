@@ -59,7 +59,6 @@
 
         .vat-total
           = f.input(:tax_id, label: :vat_rate.tl, collection: Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.usable_amount)/100)}]}, selected: f.object.tax_id, input_html: { class: "vat-total", data: {value: 'rate', trade_component: "tax"}})
-          -#%td.action= link_to_remove_association(content_tag(:i) + h(:destroy.ta), f, 'data-no-turbolink' => true, class: 'remove-item')
 
         .pta.pre-tax-invoice-total
           = f.input :pretax_amount, wrapper: :append do

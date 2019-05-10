@@ -50,19 +50,8 @@
 = field_set Purchase.human_attribute_name(:items) do
   .items
     %table.list#items-table
-      / %thead.table-head
-      /   %tr.table-headers
-      /     %th.act
-      /     %th.act
-      /     %th.product-column= :merchandises_services_costs.tl
-      /     %th.quantity-column= PurchaseItem.human_attribute_name(:quantity)
-      /     %th.unit-amount-column= :unit_amount.tl
-      /     %th.pretax-amount-column= :total_amount_without_taxes.tl
-      /     %th.total-column= :total_amount_with_taxes.tl
-
       = f.simple_fields_for :items, f.object.items.sort_by { |i| i.id.to_i } do |item|
         = render 'item_fields', f: item
-
       %tfoot#items__footer
         %tr.row-footer
           - PurchaseItem.role.values.each do |role|

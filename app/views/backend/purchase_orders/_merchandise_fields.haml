@@ -2,8 +2,25 @@
 
 .form-field.role-row.role-row--merchandise
   .item-block-role
-    = f.referenced_association(:variant, label: :merchandise.tl, source: { scope: :purchaseables_stockables_or_depreciables }, input_html: {class: "order-variant", data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_path("RECORD_ID", mode: :last_purchase_item)}, product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}, required: true}}, required: true)
-
+    :ruby
+      options = {
+        label: :merchandise.tl,
+        source: {scope: :purchaseables_stockables_or_depreciables},
+        input_html: {
+          class: "order-variant",
+          data: {
+            variant_of_deal_item: {
+              url: detail_backend_product_nature_variant_path("RECORD_ID", mode: :last_purchase_item)
+            },
+            product_of_delivery_item: {
+              url: backend_product_nature_variant_path("RECORD_ID", format: :json)
+            },
+            required: true,
+          }
+        },
+        required: true,
+      };
+    = f.referenced_association(:variant, **options)
 
   .item-block-quantity
     .storing__fields
@@ -23,9 +40,6 @@
             = f.input_field :quantity, class: "order-quantity", placeholder: '0', size: 7, data: { trade_component: "quantity", required: true }
             %span.add-on.item-population-unit-name
               = variant.unit_name.or_else('unité')
-
-
-
 
       %div.current-stock
         .merchandise-current-stock
