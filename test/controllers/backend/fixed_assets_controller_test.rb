@@ -49,6 +49,9 @@ module Backend
       FinancialYear.delete_all
       get :index
       assert_equal 200, response.status
+      noko = Nokogiri::HTML(response.body)
+      assert_equal 2, noko.css('a.disabled').size
+      assert_equal 1, noko.css("#depreciate-fixed-assets-until[disabled='disabled']").size
     end
 
     private
