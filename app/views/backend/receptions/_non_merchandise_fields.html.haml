@@ -1,5 +1,5 @@
 .item-block.role-row.role-row--non-merchandise
-  .item-block-non-merchandise
+  .item-block-role
     = f.referenced_association(:variant, label: f.object.role.tl, source: { scope: :purchaseables_services }, input_html: { class: 'parcel-item-variant', data: { product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json), scope: 'unit'}, required: true }})
   - if f.object.fees?
     .item-block__quantifier

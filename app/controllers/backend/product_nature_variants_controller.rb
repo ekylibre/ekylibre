@@ -119,6 +119,7 @@ module Backend
         },
         stock: @product_nature_variant.current_stock
       }
+
       if product_nature.subscribing?
         entity = nil
         address = nil

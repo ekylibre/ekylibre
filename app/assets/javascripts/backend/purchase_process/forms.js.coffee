@@ -11,6 +11,7 @@
       quantity = E.trade.find(item,  'quantity')
       quantity_value = parseFloat(conditionning.val() || 0) * parseFloat(conditionning_quantity.val() || 0)
       quantity.val(quantity_value)
+      quantity.trigger('change')
       E.trade.updateUnitPretaxAmount(item)
       E.toggleValidateButton(item)
 
@@ -24,6 +25,7 @@
       quantity = item.find('.storing-quantity')
       quantity_value = parseFloat(conditionning.val() || 0) * parseFloat(conditionning_quantity.val() || 0)
       quantity.val(quantity_value)
+      quantity.trigger('change')
       E.toggleValidateButton(item.closest('.incoming-parcel-item'))
     if component_name == 'conditionning'
       val = item.find('.conditionning').val()

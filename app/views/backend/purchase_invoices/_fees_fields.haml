@@ -1,7 +1,7 @@
 - item ||= f.object
 
 .form-field.role-row.role-row--non-merchandise
-  .item-block-merchandise
+  .item-block-role
     = f.referenced_association(:variant, label: f.object.role.tl, source: {scope: :purchaseables_services}, input_html: {class: "invoice-variant", data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_path("RECORD_ID", mode: :last_purchase_item)}, product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}, required: true}})
 
     - classes = 'supplier-ref-block'
@@ -32,7 +32,7 @@
           = f.input :fixed_asset_stopped_on, required: true
 
   .storing-calculation
-    .storing-quantifier
+    .storing-quantifier.storing-quantifier--fee
       = f.input :quantity, wrapper: :append do
         = f.input_field :quantity, class: "invoice-quantity", placeholder: '0', size: 7, data: {trade_component: "quantity", required: true}
 

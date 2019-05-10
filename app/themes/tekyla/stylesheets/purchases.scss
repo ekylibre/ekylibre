@@ -1,7 +1,7 @@
-.invoice-totals {
+.purchase-totals {
   margin: $default-gap * 3 0 $default-gap * 3 0.6%;
 
-  .invoice-total-row {
+  .purchase-total-row {
     @include flex-row(flex-start, flex-start);
     margin-bottom: $default-gap;
   }
@@ -44,7 +44,7 @@
 }
 
 .decimal-row {
-  .invoice-vat-total {
+  .vat-total {
     display: block;
   }
 }
@@ -88,23 +88,22 @@
     width: 30%;
   }
 
-.item-block-merchandise {
+.item-block-role {
   display: flex;
-    width: 40%;
-    .control-group {
-      display: flex;
+  width: 40%;
+  .control-group {
     width: 100%;
     flex-direction: column;
     .selector {
       width: 100%;
     }
-    }
+  }
 }
 .decimal-row {
   display: flex;
   width: 70%;
   justify-content: space-between;
-  .invoice-vat-total {
+  .vat-total {
     max-width: unset !important;
   }
 }
@@ -119,3 +118,17 @@
  .row-footer {
     display: flex;
   }
+
+.storing__fields {
+  display: flex;
+  justify-content: space-between;
+}
+
+.storing-quantifier--fee  {
+  .controls {
+    max-width: unset;
+    input {
+      width: 100% !important;
+    }
+  }
+}

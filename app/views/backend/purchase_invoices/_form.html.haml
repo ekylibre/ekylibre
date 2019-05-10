@@ -23,16 +23,16 @@
     = check_box_tag('purchase_invoice[reconciliation_state]', 'accepted', (f.object.reconciliation_state == 'accepted' ? true : false), id: 'purchase_invoice_accepted_state')
     = label_tag :accepted_for_paiment.tl
 
-  .invoice-totals
-    .invoice-total-row.total-except-tax
+  .purchase-totals
+    .purchase-total-row.total-except-tax
       %span.total-label= :total_amount_without_taxes.tl
       %span.total-value= f.object.decorate.total_amount_excluding_taxes
       %span.total-currency= Nomen::Currency[f.object.currency].symbol
-    .invoice-total-row.vat-total
+    .purchase-total-row.vat-total
       %span.total-label= :vat.tl
       %span.total-value= f.object.decorate.total_vat_amount.round(2)
       %span.total-currency= Nomen::Currency[f.object.currency].symbol
-    .invoice-total-row.invoice-total
+    .purchase-total-row.purchase-total
       %span.total-label= :total_amount_with_taxes.tl
       %span.total-value= f.object.decorate.total_amount_including_taxes
       %span.total-currency= Nomen::Currency[f.object.currency].symbol

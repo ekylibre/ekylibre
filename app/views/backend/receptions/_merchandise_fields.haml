@@ -1,5 +1,5 @@
 %div.role-row.role-row--merchandise
-  .item-block-merchandise.item-block-merchandise--reception
+  .item-block-role.item-block-role--merchandise
     - if f.object.role == 'merchandise'
       = f.referenced_association(:variant, label: :merchandise.tl, source: { scope: :purchaseables_stockables_or_depreciables }, input_html: { class: 'parcel-item-variant', data: { product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json), scope: 'unit'}, required: true }})
 
