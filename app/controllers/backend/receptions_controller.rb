@@ -123,8 +123,9 @@ module Backend
                                  given_at: Date.today,
                                  reconciliation_state: 'reconcile' }
 
-        reception_items = purchase_orders.map do |purchase_order|
+        reception_items = purchase_orders.flat_map do |purchase_order|
                             purchase_order.items.map do |item|
+                              next if item.quantity_to_receive == 0
                               reception_item_attributes = { variant_id: item.variant_id,
                                                             purchase_order_item_id: item.id,
                                                             currency: item.currency,
@@ -140,7 +141,7 @@ module Backend
                           end
 
         @reception = Reception.new(reception_attributes)
-        @reception.items = reception_items.flatten
+        @reception.items = reception_items.compact
       else
         @reception = Reception.new
       end
