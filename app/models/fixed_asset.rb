@@ -280,7 +280,7 @@ class FixedAsset < Ekylibre::Record::Base
 
   def add_amount(amount)
     unless depreciations.any?(&:journal_entry)
-      update(purchase_amount: purchase_amount + amount, depreciable_amount: depreciable_amount + amount)
+      update!(purchase_amount: purchase_amount + amount, depreciable_amount: depreciable_amount + amount)
     end
   end
 
