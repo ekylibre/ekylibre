@@ -67,6 +67,7 @@
       E.reconciliation.createLinesWithSelectedItems(modal, event)
 
     E.reconciliation.displayReconciliateState(event)
+    E.reconciliation.displayComplianceState(event, modal)
 
     @reconciliationModal= new E.modal('#purchase_process_reconciliation')
     @reconciliationModal.getModal().modal 'hide'
@@ -84,6 +85,10 @@
       else if !anyCheckboxChecked && closePurchaseOrderBlock.is(':visible')
         $(closePurchaseOrderBlock).addClass('hidden')
 
+    displayComplianceState: (event, modal) ->
+      $nonCompliantItems = $(modal).find("li[data-non-compliant='true'] .item-checkbox:checked")
+
+      $('.compliance-title').toggle(!!$nonCompliantItems.length)
 
     displayReconciliateState: (event) ->
       $('#purchase_invoice_accepted_state').val('reconcile')

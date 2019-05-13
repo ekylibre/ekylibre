@@ -1,5 +1,6 @@
 = f.object.errors.full_messages if f.object.errors.present? && Rails.env.development?
 = content_for(:heading_toolbar) do
+  %h2.global-incident-warning.reconciliation-title.compliance-title.hidden= :reception_incident.tl
   %h2.reconciliation-title.no-reconciliate-title= :to_reconciliate.tl
   %h2.reconciliation-title.reconcile-title.hidden= :reconcile.tl
   %h2.reconciliation-title.accepted-title.hidden= :accepted.tl

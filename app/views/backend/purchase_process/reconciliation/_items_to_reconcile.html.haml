@@ -26,7 +26,7 @@
 
           %ul.list-items
             - model.items.each do |model_item|
-              - datas = { variant_type: model_item.variant.variety, equipment_id: model_item.equipment_id, responsible_id: model.responsible_id }
+              - datas = { variant_type: model_item.variant.variety, equipment_id: model_item.equipment_id, responsible_id: model.responsible_id, non_compliant: model_item.non_compliant.to_s }
               - datas.merge!({ team_id: model_item.team_id,
                                activity_budget_id: model_item.activity_budget_id,
                                conditionning: model_item.conditionning,
