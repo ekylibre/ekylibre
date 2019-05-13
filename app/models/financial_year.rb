@@ -170,8 +170,8 @@ class FinancialYear < Ekylibre::Record::Base
   validate do
     next_fy = FinancialYear.started_after(stopped_on).first
     previous_fy = FinancialYear.stopped_before(started_on).last
-    errors.add(:stopped_on, :should_be_at) if next_fy && stopped_on + 1.day != next_fy.started_on
-    errors.add(:started_on, :should_be_at) if previous_fy && started_on != previous_fy.stopped_on + 1.day
+    errors.add(:stopped_on, :should_be_consecutive, expected: next_fy.started_on - 1.day) if next_fy && next_fy.started_on != stopped_on + 1.day
+    errors.add(:started_on, :should_be_consecutive, expected: previous_fy.stopped_on + 1.day) if previous_fy && previous_fy.stopped_on != started_on - 1.day
   end
 
   validate do
