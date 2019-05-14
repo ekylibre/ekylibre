@@ -486,7 +486,10 @@ class ProductNatureVariant < Ekylibre::Record::Base
   end
 
   def current_stock_per_storage(storage)
-    ParcelItemStoring.where(storage: storage).joins(:parcel_item).where(parcel_items: { variant_id: self.id }).sum(:quantity)
+    ParcelItemStoring.where(storage: storage)
+                     .joins(:parcel_item)
+                     .where(parcel_items: { variant_id: self.id })
+                     .sum(:quantity)
   end
 
   class << self
