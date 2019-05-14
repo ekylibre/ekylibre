@@ -123,10 +123,13 @@ fra:
         contract: "Contrat"
       parcel_item:
         population: "Quantité"
-      parcel_item_storing: #?
+      parcel_item_storing:
         conditionning: "Conditionnement" #?
         conditionning_quantity: "Quantité" #?
-        quantity: "Quantité totale" #?
+        quantity: "Quantité totale"
+        reception_given_at: "Donné le"
+        reception_planned_at: "Prévu le"
+        product_name: "Nom du produit"
       payslip_payment: #?
         delivered: "Remis au bénéficiaire" #?
         list: "Lot de décaissements" #?

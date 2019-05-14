@@ -210,6 +210,11 @@
       .selector-search {
         width: 100%;
       }
+
+      .reception_items_name:after {
+        color: #e32;
+        content: ' *';
+      }
     }
 
     &.service,
@@ -478,6 +483,16 @@
 }
 
 
+@media (max-width: $maxi-screen) {
+	
+  .new_reception,
+  .edit_reception {
+
+   .unitary-variant-fields {
+      display: grid !important;
+    }
+  }
+}
 // Responsive media queries
 @media (max-width: $medium-screen) {
 
