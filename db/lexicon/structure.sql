@@ -1,3 +1,14 @@
+CREATE TABLE cadastral_land_parcel_zones (
+  id character varying,
+  section character varying,
+  work_number character varying,
+  net_surface_area integer,
+  shape postgis.geometry(MultiPolygon,4326) NOT NULL,
+  centroid postgis.geometry(Point,4326)
+);
+CREATE INDEX cadastral_land_parcel_zones_shape ON cadastral_land_parcel_zones USING GIST (shape);
+CREATE INDEX cadastral_land_parcel_zones_centroid ON cadastral_land_parcel_zones USING GIST (centroid);
+
 CREATE TABLE master_accountancy_profiles (
   id integer PRIMARY KEY,
   nature character varying NOT NULL,
@@ -38,7 +49,8 @@ CREATE TABLE master_production_natures (
   season character varying,
   pfi_crop_code character varying,
   cap_2017_crop_code character varying,
-  cap_2018_crop_code character varying
+  cap_2018_crop_code character varying,
+  cap_2019_crop_code character varying
 );
 CREATE INDEX master_production_natures_specie ON master_production_natures(specie);
 CREATE INDEX master_production_natures_human_name ON master_production_natures(human_name);
@@ -47,6 +59,7 @@ CREATE INDEX master_production_natures_agroedi_crop_code ON master_production_na
 CREATE INDEX master_production_natures_pfi_crop_code ON master_production_natures(pfi_crop_code);
 CREATE INDEX master_production_natures_cap_2017_crop_code ON master_production_natures(cap_2017_crop_code);
 CREATE INDEX master_production_natures_cap_2018_crop_code ON master_production_natures(cap_2018_crop_code);
+CREATE INDEX master_production_natures_cap_2019_crop_code ON master_production_natures(cap_2019_crop_code);
 
 CREATE TABLE master_production_outputs (
   production_nature_id INTEGER NOT NULL,

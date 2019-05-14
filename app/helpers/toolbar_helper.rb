@@ -139,7 +139,7 @@ module ToolbarHelper
     toolbar = Toolbar.new(self)
 
     html = ''
-    html << capture(toolbar, &block) if block_given?
+    html << (capture(toolbar, &block) || '') if block_given?
 
     if !options[:extract].is_a?(FalseClass) && action_name == 'index'
       model = controller_name.to_s.singularize
