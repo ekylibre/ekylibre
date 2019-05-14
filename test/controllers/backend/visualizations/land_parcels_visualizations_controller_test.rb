@@ -3,10 +3,10 @@ module Backend
   module Visualizations
     class LandParcelsVisualizationsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
       setup do
-        Ekylibre::Tenant.switch!('test')
-        @locale = ENV['LOCALE'] || I18n.default_locale
+        # Ekylibre::Tenant.switch!('test')
+        # @locale = ENV['LOCALE'] || I18n.default_locale
         @user = users(:users_001)
-        @user.update_column(:language, @locale)
+        @user.update_column(:language, I18n.locale)
         sign_in(@user)
       end
 
