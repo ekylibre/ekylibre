@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :purchase_item do
     association :tax
-    purchase
     account
     amount { 1848.0 }
     pretax_amount { 1545.15 }
@@ -10,9 +9,11 @@ FactoryBot.define do
     unit_amount { 1848.0 }
     unit_pretax_amount { 1545.15 }
     currency { 'EUR' }
+    variant
 
     after(:build) do |purchase_item|
-      purchase_item.variant = ProductNatureVariant.last unless purchase_item.variant
+        purchase_item.purchase.items << purchase_item
+      # purchase_item.variant = ProductNatureVariant.last unless purchase_item.variant
     end
   end
 end
