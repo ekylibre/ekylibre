@@ -93,14 +93,8 @@ gem 'sidekiq', '~> 4.0'
 gem 'sidekiq-cron', '>= 0.4.0'
 gem 'sidekiq-unique-jobs', '~> 4.0'
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
 # Use Unicorn as the app server
 gem 'unicorn', group: :production
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
 
 # Exception management
 gem 'exception_notification'
@@ -249,16 +243,12 @@ end
 group :test do
   gem 'shoulda-context'
 
-  gem 'capybara'
-  gem 'capybara-webkit', '>= 1.14.0'
-  gem 'selenium-webdriver'
-
   gem 'minitest-reporters'
+  gem 'ruby-terminfo'
 
   gem 'pdf-reader'
 
   gem 'factory_bot', '< 5'
-  gem 'ruby-terminfo'
 
   gem 'database_cleaner'
 end

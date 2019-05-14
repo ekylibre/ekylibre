@@ -5,7 +5,6 @@ ENV['RAILS_ENV'] ||= 'test'
 
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
-require 'capybara/rails'
 
 require 'minitest/reporters'
 require 'database_cleaner'
@@ -17,8 +16,8 @@ Minitest::Reporters.use!(
 )
 
 # Permits to test locales
-I18n.locale = ENV['LOCALE'] if ENV['LOCALE']
-
+I18n.locale = ENV['LOCALE'] || I18n.default_locale
+puts "Locale set to #{I18n.locale.to_s.green}".yellow
 # Configure tenants.yml
 
 puts "Setup tenant: #{'sekindovall'.green}".yellow
@@ -30,7 +29,6 @@ Ekylibre::Tenant.setup!('test_without_fixtures')
 puts "Setup tenant: #{'test'.green}".yellow
 Ekylibre::Tenant.setup!('test', keep_files: true)
 
-
 Ekylibre::Tenant.switch 'test_without_fixtures' do
   puts "Cleaning tenant: #{'test_without_fixtures'.green}".yellow
   DatabaseCleaner.clean_with :truncation, { except: ['spatial_ref_sys'] }
@@ -39,8 +37,6 @@ end
 DatabaseCleaner.strategy = :transaction
 
 FactoryBot.find_definitions
-
-Capybara.server = :webrick
 
 # Patch from https://github.com/rails/rails/issues/34790#issuecomment-450502805
 if RUBY_VERSION >= '2.6.0'
@@ -130,18 +126,11 @@ module ActionController
         end
       end
 
-      def setup_locale
-        setup do
-          Ekylibre::Tenant.switch!('test')
-          @locale = ENV['LOCALE'] || I18n.default_locale
-        end
-      end
-
       def setup_sign_in
         setup do
           @request.env['HTTP_REFERER'] = 'http://test.ekylibre.farm/backend'
           @user = users(:users_001)
-          @user.update_column(:language, @locale)
+          @user.update_column(:language, I18n.locale)
           sign_in(@user)
         end
         teardown do
@@ -191,7 +180,6 @@ module ActionController
 
         code = ''
 
-        setup_locale
         setup_sign_in unless options[:sign_in].is_a?(FalseClass)
 
         code << "def beautify(value, back = true)\n"
@@ -499,135 +487,6 @@ module ActionController
         :get
       end
     end
-  end
-end
-# Cheat Sheet
-# https://gist.github.com/zhengjia/428105
-
-# Capybara.register_driver :poltergeist do |app|
-#   Capybara::Poltergeist::Driver.new(app, debug: true, inspector: true)
-# end
-
-Capybara.default_driver = (ENV['DRIVER'] || 'webkit').to_sym
-Capybara.current_driver = Capybara.default_driver
-Capybara.javascript_driver = Capybara.default_driver
-# Capybara.default_max_wait_time = 5
-# Capybara.server_port = 3333
-
-Capybara::Webkit.configure do |config|
-  config.allow_url 'secure.gravatar.com'
-  config.allow_url 'a.tile.openstreetmap.fr'
-  config.allow_url 'b.tile.openstreetmap.fr'
-  config.allow_url 'c.tile.openstreetmap.fr'
-  config.allow_url 'server.arcgisonline.com'
-  config.allow_url 'secure.gravatar.com'
-  config.allow_url 'a.tile.thunderforest.com'
-  config.allow_url 'b.tile.thunderforest.com'
-  config.allow_url 'c.tile.thunderforest.com'
-  config.allow_url 'tiles.openseamap.org'
-  config.allow_url 'openmapsurfer.uni-hd.de'
-  config.allow_url 'otilea.mqcdn.com'
-  config.allow_url 'otileb.mqcdn.com'
-  config.allow_url 'otilec.mqcdn.com'
-  config.allow_url '129.206.74.245'
-  config.allow_url ''
-end
-
-class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
-  include Capybara::DSL
-  include Ekylibre::Testing::Concerns::FixturesModule
-  # include Capybara::Screenshot
-  include Warden::Test::Helpers
-  Warden.test_mode!
-
-  def login_with_user(options = {})
-    # Need to go on page to set tenant
-    I18n.locale = ENV['LOCALE'] || I18n.default_locale
-    user = users(:users_001)
-    user.language = I18n.locale
-    visit("/sign-in?locale=#{I18n.locale}")
-    resize_window(1366, 768)
-    # shoot_screen 'authentication/sign_in'
-    login_as(user, scope: :user) # , run_callbacks: false
-    visit(options[:after_login_path]) if options[:after_login_path]
-    # shoot_screen 'backend'
-  end
-
-  def wait_for_ajax
-    sleep(Capybara.default_max_wait_time * 0.5)
-    # Timeout.timeout(Capybara.default_wait_time) do
-    #   loop if active_ajax_requests?
-    # end
-  end
-
-  def active_ajax_requests?
-    # puts page.evaluate_script('$.active').inspect.red
-    sleep(0.1)
-    page.evaluate_script('$.turbo.isReady') && page.evaluate_script('jQuery.active').zero?
-  end
-
-  def shoot_screen(name = nil)
-    name ||= current_url.split(/\:\d+\//).last
-    file = Rails.root.join('tmp', 'screenshots', "#{name}.png")
-    FileUtils.mkdir_p(file.dirname) unless file.dirname.exist?
-    wait_for_ajax
-    page.save_screenshot(file)
-    save_page file.to_s.gsub(/\.png\z/, '.html')
-    # , full: true
-  end
-
-  def resize_window(width, height)
-    driver = Capybara.current_driver
-    if driver == :webkit
-      page.current_window.resize_to(width, height)
-    elsif driver == :selenium
-      page.driver.browser.manage.window.resize_to(width, height)
-    else
-      raise NotImplemented, "Not implemented for #{driver.inspect}"
-    end
-  end
-
-  # Add a method to test unroll in form
-  # FIXME : add an AJAX helpers to capybara for testing unroll field
-  # http://stackoverflow.com/questions/13187753/rails3-jquery-autocomplete-how-to-test-with-rspec-and-capybara/13213185#13213185
-  # http://jackhq.tumblr.com/post/3728330919/testing-jquery-autocomplete-using-capybara
-  def fill_unroll(field, options = {})
-    node = find(:xpath, ".//*[@data-selector-id='#{field}']")
-    node.set(options[:with])
-
-    shoot_screen "#{options[:name]}/unroll-before" if options[:name]
-
-    wait_for_ajax
-
-    script = "$('input##{node[:id]}').next().next().find('.items-list .item"
-    script << (options[:select] ? "[data-item-label~=\"#{options[:select]}\"]" : ':first-child')
-    script << "').mouseenter().click();"
-
-    page.execute_script script
-    wait_for_ajax
-    shoot_screen "#{options[:name]}/unroll-after" if options[:name]
-  end
-
-  def create_invitation(first_name: 'Robert',
-                        last_name: 'Tee',
-                        email: 'invitee@ekylibre.org')
-    login_with_user
-    visit('/backend/invitations/new')
-    fill_in('user[first_name]', with: first_name)
-    fill_in('user[last_name]', with: last_name)
-    fill_in('user[email]', with: email)
-    click_on(:create.tl)
-    js_logout
-  end
-
-  def js_logout
-    script = "$('a.signout').click()"
-    execute_script(script)
-  end
-
-  def find_accept_invitation_path
-    mail_body = ActionMailer::Base.deliveries.last.body.to_s
-    URI(URI.extract(mail_body).first).request_uri
   end
 end
 
