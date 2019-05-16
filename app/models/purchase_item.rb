@@ -156,7 +156,7 @@ class PurchaseItem < Ekylibre::Record::Base
     if fixed && fixed_asset && purchase.purchased?
       fixed_asset.reload
       amount_difference = pretax_amount.to_f - pretax_amount_was.to_f
-      fixed_asset.add_amount(amount_difference) if fixed_asset && amount_difference.nonzero?
+      fixed_asset.add_amount(amount_difference) if amount_difference.nonzero?
     end
     true
   end

@@ -40,7 +40,7 @@
 #
 require 'test_helper'
 
-class ManureManagementPlanTest < ActiveSupport::TestCase
+class ManureManagementPlanTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

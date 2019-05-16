@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class TransitionableTest < ActiveSupport::TestCase
+class TransitionableTest < Ekylibre::Testing::ApplicationTestCase
   test 'creates transitionable class method' do
     class DummyTransition
       include Transitionable
@@ -47,11 +47,12 @@ class TransitionableTest < ActiveSupport::TestCase
       include Transitionable
     end
     res = TransitionableForTestPredicatesMethod.new
+
     def res.state
       :pouet
     end
 
-    assert %i[can_pouet? can_tut?].all? {|pred| res.methods.include? pred}
+    assert %i[can_pouet? can_tut?].all? { |pred| res.methods.include? pred }
 
     pouet = TransitionableForTestPredicatesMethod::Transitions::Pouet
     pouet.send :define_method, :can_run? do
@@ -66,7 +67,7 @@ class TransitionableTest < ActiveSupport::TestCase
     assert res.can_tut?
   end
 
-  class TransitionTest < ActiveSupport::TestCase
+  class TransitionTest < Ekylibre::Testing::ApplicationTestCase
     test 'from, event and to sets values on the class and return them when called without parameters' do
       class TransitionFromEventTo < Transitionable::Transition
         from :state1
@@ -134,6 +135,66 @@ class TransitionableTest < ActiveSupport::TestCase
 
       transition.run
       assert transition.instance_variable_get(:@called)
+    end
+
+    test "run! raise a PreconditionFailedException if can_run? returns false" do
+      transition = Transitionable::Transition.new Object.new
+
+      def transition.can_run?
+        false
+      end
+
+      assert_raise(Transitionable::PreconditionFailedError) { transition.run! }
+    end
+
+    test "the error field of transition is set when a transition fails and is nil when it suceeds" do
+      t1 = Transitionable::Transition.new Object.new
+
+      def t1.can_run?
+        false
+      end
+
+      assert_not t1.run
+      assert_instance_of Transitionable::PreconditionFailedError, t1.error
+
+      t2 = Transitionable::Transition.new Object.new
+
+      def t2.can_run?
+        true
+      end
+
+      def t2.transition
+        raise StandardError.new ""
+      end
+
+      assert_not t2.run
+      assert_instance_of Transitionable::TransitionFailedError, t2.error
+
+      t3 = Transitionable::Transition.new Object.new
+
+      def t3.can_run?
+        true
+      end
+
+      def t3.transition
+        throw :abort
+      end
+
+      assert_not t3.run
+      assert_instance_of Transitionable::TransitionAbortedError, t3.error
+
+      t4 = Transitionable::Transition.new Object.new
+
+      def t4.can_run?
+        true
+      end
+
+      def t4.transition
+        true
+      end
+
+      assert t4.run
+      assert_nil t4.error
     end
   end
 

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module FinancialYearTest
-  class ExchangeTest < ActiveSupport::TestCase
+  class ExchangeTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     test 'cannot create exchange without accountant' do
       year = financial_years(:financial_years_025)
       refute year.can_create_exchange?

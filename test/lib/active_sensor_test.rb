@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ActiveSensorTest < ActiveSupport::TestCase
+class ActiveSensorTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'should register many equipments' do
     path = fixture_file('sensors.yml')
     assert path.exist?, "Sensors file doesn't exist"

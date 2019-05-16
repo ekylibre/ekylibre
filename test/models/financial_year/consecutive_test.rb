@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module FinancialYearTest
-  class ConsecutiveTest < ActiveSupport::TestCase
+  class ConsecutiveTest < Ekylibre::Testing::ApplicationTestCase
     setup do
       FinancialYear.delete_all
 

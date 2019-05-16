@@ -48,7 +48,7 @@
 #
 require 'test_helper'
 
-class IssueTest < ActiveSupport::TestCase
+class IssueTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
   test 'killing target' do

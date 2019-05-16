@@ -1,0 +1,61 @@
+.state-bar {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &:hover &__state {
+    display: block;
+  }
+
+  &__state {
+    display: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    line-height: $lh-normal;
+    color: white;
+    opacity: 0.25;
+    padding: $default-gap;
+    text-align: center;
+
+    &--current {
+      display: block;
+      opacity: 1;
+    }
+
+    &--intermediate {
+      background-color: $caution-color;
+    }
+
+    &--validated {
+      background-color: $success-color;
+    }
+
+    &--rejected {
+      background-color: $invalid-color;
+    }
+
+    &--disabled {
+      cursor: not-allowed;
+      background-color: $neutral-color;
+    }
+  }
+
+  a#{&}__state {
+    color: white;
+
+    &:hover {
+      opacity: 0.66;
+    }
+  }
+
+  @include respond-to-bigger-than(small) {
+    & {
+      flex-direction: row;
+    }
+    &__state {
+      display: block;
+      flex-grow: 1;
+      flex-basis: 0;
+    }
+  }
+}

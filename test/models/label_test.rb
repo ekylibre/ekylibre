@@ -34,6 +34,6 @@
 #
 require 'test_helper'
 
-class LabelTest < ActiveSupport::TestCase
+class LabelTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

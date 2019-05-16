@@ -53,7 +53,7 @@
 #
 require 'test_helper'
 
-class ParcelItemTest < ActiveSupport::TestCase
+class ParcelItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
   test "give doesn't create the dependent records if there is an exception during the process" do

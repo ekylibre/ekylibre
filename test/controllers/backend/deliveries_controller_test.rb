@@ -18,7 +18,7 @@
 
 require 'test_helper'
 module Backend
-  class DeliveriesControllerTest < ActionController::TestCase
+  class DeliveriesControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions except: %i[delivery_delete deliveries], order: :touch, check: :touch, cancel: :touch, prepare: :touch
   end
 end

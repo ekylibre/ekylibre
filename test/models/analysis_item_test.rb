@@ -49,7 +49,7 @@
 #
 require 'test_helper'
 
-class AnalysisItemTest < ActiveSupport::TestCase
+class AnalysisItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

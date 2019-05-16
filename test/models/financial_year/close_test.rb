@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module FinancialYearTest
-  class CloseTest < ActiveSupport::TestCase
+  class CloseTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     teardown do
       FileUtils.rm_rf Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures')
     end

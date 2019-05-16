@@ -18,7 +18,7 @@
 
 require 'test_helper'
 module Backend
-  class PurchasesControllerTest < ActionController::TestCase
+  class PurchasesControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions pay: { mode: :create, id: '16,17', mode_id: 1 }, except: :payment_mode
   end
 end

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class FinancialYearExchangeImportTest < ActiveSupport::TestCase
+class FinancialYearExchangeImportTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   attr_reader :account, :financial_year, :financial_year_exchange, :booked_journal, :financial_year
 
   setup do

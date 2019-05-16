@@ -35,7 +35,7 @@
 #
 require 'test_helper'
 
-class RegularizationTest < ActiveSupport::TestCase
+class RegularizationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'resource is set' do
     currency = 'EUR'
     regularization = Regularization.create!(

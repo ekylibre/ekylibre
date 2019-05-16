@@ -88,6 +88,6 @@
 #
 require 'test_helper'
 
-class EquipmentFleetTest < ActiveSupport::TestCase
+class EquipmentFleetTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

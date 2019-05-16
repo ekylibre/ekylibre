@@ -40,7 +40,7 @@
 
 require 'test_helper'
 
-class InventoryItemTest < ActiveSupport::TestCase
+class InventoryItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

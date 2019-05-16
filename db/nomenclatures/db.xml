@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20190412071057">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20190509092804">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -200,6 +200,7 @@
       <item name="establishment_charge_assets" fr_pcga="201" fr_pcg82="201"/>
       <item name="establishment_charge_assets_amortization" fr_pcga="2801" fr_pcg82="2801"/>
       <item name="exceptional_charge_transfer_revenues" fr_pcg82="797" fr_pcga="797"/>
+      <item name="exceptional_depreciations_imputations_expenses_for_fixed_assets" fr_pcga="6871" fr_pcg82="6871"/>
       <item name="exceptional_depreciations_inputations_expenses" fr_pcg82="687" fr_pcga="687"/>
       <item name="exceptional_depreciations_inputations_revenues" fr_pcg82="787" fr_pcga="787"/>
       <item name="exceptional_expenses" fr_pcga="67" fr_pcg82="67"/>

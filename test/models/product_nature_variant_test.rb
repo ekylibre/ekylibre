@@ -51,7 +51,7 @@
 #
 require 'test_helper'
 
-class ProductNatureVariantTest < ActiveSupport::TestCase
+class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
   setup do

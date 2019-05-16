@@ -51,6 +51,7 @@ eng:
       overlap_sibling: "%{attribute} overlaps sibling"
       posterior: "%{attribute} must be posterior to %{to}"
       record_invalid: "Validations failed: %{errors}"
+      should_be_consecutive: "Financial years must be consecutive, therefore %{attribute} should be %{expected}."
       should_be_the_last_day_of_month: "%{attribute} should be the last day of the month."
       taken: "%{attribute} has already been taken"
       too_long: "%{attribute} is too long (maximum is %{count} characters)"
@@ -1658,14 +1659,13 @@ eng:
         prospecting: "Prospecting"
         won: "Won"
     delivery:
-      state_machine:
-        states:
-          draft: "Draft"
-          finished: "Finished"
-          in_preparation: "In preparation"
-          ordered: "Ordered"
-          prepared: "Prepared"
-          started: "Started"
+      states:
+        draft: "Draft"
+        finished: "Finished"
+        in_preparation: "In preparation"
+        ordered: "Ordered"
+        prepared: "Prepared"
+        started: "Started"
     deposit:
       bookkeep:
         one: "[%{resource} %{number}] %{count} payment %{mode} %{description}"
@@ -1692,12 +1692,11 @@ eng:
       bookkeep_exit_assets: "[%{resource} %{number}] Scrapped of %{name}"
       bookkeep_in_sold_assets: "[%{resource} %{number}] Sold of %{name}"
       bookkeep_in_use_assets: "[%{resource} %{number}] In use of %{name}"
-      state_machine:
-        states:
-          draft: "Draft"
-          in_use: "In use"
-          scrapped: "Scrapped"
-          sold: "Sold"
+      states:
+        draft: "Draft"
+        in_use: "In use"
+        scrapped: "Scrapped"
+        sold: "Sold"
     fixed_asset_depreciation:
       bookkeep: "[%{resource} %{number}] Depreciation of %{name} (%{position}/%{total})"
       bookkeep_partial: "[%{resource} %{number}] Partial depreciation of %{name} (%{position}/%{total})"
@@ -1771,11 +1770,10 @@ eng:
     loan:
       bookkeep: "[%{resource} %{name}] Fund reception"
       bookkeep_guarantee_payment: "[%{resource} %{name}] Guarantee payment"
-      state_machine:
-        states:
-          draft: "Draft"
-          ongoing: "Ongoing"
-          repaid: "Repaid"
+      states:
+        draft: "Draft"
+        ongoing: "Ongoing"
+        repaid: "Repaid"
     loan_repayment:
       bookkeep: "[%{resource} %{name}] Repayment #%{position}"
     outgoing_payment:
@@ -1791,14 +1789,13 @@ eng:
           name: "Transfer"
     parcel:
       bookkeep: "[%{resource} %{mode} %{number}] %{entity}"
-      state_machine:
-        states:
-          draft: "Draft"
-          given: "Given"
-          in_preparation: "In preparation"
-          ordered: "Ordered"
-          prepared: "Prepared"
-          received: "Received"
+      states:
+        draft: "Draft"
+        given: "Given"
+        in_preparation: "In preparation"
+        ordered: "Ordered"
+        prepared: "Prepared"
+        received: "Received"
       undelivered_invoice: "Undelivered invoice [%{resource} %{mode} %{number}] %{entity}"
     payslip:
       bookkeep: "[%{resource} %{number}] %{employee} from %{started_on} to %{stopped_on}"
@@ -1902,15 +1899,14 @@ eng:
       default:
         name: "Standard sale"
     sale_opportunity:
-      state_machine:
-        states:
-          lost: "Lost"
-          negociation: "Negociation"
-          price_quote: "Price quote"
-          prospecting: "Prospecting"
-          qualification: "Qualification"
-          value_proposition: "Value proposition"
-          won: "Won"
+      states:
+        lost: "Lost"
+        negociation: "Negociation"
+        price_quote: "Price quote"
+        prospecting: "Prospecting"
+        qualification: "Qualification"
+        value_proposition: "Value proposition"
+        won: "Won"
     sequence:
       default:
         affairs: "A[number|12]"
@@ -1938,18 +1934,16 @@ eng:
         subscriptions: "SUB[number|8]"
         transports: "TR[number|8]"
     task:
-      state_machine:
-        states:
-          doing: "Doing"
-          done: "Done"
-          todo: "To do"
+      states:
+        doing: "Doing"
+        done: "Done"
+        todo: "To do"
     tax_declaration:
       bookkeep: "[%{resource} %{number}] From %{started_on} to %{stopped_on}"
-      state_machine:
-        states:
-          draft: "Draft"
-          sent: "Sent"
-          validated: "Validated"
+      states:
+        draft: "Draft"
+        sent: "Sent"
+        validated: "Validated"
     team:
       default: "Main team"
     user:

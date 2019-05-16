@@ -54,7 +54,7 @@
 
 require 'test_helper'
 
-class PurchaseItemTest < ActiveSupport::TestCase
+class PurchaseItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

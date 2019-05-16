@@ -7,7 +7,7 @@ class BooleanValidatable
   validates :bool, boolean: true
 end
 
-class BooleanValidatorTest < ActiveSupport::TestCase
+class BooleanValidatorTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   setup do
     @obj = BooleanValidatable.new
   end

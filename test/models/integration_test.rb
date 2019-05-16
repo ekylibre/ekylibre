@@ -36,7 +36,7 @@
 #
 require 'test_helper'
 
-class IntegrationTest < ActiveSupport::TestCase
+class IntegrationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # test "the truth" do
   #   assert true
   # end

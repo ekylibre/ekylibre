@@ -19,6 +19,7 @@ SLOW_TESTS = %w[
   FIEA::GalacteaExchangerTest
   FinancialYearCloseTest
   FinancialYearTest
+  FinancialYearTest::CloseTest
   FixturesTest
   Lilco::MilkAnalysesExchangerTest
   PdfPrinterTest

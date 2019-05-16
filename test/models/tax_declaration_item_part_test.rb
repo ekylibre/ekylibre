@@ -40,6 +40,6 @@
 #
 require 'test_helper'
 
-class TaxDeclarationItemPartTest < ActiveSupport::TestCase
+class TaxDeclarationItemPartTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

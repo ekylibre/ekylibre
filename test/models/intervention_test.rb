@@ -54,7 +54,7 @@
 #
 require 'test_helper'
 
-class InterventionTest < ActiveSupport::TestCase
+class InterventionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
   test 'scopes' do

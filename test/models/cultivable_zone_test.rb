@@ -43,7 +43,7 @@
 #
 require 'test_helper'
 
-class CultivableZoneTest < ActiveSupport::TestCase
+class CultivableZoneTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

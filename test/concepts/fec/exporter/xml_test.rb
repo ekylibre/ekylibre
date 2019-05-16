@@ -2,7 +2,7 @@ require 'test_helper'
 
 module FEC
   module Exporter
-    class XMLTest < ActiveSupport::TestCase
+    class XMLTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       test 'build' do
         fy = JournalEntryItem.last.financial_year
         exporter = FEC::Exporter::XML.new(fy, nil, fy.started_on, fy.stopped_on)

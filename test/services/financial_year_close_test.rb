@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class FinancialYearCloseTest < ActiveSupport::TestCase
+class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   setup do
     @today = Date.new(2019,3,15)
 

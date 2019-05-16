@@ -18,7 +18,7 @@
 
 require 'test_helper'
 module Backend
-  class FixedAssetsControllerTest < ActionController::TestCase
+  class FixedAssetsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     # TODO: Re-activate the #depreciate, #depreciate_all, #sell, #start_up and #scrap test
     test_restfully_all_actions except: %i[depreciate depreciate_all sell start_up scrap]
 
@@ -43,6 +43,15 @@ module Backend
         post action, id: @fixed_asset.id
         assert_redirected_to action: redirect_action, id: @fixed_asset.id
       end
+    end
+
+    test "should display financial year index without any financial year and disable buttons and field" do
+      FinancialYear.delete_all
+      get :index
+      assert_equal 200, response.status
+      noko = Nokogiri::HTML(response.body)
+      assert_equal 2, noko.css('a.disabled').size
+      assert_equal 1, noko.css("#depreciate-fixed-assets-until[disabled='disabled']").size
     end
 
     private

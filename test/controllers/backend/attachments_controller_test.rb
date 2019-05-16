@@ -1,6 +1,6 @@
 require 'test_helper'
 module Backend
-  class AttachmentsControllerTest < ActionController::TestCase
+  class AttachmentsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions create: { params: { subject_type: 'Entity', subject_id: 2 } }, except: :destroy
 
     test 'destroy action' do

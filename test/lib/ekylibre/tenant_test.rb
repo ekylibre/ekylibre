@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Ekylibre
-  class TenantTest < ActiveSupport::TestCase
+  class TenantTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     def test_tenant_creation
       Ekylibre::Tenant.create('foobar')
       assert Ekylibre::Tenant.exist?('foobar')
@@ -15,8 +15,8 @@ module Ekylibre
       Ekylibre::Tenant.drop('foobarbaz')
       Ekylibre::Tenant.drop('foobar')
       Ekylibre::Tenant.switch!('test')
-      assert !Ekylibre::Tenant.exist?('foobar')
-      assert !Ekylibre::Tenant.exist?('foobarbaz')
+      assert_not Ekylibre::Tenant.exist?('foobar')
+      assert_not Ekylibre::Tenant.exist?('foobarbaz')
     end
 
     def test_backup_v3

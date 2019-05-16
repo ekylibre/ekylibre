@@ -1,5 +1,5 @@
 require 'test_helper'
 
-class AccountancyComputationTest < ActiveSupport::TestCase
+class AccountancyComputationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

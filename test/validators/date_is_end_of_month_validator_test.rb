@@ -23,7 +23,7 @@
 
 require 'test_helper'
 
-class DateIsEndOfMonthValidatorTest < ActiveSupport::TestCase
+class DateIsEndOfMonthValidatorTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
   class ValidatableWithDateIsEndOfMonth
     include ActiveModel::Validations

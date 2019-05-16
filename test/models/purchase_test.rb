@@ -57,7 +57,7 @@
 
 require 'test_helper'
 
-class PurchaseTest < ActiveSupport::TestCase
+class PurchaseTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
   setup do
@@ -149,9 +149,9 @@ class PurchaseTest < ActiveSupport::TestCase
           quantity: 2
         },
         '2' => { # Invalid item (rejected)
-          tax: Tax.find_by!(amount: 19.6),
-          unit_pretax_amount: 123,
-          quantity: 17
+                 tax: Tax.find_by!(amount: 19.6),
+                 unit_pretax_amount: 123,
+                 quantity: 17
         }
       }
     }.deep_stringify_keys
@@ -166,8 +166,8 @@ class PurchaseTest < ActiveSupport::TestCase
   end
 
   test 'cannot have an empty state - it is set to draft by default' do
-    nature   = PurchaseNature.create!(currency: 'EUR', name: 'Perishables')
-    max      = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)
+    nature = PurchaseNature.create!(currency: 'EUR', name: 'Perishables')
+    max = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)
     purchase = Purchase.create!(supplier: max, nature: nature, currency: 'USD', state: nil)
 
     assert_equal 'draft', purchase.state
@@ -184,10 +184,10 @@ class PurchaseTest < ActiveSupport::TestCase
     OutgoingPayment.delete_all
     Entity.delete_all
 
-    nature     = PurchaseNature.create!(currency: 'EUR', name: 'Perishables')
-    max        = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)
-    with       = Purchase.create!(supplier: max, nature: nature, currency: 'USD')
-    without    = Purchase.create!(supplier: max, nature: nature)
+    nature = PurchaseNature.create!(currency: 'EUR', name: 'Perishables')
+    max = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)
+    with = Purchase.create!(supplier: max, nature: nature, currency: 'USD')
+    without = Purchase.create!(supplier: max, nature: nature)
 
     assert_equal 'USD', with.default_currency
     assert_equal 'EUR', without.default_currency
@@ -284,7 +284,8 @@ class PurchaseTest < ActiveSupport::TestCase
 
   test "updating a purchase's pretax amount correctly computes the corresponding fixed asset depreciable amount" do
     tax = create(:tax)
-    fixed_asset = create(:fixed_asset)
+    fixed_asset = create :fixed_asset,
+                         started_on: Date.new(2018, 5, 2)
     purchase_item = create(:purchase_item, pretax_amount: 1000, fixed: true, preexisting_asset: true, fixed_asset_id: fixed_asset.id, tax: tax)
 
     purchase_item.purchase.invoice

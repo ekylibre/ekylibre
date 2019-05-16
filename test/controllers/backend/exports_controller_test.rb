@@ -1,7 +1,7 @@
 require 'test_helper'
 # require 'active_job/test_helper'
 module Backend
-  class ExportsControllerTest < ActionController::TestCase
+  class ExportsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     include ActiveJob::TestHelper
     test 'Show with pdf Should create a job' do
       sign_in_user

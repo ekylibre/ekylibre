@@ -34,6 +34,6 @@
 #
 require 'test_helper'
 
-class PlantCountingItemTest < ActiveSupport::TestCase
+class PlantCountingItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end
