@@ -485,6 +485,13 @@ class ProductNatureVariant < Ekylibre::Record::Base
     picture.path(style)
   end
 
+  def current_stock_per_storage(storage)
+    ParcelItemStoring.where(storage: storage)
+                     .joins(:parcel_item)
+                     .where(parcel_items: { variant_id: self.id })
+                     .sum(:quantity)
+  end
+
   class << self
     # Returns some nomenclature items are available to be imported, e.g. not
     # already imported

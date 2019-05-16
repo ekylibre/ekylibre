@@ -1,0 +1,27 @@
+- item ||= f.object
+
+.form-field.role-row.role-row--non-merchandise
+  .item-block-role
+    :ruby
+      options = {
+        label: f.object.role.tl,
+        source: {scope: :purchaseables_services},
+        input_html: {
+          class: "order-variant",
+          data: {
+            product_of_delivery_item: {
+              url: backend_product_nature_variant_path("RECORD_ID", format: :json),
+              scope: 'unit'
+            },
+            required: true,
+          }
+        },
+        required: true,
+      }
+    = f.referenced_association(:variant, **options)
+
+  .storing-calculation
+    .storing-quantifier
+      = f.input :quantity, wrapper: :append do
+        = f.input_field :quantity, class: "order-quantity", placeholder: '0', size: 7, data: { trade_component: "quantity", required: true }
+

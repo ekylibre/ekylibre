@@ -1,0 +1,38 @@
+- item ||= f.object
+
+.form-field.role-row.role-row--non-merchandise
+  .item-block-role
+    :ruby
+      options = {
+        label: f.object.role.tl,
+        source: {scope: :purchaseables_services},
+        input_html: {
+          class: "order-variant",
+          data: {
+            variant_of_deal_item: {
+              url: backend_product_nature_variant_path("RECORD_ID", format: :json),
+              scope: 'unit'
+            },
+            required: true,
+          }
+        },
+        required: true,
+      }
+    = f.referenced_association(:variant, **options)
+
+  .storing-calculation
+    .storing-quantifier
+      = f.input :quantity, wrapper: :append do
+        = f.input_field :quantity, class: "order-quantity storing-quantity", placeholder: '0', size: 7, data: { trade_component: "quantity", required: true }
+        %span.add-on.item-population-unit-name
+          = variant.unit_name.or_else('unité')
+
+    .current-stock
+      .merchandise-current-stock
+        %span.stock-label= :current_stock.tl
+        %span.stock-value= f.object.decorate.merchandise_current_stock
+        %span.stock-unit= f.object.decorate.merchandise_stock_unit
+      .merchandise-stock-after-purchase
+        %span.stock-label= :stock_after_order.tl
+        %span.stock-value= f.object.decorate.merchandise_stock_after_order
+        %span.stock-unit= f.object.decorate.merchandise_stock_unit
