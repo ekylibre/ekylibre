@@ -16,7 +16,9 @@ RUN apt-get -y update && apt-get -y upgrade && \
         openjdk-8-jdk  `#rjb` \
         libicu-dev `#charlock_holmes` \
         libpq-dev `#pq` \
-        libreoffice
+        libreoffice \
+        pdftotext \
+        poppler-utils
 
 RUN apt-get install -y apt-transport-https
 
