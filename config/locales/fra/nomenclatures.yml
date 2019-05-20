@@ -85,6 +85,7 @@ fra:
       items:
         pcga:
           animal_expenses: Achats d'animaux
+          animals_making_expenses: "Achats de prestations de services (productions animales)"
         pcg82:
           services_expenses: "Achat de prestations de services"
         accrued_bank_interests: "Intérêts bancaires courus"
@@ -112,7 +113,6 @@ fra:
         animal_reproduction_stocks_variation: "Variation de stock de produits de reproduction animale"
         animal_revenues: "Ventes d’animaux"
         animals_depreciations_inputations_expenses: "Dotat. aux amort. des animaux"
-        animals_making_expenses_expenses: "Achats de prestations de services (productions animales)"
         animals_subsidies: "Subventions aux animaux"
         asset_impairment_losses: "Provisions pour dépréciations des immobilisations"
         assets_products_stock: "Produits immobilisée"

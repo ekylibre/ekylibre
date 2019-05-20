@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <migration name="Add new accounts">
   <item-change item="accounts#services_expenses" fr_pcg82="604">
-  <item-creation item="accounts#animal_expenses" fr_pcga="604"
+  <item-creation item="accounts#animal_expenses" fr_pcga="604">
+
+  <item-change item="accounts#animals_making_expenses_expenses" name="animals_making_expenses" fr_pcga="6054">
 </migration>

@@ -84,6 +84,7 @@ eng:
       items:
         pcga:
           animal_expenses: #TODO
+          animals_making_expenses_expenses: "Animals making expenses"
         pcg82:
           services_expenses: #TODO
         accrued_bank_interests: "Accrued bank interests"
@@ -111,7 +112,6 @@ eng:
         animal_reproduction_stocks_variation: "Animal reproduction stocks variation"
         animal_revenues: "Animal revenues"
         animals_depreciations_inputations_expenses: "Animals depreciations inputations expenses"
-        animals_making_expenses_expenses: "Animals making expenses expenses"
         animals_subsidies: "Animals subsidies"
         asset_impairment_losses: "Asset impairment losses"
         assets_products_stock: "Assets products stock"
