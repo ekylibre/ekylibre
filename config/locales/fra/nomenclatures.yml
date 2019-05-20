@@ -88,6 +88,7 @@ fra:
           animals_making_expenses: "Achats de prestations de services (productions animales)"
           corporeal_depreciations_inputations_expenses: "Immobilisations corporelles (hors biens vivants)"
           corporeal_depreciations_inputations_expenses_living_goods: "Immobilisations corporelles (biens vivants)"
+          packaging_stocks_variations: "Emballages"
           staff_supply_expenses: "Denrées et fournitures pour le personnel"
         fr_pcg82:
           corporeal_depreciations_inputations_expenses: "Immobilisations corporelles"

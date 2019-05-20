@@ -9,5 +9,7 @@
 
   <item-change item="accounts#animals_depreciations_inputations_expenses" name="corporeal_depreciations_inputations_expenses_living_goods" fr_pcga="68114">
   
-  <item-creation item="accounts#staff_supply_expenses" fr_pcga="6025">  
+  <item-creation item="accounts#staff_supply_expenses" fr_pcga="6025">
+
+  <item-creation item="accounts#packaging_stocks_variations" fr_pcga="60317"
 </migration>
