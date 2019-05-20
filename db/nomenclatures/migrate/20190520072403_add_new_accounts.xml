@@ -20,5 +20,7 @@
   <item-creation item="accounts#materials_stocks_variation" fr_pcga="60326">
   <item-creation item="accounts#other_consumable_matter_stocks_variation" fr_pcga="60327">
   <item-creation item="accounts#raw_material_stocks_variation" fr_pcga="60328">
+
+  <item-creation item="accounts#maintenances_consumables_stocks_variation" fr_pcga="60322">
     
 </migration>

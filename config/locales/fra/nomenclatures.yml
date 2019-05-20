@@ -88,6 +88,7 @@ fra:
           animals_making_expenses: "Achats de prestations de services (productions animales)"
           corporeal_depreciations_inputations_expenses: "Immobilisations corporelles (hors biens vivants)"
           corporeal_depreciations_inputations_expenses_living_goods: "Immobilisations corporelles (biens vivants)"
+          maintenances_consumables_stocks_variation: "Produits d'entretien"
           making_services_expenses: "Achats de travaux et services incorporés aux produits"
           materials_stocks_variation: "Matériaux divers"
           office_supply_matter_stocks_variation: "Fournitures de bureau"
