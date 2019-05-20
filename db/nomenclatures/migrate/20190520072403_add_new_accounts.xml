@@ -23,5 +23,8 @@
 
   <item-creation item="accounts#maintenances_consumables_stocks_variation" fr_pcga="60322">
 
-  <item-creation item="accounts#workshop_and_warehouse_supplies_expenses" fr_pcga="6023"
+  <item-creation item="accounts#workshop_and_warehouse_supplies_expenses" fr_pcga="6023">
+
+  <item-change item="accounts#electricity_expenses" fr_pcga="6063">
+  <item-change item="accounts#little_office_equipment_expenses" fr_pcga="6066" fr_pcg82="6063">
 </migration>

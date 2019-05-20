@@ -87,6 +87,8 @@ eng:
           animals_making_expenses: "Animals making expenses"
           corporeal_depreciations_inputations_expenses: "Corporeal depreciations inputations expenses"
           corporeal_depreciations_inputations_expenses_living_goods: "Corporeal depreciations inputations expenses living goods"
+          electricity_expenses: "Électricity expenses"
+          little_office_equipment_expenses: "Little office equipment expenses"
           maintenances_consumables_stocks_variation: "Maintenances consumables stocks variation"
           making_services_expenses: "Making services expenses"
           materials_stocks_variation: "Materials stocks variation"
@@ -101,6 +103,7 @@ eng:
         pcg82:
           corporeal_depreciations_inputations_expenses: "Corporeal depreciations inputations expenses"
           equipment_expenses: "Equipment expenses"
+          little_office_equipment_expenses: "Little office equipment expenses"
           services_expenses: "Services expenses"
         accrued_bank_interests: "Accrued bank interests"
         accrued_interests: "Accrued interests"
