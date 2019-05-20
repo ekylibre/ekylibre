@@ -86,7 +86,9 @@ fra:
         fr_pcga:
           animal_expenses: Achats d'animaux
           animals_making_expenses: "Achats de prestations de services (productions animales)"
+          corporeal_depreciations_inputations_expenses: "Immobilisations corporelles (hors biens vivants)"
         fr_pcg82:
+          corporeal_depreciations_inputations_expenses: "Immobilisations corporelles"
           services_expenses: "Achat de prestations de services"
         accrued_bank_interests: "Intérêts bancaires courus"
         accrued_interests: "Intérêts courus"

@@ -85,8 +85,10 @@ eng:
         pcga:
           animal_expenses: #TODO
           animals_making_expenses_expenses: "Animals making expenses"
+          corporeal_depreciations_inputations_expenses: #TODO
         pcg82:
           services_expenses: #TODO
+          corporeal_depreciations_inputations_expenses: #TODO
         accrued_bank_interests: "Accrued bank interests"
         accrued_interests: "Accrued interests"
         accrued_interests_on_bank: "Accrued interests on bank"
