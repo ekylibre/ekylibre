@@ -82,6 +82,10 @@ eng:
       name: "Accounting systems"
     accounts:
       items:
+        pcga:
+          animal_expenses: #TODO
+        pcg82:
+          services_expenses: #TODO
         accrued_bank_interests: "Accrued bank interests"
         accrued_interests: "Accrued interests"
         accrued_interests_on_bank: "Accrued interests on bank"
@@ -439,7 +443,6 @@ eng:
         service_animal_asset_depreciations: "Service animal asset depreciations"
         service_animal_assets: "Service animal assets"
         service_discount_and_reductions_expenses: "Service discount and reductions expenses"
-        services_expenses: "Services expenses"
         services_revenues: "Services revenues"
         share_asset_subsidies: "Share asset subsidies"
         share_capital_bonus: "Share capital bonus"

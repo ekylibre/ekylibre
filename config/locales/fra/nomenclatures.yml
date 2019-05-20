@@ -83,6 +83,10 @@ fra:
       name: "Plans de comptes"
     accounts:
       items:
+        pcga:
+          animal_expenses: Achats d'animaux
+        pcg82:
+          services_expenses: "Achat de prestations de services"
         accrued_bank_interests: "Intérêts bancaires courus"
         accrued_interests: "Intérêts courus"
         accrued_interests_on_bank: "Intérêts courus auprès des établissements de crédit"
@@ -450,7 +454,6 @@ fra:
         service_animal_assets: "Animaux de service"
         service_discount_and_reductions_expenses: "Rabais, remises et ristournes obtenus sur services extérieurs"
         services: "Prestations de services"
-        services_expenses: "Achat de prestations de services"
         services_revenues: "Vente de prestations de services"
         share_asset_subsidies: "Quote-part des subventions d’investissement virée au résultat de l’exercice"
         share_capital_bonus: "Primes liées au capital social"
