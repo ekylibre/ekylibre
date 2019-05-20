@@ -27,4 +27,11 @@
 
   <item-change item="accounts#electricity_expenses" fr_pcga="6063">
   <item-change item="accounts#little_office_equipment_expenses" fr_pcga="6066" fr_pcg82="6063">
+
+  <item-creation item="accounts#products_specials_taxes_for_plant_products" fr_pcga="6341">
+  <item-creation item="accounts#products_specials_taxes_for_animal_products" fr_pcga="6342">
+  <item-creation item="accounts#products_specials_taxes_for_processed_products" fr_pcga="6343">
+  <item-creation item="accounts#products_specials_taxes_for_animals" fr_pcga="6344">
+  <item-creation item="accounts#permanent_staff_salary" fr_pcga="64111">
+  <item-creation item="accounts#temporary_staff_salary" fr_pcga="64115">
 </migration>
