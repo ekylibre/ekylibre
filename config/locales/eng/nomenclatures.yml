@@ -294,6 +294,7 @@ eng:
         initial_society_capital: "Initial society capital"
         installation_sustainable_plant_assets: "Installation sustainable plant assets"
         insurance_expenses: "Insurance expenses"
+        intangible_fixed_assets_revenues: "Intangible fixed assets revenues"
         internal_transfers: "Internal transfers"
         inventory_variations: "Inventory variations"
         invoice_to_create_clients: "Invoice to create clients"

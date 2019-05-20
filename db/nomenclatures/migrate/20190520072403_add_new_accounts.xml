@@ -34,4 +34,7 @@
   <item-creation item="accounts#products_specials_taxes_for_animals" fr_pcga="6344">
   <item-creation item="accounts#permanent_staff_salary" fr_pcga="64111">
   <item-creation item="accounts#temporary_staff_salary" fr_pcga="64115">
+
+  <item-creation item="accounts#intangible_fixed_assets_revenues" fr_pcga="7751" fr_pcg82="7751">
+    
 </migration>
