@@ -47,4 +47,7 @@
 
   <item-creation item="accounts#insurance_compensations" fr_pcga="742">
   <item-creation item="accounts#associates_salary" fr_pcga="6412">
+
+  <item-creation item="accounts#paid_vacation" fr_pcga="6415" fr_pcg82="6412">
+    
 </migration>
