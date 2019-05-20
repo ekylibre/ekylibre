@@ -84,9 +84,10 @@ eng:
       items:
         pcga:
           animal_expenses: #TODO
-          animals_making_expenses_expenses: "Animals making expenses"
+          animals_making_expenses: "Animals making expenses"
           corporeal_depreciations_inputations_expenses: #TODO
           corporeal_depreciations_inputations_expenses_living_goods: #TODO
+          staff_supply_expenses: #TODO
         pcg82:
           services_expenses: #TODO
           corporeal_depreciations_inputations_expenses: #TODO
