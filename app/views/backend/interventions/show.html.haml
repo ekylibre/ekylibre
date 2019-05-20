@@ -8,7 +8,7 @@
     = t.destroy
   = t.new params: { request_intervention_id: resource.id, redirect: nil } if resource.request?
   - unless resource.state == 'validated'
-    = t.menu(displayed_state, class: "btn btn-primary dropdown #{'intervention-to-evaluate' if next_state[1] == 'validated'}", icon: false, disable_with: tl(:please_wait), force_menu: true) do |menu|
+    = t.menu(displayed_state, class: "btn btn-primary dropdown", icon: false, disable_with: tl(:please_wait), force_menu: true) do |menu|
       - menu.item(next_state[0], change_state_backend_interventions_path(:intervention => { :interventions_ids => ([resource.id]).to_json, state: next_state[1].to_sym }), method: :post) if next_state
 
 - currency = Nomen::Currency.find(resource.currency)
@@ -70,7 +70,11 @@
         .big-info
           - unit = Nomen::Unit.find(:hectare)
           %span.title= Intervention.human_attribute_name(:costs_per_unit, unit: unit.human_name)
-          %span.value= resource.total_cost_per_area(unit).round(currency.precision).l(currency: currency.name) + "/" + unit.symbol
+          - total_cost_per_area = resource.total_cost_per_area(unit)
+          - if total_cost_per_area
+            - localized_cost = total_cost_per_area.round(currency.precision).l(currency: currency.name)
+            - displayed_cost_per_area = "#{localized_cost}/#{unit.symbol}"
+          %span.value= displayed_cost_per_area || ""
 
       .big-info.cost.important
         %span.title= :total_cost.tl

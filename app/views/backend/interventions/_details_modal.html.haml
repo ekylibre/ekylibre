@@ -76,6 +76,20 @@
 
             = add_detail_to_modal_block(title, detail, {icon: 'picto-matter'})
 
+    - if intervention.outputs.any?
+      .block
+        %h3.block-title= Intervention.human_attribute_name(:outputs)
+
+        - intervention.outputs.each do |output|
+          - unless output.product.blank?
+            - title = output.product.name
+            - detail = ""
+
+            - unless output.quantity_value.nil? || output.quantity_handler_reference.unit.nil?
+              - detail = output.quantity_value.round(2).l(precision: 0)
+              - detail << " " + output.quantity_handler_reference.unit.symbol
+            = add_detail_to_modal_block(title, detail, {icon: 'picto-matter'})
+
 
     - if intervention.tools.any?
       .block
@@ -101,12 +115,6 @@
   - displayed_state = intervention.nature.l if intervention.nature.to_sym == :request
 
   - if next_state.present?
-    - if next_state[1] == 'validated'
-      .evaluation-part
-        %p= :add_an_evaluation_for_this_intervention.tl
-        - 4.times do |i|
-          %i.picto.picto-star-o{data: { index: i }}
-
     = dropdown_menu_button(displayed_state, class: "btn btn-primary change-status dropup #{'disabled' if next_state[1] == 'validated'}", icon: false, force_menu: true, disable_with: tl(:please_wait)) do |menu|
       - menu.item(next_state[0], change_state_backend_interventions_path(:intervention => { :interventions_ids => ([intervention.id]).to_json, state: next_state[1].to_sym, redirect: false }), method: :post) if next_state
 

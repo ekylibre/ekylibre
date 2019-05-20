@@ -182,6 +182,17 @@ module Backend
       super(attribute_name, options, &block)
     end
 
+
+    def find_input(attribute_name, options = {}, &block)
+      input = super
+
+      if is_nomenclature_select?(attribute_name)
+        input&.options&.fetch(:collection)&.sort_by! &options.fetch(:label_method, :first)
+      end
+
+      input
+    end
+
     def picture(attribute_name = :picture, options = {})
       format = options.delete(:format) || :thumb
       input(attribute_name, options) do
@@ -302,7 +313,7 @@ module Backend
       editor[:withoutLabel] = true
 
       geom = @object.send(attribute_name)
-      if geom
+      if geom.present?
         geometry = Charta.new_geometry(geom)
         editor[:edit] = geometry.to_json_object
         editor[:view] = { center: geometry.centroid, zoom: 16 }
@@ -369,7 +380,8 @@ module Backend
       else
         siblings = @object.class.where("#{attribute_name} IS NOT NULL").order(id: :desc)
         if siblings.any?
-          marker[:view] = { center: Charta.new_geometry(siblings.first.send(attribute_name)).centroid }
+          sibling_point = siblings.first.send(attribute_name).to_rgeo
+          marker[:view] = { center: [sibling_point.lat, sibling_point.lon] }
         elsif zone = CultivableZone.first
           marker[:view] = { center: zone.shape_centroid }
         end
@@ -559,8 +571,13 @@ module Backend
 
           html << @template.field_set(:indicators) do
             fs = ''.html_safe
-            @object.readings.each do |reading|
-              indicator = reading.indicator
+            readings_without_shape = @object.readings.reject do |reading|
+              # Based on L551 delete_if block
+              indicator = reading.indicator_name
+              whole_indicators.include?(indicator) ||
+                %i[geolocation shape].include?(indicator.to_sym)
+            end
+            readings_without_shape.each do |reading|
               # error message for indicators
               if Rails.env.development?
                 fs << reading.errors.inspect if reading.errors.any?
@@ -649,7 +666,7 @@ module Backend
       prefix = @lookup_model_names.first + @lookup_model_names[1..-1].collect { |x| "[#{x}]" }.join
       html = ''.html_safe
       reference = (@object.send(name) || {}).with_indifferent_access
-      for resource, rights in Ekylibre::Access.resources.sort { |a, b| Ekylibre::Access.human_resource_name(a.first) <=> Ekylibre::Access.human_resource_name(b.first) }
+      for resource, rights in Ekylibre::Access.resources.sort { |a, b| Ekylibre::Access.human_resource_name(a.first).ascii <=> Ekylibre::Access.human_resource_name(b.first).ascii }
         resource_reference = reference[resource] || []
         html << @template.content_tag(:div, class: 'control-group booleans') do
           @template.content_tag(:label, class: 'control-label') do
@@ -675,7 +692,7 @@ module Backend
     end
 
     def fields(partial = 'form')
-      @template.content_tag(:div, @template.render(partial, f: self), class: 'form-fields')
+      @template.content_tag(:div, base_form_error_tags + @template.render(partial, f: self), class: 'form-fields')
     end
 
     def yes_no_radio(attribute_name, options = {})
@@ -686,7 +703,7 @@ module Backend
       return nil unless @actions.any?
       @template.form_actions do
         html = ''.html_safe
-        for action in @actions
+        @actions.each do |action|
           html += if action[:type] == :block
                     action[:content].html_safe
                   else
@@ -766,6 +783,16 @@ module Backend
       end
       @template.content_tag(:span, units_values.tl, class: 'add-on')
     end
+
+    private
+
+      def is_nomenclature_select?(attribute_name)
+        @object.class.respond_to?(:nomenclature_reflections) && @object.class.nomenclature_reflections.key?(attribute_name)
+      end
+
+      def base_form_error_tags
+        @template.resource.errors.messages.fetch(:base, []).map { |error_message| @template.flash_message_tag :error, error_message }.join.html_safe
+      end
   end
 end
 

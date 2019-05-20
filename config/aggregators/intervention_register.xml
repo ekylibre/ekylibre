@@ -26,7 +26,7 @@
           <property name="doers_name" value="intervention.human_doer_names"/>
           <property name="tools_name" value="intervention.human_tool_names"/>
           <property name="total_cost" value="intervention.total_cost"/>
-          <property name="total_cost_per_area" if="intervention.cost_per_area" value="intervention.cost_per_area"/>
+          <property name="total_cost_per_area" if="intervention.cost_per_area" value="intervention.cost_per_area.round(2)"/>
           <section name="issue" of="intervention.issue">
             <property name="id" level="api"/>
             <property name="nature"/>

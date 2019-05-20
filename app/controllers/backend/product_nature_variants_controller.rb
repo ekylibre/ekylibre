@@ -55,8 +55,8 @@ module Backend
       t.column :number
       t.column :nature, url: true
       t.column :category, url: true
-      t.column :current_stock
-      t.column :current_outgoing_stock_ordered_not_delivered
+      t.column :current_stock_displayed, label: :current_stock
+      t.column :current_outgoing_stock_ordered_not_delivered_displayed
       t.column :unit_name
       t.column :variety
       t.column :derivative_of
@@ -119,6 +119,7 @@ module Backend
         },
         stock: @product_nature_variant.current_stock
       }
+
       if product_nature.subscribing?
         entity = nil
         address = nil
@@ -185,12 +186,13 @@ module Backend
           infos[:unit][:amount] = item.unit_amount
         # or get tax and amount from catalog
         elsif (items = @product_nature_variant.catalog_items.of_usage(:purchase)) && items.any?
+          item = items.order(id: :desc).first
           if item.all_taxes_included
             infos[:unit][:pretax_amount] = item.reference_tax.pretax_amount_of(item.amount)
             infos[:unit][:amount] = item.amount
           else
             infos[:unit][:pretax_amount] = item.amount
-            infos[:unit][:amount] = item.reference_tax.amount_of(item.amount)
+            infos[:unit][:amount] = item.reference_tax&.amount_of(item.amount)
           end
         # or get tax from category
         elsif @product_nature_variant.category.sale_taxes.any?
@@ -218,6 +220,16 @@ module Backend
         end
       end
       render json: infos
+    end
+
+    def storage_detail
+      quantity = ParcelItemStoring.where(storage_id: params[:storage_id])
+                                  .joins(:parcel_item)
+                                  .where(parcel_items: { variant_id: params[:id] })
+                                  .joins(parcel_item: :parcel)
+                                  .where(parcels: { state: 'given' })
+                                  .sum(:quantity)
+      render json: { quantity: quantity, unit: ProductNatureVariant.find(params[:id])&.unit_name }
     end
   end
 end

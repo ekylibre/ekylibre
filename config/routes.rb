@@ -206,6 +206,7 @@ Rails.application.routes.draw do
         patch :mask_lettered_items
       end
       member do
+        get :reconciliable_list
         match 'mark', via: %i[get post]
         post :unmark
         get :list_journal_entry_items
@@ -352,7 +353,7 @@ Rails.application.routes.draw do
 
     resources :cash_transfers, concerns: %i[list unroll], path: 'cash-transfers'
 
-    resources :catalog_items, concerns: %i[list unroll], except: [:index]
+    resources :catalog_items, concerns: %i[list unroll]
 
     resources :catalogs, concerns: %i[list unroll] do
       member do
@@ -742,6 +743,8 @@ Rails.application.routes.draw do
       concerns :products, :list
     end
 
+    resources :services, only: :index, concerns: :list
+
     resources :naming_formats
 
     resources :naming_format_land_parcels do
@@ -776,6 +779,7 @@ Rails.application.routes.draw do
       member do
         post :up
         post :down
+        get :sepa
       end
     end
 
@@ -909,6 +913,7 @@ Rails.application.routes.draw do
         get :list_products
         get :list_sale_items
         get :quantifiers
+        get :storage_detail
       end
     end
 
@@ -1153,6 +1158,7 @@ Rails.application.routes.draw do
     post 'invitations', to: 'invitations#create'
 
     resources :registrations, only: %i[index edit update destroy], concerns: [:list]
+    resources :gaps, only: %i[index show destroy]
   end
 
   namespace :public do

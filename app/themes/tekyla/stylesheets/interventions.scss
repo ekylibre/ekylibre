@@ -6,10 +6,6 @@ $preview-modal-height: 80vh;
   font-size: 35px;
 }
 
-#evaluate-intervention-modal .modal-body {
-  margin-left: 5%;
-}
-
 .compare-planned-realised {
   display: block;
   margin-top: 10px
@@ -475,4 +471,100 @@ $preview-modal-height: 80vh;
 
 #duplicate_date{
   width: 20ex;
+}
+
+#duplicate-modal {
+  .errors {
+    border: 1px solid rgba(216, 30, 8, 0.22);
+    background: rgba(216, 30, 8, 0.2);
+    color: #c91c07;
+    border-radius: 2px;
+    padding: 3px;
+  }
+  .targets {
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 5px;
+  }
+  .product-target {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    padding: 5px;
+    .control-group .controls {
+      margin-left: 0px;
+      .selector {
+        width: 360px;
+      }
+    }
+  }
+  .picto {
+    font-size: 40px;
+    line-height: 35px;
+  }
+  .picture {
+    height: 35px;
+  }
+  .parameters {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    .procedure {
+      width: 100%;
+      max-width: 364px;
+      line-height: 11px;
+      h2 {
+        font-weight: 900;
+      }
+    }
+    .parameter-type {
+      display: inline-table;
+      width: 50%;
+      .title {
+        border-bottom: 1px solid #e5e5e5;
+      }
+      .parameter-element {
+        display: flex;
+        margin-top: 7px;
+        .control-group .controls {
+          margin-left: 0px;
+          max-width: 100%;
+        }
+        .picto {
+          font-size: 55px;
+          line-height: 53px;
+        }
+        .picture {
+          height: 54px;
+        }
+      }
+    }
+  }
+  .inputs-outputs {
+    display: block;
+    .parameter-type {
+      width: 100%;
+      .input-part, .output-part {
+        display: flex;
+        .intervention_input_product {
+          min-width: 43%;
+        }
+        .intervention_quantity_quantity {
+          width: 10%;
+          input {
+            max-width: 72% !important;
+          }
+        }
+        .intervention_quantity_unit {
+          width: 15%;
+          input {
+            max-width: 72% !important;
+          }
+        }
+      }
+      .procedure {
+        max-width: none;
+      }
+    }
+  }
 }

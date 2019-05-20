@@ -3,10 +3,10 @@
   = dropdown_menu_button(:export.ta, icon: :download) do |d|
     - export_params = params.slice(:states)
     - d.item :export_as_odt.tl, params: export_params.merge(format: :odt)
-    - d.item :export_as_pdf.tl, params: export_params.merge(format: :pdf)
+    - d.item :export_as_pdf.tl, html_options: { data: { no_turbolink: true } }, params: export_params.merge(format: :pdf)
   = t.destroy
   - if current_user.can?(:write, :incoming_deliveries) && resource.can_generate_parcel?
-    = t.new(resource, params: { controller: :receptions, purchase_order_id: resource.id, nature: :incoming }, label: :generate_parcel.tl)
+    = t.new(params: { controller: :receptions, purchase_order_ids: resource.id, nature: :incoming, mode: 'prefilled' }, label: :generate_parcel.tl)
 
 = main_state_bar(resource)
 
@@ -29,5 +29,6 @@
   - c.cobble :items, title: PurchaseOrder.human_attribute_name(:items) do
     = cobble_list :items do
       %tr.total
-        %th{ colspan: 5 }
-        %td= resource.pretax_amount.l(currency: resource.currency)
+        %th{ colspan: 5 }= :total.tl
+        %td= "#{resource.pretax_amount.l(currency: resource.currency)} #{:pretax.tl}"
+        %td= "#{resource.amount.l(currency: resource.currency)} #{:including_vat.tl}"

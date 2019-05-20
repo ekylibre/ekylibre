@@ -1,17 +1,24 @@
 = field_set do
-  .control-group.select.required
-    = label_tag :started_at, :to_pay_on_or_after.t(scope: [:attributes]), class: 'control-label'
+  .control-group
+    = label_tag :period_reference, :period_to_take_into_account.tl, class: 'control-label'
     .controls
-      = date_field_tag :started_at, params[:started_at], required: true, disabled: @affairs.present?
+      = radio_button_tag :period_reference, 'invoiced_at', true
+      = label_tag :invoice_date.tl
+      = radio_button_tag :period_reference, 'payment_at', false
+      = label_tag :payment_due_date.tl
 
-  .control-group.select.required
-    = label_tag :stopped_at, :to_pay_on_or_before.t(scope: [:attributes]), class: 'control-label'
-    .controls
-      = date_field_tag :stopped_at, params[:stopped_at], required: true, disabled: @affairs.present?
+  .control-group
+    = label_tag :period, :period.tl, class: 'control-label'
+    .controls.inline-date-fields
+      %span= :from.tl
+      = date_field_tag :started_at, params[:started_at], disabled: @affairs.present?
+      %span= :to.tl
+      = date_field_tag :stopped_at, params[:stopped_at], disabled: @affairs.present?
 
-  = f.association :mode
-  .control-group.select
-    = label_tag :bank_check_number, :bank_check_number.t(scope: [:attributes]), class: 'control-label'
+  = f.association :mode, label: :payment_mode_form_label.tl, input_html: { data: { trigger_visibility: '#first-check-number', trigger_visibility_url: '/backend/outgoing_payment_modes/:id/sepa' } }
+  .control-group#first-check-number{ data: { visibility_triggered_by: '#outgoing_payment_list_mode_id' } }
+    = label_tag :bank_check_number, :first_check_number.tl, class: 'control-label'
     .controls
       = text_field_tag :bank_check_number, params[:bank_check_number]
+
   = render partial: 'third', collection: @affairs.collect(&:supplier).uniq, locals: { f: f }

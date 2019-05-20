@@ -1,14 +1,14 @@
 - main_toolbar do |t|
-  = t.edit resource
   = t.destroy
 
 = cobbles do |c|
   - c.cobble :general_informations do
     = product_mini_map
     = infos do
-      .med-info
-        %span.title= LandParcel.human_attribute_name(:population)
-        %span.value= resource.population.round(3).l + " " + resource.unit_name
+      - if resource.initial_shape && resource.human_initial_shape_area_unit
+        .med-info
+          %span.title= LandParcel.human_attribute_name(:net_surface_area)
+          %span.value= resource.initial_shape_area.round(2).in(resource.human_initial_shape_area_unit)
       = product_info(:soil_nature, label: Nomen::Indicator[:soil_nature].human_name, nomenclature: true)
       - indicators = [:potential_hydrogen, :available_water_capacity_per_area, :soil_depth, :organic_matter_concentration]
       - indicators.each do |indicator|

@@ -67,9 +67,14 @@ class ReceptionItem < ParcelItem
   belongs_to :reception, inverse_of: :items, class_name: 'Reception', foreign_key: :parcel_id
   belongs_to :project_budget, class_name: 'ProjectBudget', foreign_key: :project_budget_id
   belongs_to :purchase_order_to_close, class_name: 'PurchaseOrder', foreign_key: :purchase_order_to_close_id
+  belongs_to :purchase_order_item, class_name: 'PurchaseItem', foreign_key: :purchase_order_item_id
+  belongs_to :activity_budget
+  belongs_to :team
 
   has_one :storage, through: :reception
   has_one :contract, through: :reception
+
+  enumerize :role, in: %i[merchandise fees service], predicates: true
 
   validates :product_name, presence: { if: -> { product_is_identifiable? } }
 

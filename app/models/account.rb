@@ -418,10 +418,21 @@ class Account < Ekylibre::Record::Base
     (number.to_s.match(self.class.reconcilable_regexp) ? true : false)
   end
 
-  def reconcilable_entry_items(period, started_at, stopped_at)
+  def reconcilable_entry_items(period, started_at, stopped_at, options = {})
     relation_name = 'journal_entry_items'
+
+    lettered_condition = "1=1"
+
+    if options[:hide_lettered]
+      lettered_condition += ' AND('
+      lettered_condition += "#{JournalEntryItem.table_name}.letter IS NULL"
+      lettered_condition += " OR #{JournalEntryItem.table_name}.letter ILIKE '%*'"
+      lettered_condition << ')'
+    end
+
     journal_entry_items
       .where(JournalEntry.period_condition(period, started_at, stopped_at, relation_name))
+      .where(lettered_condition)
       .reorder(relation_name + '.printed_on, ' + relation_name + '.real_credit, ' + relation_name + '.real_debit')
   end
 

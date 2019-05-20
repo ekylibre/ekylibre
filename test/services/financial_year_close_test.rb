@@ -2,8 +2,10 @@ require 'test_helper'
 
 class FinancialYearCloseTest < ActiveSupport::TestCase
   setup do
+    @today = Date.new(2019,3,15)
+
     JournalEntry.update_all(state: :draft)
-    JournalEntry.update_all(printed_on: Date.today)
+    JournalEntry.update_all(printed_on: @today)
     JournalEntryItem.update_all(bank_statement_letter: '')
     JournalEntryItem.update_all(state: :draft)
     OutgoingPayment.update_all(list_id: nil)
@@ -68,8 +70,8 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
 
     @dumpster_account = Account.create!(name: 'TestDumpster', number: '00000')
     @dumpster_journal = Journal.create!(name: 'Dumpster journal', code: 'DMPTST')
-    @beginning = (Date.today - 1.month).beginning_of_month
-    @end = (Date.today - 1.month).end_of_month
+    @beginning = (@today - 1.month).beginning_of_month
+    @end = (@today - 1.month).end_of_month
     @year = FinancialYear.create!(started_on: @beginning, stopped_on: @end)
     @next_year = FinancialYear.ensure_exists_at! @end + 1.day
     @profits = Account.create!(name: 'FinancialYear result profit', number: '120')

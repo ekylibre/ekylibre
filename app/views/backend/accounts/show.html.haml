@@ -29,8 +29,8 @@
   - c.cobble(:journal_entry_items) do
     = kujaku do |k|
       - k.text name: :b
-      - k.helper :journal_period_crit, :p
-      - k.helper :journal_entries_states_crit
+      - k.helper(:journal_period_crit, use_search_preference: true)
+      - k.helper(:journal_entries_states_crit, use_search_preference: true)
 
 
 

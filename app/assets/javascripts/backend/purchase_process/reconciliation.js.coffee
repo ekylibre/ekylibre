@@ -67,6 +67,7 @@
       E.reconciliation.createLinesWithSelectedItems(modal, event)
 
     E.reconciliation.displayReconciliateState(event)
+    E.reconciliation.displayComplianceState(event, modal)
 
     @reconciliationModal= new E.modal('#purchase_process_reconciliation')
     @reconciliationModal.getModal().modal 'hide'
@@ -84,6 +85,10 @@
       else if !anyCheckboxChecked && closePurchaseOrderBlock.is(':visible')
         $(closePurchaseOrderBlock).addClass('hidden')
 
+    displayComplianceState: (event, modal) ->
+      $nonCompliantItems = $(modal).find("li[data-non-compliant='true'] .item-checkbox:checked")
+
+      $('.compliance-title').toggle(!!$nonCompliantItems.length)
 
     displayReconciliateState: (event) ->
       $('#purchase_invoice_accepted_state').val('reconcile')
@@ -269,12 +274,12 @@
       $(lastLineForm).find('.form-field.merchandise .supplier-ref-value').text(itemSupplierReference)
       $(lastLineForm).find('.form-field.merchandise .supplier-ref-block').removeClass('hidden')
 
-      invoiceVatField = $(lastLineForm).find('.form-field .invoice-vat-total')
+      invoiceVatField = $(lastLineForm).find('.form-field .vat-total')
 
       if itemTaxId
         $(invoiceVatField).val(itemTaxId).change()
       else
-        firstVatValue = $(lastLineForm).find('.form-field .invoice-vat-total option:first').val()
+        firstVatValue = $(lastLineForm).find('.form-field .vat-total option:first').val()
         $(invoiceVatField).val(firstVatValue).change()
 
       $(lastLineForm).trigger('cocoon:after-insert')

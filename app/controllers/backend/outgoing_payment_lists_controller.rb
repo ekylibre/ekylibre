@@ -104,10 +104,11 @@ module Backend
       @outgoing_payment_list = OutgoingPaymentList.new
       @affairs = []
 
-      if params[:started_at].present? && params[:stopped_at].present? && params[:outgoing_payment_list] && params[:outgoing_payment_list][:mode_id]
+      if params[:period_reference] && params[:outgoing_payment_list] && params[:outgoing_payment_list][:mode_id]
+        params[:started_at] = FinancialYear.minimum(:started_on) if params[:started_at].blank?
+        params[:stopped_at] = FinancialYear.maximum(:stopped_on) if params[:stopped_at].blank?
         mode = OutgoingPaymentMode.find_by(id: params[:outgoing_payment_list][:mode_id])
         @outgoing_payment_list.mode = mode
-
         if @outgoing_payment_list.valid?
           @currency = mode.cash.currency
           @affairs = PurchaseAffair
@@ -115,16 +116,15 @@ module Backend
                      .joins(:supplier)
                      .includes(:supplier)
                      .where(closed: false, currency: mode.cash.currency)
-                     .where("((purchases.payment_at IS NOT NULL AND purchases.payment_at BETWEEN ? AND ?) OR (purchases.payment_at IS NULL AND purchases.invoiced_at BETWEEN ? AND ?)) AND purchases.state = 'invoice'", params[:started_at], params[:stopped_at], params[:started_at], params[:stopped_at])
-                     .where(entities: { supplier_payment_mode_id: mode.id })
-                     .where(purchases: { reconciliation_state: %w[accepted reconcile] })
+                     .where("purchases.#{params[:period_reference]} IS NOT NULL AND purchases.#{params[:period_reference]} BETWEEN ? AND ?", params[:started_at], params[:stopped_at])
                      .where.not(purchases: { id: nil })
                      .order('entities.full_name ASC')
-                     .order('purchases.payment_at ASC', :number)
+                     .order("purchases.#{params[:period_reference]} ASC", :number)
 
           notify_warning :no_purchase_affair_found_on_given_period if @affairs.empty?
         end
       end
+      @submit_label = :search.tl if @affairs.none?
     end
 
     def create
@@ -135,12 +135,12 @@ module Backend
         affairs = PurchaseAffair.where(id: params[:purchase_affairs].compact).uniq
 
         mode_id = params[:outgoing_payment_list][:mode_id] if params[:outgoing_payment_list] && params[:outgoing_payment_list][:mode_id]
-        outgoing_payment_list = OutgoingPaymentList.build_from_affairs affairs, OutgoingPaymentMode.find_by(id: mode_id), current_user, params[:bank_check_number], true
+        outgoing_payment_list = OutgoingPaymentList.build_from_affairs(affairs, OutgoingPaymentMode.find_by(id: mode_id), current_user, params[:bank_check_number], true)
         outgoing_payment_list.save!
 
         redirect_to action: :show, id: outgoing_payment_list.id
       else
-        redirect_to new_backend_outgoing_payment_list_path(params.slice(:started_at, :stopped_at, :outgoing_payment_list, :bank_check_number))
+        redirect_to new_backend_outgoing_payment_list_path(params.slice(:period_reference, :started_at, :stopped_at, :outgoing_payment_list, :bank_check_number))
       end
     end
 

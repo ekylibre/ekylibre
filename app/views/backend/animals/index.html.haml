@@ -4,9 +4,7 @@
     - menu.item :add_entrance.tl, { controller: :receptions, action: :new }, data: { toggle: 'dialog', refresh: true }
     - menu.item :add_exit.tl, { controller: :shipments, action: :new }, data: { toggle: 'dialog', refresh: true }
     - menu.separator
-    - menu.item :add_animal.tl, { controller: :animals, action: :new }, data: { toggle: 'dialog', refresh: true }
-    - menu.item :add_animal_group.tl, { controller: :animal_groups, action: :new }, data: { toggle: 'dialog', refresh: true }
-    - menu.item :add_building_division.tl, { controller: :building_divisions, action: :new }, data: { toggle: 'dialog' }
+    - menu.item :add_animals.tl, { controller: :animals, action: :new }, data: { toggle: 'dialog', refresh: true }
 
   #animals-interventions-menu.btn-group{data: {matching_interventions_path: matching_interventions_backend_animals_path}}
     = render partial: 'interventions_menu', locals: {t: t}

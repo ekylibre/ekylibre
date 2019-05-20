@@ -96,7 +96,7 @@ class SaleItem < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :tax, presence: true
-  validates :quantity, exclusion: { in: [0], message: :invalid }
+  validates :quantity, presence: true, exclusion: { in: [0], message: :invalid }
 
   # return all sale items  between two dates
   scope :between, lambda { |started_at, stopped_at|
@@ -134,6 +134,7 @@ class SaleItem < Ekylibre::Record::Base
           self.amount = nil
         end
         self.unit_pretax_amount ||= 0.0
+        self.quantity ||= 0.0
         raw_pretax_amount = unit_pretax_amount * quantity * reduction_coefficient
         self.unit_amount ||= tax.amount_of(unit_pretax_amount).round(precision)
         self.pretax_amount ||= raw_pretax_amount.round(precision)

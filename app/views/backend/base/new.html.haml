@@ -6,14 +6,14 @@
 = ekylibre_form_for(resource, options) do |f|
   - if params[:redirect]
     = hidden_field_tag(:redirect, params[:redirect])
-  - if local_assigns[:with_continue] && params[:continue]
+
+  - f.add(:submit, defined?(@submit_label) ? @submit_label : :create.tl, data: { disable_with: :please_wait.tl }, class: 'primary')
+
+  - if local_assigns[:with_continue] && !params[:dialog]
     - f.add(:submit, :create_and_continue.tl, data: { disable_with: :please_wait.tl }, class: 'primary', name: :create_and_continue)
-  - f.add(:submit, :create.tl, data: { disable_with: :please_wait.tl }, class: 'primary')
-  - if local_assigns[:with_continue] && !params[:continue]
-    - f.add(:submit, :create_and_continue.tl, data: { disable_with: :please_wait.tl }, class: 'primary', name: :create_and_continue)
- 
+
   - if params[:form_partial]
-   = f.fields(params[:form_partial])
+    = f.fields(params[:form_partial])
   - else
     = f.fields
 

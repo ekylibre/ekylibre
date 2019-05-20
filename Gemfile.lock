@@ -1,5 +1,14 @@
 GIT
-  remote: git://github.com/influitive/apartment.git
+  remote: https://github.com/ekylibre/agric.git
+  revision: b381676ba0f6d8b55414b28100c19e1f813e500c
+  tag: v3.0.2
+  specs:
+    agric (3.0.2)
+      railties (>= 3.2, < 6)
+      sassc-rails (~> 2)
+
+GIT
+  remote: https://github.com/influitive/apartment.git
   revision: a4332c3222210b11f5e8c27fa4c1a18b492e9629
   branch: development
   specs:
@@ -12,47 +21,47 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    actionmailer (4.2.10)
-      actionpack (= 4.2.10)
-      actionview (= 4.2.10)
-      activejob (= 4.2.10)
+    actionmailer (4.2.11.1)
+      actionpack (= 4.2.11.1)
+      actionview (= 4.2.11.1)
+      activejob (= 4.2.11.1)
       mail (~> 2.5, >= 2.5.4)
       rails-dom-testing (~> 1.0, >= 1.0.5)
-    actionpack (4.2.10)
-      actionview (= 4.2.10)
-      activesupport (= 4.2.10)
+    actionpack (4.2.11.1)
+      actionview (= 4.2.11.1)
+      activesupport (= 4.2.11.1)
       rack (~> 1.6)
       rack-test (~> 0.6.2)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
     actionpack-xml_parser (1.0.2)
       actionpack (>= 4.0.0, < 5)
-    actionview (4.2.10)
-      activesupport (= 4.2.10)
+    actionview (4.2.11.1)
+      activesupport (= 4.2.11.1)
       builder (~> 3.1)
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
-    active_list (6.9.4)
+    active_list (6.10.0)
       arel (>= 5.0.0)
       code_string (>= 0.0.1)
       i18n-complements
       rails (>= 3.2, < 5.0.0)
       rubyzip (>= 1.0)
-    activejob (4.2.10)
-      activesupport (= 4.2.10)
+    activejob (4.2.11.1)
+      activesupport (= 4.2.11.1)
       globalid (>= 0.3.0)
-    activemodel (4.2.10)
-      activesupport (= 4.2.10)
+    activemodel (4.2.11.1)
+      activesupport (= 4.2.11.1)
       builder (~> 3.1)
-    activerecord (4.2.10)
-      activemodel (= 4.2.10)
-      activesupport (= 4.2.10)
+    activerecord (4.2.11.1)
+      activemodel (= 4.2.11.1)
+      activesupport (= 4.2.11.1)
       arel (~> 6.0)
     activerecord-postgis-adapter (3.1.5)
       activerecord (~> 4.2)
       rgeo-activerecord (>= 4.0.4)
-    activesupport (4.2.10)
+    activesupport (4.2.11.1)
       i18n (~> 0.7)
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
@@ -61,9 +70,6 @@ GEM
       activerecord (>= 3.0)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
-    agric (3.0.1)
-      railties (>= 3.2, < 6.0)
-      sass-rails
     akami (1.3.1)
       gyoku (>= 0.4.0)
       nokogiri
@@ -73,7 +79,7 @@ GEM
       sidekiq (>= 2.11)
     arel (6.0.4)
     ast (2.4.0)
-    autoprefixer-rails (9.1.4)
+    autoprefixer-rails (9.5.0)
       execjs
     awesome_nested_set (3.1.4)
       activerecord (>= 4.0.0, < 5.3)
@@ -99,13 +105,11 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
-    bootstrap-sass (3.3.7)
+    bootstrap-sass (3.4.1)
       autoprefixer-rails (>= 5.2.1)
-      sass (>= 3.3.4)
+      sassc (>= 2.0.0)
     bootstrap-slider-rails (9.8.0)
       railties (>= 3.2, < 6.0)
-    bootstrap3-datetimepicker-rails (4.17.47)
-      momentjs-rails (>= 2.8.1)
     browser (2.5.3)
     builder (3.2.3)
     bullet (5.5.1)
@@ -133,15 +137,9 @@ GEM
       ffi (~> 1.0, >= 1.0.11)
     climate_control (0.2.0)
     cocoon (1.2.11)
-    codacy-coverage (2.1.0)
-      simplecov
     code_analyzer (0.4.8)
       sexp_processor
     code_string (0.0.2)
-    codecov (0.1.10)
-      json
-      simplecov
-      url
     coderay (1.1.2)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
@@ -151,7 +149,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     colored (1.2)
-    concurrent-ruby (1.0.5)
+    concurrent-ruby (1.1.5)
     connection_pool (2.2.2)
     crass (1.0.4)
     daemons (1.2.6)
@@ -172,7 +170,6 @@ GEM
       devise (>= 4.0.0)
     did_you_mean (0.10.0)
       interception
-    docile (1.3.1)
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
     draper (2.1.0)
@@ -205,10 +202,11 @@ GEM
       loofah (>= 2.0)
       sax-machine (>= 1.0)
     ffaker (2.10.0)
-    ffi (1.9.25)
+    ffi (1.10.0)
     figaro (1.1.1)
       thor (~> 0.14)
-    font-awesome-sass (5.3.1)
+    flatpickr (4.5.2.0)
+    font-awesome-sass (5.8.1)
       sassc (>= 1.11)
     foreman (0.85.0)
       thor (~> 0.19.1)
@@ -219,7 +217,7 @@ GEM
     fugit (1.1.6)
       et-orbi (~> 1.1, >= 1.1.6)
       raabro (~> 1.1)
-    globalid (0.4.1)
+    globalid (0.4.2)
       activesupport (>= 4.2.0)
     gyoku (1.3.1)
       builder (>= 2.1.2)
@@ -272,7 +270,7 @@ GEM
     libv8 (3.16.14.19)
     lodash-rails (4.17.10)
       railties (>= 3.1)
-    loofah (2.2.2)
+    loofah (2.2.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     luhn (1.0.2)
@@ -307,7 +305,7 @@ GEM
     net-http-persistent (3.0.0)
       connection_pool (~> 2.2)
     netrc (0.11.0)
-    nokogiri (1.8.4)
+    nokogiri (1.8.5)
       mini_portile2 (~> 2.3.0)
     nori (2.6.0)
     ntlm-http (0.1.1)
@@ -362,23 +360,23 @@ GEM
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     raabro (1.1.6)
-    rack (1.6.10)
+    rack (1.6.11)
     rack-accept (0.4.5)
       rack (>= 0.4)
     rack-protection (2.0.4)
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
-    rails (4.2.10)
-      actionmailer (= 4.2.10)
-      actionpack (= 4.2.10)
-      actionview (= 4.2.10)
-      activejob (= 4.2.10)
-      activemodel (= 4.2.10)
-      activerecord (= 4.2.10)
-      activesupport (= 4.2.10)
+    rails (4.2.11.1)
+      actionmailer (= 4.2.11.1)
+      actionpack (= 4.2.11.1)
+      actionview (= 4.2.11.1)
+      activejob (= 4.2.11.1)
+      activemodel (= 4.2.11.1)
+      activerecord (= 4.2.11.1)
+      activesupport (= 4.2.11.1)
       bundler (>= 1.3.0, < 2.0)
-      railties (= 4.2.10)
+      railties (= 4.2.11.1)
       sprockets-rails
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
@@ -396,18 +394,15 @@ GEM
       json
       require_all (~> 2.0)
       ruby-progressbar
-    railties (4.2.10)
-      actionpack (= 4.2.10)
-      activesupport (= 4.2.10)
+    railties (4.2.11.1)
+      actionpack (= 4.2.11.1)
+      activesupport (= 4.2.11.1)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rainbow (2.2.2)
       rake
     raindrops (0.19.0)
-    rake (12.3.1)
-    rb-fsevent (0.10.3)
-    rb-inotify (0.9.10)
-      ffi (>= 0.5.0, < 2)
+    rake (12.3.2)
     rdoc (4.3.0)
     redis (3.3.5)
     redis-namespace (1.6.0)
@@ -457,20 +452,15 @@ GEM
     rubyzip (1.2.2)
     rufus-scheduler (3.5.2)
       fugit (~> 1.1, >= 1.1.5)
-    sass (3.6.0)
-      sass-listen (~> 4.0.0)
-    sass-listen (4.0.0)
-      rb-fsevent (~> 0.9, >= 0.9.4)
-      rb-inotify (~> 0.9, >= 0.9.7)
-    sass-rails (5.0.7)
-      railties (>= 4.0.0, < 6)
-      sass (~> 3.1)
-      sprockets (>= 2.8, < 4.0)
-      sprockets-rails (>= 2.0, < 4.0)
-      tilt (>= 1.1, < 3)
-    sassc (2.0.0)
-      ffi (~> 1.9.6)
+    sassc (2.0.1)
+      ffi (~> 1.9)
       rake
+    sassc-rails (2.1.1)
+      railties (>= 4.0.0)
+      sassc (>= 2.0)
+      sprockets (> 3.0)
+      sprockets-rails
+      tilt
     savon (2.12.0)
       akami (~> 1.2)
       builder (>= 2.1.2)
@@ -508,11 +498,6 @@ GEM
     simple_form (3.5.1)
       actionpack (> 4, < 5.2)
       activemodel (> 4, < 5.2)
-    simplecov (0.16.1)
-      docile (~> 1.1)
-      json (>= 1.8, < 3)
-      simplecov-html (~> 0.10.0)
-    simplecov-html (0.10.2)
     socksify (1.7.1)
     spring (2.0.2)
       activesupport (>= 4.2)
@@ -540,7 +525,7 @@ GEM
       rack (>= 1, < 3)
     thor (0.19.4)
     thread_safe (0.3.6)
-    tilt (2.0.8)
+    tilt (2.0.9)
     time_diff (0.3.0)
       activesupport
       i18n
@@ -571,7 +556,6 @@ GEM
       kgio (~> 2.6)
       raindrops (~> 0.7)
     uniform_notifier (1.10.0)
-    url (0.3.2)
     uuidtools (2.1.5)
     vuejs-rails (2.5.13)
     wannabe_bool (0.7.1)
@@ -597,10 +581,10 @@ PLATFORMS
 
 DEPENDENCIES
   actionpack-xml_parser
-  active_list (>= 6.9.3)
+  active_list (>= 6.10.0)
   activerecord-postgis-adapter (>= 3.0.0)
   acts_as_list
-  agric (~> 3.0)
+  agric!
   apartment!
   apartment-sidekiq
   awesome_nested_set (~> 3.1.1)
@@ -613,9 +597,8 @@ DEPENDENCIES
   beardley-xml (>= 1.1.2)
   better_errors
   binding_of_caller
-  bootstrap-sass (~> 3.1)
+  bootstrap-sass (~> 3.4.1)
   bootstrap-slider-rails
-  bootstrap3-datetimepicker-rails
   browser
   bullet (< 5.6.0)
   capybara
@@ -623,9 +606,7 @@ DEPENDENCIES
   charlock_holmes
   charta (>= 0.1.9)
   cocoon
-  codacy-coverage
   code_string (>= 0.0.1)
-  codecov
   coffee-rails (~> 4.1)
   colored
   database_cleaner
@@ -638,10 +619,11 @@ DEPENDENCIES
   ekylibre-ofx-parser
   enumerize
   exception_notification
-  factory_bot
+  factory_bot (< 5)
   feedjira
   ffaker (>= 2.0.0)
   figaro
+  flatpickr (~> 4.5, >= 4.5.2.0)
   font-awesome-sass
   foreman
   formize (~> 2.1.0)
@@ -679,7 +661,7 @@ DEPENDENCIES
   puma
   quandl
   quiet_assets
-  rails (= 4.2.10)
+  rails (= 4.2.11.1)
   rails_best_practices
   rake (~> 12.0)
   redis-namespace
@@ -692,8 +674,8 @@ DEPENDENCIES
   rubocop (~> 0.49.1)
   ruby-prof
   rubyntlm (>= 0.3.2)
-  rubyzip
-  sass-rails (~> 5.0)
+  rubyzip (~> 1.2.2)
+  sassc-rails (~> 2.0)
   savon
   sdoc (~> 0.4.0)
   selenium-webdriver
@@ -704,7 +686,6 @@ DEPENDENCIES
   sidekiq-unique-jobs (~> 4.0)
   simple_calendar
   simple_form (~> 3.4)
-  simplecov
   spring
   state_machine
   teaspoon-jasmine
@@ -728,4 +709,4 @@ RUBY VERSION
    ruby 2.4.3p205
 
 BUNDLED WITH
-   1.16.6
+   1.17.1

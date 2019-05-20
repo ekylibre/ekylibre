@@ -24,7 +24,7 @@ module Backend
 
     unroll
 
-    before_action :save_search_preference, only: [:index, :mark]
+    before_action :save_search_preference, only: %i[index mark show]
 
     def self.accounts_conditions
       code = ''
@@ -125,24 +125,16 @@ module Backend
     end
 
     def self.account_reconciliation_conditions
-      code = search_conditions(accounts: %i[name number description], journal_entries: [:number], JournalEntryItem.table_name => %i[name debit credit]) + "[0] += ' AND accounts.reconcilable = ?'\n"
+      code = search_conditions(accounts: %i[name number]) + "[0] += ' AND reconcilable = ?'\n"
       code << "c << true\n"
-      code << "c[0] += ' AND (letter IS NULL OR LENGTH(TRIM(letter)) <= 0)'\n"
+      code << account_lettering_states_crit('params')
       code << 'c'
       code.c
     end
 
-    list(:reconciliation, model: :journal_entry_items, joins: %i[entry account], conditions: account_reconciliation_conditions, order: 'accounts.number, journal_entries.printed_on') do |t|
-      t.column :account_number, through: :account, label_method: :number, url: { action: :mark }
-      t.column :account_name, through: :account, label_method: :name, url: { action: :mark }
-      t.column :entry_number
-      t.column :name
-      t.column :real_debit,  currency: :real_currency, hidden: true
-      t.column :real_credit, currency: :real_currency, hidden: true
-      t.column :debit,  currency: true, hidden: true
-      t.column :credit, currency: true, hidden: true
-      t.column :absolute_debit,  currency: :absolute_currency
-      t.column :absolute_credit, currency: :absolute_currency
+    list(:reconciliation, model: :accounts, conditions: account_reconciliation_conditions, order: 'accounts.number', distinct: true) do |t|
+      t.column :number, label_method: :number, url: { action: :mark }
+      t.column :name, label_method: :name, url: { action: :mark }
     end
 
     def reconciliation; end
@@ -180,6 +172,29 @@ module Backend
         end
         redirect_to action: :index
       end
+    end
+
+    def reconciliable_list 
+      return unless @account = Account.find_by_id(params[:id])
+
+      if params.key?(:masked)
+        preference_name = 'backend/accounts'
+        preference_name << ".#{params[:context]}" if params[:context]
+        preference_name << '.lettered_items.masked'
+        current_user.prefer!(preference_name, params[:masked].to_s == 'true', :boolean)
+      end
+
+      lettered_items_preference = current_user.preference(preference_name, 'true', :boolean)
+
+      @items = @account.reconcilable_entry_items(params[:period], params[:started_on], params[:stopped_on], hide_lettered: lettered_items_preference.value)
+
+      @unmark_label = :unmark.ta    
+      @unmark_title = :unmark.tl    
+      @confirm_label = :are_you_sure.tl
+      @account_id = @account.id
+      @currency = Preference[:currency]
+      @precision = Nomen::Currency[@currency].precision
+
     end
 
     def mask_lettered_items

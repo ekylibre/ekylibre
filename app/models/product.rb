@@ -90,6 +90,7 @@ require 'ffaker'
 
 class Product < Ekylibre::Record::Base
   include Attachable
+  include Autocastable
   include Indicateable
   include Versionable
   include Customizable
@@ -230,6 +231,13 @@ class Product < Ekylibre::Record::Base
 
   scope :generic_supports, -> { where(type: %w[Animal AnimalGroup Plant LandParcel Equipment EquipmentFleet]) }
 
+  scope :with_campaign, lambda { |campaign|
+    through_production  = joins(activity_production: :campaign).where("campaigns.id = #{campaign.id}").select(:id)
+    through_productions = joins(activity_productions: :campaigns).where("campaigns.id = #{campaign.id}").select(:id)
+    where(arel_table[:id].in(through_productions.arel)
+      .or(arel_table[:id].in(through_production.arel)))
+  }
+
   scope :supports_of_campaign, lambda { |campaign|
     joins(:supports).merge(ActivityProduction.of_campaign(campaign))
   }
@@ -349,7 +357,7 @@ class Product < Ekylibre::Record::Base
   end
 
   accepts_nested_attributes_for :readings, allow_destroy: true, reject_if: lambda { |reading|
-    !reading['indicator_name'] != 'population' && reading[ProductReading.value_column(reading['indicator_name']).to_s].blank?
+    !(reading['indicator_name'] != 'population') && reading[ProductReading.value_column(reading['indicator_name']).to_s].blank?
   }
   accepts_nested_attributes_for :memberships, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :labellings, reject_if: :all_blank, allow_destroy: true
@@ -427,16 +435,6 @@ class Product < Ekylibre::Record::Base
   end
 
   class << self
-    # Auto-cast product to best matching class with type column
-    def new_with_cast(*attributes, &block)
-      if (h = attributes.first).is_a?(Hash) && !h.nil? && (type = h[:type] || h['type']) && !type.empty? && (klass = type.constantize) != self
-        raise "Can not cast #{name} to #{klass.name}" unless klass <= self
-        return klass.new(*attributes, &block)
-      end
-      new_without_cast(*attributes, &block)
-    end
-    alias_method_chain :new, :cast
-
     def miscibility_of(products_and_variants)
       PhytosanitaryMiscibility.new(products_and_variants).legality
     end
@@ -872,25 +870,8 @@ class Product < Ekylibre::Record::Base
     indicator_value
   end
 
-  def time_use_in_date(date)
-    intervention_parameters = InterventionParameter.joins(:intervention).where(product_id: self, interventions: { started_at: date }).includes(:intervention).uniq { |p| p.intervention.number }
-    intervention_numbers = intervention_parameters.includes(:intervention).map { |p| p.intervention.number }
-    intervention_proposal_parameters = Planning::InterventionProposal::Parameter
-                                       .joins(:intervention_proposal)
-                                       .where(product_id: self, intervention_proposals: { estimated_date: date })
-                                       .where.not(intervention_proposals: { number: intervention_numbers })
-    duration = intervention_parameters.includes(:intervention).map(&:duration).inject(:+) || 0
-    duration += (intervention_proposal_parameters.map { |p| p.intervention_proposal.estimated_working_time }.inject(:+) || 0) * 3600
-    (duration / 3600.0).round(1) if duration.present?
-  end
-
   def stock_info
     info = "#{self.population.round(2)} #{self.variant.unit_name.downcase}"
-    info
-  end
-
-  def working_duration_info(date)
-    info = "#{self.time_use_in_date(date).to_s.gsub!(/\./,",")} h"
     info
   end
 end

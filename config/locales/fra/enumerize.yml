@@ -1,5 +1,9 @@
 fra:
   enumerize:
+    account:
+      nature:
+        auxiliary: "Auxiliaire"
+        general: "General"
     activity:
       nature:
         auxiliary: "Auxiliaire"
@@ -134,6 +138,12 @@ fra:
       nature:
         contact: "Contact"
         organization: "Organisation"
+      supplier_payment_delay:
+        1 week: "à réception"
+        30 days: "30 jours"
+        30 days, end of month: "30 jours fin du mois"
+        60 days: "60 jours"
+        60 days, end of month: "60 jours fin du mois"
     entity_address:
       canal:
         email: "E-mail"
@@ -149,6 +159,12 @@ fra:
         refused: "Refusé"
         waiting: "En attente de réponse"
     financial_year:
+      state:
+        closed: "Clôturé"
+        closing: "Clôture en cours"
+        closure_in_preparation: "Clôture en préparation"
+        locked: "Verrouillé"
+        opened: "Ouvert"
       tax_declaration_frequency:
         monthly: "Mensuelle"
         none: "Aucune"
@@ -163,7 +179,7 @@ fra:
         linear: "Linéaire"
         none: "Aucune"
         regressive: "Dégressive"
-        simplified_linear: "Linéaire simplifiée"
+        simplified_linear: "Linéaire simplifiée" #?
       depreciation_period:
         monthly: "Mensuelle"
         quarterly: "Trimestrielle"
@@ -440,6 +456,12 @@ fra:
         # point: "Point"
         string: "Chaîne"
     purchase:
+      payment_delay:
+        1 week: "à réception"
+        30 days: "30 jours"
+        30 days, end of month: "30 jours fin du mois"
+        60 days: "60 jours"
+        60 days, end of month: "60 jours fin du mois"
       tax_payability:
         at_invoicing: "À la facturation (débit)"
         at_paying: "Au paiement"
@@ -449,16 +471,30 @@ fra:
         purchase: "Achat"
     purchase_order: #?
       command_mode: #?
-        fax: "fax" #?
+        fax: "Fax" #?
         letter: "Courrier" #?
         mail: "Email" #?
         market_place: "" #?
         oral: "Verbal" #?
         sms: "SMS" #?
+    sale:
+      payment_delay:
+        1 week: "à réception"
+        30 days: "30 jours"
+        30 days, end of month: "30 jours fin du mois"
+        60 days: "60 jours"
+        60 days, end of month: "60 jours fin du mois"
     sale_item: #?
       compute_from: #?
         pretax_amount: "Montant avant impôts" #?
         unit_pretax_amount: "Unité montant avant impôts" #?
+    sale_nature:
+      payment_delay:
+        1 week: "à réception"
+        30 days: "30 jours"
+        30 days, end of month: "30 jours fin du mois"
+        60 days: "60 jours"
+        60 days, end of month: "60 jours fin du mois"
     sensor:
       retrieval_mode:
         integration: "Intégration"

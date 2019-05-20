@@ -38,10 +38,8 @@ class ApplicationController < ActionController::Base
   # Permits to redirect
   hide_action :after_sign_in_path_for
   def after_sign_in_path_for(resource)
-    if Ekylibre::Plugin.redirect_after_login?
-      path = Ekylibre::Plugin.after_login_path(resource)
-    end
-    path || super
+    Ekylibre::Hook.publish(:after_sign_in, resource)
+    @new_after_sign_in_path || super
   end
 
   hide_action :session_controller?
@@ -202,5 +200,10 @@ class ApplicationController < ActionController::Base
   def configure_application(exception)
     title = exception.class.name.underscore.t(scope: 'exceptions')
     render '/public/configure_application', layout: 'exception', locals: { title: title, message: exception.message, class_name: exception.class.name }, status: 500
+  end
+
+  # TODO: remove for Rails 5
+  def helpers
+    view_context
   end
 end

@@ -91,65 +91,24 @@ class Reception < Parcel
     self.address ||= Entity.of_company.default_mail_address if new_record?
   end
 
+  after_save do
+    purchase_order_ids = items.map { |item| item.purchase_order_item&.purchase_id }.uniq.compact
+    if purchase_order_ids.any?
+      purchase_orders = PurchaseOrder.find(purchase_order_ids)
+      purchase_orders.each { |order| order.update!(reconciliation_state: 'reconcile') if order.fully_reconciled? }
+    end
+  end
+
   protect on: :destroy do
     given?
   end
+
+  bookkeep
 
   # Remove previous items, only if we are in an intervention and if the purchase
   # change(in callback)
   def remove_all_items
     items.where.not(id: nil).destroy_all
-  end
-
-  # This method permits to add stock journal entries corresponding to the
-  # incoming or outgoing parcels.
-  # It depends on the preferences which permit to activate the "permanent stock
-  # inventory" and "automatic bookkeeping".
-  #
-  # | Parcel mode     | Debit                      | Credit                    |
-  # | incoming parcel | stock (3X)                 | stock_movement (603X/71X) |
-  # | outgoing parcel | stock_movement (603X/71X)  | stock (3X)                |
-  bookkeep do |b|
-    # For purchase_not_received or sale_not_emitted
-    invoice = lambda do |usage, order|
-      lambda do |entry|
-        label = tc(:undelivered_invoice,
-                   resource: self.class.model_name.human,
-                   number: number, entity: entity.full_name, mode: nature.l)
-        account = Account.find_or_import_from_nomenclature(usage)
-        items.each do |item|
-          amount = (item.trade_item && item.trade_item.pretax_amount) ||
-                   item.stock_amount
-          next unless item.variant && item.variant.charge_account && amount.nonzero?
-          if order
-            entry.add_credit label, account.id, amount, resource: item, as: :unbilled, variant: item.variant
-            entry.add_debit  label, item.variant.charge_account.id, amount, resource: item, as: :expense, variant: item.variant
-          else
-            entry.add_debit  label, account.id, amount, resource: item, as: :unbilled, variant: item.variant
-            entry.add_credit label, item.variant.charge_account.id, amount, resource: item, as: :expense, variant: item.variant
-          end
-        end
-      end
-    end
-
-    ufb_accountable = Preference[:unbilled_payables] && given?
-    # For unbilled payables
-    journal = unsuppress { Journal.used_for_unbilled_payables!(currency: currency) }
-    b.journal_entry(journal, printed_on: printed_on, as: :undelivered_invoice, if: ufb_accountable, &invoice.call(:suppliers_invoices_not_received, true))
-
-    accountable = Preference[:permanent_stock_inventory] && given?
-    # For permanent stock inventory
-    journal = unsuppress { Journal.used_for_permanent_stock_inventory!(currency: currency) }
-    b.journal_entry(journal, printed_on: printed_on, if: (Preference[:permanent_stock_inventory] && given?)) do |entry|
-      label = tc(:bookkeep, resource: self.class.model_name.human,
-                            number: number, entity: entity.full_name, mode: nature.l)
-      items.each do |item|
-        variant = item.variant
-        next unless variant && variant.storable? && item.stock_amount.nonzero?
-        entry.add_credit(label, variant.stock_movement_account_id, item.stock_amount, resource: item, as: :stock_movement, variant: item.variant)
-        entry.add_debit(label, variant.stock_account_id, item.stock_amount, resource: item, as: :stock, variant: item.variant)
-      end
-    end
   end
 
   def third_id

@@ -209,7 +209,7 @@
 
         participations = []
 
-        doersParameters = targetted_element.closest('.nested-doers')
+        doersParameters = targetted_element.closest(".nested-parameters").siblings(".nested-doers")
         tractorsParameters = targetted_element.closest('.nested-tractor').closest('.nested-tools')
         doersToolsParameters = $('.nested-parameters.nested-doers, .nested-parameters.nested-tools')
 
@@ -229,9 +229,10 @@
         datas['intervention_id'] = intervention_id
         datas['product_id'] = product_id
         datas['existing_participation'] = existingParticipation
-        # datas['participations'] = participations
+        datas['participations'] = participations
         datas['intervention_started_at'] = interventionStartedAt
         datas['auto_calcul_mode'] = autoCalculMode
+        datas['intervention_form'] = $("#new_intervention").serialize()
 
         $.post
           url: "/backend/intervention_participations/participations_modal",
@@ -291,7 +292,7 @@
             if intervention_id? && item.is_reception
               itemLine.push("<span class='item-id'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][id]' value='#{item.id}' type='hidden'></input></span>")
             itemLine.push("<span class='item-name'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][variant_id]' value='#{item.variant_id}' type='hidden'></input>" + item.name + "</span>")
-            itemLine.push("<span class='item-quantity'><input type='number' class='input-quantity' name='intervention[receptions_attributes][0][items_attributes][#{-index}][population]' value ='#{item.quantity}'></input></span>")
+            itemLine.push("<span class='item-quantity'><input type='number' class='input-quantity' name='intervention[receptions_attributes][0][items_attributes][#{-index}][population]' value ='#{item.current_stock || item.quantity}'></input></span>")
             itemLine.push("<span class='item-unit-pretax-amount'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][unit_pretax_amount]' value='#{item.unit_pretax_amount}' type='hidden'></input>" + item.unit_pretax_amount + "</span>")
             itemLine.push("<span class='item-amount'>" + item.unit_pretax_amount * item.quantity +  "</span>")
             itemLine.push("<span class='item-role'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][role]' value='#{item.role}' type='hidden'></input></span>")
@@ -350,7 +351,7 @@
     $(this).each ->
       E.interventions.refresh $(this)
 
-  $(document).on 'keyup change', 'input[data-intervention-updater]:not([data-selector])', (event) ->
+  $(document).on 'keyup change', 'input[data-intervention-updater]:not([data-selector], .flatpickr-input)', (event) ->
     $(this).each ->
       options = {}
       options['display_cost'] = true
@@ -368,7 +369,10 @@
 
   $(document).on "keyup change dp.change", ".nested-fields.working-period:first-child input.intervention-started-at", (e) ->
     value = $(this).val()
-    $('#intervention_working_periods_attributes_0_stopped_at').val(moment(new Date(value)).add(1, 'hours').format('Y-MM-DD H:m'))
+    $hiddenInput = $('#intervention_working_periods_attributes_0_stopped_at')
+    $displayedInput = $hiddenInput.next('.flatpickr-input')
+    $hiddenInput.val(moment(new Date(value)).add(1, 'hours').format('Y-MM-DD H:mm'))
+    $displayedInput.val(moment(new Date(value)).add(1, 'hours').format('DD-MM-Y H:mm'))
     started_at = $('#intervention_working_periods_attributes_0_started_at').val()
     $(this).each ->
       E.interventions.updateAvailabilityInstant(started_at)
@@ -833,7 +837,7 @@
       @taskboardModal.getModal().modal 'show'
 
   true
-  
+
   $(document).ready ->
     #TODO: Refacto this to not be coupled so tight to URL
     if window.location.pathname.includes('/backend/interventions/')
@@ -910,10 +914,11 @@
       interventions = $(e.currentTarget).data().interventions
       duplicateModal = new ekylibre.modal('#duplicate-modal')
       date = $('#duplicate-modal #duplicate_date').val()
+      form = $('.edit_intervention:visible')
       $.ajax
         type: 'post'
         url: '/backend/interventions/create_duplicate_intervention'
-        data: { intervention: intervention, interventions: interventions, date: date }
+        data: { intervention: intervention, interventions: interventions, date: date, form: form.serialize() }
         success: (data) =>
           if data == null
             duplicateModal.getModal().modal 'hide'

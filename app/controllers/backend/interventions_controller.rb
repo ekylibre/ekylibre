@@ -251,6 +251,11 @@ module Backend
         end
       end
 
+      %i[doers inputs outputs tools participations working_periods].each do |param|
+        next unless params.include? :intervention
+        options[:"#{param}_attributes"] = permitted_params["#{param}_attributes"] || []
+      end
+
       # consume preference and erase
       if params[:keeper_id] && (p = current_user.preferences.get(params[:keeper_id])) && p.value.present?
 
@@ -614,7 +619,8 @@ module Backend
                                 is_reception: item.class == ReceptionItem,
                                 purchase_order_item: item.try(:purchase_order_item_id) || item.id,
                                 pretax_amount: item.pretax_amount,
-                                role: item.role }
+                                role: item.role,
+                                current_stock: item.variant&.current_stock }
       end
       order_hash
     end
@@ -629,8 +635,8 @@ module Backend
     end
 
     def new_intervention
-
       new_date = params[:date].to_time if params[:date].present?
+      attrs = Rack::Utils.parse_nested_query(params['form'])['intervention']
 
       @new_intervention = @intervention.dup
       @new_intervention.started_at = @new_intervention.started_at.change(year: new_date.year, month: new_date.month, day: new_date.day) if new_date
@@ -651,18 +657,18 @@ module Backend
 
         [:doers, :inputs, :outputs, :targets, :tools].each do |k|
           group_parameter.send(k).each do |parameter|
-            duplicate_parameter = parameter.dup
+            duplicate_parameter = create_duplicate_parameter(parameter, attrs)
             duplicate_parameter.group = duplicate_group_parameter
             duplicate_parameter.intervention = @new_intervention
             duplicate_group_parameter.send(k) << duplicate_parameter
           end
         end
-        
+
         @new_intervention.group_parameters << duplicate_group_parameter
       end
 
       @intervention.product_parameters.where(group_id: nil).each do |parameter|
-        duplicate_parameter = parameter.dup
+        duplicate_parameter = create_duplicate_parameter(parameter, attrs)
         duplicate_parameter.intervention = @new_intervention
         @new_intervention.product_parameters << duplicate_parameter
       end
@@ -687,6 +693,19 @@ module Backend
 
     def find_intervention
       @intervention = Intervention.find(params[:intervention])
+    end
+
+    def create_duplicate_parameter(parameter, attributes)
+      duplicate_parameter = parameter.dup
+      %i[targets doers tools inputs outputs].each do |product_parameter|
+        next unless "intervention_#{product_parameter}" == duplicate_parameter.class.name.underscore.pluralize
+        attributes["#{product_parameter}_attributes"].each_value do |values|
+          next unless parameter.id.to_s == values["id"]
+          values.delete('id')
+          duplicate_parameter.assign_attributes(values)
+        end
+      end
+      duplicate_parameter
     end
   end
 end

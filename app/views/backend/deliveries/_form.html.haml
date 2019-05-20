@@ -12,7 +12,7 @@
   = f.input :annotation
   = f.custom_fields
 
-- parcel_choices = f.object.available_parcels
+- parcel_choices = f.object.available_shipments
 - if parcel_choices.any?
   = field_set :parcels, title: Delivery.human_attribute_name(:parcels) do
     %table

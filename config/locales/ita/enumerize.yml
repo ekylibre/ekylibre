@@ -1,5 +1,9 @@
 ita:
   enumerize:
+    account:
+      nature:
+        # auxiliary: "Auxiliary"
+        # general: "General"
     activity:
       nature:
         auxiliary: "Ausiliario"
@@ -83,7 +87,7 @@ ita:
     cash:
       mode:
         bban: "Bank Account Number di base (BBAN)"
-        iban: "Numero di conto bancario internazionale (IBAN)"
+        # iban: "International Bank Account Number (IBAN)"
       nature:
         associate_account: "conto Associate"
         bank_account: "conto bancario"
@@ -136,6 +140,12 @@ ita:
       nature:
         contact: "contatto"
         organization: "Organizzazione"
+      supplier_payment_delay:
+        # 1 week: "at reception"
+        # 30 days: "30 days"
+        # 30 days, end of month: "30 days end of month"
+        # 60 days: "60 days"
+        # 60 days, end of month: "60 days end of month"
     entity_address:
       canal:
         email: "E-mail"
@@ -151,6 +161,12 @@ ita:
         refused: "rifiutato"
         waiting: "In attesa"
     financial_year:
+      state:
+        # closed: "Closed"
+        # closing: "Closure in progress"
+        # closure_in_preparation: "Closure in preparation"
+        # locked: "Locked"
+        # opened: "Opened"
       tax_declaration_frequency:
         monthly: "Mensile"
         none: "Nessuna"
@@ -166,7 +182,7 @@ ita:
         linear: "Lineare"
         none: "Nessuna"
         regressive: "Regressivo"
-        simplified_linear: "lineari semplificato"
+        simplified_linear: "lineari semplificato" #?
       depreciation_period:
         monthly: "Mensile"
         quarterly: "Trimestrale"
@@ -458,6 +474,12 @@ ita:
         point: "Punto"
         string: "Corda"
     purchase:
+      payment_delay:
+        # 1 week: "at reception"
+        # 30 days: "30 days"
+        # 30 days, end of month: "30 days end of month"
+        # 60 days: "60 days"
+        # 60 days, end of month: "60 days end of month"
       tax_payability:
         at_invoicing: "A fatturazione"
         at_paying: "A pagamento"
@@ -465,10 +487,24 @@ ita:
       nature:
         payslip: "Busta paga"
         purchase: "Acquista"
+    sale:
+      payment_delay:
+        # 1 week: "at reception"
+        # 30 days: "30 days"
+        # 30 days, end of month: "30 days end of month"
+        # 60 days: "60 days"
+        # 60 days, end of month: "60 days end of month"
     sale_item: #?
       compute_from: #?
         pretax_amount: "Importo lordo delle imposte" #?
         unit_pretax_amount: "Unità importo lordo delle imposte" #?
+    sale_nature:
+      payment_delay:
+        # 1 week: "at reception"
+        # 30 days: "30 days"
+        # 30 days, end of month: "30 days end of month"
+        # 60 days: "60 days"
+        # 60 days, end of month: "60 days end of month"
     sensor:
       retrieval_mode:
         integration: "Integrazione"

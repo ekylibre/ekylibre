@@ -478,7 +478,7 @@ class Intervention < Ekylibre::Record::Base
   def calculate_cost_amount_computation(product_parameter)
     if product_parameter.product.is_a?(Worker)
       computation = product_parameter.cost_amount_computation
-    elsif product_parameter.product.try(:tractor?) && product_parameter.participation.present?
+    elsif product_parameter.product.try(:tractor?) && product_parameter.try(:participation) && product_parameter.participation.present?
       computation = product_parameter.cost_amount_computation(natures: %i[travel intervention])
     else
       computation = product_parameter.cost_amount_computation(natures: %i[intervention])
@@ -579,6 +579,15 @@ class Intervention < Ekylibre::Record::Base
   # Returns human tool names
   def human_tool_names
     tools.map(&:product).compact.map(&:work_name).sort.to_sentence
+  end
+
+  # Returns human inputs names and quantity
+  def human_input_quantity_names
+    names = []
+    inputs.each do |input|
+      names << "#{input.name} : #{input.human_quantity}"
+    end
+    names.sort.to_sentence
   end
 
   # Returns human actions names
@@ -711,7 +720,7 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def total_cost_per_area(area_unit = :hectare)
-    zone_area = working_zone_area(area_unit).to_f.round(2)
+    zone_area = working_zone_area(area_unit).to_f
     (total_cost / zone_area) * area_cost_coefficient if zone_area > 0.0
   end
 
@@ -770,6 +779,19 @@ class Intervention < Ekylibre::Record::Base
   def working_area(unit = :hectare)
     ActiveSupport::Deprecation.warn 'Intervention#working_area is deprecated. Please use Intervention#working_zone_area instead.'
     working_zone_area(unit)
+  end
+  
+  def activity_imputation(activity)
+    if activity.size_indicator == :net_surface_area
+      unit = :hectare
+      precision = 2
+      if targets.any?
+        at = targets.of_activity(activity).with_working_zone.map(&:working_zone_area).sum.in(unit)
+        coeff = (at.to_d / working_zone_area.to_d) if working_zone_area.to_d != 0.0
+        return nil unless coeff
+        coeff.round(precision)
+      end
+    end
   end
 
   def status
@@ -889,6 +911,60 @@ class Intervention < Ekylibre::Record::Base
       real_stop = started_at + (flow.intervention_flow.to_d * working_zone_area.to_d * 3600)
       catalog_duration = (real_stop - started_at).in(:second).convert(:hour)
     end
+  end
+
+  def build_duplicate_intervention_attributes
+    associations_parameters = { intervention: {} }
+    %w[targets tools inputs doers outputs participations working_periods].each do |product_parameter|
+      next unless self.send(product_parameter).any?
+      key = (product_parameter + '_attributes').to_sym
+      associations_parameters[:intervention][key] = {}
+      self.send(product_parameter).each_with_index do |parameter, parameter_index|
+        parameter_attributes = build_has_many_association(product_parameter, parameter)
+        associations_parameters[:intervention][key][parameter_index] = parameter_attributes
+      end
+    end
+
+    if self.group_parameters.any?
+      associations_group_parameters = { intervention: { group_parameters_attributes: {} } }
+      self.group_parameters.each_with_index do |gp, gp_index|
+        associations_group_parameters[:intervention][:group_parameters_attributes][gp_index] = { reference_name: gp.reference_name}
+        %w[targets tools inputs doers outputs participations working_periods].each do |product_parameter|
+          next unless gp.send(product_parameter).any?
+          key = (product_parameter + '_attributes').to_sym
+          associations_group_parameters[:intervention][:group_parameters_attributes][gp_index][key] = {}
+          gp.send(product_parameter).each_with_index do |parameter, parameter_index|
+            parameter_attributes = build_has_many_association(product_parameter, parameter)
+            associations_group_parameters[:intervention][:group_parameters_attributes][gp_index][key][parameter_index] = parameter_attributes
+          end
+        end
+      end
+      associations_parameters.deep_merge!(associations_group_parameters)
+    end
+
+    parameters = self.attributes.merge(associations_parameters)
+    parameters
+  end
+
+  def build_has_many_association(product_parameter, parameter)
+    if product_parameter == 'inputs'
+      parameter_attributes = { product_id: parameter.product_id.to_s, reference_name: parameter.reference_name, quantity_value: parameter.quantity_value, quantity_handler: parameter.quantity_handler, quantity_population: parameter.quantity_population }
+    elsif product_parameter == 'outputs'
+      parameter_attributes = { variant_id: parameter.variant_id.to_s, reference_name: parameter.reference_name, quantity_value: parameter.quantity_value, quantity_handler: parameter.quantity_handler, quantity_population: parameter.quantity_population }
+    elsif product_parameter == 'participations'
+      parameter_attributes = { product_id: parameter.product_id, state: parameter.state, working_periods_attributes: []}
+      parameter.working_periods.each_with_index do |wp, wp_index|
+        wp_attributes = { nature: wp.nature, started_at: wp.started_at, stopped_at: wp.stopped_at }
+        parameter_attributes[:working_periods_attributes][wp_index] = wp_attributes
+      end
+    elsif product_parameter == 'working_periods'
+      parameter_attributes = { started_at: parameter.started_at, stopped_at: parameter.stopped_at }
+    elsif product_parameter == 'targets'
+      parameter_attributes = { product_id: parameter.product_id.to_s, reference_name: parameter.reference_name, working_zone: parameter.working_zone }
+    else
+      parameter_attributes = { product_id: parameter.product_id.to_s, reference_name: parameter.reference_name }
+    end
+    parameter_attributes
   end
 
   class << self

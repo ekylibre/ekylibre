@@ -25,6 +25,16 @@
 //= require jquery_ujs
 //= require jquery.remotipart
 //= require jquery.turbolinks
+//= require flatpickr
+//= require flatpickr/plugins/confirmDate/confirmDate
+//= require flatpickr/l10n/ar
+//= require flatpickr/l10n/de
+//= require flatpickr/l10n/es
+//= require flatpickr/l10n/fr
+//= require flatpickr/l10n/it
+//= require flatpickr/l10n/ja
+//= require flatpickr/l10n/pt
+//= require flatpickr/l10n/zh
 //= require turbolinks
 //= require active_list.jquery
 //= require knockout
@@ -45,7 +55,6 @@
 //= require moment/ja
 //= require moment/pt
 //= require moment/zh-cn
-//= require bootstrap-datetimepicker
 //= require formize/behave
 //= require form/dialog
 //= require formize/observe

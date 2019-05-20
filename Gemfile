@@ -1,9 +1,14 @@
 source 'https://rubygems.org'
 
-ruby '>= 2.3.3', '< 3.0.0'
+git_source(:github) do |repo_name|
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  "https://github.com/#{repo_name}.git"
+end
+
+ruby '>= 2.3.8', '< 3.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.10'
+gem 'rails', '4.2.11.1'
 
 # Security fix for mail
 gem 'mail', '~> 2.6.6.rc1'
@@ -38,7 +43,7 @@ gem 'turnout'
 gem 'lodash-rails'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sassc-rails', '~> 2.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
@@ -61,9 +66,10 @@ gem 'turbolinks', '~> 2.0'
 # jQuery UI Javascript framework
 gem 'jquery-ui-rails'
 # gem 'jquery_mobile_rails'
-gem 'bootstrap3-datetimepicker-rails'
 gem 'jquery-scrollto-rails'
 gem 'momentjs-rails', '>= 2.9.0'
+
+gem 'flatpickr', '~> 4.5', '>= 4.5.2.0'
 
 # Forms helper
 gem 'formize', '~> 2.1.0'
@@ -113,7 +119,8 @@ gem 'unicorn', group: :production
 gem 'exception_notification'
 
 # Views helpers
-gem 'active_list', '>= 6.9.3' # , path: "../active_list"
+gem 'active_list', '>= 6.10.0'
+# gem 'active_list', path: "../active_list"
 gem 'haml'
 gem 'simple_calendar'
 
@@ -178,7 +185,7 @@ gem 'ekylibre-ofx-parser'
 gem 'rgeo-geojson'
 gem 'rgeo-shapefile'
 gem 'roo'
-gem 'rubyzip'
+gem 'rubyzip', '~> 1.2.2'
 gem 'sepa_king'
 # gem 'sepa_king', path: '/home/jonathan/Workspace/sepa_king'
 gem 'quandl'
@@ -195,11 +202,11 @@ gem 'feedjira', require: false
 gem 'colored' # , require: false
 
 # S/CSS Framework
-gem 'bootstrap-sass', '~> 3.1'
+gem 'bootstrap-sass', '~> 3.4.1'
 gem 'twitter-typeahead-rails'
 
 # Iconic font
-gem 'agric', '~> 3.0'
+gem 'agric', github: 'ekylibre/agric', tag: 'v3.0.2'
 
 # Web services
 gem 'mechanize'
@@ -258,14 +265,11 @@ group :test do
   gem 'capybara-webkit', '>= 1.14.0'
   gem 'selenium-webdriver'
 
-  gem 'codacy-coverage', require: false
-  gem 'codecov', require: false
   gem 'database_cleaner'
-  gem 'simplecov', require: false
 
   gem 'minitest-reporters'
 
-  gem 'factory_bot'
+  gem 'factory_bot', '< 5'
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles

@@ -135,6 +135,14 @@ class PurchaseOrder < Purchase
     items.any?
   end
 
+  def fully_reconciled?
+    return false unless has_content?
+    items.joins(:parcels_purchase_orders_items)
+         .group(:id)
+         .select("quantity = SUM(population) AS balanced")
+         .all?(&:balanced?)
+  end
+
   # this method generate a dataset for one purchase order
   def order_reporting(_options = {})
     report = HashWithIndifferentAccess.new
@@ -159,12 +167,14 @@ class PurchaseOrder < Purchase
       i[:variant] = item.variant.name
       i[:quantity] = item.quantity
       i[:unity] = item.variant.unit_name
-      i[:unit_pretax_amount] = item.unit_pretax_amount
-      i[:pretax_amount] = item.pretax_amount
+      i[:unit_pretax_amount] = '%.2f' % item.unit_pretax_amount
+      i[:pretax_amount] = '%.2f' % item.pretax_amount
+      i[:amount] = '%.2f' % item.amount
       report[:items] << i
     end
 
-    report[:purchase_pretax_amount] = pretax_amount
+    report[:purchase_pretax_amount] = '%.2f' % pretax_amount
+    report[:purchase_amount] = '%.2f' % amount
     report[:purchase_currency] = Nomen::Currency.find(currency).symbol
     report
   end

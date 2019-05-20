@@ -70,7 +70,7 @@ class PurchaseItem < Ekylibre::Record::Base
   belongs_to :fixed_asset, inverse_of: :purchase_items
   belongs_to :depreciable_product, class_name: 'Product'
 
-  with_options class_name: 'ParcelItem' do
+  with_options class_name: 'ReceptionItem' do
     has_many :parcels_purchase_orders_items, inverse_of: :purchase_order_item, foreign_key: 'purchase_order_item_id'
     has_many :parcels_purchase_invoice_items, inverse_of: :purchase_invoice_item, foreign_key: 'purchase_invoice_item_id'
   end
@@ -78,6 +78,8 @@ class PurchaseItem < Ekylibre::Record::Base
   # has_many :products, through: :parcels_purchase_orders_items
   has_many :products, through: :parcels_purchase_invoice_items
   has_one :product_nature_category, through: :variant, source: :category
+
+  enumerize :role, in: %i[merchandise fees service], predicates: true
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
@@ -339,7 +341,11 @@ class PurchaseItem < Ekylibre::Record::Base
   def quantity_to_receive
     return unless purchase.is_a?(PurchaseOrder) ||  parcels_purchase_orders_items.empty?
 
-    (quantity - received_quantity).l(precision: 3)
+    (quantity - received_quantity)
+  end
+
+  def human_quantity_to_receive
+    quantity_to_receive.l(precision: 3)
   end
 
   private

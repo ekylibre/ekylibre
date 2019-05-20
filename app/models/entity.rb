@@ -79,6 +79,7 @@ require 'digest/sha2'
 
 class Entity < Ekylibre::Record::Base
   include Attachable
+  include Autocastable
   include Commentable
   include Versionable
   include Customizable
@@ -220,7 +221,7 @@ class Entity < Ekylibre::Record::Base
     # end
     full_name.strip!
     # self.name = self.name.to_s.strip.downcase.gsub(/[^a-z0-9\.\_]/,'')
-    self.siret_number = siret_number&.strip
+    self.siret_number = siret_number.strip if siret_number
     self.language = Preference[:language] if language.blank?
     self.currency = Preference[:currency] if currency.blank?
     self.country  = Preference[:country]  if country.blank?
@@ -247,18 +248,6 @@ class Entity < Ekylibre::Record::Base
   end
 
   class << self
-    # Auto-cast entity to best matching class with type column
-    def new_with_cast(*attributes, &block)
-      if (h = attributes.first).is_a?(Hash) && !h.nil? &&
-         (type = h[:type] || h['type']) && !type.empty? &&
-         (klass = type.constantize) != self
-        raise "Can not cast #{name} to #{klass.name}" unless klass <= self
-        return klass.new(*attributes, &block)
-      end
-      new_without_cast(*attributes, &block)
-    end
-    alias_method_chain :new, :cast
-
     def exportable_columns
       content_columns.delete_if do |c|
         %i[active lock_version deliveries_conditions].include?(c.name.to_sym)
@@ -318,7 +307,7 @@ class Entity < Ekylibre::Record::Base
   end
 
   def siren_number
-    siret_number[0..8]
+    siret_number[0..8] if siret_number
   end
 
   def siren

@@ -148,8 +148,11 @@ class FixedAsset < Ekylibre::Record::Base
     elsif depreciation_method_simplified_linear?
       self.depreciation_percentage = 20 if depreciation_percentage.blank? || depreciation_percentage <= 0
       months = 12 * (100.0 / depreciation_percentage.to_f)
-      self.stopped_on = started_on >> months.floor
-      self.stopped_on += (months - months.floor) * 30.0 - 1
+      if self.started_on
+        # TODO: use proper duration operations here
+        self.stopped_on = started_on >> months.floor
+        self.stopped_on += (months - months.floor) * 30.0 - 1
+      end
     end
 
     # self.currency = self.journal.currency

@@ -6,7 +6,7 @@ class PurchaseItemDecorator < Draper::Decorator
 
     reception_id = object.parcels_purchase_invoice_items.first.parcel_id
 
-    Reception.find_by(reception_id)&.reference_number
+    Reception.find_by(id: reception_id)&.reference_number || ''
   end
 
   def merchandise_current_stock

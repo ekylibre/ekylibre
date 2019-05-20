@@ -19,7 +19,7 @@
 
       @line.trigger("iceberg:inserted", [@line])
 
-      unless mode is "add" or @line.find('.error').length > 0
+      unless mode is "add" or @line.find('.error').length > 0 or @line.find('.prefilled').length > 0
         @display.removeClass('hidden')
         @oldForm().remove()
         @_bindSelectorsInitialization()
@@ -158,7 +158,7 @@
       form.find('.storing-fields').not('.removed-nested-fields').each ->
         zones.push
           quantity: $(this).find('input.storing-quantity').val()
-          unit: $(this).find('.storage-unit-name').html()
+          unit: $(this).find('.storage-unit-name').val()
           name: $(this).find('input.hidden').val()
       data = zones: zones
 

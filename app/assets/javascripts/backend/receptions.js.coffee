@@ -4,17 +4,29 @@
   $(document).ready ->
     $('input[data-warn-if-checked]').behave 'load', ->
       $('input[data-warn-if-checked]').each ->
-        input = $(this)
-        container = input.closest('.non-compliant')
-        if container.find('.warn-message').length is 0
-          container.prepend($('<span class="warn-message"></span>').html(input.data('warn-if-checked')).hide())
-        if input.prop('checked')
-          container.find('.warn-message').show()
-        input.click ->
-          if input.prop('checked')
-            container.find('.warn-message').show()
+        $input = $(this)
+
+        messageText     = $input.data('warn-if-checked')
+        messageSelector = $input.data('warn-in')
+        $message        = $input.formScopedSelect(messageSelector)
+
+        # Fallback if messageSelector doesn't match anything in scope
+        $defaultMessage = $('<span class="warn-message"></span>')
+        if $message.length is 0
+          $input.formScope().append($defaultMessage)
+          $message = $defaultMessage
+
+        showOrHideMessage = (input) ->
+          if $input.prop('checked')
+            $message.show()
           else
-            container.find('.warn-message').hide()
+            $message.hide()
+
+        $message.html(messageText) if $message.is(':empty')
+
+        showOrHideMessage($input) # Initial display
+        $input.click showOrHideMessage # Update on input change
+
 
     $('h2[data-warn-if-checked]').behave 'load', ->
       $('h2[data-warn-if-checked]').each ->
@@ -46,5 +58,62 @@
       else
         $(event.target).val('to_reconciliate')
 
+
+
+  E.Receptions =
+    fillStocksCounters: (event) ->
+      $currentForm = $(event.target).closest('.nested-item-form')
+      variantId = $currentForm.find('[data-product-of-delivery-item]').next('.selector-value').val()
+
+      return unless variantId
+
+      $.ajax
+        url: "/backend/product_nature_variants/#{variantId}/detail",
+        success: (data, status, request) ->
+          $currentForm.find('.storing__footer .merchandise-total-current-stock .stock-value').text(data.stock)
+          $currentForm.find('.storing__footer .merchandise-total-current-stock .stock-unit').text(data.unit.name)
+
+          reducer = (acc, val) ->
+                      parseFloat(acc) + parseFloat(val)
+
+          quantity = $('.storing-quantity').map ->
+            $(this).val() || 0
+          .toArray()
+          .reduce(reducer)
+
+          newStock = parseFloat(data.stock) + parseFloat(quantity)
+          $currentForm.find('.storing__footer .merchandise-total-stock-after-reception .stock-value').text(newStock)
+          $currentForm.find('.storing__footer .merchandise-total-stock-after-reception .stock-unit').text(data.unit.name)
+
+      $currentForm.find('.nested-fields').each ->
+        $storingItem = $(this)
+        storageId = $storingItem.find('.parcel-item-storage').next('.selector-value').val()
+
+        return unless storageId
+
+        url =  "/backend/product_nature_variants/#{variantId}/storage_detail"
+        $.ajax url,
+          type: 'GET'
+          dataType: 'JSON'
+          data: { storage_id: storageId }
+
+          success: (data, status, request) ->
+            $storingItem.find('.merchandise-current-stock .stock-value').text(parseFloat(data.quantity))
+            $storingItem.find('.merchandise-current-stock .stock-unit').text(data.unit)
+
+            quantity = $storingItem.find('.storing-quantity').val() || 0
+            newStock = parseFloat(data.quantity) + parseFloat(quantity)
+            $storingItem.find('.merchandise-stock-after-reception .stock-value').text(newStock)
+            $storingItem.find('.merchandise-stock-after-reception .stock-unit').text(data.unit)
+
+
+  $(document).on 'selector:change', '.parcel-item-variant.selector-search', (event) ->
+    E.Receptions.fillStocksCounters(event)
+
+  $(document).on 'keyup change', '.nested-fields .storing-quantifier .storing-quantity', (event) ->
+    E.Receptions.fillStocksCounters(event)
+
+  $(document).on 'selector:change', '.parcel-item-storage.selector-search', (event) ->
+    E.Receptions.fillStocksCounters(event)
 
 ) ekylibre, jQuery

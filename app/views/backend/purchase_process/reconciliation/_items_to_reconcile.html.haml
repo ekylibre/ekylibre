@@ -38,6 +38,8 @@
               - datas.merge!({ conditionning: model_item.storings.first&.conditionning,
                                conditionning_quantity: model_item.storings.sum(:conditionning_quantity),
                                supplier_ref: reference_number }) if model_item.is_a?(ReceptionItem)
+              - if model_item.respond_to?(:non_compliant)
+                - datas.merge!({ non_compliant: model_item.non_compliant.to_s })
 
               %li.item{ data: datas }
                 - if item_reconciliation

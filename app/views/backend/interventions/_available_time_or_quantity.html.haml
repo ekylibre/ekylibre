@@ -1,7 +1,3 @@
 = label_item(item, filters, controller_path)
 %span.amount-part
-  - if item.of_variety?(:equipment) || item.of_variety?(:worker)
-    - date = params[:scope][:availables].first[:at]
-    = '(' + item.working_duration_info(date) + ')'
-  - else
-    = '(' + item.stock_info + ')'
+  = '(' + item.stock_info + ')'
