@@ -323,6 +323,7 @@ fra:
         leasing_expenses: "Charges de bail et location"
         legal_reserves: "Réserve légale"
         licences_expenses: "Frais de licences, brevets"
+        licenses_revenues: "Redevances pour concessions, brevets, licences, marques, procédés, logiciels, droits et valeurs similaires"
         litigious_clients: "Clients douteux ou litigieux"
         little_office_equipment_expenses: "Fournitures d’entretien et de petits équipements"
         livestock_feed_matter_expenses: "Aliments du betail"

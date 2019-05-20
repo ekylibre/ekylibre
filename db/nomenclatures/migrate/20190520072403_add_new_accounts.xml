@@ -42,4 +42,7 @@
   <item-creation item="accounts#tangible_fixed_assets_revenues_livestock" fr_pcga="7754">
   <item-creation item="accounts#office_supplies_stock" fr_pcga="3024">
   <item-creation item="accounts#packaging_stock" fr_pcga="3017">
+
+  <item-creation item="licenses_revenues" fr_pcga="751" fr_pcg="751">
+    
 </migration>
