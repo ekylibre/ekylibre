@@ -11,9 +11,14 @@
   
   <item-creation item="accounts#staff_supply_expenses" fr_pcga="6025">
 
-  <item-creation item="accounts#packaging_stocks_variations" fr_pcga="60317">
+  <item-creation item="accounts#packaging_stocks_variation" fr_pcga="60317">
 
-  <item-creation item="accounts#workshop_and_warehouse_supplies_stocks_variations" fr_pcga="60323">
+  <item-creation item="accounts#workshop_and_warehouse_supplies_stocks_variation" fr_pcga="60323">
+
+  <item-creation item="accounts#office_supply_matter_stocks_variation" fr_pcga="60324">
+  <item-creation item="accounts#staff_supply_stocks_variation" fr_pcga="60325">
+  <item-creation item="accounts#materials_stocks_variation" fr_pcga="60326">
+  <item-creation item="accounts#other_consumable_matter_stocks_variation" fr_pcga="60327">
+  <item-creation item="accounts#raw_material_stocks_variation" fr_pcga="60328">
     
-
 </migration>
