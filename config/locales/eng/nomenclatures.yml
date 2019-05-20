@@ -86,6 +86,7 @@ eng:
           animal_expenses: #TODO
           animals_making_expenses_expenses: "Animals making expenses"
           corporeal_depreciations_inputations_expenses: #TODO
+          corporeal_depreciations_inputations_expenses_living_goods: #TODO
         pcg82:
           services_expenses: #TODO
           corporeal_depreciations_inputations_expenses: #TODO

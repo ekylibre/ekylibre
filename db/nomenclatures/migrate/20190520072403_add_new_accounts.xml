@@ -5,5 +5,7 @@
 
   <item-change item="accounts#animals_making_expenses_expenses" name="animals_making_expenses" fr_pcga="6054">
 
-  <item-change item="accounts#land_parcel_construction_depreciations_inputations_expenses" name="corporeal_depreciations_inputations_expenses" fr_pcga="68112" fr_pcg82="68112"
+  <item-change item="accounts#land_parcel_construction_depreciations_inputations_expenses" name="corporeal_depreciations_inputations_expenses" fr_pcga="68112" fr_pcg82="68112">
+
+  <item-change item="accounts#animals_depreciations_inputations_expenses" name="corporeal_depreciations_inputations_expenses_living_goods" fr_pcga="68114">  
 </migration>
