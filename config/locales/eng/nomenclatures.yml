@@ -96,6 +96,7 @@ eng:
           raw_material_stocks_variation: "Raw material stocks variation"
           staff_supply_expenses: "Staff supply expenses"
           staff_supply_stocks_variation: "Staff supply stocks variation"
+          workshop_and_warehouse_supplies_expenses: "Workshop and warehouse supplies expenses"
           workshop_and_warehouse_supplies_stocks_variation: "Workshop and warehouse supplies stocks variation"
         pcg82:
           corporeal_depreciations_inputations_expenses: "Corporeal depreciations inputations expenses"

@@ -97,6 +97,7 @@ fra:
           raw_material_stocks_variation: "Matières premières"
           staff_supply_expenses: "Denrées et fournitures pour le personnel"
           staff_supply_stocks_variation: "Denrées et fournitures pour le personnel"
+          workshop_and_warehouse_supplies_expenses: "Fournitures d’atelier et de magasin"
           workshop_and_warehouse_supplies_stocks_variation: "Fournitures d'atelier et de magasin"
         fr_pcg82:
           corporeal_depreciations_inputations_expenses: "Immobilisations corporelles"

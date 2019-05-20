@@ -22,5 +22,6 @@
   <item-creation item="accounts#raw_material_stocks_variation" fr_pcga="60328">
 
   <item-creation item="accounts#maintenances_consumables_stocks_variation" fr_pcga="60322">
-    
+
+  <item-creation item="accounts#workshop_and_warehouse_supplies_expenses" fr_pcga="6023"
 </migration>
