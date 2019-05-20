@@ -11,5 +11,6 @@
   
   <item-creation item="accounts#staff_supply_expenses" fr_pcga="6025">
 
-  <item-creation item="accounts#packaging_stocks_variations" fr_pcga="60317"
+  <item-creation item="accounts#packaging_stocks_variations" fr_pcga="60317">
+    
 </migration>
