@@ -90,6 +90,7 @@ fra:
           corporeal_depreciations_inputations_expenses_living_goods: "Immobilisations corporelles (biens vivants)"
           packaging_stocks_variations: "Emballages"
           staff_supply_expenses: "Denrées et fournitures pour le personnel"
+          workshop_and_warehouse_supplies_stocks_variations: "Fournitures d'atelier et de magasin"
         fr_pcg82:
           corporeal_depreciations_inputations_expenses: "Immobilisations corporelles"
           services_expenses: "Achat de prestations de services"

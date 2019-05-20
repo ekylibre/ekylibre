@@ -89,6 +89,7 @@ eng:
           corporeal_depreciations_inputations_expenses_living_goods: "Corporeal depreciations inputations expenses living goods"
           packaging_stocks_variations: "Packaging stock variations"
           staff_supply_expenses: "Staff supply expenses"
+          workshop_and_warehouse_supplies_stocks_variations: "Workshop and warehouse supplies stocks variations"
         pcg82:
           services_expenses: "Services expenses"
           corporeal_depreciations_inputations_expenses: "Corporeal depreciations inputations expenses"
