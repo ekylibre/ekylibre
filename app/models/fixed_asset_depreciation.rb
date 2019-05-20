@@ -91,7 +91,7 @@ class FixedAssetDepreciation < Ekylibre::Record::Base
 
   validate do
     # A start day must be the depreciation start or a financial year start
-    if fixed_asset && financial_year
+    if fixed_asset&.started_on && financial_year
       unless started_on == fixed_asset.started_on ||
              started_on == financial_year.started_on ||
              started_on == started_on.beginning_of_month
