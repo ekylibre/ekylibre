@@ -49,5 +49,8 @@
   <item-creation item="accounts#associates_salary" fr_pcga="6412">
 
   <item-creation item="accounts#paid_vacation" fr_pcga="6415" fr_pcg82="6412">
-    
+
+  <item-creation item="accounts#managing_associates_salary" fr_pcga="6413">
+  <item-creation item="accounts#animal_rent_expenses" fr_pcga="6134">
+  <item-creation item="accounts#other_rent_expenses" fr_pcga="6138">
 </migration>

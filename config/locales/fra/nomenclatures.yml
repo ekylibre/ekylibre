@@ -86,6 +86,7 @@ fra:
         fr_pcga:
           animal_expenses: Achats d'animaux
           animals_making_expenses: "Achats de prestations de services (productions animales)"
+          animal_rent_expenses: "Locations d'animaux"
           associates_salary: "Rémunérations (associés d'exploitation)"
           corporeal_depreciations_inputations_expenses: "Immobilisations corporelles (hors biens vivants)"
           corporeal_depreciations_inputations_expenses_living_goods: "Immobilisations corporelles (biens vivants)"
@@ -94,10 +95,12 @@ fra:
           little_office_equipment_expenses: "Fournitures d'entretien et de petit équipement"
           maintenances_consumables_stocks_variation: "Produits d'entretien"
           making_services_expenses: "Achats de travaux et services incorporés aux produits"
+          managing_associates_salary: "Rémunérations (administrateurs, gérants, associés)"
           materials_stocks_variation: "Matériaux divers"
           office_supply_matter_stocks_variation: "Fournitures de bureau"
           office_supplies_stock: "Fourniture de bureau"
           other_consumable_matter_stocks_variation: "Autres fournitures consommables"
+          other_rent_expenses: "Autres locations"
           packaging_stock: "Emballages"
           packaging_stocks_variation: "Emballages"
           paid_vacation: "Congés payés"
