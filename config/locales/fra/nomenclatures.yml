@@ -436,6 +436,7 @@ fra:
         ownership_assets: "Titres immobilisés (droits de propriété)"
         ownership_loan: "Prêts consentis"
         packaging: "Emballages"
+        packaging_rent_expenses: "Malis sur emballages"
         partial_net_product_on_long_term_operation_revenues: "Produit net partiel sur les revenus d’exploitation à long terme"
         participation_financials_revenues: "Produits de participations"
         participation_losses_on_debt_obligation_expenses: "Pertes sur créances liées à des participations"

@@ -429,6 +429,7 @@ eng:
         ownership_assets: "Ownership assets"
         ownership_loan: "Ownership loan"
         packaging: "Packaging"
+        packaging_rent_expenses: "Packaging rent expenses"
         partial_net_product_on_long_term_operation_revenues: "Partial net product on long term operation revenues"
         participation_financials_revenues: "Participation financials revenues"
         participation_losses_on_debt_obligation_expenses: "Participation losses on debt obligation expenses"
