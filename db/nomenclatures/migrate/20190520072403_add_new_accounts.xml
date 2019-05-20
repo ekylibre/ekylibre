@@ -43,6 +43,8 @@
   <item-creation item="accounts#office_supplies_stock" fr_pcga="3024">
   <item-creation item="accounts#packaging_stock" fr_pcga="3017">
 
-  <item-creation item="licenses_revenues" fr_pcga="751" fr_pcg="751">
-    
+  <item-creation item="accounts#licenses_revenues" fr_pcga="751" fr_pcg="751">
+
+  <item-creation item="accounts#insurance_compensations" fr_pcga="742">
+  <item-creation item="accounts#associates_salary" fr_pcga="6412">
 </migration>

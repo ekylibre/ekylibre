@@ -85,9 +85,11 @@ eng:
         pcga:
           animal_expenses: "Animal expenses"
           animals_making_expenses: "Animals making expenses"
+          associates_salary: "Associates salary"
           corporeal_depreciations_inputations_expenses: "Corporeal depreciations inputations expenses"
           corporeal_depreciations_inputations_expenses_living_goods: "Corporeal depreciations inputations expenses living goods"
           electricity_expenses: "Électricity expenses"
+          insurance_compensations: "Insurance compensations"
           little_office_equipment_expenses: "Little office equipment expenses"
           maintenances_consumables_stocks_variation: "Maintenances consumables stocks variation"
           making_services_expenses: "Making services expenses"

@@ -86,9 +86,11 @@ fra:
         fr_pcga:
           animal_expenses: Achats d'animaux
           animals_making_expenses: "Achats de prestations de services (productions animales)"
+          associates_salary: "Rémunérations (associés d'exploitation)"
           corporeal_depreciations_inputations_expenses: "Immobilisations corporelles (hors biens vivants)"
           corporeal_depreciations_inputations_expenses_living_goods: "Immobilisations corporelles (biens vivants)"
           electricity_expenses: "Électricité"
+          insurance_compensations: "Indemnités d'assurance"
           little_office_equipment_expenses: "Fournitures d'entretien et de petit équipement"
           maintenances_consumables_stocks_variation: "Produits d'entretien"
           making_services_expenses: "Achats de travaux et services incorporés aux produits"
