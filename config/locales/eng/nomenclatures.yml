@@ -83,14 +83,14 @@ eng:
     accounts:
       items:
         pcga:
-          animal_expenses: #TODO
+          animal_expenses: "Animal expenses"
           animals_making_expenses: "Animals making expenses"
-          corporeal_depreciations_inputations_expenses: #TODO
-          corporeal_depreciations_inputations_expenses_living_goods: #TODO
-          staff_supply_expenses: #TODO
+          corporeal_depreciations_inputations_expenses: "Corporeal depreciations inputations expenses"
+          corporeal_depreciations_inputations_expenses_living_goods: "Corporeal depreciations inputations expenses living goods"
+          staff_supply_expenses: "Staff supply expenses"
         pcg82:
-          services_expenses: #TODO
-          corporeal_depreciations_inputations_expenses: #TODO
+          services_expenses: "Services expenses"
+          corporeal_depreciations_inputations_expenses: "Corporeal depreciations inputations expenses"
         accrued_bank_interests: "Accrued bank interests"
         accrued_interests: "Accrued interests"
         accrued_interests_on_bank: "Accrued interests on bank"
