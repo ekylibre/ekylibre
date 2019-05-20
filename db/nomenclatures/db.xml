@@ -124,7 +124,7 @@
       <item name="associate_social_contribution_expenses" fr_pcga="646" fr_pcg82="646"/>
       <item name="associates_current_accounts" fr_pcga="455" fr_pcg82="455"/>
       <item name="associates_frozen_accounts" fr_pcga="4553" fr_pcg82="4553"/>
-      <item name="associates_salary" fr_pcga="6412" fr_pcg82="6413" fr_pcg82="6413"/>
+      <item name="associates_salary" fr_pcga="6412" fr_pcg82="6413"/>
       <item name="attorneys" fr_pcg82="467" centralizing="false" fr_pcga="467"/>
       <item name="banks" fr_pcg82="512" fr_pcga="512"/>
       <item name="banks_and_similar" fr_pcg82="51" pt_snc="12000000" fr_pcga="51"/>
@@ -300,7 +300,7 @@
       <item name="leasing_expenses" fr_pcg82="612" fr_pcga="612"/>
       <item name="legal_reserves" fr_pcg82="1061" fr_pcga="1061"/>
       <item name="licences_expenses" fr_pcga="651" fr_pcg82="651"/>
-      <item name="licenses_revenues" fr_pcga="751" fr_pcg="751"/>
+      <item name="licenses_revenues" fr_pcga="751" fr_pcg82="751"/>
       <item name="litigious_clients" fr_pcg82="416" fr_pcga="416"/>
       <item name="little_office_equipment_expenses" fr_pcga="6066" fr_pcg82="6063"/>
       <item name="livestock_feed_matter_expenses" fr_pcga="6014" fr_pcg82="6014"/>
