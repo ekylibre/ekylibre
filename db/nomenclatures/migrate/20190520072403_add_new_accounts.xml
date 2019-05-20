@@ -37,5 +37,9 @@
 
   <item-creation item="accounts#intangible_fixed_assets_revenues" fr_pcga="7751" fr_pcg82="7751">
 
-  <item-change item="accounts#land_parcel_sell_revenues" name="tangible_fixed_assets_revenues_without_livestock" fr_pcga="7752" fr_pcg82="7752"
+  <item-change item="accounts#land_parcel_sell_revenues" name="tangible_fixed_assets_revenues_without_livestock" fr_pcga="7752" fr_pcg82="7752">
+
+  <item-creation item="accounts#tangible_fixed_assets_revenues_livestock" fr_pcga="7754">
+  <item-creation item="accounts#office_supplies_stock" fr_pcga="3024">
+  <item-creation item="accounts#packaging_stock" fr_pcga="3017">
 </migration>
