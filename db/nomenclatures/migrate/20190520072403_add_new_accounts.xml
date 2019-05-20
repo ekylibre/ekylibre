@@ -36,5 +36,6 @@
   <item-creation item="accounts#temporary_staff_salary" fr_pcga="64115">
 
   <item-creation item="accounts#intangible_fixed_assets_revenues" fr_pcga="7751" fr_pcg82="7751">
-    
+
+  <item-change item="accounts#land_parcel_sell_revenues" name="tangible_fixed_assets_revenues_without_livestock" fr_pcga="7752" fr_pcg82="7752"
 </migration>
