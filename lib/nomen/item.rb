@@ -192,7 +192,7 @@ module Nomen
         root = "nomenclatures.#{nomenclature.name}.items.#{name}"
         defaults = scoped_by_attributes
       end
-      root.t(options.merge(default: [*defaults, "items.#{name}".to_sym, "enumerize.#{nomenclature.name}.#{name}".to_sym, "labels.#{name}".to_sym, name.humanize]))
+      root.t(options.merge(default: [*defaults.map(&:to_sym), "items.#{name}".to_sym, "enumerize.#{nomenclature.name}.#{name}".to_sym, "labels.#{name}".to_sym, name.humanize]))
     end
     alias humanize human_name
     alias localize human_name
