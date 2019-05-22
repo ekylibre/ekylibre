@@ -93,7 +93,8 @@ class JournalEntryTest < ActiveSupport::TestCase
   end
 
   test 'save with items and currency' do
-    journal = Journal.find_or_create_by!(name: 'Wouhou', currency: 'BTN', nature: :various)
+    journal = Journal.find_or_create_by!(nature: :various)
+    journal.update! name: 'Wouhou', currency: 'BTN'
     journal_entry = JournalEntry.create!(
       journal: journal,
       printed_on: Date.civil(2016, 11, 14),
@@ -202,18 +203,18 @@ class JournalEntryTest < ActiveSupport::TestCase
     journal_entry.journal.update(currency: 'USD')
     journal_entry.update(real_currency: 'USD', number: 'HELLO', real_currency_rate: 0.5)
     item_attributes = journal_entry.items
-                                   .pluck(:entry_number, :real_currency, :real_currency_rate)
-                                   .map { |att| att[0...2] + [att.last.to_f] }
-                                   .uniq
-                                   .first
+                        .pluck(:entry_number, :real_currency, :real_currency_rate)
+                        .map { |att| att[0...2] + [att.last.to_f] }
+                        .uniq
+                        .first
     assert_equal ['HELLO', 'USD', 0.5], item_attributes
 
     journal_entry.update_columns(real_currency: 'EUR', number: 'is it me you\'re looking for?', real_currency_rate: 1.0)
     item_attributes = journal_entry.items
-                                   .pluck(:entry_number, :real_currency, :real_currency_rate)
-                                   .map { |att| att[0...2] + [att.last.to_f] }
-                                   .uniq
-                                   .first
+                        .pluck(:entry_number, :real_currency, :real_currency_rate)
+                        .map { |att| att[0...2] + [att.last.to_f] }
+                        .uniq
+                        .first
     assert_equal ['is it me you\'re looking for?', 'EUR', 1.0], item_attributes
   end
 

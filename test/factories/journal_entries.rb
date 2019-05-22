@@ -1,6 +1,10 @@
 FactoryBot.define do
   factory :journal_entry do
-    journal
+    transient do
+      journal_nature { :various }
+    end
+
+    journal { Journal.find_or_create_by! nature: journal_nature }
     absolute_credit { 0 }
     absolute_debit { 0 }
     absolute_currency { 'EUR' }
