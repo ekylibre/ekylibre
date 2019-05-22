@@ -92,3 +92,6 @@ Procfile.*
 .gitconfig
 
 .DS_Store
+
+# Ignore postgres volume
+/data
