@@ -169,7 +169,7 @@ module Backend
       action = params[:action]
       params[:started_on] ||= current_user.preferences.find_by(name: "#{controller}##{action}.started_on").try(:value)
       params[:stopped_on] ||= current_user.preferences.find_by(name: "#{controller}##{action}.stopped_on").try(:value)
-      params[:period]     ||= current_user.preferences.find_by(name: "#{controller}##{action}.period").try(:value) || :interval
+      params[:period]     ||= current_user.preferences.find_by(name: "#{controller}##{action}.period").try(:value) || 'interval'
 
       # Set the preference in function of the search
       if params[:period].present? && params[:period] != 'all' && params[:period] == 'interval'
