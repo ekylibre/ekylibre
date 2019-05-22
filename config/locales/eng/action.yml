@@ -1610,10 +1610,14 @@ eng:
     export_as_odt: "Export as ODT" #?!
     export_as_pdf: "Export as PDF"
     export_as_xcsv: "Export as Excel CSV"
-    export_fec_all: "Export FEC corporate tax"
-    export_fec_ba_bnc_ir_commercial_accountancy: "Export FEC for agriculture and professional operations income taxation commercial accountancy"
-    export_fec_ba_ir_cash_accountancy: "Export FEC agriculture income taxation cash accountancy"
-    export_fec_bnc_ir_cash_accountancy: "Export FEC professional operations income taxation cash accountancy"
+    export_text_fec_all: "Export FEC corporate tax (Text)"
+    export_text_fec_ba_bnc_ir_commercial_accountancy: "Export FEC for agriculture and professional operations income taxation commercial accountancy (Text)"
+    export_text_fec_ba_ir_cash_accountancy: "Export FEC agriculture income taxation cash accountancy (Text)"
+    export_text_fec_bnc_ir_cash_accountancy: "Export FEC professional operations income taxation cash accountancy (Text)"
+    export_xml_fec_all: "Export FEC corporate tax (XML)"
+    export_xml_fec_ba_bnc_ir_commercial_accountancy: "Export FEC for agriculture and professional operations income taxation commercial accountancy (XML)"
+    export_xml_fec_ba_ir_cash_accountancy: "Export FEC agriculture income taxation cash accountancy (XML)"
+    export_xml_fec_bnc_ir_cash_accountancy: "Export FEC professional operations income taxation cash accountancy (XML)"
     extract_account_x: "Extract account %{account_number}"
     # extract_non_letter_odt: "Extract non letter odt"
     # extract_non_letter_pdf: "Extract non letter pdf"
@@ -2109,7 +2113,7 @@ eng:
     quandl: "Quandl" #?
     quantity: "Quantity"
     quantity_available: "Quantity available" #??
-    quantity_to_receive: "Quantity to receive" #?
+    quantity_to_receive: "Quantity to receive"
     query: "Query:" #?
     quit_financial_year_closure_preparation: "Quit preparation mode for %{code}"
     radical_class_accounts_dont_have_entries: "Radical class accounts does not contain any entry" #?
