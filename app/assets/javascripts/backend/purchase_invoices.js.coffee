@@ -29,7 +29,7 @@
         calculVatRate = parseFloat(amountExcludingTaxes) * parseFloat(vatRate) / 100
         totalVatRate += calculVatRate
 
-        selectedVatValue = $(item).parent().find('.nested-item-form select.invoice-vat-total option:selected').val()
+        selectedVatValue = $(item).parent().find('.nested-item-form select.vat-total option:selected').val()
         $(item).find('.vat-rate').attr('data-selected-value', selectedVatValue)
 
       $('.invoice-totals .total-except-tax .total-value').text(parseFloat(totalAmountExcludingTaxes).toFixed(2))
@@ -38,7 +38,7 @@
 
 
     $(document).on 'selector:change', '.invoice-variant.selector-search', (event) ->
-      E.PurchaseInvoices.fillStocksCounters(event)
+      E.Purchases.fillStocksCounters(event)
 
       targettedElement = $(event.target)
       fieldAssetFields = targettedElement.closest('.merchandise').find('.fixed-asset-fields')
@@ -60,15 +60,19 @@
       stoppedOnField.val('')
 
 
-    $(document).on 'change', '.nested-fields .form-field .purchase_invoice_items_quantity .invoice-quantity', (event) ->
-      E.PurchaseInvoices.fillStocksCounters(event)
+    $(document).on 'selector:change', '.invoice-variant.selector-search', (event) ->
+      E.Purchases.fillStocksCounters(event)
 
-    $(document).on 'keyup', '.nested-fields .form-field .purchase_invoice_items_quantity .invoice-quantity', (event) ->
-      E.PurchaseInvoices.fillStocksCounters(event)
+    $(document).on 'keyup change', '.form-field .storing-quantifier .storing-quantity', (event) ->
+      E.Purchases.fillStocksCounters(event)
+
+    $(document).on 'keyup change', '.nested-fields .form-field .purchase_invoice_items_quantity .invoice-quantity', (event) ->
+      E.Purchases.fillStocksCounters(event)
+
 
     $(document).on 'click', '.nested-fields .edit-item[data-edit="item-form"]', (event) ->
       vatSelectedValue = $(event.target).closest('.nested-fields').find('.item-display .vat-rate').attr('data-selected-value')
-      $(event.target).closest('.nested-fields').find('.nested-item-form:visible .invoice-vat-total').val(vatSelectedValue)
+      $(event.target).closest('.nested-fields').find('.nested-item-form:visible .vat-total').val(vatSelectedValue)
 
     $('#new_purchase_invoice table.list').bind 'cocoon:after-insert', (event, insertedItem) ->
       return if !insertedItem?
@@ -161,31 +165,6 @@
             stoppedOnFieldBlock.css('display', 'none')
           else
             stoppedOnFieldBlock.css('display', 'block')
-
-
-    fillStocksCounters: (event) ->
-      currentForm = $(event.target).closest('.nested-item-form')
-      variantId = $(currentForm).find('.purchase_invoice_items_variant .selector-value').val()
-
-      if variantId == ""
-        return
-
-      $.ajax
-        url: "/backend/product_nature_variants/#{variantId}/detail",
-        success: (data, status, request) ->
-          $(currentForm).find('.merchandise-current-stock .stock-value').text(data.stock)
-          $(currentForm).find('.merchandise-current-stock .stock-unit').text(data.unit.name)
-
-          quantity = 0
-          quantityElement = $(currentForm).find('.purchase_invoice_items_quantity .invoice-quantity')
-
-          if ($(quantityElement).val() != "")
-            quantity = $(quantityElement).val()
-
-          newStock = parseFloat(data.stock) - parseFloat(quantity)
-          $(currentForm).find('.merchandise-stock-after-invoice .stock-value').text(newStock)
-          $(currentForm).find('.merchandise-stock-after-invoice .stock-unit').text(data.unit.name)
-
 
   E.PurchaseInvoicesShow =
     addStyleToReconcilationStateBlock: ->

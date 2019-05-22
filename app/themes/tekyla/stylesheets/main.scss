@@ -1782,12 +1782,7 @@ a[data-remove-closest], a[data-remove] {
   }
   .amount {
     @include text-align(right);
-    &.credit {
-      &, & * { color: $invalid-color }
-    }
-    &.debit {
-      &, & * { color: green }
-    }
+
     &, & * {
       font-weight: bold;
     }

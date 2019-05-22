@@ -51,16 +51,20 @@ module Backend
       action = params[:action]
       period_preference = current_user.preferences.find_by(name: "#{controller}##{action}.period")
       started_on_preference = current_user.preferences.find_by(name: "#{controller}##{action}.started_on")
-      value = if period_preference && options.present? && options[:use_search_preference]
+      value = if (params[:period] == 'interval') && (params[:started_on].blank? || params[:stopped_on].blank?)
+                'all'
+              elsif period_preference && options.present? && options[:use_search_preference]
                 period_preference.value
               elsif started_on_preference && options.present? && options[:use_search_preference]
-                :interval
-              else
+                'interval'
+              elsif args.any?
                 args.shift
+              else
+                params[name] || options[:default]
               end
+
       configuration = { custom: :interval }.merge(options)
       configuration[:id] ||= name.to_s.gsub(/\W+/, '_').gsub(/(^_|_$)/, '')
-      value ||= params[name] || options[:default]
       list = []
       list << [:all_periods.tl, 'all']
       for year in FinancialYear.reorder(started_on: :desc)

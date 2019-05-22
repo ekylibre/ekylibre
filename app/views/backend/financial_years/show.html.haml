@@ -8,6 +8,11 @@
   -# = t.generate_last_journal_entry resource, attrs
   - if resource == resource_model.closable
     = t.close resource
+  = dropdown_menu_button(:export_fec.ta, { icon: :download }) do |d|
+    - export_params = params.slice(:id)
+    - %i[text xml].each do |format|
+      - %i[all ba_bnc_ir_commercial_accountancy ba_ir_cash_accountancy bnc_ir_cash_accountancy].each do |position|
+        - d.item "export_#{format}_fec_#{position}".tl, action: :show, fiscal_position: position, format: format
 
 = main_informations attachment: true do
   = attributes_list do |l|

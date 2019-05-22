@@ -913,6 +913,7 @@ Rails.application.routes.draw do
         get :list_products
         get :list_sale_items
         get :quantifiers
+        get :storage_detail
       end
     end
 
