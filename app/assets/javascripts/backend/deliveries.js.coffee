@@ -66,6 +66,8 @@
 
                   if $(this).is ":ui-selector"
                     $(this).selector("value", newVal)
+                  else if $(this)._flatpickr?
+                    $(this).setDate(newVal)
                   else if $(this).is "input"
                     $(this).val(newVal)
                   else
