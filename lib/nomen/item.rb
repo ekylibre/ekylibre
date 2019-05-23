@@ -178,7 +178,21 @@ module Nomen
 
     # Return human name of item
     def human_name(options = {})
-      "nomenclatures.#{nomenclature.name}.items.#{name}".t(options.merge(default: ["items.#{name}".to_sym, "enumerize.#{nomenclature.name}.#{name}".to_sym, "labels.#{name}".to_sym, name.humanize]))
+      scope = options[:scope]
+      no_attribute_translation = "nomenclatures.#{nomenclature.name}.items.#{name}"
+      if scope
+        scope_attribute = scope
+        other_attributes = attributes - [scope_attribute]
+        scope_translation = "nomenclatures.#{nomenclature.name}.items.#{scope_attribute}.#{name}"
+        other_translations = other_attributes.map { |attr_name, _value| "nomenclatures.#{nomenclature.name}.items.#{attr_name}.#{name}" }
+        root = scope_translation
+        defaults = [no_attribute_translation, *other_translations]
+      else
+        scoped_by_attributes = attributes.map { |attr_name, _value| "nomenclatures.#{nomenclature.name}.items.#{attr_name}.#{name}" }
+        root = "nomenclatures.#{nomenclature.name}.items.#{name}"
+        defaults = scoped_by_attributes
+      end
+      root.t(options.merge(default: [*defaults.map(&:to_sym), "items.#{name}".to_sym, "enumerize.#{nomenclature.name}.#{name}".to_sym, "labels.#{name}".to_sym, name.humanize]))
     end
     alias humanize human_name
     alias localize human_name
