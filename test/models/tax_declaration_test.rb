@@ -45,6 +45,12 @@
 require 'test_helper'
 
 class TaxDeclarationTest < ActiveSupport::TestCase
+
+  setup do
+    j = Journal.find_or_create_by! nature: :various
+    j.update! closed_on: Date.new(1996, 12, 31)
+  end
+
   test 'compute declaration with journal entry items on debit' do
     #
     # Tax: 20%

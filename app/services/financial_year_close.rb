@@ -79,7 +79,7 @@ class FinancialYearClose
 
       log("Close Journals")
       Journal.find_each do |journal|
-        journal.close!(@to_close_on) if journal.closed_on < @to_close_on
+        journal.close!(@to_close_on) if journal.closed_on <= @to_close_on
       end
       @progress.increment!
 

@@ -108,7 +108,7 @@ gem 'draper'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-# Use Unicorn as the app server
+# Use unicorn as the app server
 gem 'loofah', group: :production
 gem 'unicorn', group: :production
 

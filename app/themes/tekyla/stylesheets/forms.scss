@@ -377,6 +377,14 @@ div.nested-fields {
   }
 }
 
+.filter-form {
+  > * {
+    margin: 0px 3px;
+  }
+  input[type='submit'] {
+    margin: 0px 3px;
+  }
+}
 
 .label-inline {
   padding-left: $default-gap;
