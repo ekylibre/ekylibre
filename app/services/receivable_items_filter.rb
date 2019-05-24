@@ -3,6 +3,7 @@ class ReceivableItemsFilter
     purchase_orders.flat_map do |purchase_order|
       purchase_order.items.map do |item|
         next if item.quantity_to_receive == 0
+        
         reception_item_attributes = {
           variant_id: item.variant_id,
           purchase_order_item_id: item.id,

@@ -131,7 +131,7 @@ module Backend
           items: ReceivableItemsFilter.new().filter(purchase_orders)
         }
 
-        @reception = Reception.new(**reception_attributes, items: reception_items)
+        @reception = Reception.new(reception_attributes)
       else
         @reception = Reception.new
       end
