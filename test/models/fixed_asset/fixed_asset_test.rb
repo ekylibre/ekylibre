@@ -66,307 +66,125 @@
 #
 require 'test_helper'
 
+module FixedAssetTest
+  class FixedAssetTest < Ekylibre::Testing::ApplicationTestCase
 
-class FixedAssetTest::FixedAssetTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
-  test_model_actions class: FixedAsset
-
-  setup do
-    @variant = ProductNatureVariant.import_from_nomenclature(:tractor)
-    @entity = Entity.create!(last_name: 'JOHN DEERE SA')
-    @address = @entity.addresses.create!(canal: 'mail', mail_line_1: 'Yolo', mail_line_2: 'Another test')
-
-    @building_division_variant = ProductNatureVariant.import_from_nomenclature(:building_division)
-    @storage = BuildingDivision.create!(
-      variant: @building_division_variant,
-      name: 'Tractor Stockage',
-      initial_shape: Charta.new_geometry('SRID=4326;MULTIPOLYGON(((-0.813218951225281 45.5985699786537,-0.813113003969193 45.5985455816635,-0.81300538033247 45.5987766488858,-0.813106298446655 45.5987876744046,-0.813218951225281 45.5985699786537)))')
-    )
-
-    @product = @variant.products.create!(
-      initial_container: @storage,
-      initial_population: 1,
-      name: 'JD 5201'
-    )
-
-    currency = 'EUR'
-
-    @journal = Journal.where(nature: 'various', currency: currency).first
-
-    @waiting_account = Account.find_or_import_from_nomenclature :suspense
-    @asset_account = Account.find_or_create_by_number('998765')
-    @allocation_account = Account.find_or_create_by_number('998764')
-    @expenses_account = Account.find_or_create_by_number('998763')
-
-    @started_on = Date.parse('2017-01-01')
-
-    @up_to = Date.parse('2017-04-20')
-
-    @sold_on = Date.parse('2017-04-20')
-  end
-
-  test 'simple fixed asset creation with tractor' do
-    attributes = {
-      name: @product.name,
-      depreciable_amount: 150_000,
-      depreciation_method: :linear,
-      started_on: @started_on,
-      depreciation_period: :monthly,
-      depreciation_percentage: 10.00,
-      asset_account: @asset_account,
-      allocation_account: @allocation_account,
-      expenses_account: @expenses_account,
-      product: @product,
-      journal_id: @journal.id
-    }
-
-    fixed_asset = FixedAsset.create!(attributes)
-
-    assert_equal 120, fixed_asset.depreciations.count
-    assert_equal 1250, fixed_asset.depreciations.first.amount
-
-    # test when in_use fixed asset
-
-    assert fixed_asset.start_up
-
-    assert_equal 150_000.00, fixed_asset.journal_entry.real_credit
-    assert_equal 150_000.00, fixed_asset.journal_entry.real_debit
-
-    r = depreciate_up_to(fixed_asset.depreciations, @up_to)
-
-    fixed_asset.reload
-
-    assert r
-
-    f_d = fixed_asset.depreciations.first
-
-    assert_equal 1250, f_d.journal_entry.real_credit
-    assert_equal Date.parse('2017-01-31'), f_d.journal_entry.printed_on
-
-    # test when sold fixed asset
-
-    fixed_asset.sold_on = @sold_on
-    assert fixed_asset.sell
-
-    fixed_asset.reload
-
-    fourth_f_d = fixed_asset.depreciations.where(position: 4).first
-
-    assert_equal 833.33, fourth_f_d.amount
-    assert_equal 833.33, fourth_f_d.journal_entry.real_credit
-    assert_equal @sold_on, fourth_f_d.journal_entry.printed_on
-    assert_equal 150_000.00, fixed_asset.sold_journal_entry.real_credit
-    assert_equal @sold_on, fixed_asset.sold_journal_entry.printed_on
-  end
-
-  test 'depreciate class method returns the amount of depreciations according to until option provided' do
-    FixedAssetDepreciation.delete_all
-    FixedAsset.delete_all
-    fixed_asset = create(:fixed_asset, depreciation_period: :yearly, depreciation_percentage: 100.0 / 3)
-    fixed_asset.update(state: 'in_use')
-    # create(:fixed_asset_depreciation, fixed_asset: fixed_asset)
-    assert_equal 1, FixedAsset.count
-    count = FixedAsset.depreciate(until: Date.civil(2018, 12, 31))
-    assert_equal 2, count, 'Count of depreciations is invalid' + fixed_asset.depreciations.pluck(:started_on, :amount).to_yaml.yellow
-  end
-
-  test 'Fixed asset with regressive depreciation' do
-    started_on = Date.parse('2018-06-15')
-    attributes = {
-      name: @product.name,
-      depreciable_amount: 50_000,
-      depreciation_method: :regressive,
-      started_on: started_on,
-      depreciation_period: :yearly,
-      depreciation_percentage: 20.00,
-      depreciation_fiscal_coefficient: 1.75,
-      asset_account: @asset_account,
-      allocation_account: @allocation_account,
-      expenses_account: @expenses_account,
-      product: @product,
-      journal_id: @journal.id
-    }
-
-    fixed_asset = FixedAsset.create!(attributes)
-
-    assert_equal 5, fixed_asset.depreciations.count
-
-    depreciation_amount_assertion = [4375, 15968.75, 10379.69, 9638.28, 9638.28]
-
-    currency = Preference[:currency]
-
-    fixed_asset.depreciations.each_with_index do |depreciation, index|
-      assert_equal currency.to_currency.round(depreciation_amount_assertion[index]), depreciation.amount.to_f
-    end
-  end
-
-  test 'a fixed asset with regressive depreciation and all mandatory parameters should be valid' do
-    started_on = Date.parse('2018-06-15')
-    attributes = {
-      name: @product.name,
-      depreciable_amount: 50_000,
-      depreciation_method: :regressive,
-      started_on: started_on,
-      depreciation_period: :yearly,
-      depreciation_percentage: 20.00,
-      depreciation_fiscal_coefficient: 1.75,
-      asset_account: @asset_account,
-      allocation_account: @allocation_account,
-      expenses_account: @expenses_account,
-      product: @product,
-      journal_id: @journal.id
-    }
-
-    fixed_asset = FixedAsset.create!(attributes)
-    valid = fixed_asset.valid?
-
-    assert valid, fixed_asset.errors.messages
-  end
-
-  test 'depreciations periods are computed correctly when the FinancialYear does not start the first day of the year' do
-    FinancialYear.delete_all
-    [2017, 2018].each do |year|
-      start = Date.new year, 3, 1
-      FinancialYear.create! started_on: start, stopped_on: start + 1.year - 1.day
+    setup do
+      [2017, 2018].each { |year| create :financial_year, year: year }
     end
 
-    attributes = {
-      name: @product.name,
-      depreciable_amount: 50_000,
-      depreciation_method: :linear,
-      started_on: Date.new(2017, 3, 1),
-      depreciation_period: :yearly,
-      depreciation_percentage: 10.00,
-      asset_account: @asset_account,
-      allocation_account: @allocation_account,
-      expenses_account: @expenses_account,
-      product: @product,
-      journal_id: @journal.id
-    }
+    test 'simple fixed asset creation with tractor' do
+      sold_on = Date.new 2017, 4, 20
+      up_to = Date.new 2017, 4, 20
 
-    fa = FixedAsset.create!(attributes)
-    fa.reload
-    assert fa.depreciations.to_a.all? { |dep| dep.started_on.month == 3 }, "All depreciations periods should start on the same month as the begining of the FinancialYear"
-  end
+      fixed_asset = create :fixed_asset, :linear, :monthly,
+                           amount: 150_000,
+                           started_on: Date.new(2017, 1, 1),
+                           percentage: 10.00
 
-  test 'a draft FixedAsset depreciations are edited when relevant fields of it are edited' do
-    FinancialYear.delete_all
-    [2017, 2018].each do |year|
-      start = Date.new year, 3, 1
-      FinancialYear.create! started_on: start, stopped_on: start + 1.year - 1.day
+      assert_equal 120, fixed_asset.depreciations.count
+      assert_equal 1250, fixed_asset.depreciations.first.amount
+
+      # test when in_use fixed asset
+
+      assert fixed_asset.start_up
+
+      assert_equal 150_000.00, fixed_asset.journal_entry.real_credit
+      assert_equal 150_000.00, fixed_asset.journal_entry.real_debit
+
+      r = depreciate_up_to(fixed_asset.depreciations, up_to)
+
+      fixed_asset.reload
+
+      assert r
+
+      f_d = fixed_asset.depreciations.first
+
+      assert_equal 1250, f_d.journal_entry.real_credit
+      assert_equal Date.parse('2017-01-31'), f_d.journal_entry.printed_on
+
+      # test when sold fixed asset
+
+      fixed_asset.sold_on = sold_on
+      assert fixed_asset.sell
+
+      fixed_asset.reload
+
+      fourth_f_d = fixed_asset.depreciations.where(position: 4).first
+
+      assert_equal 833.33, fourth_f_d.amount
+      assert_equal 833.33, fourth_f_d.journal_entry.real_credit
+      assert_equal sold_on, fourth_f_d.journal_entry.printed_on
+      assert_equal 150_000.00, fixed_asset.sold_journal_entry.real_credit
+      assert_equal sold_on, fixed_asset.sold_journal_entry.printed_on
     end
 
-    attributes = {
-      name: @product.name,
-      depreciable_amount: 50_000,
-      depreciation_method: :linear,
-      started_on: Date.new(2017, 3, 1),
-      depreciation_period: :yearly,
-      depreciation_percentage: 20.00,
-      asset_account: @asset_account,
-      allocation_account: @allocation_account,
-      expenses_account: @expenses_account,
-      product: @product,
-      journal_id: @journal.id
-    }
+    test 'depreciate class method returns the amount of depreciations according to until option provided' do
+      fixed_asset = create :fixed_asset, :yearly, :in_use, percentage: 100.0 / 3, started_on: Date.new(2017, 1, 1)
 
-    fa = FixedAsset.create!(attributes)
-
-    assert_equal 5, fa.depreciations.count
-    assert_equal 50_000, fa.depreciations.map(&:amount).reduce(&:+)
-
-    fa.depreciation_percentage = 10.00
-    fa.depreciable_amount = 100_000
-    assert fa.save
-
-    assert_equal 10, fa.depreciations.count
-    assert_equal 100_000, fa.depreciations.map(&:amount).reduce(&:+)
-  end
-
-
-  test 'cannot sell a FixedAsset if the sold_on date is not during an opened FinancialYear' do
-    FinancialYear.delete_all
-    [2017, 2018].each do |year|
-      start = Date.new year, 3, 1
-      FinancialYear.create! started_on: start, stopped_on: start + 1.year - 1.day
+      count = FixedAsset.depreciate(until: Date.civil(2018, 12, 31))
+      assert_equal 2, count, 'Count of depreciations is invalid' + fixed_asset.depreciations.pluck(:started_on, :amount).to_yaml.yellow
     end
 
-    attributes = {
-      name: @product.name,
-      depreciable_amount: 50_000,
-      depreciation_method: :linear,
-      started_on: Date.new(2017, 3, 1),
-      depreciation_period: :yearly,
-      depreciation_percentage: 20.00,
-      asset_account: @asset_account,
-      allocation_account: @allocation_account,
-      expenses_account: @expenses_account,
-      product: @product,
-      journal_id: @journal.id
-    }
+    test 'Fixed asset with regressive depreciation' do
+      started_on = Date.new 2018, 10, 15
 
-    fa = FixedAsset.create!(attributes)
-    assert fa.start_up
-    assert_not fa.sell
-  end
+      fixed_asset = create :fixed_asset, :yearly, :regressive,
+                           coefficient: 1.75,
+                           started_on: started_on,
+                           amount: 50_000,
+                           percentage: 20.00
 
-  test 'cannot create a FixedAsset when no FinancialYear present in database' do
-    FinancialYear.delete_all
+      assert_equal 5, fixed_asset.depreciations.count
 
-    attributes = {
-      name: @product.name,
-      depreciable_amount: 50_000,
-      depreciation_method: :linear,
-      started_on: Date.new(2017, 3, 1),
-      depreciation_period: :yearly,
-      depreciation_percentage: 20.00,
-      asset_account: @asset_account,
-      allocation_account: @allocation_account,
-      expenses_account: @expenses_account,
-      product: @product,
-      journal_id: @journal.id
-    }
 
-    fa = FixedAsset.new attributes
-    assert_not fa.valid?
-    assert fa.errors.messages.key? :base
-  end
+      depreciation_amount_assertion = [4375, 15968.75, 10379.69, 9638.28, 9638.28]
 
-  [
-    [:opened, false],
-    [:closed, false],
-    [:locked, true]
-  ].each do |(fy_state, expected_validation_result)|
-    test "a FixedAsset without a FinancialYear but after one that is #{fy_state} should be #{expected_validation_result ? 'valid' : 'invalid'}" do
-      FinancialYear.delete_all
-      FinancialYear.create! started_on: Date.new(2015, 3, 1), stopped_on: Date.new(2015, 3, 1) + 1.year - 1.day, state: fy_state
+      currency = Preference[:currency]
 
-      attributes = {
-        name: @product.name,
-        depreciable_amount: 50_000,
-        depreciation_method: :linear,
-        started_on: Date.new(2017, 3, 1),
-        depreciation_period: :yearly,
-        depreciation_percentage: 20.00,
-        asset_account: @asset_account,
-        allocation_account: @allocation_account,
-        expenses_account: @expenses_account,
-        product: @product,
-        journal_id: @journal.id
-      }
-
-      fa = FixedAsset.new attributes
-      assert_equal expected_validation_result, fa.valid?
+      fixed_asset.depreciations.each_with_index do |depreciation, index|
+        assert_equal currency.to_currency.round(depreciation_amount_assertion[index]), depreciation.amount.to_f
+      end
     end
-  end
 
-  private
+    test 'a fixed asset with regressive depreciation and all mandatory parameters should be valid' do
+      fixed_asset = build :fixed_asset, :yearly, :regressive,
+                          coefficient: 1.75,
+                          percentage: 20.00,
+                          amount: 50_000,
+                          started_on: Date.new(2018, 6, 15)
 
-    def depreciate_up_to(_depreciations, date)
-      depreciations = FixedAssetDepreciation.with_active_asset.up_to(date)
-      success = true
+      res = fixed_asset.save
 
-      depreciations.find_each { |dep| success &&= dep.update(accountable: true) }
-
-      success
+      assert res, fixed_asset.errors.messages.values.join(', ')
     end
+
+    test 'a draft FixedAsset depreciations are edited when relevant fields of it are edited' do
+      fa = create :fixed_asset, :yearly,
+                  percentage: 20.0,
+                  started_on: Date.new(2017, 1, 1),
+                  amount: 50_000
+
+      assert_equal 5, fa.depreciations.count
+      assert_equal 50_000, fa.depreciations.map(&:amount).reduce(&:+)
+
+      fa.depreciation_percentage = 10.00
+      fa.depreciable_amount = 100_000
+      assert fa.save
+
+      assert_equal 10, fa.depreciations.count
+      assert_equal 100_000, fa.depreciations.map(&:amount).reduce(&:+)
+    end
+
+    private
+
+      def depreciate_up_to(_depreciations, date)
+        depreciations = FixedAssetDepreciation.with_active_asset.up_to(date)
+        success = true
+
+        depreciations.find_each { |dep| success &&= dep.update(accountable: true) }
+
+        success
+      end
+  end
 end

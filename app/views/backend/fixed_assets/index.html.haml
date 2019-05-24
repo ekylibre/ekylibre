@@ -2,8 +2,7 @@
 
 = kujaku do |k|
   - k.text
-  - sm = FixedAsset.state_machine.states
-  - k.multi_choice :state, [:draft, :in_use, :sold, :scrapped].map{|s| [sm[s].human_name, s] }, label: FixedAsset.human_attribute_name(:state)
+  - k.multi_choice :state, FixedAsset.state.values.map{|s| [s.human_name, s] }, label: FixedAsset.human_attribute_name(:state)
   - k.helper :journal_period_crit
   - p_ids = FixedAsset.all.pluck(:product_id).compact.uniq
   - products = Product.where(id: p_ids).reorder(:name)

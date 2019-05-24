@@ -335,7 +335,7 @@ fra:
         fixed_asset:
           attributes:
             base:
-              no_financial_year: "Un exercice comptable est nécessaire pour la création d'une immobilisation."
+              no_opened_financial_year: "Un exercice comptable ouvert est nécessaire pour la création d'une immobilisation."
         fixed_asset_depreciation: #?
           attributes: #?
             started_on: #?

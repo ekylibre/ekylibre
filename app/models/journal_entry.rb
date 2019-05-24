@@ -61,7 +61,8 @@
 #  - real_*     in financial year currency
 #  - absolute_* in global currency (the same as current financial year's theoretically)
 class JournalEntry < Ekylibre::Record::Base
-  class IncompatibleCurrencies < StandardError; end
+  class IncompatibleCurrencies < StandardError;
+  end
   include Attachable
   attr_readonly :journal_id
   refers_to :currency
@@ -74,7 +75,15 @@ class JournalEntry < Ekylibre::Record::Base
   has_many :affairs, dependent: :nullify
   has_many :fixed_asset_depreciations, dependent: :nullify
   has_many :useful_items, -> { where('balance != ?', 0.0) }, foreign_key: :entry_id, class_name: 'JournalEntryItem'
-  has_many :items, foreign_key: :entry_id, dependent: :delete_all, class_name: 'JournalEntryItem', inverse_of: :entry
+  has_many :items, foreign_key: :entry_id, dependent: :delete_all, class_name: 'JournalEntryItem', inverse_of: :entry do
+    def credit
+      where('credit > 0')
+    end
+
+    def debit
+      where('debit > 0')
+    end
+  end
   has_many :purchase_payments, dependent: :nullify
   has_many :incoming_payments, dependent: :nullify
   has_many :purchases, dependent: :nullify
@@ -209,17 +218,17 @@ class JournalEntry < Ekylibre::Record::Base
 
     items.to_a.each(&:compute)
 
-    self.real_debit   = items.to_a.reduce(0) { |sum, item| sum + (item.marked_for_destruction? ? 0 : item.real_debit  || 0) }
-    self.real_credit  = items.to_a.reduce(0) { |sum, item| sum + (item.marked_for_destruction? ? 0 : item.real_credit || 0) }
+    self.real_debit = items.to_a.reduce(0) { |sum, item| sum + (item.marked_for_destruction? ? 0 : item.real_debit || 0) }
+    self.real_credit = items.to_a.reduce(0) { |sum, item| sum + (item.marked_for_destruction? ? 0 : item.real_credit || 0) }
     self.real_balance = real_debit - real_credit
 
-    self.debit   = items.to_a.reduce(0) { |sum, item| sum + (item.marked_for_destruction? ? 0 : item.debit  || 0) }
-    self.credit  = items.to_a.reduce(0) { |sum, item| sum + (item.marked_for_destruction? ? 0 : item.credit || 0) }
+    self.debit = items.to_a.reduce(0) { |sum, item| sum + (item.marked_for_destruction? ? 0 : item.debit || 0) }
+    self.credit = items.to_a.reduce(0) { |sum, item| sum + (item.marked_for_destruction? ? 0 : item.credit || 0) }
 
     self.balance = debit - credit
 
     if real_balance.zero? && !balance.zero?
-      magnitude = 10**Nomen::Currency.find(currency).precision
+      magnitude = 10 ** Nomen::Currency.find(currency).precision
       error_sum = balance * magnitude
       column = error_sum > 0 ? :credit : :debit
 
@@ -234,8 +243,8 @@ class JournalEntry < Ekylibre::Record::Base
         left - error_to_update * magnitude
       end
 
-      self.debit   = items.to_a.reduce(0) { |sum, item| sum + (item.debit   || 0) }
-      self.credit  = items.to_a.reduce(0) { |sum, item| sum + (item.credit  || 0) }
+      self.debit = items.to_a.reduce(0) { |sum, item| sum + (item.debit || 0) }
+      self.credit = items.to_a.reduce(0) { |sum, item| sum + (item.credit || 0) }
 
       self.balance = debit - credit
     end
@@ -431,104 +440,104 @@ class JournalEntry < Ekylibre::Record::Base
 
   private
 
-  attr_accessor :importing_from_exchange
+    attr_accessor :importing_from_exchange
 
   #
-  def add!(name, account, amount, options = {})
-    items.create!(JournalEntryItem.attributes_for(name, account, amount, options))
-  end
+    def add!(name, account, amount, options = {})
+      items.create!(JournalEntryItem.attributes_for(name, account, amount, options))
+    end
 
-  def in_financial_year_exchange?
-    return unless financial_year
-    financial_year.exchanges.opened.any? { |e| (e.started_on..e.stopped_on).cover?(printed_on) }
-  end
+    def in_financial_year_exchange?
+      return unless financial_year
+      financial_year.exchanges.opened.any? { |e| (e.started_on..e.stopped_on).cover?(printed_on) }
+    end
 
   # this method loads the journal ledger for.the given financial year
-  def self.journal_ledger(options = {}, selected_journal_id = 0)
-    ledger = []
+    def self.journal_ledger(options = {}, selected_journal_id = 0)
+      ledger = []
 
-    # fy = financial_year if financial_year.is_a? FinancialYear
-    if options[:period] == 'all'
-      started_on = FinancialYear.order(:started_on).pluck(:started_on).first.to_s
-      stopped_on = FinancialYear.order(:stopped_on).pluck(:stopped_on).last.to_s
-    else
-      started_on = options[:period].split("_").first if options[:period]
-      stopped_on = options[:period].split("_").last if options[:period]
-    end
-
-    # options[:states]
-    if options[:states]&.any?
-      a = options[:states].select { |_k, v| v.to_i == 1 }.map { |pair| "'#{pair.first}'" }.join(', ')
-      states_array = "state IN (#{a})"
-    else
-      states_array = '1=1'
-    end
-
-    # options[:journal]
-    if selected_journal_id > 0
-      select_journal = "journal_id = #{selected_journal_id}"
-    else
-      select_journal = "1=1"
-    end
-
-    total_debit = 0.0
-    total_credit = 0.0
-    entry_count = 0
-
-    je = JournalEntry.between(started_on, stopped_on)
-                     .where(select_journal)
-                     .where(states_array)
-                     .order('journal_entries.printed_on ASC, journal_entries.number ASC')
-
-    je.group_by { |e| [e.printed_on.month, e.printed_on.year] }.each do |((month_number, year), entries)|
-      month = HashWithIndifferentAccess.new
-      month[:name] = I18n.t('date.month_names')[month_number].capitalize + '/' + year.to_s
-      month[:items] = []
-      month_total_debit = 0.0
-      month_total_credit = 0.0
-      month_entry_count = entries.count
-      entries.each do |e|
-        item = HashWithIndifferentAccess.new
-        item[:entry_number] = e.number
-        item[:printed_on] = e.printed_on.strftime('%d/%m/%Y')
-        item[:journal_name] = e.journal.name.to_s
-        item[:continuous_number] = e.continuous_number.to_s if e.continuous_number
-        item[:reference_number] = e.reference_number.to_s
-        item[:label] = e.items.first.displayed_label_in_accountancy.to_s
-        item[:state] = e.state_label
-        item[:real_debit] = e.real_debit
-        item[:real_credit] = e.real_credit
-        item[:balance] = e.balance
-        item[:entry_items] = []
-        e.items.each do |i|
-          entry_item = HashWithIndifferentAccess.new
-          entry_item[:account_number] = i.account.number.to_s
-          entry_item[:account_name] = i.account.name.to_s
-          entry_item[:real_debit] = i.real_debit
-          entry_item[:real_credit] = i.real_credit
-          item[:entry_items] << entry_item
-        end
-        month_total_debit += e.real_debit
-        month_total_credit += e.real_credit
-        month[:items] << item
-        total_debit += e.real_debit
-        total_credit += e.real_credit
-        entry_count += 1
+      # fy = financial_year if financial_year.is_a? FinancialYear
+      if options[:period] == 'all'
+        started_on = FinancialYear.order(:started_on).pluck(:started_on).first.to_s
+        stopped_on = FinancialYear.order(:stopped_on).pluck(:stopped_on).last.to_s
+      else
+        started_on = options[:period].split("_").first if options[:period]
+        stopped_on = options[:period].split("_").last if options[:period]
       end
-      month[:total_debit] = month_total_debit
-      month[:total_credit] = month_total_credit
-      month[:balance] = month_total_debit - month_total_credit
-      month[:entry_count] = month_entry_count
 
-      ledger << month
+      # options[:states]
+      if options[:states]&.any?
+        a = options[:states].select { |_k, v| v.to_i == 1 }.map { |pair| "'#{pair.first}'" }.join(', ')
+        states_array = "state IN (#{a})"
+      else
+        states_array = '1=1'
+      end
 
+      # options[:journal]
+      if selected_journal_id > 0
+        select_journal = "journal_id = #{selected_journal_id}"
+      else
+        select_journal = "1=1"
+      end
+
+      total_debit = 0.0
+      total_credit = 0.0
+      entry_count = 0
+
+      je = JournalEntry.between(started_on, stopped_on)
+             .where(select_journal)
+             .where(states_array)
+             .order('journal_entries.printed_on ASC, journal_entries.number ASC')
+
+      je.group_by { |e| [e.printed_on.month, e.printed_on.year] }.each do |((month_number, year), entries)|
+        month = HashWithIndifferentAccess.new
+        month[:name] = I18n.t('date.month_names')[month_number].capitalize + '/' + year.to_s
+        month[:items] = []
+        month_total_debit = 0.0
+        month_total_credit = 0.0
+        month_entry_count = entries.count
+        entries.each do |e|
+          item = HashWithIndifferentAccess.new
+          item[:entry_number] = e.number
+          item[:printed_on] = e.printed_on.strftime('%d/%m/%Y')
+          item[:journal_name] = e.journal.name.to_s
+          item[:continuous_number] = e.continuous_number.to_s if e.continuous_number
+          item[:reference_number] = e.reference_number.to_s
+          item[:label] = e.items.first.displayed_label_in_accountancy.to_s
+          item[:state] = e.state_label
+          item[:real_debit] = e.real_debit
+          item[:real_credit] = e.real_credit
+          item[:balance] = e.balance
+          item[:entry_items] = []
+          e.items.each do |i|
+            entry_item = HashWithIndifferentAccess.new
+            entry_item[:account_number] = i.account.number.to_s
+            entry_item[:account_name] = i.account.name.to_s
+            entry_item[:real_debit] = i.real_debit
+            entry_item[:real_credit] = i.real_credit
+            item[:entry_items] << entry_item
+          end
+          month_total_debit += e.real_debit
+          month_total_credit += e.real_credit
+          month[:items] << item
+          total_debit += e.real_debit
+          total_credit += e.real_credit
+          entry_count += 1
+        end
+        month[:total_debit] = month_total_debit
+        month[:total_credit] = month_total_credit
+        month[:balance] = month_total_debit - month_total_credit
+        month[:entry_count] = month_entry_count
+
+        ledger << month
+
+      end
+
+      total_balance = total_debit - total_credit
+
+      ledger << { entry_count: entry_count, total_credit: total_credit, total_debit: total_debit, total_balance: total_balance }
+
+      ledger.compact
     end
-
-    total_balance = total_debit - total_credit
-
-    ledger << {entry_count: entry_count, total_credit: total_credit, total_debit: total_debit, total_balance: total_balance}
-
-    ledger.compact
-  end
 
 end

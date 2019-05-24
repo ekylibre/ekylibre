@@ -6,19 +6,39 @@ module Transitionable
   end
 
   class TransitionError < StandardError
-    def initialize(*args, cause: nil)
-      super *args
-      @cause = cause if cause
+    attr_reader :resource, :original
+
+    def initialize(msg, resource, original = nil)
+      super msg
+      @resource = resource
+      @original = original
+    end
+
+    def backtrace
+      if original
+        original.backtrace
+      else
+        super
+      end
     end
   end
 
   class TransitionFailedError < TransitionError
+    def initialize(resource, original)
+      super "Error while running transition for #{resource}: #{original.message}", resource, original
+    end
   end
 
   class PreconditionFailedError < TransitionError
+    def initialize(resource)
+      super "Cannot run transition for #{resource}: precondition test is false", resource
+    end
   end
 
   class TransitionAbortedError < TransitionError
+    def initialize(resource)
+      super "Transition manually aborted", resource
+    end
   end
 
   class Transition
@@ -54,24 +74,24 @@ module Transitionable
     def run
       run!
       true
-    rescue TransitionError
+    rescue TransitionError => error
+      @error = error
       false
     end
 
     def run!
-      raise PreconditionFailedError.new "Cannot run transition for #{resource}: precondition test is false" unless can_run?
+      raise PreconditionFailedError.new(resource)  unless can_run?
 
       res = catch :abort do
         transition
         :ok
       end
 
-      raise TransitionAbortedError.new "Transition manually aborted" unless res == :ok
+      raise TransitionAbortedError.new(resource) unless res == :ok
+    rescue TransitionError
+      raise
     rescue StandardError => error
-      raise error if error.class < TransitionError
-      raise error = TransitionFailedError.new("Error while running transition for #{resource}", cause: error)
-    ensure
-      @error = error
+      raise TransitionFailedError.new(resource, error)
     end
 
     protected
