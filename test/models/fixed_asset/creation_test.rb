@@ -22,14 +22,5 @@ module FixedAssetTest
                  started_on: Date.new(2015, 1, 2)
       assert fa.valid?, fa.errors.messages
     end
-
-    test "cannot create a FixedAsset after an opened FinancialYear" do
-      create :financial_year, year: 2018
-
-      fa = build :fixed_asset,
-                 started_on: Date.new(2019, 1, 2)
-      assert_not fa.valid?, "The fixed asset should not be valid"
-    end
-
   end
 end
