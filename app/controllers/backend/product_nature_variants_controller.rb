@@ -119,6 +119,7 @@ module Backend
         },
         stock: @product_nature_variant.current_stock
       }
+
       if product_nature.subscribing?
         entity = nil
         address = nil
@@ -220,6 +221,15 @@ module Backend
       end
       render json: infos
     end
+
+    def storage_detail
+      quantity = ParcelItemStoring.where(storage_id: params[:storage_id])
+                                  .joins(:parcel_item)
+                                  .where(parcel_items: { variant_id: params[:id] })
+                                  .joins(parcel_item: :parcel)
+                                  .where(parcels: { state: 'given' })
+                                  .sum(:quantity)
+      render json: { quantity: quantity, unit: ProductNatureVariant.find(params[:id])&.unit_name }
+    end
   end
 end
-

@@ -18,49 +18,54 @@ module Backend
     #   :nature Choice
     def self.receptions_conditions
       code = search_conditions(receptions: %i[number reference_number], entities: %i[full_name number]) + " ||= []\n"
-      code << "unless params[:period].blank? || params[:period].is_a?(Symbol)\n"
-      code << "  if params[:period] != 'all'\n"
-      code << "    if params[:period] == 'interval' \n"
-      code << "      started_on = params[:started_on] \n"
-      code << "      stopped_on = params[:stopped_on] \n"
-      code << "    else \n"
-      code << "      interval = params[:period].split('_')\n"
-      code << "      started_on = interval.first\n"
-      code << "      stopped_on = interval.last\n"
-      code << "    end \n"
-      code << "    c[0] << \" AND #{Reception.table_name}.planned_at::DATE BETWEEN ? AND ?\"\n"
-      code << "    c << started_on\n"
-      code << "    c << stopped_on\n"
-      code << "  end\n "
+      code << "if params[:period].present? && params[:period] != 'all'\n"
+      code << "  if params[:period] == 'interval' \n"
+      code << "    started_on = params[:started_on] \n"
+      code << "    stopped_on = params[:stopped_on] \n"
+      code << "  else \n"
+      code << "    interval = params[:period].split('_')\n"
+      code << "    started_on = interval.first\n"
+      code << "    stopped_on = interval.last\n"
+      code << "  end \n"
+      code << "  c[0] << \" AND #{Reception.table_name}.planned_at::DATE BETWEEN ? AND ?\"\n"
+      code << "  c << started_on\n"
+      code << "  c << stopped_on\n"
       code << "end\n "
+
       code << "if params[:recipient_id].to_i > 0\n"
       code << "  c[0] << \" AND \#{Reception.table_name}.recipient_id = ?\"\n"
       code << "  c << params[:recipient_id].to_i\n"
       code << "end\n"
+
       code << "if params[:sender_id].to_i > 0\n"
       code << "  c[0] << \" AND \#{Reception.table_name}.sender_id = ?\"\n"
       code << "  c << params[:sender_id].to_i\n"
       code << "end\n"
+
       code << "if params[:transporter_id].to_i > 0\n"
       code << "  c[0] << \" AND \#{Reception.table_name}.transporter_id = ?\"\n"
       code << "  c << params[:transporter_id].to_i\n"
       code << "end\n"
+
       code << "if params[:responsible_id].to_i > 0\n"
       code << "  c[0] << \" AND \#{Reception.table_name}.responsible_id = ?\"\n"
       code << "  c << params[:responsible_id]\n"
       code << "end\n"
+
       code << "if params[:delivery_mode].present? && params[:delivery_mode] != 'all'\n"
       code << "  if Reception.delivery_mode.values.include?(params[:delivery_mode].to_sym)\n"
       code << "    c[0] << ' AND #{Reception.table_name}.delivery_mode = ?'\n"
       code << "    c << params[:delivery_mode]\n"
       code << "  end\n"
       code << "end\n"
+
       code << "if params[:invoice_status] && params[:invoice_status] == 'invoiced'\n"
       code << "   c[0] << ' AND #{Reception.table_name}.id IN (SELECT parcel_id FROM #{ReceptionItem.table_name} WHERE #{ReceptionItem.table_name}.type = \\'ReceptionItem\\' AND #{ReceptionItem.table_name}.purchase_invoice_item_id IS NOT NULL)'\n"
       code << "elsif params[:invoice_status] && params[:invoice_status] == 'uninvoiced'\n"
       code << "   c[0] << ' AND #{Reception.table_name}.id IN (SELECT parcel_id FROM #{ReceptionItem.table_name} WHERE #{ReceptionItem.table_name}.type = \\'ReceptionItem\\' AND #{ReceptionItem.table_name}.purchase_invoice_item_id IS NULL)'\n"
       code << "end\n"
       code << "c\n"
+
       code.c
     end
 

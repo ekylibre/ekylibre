@@ -117,13 +117,7 @@ module Backend
             concat(content_tag(:p, detail))
           end)
           if product_parameter.present?
-            computation = if product_parameter.product.is_a?(Worker)
-              product_parameter.cost_amount_computation
-            elsif product_parameter.product.try(:tractor?)
-              product_parameter.cost_amount_computation(natures: %i[travel intervention])
-            else
-              product_parameter.cost_amount_computation(natures: %i[intervention])
-            end
+            computation = calculate_cost_amount_computation(product_parameter)
             concat(content_tag(:div, nil, class: 'working-time') do
               concat(content_tag(:i, nil, class: 'picto picto-timelapse'))
               concat(content_tag(:span, human_duration(computation.quantity * 3600), class: 'quantity'))

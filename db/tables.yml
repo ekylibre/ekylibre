@@ -3900,6 +3900,8 @@ journal_entries:
     precision: 19
     scale: 4
     required: true
+  continuous_number:
+    type: integer
   created_at:
     type: datetime
     required: true
@@ -3980,6 +3982,8 @@ journal_entries:
   updater_id:
     type: integer
     references: user
+  validated_at:
+    type: datetime
 journal_entry_items:
   absolute_credit:
     type: decimal

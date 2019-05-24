@@ -48,21 +48,10 @@
 - if f.object.allow_items_update?
   = field_set f.object.class.human_attribute_name(:items) do
     %table.list#receptions-items-table
-      %thead
-        %tr.table-headers
-          %th.act
-          %th.act
-          %th.product-column= ParcelItem.human_attribute_name(:product)
-          %th.storage-column= :storage.tl
-          %th.quantity-column= ParcelItem.human_attribute_name(:population)
-          %th.delivery-mode-column= ParcelItem.human_attribute_name(:delivery_mode)
-          / %th= ParcelItem.human_attribute_name(:storage)
-
       = f.simple_fields_for :items, f.object.items do |item|
         = render 'item_fields', f: item, mode: params[:mode]
       - if f.object.allow_items_update?
-        %tfoot#items-footer
-          %tr.total
-            %th{colspan: 6, class: "links add-merchandise"}= link_to_add_association :add_merchandise.tl, f, :items, partial: 'item_fields', render_options: { locals: { role: 'merchandise', mode: params[:mode] } }, 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before
-            %th{colspan: 6, class: "links add-service"}= link_to_add_association :add_service.tl, f, :items, partial: 'item_fields', render_options: { locals: { role: 'service', mode: params[:mode] } }, 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before
-            %th{colspan: 6, class: "links add-cost"}= link_to_add_association :add_fees.tl, f, :items, partial: 'item_fields', render_options: { locals: { role: 'fees', mode: params[:mode] } }, 'data-association-insertion-node' => '#items-footer', 'data-association-insertion-method' => :before
+        %tfoot#items__footer
+          %tr.row-footer
+            - ReceptionItem.role.values.each do |role|
+              %th{colspan: 6, class: "links add-#{role}"}= link_to_add_association :"add_#{role}".tl, f, :items, partial: 'item_fields', render_options: { locals: { role: role, mode: params[:mode] } }, 'data-association-insertion-node' => '#items__footer', 'data-association-insertion-method' => :before

@@ -89,7 +89,7 @@ class CatalogItem < Ekylibre::Record::Base
   after_save do
     # if self.amount_changed?
     variant.products.each do |product|
-      product.interventions.map(&:save!)
+      product.interventions.tap(&:reload).map(&:save!)
     end
     # end
   end
