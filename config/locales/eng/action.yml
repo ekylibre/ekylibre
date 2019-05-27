@@ -1157,6 +1157,7 @@ eng:
     add_a_worker: "Add a worker"
     add_an_account: "Add an account"
     # add_an_evaluation_for_this_intervention: "Add an evaluation for this intervention"
+    add_animals: "Add a consignment of animals"
     add_animal: "Add animal"
     add_animal_group: "Add animal group"
     add_annotation: "Add annotation"

@@ -979,6 +979,7 @@ fra:
     add_an_account: "Ajouter un compte"
     add_an_evaluation_for_this_intervention: "Evaluer cette intervention avant de la valider" #?
     add_animal: "Ajouter un animal"
+    add_animals: "Ajouter un lot d'animaux"
     add_animal_group: "Ajouter un troupeau"
     add_annotation: "Ajouter une annotation"
     add_attachment: "Ajouter une pièce jointe"
