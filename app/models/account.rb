@@ -170,6 +170,10 @@ class Account < Ekylibre::Record::Base
     of_usages(:deductible_vat, :enterprise_deductible_vat)
   }
 
+  scope :tax_declarations, -> {
+    of_usages(:fixed_assets, :expenses, :revenues)
+  }
+
   # This method:allows to create the parent accounts if it is necessary.
   before_validation do
     self.reconcilable = reconcilableable? if reconcilable.nil?

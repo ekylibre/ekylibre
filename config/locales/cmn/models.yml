@@ -1700,6 +1700,7 @@ cmn:
     transports: "传输" #?
     trouble_description: "故障描述"
     trouble_encountered: "遇到麻烦"
+    # vat_account: "VAT account"
     type: "类型"
     # uid: "UID"
     unconfirmed_email: "未经证实的邮件"

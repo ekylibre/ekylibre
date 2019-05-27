@@ -422,4 +422,15 @@ class JournalEntryItem < Ekylibre::Record::Base
     third_parties = Entity.uniq.where('client_account_id = ? OR supplier_account_id = ? OR employee_account_id = ?', account.id, account.id, account.id)
     third_parties.take if third_parties.count == 1
   end
+
+  # fixed_assets, expenses and revenues are used into tax declaration
+  def vat_account
+   prefixes = Account.tax_declarations.pluck(:number).join
+   return unless account_number =~ /^[#{prefixes}].*/
+   entry.items.find_by(resource_prism: ["item_tax_reverse_charge", "item_tax"])&.account
+  end
+
+  def vat_account_label
+    vat_account&.label
+  end
 end

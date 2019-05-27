@@ -1700,6 +1700,7 @@ por:
     transports: "Transportes" #?
     trouble_description: "A inscrição problemas"
     trouble_encountered: "O problema encontrado"
+    # vat_account: "VAT account"
     type: "Digitar"
     # uid: "UID"
     unconfirmed_email: "Email não confirmado"

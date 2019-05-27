@@ -2050,6 +2050,7 @@ fra:
     transports: "Transports" #?
     trouble_description: "Description du problème"
     trouble_encountered: "Problème durant l'intervention"
+    vat_account: "Compte TVA"
     type: "Type"
     # uid: "UID"
     unconfirmed_email: "E-mail non confirmé"
