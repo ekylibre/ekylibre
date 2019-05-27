@@ -39,8 +39,8 @@
   overflow: visible !important;
 }
 
-.nested-fields .controls {
-  margin-left: 0 !important;
+.decimal-row .controls {
+   margin-left: 0 !important;
 }
 
 .decimal-row {
@@ -69,7 +69,8 @@
     justify-content: flex-end;
   }
 
-   .storing-calculation {
+  .storing-calculation {
+    width: 45%;
     display: flex;
     align-items: flex-end;
   }
@@ -81,21 +82,30 @@
 }
 
 
- .storing-calculation {
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-end;
-    width: 30%;
+.storing-calculation {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  .controls {
+    margin-left: 0 !important;
   }
+
+}
+
 
 .item-block-role {
   display: flex;
+  flex-direction: column;
   width: 40%;
   .control-group {
     width: 100%;
     flex-direction: column;
-    .selector {
-      width: 100%;
+    .controls {
+      margin-left: 0 !important;
+
+      .selector {
+        width: 100%;
+      }
     }
   }
 }
@@ -109,17 +119,24 @@
 }
 
 .current-stock {
-  align-self: center;
+  align-self: flex-end;
   span {
     color: #999;
   }
 }
 
  .row-footer {
-    display: flex;
+    margin-top: 5px;
+    .links {
+      padding: 8px;
+      font-weight: bold;
+    }
+    .add-fees {
+      text-align: center;
+    }
   }
 
-.storing__fields {
+.storing-fields {
   display: flex;
   justify-content: space-between;
 }
@@ -131,4 +148,8 @@
       width: 100% !important;
     }
   }
+}
+
+.item-block-quantity {
+  width: 40%;
 }

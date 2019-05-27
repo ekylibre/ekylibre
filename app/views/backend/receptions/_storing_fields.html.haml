@@ -2,11 +2,12 @@
 - variant = Maybe(storing.parcel_item.variant)
 - storage_name = storing.storage.name if storing.storage
 
-.nested-fields.storing__fields
+.nested-fields.storing-fields
   %input.hidden{data: { 'when-item': 'name', 'when-set-value': 'RECORD_VALUE', 'when-scope': 'storage'}, value: storage_name}
-  .nested-remove.act
-    - if f.object.destroyable?
-      = link_to_remove_association(content_tag(:i) + h(:destroy.tl), f, 'data-no-turbolink' => true, class: 'destroy remove remove-item')
+  .remove-action-container
+    .nested-remove.act
+      - if f.object.destroyable?
+        = link_to_remove_association(content_tag(:i) + h(:destroy.tl), f, 'data-no-turbolink' => true, class: 'destroy remove remove-item')
   .storing-calculation
     .storing-conditionning
       = f.input :conditionning, wrapper: :conditionning_append do
@@ -17,7 +18,7 @@
     .storing-conditionning-quantity.storing-conditionning-quantity--merchandise
       = f.input :conditionning_quantity, wrapper: :conditionning_append do
         = f.input_field :conditionning_quantity , class: "conditionning-quantity", data: { trade_component: 'conditionning_quantity'}
-    %div.control-group.multiplicator= "="
+    %div.control-group.equalizor= "="
     .storing-quantifier
       = f.input :quantity, wrapper: :append do
         = f.input_field :quantity, class: 'storing-quantity', placeholder: '0', data: { required: true }

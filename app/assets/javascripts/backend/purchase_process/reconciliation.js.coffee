@@ -196,32 +196,29 @@
 
       itemsCheckboxes.each (index, itemCheckbox) ->
         isPurchaseOrderModal = $(itemCheckbox).closest('.modal-content').find('#purchase-orders').val()
-        if isPurchaseOrderModal == "true"
-          E.reconciliation._createNewReceptionItemLine(itemCheckbox)
-        else
-          E.reconciliation._createNewPurchaseInvoiceItemLine(itemCheckbox)
+        E.reconciliation._createNewItemLine(itemCheckbox)
 
-          if index == 0
-           responsibleId = $(itemCheckbox).closest('.item').attr('data-responsible-id')
-           $('#purchase_invoice_responsible_id').first().selector('value', responsibleId)
+        if index == 0 && isPurchaseOrderModal == "false"
+
+         responsibleId = $(itemCheckbox).closest('.item').attr('data-responsible-id')
+         $('#purchase_invoice_responsible_id').first().selector('value', responsibleId)
 
         E.reconciliation._fillNewLineForm(itemCheckbox, isPurchaseOrderModal)
 
 
-    _createNewReceptionItemLine: (itemCheckbox) ->
+
+
+    _createNewItemLine: (itemCheckbox) ->
       variantType = $(itemCheckbox).closest('.item').attr('data-variant-type')
-      buttonToClickSelector = $('table.list #items-footer .add-merchandise')
+      buttonToClickSelector = $('.row-footer .add-merchandise')
 
       if variantType == "service"
-        buttonToClickSelector = $('table.list #items-footer .add-service')
+        buttonToClickSelector = $('.row-footer .add-service')
       else if variantType == "cost"
-        buttonToClickSelector = $('table.list #items-footer .add-cost')
+        buttonToClickSelector = $('.row-footer .add-fees')
 
       $(buttonToClickSelector).find('.add_fields').trigger('click')
 
-
-    _createNewPurchaseInvoiceItemLine: (itemCheckbox) ->
-      $('table.list #items-footer .links .add_fields').trigger('click')
 
 
     _fillNewLineForm:  (itemCheckbox, isPurchaseOrderModal) ->
@@ -267,7 +264,7 @@
       $(lastLineForm).find('.form-field .invoice-unit-amount').val(itemUnitCost)
       $(lastLineForm).find('.form-field .invoice-discount-percentage').val(itemReductionPercentage)
       $(lastLineForm).find('.form-field .pre-tax-invoice-total').val(itemTotalAmount)
-      $(lastLineForm).find('.form-field.merchandise .selector-search').first().selector('value', variantId)
+      $(lastLineForm).find('.form-field .invoice-variant').first().selector('value', variantId, (-> $(lastLineForm).find('.form-field .invoice-quantity').trigger('change')))
       $(lastLineForm).find('.form-field .purchase_invoice_items_activity_budget .selector-search').first().selector('value', activityBudgetId)
       $(lastLineForm).find('.form-field .purchase_invoice_items_team .selector-search').first().selector('value', teamId)
 
@@ -284,7 +281,6 @@
 
       $(lastLineForm).trigger('cocoon:after-insert')
 
-      # unless $(lastLineForm).find('.form-field .invoice-total').val() == null
       setTimeout (->
         $('.form-field .invoice-total').trigger('change')), 1000
 
@@ -295,7 +291,7 @@
 
       $(lastLineForm).find('.purchase-item-attribute').val(itemId)
 
-      $(lastLineForm).find('.item-block.merchandise .parcel-item-variant').first().selector('value', variantId)
+      $(lastLineForm).find('.item-block-role .parcel-item-variant').first().selector('value', variantId)
       $(lastLineForm).find('.hidden.purchase-item-attribute').val(itemId)
 
       if variantType == "service" || variantType == "cost"

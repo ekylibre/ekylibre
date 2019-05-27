@@ -20,7 +20,7 @@
   = f.input :given_at, as: :date, required: false, label: :receipt_date.tl
 
   .late-delivery-block
-    = f.input :late_delivery, input_html: { data: { warn_if_checked: :late.tl, show: '#due-on' } }
+    = f.input :late_delivery, input_html: { data: { warn_if_checked: :late.tl, warn_in: '#due-on' } }
     #due-on
       %span.warn-message= :late_delivery.tl.upcase
       = f.input :planned_at, as: :date, required: false
@@ -50,8 +50,7 @@
     %table.list#receptions-items-table
       = f.simple_fields_for :items, f.object.items do |item|
         = render 'item_fields', f: item, mode: params[:mode]
-      - if f.object.allow_items_update?
-        %tfoot#items__footer
-          %tr.row-footer
-            - ReceptionItem.role.values.each do |role|
-              %th{colspan: 6, class: "links add-#{role}"}= link_to_add_association :"add_#{role}".tl, f, :items, partial: 'item_fields', render_options: { locals: { role: role, mode: params[:mode] } }, 'data-association-insertion-node' => '#items__footer', 'data-association-insertion-method' => :before
+      %tfoot#items__footer
+    .row-footer
+      - ReceptionItem.role.values.each do |role|
+        %span{ class: "links add-#{role}"}= link_to_add_association :"add_#{role}".tl, f, :items, partial: 'item_fields', render_options: { locals: { role: role, mode: params[:mode] } }, 'data-association-insertion-node' => '#items__footer', 'data-association-insertion-method' => :before
