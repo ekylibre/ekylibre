@@ -113,7 +113,7 @@ module Nomen
       if element.has_attribute?('default')
         options[:default] = element.attr('default').to_sym
       end
-      options[:required] = !!(element.attr('required').to_s != 'true')
+      options[:required] = element.attr('required').to_s == 'true'
       # options[:inherit]  = !!(element.attr('inherit').to_s == 'true')
       if type == :list
         type = element.has_attribute?('nomenclature') ? :item_list : :choice_list
