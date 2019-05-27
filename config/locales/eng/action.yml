@@ -1295,6 +1295,8 @@ eng:
     balance_of_selection: "Balance of selection"
     balanced: "Balanced"
     bank_account: "Bank account"
+    bank_check_number: " no. %{number}"
+    bank_check_number_text: "Check no. %{number}"
     # bank_guarantees: "Bank guarantees"
     bank_statement_number: "Bank statement number" #?
     bank_statements: "Bank statements" #?
@@ -1345,6 +1347,7 @@ eng:
     charges: "Charges"
     chart: "Chart"
     check: "Check" #?
+    check_letter: "Check letter"
     check_x_entries_to_balance: #?!
       one: "Check entry to balance (%{count})" #?!
       other: "Check entries to balance (%{count})" #?!
@@ -1996,6 +1999,7 @@ eng:
     outgoing_parcel_quantities: "Quantities (Outgoing parcel)"
     outgoing_parcels: "Outgoing parcels"
     outgoing_payment: "Disbursement" #?
+    outgoing_payment_list_text: "You will find below the references covered by the payment in the amount of %{amount} %{currency}."
     outgoing_payments: "Disbursements" #?
     page_title: "%{company_code} · %{menu} · %{action}"
     page_title_by_default: "Ekylibre · %{action}"
@@ -2253,6 +2257,7 @@ eng:
     social_expenses: "Social expenses" #?!
     sold_on: "Sold on"
     source: "Source" #?
+    standard: "Standard"
     start: "From" #?
     start_new_intervention_here: "Start new intervention here"
     started: "Started"

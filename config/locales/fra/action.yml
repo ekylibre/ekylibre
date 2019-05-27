@@ -1143,6 +1143,8 @@ fra:
     balance_of_selection: "Solde de la sélection"
     balanced: "Soldés"
     bank_account: "Compte bancaire"
+    bank_check_number: " n°%{number}"
+    bank_check_number_text: "Chèque n°%{number}"
     bank_reconciliation: "Rapprochement bancaire" #?
     bank_statement_number: "N° du relevé de compte bancaire"
     bank_statements: "Relevés de compte bancaire"
@@ -1202,6 +1204,7 @@ fra:
     chart: "Graphique"
     check: "Vérifier"
     check_fields: "Vous devez cocher au moins une case pour effectuer la modification" #?
+    check_letter: "Lettre-chèque"
     check_x_entries_to_balance:
       one: "Consulter l'écriture à équilibrer (%{count})"
       other: "Consulter les écritures à équilibrer (%{count})"
@@ -2051,6 +2054,7 @@ fra:
     outgoing_parcel_quantities: "Quantités (Colis sortant)"
     outgoing_parcels: "Colis sortants"
     outgoing_payment: "Décaissement"
+    outgoing_payment_list_text: "Veuillez trouver ci-dessous les références correspondant au règlement de la somme de %{amount} %{currency}."
     outgoing_payments: "Décaissements"
     outgoing_payments_states: #?
       all: "Tous" #?
@@ -2439,6 +2443,7 @@ fra:
     sowable: "Semable" #?
     sowed_at: "Semé le" #?
     spraying_map: "Carte de pulvérisation" #?
+    standard: "Standard"
     start: "Du"
     start_new_intervention_here: "Commencer une nouvelle intervention ici"
     started: "Nouveaux"
