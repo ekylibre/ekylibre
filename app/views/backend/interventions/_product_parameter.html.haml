@@ -67,7 +67,7 @@
         %p
           - if product_parameter.is_population?
             = :x_thing.tl(x: product_parameter.quantity.round(2).l(precision: 0), thing: variant.unit_name.mb_chars.downcase)
-          - elsif product_parameter.product.france_maaid && product_parameter.is_a?(InterventionInput)
+          - elsif product_parameter.product.france_maaid.present? && product_parameter.is_a?(InterventionInput)
             %p
               %span.value= product_parameter.legal_pesticide_informations[:name]
             %p
