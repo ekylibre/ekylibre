@@ -5,7 +5,7 @@ class FixedAsset
       from :in_use
       to :sold
 
-      def initialize(fixed_asset, sold_on: Date.today, **_options)
+      def initialize(fixed_asset, sold_on, **_options)
         super fixed_asset
 
         @sold_on = fixed_asset.sold_on || sold_on

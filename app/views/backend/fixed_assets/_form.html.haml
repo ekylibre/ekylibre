@@ -38,6 +38,12 @@
 - if params[:mode] == 'sell'
   = field_set(:delay) do
     = f.input :sold_on, required: true
+
+  = field_set(:selling_amounts, class: 'chart') do
+    = f.referenced_association :tax
+    = f.input :pretax_selling_amount
+    = f.input :selling_amount
+
 - elsif params[:mode] == 'scrap'
   = field_set(:delay) do
     = f.input :scrapped_on, required: true

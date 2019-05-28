@@ -82,6 +82,7 @@ class FixedAsset < Ekylibre::Record::Base
   belongs_to :sold_journal_entry, class_name: 'JournalEntry', dependent: :destroy
   belongs_to :scrapped_journal_entry, class_name: 'JournalEntry', dependent: :destroy
   belongs_to :product
+  belongs_to :tax
   has_many :purchase_items, inverse_of: :fixed_asset
   has_many :depreciations, -> { order(:position) }, class_name: 'FixedAssetDepreciation' do
     def following(depreciation)
@@ -114,6 +115,7 @@ class FixedAsset < Ekylibre::Record::Base
   validates :stopped_on, :allocation_account, :expenses_account, presence: { unless: :depreciation_method_none? }
   validates :scrapped_on, financial_year_writeable: { if: :scrapped? }
   validates :sold_on, financial_year_writeable: { if: :sold? }
+  validates :tax_id, :selling_amount, :pretax_selling_amount, presence: { if: :sold? }
 
   enumerize :depreciation_period, in: %i[monthly quarterly yearly], default: -> { Preference.get(:default_depreciation_period).value || Preference.set!(:default_depreciation_period, :yearly, :string) }
 

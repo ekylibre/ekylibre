@@ -2136,6 +2136,7 @@ eng:
     select_file_to_upload: "Select file to upload"
     select_forward_journal: "Selected Journal to renew" #??
     selection: "Selection" #?
+    selling_amounts: "Selling amounts"
     semester: "Semester"
     send_mail: "Send mail"
     send_test_mail: "Send test mail"
