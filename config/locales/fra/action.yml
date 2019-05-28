@@ -3133,6 +3133,7 @@ fra:
       reset: "Ré-initialiser"
       retrieve: "Relever"
       run: "Exécuter"
+      scrap: "Mettre au rebut"
       search: "Rechercher"
       select: "Selectionner"
       sell: "Passer en vente"

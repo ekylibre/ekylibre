@@ -2825,7 +2825,7 @@ eng:
       retrieve: "Retrieve"
       run: "Run"
       # run_progress: "Run progress"
-      # scrap: "Scrap"
+      scrap: "Scrap"
       search: "Search" #?
       select: "Select"
       sell: "Turn into sale"

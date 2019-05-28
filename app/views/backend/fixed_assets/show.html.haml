@@ -40,13 +40,13 @@
               = link_to(purchase_item.journal_entry.number, {controller: :journal_entries, action: :show, id: purchase_item.journal_entry.id})
 
   = infos do
-    - if resource.sold_on
+    - if resource.sold? && resource.sold_on
       .med-info
         %span.title= :sold_on.tl
         %span.value
           %i.picto{class: "picto-bar-chart"}
           = resource.sold_on.l
-    - if resource.scrapped_on
+    - if resource.scrapped? && resource.scrapped_on
       .med-info
         %span.title= :scrapped_on.tl
         %span.value

@@ -5,7 +5,7 @@ class FixedAsset
       from :in_use
       to :scrapped
 
-      def initialize(fixed_asset, scrapped_on: Date.today, **_options)
+      def initialize(fixed_asset, scrapped_on, **_options)
         super fixed_asset
 
         @scrapped_on = fixed_asset.scrapped_on || scrapped_on

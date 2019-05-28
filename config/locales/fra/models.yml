@@ -41,6 +41,7 @@ fra:
               greater_than: "Le montant à payer doit être supérieur à zéro" #?
       missing_bank_details_for_sepa: "Les valeurs IBAN et/ou Titulaire du compte sont manquantes pour la trésorerie sélectionnée."
       must_be_a_mail_address: "%{attribute} doit être une adresse e-mail" #?
+      no_opened_financial_year: "Aucun exercice comptable ouvert à cette date"
       not_a_number: "%{attribute} n’est pas un nombre" #?
       not_an_end_of_month: "%{attribute} doit être une fin de mois" #?
       not_opened_financial_year: "Un exercice comptable ouvert est nécessaire pour la (les) période(s)"
