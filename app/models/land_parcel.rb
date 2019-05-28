@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -106,7 +106,7 @@ class LandParcel < Easement
   def destroyable?
     super && !(activity_productions.any? || analyses.any?)
   end
-  
+
   def human_initial_shape_area_unit
     a = activity_productions.first.activity if activity_productions.first
     return nil unless a

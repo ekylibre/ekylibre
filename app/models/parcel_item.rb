@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,6 +22,7 @@
 #
 # == Table: parcel_items
 #
+#  activity_budget_id            :integer
 #  analysis_id                   :integer
 #  created_at                    :datetime         not null
 #  creator_id                    :integer
@@ -55,6 +56,7 @@
 #  shape                         :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  source_product_id             :integer
 #  source_product_movement_id    :integer
+#  team_id                       :integer
 #  transporter_id                :integer
 #  type                          :string
 #  unit_pretax_amount            :decimal(19, 4)   default(0.0), not null
@@ -97,6 +99,7 @@ class ParcelItem < Ekylibre::Record::Base
   validates :parted, inclusion: { in: [true, false] }
   validates :population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :pretax_amount, :unit_pretax_amount, :unit_pretax_stock_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :parcel, presence: true
   # ]VALIDATORS]
   validates :variant, presence: true
   # validates :product, presence: true, unless: proc { |item| !item.parcel.try(:prepared?) }
