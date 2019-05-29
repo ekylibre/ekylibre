@@ -61,8 +61,10 @@ class SaleItem < Ekylibre::Record::Base
   belongs_to :account
   belongs_to :activity_budget
   belongs_to :team
+  belongs_to :fixed_asset
   belongs_to :sale, inverse_of: :items
   belongs_to :credited_item, class_name: 'SaleItem'
+  belongs_to :depreciable_product, class_name: 'Product'
   belongs_to :variant, class_name: 'ProductNatureVariant'
   belongs_to :tax
   # belongs_to :tracking
@@ -181,10 +183,27 @@ class SaleItem < Ekylibre::Record::Base
       next if variant.catalog_items.of_usage(usage).any? || unit_pretax_amount.blank? || unit_pretax_amount.zero?
       variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: unit_pretax_amount, currency: currency)
     end
+
+    if changes[:fixed_asset_id]
+      unlink_fixed_asset(fixed_asset_id_was) if fixed_asset_id_was
+      link_fixed_asset
+    end
+  end
+
+  after_destroy do
+    unlink_fixed_asset(fixed_asset_id_was) if fixed_asset_id_was
   end
 
   protect(on: :update) do
     !sale.draft?
+  end
+
+  def unlink_fixed_asset(former_id)
+    FixedAsset.find(former_id).update!(sale_id: nil, sale_item_id: nil, tax_id: nil, selling_amount: nil, pretax_selling_amount: nil)
+  end
+
+  def link_fixed_asset
+    FixedAsset.find(fixed_asset_id).update!(sale_id: sale.id, sale_item_id: id, tax_id: tax_id, selling_amount: amount, pretax_selling_amount: pretax_amount)
   end
 
   def reduction_coefficient

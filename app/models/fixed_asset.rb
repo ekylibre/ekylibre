@@ -123,6 +123,7 @@ class FixedAsset < Ekylibre::Record::Base
   scope :used, -> { where(state: %w[in_use]) }
   scope :sold_or_scrapped, -> { where(state: %w[sold scrapped]) }
   scope :start_before, ->(date) { where('fixed_assets.started_on <= ?', date) }
+  scope :not_linked_to_sale, -> { used.where(sale_id: nil, sale_item_id: nil) }
 
   # [DEPRECATIONS[
   #  - purchase_id

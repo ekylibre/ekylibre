@@ -12,5 +12,15 @@
       $('#selling-actions-modal').find('form').submit()
 
 
+  $(document).on 'change', "input[type='checkbox'][data-show='#assets']", (event) ->
+    $quantityInput = $(this).closest('.nested-fields').find("input[data-trade-component='quantity']")
+    if $(this).is(':checked')
+      $quantityInput.prop('disabled', true)
+      $quantityInput.val(1)
+      $quantityInput.trigger('change')
+    else
+      $quantityInput.prop('disabled', false)
+
+
 
 ) ekylibre, jQuery

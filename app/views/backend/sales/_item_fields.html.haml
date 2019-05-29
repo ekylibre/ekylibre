@@ -39,6 +39,16 @@
       - attrs = {}
       - attrs[:style] = "display: none" if f.object.annotation.blank?
       .annotate{attrs}= f.input(:annotation, wrapper: :nested, input_html: { class: "annotation" })
+      - attrs[:style] = item && item.variant && item.variant.depreciable? ? {} : 'display: none'
+      .fixed-asset{attrs}
+        = f.input :fixed, show: :assets, input_html: { 'data-closest': :tr }
+        - attrs = item.fixed ? {} : {style: 'display: none;'}
+        #assets{attrs}
+          = f.input :preexisting_asset, show: :existing_asset, hide: :new_asset, label: :asset_exists.tl, input_html: { 'data-closest': :tr }
+          #existing_asset{attrs}
+            = f.referenced_association :fixed_asset, source: :not_linked_to_sale
+          #new_asset
+            = f.referenced_association :depreciable_product, source: :depreciables
 
   %tr.tr-add-on
     %td{ colspan: 2 }
