@@ -149,6 +149,10 @@ module Backend
       render(locals: { cancel_url: {:action=>:index}, with_continue: false })
     end
 
+    def link_to_sale
+
+    end
+
     def depreciate_all
       begin
         bookkeep_until = Date.parse(params[:until])

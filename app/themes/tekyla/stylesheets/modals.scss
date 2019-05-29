@@ -20,6 +20,12 @@
           display: inline-block;
           font-size: 15px;
         }
+        &.colored-background {
+          background: $primary-color;
+          & > span {
+            color: white;
+          }
+        }
       }
       .modal-body {
         .modal-introduction {
@@ -37,6 +43,9 @@
       }
       .modal-footer {
         @include text-align(right);
+        &.centered {
+          @include text-align(center);
+        }
       }
     }
   }

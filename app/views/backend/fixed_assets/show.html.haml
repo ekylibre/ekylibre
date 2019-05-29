@@ -57,3 +57,6 @@
 
   - c.cobble(:depreciations) do
     = cobble_list(:depreciations)
+
+- if resource.in_use?
+  = render 'selling_actions_modal', resource: resource

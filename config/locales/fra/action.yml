@@ -1775,6 +1775,7 @@ fra:
     line_number: "Ligne n°%{index}\_:"
     linear_options: "Options du linéaire"
     link: "Lien"
+    link_to_a_sale: "Rattacher à une vente"
     lipolysis: "Lipolyse" #?
     liquid_assets_on_turnover: "Taux de liquidités / CA (Disponibilités / Chiffre d’affaire HT) %{financial_year}"
     list: "Liste"
@@ -2142,6 +2143,8 @@ fra:
     profits_and_losses: "Les profits et pertes"
     progress_bar_current_step: "Étape %{current}/%{total} : %{label}..."
     protein_matters_concentration: "Teneur en matières protéïques" #?
+    provide_mandatory_information_before_scrapping: "Veuillez fournir les informations nécessaires à la mise au rebut de votre immobilisation. Une fois redirigé(e), cliquez à nouveau sur 'Mise au rebut' pour finaliser la procédure."
+    provide_mandatory_information_before_selling: "Veuillez fournir les informations nécessaires à la vente de votre immobilisation. Une fois redirigé(e), cliquez à nouveau sur 'Vendue' pour finaliser la procédure."
     provisional_grains_yield: "Rendement prévisionnel en grains" #?
     provisionnal_budget: "Budget prévisionnel" #?
     provisions_revenues: "Reprises sur provisions et transfert de charges"

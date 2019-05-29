@@ -1,5 +1,13 @@
 .flash.information
   %p= :derogatory_depreciation_explanation.tl
+
+- if params[:mode] == 'sell'
+  .flash.information
+    %p= :provide_mandatory_information_before_selling.tl
+- elsif params[:mode] == 'scrap'
+  .flash.information
+    %p= :provide_mandatory_information_before_scrapping.tl
+
 = field_set do
   = f.input :name
   = f.input :description, as: :text

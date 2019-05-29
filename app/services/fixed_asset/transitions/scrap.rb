@@ -22,11 +22,13 @@ class FixedAsset
 
           resource.update! state: :scrapped
 
-          # # Bookkeep the following with a FixedAsset marked as scrapped
+          # Bookkeep the following with a FixedAsset marked as scrapped
           resource.depreciations.following(active).each { |d| d.update! accountable: true, fixed_asset: resource }
 
           # Lock all depreciations as the scrap transition is not-reversible
           resource.depreciations.update_all locked: true
+
+          resource.product.update! dead_at: @scrapped_on if resource.product
           true
         end
       end

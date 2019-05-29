@@ -1771,6 +1771,7 @@ eng:
     line_number: "Line #%{number}"
     linear_options: "Linear options"
     link: "Link"
+    link_to_a_sale: "Link to a sale"
     liquid_assets_on_turnover: "Liquid assets on turnover %{financial_year}" #?!
     list: "List" #?
     load: "Load" #?
@@ -2035,6 +2036,8 @@ eng:
     profits: "Profits" #?
     profits_and_losses: "Profits and losses"
     progress_bar_current_step: "Step %{current}/%{total} : %{label}..." #?
+    provide_mandatory_information_before_scrapping: "Please provide the mandatory information before scrapping your fixed asset. Click the 'Scrapped' button after the redirection to end the process."
+    provide_mandatory_information_before_selling: "Please provide the mandatory information before selling your fixed asset. Click the 'Sold' button after the redirection to end the process."
     provisions_revenues: "Provisions revenues" #?
     purchase: "Purchase"
     purchase_items: "Purchase items" #?
