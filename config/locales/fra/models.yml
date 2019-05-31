@@ -183,6 +183,7 @@ fra:
         contract: "Contrat"
       parcel_item:
         population: "Quantité"
+        product_name: "Nom du produit"
       parcel_item_storing:
         conditionning: "Conditionnement" #?
         conditionning_quantity: "Quantité" #?

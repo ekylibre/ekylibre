@@ -122,6 +122,7 @@ eng:
         contract: "Contract"
       parcel_item:
         population: "Quantity"
+        product_name: "Product name"
       plant:
         born_at: "Planted at"
       plant_counting:
