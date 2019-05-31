@@ -187,6 +187,7 @@ fra:
       parcel_item_storing:
         conditionning: "Conditionnement"
         conditionning_quantity: "Quantité"
+        quantity: "Quantité totale"
       payslip_payment: #?
         delivered: "Remis au bénéficiaire" #?
         list: "Lot de décaissements" #?

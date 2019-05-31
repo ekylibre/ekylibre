@@ -126,6 +126,7 @@ eng:
       parcel_item_storing:
         conditionning: "Conditionning"
         conditionning_quantity: "Conditionning quantity"
+        quantity: "Total quantity"
       plant:
         born_at: "Planted at"
       plant_counting:
