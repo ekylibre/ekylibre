@@ -405,6 +405,9 @@ arb:
         contract: "عقد"
       parcel_item:
         population: "كمية"
+      parcel_item_storing:
+        # reception_given_at: "Given at"
+        # reception_planned_at: "Planned at"
       plant:
         born_at: "زرعت في"
       plant_counting:
@@ -548,10 +551,14 @@ arb:
         account: "حساب الرسوم المستخدمة" #?
         account_id: "حساب الرسوم المستخدمة" #?
         annotation: "الملاحظة" #?
+        # average_unit_pretax_amount: "Average unit pretax amount"
         # fixed_asset_stopped_on: "Fixed asset stopped on"
+        # last_unit_pretax_amount: "Last unit pretax amount"
         order: "طلب الشراء" #?
+        # ordered_quantity: "Ordered quantity"
         price: "سعر الوحدة" #?
         product_id: "انتاج" #?
+        # supplier_name: "Supplier"
         tracking: "رقم الحصة" #?
         tracking_id: "رقم الحصة" #?
         unit_id: "الوحدة" #?

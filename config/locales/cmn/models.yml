@@ -118,6 +118,9 @@ cmn:
         contract: "合同"
       parcel_item:
         population: "数量"
+      parcel_item_storing:
+        # reception_given_at: "Given at"
+        # reception_planned_at: "Planned at"
       plant:
         born_at: "在种植"
       plant_counting:
@@ -133,7 +136,11 @@ cmn:
       purchase:
         affair_balance: "平衡"
       purchase_item:
+        # average_unit_pretax_amount: "Average unit pretax amount"
         # fixed_asset_stopped_on: "Fixed asset stopped on"
+        # last_unit_pretax_amount: "Last unit pretax amount"
+        # ordered_quantity: "Ordered quantity"
+        # supplier_name: "Supplier"
       purchase_payment: #?
         delivered: "给收件人" #?
         list: "付款清单" #?

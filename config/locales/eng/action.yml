@@ -2107,9 +2107,11 @@ eng:
     progress_bar_current_step: "Step %{current}/%{total} : %{label}..." #?
     provisions_revenues: "Provisions revenues" #?!
     purchase: "Purchase"
+    purchase_invoice_items: "Invoice items"
     purchase_items: "Purchase items" #?
     purchase_number: "Purchase number" #?
     purchase_order: "Purchase order" #?
+    purchase_order_items: "Order items"
     purchase_payments: "Purchase payments"
     purchases: "Purchases"
     purchases_prices: "Purchases prices"
@@ -2131,7 +2133,6 @@ eng:
     receipt_date: "Receipt date"
     receipt_responsible: "Receipt responsible"
     received: "Received" #?
-    received_quantity: "Received quantity" #?
     receiving_address: "Receiving address"
     recent_events: "Recent events"
     reception: "Reception"
@@ -2929,6 +2930,7 @@ eng:
       notify_accountant: "Notify accountant"
       open: "Open"
       order: "Order"
+      order_again: "Order again"
       # parameter_cost: "Parameter cost"
       # participations_modal: "Participations modal"
       # passthru: "Passthru"

@@ -122,6 +122,9 @@ eng:
         contract: "Contract"
       parcel_item:
         population: "Quantity"
+      parcel_item_storing:
+        reception_given_at: "Given at"
+        reception_planned_at: "Planned at"
       plant:
         born_at: "Planted at"
       plant_counting:
@@ -137,7 +140,11 @@ eng:
       purchase:
         affair_balance: "Balance"
       purchase_item:
+        average_unit_pretax_amount: "Average unit pretax amount"
         fixed_asset_stopped_on: "Fixed asset stopped on"
+        last_unit_pretax_amount: "Last unit pretax amount"
+        ordered_quantity: "Ordered quantity"
+        supplier_name: "Supplier"
       sale:
         affair_balance: "Balance"
         contact: "Address for the estimate"

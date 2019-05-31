@@ -183,10 +183,9 @@ fra:
         contract: "Contrat"
       parcel_item:
         population: "Quantité"
-      parcel_item_storing: #?
-        conditionning: "Conditionnement" #?
-        conditionning_quantity: "Quantité" #?
-        quantity: "Quantité totale" #?
+      parcel_item_storing:
+        reception_given_at: "Donné le"
+        reception_planned_at: "Prévu le"
       payslip_payment: #?
         delivered: "Remis au bénéficiaire" #?
         list: "Lot de décaissements" #?
@@ -246,10 +245,14 @@ fra:
         reference_number: "Référence fournisseur (n° facture)" #?
       purchase_item:
         amount: "Montant TTC" #?
+        average_unit_pretax_amount: "PU moyen HT"
         conditionning: "Conditionnement" #?
         conditionning_quantity: "Quantité" #?
         fixed_asset_stopped_on: "Immobilisation arrêtée le"
+        last_unit_pretax_amount: "Dernier prix HT"
+        ordered_quantity: "Quantité commandée"
         quantity: "Quantité totale" #?
+        supplier_name: "Fournisseur"
       purchase_order: #?
         command_mode: "Mode de commande" #?
         description: "Notes" #?
@@ -1568,7 +1571,7 @@ fra:
     operation: "Travail"
     operation_name: "Nom de l’opération"
     operations: "Travaux" #?
-    ordered_at: "Commandé à"
+    ordered_at: "Commandé le"
     organic_fertilizer_mineral_fraction: "Azote de la fraction minérale d’un engrais organique (Xa)"
     organization: "Organisation" #?
     origin: "Origine"

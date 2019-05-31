@@ -1911,9 +1911,11 @@ spa:
     provisionnal_budget: "Presupuesto Provisionnal" #?
     provisions_revenues: "Provisiones ingresos"
     purchase: "Compra"
+    # purchase_invoice_items: "Invoice items"
     purchase_items: "Artículos de la compra"
     purchase_number: "Número de compra"
     # purchase_order: "Purchase order"
+    # purchase_order_items: "Order items"
     purchase_payments: "Pagos de compra"
     purchase_steps: #?
       products: "Creación de la compra" #?
@@ -1942,7 +1944,6 @@ spa:
     # receipt_date: "Receipt date"
     # receipt_responsible: "Receipt responsible"
     received: "Recibido"
-    # received_quantity: "Received quantity"
     # receiving_address: "Receiving address"
     recent_events: "Eventos recientes"
     # reception: "Reception"

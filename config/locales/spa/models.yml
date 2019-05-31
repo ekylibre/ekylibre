@@ -118,6 +118,9 @@ spa:
         contract: "Contrato"
       parcel_item:
         population: "Cantidad"
+      parcel_item_storing:
+        # reception_given_at: "Given at"
+        # reception_planned_at: "Planned at"
       plant:
         born_at: "Plantado en"
       plant_counting:
@@ -133,7 +136,11 @@ spa:
       purchase:
         affair_balance: "Equilibrar"
       purchase_item:
+        # average_unit_pretax_amount: "Average unit pretax amount"
         # fixed_asset_stopped_on: "Fixed asset stopped on"
+        # last_unit_pretax_amount: "Last unit pretax amount"
+        # ordered_quantity: "Ordered quantity"
+        # supplier_name: "Supplier"
       purchase_payment: #?
         delivered: "Teniendo en cuenta para el destinatario" #?
         list: "Lista de salida de pago" #?

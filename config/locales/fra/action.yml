@@ -2203,9 +2203,11 @@ fra:
     provisionnal_budget: "Budget prévisionnel" #?
     provisions_revenues: "Reprises sur provisions et transfert de charges"
     purchase: "Achat"
+    purchase_invoice_items: "Facture d'achats"
     purchase_items: "Lignes de l’achat"
     purchase_number: "N° d’achat"
     purchase_order: "Commande"
+    purchase_order_items: "Commandes d'achats"
     purchase_payments: "Décaissements"
     purchase_steps: #?
       deliveries: "Livraisons" #?
@@ -2244,7 +2246,6 @@ fra:
     receipt_date: "Date de réception"
     receipt_responsible: "Responsable réception"
     received: "Reçue"
-    received_quantity: "Quantité réceptionée"
     receiving_address: "Adresse de réception"
     recent_events: "Derniers événements"
     recent_historic: "Historique récent" #?
@@ -3225,6 +3226,7 @@ fra:
       notify_accountant: "Notifier le comptable"
       open: "Ouvrir"
       order: "Commander"
+      order_again: "Commander à nouveau"
       pay: "Payer"
       payment_gap: "Écart de réglement"
       payment_mode: "Payer (Mode)"

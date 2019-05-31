@@ -118,6 +118,9 @@ jpn:
         contract: "契約する"
       parcel_item:
         population: "量"
+      parcel_item_storing:
+        # reception_given_at: "Given at"
+        # reception_planned_at: "Planned at"
       plant:
         born_at: "で植え"
       plant_counting:
@@ -133,7 +136,11 @@ jpn:
       purchase:
         affair_balance: "バランス"
       purchase_item:
+        # average_unit_pretax_amount: "Average unit pretax amount"
         # fixed_asset_stopped_on: "Fixed asset stopped on"
+        # last_unit_pretax_amount: "Last unit pretax amount"
+        # ordered_quantity: "Ordered quantity"
+        # supplier_name: "Supplier"
       purchase_payment: #?
         delivered: "受信者に与えられました" #?
         list: "支払一覧" #?
