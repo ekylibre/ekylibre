@@ -118,7 +118,11 @@ class SaleItem < Ekylibre::Record::Base
     joins(:variant).merge(ProductNatureVariant.of_natures(product_nature))
   }
 
-  scope :linked_to_fixed_asset, -> { where.not(fixed_asset_id: nil) }
+  scope :active, -> { includes(:sale).where.not(sales: { state: %i[refused aborted] }).order(created_at: :desc) }
+  scope :invoiced_on_or_after, -> (date) { includes(:sale).where("invoiced_at >= '#{date}' OR invoiced_at IS NULL") }
+  scope :fixed, -> { where(fixed: true) }
+  scope :linkable_to_fixed_asset, -> { active.fixed.where(fixed_asset_id: nil) }
+  scope :linked_to_fixed_asset, -> { active.where.not(fixed_asset_id: nil) }
 
   calculable period: :month, column: :pretax_amount, at: 'sales.invoiced_at', name: :sum, joins: :sale
 
@@ -179,7 +183,7 @@ class SaleItem < Ekylibre::Record::Base
 
   after_save do
     unlink_fixed_asset(fixed_asset_id_was) if fixed_asset_id_was
-    link_fixed_asset if fixed_asset_id
+    link_fixed_asset(fixed_asset_id) if fixed_asset_id
 
     next unless Preference[:catalog_price_item_addition_if_blank]
     %i[stock sale].each do |usage|
@@ -203,7 +207,7 @@ class SaleItem < Ekylibre::Record::Base
     FixedAsset.find(former_id).update!(sale_id: nil, sale_item_id: nil, tax_id: nil, selling_amount: nil, pretax_selling_amount: nil)
   end
 
-  def link_fixed_asset
+  def link_fixed_asset(fixed_asset_id)
     FixedAsset.find(fixed_asset_id).update!(sale_id: sale.id, sale_item_id: id, tax_id: tax_id, selling_amount: amount, pretax_selling_amount: pretax_amount)
   end
 

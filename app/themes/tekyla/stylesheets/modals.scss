@@ -31,7 +31,7 @@
         .modal-introduction {
           padding: $default-gap * 2;
         }
-        ul {
+        ul:not(.items-list) {
           padding-top: round($default-gap / 2);
           padding-botton: round($default-gap / 2);
           @include padding-left(2em);

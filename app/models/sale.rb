@@ -89,7 +89,7 @@ class Sale < Ekylibre::Record::Base
   belongs_to :transporter, class_name: 'Entity'
   has_many :credits, class_name: 'Sale', foreign_key: :credited_sale_id
   has_many :parcels, dependent: :destroy, inverse_of: :sale
-  has_many :items, -> { order('position, id') }, class_name: 'SaleItem', dependent: :destroy, inverse_of: :sale
+  has_many :items, -> { order('position, sale_items.id') }, class_name: 'SaleItem', dependent: :destroy, inverse_of: :sale
   has_many :journal_entries, as: :resource
   has_many :subscriptions, through: :items, class_name: 'Subscription', source: 'subscription'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -192,6 +192,12 @@ class Sale < Ekylibre::Record::Base
     if invoiced_at
       errors.add(:invoiced_at, :financial_year_exchange_on_this_period) if invoiced_during_financial_year_exchange?
       errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
+
+      linked_fixed_asset_ids = items.map(&:fixed_asset_id).compact
+      if linked_fixed_asset_ids.any?
+        latest_start_date = FixedAsset.where(id: linked_fixed_asset_ids).maximum(:started_on)
+        errors.add(:invoiced_at, :on_or_after, restriction: latest_start_date.l) if invoiced_at.to_date < latest_start_date
+      end
     end
     %i[address delivery_address invoice_address].each do |mail_address|
       next unless send(mail_address)
@@ -216,6 +222,7 @@ class Sale < Ekylibre::Record::Base
 
   after_save do
     items.linked_to_fixed_asset.each { |item| item.fixed_asset.update_columns(sold_on: invoiced_at.to_date) }
+    items.each { |item| item.depreciable_product.update!(dead_at: invoiced_at) if item.depreciable_product } if invoice?
   end
 
   protect on: :update do

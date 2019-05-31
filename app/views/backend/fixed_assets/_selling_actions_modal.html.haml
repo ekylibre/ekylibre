@@ -7,9 +7,15 @@
           %span{ 'aria-hidden': 'true' } &times;
 
       .modal-body
-        = backend_form_for(resource, url: link_to_sale_backend_fixed_asset_path, method: :patch) do |f|
-          = f.referenced_association :sale_item
+        = simple_form_for(resource, url: link_to_sale_backend_fixed_asset_path, method: :patch) do |f|
+
+          - if @sale_items.any?
+            = f.input :sale_item_id, as: :select, collection: @sale_items, required: true, label: :associated_sale.tl, label_method: lambda { |i| "#{i.sale.number} - #{i.variant.name} - #{i.created_at.to_date.l}" }
+
+          - else
+            %p= :no_sale_to_link_to_this_fixed_asset.tl
+            %p= :click_the_button_below_to_record_a_new_transaction.tl
 
       .modal-footer.centered
         %button.btn.btn-secondary{ type: 'button', data: { dismiss: 'modal' } }= :cancel.tl
-        %button.btn.btn-primary#submit-form{ type: 'button' }= :validate.tl
+        %button.btn.btn-primary#submit-form{ type: 'button' }= @submit_label
