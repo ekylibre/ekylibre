@@ -18,6 +18,8 @@
 
 module Backend
   class OutgoingPaymentListsController < Backend::BaseController
+    include PdfPrinter
+
     manage_restfully only: %i[index destroy]
 
     respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
@@ -51,42 +53,23 @@ module Backend
 
       @entity_of_company_full_name = Entity.of_company.full_name
 
-      if %w[pdf odt docx xml csv].include? params[:format].to_s
-        respond_with(
-          @outgoing_payment_list,
-          methods: %i[currency payments_sum entity],
-          include: {
-            payer: {
-              methods: [:picture_path],
-              include: {
-                default_mail_address: {
-                  methods: [:mail_coordinate]
-                },
-                websites: {},
-                emails: {},
-                mobiles: {}
-              }
-            },
-            payments: {
-              methods: %i[amount_to_letter label affair_reference_numbers],
-              include: {
-                responsible: {},
-                affair: { include: { purchase_invoices: {} } },
-                mode: {},
-                payee: {
-                  include: {
-                    default_mail_address: {
-                      methods: [:mail_coordinate]
-                    },
-                    websites: {},
-                    emails: {},
-                    mobiles: {}
-                  }
-                }
-              }
-            }
-          }
-        )
+      document_nature = Nomen::DocumentNature.find(:outgoing_payment_list)
+      key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
+      file_name = "#{t('nomenclatures.document_natures.items.outgoing_payment_list')} (#{@outgoing_payment_list.number})"
+
+      respond_to do |format|
+        format.html
+        format.pdf do
+          template_name = "#{params[:nature]}_outgoing_payment_list"
+          template_path = find_open_document_template template_name
+          raise 'Cannot find template' if template_path.nil?
+          outgoing_payment_list_printer = OutgoingPaymentListPrinter.new(outgoing_payment_list: @outgoing_payment_list,
+                                                                         document_nature: document_nature,
+                                                                         key: key,
+                                                                         template_path: template_path,
+                                                                         nature: params[:nature])
+          send_file outgoing_payment_list_printer.run_pdf, type: 'application/pdf', disposition: 'attachment', filename: "#{file_name}.pdf"
+        end
       end
     end
 

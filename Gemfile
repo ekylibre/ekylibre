@@ -190,6 +190,7 @@ gem 'sepa_king'
 # gem 'sepa_king', path: '/home/jonathan/Workspace/sepa_king'
 gem 'quandl'
 gem 'odf-report'
+gem 'combine_pdf'
 gem 'rodf'
 
 # Demo data
@@ -268,6 +269,8 @@ group :test do
   gem 'database_cleaner'
 
   gem 'minitest-reporters'
+
+  gem 'pdf-reader'
 
   gem 'factory_bot', '< 5'
 end

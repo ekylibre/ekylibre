@@ -1700,6 +1700,7 @@ jpn:
     transports: "トランスポート" #?
     trouble_description: "トラブルの説明"
     trouble_encountered: "トラブルに遭遇"
+    # vat_account: "VAT account"
     type: "タイプ"
     # uid: "UID"
     unconfirmed_email: "未確認メール"

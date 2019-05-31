@@ -2665,6 +2665,7 @@ arb:
     transports: "وسائل النقل" #?
     trouble_description: "وصف المتاعب"
     trouble_encountered: "مشكلة واجهتها"
+    # vat_account: "VAT account"
     type: "النوع"
     # uid: "UID"
     unconfirmed_email: "البريد الإلكتروني غير مؤكد"

@@ -81,14 +81,14 @@
         @initializing = false
       @element.prop("widgetInitialized", true)
 
-    value: (newValue) ->
+    value: (newValue, callback = false) ->
       if newValue is null or newValue is undefined or newValue is ""
         val = parseInt(@valueField.val())
         val = null if isNaN(val)
         return val
-      this._set(newValue)
+      this._set(newValue, false,  callback)
 
-    _set: (id, triggerEvents = false) ->
+    _set: (id, triggerEvents = false, callback = false) ->
       if id is null or id is undefined or id is ""
         @initializing = false
         return @valueField.val()
@@ -102,6 +102,7 @@
           listItem = $.parseJSON(request.responseText)[0]
           if listItem?
             @_select listItem.id, listItem.label, triggerEvents
+            callback() if callback != false
           else
             console.warn "JSON cannot be parsed. Get: #{request.responseText}."
         error: (request, status, error) ->

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -421,5 +421,16 @@ class JournalEntryItem < Ekylibre::Record::Base
     return unless account
     third_parties = Entity.uniq.where('client_account_id = ? OR supplier_account_id = ? OR employee_account_id = ?', account.id, account.id, account.id)
     third_parties.take if third_parties.count == 1
+  end
+
+  # fixed_assets, expenses and revenues are used into tax declaration
+  def vat_account
+   prefixes = Account.tax_declarations.pluck(:number).join
+   return unless account_number =~ /^[#{prefixes}].*/
+   entry.items.find_by(resource_prism: ["item_tax_reverse_charge", "item_tax"])&.account
+  end
+
+  def vat_account_label
+    vat_account&.label
   end
 end

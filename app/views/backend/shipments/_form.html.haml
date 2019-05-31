@@ -7,7 +7,7 @@
   = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
   = f.input :with_delivery
   = f.input :delivery_mode, as: :radio_buttons
-  #transporter
+  #delivery-mode-transporter
     = f.referenced_association :transporter, source: :necessary_transporters, new: {transporter: 1}
   -#= f.referenced_association :sale
   = f.input :planned_at, required: false

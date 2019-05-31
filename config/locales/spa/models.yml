@@ -1704,6 +1704,7 @@ spa:
     transports: "Transportes" #?
     trouble_description: "Descripción problemas"
     trouble_encountered: "El problema encontrado"
+    # vat_account: "VAT account"
     type: "Tipo"
     # uid: "UID"
     unconfirmed_email: "Correo electrónico sin confirmar"

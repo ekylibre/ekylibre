@@ -21,7 +21,7 @@
             quantity = $(quantityElement).val()
 
           newStock = parseFloat(data.stock) + parseFloat(quantity)
-          $(currentForm).find('.merchandise-stock-after-purchase .stock-value').text(newStock)
+          $(currentForm).find('.merchandise-stock-after-purchase .stock-value').text(newStock.toFixed(2))
           $(currentForm).find('.merchandise-stock-after-purchase .stock-unit').text(data.unit.name)
 
 ) ekylibre, jQuery

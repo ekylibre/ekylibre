@@ -139,7 +139,6 @@ module Backend
 
     # conditions: list_conditions,
     list(conditions: list_conditions, order: { started_at: :desc }, line_class: :status, includes: [:receptions, :activities, :targets, :participations], joins:'LEFT OUTER JOIN interventions I ON interventions.id = I.request_intervention_id') do |t|
-      t.action :purchase, on: :both, method: :post
       t.action :sell,     on: :both, method: :post
       t.action :edit, if: :updateable?
       t.action :destroy, if: :destroyable?, unless: :receptions_is_given?

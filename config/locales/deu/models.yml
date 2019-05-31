@@ -1699,6 +1699,7 @@ deu:
     transports: "Transporte" #?
     trouble_description: "Fehlerbeschreibung"
     trouble_encountered: "Schwierigkeiten gestoßen"
+    # vat_account: "VAT account"
     type: "Art"
     # uid: "UID"
     unconfirmed_email: "Unbestätigten E-Mail"

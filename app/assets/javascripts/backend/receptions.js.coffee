@@ -40,7 +40,7 @@
           else
             h2.hide()
 
-    $('table.list').on 'cocoon:after-insert', ->
+    $('table.list').on 'cocoon:after-insert', (event, $insertedItem) ->
       $('*[data-iceberg]').on "iceberg:inserted", ->
         that = $(this)
         $(this).find('*[data-association]').each (i, cocoonBtn) ->
@@ -50,6 +50,12 @@
             E.toggleValidateButton(that)
             E.setStorageUnitName(that)
 
+      if $insertedItem && $insertedItem.hasClass('storing-fields')
+        unitName = $insertedItem.closest('.item-block__storing').find('.storage-unit-name').first().text()
+        $insertedItem.find('.storage-unit-name').text(unitName)
+
+
+
     $('.new_reception, .edit_reception').on 'change', '#reception_reconciliation_state', (event) ->
       checked = $(event.target).is(':checked')
 
@@ -57,6 +63,8 @@
         $(event.target).val('accepted')
       else
         $(event.target).val('to_reconciliate')
+
+
 
 
 
@@ -70,7 +78,7 @@
       $.ajax
         url: "/backend/product_nature_variants/#{variantId}/detail",
         success: (data, status, request) ->
-          $currentForm.find('.storing__footer .merchandise-total-current-stock .stock-value').text(data.stock)
+          $currentForm.find('.storing__footer .merchandise-total-current-stock .stock-value').text(data.stock.toFixed(2))
           $currentForm.find('.storing__footer .merchandise-total-current-stock .stock-unit').text(data.unit.name)
 
           reducer = (acc, val) ->
@@ -82,7 +90,7 @@
           .reduce(reducer)
 
           newStock = parseFloat(data.stock) + parseFloat(quantity)
-          $currentForm.find('.storing__footer .merchandise-total-stock-after-reception .stock-value').text(newStock)
+          $currentForm.find('.storing__footer .merchandise-total-stock-after-reception .stock-value').text(newStock.toFixed(2))
           $currentForm.find('.storing__footer .merchandise-total-stock-after-reception .stock-unit').text(data.unit.name)
 
       $currentForm.find('.nested-fields').each ->
@@ -98,12 +106,12 @@
           data: { storage_id: storageId }
 
           success: (data, status, request) ->
-            $storingItem.find('.merchandise-current-stock .stock-value').text(parseFloat(data.quantity))
+            $storingItem.find('.merchandise-current-stock .stock-value').text(parseFloat(data.quantity).toFixed(2))
             $storingItem.find('.merchandise-current-stock .stock-unit').text(data.unit)
 
             quantity = $storingItem.find('.storing-quantity').val() || 0
             newStock = parseFloat(data.quantity) + parseFloat(quantity)
-            $storingItem.find('.merchandise-stock-after-reception .stock-value').text(newStock)
+            $storingItem.find('.merchandise-stock-after-reception .stock-value').text(newStock.toFixed(2))
             $storingItem.find('.merchandise-stock-after-reception .stock-unit').text(data.unit)
 
 

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20180814184001">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20190514084753">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -2096,6 +2096,7 @@
       <item name="animal_life_state" datatype="choice" choices="animal_life_states"/>
       <item name="application_width" datatype="measure" unit="meter" gathering="proportional_to_population"/>
       <item name="approved_input_dose" datatype="measure" unit="kilogram_per_hectare"/>
+      <item name="approved_input_volume" datatype="measure" unit="liter_per_hectare"/>
       <item name="atmospheric_pressure" datatype="measure" unit="hectopascal" sampling_temporal_mode="instant"/>
       <item name="available_water_capacity_per_area" datatype="measure" unit="liter_per_square_meter"/>
       <item name="average_atmospheric_pressure" datatype="measure" unit="hectopascal" sampling_temporal_mode="period"/>
@@ -3904,7 +3905,7 @@
       <item name="fiscal_fine" category="fiscal_fine" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="flower_crop" category="crop" variety="plant" population_counting="decimal" abilities="consume(water), consume(preparation), produce(pollen), produce(flower), produce(straw), produce(grain)" variable_indicators="plant_life_state, plants_count, shape" frozen_indicators="net_surface_area" derivatives="pollen, flower, straw, grain"/>
       <item name="fodder_bale" category="grass" variety="grass" derivative_of="plant" population_counting="decimal" abilities="feed(animal)" variable_indicators="dry_matter_rate" frozen_indicators="net_mass, net_volume, fodder_bales_count"/>
-      <item name="foliar_spray" category="fertilizer" variety="preparation" population_counting="decimal" abilities="care(plant), fertilize, kill(insecta), kill(fungus)" variable_indicators="approved_input_dose, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period" frozen_indicators="net_volume, net_mass"/>
+      <item name="foliar_spray" category="fertilizer" variety="preparation" population_counting="decimal" abilities="care(plant), fertilize, kill(insecta), kill(fungus)" variable_indicators="approved_input_volume, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period" frozen_indicators="net_volume, net_mass"/>
       <item name="food_distributor" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="deliver(silage),deliver(straw),deliver(hay)" variable_indicators="nominal_storable_net_volume, nominal_storable_net_mass" frozen_indicators=""/>
       <item name="food_equipment_division" category="building_division" variety="building_division" population_counting="unitary" abilities="store(equipment), store(grass), store(mix), store(seed)" variable_indicators="net_surface_area, shape, nominal_storable_net_volume, nominal_storable_easement_area" frozen_indicators=""/>
       <item name="food_tank" category="equipment" variety="tank" population_counting="unitary" abilities="store(mix)" variable_indicators="nominal_storable_net_volume, nominal_storable_net_mass" frozen_indicators=""/>
@@ -3918,7 +3919,7 @@
       <item name="fruit_residu" category="fruit" variety="pomace" population_counting="decimal" abilities="fertilize" variable_indicators="" frozen_indicators="net_mass, net_volume"/>
       <item name="fuel" category="fuel" variety="fuel" population_counting="decimal" variable_indicators="" frozen_indicators="energy, net_volume, net_mass"/>
       <item name="fuel_tank" category="equipment" variety="tank" population_counting="unitary" abilities="store(fuel)" variable_indicators="" frozen_indicators="nominal_storable_net_volume"/>
-      <item name="fungicide" category="plant_medicine" variety="preparation" population_counting="decimal" abilities="kill(fungus), care(plant)" variable_indicators="approved_input_dose, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period" frozen_indicators="net_volume, net_mass"/>
+      <item name="fungicide" category="plant_medicine" variety="preparation" population_counting="decimal" abilities="kill(fungus), care(plant)" variable_indicators="approved_input_volume, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period" frozen_indicators="net_volume, net_mass"/>
       <item name="gas" category="gas" variety="gas" population_counting="decimal" variable_indicators="" frozen_indicators="energy"/>
       <item name="gas_engine" category="equipment" variety="portable_equipment" population_counting="unitary" abilities="store_gaz, kill(plant)" frozen_indicators="application_width, nominal_storable_net_volume, theoretical_working_speed" variable_indicators="geolocation"/>
       <item name="goat_herd" category="cattle_herd" variety="animal_group" derivative_of="capra" population_counting="unitary" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix), consume(silage)" frozen_indicators=""/>
@@ -3942,7 +3943,7 @@
       <item name="hedge_cutter" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="cut" frozen_indicators=""/>
       <item name="hen_band" category="aves_band" variety="gallus" population_counting="unitary" abilities="move, consume(water), consume(poaceae), produce(excrement), produce(egg), consume(mix)" variable_indicators="" frozen_indicators="sex, reproductor" derivatives="meat, egg"/>
       <item name="hen_herd" category="aves_herd" variety="animal_group" derivative_of="gallus" population_counting="unitary" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix)" variable_indicators=""/>
-      <item name="herbicide" category="plant_medicine" variety="preparation" population_counting="decimal" abilities="kill(plant), care(plant)" variable_indicators="approved_input_dose, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period" frozen_indicators="net_volume, net_mass"/>
+      <item name="herbicide" category="plant_medicine" variety="preparation" population_counting="decimal" abilities="kill(plant), care(plant)" variable_indicators="approved_input_volume, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period" frozen_indicators="net_volume, net_mass"/>
       <item name="hiller" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="earth_up" frozen_indicators="application_width, rows_count, theoretical_working_speed" variable_indicators="geolocation"/>
       <item name="hive" category="equipment" variety="equipment" population_counting="unitary" abilities="store(apis), store(honey)"/>
       <item name="hoe" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="plow_superficially, hoe" variable_indicators="geolocation" frozen_indicators="application_width, rows_count, theoretical_working_speed"/>
@@ -3952,7 +3953,7 @@
       <item name="hydraulic_oil" category="fuel" variety="oil" population_counting="decimal" abilities="lubricate(equipment)" variable_indicators="" frozen_indicators="net_volume, net_mass"/>
       <item name="implanter" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="implant" variable_indicators="geolocation" frozen_indicators="application_width, rows_count, theoretical_working_speed"/>
       <item name="infirmity_and_death_insurance" category="infirmity_and_death_insurance" variety="service" population_counting="decimal" variable_indicators=""/>
-      <item name="insecticide" category="plant_medicine" variety="preparation" population_counting="decimal" abilities="kill(insecta), care(plant)" variable_indicators="approved_input_dose, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period" frozen_indicators="net_volume, net_mass"/>
+      <item name="insecticide" category="plant_medicine" variety="preparation" population_counting="decimal" abilities="kill(insecta), care(plant)" variable_indicators="approved_input_volume, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period" frozen_indicators="net_volume, net_mass"/>
       <item name="inseminator" category="worker" variety="worker" population_counting="unitary" abilities="move, administer_inseminate(animal)" variable_indicators="geolocation" frozen_indicators=""/>
       <item name="installing_charge" category="installing_charge" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="insurance" category="insurance" variety="service" population_counting="decimal" variable_indicators=""/>
@@ -4002,7 +4003,7 @@
       <item name="mixed_chemical_fertilizer" category="fertilizer" variety="preparation" population_counting="decimal" abilities="fertilize" variable_indicators="nitrogen_concentration, phosphorus_concentration, potassium_concentration" frozen_indicators="net_volume, net_mass"/>
       <item name="mixed_liquid_fertilizer" category="fertilizer" variety="preparation" population_counting="decimal" abilities="fertilize" variable_indicators="nitrogen_concentration, phosphorus_concentration, potassium_concentration" frozen_indicators="net_volume, net_mass"/>
       <item name="mixed_organic_fertilizer" category="fertilizer" variety="preparation" population_counting="decimal" abilities="fertilize" frozen_indicators="net_mass, net_volume" variable_indicators="nitrogen_concentration, phosphorus_concentration, potassium_concentration, dry_matter_rate, organic_matter_concentration, sulfur_trioxide_concentration, magnesium_concentration, calcium_concentrtion"/>
-      <item name="molluscicide" category="plant_medicine" variety="preparation" population_counting="decimal" abilities="kill(gastropoda), care(plant)" variable_indicators="approved_input_dose, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period" frozen_indicators="net_volume, net_mass"/>
+      <item name="molluscicide" category="plant_medicine" variety="preparation" population_counting="decimal" abilities="kill(gastropoda), care(plant)" variable_indicators="approved_input_volume, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period" frozen_indicators="net_volume, net_mass"/>
       <item name="motor_oil" category="fuel" variety="oil" population_counting="decimal" abilities="lubricate(trailed_equipment), lubricate(motorized_vehicle)" variable_indicators="" frozen_indicators="net_volume, net_mass"/>
       <item name="moving_travel" category="travel" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="mower" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="mow" variable_indicators="application_width, geolocation" frozen_indicators=""/>

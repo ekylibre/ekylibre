@@ -1731,6 +1731,7 @@ ita:
     transports: "Trasporti" #?
     trouble_description: "Descrizione guai"
     trouble_encountered: "Problemi riscontrati"
+    # vat_account: "VAT account"
     type: "Digitare"
     # uid: "UID"
     unconfirmed_email: "e-mail non confermato"

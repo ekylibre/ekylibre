@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -67,6 +67,7 @@ class Shipment < Parcel
   belongs_to :sale, inverse_of: :parcels
   has_many :items, class_name: 'ShipmentItem', inverse_of: :shipment, foreign_key: :parcel_id, dependent: :destroy
 
+  accepts_nested_attributes_for :items
 
   state_machine initial: :draft do
     state :draft

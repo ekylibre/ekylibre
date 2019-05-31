@@ -14,28 +14,28 @@
         %i
         = :edit.tl
     %td.product-column
-      %label{ data: { item_value: "input.invoice-variant" } }= f.object.variant ? f.object.variant.name : '??????'
+      %label{ data: { item_value: "input.invoice-variant" } }= f.object.variant ? f.object.variant.name : 'ERROR'
     %td.quantity-column
-      %label{ data: { item_value: "input.invoice-quantity" } }= f.object.variant ? f.object.variant.name : '??????'
+      %label{ data: { item_value: "input.invoice-quantity" } }= f.object.variant ? f.object.variant.name : 'ERROR'
       %label{ data: { item_value: "span.item-population-unit-name"}}= f.object.variant ? f.object.variant.unit_name : '#'
     %td.unit-amount-column.two-rows-column
       %span
-        %label{ data: { item_value: "input.invoice-unit-amount" } }= f.object.variant ? f.object.variant.name : '??????'
+        %label{ data: { item_value: "input.invoice-unit-amount" } }= f.object.variant ? f.object.variant.name : 'ERROR'
         %label= Nomen::Currency.find(f.object.currency).symbol
       %label{class: "invoice-second-row-label"}= :discount_without_percent.tl
       %span
-        %label{ data: { item_value: "input.invoice-discount-percentage" } }= f.object.variant ? f.object.variant.name : '??????'
+        %label{ data: { item_value: "input.invoice-discount-percentage" } }= f.object.variant ? f.object.variant.name : 'ERROR'
         %label= "%"
     %td.pretax-amount-column
       %span
-        %label{ class: 'amount-excluding-taxes', data: { item_value: "input.pre-tax-invoice-total" } }= f.object.variant ? f.object.variant.name : '??????'
+        %label{ class: 'amount-excluding-taxes', data: { item_value: "input.pre-tax-invoice-total" } }= f.object.variant ? f.object.variant.name : 'ERROR'
         %label= Nomen::Currency.find(f.object.currency).symbol
     %td.total-column.two-rows-column
       %span
-        %label{ class: 'amount-including-taxes', data: { item_value: "input.invoice-total" } }= f.object.variant ? f.object.variant.name : '??????'
+        %label{ class: 'amount-including-taxes', data: { item_value: "input.invoice-total" } }= f.object.variant ? f.object.variant.name : 'ERROR'
         %label= Nomen::Currency.find(f.object.currency).symbol
-      %label{ class: "invoice-second-row-label"}= :vat_rate.tl
-      %label{ class: 'vat-rate', data: { item_value: "select.vat-total option:selected", selected_value: f.object.tax_id } }= f.object.variant ? f.object.variant.name : '??????'
+        %label{ class: "invoice-second-row-label"}= :vat_rate.tl
+      %label{ class: 'vat-rate', data: { item_value: "select.vat-total option:selected", selected_value: f.object.tax_id } }= f.object.variant ? f.object.variant.name : 'ERROR'
 
   %tr.nested-item-form
     %td.item-form{colspan: 20}
