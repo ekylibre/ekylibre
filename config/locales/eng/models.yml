@@ -123,6 +123,9 @@ eng:
       parcel_item:
         population: "Quantity"
         product_name: "Product name"
+      parcel_item_storing:
+        conditionning: "Conditionning"
+        conditionning_quantity: "Conditionning quantity"
       plant:
         born_at: "Planted at"
       plant_counting:
