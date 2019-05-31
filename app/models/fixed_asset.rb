@@ -83,6 +83,8 @@ class FixedAsset < Ekylibre::Record::Base
   belongs_to :scrapped_journal_entry, class_name: 'JournalEntry', dependent: :destroy
   belongs_to :product
   belongs_to :tax
+  belongs_to :sale
+  belongs_to :sale_item
   has_many :purchase_items, inverse_of: :fixed_asset
   has_many :depreciations, -> { order(:position) }, class_name: 'FixedAssetDepreciation' do
     def following(depreciation)
@@ -182,6 +184,9 @@ class FixedAsset < Ekylibre::Record::Base
         errors.add(:stopped_on, :posterior, to: started_on.l)
       end
     end
+
+    errors.add(:sold_on, :on_or_before, restriction: Date.today.l) if sold_on && sold_on > Date.today
+    errors.add(:scrapped_on, :on_or_before, restriction: Date.today.l) if scrapped_on && scrapped_on > Date.today
     true
   end
 
@@ -205,6 +210,7 @@ class FixedAsset < Ekylibre::Record::Base
     # end
     # end
     depreciate! if @auto_depreciate
+    sale.update_columns(invoiced_at: sold_on.to_datetime) if changes[:sold_on] && sale && !sale.invoice? && sold_on
   end
 
   def on_unclosed_periods?

@@ -17,6 +17,8 @@ class FixedAsset
         resource.transaction do
           resource.save!
           update_depreciation_out_on! resource.sold_on
+          resource.product.update! dead_at: @sold_on
+          resource.sale.invoice unless resource.sale.invoice?
           true
         end
       rescue
@@ -25,7 +27,9 @@ class FixedAsset
 
       def can_run?
         super && resource.valid? &&
-          sold_on_during_opened_financial_year
+          sold_on_during_opened_financial_year &&
+          resource.product &&
+          resource.sale
       end
 
       private

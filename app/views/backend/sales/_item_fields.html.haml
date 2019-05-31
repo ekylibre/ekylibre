@@ -10,7 +10,7 @@
     = f.input_field :compute_from, as: :hidden, data: { compute_from_updater: true }
     %td= f.object.parcels.map { |i| i.reference_number.blank? ? i.number : i.reference_number }.to_sentence
     %td= f.input :accounting_label, wrapper: :nested
-    %td= f.input(:quantity, wrapper: :nested, input_html: {size: 5, data: {trade_component: "quantity"}})
+    %td= f.input(:quantity, wrapper: :nested, input_html: {size: 5, data: {trade_component: "quantity"}}, disabled: item.fixed)
     %td= f.input(:unit_pretax_amount, wrapper: :nested, input_html: {size: 8, data: {trade_component: "unit_pretax_amount", compute_from: :unit_pretax_amount }})
     %td= f.select(:tax_id, Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.usable_amount)/100)}]}, {}, data: {value: 'rate', trade_component: "tax"})
     %td= f.input(:reduction_percentage, wrapper: :nested, input_html: {size: 8, data: {trade_component: "reduction_percentage"}})

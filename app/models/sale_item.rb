@@ -118,6 +118,8 @@ class SaleItem < Ekylibre::Record::Base
     joins(:variant).merge(ProductNatureVariant.of_natures(product_nature))
   }
 
+  scope :linked_to_fixed_asset, -> { where.not(fixed_asset_id: nil) }
+
   calculable period: :month, column: :pretax_amount, at: 'sales.invoiced_at', name: :sum, joins: :sale
 
   before_validation do
@@ -176,17 +178,15 @@ class SaleItem < Ekylibre::Record::Base
   end
 
   after_save do
+    unlink_fixed_asset(fixed_asset_id_was) if fixed_asset_id_was
+    link_fixed_asset if fixed_asset_id
+
     next unless Preference[:catalog_price_item_addition_if_blank]
     %i[stock sale].each do |usage|
       # set stock catalog price if blank
       next unless catalog = Catalog.by_default!(usage)
       next if variant.catalog_items.of_usage(usage).any? || unit_pretax_amount.blank? || unit_pretax_amount.zero?
       variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: unit_pretax_amount, currency: currency)
-    end
-
-    if changes[:fixed_asset_id]
-      unlink_fixed_asset(fixed_asset_id_was) if fixed_asset_id_was
-      link_fixed_asset
     end
   end
 
@@ -199,6 +199,7 @@ class SaleItem < Ekylibre::Record::Base
   end
 
   def unlink_fixed_asset(former_id)
+    # Instead of dependent: :nullify since we need to update more attributes than just the foreign key and it doesn't trigger callbacks
     FixedAsset.find(former_id).update!(sale_id: nil, sale_item_id: nil, tax_id: nil, selling_amount: nil, pretax_selling_amount: nil)
   end
 

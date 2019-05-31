@@ -7,9 +7,8 @@
           %span{ 'aria-hidden': 'true' } &times;
 
       .modal-body
-        = simple_form_for(resource, url: link_to_sale_backend_fixed_asset_path, method: :patch) do |f|
-          = f.input :name
-          -# TODO: Once asstet_fixable has been added to sales form, handle different collections
+        = backend_form_for(resource, url: link_to_sale_backend_fixed_asset_path, method: :patch) do |f|
+          = f.referenced_association :sale_item
 
       .modal-footer.centered
         %button.btn.btn-secondary{ type: 'button', data: { dismiss: 'modal' } }= :cancel.tl

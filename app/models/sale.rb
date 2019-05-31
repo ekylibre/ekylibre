@@ -214,6 +214,10 @@ class Sale < Ekylibre::Record::Base
     true
   end
 
+  after_save do
+    items.linked_to_fixed_asset.each { |item| item.fixed_asset.update_columns(sold_on: invoiced_at.to_date) }
+  end
+
   protect on: :update do
     old_record.invoice?
   end

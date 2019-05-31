@@ -28,7 +28,7 @@ class FixedAsset
           # Lock all depreciations as the scrap transition is not-reversible
           resource.depreciations.update_all locked: true
 
-          resource.product.update! dead_at: @scrapped_on if resource.product
+          resource.product.update! dead_at: @scrapped_on
           true
         end
       end
@@ -36,7 +36,8 @@ class FixedAsset
       def can_run?
         super && resource.valid? &&
           scrapped_on_during_opened_financial_year &&
-          depreciations_valid?(@scrapped_on)
+          depreciations_valid?(@scrapped_on) &&
+          resource.product
       end
 
       private
