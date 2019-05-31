@@ -32,4 +32,6 @@
 #
 class RegisteredAgroediCode < ActiveRecord::Base
   include Lexiconable
+
+  scope :of_reference_code, ->(code) { where(reference_code: code.to_s) }
 end

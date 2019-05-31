@@ -333,8 +333,6 @@ spa:
       new_specified: "Intervención New"
       new_specified_request: "Intervención New solicitado"
       # show: "%{procedure_name}"
-    backend/invalid_journal_entries:
-      # index: "Journal entries to balance"
     backend/inventories:
       edit: "Modificación del inventario"
       index: "Inventarios"
@@ -611,6 +609,8 @@ spa:
       index: "Sequencias"
       load: "Secuencias de carga faltante"
       new: "Creación de une nueva sequencia"
+    backend/services:
+      # index: "Services"
     backend/settings:
       about: "A propocito de Ekylibre"
     backend/settlements:
@@ -1210,6 +1210,7 @@ spa:
     custom_fields: "Campos Personalizados"
     data_to_export: "Datos a exportar" #?
     data_to_extract: "Datos para extraer" #?
+    # date_range: "%{from} to %{to}"
     # dated_cash: "%{cash}: %{on}"
     dates: "Marcar las fechas de empezo y termino por los periodos"
     days: "Días"
@@ -1304,6 +1305,7 @@ spa:
     # draft_loan_on_current_financial_year: "You have draft loans ongoing. Once the financial year closed, it won't be possible to enter them into service on this financial year (%{code})."
     # draft_vat_declaration: "Pending VAT declaration"
     # driver: "Driver"
+    # due_date: "Due date"
     duplicate: "Duplicar"
     # duplicate_intervention: "Duplicate intervention"
     duplicate_x_selected_interventions:
@@ -1315,6 +1317,7 @@ spa:
     earns: "Gana" #?
     edit: "Editar"
     edit_budget: "Editar presupuesto"
+    # edition_date: "Edition date"
     ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "Intervenciones transcurridos veces por actividades"
     # element_status: "Status"
@@ -1422,6 +1425,7 @@ spa:
     finished: "Terminado"
     finished_income_statement: "Productos" #?
     finished_sum: "Total productos de explotación" #?
+    # first_check_number: "Number of the first check"
     first_line_as_title: "Primera línea como el título"
     fixed_asset_debts: "Deudas de bienes de uso"
     fixed_asset_depreciations: "Amortizaciones de bienes de uso"
@@ -1483,6 +1487,7 @@ spa:
     in_progress: "En progreso"
     inactive: "Inactivo"
     include_blank: "Incluir en blanco"
+    # including_vat: "incl. VAT"
     income_statement: "cuentos de résultos"
     incoming_parcels: "Paquetes entrantes"
     incoming_payment: "Pago recibido"
@@ -1529,6 +1534,7 @@ spa:
     investment_subsidies: "Subvenciones a la inversión"
     invitation_status: "Estado"
     # invoice: "Invoice"
+    # invoice_date: "Invoice date"
     invoice_period: "Periodo de factura"
     invoice_status: "Estado de la factura"
     invoiced: "Facturado"
@@ -1536,6 +1542,7 @@ spa:
     invoices: "Facturas"
     # irreversible_operation: "This operation is irreversible"
     is: "Es"
+    # is_equipment_set_as_inactive_by_intervention: "This intervention set the equipment as inactive ?"
     issue: "Problema"
     issues: "Problemas"
     issues_count: "Número de problemas"
@@ -1833,7 +1840,9 @@ spa:
     payment_at: "El pago de"
     payment_conditions: "Condiciones de pago"
     # payment_delay_placeholder: "eom, 5 days before"
+    # payment_due_date: "Payment due date"
     payment_mode: "Modo de pago"
+    # payment_mode_form_label: "Payment mode"
     payments: "Encajonamientos"
     payments_count: "Nombre de %{mode}"
     payslip_number: "Papeleta #"
@@ -1841,6 +1850,7 @@ spa:
     people: "Gente"
     percentage_by_calibration: "Porcentaje de calibración"
     period: "Intervalo de periodo"
+    # period_to_take_into_account: "Period to take into account"
     periods: "Periodos"
     permanent_stock_inventory: "Inventario de existencias permanentes"
     permute: "Permutar"
@@ -1870,6 +1880,7 @@ spa:
     # prerequisites_checks_before_closure: "Prerequisites checks before closure"
     prescription: "Prescripción"
     prescriptions: "Prescripciones"
+    # pretax: "pre-tax"
     pretax_amount: "Cantidad antes de impuestos"
     previous: "Anterior"
     price: "Precio"
@@ -1884,8 +1895,11 @@ spa:
     product_account_number: "Número de cuenta del producto"
     product_category: "Categoria de producto"
     product_name: "Nombre del producto"
+    # product_nature: "Product type"
+    # product_nature_category: "Product category"
     product_natures: "Tipos de productos"
     # product_value: "Product value %{financial_year}"
+    # product_variant: "Product variant"
     production: "Administración de la producción"
     production_cost: "Costo de producción"
     # production_costs: "Production costs"
@@ -1955,7 +1969,9 @@ spa:
     # reconciliate_with_purchases_orders: "Reconciliate with purchases orders"
     # reconciliate_with_receptions: "Reconciliate with receptions"
     record: "Grabar"
+    # record_cannot_be_saved: "The record can not be saved"
     record_maintenance: "El mantenimiento de registros"
+    # reference: "Reference"
     # reference_supplier: "Reference supplier : %{reference_number}"
     reflect: "Reflejar"
     reflected: "Cambios reflejados"
@@ -2159,8 +2175,10 @@ spa:
     taxes: "Impuestos"
     taxes_and_wages: "Impuestos y salarios"
     theoric_quantity: "cantidad teorica" #?
+    # third_balance: "(balance - supplier account balance : %{balance} - %{supplier_account_balance})"
     third_is_unbalanced: "En tercer lugar está desequilibrada. (Balance - balance de la cuenta del proveedor)"
     # this_archive_is_digitally_signed: "This archive is digitally signed."
+    # threshold_commercialization_by_production: "Threshold commercialization by production"
     thumb: "Pulgar"
     time_cost: "Costo de tiempo"
     time_spent_by_activity: "El tiempo dedicado por la actividad"
@@ -2519,6 +2537,7 @@ spa:
       access_denied: "No tiene drecho de acceso para esta pagina. %{reason} (%{url})"
       accountant_notified: "El contador se ha notificado"
       accountant_without_email: "Por favor, configurar el correo electrónico contador"
+      # aggeratio_not_found: "The export requested was not found"
       all_fixed_assets_must_be_depreciable: "Todos los activos fijos deben ser amortizables"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Todos los paquetes deben ser facturable y de la misma naturaleza y el tercer"
       all_purchases_must_be_ordered_or_invoiced: "Todas las compras se deben ordenar o facturar."
@@ -2596,6 +2615,7 @@ spa:
       journal_reopened_at: "%{journal} ha sido re-abierto %{closed_at} correctamente." #?
       # journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
       # locked_exercice_info: "This financial year is locked. Please get in contact with the person who closed this financial year in order to retrieve your documents and exports of year end"
+      # locking_version_error: "Sorry, please retry in a moment, someone else is updating this record"
       mails_are_sent: "Los correos electronicos han sido enviados"
       merge_is_done: "Combinar que se hace"
       need_a_valid_payment_mode: "¿Necesita un modo de pago válido"
@@ -2770,6 +2790,7 @@ spa:
       increment: "Incremento" #?
       index: "Índice"
       invoice: "Factura"
+      # journal_entries_csv_export: "Export CSV"
       journal_entries_export: "Descargar CSV"
       journal_entries_import: "Importar CSV"
       list: "Lista"

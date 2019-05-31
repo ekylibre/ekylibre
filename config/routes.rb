@@ -685,7 +685,12 @@ Rails.application.routes.draw do
 
     resources :labels, concerns: %i[list unroll]
 
-    resources :land_parcels, concerns: :products, path: 'land-parcels'
+    resources :land_parcels, concerns: :products, path: 'land-parcels' do
+      member do
+        get :list_interventions
+        get :list_plants
+      end
+    end
 
     resources :listing_nodes, except: %i[index show], path: 'listing-nodes'
 

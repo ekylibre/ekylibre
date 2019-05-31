@@ -73,14 +73,15 @@
             %p
               %span.title= :quantity.tl
               %span.value= product_parameter.input_quantity_per_area.l(precision: 2)
-            - if product_parameter.legal_pesticide_informations[:dose]
+            -# TODO: reactivate when we have updated lexicon's data  
+            -# if product_parameter.legal_pesticide_informations[:dose]
               %p
                 %span.title= :legal_dose.tl
                 %span.value= product_parameter.legal_pesticide_informations[:dose].l(precision: 2)
                 = lights('stop') if product_parameter.legal_treatment_ratio > 1.0
                 = lights('caution') if product_parameter.legal_treatment_ratio == 1.0
                 = lights('go') if product_parameter.legal_treatment_ratio < 1.0
-            - if product_parameter.pfi_reference_dose
+            -# if product_parameter.pfi_reference_dose
               %p
                 %span.title= :pfi_dose.tl
                 %span.value= product_parameter.pfi_reference_dose.dose.l(precision: 2)

@@ -20,7 +20,7 @@ fra:
     ekylibre_buildings_json: "Bâtiments (JSON) ‒ Ekylibre"
     ekylibre_cap_land_parcel_clusters_json: "Îlot PAC (JSON) ‒ Ekylibre" #?
     ekylibre_cap_land_parcels_json: "Parcelles PAC (JSON) ‒ Ekylibre" #?
-    ekylibre_cash_transfers: "Virements (CSV) ‒ Ekylibre"
+    ekylibre_cash_transferts: "Virements (CSV) ‒ Ekylibre"
     ekylibre_crumbs: "Miettes ‒ Ekylibre" #?
     ekylibre_cultivable_zones: "Zones cultivables (SHP/ZIP) ‒ Ekylibre"
     ekylibre_cultivable_zones_json: "Zones cultivables (JSON) ‒ Ekylibre"
@@ -67,9 +67,10 @@ fra:
     telepac_v2015_cap_land_parcels: "Îlots 2015 (SHP/ZIP) ‒ TéléPAC"
     telepac_v2015_cap_statements: "Déclaration PAC 2015 (XML) ‒ TéléPAC" #?
     telepac_v2015_land_parcels: "Parcelles 2015 (SHP/ZIP) ‒ TéléPAC"
-    telepac_v2018_cap_statements: "Déclaration TelePAC 2018 (XML)"
+    telepac_v2018_cap_statements: "Déclaration TelePAC 2018 (XML)" #?
     unicoque_outgoing_deliveries: "Apports de récole ‒ Unicoque"
     unicoque_plant_zones: "Plantations (SHP/ZIP) ‒ Unicoque"
     upra_reproductors: "Liste des reproducteurs ‒ UPRA"
     viniteca_interventions: "Interventions (CSV/ZIP) ‒ Viniteca"
     viniteca_plant_zones: "Plantations (SHP/ZIP) ‒ Viniteca"
+    vivescia_purchase: "Achats - Vivescia"

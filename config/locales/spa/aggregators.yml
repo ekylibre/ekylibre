@@ -48,7 +48,7 @@ spa:
     harvested_at: "Cosechadas en"
     human_roles: "Papeles humanos" #?
     implanted_at: "Implantado en"
-    intervention_durations: "Duraciones de intervención"
+    intervention_durations: "Duraciones de intervención" #?
     loss_balance: "Pérdida de equilibrio"
     losses: "Pérdidas" #?
     meat_saleable_on: "Carne en vendible"

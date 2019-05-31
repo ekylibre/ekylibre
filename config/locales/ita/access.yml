@@ -8,7 +8,7 @@ ita:
       link: "collegamento"
       lock: "Serratura"
       read: "Leggi"
-      reopen: "Riaprire"
+      reopen: "Riaprire" #?
       write: "Scrivi"
     resources:
       accounts: "conti"
@@ -50,6 +50,7 @@ ita:
       incoming_payment_modes: "Modalità di pagamento in entrata"
       incoming_payments: "pagamenti in entrata"
       integrations: "Integrazioni"
+      # intervention_templates: "Intervention templates"
       interventions: "interventi"
       inventories: "rimanenze"
       issues: "Problemi"
@@ -91,6 +92,7 @@ ita:
       roles: "ruoli"
       sale_natures: "vendita nature"
       sales: "Vendite"
+      # schedulings: "Schedulings"
       sensors: "sensori"
       sequences: "sequenze"
       settings: "impostazioni"
@@ -102,6 +104,7 @@ ita:
       tax_declarations: "Dichiarazioni fiscali"
       taxes: "Le tasse"
       teams: "squadre"
+      # technical_itineraries: "Technical itineraries"
       trackings: "tracking"
       transports: "Trasporti"
       users: "utenti"

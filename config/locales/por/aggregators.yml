@@ -57,7 +57,7 @@ por:
     incoming_quantity: "Quantidade a receber" #?
     input_quantity: "Quantidade de entrada" #?
     input_unit_name: "Nome unidade de entrada" #?
-    intervention_durations: "Duração das intervenções"
+    intervention_durations: "Duração das intervenções" #?
     loss_balance: "Balanço de perdas"
     losses: "Perdas" #?
     manure_management_plan_default_computation_method: "Plano padrão de computação no gerenciamento de dejetos" #?

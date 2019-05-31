@@ -87,8 +87,14 @@ class CultivableZone < Ekylibre::Record::Base
 
   # Returns last created islet number from cap statements
   def cap_number
-    islets = CapIslet.shape_matching(shape).order(id: :desc)
+    islets = CapIslet.shape_intersecting(shape).order(id: :desc)
     return islets.first.islet_number if islets.any?
+    nil
+  end
+
+  def city_name
+    islets = CapIslet.shape_intersecting(shape).order(id: :desc)
+    return islets.first.city_name if islets.any?
     nil
   end
 

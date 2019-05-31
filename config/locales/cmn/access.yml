@@ -8,7 +8,7 @@ cmn:
       link: "链接"
       lock: "锁"
       read: "读"
-      reopen: "重开"
+      reopen: "重开" #?
       write: "写"
     resources:
       accounts: "帐号"
@@ -50,6 +50,7 @@ cmn:
       incoming_payment_modes: "收款方式"
       incoming_payments: "收款"
       integrations: "集成"
+      # intervention_templates: "Intervention templates"
       interventions: "干预"
       inventories: "存货"
       issues: "问题"
@@ -91,6 +92,7 @@ cmn:
       roles: "角色"
       sale_natures: "销售性质"
       sales: "销售"
+      # schedulings: "Schedulings"
       sensors: "传感器"
       sequences: "序列"
       settings: "设置"
@@ -102,6 +104,7 @@ cmn:
       tax_declarations: "纳税申报"
       taxes: "税"
       teams: "小组"
+      # technical_itineraries: "Technical itineraries"
       trackings: "漏电痕迹"
       transports: "传输"
       users: "用户"

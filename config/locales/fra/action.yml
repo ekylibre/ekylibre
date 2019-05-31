@@ -350,8 +350,8 @@ fra:
       new_specified: "Nouvelle intervention de %{procedure_name}"
       new_specified_request: "Nouvelle planification de %{procedure_name}"
       show: "%{procedure_name} n°%{number}"
-    backend/invalid_journal_entries:
-      index: "Écritures à équilibrer"
+    backend/invalid_journal_entries: #?
+      index: "Écritures à équilibrer" #?
     backend/inventories:
       edit: "Modifier l’inventaire"
       index: "Inventaires"
@@ -460,7 +460,7 @@ fra:
       index: "Formats de nommage" #?
     backend/naming_formats:
       index: "Formats de nommage"
-      new: "Nouveau format de nommage"
+      new: "Nouveau format de nommage" #?
     backend/net_services:
       edit: "Modifier un service en ligne"
       index: "Services en ligne"
@@ -1355,8 +1355,8 @@ fra:
     data_to_export: "Données à exporter" #?
     data_to_extract: "Données à extraire" #?
     date: "Date" #?
-    dated_cash: "%{cash}\_: %{on}"
     date_range: "%{from} au %{to}"
+    dated_cash: "%{cash}\_: %{on}"
     dates: "Saisissez les dates de début et de fin de la période"
     day: "Jour" #?
     days: "Jours"
@@ -1535,8 +1535,8 @@ fra:
     export: "Exporter"
     export_as_csv: "Exporter en CSV"
     export_as_ods: "Exporter en ODS"
-    export_as_odt: "Exporter en ODT" #?
-    export_as_pdf: "Exporter en PDF" #?
+    export_as_odt: "Exporter en ODT"
+    export_as_pdf: "Exporter en PDF"
     export_as_xcsv: "Exporter en CSV pour Excel"
     export_backup: "Export d’un fichier de sauvegarde" #?
     export_xml_fec_all: "Export FEC - Cas général - impôt sur les sociétés (XML)"
@@ -1733,6 +1733,7 @@ fra:
     invoices_only: "Utiliser seulement les factures" #?
     irreversible_operation: "Cette opération est irréversible"
     is: "Est"
+    # is_equipment_set_as_inactive_by_intervention: "This intervention set the equipment as inactive ?"
     issue: "Incident"
     issues: "Incidents"
     issues_count: "Nombre d’incidents"
@@ -2216,7 +2217,6 @@ fra:
     purchases: "Achats"
     purchases_bar: "Achats par type" #?
     purchases_expense_bar: "Dépenses par mois" #?
-    purchase_order: "Bon de commande"
     purchases_prices: "Evolution du prix d'achat"
     purchases_selections: #?
       aborted: "Annulée" #?
@@ -2312,7 +2312,7 @@ fra:
       one: "%{count} résultat" #?
       other: "%{count} résultats" #?
     revenues: "Recettes"
-    revenues_by_product_nature: "Chiffre d’affaire par type de produit"
+    revenues_by_product_nature: "Chiffre d’affaires par type de produit"
     reverse: "Appliquer la condition inverse"
     revise: "Mettre à jour"
     right_parts: #?
@@ -2515,10 +2515,11 @@ fra:
     taxes_and_wages: "Taxes et charges de personnels"
     temperature: "Température" #?
     theoric_quantity: "Quantité théorique" #?
-    third_informations: "Informations tierces" #?
     third_balance: "(solde - solde comptable fournisseur : %{balance} - %{supplier_account_balance})"
+    third_informations: "Informations tierces" #?
     third_is_unbalanced: "Tiers à soldes non-rapprochés. (solde - solde comptable fournisseur)"
     this_archive_is_digitally_signed: "Cette archive est signée numériquement."
+    threshold_commercialization_by_production: "Seuil de commercialisation par production"
     thumb: "Miniature"
     time_cost: "Coût de main d’œuvre"
     time_cost_per_hectare: "Coût de main d’œuvre par hectare" #?
@@ -2618,7 +2619,6 @@ fra:
       shipped: "Expédié" #?
       waiting: "En attente" #?
     treatment: "Traitement" #?
-    threshold_commercialization_by_production: "Seuil de commercialisation par production"
     trimester: "Trimestre"
     true: "Vrai" #?
     type_of_structure: "Type de structure"
@@ -2956,6 +2956,7 @@ fra:
       access_denied: "Vous n’avez pas le droit d’accéder à cette page. %{reason} (%{url})"
       accountant_notified: "Le comptable a bien été notifié"
       accountant_without_email: "Merci de renseigner l’email du comptable"
+      # aggeratio_not_found: "The export requested was not found"
       all_fixed_assets_must_be_depreciable: "Tous les immobilisations doivent être amortissables"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Tous les colis doivent être facturables de la même nature et au même tiers"
       all_purchases_must_be_ordered: "Tous les achats doivent être commandés ou facturés." #?
@@ -3029,6 +3030,7 @@ fra:
       journal_entry_items_marked_with_letter: "Les lignes d’écritures ont été lettrées avec la lettre %{letter}"
       journal_reopened_on: "Le %{journal} a été déclôturé au %{closed_on} correctement."
       locked_exercice_info: "Cet exercice est verrouillé. Veuillez vous rapprocher de la personne qui a clôturé cet exercice pour récupérer vos documents et exports de fin d’exercice."
+      # locking_version_error: "Sorry, please retry in a moment, someone else is updating this record"
       mails_are_sent: "Les courriels ont été envoyés"
       merge_is_done: "La fusion est terminée"
       n: "Non" #?
@@ -3208,8 +3210,8 @@ fra:
       index: "Index"
       interval_reconciliation: "Rapprocher" #?
       invoice: "Facturer"
-      journal_entries_export: "Télécharger le CSV"
       journal_entries_csv_export: "Exporter un CSV"
+      journal_entries_export: "Télécharger le CSV"
       journal_entries_import: "Importer un CSV"
       list: "Lister"
       load: "Charger"
