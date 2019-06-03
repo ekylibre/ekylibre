@@ -25,6 +25,14 @@ module Backend
           opened_purchases_orders = opened_purchases_orders.where(supplier: params[:supplier])
         end
 
+        if params[:reception].present?
+          linked_purchase_orders = PurchaseOrder.joins(items: :parcels_purchase_orders_items)
+                         .where('parcel_items.parcel_id' => params[:reception])
+                         .uniq
+
+          opened_purchases_orders = (opened_purchases_orders + linked_purchase_orders).uniq
+        end
+
         items_to_reconcile(opened_purchases_orders)
       end
 

@@ -204,6 +204,11 @@
         datas['supplier'] = $('input[name="purchase_invoice[supplier_id]').val()
       else if isReceptionForm
         datas['supplier'] = $('input[name="reception[sender_id]').val()
+        form = $('.edit_reception')
+        if form.length
+          action = form.attr('action')
+          datas['reception'] = action.substr(action.lastIndexOf('/') + 1)
+
 
       $.ajax
         url: url
