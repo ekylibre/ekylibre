@@ -216,14 +216,12 @@ module Backend
     def start_up
       return unless record = find_and_check
 
-      ok = record.start_up
-
-      if ok == false && msg.respond_to?(:map)
-        notify_error(map.collect(&:messages).map(&:values).flatten.join(', '))
+      record.start_up
+      record.errors.messages.each do |field, message|
+        notify_error :error_on_field, { field: FixedAsset.human_attribute_name(field), message: message.join(", ") }
       end
 
       redirect_to params[:redirect] || { action: :show, id: record.id }
-
       record
     end
 
