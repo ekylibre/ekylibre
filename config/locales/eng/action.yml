@@ -2020,6 +2020,7 @@ eng:
     product_name: "Product name" #?
     # product_nature_variants: "Product nature variants"
     product_natures: "Product types"
+    product_nature_variants: "Variants"
     product_value: "Product value %{financial_year}" #??
     production: "Production"
     production_cost: "Production cost"
