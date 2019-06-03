@@ -5,7 +5,7 @@
 - non_compliant_message = :non_compliant.tl
 
 %tbody.nested-fields.purchase-invoice-items.delivery-item{ data: { trade_item: "purchase", iceberg: true } }
-  %tr.item-display.hidden
+  %tr.item-display.hidden{data: {id: item.id } }
     %td.act
       - if f.object.destroyable?
         = link_to_remove_association(content_tag(:i) + h(:destroy.tl), f, 'data-no-turbolink' => true, class: 'destroy remove remove-item')
@@ -92,5 +92,5 @@
       .item-form-button.item-form-button--non-merchandise
         .item-form__btn
           .buttons
-            %button.btn{ data: { cancel: 'item-form' } }= :cancel.tl
+            %button.btn.btn--cancel{ data: { cancel: 'item-form' } }= :cancel.tl
             %button.btn.btn-primary{ data: { validate: 'item-form' }}= :validate.tl

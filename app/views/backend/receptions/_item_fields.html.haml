@@ -70,5 +70,5 @@
           .non_compliant_detail_text.hidden
             = f.input :non_compliant_detail, as: :text, label: :detail.tl, input_html: { class: 'item-non-compliant-detail', data: { interpolate_if_input: 'input.item-non-compliant', with_value: true } }
         .item-form__btn
-          %button.btn{ data: { cancel: 'item-form' } }= :cancel.tl
+          %button.btn.btn--cancel{ data: { cancel: 'item-form' } }= :cancel.tl
           %button.btn.btn-primary{ data: { validate: 'item-form' } }= :validate.tl

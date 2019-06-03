@@ -1,5 +1,32 @@
 ((E, $) ->
   'use strict'
+  # Si true: afficher 'rapprochée' sinon, afficher 'a rapprocher'
+  set_state = (reconciliation_state) =>
+    # now, what?
+    if reconciliation_state
+      $('.no-reconciliate-title').addClass('hidden')
+      $('.no-reconciliate-state').addClass('hidden')
+      $('.reconcile-title').removeClass('hidden')
+      $('.reconcile-state').removeClass('hidden')
+    else
+      $('.no-reconciliate-title').removeClass('hidden')
+      $('.no-reconciliate-state').removeClass('hidden')
+      $('.reconcile-title').addClass('hidden')
+      $('.reconcile-state').addClass('hidden')
+
+  refresh_state = ->
+    displayedItemIds = $('.nested-item-form[data-item-id]').map ->
+      $(this).attr('data-item-id')
+
+    $displayComplianceStates = $(".nested-item-form[data-non-compliant='true']")
+
+    set_state !!displayedItemIds.length
+
+    if !$displayComplianceStates.length
+      $('.compliance-title').addClass('hidden')
+
+  $(document).on 'cocoon:after-remove', '#new_reception, #new_purchase_invoice', refresh_state
+
 
   $(document).on 'change', '#purchase_invoice_accepted_state', (event) ->
     checked = $(event.target).is(':checked')
@@ -48,15 +75,16 @@
 
     E.reconciliation.displayClosePurchaseOrderBlock(event)
 
-
   $(document).on 'change', '#purchase_process_reconciliation .item-checkbox', (event) ->
     E.reconciliation.displayClosePurchaseOrderBlock(event)
 
 
   $(document).on 'click', '#purchase_process_reconciliation .valid-modal', (event) ->
-    validButton = $(event.target)
     modal = $(event.target).closest('#purchase_process_reconciliation')
-    if validButton.attr('data-item-reconciliation') != undefined
+
+    displayedItemIds = $('.nested-item-form[data-item-id]').map(-> $(this).attr('data-item-id')).toArray()
+
+    if $(this).attr('data-item-reconciliation') != undefined
       # Reconciliation on line
       E.reconciliation.reconciliateItems(modal)
       itemCheckbox = $(modal).find('.item-checkbox:checked')
@@ -64,13 +92,16 @@
       E.reconciliation._fillNewLineForm(itemCheckbox, isPurchaseOrderModal)
     else
       # Reconciliation on form
-      E.reconciliation.createLinesWithSelectedItems(modal, event)
+      E.reconciliation.createLinesWithSelectedItems(modal, displayedItemIds, event)
+      E.reconciliation.removeLineWithUnselectedItems(modal, displayedItemIds, event)
 
-    E.reconciliation.displayReconciliateState(event)
-    E.reconciliation.displayComplianceState(event, modal)
+    refresh_state()
 
     @reconciliationModal= new E.modal('#purchase_process_reconciliation')
     @reconciliationModal.getModal().modal 'hide'
+
+  $(document).on 'click', '.item-form__btn .btn--cancel', refresh_state
+
 
   E.reconciliation =
     displayClosePurchaseOrderBlock: (event) ->
@@ -88,7 +119,9 @@
     displayComplianceState: (event, modal) ->
       $nonCompliantItems = $(modal).find("li[data-non-compliant='true'] .item-checkbox:checked")
 
-      $('.compliance-title').toggle(!!$nonCompliantItems.length)
+      if $nonCompliantItems.length
+        $('.compliance-title').removeClass('hidden')
+
 
     displayReconciliateState: (event) ->
       $('#purchase_invoice_accepted_state').val('reconcile')
@@ -160,6 +193,7 @@
 
       $('.no-reconciliate-state').removeClass('hidden')
 
+
     displayReconciliationModal: (event, datas) ->
       isPurchaseInvoiceForm = $(event.target).closest('.simple_form').is('.new_purchase_invoice, .edit_purchase_invoice')
       isReceptionForm = $(event.target).closest('.simple_form').is('.new_reception, .edit_reception')
@@ -179,6 +213,19 @@
           @reconciliationModal.removeModalContent()
           @reconciliationModal.getModalContent().append(data)
           @reconciliationModal.getModal().modal 'show'
+          E.reconciliation.editReconciliationModal(@reconciliationModal)
+
+
+
+    editReconciliationModal: (modal) ->
+      displayedItemIds = $('.nested-item-form[data-item-id]').map ->
+        $(this).attr('data-item-id')
+      .toArray()
+
+      for id in displayedItemIds
+        $checkbox = modal.getModalContent().find("input[type='checkbox'][data-id=#{id}]")
+        continue unless $checkbox.length
+        $checkbox.prop('checked', true)
 
 
     reconciliateItems: (modal) ->
@@ -191,10 +238,12 @@
         $("##{itemFieldId}").val(checkedItemId)
 
 
-    createLinesWithSelectedItems: (modal, event) ->
+    createLinesWithSelectedItems: (modal, displayedItemIds, event) ->
       itemsCheckboxes = $(modal).find('.item-checkbox:checked')
 
       itemsCheckboxes.each (index, itemCheckbox) ->
+        return if displayedItemIds.includes $(itemCheckbox).attr('data-id')
+
         isPurchaseOrderModal = $(itemCheckbox).closest('.modal-content').find('#purchase-orders').val()
         E.reconciliation._createNewItemLine(itemCheckbox)
 
@@ -206,6 +255,15 @@
         E.reconciliation._fillNewLineForm(itemCheckbox, isPurchaseOrderModal)
 
 
+    removeLineWithUnselectedItems: (modal, displayedItemIds, event) ->
+      for id in displayedItemIds
+
+        $checkbox = $(modal).find("input[type='checkbox'][data-id=#{id}]")
+        continue if $checkbox.prop('checked')
+
+        buttonToClickSelector = $('.item-form__btn .btn')[0]
+
+        $(buttonToClickSelector).trigger('click')
 
 
     _createNewItemLine: (itemCheckbox) ->
@@ -220,7 +278,6 @@
       $(buttonToClickSelector).find('.add_fields').trigger('click')
 
 
-
     _fillNewLineForm:  (itemCheckbox, isPurchaseOrderModal) ->
       lastLineForm = $('table.list .nested-fields .nested-item-form:last:visible')
       checkboxLine = $(itemCheckbox).closest('.item')
@@ -229,12 +286,15 @@
       equipmentId = $(checkboxLine).attr('data-equipment-id')
       itemConditionning = $(checkboxLine).attr('data-conditionning')
       itemConditionningQuantity = $(checkboxLine).attr('data-conditionning-quantity')
-
+      itemCompliantState = $(checkboxLine).attr('data-non-compliant')
 
       if isPurchaseOrderModal == "true"
         E.reconciliation._fillPurchaseOrderItem(lastLineForm, checkboxLine, itemId, itemQuantity, itemConditionning, itemConditionningQuantity)
       else
         E.reconciliation._fillReceptionItem(lastLineForm, checkboxLine, itemId, itemQuantity)
+
+      $(lastLineForm).attr('data-item-id', itemId)
+      $(lastLineForm).attr('data-non-compliant', itemCompliantState)
 
       $(lastLineForm).find('input[data-remember="equipment"]').first().selector('value', equipmentId)
       $(lastLineForm).find('.no-reconciliate-item-state').addClass('hidden')
@@ -256,6 +316,10 @@
 
       if itemReductionPercentage == "" || itemReductionPercentage == undefined
         itemReductionPercentage = 0
+
+      itemCompliantState = $(checkboxLine).attr('data-non-compliant')
+      $(lastLineForm).attr('data-item-id', itemId)
+      $(lastLineForm).attr('data-non-compliant', itemCompliantState)
 
       $(lastLineForm).find('.purchase-item-attribute').val(JSON.stringify([itemId]))
       $(lastLineForm).find('.form-field .invoice-conditionning').val(itemConditionning)

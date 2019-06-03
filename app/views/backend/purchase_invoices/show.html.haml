@@ -1,4 +1,6 @@
 = content_for(:heading_toolbar) do
+  - if @purchase_invoice.reception_items.any?(&:non_compliant)
+    %h2.global-incident-warning.reconciliation-title.compliance-title= :reception_incident.tl
   = reconciliation_state_title(@purchase_invoice)
 
 - main_toolbar do |t|
