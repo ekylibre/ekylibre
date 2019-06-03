@@ -27,7 +27,7 @@
       = :to_reconciliate.tl
     %span.purchase-process-reconciliation.reconciliation-state.reconcile-state{ class: reconciliation_state == 'reconcile' ? '' : 'hidden' }
       = :reconcile.tl
-    = hidden_field_tag('reception[reconciliation_state]', f.object.reconciliation_state)
+    / = hidden_field_tag('reception[reconciliation_state]', f.object.reconciliation_state)
 
   - if f.object.allow_items_update?
     .control-group.button-modal-reconciliation
