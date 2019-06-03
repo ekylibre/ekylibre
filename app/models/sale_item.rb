@@ -199,16 +199,19 @@ class SaleItem < Ekylibre::Record::Base
   end
 
   protect(on: :update) do
-    !sale.draft?
+    return false if sale.draft?
+    authorized_columns = %w[fixed_asset_id depreciable_product_id updated_at]
+    changes.keys.each { |attribute| return true unless authorized_columns.include?(attribute) }
+    false
   end
 
   def unlink_fixed_asset(former_id)
     # Instead of dependent: :nullify since we need to update more attributes than just the foreign key and it doesn't trigger callbacks
-    FixedAsset.find(former_id).update!(sale_id: nil, sale_item_id: nil, tax_id: nil, selling_amount: nil, pretax_selling_amount: nil)
+    FixedAsset.find(former_id).update!(sale_id: nil, sale_item_id: nil, tax_id: nil, selling_amount: nil, pretax_selling_amount: nil, sold_on: nil)
   end
 
   def link_fixed_asset(fixed_asset_id)
-    FixedAsset.find(fixed_asset_id).update!(sale_id: sale.id, sale_item_id: id, tax_id: tax_id, selling_amount: amount, pretax_selling_amount: pretax_amount)
+    FixedAsset.find(fixed_asset_id).update!(sale_id: sale.id, sale_item_id: id, tax_id: tax_id, selling_amount: amount, pretax_selling_amount: pretax_amount, sold_on: sale.invoiced_at.to_date)
   end
 
   def reduction_coefficient
