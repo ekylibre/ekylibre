@@ -70,7 +70,6 @@ class ParcelItem < Ekylibre::Record::Base
   attr_accessor :product_nature_variant_id
   enumerize :delivery_mode, in: %i[transporter us third none], predicates: { prefix: true }, scope: true, default: :us
   belongs_to :analysis
-  belongs_to :parcel, inverse_of: :items
   # belongs_to :reception, inverse_of: :items, class_name: 'Reception', foreign_key: :parcel_id
   with_options class_name: 'PurchaseItem' do
     belongs_to :purchase_order_item, foreign_key: 'purchase_order_item_id'
@@ -99,7 +98,6 @@ class ParcelItem < Ekylibre::Record::Base
   validates :parted, inclusion: { in: [true, false] }
   validates :population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :pretax_amount, :unit_pretax_amount, :unit_pretax_stock_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
-  validates :parcel, presence: true
   # ]VALIDATORS]
   validates :variant, presence: true
   # validates :product, presence: true, unless: proc { |item| !item.parcel.try(:prepared?) }
