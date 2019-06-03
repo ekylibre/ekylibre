@@ -54,8 +54,7 @@
 
     - if resource.plant_farming? && (resource.support.is_a?(LandParcel) || resource.support.is_a?(Plant))
       - c.cobble :weather do
-        = cell :weather, params: {id: resource.cultivable_zone.id} unless resource.cultivable_zone.nil?
-
+        = cell :weather, params: {centroid: resource.support_shape.centroid}
     - if resource.selected_manure_management_plan_zone
       - c.cobble :manure_management_plan_chart do
         :ruby

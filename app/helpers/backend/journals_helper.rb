@@ -191,7 +191,7 @@ module Backend
       mask_context = options[:context] || list_id
       options[:controller] ||= controller_path
       options[:default_value] ||= 'true'
-      
+
       label_tag do
         check_box_tag(:masked, options[:default_value], current_user.mask_lettered_items?(controller: options[:controller].dup, context: mask_context),
                       data: {

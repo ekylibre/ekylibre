@@ -48,7 +48,7 @@ jpn:
     harvested_at: "で収穫"
     human_roles: "人間の役割" #?
     implanted_at: "で注入"
-    intervention_durations: "介入期間"
+    intervention_durations: "介入期間" #?
     loss_balance: "損失残高"
     losses: "損失" #?
     meat_saleable_on: "食肉販売可能に"

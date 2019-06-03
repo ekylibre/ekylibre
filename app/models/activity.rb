@@ -122,6 +122,9 @@ class Activity < Ekylibre::Record::Base
       none
     end
   }
+  scope :with_cultivation_variety, lambda { |variety|
+    where(cultivation_variety: (variety.is_a?(Nomen::Item) ? variety : Nomen::Variety.find(variety)).self_and_parents.map(&:name))
+  }
   scope :of_cultivation_variety, lambda { |variety|
     where(cultivation_variety: (variety.is_a?(Nomen::Item) ? variety : Nomen::Variety.find(variety)).self_and_children.map(&:name))
   }

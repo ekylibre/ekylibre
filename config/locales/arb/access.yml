@@ -8,7 +8,7 @@ arb:
       link: "صلة"
       lock: "قفل"
       read: "اقرأ"
-      reopen: "إعادة فتح"
+      reopen: "إعادة فتح" #?
       write: "كتابة"
     resources:
       accounts: "حسابات"
@@ -50,6 +50,7 @@ arb:
       incoming_payment_modes: "وسائل الدفع واردة"
       incoming_payments: "المدفوعات الواردة"
       integrations: "التكامل"
+      # intervention_templates: "Intervention templates"
       interventions: "التدخلات"
       inventories: "المخزونات"
       issues: "مسائل"
@@ -91,6 +92,7 @@ arb:
       roles: "الأدوار"
       sale_natures: "طبائع بيع"
       sales: "مبيعات"
+      # schedulings: "Schedulings"
       sensors: "أجهزة الاستشعار"
       sequences: "متواليات"
       settings: "إعدادات"
@@ -102,6 +104,7 @@ arb:
       tax_declarations: "الإقرارات الضريبية"
       taxes: "الضرائب"
       teams: "فرق"
+      # technical_itineraries: "Technical itineraries"
       # trackings: "Trackings"
       transports: "وسائل النقل"
       users: "المستخدمين"

@@ -90,7 +90,7 @@ class InterventionInput < InterventionProductParameter
       unit = quantity.unit.to_s + '_per_hectare'
       q = (quantity.value.to_f / intervention.working_zone_area.to_f).round(2)
       q_per_hectare = Measure.new(q.to_f, unit.to_sym)
-    elsif quantity.dimension == :volume_area_density || quantity.dimension == :mass_area_densit
+    elsif quantity.dimension == :volume_area_density || quantity.dimension == :mass_area_density
       q_per_hectare = quantity
     end
     q_per_hectare

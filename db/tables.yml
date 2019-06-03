@@ -977,6 +977,26 @@ bank_statements:
   updater_id:
     type: integer
     references: user
+cadastral_land_parcel_zones:
+  centroid:
+    type: geometry
+    limit:
+      srid: 4326
+      type: st_point
+  id:
+    type: string
+  net_surface_area:
+    type: integer
+  section:
+    type: string
+  shape:
+    type: geometry
+    limit:
+      srid: 4326
+      type: multi_polygon
+    required: true
+  work_number:
+    type: string
 call_messages:
   body:
     type: text
@@ -3686,6 +3706,8 @@ interventions:
   procedure_name:
     type: string
     required: true
+  providers:
+    type: jsonb
   purchase_id:
     type: integer
     references: purchase
@@ -4891,6 +4913,8 @@ master_production_natures:
     type: string
   cap_2018_crop_code:
     type: string
+  cap_2019_crop_code:
+    type: string
   human_name:
     type: jsonb
   human_name_fra:
@@ -5266,6 +5290,9 @@ parcel_item_storings:
     type: integer
     references: user
 parcel_items:
+  activity_budget_id:
+    type: integer
+    references: activity_budget
   analysis_id:
     type: integer
     references: analysis
@@ -5364,6 +5391,9 @@ parcel_items:
   source_product_movement_id:
     type: integer
     references: product_movement
+  team_id:
+    type: integer
+    references: team
   transporter_id:
     type: integer
     references: entity
@@ -7118,6 +7148,10 @@ purchases:
     type: integer
     references: user
 registered_agroedi_codes:
+  ekylibre_scope:
+    type: string
+  ekylibre_value:
+    type: string
   id:
     type: integer
     required: true

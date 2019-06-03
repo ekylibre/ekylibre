@@ -83,7 +83,9 @@ class ReceptionItem < ParcelItem
   delegate :allow_items_update?, :remain_owner, :planned_at,
            :ordered_at, :recipient, :in_preparation_at,
            :prepared_at, :given_at,
-           :separated_stock?, :currency, to: :reception, prefix: true
+           :separated_stock?, :currency, :number, to: :reception, prefix: true
+
+  delegate :sender, to: :reception
 
   scope :with_nature, ->(nature) { joins(:reception).merge(Reception.with_nature(nature)) }
 

@@ -483,7 +483,8 @@ CREATE TABLE interventions (
     parent_id integer,
     purchase_id integer,
     costing_id integer,
-    validator_id integer
+    validator_id integer,
+    providers jsonb
 );
 
 
@@ -18806,4 +18807,3 @@ INSERT INTO schema_migrations (version) VALUES ('20181125122238');
 INSERT INTO schema_migrations (version) VALUES ('20190502082326');
 
 INSERT INTO schema_migrations (version) VALUES ('20190514125010');
-

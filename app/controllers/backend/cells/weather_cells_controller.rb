@@ -4,9 +4,13 @@ module Backend
       def show
         @forecast = nil
         openweathermap_api_key = Identifier.find_by(nature: :openweathermap_api_key)
-        zone = (params[:id] ? CultivableZone.find_by(id: params[:id]) : CultivableZone.first)
-        if zone && openweathermap_api_key
-          coordinates = Charta.new_geometry(zone.shape).centroid
+
+        coordinates = params[:centroid]
+        
+        # We try to get weather from cultivable zones
+        coordinates ||= CultivableZone.geom_union(:shape).centroid
+
+        if coordinates.present? && openweathermap_api_key
           http = Net::HTTP.new('api.openweathermap.org')
           http.open_timeout = 3
           http.read_timeout = 3

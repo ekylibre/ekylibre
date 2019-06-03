@@ -1,58 +1,4 @@
 deu:
-  activemodel:
-    errors:
-      messages:
-        # accepted: "%{attribute} must be accepted"
-        # after: "%{attribute} must be after %{restriction}"
-        # already_confirmed: "was already confirmed, please try signing in"
-        # before: "%{attribute} must be before %{restriction}"
-        # blank: "%{attribute} can't be blank"
-        # confirmation: "%{attribute} doesn't match confirmation"
-        # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
-        # currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
-        # empty: "%{attribute} can't be empty"
-        # equal_to: "%{attribute} must be equal to %{count}"
-        # even: "%{attribute} must be even"
-        # exclusion: "%{attribute} is reserved"
-        # expired: "has expired, please request a new one"
-        # greater_than: "%{attribute} must be greater than %{count}"
-        # greater_than_or_equal_to: "%{attribute} must be greater than or equal to %{count}"
-        # included_in: "The value of %{attribute} must be included between %{minimum} and %{maximum}"
-        # inclusion: "%{attribute} is not included in the list"
-        # invalid: "%{attribute} is invalid"
-        # invalid_at: "%{attribute} is_invalid. Error near %{error}"
-        # invalid_date: "%{attribute} is not a valid date"
-        # invalid_datetime: "%{attribute} is not a valid datetime"
-        # invalid_time: "%{attribute} is not a valid time"
-        # invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
-        # is: "%{attribute} must be a %{thing}"
-        # is_at: "%{attribute} must be at %{restriction}"
-        # less_than: "%{attribute} must be less than %{count}"
-        # less_than_or_equal_to: "%{attribute} must be less than or equal to %{count}"
-        # missing_bank_details_for_sepa: "Values for IBAN and/or Account owner are missing for the cash account selected."
-        # must_be_a_mail_address: "%{attribute} must be a mail address"
-        # not_a_number: "%{attribute} is not a number"
-        # not_an_end_of_month: "%{attribute} must be an end of month"
-        # not_an_integer: "%{attribute} must be an integer"
-        # not_enough: "not enough %{resource} to complete task"
-        # not_found: "not found"
-        # not_locked: "was not locked"
-        not_saved:
-          # one: "1 error prohibited this %{resource} from being saved:"
-          # other: "%{count} errors prohibited this %{resource} from being saved:"
-        # nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
-        # odd: "%{attribute} must be odd"
-        # on_or_after: "%{attribute} must be on or after %{restriction}"
-        # on_or_before: "%{attribute} must be on or before %{restriction}"
-        # overlap: "%{attribute} overlaps an existing record"
-        # overlap_sibling: "%{attribute} overlaps sibling"
-        # posterior: "%{attribute} must be posterior to %{to}"
-        # record_invalid: "Validations failed: %{errors}"
-        # taken: "%{attribute} has already been taken"
-        # too_long: "%{attribute} is too long (maximum is %{count} characters)"
-        # too_short: "%{attribute} is too short (minimum is %{count} characters)"
-        # unitary_in_parcel: "Unitary items can only be sent one by one"
-        # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
   activerecord:
     attributes:
       account:
@@ -118,6 +64,9 @@ deu:
         contract: "Vertrag"
       parcel_item:
         population: "Menge"
+      parcel_item_storing:
+        # reception_given_at: "Given at"
+        # reception_planned_at: "Planned at"
       plant:
         born_at: "gepflanzt bei"
       plant_counting:
@@ -133,7 +82,11 @@ deu:
       purchase:
         # affair_balance: "Balance"
       purchase_item:
+        # average_unit_pretax_amount: "Average unit pretax amount"
         # fixed_asset_stopped_on: "Fixed asset stopped on"
+        # last_unit_pretax_amount: "Last unit pretax amount"
+        # ordered_quantity: "Ordered quantity"
+        # supplier_name: "Supplier"
       purchase_payment: #?
         delivered: "Da an Empfänger" #?
         list: "Abgehende Zahlungsliste" #?
@@ -564,6 +517,7 @@ deu:
     # administrator: "Administrator"
     advice_reference_name: "Tipps Referenz"
     affair: "Affäre"
+    # affair_balance: "Affair balance"
     affairs: "Angelegenheiten"
     affectation_percentage: "Affektiertheit Prozent"
     affected_at: "Betroffene an"
@@ -623,6 +577,7 @@ deu:
     bank_name: "Bank Name"
     bank_statement: "Kontoauszug"
     bank_statement_letter: "Kontoauszug Brief"
+    # bank_statement_number: "Bank statement number"
     bank_statements: "Kontoauszüge"
     base_amount: "Grundbetrag"
     # batch: "Batch"
@@ -637,6 +592,7 @@ deu:
     budgets: "Haushalts"
     buildings: "Gebäude"
     by_default: "Standardmäßig"
+    # cached_payment_count: "Cached payment count"
     calibrations: "Calibra"
     campaign: "Kampagne"
     campaigns: "Kampagnen"
@@ -1408,6 +1364,7 @@ deu:
     # project_budget: "Project budget"
     proposer: "Antragsteller"
     prospect: "Aussicht"
+    # providers: "Providers"
     provisional: "vorläufig"
     provisional_intervention: "Vorläufige Intervention"
     purchasable: "käuflich"
@@ -1432,6 +1389,8 @@ deu:
     quantity_indicator: "Mengenindikator"
     quantity_indicator_name: "Mengenindikator Namen"
     quantity_population: "Menge Bevölkerung"
+    # quantity_purchased: "Purchased quantity"
+    # quantity_received: "Used quantity"
     quantity_unit: "Mengeneinheit"
     quantity_unit_name: "Mengeneinheit Name"
     quantity_value: "Mengenwert"
@@ -1779,59 +1738,6 @@ deu:
     working_zone_area: "Arbeitszonenbereich"
     zone_memberships: "Zone Mitgliedschaften"
     # zones: "Zones"
-  errors:
-    messages:
-      # accepted: "%{attribute} must be accepted"
-      # after: "%{attribute} must be after %{restriction}"
-      # already_confirmed: "was already confirmed, please try signing in"
-      # before: "%{attribute} must be before %{restriction}"
-      # blank: "%{attribute} can't be blank"
-      # confirmation: "%{attribute} doesn't match confirmation"
-      # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
-      # currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
-      # empty: "%{attribute} can't be empty"
-      # equal_to: "%{attribute} must be equal to %{count}"
-      # even: "%{attribute} must be even"
-      # exclusion: "%{attribute} is reserved"
-      # expired: "has expired, please request a new one"
-      # greater_than: "%{attribute} must be greater than %{count}"
-      # greater_than_or_equal_to: "%{attribute} must be greater than or equal to %{count}"
-      # included_in: "The value of %{attribute} must be included between %{minimum} and %{maximum}"
-      # inclusion: "%{attribute} is not included in the list"
-      # invalid: "%{attribute} is invalid"
-      # invalid_at: "%{attribute} is_invalid. Error near %{error}"
-      # invalid_date: "%{attribute} is not a valid date"
-      # invalid_datetime: "%{attribute} is not a valid datetime"
-      # invalid_time: "%{attribute} is not a valid time"
-      # invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
-      # is: "%{attribute} must be a %{thing}"
-      # is_at: "%{attribute} must be at %{restriction}"
-      # less_than: "%{attribute} must be less than %{count}"
-      # less_than_or_equal_to: "%{attribute} must be less than or equal to %{count}"
-      # missing_bank_details_for_sepa: "Values for IBAN and/or Account owner are missing for the cash account selected."
-      # must_be_a_mail_address: "%{attribute} must be a mail address"
-      # not_a_number: "%{attribute} is not a number"
-      # not_an_end_of_month: "%{attribute} must be an end of month"
-      # not_an_integer: "%{attribute} must be an integer"
-      # not_enough: "not enough %{resource} to complete task"
-      # not_found: "not found"
-      # not_locked: "was not locked"
-      not_saved:
-        # one: "1 error prohibited this %{resource} from being saved:"
-        # other: "%{count} errors prohibited this %{resource} from being saved:"
-      # nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
-      # odd: "%{attribute} must be odd"
-      # on_or_after: "%{attribute} must be on or after %{restriction}"
-      # on_or_before: "%{attribute} must be on or before %{restriction}"
-      # overlap: "%{attribute} overlaps an existing record"
-      # overlap_sibling: "%{attribute} overlaps sibling"
-      # posterior: "%{attribute} must be posterior to %{to}"
-      # record_invalid: "Validations failed: %{errors}"
-      # taken: "%{attribute} has already been taken"
-      # too_long: "%{attribute} is too long (maximum is %{count} characters)"
-      # too_short: "%{attribute} is too short (minimum is %{count} characters)"
-      # unitary_in_parcel: "Unitary items can only be sent one by one"
-      # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
   models:
     account:
       # label: "%{number} - %{name}"
@@ -1870,6 +1776,9 @@ deu:
         price_quote: "Preisangebot"
         # prospecting: "Prospecting"
         won: "Gewonnen"
+    debt_transfer:
+      # purchase_regularization: "Purchase regularization"
+      # sale_regularization: "Sale regularization"
     delivery:
       state_machine:
         states:
@@ -2020,6 +1929,9 @@ deu:
       states:
         draft: "Entwurf"
         invoice: "Rechnung"
+    payslip_payment:
+      # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
+      # label: "%{number}. %{amount} on %{date} in %{mode} for %{payee}"
     product:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"
@@ -2063,6 +1975,9 @@ deu:
         refused: "weigerte sich um"
     purchase_gap:
       # bookkeep: "[%{resource} %{number}] %{supplier}"
+    purchase_invoice:
+      # bookkeep: "[%{resource} %{number}] %{products} from %{supplier}"
+      # quantity_gap_on_invoice: "Gap on stock quantity [%{resource} %{number}] from %{entity}"
     purchase_item:
       # name: "%{product} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}"
       # name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}"
@@ -2074,6 +1989,7 @@ deu:
       # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
       # label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
     reception:
+      # bookkeep: "[%{resource} %{number}] %{entity}"
       state_machine:
         states:
           # draft: "Draft"
@@ -2162,6 +2078,7 @@ deu:
         subscriptions: "SUB[number|8]"
         transports: "TR[number|8]"
     shipment:
+      # bookkeep: "[%{resource} %{number}] %{entity}"
       state_machine:
         states:
           # draft: "Draft"

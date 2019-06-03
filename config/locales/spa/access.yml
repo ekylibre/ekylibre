@@ -8,7 +8,7 @@ spa:
       link: "Enlazar"
       lock: "Bloquear"
       read: "Leer"
-      reopen: "Reabrir"
+      reopen: "Reabrir" #?
       write: "Escribir"
     resources:
       accounts: "Cuentas"
@@ -50,6 +50,7 @@ spa:
       incoming_payment_modes: "Modos de pago recibido"
       incoming_payments: "La entrada de pagos"
       integrations: "Integraciones"
+      # intervention_templates: "Intervention templates"
       interventions: "Intervenciones"
       inventories: "Los inventarios"
       issues: "Cuestiones"
@@ -91,6 +92,7 @@ spa:
       # roles: "Roles"
       sale_natures: "Naturalezas venta"
       sales: "Ventas"
+      # schedulings: "Schedulings"
       sensors: "Sensores"
       sequences: "Secuencias"
       settings: "Ajustes"
@@ -102,6 +104,7 @@ spa:
       tax_declarations: "Declaraciones de impuestos"
       taxes: "Impuestos"
       teams: "Equipos"
+      # technical_itineraries: "Technical itineraries"
       trackings: "Trackings"
       transports: "Transportes"
       users: "Usuarios"
