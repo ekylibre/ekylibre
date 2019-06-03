@@ -76,11 +76,13 @@ module FixedAssetTest
     test 'simple fixed asset creation with tractor' do
       sold_on = Date.new 2017, 4, 20
       up_to = Date.new 2017, 4, 20
+      product = create :asset_fixable_product, born_at: DateTime.new(2017, 1, 1)
 
       fixed_asset = create :fixed_asset, :linear, :monthly,
                            amount: 150_000,
                            started_on: Date.new(2017, 1, 1),
-                           percentage: 10.00
+                           percentage: 10.00,
+                           product: product
 
       assert_equal 120, fixed_asset.depreciations.count
       assert_equal 1250, fixed_asset.depreciations.first.amount
@@ -104,6 +106,10 @@ module FixedAssetTest
       assert_equal Date.parse('2017-01-31'), f_d.journal_entry.printed_on
 
       # test when sold fixed asset
+
+      sale_item = create :sale_item, :fixed, variant: product.variant, fixed_asset: fixed_asset, amount: 150_000
+
+      fixed_asset.reload
 
       fixed_asset.sold_on = sold_on
       assert fixed_asset.sell

@@ -211,7 +211,7 @@ class SaleItem < Ekylibre::Record::Base
   end
 
   def link_fixed_asset(fixed_asset_id)
-    FixedAsset.find(fixed_asset_id).update!(sale_id: sale.id, sale_item_id: id, tax_id: tax_id, selling_amount: amount, pretax_selling_amount: pretax_amount, sold_on: sale.invoiced_at.to_date)
+    FixedAsset.find(fixed_asset_id).update!(sale_id: sale.id, sale_item_id: id, tax_id: tax_id, selling_amount: amount, pretax_selling_amount: pretax_amount, sold_on: sale.invoiced_at&.to_date)
   end
 
   def reduction_coefficient

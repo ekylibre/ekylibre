@@ -17,7 +17,7 @@ class FixedAsset
           mock.expect :state, state
           mock.expect :sold_on, nil
 
-          t = new_transition_for mock
+          t = new_transition_for mock, Date.new(2018, 9, 5)
 
           assert_not t.can_run?, "Should not be able to sell a FixedAsset with state #{state}"
           assert_mock mock
@@ -30,7 +30,7 @@ class FixedAsset
         mock.expect :valid?, false
         mock.expect :sold_on, nil
 
-        t = new_transition_for mock
+        t = new_transition_for mock, Date.new(2018, 9, 5)
 
         assert_not t.can_run?, "Should not be able to scrap an invalid fixed_asset"
         assert_mock mock
@@ -42,14 +42,14 @@ class FixedAsset
         mock.expect :valid?, true
         mock.expect :sold_on, nil
 
-        t = new_transition_for mock, sold_on: Date.new(2019, 5, 1)
+        t = new_transition_for mock, Date.new(2019, 5, 1)
 
         assert_not t.can_run?
         assert_mock mock
       end
 
-      def new_transition_for(fa, **options)
-        FixedAsset::Transitions::Sell.new(fa, **options)
+      def new_transition_for(fa, sold_on, **options)
+        FixedAsset::Transitions::Sell.new(fa, sold_on, **options)
       end
     end
   end

@@ -17,7 +17,7 @@ class FixedAsset
           mock.expect :state, state
           mock.expect :scrapped_on, nil
 
-          scrapper = new_transition_for mock
+          scrapper = new_transition_for mock, Date.new(2018, 9, 5)
 
           assert_not scrapper.can_run?, "Should not be able to scrap a FixedAsset with state #{state}"
           assert_mock mock
@@ -30,7 +30,7 @@ class FixedAsset
         mock.expect :valid?, false
         mock.expect :scrapped_on, nil
 
-        t = new_transition_for mock
+        t = new_transition_for mock, Date.new(2018, 9, 5)
 
         assert_not t.can_run?, "Should not be able to scrap an invalid fixed_asset"
         assert_mock mock
@@ -42,7 +42,7 @@ class FixedAsset
         mock.expect :valid?, true
         mock.expect :scrapped_on, nil
 
-        t = new_transition_for mock, scrapped_on: Date.new(2019, 5, 1)
+        t = new_transition_for mock, Date.new(2019, 5, 1)
 
         assert_not t.can_run?
         assert_mock mock
@@ -51,11 +51,11 @@ class FixedAsset
       test 'should change the state of the fixed_asset and bookkeep correctly the depreciations records' do
         exceptional_expenses_account = Account.find_or_import_from_nomenclature :exceptional_depreciations_imputations_expenses_for_fixed_assets
         scrapped_on = Date.new(2018, 9, 5)
+        product = create :asset_fixable_product, born_at: DateTime.new(2018, 1, 1)
         fa = create :fixed_asset, :in_use, :monthly,
-                    started_on: Date.new(2018, 1, 1)
-        t = new_transition_for fa, scrapped_on: scrapped_on
+                    started_on: Date.new(2018, 1, 1), product: product
+        t = new_transition_for fa, scrapped_on
 
-        # byebug
         assert t.run, t_err(t)
 
         assert_equal 'scrapped', fa.state
@@ -73,8 +73,8 @@ class FixedAsset
         after_scrap.each { |d| assert_equal scrapped_on, d.journal_entry.printed_on }
       end
 
-      def new_transition_for(fa, **options)
-        FixedAsset::Transitions::Scrap.new(fa, **options)
+      def new_transition_for(fa, scrapped_on, **options)
+        FixedAsset::Transitions::Scrap.new(fa, scrapped_on, **options)
       end
 
       def t_err(t)
