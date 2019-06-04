@@ -38,7 +38,9 @@ module Isagri
           }.to_struct
 
           # get allocation and expenses account
-          exchange_allocation_account = Account.find_or_create_by_number(to_allocation_account(r.asset_account)) # 28
+          parent_usage = Account.find_parent_usage(r.asset_account)
+          new_name = I18n.t("attributes.allocation_account") + ' - ' + I18n.t("nomenclatures.accounts.items.#{parent_usage}")
+          exchange_allocation_account = Account.find_or_create_by_number(to_allocation_account(r.asset_account), name: new_name) # 28
           exchange_expenses_account = Account.find_or_import_from_nomenclature(:depreciations_inputations_expenses)
 
           description = r.number + ' | ' + r.name + ' | ' + r.purchase_on.to_s + ' | ' + r.net_value.to_s
