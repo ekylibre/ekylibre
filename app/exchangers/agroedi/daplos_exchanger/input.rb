@@ -1,6 +1,6 @@
 module Agroedi
   class DaplosExchanger < ActiveExchanger::Base
-    class Input < InterventionParameter
+    class Input < DaplosInterventionParameter
       include Comparable
 
       alias_method :procedure_input, :procedure_parameter

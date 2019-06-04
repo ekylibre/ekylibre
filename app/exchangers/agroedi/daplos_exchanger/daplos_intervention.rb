@@ -139,7 +139,7 @@ module Agroedi
           parameter_kind = parameter_kind.to_s.singularize
           collection = parameter_kind.pluralize.to_sym
           daplos.send(collection).each do |param|
-            parameter = DaplosExchanger::InterventionParameter.new(self, param, parameter_kind)
+            parameter = DaplosExchanger::DaplosInterventionParameter.new(self, param, parameter_kind)
             parameter.register if parameter.coherent?
           end
         end

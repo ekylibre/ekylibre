@@ -1,6 +1,6 @@
 module Agroedi
   class DaplosExchanger < ActiveExchanger::Base
-    class Output < InterventionParameter
+    class Output < DaplosInterventionParameter
       alias_method :procedure_output, :procedure_parameter
       alias_method :procedure_output=, :procedure_parameter=
 
