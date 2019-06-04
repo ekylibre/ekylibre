@@ -252,7 +252,7 @@ class FixedAsset < Ekylibre::Record::Base
 
   # Depreciate active fixed assets
   def self.depreciate(options = {})
-    depreciations = FixedAssetDepreciation.with_active_asset
+    depreciations = FixedAssetDepreciation.with_active_asset.not_locked.not_accountable
     depreciations = depreciations.up_to(options[:until]) if options[:until]
     transaction do
       # trusting the bookkeep to take care of the accounting

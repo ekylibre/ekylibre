@@ -59,6 +59,8 @@ class FixedAssetDepreciation < Ekylibre::Record::Base
   delegate :currency, :number, to: :fixed_asset
 
   scope :with_active_asset, -> { joins(:fixed_asset).where(fixed_assets: { state: :in_use }) }
+  scope :not_accountable, -> { where(accountable: false) }
+  scope :not_locked, -> { where(locked: false) }
   scope :up_to, ->(date) { where('fixed_asset_depreciations.stopped_on <= ?', date) }
   scope :on, ->(date) { where('? BETWEEN started_on AND stopped_on', date).first }
 
