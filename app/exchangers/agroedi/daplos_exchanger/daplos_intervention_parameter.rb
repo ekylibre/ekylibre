@@ -1,6 +1,6 @@
 module Agroedi
   class DaplosExchanger < ActiveExchanger::Base
-    class InterventionParameter < DaplosNode
+    class DaplosInterventionParameter < DaplosNode
       daplos_parent :intervention
 
       class << self
