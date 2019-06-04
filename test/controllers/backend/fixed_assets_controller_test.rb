@@ -36,10 +36,12 @@ module Backend
 
     cases.each do |(action, field), (state, date, redirect_action, with_params)|
       test "#{action} action with #{state} #{field} date should redirect to #{redirect_action} page" do
-        # assert FixedAsset.count == 0
         manual_setup
-        @fixed_asset.send "#{field}=", date
 
+        create :sale_item, :fixed, variant: @variant, fixed_asset: @fixed_asset
+        @fixed_asset.reload
+        @fixed_asset.update!(product: @product)
+        @fixed_asset.send "#{field}=", date
         @fixed_asset.save!
 
         post action, id: @fixed_asset.id
@@ -54,6 +56,36 @@ module Backend
       noko = Nokogiri::HTML(response.body)
       assert_equal 2, noko.css('a.disabled').size
       assert_equal 1, noko.css("#depreciate-fixed-assets-until[disabled='disabled']").size
+    end
+
+    more_cases = [[:scrapping, :scrap, :scrapped_on], [:selling, :sell, :sold_on]]
+
+    more_cases.each do |(action, mode, attribute)|
+      test "edition before #{action} is only possible if the user provides a product and a valid #{attribute} date" do
+        manual_setup
+
+        create :sale_item, :fixed, variant: @variant, fixed_asset: @fixed_asset
+        @fixed_asset.reload
+
+        patch :update, id: @fixed_asset.id, fixed_asset: @fixed_asset.attributes, mode: mode
+        noko = Nokogiri::HTML(response.body)
+        assert_equal 1, noko.css('.fixed_asset_product.error').size
+        assert_equal 1, noko.css(".fixed_asset_#{attribute}.error").size
+
+        @fixed_asset.update!(product: @product)
+
+        # Case where attribute < @fixed_asset.started_on
+        patch :update, id: @fixed_asset.id, fixed_asset: { attribute => Date.new(2007, 12, 31) }, mode: mode
+        noko = Nokogiri::HTML(response.body)
+        assert_equal 0, noko.css('.fixed_asset_product.error').size
+        assert_equal 1, noko.css(".fixed_asset_#{attribute}.error").size
+
+        # Case where attribute is outside an opened financial year
+        patch :update, id: @fixed_asset.id, fixed_asset: { attribute => Date.new(2018, 1, 1) }, mode: mode
+        noko = Nokogiri::HTML(response.body)
+        assert_equal 0, noko.css('.fixed_asset_product.error').size
+        assert_equal 1, noko.css(".fixed_asset_#{attribute}.error").size
+      end
     end
 
     private
@@ -93,16 +125,13 @@ module Backend
           journal: @journal,
           asset_account: @asset_account,
           expenses_account: @expenses_account,
-          allocation_account: @allocation_account,
-          product: @product
+          allocation_account: @allocation_account
         )
 
         assert @fixed_asset.valid?
         @fixed_asset.save!
 
         @fixed_asset.start_up
-
-        create :sale_item, :fixed, variant: @variant, fixed_asset: @fixed_asset
 
         @fixed_asset.reload
       end
