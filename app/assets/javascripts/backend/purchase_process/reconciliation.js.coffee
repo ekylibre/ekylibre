@@ -308,7 +308,6 @@
       variantId = $(checkboxLine).find('.variant').attr('data-id')
       teamId = $(checkboxLine).attr('data-team-id')
       activityBudgetId = $(checkboxLine).attr('data-activity-budget-id')
-      debugger
       itemUnitCost = $(checkboxLine).find('.item-value.unit-cost').text()
       itemTotalAmount = $(checkboxLine).find('.item-value.total-except-taxes').text()
       itemReductionPercentage = $(checkboxLine).attr('data-reduction-percentage')
