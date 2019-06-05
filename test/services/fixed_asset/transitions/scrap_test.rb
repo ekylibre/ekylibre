@@ -73,6 +73,20 @@ class FixedAsset
         after_scrap.each { |d| assert_equal scrapped_on, d.journal_entry.printed_on }
       end
 
+      test 'scrapping a fixed asset sets the linked product dead_at value to scrapped_on date' do
+        product = create :asset_fixable_product, born_at: DateTime.new(2018, 1, 1)
+        fixed_asset = create :fixed_asset, :in_use, started_on: Date.new(2018, 1, 1), product: product
+        scrapped_on = Date.new(2018, 6, 1)
+
+        assert_nil product.dead_at
+
+        t = new_transition_for fixed_asset, scrapped_on
+
+        assert t.run, t_err(t)
+        product.reload
+        assert product.dead_at, scrapped_on.to_datetime
+      end
+
       def new_transition_for(fa, scrapped_on, **options)
         FixedAsset::Transitions::Scrap.new(fa, scrapped_on, **options)
       end

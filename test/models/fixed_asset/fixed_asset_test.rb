@@ -182,6 +182,21 @@ module FixedAssetTest
       assert_equal 100_000, fa.depreciations.map(&:amount).reduce(&:+)
     end
 
+    test 'linking a fixed asset to a sale updates tax, amounts and sold_on fields according to the sale it refers to' do
+      variant = ProductNatureVariant.import_from_nomenclature(:tractor)
+      fixed_asset = create :fixed_asset, :in_use, started_on: Date.new(2018, 1, 1)
+      sale = create :sale, invoiced_at: DateTime.new(2018, 6, 1)
+      sale_item = create :sale_item, :fixed, variant: variant, fixed_asset: fixed_asset, sale: sale
+      fixed_asset.reload
+
+      assert_equal fixed_asset.sale_id, sale.id
+      assert_equal fixed_asset.sale_item_id, sale_item.id
+      assert_equal fixed_asset.tax_id, sale_item.tax_id
+      assert_equal fixed_asset.selling_amount, sale_item.amount
+      assert_equal fixed_asset.pretax_selling_amount, sale_item.pretax_amount
+      assert_equal fixed_asset.sold_on, sale.invoiced_at.to_date
+    end
+
     private
 
       def depreciate_up_to(_depreciations, date)
