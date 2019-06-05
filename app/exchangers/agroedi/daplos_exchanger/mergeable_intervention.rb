@@ -13,7 +13,6 @@ module Agroedi
           ]
         end
         to_merge.each do |_crit, group|
-          exchanger.w.info "- Grouping #{group.length} interventions together".green
           group.reduce do |merged_in, intervention|
             # - Inputs cover all targets bc they're in area_unit
             # so no need to merge.
