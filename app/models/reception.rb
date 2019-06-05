@@ -86,9 +86,7 @@ class Reception < Parcel
     self.nature = 'incoming'
     self.state ||= :draft
 
-    reception_items = self.items
-
-    if reception_items.reject { |i| i.instance_variable_get :@marked_for_destruction }.any? { |i| i.purchase_order_item.present?  }
+    if self.items.reject { |i| i.instance_variable_get :@marked_for_destruction }.any? { |i| i.purchase_order_item.present?  }
       self.reconciliation_state = 'reconcile'
     else
       self.reconciliation_state = 'to_reconcile'

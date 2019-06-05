@@ -1,7 +1,7 @@
 ((E, $) ->
   'use strict'
   # Si true: afficher 'rapprochée' sinon, afficher 'a rapprocher'
-  set_state = (reconciliation_state) =>
+  set_reconciliation_state = (reconciliation_state) =>
     # now, what?
     if reconciliation_state
       $('.no-reconciliate-title').addClass('hidden')
@@ -20,10 +20,12 @@
 
     $displayComplianceStates = $(".nested-item-form[data-non-compliant='true']")
 
-    set_state !!displayedItemIds.length
+    set_reconciliation_state !!displayedItemIds.length
 
     if !$displayComplianceStates.length
       $('.compliance-title').addClass('hidden')
+    else
+      $('.compliance-title').removeClass('hidden')
 
   $(document).on 'cocoon:after-remove', '#new_reception, #new_purchase_invoice', refresh_state
 
@@ -101,7 +103,6 @@
     @reconciliationModal.getModal().modal 'hide'
 
   $(document).on 'click', '.item-form__btn .btn--cancel', refresh_state
-
 
   E.reconciliation =
     displayClosePurchaseOrderBlock: (event) ->
@@ -193,7 +194,6 @@
 
       $('.no-reconciliate-state').removeClass('hidden')
 
-
     displayReconciliationModal: (event, datas) ->
       isPurchaseInvoiceForm = $(event.target).closest('.simple_form').is('.new_purchase_invoice, .edit_purchase_invoice')
       isReceptionForm = $(event.target).closest('.simple_form').is('.new_reception, .edit_reception')
@@ -202,6 +202,10 @@
       if isPurchaseInvoiceForm
         url = "/backend/purchase_process/reconciliation/receptions_to_reconciliate"
         datas['supplier'] = $('input[name="purchase_invoice[supplier_id]').val()
+        form = $('.edit_purchase_invoice')
+        if form.length
+          action = form.attr('action')
+          datas['purchase_invoice'] = action.substr(action.lastIndexOf('/') + 1)
       else if isReceptionForm
         datas['supplier'] = $('input[name="reception[sender_id]').val()
         form = $('.edit_reception')
@@ -220,17 +224,14 @@
           @reconciliationModal.getModal().modal 'show'
           E.reconciliation.editReconciliationModal(@reconciliationModal)
 
-
-
     editReconciliationModal: (modal) ->
-      displayedItemIds = $('.nested-item-form[data-item-id]').map ->
-        $(this).attr('data-item-id')
+      displayedItemIds = $('.nested-item-form[data-item-id]')
+        .map(-> $(this).attr('data-item-id'))
       .toArray()
 
       for id in displayedItemIds
         $checkbox = modal.getModalContent().find("input[type='checkbox'][data-id=#{id}]")
-        continue unless $checkbox.length
-        $checkbox.prop('checked', true)
+        $checkbox.prop('checked', true) if $checkbox.length
 
 
     reconciliateItems: (modal) ->
@@ -266,22 +267,18 @@
         $checkbox = $(modal).find("input[type='checkbox'][data-id=#{id}]")
         continue if $checkbox.prop('checked')
 
-        buttonToClickSelector = $('.item-form__btn .btn')[0]
-
-        $(buttonToClickSelector).trigger('click')
+        $('.item-form__btn .btn').first().trigger('click')
 
 
     _createNewItemLine: (itemCheckbox) ->
       variantType = $(itemCheckbox).closest('.item').attr('data-variant-type')
-      buttonToClickSelector = $('.row-footer .add-merchandise')
 
-      if variantType == "service"
-        buttonToClickSelector = $('.row-footer .add-service')
-      else if variantType == "cost"
-        buttonToClickSelector = $('.row-footer .add-fees')
+      $buttonToClick = switch variantType
+        when 'service' then $('.row-footer .add-service')
+        when 'cost' then $('.row-footer .add-fees')
+        else $('.row-footer .add-merchandise')
 
-      $(buttonToClickSelector).find('.add_fields').trigger('click')
-
+      $buttonToClick.find('.add_fields').trigger('click')
 
     _fillNewLineForm:  (itemCheckbox, isPurchaseOrderModal) ->
       lastLineForm = $('table.list .nested-fields .nested-item-form:last:visible')
@@ -307,10 +304,11 @@
 
 
     _fillReceptionItem: (lastLineForm, checkboxLine, itemId, itemQuantity) ->
+      console.log "_fillReceptionItem"
       variantId = $(checkboxLine).find('.variant').attr('data-id')
       teamId = $(checkboxLine).attr('data-team-id')
       activityBudgetId = $(checkboxLine).attr('data-activity-budget-id')
-
+      debugger
       itemUnitCost = $(checkboxLine).find('.item-value.unit-cost').text()
       itemTotalAmount = $(checkboxLine).find('.item-value.total-except-taxes').text()
       itemReductionPercentage = $(checkboxLine).attr('data-reduction-percentage')
@@ -327,8 +325,6 @@
       $(lastLineForm).attr('data-non-compliant', itemCompliantState)
 
       $(lastLineForm).find('.purchase-item-attribute').val(JSON.stringify([itemId]))
-      $(lastLineForm).find('.form-field .invoice-conditionning').val(itemConditionning)
-      $(lastLineForm).find('.form-field .invoice-conditionning-quantity').val(itemConditionningQuantity)
       $(lastLineForm).find('.form-field .invoice-quantity').val(itemQuantity)
       $(lastLineForm).find('.form-field .invoice-unit-amount').val(itemUnitCost)
       $(lastLineForm).find('.form-field .invoice-discount-percentage').val(itemReductionPercentage)
@@ -355,6 +351,7 @@
 
 
     _fillPurchaseOrderItem: (lastLineForm, checkboxLine, itemId, itemQuantity, itemConditionning, itemConditionningQuantity) ->
+      console.log "_fillPurchaseOrderItem"
       variantId = $(checkboxLine).find('.variant').attr('data-id')
       variantType = $(checkboxLine).attr('data-variant-type')
 

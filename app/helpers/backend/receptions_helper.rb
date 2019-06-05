@@ -7,14 +7,12 @@ module Backend
     def reconciliation_state(reception, print_both: false)
       elements = ''.html_safe
       if print_both || reception.reconciliation_state == 'to_reconcile'
-        # code pour afficher "A RAPPROCHER"
         html_class = 'no-reconciliate-title'
         text = :to_reconciliate.tl
         elements << content_tag(:h2, text, class: ['reconciliation-title', html_class, (:hidden if reception.reconciliation_state == 'reconcile')])
       end
 
       if print_both || reception.reconciliation_state == 'reconcile'
-        # code pour afficher "RAPPROCHEE"
         html_class = 'reconcile-title'
         text = :reconcile.tl
         elements << content_tag(:h2, text, class: ['reconciliation-title', html_class, (:hidden if reception.reconciliation_state == 'to_reconcile')])

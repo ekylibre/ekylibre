@@ -79,9 +79,7 @@ class PurchaseOrder < Purchase
     self.ordered_at ||= created_at
   end
 
-  scope :with_state, lambda { |state|
-    where(state: state)
-  }
+  scope :with_state, ->(state) { where(state: state) }
   scope :of_supplier, ->(supplier) { where(supplier: supplier) }
 
   def self.third_attribute
