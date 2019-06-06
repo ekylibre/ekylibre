@@ -24,7 +24,7 @@
 # == Table: fixed_assets
 #
 #  accounted_at                    :datetime
-#  allocation_account_id           :integer          not null
+#  allocation_account_id           :integer
 #  asset_account_id                :integer
 #  ceded                           :boolean
 #  ceded_on                        :date
@@ -60,7 +60,7 @@
 #  sold_on                         :date
 #  started_on                      :date             not null
 #  state                           :string
-#  stopped_on                      :date             not null
+#  stopped_on                      :date
 #  updated_at                      :datetime         not null
 #  updater_id                      :integer
 #
