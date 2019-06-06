@@ -3,29 +3,14 @@ module Ekylibre
   # Prefer ekylibre/cultivable_zones_json to import directly cultivable zones
   # REMOVEME This exchanger is not very useful in standalone mode
   class CultivableZonesExchanger < ActiveExchanger::Base
-    DEFAULT_SHAPE = 'MULTIPOLYGON(((0 0,0 1,1 1,1 0,0 0)))'.freeze
+    DEFAULT_SHAPE = Charta.new_geometry('MULTIPOLYGON(((0 0,0 1,1 1,1 0,0 0)))').freeze
 
     def find_zone_by_matching_shape(shape)
       CultivableZone.shape_covering(shape, 0.02).first || CultivableZone.shape_matching(shape, 0.02).first
     end
-
-    def find_by_georeading(georeading)
-      shape = ::Charta.new_geometry(georeading.content)
-
-      zone = find_zone_by_matching_shape(shape)
-
-      return unless zone
-
-      zone.shape = shape
-
-      zone
-    end
-
-    def fallback_to_default_zone(work_number)
-      zone = CultivableZone.find_or_initialize_by(work_number: work_number)
-      zone.shape = Charta.new_geometry(DEFAULT_SHAPE.dup)
-
-      zone
+        
+    def find_or_init_by_number(work_number)
+      CultivableZone.find_or_initialize_by(work_number: work_number)
     end
 
     # Create or updates cultivable zones
@@ -47,11 +32,16 @@ module Ekylibre
         # check if existing CultivableZone cover or overlap a current object to import
         georeading = Georeading.find_by(number: r.georeading_number) ||
                      Georeading.find_by(name: r.georeading_number)
-
-        zone = find_by_georeading(georeading) if georeading
+        default_zone = find_or_init_by_number(r.code)
+        
+        if georeading
+          shape = georeading.content
+          zone = find_zone_by_matching_shape(shape)&.tap { |z| z.shape = shape }
+          zone ||= default_zone.tap { |z| z.shape = shape }
+        end
 
         Rails.logger.warn "Cannot find georeading: #{r.georeading_number}" unless zone
-        zone ||= fallback_to_default_zone r.code
+        zone ||= default_zone.tap { |z| z.shape = DEFAULT_SHAPE.dup }
 
         # update name & code anyway
         zone.name = r.name if r.name
