@@ -5,7 +5,7 @@ class ReceivableItemsFilterTest < ActiveSupport::TestCase
     @filter = ReceivableItemsFilter.new
   end
 
-  test "Should return item with quantity_to_receive > 0" do
+  test "Should filter out item with quantity_to_receive == 0" do
     orders = []
 
     items = []
