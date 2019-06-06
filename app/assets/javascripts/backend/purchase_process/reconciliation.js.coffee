@@ -14,16 +14,16 @@
       $('.reconcile-state').addClass('hidden')
 
   refresh_state = ->
-    $displayComplianceStates = $(".nested-item-form[data-non-compliant='true']")
+    $displayComplianceStates = $(".nested-fields .nested-item-form[data-non-compliant='true']")
 
-    set_reconciliation_state !!$('.nested-item-form[data-item-id]').length
+    set_reconciliation_state !!$('.nested-fields .nested-item-form[data-item-id]').length
 
     if !$displayComplianceStates.length
       $('.compliance-title').addClass('hidden')
     else
       $('.compliance-title').removeClass('hidden')
 
-  $(document).on 'cocoon:after-remove', '#new_reception, #new_purchase_invoice', refresh_state
+  $(document).on 'cocoon:after-remove', '#new_reception, #new_purchase_invoice, .edit_reception, .edit_purchase_invoice', refresh_state
 
 
   $(document).on 'change', '#purchase_invoice_accepted_state', (event) ->
@@ -80,7 +80,7 @@
   $(document).on 'click', '#purchase_process_reconciliation .valid-modal', (event) ->
     modal = $(event.target).closest('#purchase_process_reconciliation')
 
-    displayedItemIds = $('.nested-item-form[data-item-id]').map(-> $(this).attr('data-item-id')).toArray()
+    displayedItemIds = $('.nested-fields .nested-item-form[data-item-id]').map(-> $(this).attr('data-item-id')).toArray()
 
     if $(this).attr('data-item-reconciliation') != undefined
       # Reconciliation on line
@@ -221,7 +221,7 @@
           E.reconciliation.editReconciliationModal(@reconciliationModal)
 
     editReconciliationModal: (modal) ->
-      displayedItemIds = $('.nested-item-form[data-item-id]').map(-> $(this).attr('data-item-id')).toArray()
+      displayedItemIds = $('.nested-fields .nested-item-form[data-item-id]').map(-> $(this).attr('data-item-id')).toArray()
 
       for id in displayedItemIds
         $checkbox = modal.getModalContent().find("input[type='checkbox'][data-id=#{id}]")
@@ -257,11 +257,13 @@
 
     removeLineWithUnselectedItems: (modal, displayedItemIds, event) ->
       for id in displayedItemIds
-
         $checkbox = $(modal).find("input[type='checkbox'][data-id=#{id}]")
-        continue if $checkbox.prop('checked')
+        if $checkbox.length && !$checkbox.prop('checked')
+          $container = $(".nested-fields .nested-item-form[data-item-id='#{id}'").closest('tbody')
+          if $container.length
+            $container.find('a.remove-item').click()
 
-        $('.item-form__btn .btn').first().trigger('click')
+      0
 
 
     _createNewItemLine: (itemCheckbox) ->
