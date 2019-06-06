@@ -52,13 +52,6 @@ module Backend
         end
 
         items_to_reconcile(given_receptions,purchase_orders:  false)
-
-
-        # receptions = Reception.where(id: ParcelItem.where(purchase_invoice_item_id: nil).map(&:parcel_id),
-        #                              sender_id: params[:supplier],
-        #                              state: :given).order(given_at: :asc)
-
-        # items_to_reconcile(receptions, purchase_orders: false)
       end
 
       private

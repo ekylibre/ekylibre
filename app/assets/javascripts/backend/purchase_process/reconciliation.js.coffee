@@ -1,8 +1,7 @@
 ((E, $) ->
   'use strict'
-  # Si true: afficher 'rapprochée' sinon, afficher 'a rapprocher'
+
   set_reconciliation_state = (reconciliation_state) =>
-    # now, what?
     if reconciliation_state
       $('.no-reconciliate-title').addClass('hidden')
       $('.no-reconciliate-state').addClass('hidden')
@@ -15,12 +14,9 @@
       $('.reconcile-state').addClass('hidden')
 
   refresh_state = ->
-    displayedItemIds = $('.nested-item-form[data-item-id]').map ->
-      $(this).attr('data-item-id')
-
     $displayComplianceStates = $(".nested-item-form[data-non-compliant='true']")
 
-    set_reconciliation_state !!displayedItemIds.length
+    set_reconciliation_state !!$('.nested-item-form[data-item-id]').length
 
     if !$displayComplianceStates.length
       $('.compliance-title').addClass('hidden')
@@ -202,15 +198,15 @@
       if isPurchaseInvoiceForm
         url = "/backend/purchase_process/reconciliation/receptions_to_reconciliate"
         datas['supplier'] = $('input[name="purchase_invoice[supplier_id]').val()
-        form = $('.edit_purchase_invoice')
-        if form.length
-          action = form.attr('action')
+        $form = $('.edit_purchase_invoice')
+        if $form.length
+          action = $form.attr('action')
           datas['purchase_invoice'] = action.substr(action.lastIndexOf('/') + 1)
       else if isReceptionForm
         datas['supplier'] = $('input[name="reception[sender_id]').val()
-        form = $('.edit_reception')
-        if form.length
-          action = form.attr('action')
+        $form = $('.edit_reception')
+        if $form.length
+          action = $form.attr('action')
           datas['reception'] = action.substr(action.lastIndexOf('/') + 1)
 
 
@@ -225,9 +221,7 @@
           E.reconciliation.editReconciliationModal(@reconciliationModal)
 
     editReconciliationModal: (modal) ->
-      displayedItemIds = $('.nested-item-form[data-item-id]')
-        .map(-> $(this).attr('data-item-id'))
-      .toArray()
+      displayedItemIds = $('.nested-item-form[data-item-id]').map(-> $(this).attr('data-item-id')).toArray()
 
       for id in displayedItemIds
         $checkbox = modal.getModalContent().find("input[type='checkbox'][data-id=#{id}]")
@@ -304,7 +298,6 @@
 
 
     _fillReceptionItem: (lastLineForm, checkboxLine, itemId, itemQuantity) ->
-      console.log "_fillReceptionItem"
       variantId = $(checkboxLine).find('.variant').attr('data-id')
       teamId = $(checkboxLine).attr('data-team-id')
       activityBudgetId = $(checkboxLine).attr('data-activity-budget-id')
@@ -350,7 +343,6 @@
 
 
     _fillPurchaseOrderItem: (lastLineForm, checkboxLine, itemId, itemQuantity, itemConditionning, itemConditionningQuantity) ->
-      console.log "_fillPurchaseOrderItem"
       variantId = $(checkboxLine).find('.variant').attr('data-id')
       variantType = $(checkboxLine).attr('data-variant-type')
 
@@ -372,6 +364,9 @@
       closePurchaseOrderBlock = $(purchaseOrderLine).find('.close-purchase-order')
       if $(closePurchaseOrderBlock).find('input[type="radio"][value="true"]').is(':checked')
         $(lastLineForm).find('.purchase-order-to-close-id').val(modelId)
+
+
+
 
 
 
