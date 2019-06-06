@@ -254,7 +254,7 @@ class Account < Ekylibre::Record::Base
           options[:usages] ||= ''
           options[:usages] << ' ' + item.name.to_s
         end
-        options[:name] ||= number.to_s
+        options[:name] ||= options.delete(:default_name) || number.to_s
         merge_attributes = {
           number: number,
           already_existing: (options[:already_existing] || false)

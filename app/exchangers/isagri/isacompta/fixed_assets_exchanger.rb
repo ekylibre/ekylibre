@@ -38,17 +38,18 @@ module Isagri
           }.to_struct
 
           # get allocation and expenses account
-          parent_usage = Account.find_parent_usage(r.asset_account)
-          new_name = I18n.t("attributes.allocation_account") + ' - ' + I18n.t("nomenclatures.accounts.items.#{parent_usage}")
-          exchange_allocation_account = Account.find_or_create_by_number(to_allocation_account(r.asset_account), name: new_name) # 28
+          allocation_account_parent_usage = Account.find_parent_usage(to_allocation_account(r.asset_account))
+          allocation_account_default_name = Nomen::Account.find(allocation_account_parent_usage).l
+          exchange_allocation_account = Account.find_or_create_by_number(to_allocation_account(r.asset_account), default_name: allocation_account_default_name)
           exchange_expenses_account = Account.find_or_import_from_nomenclature(:depreciations_inputations_expenses)
 
           description = r.number + ' | ' + r.name + ' | ' + r.purchase_on.to_s + ' | ' + r.net_value.to_s
           
           # get or create asset account
-          if r.asset_account && r.name
-            exchange_asset_account_name = r.number + ' | ' + r.name
-            exchange_asset_account = Account.find_or_create_by_number(r.asset_account, name: exchange_asset_account_name)
+          if r.asset_account
+            parent_usage = Account.find_parent_usage(r.asset_account)
+            default_name = Nomen::Account.find(parent_usage).l
+            exchange_asset_account = Account.find_or_create_by_number(r.asset_account, default_name: default_name)
             w.info prompt + "exchange asset account : #{exchange_asset_account.label.inspect.red}"
           end
 
@@ -114,7 +115,7 @@ module Isagri
 
       # Generate allocation account number
       def to_allocation_account(number)
-        number.chars.insert(1, "8")[0...-1].join.to_i
+        number.chars.insert(1, "8")[0...-1].join
       end
 
     end
