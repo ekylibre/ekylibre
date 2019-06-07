@@ -102,6 +102,8 @@ module Isagri
         end
       end
 
+      private
+
       # Trim account number following preferences
       def normalize(number)
         preference_number = Preference[:account_number_digits]
