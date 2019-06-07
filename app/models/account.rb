@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -168,6 +168,10 @@ class Account < Ekylibre::Record::Base
 
   scope :deductible_vat, -> {
     of_usages(:deductible_vat, :enterprise_deductible_vat)
+  }
+
+  scope :tax_declarations, -> {
+    of_usages(:fixed_assets, :expenses, :revenues)
   }
 
   # This method:allows to create the parent accounts if it is necessary.
@@ -453,52 +457,13 @@ class Account < Ekylibre::Record::Base
   # Mark entry items with the given +letter+. If no +letter+ given, it uses a new letter.
   # Don't mark unless.all the marked items will be balanced together
   def mark(item_ids, letter = nil)
-    Account.without_lettering do
-      conditions = ['id IN (?) AND (letter IS NULL OR LENGTH(TRIM(letter)) <= 0 OR (letter SIMILAR TO ?))', item_ids, '[A-z]*\*?']
-      items = journal_entry_items.where(conditions)
-      return nil unless item_ids.size > 1 && items.count == item_ids.size &&
-                        items.collect { |l| l.debit - l.credit }.sum.to_f.zero?
-      letter ||= new_letter
-      journal_entry_items.where(conditions).update_all(letter: letter)
-    end
+    conditions = ['id IN (?) AND (letter IS NULL OR LENGTH(TRIM(letter)) <= 0 OR (letter SIMILAR TO ?))', item_ids, '[A-z]*\*?']
+    items = journal_entry_items.where(conditions)
+    return nil unless item_ids.size > 1 && items.count == item_ids.size &&
+                      items.collect { |l| l.debit - l.credit }.sum.to_f.zero?
+    letter ||= new_letter
+    journal_entry_items.where(conditions).update_all(letter: letter)
     letter
-  end
-  
-  class << self
-    def without_lettering
-      disable_partial_lettering
-      yield
-      enable_partial_lettering
-    end
-
-    def disable_partial_lettering
-      ActiveRecord::Base.connection.execute('ALTER TABLE journal_entry_items DISABLE TRIGGER compute_partial_lettering_status_insert_delete')
-      ActiveRecord::Base.connection.execute('ALTER TABLE journal_entry_items DISABLE TRIGGER compute_partial_lettering_status_update')
-    end
-
-    def enable_partial_lettering
-      account_letterings = <<-SQL.strip_heredoc
-          SELECT account_id,
-            RTRIM(letter, '*') AS letter_radix,
-            SUM(debit) = SUM(credit) AS balanced,
-            RTRIM(letter, '*') || CASE WHEN SUM(debit) <> SUM(credit) THEN '*' ELSE '' END
-              AS new_letter
-          FROM journal_entry_items AS jei
-          WHERE account_id IS NOT NULL AND LENGTH(TRIM(COALESCE(letter, ''))) > 0
-          GROUP BY account_id, RTRIM(letter, '*')
-      SQL
-
-      ActiveRecord::Base.connection.execute <<-SQL.strip_heredoc
-          UPDATE journal_entry_items AS jei
-            SET letter = ref.new_letter
-            FROM (#{account_letterings}) AS ref
-            WHERE jei.account_id = ref.account_id
-              AND RTRIM(COALESCE(jei.letter, ''), '*') = ref.letter_radix
-              AND letter <> ref.new_letter;
-      SQL
-      ActiveRecord::Base.connection.execute('ALTER TABLE journal_entry_items ENABLE TRIGGER compute_partial_lettering_status_insert_delete')
-      ActiveRecord::Base.connection.execute('ALTER TABLE journal_entry_items ENABLE TRIGGER compute_partial_lettering_status_update')
-    end
   end
 
   # Mark entry items with the given +letter+, even when the items are not balanced together.

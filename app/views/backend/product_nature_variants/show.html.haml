@@ -28,6 +28,10 @@
       = resource_info(:france_maaid) do |france_maaid|
         %i.picto{class: "picto-flask"}
         = link_to(france_maaid, "https://ephy.anses.fr/resultats_recherche/ppp?search_api_aggregation_3=#{france_maaid}")
+    .med-info.important
+      %span.title= :quantity_to_receive.tl
+      %span.value
+        = quantity_to_receive resource
   -# .info
     %span.title= ProductNatureVariant.human_attribute_name(:net_mass)
     %span.value= resource.products.map(&:net_mass).compact.sum
@@ -143,8 +147,20 @@
   - c.cobble(:sale_items) do
     = cobble_list(:sale_items)
 
-  - c.cobble(:parcel_items) do
-    = cobble_list(:parcel_items)
+  - c.cobble(:shipments) do
+    = cobble_list(:shipments)
+
+  - c.cobble(:purchase_order_items) do
+    = cobble_list(:purchase_order_items)
+
+  - c.cobble(:receptions) do
+    = cobble_list(:receptions)
+
+  - c.cobble(:purchase_invoice_items) do
+    = cobble_list(:purchase_invoice_items)
+
+  - c.cobble(:suppliers) do
+    = cobble_list(:suppliers)
 
   - c.cobble(:catalog_items) do
     = cobble_toolbar do |t|

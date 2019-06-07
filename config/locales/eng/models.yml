@@ -20,6 +20,7 @@ eng:
       inclusion: "%{attribute} is not included in the list"
       invalid: "%{attribute} is invalid"
       invalid_at: "%{attribute} is_invalid. Error near %{error}"
+      invalid_child: "At least one value of %{attribute} is invalid."
       invalid_date: "%{attribute} is not a valid date"
       invalid_datetime: "%{attribute} is not a valid datetime"
       invalid_time: "%{attribute} is not a valid time"
@@ -121,6 +122,9 @@ eng:
         contract: "Contract"
       parcel_item:
         population: "Quantity"
+      parcel_item_storing:
+        reception_given_at: "Given at"
+        reception_planned_at: "Planned at"
       plant:
         born_at: "Planted at"
       plant_counting:
@@ -136,7 +140,11 @@ eng:
       purchase:
         affair_balance: "Balance"
       purchase_item:
+        average_unit_pretax_amount: "Average unit pretax amount"
         fixed_asset_stopped_on: "Fixed asset stopped on"
+        last_unit_pretax_amount: "Last unit pretax amount"
+        ordered_quantity: "Ordered quantity"
+        supplier_name: "Supplier"
       sale:
         affair_balance: "Balance"
         contact: "Address for the estimate"
@@ -162,7 +170,57 @@ eng:
         intracommunity_payable: "Intracommunity payable"
     errors:
       messages:
-        <<: *error_messages
+        accepted: "%{attribute} must be accepted"
+        after: "%{attribute} must be after %{restriction}"
+        already_confirmed: "was already confirmed, please try signing in"
+        before: "%{attribute} must be before %{restriction}"
+        blank: "%{attribute} can't be blank"
+        confirmation: "%{attribute} doesn't match confirmation"
+        confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
+        currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
+        empty: "%{attribute} can't be empty"
+        equal_to: "%{attribute} must be equal to %{count}"
+        even: "%{attribute} must be even"
+        exclusion: "%{attribute} is reserved"
+        expired: "has expired, please request a new one"
+        greater_than: "%{attribute} must be greater than %{count}"
+        greater_than_or_equal_to: "%{attribute} must be greater than or equal to %{count}"
+        included_in: "The value of %{attribute} must be included between %{minimum} and %{maximum}"
+        inclusion: "%{attribute} is not included in the list"
+        invalid: "%{attribute} is invalid"
+        invalid_at: "%{attribute} is_invalid. Error near %{error}"
+        invalid_date: "%{attribute} is not a valid date"
+        invalid_datetime: "%{attribute} is not a valid datetime"
+        invalid_time: "%{attribute} is not a valid time"
+        invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
+        is: "%{attribute} must be a %{thing}"
+        is_at: "%{attribute} must be at %{restriction}"
+        less_than: "%{attribute} must be less than %{count}"
+        less_than_or_equal_to: "%{attribute} must be less than or equal to %{count}"
+        missing_bank_details_for_sepa: "Values for IBAN and/or Account owner are missing for the cash account selected."
+        must_be_a_mail_address: "%{attribute} must be a mail address"
+        not_a_number: "%{attribute} is not a number"
+        not_an_end_of_month: "%{attribute} must be an end of month"
+        not_an_integer: "%{attribute} must be an integer"
+        not_enough: "not enough %{resource} to complete task"
+        not_found: "not found"
+        not_locked: "was not locked"
+        not_saved:
+          one: "1 error prohibited this %{resource} from being saved:"
+          other: "%{count} errors prohibited this %{resource} from being saved:"
+        nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
+        odd: "%{attribute} must be odd"
+        on_or_after: "%{attribute} must be on or after %{restriction}"
+        on_or_before: "%{attribute} must be on or before %{restriction}"
+        overlap: "%{attribute} overlaps an existing record"
+        overlap_sibling: "%{attribute} overlaps sibling"
+        posterior: "%{attribute} must be posterior to %{to}"
+        record_invalid: "Validations failed: %{errors}"
+        taken: "%{attribute} has already been taken"
+        too_long: "%{attribute} is too long (maximum is %{count} characters)"
+        too_short: "%{attribute} is too short (minimum is %{count} characters)"
+        unitary_in_parcel: "Unitary items can only be sent one by one"
+        wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
         activity:
           checked_off_with_inspections: "Inspections have already been created for this activity"
@@ -322,7 +380,6 @@ eng:
       event: "Event"
       event_participation: "Event participation"
       financial_year: "Financial year"
-      # financial_year_archive: "Financial year archive"
       financial_year_exchange: "Financial year exchange"
       fixed_asset: "Fixed asset"
       fixed_asset_depreciation: "Fixed asset depreciation"
@@ -503,7 +560,7 @@ eng:
     accountant: "Accountant"
     accounted_at: "Accounted at"
     accounting_balance: "Accounting balance"
-    accounting_label: "Accounting label"
+    accounting_label: "Accounting label" #?
     accuracy: "Accuracy"
     achieved_at: "Achieved at"
     actions: "Actions"
@@ -539,7 +596,7 @@ eng:
     all_addresses: "All addresses"
     all_taxes_included: "All taxes included"
     allocation_account: "Allocation account"
-    already_existing: "Already existing"
+    already_existing: "Already existing" #?
     amount: "Amount"
     analysed_at: "Analysed at"
     analyser: "Analyser"
@@ -554,7 +611,6 @@ eng:
     archive_file_name: "Archive file name"
     archive_file_size: "Archive file size"
     archive_updated_at: "Archive updated at"
-    # archives: "Archives"
     archiving: "Archiving"
     area: "Area" #?
     arguments: "Arguments"
@@ -569,7 +625,7 @@ eng:
     authorized_payments_count: "Authorized payments count"
     # auto_calculate_working_periods: "Auto calculate working periods"
     auto_updateable_addresses: "Auto updateable addresses"
-    auxiliary_number: "Auxiliary number"
+    auxiliary_number: "Auxiliary number" #?
     average_value: "Average value"
     average_yield: "Average yield"
     balance: "Balance"
@@ -615,6 +671,7 @@ eng:
     canal: "Canal"
     cap_2017_crop_code: "Cap 2017 crop code"
     cap_2018_crop_code: "Cap 2018 crop code"
+    # cap_2019_crop_code: "Cap 2019 crop code"
     cap_islet: "CAP islet"
     cap_islets: "CAP islets"
     cap_land_parcel: "CAP land parcel"
@@ -634,8 +691,8 @@ eng:
     category: "Category"
     ceded: "Ceded"
     ceded_on: "Ceded on"
-    centralizing_account: "Centralizing account"
-    centralizing_account_name: "Centralizing account name"
+    centralizing_account: "Centralizing account" #?
+    centralizing_account_name: "Centralizing account name" #?
     centroid: "Centroid"
     charge_account: "Charge account"
     charges_categories: "Charges categories"
@@ -659,7 +716,6 @@ eng:
     closed: "Closed"
     closed_at: "Closed at"
     closed_on: "Closed on"
-    # closer: "Closer"
     closure_journal: "Closure journal" #?
     clusters_work_number: "Clusters work number" #?
     code: "Code"
@@ -705,7 +761,7 @@ eng:
     content: "Content"
     content_localizations: "Content localizations"
     contents: "Contents"
-    continuous_number: "Continuous number"
+    continuous_number: "Continuous number" #?
     contract: "Contract"
     contract_items: "Contract items"
     contracts: "Contracts"
@@ -803,7 +859,7 @@ eng:
     depreciable_amount: "Depreciable amount"
     depreciable_product: "Depreciable product"
     depreciated_amount: "Depreciated amount"
-    depreciation_fiscal_coefficient: "Depreciation fiscal coefficient"
+    depreciation_fiscal_coefficient: "Depreciation fiscal coefficient" #?
     depreciation_method: "Depreciation method"
     depreciation_percentage: "Depreciation percentage"
     depreciation_period: "Depreciation period"
@@ -837,6 +893,8 @@ eng:
     due_on: "Due on"
     duration: "Duration"
     economic_situation: "Economic situation"
+    # ekylibre_scope: "Ekylibre scope"
+    # ekylibre_value: "Ekylibre value"
     email: "Email"
     emails: "Emails"
     embedded: "Embedded"
@@ -920,7 +978,6 @@ eng:
     finished_at: "Finished at"
     firm_name: "Firm name"
     first_calving_on: "First calving on"
-    # first_financial_year_ends_on: "First financial year ends on"
     first_met_at: "First met on"
     first_name: "First name"
     first_number: "First number" #?
@@ -1098,6 +1155,7 @@ eng:
     irregular_batch: "Irregular batch" #?
     irrigated: "Irrigated"
     irrigation_water_nitrogen: "Irrigation water nitrogen"
+    # is_partially_planned: "Is partially planned"
     islet: "Islet"
     islet_number: "Islet number"
     islets: "Islets"
@@ -1196,7 +1254,7 @@ eng:
     main_production: "Main production" #?
     managed: "Managed"
     managed_sales: "Managed sales"
-    mandatory: "Mandatory"
+    mandatory: "Mandatory" #?
     manure_management_plan_zones: "Manure management plan zones"
     marketable: "Marketable"
     marketable_items_count: "Marketable items count" #?
@@ -1311,7 +1369,7 @@ eng:
     paid_taxes: "Paid taxes"
     parameter_name: "Parameter name" #?
     parameters: "Parameters"
-    parcel: "Parcel" #?
+    parcel: "Parcel"
     # parcel_item: "Parcel item"
     parcel_item_storings: "Parcel item storings"
     parcel_items: "Parcel items"
@@ -1331,7 +1389,6 @@ eng:
     # parts: "Parts"
     password: "Password"
     password_confirmation: "Confirmation of password"
-    # path: "Path"
     payee: "Payee"
     payer: "Payer"
     payment_at: "Payment on"
@@ -1444,7 +1501,7 @@ eng:
     proposer: "Proposer"
     prospect: "Prospect"
     # provider: "Provider"
-    # providers: "Providers"
+    providers: "Providers"
     provisional: "Provisional" #?
     provisional_intervention: "Provisional intervention" #?
     # public_token: "Public token"
@@ -1622,7 +1679,7 @@ eng:
     serial: "Serial"
     serial_number: "Serial number"
     sessions: "Sessions"
-    sha256_fingerprint: "Sha256 fingerprint"
+    sha256_fingerprint: "Sha256 fingerprint" #?
     shape: "Shape"
     shift_duration: "Shift duration"
     shift_method: "Shift method"
@@ -1630,7 +1687,7 @@ eng:
     shipment_items: "Shipment items"
     shipments: "Shipments"
     sign_in_count: "Sign in count"
-    signature: "Signature"
+    signature: "Signature" #?
     signup_at: "Signup at"
     siren: "SIREN"
     siret_number: "SIRET number"
@@ -1737,7 +1794,7 @@ eng:
     third_role: "Third role"
     thread: "Thread"
     time_window: "Time window (in seconds)"
-    timing: "Timing"
+    timing: "Timing" #?
     title: "Title"
     tms: "TMS"
     to: "To"
@@ -1770,6 +1827,7 @@ eng:
     # treatment: "Treatment"
     trouble_description: "Trouble description"
     trouble_encountered: "Trouble encountered"
+    vat_account: "VAT account"
     type: "Type"
     uid: "UID"
     unconfirmed_email: "Unconfirmed email"
@@ -1815,7 +1873,7 @@ eng:
     user: "User"
     users: "Users"
     uuid: "UUID"
-    validated_at: "Validated at"
+    validated_at: "Validated at" #?
     # validator: "Validator"
     value: "Value"
     variable_indicators_list: "Variable indicators list"
@@ -2040,9 +2098,9 @@ eng:
       states:
         draft: "Draft"
         invoice: "Invoice"
-    payslip_payment: #?
-      bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}" #?
-      label: "%{number}. %{amount} on %{date} in %{mode} for %{payee}" #?
+    payslip_payment:
+      bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
+      label: "%{number}. %{amount} on %{date} in %{mode} for %{payee}"
     product:
       informations:
         with_components: "%{product} (%{unit}) (transformed material)"
@@ -2086,9 +2144,9 @@ eng:
         refused: "Refused order"
     purchase_gap:
       bookkeep: "[%{resource} %{number}] %{supplier}"
-    purchase_invoice: #?
-      bookkeep: "[%{resource} %{number}] %{products} from %{supplier}" #?
-      quantity_gap_on_invoice: "Gap on stock quantity [%{resource} %{number}] from %{entity}" #?
+    purchase_invoice:
+      bookkeep: "[%{resource} %{number}] %{products} from %{supplier}"
+      quantity_gap_on_invoice: "Gap on stock quantity [%{resource} %{number}] from %{entity}"
     purchase_item:
       name: "%{product} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}"
       name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}"

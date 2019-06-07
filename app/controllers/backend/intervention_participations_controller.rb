@@ -61,7 +61,7 @@ module Backend
       end
 
       @intervention = @participation.intervention
-      
+
       if @intervention.nil? && (params[:intervention_id].nil? || params[:intervention_id].blank?)
 
         # try to infer new intervention from form

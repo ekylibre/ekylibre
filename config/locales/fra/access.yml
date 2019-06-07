@@ -8,7 +8,7 @@ fra:
       link: "Lier"
       lock: "Verrouiller"
       read: "Lire"
-      reopen: "Réouvrir"
+      reopen: "Réouvrir" #?
       write: "Écrire"
     resources:
       accounts: "Comptes comptables"
@@ -50,8 +50,8 @@ fra:
       incoming_payment_modes: "Modes d’encaissement"
       incoming_payments: "Encaissements"
       integrations: "Connexions partenaires"
-      interventions: "Interventions"
       intervention_templates: "Modèles d'intervention"
+      interventions: "Interventions"
       inventories: "Inventaires"
       issues: "Incidents"
       journal_draft: "Brouillard comptable"

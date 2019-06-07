@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -177,6 +177,7 @@ class Entity < Ekylibre::Record::Base
   validates :siret_number, siret_format: true, allow_blank: true
   validates_attachment_content_type :picture, content_type: /image/
   validates_delay_format_of :supplier_payment_delay
+  validates_with SEPA::BICValidator, field_name: :bank_identifier_code
 
   alias_attribute :name, :full_name
 
@@ -226,7 +227,7 @@ class Entity < Ekylibre::Record::Base
     self.currency = Preference[:currency] if currency.blank?
     self.country  = Preference[:country]  if country.blank?
     self.iban = iban.to_s.upper.gsub(/[^A-Z0-9]/, '')
-    self.bank_identifier_code = bank_identifier_code.to_s.upper.gsub(/[^A-Z0-9]/, '')
+    self.bank_identifier_code = bank_identifier_code.to_s.upper.gsub(/[^A-Z0-9]/, '').presence
     self.bank_account_holder_name = full_name if bank_account_holder_name.blank?
     self.bank_account_holder_name = I18n.transliterate(bank_account_holder_name) unless bank_account_holder_name.nil?
     self.supplier_payment_delay = '30 days' if supplier_payment_delay.blank?

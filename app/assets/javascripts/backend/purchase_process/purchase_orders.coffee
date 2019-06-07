@@ -18,12 +18,12 @@
         $newParcelBtn.prop('href', "#{newParcelUrl}?mode=prefilled&purchase_order_ids=#{selectedOrdersIds}")
       else
         $newParcelBtn.prop('href', newParcelUrl)
-       
+
       disabled = !selectedOrders.length || reconciledOrders.length
-      # !! so we're sure disabled is a Boolean and not just truthy/falsy — for jQuery 
+      # !! so we're sure disabled is a Boolean and not just truthy/falsy — for jQuery
       $newParcelBtn.toggleClass('disabled', !!disabled)
 
-  $(document).ready -> 
+  $(document).ready ->
     toggleNewReceptionButton() if $('#purchase_orders-list, #unreceived_purchase_orders-list').length > 0
 
 ) ekylibre, jQuery

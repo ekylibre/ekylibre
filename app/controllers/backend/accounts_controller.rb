@@ -174,7 +174,7 @@ module Backend
       end
     end
 
-    def reconciliable_list 
+    def reconciliable_list
       return unless @account = Account.find_by_id(params[:id])
 
       if params.key?(:masked)
@@ -188,8 +188,8 @@ module Backend
 
       @items = @account.reconcilable_entry_items(params[:period], params[:started_on], params[:stopped_on], hide_lettered: lettered_items_preference.value)
 
-      @unmark_label = :unmark.ta    
-      @unmark_title = :unmark.tl    
+      @unmark_label = :unmark.ta
+      @unmark_title = :unmark.tl
       @confirm_label = :are_you_sure.tl
       @account_id = @account.id
       @currency = Preference[:currency]

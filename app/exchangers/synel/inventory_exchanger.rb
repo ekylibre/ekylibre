@@ -42,7 +42,30 @@ module Synel
           outgoing_at: (outgoing_on ? outgoing_on.to_datetime + 10.hours : nil)
         )
         # check if animal is present in DB
-        next unless animal = Animal.find_by(identification_number: r.identification_number)
+        if animal = Animal.find_by(identification_number: r.identification_number)
+          animal.initial_dead_at = r.outgoing_at
+          animal.save!
+        else
+          group = nil
+
+          # find a bos variety from corabo field in file
+          item = Nomen::Variety.find_by(french_race_code: r.corabo)
+          variety = (item ? item.name : :bos_taurus)
+          variant = ProductNatureVariant.import_from_nomenclature(r.sex == :male ? :male_adult_cow : :female_adult_cow)
+
+          animal = Animal.create!(
+            variant: variant,
+            name: r.name,
+            variety: variety,
+            identification_number: r.identification_number,
+            work_number: r.work_number,
+            initial_born_at: r.born_at,
+            initial_dead_at: r.outgoing_at,
+            initial_owner: owner,
+            initial_population: 1.0,
+            default_storage: group ? group.record.default_storage : nil
+          )
+        end
 
         # Find mother
         unless r.mother_identification_number.blank? &&

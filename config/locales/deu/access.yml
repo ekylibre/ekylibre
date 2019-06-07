@@ -8,7 +8,7 @@ deu:
       # link: "Link"
       lock: "Sperren"
       read: "Lesen"
-      reopen: "Wieder öffnen"
+      reopen: "Wieder öffnen" #?
       write: "Schreiben"
     resources:
       # accounts: "Accounts"
@@ -50,6 +50,7 @@ deu:
       incoming_payment_modes: "Eingehende Zahlungsmodalitäten"
       incoming_payments: "Eingehende Zahlungen"
       integrations: "Integrationen"
+      # intervention_templates: "Intervention templates"
       interventions: "Interventionen"
       inventories: "Die Vorräte"
       issues: "Probleme"
@@ -91,6 +92,7 @@ deu:
       roles: "Rollen"
       sale_natures: "Verkauf Naturen"
       sales: "Der Umsatz"
+      # schedulings: "Schedulings"
       sensors: "Sensoren"
       sequences: "Sequenzen"
       settings: "Einstellungen"
@@ -102,6 +104,7 @@ deu:
       tax_declarations: "Steuererklärungen"
       taxes: "Steuern"
       # teams: "Teams"
+      # technical_itineraries: "Technical itineraries"
       trackings: "trackings"
       transports: "Transporte"
       users: "Benutzer"

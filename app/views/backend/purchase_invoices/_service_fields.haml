@@ -19,6 +19,34 @@
       }
     = f.referenced_association(:variant, **options)
 
+    - classes = 'supplier-ref-block'
+    - classes << ' hidden' if f.object.new_record?
+    %div{ class: classes }
+      %span.supplier-ref-label= "#{ :reception_number.tl } : "
+      %span.supplier-ref-value= f.object.new_record? ? "" : f.object.decorate.reception_number
+
+    - display = ""
+    - display = "display: none;" unless item && item.variant && item.variant.depreciable?
+    .fixed-asset-fields{style: display, data: {"when-item": "depreciable", "when-display-value": 'true'}}
+      = f.input :fixed
+
+      - display = "display: none;" unless item.fixed
+      .assets{style: display}
+        = f.input :preexisting_asset, label: :asset_exists.tl
+
+        - display_existing_asset = "display: none;" unless item.preexisting_asset
+        .existing_asset{style: display_existing_asset}
+          = f.referenced_association :fixed_asset, source: :drafts
+
+        - display_new_asset = "display: none;" if item.preexisting_asset
+        .new_asset{style: display_new_asset}
+          = f.referenced_association(:depreciable_product)
+
+        - display_stopped_on = "display: none;" if (item.new_record? && item.preexisting_asset) || (!item.new_record? && item.fixed_asset_stopped_on.nil?)
+        .fixed-asset-stopped-on{style: display_stopped_on}
+          = f.input :fixed_asset_stopped_on, required: true
+
+
   .storing-calculation
     .storing-quantifier
       = f.input :quantity, wrapper: :append do

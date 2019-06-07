@@ -897,7 +897,7 @@
         <page to="backend/cultivable_zones#list_productions"/>
         <page to="backend/cultivable_zones#unroll"/>
       </item>
-<!--       <item name="land_parcels">
+      <item name="land_parcels">
         <page to="backend/land_parcels#index"/>
         <page to="backend/land_parcels#create"/>
         <page to="backend/land_parcels#destroy"/>
@@ -957,7 +957,7 @@
         <page to="backend/plants#edit_many"/>
         <page to="backend/plants#update_many"/>
         <page to="backend/visualizations/plants_visualizations#show"/>
-      </item> -->
+      </item>
     </group>
     <group name="animal_management" icon="cow">
       <item name="animals">
@@ -2188,47 +2188,27 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
-      <item name="animal_groups">
-        <page to="backend/animal_groups#available_time_or_quantity"/>
-      </item>
-      <item name="animals">
-        <page to="backend/animals#available_time_or_quantity"/>
-      </item>
-      <item name="building_divisions">
-        <page to="backend/building_divisions#available_time_or_quantity"/>
-      </item>
-      <item name="buildings">
-        <page to="backend/buildings#available_time_or_quantity"/>
-      </item>
-      <item name="equipments">
-        <page to="backend/equipments#available_time_or_quantity"/>
-      </item>
-      <item name="fungi">
-        <page to="backend/fungi#available_time_or_quantity"/>
+      <item name="accounts">
+        <page to="backend/accounts#reconciliable_list"/>
       </item>
       <item name="interventions">
         <page to="backend/interventions#compare_realised_with_planned"/>
+        <page to="backend/interventions#create_duplicate_intervention"/>
+        <page to="backend/interventions#duplicate_interventions"/>
+        <page to="backend/interventions#generate_buttons"/>
       </item>
       <item name="land_parcels">
-        <page to="backend/land_parcels#available_time_or_quantity"/>
+        <page to="backend/land_parcels#list_interventions"/>
+        <page to="backend/land_parcels#list_plants"/>
       </item>
-      <item name="matters">
-        <page to="backend/matters#available_time_or_quantity"/>
+      <item name="outgoing_payment_modes">
+        <page to="backend/outgoing_payment_modes#sepa"/>
       </item>
-      <item name="plants">
-        <page to="backend/plants#available_time_or_quantity"/>
+      <item name="product_nature_variants">
+        <page to="backend/product_nature_variants#storage_detail"/>
       </item>
-      <item name="product_groups">
-        <page to="backend/product_groups#available_time_or_quantity"/>
-      </item>
-      <item name="products">
-        <page to="backend/products#available_time_or_quantity"/>
-      </item>
-      <item name="settlements">
-        <page to="backend/settlements#available_time_or_quantity"/>
-      </item>
-      <item name="workers">
-        <page to="backend/workers#available_time_or_quantity"/>
+      <item name="shipments">
+        <page to="backend/shipments#invoice"/>
       </item>
     </group>
   </untreated-actions>

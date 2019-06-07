@@ -168,7 +168,7 @@ module Isagri
               depreciation_method: r.depreciation_method,
               depreciation_period: :yearly,
               depreciation_percentage: r.depreciation_rate,
-              journal: Journal.find_or_create_by!(name: :various.tl, nature: :various),
+              journal: Journal.find_or_create_by!(nature: :various),
               asset_account: exchange_asset_account,
               allocation_account: exchange_allocation_account,
               expenses_account: exchange_expenses_account

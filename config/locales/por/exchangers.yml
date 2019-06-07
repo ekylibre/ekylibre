@@ -16,7 +16,7 @@ por:
     ekylibre_bank_statements: "Extratos bancários Ekylibre"
     ekylibre_budgets: "Orçamentos Ekylibre"
     ekylibre_buildings_json: "Edifícios Ekylibre JSON"
-    # ekylibre_cash_transfers: "Ekylibre cash transfers"
+    # ekylibre_cash_transferts: "Ekylibre cash transferts"
     ekylibre_cultivable_zones: "Zonas Ekylibre cultiváveis"
     ekylibre_cultivable_zones_json: "Ekylibre zonas cultiváveis ​​JSON"
     ekylibre_entities: "Entidades Ekylibre"
@@ -63,3 +63,4 @@ por:
     upra_reproductors: "Reprodutores UPRA"
     viniteca_interventions: "Intervenções Viniteca"
     viniteca_plant_zones: "Zonas de plantas Viniteca"
+    # vivescia_purchase: "Vivescia purchase"

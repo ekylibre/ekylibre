@@ -37,6 +37,22 @@ class ::Symbol
   end
 end
 
+class ::DateTime
+  def self.soft_parse(*args, &block)
+    DateTime.parse(*args, &block)
+  rescue ArgumentError
+    nil
+  end
+end
+
+class ::Date
+  def self.soft_parse(*args, &block)
+    Date.parse(*args, &block)
+  rescue ArgumentError
+    nil
+  end
+end
+
 class ::Time
   def to_usec
     (utc.to_f * 1000).to_i

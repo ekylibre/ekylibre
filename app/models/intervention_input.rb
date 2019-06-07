@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -90,7 +90,7 @@ class InterventionInput < InterventionProductParameter
       unit = quantity.unit.to_s + '_per_hectare'
       q = (quantity.value.to_f / intervention.working_zone_area.to_f).round(2)
       q_per_hectare = Measure.new(q.to_f, unit.to_sym)
-    elsif quantity.dimension == :volume_area_density || quantity.dimension == :mass_area_densit
+    elsif quantity.dimension == :volume_area_density || quantity.dimension == :mass_area_density
       q_per_hectare = quantity
     end
     q_per_hectare

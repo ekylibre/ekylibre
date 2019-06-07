@@ -86,6 +86,10 @@ class Measure
     end
   end
 
+  def hash
+    [@value, @unit].hash
+  end
+
   # Returns a new measure in the given unit
   def convert(unit)
     Measure.new(to_r(unit), unit)

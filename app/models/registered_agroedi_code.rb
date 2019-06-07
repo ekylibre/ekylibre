@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,6 +22,8 @@
 #
 # == Table: registered_agroedi_codes
 #
+#  ekylibre_scope  :string
+#  ekylibre_value  :string
 #  id              :integer          not null, primary key
 #  reference_code  :string
 #  reference_id    :string
@@ -30,4 +32,6 @@
 #
 class RegisteredAgroediCode < ActiveRecord::Base
   include Lexiconable
+
+  scope :of_reference_code, ->(code) { where(reference_code: code.to_s) }
 end

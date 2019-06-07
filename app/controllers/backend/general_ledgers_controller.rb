@@ -49,6 +49,7 @@ module Backend
       t.column :credit, currency: true, hidden: true, on_select: :sum
       t.column :absolute_debit,  currency: :absolute_currency, on_select: :sum
       t.column :absolute_credit, currency: :absolute_currency, on_select: :sum
+      t.column :vat_account, url: { controller: :accounts, action: :show, id: 'RECORD.vat_account'.c }, label_method: :vat_account_label
     end
 
     def show; end

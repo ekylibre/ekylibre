@@ -161,13 +161,26 @@ module Ekylibre
           p_ids = []
           r.supports.each do |support|
             # case A1 : CZ
-            if support.is_a?(CultivableZone)
-              ap = ActivityProduction.of_campaign(r.campaign).where(cultivable_zone: support)
-              ap = ap.of_cultivation_variety(r.target_variety) if r.target_variety
+            if support.is_a?(CultivableZone) && r.target_variety && r.campaign
+              # find by variety, campaign and cultivable zone id
+              ap = ActivityProduction
+                  .of_campaign(r.campaign)
+                  .where(cultivable_zone: support)
+                  .of_cultivation_variety(r.target_variety)
+
+              # or find by variety, campaign and geolocation intersection
+              if ap.blank?
+                ap = ActivityProduction
+                    .support_shape_intersecting(support.shape)
+                    .of_campaign(r.campaign)
+                    .of_cultivation_variety(r.target_variety)
+              end
               ps = ap.map(&:support)
+              w.info "case A1 : CZ #{ps}".inspect.blue
             # case A2 : Product
-            elsif support.is_a?(Product)
+            elsif support.is_a?(Product) || support.is_a?(LandParcel)
               ps = [support]
+              w.info "case A2 : Product #{ps}".inspect.blue
             end
             p_ids += ps.map(&:id)
           end
@@ -177,11 +190,11 @@ module Ekylibre
         # Case B
         elsif r.support_codes.present?
           activity = Activity.where(family: r.support_codes.flatten.first.downcase.to_sym).first
-          production = Production.where(activity: activity, campaign: r.campaign).first if activity && r.campaign
+          production = ActivityProduction.where(activity: activity, campaign: r.campaign).first if activity && r.campaign
         # Case C
         else
           activity = Activity.where(nature: :auxiliary, with_supports: false, with_cultivation: false).first
-          production = Production.where(activity: activity, campaign: r.campaign).first if activity && r.campaign
+          production = ActivityProduction.where(activity: activity, campaign: r.campaign).first if activity && r.campaign
         end
 
         w.debug supports.inspect.yellow
@@ -374,7 +387,7 @@ module Ekylibre
     def parse_row(row)
       r = OpenStruct.new(
         intervention_number: row[0].to_i,
-        campaign_code: row[1].to_s,
+        campaign_code: (row[1].blank? ? nil : row[1].to_s),
         intervention_started_at: (row[2].blank? || row[3].blank? ? nil : Time.strptime(Date.parse(row[2].to_s).strftime('%d/%m/%Y') + ' ' + row[3].to_s, '%d/%m/%Y %H:%M')),
         intervention_duration_in_hour: (row[4].blank? ? nil : row[4].tr(',', '.').to_d),
         procedure_name: (row[5].blank? ? nil : row[5].to_s.downcase.to_sym), # to transcode
@@ -402,8 +415,12 @@ module Ekylibre
       # Get supports
       w.debug "Support code in method parse_row #{r.support_codes}".inspect.green
       r.supports = parse_record_list(r.support_codes, CultivableZone, :work_number)
-      r.supports ||= parse_record_list(r.support_codes.delete_if { |s| %w[EXPLOITATION].include?(s) }, Product, :work_number)
-      w.debug "Support code in method parse_record list #{r.supports.map(&:name)}".inspect.green
+      w.info "Support for CZ in method parse_row #{r.supports}".inspect.yellow
+      r.supports = parse_record_list(r.support_codes, LandParcel, :work_number) unless r.supports.any?
+      w.info "Support for LP in method parse_row #{r.supports}".inspect.yellow
+      r.supports ||= parse_record_list(r.support_codes.delete_if { |s| %w[EXPLOITATION].include?(s) }, Product, :work_number) unless r.supports.any?
+      w.info "Support for Others in method parse_row #{r.supports}".inspect.yellow
+      w.info "Support in method parse_row #{r.supports}".inspect.yellow
       # Get equipments
       r.equipments = parse_record_list(r.equipment_codes, Equipment, :work_number)
       # Get workers
@@ -446,9 +463,6 @@ module Ekylibre
         record = klass.find_by(column => c)
         unfound << c unless record
         record
-      end
-      if unfound.any?
-        raise "Cannot find #{klass.name.tableize.humanize} with #{column}: #{unfound.to_sentence}"
       end
       records
     end
@@ -571,6 +585,8 @@ module Ekylibre
       ## targets
       targets.each_with_index do |target, index|
         procedure.parameters_of_type(:target).each do |support|
+          w.info "support : #{support}".inspect.red
+          w.info "target : #{target}".inspect.red
           # next unless target.of_expression(support.filter)
           attributes[:targets_attributes] ||= {}
           attributes[:targets_attributes][index.to_s] = {
@@ -745,7 +761,10 @@ module Ekylibre
         attributes[:working_periods_attributes] = { '0' => { started_at: r.intervention_started_at.strftime('%Y-%m-%d %H:%M'), stopped_at: r.intervention_stopped_at.strftime('%Y-%m-%d %H:%M') } }
 
         # find all plants in the current target
-        targets = find_plants(support: targets, variety: r.target_variety, at: r.intervention_started_at)
+        plants = find_plants(support: targets, variety: r.target_variety, at: r.intervention_started_at)
+        if plants.any?
+          targets = plants
+        end
 
         ## targets
         targets.each_with_index do |target, index|

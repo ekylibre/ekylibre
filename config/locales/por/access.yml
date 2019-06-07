@@ -8,7 +8,7 @@ por:
       link: "Linkar"
       lock: "Bloquear"
       read: "Leitura"
-      reopen: "Reabrir"
+      reopen: "Reabrir" #?
       write: "Escrever"
     resources:
       accounts: "Contas"
@@ -53,6 +53,7 @@ por:
       incoming_payment_modes: "Modos de pagamento a receber"
       incoming_payments: "Pagamentos a receber"
       integrations: "Integrações"
+      # intervention_templates: "Intervention templates"
       interventions: "Intervenções"
       inventories: "Inventário"
       issues: "Problemas"
@@ -97,6 +98,7 @@ por:
       roles: "Regras"
       sale_natures: "Natureza de Venda"
       sales: "Vendas"
+      # schedulings: "Schedulings"
       sensors: "Sensores"
       sequences: "Sequencias"
       settings: "Configurações"
@@ -108,6 +110,7 @@ por:
       tax_declarations: "Declarações fiscais"
       taxes: "Impostos"
       teams: "Times"
+      # technical_itineraries: "Technical itineraries"
       trackings: "Rastreamentos"
       transports: "Transportes"
       users: "Usuários"

@@ -29,9 +29,9 @@
   .items
     %table.list#items-table
       = f.simple_fields_for :items, f.object.items.sort_by { |i| i.id.to_i } do |item|
-        = render 'item_fields', f: item
+        = render 'item_fields', f: item, display_items_form: @display_items_form
 
       %tfoot#items__footer
-        %tr.row-footer
-          - PurchaseItem.role.values.each do |role|
-            %th{colspan: 6, class: "links add-#{role}"}= link_to_add_association :"add_#{role}".tl, f, :items, partial: 'item_fields', render_options: { locals: { role: role, mode: params[:mode] } }, 'data-association-insertion-node' => '#items__footer', 'data-association-insertion-method' => :before
+    .row-footer
+      - PurchaseItem.role.values.each do |role|
+        %span{ class: "links add-#{role}"}= link_to_add_association :"add_#{role}".tl, f, :items, partial: 'item_fields', render_options: { locals: { role: role, mode: params[:mode], display_items_form: @display_items_form } }, 'data-association-insertion-node' => '#items__footer', 'data-association-insertion-method' => :before
