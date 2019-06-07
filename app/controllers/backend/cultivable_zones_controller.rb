@@ -34,7 +34,8 @@ module Backend
       t.column :production_system_name
       t.column :farmer, url: true
       t.column :owner, url: true
-      # t.column :unit
+      t.column :city_name, hidden: true
+      t.column :cap_number, hidden: true
     end
 
     # content production on current cultivable land parcel

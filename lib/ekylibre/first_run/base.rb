@@ -41,12 +41,10 @@ module Ekylibre
       # Execute all loaders for a given base
       def run
         secure_transaction(!hard?) do
-          preference = executed_preference
           LOADERS.each do |loader, imports|
             run_loader(loader, imports)
           end
-          preference.value = true
-          preference.save!
+          executed_preference.update!(value: true)
         end
       end
 

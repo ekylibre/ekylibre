@@ -183,7 +183,8 @@
 
   $(document).ready ->
     $('*[data-iceberg]').each ->
-      iceberg = new Iceberg($(this))
+      mode = "add" if typeof($(this).data("display-items-form")) != 'undefined'
+      iceberg = new Iceberg($(this), mode)
 
     $('table.list').on 'cocoon:after-insert', (event, inserted) ->
       iceberg = new Iceberg($(inserted), "add") if inserted?

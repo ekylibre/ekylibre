@@ -139,6 +139,7 @@ module Ekylibre
       w.check_point
 
       # Load accounts
+      #TODO check when method is executed
       if can_load_default?(:accounts)
         @manifest[:accounts] = Cash.nature.values.each_with_object({}) do |nature, hash|
           hash[nature] = { name: "enumerize.cash.nature.#{nature}".t,

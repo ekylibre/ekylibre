@@ -685,7 +685,12 @@ Rails.application.routes.draw do
 
     resources :labels, concerns: %i[list unroll]
 
-    resources :land_parcels, concerns: :products, path: 'land-parcels'
+    resources :land_parcels, concerns: :products, path: 'land-parcels' do
+      member do
+        get :list_interventions
+        get :list_plants
+      end
+    end
 
     resources :listing_nodes, except: %i[index show], path: 'listing-nodes'
 
@@ -909,9 +914,14 @@ Rails.application.routes.draw do
         get :detail
         get :list_components
         get :list_catalog_items
-        get :list_parcel_items
+        get :list_receptions
+        get :list_shipments
         get :list_products
         get :list_sale_items
+        get :list_purchase_invoice_items
+        get :list_purchase_order_items
+        get :list_suppliers
+        get :list_purchase_items
         get :quantifiers
         get :storage_detail
       end
@@ -931,6 +941,8 @@ Rails.application.routes.draw do
     resources :purchase_natures, concerns: %i[list unroll], path: 'purchase-natures'
 
     resources :purchase_payments, concerns: %i[list unroll], path: 'purchase-payments'
+
+    resources :purchases, only: :show
 
     namespace :purchases do
       resources :reconcilation_states, only: [] do

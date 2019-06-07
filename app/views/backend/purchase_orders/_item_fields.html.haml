@@ -3,8 +3,7 @@
 - f.object.currency = Preference[:currency]
 - f.object.role = role if defined?(role)
 - non_compliant_message = :non_compliant.tl
-
-%tbody.nested-fields.purchase-order-items.delivery-item{ data: { trade_item: "purchase", iceberg: true } }
+%tbody.nested-fields.purchase-order-items.delivery-item{ data: { trade_item: "purchase", iceberg: true, display_items_form: display_items_form } }
   %tr.item-display.hidden
     %td.act
       - if f.object.destroyable?

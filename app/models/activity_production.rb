@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -74,7 +74,7 @@ class ActivityProduction < Ekylibre::Record::Base
   has_and_belongs_to_many :interventions
   has_and_belongs_to_many :campaigns
 
-  has_geometry :support_shape
+  has_geometry :support_shape, type: :multi_polygon
   composed_of :size, class_name: 'Measure', mapping: [%w[size_value to_d], %w[size_unit_name unit]]
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -107,6 +107,9 @@ class ActivityProduction < Ekylibre::Record::Base
     where(id: HABTM_Campaigns.select(:activity_production_id).where(campaign: campaign))
   }
 
+  scope :with_cultivation_variety, lambda { |variety|
+    where(activity: Activity.with_cultivation_variety(variety))
+  }
   scope :of_cultivation_variety, lambda { |variety|
     where(activity: Activity.of_cultivation_variety(variety))
   }
@@ -222,6 +225,21 @@ class ActivityProduction < Ekylibre::Record::Base
     list.join(' ')
   end
 
+  # compile unique work_number for support
+  # a : P_ for Parcel
+  # b : First letter of activity cultivation variety (v for vitis_vinifera, t for triticum)
+  # c : production rank number
+  # d : cultivable zone number (work number or cap number or id )
+  # e : harvest year
+  def computed_work_number
+    work_number = 'P'
+    work_number << '_' << activity.cultivation_variety[0].upcase
+    work_number << rank_number.to_s
+    work_number << '_' << cultivable_zone.work_number || cultivable_zone.cap_number || cultivable_zone.id.to_s
+    work_number << '_' + campaign.harvest_year.to_s if campaign
+    work_number
+  end
+
   def interventions_of_nature(nature)
     interventions
       .where(nature: nature)
@@ -259,6 +277,11 @@ class ActivityProduction < Ekylibre::Record::Base
     end
     support.name = name
     support.initial_shape = self.support_shape
+
+    if self.activity && self.cultivable_zone
+      support.work_number = computed_work_number
+    end
+
 
     if support.initial_movement
       support.initial_movement.delta = support_shape_area.to_d(size_unit_name)

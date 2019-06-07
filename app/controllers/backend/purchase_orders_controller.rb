@@ -108,6 +108,10 @@ module Backend
       if address = Entity.of_company.default_mail_address
         @purchase_order.delivery_address = address
       end
+      if items_attributes = params[:items_attributes]
+        items_attributes.each { |item| @purchase_order.items.build(variant_id: item[:variant_id], role: item[:role])}
+      end
+      @display_items_form = true if params[:display_items_form]
       render locals: { with_continue: true }
     end
 

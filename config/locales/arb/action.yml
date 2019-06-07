@@ -367,8 +367,6 @@ arb:
       new_specified: "تدخل جديد"
       new_specified_request: "تدخل طلب جديد"
       # show: "%{procedure_name}"
-    backend/invalid_journal_entries:
-      # index: "Journal entries to balance"
     backend/inventories:
       edit: "تعديل الجرد"
       index: "الجرد"
@@ -720,6 +718,8 @@ arb:
       index: "التسلسلات"
       load: "تحميل المفقودين متواليات"
       new: "انشاء تسلسل جديد"
+    backend/services:
+      # index: "Services"
     backend/sessions: #?
       destroy: "الخروج" #?
       new: "الدخول" #?
@@ -1431,6 +1431,7 @@ arb:
     custom_fields: "الحقول المخصصة"
     data_to_export: "تصدير البيانات" #?
     data_to_extract: "استخراج البيانات" #?
+    # date_range: "%{from} to %{to}"
     # dated_cash: "%{cash}: %{on}"
     dates: "ادخل تواريخ بداية ونهاية المدة"
     days: "أيام"
@@ -1531,6 +1532,7 @@ arb:
     # draft_loan_on_current_financial_year: "You have draft loans ongoing. Once the financial year closed, it won't be possible to enter them into service on this financial year (%{code})."
     # draft_vat_declaration: "Pending VAT declaration"
     # driver: "Driver"
+    # due_date: "Due date"
     duplicate: "تكرار"
     # duplicate_intervention: "Duplicate intervention"
     duplicate_x_selected_interventions:
@@ -1542,6 +1544,7 @@ arb:
     earns: "يكسب" #?
     edit: "تعديل"
     edit_budget: "تحرير الميزانية"
+    # edition_date: "Edition date"
     ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "التدخلات مرات المنقضي من الأنشطة"
     # element_status: "Status"
@@ -1669,6 +1672,7 @@ arb:
     finished: "تم الانتهاء من"
     finished_income_statement: "المنتجات" #?
     finished_sum: "مجموع منتجات الاستثمار" #?
+    # first_check_number: "Number of the first check"
     first_line_as_title: "السطر الأول كما لقب"
     fixed_asset_debts: "الديون الأصول الثابتة"
     fixed_asset_depreciations: "انخفاض قيمة الأصول الثابتة"
@@ -1740,6 +1744,7 @@ arb:
     in_progress: "في تَقَدم"
     inactive: "غير نشط"
     include_blank: "--- ولا اية منظمة ---"
+    # including_vat: "incl. VAT"
     income_statement: "حسابات الناتج"
     incoming_parcels: "الطرود الواردة"
     incoming_payment: "دفع الواردة"
@@ -1790,6 +1795,7 @@ arb:
     investment_subsidies: "دعم الاستثمار"
     invitation_status: "الحالة"
     # invoice: "Invoice"
+    # invoice_date: "Invoice date"
     invoice_period: "فترة الفاتورة"
     invoice_status: "وضع الفاتورة"
     invoiced: "فواتير"
@@ -1797,6 +1803,7 @@ arb:
     invoices: "الفواتير"
     # irreversible_operation: "This operation is irreversible"
     is: "هل"
+    # is_equipment_set_as_inactive_by_intervention: "This intervention set the equipment as inactive ?"
     issue: "القضية"
     issues: "مسائل"
     issues_count: "عد قضايا"
@@ -2170,8 +2177,10 @@ arb:
     payment_at: "سدد في"
     payment_conditions: "شروط الدفع"
     # payment_delay_placeholder: "eom, 5 days before"
+    # payment_due_date: "Payment due date"
     payment_label: "%{number}. %{amount} (%{usable_amount} المتبقي)  %{date} بواسطة %{mode} لاجل %{entity}" #?
     payment_mode: "طريقة تسديد الدفعة"
+    # payment_mode_form_label: "Payment mode"
     payment_uses: "الدفعات" #?
     payments: "الدفعات"
     payments_amount: "تم تسديد القيمة" #?
@@ -2183,6 +2192,7 @@ arb:
     people: "الناس"
     percentage_by_calibration: "النسبة المئوية من المعايرة"
     period: "المدة المحددة مسبقا"
+    # period_to_take_into_account: "Period to take into account"
     periods: "فترات"
     permanent_stock_inventory: "جرد مخزون دائم"
     permute: "مقايضة الملفات"
@@ -2213,6 +2223,7 @@ arb:
     # prerequisites_checks_before_closure: "Prerequisites checks before closure"
     prescription: "وصفة طبية"
     prescriptions: "وصفات"
+    # pretax: "pre-tax"
     pretax_amount: "كمية ما قبل الضريبة"
     previous: "السابق"
     price: "السعر"
@@ -2234,9 +2245,12 @@ arb:
     product_component_create: "اضافة عنصر للمنتج" #?
     product_create: "اضافة منتج جديد" #?
     product_name: "المنتج"
+    # product_nature: "Product type"
+    # product_nature_category: "Product category"
     product_natures: "أنواع المنتجات"
     product_update: "تعديل تفاصيل المنتج" #?
     # product_value: "Product value %{financial_year}"
+    # product_variant: "Product variant"
     production: "ادارة الانتاج"
     production_cost: "تكلفة الانتاج"
     # production_costs: "Production costs"
@@ -2263,10 +2277,12 @@ arb:
     provisions_revenues: "عائدات أحكام"
     purchase: "الطلب"
     purchase_create: "اضافة شراء جديد" #?
+    # purchase_invoice_items: "Invoice items"
     purchase_item_create: "اضافة طلب للمنتج" #?
     purchase_items: "تعديل تصميم الشراء"
     purchase_number: "عدد شراء"
     # purchase_order: "Purchase order"
+    # purchase_order_items: "Order items"
     purchase_payments: "دفعات الشراء"
     purchase_price_create: "انشاء سعر الشراء" #?
     purchase_print: "طباعة الطلب للممول" #?
@@ -2300,7 +2316,6 @@ arb:
     # receipt_date: "Receipt date"
     # receipt_responsible: "Receipt responsible"
     received: "مستلم"
-    # received_quantity: "Received quantity"
     # receiving_address: "Receiving address"
     recent_events: "الاحداث الاخيرة"
     # reception: "Reception"
@@ -2312,9 +2327,11 @@ arb:
     # reconciliate_with_purchases_orders: "Reconciliate with purchases orders"
     # reconciliate_with_receptions: "Reconciliate with receptions"
     record: "سجل"
+    # record_cannot_be_saved: "The record can not be saved"
     record_has_been_correctly_removed: "قد تم حذف السجلات بشكل صحيح" #?
     record_has_not_been_removed: "لم يتم حذف السجلات" #?
     record_maintenance: "صيانة المسجلات"
+    # reference: "Reference"
     # reference_supplier: "Reference supplier : %{reference_number}"
     reflect: "يعكس"
     reflected: "التغييرات تنعكس"
@@ -2547,8 +2564,10 @@ arb:
     taxes: "الضرائب"
     taxes_and_wages: "الضرائب والأجور"
     theoric_quantity: "الكمية النظرية" #?
+    # third_balance: "(balance - supplier account balance : %{balance} - %{supplier_account_balance})"
     third_is_unbalanced: "ثالثا غير متوازن. (ميزان - ميزان الحساب المورد)"
     # this_archive_is_digitally_signed: "This archive is digitally signed."
+    # threshold_commercialization_by_production: "Threshold commercialization by production"
     thumb: "اصبع الابهام"
     time_cost: "تكلفة الوقت"
     time_spent_by_activity: "الوقت الذي يقضيه النشاط"
@@ -2961,6 +2980,7 @@ arb:
       access_denied: " ليس لديك الصلاحية لبلوغ هذه الصفحة %{reason} (%{url})"
       accountant_notified: "وقد تم إخطار محاسب"
       accountant_without_email: "الرجاء ضبط البريد الإلكتروني محاسب"
+      # aggeratio_not_found: "The export requested was not found"
       all_fixed_assets_must_be_depreciable: "يجب أن تكون جميع الأصول الثابتة قابلة للاستهلاك"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "يجب أن تكون جميع الطرود invoiceable ومن نفس الطبيعة والثالث"
       all_purchases_must_be_ordered_or_invoiced: "جميع المشتريات يجب أن يؤمر أو فواتير."
@@ -3034,6 +3054,7 @@ arb:
       journal_reopened_at: "%{journal} تم اعادة فتحه في %{closed_at} بشكل صحيح." #?
       # journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
       # locked_exercice_info: "This financial year is locked. Please get in contact with the person who closed this financial year in order to retrieve your documents and exports of year end"
+      # locking_version_error: "Sorry, please retry in a moment, someone else is updating this record"
       mails_are_sent: "تم ارسال رسائل البريد الالكتروني"
       merge_is_done: "ويتم دمج"
       need_a_valid_payment_mode: "تحتاج إلى وضع دفع صالح"
@@ -3255,6 +3276,7 @@ arb:
       increment: "زيادة" #?
       index: "فهرس"
       invoice: "فاتورة"
+      # journal_entries_csv_export: "Export CSV"
       journal_entries_export: "تنزيل ملف CSV"
       journal_entries_import: "استيراد CSV"
       list: "قائمة"

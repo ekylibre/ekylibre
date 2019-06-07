@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -89,12 +89,11 @@ class PurchaseItem < Ekylibre::Record::Base
   validates :fixed, inclusion: { in: [true, false] }
   validates :fixed_asset_stopped_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }, type: :date }, allow_blank: true
   validates :preexisting_asset, inclusion: { in: [true, false] }, allow_blank: true
-  validates :role, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :currency, match: { with: :purchase }
   validates :account, :tax, :reduction_percentage, presence: true
-  validates :variant, presence: true, unless: proc { |item| item.variant.variety.eql?('trailed_equipment') || item.variant.variety.eql?('equipment') }
+  validates :variant, presence: true, unless: proc { |item| item&.variant && (item.variant.variety.eql?('trailed_equipment') || item.variant.variety.eql?('equipment')) }
   validates :quantity, exclusion: { in: [0], message: :invalid }
 
   validates_associated :fixed_asset

@@ -7,8 +7,8 @@ lines:
     key: "EI"
     occurrence: 1
     cells:
-      - farm_siret: string-14
-      - farm_code: string-3
+      - sender_siret: string-14
+      - sender_code: string-3
       - receiver_siret: string-14
       - receiver_code: string-3
       - document_count: string-4
