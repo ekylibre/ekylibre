@@ -6,7 +6,7 @@ module Isagri
       def import
         source = File.read(file)
         detection = CharlockHolmes::EncodingDetector.detect(source)
-        rows = CSV.read(file, headers: true, col_sep: ',', encoding: detection[:encoding])
+        rows = CSV.read(file, headers: true, col_sep: ';', encoding: detection[:encoding])
         w.count = rows.size
         currency_preference = Preference[:currency]
 
@@ -38,17 +38,19 @@ module Isagri
           }.to_struct
 
           # get allocation and expenses account
-          allocation_account_parent_usage = Account.find_parent_usage(to_allocation_account(r.asset_account))
-          allocation_account_default_name = Nomen::Account.find(allocation_account_parent_usage).l
-          exchange_allocation_account = Account.find_or_create_by_number(to_allocation_account(r.asset_account), default_name: allocation_account_default_name)
-          exchange_expenses_account = Account.find_or_import_from_nomenclature(:depreciations_inputations_expenses)
+          if r.depreciation_method == :linear || :regressive
+            allocation_account_parent_usage = Account.find_parent_usage(to_allocation_account(r.asset_account))
+            allocation_account_default_name = Nomen::Account.find(allocation_account_parent_usage).l
+            exchange_allocation_account = Account.find_or_create_by_number(to_allocation_account(r.asset_account), default_name: allocation_account_default_name)
+            exchange_expenses_account = Account.find_or_import_from_nomenclature(:depreciations_inputations_expenses)
+          end
 
           description = r.number + ' | ' + r.name + ' | ' + r.purchase_on.to_s + ' | ' + r.net_value.to_s
-          
+
           # get or create asset account
           if r.asset_account
             parent_usage = Account.find_parent_usage(r.asset_account)
-            default_name = Nomen::Account.find(parent_usage).l
+            default_name = Account.find_by(name: parent_usage) || Nomen::Account.find(parent_usage).l
             exchange_asset_account = Account.find_or_create_by_number(r.asset_account, default_name: default_name)
             w.info prompt + "exchange asset account : #{exchange_asset_account.label.inspect.red}"
           end
@@ -115,7 +117,11 @@ module Isagri
 
       # Generate allocation account number
       def to_allocation_account(number)
-        number.chars.insert(1, "8")[0...-1].join
+        if number.first == "2"
+          number.chars.insert(1, "8")[0...-1].join
+        else
+          number
+        end
       end
 
     end

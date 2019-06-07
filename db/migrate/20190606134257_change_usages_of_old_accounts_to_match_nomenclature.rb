@@ -3,7 +3,7 @@ class ChangeUsagesOfOldAccountsToMatchNomenclature < ActiveRecord::Migration
               fixed_assets: :financial_assets,
               fixed_assets_suppliers: :financial_assets_suppliers ,
               fixed_assets_values: :financial_assets_values }
-
+              
   def up
     CHANGED.each do |to, from|
       execute <<-SQL
