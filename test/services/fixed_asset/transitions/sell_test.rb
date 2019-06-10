@@ -6,10 +6,10 @@ class FixedAsset
     class SellTest < Ekylibre::Testing::ApplicationTestCase
 
       setup do
-        @fy = create :financial_year, year: 2018
+        [2018, 2019].each { |year| create :financial_year, year: year }
         @product = create :asset_fixable_product, born_at: DateTime.new(2018, 1, 1)
         @fixed_asset = create :fixed_asset, :in_use, started_on: Date.new(2018, 1, 1), product: @product
-        @sold_on = Date.new(2018, 6, 1)
+        @sold_on = Date.new(2018, 6, 30)
       end
 
       test 'should not be able to sell FixedAsset that are not in use' do
@@ -45,7 +45,7 @@ class FixedAsset
         mock.expect :valid?, true
         mock.expect :sold_on, nil
 
-        t = new_transition_for mock, Date.new(2019, 5, 1)
+        t = new_transition_for mock, Date.new(2020, 5, 1)
 
         assert_not t.can_run?
         assert_mock mock
@@ -91,6 +91,28 @@ class FixedAsset
 
         assert sale.invoice?
         assert_equal sale.invoiced_at, @fixed_asset.sold_on.to_datetime
+      end
+
+      test 'selling a fixed asset generates accurate journal entries' do
+        sale = create :sale, state: :draft
+        create :sale_item, :fixed, variant: @product.variant, fixed_asset: @fixed_asset, sale: sale
+        @fixed_asset.reload
+        @fixed_asset.update!(sold_on: @sold_on)
+
+        @fixed_asset.sell
+        sale.reload
+
+        remaining_depreciation = @fixed_asset.depreciations.first
+        entry = remaining_depreciation.journal_entry
+        debit_entry = entry.items.where.not(debit: 0).first
+        credit_entry = entry.items.where.not(credit: 0).first
+
+        assert_equal @fixed_asset.depreciations.count, 1
+        assert_equal remaining_depreciation.stopped_on, @sold_on
+        assert_equal entry.debit, 4.19
+        assert_equal entry.credit, 4.19
+        assert_equal credit_entry.account_id, @fixed_asset.allocation_account_id
+        assert_equal debit_entry.account_id, @fixed_asset.expenses_account_id
       end
 
       def new_transition_for(fa, sold_on, **options)

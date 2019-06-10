@@ -118,8 +118,8 @@ module FixedAssetTest
 
       fourth_f_d = fixed_asset.depreciations.where(position: 4).first
 
-      assert_equal 833.33, fourth_f_d.amount
-      assert_equal 833.33, fourth_f_d.journal_entry.real_credit
+      assert_equal 818.97, fourth_f_d.amount
+      assert_equal 818.97, fourth_f_d.journal_entry.real_credit
       assert_equal sold_on, fourth_f_d.journal_entry.printed_on
       assert_equal 150_000.00, fixed_asset.sold_journal_entry.real_credit
       assert_equal sold_on, fixed_asset.sold_journal_entry.printed_on
