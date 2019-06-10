@@ -237,6 +237,15 @@ class Sale < Ekylibre::Record::Base
   bookkeep do |b|
     b.journal_entry(self.nature.journal, reference_number: number, printed_on: invoiced_on, if: (with_accounting && invoice? && items.any?)) do |entry|
       label = tc(:bookkeep, resource: state_label, number: number, client: client.full_name, products: (description.blank? ? items.pluck(:label).to_sentence : description), sale: initial_number)
+      # TODO: Uncommented this once we handle debt correctly and account 462 has been added to nomenclature
+      # if items.all? { |item| item.fixed_asset_id }
+      #   affair_balanced = affair.incoming_payments.sum(:amount) == amount
+      #   account_type = affair_balanced ? :banks : :debt
+      #   account = Account.find_or_import_from_nomenclature account_type
+      #   entry.add_debit(label, account.id, amount)
+      # else
+      #   entry.add_debit(label, client.account(:client).id, amount, as: :client)
+      # end
       entry.add_debit(label, client.account(:client).id, amount, as: :client)
       items.each do |item|
         entry.add_credit(label, (item.account || item.variant.product_account).id, item.pretax_amount, activity_budget: item.activity_budget, team: item.team, as: :item_product, resource: item, variant: item.variant, accounting_label: item.accounting_label.present? ? "#{item.accounting_label} (#{initial_number})" : nil)

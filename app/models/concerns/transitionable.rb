@@ -94,6 +94,31 @@ module Transitionable
       raise TransitionFailedError.new(resource, error)
     end
 
+    private
+
+      def split_depreciation!(depreciation, date)
+        total_amount = depreciation.amount
+        period = Accountancy::Period.new(depreciation.started_on, depreciation.stopped_on)
+        before, after = period.split date
+
+        depreciation.update! stopped_on: before.stop,
+                             amount: round(total_amount * before.days / period.days)
+
+        shift_depreciations! resource.depreciations.following(depreciation)
+        resource.depreciations.create! position: depreciation.position + 1,
+                                       amount: total_amount - depreciation.amount,
+                                       started_on: after.start,
+                                       stopped_on: after.stop
+      end
+
+      def round(amount)
+        resource.currency.to_currency.round amount
+      end
+
+      def shift_depreciations!(depreciations)
+        depreciations.each { |d| d.update! position: d.position + 1 }
+      end
+
     protected
 
       def transition
