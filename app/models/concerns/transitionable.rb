@@ -104,7 +104,6 @@ module Transitionable
         depreciation.update! stopped_on: before.stop,
                              amount: round(total_amount * before.days / period.days)
 
-        shift_depreciations! resource.depreciations.following(depreciation)
         resource.depreciations.create! position: depreciation.position + 1,
                                        amount: total_amount - depreciation.amount,
                                        started_on: after.start,
@@ -113,10 +112,6 @@ module Transitionable
 
       def round(amount)
         resource.currency.to_currency.round amount
-      end
-
-      def shift_depreciations!(depreciations)
-        depreciations.each { |d| d.update! position: d.position + 1 }
       end
 
     protected
