@@ -4,7 +4,7 @@ FactoryBot.define do
     sequence(:name) { |i| "Journal #{i}" }
     # WARN: Will fail uniqueness constraint if more than 1000 journals are created
     # "[J100]0 [J100]1" => J100 x2 bc 4-chars codes
-    sequence(:code) { |i| "J#{i.ljust(2, '0')}" }
+    sequence(:code) { |i| "J#{i.to_s.ljust(2, '0')}" }
     currency { 'EUR' }
     nature { 'various' }
     used_for_affairs { true }
