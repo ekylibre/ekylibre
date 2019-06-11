@@ -61,10 +61,6 @@
     event.stopPropagation()
     E.reconciliation.displayReconciliationModal(event, {})
 
-  $(document).on 'click', '#showItemReconciliationModal', (event) ->
-    event.stopPropagation()
-    itemFieldId = $(event.target).closest('.form-field').find('.purchase-item-attribute').attr('id')
-    E.reconciliation.displayReconciliationModal(event, { reconciliate_item: true, item_field_id: itemFieldId })
 
   $(document).ready ->
     if $('#purchase_process_reconciliation').length > 0
