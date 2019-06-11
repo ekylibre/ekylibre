@@ -1204,6 +1204,7 @@ eng:
     associate_debts: "Associate debts" #?
     associate_locked_debts: "Associate locked debts" #?
     associate_receivables: "Associate receivables" #?
+    associated_sale: "Associated sale"
     assuming_you_want_to_close_a_financial_year_in_the_future: "Assuming you want to close a financial year in the future, you will have to provide an opening balance sheet."
     at_the_address: "At the address"
     attach_deal: "Add a deal"
@@ -1293,6 +1294,7 @@ eng:
     choose_mail_column: "Choose email column"
     choose_options_is_needed: "You must choose the status for the following interventions:"
     clear: "Clear"
+    click_the_button_below_to_record_a_new_transaction: "Click the button below to be redirected to the new transaction form."
     click_to_mail: "Click to email with your own mail software"
     client: "Client" #?
     client_informations: "Client informations"
@@ -1361,6 +1363,7 @@ eng:
     counts: "Counts"
     counts_by_nature: "Number of documents to account per type"
     create: "Create"
+    create_a_sale: "Create a sale"
     create_and_continue: "Create and continue"
     create_journal: "— Create journal —"
     create_or_import_equipments: "Create or import equipment"
@@ -1610,6 +1613,7 @@ eng:
     fixed_asset_debts: "Fixed asset debts" #?
     fixed_asset_depreciations: "Fixed asset depreciations"
     fixed_asset_depreciations_not_accounted_on_current_financial_year: "Fixed asset depreciations not accounted on current financial year"
+    fixed_asset_successfully_associated_to_sale: "The fixed asset has been successfully associated to the sale. Click the 'Sold' button to proceed."
     fixed_assets: "Fixed assets"
     from: "From"
     from_to_date: "from %{from} to %{to}" #?
@@ -1771,6 +1775,7 @@ eng:
     line_number: "Line #%{number}"
     linear_options: "Linear options"
     link: "Link"
+    link_to_a_sale: "Link to a sale"
     liquid_assets_on_turnover: "Liquid assets on turnover %{financial_year}" #?!
     list: "List" #?
     load: "Load" #?
@@ -1891,6 +1896,7 @@ eng:
     no_results: "No results"
     no_right_defined_for_this_part_of_the_application: "No right defined for this part of the application (%{controller}#%{action})"
     no_right_defined_for_this_part_of_the_application_and_this_user: "No right defined for this part of the application and this user"
+    no_sale_to_link_to_this_fixed_asset: "None of the existing sales can be associated to this fixed asset."
     # no_worker_account: "No worker account"
     nominal_storable_easement_area: "Nominal storable easement area"
     none: "None"
@@ -2036,6 +2042,8 @@ eng:
     profits: "Profits" #?
     profits_and_losses: "Profits and losses"
     progress_bar_current_step: "Step %{current}/%{total} : %{label}..." #?
+    provide_mandatory_information_before_scrapping: "Please provide the mandatory information before scrapping your fixed asset. Click the 'Scrapped' button after the redirection to end the process."
+    provide_mandatory_information_before_selling: "Please provide the mandatory information before selling your fixed asset. Click the 'Sold' button after the redirection to end the process."
     provisions_revenues: "Provisions revenues" #?
     purchase: "Purchase"
     purchase_items: "Purchase items" #?
@@ -2137,6 +2145,7 @@ eng:
     select_file_to_upload: "Select file to upload"
     select_forward_journal: "Selected Journal to renew" #??
     selection: "Selection" #?
+    selling_amounts: "Selling amounts"
     semester: "Semester"
     send_mail: "Send mail"
     send_test_mail: "Send test mail"
@@ -2826,7 +2835,7 @@ eng:
       retrieve: "Retrieve"
       run: "Run"
       # run_progress: "Run progress"
-      # scrap: "Scrap"
+      scrap: "Scrap"
       search: "Search" #?
       select: "Select"
       sell: "Turn into sale"

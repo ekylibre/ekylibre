@@ -2588,7 +2588,11 @@ CREATE TABLE sale_items (
     team_id integer,
     codes jsonb,
     compute_from character varying NOT NULL,
-    accounting_label character varying
+    accounting_label character varying,
+    fixed boolean DEFAULT false NOT NULL,
+    preexisting_asset boolean,
+    depreciable_product_id integer,
+    fixed_asset_id integer
 );
 
 
@@ -3105,7 +3109,10 @@ CREATE TABLE fixed_assets (
     scrapped_on date,
     sold_journal_entry_id integer,
     scrapped_journal_entry_id integer,
-    depreciation_fiscal_coefficient numeric
+    depreciation_fiscal_coefficient numeric,
+    selling_amount numeric(19,4),
+    pretax_selling_amount numeric(19,4),
+    tax_id integer
 );
 
 
@@ -11729,6 +11736,13 @@ CREATE INDEX index_fixed_assets_on_sold_journal_entry_id ON public.fixed_assets 
 
 
 --
+-- Name: index_fixed_assets_on_tax_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fixed_assets_on_tax_id ON public.fixed_assets USING btree (tax_id);
+
+
+--
 -- Name: index_fixed_assets_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -16034,6 +16048,13 @@ CREATE INDEX index_sale_items_on_credited_item_id ON public.sale_items USING btr
 
 
 --
+-- Name: index_sale_items_on_fixed_asset_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sale_items_on_fixed_asset_id ON public.sale_items USING btree (fixed_asset_id);
+
+
+--
 -- Name: index_sale_items_on_sale_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -17286,6 +17307,14 @@ ALTER TABLE ONLY journal_entry_items
 
 
 --
+-- Name: sale_items fk_rails_3ed1a3f84a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sale_items
+    ADD CONSTRAINT fk_rails_3ed1a3f84a FOREIGN KEY (depreciable_product_id) REFERENCES products(id);
+
+
+--
 -- Name: crumbs fk_rails_434e943648; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -18046,6 +18075,10 @@ INSERT INTO schema_migrations (version) VALUES ('20190313140443');
 INSERT INTO schema_migrations (version) VALUES ('20190325145542');
 
 INSERT INTO schema_migrations (version) VALUES ('20190520152229');
+
+INSERT INTO schema_migrations (version) VALUES ('20190528093045');
+
+INSERT INTO schema_migrations (version) VALUES ('20190529095536');
 
 INSERT INTO schema_migrations (version) VALUES ('20190611101828');
 

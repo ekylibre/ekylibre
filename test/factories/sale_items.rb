@@ -11,6 +11,11 @@ FactoryBot.define do
     compute_from { 'amount' }
     currency { 'EUR' }
 
+    trait :fixed do
+      fixed             { true }
+      preexisting_asset { true }
+    end
+
     after(:build) do |sale_item|
       sale_item.variant ||= create :product_nature_variant
       # sale_item.variant = ProductNatureVariant.last unless sale_item.variant
