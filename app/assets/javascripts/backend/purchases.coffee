@@ -1,6 +1,10 @@
 ((E, $) ->
   'use strict'
 
+  $(document).on "keydown", '.nested-item-form', (event) ->
+    if event.which == 13
+      event.preventDefault()
+
   E.Purchases =
     fillStocksCounters: (event) ->
       currentForm = $(event.target).closest('.nested-item-form')
