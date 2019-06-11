@@ -2246,6 +2246,7 @@ fra:
     receipt_date: "Date de réception"
     receipt_responsible: "Responsable réception"
     received: "Reçue"
+    received_quantity: "Quantité réceptionnée"
     receiving_address: "Adresse de réception"
     recent_events: "Derniers événements"
     recent_historic: "Historique récent" #?

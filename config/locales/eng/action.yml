@@ -2096,6 +2096,7 @@ eng:
     receipt_date: "Receipt date"
     receipt_responsible: "Receipt responsible"
     received: "Received" #?
+    received_quantity: "Received quantity"
     receiving_address: "Receiving address"
     recent_events: "Recent events"
     reception: "Reception"
