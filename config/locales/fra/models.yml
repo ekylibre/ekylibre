@@ -183,7 +183,11 @@ fra:
         contract: "Contrat"
       parcel_item:
         population: "Quantité"
+        product_name: "Nom du produit"
       parcel_item_storing:
+        conditionning: "Conditionnement"
+        conditionning_quantity: "Quantité"
+        quantity: "Quantité totale"
         reception_given_at: "Donné le"
         reception_planned_at: "Prévu le"
       payslip_payment: #?

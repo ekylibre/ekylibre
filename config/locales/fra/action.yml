@@ -1452,9 +1452,9 @@ fra:
     drug: "Médicament" #?
     due_date: "À régler le"
     duplicate: "Dupliquer"
-    duplicate_intervention: "Dupliquer l'intervention"
+    duplicate_intervention: "Dupliquer l’intervention"
     duplicate_x_selected_interventions:
-      one: "Dupliquer l'intervention sélectionnée"
+      one: "Dupliquer l’intervention sélectionnée"
       other: "Dupliquer les interventions sélectionnées"
     duration: "Durée"
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"

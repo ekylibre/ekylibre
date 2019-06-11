@@ -32,7 +32,7 @@
         %label{ class: "order-second-row-label"}= :vat_rate.tl
       %label{ class: 'vat-rate', data: { item_value: "select.vat-total option:selected" } }= f.object.variant ? f.object.variant.name : 'ERROR'
 
-  %tr.nested-item-form
+  %tr.nested-item-form{ tabindex: 0 }
     %td.item-form{colspan: 20}
       = f.input :role, as: :hidden
       = render "#{f.object.role}_fields", f: f, variant: variant, non_compliant_message: non_compliant_message
