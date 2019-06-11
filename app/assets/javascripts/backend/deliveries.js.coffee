@@ -103,6 +103,7 @@
                     $(this).show()
                   else
                     $(this).hide()
+                  $(this).trigger('visibility:change')
 
               if typeof $(this).data("when-filter-value") != "undefined"
                 key_filter = Object.keys($(this).data('when-filter-value'))[0]
@@ -118,11 +119,14 @@
                 if typeof $(this).data("when-prop-value") != "undefined"
                   $(this).prop($(this).data("when-prop-value"), false)
 
-                if typeof $(this).data("when-display-value") != "undefined"
-                    if $(this).data("when-display-value") == true
-                      $(this).hide()
-                    else
-                      $(this).show()
+              if typeof $(this).data("when-display-value") != "undefined"
+                if typeof $(this).data('when-scope') == "undefined" or $(this).data('when-scope') == scope
+                  if $(this).data("when-display-value") == true
+                    $(this).hide()
+                  else
+                    $(this).show()
+                  $(this).trigger('visibility:change')
+
 
           # shape = item.find(options.population_field or ".item-shape")
           # if data.shape
