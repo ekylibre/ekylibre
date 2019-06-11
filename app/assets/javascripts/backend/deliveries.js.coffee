@@ -103,6 +103,7 @@
                     $(this).show()
                   else
                     $(this).hide()
+                  $(this).trigger('visibility:change')
 
               if typeof $(this).data("when-filter-value") != "undefined"
                 key_filter = Object.keys($(this).data('when-filter-value'))[0]
@@ -123,6 +124,7 @@
                     $(this).hide()
                   else
                     $(this).show()
+                  $(this).trigger('visibility:change')
 
           # shape = item.find(options.population_field or ".item-shape")
           # if data.shape
