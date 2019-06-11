@@ -27,8 +27,8 @@ module Backend
 
         if params[:reception].present?
           linked_purchase_orders = PurchaseOrder.joins(items: :parcels_purchase_orders_items)
-                         .where('parcel_items.parcel_id' => params[:reception])
-                         .uniq
+                                                .where('parcel_items.parcel_id' => params[:reception])
+                                                .uniq
 
           opened_purchases_orders = (opened_purchases_orders + linked_purchase_orders).uniq
         end
@@ -37,21 +37,23 @@ module Backend
       end
 
       def receptions_to_reconciliate
-
         given_receptions = Reception.with_state(:given)
+                                    .joins(:items)
+                                    .where(parcel_items: { purchase_invoice_item_id: nil })
+                                    .uniq
+
         if params[:supplier].present?
           given_receptions = given_receptions.where(sender_id: params[:supplier])
         end
 
         if params[:purchase_invoice].present?
           linked_receptions = Reception.joins(items: :purchase_invoice_item)
-                         .where('purchase_items.purchase_id' => params[:purchase_invoice])
-                         .uniq
+                                       .where('purchase_items.purchase_id' => params[:purchase_invoice])
+                                       .uniq
 
           given_receptions = (given_receptions + linked_receptions).uniq
         end
-
-        items_to_reconcile(given_receptions,purchase_orders:  false)
+        items_to_reconcile(given_receptions, purchase_orders: false)
       end
 
       private
