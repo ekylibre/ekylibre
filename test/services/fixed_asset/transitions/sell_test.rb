@@ -104,15 +104,31 @@ class FixedAsset
 
         remaining_depreciation = @fixed_asset.depreciations.first
         entry = remaining_depreciation.journal_entry
-        debit_entry = entry.items.where.not(debit: 0).first
-        credit_entry = entry.items.where.not(credit: 0).first
+        debit_item = entry.items.where.not(debit: 0).first
+        credit_item = entry.items.where.not(credit: 0).first
 
         assert_equal @fixed_asset.depreciations.count, 1
         assert_equal remaining_depreciation.stopped_on, @sold_on
         assert_equal entry.debit, 4.19
         assert_equal entry.credit, 4.19
-        assert_equal credit_entry.account_id, @fixed_asset.allocation_account_id
-        assert_equal debit_entry.account_id, @fixed_asset.expenses_account_id
+        assert_equal credit_item.account_id, @fixed_asset.allocation_account_id
+        assert_equal debit_item.account_id, @fixed_asset.expenses_account_id
+
+        sell_entry = @fixed_asset.sold_journal_entry
+
+        assert sell_entry
+
+        asset_item = sell_entry.items.where(account: @fixed_asset.asset_account).first
+        allocation_item = sell_entry.items.where(account: @fixed_asset.allocation_account).first
+        asset_value_item = sell_entry.items.where(account: Account.find_by_number('67500000')).first
+
+        assert asset_item
+        assert allocation_item
+        assert asset_value_item
+
+        assert_equal asset_item.credit, 42.0
+        assert_equal allocation_item.debit, 4.19
+        assert_equal asset_value_item.debit, 37.81
       end
 
       def new_transition_for(fa, sold_on, **options)
