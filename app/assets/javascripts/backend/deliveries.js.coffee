@@ -66,8 +66,8 @@
 
                   if $(this).is ":ui-selector"
                     $(this).selector("value", newVal)
-                  else if $(this)._flatpickr?
-                    $(this).setDate(newVal)
+                  else if this._flatpickr?
+                    this._flatpickr.setDate(newVal)
                   else if $(this).is "input"
                     $(this).val(newVal)
                   else
@@ -118,10 +118,6 @@
           #   shape.show()
           # else
           #   shape.hide()
-
-        # Overrides flatpickr input
-        flatpickrInput = $('input.datetime.required.flatpickr-input.form-control.input')
-        flatpickrInput.attr("data-when-item", "achieved_at") && flatpickrInput.attr("data-when-set-value", "RECORD_VALUE")
 
         error: (request, status, error) ->
           console.log("Error while retrieving price and tax fields content: #{error}")

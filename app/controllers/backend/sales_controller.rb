@@ -195,6 +195,12 @@ module Backend
       @sale.conclusion = :default_letter_conclusion.tl
       @sale.items_attributes = params[:items_attributes] if params[:items_attributes]
       @sale.payment_delay = nature.payment_delay
+      if params[:fixed_asset_id]
+        fixed_asset = FixedAsset.find(params[:fixed_asset_id])
+        product = fixed_asset.product
+        item_properties = product ? { variant: product.variant, quantity: 1 } : {}
+        @sale.items.build({ fixed: true, preexisting_asset: true, fixed_asset: fixed_asset }.merge(item_properties))
+      end
       render locals: { with_continue: true }
     end
 

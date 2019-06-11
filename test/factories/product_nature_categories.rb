@@ -14,4 +14,14 @@ FactoryBot.define do
   factory :plants_category, class: ProductNatureCategory do
     sequence(:name) { |n| "Crops - TEST#{n.to_s.rjust(8, '0')}" }
   end
+
+  factory :equipments_category, class: ProductNatureCategory do
+    sequence(:name) { |n| "Equipments category - TEST#{n.to_s.rjust(8, '0')}" }
+    depreciable { true }
+    asset_fixable { true }
+    association :product_account, factory: :account
+    fixed_asset_account
+    fixed_asset_allocation_account
+    fixed_asset_expenses_account
+  end
 end

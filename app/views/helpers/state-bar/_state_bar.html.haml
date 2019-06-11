@@ -1,6 +1,6 @@
 .state-bar
   - state_bar.buttons.each do |button|
     - if button.enabled? && state_bar.transitions_enabled?
-      = link_to button.label, {action: button.event, id: resource.id}, method: :post, class: button.styles, data: {confirm: :are_you_sure.tl}, title: button.title
+      = link_to button.label, { action: button.event, id: resource.id }, method: :post, class: button.styles, data: { confirm: :are_you_sure.tl, name: "#{resource.class.name.underscore}_#{button.name}" }, title: button.title
     - else
       %span{class: button.styles}= button.label
