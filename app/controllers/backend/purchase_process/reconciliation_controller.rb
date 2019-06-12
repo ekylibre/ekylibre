@@ -41,7 +41,6 @@ module Backend
                                     .joins(:items)
                                     .where(parcel_items: { purchase_invoice_item_id: nil })
                                     .uniq
-
         if params[:supplier].present?
           given_receptions = given_receptions.where(sender_id: params[:supplier])
         end

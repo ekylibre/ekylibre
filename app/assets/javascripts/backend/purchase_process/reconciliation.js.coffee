@@ -281,11 +281,13 @@
       itemId = $(itemCheckbox).attr('data-id')
       itemQuantity = $(checkboxLine).find('.item-value.quantity').text()
       equipmentId = $(checkboxLine).attr('data-equipment-id')
+      teamId = $(checkboxLine).attr('data-team-id')
+      projectBudgetId = $(checkboxLine).attr('data-project-budget-id')
+      activityBudgetId = $(checkboxLine).attr('data-activity-budget-id')
       itemConditionning = $(checkboxLine).attr('data-conditionning')
       itemConditionningQuantity = $(checkboxLine).attr('data-conditionning-quantity')
       itemCompliantState = $(checkboxLine).attr('data-non-compliant')
 
-      console.log "HERE"
       $(lastLineForm).attr('data-item-id', itemId)
       $(lastLineForm).attr('data-non-compliant', itemCompliantState)
 
@@ -295,6 +297,9 @@
         E.reconciliation._fillReceptionItem(lastLineForm, checkboxLine, itemId, itemQuantity)
 
       $(lastLineForm).find('input[data-remember="equipment"]').first().selector('value', equipmentId)
+      $(lastLineForm).find('input[data-remember="team"]').first().selector('value', teamId)
+      $(lastLineForm).find('input[data-remember="project_budget"]').first().selector('value', projectBudgetId)
+      $(lastLineForm).find('input[data-remember="activity_budget"]').first().selector('value', activityBudgetId)
       $(lastLineForm).find('.no-reconciliate-item-state').addClass('hidden')
       $(lastLineForm).find('.reconciliate-item-state').removeClass('hidden')
 
