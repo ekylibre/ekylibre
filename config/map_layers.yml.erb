@@ -34,20 +34,20 @@ thunderforest:
     subdomains: 'abc'
   variants:
     outdoors:
-      url: 'https://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png'
+      url: 'https://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png<%= ENV['THUNDERFOREST_API_KEY'] ? "?apikey=#{ENV['THUNDERFOREST_API_KEY']}" : '' %>'
     cycle:
-      url: 'https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png'
+      url: 'https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png<%= ENV['THUNDERFOREST_API_KEY'] ? "?apikey=#{ENV['THUNDERFOREST_API_KEY']}" : '' %>'
     transport:
-      url: 'https://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png'
+      url: 'https://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png<%= ENV['THUNDERFOREST_API_KEY'] ? "?apikey=#{ENV['THUNDERFOREST_API_KEY']}" : '' %>'
       options:
         max_zoom: 19
     transport_dark:
-      url: 'https://{s}.tile.thunderforest.com/transport-dark/{z}/{x}/{y}.png'
+      url: 'https://{s}.tile.thunderforest.com/transport-dark/{z}/{x}/{y}.png<%= ENV['THUNDERFOREST_API_KEY'] ? "?apikey=#{ENV['THUNDERFOREST_API_KEY']}" : '' %>'
       options:
         max_zoom: 19
     landscape:
       enabled: yes
-      url: 'https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png'
+      url: 'https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png<%= ENV['THUNDERFOREST_API_KEY'] ? "?apikey=#{ENV['THUNDERFOREST_API_KEY']}" : '' %>'
 
 open_map_surfer:
   type: background
