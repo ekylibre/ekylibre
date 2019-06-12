@@ -76,11 +76,13 @@ module FixedAssetTest
     test 'simple fixed asset creation with tractor' do
       sold_on = Date.new 2017, 4, 20
       up_to = Date.new 2017, 4, 20
+      product = create :asset_fixable_product, born_at: DateTime.new(2017, 1, 1)
 
       fixed_asset = create :fixed_asset, :linear, :monthly,
                            amount: 150_000,
                            started_on: Date.new(2017, 1, 1),
-                           percentage: 10.00
+                           percentage: 10.00,
+                           product: product
 
       assert_equal 120, fixed_asset.depreciations.count
       assert_equal 1250, fixed_asset.depreciations.first.amount
@@ -105,6 +107,10 @@ module FixedAssetTest
 
       # test when sold fixed asset
 
+      sale_item = create :sale_item, :fixed, variant: product.variant, fixed_asset: fixed_asset, amount: 150_000
+
+      fixed_asset.reload
+
       fixed_asset.sold_on = sold_on
       assert fixed_asset.sell
 
@@ -112,8 +118,8 @@ module FixedAssetTest
 
       fourth_f_d = fixed_asset.depreciations.where(position: 4).first
 
-      assert_equal 833.33, fourth_f_d.amount
-      assert_equal 833.33, fourth_f_d.journal_entry.real_credit
+      assert_equal 818.97, fourth_f_d.amount
+      assert_equal 818.97, fourth_f_d.journal_entry.real_credit
       assert_equal sold_on, fourth_f_d.journal_entry.printed_on
       assert_equal 150_000.00, fixed_asset.sold_journal_entry.real_credit
       assert_equal sold_on, fixed_asset.sold_journal_entry.printed_on
@@ -174,6 +180,21 @@ module FixedAssetTest
 
       assert_equal 10, fa.depreciations.count
       assert_equal 100_000, fa.depreciations.map(&:amount).reduce(&:+)
+    end
+
+    test 'linking a fixed asset to a sale updates tax, amounts and sold_on fields according to the sale it refers to' do
+      variant = ProductNatureVariant.import_from_nomenclature(:tractor)
+      fixed_asset = create :fixed_asset, :in_use, started_on: Date.new(2018, 1, 1)
+      sale = create :sale, invoiced_at: DateTime.new(2018, 6, 1)
+      sale_item = create :sale_item, :fixed, variant: variant, fixed_asset: fixed_asset, sale: sale
+      fixed_asset.reload
+
+      assert_equal fixed_asset.sale_id, sale.id
+      assert_equal fixed_asset.sale_item_id, sale_item.id
+      assert_equal fixed_asset.tax_id, sale_item.tax_id
+      assert_equal fixed_asset.selling_amount, sale_item.amount
+      assert_equal fixed_asset.pretax_selling_amount, sale_item.pretax_amount
+      assert_equal fixed_asset.sold_on, sale.invoiced_at.to_date
     end
 
     private

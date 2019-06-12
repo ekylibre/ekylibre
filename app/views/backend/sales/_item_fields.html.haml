@@ -10,7 +10,7 @@
     = f.input_field :compute_from, as: :hidden, data: { compute_from_updater: true }
     %td= f.object.parcels.map { |i| i.reference_number.blank? ? i.number : i.reference_number }.to_sentence
     %td= f.input :accounting_label, wrapper: :nested
-    %td= f.input(:quantity, wrapper: :nested, input_html: {size: 5, data: {trade_component: "quantity"}})
+    %td= f.input(:quantity, wrapper: :nested, input_html: {size: 5, data: {trade_component: "quantity"}}, disabled: item.fixed)
     %td= f.input(:unit_pretax_amount, wrapper: :nested, input_html: {size: 8, data: {trade_component: "unit_pretax_amount", compute_from: :unit_pretax_amount }})
     %td= f.select(:tax_id, Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.usable_amount)/100)}]}, {}, data: {value: 'rate', trade_component: "tax"})
     %td= f.input(:reduction_percentage, wrapper: :nested, input_html: {size: 8, data: {trade_component: "reduction_percentage"}})
@@ -39,6 +39,16 @@
       - attrs = {}
       - attrs[:style] = "display: none" if f.object.annotation.blank?
       .annotate{attrs}= f.input(:annotation, wrapper: :nested, input_html: { class: "annotation" })
+      - attrs[:style] = item && item.variant && item.variant.depreciable? ? {} : 'display: none'
+      .fixed-asset{attrs}
+        = f.input :fixed, show: :assets, input_html: { 'data-closest': :tr }
+        - attrs = item.fixed ? {} : {style: 'display: none;'}
+        #assets{attrs}
+          = f.input :preexisting_asset, show: :existing_asset, hide: :new_asset, label: :asset_exists.tl, input_html: { 'data-closest': :tr }
+          #existing_asset{attrs}
+            = f.referenced_association :fixed_asset, source: :not_linked_to_sale
+          #new_asset
+            = f.referenced_association :depreciable_product, source: :depreciables
 
   %tr.tr-add-on
     %td{ colspan: 2 }

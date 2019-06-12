@@ -41,6 +41,7 @@ fra:
               greater_than: "Le montant à payer doit être supérieur à zéro" #?
       missing_bank_details_for_sepa: "Les valeurs IBAN et/ou Titulaire du compte sont manquantes pour la trésorerie sélectionnée."
       must_be_a_mail_address: "%{attribute} doit être une adresse e-mail" #?
+      no_opened_financial_year: "Aucun exercice comptable ouvert à cette date"
       not_a_number: "%{attribute} n’est pas un nombre" #?
       not_an_end_of_month: "%{attribute} doit être une fin de mois" #?
       not_opened_financial_year: "Un exercice comptable ouvert est nécessaire pour la (les) période(s)"
@@ -1486,6 +1487,7 @@ fra:
     prescription: "Prescription"
     prescriptor: "Prescripteur"
     pretax_amount: "Montant HT"
+    pretax_selling_amount: "Prix de vente HT"
     previous_cultivation_residue_mineralization: "Minéralisation des résidus de culture du précédent (Mr)"
     price: "Prix"
     price_templates: "Modèles de prix" #?
@@ -1704,6 +1706,7 @@ fra:
     selected: "Sélectionné"
     selected_manure_management_plan: "Plan de fumure sélectionné"
     selected_manure_management_plan_zone: "Zone de plan de fumure sélectionné"
+    selling_amount: "Prix de vente TTC"
     sender: "Expéditeur"
     sensor: "Capteur"
     sensors: "Capteurs"

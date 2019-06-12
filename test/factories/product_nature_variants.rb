@@ -28,4 +28,12 @@ FactoryBot.define do
     association :nature, factory: :deliverable_nature
     association :category, factory: :deliverable_category
   end
+
+  factory :equipment_variant, class: ProductNatureVariant do
+    sequence(:name) { |n| "Equipment variant - TEST#{n.to_s.rjust(8, '0')}" }
+    variety         { :tractor }
+    unit_name       { :equipment }
+    association     :category, factory: :equipments_category
+    association     :nature, factory: :equipments_nature
+  end
 end

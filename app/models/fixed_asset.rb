@@ -82,6 +82,9 @@ class FixedAsset < Ekylibre::Record::Base
   belongs_to :sold_journal_entry, class_name: 'JournalEntry', dependent: :destroy
   belongs_to :scrapped_journal_entry, class_name: 'JournalEntry', dependent: :destroy
   belongs_to :product
+  belongs_to :tax
+  belongs_to :sale
+  belongs_to :sale_item
   has_many :purchase_items, inverse_of: :fixed_asset
   has_many :depreciations, -> { order(:position) }, class_name: 'FixedAssetDepreciation' do
     def following(depreciation)
@@ -114,6 +117,7 @@ class FixedAsset < Ekylibre::Record::Base
   validates :stopped_on, :allocation_account, :expenses_account, presence: { unless: :depreciation_method_none? }
   validates :scrapped_on, financial_year_writeable: { if: :scrapped? }
   validates :sold_on, financial_year_writeable: { if: :sold? }
+  validates :tax_id, :selling_amount, :pretax_selling_amount, presence: { if: :sold? }
 
   enumerize :depreciation_period, in: %i[monthly quarterly yearly], default: -> { Preference.get(:default_depreciation_period).value || Preference.set!(:default_depreciation_period, :yearly, :string) }
 
@@ -121,6 +125,7 @@ class FixedAsset < Ekylibre::Record::Base
   scope :used, -> { where(state: %w[in_use]) }
   scope :sold_or_scrapped, -> { where(state: %w[sold scrapped]) }
   scope :start_before, ->(date) { where('fixed_assets.started_on <= ?', date) }
+  scope :not_linked_to_sale, -> { used.where(sale_id: nil, sale_item_id: nil) }
 
   # [DEPRECATIONS[
   #  - purchase_id
@@ -179,6 +184,9 @@ class FixedAsset < Ekylibre::Record::Base
         errors.add(:stopped_on, :posterior, to: started_on.l)
       end
     end
+
+    errors.add(:sold_on, :on_or_before, restriction: Date.today.l) if sold_on && sold_on > Date.today
+    errors.add(:scrapped_on, :on_or_before, restriction: Date.today.l) if scrapped_on && scrapped_on > Date.today
     true
   end
 
@@ -202,6 +210,7 @@ class FixedAsset < Ekylibre::Record::Base
     # end
     # end
     depreciate! if @auto_depreciate
+    sale.update_columns(invoiced_at: sold_on.to_datetime) if changes[:sold_on] && sale && !sale.invoice? && sold_on
   end
 
   def on_unclosed_periods?

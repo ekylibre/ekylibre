@@ -1061,6 +1061,7 @@ fra:
     associate_debts: "Comptes courants"
     associate_locked_debts: "Comptes courants bloqués"
     associate_receivables: "Créances associés - comptes courants"
+    associated_sale: "Vente liée"
     assuming_you_want_to_close_a_financial_year_in_the_future: "Si vous souhaitez clôturer un exercice ultérieurement, vous devrez enregistrer un bilan de début d'exercice."
     at_the_address: "À l’adresse"
     attach_an_incoming_payment_to_expense: "Rattacher un encaissement\_: %{type} N°%{number}" #?
@@ -1166,6 +1167,7 @@ fra:
     choose_options_is_needed: "Veuillez choisir le statut sur lequel les interventions suivantes vont être affectées :"
     city_name: "Ville" #?
     clear: "Effacer"
+    click_the_button_below_to_record_a_new_transaction: "Cliquez sur le boutton ci-dessous afin d'être redirigé(e) vers le formulaire d'enregistrement d'une nouvelle transaction."
     click_to_mail: "Écrire votre message avec votre propre messagerie électronique"
     client: "Client"
     client_accounting_balance: "Solde du client" #?
@@ -1259,6 +1261,7 @@ fra:
     counts: "Totaux"
     counts_by_nature: "Nombre de pièces à comptabiliser par type"
     create: "Créer"
+    create_a_sale: "Créer une vente"
     create_and_continue: "Créer et saisir suivant"
     create_journal: "— Créer le journal —"
     create_or_import_equipments: "Créer ou importer des équipements"
@@ -1563,6 +1566,7 @@ fra:
     fixed_asset_debts: "Dettes sur immobilisations"
     fixed_asset_depreciations: "Ammortissements"
     fixed_asset_depreciations_not_accounted_on_current_financial_year: "Des ammortissements n'ont pas été passés en comptabilité sur l'exercice %{code}"
+    fixed_asset_successfully_associated_to_sale: "L'immobilisation a été rattachée à la vente avec succès. Cliquez à nouveau sur 'Vendue' pour continuer la procédure."
     fixed_assets: "Immobilisations"
     from: "À partir du"
     from_to_date: "du %{from} au %{to}"
@@ -1775,6 +1779,7 @@ fra:
     line_number: "Ligne n°%{index}\_:"
     linear_options: "Options du linéaire"
     link: "Lien"
+    link_to_a_sale: "Rattacher à une vente"
     lipolysis: "Lipolyse" #?
     liquid_assets_on_turnover: "Taux de liquidités / CA (Disponibilités / Chiffre d’affaire HT) %{financial_year}"
     list: "Liste"
@@ -1950,6 +1955,7 @@ fra:
     no_results: "Aucun résultat"
     no_right_defined_for_this_part_of_the_application: "Aucun droit défini pour cette partie de l’application (%{controller}#%{action})"
     no_right_defined_for_this_part_of_the_application_and_this_user: "Aucun droit défini pour cette partie de l’application et l’utilisateur"
+    no_sale_to_link_to_this_fixed_asset: "Aucune vente existante ne peut être rattachée à cette immobilisation."
     no_tracking: "Aucun lot" #?
     no_transfers: "Aucun transfert à réaliser" #?
     nominal_storable_easement_area: "Surface de stockage au sol"
@@ -2143,6 +2149,8 @@ fra:
     profits_and_losses: "Les profits et pertes"
     progress_bar_current_step: "Étape %{current}/%{total} : %{label}..."
     protein_matters_concentration: "Teneur en matières protéïques" #?
+    provide_mandatory_information_before_scrapping: "Veuillez fournir les informations nécessaires à la mise au rebut de votre immobilisation. Une fois redirigé(e), cliquez à nouveau sur 'Mise au rebut' pour finaliser la procédure."
+    provide_mandatory_information_before_selling: "Veuillez fournir les informations nécessaires à la vente de votre immobilisation. Une fois redirigé(e), cliquez à nouveau sur 'Vendue' pour finaliser la procédure."
     provisional_grains_yield: "Rendement prévisionnel en grains" #?
     provisionnal_budget: "Budget prévisionnel" #?
     provisions_revenues: "Reprises sur provisions et transfert de charges"
@@ -2330,6 +2338,7 @@ fra:
     select_number_or_date: "Entrez un numéro ou une date" #?
     select_organization: "Organisation" #?
     selection: "Sélection"
+    selling_amounts: "Prix de cession"
     semester: "Semestre"
     send_mail: "Envoyer le mail"
     send_test_mail: "Envoyer un mail de test"
@@ -3134,6 +3143,7 @@ fra:
       reset: "Ré-initialiser"
       retrieve: "Relever"
       run: "Exécuter"
+      scrap: "Mettre au rebut"
       search: "Rechercher"
       select: "Selectionner"
       sell: "Passer en vente"

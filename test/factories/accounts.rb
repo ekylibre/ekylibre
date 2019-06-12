@@ -35,5 +35,20 @@ FactoryBot.define do
       sequence(:number) { |n| "601#{n.to_s.rjust(5, '0')}" }
       sequence(:name) { |n| "Account ##{number}" }
     end
+
+    factory :fixed_asset_account do
+      sequence(:number) { |n| "2154#{n.to_s.rjust(4, '0')}" }
+      sequence(:name) { |n| "Account ##{number}" }
+    end
+
+    factory :fixed_asset_allocation_account do
+      sequence(:number) { |n| "2815#{n.to_s.rjust(4, '0')}" }
+      sequence(:name) { |n| "Account ##{number}" }
+    end
+
+    factory :fixed_asset_expenses_account do
+      sequence(:number) { |n| "68115#{n.to_s.rjust(3, '0')}" }
+      sequence(:name) { |n| "Account ##{number}" }
+    end
   end
 end

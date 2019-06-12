@@ -501,6 +501,7 @@ Rails.application.routes.draw do
         post :start_up
         post :sell
         post :scrap
+        patch :link_to_sale
       end
     end
 
