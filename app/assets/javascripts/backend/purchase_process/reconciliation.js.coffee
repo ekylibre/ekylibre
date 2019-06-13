@@ -279,7 +279,7 @@
       lastLineForm = $('table.list .nested-fields .nested-item-form:last:visible')
       checkboxLine = $(itemCheckbox).closest('.item')
       itemId = $(itemCheckbox).attr('data-id')
-      itemQuantity = $(checkboxLine).find('.item-value.quantity').text()
+      itemQuantity = $(checkboxLine).find('.item-value.quantity-to-fill').text()
       equipmentId = $(checkboxLine).attr('data-equipment-id')
       teamId = $(checkboxLine).attr('data-team-id')
       projectBudgetId = $(checkboxLine).attr('data-project-budget-id')
