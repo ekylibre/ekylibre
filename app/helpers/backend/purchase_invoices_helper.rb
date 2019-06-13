@@ -7,14 +7,12 @@ module Backend
     def purchase_reconciliation_state(purchase_invoice, print_both: false)
       elements = ''.html_safe
       if print_both || purchase_invoice.reconciliation_state == 'to_reconcile'
-        # code pour afficher "A RAPPROCHER"
         html_class = 'no-reconciliate-title'
         text = :to_reconciliate.tl
         elements << content_tag(:h2, text, class: ['reconciliation-title', html_class, (:hidden if purchase_invoice.reconciliation_state == 'reconcile')])
       end
 
       if print_both || purchase_invoice.reconciliation_state == 'reconcile'
-        # code pour afficher "RAPPROCHEE"
         html_class = 'reconcile-title'
         text = :reconcile.tl
         elements << content_tag(:h2, text, class: ['reconciliation-title', html_class, (:hidden if purchase_invoice.reconciliation_state == 'to_reconcile')])
