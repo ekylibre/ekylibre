@@ -28,12 +28,12 @@
 
     _bindButtons: (form) ->
       that = this
-      $(form).find('button[data-validate="item-form"]').each ->
+      $(form).find('[data-validate="item-form"]').each ->
         $(this).click (event) ->
           that.validate()
           event.preventDefault()
 
-      $(form).find('button[data-cancel="item-form"]').each ->
+      $(form).find('[data-cancel="item-form"]').each ->
         $(this).click (event) ->
           that.cancel()
           event.preventDefault()
