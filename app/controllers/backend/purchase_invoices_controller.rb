@@ -145,7 +145,8 @@ module Backend
         permitted_params[:items_attributes].each do |_key, item_attribute|
           ids = item_attribute[:parcels_purchase_invoice_items]
           parcel_item_ids = ids.blank? ? [] : JSON.parse(ids)
-          item_attribute[:parcels_purchase_invoice_items] = ParcelItem.find(parcel_item_ids)
+          unreconciled_parcel_items = ParcelItem.where(id: parcel_item_ids).reject { |parcel_item| parcel_item.purchase_invoice_item }
+          item_attribute[:parcels_purchase_invoice_items] = unreconciled_parcel_items
         end
       end
 
