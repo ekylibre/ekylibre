@@ -65,7 +65,7 @@
 #
 require 'test_helper'
 
-class ShipmentTest < ActiveSupport::TestCase
+class ShipmentTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   setup do
     @variant = ProductNatureVariant.import_from_nomenclature(:carrot)
     @recipient = Entity.create!(last_name: 'Shipment test')

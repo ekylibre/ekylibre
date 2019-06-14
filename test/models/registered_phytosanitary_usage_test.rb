@@ -37,6 +37,6 @@
 #
 require 'test_helper'
 
-class RegisteredPhytosanitaryUsageTest < ActiveSupport::TestCase
+class RegisteredPhytosanitaryUsageTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

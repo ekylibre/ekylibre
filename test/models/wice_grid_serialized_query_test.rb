@@ -1,5 +1,5 @@
 require 'test_helper'
 
-class WiceGridSerializedQueryTest < ActiveSupport::TestCase
+class WiceGridSerializedQueryTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

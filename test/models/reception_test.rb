@@ -65,7 +65,7 @@
 #
 require 'test_helper'
 
-class ReceptionTest < ActiveSupport::TestCase
+class ReceptionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   setup do
     @variant = ProductNatureVariant.import_from_nomenclature(:carrot)
     @sender = Entity.create!(last_name: 'Reception test')
