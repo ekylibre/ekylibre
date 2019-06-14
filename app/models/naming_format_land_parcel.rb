@@ -33,7 +33,7 @@
 #
 class NamingFormatLandParcel < NamingFormat
   # Load default
-  def self.load_defaults
+  def self.load_defaults(**_options)
     create!(
       name: I18n.t('labels.land_parcels', locale: Preference[:language]),
       fields_attributes: [
