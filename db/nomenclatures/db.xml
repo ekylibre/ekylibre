@@ -130,7 +130,6 @@
       <item name="banks_and_similar" fr_pcg82="51" pt_snc="12000000" fr_pcga="51"/>
       <item name="banks_services_expenses" fr_pcga="627" fr_pcg82="627"/>
       <item name="biocorporeal_asset_depreciations" fr_pcga="284" fr_pcg82="284"/>
-      <item name="bonus_staff_expenses" fr_pcg82="NONE" fr_pcga="6413"/>
       <item name="brands_and_patents_assets" fr_pcga="205" fr_pcg82="205"/>
       <item name="brands_and_patents_assets_amortization" fr_pcga="2805" fr_pcg82="2805"/>
       <item name="building_assets" fr_pcga="2131" fr_pcg82="2131"/>
@@ -180,7 +179,7 @@
       <item name="discount_from_cooperatives" fr_pcga="754" fr_pcg82="754"/>
       <item name="discount_granted_expenses" fr_pcg82="665" fr_pcga="665"/>
       <item name="donation_exceptional_expenses" fr_pcga="6713" fr_pcg82="6713"/>
-      <item name="electricity_expenses" fr_pcga="6063" fr_pcg82="6063"/>
+      <item name="electricity_expenses" fr_pcga="6063" fr_pcg82="6061"/>
       <item name="employee_participation_and_income_taxes_and_assimilated_payments_expenses" fr_pcg82="69" fr_pcga="69"/>
       <item name="employee_participation_expenses" fr_pcg82="691" fr_pcga="691"/>
       <item name="employee_representative_committees" fr_pcg82="422" fr_pcga="422"/>
@@ -3042,7 +3041,7 @@
       <item name="bank_service" charge_account="banks_services_expenses" purchasable="true" pictogram="bank"/>
       <item name="bee_band" fixed_asset_account="adult_animal_assets" fixed_asset_allocation_account="adult_animal_asset_depreciations" fixed_asset_expenses_account="corporeal_depreciations_inputations_expenses_living_goods" depreciation_percentage="25.0" charge_account="adult_animal_expenses" product_account="adult_animal_revenues" stock_account="long_time_animal_stock" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="cow" stock_movement_account="long_cycle_animals_inventory_variations" asset_fixable="true"/>
       <item name="biological_auxiliary" charge_account="plant_medicine_matter_expenses" product_account="merchandising_revenues" stock_account="plant_medicine_stock" purchasable="true" saleable="true" storable="true" pictogram="beaker" stock_movement_account="plant_medicine_stocks_variation"/>
-      <item name="bonus_staff_expense" charge_account="bonus_staff_expenses" purchasable="true" pictogram="user"/>
+      <item name="bonus_staff_expense" charge_account="managing_associates_salary" purchasable="true" pictogram="user"/>
       <item name="building" fixed_asset_account="building_assets" fixed_asset_allocation_account="own_building_asset_depreciations" fixed_asset_expenses_account="building_depreciations_inputations_expenses" depreciation_percentage="5.0" charge_account="own_building_expenses" product_account="sales_assets_revenues" purchasable="true" saleable="true" depreciable="true" pictogram="building" asset_fixable="true"/>
       <item name="building_division" pictogram="barn"/>
       <item name="calf" charge_account="young_animal_expenses" product_account="young_animal_revenues" stock_account="short_time_animal_stock" purchasable="true" saleable="true" storable="true" pictogram="cow" stock_movement_account="short_cycle_animals_inventory_variations"/>
