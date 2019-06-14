@@ -95,7 +95,7 @@ class Sequence < Ekylibre::Record::Base
     end
 
     # Load defaults sequences
-    def load_defaults
+    def load_defaults(**_options)
       usage.values.each do |usage|
         of(usage)
       end

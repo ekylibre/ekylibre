@@ -1,17 +1,25 @@
 language: ruby
-bundler_args: "--jobs 3 --retry 3 --without development"
+bundler_args: "--full-index --jobs 3 --retry 3 --without development"
 cache:
   bundler: true
   yarn: true
   directories:
     - vendor/bundle
     - node_modules
+
 sudo: required
+
 rvm:
-- 2.3.8
+  - 2.3.8
+  - 2.6.2
+env:
+  - NAME=Main TASK='test:fast'
+  - NAME=Long TASK='test:slow'
+#name: $NAME test suite
+script: travis_wait 60 xvfb-run bundle exec rake ${TASK} DRIVER=webkit
+
 before_install: test/ci/before_install
 before_script: test/ci/before_script
-script: travis_wait 60 xvfb-run bundle exec rake test:models test:libs test:controllers DRIVER=webkit
 services:
 - redis-server
 notifications:

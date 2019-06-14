@@ -18,7 +18,7 @@ gem 'activerecord-postgis-adapter', '>= 3.0.0'
 gem 'pg', '~> 0.20.0' # Needed for some tasks
 
 # Multi-tenancy
-gem 'apartment', github:'influitive/apartment', branch: 'development'
+gem 'apartment', github: 'influitive/apartment', branch: 'development'
 gem 'apartment-sidekiq'
 
 # Ruby syntax extensions
@@ -109,11 +109,9 @@ gem 'draper'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use unicorn as the app server
-gem 'loofah', group: :production
 gem 'unicorn', group: :production
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+gem 'loofah', group: :production
 
 # Exception management
 gem 'exception_notification'
@@ -129,7 +127,7 @@ gem 'acts_as_list'
 gem 'awesome_nested_set', '~> 3.1.1'
 gem 'deep_cloneable', '~> 2.2.1'
 gem 'enumerize'
-gem 'jc-validates_timeliness', '~> 3.1.1'
+gem 'validates_timeliness', '~> 4'
 gem 'state_machine'
 gem 'uuidtools'
 
@@ -220,6 +218,8 @@ gem 'luhn'
 # For interval selector
 gem 'bootstrap-slider-rails'
 
+gem 'gpgme'
+
 group :development do
   gem 'bullet', '< 5.6.0'
 
@@ -228,6 +228,8 @@ group :development do
 
   # Get the time of a process
   gem 'ruby-prof'
+
+  gem 'better_errors'
 
   # Code metrics
   gem 'rails_best_practices', require: false
@@ -262,17 +264,14 @@ group :test do
   gem 'puma'
   gem 'shoulda-context'
 
-  gem 'capybara'
-  gem 'capybara-webkit', '>= 1.14.0'
-  gem 'selenium-webdriver'
-
-  gem 'database_cleaner'
-
   gem 'minitest-reporters'
+  gem 'ruby-terminfo'
+
+  gem 'factory_bot', '< 5'
 
   gem 'pdf-reader'
 
-  gem 'factory_bot', '< 5'
+  gem 'database_cleaner'
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles

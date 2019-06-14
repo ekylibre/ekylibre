@@ -44,6 +44,7 @@
 #  real_currency              :string           not null
 #  real_currency_rate         :decimal(19, 10)  default(0.0), not null
 #  real_debit                 :decimal(19, 4)   default(0.0), not null
+#  reference_number           :string
 #  resource_id                :integer
 #  resource_prism             :string
 #  resource_type              :string
@@ -55,7 +56,7 @@
 
 require 'test_helper'
 
-class JournalEntryTest < ActiveSupport::TestCase
+class JournalEntryTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   test 'a journal forbids to write records before its closure date' do
     journal = journals(:journals_001)
@@ -104,7 +105,7 @@ class JournalEntryTest < ActiveSupport::TestCase
       items_attributes: {
         '0' => {
           name: 'Insurance care',
-          account: Account.find_or_create_by_number('41123456'),
+          account: Account.find_or_create_by_number('42123456'),
           real_credit: 4500
         },
         '1' => {
@@ -150,7 +151,7 @@ class JournalEntryTest < ActiveSupport::TestCase
       items_attributes: {
         '0' => {
           name: 'Insurance care',
-          account: Account.find_or_create_by_number('41123456'),
+          account: Account.find_or_create_by_number('42123456'),
           real_credit: 4500
         },
         '1' => {
@@ -181,7 +182,7 @@ class JournalEntryTest < ActiveSupport::TestCase
       items_attributes: {
         '0' => {
           name: 'Insurance care',
-          account: Account.find_or_create_by_number('41123456'),
+          account: Account.find_or_create_by_number('42123456'),
           real_credit: 4500
         },
         '1' => {
@@ -257,6 +258,106 @@ class JournalEntryTest < ActiveSupport::TestCase
     assert entry.valid?
     entry.printed_on = exchange.started_on + 1.day
     assert entry.valid?
+  end
+
+  test 'can be closed when confirmed' do
+    entry = create(:journal_entry, state: :confirmed, items: fake_items)
+    assert entry.close
+    assert_equal :closed, entry.state_name
+  end
+
+  test 'confirm set the validated at' do
+    entry = create(:journal_entry, state: :draft, items: fake_items)
+    entry.confirm
+    assert entry.reload.validated_at
+  end
+
+  test 'editable when draft' do
+    entry = create(:journal_entry, state: :draft, items: fake_items)
+    assert entry.editable?
+  end
+
+  test 'not editable when confirmed' do
+    entry = create(:journal_entry, state: :confirmed, items: fake_items)
+    assert_not entry.editable?
+  end
+
+  test 'not editable when closed' do
+    entry = create(:journal_entry, state: :closed, items: fake_items)
+    assert_not entry.editable?
+  end
+
+  test 'updateable when draft' do
+    entry = create(:journal_entry, state: :draft, items: fake_items)
+    assert entry.updateable?
+  end
+
+  test 'updateable when confirmed' do # needed to support :confirm event
+    entry = create(:journal_entry, state: :confirmed, items: fake_items)
+    assert entry.updateable?
+  end
+
+  test 'not updateable when closed' do
+    entry = create(:journal_entry, state: :closed, items: fake_items)
+    assert_not entry.updateable?
+  end
+
+  test 'destroyable when draft' do
+    entry = create(:journal_entry, state: :draft, items: fake_items)
+    assert entry.destroyable?
+  end
+
+  test 'can be destroyed when draft' do
+    entry = create(:journal_entry, state: :draft, items: fake_items)
+    entry.destroy
+    assert entry.destroyed?
+  end
+
+  test 'not destroyable when confirmed' do
+    entry = create(:journal_entry, state: :confirmed, items: fake_items)
+    assert_not entry.destroyable?
+  end
+
+  test 'not destroyable when closed' do
+    entry = create(:journal_entry, state: :closed, items: fake_items)
+    assert_not entry.destroyable?
+  end
+
+  test 'raises on update when confirmed' do
+    entry = create(:journal_entry, state: :confirmed, items: fake_items)
+    assert_raises(Ekylibre::Record::RecordNotUpdateable) do
+      entry.update_attribute(:number, 123_123_123)
+    end
+  end
+
+  test 'raises on update when closed' do
+    entry = create(:journal_entry, state: :closed, items: fake_items)
+    assert_raises(Ekylibre::Record::RecordNotUpdateable) do
+      entry.update_attribute(:number, 123_123_123)
+    end
+  end
+
+  test 'raises on destroy when confirmed' do
+    entry = create(:journal_entry, state: :confirmed, items: fake_items)
+    assert_raises(Ekylibre::Record::RecordNotDestroyable) do
+      entry.destroy
+    end
+  end
+
+  test 'raises on destroy when closed' do
+    entry = create(:journal_entry, state: :closed, items: fake_items)
+    assert_raises(Ekylibre::Record::RecordNotDestroyable) do
+      entry.destroy
+    end
+  end
+
+  test "reference_number refers to resource's reference number" do
+    sale = create(:sale_with_accounting)
+    sale_item = create(:sale_item, sale: sale)
+    sale.propose
+    sale.invoice
+    journal_entry = JournalEntry.where(resource_id: sale.id, resource_type: 'Sale').first
+    assert_equal sale.number, journal_entry.reference_number
   end
 
   def fake_items(options = {})

@@ -1,3 +1,17 @@
 - main_toolbar do |t|
   = t.new variants: FinancialYear.opened.with_tax_declaration.with_missing_tax_declaration.map { |fy| [fy.code.to_s, { financial_year_id: fy.id }] }, params: { redirect: nil }, icon: false
+  - if params[:period]
+    = dropdown_menu_button(:export.ta, icon: :download) do |d|
+      - export_params = params.slice(:period, :state)
+      - d.item :export_as_pdf.tl, params: export_params.merge(format: :pdf)
+      - d.item :export_as_csv.tl, params: export_params.merge(format: :csv)
+
+= kujaku do |k|
+  - k.text
+  - sm = TaxDeclaration.state_machine.states
+  - k.multi_choice :state, [:draft, :validated, :sent].map{|s| [sm[s].human_name, s] }, label: TaxDeclaration.human_attribute_name(:state)
+  - k.helper :journal_period_crit
+
+= render "alert_no_VAT_declaration" if @display_alert
+
 = main_list

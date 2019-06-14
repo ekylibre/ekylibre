@@ -62,7 +62,7 @@ class LoanRepayment < Ekylibre::Record::Base
   }
 
   scope :bookkeepable_before, lambda { |limit_on|
-    where('accountable IS FALSE AND journal_entry_id IS NULL AND due_on <= ?', limit_on)
+    where('locked IS FALSE AND accountable IS FALSE AND journal_entry_id IS NULL AND due_on <= ?', limit_on)
   }
 
   before_validation do
@@ -75,6 +75,10 @@ class LoanRepayment < Ekylibre::Record::Base
   # Prevents from deleting if entry exist
   protect on: %i[destroy] do
     journal_entry
+  end
+
+  protect on: :update do
+    locked
   end
 
   bookkeep do |b|

@@ -1,6 +1,6 @@
 require 'test_helper'
 module Backend
-  class SaleCreditsControllerTest < ActionController::TestCase
+  class SaleCreditsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions new: { credited_sale_id: identify(:sales_001), redirect: '/backend/sales' }, except: :create, fixture_options: { prefix: :sales }
     # , id: SaleItem.where(compute_from: :unit_pretax_amount).select(:sale_id)
 

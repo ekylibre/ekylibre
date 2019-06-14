@@ -59,6 +59,8 @@ class FixedAssetDepreciation < Ekylibre::Record::Base
 
   scope :with_active_asset, -> { joins(:fixed_asset).where(locked: false, fixed_assets: { state: :in_use }) }
   scope :up_to, ->(date) { where('fixed_asset_depreciations.stopped_on <= ?', date) }
+  scope :on, ->(date) { where('? BETWEEN started_on AND stopped_on', date).first }
+
   scope :with_active_asset_up_to, lambda { |date|
     joins(:fixed_asset)
       .where('fixed_asset_depreciations.accountable = false AND fixed_asset_depreciations.locked = false AND fixed_asset_depreciations.stopped_on <= ? AND fixed_assets.state = ?', date, :in_use)
@@ -66,36 +68,38 @@ class FixedAssetDepreciation < Ekylibre::Record::Base
 
   sums :fixed_asset, :depreciations, amount: :depreciated_amount
 
-  bookkeep do |b|
-    if fixed_asset.in_use?
-      b.journal_entry(fixed_asset.journal, printed_on: stopped_on.end_of_month, if: accountable && !locked) do |entry|
-        name = tc(:bookkeep, resource: FixedAsset.model_name.human, number: fixed_asset.number, name: fixed_asset.name, position: position, total: fixed_asset.depreciations.count)
-        entry.add_debit(name, fixed_asset.expenses_account, amount)
-        entry.add_credit(name, fixed_asset.allocation_account, amount)
-      end
-    elsif fixed_asset.sold? || fixed_asset.scrapped?
-      b.journal_entry(fixed_asset.journal, printed_on: stopped_on.end_of_month, if: accountable && !locked) do |entry|
-        name = tc(:bookkeep_partial, resource: FixedAsset.model_name.human, number: fixed_asset.number, name: fixed_asset.name, position: position, total: fixed_asset.depreciations.count)
-        entry.add_debit(name, fixed_asset.expenses_account, amount)
-        entry.add_credit(name, fixed_asset.allocation_account, amount)
-      end
-    end
+  bookkeep
+
+  after_initialize do
+    next if persisted?
+
+    self.locked ||= false
   end
 
   before_validation do
-    self.depreciated_amount = fixed_asset.depreciations.where('stopped_on < ?', started_on).sum(:amount) + amount
-    self.depreciable_amount = fixed_asset.depreciable_amount - depreciated_amount
+    if fixed_asset
+      self.depreciated_amount = fixed_asset.depreciations.where('stopped_on < ?', started_on).sum(:amount) + amount
+      self.depreciable_amount = fixed_asset.depreciable_amount - depreciated_amount
+    end
   end
 
   validate do
     # A start day must be the depreciation start or a financial year start
-    if fixed_asset && financial_year
-      unless started_on == fixed_asset.started_on ||
-             started_on == financial_year.started_on ||
-             started_on == started_on.beginning_of_month
-        errors.add(:started_on, :invalid_date, start: fixed_asset.started_on)
-      end
+    if financial_year &&
+      fixed_asset&.started_on &&
+      started_on != fixed_asset.started_on &&
+      started_on != financial_year.started_on &&
+      started_on != started_on.beginning_of_month
+      errors.add(:started_on, :invalid_start_date, start: fixed_asset.started_on)
     end
+  end
+
+  def accounted
+    !locked && accountable
+  end
+
+  def has_journal_entry?
+    !journal_entry.nil?
   end
 
   # Returns the duration of the depreciation

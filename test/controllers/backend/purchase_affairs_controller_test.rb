@@ -1,6 +1,6 @@
 require 'test_helper'
 module Backend
-  class PurchaseAffairsControllerTest < ActionController::TestCase
+  class PurchaseAffairsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     # TODO: Re-activate #select and #detach_gaps tests
     test_restfully_all_actions except: %i[select detach_gaps] do |o|
       # o.select mode: :show,    params: { third_id: identify(:entities_001), deal_type: 'purchase' }

@@ -38,7 +38,7 @@
 
 require 'test_helper'
 
-class TeamTest < ActiveSupport::TestCase
+class TeamTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

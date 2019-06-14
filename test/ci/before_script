@@ -9,4 +9,9 @@ cp -f test/ci/database.yml config/database.yml
 
 yarn
 
+gpg --import 'test/fixture-files/my-private-key.asc'
+
+echo "GPG keys list:"
+gpg --list-keys
+
 bundle exec rake db:migrate RAILS_ENV=test VERBOSE=false

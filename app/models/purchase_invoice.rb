@@ -129,7 +129,7 @@ class PurchaseInvoice < Purchase
 
     # For undelivered invoice
     # exchange undelivered invoice from parcel
-    journal = unsuppress { Journal.used_for_unbilled_payables!(currency: currency) }
+    journal = Journal.used_for_unbilled_payables!(currency: currency)
     b.journal_entry(journal, printed_on: invoiced_on, as: :undelivered_invoice, if: with_accounting) do |entry|
       parcels.each do |parcel|
         next unless parcel.undelivered_invoice_journal_entry
@@ -144,7 +144,7 @@ class PurchaseInvoice < Purchase
 
     # For gap between parcel item quantity and purchase item quantity
     # if more quantity on purchase than parcel then i have value in D of stock account
-    journal = unsuppress { Journal.used_for_permanent_stock_inventory!(currency: currency) }
+    journal = Journal.used_for_permanent_stock_inventory!(currency: currency)
     b.journal_entry(journal, printed_on: invoiced_on, as: :quantity_gap_on_invoice, if: (with_accounting && items.any?)) do |entry|
       label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: supplier.full_name)
       items.each do |item|

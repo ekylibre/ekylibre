@@ -167,6 +167,10 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
     (stopped_at - started_at) / 3600
   end
 
+  def during_financial_year_exchange?
+    FinancialYearExchange.opened.where('? BETWEEN started_on AND stopped_on', started_at).any?
+  end
+
   private
 
   def gap

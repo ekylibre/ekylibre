@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class FinancialYearExchangeImportTest < ActiveSupport::TestCase
+class FinancialYearExchangeImportTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   attr_reader :account, :financial_year, :financial_year_exchange, :booked_journal, :financial_year
 
   setup do
@@ -17,7 +17,7 @@ class FinancialYearExchangeImportTest < ActiveSupport::TestCase
 
     @financial_year_exchange = create(:financial_year_exchange, :opened, financial_year: financial_year)
 
-    @account = create(:account, number: '8001000000001')
+    @account = create(:account, number: '80010001')
   end
 
   test 'run fails when the file is invalid' do

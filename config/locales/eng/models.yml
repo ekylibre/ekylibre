@@ -6,10 +6,12 @@ eng:
       already_confirmed: "was already confirmed, please try signing in"
       before: "%{attribute} must be before %{restriction}"
       blank: "%{attribute} can't be blank"
+      can_only_have_two_years_opened: "You can have only have two financial years opened at the same time."
       confirmation: "%{attribute} doesn't match confirmation"
       confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
       currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
       empty: "%{attribute} can't be empty"
+      end_of_month: "%{attribute} should be at the end of the month"
       equal_to: "%{attribute} must be equal to %{count}"
       even: "%{attribute} must be even"
       exclusion: "%{attribute} is reserved"
@@ -31,12 +33,14 @@ eng:
       less_than_or_equal_to: "%{attribute} must be less than or equal to %{count}"
       missing_bank_details_for_sepa: "Values for IBAN and/or Account owner are missing for the cash account selected."
       must_be_a_mail_address: "%{attribute} must be a mail address"
+      no_opened_financial_year: "No financial year opened at this date"
       not_a_number: "%{attribute} is not a number"
       not_an_end_of_month: "%{attribute} must be an end of month"
       not_an_integer: "%{attribute} must be an integer"
       not_enough: "not enough %{resource} to complete task"
       not_found: "not found"
       not_locked: "was not locked"
+      not_opened_financial_year: "An open accounting period is required"
       not_saved:
         one: "1 error prohibited this %{resource} from being saved:"
         other: "%{count} errors prohibited this %{resource} from being saved:"
@@ -48,6 +52,8 @@ eng:
       overlap_sibling: "%{attribute} overlaps sibling"
       posterior: "%{attribute} must be posterior to %{to}"
       record_invalid: "Validations failed: %{errors}"
+      should_be_consecutive: "Financial years must be consecutive, therefore %{attribute} should be %{expected}."
+      should_be_the_last_day_of_month: "%{attribute} should be the last day of the month."
       taken: "%{attribute} has already been taken"
       too_long: "%{attribute} is too long (maximum is %{count} characters)"
       too_short: "%{attribute} is too short (minimum is %{count} characters)"
@@ -93,6 +99,7 @@ eng:
         started_on: "start-up date"
       fixed_asset_depreciation:
         asset_amount: "Accountable value"
+        accounted: "Accounted"
       intervention_working_period:
         started_at:
           one: "Started at is inferior than expected"
@@ -100,6 +107,8 @@ eng:
         stopped_at:
           one: "Stopped at is inferior than expected"
           other: "{{count}} Stopped at is inferior than expected"
+      journal:
+        closed_on: "Latest closure on"
       journal_entry_item:
         cumulated_absolute_credit_balance: "Credit balance"
         cumulated_absolute_debit_balance: "Debit balance"
@@ -166,7 +175,7 @@ eng:
       tax_declaration:
         no_financial_year_button: "Manage financial years"
         no_financial_year_message: "Please choose your tax declarartion mode in one of your financial years to access to your tax declarations"
-        no_financial_year_title: "No financial year entered"
+        no_financial_year_title: "No exercise subject to VAT at the current date"
       tax_declaration_item:
         collected: "Collected"
         deductible: "Deductible"
@@ -261,10 +270,15 @@ eng:
           csv_file_headers_invalid: "CSV headers are invalid"
           csv_file_invalid: "CSV file is invalid"
           csv_file_journals_invalid: "Some journals are present in the CSV but not in Ekylibre : %{codes}"
+        fixed_asset:
+          attributes:
+            base:
+              no_opened_financial_year: "An opened financial year is needed to create a fixed asset."
         fixed_asset_depreciation:
           attributes:
             started_on:
               invalid_date: "The depreciation must start on %{start} or on a beginning of month"
+              invalid_start_date: "The depreciation period should start on %{start} or at the begining of a month." #?
         incoming_parcel_item:
           greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
         integration:
@@ -286,6 +300,9 @@ eng:
             closed_on:
               end_of_month: "%{attribute} must be an end of month (%{closed_on})"
         journal_entry:
+          attributes:
+            printed_on:
+              financial_year_not_found: "There is no financial year at this date"
           closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
           frozen_by_financial_year_exchange: "The journal entry cannot be recorded in a period corresponding to a financial year exchange."
           out_of_existing_financial_year: "The journal entry must be recorded in a period corresponding to an existing financial year."
@@ -564,7 +581,8 @@ eng:
     accountant: "Accountant"
     accounted_at: "Accounted at"
     accounting_balance: "Accounting balance"
-    accounting_label: "Accounting label" #?
+    accounting_label: "Accounting label"
+    accounting_system: "Accounting system"
     accuracy: "Accuracy"
     achieved_at: "Achieved at"
     actions: "Actions"
@@ -621,6 +639,7 @@ eng:
     assembly: "Assembly"
     asset_account: "Asset account"
     asset_exists: "Asset exists" #?
+    asset_fixable: "Fixed asset registrable"
     attachments: "Attachments"
     attribute_name: "Attribute name"
     attribution: "Attribution"
@@ -790,6 +809,7 @@ eng:
     cultivation_variety: "Cultivation variety"
     cumulated_absolute_credit: "Cumulated absolute credit"
     cumulated_absolute_debit: "Cumulated absolute debit"
+    cumulated_balance: "Cumulated balance"
     currency: "Currency"
     currency_precision: "Currency precision"
     currency_rate: "Currency rate"
@@ -985,6 +1005,7 @@ eng:
     first_met_at: "First met on"
     first_name: "First name"
     first_number: "First number" #?
+    fiscal_position: "Fiscal position"
     fixed: "Fixed"
     fixed_asset: "Fixed asset"
     fixed_asset_account: "Fixed asset account"
@@ -1013,6 +1034,7 @@ eng:
     # functions: "Functions"
     gap: "Gap"
     gaps: "Gaps"
+    account_number_digits: General accounts number length
     geolocation: "Geolocation"
     geometry_value: "Geometry value"
     germination_percentage: "Germination percentage"
@@ -1042,6 +1064,7 @@ eng:
     groups: "Groups"
     gtin: "GTIN"
     guide: "Guide"
+    journal_name: "Journal name"
     harvest_year: "Harvest year"
     has_downpayment: "Has downpayment"
     headers: "Headers"
@@ -1449,6 +1472,7 @@ eng:
     prescription: "Prescription"
     prescriptor: "Prescriptor"
     pretax_amount: "Pre-tax amount"
+    pretax_selling_amount: "Selling amount excl. VAT"
     previous_cultivation_residue_mineralization: "Previous cultivation residue mineralization"
     price: "Price"
     printed_at: "Printed at"
@@ -1674,6 +1698,7 @@ eng:
     selected: "Selected"
     selected_manure_management_plan: "Selected manure management plan"
     selected_manure_management_plan_zone: "Selected manure management plan zone"
+    selling_amount: "Selling amount incl. VAT"
     sender: "Sender"
     sensor: "Sensor"
     sensors: "Sensors"
@@ -1955,14 +1980,13 @@ eng:
       purchase_regularization: "Purchase regularization"
       sale_regularization: "Sale regularization"
     delivery:
-      state_machine:
-        states:
-          draft: "Draft"
-          finished: "Finished"
-          in_preparation: "In preparation"
-          ordered: "Ordered"
-          prepared: "Prepared"
-          started: "Started"
+      states:
+        draft: "Draft"
+        finished: "Finished"
+        in_preparation: "In preparation"
+        ordered: "Ordered"
+        prepared: "Prepared"
+        started: "Started"
     deposit:
       bookkeep:
         one: "[%{resource} %{number}] %{count} payment %{mode} %{description}"
@@ -1989,12 +2013,11 @@ eng:
       bookkeep_exit_assets: "[%{resource} %{number}] Scrapped of %{name}"
       bookkeep_in_sold_assets: "[%{resource} %{number}] Sold of %{name}"
       bookkeep_in_use_assets: "[%{resource} %{number}] In use of %{name}"
-      state_machine:
-        states:
-          draft: "Draft"
-          in_use: "In use"
-          scrapped: "Scrapped"
-          sold: "Sold"
+      states:
+        draft: "Draft"
+        in_use: "In use"
+        scrapped: "Scrapped"
+        sold: "Sold"
     fixed_asset_depreciation:
       bookkeep: "[%{resource} %{number}] Depreciation of %{name} (%{position}/%{total})"
       bookkeep_partial: "[%{resource} %{number}] Partial depreciation of %{name} (%{position}/%{total})"
@@ -2068,11 +2091,10 @@ eng:
     loan:
       bookkeep: "[%{resource} %{name}] Fund reception"
       bookkeep_guarantee_payment: "[%{resource} %{name}] Guarantee payment"
-      state_machine:
-        states:
-          draft: "Draft"
-          ongoing: "Ongoing"
-          repaid: "Repaid"
+      states:
+        draft: "Draft"
+        ongoing: "Ongoing"
+        repaid: "Repaid"
     loan_repayment:
       bookkeep: "[%{resource} %{name}] Repayment #%{position}"
     outgoing_payment:
@@ -2088,14 +2110,13 @@ eng:
           name: "Transfer"
     parcel:
       bookkeep: "[%{resource} %{mode} %{number}] %{entity}"
-      state_machine:
-        states:
-          draft: "Draft"
-          given: "Given"
-          in_preparation: "In preparation"
-          ordered: "Ordered"
-          prepared: "Prepared"
-          received: "Received"
+      states:
+        draft: "Draft"
+        given: "Given"
+        in_preparation: "In preparation"
+        ordered: "Ordered"
+        prepared: "Prepared"
+        received: "Received"
       undelivered_invoice: "Undelivered invoice [%{resource} %{mode} %{number}] %{entity}"
     payslip:
       bookkeep: "[%{resource} %{number}] %{employee} from %{started_on} to %{stopped_on}"
@@ -2215,15 +2236,14 @@ eng:
       default:
         name: "Standard sale"
     sale_opportunity:
-      state_machine:
-        states:
-          lost: "Lost"
-          negociation: "Negociation"
-          price_quote: "Price quote"
-          prospecting: "Prospecting"
-          qualification: "Qualification"
-          value_proposition: "Value proposition"
-          won: "Won"
+      states:
+        lost: "Lost"
+        negociation: "Negociation"
+        price_quote: "Price quote"
+        prospecting: "Prospecting"
+        qualification: "Qualification"
+        value_proposition: "Value proposition"
+        won: "Won"
     sequence:
       default:
         affairs: "A[number|12]"
@@ -2261,18 +2281,16 @@ eng:
           prepared: "Prepared"
           received: "Received"
     task:
-      state_machine:
-        states:
-          doing: "Doing"
-          done: "Done"
-          todo: "To do"
+      states:
+        doing: "Doing"
+        done: "Done"
+        todo: "To do"
     tax_declaration:
       bookkeep: "[%{resource} %{number}] From %{started_on} to %{stopped_on}"
-      state_machine:
-        states:
-          draft: "Draft"
-          sent: "Sent"
-          validated: "Validated"
+      states:
+        draft: "Draft"
+        sent: "Sent"
+        validated: "Validated"
     team:
       default: "Main team"
     user:

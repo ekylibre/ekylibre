@@ -319,7 +319,9 @@ class User < Ekylibre::Record::Base
   end
 
   def current_financial_year
-    return nil unless default_financial_year = FinancialYear.on(Date.current)
+    default_financial_year   = FinancialYear.on(Date.current)
+    default_financial_year ||= FinancialYear.closest(Date.current)
+    return nil unless default_financial_year
     preference = self.preference('current_financial_year', default_financial_year, :record)
     unless financial_year = preference.value
       financial_year = default_financial_year
@@ -352,6 +354,13 @@ class User < Ekylibre::Record::Base
     preference_name = options[:controller] || 'all'
     preference_name << ".#{options[:context]}" if options[:context]
     preference_name << '.lettered_items.masked'
+    preference(preference_name, false, :boolean).value
+  end
+
+  def mask_draft_items?(options = {})
+    preference_name = options[:controller] || 'all'
+    preference_name << ".#{options[:context]}" if options[:context]
+    preference_name << '.draft_items.masked'
     preference(preference_name, false, :boolean).value
   end
 

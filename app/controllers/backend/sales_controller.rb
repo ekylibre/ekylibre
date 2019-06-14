@@ -63,6 +63,7 @@ module Backend
       t.action :cancel, if: :cancellable?
       t.action :destroy, if: :destroyable?
       t.column :number, url: { action: :show }
+      t.column :reference_number
       t.column :created_at
       t.column :invoiced_at
       t.column :client, url: true
@@ -149,7 +150,7 @@ module Backend
     def show
       return unless @sale = find_and_check
       @sale.other_deals
-      respond_with(@sale, methods: %i[taxes_amount affair_closed client_number sales_conditions sales_mentions],
+      respond_with(@sale, methods: %i[taxes_amount affair_closed client_number client_vat_number sales_conditions sales_mentions],
                           include: { address: { methods: [:mail_coordinate] },
                                      nature: { include: { payment_mode: { include: :cash } } },
                                      supplier: { methods: [:picture_path], include: { default_mail_address: { methods: [:mail_coordinate] }, websites: {}, emails: {}, mobiles: {} } },
@@ -195,6 +196,13 @@ module Backend
       @sale.introduction = :default_letter_introduction.tl
       @sale.conclusion = :default_letter_conclusion.tl
       @sale.items_attributes = params[:items_attributes] if params[:items_attributes]
+      @sale.payment_delay = nature.payment_delay
+      if params[:fixed_asset_id]
+        fixed_asset = FixedAsset.find(params[:fixed_asset_id])
+        product = fixed_asset.product
+        item_properties = product ? { variant: product.variant, quantity: 1 } : {}
+        @sale.items.build({ fixed: true, preexisting_asset: true, fixed_asset: fixed_asset }.merge(item_properties))
+      end
       render locals: { with_continue: true }
     end
 

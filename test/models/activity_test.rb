@@ -58,7 +58,7 @@
 #
 require 'test_helper'
 
-class ActivityTest < ActiveSupport::TestCase
+class ActivityTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

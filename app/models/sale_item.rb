@@ -23,6 +23,7 @@
 # == Table: sale_items
 #
 #  account_id           :integer
+#  accounting_label     :string
 #  activity_budget_id   :integer
 #  amount               :decimal(19, 4)   default(0.0), not null
 #  annotation           :text
@@ -59,8 +60,10 @@ class SaleItem < Ekylibre::Record::Base
   belongs_to :account
   belongs_to :activity_budget
   belongs_to :team
+  belongs_to :fixed_asset
   belongs_to :sale, inverse_of: :items
   belongs_to :credited_item, class_name: 'SaleItem'
+  belongs_to :depreciable_product, class_name: 'Product'
   belongs_to :variant, class_name: 'ProductNatureVariant'
   belongs_to :tax
   # belongs_to :tracking
@@ -89,6 +92,7 @@ class SaleItem < Ekylibre::Record::Base
   sums :sale, :items, :pretax_amount, :amount
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :accounting_label, length: { maximum: 500 }, allow_blank: true
   validates :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :annotation, :label, length: { maximum: 500_000 }, allow_blank: true
   validates :compute_from, :currency, :sale, :variant, presence: true
@@ -113,12 +117,18 @@ class SaleItem < Ekylibre::Record::Base
     joins(:variant).merge(ProductNatureVariant.of_natures(product_nature))
   }
 
+  scope :active, -> { includes(:sale).where.not(sales: { state: %i[refused aborted] }).order(created_at: :desc) }
+  scope :invoiced_on_or_after, -> (date) { includes(:sale).where("invoiced_at >= '#{date}' OR invoiced_at IS NULL") }
+  scope :fixed, -> { where(fixed: true) }
+  scope :linkable_to_fixed_asset, -> { active.fixed.where(fixed_asset_id: nil) }
+  scope :linked_to_fixed_asset, -> { active.where.not(fixed_asset_id: nil) }
+
   calculable period: :month, column: :pretax_amount, at: 'sales.invoiced_at', name: :sum, joins: :sale
 
   before_validation do
     self.currency = sale.currency if sale
     self.compute_from ||= :unit_pretax_amount
-    if sale_credit
+    if sale && sale_credit
       self.credited_quantity ||= 0.0
       self.quantity = -1 * credited_quantity
     end
@@ -171,6 +181,9 @@ class SaleItem < Ekylibre::Record::Base
   end
 
   after_save do
+    unlink_fixed_asset(fixed_asset_id_was) if fixed_asset_id_was
+    link_fixed_asset(fixed_asset_id) if fixed_asset_id
+
     next unless Preference[:catalog_price_item_addition_if_blank]
     %i[stock sale].each do |usage|
       # set stock catalog price if blank
@@ -180,8 +193,24 @@ class SaleItem < Ekylibre::Record::Base
     end
   end
 
+  after_destroy do
+    unlink_fixed_asset(fixed_asset_id_was) if fixed_asset_id_was
+  end
+
   protect(on: :update) do
-    !sale.draft?
+    return false if sale.draft?
+    authorized_columns = %w[fixed_asset_id depreciable_product_id updated_at]
+    changes.keys.each { |attribute| return true unless authorized_columns.include?(attribute) }
+    false
+  end
+
+  def unlink_fixed_asset(former_id)
+    # Instead of dependent: :nullify since we need to update more attributes than just the foreign key and it doesn't trigger callbacks
+    FixedAsset.find(former_id).update!(sale_id: nil, sale_item_id: nil, tax_id: nil, selling_amount: nil, pretax_selling_amount: nil, sold_on: nil)
+  end
+
+  def link_fixed_asset(fixed_asset_id)
+    FixedAsset.find(fixed_asset_id).update!(sale_id: sale.id, sale_item_id: id, tax_id: tax_id, selling_amount: amount, pretax_selling_amount: pretax_amount, sold_on: sale.invoiced_at&.to_date)
   end
 
   def reduction_coefficient

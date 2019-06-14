@@ -91,6 +91,13 @@ module Ekylibre
         raise wont_be_dropped
       end
 
+      def human_changed_attribute_value(change, state)
+        att = change.attribute.gsub(/_id$/, '')
+        value_retrievable = change.attribute.match(/_id$/) && respond_to?(att) && send(att).respond_to?('name')
+        return change.send("human_#{state}_value") unless value_retrievable
+        send(att).respond_to?('label') ? send(att).label : send(att).name
+      end
+
       class << self
         attr_accessor :readonly_counter
 

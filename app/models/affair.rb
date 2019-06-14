@@ -240,7 +240,18 @@ class Affair < Ekylibre::Record::Base
   # Reload and save! affair to force counts and sums computation
   def refresh!
     reload
+    update_third
     save!
+  end
+
+  def update_third
+    entities_ids = []
+    affairable_types_with_third = self.class.affairable_types.map(&:constantize).select { |model| model.method_defined? :third_id }
+    affairable_types_with_third.each do |model|
+      entities_ids << model.where(affair: self).pluck(:third_id)
+    end
+    uniq_ids = entities_ids.flatten.uniq
+    self.third_id = uniq_ids.first if uniq_ids.count == 1
   end
 
   # Returns if the affair is bad for us...

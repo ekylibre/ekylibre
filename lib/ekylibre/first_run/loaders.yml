@@ -290,10 +290,14 @@ bank_statements:
   ekylibre_bank_statements:
     path: 'alamano/bank_statements.ods'
 
+cash_transfers:
+  ekylibre_cash_transfers:
+    path: 'alamano/cash_transfers.csv'
 interventions:
   # Import interventions from Ekylibre conventions
-  ekylibre_interventions:
-    path: 'alamano/interventions.csv'
+  # Need to be reviewed
+  # ekylibre_interventions:
+    # path: 'alamano/interventions.csv'
 
   # Import interventions from DAPLOS EDI
   #agroedi_daplos:

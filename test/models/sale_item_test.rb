@@ -23,6 +23,7 @@
 # == Table: sale_items
 #
 #  account_id           :integer
+#  accounting_label     :string
 #  activity_budget_id   :integer
 #  amount               :decimal(19, 4)   default(0.0), not null
 #  annotation           :text
@@ -52,7 +53,7 @@
 
 require 'test_helper'
 
-class SaleItemTest < ActiveSupport::TestCase
+class SaleItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
   attr_reader :sale, :standard_vat, :reduced_vat, :variants
@@ -149,5 +150,20 @@ class SaleItemTest < ActiveSupport::TestCase
     assert_equal 4, item.unit_pretax_amount
     assert_equal 15, item.pretax_amount
     assert_equal 16, item.amount
+  end
+
+  test 'fixed_asset_id and depreciable_product_id are the only fields that can be updated if the sale status is invoice' do
+    sale_item = create :sale_item, sale: sale
+    fixed_asset = create :fixed_asset, :in_use, started_on: Date.new(2018, 1, 1)
+    product = create :asset_fixable_product
+
+    sale.invoice
+
+    assert sale_item.sale.invoice?
+    assert sale_item.update!(fixed_asset: fixed_asset)
+    assert sale_item.update!(depreciable_product: product)
+    assert_raises Ekylibre::Record::RecordNotUpdateable do
+      sale_item.update!(amount: 100)
+    end
   end
 end

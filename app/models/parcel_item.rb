@@ -115,8 +115,7 @@ class ParcelItem < Ekylibre::Record::Base
 
   delegate :draft?, :given?, to: :reception, prefix: true, allow_nil: true
   delegate :draft?, :in_preparation?, :prepared?, :given?, to: :shipment, prefix: true
-  delegate :unit_name, to: :variant
-
+  delegate :separated_stock?, :currency, to: :parcel, prefix: true, allow_nil: true
   delegate :unit_name, to: :variant
 
   before_validation do

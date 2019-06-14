@@ -18,7 +18,7 @@
 
 require 'test_helper'
 module Backend
-  class IncomingPaymentsControllerTest < ActionController::TestCase
+  class IncomingPaymentsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions create: { incoming_payment: { mode_id: identify(:incoming_payment_modes_001) } }
   end
 end

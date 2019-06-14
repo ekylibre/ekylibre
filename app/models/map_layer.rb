@@ -74,7 +74,7 @@ class MapLayer < Ekylibre::Record::Base
     default_backgrounds.first
   end
 
-  def self.load_defaults
+  def self.load_defaults(**_options)
     Map::Layer.find_each do |item|
       attrs = {
         name: item.label,

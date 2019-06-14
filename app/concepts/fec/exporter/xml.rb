@@ -27,7 +27,7 @@ module FEC
                     xml.ecriture do
                       xml.EcritureNum (entry.continuous_number? ? entry.continuous_number : '')
                       xml.EcritureDate entry.printed_on.strftime('%Y-%m-%d')
-                      xml.EcritureLib CGI::escapeHTML(entry.items.first.name.dump[1..-2])
+                      xml.EcritureLib CGI::escapeHTML(entry.items.first.name.dump[1...-1])
                       xml.PieceRef entry.number
                       xml.PieceDate entry.created_at.strftime('%Y-%m-%d') # bug with resource.created_at.strftime('%Y-%m-%d')
                       xml.EcritureLet entry.letter if entry.letter
@@ -41,7 +41,7 @@ module FEC
                       entry.items.includes(:account).find_each do |item|
                         xml.ligne do
                           xml.CompteNum item.account.number.ljust(3, '0')
-                          xml.CompteLib CGI::escapeHTML(item.account.name.dump[1..-2])
+                          xml.CompteLib CGI::escapeHTML(item.account.name.dump[1...-1])
                           xml.CompteAuxNum ''
                           xml.CompteAuxLib ''
                           xml.Montantdevise ''

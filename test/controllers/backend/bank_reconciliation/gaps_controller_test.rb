@@ -2,7 +2,7 @@ require 'test_helper'
 module Backend
   module BankReconciliation
     # Handles creation of a 'Various op' Journal Entry.
-    class GapsControllerTest < ActionController::TestCase
+    class GapsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
       setup do
         wipe_db
         setup_accountancy
@@ -68,8 +68,8 @@ module Backend
       def setup_accountancy(**options)
         ::Preference.set!(:bookkeep_automatically, options[:no_journal_entry].blank?)
         @journal  = Journal.create!(name: 'Pretty Journal')
-        @fuel_act = Account.create!(name: 'Fuel', number: '002')
-        @caps_act = Account.create!(name: 'Caps', number: '001')
+        @fuel_act = Account.create!(name: 'Fuel', number: '1002')
+        @caps_act = Account.create!(name: 'Caps', number: '1001')
         susp_one  = Account.create!(name: 'Susp', number: '5111')
         susp_two  = Account.create!(name: 'Susp', number: '5112')
 

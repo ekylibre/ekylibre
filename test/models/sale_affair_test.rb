@@ -53,7 +53,7 @@
 require 'test_helper'
 require 'test/affairable'
 
-class SaleAffairTest < ActiveSupport::TestCase
+class SaleAffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   include Test::Affairable
 
   test 'homogeneousity' do
@@ -159,7 +159,7 @@ class SaleAffairTest < ActiveSupport::TestCase
 
   # Creates a sale and check affair informations
   def new_valid_sales_invoice
-    client = entities(:entities_005)
+    client = create(:entity, :client)
     journal = Journal.find_by(nature: :sales)
     nature = SaleNature.find_or_initialize_by(
       with_accounting: true,

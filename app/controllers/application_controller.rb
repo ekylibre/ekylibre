@@ -206,4 +206,13 @@ class ApplicationController < ActionController::Base
   def helpers
     view_context
   end
+
+  def helpers
+    return @helper_object if @helper_object
+    helper_module = _helpers
+    helper_klass = Class.new do
+      include helper_module
+    end
+    @helper_object = helper_klass.new
+  end
 end

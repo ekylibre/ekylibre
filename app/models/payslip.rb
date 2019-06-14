@@ -66,6 +66,8 @@ class Payslip < Ekylibre::Record::Base
 
   delegate :with_accounting, to: :nature
 
+  alias_attribute :third_id, :employee_id
+
   acts_as_numbered
   acts_as_affairable :employee
 

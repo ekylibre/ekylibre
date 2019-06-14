@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add new fixed assets andn depreciable accounts">
+  <item-creation item="accounts#commercial_property" fr_pcga="207" fr_pcg82="207"/>
+  <item-creation item="accounts#infrastructure_works" fr_pcga="2138" fr_pcg82="2138"/>
+  <item-creation item="accounts#fixtures_and_fittings_for_equipment_and_tools" fr_pcga="2157" fr_pcg82="2157"/>
+  <item-creation item="accounts#improvement_of_commercial_property" fr_pcga="217" fr_pcg82="217"/>
+  <item-creation item="accounts#other_immobilized_plants" fr_pcga="247" fr_pcg82="247"/>
+  <item-creation item="accounts#establishment_charge_assets_amortization" fr_pcga="2801" fr_pcg82="2801"/>
+  <item-creation item="accounts#research_and_development_charge_assets_amortization" fr_pcga="2803" fr_pcg82="2803"/>
+  <item-creation item="accounts#brands_and_patents_assets_amortization" fr_pcga="2805" fr_pcg82="2805"/>
+  <item-creation item="accounts#commercial_property_amortization" fr_pcga="2807" fr_pcg82="2807"/>
+  <item-creation item="accounts#building_assets_amortization" fr_pcga="28131" fr_pcg82="28131"/>
+  <item-creation item="accounts#general_installation_assets_amortization" fr_pcga="28135" fr_pcg82="28135"/>
+  <item-creation item="accounts#infrastructure_works_amortization" fr_pcga="28138" fr_pcg82="28138"/>
+  <item-creation item="accounts#technical_installation_on_own_land_parcel_assets_amortization" fr_pcga="28151" fr_pcg82="28151"/>
+  <item-creation item="accounts#technical_installation_on_other_land_parcel_assets_amortization" fr_pcga="28152" fr_pcg82="28152"/>
+  <item-creation item="accounts#equipment_assets_amortization" fr_pcga="28154" fr_pcg82="28154"/>
+  <item-creation item="accounts#tools_assets_amortization" fr_pcga="28155" fr_pcg82="28155"/>
+  <item-creation item="accounts#fixtures_and_fittings_for_equipment_and_tools_amortization" fr_pcga="28157" fr_pcg82="28157"/>
+  <item-creation item="accounts#improvement_of_commercial_property_amortization" fr_pcga="2817" fr_pcg82="2817"/>
+  <item-creation item="accounts#other_immobilized_plants_amortization" fr_pcga="2847" fr_pcg82="2847"/>
+</migration>

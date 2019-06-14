@@ -3,7 +3,7 @@ require 'test_helper'
 module Backend
   module BankReconciliation
     # Tests the lettering/unlettering.
-    class LettersControllerTest < ActionController::TestCase
+    class LettersControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
       LETTER = 'B'.freeze
 
       setup do
@@ -12,8 +12,8 @@ module Backend
 
         @now     = Time.zone.now
         journal  = Journal.create!(name: 'Pretty Journal')
-        fuel_act = Account.create!(name: 'Fuel', number: '6')
-        caps_act = Account.create!(name: 'Caps', number: '5')
+        fuel_act = Account.create!(name: 'Fuel', number: '61')
+        caps_act = Account.create!(name: 'Caps', number: '51')
         bank_statement_setup(account: fuel_act, journal: journal)
         entry_setup(amount: 42, date: @now - 4.days,
                     journal: journal, accounts: [caps_act, fuel_act])

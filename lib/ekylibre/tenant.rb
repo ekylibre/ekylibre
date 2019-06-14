@@ -268,6 +268,18 @@ module Ekylibre
         @list ||= {}
       end
 
+      def filter_list!
+        filtered_list = list.select do |tenant|
+          begin
+            Ekylibre::Tenant.switch(tenant) { true }
+          rescue Apartment::TenantNotFound
+            nil
+          end
+        end
+        @list[env] = filtered_list
+        write
+      end
+
       def drop_aggregation_schema!
         ActiveRecord::Base.connection.execute("CREATE SCHEMA IF NOT EXISTS #{AGGREGATION_NAME};")
       end

@@ -43,6 +43,8 @@
 class SaleGap < Gap
   belongs_to :client, foreign_key: :entity_id, class_name: 'Entity'
 
+  alias_attribute :third_id, :entity_id
+
   acts_as_affairable :client, good: :profit?, debit: :loss?, class_name: 'SaleAffair'
 
   bookkeep do |b|

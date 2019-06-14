@@ -99,6 +99,7 @@ class Intervention < Ekylibre::Record::Base
     has_many :tools, class_name: 'InterventionTool'
     has_many :working_periods, class_name: 'InterventionWorkingPeriod'
     has_many :leaves_parameters, -> { where.not(type: InterventionGroupParameter) }, class_name: 'InterventionParameter'
+    has_many :agents, class_name: 'InterventionAgent'
   end
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
@@ -304,6 +305,12 @@ class Intervention < Ekylibre::Record::Base
       errors.add(:stopped_at, :posterior, to: started_at.l)
     end
     true
+  end
+
+  validate do
+    if printed_on
+      errors.add(:printed_on, :not_opened_financial_year) if Preference[:permanent_stock_inventory] && !during_financial_year?
+    end
   end
 
   before_save do
@@ -537,6 +544,10 @@ class Intervention < Ekylibre::Record::Base
 
   def printed_on
     printed_at.to_date
+  end
+
+  def during_financial_year?
+    FinancialYear.opened.where('? BETWEEN started_on AND stopped_on', printed_at).any?
   end
 
   def with_undestroyable_products?

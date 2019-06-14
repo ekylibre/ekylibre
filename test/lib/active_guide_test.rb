@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ActiveGuideTest < ActiveSupport::TestCase
+class ActiveGuideTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'sample guide' do
     # guide = ActiveGuide::Base.new :test_guide do
     class TestGuide < ActiveGuide::Base

@@ -19,7 +19,7 @@
 require 'test_helper'
 
 module Backend
-  class SalesControllerTest < ActionController::TestCase
+  class SalesControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions cancel: :redirected_get,
                                contacts: :index_xhr,
                                except: %i[generate_parcel update]
@@ -34,6 +34,18 @@ module Backend
         get :show, id: sale.id, format: :pdf, key: sale.number, template: template.id
       end
       assert_response :success
+    end
+
+    test "can't create a sale for a fixed asset if it's invoiced before the fixed asset has started" do
+      fixed_asset = create :fixed_asset, :in_use, started_on: Date.new(2018, 1, 1)
+      variant = ProductNatureVariant.import_from_nomenclature(:tractor)
+      sale_attrs = attributes_for(:sale).slice!(:state).merge(invoiced_at: DateTime.new(2017, 12, 31))
+      sale_item_attrs = attributes_for(:sale_item, :fixed).merge(fixed_asset_id: fixed_asset.id, variant_id: variant.id)
+      sale_attrs[:items_attributes] = { '0' => sale_item_attrs }
+
+      post :create, sale: sale_attrs
+      noko = Nokogiri::HTML(response.body)
+      assert_equal 1, noko.css('.sale_invoiced_at.error').size
     end
   end
 end

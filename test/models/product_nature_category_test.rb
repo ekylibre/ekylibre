@@ -23,6 +23,7 @@
 # == Table: product_nature_categories
 #
 #  active                              :boolean          default(FALSE), not null
+#  asset_fixable                       :boolean          default(FALSE)
 #  charge_account_id                   :integer
 #  created_at                          :datetime         not null
 #  creator_id                          :integer
@@ -53,7 +54,7 @@
 #
 require 'test_helper'
 
-class ProductNatureCategoryTest < ActiveSupport::TestCase
+class ProductNatureCategoryTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

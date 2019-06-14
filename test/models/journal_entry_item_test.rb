@@ -27,6 +27,7 @@
 #  absolute_debit            :decimal(19, 4)   default(0.0), not null
 #  absolute_pretax_amount    :decimal(19, 4)   default(0.0), not null
 #  account_id                :integer          not null
+#  accounting_label          :string
 #  activity_budget_id        :integer
 #  balance                   :decimal(19, 4)   default(0.0), not null
 #  bank_statement_id         :integer
@@ -73,7 +74,7 @@
 
 require 'test_helper'
 
-class JournalEntryItemTest < ActiveSupport::TestCase
+class JournalEntryItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
   test 'the validity of entries' do
@@ -116,9 +117,9 @@ class JournalEntryItemTest < ActiveSupport::TestCase
   end
 
   test 'lettering is indicated as partial (*) when lettered items are not balanced' do
-    first_account = Account.create!(name: 'First account', number: '123FIRST')
-    random_account = Account.create!(name: 'Random account', number: '123RANDOM')
-    other_random = Account.create!(name: 'Random account bis', number: '123RANBIS')
+    first_account = Account.create!(name: 'First account', number: '123RAND1')
+    random_account = Account.create!(name: 'Random account', number: '123RAND2')
+    other_random = Account.create!(name: 'Random account bis', number: '123RAND3')
     journal = Journal.create!(name: 'Test journal JEI', code: 'JEITEST', currency: 'EUR')
     entry = JournalEntry.create!(journal: journal, currency: 'EUR', printed_on: Date.today, items_attributes:
       [{ account: first_account, name: 'Hello', real_debit: 10, letter: 'A' },

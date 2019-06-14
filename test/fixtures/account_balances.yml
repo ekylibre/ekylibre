@@ -64,7 +64,7 @@ account_balances_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
-  financial_year_id: 2
+  financial_year_id: 3
   global_balance: 0.0
   global_count: 0
   global_credit: 0.0

@@ -175,7 +175,7 @@ purchase_invoices_005:
   nature_id: 1
   number: A201611000002
   payment_at: 2017-09-16 22:13:00.000000000 Z
-  payment_delay: 300 days
+  payment_delay: 60 days
   planned_at: 2016-11-20 22:13:00.000000000 Z
   pretax_amount: 597.6
   quantity_gap_on_invoice_journal_entry_id: 103

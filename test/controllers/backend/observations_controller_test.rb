@@ -18,7 +18,7 @@
 
 require 'test_helper'
 module Backend
-  class ObservationsControllerTest < ActionController::TestCase
+  class ObservationsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions new: { subject_type: 'Entity', subject_id: identify(:entities_001) }
   end
 end

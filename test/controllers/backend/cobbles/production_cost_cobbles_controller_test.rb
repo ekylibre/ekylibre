@@ -1,7 +1,7 @@
 require 'test_helper'
 module Backend
   module Cobbles
-    class ProductionCostCobblesControllerTest < ActionController::TestCase
+    class ProductionCostCobblesControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
       test 'show action' do
         user = create(:user)
         sign_in(user)

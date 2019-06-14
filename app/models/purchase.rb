@@ -65,6 +65,7 @@ class Purchase < Ekylibre::Record::Base
   attr_readonly :currency, :nature_id
   enumerize :tax_payability, in: %i[at_paying at_invoicing], default: :at_invoicing
   enumerize :reconciliation_state, in: %i[to_reconcile accepted reconcile], default: :to_reconcile
+  enumerize :payment_delay, in: ['1 week', '30 days', '30 days, end of month', '60 days', '60 days, end of month']
   refers_to :currency
   belongs_to :delivery_address, class_name: 'EntityAddress'
   belongs_to :nature, class_name: 'PurchaseNature'
@@ -84,12 +85,16 @@ class Purchase < Ekylibre::Record::Base
   validates :currency, :payee, :supplier, :tax_payability, presence: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :number, :state, presence: true, length: { maximum: 500 }
+  validates :reference_number, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   validates :number, :state, length: { allow_nil: true, maximum: 60 }
   validates :created_at, :state, :nature, :type, presence: true
   validates :number, uniqueness: true
+  validates :invoiced_at, financial_year_writeable: true, allow_blank: true
   validates_associated :items
   validates_delay_format_of :payment_delay
+
+  alias_attribute :third_id, :supplier_id
 
   acts_as_numbered
   accepts_nested_attributes_for :items, reject_if: proc { |item| item[:variant_id].blank? && item[:variant].blank? }, allow_destroy: true
@@ -126,6 +131,7 @@ class Purchase < Ekylibre::Record::Base
 
   validate do
     if invoiced_at
+      errors.add(:invoiced_at, :financial_year_exchange_on_this_period) if invoiced_during_financial_year_exchange?
       errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
     end
   end
@@ -140,6 +146,10 @@ class Purchase < Ekylibre::Record::Base
 
   after_create do
     supplier.add_event(:purchase_creation, updater.person) if updater
+  end
+
+  after_save do
+    items.each(&:update_fixed_asset) if invoice?
   end
 
   def self.third_attribute
@@ -164,6 +174,26 @@ class Purchase < Ekylibre::Record::Base
 
   def self.third_attribute
     :supplier
+  end
+
+  def has_content?
+    items.any?
+  end
+
+  def invoiced_during_financial_year_exchange?
+    FinancialYearExchange.opened.where('? BETWEEN started_on AND stopped_on', invoiced_at).any?
+  end
+
+  def opened_financial_year?
+    FinancialYear.on(invoiced_at)&.opened?
+  end
+
+  def invoiced_during_financial_year_closure_preparation?
+    FinancialYear.on(invoiced_at)&.closure_in_preparation?
+  end
+
+  def purchased?
+    (order? || invoice?)
   end
 
   def third

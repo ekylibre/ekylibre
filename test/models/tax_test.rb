@@ -45,7 +45,7 @@
 
 require 'test_helper'
 
-class TaxTest < ActiveSupport::TestCase
+class TaxTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   test 'load defaults' do
     Tax.load_defaults
@@ -103,5 +103,12 @@ class TaxTest < ActiveSupport::TestCase
     tax.amount = 40
     assert tax.save
     assert_equal 40, tax.amount
+  end
+
+  test 'find_on' do
+    assert_nil Tax.find_on(Date.civil(1702, 11, 13))
+    tax = Tax.find_on(Date.civil(1979, 11, 13), country: :fr, nature: :normal_vat)
+    assert tax, 'A tax should exist in France on 13/11/1979'
+    assert_equal 17.6, tax.amount, 'Found tax should have 17.6 as amount'
   end
 end

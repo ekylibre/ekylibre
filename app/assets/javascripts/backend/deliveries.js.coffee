@@ -64,11 +64,14 @@
                 if typeof $(this).data("when-set-value") != "undefined"
                   if $(this).data("when-set-value") == "RECORD_VALUE"
                     newVal = data[$(this).data("when-item")]
+                    newVal = newVal.toLowerCase() if typeof newVal == "string"
 
                     if $(this).is ":ui-selector"
                       $(this).selector("value", newVal)
+                    else if this._flatpickr?
+                      this._flatpickr.setDate(newVal)
                     else if $(this).is "select"
-                      $(this).val(newVal.toLowerCase()).change()
+                      $(this).val(newVal).change()
                     else if $(this).is("input")
                       $(this).val(newVal)
                     else

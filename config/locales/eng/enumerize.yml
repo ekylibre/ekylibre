@@ -325,6 +325,7 @@ eng:
         country: "Country"
         currency: "Currency"
         decimal: "Decimal"
+        # fiscal_position: "Fiscal position"
         integer: "Integer"
         language: "Language"
         record: "Record"

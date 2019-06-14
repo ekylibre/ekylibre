@@ -103,7 +103,7 @@ module Ekylibre
               suffix = r.variant[:fixed_asset_account][1..-1]
               r.variant[:fixed_asset_allocation_account] ||= "28#{suffix}"
               r.variant[:fixed_asset_expenses_account] ||= "68#{suffix}"
-              r.variant[:fixed_asset_depreciation_method] ||= :simplified_linear
+              r.variant[:fixed_asset_depreciation_method] ||= :linear
               r.variant[:fixed_asset_depreciation_percentage] ||= 15
             end
             %w[product charge fixed_asset fixed_asset_allocation fixed_asset_expenses].each do |type|
@@ -158,11 +158,11 @@ module Ekylibre
         end
 
         # Find or create a tax
-        # TODO: search country before for good tax request (country and amount)
         # country via supplier if information exist
         raise "Missing VAT at line #{line_index}" unless r.vat_percentage
-        item = Nomen::Tax.find_by(country: purchase.supplier.country.to_sym, amount: r.vat_percentage)
-        tax = Tax.import_from_nomenclature(item.name)
+
+        tax = Tax.find_on(purchase.invoiced_at.to_date, country: purchase.supplier.country.to_sym, amount: r.vat_percentage)
+        raise "No tax found for given #{r.vat_percentage}" unless tax
 
         # find or create a purchase line
         unless purchase.items.find_by(pretax_amount: r.pretax_amount, variant_id: variant.id, tax_id: tax.id)

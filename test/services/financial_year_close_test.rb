@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class FinancialYearCloseTest < ActiveSupport::TestCase
+class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   setup do
     @today = Date.new(2019,3,15)
 
@@ -68,19 +68,23 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
     FinancialYear.delete_all
     Account.delete_all
 
-    @dumpster_account = Account.create!(name: 'TestDumpster', number: '00000')
+    @dumpster_account = Account.create!(name: 'TestDumpster', number: '10001')
     @dumpster_journal = Journal.create!(name: 'Dumpster journal', code: 'DMPTST')
     @beginning = (@today - 1.month).beginning_of_month
     @end = (@today - 1.month).end_of_month
     @year = FinancialYear.create!(started_on: @beginning, stopped_on: @end)
-    @next_year = FinancialYear.ensure_exists_at! @end + 1.day
-    @profits = Account.create!(name: 'FinancialYear result profit', number: '120')
-    @losses = Account.create!(name: 'FinancialYear result loss', number: '129')
+    @next_year = FinancialYear.create!(started_on: @today.beginning_of_month, stopped_on: @today.end_of_month)
+    @profits = Account.create!(name: 'FinancialYear result profit', number: '120', usages: :financial_year_result_profit)
+    @losses = Account.create!(name: 'FinancialYear result loss', number: '129', usages: :financial_year_result_loss)
     @open  = Account.create!(number: '89', name: 'Opening account')
     @close = Account.create!(number: '891', name: 'Closing account')
   end
 
-  test 'products & expenses balance' do
+  teardown do
+    FileUtils.rm_rf Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}")
+  end
+
+  test 'products and expenses balance' do
     result = Journal.create!(name: 'Results TEST', code: 'RSTST', nature: :result)
     test_accounts = {
       6012 => Account.create!(name: 'Test6x', number: '6012'),
@@ -91,8 +95,8 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
     generate_entry(test_accounts[6063], -3000)
     validate_fog
 
-    close = FinancialYearClose.new(@year, @year.stopped_on, result_journal: result)
-    close.execute
+    close = FinancialYearClose.new(@year, @year.stopped_on, User.first, result_journal: result)
+    assert close.execute
 
     assert_equal 3, JournalEntry.count
     assert_equal 0, test_accounts[6012].journal_entry_items.sum('debit - credit')
@@ -122,11 +126,11 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
     generate_entry(test_accounts[4], -300)
     validate_fog
 
-    close = FinancialYearClose.new(@year, @year.stopped_on,
+    close = FinancialYearClose.new(@year, @year.stopped_on, User.first,
                                    result_journal: result,
                                    closure_journal: closing,
                                    forward_journal: forward)
-    close.execute
+    assert close.execute
 
     assert_equal 10, @year.journal_entries.count
 
@@ -148,31 +152,34 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
     forward = Journal.create!(name: 'Forward TEST', code: 'FWDTST', nature: :forward)
     test_accounts = [
       nil,
-      Account.create!(name: 'Test1x', number: '1222'),
-      Account.create!(name: 'Test2x', number: '2111'),
-      Account.create!(name: 'Test3x', number: '3444'),
-      Account.create!(name: 'Test4x', number: '4333')
+      nil,
+      nil,
+      nil,
+      Account.create!(name: 'Test4x', number: '423'),
+      Account.create!(name: 'Test5x', number: '512'),
+      nil,
+      Account.create!(name: 'Test7x', number: '707')
     ]
 
     letter = test_accounts[4].new_letter
     this_years = {
-      300 => generate_entry(test_accounts[4],  500, letter: letter),
-      500 => generate_entry(test_accounts[4],  300, letter: letter)
+      300 => generate_entry(test_accounts[4], 500, letter: letter, destination_account: test_accounts[7]),
+      500 => generate_entry(test_accounts[4], 300, letter: letter, destination_account: test_accounts[7])
     }
-    next_years = generate_entry(test_accounts[4], -800, letter: letter, printed_on: @end + 2.days)
+    next_years = generate_entry(test_accounts[4], -800, letter: letter, printed_on: @end + 2.days, destination_account: test_accounts[5])
     validate_fog
 
-    close = FinancialYearClose.new(@year, @year.stopped_on,
+    close = FinancialYearClose.new(@year, @year.stopped_on, User.first,
                                    result_journal: result,
                                    closure_journal: closing,
                                    forward_journal: forward)
-    close.execute
+    assert close.execute
 
-    assert_equal 4, @year.journal_entries.count
-    assert_equal 3, @next_year.journal_entries.count
+    assert_equal 6, @year.journal_entries.count
+    assert_equal 4, @next_year.journal_entries.count
 
-    assert_equal 2, @close.journal_entry_items.count
-    assert_equal 2, @open.journal_entry_items.count
+    assert_equal 3, @close.journal_entry_items.count
+    assert_equal 3, @open.journal_entry_items.count
 
     this_years.each do |_amount, entry|
       item = entry.items.where.not(letter: nil).first
@@ -197,7 +204,7 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
 
   private
 
-  def generate_entry(account, debit, letter: nil, printed_on: @beginning + 2.days)
+  def generate_entry(account, debit, letter: nil, printed_on: @beginning + 2.days, destination_account: @dumpster_account)
     return if debit.zero?
     side = debit > 0 ? :debit : :credit
     other_side = debit < 0 ? :debit : :credit
@@ -211,7 +218,7 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
                            },
                            {
                              name: other_side.to_s.capitalize,
-                             account: @dumpster_account,
+                             account: destination_account,
                              :"real_#{other_side}" => amount
                            }
                          ])

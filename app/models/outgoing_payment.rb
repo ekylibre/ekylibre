@@ -75,6 +75,8 @@ class OutgoingPayment < Ekylibre::Record::Base
 
   delegate :full_name, to: :payee, prefix: true
 
+  alias_attribute :third_id, :payee_id
+
   acts_as_numbered
   acts_as_affairable :payee, dealt_at: :to_bank_at, debit: false
 

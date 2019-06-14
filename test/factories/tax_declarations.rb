@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :tax_declaration do
-    # needs financial_year
+    financial_year
     sequence(:number) { |n| "TD00#{n}" }
     currency { 'EUR' }
     mode { 'debit' }

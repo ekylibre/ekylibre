@@ -27,6 +27,7 @@
 #  absolute_debit            :decimal(19, 4)   default(0.0), not null
 #  absolute_pretax_amount    :decimal(19, 4)   default(0.0), not null
 #  account_id                :integer          not null
+#  accounting_label          :string
 #  activity_budget_id        :integer
 #  balance                   :decimal(19, 4)   default(0.0), not null
 #  bank_statement_id         :integer
@@ -98,7 +99,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :absolute_credit, :absolute_debit, :absolute_pretax_amount, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :debit, :pretax_amount, :real_balance, :real_credit, :real_debit, :real_pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :absolute_currency, :account, :currency, :entry, :financial_year, :journal, :real_currency, presence: true
-  validates :bank_statement_letter, :letter, :resource_prism, :resource_type, :tax_declaration_mode, length: { maximum: 500 }, allow_blank: true
+  validates :accounting_label, :bank_statement_letter, :letter, :resource_prism, :resource_type, :tax_declaration_mode, length: { maximum: 500 }, allow_blank: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :entry_number, :name, :state, presence: true, length: { maximum: 500 }
   validates :printed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
@@ -112,8 +113,9 @@ class JournalEntryItem < Ekylibre::Record::Base
   validates_format_of :name, with: /\A(?!translation missing: [a-z][a-z_]*).*\z/, allow_blank: true
 
   delegate :balanced?, to: :entry, prefix: true
-  delegate :name, :number, to: :account, prefix: true
-  delegate :entity_country, :expected_financial_year, to: :entry
+  delegate :name, :number, :label, to: :account, prefix: true
+  delegate :entity_country, :expected_financial_year, :continuous_number, to: :entry
+  delegate :resource_label, to: :entry, prefix: true
 
   acts_as_list scope: :entry
 
@@ -432,5 +434,9 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   def vat_account_label
     vat_account&.label
+  end
+
+  def displayed_label_in_accountancy
+    accounting_label.present? ? accounting_label : name
   end
 end

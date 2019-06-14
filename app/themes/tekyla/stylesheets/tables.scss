@@ -26,6 +26,12 @@ table {
     background: white;
     min-height: $lh-normal;
   }
+  .right-align {
+    text-align: right !important;
+  }
+  .center-align {
+    text-align: center !important;
+  }
   thead{
     tr{
       &.warning {
@@ -52,6 +58,12 @@ table {
     }
     &.boolean {
       @include text-align(center);
+    }
+    &.center {
+      text-align: center !important;
+    }
+    &.right {
+      text-align: right !important;
     }
   }
   th {
@@ -88,7 +100,6 @@ table {
     }
     td.act {
       width: 16px;
-      padding-bottom: 0 !important;
       a {
         font-size: 0;
         i {
@@ -124,6 +135,11 @@ table {
           &, * {
             @include text-shadow(1px 1px 0px rgba(#FFF, 0.5));
           }
+        }
+      }
+      &.first-item {
+        td {
+          border-top-color: $invalid-color;
         }
       }
     }
@@ -465,6 +481,12 @@ table {
     height: 1.2em;
     background: $menu-border-color;
   }
+}
+
+.footer-btn-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0px;
 }
 
 .custom-main-toolbar, .custom-meta-toolbar {

@@ -36,7 +36,7 @@
 #
 require 'test_helper'
 
-class AttachmentTest < ActiveSupport::TestCase
+class AttachmentTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

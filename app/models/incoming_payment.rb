@@ -87,6 +87,8 @@ class IncomingPayment < Ekylibre::Record::Base
   validates :currency, match: { with: :mode }
   validates :mode, match: { with: :deposit, to_invalidate: :deposit_id }, allow_blank: true
 
+  alias_attribute :third_id, :payer_id
+
   acts_as_numbered
   acts_as_affairable :payer, dealt_at: :to_bank_at, class_name: 'SaleAffair'
 
