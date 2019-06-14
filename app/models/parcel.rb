@@ -104,7 +104,6 @@ class Parcel < Ekylibre::Record::Base
   validates :sender, presence: { if: :incoming? }
 
   validates :transporter, match: { with: :delivery, if: ->(p) { p.delivery&.transporter } }, allow_blank: true
-  validates_length_of :items, minimum: 1, too_short: 'Please enter at least 1 item'
 
   scope :without_transporter, -> { with_delivery_mode(:transporter).where(transporter_id: nil) }
   scope :with_delivery, -> { where(with_delivery: true) }

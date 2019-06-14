@@ -90,7 +90,6 @@ class Purchase < Ekylibre::Record::Base
   validates :number, uniqueness: true
   validates_associated :items
   validates_delay_format_of :payment_delay
-  validates_length_of :items, minimum: 1, too_short: 'Please enter at least 1 item'
 
   acts_as_numbered
   accepts_nested_attributes_for :items, reject_if: proc { |item| item[:variant_id].blank? && item[:variant].blank? }, allow_destroy: true
