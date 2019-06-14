@@ -33,13 +33,9 @@ module Agroedi
       end
 
       def import
-        index = self.exchanger.interventions.index(self)
         return if already_imported?
 
         align_activity_production_dates!
-
-        #FIXME w is not defined
-        # w.info index.to_s.yellow
         record!
       end
 
@@ -48,8 +44,8 @@ module Agroedi
       end
 
       def unique?
-        %w[sowing_without_plant_output harvesting].any? do |code|
-          agroedi_code&.ekylibre_value.to_s == code
+        %i[sowing_without_plant_output harvesting].any? do |code|
+          agroedi_code == code
         end
       end
 
@@ -75,17 +71,23 @@ module Agroedi
       end
 
       def procedure
-        procedure = Procedo.find(agroedi_code&.ekylibre_value)
-        raise "No procedure for #{agroedi_code&.ekylibre_value}" unless procedure
+        procedure = Procedo.find(agroedi_code)
+        raise "No procedure for #{agroedi_code}" unless procedure
         procedure
       end
 
       def agroedi_code
         return @memo_agroedi_code if @memo_agroedi_code
 
-        @memo_agroedi_code = RegisteredAgroediCode.find_by(
+        code = daplos.intervention_nature_edicode
+        match_record = RegisteredAgroediCode.find_by(
           repository_id: 14,
-          reference_code: daplos.intervention_nature_edicode)
+          reference_code: code)
+        ekylibre_agroedi = match_record&.ekylibre_value&.to_sym
+        unless ekylibre_agroedi
+          raise "Intervention nature #{code.inspect} has no equivalent in Ekylibre reference"
+        end
+        @memo_agroedi_code = ekylibre_agroedi
       end
 
       def started_at
