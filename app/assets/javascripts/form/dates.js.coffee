@@ -1,5 +1,5 @@
 ((E, $) ->
-# Options
+  # Options
   baseDateOptions = ($element) => $.extend {},
     locale: getLocale($element)
     dateFormat: 'Y-m-d'
@@ -46,5 +46,11 @@
     "input[type='date']": ($element) => $element.each -> enableDatePicker @
     "input[type='datetime']": ($element) => $element.each -> enableDatetimePicker @
     "input[type='daterange']": ($element) => $element.each -> enableDateRangePicker @
+
+  # Initializes date fields
+  $(document).ready =>
+    $("input[type='date']").each -> enableDatePicker @
+    $("input[type='datetime']").each -> enableDatetimePicker @
+    $("input[type='daterange']").each -> enableDateRangePicker @
 
 ) ekylibre, jQuery
