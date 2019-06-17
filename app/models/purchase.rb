@@ -246,4 +246,8 @@ class Purchase < Ekylibre::Record::Base
       payee.iban.present? &&
       payee.bank_account_holder_name.present?
   end
+
+  def invoice?
+    state == 'invoice'
+  end
 end
