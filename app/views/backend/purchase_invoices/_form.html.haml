@@ -24,15 +24,15 @@
     .purchase-total-row.total-except-tax
       %span.total-label= :total_amount_without_taxes.tl
       %span.total-value= f.object.decorate.total_amount_excluding_taxes
-      %span.total-currency= Nomen::Currency[f.object.currency].symbol
+      %span.total-currency= Nomen::Currency[f.object.currency]&.symbol
     .purchase-total-row.vat-total
       %span.total-label= :vat.tl
       %span.total-value= f.object.decorate.total_vat_amount.round(2)
-      %span.total-currency= Nomen::Currency[f.object.currency].symbol
+      %span.total-currency= Nomen::Currency[f.object.currency]&.symbol
     .purchase-total-row.purchase-total
       %span.total-label= :total_amount_with_taxes.tl
       %span.total-value= f.object.decorate.total_amount_including_taxes
-      %span.total-currency= Nomen::Currency[f.object.currency].symbol
+      %span.total-currency= Nomen::Currency[f.object.currency]&.symbol
 
   .control-group.button-modal-reconciliation
     .controls
