@@ -19,6 +19,7 @@ FactoryBot.define do
     sequence(:name) { |n| "Equipments category - TEST#{n.to_s.rjust(8, '0')}" }
     depreciable { true }
     asset_fixable { true }
+    fixed_asset_depreciation_method { :simplified_linear }
     association :product_account, factory: :account
     fixed_asset_account
     fixed_asset_allocation_account

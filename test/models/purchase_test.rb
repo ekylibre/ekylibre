@@ -239,10 +239,10 @@ class PurchaseTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   test "updating a purchase's pretax amount correctly computes the corresponding fixed asset depreciable amount" do
-    tax = create(:tax)
-    fixed_asset = create :fixed_asset,
-                         started_on: Date.new(2018, 5, 2)
-    purchase_item = create(:purchase_item, pretax_amount: 1000, fixed: true, preexisting_asset: true, fixed_asset_id: fixed_asset.id, tax: tax)
+    tax = create :tax
+    product = create :asset_fixable_product, born_at: DateTime.new(2018, 1, 1)
+    fixed_asset = create :fixed_asset, :in_use, started_on: Date.new(2018, 1, 1), product: product
+    purchase_item = create(:purchase_item, pretax_amount: 42.0, fixed: true, preexisting_asset: true, fixed_asset_id: fixed_asset.id, tax: tax)
 
     purchase_item.purchase.invoice
     fixed_asset.reload

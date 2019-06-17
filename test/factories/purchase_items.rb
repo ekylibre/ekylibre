@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :purchase_item do
     association :tax
-    purchase
+    association :purchase, factory: :purchase_invoice
     account
     amount { 1848.0 }
     pretax_amount { 1545.15 }
