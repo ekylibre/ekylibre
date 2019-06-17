@@ -160,7 +160,6 @@ module Backend
 
       if @purchase_invoice.items.blank?
         notify_error_now :purchase_invoice_need_at_least_one_item
-        render(locals: { cancel_url: { action: :index }, with_continue: true })
       else
         return if save_and_redirect(@purchase_invoice, url: url, notify: :record_x_created, identifier: :number)
       end

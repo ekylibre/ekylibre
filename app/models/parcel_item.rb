@@ -140,7 +140,7 @@ class ParcelItem < Ekylibre::Record::Base
   end
 
   validate do
-    computed_population = storings.map(&:quantity).reduce(&:+)
+    computed_population = storings.map(&:quantity).reduce(&:+) || 0
     if product_is_unitary? && computed_population > 1
       errors.add(:population, 'activerecord.errors.messages.unitary_in_parcel'.t)
     end
