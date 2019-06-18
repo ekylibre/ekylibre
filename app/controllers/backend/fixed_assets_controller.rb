@@ -288,6 +288,14 @@ module Backend
           @fixed_asset.errors.add :scrapped_on, t('errors.messages.no_opened_financial_year')
           valid = false
         end
+
+        if @fixed_asset.product && @fixed_asset.scrapped_on && @fixed_asset.product.born_at > @fixed_asset.scrapped_on
+          @fixed_asset.errors.add :scrapped_on, t('errors.messages.on_or_after_field', attribute: t('attributes.scrapped_on'),
+                                                                                       restriction: @fixed_asset.product.born_at.to_date.l,
+                                                                                       field: t('activerecord.attributes.equipment.born_at'),
+                                                                                       model: :product.tl)
+          valid = false
+        end
         valid
       end
 
@@ -306,6 +314,14 @@ module Backend
 
         if @fixed_asset.sold_on && !FinancialYear.on(@fixed_asset.sold_on)&.opened?
           @fixed_asset.errors.add :sold_on, t('errors.messages.no_opened_financial_year')
+          valid = false
+        end
+
+        if @fixed_asset.product && @fixed_asset.sold_on && @fixed_asset.product.born_at > @fixed_asset.sold_on
+          @fixed_asset.errors.add :sold_on, t('errors.messages.on_or_after_field', attribute: t('attributes.sold_on'),
+                                                                                   restriction: @fixed_asset.product.born_at.to_date.l,
+                                                                                   field: t('activerecord.attributes.equipment.born_at'),
+                                                                                   model: :product.tl)
           valid = false
         end
         valid

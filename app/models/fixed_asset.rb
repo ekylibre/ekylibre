@@ -369,10 +369,14 @@ class FixedAsset < Ekylibre::Record::Base
     depreciations.none?
   end
 
+  def depreciation_on(on)
+    depreciations.where('? BETWEEN started_on AND stopped_on', on).reorder(:position).last
+  end
+
   # return the current_depreciation at current date
   def current_depreciation(on = Date.today)
     # get active depreciation
-    asset_depreciation = depreciations.where('? BETWEEN started_on AND stopped_on', on).reorder(:position).last
+    asset_depreciation = depreciation_on(on)
     # get last active depreciation
     asset_depreciation ||= depreciations.reorder(:position).last
     return nil unless asset_depreciation

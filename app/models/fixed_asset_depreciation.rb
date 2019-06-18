@@ -60,7 +60,6 @@ class FixedAssetDepreciation < Ekylibre::Record::Base
 
   scope :with_active_asset, -> { joins(:fixed_asset).where(fixed_assets: { state: :in_use }) }
   scope :up_to, ->(date) { where('fixed_asset_depreciations.stopped_on <= ?', date) }
-  scope :on, ->(date) { where('? BETWEEN started_on AND stopped_on', date).first }
 
   sums :fixed_asset, :depreciations, amount: :depreciated_amount
 
