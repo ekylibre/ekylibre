@@ -118,11 +118,18 @@ module Agroedi
         end
       end
 
+      def article
+        article = RegisteredAgroediCode.of_reference_code(nature_edicode)
+                                       .first
+                                       &.ekylibre_value
+                                       &.to_sym
+        article || raise("Nature code #{nature_edicode.inspect} has no equivalent in Ekylibre reference")
+      end
+
       private
 
         def find_or_create_product!(variety = nil)
-          article = RegisteredAgroediCode.of_reference_code(nature_edicode).first
-          variant = find_or_create_variant(article)
+          variant = find_or_create_variant
 
           return variant.products.first if variant.products.any?
 
@@ -143,13 +150,13 @@ module Agroedi
           matter
         end
 
-        def find_or_create_variant(article = nil)
+        def find_or_create_variant
           name = daplos.input_name
           variant = ProductNatureVariant.where(name: name, active: true).first
 
           unless variant
             #BUG: what if article.blank?
-            variant = ProductNatureVariant.import_from_nomenclature(article.ekylibre_value, force: true) if article
+            variant = ProductNatureVariant.import_from_nomenclature(article, force: true) if article
             variant.name = name
             variant.save!
           end
