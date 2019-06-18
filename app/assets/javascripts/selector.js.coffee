@@ -52,7 +52,7 @@
         @element.removeAttr "name"
         if @element.attr("required") is "true"
           @valueField.attr "required", "true"
-        unless @valueField.val()? and @valueField.val() != ''
+        if !@valueField.val()? or @valueField.val() == ''
           @valueField.attr("value", @element.val())
       this._on @element,
         keypress: "_keypress"
