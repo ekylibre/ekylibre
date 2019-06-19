@@ -78,7 +78,7 @@ class InterventionParameter < Ekylibre::Record::Base
     end
 
     def amount?
-      unit_amount?
+      unit_amount? || (quantity == 0)
     end
 
     def amount
