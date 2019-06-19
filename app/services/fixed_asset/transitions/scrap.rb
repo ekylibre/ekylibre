@@ -1,6 +1,8 @@
 class FixedAsset
   module Transitions
     class Scrap < Transitionable::Transition
+      include Depreciable
+
       event :scrap
       from :in_use
       to :scrapped
@@ -35,39 +37,10 @@ class FixedAsset
 
       def can_run?
         super && resource.valid? &&
-          scrapped_on_during_opened_financial_year(@scrapped_on) &&
+          FinancialYear.on(@scrapped_on)&.opened? &&
           depreciations_valid?(@scrapped_on) &&
           resource.product
       end
-
-      private
-
-        def split_depreciation!(depreciation, date)
-          total_amount = depreciation.amount
-          period = Accountancy::Period.new(depreciation.started_on, depreciation.stopped_on)
-          before, after = period.split date
-
-          depreciation.update! stopped_on: before.stop,
-                               amount: round(total_amount * before.days / period.days)
-
-          resource.depreciations.create! position: depreciation.position + 1,
-                                         amount: total_amount - depreciation.amount,
-                                         started_on: after.start,
-                                         stopped_on: after.stop
-        end
-
-        def round(amount)
-          resource.currency.to_currency.round amount
-        end
-
-        def depreciations_valid?(date)
-          active = resource.depreciation_on date
-          active.nil? || resource.depreciations.following(active).all? { |d| !d.has_journal_entry? }
-        end
-
-        def scrapped_on_during_opened_financial_year(date)
-          FinancialYear.on(date)&.opened?
-        end
     end
   end
 end
