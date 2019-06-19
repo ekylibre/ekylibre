@@ -85,6 +85,15 @@ module Backend
         noko = Nokogiri::HTML(response.body)
         assert_equal 0, noko.css('.fixed_asset_product.error').size
         assert_equal 1, noko.css(".fixed_asset_#{attribute}.error").size
+
+        # Case where attribute < @fixed_asset.product.born_at
+        equipment = create :asset_fixable_product, born_at: DateTime.new(2018, 6, 1)
+        @fixed_asset.update!(product: equipment)
+
+        patch :update, id: @fixed_asset.id, fixed_asset: { attribute => Date.new(2018, 1, 1) }, mode: mode
+        noko = Nokogiri::HTML(response.body)
+        assert_equal 0, noko.css('.fixed_asset_product.error').size
+        assert_equal 1, noko.css(".fixed_asset_#{attribute}.error").size
       end
     end
 
