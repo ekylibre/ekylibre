@@ -235,11 +235,11 @@ class Account < Ekylibre::Record::Base
   class << self
     # Trim account number following preferences
       def normalize(number)
-        preference_number = Preference[:account_number_digits]
-        if number.size > preference_number
-          number[0...preference_number]
-        elsif number.size < preference_number
-          number.ljust(preference_number, "0")
+        account_number_length = Preference[:account_number_digits]
+        if number.size > account_number_length
+          number[0...account_number_length]
+        elsif number.size < account_number_length
+          number.ljust(account_number_length, "0")
         else
           number
         end
@@ -253,7 +253,7 @@ class Account < Ekylibre::Record::Base
       numbers = Nomen::Account.items.values.collect { |i| i.send(accounting_system) }
       padded_number = number.ljust(Preference[:account_number_digits], '0')
       number = padded_number unless numbers.include?(number) || options[:already_existing]
-      item = Nomen::Account.items.values.detect { |i| i.send(accounting_system) == padded_number }
+      item = Nomen::Account.items.values.find { |i| i.send(accounting_system) == padded_number }
       account = find_by(number: number)
       if account
         if item && !account.usages_array.include?(item)
