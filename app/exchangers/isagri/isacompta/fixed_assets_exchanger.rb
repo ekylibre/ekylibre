@@ -23,7 +23,7 @@ module Isagri
           prompt = "L#{line_number.to_s.yellow} | "
 
           r = {
-            asset_account: row[0].blank? ? nil : normalize(row[0].to_s),
+            asset_account: row[0].blank? ? nil : row[0].to_s,
             number: row[1].blank? ? '' : row[1].to_s.strip,
             name: row[2].blank? ? nil : row[2].to_s.strip,
             purchase_on: row[4].blank? ? nil : Date.strptime(row[4].to_s, '%d/%m/%Y'),
@@ -104,22 +104,9 @@ module Isagri
 
       private
 
-      # Trim account number following preferences
-      def normalize(number)
-        preference_number = Preference[:account_number_digits]
-        differential = number.size - preference_number if number.size > preference_number
-        if differential && number.last(2) == "0" * (differential)
-          number.first(preference_number)
-        elsif differential && number.last != "0" * (differential)
-          number.first(6) + number.last(preference_number - 6)
-        else
-          number
-        end
-      end
-
       # Generate allocation account number
       def to_allocation_account(number)
-        if number.first == "2"
+        if number.first == "2" && number[1..2] != "11"
           number.chars.insert(1, "8")[0...-1].join
         else
           number

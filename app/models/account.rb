@@ -198,7 +198,7 @@ class Account < Ekylibre::Record::Base
     if general? && number && !already_existing
       errors.add(:number, :centralizing_number) if number.match(/\A401|\A411/).present?
       errors.add(:number, :radical_class) if number.match(/\A[1-9]0*\z/).present?
-      self.number = number.ljust(Preference[:account_number_digits], '0')
+      self.number = Account.normalize(number)
     elsif auxiliary? && centralizing_account
       centralizing_account_number = centralizing_account.send(Account.accounting_system)
       self.number = centralizing_account_number + auxiliary_number
@@ -233,6 +233,18 @@ class Account < Ekylibre::Record::Base
   end
 
   class << self
+    # Trim account number following preferences
+      def normalize(number)
+        preference_number = Preference[:account_number_digits]
+        if number.size > preference_number
+          number[0...preference_number]
+        elsif number.size < preference_number
+          number.ljust(preference_number, "0")
+        else
+          number
+        end
+      end
+
     # Create an account with its number (and name)
     def find_or_create_by_number(*args)
       options = args.extract_options!
