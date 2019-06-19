@@ -39,9 +39,9 @@ module Isagri
 
           # get allocation and expenses account
           if r.depreciation_method == :linear || :regressive
-            allocation_account_parent_usage = Account.find_parent_usage(to_allocation_account(r.asset_account))
+            allocation_account_parent_usage = Account.find_parent_usage(self.class.to_allocation_account(r.asset_account))
             allocation_account_default_name = Nomen::Account.find(allocation_account_parent_usage).l
-            exchange_allocation_account = Account.find_or_create_by_number(to_allocation_account(r.asset_account), default_name: allocation_account_default_name)
+            exchange_allocation_account = Account.find_or_create_by_number(self.class.to_allocation_account(r.asset_account), default_name: allocation_account_default_name)
             exchange_expenses_account = Account.find_or_import_from_nomenclature(:depreciations_inputations_expenses)
           end
 
@@ -102,10 +102,8 @@ module Isagri
         end
       end
 
-      private
-
       # Generate allocation account number
-      def to_allocation_account(number)
+      def self.to_allocation_account(number)
         if number.first == "2" && number[1..2] != "11"
           number.chars.insert(1, "8")[0...-1].join
         else
