@@ -96,7 +96,7 @@ class ShipmentItem < ParcelItem
       self.variant = purchase_order_item.variant
     else
       self.variant = source_product.variant if source_product
-      self.population = source_product.population if population.nil? || population.zero?
+      self.population = source_product.population if source_product && (population.nil? || population.zero?)
     end
 
     true
