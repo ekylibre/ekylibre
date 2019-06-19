@@ -157,7 +157,7 @@ module Backend
     def link_to_sale
       return unless fixed_asset = find_and_check
 
-      if params[:fixed_asset] && sale_item_id = params[:fixed_asset][:sale_item_id]
+      if sale_item_id = permitted_params[:sale_item_id]
         sale_item = SaleItem.find(sale_item_id)
         sale_item.update!(fixed_asset: fixed_asset, depreciable_product: fixed_asset.product)
         notify_success :fixed_asset_successfully_associated_to_sale.tl
@@ -248,7 +248,6 @@ module Backend
         end
         fixed_assets
       end
-
 
       def parameters_with_processed_percentage
         parameters = permitted_params.to_h

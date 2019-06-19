@@ -27,6 +27,7 @@ class FixedAsset
 
           resource.sale.invoice unless resource.sale.invoice?
 
+          resource.product.reload
           resource.product.update! dead_at: @sold_on
           true
         end
