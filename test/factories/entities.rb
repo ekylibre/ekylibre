@@ -13,8 +13,8 @@ FactoryBot.define do
     currency { 'EUR' }
     language { 'fra' }
     nature { 'contact' }
-    full_name { 'Dupond Comptable' }
-    last_name { 'Dupond' }
+    sequence(:full_name) { |n| "full name #{n}" }
+    sequence(:last_name) { |n| "last name #{n}" }
     country { 'fr' }
     iban { '' }
 
