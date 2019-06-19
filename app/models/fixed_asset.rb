@@ -265,11 +265,12 @@ class FixedAsset < Ekylibre::Record::Base
     depreciations = depreciations.up_to(options[:until]) if options[:until]
     transaction do
       # trusting the bookkeep to take care of the accounting
-      count = []
+      count = 0
       depreciations.find_each do |dep|
-        count << dep.update!(accountable: true)
+        dep.update!(accountable: true)
+        count += 1
       end
-      return count.size
+      return count
     end
     0
   end
