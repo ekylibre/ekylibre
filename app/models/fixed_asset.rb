@@ -118,6 +118,8 @@ class FixedAsset < Ekylibre::Record::Base
   validates :scrapped_on, financial_year_writeable: { if: :scrapped? }
   validates :sold_on, financial_year_writeable: { if: :sold? }
   validates :tax_id, :selling_amount, :pretax_selling_amount, presence: { if: :sold? }
+  validates :scrapped_on, timeliness: { on_or_before: -> { Date.today }, type: :date }, if: -> { scrapped_on }
+  validates :sold_on, timeliness: { on_or_before: -> { Date.today }, type: :date }, if: -> { sold_on }
 
   enumerize :depreciation_period, in: %i[monthly quarterly yearly], default: -> { Preference.get(:default_depreciation_period).value || Preference.set!(:default_depreciation_period, :yearly, :string) }
 
@@ -184,9 +186,6 @@ class FixedAsset < Ekylibre::Record::Base
         errors.add(:stopped_on, :posterior, to: started_on.l)
       end
     end
-
-    errors.add(:sold_on, :on_or_before, restriction: Date.today.l) if sold_on && sold_on > Date.today
-    errors.add(:scrapped_on, :on_or_before, restriction: Date.today.l) if scrapped_on && scrapped_on > Date.today
     true
   end
 
