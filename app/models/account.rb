@@ -251,7 +251,7 @@ class Account < Ekylibre::Record::Base
       number = args.shift.to_s.strip
       options[:name] ||= args.shift
       numbers = Nomen::Account.items.values.collect { |i| i.send(accounting_system) }
-      padded_number = number.ljust(Preference[:account_number_digits], '0')
+      padded_number = Account.normalize(number)
       number = padded_number unless numbers.include?(number) || options[:already_existing]
       item = Nomen::Account.items.values.find { |i| i.send(accounting_system) == padded_number }
       account = find_by(number: number)
