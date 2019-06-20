@@ -292,7 +292,7 @@ module Backend
           @fixed_asset.errors.add :scrapped_on, t('errors.messages.on_or_after_field', attribute: t('attributes.scrapped_on'),
                                                                                        restriction: @fixed_asset.product.born_at.to_date.l,
                                                                                        field: t('activerecord.attributes.equipment.born_at'),
-                                                                                       model: :product.tl)
+                                                                                       model: :equipment.tl)
           valid = false
         end
         valid
@@ -320,7 +320,7 @@ module Backend
           @fixed_asset.errors.add :sold_on, t('errors.messages.on_or_after_field', attribute: t('attributes.sold_on'),
                                                                                    restriction: @fixed_asset.product.born_at.to_date.l,
                                                                                    field: t('activerecord.attributes.equipment.born_at'),
-                                                                                   model: :product.tl)
+                                                                                   model: :equipment.tl)
           valid = false
         end
         valid

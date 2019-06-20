@@ -182,7 +182,7 @@ class SaleItem < Ekylibre::Record::Base
   end
 
   after_save do
-    unlink_fixed_asset(fixed_asset_id_was) if fixed_asset_id_was
+    unlink_fixed_asset(attribute_was(:fixed_asset_id)) if attribute_was(:fixed_asset_id)
     link_fixed_asset(fixed_asset_id) if fixed_asset_id
 
     next unless Preference[:catalog_price_item_addition_if_blank]
@@ -195,7 +195,7 @@ class SaleItem < Ekylibre::Record::Base
   end
 
   after_destroy do
-    unlink_fixed_asset(fixed_asset_id_was) if fixed_asset_id_was
+    unlink_fixed_asset(attribute_was(:fixed_asset_id)) if attribute_was(:fixed_asset_id)
   end
 
   protect(on: :update) do

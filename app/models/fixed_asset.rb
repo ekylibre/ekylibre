@@ -212,6 +212,12 @@ class FixedAsset < Ekylibre::Record::Base
     sale.update_columns(invoiced_at: sold_on.to_datetime) if changes[:sold_on] && sale && !sale.invoice? && sold_on
   end
 
+  after_update do
+    if in_use? && product && !product.used_in_interventions_before(started_on)
+      product.update!(born_at: started_on.to_datetime)
+    end
+  end
+
   def on_unclosed_periods?
     started_on > journal.closed_on
   end

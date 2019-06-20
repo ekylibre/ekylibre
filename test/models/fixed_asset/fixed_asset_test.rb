@@ -197,6 +197,39 @@ module FixedAssetTest
       assert_equal fixed_asset.sold_on, sale.invoiced_at.to_date
     end
 
+    test 'starting up a fixed asset sets the product born_at date accordingly' do
+      product = create :asset_fixable_product, born_at: DateTime.new(2018, 6, 1)
+      fixed_asset = create :fixed_asset, started_on: Date.new(2017, 3, 1), product: product
+
+      assert_equal product.born_at, DateTime.new(2018, 6, 1)
+
+      fixed_asset.start_up
+      product.reload
+
+      # Checks that product born_at should be set upon start_up action
+      assert_equal product.born_at, fixed_asset.started_on.to_datetime
+    end
+
+    test 'adding a product to a fixed asset sets the product born_at accordingly' do
+      create :journal, nature: :stocks
+      product = create :asset_fixable_product, born_at: DateTime.new(2017, 1, 1)
+      fixed_asset = create :fixed_asset, :in_use, started_on: Date.new(2017, 3, 1)
+      intervention = create :intervention, started_at: DateTime.new(2017, 1, 15), stopped_at: DateTime.new(2017, 1, 15) + 1.hour
+      tool = create :intervention_tool, intervention: intervention, product: product
+
+      fixed_asset.update!(product: product)
+      product.reload
+
+      # Checks that product born_at shouldn't be set to a date posterior to the date of the intervention it was used for
+      assert_equal product.born_at, DateTime.new(2017, 1, 1)
+
+      intervention.update!(started_at: DateTime.new(2017, 6, 1), stopped_at: DateTime.new(2017, 6, 1) + 1.hour)
+      fixed_asset.save!
+      product.reload
+
+      assert_equal product.born_at, fixed_asset.started_on.to_datetime
+    end
+
     private
 
       def depreciate_up_to(_depreciations, date)
