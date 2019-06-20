@@ -264,7 +264,7 @@ journals_013:
   used_for_tax_declarations: false
   used_for_unbilled_payables: false
 journals_014:
-  closed_on: 1992-11-16
+  closed_on: 1991-11-16
   code: OPER
   created_at: 2018-09-20 09:33:26.431317000 Z
   creator_id: 1
