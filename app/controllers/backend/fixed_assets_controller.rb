@@ -118,7 +118,6 @@ module Backend
 
       @sale_items = SaleItem.linkable_to_fixed_asset.invoiced_on_or_after(@fixed_asset.started_on)
       @sale_items = @sale_items.where(variant: @fixed_asset.product.variant) if @fixed_asset.product
-      @submit_label = @sale_items.any? ? :validate.tl : :create_a_sale.tl
 
       notify_warning_now(:closed_financial_periods) unless @fixed_asset.on_unclosed_periods?
       respond_with(@fixed_asset, methods: %i[net_book_value duration],
@@ -157,14 +156,11 @@ module Backend
     def link_to_sale
       return unless fixed_asset = find_and_check
 
-      if params[:fixed_asset] && sale_item_id = permitted_params[:sale_item_id]
-        sale_item = SaleItem.find(sale_item_id)
-        sale_item.update!(fixed_asset: fixed_asset, depreciable_product: fixed_asset.product)
-        notify_success :fixed_asset_successfully_associated_to_sale.tl
-        redirect_to(action: :show, id: fixed_asset.id)
-      else
-        redirect_to(controller: :sales, action: :new, fixed_asset_id: fixed_asset.id)
-      end
+      sale_item_id = permitted_params[:sale_item_id]
+      sale_item = SaleItem.find(sale_item_id)
+      sale_item.update!(fixed_asset: fixed_asset, depreciable_product: fixed_asset.product)
+      notify_success :fixed_asset_successfully_associated_to_sale.tl
+      redirect_to(action: :show, id: fixed_asset.id)
     end
 
     def depreciate_all
