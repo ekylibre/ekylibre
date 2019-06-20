@@ -142,11 +142,11 @@ module FinancialYearTest
       Inventory.delete_all
 
       # Generate financial years with no journal entries, no tax declarations and no inventory in order to make destroyable
-      start_date = '01-01-1995'
-      stop_date = '31-12-1995'
+      start_date = '01-01-2001'
+      stop_date = '31-12-2001'
       dates = Array.new(10) { Hash.new }
 
-      # Get array of hash containing dates, IE : [{started_on: '01-01-1995', stopped_on: '01-01-1995'}, {started_on: '01-01-1996', stopped_on: '01-01-1996'}]
+      # Get array of hash containing dates, IE : [{started_on: '01-01-2001', stopped_on: '01-01-2001'}, {started_on: '01-01-2002', stopped_on: '01-01-2002'}]
       dates.each_with_index do |d, i|
         d[:started_on] = start_date.to_date + i.year
         d[:stopped_on] = stop_date.to_date + i.year
@@ -166,7 +166,7 @@ module FinancialYearTest
 
     def create_accountant_elements_should_raise(accounting_date)
       assert_raise(ActiveRecord::RecordInvalid) { create(:sale, invoiced_at: accounting_date) }
-      assert_raise(ActiveRecord::RecordInvalid) { create(:purchase, invoiced_at: accounting_date) }
+      assert_raise(ActiveRecord::RecordInvalid) { create(:purchase_invoice, invoiced_at: accounting_date) }
       assert_raise(ActiveRecord::RecordInvalid) { create(:cash_transfer, transfered_at: accounting_date) }
       assert_raise(ActiveRecord::RecordInvalid) { create(:parcel, given_at: accounting_date) }
     end
