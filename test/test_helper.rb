@@ -89,6 +89,12 @@ class HashCollector
   end
 end
 
+class ActiveSupport::TestCase
+  setup do
+    I18n.locale = :eng
+  end
+end
+
 module ActionController
   class TestCase
     include Devise::Test::ControllerHelpers
@@ -98,6 +104,7 @@ module ActionController
       Ekylibre::Tenant.switch_each do
         Preference.set!("first_run.executed", true)
       end
+      I18n.locale = :eng
     end
 
     def fixture_files
