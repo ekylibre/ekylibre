@@ -89,10 +89,6 @@ class FixedAssetDepreciation < Ekylibre::Record::Base
     end
   end
 
-  def accounted
-    !locked && accountable
-  end
-
   def has_journal_entry?
     !journal_entry.nil?
   end
