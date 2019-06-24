@@ -67,8 +67,8 @@
     bindSelectorsInitialization: (callback) ->
       form = @newForm()
       form.find('*[data-selector]').parent().each ->
-        $(this).on 'selector:change selector:set', ->
-          callback.call(form)
+        $(this).on 'selector:change selector:set selector:initialize', ->
+          callback(form)
 
     validate: ->
       @interpolate()
