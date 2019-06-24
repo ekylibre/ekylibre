@@ -465,6 +465,9 @@ module Backend
 
           if intervention.nature == :request
             new_intervention = intervention.dup
+            intervention.working_periods.each do |wp|
+              new_intervention.working_periods.build(wp.dup.attributes)
+            end
             intervention.parameters.each do |parameter|
               new_intervention.parameters.build(parameter.dup.attributes)
             end
