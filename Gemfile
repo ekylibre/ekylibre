@@ -119,7 +119,7 @@ gem 'unicorn', group: :production
 gem 'exception_notification'
 
 # Views helpers
-gem 'active_list', '>= 6.10.0'
+gem 'active_list', '~> 7'
 # gem 'active_list', path: "../active_list"
 gem 'haml'
 gem 'simple_calendar'
