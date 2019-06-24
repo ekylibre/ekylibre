@@ -107,7 +107,7 @@ module Agroedi
                           .where(islet_number: islet_number)
           return unless islets.any?
 
-          islets.joins(:land_parcels).select("#{LandParcel.table_name}.support_id")
+          islets.joins(:land_parcels).select("#{CapLandParcel.table_name}.support_id")
         end
 
         def guess_production_from_islet
@@ -115,7 +115,7 @@ module Agroedi
 
           ActivityProduction.of_campaign(campaign)
                             .with_cultivation_variety(production_nature.specie)
-                            .where(support_id: cap_support_ids).first
+                            .where(id: cap_support_ids).first
         end
 
         def guess_production_from_specie_and_area
