@@ -1902,6 +1902,8 @@ fra:
     month_period: "%{code} — %{month} %{year}"
     monthly: "Mensuelle"
     months: "Mois"
+    more_detail: "Plus de détail"
+    more_details: "Plus de détails"
     move_animal: "Déplacement des animaux"
     moved_at: "Fait le" #?
     movements: "Mouvements"
