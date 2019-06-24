@@ -38,7 +38,7 @@
 
 
     $(document).on 'selector:change', '.invoice-variant.selector-search', (event) ->
-      E.Purchases.fillStocksCounters(event)
+      E.Purchases.fillStocksCounters($(event.target).closest('.nested-item-form'))
 
       targettedElement = $(event.target)
       fieldAssetFields = targettedElement.closest('.merchandise').find('.fixed-asset-fields')
@@ -61,13 +61,13 @@
 
 
     $(document).on 'selector:change', '.invoice-variant.selector-search', (event) ->
-      E.Purchases.fillStocksCounters(event)
+      E.Purchases.fillStocksCounters($(event.target).closest('.nested-item-form'))
 
     $(document).on 'keyup change', '.form-field .storing-quantifier .storing-quantity', (event) ->
-      E.Purchases.fillStocksCounters(event)
+      E.Purchases.fillStocksCounters($(event.target).closest('.nested-item-form'))
 
     $(document).on 'keyup change', '.nested-fields .form-field .purchase_invoice_items_quantity .invoice-quantity', (event) ->
-      E.Purchases.fillStocksCounters(event)
+      E.Purchases.fillStocksCounters($(event.target).closest('.nested-item-form'))
 
 
     $(document).on 'click', '.nested-fields .edit-item[data-edit="item-form"]', (event) ->

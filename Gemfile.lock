@@ -43,11 +43,11 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
-    active_list (6.10.0)
+    active_list (7.1.0)
       arel (>= 5.0.0)
       code_string (>= 0.0.1)
       i18n-complements
-      rails (>= 3.2, < 5.0.0)
+      rails (>= 3.2, < 6)
       rubyzip (>= 1.0)
     activejob (4.2.11.1)
       activesupport (= 4.2.11.1)
@@ -449,7 +449,7 @@ GEM
     ruby-rc4 (0.1.5)
     ruby-terminfo (0.1.1)
     rubyntlm (0.6.2)
-    rubyzip (1.2.2)
+    rubyzip (1.2.3)
     rufus-scheduler (3.5.2)
       fugit (~> 1.1, >= 1.1.5)
     sassc (2.0.1)
@@ -577,7 +577,7 @@ PLATFORMS
 
 DEPENDENCIES
   actionpack-xml_parser
-  active_list (>= 6.10.0)
+  active_list (~> 7)
   activerecord-postgis-adapter (>= 3.0.0)
   acts_as_list
   agric!

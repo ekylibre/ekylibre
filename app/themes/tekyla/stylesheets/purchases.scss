@@ -120,6 +120,8 @@
 
 .current-stock {
   align-self: flex-end;
+  margin-right: 30px;
+
   span {
     color: #999;
   }
@@ -151,5 +153,19 @@
 }
 
 .item-block-quantity {
-  width: 40%;
+  width: 60%;
+
+  .control-label.required abbr {
+    margin-right: -8px;
+  }
+}
+
+.purchase_order_items_conditionning, .purchase_order_items_conditionning_quantity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .controls {
+    max-width: 100%;
+  }
 }

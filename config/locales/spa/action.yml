@@ -1862,7 +1862,7 @@ spa:
     places: "Lugares"
     # planned: "Planned"
     # planned_again_intervention_in: "Plan again this intervention on"
-    # planning: "Planning"
+    # planning_of: "Planning of"
     plant: "Planta"
     plant_counting: "Contando"
     plant_countings: "Los recuentos"

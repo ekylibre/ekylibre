@@ -233,14 +233,23 @@
 
       if isPurchaseOrderModal == "true"
         E.reconciliation._fillPurchaseOrderItem(lastLineForm, checkboxLine, itemId, itemQuantity, itemConditionning, itemConditionningQuantity)
+        fillStocks = =>
+          E.Receptions.fillStocksCounters(lastLineForm)
       else
         E.reconciliation._fillReceptionItem(lastLineForm, checkboxLine, itemId, itemQuantity)
+        fillStocks = =>
+          E.Purchases.fillStocksCounters(lastLineForm)
 
       $(lastLineForm).find('input[data-remember="equipment"]').first().selector('value', equipmentId)
       $(lastLineForm).find('.no-reconciliate-item-state').addClass('hidden')
       $(lastLineForm).find('.reconciliate-item-state').removeClass('hidden')
+      $line = $(lastLineForm).parent('.nested-fields')
+      $line.data('_iceberg').bindSelectorsInitialization ->
+        fillStocks()
 
+        $line.data('_iceberg').setCocoonFormSubmitable()
 
+    # Creates a line BASED on a ReceptionItem
     _fillReceptionItem: (lastLineForm, checkboxLine, itemId, itemQuantity) ->
       variantId = $(checkboxLine).find('.variant').attr('data-id')
       teamId = $(checkboxLine).attr('data-team-id')
@@ -285,6 +294,7 @@
         $('.form-field .invoice-total').trigger('change')), 1000
 
 
+    # Creates a line BASED on a PurchaseOrder
     _fillPurchaseOrderItem: (lastLineForm, checkboxLine, itemId, itemQuantity, itemConditionning, itemConditionningQuantity) ->
       variantId = $(checkboxLine).find('.variant').attr('data-id')
       variantType = $(checkboxLine).attr('data-variant-type')

@@ -15,7 +15,11 @@ module Ekylibre
       equipments.each do |equipment|
         variant = ProductNatureVariant.import_from_nomenclature(equipment['type'])
         storage = Product.find_by(name: equipment['zone'])
-        Equipment.create!(equipment.slice('name').merge(initial_container: storage, default_storage: storage, variant: variant))
+        attributes = { initial_container: storage,
+                       default_storage: storage,
+                       initial_born_at: Entity.of_company.born_at,
+                       variant: variant }
+        Equipment.create!(equipment.slice('name').merge(attributes))
       end
     end
   end

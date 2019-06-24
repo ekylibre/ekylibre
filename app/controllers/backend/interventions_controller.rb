@@ -200,7 +200,7 @@ module Backend
     # Show one intervention with params_id
     def show
       return unless @intervention = find_and_check
-      t3e @intervention, procedure_name: @intervention.procedure.human_name
+      t3e @intervention, procedure_name: @intervention.procedure.human_name, nature: @intervention.request? ? :planning_of.tl : nil
       respond_with(@intervention, methods: %i[cost earn status name duration human_working_zone_area human_actions_names],
                                   include: [
                                     { leaves_parameters: {
@@ -465,6 +465,9 @@ module Backend
 
           if intervention.nature == :request
             new_intervention = intervention.dup
+            intervention.working_periods.each do |wp|
+              new_intervention.working_periods.build(wp.dup.attributes)
+            end
             intervention.parameters.each do |parameter|
               new_intervention.parameters.build(parameter.dup.attributes)
             end

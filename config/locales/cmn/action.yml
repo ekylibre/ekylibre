@@ -1687,7 +1687,7 @@ cmn:
     places: "地方"
     # planned: "Planned"
     # planned_again_intervention_in: "Plan again this intervention on"
-    # planning: "Planning"
+    # planning_of: "Planning of"
     plant: "厂"
     plant_counting: "数数"
     # plant_countings: "Countings"
