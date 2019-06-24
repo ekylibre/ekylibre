@@ -64,18 +64,25 @@ class PurchaseOrderTest < ActiveSupport::TestCase
 
   test 'reconciliation_state is set correctly' do
     purchase_item = create :purchase_item, :of_purchase_order, quantity: 10
-    reception_item_one = create :reception_item, purchase_order_item: purchase_item, quantity: 5, variant: purchase_item.variant
-    reception_item_one.reception.reload
+    reception_one = create(:reception)
+    reception_item_one = create :reception_item, quantity: 5, variant: purchase_item.variant, purchase_order_item: purchase_item, reception: reception_one
     reception_item_one.reception.save!
+    purchase_item.purchase.reload
 
-    assert purchase_item.purchase.reconciliation_state == 'to_reconcile'
+    assert_equal 'to_reconcile', purchase_item.purchase.reconciliation_state
 
-    reception_item_two = create :reception_item, purchase_order_item: purchase_item, quantity: 5, variant: purchase_item.variant
+    reception_item_two = create :reception_item, purchase_order_item: purchase_item, quantity: 5, variant: purchase_item.variant, reception: reception_one
     reception_item_two.reception.reload
     reception_item_two.reception.save!
 
     purchase_item.purchase.reload
+    reception_one.reload
 
-    assert purchase_item.purchase.reconciliation_state == 'reconcile'
+    assert_equal 'reconcile', purchase_item.purchase.reconciliation_state
+
+    reception_one.destroy
+    purchase_item.purchase.reload
+
+    assert_equal 'to_reconcile', purchase_item.purchase.reconciliation_state
   end
 end
