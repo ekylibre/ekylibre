@@ -10,7 +10,7 @@ require 'minitest/reporters'
 require 'database_cleaner'
 
 Minitest::Reporters.use!(
-  (ENV['CI'] || !$stdout.isatty ? Minitest::Reporters::DefaultReporter.new : Ekylibre::Testing::SpecReporter.new),
+  (ENV['CI'] ? Minitest::Reporters::DefaultReporter.new : Ekylibre::Testing::SpecReporter.new),
   ENV,
   Minitest.backtrace_filter
 )
@@ -18,6 +18,7 @@ Minitest::Reporters.use!(
 # Permits to test locales
 I18n.locale = ENV['LOCALE'] || I18n.default_locale
 puts "Locale set to #{I18n.locale.to_s.green}".yellow
+
 # Configure tenants.yml
 
 puts "Setup tenant: #{'sekindovall'.green}".yellow
@@ -29,6 +30,7 @@ Ekylibre::Tenant.setup!('test_without_fixtures')
 puts "Setup tenant: #{'test'.green}".yellow
 Ekylibre::Tenant.setup!('test', keep_files: true)
 
+
 Ekylibre::Tenant.switch 'test_without_fixtures' do
   puts "Cleaning tenant: #{'test_without_fixtures'.green}".yellow
   DatabaseCleaner.clean_with :truncation, { except: ['spatial_ref_sys'] }
@@ -38,7 +40,6 @@ DatabaseCleaner.strategy = :transaction
 
 FactoryBot.find_definitions
 
-# Patch from https://github.com/rails/rails/issues/34790#issuecomment-450502805
 if RUBY_VERSION >= '2.6.0'
   if Rails.version < '5'
     class ActionController::TestResponse < ActionDispatch::TestResponse
@@ -57,6 +58,7 @@ end
 ActionView::TestCase.send :include, FactoryBot::Syntax::Methods
 
 module ActiveSupport
+
   def omniauth_mock(uid: '123',
                     email: 'john.doe@ekylibre.org',
                     first_name: 'John',
