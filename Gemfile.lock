@@ -9,10 +9,10 @@ GIT
 
 GIT
   remote: https://github.com/influitive/apartment.git
-  revision: 5585dac0665d44b29369bedd8f02cd61e64fdd46
+  revision: 4716ae5ba5be9503aeeaf3d4e6cdafa1a0cf6bd7
   branch: development
   specs:
-    apartment (2.2.0)
+    apartment (2.2.1)
       activerecord (>= 3.1.2, < 6.0)
       parallel (>= 0.7.1)
       public_suffix (>= 2)
@@ -43,7 +43,7 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
-    active_list (7.0.0)
+    active_list (7.1.0)
       arel (>= 5.0.0)
       code_string (>= 0.0.1)
       i18n-complements
@@ -126,7 +126,7 @@ GEM
       rgeo (~> 0.6.0)
       rgeo-geojson (~> 0.4.3)
     climate_control (0.2.0)
-    cocoon (1.2.12)
+    cocoon (1.2.13)
     code_analyzer (0.4.8)
       sexp_processor
     code_string (0.0.2)
@@ -207,7 +207,7 @@ GEM
       jquery-rails (>= 3)
       jquery-ui-rails (>= 5)
       rails (>= 3.2)
-    fugit (1.2.1)
+    fugit (1.2.2)
       et-orbi (~> 1.1, >= 1.1.8)
       raabro (~> 1.1)
     globalid (0.4.2)
@@ -455,7 +455,7 @@ GEM
     sassc (2.0.1)
       ffi (~> 1.9)
       rake
-    sassc-rails (2.1.1)
+    sassc-rails (2.1.2)
       railties (>= 4.0.0)
       sassc (>= 2.0)
       sprockets (> 3.0)
@@ -527,7 +527,7 @@ GEM
       activesupport
       i18n
     timecop (0.9.1)
-    timeliness (0.4.1)
+    timeliness (0.4.3)
     treetop (1.6.10)
       polyglot (~> 0.3)
     ttfunk (1.5.1)
@@ -579,7 +579,7 @@ PLATFORMS
 
 DEPENDENCIES
   actionpack-xml_parser
-  active_list (>= 6.10.0)
+  active_list (~> 7)
   activerecord-postgis-adapter (>= 3.0.0)
   acts_as_list
   agric!

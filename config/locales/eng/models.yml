@@ -2191,6 +2191,7 @@ eng:
           ordered: "Ordered"
           prepared: "Prepared"
           received: "Received"
+      undelivered_invoice: "Undelivered invoice [%{resource} %{mode} %{number}] %{entity}"
     role:
       default:
         administrator: "Administrator"

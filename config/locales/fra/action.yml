@@ -349,7 +349,7 @@ fra:
       new_request: "Nouvelle planification d’intervention"
       new_specified: "Nouvelle intervention de %{procedure_name}"
       new_specified_request: "Nouvelle planification de %{procedure_name}"
-      show: "%{procedure_name} n°%{number}"
+      show: "%{nature} %{procedure_name} n°%{number}"
     backend/invalid_journal_entries: #?
       index: "Écritures à équilibrer" #?
     backend/inventories:
@@ -2007,6 +2007,8 @@ fra:
     month_period: "%{code} — %{month} %{year}"
     monthly: "Mensuelle"
     months: "Mois"
+    more_detail: "Plus de détail"
+    more_details: "Plus de détails"
     move_animal: "Déplacement des animaux"
     moved_at: "Fait le" #?
     movements: "Mouvements"
@@ -2234,7 +2236,7 @@ fra:
     planned_again_intervention_in: "Planifier de nouveau cette intervention le"
     planned_at: "Date prévisionnelle" #?
     planned_by: "Planifiée par" #?
-    # planning: "Planning"
+    planning_of: "Planification de"
     plant: "Culture"
     plant_counting: "Comptage"
     plant_countings: "Comptages"
