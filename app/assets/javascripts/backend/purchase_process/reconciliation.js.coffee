@@ -239,6 +239,9 @@
       $(lastLineForm).find('input[data-remember="equipment"]').first().selector('value', equipmentId)
       $(lastLineForm).find('.no-reconciliate-item-state').addClass('hidden')
       $(lastLineForm).find('.reconciliate-item-state').removeClass('hidden')
+      $line = $(lastLineForm).parent('.nested-fields')
+      $line.data('_iceberg').bindSelectorsInitialization ->
+        $line.data('_iceberg').setCocoonFormSubmitable()
 
 
     _fillReceptionItem: (lastLineForm, checkboxLine, itemId, itemQuantity) ->
