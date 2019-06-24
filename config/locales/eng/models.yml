@@ -47,7 +47,7 @@ eng:
       nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
       odd: "%{attribute} must be odd"
       on_or_after: "%{attribute} must be on or after %{restriction}"
-      on_or_after_field: "%{attribute} must be on or after %{restriction} (%{field} of %{model})" #?
+      on_or_after_field: "%{attribute} must be on or after %{restriction} (%{model} %{field})" #?
       on_or_before: "%{attribute} must be on or before %{restriction}"
       overlap: "%{attribute} overlaps an existing record"
       overlap_sibling: "%{attribute} overlaps sibling"

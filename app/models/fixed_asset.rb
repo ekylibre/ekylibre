@@ -115,11 +115,13 @@ class FixedAsset < Ekylibre::Record::Base
   validates :currency, match: { with: :journal, to_invalidate: :journal }
   validates :depreciation_fiscal_coefficient, presence: true, if: -> { depreciation_method_regressive? }
   validates :stopped_on, :allocation_account, :expenses_account, presence: { unless: :depreciation_method_none? }
-  validates :scrapped_on, financial_year_writeable: { if: :scrapped? }
-  validates :sold_on, financial_year_writeable: { if: :sold? }
+  validates :scrapped_on, financial_year_writeable: { if: -> { scrapped_on } }
+  validates :sold_on, financial_year_writeable: { if: -> { sold_on } }
   validates :tax_id, :selling_amount, :pretax_selling_amount, presence: { if: :sold? }
-  validates :scrapped_on, timeliness: { on_or_before: -> { Date.today }, type: :date }, if: -> { scrapped_on }
-  validates :sold_on, timeliness: { on_or_before: -> { Date.today }, type: :date }, if: -> { sold_on }
+  validates :scrapped_on, timeliness: { on_or_after: -> (fixed_asset) { fixed_asset.started_on }, on_or_before: -> { Date.today }, type: :date }, if: -> { scrapped_on }
+  validates :sold_on, timeliness: { on_or_after: -> (fixed_asset) { fixed_asset.started_on }, on_or_before: -> { Date.today }, type: :date }, if: -> { sold_on }
+  validates :scrapped_on, :product_id, presence: true, on: :scrap
+  validates :sold_on, :product_id, presence: true, on: :sell
 
   enumerize :depreciation_period, in: %i[monthly quarterly yearly], default: -> { Preference.get(:default_depreciation_period).value || Preference.set!(:default_depreciation_period, :yearly, :string) }
 
@@ -177,6 +179,24 @@ class FixedAsset < Ekylibre::Record::Base
 
   validate on: :create do
     errors.add :base, :no_opened_financial_year if FinancialYear.opened.count == 0
+  end
+
+  validate on: :scrap do
+    if product && scrapped_on && product.born_at > scrapped_on
+      errors.add :scrapped_on, I18n.translate('errors.messages.on_or_after_field', attribute: I18n.translate('attributes.scrapped_on'),
+                                                                                   restriction: product.born_at.to_date.l,
+                                                                                   field: I18n.translate('activerecord.attributes.equipment.born_at'),
+                                                                                   model: product.name)
+    end
+  end
+
+  validate on: :sell do
+    if product && sold_on && product.born_at > sold_on
+      errors.add :sold_on, I18n.translate('errors.messages.on_or_after_field', attribute: I18n.translate('attributes.sold_on'),
+                                                                               restriction: product.born_at.to_date.l,
+                                                                               field: I18n.translate('activerecord.attributes.equipment.born_at'),
+                                                                               model: product.name)
+    end
   end
 
   validate do

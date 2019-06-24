@@ -148,7 +148,7 @@ module Backend
       return unless @fixed_asset = find_and_check(:fixed_asset)
       t3e(@fixed_asset.attributes)
       @fixed_asset.attributes = parameters_with_processed_percentage
-      record_valid = check_record_validity
+      record_valid = params[:mode] ? @fixed_asset.valid?(params[:mode]&.to_sym) : true
       notification = if params[:mode] == 'sell'
                        :your_fixed_asset_is_now_ready_to_be_sold
                      elsif params[:mode] == 'scrap'
@@ -264,72 +264,6 @@ module Backend
           parameters['depreciation_percentage'] = depreciation_percentage if depreciation_percentage.present?
         end
         parameters.except('linear_depreciation_percentage', 'regressive_depreciation_percentage')
-      end
-
-      def check_record_validity
-        if params[:mode] == 'scrap'
-          check_scrapping_infos
-        elsif params[:mode] == 'sell'
-          check_selling_infos
-        else
-          true
-        end
-      end
-
-      def check_scrapping_infos
-        valid = true
-        if @fixed_asset.scrapped_on.nil? || @fixed_asset.product_id.nil?
-          @fixed_asset.errors.add :scrapped_on, t('errors.messages.blank', attribute: t('attributes.scrapped_on')) if @fixed_asset.scrapped_on.nil?
-          @fixed_asset.errors.add :product_id, t('errors.messages.blank', attribute: :product.tl) if @fixed_asset.product_id.nil?
-          valid = false
-        end
-
-        if @fixed_asset.scrapped_on && @fixed_asset.scrapped_on < @fixed_asset.started_on
-          @fixed_asset.errors.add :scrapped_on, t('errors.messages.on_or_after', attribute: t('attributes.scrapped_on'), restriction: @fixed_asset.started_on.l)
-          valid = false
-        end
-
-        if @fixed_asset.scrapped_on && !FinancialYear.on(@fixed_asset.scrapped_on)&.opened?
-          @fixed_asset.errors.add :scrapped_on, t('errors.messages.no_opened_financial_year')
-          valid = false
-        end
-
-        if @fixed_asset.product && @fixed_asset.scrapped_on && @fixed_asset.product.born_at > @fixed_asset.scrapped_on
-          @fixed_asset.errors.add :scrapped_on, t('errors.messages.on_or_after_field', attribute: t('attributes.scrapped_on'),
-                                                                                       restriction: @fixed_asset.product.born_at.to_date.l,
-                                                                                       field: t('activerecord.attributes.equipment.born_at'),
-                                                                                       model: :equipment.tl)
-          valid = false
-        end
-        valid
-      end
-
-      def check_selling_infos
-        valid = true
-        if @fixed_asset.sold_on.nil? || @fixed_asset.product_id.nil?
-          @fixed_asset.errors.add :sold_on, t('errors.messages.blank', attribute: t('attributes.sold_on')) if @fixed_asset.sold_on.nil?
-          @fixed_asset.errors.add :product_id, t('errors.messages.blank', attribute: :product.tl) if @fixed_asset.product_id.nil?
-          valid = false
-        end
-
-        if @fixed_asset.sold_on && @fixed_asset.sold_on < @fixed_asset.started_on
-          @fixed_asset.errors.add :sold_on, t('errors.messages.on_or_after', attribute: t('attributes.sold_on'), restriction: @fixed_asset.started_on.l)
-          valid = false
-        end
-
-        if @fixed_asset.sold_on && !FinancialYear.on(@fixed_asset.sold_on)&.opened?
-          @fixed_asset.errors.add :sold_on, t('errors.messages.no_opened_financial_year')
-          valid = false
-        end
-
-        if @fixed_asset.product && @fixed_asset.sold_on && @fixed_asset.product.born_at > @fixed_asset.sold_on
-          @fixed_asset.errors.add :sold_on, t('errors.messages.on_or_after_field', attribute: t('attributes.sold_on'),
-                                                                                   restriction: @fixed_asset.product.born_at.to_date.l,
-                                                                                   field: t('activerecord.attributes.equipment.born_at'),
-                                                                                   model: :equipment.tl)
-          valid = false
-        end
-        valid
       end
   end
 end
