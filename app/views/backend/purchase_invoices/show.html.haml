@@ -1,5 +1,7 @@
 = content_for(:heading_toolbar) do
-  = reconciliation_state_title(@purchase_invoice)
+  - if @purchase_invoice.reception_items.any?(&:non_compliant)
+    = purchase_invoice_incident_badge(@purchase_invoice)
+  = purchase_reconciliation_state(@purchase_invoice, print_both: true)
 
 - main_toolbar do |t|
   = t.export :purchases_invoice
@@ -36,7 +38,7 @@
   - c.cobble :items, title: PurchaseInvoice.human_attribute_name(:items) do
     = cobble_list :items do
       %tr.total
-        %th{ colspan: 5 }
+        %th{ colspan: 5 }= :total.tl
         %td= resource.pretax_amount.l(currency: resource.currency)
         %td= resource.amount.l(currency: resource.currency)
 

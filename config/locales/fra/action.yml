@@ -2248,6 +2248,7 @@ fra:
     receipt_date: "Date de réception"
     receipt_responsible: "Responsable réception"
     received: "Reçue"
+    received_quantity: "Quantité réceptionnée"
     receiving_address: "Adresse de réception"
     recent_events: "Derniers événements"
     recent_historic: "Historique récent" #?
@@ -3087,6 +3088,9 @@ fra:
       print_failure: "Impossible d’imprimer. Essayer de recharger les modèles de documents pour corriger le problème. %{error} (%{class})." #?
       purchase_already_invoiced: "Achat déjà facturé" #?
       purchases_invalid_for_sepa: "Achats sélectionnés invalides pour un transfert SEPA (mode de décaissement invalide ou devise différente de celle du mode de décaissement ou IBAN ou Titulaire du compte du créditeur manquant.)"
+      purchase_invoice_need_at_least_one_item: "Une facture doit avoir au moins un élément dans les lignes d'achat"
+      purchase_order_need_at_least_one_item: "Une commande doit avoir au moins un élément dans les lignes d'achat"
+      reception_need_at_least_one_item: "Une réception doit avoir au moins un élément dans les lignes d'achat"
       record_already_imported: "Enregistrement déjà importé"
       record_cannot_be_removed: "L’enregistrement ne peut pas être supprimé"
       record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement"

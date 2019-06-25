@@ -115,8 +115,9 @@
                 $(this).attr('data-selector', selector_url)
 
             else
-              if typeof $(this).data("when-prop-value") != "undefined"
-                $(this).prop($(this).data("when-prop-value"), false)
+              if typeof $(this).data('when-scope') == "undefined" or $(this).data('when-scope') == scope
+                if typeof $(this).data("when-prop-value") != "undefined"
+                  $(this).prop($(this).data("when-prop-value"), false)
 
               if typeof $(this).data("when-display-value") != "undefined"
                 if typeof $(this).data('when-scope') == "undefined" or $(this).data('when-scope') == scope
@@ -125,6 +126,7 @@
                   else
                     $(this).show()
                   $(this).trigger('visibility:change')
+
 
           # shape = item.find(options.population_field or ".item-shape")
           # if data.shape

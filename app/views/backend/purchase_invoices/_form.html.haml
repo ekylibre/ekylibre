@@ -1,9 +1,7 @@
 = f.object.errors.full_messages if f.object.errors.present? && Rails.env.development?
 = content_for(:heading_toolbar) do
-  %h2.global-incident-warning.reconciliation-title.compliance-title.hidden= :reception_incident.tl
-  %h2.reconciliation-title.no-reconciliate-title= :to_reconciliate.tl
-  %h2.reconciliation-title.reconcile-title.hidden= :reconcile.tl
-  %h2.reconciliation-title.accepted-title.hidden= :accepted.tl
+  = purchase_invoice_incident_badge f.object
+  = purchase_reconciliation_state f.object, print_both: true
 
 = field_set do
   = f.referenced_association :supplier, source: :suppliers, new: { supplier: 1 }
@@ -20,23 +18,21 @@
     %span.purchase-process-reconciliation.reconciliation-state.no-reconciliate-state= :to_reconciliate.tl
     %span.purchase-process-reconciliation.reconciliation-state.reconcile-state.hidden= :reconcile.tl
     %span.purchase-process-reconciliation.reconciliation-state.accepted-state.hidden= :accepted.tl
-    = check_box_tag('purchase_invoice[reconciliation_state]', 'to_reconcile', true, id: 'purchase_invoice_reconciliate_state', class: 'hidden')
-    = check_box_tag('purchase_invoice[reconciliation_state]', 'accepted', (f.object.reconciliation_state == 'accepted' ? true : false), id: 'purchase_invoice_accepted_state')
     = label_tag :accepted_for_paiment.tl
 
   .purchase-totals
     .purchase-total-row.total-except-tax
       %span.total-label= :total_amount_without_taxes.tl
       %span.total-value= f.object.decorate.total_amount_excluding_taxes
-      %span.total-currency= Nomen::Currency[f.object.currency].symbol
+      %span.total-currency= Nomen::Currency[f.object.currency]&.symbol
     .purchase-total-row.vat-total
       %span.total-label= :vat.tl
       %span.total-value= f.object.decorate.total_vat_amount.round(2)
-      %span.total-currency= Nomen::Currency[f.object.currency].symbol
+      %span.total-currency= Nomen::Currency[f.object.currency]&.symbol
     .purchase-total-row.purchase-total
       %span.total-label= :total_amount_with_taxes.tl
       %span.total-value= f.object.decorate.total_amount_including_taxes
-      %span.total-currency= Nomen::Currency[f.object.currency].symbol
+      %span.total-currency= Nomen::Currency[f.object.currency]&.symbol
 
   .control-group.button-modal-reconciliation
     .controls

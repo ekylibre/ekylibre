@@ -47,6 +47,12 @@ class ParcelItemStoring < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :quantity, presence: true
 
+  before_validation do
+    if quantity.nil?
+      self.quantity ||= 1
+    end
+  end
+
   after_create do
     population = parcel_item.population
     population += quantity
