@@ -2367,14 +2367,9 @@ fra:
       label: "%{number}. %{amount} du %{date} en %{mode} pour %{payee}"
     reception:
       bookkeep: "[%{resource} %{number}] %{entity}"
-      state_machine:
-        states:
-          draft: "Brouillon"
-          given: "Donné"
-          in_preparation: "En préparation"
-          ordered: "Commandé"
-          prepared: "Prêt"
-          received: "Reçu"
+      states:
+        draft: "Brouillon"
+        received: "Reçue"
       undelivered_invoice: "Facture non parvenue [%{resource} %{mode} %{number}] %{entity}"
     role:
       default:
