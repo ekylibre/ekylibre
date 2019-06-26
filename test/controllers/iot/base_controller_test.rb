@@ -1,6 +1,6 @@
 require 'test_helper'
 module Iot
-  class BaseControllerTest < ActionController::TestCase
+  class BaseControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions
   end
 end

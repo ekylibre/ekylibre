@@ -52,7 +52,7 @@
 
 require 'test_helper'
 
-class SaleItemTest < ActiveSupport::TestCase
+class SaleItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
   attr_reader :sale, :standard_vat, :reduced_vat, :variants

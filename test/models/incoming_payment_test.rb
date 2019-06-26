@@ -55,7 +55,7 @@
 
 require 'test_helper'
 
-class IncomingPaymentTest < ActiveSupport::TestCase
+class IncomingPaymentTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
   test 'bookkeeping without commission' do

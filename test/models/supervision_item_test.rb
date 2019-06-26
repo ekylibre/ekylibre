@@ -34,7 +34,7 @@
 #
 require 'test_helper'
 
-class SupervisionItemTest < ActiveSupport::TestCase
+class SupervisionItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

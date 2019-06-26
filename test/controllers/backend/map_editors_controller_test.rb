@@ -1,6 +1,6 @@
 require 'test_helper'
 module Backend
-  class MapEditorsControllerTest < ActionController::TestCase
+  class MapEditorsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     setup do
       Ekylibre::Tenant.switch!('test')
       @locale = ENV['LOCALE'] || I18n.default_locale

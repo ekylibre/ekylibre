@@ -18,7 +18,7 @@
 
 require 'test_helper'
 module Backend
-  class InventoriesControllerTest < ActionController::TestCase
+  class InventoriesControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions reflect: :touch, refresh: :touch
   end
 end

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class WorkingSetsTest < ActiveSupport::TestCase
+class WorkingSetsTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'valid expressions' do
     invalids = []
     [

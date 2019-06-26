@@ -93,7 +93,7 @@ class PurchaseItem < Ekylibre::Record::Base
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :currency, match: { with: :purchase }
   validates :account, :tax, :reduction_percentage, presence: true
-  validates :variant, presence: true, unless: proc { |item| item&.variant && (item.variant.variety.eql?('trailed_equipment') || item.variant.variety.eql?('equipment')) }
+  validates :variant, presence: true, unless: proc { |item| item.variant&.variety.eql?('trailed_equipment') || item.variant&.variety.eql?('equipment') }
   validates :quantity, exclusion: { in: [0], message: :invalid }
 
   validates_associated :fixed_asset

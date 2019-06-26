@@ -37,6 +37,6 @@
 #
 require 'test_helper'
 
-class ParcelItemStoringTest < ActiveSupport::TestCase
+class ParcelItemStoringTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

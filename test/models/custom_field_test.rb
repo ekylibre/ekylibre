@@ -43,7 +43,7 @@
 
 require 'test_helper'
 
-class CustomFieldTest < ActiveSupport::TestCase
+class CustomFieldTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   STATIC_VALUES = {
     text: 'Lorem ipsum',

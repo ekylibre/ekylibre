@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class OfxImportTest < ActiveSupport::TestCase
+class OfxImportTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'run fails when the OFX is invalid' do
     invalid_file = open_fixture_file('ofx_invalid.ofx')
     cash = cashes(:cashes_003)

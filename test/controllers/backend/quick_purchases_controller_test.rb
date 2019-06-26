@@ -1,6 +1,6 @@
 require 'test_helper'
 module Backend
-  class QuickPurchasesControllerTest < ActionController::TestCase
+  class QuickPurchasesControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     setup do
       OutgoingPayment.delete_all
       Payslip.delete_all

@@ -36,7 +36,7 @@
 #
 require 'test_helper'
 
-class ProductNatureVariantComponentTest < ActiveSupport::TestCase
+class ProductNatureVariantComponentTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'test non recursivity of components' do
     tractor = ProductNatureVariant.import_from_nomenclature(:tractor)
 

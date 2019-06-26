@@ -19,7 +19,7 @@
 require 'test_helper'
 
 module Backend
-  class RegistrationsControllerTest < ActionController::TestCase
+  class RegistrationsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     include ActiveJob::TestHelper
 
     # test_restfully_all_actions

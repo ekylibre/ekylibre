@@ -34,6 +34,6 @@
 #
 require 'test_helper'
 
-class RegisteredPfiDoseTest < ActiveSupport::TestCase
+class RegisteredPfiDoseTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

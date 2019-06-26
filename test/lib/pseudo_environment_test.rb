@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PseudoEnvironmentTest < ActiveSupport::TestCase
+class PseudoEnvironmentTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   setup do
     @pseudo_env = PseudoEnvironment.new(self)
     @real_env = Rails.env

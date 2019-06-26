@@ -87,7 +87,7 @@
 #
 require 'test_helper'
 
-class BioproductTest < ActiveSupport::TestCase
+class BioproductTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

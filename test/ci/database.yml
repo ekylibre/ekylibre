@@ -1,7 +1,8 @@
 test:
   adapter: postgis
   encoding: unicode
-  database: ekylibre_test
-  schema_search_path: public,postgis
-  username: postgres
+  database: <%= ENV['POSTGRES_DB'] %>
+  schema_search_path: public,postgis,lexicon
+  host: <%= ENV['POSTGRES_HOST'] %>
+  username: <%= ENV['POSTGRES_USER'] %>
   postgis_extension: []

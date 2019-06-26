@@ -1,7 +1,7 @@
 require 'test_helper'
 module Api
   module V1
-    class InterventionParticipationsControllerTest < ActionController::TestCase
+    class InterventionParticipationsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
       connect_with_token
 
       test 'receiving an empty payload doesn\'t blow up' do

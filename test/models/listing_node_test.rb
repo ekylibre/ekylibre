@@ -51,7 +51,7 @@
 
 require 'test_helper'
 
-class ListingNodeTest < ActiveSupport::TestCase
+class ListingNodeTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

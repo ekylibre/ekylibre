@@ -54,7 +54,7 @@ class InventoryItem < Ekylibre::Record::Base
 
   scope :of_variant, ->(variant) { joins(:product).merge(Product.of_variant(variant)) }
 
-  delegate :name, :unit_name, :population_counting_unitary?, to: :product
+  delegate :name, :unit_name, :population_counting_unitary?, to: :product, allow_nil: true
   delegate :reflected?, :achieved_at, to: :inventory
   delegate :storable?, to: :variant
   delegate :currency, to: :inventory, prefix: true

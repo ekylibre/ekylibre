@@ -1,5 +1,5 @@
 require 'test_helper'
 module Devise
-  class ConfirmationsControllerTest < ActionController::TestCase
+  class ConfirmationsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
   end
 end
