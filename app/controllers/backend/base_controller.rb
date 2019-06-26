@@ -131,7 +131,7 @@ module Backend
       ActiveRecord::Base.transaction do
         can_be_saved =  record.new_record? ? record.createable? : record.updateable?
 
-        if can_be_saved && (options[:saved] || record.save)
+        if can_be_saved && (options[:saved] || record.save(context: options[:context]))
           response.headers['X-Return-Code'] = 'success'
           response.headers['X-Saved-Record-Id'] = record.id.to_s
           if params[:dialog]

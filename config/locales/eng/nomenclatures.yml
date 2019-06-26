@@ -154,6 +154,7 @@ eng:
         debit_retained_earnings: "Debit retained earnings"
         debtor_suppliers: "Debtor suppliers"
         deductible_asset_vat: "Deductible asset VAT"
+        deductible_products_and_services_vat: "Deductible products and services VAT"
         deductible_vat: "Deductible VAT"
         deductible_vat_to_resolve: "Deductible VAT to resolve"
         deferred_expense_accounts: "Deferred expense accounts"

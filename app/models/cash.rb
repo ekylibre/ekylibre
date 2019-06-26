@@ -117,7 +117,7 @@ class Cash < Ekylibre::Record::Base
 
   # before create a bank account, this computes automati.ally code iban.
   before_validation do
-    mode.lower! if mode.present?
+    self.mode = mode.to_s.lower if mode.present?
     self.mode = self.class.mode.default_value if mode.blank?
     self.suspend_until_reconciliation = false unless bank_account?
     unless bank_account_holder_name.nil?

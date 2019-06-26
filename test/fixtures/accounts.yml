@@ -1336,7 +1336,7 @@ accounts_092:
   reconcilable: false
   updated_at: 2014-12-24 11:08:52.626153000 Z
   updater_id: 1
-  usages: financial_asset_depreciations
+  usages: fixed_asset_depreciations
 accounts_093:
   already_existing: true
   created_at: 2014-12-24 11:08:52.630625000 Z
@@ -1350,7 +1350,7 @@ accounts_093:
   reconcilable: false
   updated_at: 2014-12-24 11:08:52.630625000 Z
   updater_id: 1
-  usages: financial_assets
+  usages: fixed_assets
 accounts_094:
   already_existing: true
   created_at: 2014-12-24 11:08:52.635080000 Z
@@ -1364,7 +1364,7 @@ accounts_094:
   reconcilable: false
   updated_at: 2014-12-24 11:08:52.635080000 Z
   updater_id: 1
-  usages: financial_assets_suppliers
+  usages: fixed_assets_suppliers
 accounts_095:
   already_existing: true
   created_at: 2014-12-24 11:08:52.639490000 Z
@@ -1378,7 +1378,7 @@ accounts_095:
   reconcilable: false
   updated_at: 2014-12-24 11:08:52.639490000 Z
   updater_id: 1
-  usages: financial_assets_values
+  usages: fixed_assets_values
 accounts_096:
   already_existing: true
   created_at: 2014-12-24 11:08:52.645493000 Z

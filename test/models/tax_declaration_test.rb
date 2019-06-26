@@ -408,6 +408,8 @@ class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     bank_account = create(:account, name: 'Brank')
     vat_deductible_account = tax.deduction_account
 
+    journal = create :journal
+
     purchase1 = create(:purchase,
                        nature: create(:purchase_nature),
                        tax_payability: 'at_paying')
@@ -417,7 +419,8 @@ class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     purchase1_entry = build(:journal_entry,
                             printed_on: printed_on,
                             real_credit: 870.0,
-                            real_debit: 870.0)
+                            real_debit: 870.0,
+                            journal: journal)
     purchase1_entry.items = [
       build(:journal_entry_item,
             entry: purchase1_entry,
@@ -441,7 +444,8 @@ class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     payment1 = build(:journal_entry,
                      printed_on: printed_on,
                      real_credit: 340.0,
-                     real_debit: 340.0)
+                     real_debit: 340.0,
+                     journal: journal)
     payment1.items = [
       build(:journal_entry_item,
             entry: payment1,
@@ -458,7 +462,8 @@ class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     payment2 = build(:journal_entry,
                      printed_on: printed_on,
                      real_credit: 60.0,
-                     real_debit: 60.0)
+                     real_debit: 60.0,
+                     journal: journal)
     payment2.items = [
       build(:journal_entry_item,
             printed_on: printed_on,

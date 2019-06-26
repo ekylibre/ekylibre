@@ -1,13 +1,45 @@
 FactoryBot.define do
   factory :fixed_asset do
-    association :allocation_account, factory: :account
-    depreciation_method { 'linear' }
-    journal
-    depreciable_amount { 860.32 }
+    transient do
+      amount { 42 }
+      percentage { 20.0 }
+    end
+
     sequence(:name) { |n| "Fixed asset #{n}" }
-    started_on { Date.civil(2017, 8, 11) }
-    stopped_on { Date.civil(2020, 8, 10) }
+    depreciable_amount { amount }
+    depreciation_method { :linear }
+    depreciation_percentage { percentage }
+    currency { :EUR }
+
+    association :journal, factory: :journal
+    association :allocation_account, factory: :account
     association :asset_account, factory: :account
     association :expenses_account, factory: :account
+
+    trait(:yearly) { depreciation_period { :yearly } }
+    trait(:monthly) { depreciation_period { :monthly } }
+
+    trait(:not_depreciable) {
+      depreciation_method { :none }
+      allocation_account { nil }
+      expenses_account { nil }
+      stopped_on { nil }
+    }
+    trait(:linear) { depreciation_method { :linear } }
+    trait :regressive do
+      transient do
+        coefficient { 1.75 }
+      end
+
+      depreciation_method { :regressive }
+      depreciation_fiscal_coefficient { coefficient }
+    end
+
+    trait :in_use do
+      after(:create) do |fa|
+        FixedAsset::Transitions::StartUp.new(fa).run!
+        fa.reload
+      end
+    end
   end
 end

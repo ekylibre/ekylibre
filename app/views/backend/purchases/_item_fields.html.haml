@@ -31,7 +31,7 @@
           #existing_asset{attrs}
             = f.referenced_association :fixed_asset, source: :drafts
           #new_asset
-            = f.referenced_association(:depreciable_product)
+            = f.referenced_association :depreciable_product, source: :depreciables
 
     %tr.tr-add-on
       %td{ colspan: 3 }

@@ -75,7 +75,7 @@ module Backend
     list(:depreciations, model: :fixed_asset_depreciations, conditions: { fixed_asset_id: 'params[:id]'.c }, order: :position) do |t|
       # t.action :edit, if: "RECORD.journal_entry.nil?".c
       t.column :position
-      t.column :accounted, datatype: :boolean
+      t.column :accountable
       t.column :locked
       t.column :amount, currency: true
       t.column :depreciable_amount, currency: true
@@ -115,6 +115,10 @@ module Backend
 
       return unless @fixed_asset = find_and_check
       t3e @fixed_asset
+
+      @sale_items = SaleItem.linkable_to_fixed_asset.invoiced_on_or_after(@fixed_asset.started_on)
+      @sale_items = @sale_items.where(variant: @fixed_asset.product.variant) if @fixed_asset.product
+
       notify_warning_now(:closed_financial_periods) unless @fixed_asset.on_unclosed_periods?
       respond_with(@fixed_asset, methods: %i[net_book_value duration],
                                  include: [
@@ -144,8 +148,29 @@ module Backend
       return unless @fixed_asset = find_and_check(:fixed_asset)
       t3e(@fixed_asset.attributes)
       @fixed_asset.attributes = parameters_with_processed_percentage
-      return if save_and_redirect(@fixed_asset, url: params[:redirect] || ({ action: :show, id: 'id'.c }), notify: (params[:redirect] ? :record_x_updated : false), identifier: :name)
+      record_valid = params[:mode] ? @fixed_asset.valid?(params[:mode]&.to_sym) : true
+      notification = if params[:mode] == 'sell'
+                       :your_fixed_asset_is_now_ready_to_be_sold
+                     elsif params[:mode] == 'scrap'
+                       :your_fixed_asset_is_now_ready_to_be_scrapped
+                     elsif params[:redirect]
+                       :record_x_updated
+                     else
+                       false
+                     end
+
+      return if record_valid && save_and_redirect(@fixed_asset, url: params[:redirect] || ({ action: :show, id: 'id'.c }), notify: notification, identifier: :name)
       render(locals: { cancel_url: {:action=>:index}, with_continue: false })
+    end
+
+    def link_to_sale
+      return unless fixed_asset = find_and_check
+
+      sale_item_id = permitted_params[:sale_item_id]
+      sale_item = SaleItem.find(sale_item_id)
+      sale_item.update!(fixed_asset: fixed_asset, depreciable_product: fixed_asset.product)
+      notify_success :fixed_asset_successfully_associated_to_sale.tl
+      redirect_to(action: :show, id: fixed_asset.id)
     end
 
     def depreciate_all
@@ -166,32 +191,44 @@ module Backend
       end
     end
 
-    # def cede
-    #   return unless @fixed_asset = find_and_check
-    # end
+    def sell
+      return unless record = find_and_check
 
-    # def sell
-    #   return unless @fixed_asset = find_and_check
-    # end
-    FixedAsset.state_machine.events.each do |event|
-      if %i[sell scrap].include? event.name
-        define_method event.name do
-          next unless record = find_and_check
-
-          state = do_fire_event record, event.name
-          record.errors.messages.each do |field, message|
-            notify_error :error_on_field, { field: FixedAsset.human_attribute_name(field), message: message.join(", ") }
-          end
-
-          redirect_action = state ? :show : :edit
-          redirect_to params[:redirect] || { action: redirect_action, id: record.id }
-          record
-        end
-      else
-        define_method event.name do
-          fire_event(event.name)
-        end
+      ok = record.sell
+      record.errors.messages.each do |field, message|
+        notify_error :error_on_field, { field: FixedAsset.human_attribute_name(field), message: message.join(", ") }
       end
+
+      redirect_action = ok ? :show : :edit
+      redirect_params = redirect_action == :edit ? { mode: 'sell' } : {}
+      redirect_to params[:redirect] || { action: redirect_action, id: record.id }.merge(redirect_params)
+      record
+    end
+
+    def scrap
+      return unless record = find_and_check
+
+      ok = record.scrap
+      record.errors.messages.each do |field, message|
+        notify_error :error_on_field, { field: FixedAsset.human_attribute_name(field), message: message.join(", ") }
+      end
+
+      redirect_action = ok ? :show : :edit
+      redirect_params = redirect_action == :edit ? { mode: 'scrap' } : {}
+      redirect_to params[:redirect] || { action: redirect_action, id: record.id }.merge(redirect_params)
+      record
+    end
+
+    def start_up
+      return unless record = find_and_check
+
+      record.start_up
+      record.errors.messages.each do |field, message|
+        notify_error :error_on_field, { field: FixedAsset.human_attribute_name(field), message: message.join(", ") }
+      end
+
+      redirect_to params[:redirect] || { action: :show, id: record.id }
+      record
     end
 
     def depreciate
@@ -217,7 +254,6 @@ module Backend
         end
         fixed_assets
       end
-
 
       def parameters_with_processed_percentage
         parameters = permitted_params.to_h

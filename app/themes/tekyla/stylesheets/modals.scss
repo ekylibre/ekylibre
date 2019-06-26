@@ -20,12 +20,18 @@
           display: inline-block;
           font-size: 15px;
         }
+        &.colored-background {
+          background: $primary-color;
+          & > span {
+            color: white;
+          }
+        }
       }
       .modal-body {
         .modal-introduction {
           padding: $default-gap * 2;
         }
-        ul {
+        ul:not(.items-list) {
           padding-top: round($default-gap / 2);
           padding-botton: round($default-gap / 2);
           @include padding-left(2em);
@@ -37,6 +43,9 @@
       }
       .modal-footer {
         @include text-align(right);
+        &.centered {
+          @include text-align(center);
+        }
       }
     }
   }

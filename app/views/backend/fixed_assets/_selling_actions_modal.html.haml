@@ -1,0 +1,23 @@
+.modal.fade#selling-actions-modal{ tabindex: '-1', role: 'dialog', 'aria-hidden': 'true', data: { sale_id: resource.sale_id } }
+  .modal-dialog.modal-dialog-centered{ role: 'document' }
+    .modal-content
+      .modal-header.colored-background
+        %span.modal-title= :link_to_a_sale.tl
+        %button.close{ type: 'button', 'aria-label': 'Close', data: { dismiss: 'modal' } }
+          %span{ 'aria-hidden': 'true' } &times;
+
+      .modal-body
+        = simple_form_for(resource, url: link_to_sale_backend_fixed_asset_path, method: :patch) do |f|
+
+          - if @sale_items.any?
+            = f.input :sale_item_id, as: :select, collection: @sale_items, required: true, label: :associated_sale.tl, label_method: lambda { |i| "#{i.sale.number} - #{i.variant.name} - #{i.created_at.to_date.l}" }
+
+          - else
+            %p= :no_sale_to_link_to_this_fixed_asset.tl
+            %p= :click_the_button_below_to_record_a_new_transaction.tl
+
+      .modal-footer.centered
+        %button.btn.btn-secondary{ type: 'button', data: { dismiss: 'modal' } }= :cancel.tl
+        - if @sale_items.any?
+          %button.btn.btn-primary#submit-form{ type: 'button', disabled: true }= :validate.tl
+        = link_to :create_a_sale.tl, new_backend_sale_path(fixed_asset_id: params[:id]), class: 'btn btn-primary'
