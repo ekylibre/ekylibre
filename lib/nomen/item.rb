@@ -178,11 +178,11 @@ module Nomen
 
     # Return human name of item
     def human_name(options = {})
-      scope = options[:scope]
+      scope = options.delete(:scope)
       no_attribute_translation = "nomenclatures.#{nomenclature.name}.items.#{name}"
       if scope
         scope_attribute = scope
-        other_attributes = attributes - [scope_attribute]
+        other_attributes = attributes.except(scope_attribute)
         scope_translation = "nomenclatures.#{nomenclature.name}.items.#{scope_attribute}.#{name}"
         other_translations = other_attributes.map { |attr_name, _value| "nomenclatures.#{nomenclature.name}.items.#{attr_name}.#{name}" }
         root = scope_translation

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Fix conflicts in new accounts">
+  <item-removal item="accounts#bonus_staff_expenses"/>
+  <item-change item="accounts#electricity_expenses" fr_pcga="6063" fr_pcg82="6061"/>
+  <item-change item="product_nature_categories#bonus_staff_expense" charge_account="managing_associates_salary"/>
+</migration>
