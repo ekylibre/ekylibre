@@ -290,14 +290,16 @@ class FixedAsset < Ekylibre::Record::Base
 
   # Depreciate active fixed assets
   def self.depreciate(options = {})
-    depreciations = FixedAssetDepreciation.with_active_asset
+    depreciations = FixedAssetDepreciation.with_active_asset.not_locked.not_accountable
     depreciations = depreciations.up_to(options[:until]) if options[:until]
     transaction do
       # trusting the bookkeep to take care of the accounting
+      count = 0
       depreciations.find_each do |dep|
         dep.update!(accountable: true)
+        count += 1
       end
-      return depreciations.count
+      return count
     end
     0
   end
