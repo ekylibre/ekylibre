@@ -14,6 +14,7 @@ class FixedAsset
         resource.transaction do
           resource.save!
           depreciate_imported_depreciations!
+          update_product_born_at!
         end
         true
       rescue
@@ -35,6 +36,11 @@ class FixedAsset
 
         def depreciate_imported_depreciations!
           resource.depreciations.up_to(FinancialYear.opened.first.started_on).map { |fad| fad.update!(accountable: true, locked: true) }
+        end
+
+        def update_product_born_at!
+          return unless resource.product
+          resource.product.update!(born_at: resource.started_on.to_datetime)
         end
     end
   end

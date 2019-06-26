@@ -119,7 +119,7 @@ class SaleItem < Ekylibre::Record::Base
   }
 
   scope :active, -> { includes(:sale).where.not(sales: { state: %i[refused aborted] }).order(created_at: :desc) }
-  scope :invoiced_on_or_after, -> (date) { includes(:sale).where("invoiced_at >= '#{date}' OR invoiced_at IS NULL") }
+  scope :invoiced_on_or_after, -> (date) { includes(:sale).where("invoiced_at >= ? OR invoiced_at IS NULL", date) }
   scope :fixed, -> { where(fixed: true) }
   scope :linkable_to_fixed_asset, -> { active.fixed.where(fixed_asset_id: nil) }
   scope :linked_to_fixed_asset, -> { active.where.not(fixed_asset_id: nil) }
@@ -182,7 +182,7 @@ class SaleItem < Ekylibre::Record::Base
   end
 
   after_save do
-    unlink_fixed_asset(fixed_asset_id_was) if fixed_asset_id_was
+    unlink_fixed_asset(attribute_was(:fixed_asset_id)) if attribute_was(:fixed_asset_id)
     link_fixed_asset(fixed_asset_id) if fixed_asset_id
 
     next unless Preference[:catalog_price_item_addition_if_blank]
@@ -195,14 +195,13 @@ class SaleItem < Ekylibre::Record::Base
   end
 
   after_destroy do
-    unlink_fixed_asset(fixed_asset_id_was) if fixed_asset_id_was
+    unlink_fixed_asset(attribute_was(:fixed_asset_id)) if attribute_was(:fixed_asset_id)
   end
 
   protect(on: :update) do
     return false if sale.draft?
     authorized_columns = %w[fixed_asset_id depreciable_product_id updated_at]
-    changes.keys.each { |attribute| return true unless authorized_columns.include?(attribute) }
-    false
+    (changes.keys - authorized_columns).any?
   end
 
   def unlink_fixed_asset(former_id)

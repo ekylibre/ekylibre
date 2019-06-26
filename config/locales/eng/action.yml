@@ -2691,6 +2691,8 @@ eng:
         other: "There are %{count} entries to point"
       you_must_have_an_email_column: "You must have an email address in your extraction"
       you_need_to_review_your_application_configuration: "You need to review your application configuration"
+      your_fixed_asset_is_now_ready_to_be_scrapped: "Your fixed asset is now ready to be scrapped, click the 'Scrapped' button one last time to end the process."
+      your_fixed_asset_is_now_ready_to_be_sold: "Your fixed asset is now ready to be sold, click the 'Sold' button one last time to end the process."
   preferences:
     account_number_digits: "Account number length"
     accounting_system: "Accounting plan"

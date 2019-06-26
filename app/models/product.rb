@@ -837,4 +837,8 @@ class Product < Ekylibre::Record::Base
     end
     indicator_value
   end
+
+  def used_in_interventions_before(date)
+    InterventionTool.where(product: self).joins(:intervention).where('interventions.started_at < ?', date).any?
+  end
 end

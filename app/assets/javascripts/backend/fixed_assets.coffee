@@ -9,7 +9,10 @@
       $('#selling-actions-modal').modal('show')
 
     $('#submit-form').on 'click', (event) ->
-      $('#selling-actions-modal').find('form').submit()
+      $('#selling-actions-modal').find('form').submit() if $('select#fixed_asset_sale_item_id').val()
+
+    $('select#fixed_asset_sale_item_id').on 'change', (event) ->
+      $('#selling-actions-modal').find('#submit-form').prop('disabled', !!!$('select#fixed_asset_sale_item_id').val())
 
 
   $(document).on 'change', "input[type='checkbox'][data-show='#assets']", (event) ->
