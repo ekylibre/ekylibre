@@ -57,14 +57,22 @@ module Agroedi
       end
 
       def campaign
-        @campaign ||= Campaign.find_by(harvest_year: daplos.harvest_year.to_i)
+        return @campaign if @campaign
+        campaign = Campaign.find_by(harvest_year: daplos.harvest_year.to_i)
+        raise "No campaign for year #{daplos.harvest_year.inspect}" unless campaign
+
+        @campaign = campaign
       end
 
       def activity_production
         return @activity_production if @activity_production
 
-        @activity_production = guess_production_from_islet ||
-                               guess_production_from_specie_and_area
+        production = guess_production_from_islet ||
+                     guess_production_from_specie_and_area
+
+        raise "Couldn't find production for Crop #{self.inspect}" unless production
+
+        @activity_production = production
       end
       alias_method :production, :activity_production
 
@@ -94,12 +102,12 @@ module Agroedi
         def cap_support_ids
           islet_number = daplos.cap_islet_number
           return unless islet_number
-          #BUG: What do we do when we don't find campaign?
-          islet = CapIslet.of_campaign(campaign)
-                          .find_by(islet_number: islet_number)
-          return unless islet
+          # Finding several islets in case of several Cap statements
+          islets = CapIslet.of_campaign(campaign)
+                          .where(islet_number: islet_number)
+          return unless islets.any?
 
-          islet.land_parcels.select(:support_id)
+          islets.joins(:land_parcels).select("#{CapLandParcel.table_name}.support_id")
         end
 
         def guess_production_from_islet
@@ -107,7 +115,7 @@ module Agroedi
 
           ActivityProduction.of_campaign(campaign)
                             .with_cultivation_variety(production_nature.specie)
-                            .where(support_id: cap_support_ids).first
+                            .where(id: cap_support_ids).first
         end
 
         def guess_production_from_specie_and_area

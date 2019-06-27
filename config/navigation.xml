@@ -581,10 +581,6 @@
         <page to="backend/product_groups#unroll"/>
         <page to="backend/product_groups#update"/>
       </item>
-      <item name="services">
-        <page to="backend/services#index"/>
-        <page to="backend/services#list"/>
-      </item>
       <item name="trackings">
         <page to="backend/trackings#index"/>
         <page to="backend/trackings#create"/>
@@ -1796,6 +1792,12 @@
       <item name="financial_year_exchange_exports">
         <page to="public/financial_year_exchange_exports#csv"/>
         <page to="public/financial_year_exchange_exports#show"/>
+      </item>
+    </group>
+    <group>
+      <item name="services">
+        <page to="backend/services#index"/>
+        <page to="backend/services#list"/>
       </item>
     </group>
     <group>

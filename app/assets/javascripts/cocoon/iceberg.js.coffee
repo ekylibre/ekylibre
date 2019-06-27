@@ -19,21 +19,24 @@
 
       @line.trigger("iceberg:inserted", [@line])
 
+      $(@line).data('_iceberg', this)
+
       unless mode is "add" or @line.find('.error').length > 0 or @line.find('.prefilled').length > 0
         @display.removeClass('hidden')
         @oldForm().remove()
-        @_bindSelectorsInitialization()
+        @bindSelectorsInitialization (form) =>
+          this.interpolate(form)
         @newForm().addClass('hidden')
         @setFormSubmitable()
 
     _bindButtons: (form) ->
       that = this
-      $(form).find('button[data-validate="item-form"]').each ->
+      $(form).find('[data-validate="item-form"]').each ->
         $(this).click (event) ->
           that.validate()
           event.preventDefault()
 
-      $(form).find('button[data-cancel="item-form"]').each ->
+      $(form).find('[data-cancel="item-form"]').each ->
         $(this).click (event) ->
           that.cancel()
           event.preventDefault()
@@ -47,6 +50,8 @@
         clone.trigger('cocoon:after-insert')
         clone.removeClass('hidden')
         @_bindButtons(@newForm())
+        @_bindEdition(@oldForm())
+        @_bindEdition(@newForm())
         @toggleInputVisibility()
         @setFormSubmitable()
         @setCocoonFormSubmitable()
@@ -54,12 +59,16 @@
         value = @line.first().find('[data-item-value="input.order-unit-amount"]').text()
         @line.first().find('.nested-item-form').find('.order-unit-amount').val(value)
 
-    _bindSelectorsInitialization: ->
-      that = this
+    _bindEdition: (form) ->
+      form.find('input').on 'input', =>
+        @setFormSubmitable()
+        @setCocoonFormSubmitable()
+
+    bindSelectorsInitialization: (callback) ->
       form = @newForm()
       form.find('*[data-selector]').parent().each ->
-        $(this).on 'selector:change', ->
-          that.interpolate(form)
+        $(this).on 'selector:change selector:set selector:initialize', ->
+          callback(form)
 
     validate: ->
       @interpolate()

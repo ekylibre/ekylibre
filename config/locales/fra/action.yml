@@ -349,7 +349,7 @@ fra:
       new_request: "Nouvelle planification d’intervention"
       new_specified: "Nouvelle intervention de %{procedure_name}"
       new_specified_request: "Nouvelle planification de %{procedure_name}"
-      show: "%{procedure_name} n°%{number}"
+      show: "%{nature} %{procedure_name} n°%{number}"
     backend/invalid_journal_entries: #?
       index: "Écritures à équilibrer" #?
     backend/inventories:
@@ -1902,6 +1902,8 @@ fra:
     month_period: "%{code} — %{month} %{year}"
     monthly: "Mensuelle"
     months: "Mois"
+    more_detail: "Plus de détail"
+    more_details: "Plus de détails"
     move_animal: "Déplacement des animaux"
     moved_at: "Fait le" #?
     movements: "Mouvements"
@@ -2118,7 +2120,7 @@ fra:
     planned_again_intervention_in: "Planifier de nouveau cette intervention le"
     planned_at: "Date prévisionnelle" #?
     planned_by: "Planifiée par" #?
-    # planning: "Planning"
+    planning_of: "Planification de"
     plant: "Culture"
     plant_counting: "Comptage"
     plant_countings: "Comptages"
@@ -2246,6 +2248,7 @@ fra:
     receipt_date: "Date de réception"
     receipt_responsible: "Responsable réception"
     received: "Reçue"
+    received_quantity: "Quantité réceptionnée"
     receiving_address: "Adresse de réception"
     recent_events: "Derniers événements"
     recent_historic: "Historique récent" #?
@@ -3085,6 +3088,9 @@ fra:
       print_failure: "Impossible d’imprimer. Essayer de recharger les modèles de documents pour corriger le problème. %{error} (%{class})." #?
       purchase_already_invoiced: "Achat déjà facturé" #?
       purchases_invalid_for_sepa: "Achats sélectionnés invalides pour un transfert SEPA (mode de décaissement invalide ou devise différente de celle du mode de décaissement ou IBAN ou Titulaire du compte du créditeur manquant.)"
+      purchase_invoice_need_at_least_one_item: "Une facture doit avoir au moins un élément dans les lignes d'achat"
+      purchase_order_need_at_least_one_item: "Une commande doit avoir au moins un élément dans les lignes d'achat"
+      reception_need_at_least_one_item: "Une réception doit avoir au moins un élément dans les lignes d'achat"
       record_already_imported: "Enregistrement déjà importé"
       record_cannot_be_removed: "L’enregistrement ne peut pas être supprimé"
       record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement"

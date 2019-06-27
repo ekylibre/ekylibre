@@ -1,11 +1,8 @@
 - reconciliation_state = f.object.reconciliation_state
 = f.object.errors.full_messages if f.object.errors.present? && Rails.env.development?
 = content_for(:heading_toolbar) do
-  %h2.global-incident-warning.hidden{ data: { warn_if_checked: :reception_incident.tl } }
-  %h2.reconciliation-title.no-reconciliate-title{ class: reconciliation_state == 'to_reconcile' ? '' : 'hidden' }
-    = :to_reconciliate.tl
-  %h2.reconciliation-title.reconcile-title{ class: reconciliation_state == 'reconcile' ? '' : 'hidden' }
-    = :reconcile.tl
+  = reception_incident_badge f.object
+  = reconciliation_state f.object, print_both: true
 
 = field_set :general_informations do
   = f.input :nature, as: :hidden
@@ -30,7 +27,6 @@
       = :to_reconciliate.tl
     %span.purchase-process-reconciliation.reconciliation-state.reconcile-state{ class: reconciliation_state == 'reconcile' ? '' : 'hidden' }
       = :reconcile.tl
-    = hidden_field_tag('reception[reconciliation_state]', f.object.reconciliation_state)
 
   - if f.object.allow_items_update?
     .control-group.button-modal-reconciliation

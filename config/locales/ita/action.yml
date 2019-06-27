@@ -1752,7 +1752,7 @@ ita:
     places: "posti"
     # planned: "Planned"
     # planned_again_intervention_in: "Plan again this intervention on"
-    # planning: "Planning"
+    # planning_of: "Planning of"
     plant: "pianta"
     plant_counting: "Conteggio"
     plant_countings: "Conteggi"

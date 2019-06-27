@@ -11,15 +11,15 @@
     .purchase-total-row.total-except-tax
       %span.total-label= :total_amount_without_taxes.tl
       %span.total-value= f.object.decorate.total_amount_excluding_taxes
-      %span.total-currency= Nomen::Currency[f.object.currency].symbol
+      %span.total-currency= Nomen::Currency[f.object.currency]&.symbol
     .purchase-total-row.vat-total
       %span.total-label= :vat.tl
       %span.total-value= f.object.decorate.total_vat_amount
-      %span.total-currency= Nomen::Currency[f.object.currency].symbol
+      %span.total-currency= Nomen::Currency[f.object.currency]&.symbol
     .purchase-total-row.purchase-total
       %span.total-label= :total_amount_with_taxes.tl
       %span.total-value= f.object.decorate.total_amount_including_taxes
-      %span.total-currency= Nomen::Currency[f.object.currency].symbol
+      %span.total-currency= Nomen::Currency[f.object.currency]&.symbol
 
   = f.input :description
   = f.custom_fields
@@ -27,7 +27,7 @@
 
 = field_set Purchase.human_attribute_name(:items) do
   .items
-    %table.list#items-table
+    %table.list#purchase-items-table
       = f.simple_fields_for :items, f.object.items.sort_by { |i| i.id.to_i } do |item|
         = render 'item_fields', f: item, display_items_form: @display_items_form
 

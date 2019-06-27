@@ -69,16 +69,16 @@
 
 
   E.Receptions =
-    fillStocksCounters: (event) ->
-      $currentForm = $(event.target).closest('.nested-item-form')
+    fillStocksCounters: (form) ->
+      $currentForm = $(form)
       variantId = $currentForm.find('[data-product-of-delivery-item]').next('.selector-value').val()
 
-      return unless variantId
+      return unless variantId? && !(variantId == '')
 
       $.ajax
         url: "/backend/product_nature_variants/#{variantId}/detail",
         success: (data, status, request) ->
-          $currentForm.find('.storing__footer .merchandise-total-current-stock .stock-value').text(data.stock.toFixed(2))
+          $currentForm.find('.storing__footer .merchandise-total-current-stock .stock-value').text(parseFloat(data.stock).toFixed(2))
           $currentForm.find('.storing__footer .merchandise-total-current-stock .stock-unit').text(data.unit.name)
 
           reducer = (acc, val) ->
@@ -116,12 +116,12 @@
 
 
   $(document).on 'selector:change', '.parcel-item-variant.selector-search', (event) ->
-    E.Receptions.fillStocksCounters(event)
+    E.Receptions.fillStocksCounters($(event.target).closest('.nested-item-form'))
 
   $(document).on 'keyup change', '.nested-fields .storing-quantifier .storing-quantity', (event) ->
-    E.Receptions.fillStocksCounters(event)
+    E.Receptions.fillStocksCounters($(event.target).closest('.nested-item-form'))
 
   $(document).on 'selector:change', '.parcel-item-storage.selector-search', (event) ->
-    E.Receptions.fillStocksCounters(event)
+    E.Receptions.fillStocksCounters($(event.target).closest('.nested-item-form'))
 
 ) ekylibre, jQuery

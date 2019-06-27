@@ -25,13 +25,13 @@
       $('.order-totals .order-total .total-value').text(totalAmountIncludingTaxes)
 
     $(document).on 'selector:change', '.order-variant.selector-search', (event) ->
-      E.Purchases.fillStocksCounters(event)
+      E.Purchases.fillStocksCounters($(event.target).closest('.nested-item-form'))
 
     $(document).on 'keyup change', '.form-field .storing-quantifier .storing-quantity', (event) ->
-      E.Purchases.fillStocksCounters(event)
+      E.Purchases.fillStocksCounters($(event.target).closest('.nested-item-form'))
 
     $(document).on 'keyup change', '.nested-fields .form-field .purchase_order_items_quantity .order-quantity', (event) ->
-      E.Purchases.fillStocksCounters(event)
+      E.Purchases.fillStocksCounters($(event.target).closest('.nested-item-form'))
 
 
 

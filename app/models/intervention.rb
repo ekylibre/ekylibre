@@ -375,13 +375,18 @@ class Intervention < Ekylibre::Record::Base
       #HACK: adding other code choices instead of properly addressing the problem
       #of code collision
       unless stock_journal
-        stock_journal = Journal.new(name: :stocks.tl, nature: :various, used_for_permanent_stock_inventory: true).tap(&:valid?)
+        stock_journal_name = [:stocks.tl, :inventory.tl].find do |name|
+          !Journal.find_by(name: name)
+        end
+        stock_journal = Journal.new(name: stock_journal_name, nature: :various, used_for_permanent_stock_inventory: true).tap(&:valid?)
+
         [stock_journal.code, *%i(STOC IVNT)].each do |new_code|
           conflicting_journals = Journal.where(code: new_code)
           next if conflicting_journals.any?
           stock_journal.code = new_code
           break if stock_journal.save
         end
+        raise "Couldn't create stock journal for permanent inventory bookkeeping" unless stock_journal && stock_journal.persisted?
       end
     end
 

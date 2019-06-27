@@ -1,25 +1,24 @@
 module Backend
   module PurchaseInvoicesHelper
-    def reconciliation_state_title(purchase_invoice)
-      is_reconciliate = purchase_invoice
-                        .items
-                        .select { |purchase_item| purchase_item.parcels_purchase_invoice_items.any? }
-                        .any?
+    def purchase_invoice_incident_badge(purchase_invoice)
+      content_tag :h2, :reception_incident.tl, class: ['global-incident-warning reconciliation-title compliance-title', (:hidden unless purchase_invoice.reception_items.any? &:non_compliant)]
+    end
 
-      if purchase_invoice.reconciliation_state.to_sym == :accepted
-        html_class = 'accepted-title'
-        text = :accepted.tl
-      else
-        if is_reconciliate
-          html_class = 'reconcile-title'
-          text = :reconcile.tl
-        else
-          html_class = 'no-reconciliate-title'
-          text = :to_reconciliate.tl
-        end
+    def purchase_reconciliation_state(purchase_invoice, print_both: false)
+      elements = ''.html_safe
+      if print_both || purchase_invoice.reconciliation_state == 'to_reconcile'
+        html_class = 'no-reconciliate-title'
+        text = :to_reconciliate.tl
+        elements << content_tag(:h2, text, class: ['reconciliation-title', html_class, (:hidden if purchase_invoice.reconciliation_state == 'reconcile')])
       end
 
-      content_tag(:h2, text, class: "reconciliation-title #{html_class}", data: { no_reconciliate_text: :to_reconciliate.tl, accepted_text: :accepted.tl, reconcile_text: :reconcile.tl, reconcile: is_reconciliate })
+      if print_both || purchase_invoice.reconciliation_state == 'reconcile'
+        html_class = 'reconcile-title'
+        text = :reconcile.tl
+        elements << content_tag(:h2, text, class: ['reconciliation-title', html_class, (:hidden if purchase_invoice.reconciliation_state == 'to_reconcile')])
+      end
+
+      elements
     end
   end
 end

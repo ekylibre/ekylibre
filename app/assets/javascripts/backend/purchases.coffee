@@ -1,16 +1,12 @@
 ((E, $) ->
   'use strict'
 
-  $(document).on "keydown", '.nested-item-form', (event) ->
-    if event.which == 13
-      event.preventDefault()
-
   E.Purchases =
-    fillStocksCounters: (event) ->
-      currentForm = $(event.target).closest('.nested-item-form')
+    fillStocksCounters: (form) ->
+      currentForm = $(form)
       variantId = $(currentForm).find('[data-variant-of-deal-item]').next('.selector-value').val()
 
-      if variantId == ""
+      if variantId == "" || !variantId?
         return
       $.ajax
         url: "/backend/product_nature_variants/#{variantId}/detail",

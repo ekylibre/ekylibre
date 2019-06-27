@@ -27,7 +27,7 @@ module Agroedi
       end
 
       def value
-        Measure.new(daplos.output_quantity.to_f, daplos_unit.ekylibre_value&.to_sym)
+        Measure.new(daplos.output_quantity.to_f, daplos_unit)
       end
 
       def handler
@@ -39,15 +39,29 @@ module Agroedi
       end
 
       def nature_edicode
-        @nature_edicode ||= RegisteredAgroediCode.find_by(
+        return @nature_edicode if @nature_edicode
+        match_record = RegisteredAgroediCode.find_by(
           repository_id: 15,
           reference_code: daplos.output_nature_edicode)
+        ekylibre_edicode = match_record&.ekylibre_value&.to_sym
+        unless ekylibre_edicode
+          raise "Nature code #{daplos.output_nature_edicode.inspect}" +
+                " has no equivalent in Ekylibre reference"
+        end
+        @nature_edicode = ekylibre_edicode
       end
 
       def specie_edicode
-        @specie_edicode ||= RegisteredAgroediCode.find_by(
+        return @specie_edicode if @specie_edicode
+        match_record = RegisteredAgroediCode.find_by(
           repository_id: 18,
           reference_code: daplos.output_specie_edicode)
+        ekylibre_edicode = match_record&.ekylibre_value&.to_sym
+        unless ekylibre_edicode
+          raise "Specie code #{daplos.output_specie_edicode.inspect}" +
+                " has no equivalent in Ekylibre reference"
+        end
+        @specie_edicode = ekylibre_edicode
       end
 
       def unit_edicode
@@ -63,7 +77,7 @@ module Agroedi
         def find_or_create_variant!
           varieties = [target_variety, *target_variety.parents]
           possible_variants = ProductNatureVariant.where(
-              variety: nature_edicode.ekylibre_value,
+              variety: nature_edicode,
               active: true
           )
           variant = varieties.lazy.map do |variety|
@@ -72,10 +86,8 @@ module Agroedi
 
           return variant if variant
 
-          variant = ProductNatureVariant.find_or_import!(
-            nature_edicode.ekylibre_value.to_sym).first
-          variant ||= ProductNatureVariant.import_from_nomenclature(
-            nature_edicode.ekylibre_value&.to_sym,
+          variant = ProductNatureVariant.find_or_import!(nature_edicode).first
+          variant ||= ProductNatureVariant.import_from_nomenclature(nature_edicode,
             force: true)
 
           variant.name = output_name

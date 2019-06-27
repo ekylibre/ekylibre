@@ -2417,6 +2417,7 @@ fra:
           ordered: "Commandé"
           prepared: "Prêt"
           received: "Reçu"
+      undelivered_invoice: "Facture non parvenue [%{resource} %{mode} %{number}] %{entity}"
     role:
       default:
         administrator: "Gérant"

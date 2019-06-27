@@ -2205,7 +2205,7 @@ arb:
     # planned: "Planned"
     # planned_again_intervention_in: "Plan again this intervention on"
     planned_at: "قرر يوم" #?
-    # planning: "Planning"
+    # planning_of: "Planning of"
     plant: "نبات"
     plant_counting: "عد"
     plant_countings: "فرزان"
