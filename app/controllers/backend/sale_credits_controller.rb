@@ -31,15 +31,15 @@ module Backend
       attributes[:credit] = true
       attributes[:credited_sale_id] = @credited_sale.id
       @sale_credit = Sale.new(attributes)
-      saved = false
       if @sale_credit.save
         @sale_credit.reload
         @sale_credit.propose!
         @sale_credit.confirm!
         @sale_credit.invoice!
-        saved = true
+        redirect_to controller: :sales, action: :show, id: @sale_credit
+      else
+        render :new
       end
-      return false if save_and_redirect(@sale_credit, saved: saved, url: { controller: :sales, action: :show, id: 'id'.c })
       t3e @sale_credit.credited_sale
     end
 
