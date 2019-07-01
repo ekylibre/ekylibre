@@ -1,6 +1,6 @@
 require 'test_helper'
 module Backend
-<<<<<<< HEAD
+
   class ReceptionsControllerTest < ActionController::TestCase
     test_restfully_all_actions give: :touch, except: :create
 
