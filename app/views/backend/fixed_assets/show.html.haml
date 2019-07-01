@@ -40,7 +40,7 @@
               = link_to(purchase_item.journal_entry.number, {controller: :journal_entries, action: :show, id: purchase_item.journal_entry.id})
 
   = infos do
-    - if resource.sold? && resource.sold_on
+    - if resource.sold?
       .med-info
         %span.title= :sold_on.tl
         %span.value

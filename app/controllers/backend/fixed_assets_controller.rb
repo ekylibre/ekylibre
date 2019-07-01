@@ -77,7 +77,7 @@ module Backend
     list(:depreciations, model: :fixed_asset_depreciations, conditions: { fixed_asset_id: 'params[:id]'.c }, order: :position) do |t|
       # t.action :edit, if: "RECORD.journal_entry.nil?".c
       t.column :position
-      t.column :accounted, datatype: :boolean
+      t.column :accountable
       t.column :locked
       t.column :amount, currency: true
       t.column :depreciable_amount, currency: true
@@ -120,7 +120,6 @@ module Backend
 
       @sale_items = SaleItem.linkable_to_fixed_asset.invoiced_on_or_after(@fixed_asset.started_on)
       @sale_items = @sale_items.where(variant: @fixed_asset.product.variant) if @fixed_asset.product
-      @submit_label = @sale_items.any? ? :validate.tl : :create_a_sale.tl
 
       notify_warning_now(:closed_financial_periods) unless @fixed_asset.on_unclosed_periods?
       respond_with(@fixed_asset, methods: %i[net_book_value duration],
@@ -151,22 +150,29 @@ module Backend
       return unless @fixed_asset = find_and_check(:fixed_asset)
       t3e(@fixed_asset.attributes)
       @fixed_asset.attributes = parameters_with_processed_percentage
-      record_valid = check_record_validity
-      return if record_valid && save_and_redirect(@fixed_asset, url: params[:redirect] || ({ action: :show, id: 'id'.c }), notify: (params[:redirect] ? :record_x_updated : false), identifier: :name)
+      record_valid = params[:mode] ? @fixed_asset.valid?(params[:mode]&.to_sym) : true
+      notification = if params[:mode] == 'sell'
+                       :your_fixed_asset_is_now_ready_to_be_sold
+                     elsif params[:mode] == 'scrap'
+                       :your_fixed_asset_is_now_ready_to_be_scrapped
+                     elsif params[:redirect]
+                       :record_x_updated
+                     else
+                       false
+                     end
+
+      return if record_valid && save_and_redirect(@fixed_asset, url: params[:redirect] || ({ action: :show, id: 'id'.c }), notify: notification, identifier: :name)
       render(locals: { cancel_url: {:action=>:index}, with_continue: false })
     end
 
     def link_to_sale
       return unless fixed_asset = find_and_check
 
-      if params[:fixed_asset] && sale_item_id = params[:fixed_asset][:sale_item_id]
-        sale_item = SaleItem.find(sale_item_id)
-        sale_item.update!(fixed_asset: fixed_asset, depreciable_product: fixed_asset.product)
-        notify_success :fixed_asset_successfully_associated_to_sale.tl
-        redirect_to(action: :show, id: fixed_asset.id)
-      else
-        redirect_to(controller: :sales, action: :new, fixed_asset_id: fixed_asset.id)
-      end
+      sale_item_id = permitted_params[:sale_item_id]
+      sale_item = SaleItem.find(sale_item_id)
+      sale_item.update!(fixed_asset: fixed_asset, depreciable_product: fixed_asset.product)
+      notify_success :fixed_asset_successfully_associated_to_sale.tl
+      redirect_to(action: :show, id: fixed_asset.id)
     end
 
     def depreciate_all
@@ -251,7 +257,6 @@ module Backend
         fixed_assets
       end
 
-
       def parameters_with_processed_percentage
         parameters = permitted_params.to_h
         method = parameters.fetch('depreciation_method', nil)
@@ -261,56 +266,6 @@ module Backend
           parameters['depreciation_percentage'] = depreciation_percentage if depreciation_percentage.present?
         end
         parameters.except('linear_depreciation_percentage', 'regressive_depreciation_percentage')
-      end
-
-      def check_record_validity
-        if params[:mode] == 'scrap'
-          check_scrapping_infos
-        elsif params[:mode] == 'sell'
-          check_selling_infos
-        else
-          true
-        end
-      end
-
-      def check_scrapping_infos
-        valid = true
-        if @fixed_asset.scrapped_on.nil? || @fixed_asset.product_id.nil?
-          @fixed_asset.errors.add :scrapped_on, t('errors.messages.blank', attribute: t('attributes.scrapped_on')) if @fixed_asset.scrapped_on.nil?
-          @fixed_asset.errors.add :product_id, t('errors.messages.blank', attribute: :product.tl) if @fixed_asset.product_id.nil?
-          valid = false
-        end
-
-        if @fixed_asset.scrapped_on && @fixed_asset.scrapped_on < @fixed_asset.started_on
-          @fixed_asset.errors.add :scrapped_on, t('errors.messages.on_or_after', attribute: t('attributes.scrapped_on'), restriction: @fixed_asset.started_on.l)
-          valid = false
-        end
-
-        if @fixed_asset.scrapped_on && !FinancialYear.on(@fixed_asset.scrapped_on)&.opened?
-          @fixed_asset.errors.add :scrapped_on, t('errors.messages.no_opened_financial_year')
-          valid = false
-        end
-        valid
-      end
-
-      def check_selling_infos
-        valid = true
-        if @fixed_asset.sold_on.nil? || @fixed_asset.product_id.nil?
-          @fixed_asset.errors.add :sold_on, t('errors.messages.blank', attribute: t('attributes.sold_on')) if @fixed_asset.sold_on.nil?
-          @fixed_asset.errors.add :product_id, t('errors.messages.blank', attribute: :product.tl) if @fixed_asset.product_id.nil?
-          valid = false
-        end
-
-        if @fixed_asset.sold_on && @fixed_asset.sold_on < @fixed_asset.started_on
-          @fixed_asset.errors.add :sold_on, t('errors.messages.on_or_after', attribute: t('attributes.sold_on'), restriction: @fixed_asset.started_on.l)
-          valid = false
-        end
-
-        if @fixed_asset.sold_on && !FinancialYear.on(@fixed_asset.sold_on)&.opened?
-          @fixed_asset.errors.add :sold_on, t('errors.messages.no_opened_financial_year')
-          valid = false
-        end
-        valid
       end
   end
 end

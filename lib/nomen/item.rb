@@ -178,11 +178,11 @@ module Nomen
 
     # Return human name of item
     def human_name(options = {})
-      scope = options[:scope]
+      scope = options.delete(:scope)
       no_attribute_translation = "nomenclatures.#{I18n.escape_key(nomenclature.name)}.items.#{I18n.escape_key(name)}"
       if scope
         scope_attribute = scope
-        other_attributes = attributes - [scope_attribute]
+        other_attributes = attributes.except(scope_attribute)
         scope_translation = "nomenclatures.#{I18n.escape_key(nomenclature.name)}.items.#{I18n.escape_key(scope_attribute)}.#{I18n.escape_key(name)}"
         other_translations = other_attributes.map { |attr_name, _value| "nomenclatures.#{I18n.escape_key(nomenclature.name)}.items.#{I18n.escape_key(attr_name)}.#{I18n.escape_key(name)}" }
         root = scope_translation

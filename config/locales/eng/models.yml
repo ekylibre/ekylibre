@@ -16,6 +16,9 @@ eng:
       even: "%{attribute} must be even"
       exclusion: "%{attribute} is reserved"
       expired: "has expired, please request a new one"
+      financial_year_exchange_on_this_period: "There is an opened accounting exchange at this date" #?
+      financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user" #?
+      financial_year_not_found: "There is no financial year at this date"
       greater_than: "%{attribute} must be greater than %{count}"
       greater_than_or_equal_to: "%{attribute} must be greater than or equal to %{count}"
       included_in: "The value of %{attribute} must be included between %{minimum} and %{maximum}"
@@ -47,6 +50,7 @@ eng:
       nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
       odd: "%{attribute} must be odd"
       on_or_after: "%{attribute} must be on or after %{restriction}"
+      on_or_after_field: "%{attribute} must be on or after %{restriction} (%{model} %{field})" #?
       on_or_before: "%{attribute} must be on or before %{restriction}"
       overlap: "%{attribute} overlaps an existing record"
       overlap_sibling: "%{attribute} overlaps sibling"

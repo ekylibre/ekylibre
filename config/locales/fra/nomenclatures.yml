@@ -148,8 +148,6 @@ fra:
         corporeal_asset_depreciations: "Amortissements des immobilisations corporelles"
         corporeal_asset_revenues: "Immobilisations corporelles"
         corporeal_assets: "Immobilisations corporelles"
-        corporeal_depreciations_inputations_expenses: "Dotat. aux amort. des aménagements fonciers"
-        corporeal_depreciations_inputations_expenses_living_goods: "Dotat. aux amort. des animaux"
         corporeals_and_incorporeals_depreciations_inputations_expenses: "Dotat. aux amort. des immobilisations incorporelles et corporelles"
         credit_retained_earnings: "Report à nouveau (solde créditeur)"
         creditor_clients: "Clients créditeurs"

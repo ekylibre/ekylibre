@@ -114,9 +114,13 @@ class FixedAsset < Ekylibre::Record::Base
   validates :currency, match: { with: :journal, to_invalidate: :journal }
   validates :depreciation_fiscal_coefficient, presence: true, if: -> { depreciation_method_regressive? }
   validates :stopped_on, :allocation_account, :expenses_account, presence: { unless: :depreciation_method_none? }
-  validates :scrapped_on, financial_year_writeable: { if: :scrapped? }
-  validates :sold_on, financial_year_writeable: { if: :sold? }
+  validates :scrapped_on, financial_year_writeable: { if: -> { scrapped_on } }
+  validates :sold_on, financial_year_writeable: { if: -> { sold_on } }
   validates :tax_id, :selling_amount, :pretax_selling_amount, presence: { if: :sold? }
+  validates :scrapped_on, timeliness: { on_or_after: -> (fixed_asset) { fixed_asset.started_on }, on_or_before: -> { Date.today }, type: :date }, if: -> { scrapped_on }
+  validates :sold_on, timeliness: { on_or_after: -> (fixed_asset) { fixed_asset.started_on }, on_or_before: -> { Date.today }, type: :date }, if: -> { sold_on }
+  validates :scrapped_on, :product_id, presence: true, on: :scrap
+  validates :sold_on, :product_id, presence: true, on: :sell
 
   enumerize :depreciation_period, in: %i[monthly quarterly yearly], default: -> { Preference.get(:default_depreciation_period).value || Preference.set!(:default_depreciation_period, :yearly, :string) }
 
@@ -175,6 +179,24 @@ class FixedAsset < Ekylibre::Record::Base
     errors.add :base, :no_opened_financial_year if FinancialYear.opened.count == 0
   end
 
+  validate on: :scrap do
+    if product && scrapped_on && product.born_at > scrapped_on
+      errors.add :scrapped_on, I18n.translate('errors.messages.on_or_after_field', attribute: I18n.translate('attributes.scrapped_on'),
+                                                                                   restriction: product.born_at.to_date.l,
+                                                                                   field: I18n.translate('activerecord.attributes.equipment.born_at'),
+                                                                                   model: product.name)
+    end
+  end
+
+  validate on: :sell do
+    if product && sold_on && product.born_at > sold_on
+      errors.add :sold_on, I18n.translate('errors.messages.on_or_after_field', attribute: I18n.translate('attributes.sold_on'),
+                                                                               restriction: product.born_at.to_date.l,
+                                                                               field: I18n.translate('activerecord.attributes.equipment.born_at'),
+                                                                               model: product.name)
+    end
+  end
+
   validate do
     if started_on
       errors.add(:started_on, :financial_year_exchange_on_this_period) if started_during_financial_year_exchange?
@@ -182,9 +204,6 @@ class FixedAsset < Ekylibre::Record::Base
         errors.add(:stopped_on, :posterior, to: started_on.l)
       end
     end
-
-    errors.add(:sold_on, :on_or_before, restriction: Date.today.l) if sold_on && sold_on > Date.today
-    errors.add(:scrapped_on, :on_or_before, restriction: Date.today.l) if scrapped_on && scrapped_on > Date.today
     true
   end
 
@@ -209,6 +228,12 @@ class FixedAsset < Ekylibre::Record::Base
     # end
     depreciate! if @auto_depreciate
     sale.update_columns(invoiced_at: sold_on.to_datetime) if changes[:sold_on] && sale && !sale.invoice? && sold_on
+  end
+
+  after_update do
+    if in_use? && product && !product.used_in_interventions_before(started_on)
+      product.update!(born_at: started_on.to_datetime)
+    end
   end
 
   def on_unclosed_periods?
@@ -242,6 +267,10 @@ class FixedAsset < Ekylibre::Record::Base
     end
   end
 
+  def round(amount)
+    currency.to_currency.round amount
+  end
+
   def started_during_financial_year_exchange?
     FinancialYearExchange.opened.where('? BETWEEN started_on AND stopped_on', started_on).any?
   end
@@ -259,20 +288,18 @@ class FixedAsset < Ekylibre::Record::Base
 
   # Depreciate active fixed assets
   def self.depreciate(options = {})
-    filtered_date = options[:until]
-
-    depreciations = if filtered_date
-                      FixedAssetDepreciation.with_active_asset_up_to(filtered_date)
-                    else
-                      FixedAssetDepreciation.with_active_asset
-                    end
-    count = depreciations.count
+    depreciations = FixedAssetDepreciation.with_active_asset.not_locked.not_accountable
+    depreciations = depreciations.up_to(options[:until]) if options[:until]
     transaction do
       # trusting the bookkeep to take care of the accounting
-      depreciations.find_each { |depreciation| depreciation.update_attribute(:accountable, true) }
+      count = 0
+      depreciations.find_each do |dep|
+        dep.update!(accountable: true)
+        count += 1
+      end
+      return count
     end
-
-    count
+    0
   end
 
   def depreciate!
@@ -371,10 +398,14 @@ class FixedAsset < Ekylibre::Record::Base
     depreciations.none?
   end
 
+  def depreciation_on(on)
+    depreciations.where('? BETWEEN started_on AND stopped_on', on).reorder(:position).last
+  end
+
   # return the current_depreciation at current date
   def current_depreciation(on = Date.today)
     # get active depreciation
-    asset_depreciation = depreciations.where('? BETWEEN started_on AND stopped_on', on).reorder(:position).last
+    asset_depreciation = depreciation_on(on)
     # get last active depreciation
     asset_depreciation ||= depreciations.reorder(:position).last
     return nil unless asset_depreciation

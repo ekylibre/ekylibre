@@ -85,4 +85,13 @@ class AccountTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     refute account_3.valid?
     refute account_4.valid?
   end
+
+  test 'number is normalized during before creation' do
+    account_1 = build(:account, number: '205000000000000000000')
+    account_2 = build(:account, number: '240500')
+    account_3 = build(:account, number: '28154000')
+    assert account_1.number, "20500000"
+    assert account_2.number, "24050000"
+    assert account_3.number, "20500000"
+  end
 end

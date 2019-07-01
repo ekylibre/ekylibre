@@ -127,8 +127,8 @@ module FixedAssetTest
 
     test 'depreciate class method returns the amount of depreciations according to until option provided' do
       fixed_asset = create :fixed_asset, :yearly, :in_use, percentage: 100.0 / 3, started_on: Date.new(2017, 1, 1)
-
       count = FixedAsset.depreciate(until: Date.civil(2018, 12, 31))
+
       assert_equal 2, count, 'Count of depreciations is invalid' + fixed_asset.depreciations.pluck(:started_on, :amount).to_yaml.yellow
     end
 
@@ -195,6 +195,39 @@ module FixedAssetTest
       assert_equal fixed_asset.selling_amount, sale_item.amount
       assert_equal fixed_asset.pretax_selling_amount, sale_item.pretax_amount
       assert_equal fixed_asset.sold_on, sale.invoiced_at.to_date
+    end
+
+    test 'starting up a fixed asset sets the product born_at date accordingly' do
+      product = create :asset_fixable_product, born_at: DateTime.new(2018, 6, 1)
+      fixed_asset = create :fixed_asset, started_on: Date.new(2017, 3, 1), product: product
+
+      assert_equal product.born_at, DateTime.new(2018, 6, 1)
+
+      fixed_asset.start_up
+      product.reload
+
+      # Checks that product born_at should be set upon start_up action
+      assert_equal product.born_at, fixed_asset.started_on.to_datetime
+    end
+
+    test 'adding a product to a fixed asset sets the product born_at accordingly' do
+      create :journal, nature: :stocks
+      product = create :asset_fixable_product, born_at: DateTime.new(2017, 1, 1)
+      fixed_asset = create :fixed_asset, :in_use, started_on: Date.new(2017, 3, 1)
+      intervention = create :intervention, started_at: DateTime.new(2017, 1, 15), stopped_at: DateTime.new(2017, 1, 15) + 1.hour
+      tool = create :intervention_tool, intervention: intervention, product: product
+
+      fixed_asset.update!(product: product)
+      product.reload
+
+      # Checks that product born_at shouldn't be set to a date posterior to the date of the intervention it was used for
+      assert_equal product.born_at, DateTime.new(2017, 1, 1)
+
+      intervention.update!(started_at: DateTime.new(2017, 6, 1), stopped_at: DateTime.new(2017, 6, 1) + 1.hour)
+      fixed_asset.save!
+      product.reload
+
+      assert_equal product.born_at, fixed_asset.started_on.to_datetime
     end
 
     private

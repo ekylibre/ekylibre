@@ -290,7 +290,7 @@ module Backend
             item[:printed_on],
             item_name,
             item[:reference_number],
-            item[:journal_name],
+            journal_name,
             item[:letter],
             item[:real_debit],
             item[:real_credit],

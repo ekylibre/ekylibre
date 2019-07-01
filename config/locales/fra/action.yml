@@ -1253,7 +1253,7 @@ fra:
     choose_options_is_needed: "Veuillez choisir le statut sur lequel les interventions suivantes vont être affectées :"
     city_name: "Ville" #?
     clear: "Effacer"
-    click_the_button_below_to_record_a_new_transaction: "Cliquez sur le boutton ci-dessous afin d'être redirigé(e) vers le formulaire d'enregistrement d'une nouvelle transaction."
+    click_the_button_below_to_record_a_new_transaction: "Cliquez sur le bouton ci-dessous afin d'être redirigé(e) vers le formulaire d'enregistrement d'une nouvelle transaction."
     click_to_mail: "Écrire votre message avec votre propre messagerie électronique"
     client: "Client"
     client_accounting_balance: "Solde du client" #?
@@ -3285,6 +3285,8 @@ fra:
       you_must_select_a_file_to_import: "Vous devez sélectionner un fichier à importer" #?
       you_need_to_review_your_application_configuration: "Vous devez revoir la configuration de votre application"
       you_will_lose_all_your_current_data: "Si vous continuez, vous allez perdre toutes vos données en cours de saisie. Voulez-vous poursuivre\_?" #?
+      your_fixed_asset_is_now_ready_to_be_scrapped: "Votre immobilisation est maintenant prête à être mise au rebut, cliquez une dernière fois sur le bouton 'Mise au rebut' pour terminer la procédure."
+      your_fixed_asset_is_now_ready_to_be_sold: "Votre immobilisation est maintenant prête à être vendue, cliquez une dernière fois sur le bouton 'Vendue' pour terminer la procédure."
   preferences:
     account_number_digits: "Nombre de caractères des comptes généraux"
     accounting_system: "Plan comptable"

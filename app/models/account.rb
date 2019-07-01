@@ -199,7 +199,7 @@ class Account < Ekylibre::Record::Base
     if general? && number && !already_existing
       errors.add(:number, :centralizing_number) if number.match(/\A401|\A411/).present?
       errors.add(:number, :radical_class) if number.match(/\A[1-9]0*\z/).present?
-      self.number = number.ljust(Preference[:account_number_digits], '0')
+      self.number = Account.normalize(number)
     elsif auxiliary? && centralizing_account
       centralizing_account_number = centralizing_account.send(Account.accounting_system)
       self.number = centralizing_account_number + auxiliary_number
@@ -234,14 +234,27 @@ class Account < Ekylibre::Record::Base
   end
 
   class << self
+    # Trim account number following preferences
+      def normalize(number)
+        account_number_length = Preference[:account_number_digits]
+        if number.size > account_number_length
+          number[0...account_number_length]
+        elsif number.size < account_number_length
+          number.ljust(account_number_length, "0")
+        else
+          number
+        end
+      end
+
     # Create an account with its number (and name)
     def find_or_create_by_number(*args)
       options = args.extract_options!
       number = args.shift.to_s.strip
       options[:name] ||= args.shift
       numbers = Nomen::Account.items.values.collect { |i| i.send(accounting_system) }
-      item = Nomen::Account.items.values.detect { |i| i.send(accounting_system) == number }
-      number = number.ljust(Preference[:account_number_digits], '0') unless numbers.include?(number) || options[:already_existing]
+      padded_number = Account.normalize(number)
+      number = padded_number unless numbers.include?(number) || options[:already_existing]
+      item = Nomen::Account.items.values.find { |i| i.send(accounting_system) == padded_number }
       account = find_by(number: number)
       if account
         if item && !account.usages_array.include?(item)
@@ -255,7 +268,7 @@ class Account < Ekylibre::Record::Base
           options[:usages] ||= ''
           options[:usages] << ' ' + item.name.to_s
         end
-        options[:name] ||= number.to_s
+        options[:name] ||= options.delete(:default_name) || number.to_s
         merge_attributes = {
           number: number,
           already_existing: (options[:already_existing] || false)
@@ -362,11 +375,12 @@ class Account < Ekylibre::Record::Base
       item = Nomen::Account.find(usage)
       raise ArgumentError, "The usage #{usage.inspect} is unknown" unless item
       raise ArgumentError, "The usage #{usage.inspect} is not implemented in #{accounting_system.inspect}" unless item.send(accounting_system)
+
       account = find_by_usage(usage, except: { nature: :auxiliary })
       unless account
         return unless valid_item?(item) && item.send(accounting_system).match(/\A[1-9]0*\z|\A0/).nil?
         account = new(
-          name: item.human_name,
+          name: item.human_name(scope: accounting_system),
           number: item.send(accounting_system),
           debtor: !!item.debtor,
           usages: item.name,

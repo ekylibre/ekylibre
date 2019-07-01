@@ -45,6 +45,7 @@
 #
 ---
 financial_years_001:
+  already_existing: false
   closed: false
   code: EX1991-92
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -61,6 +62,7 @@ financial_years_001:
   updated_at: 2017-05-01 23:43:15.087793000 Z
   updater_id: 1
 financial_years_002:
+  already_existing: false
   closed: false
   code: EX1992-93
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -77,6 +79,7 @@ financial_years_002:
   updated_at: 2017-05-01 23:43:15.098562000 Z
   updater_id: 1
 financial_years_003:
+  already_existing: false
   closed: false
   code: EX1993-94
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -93,6 +96,7 @@ financial_years_003:
   updated_at: 2017-05-01 23:43:15.106021000 Z
   updater_id: 1
 financial_years_004:
+  already_existing: false
   closed: false
   code: EX1994-95
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -109,6 +113,7 @@ financial_years_004:
   updated_at: 2017-05-01 23:43:15.113532000 Z
   updater_id: 1
 financial_years_005:
+  already_existing: false
   closed: false
   code: EX1995-96
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -125,6 +130,7 @@ financial_years_005:
   updated_at: 2017-05-01 23:43:15.121489000 Z
   updater_id: 1
 financial_years_006:
+  already_existing: false
   closed: false
   code: EX1996-97
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -141,6 +147,7 @@ financial_years_006:
   updated_at: 2017-05-01 23:43:15.128501000 Z
   updater_id: 1
 financial_years_007:
+  already_existing: false
   closed: false
   code: EX1997-98
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -157,6 +164,7 @@ financial_years_007:
   updated_at: 2017-05-01 23:43:15.135127000 Z
   updater_id: 1
 financial_years_008:
+  already_existing: false
   closed: false
   code: EX1998-99
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -173,6 +181,7 @@ financial_years_008:
   updated_at: 2017-05-02 01:24:11.489203000 Z
   updater_id: 1
 financial_years_009:
+  already_existing: false
   closed: false
   code: EX1999-00
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -189,6 +198,7 @@ financial_years_009:
   updated_at: 2017-05-01 23:43:15.149363000 Z
   updater_id: 1
 financial_years_010:
+  already_existing: false
   closed: false
   code: EX2000-01
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -205,6 +215,7 @@ financial_years_010:
   updated_at: 2017-05-01 23:43:15.156145000 Z
   updater_id: 1
 financial_years_011:
+  already_existing: false
   closed: false
   code: EX2001-02
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -221,6 +232,7 @@ financial_years_011:
   updated_at: 2017-05-01 23:43:15.163033000 Z
   updater_id: 1
 financial_years_012:
+  already_existing: false
   closed: false
   code: EX2002-03
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -237,6 +249,7 @@ financial_years_012:
   updated_at: 2017-05-01 23:43:15.169567000 Z
   updater_id: 1
 financial_years_013:
+  already_existing: false
   closed: false
   code: EX2003-04
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -253,6 +266,7 @@ financial_years_013:
   updated_at: 2017-05-01 23:43:15.176585000 Z
   updater_id: 1
 financial_years_014:
+  already_existing: false
   closed: false
   code: EX2004-05
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -269,6 +283,7 @@ financial_years_014:
   updated_at: 2017-05-01 23:43:15.183949000 Z
   updater_id: 1
 financial_years_015:
+  already_existing: false
   closed: false
   code: EX2005-06
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -285,6 +300,7 @@ financial_years_015:
   updated_at: 2017-05-01 23:43:15.190905000 Z
   updater_id: 1
 financial_years_016:
+  already_existing: false
   closed: false
   code: EX2006-07
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -301,6 +317,7 @@ financial_years_016:
   updated_at: 2017-05-01 23:43:15.197551000 Z
   updater_id: 1
 financial_years_017:
+  already_existing: false
   closed: false
   code: EX2007-08
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -317,6 +334,7 @@ financial_years_017:
   updated_at: 2017-05-01 23:43:15.204551000 Z
   updater_id: 1
 financial_years_018:
+  already_existing: false
   closed: false
   code: EX2008-09
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -333,6 +351,7 @@ financial_years_018:
   updated_at: 2017-05-01 23:43:15.212070000 Z
   updater_id: 1
 financial_years_019:
+  already_existing: false
   closed: false
   code: EX2009-10
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -349,6 +368,7 @@ financial_years_019:
   updated_at: 2017-05-01 23:43:15.218836000 Z
   updater_id: 1
 financial_years_020:
+  already_existing: false
   closed: false
   code: EX2010-11
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -365,6 +385,7 @@ financial_years_020:
   updated_at: 2017-05-01 23:43:15.225328000 Z
   updater_id: 1
 financial_years_021:
+  already_existing: false
   closed: false
   code: EX2011-12
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -381,6 +402,7 @@ financial_years_021:
   updated_at: 2017-05-01 23:43:15.231917000 Z
   updater_id: 1
 financial_years_022:
+  already_existing: false
   closed: false
   code: EX2012-13
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -397,6 +419,7 @@ financial_years_022:
   updated_at: 2017-05-01 23:43:15.239225000 Z
   updater_id: 1
 financial_years_023:
+  already_existing: false
   closed: false
   code: EX2013-14
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -413,6 +436,7 @@ financial_years_023:
   updated_at: 2017-05-01 23:43:15.246614000 Z
   updater_id: 1
 financial_years_024:
+  already_existing: false
   closed: false
   code: EX2014-15
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -429,6 +453,7 @@ financial_years_024:
   updated_at: 2017-05-01 23:43:15.253148000 Z
   updater_id: 1
 financial_years_025:
+  already_existing: false
   closed: false
   code: EX2015/2016
   created_at: 2016-01-22 13:21:22.066344000 Z
@@ -445,6 +470,7 @@ financial_years_025:
   updated_at: 2017-05-01 23:52:31.385527000 Z
   updater_id: 1
 financial_years_026:
+  already_existing: false
   closed: false
   code: EX2016/2017
   created_at: 2016-10-26 15:31:38.071593000 Z
@@ -461,6 +487,7 @@ financial_years_026:
   updated_at: 2017-05-01 23:52:31.397784000 Z
   updater_id: 1
 financial_years_027:
+  already_existing: false
   closed: false
   code: EX2017/2018
   created_at: 2017-06-09 20:19:57.007205000 Z
@@ -477,6 +504,7 @@ financial_years_027:
   updated_at: 2017-06-09 20:19:57.007205000 Z
   updater_id: 1
 financial_years_028:
+  already_existing: false
   closed: false
   code: EX2018/2019
   created_at: 2017-06-09 20:58:15.221403000 Z

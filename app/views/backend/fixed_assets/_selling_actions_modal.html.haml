@@ -18,4 +18,6 @@
 
       .modal-footer.centered
         %button.btn.btn-secondary{ type: 'button', data: { dismiss: 'modal' } }= :cancel.tl
-        %button.btn.btn-primary#submit-form{ type: 'button' }= @submit_label
+        - if @sale_items.any?
+          %button.btn.btn-primary#submit-form{ type: 'button', disabled: true }= :validate.tl
+        = link_to :create_a_sale.tl, new_backend_sale_path(fixed_asset_id: params[:id]), class: 'btn btn-primary'
