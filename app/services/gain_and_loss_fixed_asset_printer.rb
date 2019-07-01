@@ -22,8 +22,8 @@ class GainAndLossFixedAssetPrinter < GeneralFixedAssetPrinter
         purchase_amount: fixed_asset.purchase_amount,
         depreciated_amount: fixed_asset.depreciated_amount,
         residual_value: fixed_asset.purchase_amount - fixed_asset.depreciated_amount,
-        selling_amount: fixed_asset.selling_amount,
-        gain_and_loss: fixed_asset.selling_amount - (fixed_asset.purchase_amount - fixed_asset.depreciated_amount)
+        selling_amount: fixed_asset.selling_amount || 0,
+        gain_and_loss: (fixed_asset.selling_amount || 0) - (fixed_asset.purchase_amount - fixed_asset.depreciated_amount)
       }
     end
 
@@ -60,8 +60,8 @@ class GainAndLossFixedAssetPrinter < GeneralFixedAssetPrinter
         s.add_table('Table2', :assets) do |t|
           t.add_column(:fixed_asset_number) { |asset| asset[:number] }
           t.add_column(:label) { |asset| asset[:label] }
-          t.add_column(:purchased_on) { |asset| asset[:purchased_on].strftime('%d/%m/%Y') }
-          t.add_column(:ceded_on) { |asset| asset[:ceded_on].strftime('%d/%m/%Y') }
+          t.add_column(:purchased_on) { |asset| asset[:purchased_on]&.strftime('%d/%m/%Y') }
+          t.add_column(:ceded_on) { |asset| asset[:ceded_on]&.strftime('%d/%m/%Y') }
           t.add_column(:purchase_amount) { |asset| asset[:purchase_amount] }
           t.add_column(:depreciated_amount) { |asset| asset[:depreciated_amount] }
           t.add_column(:residual_value) { |asset| asset[:residual_value] }
