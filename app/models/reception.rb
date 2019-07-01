@@ -85,6 +85,12 @@ class Reception < Parcel
   before_validation do
     self.nature = 'incoming'
     self.state ||= :draft
+
+    if self.items.reject { |i| i.instance_variable_get :@marked_for_destruction }.any? { |i| i.purchase_order_item.present?  }
+      self.reconciliation_state = 'reconcile'
+    else
+      self.reconciliation_state = 'to_reconcile'
+    end
   end
 
   after_initialize do
@@ -95,7 +101,7 @@ class Reception < Parcel
     purchase_order_ids = items.map { |item| item.purchase_order_item&.purchase_id }.uniq.compact
     if purchase_order_ids.any?
       purchase_orders = PurchaseOrder.find(purchase_order_ids)
-      purchase_orders.each { |order| order.update!(reconciliation_state: 'reconcile') if order.fully_reconciled? }
+      purchase_orders.each &:update_reconciliation_status!
     end
   end
 

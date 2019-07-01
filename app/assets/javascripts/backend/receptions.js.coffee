@@ -78,7 +78,7 @@
       $.ajax
         url: "/backend/product_nature_variants/#{variantId}/detail",
         success: (data, status, request) ->
-          $currentForm.find('.storing__footer .merchandise-total-current-stock .stock-value').text(data.stock.toFixed(2))
+          $currentForm.find('.storing__footer .merchandise-total-current-stock .stock-value').text(parseFloat(data.stock).toFixed(2))
           $currentForm.find('.storing__footer .merchandise-total-current-stock .stock-unit').text(data.unit.name)
 
           reducer = (acc, val) ->

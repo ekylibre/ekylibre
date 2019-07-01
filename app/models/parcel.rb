@@ -110,6 +110,7 @@ class Parcel < Ekylibre::Record::Base
   scope :with_delivery, -> { where(with_delivery: true) }
   scope :to_deliver, -> { with_delivery.where(delivery_id: nil).where.not(state: :given) }
   scope :not_given, -> { where.not(state: :given) }
+  scope :with_state, ->(state) { where(state: state) }
 
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
 

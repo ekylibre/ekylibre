@@ -245,6 +245,10 @@
     align-items: flex-end;
   }
 
+  .storing-quantifier {
+    margin-right: 40px;
+  }
+
   .storing-conditionning .input-append {
     text-align: center;
     .conditionning {
@@ -276,6 +280,9 @@
     .total-labels {
       font-weight: bold;
     }
+    .link-add-storing {
+      width: 27%;
+    }
   }
 
   .current-stock {
@@ -299,7 +306,6 @@
   .warning-container {
     display: inline-block;
   }
-
 }
 
 .unitary-variant-fields {
@@ -309,4 +315,3 @@
     justify-content: flex-end;
   }
 }
-

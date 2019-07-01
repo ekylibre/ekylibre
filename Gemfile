@@ -264,14 +264,14 @@ group :test do
   gem 'puma'
   gem 'shoulda-context'
 
+  gem 'database_cleaner'
+
   gem 'minitest-reporters'
   gem 'ruby-terminfo'
 
   gem 'factory_bot', '< 5'
 
   gem 'pdf-reader'
-
-  gem 'database_cleaner'
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles

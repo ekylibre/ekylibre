@@ -31,7 +31,7 @@
     %td.delivery-mode-column
       %label{ data: { item_value: "input.item-delivery-mode:checked" } }= f.object.delivery_mode if f.object.delivery_mode != "ERROR"
 
-  %tr.nested-item-form{ class: mode == 'prefilled' ? 'prefilled' : '' }
+  %tr.nested-item-form{ class: mode == 'prefilled' ? 'prefilled' : '', data: { item_id: f.object.purchase_order_item&.id } }
     %td.item-form{colspan: 20}
       = f.hidden_field :purchase_order_to_close_id, class: "purchase-order-to-close-id"
 
@@ -45,11 +45,11 @@
 
       .item-form-information
         .item-form__activity
-          = f.referenced_association :activity_budget, new: false
+          = f.referenced_association :activity_budget, new: false, input_html: {data: { remember: 'activity_budget'}}
         .item-form__project-budget
-          = f.referenced_association :project_budget
+          = f.referenced_association :project_budget, input_html: {data: { remember: 'project_budget'}}
         .item-form__product_work_number
-          = f.referenced_association :team
+          = f.referenced_association :team, input_html: {data: { remember: 'team'}}
         .item-form__equipment
           = f.referenced_association :equipment, source: :tools, label: :equipment.tl, input_html: {data: { remember: 'equipment'}}
 
@@ -70,5 +70,5 @@
           .non_compliant_detail_text.hidden
             = f.input :non_compliant_detail, as: :text, label: :detail.tl, input_html: { class: 'item-non-compliant-detail', data: { interpolate_if_input: 'input.item-non-compliant', with_value: true } }
         .item-form__btn
-          %button.btn{ data: { cancel: 'item-form' } }= :cancel.tl
+          %a.btn.btn--cancel{ data: { cancel: 'item-form' } }= :cancel.tl
           %button.btn.btn-primary{ data: { validate: 'item-form' } }= :validate.tl

@@ -86,7 +86,9 @@
   .list-models {
     .model {
       padding: $default-gap * 2 $default-gap * 5 $default-gap * 0.7;
-      border-bottom: solid 1px #ddd;
+      &:not(:last-child) {
+        border-bottom: solid 1px #ddd;
+      }
     }
   }
 

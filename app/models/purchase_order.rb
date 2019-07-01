@@ -79,9 +79,7 @@ class PurchaseOrder < Purchase
     self.ordered_at ||= created_at
   end
 
-  scope :with_state, lambda { |state|
-    where(state: state)
-  }
+  scope :with_state, ->(state) { where(state: state) }
   scope :of_supplier, ->(supplier) { where(supplier: supplier) }
 
   def self.third_attribute
@@ -136,11 +134,7 @@ class PurchaseOrder < Purchase
   end
 
   def fully_reconciled?
-    return false unless has_content?
-    items.joins(:parcels_purchase_orders_items)
-         .group(:id)
-         .select("quantity = SUM(population) AS balanced")
-         .all?(&:balanced?)
+    items.all? { |i| i.parcels_purchase_orders_items.reduce(0) { |acc, item| acc + item.population } >= i.quantity }
   end
 
   # this method generate a dataset for one purchase order
@@ -177,5 +171,15 @@ class PurchaseOrder < Purchase
     report[:purchase_amount] = '%.2f' % amount
     report[:purchase_currency] = Nomen::Currency.find(currency).symbol
     report
+  end
+
+  def update_reconciliation_status!
+    if fully_reconciled?
+      self.reconciliation_state = 'reconcile'
+    else
+      self.reconciliation_state = 'to_reconcile'
+    end
+
+    save!
   end
 end
