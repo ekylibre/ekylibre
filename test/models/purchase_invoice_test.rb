@@ -60,7 +60,7 @@
 #
 require 'test_helper'
 
-class PurchaseInvoiceTest < ActiveSupport::TestCase
+class PurchaseInvoiceTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
 
   test 'reconciliation_state is set correctly' do
     purchase_item = create :purchase_item

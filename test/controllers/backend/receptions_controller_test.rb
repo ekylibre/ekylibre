@@ -1,7 +1,7 @@
 require 'test_helper'
 module Backend
 
-  class ReceptionsControllerTest < ActionController::TestCase
+  class ReceptionsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions give: :touch, except: :create
 
     test "a reception can't be created without at least one item" do
