@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class HelpsTest < ActiveSupport::TestCase
+class HelpsTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Checks the validity of references files for models
   def test_help_files
     for file in Dir[Rails.root.join('config', 'locales', '*', 'help', '*.txt')].sort

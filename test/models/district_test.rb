@@ -33,7 +33,7 @@
 #
 require 'test_helper'
 
-class DistrictTest < ActiveSupport::TestCase
+class DistrictTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

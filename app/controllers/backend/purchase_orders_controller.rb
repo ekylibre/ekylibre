@@ -119,7 +119,7 @@ module Backend
       @purchase_order = PurchaseOrder.new(permitted_params)
 
       if @purchase_order.items.blank?
-        @purchase_order.send(:perform_validations)
+        @purchase_order.validate(:perform_validations)
         notify_error_now :purchase_order_need_at_least_one_item
       else
         return if save_and_redirect(@purchase_order,

@@ -32,6 +32,6 @@
 #
 require 'test_helper'
 
-class RegisteredAgroediCodeTest < ActiveSupport::TestCase
+class RegisteredAgroediCodeTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

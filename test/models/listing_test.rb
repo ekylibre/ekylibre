@@ -40,7 +40,7 @@
 
 require 'test_helper'
 
-class ListingTest < ActiveSupport::TestCase
+class ListingTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
   test 'extract a model column' do

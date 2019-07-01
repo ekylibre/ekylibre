@@ -35,6 +35,6 @@
 #
 require 'test_helper'
 
-class InterventionCostingTest < ActiveSupport::TestCase
+class InterventionCostingTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

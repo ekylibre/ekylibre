@@ -69,11 +69,11 @@
 
 
   E.Receptions =
-    fillStocksCounters: (event) ->
-      $currentForm = $(event.target).closest('.nested-item-form')
+    fillStocksCounters: (form) ->
+      $currentForm = $(form)
       variantId = $currentForm.find('[data-product-of-delivery-item]').next('.selector-value').val()
 
-      return unless variantId
+      return unless variantId? && !(variantId == '')
 
       $.ajax
         url: "/backend/product_nature_variants/#{variantId}/detail",
@@ -116,12 +116,12 @@
 
 
   $(document).on 'selector:change', '.parcel-item-variant.selector-search', (event) ->
-    E.Receptions.fillStocksCounters(event)
+    E.Receptions.fillStocksCounters($(event.target).closest('.nested-item-form'))
 
   $(document).on 'keyup change', '.nested-fields .storing-quantifier .storing-quantity', (event) ->
-    E.Receptions.fillStocksCounters(event)
+    E.Receptions.fillStocksCounters($(event.target).closest('.nested-item-form'))
 
   $(document).on 'selector:change', '.parcel-item-storage.selector-search', (event) ->
-    E.Receptions.fillStocksCounters(event)
+    E.Receptions.fillStocksCounters($(event.target).closest('.nested-item-form'))
 
 ) ekylibre, jQuery

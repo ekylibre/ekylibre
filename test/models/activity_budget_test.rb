@@ -34,7 +34,7 @@
 #
 require 'test_helper'
 
-class ActivityBudgetTest < ActiveSupport::TestCase
+class ActivityBudgetTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   test 'unicity' do
     budget = ActivityBudget.first

@@ -51,7 +51,7 @@
 #
 require 'test_helper'
 
-class ProductNatureVariantTest < ActiveSupport::TestCase
+class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   test 'working sets' do
     Nomen::WorkingSet.list.each do |item|

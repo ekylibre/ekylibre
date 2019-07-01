@@ -33,6 +33,6 @@
 #
 require 'test_helper'
 
-class ProjectBudgetTest < ActiveSupport::TestCase
+class ProjectBudgetTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

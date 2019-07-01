@@ -49,7 +49,7 @@ class ParcelItemStoring < Ekylibre::Record::Base
 
   before_validation do
     if quantity.nil?
-      self.quantity = 1
+      self.quantity ||= 1
     end
   end
 

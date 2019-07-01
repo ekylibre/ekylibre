@@ -419,7 +419,7 @@ eng:
       # purchase: "Purchase intervention: %{name}"
       # purchase_order_items: "Purchase order items intervention: %{name}"
       # sell: "Sell intervention: %{name}"
-      show: "%{procedure_name}"
+      show: "%{nature} %{procedure_name} #%{number}"
     backend/inventories:
       edit: "Edit inventory"
       index: "Inventories"
@@ -2011,7 +2011,7 @@ eng:
     places: "Places"
     planned: "Planned"
     planned_again_intervention_in: "Plan again this intervention on"
-    planning: "Planning" #?
+    planning_of: "Planning of"
     plant: "Crop"
     plant_counting: "Counting" #?
     plant_countings: "Countings" #?

@@ -3,7 +3,7 @@ require 'ffaker'
 
 module Api
   module V1
-    class InterventionsControllerTest < ActionController::TestCase
+    class InterventionsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
       connect_with_token
 
       setup do

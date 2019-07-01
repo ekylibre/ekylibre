@@ -27,7 +27,7 @@
 
 = field_set Purchase.human_attribute_name(:items) do
   .items
-    %table.list#items-table
+    %table.list#purchase-items-table
       = f.simple_fields_for :items, f.object.items.sort_by { |i| i.id.to_i } do |item|
         = render 'item_fields', f: item, display_items_form: @display_items_form
 

@@ -52,7 +52,7 @@
 #
 require 'test_helper'
 
-class SaleOpportunityTest < ActiveSupport::TestCase
+class SaleOpportunityTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

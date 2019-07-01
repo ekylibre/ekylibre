@@ -401,6 +401,9 @@ div.nested-fields {
   .multiplicator {
     margin-top: 25px;
     margin-right: 10px;
+    &--equal-spacing {
+      margin-left: 10px;
+    }
   }
 }
 

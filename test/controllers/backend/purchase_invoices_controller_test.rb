@@ -1,5 +1,6 @@
 require 'test_helper'
 module Backend
+
   class PurchaseInvoicesControllerTest < ActionController::TestCase
     test_restfully_all_actions pay: { mode: :create, id: '20,21', mode_id: 1 }, except: %i[payment_mode create]
 
@@ -22,7 +23,5 @@ module Backend
       assert purchase_invoice_error_notified.present?
       assert purchase_invoice_form.present?
     end
-
-
   end
 end

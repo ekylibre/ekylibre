@@ -2185,14 +2185,13 @@ fra:
       purchase_regularization: "Régularisation d'achat"
       sale_regularization: "Régularisation de vente"
     delivery:
-      state_machine:
-        states:
-          draft: "Brouillon"
-          finished: "Terminée"
-          in_preparation: "En préparation"
-          ordered: "Commandée"
-          prepared: "Prête"
-          started: "Commencée"
+      states:
+        draft: "Brouillon"
+        finished: "Terminée"
+        in_preparation: "En préparation"
+        ordered: "Commandée"
+        prepared: "Prête"
+        started: "Commencée"
     deposit:
       bookkeep:
         one: "[%{resource} %{number}] %{count} encaissement %{mode} %{description}"
@@ -2224,12 +2223,11 @@ fra:
       bookkeep_exit_assets: "[%{resource} %{number}] Mise au rébut de %{name}"
       bookkeep_in_sold_assets: "[%{resource} %{number}] Cession de %{name}"
       bookkeep_in_use_assets: " [%{resource} %{number}] Mise en service de %{name}"
-      state_machine:
-        states:
-          draft: "Brouillon"
-          in_use: "En service"
-          scrapped: "Mise au rebut"
-          sold: "Vendue"
+      states:
+        draft: "Brouillon"
+        in_use: "En service"
+        scrapped: "Mise au rebut"
+        sold: "Vendue"
     fixed_asset_depreciation:
       bookkeep: "[%{resource} %{number}] Amortissement de %{name} (%{position}/%{total})"
       bookkeep_partial: "[%{resource} %{number}] Amortissement partiel de %{name} (%{position}/%{total})"
@@ -2304,11 +2302,10 @@ fra:
     loan:
       bookkeep: "[%{resource} %{name}] Réception des fonds"
       bookkeep_guarantee_payment: "[%{resource} %{name}] Paiement de la caution"
-      state_machine:
-        states:
-          draft: "Brouillon"
-          ongoing: "En cours"
-          repaid: "Remboursé"
+      states:
+        draft: "Brouillon"
+        ongoing: "En cours"
+        repaid: "Remboursé"
     loan_repayment:
       bookkeep: "[%{resource} %{name}] Remboursement n°%{position}"
     outgoing_parcel: #?
@@ -2329,14 +2326,13 @@ fra:
           name: "Virement"
     parcel:
       bookkeep: "[%{resource} %{mode} %{number}] %{entity}"
-      state_machine:
-        states:
-          draft: "Brouillon"
-          given: "Donné"
-          in_preparation: "En préparation"
-          ordered: "Commandé"
-          prepared: "Prêt"
-          received: "Reçu"
+      states:
+        draft: "Brouillon"
+        given: "Donné"
+        in_preparation: "En préparation"
+        ordered: "Commandé"
+        prepared: "Prêt"
+        received: "Reçu"
       undelivered_invoice: "Facture non parvenue [%{resource} %{mode} %{number}] %{entity}"
     payslip:
       bookkeep: "[%{resource} %{number}] %{employee} du %{started_on} au %{stopped_on}"
@@ -2417,6 +2413,7 @@ fra:
           ordered: "Commandé"
           prepared: "Prêt"
           received: "Reçu"
+      undelivered_invoice: "Facture non parvenue [%{resource} %{mode} %{number}] %{entity}"
     role:
       default:
         administrator: "Gérant"
@@ -2461,15 +2458,14 @@ fra:
       default:
         name: "Vente standard"
     sale_opportunity:
-      state_machine:
-        states:
-          lost: "Perdue"
-          negociation: "Négociation"
-          price_quote: "Devis"
-          prospecting: "Prospection"
-          qualification: "Qualification"
-          value_proposition: "Proposition de valeur"
-          won: "Gagnée"
+      states:
+        lost: "Perdue"
+        negociation: "Négociation"
+        price_quote: "Devis"
+        prospecting: "Prospection"
+        qualification: "Qualification"
+        value_proposition: "Proposition de valeur"
+        won: "Gagnée"
     sequence:
       default:
         affairs: "A[number|12]"
@@ -2507,18 +2503,16 @@ fra:
           prepared: "Prêt"
           received: "Reçu"
     task:
-      state_machine:
-        states:
-          doing: "En cours"
-          done: "Fini"
-          todo: "À faire"
+      states:
+        doing: "En cours"
+        done: "Fini"
+        todo: "À faire"
     tax_declaration:
       bookkeep: "[%{resource} %{number}] - Période du %{started_on} au %{stopped_on}"
-      state_machine:
-        states:
-          draft: "Brouillon"
-          sent: "Envoyée"
-          validated: "Validée"
+      states:
+        draft: "Brouillon"
+        sent: "Envoyée"
+        validated: "Validée"
     team:
       default: "Général"
     user:

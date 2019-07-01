@@ -33,7 +33,6 @@
     target ||= e.target
     target = $(target).closest('tbody') unless $(target).is('tbody')
 
-    console.log("TARGET", target)
     if $(target).find('.nested-item-form[data-item-id]').length
       disable_selector_input $(target).find('input[id*="variant"]')
 
@@ -293,8 +292,12 @@
 
       if isPurchaseOrderModal == "true"
         E.reconciliation._fillPurchaseOrderItem(lastLineForm, checkboxLine, itemId, itemQuantity, itemConditionning, itemConditionningQuantity)
+        fillStocks = =>
+          E.Receptions.fillStocksCounters(lastLineForm)
       else
         E.reconciliation._fillReceptionItem(lastLineForm, checkboxLine, itemId, itemQuantity)
+        fillStocks = =>
+          E.Purchases.fillStocksCounters(lastLineForm)
 
       $(lastLineForm).find('input[data-remember="equipment"]').first().selector('value', equipmentId)
       $(lastLineForm).find('input[data-remember="team"]').first().selector('value', teamId)
@@ -302,7 +305,13 @@
       $(lastLineForm).find('input[data-remember="activity_budget"]').first().selector('value', activityBudgetId)
       $(lastLineForm).find('.no-reconciliate-item-state').addClass('hidden')
       $(lastLineForm).find('.reconciliate-item-state').removeClass('hidden')
+      $line = $(lastLineForm).parent('.nested-fields')
+      $line.data('_iceberg').bindSelectorsInitialization ->
+        fillStocks()
+        $line.data('_iceberg').setCocoonFormSubmitable()
 
+
+    # Creates a line BASED on a ReceptionItem
     _fillReceptionItem: (lastLineForm, checkboxLine, itemId, itemQuantity) ->
       variantId = $(checkboxLine).find('.variant').attr('data-id')
       teamId = $(checkboxLine).attr('data-team-id')
@@ -346,12 +355,15 @@
       setTimeout (->
         $('.form-field .invoice-total').trigger('change')), 1000
 
+    # Creates a line BASED on a PurchaseOrder
     _fillPurchaseOrderItem: (lastLineForm, checkboxLine, itemId, itemQuantity, itemConditionning, itemConditionningQuantity) ->
       variantId = $(checkboxLine).find('.variant').attr('data-id')
       variantType = $(checkboxLine).attr('data-variant-type')
 
       $(lastLineForm).find('.purchase-item-attribute').val(itemId)
-      $selectorInput =$(lastLineForm).find('.item-block-role .parcel-item-variant').first()
+
+      $selectorInput = $(lastLineForm).find('.item-block-role .parcel-item-variant').first()
+
       $selectorInput.selector('value', variantId, (-> disable_selector_input($selectorInput);$(lastLineForm).find('.form-field .invoice-quantity').trigger('change')))
       $(lastLineForm).find('.hidden.purchase-item-attribute').val(itemId)
 

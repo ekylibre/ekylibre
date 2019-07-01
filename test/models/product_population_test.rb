@@ -34,7 +34,7 @@
 #
 require 'test_helper'
 
-class ProductPopulationTest < ActiveSupport::TestCase
+class ProductPopulationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
   setup do

@@ -20,7 +20,7 @@ class ExchangerValidatableWithTransformCallable
 
 end
 
-class ExchangerValidatorTest < ActiveSupport::TestCase
+class ExchangerValidatorTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
   setup do
     @exchangers = ActiveExchanger::Base.exchangers

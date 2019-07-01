@@ -143,7 +143,7 @@ module Backend
       @reception = Reception.new(permitted_params)
 
       if @reception.items.blank?
-        @reception.send(:perform_validations)
+        @reception.validate(:perform_validations)
         notify_error_now :reception_need_at_least_one_item
       else
         return if save_and_redirect(@reception,
