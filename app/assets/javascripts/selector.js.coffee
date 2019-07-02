@@ -249,7 +249,7 @@
       @element.val search
       if @dropDownMenu.is(":visible")
         @dropDownMenu.hide()
-      @element.trigger('selector:menu-closed')
+        @element.trigger('selector:menu-closed')
       true
 
     _choose: (selected) ->
