@@ -118,7 +118,7 @@
       # Compute unit_pretax_amount
       updates.unit_pretax_amount = E.trade.round(values.pretax_amount / (values.quantity * (100.0 - values.reduction_percentage) / 100.0), 2)
       # Compute amount
-      updates.amount = E.trade.round(values.pretax_amount + (values.pretax_amount) * values.tax, 2)
+      updates.amount = E.trade.round(values.pretax_amount * values.tax, 2)
       E.trade.itemValues(item, updates)
 
     # Compute other amounts from amount
