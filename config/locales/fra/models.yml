@@ -2405,14 +2405,13 @@ fra:
       label: "%{number}. %{amount} du %{date} en %{mode} pour %{payee}"
     reception:
       bookkeep: "[%{resource} %{number}] %{entity}"
-      state_machine:
-        states:
-          draft: "Brouillon"
-          given: "Donné"
-          in_preparation: "En préparation"
-          ordered: "Commandé"
-          prepared: "Prêt"
-          received: "Reçu"
+      states:
+        draft: "Brouillon"
+        given: "Donné"
+        in_preparation: "En préparation"
+        ordered: "Commandé"
+        prepared: "Prêt"
+        received: "Reçu"
       undelivered_invoice: "Facture non parvenue [%{resource} %{mode} %{number}] %{entity}"
     role:
       default:
@@ -2494,14 +2493,13 @@ fra:
         transports: "TR[number|8]"
     shipment:
       bookkeep: "[%{resource} %{number}] %{entity}"
-      state_machine:
-        states:
-          draft: "Brouillon"
-          given: "Donné"
-          in_preparation: "En préparation"
-          ordered: "Commandé"
-          prepared: "Prêt"
-          received: "Reçu"
+      states:
+        draft: "Brouillon"
+        given: "Donné"
+        in_preparation: "En préparation"
+        ordered: "Commandé"
+        prepared: "Prêt"
+        received: "Reçu"
     task:
       states:
         doing: "En cours"
