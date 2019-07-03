@@ -27,6 +27,11 @@
   }
 }
 
+.annotation-logo {
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 5px;
+}
 
 .fieldset .fieldset-fields .nested-fields .input-append {
   .invoice-unit-amount, .pre-tax-invoice-total, .invoice-total, .middle-input {
@@ -81,7 +86,6 @@
   margin-bottom: 20px;
 }
 
-
 .storing-calculation {
   display: flex;
   justify-content: space-around;
@@ -92,8 +96,7 @@
 
 }
 
-
-.item-block-role {
+.item-block-role--purchase-invoice {
   display: flex;
   flex-direction: column;
   width: 40%;
@@ -109,6 +112,28 @@
     }
   }
 }
+
+.item-block-role--purchase-order {
+  display: flex;
+  width: 40%;
+  .control-group {
+    width: 60%;
+    flex-direction: column;
+    .controls {
+      margin-left: 0 !important;
+      max-width: unset !important;
+
+      .selector {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.annotation-section .annotation-field {
+  width: 40%;
+}
+
 .decimal-row {
   display: flex;
   width: 70%;
