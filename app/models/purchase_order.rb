@@ -151,8 +151,8 @@ class PurchaseOrder < Purchase
     report[:purchase_number] = reference_number
     report[:purchase_ordered_at] = ordered_at.l(format: '%d/%m/%Y') if ordered_at.present?
     report[:purchase_estimate_reception_date] = estimate_reception_date.l(format: '%d/%m/%Y') if estimate_reception_date.present?
-    report[:purchase_responsible] = responsible.full_name
-    report[:purchase_responsible_email] = responsible.email
+    report[:purchase_responsible] = responsible&.full_name || ""
+    report[:purchase_responsible_email] = responsible&.email || ""
     report[:supplier_name] = supplier.full_name
     report[:supplier_phone] = supplier.phones.first.coordinate if supplier.phones.any?
     report[:supplier_mobile_phone] = supplier.mobiles.first.coordinate if supplier.mobiles.any?
