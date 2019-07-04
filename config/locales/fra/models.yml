@@ -2213,6 +2213,9 @@ fra:
       net_mass: "Masse"
       bookkeep: "[%{resource}] %{name}" #?
       name: "%{intervention} n°%{number}"
+    intervention:
+      bookkeep: "[%{resource}] %{name}" #?
+      name: "%{intervention} n°%{number}"
     inventory:
       bookkeep: "Inventaire physique - [%{resource}] %{number}"
       bookkeep_exchange: "Inventaire physique - extourne [%{resource}] %{number}"

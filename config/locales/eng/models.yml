@@ -2041,6 +2041,7 @@ eng:
       items_count: "Items"
       net_mass: "Mass"
     intervention:
+      bookkeep: "[%{resource}] %{name}" #?
       name: "%{intervention} #%{number}"
     inventory:
       bookkeep: "[%{resource}] %{number}"
