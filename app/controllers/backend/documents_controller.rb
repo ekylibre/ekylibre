@@ -43,10 +43,19 @@ module Backend
 
     def show
       return unless @document = find_and_check
+      @file_format = if @document.file_content_type == 'application/xml'
+                       :xml
+                     elsif @document.file_content_type == 'text/plain'
+                       :text
+                     else
+                       :pdf
+                     end
+
       respond_to do |format|
         format.html { t3e @document }
         format.json
         format.xml { send_data(File.read(@document.file.path), type: 'application/xml', filename: @document.file_file_name) }
+        format.text { send_data(File.read(@document.file.path), type: 'text/plain', filename: @document.file_file_name) }
         format.pdf { send_file(@document.file.path(params[:format] != :default ? :original : :default), disposition: 'inline', filename: @document.file_file_name) }
         format.jpg { send_file(@document.file.path(:thumbnail), disposition: 'inline') }
       end
