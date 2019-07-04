@@ -44,9 +44,9 @@ class BalanceSheetPrinter
     g1[:current_raw_total] = current_compute.sum_entry_items_by_line(document_scope, :unsubcribed_capital)
     g1[:current_variations_total] = ''
     g1[:current_net_total] = current_compute.sum_entry_items_by_line(document_scope, :unsubcribed_capital)
-    g1[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :unsubcribed_capital)
+    g1[:previous_raw_total] = previous_compute.sum_entry_items_by_line(document_scope, :unsubcribed_capital) if @financial_year.previous
     g1[:previous_variations_total] = ''
-    g1[:previous_net_total] = previous_compute.sum_entry_items_by_line(document_scope, :unsubcribed_capital)
+    g1[:previous_net_total] = @financial_year.previous ? previous_compute.sum_entry_items_by_line(document_scope, :unsubcribed_capital) : 0
     current_net_total_actif += g1[:current_net_total]
     previous_net_total_actif += g1[:previous_net_total]
     actif << g1
