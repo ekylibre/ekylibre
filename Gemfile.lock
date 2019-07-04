@@ -120,7 +120,7 @@ GEM
     burisu-docsplit (0.7.9)
     byebug (10.0.2)
     charlock_holmes (0.7.6)
-    charta (0.1.9)
+    charta (0.1.14)
       json (>= 1.8.0)
       nokogiri (>= 1.7.0)
       rgeo (~> 0.6.0)
@@ -598,7 +598,7 @@ DEPENDENCIES
   browser
   bullet (< 5.6.0)
   charlock_holmes
-  charta (>= 0.1.9)
+  charta (~> 0.1.14)
   cocoon
   code_string (>= 0.0.1)
   coffee-rails (~> 4.1)
