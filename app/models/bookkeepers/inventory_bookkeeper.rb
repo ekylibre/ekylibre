@@ -58,6 +58,7 @@ class InventoryBookkeeper < Ekylibre::Bookkeeper
   private
 
     def ensure_journal_present
-      Journal.find_or_create_by!(name: :stocks.tl, nature: :various, used_for_permanent_stock_inventory: true)
+      Journal.create_with(name: :stocks.tl)
+        .find_or_create_by!(nature: :various, used_for_permanent_stock_inventory: true)
     end
 end
