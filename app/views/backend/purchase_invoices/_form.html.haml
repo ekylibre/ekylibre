@@ -1,3 +1,7 @@
+:ruby
+  display_activity_item_field = !!Preference[:distribute_sales_and_purchases_on_activities]
+  display_team_item_field = !!Preference[:distribute_sales_and_purchases_on_teams]
+
 = f.object.errors.full_messages if f.object.errors.present? && Rails.env.development?
 = content_for(:heading_toolbar) do
   = purchase_invoice_incident_badge f.object
@@ -48,9 +52,9 @@
   .items
     %table.list#items-table
       = f.simple_fields_for :items, f.object.items.sort_by { |i| i.id.to_i } do |item|
-        = render 'item_fields', f: item
+        = render 'item_fields', f: item, display_activity_item_field: display_activity_item_field, display_team_item_field: display_team_item_field
       %tfoot#items__footer
     .row-footer
       - PurchaseItem.role.values.each do |role|
-        %span{ class: "links add-#{role}"}= link_to_add_association :"add_#{role}".tl, f, :items, partial: 'item_fields', render_options: { locals: { role: role, mode: params[:mode] } }, 'data-association-insertion-node' => '#items__footer', 'data-association-insertion-method' => :before
+        %span{ class: "links add-#{role}"}= link_to_add_association :"add_#{role}".tl, f, :items, partial: 'item_fields', render_options: { locals: { role: role, mode: params[:mode], display_activity_item_field: display_activity_item_field, display_team_item_field: display_team_item_field } }, 'data-association-insertion-node' => '#items__footer', 'data-association-insertion-method' => :before
 
