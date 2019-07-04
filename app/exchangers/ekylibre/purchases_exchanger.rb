@@ -168,7 +168,14 @@ module Ekylibre
         unless purchase.items.find_by(pretax_amount: r.pretax_amount, variant_id: variant.id, tax_id: tax.id)
           raise "Missing quantity at line #{line_index}" unless r.quantity
           # puts r.variant_code.inspect.red
-          purchase.items.create!(quantity: r.quantity, tax: tax, unit_pretax_amount: r.unit_pretax_amount, variant: variant, fixed: r.depreciate)
+          role = if variant.variety == 'service'
+                   'service'
+                 elsif variant.category.purchasable
+                   'merchandise'
+                 else
+                   nil
+                 end
+          purchase.items.create!(quantity: r.quantity, tax: tax, unit_pretax_amount: r.unit_pretax_amount, variant: variant, fixed: r.depreciate, role: role)
         end
 
         w.check_point
