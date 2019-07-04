@@ -1,4 +1,8 @@
-- reconciliation_state = f.object.reconciliation_state
+:ruby
+  display_activity_item_field = !!Preference[:distribute_sales_and_purchases_on_activities]
+  display_team_item_field = !!Preference[:distribute_sales_and_purchases_on_teams]
+  reconciliation_state = f.object.reconciliation_state
+
 = f.object.errors.full_messages if f.object.errors.present? && Rails.env.development?
 = content_for(:heading_toolbar) do
   = reception_incident_badge f.object
@@ -45,8 +49,8 @@
   = field_set f.object.class.human_attribute_name(:items) do
     %table.list#receptions-items-table
       = f.simple_fields_for :items, f.object.items do |item|
-        = render 'item_fields', f: item, mode: params[:mode]
+        = render 'item_fields', f: item, mode: params[:mode], display_activity_item_field: display_activity_item_field, display_team_item_field: display_team_item_field
       %tfoot#items__footer
     .row-footer
       - ReceptionItem.role.values.each do |role|
-        %span{ class: "links add-#{role}"}= link_to_add_association :"add_#{role}".tl, f, :items, partial: 'item_fields', render_options: { locals: { role: role, mode: params[:mode] } }, 'data-association-insertion-node' => '#items__footer', 'data-association-insertion-method' => :before
+        %span{ class: "links add-#{role}"}= link_to_add_association :"add_#{role}".tl, f, :items, partial: 'item_fields', render_options: { locals: { role: role, mode: params[:mode], display_activity_item_field: display_activity_item_field, display_team_item_field: display_team_item_field } }, 'data-association-insertion-node' => '#items__footer', 'data-association-insertion-method' => :before

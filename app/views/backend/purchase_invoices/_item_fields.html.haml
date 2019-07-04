@@ -76,13 +76,15 @@
 
 
       .item-form-information
-        .item-form__activity
-          = f.referenced_association :activity_budget, new: false, input_html: {data: { remember: 'activity_budget'}}
-        .item-form__project-budget
+        - if display_activity_item_field
+          .item-form.item-form__activity
+            = f.referenced_association :activity_budget, new: false, input_html: {data: { remember: 'activity_budget'}}
+        .item-form.item-form__project-budget
           = f.referenced_association :project_budget, input_html: {data: { remember: 'project_budget'}}
-        .item-form__product_work_number
-          = f.referenced_association :team, input_html: {data: { remember: 'team'}}
-        .item-form__equipment
+        - if display_team_item_field
+          .item-form.item-form__product_work_number
+            = f.referenced_association :team, input_html: {data: { remember: 'team'}}
+        .item-form.item-form__equipment
           = f.referenced_association :equipment, source: :tools, label: :equipment.tl, input_html: {data: { remember: 'equipment'}}
           - parcels_purchase_invoice_item_id = f.object.parcels_purchase_invoice_items.empty? ? nil : [f.object.parcels_purchase_invoice_items.first.id].to_s
           = hidden_field_tag 'purchase_invoice[items_attributes][RECORD_ID][parcels_purchase_invoice_items]', parcels_purchase_invoice_item_id, class: "purchase-item-attribute"
