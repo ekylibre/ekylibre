@@ -2190,6 +2190,10 @@ eng:
       bookkeep: "[%{resource} %{number}] %{entity}"
       states:
         draft: "Draft"
+        given: "Given"
+        in_preparation: "In preparation"
+        ordered: "Ordered"
+        prepared: "Prepared"
         received: "Received"
       undelivered_invoice: "Undelivered invoice [%{resource} %{mode} %{number}] %{entity}"
     role:
@@ -2272,14 +2276,13 @@ eng:
         transports: "TR[number|8]"
     shipment:
       bookkeep: "[%{resource} %{number}] %{entity}"
-      state_machine:
-        states:
-          draft: "Draft"
-          given: "Given"
-          in_preparation: "In preparation"
-          ordered: "Ordered"
-          prepared: "Prepared"
-          received: "Received"
+      states:
+        draft: "Draft"
+        given: "Given"
+        in_preparation: "In preparation"
+        ordered: "Ordered"
+        prepared: "Prepared"
+        received: "Received"
     task:
       states:
         doing: "Doing"

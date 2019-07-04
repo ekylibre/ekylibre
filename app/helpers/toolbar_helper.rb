@@ -154,10 +154,11 @@ module ToolbarHelper
       html << (Ekylibre::View::Addon.render(:main_toolbar, self, t: toolbar) || '')
     end
 
+    safe_html = html.html_safe
     unless options[:wrap].is_a?(FalseClass)
-      html = content_tag(:div, html, class: 'toolbar' + (options[:class] ? ' ' << options[:class].to_s : ''))
+      safe_html = content_tag(:div, safe_html, class: ['toolbar', options.fetch(:class, [])].flatten)
     end
 
-    html.html_safe
+    safe_html
   end
 end

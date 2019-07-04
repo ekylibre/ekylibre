@@ -115,7 +115,13 @@ class Inventory < Ekylibre::Record::Base
   end
 
   def printed_at
-    (reflected? ? reflected_at : achieved_at? ? self.achieved_at : created_at)
+    if reflected?
+      reflected_at
+    elsif achieved_at?
+      self.achieved_at
+    else
+      created_at
+    end
   end
 
   protect do
@@ -140,8 +146,12 @@ class Inventory < Ekylibre::Record::Base
     self.reflected_at = Time.zone.now
     self.reflected = true
     return false unless valid? && items.all?(&:valid?)
-    save
-    items.find_each(&:save)
+
+    Ekylibre::Record::Base.transaction do
+      save!
+      items.find_each(&:save!)
+    end
+
     true
   end
 
