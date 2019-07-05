@@ -825,6 +825,7 @@ fra:
     cap_land_parcel: "Parcelle PAC"
     cap_land_parcels: "Parcelles PAC"
     cap_neutral_areas: "Surfaces non agricole (SNA)"
+    cap_number: "Numéro PAC"
     cap_statement: "Déclaration PAC"
     cap_statements: "Déclarations PAC"
     carried: "Tracté"

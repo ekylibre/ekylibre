@@ -44,13 +44,15 @@
           = render 'non_merchandise_fields', f: f, variant: variant, non_compliant_message: non_compliant_message
 
       .item-form-information
-        .item-form__activity
-          = f.referenced_association :activity_budget, new: false, input_html: {data: { remember: 'activity_budget'}}
-        .item-form__project-budget
+        - if display_activity_item_field
+          .item-form.item-form__activity
+            = f.referenced_association :activity_budget, new: false, input_html: {data: { remember: 'activity_budget'}}
+        .item-form.item-form__project-budget
           = f.referenced_association :project_budget, input_html: {data: { remember: 'project_budget'}}
-        .item-form__product_work_number
-          = f.referenced_association :team, input_html: {data: { remember: 'team'}}
-        .item-form__equipment
+        - if display_team_item_field
+          .item-form.item-form__product_work_number
+            = f.referenced_association :team, input_html: {data: { remember: 'team'}}
+        .item-form.item-form__equipment
           = f.referenced_association :equipment, source: :tools, label: :equipment.tl, input_html: {data: { remember: 'equipment'}}
 
       .item-form-button
