@@ -97,7 +97,7 @@ class Intervention < Ekylibre::Record::Base
     has_many :outputs, class_name: 'InterventionOutput'
     has_many :targets, class_name: 'InterventionTarget'
     has_many :tools, class_name: 'InterventionTool'
-    has_many :working_periods, class_name: 'InterventionWorkingPeriod'
+    has_many :working_periods, class_name: 'InterventionWorkingPeriod', dependent: :destroy
     has_many :leaves_parameters, -> { where.not(type: InterventionGroupParameter) }, class_name: 'InterventionParameter'
   end
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
