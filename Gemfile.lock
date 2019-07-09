@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/ekylibre/agric.git
-  revision: b381676ba0f6d8b55414b28100c19e1f813e500c
-  tag: v3.0.2
+  revision: 0e07583b5c0112f11dc3d07e17fa4bc8619e90d4
+  tag: v4.0.2
   specs:
-    agric (3.0.2)
+    agric (4.0.2)
       railties (>= 3.2, < 6)
       sassc-rails (~> 2)
 

@@ -1,29 +1,35 @@
-- if @notifications.any?
+- if @unread_notifications.any?
   - main_toolbar do |t|
-    = t.destroy label: :mark_all_as_read.tl, redirect: params[:redirect]
+    = t.destroy label: :mark_all_as_read.tl, redirect: params[:redirect], icon: 'check-all'
 
+- if @notifications.any?
   .active-list
     %table.list
       %thead
         %tr
           %td
-            = link_to(backend_notifications_path(redirect: params[:redirect]), method: :delete, title: :mark_all_as_read.tl) do
-              %i.icon.icon-check
           %th= Notification.human_attribute_name(:message)
+          %th
           %th= Notification.human_attribute_name(:age)
       %tbody
         - @notifications.includes(:target).each do |notification|
-          %tr{class: notification.level}
+          %tr{ data: { read_status: notification.read_at.present? ? 'read' : 'unread' } }
             %td.act
-              = link_to(backend_notification_path(notification), method: :delete, title: :mark_as_read.tl) do
-                %i.icon.icon-check
+              - unless notification.read_at
+                = link_to(backend_notification_path(notification), method: :delete, title: :mark_as_read.tl) do
+                  %i.icon.icon-check-all
             %td
               - if notification.target_url.present? || notification.target.present?
-                = link_to( notification.human_message, backend_notification_path(notification))
+                = link_to(notification.human_message, backend_notification_path(notification))
               - else
                 = notification.human_message
+            %td.center.state-icon
+              - level_icons = { information: 'info-circle', success: 'check-circle', warning: 'exclamation-circle', error: 'times-circle' }
+              - icon_class = "icon-#{level_icons[notification.level.to_sym]}"
+              %i.icon{ class: icon_class }
             %td{title: notification.created_at.l}
               = distance_of_time_in_words_to_now(notification.created_at)
+
 - else
   .placeholding-message
     %p= :no_notifications.tl

@@ -19,17 +19,20 @@
 module Backend
   class NotificationsController < Backend::BaseController
     def index
-      if params[:mode] == 'unread'
-        @notifications = current_user.unread_notifications.where('created_at >= ?', Time.now - params[:ago].to_f)
-        global_count = current_user.unread_notifications.count
+      @unread_notifications = current_user.unread_notifications.order(created_at: :desc)
+      if params[:mode] == :unread
+        new_notifications_count = @unread_notifications.where('created_at >= ?', Time.now - params[:ago].to_f).count
+        global_count = @unread_notifications.count
+        unread_messages = @unread_notifications.map { |notif| { message: notif.human_message, created_at: notif.created_at } }
         response = {
-          count: global_count,
+          total_count: global_count,
+          new_entries_count: new_notifications_count,
           status: :x_notifications.tl(count: global_count),
-          new_messages: @notifications.collect(&:human_message)
+          unread_messages: unread_messages
         }
         render json: response.to_json
       else
-        @notifications = current_user.unread_notifications.order(created_at: :desc)
+        @notifications = Notification.order(created_at: :desc)
       end
     end
 
