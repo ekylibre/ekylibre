@@ -18,7 +18,6 @@
 
 module Backend
   class NotificationsController < Backend::BaseController
-    include ActionView::Helpers::DateHelper
     include NotificationsHelper
 
     def index
@@ -26,7 +25,7 @@ module Backend
       if params[:mode] == :unread
         unread_notifs = @unread_notifications.map { |notif| { id: notif.id,
                                                               message: notif.human_message,
-                                                              time: distance_of_time_in_words_to_now(notif.created_at),
+                                                              time: ActionController::Base.helpers.distance_of_time_in_words_to_now(notif.created_at),
                                                               url: backend_notification_path(notif),
                                                               icon: notification_icon_class(notif) } }
         response = {
