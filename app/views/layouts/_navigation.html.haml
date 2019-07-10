@@ -8,7 +8,8 @@
       .navbar__notifications.dropdown.show
         .notifcations-btn.dropdown-toggle{ data: { toggle: 'dropdown' } }
           = link_to(content_tag(:i), '#', data: { toggle: 'notifications' }, class: 'notifications-btn__icon')
-          %span.notifications-btn__counter{ class: !count.zero? ? 'notifications-btn__counter--with-notifications' : nil }= count.zero? ? '' : count
+          %span.notifications-btn__counter{ class: !count.zero? ? 'notifications-btn__counter--with-notifications' : nil }
+            = count.zero? ? '' : count
 
         .notifications-menu.dropdown-menu.dropdown-menu-right
           - placeholder_style = current_user.unread_notifications.any? ? 'display: none;' : ''

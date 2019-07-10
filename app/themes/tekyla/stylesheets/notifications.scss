@@ -16,7 +16,7 @@
   padding: 0 !important;
   font-size: 0;
   position: relative;
-  display: inline-block !important;
+  float: left;
   i {
     @include is-icon($topbar-icon-size);
     @include use-icon(bell-o);
@@ -32,14 +32,17 @@
 
 
 .notifications-btn__counter--with-notifications {
+  float: right;
   background: $invalid-color;
   padding: 0 5px;
-  margin-left: -6px;
-  margin-right: -7px;
+  margin: 1px -7px 0 -5px;
   border-radius: 50%;
+  line-height: 15px;
+}
 
-  -webkit-animation: pulsate-fwd 0.5s ease-in-out 3 both;
-          animation: pulsate-fwd 0.5s ease-in-out 3 both;
+.notifications-btn__counter--animated {
+  -webkit-animation: pulsate 0.5s ease-in-out 5 both;
+          animation: pulsate 0.5s ease-in-out 5 both;
 }
 
 .notifications-menu {
@@ -49,6 +52,8 @@
   min-width: 500px;
   margin-top: 0;
   padding: 0;
+  max-height: 675px;
+  overflow: auto;
 }
 
 .notifications-menu__link, .notifications-menu__placeholder {
@@ -79,7 +84,7 @@
 }
 
 .notification__time {
-  flex: 0 0 20%;
+  flex: 0 0 22%;
   color: $neutral-color !important;
   font-size: 10px;
 }
@@ -102,7 +107,7 @@
   }
 }
 
-@-webkit-keyframes pulsate-fwd {
+@-webkit-keyframes pulsate {
   0% {
     -webkit-transform: scale(1);
             transform: scale(1);
@@ -116,7 +121,7 @@
             transform: scale(1);
   }
 }
-@keyframes pulsate-fwd {
+@keyframes pulsate {
   0% {
     -webkit-transform: scale(1);
             transform: scale(1);
