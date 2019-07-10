@@ -1952,6 +1952,7 @@ fra:
     mammalia_reproduction_state: "Phase du bioprocessus de reproduction d’un mammifère" #?
     manage_activities: "Gérer les activités"
     manage_financial_years: "Gérer les exercices comptables"
+    manage_notifications: "Gérer les notifications"
     management: "Gestion commerciale" #?
     management_index: "Index de la gestion commerciale" #?
     mandates_fields: "Vous devez saisir au moins une valeur dans l’un des champs" #?

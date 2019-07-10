@@ -10,7 +10,7 @@
           ago: E.notifications.delay
 
         success: (data, status, request) ->
-          indicator = $('*[data-toggle="notifications"]')
+          indicator = $("[data-toggle='notifications']").closest('.dropdown.show')
           indicator.attr('title', data.status)
 
           if data.total_count > 0

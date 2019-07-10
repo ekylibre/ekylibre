@@ -1,0 +1,81 @@
+.navbar__notifications {
+  padding: 0 round($fs-normal * 1);
+  cursor: pointer;
+  &:hover {
+    background: rgba(black, 0.07);
+    @include transition(background 0.4s, box-shadow 0.4s);
+  }
+}
+
+.notifcations-btn {
+  height: $topbar-height;
+  line-height: $topbar-height;
+}
+
+.notifications-btn__icon {
+  padding: 0 !important;
+  font-size: 0;
+  position: relative;
+  display: inline-block !important;
+  i {
+    @include is-icon($topbar-icon-size);
+    @include use-icon(bell-o);
+  }
+}
+
+.notifications-btn__counter {
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  vertical-align: top;
+}
+
+
+.notifications-btn__counter--with-notifications {
+  background: $invalid-color;
+  padding: 0 5px;
+  margin-left: -6px;
+  border-radius: 50%;
+}
+
+.notifications-menu {
+  background: #f7f7f7;
+  box-shadow: 0 0 3.25px rgba(0, 0, 0, 0.3);
+  border: 1px solid #dedede;
+  min-width: 500px;
+  margin-top: 0;
+}
+
+.notifications-menu__link {
+  color: #333 !important;
+}
+
+.notification {
+  display: flex;
+  align-items: center;
+}
+
+.notification__message {
+  flex: 1 1 auto;
+}
+
+.notification__time {
+  flex: 0 0 20%;
+}
+
+.notification__state {
+  flex: 0 0 5%;
+
+  i.icon-info-circle {
+    color: $base-color;
+  }
+  i.icon-check-circle {
+    color: $success-color;
+  }
+  i.icon-exclamation-circle {
+    color: $caution-color;
+  }
+  i.icon-times-circle {
+    color: $invalid-color;
+  }
+}

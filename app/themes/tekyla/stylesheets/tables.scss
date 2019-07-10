@@ -280,20 +280,6 @@ table {
             text-align: center;
             width: 3ex;
           }
-          &.state-icon {
-            i.icon-info-circle {
-              color: $base-color;
-            }
-            i.icon-check-circle {
-              color: $success-color;
-            }
-            i.icon-exclamation-circle {
-              color: $caution-color;
-            }
-            i.icon-times-circle {
-              color: $invalid-color;
-            }
-          }
         }
         &.first-item {
           td {

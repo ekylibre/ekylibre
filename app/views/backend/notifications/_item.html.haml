@@ -1,0 +1,12 @@
+.notification
+  .notification__state{ class: "notification__state--#{notification.level}" }
+    - level_icons = { information: 'info-circle', success: 'check-circle', warning: 'exclamation-circle', error: 'times-circle' }
+    - icon_class = "icon-#{level_icons[notification.level.to_sym]}"
+    %i.icon{ class: icon_class }
+
+  .notification__message
+    = notification.human_message
+
+  .notification__time
+    = distance_of_time_in_words_to_now(notification.created_at)
+

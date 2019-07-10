@@ -1,4 +1,4 @@
-eng:
+$eng:
   actions:
     authentication/invitations:
       edit: "Accept invitation"
@@ -1918,6 +1918,7 @@ eng:
     make_your_production_support: "Make your production support"
     manage_activities: "Manage activities"
     manage_financial_years: "Manage financial years" #?!
+    manage_notifications: "Manage notifications"
     mandatory_provisions: "Mandatory provisions" #?!
     manual: "Manual" #?
     manual_period: "from %{start} to %{finish}"

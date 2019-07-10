@@ -23,7 +23,7 @@
                 = link_to(notification.human_message, backend_notification_path(notification))
               - else
                 = notification.human_message
-            %td.center.state-icon
+            %td.center.notification__state
               - level_icons = { information: 'info-circle', success: 'check-circle', warning: 'exclamation-circle', error: 'times-circle' }
               - icon_class = "icon-#{level_icons[notification.level.to_sym]}"
               %i.icon{ class: icon_class }
