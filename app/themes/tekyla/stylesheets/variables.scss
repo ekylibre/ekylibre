@@ -49,6 +49,7 @@ $selection-color:  $active-color;
 $base-font-color:  $text-color !default;
 $base-font-reversed-color: $white !default;
 $default-border-color: #DDD;
+$lighten-border-color: mix($black, $white, 6%) !default;
 
 // Basic colors
 $darkened-white: mix($black, $white, 2%) !default;

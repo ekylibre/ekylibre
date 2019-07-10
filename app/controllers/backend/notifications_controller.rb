@@ -23,12 +23,14 @@ module Backend
       if params[:mode] == :unread
         new_notifications_count = @unread_notifications.where('created_at >= ?', Time.now - params[:ago].to_f).count
         global_count = @unread_notifications.count
-        unread_messages = @unread_notifications.map { |notif| { message: notif.human_message, created_at: notif.created_at } }
+        unread_notifs = @unread_notifications.map { |notif| { message: notif.human_message,
+                                                              created_at: notif.created_at,
+                                                              url: backend_notification_path(notif),
+                                                              icon: "icon-#{NotificationsHelper::LEVEL_ICONS[notif.level.to_sym]}" } }
         response = {
           total_count: global_count,
           new_entries_count: new_notifications_count,
-          status: :x_notifications.tl(count: global_count),
-          unread_messages: unread_messages
+          unread_notifs: unread_notifs
         }
         render json: response.to_json
       else

@@ -1,8 +1,6 @@
 .notification
-  .notification__state{ class: "notification__state--#{notification.level}" }
-    - level_icons = { information: 'info-circle', success: 'check-circle', warning: 'exclamation-circle', error: 'times-circle' }
-    - icon_class = "icon-#{level_icons[notification.level.to_sym]}"
-    %i.icon{ class: icon_class }
+  .notification__state.text-center
+    %i.icon{ class: notification_icon_class(notification) }
 
   .notification__message
     = notification.human_message

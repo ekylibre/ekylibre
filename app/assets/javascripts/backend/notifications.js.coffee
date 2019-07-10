@@ -10,24 +10,39 @@
           ago: E.notifications.delay
 
         success: (data, status, request) ->
-          indicator = $("[data-toggle='notifications']").closest('.dropdown.show')
-          indicator.attr('title', data.status)
+          $counter = $('.notifications-btn__counter')
 
           if data.total_count > 0
-            unless indicator.hasClass 'with-notifications'
-              indicator.addClass('with-notifications')
+            $counter.addClass('notifications-btn__counter--with-notifications')
+            $counter.text(data.total_count)
           else
-            if indicator.hasClass 'with-notifications'
-              indicator.attr('title', data.status)
-              indicator.removeClass('with-notifications')
+            $counter.removeClass('notifications-btn__counter--with-notifications')
+            $counter.text('')
 
-          E.notifications.displayMessages(data.unread_messages) if data.unread_messages
+          E.notifications.displayItems(data.unread_notifs) if data.unread_notifs
 
         error: (request, status, error) ->
           window.clearInterval(E.notifications.interval)
 
-    displayMessages: (messages) ->
+
+    displayItems: (notifications) ->
       # for message in messages
+
+
+    template: (notification) ->
+      "<a href='#{notification.url}' class='notifications-menu__item'>
+         <div class='notification'>
+           <div class='notification__state text-center'>
+             <i class='icon #{notification.icon}'></i>
+           </div>
+           <div class='notification__message'>
+             #{notification.message}
+           </div>
+           <div class='notification__time'>
+             #{notification.created_at}
+           </div>
+         </div>
+       </a>"
 
 
   $(document).ready ->
