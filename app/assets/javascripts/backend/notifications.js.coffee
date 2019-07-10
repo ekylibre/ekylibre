@@ -11,22 +11,22 @@
 
         success: (data, status, request) ->
           $counter = $('.notifications-btn__counter')
+          $placeholder = $('.notifications-menu__placeholder')
 
-          if data.total_count > 0
-            $counter.addClass('notifications-btn__counter--with-notifications')
-            $counter.text(data.total_count)
-          else
-            $counter.removeClass('notifications-btn__counter--with-notifications')
-            $counter.text('')
+          $placeholder.toggle(!data.total_count > 0)
+          $counter.toggleClass('notifications-btn__counter--with-notifications', data.total_count > 0)
+          if data.total_count > 0 then $counter.text(data.total_count) else $counter.text('')
 
-          E.notifications.displayItems(data.unread_notifs) if data.unread_notifs
+          E.notifications.displayItems(data.unread_notifs)
 
         error: (request, status, error) ->
           window.clearInterval(E.notifications.interval)
 
 
     displayItems: (notifications) ->
-      # for message in messages
+      $('.notifications-menu__item').remove()
+      for notification in notifications
+        $('.notifications-menu__placeholder').after(E.notifications.template notification)
 
 
     template: (notification) ->
@@ -39,7 +39,7 @@
              #{notification.message}
            </div>
            <div class='notification__time'>
-             #{notification.created_at}
+             #{notification.time}
            </div>
          </div>
        </a>"

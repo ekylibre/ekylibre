@@ -18,15 +18,18 @@
 
 module Backend
   class NotificationsController < Backend::BaseController
+    include ActionView::Helpers::DateHelper
+    include NotificationsHelper
+
     def index
-      @unread_notifications = current_user.unread_notifications.order(created_at: :desc)
+      @unread_notifications = current_user.unread_notifications.order(created_at: :asc)
       if params[:mode] == :unread
         new_notifications_count = @unread_notifications.where('created_at >= ?', Time.now - params[:ago].to_f).count
         global_count = @unread_notifications.count
         unread_notifs = @unread_notifications.map { |notif| { message: notif.human_message,
-                                                              created_at: notif.created_at,
+                                                              time: distance_of_time_in_words_to_now(notif.created_at),
                                                               url: backend_notification_path(notif),
-                                                              icon: "icon-#{NotificationsHelper::LEVEL_ICONS[notif.level.to_sym]}" } }
+                                                              icon: notification_icon_class(notif) } }
         response = {
           total_count: global_count,
           new_entries_count: new_notifications_count,

@@ -37,6 +37,9 @@
   margin-left: -6px;
   margin-right: -7px;
   border-radius: 50%;
+
+  -webkit-animation: pulsate-fwd 0.5s ease-in-out 3 both;
+          animation: pulsate-fwd 0.5s ease-in-out 3 both;
 }
 
 .notifications-menu {
@@ -96,5 +99,34 @@
   }
   i.icon-times-circle {
     color: $invalid-color;
+  }
+}
+
+@-webkit-keyframes pulsate-fwd {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+@keyframes pulsate-fwd {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
   }
 }
