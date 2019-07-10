@@ -56,13 +56,13 @@ module Ekylibre
           if force || !preference.value
             # @loaders[loader].call(base)
             imports.each do |import_name, options|
-              format = options[:format] || :file
-              path = options[:path]
-              nature = options[:type] || import_name
+              format = options.delete(:format) || :file
+              path = options.delete(:path)
+              nature = options.delete(:type) || import_name
               if format == :archive
-                import_archive(nature, path, options[:files], options.slice(:in, :mimetype))
+                import_archive(nature, path, options.delete(:files), options.slice(:in, :mimetype))
               elsif format == :pictures
-                import_pictures(path, options[:table], options[:id_column])
+                import_pictures(path, options.delete(:table), options[:id_column])
               elsif format == :file
                 import_file(nature, path, options)
               else
@@ -113,6 +113,10 @@ module Ekylibre
 
       def import_file(nature, file, options = {})
         p = path(file)
+        options = options.map do |key, value|
+          next [key, value] unless key.to_s =~ /_path$/
+          [key, path(value).to_s]
+        end.to_h
         if p.exist?
           import(nature, p, options)
         elsif @verbose
@@ -180,8 +184,8 @@ module Ekylibre
         start = Time.zone.now
         basename = nature.to_s.humanize + ' (' + Pathname.new(file).basename.to_s + ') '
         total = 0
-        max = options[:max] || @max
-        Import.launch!(nature, file) do |progress, count|
+        max = options.delete(:max) || @max
+        Import.launch!(nature, file, options) do |progress, count|
           if @verbose
             status = [' + ' + basename]
             status << " #{progress.to_i}%"
