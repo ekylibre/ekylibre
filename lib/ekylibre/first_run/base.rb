@@ -56,13 +56,13 @@ module Ekylibre
           if force || !preference.value
             # @loaders[loader].call(base)
             imports.each do |import_name, options|
-              format = options.delete(:format) || :file
-              path = options.delete(:path)
-              nature = options.delete(:type) || import_name
+              format = options[:format] || :file
+              path = options[:path]
+              nature = options[:type] || import_name
               if format == :archive
-                import_archive(nature, path, options.delete(:files), options.slice(:in, :mimetype))
+                import_archive(nature, path, options[:files], options.slice(:in, :mimetype))
               elsif format == :pictures
-                import_pictures(path, options.delete(:table), options[:id_column])
+                import_pictures(path, options[:table], options[:id_column])
               elsif format == :file
                 import_file(nature, path, options)
               else
@@ -137,7 +137,7 @@ module Ekylibre
       # Check that archive exist if not try to build one if existing file
       # Given files must exist
       def check_archive(nature, target, files, options = {})
-        working_path = @path.join(options[:in] ? options.delete(:in) : '.')
+        working_path = @path.join(options[:in] ? options[:in] : '.')
         target_path = working_path.join(target)
         files = files.each_with_object({}) { |f, h| h[f] = f } if files.is_a?(Array)
         files.each do |dest, source|
@@ -184,8 +184,8 @@ module Ekylibre
         start = Time.zone.now
         basename = nature.to_s.humanize + ' (' + Pathname.new(file).basename.to_s + ') '
         total = 0
-        max = options.delete(:max) || @max
-        Import.launch!(nature, file, options) do |progress, count|
+        max = options[:max] || @max
+        Import.launch!(nature, file, options[:options]) do |progress, count|
           if @verbose
             status = [' + ' + basename]
             status << " #{progress.to_i}%"
