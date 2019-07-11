@@ -114,8 +114,8 @@ module Ekylibre
       def import_file(nature, file, options = {})
         p = path(file)
         options[:options] = options[:options]&.map do |key, value|
-          next [key, value] unless key.to_s =~ /path$/
-          [key, path(value).to_s]
+          value = path(value).to_s if key.to_s =~ /path$/
+          [key, value]
         end.to_h
         if p.exist?
           import(nature, p, options)
