@@ -1,10 +1,11 @@
 module Ekylibre
   class PurchasesExchanger < ActiveExchanger::Base
-    def initialize(file, supervisor, options)
+    def initialize(file, supervisor, options = {})
       super file, supervisor
       @attachments_dir = options['attachments_path']
       @attachments_dir &&= Pathname.new(@attachments_dir)
     end
+
     def check
       rows = CSV.read(file, headers: true)
       w.count = rows.size

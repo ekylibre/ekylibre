@@ -59,10 +59,10 @@ class Import < Ekylibre::Record::Base
 
   class << self
     # Create an import and run it in background
-    def launch(nature, file, options={})
+    def launch(nature, file, options = {})
       f = File.open(file)
       import = create!(nature: nature, archive: f, options: options)
-      ImportRunJob.perform_later(import.id, options)
+      ImportRunJob.perform_later(import.id)
       import
     end
 
