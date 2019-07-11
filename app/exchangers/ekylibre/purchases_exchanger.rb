@@ -160,11 +160,14 @@ module Ekylibre
             nature: PurchaseNature.actives.first,
             description: r.description
           )
-          attachment_potential_path = @attachments_dir.join(purchase.supplier.name.parameterize,
-                                                            purchase.reference_number + ".*")
-          attachment_paths = Dir.glob(attachment_potential_path)
-          attachment_paths.each do |attachment_path|
-            purchase.attachments.create!(document: Document.new(file: File.open(attachment_path)))
+          if @attachments_dir
+            attachment_potential_path = @attachments_dir.join(purchase.supplier.name.parameterize,
+                                                              purchase.reference_number + ".*")
+            attachment_paths = Dir.glob(attachment_potential_path)
+            attachment_paths.each do |attachment_path|
+              doc = Document.new(file: File.open(attachment_path))
+              purchase.attachments.create!(document: doc)
+            end
           end
           purchase_ids << purchase.id
         end
