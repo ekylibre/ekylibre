@@ -86,7 +86,7 @@ module Backend
       def letter_and_redirect(bank_items, entry_items)
         head :bad_request unless @cash.letter_items(bank_items, entry_items)
 
-        redirect_to backend_bank_reconciliation_items_path(@bank_statement, scroll_to: bank_items.order(transfered_on: :asc).first.id) unless @bank_statement.nil?
+        redirect_to backend_bank_reconciliation_items_path(bank_statement_id: @bank_statement.id, scroll_to: bank_items.order(transfered_on: :asc).first.id) unless @bank_statement.nil?
 
         redirect_to reconciliate_backend_bank_reconciliation_items_path(cash_id: @cash.id, scroll_to: bank_items.order(transfered_on: :asc).first.id, period_start: @period_start, period_end: @period_end) unless @bank_statements.nil?
       end
