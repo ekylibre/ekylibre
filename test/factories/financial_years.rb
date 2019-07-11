@@ -12,6 +12,7 @@ FactoryBot.define do
     stopped_on { started_on + 1.year - 1.day }
     currency { :EUR }
     state { :opened }
+    closed { false }
 
     after(:build) do |year|
       year.code = year.default_code if year.started_on && year.stopped_on && year.code.blank?
