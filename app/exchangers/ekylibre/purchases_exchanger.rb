@@ -160,7 +160,7 @@ module Ekylibre
             nature: PurchaseNature.actives.first,
             description: r.description
           )
-          if @attachments_dir
+          if @attachments_dir.present?
             attachment_potential_path = @attachments_dir.join(purchase.supplier.name.parameterize,
                                                               purchase.reference_number + ".*")
             attachment_paths = Dir.glob(attachment_potential_path)
