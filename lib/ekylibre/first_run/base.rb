@@ -137,7 +137,7 @@ module Ekylibre
       # Check that archive exist if not try to build one if existing file
       # Given files must exist
       def check_archive(nature, target, files, options = {})
-        working_path = @path.join(options[:in] ? options[:in] : '.')
+        working_path = @path.join(options[:in] ? options.delete(:in) : '.')
         target_path = working_path.join(target)
         files = files.each_with_object({}) { |f, h| h[f] = f } if files.is_a?(Array)
         files.each do |dest, source|
