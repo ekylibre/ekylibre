@@ -200,9 +200,12 @@ class Account < Ekylibre::Record::Base
       errors.add(:number, :centralizing_number) if number.match(/\A401|\A411/).present?
       errors.add(:number, :radical_class) if number.match(/\A[1-9]0*\z/).present?
       self.number = Account.normalize(number)
-    elsif auxiliary? && centralizing_account
-      centralizing_account_number = centralizing_account.send(Account.accounting_system)
-      self.number = centralizing_account_number + auxiliary_number
+    elsif auxiliary?
+      self.reconcilable = true
+      if centralizing_account
+        centralizing_account_number = centralizing_account.send(Account.accounting_system)
+        self.number = centralizing_account_number + auxiliary_number
+      end
     end
   end
 
