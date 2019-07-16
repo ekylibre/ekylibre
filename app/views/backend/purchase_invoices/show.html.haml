@@ -18,6 +18,7 @@
 = main_informations attachment: true do
   = attributes_list do |l|
     - l.attribute :supplier, label: :label, url: true
+    - l.attribute :reference_number if resource.reference_number.present?
     - l.attribute :number
     - l.attribute :responsible, label: :full_name
     - l.attribute :created_at
