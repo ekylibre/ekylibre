@@ -1,7 +1,7 @@
 - if parameter.record_list?
   - k.helper do
     %label= parameter.human_name
-    - parameter.foreign_class.all.each do |item|
+    - parameter.foreign_class.all.sort_by(&:name).each do |item|
       %label
         - checked = !params[parameter.name][item.id.to_s].to_i.zero? rescue false
         = hidden_field_tag("#{parameter.name}[#{item.id}]", "0")
