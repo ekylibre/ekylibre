@@ -23,19 +23,19 @@
           window.clearInterval(E.notifications.interval)
 
     triggerAnimation: (notifications) ->
-      displayedNotifications = $('.notification').map ->
-        $(this).data('id')
+      displayedNotifications = ($('.notification').map ->
+        $(this).data('id'))
       .toArray()
 
-      for notification in notifications
-        unless displayedNotifications.includes notification.id
-          $('.notifications-btn__counter').addClass('notifications-btn__counter--animated')
-          break
+      newNotificationReceived = _.find notifications, (n) ->
+        !displayedNotifications.includes n.id
+
+      $('.notifications-btn__counter').addClass('notifications-btn__counter--animated') if newNotificationReceived
 
     displayItems: (notifications) ->
       $('.notifications-menu__item').remove()
-      for notification in notifications
-        $('.notifications-menu__placeholder').after(E.notifications.template notification)
+      notificationsHtml = notifications.reduce ((a, v) => "#{E.notifications.template v}#{a}"), ''
+      $('.notifications-menu__placeholder').after(notificationsHtml)
 
     template: (notification) ->
       "<a href='#{notification.url}' class='notifications-menu__item'>
