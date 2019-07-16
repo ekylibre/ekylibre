@@ -68,6 +68,6 @@ class PurchaseInvoiceTest < Ekylibre::Testing::ApplicationControllerTestCase::Wi
     purchase_item.purchase.reload
     purchase_item.purchase.save!
 
-    assert purchase_item.purchase.reconciliation_state == 'reconcile'
+    assert purchase_item.purchase.reconciliation_state.reconcile?
   end
 end
