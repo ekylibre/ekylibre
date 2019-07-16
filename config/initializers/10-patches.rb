@@ -144,6 +144,13 @@ class ::Hash
     end
   end
 
+  # Hash#crush is a deep compact
+  #
+  # @return [Hash]
+  def crush
+    compact.transform_values { |v| v.is_a?(Hash) ? v.crush : v }
+  end
+
   # Build a struct from the hash
   def to_struct
     OpenStruct.new(self)
