@@ -1199,13 +1199,13 @@ fra:
     capitals: "Capital social"
     capitals_anew_reports: "Report à nouveau"
     capitals_derogatory_depreciations: "Amortissements dérogatoires"
-    capitals_emissions_and_reevaluation_gaps: "Primes d'émissions, fusion, d'apport et écart de réévaluation"
-    capitals_investment_subsidies: "SUbventions d'investissemnts"
+    capitals_emissions_and_reevaluation_gaps: "Primes d'émission, fusion, d'apport et écarts de réévaluation"
+    capitals_investment_subsidies: "Subventions d'investissements"
     capitals_liability_reserves: "Réserves"
     capitals_mandatory_provisions: "Provisions réglementées"
     capitals_profit_or_loss: "Résultat de l'exercice"
     capitals_risk_and_charges_provisions: "Provisions pour risques et charges"
-    capitals_values: "Capitals"
+    capitals_values: "Capital"
     care: "soins" #?
     cartography: "Cartographie"
     cash: "Trésorerie"
@@ -1577,7 +1577,7 @@ fra:
     exceptional_expenses_on_assets_cessions: "Charges comptables des élèments d'actif"
     exceptional_expenses_on_capital_operations: "Autres charges exceptionnelles sur opérations en capital"
     exceptional_expenses_on_management_operations: "Charges exceptionnelles sur opérations de gestion"
-    exceptional_expenses_on_provisions: "Dotations aux ammortissements, dépréciations et provisions"
+    exceptional_expenses_on_provisions: "Dotations aux amortissements, dépréciations et provisions"
     exceptional_products: "Produits exceptionnels"
     exceptional_products_on_assets_cessions: "Produits de cessions d'élèments d'actif"
     exceptional_products_on_capital_operations: "Autres produits exceptionnels sur opérations en capital"
@@ -1645,19 +1645,19 @@ fra:
     filter_entries_with: "Filtrer les écritures avec" #?
     filter_on: "Filtrer sur"
     final_balance: "Solde final"
-    financial_asset_dotations: "Dotations aux ammortissemnts, dépréciations et provisions"
+    financial_asset_dotations: "Dotations aux amortissements, dépréciations et provisions"
     financial_assets: "Immobilisations financières"
     financial_assets_others: "Autres"
     financial_assets_participations: "Participations"
     financial_assets_participations_debts: "Créances rattachées à des participations"
     financial_debts: "Valeurs mobilières et créances de l'actif immobilisé"
-    financial_depreciations: "Reprises sur depreciations et provisions, transferts de charges"
+    financial_depreciations: "Reprises sur dépréciations et provisions, transferts de charges"
     financial_expenses: "Charges financières"
     financial_interests_and_charges: "Intérêts et charges assimilées"
     financial_negative_change: "Différences négatives de change"
     financial_net_cession_debts: "Charges nettes sur cessions de valeurs mobilières de placement"
     financial_net_cession_values: "Produits nets sur cessions de valeurs mobilières de placement"
-    financial_others_interests: "Autres intérêts et produits assimilées"
+    financial_others_interests: "Autres intérêts et produits assimilés"
     financial_participations: "Participations"
     financial_positive_change: "Différences positives de change"
     financial_products: "Produits financiers"
@@ -1682,8 +1682,8 @@ fra:
     first_contact: "Adresse principale" #?
     first_line_as_title: "Titre en première ligne"
     fixed_asset_debts: "Dettes sur immobilisations"
-    fixed_asset_depreciations: "Ammortissements"
-    fixed_asset_depreciations_not_accounted_on_current_financial_year: "Des ammortissements n'ont pas été passés en comptabilité sur l'exercice %{code}"
+    fixed_asset_depreciations: "Amortissements"
+    fixed_asset_depreciations_not_accounted_on_current_financial_year: "Des amortissements n'ont pas été passés en comptabilité sur l'exercice %{code}"
     fixed_asset_successfully_associated_to_sale: "L'immobilisation a été rattachée à la vente avec succès. Cliquez à nouveau sur 'Vendue' pour continuer la procédure."
     fixed_assets: "Immobilisations"
     forecast_harvest_week: "Semaine de récolte"
@@ -2309,14 +2309,14 @@ fra:
     productions_map: "Carte des productions" #?
     productions_sales: "Ventes de biens"
     products: "Produits"
-    products_purchases: "Approvisionnement"
+    products_purchases: "Approvisionnements"
     products_sales: "Ventes de marchandises"
     products_total: "Total des produits (I + III + V)"
     profile: "Profil"
     profit_and_loss: "Produits et charges"
     profit_is_x_for_account: "<span class='profit'> Bénéfice de %{x} </span> à comptabiliser sur le compte %{account_number}"
     profit_or_loss: "Résultat de l’exercice"
-    profit_taxe: "Impots sur les bénéfices (IS)"
+    profit_taxe: "Impôts sur les bénéfices (IS)"
     profitability: "Rentabilité" #?
     profits: "Produits d’exploitation"
     profits_and_losses: "Les profits et pertes"
@@ -2550,6 +2550,7 @@ fra:
     service_deliveries: "Prestations de services"
     service_delivering: "Prestation de service"
     services_sale: "Vente de services"
+    services_sales: "Vente de services"
     sessions: "Sessions"
     set_reconcilable_new_but_existing_third_accounts: "Rendre lettrables les nouveaux comptes tiers déjà existants"
     settings: "Configuration"
@@ -2708,7 +2709,8 @@ fra:
     total_earn_per_working_unit: "Gain total par unité d’œuvre" #?
     total_invoiced_amount: "Total montant facturé" #?
     total_paid_amount: "Montant total payé" #?
-    total_passif: "Total passif"
+    total_actif: "Montant Total (Actif)"
+    total_passif: "Montant Total (Passif)"
     total_pretax_expenses: "Dépenses (HT)"
     total_pretax_revenues: "Revenus (HT)"
     total_quantity: "Quantité totale"
@@ -2798,7 +2800,7 @@ fra:
     unparted: "Non affectés" #?
     unreceived: "Non reçus" #?
     unset_reconcilable_old_third_accounts: "Rendre non-lettrables les anciens comptes tiers"
-    unsubcribed_capital: "Capital non appellé"
+    unsubcribed_capital: "Capital non appelé"
     until: "jusqu'au"
     unused_payment: "Encaissement à utiliser" #?
     unvalid_date: "Date incorrecte" #?
