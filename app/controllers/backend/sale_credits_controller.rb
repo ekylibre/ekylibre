@@ -31,11 +31,18 @@ module Backend
       attributes[:credit] = true
       attributes[:credited_sale_id] = @credited_sale.id
       @sale_credit = Sale.new(attributes)
-      if @sale_credit.save
+      sale_credit_process = false
+
+      ActiveRecord::Base.transaction do
+        @sale_credit.save
         @sale_credit.reload
         @sale_credit.propose!
         @sale_credit.confirm!
         @sale_credit.invoice!
+        sale_credit_process = true
+      end
+
+      if sale_credit_process
         redirect_to controller: :sales, action: :show, id: @sale_credit
       else
         render :new
