@@ -573,10 +573,6 @@ module ApplicationHelper
     url_for(controller: :dashboards, action: menu)
   end
 
-  def doctype_tag
-    '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">'.html_safe
-  end
-
   def search_results(search, _options = {}, &block)
     content_tag(:div, class: :search) do
       # Show results
@@ -926,6 +922,8 @@ module ApplicationHelper
 
   # Wraps a label and its input in a standard wrapper
   def field(label, input = nil, options = {}, &block)
+    ActiveSupport::Deprecation.warn('field helper is deprecated, its time to switch to form objects!')
+
     options[:label] ||= {}
     options[:controls] ||= {}
 
