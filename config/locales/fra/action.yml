@@ -3167,6 +3167,7 @@ fra:
       integrate_tools_you_are_using_every_day: "Intégrez les outils que vous utilisez tous les jours"
       invalid_file_nature: "Type de fichier invalide" #?
       invalid_reference_name: "Référence invalide"
+      inventory_reflection_in_progress: "L'inventaire est en cours de reflètement, vous serez notifié(e) une fois le processus terminé. D'ici là, vous pouvez continuer à utiliser l'application."
       journal_closed_on: "Le %{journal} a été clôturé au %{closed_on} correctement."
       journal_entries_imported: "Les écritures ont été importées correctement."
       journal_entry_already_validated: "L’écriture a déjà été validée et ne peut plus être modifiée"

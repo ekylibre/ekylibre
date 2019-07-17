@@ -14,9 +14,9 @@ module Backend
       end
 
       def reconciliate
-        return unless find_bank_statements
+        return unless cash = find_cash
+        return unless find_bank_statements cash
 
-        cash = Cash.find(params[:cash_id])
         cash = cash.first if cash.is_a?(Array)
         set_period!
 
@@ -32,7 +32,8 @@ module Backend
       end
 
       def count
-        return unless find_bank_statements
+        return unless cash = find_cash
+        return unless find_bank_statements cash
 
         set_period!
 
@@ -45,14 +46,16 @@ module Backend
 
       private
 
-      def find_bank_statement
-        @bank_statement = BankStatement.find_by(id: params[:bank_statement_id])
-        @bank_statement || (head(:bad_request) && nil)
+      def find_cash
+        find_and_check :cash, params[:cash_id]
       end
 
-      def find_bank_statements
-        @bank_statements = BankStatement.where(cash: params[:cash_id])
-        @bank_statements || (head(:bad_request) && nil)
+      def find_bank_statement
+        @bank_statement = find_and_check :bank_statement, params[:bank_statement_id]
+      end
+
+      def find_bank_statements(cash)
+        @bank_statements = BankStatement.where(cash: cash.id) || redirect_to_back
       end
 
       def reconciliate_one(bank_statement)
@@ -75,10 +78,13 @@ module Backend
         @period_end   = @bank_statement.stopped_on + 20.days if params[:bank_statement_id].present?
 
         %i[start end].each do |boundary|
-          next unless params[:"period_#{boundary}"]
+          next unless params[:"period_#{boundary}"].present?
           date = Date.strptime(params[:"period_#{boundary}"], '%Y-%m-%d')
           instance_variable_set("@period_#{boundary}", date)
         end
+
+        @period_start ||= (Date.today - 20.days).at_beginning_of_month
+        @period_end ||= Date.today
       end
 
       def no_entries
