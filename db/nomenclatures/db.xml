@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20190620092151">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20190718130243">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -323,7 +323,7 @@
       <item name="maintenances_consumables_expenses" fr_pcga="6022" fr_pcg82="6022"/>
       <item name="maintenances_consumables_stock" fr_pcga="3022" fr_pcg82="3022"/>
       <item name="maintenances_consumables_stocks_variation" fr_pcga="60322"/>
-      <item name="making_services_expenses" fr_pcga="605" fr_pcg82="NONE"/>
+      <item name="making_services_expenses" fr_pcga="605" fr_pcg82="604"/>
       <item name="making_services_revenues" fr_pcga="7084" fr_pcg82="7084"/>
       <item name="management_operation_exceptional_expenses" fr_pcga="671" fr_pcg82="671"/>
       <item name="management_operation_exceptional_revenues" fr_pcg82="771" fr_pcga="771"/>
@@ -472,7 +472,6 @@
       <item name="service_animal_asset_depreciations" fr_pcga="2843" fr_pcg82="2843"/>
       <item name="service_animal_assets" fr_pcga="243" fr_pcg82="243"/>
       <item name="service_discount_and_reductions_expenses" fr_pcg82="619" fr_pcga="619"/>
-      <item name="services_expenses" fr_pcg82="604" fr_pcga="604"/>
       <item name="services_revenues" fr_pcg82="706" fr_pcga="706"/>
       <item name="share_asset_subsidies" fr_pcga="777" fr_pcg82="777"/>
       <item name="share_capital_bonus" fr_pcg82="104" fr_pcga="104"/>
