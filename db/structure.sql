@@ -19029,7 +19029,7 @@ INSERT INTO schema_migrations (version) VALUES ('20190325145542');
 
 INSERT INTO schema_migrations (version) VALUES ('20190329164621');
 
-INSERT INTO schema_migrations (version) VALUES ('201904291110001');
+INSERT INTO schema_migrations (version) VALUES ('20190429111000');
 
 INSERT INTO schema_migrations (version) VALUES ('20190502082326');
 
@@ -19051,7 +19051,7 @@ INSERT INTO schema_migrations (version) VALUES ('20190614123521');
 
 INSERT INTO schema_migrations (version) VALUES ('20190617200314');
 
-INSERT INTO schema_migrations (version) VALUES ('201906190217143');
+INSERT INTO schema_migrations (version) VALUES ('20190619021714');
 
 INSERT INTO schema_migrations (version) VALUES ('20190712124724');
 
