@@ -156,7 +156,7 @@ module ToolbarHelper
 
     safe_html = html.html_safe
     unless options[:wrap].is_a?(FalseClass)
-      safe_html = content_tag(:div, safe_html, class: ['toolbar', options.fetch(:class, [])].flatten)
+      safe_html = content_tag(:div, safe_html, class: ['toolbar', 'toolbar-wrapper', options.fetch(:class, [])].flatten)
     end
 
     safe_html
