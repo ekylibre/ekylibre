@@ -831,7 +831,7 @@ module ApplicationHelper
       noko = Nokogiri::HTML.fragment(html)
       wrapper = noko.children.select { |e| e.matches?(".toolbar-wrapper") }.first
       other_content = noko.children.select { |e| e.matches?(":not(.toolbar-wrapper)") }
-      other_content.each { |node| wrapper.add_child node }
+      other_content.each { |node| wrapper.add_child node } if wrapper
       noko.to_html.html_safe
     end
   end
