@@ -1335,6 +1335,7 @@ eng:
     close_settings: "Close settings" #?!
     close_the_financial_year: "Close the financial year" #??
     closed: "Closed" #?
+    clouds: "Clouds"
     cobbles: "Cobbles" #?
     column: "Column"
     columns: "Columns to import"
@@ -1669,6 +1670,7 @@ eng:
     hours_label: "Hours"
     human_working_duration: "Working duration" #?
     humans: "HR"
+    humidity: "Humidity"
     iban: "International Bank Account Number (IBAN)" #?
     identification: "Identification"
     identifiers: "Identifiers"
@@ -2029,6 +2031,7 @@ eng:
     prerequisites_checks_before_closure: "Prerequisites checks before closure" #?!
     prescription: "Prescription" #?
     prescriptions: "Prescriptions" #?
+    pressure: "Pressure"
     pretax: "pre-tax"
     pretax_amount: "Pre-tax amount"
     previous: "Previous"
