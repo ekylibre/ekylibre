@@ -18,7 +18,7 @@
 
 module Backend
   class ActivityProductionsController < Backend::BaseController
-    manage_restfully(t3e: { name: :name }, creation_t3e: true, except: :index)
+    manage_restfully(t3e: { name: :name }, creation_t3e: true, except: [:index, :show])
 
     unroll :rank_number, activity: :name, support: :name
 
@@ -28,6 +28,18 @@ module Backend
 
     before_action only: :new do
       redirect_to backend_activity_productions_path if params[:activity_id].nil? || params[:campaign_id].nil?
+    end
+
+    def show
+      return unless @activity_production = find_and_check(:activity_production)
+      if @activity_production.destroyable?
+        notify(:contact_support_service_to_delete_your_production)
+      end
+      respond_to do |format|
+        format.html { t3e(@activity_production.attributes.merge(name: (@activity_production.name))) }
+        format.xml  { render xml:  @activity_production }
+        format.json
+      end
     end
 
     # List interventions for one production support
