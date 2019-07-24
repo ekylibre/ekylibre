@@ -1,6 +1,5 @@
 - main_toolbar do |t|
   = t.edit resource
-  = t.destroy
 
 = main_informations attachment: true do
   - if resource.plant_farming? && (resource.support.is_a?(LandParcel) || resource.support.is_a?(Plant))
