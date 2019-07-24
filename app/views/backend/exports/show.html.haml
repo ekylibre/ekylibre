@@ -32,7 +32,7 @@
       = render "parameter", parameter: parameter, k: k
 
   - main_toolbar do |t|
-    = t.export @aggregator.class.aggregator_name, key: :key, resource: @aggregator
+    = t.export @aggregator.class.aggregator_name, key: :key, resource: @aggregator, class: @btn_class
 
   - if current_user.preference(User::PREFERENCE_SHOW_EXPORT_PREVIEW).value
     .aggregator= @aggregator.to_html_fragment
