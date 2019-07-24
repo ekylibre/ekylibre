@@ -1,7 +1,7 @@
-image: docker:stable
+image: docker:18
 
 services:
-  - docker:dind
+  - docker:18-dind
 
 variables:
   DOCKER_HOST: tcp://localhost:2375
