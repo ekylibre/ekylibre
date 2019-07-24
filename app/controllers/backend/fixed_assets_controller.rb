@@ -119,7 +119,7 @@ module Backend
       @sale_items = SaleItem.linkable_to_fixed_asset.invoiced_on_or_after(@fixed_asset.started_on)
       @sale_items = @sale_items.where(variant: @fixed_asset.product.variant) if @fixed_asset.product
 
-      notify_warning_now(:cannot_change_to_in_use_state) if
+      notify_warning_now(:cannot_change_to_in_use_state) if @fixed_asset.state != 'in_use' && FinancialYear.opened.last.stopped_on < @fixed_asset.started_on
 
       notify_warning_now(:closed_financial_periods) unless @fixed_asset.on_unclosed_periods?
       respond_with(@fixed_asset, methods: %i[net_book_value duration],

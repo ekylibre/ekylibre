@@ -2858,7 +2858,7 @@ fra:
       bookkeeping_is_finished: "La bascule en comptabilité est finie."
       bookkeeping_works_only_with: "La bascule en comptabilité ne peut se faire actuellement que pour\_: %{list}."
       cannot_add_bank_statement_item: "Vous ne pouvez pas ajouter de nouvelle ligne parce que vous n’avez pas de relevé bancaire ce jour-là."
-      cannot_change_to_in_use_state: "Vous ne pouvez pas passer une immobilisation à 'en service' sans exercice comptable à la date actuelle"
+      cannot_change_to_in_use_state: "Vous ne pouvez pas passer cette immobilisation à 'en service' car sa date de début doit se situer avant la date de fin du dernier exercice comptable ouvert"
       cannot_delete_entity: "Il n’est pas possible de supprimer cette fiche car elle possède un historique comptable" #?
       cannot_find_deal_to_attach: "Impossible de trouver la transaction à rattacher"
       cannot_find_deal_to_detach: "Impossible de trouver la transaction à détacher"
