@@ -1236,6 +1236,7 @@ fra:
     close_the_financial_year: "Clôturer l’exercice"
     closed: "Verrouillées"
     clostridial_spores_concentration: "Concentration en spores butyriques" #?
+    clouds: "Couverture nuageuse"
     clusters_work_number: "Numéro d’ilot(s)" #?
     cobbles: "Pavés"
     column: "Donnée"
@@ -1652,6 +1653,7 @@ fra:
     human_working_duration: "Temps de travail"
     human_working_zone_area: "Zone travaillée" #?
     humans: "RH"
+    humidity: "Humidité"
     iban: "Numéro de compte bancaire internationale (IBAN)"
     identification: "Identification"
     identifiers: "Identifiants"
@@ -2141,6 +2143,7 @@ fra:
     prerequisites_checks_before_closure: "Vérifications préalables à la clôture"
     prescription: "Prescription"
     prescriptions: "Prescriptions"
+    pressure: "Pression"
     pretax: "HT"
     pretax_amount: "Montant HT"
     previous: "Précédent"

@@ -6,15 +6,16 @@ module Backend
         openweathermap_api_key = Identifier.find_by(nature: :openweathermap_api_key)
 
         coordinates = params[:centroid]
-        
+
         # We try to get weather from cultivable zones
         coordinates ||= CultivableZone.geom_union(:shape).centroid
 
+        # We use the 5days forecast free from openwheathermap
         if coordinates.present? && openweathermap_api_key
           http = Net::HTTP.new('api.openweathermap.org')
           http.open_timeout = 3
           http.read_timeout = 3
-          res = http.get("/data/2.5/forecast/daily?lat=#{coordinates.first}&lon=#{coordinates.second}&cnt=14&mode=json&APPID=#{openweathermap_api_key.value}")
+          res = http.get("/data/2.5/forecast?lat=#{coordinates.first}&lon=#{coordinates.second}&mode=json&APPID=#{openweathermap_api_key.value}")
 
           json = begin
                    JSON.parse(res.body)
@@ -28,16 +29,16 @@ module Backend
                 day.deep_symbolize_keys!
                 {
                   at: Time.zone.at(day[:dt]),
-                  temperatures: %i[day night min max eve morn].each_with_object({}) do |key, hash|
-                    hash[key] = (day[:temp][key] || 0).in_kelvin
+                  temperatures: %i[temp temp_min temp_max].each_with_object({}) do |key, hash|
+                    hash[key] = (day[:main][key] || 0).in_kelvin
                     hash
                   end,
-                  pressure: day[:pressure].in_hectopascal,
-                  humidity: (day[:humidity] || 0).in_percent,
-                  wind_speed: (day[:speed] || 0).in_meter_per_second,
-                  wind_direction: (day[:deg] || 0).in_degree,
-                  rain: (day[:rain] || 0).in_millimeter,
-                  clouds: (day[:rain] || 0).in_percent,
+                  pressure: day[:main][:pressure].in_hectopascal,
+                  humidity: (day[:main][:humidity] || 0).in_percent,
+                  wind_speed: (day[:wind][:speed] || 0).in_meter_per_second,
+                  wind_direction: (day[:wind][:deg] || 0).in_degree,
+                  #rain: (day[:rain] || 0).in_millimeter,
+                  clouds: (day[:clouds][:all] || 0).in_percent,
                   # weather: day[:weather]
                 }
               end
