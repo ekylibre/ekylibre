@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/ekylibre/docker-base-images/ruby2.3:master
+FROM registry.gitlab.com/ekylibre/docker-base-images/ruby2.3:1.0
 
 RUN mkdir /app
 WORKDIR /app
