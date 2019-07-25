@@ -185,12 +185,12 @@ module ApplicationHelper
   # Re-writing of link_to helper
   def link_to(*args, &block)
     if block_given?
-      options      = args.first || {}
+      options = args.first || {}
       html_options = args.second
       link_to(capture(&block), options, html_options)
     else
-      name         = args[0]
-      options      = args[1] || {}
+      name = args[0]
+      options = args[1] || {}
       html_options = args[2] || {}
 
       if options.is_a?(Hash) && !authorized?(options)
@@ -371,7 +371,7 @@ module ApplicationHelper
       yield attribute_list
     end
     if resource.customizable? && !options[:custom_fields].is_a?(FalseClass) &&
-       !attribute_list.items.detect { |item| item[0] == :custom_fields }
+      !attribute_list.items.detect { |item| item[0] == :custom_fields }
       attribute_list.custom_fields
     end
     unless options[:stamps].is_a?(FalseClass)
@@ -407,6 +407,7 @@ module ApplicationHelper
 
   class AttributesList
     attr_reader :items
+
     def initialize(object)
       @items = []
       @object = object
@@ -445,8 +446,8 @@ module ApplicationHelper
     class_attribute << ' sr-only' if name.blank?
     class_attribute << ' icn btn-' + options[:icon].to_s if options[:icon]
     content_tag(:button, name, class: class_attribute,
-                               data: { toggle: 'dropdown', disable_with: options[:disable_with] },
-                               aria: { haspopup: 'true', expanded: 'false' })
+                data: { toggle: 'dropdown', disable_with: options[:disable_with] },
+                aria: { haspopup: 'true', expanded: 'false' })
   end
 
   def dropdown_menu(items)
@@ -570,10 +571,6 @@ module ApplicationHelper
   def last_page(menu)
     # session[:last_page][menu.to_s]||
     url_for(controller: :dashboards, action: menu)
-  end
-
-  def doctype_tag
-    '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">'.html_safe
   end
 
   def search_results(search, _options = {}, &block)
@@ -823,10 +820,14 @@ module ApplicationHelper
     link_to(name, url, options)
   end
 
-  def toolbar_tag(name)
+  def toolbar_tag(name, wrap: true)
     toolbar = "#{name}_toolbar".to_sym
-    if content_for?(toolbar)
-      return content_tag(:div, content_for(toolbar), class: "#{name.to_s.parameterize}-toolbar toolbar")
+    return unless content_for?(toolbar)
+
+    if wrap.is_a? TrueClass
+      content_tag(:div, content_for(toolbar), class: "#{name.to_s.parameterize}-toolbar toolbar")
+    else
+      content_for(toolbar)
     end
   end
 
@@ -847,12 +848,12 @@ module ApplicationHelper
 
   # Build the main toolbar
   def main_toolbar_tag
-    toolbar_tag(:main)
+    toolbar_tag(:main, wrap: false)
   end
 
   # Create the main toolbar with the same API as toolbar
-  def main_toolbar(options = {}, &block)
-    content_for(:main_toolbar, toolbar(options.merge(wrap: false, name: :main), &block))
+  def main_toolbar(**options, &block)
+    content_for(:main_toolbar, toolbar({class: 'main-toolbar', **options}, &block))
     nil
   end
 
@@ -920,13 +921,23 @@ module ApplicationHelper
   end
 
   # Wraps a label and its input in a standard wrapper
-  def field(label, input, options = {}, &block)
+  def field(label, input = nil, options = {}, &block)
+    ActiveSupport::Deprecation.warn('field helper is deprecated, its time to switch to form objects!')
+
     options[:label] ||= {}
     options[:controls] ||= {}
 
+    if block_given?
+      content = capture &block
+    elsif input.is_a? Hash
+      content = field_tag input
+    else
+      content = input
+    end
+
     content_tag(:div,
-                content_tag(:label, label, class: "control-label #{options[:label].key?(:class) ? options[:label][:class] : ''}") +
-                content_tag(:div, (block_given? ? capture(&block) : input.is_a?(Hash) ? field_tag(input) : input), class: "controls #{options[:controls].key?(:class) ? options[:controls][:class] : ''}"),
+                content_tag(:label, label, class: "control-label #{options[:label].fetch(:class, '')}") +
+                  content_tag(:div, content, class: "controls #{options[:controls].fetch(:class, '')}"),
                 class: 'control-group')
   end
 
@@ -936,17 +947,15 @@ module ApplicationHelper
     name = args.shift || 'general-informations'.to_sym
     buttons = [options[:buttons] || []].flatten
     buttons << link_to('', '#', :class => 'toggle', 'data-toggle' => 'fields')
-    class_names = 'fieldset ' + name.to_s + (options[:class] ? ' ' + options[:class].to_s : '')
-    class_names << (options[:collapsed] ? ' collapsed' : ' not-collapsed')
+    classes = ['fieldset', name.to_s, options.fetch(:class, [])].flatten
+    classes << (options[:collapsed] ? ' collapsed' : ' not-collapsed')
     name_sym = name.to_s.tr('-', '_').to_sym
     wrap(content_tag(:div,
                      content_tag(:div,
                                  link_to(content_tag(:i) + h(name.is_a?(Symbol) ? name_sym.tl(default: ["form.legends.#{name_sym}".to_sym, "attributes.#{name_sym}".to_sym, name_sym.to_s.humanize]) : name.to_s), '#', :class => 'title', 'data-toggle' => 'fields') +
-                                 content_tag(:span, buttons.join.html_safe, class: :buttons),
+                                   content_tag(:span, buttons.join.html_safe, class: :buttons),
                                  class: 'fieldset-legend') +
-                     content_tag(:div, capture(&block), class: options[:fields_class]), class: class_names, id: name), options[:in])
-
-    # "#{name}-fieldset"
+                     content_tag(:div, capture(&block), class: options[:fields_class]), class: classes, id: name), options[:in])
   end
 
   def wrap(html, *levels)
@@ -1101,7 +1110,7 @@ module ApplicationHelper
 
   def no_turbolink?
     if content_for(:no_turbolink)
-      { data: { no_turbolink: true }}
+      { data: { no_turbolink: true } }
     else
       { data: nil }
     end
@@ -1109,14 +1118,14 @@ module ApplicationHelper
 
   private
 
-  def default_evening_options(options)
-    defaults = {}
-    defaults[:filler_tag]     = options[:filler_tag]      || :div
-    defaults[:filler_class]   = options[:filler_class]    || :"even-filler"
-    defaults[:filler_content] = options[:filler_content]  || nil
+    def default_evening_options(options)
+      defaults = {}
+      defaults[:filler_tag] = options[:filler_tag] || :div
+      defaults[:filler_class] = options[:filler_class] || :"even-filler"
+      defaults[:filler_content] = options[:filler_content] || nil
 
-    defaults[:cell_tag]       = options[:cell_tag]        || :div
-    defaults[:cell_class]     = options[:cell_class]      || :"even-cell"
-    defaults
-  end
+      defaults[:cell_tag] = options[:cell_tag] || :div
+      defaults[:cell_class] = options[:cell_class] || :"even-cell"
+      defaults
+    end
 end

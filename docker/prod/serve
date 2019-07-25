@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -e
+
+echo "== STARTING UNICORN... =="
+bundle exec unicorn -c config/unicorn.rb

@@ -18,7 +18,7 @@
 
 require 'test_helper'
 module Backend
-  class SubscriptionNaturesControllerTest < ActionController::TestCase
+  class SubscriptionNaturesControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     # TODO: Re-activate #show test
     test_restfully_all_actions # show: :redirected_get
   end

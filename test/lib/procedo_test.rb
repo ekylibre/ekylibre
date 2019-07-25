@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ProcedoTest < ActiveSupport::TestCase
+class ProcedoTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   setup do
     I18n.locale = ENV['LOCALE']
   end

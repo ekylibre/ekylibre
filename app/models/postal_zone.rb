@@ -49,7 +49,7 @@ class PostalZone < Ekylibre::Record::Base
   validates :country, length: { allow_nil: true, maximum: 2 }
 
   before_validation do
-    self.name = name.gsub(/\s+/, ' ').strip
+    self.name = name.gsub(/\s+/, ' ').strip if name
     words = name.to_s.split(' ')
     start = (words[0].to_s.ascii.length <= 3 ? 2 : 1)
     self.postal_code = ''

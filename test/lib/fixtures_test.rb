@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class FixturesTest < ActiveSupport::TestCase
+class FixturesTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Checks the validity of references files for models
   Ekylibre::Schema.models.sort.each do |model_name|
     test "fixtures of #{model_name}" do

@@ -51,7 +51,7 @@
 
 require 'test_helper'
 
-class PurchasePaymentTest < ActiveSupport::TestCase
+class PurchasePaymentTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
   test 'create without mode' do

@@ -36,6 +36,6 @@
 #
 require 'test_helper'
 
-class TargetDistributionTest < ActiveSupport::TestCase
+class TargetDistributionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

@@ -60,6 +60,6 @@
 #
 require 'test_helper'
 
-class PurchaseOrderTest < ActiveSupport::TestCase
+class PurchaseOrderTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

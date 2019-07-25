@@ -1,6 +1,6 @@
 require 'test_helper'
 module Backend
-  class NamingFormatLandParcelsControllerTest < ActionController::TestCase
+  class NamingFormatLandParcelsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions except: %i[index create update destroy show]
 
     test 'action index' do

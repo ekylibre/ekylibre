@@ -39,7 +39,7 @@
 
 require 'test_helper'
 
-class CatalogTest < ActiveSupport::TestCase
+class CatalogTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

@@ -70,7 +70,7 @@
 
 require 'test_helper'
 
-class SaleTest < ActiveSupport::TestCase
+class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
   setup do

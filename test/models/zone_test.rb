@@ -87,7 +87,7 @@
 #
 require 'test_helper'
 
-class ZoneTest < ActiveSupport::TestCase
+class ZoneTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

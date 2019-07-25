@@ -18,7 +18,7 @@
 
 require 'test_helper'
 module Backend
-  class LandParcelsControllerTest < ActionController::TestCase
+  class LandParcelsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions except: %i[update_many edit_many]
   end
 end

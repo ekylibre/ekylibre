@@ -1,7 +1,7 @@
 require 'test_helper'
 module Backend
   module Cells
-    class MapCellsControllerTest < ActionController::TestCase
+    class MapCellsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
       test_restfully_all_actions except: :update
     end
   end

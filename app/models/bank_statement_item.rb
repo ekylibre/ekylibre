@@ -45,7 +45,7 @@ class BankStatementItem < Ekylibre::Record::Base
   has_one :cash, through: :bank_statement
   has_one :journal, through: :cash
 
-  delegate :started_on, :stopped_on, to: :bank_statement
+  delegate :started_on, :stopped_on, to: :bank_statement, allow_nil: true
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :credit, :debit, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }

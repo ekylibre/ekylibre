@@ -40,7 +40,7 @@
 #
 require 'test_helper'
 
-class ImportTest < ActiveSupport::TestCase
+class ImportTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

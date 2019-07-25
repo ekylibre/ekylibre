@@ -40,6 +40,6 @@
 #
 require 'test_helper'
 
-class MasterEquipmentCostTest < ActiveSupport::TestCase
+class MasterEquipmentCostTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

@@ -49,6 +49,7 @@ class Inventory < Ekylibre::Record::Base
   refers_to :currency
   belongs_to :responsible, -> { contacts }, class_name: 'Entity'
   has_many :items, class_name: 'InventoryItem', dependent: :destroy, inverse_of: :inventory
+  has_many :item_variants, -> { uniq }, through: :items, source: :variant
   belongs_to :journal_entry, dependent: :destroy
   belongs_to :financial_year
   belongs_to :product_nature_category
@@ -74,52 +75,16 @@ class Inventory < Ekylibre::Record::Base
   end
 
   #          Mode Inventory     |     Debit                      |            Credit            |
-  #     exchange current balance|    - balance (3X)              |   - balance (603X/71X)       |
   #     physical inventory      |    stock(3X)                   |   stock_movement(603X/71X)   |
-  bookkeep do |b|
-    journal = Journal.find_or_create_by!(name: :stocks.tl, nature: :various, used_for_permanent_stock_inventory: true)
-
-    # get all variants corresponding to current items
-    variants = ProductNatureVariant.where(id: Product.where(id: items.pluck(:product_id)).pluck(:variant_id).uniq)
-    b.journal_entry(journal, printed_on: printed_at.to_date, if: (financial_year && reflected?)) do |entry|
-      if journal.entries.any?
-        first_started_at = journal.entries.reorder(:printed_on).first.printed_on.to_time
-      end
-      fy_started_at = first_started_at || financial_year.started_on.to_time
-      fy_stopped_at = financial_year.stopped_on.to_time
-      variants.each do |variant|
-        # for all items of current variant (if storable)
-        next unless variant.storable? && variant.stock_account && variant.stock_movement_account
-
-        s = variant.stock_account
-        sm = variant.stock_movement_account
-
-        # step 1 : neutralize last current stock in stock journal for current variant
-        # by exchanging the current balance
-        label = tc(:bookkeep_exchange, resource: self.class.model_name.human, number: number)
-        entry.add_credit(label, sm.id, sm.journal_entry_items_calculate(:balance, fy_started_at, fy_stopped_at), resource: variant, as: :stock_movement_reset, variant: variant)
-        entry.add_credit(label, s.id, s.journal_entry_items_calculate(:balance, fy_started_at, fy_stopped_at), resource: variant, as: :stock_reset, variant: variant)
-
-        # step 2 : record inventory stock in stock journal
-        # TODO update methods to evaluates price stock or open unit_pretax-
-        # stock_amount field to the user during inventory
-        # build the global value of the stock for each item
-        stock_amount = items.of_variant(variant).map(&:actual_pretax_stock_amount).compact.sum
-        # bookkeep step 2
-        next if stock_amount.zero?
-        label = tc(:bookkeep, resource: self.class.model_name.human, number: number)
-        entry.add_credit(label, sm.id, stock_amount, resource: variant, as: :stock, variant: variant)
-        entry.add_debit(label, s.id, stock_amount, resource: variant, as: :stock_movement, variant: variant)
-      end
-    end
-  end
+  bookkeep
 
   def printed_at
-    (reflected? ? reflected_at : achieved_at? ? self.achieved_at : created_at)
+    ActiveSupport::Deprecation.warn('Directly use achieved_at')
+    achieved_at
   end
 
   protect do
-    old_record.reflected?
+    old_record.reflected? && old_record.journal_entry && !old_record.journal_entry.draft?
   end
 
   def reflectable?
@@ -140,8 +105,12 @@ class Inventory < Ekylibre::Record::Base
     self.reflected_at = Time.zone.now
     self.reflected = true
     return false unless valid? && items.all?(&:valid?)
-    save
-    items.find_each(&:save)
+
+    Ekylibre::Record::Base.transaction do
+      save!
+      items.find_each(&:save!)
+    end
+
     true
   end
 

@@ -29,6 +29,6 @@
 #
 require 'test_helper'
 
-class RegisteredSeedTest < ActiveSupport::TestCase
+class RegisteredSeedTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

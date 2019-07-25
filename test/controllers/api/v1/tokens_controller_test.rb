@@ -1,7 +1,7 @@
 require 'test_helper'
 module Api
   module V1
-    class TokensControllerTest < ActionController::TestCase
+    class TokensControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
       # test_restfully_all_actions
 
       test 'create' do

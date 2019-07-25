@@ -922,7 +922,6 @@
           width: $cell-height;
           @include border-radius(50%);
           border: 1px solid #333;
-          position: absolute;
           margin-top: 3px;
         }
         .leaflet-categories-item_label {

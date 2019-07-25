@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class RestfullyManageableTest < ActionController::TestCase
+class RestfullyManageableTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
   Model = Class.new do
     def self.columns_definition
       { 'id' => "whatever" }

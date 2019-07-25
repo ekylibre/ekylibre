@@ -36,7 +36,7 @@
 #
 require 'test_helper'
 
-class CapStatementTest < ActiveSupport::TestCase
+class CapStatementTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

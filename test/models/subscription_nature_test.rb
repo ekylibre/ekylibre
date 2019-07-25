@@ -34,7 +34,7 @@
 
 require 'test_helper'
 
-class SubscriptionNatureTest < ActiveSupport::TestCase
+class SubscriptionNatureTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end
