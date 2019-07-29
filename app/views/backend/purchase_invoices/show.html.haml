@@ -1,19 +1,18 @@
 = content_for(:heading_toolbar) do
-  - if @purchase_invoice.reception_items.any?(&:non_compliant)
-    = purchase_invoice_incident_badge(@purchase_invoice)
-  = purchase_reconciliation_state(@purchase_invoice, print_both: true)
+  = purchase_invoice_badges @purchase_invoice
 
-- main_toolbar do |t|
+- main_toolbar class: 'main-toolbar-fullwidth' do |t|
   = t.export :purchases_invoice
   = t.edit resource if resource.updateable?
   = t.new label: :duplicate.tl, params: { duplicate_of: resource.id, redirect: nil }
   = t.destroy
 
-  .change-reconcilation-state-block
-    - checked = false
-    - checked = true if resource.reconciliation_state == :accepted
-    = check_box_tag 'new-reconcilation-state', checked, checked
-    %label= :accepted_for_paiment.tl
+  - unless @purchase_invoice.reconciled?
+    .change-reconcilation-state-block
+      - checked = false
+      - checked = true if resource.reconciliation_state == :accepted
+      = check_box_tag 'new-reconcilation-state', checked, checked
+      %label= :accepted_for_paiment.tl
 
 = main_informations attachment: true do
   = attributes_list do |l|
