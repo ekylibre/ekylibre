@@ -1,7 +1,5 @@
 = content_for(:heading_toolbar) do
-  = reconciliation_state(@reception)
-  - if @reception.in_accident?
-    %h2.global-incident-warning{ data: { warn_if_checked: :reception_incident.tl } }
+  = reception_badges @reception
 
 - main_toolbar do |t|
   = t.edit resource if resource.updateable?

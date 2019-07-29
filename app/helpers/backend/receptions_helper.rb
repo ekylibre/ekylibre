@@ -1,24 +1,10 @@
 module Backend
   module ReceptionsHelper
-    def reception_incident_badge(reception)
-      content_tag :h2, :reception_incident.tl, class: [(:hidden unless reception.items.any? &:non_compliant)]
-    end
+    def reception_badges(reception)
+      incident = reception.late_delivery || reception.items.any?(&:non_compliant) ? :incident : nil
 
-    def reconciliation_state(reception, print_both: false)
-      elements = ''.html_safe
-      if print_both || reception.reconciliation_state == 'to_reconcile'
-        html_class = 'no-reconciliate-title'
-        text = :to_reconciliate.tl
-        elements << content_tag(:h2, text, class: ['reconciliation-title', html_class, (:hidden if reception.reconciliation_state == 'reconcile')])
-      end
-
-      if print_both || reception.reconciliation_state == 'reconcile'
-        html_class = 'reconcile-title'
-        text = :reconcile.tl
-        elements << content_tag(:h2, text, class: ['reconciliation-title', html_class, (:hidden if reception.reconciliation_state == 'to_reconcile')])
-      end
-
-      elements
+      state_badge_set(incident, states: {incident: :reception_incident}, html: {id: 'incident-badge'}) +
+        state_badge_set(reception.reconciliation_state, states: %i[reconcile to_reconcile accepted], html: {id: 'reconciliation-badges'})
     end
   end
 end

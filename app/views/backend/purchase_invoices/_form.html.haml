@@ -4,10 +4,9 @@
 
 = f.object.errors.full_messages if f.object.errors.present? && Rails.env.development?
 = content_for(:heading_toolbar) do
-  = purchase_invoice_incident_badge f.object
-  = purchase_reconciliation_state f.object, print_both: true
+  = purchase_invoice_badges f.object
 
-= field_set do
+= field_set class: ['reconciliable-form', ("reconciliable-form--#{f.object.reconciliation_state.to_s.dasherize}")] do
   = f.referenced_association :supplier, source: :suppliers, new: { supplier: 1 }
   = f.input :reference_number
   = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
@@ -18,11 +17,10 @@
   = f.input :description
   = f.custom_fields
 
-  = field :element_status.tl, nil do
-    %span.purchase-process-reconciliation.reconciliation-state.no-reconciliate-state= :to_reconciliate.tl
-    %span.purchase-process-reconciliation.reconciliation-state.reconcile-state.hidden= :reconcile.tl
-    %span.purchase-process-reconciliation.reconciliation-state.accepted-state.hidden= :accepted.tl
-    = label_tag :accepted_for_paiment.tl
+  = field :element_status.tl do
+    %span.reconciliable-form__state.reconciliable-form__state--to-reconcile= :to_reconciliate.tl
+    %span.reconciliable-form__state.reconciliable-form__state--reconcile= :reconcile.tl
+    %span.reconciliable-form__state.reconciliable-form__state--accepted= :accepted.tl
 
   .purchase-totals
     .purchase-total-row.total-except-tax
