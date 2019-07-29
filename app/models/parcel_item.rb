@@ -227,20 +227,21 @@ class ParcelItem < Ekylibre::Record::Base
 
   def existing_reception_product_in_storage(storing)
     similar_products = Product.where(variant: variant)
-    product_in_storage = similar_products.find do |p|
+
+    similar_products.find do |p|
       location = p.localizations.last.container
       owner = p.owner
-      location == storing.storage && owner = Entity.of_company
+      location == storing.storage && owner == Entity.of_company
     end
   end
 
   def existing_product_in_storage
     similar_products = Product.where(variant: variant)
-    product_in_storage = similar_products.find do |p|
+
+    similar_products.find do |p|
       location = p.localizations.last.container
       owner = p.owner
-      location == storage && owner = Entity.of_company
+      location == storage && owner == Entity.of_company
     end
-    product_in_storage
   end
 end
