@@ -150,7 +150,7 @@
       values = E.trade.itemValues(item)
       updates = {}
       # Compute credited quantity
-      updates.credited_quantity = -(E.trade.round(values.pretax_amount / (values.unit_pretax_amount * (100.0 - values.reduction_percentage) / 100.0), 2))
+      updates.unit_pretax_amount = -(E.trade.round(values.pretax_amount / (values.credited_quantity * (100.0 - values.reduction_percentage) / 100.0), 2))
       # Compute amount
       updates.amount = E.trade.round(values.pretax_amount * values.tax, 2)
       E.trade.itemValues(item, updates)
@@ -162,7 +162,8 @@
       # Compute pretax_amount
       updates.pretax_amount = values.amount / values.tax
       # Compute credited quantity
-      updates.credited_quantity = -(E.trade.round(values.pretax_amount / (values.unit_pretax_amount * (100.0 - values.reduction_percentage) / 100.0), 2))
+      updates.unit_pretax_amount = -(E.trade.round(values.pretax_amount / (values.credited_quantity * (100.0 - values.reduction_percentage) / 100.0), 2))
+      # Compute amount
       # Round pretax amount
       updates.pretax_amount = E.trade.round(updates.pretax_amount, 2)
       E.trade.itemValues(item, updates)
