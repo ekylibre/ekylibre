@@ -104,7 +104,16 @@
 
 var visualization = {};
 var mapeditor = {};
-var ekylibre = {};
+var ekylibre = {
+  ajax: function (options) {
+    return new Promise(function (resolve, reject) {
+      options.success = resolve
+      options.error = reject
+
+      $.ajax(options)
+    })
+  }
+};
 var calcul = {};
 
 var golumn = {};

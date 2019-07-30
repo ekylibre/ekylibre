@@ -124,6 +124,7 @@
     clear: ->
       @element.val('')
       @valueField.val('')
+      @element.trigger('selector:change')
 
     # Check that current selection is valid
     # If autoselect, autoselect first record if empty
