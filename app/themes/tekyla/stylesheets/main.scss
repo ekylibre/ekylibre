@@ -569,6 +569,10 @@ html.exception {
   &.main-toolbar {
     @include float(left);
   }
+
+  &.main-toolbar-fullwidth {
+    width: 100%;
+  }
 }
 
 #core {

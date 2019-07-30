@@ -172,8 +172,8 @@ class Purchase < Ekylibre::Record::Base
     save
   end
 
-  def self.third_attribute
-    :supplier
+  def third
+    send(third_attribute)
   end
 
   def has_content?
@@ -194,10 +194,6 @@ class Purchase < Ekylibre::Record::Base
 
   def purchased?
     (order? || invoice?)
-  end
-
-  def third
-    send(third_attribute)
   end
 
   # Computes an amount (with or without taxes) of the undelivered products
