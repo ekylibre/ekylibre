@@ -243,6 +243,7 @@
         fillStocks()
         $line.data('_iceberg').setCocoonFormSubmitable()
 
+
     # Creates a line BASED on a ReceptionItem
     _fillReceptionItem: (lastLineForm, checkboxLine, itemId, itemQuantity) ->
       variantId = $(checkboxLine).find('.variant').attr('data-id')
@@ -293,7 +294,9 @@
       variantType = $(checkboxLine).attr('data-variant-type')
 
       $(lastLineForm).find('.purchase-item-attribute').val(itemId)
+
       $selectorInput = $(lastLineForm).find('.item-block-role .parcel-item-variant').first()
+
       $selectorInput.selector('value', variantId, (-> disable_selector_input($selectorInput);$(lastLineForm).find('.form-field .invoice-quantity').trigger('change')))
       $(lastLineForm).find('.hidden.purchase-item-attribute').val(itemId)
 
