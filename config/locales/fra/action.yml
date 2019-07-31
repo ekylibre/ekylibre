@@ -2977,7 +2977,6 @@ fra:
       cannot_import_file: "Impossible d’importer le fichier (%{message})" #?
       cannot_mark_entry_items: "Impossible de lettrer ces lignes d’écritures ensemble"
       cannot_merge_an_entity_with_itself: "Il n’est pas possible de fusionner une fiche avec elle-même"
-      contact_support_service_to_delete_your_production: "Pour supprimer une production, veuillez contacter votre support logiciel sur support@ekylibre.com !"
       cannot_merge_entities: "Une erreur est survenue. Il n’est pas possible de fusionner ces fiches."
       changes_have_been_reflected: "Les changements ont été correctement répercutés sur l’état des stocks actuel"
       changes_have_not_been_reflected: "Les changements n’ont pas pu être correctement répercutés sur l’état des stocks actuel"
