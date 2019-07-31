@@ -1,5 +1,11 @@
 module Ekylibre
   class PurchasesExchanger < ActiveExchanger::Base
+    def initialize(file, supervisor, options = {})
+      super file, supervisor
+      @attachments_dir = options['attachments_path']
+      @attachments_dir &&= Pathname.new(@attachments_dir)
+    end
+
     def check
       rows = CSV.read(file, headers: true)
       w.count = rows.size
@@ -154,6 +160,15 @@ module Ekylibre
             nature: PurchaseNature.actives.first,
             description: r.description
           )
+          if @attachments_dir.present?
+            attachment_potential_path = @attachments_dir.join(purchase.supplier.name.parameterize,
+                                                              purchase.reference_number + ".*")
+            attachment_paths = Dir.glob(attachment_potential_path)
+            attachment_paths.each do |attachment_path|
+              doc = Document.new(file: File.open(attachment_path))
+              purchase.attachments.create!(document: doc)
+            end
+          end
           purchase_ids << purchase.id
         end
 
