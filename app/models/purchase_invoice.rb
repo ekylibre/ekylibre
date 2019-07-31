@@ -206,7 +206,6 @@ class PurchaseInvoice < Purchase
     reload
     self.invoiced_at ||= invoiced_at || Time.zone.now
     save!
-    super
   end
 
   def reconciled?
