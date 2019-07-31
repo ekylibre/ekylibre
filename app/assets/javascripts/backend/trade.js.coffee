@@ -15,7 +15,7 @@
 
 
   # Manage fields filling in sales/purchases
-  $(document).on "selector:change", "*[data-variant-of-deal-item]", ->
+  $(document).on "selector:change", "*[data-variant-of-deal-item]", (_event, _value, is_initialization) ->
     element = $(this)
     options = element.data("variant-of-deal-item")
     variant_id = element.selector('value')
@@ -63,7 +63,7 @@
             item.find('.subscription_stopped_on').val('')
 
 
-          if unit = data.unit
+          if !is_initialization && unit = data.unit
             if unit.name
               item.find(options.unit_name_tag or ".unit-name").html(data.name)
 
@@ -118,7 +118,7 @@
       # Compute unit_pretax_amount
       updates.unit_pretax_amount = E.trade.round(values.pretax_amount / (values.quantity * (100.0 - values.reduction_percentage) / 100.0), 2)
       # Compute amount
-      updates.amount = E.trade.round(values.pretax_amount + (values.pretax_amount) * values.tax, 2)
+      updates.amount = E.trade.round(values.pretax_amount * values.tax, 2)
       E.trade.itemValues(item, updates)
 
     # Compute other amounts from amount
