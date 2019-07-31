@@ -15,7 +15,7 @@
 
 
   # Manage fields filling in sales/purchases
-  $(document).on "selector:change", "*[data-variant-of-deal-item]", ->
+  $(document).on "selector:change", "*[data-variant-of-deal-item]", (_event, _value, is_initialization) ->
     element = $(this)
     options = element.data("variant-of-deal-item")
     variant_id = element.selector('value')
@@ -63,7 +63,7 @@
             item.find('.subscription_stopped_on').val('')
 
 
-          if unit = data.unit
+          if !is_initialization && unit = data.unit
             if unit.name
               item.find(options.unit_name_tag or ".unit-name").html(data.name)
 
