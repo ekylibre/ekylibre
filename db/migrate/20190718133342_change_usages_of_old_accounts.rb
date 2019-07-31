@@ -8,10 +8,6 @@ class ChangeUsagesOfOldAccounts < ActiveRecord::Migration
   end
 
   def down
-    execute <<-SQL
-      UPDATE accounts
-         SET usages = 'services_expenses'
-       WHERE usages = 'making_services_expenses'
-    SQL
+    #NOOP
   end
 end
