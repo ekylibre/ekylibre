@@ -24,6 +24,7 @@ module Backend
 
     # To edit it, change here the column and edit action.yml unrolls section
     unroll :name, :unit_name, category: { charge_account: :number }
+    unroll :name, :unit_name, method: :unroll_saleables, category: { product_account: :number }
 
     # params:
     #   :q Text search
