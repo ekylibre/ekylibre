@@ -380,7 +380,6 @@ fra:
               financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période" #?
               financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
               financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
-              invalid_date: "La période d’amortissement doit débuter le %{start} ou en début de mois" #?
               not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
         fixed_asset_depreciation: #?
           attributes: #?

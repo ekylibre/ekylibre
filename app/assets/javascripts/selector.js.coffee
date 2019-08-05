@@ -172,13 +172,14 @@
       if @dropDownMenu.is(":visible")
         @dropDownMenu.hide()
       unless $(document).data('editedMode')
-        if triggerEvents is true
-          @valueField.trigger "selector:change"
-          @element.trigger "selector:change", selectedElement
+        was_initializing = @initializing
         if @initializing
           @valueField.trigger "selector:initialized"
           @element.trigger "selector:initialized"
           @initializing = false
+        if triggerEvents is true
+          @valueField.trigger "selector:change", [null, was_initializing]
+          @element.trigger "selector:change", [selectedElement, was_initializing]
         @valueField.trigger "selector:set"
         @element.trigger "selector:set"
       $(document).data('editedMode', false)
