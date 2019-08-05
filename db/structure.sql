@@ -3491,7 +3491,8 @@ CREATE TABLE imports (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    options jsonb
 );
 
 
@@ -18144,6 +18145,14 @@ ALTER TABLE ONLY payslip_natures
 
 
 --
+-- Name: intervention_working_periods fk_rails_8903897a2c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_working_periods
+    ADD CONSTRAINT fk_rails_8903897a2c FOREIGN KEY (intervention_id) REFERENCES interventions(id);
+
+
+--
 -- Name: intervention_participations fk_rails_930f08f448; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -19052,6 +19061,10 @@ INSERT INTO schema_migrations (version) VALUES ('20190614123521');
 INSERT INTO schema_migrations (version) VALUES ('20190617200314');
 
 INSERT INTO schema_migrations (version) VALUES ('20190619021714');
+
+INSERT INTO schema_migrations (version) VALUES ('20190705094729');
+
+INSERT INTO schema_migrations (version) VALUES ('20190710002904');
 
 INSERT INTO schema_migrations (version) VALUES ('20190712124724');
 

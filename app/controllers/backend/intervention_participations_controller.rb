@@ -88,7 +88,7 @@ module Backend
                intervention_started_at: intervention_started_at,
                tool: intervention_tool,
                auto_calcul_mode: auto_calcul_mode.to_b.to_s,
-               calculate_working_periods: calculate_working_periods
+               calculate_working_periods: calculate_working_periods(@intervention, @participation)
              }
     end
 
@@ -128,7 +128,7 @@ module Backend
       Time.now
     end
 
-    def calculate_working_periods
+    def calculate_working_periods(intervention, participation)
       participations = form_participations
       tool = intervention_tool
       auto_calcul_mode = params[:auto_calcul_mode]
@@ -137,28 +137,30 @@ module Backend
                    auto_calcul_mode.to_sym == :false ||
                    participations.blank? || tool.nil?
 
-      working_periods = []
-      working_duration_params = { intervention: @intervention,
+      working_duration_params = { intervention: intervention,
                                   participations: participations,
-                                  product: @participation.product }
+                                  product: participation.product }
 
-      natures = %i[travel intervention] if tool.try(:tractor?)
-      natures = %i[intervention] unless tool.try(:tractor?)
+      natures = [:intervention, (:travel if tool.try(:tractor?))].compact
 
-      natures.each do |nature|
-        duration = InterventionWorkingTimeDurationCalculationService
+      compute_service = InterventionWorkingTimeDurationCalculationService
                    .new(**working_duration_params)
-                   .perform(nature: nature, modal: true)
+      previous_stopped_at = intervention_started_at
 
-        stopped_at = intervention_started_at + (duration * 60 * 60)
+      natures.map do |nature|
+        duration = compute_service.perform(nature: nature, modal: true)
 
-        working_periods << InterventionWorkingPeriod
+        stopped_at = previous_stopped_at + (duration * 60 * 60)
+
+        working_period = InterventionWorkingPeriod
                            .new(nature: nature,
-                                started_at: intervention_started_at,
+                                started_at: previous_stopped_at,
                                 stopped_at: stopped_at)
-      end
 
-      working_periods
+        previous_stopped_at = stopped_at
+
+        working_period
+      end
     end
   end
 end
