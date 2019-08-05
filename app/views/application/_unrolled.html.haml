@@ -3,7 +3,7 @@
     - limit_at = max
     - limit_at = max * 2 if items.count < (max * 1.5).round
     - items.limit(limit_at).each do |item|
-      - item_label = label_item(item, filters, controller_path)
+      - item_label = label_item(item, filters, controller_path, action_name)
       - attributes = filters.map { |f| [f.name, f.value_of(item)] }.to_h
       %li.item{data: {item: {label: item_label, id: item.id}.merge(attributes)}}
         - matches = keys + keys.map { |key| ActiveSupport::Inflector.transliterate(key) }
