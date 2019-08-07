@@ -1,7 +1,7 @@
 - item ||= f.object
 
 .form-field.role-row.role-row--merchandise
-  .item-block-role
+  .item-block-role.item-block-role--purchase-invoice
     :ruby
       options = {
         label: :merchandise.tl,
@@ -21,12 +21,6 @@
       }
     = f.referenced_association(:variant, **options)
 
-    / - classes = 'supplier-ref-block'
-    / - classes << ' hidden' if f.object.new_record?
-    / %div{ class: classes }
-    /   %span.supplier-ref-label= "#{ :reception_number.tl } : "
-    /   %span.supplier-ref-value= f.object.new_record? ? "" : f.object.decorate.reception_number
-
     - display = ""
     - display = "display: none;" unless item && item.variant && item.variant.depreciable?
     .fixed-asset-fields{style: display, data: {"when-item": "depreciable", "when-display-value": 'true'}}
@@ -43,11 +37,6 @@
         - display_new_asset = "display: none;" if item.preexisting_asset
         .new_asset{style: display_new_asset}
           = f.referenced_association(:depreciable_product)
-
-        / - display_stopped_on = "display: none;" if (item.new_record? && item.preexisting_asset) || (!item.new_record? && item.fixed_asset_stopped_on.nil?)
-        / .fixed-asset-stopped-on{style: display_stopped_on}
-        /   = f.input :fixed_asset_stopped_on, required: true
-
 
   .item-block-quantity
     .storing-fields
@@ -73,9 +62,3 @@
           %span.stock-label= :current_stock.tl
           %span.stock-value= f.object.decorate.merchandise_current_stock
           %span.stock-unit= f.object.decorate.merchandise_stock_unit
-        .merchandise-stock-after-purchase
-          %span.stock-label= :stock_after_order.tl
-          %span.stock-value= f.object.decorate.merchandise_stock_after_order
-          %span.stock-unit= f.object.decorate.merchandise_stock_unit
-
-

@@ -112,11 +112,13 @@
                 if selector_url.indexOf(scope) < 0
                   if selector_url.indexOf('?') < 0 then selector_url += '?' else selector_url += '&'
                   selector_url += scope
+                  $(this).selector('clear')
                 $(this).attr('data-selector', selector_url)
 
             else
-              if typeof $(this).data("when-prop-value") != "undefined"
-                $(this).prop($(this).data("when-prop-value"), false)
+              if typeof $(this).data('when-scope') == "undefined" or $(this).data('when-scope') == scope
+                if typeof $(this).data("when-prop-value") != "undefined"
+                  $(this).prop($(this).data("when-prop-value"), false)
 
               if typeof $(this).data("when-display-value") != "undefined"
                 if typeof $(this).data('when-scope') == "undefined" or $(this).data('when-scope') == scope
@@ -125,6 +127,7 @@
                   else
                     $(this).show()
                   $(this).trigger('visibility:change')
+
 
           # shape = item.find(options.population_field or ".item-shape")
           # if data.shape

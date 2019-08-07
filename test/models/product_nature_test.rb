@@ -56,7 +56,7 @@
 #
 require 'test_helper'
 
-class ProductNatureTest < ActiveSupport::TestCase
+class ProductNatureTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   test 'working sets scope' do
     Nomen::WorkingSet.list.each do |item|

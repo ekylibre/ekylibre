@@ -19,7 +19,7 @@
 require 'test_helper'
 
 module Backend
-  class SalesControllerTest < ActionController::TestCase
+  class SalesControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions cancel: :redirected_get,
                                contacts: :index_xhr,
                                except: %i[generate_parcel update]

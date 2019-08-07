@@ -2,44 +2,6 @@
   'use strict'
 
   $(document).ready ->
-    $('input[data-warn-if-checked]').behave 'load', ->
-      $('input[data-warn-if-checked]').each ->
-        $input = $(this)
-
-        messageText     = $input.data('warn-if-checked')
-        messageSelector = $input.data('warn-in')
-        $message        = $input.formScopedSelect(messageSelector)
-
-        # Fallback if messageSelector doesn't match anything in scope
-        $defaultMessage = $('<span class="warn-message"></span>')
-        if $message.length is 0
-          $input.formScope().append($defaultMessage)
-          $message = $defaultMessage
-
-        showOrHideMessage = (input) ->
-          if $input.prop('checked')
-            $message.show()
-          else
-            $message.hide()
-
-        $message.html(messageText) if $message.is(':empty')
-
-        showOrHideMessage($input) # Initial display
-        $input.click showOrHideMessage # Update on input change
-
-
-    $('h2[data-warn-if-checked]').behave 'load', ->
-      $('h2[data-warn-if-checked]').each ->
-        h2 = $(this)
-        h2.html(h2.data('warn-if-checked'))
-        if $('input[data-warn-if-checked]:checked').length >= 1
-          h2.show()
-        $('input[data-warn-if-checked]').click ->
-          if $('input[data-warn-if-checked]:checked:visible').length >= 1
-            h2.show()
-          else
-            h2.hide()
-
     $('table.list').on 'cocoon:after-insert', (event, $insertedItem) ->
       $('*[data-iceberg]').on "iceberg:inserted", ->
         that = $(this)
@@ -55,7 +17,6 @@
         $insertedItem.find('.storage-unit-name').text(unitName)
 
 
-
     $('.new_reception, .edit_reception').on 'change', '#reception_reconciliation_state', (event) ->
       checked = $(event.target).is(':checked')
 
@@ -63,10 +24,6 @@
         $(event.target).val('accepted')
       else
         $(event.target).val('to_reconciliate')
-
-
-
-
 
   E.Receptions =
     fillStocksCounters: (form) ->
@@ -78,16 +35,16 @@
       $.ajax
         url: "/backend/product_nature_variants/#{variantId}/detail",
         success: (data, status, request) ->
-          $currentForm.find('.storing__footer .merchandise-total-current-stock .stock-value').text(data.stock.toFixed(2))
+          $currentForm.find('.storing__footer .merchandise-total-current-stock .stock-value').text(parseFloat(data.stock).toFixed(2))
           $currentForm.find('.storing__footer .merchandise-total-current-stock .stock-unit').text(data.unit.name)
 
           reducer = (acc, val) ->
-                      parseFloat(acc) + parseFloat(val)
+                      acc + parseFloat(val)
 
           quantity = $('.storing-quantity').map ->
             $(this).val() || 0
           .toArray()
-          .reduce(reducer)
+          .reduce(reducer, .0)
 
           newStock = parseFloat(data.stock) + parseFloat(quantity)
           $currentForm.find('.storing__footer .merchandise-total-stock-after-reception .stock-value').text(newStock.toFixed(2))

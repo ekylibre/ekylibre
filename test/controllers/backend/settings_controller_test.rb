@@ -18,7 +18,7 @@
 
 require 'test_helper'
 module Backend
-  class SettingsControllerTest < ActionController::TestCase
+  class SettingsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions edit: :index, except: [:update]
   end
 end

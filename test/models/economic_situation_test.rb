@@ -37,7 +37,7 @@
 #
 require 'test_helper'
 
-class EconomicSituationTest < ActiveSupport::TestCase
+class EconomicSituationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   setup do
     @entity = Entity.create!(first_name: 'John', last_name: 'Doe')
     @client_account = Account.create!(name: 'John the client', number: '411123')

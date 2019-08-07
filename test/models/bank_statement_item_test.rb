@@ -41,7 +41,7 @@
 #
 require 'test_helper'
 
-class BankStatementItemTest < ActiveSupport::TestCase
+class BankStatementItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
   test 'the validity of bank statement items' do

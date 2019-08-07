@@ -25,16 +25,16 @@
 //= require jquery_ujs
 //= require jquery.remotipart
 //= require jquery.turbolinks
-//= require flatpickr
-//= require flatpickr/plugins/confirmDate/confirmDate
-//= require flatpickr/l10n/ar
-//= require flatpickr/l10n/de
-//= require flatpickr/l10n/es
-//= require flatpickr/l10n/fr
-//= require flatpickr/l10n/it
-//= require flatpickr/l10n/ja
-//= require flatpickr/l10n/pt
-//= require flatpickr/l10n/zh
+//= require flatpickr/dist/flatpickr
+//= require flatpickr/dist/plugins/confirmDate/confirmDate
+//= require flatpickr/dist/l10n/ar
+//= require flatpickr/dist/l10n/de
+//= require flatpickr/dist/l10n/es
+//= require flatpickr/dist/l10n/fr
+//= require flatpickr/dist/l10n/it
+//= require flatpickr/dist/l10n/ja
+//= require flatpickr/dist/l10n/pt
+//= require flatpickr/dist/l10n/zh
 //= require turbolinks
 //= require active_list.jquery
 //= require knockout
@@ -104,7 +104,16 @@
 
 var visualization = {};
 var mapeditor = {};
-var ekylibre = {};
+var ekylibre = {
+  ajax: function (options) {
+    return new Promise(function (resolve, reject) {
+      options.success = resolve
+      options.error = reject
+
+      $.ajax(options)
+    })
+  }
+};
 var calcul = {};
 
 var golumn = {};

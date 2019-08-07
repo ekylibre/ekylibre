@@ -59,7 +59,9 @@ class GuideAnalysis < Ekylibre::Record::Base
 
   # Sets the execution number with the last number incremented by 1
   def set_execution_number
-    self.execution_number = guide.analyses.maximum(:execution_number).to_i + 1
+    if guide&.analyses
+      self.execution_number = guide.analyses.maximum(:execution_number).to_i + 1
+    end
   end
 
   def status

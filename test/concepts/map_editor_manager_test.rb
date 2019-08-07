@@ -1,5 +1,5 @@
 require 'test_helper'
 
-class MapEditorManagerTest < ActiveSupport::TestCase
+class MapEditorManagerTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

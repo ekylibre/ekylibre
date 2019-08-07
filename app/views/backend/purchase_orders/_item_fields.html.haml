@@ -72,18 +72,20 @@
 
 
       .item-form-information
-        .item-form__activity
-          = f.referenced_association(:activity_budget, new: false)
-        .item-form__project-budget
+        - if display_activity_item_field
+          .item-form.item-form__activity
+            = f.referenced_association(:activity_budget, new: false)
+        .item-form.item-form__project-budget
           = f.referenced_association(:project_budget)
-        .item-form__product_work_number
-          = f.referenced_association(:team)
-        .item-form__equipment
-          = f.referenced_association(:equipment, label: :equipment.tl, source: {scope: :tools}, input_html: {data: { remember: 'equipment'}})
+        - if display_team_item_field
+          .item-form.item-form__product_work_number
+            = f.referenced_association(:team)
+        .item-form.item-form__equipment
+          = f.referenced_association(:equipment, label: :equipment.tl, source: {scope: :tools}, input_html: {data: { remember: 'equipment'}}, source: {controller: :equipments})
 
 
       .item-form-button.item-form-button--non-merchandise
         .item-form__btn
           .buttons
-            %button.btn{ data: { cancel: 'item-form' } }= :cancel.tl
+            %a.btn{ data: { cancel: 'item-form' } }= :cancel.tl
             %button.btn.btn-primary{ data: { validate: 'item-form' }}= :validate.tl

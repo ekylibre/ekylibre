@@ -81,6 +81,14 @@ class PurchaseInvoice < Purchase
     self.invoiced_at ||= created_at
   end
 
+  before_validation do
+    if self.items.reject { |i| i.instance_variable_get :@marked_for_destruction }.any? { |i| i.parcels_purchase_invoice_items.present? }
+      self.reconciliation_state = 'reconcile'
+    else
+      self.reconciliation_state = 'to_reconcile'
+    end
+  end
+
   after_update do
     affair.update_attributes(third_id: third.id) if affair && affair.deals.count == 1
     affair.reload_gaps if affair
@@ -198,7 +206,10 @@ class PurchaseInvoice < Purchase
     reload
     self.invoiced_at ||= invoiced_at || Time.zone.now
     save!
-    super
+  end
+
+  def reconciled?
+    items.any? { |item| item.parcels_purchase_invoice_items.present? }
   end
 
   def status

@@ -35,7 +35,7 @@ module ToolbarHelper
       record = options[:resource] || @template.resource
       options[:key] ||= (record ? :number : Time.zone.now.strftime('%Y%m%d%H%M%S'))
       key = (options[:key].is_a?(Symbol) ? record.send(options[:key]) : options[:key]).to_s
-      @template.dropdown_menu_button(:print) do |menu|
+      @template.dropdown_menu_button(:print, class: options[:class]) do |menu|
         natures.each do |nature_name|
           nature = Nomen::DocumentNature.find(nature_name)
           modal_id = nature.name.to_s + '-exporting'
@@ -154,10 +154,11 @@ module ToolbarHelper
       html << (Ekylibre::View::Addon.render(:main_toolbar, self, t: toolbar) || '')
     end
 
+    safe_html = html.html_safe
     unless options[:wrap].is_a?(FalseClass)
-      html = content_tag(:div, html, class: 'toolbar' + (options[:class] ? ' ' << options[:class].to_s : ''))
+      safe_html = content_tag(:div, safe_html, class: ['toolbar', options.fetch(:class, [])].flatten)
     end
 
-    html.html_safe
+    safe_html
   end
 end

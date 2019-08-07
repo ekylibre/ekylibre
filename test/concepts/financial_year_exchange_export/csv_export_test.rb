@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module FinancialYearExchangeExport
-  class CsvExportTest < ActiveSupport::TestCase
+  class CsvExportTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     # Add tests here...
   end
 end

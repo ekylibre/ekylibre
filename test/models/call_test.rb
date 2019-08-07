@@ -37,7 +37,7 @@
 #
 require 'test_helper'
 
-class CallTest < ActiveSupport::TestCase
+class CallTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # test "the truth" do
   #   assert true
   # end

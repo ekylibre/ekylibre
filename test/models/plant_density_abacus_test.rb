@@ -36,6 +36,6 @@
 #
 require 'test_helper'
 
-class PlantDensityAbacusTest < ActiveSupport::TestCase
+class PlantDensityAbacusTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

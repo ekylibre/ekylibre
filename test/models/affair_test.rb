@@ -52,7 +52,7 @@
 #
 require 'test_helper'
 
-class AffairTest < ActiveSupport::TestCase
+class AffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
   # check that every model that can be affairable

@@ -27,6 +27,6 @@
 #
 require 'test_helper'
 
-class RegisteredWaterLakeTest < ActiveSupport::TestCase
+class RegisteredWaterLakeTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

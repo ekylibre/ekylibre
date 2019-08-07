@@ -44,7 +44,7 @@
 #
 require 'test_helper'
 
-class TaxDeclarationTest < ActiveSupport::TestCase
+class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
   setup do
     j = Journal.find_or_create_by! nature: :various

@@ -1,3 +1,24 @@
+.reconciliable-form {
+  &__state {
+    display: none;
+
+    font-weight: bold;
+
+    &--accepted, &--reconcile {
+      color: #4CAF50;
+    }
+    &--to-reconcile {
+      color: #F44336;
+    }
+  }
+
+  &--accepted &__state--accepted,
+  &--reconcile &__state--reconcile,
+  &--to-reconcile &__state--to-reconcile {
+    display: inline;
+  }
+}
+
 .button-modal-reconciliation {
   margin-top: $default-gap * 3;
   margin-bottom: $default-gap * 3;
@@ -12,6 +33,11 @@
   .reconciliation-item-state {
     margin-right: $default-gap * 14;
   }
+}
+
+.change-reconcilation-state-block {
+  float: right;
+  margin-right: 2em;
 }
 
 .purchase-process-reconciliation.heading-toolbar, .heading-toolbar {
@@ -42,21 +68,6 @@
   }
 }
 
-.purchase-process-reconciliation {
-  &.reconciliation-state {
-    margin-right: $default-gap * 4;
-    font-weight: bold;
-  }
-
-  &.no-reconciliate-state {
-    color: #F44336;
-  }
-
-  &.reconcile-state,
-  &.accepted-state {
-    color: #4CAF50;
-  }
-}
 
 #purchase_process_reconciliation {
   .modal-dialog {
@@ -68,7 +79,7 @@
   }
 
   .list-headers {
-  	@include flex-row(flex-start);
+    @include flex-row(flex-start);
     padding-left: $default-gap * 7;
     border-bottom: solid 1px #ddd;
 
@@ -86,7 +97,9 @@
   .list-models {
     .model {
       padding: $default-gap * 2 $default-gap * 5 $default-gap * 0.7;
-      border-bottom: solid 1px #ddd;
+      &:not(:last-child) {
+        border-bottom: solid 1px #ddd;
+      }
     }
   }
 

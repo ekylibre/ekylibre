@@ -1,2 +1,14 @@
-.gitconfig
 .git
+.gitconfig
+config/application.yml
+config/database.yml
+coverage/
+db/first_runs/
+db/lexicon/data.sql
+doc/
+k8s/
+log/
+node_modules/
+packaging/
+private/
+tmp/

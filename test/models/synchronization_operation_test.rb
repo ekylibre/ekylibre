@@ -39,6 +39,6 @@
 #
 require 'test_helper'
 
-class SynchronizationOperationTest < ActiveSupport::TestCase
+class SynchronizationOperationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

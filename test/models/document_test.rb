@@ -45,7 +45,7 @@
 #
 require 'test_helper'
 
-class DocumentTest < ActiveSupport::TestCase
+class DocumentTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

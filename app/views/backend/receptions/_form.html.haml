@@ -1,13 +1,14 @@
-- reconciliation_state = f.object.reconciliation_state
-= f.object.errors.full_messages if f.object.errors.present? && Rails.env.development?
-= content_for(:heading_toolbar) do
-  %h2.global-incident-warning.hidden{ data: { warn_if_checked: :reception_incident.tl } }
-  %h2.reconciliation-title.no-reconciliate-title{ class: reconciliation_state == 'to_reconcile' ? '' : 'hidden' }
-    = :to_reconciliate.tl
-  %h2.reconciliation-title.reconcile-title{ class: reconciliation_state == 'reconcile' ? '' : 'hidden' }
-    = :reconcile.tl
+:ruby
+  display_activity_item_field = !!Preference[:distribute_sales_and_purchases_on_activities]
+  display_team_item_field = !!Preference[:distribute_sales_and_purchases_on_teams]
+  reconciliation_state = f.object.reconciliation_state
 
-= field_set :general_informations do
+= f.object.errors.full_messages if f.object.errors.present? && Rails.env.development?
+
+= content_for(:heading_toolbar) do
+  = reception_badges f.object
+
+= field_set :general_informations, class: ['reception-form', ('reception-form--late' if f.object.late_delivery), 'reconciliable-form', ("reconciliable-form--#{f.object.reconciliation_state.to_s.dasherize}")] do
   = f.input :nature, as: :hidden
   = f.input :contract_id, as: :hidden
   .delivery-item
@@ -19,18 +20,19 @@
   -#= f.referenced_association :sale
   = f.input :given_at, as: :date, required: false, label: :receipt_date.tl
 
-  .late-delivery-block
-    = f.input :late_delivery, input_html: { data: { warn_if_checked: :late.tl, warn_in: '#due-on' } }
-    #due-on
-      %span.warn-message= :late_delivery.tl.upcase
-      = f.input :planned_at, as: :date, required: false
+  = f.input :late_delivery do
+    = f.check_box :late_delivery
+    .reception-form__late-warning= :late_delivery.tl.upcase
+  #due-on
+    = f.input :planned_at, as: :date, required: false
 
-  = field :element_status.tl, nil do
-    %span.purchase-process-reconciliation.reconciliation-state.no-reconciliate-state{ class: reconciliation_state == 'to_reconcile' ? '' : 'hidden' }
+  = field :element_status.tl do
+    %span.reconciliable-form__state.reconciliable-form__state--to-reconcile
       = :to_reconciliate.tl
-    %span.purchase-process-reconciliation.reconciliation-state.reconcile-state{ class: reconciliation_state == 'reconcile' ? '' : 'hidden' }
+    %span.reconciliable-form__state.reconciliable-form__state--reconcile
       = :reconcile.tl
-    = hidden_field_tag('reception[reconciliation_state]', f.object.reconciliation_state)
+    %span.reconciliable-form__state.reconciliable-form__state--accepted
+      = :accepted.tl
 
   - if f.object.allow_items_update?
     .control-group.button-modal-reconciliation
@@ -49,8 +51,8 @@
   = field_set f.object.class.human_attribute_name(:items) do
     %table.list#receptions-items-table
       = f.simple_fields_for :items, f.object.items do |item|
-        = render 'item_fields', f: item, mode: params[:mode]
+        = render 'item_fields', f: item, mode: params[:mode], display_activity_item_field: display_activity_item_field, display_team_item_field: display_team_item_field
       %tfoot#items__footer
     .row-footer
       - ReceptionItem.role.values.each do |role|
-        %span{ class: "links add-#{role}"}= link_to_add_association :"add_#{role}".tl, f, :items, partial: 'item_fields', render_options: { locals: { role: role, mode: params[:mode] } }, 'data-association-insertion-node' => '#items__footer', 'data-association-insertion-method' => :before
+        %span{ class: "links add-#{role}"}= link_to_add_association :"add_#{role}".tl, f, :items, partial: 'item_fields', render_options: { locals: { role: role, mode: params[:mode], display_activity_item_field: display_activity_item_field, display_team_item_field: display_team_item_field } }, 'data-association-insertion-node' => '#items__footer', 'data-association-insertion-method' => :before

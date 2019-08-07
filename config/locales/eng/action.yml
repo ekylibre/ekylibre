@@ -2096,6 +2096,7 @@ eng:
     receipt_date: "Receipt date"
     receipt_responsible: "Receipt responsible"
     received: "Received" #?
+    received_quantity: "Received quantity"
     receiving_address: "Receiving address"
     recent_events: "Recent events"
     reception: "Reception"
@@ -2682,6 +2683,7 @@ eng:
       import_finished_successfully: "Import %{name} finished successfully"
       importation_finished: "The import is complete."
       incompatible_browser: "Incompatible browser"
+      information_success_print: "Creation successful! You can now print the file with the button 'Print'."
       informations_feed_is_unreachable: "Informations feed (%{url}) is unreachable. Error message: %{message}"
       integrate_tools_you_are_using_every_day: "Integrate tools you are using every day"
       invalid_reference_name: "Invalid reference name"
@@ -2723,6 +2725,9 @@ eng:
       # no_worker_associated_with_user_account: "No worker associated with user account"
       previouos_financial_year_is_not_closed: "The previous financial year hasn't been closed." #?
       purchases_invalid_for_sepa: "Purchases selected invalid for SEPA transfer (invalid disbursement mode or wrong currency or missing payee's IBAN or bank account holder name)"
+      purchase_order_need_at_least_one_item: "An order should have at least one item"
+      purchase_invoice_need_at_least_one_item: "An invoice should have at least one item"
+      reception_need_at_least_one_item: "A reception should have at least one item"
       record_already_imported: "Record already imported"
       record_cannot_be_removed: "The record can not be deleted"
       # record_cannot_be_saved: "Record cannot be saved"

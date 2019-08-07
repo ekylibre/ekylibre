@@ -38,7 +38,7 @@
 
 require 'test_helper'
 
-class OutgoingPaymentModeTest < ActiveSupport::TestCase
+class OutgoingPaymentModeTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
   test 'valid if sepa and  with iban and account owner present' do

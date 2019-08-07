@@ -2,7 +2,7 @@ require 'test_helper'
 module Backend
   module BankReconciliation
     # Handles creation of a 'Various op' Journal Entry.
-    class GapsControllerTest < ActionController::TestCase
+    class GapsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
       setup do
         wipe_db
         setup_accountancy

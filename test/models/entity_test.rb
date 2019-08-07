@@ -77,7 +77,7 @@
 
 require 'test_helper'
 
-class EntityTest < ActiveSupport::TestCase
+class EntityTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
   test 'nature' do

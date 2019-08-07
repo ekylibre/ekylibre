@@ -43,6 +43,6 @@
 #
 require 'test_helper'
 
-class ActivityBudgetItemTest < ActiveSupport::TestCase
+class ActivityBudgetItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 end

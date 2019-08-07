@@ -45,7 +45,7 @@
 
 require 'test_helper'
 
-class TaxTest < ActiveSupport::TestCase
+class TaxTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   test 'load defaults' do
     Tax.load_defaults

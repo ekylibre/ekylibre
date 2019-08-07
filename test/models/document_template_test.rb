@@ -40,7 +40,7 @@
 
 require 'test_helper'
 
-class DocumentTemplateTest < ActiveSupport::TestCase
+class DocumentTemplateTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Tests all templates
   test 'compile all templates' do

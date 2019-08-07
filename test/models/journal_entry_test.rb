@@ -55,7 +55,7 @@
 
 require 'test_helper'
 
-class JournalEntryTest < ActiveSupport::TestCase
+class JournalEntryTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   test 'a journal forbids to write records before its closure date' do
     journal = journals(:journals_001)
