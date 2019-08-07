@@ -315,3 +315,10 @@
     justify-content: flex-end;
   }
 }
+
+.annotable--shipments {
+  display: flex;
+  .shipment-annotation {
+    align-self: center;
+  }
+}
