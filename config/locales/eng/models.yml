@@ -882,7 +882,7 @@ eng:
     document: "Document"
     documents: "Documents"
     doers: "Doers"
-    # doers_cost: "Doers cost"
+    doers_cost: "Doers cost"
     dose_quantity: "Dose quantity"
     dose_unit: "Dose unit"
     dose_unit_name: "Dose unit name"
