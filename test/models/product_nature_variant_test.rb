@@ -81,7 +81,7 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
 
   test 'current_outgoing_stock_ordered_not_delivered returns the right amount of variants when sale state is set to order and shipment state to prepared' do
     variant = create(:product_nature_variant)
-    sale = create(:sale)
+    sale = create(:sale, items: 0)
     sale.update(state: 'order')
     create(:sale_item, sale: sale, variant: variant, quantity: 50.to_d)
     shipment = create(:shipment, sale: sale)
@@ -91,7 +91,7 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
 
   test 'current_outgoing_stock_ordered_not_delivered returns the right amount of variants when sale state is set to draft and shipment state to draft' do
     variant = create(:product_nature_variant)
-    sale = create(:sale)
+    sale = create(:sale, items: 0)
     create(:sale_item, sale: sale, variant: variant, quantity: 50.to_d)
     shipment = create(:shipment, sale: sale)
     assert_equal 0, variant.current_outgoing_stock_ordered_not_delivered
@@ -100,7 +100,7 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
   test 'current_outgoing_stock_ordered_not_delivered returns the right amount of variants when sale state is set to order and shipment state to given' do
     variant = create(:product_nature_variant)
     product = create(:product, variant: variant)
-    sale = create(:sale)
+    sale = create(:sale, items: 0)
     sale.update(state: 'order')
     create(:sale_item, sale: sale, variant: variant, quantity: 50.to_d)
     shipment = create(:shipment, sale: sale)
