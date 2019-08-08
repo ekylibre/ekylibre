@@ -38,7 +38,8 @@
 
   .control-group.button-modal-reconciliation
     .controls
-      = button_tag :reconciliate_with_receptions.tl, id: 'showReconciliationModal', class: 'btn btn-default', type: :button
+      - if f.object && PurchaseInvoice.unpaid.include?(f.object) && !f.object&.reconciled?
+        = button_tag :reconciliate_with_receptions.tl, id: 'showReconciliationModal', class: 'btn btn-default', type: :button
 
   = modal(id: "purchase_process_reconciliation", class: "", size: :large) do
     .modal-body
@@ -53,6 +54,7 @@
         = render 'item_fields', f: item, display_activity_item_field: display_activity_item_field, display_team_item_field: display_team_item_field
       %tfoot#items__footer
     .row-footer
-      - PurchaseItem.role.values.each do |role|
-        %span{ class: "links add-#{role}"}= link_to_add_association :"add_#{role}".tl, f, :items, partial: 'item_fields', render_options: { locals: { role: role, mode: params[:mode], display_activity_item_field: display_activity_item_field, display_team_item_field: display_team_item_field } }, 'data-association-insertion-node' => '#items__footer', 'data-association-insertion-method' => :before
+      - if PurchaseInvoice.unpaid.include?(f.object)
+        - PurchaseItem.role.values.each do |role|
+          %span{ class: "links add-#{role}"}= link_to_add_association :"add_#{role}".tl, f, :items, partial: 'item_fields', render_options: { locals: { role: role, mode: params[:mode], display_activity_item_field: display_activity_item_field, display_team_item_field: display_team_item_field } }, 'data-association-insertion-node' => '#items__footer', 'data-association-insertion-method' => :before
 
