@@ -100,6 +100,8 @@ eng:
         stopped_at:
           one: "Stopped at is inferior than expected"
           other: "{{count}} Stopped at is inferior than expected"
+      inventory:
+        disable_accountancy: "Do not update accounting"
       journal_entry_item:
         cumulated_absolute_credit_balance: "Credit balance"
         cumulated_absolute_debit_balance: "Debit balance"
