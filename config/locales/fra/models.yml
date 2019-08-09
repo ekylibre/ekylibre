@@ -145,6 +145,8 @@ fra:
       intervention_working_period:
         started_at: "Date de début" #? Hash expected ({:one=>"Started at is inferior than expected", :other=>"{{count}} Started at is inferior than expected"})
         stopped_at: "Date de fin" #? Hash expected ({:one=>"Stopped at is inferior than expected", :other=>"{{count}} Stopped at is inferior than expected"})
+      inventory:
+        disable_accountancy: "Ne pas passer en comptabilité"
       inventory_item: #?
         quantity: "Quantité constatée" #?
       journal_entry_item:
