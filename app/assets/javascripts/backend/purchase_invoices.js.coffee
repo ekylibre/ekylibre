@@ -35,10 +35,6 @@
       $('.invoice-totals .vat-total .total-value').text(parseFloat(totalVatRate).toFixed(2))
       $('.invoice-totals .invoice-total .total-value').text(parseFloat(totalAmountIncludingTaxes).toFixed(2))
 
-
-    $(document).on 'selector:change', '.invoice-variant.selector-search', (event) ->
-      E.Purchases.fillStocksCounters($(event.target).closest('.nested-item-form'))
-
       targettedElement = $(event.target)
       fieldAssetFields = targettedElement.closest('.merchandise').find('.fixed-asset-fields')
 
@@ -57,17 +53,6 @@
       depreciableProductField.val('')
       fixedAssetField.val('')
       stoppedOnField.val('')
-
-
-    $(document).on 'selector:change', '.invoice-variant.selector-search', (event) ->
-      E.Purchases.fillStocksCounters($(event.target).closest('.nested-item-form'))
-
-    $(document).on 'keyup change', '.form-field .storing-quantifier .storing-quantity', (event) ->
-      E.Purchases.fillStocksCounters($(event.target).closest('.nested-item-form'))
-
-    $(document).on 'keyup change', '.nested-fields .form-field .purchase_invoice_items_quantity .invoice-quantity', (event) ->
-      E.Purchases.fillStocksCounters($(event.target).closest('.nested-item-form'))
-
 
     $(document).on 'click', '.nested-fields .edit-item[data-edit="item-form"]', (event) ->
       vatSelectedValue = $(event.target).closest('.nested-fields').find('.item-display .vat-rate').attr('data-selected-value')
