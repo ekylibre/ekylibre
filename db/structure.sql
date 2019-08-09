@@ -3942,7 +3942,8 @@ CREATE TABLE public.inventories (
     custom_fields jsonb,
     financial_year_id integer,
     currency character varying,
-    product_nature_category_id integer
+    product_nature_category_id integer,
+    disable_accountancy boolean DEFAULT false
 );
 
 
@@ -18906,4 +18907,6 @@ INSERT INTO schema_migrations (version) VALUES ('20190619021714');
 INSERT INTO schema_migrations (version) VALUES ('20190705094729');
 
 INSERT INTO schema_migrations (version) VALUES ('20190710002904');
+
+INSERT INTO schema_migrations (version) VALUES ('20190808152235');
 

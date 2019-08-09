@@ -10,6 +10,7 @@
     = f.referenced_association :financial_year
     = f.referenced_association :responsible #, source: :employees
     = f.input :achieved_at
+    = f.input :disable_accountancy
     - %w(product_id product_nature_variant_id product_nature_id product_nature_category_id).each do |x|
       = hidden_field_tag(x, params[x]) if params[x]
     = f.custom_fields
