@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.10
--- Dumped by pg_dump version 11.2 (Debian 11.2-1.pgdg90+1)
+-- Dumped from database version 9.6.14
+-- Dumped by pg_dump version 9.6.14
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -12,6 +12,7 @@ SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
+SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
@@ -3955,7 +3956,8 @@ CREATE TABLE public.inventories (
     custom_fields jsonb,
     financial_year_id integer,
     currency character varying,
-    product_nature_category_id integer
+    product_nature_category_id integer,
+    disable_accountancy boolean DEFAULT false
 );
 
 
@@ -18920,4 +18922,6 @@ INSERT INTO schema_migrations (version) VALUES ('20190705094729');
 INSERT INTO schema_migrations (version) VALUES ('20190710002904');
 
 INSERT INTO schema_migrations (version) VALUES ('20190807075910');
+
+INSERT INTO schema_migrations (version) VALUES ('20190808152235');
 
