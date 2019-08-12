@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20190718130243">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20190801142431">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -97,7 +97,7 @@
       <item name="additionnal_taxes_on_distribution_entity_expenses" fr_pcg82="696" fr_pcga="696"/>
       <item name="adult_animal_asset_depreciations" fr_pcga="2841" fr_pcg82="2841"/>
       <item name="adult_animal_assets" fr_pcga="241" fr_pcg82="241"/>
-      <item name="adult_animal_expenses" fr_pcga="6041" fr_pcg82="6041"/>
+      <item name="adult_animal_expenses" fr_pcga="6041" fr_pcg82="NONE"/>
       <item name="adult_animal_revenues" fr_pcga="7041" fr_pcg82="7041"/>
       <item name="adult_reproductor_animals_inventory_variations" fr_pcga="7121" fr_pcg82="7121"/>
       <item name="advance_noticed_charges_accounts" fr_pcg82="486" fr_pcga="486"/>
@@ -344,7 +344,7 @@
       <item name="office_supplies_stock" fr_pcga="3024"/>
       <item name="office_supply_matter_expenses" fr_pcga="6024" fr_pcg82="6024"/>
       <item name="office_supply_matter_stocks_variation" fr_pcga="60324"/>
-      <item name="other_animal_expenses" fr_pcga="6045" fr_pcg82="6045"/>
+      <item name="other_animal_expenses" fr_pcga="6045" fr_pcg82="NONE"/>
       <item name="other_animal_revenues" fr_pcga="7045" fr_pcg82="7045"/>
       <item name="other_asset_depreciations" fr_pcga="28188" fr_pcg82="28188"/>
       <item name="other_assets" fr_pcga="2188" fr_pcg82="2188"/>
