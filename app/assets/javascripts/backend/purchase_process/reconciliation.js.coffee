@@ -135,7 +135,7 @@
     else if isReceptionForm
       options = reception_modal_options()
     else return Promise.reject("Modal type cannot be guessed!")
-    E.ajax options
+    E.ajax.html options
 
   # Opens the reconciliation modal
   open_reconciliation_modal = (event) =>

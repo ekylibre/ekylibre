@@ -2433,6 +2433,7 @@ fra:
     ship: "Prévue le"
     shipment_items: "Articles expédiés"
     shipments: "Expéditions"
+    shipping_note: "Bon d'expédition"
     show: "Afficher"
     show_export_preview: "Afficher un aperçu du document (peut augmenter le temps de chargement)" #?
     sign_out: "Se déconnecter"
