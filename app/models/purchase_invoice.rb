@@ -213,7 +213,14 @@ class PurchaseInvoice < Purchase
   end
 
   def status
-    return affair.status
-    :stop
+    affair.status
+  end
+
+  def updateable?
+    PurchaseInvoice.unpaid.include?(self) && !self.reconciled?
+  end
+
+  def unpaid?
+    PurchaseInvoice.unpaid.include?(self)
   end
 end
