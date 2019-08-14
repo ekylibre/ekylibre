@@ -227,10 +227,10 @@ table {
           &.sor {
             background: $sort-mask;
             &[data-list-column-sort="desc"] i {
-              @include use-icon(sort-down);
+              @include use-icon(sort-desc);
             }
             &[data-list-column-sort="asc"] i {
-              @include use-icon(sort-up);
+              @include use-icon(sort-asc);
             }
           }
         }
