@@ -85,7 +85,7 @@ fra:
     corker: "Boucheuse"
     corks: "Bouchons"
     corks_to_use: "Bouchons à utiliser" #?
-    corn_topper: "Castreuse"
+    corn_topper: "Écimeuse"
     cover_implanter: "Plastiqueuse"
     crop: "Culture" #?
     cropper: "Outil de récolte"
@@ -324,7 +324,7 @@ fra:
     crop_residues_grinding: "Broyage des résidus de culture"
     cutting: "Taille/Effeuillage"
     detach: "Détellage" #?
-    detasseling: "Castration"
+    detasseling: "Écimage"
     direct_silage: "Ensilage direct"
     double_chemical_mixing: "Mélange d'intrants de protection des végétaux avec deux produits" #?
     double_food_mixing: "Mélange alimentaire avec deux ingrédients" #?
