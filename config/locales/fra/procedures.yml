@@ -54,9 +54,9 @@ fra:
     is_cultivation_completely_destroyed_by_straw_bunching: "L'intervention détruit-elle cette parcelle/culture\_?"
     is_cultivation_completely_destroyed_by_swathing: "L'intervention détruit-elle cette parcelle/culture\_?"
     is_it_completely_destroyed_by_intervention: "Est-ce complètement détruit par l'intervention\_?"
-    is_plant_completely_destroyed_by_harvesting: "Est-ce complètement détruit par la récolte\_??"
+    is_plant_completely_destroyed_by_harvesting: "L'intervention détruit-elle cette culture\_?"
     is_plant_completely_destroyed_by_intervention: "L'intervention détruit-elle cette culture\_?"
-    is_plant_completely_destroyed_by_lifting: "Est-ce complètement détruit par le relevage\_??"
+    is_plant_completely_destroyed_by_lifting: "Est-ce complètement détruit par le relevage\_?"
     is_plant_completely_destroyed_by_plant_mowing: "Est-ce complètement détruit par le fauchage\_?"
     is_plant_completely_destroyed_by_topkilling: "Est-ce complètement détruit par le défanage\_?"
   procedure_parameters:

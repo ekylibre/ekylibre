@@ -78,9 +78,8 @@ module ToolbarHelper
     def destroy(*args)
       options = args.extract_options!
       if @template.resource
-        if @template.resource.destroyable?
-          tool(options[:label] || :destroy.ta, { action: :destroy, id: @template.resource.id, redirect: options[:redirect] }, method: :delete, data: { confirm: :are_you_sure_you_want_to_delete.tl })
-        end
+        disable = !@template.resource.destroyable?
+        tool(options[:label] || :destroy.ta, { action: :destroy, id: @template.resource.id, redirect: options[:redirect] }, method: :delete, data: { confirm: :are_you_sure_you_want_to_delete.tl }, disabled: disable)
       else
         tool(options[:label] || :destroy.ta, { action: :destroy, redirect: options[:redirect] }, { method: :delete }.merge(options.except(:redirect, :label)))
       end
