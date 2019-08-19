@@ -130,7 +130,7 @@ class PurchaseAffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
     journal_entry = JournalEntry.create!(
       journal: Journal.find_by(nature: :various, currency: purchase.currency),
-      printed_on: purchase.invoiced_on + 15,
+      printed_on: purchase.invoiced_on + 10,
       items_attributes: {
         '0' => {
           name: 'Insurance care',

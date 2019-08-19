@@ -109,7 +109,6 @@ class JournalTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     financial_year_18 = create(:financial_year, started_on: '01/01/2018', stopped_on: '31/12/2018')
     client = create(:entity, :client)
     sale = create(:sale_with_accounting, client: client)
-    sale_item = create(:sale_item, sale: sale)
     sale.invoice! Date.new(2018, 04, 30)
     params = {
       period: '2018-01-01_2018-12-31',
@@ -120,6 +119,7 @@ class JournalTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       centralize: '301 302 310 320 330 340 374 401 411 421 467 603'
     }
     balance = Journal.trial_balance(params)
+
     assert_equal BigDecimal(balance[0][2]), sale.amount
     assert_equal BigDecimal(balance[2][3]), sale.pretax_amount
     assert_equal BigDecimal(balance[1][3]), sale.amount - sale.pretax_amount
