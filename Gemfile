@@ -205,7 +205,7 @@ gem 'bootstrap-sass', '~> 3.4.1'
 gem 'twitter-typeahead-rails'
 
 # Iconic font
-gem 'agric', '~> 4.0', '>= 4.0.2'
+gem 'agric', '~> 4.1'
 
 # Web services
 gem 'mechanize'
