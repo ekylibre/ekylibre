@@ -2768,6 +2768,7 @@ eng:
       bookkeeping_is_finished: "The commercial data transfer is finished."
       bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
       cannot_add_bank_statement_item: "You can’t add a new line because there is no available bank statement on this day"
+      cannot_change_to_in_use_state: "The start date must be before the end of the last opened financial year"
       cannot_find_deal_to_attach: "Cannot find deal to attach"
       cannot_find_deal_to_detach: "Cannot find deal to detach"
       cannot_finish_affair: "Cannot finish affair"
