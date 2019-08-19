@@ -1,7 +1,6 @@
 require 'test_helper'
-require 'cases/bookkeeper_test_case'
 
-class ShipmentBookkeeperTest < BookkeeperTestCase
+class ShipmentBookkeeperTest < Ekylibre::Testing::BookkeeperTestCase
   test "don't bookkeep anything if the parcel hasn't been given" do
     shipment = build(:shipment, state: :draft)
     shipment.items = 4.times.map do

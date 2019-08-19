@@ -23,5 +23,5 @@
 
     bundle exec rake db:migrate RAILS_ENV=test VERBOSE=false
 
-    bundle exec rake test:fast test:slow
+    bundle exec rake ${1:-test}
 )

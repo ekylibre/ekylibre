@@ -2332,6 +2332,7 @@ eng:
     ship: "Ship" #?
     shipment_items: "Shipment items"
     shipments: "Shipments"
+    shipping_note: "Shipping bill"
     short_cycle_alive_products: "Short cycle alive products"
     short_cycle_alive_products_animals: "Short cycle alive products animals" #?
     short_cycle_alive_products_others: "Short cycle alive products others" #?

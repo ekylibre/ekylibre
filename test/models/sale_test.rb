@@ -326,4 +326,14 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       create(:sale, invoiced_at: Date.today - 3.day)
     end
   end
+
+  test 'A sale with state :order can have its invoice date changed' do
+    sale = create :sale, amount: 5000, items: 1
+
+    assert sale.propose
+    assert sale.confirm
+
+    assert sale.order?
+    assert sale.update invoiced_at: Time.parse("2018-05-08T10-25-52Z")
+  end
 end

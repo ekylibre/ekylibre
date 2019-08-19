@@ -111,6 +111,8 @@ eng:
         stopped_at:
           one: "Stopped at is inferior than expected"
           other: "{{count}} Stopped at is inferior than expected"
+      inventory:
+        disable_accountancy: "Do not update accounting"
       journal:
         closed_on: "Latest closure on"
       journal_entry_item:
@@ -910,7 +912,7 @@ eng:
     document: "Document"
     documents: "Documents"
     doers: "Doers"
-    # doers_cost: "Doers cost"
+    doers_cost: "Doers cost"
     dose_quantity: "Dose quantity"
     dose_unit: "Dose unit"
     dose_unit_name: "Dose unit name"

@@ -364,6 +364,8 @@ GEM
       rack (>= 0.4)
     rack-protection (2.0.5)
       rack
+    rack-proxy (0.6.5)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.11.1)
@@ -569,6 +571,10 @@ GEM
       activemodel (>= 4.2)
       debug_inspector
       railties (>= 4.2)
+    webpacker (4.0.7)
+      activesupport (>= 4.2)
+      rack-proxy (>= 0.6.1)
+      railties (>= 4.2)
     webrobots (0.1.2)
     wice_grid (3.6.2)
       activerecord (> 3.2)
@@ -702,6 +708,7 @@ DEPENDENCIES
   vuejs-rails
   wannabe_bool
   web-console (~> 3.0)
+  webpacker (~> 4.x)
   wice_grid
 
 RUBY VERSION

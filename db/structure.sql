@@ -3997,7 +3997,8 @@ CREATE TABLE inventories (
     custom_fields jsonb,
     financial_year_id integer,
     currency character varying,
-    product_nature_category_id integer
+    product_nature_category_id integer,
+    disable_accountancy boolean DEFAULT false
 );
 
 
@@ -5007,7 +5008,8 @@ CREATE TABLE parcel_items (
     project_budget_id integer,
     purchase_order_to_close_id integer,
     activity_budget_id integer,
-    team_id integer
+    team_id integer,
+    annotation text
 );
 
 
@@ -19067,4 +19069,8 @@ INSERT INTO schema_migrations (version) VALUES ('20190705094729');
 INSERT INTO schema_migrations (version) VALUES ('20190710002904');
 
 INSERT INTO schema_migrations (version) VALUES ('20190712124724');
+
+INSERT INTO schema_migrations (version) VALUES ('20190807075910');
+
+INSERT INTO schema_migrations (version) VALUES ('20190808152235');
 

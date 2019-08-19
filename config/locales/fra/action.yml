@@ -2558,6 +2558,7 @@ fra:
     ship: "Prévue le"
     shipment_items: "Articles expédiés"
     shipments: "Expéditions"
+    shipping_note: "Bon d'expédition"
     short_cycle_alive_products: "Bien-vivants et en cours (cycle court)"
     short_cycle_alive_products_animals: "Animaux"
     short_cycle_alive_products_others: "En cours"
