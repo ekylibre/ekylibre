@@ -1676,7 +1676,8 @@ CREATE TABLE public.cashes (
     custom_fields jsonb,
     bank_account_holder_name character varying,
     suspend_until_reconciliation boolean DEFAULT false NOT NULL,
-    suspense_account_id integer
+    suspense_account_id integer,
+    by_default boolean DEFAULT false
 );
 
 
@@ -18916,6 +18917,8 @@ INSERT INTO schema_migrations (version) VALUES ('20190514125010');
 INSERT INTO schema_migrations (version) VALUES ('20190617200314');
 
 INSERT INTO schema_migrations (version) VALUES ('20190619021714');
+
+INSERT INTO schema_migrations (version) VALUES ('20190703060513');
 
 INSERT INTO schema_migrations (version) VALUES ('20190705094729');
 
