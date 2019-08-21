@@ -26,7 +26,7 @@ class SalesEstimateAndOrderPrinter
 
     report = generate_document(@document_nature, key, @template_path) do |r|
       # Header
-      r.add_image :company_logo, company.picture.path
+      r.add_image :company_logo, company.picture.path if File.exist?(company.picture.path)
 
       # Title
       r.add_field :title, title.upcase
