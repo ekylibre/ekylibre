@@ -21,11 +21,30 @@ export function customFetch(url, options) {
     .then(checkStatus)
 }
 
+function isGet(options) {
+  let {method = 'GET'} = options
+
+  return method === 'GET'
+}
+
+function buildUrl(urlStr, params){
+  const url = new URL(urlStr, window.location.href)
+  Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+
+  return url
+}
+
 export function ajax(options) {
-  let {url, ...opt} = options
+  let {url, data, ...opt} = options
+  if (isGet(options)) {
+    url = buildUrl(url, data)
+  } else {
+    opt = {...opt, data}
+  }
 
   return customFetch(url, opt)
 }
+
 ajax.json = options => ajax(options).then(parseJSON)
 ajax.text = options => ajax(options).then(responseText)
 ajax.html = ajax.text
