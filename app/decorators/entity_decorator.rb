@@ -16,4 +16,8 @@ class EntityDecorator < Draper::Decorator
   def website
     object.websites.any? ? object.websites.order(:by_default).first.coordinate : ''
   end
+
+  def has_picture?
+    picture.path && File.exist?(picture.path)
+  end
 end
