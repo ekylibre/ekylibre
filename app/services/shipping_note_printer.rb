@@ -13,7 +13,7 @@ class ShippingNotePrinter
   def run_pdf
     # Companies
     company = EntityDecorator.decorate(Entity.of_company)
-    receiver = EntityDecorator.decorate(@shipment.sale.client)
+    receiver = EntityDecorator.decorate(@shipment.sale&.client || @shipment.recipient)
 
     # Title
     title = @document_nature.name.tl
@@ -29,7 +29,7 @@ class ShippingNotePrinter
       r.add_field :date, Time.zone.now.l(format: '%d %B %Y')
 
       # Company_logo
-      r.add_image :company_logo, company.picture.path if File.exist?(company.picture.path)
+      r.add_image :company_logo, company.picture.path if company.has_picture?
 
       # Company_address
       r.add_field :company_name, company.full_name
