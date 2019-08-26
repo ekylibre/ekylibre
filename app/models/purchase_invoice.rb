@@ -76,6 +76,14 @@ class PurchaseInvoice < Purchase
   scope :current, -> { unpaid }
   scope :current_or_self, ->(purchase) { where(unpaid).or(where(id: (purchase.is_a?(Purchase) ? purchase.id : purchase))) }
 
+  protect on: :update do
+    !self.unpaid?
+  end
+
+  protect on: :destroy do
+    !self.unpaid?
+  end
+
   before_validation(on: :create) do
     self.state = :invoice
     self.invoiced_at ||= created_at
@@ -214,10 +222,6 @@ class PurchaseInvoice < Purchase
 
   def status
     affair.status
-  end
-
-  def updateable?
-    PurchaseInvoice.unpaid.include?(self) && !self.reconciled?
   end
 
   def unpaid?
