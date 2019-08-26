@@ -310,6 +310,7 @@
 
 .unitary-variant-fields {
   width: 72%;
+
   .reception_items_work_number {
     display: flex;
     justify-content: flex-end;
@@ -318,7 +319,8 @@
 
 .annotable--shipments {
   display: flex;
+
   .shipment-annotation {
-    align-self: center;
+    margin-top: $default-gap;
   }
 }

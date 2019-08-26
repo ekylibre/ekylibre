@@ -42,6 +42,9 @@ module Ekylibre
       g.template_engine :haml
     end
 
+    # APM
+    config.elastic_apm.service_name = ENV.fetch('APM_SERVICE_NAME', 'Ekylibre')
+
     # config.middleware.use Rack::Cors do
     #   allow do
     #     origins '*'

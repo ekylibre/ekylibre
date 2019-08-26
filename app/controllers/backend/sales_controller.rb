@@ -148,42 +148,23 @@ module Backend
     # Displays details of one sale selected with +params[:id]+
     def show
       return unless @sale = find_and_check
-
       @sale.other_deals
-
-      respond_to do |format|
-        format.pdf do
-          printer_class = case params[:nature]
-                          when 'invoice'  then SalesInvoicePrinter
-                          when 'order'    then SalesOrderPrinter
-                          when 'estimate' then SalesEstimatePrinter
-                          else return redirect_to 401
-                          end
-
-          printer = printer_class.new(@sale)
-
-          file_path = printer.run_pdf
-          File.open(File.join(file_path), 'r') do |f|
-            send_data f.read, filename: printer.document_nature, type: 'application/pdf', disposition: 'inline'
-          end
-        end
-
+      respond_with(@sale, methods: %i[taxes_amount affair_closed client_number sales_conditions sales_mentions],
+                          include: { address: { methods: [:mail_coordinate] },
+                                     nature: { include: { payment_mode: { include: :cash } } },
+                                     supplier: { methods: [:picture_path], include: { default_mail_address: { methods: [:mail_coordinate] }, websites: {}, emails: {}, mobiles: {} } },
+                                     responsible: {},
+                                     credits: {},
+                                     parcels: { methods: %i[human_delivery_mode human_delivery_nature items_quantity], include: {
+                                       address: {},
+                                       sender: {},
+                                       recipient: {}
+                                     } },
+                                     affair: { methods: [:balance], include: [incoming_payments: { include: :mode }] },
+                                     invoice_address: { methods: [:mail_coordinate] },
+                                     items: { methods: %i[taxes_amount tax_name tax_short_label], include: [:variant, shipment_items: { include: %i[product parcel] }] } }) do |format|
         format.html do
           t3e @sale.attributes, client: @sale.client.full_name, state: @sale.state_label, label: @sale.label
-          respond_with(@sale, methods: %i[taxes_amount affair_closed client_number sales_conditions sales_mentions],
-                              include: { address: { methods: [:mail_coordinate] },
-                                         nature: { include: { payment_mode: { include: :cash } } },
-                                         supplier: { methods: [:picture_path], include: { default_mail_address: { methods: [:mail_coordinate] }, websites: {}, emails: {}, mobiles: {} } },
-                                         responsible: {},
-                                         credits: {},
-                                         parcels: { methods: %i[human_delivery_mode human_delivery_nature items_quantity], include: {
-                                           address: {},
-                                           sender: {},
-                                           recipient: {}
-                                         } },
-                                         affair: { methods: [:balance], include: [incoming_payments: { include: :mode }] },
-                                         invoice_address: { methods: [:mail_coordinate] },
-                                         items: { methods: %i[taxes_amount tax_name tax_short_label], include: [:variant, shipment_items: { include: %i[product parcel] }] } })
         end
       end
     end

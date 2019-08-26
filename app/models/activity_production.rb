@@ -212,7 +212,7 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    interventions.any?
+    interventions.any? || products.any?
   end
 
   def computed_support_name
