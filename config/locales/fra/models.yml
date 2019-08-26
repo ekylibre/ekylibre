@@ -1813,7 +1813,7 @@ fra:
     reception_items: "Éléments de réception"
     reception_journal_entry: "Écriture de la réception"
     receptions: "Réceptions"
-    receptions_costs: "Coût des réceptions"
+    receptions_cost: "Coût des réceptions"
     recipient: "Destinataire"
     recommended: "Prescrit"
     recommender: "Prescripteur"
