@@ -825,9 +825,16 @@ module ApplicationHelper
     return unless content_for?(toolbar)
 
     if wrap.is_a? TrueClass
-      content_tag(:div, content_for(toolbar), class: "#{name.to_s.parameterize}-toolbar toolbar")
+      content_tag(:div, content_for(toolbar), class: "#{name.to_s.parameterize}-toolbar toolbar toolbar-wrapper")
     else
-      content_for(toolbar)
+      html = content_for(toolbar)
+      noko = Nokogiri::HTML.fragment(html)
+      wrapper = noko.children.select { |e| e.matches?(".toolbar-wrapper") }.first
+      return toolbar_tag(name, wrap: true) if wrapper.nil? # If no wrapper element and wrap is false, thats an error, just wrap everything
+
+      other_content = noko.children.select { |e| e.matches?(":not(.toolbar-wrapper)") }
+      other_content.each { |node| wrapper.add_child node }
+      noko.to_html.html_safe
     end
   end
 

@@ -1277,6 +1277,7 @@ fra:
       other: "Consulter les écritures à équilibrer (%{count})"
     consume: "Consommé"
     contact: "à l’adresse" #?
+    contact_support_to_delete_production: "Pour supprimer cette production, veuillez contacter le support par chat."
     contained_products: "Produits contenus"
     container: "Emplacement"
     contains: "Contient" #?
@@ -3312,6 +3313,7 @@ fra:
     backend/prescriptions: "%{reference_number}"
     backend/product_memberships: "%{started_at}"
     backend/product_nature_variants: "%{name} (%{unit_name}) - %{charge_account_number}"
+    backend/product_nature_variants/saleables: "%{name} (%{unit_name}) - %{product_account_number}"
     backend/product_natures: "%{name}"
     backend/products: "%{work_number} %{name} (%{number}) - %{container_name}"
     backend/purchase_payments: "%{number}. %{mode_name} pour %{payee_full_name} de %{amount} %{currency}"

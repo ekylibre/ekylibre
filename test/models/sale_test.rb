@@ -316,4 +316,14 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_not jei_s.variant.nil?
     assert_equal jei_s.variant, @variant
   end
+
+  test 'A sale with state :order can have its invoice date changed' do
+    sale = create :sale, amount: 5000, items: 1
+
+    assert sale.propose
+    assert sale.confirm
+
+    assert sale.order?
+    assert sale.update invoiced_at: Time.parse("2018-05-08T10-25-52Z")
+  end
 end
