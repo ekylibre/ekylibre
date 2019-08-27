@@ -1201,7 +1201,6 @@ class Intervention < Ekylibre::Record::Base
           nature = SaleNature.new(
             active: true,
             currency: Preference[:currency],
-            with_accounting: true,
             journal: journal,
             by_default: true,
             name: SaleNature.tc('default.name', default: SaleNature.model_name.human)
