@@ -43,7 +43,6 @@
 #  sales_conditions        :text
 #  updated_at              :datetime         not null
 #  updater_id              :integer
-#  with_accounting         :boolean          default(FALSE), not null
 #
 
 class SaleNature < Ekylibre::Record::Base
@@ -54,16 +53,15 @@ class SaleNature < Ekylibre::Record::Base
   has_many :sales, foreign_key: :nature_id, dependent: :restrict_with_exception
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :active, :by_default, :downpayment, :with_accounting, inclusion: { in: [true, false] }
+  validates :active, :by_default, :downpayment, inclusion: { in: [true, false] }
   validates :catalog, :currency, presence: true
   validates :description, :payment_mode_complement, :sales_conditions, length: { maximum: 500_000 }, allow_blank: true
   validates :downpayment_minimum, :downpayment_percentage, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :expiration_delay, :name, :payment_delay, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
-  validates :journal, presence: { if: :with_accounting? }
 
-  validates :currency, presence: true
+  validates :currency, :journal, presence: true
   validates :currency, match: { with: :journal, message: :currency_does_not_match }
   validates :currency, match: { with: :payment_mode, message: :currency_does_not_match }
 
@@ -104,11 +102,17 @@ class SaleNature < Ekylibre::Record::Base
           downpayment_minimum: 300,
           downpayment_percentage: 30,
           currency: currency,
-          with_accounting: true,
           journal: journal,
           catalog: catalog
         )
       end
     end
   end
+
+  def with_accounting
+    ActiveSupport::Deprecation.warn("with_accounting column doesn't exist anymore in sale_natures table")
+    true
+  end
+
+  alias_method :with_accounting?, :with_accounting
 end

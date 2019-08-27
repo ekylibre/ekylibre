@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.14
--- Dumped by pg_dump version 9.6.14
+-- Dumped from database version 9.6.15
+-- Dumped by pg_dump version 9.6.15
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -21,20 +21,6 @@ SET row_security = off;
 --
 
 CREATE SCHEMA postgis;
-
-
---
--- Name: public; Type: SCHEMA; Schema: -; Owner: -
---
-
-CREATE SCHEMA public;
-
-
---
--- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON SCHEMA public IS 'standard public schema';
 
 
 --
@@ -6103,20 +6089,22 @@ ALTER SEQUENCE public.product_phases_id_seq OWNED BY public.product_phases.id;
 
 
 --
--- Name: product_populations; Type: VIEW; Schema: public; Owner: -
+-- Name: product_populations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE VIEW public.product_populations AS
-SELECT
-    NULL::integer AS product_id,
-    NULL::timestamp without time zone AS started_at,
-    NULL::numeric AS value,
-    NULL::integer AS creator_id,
-    NULL::timestamp without time zone AS created_at,
-    NULL::timestamp without time zone AS updated_at,
-    NULL::integer AS updater_id,
-    NULL::integer AS id,
-    NULL::integer AS lock_version;
+CREATE TABLE public.product_populations (
+    product_id integer,
+    started_at timestamp without time zone,
+    value numeric,
+    creator_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    updater_id integer,
+    id integer,
+    lock_version integer
+);
+
+ALTER TABLE ONLY public.product_populations REPLICA IDENTITY NOTHING;
 
 
 --
@@ -6414,7 +6402,6 @@ CREATE TABLE public.sale_natures (
     sales_conditions text,
     expiration_delay character varying NOT NULL,
     payment_delay character varying NOT NULL,
-    with_accounting boolean DEFAULT false NOT NULL,
     journal_id integer,
     description text,
     created_at timestamp without time zone NOT NULL,
@@ -17789,8 +17776,8 @@ CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING b
 -- Name: product_populations _RETURN; Type: RULE; Schema: public; Owner: -
 --
 
-CREATE OR REPLACE VIEW public.product_populations AS
- SELECT DISTINCT ON (movements.started_at, movements.product_id) movements.product_id,
+CREATE RULE "_RETURN" AS
+    ON SELECT TO public.product_populations DO INSTEAD  SELECT DISTINCT ON (movements.started_at, movements.product_id) movements.product_id,
     movements.started_at,
     sum(precedings.delta) AS value,
     max(movements.creator_id) AS creator_id,
@@ -18918,6 +18905,8 @@ INSERT INTO schema_migrations (version) VALUES ('20190617200314');
 INSERT INTO schema_migrations (version) VALUES ('20190619021714');
 
 INSERT INTO schema_migrations (version) VALUES ('20190705094729');
+
+INSERT INTO schema_migrations (version) VALUES ('20190705143350');
 
 INSERT INTO schema_migrations (version) VALUES ('20190710002904');
 

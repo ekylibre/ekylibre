@@ -58,7 +58,7 @@ class SaleItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   attr_reader :sale, :standard_vat, :reduced_vat, :variants
 
   setup do
-    nature = SaleNature.find_or_create_by(with_accounting: true, currency: 'EUR')
+    nature = SaleNature.find_or_create_by(currency: 'EUR')
     assert nature
     client = Entity.normal.first
     assert client
