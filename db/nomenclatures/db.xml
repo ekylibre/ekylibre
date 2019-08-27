@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20190521170601">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20190823091727">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature" required="true"/>
@@ -9876,7 +9876,7 @@
       <item name="centimole_per_kilogram" dimension="amount_of_substance_density" symbol="cmol/kg" a="0.01"/>
       <item name="cubic_centimeter" dimension="volume" symbol="cm&#xB3;" a="1.0e-06"/>
       <item name="cubic_meter" dimension="volume" symbol="m&#xB3;"/>
-      <item name="cubic_meter_per_hectare" dimension="volume_area_density" symbol="cm&#xB3;/ha" a="1.0e-06" d="10000.0"/>
+      <item name="cubic_meter_per_hectare" dimension="volume_area_density" symbol="m&#xB3;/ha" a="1.0e-06" d="10000.0"/>
       <item name="cubic_meter_per_hour" dimension="volume_flow" symbol="m&#xB3;/h" d="3600.0"/>
       <item name="day" dimension="time" symbol="d" a="86400.0"/>
       <item name="degree" dimension="angle" symbol="&#xB0;" a="3.141592653589793" d="180.0"/>
