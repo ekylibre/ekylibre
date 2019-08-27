@@ -107,13 +107,13 @@
 
 .item-block-role--purchase-invoice {
   display: flex;
-  flex-direction: column;
   width: 40%;
   .control-group {
-    width: 100%;
+    width: 72%;
     flex-direction: column;
     .controls {
       margin-left: 0 !important;
+      max-width: unset !important ;
 
       .selector {
         width: 100%;

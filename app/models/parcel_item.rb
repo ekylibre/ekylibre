@@ -101,11 +101,10 @@ class ParcelItem < Ekylibre::Record::Base
   validates :population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :pretax_amount, :unit_pretax_amount, :unit_pretax_stock_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   # ]VALIDATORS]
+
   validates :variant, presence: true
-  # validates :product, presence: true, unless: proc { |item| !item.parcel.try(:prepared?) }
 
   validates :population, presence: true
-  # validates :product_identification_number, presence: { if: -> { product_is_identifiable? && parcel_incoming? } }
 
   alias_attribute :quantity, :population
 
