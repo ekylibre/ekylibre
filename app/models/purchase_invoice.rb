@@ -76,7 +76,7 @@ class PurchaseInvoice < Purchase
   scope :current, -> { unpaid }
   scope :current_or_self, ->(purchase) { where(unpaid).or(where(id: (purchase.is_a?(Purchase) ? purchase.id : purchase))) }
 
-  protect on: :update do
+  protect on: :update, allow_update_on: %i[reference_number responsible_id invoiced_at payment_delay tax_payability description] do
     items.any? && !self.unpaid?
   end
 
