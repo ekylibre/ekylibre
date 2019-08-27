@@ -270,8 +270,6 @@ GEM
     letter_opener (1.6.0)
       launchy (~> 2.2)
     libv8 (3.16.14.19)
-    lodash-rails (4.17.10)
-      railties (>= 3.1)
     loofah (2.2.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -297,8 +295,6 @@ GEM
       builder
       minitest (>= 5.0)
       ruby-progressbar
-    momentjs-rails (2.20.1)
-      railties (>= 3.1)
     multi_json (1.13.1)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
@@ -650,13 +646,11 @@ DEPENDENCIES
   jquery-ui-rails
   kaminari (~> 0.16.0)
   letter_opener
-  lodash-rails
   loofah
   luhn
   mail (~> 2.6.6.rc1)
   mechanize
   minitest-reporters
-  momentjs-rails (>= 2.9.0)
   nokogiri (~> 1.8.1)
   odf-report
   omniauth
