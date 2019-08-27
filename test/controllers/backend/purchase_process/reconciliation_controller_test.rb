@@ -5,7 +5,6 @@ module Backend
       test_restfully_all_actions
 
 
-
       setup do
         Reception.delete_all
         PurchaseOrder.delete_all
@@ -87,9 +86,9 @@ module Backend
 
         assert_includes reception_ids, @reception_one.id
         refute_includes reception_ids, @reception_two.id
-        end
+      end
 
-        test "if the supplier is set then only purchaseOrders from this supplier appear in the reception form modal and could be reconciled" do
+      test "if the supplier is set then only purchaseOrders from this supplier appear in the reception form modal and could be reconciled" do
 
         supplier_one = create(:entity, :supplier)
         supplier_two = create(:entity, :supplier)
@@ -104,24 +103,7 @@ module Backend
 
         assert_includes purchase_order_ids, @purchase_order_one.id
         refute_includes purchase_order_ids, @purchase_order_two.id
-        end
-
-        # test "update reconciled purchaseInvoices" do
-
-        # supplier_one = create(:entity, :supplier)
-        # supplier_two = create(:entity, :supplier)
-
-        # @reception_three.update(sender_id: supplier_two.id)
-
-        # get :receptions_to_reconciliate, supplier: @reception_three.sender_id, purchase_invoice: @purchase_invoice_one.id
-        # assert_response 200
-        # byebug
-        # parsing_response_reception = Nokogiri::HTML(response.body)
-        # reception_ids = parsing_response_reception.css('input[type="checkbox"].item-checkbox').map { |k, v| k["data-id"].to_i }
-
-
-        # end
-
+      end
     end
   end
 end

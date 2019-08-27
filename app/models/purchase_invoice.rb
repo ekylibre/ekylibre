@@ -72,16 +72,16 @@ class PurchaseInvoice < Purchase
   }
 
   scope :accepted_reconcile, -> { where(reconciliation_state: %w[accepted reconcile]) }
-  scope :unpaid, -> { where(state: %w[order invoice]).where.not(affair: Affair.closeds) }
+  scope :unpaid, -> { where(state: %w[order invoice]).where.not(affair: Affair.closeds.where("debit != 0 OR credit != 0")) }
   scope :current, -> { unpaid }
   scope :current_or_self, ->(purchase) { where(unpaid).or(where(id: (purchase.is_a?(Purchase) ? purchase.id : purchase))) }
 
   protect on: :update do
-    !self.unpaid?
+    items.any? && !self.unpaid?
   end
 
   protect on: :destroy do
-    !self.unpaid?
+    items.any? && !self.unpaid?
   end
 
   before_validation(on: :create) do
