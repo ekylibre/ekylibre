@@ -10,9 +10,10 @@
       - if f.object.destroyable?
         = link_to_remove_association(content_tag(:i) + h(:destroy.tl), f, 'data-no-turbolink' => true, class: 'destroy remove remove-item')
     %td.act
-      = link_to("#", class: 'edit edit-item', data: { edit: "item-form" }) do
-        %i
-        = :edit.tl
+      - if f.object.updateable?
+        = link_to("#", class: 'edit edit-item', data: { edit: "item-form" }) do
+          %i
+          = :edit.tl
     %td.product-column
       %label{ data: { item_value: "input.invoice-variant" } }= f.object.variant ? f.object.variant.name : 'ERROR'
     %td.quantity-column
