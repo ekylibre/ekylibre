@@ -58,7 +58,7 @@ class TaxDeclarationItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtu
 
     Timecop.travel(Time.new(2018, 0o1, 0o2))
 
-    sale = create(:sale_with_accounting)
+    sale = create(:sale)
     sale_item = create(:sale_item, sale: sale)
     sale.invoice!
     incoming_payment = create(:incoming_payment, payer: sale.client, amount: sale.amount, currency: sale.currency)
@@ -84,13 +84,13 @@ class TaxDeclarationItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtu
 
     Timecop.travel(Time.new(2017, 0o1, 0o2))
 
-    sale_one = create(:sale_with_accounting)
+    sale_one = create(:sale)
     sale_item_one = create(:sale_item, sale: sale_one)
     sale_one.invoice!
 
     Timecop.travel(Time.new(2018, 0o1, 0o2))
 
-    sale_two = create(:sale_with_accounting, nature: sale_one.nature)
+    sale_two = create(:sale, nature: sale_one.nature)
     sale_item_two = create(:sale_item, sale: sale_two)
     sale_two.invoice!
 
@@ -115,14 +115,14 @@ class TaxDeclarationItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtu
     financial_year_19 = create(:financial_year, started_on: '01/01/2019', stopped_on: '31/12/2019')
 
     Timecop.travel(Time.new(2018, 0o1, 0o2))
-    sale_one = create(:sale_with_accounting)
+    sale_one = create(:sale)
     sale_item_one = create(:sale_item, sale: sale_one)
     sale_one.invoice!
     incoming_payment = create(:incoming_payment, payer: sale_one.client, amount: sale_one.amount, currency: sale_one.currency)
     sale_one.affair.attach(incoming_payment)
     sale_one.affair.finish
 
-    sale_two = create(:sale_with_accounting, nature: sale_one.nature)
+    sale_two = create(:sale, nature: sale_one.nature)
     sale_item_two = create(:sale_item, sale: sale_two)
     sale_two.invoice!
 

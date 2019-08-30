@@ -19,9 +19,5 @@ FactoryBot.define do
 
       sale.client = sale.affair.client unless sale.client
     end
-
-    factory :sale_with_accounting do
-      association :nature, factory: :sale_nature_with_accounting
-    end
   end
 end
