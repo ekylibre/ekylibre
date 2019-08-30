@@ -3944,6 +3944,7 @@ CREATE TABLE public.inventories (
     financial_year_id integer,
     currency character varying,
     product_nature_category_id integer,
+    journal_id integer,
     disable_accountancy boolean DEFAULT false
 );
 
@@ -18046,6 +18047,14 @@ ALTER TABLE ONLY public.payslip_natures
 
 
 --
+-- Name: inventories fk_rails_86687e98ce; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.inventories
+    ADD CONSTRAINT fk_rails_86687e98ce FOREIGN KEY (journal_id) REFERENCES public.journals(id);
+
+
+--
 -- Name: intervention_working_periods fk_rails_8903897a2c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -18912,6 +18921,8 @@ INSERT INTO schema_migrations (version) VALUES ('20190705094729');
 INSERT INTO schema_migrations (version) VALUES ('20190705143350');
 
 INSERT INTO schema_migrations (version) VALUES ('20190710002904');
+
+INSERT INTO schema_migrations (version) VALUES ('20190726092304');
 
 INSERT INTO schema_migrations (version) VALUES ('20190807075910');
 
