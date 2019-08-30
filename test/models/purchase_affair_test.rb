@@ -171,7 +171,7 @@ class PurchaseAffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
         tax: Tax.all.sample
       )
     end
-    purchase = Purchase.create!(supplier: supplier, nature: nature, type: 'PurchaseInvoice', items: items)
+    purchase = Purchase.create!(supplier: supplier, nature: nature, type: 'PurchaseInvoice', items: items, invoiced_at: DateTime.new(2018, 1, 1))
     assert purchase.amount > 0, "Purchase amount should be greater than 0. Got: #{purchase.amount.inspect}"
     purchase.reload
     assert purchase.affair, 'An affair should be present after invoicing'

@@ -178,7 +178,7 @@ class SaleAffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
         tax: Tax.all.sample
       )
     end
-    sale = Sale.create!(client: client, nature: nature, items: items)
+    sale = Sale.create!(client: client, nature: nature, items: items, invoiced_at: DateTime.new(2018, 1, 1))
     sale.invoice!
     sale.reload
     assert sale.amount > 0, "Sale amount should be greater than 0. Got: #{sale.amount.inspect}"
