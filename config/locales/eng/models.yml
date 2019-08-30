@@ -1596,7 +1596,7 @@ eng:
     reception_items: "Reception items"
     reception_journal_entry: "Reception journal entry"
     receptions: "Receptions"
-    # receptions_cost: "Receptions cost"
+    receptions_cost: "Receptions cost"
     recipient: "Recipient"
     recommended: "Recommended" #?
     recommender: "Recommender"

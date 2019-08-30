@@ -287,7 +287,6 @@ class Parcel < Ekylibre::Record::Base
           nature = SaleNature.create!(
             active: true,
             currency: Preference[:currency],
-            with_accounting: true,
             journal: journal,
             by_default: true,
             name: SaleNature.tc('default.name', default: SaleNature.model_name.human)

@@ -46,15 +46,6 @@
 //= require wice_grid
 //= require wice_grid/settings
 //= require ekylibre
-//= require moment
-//= require moment/ar
-//= require moment/de
-//= require moment/es
-//= require moment/fr
-//= require moment/it
-//= require moment/ja
-//= require moment/pt
-//= require moment/zh-cn
 //= require formize/behave
 //= require form/dialog
 //= require formize/observe
@@ -82,7 +73,6 @@
 //= require d3
 //= require d3/tip
 //= require timeline-chart.js
-//= require rbush
 //= require autosize
 //= require plugins
 //= require_tree .
@@ -96,9 +86,6 @@
 //= require vue-chartjs/dist/vue-chartjs.min.js
 
 //= require ext-plugins/vuejs/vue-chartjs
-
-//= require vue
-//= require lodash
 
 // FIX Browser interoperability
 // href function seems to be ineffective

@@ -130,6 +130,14 @@ class PurchaseItem < Ekylibre::Record::Base
     joins(:variant).merge(ProductNatureVariant.of_categories(product_nature_category))
   }
 
+  protect on: :update do
+    !self.purchase.updateable?
+  end
+
+  protect on: :destroy do
+    !self.purchase.destroyable?
+  end
+
   before_validation do
     self.currency = purchase_currency if purchase
 

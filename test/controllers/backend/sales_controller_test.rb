@@ -25,48 +25,15 @@ module Backend
                                except: %i[generate_parcel update]
 
     test 'should print an invoice' do
-      nature = 'invoice'
       sale = sales(:sales_001)
-      user = users(:users_001)
-      key = "Chuck Norris can't test for equality because he has no equal."
       assert sale.valid?, "Sales 001 must be valid (#{sale.errors.inspect})"
-      printer = SalesInvoicePrinter.new(sale)
-      file_path = printer.run_pdf
-      begin
-        assert File.exist?(file_path)
-      ensure
-        File.delete(file_path) if File.exist?(file_path)
+      DocumentTemplate.of_nature(:sales_invoice).update_all(active: false)
+      template = DocumentTemplate.create!(nature: :sales_invoice, language: I18n.locale, name: 'sales_invoice', active: true, source: File.open(fixture_file('sales_invoice.jrxml')))
+      assert template, 'No template found for sales_invoice'
+      assert_nothing_raised do # "Template #{template.inspect} doesn't seems to work"
+        get :show, id: sale.id, format: :pdf, key: sale.number, template: template.id
       end
-    end
-
-    test 'should print an estimate' do
-      nature = 'estimate'
-      sale = sales(:sales_001)
-      user = users(:users_001)
-      key = 'Chuck Norris can unit test an entire application with a single assert.'
-      assert sale.valid?, "Sales 001 must be valid (#{sale.errors.inspect})"
-      printer = SalesInvoicePrinter.new(sale)
-      file_path = printer.run_pdf
-      begin
-        assert File.exist?(file_path)
-      ensure
-        File.delete(file_path) if File.exist?(file_path)
-      end
-    end
-
-    test 'should print an order' do
-      nature = 'order'
-      sale = sales(:sales_001)
-      user = users(:users_001)
-      key = "Chuck Norris' keyboard doesn't have F1 key, the computer asks for help from him."
-      assert sale.valid?, "Sales 001 must be valid (#{sale.errors.inspect})"
-      printer = SalesInvoicePrinter.new(sale)
-      file_path = printer.run_pdf
-      begin
-        assert File.exist?(file_path)
-      ensure
-        File.delete(file_path) if File.exist?(file_path)
-      end
+      assert_response :success
     end
 
     test "can't create a sale for a fixed asset if it's invoiced before the fixed asset has started" do
