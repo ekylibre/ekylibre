@@ -830,6 +830,7 @@ module ApplicationHelper
       html = content_for(toolbar)
       noko = Nokogiri::HTML.fragment(html)
       wrapper = noko.children.select { |e| e.matches?(".toolbar-wrapper") }.first
+      return toolbar_tag(name, wrap: true) if wrapper.nil? # If no wrapper element and wrap is false, thats an error, just wrap everything
       other_content = noko.children.select { |e| e.matches?(":not(.toolbar-wrapper)") }
       other_content.each { |node| wrapper.add_child node } if wrapper
       noko.to_html.html_safe

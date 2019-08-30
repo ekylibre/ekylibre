@@ -54,6 +54,11 @@
       fixedAssetField.val('')
       stoppedOnField.val('')
 
+    $('#new_purchase_invoice').on 'iceberg:validated', E.Purchases.compute_amount
+    $('.edit_purchase_invoice').on 'iceberg:validated', E.Purchases.compute_amount
+    $('#new_purchase_invoice').on 'cocoon:after-remove', E.Purchases.compute_amount
+    $('.edit_purchase_invoice').on 'cocoon:after-remove', E.Purchases.compute_amount
+
     $(document).on 'click', '.nested-fields .edit-item[data-edit="item-form"]', (event) ->
       vatSelectedValue = $(event.target).closest('.nested-fields').find('.item-display .vat-rate').attr('data-selected-value')
       $(event.target).closest('.nested-fields').find('.nested-item-form:visible .vat-total').val(vatSelectedValue)

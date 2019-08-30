@@ -92,7 +92,6 @@ class Sale < Ekylibre::Record::Base
   has_many :items, -> { order('position, sale_items.id') }, class_name: 'SaleItem', dependent: :destroy, inverse_of: :sale
   has_many :journal_entries, as: :resource
   has_many :subscriptions, through: :items, class_name: 'Subscription', source: 'subscription'
-  has_many :parcel_items, through: :parcels, source: :items
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, :confirmed_at, :expired_at, :invoiced_at, :payment_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :amount, :downpayment_amount, :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
@@ -160,8 +159,13 @@ class Sale < Ekylibre::Record::Base
     end
   end
 
-  before_validation(on: :create) do
+  after_initialize do
+    next if persisted?
+
     self.state = :draft
+  end
+
+  before_validation(on: :create) do
     self.currency ||= nature.currency if nature
     self.created_at = Time.zone.now
   end
@@ -236,7 +240,7 @@ class Sale < Ekylibre::Record::Base
 
   # This callback bookkeeps the sale depending on its state
   bookkeep do |b|
-    b.journal_entry(self.nature.journal, reference_number: number, printed_on: invoiced_on, if: (with_accounting && invoice? && items.any?)) do |entry|
+    b.journal_entry(self.nature.journal, reference_number: number, printed_on: invoiced_on, if: (invoice? && items.any?)) do |entry|
       label = tc(:bookkeep, resource: state_label, number: number, client: client.full_name, products: (description.blank? ? items.pluck(:label).to_sentence : description), sale: initial_number)
       # TODO: Uncommented this once we handle debt correctly and account 462 has been added to nomenclature
       # if items.all? { |item| item.fixed_asset_id }
@@ -258,7 +262,7 @@ class Sale < Ekylibre::Record::Base
     # For undelivered invoice
     # exchange undelivered invoice from parcel
     journal = Journal.used_for_unbilled_payables!(currency: self.currency)
-    b.journal_entry(journal, reference_number: number, printed_on: invoiced_on, as: :undelivered_invoice, if: (with_accounting && invoice?)) do |entry|
+    b.journal_entry(journal, reference_number: number, printed_on: invoiced_on, as: :undelivered_invoice, if: invoice?) do |entry|
       parcels.each do |parcel|
         next unless parcel.undelivered_invoice_journal_entry
         label = tc(:exchange_undelivered_invoice, resource: parcel.class.model_name.human, number: parcel.number, entity: supplier.full_name, mode: parcel.nature.tl)
@@ -274,7 +278,7 @@ class Sale < Ekylibre::Record::Base
     # if more quantity on sale than parcel then i have value in C of stock account
     permanent_stock = Preference[:permanent_stock_inventory]
     journal = Journal.used_for_permanent_stock_inventory!(currency: self.currency)
-    b.journal_entry(journal, reference_number: number, printed_on: invoiced_on, as: :quantity_gap_on_invoice, if: (permanent_stock && with_accounting && invoice? && items.any?)) do |entry|
+    b.journal_entry(journal, reference_number: number, printed_on: invoiced_on, as: :quantity_gap_on_invoice, if: (permanent_stock && invoice? && items.any?)) do |entry|
       label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: client.full_name)
 
       for item in items

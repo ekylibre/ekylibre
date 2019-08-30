@@ -7,6 +7,8 @@ end
 
 ruby '>= 2.3.8', '< 3.0.0'
 
+gem 'elastic-apm'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.11.1'
 
@@ -42,8 +44,6 @@ gem 'figaro'
 # Maintenance mode
 gem 'turnout'
 
-gem 'lodash-rails'
-
 # Use SCSS for stylesheets
 gem 'sassc-rails', '~> 2.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -69,7 +69,6 @@ gem 'turbolinks', '~> 2.0'
 gem 'jquery-ui-rails'
 # gem 'jquery_mobile_rails'
 gem 'jquery-scrollto-rails'
-gem 'momentjs-rails', '>= 2.9.0'
 
 # Forms helper
 gem 'formize', '~> 2.1.0'

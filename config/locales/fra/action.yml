@@ -1313,6 +1313,7 @@ fra:
       other: "Consulter les écritures à équilibrer (%{count})"
     consume: "Consommé"
     contact: "à l’adresse" #?
+    contact_support_to_delete_production: "Pour supprimer cette production, veuillez contacter le support par chat."
     contained_products: "Produits contenus"
     container: "Emplacement"
     contains: "Contient" #?
@@ -2201,7 +2202,6 @@ fra:
     parts: "Modules"
     password: "Mot de passe"
     paths_to_convert: "Chemins à convertir" #?
-    pay: "Payer"
     payable_taxes: "Taxes payables"
     payback: "Remboursement demandée" #?
     payment_amount: "Montant de l’encaissement"
@@ -2373,7 +2373,6 @@ fra:
     ready_to_harvest: "Prêt(e) à être récolté(e)"
     receipt_date: "Date de réception"
     receipt_responsible: "Responsable réception"
-    receive: "Recevoir"
     received: "Reçue"
     received_quantity: "Quantité réceptionnée"
     receiving_address: "Adresse de réception"
@@ -3397,7 +3396,6 @@ fra:
       pick: "Piocher"
       picture: "Image"
       prepare: "Préparer"
-      print: "Imprimer"
       propose: "Proposer"
       propose_and_invoice: "Facturer directement"
       prospect: "Prospecter"

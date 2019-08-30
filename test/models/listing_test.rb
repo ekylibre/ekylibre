@@ -104,7 +104,7 @@ class ListingTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     conn = ActiveRecord::Base.connection
     actual = conn.execute(listing.query).values.map(&:compact).reject(&:blank?).flatten
 
-    expected = Entity.pluck(:custom_fields).compact.map { |cf| cf['sdqdqsdq_sd_qsq'].to_json }.sort
+    expected = Entity.pluck(:custom_fields).compact.map { |cf| cf['sdqdqsdq_sd_qsq'] }.sort
     assert_equal expected, actual
   end
 
@@ -131,7 +131,7 @@ class ListingTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     conn = ActiveRecord::Base.connection
     actual = conn.execute(listing.query).values.map(&:compact).reject(&:blank?).flatten
 
-    expected = Entity.joins(:client_account).pluck('accounts.custom_fields').compact.map { |cf| cf['account_custom_test'].to_json }.sort
+    expected = Entity.joins(:client_account).pluck('accounts.custom_fields').compact.map { |cf| cf['account_custom_test'] }.sort
     assert_equal expected, actual
   end
 end
