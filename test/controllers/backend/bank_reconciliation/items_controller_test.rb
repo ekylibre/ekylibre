@@ -100,7 +100,7 @@ module Backend
       protected
 
       def empty_db
-        [OutgoingPayment, OutgoingPaymentMode, Payslip, PayslipNature,
+        [OutgoingPayment, OutgoingPaymentMode, Payslip, PayslipNature, InventoryItem, Inventory,
          Journal, Account, Cash, BankStatement,
          BankStatementItem, Role, User, Regularization,
          JournalEntryItem, JournalEntry].each(&:delete_all)
