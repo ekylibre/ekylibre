@@ -104,7 +104,7 @@ class AffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     account = client.client_account
     subject = create(:sale_affair, client: client)
 
-    deal = create(:sale_with_accounting, affair: subject, state: 'draft')
+    deal = create(:sale, affair: subject, state: 'draft')
     create :sale_item, sale: deal, tax: a_tax
 
     assert deal.invoice # bookkeep affair which creates its journal entry

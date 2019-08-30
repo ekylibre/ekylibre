@@ -352,7 +352,7 @@ class JournalEntryTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   test "reference_number refers to resource's reference number" do
-    sale = create(:sale_with_accounting)
+    sale = create(:sale)
     sale_item = create(:sale_item, sale: sale)
     sale.propose
     sale.invoice

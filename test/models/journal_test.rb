@@ -108,7 +108,7 @@ class JournalTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
     financial_year_18 = create(:financial_year, started_on: '01/01/2018', stopped_on: '31/12/2018')
     client = create(:entity, :client)
-    sale = create(:sale_with_accounting, client: client)
+    sale = create(:sale, client: client)
     sale.invoice! Date.new(2018, 04, 30)
     params = {
       period: '2018-01-01_2018-12-31',
