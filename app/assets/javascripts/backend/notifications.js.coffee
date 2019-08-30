@@ -1,60 +1,61 @@
 ((E, $) ->
   'use strict'
-  E.notifications =
-    delay: 10
-    read: () ->
-      $.ajax
-        url: '/backend/notifications/unread'
-        dataType: 'json'
 
-        success: (data, status, request) ->
-          $counter = $('.notifications-btn__counter')
-          $placeholder = $('.notifications-menu__placeholder')
+  delay = 10
+  interval = null
 
-          $counter.removeClass('notifications-btn__counter--animated')
-          $placeholder.toggle(!data.total_count > 0)
-          $counter.toggleClass('notifications-btn__counter--with-notifications', data.total_count > 0)
-          if data.total_count > 0 then $counter.text(data.total_count) else $counter.text('')
+  read = () ->
+    $.ajax
+      url: '/backend/notifications/unread'
+      dataType: 'json'
 
-          E.notifications.triggerAnimation(data.unread_notifs)
-          E.notifications.displayItems(data.unread_notifs)
+      success: (data, status, request) ->
+        $counter = $('.notifications-btn__counter')
+        $placeholder = $('.notifications-menu__placeholder')
 
-        error: (request, status, error) ->
-          window.clearInterval(E.notifications.interval)
+        $counter.removeClass('notifications-btn__counter--animated')
+        $placeholder.toggle(!data.total_count > 0)
+        $counter.toggleClass('notifications-btn__counter--with-notifications', data.total_count > 0)
+        if data.total_count > 0 then $counter.text(data.total_count) else $counter.text('')
 
-    triggerAnimation: (notifications) ->
-      displayedNotifications = ($('.notification').map ->
-        $(this).data('id'))
-      .toArray()
+        triggerAnimation(data.unread_notifs)
+        displayItems(data.unread_notifs)
 
-      newNotificationReceived = _.find notifications, (n) ->
-        !displayedNotifications.includes n.id
+      error: (request, status, error) ->
+        window.clearInterval(interval)
 
-      $('.notifications-btn__counter').addClass('notifications-btn__counter--animated') if newNotificationReceived
+  triggerAnimation = (notifications) ->
+    displayedNotifications = ($('.notification').map ->
+      $(this).data('id'))
+    .toArray()
 
-    displayItems: (notifications) ->
-      $('.notifications-menu__item').remove()
-      notificationsHtml = notifications.reduce ((a, v) => "#{E.notifications.template v}#{a}"), ''
-      $('.notifications-menu__placeholder').after(notificationsHtml)
+    newNotificationReceived = _.find notifications, (n) ->
+      !displayedNotifications.includes n.id
 
-    template: (notification) ->
-      "<a href='#{notification.url}' class='notifications-menu__item'>
-         <div class='notification' data-id='#{notification.id}'>
-           <div class='notification__state text-center'>
-             <i class='icon #{notification.icon}'></i>
-           </div>
-           <div class='notification__message'>
-             #{notification.message}
-           </div>
-           <div class='notification__time'>
-             #{notification.time}
-           </div>
+    $('.notifications-btn__counter').addClass('notifications-btn__counter--animated') if newNotificationReceived
+
+  displayItems = (notifications) ->
+    $('.notifications-menu__item').remove()
+    notificationsHtml = notifications.map(template).reverse().join('')
+    $('.notifications-menu__placeholder').after(notificationsHtml)
+
+  template = (notification) ->
+    "<a href='#{notification.url}' class='notifications-menu__item'>
+       <div class='notification' data-id='#{notification.id}'>
+         <div class='notification__state text-center'>
+           <i class='icon #{notification.icon}'></i>
          </div>
-       </a>"
+         <div class='notification__message'>
+           #{notification.message}
+         </div>
+         <div class='notification__time'>
+           #{notification.time}
+         </div>
+       </div>
+     </a>"
 
 
   $(document).ready ->
-    window.clearInterval(E.notifications.interval)
-    E.notifications.interval = window.setInterval(E.notifications.read, E.notifications.delay * 1000)
+    interval = window.setInterval(read, delay * 1000) if interval == null
 
 ) ekylibre, jQuery

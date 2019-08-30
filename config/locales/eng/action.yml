@@ -1,4 +1,4 @@
-$eng:
+eng:
   actions:
     authentication/invitations:
       edit: "Accept invitation"
