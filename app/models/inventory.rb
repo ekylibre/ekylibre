@@ -53,6 +53,7 @@ class Inventory < Ekylibre::Record::Base
   belongs_to :journal_entry, dependent: :destroy
   belongs_to :financial_year
   belongs_to :product_nature_category
+  belongs_to :journal, inverse_of: :inventories
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, :achieved_at, :reflected_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :name, :number, presence: true, length: { maximum: 500 }
@@ -61,6 +62,7 @@ class Inventory < Ekylibre::Record::Base
   validates :achieved_at, presence: true
   validates :name, uniqueness: true
   validates :financial_year, presence: true
+  validates :journal, presence: true
 
   acts_as_numbered
 
@@ -68,6 +70,12 @@ class Inventory < Ekylibre::Record::Base
   scope :before, ->(at) { where(arel_table[:achieved_at].lt(at)) }
 
   accepts_nested_attributes_for :items
+
+  after_initialize do
+    next if persisted?
+
+    self.journal ||= Journal.find_by nature: :various, used_for_permanent_stock_inventory: true
+  end
 
   before_validation do
     self.achieved_at ||= Time.zone.now
