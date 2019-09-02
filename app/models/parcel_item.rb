@@ -72,10 +72,8 @@ class ParcelItem < Ekylibre::Record::Base
   belongs_to :analysis
   belongs_to :parcel, inverse_of: :items
   # belongs_to :reception, inverse_of: :items, class_name: 'Reception', foreign_key: :parcel_id
-  with_options class_name: 'PurchaseItem' do
-    belongs_to :purchase_order_item, foreign_key: 'purchase_order_item_id'
-    belongs_to :purchase_invoice_item, foreign_key: 'purchase_invoice_item_id'
-  end
+  belongs_to :purchase_order_item, foreign_key: 'purchase_order_item_id', class_name: 'PurchaseItem'
+  belongs_to :purchase_invoice_item, foreign_key: 'purchase_invoice_item_id', class_name: 'PurchaseItem'
 
   belongs_to :product
   belongs_to :sale_item
