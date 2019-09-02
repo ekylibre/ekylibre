@@ -23,11 +23,15 @@ module Backend
     def index
       @unread_notifications = current_user.unread_notifications.order(created_at: :asc)
       if params[:mode] == :unread
-        unread_notifs = @unread_notifications.map { |notif| { id: notif.id,
-                                                              message: notif.human_message,
-                                                              time: ActionController::Base.helpers.distance_of_time_in_words_to_now(notif.created_at),
-                                                              url: backend_notification_path(notif),
-                                                              icon: notification_icon_class(notif) } }
+        unread_notifs = @unread_notifications.map { |notif|
+          { id: notif.id,
+            message: notif.human_message,
+            time: ActionController::Base.helpers.distance_of_time_in_words_to_now(notif.created_at),
+            url: backend_notification_path(notif),
+            icon: notification_icon_class(notif),
+            created_at: notif.created_at
+          }
+        }
         response = {
           total_count: @unread_notifications.count,
           unread_notifs: unread_notifs
