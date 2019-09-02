@@ -69,7 +69,7 @@ class PurchaseAffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     payment = PurchasePayment.create!(
       payee: purchase.supplier,
       amount: purchase.amount,
-      to_bank_at: Time.zone.now,
+      to_bank_at: Time.zone.parse('2018-1-1 00:00:00'),
       responsible: User.first,
       delivered: true,
       mode: OutgoingPaymentMode.where(
@@ -102,7 +102,7 @@ class PurchaseAffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     payment = PurchasePayment.create!(
       payee: purchase.supplier,
       amount: purchase.amount + 5,
-      to_bank_at: Time.zone.now,
+      to_bank_at: Time.zone.parse('2018-1-1 00:00:00'),
       responsible: User.first,
       delivered: true,
       mode: OutgoingPaymentMode.where(

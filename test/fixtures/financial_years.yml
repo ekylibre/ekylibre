@@ -520,3 +520,20 @@ financial_years_028:
   tax_declaration_mode: none
   updated_at: 2017-06-09 20:58:15.221403000 Z
   updater_id: 1
+financial_years_029:
+  already_existing: false
+  closed: false
+  code: EX2019/2020
+  created_at: 2017-06-09 20:58:15.221403000 Z
+  creator_id: 1
+  currency: EUR
+  currency_precision: 2
+  id: 29
+  lock_version: 0
+  started_on: 2019-09-01
+  state: opened
+  stopped_on: 2020-08-31
+  tax_declaration_frequency: monthly
+  tax_declaration_mode: none
+  updated_at: 2017-06-09 20:58:15.221403000 Z
+  updater_id: 1

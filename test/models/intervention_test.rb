@@ -190,7 +190,7 @@ class InterventionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   def fake_working_periods
-    now = Time.zone.now
+    now = Time.zone.parse('2018-1-1 00:00:00')
     [
       InterventionWorkingPeriod.new(started_at: now - 3.hours, stopped_at: now - 2.hours, nature: 'preparation'),
       InterventionWorkingPeriod.new(started_at: now - 2.hours, stopped_at: now - 90.minutes, nature: 'travel'),

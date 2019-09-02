@@ -84,7 +84,7 @@ class PurchasePaymentTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     payer = Entity.normal.find_by!(client: true)
     responsible = User.find(1)
 
-    payment = PurchasePayment.create!(mode: mode, payee: payer, amount: 504.12, delivered: true, currency: currency, cash: cash, responsible: responsible, to_bank_at: Time.now)
+    payment = PurchasePayment.create!(mode: mode, payee: payer, amount: 504.12, delivered: true, currency: currency, cash: cash, responsible: responsible, to_bank_at: DateTime.new(2018, 1, 1))
 
     assert_not_nil payment
     assert_equal 504.12, payment.amount

@@ -63,7 +63,7 @@ class SaleItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert nature
     client = Entity.normal.first
     assert client
-    @sale = Sale.create!(nature: nature, client: client)
+    @sale = Sale.create!(nature: nature, client: client, invoiced_at: DateTime.new(2018, 1, 1))
     assert @sale
 
     # Standard case

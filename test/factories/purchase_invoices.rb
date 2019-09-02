@@ -7,6 +7,7 @@ FactoryBot.define do
     pretax_amount { 952.0 }
     currency { 'EUR' }
     tax_payability { 'at_invoicing' }
+    invoiced_at { DateTime.new(2018, 1, 1) }
     state { 'invoice' }
   end
 end

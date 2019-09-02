@@ -180,7 +180,8 @@ class ReceptionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       delivery_mode: delivery_mode,
       address: address || @address,
       sender: sender || @sender,
-      separated_stock: separated
+      separated_stock: separated,
+      given_at: DateTime.new(2018, 1, 1)
     }
 
     items_attributes ||= [{

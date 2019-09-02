@@ -92,7 +92,7 @@ class JournalEntryItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixture
     journal = Journal.where(currency: Preference[:currency]).first
     entry = JournalEntry.new(
       journal: journal,
-      printed_on: Time.zone.today,
+      printed_on: Time.zone.parse('2018-1-1 00:00:00'),
       items: [
         JournalEntryItem.new(account: Account.first, real_debit: 125, real_credit: 0, name: 'Yeah!'),
         JournalEntryItem.new(account: Account.second, real_debit: 0, real_credit: 125, name: 'Yeah!')
@@ -121,7 +121,7 @@ class JournalEntryItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixture
     random_account = Account.create!(name: 'Random account', number: '123RAND2')
     other_random = Account.create!(name: 'Random account bis', number: '123RAND3')
     journal = Journal.create!(name: 'Test journal JEI', code: 'JEITEST', currency: 'EUR')
-    entry = JournalEntry.create!(journal: journal, currency: 'EUR', printed_on: Date.today, items_attributes:
+    entry = JournalEntry.create!(journal: journal, currency: 'EUR', printed_on: Date.new(2018, 1, 1), items_attributes:
       [{ account: first_account, name: 'Hello', real_debit: 10, letter: 'A' },
        { account: random_account, name: 'Is it me', real_credit: 10 }])
     assert_equal 'A*', entry.items.find_by(real_debit: 10).letter
@@ -132,7 +132,7 @@ class JournalEntryItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixture
     to_letter_with = JournalEntry.create!(
       journal: journal,
       currency: 'EUR',
-      printed_on: Date.today,
+      printed_on: Date.new(2018, 1, 1),
       items_attributes:
         [{ account: random_account, name: 'You\'re', real_debit: 10 },
          { account: first_account, name: 'Looking for?', real_credit: 10, letter: 'A' }]
