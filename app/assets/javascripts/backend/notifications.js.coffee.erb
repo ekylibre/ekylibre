@@ -5,29 +5,21 @@
   interval = null
 
   read = () ->
-    $.ajax
-      url: '/backend/notifications/unread'
-      dataType: 'json'
+    E.ajax.json({url: '/backend/notifications/unread'}).then((data) =>
+      $counter = $('.notifications-btn__counter')
+      $placeholder = $('.notifications-menu__placeholder')
 
-      success: (data, status, request) ->
-        $counter = $('.notifications-btn__counter')
-        $placeholder = $('.notifications-menu__placeholder')
+      $counter.removeClass('notifications-btn__counter--animated')
+      $placeholder.toggle(data.total_count <= 0)
+      $counter.toggleClass('notifications-btn__counter--with-notifications', data.total_count > 0)
+      if data.total_count > 0 then $counter.text(data.total_count) else $counter.text('')
 
-        $counter.removeClass('notifications-btn__counter--animated')
-        $placeholder.toggle(!data.total_count > 0)
-        $counter.toggleClass('notifications-btn__counter--with-notifications', data.total_count > 0)
-        if data.total_count > 0 then $counter.text(data.total_count) else $counter.text('')
-
-        triggerAnimation(data.unread_notifs)
-        displayItems(data.unread_notifs)
-
-      error: (request, status, error) ->
-        window.clearInterval(interval)
+      triggerAnimation(data.unread_notifs)
+      displayItems(data.unread_notifs)
+    ).catch((error) => window.clearInterval(interval))
 
   triggerAnimation = (notifications) ->
-    displayedNotifications = ($('.notification').map ->
-      $(this).data('id'))
-    .toArray()
+    displayedNotifications = $('.notification').map(-> $(this).data('id')).toArray()
 
     newNotificationReceived = _.find notifications, (n) ->
       !displayedNotifications.includes n.id
@@ -37,6 +29,7 @@
   displayItems = (notifications) ->
     $('.notifications-menu__item').remove()
     notificationsHtml = notifications.map(template).reverse().join('')
+    notifications.forEach((notification) => E.notification.notify(notification))
     $('.notifications-menu__placeholder').after(notificationsHtml)
 
   template = (notification) ->
@@ -54,8 +47,9 @@
        </div>
      </a>"
 
-
   $(document).ready ->
     interval = window.setInterval(read, delay * 1000) if interval == null
+
+  E.notification.setup({icon: "<%= image_url('icon/ipad.png') %>"})
 
 ) ekylibre, jQuery

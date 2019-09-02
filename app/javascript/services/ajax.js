@@ -35,7 +35,7 @@ function buildUrl(urlStr, params){
 }
 
 export function ajax(options) {
-  let {url, data, ...opt} = options
+  let {url, data = {}, ...opt} = options
   if (isGet(options)) {
     url = buildUrl(url, data)
   } else {
