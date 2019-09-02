@@ -37,7 +37,7 @@ module Backend
       sale = Sale.last
       affair = sale.affair
       journal = Journal.last
-      date = DateTime.now.to_date
+      date = Date.new(2018, 1, 1)
       user = User.where(administrator: true).last
       sign_in(user)
       post(:create,

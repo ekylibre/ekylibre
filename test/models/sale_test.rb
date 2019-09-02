@@ -82,7 +82,7 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert nature
     client = Entity.normal.first
     assert client
-    sale = Sale.create!(nature: nature, client: client)
+    sale = Sale.create!(nature: nature, client: client, invoiced_at: DateTime.new(2018, 1, 1))
     assert sale
     variants = ProductNatureVariant.where(nature: ProductNature.where(population_counting: :decimal))
     # Standard case
@@ -300,7 +300,7 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       country: :fr
     )
 
-    sale = Sale.create!(nature: nature, client: Entity.normal.first, state: :order)
+    sale = Sale.create!(nature: nature, client: Entity.normal.first, state: :order, invoiced_at: DateTime.new(2018, 1, 1))
     sale.items.create!(variant: @variant, quantity: 4, unit_pretax_amount: 100, tax: standard_vat)
     sale.reload
 

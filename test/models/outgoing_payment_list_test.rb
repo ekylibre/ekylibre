@@ -40,7 +40,7 @@ class OutgoingPaymentListTest < Ekylibre::Testing::ApplicationTestCase::WithFixt
     @list = outgoing_payment_lists(:outgoing_payment_lists_001)
     @mode = OutgoingPaymentMode.create!(sepa: true, cash: Cash.bank_accounts.first, name: 'SEPA', with_accounting: true, active: true)
     supplier = Entity.find_by!(full_name: 'BAKTOUBI Inc.')
-    purchase = PurchaseInvoice.create!(nature: PurchaseNature.find_by!(currency: 'EUR'), supplier: supplier, items_attributes: [{ variant: ProductNatureVariant.find_by!(name: 'Adexar 5 l'), quantity: 54, unit_pretax_amount: 161, tax: Tax.find_by!(amount: 0) }])
+    purchase = PurchaseInvoice.create!(nature: PurchaseNature.find_by!(currency: 'EUR'), supplier: supplier, invoiced_at: DateTime.new(2018, 1, 1),items_attributes: [{ variant: ProductNatureVariant.find_by!(name: 'Adexar 5 l'), quantity: 54, unit_pretax_amount: 161, tax: Tax.find_by!(amount: 0) }])
     purchase.update_columns(number: 'A999907000012')
     payments = [
       PurchasePayment.new(amount: 8694, currency: 'EUR', mode: @mode, payee: supplier, responsible: User.first, to_bank_at: Time.new(2016, 9, 25, 3, 45), affair: purchase.affair)

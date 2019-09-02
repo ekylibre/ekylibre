@@ -98,7 +98,8 @@ class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
     purchase1 = create(:purchase_invoice,
                        nature: create(:purchase_nature),
-                       tax_payability: 'at_invoicing')
+                       tax_payability: 'at_invoicing',
+                       invoiced_at: DateTime.new(2018, 1, 1))
     purchase1_item = create(:purchase_item,
                             purchase: purchase1,
                             tax: tax)
@@ -269,7 +270,8 @@ class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
     purchase1 = create(:purchase_invoice,
                        nature: create(:purchase_nature),
-                       tax_payability: 'at_invoicing')
+                       tax_payability: 'at_invoicing',
+                       invoiced_at: DateTime.new(2018, 1, 1))
     purchase1_item = create(:purchase_item,
                             purchase: purchase1,
                             tax: tax)
@@ -330,7 +332,8 @@ class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
     purchase1 = create(:purchase_invoice,
                        nature: create(:purchase_nature),
-                       tax_payability: 'at_paying')
+                       tax_payability: 'at_paying',
+                       invoiced_at: DateTime.new(2018, 1, 1))
     purchase1_item = create(:purchase_item,
                             purchase: purchase1,
                             tax: tax)
@@ -417,7 +420,8 @@ class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
     purchase1 = create(:purchase_invoice,
                        nature: create(:purchase_nature),
-                       tax_payability: 'at_paying')
+                       tax_payability: 'at_paying',
+                       invoiced_at: DateTime.new(2018, 1, 1))
     purchase1_item = create(:purchase_item,
                             purchase: purchase1,
                             tax: tax)
@@ -583,7 +587,8 @@ class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
     purchase1 = create(:purchase_invoice,
                        nature: create(:purchase_nature),
-                       tax_payability: 'at_paying')
+                       tax_payability: 'at_paying',
+                       invoiced_at: DateTime.new(2018, 1, 1))
     purchase1_item = create(:purchase_item,
                             purchase: purchase1,
                             tax: tax)
@@ -798,7 +803,8 @@ class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     purchase1 = create(:purchase_invoice,
                        nature: create(:purchase_nature),
                        affair: purchase_affair,
-                       tax_payability: 'at_paying')
+                       tax_payability: 'at_paying',
+                       invoiced_at: DateTime.new(2018, 1, 1))
     purchase1_item = create(:purchase_item,
                             purchase: purchase1,
                             tax: tax)
@@ -929,7 +935,8 @@ class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
     purchase1 = create(:purchase_invoice,
                        nature: create(:purchase_nature),
-                       tax_payability: 'at_paying')
+                       tax_payability: 'at_paying',
+                       invoiced_at: DateTime.new(2018, 1, 1))
     purchase1_item = create(:purchase_item,
                             purchase: purchase1,
                             tax: tax)

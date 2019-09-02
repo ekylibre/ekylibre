@@ -12,13 +12,13 @@ module Backend
         @reception_one = create(:reception, state: :draft)
         @reception_item_one = create(:reception_item, reception: @reception_one)
 
-        @reception_two = create(:reception, state: :given, given_at: DateTime.now)
+        @reception_two = create(:reception, state: :given, given_at: DateTime.new(2018, 1, 1))
         @reception_item_two = create(:reception_item, purchase_invoice_item_id: nil, reception: @reception_two)
 
         @purchase_invoice_one = create :purchase_invoice
         @purchase_item = create :purchase_item, purchase: @purchase_invoice_one
 
-        @reception_three = create(:reception, state: :given, given_at: DateTime.now)
+        @reception_three = create(:reception, state: :given, given_at: DateTime.new(2018, 1, 1))
         @reception_item_three = create(:reception_item, purchase_invoice_item_id: @purchase_item.id, reception: @reception_three)
 
 
@@ -75,7 +75,7 @@ module Backend
 
         supplier_one = create(:entity, :supplier)
         supplier_two = create(:entity, :supplier)
-        @reception_one.update(state: :given, given_at: DateTime.now, sender_id: supplier_two.id)
+        @reception_one.update(state: :given, given_at: DateTime.new(2018, 1, 1), sender_id: supplier_two.id)
         @reception_two.update(sender_id: supplier_one.id)
 
         get :receptions_to_reconciliate, supplier: @reception_one.sender_id

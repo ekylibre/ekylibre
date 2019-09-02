@@ -83,15 +83,15 @@ class JournalEntryTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       JournalEntry.create!(journal: journal)
     end
 
-    entry = JournalEntry.new(journal: journal, printed_on: Date.today, items: fake_items)
+    entry = JournalEntry.new(journal: journal, printed_on: Date.new(2018, 1, 1), items: fake_items)
     assert entry.valid?, entry.inspect + "\n" + entry.errors.full_messages.to_sentence
 
-    entry = journal.entries.new(printed_on: Date.today, items: fake_items)
+    entry = journal.entries.new(printed_on: Date.new(2018, 1, 1), items: fake_items)
     assert entry.valid?, entry.inspect + "\n" + entry.errors.full_messages.to_sentence
 
     Preference.set!(:currency, 'INR')
     assert_raise JournalEntry::IncompatibleCurrencies do
-      JournalEntry.create!(journal: journal, printed_on: Date.today)
+      JournalEntry.create!(journal: journal, printed_on: Date.new(2018, 1, 1))
     end
   end
 
@@ -352,7 +352,7 @@ class JournalEntryTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   test "reference_number refers to resource's reference number" do
-    sale = create(:sale)
+    sale = create(:sale, invoiced_at: DateTime.new(2018, 1, 1))
     sale_item = create(:sale_item, sale: sale)
     sale.propose
     sale.invoice

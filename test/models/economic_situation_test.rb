@@ -47,6 +47,7 @@ class EconomicSituationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtur
     @entity.update(supplier: true, supplier_account: @supplier_account)
 
     Purchase.create!(
+      invoiced_at: DateTime.new(2018, 1, 1),
       currency: 'EUR',
       type: 'PurchaseInvoice',
       supplier: @entity,
@@ -126,7 +127,7 @@ class EconomicSituationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtur
       journal: Journal.create!(name: 'JournalTest', code: 'TKT'),
       real_currency: 'EUR',
       number: '0420',
-      printed_on: Time.now,
+      printed_on: DateTime.new(2018, 1, 1),
       items_attributes: [
         {
           real_credit: 10,
@@ -148,7 +149,7 @@ class EconomicSituationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtur
       journal: Journal.create!(name: 'Yolo', code: 'Swag'),
       real_currency: 'EUR',
       number: '0420',
-      printed_on: Time.now,
+      printed_on: DateTime.new(2018, 1, 1),
       items_attributes: [
         {
           real_debit: 7,
