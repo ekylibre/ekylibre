@@ -2243,6 +2243,7 @@ fra:
     quit_financial_year_closure_preparation: "Quitter le mode préparatoire sur %{code}"
     radical_class_accounts_dont_have_entries: "Les comptes de classes radicales ne comportent pas d'écritures."
     radical_class_accounts_have_entries: "Les comptes de classes radicales comportent des écritures."
+    rain: "Pluviométrie"
     raw_income: "Résultat d’exploitation"
     raw_margin: "Marge brute" #?
     reading_tasks: "Relevés d’indicateur"
