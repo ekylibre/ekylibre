@@ -23,7 +23,7 @@
     .annotation-logo
       - if f.object.annotation.blank?
         = link_to("#", data: { annotate: ".annotate", use_closest: "tbody" }, title: :add_annotation.tl) do
-          %i
+          %i.annotation-field
 
     - display = ""
     - display = "display: none;" unless item && item.variant && item.variant.depreciable?
