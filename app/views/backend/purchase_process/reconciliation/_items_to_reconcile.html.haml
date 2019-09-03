@@ -29,7 +29,7 @@
             - model.items.each do |model_item|
               - next if model_item.respond_to?(:purchase_invoice_item) && model_item.purchase_invoice_item
 
-              - datas = { variant_type: model_item.variant.variety, equipment_id: model_item.equipment_id, activity_budget_id: model_item.activity_budget_id, team_id: model_item.team_id, responsible_id: model.responsible_id, project_budget_id: model_item.project_budget_id }
+              - datas = { variant_type: model_item.variant.variety, equipment_id: model_item.equipment_id, activity_budget_id: model_item.activity_budget_id, team_id: model_item.team_id, responsible_id: model.responsible_id, project_budget_id: model_item.project_budget_id, annotation: model_item.annotation }
               - datas.merge!({ conditionning: model_item.conditionning,
                                conditionning_quantity: model_item.conditionning_quantity }) if model_item.is_a?(PurchaseItem)
               - datas.merge!({ tax_id: model_item.purchase_order_item.try(:tax_id),

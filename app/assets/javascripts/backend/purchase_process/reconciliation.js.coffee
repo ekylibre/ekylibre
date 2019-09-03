@@ -218,15 +218,16 @@
       activityBudgetId = $(checkboxLine).attr('data-activity-budget-id')
       itemConditionning = $(checkboxLine).attr('data-conditionning')
       itemConditionningQuantity = $(checkboxLine).attr('data-conditionning-quantity')
+      itemAnnotation = $(checkboxLine).attr('data-annotation')
       itemCompliantState = $(checkboxLine).attr('data-non-compliant')
 
       $(lastLineForm).attr('data-item-id', itemId)
       $(lastLineForm).attr('data-non-compliant', itemCompliantState)
 
       if isPurchaseOrderModal == "true"
-        E.reconciliation._fillPurchaseOrderItem(lastLineForm, checkboxLine, itemId, itemQuantity, itemConditionning, itemConditionningQuantity)
+        E.reconciliation._fillPurchaseOrderItem(lastLineForm, checkboxLine, itemId, itemQuantity, itemConditionning, itemConditionningQuantity, itemAnnotation)
       else
-        E.reconciliation._fillReceptionItem(lastLineForm, checkboxLine, itemId, itemQuantity)
+        E.reconciliation._fillReceptionItem(lastLineForm, checkboxLine, itemId, itemQuantity, itemAnnotation)
 
       $(lastLineForm).find('input[data-remember="equipment"]').first().selector('value', equipmentId)
       $(lastLineForm).find('input[data-remember="team"]').first().selector('value', teamId)
@@ -240,7 +241,7 @@
 
 
     # Creates a line BASED on a ReceptionItem
-    _fillReceptionItem: (lastLineForm, checkboxLine, itemId, itemQuantity) ->
+    _fillReceptionItem: (lastLineForm, checkboxLine, itemId, itemQuantity, itemAnnotation) ->
       variantId = $(checkboxLine).find('.variant').attr('data-id')
       teamId = $(checkboxLine).attr('data-team-id')
       activityBudgetId = $(checkboxLine).attr('data-activity-budget-id')
@@ -268,6 +269,8 @@
       $selectorInput.selector('value', variantId, (-> disable_selector_input($selectorInput);$(lastLineForm).find('.form-field .invoice-quantity').trigger('change')))
       $(lastLineForm).find('.form-field .purchase_invoice_items_activity_budget .selector-search').first().selector('value', activityBudgetId)
       $(lastLineForm).find('.form-field .purchase_invoice_items_team .selector-search').first().selector('value', teamId)
+      $(lastLineForm).find('.annotation-logo .annotation-field').trigger('click')
+      $(lastLineForm).find('.annotation-section .annotation').val(itemAnnotation)
 
       $(lastLineForm).find('.form-field.merchandise .supplier-ref-value').text(itemSupplierReference)
       $(lastLineForm).find('.form-field.merchandise .supplier-ref-block').removeClass('hidden')
@@ -284,7 +287,7 @@
         $('.form-field .invoice-total').trigger('change')), 1000
 
     # Creates a line BASED on a PurchaseOrder
-    _fillPurchaseOrderItem: (lastLineForm, checkboxLine, itemId, itemQuantity, itemConditionning, itemConditionningQuantity) ->
+    _fillPurchaseOrderItem: (lastLineForm, checkboxLine, itemId, itemQuantity, itemConditionning, itemConditionningQuantity, itemAnnotation) ->
       variantId = $(checkboxLine).find('.variant').attr('data-id')
       variantType = $(checkboxLine).attr('data-variant-type')
 
@@ -294,6 +297,8 @@
 
       $selectorInput.selector('value', variantId, (-> disable_selector_input($selectorInput);$(lastLineForm).find('.form-field .invoice-quantity').trigger('change')))
       $(lastLineForm).find('.hidden.purchase-item-attribute').val(itemId)
+      $(lastLineForm).find('.annotation-logo .annotation-field').trigger('click')
+      $(lastLineForm).find('.annotation-section .annotation').val(itemAnnotation)
 
       if variantType == "service" || variantType == "cost"
         $(lastLineForm).find('.item-quantifier-population .total-quantity').val(itemQuantity)
