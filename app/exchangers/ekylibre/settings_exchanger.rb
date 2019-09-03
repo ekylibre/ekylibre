@@ -230,7 +230,7 @@ module Ekylibre
         usage = :sale
         journal = Journal.find_by(nature: nature, currency: currency) || Journal.create!(name: "enumerize.journal.nature.#{nature}".t, nature: nature.to_s, currency: currency, closed_on: Date.new(1899, 12, 31).end_of_month)
         catalog = Catalog.of_usage(:sale).first || Catalog.create!(name: "enumerize.catalog.usage.#{usage}".t, usage: usage, currency: currency)
-        @manifest[:sale_natures] = { default: { name: SaleNature.tc('default.name'), active: true, expiration_delay: '30 day', payment_delay: '30 day', downpayment: false, downpayment_minimum: 300, downpayment_percentage: 30, currency: currency, with_accounting: true, journal: journal, catalog: catalog } }
+        @manifest[:sale_natures] = { default: { name: SaleNature.tc('default.name'), active: true, expiration_delay: '30 day', payment_delay: '30 day', downpayment: false, downpayment_minimum: 300, downpayment_percentage: 30, currency: currency, journal: journal, catalog: catalog } }
       end
       create_records(:sale_natures)
       w.check_point

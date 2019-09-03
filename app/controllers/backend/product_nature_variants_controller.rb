@@ -24,6 +24,7 @@ module Backend
 
     # To edit it, change here the column and edit action.yml unrolls section
     unroll :name, :unit_name, category: { charge_account: :number }
+    unroll :name, :unit_name, method: :unroll_saleables, category: { product_account: :number }
 
     # params:
     #   :q Text search
@@ -273,6 +274,7 @@ module Backend
           infos[:unit][:amount] = item.unit_amount
         # or get tax and amount from catalog
         elsif (items = @product_nature_variant.catalog_items.of_usage(:sale)) && items.any?
+          item = items.order(id: :desc).first
           if item.all_taxes_included
             infos[:unit][:pretax_amount] = item.reference_tax.pretax_amount_of(item.amount)
             infos[:unit][:amount] = item.amount

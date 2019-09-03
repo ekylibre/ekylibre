@@ -100,6 +100,8 @@ eng:
         stopped_at:
           one: "Stopped at is inferior than expected"
           other: "{{count}} Stopped at is inferior than expected"
+      inventory:
+        disable_accountancy: "Do not update accounting"
       journal_entry_item:
         cumulated_absolute_credit_balance: "Credit balance"
         cumulated_absolute_debit_balance: "Debit balance"
@@ -882,7 +884,7 @@ eng:
     document: "Document"
     documents: "Documents"
     doers: "Doers"
-    # doers_cost: "Doers cost"
+    doers_cost: "Doers cost"
     dose_quantity: "Dose quantity"
     dose_unit: "Dose unit"
     dose_unit_name: "Dose unit name"
@@ -1562,7 +1564,7 @@ eng:
     reception_items: "Reception items"
     reception_journal_entry: "Reception journal entry"
     receptions: "Receptions"
-    # receptions_cost: "Receptions cost"
+    receptions_cost: "Receptions cost"
     recipient: "Recipient"
     recommended: "Recommended" #?
     recommender: "Recommender"

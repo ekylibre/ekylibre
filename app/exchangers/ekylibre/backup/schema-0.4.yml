@@ -4232,10 +4232,6 @@ sale_natures:
   updater_id:
     type: integer
     references: user
-  with_accounting:
-    type: boolean
-    required: true
-    default: true
 sales:
   accounted_at:
     type: datetime

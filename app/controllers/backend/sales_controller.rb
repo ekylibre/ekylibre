@@ -59,7 +59,7 @@ module Backend
 
     list(conditions: sales_conditions, selectable: :true, joins: %i[client affair], order: { created_at: :desc, number: :desc }) do |t| # , :line_class => 'RECORD.tags'
       # t.action :show, url: {format: :pdf}, image: :print
-      t.action :edit, if: :draft?
+      t.action :edit, if: :updateable?
       t.action :cancel, if: :cancellable?
       t.action :destroy, if: :destroyable?
       t.column :number, url: { action: :show }

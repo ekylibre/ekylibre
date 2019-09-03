@@ -24,16 +24,10 @@
       $('.order-totals .vat-total .total-value').text(totalVatRate)
       $('.order-totals .order-total .total-value').text(totalAmountIncludingTaxes)
 
-    $(document).on 'selector:change', '.order-variant.selector-search', (event) ->
-      E.Purchases.fillStocksCounters($(event.target).closest('.nested-item-form'))
-
-    $(document).on 'keyup change', '.form-field .storing-quantifier .storing-quantity', (event) ->
-      E.Purchases.fillStocksCounters($(event.target).closest('.nested-item-form'))
-
-    $(document).on 'keyup change', '.nested-fields .form-field .purchase_order_items_quantity .order-quantity', (event) ->
-      E.Purchases.fillStocksCounters($(event.target).closest('.nested-item-form'))
-
-
+    $('#new_purchase_order').on 'iceberg:validated', E.Purchases.compute_amount
+    $('.edit_purchase_order').on 'iceberg:validated', E.Purchases.compute_amount
+    $('#new_purchase_order').on 'cocoon:after-remove', E.Purchases.compute_amount
+    $('.edit_purchase_order').on 'cocoon:after-remove', E.Purchases.compute_amount
 
     $(document).on 'click', '.nested-fields .edit-item[data-edit="item-form"]', (event) ->
       vatSelectedValue = $(event.target).closest('.nested-fields').find('.item-display .vat-rate').attr('data-selected-value')

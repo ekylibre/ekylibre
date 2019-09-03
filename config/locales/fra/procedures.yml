@@ -42,23 +42,9 @@ fra:
     volume_area_density_in_liter_per_square_meter: "Densité volumique en litres par mètre carré" #?
     volume_density: "Densité volumique"
   procedure_killable_parameters:
-    is_cultivation_completely_destroyed_by_chemical_mechanical_weeding: "L'intervention détruit-elle cette parcelle/culture\_?"
-    is_cultivation_completely_destroyed_by_crop_residues_grinding: "L'intervention détruit-elle cette parcelle/culture\_?"
-    is_cultivation_completely_destroyed_by_direct_silage: "L'intervention détruit-elle cette parcelle/culture\_?"
-    is_cultivation_completely_destroyed_by_gas_weeding: "L'intervention détruit-elle cette parcelle/culture\_?"
-    is_cultivation_completely_destroyed_by_hand_weeding: "L'intervention détruit-elle cette parcelle/culture\_?"
-    is_cultivation_completely_destroyed_by_indirect_silage: "L'intervention détruit-elle cette parcelle/culture\_?"
-    is_cultivation_completely_destroyed_by_intervention: "L'intervention détruit-elle cette parcelle/culture\_?"
-    is_cultivation_completely_destroyed_by_spraying: "L'intervention détruit-elle cette parcelle/culture\_?"
-    is_cultivation_completely_destroyed_by_steam_weeding: "L'intervention détruit-elle cette parcelle/culture\_?"
-    is_cultivation_completely_destroyed_by_straw_bunching: "L'intervention détruit-elle cette parcelle/culture\_?"
-    is_cultivation_completely_destroyed_by_swathing: "L'intervention détruit-elle cette parcelle/culture\_?"
-    is_it_completely_destroyed_by_intervention: "Est-ce complètement détruit par l'intervention\_?"
-    is_plant_completely_destroyed_by_harvesting: "Est-ce complètement détruit par la récolte\_??"
+    is_cultivation_completely_destroyed_by_intervention: "L'intervention détruit-elle cette culture\_?"
+    is_it_completely_destroyed_by_intervention: "L'intervention détruit-elle la culture\_?"
     is_plant_completely_destroyed_by_intervention: "L'intervention détruit-elle cette culture\_?"
-    is_plant_completely_destroyed_by_lifting: "Est-ce complètement détruit par le relevage\_??"
-    is_plant_completely_destroyed_by_plant_mowing: "Est-ce complètement détruit par le fauchage\_?"
-    is_plant_completely_destroyed_by_topkilling: "Est-ce complètement détruit par le défanage\_?"
   procedure_parameters:
     adding_wine: "Vin (mineur)"
     adding_wine_to_blend: "Vin à assembler (mineur)" #?
@@ -85,7 +71,7 @@ fra:
     corker: "Boucheuse"
     corks: "Bouchons"
     corks_to_use: "Bouchons à utiliser" #?
-    corn_topper: "Castreuse"
+    corn_topper: "Écimeuse"
     cover_implanter: "Plastiqueuse"
     crop: "Culture" #?
     cropper: "Outil de récolte"
@@ -324,7 +310,7 @@ fra:
     crop_residues_grinding: "Broyage des résidus de culture"
     cutting: "Taille/Effeuillage"
     detach: "Détellage" #?
-    detasseling: "Castration"
+    detasseling: "Écimage"
     direct_silage: "Ensilage direct"
     double_chemical_mixing: "Mélange d'intrants de protection des végétaux avec deux produits" #?
     double_food_mixing: "Mélange alimentaire avec deux ingrédients" #?

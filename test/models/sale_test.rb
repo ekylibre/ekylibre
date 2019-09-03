@@ -78,7 +78,7 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   test 'rounds' do
-    nature = SaleNature.find_or_create_by(with_accounting: true)
+    nature = SaleNature.find_or_create_by(currency: 'EUR')
     assert nature
     client = Entity.normal.first
     assert client
@@ -275,7 +275,7 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     Sale.delete_all
 
     catalog    = Catalog.create!(code: 'food', name: 'Noncontaminated produce')
-    nature     = SaleNature.create!(currency: 'EUR', name: 'Perishables', catalog: catalog)
+    nature     = SaleNature.create!(currency: 'EUR', name: 'Perishables', catalog: catalog, journal: Journal.find_by_nature('sales'))
     max        = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)
     with       = Sale.create!(client: max, nature: nature, currency: 'USD')
     without    = Sale.create!(client: max, nature: nature)
@@ -315,5 +315,15 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     # jei_s variant must be defined
     assert_not jei_s.variant.nil?
     assert_equal jei_s.variant, @variant
+  end
+
+  test 'A sale with state :order can have its invoice date changed' do
+    sale = create :sale, amount: 5000, items: 1
+
+    assert sale.propose
+    assert sale.confirm
+
+    assert sale.order?
+    assert sale.update invoiced_at: Time.parse("2018-05-08T10-25-52Z")
   end
 end

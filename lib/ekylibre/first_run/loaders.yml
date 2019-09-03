@@ -283,6 +283,8 @@ deliveries:
 purchases:
   ekylibre_purchases:
     path: 'alamano/purchases.csv'
+    options:
+      attachments_path: 'alamano/purchases'
   ekylibre_outgoing_payments:
     path: 'alamano/outgoing_payments.csv'
 

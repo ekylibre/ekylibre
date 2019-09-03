@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Fix-cubic-meter-per-hectare-symbol">
+  <item-change item="units#cubic_meter_per_hectare" symbol="m&#xB3;/ha"/>
+</migration>
+

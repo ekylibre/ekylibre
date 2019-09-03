@@ -204,7 +204,7 @@ journals_010:
   id: 10
   lock_version: 0
   name: Inventaire des stocks permanent
-  nature: stocks
+  nature: various
   updated_at: 2016-12-20 08:53:53.385377000 Z
   updater_id: 1
   used_for_affairs: false
@@ -265,7 +265,7 @@ journals_013:
   used_for_unbilled_payables: false
 journals_014:
   closed_on: 1992-11-16
-  code: OPER
+  code: STOC
   created_at: 2018-09-20 09:33:26.431317000 Z
   creator_id: 1
   currency: EUR

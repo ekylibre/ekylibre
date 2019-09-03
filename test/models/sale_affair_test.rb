@@ -162,7 +162,6 @@ class SaleAffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     client = entities(:entities_005)
     journal = Journal.find_by(nature: :sales)
     nature = SaleNature.find_or_initialize_by(
-      with_accounting: true,
       journal: journal,
       currency: journal.currency,
       catalog: Catalog.by_default!(:sale)

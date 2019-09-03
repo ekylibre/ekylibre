@@ -2,8 +2,7 @@
   'use strict'
 
   $(document).ready ->
-    if $('.change-reconcilation-state-block').length > 0
-      E.PurchaseInvoicesShow.addStyleToReconcilationStateBlock()
+    reconciliation_badges = new StateBadgeSet('#reconciliation-badges')
 
     $('.nested-fields.purchase-invoice-items').each (index, purchase_invoice) ->
       hiddenFieldToChange = $(purchase_invoice).find('input[name="purchase_invoice[items_attributes][RECORD_ID][parcels_purchase_invoice_items]"]')
@@ -36,10 +35,6 @@
       $('.invoice-totals .vat-total .total-value').text(parseFloat(totalVatRate).toFixed(2))
       $('.invoice-totals .invoice-total .total-value').text(parseFloat(totalAmountIncludingTaxes).toFixed(2))
 
-
-    $(document).on 'selector:change', '.invoice-variant.selector-search', (event) ->
-      E.Purchases.fillStocksCounters($(event.target).closest('.nested-item-form'))
-
       targettedElement = $(event.target)
       fieldAssetFields = targettedElement.closest('.merchandise').find('.fixed-asset-fields')
 
@@ -59,16 +54,10 @@
       fixedAssetField.val('')
       stoppedOnField.val('')
 
-
-    $(document).on 'selector:change', '.invoice-variant.selector-search', (event) ->
-      E.Purchases.fillStocksCounters($(event.target).closest('.nested-item-form'))
-
-    $(document).on 'keyup change', '.form-field .storing-quantifier .storing-quantity', (event) ->
-      E.Purchases.fillStocksCounters($(event.target).closest('.nested-item-form'))
-
-    $(document).on 'keyup change', '.nested-fields .form-field .purchase_invoice_items_quantity .invoice-quantity', (event) ->
-      E.Purchases.fillStocksCounters($(event.target).closest('.nested-item-form'))
-
+    $('#new_purchase_invoice').on 'iceberg:validated', E.Purchases.compute_amount
+    $('.edit_purchase_invoice').on 'iceberg:validated', E.Purchases.compute_amount
+    $('#new_purchase_invoice').on 'cocoon:after-remove', E.Purchases.compute_amount
+    $('.edit_purchase_invoice').on 'cocoon:after-remove', E.Purchases.compute_amount
 
     $(document).on 'click', '.nested-fields .edit-item[data-edit="item-form"]', (event) ->
       vatSelectedValue = $(event.target).closest('.nested-fields').find('.item-display .vat-rate').attr('data-selected-value')
@@ -124,6 +113,24 @@
       checkbox = $(event.target)
       E.PurchaseInvoicesShow.changeEventReconcilationStateBlock(checkbox)
 
+    E.PurchaseInvoicesShow =
+      changeEventReconcilationStateBlock: (checkbox) ->
+        reconciliationTitle = $('.reconciliation-title')
+        purchase_invoice_id = window.location.pathname.split('/').pop()
+        isReconcile = $(reconciliationTitle).attr('data-reconcile') == 'true'
+        url = "/backend/purchases/reconcilation_states/#{ purchase_invoice_id }"
+
+        if checkbox.is(':checked')
+          url += '/put_accepted_state'
+        else
+          url += '/put_reconcile_state' if isReconcile
+          url += '/put_to_reconcile_state' unless isReconcile
+
+        $.get(url).then =>
+          if checkbox.is(':checked')
+            reconciliation_badges.setState 'accepted'
+          else
+            reconciliation_badges.setState 'to-reconcile'
 
   E.PurchaseInvoices =
     displayAssetsBlock: (fixedCheckbox) ->
@@ -165,47 +172,5 @@
             stoppedOnFieldBlock.css('display', 'none')
           else
             stoppedOnFieldBlock.css('display', 'block')
-
-  E.PurchaseInvoicesShow =
-    addStyleToReconcilationStateBlock: ->
-      reconcilationStateBlock = $('.change-reconcilation-state-block')
-      mainToolbar = reconcilationStateBlock.closest('.main-toolbar')
-
-      reconcilationStateBlock.css('float', 'right')
-      reconcilationStateBlock.css('margin-right', '2em')
-      mainToolbar.css('width', '100%')
-
-
-    changeEventReconcilationStateBlock: (checkbox) ->
-      reconciliationTitle = $('.reconciliation-title')
-      purchase_invoice_id = window.location.pathname.split('/').pop()
-      isReconcile = $(reconciliationTitle).attr('data-reconcile') == 'true'
-      url = "/backend/purchases/reconcilation_states/#{ purchase_invoice_id }"
-
-      if checkbox.is(':checked')
-        url += '/put_accepted_state'
-      else
-        url += '/put_reconcile_state' if isReconcile
-        url += '/put_to_reconcile_state' unless isReconcile
-
-      $.ajax
-        url: url,
-        success: (data, status, request) ->
-          if checkbox.is(':checked')
-            reconciliationTitle.addClass('accepted-title')
-            reconciliationTitle.text(reconciliationTitle.attr('data-accepted-text'))
-
-            reconciliationTitle.removeClass('no-reconciliate-title') if isReconcile
-            reconciliationTitle.removeClass('reconciliate-title') unless isReconcile
-          else
-            reconciliationTitle.removeClass('accepted-title')
-
-            if $(reconciliationTitle).attr('data-reconcile') == 'true'
-              reconciliationTitle.addClass('reconcile-title')
-              reconciliationTitle.text(reconciliationTitle.attr('data-reconcile-text'))
-            else
-              reconciliationTitle.addClass('no-reconciliate-title')
-              reconciliationTitle.text(reconciliationTitle.attr('data-no-reconciliate-text'))
-
 
 ) ekylibre, jQuery

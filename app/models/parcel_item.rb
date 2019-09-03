@@ -94,17 +94,17 @@ class ParcelItem < Ekylibre::Record::Base
   has_many :products, through: :storings
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :annotation, length: { maximum: 500_000 }, allow_blank: true
   validates :currency, :non_compliant_detail, :product_identification_number, :product_name, :product_work_number, :role, length: { maximum: 500 }, allow_blank: true
   validates :merge_stock, :non_compliant, inclusion: { in: [true, false] }, allow_blank: true
   validates :parted, inclusion: { in: [true, false] }
   validates :population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :pretax_amount, :unit_pretax_amount, :unit_pretax_stock_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   # ]VALIDATORS]
+
   validates :variant, presence: true
-  # validates :product, presence: true, unless: proc { |item| !item.parcel.try(:prepared?) }
 
   validates :population, presence: true
-  # validates :product_identification_number, presence: { if: -> { product_is_identifiable? && parcel_incoming? } }
 
   alias_attribute :quantity, :population
 
@@ -227,20 +227,21 @@ class ParcelItem < Ekylibre::Record::Base
 
   def existing_reception_product_in_storage(storing)
     similar_products = Product.where(variant: variant)
-    product_in_storage = similar_products.find do |p|
+
+    similar_products.find do |p|
       location = p.localizations.last.container
       owner = p.owner
-      location == storing.storage && owner = Entity.of_company
+      location == storing.storage && owner == Entity.of_company
     end
   end
 
   def existing_product_in_storage
     similar_products = Product.where(variant: variant)
-    product_in_storage = similar_products.find do |p|
+
+    similar_products.find do |p|
       location = p.localizations.last.container
       owner = p.owner
-      location == storage && owner = Entity.of_company
+      location == storage && owner == Entity.of_company
     end
-    product_in_storage
   end
 end

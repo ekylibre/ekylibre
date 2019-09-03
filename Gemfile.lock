@@ -171,6 +171,9 @@ GEM
       request_store (~> 1.0)
     ekylibre-ofx-parser (1.2.2)
       hpricot (>= 0.6)
+    elastic-apm (2.9.1)
+      concurrent-ruby (~> 1.0)
+      http (>= 3.0)
     enumerize (2.2.2)
       activesupport (>= 3.2)
     erubi (1.8.0)
@@ -218,9 +221,16 @@ GEM
     hashery (2.1.2)
     hashie (3.5.7)
     hpricot (0.8.6)
+    http (4.1.1)
+      addressable (~> 2.3)
+      http-cookie (~> 1.0)
+      http-form_data (~> 2.0)
+      http_parser.rb (~> 0.6.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
+    http-form_data (2.1.1)
     http_accept_language (2.1.1)
+    http_parser.rb (0.6.0)
     httpi (2.4.4)
       rack
       socksify
@@ -260,8 +270,6 @@ GEM
     letter_opener (1.6.0)
       launchy (~> 2.2)
     libv8 (3.16.14.19)
-    lodash-rails (4.17.10)
-      railties (>= 3.1)
     loofah (2.2.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -287,8 +295,6 @@ GEM
       builder
       minitest (>= 5.0)
       ruby-progressbar
-    momentjs-rails (2.20.1)
-      railties (>= 3.1)
     multi_json (1.13.1)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
@@ -362,6 +368,8 @@ GEM
       rack (>= 0.4)
     rack-protection (2.0.4)
       rack
+    rack-proxy (0.6.5)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.11.1)
@@ -399,7 +407,7 @@ GEM
     rainbow (2.2.2)
       rake
     raindrops (0.19.0)
-    rake (12.3.2)
+    rake (12.3.3)
     rdoc (4.3.0)
     redis (3.3.5)
     redis-namespace (1.6.0)
@@ -565,6 +573,10 @@ GEM
       activemodel (>= 4.2)
       debug_inspector
       railties (>= 4.2)
+    webpacker (4.0.7)
+      activesupport (>= 4.2)
+      rack-proxy (>= 0.6.1)
+      railties (>= 4.2)
     webrobots (0.1.2)
     wice_grid (3.6.2)
       activerecord (> 3.2)
@@ -611,6 +623,7 @@ DEPENDENCIES
   did_you_mean (~> 0.9)
   draper
   ekylibre-ofx-parser
+  elastic-apm
   enumerize
   exception_notification
   factory_bot (< 5)
@@ -633,13 +646,11 @@ DEPENDENCIES
   jquery-ui-rails
   kaminari (~> 0.16.0)
   letter_opener
-  lodash-rails
   loofah
   luhn
   mail (~> 2.6.6.rc1)
   mechanize
   minitest-reporters
-  momentjs-rails (>= 2.9.0)
   nokogiri (~> 1.8.1)
   odf-report
   omniauth
@@ -697,10 +708,11 @@ DEPENDENCIES
   vuejs-rails
   wannabe_bool
   web-console (~> 3.0)
+  webpacker (~> 4.x)
   wice_grid
 
 RUBY VERSION
    ruby 2.4.3p205
 
 BUNDLED WITH
-   1.17.1
+   1.17.3
