@@ -22,7 +22,6 @@ export function setup(options = {}) {
   })
 }
 
-
 function enabled() {
   return window.Notification && window.Notification.permission === 'granted'
 }
