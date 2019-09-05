@@ -111,6 +111,23 @@ module Backend
       end
     end
 
+    def show
+      respond_to do |format|
+        format.pdf do
+          shipment = Shipment.find(params[:id])
+          printer = ShippingNotePrinter.new(shipment: shipment)
+          file_path = printer.run_pdf
+          File.open(File.join(file_path), 'r') do |f|
+            send_data f.read, filename: printer.key, type: 'application/pdf', disposition: 'inline'
+          end
+        end
+
+        format.html do
+          super
+        end
+      end
+    end
+
     def new
       @shipment = Shipment.new(shipment_params)
     end
@@ -152,7 +169,7 @@ module Backend
     end
 
     private
-    
+
       def shipment_params
         params.require(:shipment).permit(:planned_at, :sale_id, :recipient_id, items_attributes: %i[source_product_id population])
       end

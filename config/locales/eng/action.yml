@@ -2211,6 +2211,7 @@ eng:
     ship: "Ship" #?
     shipment_items: "Shipment items"
     shipments: "Shipments"
+    shipping_note: "Shipping bill"
     show: "Show"
     # show_export_preview: "Show export preview"
     sign_out: "Sign out" #?
