@@ -320,15 +320,7 @@ class Product < Ekylibre::Record::Base
   validate :born_at_in_interventions, if: ->(product) { product.born_at? && product.interventions_used_in.pluck(:started_at).any? }
   validate :dead_at_in_interventions, if: ->(product) { product.dead_at? && product.interventions.pluck(:stopped_at).any? }
 
-
   store :reading_cache, accessors: Nomen::Indicator.all, coder: ReadingsCoder
-
-  after_commit do
-    if nature.population_counting_unitary? && population.zero?
-      m = movements.build(delta: 1, started_at: Time.now)
-      m.save!
-    end
-  end
 
   # [DEPRECATIONS[
   #  - fixed_asset_id
@@ -379,20 +371,6 @@ class Product < Ekylibre::Record::Base
 
   after_initialize :choose_default_name
 
-  after_save do
-    if initializeable?
-      set_initial_values
-
-    else
-      product_phases = phases.where(product_id: id,
-                                    variant_id: variant.id,
-                                    nature_id: variant.nature.id,
-                                    category_id: variant.category.id)
-
-      build_new_phase unless product_phases.any?
-    end
-  end
-
   before_validation do
     self.initial_born_at ||= Time.zone.now
     self.born_at ||= self.initial_born_at
@@ -404,13 +382,6 @@ class Product < Ekylibre::Record::Base
 
   before_validation :set_default_values, on: :create
   before_validation :update_default_values, on: :update
-
-  after_validation do
-    self.born_at ||= self.initial_born_at
-    self.dead_at ||= initial_dead_at
-    self.default_storage ||= initial_container
-    self.initial_container ||= self.default_storage
-  end
 
   validate do
     if dead_at && born_at
@@ -427,6 +398,34 @@ class Product < Ekylibre::Record::Base
           errors.add(:derivative_of, :invalid)
         end
       end
+    end
+  end
+
+  after_validation do
+    self.born_at ||= self.initial_born_at
+    self.dead_at ||= initial_dead_at
+    self.default_storage ||= initial_container
+    self.initial_container ||= self.default_storage
+  end
+
+  after_save do
+    if initializeable?
+      set_initial_values
+
+    else
+      product_phases = phases.where(product_id: id,
+                                    variant_id: variant.id,
+                                    nature_id: variant.nature.id,
+                                    category_id: variant.category.id)
+
+      build_new_phase unless product_phases.any?
+    end
+  end
+
+  after_commit do
+    if nature.population_counting_unitary? && population.zero?
+      m = movements.build(delta: 1, started_at: Time.now)
+      m.save!
     end
   end
 

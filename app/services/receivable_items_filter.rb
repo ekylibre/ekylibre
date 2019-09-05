@@ -16,6 +16,7 @@ class ReceivableItemsFilter
           project_budget_id: item.project_budget_id,
           team_id: item.team_id,
           equipment_id: item.equipment_id,
+          annotation: item.annotation
         }
         reception_item_storage_attributes = { quantity: item.quantity_to_receive }
         reception_item = ReceptionItem.new(reception_item_attributes)
