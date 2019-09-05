@@ -5,8 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -555,7 +554,7 @@ class FinancialYear < Ekylibre::Record::Base
       accountant && accountant.booked_journals.any?
     end
 
-  # Filter account balances with given accounts and with non-null balance
+    # Filter account balances with given accounts and with non-null balance
     def account_balances_for(account_numbers)
       account_balances.joins(:account)
         .where('local_balance != ?', 0)

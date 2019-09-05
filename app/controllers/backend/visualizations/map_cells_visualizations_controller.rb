@@ -98,44 +98,37 @@ module Backend
             # yield_symbol = Nomen::Unit[measure_unit.to_sym]
             surface_unit_name = :hectare
 
-            grass_yield = nil
-            grain_yield = nil
-
             # case fodder (hay, grass) in ton per hectare
             if support.usage == 'fodder' || support.usage == 'fiber'
-              matter = :grass
               label = :grass_yield
-              mass_unit_name = :ton
-              grass_yield = support.harvest_yield(matter, procedure_category: :harvesting,
-                                                          size_indicator_name: :net_mass,
-                                                          size_unit_name: mass_unit_name,
-                                                          surface_unit_name: surface_unit_name)
-              # case grain in quintal per hectare
-            elsif support.usage == 'grain' || support.usage == 'seed'
-              matter = :grain
-              label = :grain_yield
-              mass_unit_name = :quintal
-              grain_yield = support.harvest_yield(matter, procedure_category: :harvesting,
-                                                          size_indicator_name: :net_mass,
-                                                          size_unit_name: mass_unit_name,
-                                                          surface_unit_name: surface_unit_name)
-            else
-              matter = :grain
-              label = :grain_yield
-              mass_unit_name = :quintal
-              grain_yield = support.harvest_yield(matter, procedure_category: :harvesting,
-                                                          size_indicator_name: :net_mass,
-                                                          size_unit_name: mass_unit_name,
-                                                          surface_unit_name: surface_unit_name)
-            end
+              grass_yield = support.fodder_yield
+              popup_content << { label: label.tl, value: grass_yield.round(2).l }
 
-            if params[:visualization] == 'grain_yield' && grain_yield && label
+            # case grain in quintal per hectare
+            elsif support.usage == 'grain' || support.usage == 'seed'
+              label = :grain_yield
+              grain_yield = support.grains_yield
               popup_content << { label: label.tl, value: grain_yield.round(2).l }
+
+            # case vegetable
+            elsif support.usage == 'vegetable'
+              label = :vegetable_yield
+              vegetable_yield = support.vegetable_yield
+              popup_content << { label: label.tl, value: vegetable_yield.round(2).l }
+
+            # grappe
+            elsif support.usage == 'fruit' || support.usage == 'grappe'
+              label = :fruit_yield
+              fruit_yield = support.fruit_yield
+              popup_content << { label: label.tl, value: fruit_yield.round(2).l }
             end
 
             # if support.net_surface_area
             #  popup_content << {label: CultivableZone.human_attribute_name(:net_surface_area), value: support.net_surface_area.in_hectare.round(2).l}
             # end
+
+            # compute pfi parcel ratio from pfi treatment ratios
+            popup_content << { label: :pfi_parcel_ratio.tl, value: support.pfi_parcel_ratio.round(2) }
 
             interventions = support.interventions.real
             if interventions.any?
@@ -145,6 +138,8 @@ module Backend
               last_intervention = interventions.order(started_at: :desc).first
               popup_content << { label: :last_intervention.tl, value: view_context.link_to(last_intervention.name, backend_intervention_path(last_intervention)) }
             end
+
+            # build frequency indicator of spraying (IFT map)
 
             popup_content << render_to_string(partial: 'popup', locals: { production: support })
 
@@ -160,8 +155,11 @@ module Backend
               # phosphorus_concentration: phosphorus_concentration.to_s.to_f.round(2),
               # potassium_concentration:  potassium_concentration.to_s.to_f.round(2),
               interventions_count: interventions.count,
+              pfi_parcel_ratio:  support.pfi_parcel_ratio,
               grain_yield: grain_yield.to_s.to_f.round(2),
               grass_yield: grass_yield.to_s.to_f.round(2),
+              vegetable_yield: vegetable_yield.to_s.to_f.round(2),
+              fruit_yield: fruit_yield.to_s.to_f.round(2),
               popup: { header: true, content: popup_content }
             }
             data << item
@@ -181,9 +179,11 @@ module Backend
               # v.choropleth :phosphorus_concentration, :main, stop_color: "#11BB99"
               # v.choropleth :potassium_concentration, :main, stop_color: "#AA00AA"
             elsif visualization_face == 'grain_yield'
-              v.choropleth :grain_yield, :main, stop_color: '#E77000'
+              v.choropleth :grain_yield, :main, stop_color: '#AA00AA'
               v.choropleth :grass_yield, :main, stop_color: '#00AA00'
-              # v.choropleth :nitrogen_concentration, :main, stop_color: "#777777"
+              v.choropleth :vegetable_yield, :main, stop_color: '#11BB99'
+              v.choropleth :fruit_yield, :main, stop_color: '#1122DD'
+              v.choropleth :pfi_parcel_ratio, :main, stop_color: '#E77000'
             else
               v.choropleth :tool_cost, :main, stop_color: '#00AA00'
               v.choropleth :input_cost, :main, stop_color: '#1122DD'

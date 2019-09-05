@@ -5,8 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -105,7 +104,7 @@ class ListingTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     conn = ActiveRecord::Base.connection
     actual = conn.execute(listing.query).values.map(&:compact).reject(&:blank?).flatten
 
-    expected = Entity.pluck(:custom_fields).compact.map { |cf| cf['sdqdqsdq_sd_qsq'].to_json }.sort
+    expected = Entity.pluck(:custom_fields).compact.map { |cf| cf['sdqdqsdq_sd_qsq'] }.sort
     assert_equal expected, actual
   end
 
@@ -132,7 +131,7 @@ class ListingTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     conn = ActiveRecord::Base.connection
     actual = conn.execute(listing.query).values.map(&:compact).reject(&:blank?).flatten
 
-    expected = Entity.joins(:client_account).pluck('accounts.custom_fields').compact.map { |cf| cf['account_custom_test'].to_json }.sort
+    expected = Entity.joins(:client_account).pluck('accounts.custom_fields').compact.map { |cf| cf['account_custom_test'] }.sort
     assert_equal expected, actual
   end
 end

@@ -37,7 +37,7 @@ module Backend
       sale = Sale.last
       affair = sale.affair
       journal = Journal.last
-      date = DateTime.now.to_date
+      date = Date.new(2018, 1, 1)
       user = User.where(administrator: true).last
       sign_in(user)
       post(:create,
@@ -83,7 +83,7 @@ module Backend
 
     test 'currency_state returns the right exchange_rate according to financial_year currency' do
       FinancialYear.delete_all
-      create :financial_year, year: 1994, currency: :FRF
+      create(:financial_year, currency: 'FRF', year: 1994)
       user = create(:user)
       sign_in(user)
       get :currency_state, on: '01/06/1994', from: 'EUR'
@@ -92,7 +92,7 @@ module Backend
 
     test 'currency_state returns 1 if target currency is the same as source currency' do
       FinancialYear.delete_all
-      create :financial_year, year: 1994, currency: :EUR
+      create(:financial_year, currency: 'EUR', year: 1994)
       user = create(:user)
       sign_in(user)
       get :currency_state, on: '01/06/1994', from: 'EUR'

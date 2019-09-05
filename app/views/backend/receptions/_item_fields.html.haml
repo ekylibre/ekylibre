@@ -1,0 +1,79 @@
+- item ||= f.object
+- variant = Maybe(item.variant)
+- f.object.currency = Preference[:currency]
+- f.object.role = role if defined?(role)
+- f.object.delivery_mode = 'none' if f.object.role == 'service' || f.object.role == 'fees'
+- non_compliant_message = :non_compliant.tl
+
+%tbody.nested-fields.delivery-item.reception-form__nested-fields{ data: { iceberg: true }, class:[('reception-form__nested-fields--invalid' if item.non_compliant)] }
+  %tr.item-display.hidden
+    %td.act
+      - if f.object.destroyable?
+        = link_to_remove_association(content_tag(:i) + h(:destroy.tl), f, 'data-no-turbolink' => true, class: 'destroy remove remove-item')
+    %td.act
+      = link_to("#", class: 'edit edit-item', data: { edit: "item-form" }) do
+        %i
+        = :edit.tl
+    %td.product-column
+      %label{ data: { item_value: "input.parcel-item-variant" } }= f.object.variant ? f.object.variant.name : 'ERROR'
+      %br
+      %label.reception-form__nested-fields__incident-warning{ data: { item_value: "input.item-non-compliant" } }
+        = non_compliant_message
+      %label.reception-form__nested-fields__non-compliant-details{ class: "item-non-compliant-detail-label", data: { item_value: "textarea.item-non-compliant-detail" } }
+        = f.object.non_compliant_detail
+    %td.storage-column
+      #storing-display
+        %p{ "v-for" => "zone in zones"}
+          %strong{ class: "storage-quantity" }= "{{zone.quantity}} {{zone.unit}}"
+          %span{ class: "storage-zone" }= "{{zone.name}}"
+    %td.quantity-column
+      %label
+        %span{ data: { item_value: ".total-quantity" } }= f.object.population ? f.object.population : 'ERROR'
+        %span{ data: { item_value: "span.storage-unit-name" } }= f.object.variant ? f.object.variant.unit_name : '#'
+    %td.delivery-mode-column
+      %label{ data: { item_value: "input.item-delivery-mode:checked" } }= f.object.delivery_mode if f.object.delivery_mode != "ERROR"
+
+  %tr.nested-item-form{ class: mode == 'prefilled' ? 'prefilled' : '', data: { item_id: f.object.purchase_order_item&.id } }
+    %td.item-form{colspan: 20}
+      = f.hidden_field :purchase_order_to_close_id, class: "purchase-order-to-close-id"
+
+      .item-form__role{ class: "item-form__role--#{f.object.role.to_s}" }
+        = f.input :role, as: :hidden
+
+        - if f.object.merchandise?
+          = render 'merchandise_fields', f: f, variant: variant, non_compliant_message: non_compliant_message
+        - else
+          = render 'non_merchandise_fields', f: f, variant: variant, non_compliant_message: non_compliant_message
+
+      .item-form-information
+        - if display_activity_item_field
+          .item-form.item-form__activity
+            = f.referenced_association :activity_budget, new: false, input_html: {data: { remember: 'activity_budget'}}
+        .item-form.item-form__project-budget
+          = f.referenced_association :project_budget, input_html: {data: { remember: 'project_budget'}}
+        - if display_team_item_field
+          .item-form.item-form__product_work_number
+            = f.referenced_association :team, input_html: {data: { remember: 'team'}}
+        .item-form.item-form__equipment
+          = f.referenced_association :equipment, source: :tools, label: :equipment.tl, input_html: {data: { remember: 'equipment'}}
+
+      .item-form-button
+        .item-form-state
+          = f.input :purchase_order_item_id, as: :hidden, input_html: { class: "purchase-item-attribute" }
+
+          .control-group.item-form-reconciliation
+            - reconciliation_state = f.object.reception.reconciliation_state
+            %label.item-form__reconciliation-state= :element_status.tl
+            %span.item-form__reconciliation-state.purchase-process-reconciliation.no-reconciliate-state.reconciliation-state{ class: reconciliation_state == 'to_reconcile' ? '' : 'hidden' }
+              = :to_reconciliate.tl
+            %span.item-form__reconciliation-state.purchase-process-reconciliation.reconcile-state.reconciliation-state{ class: reconciliation_state == 'reconcile' ? '' : 'hidden' }
+              = :reconcile.tl
+          .item-form-compliant-state
+            = f.input :non_compliant, input_html: { class: 'reception-item-non-compliant' }
+            %span.reception-form__nested-fields__incident-warning
+              = non_compliant_message
+          .reception-form__nested-fields__non-compliant-details
+            = f.input :non_compliant_detail, as: :text, label: :detail.tl, input_html: { class: 'item-non-compliant-detail', data: { interpolate_if_input: 'input.reception-item-non-compliant', with_value: 1 } }
+        .item-form__btn
+          %a.btn.btn--cancel{ data: { cancel: 'item-form' } }= :cancel.tl
+          %button.btn.btn-primary{ data: { validate: 'item-form' } }= :validate.tl

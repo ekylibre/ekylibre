@@ -1,0 +1,3 @@
+$('#compare-planned-with-realised').remove()
+$('body').append("<%= escape_javascript(render partial: 'compare_planned_with_realised_modal')%>");
+$('#compare-planned-with-realised').modal('show')

@@ -35,7 +35,7 @@ module ToolbarHelper
       record = options[:resource] || @template.resource
       options[:key] ||= (record ? :number : Time.zone.now.strftime('%Y%m%d%H%M%S'))
       key = (options[:key].is_a?(Symbol) ? record.send(options[:key]) : options[:key]).to_s
-      @template.dropdown_menu_button(:print) do |menu|
+      @template.dropdown_menu_button(:print, class: options[:class]) do |menu|
         natures.each do |nature_name|
           nature = Nomen::DocumentNature.find(nature_name)
           modal_id = nature.name.to_s + '-exporting'
@@ -75,14 +75,17 @@ module ToolbarHelper
       @template.dropdown_menu_button(name, options, &block)
     end
 
-    def destroy(*args)
-      options = args.extract_options!
-      if @template.resource
-        if @template.resource.destroyable?
-          tool(options[:label] || :destroy.ta, { action: :destroy, id: @template.resource.id, redirect: options[:redirect] }, method: :delete, data: { confirm: :are_you_sure_you_want_to_delete.tl })
-        end
+    def destroy(resource = nil, label: :destroy.ta, redirect: nil, **options)
+      options = {
+        method: :delete,
+        **options
+      }
+      resource ||= @template.resource
+
+      if resource
+        destroy_resource(resource, label: label, redirect: redirect, **options)
       else
-        tool(options[:label] || :destroy.ta, { action: :destroy, redirect: options[:redirect] }, { method: :delete }.merge(options.except(:redirect, :label)))
+        tool(label, { action: :destroy, redirect: redirect }, options)
       end
     end
 
@@ -132,29 +135,60 @@ module ToolbarHelper
       record = args.shift
       action(name, record, options)
     end
+
+    private
+
+      def destroy_resource(resource, label:, redirect:, **options)
+        options = {
+          show_disabled: false,
+          disabled_tooltip_content: false,
+          data: { confirm: :are_you_sure_you_want_to_delete.tl },
+          **options
+        }
+        show_disabled = options.fetch(:show_disabled)
+        return ''.html_safe if !show_disabled && !resource.destroyable?
+
+        unless resource.destroyable?
+          options = {
+            **options,
+            disabled: true,
+            style: 'pointer-events: auto'
+          }
+
+          if (tooltip_content = options.fetch(:disabled_tooltip_content))
+            options = { **options, data: { toggle: :tooltip, placement: :top }, title: tooltip_content }
+          end
+        end
+
+        tool(label, { action: :destroy, id: resource.id, redirect: redirect }, options)
+      end
   end
 
   # Build a tool bar composed of tool groups composed of tool
   def toolbar(options = {}, &block)
-    return nil unless block_given?
-
     toolbar = Toolbar.new(self)
-    html = capture(toolbar, &block)
-    unless options[:extract].is_a?(FalseClass) || action_name != 'index'
+
+    html = ''
+    html << (capture(toolbar, &block) || '') if block_given?
+
+    if !options[:extract].is_a?(FalseClass) && action_name == 'index'
       model = controller_name.to_s.singularize
       if Listing.root_model.values.include?(model.to_s)
-        html << capture(toolbar) do |t|
+        html << (capture(toolbar) do |t|
           t.extract(options[:extract].is_a?(Hash) ? options[:extract] : {})
-        end
+        end || '')
       end
     end
+
     if options[:name] == :main
-      html << Ekylibre::View::Addon.render(:main_toolbar, self, t: toolbar)
+      html << (Ekylibre::View::Addon.render(:main_toolbar, self, t: toolbar) || '')
     end
 
+    safe_html = html.html_safe
     unless options[:wrap].is_a?(FalseClass)
-      html = content_tag(:div, html, class: 'toolbar' + (options[:class] ? ' ' << options[:class].to_s : ''))
+      safe_html = content_tag(:div, safe_html, class: ['toolbar', 'toolbar-wrapper', options.fetch(:class, [])].flatten)
     end
-    html
+
+    safe_html
   end
 end

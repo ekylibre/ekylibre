@@ -5,8 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -79,11 +78,11 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   test 'rounds' do
-    nature = SaleNature.find_or_create_by(with_accounting: true)
+    nature = SaleNature.find_or_create_by(currency: 'EUR')
     assert nature
     client = Entity.normal.first
     assert client
-    sale = Sale.create!(nature: nature, client: client)
+    sale = Sale.create!(nature: nature, client: client, invoiced_at: DateTime.new(2018, 1, 1))
     assert sale
     variants = ProductNatureVariant.where(nature: ProductNature.where(population_counting: :decimal))
     # Standard case
@@ -276,7 +275,7 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     Sale.delete_all
 
     catalog    = Catalog.create!(code: 'food', name: 'Noncontaminated produce')
-    nature     = SaleNature.create!(currency: 'EUR', name: 'Perishables', catalog: catalog)
+    nature     = SaleNature.create!(currency: 'EUR', name: 'Perishables', catalog: catalog, journal: Journal.find_by_nature('sales'))
     max        = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)
     with       = Sale.create!(client: max, nature: nature, currency: 'USD')
     without    = Sale.create!(client: max, nature: nature)
@@ -301,7 +300,7 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       country: :fr
     )
 
-    sale = Sale.create!(nature: nature, client: Entity.normal.first, state: :order)
+    sale = Sale.create!(nature: nature, client: Entity.normal.first, state: :order, invoiced_at: DateTime.new(2018, 1, 1))
     sale.items.create!(variant: @variant, quantity: 4, unit_pretax_amount: 100, tax: standard_vat)
     sale.reload
 
@@ -326,5 +325,15 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_raises ActiveRecord::RecordInvalid do
       create(:sale, invoiced_at: Date.today - 3.day)
     end
+  end
+
+  test 'A sale with state :order can have its invoice date changed' do
+    sale = create :sale, amount: 5000, items: 1
+
+    assert sale.propose
+    assert sale.confirm
+
+    assert sale.order?
+    assert sale.update invoiced_at: Time.parse("2018-05-08T10-25-52Z")
   end
 end

@@ -5,8 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -4934,12 +4933,272 @@ preferences_427:
   updater_id: 1
   user_id: 1
 preferences_428:
-  created_at: 2018-08-08 15:35:22.020066000 Z
+  created_at: 2018-09-20 09:19:27.202430000 Z
   creator_id: 1
   id: 430
   lock_version: 0
+  name: list._last_purchases_invoices_cells_list_last_purchases_invoices_cells_tag
+  nature: string
+  string_value: {}
+  updated_at: 2018-09-20 09:19:27.202430000 Z
+  updater_id: 1
+  user_id: 1
+preferences_429:
+  created_at: 2018-09-20 09:19:27.816138000 Z
+  creator_id: 1
+  id: 431
+  lock_version: 0
+  name: list._last_purchases_orders_cells_list_last_purchases_orders_cells_tag
+  nature: string
+  string_value: {}
+  updated_at: 2018-09-20 09:19:27.816138000 Z
+  updater_id: 1
+  user_id: 1
+preferences_430:
+  boolean_value: true
+  created_at: 2018-09-20 09:19:28.983161000 Z
+  creator_id: 1
+  id: 432
+  lock_version: 0
+  name: interface.kujakus.backend-purchase_orders-index-1.collapsed
+  nature: boolean
+  updated_at: 2018-09-20 09:19:28.983161000 Z
+  updater_id: 1
+  user_id: 1
+preferences_431:
+  created_at: 2018-09-20 09:19:29.025037000 Z
+  creator_id: 1
+  id: 433
+  lock_version: 0
+  name: kujaku.feathers.backend-purchase_orders-index-1:0.default
+  nature: string
+  updated_at: 2018-09-20 09:19:29.025037000 Z
+  updater_id: 1
+  user_id: 1
+preferences_432:
+  created_at: 2018-09-20 09:19:29.150907000 Z
+  creator_id: 1
+  id: 434
+  lock_version: 0
+  name: accounts_interval.started_on
+  nature: string
+  updated_at: 2018-09-20 09:19:29.150907000 Z
+  updater_id: 1
+  user_id: 1
+preferences_433:
+  created_at: 2018-09-20 09:19:29.159755000 Z
+  creator_id: 1
+  id: 435
+  lock_version: 0
+  name: accounts_interval.stopped_on
+  nature: string
+  updated_at: 2018-09-20 09:19:29.159755000 Z
+  updater_id: 1
+  user_id: 1
+preferences_434:
+  created_at: 2018-09-20 09:19:29.183091000 Z
+  creator_id: 1
+  id: 436
+  lock_version: 0
+  name: list._purchase_orders_list_purchase_orders_tag
+  nature: string
+  string_value: {}
+  updated_at: 2018-09-20 09:19:29.183091000 Z
+  updater_id: 1
+  user_id: 1
+preferences_435:
+  boolean_value: true
+  created_at: 2018-09-20 09:19:33.375500000 Z
+  creator_id: 1
+  id: 437
+  lock_version: 0
+  name: interface.kujakus.backend-purchase_invoices-index-1.collapsed
+  nature: boolean
+  updated_at: 2018-09-20 09:19:33.375500000 Z
+  updater_id: 1
+  user_id: 1
+preferences_436:
+  created_at: 2018-09-20 09:19:33.397452000 Z
+  creator_id: 1
+  id: 438
+  lock_version: 0
+  name: kujaku.feathers.backend-purchase_invoices-index-1:0.default
+  nature: string
+  updated_at: 2018-09-20 09:19:33.397452000 Z
+  updater_id: 1
+  user_id: 1
+preferences_437:
+  created_at: 2018-09-20 09:19:33.724911000 Z
+  creator_id: 1
+  id: 439
+  lock_version: 0
+  name: list._purchase_invoices_list_purchase_invoices_tag
+  nature: string
+  string_value: {}
+  updated_at: 2018-09-20 09:19:33.724911000 Z
+  updater_id: 1
+  user_id: 1
+preferences_438:
+  created_at: 2018-09-20 09:33:27.659061000 Z
+  creator_id: 1
+  id: 440
+  lock_version: 0
+  name: cobbler.purchase_orders-show
+  nature: string
+  string_value: {}
+  updated_at: 2018-09-20 09:33:27.659061000 Z
+  updater_id: 1
+  user_id: 1
+preferences_439:
+  created_at: 2018-09-20 09:33:27.675258000 Z
+  creator_id: 1
+  id: 441
+  lock_version: 0
+  name: list._purchase_orders_list_items_tag
+  nature: string
+  string_value: {}
+  updated_at: 2018-09-20 09:33:27.675258000 Z
+  updater_id: 1
+  user_id: 1
+preferences_440:
+  boolean_value: false
+  created_at: 2018-09-20 14:11:20.606167000 Z
+  creator_id: 1
+  id: 442
+  lock_version: 0
+  name: interface.snippets.receptions.collapsed
+  nature: boolean
+  updated_at: 2018-09-20 14:11:20.606167000 Z
+  updater_id: 1
+  user_id: 1
+preferences_441:
+  boolean_value: false
+  created_at: 2018-09-20 14:11:20.641797000 Z
+  creator_id: 1
+  id: 443
+  lock_version: 0
+  name: interface.snippets.shipments.collapsed
+  nature: boolean
+  updated_at: 2018-09-20 14:11:20.641797000 Z
+  updater_id: 1
+  user_id: 1
+preferences_442:
+  boolean_value: false
+  created_at: 2018-09-20 14:11:20.657698000 Z
+  creator_id: 1
+  id: 444
+  lock_version: 0
+  name: interface.snippets.deliveries.collapsed
+  nature: boolean
+  updated_at: 2018-09-20 14:11:20.657698000 Z
+  updater_id: 1
+  user_id: 1
+preferences_443:
+  boolean_value: true
+  created_at: 2018-09-20 14:11:32.631071000 Z
+  creator_id: 1
+  id: 445
+  lock_version: 0
+  name: interface.kujakus.backend-receptions-index-4.collapsed
+  nature: boolean
+  updated_at: 2018-09-20 14:11:32.631071000 Z
+  updater_id: 1
+  user_id: 1
+preferences_444:
+  created_at: 2018-09-20 14:11:32.673013000 Z
+  creator_id: 1
+  id: 446
+  lock_version: 0
+  name: kujaku.feathers.backend-receptions-index-4:0.default
+  nature: string
+  updated_at: 2018-09-20 14:11:32.673013000 Z
+  updater_id: 1
+  user_id: 1
+preferences_445:
+  created_at: 2018-09-20 14:11:33.149445000 Z
+  creator_id: 1
+  id: 447
+  lock_version: 0
+  name: list._receptions_list_receptions_tag
+  nature: string
+  string_value: {}
+  updated_at: 2018-09-20 14:11:33.149445000 Z
+  updater_id: 1
+  user_id: 1
+preferences_446:
+  created_at: 2018-09-20 14:11:51.881855000 Z
+  creator_id: 1
+  id: 448
+  lock_version: 0
+  name: cobbler.receptions-show
+  nature: string
+  string_value: {}
+  updated_at: 2018-09-20 14:11:51.881855000 Z
+  updater_id: 1
+  user_id: 1
+preferences_447:
+  created_at: 2018-09-20 14:11:51.920729000 Z
+  creator_id: 1
+  id: 449
+  lock_version: 0
+  name: list._receptions_list_storings_tag
+  nature: string
+  string_value: {}
+  updated_at: 2018-09-20 14:11:51.920729000 Z
+  updater_id: 1
+  user_id: 1
+preferences_448:
+  created_at: 2018-09-20 14:12:41.225893000 Z
+  creator_id: 1
+  id: 450
+  lock_version: 0
+  name: cobbler.purchase_invoices-show
+  nature: string
+  string_value: {}
+  updated_at: 2018-09-20 14:12:41.225893000 Z
+  updater_id: 1
+  user_id: 1
+preferences_449:
+  created_at: 2018-09-20 14:12:41.239500000 Z
+  creator_id: 1
+  id: 451
+  lock_version: 0
+  name: list._purchase_invoices_list_items_tag
+  nature: string
+  string_value: {}
+  updated_at: 2018-09-20 14:12:41.239500000 Z
+  updater_id: 1
+  user_id: 1
+preferences_450:
+  created_at: 2018-09-20 14:12:41.988248000 Z
+  creator_id: 1
+  id: 452
+  lock_version: 0
+  name: list._purchase_invoices_list_receptions_tag
+  nature: string
+  string_value: {}
+  updated_at: 2018-09-20 14:12:41.988248000 Z
+  updater_id: 1
+  user_id: 1
+preferences_451:
+  created_at: 2018-09-21 12:13:07.843183000 Z
+  creator_id: 1
+  id: 453
+  lock_version: 0
+  name: list._project_budgets_list_project_budgets_tag
+  nature: string
+  string_value: {}
+  updated_at: 2018-09-21 12:13:07.843183000 Z
+  updater_id: 1
+  user_id: 1
+preferences_452:
+  created_at: 2018-08-08 15:35:22.020066000 Z
+  creator_id: 1
+  id: 454
+  lock_version: 0
   name: kujaku.feathers.backend-accounts-index-1:0.default
   nature: string
+  string_value: {}
   updated_at: 2018-08-08 15:35:22.020066000 Z
   updater_id: 1
   user_id: 1

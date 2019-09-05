@@ -569,6 +569,10 @@ html.exception {
   &.main-toolbar {
     @include float(left);
   }
+
+  &.main-toolbar-fullwidth {
+    width: 100%;
+  }
 }
 
 #core {
@@ -1821,12 +1825,7 @@ a[data-remove-closest], a[data-remove] {
   }
   .amount {
     @include text-align(right);
-    &.credit {
-      &, & * { color: $invalid-color }
-    }
-    &.debit {
-      &, & * { color: green }
-    }
+
     &, & * {
       font-weight: bold;
     }
@@ -2755,4 +2754,12 @@ a[data-annotate] {
 
 .label-important {
   color: $invalid-color;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.fieldset .fieldset-fields tr.nested-fields input.numeric, .fieldset .fieldset-fields tbody.nested-fields input.numeric {
+  width: 5em;
 }

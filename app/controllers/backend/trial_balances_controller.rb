@@ -21,6 +21,7 @@
 module Backend
   class TrialBalancesController < Backend::BaseController
     include PdfPrinter
+
     def show
       # build variables for reporting (document_nature, key, filename and dataset)
       document_nature = Nomen::DocumentNature.find(:trial_balance)

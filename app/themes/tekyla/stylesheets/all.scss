@@ -1,9 +1,9 @@
 /*
  * This is a manifest file that'll be compiled into screen.css, which will include all the files
  * listed below.
- *= require flatpickr
- *= require flatpickr/plugins/confirmDate/confirmDate
- *= require flatpickr/themes/material_blue
+ *= require flatpickr/dist/flatpickr
+ *= require flatpickr/dist/plugins/confirmDate/confirmDate
+ *= require flatpickr/dist/themes/material_blue
  *= require_self
  */
 
@@ -23,11 +23,14 @@
 @import "themes/tekyla/plugins";
 @import "flatpickr";
 @import "bootstrap-slider";
+@import "wice_grid";
+@import "font-awesome-sprockets";
 
 // Specific
 @import "abilities";
 @import "accesses";
 @import "activities";
+@import "activity_productions";
 @import "accounts";
 @import "attachments";
 @import "bank_statements";
@@ -49,16 +52,27 @@
 @import "main";
 @import "map_layers";
 @import "modals";
+@import "naming_formats";
+@import "production_costs";
+@import "purchases";
+@import "purchase_process_reconciliation";
 @import "quick_trades";
+@import "receptions";
+@import "outgoing_payment_lists";
 @import "tables";
 @import "taskboard";
 @import "tax_declarations";
 @import "timelines";
 @import "tour";
 @import "plants";
+@import "wice_grid";
 @import "warning";
 @import "general_ledgers";
 @import "trial_balances";
+@import "./components/index";
+
+@import "./components/index";
+
 @import "./components/index";
 
 // Optimization

@@ -18,7 +18,7 @@
 
 module Backend
   class InventoriesController < Backend::BaseController
-    manage_restfully except: %i[index show], achieved_at: 'FinancialYear.current.stopped_on'.c, responsible_id: 'current_user.person.id'.c, name: 'FinancialYear.current.stopped_on.year.to_s'.c
+    manage_restfully except: %i[index show create], achieved_at: 'Time.zone.now'.c, responsible_id: 'current_user.person.id'.c, name: 'Time.zone.now.year.to_s'.c
 
     respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
@@ -42,6 +42,16 @@ module Backend
       unless ProductNature.stockables.any?
         notify_now(:need_stocks_to_create_inventories)
       end
+    end
+
+    def new
+      @inventory = Inventory.new(product_nature_category_id: params[:product_nature_category_id])
+    end
+
+    def create
+      @inventory = resource_model.new(permitted_params)
+      return if save_and_redirect(@inventory, url: (params[:create_and_continue] ? {:action=>:new, :continue=>true} : (params[:redirect] || ({action: :show, id: "id".c}))), notify: :record_x_created, identifier: :name)
+      render(locals: { cancel_url: :back, with_continue: false })
     end
 
     def show
@@ -69,6 +79,7 @@ module Backend
     def reflect
       return unless @inventory = find_and_check
       ReflectInventoryJob.perform_later(@inventory, current_user)
+      notify_success(:inventory_reflection_in_progress)
       redirect_to action: :index
     end
   end

@@ -28,6 +28,10 @@ module Backend
       input(reflection.foreign_key, options)
     end
 
+    def list_input(association, options = {})
+      # TODO
+    end
+
     # Display a selector with "new" button
     def referenced_association(association, options = {})
       return self.association(association, options) if options[:as] == :hidden
@@ -325,7 +329,7 @@ module Backend
       editor[:withoutLabel] = true
 
       geom = @object.send(attribute_name)
-      if geom
+      if geom.present?
         geometry = Charta.new_geometry(geom)
         editor[:edit] = geometry.to_json_object
         editor[:view] = { center: geometry.centroid, zoom: 16 }
@@ -583,8 +587,13 @@ module Backend
 
           html << @template.field_set(:indicators) do
             fs = ''.html_safe
-            @object.readings.each do |reading|
-              indicator = reading.indicator
+            readings_without_shape = @object.readings.reject do |reading|
+              # Based on L551 delete_if block
+              indicator = reading.indicator_name
+              whole_indicators.include?(indicator) ||
+                %i[geolocation shape].include?(indicator.to_sym)
+            end
+            readings_without_shape.each do |reading|
               # error message for indicators
               if Rails.env.development?
                 fs << reading.errors.inspect if reading.errors.any?
@@ -673,7 +682,7 @@ module Backend
       prefix = @lookup_model_names.first + @lookup_model_names[1..-1].collect { |x| "[#{x}]" }.join
       html = ''.html_safe
       reference = (@object.send(name) || {}).with_indifferent_access
-      for resource, rights in Ekylibre::Access.resources.sort { |a, b| Ekylibre::Access.human_resource_name(a.first) <=> Ekylibre::Access.human_resource_name(b.first) }
+      for resource, rights in Ekylibre::Access.resources.sort { |a, b| Ekylibre::Access.human_resource_name(a.first).ascii <=> Ekylibre::Access.human_resource_name(b.first).ascii }
         resource_reference = reference[resource] || []
         html << @template.content_tag(:div, class: 'control-group booleans') do
           @template.content_tag(:label, class: 'control-label') do
@@ -710,7 +719,7 @@ module Backend
       return nil unless @actions.any?
       @template.form_actions do
         html = ''.html_safe
-        for action in @actions
+        @actions.each do |action|
           html += if action[:type] == :block
                     action[:content].html_safe
                   else

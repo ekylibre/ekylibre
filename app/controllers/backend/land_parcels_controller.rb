@@ -23,13 +23,16 @@ module Backend
     def self.list_conditions
       code = ''
       code = search_conditions(products: %i[name number]) + " ||= []\n"
+      # Current campaign
+      code << "if current_campaign\n"
+      code << "   c[0] << \" AND  #{LandParcel.table_name}.activity_production_id IN ( SELECT id FROM #{ActivityProduction.table_name} WHERE campaign_id = ?)\"\n"
+      code << "   c << current_campaign.id\n"
+      code << "end\n"
       code << "c\n"
       code.c
     end
 
     list(conditions: list_conditions, joins: :nature) do |t|
-      t.action :edit
-      t.action :destroy
       t.column :name, url: true
       t.column :work_number
       t.column :identification_number
@@ -37,5 +40,28 @@ module Backend
       t.column :born_at
       t.column :dead_at
     end
+
+    # List interventions for one production support linked to land parcel
+    list(:interventions, conditions: ["#{Intervention.table_name}.nature = ? AND interventions.id IN (SELECT intervention_id FROM activity_productions_interventions WHERE activity_production_id IN (SELECT activity_production_id FROM products WHERE products.id = ?))", 'record', 'params[:id]'.c], order: { created_at: :desc }, line_class: :status) do |t|
+      t.column :name, url: true
+      t.column :started_at
+      t.column :human_working_duration
+      t.column :human_target_names
+      t.column :human_working_zone_area
+      t.column :stopped_at, hidden: true
+      t.column :issue, url: true
+    end
+
+    list(:plants, conditions: ["#{Plant.table_name}.activity_production_id IN (SELECT activity_production_id FROM products WHERE products.id = ?)", 'params[:id]'.c], order: { name: :asc }, line_class: :status) do |t|
+      t.column :name, url: true
+      t.column :work_number, hidden: true
+      t.column :variety
+      t.column :work_name, through: :container, hidden: true, url: true
+      t.column :net_surface_area, datatype: :measure
+      t.status
+      t.column :born_at
+      t.column :dead_at
+    end
+
   end
 end

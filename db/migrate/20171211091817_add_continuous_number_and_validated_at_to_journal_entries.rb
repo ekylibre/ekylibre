@@ -24,7 +24,7 @@ class AddContinuousNumberAndValidatedAtToJournalEntries < ActiveRecord::Migratio
           CREATE TRIGGER compute_journal_entries_continuous_number_on_insert
           BEFORE INSERT ON journal_entries
           FOR EACH ROW
-          WHEN (NEW.state <>'draft')
+          WHEN (NEW.state <> 'draft')
           EXECUTE PROCEDURE compute_journal_entry_continuous_number();
         SQL
       end

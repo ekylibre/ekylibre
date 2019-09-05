@@ -5,8 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -56,6 +55,23 @@ class CapIslet < Ekylibre::Record::Base
   scope :of_campaign, lambda { |*campaigns|
     joins(:cap_statement).merge(CapStatement.of_campaign(*campaigns))
   }
+
+  # TODO: Write this with a scope
+  def self.bounding_box(islets = [])
+    if islets.present?
+      box = ActiveRecord::Base.connection.execute("SELECT ST_Extent(shape) FROM cap_islets WHERE id IN (#{islets.map(&:id).join(', ')})").to_a.first['st_extent']
+    else
+      box = ActiveRecord::Base.connection.execute('SELECT ST_Extent(shape) FROM cap_islets').to_a.first['st_extent']
+    end
+
+    points = ActiveRecord::Base.connection.execute("SELECT ST_XMin(CAST('#{box}' As box2d)), ST_YMin(CAST('#{box}' As box2d)), ST_XMax(CAST('#{box}' As box2d)), ST_YMax(CAST('#{box}' As box2d))")
+    points.first.values
+  end
+
+  def city_name
+    name = RegisteredPostalZone.find_by(code: town_number)
+    return name.city_name if name
+  end
 
   alias net_surface_area shape_area
 end

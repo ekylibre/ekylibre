@@ -5,8 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -123,7 +122,7 @@ class ListingNode < Ekylibre::Record::Base
     elsif parent
       if nature == 'custom'
         self.sql_type = convert_sql_type(parent.model.custom_fields.find_by(column_name: attribute_name).nature.to_s)
-        self.name = parent.name.underscore + ".custom_fields->'" + attribute_name
+        self.name = parent.name.underscore + ".custom_fields->>'" + attribute_name
       elsif parent.model
         self.sql_type = convert_sql_type(parent.model.columns_definition[attribute_name][:type].to_s)
       end

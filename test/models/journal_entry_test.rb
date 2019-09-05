@@ -5,8 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -84,20 +83,21 @@ class JournalEntryTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       JournalEntry.create!(journal: journal)
     end
 
-    entry = JournalEntry.new(journal: journal, printed_on: Date.today, items: fake_items)
+    entry = JournalEntry.new(journal: journal, printed_on: Date.new(2018, 1, 1), items: fake_items)
     assert entry.valid?, entry.inspect + "\n" + entry.errors.full_messages.to_sentence
 
-    entry = journal.entries.new(printed_on: Date.today, items: fake_items)
+    entry = journal.entries.new(printed_on: Date.new(2018, 1, 1), items: fake_items)
     assert entry.valid?, entry.inspect + "\n" + entry.errors.full_messages.to_sentence
 
     Preference.set!(:currency, 'INR')
     assert_raise JournalEntry::IncompatibleCurrencies do
-      JournalEntry.create!(journal: journal, printed_on: Date.today)
+      JournalEntry.create!(journal: journal, printed_on: Date.new(2018, 1, 1))
     end
   end
 
   test 'save with items and currency' do
-    journal = Journal.find_or_create_by!(name: 'Wouhou', currency: 'BTN', nature: :various)
+    journal = Journal.find_or_create_by!(nature: :various)
+    journal.update! name: 'Wouhou', currency: 'BTN'
     journal_entry = JournalEntry.create!(
       journal: journal,
       printed_on: Date.civil(2016, 11, 14),
@@ -206,22 +206,22 @@ class JournalEntryTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     journal_entry.journal.update(currency: 'USD')
     journal_entry.update(real_currency: 'USD', number: 'HELLO', real_currency_rate: 0.5)
     item_attributes = journal_entry.items
-                                   .pluck(:entry_number, :real_currency, :real_currency_rate)
-                                   .map { |att| att[0...2] + [att.last.to_f] }
-                                   .uniq
-                                   .first
+                        .pluck(:entry_number, :real_currency, :real_currency_rate)
+                        .map { |att| att[0...2] + [att.last.to_f] }
+                        .uniq
+                        .first
     assert_equal ['HELLO', 'USD', 0.5], item_attributes
 
     journal_entry.update_columns(real_currency: 'EUR', number: 'is it me you\'re looking for?', real_currency_rate: 1.0)
     item_attributes = journal_entry.items
-                                   .pluck(:entry_number, :real_currency, :real_currency_rate)
-                                   .map { |att| att[0...2] + [att.last.to_f] }
-                                   .uniq
-                                   .first
+                        .pluck(:entry_number, :real_currency, :real_currency_rate)
+                        .map { |att| att[0...2] + [att.last.to_f] }
+                        .uniq
+                        .first
     assert_equal ['is it me you\'re looking for?', 'EUR', 1.0], item_attributes
   end
 
-  test 'cannot be created when in financial year exchange date range' do
+  test 'cannot be created when in opened financial year exchange date range' do
     financial_year = financial_years(:financial_years_025)
     exchange = create(:financial_year_exchange, :opened, financial_year: financial_year)
     journal = create(:journal)
@@ -231,13 +231,33 @@ class JournalEntryTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     refute entry.valid?
   end
 
-  test 'cannot be updated to a date in financial year exchange date range' do
+  test 'can be created when in closed financial year exchange date range' do
+    financial_year = financial_years(:financial_years_025)
+    exchange = create(:financial_year_exchange, financial_year: financial_year)
+    journal = create(:journal)
+    entry = JournalEntry.new(journal: journal, printed_on: exchange.stopped_on + 1.day, items: fake_items)
+    assert entry.valid?
+    entry.printed_on = exchange.started_on + 1.day
+    assert entry.valid?
+  end
+
+  test 'cannot be updated to a date in opened financial year exchange date range' do
     financial_year = financial_years(:financial_years_025)
     exchange = create(:financial_year_exchange, :opened, financial_year: financial_year)
     entry = create(:journal_entry, printed_on: exchange.stopped_on + 1.day, items: fake_items)
     assert entry.valid?
     entry.printed_on = exchange.started_on + 1.day
     refute entry.valid?
+  end
+
+  test 'can be updated to a date in closed financial year exchange date range' do
+    financial_year = financial_years(:financial_years_025)
+    exchange = create(:financial_year_exchange, financial_year: financial_year)
+    exchange.close!
+    entry = create(:journal_entry, printed_on: exchange.stopped_on + 1.day, items: fake_items)
+    assert entry.valid?
+    entry.printed_on = exchange.started_on + 1.day
+    assert entry.valid?
   end
 
   test 'can be closed when confirmed' do
@@ -331,6 +351,15 @@ class JournalEntryTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     end
   end
 
+  test "reference_number refers to resource's reference number" do
+    sale = create(:sale, invoiced_at: DateTime.new(2018, 1, 1))
+    sale_item = create(:sale_item, sale: sale)
+    sale.propose
+    sale.invoice
+    journal_entry = JournalEntry.where(resource_id: sale.id, resource_type: 'Sale').first
+    assert_equal sale.number, journal_entry.reference_number
+  end
+
   def fake_items(options = {})
     amount = options[:amount] || (500 * rand + 1).round(2)
     name = options[:name] || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
@@ -338,14 +367,5 @@ class JournalEntryTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       JournalEntryItem.new(account: Account.first, real_debit: amount, real_credit: 0, name: name),
       JournalEntryItem.new(account: Account.second, real_debit: 0, real_credit: amount, name: name)
     ]
-  end
-
-  test "reference_number refers to resource's reference number" do
-    sale = create(:sale_with_accounting)
-    sale_item = create(:sale_item, sale: sale)
-    sale.propose
-    sale.invoice
-    journal_entry = JournalEntry.where(resource_id: sale.id, resource_type: 'Sale').first
-    assert_equal sale.number, journal_entry.reference_number
   end
 end

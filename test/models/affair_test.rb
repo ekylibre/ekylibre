@@ -5,8 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -83,13 +82,13 @@ class AffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   test 'absorption' do
-    sale = Sale.first
+    sale = create(:sale)
     assert sale
     affair = sale.affair
     assert affair
     affair.refresh! # Needed until affair#deals_count is up-to-date
     count = affair.deals_count
-    purchase = Purchase.first
+    purchase = create(:purchase_invoice)
     assert purchase
     purchase.affair.refresh!
     count += purchase.affair.deals_count
@@ -105,7 +104,7 @@ class AffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     account = client.client_account
     subject = create(:sale_affair, client: client)
 
-    deal = create(:sale_with_accounting, affair: subject, state: 'draft')
+    deal = create(:sale, affair: subject, state: 'draft', invoiced_at: DateTime.new(2018, 1, 1))
     create :sale_item, sale: deal, tax: a_tax
 
     assert deal.invoice # bookkeep affair which creates its journal entry
@@ -127,7 +126,7 @@ class AffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     client = create(:entity, :client)
     subject = create(:sale_affair, client: client)
 
-    deal = create(:sale, nature: sale_natures(:sale_natures_001), affair: subject, state: 'draft')
+    deal = create(:sale, nature: sale_natures(:sale_natures_001), affair: subject, state: 'draft', invoiced_at: DateTime.new(2018, 1, 1))
     create :sale_item, sale: deal, tax: a_tax
     assert deal.invoice # bookkeep affair which creates its journal entry
 

@@ -91,7 +91,6 @@ $activity_border_size: 5px;
         font-size: $fs-normal;
         // line-height: $indicators_height;
         &.cash {
-          @include make-md-column(12, $gutter: 0);
           @include icon-before(money, $font-size: $fs-normal);
         }
       }
@@ -116,6 +115,10 @@ $activity_border_size: 5px;
 
   .size {
     @include icon-before(settings-ethernet, $font-size: $fs-normal);
+  }
+
+  .pfi {
+    @include icon-before(flask, $font-size: $fs-normal);
   }
 
 }

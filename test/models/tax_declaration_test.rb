@@ -5,8 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -46,6 +45,12 @@
 require 'test_helper'
 
 class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
+
+  setup do
+    j = Journal.find_or_create_by! nature: :various
+    j.update! closed_on: Date.new(1996, 12, 31)
+  end
+
   test 'compute declaration with journal entry items on debit' do
     #
     # Tax: 20%
@@ -91,9 +96,10 @@ class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     vat_deductible_account = tax.deduction_account
     vat_collected_account = tax.collect_account
 
-    purchase1 = create(:purchase,
+    purchase1 = create(:purchase_invoice,
                        nature: create(:purchase_nature),
-                       tax_payability: 'at_invoicing')
+                       tax_payability: 'at_invoicing',
+                       invoiced_at: DateTime.new(2018, 1, 1))
     purchase1_item = create(:purchase_item,
                             purchase: purchase1,
                             tax: tax)
@@ -120,7 +126,7 @@ class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     ]
     assert purchase1_entry.save
 
-    purchase2 = create(:purchase,
+    purchase2 = create(:purchase_invoice,
                        nature: create(:purchase_nature),
                        tax_payability: 'at_invoicing')
     purchase2_item = create(:purchase_item,
@@ -262,9 +268,10 @@ class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert previous.save
     assert_equal 0, previous.global_balance
 
-    purchase1 = create(:purchase,
+    purchase1 = create(:purchase_invoice,
                        nature: create(:purchase_nature),
-                       tax_payability: 'at_invoicing')
+                       tax_payability: 'at_invoicing',
+                       invoiced_at: DateTime.new(2018, 1, 1))
     purchase1_item = create(:purchase_item,
                             purchase: purchase1,
                             tax: tax)
@@ -323,9 +330,10 @@ class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     bank_account = create(:account, name: 'Brank')
     vat_deductible_account = tax.deduction_account
 
-    purchase1 = create(:purchase,
+    purchase1 = create(:purchase_invoice,
                        nature: create(:purchase_nature),
-                       tax_payability: 'at_paying')
+                       tax_payability: 'at_paying',
+                       invoiced_at: DateTime.new(2018, 1, 1))
     purchase1_item = create(:purchase_item,
                             purchase: purchase1,
                             tax: tax)
@@ -410,9 +418,10 @@ class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
     journal = create :journal
 
-    purchase1 = create(:purchase,
+    purchase1 = create(:purchase_invoice,
                        nature: create(:purchase_nature),
-                       tax_payability: 'at_paying')
+                       tax_payability: 'at_paying',
+                       invoiced_at: DateTime.new(2018, 1, 1))
     purchase1_item = create(:purchase_item,
                             purchase: purchase1,
                             tax: tax)
@@ -576,9 +585,10 @@ class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     vat_deductible_account = tax.deduction_account
     vat_collected_account = tax.collect_account
 
-    purchase1 = create(:purchase,
+    purchase1 = create(:purchase_invoice,
                        nature: create(:purchase_nature),
-                       tax_payability: 'at_paying')
+                       tax_payability: 'at_paying',
+                       invoiced_at: DateTime.new(2018, 1, 1))
     purchase1_item = create(:purchase_item,
                             purchase: purchase1,
                             tax: tax)
@@ -790,10 +800,11 @@ class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
     purchase_affair = create(:purchase_affair, letter: 'A')
 
-    purchase1 = create(:purchase,
+    purchase1 = create(:purchase_invoice,
                        nature: create(:purchase_nature),
                        affair: purchase_affair,
-                       tax_payability: 'at_paying')
+                       tax_payability: 'at_paying',
+                       invoiced_at: DateTime.new(2018, 1, 1))
     purchase1_item = create(:purchase_item,
                             purchase: purchase1,
                             tax: tax)
@@ -821,7 +832,7 @@ class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     ]
     assert purchase1_entry.save
 
-    purchase2 = create(:purchase,
+    purchase2 = create(:purchase_invoice,
                        nature: create(:purchase_nature),
                        affair: purchase_affair,
                        tax_payability: 'at_paying')
@@ -922,9 +933,10 @@ class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     bank_account = create(:account, name: 'Brank')
     vat_deductible_account = tax.deduction_account
 
-    purchase1 = create(:purchase,
+    purchase1 = create(:purchase_invoice,
                        nature: create(:purchase_nature),
-                       tax_payability: 'at_paying')
+                       tax_payability: 'at_paying',
+                       invoiced_at: DateTime.new(2018, 1, 1))
     purchase1_item = create(:purchase_item,
                             purchase: purchase1,
                             tax: tax)

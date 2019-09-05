@@ -1,5 +1,5 @@
 ((E, $) ->
-# Options
+  # Options
   baseDateOptions = ($element) => $.extend {},
     locale: getLocale($element)
     dateFormat: 'Y-m-d'

@@ -37,7 +37,8 @@ module Backend
 
     def show
       unless klass = Aggeratio[params[:id]]
-        head :not_found
+        notify_error :aggeratio_not_found
+        redirect_to action: :index
         return
       end
 
@@ -50,12 +51,17 @@ module Backend
       end
 
       @aggregator = klass.new(params)
+      aggregator_parameters = @aggregator.class.parameters.map(&:name).uniq
       t3e name: klass.human_name
       if params[:format] == 'pdf'
         ExportJob.perform_later(JSON(params), current_user.id)
         notify_success(:document_in_preparation)
         redirect_to :back
       else
+        if (aggregator_parameters - params.keys).empty?
+          notify(:information_success_print)
+          @btn_class = "btn-primary"
+        end
         respond_with @aggregator
       end
     end

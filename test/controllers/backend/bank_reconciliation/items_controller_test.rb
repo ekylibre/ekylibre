@@ -84,8 +84,8 @@ module Backend
         empty_db
         signin
 
-        @now     = Time.zone.now
-        journal  = Journal.create!(name: 'Pretty Journal')
+        @now = Time.new(2018, 6, 21, 15, 0, 0, '+02:00')
+        journal = Journal.create!(name: 'Pretty Journal')
         fuel_act = Account.create!(name: 'Fuel', number: '61')
         caps_act = Account.create!(name: 'Caps', number: '51')
         bank_statement_setup(account: fuel_act, journal: journal)
@@ -100,7 +100,7 @@ module Backend
       protected
 
       def empty_db
-        [OutgoingPayment, OutgoingPaymentMode, Payslip, PayslipNature,
+        [OutgoingPayment, OutgoingPaymentMode, Payslip, PayslipNature, InventoryItem, Inventory,
          Journal, Account, Cash, BankStatement,
          BankStatementItem, Role, User, Regularization,
          JournalEntryItem, JournalEntry].each(&:delete_all)

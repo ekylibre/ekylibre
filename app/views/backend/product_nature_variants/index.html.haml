@@ -15,6 +15,6 @@
 - main_toolbar do |t|
   -# t.new
   - if ProductNatureVariant.any_reference_available?
-    = t.pick
+    = t.pick params: { selector_label: :product_variant.tl }
 
 = main_list

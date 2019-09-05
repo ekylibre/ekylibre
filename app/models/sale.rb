@@ -5,8 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -68,6 +67,7 @@
 #  updated_at                               :datetime         not null
 #  updater_id                               :integer
 #
+require 'benchmark'
 
 class Sale < Ekylibre::Record::Base
   include Attachable
@@ -88,7 +88,7 @@ class Sale < Ekylibre::Record::Base
   belongs_to :responsible, -> { contacts }, class_name: 'Entity'
   belongs_to :transporter, class_name: 'Entity'
   has_many :credits, class_name: 'Sale', foreign_key: :credited_sale_id
-  has_many :parcels, dependent: :destroy, inverse_of: :sale
+  has_many :parcels, dependent: :destroy, inverse_of: :sale, class_name: 'Shipment'
   has_many :items, -> { order('position, sale_items.id') }, class_name: 'SaleItem', dependent: :destroy, inverse_of: :sale
   has_many :journal_entries, as: :resource
   has_many :subscriptions, through: :items, class_name: 'Subscription', source: 'subscription'
@@ -159,8 +159,13 @@ class Sale < Ekylibre::Record::Base
     end
   end
 
-  before_validation(on: :create) do
+  after_initialize do
+    next if persisted?
+
     self.state = :draft
+  end
+
+  before_validation(on: :create) do
     self.currency ||= nature.currency if nature
     self.created_at = Time.zone.now
   end
@@ -208,7 +213,7 @@ class Sale < Ekylibre::Record::Base
   end
 
   before_update do
-    if old_record.invoice?
+    if old_record.present? && old_record.invoice?
       self.class.columns_definition.keys.each do |attr|
         send(attr + '=', old_record.send(attr))
       end
@@ -235,7 +240,7 @@ class Sale < Ekylibre::Record::Base
 
   # This callback bookkeeps the sale depending on its state
   bookkeep do |b|
-    b.journal_entry(self.nature.journal, reference_number: number, printed_on: invoiced_on, if: (with_accounting && invoice? && items.any?)) do |entry|
+    b.journal_entry(self.nature.journal, reference_number: number, printed_on: invoiced_on, if: (invoice? && items.any?)) do |entry|
       label = tc(:bookkeep, resource: state_label, number: number, client: client.full_name, products: (description.blank? ? items.pluck(:label).to_sentence : description), sale: initial_number)
       # TODO: Uncommented this once we handle debt correctly and account 462 has been added to nomenclature
       # if items.all? { |item| item.fixed_asset_id }
@@ -257,7 +262,7 @@ class Sale < Ekylibre::Record::Base
     # For undelivered invoice
     # exchange undelivered invoice from parcel
     journal = Journal.used_for_unbilled_payables!(currency: self.currency)
-    b.journal_entry(journal, reference_number: number, printed_on: invoiced_on, as: :undelivered_invoice, if: (with_accounting && invoice?)) do |entry|
+    b.journal_entry(journal, reference_number: number, printed_on: invoiced_on, as: :undelivered_invoice, if: invoice?) do |entry|
       parcels.each do |parcel|
         next unless parcel.undelivered_invoice_journal_entry
         label = tc(:exchange_undelivered_invoice, resource: parcel.class.model_name.human, number: parcel.number, entity: supplier.full_name, mode: parcel.nature.tl)
@@ -271,15 +276,17 @@ class Sale < Ekylibre::Record::Base
 
     # For gap between parcel item quantity and sale item quantity
     # if more quantity on sale than parcel then i have value in C of stock account
+    permanent_stock = Preference[:permanent_stock_inventory]
     journal = Journal.used_for_permanent_stock_inventory!(currency: self.currency)
-    b.journal_entry(journal, reference_number: number, printed_on: invoiced_on, as: :quantity_gap_on_invoice, if: (with_accounting && invoice? && items.any?)) do |entry|
+    b.journal_entry(journal, reference_number: number, printed_on: invoiced_on, as: :quantity_gap_on_invoice, if: (permanent_stock && invoice? && items.any?)) do |entry|
       label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: client.full_name)
-      items.each do |item|
+
+      for item in items
         next unless item.variant && item.variant.storable?
-        parcel_items_quantity = item.parcel_items.map(&:population).compact.sum
-        gap = item.quantity - parcel_items_quantity
-        next unless item.parcel_items.any? && item.parcel_items.first.unit_pretax_stock_amount
-        quantity = item.parcel_items.first.unit_pretax_stock_amount
+        shipment_items_quantity = item.shipment_items.map(&:population).compact.sum
+        gap = item.quantity - shipment_items_quantity
+        next unless item.shipment_items.any? && item.shipment_items.first.unit_pretax_stock_amount
+        quantity = item.shipment_items.first.unit_pretax_stock_amount
         gap_value = gap * quantity
         next if gap_value.zero?
         entry.add_credit(label, item.variant.stock_account_id, gap_value, resource: item, as: :stock, variant: item.variant, accounting_label: item.accounting_label)
@@ -404,14 +411,18 @@ class Sale < Ekylibre::Record::Base
       self.confirmed_at ||= self.invoiced_at
       self.payment_at ||= Delay.new(self.payment_delay).compute(self.invoiced_at)
       self.initial_number = number
+
       if sequence = Sequence.of(:sales_invoices)
         loop do
           self.number = sequence.next_value!
           break unless self.class.find_by(number: number)
         end
       end
+
       save!
+
       client.add_event(:sales_invoice_creation, updater.person) if updater
+
       return super
     end
     false

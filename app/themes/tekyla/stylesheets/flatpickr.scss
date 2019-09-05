@@ -13,3 +13,11 @@
 .flatpickr-confirm {
   background-color: $base-color;
 }
+
+.flatpickr-current-month .numInput {
+  text-align: left !important;
+}
+
+.flatpickr-time .numInput {
+  text-align: center !important;
+}

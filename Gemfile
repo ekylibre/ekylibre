@@ -5,10 +5,14 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '>= 2.3.3', '< 3.0.0'
+ruby '>= 2.3.8', '< 3.0.0'
+
+gem 'elastic-apm'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.11.1'
+
+gem 'webpacker', '~> 4.x'
 
 # Security fix for mail
 gem 'mail', '~> 2.6.6.rc1'
@@ -23,6 +27,8 @@ gem 'apartment-sidekiq'
 
 # Ruby syntax extensions
 gem 'possibly'
+
+gem 'better_errors'
 
 # Code manipulation
 gem 'charlock_holmes'
@@ -39,7 +45,7 @@ gem 'figaro'
 gem 'turnout'
 
 # Use SCSS for stylesheets
-gem 'sassc-rails'
+gem 'sassc-rails', '~> 2.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
@@ -49,13 +55,12 @@ gem 'therubyracer', platforms: :ruby
 
 # Exception analysis and metrics
 gem 'binding_of_caller'
-gem 'redis-namespace' # Fix for missing dependency in skylight
-gem 'sentry-raven', require: false
-gem 'sidekiq-skylight'
-gem 'skylight'
+gem 'redis-namespace'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+# Use Vue.js as Javascript framework
+gem 'vuejs-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'jquery-turbolinks'
 gem 'turbolinks', '~> 2.0'
@@ -64,9 +69,6 @@ gem 'turbolinks', '~> 2.0'
 gem 'jquery-ui-rails'
 # gem 'jquery_mobile_rails'
 gem 'jquery-scrollto-rails'
-gem 'momentjs-rails', '>= 2.9.0'
-
-gem 'flatpickr', '~> 4.5', '>= 4.5.2.0'
 
 # Forms helper
 gem 'formize', '~> 2.1.0'
@@ -77,30 +79,45 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'rails-api'
-gem 'kaminari'
+
+gem 'rake', '~>12.0'
 
 # Freeze time for demo and/or tests
 gem 'timecop'
 
 # Manipulate map data
-gem 'charta', '>= 0.1.9'
+gem 'charta', '~> 0.1.14'
 
 # Manage daemons
 gem 'foreman'
 
+# active_list alternative
+gem 'font-awesome-sass'
+gem 'kaminari', '~> 0.16.0'
+gem 'wice_grid' # , github: "leikind/wice_grid", branch: "rails3"
+
 # Background jobs
 gem 'sidekiq', '~> 4.0'
-gem 'sidekiq-cron', '>= 0.4.0'
+gem 'sidekiq-cron', '~> 0.6'
 gem 'sidekiq-unique-jobs', '~> 4.0'
 
-# Use Unicorn as the app server
+# Decorator pattern
+gem 'draper'
+
+# Use ActiveModel has_secure_password
+# gem 'bcrypt', '~> 3.1.7'
+
+# Use unicorn as the app server
 gem 'unicorn', group: :production
+
+gem 'loofah', group: :production
 
 # Exception management
 gem 'exception_notification'
 
 # Views helpers
-gem 'active_list', github: 'ekylibre/active_list'
+gem 'active_list', '~> 7'
+# gem 'active_list', path: "../active_list"
 gem 'haml'
 gem 'simple_calendar'
 
@@ -165,10 +182,12 @@ gem 'ekylibre-ofx-parser'
 gem 'rgeo-geojson'
 gem 'rgeo-shapefile'
 gem 'roo'
-gem 'rubyzip'
+gem 'rubyzip', '~> 1.2.2'
 gem 'sepa_king'
 # gem 'sepa_king', path: '/home/jonathan/Workspace/sepa_king'
+gem 'quandl'
 gem 'odf-report'
+gem 'combine_pdf'
 gem 'rodf'
 
 # Demo data
@@ -181,7 +200,7 @@ gem 'feedjira', require: false
 gem 'colored' # , require: false
 
 # S/CSS Framework
-gem 'bootstrap-sass', '~> 3.1'
+gem 'bootstrap-sass', '~> 3.4.1'
 gem 'twitter-typeahead-rails'
 
 # Iconic font
@@ -241,16 +260,17 @@ group :development, :test do
 end
 
 group :test do
+  gem 'puma'
   gem 'shoulda-context'
+
+  gem 'database_cleaner'
 
   gem 'minitest-reporters'
   gem 'ruby-terminfo'
 
-  gem 'pdf-reader'
-
   gem 'factory_bot', '< 5'
 
-  gem 'database_cleaner'
+  gem 'pdf-reader'
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles

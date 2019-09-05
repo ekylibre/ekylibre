@@ -22,13 +22,24 @@ module Backend
 
     respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
+    before_action :save_search_preference, only: :index
+
     unroll :number, :amount, :currency, :created_at, client: :full_name
 
     # management -> sales_conditions
     def self.sales_conditions
       code = search_conditions(sales: %i[pretax_amount amount number initial_number description], entities: %i[number full_name]) + " ||= []\n"
       code << "if params[:period].present? && params[:period].to_s != 'all'\n"
-      code << "  c[0] << ' AND #{Sale.table_name}.invoiced_at::DATE BETWEEN ? AND ?'\n"
+      code << "  c[0] << ' AND ((#{Sale.table_name}.invoiced_at IS NULL AND #{Sale.table_name}.created_at::DATE BETWEEN ? AND ?)'\n"
+      code << "  if params[:period].to_s == 'interval'\n"
+      code << "    c << params[:started_on]\n"
+      code << "    c << params[:stopped_on]\n"
+      code << "  else\n"
+      code << "    interval = params[:period].to_s.split('_')\n"
+      code << "    c << interval.first\n"
+      code << "    c << interval.second\n"
+      code << "  end\n"
+      code << "  c[0] << ' OR (#{Sale.table_name}.invoiced_at::DATE BETWEEN ? AND ?))'\n"
       code << "  if params[:period].to_s == 'interval'\n"
       code << "    c << params[:started_on]\n"
       code << "    c << params[:stopped_on]\n"
@@ -57,7 +68,7 @@ module Backend
 
     list(conditions: sales_conditions, selectable: :true, joins: %i[client affair], order: { created_at: :desc, number: :desc }) do |t| # , :line_class => 'RECORD.tags'
       # t.action :show, url: {format: :pdf}, image: :print
-      t.action :edit, if: :draft?
+      t.action :edit, if: :updateable?
       t.action :cancel, if: :cancellable?
       t.action :destroy, if: :destroyable?
       t.column :number, url: { action: :show }
@@ -91,13 +102,13 @@ module Backend
       t.column :amount, currency: true
     end
 
-    list(:parcels, children: :items, conditions: { sale_id: 'params[:id]'.c }) do |t|
+    list(:shipments, children: :items, conditions: { sale_id: 'params[:id]'.c }) do |t|
       t.column :number, children: :product_name, url: true
       t.column :delivery_mode
       t.column :delivery
       t.column :address, label_method: :coordinate, children: false
       t.status
-      t.column :state
+      t.column :state, label_method: :human_state_name
       t.column :transporter, children: false, url: true
       t.action :edit, if: :updateable?
       t.action :destroy, if: :destroyable?
@@ -148,7 +159,7 @@ module Backend
     def show
       return unless @sale = find_and_check
       @sale.other_deals
-      respond_with(@sale, methods: %i[taxes_amount affair_closed client_number client_vat_number sales_conditions sales_mentions],
+      respond_with(@sale, methods: %i[taxes_amount affair_closed client_number sales_conditions sales_mentions],
                           include: { address: { methods: [:mail_coordinate] },
                                      nature: { include: { payment_mode: { include: :cash } } },
                                      supplier: { methods: [:picture_path], include: { default_mail_address: { methods: [:mail_coordinate] }, websites: {}, emails: {}, mobiles: {} } },
@@ -161,7 +172,7 @@ module Backend
                                      } },
                                      affair: { methods: [:balance], include: [incoming_payments: { include: :mode }] },
                                      invoice_address: { methods: [:mail_coordinate] },
-                                     items: { methods: %i[taxes_amount tax_name tax_short_label], include: [:variant, parcel_items: { include: %i[product parcel] }] } }) do |format|
+                                     items: { methods: %i[taxes_amount tax_name tax_short_label], include: [:variant, shipment_items: { include: %i[product parcel] }] } }) do |format|
         format.html do
           t3e @sale.attributes, client: @sale.client.full_name, state: @sale.state_label, label: @sale.label
         end

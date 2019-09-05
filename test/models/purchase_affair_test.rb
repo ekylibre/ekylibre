@@ -5,8 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -57,7 +56,7 @@ class PurchaseAffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   include Test::Affairable
 
   test 'homogeneousity' do
-    purchase = Purchase.order(:id).first
+    purchase = create(:purchase_invoice)
     assert_equal PurchaseAffair, purchase.affair.class
     assert_raise Exception do
       purchase.affair.deal_with! Sale.first
@@ -70,7 +69,7 @@ class PurchaseAffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     payment = PurchasePayment.create!(
       payee: purchase.supplier,
       amount: purchase.amount,
-      to_bank_at: Time.zone.now,
+      to_bank_at: Time.zone.parse('2018-1-1 00:00:00'),
       responsible: User.first,
       delivered: true,
       mode: OutgoingPaymentMode.where(
@@ -103,7 +102,7 @@ class PurchaseAffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     payment = PurchasePayment.create!(
       payee: purchase.supplier,
       amount: purchase.amount + 5,
-      to_bank_at: Time.zone.now,
+      to_bank_at: Time.zone.parse('2018-1-1 00:00:00'),
       responsible: User.first,
       delivered: true,
       mode: OutgoingPaymentMode.where(
@@ -131,7 +130,7 @@ class PurchaseAffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
     journal_entry = JournalEntry.create!(
       journal: Journal.find_by(nature: :various, currency: purchase.currency),
-      printed_on: purchase.invoiced_on + 15,
+      printed_on: purchase.invoiced_on + 10,
       items_attributes: {
         '0' => {
           name: 'Insurance care',
@@ -172,9 +171,8 @@ class PurchaseAffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
         tax: Tax.all.sample
       )
     end
-    purchase = Purchase.create!(supplier: supplier, nature: nature, items: items)
+    purchase = Purchase.create!(supplier: supplier, nature: nature, type: 'PurchaseInvoice', items: items, invoiced_at: DateTime.new(2018, 1, 1))
     assert purchase.amount > 0, "Purchase amount should be greater than 0. Got: #{purchase.amount.inspect}"
-    purchase.invoice!
     purchase.reload
     assert purchase.affair, 'An affair should be present after invoicing'
     assert purchase.journal_entry, 'A journal entry should exists after purchase invoicing'

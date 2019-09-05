@@ -8,7 +8,7 @@
       - d.item :export_as_pdf.tl, params: export_params, format: :pdf
 
 = kujaku do |k|
-  - k.helper :journal_period_crit
+  - k.helper :journal_period_crit, use_search_preference: true
   - k.helper :journal_entries_states_crit
   - k.helper do
     %label= :display_n_1.tl

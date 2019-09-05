@@ -3,12 +3,12 @@
 %tbody.nested-fields{ data: { trade_item: "sale", currency_precision: precision } }
   %tr
     %td.annotable
-      = f.referenced_association(:variant, wrapper: :nested, source: {scope: :saleables}, input_html: {data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_path("RECORD_ID", sale_nature_id: f.object.sale.nature_id, mode: :last_sale_item)}}})
+      = f.referenced_association(:variant, wrapper: :nested, source: {scope: :saleables, action: :unroll_saleables}, input_html: {data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_path("RECORD_ID", sale_nature_id: f.object.sale.nature_id, mode: :last_sale_item)}}})
       - if f.object.annotation.blank?
         = link_to("#", data: { annotate: ".annotate", use_closest: "tbody" }, title: :add_annotation.tl) do
           %i
     = f.input_field :compute_from, as: :hidden, data: { compute_from_updater: true }
-    %td= f.object.parcels.map { |i| i.reference_number.blank? ? i.number : i.reference_number }.to_sentence
+    %td= f.object.shipments.map { |i| i.reference_number.blank? ? i.number : i.reference_number }.to_sentence
     %td= f.input :accounting_label, wrapper: :nested
     %td= f.input(:quantity, wrapper: :nested, input_html: {size: 5, data: {trade_component: "quantity"}}, disabled: item.fixed)
     %td= f.input(:unit_pretax_amount, wrapper: :nested, input_html: {size: 8, data: {trade_component: "unit_pretax_amount", compute_from: :unit_pretax_amount }})

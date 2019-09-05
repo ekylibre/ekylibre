@@ -5,8 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -60,11 +59,11 @@ class SaleItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   attr_reader :sale, :standard_vat, :reduced_vat, :variants
 
   setup do
-    nature = SaleNature.find_or_create_by(with_accounting: true, currency: 'EUR')
+    nature = SaleNature.find_or_create_by(currency: 'EUR')
     assert nature
     client = Entity.normal.first
     assert client
-    @sale = Sale.create!(nature: nature, client: client)
+    @sale = Sale.create!(nature: nature, client: client, invoiced_at: DateTime.new(2018, 1, 1))
     assert @sale
 
     # Standard case

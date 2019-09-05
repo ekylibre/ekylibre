@@ -5,8 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -48,12 +47,15 @@ class EconomicSituationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtur
     @entity.update(supplier: true, supplier_account: @supplier_account)
 
     Purchase.create!(
+      invoiced_at: DateTime.new(2018, 1, 1),
       currency: 'EUR',
+      type: 'PurchaseInvoice',
       supplier: @entity,
       nature: PurchaseNature.create!(currency: 'EUR'),
       items_attributes: [
         {
-          unit_pretax_amount: '12',
+          unit_pretax_amount: 12,
+          quantity: 1,
           tax: Tax.create!(
             country: :fr,
             nature: :null_vat,
@@ -125,7 +127,7 @@ class EconomicSituationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtur
       journal: Journal.create!(name: 'JournalTest', code: 'TKT'),
       real_currency: 'EUR',
       number: '0420',
-      printed_on: Time.now,
+      printed_on: DateTime.new(2018, 1, 1),
       items_attributes: [
         {
           real_credit: 10,
@@ -147,7 +149,7 @@ class EconomicSituationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtur
       journal: Journal.create!(name: 'Yolo', code: 'Swag'),
       real_currency: 'EUR',
       number: '0420',
-      printed_on: Time.now,
+      printed_on: DateTime.new(2018, 1, 1),
       items_attributes: [
         {
           real_debit: 7,

@@ -13,6 +13,23 @@ namespace :db do
   task extensions: :environment do
     Ekylibre::Schema.setup_extensions
   end
+
+  if Rails.env.development?
+    task reinit: :environment do
+      Lexicon.disable!
+
+      schema_whitelist = ['information_schema', 'postgis', Lexicon::DISABLED_SCHEMA].freeze
+      schemas = Ekylibre::Record::Base.connection
+                  .execute("SELECT schema_name FROM information_schema.schemata")
+                  .to_a
+                  .map { |h| h['schema_name'] }
+                  .reject {|schema| schema_whitelist.include?(schema) || schema =~ /^pg_/ }
+      Ekylibre::Record::Base.connection.execute("DROP SCHEMA #{schemas.join(', ')} CASCADE") if schemas.present?
+
+      Rake::Task['tenant:clear'].invoke
+      Rake::Task['db:migrate'].invoke
+    end
+  end
 end
 
 Rake::Task['db:create'].enhance do

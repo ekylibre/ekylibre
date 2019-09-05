@@ -44,7 +44,13 @@ module Backend
         end
 
         if interventions.count > 1
-          week_begin_date = Date.commercial(current_campaign.harvest_year, week_number, 1)
+          year = interventions
+                   .map(&:started_at)
+                   .map(&:year)
+                   .uniq
+                   .first
+
+          week_begin_date = Date.commercial(year, week_number, 1)
           html_options[:url] = backend_interventions_path(current_period: week_begin_date.to_s, current_period_interval: 'week')
           marked_date = week_begin_date
         end

@@ -1,0 +1,393 @@
+---
+encoding: 'ISO-8859-15'
+root:
+  - interchange: 1
+lines:
+  interchange:
+    key: "EI"
+    occurrence: 1
+    cells:
+      - sender_siret: string-14
+      - sender_code: string-3
+      - receiver_siret: string-14
+      - receiver_code: string-3
+      - document_count: string-4
+    children:
+      - headers: "*"
+      - entities: "*"
+      - agricultural_usages: "*"
+      - crops: "*"
+
+  header:
+    key: "DE"
+    occurrence: 1
+    cells:
+      - reference: string-35
+      - function: string-1
+      - printed_on: string-8
+      - crop_count: string-4
+      - version: string-4
+
+  entity:
+    key: "DA"
+    occurrence: 3
+    cells:
+      - entity_nature: string-3
+      - siret: string-17
+      - identification_nature: string-3
+      - entity_name: string-35
+      - entity_name_complement: string-35
+      - entity_address: string-35
+      - entity_address_complement: string-35
+      - entity_town: string-35
+      - entity_postal_code: string-9
+      - entity_country: string-2
+      - entity_informations_1: string-20
+      - entity_informations_2: string-20
+      - entity_informations_3: string-20
+
+  agricultural_usage:
+    key: "DT"
+    cells:
+    - activity_nature: string-3
+    - certificat_number: string-20
+    - other_activity_nature: string-20
+
+  crop:
+    key: "DP"
+    cells:
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
+      - harvest_year: string-4
+      - crop_started_on: string-8
+      - crop_sheet_created_on: string-8
+      - crop_sheet_updated_on: string-8
+      - crop_stopped_on: string-8
+      - crop_specie_edicode: string-3 #18 List_BotanicalSpecies_CodeType
+      - first_variety: string-7 #GNIS code
+      - second_variety: string-7 #GNIS code
+      - third_variety: string-7 #GNIS code
+      - fourth_variety: string-7 #GNIS code
+      - fifth_variety: string-7 #GNIS code
+      - crop_specie_number: string-3 #
+      - crop_sowing_period_edicode: string-3 #30 List_SowingPeriodCode_CodeType
+      - crop_final_usage_edicode: string-3 #17 List_AgriculturalProduceUseCode_CodeType
+      - provisionnal_yield: string-9
+      - provisionnal_yield_unity: string-3
+      - crop_name_details: string-35
+      - cap_islet_number: string-10 # CAP islet number4
+      - perrenial_crop_number: string-10
+      - town_insee_code: string-3 #INSEE code
+      - soil_depth: string-3 #in centimeter
+      - soil_rock_ratio: string-3 #in percentage
+      - soil_nature_edicode: string-3 #43 List_SoilType_CodeType
+      - other_soil_nature: string-35
+      - soil_acidity: string-3
+      - subsoil_level: string-3
+      - subsoil_nature: string-3
+      - intermediate_crop: string-3
+      - hydromorphic_soil: string-1
+      - drain_soil: string-1
+      - cutting_land_parcel: string-1
+      - initial_land_parcel_work_number: string-4
+      - residue_management: string-3
+      - residue_input: string-9 # in ton_per_hectare
+
+    children:
+      - cadastral_areas: "*"
+      - crop_areas: "*"
+      - contracts: "*"
+      - crop_histories: "*"
+      - soil_analyses: "*"
+      - interventions: "*"
+
+  cadastral_area:
+    key: "PC"
+    cells:
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
+      - harvest_year: string-4
+      - cadastral_land_parcel_number: string-16
+      - cadastral_area_in_hectare: string-9
+    children:
+      - cadastral_spatial_coordinates: "*"
+
+  cadastral_spatial_coordinate:
+    key: "CC"
+    cells:
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
+      - harvest_year: string-4
+      - cadastral_land_parcel_number: string-16
+      - srs: string-3 # 3 : Lambert2 etendu | 4 : WGS84
+      - longitude: string-11
+      - latitude: string-10
+      - elevation: string-18
+
+  crop_area:
+    key: "PS"
+    cells:
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
+      - harvest_year: string-4
+      - area_nature_edicode: string-3 #41 List_AgriculturalArea_CodeType
+      - area_nature_value_in_hectare: string-9
+    children:
+      - crop_spatial_coordinates: "*"
+
+  crop_spatial_coordinate:
+    key: "SC"
+    cells:
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
+      - harvest_year: string-4
+      - srs: string-3 # 3 : Lambert2 etendu | 4 : WGS84
+      - longitude: string-11
+      - latitude: string-10
+      - elevation: string-18
+
+  contract:
+    key: "PE"
+    cells:
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
+      - harvest_year: string-4
+
+  crop_history:
+    key: "PH"
+    cells:
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
+      - harvest_year: string-4
+      - previous_order: string-2
+      - previous_land_parcel_work_number: string-4
+      - crop_specie_edicode: string-3 #18 List_BotanicalSpecies_CodeType
+      - first_variety: string-7 #GNIS code
+      - second_variety: string-7 #GNIS code
+      - third_variety: string-7 #GNIS code
+      - fourth_variety: string-7 #GNIS code
+      - fifth_variety: string-7 #GNIS code
+      - crop_specie_number: string-3 #18 List_BotanicalSpecies_CodeType
+      - crop_sowing_period_edicode: string-3 #30 List_SowingPeriodCode_CodeType
+      - crop_final_usage_edicode: string-3 #17 List_AgriculturalProduceUseCode_CodeType
+      - residue_management: string-3
+      - residue_input: string-9 # in ton_per_hectare
+    children:
+      - enrichments: "*"
+
+  enrichment:
+    key: "HA"
+    cells:
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
+      - harvest_year: string-4
+      - enrichment_nature: string-3
+      - enrichment_nature_details: string-35
+      - enrichment_started_on: string-8
+      - enrichment_quantity: string-9
+      - enrichment_quantity_unit: string-3
+      - enrichment_supplier_name: string-35
+      - enrichment_supplier_name_details: string-35
+      - enrichment_supplier_address: string-35
+      - enrichment_supplier_address_details: string-35
+      - enrichment_supplier_town: string-35
+      - enrichment_supplier_postal_code: string-9
+      - enrichment_supplier_country: string-2
+
+  soil_analysis:
+    key: "PA"
+    cells:
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
+      - harvest_year: string-4
+      - analysis_ticket_number: string-35
+      - analysis_labratory_siren: string-9
+      - analysis_labratory_name: string-35
+      - analysis_labratory_name_details: string-35
+      - analysis_labratory_address: string-35
+      - analysis_labratory_address_details: string-35
+      - analysis_labratory_town: string-35
+      - analysis_labratory_postal_code: string-9
+      - analysis_labratory_country: string-2
+      - analysis_analysed_on: string-8
+      - analysis_sampled_on: string-8
+
+  intervention:
+    key: "PV"
+    cells:
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
+      - harvest_year: string-4
+      - intervention_guid: string-32
+      - intervention_event: string-1
+      - intervention_category_edicode: string-3 #26 List_PlotAgriculturalProcess_CodeType
+      - intervention_state_edicode: string-3 #11 List_PlotAgriculturalProcessSubordinateTypeCode_CodeType
+      - intervention_name: string-35
+      - intervention_started_at: string-12 #SSAAMMJJHHmm
+      - intervention_stopped_at: string-12 #SSAAMMJJHHmm
+      - intervention_duration: string-6 #JJHHMM ex : 010430 => 01 day 4 hour 30 minute
+      - intervention_prescription_delivered_on: string-8
+      - crop_state: string-3 # Code EDI
+      - crop_state_precision: string-35
+      - intervention_nature_edicode: string-3 #14 List_AgriculturalProcessWorkItem_CodeType
+      - intervention_nature_precision: string-35
+      - intervention_motivation: string-3 #Code EDI
+      - intervention_motivation_details: string-35
+      - intervention_worker_nature: string-3
+      - worker_licence_number: string-20
+      - worker_name: string-35
+      - wheater_conditions: string-3
+      - special_tasks: string-3
+      - temperature_signe: string-1
+      - external_temperature: string-3
+      - hygrometrie_percentage: string-3
+      - total_volume: string-9
+      - per_area_unit_edicode: string-3 #ZKK
+      - working_area_in_hectare: string-9
+      - first_comment: string-70
+      - second_comment: string-70
+
+    children:
+      - intervention_spatial_coordinates: "*"
+      - intervention_targets: "*"
+      - inputs: "*"
+      - outputs: "*"
+      - decision_indicator: 1
+
+  intervention_spatial_coordinate:
+    key: "VC"
+    cells:
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
+      - harvest_year: string-4
+      - intervention_guid: string-32
+      - srs: string-3 # 3 : Lambert2 etendu | 4 : WGS84
+      - longitude: string-11
+      - latitude: string-10
+      - elevation: string-18
+
+  intervention_target:
+    key: "VB"
+    cells:
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
+      - harvest_year: string-4
+      - intervention_guid: string-32
+      - intervention_target: string-3 # Code EDI
+
+  input:
+    key: "VI"
+    cells:
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
+      - harvest_year: string-4
+      - intervention_guid: string-32
+      - input_nature_edicode: string-3 #5 List_AgriculturalProcessCropInput_CodeType
+      - input_name: string-70
+      - input_ean_code: string-13 #EAN13
+      - input_phytosanitary_number: string-35 #AMM
+      - input_gnis_code: string-7 #GNIS
+      - input_organic_code: string-3
+      - input_water_code: string-3
+      - input_additive_code: string-3
+      - input_mineral_code: string-3
+      - residue_information_1: string-3
+      - residue_information_2: string-3
+      - residue_information_3: string-3
+      - residue_information_4: string-3
+      - residue_information_5: string-3
+      - seed_information_1: string-3
+      - seed_information_2: string-3
+      - seed_information_3: string-3
+      - input_quantity: string-9
+      - input_unity_edicode: string-3 #36 List_UnitCode
+      - input_quantity_per_hectare: string-9
+      - per_area_unity_edicode: string-3 #ZKK
+      - provisionnal_input_quantity_per_hectare: string-9
+      - provisionnal_per_area_unity_edicode: string-3 #ZKK
+      - provisionnal_round_number: string-6
+      - residue_supplier_name: string-35
+      - residue_supplier_name_details: string-35
+      - residue_supplier_address: string-35
+      - residue_supplier_address_details: string-35
+      - residue_supplier_town: string-35
+      - residue_supplier_postal_code: string-9
+      - residue_supplier_country: string-2
+      - input_volume_density_in_kilogram_per_liter: string-9
+    children:
+      - input_components: "*"
+      - input_trackings: "*"
+      - residue_analyses: "*"
+
+  input_component:
+    key: "IC"
+    cells:
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
+      - harvest_year: string-4
+      - intervention_guid: string-32
+      - indicator_nature_edicode: string-3 #20 List_CropInputChemical_CodeType
+      - indicator_quantity: string-9
+
+  input_tracking:
+    key: "IL"
+    cells:
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
+      - harvest_year: string-4
+      - intervention_guid: string-32
+      - input_phytosanitary_number: string-35
+      - input_tracking_number: string-35
+      - input_quantity_per_tracking: string-9
+      - input_quantity_unity_per_tracking: string-3 # CODE
+      - thousand_grains_mass: string-9
+      - thousand_grains_mass_unity: string-3 # CODE
+
+  residue_analysis:
+    key: "IA"
+
+  output:
+    key: "VR"
+    cells:
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
+      - harvest_year: string-4
+      - intervention_guid: string-32
+      - output_nature_edicode: string-3 #15
+      - output_specie_edicode: string-3 #18
+      - output_name: string-35
+      - output_use_edicode: string-3 #5 List_AgriculturalProcessCropInput_CodeType
+      - output_quantity: string-9
+      - output_unity_edicode: string-3 #36 List_UnitCode
+      - output_yield: string-9
+      - output_yield_unity_edicode: string-3 #ZKK
+      - output_provisionnal_yield: string-9
+      - output_provisionnal_yield_unity_edicode: string-3 #ZKK
+    children:
+      - output_components: "*"
+      - output_trackings: "*"
+
+  output_tracking:
+    key: "RL"
+    cells:
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
+      - harvest_year: string-4
+      - intervention_guid: string-32
+      - silo_tracking_number: string-35
+      - farm_tracking_number: string-35
+      - tracking_quantity_in_ton: string-9
+
+  output_component:
+    key: "LC"
+    cells:
+      - land_parcel_order_number: string-4
+      - land_parcel_work_number: string-4
+      - harvest_year: string-4
+      - intervention_guid: string-32
+      - indicator_nature_edicode: string-3 #5 List_AgriculturalProcessCropInput_CodeType
+      - indicator_value: string-9
+      - indicator_value_unity_edicode: string-3 #ZKK
+
+  decision_indicator:
+    key: "VH"

@@ -5,8 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -43,6 +42,7 @@
 #  description               :text
 #  entry_id                  :integer          not null
 #  entry_number              :string           not null
+#  equipment_id              :integer
 #  financial_year_id         :integer          not null
 #  id                        :integer          not null, primary key
 #  journal_id                :integer          not null
@@ -52,6 +52,7 @@
 #  position                  :integer
 #  pretax_amount             :decimal(19, 4)   default(0.0), not null
 #  printed_on                :date             not null
+#  project_budget_id         :integer
 #  real_balance              :decimal(19, 4)   default(0.0), not null
 #  real_credit               :decimal(19, 4)   default(0.0), not null
 #  real_currency             :string           not null
@@ -91,7 +92,7 @@ class JournalEntryItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixture
     journal = Journal.where(currency: Preference[:currency]).first
     entry = JournalEntry.new(
       journal: journal,
-      printed_on: Time.zone.today,
+      printed_on: Time.zone.parse('2018-1-1 00:00:00'),
       items: [
         JournalEntryItem.new(account: Account.first, real_debit: 125, real_credit: 0, name: 'Yeah!'),
         JournalEntryItem.new(account: Account.second, real_debit: 0, real_credit: 125, name: 'Yeah!')
@@ -104,12 +105,23 @@ class JournalEntryItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixture
     end
   end
 
+  test 'should be valid when the name doesn\'t contain a translation error' do
+    jei = JournalEntryItem.new(account: Account.first, real_debit: 125, real_credit: 0, name: "Tout va bien").tap(&:valid?)
+    assert_not jei.errors.messages[:name]
+  end
+
+  test 'should not be valid when the name contains a translation error' do
+    jei = JournalEntryItem.new(account: Account.first, real_debit: 125, real_credit: 0, name: I18n.translate('this.key.should.not.exist'))
+    assert_not jei.valid?
+    assert jei.errors.messages[:name]
+  end
+
   test 'lettering is indicated as partial (*) when lettered items are not balanced' do
     first_account = Account.create!(name: 'First account', number: '123RAND1')
     random_account = Account.create!(name: 'Random account', number: '123RAND2')
     other_random = Account.create!(name: 'Random account bis', number: '123RAND3')
     journal = Journal.create!(name: 'Test journal JEI', code: 'JEITEST', currency: 'EUR')
-    entry = JournalEntry.create!(journal: journal, currency: 'EUR', printed_on: Date.today, items_attributes:
+    entry = JournalEntry.create!(journal: journal, currency: 'EUR', printed_on: Date.new(2018, 1, 1), items_attributes:
       [{ account: first_account, name: 'Hello', real_debit: 10, letter: 'A' },
        { account: random_account, name: 'Is it me', real_credit: 10 }])
     assert_equal 'A*', entry.items.find_by(real_debit: 10).letter
@@ -120,7 +132,7 @@ class JournalEntryItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixture
     to_letter_with = JournalEntry.create!(
       journal: journal,
       currency: 'EUR',
-      printed_on: Date.today,
+      printed_on: Date.new(2018, 1, 1),
       items_attributes:
         [{ account: random_account, name: 'You\'re', real_debit: 10 },
          { account: first_account, name: 'Looking for?', real_credit: 10, letter: 'A' }]

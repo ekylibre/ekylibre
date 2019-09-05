@@ -1,0 +1,244 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: intervention_costings
+#
+#  created_at      :datetime
+#  creator_id      :integer
+#  doers_cost      :decimal(, )
+#  id              :integer          not null, primary key
+#  inputs_cost     :decimal(, )
+#  lock_version    :integer          default(0), not null
+#  receptions_cost :decimal(, )
+#  tools_cost      :decimal(, )
+#  updated_at      :datetime
+#  updater_id      :integer
+#
+---
+intervention_costings_001:
+  created_at: 2018-09-19 16:00:23.400422000 Z
+  doers_cost: 0.0
+  id: 1
+  inputs_cost: 0.0
+  lock_version: 0
+  receptions_cost: 0.0
+  tools_cost: 0.0
+  updated_at: 2018-09-19 16:00:23.400422000 Z
+intervention_costings_002:
+  created_at: 2018-09-19 16:00:23.480356000 Z
+  doers_cost: 0.0
+  id: 2
+  inputs_cost: 0.0
+  lock_version: 0
+  receptions_cost: 0.0
+  tools_cost: 0.0
+  updated_at: 2018-09-19 16:00:23.480356000 Z
+intervention_costings_003:
+  created_at: 2018-09-19 16:00:23.503426000 Z
+  doers_cost: 0.0
+  id: 3
+  inputs_cost: 0.0
+  lock_version: 0
+  receptions_cost: 0.0
+  tools_cost: 0.0
+  updated_at: 2018-09-19 16:00:23.503426000 Z
+intervention_costings_004:
+  created_at: 2018-09-19 16:00:23.533939000 Z
+  doers_cost: 0.0
+  id: 4
+  inputs_cost: 0.0
+  lock_version: 0
+  receptions_cost: 0.0
+  tools_cost: 0.0
+  updated_at: 2018-09-19 16:00:23.533939000 Z
+intervention_costings_005:
+  created_at: 2018-09-19 16:00:23.564447000 Z
+  doers_cost: 0.0
+  id: 5
+  inputs_cost: 0.0
+  lock_version: 0
+  receptions_cost: 0.0
+  tools_cost: 0.0
+  updated_at: 2018-09-19 16:00:23.564447000 Z
+intervention_costings_006:
+  created_at: 2018-09-19 16:00:23.576917000 Z
+  doers_cost: 60.0
+  id: 6
+  inputs_cost: 0.5
+  lock_version: 2
+  receptions_cost: 0.0
+  tools_cost: 0.0
+  updated_at: 2018-09-20 09:33:27.345780000 Z
+  updater_id: 1
+intervention_costings_007:
+  created_at: 2018-09-19 16:00:23.598989000 Z
+  doers_cost: 0.0
+  id: 7
+  inputs_cost: 0.0
+  lock_version: 0
+  receptions_cost: 0.0
+  tools_cost: 0.0
+  updated_at: 2018-09-19 16:00:23.598989000 Z
+intervention_costings_008:
+  created_at: 2018-09-19 16:00:23.616053000 Z
+  doers_cost: 0.0
+  id: 8
+  inputs_cost: 0.0
+  lock_version: 0
+  receptions_cost: 0.0
+  tools_cost: 0.0
+  updated_at: 2018-09-19 16:00:23.616053000 Z
+intervention_costings_009:
+  created_at: 2018-09-19 16:00:23.633675000 Z
+  doers_cost: 0.0
+  id: 9
+  inputs_cost: 0.0
+  lock_version: 0
+  receptions_cost: 0.0
+  tools_cost: 0.0
+  updated_at: 2018-09-19 16:00:23.633675000 Z
+intervention_costings_010:
+  created_at: 2018-09-19 16:00:23.646193000 Z
+  doers_cost: 0.0
+  id: 10
+  inputs_cost: 0.0
+  lock_version: 0
+  receptions_cost: 0.0
+  tools_cost: 0.0
+  updated_at: 2018-09-19 16:00:23.646193000 Z
+intervention_costings_011:
+  created_at: 2018-09-19 16:00:23.674006000 Z
+  doers_cost: 0.0
+  id: 11
+  inputs_cost: 0.0
+  lock_version: 0
+  receptions_cost: 0.0
+  tools_cost: 0.0
+  updated_at: 2018-09-19 16:00:23.674006000 Z
+intervention_costings_012:
+  created_at: 2018-09-19 16:00:23.702947000 Z
+  doers_cost: 0.0
+  id: 12
+  inputs_cost: 0.0
+  lock_version: 0
+  receptions_cost: 0.0
+  tools_cost: 0.0
+  updated_at: 2018-09-19 16:00:23.702947000 Z
+intervention_costings_013:
+  created_at: 2018-09-19 16:00:23.730533000 Z
+  doers_cost: 0.0
+  id: 13
+  inputs_cost: 0.0
+  lock_version: 0
+  receptions_cost: 0.0
+  tools_cost: 0.0
+  updated_at: 2018-09-19 16:00:23.730533000 Z
+intervention_costings_014:
+  created_at: 2018-09-19 16:00:23.749793000 Z
+  doers_cost: 0.0
+  id: 14
+  inputs_cost: 0.0
+  lock_version: 0
+  receptions_cost: 0.0
+  tools_cost: 0.0
+  updated_at: 2018-09-19 16:00:23.749793000 Z
+intervention_costings_015:
+  created_at: 2018-09-19 16:00:23.780609000 Z
+  doers_cost: 0.0
+  id: 15
+  inputs_cost: 0.0
+  lock_version: 0
+  receptions_cost: 0.0
+  tools_cost: 0.0
+  updated_at: 2018-09-19 16:00:23.780609000 Z
+intervention_costings_016:
+  created_at: 2018-09-19 16:00:23.803936000 Z
+  doers_cost: 0.0
+  id: 16
+  inputs_cost: 0.0
+  lock_version: 0
+  receptions_cost: 0.0
+  tools_cost: 0.0
+  updated_at: 2018-09-19 16:00:23.803936000 Z
+intervention_costings_017:
+  created_at: 2018-09-19 16:00:23.822104000 Z
+  doers_cost: 0.0
+  id: 17
+  inputs_cost: 0.0
+  lock_version: 0
+  receptions_cost: 0.0
+  tools_cost: 0.0
+  updated_at: 2018-09-19 16:00:23.822104000 Z
+intervention_costings_018:
+  created_at: 2018-09-19 16:00:23.836677000 Z
+  doers_cost: 0.0
+  id: 18
+  inputs_cost: 0.0
+  lock_version: 0
+  receptions_cost: 0.0
+  tools_cost: 0.0
+  updated_at: 2018-09-19 16:00:23.836677000 Z
+intervention_costings_019:
+  created_at: 2018-09-19 16:00:23.849928000 Z
+  doers_cost: 0.0
+  id: 19
+  inputs_cost: 0.0
+  lock_version: 0
+  receptions_cost: 0.0
+  tools_cost: 0.0
+  updated_at: 2018-09-19 16:00:23.849928000 Z
+intervention_costings_020:
+  created_at: 2018-09-19 16:00:23.862551000 Z
+  doers_cost: 0.0
+  id: 20
+  inputs_cost: 0.0
+  lock_version: 0
+  receptions_cost: 0.0
+  tools_cost: 0.0
+  updated_at: 2018-09-19 16:00:23.862551000 Z
+intervention_costings_021:
+  created_at: 2018-09-19 16:00:23.878206000 Z
+  doers_cost: 0.0
+  id: 21
+  inputs_cost: 0.0
+  lock_version: 0
+  receptions_cost: 0.0
+  tools_cost: 0.0
+  updated_at: 2018-09-19 16:00:23.878206000 Z
+intervention_costings_022:
+  created_at: 2018-09-19 16:00:23.894761000 Z
+  doers_cost: 0.0
+  id: 22
+  inputs_cost: 0.0
+  lock_version: 0
+  receptions_cost: 0.0
+  tools_cost: 0.0
+  updated_at: 2018-09-19 16:00:23.894761000 Z
+intervention_costings_023:
+  created_at: 2018-09-19 16:00:23.912905000 Z
+  doers_cost: 0.0
+  id: 23
+  inputs_cost: 0.0
+  lock_version: 0
+  receptions_cost: 0.0
+  tools_cost: 0.0
+  updated_at: 2018-09-19 16:00:23.912905000 Z

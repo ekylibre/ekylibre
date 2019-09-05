@@ -5,8 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -54,6 +53,7 @@ class Journal < Ekylibre::Record::Base
   has_many :incoming_payment_modes, foreign_key: :depositables_journal_id, dependent: :restrict_with_exception
   has_many :purchase_natures, dependent: :restrict_with_exception
   has_many :sale_natures, dependent: :restrict_with_exception
+  has_many :inventories, inverse_of: :journal
   enumerize :nature, in: %i[sales purchases fixed_assets bank forward various cash stocks closure result], default: :various, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :closed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }

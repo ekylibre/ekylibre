@@ -1,0 +1,37 @@
+- item ||= f.object
+
+.form-field.role-row.role-row--non-merchandise
+  .item-block-role.item-block-role--purchase-order
+    :ruby
+      options = {
+        label: f.object.role.tl,
+        source: {scope: :purchaseables_services},
+        input_html: {
+          class: "order-variant",
+          data: {
+            product_of_delivery_item: {
+              url: backend_product_nature_variant_path("RECORD_ID", format: :json),
+              scope: 'unit'
+            },
+            required: true,
+          }
+        },
+        required: true,
+      }
+    = f.referenced_association(:variant, **options)
+    .annotation-logo
+      - if f.object.annotation.blank?
+        = link_to("#", data: { annotate: ".annotate", use_closest: "tbody" }, title: :add_annotation.tl) do
+          %i
+      / = f.input_field :computation_method, as: :hidden, data: { compute_from_updater: true }
+
+  .storing-calculation
+    .storing-quantifier
+      = f.input :quantity, wrapper: :append do
+        = f.input_field :quantity, class: "order-quantity", placeholder: '0', size: 7, data: { trade_component: "quantity", required: true }
+
+.annotation-section
+  .annotation-field
+    - attrs = {}
+    - attrs[:style] = "display: none" if f.object.annotation.blank?
+    .annotate{attrs}= f.input(:annotation, wrapper: :nested, input_html: { class: "annotation" })

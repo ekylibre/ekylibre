@@ -5,8 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -184,8 +183,6 @@ class Account < Ekylibre::Record::Base
     of_usages(:collected_intra_eu_vat)
   }
 
-
-
   scope :general, -> {
     where(nature: 'general')
   }
@@ -194,14 +191,21 @@ class Account < Ekylibre::Record::Base
     where(nature: 'auxiliary')
   }
 
+  scope :tax_declarations, -> {
+    of_usages(:fixed_assets, :expenses, :revenues)
+  }
+
   before_validation do
     if general? && number && !already_existing
       errors.add(:number, :centralizing_number) if number.match(/\A401|\A411/).present?
       errors.add(:number, :radical_class) if number.match(/\A[1-9]0*\z/).present?
       self.number = Account.normalize(number)
-    elsif auxiliary? && centralizing_account
-      centralizing_account_number = centralizing_account.send(Account.accounting_system)
-      self.number = centralizing_account_number + auxiliary_number
+    elsif auxiliary?
+      self.reconcilable = true
+      if centralizing_account
+        centralizing_account_number = centralizing_account.send(Account.accounting_system)
+        self.number = centralizing_account_number + auxiliary_number
+      end
     end
   end
 
@@ -521,10 +525,21 @@ class Account < Ekylibre::Record::Base
     (number.to_s.match(self.class.reconcilable_regexp) ? true : false)
   end
 
-  def reconcilable_entry_items(period, started_at, stopped_at)
+  def reconcilable_entry_items(period, started_at, stopped_at, options = {})
     relation_name = 'journal_entry_items'
+
+    lettered_condition = "1=1"
+
+    if options[:hide_lettered]
+      lettered_condition += ' AND('
+      lettered_condition += "#{JournalEntryItem.table_name}.letter IS NULL"
+      lettered_condition += " OR #{JournalEntryItem.table_name}.letter ILIKE '%*'"
+      lettered_condition << ')'
+    end
+
     journal_entry_items
       .where(JournalEntry.period_condition(period, started_at, stopped_at, relation_name))
+      .where(lettered_condition)
       .reorder(relation_name + '.printed_on, ' + relation_name + '.real_credit, ' + relation_name + '.real_debit')
   end
 
@@ -838,4 +853,30 @@ class Account < Ekylibre::Record::Base
       ledger.compact
     end
   end
+
+  # this method generate a dataset for one account
+  def account_statement_reporting(options = {}, non_letter)
+    report = HashWithIndifferentAccess.new
+    report[:items] = []
+    items = if non_letter == 'true'
+      journal_entry_items.where("letter LIKE ? OR letter IS ?", "%*%", nil)
+    else
+      journal_entry_items
+    end
+    items.order(:printed_on).includes(entry: [:sales, :purchases]).find_each do |item|
+      i = HashWithIndifferentAccess.new
+      i[:account_number] = number
+      i[:name] = name
+      i[:printed_on] = item.printed_on.l(format: '%d/%m/%Y')
+      i[:journal_entry_items_number] = item.entry_number
+      i[:sales_code] = item.entry.sales.pluck(:codes).first&.values&.join(', ') if item.entry.sales.present?
+      i[:purchase_reference_number] = item.entry.purchases.pluck(:reference_number).join(', ') if item.entry.purchases.present?
+      i[:letter] = item.letter
+      i[:real_debit] = item.real_debit
+      i[:real_credit] = item.real_credit
+      report[:items] << i
+    end
+    report
+  end
+
 end

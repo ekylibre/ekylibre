@@ -1,6 +1,9 @@
 - main_toolbar do |t|
   = t.edit resource
+  = t.export :cultivable_zone_sheet, key: :work_number
   = t.destroy
+
+- main_period_selector(:year)
 
 = main_informations attachment: true do
   = mini_map(resource)
@@ -30,7 +33,7 @@
 = cobbles do |c|
 
   - c.cobble :weather do
-    = cell :weather, params: {id: resource.id}
+    = cell :weather, params: {centroid: resource.shape.centroid}
 
   - c.cobble(:productions) do
     = cobble_list(:productions)

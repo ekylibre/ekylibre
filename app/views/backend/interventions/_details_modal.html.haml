@@ -1,6 +1,6 @@
 = modal_header(intervention.name)
 
-.modal-body
+.modal-body{ data: { intervention_id: intervention.id }}
 
   .indicators
     .med-info.total-cost
@@ -53,7 +53,7 @@
         - intervention.doers.each do |doer|
           - title = doer.product.name
           - detail = doer.name
-          = add_detail_to_modal_block(title, detail, {icon: 'picto-male'})
+          = add_detail_to_modal_block(title, detail, doer, {icon: 'picto-male'})
 
     - if intervention.inputs.any?
       .block
@@ -64,31 +64,59 @@
             - title = input.product.name
             - detail = ""
 
-            - unless input.quantity_value.nil? || input.quantity_handler_reference.unit.nil?
+            - unless input.quantity_value.nil?
               - detail = input.quantity_value.round(2).l(precision: 0)
-              - detail << " " + input.quantity_handler_reference.unit.symbol
 
+              - if input.is_population?
+                - unit = input.variant.unit_name.mb_chars.downcase
+              - else
+                - unit = input.quantity_handler_reference.unit.symbol
+
+              - detail << " " + unit
+
+            = add_detail_to_modal_block(title, detail, {icon: 'picto-matter'})
+
+    - if intervention.outputs.any?
+      .block
+        %h3.block-title= Intervention.human_attribute_name(:outputs)
+
+        - intervention.outputs.each do |output|
+          - unless output.product.blank?
+            - title = output.product.name
+            - detail = ""
+
+            - unless output.quantity_value.nil? || output.quantity_handler_reference.unit.nil?
+              - detail = output.quantity_value.round(2).l(precision: 0)
+              - detail << " " + output.quantity_handler_reference.unit.symbol
             = add_detail_to_modal_block(title, detail, {icon: 'picto-matter'})
 
 
     - if intervention.tools.any?
       .block
-        %h3.block-title= Intervention.human_attribute_name(:tools)
+        %h3.block-title= :equipments.tl
 
         - intervention.tools.each do |tool|
           - title = tool.product.name
           - detail = tool.product.nature.name
-          = add_detail_to_modal_block(title, detail, {icon: "picto-tractor"})
+          = add_detail_to_modal_block(title, detail, tool, {icon: "picto-tractor", natures: [:travel, :intervention]})
+
+    - if intervention.receptions.any?
+      .block
+        %h3.block-title= :service_deliveries.tl
+        - intervention.receptions.each do |reception|
+          - title = reception.sender.name
+          - detail = ''
+          = add_detail_to_modal_block(title, detail, { icon: 'picto-recent-actors' })
+
 
 
 .modal-footer
   - displayed_state = intervention.state.tl
   - displayed_state = intervention.nature.l if intervention.nature.to_sym == :request
 
-  = dropdown_menu_button(displayed_state, class: 'btn btn-primary dropup', icon: false, disable_with: tl(:please_wait)) do |menu|
-    - Intervention.state.options.each do |state, option|
-      - unless option.to_sym == :rejected || ( option.to_sym == intervention.state.to_sym && intervention.nature.to_sym != :request)
-        - menu.item state, change_state_backend_interventions_path(:intervention => { :interventions_ids => ([intervention.id]).to_json, :state => option.to_sym }), method: :post
+  - if next_state.present?
+    = dropdown_menu_button(displayed_state, class: "btn btn-primary change-status dropup", icon: false, force_menu: true, disable_with: tl(:please_wait)) do |menu|
+      - menu.item(next_state[0], change_state_backend_interventions_path(:intervention => { :interventions_ids => ([intervention.id]).to_json, state: next_state[1].to_sym, redirect: false }), method: :post) if next_state
 
   = link_to :see_details.tl, backend_intervention_path(intervention), class: 'btn btn-default'
   = link_to :edit.tl, edit_backend_intervention_path(intervention), class: 'btn btn-default'

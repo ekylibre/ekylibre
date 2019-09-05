@@ -21,6 +21,9 @@
 module Backend
   class GeneralLedgersController < Backend::BaseController
     include PdfPrinter
+
+    before_action :save_search_preference, only: :show
+
     def self.list_conditions
       code = ''
       code << search_conditions({ journal_entry_item: %i[name debit credit real_debit real_credit] }, conditions: 'c') + "\n"

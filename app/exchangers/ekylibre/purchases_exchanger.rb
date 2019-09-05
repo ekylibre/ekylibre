@@ -1,5 +1,11 @@
 module Ekylibre
   class PurchasesExchanger < ActiveExchanger::Base
+    def initialize(file, supervisor, options = {})
+      super file, supervisor
+      @attachments_dir = options['attachments_path']
+      @attachments_dir &&= Pathname.new(@attachments_dir)
+    end
+
     def check
       rows = CSV.read(file, headers: true)
       w.count = rows.size
@@ -140,13 +146,13 @@ module Ekylibre
         # Find or create a purchase
         # if supplier and r.invoiced_at and r.reference_number
         # see if purchase exist anyway
-        unless purchase = Purchase.find_by(reference_number: r.reference_number)
+        unless purchase = PurchaseInvoice.find_by(reference_number: r.reference_number)
           # Find supplier
           unless supplier = Entity.where('full_name ILIKE ?', r.supplier_full_name).first
             raise "Cannot find supplier #{r.supplier_full_name} at line #{line_index}"
           end
           raise "Missing invoice date at line #{line_index}" unless r.invoiced_at
-          purchase = Purchase.create!(
+          purchase = PurchaseInvoice.create!(
             planned_at: r.invoiced_at,
             invoiced_at: r.invoiced_at,
             reference_number: r.reference_number,
@@ -154,6 +160,15 @@ module Ekylibre
             nature: PurchaseNature.actives.first,
             description: r.description
           )
+          if @attachments_dir.present?
+            attachment_potential_path = @attachments_dir.join(purchase.supplier.name.parameterize,
+                                                              purchase.reference_number + ".*")
+            attachment_paths = Dir.glob(attachment_potential_path)
+            attachment_paths.each do |attachment_path|
+              doc = Document.new(file: File.open(attachment_path))
+              purchase.attachments.create!(document: doc)
+            end
+          end
           purchase_ids << purchase.id
         end
 
@@ -168,23 +183,19 @@ module Ekylibre
         unless purchase.items.find_by(pretax_amount: r.pretax_amount, variant_id: variant.id, tax_id: tax.id)
           raise "Missing quantity at line #{line_index}" unless r.quantity
           # puts r.variant_code.inspect.red
-          purchase.items.create!(quantity: r.quantity, tax: tax, unit_pretax_amount: r.unit_pretax_amount, variant: variant, fixed: r.depreciate)
+          role = if variant.variety == 'service'
+                   'service'
+                 elsif variant.category.purchasable
+                   'merchandise'
+                 else
+                   nil
+                 end
+          purchase.items.create!(quantity: r.quantity, tax: tax, unit_pretax_amount: r.unit_pretax_amount, variant: variant, fixed: r.depreciate, role: role)
         end
 
         w.check_point
       end
 
-      # Restart counting
-      added_purchases = Purchase.where(id: purchase_ids)
-      w.reset! added_purchases.count, :yellow
-
-      # change status of all new added purchases
-      added_purchases.each do |purchase|
-        purchase.propose if purchase.draft?
-        purchase.confirm
-        purchase.invoice(purchase.invoiced_at)
-        w.check_point
-      end
     end
   end
 end

@@ -5,8 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -77,6 +76,10 @@ class CultivableZone < Ekylibre::Record::Base
 
   alias net_surface_area shape_area
 
+  def shape_svg
+    shape.to_svg(srid: 2154)
+  end
+
   # get the first object with variety 'plant', availables
   def current_cultivations(at = Time.zone.now)
     Plant.contained_by(current_supports, at)
@@ -84,8 +87,14 @@ class CultivableZone < Ekylibre::Record::Base
 
   # Returns last created islet number from cap statements
   def cap_number
-    islets = CapIslet.shape_matching(shape).order(id: :desc)
+    islets = CapIslet.shape_intersecting(shape).order(id: :desc)
     return islets.first.islet_number if islets.any?
+    nil
+  end
+
+  def city_name
+    islets = CapIslet.shape_intersecting(shape).order(id: :desc)
+    return islets.first.city_name if islets.any?
     nil
   end
 

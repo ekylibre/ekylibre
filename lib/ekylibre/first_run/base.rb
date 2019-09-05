@@ -41,12 +41,10 @@ module Ekylibre
       # Execute all loaders for a given base
       def run
         secure_transaction(!hard?) do
-          preference = executed_preference
           LOADERS.each do |loader, imports|
             run_loader(loader, imports)
           end
-          preference.value = true
-          preference.save!
+          executed_preference.update!(value: true)
         end
       end
 
@@ -115,6 +113,10 @@ module Ekylibre
 
       def import_file(nature, file, options = {})
         p = path(file)
+        options[:options] = options[:options]&.map do |key, value|
+          value = path(value).to_s if key.to_s =~ /path$/
+          [key, value]
+        end.to_h
         if p.exist?
           import(nature, p, options)
         elsif @verbose
@@ -183,7 +185,7 @@ module Ekylibre
         basename = nature.to_s.humanize + ' (' + Pathname.new(file).basename.to_s + ') '
         total = 0
         max = options[:max] || @max
-        Import.launch!(nature, file) do |progress, count|
+        Import.launch!(nature, file, options.fetch(:options, {})) do |progress, count|
           if @verbose
             status = [' + ' + basename]
             status << " #{progress.to_i}%"

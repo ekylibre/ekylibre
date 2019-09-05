@@ -113,7 +113,7 @@ module Nomen
       if element.has_attribute?('default')
         options[:default] = element.attr('default').to_sym
       end
-      options[:required] = !!(element.attr('required').to_s == 'true')
+      options[:required] = element.attr('required').to_s == 'true'
       # options[:inherit]  = !!(element.attr('inherit').to_s == 'true')
       if type == :list
         type = element.has_attribute?('nomenclature') ? :item_list : :choice_list
@@ -289,12 +289,7 @@ module Nomen
 
     # Returns hash with items in tree: {a => nil, b => {c => nil}}
     def tree
-      x = @roots.collect(&:tree).join
-      return x
-      i.attributes.merge(parent: i.parent_name, name: i.name, left: i.left, right: i.right, depth: i.depth).deep_stringify_keys
-      return x
-      @roots.map do |_i|
-      end
+      @roots.collect(&:tree).join
     end
 
     def translateable?
@@ -303,7 +298,7 @@ module Nomen
 
     # Return human name
     def human_name(options = {})
-      "nomenclatures.#{name}.name".t(options.merge(default: ["labels.#{name}".to_sym, name.to_s.humanize]))
+      "nomenclatures.#{I18n.escape_key(name)}.name".t(options.merge(default: ["labels.#{I18n.escape_key(name)}".to_sym, name.to_s.humanize]))
     end
     alias humanize human_name
 

@@ -87,6 +87,9 @@ a.btn, button.btn {
       padding: $default-gap 2*$default-gap;
     }
   }
+  & > .btn:not(:last-child) {
+    margin-right: 5px;
+  }
 }
 
 

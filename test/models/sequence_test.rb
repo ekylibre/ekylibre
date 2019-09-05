@@ -5,8 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -101,7 +100,7 @@ class SequenceTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
   test 'can handle usage changes on sequences' do
     sequence = Sequence.find_by(usage: :purchases) ||
-               Sequence.create!(name: 'PurchasesTest', usage: :purchases, number_format: 'A[number|12]')
+      Sequence.create!(name: 'PurchasesTest', usage: :purchases, number_format: 'A[number|12]')
     assert_equal sequence, Purchase.sequence_manager.sequence
 
     Sequence.find_by(usage: :affairs).destroy!
@@ -112,7 +111,7 @@ class SequenceTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
   test 'can handle tenant switching' do
     sequence = Sequence.find_by(usage: :purchases) ||
-               Sequence.create!(name: 'PurchasesTest', usage: :purchases, number_format: 'A[number|12]')
+      Sequence.create!(name: 'PurchasesTest', usage: :purchases, number_format: 'A[number|12]')
 
     assert_equal sequence, Purchase.sequence_manager.sequence
 
@@ -120,21 +119,22 @@ class SequenceTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     Ekylibre::Tenant.switch :sequence_test do
 
       sequence_with_same_id = Sequence.find_by(usage: :affairs) ||
-                              Sequence.create!(name: 'PurchasesBis', usage: :affairs, number_format: 'YOLO[number|6]')
+        Sequence.create!(name: 'PurchasesBis', usage: :affairs, number_format: 'YOLO[number|6]')
+
       until sequence_with_same_id.id == sequence.id
         sequence_with_same_id.destroy!
         sequence_with_same_id = Sequence.create!(name: 'NotPurchases', usage: :affairs, number_format: 'YOLO[number|6]')
       end
 
       sequence_other_tenant = Sequence.find_by(usage: :purchases) ||
-                              Sequence.create!(name: 'PurchasesBis', usage: :purchases, number_format: 'A[number|12]')
+        Sequence.create!(name: 'PurchasesBis', usage: :purchases, number_format: 'A[number|12]')
+
       until sequence_other_tenant.id != sequence.id
         sequence_other_tenant.destroy!
         sequence_other_tenant = Sequence.create!(name: 'PurchasesBis', usage: :purchases, number_format: 'A[number|12]')
       end
 
       assert_equal sequence_other_tenant, Purchase.sequence_manager.sequence
-
     end
   end
 end

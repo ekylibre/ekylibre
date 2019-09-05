@@ -5,8 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -109,8 +108,7 @@ class JournalTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
     financial_year_18 = create(:financial_year, started_on: '01/01/2018', stopped_on: '31/12/2018')
     client = create(:entity, :client)
-    sale = create(:sale_with_accounting, client: client)
-    sale_item = create(:sale_item, sale: sale)
+    sale = create(:sale, client: client)
     sale.invoice! Date.new(2018, 04, 30)
     params = {
       period: '2018-01-01_2018-12-31',
@@ -121,6 +119,7 @@ class JournalTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       centralize: '301 302 310 320 330 340 374 401 411 421 467 603'
     }
     balance = Journal.trial_balance(params)
+
     assert_equal BigDecimal(balance[0][2]), sale.amount
     assert_equal BigDecimal(balance[2][3]), sale.pretax_amount
     assert_equal BigDecimal(balance[1][3]), sale.amount - sale.pretax_amount

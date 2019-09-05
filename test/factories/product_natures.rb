@@ -29,6 +29,14 @@ FactoryBot.define do
     association         :category, factory: :deliverable_category
   end
 
+  factory :services_nature, class: ProductNature do
+    sequence(:name)     { |n| "Service #{n}" }
+    population_counting { :integer }
+    variety             { 'service' }
+
+    association         :category, factory: :deliverable_category
+  end
+
   factory :equipments_nature, class: ProductNature do
     sequence(:name)     { |n| "Equipment nature - TEST#{n.to_s.rjust(8, '0')}" }
     population_counting { :unitary }

@@ -39,6 +39,16 @@ module Backend
 
     def show
       return unless @activity = find_and_check
+
+      activity_crops = Plant
+                       .joins(:inspections)
+                       .where(activity_production_id: @activity.productions.map(&:id),
+                              dead_at: nil)
+                       .where.not(inspections: { forecast_harvest_week: nil })
+                       .uniq
+
+      @crops = initialize_grid(activity_crops, decorate: true)
+
       t3e @activity
     end
 
@@ -114,16 +124,6 @@ module Backend
     list(:distributions, model: :activity_distributions, conditions: { activity_id: 'params[:id]'.c }) do |t|
       t.column :affectation_percentage, percentage: true
       t.column :main_activity, url: true
-    end
-
-    # List of inspections
-    list(:inspections, conditions: { activity_id: 'params[:id]'.c }, order: { sampled_at: :desc }) do |t|
-      t.action :edit
-      t.action :destroy
-      t.column :number, url: true
-      t.column :sampled_at
-      t.column :product, url: true
-      t.column :comment
     end
   end
 end

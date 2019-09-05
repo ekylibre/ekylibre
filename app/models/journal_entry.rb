@@ -5,8 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -175,6 +174,7 @@ class JournalEntry < Ekylibre::Record::Base
       if stopped_on.present? && (stopped_on.is_a?(Date) || stopped_on =~ /^\d\d\d\d\-\d\d\-\d\d$/)
         conditions << "#{table}.printed_on <= #{connection.quote(stopped_on.to_date)}"
       end
+
       return connection.quoted_false if conditions.empty?
       return '(' + conditions.join(' AND ') + ')'
     end
@@ -287,7 +287,7 @@ class JournalEntry < Ekylibre::Record::Base
         errors.add(:printed_on, :out_of_existing_financial_year)
       end
     end
-    if in_financial_year_exchange? && !importing_from_exchange
+    if in_opened_financial_year_exchange? && !importing_from_exchange
       errors.add(:printed_on, :frozen_by_financial_year_exchange)
     end
     errors.add(:items, :empty) unless items.any?
@@ -341,6 +341,10 @@ class JournalEntry < Ekylibre::Record::Base
   def expected_financial_year
     raise 'Missing printed_on' unless printed_on
     FinancialYear.on(printed_on)
+  end
+
+  def entities_bank_statement_number
+    items.where.not(bank_statement_letter: nil).first&.bank_statement_letter
   end
 
   def self.state_label(state)
@@ -442,17 +446,16 @@ class JournalEntry < Ekylibre::Record::Base
 
     attr_accessor :importing_from_exchange
 
-  #
     def add!(name, account, amount, options = {})
       items.create!(JournalEntryItem.attributes_for(name, account, amount, options))
     end
 
-    def in_financial_year_exchange?
+    def in_opened_financial_year_exchange?
       return unless financial_year
       financial_year.exchanges.opened.any? { |e| (e.started_on..e.stopped_on).cover?(printed_on) }
     end
 
-  # this method loads the journal ledger for.the given financial year
+    # this method loads the journal ledger for.the given financial year
     def self.journal_ledger(options = {}, selected_journal_id = 0)
       ledger = []
 
@@ -539,5 +542,4 @@ class JournalEntry < Ekylibre::Record::Base
 
       ledger.compact
     end
-
 end

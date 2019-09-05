@@ -92,9 +92,9 @@ module ActiveExchanger
         false
       end
 
-      def build(file, _options = {}, &block)
+      def build(file, options = {}, &block)
         supervisor = Supervisor.new(&block)
-        new(file, supervisor)
+        new(file, supervisor, options)
       end
 
       def find(nature)
@@ -103,6 +103,12 @@ module ActiveExchanger
           raise "Unable to find exchanger #{nature.inspect}. (#{@@exchangers.keys.to_sentence(locale: :eng)})"
         end
         klass
+      end
+
+      def find_by(nature)
+        find nature
+      rescue
+        nil
       end
 
       # This method check file by default by trying a run and
@@ -116,7 +122,7 @@ module ActiveExchanger
 
     attr_reader :file, :supervisor
 
-    def initialize(file, supervisor)
+    def initialize(file, supervisor, options = {})
       @file = Pathname.new(file)
       @supervisor = supervisor
     end

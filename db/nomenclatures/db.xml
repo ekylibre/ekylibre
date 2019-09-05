@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20190801142431">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20190823091727">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -1975,6 +1975,7 @@
       <item name="animal_list" category="animal_farming"/>
       <item name="animal_sheet" category="animal_farming"/>
       <item name="balance_sheet" category="accountancy"/>
+      <item name="cultivable_zone_sheet" category="land_parcel_management"/>
       <item name="deposit_list" category="exploitation"/>
       <item name="entity_sheet" category="exploitation"/>
       <item name="equipment_certification" category="land_parcel_management"/>
@@ -2163,6 +2164,7 @@
       <item name="animal_life_state" datatype="choice" choices="animal_life_states"/>
       <item name="application_width" datatype="measure" unit="meter" gathering="proportional_to_population"/>
       <item name="approved_input_dose" datatype="measure" unit="kilogram_per_hectare"/>
+      <item name="approved_input_volume" datatype="measure" unit="liter_per_hectare"/>
       <item name="atmospheric_pressure" datatype="measure" unit="hectopascal" sampling_temporal_mode="instant"/>
       <item name="available_water_capacity_per_area" datatype="measure" unit="liter_per_square_meter"/>
       <item name="average_atmospheric_pressure" datatype="measure" unit="hectopascal" sampling_temporal_mode="period"/>
@@ -2223,6 +2225,7 @@
       <item name="healthy" datatype="boolean"/>
       <item name="height" datatype="measure" unit="meter"/>
       <item name="horizontal_rotation" datatype="measure" unit="degree"/>
+      <item name="hour_counter" datatype="measure" unit="hour"/>
       <item name="immunoglobulins_concentration" datatype="measure" unit="unity_per_liter"/>
       <item name="impurity_concentration" datatype="measure" unit="mass_percent"/>
       <item name="inhibitors_presence" datatype="boolean"/>
@@ -3272,7 +3275,12 @@
       <item name="chicken_egg" nature="egg" derivative_of="gallus" frozen_indicators_values="net_volume: 80milliliter, net_mass: 53gram"/>
       <item name="chicken_meat" nature="poultry_meat" derivative_of="gallus_gallus_domesticus" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="chicory_crop" nature="crop" variety="cichorium" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
+      <item name="common_beta_crop" nature="crop" variety="beta_vulgaris" frozen_indicators_values="net_surface_area: 1.00hectare"/>
+      <item name="common_carrot_crop" nature="vegetable_crop" variety="daucus_carota" frozen_indicators_values="net_surface_area: 1.00hectare"/>
       <item name="common_consumable" nature="common_consumable" frozen_indicators_values="net_mass: 1kilogram, net_volume: 1.00liter" unit_name="liter"/>
+      <item name="common_crop" nature="cereal_crop" variety="plant" frozen_indicators_values="net_surface_area: 1.00hectare"/>
+      <item name="common_linum_crop" nature="crop" variety="linum_usitatissimum_annua" frozen_indicators_values="net_surface_area: 1.00hectare"/>
+      <item name="common_onion_crop" nature="crop" variety="allium_cepa" frozen_indicators_values="net_surface_area: 1.00hectare"/>
       <item name="common_package" nature="common_package"/>
       <item name="complete_herbicide" nature="herbicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="liter"/>
       <item name="computer_display" nature="computer_device"/>
@@ -3619,7 +3627,7 @@
       <item name="merlot_noir_so4_vine_seedling" nature="usual_vine_seedling" derivative_of="vitis_vinifera_merlot_noir" frozen_indicators_values="woodstock_variety: vitis_cinerea_x_vitis_riparia_SO4"/>
       <item name="merveille_hazelnut" nature="hazelnut" derivative_of="corylus_avellana_merveille" frozen_indicators_values="net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="milk_tank" nature="milk_tank" frozen_indicators_values="" unit_name="equipment"/>
-      <item name="milk_taxe" nature="animal_taxe"/>
+      <item name="milk_taxe" nature="animal_product_taxe"/>
       <item name="milked_lamb_meat" nature="lamb_meat" derivative_of="ovis" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="milked_pork_meat" nature="pork_meat" derivative_of="sus" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="milking_division" nature="food_equipment_division" frozen_indicators_values="" unit_name="room"/>
@@ -3633,7 +3641,7 @@
       <item name="mixed_chemical_fertilizer" nature="mixed_chemical_fertilizer" frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton" unit_name="ton"/>
       <item name="mixed_liquid_fertilizer" nature="mixed_liquid_fertilizer" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
       <item name="mixed_organic_fertilizer" nature="mixed_organic_fertilizer" frozen_indicators_values="net_mass: 1.00kg"/>
-      <item name="mixture_seed" nature="seed" derivative_of="poa" frozen_indicators_values="net_mass: 1.00kilogram, thousand_grains_mass: 50gram" unit_name="kilogram"/>
+      <item name="mixture_seed" nature="seed" derivative_of="plant" frozen_indicators_values="net_mass: 1.00kilogram, thousand_grains_mass: 50gram" unit_name="kilogram"/>
       <item name="mixture_vetch_oat_pea_crop" nature="crop" variety="vicia" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="molluscicide" nature="molluscicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="liter"/>
       <item name="monthly_enterprise_support" nature="user_support" frozen_indicators_values="usage_duration: 30day" unit_name="month"/>
@@ -3890,6 +3898,7 @@
       <item name="animal_litter" category="animal_litter" variety="matter" derivative_of="plant" population_counting="decimal" abilities="cover(building_division)" frozen_indicators="net_mass, net_volume"/>
       <item name="animal_medicine" category="animal_medicine" variety="preparation" population_counting="decimal" abilities="kill(bacteria), kill(virus), kill(fungus), care(animal)" variable_indicators="" frozen_indicators="net_mass, net_volume, meat_withdrawal_period, milk_withdrawal_period"/>
       <item name="animal_medicine_tank" category="equipment" variety="tank" population_counting="unitary" abilities="store(preparation)" variable_indicators="nominal_storable_net_volume" frozen_indicators=""/>
+      <item name="animal_product_taxe" category="agricultural_taxe" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="animal_taxe" category="agricultural_taxe" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="animals_making_services" category="animals_making_services" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="associate_social_contribution" category="associate_social_contribution" variety="service" population_counting="decimal" variable_indicators=""/>
@@ -3941,7 +3950,7 @@
       <item name="draining_item" category="small_equipment" derivative_of="equipment" variety="matter" population_counting="integer" abilities="drain" variable_indicators="diameter, length"/>
       <item name="duck_band" category="aves_band" variety="aves" population_counting="unitary" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix)" variable_indicators="healthy" derivatives="meat"/>
       <item name="duck_herd" category="aves_herd" variety="animal_group" derivative_of="aves" population_counting="unitary" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix)" frozen_indicators=""/>
-      <item name="dumper" category="equipment" variety="heavy_equipment" population_counting="unitary" abilities="store_fluid, store(excrement), store(straw)" frozen_indicators="nominal_storable_net_volume, nominal_storable_net_mass" variable_indicators="geolocation"/>
+      <item name="dumper" category="equipment" variety="heavy_equipment" population_counting="unitary" abilities="store_fluid, store(excrement), store(straw)" frozen_indicators="nominal_storable_net_volume, nominal_storable_net_mass" variable_indicators="geolocation, hour_counter"/>
       <item name="egg" category="egg" variety="egg" derivative_of="aves" population_counting="integer" variable_indicators="" frozen_indicators="net_volume, net_mass"/>
       <item name="electricity" category="electricity" variety="electricity" population_counting="decimal" variable_indicators="" frozen_indicators="energy"/>
       <item name="equipment" category="equipment" variety="equipment" population_counting="unitary" abilities="catch(matter), spread(preparation), plow, sow, harvest(raw_matter), store(raw_matter)" frozen_indicators=""/>
@@ -3973,12 +3982,12 @@
       <item name="fiscal_fine" category="fiscal_fine" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="flower_crop" category="crop" variety="plant" population_counting="decimal" abilities="consume(water), consume(preparation), produce(pollen), produce(flower), produce(straw), produce(grain)" variable_indicators="plant_life_state, plants_count, shape" frozen_indicators="net_surface_area" derivatives="pollen, flower, straw, grain"/>
       <item name="fodder_bale" category="grass" variety="grass" derivative_of="plant" population_counting="decimal" abilities="feed(animal)" variable_indicators="dry_matter_rate" frozen_indicators="net_mass, net_volume, fodder_bales_count"/>
-      <item name="foliar_spray" category="fertilizer" variety="preparation" population_counting="decimal" abilities="care(plant), fertilize, kill(insecta), kill(fungus)" variable_indicators="approved_input_dose, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period" frozen_indicators="net_volume, net_mass"/>
+      <item name="foliar_spray" category="fertilizer" variety="preparation" population_counting="decimal" abilities="care(plant), fertilize, kill(insecta), kill(fungus)" variable_indicators="approved_input_volume, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period" frozen_indicators="net_volume, net_mass"/>
       <item name="food_distributor" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="deliver(silage),deliver(straw),deliver(hay)" variable_indicators="nominal_storable_net_volume, nominal_storable_net_mass" frozen_indicators=""/>
       <item name="food_equipment_division" category="building_division" variety="building_division" population_counting="unitary" abilities="store(equipment), store(grass), store(mix), store(seed)" variable_indicators="net_surface_area, shape, nominal_storable_net_volume, nominal_storable_easement_area" frozen_indicators=""/>
       <item name="food_tank" category="equipment" variety="tank" population_counting="unitary" abilities="store(mix)" variable_indicators="nominal_storable_net_volume, nominal_storable_net_mass" frozen_indicators=""/>
       <item name="forager" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="harvest(plant), consume(oil), consume(fuel)" variable_indicators="application_width, geolocation" frozen_indicators=""/>
-      <item name="forklift" category="equipment" variety="handling_equipment" population_counting="unitary" abilities="move, tow(matter), consume(oil), consume(fuel)" variable_indicators="net_surface_area, motor_power, geolocation" frozen_indicators="" linkage_points="rear"/>
+      <item name="forklift" category="equipment" variety="handling_equipment" population_counting="unitary" abilities="move, tow(matter), consume(oil), consume(fuel)" variable_indicators="net_surface_area, motor_power, geolocation, hour_counter" frozen_indicators="" linkage_points="rear"/>
       <item name="forwarding_agent_fees_expense" category="forwarding_agent_fees_expense" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="freelance" category="subcontracting" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="freezer_tank" category="equipment" variety="tank" population_counting="unitary" abilities="store(preparation),freeze" variable_indicators="nominal_storable_net_volume, nominal_storable_net_mass" frozen_indicators=""/>
@@ -3987,7 +3996,7 @@
       <item name="fruit_residu" category="fruit" variety="pomace" population_counting="decimal" abilities="fertilize" variable_indicators="" frozen_indicators="net_mass, net_volume"/>
       <item name="fuel" category="fuel" variety="fuel" population_counting="decimal" variable_indicators="" frozen_indicators="energy, net_volume, net_mass"/>
       <item name="fuel_tank" category="equipment" variety="tank" population_counting="unitary" abilities="store(fuel)" variable_indicators="" frozen_indicators="nominal_storable_net_volume"/>
-      <item name="fungicide" category="plant_medicine" variety="preparation" population_counting="decimal" abilities="kill(fungus), care(plant)" variable_indicators="approved_input_dose, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period" frozen_indicators="net_volume, net_mass"/>
+      <item name="fungicide" category="plant_medicine" variety="preparation" population_counting="decimal" abilities="kill(fungus), care(plant)" variable_indicators="approved_input_volume, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period" frozen_indicators="net_volume, net_mass"/>
       <item name="gas" category="gas" variety="gas" population_counting="decimal" variable_indicators="" frozen_indicators="energy"/>
       <item name="gas_engine" category="equipment" variety="portable_equipment" population_counting="unitary" abilities="store_gaz, kill(plant)" frozen_indicators="application_width, nominal_storable_net_volume, theoretical_working_speed" variable_indicators="geolocation"/>
       <item name="goat_herd" category="cattle_herd" variety="animal_group" derivative_of="capra" population_counting="unitary" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix), consume(silage)" frozen_indicators=""/>
@@ -4011,7 +4020,7 @@
       <item name="hedge_cutter" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="cut" frozen_indicators=""/>
       <item name="hen_band" category="aves_band" variety="gallus" population_counting="unitary" abilities="move, consume(water), consume(poaceae), produce(excrement), produce(egg), consume(mix)" variable_indicators="" frozen_indicators="sex, reproductor" derivatives="meat, egg"/>
       <item name="hen_herd" category="aves_herd" variety="animal_group" derivative_of="gallus" population_counting="unitary" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix)" variable_indicators=""/>
-      <item name="herbicide" category="plant_medicine" variety="preparation" population_counting="decimal" abilities="kill(plant), care(plant)" variable_indicators="approved_input_dose, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period" frozen_indicators="net_volume, net_mass"/>
+      <item name="herbicide" category="plant_medicine" variety="preparation" population_counting="decimal" abilities="kill(plant), care(plant)" variable_indicators="approved_input_volume, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period" frozen_indicators="net_volume, net_mass"/>
       <item name="hiller" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="earth_up" frozen_indicators="application_width, rows_count, theoretical_working_speed" variable_indicators="geolocation"/>
       <item name="hive" category="equipment" variety="equipment" population_counting="unitary" abilities="store(apis), store(honey)"/>
       <item name="hoe" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="plow_superficially, hoe" variable_indicators="geolocation" frozen_indicators="application_width, rows_count, theoretical_working_speed"/>
@@ -4021,7 +4030,7 @@
       <item name="hydraulic_oil" category="fuel" variety="oil" population_counting="decimal" abilities="lubricate(equipment)" variable_indicators="" frozen_indicators="net_volume, net_mass"/>
       <item name="implanter" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="implant" variable_indicators="geolocation" frozen_indicators="application_width, rows_count, theoretical_working_speed"/>
       <item name="infirmity_and_death_insurance" category="infirmity_and_death_insurance" variety="service" population_counting="decimal" variable_indicators=""/>
-      <item name="insecticide" category="plant_medicine" variety="preparation" population_counting="decimal" abilities="kill(insecta), care(plant)" variable_indicators="approved_input_dose, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period" frozen_indicators="net_volume, net_mass"/>
+      <item name="insecticide" category="plant_medicine" variety="preparation" population_counting="decimal" abilities="kill(insecta), care(plant)" variable_indicators="approved_input_volume, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period" frozen_indicators="net_volume, net_mass"/>
       <item name="inseminator" category="worker" variety="worker" population_counting="unitary" abilities="move, administer_inseminate(animal)" variable_indicators="geolocation" frozen_indicators=""/>
       <item name="installing_charge" category="installing_charge" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="insurance" category="insurance" variety="service" population_counting="decimal" variable_indicators=""/>
@@ -4071,7 +4080,7 @@
       <item name="mixed_chemical_fertilizer" category="fertilizer" variety="preparation" population_counting="decimal" abilities="fertilize" variable_indicators="nitrogen_concentration, phosphorus_concentration, potassium_concentration" frozen_indicators="net_volume, net_mass"/>
       <item name="mixed_liquid_fertilizer" category="fertilizer" variety="preparation" population_counting="decimal" abilities="fertilize" variable_indicators="net_volume, nitrogen_concentration, phosphorus_concentration, potassium_concentration" frozen_indicators="net_mass"/>
       <item name="mixed_organic_fertilizer" category="fertilizer" variety="preparation" population_counting="decimal" abilities="fertilize" frozen_indicators="net_mass" variable_indicators="nitrogen_concentration, phosphorus_concentration, potassium_concentration, dry_matter_rate, organic_matter_concentration, sulfur_trioxide_concentration, magnesium_concentration, calcium_concentrtion, net_volume"/>
-      <item name="molluscicide" category="plant_medicine" variety="preparation" population_counting="decimal" abilities="kill(gastropoda), care(plant)" variable_indicators="approved_input_dose, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period" frozen_indicators="net_volume, net_mass"/>
+      <item name="molluscicide" category="plant_medicine" variety="preparation" population_counting="decimal" abilities="kill(gastropoda), care(plant)" variable_indicators="approved_input_volume, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period" frozen_indicators="net_volume, net_mass"/>
       <item name="motor_oil" category="fuel" variety="oil" population_counting="decimal" abilities="lubricate(trailed_equipment), lubricate(motorized_vehicle)" variable_indicators="" frozen_indicators="net_volume, net_mass"/>
       <item name="moving_travel" category="travel" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="mower" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="mow" variable_indicators="application_width, geolocation" frozen_indicators=""/>
@@ -4111,6 +4120,7 @@
       <item name="processed_meat" category="processed_meat" variety="processed_meat" derivative_of="meat" population_counting="decimal" variable_indicators="temperature, total_bacteria_concentration" frozen_indicators="net_volume, net_mass"/>
       <item name="processed_pork_meat" category="processed_meat" variety="processed_meat" derivative_of="meat" population_counting="decimal" variable_indicators="temperature, total_bacteria_concentration" frozen_indicators="net_volume, net_mass"/>
       <item name="processed_poultry_meat" category="processed_meat" variety="processed_meat" derivative_of="meat" population_counting="decimal" variable_indicators="temperature, total_bacteria_concentration" frozen_indicators="net_volume, net_mass"/>
+      <item name="processed_product_taxe" category="agricultural_taxe" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="product_insurance" category="insurance" variety="service" population_counting="integer" variable_indicators=""/>
       <item name="professional_subscription" category="professional_subscription" variety="service" population_counting="integer" variable_indicators=""/>
       <item name="project_management" category="service" variety="service" population_counting="decimal" variable_indicators="" frozen_indicators="usage_duration"/>
@@ -4160,12 +4170,12 @@
       <item name="technician" category="worker" variety="worker" population_counting="unitary" abilities="drive(equipment), move, milk(mammalia), repair(equipment), administer_care(animal)" variable_indicators="geolocation" frozen_indicators=""/>
       <item name="telescopic_handler" category="equipment" variety="handling_equipment" population_counting="unitary" variable_indicators="geolocation" abilities="catch(product)"/>
       <item name="topper" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="cut" frozen_indicators="application_width, theoretical_working_speed" variable_indicators="geolocation"/>
-      <item name="tractor" category="equipment" variety="tractor" population_counting="unitary" abilities="catch(matter), move, tow(matter), consume(oil), consume(fuel)" variable_indicators="net_surface_area, motor_power, geolocation, fuel_consumption" frozen_indicators="" linkage_points="rear, front"/>
+      <item name="tractor" category="equipment" variety="tractor" population_counting="unitary" abilities="catch(matter), move, tow(matter), consume(oil), consume(fuel)" variable_indicators="net_surface_area, motor_power, geolocation, hour_counter" frozen_indicators="" linkage_points="rear, front"/>
       <item name="trade_show" category="trade_show" variety="service" population_counting="integer" variable_indicators=""/>
       <item name="trailer" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="store_fluid, store(grain), store(grass), store(raw_matter), store(silage), move" variable_indicators="geolocation" frozen_indicators="nominal_storable_net_volume, nominal_storable_net_mass"/>
       <item name="training_course" category="service" variety="service" population_counting="decimal" variable_indicators="" frozen_indicators="usage_duration"/>
       <item name="trimmer" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="cut" frozen_indicators="application_width, theoretical_working_speed" variable_indicators="geolocation"/>
-      <item name="truck" category="equipment" variety="handling_equipment" population_counting="unitary" abilities="move, tow(matter), consume(oil), consume(fuel)" variable_indicators="net_surface_area, motor_power, geolocation, fuel_consumption" frozen_indicators="" linkage_points="rear"/>
+      <item name="truck" category="equipment" variety="handling_equipment" population_counting="unitary" abilities="move, tow(matter), consume(oil), consume(fuel)" variable_indicators="net_surface_area, motor_power, geolocation, fuel_consumption, hour_counter" frozen_indicators="" linkage_points="rear"/>
       <item name="turnip" category="vegetable" variety="vegetable" derivative_of="brassica_rapa_rapa" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
       <item name="uncover" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="uncover(plant)" frozen_indicators="application_width, theoretical_working_speed" variable_indicators="geolocation"/>
       <item name="user_support" category="service" variety="service" population_counting="decimal" variable_indicators="" frozen_indicators="usage_duration"/>
@@ -4181,7 +4191,7 @@
       <item name="water_tank" category="equipment" variety="tank" population_counting="unitary" abilities="store_liquid, store(water)" frozen_indicators="nominal_storable_net_volume" variable_indicators="geolocation"/>
       <item name="weeder" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="kill(plant)" frozen_indicators="application_width, theoretical_working_speed" variable_indicators="geolocation"/>
       <item name="weeding_kit" category="equipment" variety="equipment" population_counting="unitary" abilities="kill(plant), spray" frozen_indicators="nominal_storable_net_volume, rows_count" variable_indicators="geolocation"/>
-      <item name="wheel_loader" category="equipment" variety="heavy_equipment" population_counting="unitary" variable_indicators="geolocation" abilities="catch(product)"/>
+      <item name="wheel_loader" category="equipment" variety="heavy_equipment" population_counting="unitary" variable_indicators="geolocation, hour_counter" abilities="catch(product)"/>
       <item name="wine" category="wine" variety="wine" derivative_of="grape" population_counting="decimal" variable_indicators="certification, reference_year, temperature, total_bacteria_concentration" frozen_indicators="net_volume, net_mass"/>
       <item name="wine_acidifying" category="oenological_product" variety="preparation" population_counting="decimal" abilities="acidify(fermented_juice), acidify(wine)" variable_indicators="" frozen_indicators="net_mass"/>
       <item name="wine_alkalinizing" category="oenological_product" variety="preparation" population_counting="decimal" abilities="alkalinize(fermented_juice), alkalinize(wine)" variable_indicators="" frozen_indicators="net_mass"/>
@@ -9941,7 +9951,7 @@
       <item name="centimole_per_kilogram" dimension="amount_of_substance_density" symbol="cmol/kg" a="0.01"/>
       <item name="cubic_centimeter" dimension="volume" symbol="cm&#xB3;" a="1.0e-06"/>
       <item name="cubic_meter" dimension="volume" symbol="m&#xB3;"/>
-      <item name="cubic_meter_per_hectare" dimension="volume_area_density" symbol="cm&#xB3;/ha" a="1.0e-06" d="10000.0"/>
+      <item name="cubic_meter_per_hectare" dimension="volume_area_density" symbol="m&#xB3;/ha" a="1.0e-06" d="10000.0"/>
       <item name="cubic_meter_per_hour" dimension="volume_flow" symbol="m&#xB3;/h" d="3600.0"/>
       <item name="day" dimension="time" symbol="d" a="86400.0"/>
       <item name="degree" dimension="angle" symbol="&#xB0;" a="3.141592653589793" d="180.0"/>

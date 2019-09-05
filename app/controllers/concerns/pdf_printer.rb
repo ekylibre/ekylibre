@@ -1,13 +1,11 @@
 module PdfPrinter
   extend ActiveSupport::Concern
 
-  # protected
-
   # return data
-  def generate_report(template_name_or_path, &block)
+  def generate_report(template_name_or_path, options = {}, &block)
     template_path = to_template_path(template_name_or_path)
     report = ODFReport::Report.new(template_path, &block)
-    to_pdf_data report
+    to_pdf_data report, options
   end
 
   # return file
@@ -25,7 +23,7 @@ module PdfPrinter
 
   # return file and store file in documents
   def generate_document(nature, key, template_name_or_path, mandatory = false, closer = nil, options = { archiving: :last }, &block)
-    data = generate_report(template_name_or_path, &block)
+    data = generate_report(template_name_or_path, options, &block)
     archive_report nature, key, data, mandatory, closer, options
   end
 
@@ -33,7 +31,7 @@ module PdfPrinter
   # nature must a Nomen::DocumentNature object
   def archive_report(nature, key, data_or_path, mandatory = false, closer = nil, options = { archiving: :last })
     data = data_or_path.is_a?(File) ? data_or_path : StringIO.new(data_or_path)
-    name = options[:name] ? [options[:name], key].join(' ') : [nature.human_name, key].join(' ')
+    name = options[:name] || [nature.human_name, key].join(' ')
     document = Document.create!(
                  nature: nature,
                  key: key,
@@ -70,18 +68,39 @@ module PdfPrinter
     Rails.root.join('config', 'locales', I18n.locale.to_s, 'reporting', directory, file_name)
   end
 
-  def to_pdf_data(report)
+  def to_pdf_data(report, options = {})
     Dir.mktmpdir do |directory|
       directory_path = Pathname.new(directory)
       odf_path = directory_path.join('source.odf').to_s
       report.generate odf_path
       convert_to_pdf directory, odf_path
       pdf_path = directory_path.join('source.pdf').to_s
+      remove_empty_tailing_page(pdf_path) if options[:multipage]
+      fill_checks(pdf_path, options[:checks]) if options[:checks]
       File.read pdf_path
     end
   end
 
   def convert_to_pdf(directory, odf_path)
     system "soffice --headless --convert-to pdf --outdir #{directory} #{odf_path}"
+  end
+
+  def remove_empty_tailing_page(pdf_path)
+    pdf = CombinePDF.load(pdf_path)
+    pdf.remove(pdf.pages.count - 1)
+    pdf.save pdf_path
+  end
+
+  def fill_checks(pdf_path, checks)
+    pdf = CombinePDF.load(pdf_path)
+    properties = { font_size: 11, height: 12, width: 250, text_align: :left }
+    checks.each_with_index do |check, index|
+      pdf.pages[index].textbox check[:amount], properties.merge({ x: 460, y: 142 })
+      pdf.pages[index].textbox check[:amount_to_letter], properties.merge({ x: 70, y: 155 })
+      pdf.pages[index].textbox check[:payee], properties.merge({ x: 78, y: 132 })
+      pdf.pages[index].textbox check[:company_town], properties.merge({ x: 450, y: 116 })
+      pdf.pages[index].textbox check[:paid_at], properties.merge({ x: 450, y: 101 })
+    end
+    pdf.save pdf_path
   end
 end

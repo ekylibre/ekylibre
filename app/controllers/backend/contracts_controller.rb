@@ -60,7 +60,7 @@ module Backend
       t.column :pretax_amount, currency: true
     end
 
-    list(:parcels, model: :parcels, children: :items, conditions: { contract_id: 'params[:id]'.c }) do |t|
+    list(:receptions, model: :receptions, children: :items, conditions: { contract_id: 'params[:id]'.c }) do |t|
       t.action :edit, if: :draft?
       t.action :destroy, if: :draft?
       t.column :number, url: true

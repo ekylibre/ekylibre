@@ -10,9 +10,9 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require webpack_bridge
 //= require modernizr
 //= require jquery
-//= require jquery/jquery.lazy
 //= require jquery-ui/widgets/datepicker
 //= require jquery-ui/i18n/datepicker-fr
 // require jquery-ui/i18n/datepicker-ar
@@ -25,16 +25,16 @@
 //= require jquery_ujs
 //= require jquery.remotipart
 //= require jquery.turbolinks
-//= require flatpickr
-//= require flatpickr/plugins/confirmDate/confirmDate
-//= require flatpickr/l10n/ar
-//= require flatpickr/l10n/de
-//= require flatpickr/l10n/es
-//= require flatpickr/l10n/fr
-//= require flatpickr/l10n/it
-//= require flatpickr/l10n/ja
-//= require flatpickr/l10n/pt
-//= require flatpickr/l10n/zh
+//= require flatpickr/dist/flatpickr
+//= require flatpickr/dist/plugins/confirmDate/confirmDate
+//= require flatpickr/dist/l10n/ar
+//= require flatpickr/dist/l10n/de
+//= require flatpickr/dist/l10n/es
+//= require flatpickr/dist/l10n/fr
+//= require flatpickr/dist/l10n/it
+//= require flatpickr/dist/l10n/ja
+//= require flatpickr/dist/l10n/pt
+//= require flatpickr/dist/l10n/zh
 //= require turbolinks
 //= require active_list.jquery
 //= require knockout
@@ -43,16 +43,9 @@
 //= require i18n/translations
 //= require i18n/locale
 //= require i18n/ext
+//= require wice_grid
+//= require wice_grid/settings
 //= require ekylibre
-//= require moment
-//= require moment/ar
-//= require moment/de
-//= require moment/es
-//= require moment/fr
-//= require moment/it
-//= require moment/ja
-//= require moment/pt
-//= require moment/zh-cn
 //= require formize/behave
 //= require form/dialog
 //= require formize/observe
@@ -80,19 +73,19 @@
 //= require d3
 //= require d3/tip
 //= require timeline-chart.js
-//= require rbush
 //= require autosize
 //= require plugins
 //= require_tree .
 //= require tour
 //= require bootstrap-slider
 
-var visualization = {};
-var mapeditor = {};
-var ekylibre = {};
-var calcul = {};
+//= require vue
+//= require sortablejs/Sortable.min.js
+//= require vuedraggable/dist/vuedraggable.js
+//= require chart.js/dist/Chart.min.js
+//= require vue-chartjs/dist/vue-chartjs.min.js
 
-var golumn = {};
+//= require ext-plugins/vuejs/vue-chartjs
 
 // FIX Browser interoperability
 // href function seems to be ineffective

@@ -14,10 +14,11 @@
     = t.close resource, label: :close_financial_year.tl(code: resource.name), icon: false
     = t.lock resource, label: :lock_financial_year.tl(code: resource.name), icon: false
   - style = resource.closing? ? 'disabled-btn' : ''
-  = dropdown_menu_button(:export_fec.ta, { icon: :download, class: style }) do |d|
+  = dropdown_menu_button(:export_fec.ta, { icon: :download }) do |d|
     - export_params = params.slice(:id)
-    - %i[all ba_bnc_ir_commercial_accountancy ba_ir_cash_accountancy bnc_ir_cash_accountancy].each do |position|
-      - d.item "export_fec_#{position}".tl, action: :show, fiscal_position: position, format: :xml
+    - %i[text xml].each do |format|
+      - %i[all ba_bnc_ir_commercial_accountancy ba_ir_cash_accountancy bnc_ir_cash_accountancy].each do |position|
+        - d.item "export_#{format}_fec_#{position}".tl, action: :show, fiscal_position: position, format: format
   = dropdown_menu_button(:export_closing_documents.ta, { icon: :download, class: style }) do |d|
     - export_params = params.slice(:id)
     - d.item :export_income_statement.tl, params: export_params.merge(format: :pdf, n: :income_statement)

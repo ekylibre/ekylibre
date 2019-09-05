@@ -39,11 +39,37 @@
 
   # Hide/show blocks depending on check boxes
   $(document).behave "load", "input[type='checkbox'][data-show], input[type='checkbox'][data-hide]", toggleCheckboxes
+  $(document).on   "change", "input[type='checkbox'][data-show], input[type='checkbox'][data-hide]", toggleCheckboxes
   $(document).behave "load", "input[type='radio'][data-show], input[type='radio'][data-hide]", toggleRadios
-  $(document).on "change", "input[type='checkbox'][data-show], input[type='checkbox'][data-hide]", toggleCheckboxes
-  $(document).on "change", "input[type='radio'][data-show], input[type='radio'][data-hide]", toggleRadios
+  $(document).on   "change", "input[type='radio'][data-show], input[type='radio'][data-hide]", toggleRadios
   $(document).behave "load", ".ui-dialog", ->
     $("input[type='radio'][data-show], input[type='radio'][data-hide]").on "change", toggleRadios
     $("input[type='checkbox'][data-show], input[type='checkbox'][data-hide]").on "change", toggleCheckboxes
+
+
+  $(document).ready ->
+    $("[data-trigger-container] i[data-trigger]").on 'click', ->
+      $(this).toggleClass('plus')
+      $(this).closest("[data-trigger-container]").find("[data-triggerable]").slideToggle()
+
+    $("[data-checkable] input[type='checkbox'][name='check_all']").on 'click', ->
+      value = $(this).prop('checked')
+      $(this).closest('[data-checkable]').find("input[type='checkbox'][name='check']").each ->
+        $(this).click() if $(this).prop('checked') != value
+
+    $("select[data-trigger-visibility]").on 'change', ->
+      id = $(this).val()
+      affectedElement = $(this).data('trigger-visibility')
+      return $("#{affectedElement}").hide() unless id
+      url = window.location.origin + $(this).data('trigger-visibility-url').replace(/:id/, id)
+
+      toggleUnlessSepa = (data) ->
+        $("#{affectedElement}").toggle(!data['sepa'])
+
+      $.getJSON url, toggleUnlessSepa
+
+    $("input[type='checkbox'][data-check-on-load='true']").click()
+    $("select[data-trigger-visibility]").trigger('change')
+
   return
 ) jQuery

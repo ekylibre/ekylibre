@@ -5,8 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -43,6 +42,7 @@
 #  description               :text
 #  entry_id                  :integer          not null
 #  entry_number              :string           not null
+#  equipment_id              :integer
 #  financial_year_id         :integer          not null
 #  id                        :integer          not null, primary key
 #  journal_id                :integer          not null
@@ -52,6 +52,7 @@
 #  position                  :integer
 #  pretax_amount             :decimal(19, 4)   default(0.0), not null
 #  printed_on                :date             not null
+#  project_budget_id         :integer
 #  real_balance              :decimal(19, 4)   default(0.0), not null
 #  real_credit               :decimal(19, 4)   default(0.0), not null
 #  real_currency             :string           not null
@@ -75,7 +76,6 @@
 #   * (credit|debit|balance) are in currency of the journal
 #   * real_(credit|debit|balance) are in currency of the financial year
 #   * absolute_(credit|debit|balance) are in currency of the company
-#   * cumulated_absolute_(credit|debit) are in currency of the company too
 class JournalEntryItem < Ekylibre::Record::Base
   attr_readonly :entry_id, :journal_id, :state
   refers_to :absolute_currency, class_name: 'Currency'
@@ -92,6 +92,8 @@ class JournalEntryItem < Ekylibre::Record::Base
   belongs_to :tax
   belongs_to :tax_declaration_item, inverse_of: :journal_entry_items
   belongs_to :team
+  belongs_to :equipment, class_name: 'Product'
+  belongs_to :project_budget
   has_many :tax_declaration_item_parts, inverse_of: :journal_entry_item, dependent: :restrict_with_exception
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -108,6 +110,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   validates :state, length: { allow_nil: true, maximum: 30 }
   validates :debit, :credit, :real_debit, :real_credit, numericality: { greater_than_or_equal_to: 0 }
   validates :account, presence: true
+  validates_format_of :name, with: /\A(?!translation missing: [a-z][a-z_]*).*\z/, allow_blank: true
 
   delegate :balanced?, to: :entry, prefix: true
   delegate :name, :number, :label, to: :account, prefix: true
@@ -116,7 +119,7 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   acts_as_list scope: :entry
 
-  after_destroy  :unmark
+  after_destroy :unmark
 
   scope :between, lambda { |started_at, stopped_at|
     where(printed_on: started_at..stopped_at)
@@ -202,6 +205,10 @@ class JournalEntryItem < Ekylibre::Record::Base
     lettered? && !partially_lettered?
   end
 
+  def semi_lettered?
+    lettered? || !partially_lettered?
+  end
+
   def letter_radix
     return nil unless letter
     letter.delete('*')
@@ -251,6 +258,7 @@ class JournalEntryItem < Ekylibre::Record::Base
         raise JournalEntry::IncompatibleCurrencies, "You cannot create an entry where the absolute currency (#{absolute_currency.inspect}) is not the real (#{real_currency.inspect}) or current one (#{currency.inspect})"
       end
     end
+
     self.balance = debit - credit
     self.real_balance = real_debit - real_credit
   end
@@ -272,6 +280,8 @@ class JournalEntryItem < Ekylibre::Record::Base
     attributes[:account_id] = account.is_a?(Integer) ? account : account.id
     attributes[:activity_budget_id] = options[:activity_budget].id if options[:activity_budget]
     attributes[:team_id] = options[:team].id if options[:team]
+    attributes[:equipment_id] = options[:equipment].id if options[:equipment]
+    attributes[:project_budget_id] = options[:project_budget].id if options[:project_budget]
     attributes[:tax_id] = options[:tax].id if options[:tax]
     attributes[:real_pretax_amount] = attributes.delete(:pretax_amount) if attributes[:pretax_amount]
     attributes[:resource_prism] = attributes.delete(:as) if options[:as]
@@ -323,10 +333,15 @@ class JournalEntryItem < Ekylibre::Record::Base
   # Returns following items
   def followings
     return self.class.none unless account
+
     if new_record?
-      account.journal_entry_items.where('printed_on > ?', printed_on)
+      account
+        .journal_entry_items
+        .where('printed_on > ?', printed_on)
     else
-      account.journal_entry_items.where('(printed_on = ? AND id > ?) OR printed_on > ?', printed_on, id, printed_on)
+      account
+        .journal_entry_items
+        .where('(printed_on = ? AND id > ?) OR printed_on > ?', printed_on, id, printed_on)
     end
   end
 
@@ -408,6 +423,17 @@ class JournalEntryItem < Ekylibre::Record::Base
     return unless account
     third_parties = Entity.uniq.where('client_account_id = ? OR supplier_account_id = ? OR employee_account_id = ?', account.id, account.id, account.id)
     third_parties.take if third_parties.count == 1
+  end
+
+  # fixed_assets, expenses and revenues are used into tax declaration
+  def vat_account
+   prefixes = Account.tax_declarations.pluck(:number).join
+   return unless account_number =~ /^[#{prefixes}].*/
+   entry.items.find_by(resource_prism: ["item_tax_reverse_charge", "item_tax"])&.account
+  end
+
+  def vat_account_label
+    vat_account&.label
   end
 
   def displayed_label_in_accountancy

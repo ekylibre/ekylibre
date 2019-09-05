@@ -1,8 +1,15 @@
+- displayed_state = resource.state.tl
+- displayed_state = resource.nature.l if resource.nature.to_sym == :request
+
 - main_toolbar do |t|
-  = t.edit resource
   = t.export :intervention_sheet
-  = t.destroy
-  = t.new params: { request_intervention_id: resource.id } if resource.request?
+  = t.edit resource
+  - unless @intervention.receptions_is_given?
+    = t.destroy
+  = t.new params: { request_intervention_id: resource.id, redirect: nil } if resource.request?
+  - unless resource.state == 'validated'
+    = t.menu(displayed_state, class: "btn btn-primary dropdown", icon: false, disable_with: tl(:please_wait), force_menu: true) do |menu|
+      - menu.item(next_state[0], change_state_backend_interventions_path(:intervention => { :interventions_ids => ([resource.id]).to_json, state: next_state[1].to_sym }), method: :post) if next_state
 
 - currency = Nomen::Currency.find(resource.currency)
 
@@ -42,15 +49,18 @@
       - total = 0
       - [:input, :tool, :doer].each do |type|
         - cost = (resource.cost(type) || 0.0).round(currency.precision)
-        .big-info.cost
+        .big-info.cost.intervention-costs
           %span.title= "evaluated_#{type}_cost".tl
           %span.value
             %i.picto{class: "picto-#{type}"}
             = cost.l(currency: currency.name)
 
-      .big-info.cost.important
-        %span.title= :total_cost.tl
-        %span.value= resource.total_cost.round(currency.precision).l(currency: currency.name)
+      .big-info.cost
+        %span.title= "evaluated_reception_cost".tl
+        %span.value
+          %i.picto{class: "picto-recent-actors"}
+          = resource.receptions_cost.l(currency: currency.name)
+
 
       - if resource.working_zone_area.to_f > 0.0
         .big-info
@@ -66,12 +76,22 @@
             - displayed_cost_per_area = "#{localized_cost}/#{unit.symbol}"
           %span.value= displayed_cost_per_area || ""
 
+      .big-info.cost.important
+        %span.title= :total_cost.tl
+        %span.value= resource.total_cost.round(currency.precision).l(currency: currency.name)
+
   - if resource.product_parameters.any?
     - c.cobble(:parameters) do
       %ul.product_parameters= render partial: 'product_parameter', collection: resource.product_parameters.order(:type)
 
+  - if resource.receptions.any?
+    - c.cobble(:service_deliveries) do
+      = cobble_list(:service_deliveries)
+
   - c.cobble(:general_informations) do
     = infos do
+      = attributes_list do |l|
+        - l.attribute :number
       -#.med-info.important
         %span.title= Intervention.human_attribute_name(:nature)
         %span.value= resource.nature.l #lights(resource.status)
@@ -85,6 +105,18 @@
         %span.value
           %i.picto.picto-calendar
           = resource.stopped_at.l
+
+      .med-info.actionner-cobble
+        = resource.decorate.planned_by
+        = resource.decorate.validated_by
+
+      -# - if resource.duration_from_catalog
+        -# .med-info
+          -# %span.title= Intervention.human_attribute_name(:catalog_duration)
+          -# %span.value
+            -# %i.picto.picto-timelapse
+            -# = resource.duration_from_catalog.round(2).l
+
       -#.med-info
         %span.title= Intervention.human_attribute_name(:working_duration)
         %span.value
@@ -151,10 +183,3 @@
         %span.title= Intervention.human_attribute_name(:trouble_encountered)
         %span.value= resource.trouble_description
     = labels_info(resource.labels)
-
-  - if resource.request?
-    - c.cobble(:record_interventions, title: :x_interventions.tl(count: resource.record_interventions.count)) do
-      = cobble_toolbar do |t|
-        .toolbar
-          = tool_to :new.ta, {action: :new, controller: :interventions, request_intervention_id: resource.id, procedure_name: resource.procedure_name}, tool: :new
-      =  cobble_list(:record_interventions)

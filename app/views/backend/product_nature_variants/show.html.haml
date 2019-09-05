@@ -28,13 +28,17 @@
       = resource_info(:france_maaid) do |france_maaid|
         %i.picto{class: "picto-flask"}
         = link_to(france_maaid, "https://ephy.anses.fr/resultats_recherche/ppp?search_api_aggregation_3=#{france_maaid}")
+    .med-info.important
+      %span.title= :quantity_to_receive.tl
+      %span.value
+        = quantity_to_receive resource
   -# .info
     %span.title= ProductNatureVariant.human_attribute_name(:net_mass)
     %span.value= resource.products.map(&:net_mass).compact.sum
   -# .info
     %span.title= ProductNatureVariant.human_attribute_name(:net_volume)
     %span.value= resource.products.map(&:net_volume).compact.sum
-  -# if resource.picture.exists?
+  - if resource.picture.exists?
     = image_tag(resource.picture.url(:thumb))
 
   = attributes_list(resource) do |l|
@@ -89,7 +93,22 @@
                 %td= usage.pre_harvest_interval.l if usage.pre_harvest_interval
                 %td= usage.untreated_zone_margin.l if usage.untreated_zone_margin
 
-  -# if resource.products.any?
+  -#TODO Rely on PurchaseItem instead of ReceptionItem
+  -# - if resource.reception_items.any?
+    -# - c.cobble(:purchases_prices) do
+      -# :ruby
+        -# series = []
+        -# data = []
+        -# dataset = ReceptionItem.where(variant_id: resource.id).joins(:reception).reorder("parcels.planned_at").pluck('unit_pretax_amount', 'parcels.planned_at')
+        -# dataset.each do |item|
+          -# data << [ item[1].to_usec, item[0].to_f  ]
+        -# end
+        -# series << {name: resource.name, data: data }
+
+      -# = spline_highcharts(series, legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom', border_width: 0 }, y_axis: {title: { text: :unit_pretax_amount.tl}, min: 0}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}})
+
+
+  - if resource.products.any?
     - c.cobble(:stocks) do
       :ruby
         dataset = resource.products
@@ -128,8 +147,20 @@
   - c.cobble(:sale_items) do
     = cobble_list(:sale_items)
 
-  - c.cobble(:parcel_items) do
-    = cobble_list(:parcel_items)
+  - c.cobble(:shipments) do
+    = cobble_list(:shipments)
+
+  - c.cobble(:purchase_order_items) do
+    = cobble_list(:purchase_order_items)
+
+  - c.cobble(:receptions) do
+    = cobble_list(:receptions)
+
+  - c.cobble(:purchase_invoice_items) do
+    = cobble_list(:purchase_invoice_items)
+
+  - c.cobble(:suppliers) do
+    = cobble_list(:suppliers)
 
   - c.cobble(:catalog_items) do
     = cobble_toolbar do |t|
@@ -139,4 +170,3 @@
   - if resource.of_variety? :equipment
     - c.cobble(:components) do
       = cobble_list(:components)
-
