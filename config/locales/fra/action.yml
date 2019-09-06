@@ -3066,6 +3066,7 @@ fra:
       new_values_are_calculated: "De nouvelles valeurs ont été calculées" #?
       no_archived_prints: "Aucune impression déjà archivée"
       no_balance_template: "Pas de modèle de document pour la balance" #?
+      no_bank_statement_found_for_this_period: "Aucun relevé de compte trouvé pour cette période."
       no_budget_defined_for_current_campaign: "Aucun budget défini pour la campagne courante"
       no_building: "Aucun lieu de stockage n’est défini. Veuillez en créer un pour pouvoir gérer vos stocks" #?
       no_closable_financial_year: "Vous n’avez aucun exercice à clôturer." #?
