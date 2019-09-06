@@ -22,13 +22,8 @@
     .annotation-logo
       - if f.object.annotation.blank?
         = link_to("#", data: { annotate: ".annotate", use_closest: "tbody" }, title: :add_annotation.tl) do
-          %i
+          %i.annotation-field
 
-    .unitary-variant-fields{style: display, data: {"when-item": "identifiable", "when-display-value": 'true', "when-scope": 'target'}}
-      = f.input :product_name, required: true do
-        = f.input_field :product_name, data: { required: true }
-      = f.input :product_work_number do
-        = f.input_field :product_work_number
 
 
   .item-block-delivery-mode{style: "display: flex"}
@@ -39,6 +34,11 @@
         = f.referenced_association :transporter, source: :transporters, label: false, new: {transporter: 1}, input_html: { class: 'transporter-delivery-mode', data: { product_of_delivery_item: { url: backend_entity_path("RECORD_ID", format: :json) } } }
         - full_name = f.object.transporter.full_name if f.object.transporter
         %input.hidden{data: { 'when-item': 'full_name', 'when-set-value': 'RECORD_VALUE' }, value: full_name }
+.unitary-variant-fields{style: display, data: {"when-item": "identifiable", "when-display-value": 'true', "when-scope": 'target'}}
+  = f.input :product_name, required: true do
+    = f.input_field :product_name, data: { required: true }
+  = f.input :product_work_number do
+    = f.input_field :product_work_number
 .annotation-section
   .annotation-field
     - attrs = {}

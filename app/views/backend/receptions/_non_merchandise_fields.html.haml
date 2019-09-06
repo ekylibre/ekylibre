@@ -19,7 +19,7 @@
     .annotation-logo
       - if f.object.annotation.blank?
         = link_to("#", data: { annotate: ".annotate", use_closest: "tbody" }, title: :add_annotation.tl) do
-          %i
+          %i.annotation-field
 
   - if f.object.fees?
     .item-block__quantifier
