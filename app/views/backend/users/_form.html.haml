@@ -4,8 +4,8 @@
   = f.input :language, collection: available_languages(false)
   = f.input :email
   - if f.object.new_record?
-    = f.input :password
-    = f.input :password_confirmation
+    = f.input :password, required: true
+    = f.input :password_confirmation, required: true
   = f.custom_fields
 
 = field_set(:function) do
