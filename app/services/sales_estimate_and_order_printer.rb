@@ -50,7 +50,7 @@ class SalesEstimateAndOrderPrinter
 
       # Receiver_address
       r.add_field :receiver, receiver.full_name
-      r.add_field :receiver_address, receiver.address
+      r.add_field :receiver_address, receiver.address.upcase
       r.add_field :receiver_phone, receiver.phone
       r.add_field :receiver_email, receiver.email
 
@@ -71,9 +71,9 @@ class SalesEstimateAndOrderPrinter
       end
 
       # Totals
-      r.add_field :total_pretax_amount, @sale.pretax_amount.round_l
-      r.add_field :total_vat_amount, (@sale.amount - @sale.pretax_amount).round_l
-      r.add_field :total_amount, @sale.amount.round_l
+      r.add_field :total_pretax, @sale.pretax_amount.round_l
+      r.add_field :total_vat, (@sale.amount - @sale.pretax_amount).round_l
+      r.add_field :total, @sale.amount.round_l
 
       # Signature
       r.add_section('Section-signature', signatures) do |signature|

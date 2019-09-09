@@ -39,9 +39,7 @@ class SalesInvoicePrinter
 
       # Receiver_address
       r.add_field :receiver, receiver.full_name
-      r.add_field :receiver_address, receiver.address
-      r.add_field :receiver_phone, receiver.phone
-      r.add_field :receiver_email, receiver.email
+      r.add_field :receiver_address, receiver.address.upcase
 
       # Estimate_number
       r.add_field :number, @sale.number
@@ -61,6 +59,8 @@ class SalesInvoicePrinter
 
       # Sales conditions
       r.add_field :sales_conditions, Preference[:sales_conditions]
+      # Sales payment mode complement
+      r.add_field :payment_mode_complement, @sale.nature.payment_mode_complement
 
       # Totals
       r.add_field :total_pretax, @sale.pretax_amount.round_l
