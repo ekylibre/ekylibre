@@ -57,7 +57,7 @@ module Backend
       code.c
     end
 
-    list(conditions: sales_conditions, selectable: true, joins: %i[client affair], order: { created_at: :desc, number: :desc }) do |t| # , :line_class => 'RECORD.tags'
+    list(conditions: sales_conditions, selectable: :true, joins: %i[client affair], order: { created_at: :desc, number: :desc }) do |t| # , :line_class => 'RECORD.tags'
       # t.action :show, url: {format: :pdf}, image: :print
       t.action :edit, if: :updateable?
       t.action :cancel, if: :cancellable?
@@ -148,23 +148,23 @@ module Backend
     # Displays details of one sale selected with +params[:id]+
     def show
       return unless @sale = find_and_check
-
       @sale.other_deals
-
-      respond_to do |format|
-        format.pdf do
-          document_template = DocumentTemplate.find_by(nature: sale_nature, by_default: true, managed: false)
-          if document_template.nil?
-            generate_n_send_pdf_for(@sale) || (return head '404')
-          else
-            params[:template] = document_template.id
-            create_response
-          end
-        end
-
+      respond_with(@sale, methods: %i[taxes_amount affair_closed client_number sales_conditions sales_mentions],
+                          include: { address: { methods: [:mail_coordinate] },
+                                     nature: { include: { payment_mode: { include: :cash } } },
+                                     supplier: { methods: [:picture_path], include: { default_mail_address: { methods: [:mail_coordinate] }, websites: {}, emails: {}, mobiles: {} } },
+                                     responsible: {},
+                                     credits: {},
+                                     parcels: { methods: %i[human_delivery_mode human_delivery_nature items_quantity], include: {
+                                       address: {},
+                                       sender: {},
+                                       recipient: {}
+                                     } },
+                                     affair: { methods: [:balance], include: [incoming_payments: { include: :mode }] },
+                                     invoice_address: { methods: [:mail_coordinate] },
+                                     items: { methods: %i[taxes_amount tax_name tax_short_label], include: [:variant, shipment_items: { include: %i[product parcel] }] } }) do |format|
         format.html do
           t3e @sale.attributes, client: @sale.client.full_name, state: @sale.state_label, label: @sale.label
-          create_response
         end
       end
     end
@@ -287,49 +287,5 @@ module Backend
       @sale.refuse
       redirect_to action: :show, id: @sale.id
     end
-
-    private
-
-      def generate_n_send_pdf_for(sale)
-        klass = printer_class
-        return unless klass
-
-        printer = printer_class.new(sale)
-        file_path = printer.run_pdf
-        File.open(File.join(file_path), 'r') do |f|
-          send_data f.read, filename: printer.document_nature, type: 'application/pdf', disposition: 'inline'
-        end
-        true
-      end
-
-      def sale_nature
-        "sales_#{params[:nature]}"
-      end
-
-      def printer_class
-        case sale_nature
-        when 'sales_invoice'  then SalesInvoicePrinter
-        when 'sales_order'    then SalesOrderPrinter
-        when 'sales_estimate' then SalesEstimatePrinter
-        else nil
-        end
-      end
-
-      def create_response
-        respond_with(@sale, methods: %i[taxes_amount affair_closed client_number sales_conditions sales_mentions],
-                            include: { address: { methods: [:mail_coordinate] },
-                                       nature: { include: { payment_mode: { include: :cash } } },
-                                       supplier: { methods: [:picture_path], include: { default_mail_address: { methods: [:mail_coordinate] }, websites: {}, emails: {}, mobiles: {} } },
-                                       responsible: {},
-                                       credits: {},
-                                       parcels: { methods: %i[human_delivery_mode human_delivery_nature items_quantity], include: {
-                                         address: {},
-                                         sender: {},
-                                         recipient: {}
-                                       } },
-                                       affair: { methods: [:balance], include: [incoming_payments: { include: :mode }] },
-                                       invoice_address: { methods: [:mail_coordinate] },
-                                       items: { methods: %i[taxes_amount tax_name tax_short_label], include: [:variant, shipment_items: { include: %i[product parcel] }] } })
-      end
   end
 end

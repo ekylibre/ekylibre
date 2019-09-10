@@ -24,25 +24,16 @@ module Backend
                                contacts: :index_xhr,
                                except: %i[generate_parcel update]
 
-    test 'should redirect to 404 if wrong nature' do
+    test 'should print an invoice' do
       sale = sales(:sales_001)
-      get :show, id: sale.id, nature: 'pouet', format: 'pdf'
-      assert_response :not_found
-    end
-
-    %i[estimate order invoice].each do |nature|
-      test "should switch to Jasper if sales #{nature} document template exists" do
-        sale = sales(:sales_001)
-        class << @controller
-          attr_accessor :called
-          def create_response
-            @called = true
-            head 200
-          end
-        end
-        get :show, id: sale.id, nature: nature, format: :pdf
-        assert @controller.called
+      assert sale.valid?, "Sales 001 must be valid (#{sale.errors.inspect})"
+      DocumentTemplate.of_nature(:sales_invoice).update_all(active: false)
+      template = DocumentTemplate.create!(nature: :sales_invoice, language: I18n.locale, name: 'sales_invoice', active: true, source: File.open(fixture_file('sales_invoice.jrxml')))
+      assert template, 'No template found for sales_invoice'
+      assert_nothing_raised do # "Template #{template.inspect} doesn't seems to work"
+        get :show, id: sale.id, format: :pdf, key: sale.number, template: template.id
       end
+      assert_response :success
     end
   end
 end
