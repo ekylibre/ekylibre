@@ -70,10 +70,8 @@ class PurchaseItem < Ekylibre::Record::Base
   belongs_to :fixed_asset, inverse_of: :purchase_items
   belongs_to :depreciable_product, class_name: 'Product'
 
-  with_options class_name: 'ReceptionItem' do
-    has_many :parcels_purchase_orders_items, inverse_of: :purchase_order_item, foreign_key: 'purchase_order_item_id', dependent: :nullify
-    has_many :parcels_purchase_invoice_items, inverse_of: :purchase_invoice_item, foreign_key: 'purchase_invoice_item_id', dependent: :nullify
-  end
+  has_many :parcels_purchase_orders_items, inverse_of: :purchase_order_item, foreign_key: 'purchase_order_item_id', dependent: :nullify, class_name: 'ReceptionItem'
+  has_many :parcels_purchase_invoice_items, inverse_of: :purchase_invoice_item, foreign_key: 'purchase_invoice_item_id', dependent: :nullify, class_name: 'ReceptionItem'
 
   # has_many :products, through: :parcels_purchase_orders_items
   has_many :products, through: :parcels_purchase_invoice_items
@@ -127,6 +125,14 @@ class PurchaseItem < Ekylibre::Record::Base
   scope :of_product_nature_category, lambda { |product_nature_category|
     joins(:variant).merge(ProductNatureVariant.of_categories(product_nature_category))
   }
+
+  protect on: :update do
+    !self.purchase.updateable?
+  end
+
+  protect on: :destroy do
+    !self.purchase.destroyable?
+  end
 
   before_validation do
     self.currency = purchase_currency if purchase
@@ -211,7 +217,7 @@ class PurchaseItem < Ekylibre::Record::Base
         # set stock catalog price if blank
         catalog = Catalog.by_default!(usage)
         next if catalog.nil? || variant.catalog_items.of_usage(usage).any? ||
-                unit_pretax_amount.blank? || unit_pretax_amount.zero?
+          unit_pretax_amount.blank? || unit_pretax_amount.zero?
         variant.catalog_items.create!(
           catalog: catalog,
           amount: unit_pretax_amount, currency: currency
@@ -350,24 +356,32 @@ class PurchaseItem < Ekylibre::Record::Base
 
   private
 
-  def first_reception
-    return nil if parcels_purchase_invoice_items.empty? && parcels_purchase_orders_items.empty?
+    def first_reception
+      case purchase.class
+        when PurchaseInvoice
+          parcels_purchase_invoice_items.first&.parcel
+        when PurchaseOrder
+          parcels_purchase_orders_items.first&.parcel
+        else
+          nil
+      end
+    end
 
-    parcel_item = parcels_purchase_invoice_items.first if purchase.is_a?(PurchaseInvoice)
-    parcel_item = parcels_purchase_orders_items.first if purchase.is_a?(PurchaseOrder)
+    def receptions_count
+      case purchase.class
+        when PurchaseInvoice
+          parcels_purchase_invoice_items.count
+        when PurchaseOrder
+          parcels_purchase_orders_items.count
+        else
+          0
+      end
+    end
 
-    Parcel.find(parcel_item.parcel_id)
-  end
-
-  def receptions_count
-    return parcels_purchase_invoice_items.count if purchase.is_a?(PurchaseInvoice)
-    return parcels_purchase_orders_items.count if purchase.is_a?(PurchaseOrder)
-  end
-
-  def received_quantity
-    parcels_purchase_orders_items
-      .select { |reception_item| reception_item.reception.state.to_sym == :given }
-      .map(&:population)
-      .sum
-  end
+    def received_quantity
+      parcels_purchase_orders_items
+        .select { |reception_item| reception_item.reception.state.to_sym == :given }
+        .map(&:population)
+        .sum
+    end
 end

@@ -16,6 +16,10 @@
         }
       }
     = f.referenced_association(:variant, **options)
+    .annotation-logo
+      - if f.object.annotation.blank?
+        = link_to("#", data: { annotate: ".annotate", use_closest: "tbody" }, title: :add_annotation.tl) do
+          %i.annotation-field
 
   - if f.object.fees?
     .item-block__quantifier
@@ -29,3 +33,9 @@
           = f.input_field :population, class: "total-quantity", placeholder: '0', data: {"when-item": "unitary", "when-set-value": 1, "when-prop-value": "disabled", 'when-scope': 'target', required: true }
           %span.add-on.item-population-unit-name
             = variant.unit_name.or_else('unité')
+
+.annotation-section
+  .annotation-field
+    - attrs = {}
+    - attrs[:style] = "display: none" if f.object.annotation.blank?
+    .annotate{attrs}= f.input(:annotation, wrapper: :nested, input_html: { class: "annotation" })

@@ -17,16 +17,13 @@
         }
       }
     = f.referenced_association(:variant, **options)
-
       - display = ""
       - display = "display: none;" unless variant.identifiable?.or_else(false)
+    .annotation-logo
+      - if f.object.annotation.blank?
+        = link_to("#", data: { annotate: ".annotate", use_closest: "tbody" }, title: :add_annotation.tl) do
+          %i.annotation-field
 
-
-    .unitary-variant-fields{style: display, data: {"when-item": "identifiable", "when-display-value": 'true', "when-scope": 'target'}}
-      = f.input :product_name, required: true do
-        = f.input_field :product_name, data: { required: true }
-      = f.input :product_work_number do
-        = f.input_field :product_work_number
 
 
   .item-block-delivery-mode{style: "display: flex"}
@@ -37,6 +34,16 @@
         = f.referenced_association :transporter, source: :transporters, label: false, new: {transporter: 1}, input_html: { class: 'transporter-delivery-mode', data: { product_of_delivery_item: { url: backend_entity_path("RECORD_ID", format: :json) } } }
         - full_name = f.object.transporter.full_name if f.object.transporter
         %input.hidden{data: { 'when-item': 'full_name', 'when-set-value': 'RECORD_VALUE' }, value: full_name }
+.unitary-variant-fields{style: display, data: {"when-item": "identifiable", "when-display-value": 'true', "when-scope": 'target'}}
+  = f.input :product_name, required: true do
+    = f.input_field :product_name, data: { required: true }
+  = f.input :product_work_number do
+    = f.input_field :product_work_number
+.annotation-section
+  .annotation-field
+    - attrs = {}
+    - attrs[:style] = "display: none" if f.object.annotation.blank?
+    .annotate{attrs}= f.input(:annotation, wrapper: :nested, input_html: { class: "annotation" })
 
 %div#add-storing.storing-row.storing-row--merchandise
   .item-block__storing.control-group.storing__content{data: {association_insertion_minimum: 1}}
@@ -63,3 +70,5 @@
           %span.stock-label= :stock_after_order.tl
           %span.stock-value= f.object.decorate.merchandise_stock_after_reception(variant.current_stock.or_else(0))
           %span.stock-unit= f.object.decorate.merchandise_stock_unit(variant.unit_name.or_else(""))
+
+

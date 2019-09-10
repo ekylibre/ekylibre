@@ -22,8 +22,7 @@
     .annotation-logo
       - if f.object.annotation.blank?
         = link_to("#", data: { annotate: ".annotate", use_closest: "tbody" }, title: :add_annotation.tl) do
-          %i
-      / = f.input_field :computation_method, as: :hidden, data: { compute_from_updater: true }
+          %i.annotation-field
 
   .storing-calculation
     .storing-quantifier

@@ -72,10 +72,8 @@ class ParcelItem < Ekylibre::Record::Base
   belongs_to :analysis
   belongs_to :parcel, inverse_of: :items
   # belongs_to :reception, inverse_of: :items, class_name: 'Reception', foreign_key: :parcel_id
-  with_options class_name: 'PurchaseItem' do
-    belongs_to :purchase_order_item, foreign_key: 'purchase_order_item_id'
-    belongs_to :purchase_invoice_item, foreign_key: 'purchase_invoice_item_id'
-  end
+  belongs_to :purchase_order_item, foreign_key: 'purchase_order_item_id', class_name: 'PurchaseItem'
+  belongs_to :purchase_invoice_item, foreign_key: 'purchase_invoice_item_id', class_name: 'PurchaseItem'
 
   belongs_to :product
   belongs_to :sale_item
@@ -101,11 +99,10 @@ class ParcelItem < Ekylibre::Record::Base
   validates :population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :pretax_amount, :unit_pretax_amount, :unit_pretax_stock_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   # ]VALIDATORS]
+
   validates :variant, presence: true
-  # validates :product, presence: true, unless: proc { |item| !item.parcel.try(:prepared?) }
 
   validates :population, presence: true
-  # validates :product_identification_number, presence: { if: -> { product_is_identifiable? && parcel_incoming? } }
 
   alias_attribute :quantity, :population
 

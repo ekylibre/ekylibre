@@ -18,6 +18,10 @@
         }
       }
     = f.referenced_association(:variant, **options)
+    .annotation-logo
+      - if f.object.annotation.blank?
+        = link_to("#", data: { annotate: ".annotate", use_closest: "tbody" }, title: :add_annotation.tl) do
+          %i.annotation-field
 
     - classes = 'supplier-ref-block'
     - classes << ' hidden' if f.object.new_record?
@@ -64,3 +68,9 @@
         %span.stock-value= f.object.decorate.merchandise_stock_after_order
         %span.stock-unit= f.object.decorate.merchandise_stock_unit
         .storing__merging-state
+
+.annotation-section
+  .annotation-field
+    - attrs = {}
+    - attrs[:style] = "display: none" if f.object.annotation.blank?
+    .annotate{attrs}= f.input(:annotation, wrapper: :nested, input_html: { class: "annotation" })

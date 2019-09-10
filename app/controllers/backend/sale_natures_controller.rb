@@ -35,7 +35,6 @@ module Backend
       t.column :downpayment
       # t.column :downpayment_minimum
       # t.column :downpayment_percentage
-      t.column :with_accounting
       t.column :journal, url: true
       # t.column :description
     end

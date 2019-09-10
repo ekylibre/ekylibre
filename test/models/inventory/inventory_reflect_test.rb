@@ -11,6 +11,7 @@ class InventoryReflectTest < Ekylibre::Testing::ApplicationTestCase
     @catalog.items.create! variant: @variant, amount: 10.0
 
     @product = create :matter, variant: @variant
+    create :journal, used_for_permanent_stock_inventory: true
   end
 
   test "Reflecting an inventory without previous stock initializes stock value and amount" do

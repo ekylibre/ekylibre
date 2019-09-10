@@ -43,7 +43,6 @@
 #  sales_conditions        :text
 #  updated_at              :datetime         not null
 #  updater_id              :integer
-#  with_accounting         :boolean          default(FALSE), not null
 #
 
 require 'test_helper'

@@ -274,6 +274,7 @@ module Backend
           infos[:unit][:amount] = item.unit_amount
         # or get tax and amount from catalog
         elsif (items = @product_nature_variant.catalog_items.of_usage(:sale)) && items.any?
+          item = items.order(id: :desc).first
           if item.all_taxes_included
             infos[:unit][:pretax_amount] = item.reference_tax.pretax_amount_of(item.amount)
             infos[:unit][:amount] = item.amount

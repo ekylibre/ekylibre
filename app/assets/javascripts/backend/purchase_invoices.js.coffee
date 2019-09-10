@@ -54,39 +54,21 @@
       fixedAssetField.val('')
       stoppedOnField.val('')
 
+    $('#new_purchase_invoice').on 'iceberg:validated', E.Purchases.compute_amount
+    $('.edit_purchase_invoice').on 'iceberg:validated', E.Purchases.compute_amount
+    $('#new_purchase_invoice').on 'cocoon:after-remove', E.Purchases.compute_amount
+    $('.edit_purchase_invoice').on 'cocoon:after-remove', E.Purchases.compute_amount
+
     $(document).on 'click', '.nested-fields .edit-item[data-edit="item-form"]', (event) ->
       vatSelectedValue = $(event.target).closest('.nested-fields').find('.item-display .vat-rate').attr('data-selected-value')
       $(event.target).closest('.nested-fields').find('.nested-item-form:visible .vat-total').val(vatSelectedValue)
 
     $('#new_purchase_invoice table.list').bind 'cocoon:after-insert', (event, insertedItem) ->
       return if !insertedItem?
-      new_id = new Date().getTime()
+      new_id = insertedItem.html().match(new RegExp('\\[(\\d+)\\]'))[1] #HACK: Get id from inputs
+      new_id = new_id || new Date().getTime()
 
       insertedItem.attr('id', "new_reception_#{new_id}")
-
-    $('#new_purchase_invoice table.list, .edit_purchase_invoice table.list').on 'cocoon:after-insert', (event, insertedItem) ->
-      new_id = new Date().getTime()
-      if typeof insertedItem != 'undefined'
-        insertedItem.attr('id', "new_reception_#{new_id}")
-
-        $(insertedItem).find('input, select').each ->
-          oldId = $(this).attr('id')
-          if !!oldId
-            elementNewId = oldId.replace(/[0-9]+/, new_id)
-            $(this).attr('id', elementNewId)
-
-          oldName = $(this).attr('name')
-          if !!oldName
-            elementNewName = oldName.replace(/[0-9]+/, new_id)
-            $(this).attr('name', elementNewName)
-
-        element = $(insertedItem).find('#purchase_invoice_items_attributes_RECORD_ID_parcels_purchase_invoice_items')
-        newName = element.attr('name').replace('RECORD_ID', new_id)
-        newId = element.attr('id').replace('RECORD_ID', new_id)
-
-        $(element).attr('id', newId)
-        $(element).attr('name', newName)
-
 
     $(document).on 'change', '.nested-item-form .fixed-asset-fields .purchase_invoice_items_fixed input[type="checkbox"]', (event) ->
       targettedElement = $(event.target)
