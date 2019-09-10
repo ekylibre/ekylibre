@@ -2,8 +2,6 @@
   = t.edit resource if resource.updateable?
   = t.ship resource, method: :post if resource.shippable?
   = t.destroy
-  = dropdown_menu_button(:shipping_note.tl, icon: :print) do |d|
-    - d.item "shipping_note".tl, format: :pdf
 
 - renamings = {}
 = main_state_bar(resource, renamings: renamings)
