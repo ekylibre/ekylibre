@@ -38,12 +38,12 @@ module Backend
                 temperatures: %i[temp temp_min temp_max].reduce({}) do |hash, key|
                   { **hash, key => day[:main].fetch(key, 0).in_kelvin }
                 end,
-                pressure: day.fetch(:main, {})[:pressure].in_hectopascal,
+                # pressure: day.fetch(:main, {})[:pressure].in_hectopascal,
                 humidity: day.fetch(:main, {}).fetch(:humidity, 0).in_percent,
                 wind_speed: day.fetch(:wind, {}).fetch(:speed, 0).in_meter_per_second,
                 wind_direction: day.fetch(:wind, {}).fetch(:deg, 0).in_degree,
-                rain: day.fetch(:rain, {}).fetch(:'3h', 0).in_millimeter,
-                clouds: day.fetch(:clouds, {}).fetch(:all, 0).in_percent,
+                pluviometry: day.fetch(:rain, {}).fetch(:'3h', 0).in_millimeter,
+                # clouds: day.fetch(:clouds, {}).fetch(:all, 0).in_percent,
                 # weather: day[:weather]
               }
             end

@@ -2,16 +2,20 @@
   :ruby
     categories = @forecast[:list].collect{|d| d[:at].l(format: "%d/%m %HH") }
     series = []
-    series << {name: :humidity.tl, data: @forecast[:list].collect{|d| d[:humidity].to_f(:percent).round(1)}, tooltip: {value_suffix: ' %' }, y_axis: 1 }
-    series << {name: :clouds.tl, type: 'column', data: @forecast[:list].collect{|d| d[:clouds].to_f(:percent).round(1)}, tooltip: {value_suffix: ' %' }, y_axis: 1 }
-    series << {name: :wind_speed.tl, type: 'column', data: @forecast[:list].collect{|d| d[:wind_speed].to_f(:kilometer_per_hour).round(1)}, tooltip: {value_suffix: ' km/h' }, y_axis: 3 }
-    series << {name: :pressure.tl, data: @forecast[:list].collect{|d| d[:pressure].to_f(:hectopascal).round(1) }, tooltip: {value_suffix: 'hPa' }, dashStyle: 'shortdot', y_axis: 2 }
-    series << {name: :temperature.tl, data: @forecast[:list].collect{|d| d[:temperatures][:temp].to_f(:celsius).round(1) }, tooltip: {value_suffix: '°C' } }
+    series << {name: :humidity.tl, data: @forecast[:list].collect{|d| d[:humidity].to_f(:percent).round(1)}, tooltip: {value_suffix: ' %' }, y_axis: 0 }
+    series << {name: :pluviometry.tl, type: 'column', data: @forecast[:list].collect{|d| d[:pluviometry].to_f(:millimeter).round(1)}, tooltip: {value_suffix: ' mm' }, y_axis: 1 }
+    series << {name: :wind_speed.tl, data: @forecast[:list].collect{|d| d[:wind_speed].to_f(:kilometer_per_hour).round(1)}, tooltip: {value_suffix: ' km/h' }, y_axis: 2 }
+    series << {name: :temperature.tl, data: @forecast[:list].collect{|d| d[:temperatures][:temp].to_f(:celsius).round(1) }, tooltip: {value_suffix: '°C' }, y_axis: 3 }
+    # series << {name: :clouds.tl, type: 'column', data: @forecast[:list].collect{|d| d[:clouds].to_f(:percent).round(1)}, tooltip: {value_suffix: ' %' }, y_axis: 1 }
+    # series << {name: :pressure.tl, data: @forecast[:list].collect{|d| d[:pressure].to_f(:hectopascal).round(1) }, tooltip: {value_suffix: 'hPa' }, dashStyle: 'shortdot', y_axis: 2 }
 
-  = spline_highcharts(series, x_axis: {categories: categories},
-    y_axis: [{title: {text: Nomen::Indicator[:temperature].human_name}, labels: { format: '{value} °C' }, max: 40},
-    {title: { text: :humidity.tl }, labels: { format: '{value} %' }, opposite: true, max: 100},
-    {title: { text: :pressure.tl }, labels: { format: '{value} hPa' }, max: 1024, opposite: true},
-    {title: { text: :wind_speed.tl }, labels: { format: '{value} km/h' }, max: 100}], legend: true)
+    y_axis = [
+      {title: { text: :humidity.tl }, labels: { format: '{value} %' }, opposite: true},
+      {title: { text: :pluviometry.tl }, labels: { format: '{value} mm' }, opposite: true},
+      {title: { text: :wind_speed.tl }, labels: { format: '{value} km/h' }},
+      {title: {text: Nomen::Indicator[:temperature].human_name}, labels: { format: '{value} °C' }},
+    ]
+
+  = spline_highcharts(series, x_axis: {categories: categories}, y_axis: y_axis, legend: true)
 - else
   = no_data
