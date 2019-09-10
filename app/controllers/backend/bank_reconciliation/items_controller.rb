@@ -15,7 +15,7 @@ module Backend
 
       def reconciliate
         return unless cash = find_cash
-        return unless find_bank_statements cash
+        return unless @bank_statements = find_bank_statements(cash)
 
         cash = cash.first if cash.is_a?(Array)
         set_period!
@@ -33,7 +33,7 @@ module Backend
 
       def count
         return unless cash = find_cash
-        return unless find_bank_statements cash
+        return unless @bank_statements = find_bank_statements(cash)
 
         set_period!
 
@@ -55,7 +55,12 @@ module Backend
       end
 
       def find_bank_statements(cash)
-        @bank_statements = BankStatement.where(cash: cash.id) || redirect_to_back
+        bs = BankStatement.where(cash: cash.id)
+        return bs if bs.present?
+
+        notify_error :no_bank_statement_found_for_this_period
+        redirect_to_back
+        false
       end
 
       def reconciliate_one(bank_statement)
