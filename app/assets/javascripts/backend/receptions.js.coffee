@@ -27,11 +27,11 @@
   updateTotalStockAfterReception = ($form, newstock) =>
     $form.find(".merchandise-total-stock-after-reception .stock-value").text(newstock.toFixed(2))
 
-  computeTotalQuantity = () =>
+  computeTotalQuantity = ($form) =>
     reducer = (acc, val) ->
       acc + parseFloat(val)
 
-    $('.storing-quantity')
+    $form.find('.storing-quantity')
       .map(-> $(this).val() || 0)
       .toArray()
       .reduce(reducer, .0)
@@ -44,7 +44,7 @@
     updateAfterReceptionQuantity($storage.closest('.nested-fields'))
 
   recomputeTotalQuantity = ($form) =>
-    totalQuantity = computeTotalQuantity()
+    totalQuantity = computeTotalQuantity($form)
     onTotalQuantityChanged $form, totalQuantity
 
   onTotalQuantityChanged = ($form, totalQuantity) =>
