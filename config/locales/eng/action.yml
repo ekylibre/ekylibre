@@ -1370,6 +1370,7 @@ eng:
     close_settings: "Close settings" #?!
     close_the_financial_year: "Close the financial year" #??
     closed: "Closed" #?
+    clouds: "Clouds"
     cobbles: "Cobbles" #?
     column: "Column"
     columns: "Columns to import"
@@ -1762,6 +1763,7 @@ eng:
     hours_label: "Hours"
     human_working_duration: "Working duration" #?
     humans: "HR"
+    humidity: "Humidity"
     iban: "International Bank Account Number (IBAN)" #?
     identification: "Identification"
     identifiers: "Identifiers"
@@ -2134,6 +2136,7 @@ eng:
     plants: "Crops" #?
     please_reach_out_for_the_person_in_charge_of_the_closure: "Please reach out for the person in charge of the closure outside of the software to get your documents."
     please_wait: "Please wait…"
+    pluviometry: "Ploviometry"
     point: "Point" #?
     points: "Points"
     population: "Population"
@@ -2145,6 +2148,7 @@ eng:
     prerequisites_checks_before_closure: "Prerequisites checks before closure" #?!
     prescription: "Prescription" #?
     prescriptions: "Prescriptions" #?
+    pressure: "Pressure"
     pretax: "pre-tax"
     pretax_amount: "Pre-tax amount"
     previous: "Previous"
