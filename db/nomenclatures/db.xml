@@ -97,7 +97,7 @@
       <item name="additionnal_taxes_on_distribution_entity_expenses" fr_pcg82="696" fr_pcga="696"/>
       <item name="adult_animal_asset_depreciations" fr_pcga="2841" fr_pcg82="2841"/>
       <item name="adult_animal_assets" fr_pcga="241" fr_pcg82="241"/>
-      <item name="adult_animal_expenses" fr_pcga="6041" fr_pcg82="6041"/>
+      <item name="adult_animal_expenses" fr_pcga="6041" fr_pcg82="NONE"/>
       <item name="adult_animal_revenues" fr_pcga="7041" fr_pcg82="7041"/>
       <item name="adult_reproductor_animals_inventory_variations" fr_pcga="7121" fr_pcg82="7121"/>
       <item name="advance_noticed_charges_accounts" fr_pcg82="486" fr_pcga="486"/>
@@ -323,7 +323,7 @@
       <item name="maintenances_consumables_expenses" fr_pcga="6022" fr_pcg82="6022"/>
       <item name="maintenances_consumables_stock" fr_pcga="3022" fr_pcg82="3022"/>
       <item name="maintenances_consumables_stocks_variation" fr_pcga="60322"/>
-      <item name="making_services_expenses" fr_pcga="605" fr_pcg82="NONE"/>
+      <item name="making_services_expenses" fr_pcga="605" fr_pcg82="604"/>
       <item name="making_services_revenues" fr_pcga="7084" fr_pcg82="7084"/>
       <item name="management_operation_exceptional_expenses" fr_pcga="671" fr_pcg82="671"/>
       <item name="management_operation_exceptional_revenues" fr_pcg82="771" fr_pcga="771"/>
@@ -344,7 +344,7 @@
       <item name="office_supplies_stock" fr_pcga="3024"/>
       <item name="office_supply_matter_expenses" fr_pcga="6024" fr_pcg82="6024"/>
       <item name="office_supply_matter_stocks_variation" fr_pcga="60324"/>
-      <item name="other_animal_expenses" fr_pcga="6045" fr_pcg82="6045"/>
+      <item name="other_animal_expenses" fr_pcga="6045" fr_pcg82="NONE"/>
       <item name="other_animal_revenues" fr_pcga="7045" fr_pcg82="7045"/>
       <item name="other_asset_depreciations" fr_pcga="28188" fr_pcg82="28188"/>
       <item name="other_assets" fr_pcga="2188" fr_pcg82="2188"/>
@@ -472,7 +472,6 @@
       <item name="service_animal_asset_depreciations" fr_pcga="2843" fr_pcg82="2843"/>
       <item name="service_animal_assets" fr_pcga="243" fr_pcg82="243"/>
       <item name="service_discount_and_reductions_expenses" fr_pcg82="619" fr_pcga="619"/>
-      <item name="services_expenses" fr_pcg82="604" fr_pcga="604"/>
       <item name="services_revenues" fr_pcg82="706" fr_pcga="706"/>
       <item name="share_asset_subsidies" fr_pcga="777" fr_pcg82="777"/>
       <item name="share_capital_bonus" fr_pcg82="104" fr_pcga="104"/>
