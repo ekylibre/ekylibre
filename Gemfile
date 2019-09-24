@@ -193,7 +193,7 @@ gem 'rubyzip', '~> 1.2.2'
 gem 'sepa_king'
 # gem 'sepa_king', path: '/home/jonathan/Workspace/sepa_king'
 gem 'quandl'
-gem 'odf-report'
+gem 'odf-report', gitlab: 'ekylibre/odf-report', branch: :prod
 gem 'combine_pdf'
 gem 'rodf'
 
