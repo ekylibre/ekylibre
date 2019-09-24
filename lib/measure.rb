@@ -12,7 +12,7 @@ class Measure
 
   attr_reader :unit, :value
   cattr_reader :dimensions
-  delegate :symbol, to: :nomenclature_unit
+  delegate :symbol, :repartition_dimension, to: :nomenclature_unit
 
   @@dimensions = Nomen.find_or_initialize(:dimensions)
   @@units      = Nomen.find_or_initialize(:units)
@@ -288,4 +288,9 @@ class Measure
   def nomenclature_unit
     @@units[unit]
   end
+
+  def has_repartition_dimension?(dimension)
+    repartition_dimension == dimension
+  end
+
 end

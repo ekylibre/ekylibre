@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Update quintal symbol">
+  <item-change item="units#quintal" symbol="q"/>
+</migration>
