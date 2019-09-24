@@ -279,6 +279,11 @@ class Measure
   end
   alias l localize
 
+  def rounded_localize(precision: 2)
+    "#{value.to_f.round_l(precision: precision)} #{@@units.items[unit].symbol}"
+  end
+  alias_method :round_l, :rounded_localize
+
   # Returns the unit from the nomenclature
   def nomenclature_unit
     @@units[unit]
