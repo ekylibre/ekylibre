@@ -12,7 +12,7 @@ class Measure
 
   attr_reader :unit, :value
   cattr_reader :dimensions
-  delegate :symbol, to: :nomenclature_unit
+  delegate :symbol, :repartition_dimension, to: :nomenclature_unit
 
   @@dimensions = Nomen.find_or_initialize(:dimensions)
   @@units      = Nomen.find_or_initialize(:units)
@@ -279,8 +279,18 @@ class Measure
   end
   alias l localize
 
+  def rounded_localize(precision: 2)
+    "#{value.to_f.round_l(precision: precision)} #{@@units.items[unit].symbol}"
+  end
+  alias_method :round_l, :rounded_localize
+
   # Returns the unit from the nomenclature
   def nomenclature_unit
     @@units[unit]
   end
+
+  def has_repartition_dimension?(dimension)
+    repartition_dimension == dimension
+  end
+
 end

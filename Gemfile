@@ -5,6 +5,11 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+git_source(:gitlab) do |repo_name|
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  "https://gitlab.com/#{repo_name}.git"
+end
+
 ruby '>= 2.3.8', '< 3.0.0'
 
 gem 'elastic-apm'
@@ -26,7 +31,7 @@ gem 'apartment', github: 'influitive/apartment', branch: 'development'
 gem 'apartment-sidekiq'
 
 # Ruby syntax extensions
-gem 'possibly'
+gem 'possibly', gitlab: 'ekylibre/eky-possibly', branch: :prod
 
 gem 'better_errors'
 
@@ -186,7 +191,7 @@ gem 'rubyzip', '~> 1.2.2'
 gem 'sepa_king'
 # gem 'sepa_king', path: '/home/jonathan/Workspace/sepa_king'
 gem 'quandl'
-gem 'odf-report'
+gem 'odf-report', gitlab: 'ekylibre/odf-report', branch: :prod
 gem 'combine_pdf'
 gem 'rodf'
 
