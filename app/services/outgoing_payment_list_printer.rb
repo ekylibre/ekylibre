@@ -4,12 +4,15 @@ class OutgoingPaymentListPrinter
   AMOUNT_OF_ROWS_FITTING_IN_PAGE_ONE = 8
   AMOUNT_OF_ROWS_FITTING_IN_OTHER_PAGES = 16
 
-  def initialize(options)
-    @outgoing_payment_list = options[:outgoing_payment_list]
-    @document_nature       = options[:document_nature]
-    @key                   = options[:key]
-    @template_path         = options[:template_path]
-    @nature                = options[:nature]
+  attr_accessor :template_path
+
+  def initialize(outgoing_payment_list:, nature:)
+    @outgoing_payment_list = outgoing_payment_list
+    @nature = nature
+
+    @document_nature = Nomen::DocumentNature.find(:outgoing_payment_list)
+    @key = "#{@document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
+    @template_path = find_open_document_template "#{nature}_outgoing_payment_list"
   end
 
   def compute_dataset
