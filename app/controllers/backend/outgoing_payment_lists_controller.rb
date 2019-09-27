@@ -18,8 +18,6 @@
 
 module Backend
   class OutgoingPaymentListsController < Backend::BaseController
-    include PdfPrinter
-
     manage_restfully only: %i[index destroy]
 
     respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
@@ -53,22 +51,15 @@ module Backend
 
       @entity_of_company_full_name = Entity.of_company.full_name
 
-      document_nature = Nomen::DocumentNature.find(:outgoing_payment_list)
-      key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
-      file_name = "#{t('nomenclatures.document_natures.items.outgoing_payment_list')} (#{@outgoing_payment_list.number})"
-
       respond_to do |format|
         format.html
         format.pdf do
-          template_name = "#{params[:nature]}_outgoing_payment_list"
-          template_path = find_open_document_template template_name
-          raise 'Cannot find template' if template_path.nil?
-          outgoing_payment_list_printer = OutgoingPaymentListPrinter.new(outgoing_payment_list: @outgoing_payment_list,
-                                                                         document_nature: document_nature,
-                                                                         key: key,
-                                                                         template_path: template_path,
-                                                                         nature: params[:nature])
-          send_file outgoing_payment_list_printer.run_pdf, type: 'application/pdf', disposition: 'attachment', filename: "#{file_name}.pdf"
+          printer = OutgoingPaymentListPrinter.new(outgoing_payment_list: @outgoing_payment_list, nature: params[:nature])
+
+          raise 'Cannot find template' if printer.template_path.nil?
+
+          file_name = "#{t('nomenclatures.document_natures.items.outgoing_payment_list')} (#{@outgoing_payment_list.number})"
+          send_file printer.run_pdf, type: 'application/pdf', disposition: 'attachment', filename: "#{file_name}.pdf"
         end
       end
     end
@@ -95,14 +86,14 @@ module Backend
         if @outgoing_payment_list.valid?
           @currency = mode.cash.currency
           @affairs = PurchaseAffair
-                     .joins(:purchase_invoices)
-                     .joins(:supplier)
-                     .includes(:supplier)
-                     .where(closed: false, currency: mode.cash.currency)
-                     .where("purchases.#{params[:period_reference]} IS NOT NULL AND purchases.#{params[:period_reference]} BETWEEN ? AND ?", params[:started_at], params[:stopped_at])
-                     .where.not(purchases: { id: nil })
-                     .order('entities.full_name ASC')
-                     .order("purchases.#{params[:period_reference]} ASC", :number)
+                       .joins(:purchase_invoices)
+                       .joins(:supplier)
+                       .includes(:supplier)
+                       .where(closed: false, currency: mode.cash.currency)
+                       .where("purchases.#{params[:period_reference]} IS NOT NULL AND purchases.#{params[:period_reference]} BETWEEN ? AND ?", params[:started_at], params[:stopped_at])
+                       .where.not(purchases: { id: nil })
+                       .order('entities.full_name ASC')
+                       .order("purchases.#{params[:period_reference]} ASC", :number)
 
           notify_warning :no_purchase_affair_found_on_given_period if @affairs.empty?
         end

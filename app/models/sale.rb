@@ -241,7 +241,7 @@ class Sale < Ekylibre::Record::Base
   # This callback bookkeeps the sale depending on its state
   bookkeep do |b|
     b.journal_entry(self.nature.journal, reference_number: number, printed_on: invoiced_on, if: (invoice? && items.any?)) do |entry|
-      label = tc(:bookkeep, resource: state_label, number: number, client: client.full_name, products: (description.blank? ? items.pluck(:label).to_sentence : description), sale: initial_number)
+      label = tc(:bookkeep, resource: state_label, number: number, client: client.full_name, products: (description.blank? ? items.pluck(:label).to_sentence : description.gsub(/\r?\n/, ' / ')), sale: initial_number)
       # TODO: Uncommented this once we handle debt correctly and account 462 has been added to nomenclature
       # if items.all? { |item| item.fixed_asset_id }
       #   affair_balanced = affair.incoming_payments.sum(:amount) == amount
