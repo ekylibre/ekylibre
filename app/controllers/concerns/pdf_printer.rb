@@ -90,7 +90,9 @@ module PdfPrinter
     end
 
     def convert_to_pdf(directory, odf_path)
-      system "soffice --headless --convert-to pdf --outdir #{directory} #{odf_path}"
+      Dir.mktmpdir('libreoffice_home') do |lo_home|
+        system "soffice --headless --convert-to pdf -env:UserInstallation=file://#{lo_home} --outdir #{directory} #{odf_path}"
+      end
     end
 
     def remove_empty_tailing_page(pdf_path)
