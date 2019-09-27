@@ -161,111 +161,6 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert count > 0, 'No sale has been duplicated for test'
   end
 
-  context 'A minimal configuration' do
-    setup do
-      DocumentTemplate.load_defaults(locale: :fra)
-      DocumentTemplate.update_all({ archiving: 'last' }, nature: 'sales_invoice')
-    end
-
-    context 'A sale' do
-      setup do
-        @sale = sales(:sales_001)
-        assert @sale.draft?
-        assert @sale.save
-      end
-
-      # should "be invoiced" do
-      #   assert !@sale.invoice
-
-      #   item = @sale.items.new(:quantity => 12, :product_id => products(:animals_001).id) # :price_id => product_nature_prices(:product_nature_prices_001).id) # , :warehouse_id => products(:warehouses_001).id)
-      #   assert item.save, item.errors.inspect
-      #   item = @sale.items.new(:quantity => 25, :product_id => products(:matters_001).id) # :price_id => product_nature_prices(:product_nature_prices_003).id) # , :warehouse_id => products(:warehouses_001).id)
-      #   assert item.save, item.errors.inspect
-      #   @sale.reload
-      #   assert_equal "draft", @sale.state
-      #   assert @sale.propose
-      #   assert_equal "estimate", @sale.state
-      #   assert @sale.can_invoice?, "Deliverables: " + @sale.items.collect{|l| l.product.attributes.inspect}.to_sentence
-      #   assert @sale.confirm
-      #   assert @sale.invoice
-      #   assert_equal "invoice", @sale.state
-      # end
-
-      # should "be printed" do
-      #   DocumentTemplate.print(:sales_order, @sale)
-      #   assert_nothing_raised do
-      #   DocumentTemplate.print(:sales_order, @sale)
-
-      # # DocumentTemplate.print(:sales_order, @sale.number, Ekylibre::Datasource::SalesOrder.to_xml(@sale))
-      # # DocumentTemplate.print(:sales_order, @sale.number, @sale)
-
-      # # DocumentTemplate.print(:balance, started_at, stopped_at, options...)
-
-      # # balance_template.print(started_at, stopped_at, options...)
-
-      # # DocumentTemplate.print(:animal_list)
-      # # animal_list_template.print
-
-      # # DocumentTemplate.print(:animals, :ill => true, :active => true, :external => true, :variety => 'bos')
-
-      # # DocumentTemplate.print(:sales_order, @sale.number, @sale.to_xml(qsdqsdqsd))
-      # # DocumentTemplate.print(:sales_order, @sale.number, @sale.to_xml(qsdqsdqsd))
-      # # DocumentTemplate.print(@sale.to_xml, :sales_order, :sales_order => @sale)
-      # end
-    end
-
-    context 'A sales invoice' do
-      setup do
-        @sale = Sale.new(client: entities(:entities_003), nature: sale_natures(:sale_natures_001))
-        assert @sale.save, @sale.errors.inspect
-        assert_equal Date.today, @sale.created_at.to_date
-        assert !@sale.affair.nil?, 'A sale must be linked to an affair'
-        assert_equal @sale.amount, @sale.affair_credit, "Affair amount is not the same as the sale amount (#{@sale.affair.inspect})"
-
-        for y in 1..10
-          item = @sale.items.new(quantity: 1 + rand(70) * rand, product_id: products("matters_#{(3 + rand(2)).to_s.rjust(3, '0')}".to_sym).id) # , :price_id => product_nature_prices("product_nature_prices_#{(3+rand(2)).to_s.rjust(3, '0')}".to_sym).id, :warehouse_id => products(:warehouses_001).id)
-          # assert item.valid?, [product.prices, item.price].inspect
-          assert item.save, item.errors.inspect
-        end
-        @sale.reload
-        assert_equal 'draft', @sale.state
-        assert @sale.propose
-        assert_equal 'estimate', @sale.state
-        assert @sale.can_invoice?, 'Deliverables: ' + @sale.items.collect { |l| l.product.attributes.inspect }.to_sentence
-        assert @sale.confirm
-        assert @sale.invoice
-        assert_equal 'invoice', @sale.state
-        assert_equal Date.today, @sale.invoiced_at.to_date
-      end
-
-      # # @TODO test have to be modify in order to work when updating model was finished
-      # should "not be updateable" do
-      #   amount = @sale.amount
-      #   assert_raise ActiveModel::MassAssignmentSecurity::Error do
-      #     @sale.update_attributes(:amount => amount.to_i + 50)
-      #   end
-      #   @sale.reload
-      #   assert_equal amount, @sale.amount, "State of sale is: #{@sale.state}"
-      # end
-
-      # should "be printed and archived" do
-      #   data = []
-      #   DocumentTemplate.print(:sales_invoice, @sale)
-      #   assert_nothing_raised do
-      #     data << Digest::SHA256.hexdigest(DocumentTemplate.print(:sales_invoice, @sale)[0])
-      #   end
-      #   assert_nothing_raised do
-      #     data << Digest::SHA256.hexdigest(DocumentTemplate.print(:sales_invoice, @sale)[0])
-      #   end
-      #   assert_nothing_raised do
-      #     data << Digest::SHA256.hexdigest(DocumentTemplate.print(:sales_invoice, @sale)[0])
-      #   end
-      #   assert_equal data[0], data[1], "The template doesn't seem to be archived"
-      #   assert_equal data[0], data[2], "The template doesn't seem to be archived or understand Integers"
-      # end
-    end
-  end
-
   test 'default_currency is nature\'s currency if currency is not specified' do
     Payslip.delete_all
     Catalog.delete_all
@@ -274,11 +169,11 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     Entity.delete_all
     Sale.delete_all
 
-    catalog    = Catalog.create!(code: 'food', name: 'Noncontaminated produce')
-    nature     = SaleNature.create!(currency: 'EUR', name: 'Perishables', catalog: catalog, journal: Journal.find_by_nature('sales'))
-    max        = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)
-    with       = Sale.create!(client: max, nature: nature, currency: 'USD')
-    without    = Sale.create!(client: max, nature: nature)
+    catalog = Catalog.create!(code: 'food', name: 'Noncontaminated produce')
+    nature = SaleNature.create!(currency: 'EUR', name: 'Perishables', catalog: catalog, journal: Journal.find_by_nature('sales'))
+    max = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)
+    with = Sale.create!(client: max, nature: nature, currency: 'USD')
+    without = Sale.create!(client: max, nature: nature)
 
     assert_equal 'USD', with.default_currency
     assert_equal 'EUR', without.default_currency
