@@ -1,13 +1,4 @@
 GIT
-  remote: https://github.com/ekylibre/agric.git
-  revision: b381676ba0f6d8b55414b28100c19e1f813e500c
-  tag: v3.0.2
-  specs:
-    agric (3.0.2)
-      railties (>= 3.2, < 6)
-      sassc-rails (~> 2)
-
-GIT
   remote: https://github.com/influitive/apartment.git
   revision: f266f73e58835f94e4ec7c16f28443fe5eada1ac
   branch: development
@@ -88,6 +79,9 @@ GEM
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     afm (0.2.2)
+    agric (4.1.0)
+      railties (>= 3.2, < 6)
+      sassc-rails (~> 2)
     akami (1.3.1)
       gyoku (>= 0.4.0)
       nokogiri
@@ -602,7 +596,7 @@ DEPENDENCIES
   active_list (~> 7)
   activerecord-postgis-adapter (>= 3.0.0)
   acts_as_list
-  agric!
+  agric (~> 4.1)
   apartment!
   apartment-sidekiq
   awesome_nested_set (~> 3.1.1)

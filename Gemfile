@@ -209,7 +209,7 @@ gem 'bootstrap-sass', '~> 3.4.1'
 gem 'twitter-typeahead-rails'
 
 # Iconic font
-gem 'agric', github: 'ekylibre/agric', tag: 'v3.0.2'
+gem 'agric', '~> 4.1'
 
 # Web services
 gem 'mechanize'

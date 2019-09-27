@@ -10,7 +10,7 @@ i.icon {
   @include box-shadow(0 0 $fs-normal rgba(#000, 0.2));
   height: $topbar-height;
 
-  a {
+  a:not(.notifications-menu__item) {
     display: block;
     height: $topbar-height;
     line-height: $topbar-height;
@@ -21,9 +21,8 @@ i.icon {
       color: white;
     }
     font-weight: bold;
-    &:hover {
+    &:not([data-toggle='notifications']):hover {
       background: rgba(black, 0.07);
-      // @include box-shadow(0 0 round($fs-normal *0.7) rgba(black, 0.5) inset);
       @include transition(background 0.4s, box-shadow 0.4s);
     }
   }
@@ -223,27 +222,9 @@ a[data-toggle='help'] {
     }
   }
   i {
-    @include use-icon(support);
+    @include use-icon(life-ring);
   }
 }
-
-a[data-toggle='notifications'] {
-  position: relative;
-  nav#top & {
-    font-size: 0;
-    i {
-      @include is-icon($topbar-icon-size);
-    }
-  }
-  i {
-    @include use-icon(bell-o);
-  }
-  &.with-notifications {
-    background: $invalid-color;
-  }
-}
-
-
 
 $header-height: 64px;
 $toolbar-height: round($button-height * $golden-ratio);

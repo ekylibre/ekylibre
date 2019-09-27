@@ -1921,6 +1921,7 @@ eng:
     make_your_production_support: "Make your production support"
     manage_activities: "Manage activities"
     manage_financial_years: "Manage financial years" #?!
+    manage_notifications: "Manage notifications"
     mandatory_provisions: "Mandatory provisions" #?!
     manual: "Manual" #?
     manual_period: "from %{start} to %{finish}"
@@ -2015,6 +2016,7 @@ eng:
     no_draft_entry: "No draft entry" #?!
     no_financial_year_opened: "No financial year opened on current date" #??
     no_intervention_participations_to_check: "No intervention participations to check"
+    no_new_notifications: "No new notifications"
     no_notifications: "No notifications"
     no_particular_periods: "No particular period" #?
     no_products: "No products"
