@@ -19,7 +19,7 @@
 module Backend
   class TaxDeclarationsController < Backend::BaseController
     manage_restfully except: %i[new show index]
-    include PdfPrinter
+
     unroll
 
     def self.tax_declarations_conditions

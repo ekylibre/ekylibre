@@ -6,7 +6,7 @@ class BalancePrinter
     @prev_balance    = options[:prev_balance]
     @document_nature = options[:document_nature]
     @key             = options[:key]
-    @template_path   = options[:template_path]
+    @template_path   = find_open_document_template(:trial_balance)
     @params          = options[:params]
     @mandatory       = options[:mandatory]
     @closer          = options[:closer]

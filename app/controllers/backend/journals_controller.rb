@@ -19,7 +19,6 @@
 module Backend
   class JournalsController < Backend::BaseController
     include JournalEntriesCondition
-    include PdfPrinter
 
     manage_restfully nature: 'params[:nature]'.c, currency: 'Preference[:currency]'.c
 
@@ -127,14 +126,11 @@ module Backend
       respond_to do |format|
         format.html
         format.pdf do
-          template_path = find_open_document_template(:journal_ledger)
-          raise 'Cannot find template' if template_path.nil?
           @journal_ledger = JournalEntry.journal_ledger(params, @journal.id) if params
           journal_printer = JournalPrinter.new(journal: @journal,
                                                journal_ledger: @journal_ledger,
                                                document_nature: document_nature,
                                                key: key,
-                                               template_path: template_path,
                                                params: params)
           send_file journal_printer.run, type: 'application/pdf', disposition: 'attachment', filename: key << '.pdf'
         end
