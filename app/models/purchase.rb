@@ -148,10 +148,6 @@ class Purchase < Ekylibre::Record::Base
     supplier.add_event(:purchase_creation, updater.person) if updater
   end
 
-  after_save do
-    items.each(&:update_fixed_asset) if invoice?
-  end
-
   def self.third_attribute
     :supplier
   end
