@@ -20,7 +20,7 @@
 
     # data for bar chart times by activities and by month
     Activity.actives.find_each do |activity|
-      act_interventions = Intervention::HABTM_Activities.where(intervention_id: interventions.pluck(:id), activity_id: activity.id).reorder(:intervention_started_at).group_by { |m| m.intervention_started_at.year.to_s + m.intervention_started_at.month.to_s.rjust(3, '0') }
+      act_interventions = Intervention.habtm_activities.where(intervention_id: interventions.pluck(:id), activity_id: activity.id).reorder(:intervention_started_at).group_by { |m| m.intervention_started_at.year.to_s + m.intervention_started_at.month.to_s.rjust(3, '0') }
       if act_interventions.any?
         sums = {}
         act_interventions.each do |act_int_by_month|
