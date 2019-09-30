@@ -20,7 +20,6 @@
 
 module Backend
   class TrialBalancesController < Backend::BaseController
-    include PdfPrinter
 
     def show
       # build variables for reporting (document_nature, key, filename and dataset)
@@ -81,13 +80,10 @@ module Backend
           send_data(csv_string, filename: filename << '.csv')
         end
         format.pdf do
-          template_path = find_open_document_template(:trial_balance)
-          raise 'Cannot find template' if template_path.nil?
           balance_printer = BalancePrinter.new(balance: @balance,
                                                prev_balance: @prev_balance,
                                                document_nature: document_nature,
                                                key: key,
-                                               template_path: template_path,
                                                params: params)
           send_file balance_printer.run, type: 'application/pdf', disposition: 'attachment', filename: key << '.pdf'
         end
