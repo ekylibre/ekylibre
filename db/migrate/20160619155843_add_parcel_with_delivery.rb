@@ -1,4 +1,4 @@
-class AddParcelWithDelivery < ActiveRecord::Migration
+class AddParcelWithDelivery < ActiveRecord::Migration[4.2]
   def change
     add_column :parcels, :with_delivery, :boolean, null: false, default: false
     reversible do |d|

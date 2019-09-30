@@ -1,4 +1,4 @@
-class FixAbilitiesOnOldEquipment < ActiveRecord::Migration
+class FixAbilitiesOnOldEquipment < ActiveRecord::Migration[4.2]
   VARIETY_RENAMINGS = {
     bale_collector: :trailed_equipment,
     baler: :trailed_equipment,

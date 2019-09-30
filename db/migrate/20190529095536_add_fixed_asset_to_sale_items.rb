@@ -1,4 +1,4 @@
-class AddFixedAssetToSaleItems < ActiveRecord::Migration
+class AddFixedAssetToSaleItems < ActiveRecord::Migration[4.2]
   def change
     add_column :sale_items, :fixed, :boolean, null: false, default: false
     add_column :sale_items, :preexisting_asset, :boolean

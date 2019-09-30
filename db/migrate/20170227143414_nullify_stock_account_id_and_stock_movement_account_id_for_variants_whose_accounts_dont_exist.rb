@@ -1,4 +1,4 @@
-class NullifyStockAccountIdAndStockMovementAccountIdForVariantsWhoseAccountsDontExist < ActiveRecord::Migration
+class NullifyStockAccountIdAndStockMovementAccountIdForVariantsWhoseAccountsDontExist < ActiveRecord::Migration[4.2]
   def up
     execute <<-SQL
       UPDATE product_nature_variants

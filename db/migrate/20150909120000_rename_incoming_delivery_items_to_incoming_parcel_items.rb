@@ -1,4 +1,4 @@
-class RenameIncomingDeliveryItemsToIncomingParcelItems < ActiveRecord::Migration
+class RenameIncomingDeliveryItemsToIncomingParcelItems < ActiveRecord::Migration[4.2]
   def change
     rename_table :incoming_delivery_items, :incoming_parcel_items
     # Polymorphic columns

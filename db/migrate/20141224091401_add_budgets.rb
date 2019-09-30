@@ -1,4 +1,4 @@
-class AddBudgets < ActiveRecord::Migration
+class AddBudgets < ActiveRecord::Migration[4.2]
   def change
     create_table :budget_items do |t|
       t.references :budget, null: false, index: true

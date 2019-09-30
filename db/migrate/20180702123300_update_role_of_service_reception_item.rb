@@ -1,4 +1,4 @@
-class UpdateRoleOfServiceReceptionItem < ActiveRecord::Migration
+class UpdateRoleOfServiceReceptionItem < ActiveRecord::Migration[4.2]
   def change
     reversible do |dir|
       dir.up do

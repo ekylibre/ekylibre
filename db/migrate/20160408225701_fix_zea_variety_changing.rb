@@ -1,4 +1,4 @@
-class FixZeaVarietyChanging < ActiveRecord::Migration
+class FixZeaVarietyChanging < ActiveRecord::Migration[4.2]
   # change zea to zea_mays according to nomenclature for variant
   def up
     execute "UPDATE product_nature_variants v SET derivative_of = 'zea_mays' WHERE v.derivative_of = 'zea' and v.reference_name = 'coop:class_a_corn_grain'"

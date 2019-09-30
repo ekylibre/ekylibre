@@ -1,4 +1,4 @@
-class AddEquipmentManagementTables < ActiveRecord::Migration
+class AddEquipmentManagementTables < ActiveRecord::Migration[4.2]
   def change
     # Add nature for intervention
     add_column :interventions, :nature, :string

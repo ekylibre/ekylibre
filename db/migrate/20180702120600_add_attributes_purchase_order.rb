@@ -1,4 +1,4 @@
-class AddAttributesPurchaseOrder < ActiveRecord::Migration
+class AddAttributesPurchaseOrder < ActiveRecord::Migration[4.2]
   def change
     unless column_exists? :purchases, :command_mode
       add_column :purchases, :command_mode, :string

@@ -1,4 +1,4 @@
-class ComputeAffairsAmount < ActiveRecord::Migration
+class ComputeAffairsAmount < ActiveRecord::Migration[4.2]
   def up
     # Force invoice state on credits
     execute "UPDATE sales SET state = 'invoice' WHERE credit"

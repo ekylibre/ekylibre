@@ -1,4 +1,4 @@
-class RenameTransportsToDeliveries < ActiveRecord::Migration
+class RenameTransportsToDeliveries < ActiveRecord::Migration[4.2]
   def change
     rename_table :transports, :deliveries
     # Polymorphic columns

@@ -1,4 +1,4 @@
-class UpdateExistingEuVatAccountUsages < ActiveRecord::Migration
+class UpdateExistingEuVatAccountUsages < ActiveRecord::Migration[4.2]
   def change
 
     reversible do |d|

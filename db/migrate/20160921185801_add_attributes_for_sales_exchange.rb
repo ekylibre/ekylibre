@@ -1,4 +1,4 @@
-class AddAttributesForSalesExchange < ActiveRecord::Migration
+class AddAttributesForSalesExchange < ActiveRecord::Migration[4.2]
   def change
     add_column :product_nature_variants, :gtin, :string
     reversible do |d|

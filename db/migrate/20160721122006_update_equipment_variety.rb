@@ -1,5 +1,5 @@
 # Migration generated with nomenclature migration #20160720144130
-class UpdateEquipmentVariety < ActiveRecord::Migration
+class UpdateEquipmentVariety < ActiveRecord::Migration[4.2]
   def up
     # Change item varieties#item with {:name=>"equipment_part", :parent=>"matter"}
     execute "UPDATE activities SET cultivation_variety='equipment_part' WHERE cultivation_variety='item'"

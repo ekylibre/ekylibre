@@ -1,4 +1,4 @@
-class CreateInterventionsCosts < ActiveRecord::Migration
+class CreateInterventionsCosts < ActiveRecord::Migration[4.2]
   def up
     create_table :intervention_costs do |t|
       t.decimal :inputs_cost

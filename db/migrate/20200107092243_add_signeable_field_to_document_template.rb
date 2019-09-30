@@ -1,4 +1,4 @@
-class AddSigneableFieldToDocumentTemplate < ActiveRecord::Migration
+class AddSigneableFieldToDocumentTemplate < ActiveRecord::Migration[4.2]
   def change
     add_column :document_templates, :signed, :boolean, default: false, null: false
 

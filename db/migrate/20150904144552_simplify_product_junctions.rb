@@ -1,4 +1,4 @@
-class SimplifyProductJunctions < ActiveRecord::Migration
+class SimplifyProductJunctions < ActiveRecord::Migration[4.2]
   NATURES = {
     'ProductBirth' => :birth,
     'ProductConsumption' => :consumption,

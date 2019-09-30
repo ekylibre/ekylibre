@@ -1,4 +1,4 @@
-class LengthenPreferenceNature < ActiveRecord::Migration
+class LengthenPreferenceNature < ActiveRecord::Migration[4.2]
   def change
     change_column :preferences, :nature, :string, limit: 60
     execute "UPDATE preferences SET name='chart_of_accounts', nature='chart_of_accounts' WHERE name='chart_of_account'"

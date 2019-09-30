@@ -1,4 +1,4 @@
-class CreateBankStatementItems < ActiveRecord::Migration
+class CreateBankStatementItems < ActiveRecord::Migration[4.2]
   def change
     create_table :bank_statement_items do |t|
       t.references :bank_statement, null: false, unique: true, index: true

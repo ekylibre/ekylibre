@@ -1,4 +1,4 @@
-class AddProductSpecificationsColumnsToParcelItems < ActiveRecord::Migration
+class AddProductSpecificationsColumnsToParcelItems < ActiveRecord::Migration[4.2]
   def change
     add_column :parcel_items, :product_identification_number, :string
     add_column :parcel_items, :product_name, :string

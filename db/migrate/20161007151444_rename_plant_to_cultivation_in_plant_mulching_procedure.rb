@@ -1,4 +1,4 @@
-class RenamePlantToCultivationInPlantMulchingProcedure < ActiveRecord::Migration
+class RenamePlantToCultivationInPlantMulchingProcedure < ActiveRecord::Migration[4.2]
   def change
     reversible do |dir|
       dir.up do

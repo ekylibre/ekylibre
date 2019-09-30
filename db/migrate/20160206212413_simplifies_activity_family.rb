@@ -1,5 +1,5 @@
 # Migration generated with nomenclature migration #20160206163031
-class SimplifiesActivityFamily < ActiveRecord::Migration
+class SimplifiesActivityFamily < ActiveRecord::Migration[4.2]
   def change
     reversible do |dir|
       dir.up do

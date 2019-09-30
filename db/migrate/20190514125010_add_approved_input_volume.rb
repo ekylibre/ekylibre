@@ -1,4 +1,4 @@
-class AddApprovedInputVolume < ActiveRecord::Migration
+class AddApprovedInputVolume < ActiveRecord::Migration[4.2]
   def change
     reversible do |dir|
 

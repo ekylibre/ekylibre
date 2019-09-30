@@ -1,4 +1,4 @@
-class CreateSensors < ActiveRecord::Migration
+class CreateSensors < ActiveRecord::Migration[4.2]
   def change
     create_table :sensors do |t|
       t.string :vendor_euid, null: false

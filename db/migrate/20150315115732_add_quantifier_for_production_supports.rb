@@ -1,4 +1,4 @@
-class AddQuantifierForProductionSupports < ActiveRecord::Migration
+class AddQuantifierForProductionSupports < ActiveRecord::Migration[4.2]
   FAMILIES = {
     exploitation: {},
     accountancy: {},

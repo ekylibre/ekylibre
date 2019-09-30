@@ -1,4 +1,4 @@
-class AddVariantToJournalEntryItems < ActiveRecord::Migration
+class AddVariantToJournalEntryItems < ActiveRecord::Migration[4.2]
   def up
     add_reference :journal_entry_items, :variant, index: true
     add_foreign_key :journal_entry_items, :product_nature_variants, column: :variant_id

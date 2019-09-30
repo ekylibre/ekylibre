@@ -1,4 +1,4 @@
-class NormalizeTaxesUses < ActiveRecord::Migration
+class NormalizeTaxesUses < ActiveRecord::Migration[4.2]
   def change
     # CatalogPrice/Item
     rename_table :catalog_prices, :catalog_items

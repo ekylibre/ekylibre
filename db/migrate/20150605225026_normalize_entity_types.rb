@@ -1,4 +1,4 @@
-class NormalizeEntityTypes < ActiveRecord::Migration
+class NormalizeEntityTypes < ActiveRecord::Migration[4.2]
   NATURES = {
     entity: :entity,
     contact: :contact,

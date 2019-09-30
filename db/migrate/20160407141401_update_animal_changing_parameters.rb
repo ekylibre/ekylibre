@@ -1,4 +1,4 @@
-class UpdateAnimalChangingParameters < ActiveRecord::Migration
+class UpdateAnimalChangingParameters < ActiveRecord::Migration[4.2]
   # remove old target parameter 'land_parcel' in plant_watering intervention
   def up
     execute "UPDATE intervention_parameters i SET type = 'InterventionTarget' WHERE i.reference_name = 'animal' and i.type = 'InterventionInput' and i.intervention_id IN (SELECT id FROM interventions WHERE procedure_name = 'animal_group_changing')"
