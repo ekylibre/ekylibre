@@ -47,5 +47,21 @@ module Backend
       noko = Nokogiri::HTML(response.body)
       assert_equal 1, noko.css('.sale_invoiced_at.error').size
     end
+
+    # TODO rewrite this as its not implemented this way anymore: a template_id need to be passed, and its this template that allow us to know if its jasper or not.
+    # %i[estimate order invoice].each do |nature|
+    #   test "should switch to Jasper if sales #{nature} document template exists" do
+    #     sale = sales(:sales_001)
+    #     class << @controller
+    #       attr_accessor :called
+    #       def create_response
+    #         @called = true
+    #         head 200
+    #       end
+    #     end
+    #     get :show, id: sale.id, nature: nature, format: :pdf
+    #     assert @controller.called
+    #   end
+    # end
   end
 end

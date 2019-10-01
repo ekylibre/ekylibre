@@ -31,6 +31,9 @@ Lint/AssignmentInCondition:
 
 Lint/UnifiedInteger:
   Enabled: false
-  
+
 Metrics/MethodLength:
   Max: 60
+
+Layout/IndentationConsistency:
+  EnforcedStyle: indented_internal_methods
