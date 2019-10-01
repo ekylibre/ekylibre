@@ -20,7 +20,6 @@ module Printers
     end
 
     def compute_dataset
-      byebug
       productions = get_productions_for_dataset.select { |production| production.plant_farming? }
 
       compute_productions_dataset(productions)
