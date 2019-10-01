@@ -2167,6 +2167,7 @@ fra:
     prices_for_suppliers: "Les prix d’achat du fournisseur" #?
     prices_import: "Importer un fichier CSV" #?
     print: "Imprimer"
+    print_land_parcel_register: "Imprimer le cahier de traçabilité"
     print_at: "Le" #?
     print_with_template: "Imprimer %{name}" #?
     printing_document: "Impression de %{document}"
