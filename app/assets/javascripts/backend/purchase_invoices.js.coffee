@@ -2,6 +2,7 @@
   'use strict'
 
   $(document).ready ->
+    debugger
     reconciliation_badges = new StateBadgeSet('#reconciliation-badges')
 
     $('.nested-fields.purchase-invoice-items').each (index, purchase_invoice) ->
@@ -58,10 +59,6 @@
     $('.edit_purchase_invoice').on 'iceberg:validated', E.Purchases.compute_amount
     $('#new_purchase_invoice').on 'cocoon:after-remove', E.Purchases.compute_amount
     $('.edit_purchase_invoice').on 'cocoon:after-remove', E.Purchases.compute_amount
-
-    $(document).on 'click', '.nested-fields .edit-item[data-edit="item-form"]', (event) ->
-      vatSelectedValue = $(event.target).closest('.nested-fields').find('.item-display .vat-rate').attr('data-selected-value')
-      $(event.target).closest('.nested-fields').find('.nested-item-form:visible .vat-total').val(vatSelectedValue)
 
     $('#new_purchase_invoice table.list').bind 'cocoon:after-insert', (event, insertedItem) ->
       return if !insertedItem?
