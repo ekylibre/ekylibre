@@ -122,7 +122,6 @@ gem 'exception_notification'
 
 # Views helpers
 gem 'active_list', '~> 7'
-# gem 'active_list', path: "../active_list"
 gem 'haml'
 gem 'simple_calendar'
 
@@ -189,7 +188,6 @@ gem 'rgeo-shapefile'
 gem 'roo'
 gem 'rubyzip', '~> 1.2.2'
 gem 'sepa_king'
-# gem 'sepa_king', path: '/home/jonathan/Workspace/sepa_king'
 gem 'quandl'
 gem 'odf-report', gitlab: 'ekylibre/odf-report', branch: :prod
 gem 'combine_pdf'
