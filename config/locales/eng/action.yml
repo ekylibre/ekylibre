@@ -2040,6 +2040,7 @@ eng:
     price: "Price" #?
     prices: "Prices" #?
     print: "Print" #?
+    print_lant_parcel_register: "Print the land parcel register"
     printing_document: "Printing %{document}"
     procedures: "Procedures"
     product: "Product"
