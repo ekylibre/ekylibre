@@ -13,7 +13,13 @@
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
+    "husky": "^3.0.7",
     "moment-locales-webpack-plugin": "^1.0.7",
     "webpack-dev-server": "^3.7.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "ruby bin/hooks/pre-commit.rb"
+    }
   }
 }
