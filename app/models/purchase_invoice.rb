@@ -126,7 +126,7 @@ class PurchaseInvoice < Purchase
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
     b.journal_entry(nature.journal, printed_on: invoiced_on, if: (with_accounting && items.any?)) do |entry|
-      label = tc(:bookkeep, resource: self.class.model_name.human, number: number, supplier: supplier.full_name, products: (description.blank? ? items.collect(&:name).to_sentence : description))
+      label = tc(:bookkeep, resource: self.class.model_name.human, number: number, supplier: supplier.full_name, products: (description.blank? ? items.collect(&:name).to_sentence : description.gsub(/\r?\n/, ' / ')))
       items.each do |item|
         entry.add_debit(label, item.account, item.pretax_amount, activity_budget: item.activity_budget, team: item.team, equipment: item.equipment, project_budget: item.project_budget, as: :item_product, resource: item, variant: item.variant)
         tax = item.tax
