@@ -2,7 +2,6 @@
   'use strict'
 
   $(document).ready ->
-    debugger
     reconciliation_badges = new StateBadgeSet('#reconciliation-badges')
 
     $('.nested-fields.purchase-invoice-items').each (index, purchase_invoice) ->
