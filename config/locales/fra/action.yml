@@ -1541,6 +1541,10 @@ fra:
     export_as_pdf: "Exporter en PDF"
     export_as_xcsv: "Exporter en CSV pour Excel"
     export_backup: "Export d’un fichier de sauvegarde" #?
+    export_sales_aborted: "Abandonné(e)"
+    export_sales_estimate: "Devis"
+    export_sales_invoice: "Facture"
+    export_sales_order: "Bon de commande"
     export_xml_fec_all: "Export FEC - Cas général - impôt sur les sociétés (XML)"
     export_xml_fec_ba_bnc_ir_commercial_accountancy: "Export FEC - Cas BA BNC IR - comptabilité commerciale (XML)"
     export_xml_fec_ba_ir_cash_accountancy: "Export FEC - Cas BA IR - comptabilité de trésorerie (XML)"
@@ -2084,6 +2088,7 @@ fra:
     parts: "Modules"
     password: "Mot de passe"
     paths_to_convert: "Chemins à convertir" #?
+    pay: "Payer"
     payable_taxes: "Taxes payables"
     payback: "Remboursement demandée" #?
     payment_amount: "Montant de l’encaissement"
@@ -2252,6 +2257,7 @@ fra:
     ready_to_harvest: "Prêt(e) à être récolté(e)"
     receipt_date: "Date de réception"
     receipt_responsible: "Responsable réception"
+    receive: "Recevoir"
     received: "Reçue"
     received_quantity: "Quantité réceptionnée"
     receiving_address: "Adresse de réception"
@@ -2438,6 +2444,7 @@ fra:
     ship: "Prévue le"
     shipment_items: "Articles expédiés"
     shipments: "Expéditions"
+    shipping_note: "Bon d'expédition"
     show: "Afficher"
     show_export_preview: "Afficher un aperçu du document (peut augmenter le temps de chargement)" #?
     sign_out: "Se déconnecter"
@@ -3248,6 +3255,7 @@ fra:
       pick: "Piocher"
       picture: "Image"
       prepare: "Préparer"
+      print: "Imprimer"
       propose: "Proposer"
       propose_and_invoice: "Facturer directement"
       prospect: "Prospecter"
