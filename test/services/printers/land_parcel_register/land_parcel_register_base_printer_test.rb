@@ -4,7 +4,9 @@ module Printers
   module LandParcelRegister
     class LandParcelRegisterPrinterBaseTest < Ekylibre::Testing::ApplicationTestCase
       setup do
-        @printer = LandParcelRegisterPrinterBase.new
+        template = Minitest::Mock.new
+        template.expect :nature, :land_parcel_register
+        @printer = LandParcelRegisterPrinterBase.new template: template
       end
 
       test 'target_working_area default to 0 if no working_area in the target' do
