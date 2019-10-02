@@ -7,10 +7,10 @@
 %tbody.nested-fields.purchase-invoice-items.delivery-item{ data: { trade_item: "purchase", iceberg: true } }
   %tr.item-display.hidden
     %td.act
-      - if f.object.destroyable?
+      - if form_updatable
         = link_to_remove_association(content_tag(:i) + h(:destroy.tl), f, 'data-no-turbolink' => true, class: 'destroy remove remove-item')
     %td.act
-      - if f.object.updateable?
+      - if form_updatable
         = link_to("#", class: 'edit edit-item', data: { edit: "item-form" }) do
           %i
           = :edit.tl
