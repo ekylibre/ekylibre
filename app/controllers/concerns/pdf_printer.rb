@@ -32,8 +32,8 @@ module PdfPrinter
   # TODO refactor by extracting signing logic to a different method/class/module
   def archive_report(nature, key, data_or_path, mandatory = false, closer = nil, options = { archiving: :last })
     ActiveSupport::Deprecation.warn 'archive_report is broken, use archive_report_template instead' unless mandatory
-
-    document = archive_report_template(data_or_path, nature: nature, key: key, template: nil, **options)
+    document_name = options.delete(:name) || [nature.human_name, key].join(' ')
+    document = archive_report_template(data_or_path, nature: nature, key: key, template: nil, document_name: document_name, **options)
 
     if mandatory
       sha256 = Digest::SHA256.file document.file.path
@@ -46,13 +46,12 @@ module PdfPrinter
     document
   end
 
-  def archive_report_template(data_or_file, nature:, key:, template:, **options)
+  def archive_report_template(data_or_file, nature:, key:, template:, document_name:, **_options)
     data = data_or_file.is_a?(File) ? data_or_file : StringIO.new(data_or_file)
-    name = options[:name] || [nature.human_name, key].join(' ')
     Document.create!(
       nature: nature,
       key: key,
-      name: name,
+      name: document_name,
       file: data,
       file_file_name: "#{key}.pdf",
       template: template
