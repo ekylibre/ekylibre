@@ -155,7 +155,7 @@ module Backend
         format.pdf do
           document_template = DocumentTemplate.find(params[:template])
           if document_template.managed?
-            generate_n_send_pdf_for(@sale, document_template) || redirect_back(fallback_location: backend_sale_path(@sale))
+            generate_n_send_pdf_for(@sale, document_template) || redirect_to_back(fallback_location: backend_sale_path(@sale))
           else
             create_response
           end
@@ -289,22 +289,28 @@ module Backend
 
     private
 
-      def generate_n_send_pdf_for(sale, document_template)
-        klass = printer_class(document_template.nature)
-        return unless klass
+      def generate_n_send_pdf_for(sale, template)
+        klass = printer_class(template.nature)
+        if klass.nil?
+          notify_error(:document_template_not_handled, nature: template.nature)
 
-        printer = klass.new(sale)
-        data = printer.run_pdf
-        printer.archive_report_template(data, nature: printer.document_nature, key: printer.key, template: document_template)
-        send_data data, filename: printer.document_nature, type: 'application/pdf', disposition: 'inline'
+          return false
+        end
+
+        printer = klass.new(template: template, sale: sale)
+        pdf_data = printer.run_pdf
+        printer.archive_report_template(pdf_data, nature: template.nature, key: printer.key, template: template, document_name: printer.document_name)
+
+        send_data pdf_data, filename: printer.document_name, type: 'application/pdf', disposition: 'inline'
+
         true
       end
 
       def printer_class(nature)
         case nature
-        when 'sales_invoice'  then SalesInvoicePrinter
-        when 'sales_order'    then SalesOrderPrinter
-        when 'sales_estimate' then SalesEstimatePrinter
+        when 'sales_invoice'  then Printers::Sale::SalesInvoicePrinter
+        when 'sales_order'    then Printers::Sale::SalesOrderPrinter
+        when 'sales_estimate' then Printers::Sale::SalesEstimatePrinter
         else nil
         end
       end
