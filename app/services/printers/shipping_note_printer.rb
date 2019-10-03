@@ -42,10 +42,10 @@ module Printers
         # Parcels
         r.add_table(:parcels, shipment.items) do |t|
           # Parcel_number
-          t.add_field(:product_number) { |item| item.product.number }
+          t.add_field(:product_number) { |item| item.source_product.number }
 
           # Parcel_variant
-          t.add_field(:product_name) { |item| item.product.name }
+          t.add_field(:product_name) { |item| item.source_product.name }
 
           # Parcel_quantity
           t.add_field(:parcel_quantity, &:quantity)
