@@ -8,5 +8,6 @@ FactoryBot.define do
     currency { 'EUR' }
     tax_payability { 'at_invoicing' }
     state { 'invoice' }
+    invoiced_at { nil }
   end
 end

@@ -3139,6 +3139,7 @@ fra:
         one: "%{count} écriture sur la période n'est pas équilibrée. Elle doit être corrigée pour effectuer une validation globale."
         other: "%{count} écritures sur la période ne sont pas équilibrées. Elle doivent être corrigées pour effectuer une validation globale."
       this_service_is_not_activated: "Ce service n’est pas activé"
+      unable_to_modify_purchase_invoice_link_to_tax_declaration: "Cette facture de vente est liée a une déclaration de TVA. Elle ne peut donc pas être modifiée ou supprimée. Si possible, veuillez supprimer la déclaration de TVA et réessayer. Vous pouvez contacter le support pour plus d'information."
       unavailable_resource: "%{type} indisponible ou inexistant(e) #%{id}"
       unbalanced_journal_entries_are_present_in_year: "L'exercice comporte des écritures non-équilibrées."
       unexpected_resource_type: "Type de ressource inattendue\_: %{type}"
