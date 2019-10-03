@@ -9,13 +9,24 @@ class SalesInvoicePrinter
     @document_nature = Nomen::DocumentNature.find(nature)
   end
 
+  def delivery_address_dataset(sale, client)
+    if sale.has_same_delivery_address?
+      []
+    else
+      [{ delivery_address: Maybe(sale).delivery_address.mail_coordinate.or_else { client.full_name }.upcase }]
+    end
+  end
+
   def run_pdf
     # Companies
     company = EntityDecorator.decorate(Entity.of_company)
     receiver = EntityDecorator.decorate(@sale.client)
+    sale = SaleDecorator.decorate(@sale)
 
     # Cash
     cash = Cash.bank_accounts.find_by(by_default: true) || Cash.bank_accounts.first
+
+    client_reference = Maybe(@sale).client_reference.fmap(&:presence).or_else('Non renseigné')
 
     generate_report(@template_path) do |r|
       # Header
@@ -27,7 +38,8 @@ class SalesInvoicePrinter
       # Title
       r.add_field :title, I18n.t('labels.export_sales_invoice').upcase
       r.add_field :invoiced_at, @sale.invoiced_at.l(format: '%d %B %Y')
-      r.add_field :responsible, @sale.responsible.nil? ? '' : @sale.responsible.full_name
+      r.add_field :responsible, Maybe(@sale).responsible.full_name.or_else { "Non renseigné" }
+      r.add_field :client_reference, client_reference
 
       # Expired_at
       r.add_field :expired_at, @sale.expired_at.l(format: '%d %B %Y')
@@ -39,9 +51,12 @@ class SalesInvoicePrinter
       r.add_field :company_phone, company.phone
       r.add_field :company_website, company.website
 
-      # Receiver_address
-      r.add_field :receiver, receiver.full_name
-      r.add_field :receiver_address, receiver.address.upcase
+      # Invoice_address
+      r.add_field :invoice_address, Maybe(sale).invoice_address.mail_coordinate.or_else { receiver.full_name }.upcase
+
+      r.add_section('Section-delivery-address', delivery_address_dataset(sale, receiver)) do |da_s|
+        da_s.add_field(:delivery_address) { |e| e[:delivery_address] }
+      end
 
       # Estimate_number
       r.add_field :number, @sale.number
@@ -74,7 +89,7 @@ class SalesInvoicePrinter
         s.add_field(:payment_date) { |item| item.class == @sale.class ? item.created_at.l(format: '%d %B %Y') : item.paid_at.l(format: '%d %B %Y') }
         s.add_field(:payment_number, &:number)
         s.add_field(:payment_amount) { |item| item.class == @sale.class ? '' : item.amount.round_l }
-        s.add_field(:sale_affair) { |item| item.class == @sale.class ? item.amount : '' }
+        s.add_field(:sale_affair) { |item| item.class == @sale.class ? item.amount.round_l : '' }
       end
 
       # Affair + left to pay or receive
@@ -84,7 +99,7 @@ class SalesInvoicePrinter
       else
         r.add_field :action, I18n.t('labels.pay').downcase
       end
-      r.add_field :left_to_pay, (@sale.affair.debit - @sale.affair.credit).abs.round_l
+      r.add_field :left_to_pay, (@sale.affair.debit - @sale.affair.credit).round_l
 
       # Parcels
       parcels = @sale.parcel_items.any? ? [@sale] : []
