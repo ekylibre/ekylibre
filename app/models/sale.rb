@@ -28,6 +28,7 @@
 #  amount                                   :decimal(19, 4)   default(0.0), not null
 #  annotation                               :text
 #  client_id                                :integer          not null
+#  client_reference                         :string
 #  codes                                    :jsonb
 #  conclusion                               :text
 #  confirmed_at                             :datetime
@@ -92,6 +93,7 @@ class Sale < Ekylibre::Record::Base
   has_many :items, -> { order('position, id') }, class_name: 'SaleItem', dependent: :destroy, inverse_of: :sale
   has_many :journal_entries, as: :resource
   has_many :subscriptions, through: :items, class_name: 'Subscription', source: 'subscription'
+  has_many :parcel_items, through: :parcels, source: :items
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, :confirmed_at, :expired_at, :invoiced_at, :payment_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :amount, :downpayment_amount, :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }

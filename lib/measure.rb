@@ -12,10 +12,10 @@ class Measure
 
   attr_reader :unit, :value
   cattr_reader :dimensions
-  delegate :symbol, to: :nomenclature_unit
+  delegate :symbol, :base_unit, :base_dimension, :repartition_unit, :repartition_dimension, to: :nomenclature_unit
 
   @@dimensions = Nomen.find_or_initialize(:dimensions)
-  @@units      = Nomen.find_or_initialize(:units)
+  @@units = Nomen.find_or_initialize(:units)
 
   class << self
     # Lists all units. Can be filtered on a given dimension
@@ -58,11 +58,11 @@ class Measure
       unless expr =~ /\A-?([\,\.]\d+|\d+([\,\.]\d+)?)\s*[^\s]+\z/
         raise InvalidExpression, "#{expr} cannot be parsed."
       end
-      unit  = expr.gsub(/\A-?([\,\.]\d+|\d+([\,\.]\d+)?)\s*/, '').strip
+      unit = expr.gsub(/\A-?([\,\.]\d+|\d+([\,\.]\d+)?)\s*/, '').strip
       value = expr[0..-(1 + unit.size)].strip.to_d
     elsif args.size == 2
       value = args.shift
-      unit  = args.shift
+      unit = args.shift
     else
       raise ArgumentError, "wrong number of arguments (#{args.size} for 1 or 2)"
     end
@@ -94,6 +94,7 @@ class Measure
   def convert(unit)
     Measure.new(to_r(unit), unit)
   end
+
   alias in convert
 
   # Converts measure inline without instanciating a new Measure
@@ -102,6 +103,7 @@ class Measure
     @unit = unit.to_s
     self
   end
+
   alias in! convert!
 
   Measure.units.each do |unit|
@@ -277,10 +279,22 @@ class Measure
   def localize(options = {})
     "#{value.to_f.localize(options)} #{@@units.items[unit].symbol}"
   end
+
   alias l localize
+
+  def rounded_localize(precision: 2)
+    "#{value.to_f.round_l(precision: precision)} #{@@units.items[unit].symbol}"
+  end
+
+  alias_method :round_l, :rounded_localize
 
   # Returns the unit from the nomenclature
   def nomenclature_unit
     @@units[unit]
   end
+
+  def has_repartition_dimension?(dimension)
+    repartition_dimension == dimension
+  end
+
 end

@@ -920,6 +920,7 @@ fra:
     client_account: "Compte client associé"
     client_accounting_balance: "Solde comptable client"
     client_accounts: "Comptes clients" #?
+    client_reference: "N° du bon de commande (référence client)"
     client_trade_balance: "Balance commerciale du client"
     clients: "Clients"
     closable_financial_year: "Exercice clôturable" #?
@@ -1374,6 +1375,7 @@ fra:
     interventions_used_in: "Interventions utilisées dans"
     intracommunity: "Intracommunautaire"
     intracommunity_payable_account: "Compte de taxe intracommunautaire due"
+    intracommunity_vat: "TVA intracommunautaire"
     introduction: "Introduction"
     inventory: "Inventaire"
     # inventory_items: "Inventory items"
@@ -1941,6 +1943,7 @@ fra:
     # signature: "Signature"
     signup_at: "Inscription au"
     siren: "N° SIREN"
+    siret: "SIRET"
     siret_number: "N° SIRET"
     size_indicator: "Indicateur de taille"
     size_indicator_name: "Taille Nom de l’indicateur"

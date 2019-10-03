@@ -20,7 +20,7 @@ module Backend
   class ActivitiesController < Backend::BaseController
     include InspectionViewable
 
-    manage_restfully except: [:show], subclass_inheritance: true
+    manage_restfully except: %i[index show], subclass_inheritance: true
 
     unroll
 
@@ -37,19 +37,47 @@ module Backend
       t.column :support_variety, hidden: true
     end
 
+    def index
+      respond_to do |format|
+        format.html
+        format.xml { render xml: resource_model.all }
+        format.json { render json: resource_model.all }
+        format.pdf {
+          return unless (template = find_and_check :document_template, params[:template])
+
+          PrinterJob.perform_later('Printers::LandParcelRegisterCampaignPrinter', template: template, campaign: current_campaign, perform_as: current_user)
+          notify_success(:document_in_preparation)
+          redirect_to backend_activities_path
+        }
+      end
+    end
+
     def show
       return unless @activity = find_and_check
 
-      activity_crops = Plant
-                       .joins(:inspections)
-                       .where(activity_production_id: @activity.productions.map(&:id),
-                              dead_at: nil)
-                       .where.not(inspections: { forecast_harvest_week: nil })
-                       .uniq
+      respond_to do |format|
+        format.html do
 
-      @crops = initialize_grid(activity_crops, decorate: true)
+          activity_crops = Plant
+                             .joins(:inspections)
+                             .where(activity_production_id: @activity.productions.map(&:id),
+                                    dead_at: nil)
+                             .where.not(inspections: { forecast_harvest_week: nil })
+                             .uniq
 
-      t3e @activity
+          @crops = initialize_grid(activity_crops, decorate: true)
+
+          t3e @activity
+        end
+
+        format.pdf do
+          return unless (template = find_and_check :document_template, params[:template])
+
+          PrinterJob.perform_later('Printers::LandParcelRegisterActivityPrinter', template: template, campaign: current_campaign, activity: @activity, perform_as: current_user)
+          notify_success(:document_in_preparation)
+          redirect_to backend_activity_path(@activity)
+        end
+      end
     end
 
     # Duplicate activity basing on campaign

@@ -72,16 +72,17 @@ class PurchaseInvoice < Purchase
   }
 
   scope :accepted_reconcile, -> { where(reconciliation_state: %w[accepted reconcile]) }
-  scope :unpaid, -> { where(state: %w[order invoice]).where.not(affair: Affair.closeds.where("debit != 0 OR credit != 0")) }
+  scope :unpaid, -> { where.not(affair: Affair.closeds) }
+  scope :unpaid_and_not_empty, -> { where.not(affair: Affair.closeds.where("debit != 0 OR credit != 0")) }
   scope :current, -> { unpaid }
   scope :current_or_self, ->(purchase) { where(unpaid).or(where(id: (purchase.is_a?(Purchase) ? purchase.id : purchase))) }
 
   protect on: :update, allow_update_on: %i[reference_number responsible_id invoiced_at payment_delay tax_payability description] do
-    items.any? && !self.unpaid?
+    items.any? && !PurchaseInvoice.unpaid_and_not_empty.include?(self)
   end
 
   protect on: :destroy do
-    items.any? && !self.unpaid?
+    items.any? && !PurchaseInvoice.unpaid_and_not_empty.include?(self)
   end
 
   before_validation(on: :create) do
@@ -214,6 +215,10 @@ class PurchaseInvoice < Purchase
     reload
     self.invoiced_at ||= invoiced_at || Time.zone.now
     save!
+  end
+
+  def linked_to_tax_declaration?
+    journal_entry.items.flat_map(&:tax_declaration_item_parts).any?
   end
 
   def reconciled?
