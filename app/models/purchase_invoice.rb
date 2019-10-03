@@ -217,6 +217,10 @@ class PurchaseInvoice < Purchase
     save!
   end
 
+  def linked_to_tax_declaration?
+    journal_entry.items.flat_map(&:tax_declaration_item_parts).any?
+  end
+
   def reconciled?
     items.any? { |item| item.parcels_purchase_invoice_items.present? }
   end

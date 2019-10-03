@@ -1,7 +1,7 @@
 :ruby
   display_activity_item_field = !!Preference[:distribute_sales_and_purchases_on_activities]
   display_team_item_field = !!Preference[:distribute_sales_and_purchases_on_teams]
-  form_updatable = !@purchase_invoice.persisted? || @purchase_invoice.updateable?
+  form_updatable = !@purchase_invoice.persisted? || (@purchase_invoice.updateable? && !@purchase_invoice.linked_to_tax_declaration?)
 
 = f.object.errors.full_messages if f.object.errors.present? && Rails.env.development?
 = content_for(:heading_toolbar) do

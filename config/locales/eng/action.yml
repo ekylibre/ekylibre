@@ -2763,6 +2763,7 @@ eng:
         one: "%{count} entry during this period remain unbalanced. You have to correct it to be able to perform a global validation." #?
         other: "%{count} entries during this period remain unbalanced. You have to correct them to be able to perform a global validation." #?
       this_service_is_not_activated: "This service is not activated" #?
+      unable_to_modify_purchase_invoice_link_to_tax_declaration: "This invoice is linked to a tax declaration and thus, cannot be updated or deleted. If possible, please delete the tax declaration and retry. You can contact us for more information."
       unavailable_resource: "Nonexistent %{type} #%{id}"
       unbalanced_journal_entries_are_present_in_year: "Some unbalanced journal entries are present in the financial year." #?
       unexpected_resource_type: "Unexpected resource type: %{type}"
