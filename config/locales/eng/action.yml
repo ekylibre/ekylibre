@@ -2663,6 +2663,7 @@ eng:
       depreciation_failed: "Assets could not be depreciated." #?
       depreciation_successful: "Assets have been successfully depreciated." #?
       document_in_preparation: "Your document is in preparation a notification will be sent to you when it is ready"
+      document_template_not_handled: "Document template not handled: %{nature}"
       draft_journal_entries_are_present: "Draft journal entries are present." #?
       draft_journal_entries_cannot_be_validated: "You need to validate every previous entries before these ones" #?
       draft_journal_entries_have_been_validated:

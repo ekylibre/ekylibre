@@ -112,14 +112,17 @@ module Backend
     end
 
     def show
+      return unless (shipment = find_and_check)
       respond_to do |format|
         format.pdf do
-          document_template = DocumentTemplate.find(params[:template])
-          shipment = Shipment.find(params[:id])
-          printer = ShippingNotePrinter.new(shipment: shipment)
-          data = printer.run_pdf
-          printer.archive_report_template(data, nature: printer.document_nature, key: printer.key, template: document_template)
-          send_data data, filename: printer.document_nature, type: 'application/pdf', disposition: 'inline'
+          next unless (template = find_and_check :document_template, params[:template])
+
+          printer = Printers::ShippingNotePrinter.new(template: template, shipment: shipment)
+
+          pdf_data = printer.run_pdf
+          printer.archive_report_template(pdf_data, nature: template.nature, key: printer.key, template: template, document_name: printer.document_name)
+
+          send_data pdf_data, filename: printer.document_name, type: 'application/pdf', disposition: 'inline'
         end
 
         format.html do

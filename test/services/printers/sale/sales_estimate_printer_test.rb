@@ -16,12 +16,24 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 require 'test_helper'
+module Printers
+  module Sale
+    class SalesEstimatePrinterTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
+      setup do
+        @template = Minitest::Mock.new
+        @template.expect :nature, :shipping_note
+      end
 
-class SalesOrderPrinterTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
-  test 'should print an estimate' do
-    sale = sales(:sales_001)
-    assert sale.valid?, "Sales 001 must be valid (#{sale.errors.inspect})"
-    printer = SalesOrderPrinter.new(sale)
-    assert printer.run_pdf
+      teardown do
+        @template.verify
+      end
+
+      test 'should print an estimate' do
+        sale = sales(:sales_001)
+        assert sale.valid?, "Sales 001 must be valid (#{sale.errors.inspect})"
+        printer = SalesEstimatePrinter.new(template: @template, sale: sale)
+        assert printer.run_pdf
+      end
+    end
   end
 end

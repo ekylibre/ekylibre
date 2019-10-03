@@ -7,13 +7,5 @@ module Backend
                                prepare: :touch,
                                cancel: :touch,
                                give: :touch
-
-    test 'should print a shipping note' do
-      shipment = parcels(:shipments_006)
-      assert shipment.valid?, "Shipment 006 must be valid (#{shipment.errors.inspect})"
-
-      printer = ShippingNotePrinter.new(shipment: shipment)
-      assert printer.run_pdf
-    end
   end
 end

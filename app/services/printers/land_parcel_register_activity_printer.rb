@@ -3,8 +3,9 @@ module Printers
 
     attr_accessor :campaign, :activity
 
-    def initialize(*args, campaign:, activity:, **options)
-      super
+    def initialize(*_args, campaign:, activity:, template:, **_options)
+      super(template: template)
+
       @campaign = campaign
       @activity = activity
     end

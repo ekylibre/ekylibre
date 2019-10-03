@@ -1,11 +1,8 @@
 module Printers
-  class LandParcelRegisterPrinterBase
-    include PdfPrinter
+  class LandParcelRegisterPrinterBase < PrinterBase
 
     IMPLANTATION_PROCEDURE_NAMES = %w[sowing sowing_without_plant_output sowing_with_spraying mechanical_planting].freeze
     HARVESTING = %w[harvesting].freeze
-
-    attr_reader :template
 
     class << self
       # TODO move this elsewhere when refactoring the Document Management System
@@ -16,15 +13,6 @@ module Printers
           campaign.name
         end
       end
-    end
-
-    def initialize(*_args, template:, **_options)
-      @template = template
-      @template_path = find_open_document_template(template.nature)
-    end
-
-    def document_name
-      "#{template.nature.human_name} - #{key}"
     end
 
     def compute_dataset
