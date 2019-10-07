@@ -7,9 +7,9 @@ module Ekylibre
     end
 
     class Base < ActiveRecord::Base
-      include ConditionalReadonly # TODO: move to ApplicationRecord
-      prepend IdHumanizable
-      include ScopeIntrospection # TODO: move to ApplicationRecord
+      include ::ConditionalReadonly # TODO: move to ApplicationRecord
+      prepend ::IdHumanizable
+      include ::ScopeIntrospection # TODO: move to ApplicationRecord
       include Userstamp::Stamper
       include Userstamp::Stampable
 
