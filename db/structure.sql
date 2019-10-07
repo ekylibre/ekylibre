@@ -1662,7 +1662,8 @@ CREATE TABLE public.cashes (
     custom_fields jsonb,
     bank_account_holder_name character varying,
     suspend_until_reconciliation boolean DEFAULT false NOT NULL,
-    suspense_account_id integer
+    suspense_account_id integer,
+    by_default boolean DEFAULT false
 );
 
 
@@ -2691,7 +2692,8 @@ CREATE TABLE public.sales (
     custom_fields jsonb,
     codes jsonb,
     undelivered_invoice_journal_entry_id integer,
-    quantity_gap_on_invoice_journal_entry_id integer
+    quantity_gap_on_invoice_journal_entry_id integer,
+    client_reference character varying
 );
 
 
@@ -18913,6 +18915,8 @@ INSERT INTO schema_migrations (version) VALUES ('20190617200314');
 
 INSERT INTO schema_migrations (version) VALUES ('20190619021714');
 
+INSERT INTO schema_migrations (version) VALUES ('20190703060513');
+
 INSERT INTO schema_migrations (version) VALUES ('20190705094729');
 
 INSERT INTO schema_migrations (version) VALUES ('20190705143350');
@@ -18926,4 +18930,6 @@ INSERT INTO schema_migrations (version) VALUES ('20190807075910');
 INSERT INTO schema_migrations (version) VALUES ('20190808152235');
 
 INSERT INTO schema_migrations (version) VALUES ('20190916124521');
+
+INSERT INTO schema_migrations (version) VALUES ('20191002104944');
 

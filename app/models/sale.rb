@@ -28,6 +28,7 @@
 #  amount                                   :decimal(19, 4)   default(0.0), not null
 #  annotation                               :text
 #  client_id                                :integer          not null
+#  client_reference                         :string
 #  codes                                    :jsonb
 #  conclusion                               :text
 #  confirmed_at                             :datetime

@@ -14,7 +14,7 @@ module Backend
         if coordinates.present?
           json = weather_client.fetch_forecast(coordinates)
 
-          @forecast = json.map { |j| build_forecast j }.or_nil
+          @forecast = json.fmap { |j| build_forecast j }.or_nil
         end
       rescue Net::OpenTimeout => e
         @forecast = nil

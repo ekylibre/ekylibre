@@ -69,7 +69,7 @@
             = :x_thing.tl(x: product_parameter.quantity.round(2).l(precision: 0), thing: variant.unit_name.mb_chars.downcase)
           - elsif product_parameter.product.france_maaid.present? && product_parameter.is_a?(InterventionInput)
             %p
-              %span.value= product_parameter.legal_pesticide_informations[:name]
+              %span.value= product_parameter.legal_pesticide_informations&.fetch(:name, nil)
             %p
               %span.title= :quantity.tl
               %span.value= product_parameter.input_quantity_per_area.l(precision: 2)

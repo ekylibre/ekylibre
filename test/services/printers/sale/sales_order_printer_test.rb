@@ -17,11 +17,24 @@
 #
 require 'test_helper'
 
-class SalesInvoicePrinterTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
-  test 'should print an estimate' do
-    sale = sales(:sales_001)
-    assert sale.valid?, "Sales 001 must be valid (#{sale.errors.inspect})"
-    printer = SalesInvoicePrinter.new(sale)
-    assert printer.run_pdf
+module Printers
+  module Sale
+    class SalesOrderPrinterTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
+      setup do
+        @template = Minitest::Mock.new
+        @template.expect :nature, :shipping_note
+      end
+
+      teardown do
+        @template.verify
+      end
+
+      test 'should print an estimate' do
+        sale = sales(:sales_001)
+        assert sale.valid?, "Sales 001 must be valid (#{sale.errors.inspect})"
+        printer = SalesOrderPrinter.new(template: @template, sale: sale)
+        assert printer.run_pdf
+      end
+    end
   end
 end

@@ -6,10 +6,11 @@ class PrinterJob < ActiveJob::Base
 
     def perform(printer_class, *args, template:, perform_as:, **options)
       begin
-        printer = printer_class.constantize.new(*args, **options)
+        printer = printer_class.constantize.new(*args, template: template, **options)
 
         pdf_data = printer.run_pdf
-        document = printer.archive_report_template(pdf_data, nature: template.nature, key: printer.key, template: template)
+
+        document = printer.archive_report_template(pdf_data, nature: template.nature, key: printer.key, template: template, document_name: printer.document_name)
 
         perform_as.notifications.create!(success_notification_params(document.id))
 

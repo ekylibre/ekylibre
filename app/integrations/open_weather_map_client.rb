@@ -22,7 +22,7 @@ class OpenWeatherMapClient
     end
 
     begin
-      return Maybe(client.get(url_for(*coordinates))).map { |res| JSON.parse(res.body).presence }
+      return Maybe(client.get(url_for(*coordinates))).fmap { |res| JSON.parse(res.body).presence }
     rescue Net::OpenTimeout => e
       logger.warn "Net::OpenTimeout: Cannot open service OpenWeatherMap in time (#{e.message})"
     rescue Net::ReadTimeout => e

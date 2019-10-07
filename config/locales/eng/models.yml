@@ -717,6 +717,7 @@ eng:
     client_account: "Client account"
     client_accounting_balance: "Client accounting balance"
     # client_journal_entry_items: "Client journal entry items"
+    client_reference: "Order number (client reference)"
     client_trade_balance: "Client trade balance"
     clients: "Clients"
     closed: "Closed"
