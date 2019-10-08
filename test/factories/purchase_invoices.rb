@@ -9,6 +9,5 @@ FactoryBot.define do
     tax_payability { 'at_invoicing' }
     invoiced_at { DateTime.new(2018, 1, 1) }
     state { 'invoice' }
-    invoiced_at { nil }
   end
 end
