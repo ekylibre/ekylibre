@@ -3146,6 +3146,7 @@ fra:
       depreciation_failed: "Les immobilisations n’ont pas pu être dépréciées."
       depreciation_successful: "Les immobilisations ont correctement été dépréciées."
       document_in_preparation: "Votre document est en cours de préparation et une notification vous sera envoyée dès qu'il sera prêt."
+      document_template_not_handled: "Modèle de document non géré: %{nature}"
       draft_journal_entries_are_present: "Des écritures sont encore présentes dans le brouillard."
       draft_journal_entries_cannot_be_validated: "Vous devez valider toutes les écritures précédentes avant de valider celles-ci"
       draft_journal_entries_have_been_validated:
@@ -3285,6 +3286,7 @@ fra:
         one: "%{count} écriture sur la période n'est pas équilibrée. Elle doit être corrigée pour effectuer une validation globale."
         other: "%{count} écritures sur la période ne sont pas équilibrées. Elle doivent être corrigées pour effectuer une validation globale."
       this_service_is_not_activated: "Ce service n’est pas activé"
+      unable_to_modify_purchase_invoice_link_to_tax_declaration: "Cette facture de vente est liée a une déclaration de TVA. Elle ne peut donc pas être modifiée ou supprimée. Si possible, veuillez supprimer la déclaration de TVA et réessayer. Vous pouvez contacter le support pour plus d'information."
       unavailable_resource: "%{type} indisponible ou inexistant(e) #%{id}"
       unbalanced_journal_entries_are_present_in_year: "L'exercice comporte des écritures non-équilibrées."
       unexpected_resource_type: "Type de ressource inattendue\_: %{type}"

@@ -111,11 +111,11 @@ module Backend
     def show
       return unless @purchase_invoice = find_and_check
       respond_with(@purchase_invoice, methods: %i[taxes_amount affair_closed],
-                                      include: { delivery_address: { methods: [:mail_coordinate] },
-                                                 supplier: { methods: [:picture_path], include: { default_mail_address: { methods: [:mail_coordinate] } } },
-                                                 parcels: { include: :items },
-                                                 affair: { methods: [:balance], include: [purchase_payments: { include: :mode }] },
-                                                 items: { methods: %i[taxes_amount tax_name tax_short_label], include: [:variant] } }) do |format|
+                   include: { delivery_address: { methods: [:mail_coordinate] },
+                              supplier: { methods: [:picture_path], include: { default_mail_address: { methods: [:mail_coordinate] } } },
+                              parcels: { include: :items },
+                              affair: { methods: [:balance], include: [purchase_payments: { include: :mode }] },
+                              items: { methods: %i[taxes_amount tax_name tax_short_label], include: [:variant] } }) do |format|
         format.html do
           t3e @purchase_invoice.attributes, supplier: @purchase_invoice.supplier.full_name, state: @purchase_invoice.state_label, label: @purchase_invoice.label
         end
@@ -126,10 +126,11 @@ module Backend
       nature = PurchaseNature.by_default
       @purchase_invoice = if params[:duplicate_of]
                             PurchaseInvoice.find_by(id: params[:duplicate_of])
-                                           .deep_clone(include: :items, except: %i[state number affair_id reference_number payment_delay])
+                              .deep_clone(include: :items, except: %i[state number affair_id reference_number payment_delay])
                           else
                             PurchaseInvoice.new(nature: nature)
-                  end
+                          end
+
       @purchase_invoice.currency = @purchase_invoice.nature.currency
       @purchase_invoice.responsible ||= current_user
       @purchase_invoice.planned_at = Time.zone.now
@@ -167,7 +168,12 @@ module Backend
     end
 
     def update
-      @purchase_invoice = find_and_check
+      return unless (@purchase_invoice = find_and_check)
+
+      if @purchase_invoice.linked_to_tax_declaration?
+        notify_error(:unable_to_modify_purchase_invoice_link_to_tax_declaration)
+        return redirect_to_back fallback_location: { action: :show, id: @purchase_invoice.id }
+      end
 
       if permitted_params[:items_attributes].present?
         permitted_params[:items_attributes].each do |_key, item_attribute|
@@ -189,12 +195,33 @@ module Backend
       render :edit
     end
 
+    def edit
+      return unless (@purchase_invoice = find_and_check)
+
+      if @purchase_invoice.updateable? && @purchase_invoice.linked_to_tax_declaration?
+        notify_warning_now(:unable_to_modify_purchase_invoice_link_to_tax_declaration)
+      end
+
+      super
+    end
+
+    def destroy
+      return unless (@purchase_invoice = find_and_check)
+
+      if @purchase_invoice.linked_to_tax_declaration?
+        notify_error(:unable_to_modify_purchase_invoice_link_to_tax_declaration)
+        return redirect_to_back fallback_location: { action: :show, id: @purchase_invoice.id }
+      end
+
+      super
+    end
+
     def payment_mode
       # use view to select payment mode for mass payment on purchase
     end
 
     def pay
-      unless mode = OutgoingPaymentMode.find_by(id: params[:mode_id])
+      unless (mode = OutgoingPaymentMode.find_by(id: params[:mode_id]))
         notify_error :need_a_valid_payment_mode
         redirect_to action: :index
         return
@@ -232,15 +259,15 @@ module Backend
 
     protected
 
-    def find_purchases
-      purchase_ids = params[:id].split(',')
-      purchases = purchase_ids.map { |id| PurchaseInvoice.find_by(id: id) }.compact
-      unless purchases.any?
-        notify_error :no_purchases_given
-        redirect_to(params[:redirect] || { action: :index })
-        return nil
+      def find_purchases
+        purchase_ids = params[:id].split(',')
+        purchases = purchase_ids.map { |id| PurchaseInvoice.find_by(id: id) }.compact
+        unless purchases.any?
+          notify_error :no_purchases_given
+          redirect_to(params[:redirect] || { action: :index })
+          return nil
+        end
+        purchases
       end
-      purchases
-    end
   end
 end

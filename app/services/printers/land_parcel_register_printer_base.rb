@@ -1,6 +1,5 @@
 module Printers
-  class LandParcelRegisterPrinterBase
-    include PdfPrinter
+  class LandParcelRegisterPrinterBase < PrinterBase
 
     IMPLANTATION_PROCEDURE_NAMES = %w[sowing sowing_without_plant_output sowing_with_spraying mechanical_planting].freeze
     HARVESTING = %w[harvesting].freeze
@@ -8,15 +7,12 @@ module Printers
     class << self
       # TODO move this elsewhere when refactoring the Document Management System
       def build_key(campaign:, activity: nil)
-        key = "#{campaign.name}"
-        key = "#{key}-#{activity.name}" if activity.present?
-
-        key
+        if activity.present?
+          "#{activity.name} - #{campaign.name}"
+        else
+          campaign.name
+        end
       end
-    end
-
-    def initialize(*_args, **_options)
-      @template_path = find_open_document_template(:land_parcel_register)
     end
 
     def compute_dataset
@@ -115,9 +111,11 @@ module Printers
       interventions.sort_by { |intervention| intervention.started_at }.map do |intervention|
         maybe_intervention = Maybe(intervention)
 
+        maybe_actions = maybe_intervention.actions.map { |nature| I18n.t("nomenclatures.procedure_actions.items.#{nature}") }.join(', ')
+
         {
           number: maybe_intervention.number,
-          nature: maybe_intervention.actions.map { |nature| I18n.t("nomenclatures.procedure_actions.items.#{nature}") }.join(', '),
+          nature: maybe_actions.fmap(&:presence).recover { maybe_intervention.procedure.human_name },
           date: maybe_intervention.started_at.to_date.l,
           tool: maybe_intervention.tools.map { |tool| tool.product.name }.join(', '),
           doer: maybe_intervention.doers.map { |doer| doer.product.name }.join(', '),
@@ -490,7 +488,7 @@ module Printers
         r.add_field :company_name, company.name
         r.add_field :company_siret, company.siret_number
         r.add_field :company_address, company.mails.where(by_default: true).first.coordinate
-        r.add_field :filename, @key
+        r.add_field :filename, document_name
         r.add_field :printed_at, Time.zone.now.l
       end
     end
