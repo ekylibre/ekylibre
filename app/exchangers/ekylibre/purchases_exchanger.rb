@@ -24,7 +24,7 @@ module Ekylibre
           supplier_full_name: (row[1].blank? ? nil : row[1]),
           reference_number:   (row[2].blank? ? nil : row[2].upcase),
           variant_code:       (row[3].blank? ? nil : row[3]),
-          annotation:         (row[4].blank? ? nil : row[4]),
+          role:         (row[4].blank? ? 'merchandise' : row[4]),
           quantity:           (row[5].blank? ? nil : row[5].tr(',', '.').to_d),
           unit_pretax_amount: (row[6].blank? ? nil : row[6].tr(',', '.').to_d),
           vat_percentage:     (row[7].blank? ? nil : row[7].tr(',', '.').to_d),
@@ -77,7 +77,7 @@ module Ekylibre
           supplier_full_name: (row[1].blank? ? nil : row[1]),
           reference_number:   (row[2].blank? ? nil : row[2].upcase),
           variant_code:       (row[3].blank? ? nil : row[3]),
-          annotation:         (row[4].blank? ? nil : row[4]),
+          role:               (row[4].blank? ? 'merchandise' : row[4]),
           quantity:           (row[5].blank? ? nil : row[5].tr(',', '.').to_d),
           unit_pretax_amount: (row[6].blank? ? nil : row[6].tr(',', '.').to_d),
           vat_percentage:     (row[7].blank? ? nil : row[7].tr(',', '.').to_d),
@@ -183,14 +183,8 @@ module Ekylibre
         unless purchase.items.find_by(pretax_amount: r.pretax_amount, variant_id: variant.id, tax_id: tax.id)
           raise "Missing quantity at line #{line_index}" unless r.quantity
           # puts r.variant_code.inspect.red
-          role = if variant.variety == 'service'
-                   'service'
-                 elsif variant.category.purchasable
-                   'merchandise'
-                 else
-                   nil
-                 end
-          purchase.items.create!(quantity: r.quantity, tax: tax, unit_pretax_amount: r.unit_pretax_amount, variant: variant, fixed: r.depreciate, role: role)
+
+          purchase.items.create!(role: r.role, quantity: r.quantity, tax: tax, unit_pretax_amount: r.unit_pretax_amount, variant: variant, fixed: r.depreciate)
         end
 
         w.check_point

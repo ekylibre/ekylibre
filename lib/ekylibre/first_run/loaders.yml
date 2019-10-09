@@ -260,6 +260,8 @@ analyses:
 sales:
   ekylibre_sales:
     path: 'alamano/sales.csv'
+    options:
+      attachments_path: 'alamano/sales'
   la_graine_informatique_vinifera_sales:
     path: 'vinifera/sales.csv'
   ekylibre_incoming_payments:
