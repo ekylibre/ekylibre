@@ -298,8 +298,8 @@ cash_transfers:
 interventions:
   # Import interventions from Ekylibre conventions
   # Need to be reviewed
-  # ekylibre_interventions:
-    # path: 'alamano/interventions.csv'
+  ekylibre_interventions:
+    path: 'alamano/interventions.csv'
 
   # Import interventions from DAPLOS EDI
   #agroedi_daplos:
