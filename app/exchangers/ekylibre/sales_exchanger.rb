@@ -1,5 +1,10 @@
 module Ekylibre
   class SalesExchanger < ActiveExchanger::Base
+    def initialize(file, supervisor, options = {})
+      super file, supervisor
+      @attachments_dir = options['attachments_path']
+      @attachments_dir &&= Pathname.new(@attachments_dir)
+    end
     def import
       rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
       w.count = rows.size
@@ -47,6 +52,15 @@ module Ekylibre
               nature: SaleNature.actives.first,
               description: r.description
             )
+            if @attachments_dir.present?
+              attachment_potential_path = @attachments_dir.join(sale.client.name.parameterize,
+                                                                sale.reference_number + ".*")
+              attachment_paths = Dir.glob(attachment_potential_path)
+              attachment_paths.each do |attachment_path|
+                doc = Document.new(file: File.open(attachment_path))
+                sale.attachments.create!(document: doc)
+              end
+            end
             sale_ids << sale.id
           end
         end

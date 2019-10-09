@@ -194,7 +194,7 @@ module Backend
     end
 
     def filter_select_collection
-      regexp = /\A#{Regexp.quote(params[:filter_value])}/
+      regexp = /\A#{Regexp.quote(params[:filter_value].first(3))}/
       @filtered_accounts = Nomen::Account.list.reject { |a| a.send(Account.accounting_system) == 'NONE' || !a.send(Account.accounting_system).match(regexp) }
       @filtered_accounts = @filtered_accounts.sort_by { |a| a.send(Account.accounting_system) }
     end
