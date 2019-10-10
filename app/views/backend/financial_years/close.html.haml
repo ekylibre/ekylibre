@@ -1,6 +1,9 @@
 = form_tag do
   = field_set :prerequisites_checks_before_closure.tl do
     .close-conditions
+      = render 'backend/financial_years/close/warning_regularization_journal_entries'
+      = render 'backend/financial_years/close/warning_no_previous_closure' if FinancialYear.stopped_before(@financial_year.started_on).closed.empty?
+
       = warnings(@financial_year,
                   fixed_assets: FixedAsset.start_before(@financial_year.stopped_on).drafts,
                   fixed_asset_depreciations: FixedAssetDepreciation.up_to(@financial_year.stopped_on).where(locked: false, accountable: false),
