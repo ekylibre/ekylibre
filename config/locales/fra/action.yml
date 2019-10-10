@@ -2103,6 +2103,7 @@ fra:
     no_notifications: "Aucune notification"
     no_origin: "— Sans origine —" #?
     no_particular_periods: "Aucune période en particulier"
+    no_previous_closure_so_think_about_providing_carrying_forward_entry: "Pensez à saisir votre écriture de report à nouveau de l'exercice précédent au premier jour de l'exercice à clôturer."
     no_products: "Sans produit"
     no_proposer: "— Sans parrain ni marraine —" #?
     no_purchases: "Aucun achat en attente de reception" #?
@@ -2668,6 +2669,7 @@ fra:
     taxes_and_wages: "Taxes et charges de personnels"
     temperature: "Température" #?
     theoric_quantity: "Quantité théorique" #?
+    think_about_registering_regularization_journal_entries_before_closing: "Si vous ne l'avez pas encore fait, pensez à saisir manuellement vos écritures de régularisation avant de clôturer l'exercice."
     third_balance: "(solde - solde comptable fournisseur : %{balance} - %{supplier_account_balance})"
     third_informations: "Informations tierces" #?
     third_is_unbalanced: "Tiers à soldes non-rapprochés. (solde - solde comptable fournisseur)"

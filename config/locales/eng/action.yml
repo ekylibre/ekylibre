@@ -2019,6 +2019,7 @@ eng:
     no_new_notifications: "No new notifications"
     no_notifications: "No notifications"
     no_particular_periods: "No particular period" #?
+    no_previous_closure_so_think_about_providing_carrying_forward_entry: "Think about adding a carrying forward entry for the previous financial year at the first day of the financial year you're about to close."
     no_products: "No products"
     no_results: "No results"
     no_right_defined_for_this_part_of_the_application: "No right defined for this part of the application (%{controller}#%{action})"
@@ -2415,6 +2416,7 @@ eng:
     taxations: "Taxations"
     taxes: "Taxes"
     taxes_and_wages: "Taxes and wages"
+    think_about_registering_regularization_journal_entries_before_closing: "If you haven't done it yet, think about manually adding regularization journal entries before closing the financial year."
     third_balance: "(balance - supplier account balance : %{balance} - %{supplier_account_balance})" #?
     third_is_unbalanced: "Third is unbalanced. (balance - supplier account balance)" #?!
     this_archive_is_digitally_signed: "This archive is digitally signed." #?!
