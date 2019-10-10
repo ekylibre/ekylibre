@@ -1137,8 +1137,14 @@ html.backend {
     @include margin-right($default-gap);
   }
   .message {
+    display: flex;
+
+    & .notification-body {
+      flex-grow: 1;
+    }
+
     &, * {
-      display: inline;
+      //display: inline;
       vertical-align: baseline;
       font-size: $fs-normal;
       line-height: $lh-normal;
@@ -1146,10 +1152,10 @@ html.backend {
     h3 {
       font-weight: bold;
       $gap: floor(($default-gap - $menu-border-width)/2);
-      @include margin-right($default-gap);
+      @include margin-right($default-gap * 4);
     }
     p {
-      display: inline;
+      //display: inline;
       font-weight: normal;
     }
     ul {
