@@ -1386,6 +1386,9 @@ cashes:
     type: string
   bank_name:
     type: string
+  by_default:
+    type: boolean
+    default: false
   container_id:
     type: integer
     references: product
@@ -3032,6 +3035,8 @@ imports:
   nature:
     type: string
     required: true
+  options:
+    type: jsonb
   progression_percentage:
     type: decimal
     precision: 19
@@ -3761,6 +3766,9 @@ inventories:
     type: string
   custom_fields:
     type: jsonb
+  disable_accountancy:
+    type: boolean
+    default: false
   financial_year_id:
     type: integer
     references: financial_year
@@ -3770,6 +3778,9 @@ inventories:
   journal_entry_id:
     type: integer
     references: journal_entry
+  journal_id:
+    type: integer
+    references: journal
   lock_version:
     type: integer
     required: true
@@ -5296,6 +5307,8 @@ parcel_items:
   analysis_id:
     type: integer
     references: analysis
+  annotation:
+    type: text
   created_at:
     type: datetime
     required: true
@@ -7021,9 +7034,6 @@ purchase_natures:
   creator_id:
     type: integer
     references: user
-  currency:
-    type: string
-    required: true
   description:
     type: text
   id:
@@ -7032,12 +7042,11 @@ purchase_natures:
   journal_id:
     type: integer
     references: journal
+    required: true
   lock_version:
     type: integer
     required: true
   name:
-    type: string
-  nature:
     type: string
     required: true
   updated_at:
@@ -7046,10 +7055,6 @@ purchase_natures:
   updater_id:
     type: integer
     references: user
-  with_accounting:
-    type: boolean
-    required: true
-    default: false
 purchases:
   accounted_at:
     type: datetime
@@ -7604,6 +7609,8 @@ sales:
     type: integer
     references: entity
     required: true
+  client_reference:
+    type: string
   codes:
     type: jsonb
   conclusion:

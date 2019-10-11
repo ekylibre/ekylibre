@@ -40,7 +40,7 @@ class OutgoingPaymentListTest < Ekylibre::Testing::ApplicationTestCase::WithFixt
     @list = outgoing_payment_lists(:outgoing_payment_lists_001)
     @mode = OutgoingPaymentMode.create!(sepa: true, cash: Cash.bank_accounts.first, name: 'SEPA', with_accounting: true, active: true)
     supplier = Entity.find_by!(full_name: 'BAKTOUBI Inc.')
-    purchase = PurchaseInvoice.create!(nature: PurchaseNature.find_by!(currency: 'EUR'), supplier: supplier, items_attributes: [{ variant: ProductNatureVariant.find_by!(name: 'Adexar 5 l'), quantity: 54, unit_pretax_amount: 161, tax: Tax.find_by!(amount: 0) }])
+    purchase = PurchaseInvoice.create!(nature: PurchaseNature.joins(:journal).find_by!(journals: { currency: 'EUR' }), supplier: supplier, items_attributes: [{ variant: ProductNatureVariant.find_by!(name: 'Adexar 5 l'), quantity: 54, unit_pretax_amount: 161, tax: Tax.find_by!(amount: 0) }])
     purchase.update_columns(number: 'A999907000012')
     payments = [
       PurchasePayment.new(amount: 8694, currency: 'EUR', mode: @mode, payee: supplier, responsible: User.first, to_bank_at: Time.new(2016, 9, 25, 3, 45), affair: purchase.affair)
@@ -153,7 +153,7 @@ class OutgoingPaymentListTest < Ekylibre::Testing::ApplicationTestCase::WithFixt
   test 'destroy with all bank_statement_letter blank' do
     list = OutgoingPaymentList.all.detect do |l|
       JournalEntryItem.where(entry_id: l.payments.select(:entry_id))
-                      .where(state: :closed).empty?
+        .where(state: :closed).empty?
     end
     assert list, 'Cannot find a destroyable list'
     JournalEntryItem.where(entry_id: list.payments.select(:entry_id)).update_all(bank_statement_letter: nil)
