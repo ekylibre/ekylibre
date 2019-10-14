@@ -222,15 +222,6 @@ class ParcelItem < Ekylibre::Record::Base
     update! product: source_product
   end
 
-  def existing_reception_product_in_storage(storing)
-    similar_products = Product.where(variant: variant)
-
-    similar_products.find do |p|
-      location = p.localizations.last.container
-      owner = p.owner
-      location == storing.storage && owner == Entity.of_company
-    end
-  end
 
   def existing_product_in_storage
     similar_products = Product.where(variant: variant)

@@ -69,6 +69,9 @@ class Shipment < Parcel
 
   accepts_nested_attributes_for :items, allow_destroy: true
 
+  alias_method :entity, :recipient
+  alias_method :third, :recipient
+
   state_machine initial: :draft do
     state :draft
     state :ordered
@@ -100,9 +103,17 @@ class Shipment < Parcel
     end
   end
 
-  before_validation do
+  after_initialize do
+    next if persisted?
+
+    self.currency ||= Preference[:currency]
     self.nature = :outgoing
+    self.planned_at ||= Time.zone.today
     self.state ||= :draft
+  end
+
+  protect on: :destroy do
+    prepared? || given?
   end
 
   bookkeep
@@ -110,12 +121,6 @@ class Shipment < Parcel
   def third_id
     recipient_id
   end
-
-  def third
-    recipient
-  end
-
-  alias entity third
 
   def invoiced?
     sale.present?
