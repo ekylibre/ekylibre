@@ -4,6 +4,8 @@ RUN mkdir /app
 WORKDIR /app
 
 COPY Gemfile Gemfile.lock package.json yarn.lock /app/
-RUN bundle install -j $(nproc) --path vendor/ruby && yarn
+RUN bundle config --local build.sassc --disable-march-tune-native && \
+    bundle install -j $(nproc) --path vendor/ruby && \
+    yarn
 
 COPY . /app
