@@ -6,4 +6,4 @@
   = f.custom_fields
 
 = field_set(:accountancy) do
-  = f.referenced_association :journal, source: :purchases, :new => {:nature => 'purchases'}
+  = f.referenced_association :journal, :new => {:nature => 'purchases'}
