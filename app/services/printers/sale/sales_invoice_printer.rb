@@ -23,6 +23,8 @@ module Printers
 
         client_reference = Maybe(sale).client_reference.fmap(&:presence).or_else('Non renseigné')
 
+        description = Maybe(sale).description.fmap { |d| [{ description: d }] }.or_else([])
+
         generate_report(@template_path) do |r|
           # Header
           r.add_image :company_logo, company.picture.path if company.has_picture?
@@ -55,6 +57,10 @@ module Printers
 
           # Estimate_number
           r.add_field :number, sale.number
+
+          r.add_section('Section-description', description) do |sd|
+            sd.add_field(:description) { |item| item[:description] }
+          end
 
           # Items_table
           r.add_table('items', sale.items) do |t|
