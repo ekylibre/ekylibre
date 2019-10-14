@@ -80,7 +80,7 @@ class ReceptionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_equal 1, @variant.products.count
 
     reception = new_reception
-    reception.give!
+    reception.give
 
     @variant.reload
 
@@ -102,7 +102,7 @@ class ReceptionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_operator 0, :<, @variant.stock_movement_account_id
 
     reception = new_reception
-    reception.give!
+    reception.give
     @variant.reload
 
     a_ids = reception.journal_entry.items.pluck(:account_id)
@@ -159,7 +159,7 @@ class ReceptionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     }]
 
     reception = new_reception(items_attributes: to_receive, separated: false)
-    reception.give!
+    reception.give
     unitary_variant.reload
 
     assert_equal 2, unitary_variant.products.count, "Expecting 2 products. Got: #{unitary_variant.products.map(&:population).to_yaml}"

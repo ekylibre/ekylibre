@@ -37,6 +37,8 @@
 .unitary-variant-fields{style: display, data: {"when-item": "identifiable", "when-display-value": 'true', "when-scope": 'target'}}
   = f.input :product_name, required: true do
     = f.input_field :product_name, data: { required: true }
+  = f.input :product_identification_number, required: true do
+    = f.input_field :product_identification_number, data: { required: true }
   = f.input :product_work_number do
     = f.input_field :product_work_number
 .annotation-section
