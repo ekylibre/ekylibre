@@ -155,9 +155,7 @@ class PurchaseAffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     supplier = entities(:entities_005)
     journal = Journal.find_by(nature: :purchases)
     nature = PurchaseNature.find_or_initialize_by(
-      with_accounting: true,
       journal: journal,
-      currency: journal.currency
     )
     nature.name ||= 'Purchases baby!'
     nature.save!
