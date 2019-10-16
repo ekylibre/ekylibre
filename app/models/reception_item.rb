@@ -77,7 +77,7 @@ class ReceptionItem < ParcelItem
 
   enumerize :role, in: %i[merchandise fees service], predicates: true
 
-  validates :product_name, presence: { if: -> { product_is_identifiable? } }
+  validates :product_name, :product_identification_number, presence: { if: -> { product_is_identifiable? } }
 
   delegate :allow_items_update?, :planned_at,
            :ordered_at, :recipient, :in_preparation_at,
