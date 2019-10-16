@@ -79,7 +79,7 @@ module Backend
       t.column :given_at
       t.column :sender, url: true
       t.status
-      t.column :state, label_method: :human_state_name
+      t.column :state
       t.column :delivery, url: true
       t.column :responsible, url: true, hidden: true
       t.column :transporter, url: true, hidden: true
@@ -147,11 +147,11 @@ module Backend
         notify_error_now :reception_need_at_least_one_item
       else
         return if save_and_redirect(@reception,
-                                    url: (params[:create_and_continue] ? { :action=>:new, :continue=>true} : (params[:redirect] || ({ action: :show, id: 'id'.c }))),
+                                    url: (params[:create_and_continue] ? { :action => :new, :continue => true } : (params[:redirect] || ({ action: :show, id: 'id'.c }))),
                                     notify: ((params[:create_and_continue] || params[:redirect]) ? :record_x_created : false),
                                     identifier: :number)
       end
-      render(locals: { cancel_url: {:action=>:index}, with_continue: false })
+      render(locals: { cancel_url: { :action => :index }, with_continue: false })
     end
 
     def update
@@ -168,13 +168,22 @@ module Backend
                            notify: :record_x_updated,
                            identifier: :number)
       end
-      render(locals: { cancel_url: {:action=>:index}, with_continue: false })
+      render(locals: { cancel_url: { :action => :index }, with_continue: false })
     end
 
-    Reception.state_machine.events.each do |event|
-      define_method event.name do
-        fire_event(event.name)
+    def give
+      return unless (record = find_and_check)
+
+      transition = Reception::Transitions::Give.new(record, given_at: record.given_at.presence || Time.zone.now)
+
+      ok = transition.run
+
+      unless ok
+        notify_error helpers.render_transition_error(transition.error), html: true
       end
+
+      redirect_action = ok ? :show : :edit
+      redirect_to params[:redirect] || { action: redirect_action, id: record.id }
     end
   end
 end

@@ -119,15 +119,7 @@ class Parcel < Ekylibre::Record::Base
   delegate :draft?, :ordered?, :in_preparation?, :prepared?, :started?, :finished?, to: :delivery, prefix: true
 
   before_validation do
-    self.planned_at ||= Time.zone.today
-    self.currency ||= Preference[:currency]
     self.pretax_amount = items.sum(:pretax_amount)
-  end
-
-  after_initialize do
-    if new_record? && incoming?
-      self.address ||= Entity.of_company.default_mail_address
-    end
   end
 
   before_update do
@@ -139,18 +131,9 @@ class Parcel < Ekylibre::Record::Base
   end
 
   validate do
-    if given_at
-      errors.add(:given_at, :financial_year_exchange_on_this_period) if Preference[:permanent_stock_inventory] && given_during_financial_year_exchange?
+    if given_at && Preference[:permanent_stock_inventory] && given_during_financial_year_exchange?
+      errors.add(:given_at, :financial_year_exchange_on_this_period)
     end
-  end
-
-
-  protect on: :destroy do
-    prepared? || given?
-  end
-
-  def entity
-    incoming? ? sender : recipient
   end
 
   def printed_at
@@ -162,7 +145,7 @@ class Parcel < Ekylibre::Record::Base
   end
 
   def content_sentence
-    sentence = items.map(&:name).compact.to_sentence
+    items.map(&:name).compact.to_sentence
   end
 
   def separated_stock?

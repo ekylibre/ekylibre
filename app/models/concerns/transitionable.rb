@@ -6,12 +6,13 @@ module Transitionable
   end
 
   class TransitionError < StandardError
-    attr_reader :resource, :original
+    attr_reader :original, :resource, :transition
 
-    def initialize(msg, resource, original = nil)
+    def initialize(msg, resource:, transition:, original: nil)
       super msg
-      @resource = resource
       @original = original
+      @resource = resource
+      @transition = transition
     end
 
     def backtrace
@@ -21,24 +22,52 @@ module Transitionable
         super
       end
     end
-  end
 
-  class TransitionFailedError < TransitionError
-    def initialize(resource, original)
-      super "Error while running transition for #{resource}: #{original.message}", resource, original
+    def interpolations
+      {}
     end
   end
 
+  class TransitionFailedError < TransitionError
+    def initialize(resource:, transition:, original: nil)
+      super "Error while running transition for #{resource}: #{original.message}", resource: resource, original: original, transition: transition
+    end
+
+  end
+
   class PreconditionFailedError < TransitionError
-    def initialize(resource)
-      super "Cannot run transition for #{resource}: precondition test is false", resource
+    def initialize(resource:, transition:)
+      super "Cannot run transition for #{resource}: precondition test is false", resource: resource, transition: transition
     end
   end
 
   class TransitionAbortedError < TransitionError
-    def initialize(resource)
-      super "Transition manually aborted", resource
+    attr_accessor :reason
+
+    def initialize(reason, resource:, transition:)
+      super "Transition manually aborted: #{reason}", resource: resource, transition: transition
     end
+
+    def interpolations
+      { **super, reason: reason }
+    end
+  end
+
+  class ExplainedTransitionError < TransitionError
+    attr_reader :explanation, :options
+
+    def initialize(explanation, options, transition:, resource:, original:)
+      super generate_message(resource, transition, original, explanation), resource: resource, original: original, transition: transition
+
+      @explanation = explanation
+      @options = options
+    end
+
+    private
+
+      def generate_message(resource, transition, original, explanation)
+        "Error (#{explanation}) while running transition (#{transition.class.event}) for #{resource}: #{original.message}"
+      end
   end
 
   class Transition
@@ -80,21 +109,27 @@ module Transitionable
     end
 
     def run!
-      raise PreconditionFailedError.new(resource)  unless can_run?
+      raise PreconditionFailedError.new(resource: resource, transition: self) unless can_run?
 
       res = catch :abort do
         transition
         :ok
       end
 
-      raise TransitionAbortedError.new(resource) unless res == :ok
+      raise TransitionAbortedError.new(res, resource: resource, transition: self) unless res == :ok
     rescue TransitionError
       raise
     rescue StandardError => error
-      raise TransitionFailedError.new(resource, error)
+      raise TransitionFailedError.new(resource: resource, original: error, transition: self)
     end
 
     protected
+
+      def explain(explanation, **options)
+        yield
+      rescue StandardError => original
+        raise ExplainedTransitionError.new(explanation, options, transition: self, resource: resource, original: original)
+      end
 
       def transition
         raise NotImplementedError
