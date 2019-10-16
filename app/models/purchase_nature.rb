@@ -22,51 +22,49 @@
 #
 # == Table: purchase_natures
 #
-#  active          :boolean          default(TRUE), not null
-#  by_default      :boolean          default(FALSE), not null
-#  created_at      :datetime         not null
-#  creator_id      :integer
-#  currency        :string           not null
-#  description     :text
-#  id              :integer          not null, primary key
-#  journal_id      :integer
-#  lock_version    :integer          default(0), not null
-#  name            :string
-#  nature          :string           not null
-#  updated_at      :datetime         not null
-#  updater_id      :integer
-#  with_accounting :boolean          default(FALSE), not null
+#  active       :boolean          default(TRUE), not null
+#  by_default   :boolean          default(FALSE), not null
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  description  :text
+#  id           :integer          not null, primary key
+#  journal_id   :integer          not null
+#  lock_version :integer          default(0), not null
+#  name         :string           not null
+#  updated_at   :datetime         not null
+#  updater_id   :integer
 #
 class PurchaseNature < Ekylibre::Record::Base
-  enumerize :nature, in: %i[purchase payslip], default: :purchase, predicates: true
-  refers_to :currency
   belongs_to :journal
   has_many :purchases, foreign_key: :nature_id, dependent: :restrict_with_exception
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :active, :by_default, :with_accounting, inclusion: { in: [true, false] }
-  validates :currency, :nature, presence: true
+  validates :active, :by_default, inclusion: { in: [true, false] }
   validates :description, length: { maximum: 500_000 }, allow_blank: true
-  validates :name, length: { maximum: 500 }, allow_blank: true
+  validates :name, presence: true, length: { maximum: 500 }
+  validates :journal, presence: true
   # ]VALIDATORS]
-  validates :journal, presence: { if: :with_accounting? }
   validates :name, uniqueness: true
 
-  delegate :currency, to: :journal, prefix: true
+  delegate :currency, to: :journal
 
   selects_among_all
 
   scope :actives, -> { where(active: true) }
 
-  before_validation do
-    self.nature = :purchase
+  def with_accounting?
+    ActiveSupport::Deprecation.warn "All purchase_natures are with accounting = true"
+    true
   end
 
-  validate do
-    self.journal = nil unless with_accounting?
-    if journal
-      errors.add(:journal, :currency_does_not_match, currency: journal_currency) if currency != journal_currency
-    end
-    errors.add(:nature, :invalid) if nature.present? && payslip?
+  def journal_currency
+    ActiveSupport::Deprecation.warn 'journal_currency is deprecated, directly use `currency` or `journal.currency`'
+    currency
+  end
+
+  def payslip?
+    ActiveSupport::Deprecation.warn "No purchase_natures are payslips"
+    false
   end
 
   class << self
@@ -82,8 +80,6 @@ class PurchaseNature < Ekylibre::Record::Base
         create!(
           name: PurchaseNature.tc('default.name'),
           active: true,
-          currency: currency,
-          with_accounting: true,
           journal: journal
         )
       end

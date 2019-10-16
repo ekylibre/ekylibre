@@ -1,9 +1,10 @@
 FactoryBot.define do
   factory :purchase_nature do
-    currency { 'EUR' }
-    nature { 'purchase' }
+    transient {
+      journal_currency { :EUR }
+    }
+
     sequence(:name) { |n| "Purchase nature #{n}" }
-    with_accounting { true }
-    journal
+    journal { |journal| journal.association :journal, currency: journal_currency }
   end
 end

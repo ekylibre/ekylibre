@@ -102,7 +102,6 @@ class SaleNature < Ekylibre::Record::Base
           downpayment: false,
           downpayment_minimum: 300,
           downpayment_percentage: 30,
-          currency: currency,
           journal: journal,
           catalog: catalog
         )

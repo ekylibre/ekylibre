@@ -123,7 +123,9 @@ module Backend
     end
 
     def new
-      nature = PurchaseNature.by_default
+      nature = PurchaseNature.find_by(id: params[:nature_id])
+      nature ||= PurchaseNature.by_default
+
       @purchase_invoice = if params[:duplicate_of]
                             PurchaseInvoice.find_by(id: params[:duplicate_of])
                               .deep_clone(include: :items, except: %i[state number affair_id reference_number payment_delay])
@@ -135,7 +137,7 @@ module Backend
       @purchase_invoice.responsible ||= current_user
       @purchase_invoice.planned_at = Time.zone.now
       @purchase_invoice.supplier_id ||= params[:supplier_id] if params[:supplier_id]
-      if address = Entity.of_company.default_mail_address
+      if (address = Entity.of_company.default_mail_address)
         @purchase_invoice.delivery_address = address
       end
       render locals: { with_continue: true }

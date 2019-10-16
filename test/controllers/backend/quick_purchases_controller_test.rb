@@ -47,7 +47,8 @@ module Backend
 
       @citadels   = Tax.create!(name: 'Citadel\'s tax', country: 'au', deduction_account: fuel_act, collect_account: citadel_act, nature: :normal_vat)
 
-      @nature     = PurchaseNature.create!(currency: 'EUR', name: 'Perishables')
+      @journal    = create(:journal, nature: :purchases)
+      @nature     = PurchaseNature.create!(journal: journal, name: 'Perishables')
 
       @diesel     = OutgoingPaymentMode.create!(cash: interceptor, with_accounting: true, name: 'Diesel')
       @caps       = OutgoingPaymentMode.create!(cash: caps_stash,  with_accounting: true, name: 'Caps')
