@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20190917161217">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20191001122750">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -157,6 +157,7 @@
       <item name="cooperative_participation_assets" fr_pcga="2621" fr_pcg82="2621"/>
       <item name="corporeal_asset_depreciations" fr_pcga="281" fr_pcg82="281"/>
       <item name="corporeal_asset_revenues" fr_pcg82="722" fr_pcga="722"/>
+      <item name="corporeal_asset_revenues_of_livestock" fr_pcga="724"/>
       <item name="corporeal_assets" fr_pcga="21" pt_snc="43000000" fr_pcg82="21"/>
       <item name="corporeal_depreciations_inputations_expenses" fr_pcga="68112" fr_pcg82="68112"/>
       <item name="corporeal_depreciations_inputations_expenses_living_goods" fr_pcga="68114" fr_pcg82="68114"/>
@@ -280,6 +281,7 @@
       <item name="installation_sustainable_plant_assets" fr_pcga="2467" fr_pcg82="2467"/>
       <item name="insurance_compensations" fr_pcga="742"/>
       <item name="insurance_expenses" fr_pcg82="616" fr_pcga="616"/>
+      <item name="intangible_fixed_asset_in_progress" fr_pcga="232" fr_pcg82="232"/>
       <item name="intangible_fixed_assets_revenues" fr_pcga="7751" fr_pcg82="7751"/>
       <item name="internal_transfers" fr_pcg82="58" fr_pcga="58"/>
       <item name="inventory_variations" fr_pcga="71" fr_pcg82="71"/>
@@ -376,6 +378,7 @@
       <item name="other_investment_subventions" fr_pcg82="138" fr_pcga="138"/>
       <item name="other_investment_subventions_in_earnings_statement" fr_pcg82="139" fr_pcga="139"/>
       <item name="other_materials_stock" fr_pcga="3026" fr_pcg82="3026"/>
+      <item name="other_plants_tangible_fixed_asset_in_progress" fr_pcga="2347"/>
       <item name="other_professional_agricultural_participation_assets" fr_pcga="2628" fr_pcg82="2628"/>
       <item name="other_rent_expenses" fr_pcga="6138"/>
       <item name="other_reserves" fr_pcg82="1068" fr_pcga="1068"/>
@@ -420,6 +423,10 @@
       <item name="participations" fr_pcg82="26" pt_snc="41000000" fr_pcga="26"/>
       <item name="particular_operation_with_state" fr_pcg82="443" fr_pcga="443"/>
       <item name="payment_guarantees" fr_pcg82="275" fr_pcga="275"/>
+      <item name="payments_on_account_on_intangible_fixed_assets" fr_pcga="237"/>
+      <item name="payments_on_account_on_orders_for_tangible_fixed_assets" fr_pcga="238" fr_pcg82="238"/>
+      <item name="payments_on_account_on_orders_for_tangible_fixed_assets_except_for_livestock" fr_pcga="2381"/>
+      <item name="payments_on_account_on_orders_for_tangible_fixed_assets_for_livestock" fr_pcga="2384"/>
       <item name="pending_deposit_payments" fr_pcg82="511" pt_snc="18000000" fr_pcga="511"/>
       <item name="permanent_staff_salary" fr_pcga="64111"/>
       <item name="plant_derivative_stock" fr_pcga="374" centralizing="false" fr_pcg82="374"/>

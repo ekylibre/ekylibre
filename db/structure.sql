@@ -3190,7 +3190,11 @@ CREATE TABLE public.fixed_assets (
     depreciation_fiscal_coefficient numeric,
     selling_amount numeric(19,4),
     pretax_selling_amount numeric(19,4),
-    tax_id integer
+    tax_id integer,
+    waiting_on date,
+    waiting_journal_entry_id integer,
+    waiting_asset_account_id integer,
+    special_imputation_asset_account_id integer
 );
 
 
@@ -19105,6 +19109,8 @@ INSERT INTO schema_migrations (version) VALUES ('20190807075910');
 INSERT INTO schema_migrations (version) VALUES ('20190808152235');
 
 INSERT INTO schema_migrations (version) VALUES ('20190916124521');
+
+INSERT INTO schema_migrations (version) VALUES ('20190929224101');
 
 INSERT INTO schema_migrations (version) VALUES ('20191002104944');
 

@@ -2334,6 +2334,7 @@ fra:
     profits_and_losses: "Les profits et pertes"
     progress_bar_current_step: "Étape %{current}/%{total} : %{label}..."
     protein_matters_concentration: "Teneur en matières protéïques" #?
+    provide_mandatory_information_before_putting_on_hold: "Veuillez fournir les informations nécessaires à la mise en attente de votre immobilisation. Une fois redirigé(e), cliquez à nouveau sur 'En attente' pour finaliser la procédure."
     provide_mandatory_information_before_scrapping: "Veuillez fournir les informations nécessaires à la mise au rebut de votre immobilisation. Une fois redirigé(e), cliquez à nouveau sur 'Mise au rebut' pour finaliser la procédure."
     provide_mandatory_information_before_selling: "Veuillez fournir les informations nécessaires à la vente de votre immobilisation. Une fois redirigé(e), cliquez à nouveau sur 'Vendue' pour finaliser la procédure."
     provider: "Fournisseur" #?
@@ -3312,6 +3313,7 @@ fra:
       you_must_select_a_file_to_import: "Vous devez sélectionner un fichier à importer" #?
       you_need_to_review_your_application_configuration: "Vous devez revoir la configuration de votre application"
       you_will_lose_all_your_current_data: "Si vous continuez, vous allez perdre toutes vos données en cours de saisie. Voulez-vous poursuivre\_?" #?
+      your_fixed_asset_is_now_ready_to_be_put_on_hold: "Votre immobilisation est maintenant prête à être mise en attente, cliquez une dernière fois sur le bouton 'En attente' pour terminer la procédure."
       your_fixed_asset_is_now_ready_to_be_scrapped: "Votre immobilisation est maintenant prête à être mise au rebut, cliquez une dernière fois sur le bouton 'Mise au rebut' pour terminer la procédure."
       your_fixed_asset_is_now_ready_to_be_sold: "Votre immobilisation est maintenant prête à être vendue, cliquez une dernière fois sur le bouton 'Vendue' pour terminer la procédure."
   preferences:
@@ -3436,9 +3438,10 @@ fra:
       show: "Afficher"
       show_export_preview: "Afficher un aperçu du document (peut augmenter le temps de chargement)"
       sort: "Trier"
+      stand_by: "Mettre en attente"
       star: "Étoile"
       start: "Commencer"
-      start_up: "Mise en service"
+      start_up: "Mettre en service"
       stop: "Arrêter"
       suspend: "Suspendre"
       take: "Prendre"

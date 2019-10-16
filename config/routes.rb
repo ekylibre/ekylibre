@@ -510,6 +510,7 @@ Rails.application.routes.draw do
         post :start_up
         post :sell
         post :scrap
+        post :stand_by
         patch :link_to_sale
       end
     end

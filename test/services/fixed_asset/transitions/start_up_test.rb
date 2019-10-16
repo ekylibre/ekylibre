@@ -9,9 +9,9 @@ class FixedAsset
         create :financial_year, year: 2016
       end
 
-      test 'should not be able to start FixedAsset that are not drafts' do
-        supported_state = 'draft'
-        unsupported_states = FixedAsset.state.values.reject { |state| state == supported_state }
+      test 'should not be able to start FixedAsset that are not drafts or waiting' do
+        supported_states = %w[draft waiting]
+        unsupported_states = FixedAsset.state.values - supported_states
         unsupported_states.each do |state|
           mock = Minitest::Mock.new
           mock.expect :state, state
