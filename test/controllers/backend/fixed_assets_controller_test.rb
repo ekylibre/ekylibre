@@ -20,7 +20,7 @@ require 'test_helper'
 module Backend
   class FixedAssetsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     # TODO: Re-activate the #depreciate, #depreciate_all, #sell, #start_up and #scrap test
-    test_restfully_all_actions except: %i[depreciate depreciate_all sell start_up scrap link_to_sale]
+    test_restfully_all_actions except: %i[depreciate depreciate_all sell start_up scrap link_to_sale stand_by]
 
     test "update action should not modify depreciation_percentage if not in parameters" do
       manual_setup
@@ -76,6 +76,20 @@ module Backend
         assert_equal 0, noko.css('.fixed_asset_product.error').size
         assert_equal 1, noko.css(".fixed_asset_#{attribute}.error").size
       end
+    end
+
+    test "edition before putting on hold is only possible if the user provides a valid waiting_on date" do
+      fixed_asset = create :fixed_asset, started_on: Date.new(2008, 1, 1)
+
+      # Case where no waiting_on is provided
+      patch :update, id: fixed_asset.id, fixed_asset: fixed_asset.attributes, mode: 'stand_by'
+      noko = Nokogiri::HTML(response.body)
+      assert_equal 1, noko.css('.fixed_asset_waiting_on.error').size
+
+      # Case where waiting_on > fixed_asset.started_on
+      patch :update, id: fixed_asset.id, fixed_asset: { waiting_on: Date.new(2008, 12, 31) }, mode: 'stand_by'
+      noko = Nokogiri::HTML(response.body)
+      assert_equal 1, noko.css(".fixed_asset_waiting_on.error").size
     end
 
     private

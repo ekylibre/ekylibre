@@ -2194,6 +2194,7 @@ eng:
     profits: "Profits" #?
     profits_and_losses: "Profits and losses"
     progress_bar_current_step: "Step %{current}/%{total} : %{label}..." #?
+    provide_mandatory_information_before_putting_on_hold: "Please provide the mandatory information before putting your fixed asset on hold. Click the 'Waiting' button after the redirection to end the process."
     provide_mandatory_information_before_scrapping: "Please provide the mandatory information before scrapping your fixed asset. Click the 'Scrapped' button after the redirection to end the process."
     provide_mandatory_information_before_selling: "Please provide the mandatory information before selling your fixed asset. Click the 'Sold' button after the redirection to end the process."
     provisions_revenues: "Provisions revenues" #?
@@ -2921,6 +2922,7 @@ eng:
         other: "There are %{count} entries to point"
       you_must_have_an_email_column: "You must have an email address in your extraction"
       you_need_to_review_your_application_configuration: "You need to review your application configuration"
+      your_fixed_asset_is_now_ready_to_be_put_on_hold: "Your fixed asset is now ready to be put on hold, click the 'Waiting' button one last time to end the process."
       your_fixed_asset_is_now_ready_to_be_scrapped: "Your fixed asset is now ready to be scrapped, click the 'Scrapped' button one last time to end the process."
       your_fixed_asset_is_now_ready_to_be_sold: "Your fixed asset is now ready to be sold, click the 'Sold' button one last time to end the process."
   preferences:
@@ -3087,6 +3089,7 @@ eng:
       show: "Show"
       show_export_preview: "View a preview of the document (may increase loading time)" #?
       sort: "Sort"
+      stand_by: "Put on hold"
       star: "Star"
       start: "Start"
       start_up: "Commission"

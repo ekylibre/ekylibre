@@ -75,7 +75,7 @@ class PurchaseItem < Ekylibre::Record::Base
   has_many :parcels_purchase_invoice_items, inverse_of: :purchase_invoice_item, foreign_key: 'purchase_invoice_item_id', dependent: :nullify, class_name: 'ReceptionItem'
 
   # has_many :products, through: :parcels_purchase_orders_items
-  has_many :products, through: :parcels_purchase_invoice_items
+  has_many :products, through: :parcels_purchase_invoice_items, source: :product
   has_one :product_nature_category, through: :variant, source: :category
 
   enumerize :role, in: %i[merchandise fees service], predicates: true

@@ -157,6 +157,8 @@ module Backend
                        :your_fixed_asset_is_now_ready_to_be_sold
                      elsif params[:mode] == 'scrap'
                        :your_fixed_asset_is_now_ready_to_be_scrapped
+                     elsif params[:mode] == 'stand_by'
+                       :your_fixed_asset_is_now_ready_to_be_put_on_hold
                      elsif params[:redirect]
                        :record_x_updated
                      else
@@ -232,6 +234,20 @@ module Backend
       end
 
       redirect_to params[:redirect] || { action: :show, id: record.id }
+      record
+    end
+
+    def stand_by
+      return unless record = find_and_check
+
+      ok = record.stand_by
+      record.errors.messages.each do |field, message|
+        notify_error :error_on_field, { field: FixedAsset.human_attribute_name(field), message: message.join(", ") }
+      end
+
+      redirect_action = ok ? :show : :edit
+      redirect_params = redirect_action == :edit ? { mode: 'stand_by' } : {}
+      redirect_to params[:redirect] || { action: redirect_action, id: record.id }.merge(redirect_params)
       record
     end
 

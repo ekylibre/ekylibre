@@ -2,7 +2,7 @@ class FixedAsset
   module Transitions
     class StartUp < Transitionable::Transition
       event :start_up
-      from :draft
+      from :draft, :waiting
       to :in_use
 
       def initialize(fixed_asset, **_options)

@@ -131,6 +131,7 @@ fra:
         depreciation_period: "Périodicité des amortissements"
         net_book_value: "Valeur nette comptable (VNC)" #?
         started_on: "Date de mise en service"
+        waiting_journal_entry: "Écriture"
       fixed_asset_depreciation:
         asset_amount: "Valeur comptable"
         depreciable_amount: "Valeur nette comptable (VNC)" #?
@@ -379,6 +380,11 @@ fra:
             base:
               no_opened_financial_year: "Un exercice comptable ouvert est nécessaire pour la création d'une immobilisation."
             started_on: #?
+              financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période" #?
+              financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
+              financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
+              not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
+            waiting_on:
               financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période" #?
               financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
               financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
@@ -1924,6 +1930,7 @@ fra:
     # source_product_movement: "Source product movement"
     # sowing_interval: "Sowing interval"
     spaced_iban: "IBAN"
+    special_imputation_asset_account: "Compte d'imputation spéciale"
     # specie: "Specie"
     sql_type: "Type SQL"
     ssl: "Ssl"
@@ -2107,7 +2114,9 @@ fra:
     verb: "Verbe"
     versions: "Versions"
     view_parameters: "Voir paramètres"
+    waiting_asset_account: "Compte d'immobilisation en attente"
     waiting_deliveries: "Livraisons en attente"
+    waiting_on: "Date d'inscription au bilan"
     ways: "Voies" #?
     websites: "Sites web"
     whole_duration: "Toute la durée"
@@ -2212,11 +2221,13 @@ fra:
       bookkeep_exit_assets: "[%{resource} %{number}] Mise au rébut de %{name}"
       bookkeep_in_sold_assets: "[%{resource} %{number}] Cession de %{name}"
       bookkeep_in_use_assets: " [%{resource} %{number}] Mise en service de %{name}"
+      bookkeep_waiting_assets: "[%{resource} %{number}] Mise en attente de %{name}"
       states:
         draft: "Brouillon"
         in_use: "En service"
         scrapped: "Mise au rebut"
         sold: "Vendue"
+        waiting: "En attente"
     fixed_asset_depreciation:
       bookkeep: "[%{resource} %{number}] Amortissement de %{name} (%{position}/%{total})"
       bookkeep_partial: "[%{resource} %{number}] Amortissement partiel de %{name} (%{position}/%{total})"

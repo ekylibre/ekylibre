@@ -101,6 +101,7 @@ eng:
         asset_account: "Fixed asset account"
         depreciation_period: "Depreciation period"
         started_on: "start-up date"
+        waiting_journal_entry: "Journal entry"
       fixed_asset_depreciation:
         asset_amount: "Accountable value"
         accounted: "Accounted"
@@ -1746,6 +1747,7 @@ eng:
     # source_type: "Source type"
     sowing_interval: "Sowing interval" #?
     spaced_iban: "Spaced IBAN"
+    special_imputation_asset_account: "Special imputation asset account"
     specie: "Specie"
     sql_type: "SQL type"
     ssl: "SSL"
@@ -1929,7 +1931,9 @@ eng:
     verb: "Verb"
     versions: "Versions"
     view_parameters: "View parameters"
+    waiting_asset_account: "Waiting asset account"
     waiting_deliveries: "Waiting deliveries"
+    waiting_on: "Registered to balance sheet on"
     websites: "Websites"
     whole_duration: "Whole duration"
     with_accounting: "With accounting"
@@ -2024,11 +2028,13 @@ eng:
       bookkeep_exit_assets: "[%{resource} %{number}] Scrapped of %{name}"
       bookkeep_in_sold_assets: "[%{resource} %{number}] Sold of %{name}"
       bookkeep_in_use_assets: "[%{resource} %{number}] In use of %{name}"
+      bookkeep_waiting_assets: "[%{resource} %{number}] On hold of %{name}"
       states:
         draft: "Draft"
         in_use: "In use"
         scrapped: "Scrapped"
         sold: "Sold"
+        waiting: "Waiting"
     fixed_asset_depreciation:
       bookkeep: "[%{resource} %{number}] Depreciation of %{name} (%{position}/%{total})"
       bookkeep_partial: "[%{resource} %{number}] Partial depreciation of %{name} (%{position}/%{total})"

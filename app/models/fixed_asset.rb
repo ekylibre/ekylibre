@@ -71,8 +71,9 @@ class FixedAsset < Ekylibre::Record::Base
 
   acts_as_numbered
   enumerize :depreciation_method, in: %i[linear regressive none], predicates: { prefix: true } # graduated
-  enumerize :state, in: %i[draft in_use sold scrapped], predicates: true, i18n_scope: "models.#{model_name.param_key}.states"
+  enumerize :state, in: %i[draft waiting in_use sold scrapped], predicates: true, i18n_scope: "models.#{model_name.param_key}.states"
   refers_to :currency
+  belongs_to :waiting_journal_entry, class_name: 'JournalEntry', dependent: :destroy
   belongs_to :asset_account, class_name: 'Account'
   belongs_to :expenses_account, class_name: 'Account'
   belongs_to :allocation_account, class_name: 'Account'
@@ -84,6 +85,8 @@ class FixedAsset < Ekylibre::Record::Base
   belongs_to :tax
   belongs_to :sale
   belongs_to :sale_item
+  belongs_to :special_imputation_asset_account, class_name: 'Account'
+  belongs_to :waiting_asset_account, class_name: 'Account'
   has_many :purchase_items, inverse_of: :fixed_asset
   has_many :depreciations, -> { order(:position) }, class_name: 'FixedAssetDepreciation' do
     def following(depreciation)
@@ -119,8 +122,10 @@ class FixedAsset < Ekylibre::Record::Base
   validates :tax_id, :selling_amount, :pretax_selling_amount, presence: { if: :sold? }
   validates :scrapped_on, timeliness: { on_or_after: -> (fixed_asset) { fixed_asset.started_on }, on_or_before: -> { Date.today }, type: :date }, if: -> { scrapped_on }
   validates :sold_on, timeliness: { on_or_after: -> (fixed_asset) { fixed_asset.started_on }, on_or_before: -> { Date.today }, type: :date }, if: -> { sold_on }
+  validates :waiting_on, timeliness: { on_or_before: -> (fixed_asset) { fixed_asset.started_on }, type: :date }, if: -> { waiting_on }, allow_blank: true
   validates :scrapped_on, :product_id, presence: true, on: :scrap
   validates :sold_on, :product_id, presence: true, on: :sell
+  validates :waiting_on, presence: true, financial_year_writeable: true, on: :stand_by
 
   enumerize :depreciation_period, in: %i[monthly quarterly yearly], default: -> { Preference.get(:default_depreciation_period).value || Preference.set!(:default_depreciation_period, :yearly, :string) }
 
@@ -236,22 +241,22 @@ class FixedAsset < Ekylibre::Record::Base
     end
   end
 
+  protect on: :update do
+    old_record.scrapped? || old_record.sold?
+  end
+
+  protect on: :destroy do
+    waiting? && waiting_journal_entry&.confirmed? || in_use? || scrapped? || sold?
+  end
+
   def on_unclosed_periods?
     started_on > journal.closed_on
   end
 
   def status
     return :go if in_use?
-    return :caution if draft?
+    return :caution if draft? || waiting?
     return :stop if scrapped? || sold?
-  end
-
-  def updateable?
-    draft? || in_use?
-  end
-
-  def destroyable?
-    draft?
   end
 
   def add_amount(amount)

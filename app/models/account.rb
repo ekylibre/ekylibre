@@ -160,6 +160,15 @@ class Account < Ekylibre::Record::Base
   # scope :asset_depreciations_inputations_expenses, -> { where('number LIKE ?', '68%').order(:number, :name) }
   scope :asset_depreciations_inputations_expenses, -> { of_usages(:incorporeals_depreciations_inputations_expenses, :land_parcel_construction_depreciations_inputations_expenses, :building_depreciations_inputations_expenses, :animals_depreciations_inputations_expenses, :equipments_depreciations_inputations_expenses, :others_corporeals_depreciations_inputations_expenses) }
 
+  scope :outstanding_assets, -> {
+    of_usages(:outstanding_adult_animal_assets, :outstanding_assets, :outstanding_construction_on_other_land_parcel_assets, :outstanding_land_parcel_assets,
+              :outstanding_living_corporeal_assets, :outstanding_service_animal_assets, :outstanding_sustainables_plants_assets,
+              :outstanding_young_animal_assets, :outstanding_corporeal_assets, :outstanding_land_parcel_construction_assets,
+              :outstanding_construction_on_own_land_parcel_assets, :outstanding_equipment_assets, :outstanding_other_general_installation_assets)
+  }
+
+  scope :capitalized_revenues, -> { of_usages(:capitalized_revenues, :incorporeal_asset_revenues, :corporeal_asset_revenues) }
+
   scope :stocks_variations, -> {
     of_usages(:fertilizer_stocks_variation, :seed_stocks_variation, :plant_medicine_stocks_variation,
               :livestock_feed_stocks_variation, :animal_medicine_stocks_variation, :animal_reproduction_stocks_variation,
