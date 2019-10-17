@@ -171,6 +171,10 @@ module Backend
           end
         end
 
+        format.xml do
+          create_response
+        end
+
         format.html do
           t3e @sale.attributes, client: @sale.client.full_name, state: @sale.state_label, label: @sale.label
           create_response
