@@ -1,6 +1,14 @@
 class ProductDecorator < Draper::Decorator
   delegate_all
 
+  def hour_counter?
+    object
+      .variant
+      .nature
+      .decorate
+      .hour_counter?
+  end
+
   def land_parcel?
     object.is_a?(LandParcel)
   end
