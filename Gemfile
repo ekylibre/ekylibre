@@ -20,20 +20,18 @@ gem 'rails', '4.2.11.1'
 gem 'webpacker', '~> 4.x'
 
 # Security fix for mail
-gem 'mail', '~> 2.6.6.rc1'
+gem 'mail', '~> 2.6'
 
 # Database adapters
 gem 'activerecord-postgis-adapter', '>= 3.0.0'
 gem 'pg', '~> 0.20.0' # Needed for some tasks
 
 # Multi-tenancy
-gem 'apartment', github: 'influitive/apartment', branch: 'development'
+gem 'apartment', '~> 2.2.1'
 gem 'apartment-sidekiq'
 
 # Ruby syntax extensions
 gem 'possibly', gitlab: 'ekylibre/eky-possibly', branch: :prod
-
-gem 'better_errors'
 
 # Code manipulation
 gem 'charlock_holmes'
@@ -111,11 +109,6 @@ gem 'draper'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
-# Use unicorn as the app server
-gem 'unicorn', group: :production
-
-gem 'loofah', group: :production
 
 # Exception management
 gem 'exception_notification'
@@ -221,6 +214,13 @@ gem 'luhn'
 gem 'bootstrap-slider-rails'
 
 gem 'gpgme'
+
+group :production do
+  # Use unicorn as the app server
+  gem 'unicorn'
+
+  gem 'loofah'
+end
 
 group :development do
   gem 'bullet', '< 5.6.0'
