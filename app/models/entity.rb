@@ -90,6 +90,8 @@ class Entity < Ekylibre::Record::Base
   refers_to :country
   enumerize :nature, in: %i[organization contact], default: :organization, predicates: true
   enumerize :supplier_payment_delay, in: ['1 week', '30 days', '30 days, end of month', '60 days', '60 days, end of month']
+  #TODO: it should be rewritten when refers_to_lexicon is available
+  enumerize :legal_position_code, in: RegisteredLegalPosition.pluck(:code)
   versionize exclude: [:full_name]
   belongs_to :client_account, class_name: 'Account'
   belongs_to :employee_account, class_name: 'Account'
@@ -275,6 +277,25 @@ class Entity < Ekylibre::Record::Base
       end
       company
     end
+  end
+
+  def legal_position
+    RegisteredLegalPosition.find_by(code: legal_position_code)
+  end
+
+  def of_capital?
+    return false unless legal_position
+    legal_position.nature == "capital"
+  end
+
+  def of_person?
+    return false unless legal_position
+    legal_position.nature == "person"
+  end
+
+  def of_individual?
+    return false unless legal_position
+    legal_position.nature == "individual"
   end
 
   def entity_payment_mode_name

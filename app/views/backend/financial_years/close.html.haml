@@ -3,7 +3,7 @@
     .close-conditions
       = render 'backend/financial_years/close/warning_regularization_journal_entries'
       = render 'backend/financial_years/close/warning_no_previous_closure' if FinancialYear.stopped_before(@financial_year.started_on).closed.empty?
-
+      = render partial: 'backend/entities/legal_positions' if Entity.of_company.legal_position.nil?
       = warnings(@financial_year,
                   fixed_assets: FixedAsset.start_before(@financial_year.stopped_on).drafts,
                   fixed_asset_depreciations: FixedAssetDepreciation.up_to(@financial_year.stopped_on).where(locked: false, accountable: false),
@@ -26,13 +26,37 @@
       .result
         %span.result-icon= 'i'
         %span.result-text
-          - result = AccountancyComputation.new(@financial_year).sum_entry_items_by_line(:profit_and_loss_statement, :exercice_result)
-          - profit = (result >= 0)
+          - profit = (@result >= 0)
           - account_number = profit ? '12000000' : '12900000'
           - result_direction = profit ? :profit : :loss
-          - localized_currency = number_to_accountancy(result.abs, @financial_year.currency)
+          - localized_currency = number_to_accountancy(@result.abs, @financial_year.currency, false)
           - result_label = "#{result_direction}_is_x_for_account".tl(x: localized_currency, account_number: account_number)
-          %p= :financial_year_results.tl(results: result_label).html_safe
+          %p.result-amount{ "data-exercice-results" => @result.to_f }= :financial_year_results.tl(results: result_label).html_safe
+
+  = field_set :exercice_result_allocation.tl, class: 'exercice_result_allocation' do
+    - unless @carry_forward_balance == 0
+      %div.amount_allocated.amount_allocated--carry_forward
+        - if Account.find_or_create_by_number(119).totals[:balance].to_f != 0
+          = field :debit_balance.tl, number_field_tag('allocations[119]', @debit_balance, class: 'previous_debit_balance', step: :any, disabled: true)
+        - else
+          = field :credit_balance.tl, number_field_tag('allocations[110]', @credit_balance, class: 'previous_credit_balance', step: :any, disabled: true)
+        %p.allocated-budget= :left_to_allocate.tl
+        %span.allocated-budget='xxxx€'
+        %p.allocated-budget='€'
+    - if Entity.of_company.of_individual?
+      %div.amount_allocated.amount_allocated--individual_capital
+        = field :individual_capital.tl, number_field_tag('allocations[101]', (@result + @carry_forward_balance).abs, class: 'allocation individual_capital', step: :any, disabled: true)
+        %p.allocated-budget= :left_to_allocate.tl
+        %span.allocated-budget='xxxx€'
+        %p.allocated-budget='€'
+
+    - if Entity.of_company.of_capital?
+      = render 'backend/financial_years/close/capital_result_allocation'
+    - elsif Entity.of_company.of_person?
+      = render 'backend/financial_years/close/person_result_allocation'
+    - elsif Entity.of_company.legal_position_code.nil?
+      = render 'backend/financial_years/close/no_legal_position_result_allocation'
+
 
   = field_set :close_settings.tl do
     = field FinancialYear.model_name.human, @financial_year.code

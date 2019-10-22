@@ -24,7 +24,8 @@ class AddHourCounterToProductCategories < ActiveRecord::Migration
   end
 
   def update_by_name(product_natures_names, remove_hour_counter: false)
-    locale = Entity.of_company.language.to_sym
+    locale = execute('SELECT language FROM entities WHERE of_company;').to_a.first || { 'language' => 'eng' }
+    locale = locale['language'].to_sym
 
     product_natures_names.each do |product_nature_name|
       translated_name = I18n.t("nomenclatures.product_nature_variants.items.#{product_nature_name}", locale: locale)

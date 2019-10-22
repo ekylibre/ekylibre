@@ -4,6 +4,8 @@
   - f.add(:submit, :update.tl, data: {disable_with: :please_wait.tl}, class: 'primary')
   = field_set :company do
     = f.input :last_name, label: Entity.human_attribute_name(:full_name)
+    // TODO: it should be rewritten when refers_to_lexicon is available
+    = f.input :legal_position_code, collection: RegisteredLegalPosition.all.map { |i| { "#{i.name['fra']} (#{i.code})" => i.code } }.reduce(:merge)
     = f.input :siret_number
     = f.input :language
     = f.input :activity_code

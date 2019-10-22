@@ -1241,6 +1241,7 @@ eng:
     late_delivery: "Late delivery"
     latest: "Latest"
     leaves_parameters: "Leaves parameters"
+    legal_position: "Forme Juridique"
     lender: "Lender"
     letter: "Letter"
     letter_format: "Letter format"

@@ -2,6 +2,8 @@
 class FinancialYearClose
   include PdfPrinter
 
+  attr_reader :result_account, :carry_forward_account
+
   CLOSURE_STEPS = { 0 => 'generate_documents_prior_to_closure',
                     1 => 'compute_balances',
                     2 => 'close_result_entry',
@@ -76,7 +78,7 @@ class FinancialYearClose
       end
 
       benchmark('Generate Result Entry') do
-        generate_result_entry! if @result_journal
+        generate_result_entry!
         @progress.increment!
       end
 
@@ -85,6 +87,11 @@ class FinancialYearClose
 
       generate_carrying_forward_entry!
       @progress.increment!
+
+      enable_partial_lettering
+
+      allocate_results if @forward_journal
+
 
       log("Enable Partial Lettering Triggers")
       enable_partial_lettering
@@ -170,10 +177,12 @@ class FinancialYearClose
     accounts = %i[expenses revenues]
     accounts = accounts.map { |acc| Nomen::Account.find(acc).send(Account.accounting_system) }
 
-    total = account_balances_for(accounts).count + 1
+    balances = @year.account_balances_for(accounts)
+
+    total = balances.count + 1
     progress = Progress.new(:close_result_entry, id: @year.id, max: total)
 
-    items = account_balances_for(accounts).find_each.map do |account_balance|
+    items = balances.find_each.map do |account_balance|
       progress.increment!
 
       {
@@ -185,14 +194,14 @@ class FinancialYearClose
       }
     end
 
+    result = AccountancyComputation.new(@year).sum_entry_items_by_line(:profit_and_loss_statement, :exercice_result)
+    @result_account = get_result_account_for(result)
+
     return unless items.any?
 
-    # Since debit and credit are reversed, if result is positive, balance is a credit
-    # and so it's a profit
-    result = items.map { |i| i[:real_debit] - i[:real_credit] }.sum
+    items << loss_or_profit_item(@result_account, result) unless result.zero?
 
-    items << loss_or_profit_item(result) unless result.zero?
-
+    return unless @result_journal
     @result_journal.entries.create!(
       printed_on: @to_close_on,
       currency: @result_journal.currency,
@@ -203,18 +212,34 @@ class FinancialYearClose
     progress.clean!
   end
 
-  def loss_or_profit_item(result)
-    if result > 0
-      profit = Account.find_by_usage(:financial_year_result_profit)
-      return { account_id: profit.id, name: profit.name, real_debit: 0.0, real_credit: result, state: :confirmed }
+  def get_result_account_for(result)
+    if result.positive?
+      Account.find_by_usage(:financial_year_result_profit)
+    else
+      Account.find_by_usage(:financial_year_result_loss)
     end
-    losses = Account.find_by_usage(:financial_year_result_loss)
-    { account_id: losses.id, name: losses.name, real_debit: result.abs, real_credit: 0.0, state: :confirmed }
+  end
+
+  def previous_carry_forward_account
+    usages = %i[debit_retained_earnings credit_retained_earnings]
+    accounts = usages.map { |usage| Account.find_by_usage(usage) }.compact
+    return if accounts.compact.blank?
+    accounts.find { |account| account.totals[:balance].to_f.nonzero? }
+  end
+
+  def loss_or_profit_item(account, result)
+    item_attributes = { account_id: account.id, name: account.name, state: :confirmed }
+    amount = if result.positive?
+               { real_credit: result }
+             else
+               { real_debit: result.abs }
+             end
+    item_attributes.merge(amount)
   end
 
   # FIXME: Manage non-french accounts
   def generate_carrying_forward_entry!
-    log("Init Carrying Forward Entry Generation")
+    log('Init Carrying Forward Entry Generation')
     account_radices = %w[1 2 3 4 5]
     unlettered_items = []
 
@@ -336,6 +361,52 @@ class FinancialYearClose
     new_letter
   end
 
+  def allocate_results
+    result_balance_debit = result_account.totals[:balance_debit]
+    result_balance_credit = result_account.totals[:balance_credit]
+    previous_carry_forward_balance_debit = 0
+    previous_carry_forward_balance_credit = 0
+
+    items = [{
+              name: :balance_of_the_income_statement.tl,
+              real_debit: result_balance_credit,
+              real_credit: result_balance_debit,
+              account_id: result_account.id
+            }]
+
+
+    if (pcfa = previous_carry_forward_account)
+      previous_carry_forward_balance_debit = pcfa.totals[:balance_debit]
+      previous_carry_forward_balance_credit = pcfa.totals[:balance_credit]
+
+      items << {
+        name: :balance_allocated_to_retained_earnings.tl,
+        real_debit: previous_carry_forward_balance_credit,
+        real_credit: previous_carry_forward_balance_debit,
+        account_id: pcfa.id
+      }
+    end
+
+    to_allocate_balance = result_balance_debit - result_balance_credit + previous_carry_forward_balance_debit - previous_carry_forward_balance_credit
+    debit_or_credit = to_allocate_balance.positive? ? :debit : :credit
+
+    @options[:allocations].each do |(number, value)|
+      account = Account.find_or_create_by_number(number)
+      items << {
+        name: :allocation_balance.tl(name: account.name),
+        "real_#{debit_or_credit}": value,
+        account_id: account.id
+      }
+    end
+
+    JournalEntry.create!(
+      journal: @forward_journal,
+      printed_on: @to_close_on + 1.day,
+      real_currency: @forward_journal.currency,
+      items_attributes: items
+    )
+  end
+
   #
   def reletter_items!(items, letter)
     return [nil, items] unless letter
@@ -438,13 +509,6 @@ class FinancialYearClose
       .flatten(1)
       .map { |item| item.first(2).reverse }
       .uniq
-  end
-
-  def account_balances_for(account_numbers)
-    @year.account_balances.joins(:account)
-         .where('local_balance != ?', 0)
-         .where('accounts.number ~ ?', "^(#{account_numbers.join('|')})")
-         .order('accounts.number')
   end
 
   def generate_documents(timing)

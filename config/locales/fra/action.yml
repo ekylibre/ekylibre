@@ -1061,6 +1061,7 @@ fra:
     address: "Adresse" #?
     advance_charges: "Charges constatées d’avance"
     advance_giveables: "Avances et acomptes versés"
+    advance_payment: "4564 - Associés-Versements anticipés"
     advance_products: "Produits constatés d’avance"
     advance_receivables: "Avances et acomptes reçus"
     affair: "Affaire"
@@ -1075,6 +1076,7 @@ fra:
     alive_corporeal_assets_service_animals: "Animaux de service"
     alive_corporeal_assets_young_animals: "Animaux reproducteurs (jeunes)"
     all: "Tous"
+    allocation_balance: "Affectation du budget - Allocation %{name}"
     all_accounts: "Tous les comptes"
     all_areas: "— Toutes les zones postales —" #?
     all_cash_balances: "Soldes des comptes" #?
@@ -1158,7 +1160,9 @@ fra:
     backup: "Sauvegarder" #?
     backups: "Sauvegardes" #?
     balance: "Solde"
+    balance_allocated_to_retained_earnings: "Affectation du budget - Solde du compte de reports à nouveau"
     balance_of_selection: "Solde de la sélection"
+    balance_of_the_income_statement: "Afectation du budget - Solde du compte de résultat"
     balanced: "Soldés"
     bank_account: "Compte bancaire"
     bank_check_number: " n°%{number}"
@@ -1367,6 +1371,7 @@ fra:
     created_by_ago: "Créé par %{author} %{when}"
     credit: "Crédit"
     credit_account_balance: "Solde créditeur: %{value}€"
+    credit_balance: "110 - Report à nouveau (solde créditeur), exercice antérieur"
     credited_quantity: "Qté. à passer en avoir"
     credits: "Avoirs"
     criterion_modes: #?
@@ -1391,6 +1396,7 @@ fra:
     currency_conversion_rate: "Taux de conversion de la nouvelle monnaie"
     currency_with_code: "%{code} - %{name}" #?
     current: "En cours"
+    current_accounts: "455 - Associés-Comptes courants"
     current_assets: "Actif circulant"
     current_cultivation: "Culture actuelle"
     current_letter: "Lettre en cours\_: %{letter}" #?
@@ -1411,6 +1417,7 @@ fra:
     deals: "Transactions"
     debit: "Débit"
     debit_account_balance: "Solde débiteur: %{value}€"
+    debit_balance: "119 - Report à nouveau (solde débiteur), exercice antérieur"
     debts: "Dettes"
     debts_associate_locked_debts: "Associés (comptes courants bloqué)"
     debts_cashe_debts: "Découverts bancaires courants"
@@ -1420,6 +1427,7 @@ fra:
     debts_others_loans: "Autres"
     decimal_case: "Options pour un décimal" #?
     decision_making: "Décision"
+    deduction_from_distribution: "4423 - Retenues et prélevements sur les distributions"
     default_letter_conclusion: "Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations distinguées."
     default_letter_function_title: "Chère Madame, Cher Monsieur"
     default_letter_introduction: "Suite à notre conversation, je vous communique les éléments du devis."
@@ -1478,6 +1486,7 @@ fra:
     distributions: "Répartitions"
     district_x: "%{name} (%{code})" #?
     divide: "Diviser"
+    dividende_payable: "457 - Associés-Dividendes à payer"
     division: "Division"
     divisions: "Divisions"
     document: "Document joint"
@@ -1593,6 +1602,7 @@ fra:
     executed: "Réalisé" #?
     exercice_production: "Production de l'exercice"
     exercice_result: "Résultat d'exercice"
+    exercice_result_allocation: "Affectation du résultat de l'exercice"
     existing: "Existant"
     existing_part: "Utiliser un encaissement non affecté" #?
     expected_quantity_is_x: "Quantité attendue\_: %{x}"
@@ -1702,6 +1712,8 @@ fra:
     function: "Fonction"
     fungi: "Champignons"
     future_events: "Futurs événements"
+    future_year_credit_balance: "110 - Report à nouveau (solde créditeur)"
+    future_year_debit_balance: "119 - Report à nouveau (solde débiteur)"
     gain_and_loss_fixed_assets: "Etat des plus et moins values au %{to}"
     genealogy: "Généalogie"
     general: "Informations générales"
@@ -1791,6 +1803,7 @@ fra:
     indicators: "Indicateurs"
     indicators_evolutions: "Évolutions des indicateurs"
     indirect_expenses: "Charges indirectes" #?
+    individual_capital: "101 - Capital individuel"
     inel_index: "Index génétique INEL" #?
     info: "Information\_: %{value}"
     infos: "Information générales"
@@ -1902,7 +1915,10 @@ fra:
     late: "En retard"
     late_delivery: "Hors délai"
     left_balance_amount: "Report du crédit antérieur non imputé et non remboursé" #?
+    left_to_allocate: "Reste à affecter"
     legal_dose: "Dose homologuée" #?
+    legal_position_missing: "Vous devez sélectionner la forme juridique de votre société pour pouvoir affecter votre résultat."
+    legal_reserves: "1061 - Réserves légales"
     letter: "Lettrer"
     letter_options: "Lettre" #?
     letterable: "Lettrable"
@@ -2167,6 +2183,7 @@ fra:
     other_products: "Autres produits"
     other_purchases: "Autres achats"
     other_receivables: "Autres créances"
+    other_reserves: "1068 - Autres réserves"
     other_results: "Autres résultats…" #?
     others: "Autres"
     others_debts: "Autres dettes"
@@ -2412,6 +2429,7 @@ fra:
     refresh: "Rafraîchir"
     register_intervention_request: "Enregistrer la demande d’intervention"
     regressive_options: "Options de l'amortissement dégressif"
+    regulated_reserves: "1064 - Réserves réglementées"
     rejected: "Refusé"
     related_people: "En lien avec" #?
     relationship: "Tiers"
@@ -2545,6 +2563,7 @@ fra:
     select_file_to_upload: "Sélectionnez le fichier à importer"
     select_financial_year: "Exercice" #?
     select_forward_journal: "Journal utilisé pour les reports à nouveaux"
+    select_legal_position: "Sélectionner la forme juridique"
     select_number: "Entrez un numéro" #?
     select_number_or_date: "Entrez un numéro ou une date" #?
     select_organization: "Organisation" #?
@@ -2604,6 +2623,7 @@ fra:
     state_receivables: "Créances fiscales"
     statistics: "Statistiques"
     status: "État" #?
+    statutory_reserves: "1063 - Réserves statutaires"
     stewardship: "Assistant"
     stock: "Stock"
     stock_after_order: "Stock après commande"
@@ -3260,6 +3280,7 @@ fra:
       record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement"
       record_has_been_imported: "L’enregistrement a été importé"
       record_has_not_been_removed: "L’enregistrement n’a pas être supprimé correctement" #?
+      record_is_not_valid: "L'enregistrement n'est pas valable"
       record_not_found: "Enregistrement introuvable"
       record_x_created: "%{record} %{name} créé"
       record_x_planned: "%{record} %{name} planifiée" #?

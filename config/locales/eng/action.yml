@@ -1012,6 +1012,7 @@ eng:
       overlap_sibling: "%{attribute} overlaps sibling"
       posterior: "%{attribute} must be posterior to %{to}"
       record_invalid: "Validations failed: %{errors}"
+      record_is_not_valid: "The record is invalid"
       should_be_the_last_day_of_month: "%{attribute} should be the last day of the month."
       taken: "%{attribute} has already been taken"
       too_long: "%{attribute} is too long (maximum is %{count} characters)"
@@ -1215,6 +1216,7 @@ eng:
     alive_corporeal_assets_service_animals: "Alive corporeal assets service animals" #?
     alive_corporeal_assets_young_animals: "Alive corporeal assets young animals" #?
     all: "All"
+    allocation_balance: "Budget allocation - %{name} allocation"
     all_accounts: "All accounts"
     all_columns: "All columns" #?
     all_conditions: "All conditions" #?!
@@ -1273,7 +1275,9 @@ eng:
     average: "Average"
     back: "Back to the previous page"
     balance: "Balance"
+    balance_allocated_to_retained_earnings: "Budget allocation - Balance allocated to retained earnings"
     balance_of_selection: "Balance of selection"
+    balance_of_the_income_statement: "Budget allocation - balance of the income statement"
     balanced: "Balanced" #?
     bank_account: "Bank account"
     bank_check_number: " no. %{number}"
@@ -2320,6 +2324,7 @@ eng:
     select_date_generation: "Limit date for generation"
     select_file_to_upload: "Select file to upload"
     select_forward_journal: "Selected Journal to renew" #??
+    select_legal_position: "Select legal position"
     selection: "Selection" #?
     selling_amounts: "Selling amounts"
     semester: "Semester"

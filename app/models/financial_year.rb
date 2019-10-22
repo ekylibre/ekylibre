@@ -502,7 +502,7 @@ class FinancialYear < Ekylibre::Record::Base
   end
 
   def any_invalid_closure_check?
-    checks = [all_previous_financial_years_closed_or_locked?, no_draft_entry?, no_entry_to_balance?, unbalanced_radical_account_classes_array.empty?]
+    checks = [all_previous_financial_years_closed_or_locked?, !opened_exchange?, no_draft_entry?, no_entry_to_balance?, unbalanced_radical_account_classes_array.empty?]
     checks.any? { |c| c == false }
   end
 
@@ -532,6 +532,14 @@ class FinancialYear < Ekylibre::Record::Base
     end
   end
 
+  # Filter account balances with given accounts and with non-null balance
+  def account_balances_for(account_numbers)
+    account_balances.joins(:account)
+      .where('local_balance != ?', 0)
+      .where('accounts.number ~ ?', "^(#{account_numbers.join('|')})")
+      .order('accounts.number')
+  end
+
   private
 
     def compute_ranges(number_of_months)
@@ -554,11 +562,4 @@ class FinancialYear < Ekylibre::Record::Base
       accountant && accountant.booked_journals.any?
     end
 
-    # Filter account balances with given accounts and with non-null balance
-    def account_balances_for(account_numbers)
-      account_balances.joins(:account)
-        .where('local_balance != ?', 0)
-        .where('accounts.number ~ ?', "^(#{account_numbers.join('|')})")
-        .order('accounts.number')
-    end
 end

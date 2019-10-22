@@ -129,6 +129,7 @@ $nested-field-border: $menu-border-width solid mix($menu-border-color, white);
 
 }
 
+
 input, textarea, select {
   &.special {
     background: $highlight-color;
@@ -415,6 +416,32 @@ div.nested-fields {
 
   .close {
     font-size: 16px !important;
+  }
+}
+.allocated-budget span {
+  align-self: center;
+  color: #999;
+}
+.error {
+  color: #D0311B !important;
+  }
+.amount_allocated {
+  display: flex;
+  .control-group {
+    flex: 0 0 42%;
+    display: flex;
+    justify-content: space-between;
+    .controls {
+      margin-left: 0 !important;
+    }
+  }
+  .allocated-budget {
+  align-self: center;
+  color: #999;
+  font-style: italic;
+  }
+  p {
+    margin-right: 4px;
   }
 }
 

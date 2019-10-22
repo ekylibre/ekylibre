@@ -33,7 +33,7 @@ Ekylibre::Tenant.setup!('test', keep_files: true)
 
 Ekylibre::Tenant.switch 'test_without_fixtures' do
   puts "Cleaning tenant: #{'test_without_fixtures'.green}".yellow
-  DatabaseCleaner.clean_with :truncation, { except: ['spatial_ref_sys'] }
+  DatabaseCleaner.clean_with :truncation, { except: ['spatial_ref_sys', "registered_legal_positions"] }
 end
 
 DatabaseCleaner.strategy = :transaction
@@ -138,10 +138,15 @@ module ActionController
       def setup_sign_in
         setup do
           @request.env['HTTP_REFERER'] = 'http://test.ekylibre.farm/backend'
-          @user = users(:users_001)
+          @user = if with_fixtures?
+                    users(:users_001)
+                  else
+                    create(:user)
+                  end
           @user.update_column(:language, I18n.locale)
           sign_in(@user)
         end
+
         teardown do
           sign_out(@user)
         end

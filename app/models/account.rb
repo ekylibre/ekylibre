@@ -206,7 +206,7 @@ class Account < Ekylibre::Record::Base
 
   before_validation do
     if general? && number && !already_existing
-      errors.add(:number, :centralizing_number) if number.match(/\A401|\A411/).present?
+      errors.add(:number, :centralizing_number) if number.match(/\A(401|411)0*\z/).present?
       errors.add(:number, :radical_class) if number.match(/\A[1-9]0*\z/).present?
       self.number = Account.normalize(number)
     elsif auxiliary?
@@ -267,7 +267,7 @@ class Account < Ekylibre::Record::Base
       padded_number = Account.normalize(number)
       number = padded_number unless numbers.include?(number) || options[:already_existing]
       item = Nomen::Account.items.values.find { |i| i.send(accounting_system) == padded_number }
-      account = find_by(number: number)
+      account = find_by(number: number) || find_by(number: padded_number)
       if account
         if item && !account.usages_array.include?(item)
           account.usages ||= ''
