@@ -19,6 +19,10 @@ module Ekylibre
           ensure
             Ekylibre::Tenant.switch! @previous_tenant
           end
+
+          def with_fixtures?
+            false
+          end
         end
       end
 

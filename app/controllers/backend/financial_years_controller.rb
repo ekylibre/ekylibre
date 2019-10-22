@@ -129,6 +129,30 @@ module Backend
     def close
       # Launch close process
       return unless @financial_year = find_and_check
+      credit_carry_forward = Account.find_or_create_by_number(110)
+
+      @credit_balance = (credit_carry_forward.totals[:balance_credit].to_f - credit_carry_forward.totals[:balance_debit].to_f).abs
+      debit_carry_forward = Account.find_or_create_by_number(119)
+      @debit_balance = (debit_carry_forward.totals[:balance_debit].to_f - debit_carry_forward.totals[:balance_credit].to_f).abs
+
+      @carry_forward_balance = @credit_balance - @debit_balance
+      @result = AccountancyComputation.new(@financial_year).sum_entry_items_by_line(:profit_and_loss_statement, :exercice_result)
+      allocations = if Entity.of_company.of_capital? || Entity.of_company.of_person?
+                      if (@result + @carry_forward_balance).positive?
+                        params[:allocations] || {}
+                      else
+                        { '119' => (@result + @carry_forward_balance).abs }
+                      end
+                    elsif Entity.of_company.of_individual?
+                      { '101' => (@result + @carry_forward_balance).abs }
+                    else
+                      if (@result + @carry_forward_balance).positive?
+                        { '110' => (@result + @carry_forward_balance).abs }
+                      else
+                        { '119' => (@result + @carry_forward_balance).abs }
+                      end
+                    end
+
       t3e @financial_year.attributes
       if request.get?
         only_closable = FinancialYear.closable_or_lockable
@@ -136,21 +160,27 @@ module Backend
         return render
       end
       if request.post? && @financial_year.closable?
-        closed_on = params[:financial_year][:stopped_on].to_date
-        if params[:result_journal_id] == '0'
-          params[:result_journal_id] = Journal.create_one!(:result, @financial_year.currency).id
-        end
-        if params[:forward_journal_id] == '0'
-          params[:forward_journal_id] = Journal.create_one!(:forward, @financial_year.currency).id
-        end
-        if params[:closure_journal_id] == '0'
-          params[:closure_journal_id] = Journal.create_one!(:closure, @financial_year.currency).id
-        end
-        @financial_year.update!(state: 'closing')
-        FinancialYearCloseJob.perform_later(@financial_year, current_user, closed_on.to_s, **params.symbolize_keys.slice(:result_journal_id, :forward_journal_id, :closure_journal_id))
-        notify_success(:closure_process_started)
+        total_amount_to_allocate = @result + @carry_forward_balance
+        total_amount_allocated = allocations.values.reduce(0) { |sum, val| sum + val.to_f }
+        if total_amount_to_allocate.abs != total_amount_allocated
+          notify_error_now :record_is_not_valid
+        else
+          closed_on = params[:financial_year][:stopped_on].to_date
+          if params[:result_journal_id] == '0'
+            params[:result_journal_id] = Journal.create_one!(:result, @financial_year.currency).id
+          end
+          if params[:forward_journal_id] == '0'
+            params[:forward_journal_id] = Journal.create_one!(:forward, @financial_year.currency).id
+          end
+          if params[:closure_journal_id] == '0'
+            params[:closure_journal_id] = Journal.create_one!(:closure, @financial_year.currency).id
+          end
+          @financial_year.update!(state: 'closing')
+          FinancialYearCloseJob.perform_later(@financial_year, current_user, closed_on.to_s, allocations, **params.symbolize_keys.slice(:result_journal_id, :forward_journal_id, :closure_journal_id))
+          notify_success(:closure_process_started)
 
-        return redirect_to backend_financial_year_path(@financial_year)
+          return redirect_to backend_financial_year_path(@financial_year)
+        end
       end
 
       journal = Journal.where(currency: @financial_year.currency, nature: :result).first

@@ -300,6 +300,7 @@
       <item name="land_parcel_rent_expenses" fr_pcga="6131" fr_pcg82="6131"/>
       <item name="leasing_expenses" fr_pcg82="612" fr_pcga="612"/>
       <item name="legal_reserves" fr_pcg82="1061" fr_pcga="1061"/>
+      <item name="levies_and_taxes_from_distributions" fr_pcga="4423" fr_pcg82="4423"/>
       <item name="licences_expenses" fr_pcga="651" fr_pcg82="651"/>
       <item name="licenses_revenues" fr_pcga="751" fr_pcg82="751"/>
       <item name="litigious_clients" fr_pcg82="416" fr_pcga="416"/>
@@ -422,6 +423,8 @@
       <item name="participation_losses_on_debt_obligation_expenses" fr_pcg82="664" fr_pcga="664"/>
       <item name="participations" fr_pcg82="26" pt_snc="41000000" fr_pcga="26"/>
       <item name="particular_operation_with_state" fr_pcg82="443" fr_pcga="443"/>
+      <item name="partners_or_associates_advance_payments" fr_pcga="4564" fr_pcg82="4564"/>
+      <item name="partners_or_associates_dividends_payable" fr_pcga="457" fr_pcg82="457"/>
       <item name="payment_guarantees" fr_pcg82="275" fr_pcga="275"/>
       <item name="payments_on_account_on_intangible_fixed_assets" fr_pcga="237"/>
       <item name="payments_on_account_on_orders_for_tangible_fixed_assets" fr_pcga="238" fr_pcg82="238"/>
@@ -516,6 +519,7 @@
       <item name="staff_supply_stocks_variation" fr_pcga="60325"/>
       <item name="state_and_other_public_entities" fr_pcg82="44" pt_snc="24000000" fr_pcga="44"/>
       <item name="state_emission_quota_to_restitute" fr_pcg82="449" fr_pcga="449"/>
+      <item name="statutory_or_contractual_reserves" fr_pcga="1063" fr_pcg82="1063"/>
       <item name="stocks" fr_pcg82="3" pt_snc="30000000" fr_pcga="3"/>
       <item name="stocks_variation" fr_pcga="603" pt_snc="60300000" centralizing="false" fr_pcg82="603"/>
       <item name="studies_and_research_expenses" fr_pcga="617" fr_pcg82="617"/>
@@ -537,6 +541,7 @@
       <item name="sustainables_plants_on_own_land_parcel_assets" fr_pcga="2461" fr_pcg82="2461"/>
       <item name="tangible_fixed_assets_revenues_livestock" fr_pcga="7754"/>
       <item name="tangible_fixed_assets_revenues_without_livestock" fr_pcga="7752" fr_pcg82="7752"/>
+      <item name="tax_regulated_reserves" fr_pcga="1064" fr_pcg82="1064"/>
       <item name="taxes_expenses" fr_pcg82="63" fr_pcga="63"/>
       <item name="technical_installation_equipment_and_tools_assets" fr_pcga="215" fr_pcg82="215"/>
       <item name="technical_installation_on_other_land_parcel_assets" fr_pcga="2152" fr_pcg82="2152"/>
@@ -9939,10 +9944,10 @@
       <property name="base_dimension" type="string" required="true"/>
       <property name="base_unit" type="item" choices="units" required="true"/>
       <property name="d" type="decimal" required="true" default="1"/>
-      <property name="dimension" type="item" choices="dimensions"/>
+      <property name="dimension" type="item" choices="dimensions" required="true"/>
       <property name="repartition_dimension" type="item" choices="strings" required="true"/>
       <property name="repartition_unit" type="item" choices="units" required="true"/>
-      <property name="symbol" type="string"/>
+      <property name="symbol" type="string" required="true"/>
     </properties>
     <items>
       <item name="acre" dimension="surface_area" symbol="acre" a="4046.8564224" base_unit="acre" base_dimension="surface_area"/>

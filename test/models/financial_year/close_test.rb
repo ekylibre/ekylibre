@@ -8,14 +8,16 @@ module FinancialYearTest
 
 
     test 'close' do
+      Preference.set!(:currency, :FRF)
       f = FinancialYear.where('stopped_on < ?', Date.today).order(:started_on).reject { |f| f.closed? }.first
       # FIXME: Test is not well written. Cheating...
       journal_entries = f.journal_entries.where(state: :draft)
       ValidateDraftJournalEntriesService.new(journal_entries).validate_all if journal_entries.any?
 
       assert f.closable?, "Financial year #{f.code} should be closable: " + f.closure_obstructions.to_sentence
-
+      allocations = {}
       options = {
+        allocations: allocations,
         forward_journal: Journal.find_by(nature: :forward, currency: f.currency) ||
           Journal.create_one!(:forward, f.currency),
         closure_journal: Journal.find_by(nature: :closure, currency: f.currency) ||

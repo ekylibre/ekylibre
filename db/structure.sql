@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.10
--- Dumped by pg_dump version 11.5 (Ubuntu 11.5-1.pgdg16.04+1)
+-- Dumped from database version 9.6.15
+-- Dumped by pg_dump version 11.5 (Debian 11.5-3.pgdg90+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -2419,6 +2419,7 @@ CREATE TABLE public.entities (
     iban character varying,
     supplier_payment_mode_id integer,
     first_financial_year_ends_on date,
+    legal_position_code character varying,
     CONSTRAINT company_born_at_not_null CHECK (((of_company = false) OR ((of_company = true) AND (born_at IS NOT NULL))))
 );
 
@@ -19096,6 +19097,8 @@ INSERT INTO schema_migrations (version) VALUES ('20190726092304');
 INSERT INTO schema_migrations (version) VALUES ('20190807075910');
 
 INSERT INTO schema_migrations (version) VALUES ('20190808152235');
+
+INSERT INTO schema_migrations (version) VALUES ('20190911153350');
 
 INSERT INTO schema_migrations (version) VALUES ('20190916124521');
 

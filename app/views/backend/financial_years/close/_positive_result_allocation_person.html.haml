@@ -1,0 +1,32 @@
+%div.account_to_allocate
+  %div.amount_allocated
+    = field :legal_reserves.tl, number_field_tag('allocations[1061]', 0, class: 'allocation legal-reserves', step: :any)
+    %p.allocated-budget= :left_to_allocate.tl
+    %span.allocated-budget='xxxx€'
+    %p.allocated-budget='€'
+  %div.amount_allocated
+    = field :statutory_reserves.tl, number_field_tag('allocations[1063]', 0, class: 'allocation statutory-reserves', step: :any)
+    %p.allocated-budget= :left_to_allocate.tl
+    %span.allocated-budget='xxxx€'
+    %p.allocated-budget='€'
+  %div.amount_allocated
+    = field :regulated_reserves.tl, number_field_tag('allocations[1064]', 0, class: 'allocation regulated-reserves', step: :any)
+    %p.allocated-budget= :left_to_allocate.tl
+    %span.allocated-budget='xxxx€'
+    %p.allocated-budget='€'
+  %div.amount_allocated
+    = field :other_reserves.tl, number_field_tag('allocations[1068]', 0, class: 'allocation other-reserves', step: :any)
+    %p.allocated-budget= :left_to_allocate.tl
+    %span.allocated-budget='xxxx€'
+    %p.allocated-budget='€'
+  %div.amount_allocated
+    = field :current_accounts.tl, number_field_tag('allocations[455]', 0, class: 'allocation associates current-accounts', step: :any)
+    %p.allocated-budget= :left_to_allocate.tl
+    %span.allocated-budget='xxxx€'
+    %p.allocated-budget='€'
+
+%div.amount_allocated.amount_allocated--credit-carry-forward
+  = field :future_year_credit_balance.tl, number_field_tag('allocations[110]', 0, class: 'allocation credit_balance', step: :any)
+  %p.allocated-budget= :left_to_allocate.tl
+  %span.allocated-budget='xxxx€'
+  %p.allocated-budget='€'

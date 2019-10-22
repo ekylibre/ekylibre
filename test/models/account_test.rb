@@ -76,8 +76,8 @@ class AccountTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   test 'invalid numbers' do
-    account_1 = build(:account, number: '41123')
-    account_2 = build(:account, number: '40123456789')
+    account_1 = build(:account, number: '4110000')
+    account_2 = build(:account, number: '4010000')
     account_3 = build(:account, number: '012345')
     account_4 = build(:account, number: '1')
     refute account_1.valid?

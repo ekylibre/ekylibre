@@ -3,8 +3,6 @@ require 'test_helper'
 class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase
   setup do
     @today = Date.new(2019,3,15)
-
-
     @dumpster_account = Account.create!(name: 'TestDumpster', number: '10001')
     @dumpster_journal = Journal.create!(name: 'Dumpster journal', code: 'DMPTST')
     @beginning = (@today - 1.month).beginning_of_month
@@ -13,6 +11,7 @@ class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase
     @next_year = FinancialYear.create!(started_on: @today.beginning_of_month, stopped_on: @today.end_of_month)
     @profits = Account.create!(name: 'FinancialYear result profit', number: '120', usages: :financial_year_result_profit)
     @losses = Account.create!(name: 'FinancialYear result loss', number: '129', usages: :financial_year_result_loss)
+
     @open  = Account.create!(number: '89', name: 'Opening account')
     @close = Account.create!(number: '891', name: 'Closing account')
   end
@@ -63,10 +62,13 @@ class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase
     generate_entry(test_accounts[4], -300)
     validate_fog
 
+    allocations = {}
     close = FinancialYearClose.new(@year, @year.stopped_on, User.first,
                                    result_journal: result,
                                    closure_journal: closing,
-                                   forward_journal: forward)
+                                   forward_journal: forward,
+                                   allocations: allocations
+                                   )
     assert close.execute
 
     assert_equal 10, @year.journal_entries.count
@@ -84,19 +86,20 @@ class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase
   end
 
   test 'lettered carry forward' do
+    Entity.of_company.update!(legal_position_code: "EI")
     result = Journal.create!(name: 'Results TEST', code: 'RSTST', nature: :result)
     closing = Journal.create!(name: 'Close TEST', code: 'CLOSTST', nature: :closure)
     forward = Journal.create!(name: 'Forward TEST', code: 'FWDTST', nature: :forward)
-    test_accounts = [
-      nil,
-      nil,
-      nil,
-      nil,
-      Account.create!(name: 'Test4x', number: '423'),
-      Account.create!(name: 'Test5x', number: '512'),
-      nil,
-      Account.create!(name: 'Test7x', number: '707')
-    ]
+    @credit_carry_forward = Account.create!(name: 'credit carry forward', number: '110', usages: :credit_retained_earnings)
+    @debit_carry_forward = Account.create!(name: 'debit carry forward', number: '119', usages: :debit_retained_earnings)
+    test_accounts = {
+      101 => Account.create!(name: 'Test1x', number: '101'),
+      110 => @credit_carry_forward,
+      119 => @debit_carry_forward,
+      4 => Account.create!(name: 'Test4x', number: '411001'),
+      5 => Account.create!(name: 'Test5x', number: '512'),
+      7  => Account.create!(name: 'Test7x', number: '707')
+    }
 
     letter = test_accounts[4].new_letter
     this_years = {
@@ -105,15 +108,18 @@ class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase
     }
     next_years = generate_entry(test_accounts[4], -800, letter: letter, printed_on: @end + 2.days, destination_account: test_accounts[5])
     validate_fog
+    allocations = {}
 
     close = FinancialYearClose.new(@year, @year.stopped_on, User.first,
                                    result_journal: result,
                                    closure_journal: closing,
-                                   forward_journal: forward)
+                                   forward_journal: forward,
+                                   allocations: { '101' => 800 }
+                                   )
     assert close.execute
 
     assert_equal 6, @year.journal_entries.count
-    assert_equal 4, @next_year.journal_entries.count
+    assert_equal 5, @next_year.journal_entries.count
 
     assert_equal 3, @close.journal_entry_items.count
     assert_equal 3, @open.journal_entry_items.count
@@ -137,6 +143,57 @@ class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase
 
     assert_equal test_accounts[4], next_years_matching.account
     assert_equal @open, complementary_in_entry_of(next_years_matching).account
+  end
+
+  test 'allocate results' do
+    Entity.of_company.update!(legal_position_code: "SA")
+    result = Journal.create!(name: 'Results TEST', code: 'RSTST', nature: :result)
+    closing = Journal.create!(name: 'Close TEST', code: 'CLOSTST', nature: :closure)
+    forward = Journal.create!(name: 'Forward TEST', code: 'FWDTST', nature: :forward)
+    test_accounts = {
+      401 => Account.create!(name: 'Test401', number: '401001'),
+      411 => Account.create!(name: 'Test411', number: '411001'),
+      6   => Account.create!(name: 'Test6x', number: '604'),
+      7   => Account.create!(name: 'Test7x', number: '704'),
+      1061   => Account.create!(name: 'Test1061x', number: '1061'),
+      1063   => Account.create!(name: 'Test1063x', number: '1063'),
+      1064   => Account.create!(name: 'Test1064x', number: '1064'),
+      1068   => Account.create!(name: 'Test1068x', number: '1068'),
+      457   => Account.create!(name: 'Test457x', number: '457'),
+      4423   => Account.create!(name: 'Test4423x', number: '4423'),
+      110   => Account.create!(name: 'Test110x', number: '110'),
+
+    }
+
+    generate_entry(test_accounts[6], 300, destination_account: test_accounts[401])
+    generate_entry(test_accounts[411], 2000, destination_account: test_accounts[7])
+    validate_fog
+
+     allocations = {
+      '1061' => 150,
+      '1063' => 150,
+      '1064' => 150,
+      '1068' => 150,
+      '457' => 400,
+      '4423' => 300,
+      '110' => 400,
+    }
+
+    assert_equal 1700, allocations.values.reduce(&:+)
+
+    close = FinancialYearClose.new(@year, @year.stopped_on, User.first,
+                                  allocations: allocations,
+                                  result_journal: result,
+                                  closure_journal: closing,
+                                  forward_journal: forward)
+
+    assert close.execute
+    assert_equal 5, @year.journal_entries.count
+    assert_equal 150, test_accounts[1061].totals[:balance].to_f
+    assert_equal 150, test_accounts[1063].totals[:balance].to_f
+    assert_equal 400, test_accounts[457].totals[:balance].to_f
+    assert_equal 400, test_accounts[110].totals[:balance].to_f
+
   end
 
   private

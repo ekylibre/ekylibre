@@ -9,34 +9,34 @@ CREATE TABLE cadastral_land_parcel_zones (
 CREATE INDEX cadastral_land_parcel_zones_shape ON cadastral_land_parcel_zones USING GIST (shape);
 CREATE INDEX cadastral_land_parcel_zones_centroid ON cadastral_land_parcel_zones USING GIST (centroid);
 
-CREATE TABLE master_accountancy_profiles (
-  id integer PRIMARY KEY,
-  nature character varying NOT NULL,
-  revenue_account character varying,
-  charge_account character varying,
-  stock_account character varying,
-  stock_movement_account character varying,
-  fixed_asset_account character varying,
-  fixed_asset_allocation_account character varying,
-  fixed_asset_expenses_account character varying,
-  depreciation_percentage integer
+CREATE TABLE intervention_models (
+  id character varying PRIMARY KEY NOT NULL,
+  name jsonb,
+  category_name jsonb,
+  number character varying,
+  procedure_reference character varying NOT NULL,
+  working_flow numeric(19,4),
+  working_flow_unit character varying
 );
 
-CREATE TABLE master_fertilizers (
-  id integer PRIMARY KEY NOT NULL,
-  name character varying NOT NULL,
-  label_fra character varying NOT NULL,
-  variant character varying NOT NULL,
-  variety character varying NOT NULL,
-  derivative_of character varying,
-  nature character varying NOT NULL,
-  nitrogen_concentration numeric(19,4),
-  phosphorus_concentration numeric(19,4),
-  potassium_concentration numeric(19,4),
-  sulfur_trioxyde_concentration numeric(19,4)
+CREATE INDEX intervention_models_id ON intervention_models(id);
+CREATE INDEX intervention_models_name ON intervention_models(name);
+CREATE INDEX intervention_models_procedure_reference ON intervention_models(procedure_reference);
+
+CREATE TABLE intervention_model_items (
+  id character varying PRIMARY KEY NOT NULL,
+  procedure_item_reference character varying NOT NULL,
+  article_reference character varying,
+  indicator_name character varying,
+  indicator_value numeric(19,4),
+  indicator_unit character varying,
+  intervention_model_id character varying
 );
-CREATE INDEX master_fertilizers_name ON master_fertilizers(name);
-CREATE INDEX master_fertilizers_nature ON master_fertilizers(nature);
+
+CREATE INDEX intervention_model_items_id ON intervention_model_items(id);
+CREATE INDEX intervention_model_items_procedure_item_reference ON intervention_model_items(procedure_item_reference);
+CREATE INDEX intervention_model_items_article_reference ON intervention_model_items(article_reference);
+CREATE INDEX intervention_model_items_intervention_model_id ON intervention_model_items(intervention_model_id);
 
 CREATE TABLE master_production_natures (
   id integer PRIMARY KEY NOT NULL,
@@ -73,47 +73,6 @@ CREATE TABLE master_production_outputs (
 CREATE INDEX master_production_outputs_nature_id ON master_production_outputs(production_nature_id);
 CREATE INDEX master_production_outputs_system_name ON master_production_outputs(production_system_name);
 CREATE INDEX master_production_outputs_name ON master_production_outputs(name);
-
-CREATE TABLE master_equipment_natures (
-  id integer PRIMARY KEY NOT NULL,
-  name jsonb,
-  nature character varying UNIQUE NOT NULL,
-  main_frozen_indicator_name character varying,
-  main_frozen_indicator_unit character varying,
-  other_frozen_indicator_name character varying
-);
-CREATE INDEX master_equipment_natures_name ON master_equipment_natures(name);
-CREATE INDEX master_equipment_natures_nature ON master_equipment_natures(nature);
-
-CREATE TABLE master_equipment_costs (
-  id integer PRIMARY KEY NOT NULL,
-  equipment_nature_id integer NOT NULL,
-  indicator_name character varying,
-  minimal_value numeric(19,4),
-  maximal_value numeric(19,4),
-  indicator_unit character varying,
-  unit character varying NOT NULL,
-  segment_1_threshold numeric(19,4),
-  segment_1_amount numeric(19,4),
-  segment_2_threshold numeric(19,4),
-  segment_2_amount numeric(19,4),
-  segment_3_threshold numeric(19,4),
-  segment_3_amount numeric(19,4),
-  segment_average_amount numeric(19,4) NOT NULL,
-  currency character varying NOT NULL
-);
-CREATE INDEX master_equipment_costs_nature_id ON master_equipment_costs(equipment_nature_id);
-
-CREATE TABLE master_equipment_flows (
-  id integer PRIMARY KEY NOT NULL,
-  equipment_nature_id integer NOT NULL,
-  indicator_name character varying,
-  indicator_value numeric(19,4),
-  indicator_unit character varying,
-  procedure_name character varying,
-  intervention_flow numeric(19,4)
-);
-CREATE INDEX master_equipment_flows_nature_id ON master_equipment_flows(equipment_nature_id);
 
 CREATE TABLE registered_postal_zones (
   country character varying NOT NULL,
@@ -167,6 +126,17 @@ CREATE TABLE registered_enterprises (
   city character varying,
   country character varying
 );
+
+CREATE TABLE registered_legal_positions (
+  id integer PRIMARY KEY NOT NULL,
+  name jsonb,
+  nature character varying NOT NULL,
+  country character varying NOT NULL,
+  code character varying NOT NULL,
+  insee_code character varying NOT NULL,
+  fiscal_positions text[]
+);
+CREATE INDEX registered_legal_positions_id ON registered_legal_positions(id);
 
 CREATE TABLE registered_pfi_crops (
   id integer PRIMARY KEY NOT NULL,
@@ -259,3 +229,184 @@ CREATE TABLE registered_water_lakes (
   shape postgis.geometry(Polygon,4326) NOT NULL
 );
 CREATE INDEX registered_water_lakes_shape ON registered_water_lakes USING GIST (shape);
+
+CREATE TABLE technical_worflows (
+  id character varying PRIMARY KEY NOT NULL,
+  name jsonb NOT NULL,
+  family character varying,
+  specie character varying,
+  production_system character varying,
+  start_day integer,
+  start_month integer,
+  unit character varying,
+  life_state character varying,
+  life_cycle character varying
+);
+
+CREATE INDEX technical_worflows_id ON technical_worflows(id);
+
+CREATE TABLE technical_worflow_procedures (
+  id character varying PRIMARY KEY NOT NULL,
+  position integer NOT NULL,
+  name jsonb NOT NULL,
+  repetition integer,
+  frequency character varying,
+  period character varying,
+  procedure_reference character varying NOT NULL,
+  technical_worflow_id character varying NOT NULL
+);
+
+CREATE INDEX technical_worflows_procedures_id ON technical_worflow_procedures(id);
+CREATE INDEX technical_worflows_procedures_technical_worflow_id ON technical_worflow_procedures(technical_worflow_id);
+CREATE INDEX technical_worflows_procedures_procedure_reference ON technical_worflow_procedures(procedure_reference);
+
+CREATE TABLE technical_worflow_procedure_items (
+  id character varying PRIMARY KEY NOT NULL,
+  actor_reference character varying,
+  procedure_item_reference character varying,
+  article_reference character varying,
+  quantity numeric(19,4),
+  unit character varying,
+  procedure_reference character varying NOT NULL,
+  technical_worflow_procedure_id character varying NOT NULL
+);
+
+CREATE INDEX technical_worflow_procedure_items_id ON technical_worflow_procedure_items(id);
+CREATE INDEX technical_worflow_procedure_items_technical_worflow_pro_id ON technical_worflow_procedure_items(technical_worflow_procedure_id);
+CREATE INDEX technical_worflow_procedure_items_procedure_reference ON technical_worflow_procedure_items(procedure_reference);
+
+CREATE TABLE technical_worflow_sequences (
+  id character varying PRIMARY KEY NOT NULL,
+  technical_worflow_sequence_id character varying NOT NULL,
+  name jsonb NOT NULL,
+  family character varying,
+  specie character varying,
+  production_system character varying,
+  year_start integer,
+  year_stop integer,
+  technical_worflow_id character varying NOT NULL
+);
+
+CREATE INDEX technical_worflow_sequences_id ON technical_worflow_sequences(id);
+CREATE INDEX technical_worflow_sequences_technical_worflow_sequence_id ON technical_worflow_sequences(technical_worflow_sequence_id);
+CREATE INDEX technical_worflow_sequences_family ON technical_worflow_sequences(family);
+CREATE INDEX technical_worflow_sequences_specie ON technical_worflow_sequences(specie);
+CREATE INDEX technical_worflow_sequences_technical_worflow_id ON technical_worflow_sequences(technical_worflow_id);
+
+CREATE TABLE variant_categories (
+  id integer PRIMARY KEY NOT NULL,
+  reference_name character varying NOT NULL,
+  name jsonb,
+  nature character varying NOT NULL,
+  fixed_asset_account character varying,
+  fixed_asset_allocation_account character varying,
+  fixed_asset_expenses_account character varying,
+  depreciation_percentage integer,
+  purchase_account character varying,
+  sale_account character varying,
+  stock_account character varying,
+  stock_movement_account character varying,
+  purchasable boolean,
+  saleable boolean,
+  depreciable boolean,
+  storable boolean
+);
+
+CREATE INDEX variant_categories_id ON variant_categories(id);
+CREATE INDEX variant_categories_reference_name ON variant_categories(reference_name);
+
+CREATE TABLE variant_doer_contracts (
+  id character varying PRIMARY KEY NOT NULL,
+  reference_name character varying NOT NULL,
+  name jsonb,
+  duration character varying,
+  weekly_working_time character varying,
+  gross_hourly_wage numeric(19,4),
+  net_hourly_wage numeric(19,4),
+  coefficient_total_cost numeric(19,4),
+  variant_id character varying
+);
+
+CREATE INDEX variant_doer_contracts_id ON variant_doer_contracts(id);
+
+CREATE TABLE variant_natures (
+  id integer PRIMARY KEY NOT NULL,
+  reference_name character varying NOT NULL,
+  name jsonb,
+  nature character varying,
+  population_counting character varying NOT NULL,
+  indicators text[],
+  abilities text[],
+  derivative_of character varying
+);
+
+CREATE INDEX variant_natures_id ON variant_natures(id);
+CREATE INDEX variant_natures_reference_name ON variant_natures(reference_name);
+
+CREATE TABLE variant_prices (
+  id character varying PRIMARY KEY NOT NULL,
+  reference_name character varying NOT NULL,
+  reference_article_name character varying NOT NULL,
+  unit_pretax_amount numeric(19,4) NOT NULL,
+  currency character varying NOT NULL,
+  reference_packaging_name character varying NOT NULL,
+  started_on date NOT NULL,
+  variant_id character varying,
+  packaging_id character varying,
+  usage character varying NOT NULL,
+  main_indicator character varying,
+  main_indicator_unit character varying,
+  main_indicator_minimal_value numeric(19,4),
+  main_indicator_maximal_value numeric(19,4),
+  working_flow_value numeric(19,4),
+  working_flow_unit character varying,
+  threshold_min_value numeric(19,4),
+  threshold_max_value numeric(19,4)
+);
+
+CREATE INDEX variant_prices_id ON variant_prices(id);
+CREATE INDEX variant_prices_reference_name ON variant_prices(reference_name);
+CREATE INDEX variant_prices_reference_article_name ON variant_prices(reference_article_name);
+CREATE INDEX variant_prices_reference_packaging_name ON variant_prices(reference_packaging_name);
+
+
+CREATE TABLE variant_units (
+  id character varying PRIMARY KEY NOT NULL,
+  class_name character varying NOT NULL,
+  reference_name character varying NOT NULL,
+  name jsonb,
+  capacity numeric(25,10),
+  capacity_unit character varying,
+  dimension character varying,
+  symbol character varying,
+  a numeric(25,10),
+  d numeric(25,10),
+  b numeric(25,10),
+  unit_id character varying
+);
+
+CREATE INDEX variant_units_id ON variant_units(id);
+CREATE INDEX variant_units_reference_name ON variant_units(reference_name);
+CREATE INDEX variant_units_unit_id ON variant_units(unit_id);
+
+CREATE TABLE variants (
+  id character varying PRIMARY KEY NOT NULL,
+  class_name character varying,
+  reference_name character varying NOT NULL,
+  name jsonb,
+  category character varying,
+  nature character varying,
+  default_unit character varying,
+  target_specie character varying,
+  specie character varying,
+  indicators jsonb,
+  variant_category_id integer,
+  variant_nature_id integer
+);
+
+CREATE INDEX variants_id ON variants(id);
+CREATE INDEX variants_reference_name ON variants(reference_name);
+CREATE INDEX variants_category ON variants(category);
+CREATE INDEX variants_nature ON variants(nature);
+CREATE INDEX variants_variant_category_id ON variants(variant_category_id);
+CREATE INDEX variants_variant_nature_id ON variants(variant_nature_id);
