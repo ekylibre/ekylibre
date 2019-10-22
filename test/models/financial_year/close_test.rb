@@ -4,6 +4,7 @@ module FinancialYearTest
   class CloseTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     teardown do
       FileUtils.rm_rf Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures')
+      FileUtils.rm_rf Ekylibre::Tenant.private_directory.join('prior_to_closure_dump')
     end
 
 
@@ -40,6 +41,8 @@ module FinancialYearTest
       crypto = GPGME::Crypto.new
       assert_equal crypto.verify(f.prior_to_closure_archive.signature) { |s| s.valid? }.class, GPGME::Data
       assert_equal crypto.verify(f.post_closure_archive.signature) { |s| s.valid? }.class, GPGME::Data
+
+      assert File.exist? Ekylibre::Tenant.private_directory.join('prior_to_closure_dump', "#{Ekylibre::Tenant.current}.zip")
     end
   end
 end

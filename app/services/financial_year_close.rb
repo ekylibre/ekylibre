@@ -69,6 +69,8 @@ class FinancialYearClose
     ActiveRecord::Base.transaction do
       @year.update_attributes({state: 'opened'})
 
+      dump_tenant
+
       generate_documents('prior_to_closure')
       @progress.increment!
 
@@ -628,5 +630,17 @@ class FinancialYearClose
     signature_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}", "#{@year.id}_#{timing}.asc")
     File.write(signature_path, signature)
     @year.archives.create!(timing: timing, sha256_fingerprint: sha256.to_s, signature: signature.to_s, path: zip_path)
+  end
+
+  def dump_tenant
+    # @year state will be set to 'closing' when restoring this dump, think about updating it to 'opened'
+    tenant = Ekylibre::Tenant.current
+    dump_path = Ekylibre::Tenant.private_directory.join('prior_to_closure_dump')
+    FileUtils.mkdir_p dump_path
+
+    Dir.mktmpdir do |dir|
+      Ekylibre::Tenant.dump(tenant, path: Pathname.new(dir))
+      FileUtils.mv "#{dir}/#{tenant}.zip", dump_path
+    end
   end
 end
