@@ -34,6 +34,7 @@ module Backend
         params[:started_on] = params[:period].split('_').first
         params[:stopped_on] = params[:period].split('_').last
       end
+      params[:period] = "#{params[:started_on]}_#{params[:stopped_on]}" if params[:period] == 'interval'
       @balance = Journal.trial_balance(params) if params[:period]
       if @balance && params[:balance] == 'balanced'
         @balance = @balance.select { |item| item[1].to_i < 0 || Account.find(item[1]).journal_entry_items.pluck(:real_balance).reduce(:+) == 0 }
