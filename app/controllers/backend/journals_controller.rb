@@ -118,7 +118,8 @@ module Backend
       t3e @journal
       @draft_entries_count = JournalEntry.where(journal_id: params[:id], state: :draft).count
       current_financial_year = current_user.current_financial_year
-      @current_financial_year_period = "#{current_financial_year.started_on}_#{current_financial_year.stopped_on}" if current_financial_year 
+      @current_financial_year_period = "#{current_financial_year.started_on}_#{current_financial_year.stopped_on}" if current_financial_year
+      params[:period] = "#{params[:started_on]}_#{params[:stopped_on]}" if params[:period] == 'interval'
 
       # build variables for reporting (document_nature, key, filename and dataset)
       document_nature = Nomen::DocumentNature.find(:journal_ledger)
