@@ -1324,7 +1324,7 @@ fra:
     insurance_repayment_method: "Méthode de remboursement de l'assurance"
     integer_value: "Valeur entière"
     integration_name: "Nom d’intégration"
-    interest_account: "Code comptable intérêt" #?
+    interest_account: "Compte comptable des intérêts" #?
     interest_amount: "Montant de l’intérêt"
     interest_percentage: "Taux d’intérêt (%)"
     intermediate_cultivation_residue_mineralization: "Minéralisation nette des résidus de culture intermédiaire (MrCi)"
@@ -1427,7 +1427,7 @@ fra:
     list: "Liste"
     listing: "Extraction"
     loan: "Emprunt"
-    loan_account: "Code comptable emprunt" #?
+    loan_account: "Compte comptable des emprunts" #?
     local_balance: "Solde"
     local_count: "Population"
     local_credit: "Crédit"
