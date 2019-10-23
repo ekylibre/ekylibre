@@ -3269,6 +3269,7 @@ fra:
       no_unconfirmed_stock_transfers: "Aucun transfert de stocks non-confirmé" #?
       no_unvalidated_operations: "Aucun travail à réaliser" #?
       password_successfully_changed: "Votre mot de passe a été mis à jour avec succès" #?
+      please_contact_support_for_further_information: "%{message} Veuillez contacter le support pour plus d'informations."
       previouos_financial_year_is_not_closed: "L’exercice précédent n’a pas été clôturé."
       previous_financial_year_is_not_closed_nor_locked: "L'exercice précédent n'a pas encore été clôturé ou verrouillé." #?
       prices_import_succeeded: "Vos données ont été correctement importées" #?
