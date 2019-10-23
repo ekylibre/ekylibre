@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -61,7 +62,7 @@ class InterventionParticipationTest < Ekylibre::Testing::ApplicationTestCase::Wi
   end
 
   test 'converting one participation to an intervention' do
-    now = Time.zone.now
+    now = Time.zone.parse('2018-1-1 00:00:00')
 
     participation = InterventionParticipation.create!(
       state: :done,
@@ -146,7 +147,7 @@ class InterventionParticipationTest < Ekylibre::Testing::ApplicationTestCase::Wi
   end
 
   test 'working periods in a participation shouldn\'t be able to overlap' do
-    now = Time.zone.now
+    now = Time.zone.parse('2018-1-1 00:00:00')
     @participation.working_periods.create!(
       nature: :travel,
       started_at: now,
@@ -162,7 +163,7 @@ class InterventionParticipationTest < Ekylibre::Testing::ApplicationTestCase::Wi
   end
 
   def fake_working_periods
-    now = Time.zone.now
+    now = Time.zone.parse('2018-1-1 00:00:00')
     [
       InterventionWorkingPeriod.new(started_at: now - 3.hours, stopped_at: now - 2.hours, nature: 'preparation'),
       InterventionWorkingPeriod.new(started_at: now - 2.hours, stopped_at: now - 90.minutes, nature: 'travel'),

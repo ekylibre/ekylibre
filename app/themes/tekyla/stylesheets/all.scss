@@ -21,6 +21,7 @@
 
 // Plugins
 @import "themes/tekyla/plugins";
+@import "flatpickr";
 @import "bootstrap-slider";
 @import "wice_grid";
 @import "font-awesome-sprockets";
@@ -38,8 +39,9 @@
 @import "beehives";
 @import "calendars";
 @import "charts";
+@import "documents";
 @import "equipments";
-@import "flatpickr";
+@import "financial_years";
 @import "forms";
 @import "golumns";
 @import "grid";
@@ -51,6 +53,7 @@
 @import "map_layers";
 @import "modals";
 @import "naming_formats";
+@import "notifications";
 @import "production_costs";
 @import "purchases";
 @import "purchase_process_reconciliation";
@@ -59,10 +62,17 @@
 @import "outgoing_payment_lists";
 @import "tables";
 @import "taskboard";
+@import "tax_declarations";
 @import "timelines";
 @import "tour";
 @import "plants";
 @import "wice_grid";
+@import "warning";
+@import "general_ledgers";
+@import "trial_balances";
+@import "./components/index";
+
+@import "./components/index";
 
 @import "./components/index";
 

@@ -28,24 +28,34 @@ module Backend
 
     list do |t|
       t.action :destroy, if: :destroyable?
+      t.column :mandatory, class: "center-align"
       t.column :number, url: true
       t.column :name, url: true
       t.column :nature
       t.column :created_at
       t.column :file_updated_at, url: { format: :pdf }
       t.column :template, url: true
-      t.column :file_pages_count
-      t.column :file_file_size
+      t.column :file_pages_count, class: "center-align"
+      t.column :file_file_size, class: "center-align"
       t.column :file_content_text, hidden: true
       t.column :file_fingerprint, hidden: true
     end
 
     def show
       return unless @document = find_and_check
+      @file_format = if @document.file_content_type == 'application/xml'
+                       :xml
+                     elsif @document.file_content_type == 'text/plain'
+                       :text
+                     else
+                       :pdf
+                     end
+
       respond_to do |format|
         format.html { t3e @document }
         format.json
         format.xml { send_data(File.read(@document.file.path), type: 'application/xml', filename: @document.file_file_name) }
+        format.text { send_data(File.read(@document.file.path), type: 'text/plain', filename: @document.file_file_name) }
         format.pdf { send_file(@document.file.path(params[:format] != :default ? :original : :default), disposition: 'inline', filename: @document.file_file_name) }
         format.jpg { send_file(@document.file.path(:thumbnail), disposition: 'inline') }
       end

@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -27,6 +28,7 @@
 #  absolute_debit            :decimal(19, 4)   default(0.0), not null
 #  absolute_pretax_amount    :decimal(19, 4)   default(0.0), not null
 #  account_id                :integer          not null
+#  accounting_label          :string
 #  activity_budget_id        :integer
 #  balance                   :decimal(19, 4)   default(0.0), not null
 #  bank_statement_id         :integer
@@ -142,7 +144,7 @@ journal_entry_items_003:
   absolute_currency: EUR
   absolute_debit: 0.0
   absolute_pretax_amount: 0.0
-  account_id: 33
+  account_id: 217
   balance: 0.0
   created_at: 2014-11-01 19:52:01.032901000 Z
   creator_id: 1
@@ -208,7 +210,7 @@ journal_entry_items_005:
   absolute_currency: EUR
   absolute_debit: 0.0
   absolute_pretax_amount: 0.0
-  account_id: 33
+  account_id: 217
   balance: -4.08
   created_at: 2014-11-01 19:52:01.065221000 Z
   creator_id: 1
@@ -747,7 +749,7 @@ journal_entry_items_021:
   absolute_currency: EUR
   absolute_debit: 0.0
   absolute_pretax_amount: 0.0
-  account_id: 33
+  account_id: 217
   balance: 0.0
   created_at: 2014-11-05 13:36:51.445674000 Z
   creator_id: 1
@@ -8747,7 +8749,7 @@ journal_entry_items_262:
   absolute_currency: EUR
   absolute_debit: 176.16
   absolute_pretax_amount: 0.0
-  account_id: 211
+  account_id: 171
   balance: 176.16
   created_at: 2016-10-04 07:17:54.380520000 Z
   credit: 0.0
@@ -8811,7 +8813,7 @@ journal_entry_items_264:
   absolute_currency: EUR
   absolute_debit: 1850.0
   absolute_pretax_amount: 0.0
-  account_id: 204
+  account_id: 171
   balance: 1850.0
   created_at: 2016-10-04 08:22:23.903370000 Z
   credit: 0.0
@@ -9012,7 +9014,7 @@ journal_entry_items_270:
   absolute_currency: EUR
   absolute_debit: 0.0
   absolute_pretax_amount: 327.6
-  account_id: 33
+  account_id: 217
   balance: -65.52
   created_at: 2016-11-20 22:09:03.036303000 Z
   creator_id: 1
@@ -9087,7 +9089,7 @@ journal_entry_items_272:
   absolute_currency: EUR
   absolute_debit: 0.0
   absolute_pretax_amount: 45.0
-  account_id: 33
+  account_id: 217
   balance: -9.0
   created_at: 2016-11-20 22:09:03.081393000 Z
   creator_id: 1
@@ -9264,7 +9266,7 @@ journal_entry_items_277:
   absolute_currency: EUR
   absolute_debit: 0.0
   absolute_pretax_amount: 31.2
-  account_id: 33
+  account_id: 217
   balance: -6.24
   created_at: 2016-11-20 22:10:43.231298000 Z
   creator_id: 1
@@ -9443,7 +9445,7 @@ journal_entry_items_282:
   absolute_currency: EUR
   absolute_debit: 0.0
   absolute_pretax_amount: 3.12
-  account_id: 33
+  account_id: 217
   balance: -0.62
   created_at: 2016-11-20 22:11:28.830255000 Z
   creator_id: 1
@@ -9549,7 +9551,7 @@ journal_entry_items_285:
   absolute_currency: EUR
   absolute_debit: 0.62
   absolute_pretax_amount: 0.0
-  account_id: 33
+  account_id: 217
   balance: 0.62
   created_at: 2016-11-20 22:11:32.683635000 Z
   creator_id: 1
@@ -9618,7 +9620,7 @@ journal_entry_items_287:
   absolute_currency: EUR
   absolute_debit: 0.0
   absolute_pretax_amount: 0.0
-  account_id: 152
+  account_id: 535
   balance: -2230.0
   created_at: 2016-11-20 22:12:19.151058000 Z
   creator_id: 1
@@ -9656,7 +9658,7 @@ journal_entry_items_288:
   absolute_currency: EUR
   absolute_debit: 0.0
   absolute_pretax_amount: 2230.0
-  account_id: 33
+  account_id: 217
   balance: -446.0
   created_at: 2016-11-20 22:12:19.171004000 Z
   creator_id: 1
@@ -9731,7 +9733,7 @@ journal_entry_items_290:
   absolute_currency: EUR
   absolute_debit: 2230.0
   absolute_pretax_amount: 0.0
-  account_id: 152
+  account_id: 535
   balance: 2230.0
   created_at: 2016-11-20 22:12:46.261368000 Z
   creator_id: 1
@@ -9769,7 +9771,7 @@ journal_entry_items_291:
   absolute_currency: EUR
   absolute_debit: 446.0
   absolute_pretax_amount: -2230.0
-  account_id: 33
+  account_id: 217
   balance: 446.0
   created_at: 2016-11-20 22:12:46.281731000 Z
   creator_id: 1
@@ -10196,7 +10198,7 @@ journal_entry_items_303:
   absolute_currency: EUR
   absolute_debit: 0.0
   absolute_pretax_amount: 0.8
-  account_id: 33
+  account_id: 217
   balance: 0.0
   created_at: 2014-11-05 13:36:51.383516000 Z
   creator_id: 1
@@ -10336,7 +10338,7 @@ journal_entry_items_307:
   absolute_currency: EUR
   absolute_debit: 0.0
   absolute_pretax_amount: 0.0
-  account_id: 152
+  account_id: 535
   balance: -363.64
   created_at: 2016-12-20 08:54:01.509524000 Z
   creator_id: 1

@@ -524,5 +524,13 @@ module Backend
       object[:steps] = steps
       content_for(:tour, object.jsonize_keys.to_json)
     end
+
+    def footer_line(options = {}, &block)
+      options[:class] ||= 'fixed-footer-line'
+
+      content_tag(:div, options) do
+        capture(&block) if block_given?
+      end
+    end
   end
 end

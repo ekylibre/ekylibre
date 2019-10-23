@@ -3,9 +3,26 @@
 - main_tools = capture do
   - if current_user
     - count = current_user.unread_notifications.count
-    %li{class: (controller_name == 'notifications' ? :active : nil)}
-      = link_to(content_tag(:i), backend_notifications_path(redirect: request.fullpath), data: {toggle: 'notifications'}, title: :x_notifications.tl(count: count), class: (!count.zero? ? 'with-notifications' : nil))
+
+    %li{ class: controller_name == 'notifications' ? :active : nil }
+      .navbar__notifications.dropdown.show
+        .notifications-btn.dropdown-toggle{ data: { toggle: 'dropdown' } }
+          = link_to(content_tag(:i), '#', data: { toggle: 'notifications' }, class: 'notifications-btn__icon')
+          %span.notifications-btn__counter{ class: !count.zero? ? 'notifications-btn__counter--with-notifications' : nil }
+            = count.zero? ? '' : count
+
+        .notifications-menu.dropdown-menu.dropdown-menu-right
+          - placeholder_style = current_user.unread_notifications.any? ? 'display: none;' : ''
+          .notifications-menu__placeholder.text-center{ style: placeholder_style }= :no_new_notifications.tl
+
+          - current_user.unread_notifications.order(created_at: :desc).each do |notification|
+            = link_to backend_notification_path(notification), class: 'notifications-menu__item' do
+              = render 'backend/notifications/item', notification: notification
+
+          = link_to :manage_notifications.tl, backend_notifications_path(redirect: request.fullpath), class: 'notifications-menu__link text-center'
+
     %li= link_to(content_tag(:i, nil, class: 'icon icon-help'), "https://doc.ekylibre.com/v2", title: :help.tl, target: :_blank)
+
 %nav#top
 
   %ul#menu

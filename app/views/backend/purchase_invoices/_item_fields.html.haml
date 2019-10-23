@@ -59,7 +59,6 @@
               = '%'
 
         .vat-total-controls
-          -#- byebug
           = f.input(:tax_id, label: :vat_rate.tl, collection: Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.usable_amount)/100)}]}, input_html: { class: "vat-total", data: {value: 'rate', trade_component: "tax"}})
 
         .pta-controls.pre-tax-invoice-total-controls

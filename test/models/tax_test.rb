@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -103,5 +104,12 @@ class TaxTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     tax.amount = 40
     assert tax.save
     assert_equal 40, tax.amount
+  end
+
+  test 'find_on' do
+    assert_nil Tax.find_on(Date.civil(1702, 11, 13))
+    tax = Tax.find_on(Date.civil(1979, 11, 13), country: :fr, nature: :normal_vat)
+    assert tax, 'A tax should exist in France on 13/11/1979'
+    assert_equal 17.6, tax.amount, 'Found tax should have 17.6 as amount'
   end
 end

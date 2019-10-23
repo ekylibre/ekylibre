@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,24 +23,29 @@
 #
 # == Table: accounts
 #
-#  created_at    :datetime         not null
-#  creator_id    :integer
-#  custom_fields :jsonb
-#  debtor        :boolean          default(FALSE), not null
-#  description   :text
-#  id            :integer          not null, primary key
-#  label         :string           not null
-#  last_letter   :string
-#  lock_version  :integer          default(0), not null
-#  name          :string           not null
-#  number        :string           not null
-#  reconcilable  :boolean          default(FALSE), not null
-#  updated_at    :datetime         not null
-#  updater_id    :integer
-#  usages        :text
+#  already_existing          :boolean          default(FALSE), not null
+#  auxiliary_number          :string
+#  centralizing_account_name :string
+#  created_at                :datetime         not null
+#  creator_id                :integer
+#  custom_fields             :jsonb
+#  debtor                    :boolean          default(FALSE), not null
+#  description               :text
+#  id                        :integer          not null, primary key
+#  label                     :string           not null
+#  last_letter               :string
+#  lock_version              :integer          default(0), not null
+#  name                      :string           not null
+#  nature                    :string
+#  number                    :string           not null
+#  reconcilable              :boolean          default(FALSE), not null
+#  updated_at                :datetime         not null
+#  updater_id                :integer
+#  usages                    :text
 #
 ---
 accounts_001:
+  already_existing: true
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   debtor: true
@@ -52,6 +58,7 @@ accounts_001:
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 accounts_002:
+  already_existing: true
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   debtor: true
@@ -64,6 +71,7 @@ accounts_002:
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 accounts_003:
+  already_existing: true
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   debtor: true
@@ -76,6 +84,7 @@ accounts_003:
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 accounts_004:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.378607000 Z
   creator_id: 1
   debtor: false
@@ -89,6 +98,7 @@ accounts_004:
   updater_id: 1
   usages: adult_animal_assets
 accounts_005:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.382188000 Z
   creator_id: 1
   debtor: false
@@ -102,6 +112,7 @@ accounts_005:
   updater_id: 1
   usages: adult_animal_expenses
 accounts_006:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.385710000 Z
   creator_id: 1
   debtor: false
@@ -115,6 +126,7 @@ accounts_006:
   updater_id: 1
   usages: adult_animal_revenues
 accounts_007:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.392581000 Z
   creator_id: 1
   debtor: false
@@ -128,6 +140,7 @@ accounts_007:
   updater_id: 1
   usages: animal_derivative_stock
 accounts_008:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.395927000 Z
   creator_id: 1
   debtor: false
@@ -141,6 +154,7 @@ accounts_008:
   updater_id: 1
   usages: animal_derivatives_revenues
 accounts_009:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.400370000 Z
   creator_id: 1
   debtor: false
@@ -154,6 +168,7 @@ accounts_009:
   updater_id: 1
   usages: animal_medicine_matter_expenses
 accounts_010:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.404951000 Z
   creator_id: 1
   debtor: false
@@ -167,6 +182,7 @@ accounts_010:
   updater_id: 1
   usages: animal_medicine_stock
 accounts_011:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.452320000 Z
   creator_id: 1
   debtor: false
@@ -180,6 +196,7 @@ accounts_011:
   updater_id: 1
   usages: building_assets
 accounts_012:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.470631000 Z
   creator_id: 1
   debtor: false
@@ -193,6 +210,7 @@ accounts_012:
   updater_id: 1
   usages: collected_vat
 accounts_013:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.492659000 Z
   creator_id: 1
   debtor: false
@@ -206,6 +224,7 @@ accounts_013:
   updater_id: 1
   usages: deductible_vat
 accounts_014:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.513413000 Z
   creator_id: 1
   debtor: false
@@ -219,6 +238,7 @@ accounts_014:
   updater_id: 1
   usages: equipment_assets
 accounts_015:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.520318000 Z
   creator_id: 1
   debtor: false
@@ -232,6 +252,7 @@ accounts_015:
   updater_id: 1
   usages: equipment_maintenance_expenses
 accounts_016:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.546665000 Z
   creator_id: 1
   debtor: false
@@ -245,6 +266,7 @@ accounts_016:
   updater_id: 1
   usages: fertilizer_expenses
 accounts_017:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.550244000 Z
   creator_id: 1
   debtor: false
@@ -258,6 +280,7 @@ accounts_017:
   updater_id: 1
   usages: fertilizer_stock
 accounts_018:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.645966000 Z
   creator_id: 1
   debtor: false
@@ -271,6 +294,7 @@ accounts_018:
   updater_id: 1
   usages: internal_transfers
 accounts_019:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.714343000 Z
   creator_id: 1
   debtor: false
@@ -284,6 +308,7 @@ accounts_019:
   updater_id: 1
   usages: long_time_animal_stock
 accounts_020:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.773584000 Z
   creator_id: 1
   debtor: false
@@ -297,6 +322,7 @@ accounts_020:
   updater_id: 1
   usages: other_consumable_matter_expenses
 accounts_021:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.778022000 Z
   creator_id: 1
   debtor: false
@@ -310,6 +336,7 @@ accounts_021:
   updater_id: 1
   usages: other_consumables_stock
 accounts_022:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.833122000 Z
   creator_id: 1
   debtor: false
@@ -323,6 +350,7 @@ accounts_022:
   updater_id: 1
   usages: other_usual_running_expenses
 accounts_023:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.837037000 Z
   creator_id: 1
   debtor: false
@@ -336,6 +364,7 @@ accounts_023:
   updater_id: 1
   usages: other_usual_running_profits
 accounts_024:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.844395000 Z
   creator_id: 1
   debtor: false
@@ -349,6 +378,7 @@ accounts_024:
   updater_id: 1
   usages: own_building_expenses
 accounts_025:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.862025000 Z
   creator_id: 1
   debtor: false
@@ -362,6 +392,7 @@ accounts_025:
   updater_id: 1
   usages: plant_derivative_stock
 accounts_026:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.866931000 Z
   creator_id: 1
   debtor: false
@@ -375,6 +406,7 @@ accounts_026:
   updater_id: 1
   usages: plant_medicine_matter_expenses
 accounts_027:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.870483000 Z
   creator_id: 1
   debtor: false
@@ -388,6 +420,7 @@ accounts_027:
   updater_id: 1
   usages: plant_medicine_stock
 accounts_028:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.892517000 Z
   creator_id: 1
   debtor: false
@@ -401,6 +434,7 @@ accounts_028:
   updater_id: 1
   usages: raw_material_expenses
 accounts_029:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.909996000 Z
   creator_id: 1
   debtor: false
@@ -414,6 +448,7 @@ accounts_029:
   updater_id: 1
   usages: revenues
 accounts_030:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.913527000 Z
   creator_id: 1
   debtor: false
@@ -427,6 +462,7 @@ accounts_030:
   updater_id: 1
   usages: sales_assets_revenues
 accounts_031:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.917027000 Z
   creator_id: 1
   debtor: false
@@ -440,6 +476,7 @@ accounts_031:
   updater_id: 1
   usages: seed_expenses
 accounts_032:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.920511000 Z
   creator_id: 1
   debtor: false
@@ -453,6 +490,7 @@ accounts_032:
   updater_id: 1
   usages: seed_stock
 accounts_033:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.939297000 Z
   creator_id: 1
   debtor: false
@@ -466,6 +504,7 @@ accounts_033:
   updater_id: 1
   usages: short_cycle_cultivation_advances
 accounts_034:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.979980000 Z
   creator_id: 1
   debtor: false
@@ -479,6 +518,7 @@ accounts_034:
   updater_id: 1
   usages: staff_expenses
 accounts_035:
+  already_existing: true
   created_at: 2014-10-31 18:48:47.026917000 Z
   creator_id: 1
   debtor: false
@@ -492,6 +532,7 @@ accounts_035:
   updater_id: 1
   usages: sustainables_plants_assets
 accounts_036:
+  already_existing: true
   created_at: 2014-10-31 18:51:28.047332000 Z
   creator_id: 1
   debtor: false
@@ -505,6 +546,7 @@ accounts_036:
   updated_at: 2014-10-31 18:51:28.047332000 Z
   updater_id: 1
 accounts_037:
+  already_existing: true
   created_at: 2014-11-01 19:44:07.733349000 Z
   creator_id: 1
   debtor: false
@@ -518,6 +560,7 @@ accounts_037:
   updated_at: 2014-11-01 19:44:07.733349000 Z
   updater_id: 1
 accounts_038:
+  already_existing: true
   created_at: 2014-11-01 19:46:24.884993000 Z
   creator_id: 1
   debtor: false
@@ -531,6 +574,7 @@ accounts_038:
   updated_at: 2014-11-01 19:46:24.884993000 Z
   updater_id: 1
 accounts_039:
+  already_existing: true
   created_at: 2014-11-01 19:47:25.939118000 Z
   creator_id: 1
   debtor: false
@@ -544,6 +588,7 @@ accounts_039:
   updated_at: 2014-11-01 19:47:25.939118000 Z
   updater_id: 1
 accounts_040:
+  already_existing: true
   created_at: 2014-11-01 19:47:25.946030000 Z
   creator_id: 1
   custom_fields:
@@ -559,6 +604,7 @@ accounts_040:
   updated_at: 2014-11-01 19:47:25.946030000 Z
   updater_id: 1
 accounts_041:
+  already_existing: true
   created_at: 2014-11-01 19:47:25.953834000 Z
   creator_id: 1
   debtor: false
@@ -572,6 +618,7 @@ accounts_041:
   updated_at: 2014-11-01 19:47:25.953834000 Z
   updater_id: 1
 accounts_042:
+  already_existing: true
   created_at: 2014-11-05 09:52:05.783306000 Z
   creator_id: 1
   debtor: false
@@ -585,6 +632,7 @@ accounts_042:
   updated_at: 2014-11-05 09:52:05.783306000 Z
   updater_id: 1
 accounts_043:
+  already_existing: true
   created_at: 2014-11-05 10:01:39.941732000 Z
   creator_id: 1
   debtor: false
@@ -598,6 +646,7 @@ accounts_043:
   updated_at: 2014-11-05 10:01:39.941732000 Z
   updater_id: 1
 accounts_044:
+  already_existing: true
   created_at: 2014-11-05 10:03:06.037383000 Z
   creator_id: 1
   debtor: false
@@ -611,6 +660,7 @@ accounts_044:
   updated_at: 2014-11-05 10:03:06.037383000 Z
   updater_id: 1
 accounts_045:
+  already_existing: true
   created_at: 2014-11-05 10:44:42.305008000 Z
   creator_id: 1
   debtor: false
@@ -624,6 +674,7 @@ accounts_045:
   updated_at: 2014-11-05 10:44:42.305008000 Z
   updater_id: 1
 accounts_046:
+  already_existing: true
   created_at: 2014-11-05 11:57:23.141048000 Z
   creator_id: 1
   debtor: false
@@ -638,6 +689,7 @@ accounts_046:
   updater_id: 1
   usages: banks
 accounts_047:
+  already_existing: true
   created_at: 2014-11-05 11:58:30.722335000 Z
   creator_id: 1
   debtor: false
@@ -652,6 +704,7 @@ accounts_047:
   updater_id: 1
   usages: cashes
 accounts_048:
+  already_existing: true
   created_at: 2014-11-05 12:12:39.884201000 Z
   creator_id: 1
   debtor: false
@@ -666,6 +719,7 @@ accounts_048:
   updater_id: 1
   usages: banks
 accounts_049:
+  already_existing: true
   created_at: 2014-11-07 16:01:53.145011000 Z
   creator_id: 1
   debtor: false
@@ -680,6 +734,7 @@ accounts_049:
   updater_id: 1
   usages: expenses
 accounts_050:
+  already_existing: true
   created_at: 2014-11-07 16:02:59.823910000 Z
   creator_id: 1
   debtor: false
@@ -694,6 +749,7 @@ accounts_050:
   updater_id: 1
   usages: expenses
 accounts_051:
+  already_existing: true
   created_at: 2014-11-07 16:05:36.316504000 Z
   creator_id: 1
   debtor: false
@@ -708,6 +764,7 @@ accounts_051:
   updater_id: 1
   usages: expenses
 accounts_052:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.432477000 Z
   creator_id: 1
   debtor: false
@@ -721,6 +778,7 @@ accounts_052:
   updater_id: 1
   usages: accrued_bank_interests
 accounts_053:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.437549000 Z
   creator_id: 1
   debtor: false
@@ -734,6 +792,7 @@ accounts_053:
   updater_id: 1
   usages: accrued_interests
 accounts_054:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.442182000 Z
   creator_id: 1
   debtor: false
@@ -747,6 +806,7 @@ accounts_054:
   updater_id: 1
   usages: accrued_interests_on_bank
 accounts_055:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.446473000 Z
   creator_id: 1
   debtor: false
@@ -760,6 +820,7 @@ accounts_055:
   updater_id: 1
   usages: adult_animal_asset_depreciations
 accounts_056:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.453342000 Z
   creator_id: 1
   debtor: false
@@ -773,6 +834,7 @@ accounts_056:
   updater_id: 1
   usages: agricultural_disasters_compensations
 accounts_057:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.461119000 Z
   creator_id: 1
   debtor: false
@@ -786,6 +848,7 @@ accounts_057:
   updater_id: 1
   usages: animal_reproduction_matter_expenses
 accounts_058:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.465510000 Z
   creator_id: 1
   debtor: false
@@ -799,6 +862,7 @@ accounts_058:
   updater_id: 1
   usages: animal_reproduction_stock
 accounts_059:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.469745000 Z
   creator_id: 1
   debtor: false
@@ -812,6 +876,7 @@ accounts_059:
   updater_id: 1
   usages: animal_revenues
 accounts_060:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.474153000 Z
   creator_id: 1
   debtor: false
@@ -825,6 +890,7 @@ accounts_060:
   updater_id: 1
   usages: animals_depreciations_inputations_expenses
 accounts_061:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.478402000 Z
   creator_id: 1
   debtor: false
@@ -838,6 +904,7 @@ accounts_061:
   updater_id: 1
   usages: animals_productions_expenses
 accounts_062:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.482615000 Z
   creator_id: 1
   debtor: false
@@ -851,6 +918,7 @@ accounts_062:
   updater_id: 1
   usages: associates_salary
 accounts_063:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.487317000 Z
   creator_id: 1
   debtor: false
@@ -864,6 +932,7 @@ accounts_063:
   updater_id: 1
   usages: attorneys
 accounts_064:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.492552000 Z
   creator_id: 1
   debtor: false
@@ -877,6 +946,7 @@ accounts_064:
   updater_id: 1
   usages: banks_and_similar
 accounts_065:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.496947000 Z
   creator_id: 1
   debtor: false
@@ -890,6 +960,7 @@ accounts_065:
   updater_id: 1
   usages: banks_services_expenses
 accounts_066:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.501405000 Z
   creator_id: 1
   debtor: false
@@ -903,6 +974,7 @@ accounts_066:
   updater_id: 1
   usages: biocorporeal_asset_depreciations
 accounts_067:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.507100000 Z
   creator_id: 1
   debtor: false
@@ -916,6 +988,7 @@ accounts_067:
   updater_id: 1
   usages: building_depreciations_inputations_expenses
 accounts_068:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.511505000 Z
   creator_id: 1
   debtor: false
@@ -929,6 +1002,7 @@ accounts_068:
   updater_id: 1
   usages: campaigns_interests
 accounts_069:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.515736000 Z
   creator_id: 1
   debtor: false
@@ -942,6 +1016,7 @@ accounts_069:
   updater_id: 1
   usages: capital
 accounts_070:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.522445000 Z
   creator_id: 1
   debtor: false
@@ -955,6 +1030,7 @@ accounts_070:
   updater_id: 1
   usages: clients
 accounts_071:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.527583000 Z
   creator_id: 1
   debtor: false
@@ -968,6 +1044,7 @@ accounts_071:
   updater_id: 1
   usages: compensation_operations
 accounts_072:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.531999000 Z
   creator_id: 1
   debtor: false
@@ -981,6 +1058,7 @@ accounts_072:
   updater_id: 1
   usages: cooperative_participation_assets
 accounts_073:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.536676000 Z
   creator_id: 1
   debtor: false
@@ -994,6 +1072,7 @@ accounts_073:
   updater_id: 1
   usages: corporeal_asset_depreciations
 accounts_074:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.541115000 Z
   creator_id: 1
   debtor: false
@@ -1007,6 +1086,7 @@ accounts_074:
   updater_id: 1
   usages: corporeals_and_incorporeals_depreciations_inputations_expenses
 accounts_075:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.545507000 Z
   creator_id: 1
   debtor: false
@@ -1020,6 +1100,7 @@ accounts_075:
   updater_id: 1
   usages: debtor_suppliers
 accounts_076:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.550783000 Z
   creator_id: 1
   debtor: false
@@ -1033,6 +1114,7 @@ accounts_076:
   updater_id: 1
   usages: depreciations_inputations_expenses
 accounts_077:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.555181000 Z
   creator_id: 1
   debtor: false
@@ -1046,6 +1128,7 @@ accounts_077:
   updater_id: 1
   usages: discount_and_reductions_revenues
 accounts_078:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.559740000 Z
   creator_id: 1
   debtor: false
@@ -1059,6 +1142,7 @@ accounts_078:
   updater_id: 1
   usages: discount_from_cooperatives
 accounts_079:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.563988000 Z
   creator_id: 1
   debtor: false
@@ -1072,6 +1156,7 @@ accounts_079:
   updater_id: 1
   usages: electricity_expenses
 accounts_080:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.568284000 Z
   creator_id: 1
   debtor: false
@@ -1085,6 +1170,7 @@ accounts_080:
   updater_id: 1
   usages: end_products_stock
 accounts_081:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.573160000 Z
   creator_id: 1
   debtor: false
@@ -1098,6 +1184,7 @@ accounts_081:
   updater_id: 1
   usages: equipment_asset_depreciations
 accounts_082:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.578512000 Z
   creator_id: 1
   debtor: false
@@ -1111,6 +1198,7 @@ accounts_082:
   updater_id: 1
   usages: equipment_cooperative_participation_assets
 accounts_083:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.583623000 Z
   creator_id: 1
   debtor: false
@@ -1124,6 +1212,7 @@ accounts_083:
   updater_id: 1
   usages: equipment_rent_expenses
 accounts_084:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.587811000 Z
   creator_id: 1
   debtor: false
@@ -1137,6 +1226,7 @@ accounts_084:
   updater_id: 1
   usages: equipment_subventions
 accounts_085:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.592206000 Z
   creator_id: 1
   debtor: false
@@ -1150,6 +1240,7 @@ accounts_085:
   updater_id: 1
   usages: equipment_depreciations_inputations_expenses
 accounts_086:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.596619000 Z
   creator_id: 1
   debtor: false
@@ -1163,6 +1254,7 @@ accounts_086:
   updater_id: 1
   usages: equipment_expenses
 accounts_087:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.602270000 Z
   creator_id: 1
   debtor: false
@@ -1176,6 +1268,7 @@ accounts_087:
   updater_id: 1
   usages: exploitation_expenses_transfers
 accounts_088:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.606831000 Z
   creator_id: 1
   debtor: false
@@ -1189,6 +1282,7 @@ accounts_088:
   updater_id: 1
   usages: exploitation_subsidies_and_compensations
 accounts_089:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.611114000 Z
   creator_id: 1
   debtor: false
@@ -1202,6 +1296,7 @@ accounts_089:
   updater_id: 1
   usages: external_staff_expenses
 accounts_090:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.617474000 Z
   creator_id: 1
   debtor: false
@@ -1215,6 +1310,7 @@ accounts_090:
   updater_id: 1
   usages: fill_up_price_revenues
 accounts_091:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.621779000 Z
   creator_id: 1
   debtor: false
@@ -1228,6 +1324,7 @@ accounts_091:
   updater_id: 1
   usages: finances
 accounts_092:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.626153000 Z
   creator_id: 1
   debtor: false
@@ -1239,8 +1336,9 @@ accounts_092:
   reconcilable: false
   updated_at: 2014-12-24 11:08:52.626153000 Z
   updater_id: 1
-  usages: financial_asset_depreciations
+  usages: fixed_asset_depreciations
 accounts_093:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.630625000 Z
   creator_id: 1
   debtor: false
@@ -1252,8 +1350,9 @@ accounts_093:
   reconcilable: false
   updated_at: 2014-12-24 11:08:52.630625000 Z
   updater_id: 1
-  usages: financial_assets
+  usages: fixed_assets
 accounts_094:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.635080000 Z
   creator_id: 1
   debtor: false
@@ -1265,8 +1364,9 @@ accounts_094:
   reconcilable: false
   updated_at: 2014-12-24 11:08:52.635080000 Z
   updater_id: 1
-  usages: financial_assets_suppliers
+  usages: fixed_assets_suppliers
 accounts_095:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.639490000 Z
   creator_id: 1
   debtor: false
@@ -1278,8 +1378,9 @@ accounts_095:
   reconcilable: false
   updated_at: 2014-12-24 11:08:52.639490000 Z
   updater_id: 1
-  usages: financial_assets_values
+  usages: fixed_assets_values
 accounts_096:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.645493000 Z
   creator_id: 1
   debtor: false
@@ -1293,6 +1394,7 @@ accounts_096:
   updater_id: 1
   usages: financial_year_result_balance
 accounts_097:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.649709000 Z
   creator_id: 1
   debtor: false
@@ -1306,6 +1408,7 @@ accounts_097:
   updater_id: 1
   usages: financial_year_result_loss
 accounts_098:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.654397000 Z
   creator_id: 1
   debtor: false
@@ -1319,6 +1422,7 @@ accounts_098:
   updater_id: 1
   usages: financial_year_result_profit
 accounts_099:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.658951000 Z
   creator_id: 1
   debtor: false
@@ -1332,6 +1436,7 @@ accounts_099:
   updater_id: 1
   usages: financials_revenues
 accounts_100:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.663571000 Z
   creator_id: 1
   debtor: false
@@ -1345,6 +1450,7 @@ accounts_100:
   updater_id: 1
   usages: fuel_matter_expenses
 accounts_101:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.667876000 Z
   creator_id: 1
   debtor: false
@@ -1358,6 +1464,7 @@ accounts_101:
   updater_id: 1
   usages: fuel_stock
 accounts_102:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.672224000 Z
   creator_id: 1
   debtor: false
@@ -1371,6 +1478,7 @@ accounts_102:
   updater_id: 1
   usages: fuels_expenses
 accounts_103:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.676548000 Z
   creator_id: 1
   debtor: false
@@ -1384,6 +1492,7 @@ accounts_103:
   updater_id: 1
   usages: gas_expenses
 accounts_104:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.680955000 Z
   creator_id: 1
   debtor: false
@@ -1397,6 +1506,7 @@ accounts_104:
   updater_id: 1
   usages: general_installation_asset_depreciations
 accounts_105:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.685233000 Z
   creator_id: 1
   debtor: false
@@ -1410,6 +1520,7 @@ accounts_105:
   updater_id: 1
   usages: general_installation_assets
 accounts_106:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.689802000 Z
   creator_id: 1
   debtor: false
@@ -1423,6 +1534,7 @@ accounts_106:
   updater_id: 1
   usages: home_consumption_production
 accounts_107:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.694220000 Z
   creator_id: 1
   debtor: false
@@ -1436,6 +1548,7 @@ accounts_107:
   updater_id: 1
   usages: incorporeal_asset_depreciations
 accounts_108:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.698656000 Z
   creator_id: 1
   debtor: false
@@ -1449,6 +1562,7 @@ accounts_108:
   updater_id: 1
   usages: incorporeals_depreciations_inputations_expenses
 accounts_109:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.703421000 Z
   creator_id: 1
   debtor: false
@@ -1462,6 +1576,7 @@ accounts_109:
   updater_id: 1
   usages: industrial_cooperative_participation_assets
 accounts_110:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.707933000 Z
   creator_id: 1
   debtor: false
@@ -1475,6 +1590,7 @@ accounts_110:
   updater_id: 1
   usages: initial_individual_capital
 accounts_111:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.712474000 Z
   creator_id: 1
   debtor: false
@@ -1488,6 +1604,7 @@ accounts_111:
   updater_id: 1
   usages: initial_individual_capital_variations
 accounts_112:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.716760000 Z
   creator_id: 1
   debtor: false
@@ -1501,6 +1618,7 @@ accounts_112:
   updater_id: 1
   usages: initial_society_capital
 accounts_113:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.721384000 Z
   creator_id: 1
   debtor: false
@@ -1514,6 +1632,7 @@ accounts_113:
   updater_id: 1
   usages: installation_sustainable_plant_assets
 accounts_114:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.725563000 Z
   creator_id: 1
   debtor: false
@@ -1527,6 +1646,7 @@ accounts_114:
   updater_id: 1
   usages: insurance_expenses
 accounts_115:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.730774000 Z
   creator_id: 1
   debtor: false
@@ -1540,6 +1660,7 @@ accounts_115:
   updater_id: 1
   usages: inventory_variations
 accounts_116:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.735070000 Z
   creator_id: 1
   debtor: false
@@ -1553,6 +1674,7 @@ accounts_116:
   updater_id: 1
   usages: irrigation_expenses
 accounts_117:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.739244000 Z
   creator_id: 1
   debtor: false
@@ -1566,6 +1688,7 @@ accounts_117:
   updater_id: 1
   usages: land_loans
 accounts_118:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.743418000 Z
   creator_id: 1
   debtor: false
@@ -1579,6 +1702,7 @@ accounts_118:
   updater_id: 1
   usages: land_loans_interests
 accounts_119:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.747896000 Z
   creator_id: 1
   debtor: false
@@ -1592,6 +1716,7 @@ accounts_119:
   updater_id: 1
   usages: land_parcel_asset_depreciations
 accounts_120:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.752512000 Z
   creator_id: 1
   debtor: false
@@ -1605,6 +1730,7 @@ accounts_120:
   updater_id: 1
   usages: land_parcel_assets
 accounts_121:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.757072000 Z
   creator_id: 1
   debtor: false
@@ -1618,6 +1744,7 @@ accounts_121:
   updater_id: 1
   usages: land_parcel_construction_asset_depreciations
 accounts_122:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.761494000 Z
   creator_id: 1
   debtor: false
@@ -1631,6 +1758,7 @@ accounts_122:
   updater_id: 1
   usages: land_parcel_construction_assets
 accounts_123:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.765926000 Z
   creator_id: 1
   debtor: false
@@ -1644,6 +1772,7 @@ accounts_123:
   updater_id: 1
   usages: land_parcel_construction_depreciations_inputations_expenses
 accounts_124:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.770117000 Z
   creator_id: 1
   debtor: false
@@ -1657,6 +1786,7 @@ accounts_124:
   updater_id: 1
   usages: land_parcel_rent_expenses
 accounts_125:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.774294000 Z
   creator_id: 1
   debtor: false
@@ -1670,6 +1800,7 @@ accounts_125:
   updater_id: 1
   usages: land_parcel_sell_revenues
 accounts_126:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.778650000 Z
   creator_id: 1
   debtor: false
@@ -1683,6 +1814,7 @@ accounts_126:
   updater_id: 1
   usages: leasing_expenses
 accounts_127:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.782816000 Z
   creator_id: 1
   debtor: false
@@ -1696,6 +1828,7 @@ accounts_127:
   updater_id: 1
   usages: legal_reserves
 accounts_128:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.787072000 Z
   creator_id: 1
   debtor: false
@@ -1709,6 +1842,7 @@ accounts_128:
   updater_id: 1
   usages: little_office_equipment_expenses
 accounts_129:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.791486000 Z
   creator_id: 1
   debtor: false
@@ -1722,6 +1856,7 @@ accounts_129:
   updater_id: 1
   usages: livestock_feed_matter_expenses
 accounts_130:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.795718000 Z
   creator_id: 1
   debtor: false
@@ -1735,6 +1870,7 @@ accounts_130:
   updater_id: 1
   usages: livestock_feed_stock
 accounts_131:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.800045000 Z
   creator_id: 1
   debtor: false
@@ -1748,6 +1884,7 @@ accounts_131:
   updater_id: 1
   usages: associates_frozen_accounts
 accounts_132:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.809705000 Z
   creator_id: 1
   debtor: false
@@ -1761,6 +1898,7 @@ accounts_132:
   updater_id: 1
   usages: long_cycle_cultivation_advances
 accounts_133:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.814320000 Z
   creator_id: 1
   debtor: false
@@ -1774,6 +1912,7 @@ accounts_133:
   updater_id: 1
   usages: long_cycle_vegetals_inventory_variations
 accounts_134:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.818699000 Z
   creator_id: 1
   debtor: false
@@ -1787,6 +1926,7 @@ accounts_134:
   updater_id: 1
   usages: long_term_loans
 accounts_135:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.823140000 Z
   creator_id: 1
   debtor: false
@@ -1800,6 +1940,7 @@ accounts_135:
   updater_id: 1
   usages: long_term_loans_interests
 accounts_136:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.828407000 Z
   creator_id: 1
   debtor: false
@@ -1813,6 +1954,7 @@ accounts_136:
   updater_id: 1
   usages: mails_expenses
 accounts_137:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.832776000 Z
   creator_id: 1
   debtor: false
@@ -1826,6 +1968,7 @@ accounts_137:
   updater_id: 1
   usages: maintenances_consumables_expenses
 accounts_138:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.837588000 Z
   creator_id: 1
   debtor: false
@@ -1839,6 +1982,7 @@ accounts_138:
   updater_id: 1
   usages: maintenances_consumables_stock
 accounts_139:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.842013000 Z
   creator_id: 1
   debtor: false
@@ -1852,6 +1996,7 @@ accounts_139:
   updater_id: 1
   usages: merchandising_revenues
 accounts_140:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.846313000 Z
   creator_id: 1
   debtor: false
@@ -1865,6 +2010,7 @@ accounts_140:
   updater_id: 1
   usages: office_equipment_asset_depreciations
 accounts_141:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.850883000 Z
   creator_id: 1
   debtor: false
@@ -1878,6 +2024,7 @@ accounts_141:
   updater_id: 1
   usages: office_equipment_assets
 accounts_142:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.855560000 Z
   creator_id: 1
   debtor: false
@@ -1891,6 +2038,7 @@ accounts_142:
   updater_id: 1
   usages: office_furniture_asset_depreciations
 accounts_143:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.859822000 Z
   creator_id: 1
   debtor: false
@@ -1904,6 +2052,7 @@ accounts_143:
   updater_id: 1
   usages: office_furniture_assets
 accounts_144:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.864252000 Z
   creator_id: 1
   debtor: false
@@ -1917,6 +2066,7 @@ accounts_144:
   updater_id: 1
   usages: office_supply_matter_expenses
 accounts_145:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.868518000 Z
   creator_id: 1
   debtor: false
@@ -1930,6 +2080,7 @@ accounts_145:
   updater_id: 1
   usages: other_animal_expenses
 accounts_146:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.872729000 Z
   creator_id: 1
   debtor: false
@@ -1943,6 +2094,7 @@ accounts_146:
   updater_id: 1
   usages: other_animal_revenues
 accounts_147:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.876877000 Z
   creator_id: 1
   debtor: false
@@ -1956,6 +2108,7 @@ accounts_147:
   updater_id: 1
   usages: other_asset_depreciations
 accounts_148:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.880795000 Z
   creator_id: 1
   debtor: false
@@ -1969,6 +2122,7 @@ accounts_148:
   updater_id: 1
   usages: other_assets
 accounts_149:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.884902000 Z
   creator_id: 1
   debtor: false
@@ -1982,6 +2136,7 @@ accounts_149:
   updater_id: 1
   usages: other_building_asset_depreciations
 accounts_150:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.889038000 Z
   creator_id: 1
   debtor: false
@@ -1995,6 +2150,7 @@ accounts_150:
   updater_id: 1
   usages: other_building_expenses
 accounts_151:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.893047000 Z
   creator_id: 1
   debtor: false
@@ -2008,6 +2164,7 @@ accounts_151:
   updater_id: 1
   usages: other_compensations
 accounts_152:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.899496000 Z
   creator_id: 1
   debtor: false
@@ -2021,6 +2178,7 @@ accounts_152:
   updater_id: 1
   usages: other_corporeal_asset_depreciations
 accounts_153:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.904363000 Z
   creator_id: 1
   debtor: false
@@ -2034,6 +2192,7 @@ accounts_153:
   updater_id: 1
   usages: other_expenses
 accounts_154:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.909183000 Z
   creator_id: 1
   debtor: false
@@ -2047,6 +2206,7 @@ accounts_154:
   updater_id: 1
   usages: other_fees_expenses
 accounts_155:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.913774000 Z
   creator_id: 1
   debtor: false
@@ -2060,6 +2220,7 @@ accounts_155:
   updater_id: 1
   usages: other_general_installation_assets
 accounts_156:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.918375000 Z
   creator_id: 1
   debtor: false
@@ -2073,6 +2234,7 @@ accounts_156:
   updater_id: 1
   usages: other_incorporeal_asset_depreciations
 accounts_157:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.922993000 Z
   creator_id: 1
   debtor: false
@@ -2086,6 +2248,7 @@ accounts_157:
   updater_id: 1
   usages: other_incorporeal_assets
 accounts_158:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.927426000 Z
   creator_id: 1
   debtor: false
@@ -2099,6 +2262,7 @@ accounts_158:
   updater_id: 1
   usages: other_interests_expenses
 accounts_159:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.931945000 Z
   creator_id: 1
   debtor: false
@@ -2112,6 +2276,7 @@ accounts_159:
   updater_id: 1
   usages: other_investment_subventions
 accounts_160:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.936379000 Z
   creator_id: 1
   debtor: false
@@ -2125,6 +2290,7 @@ accounts_160:
   updater_id: 1
   usages: other_investment_subventions_in_earnings_statement
 accounts_161:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.940860000 Z
   creator_id: 1
   debtor: false
@@ -2138,6 +2304,7 @@ accounts_161:
   updater_id: 1
   usages: other_professional_agricultural_participation_assets
 accounts_162:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.945227000 Z
   creator_id: 1
   debtor: false
@@ -2151,6 +2318,7 @@ accounts_162:
   updater_id: 1
   usages: other_reserves
 accounts_163:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.949422000 Z
   creator_id: 1
   debtor: false
@@ -2164,6 +2332,7 @@ accounts_163:
   updater_id: 1
   usages: other_staff_expenses
 accounts_164:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.959263000 Z
   creator_id: 1
   debtor: false
@@ -2177,6 +2346,7 @@ accounts_164:
   updater_id: 1
   usages: other_taxes
 accounts_165:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.966190000 Z
   creator_id: 1
   debtor: false
@@ -2190,6 +2360,7 @@ accounts_165:
   updater_id: 1
   usages: others_corporeals_depreciations_inputations_expenses
 accounts_166:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.971081000 Z
   creator_id: 1
   debtor: false
@@ -2203,6 +2374,7 @@ accounts_166:
   updater_id: 1
   usages: own_building_asset_depreciations
 accounts_167:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.976594000 Z
   creator_id: 1
   debtor: false
@@ -2216,6 +2388,7 @@ accounts_167:
   updater_id: 1
   usages: ownership_assets
 accounts_168:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.980975000 Z
   creator_id: 1
   debtor: false
@@ -2229,6 +2402,7 @@ accounts_168:
   updater_id: 1
   usages: ownership_loan
 accounts_169:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.985456000 Z
   creator_id: 1
   debtor: false
@@ -2242,6 +2416,7 @@ accounts_169:
   updater_id: 1
   usages: packaging
 accounts_170:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.989883000 Z
   creator_id: 1
   debtor: false
@@ -2255,6 +2430,7 @@ accounts_170:
   updater_id: 1
   usages: pending_deposit_payments
 accounts_171:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.999278000 Z
   creator_id: 1
   debtor: false
@@ -2268,6 +2444,7 @@ accounts_171:
   updater_id: 1
   usages: principal_associates_current_accounts
 accounts_172:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.008731000 Z
   creator_id: 1
   debtor: false
@@ -2281,6 +2458,7 @@ accounts_172:
   updater_id: 1
   usages: products_specials_taxes
 accounts_173:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.013576000 Z
   creator_id: 1
   debtor: false
@@ -2294,6 +2472,7 @@ accounts_173:
   updater_id: 1
   usages: professional_agricultural_organization_assets
 accounts_174:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.018445000 Z
   creator_id: 1
   debtor: false
@@ -2307,6 +2486,7 @@ accounts_174:
   updater_id: 1
   usages: professional_subscriptions_expenses
 accounts_175:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.024112000 Z
   creator_id: 1
   debtor: false
@@ -2320,6 +2500,7 @@ accounts_175:
   updater_id: 1
   usages: rectify_collected_vat
 accounts_176:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.028760000 Z
   creator_id: 1
   debtor: false
@@ -2333,6 +2514,7 @@ accounts_176:
   updater_id: 1
   usages: reductions
 accounts_177:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.033140000 Z
   creator_id: 1
   debtor: false
@@ -2346,6 +2528,7 @@ accounts_177:
   updater_id: 1
   usages: reevaluation_gaps
 accounts_178:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.037476000 Z
   creator_id: 1
   debtor: false
@@ -2359,6 +2542,7 @@ accounts_178:
   updater_id: 1
   usages: reserves
 accounts_179:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.045754000 Z
   creator_id: 1
   debtor: false
@@ -2372,6 +2556,7 @@ accounts_179:
   updater_id: 1
   usages: service_animal_asset_depreciations
 accounts_180:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.050188000 Z
   creator_id: 1
   debtor: false
@@ -2385,6 +2570,7 @@ accounts_180:
   updater_id: 1
   usages: service_animal_assets
 accounts_181:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.054930000 Z
   creator_id: 1
   debtor: false
@@ -2398,6 +2584,7 @@ accounts_181:
   updater_id: 1
   usages: services_expenses
 accounts_182:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.059396000 Z
   creator_id: 1
   debtor: false
@@ -2411,6 +2598,7 @@ accounts_182:
   updater_id: 1
   usages: services_revenues
 accounts_183:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.063958000 Z
   creator_id: 1
   debtor: false
@@ -2424,6 +2612,7 @@ accounts_183:
   updater_id: 1
   usages: share_asset_subsidies
 accounts_184:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.068482000 Z
   creator_id: 1
   debtor: false
@@ -2437,6 +2626,7 @@ accounts_184:
   updater_id: 1
   usages: short_cycle_animals_inventory_variations
 accounts_185:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.074517000 Z
   creator_id: 1
   debtor: false
@@ -2450,6 +2640,7 @@ accounts_185:
   updater_id: 1
   usages: short_cycle_cultivation_advances_culturals_ways
 accounts_186:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.079176000 Z
   creator_id: 1
   debtor: false
@@ -2463,6 +2654,7 @@ accounts_186:
   updater_id: 1
   usages: short_cycle_cultivation_advances_fertilizers
 accounts_187:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.084038000 Z
   creator_id: 1
   debtor: false
@@ -2476,6 +2668,7 @@ accounts_187:
   updater_id: 1
   usages: short_cycle_cultivation_advances_plants_medicines
 accounts_188:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.088690000 Z
   creator_id: 1
   debtor: false
@@ -2489,6 +2682,7 @@ accounts_188:
   updater_id: 1
   usages: short_cycle_cultivation_advances_seeds
 accounts_189:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.093280000 Z
   creator_id: 1
   debtor: false
@@ -2502,6 +2696,7 @@ accounts_189:
   updater_id: 1
   usages: short_cycle_vegetals_inventory_variations
 accounts_190:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.097647000 Z
   creator_id: 1
   debtor: false
@@ -2515,6 +2710,7 @@ accounts_190:
   updater_id: 1
   usages: short_term_loans
 accounts_191:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.102437000 Z
   creator_id: 1
   debtor: false
@@ -2528,6 +2724,7 @@ accounts_191:
   updater_id: 1
   usages: short_term_loans_interests
 accounts_192:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.107014000 Z
   creator_id: 1
   debtor: false
@@ -2541,6 +2738,7 @@ accounts_192:
   updater_id: 1
   usages: short_time_animal_stock
 accounts_193:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.111427000 Z
   creator_id: 1
   debtor: false
@@ -2554,6 +2752,7 @@ accounts_193:
   updater_id: 1
   usages: social_agricultural_mutuality
 accounts_194:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.115634000 Z
   creator_id: 1
   debtor: false
@@ -2567,6 +2766,7 @@ accounts_194:
   updater_id: 1
   usages: staff_due_remunerations
 accounts_195:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.120955000 Z
   creator_id: 1
   debtor: false
@@ -2580,6 +2780,7 @@ accounts_195:
   updater_id: 1
   usages: staff_salary
 accounts_196:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.125005000 Z
   creator_id: 1
   debtor: false
@@ -2593,6 +2794,7 @@ accounts_196:
   updater_id: 1
   usages: stocks
 accounts_197:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.129195000 Z
   creator_id: 1
   debtor: false
@@ -2606,6 +2808,7 @@ accounts_197:
   updater_id: 1
   usages: stocks_variation
 accounts_198:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.133771000 Z
   creator_id: 1
   debtor: false
@@ -2619,6 +2822,7 @@ accounts_198:
   updater_id: 1
   usages: studies_and_research_expenses
 accounts_199:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.138017000 Z
   creator_id: 1
   debtor: false
@@ -2632,6 +2836,7 @@ accounts_199:
   updater_id: 1
   usages: subsidies
 accounts_200:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.142344000 Z
   creator_id: 1
   debtor: false
@@ -2645,6 +2850,7 @@ accounts_200:
   updater_id: 1
   usages: suppliers
 accounts_201:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.146866000 Z
   creator_id: 1
   debtor: false
@@ -2658,6 +2864,7 @@ accounts_201:
   updater_id: 1
   usages: suppliers_balance_after_compensation
 accounts_202:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.151384000 Z
   creator_id: 1
   debtor: false
@@ -2671,6 +2878,7 @@ accounts_202:
   updater_id: 1
   usages: suppliers_invoices_not_received
 accounts_203:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.156077000 Z
   creator_id: 1
   debtor: false
@@ -2684,6 +2892,7 @@ accounts_203:
   updater_id: 1
   usages: supply_stocks_variation
 accounts_204:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.160833000 Z
   creator_id: 1
   debtor: false
@@ -2697,6 +2906,7 @@ accounts_204:
   updater_id: 1
   usages: sustainable_packaging_asset_depreciations
 accounts_205:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.165348000 Z
   creator_id: 1
   debtor: false
@@ -2710,6 +2920,7 @@ accounts_205:
   updater_id: 1
   usages: sustainable_packaging_assets
 accounts_206:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.169944000 Z
   creator_id: 1
   debtor: false
@@ -2723,6 +2934,7 @@ accounts_206:
   updater_id: 1
   usages: sustainables_plants_asset_depreciations
 accounts_207:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.175601000 Z
   creator_id: 1
   debtor: false
@@ -2736,6 +2948,7 @@ accounts_207:
   updater_id: 1
   usages: sustainables_plants_on_other_land_parcel_assets
 accounts_208:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.180150000 Z
   creator_id: 1
   debtor: false
@@ -2749,6 +2962,7 @@ accounts_208:
   updater_id: 1
   usages: sustainables_plants_on_own_land_parcel_assets
 accounts_209:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.184439000 Z
   creator_id: 1
   debtor: false
@@ -2762,6 +2976,7 @@ accounts_209:
   updater_id: 1
   usages: third_party
 accounts_210:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.188749000 Z
   creator_id: 1
   debtor: false
@@ -2775,6 +2990,7 @@ accounts_210:
   updater_id: 1
   usages: transport_vehicle_asset_depreciations
 accounts_211:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.193542000 Z
   creator_id: 1
   debtor: false
@@ -2788,6 +3004,7 @@ accounts_211:
   updater_id: 1
   usages: transport_vehicle_assets
 accounts_212:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.197852000 Z
   creator_id: 1
   debtor: false
@@ -2801,6 +3018,7 @@ accounts_212:
   updater_id: 1
   usages: transports_expenses
 accounts_213:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.202612000 Z
   creator_id: 1
   debtor: false
@@ -2814,6 +3032,7 @@ accounts_213:
   updater_id: 1
   usages: travels_expenses
 accounts_214:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.207223000 Z
   creator_id: 1
   debtor: false
@@ -2827,6 +3046,7 @@ accounts_214:
   updater_id: 1
   usages: unstorable_expenses
 accounts_215:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.211852000 Z
   creator_id: 1
   debtor: false
@@ -2840,6 +3060,7 @@ accounts_215:
   updater_id: 1
   usages: usual_associates_current_accounts
 accounts_216:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.216449000 Z
   creator_id: 1
   debtor: false
@@ -2853,6 +3074,7 @@ accounts_216:
   updater_id: 1
   usages: usual_bank_overdraft
 accounts_217:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.220936000 Z
   creator_id: 1
   debtor: false
@@ -2866,6 +3088,7 @@ accounts_217:
   updater_id: 1
   usages: vat
 accounts_218:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.225555000 Z
   creator_id: 1
   debtor: false
@@ -2879,6 +3102,7 @@ accounts_218:
   updater_id: 1
   usages: vegetals_productions_expenses
 accounts_219:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.230693000 Z
   creator_id: 1
   debtor: false
@@ -2892,6 +3116,7 @@ accounts_219:
   updater_id: 1
   usages: veterinary_fees_expenses
 accounts_220:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.235186000 Z
   creator_id: 1
   debtor: false
@@ -2905,6 +3130,7 @@ accounts_220:
   updater_id: 1
   usages: waiting_vat
 accounts_221:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.239663000 Z
   creator_id: 1
   debtor: false
@@ -2918,6 +3144,7 @@ accounts_221:
   updater_id: 1
   usages: water_expenses
 accounts_222:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.244102000 Z
   creator_id: 1
   debtor: false
@@ -2931,6 +3158,7 @@ accounts_222:
   updater_id: 1
   usages: young_animal_asset_depreciations
 accounts_223:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.248531000 Z
   creator_id: 1
   debtor: false
@@ -2944,6 +3172,7 @@ accounts_223:
   updater_id: 1
   usages: young_animal_assets
 accounts_224:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.253559000 Z
   creator_id: 1
   debtor: false
@@ -2957,6 +3186,7 @@ accounts_224:
   updater_id: 1
   usages: young_animal_expenses
 accounts_225:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.258153000 Z
   creator_id: 1
   debtor: false
@@ -2970,6 +3200,7 @@ accounts_225:
   updater_id: 1
   usages: young_animal_revenues
 accounts_226:
+  already_existing: true
   created_at: 2015-04-21 08:29:05.307046000 Z
   creator_id: 1
   debtor: false
@@ -2983,6 +3214,7 @@ accounts_226:
   updated_at: 2015-04-21 08:29:05.307046000 Z
   updater_id: 1
 accounts_227:
+  already_existing: true
   created_at: 2015-04-26 12:44:23.241295000 Z
   creator_id: 1
   debtor: false
@@ -2996,6 +3228,7 @@ accounts_227:
   updated_at: 2015-04-26 12:44:23.241295000 Z
   updater_id: 1
 accounts_228:
+  already_existing: true
   created_at: 2015-05-07 23:15:03.718709000 Z
   creator_id: 1
   debtor: false
@@ -3009,6 +3242,7 @@ accounts_228:
   updater_id: 1
   usages: loans
 accounts_229:
+  already_existing: true
   created_at: 2015-05-07 23:16:54.978688000 Z
   creator_id: 1
   debtor: false
@@ -3022,6 +3256,7 @@ accounts_229:
   updater_id: 1
   usages: loans_interests
 accounts_230:
+  already_existing: true
   created_at: 2015-05-30 20:00:28.004240000 Z
   creator_id: 1
   debtor: false
@@ -3035,6 +3270,7 @@ accounts_230:
   updated_at: 2015-05-30 20:00:28.004240000 Z
   updater_id: 1
 accounts_231:
+  already_existing: true
   created_at: 2016-05-10 19:20:53.647923000 Z
   creator_id: 1
   debtor: false
@@ -3047,6 +3283,7 @@ accounts_231:
   updated_at: 2016-05-10 19:20:53.647923000 Z
   updater_id: 1
 accounts_232:
+  already_existing: true
   created_at: 2016-05-10 19:20:53.744672000 Z
   creator_id: 1
   debtor: false
@@ -3059,6 +3296,7 @@ accounts_232:
   updated_at: 2016-05-10 19:20:53.744672000 Z
   updater_id: 1
 accounts_233:
+  already_existing: true
   created_at: 2016-05-10 19:20:53.859930000 Z
   creator_id: 1
   debtor: false
@@ -3071,6 +3309,7 @@ accounts_233:
   updated_at: 2016-05-10 19:20:53.859930000 Z
   updater_id: 1
 accounts_234:
+  already_existing: true
   created_at: 2016-05-10 19:20:53.954435000 Z
   creator_id: 1
   debtor: false
@@ -3083,6 +3322,7 @@ accounts_234:
   updated_at: 2016-05-10 19:20:53.954435000 Z
   updater_id: 1
 accounts_235:
+  already_existing: true
   created_at: 2016-05-10 19:20:54.053896000 Z
   creator_id: 1
   debtor: false
@@ -3095,6 +3335,7 @@ accounts_235:
   updated_at: 2016-05-10 19:20:54.053896000 Z
   updater_id: 1
 accounts_236:
+  already_existing: true
   created_at: 2016-05-10 19:20:54.144927000 Z
   creator_id: 1
   debtor: false
@@ -3107,6 +3348,7 @@ accounts_236:
   updated_at: 2016-05-10 19:20:54.144927000 Z
   updater_id: 1
 accounts_237:
+  already_existing: true
   created_at: 2016-05-10 19:20:54.244833000 Z
   creator_id: 1
   debtor: false
@@ -3119,6 +3361,7 @@ accounts_237:
   updated_at: 2016-05-10 19:20:54.244833000 Z
   updater_id: 1
 accounts_238:
+  already_existing: true
   created_at: 2016-05-10 19:20:54.354885000 Z
   creator_id: 1
   debtor: false
@@ -3131,6 +3374,7 @@ accounts_238:
   updated_at: 2016-05-10 19:20:54.354885000 Z
   updater_id: 1
 accounts_239:
+  already_existing: true
   created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
   id: 585
@@ -3142,6 +3386,7 @@ accounts_239:
   updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: seed_stocks_variation
 accounts_240:
+  already_existing: true
   created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
   id: 586
@@ -3153,6 +3398,7 @@ accounts_240:
   updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: animal_medicine_stocks_variation
 accounts_241:
+  already_existing: true
   created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
   id: 587
@@ -3164,6 +3410,7 @@ accounts_241:
   updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: products_inventory_variations
 accounts_242:
+  already_existing: true
   created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
   id: 588
@@ -3175,6 +3422,7 @@ accounts_242:
   updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: long_cycle_animals_inventory_variations
 accounts_243:
+  already_existing: true
   created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
   id: 589
@@ -3186,6 +3434,7 @@ accounts_243:
   updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: other_supply_stocks_variation
 accounts_244:
+  already_existing: true
   created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
   id: 590
@@ -3197,6 +3446,7 @@ accounts_244:
   updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: fertilizer_stocks_variation
 accounts_245:
+  already_existing: true
   created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
   id: 591
@@ -3208,6 +3458,7 @@ accounts_245:
   updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: plant_medicine_stocks_variation
 accounts_246:
+  already_existing: true
   created_at: 2014-10-31 17:19:32.000000000 Z
   debtor: false
   id: 592
@@ -3218,6 +3469,7 @@ accounts_246:
   reconcilable: false
   updated_at: 2014-10-31 17:19:32.000000000 Z
 accounts_247:
+  already_existing: true
   created_at: 2014-10-31 17:19:32.000000000 Z
   debtor: false
   id: 593
@@ -3228,6 +3480,7 @@ accounts_247:
   reconcilable: false
   updated_at: 2014-10-31 17:19:32.000000000 Z
 accounts_248:
+  already_existing: true
   created_at: 2014-10-31 17:19:32.000000000 Z
   debtor: false
   id: 594
@@ -3238,6 +3491,7 @@ accounts_248:
   reconcilable: false
   updated_at: 2014-10-31 17:19:32.000000000 Z
 accounts_249:
+  already_existing: true
   created_at: 2014-10-31 17:19:32.000000000 Z
   debtor: false
   id: 595
@@ -3248,6 +3502,7 @@ accounts_249:
   reconcilable: false
   updated_at: 2014-10-31 17:19:32.000000000 Z
 accounts_250:
+  already_existing: true
   created_at: 2014-10-31 17:19:32.000000000 Z
   debtor: false
   id: 596
@@ -3258,6 +3513,7 @@ accounts_250:
   reconcilable: false
   updated_at: 2014-10-31 17:19:32.000000000 Z
 accounts_251:
+  already_existing: true
   created_at: 2014-10-31 17:19:32.000000000 Z
   debtor: false
   id: 597
@@ -3268,6 +3524,7 @@ accounts_251:
   reconcilable: false
   updated_at: 2014-10-31 17:19:32.000000000 Z
 accounts_252:
+  already_existing: true
   created_at: 2014-10-31 17:19:32.000000000 Z
   debtor: false
   id: 598
@@ -3278,6 +3535,7 @@ accounts_252:
   reconcilable: false
   updated_at: 2014-10-31 17:19:32.000000000 Z
 accounts_253:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.392581000 Z
   debtor: false
   id: 599
@@ -3289,6 +3547,7 @@ accounts_253:
   updated_at: 2014-10-31 18:48:46.392581000 Z
   usages: animal_derivative_stock
 accounts_254:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.404951000 Z
   debtor: false
   id: 600
@@ -3300,6 +3559,7 @@ accounts_254:
   updated_at: 2014-10-31 18:48:46.404951000 Z
   usages: animal_medicine_stock
 accounts_255:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.404951000 Z
   debtor: false
   id: 601
@@ -3311,6 +3571,7 @@ accounts_255:
   updated_at: 2014-10-31 18:48:46.404951000 Z
   usages: animal_medicine_stock
 accounts_256:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.550244000 Z
   debtor: false
   id: 602
@@ -3322,6 +3583,7 @@ accounts_256:
   updated_at: 2014-10-31 18:48:46.550244000 Z
   usages: fertilizer_stock
 accounts_257:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.714343000 Z
   debtor: false
   id: 603
@@ -3333,6 +3595,7 @@ accounts_257:
   updated_at: 2014-10-31 18:48:46.714343000 Z
   usages: long_time_animal_stock
 accounts_258:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.714343000 Z
   debtor: false
   id: 604
@@ -3344,6 +3607,7 @@ accounts_258:
   updated_at: 2014-10-31 18:48:46.714343000 Z
   usages: long_time_animal_stock
 accounts_259:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.714343000 Z
   debtor: false
   id: 605
@@ -3355,6 +3619,7 @@ accounts_259:
   updated_at: 2014-10-31 18:48:46.714343000 Z
   usages: long_time_animal_stock
 accounts_260:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.714343000 Z
   debtor: false
   id: 606
@@ -3366,6 +3631,7 @@ accounts_260:
   updated_at: 2014-10-31 18:48:46.714343000 Z
   usages: long_time_animal_stock
 accounts_261:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.778022000 Z
   debtor: false
   id: 607
@@ -3377,6 +3643,7 @@ accounts_261:
   updated_at: 2014-10-31 18:48:46.778022000 Z
   usages: other_consumables_stock
 accounts_262:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.778022000 Z
   debtor: false
   id: 608
@@ -3388,6 +3655,7 @@ accounts_262:
   updated_at: 2014-10-31 18:48:46.778022000 Z
   usages: other_consumables_stock
 accounts_263:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.862025000 Z
   debtor: false
   id: 609
@@ -3399,6 +3667,7 @@ accounts_263:
   updated_at: 2014-10-31 18:48:46.862025000 Z
   usages: plant_derivative_stock
 accounts_264:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.862025000 Z
   debtor: false
   id: 610
@@ -3410,6 +3679,7 @@ accounts_264:
   updated_at: 2014-10-31 18:48:46.862025000 Z
   usages: plant_derivative_stock
 accounts_265:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.862025000 Z
   debtor: false
   id: 611
@@ -3421,6 +3691,7 @@ accounts_265:
   updated_at: 2014-10-31 18:48:46.862025000 Z
   usages: plant_derivative_stock
 accounts_266:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.862025000 Z
   debtor: false
   id: 612
@@ -3432,6 +3703,7 @@ accounts_266:
   updated_at: 2014-10-31 18:48:46.862025000 Z
   usages: plant_derivative_stock
 accounts_267:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.862025000 Z
   debtor: false
   id: 613
@@ -3443,6 +3715,7 @@ accounts_267:
   updated_at: 2014-10-31 18:48:46.862025000 Z
   usages: plant_derivative_stock
 accounts_268:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.862025000 Z
   debtor: false
   id: 614
@@ -3454,6 +3727,7 @@ accounts_268:
   updated_at: 2014-10-31 18:48:46.862025000 Z
   usages: plant_derivative_stock
 accounts_269:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.862025000 Z
   debtor: false
   id: 615
@@ -3465,6 +3739,7 @@ accounts_269:
   updated_at: 2014-10-31 18:48:46.862025000 Z
   usages: plant_derivative_stock
 accounts_270:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.862025000 Z
   debtor: false
   id: 616
@@ -3476,6 +3751,7 @@ accounts_270:
   updated_at: 2014-10-31 18:48:46.862025000 Z
   usages: plant_derivative_stock
 accounts_271:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.862025000 Z
   debtor: false
   id: 617
@@ -3487,6 +3763,7 @@ accounts_271:
   updated_at: 2014-10-31 18:48:46.862025000 Z
   usages: plant_derivative_stock
 accounts_272:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.862025000 Z
   debtor: false
   id: 618
@@ -3498,6 +3775,7 @@ accounts_272:
   updated_at: 2014-10-31 18:48:46.862025000 Z
   usages: plant_derivative_stock
 accounts_273:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.870483000 Z
   debtor: false
   id: 619
@@ -3509,6 +3787,7 @@ accounts_273:
   updated_at: 2014-10-31 18:48:46.870483000 Z
   usages: plant_medicine_stock
 accounts_274:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.870483000 Z
   debtor: false
   id: 620
@@ -3520,6 +3799,7 @@ accounts_274:
   updated_at: 2014-10-31 18:48:46.870483000 Z
   usages: plant_medicine_stock
 accounts_275:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.870483000 Z
   debtor: false
   id: 621
@@ -3531,6 +3811,7 @@ accounts_275:
   updated_at: 2014-10-31 18:48:46.870483000 Z
   usages: plant_medicine_stock
 accounts_276:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.870483000 Z
   debtor: false
   id: 622
@@ -3543,6 +3824,7 @@ accounts_276:
   updated_at: 2014-10-31 18:48:46.870483000 Z
   usages: plant_medicine_stock
 accounts_277:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.870483000 Z
   debtor: false
   id: 623
@@ -3554,6 +3836,7 @@ accounts_277:
   updated_at: 2014-10-31 18:48:46.870483000 Z
   usages: plant_medicine_stock
 accounts_278:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.870483000 Z
   debtor: false
   id: 624
@@ -3565,6 +3848,7 @@ accounts_278:
   updated_at: 2014-10-31 18:48:46.870483000 Z
   usages: plant_medicine_stock
 accounts_279:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.870483000 Z
   debtor: false
   id: 625
@@ -3576,6 +3860,7 @@ accounts_279:
   updated_at: 2014-10-31 18:48:46.870483000 Z
   usages: plant_medicine_stock
 accounts_280:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.870483000 Z
   debtor: false
   id: 626
@@ -3587,6 +3872,7 @@ accounts_280:
   updated_at: 2014-10-31 18:48:46.870483000 Z
   usages: plant_medicine_stock
 accounts_281:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.920511000 Z
   debtor: false
   id: 627
@@ -3598,6 +3884,7 @@ accounts_281:
   updated_at: 2014-10-31 18:48:46.920511000 Z
   usages: seed_stock
 accounts_282:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.920511000 Z
   debtor: false
   id: 628
@@ -3609,6 +3896,7 @@ accounts_282:
   updated_at: 2014-10-31 18:48:46.920511000 Z
   usages: seed_stock
 accounts_283:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.920511000 Z
   debtor: false
   id: 629
@@ -3620,6 +3908,7 @@ accounts_283:
   updated_at: 2014-10-31 18:48:46.920511000 Z
   usages: seed_stock
 accounts_284:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.920511000 Z
   debtor: false
   id: 630
@@ -3632,6 +3921,7 @@ accounts_284:
   updated_at: 2014-10-31 18:48:46.920511000 Z
   usages: seed_stock
 accounts_285:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.920511000 Z
   debtor: false
   id: 631
@@ -3644,6 +3934,7 @@ accounts_285:
   updated_at: 2014-10-31 18:48:46.920511000 Z
   usages: seed_stock
 accounts_286:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.939297000 Z
   debtor: false
   id: 632
@@ -3655,6 +3946,7 @@ accounts_286:
   updated_at: 2014-10-31 18:48:46.939297000 Z
   usages: short_cycle_cultivation_advances
 accounts_287:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.939297000 Z
   debtor: false
   id: 633
@@ -3666,6 +3958,7 @@ accounts_287:
   updated_at: 2014-10-31 18:48:46.939297000 Z
   usages: short_cycle_cultivation_advances
 accounts_288:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.939297000 Z
   debtor: false
   id: 634
@@ -3677,6 +3970,7 @@ accounts_288:
   updated_at: 2014-10-31 18:48:46.939297000 Z
   usages: short_cycle_cultivation_advances
 accounts_289:
+  already_existing: true
   created_at: 2014-10-31 18:48:46.939297000 Z
   debtor: false
   id: 635
@@ -3688,6 +3982,7 @@ accounts_289:
   updated_at: 2014-10-31 18:48:46.939297000 Z
   usages: short_cycle_cultivation_advances
 accounts_290:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.805048000 Z
   debtor: false
   id: 636
@@ -3699,6 +3994,7 @@ accounts_290:
   updated_at: 2014-12-24 11:08:52.805048000 Z
   usages: long_cycle_animals_inventory_variations
 accounts_291:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.805048000 Z
   debtor: false
   id: 637
@@ -3710,6 +4006,7 @@ accounts_291:
   updated_at: 2014-12-24 11:08:52.805048000 Z
   usages: long_cycle_animals_inventory_variations
 accounts_292:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.814320000 Z
   debtor: false
   id: 638
@@ -3722,6 +4019,7 @@ accounts_292:
   updated_at: 2014-12-24 11:08:52.814320000 Z
   usages: long_cycle_vegetals_inventory_variations
 accounts_293:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.954692000 Z
   debtor: false
   id: 639
@@ -3733,6 +4031,7 @@ accounts_293:
   updated_at: 2014-12-24 11:08:52.954692000 Z
   usages: other_supply_stocks_variation
 accounts_294:
+  already_existing: true
   created_at: 2014-12-24 11:08:52.954692000 Z
   debtor: false
   id: 640
@@ -3744,6 +4043,7 @@ accounts_294:
   updated_at: 2014-12-24 11:08:52.954692000 Z
   usages: other_supply_stocks_variation
 accounts_295:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.004180000 Z
   debtor: false
   id: 641
@@ -3755,6 +4055,7 @@ accounts_295:
   updated_at: 2014-12-24 11:08:53.004180000 Z
   usages: products_inventory_variations
 accounts_296:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.004180000 Z
   debtor: false
   id: 642
@@ -3766,6 +4067,7 @@ accounts_296:
   updated_at: 2014-12-24 11:08:53.004180000 Z
   usages: products_inventory_variations
 accounts_297:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.004180000 Z
   debtor: false
   id: 643
@@ -3777,6 +4079,7 @@ accounts_297:
   updated_at: 2014-12-24 11:08:53.004180000 Z
   usages: products_inventory_variations
 accounts_298:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.004180000 Z
   debtor: false
   id: 644
@@ -3788,6 +4091,7 @@ accounts_298:
   updated_at: 2014-12-24 11:08:53.004180000 Z
   usages: products_inventory_variations
 accounts_299:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.004180000 Z
   debtor: false
   id: 645
@@ -3799,6 +4103,7 @@ accounts_299:
   updated_at: 2014-12-24 11:08:53.004180000 Z
   usages: products_inventory_variations
 accounts_300:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.004180000 Z
   debtor: false
   id: 646
@@ -3810,6 +4115,7 @@ accounts_300:
   updated_at: 2014-12-24 11:08:53.004180000 Z
   usages: products_inventory_variations
 accounts_301:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.004180000 Z
   debtor: false
   id: 647
@@ -3821,6 +4127,7 @@ accounts_301:
   updated_at: 2014-12-24 11:08:53.004180000 Z
   usages: products_inventory_variations
 accounts_302:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.004180000 Z
   debtor: false
   id: 648
@@ -3832,6 +4139,7 @@ accounts_302:
   updated_at: 2014-12-24 11:08:53.004180000 Z
   usages: products_inventory_variations
 accounts_303:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.004180000 Z
   debtor: false
   id: 649
@@ -3843,6 +4151,7 @@ accounts_303:
   updated_at: 2014-12-24 11:08:53.004180000 Z
   usages: products_inventory_variations
 accounts_304:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.004180000 Z
   debtor: false
   id: 650
@@ -3854,6 +4163,7 @@ accounts_304:
   updated_at: 2014-12-24 11:08:53.004180000 Z
   usages: products_inventory_variations
 accounts_305:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.004180000 Z
   debtor: false
   id: 651
@@ -3865,6 +4175,7 @@ accounts_305:
   updated_at: 2014-12-24 11:08:53.004180000 Z
   usages: products_inventory_variations
 accounts_306:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.093280000 Z
   debtor: false
   id: 652
@@ -3876,6 +4187,7 @@ accounts_306:
   updated_at: 2014-12-24 11:08:53.093280000 Z
   usages: short_cycle_vegetals_inventory_variations
 accounts_307:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.093280000 Z
   debtor: false
   id: 653
@@ -3887,6 +4199,7 @@ accounts_307:
   updated_at: 2014-12-24 11:08:53.093280000 Z
   usages: short_cycle_vegetals_inventory_variations
 accounts_308:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.093280000 Z
   debtor: false
   id: 654
@@ -3898,6 +4211,7 @@ accounts_308:
   updated_at: 2014-12-24 11:08:53.093280000 Z
   usages: short_cycle_vegetals_inventory_variations
 accounts_309:
+  already_existing: true
   created_at: 2014-12-24 11:08:53.093280000 Z
   debtor: false
   id: 655
@@ -3909,6 +4223,7 @@ accounts_309:
   updated_at: 2014-12-24 11:08:53.093280000 Z
   usages: short_cycle_vegetals_inventory_variations
 accounts_310:
+  already_existing: true
   created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
   id: 656
@@ -3921,6 +4236,7 @@ accounts_310:
   updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: seed_stocks_variation
 accounts_311:
+  already_existing: true
   created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
   id: 657
@@ -3933,6 +4249,7 @@ accounts_311:
   updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: seed_stocks_variation
 accounts_312:
+  already_existing: true
   created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
   id: 658
@@ -3945,6 +4262,7 @@ accounts_312:
   updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: seed_stocks_variation
 accounts_313:
+  already_existing: true
   created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
   id: 659
@@ -3956,6 +4274,7 @@ accounts_313:
   updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: seed_stocks_variation
 accounts_314:
+  already_existing: true
   created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
   id: 660
@@ -3967,6 +4286,7 @@ accounts_314:
   updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: animal_medicine_stocks_variation
 accounts_315:
+  already_existing: true
   created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
   id: 661
@@ -3978,6 +4298,7 @@ accounts_315:
   updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: animal_medicine_stocks_variation
 accounts_316:
+  already_existing: true
   created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
   id: 662
@@ -3989,6 +4310,7 @@ accounts_316:
   updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: fertilizer_stocks_variation
 accounts_317:
+  already_existing: true
   created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
   id: 663
@@ -4000,6 +4322,7 @@ accounts_317:
   updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: plant_medicine_stocks_variation
 accounts_318:
+  already_existing: true
   created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
   id: 664
@@ -4011,6 +4334,7 @@ accounts_318:
   updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: plant_medicine_stocks_variation
 accounts_319:
+  already_existing: true
   created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
   id: 665
@@ -4023,6 +4347,7 @@ accounts_319:
   updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: plant_medicine_stocks_variation
 accounts_320:
+  already_existing: true
   created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
   id: 666
@@ -4035,6 +4360,7 @@ accounts_320:
   updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: plant_medicine_stocks_variation
 accounts_321:
+  already_existing: true
   created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
   id: 667
@@ -4047,6 +4373,7 @@ accounts_321:
   updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: plant_medicine_stocks_variation
 accounts_322:
+  already_existing: true
   created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
   id: 668
@@ -4058,6 +4385,7 @@ accounts_322:
   updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: plant_medicine_stocks_variation
 accounts_323:
+  already_existing: true
   created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
   id: 669
@@ -4070,6 +4398,7 @@ accounts_323:
   updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: plant_medicine_stocks_variation
 accounts_324:
+  already_existing: true
   created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
   id: 670
@@ -4081,6 +4410,7 @@ accounts_324:
   updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: plant_medicine_stocks_variation
 accounts_325:
+  already_existing: true
   created_at: 2016-11-20 22:10:17.285394000 Z
   creator_id: 1
   debtor: false
@@ -4094,6 +4424,7 @@ accounts_325:
   updated_at: 2016-11-20 22:10:17.285394000 Z
   updater_id: 1
 accounts_326:
+  already_existing: true
   created_at: 2016-11-20 22:12:15.511964000 Z
   creator_id: 1
   debtor: false
@@ -4107,6 +4438,7 @@ accounts_326:
   updated_at: 2016-11-20 22:12:15.511964000 Z
   updater_id: 1
 accounts_327:
+  already_existing: true
   created_at: 2014-10-31 17:19:32.000000000 Z
   debtor: false
   id: 673
@@ -4117,6 +4449,7 @@ accounts_327:
   reconcilable: false
   updated_at: 2014-10-31 17:19:32.000000000 Z
 accounts_328:
+  already_existing: true
   created_at: 2014-10-31 17:19:32.000000000 Z
   debtor: false
   id: 674
@@ -4127,6 +4460,7 @@ accounts_328:
   reconcilable: false
   updated_at: 2014-10-31 17:19:32.000000000 Z
 accounts_329:
+  already_existing: true
   created_at: 2014-10-31 17:19:32.000000000 Z
   debtor: false
   id: 675
@@ -4137,6 +4471,7 @@ accounts_329:
   reconcilable: false
   updated_at: 2014-10-31 17:19:32.000000000 Z
 accounts_330:
+  already_existing: true
   created_at: 2014-10-31 17:19:32.000000000 Z
   debtor: false
   id: 676
@@ -4147,6 +4482,7 @@ accounts_330:
   reconcilable: false
   updated_at: 2014-10-31 17:19:32.000000000 Z
 accounts_331:
+  already_existing: true
   created_at: 2014-10-31 17:19:32.000000000 Z
   debtor: false
   id: 677
@@ -4157,6 +4493,7 @@ accounts_331:
   reconcilable: false
   updated_at: 2014-10-31 17:19:32.000000000 Z
 accounts_332:
+  already_existing: true
   created_at: 2014-10-31 17:19:32.000000000 Z
   debtor: false
   id: 678
@@ -4167,6 +4504,7 @@ accounts_332:
   reconcilable: false
   updated_at: 2014-10-31 17:19:32.000000000 Z
 accounts_333:
+  already_existing: true
   created_at: 2014-10-31 17:19:32.000000000 Z
   debtor: false
   id: 679
@@ -4177,6 +4515,7 @@ accounts_333:
   reconcilable: false
   updated_at: 2014-10-31 17:19:32.000000000 Z
 accounts_334:
+  already_existing: true
   created_at: 2017-06-07 16:14:22.881215000 Z
   creator_id: 1
   debtor: false
@@ -4191,6 +4530,7 @@ accounts_334:
   updater_id: 1
   usages: staff_due_remunerations
 accounts_335:
+  already_existing: true
   created_at: 2017-06-07 16:15:26.756640000 Z
   creator_id: 1
   debtor: false
@@ -4205,6 +4545,7 @@ accounts_335:
   updater_id: 1
   usages: staff_due_remunerations
 accounts_336:
+  already_existing: true
   created_at: 2017-06-07 16:21:11.941427000 Z
   creator_id: 1
   debtor: false

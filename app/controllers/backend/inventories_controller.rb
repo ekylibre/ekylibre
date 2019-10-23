@@ -79,6 +79,7 @@ module Backend
     def reflect
       return unless @inventory = find_and_check
       ReflectInventoryJob.perform_later(@inventory, current_user)
+      notify_success(:inventory_reflection_in_progress)
       redirect_to action: :index
     end
   end

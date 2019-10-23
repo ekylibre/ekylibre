@@ -50,9 +50,10 @@
     .date-section.hidden
     - @items_grouped_by_date.each do |date, items|
       .date-section
-        - bank_statement = items.select{ |item| item.is_a?(BankStatementItem) }.map(&:bank_statement).uniq.first
+        - bank_statement_id = items.select{ |item| item.is_a?(BankStatementItem) }.map(&:bank_statement_id).uniq.first
+        - bank_statement = bank_statement_id && BankStatement.find(bank_statement_id)
         = render 'date_header', date: date, bank_statement: bank_statement, cash_id: cash_id
-        - items.each do |item|
+        - items.uniq.each do |item|
           = render 'reconciliation_item', item: item
 
   .totals
@@ -64,7 +65,8 @@
           - bank_statements = @items_grouped_by_date.values.flatten.select{|object| object.is_a?(BankStatementItem)}
 
         - unless bank_statements.empty?
-          - bank_statement_dates_ranges = bank_statements.map{|bank_statement| { start: bank_statement.started_on, end: bank_statement.stopped_on }}.uniq
+          - bank_statements_collection = BankStatement.where(id: bank_statements.map(&:bank_statement_id).uniq).map { |bs| [bs.id, bs] }.to_h
+          - bank_statement_dates_ranges = bank_statements.map{|item| { start: bank_statements_collection[item.bank_statement_id].started_on, end: bank_statements_collection[item.bank_statement_id].stopped_on }}.uniq
 
         #new-item= date_field_tag "add-bank-statement-item-date", nil, id: "add-bank-statement-item-date", data: { flatpickr: false, label: :add_line.tl, classes: "btn btn-new icn", bank_statement_dates_ranges: bank_statement_dates_ranges, min_date: @period_start.to_s, max_date: @period_end.to_s }
         %p= :balance_of_selection.tl

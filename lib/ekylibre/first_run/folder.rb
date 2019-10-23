@@ -60,12 +60,12 @@ module Ekylibre
       end
 
       # Load default data of models with default data
-      def load_defaults
+      def load_defaults(**options)
         default_datasets.each do |dataset|
           next if @defaults[dataset].is_a?(FalseClass)
           puts "Load default #{dataset}..."
           model = dataset.to_s.classify.constantize
-          model.load_defaults
+          model.load_defaults(**options, preferences: @preferences)
           @progress.increment!
         end
       end
@@ -76,6 +76,7 @@ module Ekylibre
         company.last_name = @company[:name]
         company.born_at = @company[:born_at]
         company.siret_number = @company[:siret_number]
+        company.first_financial_year_ends_on = @company[:first_financial_year_ends_on]
         company.save!
         # Create default phone number
         if @company[:phone].present?

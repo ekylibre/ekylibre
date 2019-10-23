@@ -6,16 +6,22 @@ eng:
       already_confirmed: "was already confirmed, please try signing in"
       before: "%{attribute} must be before %{restriction}"
       blank: "%{attribute} can't be blank"
+      can_only_have_two_years_opened: "You can have only have two financial years opened at the same time."
       confirmation: "%{attribute} doesn't match confirmation"
       confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
       currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
       empty: "%{attribute} can't be empty"
+      end_of_month: "%{attribute} should be at the end of the month"
       equal_to: "%{attribute} must be equal to %{count}"
       even: "%{attribute} must be even"
       exclusion: "%{attribute} is reserved"
       expired: "has expired, please request a new one"
+      financial_year_exchange_on_this_period: "There is an opened accounting exchange at this date"
+      financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
+      financial_year_not_found: "There is no financial year at this date"
       greater_than: "%{attribute} must be greater than %{count}"
       greater_than_or_equal_to: "%{attribute} must be greater than or equal to %{count}"
+      harvest_in_progress: "Be careful, this crop is being harvested"
       included_in: "The value of %{attribute} must be included between %{minimum} and %{maximum}"
       inclusion: "%{attribute} is not included in the list"
       invalid: "%{attribute} is invalid"
@@ -31,23 +37,28 @@ eng:
       less_than_or_equal_to: "%{attribute} must be less than or equal to %{count}"
       missing_bank_details_for_sepa: "Values for IBAN and/or Account owner are missing for the cash account selected."
       must_be_a_mail_address: "%{attribute} must be a mail address"
+      no_opened_financial_year: "No financial year opened at this date"
       not_a_number: "%{attribute} is not a number"
       not_an_end_of_month: "%{attribute} must be an end of month"
       not_an_integer: "%{attribute} must be an integer"
       not_enough: "not enough %{resource} to complete task"
       not_found: "not found"
       not_locked: "was not locked"
+      not_opened_financial_year: "An open accounting period is required"
       not_saved:
         one: "1 error prohibited this %{resource} from being saved:"
         other: "%{count} errors prohibited this %{resource} from being saved:"
       nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
       odd: "%{attribute} must be odd"
       on_or_after: "%{attribute} must be on or after %{restriction}"
+      on_or_after_field: "%{attribute} must be on or after %{restriction} (%{model} %{field})"
       on_or_before: "%{attribute} must be on or before %{restriction}"
       overlap: "%{attribute} overlaps an existing record"
       overlap_sibling: "%{attribute} overlaps sibling"
       posterior: "%{attribute} must be posterior to %{to}"
       record_invalid: "Validations failed: %{errors}"
+      should_be_consecutive: "Financial years must be consecutive, therefore %{attribute} should be %{expected}."
+      should_be_the_last_day_of_month: "%{attribute} should be the last day of the month."
       taken: "%{attribute} has already been taken"
       too_long: "%{attribute} is too long (maximum is %{count} characters)"
       too_short: "%{attribute} is too short (minimum is %{count} characters)"
@@ -91,7 +102,9 @@ eng:
         asset_account: "Fixed asset account"
         depreciation_period: "Depreciation period"
         started_on: "start-up date"
+        waiting_journal_entry: "Journal entry"
       fixed_asset_depreciation:
+        accounted: "Accounted"
         asset_amount: "Accountable value"
       intervention_working_period:
         started_at:
@@ -102,6 +115,8 @@ eng:
           other: "{{count}} Stopped at is inferior than expected"
       inventory:
         disable_accountancy: "Do not update accounting"
+      journal:
+        closed_on: "Latest closure on"
       journal_entry_item:
         cumulated_absolute_credit_balance: "Credit balance"
         cumulated_absolute_debit_balance: "Debit balance"
@@ -168,7 +183,7 @@ eng:
       tax_declaration:
         no_financial_year_button: "Manage financial years"
         no_financial_year_message: "Please choose your tax declarartion mode in one of your financial years to access to your tax declarations"
-        no_financial_year_title: "No financial year entered"
+        no_financial_year_title: "No exercise subject to VAT at the current date"
       tax_declaration_item:
         collected: "Collected"
         deductible: "Deductible"
@@ -176,152 +191,7 @@ eng:
         intracommunity_payable: "Intracommunity payable"
     errors:
       messages:
-        accepted: "%{attribute} must be accepted"
-        after: "%{attribute} must be after %{restriction}"
-        already_confirmed: "was already confirmed, please try signing in"
-        before: "%{attribute} must be before %{restriction}"
-        blank: "%{attribute} can't be blank"
-        confirmation: "%{attribute} doesn't match confirmation"
-        confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
-        currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
-        empty: "%{attribute} can't be empty"
-        equal_to: "%{attribute} must be equal to %{count}"
-        even: "%{attribute} must be even"
-        exclusion: "%{attribute} is reserved"
-        expired: "has expired, please request a new one"
-        greater_than: "%{attribute} must be greater than %{count}"
-        greater_than_or_equal_to: "%{attribute} must be greater than or equal to %{count}"
-        included_in: "The value of %{attribute} must be included between %{minimum} and %{maximum}"
-        inclusion: "%{attribute} is not included in the list"
-        invalid: "%{attribute} is invalid"
-        invalid_at: "%{attribute} is_invalid. Error near %{error}"
-        invalid_date: "%{attribute} is not a valid date"
-        invalid_datetime: "%{attribute} is not a valid datetime"
-        invalid_time: "%{attribute} is not a valid time"
-        invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
-        is: "%{attribute} must be a %{thing}"
-        is_at: "%{attribute} must be at %{restriction}"
-        less_than: "%{attribute} must be less than %{count}"
-        less_than_or_equal_to: "%{attribute} must be less than or equal to %{count}"
-        missing_bank_details_for_sepa: "Values for IBAN and/or Account owner are missing for the cash account selected."
-        must_be_a_mail_address: "%{attribute} must be a mail address"
-        not_a_number: "%{attribute} is not a number"
-        not_an_end_of_month: "%{attribute} must be an end of month"
-        not_an_integer: "%{attribute} must be an integer"
-        not_enough: "not enough %{resource} to complete task"
-        not_found: "not found"
-        not_locked: "was not locked"
-        not_saved:
-          one: "1 error prohibited this %{resource} from being saved:"
-          other: "%{count} errors prohibited this %{resource} from being saved:"
-        nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
-        odd: "%{attribute} must be odd"
-        on_or_after: "%{attribute} must be on or after %{restriction}"
-        on_or_before: "%{attribute} must be on or before %{restriction}"
-        overlap: "%{attribute} overlaps an existing record"
-        overlap_sibling: "%{attribute} overlaps sibling"
-        posterior: "%{attribute} must be posterior to %{to}"
-        record_invalid: "Validations failed: %{errors}"
-        taken: "%{attribute} has already been taken"
-        too_long: "%{attribute} is too long (maximum is %{count} characters)"
-        too_short: "%{attribute} is too short (minimum is %{count} characters)"
-        unitary_in_parcel: "Unitary items can only be sent one by one"
-        wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
-      models:
-        activity:
-          checked_off_with_inspections: "Inspections have already been created for this activity"
-          checked_without_measures: "At least, one measure type should be selected when inspections are wanted"
-        bank_statement:
-          no_cash_match_ofx: "No cash found for the bank account number given in the file"
-          ofx_file_has_multiple_bank_accounts: "OFX file with multiple bank accounts is not supported"
-          ofx_file_invalid: "OFX file is invalid"
-        bank_statement_item:
-          unvalid_amounts: "The journal entry must be filled either debit or credit but not at the same time."
-        cash:
-          currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
-          different_of_main_account: "%{attribute} must be different of main account (%{account})"
-          unvalid_bban: "Unvalid BBAN. One or more elements are incorrect."
-        deposit:
-          must_be_a_bank_account: "%{attribute} must be a bank account and not a cash"
-        entity:
-          missing_title: "%{attribute} must contains the title “%{title}”"
-          nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
-        financial_year:
-          attributes:
-            accountant:
-              frozen: "%{attribute} cannot be changed while an exchange is opened"
-            started_on:
-              consecutive: "The financial years must be consecutives. It must start after the end of the previous."
-              frozen: "The financial year date cannot be changed when an exchange has been created."
-              on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
-            stopped_on:
-              end_of_month: "%{attribute} must be an end of month"
-          overlap: "%{attribute} overlaps an existing financial year"
-        financial_year_exchange:
-          csv_file_entry_dates_invalid: "Some entries in the CSV are out of the financial year exchange date range"
-          csv_file_entry_invalid: "Some entries in the CSV are invalid ('%{entry_number}')"
-          csv_file_headers_invalid: "CSV headers are invalid"
-          csv_file_invalid: "CSV file is invalid"
-          csv_file_journals_invalid: "Some journals are present in the CSV but not in Ekylibre : %{codes}"
-        fixed_asset_depreciation:
-          attributes:
-            started_on:
-              invalid_date: "The depreciation must start on %{start} or on a beginning of month"
-        incoming_parcel_item:
-          greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
-        integration:
-          attributes:
-            parameters:
-              check_errored: "Connexion check errored. Please ensure the validity of your input or try again later."
-        intervention_working_period:
-          attributes:
-            started_at:
-              inferior: "Started at is inferior than expected"
-            stopped_at:
-              inferior: "Stopped at is inferior than expected"
-        journal:
-          attributes:
-            accountant:
-              entity_frozen: "Booked journals of this %{attribute} cannot change while an exchange is opened for its financial years"
-              present: "Accountant can only be set for various operations journals"
-              previous_entity_frozen: "Booked journals of the previous %{attribute} cannot change while an exchange is opened for its financial years"
-            closed_on:
-              end_of_month: "%{attribute} must be an end of month (%{closed_on})"
-        journal_entry:
-          closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
-          frozen_by_financial_year_exchange: "The journal entry cannot be recorded in a period corresponding to a financial year exchange."
-          out_of_existing_financial_year: "The journal entry must be recorded in a period corresponding to an existing financial year."
-          unbalanced: "The journal entry is unbalanced"
-        journal_entry_item:
-          closed_entry: "The journal entry is locked. You can not update it."
-          empty_amounts: "The journal entry must be filled either debit or credit"
-          unvalid_amounts: "The journal entry must be filled either debit or credit but not at the same time."
-        outgoing_parcel_item:
-          greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
-        purchase:
-          payment_delay_custom_validation_message: "Accepted formats : %{values}"
-        purchase_item:
-          attributes:
-            fixed:
-              asset_account: "Invalid asset account"
-              asset_depreciation_method: "Invalid asset depreciation method"
-              asset_expenses_account: "Invalid asset expenses account"
-              asset_wrong_depreciation_method: "Depreciation method must be simplified linear"
-              fixed_asset_stopped_on_invalid: "Invalid fixed asset stopped on"
-          building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
-          serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
-        sale_item:
-          building_can_not_transfer_product: "%{product} can not be found in %{building}, it only contains %{contained_product}."
-          can_not_use_this_tracking: "You can not user the S/N %{tracking}, the quantity is greater than the available quantity"
-          currency_is_not_sale_currency: "Currency is not identical to the sale currency"
-          error_no_found_price: "No found price"
-        subscription:
-          entity_must_be_the_same_as_the_contact_entity: "Person must be the same as the contact person"
-      template:
-        body: "There were problems with the following fields:"
-        header:
-          one: "1 error prohibited this %{model} from being saved"
-          other: "%{count} errors prohibited this %{model} from being saved"
+        <<: *error_messages
     models:
       account: "Account"
       account_balance: "Account balance"
@@ -386,6 +256,7 @@ eng:
       event: "Event"
       event_participation: "Event participation"
       financial_year: "Financial year"
+      # financial_year_archive: "Financial year archive"
       financial_year_exchange: "Financial year exchange"
       fixed_asset: "Fixed asset"
       fixed_asset_depreciation: "Fixed asset depreciation"
@@ -436,9 +307,6 @@ eng:
       manure_management_plan: "Manure management plan"
       manure_management_plan_zone: "Manure management plan zone"
       map_layer: "Map layer"
-      # master_equipment_cost: "Master equipment cost"
-      # master_equipment_flow: "Master equipment flow"
-      # master_equipment_nature: "Master equipment nature"
       # master_production_nature: "Master production nature"
       # master_production_output: "Master production output"
       matter: "Matter"
@@ -502,14 +370,12 @@ eng:
       registered_pfi_crop: "Registered pfi crop"
       registered_pfi_dose: "Registered pfi dose"
       registered_pfi_target: "Registered pfi target"
-      registered_phytosanitary_phrase: "Registered phytosanitary phrase"
+      registered_phytosanitary_phrase: "Registered phytosanitary phrase" #?
       registered_phytosanitary_product: "Registered phytosanitary product"
       registered_phytosanitary_risk: "Registered phytosanitary risk"
       registered_phytosanitary_usage: "Registered phytosanitary usage"
       registered_postal_zone: "Registered postal zone"
       registered_seed: "Registered seed"
-      # registered_water_lake: "Registered water lake"
-      # registered_water_river: "Registered water river"
       regularization: "Regularization"
       role: "Role"
       sale: "Sale"
@@ -561,16 +427,19 @@ eng:
     account_balances: "Account balances"
     account_name: "Account name"
     account_number: "Account number"
+    account_number_digits: "General accounts number length" #?
     accountable: "Accountable"
     accountable_repayments_started_on: "Accountable repayments started on"
     accountant: "Accountant"
     accounted_at: "Accounted at"
     accounting_balance: "Accounting balance"
-    accounting_label: "Accounting label" #?
+    accounting_label: "Accounting label"
+    accounting_system: "Accounting system" #?
     accuracy: "Accuracy"
     achieved_at: "Achieved at"
     actions: "Actions"
     active: "Active"
+    # active_compounds: "Active compounds"
     active_sessions: "Active sessions"
     activities: "Activities"
     activity: "Activity"
@@ -596,13 +465,15 @@ eng:
     affectation_percentage: "Affectation percentage"
     affected_at: "Affected at" #?
     age: "Age"
+    # agents: "Agents"
     agroedi_crop_code: "Agroedi crop code"
     alert: "Alert"
     alerts: "Alerts"
     all_addresses: "All addresses"
     all_taxes_included: "All taxes included"
     allocation_account: "Allocation account"
-    already_existing: "Already existing" #?
+    # allowed_mentions: "Allowed mentions"
+    already_existing: "Already existing"
     amount: "Amount"
     analysed_at: "Analysed at"
     analyser: "Analyser"
@@ -617,12 +488,14 @@ eng:
     archive_file_name: "Archive file name"
     archive_file_size: "Archive file size"
     archive_updated_at: "Archive updated at"
+    # archives: "Archives"
     archiving: "Archiving"
     area: "Area" #?
     arguments: "Arguments"
     assembly: "Assembly"
     asset_account: "Asset account"
     asset_exists: "Asset exists" #?
+    asset_fixable: "Fixed asset registrable"
     attachments: "Attachments"
     attribute_name: "Attribute name"
     attribution: "Attribution"
@@ -631,7 +504,7 @@ eng:
     authorized_payments_count: "Authorized payments count"
     # auto_calculate_working_periods: "Auto calculate working periods"
     auto_updateable_addresses: "Auto updateable addresses"
-    auxiliary_number: "Auxiliary number" #?
+    auxiliary_number: "Auxiliary number"
     average_value: "Average value"
     average_yield: "Average yield"
     balance: "Balance"
@@ -693,12 +566,11 @@ eng:
     cashes: "Bank accounts"
     catalog: "Catalog"
     catalog_items: "Catalog items"
-    # categories: "Categories"
     category: "Category"
     ceded: "Ceded"
     ceded_on: "Ceded on"
-    centralizing_account: "Centralizing account" #?
-    centralizing_account_name: "Centralizing account name" #?
+    centralizing_account: "Centralizing account"
+    centralizing_account_name: "Centralizing account name"
     centroid: "Centroid"
     charge_account: "Charge account"
     charges_categories: "Charges categories"
@@ -723,6 +595,7 @@ eng:
     closed: "Closed"
     closed_at: "Closed at"
     closed_on: "Closed on"
+    # closer: "Closer"
     closure_journal: "Closure journal" #?
     clusters_work_number: "Clusters work number" #?
     code: "Code"
@@ -768,7 +641,7 @@ eng:
     content: "Content"
     content_localizations: "Content localizations"
     contents: "Contents"
-    continuous_number: "Continuous number" #?
+    continuous_number: "Continuous number"
     contract: "Contract"
     contract_items: "Contract items"
     contracts: "Contracts"
@@ -793,6 +666,7 @@ eng:
     cultivation_variety: "Cultivation variety"
     cumulated_absolute_credit: "Cumulated absolute credit"
     cumulated_absolute_debit: "Cumulated absolute debit"
+    cumulated_balance: "Cumulated balance" #?
     currency: "Currency"
     currency_precision: "Currency precision"
     currency_rate: "Currency rate"
@@ -830,6 +704,7 @@ eng:
     debt_transfers: "Debt transfers"
     debtor: "Debtor"
     decimal_value: "Decimal value"
+    # decision_date: "Decision date"
     declarant: "Declarant"
     # deductible_fixed_asset_taxes: "Deductible fixed asset taxes"
     deductible_pretax_amount: "Deductible pretax amount"
@@ -866,7 +741,7 @@ eng:
     depreciable_amount: "Depreciable amount"
     depreciable_product: "Depreciable product"
     depreciated_amount: "Depreciated amount"
-    depreciation_fiscal_coefficient: "Depreciation fiscal coefficient" #?
+    depreciation_fiscal_coefficient: "Depreciation fiscal coefficient"
     depreciation_method: "Depreciation method"
     depreciation_percentage: "Depreciation percentage"
     depreciation_period: "Depreciation period"
@@ -876,9 +751,12 @@ eng:
     derivatives_list: "Derivatives list"
     description: "Description"
     detail_payments: "Detail payments"
+    # development_stage_max: "Development stage max"
+    # development_stage_min: "Development stage min"
     device_uid: "Device UID"
     direct_links: "Direct links"
     direction: "Direction"
+    # disable_accountancy: "Disable accountancy"
     distributed_on_productions: "Distributed on productions" #?
     distributions: "Distributions"
     district: "District"
@@ -888,6 +766,7 @@ eng:
     doers_cost: "Doers cost"
     dose_quantity: "Dose quantity"
     dose_unit: "Dose unit"
+    # dose_unit_factor: "Dose unit factor"
     dose_unit_name: "Dose unit name"
     dose_unity: "Dose unity"
     doses: "Doses"
@@ -930,8 +809,9 @@ eng:
     entry_number: "Entry number"
     entry_on: "Entry on" #?
     entry_reason: "Entry reason"
+    # ephy_usage_phrase: "Ephy usage phrase"
     equipment: "Equipment"
-    equipment_nature: "Equipment nature"
+    equipment_nature: "Equipment nature" #?
     estimate_reception_date: "Estimate reception date"
     euid: "EUID"
     event: "Event"
@@ -985,9 +865,11 @@ eng:
     finished_at: "Finished at"
     firm_name: "Firm name"
     first_calving_on: "First calving on"
+    # first_financial_year_ends_on: "First financial year ends on"
     first_met_at: "First met on"
     first_name: "First name"
     first_number: "First number" #?
+    fiscal_position: "Fiscal position" #?
     fixed: "Fixed"
     fixed_asset: "Fixed asset"
     fixed_asset_account: "Fixed asset account"
@@ -1002,7 +884,6 @@ eng:
     fixed_asset_expenses_account: "Fixed asset depreciations inputations expenses account"
     # fixed_asset_stopped_on: "Fixed asset stopped on"
     fixed_assets: "Fixed assets"
-    # flows: "Flows"
     following: "Following"
     # forecast_harvest_week: "Forecast harvest week"
     format: "Format"
@@ -1083,8 +964,8 @@ eng:
     indicator: "Indicator"
     indicator_datatype: "Indicator datatype"
     indicator_name: "Indicator name"
-    indicator_unit: "Indicator unit"
-    indicator_value: "Indicator value"
+    indicator_unit: "Indicator unit" #?
+    indicator_value: "Indicator value" #?
     indicators: "Indicators"
     indirect_links: "Indirect links"
     initial_balance_credit: "Initial balance credit"
@@ -1126,7 +1007,6 @@ eng:
     interpolations: "Interpolations"
     intervention: "Intervention"
     intervention_cast: "Intervention cast" #?
-    # intervention_flow: "Intervention flow"
     intervention_id: "Intervention"
     # intervention_labellings: "Intervention labellings"
     intervention_parameter: "Intervention parameter"
@@ -1145,7 +1025,7 @@ eng:
     # intracommunity_payable_pretax_amount: "Intracommunity payable pretax amount"
     # intracommunity_payable_tax_amount: "Intracommunity payable tax amount"
     introduction: "Introduction"
-    # inventories: "Inventories"
+    inventories: "Inventories"
     inventory: "Inventory"
     inventory_items: "Inventory items"
     invitation_accepted_at: "Invitation accepted at"
@@ -1162,7 +1042,6 @@ eng:
     irregular_batch: "Irregular batch" #?
     irrigated: "Irrigated"
     irrigation_water_nitrogen: "Irrigation water nitrogen"
-    # is_partially_planned: "Is partially planned"
     islet: "Islet"
     islet_number: "Islet number"
     islets: "Islets"
@@ -1177,6 +1056,7 @@ eng:
     item_object: "Item object"
     item_type: "Item type"
     item_value: "Item value"
+    # item_variants: "Item variants"
     items: "Items"
     items_count: "Items count"
     items_count_value: "Items count value"
@@ -1185,6 +1065,7 @@ eng:
     journal_entry: "Journal entry"
     journal_entry_item: "Journal entry item"
     journal_entry_items: "Journal entry items"
+    journal_name: "Journal name"
     key: "Key"
     label: "Label"
     labellings: "Labellings"
@@ -1209,6 +1090,7 @@ eng:
     late_delivery: "Late delivery"
     latest: "Latest"
     leaves_parameters: "Leaves parameters"
+    legal_position_code: "Legal status"
     lender: "Lender"
     letter: "Letter"
     letter_format: "Letter format"
@@ -1255,13 +1137,11 @@ eng:
     main_crop_commercialisation: "Main crop commercialisation"
     main_crop_precision: "Main crop precision"
     main_crop_seed_production: "Main crop seed production"
-    # main_frozen_indicator_name: "Main frozen indicator name"
-    # main_frozen_indicator_unit: "Main frozen indicator unit"
     # main_journal_entry_items: "Main journal entry items"
     main_production: "Main production" #?
     managed: "Managed"
     managed_sales: "Managed sales"
-    mandatory: "Mandatory" #?
+    mandatory: "Mandatory"
     manure_management_plan_zones: "Manure management plan zones"
     marketable: "Marketable"
     marketable_items_count: "Marketable items count" #?
@@ -1354,6 +1234,8 @@ eng:
     opened_at: "Opened at"
     operation: "Operation"
     operation_name: "Operation name"
+    # operator_protection_mentions: "Operator protection mentions"
+    # options: "Options"
     ordered_at: "Ordered at"
     organic_fertilizer_mineral_fraction: "Organic fertilizer mineral fraction"
     origin: "Origin"
@@ -1361,7 +1243,7 @@ eng:
     origin_identification_number: "Origin identification number"
     originator: "Originator"
     originator_type: "Originator type"
-    # other_frozen_indicator_name: "Other frozen indicator name"
+    # other_name: "Other name"
     outcoming_product: "Outcoming product"
     outgoing_parcel_item: "Outgoing parcel item"
     outgoing_parcel_items: "Outgoing parcel items" #?
@@ -1396,6 +1278,7 @@ eng:
     # parts: "Parts"
     password: "Password"
     password_confirmation: "Confirmation of password"
+    # path: "Path"
     payee: "Payee"
     payer: "Payer"
     payment_at: "Payment on"
@@ -1414,7 +1297,6 @@ eng:
     # pfi_crop_code: "Pfi crop code"
     phases: "Phases"
     phones: "Phones"
-    # phrase_code: "Phrase code"
     # phrases: "Phrases"
     pictogram: "Pictogram"
     picture: "Picture"
@@ -1445,13 +1327,15 @@ eng:
     postal_code: "Postal code"
     postal_zones: "Postal zones"
     # pre_harvest_delay: "Pre harvest delay"
+    # pre_harvest_delay_bbch: "Pre harvest delay bbch"
     pre_harvest_interval: "Pre-harvest interval" #?
-    # preexisting_asset: "Preexisting asset"
+    preexisting_asset: "Preexisting asset"
     preferences: "Preferences"
     prepared_at: "Prepared at"
     prescription: "Prescription"
     prescriptor: "Prescriptor"
     pretax_amount: "Pre-tax amount"
+    pretax_selling_amount: "Selling amount excl. VAT"
     previous_cultivation_residue_mineralization: "Previous cultivation residue mineralization"
     price: "Price"
     printed_at: "Printed at"
@@ -1489,7 +1373,7 @@ eng:
     product_reading: "Product reading"
     product_reading_tasks: "Product reading tasks" #?
     product_readings: "Product readings" #?
-    product_type: "Product type" #?
+    product_type: "Product type"
     product_work_number: "Product work number"
     production: "Production"
     production_campaign: "Production campaign"
@@ -1621,6 +1505,7 @@ eng:
     responses: "Responses"
     responsible: "Responsible"
     restricted: "Restricted"
+    # restricted_mentions: "Restricted mentions"
     result_journal: "Result journal" #?
     retrieval_message: "Retrieval message"
     retrieval_mode: "Retrieval mode"
@@ -1629,6 +1514,7 @@ eng:
     rgt: "Right"
     rights: "Rights"
     # risk_code: "Risk code"
+    # risk_phrase: "Risk phrase"
     # risks: "Risks"
     role: "Role"
     roles: "Roles" #?
@@ -1667,16 +1553,10 @@ eng:
     seasons: "Seasonalities"
     seeding_density_unit: "Seeding density unit"
     seeding_density_value: "Seeding density"
-    # segment_1_amount: "Segment 1 amount"
-    # segment_1_threshold: "Segment 1 threshold"
-    # segment_2_amount: "Segment 2 amount"
-    # segment_2_threshold: "Segment 2 threshold"
-    # segment_3_amount: "Segment 3 amount"
-    # segment_3_threshold: "Segment 3 threshold"
-    # segment_average_amount: "Segment average amount"
     selected: "Selected"
     selected_manure_management_plan: "Selected manure management plan"
     selected_manure_management_plan_zone: "Selected manure management plan zone"
+    selling_amount: "Selling amount incl. VAT"
     sender: "Sender"
     sensor: "Sensor"
     sensors: "Sensors"
@@ -1686,7 +1566,7 @@ eng:
     serial: "Serial"
     serial_number: "Serial number"
     sessions: "Sessions"
-    sha256_fingerprint: "Sha256 fingerprint" #?
+    sha256_fingerprint: "Sha256 fingerprint"
     shape: "Shape"
     shift_duration: "Shift duration"
     shift_method: "Shift method"
@@ -1694,7 +1574,7 @@ eng:
     shipment_items: "Shipment items"
     shipments: "Shipments"
     sign_in_count: "Sign in count"
-    signature: "Signature" #?
+    signature: "Signature"
     signup_at: "Signup at"
     siren: "SIREN"
     siret_number: "SIRET number"
@@ -1713,6 +1593,7 @@ eng:
     # source_type: "Source type"
     sowing_interval: "Sowing interval" #?
     spaced_iban: "Spaced IBAN"
+    special_imputation_asset_account: "Special imputation asset account"
     specie: "Specie"
     sql_type: "SQL type"
     ssl: "SSL"
@@ -1801,7 +1682,7 @@ eng:
     third_role: "Third role"
     thread: "Thread"
     time_window: "Time window (in seconds)"
-    timing: "Timing" #?
+    timing: "Timing"
     title: "Title"
     tms: "TMS"
     to: "To"
@@ -1834,7 +1715,6 @@ eng:
     # treatment: "Treatment"
     trouble_description: "Trouble description"
     trouble_encountered: "Trouble encountered"
-    vat_account: "VAT account"
     type: "Type"
     uid: "UID"
     unconfirmed_email: "Unconfirmed email"
@@ -1854,7 +1734,10 @@ eng:
     # unpointed_main_journal_entry_items: "Unpointed main journal entry items"
     # unpointed_suspended_journal_entry_items: "Unpointed suspended journal entry items"
     unread_notifications: "Unread notifications"
+    # untreated_buffer_aquatic: "Untreated buffer aquatic"
+    # untreated_buffer_arthropod: "Untreated buffer arthropod"
     # untreated_buffer_distance: "Untreated buffer distance"
+    # untreated_buffer_plants: "Untreated buffer plants"
     untreated_zone_margin: "Untreated zone margin" #?
     updated_at: "Updated at"
     updater: "Updater"
@@ -1862,6 +1745,7 @@ eng:
     url: "URL"
     usable_incoming_payments: "Usable incoming payments" #?
     usage: "Usage"
+    # usage_conditions: "Usage conditions"
     usage_limit_nature: "Used by type"
     usage_limit_on: "Used by on"
     usages: "Usages"
@@ -1880,7 +1764,7 @@ eng:
     user: "User"
     users: "Users"
     uuid: "UUID"
-    validated_at: "Validated at" #?
+    validated_at: "Validated at"
     # validator: "Validator"
     value: "Value"
     variable_indicators_list: "Variable indicators list"
@@ -1890,13 +1774,17 @@ eng:
     variants: "Variants"
     variety: "Variety"
     variety_name: "Variety name"
+    vat_account: "VAT account"
     vat_number: "VAT number"
     vat_subjected: "VAT subjected"
     vendor_euid: "Vendor"
     verb: "Verb"
     versions: "Versions"
     view_parameters: "View parameters"
+    waiting_asset_account: "Waiting asset account"
     waiting_deliveries: "Waiting deliveries"
+    # waiting_journal_entry: "Waiting journal entry"
+    waiting_on: "Registered to balance sheet on"
     websites: "Websites"
     whole_duration: "Whole duration"
     with_accounting: "With accounting"
@@ -1991,11 +1879,13 @@ eng:
       bookkeep_exit_assets: "[%{resource} %{number}] Scrapped of %{name}"
       bookkeep_in_sold_assets: "[%{resource} %{number}] Sold of %{name}"
       bookkeep_in_use_assets: "[%{resource} %{number}] In use of %{name}"
+      bookkeep_waiting_assets: "[%{resource} %{number}] On hold of %{name}"
       states:
         draft: "Draft"
         in_use: "In use"
         scrapped: "Scrapped"
         sold: "Sold"
+        waiting: "Waiting"
     fixed_asset_depreciation:
       bookkeep: "[%{resource} %{number}] Depreciation of %{name} (%{position}/%{total})"
       bookkeep_partial: "[%{resource} %{number}] Partial depreciation of %{name} (%{position}/%{total})"
@@ -2016,6 +1906,7 @@ eng:
       items_count: "Items"
       net_mass: "Mass"
     intervention:
+      bookkeep: "[%{resource}] %{name}"
       name: "%{intervention} #%{number}"
     inventory:
       bookkeep: "[%{resource}] %{number}"

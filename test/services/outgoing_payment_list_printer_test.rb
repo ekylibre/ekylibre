@@ -1,5 +1,5 @@
 require 'test_helper'
 
-class OutgoingPaymentListPrinterTest < ActiveSupport::TestCase
+class OutgoingPaymentListPrinterTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

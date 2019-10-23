@@ -42,12 +42,11 @@
     = f.input :reminder_submissive, show: :reduction_percentage
     = f.input :authorized_payments_count
     = f.input :deliveries_conditions, as: :text
-    = f.referenced_association :client_account, source: :clients, buttons: { new: { number: Account.find_or_import_from_nomenclature(:clients).number}}
-
+    = f.referenced_association :client_account, source: :clients, new: { auxiliary_number: Account.generate_auxiliary_account_number(:clients), nature: :auxiliary }
 = field_set(:supplier_informations) do
   = f.input :supplier, show: '#supplier-informations'
   #supplier-informations
-    = f.referenced_association :supplier_account, source: :suppliers, buttons: { new: { number: Account.find_or_import_from_nomenclature(:suppliers).number}}
+    = f.referenced_association :supplier_account, source: :suppliers, new: { auxiliary_number: Account.generate_auxiliary_account_number(:suppliers), nature: :auxiliary }
     = f.input :supplier_payment_delay
     = f.referenced_association :supplier_payment_mode
     = f.input :transporter
@@ -63,6 +62,8 @@
   = field_set(:employee_informations) do
     = f.input :employee, show: '#employee-informations'
     #employee-informations
-      = f.referenced_association :employee_account, source: :employees, buttons: {new: { number: Account.find_or_import_from_nomenclature(:staff_due_remunerations).number}}
+      - new_number = Account.find_or_import_from_nomenclature(:staff_due_remunerations, create_if_nonexistent: false).number.ljust(Preference[:account_number_digits], '0')
+      - new_number.succ! while Account.find_by(number: new_number).present?
+      = f.referenced_association :employee_account, source: :employees, new: { number: new_number}
 
 = f.attachments_field_set

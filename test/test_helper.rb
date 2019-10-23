@@ -16,7 +16,8 @@ Minitest::Reporters.use!(
 )
 
 # Permits to test locales
-I18n.locale = ENV['LOCALE'] if ENV['LOCALE']
+I18n.locale = ENV['LOCALE'] || I18n.default_locale
+puts "Locale set to #{I18n.locale.to_s.green}".yellow
 
 # Configure tenants.yml
 
@@ -32,7 +33,7 @@ Ekylibre::Tenant.setup!('test', keep_files: true)
 
 Ekylibre::Tenant.switch 'test_without_fixtures' do
   puts "Cleaning tenant: #{'test_without_fixtures'.green}".yellow
-  DatabaseCleaner.clean_with :truncation, { except: ['spatial_ref_sys'] }
+  DatabaseCleaner.clean_with :truncation, { except: ['spatial_ref_sys', "registered_legal_positions"] }
 end
 
 DatabaseCleaner.strategy = :transaction
@@ -90,9 +91,23 @@ class HashCollector
   end
 end
 
+class ActiveSupport::TestCase
+  setup do
+    I18n.locale = :eng
+  end
+end
+
 module ActionController
   class TestCase
     include Devise::Test::ControllerHelpers
+
+    setup do
+      Ekylibre::Tenant.filter_list!
+      Ekylibre::Tenant.switch_each do
+        Preference.set!("first_run.executed", true)
+      end
+      I18n.locale = :eng
+    end
 
     def fixture_files
       #     Rails.root.join('test', 'fixture-files')
@@ -117,6 +132,23 @@ module ActionController
           def add_auth_header
             @request.headers['Authorization'] = 'simple-token admin@ekylibre.org ' + @token
           end
+        end
+      end
+
+      def setup_sign_in
+        setup do
+          @request.env['HTTP_REFERER'] = 'http://test.ekylibre.farm/backend'
+          @user = if with_fixtures?
+                    users(:users_001)
+                  else
+                    create(:user)
+                  end
+          @user.update_column(:language, I18n.locale)
+          sign_in(@user)
+        end
+
+        teardown do
+          sign_out(@user)
         end
       end
 
@@ -162,32 +194,7 @@ module ActionController
 
         code = ''
 
-        code << "setup do\n"
-        code << "  Ekylibre::Tenant.switch!('test')\n"
-        # Check locale
-        # code << "  @locale = I18n.locale = ENV['LOCALE'] || I18n.default_locale\n"
-        code << "  @locale = ENV['LOCALE'] || I18n.default_locale\n"
-        # code << "  assert_not_nil I18n.locale\n"
-        # code << "  assert_equal I18n.locale, I18n.locale, I18n.locale.inspect\n"
-        # Check document templates
-        # code << "  DocumentTemplate.load_defaults(locale: I18n.locale)\n"
-        unless options[:sign_in].is_a?(FalseClass)
-          # Connect user
-          code << "  @request.env['HTTP_REFERER'] = 'http://test.ekylibre.farm/backend'\n"
-          code << "  @user = users(:users_001)\n"
-          code << "  @user.update_column(:language, @locale)\n"
-          code << "  sign_in(@user)\n"
-        end
-        # Setup finished!
-        code << "end\n"
-        code << "\n"
-
-        unless options[:sign_in].is_a?(FalseClass)
-          code << "teardown do\n"
-          code << "  sign_out(@user)\n"
-          code << "end\n"
-          code << "\n"
-        end
+        setup_sign_in unless options[:sign_in].is_a?(FalseClass)
 
         code << "def beautify(value, back = true)\n"
         code << "  if value.is_a?(Hash)\n"
@@ -503,4 +510,15 @@ end
 
 def main
   TOPLEVEL_BINDING.eval('self')
+end
+
+require 'pdf_printer'
+
+module PdfPrinter
+
+  private
+
+    def convert_to_pdf(directory, odf_path)
+      system "soffice --headless --convert-to pdf --outdir #{directory} #{odf_path} > /dev/null 2> /dev/null"
+    end
 end

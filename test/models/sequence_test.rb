@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -117,8 +118,10 @@ class SequenceTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
     Ekylibre::Tenant.create :sequence_test
     Ekylibre::Tenant.switch :sequence_test do
+
       sequence_with_same_id = Sequence.find_by(usage: :affairs) ||
         Sequence.create!(name: 'PurchasesBis', usage: :affairs, number_format: 'YOLO[number|6]')
+
       until sequence_with_same_id.id == sequence.id
         sequence_with_same_id.destroy!
         sequence_with_same_id = Sequence.create!(name: 'NotPurchases', usage: :affairs, number_format: 'YOLO[number|6]')
@@ -126,6 +129,7 @@ class SequenceTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
       sequence_other_tenant = Sequence.find_by(usage: :purchases) ||
         Sequence.create!(name: 'PurchasesBis', usage: :purchases, number_format: 'A[number|12]')
+
       until sequence_other_tenant.id != sequence.id
         sequence_other_tenant.destroy!
         sequence_other_tenant = Sequence.create!(name: 'PurchasesBis', usage: :purchases, number_format: 'A[number|12]')

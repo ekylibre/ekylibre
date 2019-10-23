@@ -4,18 +4,18 @@
   - f.add do
     = link_to(:all_the_categories.tl, new_backend_inventory_path(product_nature_category: 'all'), class: 'btn btn-primary validate-inventory-category', data: { validate_tl: :validate.tl })
 - else
-
+  -# TODO: rename variables in deliveries.js.coffee
   = field_set do
-    = f.input :name
-    = f.referenced_association :financial_year
-    = f.referenced_association :journal
-    = f.referenced_association :responsible #, source: :employees
-    = f.input :achieved_at
-    = f.input :disable_accountancy
-    - %w(product_id product_nature_variant_id product_nature_id product_nature_category_id).each do |x|
-      = hidden_field_tag(x, params[x]) if params[x]
-    = f.custom_fields
-    = f.input :product_nature_category_id, as: :hidden
+    .delivery-item
+      = f.referenced_association :financial_year, source: :opened, new: false, input_html: { data: { product_of_delivery_item: { url: backend_financial_year_path("RECORD_ID", format: :json) }.to_json }}
+      = f.input :name, input_html: { data: { when_item: :name, when_set_value: "RECORD_VALUE"} }
+      = f.referenced_association :journal
+      = f.referenced_association :responsible #, source: :employees
+      = f.input :achieved_at, input_html: { data: { when_item: :achieved_at, when_set_value: "RECORD_VALUE"} }
+      = f.input :disable_accountancy
+      - %w(product_id product_nature_variant_id product_nature_id product_nature_category_id).each do |x|
+        = hidden_field_tag(x, params[x]) if params[x]
+      = f.custom_fields
 
   :ruby
     # TODO: move this logic outside of the view!

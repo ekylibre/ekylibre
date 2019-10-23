@@ -26,15 +26,12 @@ module Backend
 
     list(order: :name) do |t|
       # t.action :document_print, url: {:code => :JOURNAL, :journal => "RECORD.id"}
-      t.action :close, if: :closable?, image: :unlock
-      t.action :reopen, if: :reopenable?, image: :lock
       t.action :edit
       t.action :destroy
       t.column :name, url: true
       t.column :code, url: true
       t.column :nature
       t.column :currency
-      t.column :closed_on
     end
 
     hide_action :journal_views
@@ -48,7 +45,9 @@ module Backend
       t.column :account, url: true
       t.column :account_number, through: :account, label_method: :number, url: true, hidden: true
       t.column :account_name, through: :account, label_method: :name, url: true, hidden: true
-      t.column :name
+      t.column :displayed_label_in_accountancy, label: :entry_item_label
+      t.column :variant
+      t.column :reference_number, through: :entry
       t.column :state_label
       t.column :real_debit,  currency: :real_currency
       t.column :real_credit, currency: :real_currency
@@ -89,6 +88,23 @@ module Backend
       t.column :absolute_credit, currency: :absolute_currency, hidden: true
     end
 
+    def index
+      @draft_entries_count = JournalEntry.where(state: :draft).count
+      @unbalanced_entries_count = JournalEntry.all.reject(&:balanced?).count
+      @financial_years_with_entries = FinancialYear.with_validated_entries
+      respond_to do |format|
+        format.html
+        format.xml  { render xml:  Journal.all }
+        format.json { render json: Journal.all }
+        format.pdf do
+          key = "#{Nomen::DocumentNature.find(:general_journal).name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
+          CentralizingJournalExportJob.perform_later('general_journal', key, params[:financial_year], current_user)
+          notify_success(:document_in_preparation)
+          redirect_to :back
+        end
+      end
+    end
+
     # Displays details of one journal selected with +params[:id]+
     def show
       return unless @journal = find_and_check
@@ -100,6 +116,26 @@ module Backend
       end
       @journal_view = journal_view.value
       t3e @journal
+      @draft_entries_count = JournalEntry.where(journal_id: params[:id], state: :draft).count
+      current_financial_year = current_user.current_financial_year
+      @current_financial_year_period = "#{current_financial_year.started_on}_#{current_financial_year.stopped_on}" if current_financial_year
+      params[:period] = "#{params[:started_on]}_#{params[:stopped_on]}" if params[:period] == 'interval'
+
+      # build variables for reporting (document_nature, key, filename and dataset)
+      document_nature = Nomen::DocumentNature.find(:journal_ledger)
+      key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
+      respond_to do |format|
+        format.html
+        format.pdf do
+          @journal_ledger = JournalEntry.journal_ledger(params, @journal.id) if params
+          journal_printer = JournalPrinter.new(journal: @journal,
+                                               journal_ledger: @journal_ledger,
+                                               document_nature: document_nature,
+                                               key: key,
+                                               params: params)
+          send_file journal_printer.run, type: 'application/pdf', disposition: 'attachment', filename: key << '.pdf'
+        end
+      end
     end
 
     def close
@@ -112,22 +148,6 @@ module Backend
       if request.post?
         if @journal.close(params[:closed_on].to_date)
           notify_success(:journal_closed_on, closed_on: @journal.closed_on.l, journal: @journal.name)
-          redirect_to action: :index
-        end
-      end
-      t3e @journal
-    end
-
-    def reopen
-      return unless @journal = find_and_check
-      unless @journal.reopenable?
-        notify(:no_reopenable_journal)
-        redirect_to action: :index
-        return
-      end
-      if request.post?
-        if @journal.reopen(params[:closed_on].to_date)
-          notify_success(:journal_reopened_on, closed_on: @journal.closed_on.l, journal: @journal.name)
           redirect_to action: :index
         end
       end

@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -80,7 +81,7 @@ class ReceptionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_equal 1, @variant.products.count
 
     reception = new_reception
-    reception.give!
+    reception.give
 
     @variant.reload
 
@@ -102,7 +103,7 @@ class ReceptionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_operator 0, :<, @variant.stock_movement_account_id
 
     reception = new_reception
-    reception.give!
+    reception.give
     @variant.reload
 
     a_ids = reception.journal_entry.items.pluck(:account_id)
@@ -159,7 +160,7 @@ class ReceptionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     }]
 
     reception = new_reception(items_attributes: to_receive, separated: false)
-    reception.give!
+    reception.give
     unitary_variant.reload
 
     assert_equal 2, unitary_variant.products.count, "Expecting 2 products. Got: #{unitary_variant.products.map(&:population).to_yaml}"
@@ -180,7 +181,8 @@ class ReceptionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       delivery_mode: delivery_mode,
       address: address || @address,
       sender: sender || @sender,
-      separated_stock: separated
+      separated_stock: separated,
+      given_at: DateTime.new(2018, 1, 1)
     }
 
     items_attributes ||= [{

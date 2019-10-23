@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -76,6 +77,8 @@ class Tax < Ekylibre::Record::Base
 
   scope :current, -> { where(active: true).order(:country, :amount) }
 
+  scope :intracommunity, -> { where(intracommunity: true, nature: 'eu_vat') }
+
   before_validation do
     if Nomen::TaxNature.find(nature)
       self.name = short_label if name.blank?
@@ -109,6 +112,23 @@ class Tax < Ekylibre::Record::Base
       end
     end
 
+    # Find a tax at the given date. Conditions can be given to filter on
+    # `country`, `nature`, and `amount`. `nature` is a name of a tax nature (See
+    # `tax_natures` nomenclature.
+    def find_on(wanted_on, conditions = {})
+      name = nil
+      Nomen::Tax.where(conditions).find_each do |item|
+        if item.started_on <= wanted_on &&
+           (item.stopped_on.blank? ||
+            wanted_on <= item.stopped_on)
+          name = item.name
+          break
+        end
+      end
+      return nil if name.blank?
+      Tax.import_from_nomenclature(name)
+    end
+
     # Load a tax from tax nomenclature
     def import_from_nomenclature(reference_name, active = nil)
       unless item = Nomen::Tax.find(reference_name)
@@ -136,11 +156,13 @@ class Tax < Ekylibre::Record::Base
       %i[deduction collect fixed_asset_deduction fixed_asset_collect].each do |account|
         next unless name = nature.send("#{account}_account")
         tax_radical = Account.find_or_import_from_nomenclature(name)
-        # find if already account tax  by number was created
-        tax_account = Account.find_or_create_by_number("#{tax_radical.number}#{nature.suffix}") do |a|
-          a.name = "#{tax_radical.name} - #{item.human_name}"
-          a.usages = tax_radical.usages
-        end
+        # check account_number_digits to build correct account number
+        account_number_digits = Preference[:account_number_digits] - 2
+        tax_account = Account.find_or_create_by_number("#{tax_radical.number[0..account_number_digits]}#{nature.suffix}")
+        tax_account.name = item.human_name
+        tax_account.usages = tax_radical.usages
+        tax_account.save!
+
         attributes["#{account}_account_id"] = tax_account.id
       end
       Tax.create!(attributes)
@@ -164,8 +186,8 @@ class Tax < Ekylibre::Record::Base
     end
 
     # Load default taxes of instance country
-    def load_defaults
-      import_all_from_nomenclature(country: Preference[:country].to_sym)
+    def load_defaults(**_options)
+      import_all_from_nomenclature(country: Preference[:country].to_sym, active: true)
     end
   end
 

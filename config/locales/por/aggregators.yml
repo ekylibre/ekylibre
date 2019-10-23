@@ -4,7 +4,7 @@ por:
     started_on: "Iniciado em"
     stopped_on: "Parou em"
   aggregator_properties:
-    active: "Ativo"
+    active: "Ativo" #?
     activity_family: "Família de atividades" #?
     actor_name: "Nome ator" #?
     animal_group_name: "Nome do grupo de animais" #?
@@ -16,10 +16,10 @@ por:
     breeding_number: "Número de reprodução"
     campaigns: "Campanhas"
     capitalised_production: "Produção capitalizada" #?
-    catalog_name: "Nome do catálogo"
-    charge_account_label: "Etiqueta da conta de cobrança"
+    catalog_name: "Nome do catálogo" #?
+    charge_account_label: "Etiqueta da conta de cobrança" #?
     cluster_pac_number: "Número do aglomerado" #?
-    company: "Companhia"
+    company: "Companhia" #?
     container_name: "Nome container"
     current_result_before_taxes: "Resultado atual sem impostos"
     depreciations_inputations_expenses: "Despesas de depreciação" #?
@@ -49,11 +49,11 @@ por:
     financial_result: "Resultado financeiro"
     financial_year_name: "Nome ano fiscal"
     financial_years: "Anos fiscais"
-    grains_yield: "Rendimento de grãos"
+    grains_yield: "Rendimento de grãos" #?
     harvest_year: "Ano de colheita"
-    harvested_at: "Colhidas em"
+    harvested_at: "Colhidas em" #?
     human_roles: "Regras de pessoa" #?
-    implanted_at: "Implantado em"
+    implanted_at: "Implantado em" #?
     incoming_quantity: "Quantidade a receber" #?
     input_quantity: "Quantidade de entrada" #?
     input_unit_name: "Nome unidade de entrada" #?
@@ -81,19 +81,19 @@ por:
     other_expenses: "Other expenses" #?
     other_products: "Outros produtos" #?
     other_purchases: "Outras compras" #?
-    owner_name: "Nome do proprietário"
+    owner_name: "Nome do proprietário" #?
     pasturing_period: "Período de pastoreio" #?
     pasturing_working_area: "Área de pastorio trabalhável" #?
-    payment_ratio: "Rácio de pagamento"
+    payment_ratio: "Rácio de pagamento" #?
     person_name: "Nome da pessoa"
-    pictogram: "Pictograma"
+    pictogram: "Pictograma" #?
     picture_path: "Caminho imagem"
     plan: "Plano"
     prescription: "Prescrição"
-    pretax_amount: "Montante antes de impostos"
+    pretax_amount: "Montante antes de impostos" #?
     previous_production_name: "Nome produção anterior" #?
     printed_on: "Impresso em"
-    product_account_label: "Rótulo de conta do produto"
+    product_account_label: "Rótulo de conta do produto" #?
     product_nature_name: "Nome Natureza do produto" #?
     production_support: "Apoio à produção"
     productions_sales: "Venda de produção" #?
@@ -104,7 +104,7 @@ por:
     profits: "Lucros" #?
     profits_taxes: "Impostos sobre lucros"
     provisional_grains_yield: "Provisões produção de grãos" #?
-    provisional_yield: "Provisões de rendimento"
+    provisional_yield: "Provisões de rendimento" #?
     provisions_revenues: "Provisões de receita" #?
     quantity: "Quantidade"
     raw_matters_purchases: "Compra de matérias primas" #?
@@ -116,7 +116,7 @@ por:
     social_expenses: "Despesas sociais" #?
     soil_varieties: "Variedades de solo" #?
     sowed_at: "Semeado em" #?
-    stock_account_label: "Etiqueta da conta de estoque"
+    stock_account_label: "Etiqueta da conta de estoque" #?
     stock_production: "Produção em estoque" #?
     stocks_variation: "Variação de estoque" #?
     subsidies: "Subsidios" #?
@@ -127,7 +127,7 @@ por:
     variable_name: "Nome variável" #?
     variant_name: "Nome da variante"
     variant_variety: "Variedade de variantes" #?
-    vine_yield: "Produção por planta"
+    vine_yield: "Produção por planta" #?
     wages: "Salários" #?
     working_area: "Área de trabalho"
     working_duration_in_hours: "Duração do trabalho em horas"

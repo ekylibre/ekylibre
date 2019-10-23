@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -40,13 +41,29 @@ class OutgoingPaymentListTest < Ekylibre::Testing::ApplicationTestCase::WithFixt
     @list = outgoing_payment_lists(:outgoing_payment_lists_001)
     @mode = OutgoingPaymentMode.create!(sepa: true, cash: Cash.bank_accounts.first, name: 'SEPA', with_accounting: true, active: true)
     supplier = Entity.find_by!(full_name: 'BAKTOUBI Inc.')
-    purchase = PurchaseInvoice.create!(nature: PurchaseNature.joins(:journal).find_by!(journals: { currency: 'EUR' }), supplier: supplier, items_attributes: [{ variant: ProductNatureVariant.find_by!(name: 'Adexar 5 l'), quantity: 54, unit_pretax_amount: 161, tax: Tax.find_by!(amount: 0) }])
+    purchase = PurchaseInvoice.create!(
+      nature: PurchaseNature.joins(:journal).find_by!(journals: { currency: 'EUR' }),
+      supplier: supplier,
+      invoiced_at: DateTime.new(2018, 1, 1),
+      items_attributes: [
+        {
+          variant: ProductNatureVariant.find_by!(name: 'Adexar 5 l'),
+          quantity: 54,
+          unit_pretax_amount: 161,
+          tax: Tax.find_by!(amount: 0)
+        }
+      ]
+    )
     purchase.update_columns(number: 'A999907000012')
     payments = [
       PurchasePayment.new(amount: 8694, currency: 'EUR', mode: @mode, payee: supplier, responsible: User.first, to_bank_at: Time.new(2016, 9, 25, 3, 45), affair: purchase.affair)
     ]
     @list = OutgoingPaymentList.create!(mode: @mode, payments: payments)
     payments.first.update_columns(number: 'D99990004')
+  end
+
+  teardown do
+    Timecop.return
   end
 
   test 'to_sepa' do
@@ -152,8 +169,7 @@ class OutgoingPaymentListTest < Ekylibre::Testing::ApplicationTestCase::WithFixt
 
   test 'destroy with all bank_statement_letter blank' do
     list = OutgoingPaymentList.all.detect do |l|
-      JournalEntryItem.where(entry_id: l.payments.select(:entry_id))
-        .where(state: :closed).empty?
+      JournalEntryItem.where(entry_id: l.payments.select(:entry_id), state: :closed).empty?
     end
     assert list, 'Cannot find a destroyable list'
     JournalEntryItem.where(entry_id: list.payments.select(:entry_id)).update_all(bank_statement_letter: nil)

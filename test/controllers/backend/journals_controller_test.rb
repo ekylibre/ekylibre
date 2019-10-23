@@ -19,12 +19,6 @@
 require 'test_helper'
 module Backend
   class JournalsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
-    test_restfully_all_actions close: :get_and_post, except: :reopen
-
-    test 'reopen action in get mode' do
-      journal = journals(:journals_001)
-      post(:reopen, params: {}, id: journal.id.to_i)
-      assert_redirected_to action: :index
-    end
+    test_restfully_all_actions close: :get_and_post
   end
 end

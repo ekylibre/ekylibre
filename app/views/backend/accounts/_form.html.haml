@@ -1,7 +1,13 @@
 = field_set do
-  = f.input :number
-  = f.input :name
-  = f.input :reconcilable
+  = f.input :nature, as: :radio_buttons, show: '.{{value}}-nature-options'
+  .general-nature-options.centralizing-nature-options
+    = f.input :number, input_html: { data: { filter_collection: '#account_usages' } }
+  - unless f.object.protected_auxiliary_number?
+    .auxiliary-nature-options
+      = f.input :centralizing_account, collection: Nomen::Account.select(&:centralizing), required: true, value_method: :name, label_method: lambda {|a| a.send(Account.accounting_system)+ " - " + a.name.tl}
+      = f.input :auxiliary_number, required: true
+  = f.input :name, as: :text
   = f.input :description, as: :text
-  = f.input :usages, collection: Nomen::Account.selection
+  - filtered_collection = Nomen::Account.list.reject { |a| a.send(Account.accounting_system) == 'NONE' }.sort_by { |a| a.send(Account.accounting_system) }
+  = f.input :usages, collection: filtered_collection, value_method: :name, label_method: lambda { |a| a.send(Account.accounting_system) + " - " + a.human_name }, input_html: { data: { filter_collection_url: '/backend/accounts/filter_select_collection' } }
   = f.custom_fields

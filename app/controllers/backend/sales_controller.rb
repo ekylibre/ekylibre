@@ -30,7 +30,16 @@ module Backend
     def self.sales_conditions
       code = search_conditions(sales: %i[pretax_amount amount number initial_number description], entities: %i[number full_name]) + " ||= []\n"
       code << "if params[:period].present? && params[:period].to_s != 'all'\n"
-      code << "  c[0] << ' AND #{Sale.table_name}.created_at::DATE BETWEEN ? AND ?'\n"
+      code << "  c[0] << ' AND ((#{Sale.table_name}.invoiced_at IS NULL AND #{Sale.table_name}.created_at::DATE BETWEEN ? AND ?)'\n"
+      code << "  if params[:period].to_s == 'interval'\n"
+      code << "    c << params[:started_on]\n"
+      code << "    c << params[:stopped_on]\n"
+      code << "  else\n"
+      code << "    interval = params[:period].to_s.split('_')\n"
+      code << "    c << interval.first\n"
+      code << "    c << interval.second\n"
+      code << "  end\n"
+      code << "  c[0] << ' OR (#{Sale.table_name}.invoiced_at::DATE BETWEEN ? AND ?))'\n"
       code << "  if params[:period].to_s == 'interval'\n"
       code << "    c << params[:started_on]\n"
       code << "    c << params[:stopped_on]\n"
@@ -63,6 +72,7 @@ module Backend
       t.action :cancel, if: :cancellable?
       t.action :destroy, if: :destroyable?
       t.column :number, url: { action: :show }
+      t.column :reference_number
       t.column :created_at
       t.column :invoiced_at
       t.column :client, url: true
@@ -161,6 +171,10 @@ module Backend
           end
         end
 
+        format.xml do
+          create_response
+        end
+
         format.html do
           t3e @sale.attributes, client: @sale.client.full_name, state: @sale.state_label, label: @sale.label
           create_response
@@ -194,6 +208,13 @@ module Backend
       @sale.introduction = :default_letter_introduction.tl
       @sale.conclusion = :default_letter_conclusion.tl
       @sale.items_attributes = params[:items_attributes] if params[:items_attributes]
+      @sale.payment_delay = nature.payment_delay
+      if params[:fixed_asset_id]
+        fixed_asset = FixedAsset.find(params[:fixed_asset_id])
+        product = fixed_asset.product
+        item_properties = product ? { variant: product.variant, quantity: 1 } : {}
+        @sale.items.build({ fixed: true, preexisting_asset: true, fixed_asset: fixed_asset }.merge(item_properties))
+      end
       render locals: { with_continue: true }
     end
 

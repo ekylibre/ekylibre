@@ -2,11 +2,12 @@
 (
     cd /app
 
-    until nc -z -v -w30 ${POSTGRES_HOST} 5432
-    do
-      echo 'Waiting for PostgreSQL...'
+    RETRIES=300 # 5 minutes
+    until psql -h ${POSTGRES_HOST} -U ${POSTGRES_USER} -d ${POSTGRES_DB} -c "select 1" > /dev/null 2>&1 || [ $RETRIES -eq 0 ]; do
+      echo "Waiting for postgres server, $((RETRIES--)) remaining attempts..."
       sleep 1
     done
+
     echo "PostgreSQL is up and running"
 
     psql -h ${POSTGRES_HOST} -U ${POSTGRES_USER} -d ${POSTGRES_DB} -c 'CREATE SCHEMA IF NOT EXISTS postgis; DROP EXTENSION postgis CASCADE;'
@@ -15,6 +16,11 @@
     psql -h ${POSTGRES_HOST} -U ${POSTGRES_USER} -d ${POSTGRES_DB} -c 'CREATE EXTENSION IF NOT EXISTS "unaccent" SCHEMA postgis;'
 
     cp -f test/ci/database.yml config/database.yml
+
+    gpg --import 'test/fixture-files/my-private-key.asc'
+
+    echo "GPG keys list:"
+    gpg --list-keys
 
     bundle exec rake db:migrate RAILS_ENV=test VERBOSE=false
 

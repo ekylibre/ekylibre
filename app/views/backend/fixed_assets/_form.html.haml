@@ -1,25 +1,44 @@
+.flash.information
+  %p= :derogatory_depreciation_explanation.tl
+
+- case params[:mode]
+- when 'sell'
+  .flash.information
+    %p= :provide_mandatory_information_before_selling.tl
+
+- when 'scrap'
+  .flash.information
+    %p= :provide_mandatory_information_before_scrapping.tl
+
+- when 'stand_by'
+  .flash.information
+    %p= :provide_mandatory_information_before_putting_on_hold.tl
+
 = field_set do
   = f.input :name
   = f.input :description, as: :text
-  = f.referenced_association :product, :source => :depreciables
+  = f.referenced_association :product, :source => :depreciables, required: %w[sell scrap].include?(params[:mode])
   = f.custom_fields
+  = hidden_field_tag :mode, params[:mode]
 
-- if f.object.draft? || f.object.new_record?
+- if f.object.draft? && !params[:mode] || f.object.new_record?
   = field_set(:depreciation) do
     = f.money :depreciable_amount
     = f.input :depreciation_method, as: :radio_buttons, show: '#{{value}}_options'
     = f.input :started_on
     = f.input :depreciation_period, as: :radio_buttons
 
-  = field_set(:simplified_linear_options) do
-    = f.input :depreciation_percentage
+  = field_set(:linear_options) do
+    = f.input :depreciation_percentage, input_html: { name: 'fixed_asset[linear_depreciation_percentage]' }
 
-  = field_set(:stopped_on_block) do
-    = f.input :stopped_on
+  = field_set(:regressive_options) do
+    = f.input :depreciation_percentage, input_html: { name: 'fixed_asset[regressive_depreciation_percentage]' }
+    = f.input :depreciation_fiscal_coefficient
 
   = field_set(:accountancy) do
     = f.referenced_association :journal
     = f.referenced_association :asset_account, :source => :assets
+    = f.referenced_association :special_imputation_asset_account, source: :capitalized_revenues
     = f.referenced_association :allocation_account, :source => :assets_depreciations
     = f.referenced_association :expenses_account, :source => :asset_depreciations_inputations_expenses
 - elsif f.object.asset_account.blank? || f.object.allocation_account.blank? || f.object.expenses_account.blank?
@@ -31,7 +50,23 @@
     - if f.object.expenses_account.blank?
       = f.referenced_association :expenses_account, :source => :asset_depreciations_inputations_expenses
 
+- case params[:mode]
+- when 'sell'
+  = field_set(:delay) do
+    = f.input :sold_on, required: true, disabled: f.object.sale && f.object.sale.invoice?
 
-= field_set(:delay) do
-  = f.input :scrapped_on
-  = f.input :sold_on
+  = field_set(:selling_amounts, class: 'chart') do
+    = f.referenced_association :tax, disabled: true
+    = f.input :pretax_selling_amount, disabled: true
+    = f.input :selling_amount, disabled: true
+
+- when 'scrap'
+  = field_set(:delay) do
+    = f.input :scrapped_on, required: true
+
+- when 'stand_by'
+  = field_set(:delay) do
+    = f.input :waiting_on, required: true
+
+  = field_set(:accountancy) do
+    = f.referenced_association :waiting_asset_account, source: :outstanding_assets

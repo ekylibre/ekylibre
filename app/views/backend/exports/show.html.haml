@@ -10,6 +10,7 @@
           = select_tag :financial_year_id, options_from_collection_for_select(FinancialYear.order(started_on: :desc), :id, :name, current_user.current_financial_year.id)
           = label_tag :type_of_structure.tl
           = select_tag :fiscal_position, options_for_select(fiscal_positions.flatten(1), 'all')
+
     .toolbar-content
       .main-toolbar.toolbar.custom-main-toolbar
         = label_tag :file_trimming.tl, nil, class: 'main-label'

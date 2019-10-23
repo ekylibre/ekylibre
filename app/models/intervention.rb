@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -309,6 +310,12 @@ class Intervention < Ekylibre::Record::Base
     true
   end
 
+  validate do
+    if printed_on
+      errors.add(:printed_on, :not_opened_financial_year) if Preference[:permanent_stock_inventory] && !during_financial_year?
+    end
+  end
+
   before_save do
     if receptions.any?
       receptions.each { |reception| reception.given_at = working_periods.first.started_at }
@@ -545,6 +552,10 @@ class Intervention < Ekylibre::Record::Base
 
   def printed_on
     printed_at.to_date
+  end
+
+  def during_financial_year?
+    FinancialYear.opened.where('? BETWEEN started_on AND stopped_on', printed_at).any?
   end
 
   def with_undestroyable_products?
@@ -920,9 +931,10 @@ class Intervention < Ekylibre::Record::Base
 
   # compute stopped_at and duration if not present and if duration <
   def duration_from_catalog
-    flow = MasterEquipmentFlow.find_by(procedure_name: procedure_name)
-    if flow && working_zone_area.to_f > 0.0
-      real_stop = started_at + (flow.intervention_flow.to_d * working_zone_area.to_d * 3600)
+    flows = InterventionModel.where(procedure_reference: procedure_name, working_flow_unit: 'ha/h')
+    inverse_speed = flows.average(:working_flow)
+    if inverse_speed.to_d > 0.0 && working_zone_area.to_f > 0.0
+      real_stop = started_at + (inverse_speed.to_d * working_zone_area.to_d * 3600)
       catalog_duration = (real_stop - started_at).in(:second).convert(:hour)
     end
   end

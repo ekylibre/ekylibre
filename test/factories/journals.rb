@@ -1,7 +1,9 @@
 FactoryBot.define do
   factory :journal do
-    closed_on { Date.parse('1997-12-31') }
+    # closed_on { Date.parse('1997-12-31') }
     sequence(:name) { |i| "Journal #{i}" }
+    # WARN: Will fail uniqueness constraint if more than 1000 journals are created
+    # "[J100]0 [J100]1" => J100 x2 bc 4-chars codes
     sequence(:code) { |i| "J#{i.to_s.ljust(2, '0')}" }
     currency { 'EUR' }
     nature { 'various' }

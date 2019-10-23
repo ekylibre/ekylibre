@@ -106,6 +106,26 @@
         else
           action_form.hide()
 
+    handleEnableActions: (link, count) ->
+      show_mode = link.data('enable-if-checked')
+      action_form = link.closest('.action-form')
+      if show_mode == 'any'
+        if count == 0
+          action_form.addClass('disabled')
+        else
+          action_form.removeClass('disabled')
+
+      else if show_mode == 'two-or-more'
+        if count >= 2
+          totalDebit = $('#total-debit').text()
+          totalCredit = $('#total-credit').text()
+          if totalCredit != totalDebit
+            action_form.removeClass('disabled')
+          else
+            action_form.addClass('disabled')
+        else
+          action_form.addClass('disabled')
+
 
 
     # Adds
@@ -123,6 +143,7 @@
           url = E.links.updateUrlWithIds url, ids, paramName
           link.attr('href', url)
           E.links.handleShowActions(link, ids.length)
+          E.links.handleEnableActions(link, ids.length)
 
 
   $(document).behave 'load', 'a[data-update-link-with]', E.links.setUpdateTriggers

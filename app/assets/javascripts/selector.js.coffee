@@ -363,12 +363,38 @@
       $(this).selector()
 
   $(document).on "selector:change", (changeEvent, value) ->
-      $("*[data-selector-update]").each ->
-        updateSource = $(this)
-          .closest($(this).data("selector-use-closest"))
-          .find("*[data-selector-id='"+$(this).data("selector-update")+"']")[0]
-        if updateSource == changeEvent.target
-          if value
-            $(this).html $(value).data("item-"+$(this).data("selector-update-with"))
+    $("*[data-selector-update]").each ->
+      updateSource = $(this)
+        .closest($(this).data("selector-use-closest"))
+        .find("*[data-selector-id='"+$(this).data("selector-update")+"']")[0]
+      if updateSource == changeEvent.target
+        if value
+          $(this).html $(value).data("item-"+$(this).data("selector-update-with"))
+
+    $("*[data-add-details]").each ->
+      return unless value && $(this)[0] == changeEvent.target
+      displayDetails($(this))
+
+  $(document).on 'cocoon:after-insert', (e, newRow) ->
+    detailedInput = $(newRow).find('[data-add-details]')
+    return unless detailedInput
+    dateInput = $(detailedInput).data('add-details-on')
+    $(dateInput).on 'change', ->
+      displayDetails($(detailedInput))
+
+  displayDetails = (detailedInput) ->
+    cell = $(detailedInput).closest('td')
+    $(cell).find('.added-details').remove()
+    $(cell).removeClass('with-details')
+    id = $(detailedInput).next('.selector-value').val()
+    date = $(detailedInput).closest('form').find($(detailedInput).data('add-details-on')).val()
+    return unless id && date
+    url = $(detailedInput).data('add-details').replace(/:id/, id) + "?date=#{date}"
+    request = $.get url
+
+    request.success (data) ->
+      $(detailedInput).closest('.selector').append(data)
+      $(cell).addClass('with-details')
+
   return
 ) ekylibre, jQuery

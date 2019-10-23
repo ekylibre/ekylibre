@@ -24,11 +24,15 @@ class AddLoanAccountsAndStates < ActiveRecord::Migration
 
     # # Update mandatory loans accounts
 
-    loans_account = Account.find_or_import_from_nomenclature(:loans)
-    interests_account = Account.find_or_import_from_nomenclature(:loans_interests)
+    # This has been commented since it's model-dependent. The migration has
+    # already run on the remote server.
+    # TODO: Properly decouple it someday instead of having it commented out.
 
-    unless loans_account.nil? && interests_account.nil?
-      execute("UPDATE loans SET loan_account_id = #{loans_account.id}, interest_account_id = #{interests_account.id}")
-    end
+    # loans_account = Account.find_or_import_from_nomenclature(:loans)
+    # interests_account = Account.find_or_import_from_nomenclature(:loans_interests)
+
+    # unless loans_account.nil? && interests_account.nil?
+    #   execute("UPDATE loans SET loan_account_id = #{loans_account.id}, interest_account_id = #{interests_account.id}")
+    # end
   end
 end

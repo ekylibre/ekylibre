@@ -4,7 +4,7 @@ FactoryBot.define do
       journal_currency { :EUR }
     }
 
-    sequence(:name) { |i| "name #{i}" }
+    sequence(:name) { |n| "Purchase nature #{n}" }
     journal { |journal| journal.association :journal, currency: journal_currency }
   end
 end

@@ -82,11 +82,11 @@ class ::Numeric
   end
 
   def semester
-    months * 6
+    (self * 6).months
   end
 
   def trimester
-    months * 3
+    (self * 3).months
   end
 
   alias trimesters trimester

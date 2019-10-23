@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,57 +23,58 @@
 #
 # == Table: entities
 #
-#  active                    :boolean          default(TRUE), not null
-#  activity_code             :string
-#  authorized_payments_count :integer
-#  bank_account_holder_name  :string
-#  bank_identifier_code      :string
-#  born_at                   :datetime
-#  client                    :boolean          default(FALSE), not null
-#  client_account_id         :integer
-#  codes                     :jsonb
-#  country                   :string
-#  created_at                :datetime         not null
-#  creator_id                :integer
-#  currency                  :string           not null
-#  custom_fields             :jsonb
-#  dead_at                   :datetime
-#  deliveries_conditions     :string
-#  description               :text
-#  employee                  :boolean          default(FALSE), not null
-#  employee_account_id       :integer
-#  first_met_at              :datetime
-#  first_name                :string
-#  full_name                 :string           not null
-#  iban                      :string
-#  id                        :integer          not null, primary key
-#  language                  :string           not null
-#  last_name                 :string           not null
-#  lock_version              :integer          default(0), not null
-#  locked                    :boolean          default(FALSE), not null
-#  meeting_origin            :string
-#  nature                    :string           not null
-#  number                    :string
-#  of_company                :boolean          default(FALSE), not null
-#  picture_content_type      :string
-#  picture_file_name         :string
-#  picture_file_size         :integer
-#  picture_updated_at        :datetime
-#  proposer_id               :integer
-#  prospect                  :boolean          default(FALSE), not null
-#  reminder_submissive       :boolean          default(FALSE), not null
-#  responsible_id            :integer
-#  siret_number              :string
-#  supplier                  :boolean          default(FALSE), not null
-#  supplier_account_id       :integer
-#  supplier_payment_delay    :string
-#  supplier_payment_mode_id  :integer
-#  title                     :string
-#  transporter               :boolean          default(FALSE), not null
-#  updated_at                :datetime         not null
-#  updater_id                :integer
-#  vat_number                :string
-#  vat_subjected             :boolean          default(TRUE), not null
+#  active                       :boolean          default(TRUE), not null
+#  activity_code                :string
+#  authorized_payments_count    :integer
+#  bank_account_holder_name     :string
+#  bank_identifier_code         :string
+#  born_at                      :datetime
+#  client                       :boolean          default(FALSE), not null
+#  client_account_id            :integer
+#  codes                        :jsonb
+#  country                      :string
+#  created_at                   :datetime         not null
+#  creator_id                   :integer
+#  currency                     :string           not null
+#  custom_fields                :jsonb
+#  dead_at                      :datetime
+#  deliveries_conditions        :string
+#  description                  :text
+#  employee                     :boolean          default(FALSE), not null
+#  employee_account_id          :integer
+#  first_financial_year_ends_on :date
+#  first_met_at                 :datetime
+#  first_name                   :string
+#  full_name                    :string           not null
+#  iban                         :string
+#  id                           :integer          not null, primary key
+#  language                     :string           not null
+#  last_name                    :string           not null
+#  lock_version                 :integer          default(0), not null
+#  locked                       :boolean          default(FALSE), not null
+#  meeting_origin               :string
+#  nature                       :string           not null
+#  number                       :string
+#  of_company                   :boolean          default(FALSE), not null
+#  picture_content_type         :string
+#  picture_file_name            :string
+#  picture_file_size            :integer
+#  picture_updated_at           :datetime
+#  proposer_id                  :integer
+#  prospect                     :boolean          default(FALSE), not null
+#  reminder_submissive          :boolean          default(FALSE), not null
+#  responsible_id               :integer
+#  siret_number                 :string
+#  supplier                     :boolean          default(FALSE), not null
+#  supplier_account_id          :integer
+#  supplier_payment_delay       :string
+#  supplier_payment_mode_id     :integer
+#  title                        :string
+#  transporter                  :boolean          default(FALSE), not null
+#  updated_at                   :datetime         not null
+#  updater_id                   :integer
+#  vat_number                   :string
+#  vat_subjected                :boolean          default(TRUE), not null
 #
 
 require 'digest/sha2'
@@ -88,6 +90,9 @@ class Entity < Ekylibre::Record::Base
   refers_to :language
   refers_to :country
   enumerize :nature, in: %i[organization contact], default: :organization, predicates: true
+  enumerize :supplier_payment_delay, in: ['1 week', '30 days', '30 days, end of month', '60 days', '60 days, end of month']
+  #TODO: it should be rewritten when refers_to_lexicon is available
+  enumerize :legal_position_code, in: RegisteredLegalPosition.pluck(:code)
   versionize exclude: [:full_name]
   belongs_to :client_account, class_name: 'Account'
   belongs_to :employee_account, class_name: 'Account'
@@ -160,10 +165,11 @@ class Entity < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, :client, :employee, :locked, :of_company, :prospect, :reminder_submissive, :supplier, :transporter, :vat_subjected, inclusion: { in: [true, false] }
-  validates :activity_code, :bank_account_holder_name, :bank_identifier_code, :deliveries_conditions, :first_name, :iban, :meeting_origin, :number, :picture_content_type, :picture_file_name, :siret_number, :supplier_payment_delay, :title, :vat_number, length: { maximum: 500 }, allow_blank: true
+  validates :activity_code, :bank_account_holder_name, :bank_identifier_code, :deliveries_conditions, :first_name, :iban, :meeting_origin, :number, :picture_content_type, :picture_file_name, :siret_number, :title, :vat_number, length: { maximum: 500 }, allow_blank: true
   validates :born_at, :dead_at, :first_met_at, :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :currency, :language, :nature, presence: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
+  validates :first_financial_year_ends_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }, type: :date }, allow_blank: true
   validates :full_name, :last_name, presence: true, length: { maximum: 500 }
   validates :picture_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   # ]VALIDATORS]
@@ -174,7 +180,7 @@ class Entity < Ekylibre::Record::Base
   validates :activity_code, length: { allow_nil: true, maximum: 30 }
   validates :deliveries_conditions, :number, length: { allow_nil: true, maximum: 60 }
   validates :iban, iban: true, allow_blank: true
-  validates :siret_number, siret_format: true, allow_blank: true
+  validates :siret_number, siret_format: { if: :in_france? }, allow_blank: true
   validates_attachment_content_type :picture, content_type: /image/
   validates_delay_format_of :supplier_payment_delay
   validates_with SEPA::BICValidator, field_name: :bank_identifier_code
@@ -242,6 +248,9 @@ class Entity < Ekylibre::Record::Base
       a.mail_line_1 = full_name
       a.save
     end
+    # create account before bookkeep on sale and purchase
+    self.account(:client) if client
+    self.account(:supplier) if supplier
   end
 
   protect(on: :destroy) do
@@ -271,6 +280,25 @@ class Entity < Ekylibre::Record::Base
     end
   end
 
+  def legal_position
+    RegisteredLegalPosition.find_by(code: legal_position_code)
+  end
+
+  def of_capital?
+    return false unless legal_position
+    legal_position.nature == "capital"
+  end
+
+  def of_person?
+    return false unless legal_position
+    legal_position.nature == "person"
+  end
+
+  def of_individual?
+    return false unless legal_position
+    legal_position.nature == "individual"
+  end
+
   def entity_payment_mode_name
     supplier_payment_mode&.name
   end
@@ -286,6 +314,10 @@ class Entity < Ekylibre::Record::Base
 
   def unbalanced?
     EconomicSituation.unbalanced.pluck(:id).include? id
+  end
+
+  def in_france?
+    country == 'fr'
   end
 
   def client_accounting_balance
@@ -346,23 +378,25 @@ class Entity < Ekylibre::Record::Base
       if prefix.blank?
         prefix = Nomen::Account.find(account_nomen).send(Account.accounting_system)
       end
-      if Preference[:use_entity_codes_for_account_numbers]
-        number = prefix.to_s + self.number.to_s
-        unless valid_account = Account.find_by(number: number)
-          valid_account = Account.create(number: number, name: full_name, reconcilable: true)
+      if account_nomen == 'clients' || account_nomen == 'suppliers'
+        if Preference[:use_entity_codes_for_account_numbers]
+          number = prefix.to_s + self.number.to_s
+          auxiliary_number = self.number.to_s
+          unless valid_account = Account.find_by(number: number)
+            valid_account = Account.create(nature: 'auxiliary', auxiliary_number: auxiliary_number, name: full_name, centralizing_account_name: account_nomen, reconcilable: true)
+          end
+        else
+          suffix = '1'
+          suffix = suffix.upper_ascii[0..5].rjust(6, '0')
+          account = 1
+          until account.nil?
+            account = Account.find_by('number LIKE ?', prefix.to_s + suffix.to_s)
+            suffix.succ! unless account.nil?
+          end
+          valid_account = Account.create(nature: 'auxiliary', auxiliary_number: suffix.to_s, name: full_name, centralizing_account_name: account_nomen, reconcilable: true)
         end
       else
-        suffix = '1'
-        suffix = suffix.upper_ascii[0..5].rjust(6, '0')
-        account = 1
-        # x = Time.zone.now
-        i = 0
-        until account.nil?
-          account = Account.find_by('number LIKE ?', prefix.to_s + suffix.to_s)
-          suffix.succ! unless account.nil?
-          i += 1
-        end
-        valid_account = Account.create(number: prefix.to_s + suffix.to_s, name: full_name, reconcilable: true)
+        tmp_account = Account.find_or_import_from_nomenclature(account_nomen)
       end
       reload.update_column("#{nature}_account_id", valid_account.id)
     end

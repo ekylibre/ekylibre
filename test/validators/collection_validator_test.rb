@@ -7,7 +7,7 @@ class CollectionValidatable
   validates :collection, collection: true
 end
 
-class CollectionValidatorTest < ActiveSupport::TestCase
+class CollectionValidatorTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   setup do
     @obj = CollectionValidatable.new
     @invalid = Object.new

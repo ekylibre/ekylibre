@@ -2,11 +2,12 @@ require 'test_helper'
 
 class FixturesTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Checks the validity of references files for models
+
   Ekylibre::Schema.models.sort.each do |model_name|
-    test "fixtures of #{model_name}" do
+    model = model_name.to_s.classify.constantize
+
+    test "all fixtures validity: #{model.name}" do
       invalids = []
-      model = model_name.to_s.classify.constantize
-      record_type = model.name.underscore
       # print "#{model.name.green}"
       reflections = model.reflect_on_all_associations(:belongs_to).delete_if { |r| r.name.to_s == 'item' && model == Version }
       model.includes(reflections.collect(&:name)).each do |record|

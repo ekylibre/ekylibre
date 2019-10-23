@@ -461,10 +461,9 @@ deu:
       tax_payability:
         at_invoicing: "Bei Fakturierung"
         at_paying: "Zu zahlen"
-    purchase_nature:
-      nature:
-        # payslip: "Payslip"
-        purchase: "Kauf"
+    purchase_nature: #?
+      nature: #?
+        purchase: "Kauf" #?
     sale_item: #?
       compute_from: #?
         pretax_amount: "Vor Steuern in Höhe" #?

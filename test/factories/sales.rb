@@ -5,15 +5,12 @@ FactoryBot.define do
       affair { nil }
     }
 
+    association :nature, factory: :sale_nature
     amount { 5000.0 }
-    # needs sale_nature
     sequence(:number) { |n| "S00#{n}" }
-
     downpayment_amount { 0.0 }
-
     currency { 'EUR' }
-    payment_delay { '12 days, eom, 1 week ago' }
-
+    payment_delay { '1 week' }
     state { :draft }
 
     after(:build) do |sale, eval|

@@ -14,7 +14,7 @@
           %i
           = unmark_label
     %td.dat{conf}= item.printed_on.l
-    %td.code{conf}
+    %td.code
       %a{href: "/backend/journal_entries/#{item.entry_id}", keep: 'true'}= item.entry_number
     %td{conf}= item.name
     %td.dec.debit{conf}=  number_to_accountancy(item.absolute_debit, currency)

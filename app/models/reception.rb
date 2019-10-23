@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -64,6 +65,10 @@
 #  with_delivery                        :boolean          default(FALSE), not null
 #
 class Reception < Parcel
+  include Transitionable
+
+  enumerize :state, in: %i[draft given], predicates: true, i18n_scope: "models.#{model_name.param_key}.states"
+
   belongs_to :purchase_order, foreign_key: :purchase_id, class_name: 'PurchaseOrder', inverse_of: :parcels
   belongs_to :intervention, class_name: 'Intervention'
   has_many :items, class_name: 'ReceptionItem', inverse_of: :reception, foreign_key: :parcel_id, dependent: :destroy
@@ -71,30 +76,36 @@ class Reception < Parcel
 
   accepts_nested_attributes_for :items, allow_destroy: true
 
-  state_machine initial: :draft do
-    state :draft
-    state :given
+  def self.state_machine(*)
+    ActiveSupport::Deprecation.warn "Not used anymore on Reception!"
+    nil
+  end
 
-    event :give do
-      transition draft: :given, if: :giveable?
-    end
+  delegate :full_name, to: :sender, prefix: true
+  delegate :number, to: :purchase_order, prefix: true
+
+  alias_method :allow_items_update?, :draft?
+  alias_method :entity, :sender
+  alias_method :third, :sender
+
+  after_initialize do
+    next if persisted?
+
+    self.address ||= Entity.of_company.default_mail_address
+    self.currency ||= Preference[:currency]
+    self.nature = :incoming
+    self.planned_at ||= Time.zone.today
+    self.state = :draft
   end
 
   before_validation :remove_all_items, if: ->(obj) { obj.intervention.present? && obj.purchase_id_changed? }
 
   before_validation do
-    self.nature = 'incoming'
-    self.state ||= :draft
-
-    if self.items.reject { |i| i.instance_variable_get :@marked_for_destruction }.any? { |i| i.purchase_order_item.present?  }
+    if self.items.reject { |i| i.instance_variable_get :@marked_for_destruction }.any? { |i| i.purchase_order_item.present? }
       self.reconciliation_state = 'reconcile'
     else
       self.reconciliation_state = 'to_reconcile'
     end
-  end
-
-  after_initialize do
-    self.address ||= Entity.of_company.default_mail_address if new_record?
   end
 
   after_save do
@@ -111,6 +122,11 @@ class Reception < Parcel
 
   bookkeep
 
+  def remain_owner?
+    ActiveSupport::Deprecation.warn "remain_owner? is deprecated for Receptions and should always return false"
+    super
+  end
+
   # Remove previous items, only if we are in an intervention and if the purchase
   # change(in callback)
   def remove_all_items
@@ -121,43 +137,12 @@ class Reception < Parcel
     sender_id
   end
 
-  def third
-    sender
-  end
-
-  alias entity third
-
   def invoiced?
     purchase_order.present?
   end
 
-  def allow_items_update?
-    !given?
-  end
-
   def in_accident?
-    in_accident = late_delivery
-    unless in_accident
-      items.each do |item|
-        if item.non_compliant
-          in_accident = true
-          break
-        end
-      end
-    end
-    in_accident
+    late_delivery || items.any?(&:non_compliant)
   end
 
-  delegate :full_name, to: :sender, prefix: true
-
-  delegate :number, to: :purchase_order, prefix: true
-
-  def give
-    state = true
-    return false, msg unless state
-    update_column(:given_at, Time.zone.now) if given_at.blank?
-    items.each(&:give)
-    reload
-    super
-  end
 end

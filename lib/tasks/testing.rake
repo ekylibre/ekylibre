@@ -1,3 +1,5 @@
+Rake::Task['test:run'].clear
+
 namespace :test do
   parts = [
     :concepts,
@@ -12,12 +14,21 @@ namespace :test do
      :validators#, :decorators, :javascripts
   ]
 
+  task prepare: 'lexicon:load'
+
   parts.each do |p|
-    Rails::TestTask.new(p => 'test:prepare') do |t|
-      t.libs = ['lib']
+    full_task_name = "test:#{p}"
+    Rake::Task[full_task_name].clear if Rake::Task.task_defined? full_task_name
+
+    Rails::TestTask.new(p) do |t|
       t.pattern = "test/#{p}/**/*_test.rb"
     end
+
+    desc "Ekylibre tests for #{p}"
+    task p => 'test:prepare'
   end
 
   task all: parts #[*parts, :javascripts]
 end
+
+task :test => 'test:prepare'

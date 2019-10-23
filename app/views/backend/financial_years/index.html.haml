@@ -1,5 +1,14 @@
+- unless @title.empty? || @fys_in_preparation.any?
+  = render 'help', locals: { title: @title, fy_to_close: @fy_to_close, fy_to_open: @fy_to_open }
+
 - main_toolbar do |t|
-  = t.new params: { redirect: nil }
-  - year = FinancialYear.closables.first
-  = t.close year if year && year.closable?
+  = t.new params: { redirect: nil }, icon: false, label: :open_financial_year.tl(code: @fy_to_open.code), class: 'btn-new-financial-year', disabled: @opened_financial_years_count > 1
+  - if @fy_to_close && @fys_in_preparation.empty?
+    = link_to :prepare_financial_year_for_closure.tl(code: @fy_to_close.code), { controller: :financial_year_closure_preparations, action: :create, financial_year_id: @fy_to_close.id, redirect: backend_financial_years_path }, { class: [('btn btn-default no-icn'),('disabled' if @fy_to_close.blank?)], method: :post }
+    = t.lock @fy_to_close, label: :lock_financial_year.tl(code: @fy_to_close.name), icon: false, disabled: @fy_to_close.blank?
+  - if @fys_in_preparation.any? && @fy_in_preparation.closer == current_user
+    = link_to :quit_financial_year_closure_preparation.tl(code: @fy_in_preparation.code), { controller: :financial_year_closure_preparations, action: :destroy, financial_year_id: @fy_in_preparation.id, redirect: backend_financial_years_path }, { class: 'btn btn-default no-icn', method: :delete }
+    = t.close @fy_in_preparation, label: :close_financial_year.tl(code: @fy_in_preparation.code), icon: false
+    = t.lock @fy_in_preparation, label: :lock_financial_year.tl(code: @fy_in_preparation.code), icon: false
+
 = main_list

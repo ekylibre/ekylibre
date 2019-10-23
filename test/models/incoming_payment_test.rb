@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -61,7 +62,7 @@ class IncomingPaymentTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'bookkeeping without commission' do
     mode = IncomingPaymentMode.find_by!(with_accounting: true, with_commission: false)
     payer = Entity.normal.find_by!(client: true)
-    payment = IncomingPayment.create!(mode: mode, payer: payer, amount: 504.12, received: true)
+    payment = IncomingPayment.create!(mode: mode, payer: payer, amount: 504.12, received: true, to_bank_at: DateTime.new(2018, 1, 1))
     assert_equal 504.12, payment.amount
     entry = payment.journal_entry
     assert_not_nil entry
@@ -101,7 +102,7 @@ class IncomingPaymentTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'delete incoming payment delete journal entry' do
     mode = IncomingPaymentMode.find_by!(with_accounting: true, with_commission: false)
     payer = Entity.normal.find_by!(client: true)
-    payment = IncomingPayment.create!(mode: mode, payer: payer, amount: 504.12, received: true)
+    payment = IncomingPayment.create!(mode: mode, payer: payer, amount: 504.12, received: true, to_bank_at: DateTime.new(2018, 1, 1))
 
     assert_not_nil payment
     assert_equal 504.12, payment.amount

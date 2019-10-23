@@ -1,4 +1,70 @@
 cmn:
+  activemodel:
+    errors:
+      messages:
+        # accepted: "%{attribute} must be accepted"
+        # after: "%{attribute} must be after %{restriction}"
+        # already_confirmed: "was already confirmed, please try signing in"
+        # before: "%{attribute} must be before %{restriction}"
+        # blank: "%{attribute} can't be blank"
+        # can_only_have_two_years_opened: "You can have only have two financial years opened at the same time."
+        # confirmation: "%{attribute} doesn't match confirmation"
+        # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
+        # currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
+        # empty: "%{attribute} can't be empty"
+        # end_of_month: "%{attribute} should be at the end of the month"
+        # equal_to: "%{attribute} must be equal to %{count}"
+        # even: "%{attribute} must be even"
+        # exclusion: "%{attribute} is reserved"
+        # expired: "has expired, please request a new one"
+        # financial_year_exchange_on_this_period: "There is an opened accounting exchange at this date"
+        # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
+        # financial_year_not_found: "There is no financial year at this date"
+        # greater_than: "%{attribute} must be greater than %{count}"
+        # greater_than_or_equal_to: "%{attribute} must be greater than or equal to %{count}"
+        # harvest_in_progress: "Be careful, this crop is being harvested"
+        # included_in: "The value of %{attribute} must be included between %{minimum} and %{maximum}"
+        # inclusion: "%{attribute} is not included in the list"
+        # invalid: "%{attribute} is invalid"
+        # invalid_at: "%{attribute} is_invalid. Error near %{error}"
+        # invalid_child: "At least one value of %{attribute} is invalid."
+        # invalid_date: "%{attribute} is not a valid date"
+        # invalid_datetime: "%{attribute} is not a valid datetime"
+        # invalid_time: "%{attribute} is not a valid time"
+        # invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
+        # is: "%{attribute} must be a %{thing}"
+        # is_at: "%{attribute} must be at %{restriction}"
+        # less_than: "%{attribute} must be less than %{count}"
+        # less_than_or_equal_to: "%{attribute} must be less than or equal to %{count}"
+        # missing_bank_details_for_sepa: "Values for IBAN and/or Account owner are missing for the cash account selected."
+        # must_be_a_mail_address: "%{attribute} must be a mail address"
+        # no_opened_financial_year: "No financial year opened at this date"
+        # not_a_number: "%{attribute} is not a number"
+        # not_an_end_of_month: "%{attribute} must be an end of month"
+        # not_an_integer: "%{attribute} must be an integer"
+        # not_enough: "not enough %{resource} to complete task"
+        # not_found: "not found"
+        # not_locked: "was not locked"
+        # not_opened_financial_year: "An open accounting period is required"
+        not_saved:
+          # one: "1 error prohibited this %{resource} from being saved:"
+          # other: "%{count} errors prohibited this %{resource} from being saved:"
+        # nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
+        # odd: "%{attribute} must be odd"
+        # on_or_after: "%{attribute} must be on or after %{restriction}"
+        # on_or_after_field: "%{attribute} must be on or after %{restriction} (%{model} %{field})"
+        # on_or_before: "%{attribute} must be on or before %{restriction}"
+        # overlap: "%{attribute} overlaps an existing record"
+        # overlap_sibling: "%{attribute} overlaps sibling"
+        # posterior: "%{attribute} must be posterior to %{to}"
+        # record_invalid: "Validations failed: %{errors}"
+        # should_be_consecutive: "Financial years must be consecutive, therefore %{attribute} should be %{expected}."
+        # should_be_the_last_day_of_month: "%{attribute} should be the last day of the month."
+        # taken: "%{attribute} has already been taken"
+        # too_long: "%{attribute} is too long (maximum is %{count} characters)"
+        # too_short: "%{attribute} is too short (minimum is %{count} characters)"
+        # unitary_in_parcel: "Unitary items can only be sent one by one"
+        # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
   activerecord:
     attributes:
       account:
@@ -33,7 +99,9 @@ cmn:
         asset_account: "固定资产账户"
         depreciation_period: "折旧年限"
         started_on: "开始升级"
+        # waiting_journal_entry: "Journal entry"
       fixed_asset_depreciation:
+        # accounted: "Accounted"
         asset_amount: "问责值"
       intervention_working_period:
         started_at:
@@ -42,6 +110,10 @@ cmn:
         stopped_at:
           # one: "Stopped at is inferior than expected"
           # other: "{{count}} Stopped at is inferior than expected"
+      inventory:
+        # disable_accountancy: "Do not update accounting"
+      journal:
+        # closed_on: "Latest closure on"
       journal_entry_item:
         # cumulated_absolute_credit_balance: "Credit balance"
         # cumulated_absolute_debit_balance: "Debit balance"
@@ -64,7 +136,11 @@ cmn:
         contract: "合同"
       parcel_item:
         population: "数量"
+        # product_name: "Product name"
       parcel_item_storing:
+        # conditionning: "Conditionning"
+        # conditionning_quantity: "Conditionning quantity"
+        # quantity: "Total quantity"
         # reception_given_at: "Given at"
         # reception_planned_at: "Planned at"
       plant:
@@ -107,7 +183,7 @@ cmn:
       tax_declaration:
         # no_financial_year_button: "Manage financial years"
         # no_financial_year_message: "Please choose your tax declarartion mode in one of your financial years to access to your tax declarations"
-        # no_financial_year_title: "No financial year entered"
+        # no_financial_year_title: "No exercise subject to VAT at the current date"
       tax_declaration_item:
         collected: "集"
         deductible: "免赔额"
@@ -120,20 +196,27 @@ cmn:
         # already_confirmed: "was already confirmed, please try signing in"
         # before: "%{attribute} must be before %{restriction}"
         # blank: "%{attribute} can't be blank"
+        # can_only_have_two_years_opened: "You can have only have two financial years opened at the same time."
         # confirmation: "%{attribute} doesn't match confirmation"
         # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
         # currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
         # empty: "%{attribute} can't be empty"
+        # end_of_month: "%{attribute} should be at the end of the month"
         # equal_to: "%{attribute} must be equal to %{count}"
         # even: "%{attribute} must be even"
         # exclusion: "%{attribute} is reserved"
         # expired: "has expired, please request a new one"
+        # financial_year_exchange_on_this_period: "There is an opened accounting exchange at this date"
+        # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
+        # financial_year_not_found: "There is no financial year at this date"
         # greater_than: "%{attribute} must be greater than %{count}"
         # greater_than_or_equal_to: "%{attribute} must be greater than or equal to %{count}"
+        # harvest_in_progress: "Be careful, this crop is being harvested"
         # included_in: "The value of %{attribute} must be included between %{minimum} and %{maximum}"
         # inclusion: "%{attribute} is not included in the list"
         # invalid: "%{attribute} is invalid"
         # invalid_at: "%{attribute} is_invalid. Error near %{error}"
+        # invalid_child: "At least one value of %{attribute} is invalid."
         # invalid_date: "%{attribute} is not a valid date"
         # invalid_datetime: "%{attribute} is not a valid datetime"
         # invalid_time: "%{attribute} is not a valid time"
@@ -144,123 +227,77 @@ cmn:
         # less_than_or_equal_to: "%{attribute} must be less than or equal to %{count}"
         missing_bank_details_for_sepa: "对于IBAN和/或帐户所有者值丢失所选现金帐户。"
         # must_be_a_mail_address: "%{attribute} must be a mail address"
+        # no_opened_financial_year: "No financial year opened at this date"
         # not_a_number: "%{attribute} is not a number"
         # not_an_end_of_month: "%{attribute} must be an end of month"
         # not_an_integer: "%{attribute} must be an integer"
         # not_enough: "not enough %{resource} to complete task"
         # not_found: "not found"
         # not_locked: "was not locked"
+        # not_opened_financial_year: "An open accounting period is required"
         not_saved:
           # one: "1 error prohibited this %{resource} from being saved:"
           # other: "%{count} errors prohibited this %{resource} from being saved:"
         nothing_to_pay: "没有支付。如果你想注册一个首期，别忘了注意。"
         # odd: "%{attribute} must be odd"
         # on_or_after: "%{attribute} must be on or after %{restriction}"
+        # on_or_after_field: "%{attribute} must be on or after %{restriction} (%{model} %{field})"
         # on_or_before: "%{attribute} must be on or before %{restriction}"
         # overlap: "%{attribute} overlaps an existing record"
         # overlap_sibling: "%{attribute} overlaps sibling"
         # posterior: "%{attribute} must be posterior to %{to}"
         # record_invalid: "Validations failed: %{errors}"
+        # should_be_consecutive: "Financial years must be consecutive, therefore %{attribute} should be %{expected}."
+        # should_be_the_last_day_of_month: "%{attribute} should be the last day of the month."
         # taken: "%{attribute} has already been taken"
         # too_long: "%{attribute} is too long (maximum is %{count} characters)"
         # too_short: "%{attribute} is too short (minimum is %{count} characters)"
         unitary_in_parcel: "酉项只能由一个被发送的一个"
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
-      models:
-        activity:
-          checked_off_with_inspections: "检查已为这一活动创建"
-          checked_without_measures: "至少，当检查被通缉应选择的一种度量类型"
-        bank_statement:
-          no_cash_match_ofx: "没有现金找到该文件中给出的银行账号"
-          ofx_file_has_multiple_bank_accounts: "与多个银行账户OFX文件不支持"
-          ofx_file_invalid: "OFX文件无效"
-        bank_statement_item:
-          unvalid_amounts: "日记条目必须同时填写无论是借记卡还是信用卡，但并非如此。"
-        cash:
-          # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
-          # different_of_main_account: "%{attribute} must be different of main account (%{account})"
-          unvalid_bban: "Unvalid BBAN。一个或多个元素是不正确的。"
-        deposit:
-          # must_be_a_bank_account: "%{attribute} must be a bank account and not a cash"
-        entity:
-          # missing_title: "%{attribute} must contains the title “%{title}”"
-          # nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
-        financial_year:
-          attributes:
-            accountant:
-              # frozen: "%{attribute} cannot be changed while an exchange is opened"
-            started_on:
-              consecutive: "该财政年度必须consecutives。它必须与先前的结束后开始。"
-              frozen: "交易所已创建时的财政年度日期不能更改。"
-              # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
-            stopped_on:
-              # end_of_month: "%{attribute} must be an end of month"
-          # overlap: "%{attribute} overlaps an existing financial year"
-        financial_year_exchange:
-          csv_file_entry_dates_invalid: "在CSV一些条目没有财政年度交换日期范围"
-          # csv_file_entry_invalid: "Some entries in the CSV are invalid ('%{entry_number}')"
-          csv_file_headers_invalid: "CSV标头是无效"
-          csv_file_invalid: "CSV文件无效"
-          # csv_file_journals_invalid: "Some journals are present in the CSV but not in Ekylibre : %{codes}"
-        fixed_asset_depreciation:
-          attributes:
-            started_on:
-              # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
-        incoming_parcel_item:
-          # greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
-        integration:
-          attributes:
-            parameters:
-              check_errored: "连接检查错误。请确保输入的有效性或稍后再试。"
-        intervention_working_period:
-          attributes:
-            started_at:
-              # inferior: "Started at is inferior than expected"
-            stopped_at:
-              # inferior: "Stopped at is inferior than expected"
-        journal:
-          attributes:
-            accountant:
-              # entity_frozen: "Booked journals of this %{attribute} cannot change while an exchange is opened for its financial years"
-              present: "会计师只能对各种操作日志设置"
-              # previous_entity_frozen: "Booked journals of the previous %{attribute} cannot change while an exchange is opened for its financial years"
-            closed_on:
-              # end_of_month: "%{attribute} must be an end of month (%{closed_on})"
-        journal_entry:
-          # closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
-          frozen_by_financial_year_exchange: "日记帐分录不能被记录在相应于一个财政年度交流的时间。"
-          out_of_existing_financial_year: "日记帐分录必须记录在相应于现有财政年度期间。"
-          unbalanced: "日记帐分录不平衡"
-        journal_entry_item:
-          closed_entry: "日记帐分录被锁定。你不能更新。"
-          empty_amounts: "日记帐分录必须填写无论是借记卡或信用卡"
-          unvalid_amounts: "日记条目必须同时填写无论是借记卡还是信用卡，但并非如此。"
-        outgoing_parcel_item:
-          # greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
-        purchase:
-          # payment_delay_custom_validation_message: "Accepted formats : %{values}"
-        purchase_item:
-          attributes:
-            fixed:
-              # asset_account: "Invalid asset account"
-              # asset_depreciation_method: "Invalid asset depreciation method"
-              # asset_expenses_account: "Invalid asset expenses account"
-              # asset_wrong_depreciation_method: "Depreciation method must be simplified linear"
-              # fixed_asset_stopped_on_invalid: "Invalid fixed asset stopped on"
-          # building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
-          # serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
-        sale_item:
-          # building_can_not_transfer_product: "%{product} can not be found in %{building}, it only contains %{contained_product}."
-          # can_not_use_this_tracking: "You can not user the S/N %{tracking}, the quantity is greater than the available quantity"
-          currency_is_not_sale_currency: "货币不相同买卖货币"
-          error_no_found_price: "未发现价格"
-        subscription:
-          entity_must_be_the_same_as_the_contact_entity: "人必须是相同的联系人"
-      template:
-        body: "有以下字段的问题："
-        header:
-          # one: "1 error prohibited this %{model} from being saved"
-          # other: "%{count} errors prohibited this %{model} from being saved"
+      models: #?
+        activity: #?
+          checked_off_with_inspections: "检查已为这一活动创建" #?
+          checked_without_measures: "至少，当检查被通缉应选择的一种度量类型" #?
+        bank_statement: #?
+          no_cash_match_ofx: "没有现金找到该文件中给出的银行账号" #?
+          ofx_file_has_multiple_bank_accounts: "与多个银行账户OFX文件不支持" #?
+          ofx_file_invalid: "OFX文件无效" #?
+        bank_statement_item: #?
+          unvalid_amounts: "日记条目必须同时填写无论是借记卡还是信用卡，但并非如此。" #?
+        cash: #?
+          unvalid_bban: "Unvalid BBAN。一个或多个元素是不正确的。" #?
+        financial_year: #?
+          attributes: #?
+            started_on: #?
+              consecutive: "该财政年度必须consecutives。它必须与先前的结束后开始。" #?
+              frozen: "交易所已创建时的财政年度日期不能更改。" #?
+        financial_year_exchange: #?
+          csv_file_entry_dates_invalid: "在CSV一些条目没有财政年度交换日期范围" #?
+          csv_file_headers_invalid: "CSV标头是无效" #?
+          csv_file_invalid: "CSV文件无效" #?
+        integration: #?
+          attributes: #?
+            parameters: #?
+              check_errored: "连接检查错误。请确保输入的有效性或稍后再试。" #?
+        journal: #?
+          attributes: #?
+            accountant: #?
+              present: "会计师只能对各种操作日志设置" #?
+        journal_entry: #?
+          frozen_by_financial_year_exchange: "日记帐分录不能被记录在相应于一个财政年度交流的时间。" #?
+          out_of_existing_financial_year: "日记帐分录必须记录在相应于现有财政年度期间。" #?
+          unbalanced: "日记帐分录不平衡" #?
+        journal_entry_item: #?
+          closed_entry: "日记帐分录被锁定。你不能更新。" #?
+          empty_amounts: "日记帐分录必须填写无论是借记卡或信用卡" #?
+          unvalid_amounts: "日记条目必须同时填写无论是借记卡还是信用卡，但并非如此。" #?
+        sale_item: #?
+          currency_is_not_sale_currency: "货币不相同买卖货币" #?
+          error_no_found_price: "未发现价格" #?
+        subscription: #?
+          entity_must_be_the_same_as_the_contact_entity: "人必须是相同的联系人" #?
+      template: #?
+        body: "有以下字段的问题：" #?
     models:
       account: "帐户"
       account_balance: "账户余额"
@@ -487,12 +524,14 @@ cmn:
     account_balances: "账户余额"
     account_name: "用户名"
     account_number: "帐号"
+    # account_number_digits: "General accounts number length"
     accountable: "负责"
     accountable_repayments_started_on: "负责还款开始"
     accountant: "会计"
     accounted_at: "在占"
     accounting_balance: "会计平衡"
     # accounting_label: "Accounting label"
+    # accounting_system: "Accounting system"
     accuracy: "准确性"
     achieved_at: "在实现"
     actions: "操作"
@@ -549,6 +588,7 @@ cmn:
     assembly: "部件"
     asset_account: "资产帐户"
     asset_exists: "资产存在"
+    # asset_fixable: "Fixed asset registrable"
     attachments: "附件"
     attribute_name: "属性名"
     attribution: "归因"
@@ -633,6 +673,7 @@ cmn:
     client: "客户"
     client_account: "客户帐户"
     client_accounting_balance: "客户会计平衡"
+    # client_reference: "Order number (client reference)"
     client_trade_balance: "客户贸易平衡"
     clients: "客户端"
     closed: "关闭"
@@ -705,6 +746,7 @@ cmn:
     cultivation_variety: "栽培品种"
     cumulated_absolute_credit: "累计信用绝对"
     cumulated_absolute_debit: "累积绝对借记卡"
+    # cumulated_balance: "Cumulated balance"
     currency: "货币"
     currency_precision: "货币精度"
     currency_rate: "汇率"
@@ -790,6 +832,7 @@ cmn:
     document: "文件"
     documents: "文件"
     doers: "实干家"
+    # doers_cost: "Doers cost"
     # dose_quantity: "Dose quantity"
     # dose_unit: "Dose unit"
     # dose_unit_name: "Dose unit name"
@@ -889,6 +932,7 @@ cmn:
     first_name: "名字"
     first_number: "第一个数字"
     first_producer: "首先制片人" #?
+    # fiscal_position: "Fiscal position"
     fixed: "固定"
     fixed_asset: "固定资产"
     fixed_asset_account: "固定资产帐户"
@@ -1029,6 +1073,7 @@ cmn:
     intracommunity: "社区内"
     intracommunity_payable_account: "社区内应付账款"
     introduction: "介绍"
+    # inventories: "Inventories"
     inventory: "库存"
     # inventory_items: "Inventory items"
     invitation_accepted_at: "已接受邀请在"
@@ -1067,6 +1112,7 @@ cmn:
     journal_entry: "日记条目"
     journal_entry_item: "日记条目项目"
     journal_entry_items: "日记条目项目"
+    # journal_name: "Journal name"
     key: "键"
     label: "标签"
     # labellings: "Labellings"
@@ -1307,11 +1353,13 @@ cmn:
     postal_code: "邮政编码"
     postal_zones: "邮政区"
     pre_harvest_interval: "收获前的间隔"
+    # preexisting_asset: "Preexisting asset"
     preferences: "优先"
     prepared_at: "在准备"
     prescription: "处方"
     # prescriptor: "Prescriptor"
     pretax_amount: "税前金额"
+    # pretax_selling_amount: "Selling amount excl. VAT"
     previous_cultivation_residue_mineralization: "上一页种植残留矿化"
     price: "价格"
     printed_at: "在印刷"
@@ -1415,6 +1463,7 @@ cmn:
     # reception_items: "Reception items"
     reception_journal_entry: "接待日记帐分录"
     # receptions: "Receptions"
+    # receptions_cost: "Receptions cost"
     recipient: "接受者"
     recommended: "推荐"
     recommender: "导购"
@@ -1513,6 +1562,7 @@ cmn:
     selected: "选"
     selected_manure_management_plan: "选定的粪便管理计划"
     selected_manure_management_plan_zone: "选定的粪便管理计划区"
+    # selling_amount: "Selling amount incl. VAT"
     sender: "寄件人"
     sensor: "传感器"
     sensors: "传感器"
@@ -1547,6 +1597,7 @@ cmn:
     # source_product_movement: "Source product movement"
     # sowing_interval: "Sowing interval"
     spaced_iban: "间隔IBAN"
+    # special_imputation_asset_account: "Special imputation asset account"
     # specie: "Specie"
     sql_type: "SQL类型"
     # ssl: "SSL"
@@ -1659,7 +1710,6 @@ cmn:
     transports: "传输" #?
     trouble_description: "故障描述"
     trouble_encountered: "遇到麻烦"
-    # vat_account: "VAT account"
     type: "类型"
     # uid: "UID"
     unconfirmed_email: "未经证实的邮件"
@@ -1712,13 +1762,16 @@ cmn:
     variants: "变种"
     variety: "品种"
     variety_name: "品种名称"
+    # vat_account: "VAT account"
     vat_number: "增值税号"
     vat_subjected: "受增值税"
     vendor_euid: "供应商"
     verb: "动词"
     versions: "版本"
     view_parameters: "查看参数"
+    # waiting_asset_account: "Waiting asset account"
     waiting_deliveries: "等待分娩"
+    # waiting_on: "Registered to balance sheet on"
     websites: "网站"
     whole_duration: "整个期间"
     with_accounting: "会计"
@@ -1739,6 +1792,71 @@ cmn:
     working_zone_area: "工作区区域"
     zone_memberships: "会员区"
     zones: "区"
+  errors:
+    messages:
+      # accepted: "%{attribute} must be accepted"
+      # after: "%{attribute} must be after %{restriction}"
+      # already_confirmed: "was already confirmed, please try signing in"
+      # before: "%{attribute} must be before %{restriction}"
+      # blank: "%{attribute} can't be blank"
+      # can_only_have_two_years_opened: "You can have only have two financial years opened at the same time."
+      # confirmation: "%{attribute} doesn't match confirmation"
+      # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
+      # currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
+      # empty: "%{attribute} can't be empty"
+      # end_of_month: "%{attribute} should be at the end of the month"
+      # equal_to: "%{attribute} must be equal to %{count}"
+      # even: "%{attribute} must be even"
+      # exclusion: "%{attribute} is reserved"
+      # expired: "has expired, please request a new one"
+      # financial_year_exchange_on_this_period: "There is an opened accounting exchange at this date"
+      # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
+      # financial_year_not_found: "There is no financial year at this date"
+      # greater_than: "%{attribute} must be greater than %{count}"
+      # greater_than_or_equal_to: "%{attribute} must be greater than or equal to %{count}"
+      # harvest_in_progress: "Be careful, this crop is being harvested"
+      # included_in: "The value of %{attribute} must be included between %{minimum} and %{maximum}"
+      # inclusion: "%{attribute} is not included in the list"
+      # invalid: "%{attribute} is invalid"
+      # invalid_at: "%{attribute} is_invalid. Error near %{error}"
+      # invalid_child: "At least one value of %{attribute} is invalid."
+      # invalid_date: "%{attribute} is not a valid date"
+      # invalid_datetime: "%{attribute} is not a valid datetime"
+      # invalid_time: "%{attribute} is not a valid time"
+      # invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
+      # is: "%{attribute} must be a %{thing}"
+      # is_at: "%{attribute} must be at %{restriction}"
+      # less_than: "%{attribute} must be less than %{count}"
+      # less_than_or_equal_to: "%{attribute} must be less than or equal to %{count}"
+      # missing_bank_details_for_sepa: "Values for IBAN and/or Account owner are missing for the cash account selected."
+      # must_be_a_mail_address: "%{attribute} must be a mail address"
+      # no_opened_financial_year: "No financial year opened at this date"
+      # not_a_number: "%{attribute} is not a number"
+      # not_an_end_of_month: "%{attribute} must be an end of month"
+      # not_an_integer: "%{attribute} must be an integer"
+      # not_enough: "not enough %{resource} to complete task"
+      # not_found: "not found"
+      # not_locked: "was not locked"
+      # not_opened_financial_year: "An open accounting period is required"
+      not_saved:
+        # one: "1 error prohibited this %{resource} from being saved:"
+        # other: "%{count} errors prohibited this %{resource} from being saved:"
+      # nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
+      # odd: "%{attribute} must be odd"
+      # on_or_after: "%{attribute} must be on or after %{restriction}"
+      # on_or_after_field: "%{attribute} must be on or after %{restriction} (%{model} %{field})"
+      # on_or_before: "%{attribute} must be on or before %{restriction}"
+      # overlap: "%{attribute} overlaps an existing record"
+      # overlap_sibling: "%{attribute} overlaps sibling"
+      # posterior: "%{attribute} must be posterior to %{to}"
+      # record_invalid: "Validations failed: %{errors}"
+      # should_be_consecutive: "Financial years must be consecutive, therefore %{attribute} should be %{expected}."
+      # should_be_the_last_day_of_month: "%{attribute} should be the last day of the month."
+      # taken: "%{attribute} has already been taken"
+      # too_long: "%{attribute} is too long (maximum is %{count} characters)"
+      # too_short: "%{attribute} is too short (minimum is %{count} characters)"
+      # unitary_in_parcel: "Unitary items can only be sent one by one"
+      # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
   models:
     account:
       # label: "%{number} - %{name}"
@@ -1781,14 +1899,21 @@ cmn:
       # purchase_regularization: "Purchase regularization"
       # sale_regularization: "Sale regularization"
     delivery:
-      state_machine:
-        states:
-          draft: "草案"
-          finished: "完"
-          in_preparation: "在准备"
-          ordered: "有序"
-          prepared: "准备"
-          started: "入门"
+      state_machine: #?
+        states: #?
+          draft: "草案" #?
+          finished: "完" #?
+          in_preparation: "在准备" #?
+          ordered: "有序" #?
+          prepared: "准备" #?
+          started: "入门" #?
+      states:
+        # draft: "Draft"
+        # finished: "Finished"
+        # in_preparation: "In preparation"
+        # ordered: "Ordered"
+        # prepared: "Prepared"
+        # started: "Started"
     deposit:
       bookkeep:
         # one: "[%{resource} %{number}] %{count} payment %{mode} %{description}"
@@ -1815,12 +1940,19 @@ cmn:
       # bookkeep_exit_assets: "[%{resource} %{number}] Scrapped of %{name}"
       # bookkeep_in_sold_assets: "[%{resource} %{number}] Sold of %{name}"
       # bookkeep_in_use_assets: "[%{resource} %{number}] In use of %{name}"
-      state_machine:
-        states:
-          draft: "草案"
-          in_use: "正在使用"
-          scrapped: "报废"
-          sold: "出售"
+      # bookkeep_waiting_assets: "[%{resource} %{number}] On hold of %{name}"
+      state_machine: #?
+        states: #?
+          draft: "草案" #?
+          in_use: "正在使用" #?
+          scrapped: "报废" #?
+          sold: "出售" #?
+      states:
+        # draft: "Draft"
+        # in_use: "In use"
+        # scrapped: "Scrapped"
+        # sold: "Sold"
+        # waiting: "Waiting"
     fixed_asset_depreciation:
       # bookkeep: "[%{resource} %{number}] Depreciation of %{name} (%{position}/%{total})"
       # bookkeep_partial: "[%{resource} %{number}] Partial depreciation of %{name} (%{position}/%{total})"
@@ -1843,6 +1975,7 @@ cmn:
       mass: "块" #?
       net_mass: "块"
     intervention:
+      # bookkeep: "[%{resource}] %{name}"
       # name: "%{intervention} #%{number}"
     inventory:
       # bookkeep: "[%{resource}] %{number}"
@@ -1896,11 +2029,15 @@ cmn:
     loan:
       # bookkeep: "[%{resource} %{name}] Fund reception"
       # bookkeep_guarantee_payment: "[%{resource} %{name}] Guarantee payment"
-      state_machine:
-        states:
-          draft: "草案"
-          ongoing: "不断的"
-          repaid: "偿还"
+      state_machine: #?
+        states: #?
+          draft: "草案" #?
+          ongoing: "不断的" #?
+          repaid: "偿还" #?
+      states:
+        # draft: "Draft"
+        # ongoing: "Ongoing"
+        # repaid: "Repaid"
     loan_repayment:
       # bookkeep: "[%{resource} %{name}] Repayment #%{position}"
     outgoing_payment:
@@ -1916,14 +2053,21 @@ cmn:
           name: "转让"
     parcel:
       # bookkeep: "[%{resource} %{mode} %{number}] %{entity}"
-      state_machine:
-        states:
-          draft: "草案"
-          given: "特定"
-          in_preparation: "在准备"
-          ordered: "有序"
-          prepared: "准备"
-          received: "收到"
+      state_machine: #?
+        states: #?
+          draft: "草案" #?
+          given: "特定" #?
+          in_preparation: "在准备" #?
+          ordered: "有序" #?
+          prepared: "准备" #?
+          received: "收到" #?
+      states:
+        # draft: "Draft"
+        # given: "Given"
+        # in_preparation: "In preparation"
+        # ordered: "Ordered"
+        # prepared: "Prepared"
+        # received: "Received"
       # undelivered_invoice: "Undelivered invoice [%{resource} %{mode} %{number}] %{entity}"
     payslip:
       # bookkeep: "[%{resource} %{number}] %{employee} from %{started_on} to %{stopped_on}"
@@ -1991,14 +2135,14 @@ cmn:
       # label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
     reception:
       # bookkeep: "[%{resource} %{number}] %{entity}"
-      state_machine:
-        states:
-          # draft: "Draft"
-          # given: "Given"
-          # in_preparation: "In preparation"
-          # ordered: "Ordered"
-          # prepared: "Prepared"
-          # received: "Received"
+      states:
+        # draft: "Draft"
+        # given: "Given"
+        # in_preparation: "In preparation"
+        # ordered: "Ordered"
+        # prepared: "Prepared"
+        # received: "Received"
+      # undelivered_invoice: "Undelivered invoice [%{resource} %{mode} %{number}] %{entity}"
     role:
       default:
         administrator: "管理员"
@@ -2043,15 +2187,22 @@ cmn:
       default:
         name: "标准销售"
     sale_opportunity:
-      state_machine:
-        states:
-          lost: "丢失"
-          # negociation: "Negociation"
-          price_quote: "报价"
-          prospecting: "勘探"
-          qualification: "合格"
-          value_proposition: "价值主张"
-          won: "韩元"
+      state_machine: #?
+        states: #?
+          lost: "丢失" #?
+          price_quote: "报价" #?
+          prospecting: "勘探" #?
+          qualification: "合格" #?
+          value_proposition: "价值主张" #?
+          won: "韩元" #?
+      states:
+        # lost: "Lost"
+        # negociation: "Negociation"
+        # price_quote: "Price quote"
+        # prospecting: "Prospecting"
+        # qualification: "Qualification"
+        # value_proposition: "Value proposition"
+        # won: "Won"
     sequence:
       default:
         affairs: "A[number|12]"
@@ -2080,27 +2231,29 @@ cmn:
         transports: "TR[number|8]"
     shipment:
       # bookkeep: "[%{resource} %{number}] %{entity}"
-      state_machine:
-        states:
-          # draft: "Draft"
-          # given: "Given"
-          # in_preparation: "In preparation"
-          # ordered: "Ordered"
-          # prepared: "Prepared"
-          # received: "Received"
+      states:
+        # draft: "Draft"
+        # given: "Given"
+        # in_preparation: "In preparation"
+        # ordered: "Ordered"
+        # prepared: "Prepared"
+        # received: "Received"
     task:
-      state_machine:
-        states:
-          doing: "干"
-          done: "做"
-          todo: "去做"
+      state_machine: #?
+        states: #?
+          doing: "干" #?
+          done: "做" #?
+          todo: "去做" #?
+      states:
+        # doing: "Doing"
+        # done: "Done"
+        # todo: "To do"
     tax_declaration:
       # bookkeep: "[%{resource} %{number}] From %{started_on} to %{stopped_on}"
-      state_machine:
-        states:
-          # draft: "Draft"
-          # sent: "Sent"
-          # validated: "Validated"
+      states:
+        # draft: "Draft"
+        # sent: "Sent"
+        # validated: "Validated"
     team:
       default: "主队"
     user:

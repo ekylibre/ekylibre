@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -67,8 +68,8 @@ class PurchasePaymentTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'delete outgoing payment delete journal entry' do
     now = Time.new(2016, 11, 17, 19)
     currency = FinancialYear.at(now).currency
-    main = Account.find_or_create_by_number('512INR001')
-    suspense = Account.find_or_create_by_number('511INR001')
+    main = Account.find_or_create_by_number('512INR1')
+    suspense = Account.find_or_create_by_number('511INR1')
 
     cash = Cash.create!(
       name: 'Namaste Bank',
@@ -84,7 +85,7 @@ class PurchasePaymentTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     payer = Entity.normal.find_by!(client: true)
     responsible = User.find(1)
 
-    payment = PurchasePayment.create!(mode: mode, payee: payer, amount: 504.12, delivered: true, currency: currency, cash: cash, responsible: responsible, to_bank_at: Time.now)
+    payment = PurchasePayment.create!(mode: mode, payee: payer, amount: 504.12, delivered: true, currency: currency, cash: cash, responsible: responsible, to_bank_at: DateTime.new(2018, 1, 1))
 
     assert_not_nil payment
     assert_equal 504.12, payment.amount

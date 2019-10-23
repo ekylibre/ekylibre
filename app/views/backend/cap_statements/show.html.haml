@@ -44,12 +44,11 @@
         = cobble_list(:cap_land_parcels)
 
   - b = CapIslet.bounding_box(resource.cap_islets)
-  - r = RegisteredWaterRiver.in_bounding_box(b)
-  - l = RegisteredWaterLake.in_bounding_box(b)
+  - h = RegisteredHydroItem.in_bounding_box(b)
   - z = RegisteredBuildingZone.in_bounding_box(b)
   - if resource.cap_land_parcels.any?
     - j.face :map do
-      - cache resource.cap_land_parcels + resource.cap_islets + r.pluck(:name) + l.pluck(:name) + z.pluck(:centroid) do
+      - cache resource.cap_land_parcels + resource.cap_islets + h.pluck(:name) + z.pluck(:centroid) do
         :ruby
           land_parcels = resource.cap_land_parcels.collect do |p|
             next unless p.shape
@@ -85,29 +84,23 @@
             "SELECT ST_AsGeoJSON(ST_COLLECT(buildings.shape)) AS shape
               FROM (#{z.select(:shape).to_sql}) AS buildings;").first["shape"]
 
-          water_rivers_shape = ActiveRecord::Base.connection.execute(
-            "SELECT ST_AsGeoJSON(ST_COLLECT(rivers.shape)) AS shape
-              FROM (#{r.select(:shape).to_sql}) AS rivers;").first["shape"]
-
-          water_lakes_shape = ActiveRecord::Base.connection.execute(
-            "SELECT ST_AsGeoJSON(ST_COLLECT(lakes.shape)) AS shape
-              FROM (#{l.select(:shape).to_sql}) AS lakes;").first["shape"]
+          water_hydro_items_shape = ActiveRecord::Base.connection.execute(
+            "SELECT ST_AsGeoJSON(ST_COLLECT(hydro.shape)) AS shape
+              FROM (#{h.select(:shape).to_sql}) AS hydro;").first["shape"]
 
           building_zones = [{name: "Building", shape: ::Charta.new_geometry(buildings_shape).buffer(50)}]
-          water_rivers_zones = [{name: "Rivers", shape: ::Charta.new_geometry(water_rivers_shape).buffer(50)}]
-          water_lakes_zones = [{name: "Lakes", shape: ::Charta.new_geometry(water_lakes_shape).buffer(50)}]
+          water_hydro_items_zones = [{name: "Rivers", shape: ::Charta.new_geometry(water_hydro_items_shape).buffer(50)}]
 
         = visualization({box: {height: "100%"}}, class: 'map-fullwidth') do |v|
           - v.serie :land_parcels, land_parcels
           - v.serie :islets, islets
-          - v.serie :water_rivers, water_rivers_zones if water_rivers_shape
-          - v.serie :water_lakes, water_lakes_zones if water_lakes_shape
+          - v.serie :waters, water_hydro_items_zones if water_hydro_items_zones
           - v.serie :building_zones, building_zones
           -# v.serie :neutral_area_category, neutral_areas
           -# v.categories :category_code, :neutral_areas
           - v.simple :cap_islets, :islets
-          - v.simple :water_rivers, :water_rivers, fill_color: 'blue' if water_rivers_shape
-          - v.simple :water_lakes, :water_lakes, fill_color: 'blue' if water_lakes_shape
+          - v.simple :waters, :waters, fill_color: 'blue' if water_hydro_items_zones
+          -#- v.simple :water_lakes, :water_lakes, fill_color: 'blue' if water_lakes_shape
           - v.simple :building_zones, :building_zones, fill_color: 'yellow', without_ghost_label: true
           - v.categories :main_crop_code, :land_parcels
           - v.control :zoom

@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -24,6 +25,7 @@
 #
 #  activity_budget_id            :integer
 #  analysis_id                   :integer
+#  annotation                    :text
 #  created_at                    :datetime         not null
 #  creator_id                    :integer
 #  currency                      :string
@@ -77,9 +79,9 @@ class ReceptionItem < ParcelItem
 
   enumerize :role, in: %i[merchandise fees service], predicates: true
 
-  validates :product_name, presence: { if: -> { product_is_identifiable? } }
+  validates :product_name, :product_identification_number, presence: { if: -> { product_is_identifiable? } }
 
-  delegate :allow_items_update?, :remain_owner, :planned_at,
+  delegate :allow_items_update?, :planned_at,
            :ordered_at, :recipient, :in_preparation_at,
            :prepared_at, :given_at,
            :separated_stock?, :currency, :number, to: :reception, prefix: true
@@ -148,10 +150,7 @@ class ReceptionItem < ParcelItem
   # Mark items as given, and so change enjoyer and ownership if needed at
   # this moment.
   def give
-    transaction do
-      give_outgoing if reception.outgoing?
-      check_incoming if reception.incoming?
-    end
+    check_incoming
   end
 
   protected
@@ -161,15 +160,19 @@ class ReceptionItem < ParcelItem
 
       # Create a matter for each storing
       storings.each do |storing|
-        product_params = {}
-        product_params[:name] = product_name || "#{variant.name} (#{reception.number})"
-        product_params[:identification_number] = product_identification_number
-        product_params[:work_number] = product_work_number
-        product_params[:initial_born_at] = [reception_prepared_at, reception_given_at].compact.min
+        product_params = {
+          name: product_name || "#{variant.name} (#{reception.number})",
+          identification_number: product_identification_number,
+          work_number: product_work_number,
+          initial_born_at: [reception_prepared_at, reception_given_at].compact.min
+        }
+
         product = existing_reception_product_in_storage(storing) if fusing
         product ||= variant.create_product(product_params)
+
         storing.update(product: product)
         return false, product.errors if product.errors.any?
+
         ProductMovement.create!(product: product, delta: storing.quantity, started_at: reception_given_at, originator: self) unless product_is_unitary?
         ProductLocalization.create!(product: product, nature: :interior, container: storing.storage, started_at: reception_given_at, originator: self)
         ProductEnjoyment.create!(product: product, enjoyer: Entity.of_company, nature: :own, started_at: reception_given_at, originator: self)

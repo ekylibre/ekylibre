@@ -1,8 +1,7 @@
 = main_informations do
   - if @document.file.exists?
     .picture
-      - file_format = @document.file_content_type == "application/xml" ? :xml : :pdf
-      = link_to(backend_document_path(@document, format: file_format), target: '_blank') do
+      = link_to(backend_document_path(@document, format: @file_format), target: '_blank') do
         = image_tag(backend_document_path(@document, format: :jpg))
       .archived-at= @document.created_at.l
       - if @document.template
@@ -12,6 +11,14 @@
     - l.attribute :nature
     - l.attribute :number
     - l.attribute :key
-    -# l.attribute :file_pages_count
+    - l.attribute :mandatory
+    - l.attribute :file_pages_count
     -# l.attribute :file_fingerprint
     -# l.attribute :file_content_text
+
+  - if @document.mandatory
+    .signature-infos
+      .signature-title= :fingerprint_sha256.tl
+      = @document.sha256_fingerprint
+      .signature-title= t('labels.signature_html', url: "#{FinancialYearArchive::PUBLIC_KEY_URL}?signature=#{@document.signature.gsub(/\n/, '¤').gsub(/\+/, '§')}")
+      = @document.signature.gsub(/\n/, '<br />').html_safe

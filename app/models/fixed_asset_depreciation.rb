@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -58,7 +59,10 @@ class FixedAssetDepreciation < Ekylibre::Record::Base
   delegate :currency, :number, to: :fixed_asset
 
   scope :with_active_asset, -> { joins(:fixed_asset).where(locked: false, fixed_assets: { state: :in_use }) }
+  scope :not_accountable, -> { where(accountable: false) }
+  scope :not_locked, -> { where(locked: false) }
   scope :up_to, ->(date) { where('fixed_asset_depreciations.stopped_on <= ?', date) }
+
   scope :with_active_asset_up_to, lambda { |date|
     joins(:fixed_asset)
       .where('fixed_asset_depreciations.accountable = false AND fixed_asset_depreciations.locked = false AND fixed_asset_depreciations.stopped_on <= ? AND fixed_assets.state = ?', date, :in_use)
@@ -66,20 +70,12 @@ class FixedAssetDepreciation < Ekylibre::Record::Base
 
   sums :fixed_asset, :depreciations, amount: :depreciated_amount
 
-  bookkeep do |b|
-    if fixed_asset.in_use?
-      b.journal_entry(fixed_asset.journal, printed_on: stopped_on.end_of_month, if: accountable && !locked) do |entry|
-        name = tc(:bookkeep, resource: FixedAsset.model_name.human, number: fixed_asset.number, name: fixed_asset.name, position: position, total: fixed_asset.depreciations.count)
-        entry.add_debit(name, fixed_asset.expenses_account, amount)
-        entry.add_credit(name, fixed_asset.allocation_account, amount)
-      end
-    elsif fixed_asset.sold? || fixed_asset.scrapped?
-      b.journal_entry(fixed_asset.journal, printed_on: stopped_on.end_of_month, if: accountable && !locked) do |entry|
-        name = tc(:bookkeep_partial, resource: FixedAsset.model_name.human, number: fixed_asset.number, name: fixed_asset.name, position: position, total: fixed_asset.depreciations.count)
-        entry.add_debit(name, fixed_asset.expenses_account, amount)
-        entry.add_credit(name, fixed_asset.allocation_account, amount)
-      end
-    end
+  bookkeep
+
+  after_initialize do
+    next if persisted?
+
+    self.locked ||= false
   end
 
   before_validation do
@@ -91,13 +87,17 @@ class FixedAssetDepreciation < Ekylibre::Record::Base
 
   validate do
     # A start day must be the depreciation start or a financial year start
-    if fixed_asset&.started_on && financial_year
-      unless started_on == fixed_asset.started_on ||
-             started_on == financial_year.started_on ||
-             started_on == started_on.beginning_of_month
-        errors.add(:started_on, :invalid_date, start: fixed_asset.started_on)
-      end
+    if financial_year &&
+      fixed_asset&.started_on &&
+      started_on != fixed_asset.started_on &&
+      started_on != financial_year.started_on &&
+      started_on != started_on.beginning_of_month
+      errors.add(:started_on, :invalid_start_date, start: fixed_asset.started_on)
     end
+  end
+
+  def has_journal_entry?
+    !journal_entry.nil?
   end
 
   # Returns the duration of the depreciation

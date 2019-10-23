@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -57,7 +58,7 @@ class DebtTransferTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     def exec_test_debt_transfer(sale_amount, purchase_amount, transferred, sale_remaining, purchase_remaining)
       ### sale
       sale_nature = SaleNature.first
-      sale = Sale.create!(nature: sale_nature, client: Entity.normal.first)
+      sale = Sale.create!(nature: sale_nature, client: Entity.normal.first, invoiced_at: DateTime.new(2018, 1, 1))
       variants = ProductNatureVariant.where(nature: ProductNature.where(population_counting: :decimal))
 
       options = {
@@ -76,7 +77,7 @@ class DebtTransferTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
       ### purchase
       purchase_nature = PurchaseNature.first
-      purchase = PurchaseInvoice.create!(nature: purchase_nature, supplier: Entity.normal.first)
+      purchase = PurchaseInvoice.create!(nature: purchase_nature, supplier: Entity.normal.first, invoiced_at: DateTime.new(2018, 1, 1))
       purchase.items.create!(variant: variants.first, quantity: 1, unit_pretax_amount: purchase_amount, tax: tax)
 
       # just to avoid false negative

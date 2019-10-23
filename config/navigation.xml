@@ -108,7 +108,6 @@
         <page to="backend/journals#list_items"/>
         <page to="backend/journals#list_mixed"/>
         <page to="backend/journals#new"/>
-        <page to="backend/journals#reopen"/>
         <page to="backend/journals#show"/>
         <page to="backend/journals#unroll"/>
         <page to="backend/journals#update"/>
@@ -131,11 +130,10 @@
         <page to="backend/regularizations#create"/>
         <page to="backend/regularizations#destroy"/>
         <page to="backend/regularizations#show"/>
-      </item>
-      <item name="draft">
         <page to="backend/draft_journals#show"/>
         <page to="backend/draft_journals#confirm"/>
         <page to="backend/draft_journals#list_journal_entry_items"/>
+        <page to="backend/invalid_journal_entries#index"/>
       </item>
       <item name="reconciliation">
         <page to="backend/accounts#reconciliation"/>
@@ -149,8 +147,34 @@
         <page to="backend/trial_balances#show"/>
       </item>
       <item name="general_ledger">
+        <page to="backend/general_ledgers#index"/>
         <page to="backend/general_ledgers#show"/>
-        <page to="backend/general_ledgers#list_journal_entry_items"/>
+        <page to="backend/general_ledgers#list_journal_entry_items" nonexistent="true"/>
+      </item>
+      <item name="financial_years">
+        <page to="backend/financial_years#index"/>
+        <page to="backend/financial_years#close"/>
+        <page to="backend/financial_years#compute_balances"/>
+        <page to="backend/financial_years#create"/>
+        <page to="backend/financial_years#destroy"/>
+        <page to="backend/financial_years#edit"/>
+        <page to="backend/financial_years#list"/>
+        <page to="backend/financial_years#list_account_balances"/>
+        <page to="backend/financial_years#list_exchanges"/>
+        <page to="backend/financial_years#list_fixed_asset_depreciations"/>
+        <page to="backend/financial_years#lock"/>
+        <page to="backend/financial_years#new"/>
+        <page to="backend/financial_years#show"/>
+        <page to="backend/financial_years#unroll"/>
+        <page to="backend/financial_years#update"/>
+        <page to="backend/financial_year_exchanges#new"/>
+        <page to="backend/financial_year_exchanges#create"/>
+        <page to="backend/financial_year_exchanges#list_journal_entries"/>
+        <page to="backend/financial_year_exchanges#show"/>
+        <page to="backend/financial_year_exchanges#journal_entries_export"/>
+        <page to="backend/financial_year_exchanges#journal_entries_import"/>
+        <page to="backend/financial_year_exchanges#notify_accountant"/>
+        <page to="backend/financial_year_exchanges#close"/>
       </item>
     </group>
     <group name="fixed_assets" icon="home">
@@ -217,6 +241,7 @@
         <page to="backend/bank_statement_items#create"/>
         <page to="backend/bank_statement_items#destroy"/>
         <page to="backend/bank_statement_items#new"/>
+        <page to="backend/bank_statement_items#show"/>
         <page to="backend/bank_reconciliation/letters#create"/>
         <page to="backend/bank_reconciliation/letters#destroy"/>
         <page to="backend/bank_reconciliation/gaps#create"/>
@@ -249,6 +274,7 @@
         <page to="backend/loan_repayments#edit"/>
         <page to="backend/loan_repayments#new"/>
         <page to="backend/loan_repayments#update"/>
+        <page to="backend/loan_repayments#create"/>
       </item>
       <item name="cash_transfers">
         <page to="backend/cash_transfers#index"/>
@@ -1442,35 +1468,11 @@
         <page to="backend/accounts#list_entities"/>
         <page to="backend/accounts#list_journal_entry_items"/>
         <page to="backend/accounts#list_product_nature_variants"/>
-        <page to="backend/accounts#load"/>
+        <page to="backend/accounts#load" nonexistent="true"/>
         <page to="backend/accounts#new"/>
         <page to="backend/accounts#show"/>
         <page to="backend/accounts#unroll"/>
         <page to="backend/accounts#update"/>
-      </item>
-      <item name="financial_years">
-        <page to="backend/financial_years#index"/>
-        <page to="backend/financial_years#close"/>
-        <page to="backend/financial_years#compute_balances"/>
-        <page to="backend/financial_years#create"/>
-        <page to="backend/financial_years#destroy"/>
-        <page to="backend/financial_years#edit"/>
-        <page to="backend/financial_years#list"/>
-        <page to="backend/financial_years#list_account_balances"/>
-        <page to="backend/financial_years#list_exchanges"/>
-        <page to="backend/financial_years#list_fixed_asset_depreciations"/>
-        <page to="backend/financial_years#new"/>
-        <page to="backend/financial_years#show"/>
-        <page to="backend/financial_years#unroll"/>
-        <page to="backend/financial_years#update"/>
-        <page to="backend/financial_year_exchanges#new"/>
-        <page to="backend/financial_year_exchanges#create"/>
-        <page to="backend/financial_year_exchanges#list_journal_entries"/>
-        <page to="backend/financial_year_exchanges#show"/>
-        <page to="backend/financial_year_exchanges#journal_entries_export"/>
-        <page to="backend/financial_year_exchanges#journal_entries_import"/>
-        <page to="backend/financial_year_exchanges#notify_accountant"/>
-        <page to="backend/financial_year_exchanges#close"/>
       </item>
       <item name="taxes">
         <page to="backend/taxes#index"/>
@@ -1598,7 +1600,7 @@
         <page to="backend/product_nature_variants#list_catalog_items"/>
         <page to="backend/product_nature_variants#list_products"/>
         <page to="backend/product_nature_variants#list_sale_items"/>
-        <page to="backend/product_nature_variants#list_parcel_items"/>
+        <page to="backend/product_nature_variants#list_parcel_items" nonexistent="true"/>
         <page to="backend/product_nature_variants#unroll"/>
         <page to="backend/product_nature_variants#list_components"/>
         <page to="backend/product_nature_variant_components#autocomplete"/>
@@ -2190,14 +2192,54 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
+      <item name="account_balances">
+        <page to="backend/account_balances#show"/>
+      </item>
       <item name="accounts">
+        <page to="backend/accounts#filter_select_collection"/>
         <page to="backend/accounts#reconciliable_list"/>
+      </item>
+      <item name="draft_journals">
+        <page to="backend/draft_journals#confirm_all"/>
+        <page to="backend/draft_journals#list"/>
+      </item>
+      <item name="financial_year_archives">
+        <page to="backend/financial_year_archives#create"/>
+      </item>
+      <item name="financial_year_closure_preparations">
+        <page to="backend/financial_year_closure_preparations#create"/>
+        <page to="backend/financial_year_closure_preparations#destroy"/>
+      </item>
+      <item name="financial_years">
+        <page to="backend/financial_years#destroy_all_empty"/>
+        <page to="backend/financial_years#run_progress"/>
+      </item>
+      <item name="fixed_assets">
+        <page to="backend/fixed_assets#link_to_sale"/>
+        <page to="backend/fixed_assets#stand_by"/>
+      </item>
+      <item name="general_ledgers">
+        <page to="backend/general_ledgers#archive_report"/>
+        <page to="backend/general_ledgers#archive_report_template"/>
+        <page to="backend/general_ledgers#find_open_document_template"/>
+        <page to="backend/general_ledgers#generate_document"/>
+        <page to="backend/general_ledgers#generate_report"/>
+        <page to="backend/general_ledgers#generate_report_file"/>
+        <page to="backend/general_ledgers#list_centralized_ledger_accounts"/>
+        <page to="backend/general_ledgers#list_subledger_accounts"/>
+        <page to="backend/general_ledgers#list_subledger_journal_entry_items"/>
+        <page to="backend/general_ledgers#mask_draft_items"/>
+        <page to="backend/general_ledgers#mask_lettered_items"/>
       </item>
       <item name="interventions">
         <page to="backend/interventions#compare_realised_with_planned"/>
         <page to="backend/interventions#create_duplicate_intervention"/>
         <page to="backend/interventions#duplicate_interventions"/>
         <page to="backend/interventions#generate_buttons"/>
+      </item>
+      <item name="invalid_journal_entries">
+        <page to="backend/invalid_journal_entries#delete_all"/>
+        <page to="backend/invalid_journal_entries#list"/>
       </item>
       <item name="land_parcels">
         <page to="backend/land_parcels#list_interventions"/>
@@ -2207,7 +2249,16 @@
         <page to="backend/outgoing_payment_modes#sepa"/>
       </item>
       <item name="product_nature_variants">
+        <page to="backend/product_nature_variants#list_purchase_invoice_items"/>
+        <page to="backend/product_nature_variants#list_purchase_order_items"/>
+        <page to="backend/product_nature_variants#list_receptions"/>
+        <page to="backend/product_nature_variants#list_shipments"/>
+        <page to="backend/product_nature_variants#list_suppliers"/>
         <page to="backend/product_nature_variants#storage_detail"/>
+        <page to="backend/product_nature_variants#unroll_saleables"/>
+      </item>
+      <item name="purchases">
+        <page to="backend/purchases#show"/>
       </item>
       <item name="shipments">
         <page to="backend/shipments#invoice"/>

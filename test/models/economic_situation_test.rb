@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -40,8 +41,8 @@ require 'test_helper'
 class EconomicSituationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   setup do
     @entity = Entity.create!(first_name: 'John', last_name: 'Doe')
-    @client_account = Account.create!(name: 'John the client', number: '411123')
-    @supplier_account = Account.create!(name: 'John the supplier', number: '401123')
+    @client_account = create(:account, :client)
+    @supplier_account = create(:account, :supplier)
     trash_account = Account.create!(name: 'Just needed', number: '666')
     @entity.update(client: true, client_account: @client_account)
     @entity.update(supplier: true, supplier_account: @supplier_account)
@@ -51,6 +52,7 @@ class EconomicSituationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtur
 
 
     Purchase.create!(
+      invoiced_at: DateTime.new(2018, 1, 1),
       currency: 'EUR',
       type: 'PurchaseInvoice',
       supplier: @entity,
@@ -130,7 +132,7 @@ class EconomicSituationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtur
       journal: Journal.create!(name: 'JournalTest', code: 'TKT'),
       real_currency: 'EUR',
       number: '0420',
-      printed_on: Time.now,
+      printed_on: DateTime.new(2018, 1, 1),
       items_attributes: [
         {
           real_credit: 10,
@@ -152,7 +154,7 @@ class EconomicSituationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtur
       journal: Journal.create!(name: 'Yolo', code: 'Swag'),
       real_currency: 'EUR',
       number: '0420',
-      printed_on: Time.now,
+      printed_on: DateTime.new(2018, 1, 1),
       items_attributes: [
         {
           real_debit: 7,

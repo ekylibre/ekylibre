@@ -40,6 +40,7 @@ module Backend
       t.column :main_account, url: true
       t.column :suspense_account, url: true
       t.column :journal, url: true
+      t.column :last_bank_statement_stopped_on, datatype: :date, label: :last_bank_statement_stopped_on
     end
 
     list(:bank_statements, conditions: { cash_id: 'params[:id]'.c }, order: { started_on: :desc }) do |t|
@@ -54,6 +55,8 @@ module Backend
       t.column :stopped_on
       t.column :debit, currency: true
       t.column :credit, currency: true
+      t.column :remaining_items_to_reconcile, label: :remaining_items_to_reconcile
+      t.column :remaining_amount_to_reconcile, currency: true, label: :remaining_amount_to_reconcile
     end
 
     list(:deposits, conditions: { cash_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|

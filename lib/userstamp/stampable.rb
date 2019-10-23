@@ -66,8 +66,8 @@ module Userstamp
           belongs_to(:creator, class_name: klass, foreign_key: creator_attribute)
           belongs_to(:updater, class_name: klass, foreign_key: updater_attribute)
 
-          before_save :set_updater_attribute
-          before_create :set_creator_attribute
+          before_validation :set_updater_attribute
+          before_validation :set_creator_attribute, on: :create
 
           # if self.respond_to?(:columns_definition) && self.columns_definition[:deleter_id]
           #   belongs_to(:deleter, , class_name: klass, foreign_key: deleter_attribute)

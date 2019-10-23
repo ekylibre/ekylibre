@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -85,6 +86,7 @@ class TaxDeclarationItem < Ekylibre::Record::Base
 
   def generate_debit_parts
     entry_items = JournalEntryItem
+                  .where(financial_year_id: tax_declaration.financial_year_id)
                   .where('printed_on <= ? ', stopped_on)
                   .where(tax_declaration_mode: 'debit')
                   .where(tax: tax)
@@ -135,13 +137,15 @@ class TaxDeclarationItem < Ekylibre::Record::Base
       AND jei.tax_id = ?
       AND jei.account_id = ?
       AND jei.resource_type != ?
+      AND jei.financial_year_id = ?
     SQL
 
     conditions_sql_values = [
       'payment',
       tax.id,
       account_id,
-      'TaxDeclarationItem'
+      'TaxDeclarationItem',
+      tax_declaration.financial_year_id
     ]
 
     conditions = [conditions_sql] + conditions_sql_values

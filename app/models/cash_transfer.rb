@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -65,7 +66,9 @@ class CashTransfer < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :emission_currency, :reception_currency, length: { allow_nil: true, maximum: 3 }
   validates :emission_amount, numericality: { greater_than: 0.0 }
-  validates :transfered_at, presence: true
+  validates :transfered_at, presence: true, financial_year_writeable: true
+
+
 
   before_validation do
     self.transfered_at ||= Time.zone.today
@@ -85,10 +88,13 @@ class CashTransfer < Ekylibre::Record::Base
 
   validate do
     errors.add(:reception_cash_id, :invalid) if reception_cash_id == emission_cash_id
+    if transfered_at
+      errors.add(:transfered_at, :financial_year_exchange_on_this_period) if transfered_during_financial_year_exchange?
+    end
   end
 
   bookkeep do |b|
-    transfer_account = Account.find_in_nomenclature(:internal_transfers)
+    transfer_account = Account.find_by(usages: :internal_transfers)
     label = tc(:bookkeep, resource: self.class.model_name.human, number: number, description: description, emission: emission_cash.name, reception: reception_cash.name)
     b.journal_entry(emission_cash.journal, printed_on: self.transfered_at.to_date, as: :emission) do |entry|
       entry.add_debit(label, transfer_account.id, emission_amount, as: :transfer)
@@ -98,5 +104,17 @@ class CashTransfer < Ekylibre::Record::Base
       entry.add_debit(label, reception_cash.account_id, reception_amount, as: :receiver)
       entry.add_credit(label, transfer_account.id, reception_amount, as: :transfer)
     end
+  end
+
+  def transfered_during_financial_year_exchange?
+    FinancialYearExchange.opened.where('? BETWEEN started_on AND stopped_on', transfered_at).any?
+  end
+
+  def opened_financial_year?
+    FinancialYear.on(transfered_at)&.opened?
+  end
+
+  def transferred_during_financial_year_closure_preparation?
+    FinancialYear.on(transfered_at)&.closure_in_preparation?
   end
 end

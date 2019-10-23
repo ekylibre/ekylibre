@@ -118,7 +118,7 @@ module Backend
       ActiveRecord::Base.transaction do
         can_be_saved =  record.new_record? ? record.createable? : record.updateable?
 
-        if can_be_saved && (options[:saved] || record.save)
+        if can_be_saved && (options[:saved] || record.save(context: options[:context]))
           response.headers['X-Return-Code'] = 'success'
           response.headers['X-Saved-Record-Id'] = record.id.to_s
           if params[:dialog]
@@ -272,13 +272,22 @@ module Backend
       redirect_to_back(options.merge(direct: true))
     end
 
-    def fire_event(event)
+    def fire_event(event, **options)
       return unless record = find_and_check
+
+      state = do_fire_event record, event
+      redirect_to params[:redirect] || { action: :show, id: record.id }
+
+      record
+    end
+
+    def do_fire_event(record, event)
       state, msg = record.send(event)
       if state == false && msg.respond_to?(:map)
         notify_error(map.collect(&:messages).map(&:values).flatten.join(', '))
       end
-      redirect_to params[:redirect] || { action: :show, id: record.id }
+
+      state
     end
 
     class << self
@@ -381,6 +390,15 @@ module Backend
         code.c
       end
 
+      def account_crit(variable, conditions = 'c')
+        variable = "params[:#{variable}]" unless variable.is_a? String
+        code = ''
+        code << "if #{variable}[:account_number] \n"
+        code << %(#{conditions}[0] += " AND #{Account.table_name}.number = \#{Account.connection.quote(#{variable}[:account_number])}"\n)
+        code << "end \n"
+        code.c
+      end
+
       # accountancy -> crit_params
       def crit_params(hash)
         nh = {}
@@ -405,6 +423,43 @@ module Backend
         variable = "params[:#{variable}]" unless variable.is_a? String
         code = ''
         code << "#{conditions}[0] += ' AND '+JournalEntry.period_condition(#{variable}[:period], #{variable}[:started_on], #{variable}[:stopped_on])\n"
+        code.c
+      end
+
+      def account_journal_period_crit(variable, conditions = 'c')
+        variable = "params[:#{variable}]" unless variable.is_a? String
+        code = ''
+        code << "subquery = JournalEntryItem.joins(:entry).where(JournalEntry.period_condition(#{variable}[:period], #{variable}[:started_on], #{variable}[:stopped_on])).select(:account_id).distinct(:account_id).to_sql \n"
+        code << "#{conditions}[0] += ' AND #{Account.table_name}.id IN ( '+ subquery +')'\n"
+        code.c
+      end
+
+      def centralizing_account_crit(variable, conditions = 'c')
+        variable = "params[:#{variable}]" unless variable.is_a? String
+        code = ''
+        code << "if #{variable}[:ledger] != 'general_ledger' && auxiliary_accounts = Account.get_auxiliary_accounts(#{variable}[:ledger])\n"
+        code << "  #{conditions}[0] += \" AND accounts.nature = 'auxiliary'\"\n"
+        code << "  #{conditions}[0] += \" AND accounts.id IN (\#{auxiliary_accounts.pluck(:id).join(', ')})\"\n"
+        code << "end\n"
+        code.c
+      end
+
+      def centralizing_account_journal_period_crit(variable, conditions = 'c')
+        variable = "params[:#{variable}]" unless variable.is_a? String
+        code = ''
+        code << "#{conditions}[0] += ' AND ' + JournalEntry.period_condition(#{variable}[:period], #{variable}[:started_on], #{variable}[:stopped_on])\n"
+        code.c
+      end
+
+      # accountancy -> ledger_crit
+      def ledger_crit(variable, conditions = 'c')
+        variable = "params[:#{variable}]" unless variable.is_a? String
+        code = ''
+        code << "if #{variable}[:ledger] == 'general_ledger'\n"
+        code << "  #{conditions}[0] += ' AND #{JournalEntryItem.table_name}.account_id IN ('+Account.general.select(:id).to_sql+')'\n"
+        code << "elsif centralizing_account = Account.find_by(number: #{variable}[:ledger])\n"
+        code << "  #{conditions}[0] += ' AND #{JournalEntryItem.table_name}.account_id IN ('+Account.where(centralizing_account_id: centralizing_account).select(:id).to_sql+')'\n"
+        code << "end\n"
         code.c
       end
 

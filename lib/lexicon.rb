@@ -13,7 +13,7 @@ module Lexicon
 
     def data_script
       if Rails.env == 'test'
-        Rails.root.join('test', 'fixtures-files', 'lexicon', 'data.sql')
+        Rails.root.join('test', 'fixture-files', 'data.sql')
       else
         Rails.root.join('db', 'lexicon', 'data.sql')
       end

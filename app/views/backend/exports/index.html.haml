@@ -1,11 +1,11 @@
 - heading_toolbar do
   = label_tag do
     = check_box_tag('value', 'true', user_preference_value(User::PREFERENCE_SHOW_EXPORT_PREVIEW, true), data: { remote: true, url: backend_preference_path(id: User::PREFERENCE_SHOW_EXPORT_PREVIEW), method: 'PATCH' })
-    = :show_export_preview.tl
-- export_categories.each do |category|
+    = :show_export_preview
+- @aggregators.each do |category, aggregators|
   .activity-family
     .activity-family-heading
       %h2.activity-family-title= category.human_name
     .activity-family-body
-      - Aggeratio.of_category(category.name).each do |aggregator|
+      - aggregators.each do |aggregator|
         = render 'export', aggregator: aggregator

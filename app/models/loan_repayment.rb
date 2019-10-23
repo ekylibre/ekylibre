@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -62,7 +63,7 @@ class LoanRepayment < Ekylibre::Record::Base
   }
 
   scope :bookkeepable_before, lambda { |limit_on|
-    where('accountable IS FALSE AND journal_entry_id IS NULL AND due_on <= ?', limit_on)
+    where('locked IS FALSE AND accountable IS FALSE AND journal_entry_id IS NULL AND due_on <= ?', limit_on)
   }
 
   before_validation do
@@ -75,6 +76,10 @@ class LoanRepayment < Ekylibre::Record::Base
   # Prevents from deleting if entry exist
   protect on: %i[destroy] do
     journal_entry
+  end
+
+  protect on: :update do
+    locked
   end
 
   bookkeep do |b|

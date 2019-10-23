@@ -1,9 +1,11 @@
-= backend_form_for(resource, url: backend_company_path) do |f|
+= backend_form_for(resource, url: backend_company_path, html: { class: 'company-edit-form', 'data-confirm-account-digits' => :are_you_sure_you_want_to_change_account_digits.tl }) do |f|
   - if params[:redirect]
     = hidden_field_tag(:redirect, params[:redirect])
   - f.add(:submit, :update.tl, data: {disable_with: :please_wait.tl}, class: 'primary')
   = field_set :company do
     = f.input :last_name, label: Entity.human_attribute_name(:full_name)
+    // TODO: it should be rewritten when refers_to_lexicon is available
+    = f.input :legal_position_code, collection: RegisteredLegalPosition.all.map { |i| { "#{i.name['fra']} (#{i.code})" => i.code } }.reduce(:merge)
     = f.input :siret_number
     = f.input :language
     = f.input :activity_code
@@ -19,22 +21,23 @@
 
   - # NEVER SET currency and accounting_system HERE !!!
   = field_set :global_preferences do
-    = render 'preferences_form', list: [:country, :language, :currency]
+    = render 'preferences_form', list: [:country, :language, :currency], settable: true
     = field "currency_conversion_rate".tl, { datatype: :decimal, value: 1, name: "currency_change_rate" }, {label: {class: 'large-control-label'}, controls: {class: 'large-controls'}}
 
   = field_set :interface_preferences do
-    = render 'preferences_form', list: [:use_global_search]
+    = render 'preferences_form', list: [:use_global_search], settable: true
 
   = field_set :map_preferences do
-    = render 'preferences_form', list: [:map_measure_srs]
+    = render 'preferences_form', list: [:map_measure_srs], settable: true
 
   = field_set :accountancy_preferences do
-    = render 'preferences_form', list: [:bookkeep_automatically, :bookkeep_in_draft, :permanent_stock_inventory, :unbilled_payables, :detail_payments_in_deposit_bookkeeping, :use_entity_codes_for_account_numbers, :client_account_radix, :supplier_account_radix, :employee_account_radix, :default_depreciation_period]
+    = render 'preferences_form', list: [:permanent_stock_inventory, :unbilled_payables, :detail_payments_in_deposit_bookkeeping, :use_entity_codes_for_account_numbers, :client_account_radix, :supplier_account_radix, :employee_account_radix, :default_depreciation_period], settable: true
+    = render 'preferences_form', list: [:account_number_digits], settable: false
 
   = field_set :analytic_preferences do
-    = render 'preferences_form', list: [:distribute_sales_and_purchases_on_activities, :distribute_sales_and_purchases_on_teams]
+    = render 'preferences_form', list: [:distribute_sales_and_purchases_on_activities, :distribute_sales_and_purchases_on_teams], settable: true
 
   = field_set :sales_preferences do
-    = render 'preferences_form', list: [:sales_conditions]
+    = render 'preferences_form', list: [:sales_conditions], settable: true
 
   = f.actions

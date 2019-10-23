@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -92,6 +93,10 @@ class Loan < Ekylibre::Record::Base
   validates :insurance_account, presence: { if: -> { updateable? && insurance_percentage.present? && insurance_percentage.nonzero? } }
   validates :amount, numericality: { greater_than: 0 }
   validates :currency, match: { with: :cash }
+  validates :ongoing_at, financial_year_writeable: true, allow_blank: true
+
+  scope :drafts, -> { where(state: %w[draft]) }
+  scope :start_before, ->(date) { where('loans.ongoing_at <= ?', date.to_time) }
 
   state_machine :state, initial: :draft do
     state :draft
@@ -226,6 +231,12 @@ class Loan < Ekylibre::Record::Base
     r.remaining_amount
   end
 
+  def status
+    return :go if ongoing?
+    return :caution if draft?
+    return :stop if repaid?
+  end
+
   # why ? we have state machine ?
   def draft?
     state.to_sym == :draft
@@ -253,5 +264,9 @@ class Loan < Ekylibre::Record::Base
     self.repaid_at ||= repaid_at || Time.zone.now
     save!
     super
+  end
+
+  def editable?
+    updateable? && draft?
   end
 end

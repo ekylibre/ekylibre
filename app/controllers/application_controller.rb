@@ -17,6 +17,8 @@
 #
 
 class ApplicationController < ActionController::Base
+  include NotificationModule
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -103,65 +105,13 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def notify(message, options = {}, nature = :information, mode = :next)
-    options[:default] ||= []
-    options[:default] = [options[:default]] unless options[:default].is_a?(Array)
-    options[:default] << message.to_s.humanize
-    options[:scope] = 'notifications.messages'
-    nature = nature.to_s
-    notistore = (mode == :now ? flash.now : flash)
-    notistore[:notifications] = {} unless notistore[:notifications].is_a? Hash
-    notistore[:notifications][nature] = [] unless notistore[:notifications][nature].is_a? Array
-    notistore[:notifications][nature] << (message.is_a?(String) ? message : message.to_s.t(options))
-  end
-
-  def notify_error(message, options = {})
-    notify(message, options, :error)
-  end
-
-  def notify_warning(message, options = {})
-    notify(message, options, :warning)
-  end
-
-  def notify_success(message, options = {})
-    notify(message, options, :success)
-  end
-
-  def notify_now(message, options = {})
-    notify(message, options, :information, :now)
-  end
-
-  def notify_error_now(message, options = {})
-    notify(message, options, :error, :now)
-  end
-
-  def notify_warning_now(message, options = {})
-    notify(message, options, :warning, :now)
-  end
-
-  def notify_success_now(message, options = {})
-    notify(message, options, :success, :now)
-  end
-
-  def has_notifications?(nature = nil)
-    return false unless flash[:notifications].is_a? Hash
-    if nature.nil?
-      for nature, messages in flash[:notifications]
-        return true if messages.any?
-      end
-    elsif flash[:notifications][nature].is_a?(Array)
-      return true if flash[:notifications][nature].any?
-    end
-    false
-  end
-
   def set_theme
     @current_theme = 'tekyla'
   end
 
   # Initialize locale with params[:locale] or HTTP_ACCEPT_LANGUAGE
   def set_locale
-    if current_user && I18n.available_locales.include?(current_user.language.to_sym)
+    if current_user && current_user.language.present? && I18n.available_locales.include?(current_user.language.to_sym)
       I18n.locale = current_user.language
     else
       session[:locale] = params[:locale] if params[:locale]

@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,18 +23,29 @@
 #
 # == Table: registered_phytosanitary_usages
 #
-#  applications_count        :integer          not null
-#  applications_frequency    :jsonb
-#  description               :jsonb
-#  dose_quantity             :decimal(19, 4)   not null
-#  dose_unit                 :string
-#  dose_unit_name            :string
-#  pre_harvest_delay         :integer          not null
-#  product_id                :integer          not null
-#  specie                    :string           not null
-#  target_name               :jsonb
-#  treatment                 :jsonb
-#  untreated_buffer_distance :integer
+#  applications_count         :integer
+#  applications_frequency     :jsonb
+#  decision_date              :date
+#  description                :jsonb
+#  development_stage_max      :integer
+#  development_stage_min      :integer
+#  dose_quantity              :decimal(19, 4)
+#  dose_unit                  :string
+#  dose_unit_factor           :float
+#  dose_unit_name             :string
+#  ephy_usage_phrase          :string           not null
+#  id                         :string           not null, primary key
+#  pre_harvest_delay          :integer
+#  pre_harvest_delay_bbch     :integer
+#  product_id                 :integer          not null
+#  specie                     :string
+#  target_name                :jsonb
+#  treatment                  :jsonb
+#  untreated_buffer_aquatic   :integer
+#  untreated_buffer_arthropod :integer
+#  untreated_buffer_distance  :integer
+#  untreated_buffer_plants    :integer
+#  usage_conditions           :string
 #
 class RegisteredPhytosanitaryUsage < ActiveRecord::Base
   include Lexiconable

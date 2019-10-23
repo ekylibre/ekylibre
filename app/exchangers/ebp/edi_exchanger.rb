@@ -32,8 +32,21 @@ module EBP
             end
             line = line.encode('utf-8').split(/\;/)
             if line[0] == 'C'
-              unless Account.find_by(number: line[1])
-                Account.create!(number: line[1], name: line[2])
+              unless Account.find_by(number: [line[1], line[1].ljust(Preference[:account_number_digits], '0')])
+                # Attributes are set for a general account by default
+                attributes = {
+                  name: line[2],
+                  already_existing: true,
+                  nature: 'general',
+                  number: line[1]
+                }
+                if line[1].start_with?('401', '411')
+                  attributes[:centralizing_account_name] = line[1].start_with?('401') ? 'suppliers' : 'clients'
+                  attributes[:auxiliary_number] = line[1][3, line[1].length]
+                  attributes[:number] = line[1][0...3]
+                  attributes[:nature] = 'auxiliary'
+                end
+                Account.create!(attributes)
               end
             elsif line[0] == 'E'
               journal = Journal.create_with(name: line[3], nature: :various, closed_on: (started_on - 1.day).end_of_day).find_or_create_by!(code: line[3])
@@ -48,7 +61,9 @@ module EBP
                   items: []
                 }
               end
-              account = Account.create_with(name: line[1]).find_or_create_by!(number: line[1])
+              unless account = Account.find_by(number: [line[1], line[1].ljust(Preference[:account_number_digits], '0')])
+                account = Account.create!(name: line[1], number: line[1], already_existing: true)
+              end
               entries[number][:items] << JournalEntryItem.new_for(line[6], account, line[8].strip.to_f, letter: line[10], credit: (line[7] != 'D'))
             end
             w.check_point

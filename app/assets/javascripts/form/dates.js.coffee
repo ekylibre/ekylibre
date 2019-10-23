@@ -1,6 +1,5 @@
-(($) ->
-# Options
-
+((E, $) ->
+  # Options
   baseDateOptions = ($element) => $.extend {},
     locale: getLocale($element)
     dateFormat: 'Y-m-d'
@@ -43,13 +42,10 @@
       .flatpickr options
 
   # Watch for element insertion via javascript
-  observer = new MutationObserver (mutationList, observer) ->
-    for mutation of mutationList
-      $("input[type='date']", mutation.addedNodes).each -> enableDatePicker @
-      $("input[type='datetime']", mutation.addedNodes).each -> enableDatetimePicker @
-      $("input[type='daterange']", mutation.addedNodes).each -> enableDateRangePicker @
-
-  observer.observe(document, {childList: true, subtree: true})
+  E.onDOMElementAdded
+    "input[type='date']": ($element) => $element.each -> enableDatePicker @
+    "input[type='datetime']": ($element) => $element.each -> enableDatetimePicker @
+    "input[type='daterange']": ($element) => $element.each -> enableDateRangePicker @
 
   # Initializes date fields
   $(document).ready =>
@@ -57,4 +53,4 @@
     $("input[type='datetime']").each -> enableDatetimePicker @
     $("input[type='daterange']").each -> enableDateRangePicker @
 
-) jQuery
+) ekylibre, jQuery

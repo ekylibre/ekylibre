@@ -1,65 +1,81 @@
 fra:
-  errors:
-    messages: &error_messages
-      accepted: "%{attribute} doit être accepté"
-      after: "%{attribute} doit être après le %{restriction}"
-      before: "%{attribute} doit être avant le %{restriction}"
-      blank: "%{attribute} ne peut pas être vide"
-      confirmation: "%{attribute} est différent du champ de confirmation"
-      contains_blank_line: "%{attribute} contient une ligne vide" #?
-      contains_blank_page: "%{attribute} contient une page vide" #?
-      currency_does_not_match: "La devise de «\_%{attribute}\_» ne correspond pas celle attendue\_: %{currency}"
-      empty: "%{attribute} ne peut pas être vide"
-      entry_has_been_already_validated: "La pièce a été validée et ne peut plus être modifiée" #?
-      equal_to: "%{attribute} doit être égal à %{count}"
-      even: "%{attribute} doit être impair"
-      exclusion: "%{attribute} est reservé"
-      greater_than: "%{attribute} doit être plus grand que %{count}"
-      greater_than_or_equal_to: "%{attribute} doit être plus grand ou égal à %{count}"
-      included_in: "La valeur de %{attribute} doit être comprise entre %{minimum} et %{maximum}"
-      inclusion: "%{attribute} n’est pas inclus dans la liste"
-      invalid: "%{attribute} est invalide"
-      invalid_at: "%{attribute} est invalide. Erreur près de %{error}"
-      invalid_child: "Au moins une des valeurs de %{attribute} n'est pas valide."
-      invalid_date: "Veuillez saisir une date au format jj-mm-aaaa ou jj/mm/aaaa"
-      invalid_datetime: "%{attribute} est invalide"
-      invalid_siret: "%{value} n'est pas un numéro de SIRET valide" #?
-      invalid_syntax: "%{attribute} comporte des erreurs de syntaxe : %{errors}" #?
-      invalid_time: "%{attribute} est invalide"
-      invalid_token: "%{attribute} est invalide. Symbole inconnu %{error}. Les symboles acceptés sont %{accepted}."
-      is: "%{attribute} doit être un(e) %{thing}"
-      is_at: "%{attribute} doit être le %{restriction}"
-      less_than: "%{attribute} doit être inférieur à %{count}"
-      less_than_or_equal_to: "%{attribute} doit être inférieur ou égal à %{count}"
-      missing_bank_details_for_sepa: "Les valeurs IBAN et/ou Titulaire du compte sont manquantes pour la trésorerie sélectionnée."
-      must_be_a_mail_address: "%{attribute} doit être une adresse e-mail"
-      not_a_number: "%{attribute} n’est pas un nombre"
-      not_an_end_of_month: "%{attribute} doit être une fin de mois"
-      not_an_integer: "%{attribute} doit être un nombre entier"
-      nothing_to_pay: "Il n’y a rien à payer. Si vous voulez enregistrer un acompte, n’oubliez pas de le préciser."
-      odd: "%{attribute} doit être pair"
-      on_or_after: "%{attribute} doit être le ou après le %{restriction}"
-      on_or_before: "%{attribute} doit être le ou avant le %{restriction}"
-      overlap: "%{attribute} se trouve sur un enregistrement existant"
-      overlap_sibling: "%{attribute} se trouve sur une période d'un autre enregistrement"
-      period_overlap: "%{attribute} se trouve sur une période d’un enregistrement existant" #?
-      posterior: "%{attribute} doit être postérieure à %{to}"
-      record_invalid: "Validations échouées\_: %{errors}"
-      should_be_the_last_day_of_month: "%{attribute} doit être le dernier jour du mois."
-      taken: "%{attribute} a déjà été pris"
-      too_long: "%{attribute} est trop long (%{count} caractères maximum)"
-      too_short: "%{attribute} est trop court (%{count} caractères minimum)"
-      unitary_in_parcel: "Articles unitaires ne peuvent être envoyés un par un"
-      wrong_length: "%{attribute} n’est pas d’une bonne longueur (%{count} caractères)"
   activemodel:
     errors:
       messages:
-        <<: *error_messages
-      models: #?
-        sepa/credit_transfer_transaction: #?
-          attributes: #?
-            amount: #?
-              greater_than: "Le montant à payer doit être supérieur à zéro" #?
+        accepted: "%{attribute} doit être accepté"
+        after: "%{attribute} doit être après le %{restriction}"
+        # already_confirmed: "was already confirmed, please try signing in"
+        before: "%{attribute} doit être avant le %{restriction}"
+        blank: "%{attribute} ne peut pas être vide"
+        # can_only_have_two_years_opened: "You can have only have two financial years opened at the same time."
+        confirmation: "%{attribute} est différent du champ de confirmation"
+        # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
+        contains_blank_line: "%{attribute} contient une ligne vide" #?
+        contains_blank_page: "%{attribute} contient une page vide" #?
+        currency_does_not_match: "La devise de «\_%{attribute}\_» ne correspond pas celle attendue\_: %{currency}"
+        empty: "%{attribute} ne peut pas être vide"
+        # end_of_month: "%{attribute} should be at the end of the month"
+        entry_has_been_already_validated: "La pièce a été validée et ne peut plus être modifiée" #?
+        equal_to: "%{attribute} doit être égal à %{count}"
+        even: "%{attribute} doit être impair"
+        exclusion: "%{attribute} est reservé"
+        # expired: "has expired, please request a new one"
+        # financial_year_exchange_on_this_period: "There is an opened accounting exchange at this date"
+        # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
+        # financial_year_not_found: "There is no financial year at this date"
+        greater_than: "%{attribute} doit être plus grand que %{count}"
+        greater_than_or_equal_to: "%{attribute} doit être plus grand ou égal à %{count}"
+        # harvest_in_progress: "Be careful, this crop is being harvested"
+        included_in: "La valeur de %{attribute} doit être comprise entre %{minimum} et %{maximum}"
+        inclusion: "%{attribute} n’est pas inclus dans la liste"
+        invalid: "%{attribute} est invalide"
+        invalid_at: "%{attribute} est invalide. Erreur près de %{error}"
+        invalid_child: "Au moins une des valeurs de %{attribute} n'est pas valide."
+        invalid_date: "Veuillez saisir une date au format jj-mm-aaaa ou jj/mm/aaaa"
+        invalid_datetime: "%{attribute} est invalide"
+        invalid_siret: "%{value} n'est pas un numéro de SIRET valide" #?
+        invalid_syntax: "%{attribute} comporte des erreurs de syntaxe : %{errors}" #?
+        invalid_time: "%{attribute} est invalide"
+        invalid_token: "%{attribute} est invalide. Symbole inconnu %{error}. Les symboles acceptés sont %{accepted}."
+        is: "%{attribute} doit être un(e) %{thing}"
+        is_at: "%{attribute} doit être le %{restriction}"
+        less_than: "%{attribute} doit être inférieur à %{count}"
+        less_than_or_equal_to: "%{attribute} doit être inférieur ou égal à %{count}"
+        missing_bank_details_for_sepa: "Les valeurs IBAN et/ou Titulaire du compte sont manquantes pour la trésorerie sélectionnée."
+        models: #?
+          sepa/credit_transfer_transaction: #?
+            attributes: #?
+              amount: #?
+                greater_than: "Le montant à payer doit être supérieur à zéro" #?
+        must_be_a_mail_address: "%{attribute} doit être une adresse e-mail"
+        no_opened_financial_year: "Aucun exercice comptable ouvert à cette date"
+        not_a_number: "%{attribute} n’est pas un nombre"
+        not_an_end_of_month: "%{attribute} doit être une fin de mois"
+        not_an_integer: "%{attribute} doit être un nombre entier"
+        # not_enough: "not enough %{resource} to complete task"
+        # not_found: "not found"
+        # not_locked: "was not locked"
+        not_opened_financial_year: "Un exercice comptable ouvert est nécessaire pour la (les) période(s)"
+        not_saved:
+          # one: "1 error prohibited this %{resource} from being saved:"
+          # other: "%{count} errors prohibited this %{resource} from being saved:"
+        nothing_to_pay: "Il n’y a rien à payer. Si vous voulez enregistrer un acompte, n’oubliez pas de le préciser."
+        odd: "%{attribute} doit être pair"
+        on_or_after: "%{attribute} doit être le ou après le %{restriction}"
+        on_or_after_field: "%{attribute} doit être le ou après le %{restriction} (%{model} %{field})"
+        on_or_before: "%{attribute} doit être le ou avant le %{restriction}"
+        overlap: "%{attribute} se trouve sur un enregistrement existant"
+        overlap_sibling: "%{attribute} se trouve sur une période d'un autre enregistrement"
+        period_overlap: "%{attribute} se trouve sur une période d’un enregistrement existant" #?
+        posterior: "%{attribute} doit être postérieure à %{to}"
+        record_invalid: "Validations échouées\_: %{errors}"
+        should_be_consecutive: "Les exercices fiscaux doivent être consécutifs, %{attribute} doit donc être %{expected}."
+        should_be_the_last_day_of_month: "%{attribute} doit être le dernier jour du mois."
+        taken: "%{attribute} a déjà été pris"
+        too_long: "%{attribute} est trop long (%{count} caractères maximum)"
+        too_short: "%{attribute} est trop court (%{count} caractères minimum)"
+        unitary_in_parcel: "Articles unitaires ne peuvent être envoyés un par un"
+        wrong_length: "%{attribute} n’est pas d’une bonne longueur (%{count} caractères)"
   activerecord:
     attributes:
       account:
@@ -90,6 +106,8 @@ fra:
         content_maximal_quantity: "Quantité maximale supportée" #?
         content_nature: "Type de Produit contenu" #?
         variety: "Type" #?
+      cash:
+        enable_bookkeep_bank_item_details: "Comptabiliser le détails du relevé de comptes"
       cashes:
         main_account: "Compte principal"
       document:
@@ -127,7 +145,9 @@ fra:
         depreciation_period: "Périodicité des amortissements"
         net_book_value: "Valeur nette comptable (VNC)" #?
         started_on: "Date de mise en service"
+        waiting_journal_entry: "Écriture"
       fixed_asset_depreciation:
+        accounted: "Comptabilisé"
         asset_amount: "Valeur comptable"
         depreciable_amount: "Valeur nette comptable (VNC)" #?
       incoming_payment: #?
@@ -149,6 +169,8 @@ fra:
         disable_accountancy: "Ne pas passer en comptabilité"
       inventory_item: #?
         quantity: "Quantité constatée" #?
+      journal:
+        closed_on: "Dernière fermeture le"
       journal_entry_item:
         closed: "Cloturée" #?
         cumulated_absolute_credit_balance: "Solde crédit"
@@ -222,9 +244,10 @@ fra:
         started_at: "Entrée" #?
         stopped_at: "Sortie" #?
       product_nature_category: #?
-        depreciable: "Ammortissable" #?
+        asset_fixable: "Immobilisable" #?
+        depreciable: "Amortissable" #?
         duration: "Nombre de numéros OU période d’abonnement" #?
-        fixed_asset_allocation_account: "Compte d’amortissement" #?
+        fixed_asset_allocation_account: "Compte d'amortissements" #?
         fixed_asset_expenses_account: "Compte de dotation aux amortissements" #?
         price: "Prix de revient" #?
         subscribing: "Abonnement ?" #?
@@ -295,7 +318,7 @@ fra:
         nature: "Régime de la déclaration" #?
         no_financial_year_button: "Gérer les exercices comptables"
         no_financial_year_message: "Veuillez paramétrer le mode de déclaration de TVA dans un exercice comptable pour accéder à vos déclarations de TVA"
-        no_financial_year_title: "Aucun exercice soumis"
+        no_financial_year_title: "Aucun exercice soumis à la TVA à la date actuelle"
         period: "Période" #?
       tax_declaration_item:
         collected: "Collectée"
@@ -315,24 +338,30 @@ fra:
         # already_confirmed: "was already confirmed, please try signing in"
         before: "%{attribute} doit être avant le %{restriction}"
         blank: "%{attribute} ne peut pas être vide"
+        # can_only_have_two_years_opened: "You can have only have two financial years opened at the same time."
         confirmation: "%{attribute} est différent du champ de confirmation"
         # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
         contains_blank_line: "%{attribute} contient une ligne vide" #?
         contains_blank_page: "%{attribute} contient une page vide" #?
         currency_does_not_match: "La devise de «\_%{attribute}\_» ne correspond pas celle attendue\_: %{currency}"
         empty: "%{attribute} ne peut pas être vide"
+        # end_of_month: "%{attribute} should be at the end of the month"
         entry_has_been_already_validated: "La pièce a été validée et ne peut plus être modifiée" #?
         equal_to: "%{attribute} doit être égal à %{count}"
         even: "%{attribute} doit être impair"
         exclusion: "%{attribute} est reservé"
         # expired: "has expired, please request a new one"
+        # financial_year_exchange_on_this_period: "There is an opened accounting exchange at this date"
+        # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
+        # financial_year_not_found: "There is no financial year at this date"
         greater_than: "%{attribute} doit être plus grand que %{count}"
         greater_than_or_equal_to: "%{attribute} doit être plus grand ou égal à %{count}"
+        # harvest_in_progress: "Be careful, this crop is being harvested"
         included_in: "La valeur de %{attribute} doit être comprise entre %{minimum} et %{maximum}"
         inclusion: "%{attribute} n’est pas inclus dans la liste"
-        inferior: "%{attribute} doit être antérieure à %{to}" #?
         invalid: "%{attribute} est invalide"
         invalid_at: "%{attribute} est invalide. Erreur près de %{error}"
+        invalid_child: "Au moins une des valeurs de %{attribute} n'est pas valide."
         invalid_date: "Veuillez saisir une date au format jj-mm-aaaa ou jj/mm/aaaa"
         invalid_datetime: "%{attribute} est invalide"
         invalid_siret: "%{value} n'est pas un numéro de SIRET valide" #?
@@ -344,31 +373,41 @@ fra:
         less_than: "%{attribute} doit être inférieur à %{count}"
         less_than_or_equal_to: "%{attribute} doit être inférieur ou égal à %{count}"
         missing_bank_details_for_sepa: "Les valeurs IBAN et/ou Titulaire du compte sont manquantes pour la trésorerie sélectionnée."
+        models: #?
+          sepa/credit_transfer_transaction: #?
+            attributes: #?
+              amount: #?
+                greater_than: "Le montant à payer doit être supérieur à zéro" #?
         must_be_a_mail_address: "%{attribute} doit être une adresse e-mail"
+        no_opened_financial_year: "Aucun exercice comptable ouvert à cette date"
         not_a_number: "%{attribute} n’est pas un nombre"
         not_an_end_of_month: "%{attribute} doit être une fin de mois"
         not_an_integer: "%{attribute} doit être un nombre entier"
         # not_enough: "not enough %{resource} to complete task"
         # not_found: "not found"
         # not_locked: "was not locked"
+        not_opened_financial_year: "Un exercice comptable ouvert est nécessaire pour la (les) période(s)"
         not_saved:
           # one: "1 error prohibited this %{resource} from being saved:"
           # other: "%{count} errors prohibited this %{resource} from being saved:"
         nothing_to_pay: "Il n’y a rien à payer. Si vous voulez enregistrer un acompte, n’oubliez pas de le préciser."
         odd: "%{attribute} doit être pair"
         on_or_after: "%{attribute} doit être le ou après le %{restriction}"
+        on_or_after_field: "%{attribute} doit être le ou après le %{restriction} (%{model} %{field})"
         on_or_before: "%{attribute} doit être le ou avant le %{restriction}"
         overlap: "%{attribute} se trouve sur un enregistrement existant"
         overlap_sibling: "%{attribute} se trouve sur une période d'un autre enregistrement"
         period_overlap: "%{attribute} se trouve sur une période d’un enregistrement existant" #?
         posterior: "%{attribute} doit être postérieure à %{to}"
         record_invalid: "Validations échouées\_: %{errors}"
+        should_be_consecutive: "Les exercices fiscaux doivent être consécutifs, %{attribute} doit donc être %{expected}."
+        should_be_the_last_day_of_month: "%{attribute} doit être le dernier jour du mois."
         taken: "%{attribute} a déjà été pris"
         too_long: "%{attribute} est trop long (%{count} caractères maximum)"
         too_short: "%{attribute} est trop court (%{count} caractères minimum)"
         unitary_in_parcel: "Articles unitaires ne peuvent être envoyés un par un"
         wrong_length: "%{attribute} n’est pas d’une bonne longueur (%{count} caractères)"
-      models:
+      models: #?
         account: #?
           attributes: #?
             number: #?
@@ -377,21 +416,21 @@ fra:
           centralizing_number: "Le numéro ne peut pas commencer par '401' ou '411' qui sont réservés pour les comptes auxiliaires" #?
           incorrect_length: "Le numéro n'a pas la bonne longueur (%{number_length} caractères)" #?
           radical_class: "Le numéro ne peut pas correspondre à une classe radicale" #?
-        activity:
-          checked_off_with_inspections: "Des agréages sont déjà présents pour cette activité"
-          checked_without_measures: "Au moins un type de mesure doit être sélectionné lorsque l'utilisation des agréages est demandée"
-        bank_statement:
+        activity: #?
+          checked_off_with_inspections: "Des agréages sont déjà présents pour cette activité" #?
+          checked_without_measures: "Au moins un type de mesure doit être sélectionné lorsque l'utilisation des agréages est demandée" #?
+        bank_statement: #?
           initial_balance_credit: #?
             unvalid_amounts: "Le solde initial doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps." #?
-          no_cash_match_ofx: "Aucune somme d’argent trouvée pour le numéro de compte bancaire donné dans le fichier"
-          ofx_file_has_multiple_bank_accounts: "Fichier OFX avec plusieurs comptes bancaires non pris en charge"
-          ofx_file_invalid: "Fichier OFX invalide"
-        bank_statement_item:
-          unvalid_amounts: "L’écriture doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps."
-        cash:
-          currency_does_not_match: "La monnaie du journal %{journal} est différente de celle de la trésorerie"
-          different_of_main_account: "%{attribute} doit être différent du compte comptable principal (%{account})"
-          unvalid_bban: "La clé ne correspond pas. Un ou plusieurs éléments du RIB sont incorrects."
+          no_cash_match_ofx: "Aucune somme d’argent trouvée pour le numéro de compte bancaire donné dans le fichier" #?
+          ofx_file_has_multiple_bank_accounts: "Fichier OFX avec plusieurs comptes bancaires non pris en charge" #?
+          ofx_file_invalid: "Fichier OFX invalide" #?
+        bank_statement_item: #?
+          unvalid_amounts: "L’écriture doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps." #?
+        cash: #?
+          currency_does_not_match: "La monnaie du journal %{journal} est différente de celle de la trésorerie" #?
+          different_of_main_account: "%{attribute} doit être différent du compte comptable principal (%{account})" #?
+          unvalid_bban: "La clé ne correspond pas. Un ou plusieurs éléments du RIB sont incorrects." #?
         cash_transfer: #?
           attributes: #?
             transfered_at: #?
@@ -399,113 +438,119 @@ fra:
               financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
               financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
               not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
-        deposit:
-          must_be_a_bank_account: "%{attribute} doit être un compte bancaire et non une caisse"
-        entity:
-          missing_title: "%{attribute} doit contenir la dénomination sociale «\_%{title}\_»"
-          nature_do_not_allow_a_first_name: "Le type «\_%{nature}\_» sélectionné ne permet de renseigner un prénom"
-        financial_year:
-          attributes:
-            accountant:
-              frozen: "Le comptable ne peut être modifié lorsqu'un échange est en cours"
-            started_on:
-              consecutive: "L’exercice comptable doit être consécutif à un autre. Il doit commencer au lendemain de la fin du précédent."
-              frozen: "La date de l'exercice comptable ne peut être modifiée une fois qu'un échange a été créé."
-              on_or_after: "La date de début doit être postérieure à la date de création de la société (%{restriction})"
-            stopped_on:
-              end_of_month: "%{attribute} doit être une date de fin de mois"
+        deposit: #?
+          must_be_a_bank_account: "%{attribute} doit être un compte bancaire et non une caisse" #?
+        entity: #?
+          missing_title: "%{attribute} doit contenir la dénomination sociale «\_%{title}\_»" #?
+          nature_do_not_allow_a_first_name: "Le type «\_%{nature}\_» sélectionné ne permet de renseigner un prénom" #?
+        financial_year: #?
+          attributes: #?
+            accountant: #?
+              frozen: "Le comptable ne peut être modifié lorsqu'un échange est en cours" #?
+            started_on: #?
+              consecutive: "L’exercice comptable doit être consécutif à un autre. Il doit commencer au lendemain de la fin du précédent." #?
+              frozen: "La date de l'exercice comptable ne peut être modifiée une fois qu'un échange a été créé." #?
+              on_or_after: "La date de début doit être postérieure à la date de création de la société (%{restriction})" #?
+            stopped_on: #?
+              end_of_month: "%{attribute} doit être une date de fin de mois" #?
           can_only_have_two_years_opened: "Vous ne pouvez avoir que 2 exercices ouverts en même temps" #?
           can_only_update_code: "Vous ne pouvez que modifier uniquement le code d'un exercice comptable fermé ou clotûré" #?
-          overlap: "%{attribute} se trouve sur un exercice existant"
-        financial_year_exchange:
-          csv_file_entry_dates_invalid: "Certaines entrées du CSV ne sont pas comprises dans l'intervalle de l'exercice comptable"
-          csv_file_entry_invalid: "Certaines entrées du CSV sont invalides ('%{entry_number}')"
-          csv_file_headers_invalid: "Les en-têtes du fichier CSV sont invalides"
-          csv_file_invalid: "Fichier CSV invalide"
-          csv_file_journals_invalid: "Certains journaux sont présents dans le CSV mais n'existent pas dans Ekylibre : %{codes}"
+          overlap: "%{attribute} se trouve sur un exercice existant" #?
+        financial_year_exchange: #?
+          csv_file_entry_dates_invalid: "Certaines entrées du CSV ne sont pas comprises dans l'intervalle de l'exercice comptable" #?
+          csv_file_entry_invalid: "Certaines entrées du CSV sont invalides ('%{entry_number}')" #?
+          csv_file_headers_invalid: "Les en-têtes du fichier CSV sont invalides" #?
+          csv_file_invalid: "Fichier CSV invalide" #?
+          csv_file_journals_invalid: "Certains journaux sont présents dans le CSV mais n'existent pas dans Ekylibre : %{codes}" #?
         fixed_asset: #?
           attributes: #?
+            base: #?
+              no_opened_financial_year: "Un exercice comptable ouvert est nécessaire pour la création d'une immobilisation." #?
             started_on: #?
               financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période" #?
               financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
               financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
               not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
-        fixed_asset_depreciation:
-          attributes:
-            started_on:
-              invalid_date: "La période d’amortissement doit débuter le %{start} ou en début de mois"
-        incoming_parcel_item:
-          greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
-        integration:
-          attributes:
-            parameters:
-              check_errored: "La connexion au partenaire a échoué. Veuillez vérifier les informations saisies ou réessayer plus tard."
-        intervention_working_period:
-          attributes:
-            started_at:
-              # inferior: "Started at is inferior than expected"
-            stopped_at:
-              # inferior: "Stopped at is inferior than expected"
-        journal:
-          attributes:
-            accountant:
-              entity_frozen: "Les journaux réservés au %{attribute} ne peuvent être modifiés lorsqu'un échange est ouvert pour ses exercices"
-              present: "Le comptable ne peut être précisé que pour les journaux de type opérations diverses"
-              previous_entity_frozen: "Les journaux réservés au précédent %{attribute} ne peuvent être modifiés lorsqu'un échange est ouvert pour ses exercices"
-            closed_on:
+            waiting_on: #?
+              financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période" #?
+              financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
+              financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
+              not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
+        fixed_asset_depreciation: #?
+          attributes: #?
+            started_on: #?
+              invalid_start_date: "La période d’amortissement doit débuter le %{start} ou en début de mois" #?
+        incoming_parcel_item: #?
+          greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})" #?
+        integration: #?
+          attributes: #?
+            parameters: #?
+              check_errored: "La connexion au partenaire a échoué. Veuillez vérifier les informations saisies ou réessayer plus tard." #?
+        journal: #?
+          attributes: #?
+            accountant: #?
+              entity_frozen: "Les journaux réservés au %{attribute} ne peuvent être modifiés lorsqu'un échange est ouvert pour ses exercices" #?
+              present: "Le comptable ne peut être précisé que pour les journaux de type opérations diverses" #?
+              previous_entity_frozen: "Les journaux réservés au précédent %{attribute} ne peuvent être modifiés lorsqu'un échange est ouvert pour ses exercices" #?
+            closed_on: #?
               draft_entry_items: "Des écritures du brouillard sont encore présente avant le %{closed_on}" #?
-              end_of_month: "%{attribute} doit correspondre à une date de fin de mois (%{closed_on})"
-        journal_entry:
-          closed_journal: "Le journal est clôturé au %{closed_on} donc vous ne pouvez plus créer, modifier ou supprimer de pièces jusqu’à cette date-là."
+              end_of_month: "%{attribute} doit correspondre à une date de fin de mois (%{closed_on})" #?
+        journal_entry: #?
+          closed_journal: "Le journal est clôturé au %{closed_on} donc vous ne pouvez plus créer, modifier ou supprimer de pièces jusqu’à cette date-là." #?
           financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
-          frozen_by_financial_year_exchange: "L'écriture ne peut être enregistrée lors d'un échange d'exercice comptable."
+          frozen_by_financial_year_exchange: "L'écriture ne peut être enregistrée lors d'un échange d'exercice comptable." #?
           not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
-          out_of_existing_financial_year: "L’écriture doit être enregistrée dans un exercice comptable existant."
-          unbalanced: "La pièce n’est pas équilibrée"
-        journal_entry_item:
-          closed_entry: "L’écriture est verrouillée. Il n’est pas possible de la modifier."
-          empty_amounts: "L’écriture doit être renseignée soit au débit, soit au crédit."
-          unvalid_amounts: "L’écriture doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps."
-        outgoing_parcel_item:
-          greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
+          out_of_existing_financial_year: "L’écriture doit être enregistrée dans un exercice comptable existant." #?
+          unbalanced: "La pièce n’est pas équilibrée" #?
+        journal_entry_item: #?
+          closed_entry: "L’écriture est verrouillée. Il n’est pas possible de la modifier." #?
+          empty_amounts: "L’écriture doit être renseignée soit au débit, soit au crédit." #?
+          unvalid_amounts: "L’écriture doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps." #?
+        loan: #?
+          attributes: #?
+            ongoing_at: #?
+              financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
+              not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
+        outgoing_parcel_item: #?
+          greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})" #?
         parcel: #?
           financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période" #?
           financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
           financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
           not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
-        purchase:
+        purchase: #?
           financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période" #?
           financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
           financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
           not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
-          payment_delay_custom_validation_message: "Formats acceptés : %{values}"
-        purchase_item:
-          attributes:
-            fixed:
-              asset_account: "Compte d'immobilisation invalide"
-              asset_depreciation_method: "Méthode de dépréciation d'immobilisation non spécifiée"
-              asset_expenses_account: "Compte d'amortissement invalide"
-              asset_wrong_depreciation_method: "Le méthode de dépréciation doit être linéaire simplifée"
-              fixed_asset_stopped_on_invalid: "Vous devez spécifier une date de fin d'immobilisation"
-          building_can_not_receive_product: "Le réservoir %{building} ne peut pas recevoir le produit %{product}, il contient déjà le produit %{contained_product}."
-          serial_already_used_with_an_other_product: "%{attribute} a déjà été utilisé pour un autre type de produit du même fournisseur"
+          payment_delay_custom_validation_message: "Formats acceptés : %{values}" #?
+        purchase_item: #?
+          attributes: #?
+            fixed: #?
+              asset_account: "Compte d'immobilisation invalide" #?
+              asset_depreciation_method: "Méthode de dépréciation d'immobilisation non spécifiée" #?
+              asset_expenses_account: "Compte d'amortissement invalide" #?
+              asset_wrong_depreciation_method: "Le méthode de dépréciation doit être linéaire simplifée" #?
+              fixed_asset_stopped_on_invalid: "Vous devez spécifier une date de fin d'immobilisation" #?
+          building_can_not_receive_product: "Le réservoir %{building} ne peut pas recevoir le produit %{product}, il contient déjà le produit %{contained_product}." #?
+          serial_already_used_with_an_other_product: "%{attribute} a déjà été utilisé pour un autre type de produit du même fournisseur" #?
         sale: #?
           financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période" #?
           financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
           financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
           not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
-        sale_item:
-          building_can_not_transfer_product: "Le produit %{product} ne peut être sorti du réservoir %{building}, celui-ci contient %{contained_product}."
-          can_not_use_this_tracking: "Vous ne  pouvez pas utiliser le lot %{tracking}, la quantité commandée est supérieure à la quantité disponible"
-          currency_is_not_sale_currency: "La devise du prix du produit ne correspond pas celle définie pour la vente"
-          error_no_found_price: "Aucun prix n’ a pu être trouvé pour ce produit et cette liste de tarif"
-        subscription:
-          entity_must_be_the_same_as_the_contact_entity: "La personne de l’abonnement doit être la même que celle du contact"
-      template:
-        body: "Il y a eu des problèmes avec les champs suivants\_:"
-        header:
-          one: "1 erreur a empêché l’enregistrement (%{model})"
-          other: "%{count} erreurs ont empéché l’enregistrement (%{model})"
+        sale_item: #?
+          building_can_not_transfer_product: "Le produit %{product} ne peut être sorti du réservoir %{building}, celui-ci contient %{contained_product}." #?
+          can_not_use_this_tracking: "Vous ne  pouvez pas utiliser le lot %{tracking}, la quantité commandée est supérieure à la quantité disponible" #?
+          currency_is_not_sale_currency: "La devise du prix du produit ne correspond pas celle définie pour la vente" #?
+          error_no_found_price: "Aucun prix n’ a pu être trouvé pour ce produit et cette liste de tarif" #?
+        subscription: #?
+          entity_must_be_the_same_as_the_contact_entity: "La personne de l’abonnement doit être la même que celle du contact" #?
+      template: #?
+        body: "Il y a eu des problèmes avec les champs suivants\_:" #?
+        header: #?
+          one: "1 erreur a empêché l’enregistrement (%{model})" #?
+          other: "%{count} erreurs ont empéché l’enregistrement (%{model})" #?
     models:
       account: "Compte comptable"
       account_balance: "Balance de compte"
@@ -594,7 +639,7 @@ fra:
       interest_account: "Compte d'intérêt" #?
       intervention: "Intervention"
       intervention_agent: "Agent d’intervention"
-      intervention_costing: "Coût d’intervention"
+      intervention_costing: "Coût d’intervention" #?
       intervention_doer: "Opérateur d’intervention"
       intervention_group_parameter: "Groupe de paramètre d’intervention"
       intervention_input: "Intrant d’intervention"
@@ -624,16 +669,16 @@ fra:
       manure_management_plan: "Plan de fumure"
       manure_management_plan_zone: "Zone de plan de fumure"
       map_layer: "Couche de carte"
-      master_equipment_cost: "Coûts d'usage des équipements"
-      master_equipment_flow: "Débits de chantier des équipements"
-      master_equipment_nature: "Référence des tyoes d'équipements"
-      master_production_nature: "Codes de référence des productions"
-      master_production_output: "Référence des rendements de production"
+      master_equipment_cost: "Coûts d'usage des équipements" #?
+      master_equipment_flow: "Débits de chantier des équipements" #?
+      master_equipment_nature: "Référence des tyoes d'équipements" #?
+      master_production_nature: "Codes de référence des productions" #?
+      master_production_output: "Référence des rendements de production" #?
       matter: "Matière"
-      naming_format: "Format de nommage"
-      naming_format_field: "Champ du format de nommage"
-      naming_format_field_land_parcel: "Champ du format de nommage des parcelles"
-      naming_format_land_parcel: "Format de nommage des parcelles"
+      naming_format: "Format de nommage" #?
+      naming_format_field: "Champ du format de nommage" #?
+      naming_format_field_land_parcel: "Champ du format de nommage des parcelles" #?
+      naming_format_land_parcel: "Format de nommage des parcelles" #?
       net_service: "Service en ligne"
       notification: "Notification"
       observation: "Observation"
@@ -642,7 +687,7 @@ fra:
       outgoing_payment_mode: "Mode de décaissement"
       parcel: "Colis"
       parcel_item: "Élément de colis"
-      parcel_item_storing: "Zone de stockage des éléments de colis"
+      parcel_item_storing: "Zone de stockage des éléments de colis" #?
       payslip: "Salaire"
       payslip_affair: "Affaire de salaire"
       payslip_nature: "Type de salaire"
@@ -675,7 +720,7 @@ fra:
       product_population: "Population de produit"
       product_reading: "Valeur d’indicateur"
       production: "Production" #?
-      project_budget: "Budget interne"
+      project_budget: "Budget interne" #?
       purchase: "Achat"
       purchase_affair: "Affaire d’achat"
       purchase_gap: "Écart d’achat"
@@ -687,7 +732,7 @@ fra:
       reception: "Réception"
       reception_item: "Élément de réception"
       registered_agroedi_code: "Code agroedi référencé"
-      registered_building_zone: "Zone de bâtiment référencée"
+      registered_building_zone: "Zone de bâtiment référencée" #?
       registered_pfi_crop: "Récolte pfi référencée"
       registered_pfi_dose: "Dose pfi référencée"
       registered_pfi_target: "Cible pfi référencée"
@@ -697,8 +742,8 @@ fra:
       registered_phytosanitary_usage: "Usage phytosanitaire référencé"
       registered_postal_zone: "Code postal référencé"
       registered_seed: "Graine référencée"
-      registered_water_lake: "Eau de lac référencée"
-      registered_water_river: "Eau de rivière référencée"
+      registered_water_lake: "Eau de lac référencée" #?
+      registered_water_river: "Eau de rivière référencée" #?
       regularization: "Régularisation"
       role: "Rôle"
       sale: "Vente"
@@ -731,7 +776,7 @@ fra:
       user: "Utilisateur"
       vegetal_activity: "Activité végétale" #?
       version: "Version"
-      wice_grid_serialized_query: "Requête de tableau en série"
+      wice_grid_serialized_query: "Requête de tableau en série" #?
       worker: "Équipier"
       zone: "Zone"
   attributes:
@@ -752,12 +797,14 @@ fra:
     account_balances: "Balances de compte"
     account_name: "Compte comptable"
     account_number: "N°Compte"
+    account_number_digits: "Nombre de caractères des comptes généraux"
     accountable: "Comptabilisable"
     accountable_repayments_started_on: "Date de début de prise en compte des échéances"
     accountant: "Comptable"
     accounted_at: "Date comptabilisation"
     accounting_balance: "Solde comptable"
     accounting_label: "Libellé comptable"
+    accounting_system: "Plan de comptes"
     accuracy: "Précision"
     achieved_at: "Achevé le"
     actions: "Actions"
@@ -795,7 +842,7 @@ fra:
     alerts: "Alertes"
     all_addresses: "Toutes les adresses"
     all_taxes_included: "Toutes taxes comprises"
-    allocation_account: "Compte de dotation"
+    allocation_account: "Compte d'amortissement"
     # already_existing: "Already existing"
     amount: "Montant"
     analysed_at: "Analysé le"
@@ -820,6 +867,7 @@ fra:
     assembly: "Assemblée"
     asset_account: "Compte d’actifs"
     asset_exists: "Immobilisation en cours existante."
+    # asset_fixable: "Fixed asset registrable"
     attachments: "Pièces jointes"
     attorney: "Mandataire" #?
     attorney_account: "Compte mandataire" #?
@@ -884,7 +932,7 @@ fra:
     cap_land_parcel: "Parcelle PAC"
     cap_land_parcels: "Parcelles PAC"
     cap_neutral_areas: "Surfaces non agricole (SNA)"
-    cap_number: "Numéro PAC"
+    cap_number: "Numéro PAC" #?
     cap_statement: "Déclaration PAC"
     cap_statements: "Déclarations PAC"
     carried: "Tracté"
@@ -1005,6 +1053,7 @@ fra:
     cultivation_variety: "Variété de la culture"
     cumulated_absolute_credit: "Crédit absolu cumulé"
     cumulated_absolute_debit: "Débit absolu cumulé"
+    cumulated_balance: "Balance cumulée"
     currency: "Devise"
     currency_precision: "Nombre de décimales"
     currency_rate: "Taux de change"
@@ -1173,7 +1222,7 @@ fra:
     expected_stop_amount: "Montant final attendu"
     expected_yield: "Rendement évalué (y)"
     expenses: "Dépenses"
-    expenses_account: "Compte de charge"
+    expenses_account: "Compte de dotation aux amortissements"
     expenses_accounts: "Comptes de charge" #?
     expiration_delay: "Délai d’expiration"
     expired_at: "Date d’expiration"
@@ -1220,6 +1269,7 @@ fra:
     first_number: "Premier numéro"
     first_producer: "Premier producteur" #?
     first_producer_way: "Voie du premier producteur" #?
+    fiscal_position: "Régime fiscal"
     fixed: "Immobilisé"
     fixed_asset: "Immobilisation"
     fixed_asset_account: "Compte d’immobilisation"
@@ -1342,7 +1392,7 @@ fra:
     initialization_vectors: "Vecteurs d’initialisation"
     initiated_on: "Lancé le"
     inputs: "Intrants"
-    inputs_cost: "Coût des intrants"
+    inputs_cost: "Coût des intrants" #?
     inspection: "Agréage"
     inspection_calibration_natures: "Natures d’étalonnage d’inspection"
     inspection_calibration_scales: "Échelles d’étalonnage d’inspection"
@@ -1355,7 +1405,7 @@ fra:
     insurance_repayment_method: "Méthode de remboursement de l'assurance"
     integer_value: "Valeur entière"
     integration_name: "Nom d’intégration"
-    interest_account: "Code comptable intérêt" #?
+    interest_account: "Compte comptable des intérêts" #?
     interest_amount: "Montant de l’intérêt"
     interest_percentage: "Taux d’intérêt (%)"
     intermediate_cultivation_residue_mineralization: "Minéralisation nette des résidus de culture intermédiaire (MrCi)"
@@ -1375,8 +1425,9 @@ fra:
     interventions_used_in: "Interventions utilisées dans"
     intracommunity: "Intracommunautaire"
     intracommunity_payable_account: "Compte de taxe intracommunautaire due"
-    intracommunity_vat: "TVA intracommunautaire"
+    intracommunity_vat: "TVA intracommunautaire" #?
     introduction: "Introduction"
+    # inventories: "Inventories"
     inventory: "Inventaire"
     # inventory_items: "Inventory items"
     invitation_accepted_at: "Invitation acceptée à"
@@ -1417,6 +1468,7 @@ fra:
     journal_entry: "Écriture"
     journal_entry_item: "Ligne d’écriture"
     journal_entry_items: "Lignes d’écritures"
+    journal_name: "Nom du journal"
     junction: "Jonction de vie" #?
     junction_ways: "Voies de jonction" #?
     junctions: "Jonctions" #?
@@ -1445,6 +1497,7 @@ fra:
     late_delivery: "Livraison hors délais"
     latest: "Dernier"
     leaves_parameters: "Feuilles paramètres"
+    legal_position_code: "Forme juridique"
     lender: "Prêteur"
     letter: "Lettre"
     letter_format: "Devis au format lettre"
@@ -1458,7 +1511,7 @@ fra:
     list: "Liste"
     listing: "Extraction"
     loan: "Emprunt"
-    loan_account: "Code comptable emprunt" #?
+    loan_account: "Compte comptable des emprunts" #?
     local_balance: "Solde"
     local_count: "Population"
     local_credit: "Crédit"
@@ -1554,6 +1607,7 @@ fra:
     name: "Nom"
     name_1_to_2: "Nom «\_Personne 1 vers Personne 2\_»" #?
     name_2_to_1: "Nom «\_Personne 2 vers Personne 1\_»" #?
+    # naming_format: "Naming format"
     nature: "Type"
     nature_name: "Nom de la nature du produit"
     natures: "Natures"
@@ -1680,6 +1734,7 @@ fra:
     postal_zone: "Zone postale" #?
     postal_zones: "Zones postales"
     pre_harvest_interval: "DAR"
+    # preexisting_asset: "Preexisting asset"
     preferences: "Préférences"
     prepared_at: "Préparé le"
     prereduction_amount: "Montant TTC avant réduction" #?
@@ -1687,6 +1742,7 @@ fra:
     prescription: "Prescription"
     prescriptor: "Prescripteur"
     pretax_amount: "Montant HT"
+    pretax_selling_amount: "Prix de vente HT"
     previous_cultivation_residue_mineralization: "Minéralisation des résidus de culture du précédent (Mr)"
     price: "Prix"
     price_templates: "Modèles de prix" #?
@@ -1922,6 +1978,7 @@ fra:
     selected: "Sélectionné"
     selected_manure_management_plan: "Plan de fumure sélectionné"
     selected_manure_management_plan_zone: "Zone de plan de fumure sélectionné"
+    selling_amount: "Prix de vente TTC"
     sender: "Expéditeur"
     sensor: "Capteur"
     sensors: "Capteurs"
@@ -1943,7 +2000,7 @@ fra:
     # signature: "Signature"
     signup_at: "Inscription au"
     siren: "N° SIREN"
-    siret: "SIRET"
+    siret: "SIRET" #?
     siret_number: "N° SIRET"
     size_indicator: "Indicateur de taille"
     size_indicator_name: "Taille Nom de l’indicateur"
@@ -1959,6 +2016,7 @@ fra:
     # source_product_movement: "Source product movement"
     # sowing_interval: "Sowing interval"
     spaced_iban: "IBAN"
+    special_imputation_asset_account: "Compte d'imputation spéciale"
     # specie: "Specie"
     sql_type: "Type SQL"
     ssl: "Ssl"
@@ -2017,7 +2075,7 @@ fra:
     suspend_until_reconciliation: "Suspendre jusqu'à réconciliation"
     suspended: "Suspendu"
     suspended_journal_entry_items: "Lignes d'écriture suspendues"
-    suspense_account: "Compte de suspens"
+    suspense_account: "Compte d'attente bancaire"
     tactic: "Itinéraire technique"
     tactics: "Itinéraires culturaux"
     target: "Cible"
@@ -2059,7 +2117,7 @@ fra:
     token: "Jeton"
     tool: "Outil"
     tools: "Outils"
-    tools_cost: "Coût des outils"
+    tools_cost: "Coût des outils" #?
     total_cost: "Coût total"
     total_doer_cost: "Total des coûts"
     total_input_cost: "Coût total des intrants"
@@ -2082,7 +2140,6 @@ fra:
     transports: "Transports" #?
     trouble_description: "Description du problème"
     trouble_encountered: "Problème durant l'intervention"
-    vat_account: "Compte TVA"
     type: "Type"
     # uid: "UID"
     unconfirmed_email: "E-mail non confirmé"
@@ -2136,13 +2193,16 @@ fra:
     variants: "Variantes"
     variety: "Variété"
     variety_name: "nom de la variété"
+    vat_account: "Compte TVA"
     vat_number: "Numéro de TVA intra-communautaire"
     vat_subjected: "Assujetti à la TVA"
     vendor_euid: "Constructeur"
     verb: "Verbe"
     versions: "Versions"
     view_parameters: "Voir paramètres"
+    waiting_asset_account: "Compte d'immobilisation en attente"
     waiting_deliveries: "Livraisons en attente"
+    waiting_on: "Date d'inscription au bilan"
     ways: "Voies" #?
     websites: "Sites web"
     whole_duration: "Toute la durée"
@@ -2167,6 +2227,82 @@ fra:
     working_zone_area: "Surface de la zone travaillée"
     zone_memberships: "Appartenances de zone"
     zones: "Zones"
+  errors:
+    messages:
+      accepted: "%{attribute} doit être accepté"
+      after: "%{attribute} doit être après le %{restriction}"
+      # already_confirmed: "was already confirmed, please try signing in"
+      before: "%{attribute} doit être avant le %{restriction}"
+      blank: "%{attribute} ne peut pas être vide"
+      # can_only_have_two_years_opened: "You can have only have two financial years opened at the same time."
+      confirmation: "%{attribute} est différent du champ de confirmation"
+      # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
+      contains_blank_line: "%{attribute} contient une ligne vide" #?
+      contains_blank_page: "%{attribute} contient une page vide" #?
+      currency_does_not_match: "La devise de «\_%{attribute}\_» ne correspond pas celle attendue\_: %{currency}"
+      empty: "%{attribute} ne peut pas être vide"
+      # end_of_month: "%{attribute} should be at the end of the month"
+      entry_has_been_already_validated: "La pièce a été validée et ne peut plus être modifiée" #?
+      equal_to: "%{attribute} doit être égal à %{count}"
+      even: "%{attribute} doit être impair"
+      exclusion: "%{attribute} est reservé"
+      # expired: "has expired, please request a new one"
+      # financial_year_exchange_on_this_period: "There is an opened accounting exchange at this date"
+      # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
+      # financial_year_not_found: "There is no financial year at this date"
+      greater_than: "%{attribute} doit être plus grand que %{count}"
+      greater_than_or_equal_to: "%{attribute} doit être plus grand ou égal à %{count}"
+      # harvest_in_progress: "Be careful, this crop is being harvested"
+      included_in: "La valeur de %{attribute} doit être comprise entre %{minimum} et %{maximum}"
+      inclusion: "%{attribute} n’est pas inclus dans la liste"
+      invalid: "%{attribute} est invalide"
+      invalid_at: "%{attribute} est invalide. Erreur près de %{error}"
+      invalid_child: "Au moins une des valeurs de %{attribute} n'est pas valide."
+      invalid_date: "Veuillez saisir une date au format jj-mm-aaaa ou jj/mm/aaaa"
+      invalid_datetime: "%{attribute} est invalide"
+      invalid_siret: "%{value} n'est pas un numéro de SIRET valide" #?
+      invalid_syntax: "%{attribute} comporte des erreurs de syntaxe : %{errors}" #?
+      invalid_time: "%{attribute} est invalide"
+      invalid_token: "%{attribute} est invalide. Symbole inconnu %{error}. Les symboles acceptés sont %{accepted}."
+      is: "%{attribute} doit être un(e) %{thing}"
+      is_at: "%{attribute} doit être le %{restriction}"
+      less_than: "%{attribute} doit être inférieur à %{count}"
+      less_than_or_equal_to: "%{attribute} doit être inférieur ou égal à %{count}"
+      missing_bank_details_for_sepa: "Les valeurs IBAN et/ou Titulaire du compte sont manquantes pour la trésorerie sélectionnée."
+      models: #?
+        sepa/credit_transfer_transaction: #?
+          attributes: #?
+            amount: #?
+              greater_than: "Le montant à payer doit être supérieur à zéro" #?
+      must_be_a_mail_address: "%{attribute} doit être une adresse e-mail"
+      no_opened_financial_year: "Aucun exercice comptable ouvert à cette date"
+      not_a_number: "%{attribute} n’est pas un nombre"
+      not_an_end_of_month: "%{attribute} doit être une fin de mois"
+      not_an_integer: "%{attribute} doit être un nombre entier"
+      # not_enough: "not enough %{resource} to complete task"
+      # not_found: "not found"
+      # not_locked: "was not locked"
+      not_opened_financial_year: "Un exercice comptable ouvert est nécessaire pour la (les) période(s)"
+      not_saved:
+        # one: "1 error prohibited this %{resource} from being saved:"
+        # other: "%{count} errors prohibited this %{resource} from being saved:"
+      nothing_to_pay: "Il n’y a rien à payer. Si vous voulez enregistrer un acompte, n’oubliez pas de le préciser."
+      odd: "%{attribute} doit être pair"
+      on_or_after: "%{attribute} doit être le ou après le %{restriction}"
+      on_or_after_field: "%{attribute} doit être le ou après le %{restriction} (%{model} %{field})"
+      on_or_before: "%{attribute} doit être le ou avant le %{restriction}"
+      overlap: "%{attribute} se trouve sur un enregistrement existant"
+      overlap_sibling: "%{attribute} se trouve sur une période d'un autre enregistrement"
+      period_overlap: "%{attribute} se trouve sur une période d’un enregistrement existant" #?
+      posterior: "%{attribute} doit être postérieure à %{to}"
+      record_invalid: "Validations échouées\_: %{errors}"
+      should_be_consecutive: "Les exercices fiscaux doivent être consécutifs, %{attribute} doit donc être %{expected}."
+      should_be_the_last_day_of_month: "%{attribute} doit être le dernier jour du mois."
+      taken: "%{attribute} a déjà été pris"
+      too_long: "%{attribute} est trop long (%{count} caractères maximum)"
+      too_short: "%{attribute} est trop court (%{count} caractères minimum)"
+      unitary_in_parcel: "Articles unitaires ne peuvent être envoyés un par un"
+      wrong_length: "%{attribute} n’est pas d’une bonne longueur (%{count} caractères)"
   models:
     account:
       label: "%{number} - %{name}"
@@ -2247,11 +2383,13 @@ fra:
       bookkeep_exit_assets: "[%{resource} %{number}] Mise au rébut de %{name}"
       bookkeep_in_sold_assets: "[%{resource} %{number}] Cession de %{name}"
       bookkeep_in_use_assets: " [%{resource} %{number}] Mise en service de %{name}"
+      bookkeep_waiting_assets: "[%{resource} %{number}] Mise en attente de %{name}"
       states:
         draft: "Brouillon"
         in_use: "En service"
         scrapped: "Mise au rebut"
         sold: "Vendue"
+        waiting: "En attente"
     fixed_asset_depreciation:
       bookkeep: "[%{resource} %{number}] Amortissement de %{name} (%{position}/%{total})"
       bookkeep_partial: "[%{resource} %{number}] Amortissement partiel de %{name} (%{position}/%{total})"
@@ -2269,10 +2407,12 @@ fra:
         transfer:
           name: "Virement"
     inspection:
+      bookkeep: "[%{resource}] %{name}" #?
       items_count: "Nombre de pièces"
+      name: "%{intervention} n°%{number}" #?
       net_mass: "Masse"
     intervention:
-      bookkeep: "[%{resource}] %{name}" #?
+      bookkeep: "[%{resource}] %{name}"
       name: "%{intervention} n°%{number}"
     inventory:
       bookkeep: "Inventaire physique - [%{resource}] %{number}"

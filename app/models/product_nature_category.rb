@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,6 +24,7 @@
 # == Table: product_nature_categories
 #
 #  active                              :boolean          default(FALSE), not null
+#  asset_fixable                       :boolean          default(FALSE)
 #  charge_account_id                   :integer
 #  created_at                          :datetime         not null
 #  creator_id                          :integer
@@ -73,6 +75,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
   has_many :purchase_taxes, class_name: 'Tax', through: :purchase_taxations, source: :tax
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, :depreciable, :purchasable, :reductible, :saleable, :storable, :subscribing, inclusion: { in: [true, false] }
+  validates :asset_fixable, inclusion: { in: [true, false] }, allow_blank: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :fixed_asset_depreciation_method, :reference_name, length: { maximum: 500 }, allow_blank: true
   validates :fixed_asset_depreciation_percentage, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
@@ -111,6 +114,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
 
   before_validation do
     self.storable = false unless deliverable?
+    asset_fixable = true if depreciable
     true
   end
 
@@ -155,13 +159,14 @@ class ProductNatureCategory < Ekylibre::Record::Base
         name: item.human_name,
         reference_name: item.name,
         pictogram: item.pictogram,
+        asset_fixable: item.asset_fixable,
         depreciable: item.depreciable,
         purchasable: item.purchasable,
         reductible: item.reductible,
         saleable: item.saleable,
         storable: item.storable,
         fixed_asset_depreciation_percentage: (item.depreciation_percentage.present? ? item.depreciation_percentage : 20),
-        fixed_asset_depreciation_method: :simplified_linear
+        fixed_asset_depreciation_method: :linear
       }.with_indifferent_access
       %i[fixed_asset fixed_asset_allocation fixed_asset_expenses
          charge product stock stock_movement].each do |account|

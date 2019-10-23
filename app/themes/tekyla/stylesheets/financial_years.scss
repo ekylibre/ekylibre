@@ -1,0 +1,240 @@
+#financial-year-container {
+  border: 1px solid #BC2121;
+  border-radius: 3px;
+  margin: 20px;
+  overflow: hidden;
+  height: 180px;
+  i {
+    @include is-icon(120px);
+    @include use-icon(lock);
+    float: left;
+    margin: 60px 0px 0px 25px;
+  }
+  .financial-year-message {
+    padding: 10px;
+    width: calc(100% - 150px);
+    float: right;
+    margin-top: 15px;
+    .financial-year-title b {
+      font-size: 20px;
+      line-height: 24px;
+    }
+    .financial-year-description {
+      margin-top: 10px;
+      p {
+        line-height: 16px;
+      }
+    }
+    .financial-year-button {
+      margin-top: 12px;
+    }
+  }
+}
+
+.lock-table, .close-table {
+  margin: 11px;
+  table, th, td{
+    border: 1px solid #BC2121;
+    border-collapse: collapse;
+  }
+  th {
+    color: #BC2121;
+  }
+
+  i {
+    color: #BC2121;
+    @include is-icon(19px);
+    @include use-icon(warning);
+  }
+
+  input[type="checkbox"] {
+    margin-right: 12px;
+    margin-left: 7px;
+  }
+}
+
+#confirmLockModal, #confirmCloseModal {
+  .modal-title {
+    font-size: 15px;
+  }
+}
+
+.financial-year-title {
+  border-radius: 5px;
+  height: 42px;
+
+  h2 {
+    font-size: 27px;
+    margin-top: 8px;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  &.locked-financial-year {
+    border: 2px solid #F42727;
+    width: 183px;
+
+    h2 {
+      color: #F42727;
+    }
+  }
+
+  &.opened-financial-year {
+    border: 2px solid #47A730;
+    width: 140px;
+
+    h2 {
+      color: #47A730;
+    }
+  }
+
+  &.closed-financial-year {
+    border: 2px solid #F42727;
+    width: 150px;
+
+    h2 {
+      color: #F42727;
+    }
+  }
+
+  &.closure_in_preparation-financial-year {
+    border: 2px solid $caution-color;
+    width: 380px;
+
+    h2 {
+      color: $caution-color;
+    }
+  }
+
+  &.closing-financial-year {
+    border: 2px solid $caution-color;
+    width: 300px;
+
+    h2 {
+      color: $caution-color;
+    }
+  }
+}
+
+.close-conditions {
+  p + p{
+    margin-top: 5px;
+  }
+
+  a {
+    vertical-align: baseline;
+  }
+
+  i {
+    &.wrong-validation {
+      @include is-icon(25px);
+      @include use-icon(close);
+      color: red;
+    }
+
+    &.correct-validation {
+      margin-left: 5px;
+      @include is-icon(20px);
+      @include use-icon(check);
+      color: #6BC728;
+    }
+
+    &.warning-validation {
+      margin-left: 5px;
+      @include is-icon(20px);
+      @include use-icon(warning);
+      color: orange;
+    }
+  }
+
+  .result {
+    .result-icon {
+      width: 18px;
+      height: 18px;
+      border: 2px solid;
+      border-radius: 50%;
+      font-weight: bold;
+      text-align: center;
+      color: #5C85D5;
+      line-height: 18px;
+      margin-left: 5px;
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 15px;
+    }
+
+    .result-text {
+      display: inline-block;
+      margin-top: 9px;
+    }
+
+    .profit {
+      color: green;
+    }
+
+    .loss {
+      color: red;
+    }
+  }
+}
+
+.lock-picto {
+  @include is-icon(16px);
+  @include use-icon(lock);
+}
+.chevron {
+  @include is-icon(16px);
+  @include use-icon(chevron-right);
+  margin-left: 10px;
+  display: inline-block;
+  transform: rotate(0deg);
+
+  -webkit-transition: -webkit-transform 0.35s ease-out;
+  -moz-transition:    -moz-transform 0.35s ease-out;
+  -o-transition:      -o-transform 0.35s ease-out;
+  -ms-transition:     -ms-transform 0.35s ease-out;
+  transition:         transform 0.35s ease-out;
+}
+
+.progress-container {
+  background-color: #FCEFDA;
+  margin: 0px -15px -15px -15px;
+  padding: 25px 36px;
+  .progress-title {
+    font-size: 19px;
+  }
+  .progress {
+    &.thin {
+      height: 5px;
+      margin: 5px 0px;
+      .progress-bar {
+        &.thin {
+          line-height: 5px;
+          background-color: #FF9D00;
+        }
+      }
+    }
+  }
+}
+
+.disabled-btn {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+i {
+  #exchanges-list .list .export-action & {
+    @include is-icon();
+    @include use-icon(download);
+  }
+  #exchanges-list .list .import-action & {
+    @include is-icon();
+    @include use-icon(upload);
+  }
+  #exchanges-list .list .email-action & {
+    @include is-icon();
+    @include use-icon(envelope);
+  }
+}

@@ -38,8 +38,11 @@ class UpdateProductNaturesFromNomenclature < ActiveRecord::Migration
       query << ", variable_indicators_list = #{quote fields[:variable_indicators]}" if fields[:variable_indicators]
       query << ", variety = #{quote fields[:variety]}" if fields[:variety]
       if fields[:category]
-        # FIXME: Remove model to be independant of... models
-        ProductNatureCategory.import_from_nomenclature(fields[:category])
+        # This has been commented since it's model-dependent. The migration has
+        # already run on the remote server.
+        # TODO: Properly decouple it someday instead of having it commented out.
+        #
+        # ProductNatureCategory.import_from_nomenclature(fields[:category])
         category_id = select_value('SELECT id FROM product_nature_categories WHERE reference_name = ' + quote(fields[:category].to_s)).to_i
         query << ", category_id = #{category_id}"
       end

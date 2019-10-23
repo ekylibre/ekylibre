@@ -8,10 +8,11 @@
 
 = field_set(:nature) do
   = f.input :reductible
-  = f.input :depreciable, :show => :financials_assets
-  = f.input :storable, :show => :stocks
-  = f.input :purchasable, :show => :purchases
-  = f.input :saleable, :show => :sales
+  = f.input :asset_fixable, show: :financials_assets
+  = f.input :depreciable, show: :financials_assets, input_html: { data: { always_check: "input#product_nature_category_asset_fixable" } }
+  = f.input :storable, show: :stocks
+  = f.input :purchasable, show: :purchases
+  = f.input :saleable, show: :sales
   = f.input :subscribing
 
 = field_set(:financials_assets) do

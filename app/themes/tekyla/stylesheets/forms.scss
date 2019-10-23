@@ -129,6 +129,7 @@ $nested-field-border: $menu-border-width solid mix($menu-border-color, white);
 
 }
 
+
 input, textarea, select {
   &.special {
     background: $highlight-color;
@@ -417,6 +418,32 @@ div.nested-fields {
     font-size: 16px !important;
   }
 }
+.allocated-budget span {
+  align-self: center;
+  color: #999;
+}
+.error {
+  color: #D0311B !important;
+  }
+.amount_allocated {
+  display: flex;
+  .control-group {
+    flex: 0 0 42%;
+    display: flex;
+    justify-content: space-between;
+    .controls {
+      margin-left: 0 !important;
+    }
+  }
+  .allocated-budget {
+  align-self: center;
+  color: #999;
+  font-style: italic;
+  }
+  p {
+    margin-right: 4px;
+  }
+}
 
 .inline-date-fields {
   span {
@@ -434,6 +461,36 @@ div.nested-fields {
     padding: 3px !important;
     &:last-child {
       border-radius: 0 3px 3px 0;
+    }
+  }
+}
+
+.filter-form {
+  > * {
+    margin: 0px 3px;
+  }
+  input[type='submit'] {
+    margin: 0px 3px;
+  }
+}
+
+.added-details {
+  font-size: 11px;
+  text-align: right;
+  font-style: italic;
+}
+
+td.with-details {
+  padding: 20px 7px 0px 7px;
+}
+
+.action-form {
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+
+    a {
+      pointer-events: none;
     }
   }
 }

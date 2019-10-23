@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Remove accounts from pcg82">
+  <item-change item="accounts#adult_animal_expenses" fr_pcga="6041" fr_pcg82="NONE"/>
+  <item-change item="accounts#other_animal_expenses" fr_pcga="6045" fr_pcg82="NONE"/>
+</migration>

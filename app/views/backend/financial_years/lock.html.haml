@@ -1,0 +1,35 @@
+= form_tag do
+  = field_set :lock_settings.tl do
+    = field FinancialYear.model_name.human, @financial_year.code
+    = field FinancialYear.human_attribute_name(:stopped_on), @financial_year.stopped_on.l
+
+  .lock-table
+    %table
+      %tr
+        %th
+          %i
+          = :irreversible_operation.tl
+      %tr
+        %td
+          = check_box_tag 'confirm-revised-accounts'
+          = :account_certification_by_competent_person.tl
+
+  = form_actions do
+    = button_tag :lock_the_financial_year.tl, data: { toggle: 'modal', target: '#confirmLockModal' }, class: "btn btn-primary", id: "lock-btn", type: 'button', disabled: true
+    = link_to(:cancel.tl, (params[:redirect] || {action: :index}), class: "btn")
+
+#confirmLockModal.modal.fade{ tabindex: '-1', role: 'dialog', 'aria-labelledby': 'indexModal', 'aria-hidden': 'true' }
+  .modal-dialog{ role: 'document' }
+    .modal-content
+      .modal-header
+        %button.close{ data: { dismiss: 'modal' }, 'aria-label': 'Close', type: 'button' }
+          %i.icon.icon-destroy{ 'aria-hidden': 'true' }
+        %b.modal-title= :last_confirmation_before_definitive_lock.tl
+      .modal-body
+        %ul
+          %li= :locking_will_validate_every_journal_entries_for_this_financial_year.tl
+          %li= :please_reach_out_for_the_person_in_charge_of_the_closure.tl
+          %li= :assuming_you_want_to_close_a_financial_year_in_the_future.tl
+      .modal-footer
+        = link_to(:cancel.tl, {}, class: "btn")
+        = link_to :lock_the_financial_year.tl, lock_backend_financial_year_path, method: :post, class: "btn btn-primary"

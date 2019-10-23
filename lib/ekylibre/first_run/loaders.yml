@@ -260,6 +260,8 @@ analyses:
 sales:
   ekylibre_sales:
     path: 'alamano/sales.csv'
+    options:
+      attachments_path: 'alamano/sales'
   la_graine_informatique_vinifera_sales:
     path: 'vinifera/sales.csv'
   ekylibre_incoming_payments:
@@ -292,8 +294,12 @@ bank_statements:
   ekylibre_bank_statements:
     path: 'alamano/bank_statements.ods'
 
+cash_transfers:
+  ekylibre_cash_transfers:
+    path: 'alamano/cash_transfers.csv'
 interventions:
   # Import interventions from Ekylibre conventions
+  # Need to be reviewed
   ekylibre_interventions:
     path: 'alamano/interventions.csv'
 
@@ -328,3 +334,5 @@ interventions:
 accountancy:
   isagri_isacompta_fixed_assets:
     path: 'isacompta/fixed_assets.csv'
+  bordeaux_sciences_agro_istea_balance:
+    path: 'istea/balance_2016_2018.TXT'

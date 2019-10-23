@@ -1,5 +1,10 @@
 module Ekylibre
   class SalesExchanger < ActiveExchanger::Base
+    def initialize(file, supervisor, options = {})
+      super file, supervisor
+      @attachments_dir = options['attachments_path']
+      @attachments_dir &&= Pathname.new(@attachments_dir)
+    end
     def import
       rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
       w.count = rows.size
@@ -13,7 +18,7 @@ module Ekylibre
           variant_code: (row[3].blank? ? nil : row[3]),
           quantity: (row[4].blank? ? nil : row[4].tr(',', '.').to_d),
           unit_pretax_amount: (row[5].blank? ? nil : row[5].tr(',', '.').to_d),
-          vat_rate: (row[6].blank? ? nil : row[6].tr(',', '.').to_d),
+          vat_percentage: (row[6].blank? ? nil : row[6].tr(',', '.').to_d),
           description: (row[7].blank? ? '' : row[7].to_s),
           # Extra infos
           document_reference_number: "#{Date.parse(row[0].to_s)}_#{row[1]}_#{row[2]}".tr(' ', '-')
@@ -47,21 +52,25 @@ module Ekylibre
               nature: SaleNature.actives.first,
               description: r.description
             )
+            if @attachments_dir.present?
+              attachment_potential_path = @attachments_dir.join(sale.client.name.parameterize,
+                                                                sale.reference_number + ".*")
+              attachment_paths = Dir.glob(attachment_potential_path)
+              attachment_paths.each do |attachment_path|
+                doc = Document.new(file: File.open(attachment_path))
+                sale.attachments.create!(document: doc)
+              end
+            end
             sale_ids << sale.id
           end
         end
 
         # find or create a tax
-        # TODO: search country before for good tax request (country and amount)
         # country via entity if information exist
-        if r.vat_rate && country
-          item = Nomen::Tax.where(country: country.to_sym, amount: r.vat_rate).first
-          if item
-            unless sale_item_tax = Tax.where(reference_name: item.name).first
-              sale_item_tax = Tax.import_from_nomenclature(item.name)
-            end
-          end
-        end
+        raise "Missing VAT at line #{line_index}" unless r.vat_percentage
+
+        sale_item_tax = Tax.find_on(r.invoiced_at.to_date, country: country.to_sym, amount: r.vat_percentage)
+        raise "No tax found for given #{r.vat_percentage}" unless sale_item_tax
 
         # find or create a purchase line
         if sale && variant && r.unit_pretax_amount && r.quantity && sale_item_tax
