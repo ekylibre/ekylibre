@@ -12,7 +12,7 @@ class AccountancyComputation
                     entities_advance_giveables entities_client_receivables entities_others_clients entities_state_receivables entities_associate_receivables
                     entities_other_receivables entities_investment_security entities_reserve entities_advance_charges entities_assets_gaps]
 
-  PASSIVE_LINES = %i[capitals_values capitals_emissions_and_reevaluation_gaps capitals_liability_reserves capitals_anew_reports capitals_profit_or_loss
+  PASSIVE_LINES = %i[capitals_values capitals_emissions reevaluation_gaps capitals_liability_reserves capitals_anew_reports capitals_profit_or_loss
                      capitals_investment_subsidies capitals_derogatory_depreciations capitals_mandatory_provisions capitals_risk_and_charges_provisions
                      debts_land_parcel_loans debts_others_loans debts_associate_locked_debts debts_cashe_debts debts_other_financial_debts
                      others_debts_advance_receivables others_debts_supplier_receivables others_debts_state_debts others_debts_social_debts

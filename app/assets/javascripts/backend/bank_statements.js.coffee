@@ -430,11 +430,13 @@
           return false
 
     _unletterItems: (letter) ->
-      # url = '/backend/bank-reconciliation/letters/' + letter
-      url = $(".letter:contains('#{letter}')").first().next('#clear').attr('href')
-      $.ajax url,
+      $.ajax
+        url: '/backend/bank-reconciliation/letters/'
         type: 'DELETE'
         dataType: 'JSON'
+        data:
+          cash_id: $('#cash_id').val()
+          letter: letter
         success: (response) =>
           lines = @_linesWithReconciliationLetter(response.letter)
           lines.find(".details .letter").text ""

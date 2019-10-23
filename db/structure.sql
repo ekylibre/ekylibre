@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 9.6.15
--- Dumped by pg_dump version 11.5 (Debian 11.5-3.pgdg90+1)
+-- Dumped by pg_dump version 9.6.15
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -21,20 +21,6 @@ SET row_security = off;
 --
 
 CREATE SCHEMA postgis;
-
-
---
--- Name: public; Type: SCHEMA; Schema: -; Owner: -
---
-
-CREATE SCHEMA public;
-
-
---
--- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON SCHEMA public IS 'standard public schema';
 
 
 --
@@ -1219,7 +1205,9 @@ CREATE TABLE public.bank_statement_items (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    memo character varying
+    memo character varying,
+    accounted_at timestamp without time zone,
+    journal_entry_id integer
 );
 
 
@@ -1681,7 +1669,8 @@ CREATE TABLE public.cashes (
     bank_account_holder_name character varying,
     suspend_until_reconciliation boolean DEFAULT false NOT NULL,
     suspense_account_id integer,
-    by_default boolean DEFAULT false
+    by_default boolean DEFAULT false,
+    enable_bookkeep_bank_item_details boolean DEFAULT false
 );
 
 
@@ -6168,20 +6157,22 @@ ALTER SEQUENCE public.product_phases_id_seq OWNED BY public.product_phases.id;
 
 
 --
--- Name: product_populations; Type: VIEW; Schema: public; Owner: -
+-- Name: product_populations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE VIEW public.product_populations AS
-SELECT
-    NULL::integer AS product_id,
-    NULL::timestamp without time zone AS started_at,
-    NULL::numeric AS value,
-    NULL::integer AS creator_id,
-    NULL::timestamp without time zone AS created_at,
-    NULL::timestamp without time zone AS updated_at,
-    NULL::integer AS updater_id,
-    NULL::integer AS id,
-    NULL::integer AS lock_version;
+CREATE TABLE public.product_populations (
+    product_id integer,
+    started_at timestamp without time zone,
+    value numeric,
+    creator_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    updater_id integer,
+    id integer,
+    lock_version integer
+);
+
+ALTER TABLE ONLY public.product_populations REPLICA IDENTITY NOTHING;
 
 
 --
@@ -10508,6 +10499,13 @@ CREATE INDEX index_bank_statement_items_on_created_at ON public.bank_statement_i
 --
 
 CREATE INDEX index_bank_statement_items_on_creator_id ON public.bank_statement_items USING btree (creator_id);
+
+
+--
+-- Name: index_bank_statement_items_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_bank_statement_items_on_journal_entry_id ON public.bank_statement_items USING btree (journal_entry_id);
 
 
 --
@@ -17878,8 +17876,8 @@ CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING b
 -- Name: product_populations _RETURN; Type: RULE; Schema: public; Owner: -
 --
 
-CREATE OR REPLACE VIEW public.product_populations AS
- SELECT DISTINCT ON (movements.started_at, movements.product_id) movements.product_id,
+CREATE RULE "_RETURN" AS
+    ON SELECT TO public.product_populations DO INSTEAD  SELECT DISTINCT ON (movements.started_at, movements.product_id) movements.product_id,
     movements.started_at,
     sum(precedings.delta) AS value,
     max(movements.creator_id) AS creator_id,
@@ -19105,6 +19103,8 @@ INSERT INTO schema_migrations (version) VALUES ('20190916124521');
 INSERT INTO schema_migrations (version) VALUES ('20190929224101');
 
 INSERT INTO schema_migrations (version) VALUES ('20191002104944');
+
+INSERT INTO schema_migrations (version) VALUES ('20191007122201');
 
 INSERT INTO schema_migrations (version) VALUES ('20191010151901');
 

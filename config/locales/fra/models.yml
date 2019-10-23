@@ -106,6 +106,8 @@ fra:
         content_maximal_quantity: "Quantité maximale supportée" #?
         content_nature: "Type de Produit contenu" #?
         variety: "Type" #?
+      cash:
+        enable_bookkeep_bank_item_details: "Comptabiliser le détails du relevé de comptes"
       cashes:
         main_account: "Compte principal"
       document:
@@ -2073,7 +2075,7 @@ fra:
     suspend_until_reconciliation: "Suspendre jusqu'à réconciliation"
     suspended: "Suspendu"
     suspended_journal_entry_items: "Lignes d'écriture suspendues"
-    suspense_account: "Compte de suspens"
+    suspense_account: "Compte d'attente bancaire"
     tactic: "Itinéraire technique"
     tactics: "Itinéraires culturaux"
     target: "Cible"

@@ -1213,7 +1213,7 @@ fra:
     capitals: "Capital social"
     capitals_anew_reports: "Report à nouveau"
     capitals_derogatory_depreciations: "Amortissements dérogatoires"
-    capitals_emissions_and_reevaluation_gaps: "Primes d'émission, fusion, d'apport et écarts de réévaluation"
+    capitals_emissions: "Primes d'émission, fusion, d'apport"
     capitals_investment_subsidies: "Subventions d'investissements"
     capitals_liability_reserves: "Réserves"
     capitals_mandatory_provisions: "Provisions réglementées"
@@ -1902,6 +1902,7 @@ fra:
     language: "Langue" #?
     last_analyses: "Dernières analyses"
     last_animals: "Dernières naissances" #?
+    last_bank_statement_stopped_on: "Date de fin (relevés de compte)"
     last_clients: "Derniers clients" #?
     last_computed_balance: "Dernière balance calculée"
     last_confirmation_before_definitive_close: "Dernière confirmation avant clôture définitive"
@@ -2435,6 +2436,7 @@ fra:
     record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement." #?
     record_has_not_been_removed: "L’enregistrement n’a pu être supprimé." #?
     record_maintenance: "Enregistrer une maintenance"
+    reevaluation_gaps: "Ecarts de réévaluation"
     reference: "Référence"
     reference_supplier: "Référence fournisseur : %{reference_number}"
     reflect: "Refléter"
@@ -2451,6 +2453,7 @@ fra:
     relationship_of_entity_as_inverse_post: "%{relationship} de %{entity} (%{inverse_post})"
     relationship_of_entity_as_post: "%{post} de %{entity}"
     remaining_amount_to_reconcile: "Montant restant à rapprocher"
+    remaining_items_to_reconcile: "Lignes restantes à rapprocher"
     remove: "Supprimer"
     remove_item: "Supprimer un élément"
     remove_reading: "Supprimer un relevé d’indicateur" #?
