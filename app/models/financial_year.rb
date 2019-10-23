@@ -457,14 +457,14 @@ class FinancialYear < Ekylibre::Record::Base
 
   def split_into_periods(interval)
     case interval
-    when 'year'
-      [[started_on, stopped_on]]
-    when 'semesters'
-      compute_ranges(6)
-    when 'trimesters'
-      compute_ranges(3)
-    when 'months'
-      compute_ranges(1)
+      when 'year'
+        [[started_on, stopped_on]]
+      when 'semesters'
+        compute_ranges(6)
+      when 'trimesters'
+        compute_ranges(3)
+      when 'months'
+        compute_ranges(1)
     end
   end
 
@@ -509,8 +509,12 @@ class FinancialYear < Ekylibre::Record::Base
     result == balance_sheet_balance
   end
 
+  def previous_year_result_carried_forward?
+    Journal.sum_entry_items('12', started_on: started_on, stopped_on: stopped_on).zero?
+  end
+
   def any_invalid_closure_check?
-    checks = [all_previous_financial_years_closed_or_locked?, !opened_exchange?, no_draft_entry?, no_entry_to_balance?, unbalanced_radical_account_classes_array.empty?, balanced_balance_sheet?]
+    checks = [all_previous_financial_years_closed_or_locked?, previous_year_result_carried_forward?, !opened_exchange?, no_draft_entry?, no_entry_to_balance?, unbalanced_radical_account_classes_array.empty?, balanced_balance_sheet?]
     checks.any? { |c| c == false }
   end
 

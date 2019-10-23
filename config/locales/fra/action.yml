@@ -2294,6 +2294,7 @@ fra:
     pretax_amount: "Montant HT"
     previous: "Précédent"
     previous_financial_year_was_locked_warning: "L'exercice précédent ayant été vérouillé, pensez à fournir un bilan de début d'exercice avant d'effectuer la clotûre."
+    previous_year_result_should_be_allocated: "Le résultat de l'exercice comptable précédent doit être alloué avant de fermer cet exercice"
     previous_plant_name: "Nom de la culture précédente" #?
     previous_production_name: "Nom de la production précédente" #?
     price: "Prix"
