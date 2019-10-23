@@ -48,7 +48,8 @@
      </a>"
 
   $(document).ready ->
-    interval = window.setInterval(read, delay * 1000) if interval == null
+    $('.navbar__notifications').each ->
+      interval = window.setInterval(read, delay * 1000) if interval == null
 
   E.notification.setup({icon: "<%= image_url('icon/ipad.png') %>"})
 
