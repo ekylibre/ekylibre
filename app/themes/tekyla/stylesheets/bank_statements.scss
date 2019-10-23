@@ -43,17 +43,18 @@
     display: flex;
     justify-content: space-around;
 
-    a {
-      i {
-        display: none;
+    a#clear {
+      span {
+        color: #3f70ce;
       }
-
-      &#clear > i {
+      i {
+        color: #3f70ce;
         display: inline-block;
         @include is-icon;
         @include use-icon(eraser);
       }
     }
+
   }
 
   .legend {

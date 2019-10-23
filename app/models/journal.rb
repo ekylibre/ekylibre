@@ -335,8 +335,10 @@ class Journal < Ekylibre::Record::Base
   # '-' negates values
   # Computation:
   #   B: Balance (= Debit - Credit). Default computation.
-  #   C: Credit balance if positive
-  #   D: Debit balance if positive
+  #   C: -Balance if positive
+  #   D: Balance if positive
+  #   E: - Crédit balance
+  #   F: Débit balance
   def self.sum_entry_items(expression, options = {})
     conn = ActiveRecord::Base.connection
     journal_entry_items = 'jei'
@@ -364,7 +366,7 @@ class Journal < Ekylibre::Record::Base
       words = expr.strip.split(/\s+/)
       direction = 1
       direction = -1 if words.first =~ /^(\+|\-)$/ && words.shift == '-'
-      mode = words.last =~ /^[BCD]$/ ? words.delete_at(-1) : 'B'
+      mode = words.last =~ /^[BCDEF]$/ ? words.delete_at(-1) : 'B'
       accounts_range = {}
       words.map do |word|
         position = (word =~ /\!/ ? :exclude : :include)
@@ -374,18 +376,39 @@ class Journal < Ekylibre::Record::Base
         accounts_range[position] ||= []
         accounts_range[position] << condition
       end.join
-      query = "SELECT SUM(#{journal_entry_items}.absolute_debit) AS debit, SUM(#{journal_entry_items}.absolute_credit) AS credit"
+
+      query = "SELECT
+                SUM(account_summary.sum_debit) as sum_debit,
+                SUM(account_summary.sum_credit) AS sum_credit,
+                SUM(CASE WHEN account_summary.account_balance > 0 THEN account_summary.account_balance ELSE 0 END) as debit_balance,
+                SUM(CASE WHEN account_summary.account_balance < 0 THEN account_summary.account_balance ELSE 0 END) as credit_balance
+                FROM (
+                  SELECT a.number,
+                    sum(COALESCE(jei.debit, 0)) as sum_debit,
+    	              sum(COALESCE(jei.credit, 0)) as sum_credit,
+    	              sum(COALESCE(jei.debit, 0)) - sum(COALESCE(jei.credit, 0)) as account_balance"
+
       query << from_where
       query << journal_entries_states
       query << " AND (#{accounts_range[:include].join(' OR ')})" if accounts_range[:include]
       query << " AND NOT (#{accounts_range[:exclude].join(' OR ')})" if accounts_range[:exclude]
-      row = conn.select_rows(query).first
+
+      query << "GROUP BY a.id ORDER BY a.number) as account_summary"
+
+      req = conn.select_rows(query)
+      row = req.first
       debit =  row[0].blank? ? 0.0 : row[0].to_d
       credit = row[1].blank? ? 0.0 : row[1].to_d
+      debit_balance = row[2].blank? ? 0.0 : row[2].to_d
+      credit_balance = row[3].blank? ? 0.0 : row[3].to_d
       if mode == 'C'
-        direction * (credit > debit ? credit - debit : 0)
+        c = direction * (credit > debit ? credit - debit : 0)
       elsif mode == 'D'
-        direction * (debit > credit ? debit - credit : 0)
+        d = direction * (debit > credit ? debit - credit : 0)
+      elsif mode == 'E'
+        e = direction * (-credit_balance)
+      elsif mode == 'F'
+        f = direction * debit_balance
       else
         direction * (debit - credit)
       end

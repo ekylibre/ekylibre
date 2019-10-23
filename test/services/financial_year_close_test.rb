@@ -67,7 +67,7 @@ class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase
     generate_entry(test_accounts[2], -3000)
     generate_entry(test_accounts[2], -465)
     generate_entry(test_accounts[3],  200)
-    generate_entry(test_accounts[3],  200)
+    generate_entry(test_accounts[3],  1730)
     generate_entry(test_accounts[4], -465)
     generate_entry(test_accounts[4], -300)
     validate_fog

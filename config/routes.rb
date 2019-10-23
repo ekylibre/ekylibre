@@ -291,7 +291,11 @@ Rails.application.routes.draw do
           get :count
         end
       end
-      resources :letters, only: %i[create destroy]
+      resources :letters, only: %i[create] do
+        collection do
+          delete :destroy
+        end
+      end
     end
 
     resources :bank_statements, concerns: %i[list unroll], path: 'bank-statements' do
@@ -302,7 +306,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :bank_statement_items, only: %i[new create destroy], path: 'bank-statement-items'
+    resources :bank_statement_items, only: %i[new create show destroy], path: 'bank-statement-items'
 
     resources :beehives, only: [:update] do
       member do

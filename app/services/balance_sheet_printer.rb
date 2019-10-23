@@ -353,7 +353,7 @@ class BalanceSheetPrinter
     h = HashWithIndifferentAccess.new
     h[:group_name] = :capitals.tl
     h[:items] = []
-    items = [:capitals_values, :capitals_emissions_and_reevaluation_gaps,
+    items = [:capitals_values, :capitals_emissions, :reevaluation_gaps,
              :capitals_liability_reserves, :capitals_anew_reports,
              :capitals_profit_or_loss, :capitals_investment_subsidies,
              :capitals_derogatory_depreciations, :capitals_mandatory_provisions,

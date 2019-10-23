@@ -1342,7 +1342,7 @@ eng:
     capitals: "Capitals"
     capitals_anew_reports: "capitals_anew_reports" #?
     capitals_derogatory_depreciations: "capitals_derogatory_depreciations" #?
-    capitals_emissions_and_reevaluation_gaps: "capitals_emissions_and_reevaluation_gaps" #?
+    capitals_emissions: "capitals_emissions" #?
     capitals_investment_subsidies: "capitals_investment_subsidies" #?
     capitals_liability_reserves: "capitals_liability_reserves" #?
     capitals_mandatory_provisions: "capitals_mandatory_provisions" #?
@@ -1905,6 +1905,7 @@ eng:
     # land_parcel_name: "Land parcel name"
     land_parcels: "Land parcels"
     last_analyses: "Last milk analysis"
+    last_bank_statement_stopped_on: "last bank statement stopped on"
     last_computed_balance: "Last computed balance" #?
     last_confirmation_before_definitive_close: "Last confirmation before definitive close"
     last_confirmation_before_definitive_lock: "Last confirmation before definitive lock"
@@ -2291,6 +2292,7 @@ eng:
     record: "Record" #?
     record_cannot_be_saved: "The record can not be saved"
     record_maintenance: "Record maintenance"
+    reevaluation_gaps: "reevaluation_gaps"
     reference: "Reference"
     reference_supplier: "Reference supplier : %{reference_number}"
     reflect: "Reflect" #?
@@ -2306,6 +2308,7 @@ eng:
     relationship_of_entity_as_inverse_post: "%{relationship} of %{entity} (%{inverse_post})"
     relationship_of_entity_as_post: "%{relationship} of %{entity} as %{post}"
     remaining_amount_to_reconcile: "Remaining amount to reconcile"
+    remaining_items_to_reconcile: "Remaining items to reconcile"
     remove: "Remove" #?
     remove_item: "Remove item"
     remove_subscription: "Remove subscription"

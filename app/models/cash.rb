@@ -82,6 +82,8 @@ class Cash < Ekylibre::Record::Base
            through: :main_account, source: :journal_entry_items
   has_many :unpointed_suspended_journal_entry_items, -> { unpointed.where.not(entry_id: BankStatement.where('journal_entry_id IS NOT NULL').select(:journal_entry_id)) },
            through: :suspense_account, source: :journal_entry_items
+  has_many :unpointed_lines_suspended_journal_entry_items, -> { unpointed.where.not(entry_id: BankStatementItem.where('journal_entry_id IS NOT NULL').select(:journal_entry_id)) },
+                    through: :suspense_account, source: :journal_entry_items
   has_one :last_bank_statement, -> { order(stopped_on: :desc) }, class_name: 'BankStatement'
 
   enumerize :nature, in: %i[bank_account cash_box associate_account], default: :bank_account, predicates: true
@@ -170,7 +172,15 @@ class Cash < Ekylibre::Record::Base
   end
 
   def unpointed_journal_entry_items
-    suspend_until_reconciliation ? unpointed_suspended_journal_entry_items : unpointed_main_journal_entry_items
+    if suspend_until_reconciliation
+      if enable_bookkeep_bank_item_details
+        unpointed_lines_suspended_journal_entry_items
+      else
+        unpointed_suspended_journal_entry_items
+      end
+    else
+      unpointed_main_journal_entry_items
+    end
   end
 
   def account_id
@@ -280,6 +290,15 @@ class Cash < Ekylibre::Record::Base
   # Return last entry date
   def last_journal_entry
     main_journal_entry_items.reorder(printed_on: :desc).first
+  end
+
+  # Return last date of bank_item from bank statements link to current cash
+  def last_bank_statement_stopped_on
+    if last_bank_statement
+      last_bank_statement.stopped_on
+    else
+      nil
+    end
   end
 
   # Returns (real) main account cash balance in the global currency

@@ -77,6 +77,7 @@ class PurchaseInvoice < Purchase
   scope :unpaid_and_not_empty, -> { where.not(affair: Affair.closeds.where("debit != 0 OR credit != 0")) }
   scope :current, -> { unpaid }
   scope :current_or_self, ->(purchase) { where(unpaid).or(where(id: (purchase.is_a?(Purchase) ? purchase.id : purchase))) }
+  scope :with_nature, ->(id) { where(nature_id: id) }
 
   protect on: :update, allow_update_on: %i[reference_number responsible_id invoiced_at payment_delay tax_payability description] do
     items.any? && !PurchaseInvoice.unpaid_and_not_empty.include?(self)

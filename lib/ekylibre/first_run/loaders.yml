@@ -334,3 +334,5 @@ interventions:
 accountancy:
   isagri_isacompta_fixed_assets:
     path: 'isacompta/fixed_assets.csv'
+  bordeaux_sciences_agro_istea_balance:
+    path: 'istea/balance_2016_2018.TXT'

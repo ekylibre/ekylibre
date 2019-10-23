@@ -437,6 +437,16 @@ class JournalEntryItem < Ekylibre::Record::Base
     vat_account&.label
   end
 
+  def associated_journal_entry_items_on_bank_reconciliation
+    return [] unless bank_statement_letter
+    JournalEntryItem.where(bank_statement_letter: bank_statement_letter, account: account).not.where(id: self)
+  end
+
+  def associated_bank_statement_items
+    return [] unless bank_statement_letter
+    BankStatementItem.joins(cash: :suspense_account).where('letter = ? AND cashes.suspense_account_id = ?', bank_statement_letter, account_id)
+  end
+
   def displayed_label_in_accountancy
     accounting_label.present? ? accounting_label : name
   end

@@ -47,6 +47,8 @@ module Backend
       t.column :transfered_on
       t.column :name
       t.column :memo
+      t.column :letter
+      t.column :journal_entry, url: true
       t.column :debit, currency: :currency
       t.column :credit, currency: :currency
     end

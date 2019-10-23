@@ -53,7 +53,8 @@
         - bank_statement_id = items.select{ |item| item.is_a?(BankStatementItem) }.map(&:bank_statement_id).uniq.first
         - bank_statement = bank_statement_id && BankStatement.find(bank_statement_id)
         = render 'date_header', date: date, bank_statement: bank_statement, cash_id: cash_id
-        = render partial: 'reconciliation_item', collection: items, as: :item
+        - items.uniq.each do |item|
+          = render 'reconciliation_item', item: item
 
   .totals
     #matching

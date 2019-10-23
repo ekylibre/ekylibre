@@ -356,7 +356,7 @@ class BankStatementTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       assert_not_lettered_by @payment.letter_with(@tanks)
     end
 
-    test "#{payment} cannot be lettered when there's the cashes don't match" do
+    test "#{payment} cannot be lettered when the cashes don't match" do
       @payment_class = payment
       setup_data(cash_mismatch: true)
       assert_not_lettered_by @payment.letter_with(@tanks)
