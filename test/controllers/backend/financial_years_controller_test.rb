@@ -63,24 +63,27 @@ module Backend
       result = Journal.create!(name: 'Results TEST', code: 'RSTST', nature: :result)
       closing = Journal.create!(name: 'Close TEST', code: 'CLOSTST', nature: :closure)
       forward = Journal.create!(name: 'Forward TEST', code: 'FWDTST', nature: :forward)
-      test_accounts = {
-        401 => Account.create!(name: 'Test401', number: '401001'),
-        411 => Account.create!(name: 'Test411', number: '411001'),
-        6   => Account.create!(name: 'Test6x', number: '604'),
-        7   => Account.create!(name: 'Test7x', number: '704'),
-        1061   => Account.create!(name: 'Test1061x', number: '1061'),
-        1063   => Account.create!(name: 'Test1063x', number: '1063'),
-        1064   => Account.create!(name: 'Test1064x', number: '1064'),
-        1068   => Account.create!(name: 'Test1068x', number: '1068'),
-        457   => Account.create!(name: 'Test457x', number: '457'),
-        455   => Account.create!(name: 'Test455x', number: '455'),
-        4423   => Account.create!(name: 'Test4423x', number: '4423'),
-        110   => @credit_carry_forward
+
+      Account.create!(name: 'Test1061x', number: '1061')
+      Account.create!(name: 'Test1063x', number: '1063')
+      Account.create!(name: 'Test1064x', number: '1064')
+      Account.create!(name: 'Test1068x', number: '1068')
+      Account.create!(name: 'Test457x', number: '457')
+      Account.create!(name: 'Test4423x', number: '4423')
+
+      accounts = {
+        7030 => Account.find_or_import_from_nomenclature(:processing_products_revenues),
+        5110 => Account.find_or_import_from_nomenclature(:pending_deposit_payments),
+        6028 => Account.find_or_import_from_nomenclature(:raw_material_expenses),
+        5120 => Account.find_or_import_from_nomenclature(:banks),
+        4552 => Account.find_or_import_from_nomenclature(:usual_associates_current_accounts)
       }
 
-      generate_entry(test_accounts[6], 300, destination_account: test_accounts[401])
-      generate_entry(test_accounts[411], 2000, destination_account: test_accounts[7])
-      
+      generate_entry(accounts[4552], 2000, destination_account: accounts[7030])
+      generate_entry(accounts[5110], 2000, destination_account: accounts[4552])
+      generate_entry(accounts[6028], 300, destination_account: accounts[4552])
+      generate_entry(accounts[4552], 300, destination_account: accounts[5120])
+
       validate_fog
 
       allocations = {
@@ -118,11 +121,11 @@ module Backend
                                         allocations: allocations
 
       assert_equal 1, flash[:notifications]['success'].count
-      assert @financial_year.reload.close(User.first)
+      assert @financial_year.reload.close(User.first, nil, result_journal: result)
 
       @company.update!(legal_position_code: "GAEC")
       @next_year2 = create(:financial_year, started_on: Date.new(2010,1,1), stopped_on: Date.new(2010,12,31))
-      generate_entry(test_accounts[6], 30000, printed_on: @financial_year.stopped_on + 2.days, destination_account: test_accounts[401])
+      generate_entry(accounts[6028], 30000, printed_on: @financial_year.stopped_on + 2.days, destination_account: accounts[4552])
       validate_fog
       @next_year.reload
 
@@ -130,10 +133,11 @@ module Backend
       assert_template partial: '_negative_result_allocation_person'
 
       post :close, id: @next_year, financial_year: { stopped_on: @next_year.stopped_on },
-                                        result_journal: result,
-                                        closure_journal: closing,
-                                        forward_journal: forward ,
-                                        allocations: allocations
+                                   result_journal: result,
+                                   closure_journal: closing,
+                                   forward_journal: forward ,
+                                   allocations: allocations
+
       assert_equal 1, flash[:notifications]['success'].count
     end
 

@@ -501,8 +501,16 @@ class FinancialYear < Ekylibre::Record::Base
     balanced_radical_account_classes
   end
 
+  def balanced_balance_sheet?(timing = :prior_to_closure)
+    computation = AccountancyComputation.new(self)
+    result = computation.sum_entry_items_by_line(:profit_and_loss_statement, :exercice_result)
+    balance_sheet_balance = computation.active_balance_sheet_amount - computation.passive_balance_sheet_amount
+    return balance_sheet_balance.zero? if timing == :post_closure
+    result == balance_sheet_balance
+  end
+
   def any_invalid_closure_check?
-    checks = [all_previous_financial_years_closed_or_locked?, !opened_exchange?, no_draft_entry?, no_entry_to_balance?, unbalanced_radical_account_classes_array.empty?]
+    checks = [all_previous_financial_years_closed_or_locked?, !opened_exchange?, no_draft_entry?, no_entry_to_balance?, unbalanced_radical_account_classes_array.empty?, balanced_balance_sheet?]
     checks.any? { |c| c == false }
   end
 

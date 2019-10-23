@@ -1279,6 +1279,7 @@ eng:
     balance_of_selection: "Balance of selection"
     balance_of_the_income_statement: "Budget allocation - balance of the income statement"
     balanced: "Balanced" #?
+    balanced_balance_sheet: "The balance sheet is balanced."
     bank_account: "Bank account"
     bank_check_number: " no. %{number}"
     bank_check_number_text: "Check no. %{number}"
@@ -1374,6 +1375,7 @@ eng:
     close_settings: "Close settings" #?!
     close_the_financial_year: "Close the financial year" #??
     closed: "Closed" #?
+    closure_failed_because_balance_sheet_unbalanced: "Closure failed because the balance sheet is not balanced."
     clouds: "Clouds"
     cobbles: "Cobbles" #?
     column: "Column"
@@ -2504,6 +2506,7 @@ eng:
     trimester: "Trimester" #?
     type_of_structure: "Type of structure" #?!
     unbalanced: "Unbalanced" #?
+    unbalanced_balance_sheet: "The balance sheet is not balanced."
     unbalanced_clients: "Unbalanced clients" #?
     unbalanced_suppliers: "Unbalanced suppliers" #?
     unbilled_payables: "Unbilled payables"
