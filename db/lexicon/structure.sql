@@ -1,13 +1,25 @@
 CREATE TABLE cadastral_land_parcel_zones (
-  id character varying,
+  id character varying PRIMARY KEY NOT NULL,
   section character varying,
   work_number character varying,
   net_surface_area integer,
   shape postgis.geometry(MultiPolygon,4326) NOT NULL,
   centroid postgis.geometry(Point,4326)
 );
+CREATE INDEX cadastral_land_parcel_zones_id ON cadastral_land_parcel_zones(id);
 CREATE INDEX cadastral_land_parcel_zones_shape ON cadastral_land_parcel_zones USING GIST (shape);
 CREATE INDEX cadastral_land_parcel_zones_centroid ON cadastral_land_parcel_zones USING GIST (centroid);
+
+CREATE TABLE registered_chart_of_accounts (
+  id character varying PRIMARY KEY NOT NULL,
+  account_number character varying NOT NULL,
+  chart_id character varying NOT NULL,
+  reference_name character varying,
+  previous_reference_name character varying,
+  name jsonb
+);
+CREATE INDEX registered_chart_of_accounts_id ON registered_chart_of_accounts(id);
+CREATE INDEX registered_chart_of_accounts_account_number ON registered_chart_of_accounts(account_number);
 
 CREATE TABLE intervention_models (
   id character varying PRIMARY KEY NOT NULL,
@@ -73,6 +85,18 @@ CREATE TABLE master_production_outputs (
 CREATE INDEX master_production_outputs_nature_id ON master_production_outputs(production_nature_id);
 CREATE INDEX master_production_outputs_system_name ON master_production_outputs(production_system_name);
 CREATE INDEX master_production_outputs_name ON master_production_outputs(name);
+
+CREATE TABLE master_vine_varieties (
+  id character varying NOT NULL,
+  specie_name character varying NOT NULL,
+  specie_long_name character varying,
+  category_name character varying NOT NULL,
+  fr_validated character varying,
+  utility character varying,
+  color character varying,
+  customs_code character varying
+);
+CREATE INDEX master_vine_varieties_id ON master_vine_varieties(id);
 
 CREATE TABLE registered_postal_zones (
   country character varying NOT NULL,
@@ -167,12 +191,21 @@ CREATE INDEX registered_pfi_targets_id ON registered_pfi_targets(id);
 
 CREATE TABLE registered_phytosanitary_products (
   id integer PRIMARY KEY NOT NULL,
-  name character varying NOT NULL,
-  nature character varying NOT NULL,
-  maaid character varying NOT NULL,
-  mix_category_code character varying NOT NULL,
-  in_field_reentry_delay integer NOT NULL,
-  firm_name character varying NOT NULL
+    name character varying NOT NULL,
+    other_name character varying,
+    nature character varying,
+    active_compounds character varying,
+    maaid character varying NOT NULL,
+    mix_category_code character varying NOT NULL,
+    in_field_reentry_delay integer,
+    state character varying NOT NULL,
+    started_on date,
+    stopped_on date,
+    allowed_mentions jsonb,
+    restricted_mentions character varying,
+    operator_protection_mentions text,
+    firm_name character varying,
+    product_type character varying
 );
 CREATE INDEX registered_phytosanitary_products_name ON registered_phytosanitary_products(name);
 CREATE INDEX registered_phytosanitary_products_nature ON registered_phytosanitary_products(nature);
@@ -181,33 +214,51 @@ CREATE INDEX registered_phytosanitary_products_id ON registered_phytosanitary_pr
 CREATE INDEX registered_phytosanitary_products_firm_name ON registered_phytosanitary_products(firm_name);
 
 CREATE TABLE registered_phytosanitary_usages (
-  product_id integer NOT NULL,
-  specie character varying NOT NULL,
-  target_name jsonb,
-  description jsonb,
-  treatment jsonb,
-  untreated_buffer_distance integer,
-  dose_quantity numeric(19,4) NOT NULL,
-  dose_unit character varying,
-  dose_unit_name character varying,
-  pre_harvest_delay integer NOT NULL,
-  applications_count integer NOT NULL,
-  applications_frequency jsonb
+    id character varying PRIMARY KEY NOT NULL,
+    product_id integer NOT NULL,
+    ephy_usage_phrase character varying NOT NULL,
+    specie character varying,
+    target_name jsonb,
+    description jsonb,
+    treatment jsonb,
+    untreated_buffer_distance integer,
+    dose_quantity numeric(19,4),
+    dose_unit character varying,
+    dose_unit_name character varying,
+    dose_unit_factor real,
+    pre_harvest_delay integer,
+    pre_harvest_delay_bbch integer,
+    applications_count integer,
+    applications_frequency jsonb,
+    development_stage_min integer,
+    development_stage_max integer,
+    usage_conditions character varying,
+    untreated_buffer_aquatic integer,
+    untreated_buffer_arthropod integer,
+    untreated_buffer_plants integer,
+    decision_date date
 );
+CREATE INDEX registered_phytosanitary_usages_id ON registered_phytosanitary_usages(id);
 CREATE INDEX registered_phytosanitary_usages_product_id ON registered_phytosanitary_usages(product_id);
 CREATE INDEX registered_phytosanitary_usages_specie ON registered_phytosanitary_usages(specie);
 
 CREATE TABLE registered_phytosanitary_risks (
   product_id integer NOT NULL,
-  risk_code character varying NOT NULL
+  risk_code character varying NOT NULL,
+  risk_phrase character varying NOT NULL
 );
 CREATE INDEX registered_phytosanitary_risks_product_id ON registered_phytosanitary_risks(product_id);
 
-CREATE TABLE registered_phytosanitary_phrases (
-  product_id integer NOT NULL,
-  phrase_code character varying NOT NULL
+CREATE TABLE registred_protected_designation_of_origins (
+  ida integer NOT NULL,
+  geographic_area character varying,
+  fr_sign character varying,
+  eu_sign character varying,
+  product_human_name JSONB,
+  product_human_name_fra character varying,
+  reference_number character varying
 );
-CREATE INDEX registered_phytosanitary_phrases_product_id ON registered_phytosanitary_phrases(product_id);
+CREATE INDEX registred_protected_designation_of_origins_ida ON registred_protected_designation_of_origins(ida);
 
 CREATE TABLE registered_seeds (
   number integer PRIMARY KEY NOT NULL,
@@ -218,17 +269,16 @@ CREATE TABLE registered_seeds (
 CREATE INDEX registered_seeds_specie ON registered_seeds(specie);
 CREATE INDEX registered_seeds_number ON registered_seeds(number);
 
-CREATE TABLE registered_water_rivers (
-  name character varying,
-  shape postgis.geometry(LineString,4326) NOT NULL
+CREATE TABLE registered_hydro_items (
+  id character varying PRIMARY KEY NOT NULL,
+  name jsonb,
+  nature character varying,
+  point postgis.geometry(Point,4326),
+  shape postgis.geometry(MultiPolygonZM,4326),
+  lines postgis.geometry(MultiLineStringZM,4326)
 );
-CREATE INDEX registered_water_rivers_shape ON registered_water_rivers USING GIST (shape);
-
-CREATE TABLE registered_water_lakes (
-  name character varying,
-  shape postgis.geometry(Polygon,4326) NOT NULL
-);
-CREATE INDEX registered_water_lakes_shape ON registered_water_lakes USING GIST (shape);
+CREATE INDEX registered_hydro_items_id ON registered_hydro_items(id);
+CREATE INDEX registered_hydro_items_nature ON registered_hydro_items(nature);
 
 CREATE TABLE technical_worflows (
   id character varying PRIMARY KEY NOT NULL,
@@ -292,121 +342,3 @@ CREATE INDEX technical_worflow_sequences_technical_worflow_sequence_id ON techni
 CREATE INDEX technical_worflow_sequences_family ON technical_worflow_sequences(family);
 CREATE INDEX technical_worflow_sequences_specie ON technical_worflow_sequences(specie);
 CREATE INDEX technical_worflow_sequences_technical_worflow_id ON technical_worflow_sequences(technical_worflow_id);
-
-CREATE TABLE variant_categories (
-  id integer PRIMARY KEY NOT NULL,
-  reference_name character varying NOT NULL,
-  name jsonb,
-  nature character varying NOT NULL,
-  fixed_asset_account character varying,
-  fixed_asset_allocation_account character varying,
-  fixed_asset_expenses_account character varying,
-  depreciation_percentage integer,
-  purchase_account character varying,
-  sale_account character varying,
-  stock_account character varying,
-  stock_movement_account character varying,
-  purchasable boolean,
-  saleable boolean,
-  depreciable boolean,
-  storable boolean
-);
-
-CREATE INDEX variant_categories_id ON variant_categories(id);
-CREATE INDEX variant_categories_reference_name ON variant_categories(reference_name);
-
-CREATE TABLE variant_doer_contracts (
-  id character varying PRIMARY KEY NOT NULL,
-  reference_name character varying NOT NULL,
-  name jsonb,
-  duration character varying,
-  weekly_working_time character varying,
-  gross_hourly_wage numeric(19,4),
-  net_hourly_wage numeric(19,4),
-  coefficient_total_cost numeric(19,4),
-  variant_id character varying
-);
-
-CREATE INDEX variant_doer_contracts_id ON variant_doer_contracts(id);
-
-CREATE TABLE variant_natures (
-  id integer PRIMARY KEY NOT NULL,
-  reference_name character varying NOT NULL,
-  name jsonb,
-  nature character varying,
-  population_counting character varying NOT NULL,
-  indicators text[],
-  abilities text[],
-  derivative_of character varying
-);
-
-CREATE INDEX variant_natures_id ON variant_natures(id);
-CREATE INDEX variant_natures_reference_name ON variant_natures(reference_name);
-
-CREATE TABLE variant_prices (
-  id character varying PRIMARY KEY NOT NULL,
-  reference_name character varying NOT NULL,
-  reference_article_name character varying NOT NULL,
-  unit_pretax_amount numeric(19,4) NOT NULL,
-  currency character varying NOT NULL,
-  reference_packaging_name character varying NOT NULL,
-  started_on date NOT NULL,
-  variant_id character varying,
-  packaging_id character varying,
-  usage character varying NOT NULL,
-  main_indicator character varying,
-  main_indicator_unit character varying,
-  main_indicator_minimal_value numeric(19,4),
-  main_indicator_maximal_value numeric(19,4),
-  working_flow_value numeric(19,4),
-  working_flow_unit character varying,
-  threshold_min_value numeric(19,4),
-  threshold_max_value numeric(19,4)
-);
-
-CREATE INDEX variant_prices_id ON variant_prices(id);
-CREATE INDEX variant_prices_reference_name ON variant_prices(reference_name);
-CREATE INDEX variant_prices_reference_article_name ON variant_prices(reference_article_name);
-CREATE INDEX variant_prices_reference_packaging_name ON variant_prices(reference_packaging_name);
-
-
-CREATE TABLE variant_units (
-  id character varying PRIMARY KEY NOT NULL,
-  class_name character varying NOT NULL,
-  reference_name character varying NOT NULL,
-  name jsonb,
-  capacity numeric(25,10),
-  capacity_unit character varying,
-  dimension character varying,
-  symbol character varying,
-  a numeric(25,10),
-  d numeric(25,10),
-  b numeric(25,10),
-  unit_id character varying
-);
-
-CREATE INDEX variant_units_id ON variant_units(id);
-CREATE INDEX variant_units_reference_name ON variant_units(reference_name);
-CREATE INDEX variant_units_unit_id ON variant_units(unit_id);
-
-CREATE TABLE variants (
-  id character varying PRIMARY KEY NOT NULL,
-  class_name character varying,
-  reference_name character varying NOT NULL,
-  name jsonb,
-  category character varying,
-  nature character varying,
-  default_unit character varying,
-  target_specie character varying,
-  specie character varying,
-  indicators jsonb,
-  variant_category_id integer,
-  variant_nature_id integer
-);
-
-CREATE INDEX variants_id ON variants(id);
-CREATE INDEX variants_reference_name ON variants(reference_name);
-CREATE INDEX variants_category ON variants(category);
-CREATE INDEX variants_nature ON variants(nature);
-CREATE INDEX variants_variant_category_id ON variants(variant_category_id);
-CREATE INDEX variants_variant_nature_id ON variants(variant_nature_id);

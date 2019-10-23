@@ -1,0 +1,12 @@
+por:
+  transitions:
+    # error_message_html: "Error while changing the state of %{resource_name} from %{previous_state} to %{state}: %{description}"
+    errors:
+      # precondition_failed_error: "Error while changing the state of %{resource_name} from %{previous_state} to %{state}: One of the prerequisites is invalid."
+      # transition_aborted_error: "Error while changing the state of %{resource_name} from %{previous_state} to %{state}: %{reason}"
+      # transition_failed_error: "Error while changing the state of %{resource_name} from %{previous_state} to %{state}"
+    reception:
+      give:
+        errors:
+          # item_creation: "Unable to create %{name}: %{message}"
+          # message: "Error while creating reception: %{explanation}"

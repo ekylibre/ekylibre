@@ -800,14 +800,19 @@ fra:
       already_confirmed: "a déjà été validé(e)"
       # before: "%{attribute} must be before %{restriction}"
       # blank: "%{attribute} can't be blank"
+      # can_only_have_two_years_opened: "You can have only have two financial years opened at the same time."
       # confirmation: "%{attribute} doesn't match confirmation"
       confirmation_period_expired: "doit être confirmé sous %{period}, refaites une nouvelle demande s’il vous plait"
       # currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
       # empty: "%{attribute} can't be empty"
+      # end_of_month: "%{attribute} should be at the end of the month"
       # equal_to: "%{attribute} must be equal to %{count}"
       # even: "%{attribute} must be even"
       # exclusion: "%{attribute} is reserved"
       expired: "a expiré, merci d’en faire une nouvelle demande"
+      # financial_year_exchange_on_this_period: "There is an opened accounting exchange at this date"
+      # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
+      # financial_year_not_found: "There is no financial year at this date"
       # greater_than: "%{attribute} must be greater than %{count}"
       # greater_than_or_equal_to: "%{attribute} must be greater than or equal to %{count}"
       harvest_in_progress: "Attention, cette culture est en cours de récolte"
@@ -827,23 +832,27 @@ fra:
       # less_than_or_equal_to: "%{attribute} must be less than or equal to %{count}"
       # missing_bank_details_for_sepa: "Values for IBAN and/or Account owner are missing for the cash account selected."
       # must_be_a_mail_address: "%{attribute} must be a mail address"
+      # no_opened_financial_year: "No financial year opened at this date"
       # not_a_number: "%{attribute} is not a number"
       # not_an_end_of_month: "%{attribute} must be an end of month"
       # not_an_integer: "%{attribute} must be an integer"
       not_enough: "not enough %{resource} to complete task"
       not_found: "n’a pas été trouvé(e)"
       not_locked: "n’était pas verrouillé(e)"
+      # not_opened_financial_year: "An open accounting period is required"
       not_saved:
         one: "1 erreur a empêché ce(tte) %{resource} d’être sauvegardé(e)\_:"
         other: "%{count} erreurs ont empêché ce(tte) %{resource} d’être sauvegardé(e)\_:"
       # nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
       # odd: "%{attribute} must be odd"
       # on_or_after: "%{attribute} must be on or after %{restriction}"
+      # on_or_after_field: "%{attribute} must be on or after %{restriction} (%{model} %{field})"
       # on_or_before: "%{attribute} must be on or before %{restriction}"
       # overlap: "%{attribute} overlaps an existing record"
       # overlap_sibling: "%{attribute} overlaps sibling"
       # posterior: "%{attribute} must be posterior to %{to}"
       # record_invalid: "Validations failed: %{errors}"
+      # should_be_consecutive: "Financial years must be consecutive, therefore %{attribute} should be %{expected}."
       # should_be_the_last_day_of_month: "%{attribute} should be the last day of the month."
       # taken: "%{attribute} has already been taken"
       # too_long: "%{attribute} is too long (maximum is %{count} characters)"
@@ -1629,18 +1638,18 @@ fra:
     export_fixed_assets_gain_and_loss: "Etat des plus et moins values"
     export_fixed_assets_general: "Etat des immobilisations"
     export_income_statement: "Export compte de résultat"
-    export_sales_aborted: "Abandonné(e)"
-    export_sales_estimate: "Devis"
-    export_sales_invoice: "Facture"
-    export_sales_order: "Bon de commande"
-    export_xml_fec_all: "Export FEC - Cas général - impôt sur les sociétés (XML)"
-    export_xml_fec_ba_bnc_ir_commercial_accountancy: "Export FEC - Cas BA BNC IR - comptabilité commerciale (XML)"
-    export_xml_fec_ba_ir_cash_accountancy: "Export FEC - Cas BA IR - comptabilité de trésorerie (XML)"
-    export_xml_fec_bnc_ir_cash_accountancy: "Export FEC - Cas BNC IR - comptabilité de trésorerie (XML)"
+    export_sales_aborted: "Abandonné(e)" #?
+    export_sales_estimate: "Devis" #?
+    export_sales_invoice: "Facture" #?
+    export_sales_order: "Bon de commande" #?
     export_text_fec_all: "Export FEC - Cas général - impôt sur les sociétés (Texte)"
     export_text_fec_ba_bnc_ir_commercial_accountancy: "Export FEC - Cas BA BNC IR - comptabilité commerciale (Texte)"
     export_text_fec_ba_ir_cash_accountancy: "Export FEC - Cas BA IR - comptabilité de trésorerie (Texte)"
     export_text_fec_bnc_ir_cash_accountancy: "Export FEC - Cas BNC IR - comptabilité de trésorerie (Texte)"
+    export_xml_fec_all: "Export FEC - Cas général - impôt sur les sociétés (XML)"
+    export_xml_fec_ba_bnc_ir_commercial_accountancy: "Export FEC - Cas BA BNC IR - comptabilité commerciale (XML)"
+    export_xml_fec_ba_ir_cash_accountancy: "Export FEC - Cas BA IR - comptabilité de trésorerie (XML)"
+    export_xml_fec_bnc_ir_cash_accountancy: "Export FEC - Cas BNC IR - comptabilité de trésorerie (XML)"
     exportation: "Exportation" #?
     extract: "Extraire" #?
     extract_account_x: "Extrait de compte %{account_number}"
@@ -1686,10 +1695,11 @@ fra:
     financial_year_closing: "Clôture de l'exercice en cours"
     financial_year_closure_in_preparation_initiated_by_someone_else: "Clôture de %{code} en préparation, vous n'êtes pas autorisé à modifier les écritures sur cet exercice. Rapprochez-vous de la personne qui a initié la préparation."
     financial_year_closure_in_preparation_initiated_by_you: "Clôture de %{code} en préparation, vous êtes le seul à pouvoir modifier les écritures sur cet exercice."
+    # financial_year_lock_message: "<p> The lock will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. <br/> You will need to get in contact the person who did the close out of the software to get back your year-end documents. </p>"
     financial_year_needed: "<p> Toutes les opérations commerciales et financières doivent être comptabilisées sur un exercice ouvert. <br/> Veuillez ouvrir un exercice pour la période en cours ou demander à votre responsable. </p>"
     financial_year_results: "Résultat de l'exercice : %{results}"
     financial_year_warning: "<p> Si l’exercice n’est pas clôturé ou verrouillé avant le %{last_financial_year_end_date}, vous ne pourrez pas ouvrir d’exercice au %{new_financial_year_start_date}. En effet, il n’est pas possible d’avoir plus de 2 exercices ouverts simultanément. De plus, il est nécessaire d’avoir un exercice ouvert à la date en cours pour saisir des opérations commerciales et financières. <br/> Si vous ne gérez pas votre comptabilité avec Ekylibre, vous avez aussi la possibilité de verrouiller votre exercice. <br/> Attention : les exercices verrouillés ou clôturés ne peuvent plus être modifiés."
-    financials_assets: "Immobilisations financières"
+    financials_assets: "Immobilisations financières" #?
     fingerprint_sha256: "Empreinte (SHA256)"
     finish: "Terminer"
     finished: "Terminé"
@@ -2033,8 +2043,8 @@ fra:
     month_period: "%{code} — %{month} %{year}"
     monthly: "Mensuelle"
     months: "Mois"
-    more_detail: "Plus de détail"
-    more_details: "Plus de détails"
+    more_detail: "Plus de détail" #?
+    more_details: "Plus de détails" #?
     move_animal: "Déplacement des animaux"
     moved_at: "Fait le" #?
     movements: "Mouvements"
@@ -2226,7 +2236,7 @@ fra:
     parts: "Modules"
     password: "Mot de passe"
     paths_to_convert: "Chemins à convertir" #?
-    pay: "Payer"
+    pay: "Payer" #?
     payable_taxes: "Taxes payables"
     payback: "Remboursement demandée" #?
     payment_amount: "Montant de l’encaissement"
@@ -2308,8 +2318,9 @@ fra:
     prices_for_suppliers: "Les prix d’achat du fournisseur" #?
     prices_import: "Importer un fichier CSV" #?
     print: "Imprimer"
-    print_land_parcel_register: "Imprimer le cahier de traçabilité"
     print_at: "Le" #?
+    print_land_parcel_register: "Imprimer le cahier de traçabilité" #?
+    # print_lant_parcel_register: "Print the land parcel register"
     print_with_template: "Imprimer %{name}" #?
     printing_document: "Impression de %{document}"
     procedure: "Procédure" #?
@@ -2323,7 +2334,7 @@ fra:
     product_name: "Produit"
     product_nature: "Type de produit"
     product_nature_category: "Catégorie de produit"
-    product_nature_variants: "Variantes" #?
+    product_nature_variants: "Variantes"
     product_natures: "Types de produit"
     product_price_listings: "Listes de prix" #?
     product_price_templates: "Types de prix" #?
@@ -2403,7 +2414,7 @@ fra:
     ready_to_harvest: "Prêt(e) à être récolté(e)"
     receipt_date: "Date de réception"
     receipt_responsible: "Responsable réception"
-    receive: "Recevoir"
+    receive: "Recevoir" #?
     received: "Reçue"
     received_quantity: "Quantité réceptionnée"
     receiving_address: "Adresse de réception"
@@ -2586,7 +2597,7 @@ fra:
     service_deliveries: "Prestations de services"
     service_delivering: "Prestation de service"
     services_sale: "Vente de services"
-    services_sales: "Vente de services"
+    services_sales: "Vente de services" #?
     sessions: "Sessions"
     set_reconcilable_new_but_existing_third_accounts: "Rendre lettrables les nouveaux comptes tiers déjà existants"
     settings: "Configuration"
@@ -2616,7 +2627,7 @@ fra:
     sowable: "Semable" #?
     sowed_at: "Semé le" #?
     spraying_map: "Carte de pulvérisation" #?
-    standard: "Standard"
+    standard: "Standard" #?
     standard_vat: "TVA Standard"
     start: "Du"
     start_new_intervention_here: "Commencer une nouvelle intervention ici"
@@ -2737,7 +2748,7 @@ fra:
     tools: "Outils"
     tools_list: "Liste d’outils" #?
     total: "Total"
-    total_actif: "Total actif"
+    total_actif: "Montant Total (Actif)" #?
     total_amount: "Montant total HT"
     total_amount_with_taxes: "Total TTC"
     total_amount_without_taxes: "Total HT"
@@ -2748,8 +2759,7 @@ fra:
     total_earn_per_working_unit: "Gain total par unité d’œuvre" #?
     total_invoiced_amount: "Total montant facturé" #?
     total_paid_amount: "Montant total payé" #?
-    total_actif: "Montant Total (Actif)"
-    total_passif: "Montant Total (Passif)"
+    total_passif: "Montant Total (Passif)" #?
     total_pretax_expenses: "Dépenses (HT)"
     total_pretax_revenues: "Revenus (HT)"
     total_quantity: "Quantité totale"
@@ -2885,7 +2895,7 @@ fra:
     vat_collected: "TVA BRUTE" #?
     vat_paid: "TVA DEDUCTIBLE" #?
     vat_rate: "Taux TVA"
-    vat_register: "Registre de TVA"
+    vat_register: "Registre de TVA" #?
     vegetable_yield: "Rendement racine ou légume" #?
     video: "Vidéo" #?
     view: "Affichage"
@@ -2899,6 +2909,7 @@ fra:
     warning_if_no_activites_choose: "Si aucune activité n’est sélectionnée, le modèle d'intervention sera disponible pour toutes les activités." #?
     water_lakes: "Lacs"
     water_rivers: "Rivières"
+    waters: "Eaux"
     watering_concentration: "Eau consommée"
     wear: "Usure" #?
     weather: "Météo"
@@ -3205,8 +3216,8 @@ fra:
       importation_cancelled: "Vos données n’ont été pas été importées. L’importation a été annulée" #?
       importation_finished: "L’importation est terminée."
       incompatible_browser: "Votre navigateur ne semble pas compatible. Le navigateur Firefox est recommandé pour utiliser Ekylibre."
-      informations_feed_is_unreachable: "Le flux d’informations (%{url}) est inaccessible. Message d’erreur\_: %{message}"
       information_success_print: "Création réussie ! Vous pouvez maintenant lancer l'impression via le bouton 'Imprimer'."
+      informations_feed_is_unreachable: "Le flux d’informations (%{url}) est inaccessible. Message d’erreur\_: %{message}"
       integrate_tools_you_are_using_every_day: "Intégrez les outils que vous utilisez tous les jours"
       invalid_file_nature: "Type de fichier invalide" #?
       invalid_reference_name: "Référence invalide"
@@ -3275,9 +3286,9 @@ fra:
       prices_import_succeeded: "Vos données ont été correctement importées" #?
       print_failure: "Impossible d’imprimer. Essayer de recharger les modèles de documents pour corriger le problème. %{error} (%{class})." #?
       purchase_already_invoiced: "Achat déjà facturé" #?
-      purchases_invalid_for_sepa: "Achats sélectionnés invalides pour un transfert SEPA (mode de décaissement invalide ou devise différente de celle du mode de décaissement ou IBAN ou Titulaire du compte du créditeur manquant.)"
       purchase_invoice_need_at_least_one_item: "Une facture doit avoir au moins un élément dans les lignes d'achat"
       purchase_order_need_at_least_one_item: "Une commande doit avoir au moins un élément dans les lignes d'achat"
+      purchases_invalid_for_sepa: "Achats sélectionnés invalides pour un transfert SEPA (mode de décaissement invalide ou devise différente de celle du mode de décaissement ou IBAN ou Titulaire du compte du créditeur manquant.)"
       reception_need_at_least_one_item: "Une réception doit avoir au moins un élément dans les lignes d'achat"
       record_already_imported: "Enregistrement déjà importé"
       record_cannot_be_removed: "L’enregistrement ne peut pas être supprimé"
@@ -3305,7 +3316,7 @@ fra:
       synchronization_operation_failed: "L’opération %{operation_name} a échoué: %{target} %{message}"
       synchronization_operation_finished_successfully: "L’opération %{operation_name} s’est finie correctement"
       synchronization_operation_in_progress: "L’opération %{operation_name} est en cours"
-      tax_declaration_warning: "L’actuel système de déclaration de TVA ne couvre pas l’ensemble des TVA et taxes assimilées à reporter sur les formulaires de déclaration de TVA."
+      tax_declaration_warning: "L’actuel système de déclaration de TVA ne couvre pas l’ensemble des TVA et taxes assimilées à reporter sur les formulaires de déclaration de TVA." #?
       the_automatic_lettering_cannot_be_done_in_accountancy: "Le lettrage automatique ne peut pas être fait en comptabilité"
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "Le lettrage automatique ne peut pas être fait en comptabilité parce que trop de tiers sont présents"
       the_bookkeep_date_format_is_invalid: "Le format de la date de comptabilisation n’est pas valide"
@@ -3437,7 +3448,7 @@ fra:
       pick: "Piocher"
       picture: "Image"
       prepare: "Préparer"
-      print: "Imprimer"
+      print: "Imprimer" #?
       propose: "Proposer"
       propose_and_invoice: "Facturer directement"
       prospect: "Prospecter"

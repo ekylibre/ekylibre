@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -30,6 +31,7 @@
 #  bank_code                    :string
 #  bank_identifier_code         :string
 #  bank_name                    :string
+#  by_default                   :boolean          default(FALSE)
 #  container_id                 :integer
 #  country                      :string
 #  created_at                   :datetime         not null
@@ -88,6 +90,7 @@ class Cash < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :bank_account_holder_name, :bank_account_key, :bank_account_number, :bank_agency_code, :bank_code, :bank_identifier_code, :bank_name, :iban, :spaced_iban, length: { maximum: 500 }, allow_blank: true
   validates :bank_agency_address, length: { maximum: 500_000 }, allow_blank: true
+  validates :by_default, inclusion: { in: [true, false] }, allow_blank: true
   validates :currency, :journal, :main_account, :mode, :nature, presence: true
   validates :last_number, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }

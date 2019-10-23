@@ -4,9 +4,9 @@
   <item-creation item="accounts#land_sales" fr_pcga="7152" fr_pcg82="7152"/>
   <item-creation item="accounts#land_fixed_assets" fr_pcga="2111" fr_pcg82="2111"/>
 
-  <item-change 
-    item="product_nature_categories#cultivable_zone" 
-    name="land" 
+  <item-change
+    item="product_nature_categories#cultivable_zone"
+    name="land"
     pictogram="land_parcels"
     purchasable="true"
     saleable="true"

@@ -1,5 +1,5 @@
 ((E, $) ->
-  
+
   $(document).on "load change", "input[data-always-check]", ->
     $input = $(this)
     $target = $($input.data('always-check'))

@@ -461,10 +461,10 @@ jpn:
       tax_payability:
         at_invoicing: "請求書発行で"
         at_paying: "支払う時"
-    purchase_nature:
-      nature:
-        payslip: "給料明細書"
-        purchase: "購入"
+    purchase_nature: #?
+      nature: #?
+        payslip: "給料明細書" #?
+        purchase: "購入" #?
     sale_item: #?
       compute_from: #?
         pretax_amount: "税引前金額" #?

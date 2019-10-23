@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -24,6 +25,7 @@
 #
 #  activity_budget_id            :integer
 #  analysis_id                   :integer
+#  annotation                    :text
 #  created_at                    :datetime         not null
 #  creator_id                    :integer
 #  currency                      :string
@@ -98,6 +100,7 @@ class ParcelItem < Ekylibre::Record::Base
   validates :parted, inclusion: { in: [true, false] }
   validates :population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :pretax_amount, :unit_pretax_amount, :unit_pretax_stock_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :parcel, presence: true
   # ]VALIDATORS]
 
   validates :variant, presence: true

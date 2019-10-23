@@ -1,10 +1,10 @@
 fra:
   transitions:
+    error_message_html: "Erreur lors du changement d'état de %{resource_name} de %{previous_state} à %{state}. %{description}"
     errors:
       precondition_failed_error: "Erreur lors du changement d'état de %{resource_name} de %{previous_state} à %{state}: Un des prérequis est invalide"
-      transition_failed_error: "Erreur lors du changement d'état de %{resource_name} de %{previous_state} à %{state}"
       transition_aborted_error: "Erreur lors du changement d'état de %{resource_name} de %{previous_state} à %{state}: %{reason}"
-    error_message_html: "Erreur lors du changement d'état de %{resource_name} de %{previous_state} à %{state}. %{description}"
+      transition_failed_error: "Erreur lors du changement d'état de %{resource_name} de %{previous_state} à %{state}"
     reception:
       give:
         errors:

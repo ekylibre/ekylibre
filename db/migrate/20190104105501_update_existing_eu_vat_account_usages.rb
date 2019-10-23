@@ -6,7 +6,7 @@ class UpdateExistingEuVatAccountUsages < ActiveRecord::Migration
         execute <<-SQL
           UPDATE accounts
           SET usages = 'collected_intra_eu_vat'
-          WHERE number LIKE '4452%'  
+          WHERE number LIKE '4452%'
         SQL
       end
 
