@@ -4,6 +4,8 @@ class FinancialYearClose
 
   attr_reader :result_account, :carry_forward_account
 
+  class UnbalancedBalanceSheet < StandardError; end
+
   CLOSURE_STEPS = { 0 => 'generate_documents_prior_to_closure',
                     1 => 'compute_balances',
                     2 => 'close_result_entry',
@@ -108,12 +110,14 @@ class FinancialYearClose
 
       log("Close Financial Year")
 
+      raise UnbalancedBalanceSheet, :closure_failed_because_balance_sheet_unbalanced.tl unless @year.balanced_balance_sheet?(:post_closure)
+
       generate_documents('post_closure')
       @progress.increment!
 
       @year.update_attributes(stopped_on: @to_close_on, closed: true, state: 'closed')
     end
-
+    @closer.notify(:financial_year_x_successfully_closed, { name: @year.name }, level: :success )
     true
   rescue => error
     @year.update_columns(state: 'opened')
@@ -122,6 +126,12 @@ class FinancialYearClose
     Rails.logger.error $!
     Rails.logger.error $!.backtrace.join("\n")
     ExceptionNotifier.notify_exception($!, data: { message: error })
+
+    if error.class == FinancialYearClose::UnbalancedBalanceSheet
+      @closer.notify(error.message, {}, level: :error)
+    else
+      @closer.notify(:financial_year_x_could_not_be_closed, { name: @year.name }, level: :error)
+    end
 
     return false
   ensure
