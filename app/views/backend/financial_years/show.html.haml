@@ -38,7 +38,7 @@
       %span.title= :currency.t(scope: 'preferences')
       %span.value= Nomen::Currency.find(resource.currency).human_name.upcase
 
-    - if resource.closed?
+    - if resource.closed? && resource.archives.any?
       - ['prior_to', 'post'].each do |timing|
         .med-info.important
           %span.title= "archive_#{timing}_closure".tl
