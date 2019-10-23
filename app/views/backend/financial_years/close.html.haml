@@ -11,7 +11,6 @@
                   loan_repayments: LoanRepayment.bookkeepable_before(@financial_year.stopped_on),
                   tax_declarations: :not_sent_tax_declarations,
                   incoming_parcels: :not_given_incoming_parcel,
-                  purchases: :not_invoiced_or_aborted_purchase,
                   outgoing_parcels: :not_given_outgoing_parcel,
                   sales: :not_invoiced_or_aborted_sale,
                   previous_financial_year_locked: @financial_year.previous_record&.locked? ? [@financial_year.previous_record] : [])

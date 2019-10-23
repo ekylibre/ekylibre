@@ -519,15 +519,11 @@ class FinancialYear < Ekylibre::Record::Base
   end
 
   def not_given_incoming_parcel
-    Parcel.with_nature(:incoming).where('planned_at BETWEEN ? AND ?', self.started_on, self.stopped_on).not_given
+    Reception.where('planned_at BETWEEN ? AND ?', self.started_on, self.stopped_on).not_given
   end
 
   def not_given_outgoing_parcel
-    Parcel.with_nature(:outgoing).where('planned_at BETWEEN ? AND ?', self.started_on, self.stopped_on).not_given
-  end
-
-  def not_invoiced_or_aborted_purchase
-    Purchase.where('invoiced_at BETWEEN ? AND ?', self.started_on, self.stopped_on).where.not(state: [:invoice, :aborted])
+    Shipment.where('planned_at BETWEEN ? AND ?', self.started_on, self.stopped_on).not_given
   end
 
   def not_invoiced_or_aborted_sale

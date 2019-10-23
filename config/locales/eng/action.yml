@@ -1202,6 +1202,7 @@ eng:
     added_value: "Added value"
     advance_charges: "Advance charges" #?
     advance_giveables: "Advance giveables" #?
+    advance_payment: "4564 - Associates advance payments"
     advance_products: "Advance products" #?
     advance_receivables: "Advance receivables" #?
     affair: "Affair"
@@ -1450,6 +1451,7 @@ eng:
     created_by_ago: "Created by %{author} %{when}"
     credit: "Credit" #?
     credit_account_balance: "Credit balance: %{value}€" #?
+    credit_balance: "110 - Profit carried forward"
     credited_quantity: "Quantity to credit" #?
     credits: "Credits"
     cropping_plan: "Cropping plan"
@@ -1463,6 +1465,7 @@ eng:
     currency: "Currency" #?
     currency_conversion_rate: "Currency conversion rate"
     current: "Current"
+    current_accounts: "455 - Partners/associates - Current accounts"
     current_assets: "Current assets" #??
     current_cultivation: "Current cultivation"
     current_result_before_taxe: "Current result before taxe" #?!
@@ -1482,12 +1485,14 @@ eng:
     debit_account_balance: "Debit balance: %{value}€" #?
     debts: "Debts"
     debts_associate_locked_debts: "debts_associate_locked_debts" #?
+    debit_balance: "119 - Loss carried forward"
     debts_cashe_debts: "debts_cashe_debts" #?
     debts_land_parcel_loans: "debts_land_parcel_loans" #?
     debts_on_assets: "Debts on assets %{financial_year}" #?!
     debts_other_financial_debts: "debts_other_financial_debts" #?
     debts_others_loans: "debts_others_loans" #?
     decision_making: "Decision-making"
+    deduction_from_distribution: "4423 - Deductions and levies on distributions"
     default_letter_conclusion: "Please accept, Dear Madam, Dear Sir, the assurances of my highest consideration."
     default_letter_function_title: "Dear madam, dear sir"
     default_letter_introduction: "Following our conversation, I give you the elements of the estimate."
@@ -1539,6 +1544,7 @@ eng:
     distribute_unaffected_products: "Distribute unaffected products"
     distributions: "Distributions" #?
     divide: "Divide"
+    dividende_payable: "457 - Partners/associates - Dividends payable"
     division: "Division"
     divisions: "Divisions"
     document: "Document" #?
@@ -1639,6 +1645,7 @@ eng:
     # executed: "Executed"
     exercice_production: "Exercice production" #?!
     exercice_result: "Exercice result" #?!
+    exercice_result_allocation: "Allocation of profit for the year"
     existing: "Existing" #?
     expected_quantity_is_x: "Expected quantity: %{x}"
     expedier: "Expedier"
@@ -1726,6 +1733,8 @@ eng:
     function: "Function"
     fungi: "Fungi" #?
     future_events: "Future events"
+    future_year_credit_balance: "110 - Profit carried forward"
+    future_year_debit_balance: "119 - Loss carried forward"
     gain_and_loss_fixed_assets: "Gains and losses on %{to}" #?!
     genealogy: "Genealogy"
     general: "General" #?
@@ -1796,6 +1805,7 @@ eng:
     indicators: "Indicators"
     indicators_evolutions: "Indicators evolutions"
     # indirect_expenses: "Indirect expenses"
+    individual_capital: "101 - Individual capital"
     info: "General parameters" #?
     # informations: "Informations"
     infos: "Product and quantity" #?
@@ -1887,6 +1897,9 @@ eng:
     late: "Late"
     late_delivery: "Late delivery"
     # legal_dose: "Legal dose"
+    left_to_allocate: "Remaining to allocate:"
+    legal_position_missing: "You should select the legal form of your company to be able to allocate your result."
+    legal_reserves: "1061 - Legal reserve"
     letter: "Letter" #?
     letterable: "Letterable"
     lettered: "Lettered" #?
@@ -2074,6 +2087,7 @@ eng:
     other_products: "Other products" #?
     other_purchases: "Other purchases" #?
     other_receivables: "Other receivables" #?
+    other_reserves: "1068 - Other reserves"
     others: "Others" #?
     others_debts: "Others debts"
     others_debts_advance_products: "others_debts_advance_products" #?
@@ -2255,6 +2269,7 @@ eng:
     refresh: "Refresh" #?
     register_intervention_request: "Register intervention request" #?!
     regressive_options: "Regressive options" #?!
+    regulated_reserves: "1064 - Tax-regulated reserves"
     rejected: "Rejected" #?
     relationship: "Relationship"
     relationship_of_entity: "%{relationship} of %{entity}"
@@ -2374,6 +2389,7 @@ eng:
     state_debts: "State debts" #?
     state_receivables: "State receivables" #?
     statistics: "Statistics" #?
+    statutory_reserves: "1063 - Statutory or contractual reserves"
     stewardship: "Stewardship" #?
     stock: "Stock" #?
     stock_after_order: "Stock after order"
