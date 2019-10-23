@@ -111,7 +111,7 @@ class ApplicationController < ActionController::Base
 
   # Initialize locale with params[:locale] or HTTP_ACCEPT_LANGUAGE
   def set_locale
-    if current_user && I18n.available_locales.include?(current_user.language.to_sym)
+    if current_user && current_user.language.present? && I18n.available_locales.include?(current_user.language.to_sym)
       I18n.locale = current_user.language
     else
       session[:locale] = params[:locale] if params[:locale]

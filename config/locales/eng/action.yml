@@ -2176,6 +2176,7 @@ eng:
     pretax_amount: "Pre-tax amount"
     previous: "Previous"
     previous_financial_year_was_locked_warning: "As the previous financial year was locked, remember to provide an opening balance sheet before performing the closure."
+    previous_year_result_should_be_allocated: "The result of the previous financial year must be allocated before closing this financial year"
     price: "Price" #?
     prices: "Prices" #?
     print: "Print" #?
