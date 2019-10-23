@@ -224,9 +224,15 @@ module Backend
         return render
       end
       if request.post?
-        FixedAssetDepreciation.up_to(@financial_year.stopped_on).where(locked: false).update_all(locked: true)
-        LoanRepayment.where('due_on <= ?', @financial_year.stopped_on).where(locked: false).update_all(locked: true)
-        @financial_year.update(state: 'locked')
+        begin
+          ActiveRecord::Base.transaction do
+            FixedAssetDepreciation.up_to(@financial_year.stopped_on).where(locked: false).update_all(locked: true)
+            LoanRepayment.where('due_on <= ?', @financial_year.stopped_on).where(locked: false).update_all(locked: true)
+            @financial_year.update!(state: 'locked')
+          end
+        rescue ActiveRecord::RecordInvalid => error
+          notify_error(:please_contact_support_for_further_information, message: error.message)
+        end
         return redirect_to(action: :index)
       end
     end
