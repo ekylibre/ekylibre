@@ -1556,7 +1556,7 @@ eng:
     downpayment: "Downpayment"
     draft: "Draft" #?
     draft_entries_to_validate: "There are draft entries to validate" #?!
-    draft_fixed_asset_on_current_financial_year: "You have draft fixed assets ongoing. Once the financial year closed, it won't be possible to enter them into service on this financial year (%{code})." #?!
+    draft_fixed_asset_on_current_financial_year: "There are remaining draft or standing-by fixed assets, you will no longer be able to put them in use on this financial year once it has been closed." #?!
     draft_loan_on_current_financial_year: "You have draft loans ongoing. Once the financial year closed, it won't be possible to enter them into service on this financial year (%{code})." #?!
     draft_vat_declaration: "Pending VAT declaration" #?!
     driver: "Driver"

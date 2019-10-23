@@ -130,6 +130,7 @@ class FixedAsset < Ekylibre::Record::Base
   enumerize :depreciation_period, in: %i[monthly quarterly yearly], default: -> { Preference.get(:default_depreciation_period).value || Preference.set!(:default_depreciation_period, :yearly, :string) }
 
   scope :drafts, -> { where(state: %w[draft]) }
+  scope :draft_or_waiting, -> { where(state: %w[draft waiting]) }
   scope :used, -> { where(state: %w[in_use]) }
   scope :sold_or_scrapped, -> { where(state: %w[sold scrapped]) }
   scope :start_before, ->(date) { where('fixed_assets.started_on <= ?', date) }
