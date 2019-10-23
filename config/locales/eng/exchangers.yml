@@ -16,7 +16,7 @@ eng:
     ekylibre_bank_statements: "Ekylibre bank statements"
     ekylibre_budgets: "Ekylibre budgets"
     ekylibre_buildings_json: "Ekylibre buildings JSON"
-    ekylibre_cash_transferts: "Ekylibre cash transferts"
+    # ekylibre_cash_transfers: "Ekylibre cash transfers"
     ekylibre_cultivable_zones: "Ekylibre Cultivable zones"
     ekylibre_cultivable_zones_json: "Ekylibre cultivable zones JSON"
     ekylibre_entities: "Ekylibre Entities"

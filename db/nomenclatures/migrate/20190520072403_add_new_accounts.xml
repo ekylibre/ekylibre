@@ -8,7 +8,7 @@
   <item-change item="accounts#land_parcel_construction_depreciations_inputations_expenses" name="corporeal_depreciations_inputations_expenses" fr_pcga="68112" fr_pcg82="68112"/>
 
   <item-change item="accounts#animals_depreciations_inputations_expenses" name="corporeal_depreciations_inputations_expenses_living_goods" fr_pcga="68114"/>
-  
+
   <item-creation item="accounts#staff_supply_expenses" fr_pcga="6025"/>
 
   <item-creation item="accounts#packaging_stocks_variation" fr_pcga="60317"/>

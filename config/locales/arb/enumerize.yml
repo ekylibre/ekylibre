@@ -460,10 +460,10 @@ arb:
       tax_payability:
         at_invoicing: "في الفواتير"
         at_paying: "في دفع"
-    purchase_nature:
-      nature:
-        payslip: "قسيمة الدفع"
-        purchase: "شراء"
+    purchase_nature: #?
+      nature: #?
+        payslip: "قسيمة الدفع" #?
+        purchase: "شراء" #?
     sale_item: #?
       compute_from: #?
         pretax_amount: "كمية قبل خصم الضرائب" #?

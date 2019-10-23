@@ -8,7 +8,7 @@ module Ekylibre
     def find_zone_by_matching_shape(shape)
       CultivableZone.shape_covering(shape, 0.02).first || CultivableZone.shape_matching(shape, 0.02).first
     end
-        
+
     def find_or_init_by_number(work_number)
       CultivableZone.find_or_initialize_by(work_number: work_number)
     end
@@ -33,7 +33,7 @@ module Ekylibre
         georeading = Georeading.find_by(number: r.georeading_number) ||
                      Georeading.find_by(name: r.georeading_number)
         default_zone = find_or_init_by_number(r.code)
-        
+
         if georeading
           shape = georeading.content
           zone = find_zone_by_matching_shape(shape)&.tap { |z| z.shape = shape }

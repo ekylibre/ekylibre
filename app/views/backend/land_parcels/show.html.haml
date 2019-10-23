@@ -11,7 +11,7 @@
           %span.value= resource.activity_production.decorate.human_working_zone_area
 
   - c.cobble :weather do
-    = cell :weather, params: {centroid: resource.initial_shape.centroid} 
+    = cell :weather, params: {centroid: resource.initial_shape.centroid}
 
   - if resource&.activity_production&.interventions&.any?
     - c.cobble(:production_costs, title: :production_costs.tl) do

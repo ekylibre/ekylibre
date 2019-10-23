@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,46 +23,53 @@
 #
 # == Table: fixed_assets
 #
-#  accounted_at                    :datetime
-#  allocation_account_id           :integer          not null
-#  asset_account_id                :integer
-#  ceded                           :boolean
-#  ceded_on                        :date
-#  created_at                      :datetime         not null
-#  creator_id                      :integer
-#  currency                        :string           not null
-#  current_amount                  :decimal(19, 4)
-#  custom_fields                   :jsonb
-#  depreciable_amount              :decimal(19, 4)   not null
-#  depreciated_amount              :decimal(19, 4)   not null
-#  depreciation_fiscal_coefficient :decimal(, )
-#  depreciation_method             :string           not null
-#  depreciation_percentage         :decimal(19, 4)
-#  depreciation_period             :string
-#  description                     :text
-#  expenses_account_id             :integer
-#  id                              :integer          not null, primary key
-#  journal_entry_id                :integer
-#  journal_id                      :integer          not null
-#  lock_version                    :integer          default(0), not null
-#  name                            :string           not null
-#  number                          :string           not null
-#  product_id                      :integer
-#  purchase_amount                 :decimal(19, 4)
-#  purchase_id                     :integer
-#  purchase_item_id                :integer
-#  purchased_on                    :date
-#  sale_id                         :integer
-#  sale_item_id                    :integer
-#  scrapped_journal_entry_id       :integer
-#  scrapped_on                     :date
-#  sold_journal_entry_id           :integer
-#  sold_on                         :date
-#  started_on                      :date             not null
-#  state                           :string
-#  stopped_on                      :date             not null
-#  updated_at                      :datetime         not null
-#  updater_id                      :integer
+#  accounted_at                        :datetime
+#  allocation_account_id               :integer
+#  asset_account_id                    :integer
+#  ceded                               :boolean
+#  ceded_on                            :date
+#  created_at                          :datetime         not null
+#  creator_id                          :integer
+#  currency                            :string           not null
+#  current_amount                      :decimal(19, 4)
+#  custom_fields                       :jsonb
+#  depreciable_amount                  :decimal(19, 4)   not null
+#  depreciated_amount                  :decimal(19, 4)   not null
+#  depreciation_fiscal_coefficient     :decimal(, )
+#  depreciation_method                 :string           not null
+#  depreciation_percentage             :decimal(19, 4)
+#  depreciation_period                 :string
+#  description                         :text
+#  expenses_account_id                 :integer
+#  id                                  :integer          not null, primary key
+#  journal_entry_id                    :integer
+#  journal_id                          :integer          not null
+#  lock_version                        :integer          default(0), not null
+#  name                                :string           not null
+#  number                              :string           not null
+#  pretax_selling_amount               :decimal(19, 4)
+#  product_id                          :integer
+#  purchase_amount                     :decimal(19, 4)
+#  purchase_id                         :integer
+#  purchase_item_id                    :integer
+#  purchased_on                        :date
+#  sale_id                             :integer
+#  sale_item_id                        :integer
+#  scrapped_journal_entry_id           :integer
+#  scrapped_on                         :date
+#  selling_amount                      :decimal(19, 4)
+#  sold_journal_entry_id               :integer
+#  sold_on                             :date
+#  special_imputation_asset_account_id :integer
+#  started_on                          :date             not null
+#  state                               :string
+#  stopped_on                          :date
+#  tax_id                              :integer
+#  updated_at                          :datetime         not null
+#  updater_id                          :integer
+#  waiting_asset_account_id            :integer
+#  waiting_journal_entry_id            :integer
+#  waiting_on                          :date
 #
 
 class FixedAsset < Ekylibre::Record::Base
@@ -100,15 +108,14 @@ class FixedAsset < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :ceded, inclusion: { in: [true, false] }, allow_blank: true
-  validates :ceded_on, :purchased_on, :scrapped_on, :sold_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
+  validates :ceded_on, :purchased_on, :scrapped_on, :sold_on, :waiting_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
   validates :currency, :depreciation_method, :journal, presence: true
-  validates :current_amount, :depreciation_percentage, :purchase_amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  validates :current_amount, :depreciation_percentage, :pretax_selling_amount, :purchase_amount, :selling_amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :depreciable_amount, :depreciated_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :depreciation_fiscal_coefficient, numericality: true, allow_blank: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :name, :number, presence: true, length: { maximum: 500 }
   validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
-  validates :state, length: { maximum: 500 }, allow_blank: true
   validates :stopped_on, timeliness: { on_or_after: ->(fixed_asset) { fixed_asset.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
   # ]VALIDATORS]
   validates :name, uniqueness: true

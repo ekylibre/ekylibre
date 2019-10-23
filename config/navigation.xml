@@ -1599,7 +1599,7 @@
         <page to="backend/product_nature_variants#list_catalog_items"/>
         <page to="backend/product_nature_variants#list_products"/>
         <page to="backend/product_nature_variants#list_sale_items"/>
-        <page to="backend/product_nature_variants#list_parcel_items"/>
+        <page to="backend/product_nature_variants#list_parcel_items" nonexistent="true"/>
         <page to="backend/product_nature_variants#unroll"/>
         <page to="backend/product_nature_variants#list_components"/>
         <page to="backend/product_nature_variant_components#autocomplete"/>
@@ -2191,11 +2191,12 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
-      <item name="accounts">
-        <page to="backend/accounts#reconciliable_list"/>
-      </item>
       <item name="account_balances">
         <page to="backend/account_balances#show"/>
+      </item>
+      <item name="accounts">
+        <page to="backend/accounts#filter_select_collection"/>
+        <page to="backend/accounts#reconciliable_list"/>
       </item>
       <item name="draft_journals">
         <page to="backend/draft_journals#confirm_all"/>
@@ -2212,8 +2213,13 @@
         <page to="backend/financial_years#destroy_all_empty"/>
         <page to="backend/financial_years#run_progress"/>
       </item>
+      <item name="fixed_assets">
+        <page to="backend/fixed_assets#link_to_sale"/>
+        <page to="backend/fixed_assets#stand_by"/>
+      </item>
       <item name="general_ledgers">
         <page to="backend/general_ledgers#archive_report"/>
+        <page to="backend/general_ledgers#archive_report_template"/>
         <page to="backend/general_ledgers#find_open_document_template"/>
         <page to="backend/general_ledgers#generate_document"/>
         <page to="backend/general_ledgers#generate_report"/>
@@ -2234,13 +2240,6 @@
         <page to="backend/invalid_journal_entries#delete_all"/>
         <page to="backend/invalid_journal_entries#list"/>
       </item>
-      <item name="journals">
-        <page to="backend/journals#archive_report"/>
-        <page to="backend/journals#find_open_document_template"/>
-        <page to="backend/journals#generate_document"/>
-        <page to="backend/journals#generate_report"/>
-        <page to="backend/journals#generate_report_file"/>
-      </item>
       <item name="land_parcels">
         <page to="backend/land_parcels#list_interventions"/>
         <page to="backend/land_parcels#list_plants"/>
@@ -2249,24 +2248,19 @@
         <page to="backend/outgoing_payment_modes#sepa"/>
       </item>
       <item name="product_nature_variants">
+        <page to="backend/product_nature_variants#list_purchase_invoice_items"/>
+        <page to="backend/product_nature_variants#list_purchase_order_items"/>
+        <page to="backend/product_nature_variants#list_receptions"/>
+        <page to="backend/product_nature_variants#list_shipments"/>
+        <page to="backend/product_nature_variants#list_suppliers"/>
         <page to="backend/product_nature_variants#storage_detail"/>
+        <page to="backend/product_nature_variants#unroll_saleables"/>
+      </item>
+      <item name="purchases">
+        <page to="backend/purchases#show"/>
       </item>
       <item name="shipments">
         <page to="backend/shipments#invoice"/>
-      </item>
-      <item name="tax_declarations">
-        <page to="backend/tax_declarations#archive_report"/>
-        <page to="backend/tax_declarations#find_open_document_template"/>
-        <page to="backend/tax_declarations#generate_document"/>
-        <page to="backend/tax_declarations#generate_report"/>
-        <page to="backend/tax_declarations#generate_report_file"/>
-      </item>
-      <item name="trial_balances">
-        <page to="backend/trial_balances#archive_report"/>
-        <page to="backend/trial_balances#find_open_document_template"/>
-        <page to="backend/trial_balances#generate_document"/>
-        <page to="backend/trial_balances#generate_report"/>
-        <page to="backend/trial_balances#generate_report_file"/>
       </item>
     </group>
   </untreated-actions>

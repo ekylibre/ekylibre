@@ -4,16 +4,16 @@ cmn:
     started_on: "开始于"
     stopped_on: "停在"
   aggregator_properties:
-    active: "活性"
+    active: "活性" #?
     area: "区"
     area_in_hectare: "区公顷"
     born_at: "出生于"
     breeding_number: "养殖数量"
     campaigns: "活动"
     capitalised_production: "生产资本化" #?
-    catalog_name: "目录名称"
-    charge_account_label: "收费帐户标签"
-    company: "公司"
+    catalog_name: "目录名称" #?
+    charge_account_label: "收费帐户标签" #?
+    company: "公司" #?
     container_name: "容器名称"
     current_result_before_taxes: "税前当前结果"
     depreciations_inputations_expenses: "折旧费用inputations" #?
@@ -43,11 +43,11 @@ cmn:
     financial_result: "财务结果"
     financial_year_name: "会计年度名称"
     financial_years: "财政年度"
-    grains_yield: "谷物产量"
+    grains_yield: "谷物产量" #?
     harvest_year: "丰收年"
-    harvested_at: "在收获"
+    harvested_at: "在收获" #?
     human_roles: "人的角色" #?
-    implanted_at: "在植入"
+    implanted_at: "在植入" #?
     intervention_durations: "干预的持续时间" #?
     loss_balance: "盈亏平衡"
     losses: "损失" #?
@@ -64,16 +64,16 @@ cmn:
     other_expenses: "其他费用" #?
     other_products: "其他产品" #?
     other_purchases: "其他购买" #?
-    owner_name: "所有者名称"
-    payment_ratio: "付款比例"
+    owner_name: "所有者名称" #?
+    payment_ratio: "付款比例" #?
     person_name: "人名"
-    pictogram: "形符"
+    pictogram: "形符" #?
     picture_path: "图片路径"
     plan: "计划"
     prescription: "处方"
-    pretax_amount: "税前金额"
+    pretax_amount: "税前金额" #?
     printed_on: "印上"
-    product_account_label: "产品帐户标签"
+    product_account_label: "产品帐户标签" #?
     production_support: "生产支持"
     productions_sales: "生产销售" #?
     products_purchases: "产品采购" #?
@@ -82,7 +82,7 @@ cmn:
     profit_or_loss: "利润或亏损"
     profits: "利润" #?
     profits_taxes: "利得税"
-    provisional_yield: "临时产量"
+    provisional_yield: "临时产量" #?
     provisions_revenues: "收入的规定" #?
     quantity: "数量"
     raw_matters_purchases: "原料采购事宜" #?
@@ -90,7 +90,7 @@ cmn:
     sex: "性别"
     social_expenses: "社会性支出" #?
     soil_varieties: "土品种" #?
-    stock_account_label: "库存帐户标签"
+    stock_account_label: "库存帐户标签" #?
     stock_production: "按库存生产" #?
     stocks_variation: "库存变化" #?
     subsidies: "补贴" #?
@@ -100,7 +100,7 @@ cmn:
     variable_name: "变量名" #?
     variant_name: "版本名称"
     variant_variety: "变异品种" #?
-    vine_yield: "葡萄产量"
+    vine_yield: "葡萄产量" #?
     wages: "工资" #?
     working_area: "工作区域"
     working_duration_in_hours: "工作时间（小时）"

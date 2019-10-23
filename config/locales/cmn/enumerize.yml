@@ -461,10 +461,10 @@ cmn:
       tax_payability:
         at_invoicing: "在开票"
         at_paying: "在支付"
-    purchase_nature:
-      nature:
-        payslip: "工资单"
-        purchase: "采购"
+    purchase_nature: #?
+      nature: #?
+        payslip: "工资单" #?
+        purchase: "采购" #?
     sale_item: #?
       compute_from: #?
         pretax_amount: "税前金额" #?

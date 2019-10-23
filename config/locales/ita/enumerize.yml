@@ -461,10 +461,10 @@ ita:
       tax_payability:
         at_invoicing: "A fatturazione"
         at_paying: "A pagamento"
-    purchase_nature:
-      nature:
-        payslip: "Busta paga"
-        purchase: "Acquista"
+    purchase_nature: #?
+      nature: #?
+        payslip: "Busta paga" #?
+        purchase: "Acquista" #?
     sale_item: #?
       compute_from: #?
         pretax_amount: "Importo lordo delle imposte" #?

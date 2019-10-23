@@ -4,7 +4,7 @@ fra:
     started_on: "Débuté le"
     stopped_on: "Arrếté on"
   aggregator_properties:
-    active: "Actif"
+    active: "Actif" #?
     activity_family: "Famille d'activité" #?
     actor_name: "Nom de l'acteur" #?
     animal_group_name: "Nom du groupe d'animaux" #?
@@ -16,9 +16,9 @@ fra:
     breeding_number: "Numéro d'élevage"
     campaigns: "Campagnes"
     capitalised_production: "Production capitalisée" #?
-    catalog_name: "Nom du catalogue"
-    charge_account_label: "Étiquette du compte de frais"
-    company: "Entreprise"
+    catalog_name: "Nom du catalogue" #?
+    charge_account_label: "Étiquette du compte de frais" #?
+    company: "Entreprise" #?
     container_name: "Nom de l'emplacement"
     current_result_before_taxes: "Résultat en cours avant taxes"
     depreciations_inputations_expenses: "Charges des imputations des dépréciations" #?
@@ -50,11 +50,11 @@ fra:
     financial_result: "Résultat financier"
     financial_year_name: "Exercice comptable"
     financial_years: "Exercices comptables"
-    grains_yield: "Rendement en grains"
+    grains_yield: "Rendement en grains" #?
     harvest_year: "Année de récolte"
-    harvested_at: "Récolté à"
+    harvested_at: "Récolté à" #?
     human_roles: "Roles" #?
-    implanted_at: "Implanté à"
+    implanted_at: "Implanté à" #?
     intervention_durations: "Durées d'intervention" #?
     loss_balance: "Solde de perte"
     losses: "Pertes" #?
@@ -79,19 +79,19 @@ fra:
     other_expenses: "Autres charges" #?
     other_products: "Autres produits" #?
     other_purchases: "Autres achats" #?
-    owner_name: "Nom du propriétaire"
+    owner_name: "Nom du propriétaire" #?
     pasturing_period: "Période pâturage" #?
     pasturing_working_area: "Zone de pâturage" #?
-    payment_ratio: "Ratio de paiement"
+    payment_ratio: "Ratio de paiement" #?
     person_name: "Nom"
-    pictogram: "Pictogramme"
+    pictogram: "Pictogramme" #?
     picture_path: "Chemin d'image"
     # plan: "Plan"
     prescription: "Ordonnance"
-    pretax_amount: "Montant avant impôt"
+    pretax_amount: "Montant avant impôt" #?
     previous_production_name: "Précédente production" #?
     printed_on: "Imprimé le"
-    product_account_label: "Compte de produits"
+    product_account_label: "Compte de produits" #?
     product_nature_name: "Type de produit" #?
     production_support: "Support à la production"
     productions_sales: "Ventes de productions" #?
@@ -102,7 +102,7 @@ fra:
     profits: "Profits" #?
     profits_taxes: "Taxes sur profits"
     provisional_grains_yield: "Rendement prévisionnel en grains" #?
-    provisional_yield: "Rendement prévisionnel"
+    provisional_yield: "Rendement prévisionnel" #?
     provisions_revenues: "Revenus de provisions" #?
     quantity: "Quantité"
     raw_matters_purchases: "Achats de matières brutes" #?
@@ -113,7 +113,7 @@ fra:
     social_expenses: "Charges sociales" #?
     soil_varieties: "Variétés de sol" #?
     sowed_at: "Semé le" #?
-    stock_account_label: "Étiquette du compte de stock"
+    stock_account_label: "Étiquette du compte de stock" #?
     stock_production: "Production de stock" #?
     stocks_variation: "Variation de stocks" #?
     subsidies: "Subventions" #?
@@ -126,7 +126,7 @@ fra:
     variable_name: "Variable" #?
     variant_name: "Variante"
     variant_variety: "Variété de la variante" #?
-    vine_yield: "Rendement en vin"
+    vine_yield: "Rendement en vin" #?
     wages: "Salaires" #?
     working_area: "Superficie travaillée"
     working_duration_in_hours: "Durée travaillée en heures"
