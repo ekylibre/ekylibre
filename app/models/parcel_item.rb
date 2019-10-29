@@ -100,7 +100,6 @@ class ParcelItem < Ekylibre::Record::Base
   validates :parted, inclusion: { in: [true, false] }
   validates :population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :pretax_amount, :unit_pretax_amount, :unit_pretax_stock_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
-  validates :parcel, presence: true
   # ]VALIDATORS]
 
   validates :variant, presence: true

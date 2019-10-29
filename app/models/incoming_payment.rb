@@ -84,6 +84,7 @@ class IncomingPayment < Ekylibre::Record::Base
   validates :commission_amount, numericality: { greater_than_or_equal_to: 0.0 }
   validates :payer, presence: true
   validates :commission_account, presence: { if: :with_commission? }
+  validates :to_bank_at, financial_year_writeable: true
 
   validates :currency, match: { with: :mode }
   validates :mode, match: { with: :deposit, to_invalidate: :deposit_id }, allow_blank: true
