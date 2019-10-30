@@ -14,8 +14,19 @@ module Printers
       company = EntityDecorator.decorate(Entity.of_company)
       receiver = EntityDecorator.decorate(shipment.recipient)
 
-      # Custom_fields
-      custom_fields = Maybe(shipment).custom_fields.map(&:last).join('\n').or_else('')
+      # custom_fields
+      custom_fields = if Shipment.customizable?
+                        Shipment.custom_fields.map do |f|
+                          next unless value = shipment.custom_value(f)
+                          if f.nature == :boolean
+                            value = :y.tl if value == '1'
+                            value = :n.tl if value == '0'
+                          end
+                          "#{f.name}: #{value}"
+                        end
+                      else
+                        []
+                      end
 
       generate_report(template_path) do |r|
         # Company_logo
@@ -37,7 +48,7 @@ module Printers
         r.add_field :planned_at, shipment.planned_at.l(format: '%d %B %Y')
 
         # Custom_fields
-        r.add_field :custom_fields, custom_fields
+        r.add_field :custom_fields, custom_fields.join('\n')
 
         # Parcels
         r.add_table(:parcels, shipment.items) do |t|

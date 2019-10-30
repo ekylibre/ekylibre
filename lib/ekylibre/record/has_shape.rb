@@ -102,6 +102,10 @@ module Ekylibre
               where('ST_Intersects(' + col + ', ST_GeomFromEWKT(ST_MakeValid(?)))', ::Charta.new_geometry(shape).to_ewkt)
             }
 
+            scope col + '_surface_intersecting', lambda { |shape|
+              where('ST_Intersects(' + col + ', ST_GeomFromEWKT(ST_MakeValid(?))) AND ST_Area(ST_Intersection(ST_MakeValid(' + col + '), ST_GeomFromEWKT(ST_MakeValid(?)))) > ?', ::Charta.new_geometry(shape).to_ewkt, ::Charta.new_geometry(shape).to_ewkt, 1E-10)
+            }
+
             scope col + '_covered_by', lambda { |shape|
               where('ST_CoveredBy(' + col + ', ST_GeomFromEWKT(ST_MakeValid(?)))', ::Charta.new_geometry(shape).to_ewkt)
             }
