@@ -984,6 +984,7 @@ fra:
     active_finishing_within: "Actif dont l’abonnement se termine dans moins de"
     active_fixed_sum: "Total actifs immobilisés" #?
     active_sum: "Total actifs" #?
+    active_totals: "Totaux Actif"
     activities: "Activités"
     activity: "Activités"
     activity_production: "Production"
@@ -1083,6 +1084,7 @@ fra:
     alive_corporeal_assets_others: "Autres végétaux en terres immobilisés"
     alive_corporeal_assets_perennial_plants: "Plantations pérennes"
     alive_corporeal_assets_service_animals: "Animaux de service"
+    alive_corporeal_assets_total: "Immobilisations corporelles (biens vivants)"
     alive_corporeal_assets_young_animals: "Animaux reproducteurs (jeunes)"
     all: "Tous"
     allocation_balance: "Affectation du budget - Allocation %{name}"
@@ -1219,6 +1221,7 @@ fra:
     capitals_mandatory_provisions: "Provisions réglementées"
     capitals_profit_or_loss: "Résultat de l'exercice"
     capitals_risk_and_charges_provisions: "Provisions pour risques et charges"
+    capitals_risk_and_charges_provisions_total: "Provisions"
     capitals_values: "Capital"
     care: "soins" #?
     cartography: "Cartographie"
@@ -1355,6 +1358,7 @@ fra:
     corporeal_assets_land_parcels: "Terrains"
     corporeal_assets_others: "Autres"
     corporeal_assets_settlements: "Aménagements fonciers"
+    corporeal_assets_total: "Immobilisations corporelles"
     cost: "Coût" #?
     cost_income_statement: "Charges" #?
     cost_per_net_surface_area: "Coût par surface"
@@ -1430,9 +1434,12 @@ fra:
     debit_account_balance: "Solde débiteur: %{value}€"
     debit_balance: "119 - Report à nouveau (solde débiteur), exercice antérieur"
     debts: "Dettes"
-    debts_associate_locked_debts: "Associés (comptes courants bloqué)"
+    debts_associate_locked_debts: "Associés (comptes courants bloqués)"
+    debts_associate_total: "Associés (comptes courants)"
     debts_cashe_debts: "Découverts bancaires courants"
+    debts_cashe_debts_total: "Dettes financières"
     debts_land_parcel_loans: "Emprunts fonciers"
+    debts_loans_total: "Emprunts"
     debts_on_assets: "Taux d’endettement (Dettes / Actifs) %{financial_year}"
     debts_other_financial_debts: "Autres emprunts et dettes"
     debts_others_loans: "Autres"
@@ -1554,6 +1561,7 @@ fra:
     entities_assets_gaps: "Ecart de conversion"
     entities_associate_receivables: "Associés"
     entities_client_receivables: "Clients"
+    entities_client_total: "Créances clients"
     entities_investment_security: "Valeurs mobilières de placement"
     entities_other_receivables: "Autres créances"
     entities_others_clients: "Autres clients et conventions"
@@ -1642,6 +1650,7 @@ fra:
     export_sales_estimate: "Devis" #?
     export_sales_invoice: "Facture" #?
     export_sales_order: "Bon de commande" #?
+    export_short_balance_sheet: "Export bilan simplifié"
     export_text_fec_all: "Export FEC - Cas général - impôt sur les sociétés (Texte)"
     export_text_fec_ba_bnc_ir_commercial_accountancy: "Export FEC - Cas BA BNC IR - comptabilité commerciale (Texte)"
     export_text_fec_ba_ir_cash_accountancy: "Export FEC - Cas BA IR - comptabilité de trésorerie (Texte)"
@@ -1677,6 +1686,7 @@ fra:
     financial_assets_others: "Autres"
     financial_assets_participations: "Participations"
     financial_assets_participations_debts: "Créances rattachées à des participations"
+    financial_assets_total: "Immobilisations financières"
     financial_debts: "Valeurs mobilières et créances de l'actif immobilisé"
     financial_depreciations: "Reprises sur dépréciations et provisions, transferts de charges"
     financial_expenses: "Charges financières"
@@ -1804,10 +1814,11 @@ fra:
       unreceived: "Non reçus" #?
       waiting: "À encaisser plus tard" #?
     incoming_payments_to_deposit: "Encaissements à déposer"
-    incorporeal_assets: "Immobilisations incorporelles "
+    incorporeal_assets: "Immobilisations incorporelles"
     incorporeal_assets_advances: "Avances et acomptes"
     incorporeal_assets_creation_costs: "Frais d'établissement"
     incorporeal_assets_others: "Autres"
+    incorporeal_assets_total: "Immobilisations incorporelles"
     indicative_group_size: "Taille indicative du groupe"
     indicator: "Indicateur"
     indicator_value: "Valeur de l’indicateur"
@@ -1974,6 +1985,7 @@ fra:
     long_cycle_alive_products_others: "Autres-en-cours"
     long_cycle_alive_products_plant_advance: "Avances aux cultures"
     long_cycle_alive_products_plant_in_ground: "Autres végétaux en terres"
+    long_cycle_alive_products_total: "Bien-vivants et en-cours (cycle long)"
     long_cycle_alive_products_wine: "Vins et alcools"
     loss_is_x_for_account: "<span class='loss'> Perte de %{x} </span> à comptabiliser sur le compte %{account_number}"
     losses: "Charges d’exploitations"
@@ -2209,6 +2221,7 @@ fra:
     others_debts_social_debts: "Autres dettes fiscales et sociales"
     others_debts_state_debts: "Etat (TVA et taxes)"
     others_debts_supplier_receivables: "Fournisseurs d'exploitation et comptes rattachés"
+    others_debts_total: "Autres dettes"
     outgoing: "Sortant" #?
     outgoing_parcel_quantities: "Quantités (Colis sortant)"
     outgoing_parcels: "Colis sortants"
@@ -2235,6 +2248,7 @@ fra:
     participants: "Participants"
     participations: "Participations"
     parts: "Modules"
+    passive_totals: "Totaux Passif"
     password: "Mot de passe"
     paths_to_convert: "Chemins à convertir" #?
     pay: "Payer" #?
@@ -2616,6 +2630,7 @@ fra:
     short_cycle_alive_products_others: "En cours"
     short_cycle_alive_products_plant_advance: "Avances aux cultures"
     short_cycle_alive_products_plant_in_ground: "Autres végétaux en terres"
+    short_cycle_alive_products_total: "Bien-vivants et en cours (cycle court)"
     show: "Afficher"
     show_export_preview: "Afficher un aperçu du document (peut augmenter le temps de chargement)" #?
     sign_out: "Se déconnecter"
@@ -2659,6 +2674,8 @@ fra:
     stocks_others_products: "Autres produits"
     stocks_preferences: "Gestion des stocks" #?
     stocks_supply: "Approvisionnements et marchandises"
+    stocks_total: "Stocks"
+    stocks_total_products: "Produits finis"
     stop: "Jusqu’au"
     stopped: "Arrêtés"
     stopped_on: "Nous nous sommes arrêtés sur"
