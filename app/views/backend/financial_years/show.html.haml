@@ -23,6 +23,7 @@
     - export_params = params.slice(:id)
     - d.item :export_income_statement.tl, params: export_params.merge(format: :pdf, n: :income_statement)
     - d.item :export_balance_sheet.tl, params: export_params.merge(format: :pdf, n: :balance_sheet)
+    - d.item :export_short_balance_sheet.tl, params: export_params.merge(format: :pdf, n: :short_balance_sheet)
 
 = main_informations attachment: true do
   = infos do

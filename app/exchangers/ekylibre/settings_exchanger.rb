@@ -35,7 +35,11 @@ module Ekylibre
         Preference.set!(:demo_user, demo_user)
         Preference.set!(:demo_password, @manifest[:users][demo_user][:password])
       end
-      Preference.set!(:create_activities_from_telepac, !!@manifest[:create_activities_from_telepac], :boolean)
+
+      %i[create_activities_from_telepac permanent_stock_inventory].each do |pref_nature|
+        Preference.set!(pref_nature, !!@manifest[pref_nature], :boolean)
+      end
+
       ::I18n.locale = Preference[:language]
 
       w.check_point
