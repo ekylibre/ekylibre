@@ -136,6 +136,10 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   scope :with_letter, ->(letter) { where(letter: [letter.delete('*'), letter.delete('*') + '*']) }
 
+  scope :of_unclosure_account_number, -> {
+    where(account_id: Account.find_with_regexp('1 2 3 4 5 6 7').select(:id))
+  }
+
   state_machine :state, initial: :draft do
     state :draft
     state :confirmed
