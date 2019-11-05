@@ -15,7 +15,7 @@ module FEC
           xml.comptabilite('xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance', 'xsi:noNamespaceSchemaLocation' => validators[fiscal_position]) do
             xml.exercice do
               xml.DateCloture @financial_year.stopped_on.strftime('%Y-%m-%d')
-              journals.each do |journal|
+              journals.where.not(nature: 'closure').each do |journal|
                 entries = journal.entries.where.not(state: 'draft').between(@started_on, @stopped_on)
                 next unless entries.any?
                 xml.journal do
@@ -27,21 +27,21 @@ module FEC
                     xml.ecriture do
                       xml.EcritureNum (entry.continuous_number? ? entry.continuous_number : '')
                       xml.EcritureDate entry.printed_on.strftime('%Y-%m-%d')
-                      xml.EcritureLib CGI::escapeHTML(entry.items.first.name.dump[1...-1])
+                      xml.EcritureLib entry.items.first.name
                       xml.PieceRef entry.number
-                      xml.PieceDate entry.created_at.strftime('%Y-%m-%d') # bug with resource.created_at.strftime('%Y-%m-%d')
+                      xml.PieceDate ( entry.printed_on > entry.created_at.to_date ? entry.created_at.strftime('%Y-%m-%d') : entry.printed_on.strftime('%Y-%m-%d'))# bug with resource.created_at.strftime('%Y-%m-%d')
                       xml.EcritureLet entry.letter if entry.letter
                       # xml.DateLet
-                      xml.ValidDate (entry.validated_at? ? entry.validated_at.strftime('%Y-%m-%d') : '')
+                      xml.ValidDate (entry.validated_at? ? entry.validated_at.strftime('%Y-%m-%d') : entry.printed_on.strftime('%Y-%m-%d'))
                       xml.DateRglt entry.first_payment.paid_at.strftime('%Y-%m-%d') if entry.first_payment && fiscal_position == 'ba_ir_cash_accountancy'
                       xml.ModeRglt entry.first_payment.mode.name if entry.first_payment && fiscal_position == 'ba_ir_cash_accountancy'
                       xml.NatOp '' if fiscal_position == 'ba_ir_cash_accountancy'
                       xml.IdClient (resource.has_attribute?(:client_id).get && resource.client.get ? resource.client.get.number : (resource.has_attribute?(:supplier_id).get && resource.supplier.get ? resource.supplier.get.full_name : '')) if resource.is_some? && fiscal_position == 'bnc_ir_cash_accountancy'
 
-                      entry.items.includes(:account).find_each do |item|
+                      entry.items.of_unclosure_account_number.includes(:account).where.not(balance: 0.0).find_each do |item|
                         xml.ligne do
                           xml.CompteNum item.account.number.ljust(3, '0')
-                          xml.CompteLib CGI::escapeHTML(item.account.name.dump[1...-1])
+                          xml.CompteLib item.account.name
                           xml.CompteAuxNum ''
                           xml.CompteAuxLib ''
                           xml.Montantdevise ''

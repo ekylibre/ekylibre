@@ -101,37 +101,42 @@ module BordeauxSciencesAgro
               w.info "account : #{account.label.inspect.red}"
             end
 
-            id = (entries[number][:items_attributes].keys.max || 0) + 1
-            entries[number][:items_attributes][id] = {
-              real_debit: r.start_debit_amount.to_f,
-              real_credit: 0.0,
-              account: account,
-              name: r.account_name
-            }
-
-            id = (entries[number][:items_attributes].keys.max || 0) + 1
-            entries[number][:items_attributes][id] = {
-              real_debit: 0.0,
-              real_credit: r.start_credit_amount.to_f,
-              account: account,
-              name: r.account_name
-            }
-
-            id = (entries[number][:items_attributes].keys.max || 0) + 1
-            entries[number][:items_attributes][id] = {
-              real_debit: r.variation_debit_amount.to_f,
-              real_credit: 0.0,
-              account: account,
-              name: r.account_name
-            }
-
-            id = (entries[number][:items_attributes].keys.max || 0) + 1
-            entries[number][:items_attributes][id] = {
-              real_debit: 0.0,
-              real_credit: r.variation_credit_amount.to_f,
-              account: account,
-              name: r.account_name
-            }
+            if r.start_debit_amount.to_f > 0.0
+              id = (entries[number][:items_attributes].keys.max || 0) + 1
+              entries[number][:items_attributes][id] = {
+                real_debit: r.start_debit_amount.to_f,
+                real_credit: 0.0,
+                account: account,
+                name: r.account_name
+              }
+            end
+            if r.start_credit_amount.to_f > 0.0
+              id = (entries[number][:items_attributes].keys.max || 0) + 1
+              entries[number][:items_attributes][id] = {
+                real_debit: 0.0,
+                real_credit: r.start_credit_amount.to_f,
+                account: account,
+                name: r.account_name
+              }
+            end
+            if r.variation_debit_amount.to_f > 0.0
+              id = (entries[number][:items_attributes].keys.max || 0) + 1
+              entries[number][:items_attributes][id] = {
+                real_debit: r.variation_debit_amount.to_f,
+                real_credit: 0.0,
+                account: account,
+                name: r.account_name
+              }
+            end
+            if r.variation_credit_amount.to_f > 0.0
+              id = (entries[number][:items_attributes].keys.max || 0) + 1
+              entries[number][:items_attributes][id] = {
+                real_debit: 0.0,
+                real_credit: r.variation_credit_amount.to_f,
+                account: account,
+                name: r.account_name
+              }
+            end
 
             w.check_point
           end
