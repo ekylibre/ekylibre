@@ -421,9 +421,9 @@ class Account < Ekylibre::Record::Base
     # Returns the name of the used accounting system
     # It takes the information in preferences
     def accounting_system
-      @tenant_when_last_cached ||= Ekylibre::Tenant.current
-      invalid_cache = @tenant_when_last_cached && @tenant_when_last_cached != Ekylibre::Tenant.current
-      @accounting_system = nil if invalid_cache
+      valid_cache = defined?(@tenant_when_last_cached) && @tenant_when_last_cached == Ekylibre::Tenant.current
+      @accounting_system = nil unless valid_cache
+      @tenant_when_last_cached = Ekylibre::Tenant.current
       @accounting_system ||= Preference[:accounting_system]
     end
 
