@@ -44,6 +44,7 @@ module Agroedi
 
         def work_time_duration
           flows = InterventionModel.where(procedure_reference: intervention.procedure.name, working_flow_unit: 'ha/h')
+          return unless flows.any?
           inverse_speed = flows.average(:working_flow)
           working_area = intervention.working_zone_area
           return unless inverse_speed.to_d > 0.0 && working_area.to_f > 0.0
