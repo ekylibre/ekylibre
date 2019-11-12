@@ -6,7 +6,7 @@
       = render partial: 'backend/entities/legal_positions' if Entity.of_company.legal_position.nil?
       = warnings(@financial_year,
                   fixed_assets: FixedAsset.start_before(@financial_year.stopped_on).draft_or_waiting,
-                  fixed_asset_depreciations: FixedAssetDepreciation.up_to(@financial_year.stopped_on).where(locked: false, accountable: false),
+                  fixed_asset_depreciations: FixedAssetDepreciation.with_active_asset.up_to(@financial_year.stopped_on).where(accountable: false),
                   loans: Loan.start_before(@financial_year.stopped_on).drafts,
                   loan_repayments: LoanRepayment.bookkeepable_before(@financial_year.stopped_on),
                   tax_declarations: :not_sent_tax_declarations,
