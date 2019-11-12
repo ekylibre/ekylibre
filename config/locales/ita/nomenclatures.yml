@@ -698,10 +698,8 @@ ita:
         senescence: "senescenza"
       name: "Stati vita degli animali"
     cation_exchange_capacity_analysis_methods:
-      
       name: "metodi di analisi capacità di scambio cationico"
     certification_labels:
-      
       name: "marchi di certificazione"
     certifications:
       items:
@@ -1619,8 +1617,6 @@ ita:
         precision: "Precisione"
         symbol: "Simbolo"
     delivery_modes:
-      choices:
-        
       items:
         delivered_at_place: "Recapitato sul posto"
         delivered_at_terminal: "Consegnato al terminal"
@@ -1628,7 +1624,6 @@ ita:
         ex_works: "opere ex"
         free_carrier: "Trasportatore"
       name: "modalità di consegna"
-    
     dimensions:
       items:
         amount_of_substance: "Ammontare della sostanza"
@@ -2277,7 +2272,6 @@ ita:
         sulfur_dioxide: "Diossido di zolfo"
         water: "Acqua"
       name: "molecole"
-    
     net_services:
       choices:
         approach:
