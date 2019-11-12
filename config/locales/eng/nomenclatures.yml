@@ -2064,7 +2064,6 @@ eng:
         spheroid: "Spheroid"
         vehicle: "Vehicle"
       name: "Figures"
-    fiscal_positions:
     guide_natures:
       items:
         best_practices: "Best practices"
@@ -4292,7 +4291,6 @@ eng:
         rent: "Rent"
         representation_item: "Representation item"
         roll: "Roll"
-        roller: "Roller"
         running_water: "Running water"
         salary_social_contribution: "Salary social contribution"
         salmon_band: "Salmon band"

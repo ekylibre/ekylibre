@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20191029131921">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20191112132413">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -3453,7 +3453,7 @@
       <item name="daily_software_engineering" nature="software_engineering" frozen_indicators_values="usage_duration: 1day" unit_name="day"/>
       <item name="daily_training_course" nature="training_course" frozen_indicators_values="usage_duration: 1day" unit_name="day"/>
       <item name="dairy_equipment_cleaner" nature="mineral_cleaner" frozen_indicators_values="net_mass: 24kilogram, net_volume: 24.00liter" unit_name="24liter_can"/>
-      <item name="destructive_crush_roller" nature="roller"/>
+      <item name="destructive_crush_roller" nature="roll"/>
       <item name="diesel" nature="fuel" frozen_indicators_values="energy: 10.67kilowatt_hour, net_volume: 1liter, net_mass: 0.8kilogram" unit_name="liter"/>
       <item name="disc_harrow" nature="superficial_plow" frozen_indicators_values="" unit_name="equipment"/>
       <item name="disc_harrow_lv" nature="soil_grinder"/>
@@ -4256,7 +4256,6 @@
       <item name="rent" category="rent" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="representation_item" category="representation" variety="service" population_counting="integer" variable_indicators=""/>
       <item name="roll" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="tamp" variable_indicators="application_width, geolocation" frozen_indicators=""/>
-      <item name="roller" category="equipment" variety="equipment" population_counting="unitary" frozen_indicators="application_width" abilities="tamp"/>
       <item name="running_water" category="running_water" variety="water" population_counting="decimal" variable_indicators="nitrogen_concentration, potential_hydrogen" frozen_indicators="net_volume, net_mass"/>
       <item name="salary_social_contribution" category="salary_social_contribution" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="salmon_band" category="fish_band" variety="salmo" population_counting="unitary" abilities="move, consume(water), consume(mix)" variable_indicators=""/>

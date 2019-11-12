@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Remove roller from product natures">
+  <item-change item="product_nature_variants#destructive_crush_roller" nature="roll"/>
+  <item-removal item="product_natures#roller"/>
+</migration>

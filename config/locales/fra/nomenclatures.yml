@@ -4533,7 +4533,6 @@ fra:
         rent: "Location"
         representation_item: "Fourniture de représentation"
         roll: "Rouleau"
-        roller: "Rouleau"
         running_water: "Eau du réseau"
         salary_social_contribution: "Charges de sécurité sociale et de prévoyance des salariés"
         salmon_band: "Bande de saumon"
