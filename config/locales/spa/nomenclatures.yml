@@ -696,7 +696,6 @@ spa:
         senescence: "Senectud"
       name: "Estados vida animal"
     cation_exchange_capacity_analysis_methods:
-      
       name: "Métodos de análisis de capacidad de intercambio catiónico"
     certification_labels:
       items:
@@ -1819,7 +1818,6 @@ spa:
         ex_works: "En fábrica"
         free_carrier: "Libre transportista"
       name: "Modos de entrega"
-    
     dimensions:
       items:
         amount_of_substance: "Cantidad de sustancia"
