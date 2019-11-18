@@ -2503,6 +2503,7 @@ eng:
     to_deposit_later: "To deposit later" #?
     to_deposit_now: "To deposit now" #?
     to_pay: "to pay"
+    to_point: "Point"
     to_reclaim: "to reclaim"
     to_reconcile: "To reconcile" #?
     to_reconciliate: "To reconciliate"

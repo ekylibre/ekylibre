@@ -2759,6 +2759,7 @@ fra:
     to_deposit_later: "À encaisser plus tard"
     to_deposit_now: "À encaisser maintenant"
     to_pay: "à payer"
+    to_point: "Pointer"
     to_reclaim: "à réclamer"
     to_reconcile: "À rapprocher"
     to_reconciliate: "À rapprocher"
