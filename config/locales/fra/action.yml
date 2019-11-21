@@ -3470,6 +3470,7 @@ fra:
       picture: "Image"
       prepare: "Préparer"
       print: "Imprimer" #?
+      print_worker_register: "Imprimer le registre horaire des opérateurs"
       propose: "Proposer"
       propose_and_invoice: "Facturer directement"
       prospect: "Prospecter"

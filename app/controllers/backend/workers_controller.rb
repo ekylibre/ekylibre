@@ -29,5 +29,19 @@ module Backend
       t.column :container, url: true
       t.column :description
     end
+
+    def index
+      respond_to do |format|
+        format.pdf do
+          return unless (template = find_and_check :document_template, params[:template])
+
+          PrinterJob.perform_later('Printers::WorkerRegisterPrinter', template: template, campaign: current_campaign, perform_as: current_user)
+          notify_success(:document_in_preparation)
+          redirect_to backend_workers_path
+        end
+
+        format.html { super }
+      end
+    end
   end
 end

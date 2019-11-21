@@ -4,6 +4,7 @@ class EntityDecorator < Draper::Decorator
   def block_address
     object.mails.any? ? object.mails.order(:by_default).first.mail_coordinate : object.full_name
   end
+
   alias_method :address, :block_address
 
   def inline_address
