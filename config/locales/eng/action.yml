@@ -3130,6 +3130,8 @@ eng:
       pick: "Pick"
       picture: "Picture"
       prepare: "Prepare"
+      print: "Print"
+      print_worker_register: "Print worker register"
       # progress: "Progress"
       propose: "Propose"
       propose_and_invoice: "Propose and invoice"
