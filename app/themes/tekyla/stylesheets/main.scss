@@ -558,9 +558,11 @@ html.exception {
 
 #core {
   clear: both;
-  @include calc(height, "100vh - #{$header-height + $topbar-height}");
+  @include calc(height, "100vh - #{$header-height + $topbar-height + $chat-btn-height}");
+  padding-bottom: $chat-btn-height;
+  overflow: auto;
   .toolbar + & {
-    @include calc(height, "100vh - #{$header-height + $topbar-height + $toolbar-height} - 1px");
+    @include calc(height, "100vh - #{$header-height + $topbar-height + $chat-btn-height + $toolbar-height} - 1px");
   }
   .flash + & {
     height: unset;

@@ -486,6 +486,14 @@ fra:
           attributes: #?
             parameters: #?
               check_errored: "La connexion au partenaire a échoué. Veuillez vérifier les informations saisies ou réessayer plus tard." #?
+        intervention_working_period:
+          attributes:
+            started_at:
+              inferior: "La date de début d'intervention saisie doit être antérieure à la date de fin des cultures sélectionnées (%{to})"
+              posterior: "La date de début d'intervention saisie doit être postérieure à la date de début des cultures sélectionnées (%{to})"
+            stopped_at:
+              inferior: "La date de fin d'intervention saisie doit être antérieure à la date de fin des cultures sélectionnées (%{to})"
+              posterior: "La date de fin d'intervention saisie doit être postérieure à la date de début des cultures sélectionnées (%{to})"
         journal: #?
           attributes: #?
             accountant: #?

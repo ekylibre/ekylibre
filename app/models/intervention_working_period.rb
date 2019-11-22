@@ -132,8 +132,8 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
       errors.add(:stopped_at, :posterior, to: activity_started_on) if stopped_at < activity_started_on
     end
     if activity_stopped_on.present?
-      errors.add(:started_at, :inferior, to: activity_started_on) if started_at > activity_stopped_on
-      errors.add(:stopped_at, :inferior, to: activity_started_on) if stopped_at > activity_stopped_on
+      errors.add(:started_at, :inferior, to: activity_stopped_on) if started_at > activity_stopped_on
+      errors.add(:stopped_at, :inferior, to: activity_stopped_on) if stopped_at > activity_stopped_on
     end
   end
 

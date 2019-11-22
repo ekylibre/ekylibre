@@ -1908,6 +1908,14 @@ eng:
     intervention:
       bookkeep: "[%{resource}] %{name}"
       name: "%{intervention} #%{number}"
+    intervention_working_period:
+      attributes:
+        started_at:
+          inferior: "The intervention must start before the end of the selected crops (%{to})"
+          posterior: "The intervention must start after the beginning of the selected crops (%{to})"
+        stopped_at:
+          inferior: "The intervention must end before the end of the selected crops (%{to})"
+          posterior: "The intervention must end after the beginning of the selected crops (%{to})"
     inventory:
       bookkeep: "[%{resource}] %{number}"
       bookkeep_exchange: "[%{resource} exchange] %{number}"
