@@ -9,6 +9,12 @@ module Printers
       @shipment = shipment
     end
 
+    # TODO: To be removed after ruby 2.6
+    # @deprecated
+    def upcase(str)
+      I18n.transliterate(str).upcase
+    end
+
     def run_pdf
       # Companies
       company = EntityDecorator.decorate(Entity.of_company)
@@ -33,13 +39,13 @@ module Printers
         r.add_image :company_logo, company.picture.path, keep_ratio: true if company.has_picture?
 
         # Company_address
-        r.add_field :company_address, company.address.upcase
+        r.add_field :company_address, upcase(company.address)
         r.add_field :company_phone, company.phone
         r.add_field :company_email, company.email
         r.add_field :company_website, company.website
 
         # Receiver_address
-        r.add_field :receiver_address, receiver.address.upcase
+        r.add_field :receiver_address, upcase(receiver.address)
 
         # Shipping_number
         r.add_field :shipping_number, shipment.number
