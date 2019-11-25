@@ -36,7 +36,7 @@ module Printers
 
       generate_report(template_path) do |r|
         # Company_logo
-        r.add_image :company_logo, company.picture.path if company.has_picture?
+        r.add_image :company_logo, company.picture.path, keep_ratio: true if company.has_picture?
 
         # Company_address
         r.add_field :company_address, upcase(company.address)
