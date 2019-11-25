@@ -27,7 +27,7 @@ module Printers
 
         generate_report(@template_path) do |r|
           # Header
-          r.add_image :company_logo, company.picture.path if company.has_picture?
+          r.add_image :company_logo, company.picture.path, keep_ratio: true if company.has_picture?
 
           # Date
           r.add_field :date, Time.zone.now.l(format: '%d %B %Y')
