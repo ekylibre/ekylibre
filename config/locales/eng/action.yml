@@ -1047,6 +1047,7 @@ eng:
       too_short: "%{attribute} is too short (minimum is %{count} characters)"
       unitary_in_parcel: "Unitary items can only be sent one by one"
       wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
+      invalid_population_for_unitary_product: "The equipment %{name} cannot have a population of %{population} as it is supposed to be unique."
     template:
       body: "There were problems with the following fields:"
       header:

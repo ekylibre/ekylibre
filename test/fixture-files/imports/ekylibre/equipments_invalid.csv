@@ -1,0 +1,3 @@
+nom,variant nomen,code,code place,date naissance,marque,modèle,nom du propriétaire,indicateurs,notes,prix unitaire,indicateur de prix
+,CUVE / SILO / RESERVE,,,,,,,,,,
+Cuve n°1,concrete_tank,TANK_1_S05_D06,S05_D06,1995-01-01,,,,Population : 2 ;  nominal_storable_net_volume : 120hectoliter,,0.8,usage_duration
