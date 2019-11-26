@@ -25,11 +25,11 @@ module Printers
           r.add_image :company_logo, company.picture.path, keep_ratio: true if company.has_picture?
 
           # Title
-          r.add_field :title, upcase(title)
+          r.add_field :title, title
 
           # Aborted
           r.add_section('section-aborted', state) do |s|
-            s.add_field(:aborted) { |item| upcase(item[:aborted].tl) }
+            s.add_field(:aborted) { |item| item[:aborted].tl }
           end
 
           # Expired_at
@@ -39,14 +39,14 @@ module Printers
 
           # Company_address
           r.add_field :company_name, company.full_name
-          r.add_field :company_address, upcase(company.address)
+          r.add_field :company_address, company.address
           r.add_field :company_email, company.email
           r.add_field :company_phone, company.phone
           r.add_field :company_website, company.website
 
           # Receiver_address
           r.add_field :receiver, receiver.full_name
-          r.add_field :receiver_address, upcase(receiver.address)
+          r.add_field :receiver_address, receiver.address
           r.add_field :receiver_phone, receiver.phone
           r.add_field :receiver_email, receiver.email
 

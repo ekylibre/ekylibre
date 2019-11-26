@@ -13,11 +13,6 @@ module Printers
         sale.number
       end
 
-      # TODO: To be removed after ruby 2.6
-      # @deprecated
-      def upcase(str)
-        I18n.transliterate(str).upcase
-      end
     end
   end
 end
