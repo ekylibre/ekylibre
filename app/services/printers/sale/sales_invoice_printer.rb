@@ -33,7 +33,7 @@ module Printers
           r.add_field :date, Time.zone.now.l(format: '%d %B %Y')
 
           # Title
-          r.add_field :title, upcase(I18n.t('labels.export_sales_invoice'))
+          r.add_field :title, I18n.t('labels.export_sales_invoice')
           r.add_field :invoiced_at, sale.invoiced_at.l(format: '%d %B %Y')
           r.add_field :responsible, Maybe(sale).responsible.full_name.or_else { "Non renseigné" }
           r.add_field :client_reference, client_reference
@@ -43,13 +43,13 @@ module Printers
 
           # Company_address
           r.add_field :company_name, company.full_name
-          r.add_field :company_address, upcase(company.address)
+          r.add_field :company_address, company.address
           r.add_field :company_email, company.email
           r.add_field :company_phone, company.phone
           r.add_field :company_website, company.website
 
           # Invoice_address
-          r.add_field :invoice_address, Maybe(sale).invoice_address.mail_coordinate.recover { receiver.full_name }.fmap(&method(:upcase)).or_else('')
+          r.add_field :invoice_address, Maybe(sale).invoice_address.mail_coordinate.recover { receiver.full_name }.or_else('')
 
           r.add_section('Section-delivery-address', delivery_address_dataset(sale, receiver)) do |da_s|
             da_s.add_field(:delivery_address) { |e| e[:delivery_address] }
