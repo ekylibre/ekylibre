@@ -137,9 +137,11 @@ module Backend
       @purchase_invoice.responsible ||= current_user
       @purchase_invoice.planned_at = Time.zone.now
       @purchase_invoice.supplier_id ||= params[:supplier_id] if params[:supplier_id]
+
       if (address = Entity.of_company.default_mail_address)
         @purchase_invoice.delivery_address = address
       end
+
       render locals: { with_continue: true }
     end
 

@@ -17,7 +17,7 @@ module Printers
       # custom_fields
       custom_fields = if Shipment.customizable?
                         Shipment.custom_fields.map do |f|
-                          next unless value = shipment.custom_value(f)
+                          next unless (value = shipment.custom_value(f))
                           if f.nature == :boolean
                             value = :y.tl if value == '1'
                             value = :n.tl if value == '0'
@@ -30,16 +30,16 @@ module Printers
 
       generate_report(template_path) do |r|
         # Company_logo
-        r.add_image :company_logo, company.picture.path if company.has_picture?
+        r.add_image :company_logo, company.picture.path, keep_ratio: true if company.has_picture?
 
         # Company_address
-        r.add_field :company_address, company.address.upcase
+        r.add_field :company_address, company.address
         r.add_field :company_phone, company.phone
         r.add_field :company_email, company.email
         r.add_field :company_website, company.website
 
         # Receiver_address
-        r.add_field :receiver_address, receiver.address.upcase
+        r.add_field :receiver_address, receiver.address
 
         # Shipping_number
         r.add_field :shipping_number, shipment.number

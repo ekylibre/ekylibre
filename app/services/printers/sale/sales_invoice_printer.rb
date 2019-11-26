@@ -9,7 +9,7 @@ module Printers
         if sale.has_same_delivery_address?
           []
         else
-          [{ delivery_address: Maybe(sale).delivery_address.mail_coordinate.or_else { client.full_name }.upcase }]
+          [{ delivery_address: Maybe(sale).delivery_address.mail_coordinate.recover { client.full_name }.fmap(&method(:upcase)).or_else("") }]
         end
       end
 
@@ -27,13 +27,13 @@ module Printers
 
         generate_report(@template_path) do |r|
           # Header
-          r.add_image :company_logo, company.picture.path if company.has_picture?
+          r.add_image :company_logo, company.picture.path, keep_ratio: true if company.has_picture?
 
           # Date
           r.add_field :date, Time.zone.now.l(format: '%d %B %Y')
 
           # Title
-          r.add_field :title, I18n.t('labels.export_sales_invoice').upcase
+          r.add_field :title, I18n.t('labels.export_sales_invoice')
           r.add_field :invoiced_at, sale.invoiced_at.l(format: '%d %B %Y')
           r.add_field :responsible, Maybe(sale).responsible.full_name.or_else { "Non renseigné" }
           r.add_field :client_reference, client_reference
@@ -43,13 +43,13 @@ module Printers
 
           # Company_address
           r.add_field :company_name, company.full_name
-          r.add_field :company_address, company.address.upcase
+          r.add_field :company_address, company.address
           r.add_field :company_email, company.email
           r.add_field :company_phone, company.phone
           r.add_field :company_website, company.website
 
           # Invoice_address
-          r.add_field :invoice_address, Maybe(sale).invoice_address.mail_coordinate.or_else { receiver.full_name }.upcase
+          r.add_field :invoice_address, Maybe(sale).invoice_address.mail_coordinate.recover { receiver.full_name }.or_else('')
 
           r.add_section('Section-delivery-address', delivery_address_dataset(sale, receiver)) do |da_s|
             da_s.add_field(:delivery_address) { |e| e[:delivery_address] }
@@ -87,7 +87,7 @@ module Printers
 
           # Details
           r.add_table('details', sale.other_deals) do |s|
-            s.add_field(:payment_date) { |item| item.class == sale.class ? item.created_at.l(format: '%d %B %Y') : item.paid_at.l(format: '%d %B %Y') }
+            s.add_field(:payment_date) { |item| AffairableDecorator.decorate(item).payment_date.l(format: '%d %B %Y') }
             s.add_field(:payment_number, &:number)
             s.add_field(:payment_amount) { |item| item.class == sale.class ? '' : item.amount.round_l }
             s.add_field(:sale_affair) { |item| item.class == sale.class ? item.amount.round_l : '' }
