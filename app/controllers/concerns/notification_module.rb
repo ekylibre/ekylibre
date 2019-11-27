@@ -71,7 +71,7 @@ module NotificationModule
       if message.is_a? String
         message
       else
-        with_i18n_scope :notifications, :messages, replace: true do
+        ScopedTranslationHelper.with_i18n_scope :notifications, :messages, replace: true do
           stl message, **options
         end
       end
