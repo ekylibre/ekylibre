@@ -4,6 +4,7 @@
     locale: getLocale($element)
     dateFormat: 'Y-m-d'
     altInput: true
+    allowInput: true
     altFormat: 'd-m-Y'
   baseDateTimeOptions = ($element) => $.extend {}, baseDateOptions($element),
     enableTime: true
