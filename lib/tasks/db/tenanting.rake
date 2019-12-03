@@ -24,7 +24,10 @@ namespace :db do
                   .to_a
                   .map { |h| h['schema_name'] }
                   .reject {|schema| schema_whitelist.include?(schema) || schema =~ /^pg_/ }
-      Ekylibre::Record::Base.connection.execute("DROP SCHEMA #{schemas.join(', ')} CASCADE") if schemas.present?
+
+      schemas.each do |schema|
+        Ekylibre::Record::Base.connection.execute("DROP SCHEMA #{schema} CASCADE")
+      end
 
       Rake::Task['tenant:clear'].invoke
       Rake::Task['db:migrate'].invoke
