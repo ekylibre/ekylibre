@@ -5,7 +5,7 @@ namespace :tenant do
       multi_database = ENV['MULTI_DATABASE'].to_i
       if multi_database > 0
         database = Rails.configuration.database_configuration[Rails.env]['database']
-        (16**multi_database).times do |i|
+        (16 ** multi_database).times do |i|
           name = database + '_' + i.to_s(16).rjust(multi_database, '0')
           ActiveRecord::Base.connection.execute("DROP DATABASE IF EXISTS #{name}")
         end
@@ -171,12 +171,46 @@ namespace :tenant do
     STDOUT.flush
     input = STDIN.gets.chomp
     case input.upcase
-    when 'Y'
-      return true
-    when 'N'
-      return false
-    else
-      return default
+      when 'Y'
+        return true
+      when 'N'
+        return false
+      else
+        return default
+    end
+  end
+
+  task enable_support: :environment do
+    tenant = ENV['TENANT']
+    unless tenant.present?
+      puts "TENANT varibale need to be set".yellow
+      exit(1)
+    end
+
+    unless Ekylibre::Tenant.exist?(tenant)
+      puts "TENANT #{tenant} does not exist.".yellow
+      exit(1)
+    end
+
+    password = ENV['PASSWORD']
+    password ||= SecureRandom.urlsafe_base64(12)
+
+    Ekylibre::Tenant.switch tenant do
+      user = User.find_by(email: "support@ekylibre.com")
+      if user.present?
+        user.update! password: password
+      else
+        first_name = "Support"
+        last_name = "Ekylibre"
+
+        Ekylibre::Record::Base.transaction do
+          person = Entity.find_by(first_name: first_name, last_name: last_name)
+          person ||= Entity.create!(first_name: first_name, last_name: last_name, nature: :contact)
+
+          User.create!(email: "support@ekylibre.com", language: :fra, administrator: true, first_name: first_name, last_name: last_name, password: password, person: person)
+        end
+      end
+      puts "Support enabled. Password: ".green + password.red
     end
   end
 
