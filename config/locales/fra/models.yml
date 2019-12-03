@@ -1441,7 +1441,7 @@ fra:
     inventory: "Inventaire"
     # inventory_items: "Inventory items"
     invitation_accepted_at: "Invitation acceptée à"
-    invitation_created_at: "Invitation créé"
+    invitation_created_at: "Invitation créée"
     invitation_limit: "Limite d'invitation"
     invitation_sent_at: "Invitation envoyée à"
     invitation_token: "Invitation jeton"
