@@ -4,6 +4,7 @@
     locale: getLocale($element)
     dateFormat: 'Y-m-d'
     altInput: true
+    allowInput: true
     altFormat: 'd-m-Y'
   baseDateTimeOptions = ($element) => $.extend {}, baseDateOptions($element),
     enableTime: true
@@ -21,25 +22,33 @@
   # Utility function
   getLocale = ($element) => $element.attr("lang") or I18n.locale.slice(0, 2) # until we get corresponding locale codes
 
+  setupBlurListener = ($element, flatInstance) =>
+    input = flatInstance.altInput
+    input.addEventListener 'blur', (e) =>
+      flatInstance.setDate(input.value, true, flatInstance.config.altFormat)
+
   enableDatePicker = (element) =>
     $element = $(element)
     return if $element.is('[data-flatpickr="false"]')
     options = baseDateOptions $element
-    $element
+    flatInstance = $element
       .flatpickr options
+    setupBlurListener $element, flatInstance
 
   enableDatetimePicker = (element) =>
     $element = $(element)
     options = baseDateTimeOptions $element
-    $element
+    flatInstance = $element
       .flatpickr options
+    setupBlurListener $element, flatInstance
 
   enableDateRangePicker = (element) =>
     $element = $(element)
     options = baseDateRangeOptions $element
-    $element
+    flatInstance = $element
       .attr 'type', 'text'
       .flatpickr options
+    setupBlurListener $element, flatInstance
 
   # Watch for element insertion via javascript
   E.onDOMElementAdded
