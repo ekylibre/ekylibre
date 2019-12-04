@@ -3325,7 +3325,7 @@ fra:
       record_has_not_been_removed: "L’enregistrement n’a pas être supprimé correctement" #?
       record_is_not_valid: "L'enregistrement n'est pas valable"
       record_not_found: "Enregistrement introuvable"
-      record_x_created: "%{record} %{name} créé"
+      record_x_created: "%{record} %{name} créé(e)"
       record_x_planned: "%{record} %{name} planifiée" #?
       record_x_updated: "%{record} %{name} mise à jour"
       restoration_finished: "La restauration de la sauvegarde s’est terminée (en %{value} secondes)." #?
