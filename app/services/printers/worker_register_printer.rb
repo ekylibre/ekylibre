@@ -96,12 +96,12 @@ module Printers
 
         # Worker register
         r.add_table('Table-workers-register', worker_register) do |tw|
-          tw.add_field(:col_1) { |item| item[0][:full_name] }
-          tw.add_field(:col_2) { |item| item[1][:full_name] }
-          tw.add_field(:col_3) { |item| item[2][:full_name] }
-          tw.add_field(:mark_1) { |item| item[0][:worked] ? 'X' : '' }
-          tw.add_field(:mark_2) { |item| item[1][:worked] ? 'X' : '' }
-          tw.add_field(:mark_3) { |item| item[2][:worked] ? 'X' : '' }
+          tw.add_field(:col_1) { |item| Maybe(item)[0][:full_name].or_else("") }
+          tw.add_field(:col_2) { |item| Maybe(item)[1][:full_name].or_else("") }
+          tw.add_field(:col_3) { |item| Maybe(item)[2][:full_name].or_else("") }
+          tw.add_field(:mark_1) { |item| Maybe(item)[0][:worked].or_else(false) ? 'X' : '' }
+          tw.add_field(:mark_2) { |item| Maybe(item)[1][:worked].or_else(false) ? 'X' : '' }
+          tw.add_field(:mark_3) { |item| Maybe(item)[2][:worked].or_else(false) ? 'X' : '' }
         end
 
         # Section-workers
