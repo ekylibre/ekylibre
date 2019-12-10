@@ -561,6 +561,10 @@ html.exception {
   @include calc(height, "100vh - #{$header-height + $topbar-height + $chat-btn-height}");
   padding-bottom: $chat-btn-height;
   overflow: auto;
+  body.body-zen & {
+    padding-bottom: initial;
+    overflow: initial;
+  }
   .toolbar + & {
     @include calc(height, "100vh - #{$header-height + $topbar-height + $chat-btn-height + $toolbar-height} - 1px");
   }
@@ -568,8 +572,6 @@ html.exception {
     height: unset;
   }
 }
-
-
 
 #about-us {
   padding: 15vh 15vw;
