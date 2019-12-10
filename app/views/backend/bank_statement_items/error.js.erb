@@ -1,0 +1,1 @@
+$('.reconciliation-item[data-form-id=<%= @initiator_form %>]').parent('form').replaceWith("<%= j(render partial: 'bank_statement_item_row_form', locals: { item: @bank_statement_item, bank_statement: @bank_statement }) %>");
