@@ -126,7 +126,7 @@ module Backend
       end
 
       def group_by_date(items)
-        return [] if items.nil?
+        return {} if items.nil?
 
         items.each(&:reload).group_by do |item|
           attributes = item.attributes
