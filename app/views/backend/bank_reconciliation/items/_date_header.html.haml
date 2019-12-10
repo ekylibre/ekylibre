@@ -1,9 +1,7 @@
-- date ||= 'tmpl-date'
 .date-header
   %p#header{ data: { date: date } }= date
 
-  - bank_statement = BankStatement.find_by_date(date, date, cash_id) if bank_statement.nil? || !bank_statement.is_a?(BankStatement)
-  - if bank_statement.nil? || !bank_statement.is_a?(BankStatement)
+  - if bank_statement.nil?
     %p.label-important= :cannot_add_bank_statement_item.tn
   - else
     = tool_to(:add_line.tl, new_backend_bank_statement_item_path(bank_statement_id: bank_statement.id, bank_statement_item: { transfered_on: date }), remote: true, tabindex: -1, method: :get, data: { update: ".date-header", update_at: :after, closest: '.date-section', type: :html })
