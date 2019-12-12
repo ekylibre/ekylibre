@@ -32,7 +32,9 @@
 
   = field_set :accountancy_preferences do
     = render 'preferences_form', list: [:permanent_stock_inventory, :unbilled_payables, :detail_payments_in_deposit_bookkeeping, :use_entity_codes_for_account_numbers, :client_account_radix, :supplier_account_radix, :employee_account_radix, :default_depreciation_period], settable: true
-    = render 'preferences_form', list: [:account_number_digits], settable: false
+    - preference = Preference.global.find_by(name: "account_number_digits")
+    = field "preferences.#{preference.name}".t, { choices: (8..14).to_a, datatype: :choice, value: preference.value, name: "preferences[#{preference.name}][value]", html_options: { disabled: JournalEntry.any? } }, { label: { class: 'large-control-label' }, controls: { class: "large-controls" } }
+
 
   = field_set :analytic_preferences do
     = render 'preferences_form', list: [:distribute_sales_and_purchases_on_activities, :distribute_sales_and_purchases_on_teams], settable: true
