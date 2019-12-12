@@ -985,7 +985,7 @@ fra:
     active_finishing_within: "Actif dont l’abonnement se termine dans moins de"
     active_fixed_sum: "Total actifs immobilisés" #?
     active_sum: "Total actifs" #?
-    active_totals: "Totaux Actif"
+    active_totals: "Total général"
     activities: "Activités"
     activity: "Activités"
     activity_production: "Production"
@@ -1082,7 +1082,7 @@ fra:
     alive_corporeal_assets_adult_animals: "Animaux reproducteurs (adultes)"
     alive_corporeal_assets_advances: "Avances et acomptes"
     alive_corporeal_assets_in_progress: "Immobilisations corporelles (bien vivants) en cours"
-    alive_corporeal_assets_others: "Autres végétaux en terres immobilisés"
+    alive_corporeal_assets_others: "Autres végétaux immobilisés"
     alive_corporeal_assets_perennial_plants: "Plantations pérennes"
     alive_corporeal_assets_service_animals: "Animaux de service"
     alive_corporeal_assets_total: "Immobilisations corporelles (biens vivants)"
@@ -1213,10 +1213,10 @@ fra:
     cap_islets: "Îlots PAC"
     cap_land_parcels: "Parcelles PAC"
     capitalised_production: "Production immobilisée"
-    capitals: "Capital social"
+    capitals: "Capitaux propres"
     capitals_anew_reports: "Report à nouveau"
     capitals_derogatory_depreciations: "Amortissements dérogatoires"
-    capitals_emissions: "Primes d'émission, fusion, d'apport"
+    capitals_emissions: "Prime d'émission, de fusion, d'apport"
     capitals_investment_subsidies: "Subventions d'investissements"
     capitals_liability_reserves: "Réserves"
     capitals_mandatory_provisions: "Provisions réglementées"
@@ -1553,13 +1553,13 @@ fra:
     employee: "Employé" #?
     employee_and_wages: "Salariés et impôts"
     employee_informations: "Informations sociales"
-    employee_involvement: "Participations des salariés"
+    employee_involvement: "Participation des salariés aux résultats (VII)"
     employee_name: "Employé" #?
     end: "au"
     entities: "Tiers"
     entities_advance_charges: "Charges constatées d'avance"
-    entities_advance_giveables: "Avances et acomptes versés"
-    entities_assets_gaps: "Ecart de conversion"
+    entities_advance_giveables: "Avances et acomptes versés sur commandes"
+    entities_assets_gaps: "Écart de conversion actif"
     entities_associate_receivables: "Associés"
     entities_client_receivables: "Clients"
     entities_client_total: "Créances clients"
@@ -1567,7 +1567,7 @@ fra:
     entities_other_receivables: "Autres créances"
     entities_others_clients: "Autres clients et conventions"
     entities_reserve: "Disponibilités"
-    entities_state_receivables: "Etat (TVA et taxes)"
+    entities_state_receivables: "État (TVA et taxes)"
     entity: "Tiers" #?
     entity_links: "Liens entre entité"
     entity_to_delete: "Doublon à fusionner (et faire disparaitre)"
@@ -1666,6 +1666,7 @@ fra:
     extract_non_letter_odt: "Extrait de compte - Non lettrés en ODT" #?
     extract_non_letter_pdf: "Extrait de compte - Non lettrés en PDF" #?
     extract_unlettered_account_x: "Extrait de compte non lettrés %{account_number}"
+    extraordinary_income: "Produits exceptionnels"
     fat_matters_concentration: "Teneur en matières grasses" #?
     fax: "Fax" #?
     fees: "Frais"
@@ -1700,6 +1701,7 @@ fra:
     financial_positive_change: "Différences positives de change"
     financial_products: "Produits financiers"
     financial_result: "Résultat financier"
+    financial_result_iii_iv: "Résultat financier (III - IV)"
     financial_state: "État financier" #?
     financial_year: "Exercice comptable"
     financial_year_close_message: "<p> La clôture validera définitivement toutes les écritures de l’exercice, qui ne pourront plus être modifiées ou supprimées. Il ne sera pas non plus possible d'ajouter de nouvelles écritures. </p>"
@@ -1981,12 +1983,12 @@ fra:
     lock_the_financial_year: "Verrouiller l’exercice"
     locking_will_validate_every_journal_entries_for_this_financial_year: "Le verrouillage validera définitivement toutes les écritures de l’exercice, qui ne pourront plus être modifiées ou supprimées. Il ne sera pas non plus possible d'ajouter de nouvelles écritures."
     logout: "Déconnexion" #?
-    long_cycle_alive_products: "Bien-vivants et en-cours (cycle long)"
+    long_cycle_alive_products: "Biens vivants et en-court (cycle long)"
     long_cycle_alive_products_animals: "Animaux"
-    long_cycle_alive_products_others: "Autres-en-cours"
+    long_cycle_alive_products_others: "Autres en-cours"
     long_cycle_alive_products_plant_advance: "Avances aux cultures"
     long_cycle_alive_products_plant_in_ground: "Autres végétaux en terres"
-    long_cycle_alive_products_total: "Bien-vivants et en-cours (cycle long)"
+    long_cycle_alive_products_total: "Biens vivants et en-court (cycle long)"
     long_cycle_alive_products_wine: "Vins et alcools"
     loss_is_x_for_account: "<span class='loss'> Perte de %{x} </span> à comptabiliser sur le compte %{account_number}"
     losses: "Charges d’exploitations"
@@ -2191,9 +2193,12 @@ fra:
     open_a_production: "Créer une production"
     open_an_activity: "Créer une activité"
     open_financial_year: "Ouvrir %{code}"
+    operating_costs: "Charges d'exploitation"
     operating_margin: "EBE (Excédent Brut d’Exploitation)"
     operating_margin_on_turnover: "EBE / CA (Excédent Brut d’Exploitation / Chiffre d’affaire HT)"
     operating_profit: "Résultat d’exploitation %{financial_year}"
+    operating_result_i_ii: "Résultat d'exploitation (I - II)"
+    operating_revenues: "Produits d'exploitation"
     operation_items: "Intrants et sortants" #?
     operations: "Travaux"
     options: "Options"
@@ -2214,13 +2219,13 @@ fra:
     others: "Autres"
     others_debts: "Autres dettes"
     others_debts_advance_products: "Produits constatés d'avance"
-    others_debts_advance_receivables: "Avances et acomptes reçu sur commandes"
+    others_debts_advance_receivables: "Avances et acomptes reçus sur commandes"
     others_debts_associate_debts: "Associés (compte courant)"
     others_debts_fixed_asset_debts: "Dettes sur immobilisations"
-    others_debts_liabilities_gaps: "Ecart de conversion"
+    others_debts_liabilities_gaps: "Écart de conversion passif"
     others_debts_others: "Autres"
     others_debts_social_debts: "Autres dettes fiscales et sociales"
-    others_debts_state_debts: "Etat (TVA et taxes)"
+    others_debts_state_debts: "État (TVA et taxes)"
     others_debts_supplier_receivables: "Fournisseurs d'exploitation et comptes rattachés"
     others_debts_total: "Autres dettes"
     outgoing: "Sortant" #?
@@ -2249,7 +2254,7 @@ fra:
     participants: "Participants"
     participations: "Participations"
     parts: "Modules"
-    passive_totals: "Totaux Passif"
+    passive_totals: "Total général"
     password: "Mot de passe"
     paths_to_convert: "Chemins à convertir" #?
     pay: "Payer" #?
@@ -2375,7 +2380,7 @@ fra:
     profit_and_loss: "Produits et charges"
     profit_is_x_for_account: "<span class='profit'> Bénéfice de %{x} </span> à comptabiliser sur le compte %{account_number}"
     profit_or_loss: "Résultat de l’exercice"
-    profit_taxe: "Impôts sur les bénéfices (IS)"
+    profit_taxe: "Impôts sur les bénéfices (VIII)"
     profitability: "Rentabilité" #?
     profits: "Produits d’exploitation"
     profits_and_losses: "Les profits et pertes"
@@ -2451,7 +2456,7 @@ fra:
     record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement." #?
     record_has_not_been_removed: "L’enregistrement n’a pu être supprimé." #?
     record_maintenance: "Enregistrer une maintenance"
-    reevaluation_gaps: "Ecarts de réévaluation"
+    reevaluation_gaps: "Écart de réévaluation"
     reference: "Référence"
     reference_supplier: "Référence fournisseur : %{reference_number}"
     reflect: "Refléter"
@@ -2626,12 +2631,12 @@ fra:
     shipment_items: "Articles expédiés"
     shipments: "Expéditions"
     shipping_note: "Bon d'expédition"
-    short_cycle_alive_products: "Bien-vivants et en cours (cycle court)"
+    short_cycle_alive_products: "Biens vivants et en-court (cycle court)"
     short_cycle_alive_products_animals: "Animaux"
-    short_cycle_alive_products_others: "En cours"
+    short_cycle_alive_products_others: "En-cours"
     short_cycle_alive_products_plant_advance: "Avances aux cultures"
-    short_cycle_alive_products_plant_in_ground: "Autres végétaux en terres"
-    short_cycle_alive_products_total: "Bien-vivants et en cours (cycle court)"
+    short_cycle_alive_products_plant_in_ground: "Autres végétaux en terre"
+    short_cycle_alive_products_total: "Biens vivants et en-court (cycle court)"
     show: "Afficher"
     show_export_preview: "Afficher un aperçu du document (peut augmenter le temps de chargement)" #?
     sign_out: "Se déconnecter"
@@ -3320,7 +3325,7 @@ fra:
       record_has_not_been_removed: "L’enregistrement n’a pas être supprimé correctement" #?
       record_is_not_valid: "L'enregistrement n'est pas valable"
       record_not_found: "Enregistrement introuvable"
-      record_x_created: "%{record} %{name} créé"
+      record_x_created: "%{record} %{name} créé(e)"
       record_x_planned: "%{record} %{name} planifiée" #?
       record_x_updated: "%{record} %{name} mise à jour"
       restoration_finished: "La restauration de la sauvegarde s’est terminée (en %{value} secondes)." #?
@@ -3472,6 +3477,7 @@ fra:
       picture: "Image"
       prepare: "Préparer"
       print: "Imprimer" #?
+      print_worker_register: "Imprimer le registre horaire des opérateurs"
       propose: "Proposer"
       propose_and_invoice: "Facturer directement"
       prospect: "Prospecter"

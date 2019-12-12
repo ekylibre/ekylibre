@@ -25,9 +25,13 @@ module Backend
       t.action :run, method: :post, if: :runnable?
       t.action :edit
       t.action :destroy
+      t.column :id
       t.column :nature, url: true
+      t.column :archive_file_name
+      t.column :archive_file_size
       t.column :state
       t.column :created_at
+      t.column :creator
       t.column :imported_at
       t.column :importer
     end

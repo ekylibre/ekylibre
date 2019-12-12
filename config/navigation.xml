@@ -1116,6 +1116,48 @@
         <page to="backend/payslip_payments#update"/>
       </item>
     </group>
+    <group name="teams" icon="people">
+      <item name="teams">
+        <page to="backend/teams#index"/>
+        <page to="backend/teams#create"/>
+        <page to="backend/teams#destroy"/>
+        <page to="backend/teams#edit"/>
+        <page to="backend/teams#list"/>
+        <page to="backend/teams#new"/>
+        <page to="backend/teams#show"/>
+        <page to="backend/teams#unroll"/>
+        <page to="backend/teams#update"/>
+      </item>
+      <item name="workers">
+        <page to="backend/workers#index"/>
+        <page to="backend/workers#create"/>
+        <page to="backend/workers#destroy"/>
+        <page to="backend/workers#edit"/>
+        <page to="backend/workers#list"/>
+        <page to="backend/workers#new"/>
+        <page to="backend/workers#show"/>
+        <page to="backend/workers#list_reception_items"/>
+        <page to="backend/workers#list_shipment_items"/>
+        <page to="backend/workers#update"/>
+        <page to="backend/workers#edit_many"/>
+        <page to="backend/workers#update_many"/>
+        <page to="backend/workers#list_carried_linkages"/>
+        <page to="backend/workers#list_carrier_linkages"/>
+        <page to="backend/workers#list_contained_products"/>
+        <page to="backend/workers#list_inspections"/>
+        <page to="backend/workers#list_groups"/>
+        <page to="backend/workers#list_fixed_assets"/>
+        <page to="backend/workers#list_readings"/>
+        <page to="backend/workers#list_intervention_product_parameters"/>
+        <page to="backend/workers#list_issues"/>
+        <page to="backend/workers#list_members"/>
+        <page to="backend/workers#list_places"/>
+        <page to="backend/workers#list_trackings"/>
+        <page to="backend/workers#picture"/>
+        <page to="backend/workers#take"/>
+        <page to="backend/workers#unroll"/>
+      </item>
+    </group>
   </part>
   <part name="tools" icon="magic">
     <page to="backend/dashboards#tools"/>
@@ -1362,17 +1404,6 @@
         <page to="backend/sequences#show"/>
         <page to="backend/sequences#unroll"/>
         <page to="backend/sequences#update"/>
-      </item>
-      <item name="teams">
-        <page to="backend/teams#index"/>
-        <page to="backend/teams#create"/>
-        <page to="backend/teams#destroy"/>
-        <page to="backend/teams#edit"/>
-        <page to="backend/teams#list"/>
-        <page to="backend/teams#new"/>
-        <page to="backend/teams#show"/>
-        <page to="backend/teams#unroll"/>
-        <page to="backend/teams#update"/>
       </item>
       <item name="project_budgets">
         <page to="backend/project_budgets#index"/>
@@ -1628,35 +1659,6 @@
       </item>
     </group>
     <group name="production" icon="cogs">
-      <item name="workers">
-        <page to="backend/workers#index"/>
-        <page to="backend/workers#create"/>
-        <page to="backend/workers#destroy"/>
-        <page to="backend/workers#edit"/>
-        <page to="backend/workers#list"/>
-        <page to="backend/workers#new"/>
-        <page to="backend/workers#show"/>
-        <page to="backend/workers#list_reception_items"/>
-        <page to="backend/workers#list_shipment_items"/>
-        <page to="backend/workers#update"/>
-        <page to="backend/workers#edit_many"/>
-        <page to="backend/workers#update_many"/>
-        <page to="backend/workers#list_carried_linkages"/>
-        <page to="backend/workers#list_carrier_linkages"/>
-        <page to="backend/workers#list_contained_products"/>
-        <page to="backend/workers#list_inspections"/>
-        <page to="backend/workers#list_groups"/>
-        <page to="backend/workers#list_fixed_assets"/>
-        <page to="backend/workers#list_readings"/>
-        <page to="backend/workers#list_intervention_product_parameters"/>
-        <page to="backend/workers#list_issues"/>
-        <page to="backend/workers#list_members"/>
-        <page to="backend/workers#list_places"/>
-        <page to="backend/workers#list_trackings"/>
-        <page to="backend/workers#picture"/>
-        <page to="backend/workers#take"/>
-        <page to="backend/workers#unroll"/>
-      </item>
       <item name="equipments">
         <page to="backend/equipments#index"/>
         <page to="backend/equipments#create"/>

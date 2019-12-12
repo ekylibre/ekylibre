@@ -392,7 +392,7 @@ module Printers
 
       dataset = compute_dataset
 
-      generate_report(@template_path, multipage: true) do |r|
+      generate_report(template_path, multipage: true) do |r|
         # Date
         r.add_field(:document_export_date, Time.zone.now.l(format: '%d %B %Y'))
 
