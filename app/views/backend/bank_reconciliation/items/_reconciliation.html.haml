@@ -3,7 +3,7 @@
 - cash_id = @bank_statement.cash.id unless @bank_statement.nil?
 
 = hidden_field_tag :cash_id, cash_id
-.reconciliation-list{ data: { currency_precision: precision } }
+#reconciliation-list.reconciliation-list{ data: { currency_precision: precision } }
   .top-part
     .buttons
       = button_tag(:reset.tl, type: :button, "data-confirm": :are_you_sure.tl, class: "btn btn-default", id: "reset_reconciliation")
