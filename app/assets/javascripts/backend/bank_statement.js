@@ -1,5 +1,7 @@
 (function (E) {
     function activateFlatpickr() {
+        const reconciliationList = document.getElementById('reconciliation-list');
+        if (!reconciliationList) { return }
 
         function handleSelectedDate(date) {
             E.bankReconciliation.createBankStatementItem(date);
