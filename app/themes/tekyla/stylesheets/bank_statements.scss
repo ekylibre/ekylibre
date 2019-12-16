@@ -179,7 +179,7 @@
 
 .amounts {
   * {
-    width: 100%;
+    width: calc(100% - 4px);
     text-align: center;
   }
 }
@@ -233,7 +233,7 @@
       flex: 1;
 
       input {
-        width: 100%;
+        width: calc(100% - 8px);
       }
     }
   }
