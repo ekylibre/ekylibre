@@ -61,11 +61,25 @@ module Printers
       end
 
       def find_open_document_template(name)
-        dir = Rails.root.join('config', 'locales')
-        paths = [dir.join(I18n.locale.to_s, 'reporting', "#{name}.odt"),
-                 dir.join('eng', 'reporting', "#{name}.odt"),
-                 dir.join('fra', 'reporting', "#{name}.odt")]
-        paths.detect(&:exist?)
+        ActiveSupport::Deprecation.warn('Use find_template instead of find_open_document_template')
+
+        document_template = DocumentTemplate.find_by nature: name
+        find_template(document_template, nature: name)
+      end
+
+      # The `nature` parameter is deprecated
+      def find_template(document_template, nature: nil)
+        if (n = document_template.nil?) || document_template.managed?
+          file_name = n ? nature : document_template.nature
+          dir = Rails.root.join('config', 'locales')
+          paths = [dir.join(I18n.locale.to_s, 'reporting', "#{file_name}.odt"),
+                   dir.join('eng', 'reporting', "#{file_name}.odt"),
+                   dir.join('fra', 'reporting', "#{file_name}.odt")]
+          document_template_path = paths.detect(&:exist?)
+        else
+          document_template_path = document_template.source_path
+        end
+        document_template_path
       end
 
       private

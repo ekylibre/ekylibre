@@ -2,7 +2,7 @@
 class FinancialYearClose
   include PdfPrinter
 
-  attr_reader :result_account, :carry_forward_account
+  attr_reader :result_account, :carry_forward_account, :close_error
 
   class UnbalancedBalanceSheet < StandardError; end
 
@@ -119,7 +119,7 @@ class FinancialYearClose
     end
     @closer.notify(:financial_year_x_successfully_closed, { name: @year.name }, level: :success )
     true
-  rescue => error
+  rescue StandardError => error
     @year.update_columns(state: 'opened')
     FileUtils.rm_rf Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}")
 
@@ -132,6 +132,7 @@ class FinancialYearClose
     else
       @closer.notify(:financial_year_x_could_not_be_closed, { name: @year.name }, level: :error)
     end
+    @close_error = error
 
     return false
   ensure

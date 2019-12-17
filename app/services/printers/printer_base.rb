@@ -6,7 +6,7 @@ module Printers
 
     def initialize(template:)
       @template = template
-      @template_path = find_open_document_template(template.nature)
+      @template_path = find_template(template)
     end
 
     def key

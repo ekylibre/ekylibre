@@ -42,6 +42,7 @@
 # Sources are stored in :private/reporting/:id/content.xml
 class DocumentTemplate < Ekylibre::Record::Base
   enumerize :archiving, in: %i[none_of_template first_of_template last_of_template none first last], default: :none, predicates: { prefix: true }
+  enumerize :extension, in: %i[xml odt], default: :xml, predicates: true
   refers_to :language
   refers_to :nature, class_name: 'DocumentNature'
   has_many :documents, class_name: 'Document', foreign_key: :template_id, dependent: :nullify, inverse_of: :template
@@ -74,6 +75,9 @@ class DocumentTemplate < Ekylibre::Record::Base
   end
 
   before_validation do
+    # Set extension to odt if source content type == odt
+    self.extension = :odt if @source.present? && @source.try(:content_type) == 'application/vnd.oasis.opendocument.text'
+
     # Check that given formats are all known
     unless formats.empty?
       self.formats = formats.to_s.downcase.strip.split(/[\s\,]+/).delete_if do |f|
@@ -85,39 +89,52 @@ class DocumentTemplate < Ekylibre::Record::Base
   after_save do
     # Install file after save only
     if @source
-      FileUtils.mkdir_p(source_path.dirname)
-      File.open(source_path, 'wb') do |f|
-        # Updates source to make it working
-        begin
-          document = Nokogiri::XML(@source) do |config|
-            config.noblanks.nonet.strict
-          end
-          # Removes comments
-          document.xpath('//comment()').remove
-          # Updates template
-          if document.root && document.root.namespace && document.root.namespace.href == 'http://jasperreports.sourceforge.net/jasperreports'
-            if template = document.root.xpath('xmlns:template').first
-              logger.info "Update <template> for document template #{nature}"
-              template.children.remove
-              style_file = Ekylibre::Tenant.private_directory.join('corporate_identity', 'reporting_style.xml')
-              # TODO: find a way to permit customization for users to restore that
-              if true # unless style_file.exist?
-                FileUtils.mkdir_p(style_file.dirname)
-                FileUtils.cp(Rails.root.join('config', 'corporate_identity', 'reporting_style.xml'), style_file)
-              end
-              template.add_child(Nokogiri::XML::CDATA.new(document, style_file.relative_path_from(source_path.dirname).to_s.inspect))
-            else
-              logger.info "Cannot find and update <template> in document template #{nature}"
-            end
-          end
-          # Writes source
-          f.write(document.to_s)
+      if extension.odt?
+        import_odt
+      else
+        import_jasper
+      end
+    end
+  end
+
+  def import_odt
+    FileUtils.mkdir_p(source_dir)
+    FileUtils.cp @source.tempfile, source_path
+  end
+
+  def import_jasper
+    FileUtils.mkdir_p(source_dir)
+    File.open(source_path, 'wb') do |f|
+      # Updates source to make it working
+      begin
+        document = Nokogiri::XML(@source) do |config|
+          config.noblanks.nonet.strict
         end
+        # Removes comments
+        document.xpath('//comment()').remove
+        # Updates template
+        if document.root && document.root.namespace && document.root.namespace.href == 'http://jasperreports.sourceforge.net/jasperreports'
+          if template = document.root.xpath('xmlns:template').first
+            logger.info "Update <template> for document template #{nature}"
+            template.children.remove
+            style_file = Ekylibre::Tenant.private_directory.join('corporate_identity', 'reporting_style.xml')
+            # TODO: find a way to permit customization for users to restore that
+            if true # unless style_file.exist?
+              FileUtils.mkdir_p(style_file.dirname)
+              FileUtils.cp(Rails.root.join('config', 'corporate_identity', 'reporting_style.xml'), style_file)
+            end
+            template.add_child(Nokogiri::XML::CDATA.new(document, style_file.relative_path_from(source_path.dirname).to_s.inspect))
+          else
+            logger.info "Cannot find and update <template> in document template #{nature}"
+          end
+        end
+        # Writes source
+        f.write(document.to_s)
       end
-      # Remove .jasper file to force reloading
-      Dir.glob(source_path.dirname.join('*.jasper')).each do |file|
-        FileUtils.rm_f(file)
-      end
+    end
+    # Remove .jasper file to force reloading
+    Dir.glob(source_path.dirname.join('*.jasper')).each do |file|
+      FileUtils.rm_f(file)
     end
   end
 
@@ -149,7 +166,7 @@ class DocumentTemplate < Ekylibre::Record::Base
 
   # Returns the expected path for the source file
   def source_path
-    source_dir.join('content.xml')
+    source_dir.join("content.#{self.extension}")
   end
 
   # Print a document with the given datasource and return raw data

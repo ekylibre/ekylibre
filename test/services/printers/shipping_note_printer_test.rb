@@ -6,6 +6,8 @@ module Printers
     setup do
       @template = Minitest::Mock.new
       @template.expect :nature, :shipping_note
+      @template.expect :nil?, false
+      @template.expect :managed?, true
     end
 
     teardown do
