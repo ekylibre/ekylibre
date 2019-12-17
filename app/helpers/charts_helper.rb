@@ -303,4 +303,8 @@ module ChartsHelper
   def tree_distribution_chart(_options = {})
     raise NotImplemented
   end
+
+  def formate_and_translate(categories)
+    categories.map { |category| category.l(format: "%b %Y") }
+  end
 end
