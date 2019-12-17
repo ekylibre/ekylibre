@@ -21,7 +21,9 @@ module Printers
     class SalesEstimatePrinterTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
       setup do
         @template = Minitest::Mock.new
-        @template.expect :nature, :shipping_note
+        @template.expect :nil?, false
+        @template.expect :managed?, true
+        @template.expect :nature, :sales_estimate
       end
 
       teardown do

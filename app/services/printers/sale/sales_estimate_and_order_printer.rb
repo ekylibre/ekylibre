@@ -5,10 +5,6 @@ module Printers
       WITH_SIGNATURE = WITH_PARCELS = WITH_CONDITIONS = [{}].freeze
       WITHOUT_SIGNATURE = WITHOUT_PARCELS = IN_PROGRESS = WITHOUT_CONDITIONS = [].freeze
 
-      def find_open_document_template(*)
-        super(:sales_estimate_and_order)
-      end
-
       def run_pdf
         # In progress or not
         state = sale.aborted? ? [{aborted: :export_sales_aborted}] : IN_PROGRESS
