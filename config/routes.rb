@@ -157,6 +157,7 @@ Rails.application.routes.draw do
       resource :accountancy_balance_cell, only: :show
       resource :cashes_balance_cell, only: :show
       resource :cashes_balance_evolution_cell, only: :show
+      resource :cash_variations_cell, only: :show
       resource :calendar_cell, only: :show
       resource :payable_taxes_cell, only: :show
       resource :cropping_plan_cell, only: :show

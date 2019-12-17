@@ -1354,6 +1354,7 @@ eng:
     cartography: "Cartography"
     cash: "Cash"
     cash_balance: "Cash balance"
+    cash_variations: "Cash variations"
     cashe_debts: "Cashe debts" #?
     cashes_balance: "Cashes balance" #?
     cashes_balance_evolution: "Cashes balance evolution"
@@ -2345,6 +2346,7 @@ eng:
     roles: "Roles" #?
     rss: "RSS" #?
     run: "Run" #?
+    salary_payments: "Salary payments"
     sale: "Sale" #?
     sale_items: "Sale items"
     sale_opportunities: "Sale opportunities" #?
@@ -2522,10 +2524,12 @@ eng:
     total_amount_with_taxes: "Total amount incl. taxes"
     total_amount_without_taxes: "Total amount excl. taxes"
     total_cost: "Total cost"
+    total_expenses: "Expenses incl. taxes"
     # total_passif: "Total passif"
     total_pretax_expenses: "Total pre-tax expenses"
     total_pretax_revenues: "Total pre-tax revenues"
     total_quantity: "Total quantity" #?
+    total_revenues: "Revenues incl. taxes"
     totals: "Totals"
     tours:
       production:
