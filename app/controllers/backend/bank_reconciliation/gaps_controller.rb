@@ -9,7 +9,7 @@ module Backend
         bank_statement_items = fetch_bank_items
         journal_entry_items  = fetch_journal_items
 
-        if !params[:bank_statement_id].nil?
+        if params[:bank_statement_id].present?
           @bank_statement = BankStatement.find(params[:bank_statement_id])
         else
           @bank_statements = bank_statement_items.map(&:bank_statement).uniq
@@ -44,8 +44,7 @@ module Backend
       end
 
       def sold(bank_items, journal_items)
-        [bank_items, journal_items].map { |items| items.sum(:credit) - items.sum(:debit) }
-                                   .sum
+        [bank_items, journal_items].sum { |items| items.sum(:credit) - items.sum(:debit) }
       end
 
       def credit_gap_account

@@ -25,6 +25,10 @@
         @include margin-left($default-gap);
         text-align: center;
       }
+
+      .flatpickr-input {
+        width: 200px;
+      }
     }
   }
 
