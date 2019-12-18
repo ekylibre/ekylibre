@@ -25,16 +25,6 @@
 //= require jquery_ujs
 //= require jquery.remotipart
 //= require jquery.turbolinks
-//= require flatpickr/dist/flatpickr
-//= require flatpickr/dist/plugins/confirmDate/confirmDate
-//= require flatpickr/dist/l10n/ar
-//= require flatpickr/dist/l10n/de
-//= require flatpickr/dist/l10n/es
-//= require flatpickr/dist/l10n/fr
-//= require flatpickr/dist/l10n/it
-//= require flatpickr/dist/l10n/ja
-//= require flatpickr/dist/l10n/pt
-//= require flatpickr/dist/l10n/zh
 //= require turbolinks
 //= require active_list.jquery
 //= require knockout
