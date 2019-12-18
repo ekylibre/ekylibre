@@ -293,28 +293,32 @@
           $(this).find('span').html('')
           $(this).attr('id', '')
 
+    _setButtonActiveState: ($button, enabled) ->
+      if $button.hasClass('btn')
+        $button.attr("disabled", !enabled)
+        $button.parents('.btn-group').attr("disabled", !enabled)
+      else
+        $button.parents('.btn-group').find('> button').attr("disabled", !enabled)
+
     _showOrHideNewPaymentButtons: ->
       selectedBankStatements = @_bankStatementLines().filter(".selected")
       selectedJournalItems   = @_journalEntryLines().filter(".selected")
       if selectedBankStatements.length > 0
         @_updateIdsInButtons()
-        $("a.from-selected-bank").attr("disabled", false)
-        $("a.from-selected-bank").parents('.btn-group').attr("disabled", false)
+        @_setButtonActiveState $("a.from-selected-bank"), true
       else
-        $("a.from-selected-bank").attr("disabled", true)
-        $("a.from-selected-bank").parents('.btn-group').attr("disabled", true)
+        @_setButtonActiveState $("a.from-selected-bank"), false
 
       if selectedJournalItems.length > 0
         @_updateIdsInButtons()
-        $("a.from-selected-journal").attr("disabled", false)
-        $("a.from-selected-journal").parents('.btn-group').attr("disabled", false)
+        @_setButtonActiveState $("a.from-selected-journal"), true
       else
-        $("a.from-selected-journal").attr("disabled", true)
-        $("a.from-selected-journal").parents('.btn-group').attr("disabled", true)
+        @_setButtonActiveState $("a.from-selected-journal"), false
 
-      unless selectedBankStatements.length > 0 and selectedJournalItems.length > 0
-        $("a.from-selected-journal.from-selected-bank").attr("disabled", true)
-        $("a.from-selected-journal.from-selected-bank").parents('.btn-group').attr("disabled", true)
+      if selectedBankStatements.length == 0 || selectedJournalItems.length == 0
+        @_setButtonActiveState $("a.gap-creation"), false
+      else
+        @_setButtonActiveState $("a.gap-creation"), true
 
     _showOrHideReconciliatedLines: ->
       if $("#hide-lettered").is(":checked")
@@ -327,10 +331,10 @@
       @_updateEntryIdsInButtons()
 
     _updateItemIdsInButtons: ->
-      @_updateIdsInButtonsFor('.from-selected-bank', 'bank_statement_item')
+      @_updateIdsInButtonsFor('.from-selected-bank, .gap-creation', 'bank_statement_item')
 
     _updateEntryIdsInButtons: ->
-      @_updateIdsInButtonsFor('.from-selected-journal', 'journal_entry_item')
+      @_updateIdsInButtonsFor('.from-selected-journal, .gap-creation', 'journal_entry_item')
 
     _updateIdsInButtonsFor: (selector, type) ->
       selectedLines = @_lines().filter("[data-type=#{type}].selected")
