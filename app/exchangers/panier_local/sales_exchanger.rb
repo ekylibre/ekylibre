@@ -152,7 +152,7 @@ module PanierLocal
             client_id: entity.id,
             nature: sale_nature,
             description: r.sale_description,
-            providers: {'panier_local' => r.sale_reference_number}
+            providers: {'panier_local' => r.sale_reference_number, 'import_id' => options[:import_id]}
           )
           sale_ids << sale.id
         end

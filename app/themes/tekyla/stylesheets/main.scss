@@ -888,6 +888,14 @@ form.search {
       // margin: 0 1% $default-gap;
       @include float(left);
     }
+    &--flex {
+      display: inline-flex;
+
+      & .big-info--flex {
+        width: unset;
+        flex-basis: auto;
+      }
+    }
   }
 }
 
