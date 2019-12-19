@@ -1798,6 +1798,8 @@ fra:
     implanted_at: "Implantée le"
     import: "Importer"
     import_backup: "Import de fichier de sauvegarde" #?
+    import_incoming_payments: "Importer des encaissements"
+    import_sales: "Importer des ventes"
     importation_explanation: "Pour confirmer l’importation, vous devez confirmer en cliquant sur Importer."
     in_production: "En production" #?
     in_progress: "En cours"
@@ -1932,6 +1934,7 @@ fra:
     last_issues: "Derniers incidents"
     last_movements: "Derniers mouvements de stock"
     last_outgoing_parcels: "Futurs colis à expédier"
+    last_panier_local_import: "Dernier import Panier Local"
     last_payment_amount: "Montant du dernier encaissement" #?
     last_payment_date: "Date du dernier encaissement" #?
     last_procedures: "Dernières procédures" #?

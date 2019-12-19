@@ -56,6 +56,8 @@ class Import < Ekylibre::Record::Base
   validates :progression_percentage, inclusion: { in: 0..100, allow_blank: true }
   do_not_validate_attachment_file_type :archive
 
+  scope :finished, -> { where(state: :finished) }
+
   class InterruptRequest < StandardError
   end
 
@@ -87,12 +89,12 @@ class Import < Ekylibre::Record::Base
 
   # Run an import.
   # The optional code block permit have access to progression on each check point
-  def run
+  def run(options = {})
     FileUtils.mkdir_p(progress_file.dirname)
     update_columns(state: :in_progress, progression_percentage: 0)
     File.write(progress_file, 0.to_s)
     Ekylibre::Record::Base.transaction do
-      ActiveExchanger::Base.find_and_import(nature.to_sym, archive.path, options) do |progression, count|
+      ActiveExchanger::Base.find_and_import(nature.to_sym, archive.path, options.merge(import_id: self.id)) do |progression, count|
         update_columns(progression_percentage: progression)
         raise InterruptRequest unless File.exist? progress_file
         File.write(progress_file, progression.to_i.to_s)

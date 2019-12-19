@@ -1819,6 +1819,8 @@ eng:
     illness: "Illness"
     implanted_at: "Implanted at" #?
     import: "Import"
+    import_incoming_payments: "Import incoming payments"
+    import_sales: "Import sales"
     importation_explanation: "Importation explanation"
     in_progress: "In progress" #?
     inactive: "Inactive" #?
@@ -1924,6 +1926,7 @@ eng:
     last_issues: "Last issues"
     last_movements: "Last movements"
     last_outgoing_parcels: "Last outgoing parcels"
+    last_panier_local_import: "Last Panier Local import"
     last_products: "Last products" #?
     last_purchases: "Last purchases"
     last_purchases_invoices: "Last purchases"

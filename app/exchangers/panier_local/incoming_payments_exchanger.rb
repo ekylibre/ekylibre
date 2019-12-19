@@ -39,8 +39,8 @@ module PanierLocal
         valid = false
       end
 
-      # check if cash and incoming payment mode exist
-      c = Cash.bank_accounts.first
+      # check if cash by default exist and incoming payment mode exist
+      c = Cash.bank_accounts.find_by(by_default: true)
       if c
         ipm = IncomingPaymentMode.where(cash_id: c.id, with_accounting: true).order(:name)
         if ipm.any?
@@ -95,7 +95,7 @@ module PanierLocal
       w.count = rows.size
 
       # create or find journal for sale nature
-      c = Cash.bank_accounts.first
+      c = Cash.bank_accounts.find_by(by_default: true)
       ipm = IncomingPaymentMode.where(cash_id: c.id, with_accounting: true).order(:name).last
       responsible = User.employees.first
 
@@ -172,7 +172,7 @@ module PanierLocal
                                                       payer: entity,
                                                       received: true,
                                                       responsible: responsible,
-                                                      providers: {'panier_local' => r.payment_reference_number}
+                                                      providers: {'panier_local' => r.payment_reference_number, 'import_id' => options[:import_id]}
                                                     )
             w.info "Incoming Payment created ! : #{incoming_payment.amount}".inspect.green
           end
