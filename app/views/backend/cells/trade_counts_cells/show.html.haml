@@ -1,7 +1,8 @@
 = infos do
   .big-info.important
+    - unpaid_amount = Sale.unpaid.map(&:affair_balance).compact.sum.abs
     %span.title= :x_unpaid_sales.tl(count: Sale.unpaid.count)
-    %span.value= link_to(Sale.unpaid.map(&:affair_balance).compact.sum.round(2).l(currency: Preference[:currency]), backend_sales_path(state: ["order", "invoice"], nature: 'unpaid'))
+    %span.value= link_to(unpaid_amount.round(2).l(currency: Preference[:currency]), backend_sales_path(state: ["invoice"], nature: 'unpaid'))
   .big-info.important
     %span.title= :x_unpaid_purchases.tl(count: PurchaseInvoice.unpaid.count)
     %span.value= link_to(PurchaseInvoice.unpaid.map(&:affair_balance).compact.sum.round(2).l(currency: Preference[:currency]), backend_purchase_invoices_path(nature: 'unpaid'))

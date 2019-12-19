@@ -1,0 +1,15 @@
+- if Account.french_accounting_system?
+  = infos class: 'big-infos--flex' do
+    - if @last_sale_import.present?
+      .big-info.big-info--flex
+        %span.title= @last_sale_import.imported_at.l
+        %span.value= :x_sales.tl(count: @ale_imported_count)
+        = link_to(:import_sales.tl, {controller: "/backend/imports", action: :new, nature: 'panier_local_sales', redirect: request.fullpath}, class: 'btn btn-default')
+    - if @last_incoming_payment_import
+      .big-info.big-info--flex
+        %span.title= @last_incoming_payment_import.imported_at.l
+        %span.value= :x_incoming_payments.tl(count: @incoming_payment_imported_count)
+        = link_to(:import_incoming_payments.tl, {controller: "/backend/imports", action: :new, nature: 'panier_local_incoming_payments', redirect: request.fullpath}, class: 'btn btn-default')
+
+- else
+  = no_data

@@ -73,9 +73,8 @@ module ActiveExchanger
         build(file, options, &block).export
       end
 
-      def check(file, _options = {}, &block)
-        supervisor = Supervisor.new(:check, &block)
-        exchanger = new(file, supervisor)
+      def check(file, options = {}, &block)
+        exchanger = build(file, supervisor_mode: :check, **options, &block)
         valid = false
         ActiveRecord::Base.transaction do
           if exchanger.respond_to? :check
@@ -92,8 +91,8 @@ module ActiveExchanger
         false
       end
 
-      def build(file, options = {}, &block)
-        supervisor = Supervisor.new(&block)
+      def build(file, supervisor_mode: :normal, **options, &block)
+        supervisor = Supervisor.new(supervisor_mode, &block)
         new(file, supervisor, options)
       end
 
@@ -120,11 +119,12 @@ module ActiveExchanger
       end
     end
 
-    attr_reader :file, :supervisor
+    attr_reader :file, :supervisor, :options
 
     def initialize(file, supervisor, options = {})
       @file = Pathname.new(file)
       @supervisor = supervisor
+      @options = options
     end
 
     alias w supervisor

@@ -80,6 +80,7 @@ cashes_001:
   suspend_until_reconciliation: false
   updated_at: 2014-11-05 12:35:44.603014000 Z
   updater_id: 1
+  by_default: true
 cashes_002:
   bank_account_holder_name: John Doe
   bank_account_key: ''
