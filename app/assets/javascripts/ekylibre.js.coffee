@@ -69,7 +69,7 @@
         event.preventDefault()
 
   E.toggleValidateButton = (container) ->
-    requiredFields = container.find('input[data-required]')
+    requiredFields = container.find('[data-required]')
     validateItemButton = container.find('button[data-validate]')
 
     toggleState = ->
