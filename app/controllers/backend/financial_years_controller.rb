@@ -162,7 +162,7 @@ module Backend
       if request.post? && @financial_year.closable?
         total_amount_to_allocate = @result + @carry_forward_balance
         total_amount_allocated = allocations.values.reduce(0) { |sum, val| sum + val.to_f }
-        if total_amount_to_allocate.abs != total_amount_allocated
+        if total_amount_to_allocate.abs.to_f != total_amount_allocated.to_f
           notify_error_now :record_is_not_valid
         else
           closed_on = params[:financial_year][:stopped_on].to_date
