@@ -36,12 +36,16 @@ module Backend
       end
       params[:period] = "#{params[:started_on]}_#{params[:stopped_on]}" if params[:period] == 'interval'
       @balance = Journal.trial_balance(params) if params[:period]
+      if @balance
+        credit_balance = @balance[0...-1].map { |item| item[4].to_f > 0 ? item[4].to_f : 0}.reduce(:+).round(2)
+        debit_balance = @balance[0...-1].map { |item| item[4].to_f < 0 ? item[4].to_f : 0}.reduce(:+).round(2)
+        @balance[-1].insert(5, credit_balance, debit_balance)
+      end
       if @balance && params[:balance] == 'balanced'
         @balance = @balance.select { |item| item[1].to_i < 0 || Account.find(item[1]).journal_entry_items.pluck(:real_balance).reduce(:+) == 0 }
       elsif @balance && params[:balance] == 'unbalanced'
         @balance = @balance.select { |item| item[1].to_i < 0 || Account.find(item[1]).journal_entry_items.pluck(:real_balance).reduce(:+) != 0 }
       end
-
       @prev_balance = []
       if params[:previous_year] && params[:started_on] && Date.parse(params[:stopped_on]) - Date.parse(params[:started_on]) < 366
         @prev_balance = @balance.map do |item|
@@ -58,6 +62,12 @@ module Backend
           prev_items = prev_balance.select { |i| i[0] == item[0] }
           prev_items.any? ? prev_items.first : []
         end
+        solde_prev_credit_balance = @prev_balance[0...-1].map { |item| item[4].to_f > 0 ? item[4].to_f : 0}.reduce(:+).round(2)
+        solde_prev_debit_balance = @prev_balance[0...-1].map { |item| item[4].to_f < 0 ? item[4].to_f : 0}.reduce(:+).round(2)
+        total_prev_credit_balance = @prev_balance[0...-1].map { |item| item[2].to_f}.reduce(:+).round(2)
+        total_prev_debit_balance = @prev_balance[0...-1].map { |item| item[3].to_f}.reduce(:+).round(2)
+        @prev_balance[-1].insert(5, solde_prev_credit_balance, solde_prev_debit_balance)
+        @prev_balance[-1].insert(7, total_prev_credit_balance, total_prev_debit_balance)
       end
 
       respond_to do |format|
