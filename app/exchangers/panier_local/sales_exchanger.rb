@@ -40,7 +40,6 @@ module PanierLocal
 
 
       # Ouverture et décodage: CSVReader::read(file)
-      # Fournir col_sep?
       rows = ActiveExchanger::CsvReader.new.read(file)
       parser = ActiveExchanger::CsvParser.new(NORMALIZATION_CONFIG)
 
@@ -92,15 +91,14 @@ module PanierLocal
 
     def sale_creation(sale_info, sale_nature)
       entity = get_or_create_entity(sale_info)
-      # get or create sale
       sale = Sale.where('providers ->> ? = ?', 'panier_local', sale_info.first.sale_reference_number.to_s).first
 
       if sale.nil?
         client_sale_info = sale_info.select {|item| item.account_number.to_s.start_with?('411')}.first
-        sale = Sale.create!(
+        sale = Sale.new(
           invoiced_at: client_sale_info.invoiced_at,
           reference_number: client_sale_info.sale_reference_number,
-          client_id: entity.id,
+          client: entity,
           nature: sale_nature,
           description: client_sale_info.sale_description,
           providers: {'panier_local' => client_sale_info.sale_reference_number}
@@ -128,7 +126,7 @@ module PanierLocal
           pretax_amount: pretax_amount,
           variant_id: variant.id
         ).first
-          sale.items.create!(
+          sale.items.build(
             amount: nil,
             pretax_amount: pretax_amount,
             unit_pretax_amount: nil,
@@ -138,11 +136,11 @@ module PanierLocal
             compute_from: :pretax_amount
           )
         end
-        variant = nil
-        quantity = nil
-        pretax_amount = nil
       end
-      sale
+      entity.save
+      variant.save
+      sale.client = entity
+      sale.save
     end
 
     def get_or_create_entity(sale_info)
@@ -161,7 +159,6 @@ module PanierLocal
         client_number_account = client_sale_info.account_number.to_s
         acc = Account.find_or_initialize_by(number: client_number_account)#!
 
-
         attributes = {
                       name: client_sale_info.entity_name,
                       centralizing_account_name: 'clients',
@@ -169,7 +166,7 @@ module PanierLocal
                     }
 
         aux_number = client_number_account[3, client_number_account.length]
-        #TODO ajouter cette condition en tant que check avt l'import
+
         if aux_number.match(/\A0*\z/).present?
           w.info "We can't import auxiliary number #{aux_number} with only 0. Mass change number in your file before importing"
           attributes[:auxiliary_number] = '00000A'
@@ -177,17 +174,14 @@ module PanierLocal
           attributes[:auxiliary_number] = aux_number
         end
         acc.attributes = attributes
-        acc.save!
-        w.info "account saved ! : #{acc.label.inspect.red}"
-
         acc
       end
     end
 
     def create_entity(sale_info, acc)
       client_sale_info = sale_info.select {|item| item.account_number.to_s.start_with?('411')}.first
-      # check entity
       last_name = client_sale_info.entity_name.mb_chars.capitalize
+
       w.info "Create entity and link account"
       entity = Entity.new(
         nature: :organization,
@@ -197,8 +191,6 @@ module PanierLocal
         client: true,
         client_account_id: acc.id
       )
-      entity.save!
-      w.info "Entity created ! : #{entity.full_name.inspect.red}"
 
       entity
     end
@@ -227,8 +219,7 @@ module PanierLocal
       tax = Tax.find_by(amount: vat_account_info.vat_percentage, collect_account_id: tax_account.id)
 
       unless tax
-        tax = Tax.find_by(amount: vat_account_info.vat_percentage, country: Preference[:country].to_sym)
-        tax ||= Tax.find_on(vat_account_info.invoiced_at.to_date, country: Preference[:country].to_sym, amount: vat_account_info.vat_percentage)
+        tax = Tax.find_on(vat_account_info.invoiced_at.to_date, country: Preference[:country].to_sym, amount: vat_account_info.vat_percentage)
         tax.collect_account_id = tax_account.id
         tax.active = true
         tax.save!
@@ -247,17 +238,17 @@ module PanierLocal
       computed_name = "Service - Vente en ligne - #{clean_account_number}"
 
       pnc = ProductNatureCategory.create_with(name: computed_name, active: true, saleable: true, product_account_id: product_account.id)
-          .find_or_create_by(product_account_id: product_account.id, name: computed_name)
+          .find_or_initialize_by(product_account_id: product_account.id, name: computed_name)
 
-      pn = ProductNature.create_with(active: true, name: computed_name, category_id: pnc.id, variety: 'service', population_counting: 'decimal')
-          .find_or_create_by(category_id: pnc.id, name: computed_name)
+      pn = ProductNature.create_with(active: true, name: computed_name, category: pnc, variety: 'service', population_counting: 'decimal')
+          .find_or_initialize_by(category: pnc, name: computed_name)
 
       if pn
-        pn.variants.create!(active: true,
-                                    name: computed_name,
-                                    providers: {'panier_local' => product_account_line.account_number},
-                                    unit_name: 'unity'
-                                    )
+        pn.variants.build(active: true,
+                          name: computed_name,
+                          providers: {'panier_local' => product_account_line.account_number},
+                          unit_name: 'unity'
+                         )
       end
     end
 
