@@ -20,6 +20,8 @@ module Printers
         # Cash
         cash = Cash.bank_accounts.find_by(by_default: true) || Cash.bank_accounts.first
 
+        description = Maybe(sale).description.fmap { |d| [{ description: d }] }.or_else([])
+
         generate_report(template_path) do |r|
           # Header
           r.add_image :company_logo, company.picture.path, keep_ratio: true if company.has_picture?
@@ -35,6 +37,10 @@ module Printers
           # Expired_at
           r.add_section('section-conditions', general_conditions) do |s|
             s.add_field(:expired_at) { sale.expired_at.to_date.l }
+          end
+
+          r.add_section('section-description', description) do |sd|
+            sd.add_field(:description) { |item| item[:description] }
           end
 
           # Company_address
