@@ -7,8 +7,8 @@ GIT
 
 GIT
   remote: https://gitlab.com/ekylibre/odf-report.git
-  revision: 829e0402fe0b1fcedb4cdb0b0d38960dafddb088
-  tag: v0.6.0-1
+  revision: 63260ddb32e24a3e4dbadeaf5c406ac8912dbec3
+  tag: v0.6.0-2
   specs:
     odf-report (0.6.0)
       fastimage (~> 2.1)
