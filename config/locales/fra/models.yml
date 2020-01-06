@@ -1191,7 +1191,7 @@ fra:
     emission_currency_rate: "Taux de la devise émise" #?
     emission_journal_entry: "Écriture de l’émission"
     emitted_on: "Émis le"
-    employed: "Employé par la société"
+    employed: "Travaillant pour la société"
     employee: "Employé"
     employee_account: "Compte employé"
     employees: "Employés"
