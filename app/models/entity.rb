@@ -258,6 +258,8 @@ class Entity < Ekylibre::Record::Base
   end
 
   class << self
+    prepend IdHumanizable
+
     def exportable_columns
       content_columns.delete_if do |c|
         %i[active lock_version deliveries_conditions].include?(c.name.to_sym)
@@ -507,9 +509,18 @@ class Entity < Ekylibre::Record::Base
 
       # Add summary observation of the merge
       if author
-        content = "Merged entity (ID=#{other.id}):\n"
-        other.attributes.sort.each do |attr, _value|
-          value = other.send(attr).to_s
+        content = :merged_entity.tl(other: other.id)
+        other.attributes.sort.each do |attr, value|
+          next unless value.present?
+
+          if ["supplier_payment_delay", "nature"].include?(attr)
+            value = "enumerize.entity.#{attr}.#{value}".t
+          elsif Entity.columns.detect { |column| column.name == attr }.cast_type.type == :boolean
+            value = value == true ? :y.tl : :n.tl
+          else
+            value = value.to_s
+          end
+
           content << "  - #{Entity.human_attribute_name(attr)} : #{value}\n" if value.present?
         end
         Entity.custom_fields.each do |custom_field|
