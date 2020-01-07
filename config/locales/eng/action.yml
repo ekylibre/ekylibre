@@ -2467,6 +2467,7 @@ eng:
     # supervision: "Supervision"
     supplier: "Purchase prices of the supplier"
     supplier_informations: "Supplier informations"
+    merged_entity: "Merged entity (ID=%{other}):\n"
     supplier_payment_mode: "Supplier payment mode"
     supplier_receivables: "Supplier receivables" #?
     supplier_reference: "Supplier reference"

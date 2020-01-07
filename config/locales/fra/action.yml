@@ -2710,6 +2710,7 @@ fra:
     subtotals_at_level: "Sous-totaux aux niveaux"
     supplier: "Fournisseur"
     supplier_code: "Code fournisseur" #?
+    merged_entity: "Entitées fusionnées (ID=%{other}):\n"
     supplier_informations: "Informations fournisseur"
     supplier_payment_mode: "Mode de paiement du fournisseur"
     supplier_receivables: "Fournisseurs d'exploitations et comptes rattachés"
