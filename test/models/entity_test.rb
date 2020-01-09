@@ -140,6 +140,20 @@ class EntityTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     # TODO: Check addresses, attributes, custom fields, and observations
   end
 
+  test 'can only have valid siret numbers or none at all' do
+    company = Entity.normal.find_by(country: 'fr')
+    company.siret_number = nil
+    assert company.valid?
+    company.siret_number = '1234' # Too short
+    assert !company.valid?
+    company.siret_number = '12345678901011' # Right length but invalid
+    assert !company.valid?
+    company.siret_number = '123455555544444444' # Valid but too long
+    assert !company.valid?
+    company.siret_number = '80853428300037' # Valid
+    assert company.valid?
+  end
+
   def accountant_with_financial_year_and_opened_exchange
     accountant = create(:entity, :accountant)
     financial_year = FinancialYear.last
