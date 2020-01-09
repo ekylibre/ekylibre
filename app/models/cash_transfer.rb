@@ -88,7 +88,7 @@ class CashTransfer < Ekylibre::Record::Base
   end
 
   validate do
-    errors.add(:reception_cash_id, :invalid) if reception_cash_id == emission_cash_id
+    errors.add(:reception_cash, :invalid) if reception_cash_id == emission_cash_id
     if transfered_at
       errors.add(:transfered_at, :financial_year_exchange_on_this_period) if transfered_during_financial_year_exchange?
     end

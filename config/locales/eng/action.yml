@@ -2188,7 +2188,7 @@ eng:
     # pfi_parcel_ratio: "Pfi parcel ratio"
     # pfi_treatment_ratio: "Pfi treatment ratio"
     phosphorus_concentration: "Phosphorus concentration" #?
-    # phyto_data: "Phyto data"
+    phyto_data: "Phytosanitary data"
     picture: "Picture" #?
     placeholder: "Placeholder" #?
     places: "Places"
