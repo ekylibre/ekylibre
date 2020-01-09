@@ -78,24 +78,26 @@ module Backend
           t3e @financial_year.attributes
           @progress_status = fetch_progress_values(params[:id])
         end
+
         format.xml do
           FecExportJob.perform_later(@financial_year, params[:fiscal_position], params[:interval], current_user, 'xml')
           notify_success(:document_in_preparation)
           redirect_to :back
         end
+
         format.text do
           FecExportJob.perform_later(@financial_year, params[:fiscal_position], params[:interval], current_user, 'text')
           notify_success(:document_in_preparation)
           redirect_to :back
         end
+
         format.pdf do
-          if params[:n].present?
-            key = "#{Nomen::DocumentNature.find(params[:n]).name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
-            ClosingDocumentExportJob.perform_later(@financial_year, params[:n], key, current_user)
-            notify_success(:document_in_preparation)
-            redirect_to :back
-          end
+          return unless template = find_and_check(:document_template, params[:template])
+          PrinterJob.perform_later("Printers::#{template.nature.classify}Printer", template: template, financial_year: @financial_year, perform_as: current_user)
+          notify_success(:document_in_preparation)
+          redirect_to :back
         end
+
         format.json
       end
     end

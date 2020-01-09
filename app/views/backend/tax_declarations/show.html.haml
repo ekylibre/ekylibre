@@ -1,9 +1,11 @@
 - main_toolbar do |t|
   = t.edit resource if resource.draft?
   = t.destroy if resource.destroyable?
-  = dropdown_menu_button(:export.ta, icon: :download) do |d|
-    - d.item :export_as_pdf.tl, params: { format: :pdf }
-    - d.item :export_as_csv.tl, params: { format: :csv }
+  = t.export :pending_vat_register,
+             item_label: :export_as_pdf.tl,
+             document_label: "#{resource.state}_vat_declaration".tl,
+             key: Printers::PendingVatRegisterPrinter.build_key(tax_declaration: resource) do |menu|
+    - menu.item :export_as_csv.tl, params: { format: :csv }
 
 = main_state_bar(resource)
 

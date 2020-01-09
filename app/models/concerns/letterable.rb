@@ -39,8 +39,6 @@ module Letterable
   end
 
   def letterable_items(bank_statement_items)
-    Rails.logger.debug "Letterable::letterable_items is used"
-
     return false unless journal_entry && bank_statement_items.present?
 
     cash_id = bank_statement_items.first.cash.id

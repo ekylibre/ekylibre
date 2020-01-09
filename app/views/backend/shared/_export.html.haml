@@ -1,7 +1,7 @@
 - attrs = {}
 - attrs[:id] = modal_id if defined? modal_id
-- attrs[:title] = title if defined? title
-- attrs[:title] ||= :printing_document.tl(document: nature.human_name)
+- document_name = document_label || nature.human_name
+- attrs[:title] = :printing_document.tl(document: document_name)
 = modal(attrs) do
   - if Document.of(nature.name, key).any?
     .modal-body.thumbs
@@ -11,7 +11,7 @@
             = image_tag(backend_document_path(document, format: :jpg))
           = link_to(backend_document_path(document)) do
             .archived-at= document.updated_at.l
-            .template-name= document.template_name
+            .template-name= document_name
   - else
     .modal-body
       .placeholding-message= :no_archived_prints.tn
