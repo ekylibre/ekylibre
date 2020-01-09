@@ -89,16 +89,16 @@ module Backend
     end
 
     def index
-      @draft_entries_count = JournalEntry.where(state: :draft).count
-      @unbalanced_entries_count = JournalEntry.all.reject(&:balanced?).count
-      @financial_years_with_entries = FinancialYear.with_validated_entries
+      financial_year = FinancialYear.find_by(id: params[:current_financial_year]) || FinancialYear.current
+      @draft_entries_count = financial_year ? financial_year.journal_entries.where(state: :draft).count : 0
+      @unbalanced_entries_count = financial_year ? financial_year.journal_entries.reject(&:balanced?).count : 0
       respond_to do |format|
         format.html
         format.xml  { render xml:  Journal.all }
         format.json { render json: Journal.all }
         format.pdf do
-          key = "#{Nomen::DocumentNature.find(:general_journal).name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
-          CentralizingJournalExportJob.perform_later('general_journal', key, params[:financial_year], current_user)
+          return unless template = find_and_check(:document_template, params[:template])
+          PrinterJob.perform_later('Printers::GeneralJournalPrinter', template: template, financial_year: financial_year, perform_as: current_user)
           notify_success(:document_in_preparation)
           redirect_to :back
         end
@@ -107,6 +107,8 @@ module Backend
 
     # Displays details of one journal selected with +params[:id]+
     def show
+      set_period_params
+
       return unless @journal = find_and_check
       journal_view = current_user.preference("interface.journal.#{@journal.code}.view")
       journal_view.value = journal_views[0] unless journal_views.include? journal_view.value
@@ -119,21 +121,20 @@ module Backend
       @draft_entries_count = JournalEntry.where(journal_id: params[:id], state: :draft).count
       current_financial_year = current_user.current_financial_year
       @current_financial_year_period = "#{current_financial_year.started_on}_#{current_financial_year.stopped_on}" if current_financial_year
-      params[:period] = "#{params[:started_on]}_#{params[:stopped_on]}" if params[:period] == 'interval'
 
-      # build variables for reporting (document_nature, key, filename and dataset)
-      document_nature = Nomen::DocumentNature.find(:journal_ledger)
-      key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
       respond_to do |format|
         format.html
         format.pdf do
-          @journal_ledger = JournalEntry.journal_ledger(params, @journal.id) if params
-          journal_printer = JournalPrinter.new(journal: @journal,
-                                               journal_ledger: @journal_ledger,
-                                               document_nature: document_nature,
-                                               key: key,
-                                               params: params)
-          send_file journal_printer.run, type: 'application/pdf', disposition: 'attachment', filename: key << '.pdf'
+          return unless template = find_and_check(:document_template, params[:template])
+          PrinterJob.perform_later('Printers::JournalLedgerPrinter', template: template,
+                                                                     journal: @journal,
+                                                                     states: params[:states],
+                                                                     period: params[:period],
+                                                                     started_on: params[:started_on],
+                                                                     stopped_on: params[:stopped_on],
+                                                                     perform_as: current_user)
+          notify_success(:document_in_preparation)
+          redirect_to :back
         end
       end
     end

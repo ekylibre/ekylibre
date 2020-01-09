@@ -1,22 +1,12 @@
 # This object allow printing the general ledger
-class IncomeStatementPrinter
-  include PdfPrinter
-  include ApplicationHelper
+module Printers
+  class IncomeStatementPrinter < BalanceSheetPrinter
 
-  def initialize(options)
-    @document_nature = Nomen::DocumentNature.find(options[:document_nature])
-    @key             = options[:key]
-    @template_path   = find_open_document_template(options[:document_nature])
-    @params          = options[:params]
-    @financial_year  = options[:financial_year]
-    @accounting_system = Preference[:accounting_system].to_sym
-  end
-
-  def compute_dataset
-    dataset = []
-    document_scope = :profit_and_loss_statement
-    current_compute = AccountancyComputation.new(@financial_year)
-    previous_compute = AccountancyComputation.new(@financial_year.previous) if @financial_year.previous
+    def compute_dataset
+      dataset = []
+      document_scope = :profit_and_loss_statement
+      current_compute = AccountancyComputation.new(@financial_year)
+      previous_compute = AccountancyComputation.new(@financial_year.previous) if @financial_year.previous
       # products
       # puts @accounting_system.inspect.red
       g1 = HashWithIndifferentAccess.new
@@ -170,49 +160,63 @@ class IncomeStatementPrinter
       g8[:sub_result_previous_value] = previous_compute.sum_entry_items_by_line(document_scope, :exercice_result) if @financial_year.previous
       dataset << g8
 
-    dataset.compact
-  end
+      dataset.compact
+    end
 
-  def run_pdf
-    dataset = compute_dataset
-    # puts dataset.inspect.green
+    def run_pdf
+      dataset = compute_dataset
+      # puts dataset.inspect.green
 
-    report = generate_document(@document_nature, @key, @template_path) do |r|
+      generate_report(@template_path) do |r|
 
-      # build header
-      e = Entity.of_company
-      company_name = e.full_name
-      company_address = e.default_mail_address&.coordinate
+        # build header
+        e = Entity.of_company
+        company_name = e.full_name
+        company_address = e.default_mail_address&.coordinate
 
-      # build filters
-      data_filters = []
-      data_filters << :currency.tl + " : " + @financial_year.currency
-      data_filters <<  :accounting_system.tl + " : " + Nomen::AccountingSystem.find(@accounting_system).human_name
+        # build filters
+        data_filters = []
+        data_filters << :currency.tl + " : " + @financial_year.currency
+        data_filters <<  :accounting_system.tl + " : " + Nomen::AccountingSystem.find(@accounting_system).human_name
 
-      # build started and stopped
-      started_on = @financial_year.started_on
-      stopped_on = @financial_year.stopped_on
+        # build started and stopped
+        started_on = @financial_year.started_on
+        stopped_on = @financial_year.stopped_on
 
-      r.add_field 'COMPANY_ADDRESS', company_address
-      r.add_field 'DOCUMENT_NAME', @document_nature.human_name
-      r.add_field 'FILE_NAME', @key
-      r.add_field 'PERIOD', I18n.translate('labels.from_to_date', from: started_on.l, to: stopped_on.l)
-      r.add_field 'DATE', Date.today.l
-      r.add_field 'STARTED_ON', started_on.to_date.l
-      r.add_field 'N', stopped_on.to_date.l
-      r.add_field 'N_1', @financial_year.previous.stopped_on.to_date.l if @financial_year.previous
-      r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
-      r.add_field 'DATA_FILTERS', data_filters * ' | '
+        r.add_field 'COMPANY_ADDRESS', company_address
+        r.add_field 'DOCUMENT_NAME', document_name
+        r.add_field 'FILE_NAME', key
+        r.add_field 'PERIOD', I18n.translate('labels.from_to_date', from: started_on.l, to: stopped_on.l)
+        r.add_field 'DATE', Date.today.l
+        r.add_field 'STARTED_ON', started_on.to_date.l
+        r.add_field 'N', stopped_on.to_date.l
+        r.add_field 'N_1', @financial_year.previous ? @financial_year.previous.stopped_on.to_date.l : 'N-1'
+        r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
+        r.add_field 'DATA_FILTERS', data_filters * ' | '
 
-      r.add_section('Section1', dataset) do |s|
-        s.add_field(:group_name, :group_name)
-        s.add_table('Tableau1', :items, header: false) do |t|
-          t.add_column(:name) { |item| item[:name] }
-          t.add_column(:current_value) { |item| number_to_accountancy(item[:current_value]) }
-          t.add_column(:previous_value) { |item| number_to_accountancy(item[:previous_value]) }
-          t.add_column(:variation_value) do |v|
-            if @financial_year.previous && v[:previous_value].to_i != 0
-              a = (((v[:current_value] - v[:previous_value]) / v[:previous_value].abs) * 100).round(2)
+        r.add_section('Section1', dataset) do |s|
+          s.add_field(:group_name, :group_name)
+          s.add_table('Tableau1', :items, header: false) do |t|
+            t.add_column(:name) { |item| item[:name] }
+            t.add_column(:current_value) { |item| number_to_accountancy(item[:current_value]) }
+            t.add_column(:previous_value) { |item| number_to_accountancy(item[:previous_value]) }
+            t.add_column(:variation_value) do |v|
+              if @financial_year.previous && v[:previous_value].to_i != 0
+                a = (((v[:current_value] - v[:previous_value]) / v[:previous_value].abs) * 100).round(2)
+                if a > 0.0
+                  "+#{a} %"
+                else
+                  "#{a} %"
+                end
+              end
+            end
+          end
+          s.add_field(:sum_name, :sum_name) if :sum_name?
+          s.add_field(:current_sum) { |d| number_to_accountancy(d[:current_sum]) } if :current_sum?
+          s.add_field(:previous_sum) { |d| number_to_accountancy(d[:previous_sum]) } if :previous_sum?
+          s.add_field(:variation_sum) do |v_s|
+            if @financial_year.previous && v_s[:previous_sum].to_i != 0
+              a = (((v_s[:current_sum] - v_s[:previous_sum]) / v_s[:previous_sum].abs) * 100).round(2)
               if a > 0.0
                 "+#{a} %"
               else
@@ -220,28 +224,11 @@ class IncomeStatementPrinter
               end
             end
           end
+          s.add_field(:sub_result_name, :sub_result_name) if :sub_result_name?
+          s.add_field(:sub_result_current_value) { |d| number_to_accountancy(d[:sub_result_current_value]) } if :sub_result_current_value?
+          s.add_field(:sub_result_previous_value) { |d| number_to_accountancy(d[:sub_result_previous_value]) } if :sub_result_previous_value?
         end
-        s.add_field(:sum_name, :sum_name) if :sum_name?
-        s.add_field(:current_sum) {|d| number_to_accountancy(d[:current_sum])} if :current_sum?
-        s.add_field(:previous_sum) {|d| number_to_accountancy(d[:previous_sum])} if :previous_sum?
-        s.add_field(:variation_sum) do |v_s|
-          if @financial_year.previous && v_s[:previous_sum].to_i != 0
-            a = (((v_s[:current_sum] - v_s[:previous_sum]) / v_s[:previous_sum].abs) * 100).round(2)
-            if a > 0.0
-              "+#{a} %"
-            else
-              "#{a} %"
-            end
-          end
-        end
-        s.add_field(:sub_result_name, :sub_result_name) if :sub_result_name?
-        s.add_field(:sub_result_current_value) {|d| number_to_accountancy(d[:sub_result_current_value])} if :sub_result_current_value?
-        s.add_field(:sub_result_previous_value) {|d| number_to_accountancy(d[:sub_result_previous_value])} if :sub_result_previous_value?
-
       end
-
     end
-    report.file.path
   end
-
 end

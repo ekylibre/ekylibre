@@ -55,7 +55,7 @@ module Printers
           key: key,
           name: document_name,
           file: data,
-          file_file_name: "#{key}.pdf",
+          file_file_name: "#{document_name}.pdf",
           template: template
         )
       end

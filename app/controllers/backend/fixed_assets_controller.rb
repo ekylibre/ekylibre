@@ -90,7 +90,7 @@ module Backend
 
     # Show a list of fixed_assets
     def index
-      key = "#{Nomen::DocumentNature.find(:fixed_asset_registry).name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
+      set_period_params
 
       respond_to do |format|
         format.html do
@@ -98,12 +98,12 @@ module Backend
           # passing a parameter to Jasper for company full name and id
           @entity_of_company_full_name = Entity.of_company.full_name
           @entity_of_company_id = Entity.of_company.id
-
           respond_with @fixed_assets, methods: [:net_book_value], include: %i[asset_account expenses_account allocation_account product]
         end
 
         format.pdf do
-          FixedAssetExportJob.perform_later('fixed_asset_registry', key, params[:nature], params[:period], current_user)
+          return unless template = find_and_check(:document_template, params[:template])
+          PrinterJob.perform_later("Printers::#{template.nature.classify}Printer", template: template, stopped_on: params[:stopped_on], perform_as: current_user)
           notify_success(:document_in_preparation)
           redirect_to :back
         end

@@ -39,14 +39,15 @@ module ToolbarHelper
           nature = Nomen::DocumentNature.find(nature_name)
           modal_id = nature.name.to_s + '-exporting'
           if Document.of(nature.name, key).any?
-            @template.content_for :popover, @template.render('backend/shared/export', nature: nature, key: key, modal_id: modal_id)
-            menu.item nature.human_name, '#' + modal_id, data: { toggle: 'modal' }
+            @template.content_for :popover, @template.render('backend/shared/export', nature: nature, key: key, modal_id: modal_id, document_label: options[:document_label])
+            menu.item options[:item_label] || nature.human_name, '#' + modal_id, data: { toggle: 'modal' }
           else
             DocumentTemplate.of_nature(nature.name).each do |template|
-              menu.item(template.name, @template.params.merge(format: :pdf, template: template.id, key: key))
+              menu.item(options[:item_label] || template.name, @template.params.merge(format: :pdf, template: template.id, key: key))
             end
           end
         end
+        yield menu if block_given?
       end
     end
 

@@ -1155,6 +1155,7 @@ fra:
     associate_receivables: "Créances associés - comptes courants"
     associated_sale: "Vente liée"
     assuming_you_want_to_close_a_financial_year_in_the_future: "Si vous souhaitez clôturer un exercice ultérieurement, vous devrez enregistrer un bilan de début d'exercice."
+    at: "au"
     at_the_address: "À l’adresse"
     attach_an_incoming_payment_to_expense: "Rattacher un encaissement\_: %{type} N°%{number}" #?
     attach_an_outgoing_payment_to_expense: "Rattacher un décaissement\_: %{type} N°%{number}" #?
@@ -1644,9 +1645,9 @@ fra:
     export_backup: "Export d’un fichier de sauvegarde" #?
     export_balance_sheet: "Export bilan"
     export_centralizing_journal: "Exporter le journal centralisateur"
-    export_fixed_assets_by_account: "Etat des immobilisations par compte"
-    export_fixed_assets_gain_and_loss: "Etat des plus et moins values"
-    export_fixed_assets_general: "Etat des immobilisations"
+    export_by_account_fixed_asset_registry: "Etat des immobilisations par compte"
+    export_gain_and_loss_fixed_asset_registry: "Etat des plus et moins values"
+    export_fixed_asset_registry: "Etat des immobilisations"
     export_income_statement: "Export compte de résultat"
     export_sales_aborted: "Abandonné(e)" #?
     export_sales_estimate: "Devis" #?
