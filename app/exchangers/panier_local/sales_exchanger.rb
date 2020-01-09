@@ -45,11 +45,10 @@ module PanierLocal
 
       data, errors = parser.normalize(rows)
 
-      valid = errors.reject(&:empty?).empty?
+      valid = errors.all?(&:empty?)
 
-      last_line = rows.size - 1
       fy_start = FinancialYear.at(Date.parse(rows.first[1].to_s))
-      fy_stop = FinancialYear.at(Date.parse(rows[last_line][1].to_s))
+      fy_stop = FinancialYear.at(Date.parse(rows[-1][1].to_s))
 
       unless fy_start && fy_stop
         w.warn 'Need a FinancialYear'
@@ -120,7 +119,7 @@ module PanierLocal
       end
 
       if sale && quantity && pretax_amount && variant && tax
-        unless sale_item = SaleItem.where(
+        unless SaleItem.where(
           sale_id: sale.id,
           quantity: quantity,
           pretax_amount: pretax_amount,
