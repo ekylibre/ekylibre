@@ -1213,7 +1213,7 @@ fra:
     entry_number: "N° Écriture"
     entry_on: "Entrée le"
     entry_reason: "Raison de l'entrée"
-    equipment: "Équipment"
+    equipment: "Équipement"
     # equipment_nature: "Equipment nature"
     establishment: "Établissement" #?
     # estimate_reception_date: "Estimate reception date"
@@ -2019,7 +2019,7 @@ fra:
     size_value: "Valeur Taille"
     soil_nature: "Nature du sol"
     soil_production: "Contribution en azote du sol (Po)"
-    sold_journal_entry: "Ecriture de cession"
+    sold_journal_entry: "Écriture de cession"
     sold_on: "Date de cession"
     source: "Source"
     source_product: "Produit Source"
@@ -2154,7 +2154,7 @@ fra:
     type: "Type"
     # uid: "UID"
     unconfirmed_email: "E-mail non confirmé"
-    undelivered_invoice_journal_entry: "Ecriture Facture non parvenue (FNP)"
+    undelivered_invoice_journal_entry: "Écriture Facture non parvenue (FNP)"
     undelivered_quantity: "Reste à livrer"
     unit: "Unité"
     unit_amount: "PU TTC"
@@ -2550,7 +2550,7 @@ fra:
       exchange_undelivered_invoice: "Facture non parvenue - extourne [%{resource} %{mode} %{number}] %{entity}"
       label: "%{supplier} à %{address}"
       purchase: "Achat"
-      quantity_gap_on_invoice: "Ecart de stock en quantité [%{resource} %{number}] de %{entity}"
+      quantity_gap_on_invoice: "Écart de stock en quantité [%{resource} %{number}] de %{entity}"
       states:
         aborted: "Abandonné"
         draft: "Devis brouillon"
@@ -2562,7 +2562,7 @@ fra:
       bookkeep: "[%{resource} %{number}] %{supplier}"
     purchase_invoice:
       bookkeep: "[%{resource} %{number}] %{products} de %{supplier}"
-      quantity_gap_on_invoice: "Ecart de stock en quantité [%{resource} %{number}] de %{entity}"
+      quantity_gap_on_invoice: "Écart de stock en quantité [%{resource} %{number}] de %{entity}"
     purchase_item:
       name: "%{product} (%{quantity}%{unit}) à %{amount}%{currency}/%{unit}"
       name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}) à %{amount}%{currency}/%{unit}"
@@ -2603,7 +2603,7 @@ fra:
         invoice: "Facture %{number}"
         order: "Commande %{number}"
         refused: "Devis refusé %{number}"
-      quantity_gap_on_invoice: "Ecart de stock en quantité [%{resource} %{number}] de %{entity}"
+      quantity_gap_on_invoice: "Écart de stock en quantité [%{resource} %{number}] de %{entity}"
       sale: "Vente %{number}"
       sales_conditions:
         downpayment: "Un acompte de %{percentage}% (soit %{amount}) devra être versé à la signature du présent devis."
