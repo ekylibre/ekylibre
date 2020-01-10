@@ -1,28 +1,54 @@
 ((E, $) ->
   'use strict'
 
-  E.Purchases =
-    fillStocksCounters: (form) ->
-      $currentForm = $(form)
-      variantId = $currentForm.find('[data-variant-of-deal-item]').next('.selector-value').val()
+  updateStockAfterPurchase = ($form, newstock) =>
+    $form.find(".merchandise-stock-after-purchase .stock-value").text(newstock.toFixed(2))
 
-      if variantId == "" || !variantId?
-        return
-      $.ajax
-        url: "/backend/product_nature_variants/#{variantId}/detail",
-        success: (data, status, request) ->
-          $currentStock = $currentForm.find('.merchandise-current-stock')
-          if $currentStock.length
-            $currentStock.find('.stock-value').text(data.stock)
-            $currentForm.find('.stock-unit').text(data.unit.name)
+  onTotalQuantityChanged = ($input) =>
+    $form = $input.closest('.nested-item-form')
+    newQuantity = $input.val()
+    currentstock = getCurrentStock($form)
+    if newQuantity.length == 0
+      newStock = currentstock
+    else
+      newStock = currentstock + parseFloat(newQuantity)
+    updateStockAfterPurchase($form, newStock)
 
-          $futureStock = $currentForm.find('.merchandise-stock-after-purchase')
-          if $futureStock.length
-            quantity = 0
-            $quantityElement = $currentForm.find("[data-trade-component='quantity']")
+  getCurrentStock = ($form) =>
+    parseFloat($form.find('.merchandise-current-stock .stock-value').text())
 
-            newStock = parseFloat(data.stock) + parseFloat($quantityElement.val())
-            $futureStock.find('.stock-value').text(newStock.toFixed(2))
-            $futureStock.find('.stock-unit').text(data.unit.name)
+  getVariantStock = (variantId) =>
+    p = $.getJSON("/backend/product_nature_variants/#{variantId}/detail")
+    p2 = p.then (data) =>
+      {
+        stock: data.stock,
+        unit: data.unit.name
+      }
+
+  onvariantChanged = ($variantSelector) =>
+    $form = $variantSelector.closest('.nested-item-form')
+
+    variantId = $variantSelector.selector('value')
+    getVariantStock(variantId).then (data) =>
+      $form.find(".merchandise-current-stock .stock-value").text(data.stock)
+      $form.find(".stock-unit").text(data.unit)
+      updateQuantity($form)
+
+    updateQuantity = ($form) =>
+      $quantity = $form.find('.order-quantity, .invoice-quantity')
+
+      if $quantity.val() == "0" || $quantity.val() == ""
+        $quantity.val(1)
+      $quantity.trigger('change')
+
+
+  $(document).on 'keyup change', '.nested-fields .form-field .purchase_order_items_quantity .order-quantity', (event) ->
+    onTotalQuantityChanged $(this)
+
+  $(document).on 'selector:change', '.order-variant.selector-search', (event) ->
+    onvariantChanged $(this)
+
+  $(document).on 'selector:change', '.invoice-variant.selector-search', (event) ->
+    onvariantChanged $(this)
 
 ) ekylibre, jQuery

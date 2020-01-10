@@ -94,6 +94,7 @@ class ParcelItem < Ekylibre::Record::Base
   has_many :products, through: :storings
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :annotation, length: { maximum: 500_000 }, allow_blank: true
   validates :currency, :non_compliant_detail, :product_identification_number, :product_name, :product_work_number, :role, length: { maximum: 500 }, allow_blank: true
   validates :merge_stock, :non_compliant, inclusion: { in: [true, false] }, allow_blank: true
   validates :parted, inclusion: { in: [true, false] }

@@ -910,6 +910,9 @@ Rails.application.routes.draw do
     end
 
     resources :product_nature_variants, concerns: %i[incorporate list picture unroll] do
+      collection do
+        get :unroll_saleables
+      end
       member do
         get :detail
         get :list_components

@@ -157,8 +157,13 @@ class Sale < Ekylibre::Record::Base
     end
   end
 
-  before_validation(on: :create) do
+  after_initialize do
+    next if persisted?
+
     self.state = :draft
+  end
+
+  before_validation(on: :create) do
     self.currency ||= nature.currency if nature
     self.created_at = Time.zone.now
   end

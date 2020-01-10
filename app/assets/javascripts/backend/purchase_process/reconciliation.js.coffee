@@ -135,7 +135,7 @@
     else if isReceptionForm
       options = reception_modal_options()
     else return Promise.reject("Modal type cannot be guessed!")
-    E.ajax options
+    E.ajax.html options
 
   # Opens the reconciliation modal
   open_reconciliation_modal = (event) =>
@@ -225,12 +225,8 @@
 
       if isPurchaseOrderModal == "true"
         E.reconciliation._fillPurchaseOrderItem(lastLineForm, checkboxLine, itemId, itemQuantity, itemConditionning, itemConditionningQuantity)
-        fillStocks = =>
-          E.Receptions.fillStocksCounters(lastLineForm)
       else
         E.reconciliation._fillReceptionItem(lastLineForm, checkboxLine, itemId, itemQuantity)
-        fillStocks = =>
-          E.Purchases.fillStocksCounters(lastLineForm)
 
       $(lastLineForm).find('input[data-remember="equipment"]').first().selector('value', equipmentId)
       $(lastLineForm).find('input[data-remember="team"]').first().selector('value', teamId)
@@ -240,7 +236,6 @@
       $(lastLineForm).find('.reconciliate-item-state').removeClass('hidden')
       $line = $(lastLineForm).parent('.nested-fields')
       $line.data('_iceberg').bindSelectorsInitialization ->
-        fillStocks()
         $line.data('_iceberg').setCocoonFormSubmitable()
 
 

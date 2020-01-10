@@ -24,6 +24,20 @@ CREATE SCHEMA postgis;
 
 
 --
+-- Name: public; Type: SCHEMA; Schema: -; Owner: -
+--
+
+CREATE SCHEMA public;
+
+
+--
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON SCHEMA public IS 'standard public schema';
+
+
+--
 -- Name: compute_journal_entry_continuous_number(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -4952,7 +4966,8 @@ CREATE TABLE public.parcel_items (
     project_budget_id integer,
     purchase_order_to_close_id integer,
     activity_budget_id integer,
-    team_id integer
+    team_id integer,
+    annotation text
 );
 
 
@@ -6088,22 +6103,20 @@ ALTER SEQUENCE public.product_phases_id_seq OWNED BY public.product_phases.id;
 
 
 --
--- Name: product_populations; Type: TABLE; Schema: public; Owner: -
+-- Name: product_populations; Type: VIEW; Schema: public; Owner: -
 --
 
-CREATE TABLE public.product_populations (
-    product_id integer,
-    started_at timestamp without time zone,
-    value numeric,
-    creator_id integer,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    updater_id integer,
-    id integer,
-    lock_version integer
-);
-
-ALTER TABLE ONLY public.product_populations REPLICA IDENTITY NOTHING;
+CREATE VIEW public.product_populations AS
+SELECT
+    NULL::integer AS product_id,
+    NULL::timestamp without time zone AS started_at,
+    NULL::numeric AS value,
+    NULL::integer AS creator_id,
+    NULL::timestamp without time zone AS created_at,
+    NULL::timestamp without time zone AS updated_at,
+    NULL::integer AS updater_id,
+    NULL::integer AS id,
+    NULL::integer AS lock_version;
 
 
 --
@@ -17776,8 +17789,8 @@ CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING b
 -- Name: product_populations _RETURN; Type: RULE; Schema: public; Owner: -
 --
 
-CREATE RULE "_RETURN" AS
-    ON SELECT TO public.product_populations DO INSTEAD  SELECT DISTINCT ON (movements.started_at, movements.product_id) movements.product_id,
+CREATE OR REPLACE VIEW public.product_populations AS
+ SELECT DISTINCT ON (movements.started_at, movements.product_id) movements.product_id,
     movements.started_at,
     sum(precedings.delta) AS value,
     max(movements.creator_id) AS creator_id,
@@ -18907,6 +18920,8 @@ INSERT INTO schema_migrations (version) VALUES ('20190619021714');
 INSERT INTO schema_migrations (version) VALUES ('20190705094729');
 
 INSERT INTO schema_migrations (version) VALUES ('20190710002904');
+
+INSERT INTO schema_migrations (version) VALUES ('20190807075910');
 
 INSERT INTO schema_migrations (version) VALUES ('20190808152235');
 

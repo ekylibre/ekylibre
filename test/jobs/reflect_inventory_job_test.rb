@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ReflectInventoryJobTest < ActiveJob::TestCase
+class ReflectInventoryJobTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'completeness' do
     inventory = Inventory.new(
       name: 'Sample inventory to run now',

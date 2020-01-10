@@ -75,14 +75,17 @@ module ToolbarHelper
       @template.dropdown_menu_button(name, options, &block)
     end
 
-    def destroy(*args)
-      options = args.extract_options!
-      if @template.resource
-        if @template.resource.destroyable?
-          tool(options[:label] || :destroy.ta, { action: :destroy, id: @template.resource.id, redirect: options[:redirect] }, method: :delete, data: { confirm: :are_you_sure_you_want_to_delete.tl })
-        end
+    def destroy(resource = nil, label: :destroy.ta, redirect: nil, **options)
+      options = {
+        method: :delete,
+        **options
+      }
+      resource ||= @template.resource
+
+      if resource
+        destroy_resource(resource, label: label, redirect: redirect, **options)
       else
-        tool(options[:label] || :destroy.ta, { action: :destroy, redirect: options[:redirect] }, { method: :delete }.merge(options.except(:redirect, :label)))
+        tool(label, { action: :destroy, redirect: redirect }, options)
       end
     end
 
@@ -132,6 +135,33 @@ module ToolbarHelper
       record = args.shift
       action(name, record, options)
     end
+
+    private
+
+      def destroy_resource(resource, label:, redirect:, **options)
+        options = {
+          show_disabled: false,
+          disabled_tooltip_content: false,
+          data: { confirm: :are_you_sure_you_want_to_delete.tl },
+          **options
+        }
+        show_disabled = options.fetch(:show_disabled)
+        return ''.html_safe if !show_disabled && !resource.destroyable?
+
+        unless resource.destroyable?
+          options = {
+            **options,
+            disabled: true,
+            style: 'pointer-events: auto'
+          }
+
+          if (tooltip_content = options.fetch(:disabled_tooltip_content))
+            options = { **options, data: { toggle: :tooltip, placement: :top }, title: tooltip_content }
+          end
+        end
+
+        tool(label, { action: :destroy, id: resource.id, redirect: redirect }, options)
+      end
   end
 
   # Build a tool bar composed of tool groups composed of tool
@@ -156,7 +186,7 @@ module ToolbarHelper
 
     safe_html = html.html_safe
     unless options[:wrap].is_a?(FalseClass)
-      safe_html = content_tag(:div, safe_html, class: ['toolbar', options.fetch(:class, [])].flatten)
+      safe_html = content_tag(:div, safe_html, class: ['toolbar', 'toolbar-wrapper', options.fetch(:class, [])].flatten)
     end
 
     safe_html

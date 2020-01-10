@@ -910,7 +910,7 @@
   .leaflet-categories-scale {
     .leaflet-categories-items {
       .leaflet-categories-item {
-        display: block;
+        display: flex;
 
         margin-top: round($default-gap * 0.3);
         &:first-child {
@@ -922,11 +922,11 @@
           width: $cell-height;
           @include border-radius(50%);
           border: 1px solid #333;
-          margin-top: 3px;
+          align-self: center;
         }
         .leaflet-categories-item_label {
           display: inherit;
-          margin-left: 20px;
+          margin-left: $default-gap;
           color: $neutral-color;
           font-size: $fs-small;
           line-height: $lh-small;

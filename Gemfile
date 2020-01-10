@@ -7,8 +7,12 @@ end
 
 ruby '>= 2.3.8', '< 3.0.0'
 
+gem 'elastic-apm'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.11.1'
+
+gem 'webpacker', '~> 4.x'
 
 # Security fix for mail
 gem 'mail', '~> 2.6.6.rc1'

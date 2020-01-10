@@ -1,9 +1,15 @@
 {
   "dependencies": {
+    "@rails/webpacker": "^4.0.7",
     "chart.js": "^2.7.2",
     "flatpickr": "~4.5.0",
     "promise-polyfill": "^8.1.3",
+    "stimulus": "^1.1.1",
     "vue-chartjs": "^3.2.1",
-    "vuedraggable": "^2.16.0"
+    "vuedraggable": "^2.16.0",
+    "whatwg-fetch": "^3.0.0"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^3.7.2"
   }
 }

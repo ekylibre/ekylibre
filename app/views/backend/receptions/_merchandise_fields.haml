@@ -39,15 +39,12 @@
         %input.hidden{data: { 'when-item': 'full_name', 'when-set-value': 'RECORD_VALUE' }, value: full_name }
 
 %div#add-storing.storing-row.storing-row--merchandise
-  .item-block__storing.control-group
-    .div.storing__content
-
-      - f.object.storings.new if f.object.storings.size == 0
-      %div{data: {association_insertion_minimum: 1}}
-        = f.simple_fields_for :storings, f.object.storings do |storing|
-          = render 'storing_fields', f: storing
+  .item-block__storing.control-group.storing__content{data: {association_insertion_minimum: 1}}
+    - f.object.storings.new if f.object.storings.size == 0
+    = f.simple_fields_for :storings, f.object.storings do |storing|
+      = render 'storing_fields', f: storing
     .div.storing__footer
-      = link_to_add_association :add_storing.tl, f, :storings, partial: 'storing_fields', class: "link-add-storing", data: { :'association-insertion-traversal' => :closest, :'association-insertion-node' => '.storing__footer', :'association-insertion-method' => :before }
+      = link_to_add_association :add_storing.tl, f, :storings, partial: 'storing_fields', class: "link-add-storing", data: { :'association-insertion-method' => :before }
       %label.total-labels
         %span.total= :total.tl
         %span.total-quantity{ data: { calculate: "sum", use: ".storing-fields:not(.removed-nested-fields) .storing-quantity", use_closest: ".nested-item-form", calculate_round: 2 } }= 0.0

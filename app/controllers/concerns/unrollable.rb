@@ -19,7 +19,7 @@ module Unrollable
       searchable_filters = Unrollable::Filter.searchables_in(filters, controller_path)
       order = options[:order] || filters.map(&:search)
 
-      define_method :unroll do
+      define_method options[:method] do
         scopes = Unrollable::Extracting.scopes_from(params)
         excluded_records = params[:exclude]
         search_term = params[:q].to_s.strip
@@ -41,7 +41,7 @@ module Unrollable
         items = kept || filtered_items.ordered_matches(keys, searchable_filters, search_term.mb_chars.downcase.normalize)
 
         respond_to do |format|
-          data_only_view = proc { items.map { |item| { label: UnrollHelper.label_item(item, filters, controller_path), id: item.id } } }
+          data_only_view = proc { items.map { |item| { label: UnrollHelper.label_item(item, filters, controller_path, action_name), id: item.id } } }
           format.html { render partial: 'unrolled', locals: { max: options[:max], items: items, fill_in: fill_in, keys: keys, filters: filters, render_partial: options[:partial], search: search_term.capitalize, model_name: model_name, visible_items_count: options[:visible_items_count] }, layout: false }
           format.json { render json: data_only_view.call }
           format.xml  { render xml:  data_only_view.call }
