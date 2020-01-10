@@ -1933,7 +1933,6 @@ eng:
         animal_sheet: "Animal sheet"
         balance_sheet: "Balance sheet"
         by_account_fixed_asset_registry: "Fixed asset registry by account"
-        # cultivable_zone_sheet: "Cultivable zone sheet"
         deposit_list: "Deposit list"
         entity_sheet: "Entity sheet"
         equipment_certification: "Equipment certification"

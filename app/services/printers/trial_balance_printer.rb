@@ -58,7 +58,7 @@ module Printers
     def run_pdf
       dataset = compute_dataset
 
-      generate_report(@template_path) do |r|
+      generate_report(template_path) do |r|
 
         data_filters = []
 
