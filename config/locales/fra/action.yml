@@ -3059,6 +3059,7 @@ fra:
       new_values_are_calculated: "De nouvelles valeurs ont été calculées" #?
       no_archived_prints: "Aucune impression déjà archivée"
       no_balance_template: "Pas de modèle de document pour la balance" #?
+      no_bank_statement_found_for_this_period: "Aucun relevé de compte trouvé pour cette période."
       no_budget_defined_for_current_campaign: "Aucun budget défini pour la campagne courante"
       no_building: "Aucun lieu de stockage n’est défini. Veuillez en créer un pour pouvoir gérer vos stocks" #?
       no_closable_financial_year: "Vous n’avez aucun exercice à clôturer." #?
@@ -3315,7 +3316,9 @@ fra:
     backend/product_nature_variants: "%{name} (%{unit_name}) - %{charge_account_number}"
     backend/product_nature_variants/saleables: "%{name} (%{unit_name}) - %{product_account_number}"
     backend/product_natures: "%{name}"
-    backend/products: "%{work_number} %{name} (%{number}) - %{container_name}"
+    backend/products:
+      default: "%{work_number} %{name} (%{number}) - %{container_name}"
+      land_parcels: "%{name}"
     backend/purchase_payments: "%{number}. %{mode_name} pour %{payee_full_name} de %{amount} %{currency}"
     backend/purchases: "%{number} - %{reference_number} - %{ordered_at} - %{pretax_amount} €" #?
     backend/trackings: "%{serial} ‒ %{name} ‒ %{producer_full_name}"

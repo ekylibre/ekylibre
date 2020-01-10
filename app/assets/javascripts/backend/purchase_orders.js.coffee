@@ -24,6 +24,10 @@
       $('.order-totals .vat-total .total-value').text(totalVatRate)
       $('.order-totals .order-total .total-value').text(totalAmountIncludingTaxes)
 
+    $('#new_purchase_order').on 'iceberg:validated', E.Purchases.compute_amount
+    $('.edit_purchase_order').on 'iceberg:validated', E.Purchases.compute_amount
+    $('#new_purchase_order').on 'cocoon:after-remove', E.Purchases.compute_amount
+    $('.edit_purchase_order').on 'cocoon:after-remove', E.Purchases.compute_amount
 
     $(document).on 'click', '.nested-fields .edit-item[data-edit="item-form"]', (event) ->
       vatSelectedValue = $(event.target).closest('.nested-fields').find('.item-display .vat-rate').attr('data-selected-value')

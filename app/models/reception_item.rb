@@ -69,7 +69,6 @@ class ReceptionItem < ParcelItem
   belongs_to :reception, inverse_of: :items, class_name: 'Reception', foreign_key: :parcel_id
   belongs_to :project_budget, class_name: 'ProjectBudget', foreign_key: :project_budget_id
   belongs_to :purchase_order_to_close, class_name: 'PurchaseOrder', foreign_key: :purchase_order_to_close_id
-  belongs_to :purchase_order_item, class_name: 'PurchaseItem', foreign_key: :purchase_order_item_id
   belongs_to :activity_budget
   belongs_to :team
 
@@ -133,12 +132,15 @@ class ReceptionItem < ParcelItem
     purchase_order_item
   end
 
+  def check
+    ActiveSupport::Deprecation.warn "Use check! instead"
+    check!
+  end
+
   # Set started_at/stopped_at in tasks concerned by preparation of item
   # It takes product in stock
-  def check
-    checked_at = reception_prepared_at
-    state = true
-    state, msg = check_incoming(checked_at)
+  def check!
+    state, msg = check_incoming
     return state, msg unless state
     save!
   end
@@ -154,29 +156,30 @@ class ReceptionItem < ParcelItem
 
   protected
 
-  def check_incoming
-    fusing = merge_stock? && !product_is_unitary?
+    def check_incoming
+      fusing = merge_stock? && !product_is_unitary?
 
-    # Create a matter for each storing
-    storings.each do |storing|
-      product_params = {}
-      product_params[:name] = product_name || "#{variant.name} (#{reception.number})"
-      product_params[:identification_number] = product_identification_number
-      product_params[:work_number] = product_work_number
-      product_params[:initial_born_at] = [reception_prepared_at, reception_given_at].compact.min
-      product = existing_reception_product_in_storage(storing) if fusing
-      product ||= variant.create_product(product_params)
-      storing.update(product: product)
-      return false, product.errors if product.errors.any?
-      ProductMovement.create!(product: product, delta: storing.quantity, started_at: reception_given_at, originator: self) unless product_is_unitary?
-      ProductLocalization.create!(product: product, nature: :interior, container: storing.storage, started_at: reception_given_at, originator: self)
-      ProductEnjoyment.create!(product: product, enjoyer: Entity.of_company, nature: :own, started_at: reception_given_at, originator: self)
-      ProductOwnership.create!(product: product, owner: Entity.of_company, nature: :own, started_at: reception_given_at, originator: self) unless reception_remain_owner
+      # Create a matter for each storing
+      storings.each do |storing|
+        product_params = {}
+        product_params[:name] = product_name || "#{variant.name} (#{reception.number})"
+        product_params[:identification_number] = product_identification_number
+        product_params[:work_number] = product_work_number
+        product_params[:initial_born_at] = [reception_prepared_at, reception_given_at].compact.min
+        product = existing_reception_product_in_storage(storing) if fusing
+        product ||= variant.create_product(product_params)
+        storing.update(product: product)
+        return false, product.errors if product.errors.any?
+        ProductMovement.create!(product: product, delta: storing.quantity, started_at: reception_given_at, originator: self) unless product_is_unitary?
+        ProductLocalization.create!(product: product, nature: :interior, container: storing.storage, started_at: reception_given_at, originator: self)
+        ProductEnjoyment.create!(product: product, enjoyer: Entity.of_company, nature: :own, started_at: reception_given_at, originator: self)
+        ProductOwnership.create!(product: product, owner: Entity.of_company, nature: :own, started_at: reception_given_at, originator: self) unless reception_remain_owner
+      end
+      true
     end
-    true
-  end
 
-  def give_incoming
-    check_incoming(reception_prepared_at)
-  end
+    def give_incoming
+      ActiveSupport::Deprecation.warn "Use check_incoming instead"
+      check_incoming
+    end
 end

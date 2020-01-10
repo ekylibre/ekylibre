@@ -2050,7 +2050,7 @@ fra:
         inventory_sheet: "Inventaire"
         journal: "Journal"
         journal_entry_sheet: "Journal feuille d’entrée"
-        journal_ledger: "Etat du journal" #?
+        journal_ledger: "Etat du journal"
         land_parcel_register: "Cahier de tracabilité ‒ Parcelles"
         loan_registry: "Registre de prêt"
         manure_management_plan: "Cahier d’épandage"
@@ -2184,18 +2184,18 @@ fra:
         spheroid: "Sphéroïde"
         vehicle: "Véhicule"
       name: "Formes"
-    fiscal_positions: #?
-      items: #?
-        fr_ba_ir: "Bénéfices agricoles - Impôt sur le revenu" #?
-        fr_ba_is: "Bénéfices agricoles - Impôt sur les sociétés" #?
-        fr_bic_ir: "Bénéfices industriels et commerciaux - Impôt sur le revenu" #?
-        fr_bic_is: "Bénéfices industriels et commerciaux - Impôt sur les sociétés" #?
-        fr_bnc_ir: "Bénéfices non commerciaux - Impôt sur le revenu" #?
-        fr_bnc_is: "Bénéfices non commerciaux - Impôt sur les sociétés" #?
-      name: "Régimes fiscaux" #?
-      property_natures: #?
-        code: "Code" #?
-        country: "Pays" #?
+    fiscal_positions:
+      items:
+        fr_ba_ir: "Bénéfices agricoles - Impôt sur le revenu"
+        fr_ba_is: "Bénéfices agricoles - Impôt sur les sociétés"
+        fr_bic_ir: "Bénéfices industriels et commerciaux - Impôt sur le revenu"
+        fr_bic_is: "Bénéfices industriels et commerciaux - Impôt sur les sociétés"
+        fr_bnc_ir: "Bénéfices non commerciaux - Impôt sur le revenu"
+        fr_bnc_is: "Bénéfices non commerciaux - Impôt sur les sociétés"
+      name: "Régimes fiscaux"
+      property_natures:
+        code: "Code"
+        country: "Pays"
     guide_natures:
       items:
         best_practices: "Bonnes pratiques"
@@ -3181,7 +3181,7 @@ fra:
         congress: "Congrès"
         construction_materials_in_own_outstanding_installation: "Matériaux de construction (utilisation en cours et sol propre)"
         consumer_goods_office_item: "Fourniture de bureau (consommable)"
-        cooperative_participation: "Titre de participation (coopérative)" #?
+        cooperative_participation: "Titre de participation (coopérative)"
         crop: "Culture"
         cultivable_zone: "Zone cultivable"
         discount_and_reduction: "Réduction"
@@ -3193,7 +3193,7 @@ fra:
         equipment_fleet: "Parc matériel"
         equipment_rent: "Location d’équipement"
         equipment_repair_services: "Prestations de réparation d’équipements"
-        equity: "Action" #?
+        equity: "Action"
         exploitation_subsidies: "Subventions d’exploitation"
         farm_teaching_services: "Enseignement à la ferme"
         fee: "Honoraire"
@@ -3331,7 +3331,7 @@ fra:
           kilowatt_hour: "Kilowatt-heure"
           liter: "Litre"
           meal: "Repas"
-          meter: "Mètre" #?
+          meter: "Mètre"
           month: "Mois"
           night: "Nuit"
           package: "Pack"
@@ -3587,8 +3587,8 @@ fra:
         coop:uree_gr_vrac: "Uree gr vrac"
         coop:vesce_velue_savane_hiver_10k: "Semence de vesce velue ‒ Savane ‒ sac de 10kg"
         coop:yellow_pea_grain: "Pois jaune"
-        cooperative_participation: "Titre de participation (coopérative)" #?
-        cooperative_share: "Action (coopérative)" #?
+        cooperative_participation: "Titre de participation (coopérative)"
+        cooperative_share: "Action (coopérative)"
         corabel_hazelnut: "Noisette Corabel"
         corker: "Boucheuse"
         corn_crop: "Culture de maïs"
@@ -3781,12 +3781,9 @@ fra:
         lettuce_crop: "Culture de laitue"
         lewis_hazelnut: "Noisette Lewis"
         lifter: "Souleveur"
-        liquid_10_25_d1-4: "Azote binaire 10-25-0 densité 1.4" #?
-        # liquid_10_25_d1.4: "Liquid 10 25 d1.4"
-        liquid_10_34_d1-4: "Azote binaire 10-34-0 densité 1.4" #?
-        # liquid_10_34_d1.4: "Liquid 10 34 d1.4"
-        liquid_nitrogen_30_d1-3: "Azote liquide 30% densité 1.3" #?
-        # liquid_nitrogen_30_d1.3: "Liquid nitrogen 30 d1.3"
+        liquid_10_25_d1-4: "Azote binaire 10-25-0 densité 1.4"
+        liquid_10_34_d1-4: "Azote binaire 10-34-0 densité 1.4"
+        liquid_nitrogen_30_d1-3: "Azote liquide 30% densité 1.3"
         little_office_equipment: "Petit équipement de bureau"
         little_office_good: "Consommable de bureau"
         livestock_cleanliness_product: "Produit d’hygiène d’élevage"
@@ -3827,7 +3824,7 @@ fra:
         merlot_noir_so4_vine_seedling: "Plant de Merlot Noir sur so4"
         merveille_hazelnut: "Noisette Merveille"
         milk_tank: "Tank à lait"
-        milk_taxe: "Taxe sur les produits laitiers" #?
+        milk_taxe: "Taxe sur les produits laitiers"
         milked_lamb_meat: "Viande d’agneau de lait"
         milked_pork_meat: "Viande de cochon de lait"
         milking_division: "Laiterie"
@@ -4138,7 +4135,7 @@ fra:
         congress: "Congrès"
         construction_material_in_own_outstanding_installation: "Matériel de construction sur sol propre"
         consumer_goods_office_item: "Fourniture de bureau (consommable)"
-        cooperative_participation: "Titre de participations (cooperative)" #?
+        cooperative_participation: "Titre de participations (cooperative)"
         cork: "Bouchon"
         corker: "Boucheuse"
         corn_topper: "Écimeuse"
@@ -4346,7 +4343,7 @@ fra:
         seedbed_preparator: "Outil de préparation du lit de semences"
         seedling: "Plant"
         settlement: "Aménagement"
-        share: "Action" #?
+        share: "Action"
         sheep_herd: "Troupeau de mouton"
         shell_fruit_reaper: "Récolteuse de fruits à coques"
         sieve_shaker: "Tamiseuse"

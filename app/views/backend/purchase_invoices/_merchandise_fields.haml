@@ -20,6 +20,10 @@
         }
       }
     = f.referenced_association(:variant, **options)
+    .annotation-logo
+      - if f.object.annotation.blank?
+        = link_to("#", data: { annotate: ".annotate", use_closest: "tbody" }, title: :add_annotation.tl) do
+          %i.annotation-field
 
     - display = ""
     - display = "display: none;" unless item && item.variant && item.variant.depreciable?
@@ -62,3 +66,9 @@
           %span.stock-label= :current_stock.tl
           %span.stock-value= f.object.decorate.merchandise_current_stock
           %span.stock-unit= f.object.decorate.merchandise_stock_unit
+
+.annotation-section
+  .annotation-field
+    - attrs = {}
+    - attrs[:style] = "display: none" if f.object.annotation.blank?
+    .annotate{attrs}= f.input(:annotation, wrapper: :nested, input_html: { class: "annotation" })

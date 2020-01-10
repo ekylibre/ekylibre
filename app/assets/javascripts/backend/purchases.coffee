@@ -51,4 +51,19 @@
   $(document).on 'selector:change', '.invoice-variant.selector-search', (event) ->
     onvariantChanged $(this)
 
+  E.Purchases =
+    compute_amount: ->
+      $pretaxAmounts = $('.nested-fields .pre-tax-invoice-total-controls input')
+      pretaxAmount = $pretaxAmounts.toArray().reduce(((acc, e) => acc + parseFloat(e.value)), 0)
+      $preTaxTotal = $('.total-except-tax .total-value')
+      $preTaxTotal.text(pretaxAmount)
+
+      $taxAmounts = $('.nested-fields .invoice-total-controls input')
+      taxAmount = $taxAmounts.toArray().reduce(((acc, e) => acc + parseFloat(e.value)), 0)
+      $taxTotal = $('.purchase-total .total-value')
+      $taxTotal.text(taxAmount)
+
+      $vatTotal = $('.vat-total .total-value')
+      $vatTotal.text((taxAmount - pretaxAmount).toFixed(2))
+
 ) ekylibre, jQuery

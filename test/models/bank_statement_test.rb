@@ -385,30 +385,21 @@ class BankStatementTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   def wipe_db
-    Payslip.delete_all
-    PayslipNature.delete_all
-    Journal.delete_all
-    Account.delete_all
-    Cash.delete_all
-    BankStatement.delete_all
-    BankStatementItem.delete_all
-    OutgoingPayment.delete_all
-    Entity.delete_all
-    IncomingPayment.delete_all
-    IncomingPaymentMode.delete_all
-    OutgoingPaymentMode.delete_all
+    [Payslip, PayslipNature, InventoryItem, Inventory, Journal, Account, Cash, BankStatement, BankStatementItem,
+     OutgoingPayment, Entity, IncomingPayment, IncomingPaymentMode, OutgoingPaymentMode]
+      .each &:delete_all
   end
 
   def setup_data(**options)
     wipe_db
 
     ::Preference.set!(:bookkeep_automatically, options[:no_journal_entry].blank?)
-    journal     = Journal.create!(name: 'Record')
-    fuel_act    = Account.create!(name: 'Fuel', number: '002')
-    caps_act    = Account.create!(name: 'Caps', number: '001')
+    journal = Journal.create!(name: 'Record')
+    fuel_act = Account.create!(name: 'Fuel', number: '002')
+    caps_act = Account.create!(name: 'Caps', number: '001')
 
     @warrig_tank = Cash.create!(journal: journal, main_account: fuel_act, name: 'War-rig\'s Tank')
-    @caps_stash  = Cash.create!(journal: journal, main_account: caps_act, name: 'Stash o\' Caps')
+    @caps_stash = Cash.create!(journal: journal, main_account: caps_act, name: 'Stash o\' Caps')
 
     setup_items(options[:amount_mismatch] ? 1336 : 1337)
     setup_payment(options[:cash_mismatch])
@@ -426,7 +417,7 @@ class BankStatementTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       cash: @warrig_tank
     )
 
-    @tanks =  []
+    @tanks = []
     @tanks << BankStatementItem.create!(
       name: 'Main tank',
       bank_statement: fuel_level,
@@ -447,9 +438,9 @@ class BankStatementTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
     Account.create!(name: 'Citadel', number: '6')
 
-    diesel      = "#{@payment_class == IncomingPayment ? 'Incoming' : 'Outgoing'}PaymentMode".constantize.create!(cash: cash, with_accounting: true, name: 'Diesel')
-    max         = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)
-    @payment    = @payment_class.create!(amount: 1379, currency: 'EUR', @payment_class.third_attribute => max, mode: diesel, responsible: User.first, to_bank_at: Time.zone.now - 5.days)
+    diesel = "#{@payment_class == IncomingPayment ? 'Incoming' : 'Outgoing'}PaymentMode".constantize.create!(cash: cash, with_accounting: true, name: 'Diesel')
+    max = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)
+    @payment = @payment_class.create!(amount: 1379, currency: 'EUR', @payment_class.third_attribute => max, mode: diesel, responsible: User.first, to_bank_at: Time.zone.now - 5.days)
   end
 
   def inspect_errors(object)

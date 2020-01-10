@@ -128,7 +128,7 @@ module Backend
           sender_id: supplier_ids.uniq.length > 1 ? nil : supplier_ids.first,
           given_at: Date.today,
           reconciliation_state: 'reconcile',
-          items: ReceivableItemsFilter.new().filter(purchase_orders)
+          items: ReceivableItemsFilter.new.filter(purchase_orders)
         }
 
         @reception = Reception.new(reception_attributes)

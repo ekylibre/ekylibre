@@ -111,11 +111,12 @@
 
   .role-row--merchandise {
     display: flex;
-    min-height: 110px;
+    margin-bottom: 0 !important;
+
     .control-group {
       .control-label {
-      max-width: 100% !important;
-      overflow: visible !important;
+        max-width: 100% !important;
+        overflow: visible !important;
       }
       .controls {
         margin: 0;
@@ -154,21 +155,26 @@
     display: flex;
     width: 40%;
     .control-group {
-      width: 100%;
-    }
-    .selector {
-      width: 100%;
+      width: 72%;
+
+      .controls {
+        margin-left: 0 !important;
+        max-width: unset !important ;
+
+        .selector {
+          width: 100%;
+        }
+      }
     }
   }
 
-  .item-block-role--merchandise {
-    display: flex;
-    flex-direction: column;
-  }
 
 
   .unitary-variant-fields {
     display: flex;
+    .controls {
+      margin-left: 0 !important;
+    }
     .reception_items_work_number {
       .input-append {
         display: flex;

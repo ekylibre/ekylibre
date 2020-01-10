@@ -18,7 +18,6 @@ class InventoryBookkeeper < Ekylibre::Bookkeeper
   #     physical inventory      |    stock(3X)                   |   stock_movement(603X/71X)   |
   def call
     return if disable_accountancy
-    journal = ensure_journal_present
 
     journal_entry(journal, printed_on: achieved_at.to_date, if: (financial_year && reflected?)) do |entry|
       if journal.entries.any?
@@ -55,11 +54,4 @@ class InventoryBookkeeper < Ekylibre::Bookkeeper
       end
     end
   end
-
-  private
-
-    def ensure_journal_present
-      Journal.create_with(name: :stocks.tl)
-        .find_or_create_by!(nature: :various, used_for_permanent_stock_inventory: true)
-    end
 end

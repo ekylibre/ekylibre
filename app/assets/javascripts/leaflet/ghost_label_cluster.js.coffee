@@ -24,12 +24,11 @@ L.GhostLabelCluster = L.LayerGroup.extend
     @_originalLayers =  []
     @_clusterIndex = []
     @_visibleLayers = {}
-    @_rbush = []
     @_cachedRelativeBoxes = []
     @_margin = 0
     @__initialize.call @, options
     @_margin = options.margin or 0
-    @_rbush = null
+    @_rbush = new RBush()
     return
 
   addLayer: (layer) ->
@@ -62,7 +61,7 @@ L.GhostLabelCluster = L.LayerGroup.extend
     return
 
   clearLayers: ->
-    @_rbush = rbush()
+    @_rbush.clear()
     _clusterIndex: []
     @_originalLayers = []
     @_visibleLayers = {}
@@ -105,7 +104,7 @@ L.GhostLabelCluster = L.LayerGroup.extend
     collidedItems = bush.search(box)
 
     # Add reference to layer to track collided layers. Take advantage of rbush properties
-    box.push id: layer._leaflet_id
+    box['id'] = layer._leaflet_id
 
     if collidedItems.length is 0
       if !visible
@@ -120,14 +119,14 @@ L.GhostLabelCluster = L.LayerGroup.extend
 
       idsToCollapse = []
       for item in collidedItems
-        otherLayer = @getLayer(item[4].id)
+        otherLayer = @getLayer(item.id)
 
         if otherLayer
           bounds = otherLayer.getLatLng()
           @__removeLayer.call @, otherLayer
           idsToCollapse.push otherLayer._leaflet_id
         else
-          collapsedLayer = @_visibleLayers[@_clusterIndex[item[4].id]]
+          collapsedLayer = @_visibleLayers[@_clusterIndex[item.id]]
           bounds = collapsedLayer.getLatLng() unless collapsedLayer is undefined
 
         latLngBounds.extend bounds unless bounds is undefined
@@ -168,19 +167,19 @@ L.GhostLabelCluster = L.LayerGroup.extend
     ]
 
   _positionBox: (offset, box) ->
-    [
-      box[0] + offset.x - (@_margin)
-      box[1] + offset.y - (@_margin)
-      box[2] + offset.x + @_margin
-      box[3] + offset.y + @_margin
-    ]
+    {
+      minX: box[0] + offset.x - (@_margin),
+      minY: box[1] + offset.y - (@_margin),
+      maxX: box[2] + offset.x + @_margin,
+      maxY: box[3] + offset.y + @_margin,
+    }
 
   refresh: ->
     for id, layer of @_visibleLayers
       @__removeLayer.call @, layer
       delete @_visibleLayers[id]
 
-    @_rbush = rbush()
+    @_rbush.clear()
 
     for layer in @_originalLayers
       @__addClusteredLayer layer
