@@ -421,25 +421,34 @@ class Account < Ekylibre::Record::Base
     # Returns the name of the used accounting system
     # It takes the information in preferences
     def accounting_system
-      valid_cache = defined?(@tenant_when_last_cached) && @tenant_when_last_cached == Ekylibre::Tenant.current
-      @accounting_system = nil unless valid_cache
-      @tenant_when_last_cached = Ekylibre::Tenant.current
-      @accounting_system ||= Preference[:accounting_system]
+      @systems ||= {}
+      
+      current_tenant = Ekylibre::Tenant.current.to_sym
+      system = @systems.fetch(current_tenant, nil)
+
+      unless @systems.key?(current_tenant)
+        @systems = { **@systems, current_tenant => (system = Preference[:accounting_system]) }
+      end
+
+      @systems.fetch(current_tenant, system)
     end
 
-    # FIXME: This is an aberration of internationalization.
+  # FIXME: This is an aberration of internationalization.
     def french_accounting_system?
       %w[fr_pcg82 fr_pcga].include?(accounting_system)
     end
 
-    # Returns the name of the used accounting system
-    # It takes the information in preferences
+  # Returns the name of the used accounting system
+  # It takes the information in preferences
     def accounting_system=(name)
-      unless item = Nomen::AccountingSystem[name]
+      unless (item = Nomen::AccountingSystem[name])
         raise ArgumentError, "The accounting system #{name.inspect} is unknown."
       end
+
       Preference.set!(:accounting_system, item.name)
-      @accounting_system = item.name
+      @systems = @systems.except(Ekylibre::Tenant.current.to_sym)
+
+      accounting_system
     end
 
     # Returns the human name of the accounting system
