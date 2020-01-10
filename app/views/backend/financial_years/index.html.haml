@@ -2,7 +2,8 @@
   = render 'help', locals: { title: @title, fy_to_close: @fy_to_close, fy_to_open: @fy_to_open }
 
 - main_toolbar do |t|
-  = t.new params: { redirect: nil }, icon: false, label: :open_financial_year.tl(code: @fy_to_open.code), class: 'btn-new-financial-year', disabled: @opened_financial_years_count > 1
+  - label = FinancialYear.any? ? :open_financial_year_with_date.tl(code: @fy_to_open.code) : :open_financial_year.tl
+  = t.new params: { redirect: nil }, icon: false, label: label, class: 'btn-new-financial-year', disabled: @opened_financial_years_count > 1
   - if @fy_to_close && @fys_in_preparation.empty?
     = link_to :prepare_financial_year_for_closure.tl(code: @fy_to_close.code), { controller: :financial_year_closure_preparations, action: :create, financial_year_id: @fy_to_close.id, redirect: backend_financial_years_path }, { class: [('btn btn-default no-icn'),('disabled' if @fy_to_close.blank?)], method: :post }
     = t.lock @fy_to_close, label: :lock_financial_year.tl(code: @fy_to_close.name), icon: false, disabled: @fy_to_close.blank?

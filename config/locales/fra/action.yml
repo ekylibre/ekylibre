@@ -2200,7 +2200,8 @@ fra:
     open_a_campaign: "Ouvrir une campagne de production" #?
     open_a_production: "Créer une production"
     open_an_activity: "Créer une activité"
-    open_financial_year: "Ouvrir %{code}"
+    open_financial_year: "Ouvrir un exercice"
+    open_financial_year_with_date: "Ouvrir %{code}"
     operating_costs: "Charges d'exploitation"
     operating_margin: "EBE (Excédent Brut d’Exploitation)"
     operating_margin_on_turnover: "EBE / CA (Excédent Brut d’Exploitation / Chiffre d’affaire HT)"
