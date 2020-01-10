@@ -21,7 +21,7 @@
   -#   = journal_view_tag
   -#   = cobble_list(:items)
 
-  - c.cobble :totals, title: Journal.human_attribute_name(:totals) do
+  - c.cobble :totals, title: :totals.tl do
     :ruby
       absolute_currency = Preference[:currency]
       totals = {}

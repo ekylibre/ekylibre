@@ -1,12 +1,8 @@
-- f.object.catalog_id = params[:catalog_id] if f.object.new_record?
-- all_taxes_included = f.object.catalog.all_taxes_included
+- all_taxes_included = f.object.catalog ? f.object.catalog.all_taxes_included : nil
 = field_set do
-  = f.association :catalog, as: :hidden
   .control-group
-    %label.control-label= CatalogItem.human_attribute_name(:catalog)
     .controls
-      %strong= f.object.catalog.name
-      = hidden_field_tag(:catalog_id, f.object.catalog)
+  = f.association :catalog
   = f.referenced_association :variant
   = f.input(:amount, wrapper: :append) do
     = f.input_field :amount
@@ -19,3 +15,4 @@
   = f.input :commercial_name
   = f.input :commercial_description
   = f.custom_fields
+

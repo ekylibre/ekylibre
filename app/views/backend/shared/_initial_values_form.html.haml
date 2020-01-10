@@ -14,7 +14,12 @@
     %span.add-on= f.object.variant.unit_name
 
 - if f.object.indicators_list.include? :shape
-  = f.shape(:initial_shape, label: Product.human_attribute_name(:shape), input_html: { data: { "when-item": :shape, "when-set-value": "RECORD_VALUE" }})
+  - shape_reading = f.object.readings.find { |reading| reading.indicator_name.to_s == 'shape' }
+  - if shape_reading
+    - errors = shape_reading.errors.messages.values.flatten
+    - errors.each do |error|
+      - f.object.errors.add(:initial_shape, error)
+  = f.shape(:initial_shape, label: Product.human_attribute_name(:shape), input_html: { data: { "when-item": :shape, "when-set-value": "RECORD_VALUE" }}, required: f.object.nature.variable_indicators_list.include?(:shape))
 
 - if f.object.indicators_list.include? :geolocation
   = f.geolocation(:initial_geolocation, label: Product.human_attribute_name(:geolocation))

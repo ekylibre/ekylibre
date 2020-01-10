@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -109,8 +109,24 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
     end
   end
 
-  after_commit :update_temporality, unless: -> { intervention.blank? }
-  after_destroy :update_temporality, unless: -> { intervention.blank? }
+  after_commit :update_temporality, unless: -> { intervention.blank? || Intervention.find_by(id: intervention_id).nil? }
+  after_destroy :update_temporality, unless: -> { intervention.blank? || Intervention.find_by(id: intervention_id).nil? }
+
+  validate do
+    if intervention.present? && intervention.targets.present?
+      intervention.targets.each do |target|
+        activity_production = target.activity_production
+        check_date_with_activity_production(activity_production) if activity_production.present?
+      end
+    end
+  end
+
+  def check_date_with_activity_production(activity_production)
+    errors.add(:started_at, :posterior, to: activity_production.started_on) if intervention.started_at < activity_production.started_on
+    errors.add(:started_at, :inferior, to: activity_production.stopped_on) if intervention.started_at > activity_production.stopped_on
+    errors.add(:stopped_at, :posterior, to: activity_production.started_on) if intervention.stopped_at < activity_production.started_on
+    errors.add(:stopped_at, :inferior, to: activity_production.stopped_on) if intervention.stopped_at > activity_production.stopped_on
+  end
 
   def hide?
     started_at.to_i == stopped_at.to_i

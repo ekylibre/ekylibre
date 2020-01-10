@@ -1,0 +1,110 @@
+#duplicate-modal.modal.fade
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Fermer", "data-dismiss" => "modal", :name => "button", :type => "button"}
+          %span{"aria-hidden" => "true"} ×
+        %h4.modal-title= "#{:duplicate_intervention.tl} #{intervention.name}"
+      .modal-body
+        %label= :planned_again_intervention_in.tl
+        %input{ type: :date, id: :duplicate_date, value: intervention.started_at.to_date }
+
+        = backend_form_for(intervention, url: create_duplicate_intervention_backend_interventions_path) do |f|
+          = hidden_field_tag :updater, compute_backend_interventions_path(format: :json), data: { procedure_computing: f.object.procedure.name }
+          = f.input :procedure_name, as: :hidden, input_html: { data: { procedure: compute_backend_interventions_path(format: :json) }}
+
+          = f.simple_fields_for :targets do |target|
+            .targets
+              %strong
+                = "#{:target.tl} :"
+              - target_labels = {}
+              - target_reference_name = target.object.reference_name.to_sym
+              - if target_reference_name == :cultivation
+                - target_labels['land_parcel'] = :land_parcel_name
+                - target_labels['plant'] = :plant
+              - elsif target_reference_name == :land_parcel
+                - target_labels['land_parcel'] = :land_parcel_name
+              - elsif target_reference_name == :plant
+                - target_labels['plant'] = :plant
+
+              - target_labels.each do |name, translation_label|
+                - decorate_method = name + '?'
+                = radio_button_tag 'target', '#{name}', target.object.decorate.send(decorate_method), class: '#{name}-radio-button'
+                = label_tag translation_label.tl
+
+            .product-target
+              .picture
+                %i.picto.picto-land-parcels
+              = target.referenced_association :product,
+              label: false,
+              source: { controller: 'backend/products', scope: target.object.reference.scope_hash.merge(availables: [at: intervention.started_at.strftime("%Y-%m-%d %H:%M")]) },
+              input_html: { data: { intervention_updater: "targets[#{target.index}]product_id" }}
+              = target.input :reference_name, as: :hidden
+
+          .parameters
+            - %i[doers tools].each do |product_parameter|
+              - if intervention.send(product_parameter).any?
+                .parameter-type
+                  .title
+                    %strong
+                      = product_parameter == :doers ? Intervention.human_attribute_name(product_parameter) : :equipments.tl
+                  = f.simple_fields_for product_parameter do |parameter_form|
+                    - parameter = parameter_form.object
+                    .parameter-element
+                      .picture
+                        %i{ class: "picto picto-#{product_parameter.to_s.singularize}" }
+                      .procedure
+                        %h2= parameter.product_nature&.name || parameter.product_nature_variant.name
+                        = parameter.name
+                        = parameter_form.referenced_association :product,
+                        label: false,
+                        source: { controller: 'backend/products', scope: { of_nature: parameter.product_nature}}
+                        = parameter_form.input :reference_name, as: :hidden
+
+          .parameters.inputs-outputs
+            - %i[inputs outputs].each do |product_parameter|
+              - if intervention.send(product_parameter).any?
+                .parameter-type
+                  .title
+                    %strong
+                      = Intervention.human_attribute_name(product_parameter)
+                  = f.simple_fields_for product_parameter do |parameter_form|
+                    - parameter = parameter_form.object
+                    .parameter-element
+                      .picture
+                        %i.picto.picto-wheat
+                      .procedure
+                        .product-name
+                          %h2= parameter.product_nature&.name || parameter.product_nature_variant.name
+                          = parameter.name
+                        %div{ class: "#{product_parameter.to_s.singularize}-part"}
+                          - if product_parameter == :inputs
+                            - referenced_object = :product
+                            - options = { controller: 'backend/products', scope: { of_variant: parameter.variant}}
+                          - else
+                            - referenced_object = :variant
+                            - options = { controller: 'backend/product_nature_variants', scope: { of_id: parameter.variant.id } }
+
+                          = parameter_form.referenced_association referenced_object,
+                          label: false,
+                          source: options,
+                          new: false
+                          = parameter_form.input :reference_name, as: :hidden
+
+                          - unless product_parameter == :outputs && parameter.reference.name == :plant
+                            = parameter_form.input :quantity_value,
+                            label: false,
+                            as: :integer
+                            - options = parameter.units_selector_list
+                            = parameter_form.input :quantity_handler,
+                            label: false,
+                            as: :select,
+                            collection: options,
+                            selected: parameter.quantity_handler
+
+      .modal-footer
+        %button#validate-duplication.btn.btn-primary{ data: { interventions: @interventions.pluck(:id), intervention: intervention.id }}
+          = :validate.tl
+
+        - parameters = intervention.build_duplicate_intervention_attributes
+        = link_to :more_details.tl, new_backend_intervention_path(parameters), class: 'btn', id: 'duplication-details'

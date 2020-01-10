@@ -19,6 +19,6 @@
 require 'test_helper'
 module Backend
   class OutgoingPaymentModesControllerTest < ActionController::TestCase
-    test_restfully_all_actions show: :redirected_get
+    test_restfully_all_actions show: :redirected_get, except: :sepa
   end
 end

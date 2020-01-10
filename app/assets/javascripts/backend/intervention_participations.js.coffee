@@ -129,6 +129,8 @@
     @workingTimesModal = new ekylibre.modal('#working_times')
     @workingTimesModal.getModal().modal 'hide'
 
+    E.interventionForm.displayCost(element)
+
 
   $(document).on "keyup", '#working_times .participations input[type="text"]', (event) ->
     element = $(event.target)

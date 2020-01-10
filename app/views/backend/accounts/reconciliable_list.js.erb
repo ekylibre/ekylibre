@@ -1,0 +1,3 @@
+$("#mark_journal_entry_items tbody").html(" <%= j render partial: 'mark_items', locals: { items: @items, unmark_title: @unmark_title, confirm_label: @confirm_label, unmark_label: @unmark_label, account_id: @account_id, currency: @currency } %> ")
+
+$('a[data-complete-link-with-checked-row-ids]').trigger('after-refresh-list')

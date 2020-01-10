@@ -29,7 +29,7 @@
         - SaleNature.find_each do |nature|
           - menu.item nature.name, new_backend_quick_sale_path(nature_id: nature.id, redirect: url_for(**url_redirect_params)), tabindex: -1, method: :get, class: 'from-selected-bank', title: nature.name
     .details
-      %input#set_period{ type: 'daterange', value: "#{@period_start} &ndash; #{@period_end}".html_safe }
+      %input#set_period{ type: 'daterange', value: :date_range.tl(from: @period_start, to: @period_end) }
       %label
         %input#hide-lettered{ type: :checkbox, checked: true }
         = :hide_lettered_lines.tl
@@ -66,7 +66,7 @@
         - unless bank_statements.empty?
           - bank_statement_dates_ranges = bank_statements.map{|bank_statement| { start: bank_statement.started_on, end: bank_statement.stopped_on }}.uniq
 
-        #new-item= date_field_tag "add-bank-statement-item-date", nil, id: "add-bank-statement-item-date", data: { label: :add_line.tl, classes: "btn btn-new icn", bank_statement_dates_ranges: bank_statement_dates_ranges, min_date: @period_start.to_s, max_date: @period_end.to_s }
+        #new-item= date_field_tag "add-bank-statement-item-date", nil, id: "add-bank-statement-item-date", data: { flatpickr: false, label: :add_line.tl, classes: "btn btn-new icn", bank_statement_dates_ranges: bank_statement_dates_ranges, min_date: @period_start.to_s, max_date: @period_end.to_s }
         %p= :balance_of_selection.tl
       .amounts
         .hidden.total_debit{data: {use: '.reconciliation-item.selected .amounts .debit', calculate: :sum, 'use-closest': '.reconciliation-list' }}= 0

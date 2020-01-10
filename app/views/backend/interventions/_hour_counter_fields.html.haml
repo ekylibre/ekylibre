@@ -1,0 +1,6 @@
+.nested-fields
+  = f.input :indicator_name, as: :hidden, input_html: { value: :hour_counter }
+  = f.input :measure_value, label: :hour_counter.tl, wrapper: :append do
+    = f.input_field :measure_value_value, as: :decimal
+    = f.input :measure_value_unit, as: :hidden, input_html: { value: :hour }
+    %span.add-on= :hours_label.tl

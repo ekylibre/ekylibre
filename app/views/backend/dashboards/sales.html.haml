@@ -1,1 +1,5 @@
-=beehive(:sales) do
+= beehive do |b|
+  - b.cell :trade_counts
+  - b.hbox do
+    - b.cell :last_sales
+    - b.cell :revenues_by_product_nature

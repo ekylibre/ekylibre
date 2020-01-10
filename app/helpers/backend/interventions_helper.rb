@@ -8,13 +8,33 @@ module Backend
       end
     end
 
+    def compare_with_planned(params)
+      result = params.compare_with_planned
+      image_path = if result
+        'interventions/calendar-v.svg'
+      else
+        'interventions/calendar-!.svg'
+      end
+      image_tag(image_path, class: 'calendar-img')
+    end
+
+    def next_state
+      intervention = @interventions.present? ? @interventions.first : @intervention
+      next_state = if intervention.nature == :request
+        'in_progress'
+      else
+        case intervention.state
+          when 'in_progress' then 'done'
+          when 'done' then 'validated'
+        end
+      end
+      Intervention.state.options.find { |_, v| v == next_state } if next_state
+    end
+
     def taskboard_task(intervention)
       can_select = intervention.state != :validated
       colors = []
       task_datas = []
-      text_icon = nil
-
-      text_icon = 'check' if intervention.completely_filled?
 
       if intervention.targets.any?
         intervention.targets.find_each do |target|
@@ -56,17 +76,28 @@ module Backend
         task_datas << { icon: 'user', text: doers_text, class: 'doers' }
       end
 
+      if user_preference_value(User::PREFERENCE_SHOW_COMPARE_REALISED_PLANNED) && intervention.record?
+        compare_planned_and_realised = intervention.compare_planned_and_realised
+        if compare_planned_and_realised == :no_request
+          task_datas << { image: 'interventions/calendar-no.svg', class: 'task-calendar no-request'}
+        elsif compare_planned_and_realised
+          task_datas << { image: 'interventions/calendar-v.svg', class: 'task-calendar similar'}
+        else
+          task_datas << { image: 'interventions/calendar-!.svg', class: 'task-calendar not-similar'}
+        end
+      end
+
       intervention_datas = { id: intervention.id, name: intervention.name }
 
       request_intervention_id = ''
       request_intervention_id = intervention.request_intervention_id unless intervention.request_intervention_id.nil?
 
-      [[{ text: intervention_datas[:name], icon: text_icon, icon_class: 'completely_filled' }],
+      [[{ text: intervention_datas[:name] }],
        task_datas, [], can_select, colors,
        params: { class: '', data: { intervention: intervention_datas.to_json, request_intervention_id: request_intervention_id } }]
     end
 
-    def add_detail_to_modal_block(title, detail, options)
+    def add_detail_to_modal_block(title, detail, product_parameter = nil, options)
       html = []
 
       icon = options[:icon] || nil
@@ -81,12 +112,52 @@ module Backend
         end
 
         html << content_tag(:div, nil, class: 'details') do
-          content_tag(:h4, title, class: 'data-title') +
-            content_tag(:p, detail)
+          concat(content_tag(:div, nil, class: 'name-details') do
+            concat(content_tag(:h4, title, class: 'data-title'))
+            concat(content_tag(:p, detail))
+          end)
+          if product_parameter.present?
+            computation = calculate_cost_amount_computation(product_parameter)
+            concat(content_tag(:div, nil, class: 'working-time') do
+              concat(content_tag(:i, nil, class: 'picto picto-timelapse'))
+              concat(content_tag(:span, human_duration(computation.quantity * 3600), class: 'quantity'))
+            end)
+          end
         end
 
         html.join.html_safe
       end
+    end
+
+    # This method has the same use as the `add_detail_to_modal_block` method but with less informations
+    def add_small_details_to_modal_block(title, product_parameter)
+      html = []
+
+      computation = calculate_cost_amount_computation(product_parameter)
+
+      html << content_tag(:div, nil, class: 'details', data: { product_id: product_parameter.product.id, type: product_parameter.type, duration: computation.quantity }) do
+        concat(content_tag(:h4, title))
+        concat(content_tag(:div, nil, class: 'working-time') do
+          concat(content_tag(:i, nil, class: 'picto picto-timelapse'))
+          concat(content_tag(:span, human_duration(computation.quantity * 3600), class: 'quantity'))
+        end)
+      end
+      html.join.html_safe
+    end
+
+    def calculate_cost_amount_computation(product_parameter)
+      if product_parameter.product.is_a?(Worker)
+        computation = product_parameter.cost_amount_computation
+      elsif product_parameter.product.try(:tractor?)
+        if product_parameter.participation.present? || product_parameter.intervention&.doers&.map(&:participation).compact.present?
+          computation = product_parameter.cost_amount_computation(natures: %i[travel intervention])
+        else
+          computation = product_parameter.cost_amount_computation(natures: %i[intervention])
+        end
+      else
+        computation = product_parameter.cost_amount_computation(natures: %i[intervention])
+      end
+      computation
     end
 
     def new_geometry_collection(geometries)

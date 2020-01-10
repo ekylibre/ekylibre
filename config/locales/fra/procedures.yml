@@ -1,45 +1,64 @@
 fra:
   procedure_handlers:
-    dry_matter_mass: "Masse de matière sèche" #?
-    dry_matter_mass_area_density: "Masse de matière sèche par surface" #?
-    food_mass_per_animal: "Masse d’aliment par animal" #?
+    dry_matter_mass: "Masse de matière sèche"
+    dry_matter_mass_area_density: "Masse de matière sèche par surface"
+    fodder_bales_count: "Nombre de bottes"
+    food_mass_per_animal: "Masse d’aliment par animal"
     grains_area_density: "Densité surfacique de grains"
     grains_area_density_in_thousand_per_hectare: "Densité surfacique de grains en milliers par hectare"
     grains_count: "Millers de grains"
-    length: "Longueur" #?
+    items_count: "Nombres d'élèments"
+    length: "Longueur"
     mass_area_density: "Densité surfacique"
     mass_area_density_in_gram_per_square_meter: "Densité surfacique en grammes par mètre carré" #?
     mass_area_density_in_hectoliter_per_hectare: "Densité surfacique en hectolitres par hectare" #?
+    mass_area_density_in_ton: "Densité surfacique en tonnes"
     mass_area_density_in_ton_per_hectare: "Densité surfacique en tonnes par hectare"
-    mass_volume_density: "Masse volumique" #?
+    mass_volume_density: "Masse volumique"
     milk_mass_per_animal: "Masse de lait par animal" #?
-    net_length: "Longueur nette" #?
+    net_length: "Longueur nette"
     net_mass: "Masse nette"
-    net_mass_in_kilogram: "Masse nette en kilogrammes" #?
-    net_mass_in_ton: "Masse nette en tonnes" #?
-    net_volume: "Volume" #?
-    net_volume_in_liter: "Volume net en litre" #?
-    nitrogen: "Unités d’azote par surface" #?
-    nitrogen_unities_density: "Unités d’azote par surface" #?
+    net_mass_in_kilogram: "Masse nette en kilogrammes"
+    net_mass_in_ton: "Masse nette en tonnes"
+    net_surface_area: "Surface"
+    net_volume: "Volume"
+    net_volume_in_liter: "Volume net en litre"
+    nitrogen: "Unités d’azote par surface"
+    nitrogen_unities_density: "Unités d’azote par surface"
     phosphorus_unities_density: "Unités de phosphore par surface" #?
     plants_count: "Nombre de plantes" #?
-    population: "Population" #?
+    population: "Population"
     potassium_unities_density: "Unités de potassium par surface" #?
     seedling_area_density: "Densité surfacique de plants"
     seedling_area_density_in_thousand_per_hectare: "Densité surfacique de plants en millers par hectare"
     seedling_count: "Milliers de plants"
-    shape: "Contour" #?
+    shape: "Contour"
     stakes_by_hectare: "Enjeux par hectare"
-    stakes_count: "Nombre de piquets" #?
-    sulfur_dioxide_density: "Dioxyde de soufre par volume" #?
-    surface_area_percentage: "% de surface couverte" #?
-    volume_area_density: "Densité surfacique" #?
+    stakes_count: "Nombre de piquets"
+    sulfur_dioxide_density: "Dioxyde de soufre par volume"
+    surface_area_percentage: "% de surface couverte"
+    ton: "Tonnes"
+    volume_area_density: "Densité surfacique"
     volume_area_density_in_liter_per_square_meter: "Densité volumique en litres par mètre carré" #?
-    volume_density: "Densité volumique" #?
+    volume_density: "Densité volumique"
   procedure_killable_parameters:
+    is_cultivation_completely_destroyed_by_chemical_mechanical_weeding: "L'intervention détruit-elle cette parcelle/culture\_?"
+    is_cultivation_completely_destroyed_by_crop_residues_grinding: "L'intervention détruit-elle cette parcelle/culture\_?"
+    is_cultivation_completely_destroyed_by_direct_silage: "L'intervention détruit-elle cette parcelle/culture\_?"
+    is_cultivation_completely_destroyed_by_gas_weeding: "L'intervention détruit-elle cette parcelle/culture\_?"
+    is_cultivation_completely_destroyed_by_hand_weeding: "L'intervention détruit-elle cette parcelle/culture\_?"
+    is_cultivation_completely_destroyed_by_indirect_silage: "L'intervention détruit-elle cette parcelle/culture\_?"
     is_cultivation_completely_destroyed_by_intervention: "L'intervention détruit-elle cette parcelle/culture\_?"
+    is_cultivation_completely_destroyed_by_spraying: "L'intervention détruit-elle cette parcelle/culture\_?"
+    is_cultivation_completely_destroyed_by_steam_weeding: "L'intervention détruit-elle cette parcelle/culture\_?"
+    is_cultivation_completely_destroyed_by_straw_bunching: "L'intervention détruit-elle cette parcelle/culture\_?"
+    is_cultivation_completely_destroyed_by_swathing: "L'intervention détruit-elle cette parcelle/culture\_?"
     is_it_completely_destroyed_by_intervention: "Est-ce complètement détruit par l'intervention\_?"
+    is_plant_completely_destroyed_by_harvesting: "Is plant completely destroyed by harvesting?"
     is_plant_completely_destroyed_by_intervention: "L'intervention détruit-elle cette culture\_?"
+    is_plant_completely_destroyed_by_lifting: "Is plant completely destroyed by lifting?"
+    is_plant_completely_destroyed_by_plant_mowing: "Is plant completely destroyed by plant mowing?"
+    is_plant_completely_destroyed_by_topkilling: "Is plant completely destroyed by topkilling?"
   procedure_parameters:
     adding_wine: "Vin (mineur)"
     adding_wine_to_blend: "Vin à assembler (mineur)" #?
@@ -68,7 +87,7 @@ fra:
     corks_to_use: "Bouchons à utiliser" #?
     corn_topper: "Castreuse"
     cover_implanter: "Plastiqueuse"
-    crop: "Culture"
+    crop: "Culture" #?
     cropper: "Outil de récolte"
     cultivation: "Parcelle / Culture"
     cutter: "Outil de taille"
@@ -402,6 +421,7 @@ fra:
     sowing: "Semis"
     sowing_with_insecticide_and_molluscicide: "Semis (avec insecticide et molluscicide)" #?
     sowing_with_spraying: "Semis avec pulvérisation"
+    sowing_without_plant_output: "Semis simple (sans gestion des cultures)"
     spraying: "Pulvérisation"
     spraying_on_cultivation: "Pulvérisation sur culture" #?
     spraying_on_land_parcel: "Pulvérisation sur parcelle" #?

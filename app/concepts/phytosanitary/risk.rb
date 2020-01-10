@@ -15,7 +15,7 @@ module Phytosanitary
     end
 
     def self.risks_of(variant)
-      return [Unknown] unless maaid = variant.france_maaid
+      return [Unknown] unless maaid = variant&.france_maaid
       risks = Pesticide::Agent.find(maaid).risks
       risks.map { |risk| get(risk) }
     end

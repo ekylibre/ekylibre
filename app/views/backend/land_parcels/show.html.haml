@@ -1,19 +1,29 @@
-- main_toolbar do |t|
-  = t.edit resource
-  = t.destroy
-
 = cobbles do |c|
   - c.cobble :general_informations do
     = product_mini_map
     = infos do
-      - if resource.initial_shape && resource.human_initial_shape_area_unit
-        .med-info
+      - if resource.initial_shape && resource.human_initial_shape_area_unit && resource.activity_production
+        .med-info.important
           %span.title= LandParcel.human_attribute_name(:net_surface_area)
-          %span.value= resource.initial_shape_area.round(2).in(resource.human_initial_shape_area_unit)
-      = product_info(:soil_nature, label: Nomen::Indicator[:soil_nature].human_name, nomenclature: true)
-      - indicators = [:potential_hydrogen, :available_water_capacity_per_area, :soil_depth, :organic_matter_concentration]
-      - indicators.each do |indicator|
-        = product_info(indicator, label: Nomen::Indicator[indicator].human_name)
-  - if resource.analyses.any?
-    - c.cobble :analyses do
-      = cell :last_analyses, params: {nature: :soil_analysis, product_id: resource.id}
+          %span.value= resource.activity_production.human_support_shape_area
+        .med-info.important
+          %span.title= :working_area.tl
+          %span.value= resource.activity_production.decorate.human_working_zone_area
+
+  - c.cobble :weather do
+    = cell :weather, params: {centroid: resource.initial_shape.centroid} 
+
+  - if resource&.activity_production&.interventions&.any?
+    - c.cobble(:production_costs, title: :production_costs.tl) do
+      = render partial: 'backend/shared/production_costs', locals: { costs: resource.activity_production.decorate.production_costs }
+
+    - c.cobble(:interventions) do
+      = cobble_toolbar do |t|
+        = t.new(params: { controller: :interventions, production_support_id: resource.activity_production.id })
+        = cobble_list(:interventions)
+  - else
+    = no_data
+
+  - if resource&.activity_production&.decorate&.plants?
+    - c.cobble(:plants, title: :crops.tl) do
+      = cobble_list(:plants)

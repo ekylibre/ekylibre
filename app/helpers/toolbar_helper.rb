@@ -136,25 +136,28 @@ module ToolbarHelper
 
   # Build a tool bar composed of tool groups composed of tool
   def toolbar(options = {}, &block)
-    return nil unless block_given?
-
     toolbar = Toolbar.new(self)
-    html = capture(toolbar, &block)
-    unless options[:extract].is_a?(FalseClass) || action_name != 'index'
+
+    html = ''
+    html << (capture(toolbar, &block) || '') if block_given?
+
+    if !options[:extract].is_a?(FalseClass) && action_name == 'index'
       model = controller_name.to_s.singularize
       if Listing.root_model.values.include?(model.to_s)
-        html << capture(toolbar) do |t|
+        html << (capture(toolbar) do |t|
           t.extract(options[:extract].is_a?(Hash) ? options[:extract] : {})
-        end
+        end || '')
       end
     end
+
     if options[:name] == :main
-      html << Ekylibre::View::Addon.render(:main_toolbar, self, t: toolbar)
+      html << (Ekylibre::View::Addon.render(:main_toolbar, self, t: toolbar) || '')
     end
 
     unless options[:wrap].is_a?(FalseClass)
       html = content_tag(:div, html, class: 'toolbar' + (options[:class] ? ' ' << options[:class].to_s : ''))
     end
-    html
+
+    html.html_safe
   end
 end

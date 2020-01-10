@@ -24,6 +24,8 @@ module Backend
 
     unroll
 
+    before_action :save_search_preference, only: %i[index mark show]
+
     def self.accounts_conditions
       code = ''
       code << search_conditions(accounts: %i[name number description]) + ';'
@@ -55,11 +57,31 @@ module Backend
     def show
       return unless @account = find_and_check
       t3e @account
-      respond_with(@account, methods: [],
-                             include: [
-                               { journal_entry_items: { include: %i[financial_year tax tax_declaration_item] } }
-                             ],
-                             procs: proc { |options| options[:builder].tag!(:url, backend_account_url(@account)) })
+      respond_to do |format|
+        format.html {}
+        format.odt do
+          get_dataset_account
+          if params[:non_letter] == 'true'
+            filename = :extract_unlettered_account_x.tl(account_number: @account.number).tr(' ', '_')
+            send_data non_letter_odt.generate, type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
+          else
+            filename = :extract_account_x.tl(account_number: @account.number).tr(' ', '_')
+            send_data to_odt.generate, type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
+          end
+        end
+        format.pdf do
+          if params[:template].present?
+            respond_with(@account, methods: [],
+                                   include: [
+                                     { journal_entry_items: { include: %i[financial_year tax tax_declaration_item] } }
+                                   ],
+                                   procs: proc { |options| options[:builder].tag!(:url, backend_account_url(@account)) })
+          else
+            get_dataset_account
+            to_pdf
+          end
+        end
+      end
     end
 
     def self.account_moves_conditions(_options = {})
@@ -103,24 +125,16 @@ module Backend
     end
 
     def self.account_reconciliation_conditions
-      code = search_conditions(accounts: %i[name number description], journal_entries: [:number], JournalEntryItem.table_name => %i[name debit credit]) + "[0] += ' AND accounts.reconcilable = ?'\n"
+      code = search_conditions(accounts: %i[name number]) + "[0] += ' AND reconcilable = ?'\n"
       code << "c << true\n"
-      code << "c[0] += ' AND (letter IS NULL OR LENGTH(TRIM(letter)) <= 0)'\n"
+      code << account_lettering_states_crit('params')
       code << 'c'
       code.c
     end
 
-    list(:reconciliation, model: :journal_entry_items, joins: %i[entry account], conditions: account_reconciliation_conditions, order: 'accounts.number, journal_entries.printed_on') do |t|
-      t.column :account_number, through: :account, label_method: :number, url: { action: :mark }
-      t.column :account_name, through: :account, label_method: :name, url: { action: :mark }
-      t.column :entry_number
-      t.column :name
-      t.column :real_debit,  currency: :real_currency, hidden: true
-      t.column :real_credit, currency: :real_currency, hidden: true
-      t.column :debit,  currency: true, hidden: true
-      t.column :credit, currency: true, hidden: true
-      t.column :absolute_debit,  currency: :absolute_currency
-      t.column :absolute_credit, currency: :absolute_currency
+    list(:reconciliation, model: :accounts, conditions: account_reconciliation_conditions, order: 'accounts.number', distinct: true) do |t|
+      t.column :number, label_method: :number, url: { action: :mark }
+      t.column :name, label_method: :name, url: { action: :mark }
     end
 
     def reconciliation; end
@@ -160,12 +174,93 @@ module Backend
       end
     end
 
+    def reconciliable_list
+      return unless @account = Account.find_by_id(params[:id])
+
+      if params.key?(:masked)
+        preference_name = 'backend/accounts'
+        preference_name << ".#{params[:context]}" if params[:context]
+        preference_name << '.lettered_items.masked'
+        current_user.prefer!(preference_name, params[:masked].to_s == 'true', :boolean)
+      end
+
+      lettered_items_preference = current_user.preference(preference_name, 'true', :boolean)
+
+      @items = @account.reconcilable_entry_items(params[:period], params[:started_on], params[:stopped_on], hide_lettered: lettered_items_preference.value)
+
+      @unmark_label = :unmark.ta
+      @unmark_title = :unmark.tl
+      @confirm_label = :are_you_sure.tl
+      @account_id = @account.id
+      @currency = Preference[:currency]
+      @precision = Nomen::Currency[@currency].precision
+
+    end
+
     def mask_lettered_items
       preference_name = 'backend/accounts'
       preference_name << ".#{params[:context]}" if params[:context]
       preference_name << '.lettered_items.masked'
       current_user.prefer!(preference_name, params[:masked].to_s == 'true', :boolean)
       head :ok
+    end
+
+    protected
+
+     #TODO: Move this into a `Printer` service class.
+    def get_dataset_account
+      @dataset_account = @account.account_statement_reporting(params[:non_letter])
+    end
+
+    def to_pdf
+      if params[:non_letter] == 'true'
+        filename = :extract_unlettered_account_x.tl(account_number: @account.number).tr(' ', '_')
+        file_odt = non_letter_odt.generate
+      else
+        filename = :extract_account_x.tl(account_number: @account.number).tr(' ', '_')
+        file_odt = to_odt.generate
+      end
+      generate_pdf_from_odt(file_odt, filename)
+    end
+
+    def generate_pdf_from_odt(file_odt, filename)
+      tmp_dir = Ekylibre::Tenant.private_directory.join('tmp')
+      uuid = SecureRandom.uuid
+      source = tmp_dir.join(uuid + '.odt')
+      dest = tmp_dir.join(uuid + '.pdf')
+      FileUtils.mkdir_p tmp_dir
+      File.write source, file_odt
+      `soffice  --headless --convert-to pdf --outdir #{Shellwords.escape(tmp_dir.to_s)} #{Shellwords.escape(source)}`
+      send_data(File.read(dest), type: 'application/pdf', disposition: 'attachment', filename: filename + '.pdf')
+    end
+
+    def non_letter_odt
+      ODFReport::Report.new(Rails.root.join('config', 'locales', 'fra', 'reporting', 'account_statement_non_letter.odt')) do |r|
+        r.add_table('ITEM1', @dataset_account[:items], header: true) do |t|
+          add_columns_to_odt(t, false)
+        end
+      end
+    end
+
+    def to_odt
+      # add a generic template system path
+      ODFReport::Report.new(Rails.root.join('config', 'locales', 'fra', 'reporting', 'account_statement.odt')) do |r|
+        r.add_table('ITEM1', @dataset_account[:items], header: true) do |t|
+          add_columns_to_odt(t, true)
+        end
+      end
+    end
+
+    def add_columns_to_odt(t, letter)
+      t.add_column(:account_number) { |item| item[:account_number] }
+      t.add_column(:name)
+      t.add_column(:printed_on)
+      t.add_column(:journal_entry_items_number)
+      t.add_column(:sales_code)
+      t.add_column(:purchase_reference_number)
+      t.add_column(:letter) if letter
+      t.add_column(:real_debit)
+      t.add_column(:real_credit)
     end
   end
 end

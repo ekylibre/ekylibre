@@ -1,9 +1,5 @@
 cmn:
   enumerize:
-    account:
-      nature:
-        # auxiliary: "Auxiliary"
-        # general: "General"
     activity:
       nature:
         auxiliary: "辅"
@@ -140,12 +136,6 @@ cmn:
       nature:
         contact: "联系"
         organization: "组织"
-      supplier_payment_delay:
-        # 1 week: "at reception"
-        # 30 days: "30 days"
-        # 30 days, end of month: "30 days end of month"
-        # 60 days: "60 days"
-        # 60 days, end of month: "60 days end of month"
     entity_address:
       canal:
         email: "电子邮件"
@@ -161,12 +151,6 @@ cmn:
         refused: "拒绝"
         waiting: "等候"
     financial_year:
-      state:
-        # closed: "Closed"
-        # closing: "Closure in progress"
-        # closure_in_preparation: "Closure in preparation"
-        # locked: "Locked"
-        # opened: "Opened"
       tax_declaration_frequency:
         monthly: "每月一次"
         none: "没有"
@@ -305,6 +289,14 @@ cmn:
       nature:
         background: "背景"
         overlay: "覆盖"
+    naming_format_field_land_parcel:
+      field_name:
+        # activity: "Activity"
+        # campaign: "Campaign"
+        # cultivable_zone_code: "Cultivable zone code"
+        # cultivable_zone_name: "Cultivable zone name"
+        # production_mode: "Production mode"
+        # season: "Season"
     notification:
       level:
         error: "错误"
@@ -332,6 +324,11 @@ cmn:
         in_preparation: "在准备" #?
         ordered: "有序" #?
         prepared: "准备" #?
+    parcel_item:
+      delivery_mode:
+        # third: "Transported by recipient"
+        # transporter: "Transported by transporter"
+        # us: "Transported by us"
     plant_counting:
       nature:
         germination: "在发芽"
@@ -461,12 +458,6 @@ cmn:
         point: "点"
         string: "串"
     purchase:
-      payment_delay:
-        # 1 week: "at reception"
-        # 30 days: "30 days"
-        # 30 days, end of month: "30 days end of month"
-        # 60 days: "60 days"
-        # 60 days, end of month: "60 days end of month"
       tax_payability:
         at_invoicing: "在开票"
         at_paying: "在支付"
@@ -474,24 +465,10 @@ cmn:
       nature:
         payslip: "工资单"
         purchase: "采购"
-    sale:
-      payment_delay:
-        # 1 week: "at reception"
-        # 30 days: "30 days"
-        # 30 days, end of month: "30 days end of month"
-        # 60 days: "60 days"
-        # 60 days, end of month: "60 days end of month"
     sale_item: #?
       compute_from: #?
         pretax_amount: "税前金额" #?
         unit_pretax_amount: "单位税前金额" #?
-    sale_nature:
-      payment_delay:
-        # 1 week: "at reception"
-        # 30 days: "30 days"
-        # 30 days, end of month: "30 days end of month"
-        # 60 days: "60 days"
-        # 60 days, end of month: "60 days end of month"
     sensor:
       retrieval_mode:
         integration: "积分"

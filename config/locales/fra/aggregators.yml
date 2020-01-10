@@ -55,7 +55,7 @@ fra:
     harvested_at: "Récolté à"
     human_roles: "Roles" #?
     implanted_at: "Implanté à"
-    intervention_durations: "Durées d'intervention"
+    intervention_durations: "Durées d'intervention" #?
     loss_balance: "Solde de perte"
     losses: "Pertes" #?
     manure_management_plan_default_computation_method: "Méthode de calcul du PPF" #?

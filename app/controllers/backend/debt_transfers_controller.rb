@@ -29,7 +29,7 @@ module Backend
 
       return :unprocessable_entity unless [debt_transfer_affair, target_affair].all?
 
-      transfer = DebtTransfer.create_and_reflect!(
+      transfer, _ = DebtTransfer.create_and_reflect!(
         affair: target_affair,
         debt_transfer_affair: debt_transfer_affair
       )

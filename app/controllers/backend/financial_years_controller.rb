@@ -70,6 +70,16 @@ module Backend
           end
           t3e @financial_year.attributes
         end
+        format.xml do
+          FecExportJob.perform_later(@financial_year, params[:fiscal_position], params[:interval], current_user, 'xml')
+          notify_success(:document_in_preparation)
+          redirect_to :back
+        end
+        format.text do
+          FecExportJob.perform_later(@financial_year, params[:fiscal_position], params[:interval], current_user, 'text')
+          notify_success(:document_in_preparation)
+          redirect_to :back
+        end
         format.pdf do
           if params[:n] == 'balance_sheet'
             render_print_balance_sheet(@financial_year)

@@ -47,10 +47,24 @@ module Backend
     def journal_period_crit(*args)
       options = args.extract_options!
       name = args.shift || :period
-      value = args.shift
+      controller = params[:controller]
+      action = params[:action]
+      period_preference = current_user.preferences.find_by(name: "#{controller}##{action}.period")
+      started_on_preference = current_user.preferences.find_by(name: "#{controller}##{action}.started_on")
+      value = if (params[:period] == 'interval') && (params[:started_on].blank? || params[:stopped_on].blank?)
+                'all'
+              elsif period_preference && options.present? && options[:use_search_preference]
+                period_preference.value
+              elsif started_on_preference && options.present? && options[:use_search_preference]
+                'interval'
+              elsif args.any?
+                args.shift
+              else
+                params[name] || options[:default]
+              end
+
       configuration = { custom: :interval }.merge(options)
       configuration[:id] ||= name.to_s.gsub(/\W+/, '_').gsub(/(^_|_$)/, '')
-      value ||= params[name] || options[:default]
       list = []
       list << [:all_periods.tl, 'all']
       for year in FinancialYear.reorder(started_on: :desc)
@@ -72,12 +86,12 @@ module Backend
       toggle_method = "toggle#{custom_id.camelcase}"
       if configuration[:custom]
         params[:started_on] = begin
-                                params[:started_on].to_date
+                                current_user.preferences.value("#{controller}##{action}.started_on")&.to_date || params[:started_on].to_date
                               rescue
                                 (fy ? fy.started_on : Time.zone.today)
                               end
         params[:stopped_on] = begin
-                                params[:stopped_on].to_date
+                                current_user.preferences.value("#{controller}##{action}.stopped_on")&.to_date || params[:stopped_on].to_date
                               rescue
                                 (fy ? fy.stopped_on : Time.zone.today)
                               end
@@ -91,18 +105,32 @@ module Backend
 
       code << select_tag(name, options_for_select(list, value), :id => configuration[:id], 'data-show-value' => "##{configuration[:id]}_")
 
-      if configuration[:custom]
-        code << ' ' << content_tag(:span, :manual_period.tl(start: date_field_tag(:started_on, params[:started_on], size: 10), finish: date_field_tag(:stopped_on, params[:stopped_on], size: 10)).html_safe, id: custom_id)
-      end
+      code << ' ' << content_tag(:span, :manual_period.tl(start: date_field_tag(:started_on, params[:started_on], size: 10), finish: date_field_tag(:stopped_on, params[:stopped_on], size: 10)).html_safe, id: custom_id)
       code.html_safe
     end
 
     # Create a widget to select states of entries (and entry items)
-    def journal_entries_states_crit(*_args)
+    def journal_entries_states_crit(*args)
+      options = args.extract_options!
+      controller = params[:controller]
+      action = params[:action]
       code = ''
       code << content_tag(:label, :journal_entries_states.tl)
       states = JournalEntry.states
       params[:states] = {} unless params[:states].is_a? Hash
+      if options.present? && options[:use_search_preference]
+        preference_name = "#{controller}##{action}.journal_entries_states"
+        if params[:states].present?
+          value = params[:states].keys.join('_')
+          current_user.prefer!(preference_name, value, 'string')
+        else
+          preference_value = current_user.preference(preference_name).value
+          unless preference_value.nil?
+            preference_states = preference_value.split('_')
+            preference_states.each { |state_name| params[:states][state_name] = '1' }
+          end
+        end
+      end
       no_state = !states.detect { |x| params[:states].key?(x) }
       for state in states
         key = state.to_s
@@ -156,5 +184,26 @@ module Backend
           :mask_lettered_items.tl
       end
     end
+
+    def refresh_lettered_items_button(*args)
+      options = args.extract_options!
+      list_id = args.shift || options[:list_id] || :journal_entry_items
+      mask_context = options[:context] || list_id
+      options[:controller] ||= controller_path
+      options[:default_value] ||= 'true'
+
+      label_tag do
+        check_box_tag(:masked, options[:default_value], current_user.mask_lettered_items?(controller: options[:controller].dup, context: mask_context),
+                      data: {
+                        refresh_lettered_items: '#' + list_id.to_s,
+                        refresh_list_url: reconciliable_list_backend_account_url(id: options[:account_id], context: mask_context),
+                        period: options[:period],
+                        started_on: options[:started_on],
+                        stopped_on: options[:stopped_on]
+                      }) +
+          :mask_lettered_items.tl
+      end
+    end
+
   end
 end

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -57,8 +57,12 @@ class FixedAssetDepreciation < Ekylibre::Record::Base
   # ]VALIDATORS]
   delegate :currency, :number, to: :fixed_asset
 
-  scope :with_active_asset, -> { joins(:fixed_asset).where(fixed_assets: { state: :in_use }) }
+  scope :with_active_asset, -> { joins(:fixed_asset).where(locked: false, fixed_assets: { state: :in_use }) }
   scope :up_to, ->(date) { where('fixed_asset_depreciations.stopped_on <= ?', date) }
+  scope :with_active_asset_up_to, lambda { |date|
+    joins(:fixed_asset)
+      .where('fixed_asset_depreciations.accountable = false AND fixed_asset_depreciations.locked = false AND fixed_asset_depreciations.stopped_on <= ? AND fixed_assets.state = ?', date, :in_use)
+  }
 
   sums :fixed_asset, :depreciations, amount: :depreciated_amount
 

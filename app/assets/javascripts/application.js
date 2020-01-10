@@ -25,6 +25,16 @@
 //= require jquery_ujs
 //= require jquery.remotipart
 //= require jquery.turbolinks
+//= require flatpickr
+//= require flatpickr/plugins/confirmDate/confirmDate
+//= require flatpickr/l10n/ar
+//= require flatpickr/l10n/de
+//= require flatpickr/l10n/es
+//= require flatpickr/l10n/fr
+//= require flatpickr/l10n/it
+//= require flatpickr/l10n/ja
+//= require flatpickr/l10n/pt
+//= require flatpickr/l10n/zh
 //= require turbolinks
 //= require active_list.jquery
 //= require knockout
@@ -33,6 +43,8 @@
 //= require i18n/translations
 //= require i18n/locale
 //= require i18n/ext
+//= require wice_grid
+//= require wice_grid/settings
 //= require ekylibre
 //= require moment
 //= require moment/ar
@@ -43,7 +55,6 @@
 //= require moment/ja
 //= require moment/pt
 //= require moment/zh-cn
-//= require bootstrap-datetimepicker
 //= require formize/behave
 //= require form/dialog
 //= require formize/observe
@@ -77,6 +88,19 @@
 //= require_tree .
 //= require tour
 //= require bootstrap-slider
+
+//= require vue
+//= require sortablejs/Sortable.min.js
+//= require vuedraggable/dist/vuedraggable.js
+//= require chart.js/dist/Chart.min.js
+//= require vue-chartjs/dist/vue-chartjs.min.js
+
+//= require ext-plugins/vuejs/vue-chartjs
+
+//= require vue
+//= require utils/location_utils
+//= require lodash
+
 
 var visualization = {};
 var mapeditor = {};

@@ -1,9 +1,5 @@
 arb:
   enumerize:
-    account:
-      nature:
-        # auxiliary: "Auxiliary"
-        # general: "General"
     activity:
       nature:
         auxiliary: "مساعد"
@@ -140,12 +136,6 @@ arb:
       nature:
         contact: "اِتِّصَال"
         organization: "منظمة"
-      supplier_payment_delay:
-        # 1 week: "at reception"
-        # 30 days: "30 days"
-        # 30 days, end of month: "30 days end of month"
-        # 60 days: "60 days"
-        # 60 days, end of month: "60 days end of month"
     entity_address:
       canal:
         email: "البريد الإلكتروني"
@@ -161,12 +151,6 @@ arb:
         refused: "رفض"
         waiting: "انتظار"
     financial_year:
-      state:
-        # closed: "Closed"
-        # closing: "Closure in progress"
-        # closure_in_preparation: "Closure in preparation"
-        # locked: "Locked"
-        # opened: "Opened"
       tax_declaration_frequency:
         monthly: "شهريا"
         none: "لا شيء"
@@ -304,6 +288,14 @@ arb:
       nature:
         background: "خلفية"
         overlay: "غطاء"
+    naming_format_field_land_parcel:
+      field_name:
+        # activity: "Activity"
+        # campaign: "Campaign"
+        # cultivable_zone_code: "Cultivable zone code"
+        # cultivable_zone_name: "Cultivable zone name"
+        # production_mode: "Production mode"
+        # season: "Season"
     notification:
       level:
         error: "خطأ"
@@ -331,6 +323,11 @@ arb:
         in_preparation: "قيد التحضير" #?
         ordered: "أمر" #?
         prepared: "أعدت" #?
+    parcel_item:
+      delivery_mode:
+        # third: "Transported by recipient"
+        # transporter: "Transported by transporter"
+        # us: "Transported by us"
     plant_counting:
       nature:
         germination: "في إنبات"
@@ -460,12 +457,6 @@ arb:
         point: "نقطة"
         string: "خيط"
     purchase:
-      payment_delay:
-        # 1 week: "at reception"
-        # 30 days: "30 days"
-        # 30 days, end of month: "30 days end of month"
-        # 60 days: "60 days"
-        # 60 days, end of month: "60 days end of month"
       tax_payability:
         at_invoicing: "في الفواتير"
         at_paying: "في دفع"
@@ -473,24 +464,10 @@ arb:
       nature:
         payslip: "قسيمة الدفع"
         purchase: "شراء"
-    sale:
-      payment_delay:
-        # 1 week: "at reception"
-        # 30 days: "30 days"
-        # 30 days, end of month: "30 days end of month"
-        # 60 days: "60 days"
-        # 60 days, end of month: "60 days end of month"
     sale_item: #?
       compute_from: #?
         pretax_amount: "كمية قبل خصم الضرائب" #?
         unit_pretax_amount: "وحدة الكمية قبل خصم الضرائب" #?
-    sale_nature:
-      payment_delay:
-        # 1 week: "at reception"
-        # 30 days: "30 days"
-        # 30 days, end of month: "30 days end of month"
-        # 60 days: "60 days"
-        # 60 days, end of month: "60 days end of month"
     sensor:
       retrieval_mode:
         integration: "دمج"

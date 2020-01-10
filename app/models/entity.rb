@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -79,6 +79,7 @@ require 'digest/sha2'
 
 class Entity < Ekylibre::Record::Base
   include Attachable
+  include Autocastable
   include Commentable
   include Versionable
   include Customizable
@@ -118,13 +119,13 @@ class Entity < Ekylibre::Record::Base
   has_many :purchase_payments, foreign_key: :payee_id
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :owner_id
   has_many :participations, class_name: 'EventParticipation', foreign_key: :participant_id, dependent: :destroy
-  has_many :purchase_invoices, -> { where(state: 'invoice').order(created_at: :desc) },
-           class_name: 'Purchase', foreign_key: :supplier_id
+  has_many :purchase_invoices, class_name: 'PurchaseInvoice', foreign_key: :supplier_id
+  has_many :purchase_orders, class_name: 'PurchaseOrder', foreign_key: :supplier_id
   has_many :purchases, foreign_key: :supplier_id, dependent: :restrict_with_exception
   has_many :purchase_items, through: :purchases, source: :items
   has_many :parcels, foreign_key: :transporter_id
-  has_many :incoming_parcels, class_name: 'Parcel', foreign_key: :sender_id
-  has_many :outgoing_parcels, class_name: 'Parcel', foreign_key: :recipient_id
+  has_many :receptions, foreign_key: :sender_id
+  has_many :shipments, foreign_key: :recipient_id
   has_many :sales_invoices, -> { where(state: 'invoice').order(created_at: :desc) },
            class_name: 'Sale', foreign_key: :client_id
   has_many :sales, -> { order(created_at: :desc) }, foreign_key: :client_id, dependent: :restrict_with_exception
@@ -176,6 +177,7 @@ class Entity < Ekylibre::Record::Base
   validates :siret_number, siret_format: true, allow_blank: true
   validates_attachment_content_type :picture, content_type: /image/
   validates_delay_format_of :supplier_payment_delay
+  validates_with SEPA::BICValidator, field_name: :bank_identifier_code
 
   alias_attribute :name, :full_name
 
@@ -220,12 +222,12 @@ class Entity < Ekylibre::Record::Base
     # end
     full_name.strip!
     # self.name = self.name.to_s.strip.downcase.gsub(/[^a-z0-9\.\_]/,'')
-    self.siret_number = siret_number&.strip
+    self.siret_number = siret_number.strip if siret_number
     self.language = Preference[:language] if language.blank?
     self.currency = Preference[:currency] if currency.blank?
     self.country  = Preference[:country]  if country.blank?
     self.iban = iban.to_s.upper.gsub(/[^A-Z0-9]/, '')
-    self.bank_identifier_code = bank_identifier_code.to_s.upper.gsub(/[^A-Z0-9]/, '')
+    self.bank_identifier_code = bank_identifier_code.to_s.upper.gsub(/[^A-Z0-9]/, '').presence
     self.bank_account_holder_name = full_name if bank_account_holder_name.blank?
     self.bank_account_holder_name = I18n.transliterate(bank_account_holder_name) unless bank_account_holder_name.nil?
     self.supplier_payment_delay = '30 days' if supplier_payment_delay.blank?
@@ -243,22 +245,10 @@ class Entity < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    of_company? || sales_invoices.any? || participations.any? || sales.any? || parcels.any? || purchases.any? || incoming_parcels.any? || outgoing_parcels.any? || financial_year_with_opened_exchange?
+    of_company? || sales_invoices.any? || participations.any? || sales.any? || parcels.any? || purchases.any? || receptions.any? || shipments.any? || financial_year_with_opened_exchange?
   end
 
   class << self
-    # Auto-cast entity to best matching class with type column
-    def new_with_cast(*attributes, &block)
-      if (h = attributes.first).is_a?(Hash) && !h.nil? &&
-         (type = h[:type] || h['type']) && !type.empty? &&
-         (klass = type.constantize) != self
-        raise "Can not cast #{name} to #{klass.name}" unless klass <= self
-        return klass.new(*attributes, &block)
-      end
-      new_without_cast(*attributes, &block)
-    end
-    alias_method_chain :new, :cast
-
     def exportable_columns
       content_columns.delete_if do |c|
         %i[active lock_version deliveries_conditions].include?(c.name.to_sym)
@@ -279,6 +269,10 @@ class Entity < Ekylibre::Record::Base
       end
       company
     end
+  end
+
+  def entity_payment_mode_name
+    supplier_payment_mode&.name
   end
 
   # Convert a contact into organization or inverse
@@ -314,7 +308,7 @@ class Entity < Ekylibre::Record::Base
   end
 
   def siren_number
-    siret_number[0..8]
+    siret_number[0..8] if siret_number
   end
 
   def siren

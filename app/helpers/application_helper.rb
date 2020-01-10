@@ -136,7 +136,7 @@ module ApplicationHelper
     vals = []
     vals << (seconds / 1.hour).floor
     seconds -= 1.hour * (seconds / 1.hour).floor
-    vals << (seconds / 1.minute).floor.to_s.rjust(2, '0')
+    vals << (seconds / 1.minute).round.to_s.rjust(2, '0')
     seconds -= 1.minute * (seconds / 1.minute).floor
     # vals << seconds.round.to_s.rjust(2, "0")
     vals.join(':')
@@ -332,6 +332,8 @@ module ApplicationHelper
       value = value.send(:text)
     elsif attribute.to_s =~ /(^|_)currency$/
       value = Nomen::Currency[value].human_name
+    elsif attribute.to_s =~ /^state$/
+      value = I18n.translate("models.#{model_name}.states.#{value}")
     elsif options[:currency] && value.is_a?(Numeric)
       value = ::I18n.localize(value, currency: (options[:currency].is_a?(TrueClass) ? object.send(:currency) : options[:currency].is_a?(Symbol) ? object.send(options[:currency]) : options[:currency]))
       value = link_to(value.to_s, options[:url]) if options[:url]
@@ -455,6 +457,7 @@ module ApplicationHelper
           options = args.extract_options!
           item_options = {}
           item_options[:class] = options.delete(:as) if options.key?(:as)
+          item_options.merge!(options.delete(:html_options)) if options.key?(:html_options)
           content_tag(:li, link_to(*args, options, &item.block), item_options)
         elsif item.name == :separator
           content_tag(:li, '', class: 'separator')
@@ -738,9 +741,19 @@ module ApplicationHelper
     code = ''.html_safe
     return code unless messages
     messages.each do |message|
-      code << "<div class='flash #{mode}' data-alert=\"true\"><a href=\"#\" class=\"close\">&times;</a><div class='icon'></div><div class='message'><h3>#{mode.t(scope: 'notifications.levels')}</h3><p>#{h(message).gsub(/\n/, '<br/>')}</p></div></div>".html_safe
+      code << flash_message_tag(mode, h(message).gsub(/\n/, '<br/>').html_safe)
     end
     code
+  end
+
+  def flash_message_tag(mode, message)
+    content_tag :div, { class: "flash #{mode}", data: { alert: true } } do
+      content_tag(:a, "&times;".html_safe, { class: :close, href: '#' }) +
+        content_tag(:div, '', { class: :icon }) +
+        content_tag(:div, { class: :message }) do
+          content_tag(:h3, mode.t(scope: 'notifications.levels').html_safe) + content_tag(:p, message)
+        end
+    end
   end
 
   def notifications_tag
@@ -869,8 +882,8 @@ module ApplicationHelper
     end
   end
 
-  def form_actions(&block)
-    content_tag(:div, class: 'form-actions') do
+  def form_actions(options = {}, &block)
+    content_tag(:div, class: "form-actions #{options[:class]}") do
       html = ''.html_safe
       html << content_for(:before_form_actions) if content_for?(:before_form_actions)
       html << capture(&block)
@@ -891,6 +904,19 @@ module ApplicationHelper
   def backend_fields_for(object, *args, &block)
     options = args.extract_options!
     simple_fields_for(object, *(args << options.merge(builder: Backend::FormBuilder)), &block)
+  end
+
+  def ekylibre_form_for(object, *args, &block)
+    options = args.extract_options!
+
+    if options[:namespace] == :none
+      return simple_form_for(object, *(args << options.merge(builder: Backend::FormBuilder)), &block)
+    end
+
+    namespace = options[:namespace]
+    namespace ||= :backend
+
+    simple_form_for([namespace, object], *(args << options.merge(builder: Backend::FormBuilder)), &block)
   end
 
   # Wraps a label and its input in a standard wrapper
@@ -1071,6 +1097,14 @@ module ApplicationHelper
     result << filler if unbalanced
 
     safe_join(result)
+  end
+
+  def no_turbolink?
+    if content_for(:no_turbolink)
+      { data: { no_turbolink: true }}
+    else
+      { data: nil }
+    end
   end
 
   private

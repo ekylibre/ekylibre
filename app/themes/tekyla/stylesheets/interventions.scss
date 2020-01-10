@@ -1,6 +1,136 @@
 @import "bootstrap/labels";
 
 $preview-modal-height: 80vh;
+.big-infos .med-info .evaluation .picto {
+  color: #ffce00;
+  font-size: 35px;
+}
+
+.compare-planned-realised {
+  display: block;
+  margin-top: 10px
+}
+
+#compare-planned-with-realised {
+  .modal-body {
+    h4 {
+      font-weight: bold;
+    }
+    .target-and-activity {
+      display: flex;
+      .intervention-activities {
+        a {
+          margin-right: 10px
+        }
+      }
+      .targets {
+        margin-left: 15px;
+        .warning {
+          color: orange;
+        }
+      }
+    }
+    .blocks {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 15px;
+      .block {
+        .block-title {
+          text-align: center;
+        }
+        .calendar-img {
+          width: 30px;
+          position: relative;
+          left: -15px;
+          top: 58px;
+        }
+      }
+    }
+
+    .interventions-datas {
+      margin-top: 50px;
+
+      .title {
+        color: grey;
+        border-bottom: 1px solid grey;
+      }
+
+      .intervention-details {
+        margin-top: 50px;
+        .details-block {
+          display: flex;
+          justify-content: space-around;
+          margin-left: 50px;
+          margin-top: 10px;
+          .content {
+            display: inline-block;
+            width: 33%;
+            .picto {
+              font-size: 25px;
+              color: #8c8c8c;
+              line-height: normal;
+            }
+            .warning {
+              color: orange;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+#intervention-form {
+  .control-group .selector-choices-list li {
+    padding-right: 200px;
+    position: relative;
+
+    .amount-part {
+      position: absolute;
+      right: 0;
+      width: 175px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      font-weight: bold;
+      text-align: right;
+      padding-right: 2px;
+
+    }
+  }
+}
+
+.cobble-general-information .cobble-content .big-infos {
+  .actionner-cobble {
+    .info {
+      span {
+        text-align: left
+      }
+    }
+    .value {
+      font-size: 19px;
+      line-height: 23px;
+      height: 25px;
+    }
+  }
+}
+
+.interventions-modal {
+  .evaluation-part {
+    display: inline-block;
+    margin-right: 10%;
+    p {
+      display: inline-block;
+      margin-right: 10px;
+    }
+    .picto {
+      font-size: 20px;
+      color: #ffce00;
+    }
+  }
+  .controls .selector .items-menu .items-list {
+    max-width: 800px;
+  }
+}
 
 .interventions-modal {
   .intervention-activities {
@@ -49,6 +179,20 @@ $preview-modal-height: 80vh;
       .data {
         padding: $default-gap;
         @include flex-row(flex-start, center);
+        .details {
+          display: inherit;
+          .working-time {
+            margin-left: 15px;
+            .quantity {
+              font-size: 15px;
+              margin-left: 5px;
+            }
+            .picto {
+              font-size: 25px;
+              color: #8c8c8c;
+            }
+          }
+        }
       }
 
       .data-title {
@@ -76,7 +220,9 @@ $preview-modal-height: 80vh;
   }
 
   .task {
-
+    .task-datas {
+      width: 100%;
+    }
     .completely_filled {
       margin-left: round($default-gap * 1.4);
       color: $success-color;
@@ -88,6 +234,14 @@ $preview-modal-height: 80vh;
     &-data.doers {
       background-color: $darkened-blue-grey;
       color: $white;
+    }
+
+    .task-calendar {
+      flex: 0 1 100%;
+      .calendar-img {
+        width: 25px;
+        float: right;
+      }
     }
   }
 }
@@ -166,6 +320,76 @@ $preview-modal-height: 80vh;
       margin-left: $default-gap;
    }
   }
+
+  .reception-form {
+    .purchase-items-array {
+      margin-top: $default-gap * 2;
+    }
+
+    .header-line{
+      @include flex-row(flex-start);
+      list-style-type: none;
+      border-bottom: solid 1px #DDD;
+      padding-bottom: $default-gap;
+    }
+    .item-line {
+      @include flex-row(flex-start);
+      padding-bottom: $default-gap;
+      padding-top: $default-gap;
+      border-bottom: solid 1px #DDD;
+    }
+
+    .item-name, .header-name{
+      width: 60%;
+    }
+
+    .item-quantity, .header-quantity{
+      width: 13%;
+    }
+
+    .input-quantity {
+      max-width: 20%;
+    }
+
+    .item-unit-pretax-amount, .header-unit-pretax-amount{
+      width: 13%;
+      color: $lightened-grey;
+    }
+
+    .item-amount, .header-amount{
+      width: 13%;
+      color: $lightened-grey;
+    }
+  }
+
+  .nested-inputs .nested-product-parameter {
+    .intervention_inputs_quantity {
+      @include flex-row(flex-start);
+    }
+
+    .intervention_inputs_quantity .controls {
+      margin-left: 23%;
+    }
+
+    .product-parameter-cost {
+      margin-left: $default-gap * 22;
+    }
+
+    .product-parameter-cost-value {
+      font-weight: bold;
+    }
+  }
+
+  .nested-product-parameter .nested-readings {
+    margin: 0;
+    border: none;
+  }
+
+  .nested-cultivation .land-parcel-plant-selector {
+    .controls label {
+      margin-right: 1em;
+    }
+  }
 }
 
 .product_parameters .cast {
@@ -233,6 +457,114 @@ $preview-modal-height: 80vh;
 
     .origin {
       font-size: $fs-small;
+    }
+  }
+}
+
+#working-periods #working_periods-field .working-period-errors {
+  margin-left: 28%
+}
+
+.btn-group.intervention-duplication {
+  margin-left: 4px !important;
+}
+
+#duplicate_date{
+  width: 20ex;
+}
+
+#duplicate-modal {
+  .errors {
+    border: 1px solid rgba(216, 30, 8, 0.22);
+    background: rgba(216, 30, 8, 0.2);
+    color: #c91c07;
+    border-radius: 2px;
+    padding: 3px;
+  }
+  .targets {
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 5px;
+  }
+  .product-target {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    padding: 5px;
+    .control-group .controls {
+      margin-left: 0px;
+      .selector {
+        width: 360px;
+      }
+    }
+  }
+  .picto {
+    font-size: 40px;
+    line-height: 35px;
+  }
+  .picture {
+    height: 35px;
+  }
+  .parameters {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    .procedure {
+      width: 100%;
+      max-width: 364px;
+      line-height: 11px;
+      h2 {
+        font-weight: 900;
+      }
+    }
+    .parameter-type {
+      display: inline-table;
+      width: 50%;
+      .title {
+        border-bottom: 1px solid #e5e5e5;
+      }
+      .parameter-element {
+        display: flex;
+        margin-top: 7px;
+        .control-group .controls {
+          margin-left: 0px;
+          max-width: 100%;
+        }
+        .picto {
+          font-size: 55px;
+          line-height: 53px;
+        }
+        .picture {
+          height: 54px;
+        }
+      }
+    }
+  }
+  .inputs-outputs {
+    display: block;
+    .parameter-type {
+      width: 100%;
+      .input-part, .output-part {
+        display: flex;
+        .intervention_input_product {
+          min-width: 43%;
+        }
+        .intervention_quantity_quantity {
+          width: 10%;
+          input {
+            max-width: 72% !important;
+          }
+        }
+        .intervention_quantity_unit {
+          width: 15%;
+          input {
+            max-width: 72% !important;
+          }
+        }
+      }
+      .procedure {
+        max-width: none;
+      }
     }
   }
 }

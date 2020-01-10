@@ -1,0 +1,107 @@
+= modal(id: 'compare-planned-with-realised', size: :large) do
+  = modal_header(@intervention.name)
+  .modal-body
+    .target-and-activity
+      - if @intervention.activities.any?
+        .intervention-activities
+          - @intervention.activities.each do |activity|
+            = link_to({ action: :show, controller: :activities, id: activity.id}, style: "background-color: #{activity.color}; color: #{contrasted_color(activity.color)}", class: 'label') do
+              = activity.name
+      - if @intervention.targets.any?
+        .targets
+          - display_warning = false
+          - @intervention.targets.each do |target|
+            %h4= target.product.name
+            - unless @intervention.request_intervention.targets.any? { |request_target| request_target.working_zone == target.working_zone }
+              - display_warning = true
+
+          - if display_warning
+            .warning= :worked_zone_not_corresponding.tl
+    .blocks
+      .block
+        %h3.block-title= Intervention.human_attribute_name(:doers)
+        .picture
+          %i.picto.picto-male
+        - doers = @intervention.doers.any? ? @intervention.doers : @intervention.request_intervention.doers
+        = compare_with_planned(doers)
+      .block
+        %h3.block-title= Intervention.human_attribute_name(:equipments)
+        .picture
+          %i.picto.picto-tractor
+        - tools = @intervention.tools.any? ? @intervention.tools : @intervention.request_intervention.tools
+        = compare_with_planned(tools)
+
+      .block
+        %h3.block-title= Intervention.human_attribute_name(:inputs)
+        .picture
+          %i.picto.picto-matter
+        - inputs = @intervention.inputs.any? ? @intervention.inputs : @intervention.request_intervention.inputs
+        = compare_with_planned(inputs)
+
+
+    .interventions-datas
+      - planned = @intervention.request_intervention
+      - realised = @intervention
+      .intervention-details.planned
+        .title= :planned.tl(count: 1).mb_chars.upcase
+        .details-block
+          .content.doers
+            - if planned.doers.any?
+              - planned.doers.order_by_product_name.each do |doer|
+                - title = doer.product.name
+                = add_small_details_to_modal_block(title, doer)
+
+          .content.tools
+            - if planned.tools.any?
+              - planned.tools.order_by_product_name.each do |tool|
+                - title = tool.product.name
+                = add_small_details_to_modal_block(title, tool)
+
+          .content.inputs
+            - if planned.inputs.any?
+              - planned.inputs.order_by_product_name.each do |input|
+                .details{ data: { quantity_population: input.quantity_population, product_id: input.product_id, type: input.type } }
+                  %h4= input.product.name
+
+                  - input_info = ""
+                  - input_info = input.quantity_value.round(2).l(precision: 0)
+                  - if input.quantity_handler_reference.unit.present?
+                    - input_info << " " + input.quantity_handler_reference.unit.symbol
+                  - else
+                    - input_info << " " + input&.product&.variant&.unit_name
+                  .quantity= input_info
+
+      .intervention-details.realised
+        .title= :executed.tl.mb_chars.upcase
+        .details-block
+          .content.doers
+            - if realised.doers.any?
+              - realised.doers.order_by_product_name.each do |doer|
+                - title = doer.product.name
+                = add_small_details_to_modal_block(title, doer)
+
+          .content.tools
+            - if realised.tools.any?
+              - realised.tools.order_by_product_name.each do |tool|
+                - title = tool.product.name
+                = add_small_details_to_modal_block(title, tool)
+
+          .content.inputs
+            - if realised.inputs.order_by_product_name.any?
+              - realised.inputs.each do |input|
+                .details{ data: { quantity_population: input.quantity_population, product_id: input.product_id, type: input.type } }
+                  %h4= input.product.name
+
+                  - input_info = ""
+                  - input_info = input.quantity_value.round(2).l(precision: 0)
+                  - if input.quantity_handler_reference.unit.present?
+                    - input_info << " " + input.quantity_handler_reference.unit.symbol
+                  - else
+                    - input_info << " " + input&.product&.variant&.unit_name
+                  .quantity= input_info
+
+  .modal-footer
+    = link_to :see_details.tl, backend_intervention_path(@intervention), class: 'btn btn-default'
+    = link_to :edit.tl, edit_backend_intervention_path(@intervention), class: 'btn btn-default'
+
+= yield(:popover)

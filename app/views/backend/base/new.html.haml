@@ -1,15 +1,21 @@
 - options = {}
 - options[:url] = @form_url if @form_url
 - options.deep_merge!(data: {dialog: params[:dialog]}) if params[:dialog]
-= backend_form_for(resource, options) do |f|
+- options[:namespace] = params[:namespace] if params[:namespace]
+
+= ekylibre_form_for(resource, options) do |f|
   - if params[:redirect]
     = hidden_field_tag(:redirect, params[:redirect])
-  - if local_assigns[:with_continue] && params[:continue]
-    - f.add(:submit, :create_and_continue.tl, data: { disable_with: :please_wait.tl }, class: 'primary', name: :create_and_continue)
-  - f.add(:submit, :create.tl, data: { disable_with: :please_wait.tl }, class: 'primary')
-  - if local_assigns[:with_continue] && !params[:continue]
+
+  - f.add(:submit, defined?(@submit_label) ? @submit_label : :create.tl, data: { disable_with: :please_wait.tl }, class: 'primary')
+
+  - if local_assigns[:with_continue] && !params[:dialog]
     - f.add(:submit, :create_and_continue.tl, data: { disable_with: :please_wait.tl }, class: 'primary', name: :create_and_continue)
 
-  = f.fields
+  - if params[:form_partial]
+    = f.fields(params[:form_partial])
+  - else
+    = f.fields
+
   - f.add(:link, :cancel.tl, (params[:redirect] || local_assigns[:cancel_url] || {action: :index}), (params[:dialog] ? {class: 'btn', data: {close_dialog: params[:dialog]}} : {class: 'btn'}))
   = f.actions

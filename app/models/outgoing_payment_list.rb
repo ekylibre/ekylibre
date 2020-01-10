@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -70,7 +70,7 @@ class OutgoingPaymentList < Ekylibre::Record::Base
         iban: payment.payee.iban,
         amount: format('%.2f', payment.amount.round(2)),
         reference: payment.number,
-        remittance_information: payment.affair.purchases.first.number,
+        remittance_information: Maybe(payment.affair.purchase_invoices.first).number.or_else(nil),
         requested_date: Time.zone.now.to_date,
         batch_booking: false,
         bic: 'NOTPROVIDED'

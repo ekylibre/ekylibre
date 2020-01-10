@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -67,7 +67,9 @@ class DebtTransfer < Ekylibre::Record::Base
 
   acts_as_numbered
 
-  before_validation do
+  after_initialize do
+    next if persisted?
+
     self.currency = affair.currency
     self.amount ||= [affair.balance.abs, debt_transfer_affair.balance.abs].min
     self.nature ||= if debt_transfer_affair.is_a?(PurchaseAffair) && affair.is_a?(SaleAffair)
@@ -95,19 +97,38 @@ class DebtTransfer < Ekylibre::Record::Base
 
   class << self
     def create_and_reflect!(attributes = {})
-      record = create!(attributes.merge(amount: nil))
-      reflect! record
-      record
+      record = nil
+      reflected = nil
+
+      ActiveRecord::Base.transaction do
+        record = new(attributes.merge(amount: nil))
+        reflected = create_reflection record
+
+        # Hack to pass the bookkeep condition (both affairs need to be unbalanced)
+        if record.affair.balance.abs < record.debt_transfer_affair.balance.abs
+          reflected.save!
+          record.save!
+        else
+          record.save!
+          reflected.save!
+        end
+      end
+
+      [record, reflected]
     end
 
-    def reflect!(record)
-      create!(
+    def create_reflection(record)
+      new(
         affair: record.debt_transfer_affair,
         debt_transfer_affair: record.affair,
         currency: record.currency,
         amount: record.amount,
         nature: record.nature == :sale_regularization ? :purchase_regularization : :sale_regularization
       )
+    end
+
+    def reflect!(record)
+      create_reflection(record).save!
     end
 
     def regularization_account
@@ -122,6 +143,8 @@ class DebtTransfer < Ekylibre::Record::Base
       b.journal_entry(debt_transfer_affair.journal_entry ? debt_transfer_affair.journal_entry.journal : debt_transfer_affair.originator.journal_entry.journal, printed_on: created_at.to_date, if: (debt_transfer_affair.unbalanced? && affair.unbalanced? && debt_transfer_affair.deals_count > 0)) do |entry|
         label = tc(nature, resource: debt_transfer_affair.class.model_name.human, number: debt_transfer_affair.number, entity: debt_transfer_affair.third.full_name)
 
+        debt_transfer_affair.third.reload
+
         entry.add_debit(label, debt_transfer_affair.third.supplier_account, amount, resource: affair.originator, as: :sale)
         entry.add_credit(label, self.class.regularization_account, amount, resource: debt_transfer_affair.originator, as: nature)
       end
@@ -131,6 +154,8 @@ class DebtTransfer < Ekylibre::Record::Base
       # debit on regularization account + Credit on client account
       b.journal_entry(affair.journal_entry ? affair.journal_entry.journal : affair.originator.journal_entry.journal, printed_on: created_at.to_date, if: (debt_transfer_affair.unbalanced? && affair.unbalanced? && affair.deals_count > 0)) do |entry|
         label = tc(nature, resource: affair.class.model_name.human, number: affair.number, entity: affair.third.full_name)
+
+        affair.third.reload
 
         entry.add_debit(label, self.class.regularization_account, amount, resource: debt_transfer_affair.originator, as: nature)
         entry.add_credit(label, affair.third.client_account, amount, resource: affair.originator, as: :purchase)

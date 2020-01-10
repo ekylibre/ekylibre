@@ -138,8 +138,8 @@ module Procedo
           end
           return nil unless candidates.any?
           return candidates.first if candidates.count == 1
-          best = candidates.select { |h| h.unit.name.to_s == quantity.unit.to_s }
-          (best ? best : candidates.first)
+          best = candidates.find { |h| h.unit.name.to_s == quantity.unit.to_s }
+          (best || candidates.first)
         elsif quantity.is_a?(Numeric)
           candidates = handlers.select { |h| h.indicator.datatype == :decimal }
           return nil unless candidates.any?

@@ -1,0 +1,37 @@
+= field_set do
+  = f.referenced_association :nature, as: :hidden
+  = f.referenced_association :supplier, source: :suppliers, new: { supplier: 1 }
+  = f.input :reference_number
+  = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
+  = f.input :ordered_at, as: :date
+  = f.input :command_mode
+  = f.input :estimate_reception_date, as: :date
+
+  .purchase-totals
+    .purchase-total-row.total-except-tax
+      %span.total-label= :total_amount_without_taxes.tl
+      %span.total-value= f.object.decorate.total_amount_excluding_taxes
+      %span.total-currency= Nomen::Currency[f.object.currency].symbol
+    .purchase-total-row.vat-total
+      %span.total-label= :vat.tl
+      %span.total-value= f.object.decorate.total_vat_amount
+      %span.total-currency= Nomen::Currency[f.object.currency].symbol
+    .purchase-total-row.purchase-total
+      %span.total-label= :total_amount_with_taxes.tl
+      %span.total-value= f.object.decorate.total_amount_including_taxes
+      %span.total-currency= Nomen::Currency[f.object.currency].symbol
+
+  = f.input :description
+  = f.custom_fields
+  = f.attachments
+
+= field_set Purchase.human_attribute_name(:items) do
+  .items
+    %table.list#purchase-items-table
+      = f.simple_fields_for :items, f.object.items.sort_by { |i| i.id.to_i } do |item|
+        = render 'item_fields', f: item, display_items_form: @display_items_form
+
+      %tfoot#items__footer
+    .row-footer
+      - PurchaseItem.role.values.each do |role|
+        %span{ class: "links add-#{role}"}= link_to_add_association :"add_#{role}".tl, f, :items, partial: 'item_fields', render_options: { locals: { role: role, mode: params[:mode], display_items_form: @display_items_form } }, 'data-association-insertion-node' => '#items__footer', 'data-association-insertion-method' => :before

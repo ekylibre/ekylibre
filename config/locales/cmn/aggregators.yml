@@ -48,7 +48,7 @@ cmn:
     harvested_at: "在收获"
     human_roles: "人的角色" #?
     implanted_at: "在植入"
-    intervention_durations: "干预的持续时间"
+    intervention_durations: "干预的持续时间" #?
     loss_balance: "盈亏平衡"
     losses: "损失" #?
     meat_saleable_on: "肉类在出售"

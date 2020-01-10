@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<workflow name="wheat" production_system="intensive_farming" variety="triticum_aestivum">
+  <procedure name="plowing" month="11" average_speed_value="0.84"  average_speed_unit="hectare_per_hour">
+      <doer name="driver" />
+      <tool name="tractor" />
+      <tool name="plow" />
+  </procedure>
+  <procedure name="raking" month="11" average_speed_value="0.49"  average_speed_unit="hectare_per_hour">
+      <doer name="driver" />
+      <tool name="tractor" />
+      <tool name="harrow" />
+  </procedure>
+  <procedure name="sowing" month="11" average_speed_value="0.65"  average_speed_unit="hectare_per_hour">
+      <input name="seeds" quantity_value="130.0" quantity_unit="kilogram_per_hectare"/>
+      <doer name="driver" />
+      <tool name="tractor" />
+      <tool name="sower" />
+  </procedure>
+  <procedure name="fertilizing" month="11" average_speed_value="0.24"  average_speed_unit="hectare_per_hour">
+      <input name="fertilizer" quantity_value="100" quantity_unit="kilogram_per_hectare"/>
+      <doer name="driver" />
+      <tool name="tractor" />
+      <tool name="spreader" />
+  </procedure>
+  <procedure name="fertilizing" month="01" average_speed_value="0.24"  average_speed_unit="hectare_per_hour">
+      <input name="fertilizer" quantity_value="100" quantity_unit="kilogram_per_hectare"/>
+      <doer name="driver" />
+      <tool name="tractor" />
+      <tool name="spreader" />
+  </procedure>
+  <procedure name="spraying" actions="herbicide" month="01" average_speed_value="0.24"  average_speed_unit="hectare_per_hour">
+      <input name="plant_medicine" quantity_value="0.5" quantity_unit="liter_per_hectare"/>
+      <doer name="driver" />
+      <tool name="tractor" />
+      <tool name="sprayer" />
+  </procedure>
+  <procedure name="fertilizing" month="03" average_speed_value="0.24"  average_speed_unit="hectare_per_hour">
+      <input name="fertilizer" quantity_value="100" quantity_unit="kilogram_per_hectare"/>
+      <doer name="driver" />
+      <tool name="tractor" />
+      <tool name="spreader" />
+  </procedure>
+  <procedure name="spraying" actions="growth_regulator" month="03" average_speed_value="0.24"  average_speed_unit="hectare_per_hour">
+      <input name="plant_medicine" quantity_value="2" quantity_unit="liter_per_hectare"/>
+      <doer name="driver" />
+      <tool name="tractor" />
+      <tool name="sprayer" />
+  </procedure>
+  <procedure name="spraying" actions="fungicide" month="04" average_speed_value="0.24"  average_speed_unit="hectare_per_hour">
+      <input name="plant_medicine" quantity_value="1" quantity_unit="liter_per_hectare"/>
+      <doer name="driver" />
+      <tool name="tractor" />
+      <tool name="sprayer" />
+  </procedure>
+  <procedure name="spraying" actions="fungicide,insecticide" month="05" average_speed_value="0.24"  average_speed_unit="hectare_per_hour">
+      <input name="plant_medicine" quantity_value="1" quantity_unit="liter_per_hectare"/>
+      <input name="plant_medicine" quantity_value="0.22" quantity_unit="liter_per_hectare"/>
+      <doer name="driver" />
+      <tool name="tractor" />
+      <tool name="sprayer" />
+  </procedure>
+  <procedure name="fertilizing" month="05" average_speed_value="0.24"  average_speed_unit="hectare_per_hour">
+      <input name="fertilizer" quantity_value="100" quantity_unit="kilogram_per_hectare"/>
+      <doer name="driver" />
+      <tool name="tractor" />
+      <tool name="spreader" />
+  </procedure>
+  <procedure name="harvesting" month="07" average_speed_value="3.0"  average_speed_unit="hectare_per_hour">
+      <output name="matters" quantity_value="70" quantity_unit="quintal_per_hectare"/>
+      <doer name="driver" />
+      <tool name="cropper" />
+  </procedure>
+</workflow>

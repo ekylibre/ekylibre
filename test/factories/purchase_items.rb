@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :purchase_item do
-    # needs tax
+    association :tax
     purchase
     account
     amount { 1848.0 }

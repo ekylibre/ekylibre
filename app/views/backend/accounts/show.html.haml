@@ -2,6 +2,12 @@
 
 - main_toolbar do |t|
   = t.edit(resource)
+  = dropdown_menu_button(:export.ta, icon: :download) do |d|
+    - export_params = params.slice(:states)
+    - d.item :etract_account_as_odt.tl, params: export_params.merge(format: :odt)
+    - d.item :extract_non_letter_odt.tl, params: export_params.merge(format: :odt, non_letter: true)
+    - d.item :etract_account_as_pdf.tl, params: export_params.merge(format: :pdf)
+    - d.item :extract_non_letter_pdf.tl, params: export_params.merge(format: :pdf, non_letter: true)
   = t.export :account_journal_entry_sheet
   = t.destroy(resource)
   = t.mark(resource) if resource.reconcilable?
@@ -23,8 +29,8 @@
   - c.cobble(:journal_entry_items) do
     = kujaku do |k|
       - k.text name: :b
-      - k.helper :journal_period_crit, :p
-      - k.helper :journal_entries_states_crit
+      - k.helper(:journal_period_crit, use_search_preference: true)
+      - k.helper(:journal_entries_states_crit, use_search_preference: true)
 
 
 

@@ -1,9 +1,5 @@
 por:
   enumerize:
-    account:
-      nature:
-        # auxiliary: "Auxiliary"
-        # general: "General"
     activity:
       nature:
         auxiliary: "Auxiliar"
@@ -142,12 +138,6 @@ por:
       nature:
         contact: "Contato"
         organization: "Organização"
-      supplier_payment_delay:
-        # 1 week: "at reception"
-        # 30 days: "30 days"
-        # 30 days, end of month: "30 days end of month"
-        # 60 days: "60 days"
-        # 60 days, end of month: "60 days end of month"
     entity_address:
       canal:
         email: "Email"
@@ -163,12 +153,6 @@ por:
         refused: "Recusado"
         waiting: "Esperando"
     financial_year:
-      state:
-        # closed: "Closed"
-        # closing: "Closure in progress"
-        # closure_in_preparation: "Closure in preparation"
-        # locked: "Locked"
-        # opened: "Opened"
       tax_declaration_frequency:
         monthly: "Por mês"
         none: "Nenhum"
@@ -306,7 +290,15 @@ por:
     map_layer:
       nature:
         background: "Fundo"
-        # overlay: "Overlay"
+        overlay: "Sobreposição"
+    naming_format_field_land_parcel:
+      field_name:
+        # activity: "Activity"
+        # campaign: "Campaign"
+        # cultivable_zone_code: "Cultivable zone code"
+        # cultivable_zone_name: "Cultivable zone name"
+        # production_mode: "Production mode"
+        # season: "Season"
     notification:
       level:
         error: "Erro"
@@ -334,6 +326,11 @@ por:
         in_preparation: "Em preparação" #?
         ordered: "Pedido" #?
         prepared: "Preparado" #?
+    parcel_item:
+      delivery_mode:
+        # third: "Transported by recipient"
+        # transporter: "Transported by transporter"
+        # us: "Transported by us"
     plant_counting:
       nature:
         germination: "Na germinação"
@@ -468,12 +465,6 @@ por:
         manual: "Manual" #?
         quantity_tax: "Quantidade-Imposto" #?
         tax_quantity: "Imposto-Quantidade" #?
-      payment_delay:
-        # 1 week: "at reception"
-        # 30 days: "30 days"
-        # 30 days, end of month: "30 days end of month"
-        # 60 days: "60 days"
-        # 60 days, end of month: "60 days end of month"
       tax_payability:
         at_invoicing: "No facturação"
         at_paying: "Ao pagar"
@@ -481,28 +472,15 @@ por:
       nature:
         payslip: "Recibo de Pagamento"
         purchase: "Compra"
-    sale:
+    sale: #?
       computation_method: #?
         adaptative: "Adaptativo" #?
         quantity_tax: "Quantidade-Imposto" #?
         tax_quantity: "Imposto-Quantidade" #?
-      payment_delay:
-        # 1 week: "at reception"
-        # 30 days: "30 days"
-        # 30 days, end of month: "30 days end of month"
-        # 60 days: "60 days"
-        # 60 days, end of month: "60 days end of month"
     sale_item: #?
       compute_from: #?
         pretax_amount: "Montante pretax" #?
         unit_pretax_amount: "Montante pretax unidade" #?
-    sale_nature:
-      payment_delay:
-        # 1 week: "at reception"
-        # 30 days: "30 days"
-        # 30 days, end of month: "30 days end of month"
-        # 60 days: "60 days"
-        # 60 days, end of month: "60 days end of month"
     sensor:
       retrieval_mode:
         integration: "Integração"

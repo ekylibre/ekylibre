@@ -1,15 +1,18 @@
-:ruby
-  purchases = purchase_affair.purchases
+- purchases = purchase_affair.purchase_invoices
 
-%tr{data: { outgoing_payment_purchase_affair: purchase_affair.id} }
+.invoices-list__content{ data: { outgoing_payment_purchase_affair: purchase_affair.id } }
   = hidden_field_tag 'purchase_affairs[]', nil, data: { outgoing_payment_purchase_affair_selection: true }
-  %td= check_box_tag :check, '1', false, data: { outgoing_payment_purchase_affair_selector: true, outgoing_payment_selected_amount: 0 }
-  - if purchases.count == 1
-    - purchase = purchases.first
-    %td= purchase.payment_at.nil? ? purchase.invoiced_at.l : purchase.payment_at.l
-    %td=link_to :purchase.tl + ' ' + purchase_affair.deal_work_name, backend_purchase_path(purchase)
-    %td=link_to purchase.reference_number, backend_purchase_path(purchase)
-  - else
-    %td= purchase_affair.created_at.l
-    %td=link_to purchase_affair.class.model_name.human + ' ' + purchase_affair.number, backend_purchase_affair_path(purchase_affair)
-  %td{data: { outgoing_payment_purchase_affair_amount: purchase_affair.balance }}= purchase_affair.balance.l(currency: f.object.mode.currency)
+  .invoices-list__column--width-sm
+    - checked = purchase_affair.third.supplier_payment_mode_id == params[:outgoing_payment_list][:mode_id].to_i
+    = check_box_tag :check, '1', false, data: { outgoing_payment_purchase_affair_selector: true, outgoing_payment_selected_amount: 0, check_on_load: checked }
+  .invoices-list__column--width-lg
+    = purchases.minimum(:invoiced_at)&.l
+  .invoices-list__column--width-lg
+    = link_to purchase_affair.class.model_name.human + ' ' + purchase_affair.number, backend_purchase_affair_path(purchase_affair)
+  .invoices-list__column--width-lg
+    - if purchases.pluck(:reconciliation_state).uniq == ['accepted']
+      %i.invoices-list__picto-check
+  .invoices-list__column--width-lg
+    = purchases.minimum(:payment_at)&.l
+  .invoices-list__column--width-md{ data: { outgoing_payment_purchase_affair_amount: purchase_affair.balance } }
+    = purchase_affair.balance.l(currency: f.object.mode.currency)

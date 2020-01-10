@@ -9,7 +9,7 @@ module Backend
       types = if affair.is_a?(SaleAffair)
                 %w[Sale IncomingPayment]
               elsif affair.is_a?(PurchaseAffair)
-                %w[Purchase PurchasePayment]
+                %w[PurchasePayment PurchaseInvoice]
               elsif affair.is_a?(PayslipAffair)
                 %w[Payslip PayslipPayment]
               else

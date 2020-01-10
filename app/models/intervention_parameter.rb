@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,6 +23,7 @@
 # == Table: intervention_parameters
 #
 #  assembly_id              :integer
+#  batch_number             :string
 #  component_id             :integer
 #  created_at               :datetime         not null
 #  creator_id               :integer
@@ -52,6 +53,7 @@
 #  updated_at               :datetime         not null
 #  updater_id               :integer
 #  variant_id               :integer
+#  variety                  :string
 #  working_zone             :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
 class InterventionParameter < Ekylibre::Record::Base
@@ -61,7 +63,7 @@ class InterventionParameter < Ekylibre::Record::Base
   belongs_to :intervention, inverse_of: :parameters
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :currency, :identification_number, :new_name, :quantity_handler, :quantity_indicator_name, :quantity_unit_name, length: { maximum: 500 }, allow_blank: true
+  validates :batch_number, :currency, :identification_number, :new_name, :quantity_handler, :quantity_indicator_name, :quantity_unit_name, :variety, length: { maximum: 500 }, allow_blank: true
   validates :dead, inclusion: { in: [true, false] }
   validates :quantity_population, :quantity_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :reference_name, presence: true, length: { maximum: 500 }
@@ -114,6 +116,10 @@ class InterventionParameter < Ekylibre::Record::Base
     true
   end
 
+  before_save do
+    self.intervention_id ||= self.intervention.id
+  end
+
   def self.role
     @role ||= name.gsub(/^Intervention/, '').underscore.to_sym
   end
@@ -139,8 +145,8 @@ class InterventionParameter < Ekylibre::Record::Base
     AmountComputation.none
   end
 
-  def cost
-    cost_amount_computation.amount
+  def cost(nature: nil, natures: {})
+    cost_amount_computation(nature: nature, natures: natures).amount
   end
 
   def earn_amount_computation
@@ -149,5 +155,74 @@ class InterventionParameter < Ekylibre::Record::Base
 
   def earn
     earn_amount_computation.amount
+  end
+
+  def self.order_by_product_name
+    joins(:product).order('products.name')
+  end
+
+  def self.compare_with_planned
+    result = true
+    associations = { InterventionDoer: :doers, InterventionTool: :tools, InterventionInput: :inputs }
+
+    return true if self.all.empty?
+
+    param = self.first
+    if param.intervention.record?
+      intervention = param.intervention.reload
+      request_intervention = intervention.request_intervention.reload
+    else
+      request_intervention = param.intervention.reload
+      intervention = request_intervention.record_interventions.first.reload
+    end
+
+    association = associations[param.type.to_sym]
+    self_parameters = intervention.send(association)
+    request_parameters = request_intervention.send(association)
+
+    return false if (self_parameters.empty? && request_parameters.any?) || (self_parameters.any? && request_parameters.empty?)
+
+    unless self_parameters.empty? && request_parameters.empty?
+      return false if self_parameters.group_by(&:product_id).count != request_parameters.group_by(&:product_id).count
+
+      request_parameters.group_by(&:product_id).each do |product_id, request_param|
+        self_param = intervention.product_parameters.where(product_id: product_id)
+
+        return false if self_param.empty?
+
+        if self_param.first.input?
+          self_quantity = self_param.map(&:quantity_population).compact.sum
+          request_quantity = request_param.map(&:quantity_population).compact.sum
+
+          percent = Intervention::PLANNED_REALISED_ACCEPTED_GAP[request_param.first.type.underscore.to_sym] || 1.2
+          intervals = (request_quantity / percent..request_quantity * percent)
+
+          return false unless intervals.include?(self_quantity)
+        else
+          rq_duration = 0
+          request_param.each { |param| rq_duration += calculate_cost_amount_computation(param).quantity }
+
+          self_duration = 0
+          self_param.each { |param| self_duration += calculate_cost_amount_computation(param).quantity }
+
+          percent = Intervention::PLANNED_REALISED_ACCEPTED_GAP[request_param.first.type.underscore.to_sym] || 1.2
+          intervals = (rq_duration / percent..rq_duration * percent)
+
+          return false unless intervals.include?(self_duration)
+        end
+      end
+    end
+    result
+  end
+
+  def self.calculate_cost_amount_computation(product_parameter)
+    if product_parameter.product.is_a?(Worker)
+      computation = product_parameter.cost_amount_computation
+    elsif product_parameter.product.try(:tractor?) && product_parameter.participation.present?
+      computation = product_parameter.cost_amount_computation(natures: %i[travel intervention])
+    else
+      computation = product_parameter.cost_amount_computation(natures: %i[intervention])
+    end
+    computation
   end
 end

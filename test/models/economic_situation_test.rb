@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -48,11 +48,13 @@ class EconomicSituationTest < ActiveSupport::TestCase
 
     Purchase.create!(
       currency: 'EUR',
+      type: 'PurchaseInvoice',
       supplier: @entity,
       nature: PurchaseNature.create!(currency: 'EUR'),
       items_attributes: [
         {
-          unit_pretax_amount: '12',
+          unit_pretax_amount: 12,
+          quantity: 1,
           tax: Tax.create!(
             country: :fr,
             nature: :null_vat,

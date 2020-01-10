@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -26,28 +26,34 @@
 #  activity_budget_id     :integer
 #  amount                 :decimal(19, 4)   default(0.0), not null
 #  annotation             :text
+#  conditionning          :integer
+#  conditionning_quantity :integer
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  currency               :string           not null
 #  depreciable_product_id :integer
+#  equipment_id           :integer
 #  fixed                  :boolean          default(FALSE), not null
 #  fixed_asset_id         :integer
+#  fixed_asset_stopped_on :date
 #  id                     :integer          not null, primary key
 #  label                  :text
 #  lock_version           :integer          default(0), not null
 #  position               :integer
 #  preexisting_asset      :boolean
 #  pretax_amount          :decimal(19, 4)   default(0.0), not null
+#  project_budget_id      :integer
 #  purchase_id            :integer          not null
-#  quantity               :decimal(19, 4)   default(1.0), not null
+#  quantity               :decimal(19, 4)   not null
 #  reduction_percentage   :decimal(19, 4)   default(0.0), not null
+#  role                   :string
 #  tax_id                 :integer          not null
 #  team_id                :integer
 #  unit_amount            :decimal(19, 4)   default(0.0), not null
 #  unit_pretax_amount     :decimal(19, 4)   not null
 #  updated_at             :datetime         not null
 #  updater_id             :integer
-#  variant_id             :integer          not null
+#  variant_id             :integer
 #
 
 class PurchaseItem < Ekylibre::Record::Base
@@ -55,25 +61,39 @@ class PurchaseItem < Ekylibre::Record::Base
   refers_to :currency
   belongs_to :account
   belongs_to :activity_budget
+  belongs_to :project_budget
   belongs_to :team
   belongs_to :purchase, inverse_of: :items
+  belongs_to :equipment, class_name: 'Product', inverse_of: :purchase_items
   belongs_to :variant, class_name: 'ProductNatureVariant', inverse_of: :purchase_items
   belongs_to :tax
   belongs_to :fixed_asset, inverse_of: :purchase_items
   belongs_to :depreciable_product, class_name: 'Product'
-  has_many :parcel_items
-  has_many :products, through: :parcel_items
+
+  with_options class_name: 'ReceptionItem' do
+    has_many :parcels_purchase_orders_items, inverse_of: :purchase_order_item, foreign_key: 'purchase_order_item_id'
+    has_many :parcels_purchase_invoice_items, inverse_of: :purchase_invoice_item, foreign_key: 'purchase_invoice_item_id'
+  end
+
+  # has_many :products, through: :parcels_purchase_orders_items
+  has_many :products, through: :parcels_purchase_invoice_items
   has_one :product_nature_category, through: :variant, source: :category
+
+  enumerize :role, in: %i[merchandise fees service], predicates: true
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :annotation, :label, length: { maximum: 500_000 }, allow_blank: true
-  validates :account, :currency, :purchase, :tax, :variant, presence: true
+  validates :conditionning, :conditionning_quantity, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :account, :currency, :purchase, :tax, presence: true
   validates :fixed, inclusion: { in: [true, false] }
+  validates :fixed_asset_stopped_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }, type: :date }, allow_blank: true
   validates :preexisting_asset, inclusion: { in: [true, false] }, allow_blank: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :currency, match: { with: :purchase }
   validates :account, :tax, :reduction_percentage, presence: true
+  validates :variant, presence: true, unless: proc { |item| item&.variant && (item.variant.variety.eql?('trailed_equipment') || item.variant.variety.eql?('equipment')) }
   validates :quantity, exclusion: { in: [0], message: :invalid }
 
   validates_associated :fixed_asset
@@ -158,11 +178,30 @@ class PurchaseItem < Ekylibre::Record::Base
     true
   end
 
+  before_destroy do
+    parcels_purchase_invoice_items.map { |parcel_item| parcel_item.update_attributes(purchase_invoice_item_id: nil) }
+  end
+
   after_destroy do
     if fixed && fixed_asset && purchase.purchased?
       fixed_asset.add_amount(-pretax_amount.to_f) if fixed_asset
     end
     true
+  end
+
+  validate do
+    next unless fixed
+    # Errors linked to fixed assets
+
+    errors.add(:fixed, :asset_account) unless variant.fixed_asset_account
+    errors.add(:fixed, :asset_expenses_account) unless variant.fixed_asset_expenses_account
+
+    depreciation_method = variant.fixed_asset_depreciation_method
+    errors.add(:fixed, :asset_depreciation_method) if depreciation_method.blank?
+
+    if depreciation_method.present? && depreciation_method.to_sym != :simplified_linear && fixed_asset_stopped_on.nil?
+      errors.add(:fixed, :fixed_asset_stopped_on_invalid)
+    end
   end
 
   after_save do
@@ -178,6 +217,8 @@ class PurchaseItem < Ekylibre::Record::Base
         )
       end
     end
+
+    purchase.save! if purchase && purchase.is_a?(PurchaseInvoice)
   end
 
   def new_fixed_asset
@@ -185,6 +226,7 @@ class PurchaseItem < Ekylibre::Record::Base
     asset_attributes = {
       currency: currency,
       started_on: purchase.invoiced_at.to_date,
+      stopped_on: fixed_asset_stopped_on,
       depreciable_amount: pretax_amount.to_f,
       depreciation_period: Preference.get(:default_depreciation_period).value,
       depreciation_method: variant.fixed_asset_depreciation_method || :simplified_linear,
@@ -195,9 +237,17 @@ class PurchaseItem < Ekylibre::Record::Base
       expenses_account: variant.fixed_asset_expenses_account, # 68
       product: depreciable_product
     }
-    asset_name = parcel_items.collect(&:name).to_sentence if products.any?
+
+    if products.any?
+      asset_name = if !parcels_purchase_orders_items.empty?
+                     parcels_purchase_orders_items.collect(&:name).to_sentence
+                   else
+                     parcels_purchase_invoice_items.collect(&:name).to_sentence
+                   end
+    end
+
     asset_name ||= name
-    name_duplicate_count = FixedAsset.where('name ~ ?', "^#{Regexp.escape(name)} ?\\d*$").count
+    name_duplicate_count = FixedAsset.where('name ~ ?', "^#{Regexp.escape(name)} ?\\w*$").count
     unless name_duplicate_count.zero?
       unique_identifier = (name_duplicate_count + 1).to_s(36).upcase
       asset_name = "#{asset_name} #{unique_identifier}"
@@ -207,19 +257,27 @@ class PurchaseItem < Ekylibre::Record::Base
     build_fixed_asset(asset_attributes)
   end
 
+  def create_fixed_asset
+    return unless fixed
+
+    a = new_fixed_asset
+
+    a.save!
+
+    self.fixed_asset = a
+    self.preexisting_asset = true
+
+    save!
+  end
+
   def update_fixed_asset
     return unless fixed
+
     if preexisting_asset
       return errors.add(:fixed_asset, :fixed_asset_missing) unless fixed_asset
       return errors.add(:fixed_asset, :fixed_asset_cannot_be_modified) unless fixed_asset.draft?
       fixed_asset.reload
       fixed_asset.add_amount(pretax_amount.to_f)
-    else
-      a = new_fixed_asset
-      a.save!
-      self.fixed_asset = a
-      self.preexisting_asset = true
-      save!
     end
   end
 
@@ -243,15 +301,72 @@ class PurchaseItem < Ekylibre::Record::Base
   end
 
   def undelivered_quantity
-    self.quantity - parcel_items.sum(:quantity)
+    if !parcels_purchase_orders_items.empty?
+      self.quantity - parcels_purchase_orders_items.sum(&:quantity)
+    else
+      self.quantity - parcels_purchase_invoice_items.sum(&:quantity)
+    end
   end
 
   # know how many percentage of invoiced VAT to declare
   def payment_ratio
+    return nil unless purchase.respond_to?(:affair)
     if purchase.affair.balanced?
       1.00
     elsif purchase.affair.debit != 0.0
       (1 - (purchase.affair.balance / purchase.affair.debit)).to_f
     end
+  end
+
+  def first_reception_number
+    return nil if first_reception.nil?
+
+    return first_reception.number.concat(" (#{receptions_count})") if receptions_count > 1
+    first_reception.number if receptions_count == 1
+  end
+
+  def first_reception_id
+    return nil if first_reception.nil?
+
+    first_reception.id
+  end
+
+  def human_received_quantity
+    return unless purchase.is_a?(PurchaseOrder) ||  parcels_purchase_orders_items.empty?
+
+    received_quantity.l(precision: 3)
+  end
+
+  def quantity_to_receive
+    return unless purchase.is_a?(PurchaseOrder) ||  parcels_purchase_orders_items.empty?
+
+    (quantity - received_quantity)
+  end
+
+  def human_quantity_to_receive
+    quantity_to_receive.l(precision: 3)
+  end
+
+  private
+
+  def first_reception
+    return nil if parcels_purchase_invoice_items.empty? && parcels_purchase_orders_items.empty?
+
+    parcel_item = parcels_purchase_invoice_items.first if purchase.is_a?(PurchaseInvoice)
+    parcel_item = parcels_purchase_orders_items.first if purchase.is_a?(PurchaseOrder)
+
+    Parcel.find(parcel_item.parcel_id)
+  end
+
+  def receptions_count
+    return parcels_purchase_invoice_items.count if purchase.is_a?(PurchaseInvoice)
+    return parcels_purchase_orders_items.count if purchase.is_a?(PurchaseOrder)
+  end
+
+  def received_quantity
+    parcels_purchase_orders_items
+      .select { |reception_item| reception_item.reception.state.to_sym == :given }
+      .map(&:population)
+      .sum
   end
 end

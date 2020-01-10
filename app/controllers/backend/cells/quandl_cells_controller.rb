@@ -1,21 +1,20 @@
+# frozen_string_literal: true
+
+require 'quandl'
 module Backend
   module Cells
     class QuandlCellsController < Backend::Cells::BaseController
       def show
         start = Time.zone.today << 12
         finish = start >> 12 - 1
-        # params[:threshold] = 183.50
+        api_key = ENV['QUANDL_API_KEY']
+        Quandl::ApiConfig.api_key = api_key
+        # Quandl::ApiConfig.api_version = '2015-04-09'
         dataset = params[:dataset] || 'CHRIS/LIFFE_EBM4'
         identifier = Identifier.find_by(nature: :quandl_token)
-        token = (identifier ? identifier.value : 'BwQESxTYjPRj58EbvzQA')
-        url = "https://www.quandl.com/api/v1/datasets/#{dataset}.json?auth_token=#{token}&trim_start=#{start}&trim_end=#{finish}"
-        url = "https://www.quandl.com/api/v1/datasets/#{dataset}.json?auth_token=#{token}"
-        data = JSON.parse(open(url))
-        if data['errors'].any?
-        # TODO: Prevent ?
-        else
-          @data = data.deep_symbolize_keys
-        end
+        token = (identifier ? identifier.value : api_key)
+        @data = Quandl::Dataset.get(dataset).data(params: { start_date: started, end_date: finished, order: 'asc' })
+        @data if @data.any?
       end
     end
   end

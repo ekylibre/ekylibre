@@ -47,7 +47,7 @@ deu:
     harvest_year: "Erntejahr"
     harvested_at: "geerntete an"
     implanted_at: "implantierte an"
-    intervention_durations: "Intervention Dauern"
+    intervention_durations: "Intervention Dauern" #?
     loss_balance: "Verlustbilanz"
     losses: "Verluste" #?
     meat_saleable_on: "Fleisch verkäuflich auf"

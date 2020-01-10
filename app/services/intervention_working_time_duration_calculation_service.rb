@@ -124,6 +124,10 @@ class InterventionWorkingTimeDurationCalculationService
 
     count += 1 if tractor? && !product_participation?
 
+    unless @intervention.tools.blank?
+      count = @intervention.tools.select{ |t| t.product.try(:tractor?) }.count
+    end
+
     count
   end
 
@@ -133,6 +137,10 @@ class InterventionWorkingTimeDurationCalculationService
             .size
 
     count += 1 if !tractor? && tool? && !product_participation?
+
+    unless @intervention.tools.blank?
+      count = @intervention.tools.select{ |t| t.product.is_a?(Equipment) && t.product.try(:tractor?) == false }.count
+    end
 
     count
   end

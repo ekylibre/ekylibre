@@ -8,7 +8,9 @@
     = f.referenced_association :client, input_html: {data: {product_of_delivery_item: {url: backend_entity_path("RECORD_ID", format: :json)}}}
     = f.subset :addresses, depend_on: :client
   -# = f.input :expired_at
-  = f.input :invoiced_at
+  = f.input :invoiced_at, wrapper_html: { class: 'apply-fy-date' }
+  %span.hidden#financial-year-dates{ financial_year_started_on_stopped_on }
+    = :warning_date_not_in_period.tl
   = f.association :nature, as: :hidden
   = f.referenced_association :responsible, source: {scope: :users}, new: {employed: 1}
   = f.referenced_association :transporter, source: :transporters

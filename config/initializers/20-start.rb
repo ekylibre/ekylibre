@@ -20,6 +20,9 @@ autoload :ActiveSensor,    'active_sensor'
 # App-specific libs
 require 'ekylibre'
 
+# Reference data
+require 'lexicon'
+
 require 'working_set'
 
 # XML definitions
@@ -59,7 +62,7 @@ require 'open_weather_map' if Nomen[:indicators]
 
 Ekylibre.load_integrations
 
-Ekylibre::Plugin.load unless ENV['PLUGIN'] == 'false'
+Ekylibre::Plugin.load unless ENV['PLUGIN'] == 'false' || ENV['RAILS_ENV'] == 'test'
 Ekylibre::Plugin.plug
 
 Aggeratio.load_path += Dir.glob(Rails.root.join('config', 'aggregators', '**', '*.xml'))

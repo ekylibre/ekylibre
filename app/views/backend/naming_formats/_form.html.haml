@@ -1,0 +1,11 @@
+= field_set(class: "naming-format-form") do
+  = f.nested_association :fields, maximum: 6, minimum: 1
+
+  .naming-format-example
+
+    = modal(id: 'namingFormatModal', class: "", size: :large) do
+      .modal-body
+        %p.confirmation-text= :confirmation_update_historical_plans.tl
+      .modal-footer
+        %button.no-update-plans.btn.btn-default= :n.tl
+        %button.update-plans.btn.btn-primary= :revise.tl

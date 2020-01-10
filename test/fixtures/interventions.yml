@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,6 +25,7 @@
 #  accounted_at                   :datetime
 #  actions                        :string
 #  auto_calculate_working_periods :boolean          default(FALSE)
+#  costing_id                     :integer
 #  created_at                     :datetime         not null
 #  creator_id                     :integer
 #  currency                       :string
@@ -37,8 +38,11 @@
 #  lock_version                   :integer          default(0), not null
 #  nature                         :string           not null
 #  number                         :string
+#  parent_id                      :integer
 #  prescription_id                :integer
 #  procedure_name                 :string           not null
+#  providers                      :jsonb
+#  purchase_id                    :integer
 #  request_compliant              :boolean
 #  request_intervention_id        :integer
 #  started_at                     :datetime         not null
@@ -48,6 +52,7 @@
 #  trouble_encountered            :boolean          default(FALSE), not null
 #  updated_at                     :datetime         not null
 #  updater_id                     :integer
+#  validator_id                   :integer
 #  whole_duration                 :integer          not null
 #  working_duration               :integer          not null
 #
@@ -55,6 +60,7 @@
 interventions_001:
   actions: plowing, loosening
   auto_calculate_working_periods: false
+  costing_id: 1
   created_at: 2014-11-04 18:31:09.285923000 Z
   creator_id: 1
   event_id: 13
@@ -74,6 +80,7 @@ interventions_001:
 interventions_002:
   actions: weeding
   auto_calculate_working_periods: false
+  costing_id: 2
   created_at: 2014-11-04 18:41:39.737616000 Z
   creator_id: 1
   event_id: 14
@@ -93,6 +100,7 @@ interventions_002:
 interventions_003:
   actions: sowing
   auto_calculate_working_periods: false
+  costing_id: 3
   created_at: 2014-11-05 15:39:35.599908000 Z
   creator_id: 1
   event_id: 19
@@ -112,6 +120,7 @@ interventions_003:
 interventions_004:
   actions: plowing, loosening
   auto_calculate_working_periods: false
+  costing_id: 4
   created_at: 2014-11-06 17:47:16.003032000 Z
   creator_id: 1
   event_id: 20
@@ -131,6 +140,7 @@ interventions_004:
 interventions_005:
   actions: sowing
   auto_calculate_working_periods: false
+  costing_id: 5
   created_at: 2014-11-06 17:49:34.368349000 Z
   creator_id: 1
   event_id: 21
@@ -148,8 +158,10 @@ interventions_005:
   whole_duration: 28800
   working_duration: 28800
 interventions_006:
+  accounted_at: 2018-09-20 09:33:27.280632000 Z
   actions: disease_treatment
   auto_calculate_working_periods: false
+  costing_id: 6
   created_at: 2014-11-07 14:44:11.007227000 Z
   creator_id: 1
   event_id: 22
@@ -171,6 +183,7 @@ interventions_006:
 interventions_007:
   actions: herbicide
   auto_calculate_working_periods: false
+  costing_id: 7
   created_at: 2014-11-07 15:02:12.145127000 Z
   creator_id: 1
   event_id: 23
@@ -191,6 +204,7 @@ interventions_007:
 interventions_008:
   actions: fertilization
   auto_calculate_working_periods: false
+  costing_id: 8
   created_at: 2014-11-07 15:26:35.538449000 Z
   creator_id: 1
   event_id: 24
@@ -210,6 +224,7 @@ interventions_008:
 interventions_009:
   actions: sowing
   auto_calculate_working_periods: false
+  costing_id: 9
   created_at: 2014-11-07 15:45:30.882661000 Z
   creator_id: 1
   event_id: 25
@@ -229,6 +244,7 @@ interventions_009:
 interventions_010:
   actions: animal_feeding
   auto_calculate_working_periods: false
+  costing_id: 10
   created_at: 2014-11-07 15:47:46.996499000 Z
   creator_id: 1
   event_id: 26
@@ -248,6 +264,7 @@ interventions_010:
 interventions_011:
   actions: animal_feeding
   auto_calculate_working_periods: false
+  costing_id: 11
   created_at: 2014-11-07 16:16:21.819333000 Z
   creator_id: 1
   event_id: 27
@@ -267,6 +284,7 @@ interventions_011:
 interventions_012:
   actions: fertilization
   auto_calculate_working_periods: false
+  costing_id: 12
   created_at: 2014-11-07 16:20:51.420516000 Z
   creator_id: 1
   event_id: 28
@@ -286,6 +304,7 @@ interventions_012:
 interventions_013:
   actions: planting
   auto_calculate_working_periods: false
+  costing_id: 13
   created_at: 2014-11-07 16:49:41.924502000 Z
   creator_id: 1
   event_id: 29
@@ -305,6 +324,7 @@ interventions_013:
 interventions_014:
   actions: herbicide
   auto_calculate_working_periods: false
+  costing_id: 14
   created_at: 2014-11-07 16:58:54.121180000 Z
   creator_id: 1
   event_id: 30
@@ -325,6 +345,7 @@ interventions_014:
 interventions_015:
   actions: harvest
   auto_calculate_working_periods: false
+  costing_id: 15
   created_at: 2014-11-07 17:07:15.601972000 Z
   creator_id: 1
   event_id: 31
@@ -344,6 +365,7 @@ interventions_015:
 interventions_016:
   actions: grape_pressing
   auto_calculate_working_periods: false
+  costing_id: 16
   created_at: 2014-11-07 19:02:48.874701000 Z
   creator_id: 1
   event_id: 33
@@ -363,6 +385,7 @@ interventions_016:
 interventions_017:
   actions: fermentation
   auto_calculate_working_periods: false
+  costing_id: 17
   created_at: 2014-11-07 19:08:38.774375000 Z
   creator_id: 1
   event_id: 34
@@ -382,6 +405,7 @@ interventions_017:
 interventions_018:
   actions: chaptalization
   auto_calculate_working_periods: false
+  costing_id: 18
   created_at: 2014-11-07 19:12:37.525620000 Z
   creator_id: 1
   event_id: 35
@@ -401,6 +425,7 @@ interventions_018:
 interventions_019:
   actions: sulfur_addition
   auto_calculate_working_periods: false
+  costing_id: 19
   created_at: 2014-11-07 19:23:41.906006000 Z
   creator_id: 1
   event_id: 36
@@ -421,6 +446,7 @@ interventions_019:
 interventions_020:
   actions: wine_bottling
   auto_calculate_working_periods: false
+  costing_id: 20
   created_at: 2014-11-07 19:36:53.121209000 Z
   creator_id: 1
   event_id: 37
@@ -440,6 +466,7 @@ interventions_020:
 interventions_021:
   actions: fertilization
   auto_calculate_working_periods: false
+  costing_id: 21
   created_at: 2016-07-01 20:46:56.127570000 Z
   creator_id: 1
   description: ''
@@ -460,6 +487,7 @@ interventions_021:
 interventions_022:
   actions: curative_maintenance
   auto_calculate_working_periods: false
+  costing_id: 22
   created_at: 2016-08-10 14:33:28.786749000 Z
   creator_id: 1
   description: ''
@@ -482,6 +510,7 @@ interventions_023:
   accounted_at: 2016-12-20 18:24:29.661756000 Z
   actions: sowing
   auto_calculate_working_periods: false
+  costing_id: 23
   created_at: 2016-12-20 18:24:29.439552000 Z
   creator_id: 1
   description: ''

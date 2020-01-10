@@ -8,6 +8,9 @@
 # Ignore bundler config.
 /.bundle
 
+# Ignore node modules
+/node_modules
+
 /.sass-cache
 .rspec
 .settings
@@ -38,6 +41,7 @@ db/lexicon/data.sql
 # Ignore backup files
 /backup
 *~
+*.swp
 
 # Ignore jasper files
 config/locales/*/reporting/*.jasper
@@ -53,6 +57,8 @@ private/*
 # Ignore plugins
 /plugins
 /plugins-*
+/plugins/*
+!/plugins/.keep
 
 # Ignore local database config
 /config/database.yml
@@ -89,3 +95,6 @@ Procfile.*
 .gitconfig
 
 .DS_Store
+
+# Ignore postgres volume
+/data

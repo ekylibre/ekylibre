@@ -153,7 +153,7 @@ module SeparatorHandling
                    .replace(/DOT/, ".");
       };
     JS
-    super(wrapper_options.merge(oninput: validation)).gsub("type=\"number\"", "type=\"text\"")
+    super(wrapper_options.merge(oninput: validation)).gsub('type="number"', 'type="text"')
   end
 end
 

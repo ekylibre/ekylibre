@@ -2,9 +2,11 @@ ita:
   exchangers:
     agro_systemes_soil_analyses: "analisi del terreno AGRO Systèmes"
     agro_systemes_water_analyses: "analisi dell'acqua AGRO Systèmes"
+    # agroedi_daplos: "Agroedi daplos"
     bordeaux_sciences_agro_istea_general_ledger: "Bordeaux Scienze Agro ISTEA contabilità generale" #?
     bordeaux_sciences_agro_istea_journals: "Bordeaux Scienze Agro ISTEA riviste" #?
     bovins_croissance_cattle_performance_controls: "Bovins Croissance controlli delle prestazioni del bestiame"
+    # caj_incoming_deliveries: "Caj incoming deliveries"
     charentes_alliance_incoming_deliveries: "Charentes Alliance consegne in arrivo"
     charentes_alliance_outgoing_deliveries: "Charentes Alliance consegne in uscita"
     # ebp_edi: "EBP EDI"
@@ -18,7 +20,7 @@ ita:
     ekylibre_buildings_json: "edifici Ekylibre JSON"
     ekylibre_cap_land_parcel_clusters_json: "Ekylibre cluster pacchi terra tappo JSON" #?
     ekylibre_cap_land_parcels_json: "Ekylibre appezzamenti tappo JSON" #?
-    # ekylibre_cash_transfers: "Ekylibre cash transfers"
+    # ekylibre_cash_transferts: "Ekylibre cash transferts"
     ekylibre_crumbs: "Ekylibre Briciole" #?
     ekylibre_cultivable_zones: "zone coltivabili Ekylibre"
     ekylibre_cultivable_zones_json: "Ekylibre zone coltivabili JSON"
@@ -45,16 +47,20 @@ ita:
     fiea_galactea: "FIEA Galactea"
     isagri_isacompta_export: "Isagri esportazione isacompta"
     isagri_isacompta_fixed_assets: "ISAGRI beni isacompta fisso"
-    # isagri_isaculture_csv_import: "Isagri isaculture csv import"
+    # isagri_isacompta_journal_entries: "Isagri isacompta journal entries"
+    isagri_isaculture_csv_import: "Importazione di Isagri Isaculture CSV"
     la_graine_informatique_vinifera_entities: "La entità vinifera graine informatique"
     la_graine_informatique_vinifera_products: "La prodotti vinifera graine informatique"
     la_graine_informatique_vinifera_sales: "La vendita vinifera graine informatique"
     legrain_epicea_accounts: "conti Epicea Legrain"
     legrain_epicea_journals: "riviste Epicea Legrain"
+    # lely_milk_robot_individual_production: "Lely milk robot individual production"
     lilco_milk_analyses: "le analisi del latte Lilco"
     milklic_individual_production: "produzione individuale Milklic"
     synel_animals: "animali Synel"
     synel_inventory: "inventario Synel"
+    # synest_inventory: "Synest inventory"
+    # synest_milk_control: "Synest milk control"
     telepac_v2014_cap_land_parcels: "Telepac v2014 appezzamenti tappo"
     telepac_v2014_land_parcels: "Telepac v2014 appezzamenti"
     telepac_v2015_cap_land_parcels: "Telepac v2015 appezzamenti tappo"
@@ -65,3 +71,4 @@ ita:
     upra_reproductors: "riproduttori UPRA"
     viniteca_interventions: "interventi Viniteca"
     viniteca_plant_zones: "zone di piante Viniteca"
+    # vivescia_purchase: "Vivescia purchase"

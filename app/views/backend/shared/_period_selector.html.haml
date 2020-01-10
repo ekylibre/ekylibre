@@ -7,6 +7,8 @@
   - url_params = {}
   - url_params[:current_period] = previous_period
   - url_params[:current_campaign] = previous_period.year if period_interval == :year
+  - params.each do |param|
+    - url_params[param[0]] = param[1] if param[0].to_sym != :current_campaign && param[0].to_sym != :current_period
   = link_to('', url_params, class: 'btn btn-previous icn icn-only')
 
 
@@ -43,4 +45,6 @@
   - url_params = {}
   - url_params[:current_period] = next_period
   - url_params[:current_campaign] = next_period.year if period_interval == :year
+  - params.each do |param|
+    - url_params[param[0]] = param[1] if param[0].to_sym != :current_campaign && param[0].to_sym != :current_period
   = link_to('', url_params, class: 'btn btn-next icn icn-only')

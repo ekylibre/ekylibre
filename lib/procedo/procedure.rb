@@ -6,7 +6,7 @@ module Procedo
   class Procedure
     ROOT_NAME = 'root_'.freeze
 
-    attr_reader :id, :name, :categories, :mandatory_actions, :optional_actions, :varieties
+    attr_reader :id, :name, :categories, :mandatory_actions, :optional_actions, :varieties, :hidden
     delegate :add_product_parameter, :add_group_parameter, :find, :find!,
              :each_product_parameter, :each_group_parameter, :each_parameter,
              :product_parameters, :group_parameters,
@@ -48,8 +48,10 @@ module Procedo
       # Select procedures with given block
       def select(options = {})
         include_deprecated = options[:include_deprecated]
+        include_hidden = options[:include_hidden]
         Procedo.procedures.select do |p|
-          (include_deprecated || (!include_deprecated && !p.deprecated?)) &&
+          (include_deprecated || !p.deprecated?) &&
+            (include_hidden || !p.hidden?) &&
             yield(p)
         end
       end
@@ -71,6 +73,7 @@ module Procedo
       @varieties = []
       @root_group = Procedo::Procedure::GroupParameter.new(self, ROOT_NAME, cardinality: 1)
       @deprecated = !!options[:deprecated]
+      @hidden = !!options[:hidden]
       # Adds categories & action
       options[:categories].each { |c| add_category(c) } if options[:categories]
       options[:mandatory_actions].each { |c| add_action(c) } if options[:mandatory_actions]
@@ -85,6 +88,10 @@ module Procedo
 
     def deprecated?
       @deprecated
+    end
+
+    def hidden?
+      @hidden
     end
 
     # Adds category to procedure

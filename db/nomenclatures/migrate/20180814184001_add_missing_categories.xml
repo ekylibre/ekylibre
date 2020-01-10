@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add missing categories">
+    <item-creation item="product_nature_categories#agricultural_taxe" charge_account="products_specials_taxes" product_account="products_specials_taxes" purchasable="true" saleable="true" pictogram="legal"/>
+    <item-creation item="product_natures#crop_taxe" category="agricultural_taxe" variety="service" population_counting="decimal" variable_indicators=""/>
+    <item-creation item="product_nature_variants#cereal_taxe" nature="crop_taxe" unit_name="unit"/>
+</migration>

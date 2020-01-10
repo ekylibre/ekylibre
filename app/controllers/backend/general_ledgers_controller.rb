@@ -20,6 +20,7 @@
 
 module Backend
   class GeneralLedgersController < Backend::BaseController
+    before_action :save_search_preference, only: :show
     def self.list_conditions
       code = ''
       code << search_conditions({ journal_entry_item: %i[name debit credit real_debit real_credit] }, conditions: 'c') + "\n"
@@ -48,8 +49,7 @@ module Backend
       t.column :credit, currency: true, hidden: true, on_select: :sum
       t.column :absolute_debit,  currency: :absolute_currency, on_select: :sum
       t.column :absolute_credit, currency: :absolute_currency, on_select: :sum
-      t.column :cumulated_absolute_debit,  currency: :absolute_currency, on_select: :sum
-      t.column :cumulated_absolute_credit, currency: :absolute_currency, on_select: :sum
+      t.column :vat_account, url: { controller: :accounts, action: :show, id: 'RECORD.vat_account'.c }, label_method: :vat_account_label
     end
 
     def show; end

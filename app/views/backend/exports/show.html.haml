@@ -1,9 +1,38 @@
-= kujaku do |k|
-  - @aggregator.class.parameters.each do |parameter|
-    = render "parameter", parameter: parameter, k: k
+- if params[:id] == 'exchange_accountancy_file_fr'
+  - fiscal_positions = %i[text xml].map do |format|
+    - %i[all ba_bnc_ir_commercial_accountancy ba_ir_cash_accountancy bnc_ir_cash_accountancy].map do |position|
+      - ["export_#{format}_fec_#{position}".tl, "#{format}_#{position}"]
+  #custom-list
+    .toolbar-content
+      .main-toolbar.toolbar.custom-main-toolbar
+        = form_tag nil, class: 'filter-form' do
+          = label_tag :financial_year.tl
+          = select_tag :financial_year_id, options_from_collection_for_select(FinancialYear.order(started_on: :desc), :id, :name, current_user.current_financial_year.id)
+          = label_tag :type_of_structure.tl
+          = select_tag :fiscal_position, options_for_select(fiscal_positions.flatten(1), 'all')
+    .toolbar-content
+      .main-toolbar.toolbar.custom-main-toolbar
+        = label_tag :file_trimming.tl, nil, class: 'main-label'
+        = label_tag 'year', :year.tl
+        = radio_button_tag :interval, 'year', true
+        = label_tag 'semesters', :semester.tl.pluralize
+        = radio_button_tag :interval, 'semesters'
+        = label_tag 'trimesters', :trimester.tl.pluralize
+        = radio_button_tag :interval, 'trimesters'
+        = label_tag 'months', :month.tl.pluralize
+        = radio_button_tag :interval, 'months'
+    .toolbar-content.submit-filters
+      .main-toolbar.toolbar.custom-main-toolbar
+        = button_tag class: 'btn btn-default', id: 'fec-export-submit' do
+          <i class='icon icon-download'></i> #{:download.tl}
 
-- main_toolbar do |t|
-  = t.export @aggregator.class.aggregator_name, key: :key, resource: @aggregator
+- else
+  = kujaku do |k|
+    - @aggregator.class.parameters.each do |parameter|
+      = render "parameter", parameter: parameter, k: k
 
-- if current_user.preference(User::PREFERENCE_SHOW_EXPORT_PREVIEW).value
-  .aggregator= @aggregator.to_html_fragment
+  - main_toolbar do |t|
+    = t.export @aggregator.class.aggregator_name, key: :key, resource: @aggregator
+
+  - if current_user.preference(User::PREFERENCE_SHOW_EXPORT_PREVIEW).value
+    .aggregator= @aggregator.to_html_fragment

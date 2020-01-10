@@ -188,7 +188,7 @@ table {
 
 .active-list[data-list-source], .active-list {
   table.list {
-    border-collapse: collapse;
+    border-collapse: separate;
     width: 100%;
     th, td {
       max-width: 20em;
@@ -464,5 +464,83 @@ table {
     margin: 0 $margin;
     height: 1.2em;
     background: $menu-border-color;
+  }
+}
+
+.custom-main-toolbar, .custom-meta-toolbar {
+  float: none !important;
+  margin-bottom: 0px !important;
+  margin-top: 0px !important;
+}
+
+.custom-main-toolbar {
+  display: flex;
+  justify-content: center;
+  > form {
+    display: inline-block;
+  }
+}
+
+#custom-list {
+  .toolbar-content {
+    padding: 9px 0px;
+    background: #C5D4F0;
+    &:not(:first-child):not(.submit-filters) {
+      border-top: 2px solid #b9cbed;
+    }
+    &.submit-filters {
+      background: #b9cbed;
+    }
+    .custom-main-toolbar {
+      input, select {
+        margin-right: 10px;
+      }
+      .main-label {
+        margin-right: 20px;
+      }
+      input[type='radio'] {
+        margin: 4px 10px 0px 5px;
+      }
+    }
+  }
+  table {
+    margin-bottom: 0px;
+    thead {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+
+      th {
+        &.act {
+          width: 16px;
+        }
+        &.sm {
+          width: 8%;
+        }
+        &.med {
+          width: 10%;
+        }
+      }
+    }
+    tbody {
+      display: block;
+      height: calc(100vh - 96px - 54px - 47px - 35px - 70px - 5px);
+      overflow: auto;
+
+      tr {
+        width: 100%;
+        display: table;
+        table-layout: fixed;
+
+        td {
+          &.sm {
+            width: 8%;
+          }
+          &.med {
+            width: 10%;
+          }
+        }
+      }
+    }
   }
 }

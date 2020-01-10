@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -1973,3 +1973,83 @@ product_movements_178:
   stopped_at: 2016-04-07 17:23:00.000000000 Z
   updated_at: 2016-12-20 18:24:29.783816000 Z
   updater_id: 1
+product_movements_179:
+  created_at: 2018-09-19 15:59:57.623730000 Z
+  delta: 1.0
+  id: 179
+  lock_version: 0
+  population: 0.0
+  product_id: 13
+  started_at: 2018-09-19 15:59:57.601168000 Z
+  stopped_at: 2018-09-20 15:59:57.601168000 Z
+  updated_at: 2018-09-19 15:59:57.623730000 Z
+product_movements_180:
+  created_at: 2018-09-19 15:59:57.637431000 Z
+  delta: 1.0
+  id: 180
+  lock_version: 0
+  population: 0.0
+  product_id: 12
+  started_at: 2018-09-19 15:59:57.630921000 Z
+  stopped_at: 2018-09-20 15:59:57.630921000 Z
+  updated_at: 2018-09-19 15:59:57.637431000 Z
+product_movements_181:
+  created_at: 2018-09-19 15:59:57.649913000 Z
+  delta: 1.0
+  id: 181
+  lock_version: 0
+  population: 0.0
+  product_id: 11
+  started_at: 2018-09-19 15:59:57.644273000 Z
+  stopped_at: 2018-09-20 15:59:57.644273000 Z
+  updated_at: 2018-09-19 15:59:57.649913000 Z
+product_movements_182:
+  created_at: 2018-09-19 15:59:57.662641000 Z
+  delta: 1.0
+  id: 182
+  lock_version: 0
+  population: 0.0
+  product_id: 93
+  started_at: 2018-09-19 15:59:57.656970000 Z
+  stopped_at: 2018-09-20 15:59:57.656970000 Z
+  updated_at: 2018-09-19 15:59:57.662641000 Z
+product_movements_183:
+  created_at: 2018-09-19 15:59:57.678049000 Z
+  delta: -1.0
+  id: 183
+  lock_version: 0
+  population: 0.0
+  product_id: 6
+  started_at: 2018-09-19 15:59:57.669950000 Z
+  stopped_at: 2018-09-20 15:59:57.669950000 Z
+  updated_at: 2018-09-19 15:59:57.678049000 Z
+product_movements_184:
+  created_at: 2018-09-19 15:59:57.690366000 Z
+  delta: -1.0
+  id: 184
+  lock_version: 0
+  population: 0.0
+  product_id: 5
+  started_at: 2018-09-19 15:59:57.685178000 Z
+  stopped_at: 2018-09-20 15:59:57.685178000 Z
+  updated_at: 2018-09-19 15:59:57.690366000 Z
+product_movements_185:
+  created_at: 2018-09-19 15:59:57.703193000 Z
+  delta: 1.0
+  id: 185
+  lock_version: 0
+  population: 0.0
+  product_id: 86
+  started_at: 2018-09-19 15:59:57.697925000 Z
+  stopped_at: 2018-09-20 15:59:57.697925000 Z
+  updated_at: 2018-09-19 15:59:57.703193000 Z
+product_movements_186:
+  created_at: 2018-09-19 15:59:57.715991000 Z
+  delta: 1.0
+  id: 186
+  lock_version: 0
+  population: 0.0
+  product_id: 85
+  started_at: 2018-09-19 15:59:57.711190000 Z
+  stopped_at: 2018-09-20 15:59:57.711190000 Z
+  updated_at: 2018-09-19 15:59:57.715991000 Z

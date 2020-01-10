@@ -1,64 +1,60 @@
 fra:
+  errors:
+    messages: &error_messages
+      accepted: "%{attribute} doit être accepté"
+      after: "%{attribute} doit être après le %{restriction}"
+      before: "%{attribute} doit être avant le %{restriction}"
+      blank: "%{attribute} ne peut pas être vide"
+      confirmation: "%{attribute} est différent du champ de confirmation"
+      contains_blank_line: "%{attribute} contient une ligne vide" #?
+      contains_blank_page: "%{attribute} contient une page vide" #?
+      currency_does_not_match: "La devise de «\_%{attribute}\_» ne correspond pas celle attendue\_: %{currency}"
+      empty: "%{attribute} ne peut pas être vide"
+      entry_has_been_already_validated: "La pièce a été validée et ne peut plus être modifiée" #?
+      equal_to: "%{attribute} doit être égal à %{count}"
+      even: "%{attribute} doit être impair"
+      exclusion: "%{attribute} est reservé"
+      greater_than: "%{attribute} doit être plus grand que %{count}"
+      greater_than_or_equal_to: "%{attribute} doit être plus grand ou égal à %{count}"
+      included_in: "La valeur de %{attribute} doit être comprise entre %{minimum} et %{maximum}"
+      inclusion: "%{attribute} n’est pas inclus dans la liste"
+      invalid: "%{attribute} est invalide"
+      invalid_at: "%{attribute} est invalide. Erreur près de %{error}"
+      invalid_child: "Au moins une des valeurs de %{attributes} n'est pas valide."
+      invalid_date: "Veuillez saisir une date au format jj-mm-aaaa ou jj/mm/aaaa"
+      invalid_datetime: "%{attribute} est invalide"
+      invalid_siret: "%{value} n'est pas un numéro de SIRET valide" #?
+      invalid_syntax: "%{attribute} comporte des erreurs de syntaxe : %{errors}" #?
+      invalid_time: "%{attribute} est invalide"
+      invalid_token: "%{attribute} est invalide. Symbole inconnu %{error}. Les symboles acceptés sont %{accepted}."
+      is: "%{attribute} doit être un(e) %{thing}"
+      is_at: "%{attribute} doit être le %{restriction}"
+      less_than: "%{attribute} doit être inférieur à %{count}"
+      less_than_or_equal_to: "%{attribute} doit être inférieur ou égal à %{count}"
+      missing_bank_details_for_sepa: "Les valeurs IBAN et/ou Titulaire du compte sont manquantes pour la trésorerie sélectionnée."
+      must_be_a_mail_address: "%{attribute} doit être une adresse e-mail"
+      not_a_number: "%{attribute} n’est pas un nombre"
+      not_an_end_of_month: "%{attribute} doit être une fin de mois"
+      not_an_integer: "%{attribute} doit être un nombre entier"
+      nothing_to_pay: "Il n’y a rien à payer. Si vous voulez enregistrer un acompte, n’oubliez pas de le préciser."
+      odd: "%{attribute} doit être pair"
+      on_or_after: "%{attribute} doit être le ou après le %{restriction}"
+      on_or_before: "%{attribute} doit être le ou avant le %{restriction}"
+      overlap: "%{attribute} se trouve sur un enregistrement existant"
+      overlap_sibling: "%{attribute} se trouve sur une période d'un autre enregistrement"
+      period_overlap: "%{attribute} se trouve sur une période d’un enregistrement existant" #?
+      posterior: "%{attribute} doit être postérieure à %{to}"
+      record_invalid: "Validations échouées\_: %{errors}"
+      should_be_the_last_day_of_month: "%{attribute} doit être le dernier jour du mois."
+      taken: "%{attribute} a déjà été pris"
+      too_long: "%{attribute} est trop long (%{count} caractères maximum)"
+      too_short: "%{attribute} est trop court (%{count} caractères minimum)"
+      unitary_in_parcel: "Articles unitaires ne peuvent être envoyés un par un"
+      wrong_length: "%{attribute} n’est pas d’une bonne longueur (%{count} caractères)"
   activemodel:
     errors:
       messages:
-        accepted: "%{attribute} doit être accepté"
-        after: "%{attribute} doit être après le %{restriction}"
-        # already_confirmed: "was already confirmed, please try signing in"
-        before: "%{attribute} doit être avant le %{restriction}"
-        blank: "%{attribute} ne peut pas être vide"
-        confirmation: "%{attribute} est différent du champ de confirmation"
-        # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
-        contains_blank_line: "%{attribute} contient une ligne vide" #?
-        contains_blank_page: "%{attribute} contient une page vide" #?
-        currency_does_not_match: "La devise de «\_%{attribute}\_» ne correspond pas celle attendue\_: %{currency}"
-        empty: "%{attribute} ne peut pas être vide"
-        entry_has_been_already_validated: "La pièce a été validée et ne peut plus être modifiée" #?
-        equal_to: "%{attribute} doit être égal à %{count}"
-        even: "%{attribute} doit être impair"
-        exclusion: "%{attribute} est reservé"
-        # expired: "has expired, please request a new one"
-        greater_than: "%{attribute} doit être plus grand que %{count}"
-        greater_than_or_equal_to: "%{attribute} doit être plus grand ou égal à %{count}"
-        included_in: "La valeur de %{attribute} doit être comprise entre %{minimum} et %{maximum}"
-        inclusion: "%{attribute} n’est pas inclus dans la liste"
-        invalid: "%{attribute} est invalide"
-        invalid_at: "%{attribute} est invalide. Erreur près de %{error}"
-        invalid_date: "Veuillez saisir une date au format jj-mm-aaaa ou jj/mm/aaaa"
-        invalid_datetime: "%{attribute} est invalide"
-        invalid_siret: "%{value} n'est pas un numéro de SIRET valide" #?
-        invalid_syntax: "%{attribute} comporte des erreurs de syntaxe : %{errors}" #?
-        invalid_time: "%{attribute} est invalide"
-        invalid_token: "%{attribute} est invalide. Symbole inconnu %{error}. Les symboles acceptés sont %{accepted}."
-        is: "%{attribute} doit être un(e) %{thing}"
-        is_at: "%{attribute} doit être le %{restriction}"
-        less_than: "%{attribute} doit être inférieur à %{count}"
-        less_than_or_equal_to: "%{attribute} doit être inférieur ou égal à %{count}"
-        missing_bank_details_for_sepa: "Les valeurs IBAN et/ou Titulaire du compte sont manquantes pour la trésorerie sélectionnée."
-        must_be_a_mail_address: "%{attribute} doit être une adresse e-mail"
-        not_a_number: "%{attribute} n’est pas un nombre"
-        not_an_end_of_month: "%{attribute} doit être une fin de mois"
-        not_an_integer: "%{attribute} doit être un nombre entier"
-        # not_enough: "not enough %{resource} to complete task"
-        # not_found: "not found"
-        # not_locked: "was not locked"
-        not_saved:
-          # one: "1 error prohibited this %{resource} from being saved:"
-          # other: "%{count} errors prohibited this %{resource} from being saved:"
-        nothing_to_pay: "Il n’y a rien à payer. Si vous voulez enregistrer un acompte, n’oubliez pas de le préciser."
-        odd: "%{attribute} doit être pair"
-        on_or_after: "%{attribute} doit être le ou après le %{restriction}"
-        on_or_before: "%{attribute} doit être le ou avant le %{restriction}"
-        overlap: "%{attribute} se trouve sur un enregistrement existant"
-        overlap_sibling: "%{attribute} se trouve sur une période d'un autre enregistrement"
-        period_overlap: "%{attribute} se trouve sur une période d’un enregistrement existant" #?
-        posterior: "%{attribute} doit être postérieure à %{to}"
-        record_invalid: "Validations échouées\_: %{errors}"
-        taken: "%{attribute} a déjà été pris"
-        too_long: "%{attribute} est trop long (%{count} caractères maximum)"
-        too_short: "%{attribute} est trop court (%{count} caractères minimum)"
-        unitary_in_parcel: "Articles unitaires ne peuvent être envoyés un par un"
-        wrong_length: "%{attribute} n’est pas d’une bonne longueur (%{count} caractères)"
+        <<: *error_messages
       models: #?
         sepa/credit_transfer_transaction: #?
           attributes: #?
@@ -116,7 +112,7 @@ fra:
         initial_born_at: "Construit à"
         initial_dead_at: "Demantelé au"
         parent_place: "Lieu de parking" #?
-        variety: "Marque" #?
+        variety: "Type" #?
       event: #?
         duration: "Durée (en minutes)" #?
         place: "Lieu" #?
@@ -127,6 +123,7 @@ fra:
         stopped_on: "Date de clôture"
       fixed_asset:
         asset_account: "Compte d'immobilisation"
+        asset_expenses_account: "Compte d'amortissement" #?
         depreciation_period: "Périodicité des amortissements"
         net_book_value: "Valeur nette comptable (VNC)" #?
         started_on: "Date de mise en service"
@@ -136,6 +133,7 @@ fra:
       incoming_payment: #?
         to_bank_at: "À encaisser le" #?
       inspection: #?
+        forecast_harvest_week: "Semaine de récolte prévisionnelle" #?
         points: "Points de contrôle" #?
       inspection_calibration: #?
         items_count: "Nombre de pièces" #?
@@ -144,6 +142,9 @@ fra:
       intervention: #?
         production_support: "Support de production" #?
         storage: "Support" #?
+      intervention_working_period:
+        started_at: "Date de début" #? Hash expected ({:one=>"Started at is inferior than expected", :other=>"{{count}} Started at is inferior than expected"})
+        stopped_at: "Date de fin" #? Hash expected ({:one=>"Stopped at is inferior than expected", :other=>"{{count}} Stopped at is inferior than expected"})
       inventory_item: #?
         quantity: "Quantité constatée" #?
       journal_entry_item:
@@ -167,6 +168,8 @@ fra:
       matter: #?
         born_at: "Fabriqué le" #?
         dead_at: "Détruit/consommé le" #?
+      naming_format_field:
+        field_name: "Champ"
       outgoing_parcel: #?
         items: "Lignes de colis à expédier" #?
       outgoing_payment:
@@ -180,6 +183,13 @@ fra:
         contract: "Contrat"
       parcel_item:
         population: "Quantité"
+        product_name: "Nom du produit"
+      parcel_item_storing:
+        conditionning: "Conditionnement"
+        conditionning_quantity: "Quantité"
+        quantity: "Quantité totale"
+        reception_given_at: "Donné le"
+        reception_planned_at: "Prévu le"
       payslip_payment: #?
         delivered: "Remis au bénéficiaire" #?
         list: "Lot de décaissements" #?
@@ -206,7 +216,7 @@ fra:
         plants_count: "Nombre théorique de graines"
         seeding_density_value: "Densité théorique de semis"
       product_localization: #?
-        container: "Contenant" #?
+        container: "Zone de stockage" #?
         started_at: "Entrée" #?
         stopped_at: "Sortie" #?
       product_nature_category: #?
@@ -232,8 +242,28 @@ fra:
         label: "Commande" #?
         moved_at: "Reçu le" #?
         planned_at: "Réception prévue le" #?
-      purchase_item: #?
+      purchase_invoice: #?
+        description: "Notes" #?
+        invoiced_at: "Date de facture" #?
+        payment_delay: "Échéance" #?
+        reference_number: "Référence fournisseur (n° facture)" #?
+      purchase_item:
         amount: "Montant TTC" #?
+        average_unit_pretax_amount: "PU moyen HT"
+        conditionning: "Conditionnement" #?
+        conditionning_quantity: "Quantité" #?
+        fixed_asset_stopped_on: "Immobilisation arrêtée le"
+        last_unit_pretax_amount: "Dernier prix HT"
+        ordered_quantity: "Quantité commandée"
+        quantity: "Quantité totale" #?
+        supplier_name: "Fournisseur"
+      purchase_order: #?
+        command_mode: "Mode de commande" #?
+        description: "Notes" #?
+        estimate_reception_date: "Date prévisionnelle de réception" #?
+        ordered_at: "Date commande" #?
+        reference_number: "Référence fournisseur (n° commande)" #?
+        responsible: "Responsable de commande" #?
       purchase_payment: #?
         delivered: "Remis au bénéficiaire" #?
         list: "Lot de décaissements" #?
@@ -298,6 +328,7 @@ fra:
         greater_than_or_equal_to: "%{attribute} doit être plus grand ou égal à %{count}"
         included_in: "La valeur de %{attribute} doit être comprise entre %{minimum} et %{maximum}"
         inclusion: "%{attribute} n’est pas inclus dans la liste"
+        inferior: "%{attribute} doit être antérieure à %{to}" #?
         invalid: "%{attribute} est invalide"
         invalid_at: "%{attribute} est invalide. Erreur près de %{error}"
         invalid_date: "Veuillez saisir une date au format jj-mm-aaaa ou jj/mm/aaaa"
@@ -335,7 +366,7 @@ fra:
         too_short: "%{attribute} est trop court (%{count} caractères minimum)"
         unitary_in_parcel: "Articles unitaires ne peuvent être envoyés un par un"
         wrong_length: "%{attribute} n’est pas d’une bonne longueur (%{count} caractères)"
-      models: #?
+      models:
         account: #?
           attributes: #?
             number: #?
@@ -344,21 +375,21 @@ fra:
           centralizing_number: "Le numéro ne peut pas commencer par '401' ou '411' qui sont réservés pour les comptes auxiliaires" #?
           incorrect_length: "Le numéro n'a pas la bonne longueur (%{number_length} caractères)" #?
           radical_class: "Le numéro ne peut pas correspondre à une classe radicale" #?
-        activity: #?
-          checked_off_with_inspections: "Des agréages sont déjà présents pour cette activité" #?
-          checked_without_measures: "Au moins un type de mesure doit être sélectionné lorsque l'utilisation des agréages est demandée" #?
-        bank_statement: #?
+        activity:
+          checked_off_with_inspections: "Des agréages sont déjà présents pour cette activité"
+          checked_without_measures: "Au moins un type de mesure doit être sélectionné lorsque l'utilisation des agréages est demandée"
+        bank_statement:
           initial_balance_credit: #?
             unvalid_amounts: "Le solde initial doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps." #?
-          no_cash_match_ofx: "Aucune somme d’argent trouvée pour le numéro de compte bancaire donné dans le fichier" #?
-          ofx_file_has_multiple_bank_accounts: "Fichier OFX avec plusieurs comptes bancaires non pris en charge" #?
-          ofx_file_invalid: "Fichier OFX invalide" #?
-        bank_statement_item: #?
-          unvalid_amounts: "L’écriture doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps." #?
-        cash: #?
-          currency_does_not_match: "La monnaie du journal %{journal} est différente de celle de la trésorerie" #?
-          different_of_main_account: "%{attribute} doit être différent du compte comptable principal (%{account})" #?
-          unvalid_bban: "La clé ne correspond pas. Un ou plusieurs éléments du RIB sont incorrects." #?
+          no_cash_match_ofx: "Aucune somme d’argent trouvée pour le numéro de compte bancaire donné dans le fichier"
+          ofx_file_has_multiple_bank_accounts: "Fichier OFX avec plusieurs comptes bancaires non pris en charge"
+          ofx_file_invalid: "Fichier OFX invalide"
+        bank_statement_item:
+          unvalid_amounts: "L’écriture doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps."
+        cash:
+          currency_does_not_match: "La monnaie du journal %{journal} est différente de celle de la trésorerie"
+          different_of_main_account: "%{attribute} doit être différent du compte comptable principal (%{account})"
+          unvalid_bban: "La clé ne correspond pas. Un ou plusieurs éléments du RIB sont incorrects."
         cash_transfer: #?
           attributes: #?
             transfered_at: #?
@@ -366,100 +397,114 @@ fra:
               financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
               financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
               not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
-        deposit: #?
-          must_be_a_bank_account: "%{attribute} doit être un compte bancaire et non une caisse" #?
-        entity: #?
-          missing_title: "%{attribute} doit contenir la dénomination sociale «\_%{title}\_»" #?
-          nature_do_not_allow_a_first_name: "Le type «\_%{nature}\_» sélectionné ne permet de renseigner un prénom" #?
-        financial_year: #?
-          attributes: #?
-            accountant: #?
-              frozen: "Le comptable ne peut être modifié lorsqu'un échange est en cours" #?
-            started_on: #?
-              consecutive: "L’exercice comptable doit être consécutif à un autre. Il doit commencer au lendemain de la fin du précédent." #?
-              frozen: "La date de l'exercice comptable ne peut être modifiée une fois qu'un échange a été créé." #?
-              on_or_after: "La date de début doit être postérieure à la date de création de la société (%{restriction})" #?
-            stopped_on: #?
-              end_of_month: "%{attribute} doit être une date de fin de mois" #?
+        deposit:
+          must_be_a_bank_account: "%{attribute} doit être un compte bancaire et non une caisse"
+        entity:
+          missing_title: "%{attribute} doit contenir la dénomination sociale «\_%{title}\_»"
+          nature_do_not_allow_a_first_name: "Le type «\_%{nature}\_» sélectionné ne permet de renseigner un prénom"
+        financial_year:
+          attributes:
+            accountant:
+              frozen: "Le comptable ne peut être modifié lorsqu'un échange est en cours"
+            started_on:
+              consecutive: "L’exercice comptable doit être consécutif à un autre. Il doit commencer au lendemain de la fin du précédent."
+              frozen: "La date de l'exercice comptable ne peut être modifiée une fois qu'un échange a été créé."
+              on_or_after: "La date de début doit être postérieure à la date de création de la société (%{restriction})"
+            stopped_on:
+              end_of_month: "%{attribute} doit être une date de fin de mois"
           can_only_have_two_years_opened: "Vous ne pouvez avoir que 2 exercices ouverts en même temps" #?
           can_only_update_code: "Vous ne pouvez que modifier uniquement le code d'un exercice comptable fermé ou clotûré" #?
-          overlap: "%{attribute} se trouve sur un exercice existant" #?
-        financial_year_exchange: #?
-          csv_file_entry_dates_invalid: "Certaines entrées du CSV ne sont pas comprises dans l'intervalle de l'exercice comptable" #?
-          csv_file_entry_invalid: "Certaines entrées du CSV sont invalides ('%{entry_number}')" #?
-          csv_file_headers_invalid: "Les en-têtes du fichier CSV sont invalides" #?
-          csv_file_invalid: "Fichier CSV invalide" #?
-          csv_file_journals_invalid: "Certains journaux sont présents dans le CSV mais n'existent pas dans Ekylibre : %{codes}" #?
+          overlap: "%{attribute} se trouve sur un exercice existant"
+        financial_year_exchange:
+          csv_file_entry_dates_invalid: "Certaines entrées du CSV ne sont pas comprises dans l'intervalle de l'exercice comptable"
+          csv_file_entry_invalid: "Certaines entrées du CSV sont invalides ('%{entry_number}')"
+          csv_file_headers_invalid: "Les en-têtes du fichier CSV sont invalides"
+          csv_file_invalid: "Fichier CSV invalide"
+          csv_file_journals_invalid: "Certains journaux sont présents dans le CSV mais n'existent pas dans Ekylibre : %{codes}"
         fixed_asset: #?
           attributes: #?
             started_on: #?
               financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période" #?
               financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
               financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
-              not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
-        fixed_asset_depreciation: #?
-          attributes: #?
-            started_on: #?
               invalid_date: "La période d’amortissement doit débuter le %{start} ou en début de mois" #?
-        incoming_parcel_item: #?
-          greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})" #?
-        integration: #?
-          attributes: #?
-            parameters: #?
-              check_errored: "La connexion au partenaire a échoué. Veuillez vérifier les informations saisies ou réessayer plus tard." #?
-        journal: #?
-          attributes: #?
-            accountant: #?
-              entity_frozen: "Les journaux réservés au %{attribute} ne peuvent être modifiés lorsqu'un échange est ouvert pour ses exercices" #?
-              present: "Le comptable ne peut être précisé que pour les journaux de type opérations diverses" #?
-              previous_entity_frozen: "Les journaux réservés au précédent %{attribute} ne peuvent être modifiés lorsqu'un échange est ouvert pour ses exercices" #?
-            closed_on: #?
+              not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
+        fixed_asset_depreciation:
+          attributes:
+            started_on:
+              invalid_date: "La période d’amortissement doit débuter le %{start} ou en début de mois"
+        incoming_parcel_item:
+          greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
+        integration:
+          attributes:
+            parameters:
+              check_errored: "La connexion au partenaire a échoué. Veuillez vérifier les informations saisies ou réessayer plus tard."
+        intervention_working_period:
+          attributes:
+            started_at:
+              # inferior: "Started at is inferior than expected"
+            stopped_at:
+              # inferior: "Stopped at is inferior than expected"
+        journal:
+          attributes:
+            accountant:
+              entity_frozen: "Les journaux réservés au %{attribute} ne peuvent être modifiés lorsqu'un échange est ouvert pour ses exercices"
+              present: "Le comptable ne peut être précisé que pour les journaux de type opérations diverses"
+              previous_entity_frozen: "Les journaux réservés au précédent %{attribute} ne peuvent être modifiés lorsqu'un échange est ouvert pour ses exercices"
+            closed_on:
               draft_entry_items: "Des écritures du brouillard sont encore présente avant le %{closed_on}" #?
-              end_of_month: "%{attribute} doit correspondre à une date de fin de mois (%{closed_on})" #?
-        journal_entry: #?
-          closed_journal: "Le journal est clôturé au %{closed_on} donc vous ne pouvez plus créer, modifier ou supprimer de pièces jusqu’à cette date-là." #?
+              end_of_month: "%{attribute} doit correspondre à une date de fin de mois (%{closed_on})"
+        journal_entry:
+          closed_journal: "Le journal est clôturé au %{closed_on} donc vous ne pouvez plus créer, modifier ou supprimer de pièces jusqu’à cette date-là."
           financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
-          frozen_by_financial_year_exchange: "L'écriture ne peut être enregistrée lors d'un échange d'exercice comptable." #?
+          frozen_by_financial_year_exchange: "L'écriture ne peut être enregistrée lors d'un échange d'exercice comptable."
           not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
-          out_of_existing_financial_year: "L’écriture doit être enregistrée dans un exercice comptable existant." #?
-          unbalanced: "La pièce n’est pas équilibrée" #?
-        journal_entry_item: #?
-          closed_entry: "L’écriture est verrouillée. Il n’est pas possible de la modifier." #?
-          empty_amounts: "L’écriture doit être renseignée soit au débit, soit au crédit." #?
-          unvalid_amounts: "L’écriture doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps." #?
-        outgoing_parcel_item: #?
-          greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})" #?
+          out_of_existing_financial_year: "L’écriture doit être enregistrée dans un exercice comptable existant."
+          unbalanced: "La pièce n’est pas équilibrée"
+        journal_entry_item:
+          closed_entry: "L’écriture est verrouillée. Il n’est pas possible de la modifier."
+          empty_amounts: "L’écriture doit être renseignée soit au débit, soit au crédit."
+          unvalid_amounts: "L’écriture doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps."
+        outgoing_parcel_item:
+          greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
         parcel: #?
           financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période" #?
           financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
           financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
           not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
-        purchase: #?
+        purchase:
           financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période" #?
           financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
           financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
           not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
-          payment_delay_custom_validation_message: "Formats acceptés : %{values}" #?
-        purchase_item: #?
-          building_can_not_receive_product: "Le réservoir %{building} ne peut pas recevoir le produit %{product}, il contient déjà le produit %{contained_product}." #?
-          serial_already_used_with_an_other_product: "%{attribute} a déjà été utilisé pour un autre type de produit du même fournisseur" #?
+          payment_delay_custom_validation_message: "Formats acceptés : %{values}"
+        purchase_item:
+          attributes:
+            fixed:
+              asset_account: "Compte d'immobilisation invalide"
+              asset_depreciation_method: "Méthode de dépréciation d'immobilisation non spécifiée"
+              asset_expenses_account: "Compte d'amortissement invalide"
+              asset_wrong_depreciation_method: "Le méthode de dépréciation doit être linéaire simplifée"
+              fixed_asset_stopped_on_invalid: "Vous devez spécifier une date de fin d'immobilisation"
+          building_can_not_receive_product: "Le réservoir %{building} ne peut pas recevoir le produit %{product}, il contient déjà le produit %{contained_product}."
+          serial_already_used_with_an_other_product: "%{attribute} a déjà été utilisé pour un autre type de produit du même fournisseur"
         sale: #?
           financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période" #?
           financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
           financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
           not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
-        sale_item: #?
-          building_can_not_transfer_product: "Le produit %{product} ne peut être sorti du réservoir %{building}, celui-ci contient %{contained_product}." #?
-          can_not_use_this_tracking: "Vous ne  pouvez pas utiliser le lot %{tracking}, la quantité commandée est supérieure à la quantité disponible" #?
-          currency_is_not_sale_currency: "La devise du prix du produit ne correspond pas celle définie pour la vente" #?
-          error_no_found_price: "Aucun prix n’ a pu être trouvé pour ce produit et cette liste de tarif" #?
-        subscription: #?
-          entity_must_be_the_same_as_the_contact_entity: "La personne de l’abonnement doit être la même que celle du contact" #?
-      template: #?
-        body: "Il y a eu des problèmes avec les champs suivants\_:" #?
-        header: #?
-          one: "1 erreur a empêché l’enregistrement (%{model})" #?
-          other: "%{count} erreurs ont empéché l’enregistrement (%{model})" #?
+        sale_item:
+          building_can_not_transfer_product: "Le produit %{product} ne peut être sorti du réservoir %{building}, celui-ci contient %{contained_product}."
+          can_not_use_this_tracking: "Vous ne  pouvez pas utiliser le lot %{tracking}, la quantité commandée est supérieure à la quantité disponible"
+          currency_is_not_sale_currency: "La devise du prix du produit ne correspond pas celle définie pour la vente"
+          error_no_found_price: "Aucun prix n’ a pu être trouvé pour ce produit et cette liste de tarif"
+        subscription:
+          entity_must_be_the_same_as_the_contact_entity: "La personne de l’abonnement doit être la même que celle du contact"
+      template:
+        body: "Il y a eu des problèmes avec les champs suivants\_:"
+        header:
+          one: "1 erreur a empêché l’enregistrement (%{model})"
+          other: "%{count} erreurs ont empéché l’enregistrement (%{model})"
     models:
       account: "Compte comptable"
       account_balance: "Balance de compte"
@@ -494,6 +539,7 @@ fra:
       campaign: "Campagne"
       cap_islet: "Ilôt PAC"
       cap_land_parcel: "Parcelle PAC"
+      cap_neutral_area: "Surface non agricole (SNA)"
       cap_statement: "Déclaration PAC"
       cash: "Trésorerie"
       cash_session: "Session de caisse"
@@ -620,9 +666,23 @@ fra:
       purchase: "Achat"
       purchase_affair: "Affaire d’achat"
       purchase_gap: "Écart d’achat"
+      purchase_invoice: "Facture d’achat"
       purchase_item: "Ligne d’achat"
       purchase_nature: "Type d’achat"
+      purchase_order: "Commande d’achat"
       purchase_payment: "Décaissement d’achat"
+      reception: "Réception"
+      reception_item: "Élément de réception"
+      # registered_agroedi_code: "Registered agroedi code"
+      # registered_pfi_crop: "Registered pfi crop"
+      # registered_pfi_dose: "Registered pfi dose"
+      # registered_pfi_target: "Registered pfi target"
+      # registered_phytosanitary_phrase: "Registered phytosanitary phrase"
+      # registered_phytosanitary_product: "Registered phytosanitary product"
+      # registered_phytosanitary_risk: "Registered phytosanitary risk"
+      # registered_phytosanitary_usage: "Registered phytosanitary usage"
+      # registered_postal_zone: "Registered postal zone"
+      # registered_seed: "Registered seed"
       regularization: "Régularisation"
       role: "Rôle"
       sale: "Vente"
@@ -635,6 +695,8 @@ fra:
       sensor: "Capteur"
       sequence: "Séquence"
       settlement: "Installation"
+      shipment: "Expédition"
+      shipment_item: "Élément d'expédition"
       sub_zone: "Sous-zone"
       subscription: "Abonnement"
       subscription_nature: "Type d’abonnement"
@@ -687,7 +749,7 @@ fra:
     active_sessions: "Sessions actives"
     activities: "Activités"
     activity: "Activité"
-    activity_budget: "Budget"
+    activity_budget: "Activité"
     activity_budgets: "Budgets"
     activity_code: "Code APE/NAF"
     activity_distributions: "Répartitions entre activités"
@@ -705,10 +767,12 @@ fra:
     administrator: "Administrateur système"
     advice_reference_name: "Référence du conseil"
     affair: "Affaire"
+    affair_balance: "Solde"
     affairs: "Affaires"
     affectation_percentage: "Pourcentage d’affectation"
     affected_at: "Affecté le"
     age: "Âge"
+    # agroedi_crop_code: "Agroedi crop code"
     aim: "Objectif" #?
     alert: "Alerte"
     alerts: "Alertes"
@@ -723,6 +787,8 @@ fra:
     analysis: "Analyse"
     analysis_items: "Lignes d’analyse"
     annotation: "Annotation"
+    # applications_count: "Applications count"
+    # applications_frequency: "Applications frequency"
     archive: "Archive"
     archive_content_type: "Archive type de contenu"
     archive_file_name: "Nom de fichier Archive"
@@ -732,6 +798,7 @@ fra:
     archives: "Archives" #?
     archives_count: "Nombre d’archives" #?
     archiving: "Méthode d’archivage"
+    # area: "Area"
     # arguments: "Arguments"
     assembly: "Assemblée"
     asset_account: "Compte d’actifs"
@@ -749,6 +816,7 @@ fra:
     auto_updateable_addresses: "Adresses mises à jour automatiquement"
     auxiliary_number: "Numéro auxiliaire"
     average_value: "Valeur moyenne"
+    # average_yield: "Average yield"
     balance: "Solde"
     balance_amount: "Solde" #?
     balance_pretax_amount: "Solde montant HT"
@@ -768,8 +836,12 @@ fra:
     bank_name: "Nom de la banque"
     bank_statement: "Relevé de compte bancaire"
     bank_statement_letter: "Lettre de déclaration de la Banque"
+    bank_statement_number: "N° du relevé de compte bancaire"
     bank_statements: "Relevés de compte bancaire"
     base_amount: "Montant de base"
+    # batch: "Batch"
+    batch_number: "N° de lot"
+    # batch_planting: "Batch planting"
     battery_level: "Niveau de la batterie"
     birth: "Naissance" #?
     birth_date_completeness: "Complétude de la date de naissance"
@@ -783,14 +855,18 @@ fra:
     building: "Bâtiment" #?
     buildings: "Bâtiments"
     by_default: "Par défaut"
+    cached_payment_count: "Nombre de paiements"
     calibrations: "Stock en terre par calibre"
     campaign: "Campagne"
     campaigns: "Campagnes"
     canal: "Canal"
+    # cap_2017_crop_code: "Cap 2017 crop code"
+    # cap_2018_crop_code: "Cap 2018 crop code"
     cap_islet: "Ilot PAC"
     cap_islets: "Ilots PAC"
     cap_land_parcel: "Parcelle PAC"
     cap_land_parcels: "Parcelles PAC"
+    cap_neutral_areas: "Surfaces non agricole (SNA)"
     cap_statement: "Déclaration PAC"
     cap_statements: "Déclarations PAC"
     carried: "Tracté"
@@ -810,6 +886,7 @@ fra:
     ceded_on: "Cédé le"
     centralizing_account: "Compte centralisateur"
     # centralizing_account_name: "Centralizing account name"
+    # centroid: "Centroid"
     charge_account: "Compte d’achat"
     charges_categories: "Catégories de produits avec charge"
     check_state: "Vérifier l’état" #?
@@ -845,6 +922,7 @@ fra:
     color: "Couleur"
     column_name: "Nom de colonne"
     columns: "Colonnes"
+    # command_mode: "Command mode"
     comment: "Commentaire"
     commercial: "Activité commerciale"
     commercial_description: "Description commerciale"
@@ -865,6 +943,8 @@ fra:
     conclusion: "Conclusion"
     condition_operator: "Comparateur"
     condition_value: "Valeur comparée"
+    # conditionning: "Conditionning"
+    # conditionning_quantity: "Conditionning quantity"
     conditions: "Conditions (SQL)"
     confirmation_sent_at: "Confirmation envoyée le"
     confirmation_token: "Jeton de confirmation"
@@ -898,6 +978,7 @@ fra:
     credited_quantity: "Quantité passée en avoir"
     credited_sale: "Facture mise en avoir"
     credits: "Avoirs"
+    # crop: "Crop"
     crumbs: "Miettes"
     cultivable_zone: "Zone cultivable"
     cultivable_zones: "Zones cultivables"
@@ -915,7 +996,7 @@ fra:
     current_localization: "Localisation actuelle"
     current_memberships: "Appartenances actuelles"
     current_mother_link: "Lien actuel vers la mère"
-    current_outgoing_stock_ordered_not_delivered: "Commandes non livrées"
+    current_outgoing_stock_ordered_not_delivered_displayed: "À livrer"
     current_ownership: "Propriété actuelle"
     current_password: "Mot de passe actuel"
     current_phase: "Phase actuelle"
@@ -929,6 +1010,7 @@ fra:
     custom_fields_columns: "Champs personnalisés colonnes"
     customized: "Enregistrement personnalisé" #?
     customized_type: "Type d’enregistrement personnalisé"
+    # daily_charges: "Daily charges"
     daily_nitrogen_production: "Excrétion d’azote journalière"
     dashboards: "Tableaux de bord"
     data: "Données complémentaires" #?
@@ -1005,6 +1087,11 @@ fra:
     documents: "Documents"
     doers: "Équipiers"
     done_at: "Fait le" #?
+    # dose_quantity: "Dose quantity"
+    # dose_unit: "Dose unit"
+    # dose_unit_name: "Dose unit name"
+    # dose_unity: "Dose unity"
+    # doses: "Doses"
     downpayment: "Acompte"
     downpayment_amount: "Montant de l’acompte"
     downpayment_minimum: "Somme minimale"
@@ -1047,7 +1134,10 @@ fra:
     entry_number: "N° Écriture"
     entry_on: "Entrée le"
     entry_reason: "Raison de l'entrée"
+    # equipment: "Equipment"
+    # equipment_nature: "Equipment nature"
     establishment: "Établissement" #?
+    # estimate_reception_date: "Estimate reception date"
     # euid: "EUID"
     event: "Évènement"
     event_participation: "Participation à un évènement"
@@ -1083,6 +1173,8 @@ fra:
     father_identification_number: "Numéro d'identification du père"
     father_variety: "Variété du père"
     faxes: "Fax"
+    # field_name: "Field name"
+    # fields: "Fields"
     fifth_producer: "Cinquième producteur" #?
     fifth_producer_way: "Voie du cinquième producteur" #?
     file: "Fichier"
@@ -1101,6 +1193,7 @@ fra:
     finish_junction: "Jonction de fin" #?
     finish_way: "Voie de fin" #?
     finished_at: "Terminé à"
+    # firm_name: "Firm name"
     first_calving_on: "Premier vêlage le"
     first_met_at: "Date de la première rencontre"
     first_name: "Prénom"
@@ -1175,7 +1268,10 @@ fra:
     has_downpayment: "A un acompte"
     headers: "Têtes"
     host: "Hôte"
+    hour_counter: "Compteur horaire"
+    # hour_counter_unit_name: "Hour counter unit name"
     human_activities_names: "Nom des activités"
+    # human_name: "Human name"
     human_shape_area: "Superficie"
     human_target_names: "Nom des cibles"
     human_working_duration: "Temps de travail"
@@ -1192,6 +1288,7 @@ fra:
     imported_at: "Importé le"
     importer: "Importateur"
     in_cash: "En espèce" #?
+    # in_field_reentry_delay: "In field reentry delay"
     in_preparation_at: "En préparation le"
     included: "Incluse"
     incoming_parcel_item: "Élement de colis à réceptionner"
@@ -1202,6 +1299,8 @@ fra:
     indicator: "Indicateur"
     indicator_datatype: "Type de l’indicateur"
     indicator_name: "Indicateur"
+    # indicator_unit: "Indicator unit"
+    # indicator_value: "Indicator value"
     indicators: "Indicateurs"
     indirect_links: "Liens indirects"
     individual: "Individuel" #?
@@ -1242,10 +1341,15 @@ fra:
     interpolations: "Interpolations"
     intervention: "Intervention"
     intervention_cast: "Acteur de l’intervention"
+    # intervention_id: "Intervention"
     intervention_parameter: "Paramètre d’intervention"
     intervention_participation: "Participation d’intervention"
     intervention_participations: "Participations d’intervention"
     intervention_product_parameters: "Casting"
+    # intervention_proposal: "Intervention proposal"
+    # intervention_proposals: "Intervention proposals"
+    # intervention_template: "Intervention template"
+    intervention_templates: "Modèles d'intervention"
     interventions: "Interventions"
     interventions_used_in: "Interventions utilisées dans"
     intracommunity: "Intracommunautaire"
@@ -1266,6 +1370,7 @@ fra:
     invoiced_on: "Facturé sur"
     invoices_count: "Nombre de factures" #?
     ip_address: "Adresse IP"
+    # irregular_batch: "Irregular batch"
     irrigated: "Irrigué"
     irrigation_water_nitrogen: "Azote apporté par l’eau d’irrigation (Nirr)"
     islet: "Ilôt"
@@ -1315,6 +1420,7 @@ fra:
     last_transmission_at: "Dernière transmission"
     last_value: "Dernière valeur"
     last_year: "Dernière année"
+    late_delivery: "Livraison hors délais"
     latest: "Dernier"
     leaves_parameters: "Feuilles paramètres"
     lender: "Prêteur"
@@ -1339,6 +1445,7 @@ fra:
     lock_version: "Version"
     locked: "Verrouillé"
     locked_at: "Verrouillé à"
+    # maaid: "Maaid"
     made_at: "Fait le" #?
     mail: "E-mail"
     mail_addresses: "Adresses postales"
@@ -1398,6 +1505,7 @@ fra:
     members_count: "Nombre de membres"
     memberships: "Membres du groupe"
     memo: "Note"
+    merge_stock: "Fusionner avec les stocks existants"
     message: "Message"
     # messages: "Messages"
     metadata: "Méta-données"
@@ -1420,10 +1528,11 @@ fra:
     moved_at: "Fait le" #?
     movements: "Mouvements"
     moves: "Se déplace"
-    multi_polygon_value: "Valeur multi-polygonale"
+    multi_polygon_value: "Le contour de la forme"
     name: "Nom"
     name_1_to_2: "Nom «\_Personne 1 vers Personne 2\_»" #?
     name_2_to_1: "Nom «\_Personne 2 vers Personne 1\_»" #?
+    # naming_format: "Naming format"
     nature: "Type"
     nature_name: "Nom de la nature du produit"
     natures: "Natures"
@@ -1445,6 +1554,8 @@ fra:
     nitrogen_need: "Besoins de la culture (Pf)"
     node: "Nœud"
     nodes: "Nœuds d’extraction"
+    non_compliant: "Non conforme"
+    # non_compliant_detail: "Non compliant detail"
     noticed_start_amount: "Montant de début constaté"
     noticed_stop_amount: "Montant de fin constaté"
     notification: "Notification"
@@ -1452,6 +1563,7 @@ fra:
     number: "Numéro"
     number_format: "Format du numéro"
     number_increment: "Incrément"
+    # number_of_batch: "Number of batch"
     number_start: "Début de la numération"
     observations: "Observations"
     observed_at: "Observé à"
@@ -1463,7 +1575,7 @@ fra:
     operation: "Travail"
     operation_name: "Nom de l’opération"
     operations: "Travaux" #?
-    ordered_at: "Commandé à"
+    ordered_at: "Commandé le"
     organic_fertilizer_mineral_fraction: "Azote de la fraction minérale d’un engrais organique (Xa)"
     organization: "Organisation" #?
     origin: "Origine"
@@ -1486,6 +1598,7 @@ fra:
     parameter_name: "Nom du paramètre"
     parameters: "Paramètres"
     parcel: "Colis"
+    # parcel_item_storings: "Parcel item storings"
     parcel_items: "Éléments de colis"
     parcels: "Colis"
     parent: "Parent"
@@ -1561,6 +1674,7 @@ fra:
     printed_on: "Daté du"
     priority: "Priorité"
     probability_percentage: "Pourcentage de probabilité"
+    # procedure: "Procedure"
     procedure_name: "Nom de la procédure"
     procedures: "Procédures" #?
     process: "Process" #?
@@ -1574,6 +1688,7 @@ fra:
     product_creations: "Créations de produit" #?
     product_deaths: "Morts de produit" #?
     product_divisions: "Divisions de produit" #?
+    # product_enjoyment: "Product enjoyment"
     product_enjoyments: "Usufruit de produit"
     product_grading: "Agréage produit" #?
     product_identification_number: "Numéro d’identification"
@@ -1605,10 +1720,13 @@ fra:
     product_reading_tasks: "Tâches de relevé d’indicateur de produit"
     product_readings: "Relevés d’indicateur de produit"
     product_triple_mixings: "Triple mélanges de produit" #?
+    # product_type: "Product type"
     product_way: "Voie du produit" #?
+    product_work_number: "N° de travail"
     production: "Production"
     production_campaign: "Campagne rattachée"
     production_cycle: "Cycle de production"
+    # production_nature: "Production nature"
     production_support: "Support de production"
     production_supports: "Supports de production"
     production_system: "Système de production"
@@ -1618,8 +1736,10 @@ fra:
     products: "Produits"
     products_categories: "Catégories de produits avec produit"
     progression_percentage: "Progression (%)"
+    project_budget: "Budget interne"
     proposer: "Parrain"
     prospect: "Prospect"
+    # providers: "Providers"
     provisional: "Prévisionnel"
     provisional_intervention: "Intervention prévisionnelle"
     provisional_procedure: "Procédure prévisionnelle" #?
@@ -1628,10 +1748,12 @@ fra:
     purchase_affair: "Affaire d’achat" #?
     purchase_affairs: "Affaires d'achat"
     purchase_amount: "Montant d’achat"
+    # purchase_invoice_item: "Purchase invoice item"
     purchase_invoices: "Factures d’achats"
     purchase_item: "Ligne d’achat"
     purchase_items: "Lignes d’achat"
     purchase_natures: "Types d’achat"
+    # purchase_order_item: "Purchase order item"
     purchase_payments: "Paiements d’achat"
     purchase_taxations: "Taxations d’achat"
     purchase_taxes: "Taxes à l’achat"
@@ -1644,6 +1766,8 @@ fra:
     quantity_indicator: "Indicateur Quantité"
     quantity_indicator_name: "Quantité nom de l’indicateur"
     quantity_population: "Quantité population"
+    quantity_purchased: "Quantité commandée"
+    quantity_received: "Quantité utilisée"
     quantity_unit: "Unité de quantité"
     quantity_unit_name: "Quantité nom de l’unité"
     quantity_value: "Valeur Quantité"
@@ -1663,14 +1787,18 @@ fra:
     receipt: "Reçu électronique"
     received: "Reçu"
     received_at: "Reçu le"
+    reception: "Réception" #?
     reception_amount: "Montant reçu"
     reception_cash: "Trésorie réceptrice"
     reception_currency: "Monnaie de réception"
+    # reception_items: "Reception items"
     reception_journal_entry: "Écriture de la réception"
+    receptions: "Réceptions"
     recipient: "Destinataire"
     recommended: "Prescrit"
     recommender: "Prescripteur"
     reconcilable: "Lettrable"
+    # reconciliation_state: "Reconciliation state"
     record_interventions: "Interventions record"
     record_value: "Enregistrement"
     record_value_type: "Type d’enregistrement"
@@ -1682,7 +1810,8 @@ fra:
     reduction_percentage: "Réduction (%)"
     reductions: "Lignes de réductions" #?
     reference: "Référence" #?
-    reference_name: "Référence"
+    # reference_label_fra: "Reference label fra"
+    reference_name: "Type d'intervention"
     reference_number: "N°Référence"
     reference_source_content_type: "Référence type de contenu source"
     reference_source_file_name: "Référence Nom du fichier source"
@@ -1779,11 +1908,15 @@ fra:
     separated_stock: "Ne pas fusionner avec les stocks existants"
     serial: "N°Lot"
     serial_number: "Serial number"
+    services: "Services" #?
     sessions: "Sessions"
     # sha256_fingerprint: "Sha256 fingerprint"
     shape: "Forme"
     shift_duration: "Durée du différé"
     shift_method: "Méthode de différé"
+    shipment: "Expédition" #?
+    # shipment_items: "Shipment items"
+    shipments: "Expéditions"
     sign_in_count: "Nombre de connexions"
     # signature: "Signature"
     signup_at: "Inscription au"
@@ -1800,7 +1933,10 @@ fra:
     sold_on: "Date de cession"
     source: "Source"
     source_product: "Produit Source"
+    # source_product_movement: "Source product movement"
+    # sowing_interval: "Sowing interval"
     spaced_iban: "IBAN"
+    # specie: "Specie"
     sql_type: "Type SQL"
     ssl: "Ssl"
     start: "Début"
@@ -1818,8 +1954,9 @@ fra:
     stopped_at: "Arrêté le"
     stopped_on: "Arrêté le"
     storable: "Gérer les stocks"
-    storage: "Stockage"
+    storage: "Zone de stockage"
     storages: "Stockages"
+    storings: "Élements "
     story: "Historique"
     string_value: "Valeur textuelle"
     subdomains: "Sous-domaines"
@@ -1876,6 +2013,7 @@ fra:
     tax_payability: "Exigibilité fiscale"
     taxations: "Taxations"
     team: "Équipe"
+    # technical_itinerary: "Technical itinerary"
     template: "Modèle"
     theme: "Thème"
     theoretical_number: "Numéro théorique"
@@ -1920,12 +2058,13 @@ fra:
     transports: "Transports" #?
     trouble_description: "Description du problème"
     trouble_encountered: "Problème durant l'intervention"
+    vat_account: "Compte TVA"
     type: "Type"
     # uid: "UID"
     unconfirmed_email: "E-mail non confirmé"
     undelivered_invoice_journal_entry: "Ecriture Facture non parvenue (FNP)"
     undelivered_quantity: "Reste à livrer"
-    unit: "Unité" #?
+    unit: "Unité"
     unit_amount: "PU TTC"
     unit_currency: "Monnaie de l’unité"
     unit_name: "Unité"
@@ -1993,6 +2132,7 @@ fra:
     work_name: "Nom de travail"
     work_number: "Numéro de travail"
     worker: "Équipier"
+    workflow: "Débit de chantier" #?
     working_area: "Superficie travaillée" #?
     working_duration: "Durée travaillée"
     working_periods: "Périodes de travail"
@@ -2003,65 +2143,6 @@ fra:
     working_zone_area: "Surface de la zone travaillée"
     zone_memberships: "Appartenances de zone"
     zones: "Zones"
-  errors:
-    messages:
-      accepted: "%{attribute} doit être accepté"
-      after: "%{attribute} doit être après le %{restriction}"
-      # already_confirmed: "was already confirmed, please try signing in"
-      before: "%{attribute} doit être avant le %{restriction}"
-      blank: "%{attribute} ne peut pas être vide"
-      confirmation: "%{attribute} est différent du champ de confirmation"
-      # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
-      contains_blank_line: "%{attribute} contient une ligne vide" #?
-      contains_blank_page: "%{attribute} contient une page vide" #?
-      currency_does_not_match: "La devise de «\_%{attribute}\_» ne correspond pas celle attendue\_: %{currency}"
-      empty: "%{attribute} ne peut pas être vide"
-      entry_has_been_already_validated: "La pièce a été validée et ne peut plus être modifiée" #?
-      equal_to: "%{attribute} doit être égal à %{count}"
-      even: "%{attribute} doit être impair"
-      exclusion: "%{attribute} est reservé"
-      # expired: "has expired, please request a new one"
-      greater_than: "%{attribute} doit être plus grand que %{count}"
-      greater_than_or_equal_to: "%{attribute} doit être plus grand ou égal à %{count}"
-      included_in: "La valeur de %{attribute} doit être comprise entre %{minimum} et %{maximum}"
-      inclusion: "%{attribute} n’est pas inclus dans la liste"
-      invalid: "%{attribute} est invalide"
-      invalid_at: "%{attribute} est invalide. Erreur près de %{error}"
-      invalid_date: "Veuillez saisir une date au format jj-mm-aaaa ou jj/mm/aaaa"
-      invalid_datetime: "%{attribute} est invalide"
-      invalid_siret: "%{value} n'est pas un numéro de SIRET valide" #?
-      invalid_syntax: "%{attribute} comporte des erreurs de syntaxe : %{errors}" #?
-      invalid_time: "%{attribute} est invalide"
-      invalid_token: "%{attribute} est invalide. Symbole inconnu %{error}. Les symboles acceptés sont %{accepted}."
-      is: "%{attribute} doit être un(e) %{thing}"
-      is_at: "%{attribute} doit être le %{restriction}"
-      less_than: "%{attribute} doit être inférieur à %{count}"
-      less_than_or_equal_to: "%{attribute} doit être inférieur ou égal à %{count}"
-      missing_bank_details_for_sepa: "Les valeurs IBAN et/ou Titulaire du compte sont manquantes pour la trésorerie sélectionnée."
-      must_be_a_mail_address: "%{attribute} doit être une adresse e-mail"
-      not_a_number: "%{attribute} n’est pas un nombre"
-      not_an_end_of_month: "%{attribute} doit être une fin de mois"
-      not_an_integer: "%{attribute} doit être un nombre entier"
-      # not_enough: "not enough %{resource} to complete task"
-      # not_found: "not found"
-      # not_locked: "was not locked"
-      not_saved:
-        # one: "1 error prohibited this %{resource} from being saved:"
-        # other: "%{count} errors prohibited this %{resource} from being saved:"
-      nothing_to_pay: "Il n’y a rien à payer. Si vous voulez enregistrer un acompte, n’oubliez pas de le préciser."
-      odd: "%{attribute} doit être pair"
-      on_or_after: "%{attribute} doit être le ou après le %{restriction}"
-      on_or_before: "%{attribute} doit être le ou avant le %{restriction}"
-      overlap: "%{attribute} se trouve sur un enregistrement existant"
-      overlap_sibling: "%{attribute} se trouve sur une période d'un autre enregistrement"
-      period_overlap: "%{attribute} se trouve sur une période d’un enregistrement existant" #?
-      posterior: "%{attribute} doit être postérieure à %{to}"
-      record_invalid: "Validations échouées\_: %{errors}"
-      taken: "%{attribute} a déjà été pris"
-      too_long: "%{attribute} est trop long (%{count} caractères maximum)"
-      too_short: "%{attribute} est trop court (%{count} caractères minimum)"
-      unitary_in_parcel: "Articles unitaires ne peuvent être envoyés un par un"
-      wrong_length: "%{attribute} n’est pas d’une bonne longueur (%{count} caractères)"
   models:
     account:
       label: "%{number} - %{name}"
@@ -2100,6 +2181,9 @@ fra:
         price_quote: "Quotation"
         prospecting: "Prospection"
         won: "Gagné"
+    debt_transfer:
+      purchase_regularization: "Régularisation d'achat"
+      sale_regularization: "Régularisation de vente"
     delivery:
       state_machine:
         states:
@@ -2259,9 +2343,9 @@ fra:
       states:
         draft: "Brouillon"
         invoice: "Facturé"
-    payslip_payment: #?
-      bookkeep: "[%{resource} %{number}] %{mode} %{check_number} pour %{payee}" #?
-      label: "%{number}. %{amount} du %{date} en %{mode} pour %{payee}" #?
+    payslip_payment:
+      bookkeep: "[%{resource} %{number}] %{mode} %{check_number} pour %{payee}"
+      label: "%{number}. %{amount} du %{date} en %{mode} pour %{payee}"
     product:
       informations:
         with_components: "%{product} (%{unit}) (produit transformé)"
@@ -2305,6 +2389,9 @@ fra:
         refused: "Refusé"
     purchase_gap:
       bookkeep: "[%{resource} %{number}] %{supplier}"
+    purchase_invoice:
+      bookkeep: "[%{resource} %{number}] %{products} de %{supplier}"
+      quantity_gap_on_invoice: "Ecart de stock en quantité [%{resource} %{number}] de %{entity}"
     purchase_item:
       name: "%{product} (%{quantity}%{unit}) à %{amount}%{currency}/%{unit}"
       name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}) à %{amount}%{currency}/%{unit}"
@@ -2312,9 +2399,25 @@ fra:
     purchase_nature:
       default:
         name: "Achat standard"
+    purchase_order: #?
+      states: #?
+        closed: "Fermée" #?
+        estimate: "Brouillon" #?
+        opened: "Ouverte" #?
     purchase_payment:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} pour %{payee}"
       label: "%{number}. %{amount} du %{date} en %{mode} pour %{payee}"
+    reception:
+      bookkeep: "[%{resource} %{number}] %{entity}"
+      state_machine:
+        states:
+          draft: "Brouillon"
+          given: "Donné"
+          in_preparation: "En préparation"
+          ordered: "Commandé"
+          prepared: "Prêt"
+          received: "Reçu"
+      undelivered_invoice: "Facture non parvenue [%{resource} %{mode} %{number}] %{entity}"
     role:
       default:
         administrator: "Gérant"
@@ -2394,6 +2497,16 @@ fra:
         sales_invoices: "F[year|4][number|6]"
         subscriptions: "ABO[number|8]"
         transports: "TR[number|8]"
+    shipment:
+      bookkeep: "[%{resource} %{number}] %{entity}"
+      state_machine:
+        states:
+          draft: "Brouillon"
+          given: "Donné"
+          in_preparation: "En préparation"
+          ordered: "Commandé"
+          prepared: "Prêt"
+          received: "Reçu"
     task:
       state_machine:
         states:

@@ -140,13 +140,13 @@ module Ekylibre
         # Find or create a purchase
         # if supplier and r.invoiced_at and r.reference_number
         # see if purchase exist anyway
-        unless purchase = Purchase.find_by(reference_number: r.reference_number)
+        unless purchase = PurchaseInvoice.find_by(reference_number: r.reference_number)
           # Find supplier
           unless supplier = Entity.where('full_name ILIKE ?', r.supplier_full_name).first
             raise "Cannot find supplier #{r.supplier_full_name} at line #{line_index}"
           end
           raise "Missing invoice date at line #{line_index}" unless r.invoiced_at
-          purchase = Purchase.create!(
+          purchase = PurchaseInvoice.create!(
             planned_at: r.invoiced_at,
             invoiced_at: r.invoiced_at,
             reference_number: r.reference_number,
@@ -174,17 +174,6 @@ module Ekylibre
         w.check_point
       end
 
-      # Restart counting
-      added_purchases = Purchase.where(id: purchase_ids)
-      w.reset! added_purchases.count, :yellow
-
-      # change status of all new added purchases
-      added_purchases.each do |purchase|
-        purchase.propose if purchase.draft?
-        purchase.confirm
-        purchase.invoice(purchase.invoiced_at)
-        w.check_point
-      end
     end
   end
 end

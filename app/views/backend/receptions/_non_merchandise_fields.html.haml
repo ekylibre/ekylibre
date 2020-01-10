@@ -1,0 +1,31 @@
+.item-block.role-row.role-row--non-merchandise
+  .item-block-role
+    :ruby
+      options = {
+        label: f.object.role.tl,
+        source: {scope: :purchaseables_services},
+        input_html: {
+          class: "parcel-item-variant",
+          data: {
+            product_of_delivery_item: {
+              url: backend_product_nature_variant_path("RECORD_ID", format: :json),
+              scope: 'unit'
+            },
+            required: true,
+          }
+        }
+      }
+    = f.referenced_association(:variant, **options)
+
+  - if f.object.fees?
+    .item-block__quantifier
+      .item-quantifier-population
+        = f.input :population, wrapper: :append do
+          = f.input_field :population, class: "total-quantity", placeholder: '0', data: {"when-item": "unitary", "when-set-value": 1, "when-prop-value": "disabled", required: true}
+  - else
+    .item-block__quantifier
+      .item-quantifier-population
+        = f.input :population, wrapper: :append do
+          = f.input_field :population, class: "total-quantity", placeholder: '0', data: {"when-item": "unitary", "when-set-value": 1, "when-prop-value": "disabled", required: true}
+          %span.add-on.item-population-unit-name
+            = variant.unit_name.or_else('unité')

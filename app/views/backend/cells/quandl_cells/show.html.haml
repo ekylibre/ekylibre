@@ -1,23 +1,22 @@
 - if @data
   :ruby
     series = []
-    point_start = Time.new(*@data[:from_date].split("-")).to_usec
-    point_finish = Time.new(*@data[:to_date].split("-")).to_usec
+    point_start = @data.meta["start_date"]
+    point_finish = @data.meta["end_date"]
     point_interval = 24 * 3600 * 1000
-    data = @data[:data].sort{|a,b| a[0] <=> b[0] }
-    time_serie = data.map{ |row| Time.new(*row.first.split("-").map(&:to_i)).to_usec }
-    @data[:column_names].each_with_index do |name, index|
-      next if index.zero?
+    categories = []
+    @data.each do |d|
+      categories << d['date'].to_s
+    end
+
+    indicator = 'low' # open, hight, low, settle, volume, interest
       serie_data = []
-      data.each_with_index do |row, j|
-        serie_data << [time_serie[j], (row[index].to_f.zero? ? nil : row[index])]
+      @data.each do |row|
+        serie_data << row[indicator]
       end
-      series << {name: name, data: serie_data, y_axis: (index > 4 ? 1 : 0), visible: (index <= 4)}
-    end
-    if params[:threshold]
-      threshold = params[:threshold].to_f
-      series << {name: "Threshold", data: [[point_start, threshold], [point_finish, threshold]], visible: true}
-    end
-  = spline_highcharts(series, x_axis: {type: "datetime"}, y_axis: [{title: {text: :values.tl}, labels: {format: '{value}€'}}, {title: {text: :net_mass.tl}, labels: {format: '{value}t'}, opposite: true}], legend: true, plot_options: {series: {marker: {enabled: false}}})
+      series << {name: indicator, data: serie_data}
+
+
+  = spline_highcharts(series, x_axis: {categories: categories}, y_axis: {title: {text: :values.tl}}, plot_options: {series: {marker: {enabled: false}}})
 - else
   = no_data

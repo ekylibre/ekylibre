@@ -20,6 +20,7 @@ eng:
       inclusion: "%{attribute} is not included in the list"
       invalid: "%{attribute} is invalid"
       invalid_at: "%{attribute} is_invalid. Error near %{error}"
+      invalid_child: "At least one value of %{attribute} is invalid."
       invalid_date: "%{attribute} is not a valid date"
       invalid_datetime: "%{attribute} is not a valid datetime"
       invalid_time: "%{attribute} is not a valid time"
@@ -92,6 +93,13 @@ eng:
         started_on: "start-up date"
       fixed_asset_depreciation:
         asset_amount: "Accountable value"
+      intervention_working_period:
+        started_at:
+          one: "Started at is inferior than expected"
+          other: "{{count}} Started at is inferior than expected"
+        stopped_at:
+          one: "Stopped at is inferior than expected"
+          other: "{{count}} Stopped at is inferior than expected"
       journal_entry_item:
         cumulated_absolute_credit_balance: "Credit balance"
         cumulated_absolute_debit_balance: "Debit balance"
@@ -103,6 +111,8 @@ eng:
       loan:
         ongoing_at: "Fund raising at"
         started_on: "First repayment started on"
+      naming_format_field:
+        field_name: "Field"
       outgoing_payment:
         delivered: "Given to recipient"
         list: "Disbursement list"
@@ -112,6 +122,13 @@ eng:
         contract: "Contract"
       parcel_item:
         population: "Quantity"
+        product_name: "Product name"
+      parcel_item_storing:
+        conditionning: "Conditionning"
+        conditionning_quantity: "Conditionning quantity"
+        quantity: "Total quantity"
+        reception_given_at: "Given at"
+        reception_planned_at: "Planned at"
       plant:
         born_at: "Planted at"
       plant_counting:
@@ -126,6 +143,12 @@ eng:
         seeding_density_value: "Expected seeding density"
       purchase:
         affair_balance: "Balance"
+      purchase_item:
+        average_unit_pretax_amount: "Average unit pretax amount"
+        fixed_asset_stopped_on: "Fixed asset stopped on"
+        last_unit_pretax_amount: "Last unit pretax amount"
+        ordered_quantity: "Ordered quantity"
+        supplier_name: "Supplier"
       sale:
         affair_balance: "Balance"
         contact: "Address for the estimate"
@@ -151,7 +174,152 @@ eng:
         intracommunity_payable: "Intracommunity payable"
     errors:
       messages:
-        <<: *error_messages
+        accepted: "%{attribute} must be accepted"
+        after: "%{attribute} must be after %{restriction}"
+        already_confirmed: "was already confirmed, please try signing in"
+        before: "%{attribute} must be before %{restriction}"
+        blank: "%{attribute} can't be blank"
+        confirmation: "%{attribute} doesn't match confirmation"
+        confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
+        currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
+        empty: "%{attribute} can't be empty"
+        equal_to: "%{attribute} must be equal to %{count}"
+        even: "%{attribute} must be even"
+        exclusion: "%{attribute} is reserved"
+        expired: "has expired, please request a new one"
+        greater_than: "%{attribute} must be greater than %{count}"
+        greater_than_or_equal_to: "%{attribute} must be greater than or equal to %{count}"
+        included_in: "The value of %{attribute} must be included between %{minimum} and %{maximum}"
+        inclusion: "%{attribute} is not included in the list"
+        invalid: "%{attribute} is invalid"
+        invalid_at: "%{attribute} is_invalid. Error near %{error}"
+        invalid_date: "%{attribute} is not a valid date"
+        invalid_datetime: "%{attribute} is not a valid datetime"
+        invalid_time: "%{attribute} is not a valid time"
+        invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
+        is: "%{attribute} must be a %{thing}"
+        is_at: "%{attribute} must be at %{restriction}"
+        less_than: "%{attribute} must be less than %{count}"
+        less_than_or_equal_to: "%{attribute} must be less than or equal to %{count}"
+        missing_bank_details_for_sepa: "Values for IBAN and/or Account owner are missing for the cash account selected."
+        must_be_a_mail_address: "%{attribute} must be a mail address"
+        not_a_number: "%{attribute} is not a number"
+        not_an_end_of_month: "%{attribute} must be an end of month"
+        not_an_integer: "%{attribute} must be an integer"
+        not_enough: "not enough %{resource} to complete task"
+        not_found: "not found"
+        not_locked: "was not locked"
+        not_saved:
+          one: "1 error prohibited this %{resource} from being saved:"
+          other: "%{count} errors prohibited this %{resource} from being saved:"
+        nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
+        odd: "%{attribute} must be odd"
+        on_or_after: "%{attribute} must be on or after %{restriction}"
+        on_or_before: "%{attribute} must be on or before %{restriction}"
+        overlap: "%{attribute} overlaps an existing record"
+        overlap_sibling: "%{attribute} overlaps sibling"
+        posterior: "%{attribute} must be posterior to %{to}"
+        record_invalid: "Validations failed: %{errors}"
+        taken: "%{attribute} has already been taken"
+        too_long: "%{attribute} is too long (maximum is %{count} characters)"
+        too_short: "%{attribute} is too short (minimum is %{count} characters)"
+        unitary_in_parcel: "Unitary items can only be sent one by one"
+        wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
+      models:
+        activity:
+          checked_off_with_inspections: "Inspections have already been created for this activity"
+          checked_without_measures: "At least, one measure type should be selected when inspections are wanted"
+        bank_statement:
+          no_cash_match_ofx: "No cash found for the bank account number given in the file"
+          ofx_file_has_multiple_bank_accounts: "OFX file with multiple bank accounts is not supported"
+          ofx_file_invalid: "OFX file is invalid"
+        bank_statement_item:
+          unvalid_amounts: "The journal entry must be filled either debit or credit but not at the same time."
+        cash:
+          currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
+          different_of_main_account: "%{attribute} must be different of main account (%{account})"
+          unvalid_bban: "Unvalid BBAN. One or more elements are incorrect."
+        deposit:
+          must_be_a_bank_account: "%{attribute} must be a bank account and not a cash"
+        entity:
+          missing_title: "%{attribute} must contains the title “%{title}”"
+          nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
+        financial_year:
+          attributes:
+            accountant:
+              frozen: "%{attribute} cannot be changed while an exchange is opened"
+            started_on:
+              consecutive: "The financial years must be consecutives. It must start after the end of the previous."
+              frozen: "The financial year date cannot be changed when an exchange has been created."
+              on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
+            stopped_on:
+              end_of_month: "%{attribute} must be an end of month"
+          overlap: "%{attribute} overlaps an existing financial year"
+        financial_year_exchange:
+          csv_file_entry_dates_invalid: "Some entries in the CSV are out of the financial year exchange date range"
+          csv_file_entry_invalid: "Some entries in the CSV are invalid ('%{entry_number}')"
+          csv_file_headers_invalid: "CSV headers are invalid"
+          csv_file_invalid: "CSV file is invalid"
+          csv_file_journals_invalid: "Some journals are present in the CSV but not in Ekylibre : %{codes}"
+        fixed_asset_depreciation:
+          attributes:
+            started_on:
+              invalid_date: "The depreciation must start on %{start} or on a beginning of month"
+        incoming_parcel_item:
+          greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
+        integration:
+          attributes:
+            parameters:
+              check_errored: "Connexion check errored. Please ensure the validity of your input or try again later."
+        intervention_working_period:
+          attributes:
+            started_at:
+              inferior: "Started at is inferior than expected"
+            stopped_at:
+              inferior: "Stopped at is inferior than expected"
+        journal:
+          attributes:
+            accountant:
+              entity_frozen: "Booked journals of this %{attribute} cannot change while an exchange is opened for its financial years"
+              present: "Accountant can only be set for various operations journals"
+              previous_entity_frozen: "Booked journals of the previous %{attribute} cannot change while an exchange is opened for its financial years"
+            closed_on:
+              end_of_month: "%{attribute} must be an end of month (%{closed_on})"
+        journal_entry:
+          closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
+          frozen_by_financial_year_exchange: "The journal entry cannot be recorded in a period corresponding to a financial year exchange."
+          out_of_existing_financial_year: "The journal entry must be recorded in a period corresponding to an existing financial year."
+          unbalanced: "The journal entry is unbalanced"
+        journal_entry_item:
+          closed_entry: "The journal entry is locked. You can not update it."
+          empty_amounts: "The journal entry must be filled either debit or credit"
+          unvalid_amounts: "The journal entry must be filled either debit or credit but not at the same time."
+        outgoing_parcel_item:
+          greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
+        purchase:
+          payment_delay_custom_validation_message: "Accepted formats : %{values}"
+        purchase_item:
+          attributes:
+            fixed:
+              asset_account: "Invalid asset account"
+              asset_depreciation_method: "Invalid asset depreciation method"
+              asset_expenses_account: "Invalid asset expenses account"
+              asset_wrong_depreciation_method: "Depreciation method must be simplified linear"
+              fixed_asset_stopped_on_invalid: "Invalid fixed asset stopped on"
+          building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
+          serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
+        sale_item:
+          building_can_not_transfer_product: "%{product} can not be found in %{building}, it only contains %{contained_product}."
+          can_not_use_this_tracking: "You can not user the S/N %{tracking}, the quantity is greater than the available quantity"
+          currency_is_not_sale_currency: "Currency is not identical to the sale currency"
+          error_no_found_price: "No found price"
+        subscription:
+          entity_must_be_the_same_as_the_contact_entity: "Person must be the same as the contact person"
+      template:
+        body: "There were problems with the following fields:"
+        header:
+          one: "1 error prohibited this %{model} from being saved"
+          other: "%{count} errors prohibited this %{model} from being saved"
     models:
       account: "Account"
       account_balance: "Account balance"
@@ -185,6 +353,7 @@ eng:
       campaign: "Campaign"
       cap_islet: "CAP islet"
       cap_land_parcel: "CAP land parcel"
+      cap_neutral_area: "Cap neutral area"
       cap_statement: "CAP statement"
       cash: "Cash"
       cash_session: "Cash session"
@@ -215,7 +384,6 @@ eng:
       event: "Event"
       event_participation: "Event participation"
       financial_year: "Financial year"
-      # financial_year_archive: "Financial year archive"
       financial_year_exchange: "Financial year exchange"
       fixed_asset: "Fixed asset"
       fixed_asset_depreciation: "Fixed asset depreciation"
@@ -236,6 +404,7 @@ eng:
       integration: "Integration"
       intervention: "Intervention"
       intervention_agent: "Intervention agent"
+      # intervention_costing: "Intervention costing"
       intervention_doer: "Intervention doer"
       intervention_group_parameter: "Intervention group parameter"
       intervention_input: "Intervention input"
@@ -265,7 +434,16 @@ eng:
       manure_management_plan: "Manure management plan"
       manure_management_plan_zone: "Manure management plan zone"
       map_layer: "Map layer"
+      # master_equipment_cost: "Master equipment cost"
+      # master_equipment_flow: "Master equipment flow"
+      # master_equipment_nature: "Master equipment nature"
+      # master_production_nature: "Master production nature"
+      # master_production_output: "Master production output"
       matter: "Matter"
+      # naming_format: "Naming format"
+      # naming_format_field: "Naming format field"
+      # naming_format_field_land_parcel: "Naming format field land parcel"
+      # naming_format_land_parcel: "Naming format land parcel"
       net_service: "Net service"
       notification: "Notification"
       observation: "Observation"
@@ -274,6 +452,7 @@ eng:
       outgoing_payment_mode: "Disbursement mode"
       parcel: "Parcel"
       parcel_item: "Parcel item"
+      # parcel_item_storing: "Parcel item storing"
       payslip: "Payslip"
       payslip_affair: "Payslip affair"
       payslip_nature: "Payslip type"
@@ -305,12 +484,30 @@ eng:
       product_phase: "Product phase"
       product_population: "Product population"
       product_reading: "Product reading"
+      # project_budget: "Project budget"
       purchase: "Purchase"
       purchase_affair: "Purchase affair"
       purchase_gap: "Purchase gap"
+      purchase_invoice: "Purchase invoice"
       purchase_item: "Purchase item"
       purchase_nature: "Purchase type"
+      purchase_order: "Purchase order"
       purchase_payment: "Disbursement"
+      reception: "Reception"
+      reception_item: "Reception item"
+      registered_agroedi_code: "Registered agroedi code"
+      # registered_building_zone: "Registered building zone"
+      registered_pfi_crop: "Registered pfi crop"
+      registered_pfi_dose: "Registered pfi dose"
+      registered_pfi_target: "Registered pfi target"
+      registered_phytosanitary_phrase: "Registered phytosanitary phrase"
+      registered_phytosanitary_product: "Registered phytosanitary product"
+      registered_phytosanitary_risk: "Registered phytosanitary risk"
+      registered_phytosanitary_usage: "Registered phytosanitary usage"
+      registered_postal_zone: "Registered postal zone"
+      registered_seed: "Registered seed"
+      # registered_water_lake: "Registered water lake"
+      # registered_water_river: "Registered water river"
       regularization: "Regularization"
       role: "Role"
       sale: "Sale"
@@ -323,6 +520,8 @@ eng:
       sensor: "Sensor"
       sequence: "Sequence"
       settlement: "Settlement"
+      shipment: "Shipment"
+      shipment_item: "Shipment item"
       sub_zone: "Sub-zone"
       subscription: "Subscription"
       subscription_nature: "Subscription type"
@@ -340,6 +539,7 @@ eng:
       tracking: "Tracking"
       user: "User"
       version: "Version"
+      # wice_grid_serialized_query: "Wice grid serialized query"
       worker: "Worker"
       zone: "Zone"
   attributes:
@@ -364,7 +564,7 @@ eng:
     accountant: "Accountant"
     accounted_at: "Accounted at"
     accounting_balance: "Accounting balance"
-    accounting_label: "Accounting label"
+    accounting_label: "Accounting label" #?
     accuracy: "Accuracy"
     achieved_at: "Achieved at"
     actions: "Actions"
@@ -389,16 +589,18 @@ eng:
     administrator: "Administrator"
     advice_reference_name: "Advice reference"
     affair: "Affair"
+    affair_balance: "Affair balance"
     affairs: "Affairs"
     affectation_percentage: "Affectation percentage"
     affected_at: "Affected at" #?
     age: "Age"
+    agroedi_crop_code: "Agroedi crop code"
     alert: "Alert"
     alerts: "Alerts"
     all_addresses: "All addresses"
     all_taxes_included: "All taxes included"
     allocation_account: "Allocation account"
-    already_existing: "Already existing"
+    already_existing: "Already existing" #?
     amount: "Amount"
     analysed_at: "Analysed at"
     analyser: "Analyser"
@@ -406,13 +608,15 @@ eng:
     analysis: "Analysis"
     analysis_items: "Analysis items"
     annotation: "Annotation"
+    applications_count: "Applications count"
+    applications_frequency: "Applications frequency"
     archive: "Archive"
     archive_content_type: "Archive content type"
     archive_file_name: "Archive file name"
     archive_file_size: "Archive file size"
     archive_updated_at: "Archive updated at"
-    # archives: "Archives"
     archiving: "Archiving"
+    area: "Area" #?
     arguments: "Arguments"
     assembly: "Assembly"
     asset_account: "Asset account"
@@ -425,8 +629,9 @@ eng:
     authorized_payments_count: "Authorized payments count"
     # auto_calculate_working_periods: "Auto calculate working periods"
     auto_updateable_addresses: "Auto updateable addresses"
-    auxiliary_number: "Auxiliary number"
+    auxiliary_number: "Auxiliary number" #?
     average_value: "Average value"
+    average_yield: "Average yield"
     balance: "Balance"
     balance_pretax_amount: "Balance pretax amount"
     balance_tax_amount: "Balance tax amount"
@@ -445,8 +650,12 @@ eng:
     bank_name: "Bank name"
     bank_statement: "Bank statement"
     bank_statement_letter: "Bank statement letter"
+    bank_statement_number: "Bank statement number"
     bank_statements: "Bank statements"
     base_amount: "Base amount"
+    batch: "Batch" #?
+    batch_number: "Batch number"
+    batch_planting: "Batch planting" #?
     battery_level: "Battery level"
     birth_date_completeness: "Birth date completeness"
     birth_farm_number: "Birth farm number"
@@ -457,17 +666,21 @@ eng:
     budgets: "Budgets"
     buildings: "Buildings"
     by_default: "By default"
-    # cached_payment_count: "Cached payment count"
+    cached_payment_count: "Cached payment count"
     # cached_total_sum: "Cached total sum"
     calibrations: "Calibrations"
     # calls: "Calls"
     campaign: "Campaign"
     campaigns: "Campaigns"
     canal: "Canal"
+    cap_2017_crop_code: "Cap 2017 crop code"
+    cap_2018_crop_code: "Cap 2018 crop code"
+    # cap_2019_crop_code: "Cap 2019 crop code"
     cap_islet: "CAP islet"
     cap_islets: "CAP islets"
     cap_land_parcel: "CAP land parcel"
     cap_land_parcels: "CAP land parcels"
+    cap_neutral_areas: "Cap neutral areas"
     cap_statement: "CAP statement"
     cap_statements: "CAP statements"
     carried: "Carried"
@@ -478,11 +691,13 @@ eng:
     cashes: "Bank accounts"
     catalog: "Catalog"
     catalog_items: "Catalog items"
+    # categories: "Categories"
     category: "Category"
     ceded: "Ceded"
     ceded_on: "Ceded on"
-    centralizing_account: "Centralizing account"
-    centralizing_account_name: "Centralizing account name"
+    centralizing_account: "Centralizing account" #?
+    centralizing_account_name: "Centralizing account name" #?
+    centroid: "Centroid"
     charge_account: "Charge account"
     charges_categories: "Charges categories"
     checks: "Checks" #?
@@ -492,6 +707,9 @@ eng:
     choices_count: "Choices count"
     ciphered_parameters: "Ciphered parameters"
     city: "City"
+    # city_centroid: "City centroid"
+    # city_delivery_detail: "City delivery detail"
+    # city_delivery_name: "City delivery name"
     city_name: "City name"
     client: "Client"
     client_account: "Client account"
@@ -502,7 +720,6 @@ eng:
     closed: "Closed"
     closed_at: "Closed at"
     closed_on: "Closed on"
-    # closer: "Closer"
     closure_journal: "Closure journal" #?
     clusters_work_number: "Clusters work number" #?
     code: "Code"
@@ -516,6 +733,7 @@ eng:
     color: "Color"
     column_name: "Column name"
     columns: "Columns"
+    command_mode: "Command mode"
     comment: "Comment"
     commercial: "Commercial"
     commercial_description: "Commercial description"
@@ -527,6 +745,7 @@ eng:
     commissioned_incoming_payment_modes: "Commissioned incoming payment modes"
     company_creation_date: "Company creation date" #?
     company_name: "Company name" #?
+    # complete_name: "Complete name"
     component: "Component"
     components: "Components"
     computation_method: "Computation method"
@@ -535,6 +754,8 @@ eng:
     conclusion: "Conclusion"
     condition_operator: "Condition operator"
     condition_value: "Condition value"
+    conditionning: "Conditionning"
+    conditionning_quantity: "Conditionning quantity"
     conditions: "Conditions"
     confirmation_sent_at: "Confirmation sent at"
     confirmation_token: "Confirmation token"
@@ -544,12 +765,13 @@ eng:
     content: "Content"
     content_localizations: "Content localizations"
     contents: "Contents"
-    continuous_number: "Continuous number"
+    continuous_number: "Continuous number" #?
     contract: "Contract"
     contract_items: "Contract items"
     contracts: "Contracts"
     coordinate: "Coordinate"
     coordinate_columns: "Coordinate columns"
+    # costing: "Costing"
     costs_per_unit: "Costs per %{unit}" #?
     country: "Country"
     created_at: "Created at"
@@ -560,6 +782,7 @@ eng:
     credited_quantity: "Credited quantity"
     credited_sale: "Credited sale"
     credits: "Credits"
+    crop: "Crop"
     crumbs: "Crumbs"
     cultivable_zone: "Cultivable zone"
     cultivable_zones: "Cultivable zones" #?
@@ -577,7 +800,7 @@ eng:
     current_localization: "Current localization"
     current_memberships: "Current memberships"
     current_mother_link: "Current mother link"
-    current_outgoing_stock_ordered_not_delivered: "Outgoing stock not delivered"
+    current_outgoing_stock_ordered_not_delivered_displayed: "Outgoing stock not delivered"
     current_ownership: "Current ownership"
     current_password: "Current password"
     current_phase: "Current phase"
@@ -590,6 +813,7 @@ eng:
     custom_fields: "Custom fields"
     custom_fields_columns: "Custom fields columns"
     customized_type: "Customized type"
+    daily_charges: "Daily charges" #?
     daily_nitrogen_production: "Daily nitrogen production"
     dashboards: "Dashboards"
     # data: "Data"
@@ -639,7 +863,7 @@ eng:
     depreciable_amount: "Depreciable amount"
     depreciable_product: "Depreciable product"
     depreciated_amount: "Depreciated amount"
-    depreciation_fiscal_coefficient: "Depreciation fiscal coefficient"
+    depreciation_fiscal_coefficient: "Depreciation fiscal coefficient" #?
     depreciation_method: "Depreciation method"
     depreciation_percentage: "Depreciation percentage"
     depreciation_period: "Depreciation period"
@@ -658,6 +882,12 @@ eng:
     document: "Document"
     documents: "Documents"
     doers: "Doers"
+    # doers_cost: "Doers cost"
+    dose_quantity: "Dose quantity"
+    dose_unit: "Dose unit"
+    dose_unit_name: "Dose unit name"
+    dose_unity: "Dose unity"
+    doses: "Doses"
     downpayment: "Downpayment"
     downpayment_amount: "Downpayment amount"
     downpayment_minimum: "Downpayment minimum"
@@ -667,6 +897,8 @@ eng:
     due_on: "Due on"
     duration: "Duration"
     economic_situation: "Economic situation"
+    # ekylibre_scope: "Ekylibre scope"
+    # ekylibre_value: "Ekylibre value"
     email: "Email"
     emails: "Emails"
     embedded: "Embedded"
@@ -695,6 +927,9 @@ eng:
     entry_number: "Entry number"
     entry_on: "Entry on" #?
     entry_reason: "Entry reason"
+    equipment: "Equipment"
+    equipment_nature: "Equipment nature"
+    estimate_reception_date: "Estimate reception date"
     euid: "EUID"
     event: "Event"
     event_participation: "Event participation"
@@ -727,6 +962,8 @@ eng:
     father_identification_number: "Father identification number"
     father_variety: "Father variety"
     faxes: "Faxes"
+    field_name: "Field name"
+    fields: "Fields"
     file: "File"
     file_content_text: "File content text"
     file_content_type: "File content type"
@@ -743,8 +980,8 @@ eng:
     # financial_years: "Financial years"
     finish: "Finish"
     finished_at: "Finished at"
+    firm_name: "Firm name"
     first_calving_on: "First calving on"
-    # first_financial_year_ends_on: "First financial year ends on"
     first_met_at: "First met on"
     first_name: "First name"
     first_number: "First number" #?
@@ -760,8 +997,11 @@ eng:
     fixed_asset_depreciation_percentage: "Fixed asset depreciation percentage"
     fixed_asset_depreciations: "Fixed asset depreciations"
     fixed_asset_expenses_account: "Fixed asset depreciations inputations expenses account"
+    # fixed_asset_stopped_on: "Fixed asset stopped on"
     fixed_assets: "Fixed assets"
+    # flows: "Flows"
     following: "Following"
+    # forecast_harvest_week: "Forecast harvest week"
     format: "Format"
     formats: "Formats"
     forward_journal: "Carrying forward journal" #?
@@ -770,6 +1010,7 @@ eng:
     frozen_indicators_list: "Frozen indicators list"
     full_name: "Full name"
     function_title: "Function title"
+    # functions: "Functions"
     gap: "Gap"
     gaps: "Gaps"
     geolocation: "Geolocation"
@@ -790,6 +1031,7 @@ eng:
     gradings: "Gradings" #?
     grains_yield: "Grains Yield"
     gravity: "Gravity"
+    # grid_name: "Grid name"
     gross_items_count: "Gross items count" #?
     gross_items_count_yield: "Gross item yield" #?
     gross_net_mass: "Gross mass" #?
@@ -804,7 +1046,11 @@ eng:
     has_downpayment: "Has downpayment"
     headers: "Headers"
     host: "Host"
+    hour_counter: "Hour counter"
+    hour_counter_unit_name: "Hour counter unit name" #?
     human_activities_names: "Activities names"
+    human_name: "Human name"
+    # human_name_fra: "Human name fra"
     human_shape_area: "Surface area"
     human_target_names: "Target names"
     human_working_duration: "Working duration"
@@ -824,15 +1070,18 @@ eng:
     importance: "Importance"
     imported_at: "Imported at"
     importer: "Importer"
+    in_field_reentry_delay: "In field reentry delay"
     in_preparation_at: "In preparation at"
     included: "Included" #?
     incoming_parcel_item: "Incoming delivery item"
-    incoming_parcels: "Incoming deliveries"
+    incoming_parcels: "Incoming deliveries" #?
     incoming_payment_modes: "Incoming payment modes"
     incoming_payments: "Incoming payments"
     indicator: "Indicator"
     indicator_datatype: "Indicator datatype"
     indicator_name: "Indicator name"
+    indicator_unit: "Indicator unit"
+    indicator_value: "Indicator value"
     indicators: "Indicators"
     indirect_links: "Indirect links"
     initial_balance_credit: "Initial balance credit"
@@ -853,6 +1102,7 @@ eng:
     initialization_vectors: "Initialization vectors"
     initiated_on: "Initiated on"
     inputs: "Inputs"
+    # inputs_cost: "Inputs cost"
     inspection: "Inspection"
     inspection_calibration_natures: "Inspection calibration types"
     inspection_calibration_scales: "Inspection calibration scales"
@@ -873,12 +1123,18 @@ eng:
     interpolations: "Interpolations"
     intervention: "Intervention"
     intervention_cast: "Intervention cast" #?
+    # intervention_flow: "Intervention flow"
+    intervention_id: "Intervention"
     # intervention_labellings: "Intervention labellings"
     intervention_parameter: "Intervention parameter"
     # intervention_participated_to: "Intervention participated to"
     intervention_participation: "Intervention participation"
     intervention_participations: "Intervention participations"
     intervention_product_parameters: "Intervention casts"
+    intervention_proposal: "Intervention proposal" #?
+    intervention_proposals: "Intervention proposals" #?
+    intervention_template: "Intervention template" #?
+    intervention_templates: "Intervention templates" #?
     interventions: "Interventions"
     interventions_used_in: "Interventions used in"
     intracommunity: "Intracommunity"
@@ -900,8 +1156,10 @@ eng:
     invoiced_at: "Invoiced on"
     invoiced_on: "Invoiced on"
     ip_address: "IP address"
+    irregular_batch: "Irregular batch" #?
     irrigated: "Irrigated"
     irrigation_water_nitrogen: "Irrigation water nitrogen"
+    # is_partially_planned: "Is partially planned"
     islet: "Islet"
     islet_number: "Islet number"
     islets: "Islets"
@@ -945,6 +1203,7 @@ eng:
     last_transmission_at: "Last transmission"
     last_value: "Last value"
     last_year: "Last year"
+    late_delivery: "Late delivery"
     latest: "Latest"
     leaves_parameters: "Leaves parameters"
     lender: "Lender"
@@ -972,6 +1231,7 @@ eng:
     lock_version: "Version"
     locked: "Locked"
     locked_at: "Locked at"
+    maaid: "Maaid"
     mail: "Mail"
     mail_addresses: "Mail addresses"
     mail_auto_update: "Mail auto update"
@@ -992,11 +1252,13 @@ eng:
     main_crop_commercialisation: "Main crop commercialisation"
     main_crop_precision: "Main crop precision"
     main_crop_seed_production: "Main crop seed production"
+    # main_frozen_indicator_name: "Main frozen indicator name"
+    # main_frozen_indicator_unit: "Main frozen indicator unit"
     # main_journal_entry_items: "Main journal entry items"
     main_production: "Main production" #?
     managed: "Managed"
     managed_sales: "Managed sales"
-    mandatory: "Mandatory"
+    mandatory: "Mandatory" #?
     manure_management_plan_zones: "Manure management plan zones"
     marketable: "Marketable"
     marketable_items_count: "Marketable items count" #?
@@ -1027,6 +1289,7 @@ eng:
     members_count: "Members count"
     memberships: "Memberships"
     memo: "Memo"
+    merge_stock: "Merge stock"
     message: "Message"
     messages: "Messages"
     metadata: "Metadata"
@@ -1036,6 +1299,7 @@ eng:
     minimal_size: "Minimal size" #?
     minimal_size_value: "Minimal size value"
     minimal_value: "Minimal value"
+    # mix_category_code: "Mix category code"
     mobiles: "Mobile phones"
     mode: "Mode"
     mode_delta: "Mode delta"
@@ -1046,8 +1310,9 @@ eng:
     mother_variety: "Mother variety"
     movements: "Movements"
     moves: "Moves" #?
-    multi_polygon_value: "Multi polygon value"
+    multi_polygon_value: "The outline of the shape"
     name: "Name"
+    naming_format: "Naming format"
     nature: "Type"
     nature_name: "Type name"
     natures: "Types"
@@ -1066,6 +1331,8 @@ eng:
     nitrogen_need: "Nitrogen need"
     node: "Node"
     nodes: "Nodes"
+    non_compliant: "Non compliant"
+    non_compliant_detail: "Non compliant detail"
     noticed_start_amount: "Noticed start amount"
     noticed_stop_amount: "Noticed stop amount"
     notification: "Notification"
@@ -1073,6 +1340,7 @@ eng:
     number: "Number"
     number_format: "Number format"
     number_increment: "Number increment"
+    number_of_batch: "Number of batch" #?
     number_start: "Number start"
     observations: "Observations"
     observed_at: "Observed at"
@@ -1090,10 +1358,11 @@ eng:
     origin_identification_number: "Origin identification number"
     originator: "Originator"
     originator_type: "Originator type"
+    # other_frozen_indicator_name: "Other frozen indicator name"
     outcoming_product: "Outcoming product"
     outgoing_parcel_item: "Outgoing parcel item"
     outgoing_parcel_items: "Outgoing parcel items" #?
-    outgoing_parcels: "Outgoing parcels"
+    outgoing_parcels: "Outgoing parcels" #?
     outgoing_payment_modes: "Disbursement modes"
     outgoing_payments: "Disbursements"
     outputs: "Outputs"
@@ -1105,8 +1374,12 @@ eng:
     parameter_name: "Parameter name" #?
     parameters: "Parameters"
     parcel: "Parcel"
+    # parcel_item: "Parcel item"
+    parcel_item_storings: "Parcel item storings"
     parcel_items: "Parcel items"
     parcels: "Parcels"
+    # parcels_purchase_invoice_items: "Parcels purchase invoice items"
+    # parcels_purchase_orders_items: "Parcels purchase orders items"
     parent: "Parent"
     part_product_nature_variant: "Part product type variant"
     part_product_nature_variant_id: "Part product type variant"
@@ -1120,7 +1393,6 @@ eng:
     # parts: "Parts"
     password: "Password"
     password_confirmation: "Confirmation of password"
-    # path: "Path"
     payee: "Payee"
     payer: "Payer"
     payment_at: "Payment on"
@@ -1134,8 +1406,13 @@ eng:
     payslips: "Payslips"
     period: "Period"
     person: "Person"
+    # pesticide_name: "Pesticide name"
+    # pfi_crop: "Pfi crop"
+    # pfi_crop_code: "Pfi crop code"
     phases: "Phases"
     phones: "Phones"
+    # phrase_code: "Phrase code"
+    # phrases: "Phrases"
     pictogram: "Pictogram"
     picture: "Picture"
     picture_content_type: "Picture content type"
@@ -1164,6 +1441,7 @@ eng:
     post: "Post"
     postal_code: "Postal code"
     postal_zones: "Postal zones"
+    # pre_harvest_delay: "Pre harvest delay"
     pre_harvest_interval: "Pre-harvest interval" #?
     # preexisting_asset: "Preexisting asset"
     preferences: "Preferences"
@@ -1177,11 +1455,12 @@ eng:
     printed_on: "Printed on"
     priority: "Priority"
     probability_percentage: "Probability percentage"
+    procedure: "Procedure"
     procedure_name: "Procedure name"
     producer: "Producer"
     product: "Product"
     product_account: "Product account"
-    # product_enjoyment: "Product enjoyment"
+    product_enjoyment: "Product enjoyment"
     product_enjoyments: "Product enjoyments" #?
     product_identification_number: "Identification number"
     # product_labellings: "Product labellings"
@@ -1207,9 +1486,12 @@ eng:
     product_reading: "Product reading"
     product_reading_tasks: "Product reading tasks" #?
     product_readings: "Product readings" #?
+    product_type: "Product type" #?
+    product_work_number: "Product work number"
     production: "Production"
     production_campaign: "Production campaign"
     production_cycle: "Production cycle"
+    production_nature: "Production nature"
     production_support: "Production support" #?
     production_supports: "Production supports" #?
     production_system: "Production system"
@@ -1219,9 +1501,11 @@ eng:
     products: "Products"
     products_categories: "Products categories"
     progression_percentage: "Progression (%)"
+    project_budget: "Project budget"
     proposer: "Proposer"
     prospect: "Prospect"
     # provider: "Provider"
+    providers: "Providers"
     provisional: "Provisional" #?
     provisional_intervention: "Provisional intervention" #?
     # public_token: "Public token"
@@ -1230,10 +1514,15 @@ eng:
     purchase: "Purchase"
     purchase_affairs: "Purchase affairs"
     purchase_amount: "Purchase amount"
+    purchase_invoice_item: "Purchase invoice item"
     purchase_invoices: "Purchase invoices"
-    purchase_item: "Purchase item"
+    purchase_item: "Purchase item" #?
     purchase_items: "Purchase items"
     purchase_natures: "Purchase types"
+    # purchase_order: "Purchase order"
+    purchase_order_item: "Purchase order item"
+    # purchase_order_to_close: "Purchase order to close"
+    # purchase_orders: "Purchase orders"
     purchase_payments: "Purchase payments"
     purchase_taxations: "Purchase taxations"
     purchase_taxes: "Purchase taxes"
@@ -1245,6 +1534,8 @@ eng:
     quantity_indicator: "Quantity indicator" #?
     quantity_indicator_name: "Quantity indicator name"
     quantity_population: "Quantity population"
+    quantity_purchased: "Purchased quantity"
+    quantity_received: "Used quantity"
     quantity_unit: "Quantity unit"
     quantity_unit_name: "Quantity unit name"
     quantity_value: "Quantity value"
@@ -1264,19 +1555,27 @@ eng:
     receipt: "Receipt"
     received: "Received"
     received_at: "Received at" #?
+    # reception: "Reception"
     reception_amount: "Reception amount"
     reception_cash: "Reception cash"
     reception_currency: "Reception currency"
+    reception_items: "Reception items"
     reception_journal_entry: "Reception journal entry"
+    receptions: "Receptions"
+    # receptions_cost: "Receptions cost"
     recipient: "Recipient"
     recommended: "Recommended" #?
     recommender: "Recommender"
     reconcilable: "Reconcilable"
+    reconciliation_state: "Reconciliation state"
     record_interventions: "Record interventions"
     record_value: "Record value"
     record_value_type: "Record value type"
     reductible: "Reductible"
     reduction_percentage: "Reduction percentage"
+    # reference_code: "Reference code"
+    # reference_label: "Reference label"
+    reference_label_fra: "Reference label fra"
     reference_name: "Reference name"
     reference_number: "Reference number"
     reference_source_content_type: "Reference source content type"
@@ -1326,6 +1625,8 @@ eng:
     revenues: "Revenues"
     rgt: "Right"
     rights: "Rights"
+    # risk_code: "Risk code"
+    # risks: "Risks"
     role: "Role"
     roles: "Roles" #?
     root_components: "Root components"
@@ -1363,6 +1664,13 @@ eng:
     seasons: "Seasonalities"
     seeding_density_unit: "Seeding density unit"
     seeding_density_value: "Seeding density"
+    # segment_1_amount: "Segment 1 amount"
+    # segment_1_threshold: "Segment 1 threshold"
+    # segment_2_amount: "Segment 2 amount"
+    # segment_2_threshold: "Segment 2 threshold"
+    # segment_3_amount: "Segment 3 amount"
+    # segment_3_threshold: "Segment 3 threshold"
+    # segment_average_amount: "Segment average amount"
     selected: "Selected"
     selected_manure_management_plan: "Selected manure management plan"
     selected_manure_management_plan_zone: "Selected manure management plan zone"
@@ -1375,12 +1683,15 @@ eng:
     serial: "Serial"
     serial_number: "Serial number"
     sessions: "Sessions"
-    sha256_fingerprint: "Sha256 fingerprint"
+    sha256_fingerprint: "Sha256 fingerprint" #?
     shape: "Shape"
     shift_duration: "Shift duration"
     shift_method: "Shift method"
+    # shipment: "Shipment"
+    shipment_items: "Shipment items"
+    shipments: "Shipments"
     sign_in_count: "Sign in count"
-    signature: "Signature"
+    signature: "Signature" #?
     signup_at: "Signup at"
     siren: "SIREN"
     siret_number: "SIRET number"
@@ -1395,9 +1706,11 @@ eng:
     sold_on: "Sold on"
     source: "Source"
     source_product: "Source product"
-    # source_product_movement: "Source product movement"
+    source_product_movement: "Source product movement"
     # source_type: "Source type"
+    sowing_interval: "Sowing interval" #?
     spaced_iban: "Spaced IBAN"
+    specie: "Specie"
     sql_type: "SQL type"
     ssl: "SSL"
     start: "Start"
@@ -1417,6 +1730,7 @@ eng:
     storable: "Storable"
     storage: "Storage"
     storages: "Storages" #?
+    storings: "Storings"
     story: "Story"
     string_value: "Storable"
     subdomains: "Subdomains"
@@ -1476,6 +1790,7 @@ eng:
     tax_payability: "Tax payability"
     taxations: "Taxations"
     team: "Team"
+    technical_itinerary: "Technical itinerary" #?
     template: "Template"
     theme: "Theme"
     theoretical_number: "Theoretical number" #?
@@ -1483,7 +1798,7 @@ eng:
     third_role: "Third role"
     thread: "Thread"
     time_window: "Time window (in seconds)"
-    timing: "Timing"
+    timing: "Timing" #?
     title: "Title"
     tms: "TMS"
     to: "To"
@@ -1494,6 +1809,7 @@ eng:
     token: "Token"
     tool: "Tool"
     tools: "Tools"
+    # tools_cost: "Tools cost"
     total_cost: "Total cost"
     total_doer_cost: "Total doer cost" #?
     total_input_cost: "Total input cost" #?
@@ -1512,13 +1828,16 @@ eng:
     transporter: "Transporter"
     transporter_purchase: "Transporter purchase"
     transporter_sales: "Transporter sales"
+    # treatment: "Treatment"
     trouble_description: "Trouble description"
     trouble_encountered: "Trouble encountered"
+    vat_account: "VAT account"
     type: "Type"
     uid: "UID"
     unconfirmed_email: "Unconfirmed email"
     undelivered_invoice_journal_entry: "Undelivered invoice entry"
     undelivered_quantity: "Undelivered quantity"
+    unit: "Unit"
     unit_amount: "Unit amount"
     unit_currency: "Unit currency"
     unit_name: "Unit name"
@@ -1532,6 +1851,7 @@ eng:
     # unpointed_main_journal_entry_items: "Unpointed main journal entry items"
     # unpointed_suspended_journal_entry_items: "Unpointed suspended journal entry items"
     unread_notifications: "Unread notifications"
+    # untreated_buffer_distance: "Untreated buffer distance"
     untreated_zone_margin: "Untreated zone margin" #?
     updated_at: "Updated at"
     updater: "Updater"
@@ -1557,7 +1877,8 @@ eng:
     user: "User"
     users: "Users"
     uuid: "UUID"
-    validated_at: "Validated at"
+    validated_at: "Validated at" #?
+    # validator: "Validator"
     value: "Value"
     variable_indicators_list: "Variable indicators list"
     variant: "Variant"
@@ -1630,6 +1951,9 @@ eng:
         price_quote: "Price quote"
         prospecting: "Prospecting"
         won: "Won"
+    debt_transfer:
+      purchase_regularization: "Purchase regularization"
+      sale_regularization: "Sale regularization"
     delivery:
       state_machine:
         states:
@@ -1778,6 +2102,9 @@ eng:
       states:
         draft: "Draft"
         invoice: "Invoice"
+    payslip_payment:
+      bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
+      label: "%{number}. %{amount} on %{date} in %{mode} for %{payee}"
     product:
       informations:
         with_components: "%{product} (%{unit}) (transformed material)"
@@ -1821,6 +2148,9 @@ eng:
         refused: "Refused order"
     purchase_gap:
       bookkeep: "[%{resource} %{number}] %{supplier}"
+    purchase_invoice:
+      bookkeep: "[%{resource} %{number}] %{products} from %{supplier}"
+      quantity_gap_on_invoice: "Gap on stock quantity [%{resource} %{number}] from %{entity}"
     purchase_item:
       name: "%{product} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}"
       name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}"
@@ -1831,6 +2161,17 @@ eng:
     purchase_payment:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
       label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
+    reception:
+      bookkeep: "[%{resource} %{number}] %{entity}"
+      state_machine:
+        states:
+          draft: "Draft"
+          given: "Given"
+          in_preparation: "In preparation"
+          ordered: "Ordered"
+          prepared: "Prepared"
+          received: "Received"
+      undelivered_invoice: "Undelivered invoice [%{resource} %{mode} %{number}] %{entity}"
     role:
       default:
         administrator: "Administrator"
@@ -1910,6 +2251,16 @@ eng:
         sales_invoices: "SI[year|4][number|6]"
         subscriptions: "SUB[number|8]"
         transports: "TR[number|8]"
+    shipment:
+      bookkeep: "[%{resource} %{number}] %{entity}"
+      state_machine:
+        states:
+          draft: "Draft"
+          given: "Given"
+          in_preparation: "In preparation"
+          ordered: "Ordered"
+          prepared: "Prepared"
+          received: "Received"
     task:
       state_machine:
         states:

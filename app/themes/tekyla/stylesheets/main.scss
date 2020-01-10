@@ -1782,12 +1782,7 @@ a[data-remove-closest], a[data-remove] {
   }
   .amount {
     @include text-align(right);
-    &.credit {
-      &, & * { color: $invalid-color }
-    }
-    &.debit {
-      &, & * { color: green }
-    }
+
     &, & * {
       font-weight: bold;
     }
@@ -2507,7 +2502,7 @@ a[data-annotate] {
     &.state-lost, &.state-refused, &.state-aborted, &.state-todo, &.state-scrapped, &.state-sold {
       background: $invalid-color;
     }
-    &.state-in_use, &.state-won, &.state-invoice, &.state-order, &.state-done, &.state-given, &.state-finished, &.state-ongoing, &.state-repaid {
+    &.state-in_use, &.state-won, &.state-invoice, &.state-order, &.state-done, &.state-given, &.state-finished, &.state-ongoing, &.state-repaid, &.state-opened {
       background: $success-color;
     }
     @include text-align(center);
@@ -2775,4 +2770,12 @@ a[data-annotate] {
 
 .label-important {
   color: $invalid-color;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.fieldset .fieldset-fields tr.nested-fields input.numeric, .fieldset .fieldset-fields tbody.nested-fields input.numeric {
+  width: 5em;
 }

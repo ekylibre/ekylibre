@@ -23,6 +23,7 @@
 #     - "authentication/sessions#create"
 #     - "authentication/sessions#destroy"
 #     - "authentication/sessions#new"
+#     - "backend/accounts#reconciliable_list"
 #     - "backend/activities#family"
 #     - "backend/activity_inspection_point_natures#autocomplete"
 #     - "backend/attachments#create"
@@ -30,6 +31,7 @@
 #     - "backend/attachments#show"
 #     - "backend/beehives#reset"
 #     - "backend/beehives#update"
+#     - "backend/calculators/grains_commercialization_threshold_simulators#show"
 #     - "backend/cells/accountancy_balance_cells#show"
 #     - "backend/cells/calendar_cells#show"
 #     - "backend/cells/cashes_balance_cells#show"
@@ -59,8 +61,10 @@
 #     - "backend/cells/last_outgoing_parcels_cells#show"
 #     - "backend/cells/last_products_cells#list"
 #     - "backend/cells/last_products_cells#show"
-#     - "backend/cells/last_purchases_cells#list"
-#     - "backend/cells/last_purchases_cells#show"
+#     - "backend/cells/last_purchases_invoices_cells#list"
+#     - "backend/cells/last_purchases_invoices_cells#show"
+#     - "backend/cells/last_purchases_orders_cells#list"
+#     - "backend/cells/last_purchases_orders_cells#show"
 #     - "backend/cells/last_sales_cells#list"
 #     - "backend/cells/last_sales_cells#show"
 #     - "backend/cells/main_settings_cells#show"
@@ -74,6 +78,8 @@
 #     - "backend/cells/settings_statistics_cells#show"
 #     - "backend/cells/stewardship_cells#show"
 #     - "backend/cells/stock_container_map_cells#show"
+#     - "backend/cells/threshold_commercialization_by_production_cells#show"
+#     - "backend/cells/traceability_check_cells#show"
 #     - "backend/cells/trade_counts_cells#show"
 #     - "backend/cells/unbalanced_clients_cells#list"
 #     - "backend/cells/unbalanced_clients_cells#show"
@@ -88,42 +94,47 @@
 #     - "backend/dashboards#home"
 #     - "backend/dashboards#humans"
 #     - "backend/dashboards#production"
+#     - "backend/dashboards#purchases"
 #     - "backend/dashboards#relationship"
+#     - "backend/dashboards#sales"
 #     - "backend/dashboards#sandbox"
 #     - "backend/dashboards#search"
 #     - "backend/dashboards#settings"
 #     - "backend/dashboards#stocks"
 #     - "backend/dashboards#tools"
-#     - "backend/dashboards#trade"
 #     - "backend/golumns#reset"
 #     - "backend/golumns#show"
 #     - "backend/golumns#update"
 #     - "backend/helps#index"
 #     - "backend/helps#show"
 #     - "backend/helps#toggle"
-#     - "backend/inspections#export"
-#     - "backend/intervention_participations#participations_modal"
-#     - "backend/interventions#change_page"
+#     - "backend/interventions#compare_realised_with_planned"
+#     - "backend/interventions#create_duplicate_intervention"
+#     - "backend/interventions#duplicate_interventions"
+#     - "backend/interventions#generate_buttons"
 #     - "backend/januses#toggle"
+#     - "backend/journals#reopen"
 #     - "backend/kujakus#toggle"
+#     - "backend/land_parcels#list_interventions"
+#     - "backend/land_parcels#list_plants"
 #     - "backend/map_editor_shapes#index"
 #     - "backend/map_editors#upload"
+#     - "backend/master_production_natures#unroll"
 #     - "backend/notifications#destroy"
 #     - "backend/notifications#index"
 #     - "backend/notifications#show"
-#     - "backend/outgoing_payments#create"
-#     - "backend/outgoing_payments#destroy"
-#     - "backend/outgoing_payments#edit"
-#     - "backend/outgoing_payments#index"
-#     - "backend/outgoing_payments#new"
-#     - "backend/outgoing_payments#show"
-#     - "backend/outgoing_payments#unroll"
-#     - "backend/outgoing_payments#update"
+#     - "backend/outgoing_payment_modes#sepa"
 #     - "backend/preferences#update"
 #     - "backend/product_nature_variants#quantifiers"
+#     - "backend/product_nature_variants#storage_detail"
 #     - "backend/sensors#last_locations"
+#     - "backend/services#index"
+#     - "backend/services#list"
+#     - "backend/shipments#invoice"
 #     - "backend/snippets#toggle"
 #     - "backend/tours#finish"
+#     - "backend/users/wice_grid_preferences#save_column"
+#     - "backend/variants/fixed_assets#fixed_assets_datas"
 #     - "backend/visualizations/land_parcels_visualizations#show"
 #     - "backend/visualizations/map_cells_visualizations#show"
 #     - "backend/visualizations/plants_visualizations#show"
@@ -194,7 +205,6 @@ activities:
     - "backend/activities#index"
     - "backend/activities#list"
     - "backend/activities#list_distributions"
-    - "backend/activities#list_inspections"
     - "backend/activities#list_productions"
     - "backend/activities#show"
     - "backend/activities#unroll"
@@ -204,6 +214,7 @@ activities:
     - "backend/activity_seasons#index"
     - "backend/activity_seasons#show"
     - "backend/activity_seasons#unroll"
+    - "backend/inspections#export"
     - "backend/inspections#index"
     - "backend/inspections#list"
     - "backend/inspections#show"
@@ -308,9 +319,10 @@ animal_groups:
     - "backend/animal_groups#list_intervention_product_parameters"
     - "backend/animal_groups#list_issues"
     - "backend/animal_groups#list_members"
-    - "backend/animal_groups#list_parcel_items"
     - "backend/animal_groups#list_places"
     - "backend/animal_groups#list_readings"
+    - "backend/animal_groups#list_reception_items"
+    - "backend/animal_groups#list_shipment_items"
     - "backend/animal_groups#list_trackings"
     - "backend/animal_groups#picture"
     - "backend/animal_groups#show"
@@ -344,9 +356,10 @@ animals:
     - "backend/animals#list_intervention_product_parameters"
     - "backend/animals#list_issues"
     - "backend/animals#list_members"
-    - "backend/animals#list_parcel_items"
     - "backend/animals#list_places"
     - "backend/animals#list_readings"
+    - "backend/animals#list_reception_items"
+    - "backend/animals#list_shipment_items"
     - "backend/animals#list_trackings"
     - "backend/animals#matching_interventions"
     - "backend/animals#picture"
@@ -416,9 +429,10 @@ building_divisions:
     - "backend/building_divisions#list_intervention_product_parameters"
     - "backend/building_divisions#list_issues"
     - "backend/building_divisions#list_members"
-    - "backend/building_divisions#list_parcel_items"
     - "backend/building_divisions#list_places"
     - "backend/building_divisions#list_readings"
+    - "backend/building_divisions#list_reception_items"
+    - "backend/building_divisions#list_shipment_items"
     - "backend/building_divisions#list_trackings"
     - "backend/building_divisions#picture"
     - "backend/building_divisions#show"
@@ -451,9 +465,10 @@ buildings:
     - "backend/buildings#list_intervention_product_parameters"
     - "backend/buildings#list_issues"
     - "backend/buildings#list_members"
-    - "backend/buildings#list_parcel_items"
     - "backend/buildings#list_places"
     - "backend/buildings#list_readings"
+    - "backend/buildings#list_reception_items"
+    - "backend/buildings#list_shipment_items"
     - "backend/buildings#list_trackings"
     - "backend/buildings#picture"
     - "backend/buildings#show"
@@ -595,7 +610,7 @@ contracts:
     - "backend/contracts#index"
     - "backend/contracts#list"
     - "backend/contracts#list_items"
-    - "backend/contracts#list_parcels"
+    - "backend/contracts#list_receptions"
     - "backend/contracts#show"
     - "backend/entities#list_contracts"
   write:
@@ -738,16 +753,17 @@ entities:
     - "backend/entities#list"
     - "backend/entities#list_client_journal_entry_items"
     - "backend/entities#list_event_participations"
-    - "backend/entities#list_incoming_parcels"
     - "backend/entities#list_incoming_payments"
     - "backend/entities#list_issues"
     - "backend/entities#list_links"
     - "backend/entities#list_observations"
-    - "backend/entities#list_outgoing_parcels"
+    - "backend/entities#list_purchase_invoices"
+    - "backend/entities#list_purchase_orders"
     - "backend/entities#list_purchase_payments"
-    - "backend/entities#list_purchases"
+    - "backend/entities#list_receptions"
     - "backend/entities#list_sale_opportunities"
     - "backend/entities#list_sales"
+    - "backend/entities#list_shipments"
     - "backend/entities#list_subscriptions"
     - "backend/entities#list_supplier_journal_entry_items"
     - "backend/entities#list_tasks"
@@ -802,9 +818,10 @@ equipments:
     - "backend/equipments#list_intervention_product_parameters"
     - "backend/equipments#list_issues"
     - "backend/equipments#list_members"
-    - "backend/equipments#list_parcel_items"
     - "backend/equipments#list_places"
     - "backend/equipments#list_readings"
+    - "backend/equipments#list_reception_items"
+    - "backend/equipments#list_shipment_items"
     - "backend/equipments#list_trackings"
     - "backend/equipments#picture"
     - "backend/equipments#show"
@@ -937,9 +954,10 @@ fungi:
     - "backend/fungi#list_intervention_product_parameters"
     - "backend/fungi#list_issues"
     - "backend/fungi#list_members"
-    - "backend/fungi#list_parcel_items"
     - "backend/fungi#list_places"
     - "backend/fungi#list_readings"
+    - "backend/fungi#list_reception_items"
+    - "backend/fungi#list_shipment_items"
     - "backend/fungi#list_trackings"
     - "backend/fungi#picture"
     - "backend/fungi#show"
@@ -1070,26 +1088,22 @@ imports:
 incoming_deliveries:
   read:
     actions:
-    - "backend/parcels#index"
-    - "backend/parcels#list"
-    - "backend/parcels#list_incoming_items"
-    - "backend/parcels#list_outgoing_items"
-    - "backend/parcels#show"
-    - "backend/parcels#unroll"
+    - "backend/receptions#index"
+    - "backend/receptions#list"
+    - "backend/receptions#list_items"
+    - "backend/receptions#list_storings"
+    - "backend/receptions#show"
+    - "backend/receptions#unroll"
   write:
     dependencies:
     - read-incoming_deliveries
     actions:
-    - "backend/parcels#cancel"
-    - "backend/parcels#check"
-    - "backend/parcels#create"
-    - "backend/parcels#destroy"
-    - "backend/parcels#edit"
-    - "backend/parcels#give"
-    - "backend/parcels#new"
-    - "backend/parcels#order"
-    - "backend/parcels#prepare"
-    - "backend/parcels#update"
+    - "backend/receptions#create"
+    - "backend/receptions#destroy"
+    - "backend/receptions#edit"
+    - "backend/receptions#give"
+    - "backend/receptions#new"
+    - "backend/receptions#update"
 
 incoming_payment_modes:
   read:
@@ -1160,6 +1174,14 @@ integrations:
     - "backend/net_services#new"
     - "backend/net_services#update"
 
+intervention_templates:
+  read:
+    dependencies:
+    - read-intervention_templates
+  write:
+    dependencies:
+    - read-intervention_templates
+
 interventions:
   read:
     actions:
@@ -1169,14 +1191,19 @@ interventions:
     - "backend/intervention_participations#convert"
     - "backend/intervention_participations#destroy"
     - "backend/intervention_participations#index"
+    - "backend/intervention_participations#participations_modal"
     - "backend/intervention_participations#update"
+    - "backend/interventions#change_page"
     - "backend/interventions#index"
     - "backend/interventions#list"
     - "backend/interventions#list_product_parameters"
     - "backend/interventions#list_record_interventions"
+    - "backend/interventions#list_service_deliveries"
     - "backend/interventions#modal"
+    - "backend/interventions#purchase_order_items"
     - "backend/interventions#show"
     - "backend/interventions#unroll"
+    - "backend/interventions/costs#parameter_cost"
   write:
     dependencies:
     - read-interventions
@@ -1337,9 +1364,10 @@ land_parcels:
     - "backend/land_parcels#list_intervention_product_parameters"
     - "backend/land_parcels#list_issues"
     - "backend/land_parcels#list_members"
-    - "backend/land_parcels#list_parcel_items"
     - "backend/land_parcels#list_places"
     - "backend/land_parcels#list_readings"
+    - "backend/land_parcels#list_reception_items"
+    - "backend/land_parcels#list_shipment_items"
     - "backend/land_parcels#list_trackings"
     - "backend/land_parcels#picture"
     - "backend/land_parcels#show"
@@ -1461,9 +1489,10 @@ matters:
     - "backend/matters#list_intervention_product_parameters"
     - "backend/matters#list_issues"
     - "backend/matters#list_members"
-    - "backend/matters#list_parcel_items"
     - "backend/matters#list_places"
     - "backend/matters#list_readings"
+    - "backend/matters#list_reception_items"
+    - "backend/matters#list_shipment_items"
     - "backend/matters#list_trackings"
     - "backend/matters#picture"
     - "backend/matters#show"
@@ -1499,6 +1528,29 @@ myselves:
     - "backend/dashboards#update"
     - "backend/myselves#change_password"
     - "backend/myselves#update"
+
+naming_formats:
+  read:
+    actions:
+    - "backend/naming_format_land_parcels#build_example"
+    - "backend/naming_format_land_parcels#index"
+    - "backend/naming_format_land_parcels#new"
+    - "backend/naming_format_land_parcels#show"
+    - "backend/naming_formats#index"
+    - "backend/naming_formats#new"
+    - "backend/naming_formats#show"
+  write:
+    dependencies:
+    - read-naming_formats
+    actions:
+    - "backend/naming_format_land_parcels#create"
+    - "backend/naming_format_land_parcels#destroy"
+    - "backend/naming_format_land_parcels#edit"
+    - "backend/naming_format_land_parcels#update"
+    - "backend/naming_formats#create"
+    - "backend/naming_formats#destroy"
+    - "backend/naming_formats#edit"
+    - "backend/naming_formats#update"
 
 net_services:
   read:
@@ -1539,26 +1591,25 @@ observations:
 outgoing_deliveries:
   read:
     actions:
-    - "backend/parcels#index"
-    - "backend/parcels#list"
-    - "backend/parcels#list_incoming_items"
-    - "backend/parcels#list_outgoing_items"
-    - "backend/parcels#show"
-    - "backend/parcels#unroll"
+    - "backend/shipments#index"
+    - "backend/shipments#list"
+    - "backend/shipments#list_items"
+    - "backend/shipments#show"
+    - "backend/shipments#unroll"
   write:
     dependencies:
     - read-outgoing_deliveries
     actions:
-    - "backend/parcels#cancel"
-    - "backend/parcels#check"
-    - "backend/parcels#create"
-    - "backend/parcels#destroy"
-    - "backend/parcels#edit"
-    - "backend/parcels#give"
-    - "backend/parcels#new"
-    - "backend/parcels#order"
-    - "backend/parcels#prepare"
-    - "backend/parcels#update"
+    - "backend/shipments#cancel"
+    - "backend/shipments#check"
+    - "backend/shipments#create"
+    - "backend/shipments#destroy"
+    - "backend/shipments#edit"
+    - "backend/shipments#give"
+    - "backend/shipments#new"
+    - "backend/shipments#order"
+    - "backend/shipments#prepare"
+    - "backend/shipments#update"
 
 outgoing_payment_lists:
   read:
@@ -1575,8 +1626,6 @@ outgoing_payment_lists:
     - "backend/outgoing_payment_lists#create"
     - "backend/outgoing_payment_lists#destroy"
     - "backend/outgoing_payment_lists#new"
-    - "backend/purchases#pay"
-    - "backend/purchases#payment_mode"
 
 outgoing_payment_modes:
   read:
@@ -1600,6 +1649,9 @@ outgoing_payment_modes:
 outgoing_payments:
   read:
     actions:
+    - "backend/outgoing_payments#index"
+    - "backend/outgoing_payments#show"
+    - "backend/outgoing_payments#unroll"
     - "backend/purchase_payments#index"
     - "backend/purchase_payments#list"
     - "backend/purchase_payments#show"
@@ -1608,6 +1660,11 @@ outgoing_payments:
     dependencies:
     - read-outgoing_payments
     actions:
+    - "backend/outgoing_payments#create"
+    - "backend/outgoing_payments#destroy"
+    - "backend/outgoing_payments#edit"
+    - "backend/outgoing_payments#new"
+    - "backend/outgoing_payments#update"
     - "backend/purchase_payments#create"
     - "backend/purchase_payments#destroy"
     - "backend/purchase_payments#edit"
@@ -1707,10 +1764,11 @@ plants:
     - "backend/plants#list_intervention_product_parameters"
     - "backend/plants#list_issues"
     - "backend/plants#list_members"
-    - "backend/plants#list_parcel_items"
     - "backend/plants#list_places"
     - "backend/plants#list_plant_countings"
     - "backend/plants#list_readings"
+    - "backend/plants#list_reception_items"
+    - "backend/plants#list_shipment_items"
     - "backend/plants#list_trackings"
     - "backend/plants#picture"
     - "backend/plants#show"
@@ -1778,9 +1836,10 @@ product_groups:
     - "backend/product_groups#list_intervention_product_parameters"
     - "backend/product_groups#list_issues"
     - "backend/product_groups#list_members"
-    - "backend/product_groups#list_parcel_items"
     - "backend/product_groups#list_places"
     - "backend/product_groups#list_readings"
+    - "backend/product_groups#list_reception_items"
+    - "backend/product_groups#list_shipment_items"
     - "backend/product_groups#list_trackings"
     - "backend/product_groups#picture"
     - "backend/product_groups#show"
@@ -1873,6 +1932,7 @@ productions:
     actions:
     - "backend/activity_productions#index"
     - "backend/activity_productions#list_interventions"
+    - "backend/activity_productions#list_plants"
     - "backend/activity_productions#show"
     - "backend/activity_productions#unroll"
   write:
@@ -1899,13 +1959,18 @@ products:
     - "backend/products#list_intervention_product_parameters"
     - "backend/products#list_issues"
     - "backend/products#list_members"
-    - "backend/products#list_parcel_items"
     - "backend/products#list_places"
     - "backend/products#list_readings"
+    - "backend/products#list_reception_items"
+    - "backend/products#list_shipment_items"
     - "backend/products#list_trackings"
     - "backend/products#picture"
     - "backend/products#show"
     - "backend/products#unroll"
+    - "backend/products/indicators#variable_indicators"
+    - "backend/products/interventions#has_harvesting"
+    - "backend/products/search_products#datas"
+    - "backend/products/search_variants#search_by_expression"
   write:
     dependencies:
     - read-products
@@ -1921,6 +1986,23 @@ products:
     - "backend/products#new"
     - "backend/products#take"
     - "backend/products#update"
+
+project_budgets:
+  read:
+    actions:
+    - "backend/project_budgets#index"
+    - "backend/project_budgets#list"
+    - "backend/project_budgets#show"
+    - "backend/project_budgets#unroll"
+  write:
+    dependencies:
+    - read-project_budgets
+    actions:
+    - "backend/project_budgets#create"
+    - "backend/project_budgets#destroy"
+    - "backend/project_budgets#edit"
+    - "backend/project_budgets#new"
+    - "backend/project_budgets#update"
 
 purchase_natures:
   read:
@@ -1946,12 +2028,22 @@ purchases:
     - "backend/purchase_affairs#list"
     - "backend/purchase_affairs#show"
     - "backend/purchase_affairs#unroll"
-    - "backend/purchases#index"
-    - "backend/purchases#list"
-    - "backend/purchases#list_items"
-    - "backend/purchases#list_parcels"
-    - "backend/purchases#show"
-    - "backend/purchases#unroll"
+    - "backend/purchase_invoices#index"
+    - "backend/purchase_invoices#list"
+    - "backend/purchase_invoices#list_items"
+    - "backend/purchase_invoices#list_receptions"
+    - "backend/purchase_invoices#show"
+    - "backend/purchase_invoices#unroll"
+    - "backend/purchase_orders#index"
+    - "backend/purchase_orders#list"
+    - "backend/purchase_orders#list_items"
+    - "backend/purchase_orders#show"
+    - "backend/purchase_orders#unroll"
+    - "backend/purchase_process/reconciliation#purchase_orders_to_reconciliate"
+    - "backend/purchase_process/reconciliation#receptions_to_reconciliate"
+    - "backend/unreceived_purchase_orders#index"
+    - "backend/unreceived_purchase_orders#list"
+    - "backend/unreceived_purchase_orders#show"
   write:
     dependencies:
     - read-purchases
@@ -1959,26 +2051,34 @@ purchases:
     - "backend/debt_transfers#create"
     - "backend/debt_transfers#destroy"
     - "backend/interventions#purchase"
-    - "backend/parcels#invoice"
     - "backend/purchase_affairs#attach"
     - "backend/purchase_affairs#detach"
     - "backend/purchase_affairs#detach_gaps"
     - "backend/purchase_affairs#finish"
     - "backend/purchase_affairs#select"
-    - "backend/purchases#abort"
-    - "backend/purchases#confirm"
-    - "backend/purchases#correct"
-    - "backend/purchases#create"
-    - "backend/purchases#destroy"
-    - "backend/purchases#edit"
-    - "backend/purchases#invoice"
-    - "backend/purchases#new"
-    - "backend/purchases#propose"
-    - "backend/purchases#propose_and_invoice"
-    - "backend/purchases#refuse"
-    - "backend/purchases#update"
+    - "backend/purchase_invoices#create"
+    - "backend/purchase_invoices#destroy"
+    - "backend/purchase_invoices#edit"
+    - "backend/purchase_invoices#new"
+    - "backend/purchase_invoices#pay"
+    - "backend/purchase_invoices#payment_mode"
+    - "backend/purchase_invoices#update"
+    - "backend/purchase_orders#close"
+    - "backend/purchase_orders#create"
+    - "backend/purchase_orders#destroy"
+    - "backend/purchase_orders#edit"
+    - "backend/purchase_orders#new"
+    - "backend/purchase_orders#open"
+    - "backend/purchase_orders#update"
+    - "backend/purchases/reconcilation_states#put_accepted_state"
+    - "backend/purchases/reconcilation_states#put_reconcile_state"
+    - "backend/purchases/reconcilation_states#put_to_reconcile_state"
     - "backend/quick_purchases#create"
     - "backend/quick_purchases#new"
+    - "backend/unreceived_purchase_orders#create"
+    - "backend/unreceived_purchase_orders#destroy"
+    - "backend/unreceived_purchase_orders#edit"
+    - "backend/unreceived_purchase_orders#update"
 
 roles:
   read:
@@ -2032,7 +2132,7 @@ sales:
     - "backend/sales#list"
     - "backend/sales#list_credits"
     - "backend/sales#list_items"
-    - "backend/sales#list_parcels"
+    - "backend/sales#list_shipments"
     - "backend/sales#list_subscriptions"
     - "backend/sales#list_undelivered_items"
     - "backend/sales#show"
@@ -2044,7 +2144,6 @@ sales:
     - "backend/debt_transfers#create"
     - "backend/debt_transfers#destroy"
     - "backend/interventions#sell"
-    - "backend/parcels#invoice"
     - "backend/quick_sales#create"
     - "backend/quick_sales#new"
     - "backend/sale_affairs#attach"
@@ -2091,6 +2190,14 @@ sales:
     - "backend/sale_credits#create"
     - "backend/sale_credits#new"
     - "backend/sales#cancel"
+
+schedulings:
+  read:
+    dependencies:
+    - read-schedulings
+  write:
+    dependencies:
+    - read-schedulings
 
 sensors:
   read:
@@ -2156,9 +2263,10 @@ settlements:
     - "backend/settlements#list_intervention_product_parameters"
     - "backend/settlements#list_issues"
     - "backend/settlements#list_members"
-    - "backend/settlements#list_parcel_items"
     - "backend/settlements#list_places"
     - "backend/settlements#list_readings"
+    - "backend/settlements#list_reception_items"
+    - "backend/settlements#list_shipment_items"
     - "backend/settlements#list_trackings"
     - "backend/settlements#picture"
     - "backend/settlements#show"
@@ -2305,6 +2413,14 @@ teams:
     - "backend/teams#new"
     - "backend/teams#update"
 
+technical_itineraries:
+  read:
+    dependencies:
+    - read-technical_itineraries
+  write:
+    dependencies:
+    - read-technical_itineraries
+
 trackings:
   read:
     actions:
@@ -2329,6 +2445,8 @@ transports:
     - "backend/deliveries#index"
     - "backend/deliveries#list"
     - "backend/deliveries#list_parcels"
+    - "backend/deliveries#list_receptions"
+    - "backend/deliveries#list_shipments"
     - "backend/deliveries#show"
     - "backend/deliveries#unroll"
   write:
@@ -2347,7 +2465,7 @@ transports:
     - "backend/deliveries#prepare"
     - "backend/deliveries#start"
     - "backend/deliveries#update"
-    - "backend/parcels#ship"
+    - "backend/shipments#ship"
 
 users:
   read:
@@ -2401,9 +2519,10 @@ workers:
     - "backend/workers#list_intervention_product_parameters"
     - "backend/workers#list_issues"
     - "backend/workers#list_members"
-    - "backend/workers#list_parcel_items"
     - "backend/workers#list_places"
     - "backend/workers#list_readings"
+    - "backend/workers#list_reception_items"
+    - "backend/workers#list_shipment_items"
     - "backend/workers#list_trackings"
     - "backend/workers#picture"
     - "backend/workers#show"

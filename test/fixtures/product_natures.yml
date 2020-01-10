@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -499,11 +499,10 @@ product_natures_021:
   category_id: 14
   created_at: 2014-11-02 18:19:37.955910000 Z
   creator_id: 1
-  derivatives_list: ''
   evolvable: false
   id: 21
   linkage_points_list: front, rear
-  lock_version: 0
+  lock_version: 1
   name: Tracteur
   number: BUILDINU
   population_counting: unitary
@@ -512,9 +511,9 @@ product_natures_021:
   subscription_days_count: 0
   subscription_months_count: 0
   subscription_years_count: 0
-  updated_at: 2014-11-02 18:19:37.955910000 Z
+  updated_at: 2018-09-19 15:59:56.226438000 Z
   updater_id: 1
-  variable_indicators_list: geolocation, motor_power, net_surface_area
+  variable_indicators_list: geolocation, hour_counter, motor_power, net_surface_area
   variety: tractor
 product_natures_022:
   abilities_list: grind(plant)

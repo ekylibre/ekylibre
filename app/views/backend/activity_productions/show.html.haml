@@ -9,6 +9,11 @@
       .med-info.important
         %span.title= LandParcel.human_attribute_name(:net_surface_area)
         %span.value= resource.human_support_shape_area
+
+      .med-info.important
+        %span.title= :working_area.tl
+        %span.value= resource.decorate.human_working_zone_area
+
       - if resource.season
         .med-info
           %span.title= ActivityProduction.human_attribute_name(:season)
@@ -27,7 +32,7 @@
           .med-info
             %span.title= :grains_yield.tl
             %span.value= resource.grains_yield.round(2).l
-        - if resource.vine_yield && resource.vine_yield.to_d > 0.0
+        -# if resource.vine_yield && resource.vine_yield.to_d > 0.0
           .med-info
             %span.title= :vine_yield.tl
             %span.value= resource.vine_yield.round(2).l
@@ -44,102 +49,108 @@
       - l.attribute :activity, url: true
       - l.attribute :support_nature
 
-= cobbles do |c|
+.activity-production-cobbles
+  = cobbles do |c|
 
-  - if resource.plant_farming? && (resource.support.is_a?(LandParcel) || resource.support.is_a?(Plant))
-    - c.cobble :weather do
-      = cell :weather, params: {id: resource.cultivable_zone.id} unless resource.cultivable_zone.nil?
+    - if resource.plant_farming? && (resource.support.is_a?(LandParcel) || resource.support.is_a?(Plant))
+      - c.cobble :weather do
+        = cell :weather, params: {centroid: resource.support_shape.centroid}
+    - if resource.selected_manure_management_plan_zone
+      - c.cobble :manure_management_plan_chart do
+        :ruby
+          # prepare an array of hash
 
-  - if resource.selected_manure_management_plan_zone
-    - c.cobble :manure_management_plan_chart do
-      :ruby
-        # prepare an array of hash
+          data_series = []
+          nitrogen_mass = []
 
-        data_series = []
-        nitrogen_mass = []
+          nitrogen_input = resource.selected_manure_management_plan_zone.nitrogen_input || 0.0
+          opened_at = resource.selected_manure_management_plan_zone.opened_at
 
-        nitrogen_input = resource.selected_manure_management_plan_zone.nitrogen_input || 0.0
-        opened_at = resource.selected_manure_management_plan_zone.opened_at
+          # FIXME Some french to remove, arghh....
+          data_series << { name: 'Fumure calculée (X) au ' + opened_at.l, y: nitrogen_input.to_s.to_f, color: "#000077"}
 
-        # FIXME Some french to remove, arghh....
-        data_series << { name: 'Fumure calculée (X) au ' + opened_at.l, y: nitrogen_input.to_s.to_f, color: "#000077"}
-
-        # get the nitrogen input I from opened_at to now (in kg N/Ha )
-        balance = nitrogen_input
-        resource.interventions.real.where(state: 'done').of_category(:fertilizing).between(opened_at, Time.zone.now).reorder(:started_at).find_each do |intervention|
-          i = 0
-          intervention.inputs.each do |input|
-            m = (input.product ? input.product.net_mass(input).to_d(:kilogram) : 0.0)
-            n = (input.product ? input.product.nitrogen_concentration.to_d(:unity) : 0.0)
-            nitrogen_mass <<  m * n
+          # get the nitrogen input I from opened_at to now (in kg N/Ha )
+          balance = nitrogen_input
+          resource.interventions.real.where(state: 'done').of_category(:fertilizing).between(opened_at, Time.zone.now).reorder(:started_at).find_each do |intervention|
+            i = 0
+            intervention.inputs.each do |input|
+              m = (input.product ? input.product.net_mass(input).to_d(:kilogram) : 0.0)
+              n = (input.product ? input.product.nitrogen_concentration.to_d(:unity) : 0.0)
+              nitrogen_mass <<  m * n
+            end
+            target = intervention.targets.first
+            if target
+              i = (nitrogen_mass.compact.sum / target.population.to_d)
+              # FIXME Some french to remove, arghh....
+              data_series << { name: intervention.name + ' du ' + intervention.started_at.strftime("%d/%m/%Y"), y: -i.to_s.to_f, color: "#FFEE99"}
+              balance -= i
+            end
           end
-          target = intervention.targets.first
-          if target
-            i = (nitrogen_mass.compact.sum / target.population.to_d)
-            # FIXME Some french to remove, arghh....
-            data_series << { name: intervention.name + ' du ' + intervention.started_at.strftime("%d/%m/%Y"), y: -i.to_s.to_f, color: "#FFEE99"}
-            balance -= i
+
+          # TODO fix the russian method bellow
+          data_series << { name: "Reste à apporter", isSum: true, color: (balance >= 0 ? "#35DD00" : "#DD0000")}
+
+          series = []
+          series << {up_color: cycle(*theme_colors), color: cycle(*theme_colors), data: data_series, data_labels: {enabled: false}}
+
+        -# FIXME Some french to remove, arghh....
+        = waterfall_highcharts(series, tooltip: {point_format: '{point.y: 1.3f} kg N/Ha'}, title: {text: ''}, legend: {enabled: false}, x_axis: {type: 'category'}, y_axis: {title: {text: 'kg N/Ha'}})
+
+    -# For budgets
+    -# if resource.budgets.any?
+      - c.cobble(:budget_per_working_indicator) do
+        :ruby
+          balance = 0
+          data_series = []
+          resource.revenues.each do |revenue|
+            value = revenue.global_amount_per_working_indicator
+            data_series << { name: revenue.budget.variant.name, y: value.to_s.to_f, color: "#000077"}
+            balance += value
           end
-        end
+          resource.expenses.each do |expense|
+            value = expense.global_amount_per_working_indicator
+            data_series << { name: expense.budget.variant.name, y: -value.to_s.to_f, color: "#DD0000"}
+            balance -= value
+          end
 
-        # TODO fix the russian method bellow
-        data_series << { name: "Reste à apporter", isSum: true, color: (balance >= 0 ? "#35DD00" : "#DD0000")}
-
-        series = []
-        series << {up_color: cycle(*theme_colors), color: cycle(*theme_colors), data: data_series, data_labels: {enabled: false}}
-
-      -# FIXME Some french to remove, arghh....
-      = waterfall_highcharts(series, tooltip: {point_format: '{point.y: 1.3f} kg N/Ha'}, title: {text: ''}, legend: {enabled: false}, x_axis: {type: 'category'}, y_axis: {title: {text: 'kg N/Ha'}})
-
-  -# For budgets
-  -# if resource.budgets.any?
-    - c.cobble(:budget_per_working_indicator) do
-      :ruby
-        balance = 0
-        data_series = []
-        resource.revenues.each do |revenue|
-          value = revenue.global_amount_per_working_indicator
-          data_series << { name: revenue.budget.variant.name, y: value.to_s.to_f, color: "#000077"}
-          balance += value
-        end
-        resource.expenses.each do |expense|
-          value = expense.global_amount_per_working_indicator
-          data_series << { name: expense.budget.variant.name, y: -value.to_s.to_f, color: "#DD0000"}
-          balance -= value
-        end
-
-        data_series << { name: "Solde", isSum: true, color: (balance >= 0 ? "#35DD00" : "#DD0000")}
-        series = []
-        series << {up_color: cycle(*theme_colors), color: cycle(*theme_colors), data: data_series, data_labels: {enabled: false}}
+          data_series << { name: "Solde", isSum: true, color: (balance >= 0 ? "#35DD00" : "#DD0000")}
+          series = []
+          series << {up_color: cycle(*theme_colors), color: cycle(*theme_colors), data: data_series, data_labels: {enabled: false}}
 
 
-      = waterfall_highcharts(series, tooltip: {point_format: '{point.y: 1.3f}'}, title: {text: 'Budget prévisionnel'}, legend: {enabled: false}, x_axis: {type: 'category'}, y_axis: {title: {text: '€'}})
+        = waterfall_highcharts(series, tooltip: {point_format: '{point.y: 1.3f}'}, title: {text: 'Budget prévisionnel'}, legend: {enabled: false}, x_axis: {type: 'category'}, y_axis: {title: {text: '€'}})
 
-  - if resource.interventions.any? and Nomen::Variety[resource.activity.cultivation_variety] <= :plant
-    - async_cobble :production_cost, { params: { id: resource.id }, cobble: c }
-  - else
-    = no_data
+    - if resource.interventions.any? and Nomen::Variety[resource.activity.cultivation_variety] <= :plant
+      - c.cobble(:production_costs, title: :production_costs.tl) do
+        = render partial: 'backend/shared/production_costs', locals: { costs: resource.decorate.production_costs }
+    - else
+      = no_data
 
-  -# c.cobble(:horizontal_timeline) do
+    -# c.cobble(:horizontal_timeline) do
 
-    = timeline_chart("chart", resource.started_on, resource.stopped_on) do |chart|
-      - interventions_menu = pop_menu :class => "timeline-chart-menu" do |menu|
-        - intervention_url = { controller: :interventions, action: :new}
-        - menu.item 'Ajouter une intervention', { item_options: {:class => "menu-item"}, link_url: intervention_url, link_options: {:class => "menu-link"}}
-        - if resource.tactic.present?
-          - period_url = { controller: :activity_tactics, action: :edit, id: resource.tactic.id }
-          - menu.item 'Ajouter une période', { item_options: {:class => "menu-item"}, link_url: period_url, link_options: {:class => "menu-link"}}
+      = timeline_chart("chart", resource.started_on, resource.stopped_on) do |chart|
+        - interventions_menu = pop_menu :class => "timeline-chart-menu" do |menu|
+          - intervention_url = { controller: :interventions, action: :new}
+          - menu.item 'Ajouter une intervention', { item_options: {:class => "menu-item"}, link_url: intervention_url, link_options: {:class => "menu-link"}}
+          - if resource.tactic.present?
+            - period_url = { controller: :activity_tactics, action: :edit, id: resource.tactic.id }
+            - menu.item 'Ajouter une période', { item_options: {:class => "menu-item"}, link_url: period_url, link_options: {:class => "menu-link"}}
 
-      - chart.group "Interventions" do |item|
+        - chart.group "Interventions" do |item|
 
-        - if resource.interventions.any?
-          - resource.interventions.each do |intervention|
-            - item.icon 'test', intervention.started_at, 'tractor', "40px", {"id": "icone2", "custom_class": "blue-interval"}
+          - if resource.interventions.any?
+            - resource.interventions.each do |intervention|
+              - item.icon 'test', intervention.started_at, 'tractor', "40px", {"id": "icone2", "custom_class": "blue-interval"}
 
-  - c.cobble(:interventions) do
-    = cobble_toolbar do |t|
-      = t.new(params: { controller: :interventions, production_support_id: resource.id })
-    - if resource.interventions.any?
-      = cobble_list(:interventions)
+    - c.cobble(:interventions) do
+      = cobble_toolbar do |t|
+        = t.new(params: { controller: :interventions, production_support_id: resource.id })
+      - if resource.interventions.any?
+        = cobble_list(:interventions)
+
+
+    - if resource.decorate.plants?
+      - c.cobble(:plants, title: :crops.tl) do
+        = cobble_list(:plants)
 
   = #render partial: 'backend/shared/distributions', locals: {c: c}

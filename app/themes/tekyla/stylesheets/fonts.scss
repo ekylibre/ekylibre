@@ -35,3 +35,15 @@ $condensed-font-faces: (Light 300 1) (Bold 700 0);
     }
   }
 }
+
+.picto.picto-spin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-animation:spin 4s linear infinite;
+  -moz-animation:spin 4s linear infinite;
+  animation:spin 4s linear infinite;
+  -moz-transform: rotate(360deg);
+  -webkit-transform: rotate(360deg);
+  transform:rotate(360deg);
+}

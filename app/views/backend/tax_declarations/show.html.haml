@@ -46,7 +46,7 @@
             %th{ colspan: 6}= :to_reclaim.tl
             %td= (-to_pay).l(currency: resource.currency)
 
-      - resource.items.order(:id).each do |item|
+      - resource.items.includes(:tax).order(:id).each do |item|
         - tax = Tax.find(item.tax_id)
         %tbody
           %tr
@@ -71,7 +71,7 @@
           %th= JournalEntry.human_attribute_name(:real_credit)
           %th= JournalEntry.human_attribute_name(:tax)
       %tbody
-        - resource.out_of_range_tax_journal_entry_items.limit(500).each do |item|
+        - resource.out_of_range_tax_journal_entry_items.includes(:account, :tax, :entry).limit(500).each do |item|
           %tr
             %td
               - if item.account
@@ -111,7 +111,7 @@
           %th= JournalEntry.human_attribute_name(:real_credit)
           %th= JournalEntry.human_attribute_name(:tax)
       %tbody
-        - resource.undeclared_tax_journal_entry_items.limit(500).each do |item|
+        - resource.undeclared_tax_journal_entry_items.includes(:tax).limit(500).each do |item|
           %tr
             %td
               - if item.account

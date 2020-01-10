@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,23 +22,24 @@
 #
 # == Table: inventories
 #
-#  accounted_at      :datetime
-#  achieved_at       :datetime
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  currency          :string
-#  custom_fields     :jsonb
-#  financial_year_id :integer
-#  id                :integer          not null, primary key
-#  journal_entry_id  :integer
-#  lock_version      :integer          default(0), not null
-#  name              :string           not null
-#  number            :string           not null
-#  reflected         :boolean          default(FALSE), not null
-#  reflected_at      :datetime
-#  responsible_id    :integer
-#  updated_at        :datetime         not null
-#  updater_id        :integer
+#  accounted_at               :datetime
+#  achieved_at                :datetime
+#  created_at                 :datetime         not null
+#  creator_id                 :integer
+#  currency                   :string
+#  custom_fields              :jsonb
+#  financial_year_id          :integer
+#  id                         :integer          not null, primary key
+#  journal_entry_id           :integer
+#  lock_version               :integer          default(0), not null
+#  name                       :string           not null
+#  number                     :string           not null
+#  product_nature_category_id :integer
+#  reflected                  :boolean          default(FALSE), not null
+#  reflected_at               :datetime
+#  responsible_id             :integer
+#  updated_at                 :datetime         not null
+#  updater_id                 :integer
 #
 
 require 'test_helper'

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -41,6 +41,7 @@
 #  description               :text
 #  entry_id                  :integer          not null
 #  entry_number              :string           not null
+#  equipment_id              :integer
 #  financial_year_id         :integer          not null
 #  id                        :integer          not null, primary key
 #  journal_id                :integer          not null
@@ -50,6 +51,7 @@
 #  position                  :integer
 #  pretax_amount             :decimal(19, 4)   default(0.0), not null
 #  printed_on                :date             not null
+#  project_budget_id         :integer
 #  real_balance              :decimal(19, 4)   default(0.0), not null
 #  real_credit               :decimal(19, 4)   default(0.0), not null
 #  real_currency             :string           not null
@@ -100,6 +102,17 @@ class JournalEntryItemTest < ActiveSupport::TestCase
       assert item.real_debit, item.debit
       assert item.real_credit, item.credit
     end
+  end
+
+  test 'should be valid when the name doesn\'t contain a translation error' do
+    jei = JournalEntryItem.new(account: Account.first, real_debit: 125, real_credit: 0, name: "Tout va bien").tap(&:valid?)
+    assert_not jei.errors.messages[:name]
+  end
+
+  test 'should not be valid when the name contains a translation error' do
+    jei = JournalEntryItem.new(account: Account.first, real_debit: 125, real_credit: 0, name: I18n.translate('this.key.should.not.exist'))
+    assert_not jei.valid?
+    assert jei.errors.messages[:name]
   end
 
   test 'lettering is indicated as partial (*) when lettered items are not balanced' do

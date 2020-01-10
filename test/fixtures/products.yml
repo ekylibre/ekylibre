@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -140,7 +140,10 @@ animals_003:
   name: Bonnemine
   nature_id: 16
   number: P00000000004
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   type: Animal
   updated_at: 2014-11-01 19:29:58.088036000 Z
   updater_id: 1
@@ -163,7 +166,10 @@ animals_004:
   name: Isabelle
   nature_id: 16
   number: P00000000005
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   type: Animal
   updated_at: 2014-11-01 19:35:50.372083000 Z
   updater_id: 1
@@ -862,6 +868,7 @@ land_parcels_001:
   variety: land_parcel
   work_number: ZC1
 land_parcels_002:
+  activity_production_id: 12
   born_at: 1965-01-22 23:00:00.000000000 Z
   category_id: 15
   created_at: 2014-11-04 17:15:04.591592000 Z
@@ -890,6 +897,7 @@ land_parcels_002:
   variety: land_parcel
   work_number: ZC0
 land_parcels_003:
+  activity_production_id: 10
   born_at: 1975-06-01 23:00:00.000000000 Z
   category_id: 15
   created_at: 2014-11-04 17:17:04.657670000 Z
@@ -918,6 +926,7 @@ land_parcels_003:
   variety: land_parcel
   work_number: ZC2
 land_parcels_004:
+  activity_production_id: 8
   born_at: 1983-12-11 23:00:00.000000000 Z
   category_id: 15
   created_at: 2014-11-04 17:19:31.120097000 Z
@@ -948,6 +957,7 @@ land_parcels_004:
   variety: land_parcel
   work_number: ZC3
 land_parcels_005:
+  activity_production_id: 9
   born_at: 1985-11-03 23:00:00.000000000 Z
   category_id: 15
   created_at: 2014-11-04 17:22:31.656517000 Z
@@ -1098,6 +1108,7 @@ land_parcels_008:
   variant_id: 69
   variety: land_parcel
 land_parcels_009:
+  activity_production_id: 11
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:47.522400000 Z
@@ -1125,6 +1136,7 @@ land_parcels_009:
   variant_id: 69
   variety: land_parcel
 land_parcels_010:
+  activity_production_id: 12
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:47.656120000 Z
@@ -1473,6 +1485,7 @@ land_parcels_020:
   variant_id: 69
   variety: land_parcel
 land_parcels_021:
+  activity_production_id: 32
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:49.396249000 Z
@@ -1594,6 +1607,7 @@ land_parcels_024:
   variant_id: 69
   variety: land_parcel
 land_parcels_025:
+  activity_production_id: 11
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:50.090478000 Z
@@ -1619,6 +1633,7 @@ land_parcels_025:
   variant_id: 69
   variety: land_parcel
 land_parcels_026:
+  activity_production_id: 12
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:50.268765000 Z
@@ -1642,6 +1657,7 @@ land_parcels_026:
   variant_id: 69
   variety: land_parcel
 land_parcels_027:
+  activity_production_id: 38
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:50.398602000 Z
@@ -1790,6 +1806,7 @@ land_parcels_032:
   variant_id: 69
   variety: land_parcel
 land_parcels_033:
+  activity_production_id: 44
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:51.174139000 Z
@@ -1839,6 +1856,7 @@ land_parcels_034:
   variant_id: 69
   variety: land_parcel
 land_parcels_035:
+  activity_production_id: 46
   born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
   created_at: 2016-01-21 14:05:51.487653000 Z
@@ -1938,6 +1956,7 @@ land_parcels_037:
   variant_id: 69
   variety: land_parcel
 land_parcels_038:
+  activity_production_id: 49
   born_at: 2016-02-29 23:00:00.000000000 Z
   category_id: 25
   created_at: 2016-05-10 19:12:52.671463000 Z
@@ -2108,7 +2127,10 @@ matters_008:
   name: Semence d’avoine d’hiver une de mai ‒ sac de 25kg
   nature_id: 10
   number: P00000000001
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   type: Matter
   updated_at: 2016-02-08 10:33:27.670999000 Z
   updater_id: 1
@@ -2129,7 +2151,10 @@ matters_009:
   name: Botte de paille de blé ‒ balle ronde
   nature_id: 9
   number: P00000000002
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   type: Matter
   updated_at: 2014-11-01 16:00:08.339341000 Z
   updater_id: 1
@@ -2150,7 +2175,10 @@ matters_010:
   name: Semence d’avoine d’hiver une de mai ‒ sac de 25kg (1)
   nature_id: 10
   number: P00000000003
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   type: Matter
   updated_at: 2014-11-01 16:01:24.156172000 Z
   updater_id: 1
@@ -2170,7 +2198,10 @@ matters_011:
   name: Microthiol sp disp
   nature_id: 8
   number: P00000000006
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   type: Matter
   updated_at: 2014-11-01 20:19:35.354902000 Z
   updater_id: 1
@@ -2190,7 +2221,10 @@ matters_012:
   name: Riflexine
   nature_id: 19
   number: ARLXP00000000006
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   type: Matter
   updated_at: 2014-11-01 20:23:54.912213000 Z
   updater_id: 1
@@ -2210,7 +2244,10 @@ matters_013:
   name: Acetal
   nature_id: 19
   number: WARLXP00000000007
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   type: Matter
   updated_at: 2014-11-01 20:23:55.247530000 Z
   updater_id: 1
@@ -2347,7 +2384,10 @@ matters_019:
   name: Ammonitre 33,5%  Big Bag
   nature_id: 33
   number: PR00000000042
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   type: Matter
   updated_at: 2014-11-07 15:25:51.192693000 Z
   updater_id: 1
@@ -2391,7 +2431,10 @@ matters_021:
   name: Semence de trèfle violet ‒ Ségur ‒ sac de 10kg
   nature_id: 10
   number: PR00000000044
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   type: Matter
   updated_at: 2014-11-07 15:44:20.455537000 Z
   updater_id: 1
@@ -2412,7 +2455,10 @@ matters_022:
   name: Semence mixte
   nature_id: 10
   number: PR00000000045
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   type: Matter
   updated_at: 2014-11-07 15:44:20.589234000 Z
   updater_id: 1
@@ -2481,7 +2527,10 @@ matters_025:
   name: Plant de vigne So4/Sauvignon blanc
   nature_id: 37
   number: PR00000000051
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   tracking_id: 3
   type: Matter
   updated_at: 2014-11-07 16:47:34.638130000 Z
@@ -2712,7 +2761,10 @@ matters_035:
   name: Acide lactique ‒ 25kg
   nature_id: 49
   number: PR00000000069
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   type: Matter
   updated_at: 2014-11-07 19:05:46.886304000 Z
   updater_id: 1
@@ -2732,7 +2784,10 @@ matters_036:
   name: Acide malique ‒ 25kg
   nature_id: 49
   number: PR00000000070
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   type: Matter
   updated_at: 2014-11-07 19:05:46.968107000 Z
   updater_id: 1
@@ -2753,7 +2808,10 @@ matters_037:
   name: Levure œnologique ‒ sachet de 500g
   nature_id: 50
   number: PR00000000071
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   type: Matter
   updated_at: 2014-11-07 19:05:47.037645000 Z
   updater_id: 1
@@ -2820,7 +2878,10 @@ matters_040:
   name: Sucre blanc ‒ 25kg
   nature_id: 51
   number: PR00000000074
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   type: Matter
   updated_at: 2014-11-07 19:12:04.938158000 Z
   updater_id: 1
@@ -2863,7 +2924,10 @@ matters_042:
   name: SO₂ liquide 10%
   nature_id: 53
   number: PR00000000076
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   type: Matter
   updated_at: 2014-11-07 19:22:38.077250000 Z
   updater_id: 1
@@ -2907,7 +2971,10 @@ matters_044:
   name: Bouteilles vides
   nature_id: 54
   number: PR00000000080
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 32.0 centimeter
   type: Matter
   updated_at: 2014-11-07 19:34:09.456173000 Z
   updater_id: 1
@@ -2928,7 +2995,10 @@ matters_045:
   name: Bouchon naturel
   nature_id: 55
   number: PR00000000081
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 5.0 centimeter
   type: Matter
   updated_at: 2014-11-07 19:34:09.539919000 Z
   updater_id: 1
@@ -3167,6 +3237,7 @@ matters_055:
   variant_id: 71
   variety: equipment_part
 plants_001:
+  activity_production_id: 8
   born_at: 2013-11-10 12:01:30.000000000 Z
   category_id: 8
   created_at: 2014-11-05 15:40:15.833985000 Z
@@ -3193,6 +3264,7 @@ plants_001:
   variant_id: 16
   variety: triticum_aestivum
 plants_002:
+  activity_production_id: 9
   born_at: 2012-10-17 10:09:00.000000000 Z
   category_id: 8
   created_at: 2014-11-06 17:50:07.013572000 Z
@@ -3275,6 +3347,7 @@ plants_004:
   variant_id: 44
   variety: vitis_vinifera
 plants_005:
+  activity_production_id: 49
   born_at: 2016-04-06 17:23:00.000000000 Z
   category_id: 8
   created_at: 2016-12-20 18:24:29.477242000 Z
@@ -3453,7 +3526,10 @@ workers_001:
   number: '21001'
   parent_id: 65
   person_id: 9
-  reading_cache: {}
+  reading_cache:
+    length:
+    - Measure
+    - 0.0 meter
   team_id: 1
   type: Worker
   updated_at: 2014-10-31 17:19:32.000000000 Z

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -56,7 +56,7 @@ class PurchaseAffairTest < ActiveSupport::TestCase
   include Test::Affairable
 
   test 'homogeneousity' do
-    purchase = Purchase.order(:id).first
+    purchase = create(:purchase_invoice)
     assert_equal PurchaseAffair, purchase.affair.class
     assert_raise Exception do
       purchase.affair.deal_with! Sale.first
@@ -171,9 +171,8 @@ class PurchaseAffairTest < ActiveSupport::TestCase
         tax: Tax.all.sample
       )
     end
-    purchase = Purchase.create!(supplier: supplier, nature: nature, items: items)
+    purchase = Purchase.create!(supplier: supplier, nature: nature, type: 'PurchaseInvoice', items: items)
     assert purchase.amount > 0, "Purchase amount should be greater than 0. Got: #{purchase.amount.inspect}"
-    purchase.invoice!
     purchase.reload
     assert purchase.affair, 'An affair should be present after invoicing'
     assert purchase.journal_entry, 'A journal entry should exists after purchase invoicing'

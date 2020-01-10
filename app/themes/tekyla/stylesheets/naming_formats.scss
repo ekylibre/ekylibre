@@ -1,0 +1,89 @@
+.naming-format-form {
+  .nested-association {
+    @include flex-row(flex-start);
+    border: none;
+    width: 100%;
+    margin: 2em 0;
+
+    .nested-fields {
+	  flex-basis: 20%;
+      border: none;
+      background: $white !important;
+    }
+
+    .nested-fields .nested-remove {
+      top: 10%;
+      right: 23%;
+    }
+
+    .control-group {
+      @include flex-column();
+    }
+
+    .control-group .controls {
+      margin-left: 0;
+      max-width: none;
+    }
+
+    .control-group .controls select {
+      max-width: none;
+    }
+
+    .control-group .control-label {
+      max-width: none;
+    }
+
+    .links {
+      @include flex-row();
+      flex-basis: 10%;
+      position: relative;
+      background: $white;
+      border: none;
+    }
+
+    .links .nested-add {
+	  position: absolute;
+	  top: 10px;
+      margin-left: 0 !important;
+    }
+
+    .nested-fields:first-child .plus-sign .sign {
+      display: none;
+    }
+  }
+
+  .naming-format-example {
+    font-style: italic;
+  }
+
+  .plus-sign {
+    position: absolute;
+    z-index: 2;
+    top: 2.5em;
+
+    .sign {
+      position: absolute;
+      top: 4px;
+      right: -5px;
+      font-size: $fs-large;
+    }
+  }
+}
+
+.wice-grid-list.naming-formats-list {
+  margin-top: 2em;
+}
+
+#namingFormatModal {
+  .modal-content {
+    width: 80%;
+  }
+
+  .modal-body {
+    padding: 3em;
+  }
+
+  .confirmation-text {
+    font-size: $fs-large;
+  }
+}

@@ -2,7 +2,7 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="plant_watering_installation" categories="irrigating" actions="irrigation">
     <parameters>
-      <target name="cultivation" filter="has indicator shape">
+      <target name="zone" filter="has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
       <doer name="doer"  filter="is worker and can move" cardinality="*"/>

@@ -1,33 +1,41 @@
-= field_set do
-  = f.input :name
-  = f.referenced_association :financial_year
-  = f.referenced_association :responsible #, source: :employees
-  = f.input :achieved_at
-  - %w(product_id product_nature_variant_id product_nature_id product_nature_category_id).each do |x|
-    = hidden_field_tag(x, params[x]) if params[x]
-  = f.custom_fields
+- if params[:action] == 'new' && f.object.product_nature_category.nil? && params[:product_nature_category] != 'all'
+  = f.referenced_association :product_nature_category, label: :category_of_product.tl
+  - f.clear_actions!
+  - f.add do
+    = link_to(:all_the_categories.tl, new_backend_inventory_path(product_nature_category: 'all'), class: 'btn btn-primary validate-inventory-category', data: { validate_tl: :validate.tl })
+- else
 
-:ruby
-  f.object.build_missing_items
-  items = f.object.items.to_a
-  if params[:product_id]
-    items.select!{ |p| p.product_id == params[:product_id].to_i }
-  elsif params[:product_nature_variant_id]
-    items.select!{ |p| p.variant.id == params[:product_nature_variant_id].to_i }
-  elsif params[:product_nature_id]
-    items.select!{ |p| p.nature.id == params[:product_nature_id].to_i }
-  elsif params[:product_nature_category_id]
-    items.select!{ |p| p.category.id == params[:product_nature_category_id].to_i }
-  end
-  containers = Product.where(id: items.collect(&:container)).order(:name)
+  = field_set do
+    = f.input :name
+    = f.referenced_association :financial_year
+    = f.referenced_association :responsible #, source: :employees
+    = f.input :achieved_at
+    - %w(product_id product_nature_variant_id product_nature_id product_nature_category_id).each do |x|
+      = hidden_field_tag(x, params[x]) if params[x]
+    = f.custom_fields
+    = f.input :product_nature_category_id, as: :hidden
 
-- containers.each do |container|
-  = field_set(container.name) do
-    = render 'items_form', f: f, items: items.select{|i| i.container == container}.sort{|a,b| a.name <=> b.name}
+  :ruby
+    f.object.build_missing_items
+    items = f.object.items.to_a
+    if params[:product_id]
+      items.select!{ |p| p.product_id == params[:product_id].to_i }
+    elsif params[:product_nature_variant_id]
+      items.select!{ |p| p.variant.id == params[:product_nature_variant_id].to_i }
+    elsif params[:product_nature_id]
+      items.select!{ |p| p.nature.id == params[:product_nature_id].to_i }
+    elsif params[:product_nature_category_id]
+      items.select!{ |p| p.category.id == params[:product_nature_category_id].to_i }
+    end
+    containers = Product.where(id: items.collect(&:container)).order(:name)
 
-- undefined = items.select{|i| i.container.nil? }
-- if undefined.any?
-  = field_set(:undefined_container) do
-    = render 'items_form', f: f, items: undefined.sort{|a,b| a.name <=> b.name}
+  - containers.each do |container|
+    = field_set(container.name) do
+      = render 'items_form', f: f, items: items.select{|i| i.container == container}.sort{|a,b| a.name <=> b.name}
 
-= f.attachments_field_set
+  - undefined = items.select{|i| i.container.nil? }
+  - if undefined.any?
+    = field_set(:undefined_container) do
+      = render 'items_form', f: f, items: undefined.sort{|a,b| a.name <=> b.name}
+
+  = f.attachments_field_set

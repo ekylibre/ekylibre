@@ -33,7 +33,7 @@
 = cobbles do |c|
 
   - c.cobble :weather do
-    = cell :weather, params: {id: resource.id}
+    = cell :weather, params: {centroid: resource.shape.centroid}
 
   - c.cobble(:productions) do
     = cobble_list(:productions)

@@ -5,10 +5,9 @@
     - items.limit(limit_at).each do |item|
       - item_label = label_item(item, filters, controller_path)
       - attributes = filters.map { |f| [f.name, f.value_of(item)] }.to_h
-
       %li.item{data: {item: {label: item_label, id: item.id}.merge(attributes)}}
         - matches = keys + keys.map { |key| ActiveSupport::Inflector.transliterate(key) }
-        = (render_partial ? render(render_partial, item: item) : highlight(item_label, matches))
+        = (render_partial && params[:partial_unroll] == 'true' ? render(render_partial, item: item, filters: filters, controller_path: controller_path) : highlight(item_label, matches))
     - if params[:insert].to_i > 0 && items.count <= visible_items_count
       %li.item.special{data: {new_item: ''}}
         = "labels.add_#{model_name}".t(default: [:'labels.add_new_record'])

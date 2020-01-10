@@ -13,8 +13,8 @@ module RestfullyManageable
       actions &= [options[:only]].flatten   if options[:only]
       actions -= [options[:except]].flatten if options[:except]
 
-      record_name = name.to_s.singularize
       model_name  = options[:model_name] || name.to_s.classify
+      record_name = model_name.underscore.singularize
       model = model_name.constantize
       columns = model.columns_definition.keys
 

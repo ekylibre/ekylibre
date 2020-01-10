@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -34,7 +34,9 @@
 #  given_at                             :datetime
 #  id                                   :integer          not null, primary key
 #  in_preparation_at                    :datetime
+#  intervention_id                      :integer
 #  journal_entry_id                     :integer
+#  late_delivery                        :boolean
 #  lock_version                         :integer          default(0), not null
 #  nature                               :string           not null
 #  number                               :string           not null
@@ -45,6 +47,7 @@
 #  pretax_amount                        :decimal(19, 4)   default(0.0), not null
 #  purchase_id                          :integer
 #  recipient_id                         :integer
+#  reconciliation_state                 :string
 #  reference_number                     :string
 #  remain_owner                         :boolean          default(FALSE), not null
 #  responsible_id                       :integer
@@ -54,90 +57,14 @@
 #  state                                :string           not null
 #  storage_id                           :integer
 #  transporter_id                       :integer
+#  type                                 :string
 #  undelivered_invoice_journal_entry_id :integer
 #  updated_at                           :datetime         not null
 #  updater_id                           :integer
 #  with_delivery                        :boolean          default(FALSE), not null
 #
 ---
-parcels_001:
-  address_id: 12
-  created_at: 2014-11-05 14:15:20.016507000 Z
-  creator_id: 1
-  delivery_id: 3
-  delivery_mode: transporter
-  given_at: 2014-11-05 15:14:00.754740000 Z
-  id: 1
-  lock_version: 1
-  nature: outgoing
-  number: BL2014000002
-  planned_at: 2014-11-05 14:15:20.016507000 Z
-  pretax_amount: 0.0
-  recipient_id: 13
-  remain_owner: false
-  state: draft
-  transporter_id: 4
-  updated_at: 2014-11-05 15:14:00.950218000 Z
-  updater_id: 1
-  with_delivery: true
-parcels_002:
-  address_id: 7
-  created_at: 2014-11-05 14:16:19.773131000 Z
-  creator_id: 1
-  delivery_id: 3
-  delivery_mode: transporter
-  given_at: 2014-11-05 15:14:00.754740000 Z
-  id: 2
-  lock_version: 1
-  nature: outgoing
-  number: BL2014000003
-  planned_at: 2014-11-05 14:16:19.773131000 Z
-  pretax_amount: 0.0
-  recipient_id: 11
-  remain_owner: false
-  state: given
-  transporter_id: 4
-  updated_at: 2014-11-05 15:14:00.962449000 Z
-  updater_id: 1
-  with_delivery: true
-parcels_003:
-  address_id: 12
-  created_at: 2014-11-05 14:16:48.643201000 Z
-  creator_id: 1
-  delivery_id: 15
-  delivery_mode: us
-  given_at: 2014-11-03 03:20:00.000000000 Z
-  id: 3
-  lock_version: 0
-  nature: outgoing
-  number: BL2014000004
-  planned_at: 2014-11-05 14:16:48.643201000 Z
-  pretax_amount: 0.0
-  recipient_id: 13
-  remain_owner: false
-  state: given
-  updated_at: 2014-11-05 14:16:48.643201000 Z
-  updater_id: 1
-  with_delivery: true
-parcels_004:
-  address_id: 8
-  created_at: 2014-11-07 14:13:05.515052000 Z
-  creator_id: 1
-  delivery_mode: transporter
-  id: 4
-  lock_version: 0
-  nature: outgoing
-  number: BL2014000005
-  planned_at: 2014-11-07 14:13:05.515052000 Z
-  pretax_amount: 0.0
-  recipient_id: 8
-  remain_owner: false
-  state: in_preparation
-  transporter_id: 9
-  updated_at: 2014-11-07 14:13:05.515052000 Z
-  updater_id: 1
-  with_delivery: true
-parcels_005:
+receptions_001:
   address_id: 3
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
@@ -154,10 +81,11 @@ parcels_005:
   sender_id: 6
   state: given
   storage_id: 115
+  type: Reception
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
   with_delivery: true
-parcels_006:
+receptions_002:
   address_id: 3
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
@@ -175,10 +103,11 @@ parcels_006:
   sender_id: 4
   state: given
   storage_id: 21
+  type: Reception
   updated_at: 2014-11-01 16:01:24.150621000 Z
   updater_id: 1
   with_delivery: true
-parcels_007:
+receptions_003:
   address_id: 3
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
@@ -195,10 +124,11 @@ parcels_007:
   sender_id: 6
   state: given
   storage_id: 115
+  type: Reception
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
   with_delivery: true
-parcels_008:
+receptions_004:
   address_id: 3
   created_at: 2014-10-31 20:23:37.027824000 Z
   creator_id: 1
@@ -216,10 +146,11 @@ parcels_008:
   sender_id: 4
   state: given
   storage_id: 20
+  type: Reception
   updated_at: 2014-10-31 20:23:37.027824000 Z
   updater_id: 1
   with_delivery: true
-parcels_009:
+receptions_005:
   address_id: 3
   created_at: 2014-11-01 16:00:08.015634000 Z
   creator_id: 1
@@ -237,10 +168,11 @@ parcels_009:
   sender_id: 4
   state: given
   storage_id: 20
+  type: Reception
   updated_at: 2014-11-01 16:00:08.015634000 Z
   updater_id: 1
   with_delivery: true
-parcels_010:
+receptions_006:
   address_id: 3
   created_at: 2014-11-01 19:29:58.086427000 Z
   creator_id: 1
@@ -258,10 +190,11 @@ parcels_010:
   sender_id: 4
   state: given
   storage_id: 21
+  type: Reception
   updated_at: 2014-11-01 19:29:58.086427000 Z
   updater_id: 1
   with_delivery: true
-parcels_011:
+receptions_007:
   address_id: 3
   created_at: 2014-11-01 19:35:50.370591000 Z
   creator_id: 1
@@ -279,10 +212,11 @@ parcels_011:
   sender_id: 5
   state: given
   storage_id: 21
+  type: Reception
   updated_at: 2014-11-01 19:35:50.370591000 Z
   updater_id: 1
   with_delivery: true
-parcels_012:
+receptions_008:
   address_id: 3
   created_at: 2014-11-01 20:19:35.352913000 Z
   creator_id: 1
@@ -300,10 +234,11 @@ parcels_012:
   sender_id: 8
   state: given
   storage_id: 21
+  type: Reception
   updated_at: 2014-11-01 20:23:54.910311000 Z
   updater_id: 1
   with_delivery: true
-parcels_013:
+receptions_009:
   address_id: 9
   created_at: 2014-11-07 15:25:51.188992000 Z
   creator_id: 1
@@ -321,10 +256,11 @@ parcels_013:
   sender_id: 13
   state: given
   storage_id: 21
+  type: Reception
   updated_at: 2014-11-07 15:25:51.188992000 Z
   updater_id: 1
   with_delivery: true
-parcels_014:
+receptions_010:
   address_id: 9
   created_at: 2014-11-07 15:44:20.453162000 Z
   creator_id: 1
@@ -342,10 +278,11 @@ parcels_014:
   sender_id: 13
   state: given
   storage_id: 21
+  type: Reception
   updated_at: 2014-11-07 15:44:20.453162000 Z
   updater_id: 1
   with_delivery: true
-parcels_015:
+receptions_011:
   address_id: 9
   created_at: 2014-11-07 16:47:34.635509000 Z
   creator_id: 1
@@ -358,16 +295,16 @@ parcels_015:
   number: ID20140012
   planned_at: 2014-11-07 16:47:34.635509000 Z
   pretax_amount: 0.0
-  purchase_id: 11
   reference_number: '2008030001215'
   remain_owner: false
   sender_id: 13
   state: given
   storage_id: 21
+  type: Reception
   updated_at: 2014-11-07 16:52:05.914027000 Z
   updater_id: 1
   with_delivery: true
-parcels_016:
+receptions_012:
   address_id: 9
   created_at: 2014-11-07 19:05:46.884082000 Z
   creator_id: 1
@@ -384,10 +321,11 @@ parcels_016:
   sender_id: 13
   state: draft
   storage_id: 21
+  type: Reception
   updated_at: 2014-11-07 19:05:46.884082000 Z
   updater_id: 1
   with_delivery: true
-parcels_017:
+receptions_013:
   address_id: 9
   created_at: 2014-11-07 19:12:04.935666000 Z
   creator_id: 1
@@ -404,10 +342,11 @@ parcels_017:
   sender_id: 13
   state: draft
   storage_id: 21
+  type: Reception
   updated_at: 2014-11-07 19:12:04.935666000 Z
   updater_id: 1
   with_delivery: true
-parcels_018:
+receptions_014:
   address_id: 9
   created_at: 2014-11-07 19:22:38.074904000 Z
   creator_id: 1
@@ -424,10 +363,11 @@ parcels_018:
   sender_id: 13
   state: draft
   storage_id: 21
+  type: Reception
   updated_at: 2014-11-07 19:22:38.074904000 Z
   updater_id: 1
   with_delivery: true
-parcels_019:
+receptions_015:
   address_id: 9
   created_at: 2014-11-07 19:34:09.453724000 Z
   creator_id: 1
@@ -444,52 +384,11 @@ parcels_019:
   sender_id: 13
   state: draft
   storage_id: 21
+  type: Reception
   updated_at: 2014-11-07 19:34:09.453724000 Z
   updater_id: 1
   with_delivery: true
-parcels_020:
-  address_id: 9
-  created_at: 2015-09-17 13:24:45.020171000 Z
-  creator_id: 1
-  delivery_mode: us
-  id: 20
-  lock_version: 0
-  nature: outgoing
-  number: P000000000001
-  planned_at: 2015-09-17 13:24:00.000000000 Z
-  position: 1
-  pretax_amount: 0.0
-  recipient_id: 11
-  remain_owner: false
-  state: draft
-  storage_id: 118
-  updated_at: 2015-09-17 13:24:45.020171000 Z
-  updater_id: 1
-  with_delivery: true
-parcels_021:
-  address_id: 12
-  created_at: 2015-09-17 13:25:55.971246000 Z
-  creator_id: 1
-  delivery_id: 16
-  delivery_mode: us
-  given_at: 2015-09-17 13:40:58.044216000 Z
-  id: 21
-  in_preparation_at: 2015-09-17 13:32:22.193743000 Z
-  lock_version: 4
-  nature: outgoing
-  number: P000000000002
-  planned_at: 2015-09-16 22:00:00.000000000 Z
-  position: 1
-  prepared_at: 2015-09-17 13:38:07.151525000 Z
-  pretax_amount: 0.0
-  recipient_id: 15
-  remain_owner: false
-  sale_id: 16
-  state: given
-  updated_at: 2015-09-17 13:40:58.255575000 Z
-  updater_id: 1
-  with_delivery: true
-parcels_022:
+receptions_016:
   address_id: 9
   created_at: 2016-07-01 19:23:38.962758000 Z
   creator_id: 1
@@ -510,32 +409,11 @@ parcels_022:
   separated_stock: false
   state: given
   storage_id: 11
+  type: Reception
   updated_at: 2016-07-01 19:23:51.506082000 Z
   updater_id: 1
   with_delivery: false
-parcels_023:
-  address_id: 4
-  created_at: 2016-07-01 20:13:19.527044000 Z
-  creator_id: 1
-  delivery_mode: us
-  given_at: 2016-07-01 20:13:27.276170000 Z
-  id: 23
-  in_preparation_at: 2016-07-01 20:13:23.706054000 Z
-  lock_version: 4
-  nature: outgoing
-  number: P000000000004
-  ordered_at: 2016-07-01 20:13:23.689651000 Z
-  planned_at: 2016-06-30 22:00:00.000000000 Z
-  position: 3
-  prepared_at: 2016-07-01 20:13:23.808717000 Z
-  pretax_amount: 0.0
-  recipient_id: 10
-  remain_owner: false
-  state: given
-  updated_at: 2016-07-01 20:13:27.345557000 Z
-  updater_id: 1
-  with_delivery: false
-parcels_024:
+receptions_017:
   address_id: 9
   created_at: 2016-07-01 20:23:17.503085000 Z
   creator_id: 1
@@ -556,10 +434,11 @@ parcels_024:
   separated_stock: false
   state: given
   storage_id: 12
+  type: Reception
   updated_at: 2016-07-01 20:23:25.152288000 Z
   updater_id: 1
   with_delivery: false
-parcels_025:
+receptions_018:
   address_id: 9
   created_at: 2016-08-10 14:27:46.127219000 Z
   creator_id: 1
@@ -581,6 +460,155 @@ parcels_025:
   separated_stock: false
   state: given
   storage_id: 21
+  type: Reception
   updated_at: 2016-08-10 14:27:50.028641000 Z
+  updater_id: 1
+  with_delivery: false
+shipments_001:
+  address_id: 12
+  created_at: 2014-11-05 14:15:20.016507000 Z
+  creator_id: 1
+  delivery_id: 3
+  delivery_mode: transporter
+  given_at: 2014-11-05 15:14:00.754740000 Z
+  id: 1
+  lock_version: 1
+  nature: outgoing
+  number: BL2014000002
+  planned_at: 2014-11-05 14:15:20.016507000 Z
+  pretax_amount: 0.0
+  recipient_id: 13
+  remain_owner: false
+  state: draft
+  transporter_id: 4
+  type: Shipment
+  updated_at: 2014-11-05 15:14:00.950218000 Z
+  updater_id: 1
+  with_delivery: true
+shipments_002:
+  address_id: 7
+  created_at: 2014-11-05 14:16:19.773131000 Z
+  creator_id: 1
+  delivery_id: 3
+  delivery_mode: transporter
+  given_at: 2014-11-05 15:14:00.754740000 Z
+  id: 2
+  lock_version: 1
+  nature: outgoing
+  number: BL2014000003
+  planned_at: 2014-11-05 14:16:19.773131000 Z
+  pretax_amount: 0.0
+  recipient_id: 11
+  remain_owner: false
+  state: given
+  transporter_id: 4
+  type: Shipment
+  updated_at: 2014-11-05 15:14:00.962449000 Z
+  updater_id: 1
+  with_delivery: true
+shipments_003:
+  address_id: 12
+  created_at: 2014-11-05 14:16:48.643201000 Z
+  creator_id: 1
+  delivery_id: 15
+  delivery_mode: us
+  given_at: 2014-11-03 03:20:00.000000000 Z
+  id: 3
+  lock_version: 0
+  nature: outgoing
+  number: BL2014000004
+  planned_at: 2014-11-05 14:16:48.643201000 Z
+  pretax_amount: 0.0
+  recipient_id: 13
+  remain_owner: false
+  state: given
+  type: Shipment
+  updated_at: 2014-11-05 14:16:48.643201000 Z
+  updater_id: 1
+  with_delivery: true
+shipments_004:
+  address_id: 8
+  created_at: 2014-11-07 14:13:05.515052000 Z
+  creator_id: 1
+  delivery_mode: transporter
+  id: 4
+  lock_version: 0
+  nature: outgoing
+  number: BL2014000005
+  planned_at: 2014-11-07 14:13:05.515052000 Z
+  pretax_amount: 0.0
+  recipient_id: 8
+  remain_owner: false
+  state: in_preparation
+  transporter_id: 9
+  type: Shipment
+  updated_at: 2014-11-07 14:13:05.515052000 Z
+  updater_id: 1
+  with_delivery: true
+shipments_005:
+  address_id: 9
+  created_at: 2015-09-17 13:24:45.020171000 Z
+  creator_id: 1
+  delivery_mode: us
+  id: 20
+  lock_version: 0
+  nature: outgoing
+  number: P000000000001
+  planned_at: 2015-09-17 13:24:00.000000000 Z
+  position: 1
+  pretax_amount: 0.0
+  recipient_id: 11
+  remain_owner: false
+  state: draft
+  storage_id: 118
+  type: Shipment
+  updated_at: 2015-09-17 13:24:45.020171000 Z
+  updater_id: 1
+  with_delivery: true
+shipments_006:
+  address_id: 12
+  created_at: 2015-09-17 13:25:55.971246000 Z
+  creator_id: 1
+  delivery_id: 16
+  delivery_mode: us
+  given_at: 2015-09-17 13:40:58.044216000 Z
+  id: 21
+  in_preparation_at: 2015-09-17 13:32:22.193743000 Z
+  lock_version: 4
+  nature: outgoing
+  number: P000000000002
+  planned_at: 2015-09-16 22:00:00.000000000 Z
+  position: 1
+  prepared_at: 2015-09-17 13:38:07.151525000 Z
+  pretax_amount: 0.0
+  recipient_id: 15
+  remain_owner: false
+  sale_id: 16
+  state: given
+  type: Shipment
+  updated_at: 2015-09-17 13:40:58.255575000 Z
+  updater_id: 1
+  with_delivery: true
+shipments_007:
+  address_id: 4
+  created_at: 2016-07-01 20:13:19.527044000 Z
+  creator_id: 1
+  delivery_mode: us
+  given_at: 2016-07-01 20:13:27.276170000 Z
+  id: 23
+  in_preparation_at: 2016-07-01 20:13:23.706054000 Z
+  lock_version: 4
+  nature: outgoing
+  number: P000000000004
+  ordered_at: 2016-07-01 20:13:23.689651000 Z
+  planned_at: 2016-06-30 22:00:00.000000000 Z
+  position: 3
+  prepared_at: 2016-07-01 20:13:23.808717000 Z
+  pretax_amount: 0.0
+  recipient_id: 10
+  remain_owner: false
+  state: given
+  type: Shipment
+  updated_at: 2016-07-01 20:13:27.345557000 Z
   updater_id: 1
   with_delivery: false

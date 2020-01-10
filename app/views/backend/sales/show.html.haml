@@ -6,7 +6,10 @@
   = t.export(*exports, key: :number)
   = t.duplicate resource, method: :post, params: {redirect: nil}
   - if current_user.can?(:write, :outgoing_deliveries) && resource.can_generate_parcel?
-    = t.new(resource, params: { controller: :parcels, sale_id: resource.id, nature: :outgoing }, label: :generate_parcel.tl)
+    - shipment_items_attributes = resource.items.map do |item|
+      - item_product = item.variant.products.order(born_at: :desc).first
+      - { source_product_id: item_product, population: item.quantity }
+    = t.new(resource, params: { controller: :shipments, shipment: { sale_id: resource.id, recipient_id: resource.client, items_attributes: shipment_items_attributes } }, label: :create_shipment.tl)
   - if resource.invoice?
     = t.cancel(resource) if resource.cancellable?
   = t.edit resource if resource.draft?
@@ -58,8 +61,8 @@
     = affair_of(resource, default: 'IncomingPayment')
 
   - if resource.parcels.any?
-    - c.cobble :parcels, title: Sale.human_attribute_name(:parcels) do
-      = cobble_list :parcels
+    - c.cobble :shipments do
+      = cobble_list :shipments
 
   - if resource.credits.any?
     - c.cobble :credits do

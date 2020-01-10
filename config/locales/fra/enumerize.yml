@@ -1,9 +1,9 @@
 fra:
   enumerize:
-    account:
-      nature:
-        auxiliary: "Auxiliaire"
-        general: "General"
+    account: #?
+      nature: #?
+        auxiliary: "Auxiliaire" #?
+        general: "General" #?
     activity:
       nature:
         auxiliary: "Auxiliaire"
@@ -138,12 +138,12 @@ fra:
       nature:
         contact: "Contact"
         organization: "Organisation"
-      supplier_payment_delay:
-        1 week: "à réception"
-        30 days: "30 jours"
-        30 days, end of month: "30 jours fin du mois"
-        60 days: "60 jours"
-        60 days, end of month: "60 jours fin du mois"
+      supplier_payment_delay: #?
+        1 week: "à réception" #?
+        30 days: "30 jours" #?
+        30 days, end of month: "30 jours fin du mois" #?
+        60 days: "60 jours" #?
+        60 days, end of month: "60 jours fin du mois" #?
     entity_address:
       canal:
         email: "E-mail"
@@ -159,12 +159,12 @@ fra:
         refused: "Refusé"
         waiting: "En attente de réponse"
     financial_year:
-      state:
-        closed: "Clôturé"
-        closing: "Clôture en cours"
-        closure_in_preparation: "Clôture en préparation"
-        locked: "Verrouillé"
-        opened: "Ouvert"
+      state: #?
+        closed: "Clôturé" #?
+        closing: "Clôture en cours" #?
+        closure_in_preparation: "Clôture en préparation" #?
+        locked: "Verrouillé" #?
+        opened: "Ouvert" #?
       tax_declaration_frequency:
         monthly: "Mensuelle"
         none: "Aucune"
@@ -295,6 +295,14 @@ fra:
       nature:
         background: "Fond"
         overlay: "Calque"
+    naming_format_field_land_parcel:
+      field_name:
+        activity: "Activité"
+        campaign: "Campagne"
+        cultivable_zone_code: "Code de la zone cultivable"
+        cultivable_zone_name: "Nom de la zone cultivale"
+        production_mode: "Mode de production"
+        season: "Saisonnalité"
     notification:
       level:
         error: "Erreur"
@@ -314,6 +322,11 @@ fra:
       nature:
         incoming: "Entrant"
         outgoing: "Sortant"
+    parcel_item:
+      delivery_mode:
+        third: "Par le tiers"
+        transporter: "Par tranporteur"
+        us: "Par nos soins"
     plant_counting:
       nature:
         germination: "À la levée"
@@ -443,12 +456,12 @@ fra:
         # point: "Point"
         string: "Chaîne"
     purchase:
-      payment_delay:
-        1 week: "à réception"
-        30 days: "30 jours"
-        30 days, end of month: "30 jours fin du mois"
-        60 days: "60 jours"
-        60 days, end of month: "60 jours fin du mois"
+      payment_delay: #?
+        1 week: "à réception" #?
+        30 days: "30 jours" #?
+        30 days, end of month: "30 jours fin du mois" #?
+        60 days: "60 jours" #?
+        60 days, end of month: "60 jours fin du mois" #?
       tax_payability:
         at_invoicing: "À la facturation (débit)"
         at_paying: "Au paiement"
@@ -456,24 +469,32 @@ fra:
       nature:
         payslip: "Fiche de paie"
         purchase: "Achat"
-    sale:
-      payment_delay:
-        1 week: "à réception"
-        30 days: "30 jours"
-        30 days, end of month: "30 jours fin du mois"
-        60 days: "60 jours"
-        60 days, end of month: "60 jours fin du mois"
+    purchase_order: #?
+      command_mode: #?
+        fax: "Fax" #?
+        letter: "Courrier" #?
+        mail: "Email" #?
+        market_place: "" #?
+        oral: "Verbal" #?
+        sms: "SMS" #?
+    sale: #?
+      payment_delay: #?
+        1 week: "à réception" #?
+        30 days: "30 jours" #?
+        30 days, end of month: "30 jours fin du mois" #?
+        60 days: "60 jours" #?
+        60 days, end of month: "60 jours fin du mois" #?
     sale_item: #?
       compute_from: #?
         pretax_amount: "Montant avant impôts" #?
         unit_pretax_amount: "Unité montant avant impôts" #?
-    sale_nature:
-      payment_delay:
-        1 week: "à réception"
-        30 days: "30 jours"
-        30 days, end of month: "30 jours fin du mois"
-        60 days: "60 jours"
-        60 days, end of month: "60 jours fin du mois"
+    sale_nature: #?
+      payment_delay: #?
+        1 week: "à réception" #?
+        30 days: "30 jours" #?
+        30 days, end of month: "30 jours fin du mois" #?
+        60 days: "60 jours" #?
+        60 days, end of month: "60 jours fin du mois" #?
     sensor:
       retrieval_mode:
         integration: "Intégration"

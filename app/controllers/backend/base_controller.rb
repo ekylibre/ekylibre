@@ -19,6 +19,7 @@
 module Backend
   class BaseController < ::BaseController
     include Autocomplete
+    prepend RespondWithTemplate
     include RestfullyManageable
     include Unrollable
     protect_from_forgery
@@ -86,20 +87,6 @@ module Backend
       end
     end
 
-    # Overrides respond_with method in order to use specific parameters for reports
-    # Adds :with and :key, :name parameters
-    def respond_with_with_template(*resources, &block)
-      resources << {} unless resources.last.is_a?(Hash)
-      resources[-1][:with] = (params[:template].to_s =~ /^\d+$/ ? params[:template].to_i : params[:template].to_s) if params[:template]
-      for param in %i[key name]
-        resources[-1][param] = params[param] if params[param]
-      end
-      respond_with_without_template(*resources, &block)
-    end
-
-    hide_action :respond_with, :respond_with_without_template
-    alias_method_chain :respond_with, :template
-
     # Find a record with the current environment or given parameters and check availability of it
     def find_and_check(*args)
       options = args.extract_options!
@@ -154,6 +141,8 @@ module Backend
           end
           redirect_to(url)
           return true
+        else
+          raise ActiveRecord::Rollback
         end
       end
       notify_error_now :record_cannot_be_saved.tl
@@ -175,7 +164,32 @@ module Backend
       end
     end
 
+    def save_search_preference
+      controller = params[:controller]
+      action = params[:action]
+      params[:started_on] ||= current_user.preferences.find_by(name: "#{controller}##{action}.started_on").try(:value)
+      params[:stopped_on] ||= current_user.preferences.find_by(name: "#{controller}##{action}.stopped_on").try(:value)
+      params[:period]     ||= current_user.preferences.find_by(name: "#{controller}##{action}.period").try(:value) || 'interval'
+
+      # Set the preference in function of the search
+      if params[:period].present? && params[:period] != 'all' && params[:period] == 'interval'
+        set_interval_preference(:started_on, controller, action)
+        set_interval_preference(:stopped_on, controller, action)
+        current_user.preferences.find_by(name: "#{controller}##{action}.period").try(:destroy)
+      elsif params[:period] != 'interval'
+        set_interval_preference(:period, controller, action)
+      end
+    end
+
     private
+
+    def set_interval_preference(attribute, controller, action)
+      if preference = current_user.preferences.find_by(name: "#{controller}##{action}.#{attribute}")
+        preference.set(params[attribute])
+      else
+        current_user.preferences.get("#{controller}##{action}.#{attribute}", params[attribute], :string)
+      end
+    end
 
     def dialog_or_not
       (request.xhr? ? 'popover' : params[:dialog] ? 'dialog' : 'backend')
@@ -305,6 +319,54 @@ module Backend
         end
         code << "end\n"
         code << conditions.to_s
+        code.c
+      end
+
+      def account_lettering_states_crit(variable, _conditions = 'c', _table_name = nil)
+        variable = "params[:#{variable}]" unless variable.is_a? String
+        code = ''
+        code << "unless #{variable}[:account_lettering_state].blank?\n"
+        code << "  conditions = ['1=1'] \n"
+        code << "  account_lettering_states = #{variable}[:account_lettering_state].map{ |s| s.split(',') }.flatten.compact \n"
+        code << "  account_lettering_states.each_with_index do |current_lettering_state, index|\n"
+        code << "    if index == 0\n"
+        code << "      conditions[0] << ' AND('\n"
+        code << "      if current_lettering_state == 'lettered'\n"
+        code << "        conditions[0] << '(#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter NOT ILIKE ?)'\n"
+        code << "        conditions << '%*'\n"
+        code << "      end\n"
+
+        code << "      if current_lettering_state == 'unlettered'\n"
+        code << "        conditions[0] << '#{JournalEntryItem.table_name}.letter IS NULL'\n"
+        code << "      end\n"
+
+        code << "      if current_lettering_state == 'partially_lettered'\n"
+        code << "        conditions[0] << '(#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter ILIKE ?)'\n"
+        code << "        conditions << '%*'\n"
+        code << "      end\n"
+        code << "    else\n"
+        code << "      if current_lettering_state == 'lettered'\n"
+        code << "        conditions[0] << ' OR (#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter NOT ILIKE ?)'\n"
+        code << "        conditions << '%*'\n"
+        code << "      end\n"
+
+        code << "      if current_lettering_state == 'unlettered'\n"
+        code << "        conditions[0] << ' OR #{JournalEntryItem.table_name}.letter IS NULL'\n"
+        code << "      end\n"
+
+        code << "      if current_lettering_state == 'partially_lettered'\n"
+        code << "        conditions[0] << ' OR (#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter ILIKE ?)'\n"
+        code << "        conditions << '%*'\n"
+        code << "      end\n"
+        code << "    end\n"
+        code << "  end\n"
+        code << "  conditions[0] << ')'\n"
+        code << journal_period_crit('params', 'conditions')
+        code << "  subquery = #{JournalEntryItem}.joins(:entry).select(:account_id).where(conditions).to_sql\n"
+        code << "  c[0] << ' AND accounts.id IN (' \n"
+        code << "  c[0] << subquery \n"
+        code << "  c[0] << ')' \n"
+        code << "end\n"
         code.c
       end
 

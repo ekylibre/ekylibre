@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -90,6 +90,7 @@ require 'ffaker'
 
 class Product < Ekylibre::Record::Base
   include Attachable
+  include Autocastable
   include Indicateable
   include Versionable
   include Customizable
@@ -134,14 +135,16 @@ class Product < Ekylibre::Record::Base
   has_many :populations, class_name: 'ProductPopulation', foreign_key: :product_id, dependent: :destroy
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :product_id, dependent: :destroy
   has_many :inspections, class_name: 'Inspection', foreign_key: :product_id, dependent: :destroy
-  has_many :parcel_items, dependent: :restrict_with_exception
   has_many :inventory_items, dependent: :restrict_with_exception
+  has_many :parcel_item_storings, foreign_key: :product_id
+  has_many :parcel_items, through: :parcel_item_storings, dependent: :restrict_with_exception
   has_many :phases, class_name: 'ProductPhase', dependent: :destroy
   has_many :intervention_participations, class_name: 'InterventionParticipation', dependent: :destroy
   has_many :sensors
   has_many :supports, class_name: 'ActivityProduction', foreign_key: :support_id, inverse_of: :support
   has_many :trackings, class_name: 'Tracking', foreign_key: :product_id, inverse_of: :product
   has_many :variants, class_name: 'ProductNatureVariant', through: :phases
+  has_many :purchase_items, class_name: 'PurchaseItem', inverse_of: :equipment, foreign_key: :equipment_id
   has_one :current_phase,        -> { current }, class_name: 'ProductPhase',        foreign_key: :product_id
   has_one :current_localization, -> { current }, class_name: 'ProductLocalization', foreign_key: :product_id
   has_one :current_enjoyment,    -> { current }, class_name: 'ProductEnjoyment',    foreign_key: :product_id
@@ -151,8 +154,8 @@ class Product < Ekylibre::Record::Base
   has_one :container, through: :current_localization
   has_many :groups, through: :current_memberships
   # FIXME: These reflections are meaningless. Will be removed soon or later.
-  has_one :incoming_parcel_item, -> { with_nature(:incoming) }, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
-  has_one :outgoing_parcel_item, -> { with_nature(:outgoing) }, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
+  has_one :incoming_parcel_item, -> { with_nature(:incoming) }, class_name: 'ReceptionItem', foreign_key: :product_id, inverse_of: :product
+  has_one :outgoing_parcel_item, -> { with_nature(:outgoing) }, class_name: 'ShipmentItem', foreign_key: :product_id, inverse_of: :product
   has_one :last_intervention_target, -> { order(id: :desc).limit(1) }, class_name: 'InterventionTarget'
   belongs_to :member_variant, class_name: 'ProductNatureVariant'
 
@@ -188,7 +191,7 @@ class Product < Ekylibre::Record::Base
   scope :of_expression, lambda { |expression|
     joins(:nature).where(WorkingSet.to_sql(expression, default: :products, abilities: :product_natures, indicators: :product_natures))
   }
-  scope :of_nature, ->(nature) { where(nature_id: nature.id) }
+  scope :of_nature, ->(nature) { where(nature_id: nature.try(:id) || nature) }
   scope :of_variant, lambda { |variant, _at = Time.zone.now|
     where(variant_id: (variant.is_a?(ProductNatureVariant) ? variant.id : variant))
   }
@@ -291,6 +294,14 @@ class Product < Ekylibre::Record::Base
 
   scope :usable_in_fixed_asset, -> { depreciables.joins('LEFT JOIN fixed_assets ON products.id = fixed_assets.product_id').where('fixed_assets.id IS NULL') }
 
+  scope :with_id, lambda { |id|
+    where(id: id)
+  }
+
+  scope :of_activity_production, lambda { |activity_production|
+    where(activity_production: activity_production)
+  }
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :birth_date_completeness, :birth_farm_number, :country, :end_of_life_reason, :father_country, :father_identification_number, :father_variety, :filiation_status, :identification_number, :mother_country, :mother_identification_number, :mother_variety, :origin_country, :origin_identification_number, :picture_content_type, :picture_file_name, :work_number, length: { maximum: 500 }, allow_blank: true
   validates :born_at, :dead_at, :first_calving_on, :initial_born_at, :initial_dead_at, :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
@@ -311,6 +322,13 @@ class Product < Ekylibre::Record::Base
 
 
   store :reading_cache, accessors: Nomen::Indicator.all, coder: ReadingsCoder
+
+  after_commit do
+    if nature.population_counting_unitary? && population.zero?
+      m = movements.build(delta: 1, started_at: Time.now)
+      m.save!
+    end
+  end
 
   # [DEPRECATIONS[
   #  - fixed_asset_id
@@ -339,7 +357,7 @@ class Product < Ekylibre::Record::Base
   end
 
   accepts_nested_attributes_for :readings, allow_destroy: true, reject_if: lambda { |reading|
-    !reading['indicator_name'] != 'population' && reading[ProductReading.value_column(reading['indicator_name']).to_s].blank?
+    !(reading['indicator_name'] != 'population') && reading[ProductReading.value_column(reading['indicator_name']).to_s].blank?
   }
   accepts_nested_attributes_for :memberships, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :labellings, reject_if: :all_blank, allow_destroy: true
@@ -360,7 +378,20 @@ class Product < Ekylibre::Record::Base
            to: :nature
 
   after_initialize :choose_default_name
-  after_save :set_initial_values, if: :initializeable?
+
+  after_save do
+    if initializeable?
+      set_initial_values
+
+    else
+      product_phases = phases.where(product_id: id,
+                                    variant_id: variant.id,
+                                    nature_id: variant.nature.id,
+                                    category_id: variant.category.id)
+
+      build_new_phase unless product_phases.any?
+    end
+  end
 
   before_validation do
     self.initial_born_at ||= Time.zone.now
@@ -404,16 +435,6 @@ class Product < Ekylibre::Record::Base
   end
 
   class << self
-    # Auto-cast product to best matching class with type column
-    def new_with_cast(*attributes, &block)
-      if (h = attributes.first).is_a?(Hash) && !h.nil? && (type = h[:type] || h['type']) && !type.empty? && (klass = type.constantize) != self
-        raise "Can not cast #{name} to #{klass.name}" unless klass <= self
-        return klass.new(*attributes, &block)
-      end
-      new_without_cast(*attributes, &block)
-    end
-    alias_method_chain :new, :cast
-
     def miscibility_of(products_and_variants)
       PhytosanitaryMiscibility.new(products_and_variants).legality
     end
@@ -482,6 +503,21 @@ class Product < Ekylibre::Record::Base
     localization.container = self.initial_container
     localization.save!
 
+    # Add first frozen indicator on a product from his variant
+    if variant
+      phase = phases.first_of_all || phases.build
+      phase.variant = variant
+      phase.save!
+      # set indicators from variant in products readings
+      variant.readings.each do |variant_reading|
+        reading = readings.first_of_all(variant_reading.indicator_name) ||
+        readings.new(indicator_name: variant_reading.indicator_name)
+        reading.value = variant_reading.value
+        reading.read_at = born_at
+        reading.save!
+      end
+    end
+
     if born_at
       # Configure initial_movement
       movement = initial_movement || build_initial_movement
@@ -500,22 +536,19 @@ class Product < Ekylibre::Record::Base
         ProductReading.destroy readings.where.not(id: reading.id).where(indicator_name: :shape, read_at: reading.read_at).pluck(:id)
       end
     end
-
-    # Add first frozen indicator on a product from his variant
-    if variant
-      phase = phases.first_of_all || phases.build
-      phase.variant = variant
-      phase.save!
-      # set indicators from variant in products readings
-      variant.readings.each do |variant_reading|
-        reading = readings.first_of_all(variant_reading.indicator_name) ||
-                  readings.new(indicator_name: variant_reading.indicator_name)
-        reading.value = variant_reading.value
-        reading.read_at = born_at
-        reading.save!
-      end
-    end
   end
+
+  def build_new_phase
+    phases.build(
+      product_id: id,
+      variant_id: variant.id,
+      category_id: variant.category.id,
+      nature_id: variant.nature.id
+    )
+
+    save
+  end
+
 
   def shape=(new_shape)
     reading_cache[:shape] = new_shape
@@ -835,5 +868,10 @@ class Product < Ekylibre::Record::Base
       update_column(:reading_cache, reading_cache.merge(indicator.to_s => indicator_value))
     end
     indicator_value
+  end
+
+  def stock_info
+    info = "#{self.population.round(2)} #{self.variant.unit_name.downcase}"
+    info
   end
 end

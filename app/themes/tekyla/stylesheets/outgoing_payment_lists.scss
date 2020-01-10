@@ -1,0 +1,81 @@
+#new_outgoing_payment_list {
+
+  input[type='radio'] + label {
+    margin-right: 20px;
+    line-height: 29px;
+  }
+}
+
+.payments-list[data-outgoing-payment-third] {
+  margin-top: 20px;
+}
+
+.third-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background: #EEE;
+}
+
+.third-header__title {
+  font-weight: 600;
+}
+
+i.third-header__trigger {
+  cursor: pointer;
+  @include is-icon();
+  @include use-icon(minus-square-o);
+  &.plus {
+    @include use-icon(plus-square-o);
+  }
+}
+
+.invoices-list {
+  padding: 0 10px;
+}
+
+.invoices-list__header, .invoices-list__content, .invoices-list__footer {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+}
+
+.invoices-list__header, .invoices-list__footer {
+  font-weight: bold;
+}
+
+.invoices-list__content {
+  box-sizing: border-box;
+  border-bottom: 1px solid #F0F0F0;
+  &:hover {
+    background: #F0F0F0;
+  }
+}
+
+.invoices-list__column--height-lg {
+  line-height: 23px;
+}
+
+.invoices-list__column--font-lg {
+  font-size: 18px;
+}
+
+.invoices-list__column--width-sm {
+  flex: 0 0 5%;
+}
+
+.invoices-list__column--width-md {
+  flex: 0 0 15%;
+  text-align: right;
+}
+
+.invoices-list__column--width-lg {
+  flex: 0 0 20%;
+  text-align: center;
+}
+
+i.invoices-list__picto-check {
+  @include is-icon();
+  @include use-icon(check);
+}

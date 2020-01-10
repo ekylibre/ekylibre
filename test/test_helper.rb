@@ -1,33 +1,7 @@
 require 'minitest/mock'
 require 'rake'
 
-if ENV['CI']
-  require 'codacy-coverage'
-  require 'codecov'
-else
-  require 'simplecov'
-end
 ENV['RAILS_ENV'] ||= 'test'
-
-if ENV['CI']
-  SimpleCov.formatters = [
-    SimpleCov::Formatter::Codecov,
-    Codacy::Formatter
-  ]
-
-  SimpleCov.start
-else
-  require 'simplecov'
-
-  SimpleCov.start do
-    load_profile 'rails'
-    add_group 'Exchangers', 'app/exchangers'
-    add_group 'Inputs', 'app/inputs'
-    add_group 'Integrations', 'app/integrations'
-    add_group 'Services', 'app/services'
-    add_group 'Validators', 'app/validators'
-  end
-end
 
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
@@ -46,6 +20,24 @@ Ekylibre::Tenant.setup!('sekindovall')
 Ekylibre::Tenant.setup!('test', keep_files: true)
 
 FactoryBot.find_definitions
+
+Capybara.server = :webrick
+
+# Patch from https://github.com/rails/rails/issues/34790#issuecomment-450502805
+if RUBY_VERSION >= '2.6.0'
+  if Rails.version < '5'
+    class ActionController::TestResponse < ActionDispatch::TestResponse
+      def recycle!
+        # hack to avoid MonitorMixin double-initialize error:
+        @mon_mutex_owner_object_id = nil
+        @mon_mutex = nil
+        initialize
+      end
+    end
+  else
+    puts "Monkeypatch for ActionController::TestResponse no longer needed"
+  end
+end
 
 class FixtureRetriever
   ROLES = %w[zeroth first second third fourth fifth sixth seventh eighth nineth tenth].freeze
@@ -437,6 +429,11 @@ module ActionController
             test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
             test_code << "post :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
             test_code << "assert_response :redirect, #{context}\n"
+          elsif mode == :poke
+            test_code << "post :#{action}, #{sanitized_params[id: 'NaID']}\n"
+            test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
+            test_code << "post :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
+            test_code << "assert_response :success, #{context}\n"
           elsif mode == :evolve
             test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
             model.state_machine.states.each do |state|

@@ -1,6 +1,8 @@
 - main_toolbar do |t|
   = t.destroy resource
-  = t.export :outgoing_payment_list, key: Time.zone.now.to_s, resource: @outgoing_payment_list
+  = dropdown_menu_button(:export.ta, icon: :download) do |d|
+    - d.item :standard.tl, nature: 'standard', format: :pdf
+    - d.item :check_letter.tl, nature: 'check_letter', format: :pdf
   = t.export_to_sepa resource if resource.sepa?
 
 = main_informations do

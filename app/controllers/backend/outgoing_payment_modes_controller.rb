@@ -33,5 +33,11 @@ module Backend
       t.column :with_accounting
       t.column :sepa
     end
+
+    def sepa
+      respond_to do |format|
+        format.json { render json: { sepa: OutgoingPaymentMode.find(params[:id]).sepa } }
+      end
+    end
   end
 end

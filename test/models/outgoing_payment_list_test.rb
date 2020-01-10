@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -36,7 +36,18 @@
 require 'test_helper'
 
 class OutgoingPaymentListTest < ActiveSupport::TestCase
-  setup { @list = outgoing_payment_lists(:outgoing_payment_lists_001) }
+  setup do
+    @list = outgoing_payment_lists(:outgoing_payment_lists_001)
+    @mode = OutgoingPaymentMode.create!(sepa: true, cash: Cash.bank_accounts.first, name: 'SEPA', with_accounting: true, active: true)
+    supplier = Entity.find_by!(full_name: 'BAKTOUBI Inc.')
+    purchase = PurchaseInvoice.create!(nature: PurchaseNature.find_by!(currency: 'EUR'), supplier: supplier, items_attributes: [{ variant: ProductNatureVariant.find_by!(name: 'Adexar 5 l'), quantity: 54, unit_pretax_amount: 161, tax: Tax.find_by!(amount: 0) }])
+    purchase.update_columns(number: 'A999907000012')
+    payments = [
+      PurchasePayment.new(amount: 8694, currency: 'EUR', mode: @mode, payee: supplier, responsible: User.first, to_bank_at: Time.new(2016, 9, 25, 3, 45), affair: purchase.affair)
+    ]
+    @list = OutgoingPaymentList.create!(mode: @mode, payments: payments)
+    payments.first.update_columns(number: 'D99990004')
+  end
 
   test 'to_sepa' do
     Timecop.freeze(Time.new(2016, 10, 1, 11, 1, 35, '+02:00')) do
@@ -48,15 +59,15 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
 
       assert_equal(message_identification, doc.xpath('//CstmrCdtTrfInitn/GrpHdr/MsgId').text)
       assert_equal(Time.now.getlocal.iso8601, doc.xpath('//CstmrCdtTrfInitn/GrpHdr/CreDtTm').text)
-      assert_equal('2', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/NbOfTxs').text)
-      assert_equal('3561.00', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/CtrlSum').text)
+      assert_equal('1', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/NbOfTxs').text)
+      assert_equal('8694.00', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/CtrlSum').text)
       assert_equal('John Doe', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/InitgPty/Nm').text)
 
       assert_equal("#{message_identification}/1", doc.xpath('//CstmrCdtTrfInitn/PmtInf/PmtInfId').text)
       assert_equal('TRF', doc.xpath('//CstmrCdtTrfInitn/PmtInf/PmtMtd').text)
       assert_equal('false', doc.xpath('//CstmrCdtTrfInitn/PmtInf/BtchBookg').text)
-      assert_equal('2', doc.xpath('//CstmrCdtTrfInitn/PmtInf/NbOfTxs').text)
-      assert_equal('3561.00', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CtrlSum').text)
+      assert_equal('1', doc.xpath('//CstmrCdtTrfInitn/PmtInf/NbOfTxs').text)
+      assert_equal('8694.00', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CtrlSum').text)
       assert_equal('SEPA', doc.xpath('//CstmrCdtTrfInitn/PmtInf/PmtTpInf/SvcLvl/Cd').text)
       assert_equal(Time.zone.now.strftime('%Y-%m-%d').to_s, doc.xpath('//CstmrCdtTrfInitn/PmtInf/ReqdExctnDt').text)
       assert_equal('John Doe', doc.xpath('//CstmrCdtTrfInitn/PmtInf/Dbtr/Nm').text)
@@ -64,19 +75,12 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
       assert_equal('GHBXFRPP', doc.xpath('//CstmrCdtTrfInitn/PmtInf/DbtrAgt/FinInstnId/BIC').text)
       assert_equal('SLEV', doc.xpath('//CstmrCdtTrfInitn/PmtInf/ChrgBr').text)
 
-      assert_equal('D20160003', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('PmtId/EndToEndId').text)
-      assert_equal('1800.00', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath("Amt/InstdAmt[@Ccy='EUR']").text)
+      assert_equal('D99990004', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('PmtId/EndToEndId').text)
+      assert_equal('8694.00', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath("Amt/InstdAmt[@Ccy='EUR']").text)
       assert_equal('ABNANL2AXXX', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('CdtrAgt/FinInstnId/BIC').text)
       assert_equal('BAKTOUBI Inc.', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('Cdtr/Nm').text)
       assert_equal('NL72ABNA0897960274', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('CdtrAcct/Id/IBAN').text)
-      assert_equal('A201411000001', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('RmtInf/Ustrd').text)
-
-      assert_equal('D20160004', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[1].xpath('PmtId/EndToEndId').text)
-      assert_equal('1761.00', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[1].xpath("Amt/InstdAmt[@Ccy='EUR']").text)
-      assert_equal('TRIONL2UXXX', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[1].xpath('CdtrAgt/FinInstnId/BIC').text)
-      assert_equal("Coop Ain Coop'In", doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[1].xpath('Cdtr/Nm').text)
-      assert_equal('NL64TRIO0393404405', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[1].xpath('CdtrAcct/Id/IBAN').text)
-      assert_equal('A201411000002', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[1].xpath('RmtInf/Ustrd').text)
+      assert_equal('A999907000012', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('RmtInf/Ustrd').text)
     end
   end
 
@@ -96,15 +100,15 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
 
       assert_equal(message_identification, doc.xpath('//CstmrCdtTrfInitn/GrpHdr/MsgId').text)
       assert_equal(Time.now.getlocal.iso8601, doc.xpath('//CstmrCdtTrfInitn/GrpHdr/CreDtTm').text)
-      assert_equal('2', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/NbOfTxs').text)
-      assert_equal('3561.00', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/CtrlSum').text)
+      assert_equal('1', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/NbOfTxs').text)
+      assert_equal('8694.00', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/CtrlSum').text)
       assert_equal('John Doe', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/InitgPty/Nm').text)
 
       assert_equal("#{message_identification}/1", doc.xpath('//CstmrCdtTrfInitn/PmtInf/PmtInfId').text)
       assert_equal('TRF', doc.xpath('//CstmrCdtTrfInitn/PmtInf/PmtMtd').text)
       assert_equal('false', doc.xpath('//CstmrCdtTrfInitn/PmtInf/BtchBookg').text)
-      assert_equal('2', doc.xpath('//CstmrCdtTrfInitn/PmtInf/NbOfTxs').text)
-      assert_equal('3561.00', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CtrlSum').text)
+      assert_equal('1', doc.xpath('//CstmrCdtTrfInitn/PmtInf/NbOfTxs').text)
+      assert_equal('8694.00', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CtrlSum').text)
       assert_equal('SEPA', doc.xpath('//CstmrCdtTrfInitn/PmtInf/PmtTpInf/SvcLvl/Cd').text)
       assert_equal(Time.zone.now.strftime('%Y-%m-%d').to_s, doc.xpath('//CstmrCdtTrfInitn/PmtInf/ReqdExctnDt').text)
       assert_equal('John Doe', doc.xpath('//CstmrCdtTrfInitn/PmtInf/Dbtr/Nm').text)
@@ -112,19 +116,12 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
       assert_equal('NOTPROVIDED', doc.xpath('//CstmrCdtTrfInitn/PmtInf/DbtrAgt/FinInstnId/BIC').text)
       assert_equal('SLEV', doc.xpath('//CstmrCdtTrfInitn/PmtInf/ChrgBr').text)
 
-      assert_equal('D20160003', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('PmtId/EndToEndId').text)
-      assert_equal('1800.00', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath("Amt/InstdAmt[@Ccy='EUR']").text)
+      assert_equal('D99990004', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('PmtId/EndToEndId').text)
+      assert_equal('8694.00', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath("Amt/InstdAmt[@Ccy='EUR']").text)
       assert_equal('NOTPROVIDED', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('CdtrAgt/FinInstnId/BIC').text)
       assert_equal('BAKTOUBI Inc.', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('Cdtr/Nm').text)
       assert_equal('NL72ABNA0897960274', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('CdtrAcct/Id/IBAN').text)
-      assert_equal('A201411000001', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('RmtInf/Ustrd').text)
-
-      assert_equal('D20160004', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[1].xpath('PmtId/EndToEndId').text)
-      assert_equal('1761.00', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[1].xpath("Amt/InstdAmt[@Ccy='EUR']").text)
-      assert_equal('NOTPROVIDED', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[1].xpath('CdtrAgt/FinInstnId/BIC').text)
-      assert_equal("Coop Ain Coop'In", doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[1].xpath('Cdtr/Nm').text)
-      assert_equal('NL64TRIO0393404405', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[1].xpath('CdtrAcct/Id/IBAN').text)
-      assert_equal('A201411000002', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[1].xpath('RmtInf/Ustrd').text)
+      assert_equal('A999907000012', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('RmtInf/Ustrd').text)
     end
   end
 
@@ -166,6 +163,6 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
 
   test 'generate from purchase affairs' do
     affairs = PurchaseAffair.where(closed: false, currency: 'EUR')
-    OutgoingPaymentList.build_from_affairs(affairs, OutgoingPaymentMode.where(cash: Cash.where(currency: 'EUR')).first, nil)
+    OutgoingPaymentList.build_from_affairs(affairs, OutgoingPaymentMode.find_by(cash: Cash.where(currency: 'EUR')), nil)
   end
 end

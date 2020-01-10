@@ -47,7 +47,7 @@ ita:
     harvest_year: "anno Harvest"
     harvested_at: "raccolte al"
     implanted_at: "impiantato a"
-    intervention_durations: "durate di intervento"
+    intervention_durations: "durate di intervento" #?
     loss_balance: "equilibrio perdita"
     losses: "Perdite" #?
     meat_saleable_on: "Carne su vendibile"

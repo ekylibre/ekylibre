@@ -5,13 +5,23 @@
     = tool_to(:edit_budget.tl, { controller: :activity_budgets, action: :edit, id: budget.id })
   - if current_campaign && resource.productions.of_campaign(current_campaign).empty?
     = tool_to(:close.ta, { controller: :campaigns, action: :close, id: current_campaign.id, activity_id: resource.id, redirect: url_for(controller: :campaigns, action: :show, id: current_campaign.id) }, method: :delete, data: { confirm: :are_you_sure.tl }, tool: :remove)
-  - if resource.productions.any? && Product.of_variety(resource.cultivation_variety, resource.support_variety).any?
+
+  - if resource.decorate.animal_family? && resource.productions.any? && Product.of_variety(resource.cultivation_variety, resource.support_variety).any?
     = tool_to(:distribute_unaffected_products.tl, { controller: :products, action: :edit_many, activity_id: resource.id }, icon: false)
 
 - main_period_selector(:year)
 
 
 = main_informations attachment: true do
+  .big-infos
+    .med-info.important
+      %span.title= :net_surface_area.tl
+      %span.value= resource.decorate.human_net_surface_area(current_campaign)
+
+    .med-info.important
+      %span.title= :working_area.tl
+      %span.value= resource.decorate.human_working_zone_area(current_campaign)
+
   = attributes_list do |l|
     - l.attribute :production_system
     - l.attribute :use_countings
@@ -68,6 +78,9 @@
           - v.control :fullscreen
           - v.control :layer_selector
 
+  - c.cobble(:production_costs, title: :production_costs.tl) do
+    = render partial: 'backend/shared/production_costs', locals: { costs: resource.decorate.production_costs(current_campaign) }
+
   - if resource.with_supports
     - c.cobble(:productions) do
       = render 'productions'
@@ -88,6 +101,12 @@
     - async_cobble :stock_in_ground, params: { id: resource.id, dimension: dimension }, cobble: c  do
       = render 'backend/inspections/unit_selector', activity: resource
 
-
+  - if resource.inspectionable?
     - c.cobble(:inspections) do
-      = cobble_list :inspections
+      - if @crops.resultset.any?
+        = list_settings_toolbar(menu_up: true)
+      .toolbar
+        = link_to :new_inspection.tl, new_backend_inspection_path(activity_id: @activity.id), class: "btn btn-default icn btn-new"
+
+      - if @crops.resultset.any?
+        = render partial: 'crops'

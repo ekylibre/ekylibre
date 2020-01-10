@@ -6,6 +6,7 @@
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
       <doer name="driver" filter="can drive(equipment) and can move" cardinality="*"/>
+      <doer name="doer" filter="is worker" cardinality="*"/>
       <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
       <tool name="hoe" filter="is equipment and can hoe" cardinality="*"/>
     </parameters>

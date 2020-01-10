@@ -59,7 +59,7 @@ class Measure
         raise InvalidExpression, "#{expr} cannot be parsed."
       end
       unit  = expr.gsub(/\A-?([\,\.]\d+|\d+([\,\.]\d+)?)\s*/, '').strip
-      value = expr[0..-unit.size].strip.to_d # expr.split(/[a-zA-Z\s]/).first.strip.gsub(/\,/, '.').to_d
+      value = expr[0..-(1 + unit.size)].strip.to_d
     elsif args.size == 2
       value = args.shift
       unit  = args.shift
@@ -84,6 +84,10 @@ class Measure
         @unit = units.first.name.to_s
       end
     end
+  end
+
+  def hash
+    [@value, @unit].hash
   end
 
   # Returns a new measure in the given unit

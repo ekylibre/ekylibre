@@ -1,9 +1,5 @@
 ita:
   enumerize:
-    account:
-      nature:
-        # auxiliary: "Auxiliary"
-        # general: "General"
     activity:
       nature:
         auxiliary: "Ausiliario"
@@ -140,12 +136,6 @@ ita:
       nature:
         contact: "contatto"
         organization: "Organizzazione"
-      supplier_payment_delay:
-        # 1 week: "at reception"
-        # 30 days: "30 days"
-        # 30 days, end of month: "30 days end of month"
-        # 60 days: "60 days"
-        # 60 days, end of month: "60 days end of month"
     entity_address:
       canal:
         email: "E-mail"
@@ -161,12 +151,6 @@ ita:
         refused: "rifiutato"
         waiting: "In attesa"
     financial_year:
-      state:
-        # closed: "Closed"
-        # closing: "Closure in progress"
-        # closure_in_preparation: "Closure in preparation"
-        # locked: "Locked"
-        # opened: "Opened"
       tax_declaration_frequency:
         monthly: "Mensile"
         none: "Nessuna"
@@ -305,6 +289,14 @@ ita:
       nature:
         background: "Sfondo"
         overlay: "Copertura"
+    naming_format_field_land_parcel:
+      field_name:
+        # activity: "Activity"
+        # campaign: "Campaign"
+        # cultivable_zone_code: "Cultivable zone code"
+        # cultivable_zone_name: "Cultivable zone name"
+        # production_mode: "Production mode"
+        # season: "Season"
     notification:
       level:
         error: "Errore"
@@ -332,6 +324,11 @@ ita:
         in_preparation: "In preparazione" #?
         ordered: "Ordinato" #?
         prepared: "Preparato" #?
+    parcel_item:
+      delivery_mode:
+        # third: "Transported by recipient"
+        # transporter: "Transported by transporter"
+        # us: "Transported by us"
     plant_counting:
       nature:
         germination: "A germinazione"
@@ -461,12 +458,6 @@ ita:
         point: "Punto"
         string: "Corda"
     purchase:
-      payment_delay:
-        # 1 week: "at reception"
-        # 30 days: "30 days"
-        # 30 days, end of month: "30 days end of month"
-        # 60 days: "60 days"
-        # 60 days, end of month: "60 days end of month"
       tax_payability:
         at_invoicing: "A fatturazione"
         at_paying: "A pagamento"
@@ -474,24 +465,10 @@ ita:
       nature:
         payslip: "Busta paga"
         purchase: "Acquista"
-    sale:
-      payment_delay:
-        # 1 week: "at reception"
-        # 30 days: "30 days"
-        # 30 days, end of month: "30 days end of month"
-        # 60 days: "60 days"
-        # 60 days, end of month: "60 days end of month"
     sale_item: #?
       compute_from: #?
         pretax_amount: "Importo lordo delle imposte" #?
         unit_pretax_amount: "Unità importo lordo delle imposte" #?
-    sale_nature:
-      payment_delay:
-        # 1 week: "at reception"
-        # 30 days: "30 days"
-        # 30 days, end of month: "30 days end of month"
-        # 60 days: "60 days"
-        # 60 days, end of month: "60 days end of month"
     sensor:
       retrieval_mode:
         integration: "Integrazione"

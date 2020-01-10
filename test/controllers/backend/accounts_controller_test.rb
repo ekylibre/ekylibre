@@ -19,6 +19,6 @@
 require 'test_helper'
 module Backend
   class AccountsControllerTest < ActionController::TestCase
-    test_restfully_all_actions mark: :show, unmark: :touch, load: :index
+    test_restfully_all_actions mark: :show, unmark: :touch, load: :index, except: :reconciliable_list
   end
 end

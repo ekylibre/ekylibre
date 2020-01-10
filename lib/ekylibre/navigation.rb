@@ -9,6 +9,8 @@ module Ekylibre
     end
 
     class << self
+      attr_reader :tree
+
       def config_file
         Rails.root.join('config', 'navigation.xml')
       end

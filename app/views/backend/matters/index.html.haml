@@ -9,7 +9,7 @@
       = select_tag(:label_id, options_for_select([[]] + Label.where(id: ProductLabelling.select(:label_id).uniq).map{ |l| [l.name, l.id] }, params[:label_id].to_i))
 
 - main_toolbar do |t|
-  = t.new params: { controller: :parcels, action: :new, nature: :incoming, redirect: nil }, label: :new_incoming_parcel.tl
+  = t.new params: { controller: :receptions, action: :new, redirect: nil }, label: :new_incoming_parcel.tl
   = t.new params: { redirect: nil }
 
 = main_list

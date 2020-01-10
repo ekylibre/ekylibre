@@ -78,6 +78,7 @@ module Procedo
                                             .map(&:to_sym)
         options[:maintenance] = (element.attr('maintenance').to_s == 'true')
         options[:deprecated] = (element.attr('deprecated').to_s == 'true')
+        options[:hidden] = true if element.attr('hidden').to_s == 'true'
 
         options[:varieties] = element.attr('varieties')
                                      .to_s

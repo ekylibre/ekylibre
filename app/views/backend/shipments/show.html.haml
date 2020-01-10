@@ -1,0 +1,37 @@
+- main_toolbar do |t|
+  = t.edit resource if resource.updateable?
+  = t.ship resource, method: :post if resource.shippable?
+  = t.destroy
+
+- renamings = {}
+= main_state_bar(resource, renamings: renamings)
+
+= main_informations attachment: true do
+  = attributes_list do |l|
+    - l.attribute :number
+    - l.attribute :nature
+    - l.attribute :recipient, url: true
+    - l.attribute :separated_stock
+    - l.attribute :with_delivery
+    - l.attribute :delivery_mode
+    - l.attribute :delivery, url: true
+    -# l.attribute :net_mass
+    - l.attribute :sale, url: true
+    - l.attribute :remain_owner
+    - l.attribute :address
+    - if resource.delivery_mode_transporter?
+      - l.attribute :transporter, url: true
+    - l.attribute :planned_at
+    - l.attribute :ordered_at
+    - l.attribute :in_preparation_at
+    - l.attribute :prepared_at
+    - l.attribute :given_at
+    - l.attribute :journal_entry, url: true if resource.journal_entry
+    - l.attribute :undelivered_invoice_journal_entry, url: true if resource.undelivered_invoice_journal_entry
+
+
+= cobbles do |c|
+
+  - c.cobble :items, title: resource_model.human_attribute_name(:items) do
+    = cobble_list :items
+

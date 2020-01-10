@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 9.6.10
--- Dumped by pg_dump version 9.6.6
+-- Dumped by pg_dump version 9.6.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -296,7 +296,8 @@ CREATE TABLE activities (
     production_system_name character varying,
     use_seasons boolean DEFAULT false,
     use_tactics boolean DEFAULT false,
-    codes jsonb
+    codes jsonb,
+    production_nature_id integer
 );
 
 
@@ -440,7 +441,9 @@ CREATE TABLE intervention_parameters (
     currency character varying,
     unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     dead boolean DEFAULT false NOT NULL,
-    identification_number character varying
+    identification_number character varying,
+    variety character varying,
+    batch_number character varying
 );
 
 
@@ -476,7 +479,12 @@ CREATE TABLE interventions (
     currency character varying,
     journal_entry_id integer,
     request_compliant boolean,
-    auto_calculate_working_periods boolean DEFAULT false
+    auto_calculate_working_periods boolean DEFAULT false,
+    parent_id integer,
+    purchase_id integer,
+    costing_id integer,
+    validator_id integer,
+    providers jsonb
 );
 
 
@@ -1438,6 +1446,44 @@ CREATE SEQUENCE cap_land_parcels_id_seq
 --
 
 ALTER SEQUENCE cap_land_parcels_id_seq OWNED BY cap_land_parcels.id;
+
+
+--
+-- Name: cap_neutral_areas; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE cap_neutral_areas (
+    id integer NOT NULL,
+    cap_statement_id integer NOT NULL,
+    number character varying NOT NULL,
+    category character varying NOT NULL,
+    nature character varying NOT NULL,
+    shape postgis.geometry(Geometry,4326) NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: cap_neutral_areas_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE cap_neutral_areas_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: cap_neutral_areas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE cap_neutral_areas_id_seq OWNED BY cap_neutral_areas.id;
 
 
 --
@@ -2423,7 +2469,9 @@ CREATE TABLE journal_entry_items (
     resource_type character varying,
     resource_prism character varying,
     variant_id integer,
-    tax_declaration_mode character varying
+    tax_declaration_mode character varying,
+    project_budget_id integer,
+    equipment_id integer
 );
 
 
@@ -2468,8 +2516,8 @@ CREATE TABLE outgoing_payments (
 CREATE TABLE purchase_items (
     id integer NOT NULL,
     purchase_id integer NOT NULL,
-    variant_id integer NOT NULL,
-    quantity numeric(19,4) DEFAULT 1.0 NOT NULL,
+    variant_id integer,
+    quantity numeric(19,4) NOT NULL,
     pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     tax_id integer NOT NULL,
@@ -2491,7 +2539,13 @@ CREATE TABLE purchase_items (
     team_id integer,
     depreciable_product_id integer,
     fixed_asset_id integer,
-    preexisting_asset boolean
+    preexisting_asset boolean,
+    equipment_id integer,
+    role character varying,
+    conditionning_quantity integer,
+    conditionning integer,
+    project_budget_id integer,
+    fixed_asset_stopped_on date
 );
 
 
@@ -2529,7 +2583,12 @@ CREATE TABLE purchases (
     payment_delay character varying,
     payment_at timestamp without time zone,
     contract_id integer,
-    tax_payability character varying NOT NULL
+    tax_payability character varying NOT NULL,
+    type character varying,
+    ordered_at timestamp without time zone,
+    command_mode character varying,
+    estimate_reception_date timestamp without time zone,
+    reconciliation_state character varying
 );
 
 
@@ -3547,7 +3606,8 @@ CREATE TABLE inspections (
     implanter_application_width numeric(19,4),
     sampling_distance numeric(19,4),
     product_net_surface_area_value numeric(19,4),
-    product_net_surface_area_unit character varying
+    product_net_surface_area_unit character varying,
+    forecast_harvest_week integer
 );
 
 
@@ -3605,6 +3665,43 @@ CREATE SEQUENCE integrations_id_seq
 --
 
 ALTER SEQUENCE integrations_id_seq OWNED BY integrations.id;
+
+
+--
+-- Name: intervention_costings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE intervention_costings (
+    id integer NOT NULL,
+    inputs_cost numeric,
+    doers_cost numeric,
+    tools_cost numeric,
+    receptions_cost numeric,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: intervention_costings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE intervention_costings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: intervention_costings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE intervention_costings_id_seq OWNED BY intervention_costings.id;
 
 
 --
@@ -3826,7 +3923,8 @@ CREATE TABLE inventories (
     achieved_at timestamp without time zone,
     custom_fields jsonb,
     financial_year_id integer,
-    currency character varying
+    currency character varying,
+    product_nature_category_id integer
 );
 
 
@@ -4468,6 +4566,78 @@ ALTER SEQUENCE map_layers_id_seq OWNED BY map_layers.id;
 
 
 --
+-- Name: naming_format_fields; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE naming_format_fields (
+    id integer NOT NULL,
+    type character varying NOT NULL,
+    field_name character varying NOT NULL,
+    "position" integer,
+    naming_format_id integer,
+    creator_id integer,
+    created_at timestamp without time zone,
+    updater_id integer,
+    updated_at timestamp without time zone,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: naming_format_fields_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE naming_format_fields_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: naming_format_fields_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE naming_format_fields_id_seq OWNED BY naming_format_fields.id;
+
+
+--
+-- Name: naming_formats; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE naming_formats (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    type character varying NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: naming_formats_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE naming_formats_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: naming_formats_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE naming_formats_id_seq OWNED BY naming_formats.id;
+
+
+--
 -- Name: net_services; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4677,6 +4847,45 @@ ALTER SEQUENCE outgoing_payments_id_seq OWNED BY outgoing_payments.id;
 
 
 --
+-- Name: parcel_item_storings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE parcel_item_storings (
+    id integer NOT NULL,
+    parcel_item_id integer NOT NULL,
+    storage_id integer NOT NULL,
+    quantity numeric(19,4),
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL,
+    conditionning_quantity integer,
+    conditionning integer,
+    product_id integer
+);
+
+
+--
+-- Name: parcel_item_storings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE parcel_item_storings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: parcel_item_storings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE parcel_item_storings_id_seq OWNED BY parcel_item_storings.id;
+
+
+--
 -- Name: parcel_items; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4684,7 +4893,7 @@ CREATE TABLE parcel_items (
     id integer NOT NULL,
     parcel_id integer NOT NULL,
     sale_item_id integer,
-    purchase_item_id integer,
+    purchase_invoice_item_id integer,
     source_product_id integer,
     product_id integer,
     analysis_id integer,
@@ -4707,7 +4916,22 @@ CREATE TABLE parcel_items (
     currency character varying,
     unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     unit_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL
+    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    non_compliant boolean,
+    delivery_mode character varying,
+    delivery_id integer,
+    transporter_id integer,
+    non_compliant_detail character varying,
+    role character varying,
+    equipment_id integer,
+    purchase_order_item_id integer,
+    product_work_number character varying,
+    type character varying,
+    merge_stock boolean DEFAULT true,
+    project_budget_id integer,
+    purchase_order_to_close_id integer,
+    activity_budget_id integer,
+    team_id integer
 );
 
 
@@ -4770,7 +4994,11 @@ CREATE TABLE parcels (
     undelivered_invoice_journal_entry_id integer,
     contract_id integer,
     pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    responsible_id integer
+    responsible_id integer,
+    type character varying,
+    late_delivery boolean,
+    intervention_id integer,
+    reconciliation_state character varying
 );
 
 
@@ -5641,7 +5869,8 @@ CREATE TABLE product_nature_variants (
     number character varying NOT NULL,
     stock_account_id integer,
     stock_movement_account_id integer,
-    france_maaid character varying
+    france_maaid character varying,
+    providers jsonb
 );
 
 
@@ -5892,6 +6121,41 @@ CREATE SEQUENCE products_id_seq
 --
 
 ALTER SEQUENCE products_id_seq OWNED BY products.id;
+
+
+--
+-- Name: project_budgets; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE project_budgets (
+    id integer NOT NULL,
+    name character varying,
+    description text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: project_budgets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE project_budgets_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: project_budgets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE project_budgets_id_seq OWNED BY project_budgets.id;
 
 
 --
@@ -6914,6 +7178,39 @@ ALTER SEQUENCE versions_id_seq OWNED BY versions.id;
 
 
 --
+-- Name: wice_grid_serialized_queries; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE wice_grid_serialized_queries (
+    id integer NOT NULL,
+    name character varying,
+    grid_name character varying,
+    query text,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: wice_grid_serialized_queries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE wice_grid_serialized_queries_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: wice_grid_serialized_queries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE wice_grid_serialized_queries_id_seq OWNED BY wice_grid_serialized_queries.id;
+
+
+--
 -- Name: account_balances id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -7086,6 +7383,13 @@ ALTER TABLE ONLY cap_islets ALTER COLUMN id SET DEFAULT nextval('cap_islets_id_s
 --
 
 ALTER TABLE ONLY cap_land_parcels ALTER COLUMN id SET DEFAULT nextval('cap_land_parcels_id_seq'::regclass);
+
+
+--
+-- Name: cap_neutral_areas id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cap_neutral_areas ALTER COLUMN id SET DEFAULT nextval('cap_neutral_areas_id_seq'::regclass);
 
 
 --
@@ -7390,6 +7694,13 @@ ALTER TABLE ONLY integrations ALTER COLUMN id SET DEFAULT nextval('integrations_
 
 
 --
+-- Name: intervention_costings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_costings ALTER COLUMN id SET DEFAULT nextval('intervention_costings_id_seq'::regclass);
+
+
+--
 -- Name: intervention_labellings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -7537,6 +7848,20 @@ ALTER TABLE ONLY map_layers ALTER COLUMN id SET DEFAULT nextval('map_layers_id_s
 
 
 --
+-- Name: naming_format_fields id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY naming_format_fields ALTER COLUMN id SET DEFAULT nextval('naming_format_fields_id_seq'::regclass);
+
+
+--
+-- Name: naming_formats id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY naming_formats ALTER COLUMN id SET DEFAULT nextval('naming_formats_id_seq'::regclass);
+
+
+--
 -- Name: net_services id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -7576,6 +7901,13 @@ ALTER TABLE ONLY outgoing_payment_modes ALTER COLUMN id SET DEFAULT nextval('out
 --
 
 ALTER TABLE ONLY outgoing_payments ALTER COLUMN id SET DEFAULT nextval('outgoing_payments_id_seq'::regclass);
+
+
+--
+-- Name: parcel_item_storings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcel_item_storings ALTER COLUMN id SET DEFAULT nextval('parcel_item_storings_id_seq'::regclass);
 
 
 --
@@ -7775,6 +8107,13 @@ ALTER TABLE ONLY products ALTER COLUMN id SET DEFAULT nextval('products_id_seq':
 
 
 --
+-- Name: project_budgets id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY project_budgets ALTER COLUMN id SET DEFAULT nextval('project_budgets_id_seq'::regclass);
+
+
+--
 -- Name: purchase_items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -7954,6 +8293,13 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 --
 
 ALTER TABLE ONLY versions ALTER COLUMN id SET DEFAULT nextval('versions_id_seq'::regclass);
+
+
+--
+-- Name: wice_grid_serialized_queries id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY wice_grid_serialized_queries ALTER COLUMN id SET DEFAULT nextval('wice_grid_serialized_queries_id_seq'::regclass);
 
 
 --
@@ -8154,6 +8500,14 @@ ALTER TABLE ONLY cap_islets
 
 ALTER TABLE ONLY cap_land_parcels
     ADD CONSTRAINT cap_land_parcels_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cap_neutral_areas cap_neutral_areas_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cap_neutral_areas
+    ADD CONSTRAINT cap_neutral_areas_pkey PRIMARY KEY (id);
 
 
 --
@@ -8501,6 +8855,14 @@ ALTER TABLE ONLY integrations
 
 
 --
+-- Name: intervention_costings intervention_costings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_costings
+    ADD CONSTRAINT intervention_costings_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: intervention_labellings intervention_labellings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8669,6 +9031,22 @@ ALTER TABLE ONLY map_layers
 
 
 --
+-- Name: naming_format_fields naming_format_fields_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY naming_format_fields
+    ADD CONSTRAINT naming_format_fields_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: naming_formats naming_formats_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY naming_formats
+    ADD CONSTRAINT naming_formats_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: net_services net_services_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8714,6 +9092,14 @@ ALTER TABLE ONLY outgoing_payment_modes
 
 ALTER TABLE ONLY outgoing_payments
     ADD CONSTRAINT outgoing_payments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: parcel_item_storings parcel_item_storings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcel_item_storings
+    ADD CONSTRAINT parcel_item_storings_pkey PRIMARY KEY (id);
 
 
 --
@@ -8941,6 +9327,14 @@ ALTER TABLE ONLY products
 
 
 --
+-- Name: project_budgets project_budgets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY project_budgets
+    ADD CONSTRAINT project_budgets_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: purchase_items purchase_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9146,6 +9540,14 @@ ALTER TABLE ONLY users
 
 ALTER TABLE ONLY versions
     ADD CONSTRAINT versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: wice_grid_serialized_queries wice_grid_serialized_queries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY wice_grid_serialized_queries
+    ADD CONSTRAINT wice_grid_serialized_queries_pkey PRIMARY KEY (id);
 
 
 --
@@ -10224,6 +10626,41 @@ CREATE INDEX index_cap_land_parcels_on_updated_at ON public.cap_land_parcels USI
 --
 
 CREATE INDEX index_cap_land_parcels_on_updater_id ON public.cap_land_parcels USING btree (updater_id);
+
+
+--
+-- Name: index_cap_neutral_areas_on_cap_statement_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cap_neutral_areas_on_cap_statement_id ON public.cap_neutral_areas USING btree (cap_statement_id);
+
+
+--
+-- Name: index_cap_neutral_areas_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cap_neutral_areas_on_created_at ON public.cap_neutral_areas USING btree (created_at);
+
+
+--
+-- Name: index_cap_neutral_areas_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cap_neutral_areas_on_creator_id ON public.cap_neutral_areas USING btree (creator_id);
+
+
+--
+-- Name: index_cap_neutral_areas_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cap_neutral_areas_on_updated_at ON public.cap_neutral_areas USING btree (updated_at);
+
+
+--
+-- Name: index_cap_neutral_areas_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cap_neutral_areas_on_updater_id ON public.cap_neutral_areas USING btree (updater_id);
 
 
 --
@@ -11494,6 +11931,13 @@ CREATE INDEX index_financial_years_on_updater_id ON public.financial_years USING
 
 
 --
+-- Name: index_fixed_asset_depreciations_on_accountable; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fixed_asset_depreciations_on_accountable ON public.fixed_asset_depreciations USING btree (accountable);
+
+
+--
 -- Name: index_fixed_asset_depreciations_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -11526,6 +11970,20 @@ CREATE INDEX index_fixed_asset_depreciations_on_fixed_asset_id ON public.fixed_a
 --
 
 CREATE INDEX index_fixed_asset_depreciations_on_journal_entry_id ON public.fixed_asset_depreciations USING btree (journal_entry_id);
+
+
+--
+-- Name: index_fixed_asset_depreciations_on_locked; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fixed_asset_depreciations_on_locked ON public.fixed_asset_depreciations USING btree (locked);
+
+
+--
+-- Name: index_fixed_asset_depreciations_on_stopped_on; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fixed_asset_depreciations_on_stopped_on ON public.fixed_asset_depreciations USING btree (stopped_on);
 
 
 --
@@ -11589,6 +12047,13 @@ CREATE INDEX index_fixed_assets_on_journal_entry_id ON public.fixed_assets USING
 --
 
 CREATE INDEX index_fixed_assets_on_journal_id ON public.fixed_assets USING btree (journal_id);
+
+
+--
+-- Name: index_fixed_assets_on_number; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fixed_assets_on_number ON public.fixed_assets USING btree (number);
 
 
 --
@@ -12292,6 +12757,20 @@ CREATE INDEX index_integrations_on_updater_id ON public.integrations USING btree
 
 
 --
+-- Name: index_intervention_costings_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_costings_on_creator_id ON public.intervention_costings USING btree (creator_id);
+
+
+--
+-- Name: index_intervention_costings_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_costings_on_updater_id ON public.intervention_costings USING btree (updater_id);
+
+
+--
 -- Name: index_intervention_labellings_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -12635,6 +13114,13 @@ CREATE INDEX index_interventions_on_procedure_name ON public.interventions USING
 
 
 --
+-- Name: index_interventions_on_purchase_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_interventions_on_purchase_id ON public.interventions USING btree (purchase_id);
+
+
+--
 -- Name: index_interventions_on_request_intervention_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -12695,6 +13181,13 @@ CREATE INDEX index_inventories_on_financial_year_id ON public.inventories USING 
 --
 
 CREATE INDEX index_inventories_on_journal_entry_id ON public.inventories USING btree (journal_entry_id);
+
+
+--
+-- Name: index_inventories_on_product_nature_category_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_inventories_on_product_nature_category_id ON public.inventories USING btree (product_nature_category_id);
 
 
 --
@@ -12859,6 +13352,13 @@ CREATE INDEX index_journal_entries_on_number ON public.journal_entries USING btr
 
 
 --
+-- Name: index_journal_entries_on_printed_on; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_journal_entries_on_printed_on ON public.journal_entries USING btree (printed_on);
+
+
+--
 -- Name: index_journal_entries_on_resource_type_and_resource_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -12929,6 +13429,13 @@ CREATE INDEX index_journal_entry_items_on_entry_id ON public.journal_entry_items
 
 
 --
+-- Name: index_journal_entry_items_on_entry_number; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_journal_entry_items_on_entry_number ON public.journal_entry_items USING btree (entry_number);
+
+
+--
 -- Name: index_journal_entry_items_on_financial_year_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -12954,6 +13461,20 @@ CREATE INDEX index_journal_entry_items_on_letter ON public.journal_entry_items U
 --
 
 CREATE INDEX index_journal_entry_items_on_name ON public.journal_entry_items USING btree (name);
+
+
+--
+-- Name: index_journal_entry_items_on_printed_on; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_journal_entry_items_on_printed_on ON public.journal_entry_items USING btree (printed_on);
+
+
+--
+-- Name: index_journal_entry_items_on_project_budget_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_journal_entry_items_on_project_budget_id ON public.journal_entry_items USING btree (project_budget_id);
 
 
 --
@@ -13447,6 +13968,41 @@ CREATE INDEX index_map_layers_on_updater_id ON public.map_layers USING btree (up
 
 
 --
+-- Name: index_naming_format_fields_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_naming_format_fields_on_creator_id ON public.naming_format_fields USING btree (creator_id);
+
+
+--
+-- Name: index_naming_format_fields_on_naming_format_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_naming_format_fields_on_naming_format_id ON public.naming_format_fields USING btree (naming_format_id);
+
+
+--
+-- Name: index_naming_format_fields_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_naming_format_fields_on_updater_id ON public.naming_format_fields USING btree (updater_id);
+
+
+--
+-- Name: index_naming_formats_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_naming_formats_on_creator_id ON public.naming_formats USING btree (creator_id);
+
+
+--
+-- Name: index_naming_formats_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_naming_formats_on_updater_id ON public.naming_formats USING btree (updater_id);
+
+
+--
 -- Name: index_net_services_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -13706,6 +14262,55 @@ CREATE INDEX index_outgoing_payments_on_updater_id ON public.outgoing_payments U
 
 
 --
+-- Name: index_parcel_item_storings_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_parcel_item_storings_on_created_at ON public.parcel_item_storings USING btree (created_at);
+
+
+--
+-- Name: index_parcel_item_storings_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_parcel_item_storings_on_creator_id ON public.parcel_item_storings USING btree (creator_id);
+
+
+--
+-- Name: index_parcel_item_storings_on_parcel_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_parcel_item_storings_on_parcel_item_id ON public.parcel_item_storings USING btree (parcel_item_id);
+
+
+--
+-- Name: index_parcel_item_storings_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_parcel_item_storings_on_product_id ON public.parcel_item_storings USING btree (product_id);
+
+
+--
+-- Name: index_parcel_item_storings_on_storage_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_parcel_item_storings_on_storage_id ON public.parcel_item_storings USING btree (storage_id);
+
+
+--
+-- Name: index_parcel_item_storings_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_parcel_item_storings_on_updated_at ON public.parcel_item_storings USING btree (updated_at);
+
+
+--
+-- Name: index_parcel_item_storings_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_parcel_item_storings_on_updater_id ON public.parcel_item_storings USING btree (updater_id);
+
+
+--
 -- Name: index_parcel_items_on_analysis_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -13724,6 +14329,13 @@ CREATE INDEX index_parcel_items_on_created_at ON public.parcel_items USING btree
 --
 
 CREATE INDEX index_parcel_items_on_creator_id ON public.parcel_items USING btree (creator_id);
+
+
+--
+-- Name: index_parcel_items_on_delivery_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_parcel_items_on_delivery_id ON public.parcel_items USING btree (delivery_id);
 
 
 --
@@ -13769,10 +14381,17 @@ CREATE INDEX index_parcel_items_on_product_ownership_id ON public.parcel_items U
 
 
 --
--- Name: index_parcel_items_on_purchase_item_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_parcel_items_on_project_budget_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcel_items_on_purchase_item_id ON public.parcel_items USING btree (purchase_item_id);
+CREATE INDEX index_parcel_items_on_project_budget_id ON public.parcel_items USING btree (project_budget_id);
+
+
+--
+-- Name: index_parcel_items_on_purchase_invoice_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_parcel_items_on_purchase_invoice_item_id ON public.parcel_items USING btree (purchase_invoice_item_id);
 
 
 --
@@ -13794,6 +14413,13 @@ CREATE INDEX index_parcel_items_on_source_product_id ON public.parcel_items USIN
 --
 
 CREATE INDEX index_parcel_items_on_source_product_movement_id ON public.parcel_items USING btree (source_product_movement_id);
+
+
+--
+-- Name: index_parcel_items_on_transporter_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_parcel_items_on_transporter_id ON public.parcel_items USING btree (transporter_id);
 
 
 --
@@ -13850,6 +14476,13 @@ CREATE INDEX index_parcels_on_creator_id ON public.parcels USING btree (creator_
 --
 
 CREATE INDEX index_parcels_on_delivery_id ON public.parcels USING btree (delivery_id);
+
+
+--
+-- Name: index_parcels_on_intervention_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_parcels_on_intervention_id ON public.parcels USING btree (intervention_id);
 
 
 --
@@ -15603,6 +16236,20 @@ CREATE INDEX index_products_on_variety ON public.products USING btree (variety);
 
 
 --
+-- Name: index_project_budgets_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_project_budgets_on_creator_id ON public.project_budgets USING btree (creator_id);
+
+
+--
+-- Name: index_project_budgets_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_project_budgets_on_updater_id ON public.project_budgets USING btree (updater_id);
+
+
+--
 -- Name: index_purchase_items_on_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -15642,6 +16289,13 @@ CREATE INDEX index_purchase_items_on_depreciable_product_id ON public.purchase_i
 --
 
 CREATE INDEX index_purchase_items_on_fixed_asset_id ON public.purchase_items USING btree (fixed_asset_id);
+
+
+--
+-- Name: index_purchase_items_on_project_budget_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_purchase_items_on_project_budget_id ON public.purchase_items USING btree (project_budget_id);
 
 
 --
@@ -16058,6 +16712,13 @@ CREATE INDEX index_sales_on_client_id ON public.sales USING btree (client_id);
 
 
 --
+-- Name: index_sales_on_codes; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sales_on_codes ON public.sales USING btree (codes);
+
+
+--
 -- Name: index_sales_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -16111,6 +16772,13 @@ CREATE INDEX index_sales_on_journal_entry_id ON public.sales USING btree (journa
 --
 
 CREATE INDEX index_sales_on_nature_id ON public.sales USING btree (nature_id);
+
+
+--
+-- Name: index_sales_on_number; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sales_on_number ON public.sales USING btree (number);
 
 
 --
@@ -17024,6 +17692,20 @@ CREATE INDEX index_versions_on_item_type_and_item_id ON public.versions USING bt
 
 
 --
+-- Name: index_wice_grid_serialized_queries_on_grid_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wice_grid_serialized_queries_on_grid_name ON public.wice_grid_serialized_queries USING btree (grid_name);
+
+
+--
+-- Name: index_wice_grid_serialized_queries_on_grid_name_and_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wice_grid_serialized_queries_on_grid_name_and_id ON public.wice_grid_serialized_queries USING btree (grid_name, id);
+
+
+--
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -17145,11 +17827,27 @@ ALTER TABLE ONLY payslips
 
 
 --
+-- Name: parcel_items fk_rails_10aa40af5e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcel_items
+    ADD CONSTRAINT fk_rails_10aa40af5e FOREIGN KEY (purchase_order_to_close_id) REFERENCES purchases(id);
+
+
+--
 -- Name: outgoing_payments fk_rails_15244a5c09; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY outgoing_payments
     ADD CONSTRAINT fk_rails_15244a5c09 FOREIGN KEY (mode_id) REFERENCES outgoing_payment_modes(id) ON DELETE RESTRICT;
+
+
+--
+-- Name: parcel_item_storings fk_rails_182d7ce6a7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcel_item_storings
+    ADD CONSTRAINT fk_rails_182d7ce6a7 FOREIGN KEY (product_id) REFERENCES products(id);
 
 
 --
@@ -17174,6 +17872,14 @@ ALTER TABLE ONLY outgoing_payments
 
 ALTER TABLE ONLY journal_entry_items
     ADD CONSTRAINT fk_rails_3143e6e260 FOREIGN KEY (variant_id) REFERENCES product_nature_variants(id);
+
+
+--
+-- Name: parcel_items fk_rails_41a9d1c170; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcel_items
+    ADD CONSTRAINT fk_rails_41a9d1c170 FOREIGN KEY (project_budget_id) REFERENCES project_budgets(id);
 
 
 --
@@ -17209,11 +17915,35 @@ ALTER TABLE ONLY products
 
 
 --
+-- Name: purchase_items fk_rails_62e7d4b959; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY purchase_items
+    ADD CONSTRAINT fk_rails_62e7d4b959 FOREIGN KEY (project_budget_id) REFERENCES project_budgets(id);
+
+
+--
 -- Name: payslip_natures fk_rails_6835dfa420; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY payslip_natures
     ADD CONSTRAINT fk_rails_6835dfa420 FOREIGN KEY (account_id) REFERENCES accounts(id);
+
+
+--
+-- Name: parcel_items fk_rails_7010820bb4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcel_items
+    ADD CONSTRAINT fk_rails_7010820bb4 FOREIGN KEY (purchase_order_item_id) REFERENCES purchase_items(id);
+
+
+--
+-- Name: interventions fk_rails_76eca6ee87; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY interventions
+    ADD CONSTRAINT fk_rails_76eca6ee87 FOREIGN KEY (purchase_id) REFERENCES purchases(id);
 
 
 --
@@ -17249,6 +17979,14 @@ ALTER TABLE ONLY intervention_participations
 
 
 --
+-- Name: parcel_items fk_rails_995fb20943; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcel_items
+    ADD CONSTRAINT fk_rails_995fb20943 FOREIGN KEY (activity_budget_id) REFERENCES activity_budgets(id);
+
+
+--
 -- Name: tax_declaration_item_parts fk_rails_9d08cd4dc8; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -17262,6 +18000,14 @@ ALTER TABLE ONLY tax_declaration_item_parts
 
 ALTER TABLE ONLY alerts
     ADD CONSTRAINT fk_rails_a31061effa FOREIGN KEY (sensor_id) REFERENCES sensors(id);
+
+
+--
+-- Name: parcel_items fk_rails_a6cf16ef60; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcel_items
+    ADD CONSTRAINT fk_rails_a6cf16ef60 FOREIGN KEY (team_id) REFERENCES teams(id);
 
 
 --
@@ -17305,6 +18051,14 @@ ALTER TABLE ONLY journals
 
 
 --
+-- Name: inventories fk_rails_c0930210fb; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY inventories
+    ADD CONSTRAINT fk_rails_c0930210fb FOREIGN KEY (product_nature_category_id) REFERENCES product_nature_categories(id);
+
+
+--
 -- Name: payslips fk_rails_c0e66eeaff; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -17318,6 +18072,14 @@ ALTER TABLE ONLY payslips
 
 ALTER TABLE ONLY payslips
     ADD CONSTRAINT fk_rails_c3bf0a90b6 FOREIGN KEY (affair_id) REFERENCES affairs(id);
+
+
+--
+-- Name: parcels fk_rails_c4b289405e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY parcels
+    ADD CONSTRAINT fk_rails_c4b289405e FOREIGN KEY (intervention_id) REFERENCES interventions(id);
 
 
 --
@@ -17361,10 +18123,26 @@ ALTER TABLE ONLY financial_year_exchanges
 
 
 --
+-- Name: journal_entry_items fk_rails_f46de3d8ed; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY journal_entry_items
+    ADD CONSTRAINT fk_rails_f46de3d8ed FOREIGN KEY (project_budget_id) REFERENCES project_budgets(id);
+
+
+--
+-- Name: cap_neutral_areas fk_rails_f9fd6a9e09; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY cap_neutral_areas
+    ADD CONSTRAINT fk_rails_f9fd6a9e09 FOREIGN KEY (cap_statement_id) REFERENCES cap_statements(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO "public", "postgis";
+SET search_path TO "public", "postgis", "lexicon";
 
 INSERT INTO schema_migrations (version) VALUES ('20121212122000');
 
@@ -17890,3 +18668,142 @@ INSERT INTO schema_migrations (version) VALUES ('20170831180835');
 
 INSERT INTO schema_migrations (version) VALUES ('20171010075206');
 
+INSERT INTO schema_migrations (version) VALUES ('20180417083701');
+
+INSERT INTO schema_migrations (version) VALUES ('20180419140723');
+
+INSERT INTO schema_migrations (version) VALUES ('20180503081248');
+
+INSERT INTO schema_migrations (version) VALUES ('20180626121433');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702115000');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702115500');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702115600');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702115700');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702115800');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702115900');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702120000');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702120100');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702120200');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702120300');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702120400');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702120500');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702120600');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702120800');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702120900');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702121000');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702121100');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702121200');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702121300');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702121400');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702121500');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702121600');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702121700');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702121800');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702121900');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702122000');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702122100');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702122200');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702122300');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702122400');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702122500');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702122600');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702122700');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702122800');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702122900');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702123000');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702123100');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702123200');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702123300');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702123400');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702123500');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702123600');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702123700');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702123800');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702123900');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702124000');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702124100');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702124200');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702124300');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702124400');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702124500');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702124600');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702124700');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702124800');
+
+INSERT INTO schema_migrations (version) VALUES ('20180702124900');
+
+INSERT INTO schema_migrations (version) VALUES ('20180704145001');
+
+INSERT INTO schema_migrations (version) VALUES ('20180918182905');
+
+INSERT INTO schema_migrations (version) VALUES ('20180920121004');
+
+INSERT INTO schema_migrations (version) VALUES ('20180920134223');
+
+INSERT INTO schema_migrations (version) VALUES ('20181012145914');
+
+INSERT INTO schema_migrations (version) VALUES ('20181019164555');
+
+INSERT INTO schema_migrations (version) VALUES ('20181022152412');
+
+INSERT INTO schema_migrations (version) VALUES ('20181023083957');
+
+INSERT INTO schema_migrations (version) VALUES ('20181125122238');
+
+INSERT INTO schema_migrations (version) VALUES ('20190502082326');
+
+INSERT INTO schema_migrations (version) VALUES ('20190514125010');

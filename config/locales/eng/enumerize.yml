@@ -1,9 +1,5 @@
 eng:
   enumerize:
-    account:
-      nature:
-        auxiliary: "Auxiliary"
-        general: "General"
     activity:
       nature:
         auxiliary: "Auxiliary"
@@ -138,12 +134,6 @@ eng:
       nature:
         contact: "Contact"
         organization: "Organization"
-      supplier_payment_delay:
-        1 week: "at reception"
-        30 days: "30 days"
-        30 days, end of month: "30 days end of month"
-        60 days: "60 days"
-        60 days, end of month: "60 days end of month"
     entity_address:
       canal:
         email: "Email"
@@ -159,12 +149,6 @@ eng:
         refused: "Refused"
         waiting: "Waiting"
     financial_year:
-      state:
-        closed: "Closed"
-        closing: "Closure in progress"
-        closure_in_preparation: "Closure in preparation"
-        locked: "Locked"
-        opened: "Opened"
       tax_declaration_frequency:
         monthly: "Monthly"
         none: "None"
@@ -174,15 +158,12 @@ eng:
         debit: "Debit"
         none: "None"
         payment: "Payment"
-    financial_year_archive:
-      timing:
-        # post_closure: "Post closure"
-        # prior_to_closure: "Prior to closure"
     fixed_asset:
       depreciation_method:
         linear: "Linear"
         none: "None"
         regressive: "Regressive"
+        # simplified_linear: "Simplified linear"
       depreciation_period:
         monthly: "Monthly"
         quarterly: "Quarterly"
@@ -297,6 +278,14 @@ eng:
       nature:
         background: "Background"
         overlay: "Overlay"
+    naming_format_field_land_parcel:
+      field_name:
+        activity: "Activity"
+        campaign: "Campaign"
+        cultivable_zone_code: "Cultivable zone code"
+        cultivable_zone_name: "Cultivable zone name"
+        production_mode: "Production mode"
+        season: "Season"
     notification:
       level:
         error: "Error"
@@ -316,6 +305,15 @@ eng:
       nature:
         incoming: "Incoming"
         outgoing: "Outgoing"
+      reconciliation_state:
+        # reconcile: "Reconcile"
+        # to_reconcile: "To reconcile"
+    parcel_item:
+      delivery_mode:
+        # none: "None"
+        third: "Transported by recipient"
+        transporter: "Transported by transporter"
+        us: "Transported by us"
     plant_counting:
       nature:
         germination: "At germination"
@@ -447,12 +445,10 @@ eng:
         point: "Point"
         string: "String"
     purchase:
-      payment_delay:
-        1 week: "at reception"
-        30 days: "30 days"
-        30 days, end of month: "30 days end of month"
-        60 days: "60 days"
-        60 days, end of month: "60 days end of month"
+      reconciliation_state:
+        # accepted: "Accepted"
+        # reconcile: "Reconcile"
+        # to_reconcile: "To reconcile"
       tax_payability:
         at_invoicing: "At invoicing"
         at_paying: "At paying"
@@ -460,17 +456,59 @@ eng:
       direction:
         # loss: "Loss"
         # profit: "Profit"
+    purchase_invoice:
+      reconciliation_state:
+        # accepted: "Accepted"
+        # reconcile: "Reconcile"
+        # to_reconcile: "To reconcile"
+      tax_payability:
+        # at_invoicing: "At invoicing"
+        # at_paying: "At paying"
+    purchase_item:
+      role:
+        # fees: "Fees"
+        # merchandise: "Merchandise"
+        # service: "Service"
     purchase_nature:
       nature:
         payslip: "Payslip"
         purchase: "Purchase"
-    sale:
-      payment_delay:
-        1 week: "at reception"
-        30 days: "30 days"
-        30 days, end of month: "30 days end of month"
-        60 days: "60 days"
-        60 days, end of month: "60 days end of month"
+    purchase_order:
+      command_mode:
+        # fax: "Fax"
+        # letter: "Letter"
+        # mail: "Mail"
+        # market_place: "Market place"
+        # oral: "Oral"
+        # sms: "Sms"
+      reconciliation_state:
+        # accepted: "Accepted"
+        # reconcile: "Reconcile"
+        # to_reconcile: "To reconcile"
+      tax_payability:
+        # at_invoicing: "At invoicing"
+        # at_paying: "At paying"
+    reception:
+      delivery_mode:
+        # third: "Third"
+        # transporter: "Transporter"
+        # us: "Us"
+      nature:
+        # incoming: "Incoming"
+        # outgoing: "Outgoing"
+      reconciliation_state:
+        # reconcile: "Reconcile"
+        # to_reconcile: "To reconcile"
+    reception_item:
+      delivery_mode:
+        # none: "None"
+        # third: "Third"
+        # transporter: "Transporter"
+        # us: "Us"
+      role:
+        # fees: "Fees"
+        # merchandise: "Merchandise"
+        # service: "Service"
     sale_gap:
       direction:
         # loss: "Loss"
@@ -480,13 +518,6 @@ eng:
         # amount: "Amount"
         # pretax_amount: "Pretax amount"
         # unit_pretax_amount: "Unit pretax amount"
-    sale_nature:
-      payment_delay:
-        1 week: "at reception"
-        30 days: "30 days"
-        30 days, end of month: "30 days end of month"
-        60 days: "60 days"
-        60 days, end of month: "60 days end of month"
     sensor:
       retrieval_mode:
         integration: "Integration"
@@ -532,6 +563,23 @@ eng:
         sales_invoices: "Sales invoices"
         subscriptions: "Subscriptions"
         tax_declarations: "Tax declarations"
+    shipment:
+      delivery_mode:
+        # third: "Third"
+        # transporter: "Transporter"
+        # us: "Us"
+      nature:
+        # incoming: "Incoming"
+        # outgoing: "Outgoing"
+      reconciliation_state:
+        # reconcile: "Reconcile"
+        # to_reconcile: "To reconcile"
+    shipment_item:
+      delivery_mode:
+        # none: "None"
+        # third: "Third"
+        # transporter: "Transporter"
+        # us: "Us"
     synchronization_operation:
       operation_name:
         authenticate: "Authentication"

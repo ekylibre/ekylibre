@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -84,6 +84,14 @@ class CatalogItem < Ekylibre::Record::Base
     self.amount = amount.round(4) if amount
     self.name = commercial_name
     self.name = variant_name if commercial_name.blank? && variant
+  end
+
+  after_save do
+    # if self.amount_changed?
+    variant.products.each do |product|
+      product.interventions.tap(&:reload).map(&:save!)
+    end
+    # end
   end
 
   # Compute a pre-tax amount

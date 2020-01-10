@@ -18,9 +18,14 @@
 
 module Backend
   class CatalogItemsController < Backend::BaseController
-    manage_restfully except: [:index], destroy_to: '{controller: :catalogs, action: :show, id: RECORD.catalog_id}'.c
+    manage_restfully except: [:index, :new], destroy_to: '{controller: :catalogs, action: :show, id: RECORD.catalog_id}'.c, continue: [:variant_id]
 
     unroll
+
+    def new
+      @catalog_item = CatalogItem.new(catalog_id: params[:catalog_id], variant_id: params[:variant_id])
+      render locals: { with_continue: true, cancel_url: :backend_catalogs }
+    end
 
     list do |t|
       t.action :edit

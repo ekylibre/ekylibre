@@ -1,0 +1,30 @@
+- main_toolbar do |t|
+	= t.export :purchases_order
+	= t.edit resource if resource.updateable? # Redéfinir la condition updateable
+	= t.destroy
+	- if current_user.can?(:write, :incoming_deliveries) && resource.can_generate_parcel?
+		= t.new(resource, params: { controller: :parcels, purchase_id: resource.id, nature: :incoming }, label: :generate_parcel.tl)
+
+= main_state_bar(resource)
+
+= main_informations attachment: true do
+	= attributes_list do |l|
+		- l.attribute :supplier, label: :label, url: true
+		- l.attribute :number
+		- l.attribute :reference_number unless resource.reference_number.blank?
+		- l.attribute :state
+		- l.attribute :responsible, label: :full_name
+		- l.attribute :created_at
+		- l.attribute :ordered_at
+		- l.attribute :payment_delay, label: :name
+		- l.attribute :currency unless resource.currency == Preference[:currency]
+		- l.attribute :description unless resource.description.blank?
+		- l.attribute :delivery_address, label: :coordinate
+
+= cobbles do |c|
+
+	- c.cobble :items, title: PurchaseOrder.human_attribute_name(:items) do
+		= cobble_list :items do
+			%tr.total
+				%th{ colspan: 5 }
+				%td= resource.pretax_amount.l(currency: resource.currency)

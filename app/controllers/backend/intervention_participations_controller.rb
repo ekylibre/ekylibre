@@ -62,6 +62,19 @@ module Backend
 
       @intervention = @participation.intervention
 
+      if @intervention.nil? && (params[:intervention_id].nil? || params[:intervention_id].blank?)
+
+        # try to infer new intervention from form
+        attrs = Rack::Utils.parse_nested_query(params[:intervention_form])
+
+        if attrs.key?('intervention')
+          # Removes participation_attributes as it is not intented to be given to intervention model directly.
+          attrs['intervention'].delete('participation_attributes')
+          attrs['intervention'].delete('participations_attributes')
+          @intervention = Intervention.new(attrs['intervention'])
+        end
+      end
+
       auto_calcul_mode = true
       if params[:auto_calcul_mode].present?
         auto_calcul_mode = params[:auto_calcul_mode]

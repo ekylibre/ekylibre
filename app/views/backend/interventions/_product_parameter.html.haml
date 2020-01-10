@@ -3,32 +3,38 @@
   - intervention = product_parameter.intervention
   - product = product_parameter.product
 
-  - if intervention.participations.empty?
+  - if intervention.participations.empty? || (product.decorate.not_worker_or_equipment? && product.decorate.no_participation?(intervention.id))
     = add_working_period_cost(product_parameter)
   - else
     - participation = product_parameter.participation if product_parameter.is_a?(InterventionDoer)
     - is_equipment = product.try(:tractor?) || product.try(:self_prepelled_equipment?)
     .periods
       - if (!participation.nil? && participation.has_period_with_nature?(nature: :preparation))
-        .period
-          .period-type
-            = image_tag('intervention_participations/action-preparation.svg', class: "period-icon")
-            %h3{ class: "period-label" }= t('enumerize.intervention_working_period.nature.preparation')
-          = add_working_period_cost(product_parameter, nature: :preparation)
+        - comp = product_parameter.cost_amount_computation(nature: :preparation)
+        - unless comp.failed? || comp.none? || comp.quantity.zero?
+          .period
+            .period-type
+              = image_tag('intervention_participations/action-preparation.svg', class: "period-icon")
+              %h3{ class: "period-label" }= t('enumerize.intervention_working_period.nature.preparation')
+            = add_working_period_cost(product_parameter, nature: :preparation)
 
       - if !participation.nil? && participation.has_period_with_nature?(nature: :travel) || product.try(:tractor?)
-        .period
-          .period-type
-            = image_tag('intervention_participations/action-travel.svg', class: "period-icon")
-            %h3{ class: "period-label" }= t('enumerize.intervention_working_period.nature.travel')
-          = add_working_period_cost(product_parameter, nature: :travel)
+        - comp = product_parameter.cost_amount_computation(nature: :travel)
+        - unless comp.failed? || comp.none? || comp.quantity.zero?
+          .period
+            .period-type
+              = image_tag('intervention_participations/action-travel.svg', class: "period-icon")
+              %h3{ class: "period-label" }= t('enumerize.intervention_working_period.nature.travel')
+            = add_working_period_cost(product_parameter, nature: :travel)
 
       - if (!participation.nil? && participation.has_period_with_nature?(nature: :intervention)) || product.is_a?(Equipment)
-        .period
-          .period-type
-            = image_tag('intervention_participations/action-intervention.svg', class: "period-icon")
-            %h3{ class: "period-label" }= t('enumerize.intervention_working_period.nature.intervention')
-          = add_working_period_cost(product_parameter, nature: :intervention)
+        - comp = product_parameter.cost_amount_computation(nature: :intervention)
+        - unless comp.failed? || comp.none? || comp.quantity.zero?
+          .period
+            .period-type
+              = image_tag('intervention_participations/action-intervention.svg', class: "period-icon")
+              %h3{ class: "period-label" }= t('enumerize.intervention_working_period.nature.intervention')
+            = add_working_period_cost(product_parameter, nature: :intervention)
 
       - if !participation.nil? || is_equipment || product.is_a?(Equipment)
         .total
@@ -61,12 +67,32 @@
         %p
           - if product_parameter.is_population?
             = :x_thing.tl(x: product_parameter.quantity.round(2).l(precision: 0), thing: variant.unit_name.mb_chars.downcase)
-          - elsif product_parameter.product.france_maaid && product_parameter.is_a?(InterventionInput)
-            .details
-              = product_parameter.product.france_maaid
-            = product_parameter.quantity.round(2).l(precision: 0)
+          - elsif product_parameter.product.france_maaid.present? && product_parameter.is_a?(InterventionInput)
+            %p
+              %span.value= product_parameter.legal_pesticide_informations[:name]
+            %p
+              %span.title= :quantity.tl
+              %span.value= product_parameter.input_quantity_per_area.l(precision: 2)
+            -# TODO: reactivate when we have updated lexicon's data  
+            -# if product_parameter.legal_pesticide_informations[:dose]
+              %p
+                %span.title= :legal_dose.tl
+                %span.value= product_parameter.legal_pesticide_informations[:dose].l(precision: 2)
+                = lights('stop') if product_parameter.legal_treatment_ratio > 1.0
+                = lights('caution') if product_parameter.legal_treatment_ratio == 1.0
+                = lights('go') if product_parameter.legal_treatment_ratio < 1.0
+            -# if product_parameter.pfi_reference_dose
+              %p
+                %span.title= :pfi_dose.tl
+                %span.value= product_parameter.pfi_reference_dose.dose.l(precision: 2)
+                = lights('stop') if product_parameter.pfi_treatment_ratio > 1.0
+                = lights('caution') if product_parameter.pfi_treatment_ratio == 1.0
+                = lights('go') if product_parameter.pfi_treatment_ratio < 1.0
+              %p
+                %span.title= :pfi_treatment_ratio.tl
+                %span.value= product_parameter.pfi_treatment_ratio.round(2)
           - else
-            = product_parameter.quantity.round(2).l(precision: 0)
+            = product_parameter.quantity.l(precision: 0)
   - elsif variant
     .picture
       - if variant.picture.file?

@@ -26,8 +26,10 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
     IncomingPaymentMode.destroy_all
     OutgoingPaymentMode.destroy_all
     BankStatement.destroy_all
-    Parcel.update_all(state: :draft)
-    Parcel.destroy_all
+    Reception.update_all(state: :draft)
+    Reception.destroy_all
+    Shipment.update_all(state: :draft)
+    Shipment.destroy_all
     ParcelItem.destroy_all
     Sale.update_all(state: :draft)
     Sale.destroy_all
@@ -53,17 +55,18 @@ class FinancialYearCloseTest < ActiveSupport::TestCase
     InterventionParameter.destroy_all
     Intervention.destroy_all
     Issue.destroy_all
-    ActivityProduction.destroy_all
-    Product.destroy_all
-    ProductNatureVariant.destroy_all
-    ProductNature.destroy_all
-    ProductNatureCategory.destroy_all
-    PurchaseItem.destroy_all
-    SaleItem.destroy_all
-    Loan.destroy_all
-    Cash.destroy_all
-    FinancialYear.destroy_all
-    Account.destroy_all
+    Product.delete_all
+    ActivityProduction.delete_all
+    ProductNatureVariant.delete_all
+    ProductNature.delete_all
+    ProductNatureCategory.delete_all
+    PurchaseItem.delete_all
+    SaleItem.delete_all
+    LoanRepayment.delete_all
+    Loan.delete_all
+    Cash.delete_all
+    FinancialYear.delete_all
+    Account.delete_all
 
     @dumpster_account = Account.create!(name: 'TestDumpster', number: '00000')
     @dumpster_journal = Journal.create!(name: 'Dumpster journal', code: 'DMPTST')

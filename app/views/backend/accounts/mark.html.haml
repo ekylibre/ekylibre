@@ -1,6 +1,10 @@
-= kujaku do |k|
-  - k.helper :journal_period_crit
+- unmark_label = :unmark.ta
+- unmark_title = :unmark.tl
+- confirm_label = :are_you_sure.tl
+- account_id = @account.id
 
+= kujaku do |k|
+  - k.helper(:journal_period_crit, use_search_preference: true)
 = form_tag() do
 
   = field_set :details do
@@ -21,9 +25,10 @@
       = link_to :add_compensation_entry.tl, { controller: :journal_entries, action: :new, redirect: request.fullpath }, { class: 'btn btn-default', id: 'new-entry', name: :journal_entry_items_ids, data: { complete_link_with_checked_row_ids: '#mark_journal_entry_items input[type="checkbox"]', show_if_checked: 'two-or-more' } }
 
     .active-list-actions
-      = mask_lettered_items_button :mark_journal_entry_items
+      - lettered_items_preference = current_user.preference('backend/accounts.mark_journal_entry_items.lettered_items.masked', 'true', :boolean)
+      = refresh_lettered_items_button :mark_journal_entry_items, default_value: lettered_items_preference.value, period: params[:period], started_on: params[:started_on].to_s, stopped_on: params[:stopped_on].to_s, account_id: account_id
 
-    - items = @account.reconcilable_entry_items(params[:period], params[:started_on], params[:stopped_on])
+    - items = @account.reconcilable_entry_items(params[:period], params[:started_on], params[:stopped_on], hide_lettered: lettered_items_preference.value)
     - partial_lettering = items.any?(&:partially_lettered?)
     .active-list#mark_journal_entry_items
       %table.list
@@ -44,23 +49,4 @@
             %td#total-credit{data: {use: "tr.selected .credit", calculate_round: precision}}= 0
 
         %tbody
-          - items.each do |item|
-            - checked = (item.letter.blank? && (params[:journal_entry_item]||{}).keys.include?(item.id.to_s))
-            - trid, conf = "e#{item.id}", {}
-            %tr{id: trid, class: (item.closed? ? "disabled " : checked ? "selected " : "test") + cycle("even", "odd") + (item.completely_lettered? ? ' lettered-item' : '')}
-              %td.chk
-                - unless item.completely_lettered? || item.closed?
-                  = check_box_tag("journal_entry_item[#{item.id}][to_mark]", "1", checked, id: "journal_entry_item_#{item.id}_to_mark", data: {add_class: "selected", add_class_to: "##{trid}"})
-                  - conf = {data: {click: "#journal_entry_item_#{item.id}_to_mark"}}
-              %td.ltr
-                = item.letter
-              %td.act
-                - unless item.letter.blank? or item.closed?
-                  = link_to({action: :unmark, id: @account.id, letter: item.letter}, class: "unmark", method: :post, data: {confirm: :are_you_sure.tl}) do
-                    %i
-                    = :unmark.ta
-              %td.dat{conf}= item.printed_on.l
-              %td.code{conf}= link_to(item.entry_number, {action: :show, controller: :journal_entries, id: item.entry_id}, keep: true)
-              %td{conf}= item.name
-              %td.dec.debit{conf}=  number_to_accountancy(item.absolute_debit, currency)
-              %td.dec.credit{conf}= number_to_accountancy(item.absolute_credit, currency)
+          = render partial: 'mark_items', locals: { items: items, unmark_title: unmark_title, confirm_label: confirm_label, unmark_label: unmark_label, account_id: account_id, currency: currency }

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -503,7 +503,7 @@ versions_012:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1E1
+    initial_population: !ruby/object:BigDecimal 18:0.1e1
     initial_father_id:
     initial_mother_id:
     variety: building
@@ -583,7 +583,7 @@ versions_013:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1E1
+    initial_population: !ruby/object:BigDecimal 18:0.1e1
     initial_father_id:
     initial_mother_id:
     variety: building
@@ -816,7 +816,7 @@ versions_016:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.7E1
+    initial_population: !ruby/object:BigDecimal 18:0.7e1
     initial_father_id:
     initial_mother_id:
     variety: seed
@@ -1201,7 +1201,7 @@ versions_021:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.2E2
+    initial_population: !ruby/object:BigDecimal 18:0.2e2
     initial_father_id:
     initial_mother_id:
     variety: seed
@@ -1247,7 +1247,7 @@ versions_022:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.2E2
+    initial_population: !ruby/object:BigDecimal 18:0.2e2
     initial_father_id:
     initial_mother_id:
     variety: straw
@@ -1293,7 +1293,7 @@ versions_023:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1E2
+    initial_population: !ruby/object:BigDecimal 18:0.1e2
     initial_father_id:
     initial_mother_id:
     variety: seed
@@ -1437,7 +1437,7 @@ versions_026:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1E1
+    initial_population: !ruby/object:BigDecimal 18:0.1e1
     initial_father_id:
     initial_mother_id: 2
     variety: bos_taurus_limousine
@@ -1531,7 +1531,7 @@ versions_028:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1E1
+    initial_population: !ruby/object:BigDecimal 18:0.1e1
     initial_father_id:
     initial_mother_id:
     variety: bos
@@ -1699,7 +1699,7 @@ versions_032:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1E2
+    initial_population: !ruby/object:BigDecimal 18:0.1e2
     initial_father_id:
     initial_mother_id:
     variety: packaged_matter
@@ -1745,7 +1745,7 @@ versions_033:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1E2
+    initial_population: !ruby/object:BigDecimal 18:0.1e2
     initial_father_id:
     initial_mother_id:
     variety: packaged_matter
@@ -1791,7 +1791,7 @@ versions_034:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1E2
+    initial_population: !ruby/object:BigDecimal 18:0.1e2
     initial_father_id:
     initial_mother_id:
     variety: packaged_matter
@@ -1975,7 +1975,7 @@ versions_038:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1E1
+    initial_population: !ruby/object:BigDecimal 18:0.1e1
     initial_father_id:
     initial_mother_id:
     variety: plower
@@ -2021,7 +2021,7 @@ versions_039:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1E1
+    initial_population: !ruby/object:BigDecimal 18:0.1e1
     initial_father_id:
     initial_mother_id:
     variety: plower
@@ -2067,7 +2067,7 @@ versions_040:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1E1
+    initial_population: !ruby/object:BigDecimal 18:0.1e1
     initial_father_id:
     initial_mother_id:
     variety: plower
@@ -2159,7 +2159,7 @@ versions_042:
     initial_container_id: 19
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1905E1
+    initial_population: !ruby/object:BigDecimal 18:0.1905e1
     initial_father_id:
     initial_mother_id:
     variety: seed
@@ -2205,7 +2205,7 @@ versions_043:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.8031E0
+    initial_population: !ruby/object:BigDecimal 18:0.8031e0
     initial_father_id:
     initial_mother_id:
     variety: triticum_aestivum
@@ -2283,7 +2283,7 @@ versions_044:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.7E1
+    initial_population: !ruby/object:BigDecimal 18:0.7e1
     initial_father_id:
     initial_mother_id:
     variety: seed
@@ -2329,7 +2329,7 @@ versions_045:
     initial_container_id: 19
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1905E1
+    initial_population: !ruby/object:BigDecimal 18:0.1905e1
     initial_father_id:
     initial_mother_id:
     variety: seed
@@ -4000,7 +4000,7 @@ versions_078:
     initial_container_id: 20
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.2E2
+    initial_population: !ruby/object:BigDecimal 18:0.2e2
     initial_father_id:
     initial_mother_id:
     variety: seed
@@ -4127,7 +4127,7 @@ versions_080:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.7E1
+    initial_population: !ruby/object:BigDecimal 18:0.7e1
     initial_father_id:
     initial_mother_id:
     variety: seed
@@ -4173,7 +4173,7 @@ versions_081:
     initial_container_id: 20
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.2E2
+    initial_population: !ruby/object:BigDecimal 18:0.2e2
     initial_father_id:
     initial_mother_id:
     variety: seed
@@ -4381,7 +4381,7 @@ versions_084:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.8031E0
+    initial_population: !ruby/object:BigDecimal 18:0.8031e0
     initial_father_id:
     initial_mother_id:
     variety: triticum_aestivum
@@ -4551,7 +4551,7 @@ versions_087:
     initial_container_id: 20
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.294553E2
+    initial_population: !ruby/object:BigDecimal 18:0.294553e2
     initial_father_id:
     initial_mother_id:
     variety: seed
@@ -4680,7 +4680,7 @@ versions_089:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.7E1
+    initial_population: !ruby/object:BigDecimal 18:0.7e1
     initial_father_id:
     initial_mother_id:
     variety: seed
@@ -4726,7 +4726,7 @@ versions_090:
     initial_container_id: 20
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.294553E2
+    initial_population: !ruby/object:BigDecimal 18:0.294553e2
     initial_father_id:
     initial_mother_id:
     variety: seed
@@ -5030,7 +5030,7 @@ versions_095:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1E1
+    initial_population: !ruby/object:BigDecimal 18:0.1e1
     initial_father_id:
     initial_mother_id:
     variety: building
@@ -5234,7 +5234,7 @@ versions_098:
     initial_container_id: 21
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.2E-1
+    initial_population: !ruby/object:BigDecimal 18:0.2e-1
     initial_father_id:
     initial_mother_id:
     variety: preparation
@@ -5280,7 +5280,7 @@ versions_099:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1E2
+    initial_population: !ruby/object:BigDecimal 18:0.1e2
     initial_father_id:
     initial_mother_id:
     variety: packaged_matter
@@ -5326,7 +5326,7 @@ versions_100:
     initial_container_id: 21
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.2E-1
+    initial_population: !ruby/object:BigDecimal 18:0.2e-1
     initial_father_id:
     initial_mother_id:
     variety: preparation
@@ -5372,7 +5372,7 @@ versions_101:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1E1
+    initial_population: !ruby/object:BigDecimal 18:0.1e1
     initial_father_id:
     initial_mother_id:
     variety: bos_taurus_limousine
@@ -5516,7 +5516,7 @@ versions_105:
     initial_container_id: 21
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.41745E1
+    initial_population: !ruby/object:BigDecimal 18:0.41745e1
     initial_father_id:
     initial_mother_id:
     variety: preparation
@@ -5562,7 +5562,7 @@ versions_106:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1E2
+    initial_population: !ruby/object:BigDecimal 18:0.1e2
     initial_father_id:
     initial_mother_id:
     variety: packaged_matter
@@ -5608,7 +5608,7 @@ versions_107:
     initial_container_id: 21
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.41745E1
+    initial_population: !ruby/object:BigDecimal 18:0.41745e1
     initial_father_id:
     initial_mother_id:
     variety: preparation
@@ -5881,7 +5881,7 @@ versions_112:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1E2
+    initial_population: !ruby/object:BigDecimal 18:0.1e2
     initial_father_id:
     initial_mother_id:
     variety: preparation
@@ -5927,7 +5927,7 @@ versions_113:
     initial_container_id: 21
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.6425E0
+    initial_population: !ruby/object:BigDecimal 18:0.6425e0
     initial_father_id:
     initial_mother_id:
     variety: preparation
@@ -5973,7 +5973,7 @@ versions_114:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1E2
+    initial_population: !ruby/object:BigDecimal 18:0.1e2
     initial_father_id:
     initial_mother_id:
     variety: preparation
@@ -6019,7 +6019,7 @@ versions_115:
     initial_container_id: 21
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.6425E0
+    initial_population: !ruby/object:BigDecimal 18:0.6425e0
     initial_father_id:
     initial_mother_id:
     variety: preparation
@@ -6146,7 +6146,7 @@ versions_117:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.2E2
+    initial_population: !ruby/object:BigDecimal 18:0.2e2
     initial_father_id:
     initial_mother_id:
     variety: seed
@@ -6192,7 +6192,7 @@ versions_118:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.2E3
+    initial_population: !ruby/object:BigDecimal 18:0.2e3
     initial_father_id:
     initial_mother_id:
     variety: seed
@@ -6238,7 +6238,7 @@ versions_119:
     initial_container_id: 21
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1778641E3
+    initial_population: !ruby/object:BigDecimal 18:0.1778641e3
     initial_father_id:
     initial_mother_id:
     variety: seed
@@ -6284,7 +6284,7 @@ versions_120:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.101637E2
+    initial_population: !ruby/object:BigDecimal 18:0.101637e2
     initial_father_id:
     initial_mother_id:
     variety: poa
@@ -6363,7 +6363,7 @@ versions_121:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.2E3
+    initial_population: !ruby/object:BigDecimal 18:0.2e3
     initial_father_id:
     initial_mother_id:
     variety: seed
@@ -6409,7 +6409,7 @@ versions_122:
     initial_container_id: 21
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1778641E3
+    initial_population: !ruby/object:BigDecimal 18:0.1778641e3
     initial_father_id:
     initial_mother_id:
     variety: seed
@@ -6659,7 +6659,7 @@ versions_126:
     initial_container_id: 80
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1E1
+    initial_population: !ruby/object:BigDecimal 18:0.1e1
     initial_father_id:
     initial_mother_id:
     variety: grass
@@ -6705,7 +6705,7 @@ versions_127:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.101637E2
+    initial_population: !ruby/object:BigDecimal 18:0.101637e2
     initial_father_id:
     initial_mother_id:
     variety: poa
@@ -6784,7 +6784,7 @@ versions_128:
     initial_container_id: 80
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1E1
+    initial_population: !ruby/object:BigDecimal 18:0.1e1
     initial_father_id:
     initial_mother_id:
     variety: grass
@@ -6964,7 +6964,7 @@ versions_131:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.5E4
+    initial_population: !ruby/object:BigDecimal 18:0.5e4
     initial_father_id:
     initial_mother_id:
     variety: seedling
@@ -7056,7 +7056,7 @@ versions_133:
     initial_container_id: 21
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.5E4
+    initial_population: !ruby/object:BigDecimal 18:0.5e4
     initial_father_id:
     initial_mother_id:
     variety: seedling
@@ -7190,7 +7190,7 @@ versions_135:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.5E4
+    initial_population: !ruby/object:BigDecimal 18:0.5e4
     initial_father_id:
     initial_mother_id:
     variety: seedling
@@ -7236,7 +7236,7 @@ versions_136:
     initial_container_id: 21
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.5E4
+    initial_population: !ruby/object:BigDecimal 18:0.5e4
     initial_father_id:
     initial_mother_id:
     variety: seedling
@@ -7484,7 +7484,7 @@ versions_140:
     initial_container_id: 21
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.64745E1
+    initial_population: !ruby/object:BigDecimal 18:0.64745e1
     initial_father_id:
     initial_mother_id:
     variety: preparation
@@ -7530,7 +7530,7 @@ versions_141:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1E2
+    initial_population: !ruby/object:BigDecimal 18:0.1e2
     initial_father_id:
     initial_mother_id:
     variety: packaged_matter
@@ -7576,7 +7576,7 @@ versions_142:
     initial_container_id: 21
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.64745E1
+    initial_population: !ruby/object:BigDecimal 18:0.64745e1
     initial_father_id:
     initial_mother_id:
     variety: preparation
@@ -7848,7 +7848,7 @@ versions_147:
     initial_container_id: 106
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.323726138E5
+    initial_population: !ruby/object:BigDecimal 18:0.323726138e5
     initial_father_id:
     initial_mother_id:
     variety: grape
@@ -8292,7 +8292,7 @@ versions_155:
     initial_container_id: 106
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.32E4
+    initial_population: !ruby/object:BigDecimal 18:0.32e4
     initial_father_id:
     initial_mother_id:
     variety: grape
@@ -8338,7 +8338,7 @@ versions_156:
     initial_container_id: 106
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.3E4
+    initial_population: !ruby/object:BigDecimal 18:0.3e4
     initial_father_id:
     initial_mother_id:
     variety: grape
@@ -8384,7 +8384,7 @@ versions_157:
     initial_container_id: 106
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.2E3
+    initial_population: !ruby/object:BigDecimal 18:0.2e3
     initial_father_id:
     initial_mother_id:
     variety: pomace
@@ -8430,7 +8430,7 @@ versions_158:
     initial_container_id: 106
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.323726138E5
+    initial_population: !ruby/object:BigDecimal 18:0.323726138e5
     initial_father_id:
     initial_mother_id:
     variety: grape
@@ -8476,7 +8476,7 @@ versions_159:
     initial_container_id: 106
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.32E4
+    initial_population: !ruby/object:BigDecimal 18:0.32e4
     initial_father_id:
     initial_mother_id:
     variety: grape
@@ -8522,7 +8522,7 @@ versions_160:
     initial_container_id: 106
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.32E4
+    initial_population: !ruby/object:BigDecimal 18:0.32e4
     initial_father_id:
     initial_mother_id:
     variety: grape
@@ -8568,7 +8568,7 @@ versions_161:
     initial_container_id: 106
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.32E4
+    initial_population: !ruby/object:BigDecimal 18:0.32e4
     initial_father_id:
     initial_mother_id:
     variety: grape
@@ -8614,7 +8614,7 @@ versions_162:
     initial_container_id: 106
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.3E2
+    initial_population: !ruby/object:BigDecimal 18:0.3e2
     initial_father_id:
     initial_mother_id:
     variety: juice
@@ -8660,7 +8660,7 @@ versions_163:
     initial_container_id: 106
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.2E3
+    initial_population: !ruby/object:BigDecimal 18:0.2e3
     initial_father_id:
     initial_mother_id:
     variety: pomace
@@ -8706,7 +8706,7 @@ versions_164:
     initial_container_id: 106
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.323726138E5
+    initial_population: !ruby/object:BigDecimal 18:0.323726138e5
     initial_father_id:
     initial_mother_id:
     variety: grape
@@ -8752,7 +8752,7 @@ versions_165:
     initial_container_id: 106
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.32E4
+    initial_population: !ruby/object:BigDecimal 18:0.32e4
     initial_father_id:
     initial_mother_id:
     variety: grape
@@ -8798,7 +8798,7 @@ versions_166:
     initial_container_id: 106
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.32E4
+    initial_population: !ruby/object:BigDecimal 18:0.32e4
     initial_father_id:
     initial_mother_id:
     variety: grape
@@ -8844,7 +8844,7 @@ versions_167:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.2E1
+    initial_population: !ruby/object:BigDecimal 18:0.2e1
     initial_father_id:
     initial_mother_id:
     variety: preparation
@@ -8890,7 +8890,7 @@ versions_168:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.4E1
+    initial_population: !ruby/object:BigDecimal 18:0.4e1
     initial_father_id:
     initial_mother_id:
     variety: preparation
@@ -8936,7 +8936,7 @@ versions_169:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.3E2
+    initial_population: !ruby/object:BigDecimal 18:0.3e2
     initial_father_id:
     initial_mother_id:
     variety: yeast
@@ -8982,7 +8982,7 @@ versions_170:
     initial_container_id: 21
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.6E1
+    initial_population: !ruby/object:BigDecimal 18:0.6e1
     initial_father_id:
     initial_mother_id:
     variety: yeast
@@ -9028,7 +9028,7 @@ versions_171:
     initial_container_id: 116
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.295E2
+    initial_population: !ruby/object:BigDecimal 18:0.295e2
     initial_father_id:
     initial_mother_id:
     variety: wine
@@ -9074,7 +9074,7 @@ versions_172:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.3E2
+    initial_population: !ruby/object:BigDecimal 18:0.3e2
     initial_father_id:
     initial_mother_id:
     variety: yeast
@@ -9120,7 +9120,7 @@ versions_173:
     initial_container_id: 21
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.6E1
+    initial_population: !ruby/object:BigDecimal 18:0.6e1
     initial_father_id:
     initial_mother_id:
     variety: yeast
@@ -9166,7 +9166,7 @@ versions_174:
     initial_container_id: 106
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.3E2
+    initial_population: !ruby/object:BigDecimal 18:0.3e2
     initial_father_id:
     initial_mother_id:
     variety: juice
@@ -9212,7 +9212,7 @@ versions_175:
     initial_container_id: 106
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.3E2
+    initial_population: !ruby/object:BigDecimal 18:0.3e2
     initial_father_id:
     initial_mother_id:
     variety: juice
@@ -9350,7 +9350,7 @@ versions_178:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1E2
+    initial_population: !ruby/object:BigDecimal 18:0.1e2
     initial_father_id:
     initial_mother_id:
     variety: saccharose
@@ -9396,7 +9396,7 @@ versions_179:
     initial_container_id: 21
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.118E0
+    initial_population: !ruby/object:BigDecimal 18:0.118e0
     initial_father_id:
     initial_mother_id:
     variety: saccharose
@@ -9442,7 +9442,7 @@ versions_180:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1E2
+    initial_population: !ruby/object:BigDecimal 18:0.1e2
     initial_father_id:
     initial_mother_id:
     variety: saccharose
@@ -9488,7 +9488,7 @@ versions_181:
     initial_container_id: 21
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.118E0
+    initial_population: !ruby/object:BigDecimal 18:0.118e0
     initial_father_id:
     initial_mother_id:
     variety: saccharose
@@ -9534,7 +9534,7 @@ versions_182:
     initial_container_id: 116
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.295E2
+    initial_population: !ruby/object:BigDecimal 18:0.295e2
     initial_father_id:
     initial_mother_id:
     variety: wine
@@ -9580,7 +9580,7 @@ versions_183:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1E2
+    initial_population: !ruby/object:BigDecimal 18:0.1e2
     initial_father_id:
     initial_mother_id:
     variety: preparation
@@ -9626,7 +9626,7 @@ versions_184:
     initial_container_id: 21
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.118E1
+    initial_population: !ruby/object:BigDecimal 18:0.118e1
     initial_father_id:
     initial_mother_id:
     variety: preparation
@@ -9672,7 +9672,7 @@ versions_185:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1E2
+    initial_population: !ruby/object:BigDecimal 18:0.1e2
     initial_father_id:
     initial_mother_id:
     variety: preparation
@@ -9718,7 +9718,7 @@ versions_186:
     initial_container_id: 21
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.118E1
+    initial_population: !ruby/object:BigDecimal 18:0.118e1
     initial_father_id:
     initial_mother_id:
     variety: preparation
@@ -9764,7 +9764,7 @@ versions_187:
     initial_container_id: 116
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.295E2
+    initial_population: !ruby/object:BigDecimal 18:0.295e2
     initial_father_id:
     initial_mother_id:
     variety: wine
@@ -9836,7 +9836,7 @@ versions_189:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1E5
+    initial_population: !ruby/object:BigDecimal 18:0.1e5
     initial_father_id:
     initial_mother_id:
     variety: cork_bottle
@@ -9882,7 +9882,7 @@ versions_190:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1E5
+    initial_population: !ruby/object:BigDecimal 18:0.1e5
     initial_father_id:
     initial_mother_id:
     variety: cork
@@ -10020,7 +10020,7 @@ versions_193:
     initial_container_id: 116
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.15E2
+    initial_population: !ruby/object:BigDecimal 18:0.15e2
     initial_father_id:
     initial_mother_id:
     variety: wine
@@ -10066,7 +10066,7 @@ versions_194:
     initial_container_id: 21
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.2004E4
+    initial_population: !ruby/object:BigDecimal 18:0.2004e4
     initial_father_id:
     initial_mother_id:
     variety: cork_bottle
@@ -10112,7 +10112,7 @@ versions_195:
     initial_container_id: 21
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.152E4
+    initial_population: !ruby/object:BigDecimal 18:0.152e4
     initial_father_id:
     initial_mother_id:
     variety: cork
@@ -10158,7 +10158,7 @@ versions_196:
     initial_container_id: 116
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1992E4
+    initial_population: !ruby/object:BigDecimal 18:0.1992e4
     initial_father_id:
     initial_mother_id:
     variety: wine
@@ -10204,7 +10204,7 @@ versions_197:
     initial_container_id: 116
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.295E2
+    initial_population: !ruby/object:BigDecimal 18:0.295e2
     initial_father_id:
     initial_mother_id:
     variety: wine
@@ -10250,7 +10250,7 @@ versions_198:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1E5
+    initial_population: !ruby/object:BigDecimal 18:0.1e5
     initial_father_id:
     initial_mother_id:
     variety: cork_bottle
@@ -10296,7 +10296,7 @@ versions_199:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1E5
+    initial_population: !ruby/object:BigDecimal 18:0.1e5
     initial_father_id:
     initial_mother_id:
     variety: cork
@@ -10342,7 +10342,7 @@ versions_200:
     initial_container_id: 116
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.15E2
+    initial_population: !ruby/object:BigDecimal 18:0.15e2
     initial_father_id:
     initial_mother_id:
     variety: wine
@@ -10388,7 +10388,7 @@ versions_201:
     initial_container_id: 21
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.2004E4
+    initial_population: !ruby/object:BigDecimal 18:0.2004e4
     initial_father_id:
     initial_mother_id:
     variety: cork_bottle
@@ -10434,7 +10434,7 @@ versions_202:
     initial_container_id: 21
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.152E4
+    initial_population: !ruby/object:BigDecimal 18:0.152e4
     initial_father_id:
     initial_mother_id:
     variety: cork
@@ -10484,11 +10484,11 @@ versions_203:
     dead_line_at: 2222-10-01 23:00:00.000000000 Z
     name: Test
     description: ''
-    pretax_amount: !ruby/object:BigDecimal 18:0.1E5
+    pretax_amount: !ruby/object:BigDecimal 18:0.1e5
     origin: public_relations
     type: SaleOpportunity
     state: prospecting
-    probability_percentage: !ruby/object:BigDecimal 18:0.9E2
+    probability_percentage: !ruby/object:BigDecimal 18:0.9e2
     third_role: client
   item_type: Affair
 versions_204:
@@ -10517,11 +10517,11 @@ versions_204:
     dead_line_at: 2999-12-31 23:00:00.000000000 Z
     name: Third
     description: ''
-    pretax_amount: !ruby/object:BigDecimal 18:0.56254E7
+    pretax_amount: !ruby/object:BigDecimal 18:0.56254e7
     origin: trade_show
     type: SaleOpportunity
     state: prospecting
-    probability_percentage: !ruby/object:BigDecimal 18:0.5E2
+    probability_percentage: !ruby/object:BigDecimal 18:0.5e2
     third_role: client
   item_type: Affair
 versions_205:
@@ -11083,7 +11083,7 @@ versions_218:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.95E3
+    initial_population: !ruby/object:BigDecimal 18:0.95e3
     initial_shape:
     initial_father_id:
     initial_mother_id:
@@ -11116,7 +11116,7 @@ versions_219:
   id: 256
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     initial_born_at: 2015-07-15 11:45:00.000000000 Z
-    initial_population: !ruby/object:BigDecimal 18:0.95E3
+    initial_population: !ruby/object:BigDecimal 18:0.95e3
     born_at:
   item_id: 144
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
@@ -11133,7 +11133,7 @@ versions_219:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.25E3
+    initial_population: !ruby/object:BigDecimal 18:0.25e3
     initial_shape:
     initial_father_id:
     initial_mother_id:
@@ -11270,7 +11270,7 @@ versions_222:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.25534E1
+    initial_population: !ruby/object:BigDecimal 18:0.25534e1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -11368,7 +11368,7 @@ versions_223:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.49989E1
+    initial_population: !ruby/object:BigDecimal 18:0.49989e1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -11473,7 +11473,7 @@ versions_224:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.12768E1
+    initial_population: !ruby/object:BigDecimal 18:0.12768e1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -11556,7 +11556,7 @@ versions_225:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.6467E0
+    initial_population: !ruby/object:BigDecimal 18:0.6467e0
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -11637,7 +11637,7 @@ versions_226:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1206E1
+    initial_population: !ruby/object:BigDecimal 18:0.1206e1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -11724,7 +11724,7 @@ versions_227:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.9712E1
+    initial_population: !ruby/object:BigDecimal 18:0.9712e1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -11825,7 +11825,7 @@ versions_228:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.42445E1
+    initial_population: !ruby/object:BigDecimal 18:0.42445e1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -11917,7 +11917,7 @@ versions_229:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.33423E1
+    initial_population: !ruby/object:BigDecimal 18:0.33423e1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -12001,7 +12001,7 @@ versions_230:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.33843E1
+    initial_population: !ruby/object:BigDecimal 18:0.33843e1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -12091,7 +12091,7 @@ versions_231:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.40579E1
+    initial_population: !ruby/object:BigDecimal 18:0.40579e1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -12182,7 +12182,7 @@ versions_232:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.72782E1
+    initial_population: !ruby/object:BigDecimal 18:0.72782e1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -12270,7 +12270,7 @@ versions_233:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.48002E1
+    initial_population: !ruby/object:BigDecimal 18:0.48002e1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -12355,7 +12355,7 @@ versions_234:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.49359E1
+    initial_population: !ruby/object:BigDecimal 18:0.49359e1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -12447,7 +12447,7 @@ versions_235:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.23814E1
+    initial_population: !ruby/object:BigDecimal 18:0.23814e1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -12530,7 +12530,7 @@ versions_236:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.23421E1
+    initial_population: !ruby/object:BigDecimal 18:0.23421e1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -12617,7 +12617,7 @@ versions_237:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1944E1
+    initial_population: !ruby/object:BigDecimal 18:0.1944e1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -12704,7 +12704,7 @@ versions_238:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.60725E1
+    initial_population: !ruby/object:BigDecimal 18:0.60725e1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -12793,7 +12793,7 @@ versions_239:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.35386E1
+    initial_population: !ruby/object:BigDecimal 18:0.35386e1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -12876,7 +12876,7 @@ versions_240:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.55413E1
+    initial_population: !ruby/object:BigDecimal 18:0.55413e1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -12956,7 +12956,7 @@ versions_241:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.2039E1
+    initial_population: !ruby/object:BigDecimal 18:0.2039e1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -13034,7 +13034,7 @@ versions_242:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.57285E1
+    initial_population: !ruby/object:BigDecimal 18:0.57285e1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -13117,7 +13117,7 @@ versions_243:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.2087E0
+    initial_population: !ruby/object:BigDecimal 18:0.2087e0
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -13194,7 +13194,7 @@ versions_244:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.5827E0
+    initial_population: !ruby/object:BigDecimal 18:0.5827e0
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -13271,7 +13271,7 @@ versions_245:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1063E1
+    initial_population: !ruby/object:BigDecimal 18:0.1063e1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -13358,7 +13358,7 @@ versions_246:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.14511E1
+    initial_population: !ruby/object:BigDecimal 18:0.14511e1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -13437,7 +13437,7 @@ versions_247:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.3009E1
+    initial_population: !ruby/object:BigDecimal 18:0.3009e1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -13514,7 +13514,7 @@ versions_248:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.37979E1
+    initial_population: !ruby/object:BigDecimal 18:0.37979e1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -13592,7 +13592,7 @@ versions_249:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.81114E1
+    initial_population: !ruby/object:BigDecimal 18:0.81114e1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -13673,7 +13673,7 @@ versions_250:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.120715E2
+    initial_population: !ruby/object:BigDecimal 18:0.120715e2
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -13783,7 +13783,7 @@ versions_251:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.46746E1
+    initial_population: !ruby/object:BigDecimal 18:0.46746e1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -13863,7 +13863,7 @@ versions_252:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.23275E1
+    initial_population: !ruby/object:BigDecimal 18:0.23275e1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -14549,7 +14549,7 @@ versions_264:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.2E2
+    initial_population: !ruby/object:BigDecimal 18:0.2e2
     initial_shape:
     initial_father_id:
     initial_mother_id:
@@ -14601,7 +14601,7 @@ versions_265:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.2E2
+    initial_population: !ruby/object:BigDecimal 18:0.2e2
     initial_shape:
     initial_father_id:
     initial_mother_id:
@@ -14657,7 +14657,7 @@ versions_266:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.39989E1
+    initial_population: !ruby/object:BigDecimal 18:0.39989e1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -14738,7 +14738,7 @@ versions_267:
     initial_container_id: 11
     initial_owner_id: 1
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.25E2
+    initial_population: !ruby/object:BigDecimal 18:0.25e2
     initial_shape:
     initial_father_id:
     initial_mother_id:
@@ -14786,7 +14786,7 @@ versions_268:
     initial_container_id: 11
     initial_owner_id: 1
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.35E2
+    initial_population: !ruby/object:BigDecimal 18:0.35e2
     initial_shape:
     initial_father_id:
     initial_mother_id:
@@ -14971,7 +14971,7 @@ versions_272:
     initial_container_id: 12
     initial_owner_id: 1
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.11E2
+    initial_population: !ruby/object:BigDecimal 18:0.11e2
     initial_shape:
     initial_father_id:
     initial_mother_id:
@@ -15019,7 +15019,7 @@ versions_273:
     initial_container_id: 116
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.1992E4
+    initial_population: !ruby/object:BigDecimal 18:0.1992e4
     initial_shape:
     initial_father_id:
     initial_mother_id:
@@ -15383,7 +15383,7 @@ versions_279:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.19553E1
+    initial_population: !ruby/object:BigDecimal 18:0.19553e1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false

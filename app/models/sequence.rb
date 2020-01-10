@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -136,8 +136,7 @@ class Sequence < Ekylibre::Record::Base
   # Produces the next value of the sequence and update last value in DB
   def next_value!
     reload
-    # FIXME: Bad method to prevent concurrency access to the method
-    sleep(rand(50) / 1000)
+    # FIXME: Prevent concurrency access to the method
     counters = next_counters
     self.last_number = counters[:number]
     self.last_cweek = counters[:cweek]

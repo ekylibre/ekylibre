@@ -1,0 +1,21 @@
+- items.each do |item|
+  - checked = (item.letter.blank? && (params[:journal_entry_item]||{}).keys.include?(item.id.to_s))
+  - trid, conf = "e#{item.id}", {}
+  %tr{id: trid, class: (item.closed? ? "disabled " : checked ? "selected " : "test") + cycle("even", "odd") + (item.completely_lettered? ? ' lettered-item' : '')}
+    %td.chk
+      - unless item.completely_lettered? || item.closed?
+        = check_box_tag("journal_entry_item[#{item.id}][to_mark]", "1", checked, id: "journal_entry_item_#{item.id}_to_mark", data: {add_class: "selected", add_class_to: "##{trid}"})
+        - conf = {data: {click: "#journal_entry_item_#{item.id}_to_mark"}}
+    %td.ltr
+      = item.letter
+    %td.act
+      - unless item.letter.blank? or item.closed?
+        %a.unmark{href: "/backend/accounts/#{account_id}/unmark?letter=#{item.letter}", title: unmark_title, rel: "nofollow", data: {confirm: confirm_label, method: "post"}}
+          %i
+          = unmark_label
+    %td.dat{conf}= item.printed_on.l
+    %td.code{conf}
+      %a{href: "/backend/journal_entries/#{item.entry_id}", keep: 'true'}= item.entry_number
+    %td{conf}= item.name
+    %td.dec.debit{conf}=  number_to_accountancy(item.absolute_debit, currency)
+    %td.dec.credit{conf}= number_to_accountancy(item.absolute_credit, currency)

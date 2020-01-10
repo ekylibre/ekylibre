@@ -1,18 +1,35 @@
-%table.payment{data: { outgoing_payment_third: true }}
-  %thead
-    %tr
-      %th{colspan: 5}= third.full_name
-    - if third.unbalanced?
-      %tr.warning#unbalanced-entity
-        %th{colspan: 4}= :third_is_unbalanced.tl
-        %th
-          = third.balance
-          = " &ndash; ".html_safe
-          = third.supplier_accounting_balance
-  %tbody
-    = render partial: 'purchase_affair', collection: @affairs.where(supplier: third), locals: {f:f}
-  %tfoot
-    %tr.total
-      %td{colspan: 3}= :total.tl
-      %td{data: {outgoing_payment_total: true}}= 0.0
-      %td= @currency
+.payments-list{ data: { outgoing_payment_third: true, trigger_container: true } }
+  .third-header
+    %span.third-header__title
+      = third.full_name
+      = t('labels.third_balance', balance: third.balance, supplier_account_balance: third.supplier_accounting_balance)
+    %i.third-header__trigger{ data: { trigger: true } }
+
+  .invoices-list{ data: { checkable: true } }
+    %div{ data: { triggerable: true } }
+      .invoices-list__header
+        .invoices-list__column--width-sm
+          = check_box_tag :check_all, '1', false
+        .invoices-list__column--width-lg
+          = :edition_date.tl
+        .invoices-list__column--width-lg
+          = :reference.tl
+        .invoices-list__column--width-lg
+          = :accepted_for_paiment.tl
+        .invoices-list__column--width-lg.invoices-list__column--height-lg
+          = :due_date.tl
+        .invoices-list__column--width-md
+          = :amount.tl
+
+      = render partial: 'purchase_affair', collection: @affairs.where(supplier: third), locals: { f: f }
+
+    .invoices-list__footer
+      .invoices-list__column--width-sm
+      .invoices-list__column--width-lg
+      .invoices-list__column--width-lg
+      .invoices-list__column--width-lg
+      .invoices-list__column--width-lg.invoices-list__column--height-lg.invoices-list__column--font-lg
+        = :total.tl
+      .invoices-list__column--width-md
+        %span.invoices-list__column--font-lg{ data: { outgoing_payment_total: true } }= 0.0
+        %span.invoices-list__column--font-lg= @currency

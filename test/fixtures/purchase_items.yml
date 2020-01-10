@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -26,28 +26,34 @@
 #  activity_budget_id     :integer
 #  amount                 :decimal(19, 4)   default(0.0), not null
 #  annotation             :text
+#  conditionning          :integer
+#  conditionning_quantity :integer
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  currency               :string           not null
 #  depreciable_product_id :integer
+#  equipment_id           :integer
 #  fixed                  :boolean          default(FALSE), not null
 #  fixed_asset_id         :integer
+#  fixed_asset_stopped_on :date
 #  id                     :integer          not null, primary key
 #  label                  :text
 #  lock_version           :integer          default(0), not null
 #  position               :integer
 #  preexisting_asset      :boolean
 #  pretax_amount          :decimal(19, 4)   default(0.0), not null
+#  project_budget_id      :integer
 #  purchase_id            :integer          not null
-#  quantity               :decimal(19, 4)   default(1.0), not null
+#  quantity               :decimal(19, 4)   not null
 #  reduction_percentage   :decimal(19, 4)   default(0.0), not null
+#  role                   :string
 #  tax_id                 :integer          not null
 #  team_id                :integer
 #  unit_amount            :decimal(19, 4)   default(0.0), not null
 #  unit_pretax_amount     :decimal(19, 4)   not null
 #  updated_at             :datetime         not null
 #  updater_id             :integer
-#  variant_id             :integer          not null
+#  variant_id             :integer
 #
 ---
 purchase_items_001:
@@ -66,6 +72,7 @@ purchase_items_001:
   purchase_id: 6
   quantity: 3.0
   reduction_percentage: 0.0
+  role: merchandise
   tax_id: 3
   unit_amount: 42.0
   unit_pretax_amount: 35.0
@@ -87,6 +94,7 @@ purchase_items_002:
   purchase_id: 7
   quantity: 1.0
   reduction_percentage: 0.0
+  role: merchandise
   tax_id: 2
   unit_amount: 1850.0
   unit_pretax_amount: 1850.0
@@ -109,6 +117,7 @@ purchase_items_003:
   purchase_id: 6
   quantity: 11.0
   reduction_percentage: 0.0
+  role: merchandise
   tax_id: 3
   unit_amount: 4.56
   unit_pretax_amount: 3.8
@@ -130,6 +139,7 @@ purchase_items_004:
   purchase_id: 8
   quantity: 10.0
   reduction_percentage: 0.0
+  role: merchandise
   tax_id: 3
   unit_amount: 184.8
   unit_pretax_amount: 154.0
@@ -151,6 +161,7 @@ purchase_items_005:
   purchase_id: 11
   quantity: 5000.0
   reduction_percentage: 0.0
+  role: merchandise
   tax_id: 3
   unit_amount: 4.104
   unit_pretax_amount: 3.42
@@ -172,6 +183,7 @@ purchase_items_006:
   purchase_id: 12
   quantity: 1.0
   reduction_percentage: 0.0
+  role: merchandise
   tax_id: 3
   unit_amount: 1848.0
   unit_pretax_amount: 1540.0
@@ -194,6 +206,7 @@ purchase_items_007:
   purchase_id: 13
   quantity: 11.0
   reduction_percentage: 7.0
+  role: merchandise
   tax_id: 8
   unit_amount: 1694.0
   unit_pretax_amount: 1540.0
@@ -216,6 +229,7 @@ purchase_items_008:
   purchase_id: 14
   quantity: 6.0
   reduction_percentage: 0.0
+  role: merchandise
   tax_id: 3
   unit_amount: 119.52
   unit_pretax_amount: 99.6
@@ -238,6 +252,7 @@ purchase_items_009:
   purchase_id: 15
   quantity: 4.0
   reduction_percentage: 0.0
+  role: merchandise
   tax_id: 3
   unit_amount: 300.0
   unit_pretax_amount: 250.0
@@ -260,6 +275,7 @@ purchase_items_010:
   purchase_id: 16
   quantity: 3.0
   reduction_percentage: 4.0
+  role: merchandise
   tax_id: 8
   unit_amount: 1694.0
   unit_pretax_amount: 1540.0
@@ -282,9 +298,34 @@ purchase_items_011:
   purchase_id: 17
   quantity: 510.0
   reduction_percentage: 3.0
+  role: merchandise
   tax_id: 8
   unit_amount: 0.99
   unit_pretax_amount: 0.9
   updated_at: 2016-12-20 18:16:56.944192000 Z
   updater_id: 1
   variant_id: 63
+purchase_items_012:
+  account_id: 16
+  amount: 1746.0
+  conditionning: 5
+  conditionning_quantity: 12
+  created_at: 2018-09-20 09:33:25.939324000 Z
+  creator_id: 1
+  currency: EUR
+  fixed: false
+  id: 19
+  label: Acetal
+  lock_version: 0
+  position: 1
+  pretax_amount: 1455.0
+  purchase_id: 18
+  quantity: 60.0
+  reduction_percentage: 3.0
+  role: merchandise
+  tax_id: 3
+  unit_amount: 30.0
+  unit_pretax_amount: 25.0
+  updated_at: 2018-09-20 09:33:25.939324000 Z
+  updater_id: 1
+  variant_id: 21

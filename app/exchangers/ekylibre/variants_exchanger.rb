@@ -58,8 +58,8 @@ module Ekylibre
           elsif Nomen::ProductNatureVariant.find(r.reference_name)
             variant = ProductNatureVariant.import_from_nomenclature(r.reference_name, active: true)
           elsif Nomen::ProductNature.find(r.reference_name)
-            nature = ProductNature.import_from_nomenclature(r.reference_name, true)
-            variant = nature.variants.new(name: nature.name, active: true)
+            nature = ProductNature.import_from_nomenclature(r.reference_name)
+            variant = nature.variants.new(name: r.name, active: true)
           else
             raise 'Invalid reference name: ' + r.reference_name.inspect
           end

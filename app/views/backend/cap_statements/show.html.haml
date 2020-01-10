@@ -34,39 +34,83 @@
           .med-info
             %span.title= :number_of_cap_land_parcels.tl
             %span.value= resource.cap_land_parcels.count
+          - if resource.cap_neutral_areas.count > 0
+            .med-info
+              %span.title= :number_of_cap_neutral_areas.tl
+              %span.value= resource.cap_neutral_areas.count
       -# c.cobble(:cap_islets) do
         #= cobble_list(:cap_islets)
       - c.cobble(:cap_land_parcels) do
         = cobble_list(:cap_land_parcels)
 
+  - b = CapIslet.bounding_box
+  - r = RegisteredWaterRiver.in_bounding_box(b)
+  - l = RegisteredWaterLake.in_bounding_box(b)
+  - z = RegisteredBuildingZone.in_bounding_box(b)
   - if resource.cap_land_parcels.any?
     - j.face :map do
-      :ruby
-        land_parcels = resource.cap_land_parcels.collect do |p|
-          next unless p.shape
+      - cache resource.cap_land_parcels + resource.cap_islets + r.pluck(:name) + l.pluck(:name) + z.pluck(:centroid) do
+        :ruby
+          land_parcels = resource.cap_land_parcels.collect do |p|
+            next unless p.shape
 
-          popup_content = []
-          popup_content << {label: CapLandParcel.human_attribute_name(:net_surface_area), value: p.human_shape_area}
-          popup_content << render('popup', plant: p)
+            popup_content = []
+            popup_content << {label: CapLandParcel.human_attribute_name(:net_surface_area), value: p.human_shape_area}
+            popup_content << render('popup', plant: p)
 
-          { name: "#{p.land_parcel_number} - #{p.cap_islet.islet_number}", shape: p.shape, main_crop_code: p.main_crop_code, popup: {header: true, content: popup_content} }
-        end
+            { name: "#{p.land_parcel_number} - #{p.cap_islet.islet_number}", shape: p.shape, main_crop_code: p.main_crop_code, popup: {header: true, content: popup_content} }
+          end
 
-        islets = resource.cap_islets.collect do |p|
-          next unless p.shape
-          popup_content = []
-          popup_content << {label: CapIslet.human_attribute_name(:net_surface_area), value: p.human_shape_area}
-          popup_content << render('popup', plant: p)
 
-          {name: p.islet_number, shape: p.shape, popup: {header: true, content: popup_content} }
-        end
+            neutral_areas = resource.cap_neutral_areas.collect do |p|
+              next unless p.shape
 
-      = visualization({box: {height: "100%"}}, class: 'map-fullwidth') do |v|
-        - v.serie :land_parcels, land_parcels
-        - v.serie :islets, islets
-        - v.simple :cap_islets, :islets
-        - v.categories :main_crop_code, :land_parcels
-        - v.control :zoom
-        - v.control :scale
-        - v.control :fullscreen
-        - v.control :layer_selector
+              popup_content = []
+              popup_content << {label: CapLandParcel.human_attribute_name(:net_surface_area), value: p.human_shape_area}
+              popup_content << render('popup', plant: p)
+
+              { name: "#{p.number}", shape: p.shape, category_code: p.category, popup: {header: true, content: popup_content} }
+            end
+
+          islets = resource.cap_islets.collect do |p|
+            next unless p.shape
+            popup_content = []
+            popup_content << {label: CapIslet.human_attribute_name(:net_surface_area), value: p.human_shape_area}
+            popup_content << render('popup', plant: p)
+
+            {name: p.islet_number, shape: p.shape, popup: {header: true, content: popup_content} }
+          end
+
+          buildings_shape = ActiveRecord::Base.connection.execute(
+            "SELECT ST_AsGeoJSON(ST_COLLECT(buildings.shape)) AS shape
+              FROM (#{z.select(:shape).to_sql}) AS buildings;").first["shape"]
+
+          water_rivers = r.collect do |p|
+            next unless p.shape
+            {name: p.name, shape: p.shape.buffer(20) }
+          end
+
+          water_lakes = l.collect do |p|
+            next unless p.shape
+            {name: p.name, shape: p.shape.buffer(200) }
+          end
+
+          building_zones = [{name: "Building", shape: ::Charta.new_geometry(buildings_shape).buffer(50)}]
+
+        = visualization({box: {height: "100%"}}, class: 'map-fullwidth') do |v|
+          - v.serie :land_parcels, land_parcels
+          - v.serie :islets, islets
+          - v.serie :water_rivers, water_rivers
+          - v.serie :water_lakes, water_lakes
+          - v.serie :building_zones, building_zones
+          -# v.serie :neutral_area_category, neutral_areas
+          -# v.categories :category_code, :neutral_areas
+          - v.simple :cap_islets, :islets
+          - v.simple :water_rivers, :water_rivers, fill_color: 'blue'
+          - v.simple :water_lakes, :water_lakes, fill_color: 'blue'
+          - v.simple :building_zones, :building_zones, fill_color: 'yellow', without_ghost_label: true
+          - v.categories :main_crop_code, :land_parcels
+          - v.control :zoom
+          - v.control :scale
+          - v.control :fullscreen
+          - v.control :layer_selector

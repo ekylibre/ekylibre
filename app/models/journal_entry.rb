@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -26,6 +26,7 @@
 #  absolute_currency          :string           not null
 #  absolute_debit             :decimal(19, 4)   default(0.0), not null
 #  balance                    :decimal(19, 4)   default(0.0), not null
+#  continuous_number          :integer
 #  created_at                 :datetime         not null
 #  creator_id                 :integer
 #  credit                     :decimal(19, 4)   default(0.0), not null
@@ -49,6 +50,7 @@
 #  state                      :string           not null
 #  updated_at                 :datetime         not null
 #  updater_id                 :integer
+#  validated_at               :datetime
 #
 
 # There is 3 types of set of values (debit, credit...). These types
@@ -82,10 +84,12 @@ class JournalEntry < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :absolute_credit, :absolute_debit, :balance, :credit, :debit, :real_balance, :real_credit, :real_debit, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :absolute_currency, :currency, :journal, :real_currency, presence: true
+  validates :continuous_number, uniqueness: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :number, :state, presence: true, length: { maximum: 500 }
   validates :printed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates :real_currency_rate, presence: true, numericality: { greater_than: -1_000_000_000, less_than: 1_000_000_000 }
   validates :resource_prism, :resource_type, length: { maximum: 500 }, allow_blank: true
+  validates :validated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   # ]VALIDATORS]
   validates :absolute_currency, :currency, :real_currency, length: { allow_nil: true, maximum: 3 }
   validates :state, length: { allow_nil: true, maximum: 30 }
@@ -152,8 +156,23 @@ class JournalEntry < Ekylibre::Record::Base
       if stopped_on.present? && (stopped_on.is_a?(Date) || stopped_on =~ /^\d\d\d\d\-\d\d\-\d\d$/)
         conditions << "#{table}.printed_on <= #{connection.quote(stopped_on.to_date)}"
       end
+
       return connection.quoted_false if conditions.empty?
       return '(' + conditions.join(' AND ') + ')'
+    end
+  end
+
+  # return the letter if any on items
+  def letter
+    items.pluck(:letter).compact.uniq.first
+  end
+
+  # return the date of the first payment (incomming or outgoing)
+  def first_payment
+    if purchase_payments.any?
+      purchase_payments.reorder(:paid_at).first
+    elsif incoming_payments.any?
+      incoming_payments.reorder(:paid_at).first
     end
   end
 
@@ -301,6 +320,10 @@ class JournalEntry < Ekylibre::Record::Base
   def expected_financial_year
     raise 'Missing printed_on' unless printed_on
     FinancialYear.on(printed_on)
+  end
+
+  def entities_bank_statement_number
+    items.where.not(bank_statement_letter: nil).first&.bank_statement_letter
   end
 
   def self.state_label(state)

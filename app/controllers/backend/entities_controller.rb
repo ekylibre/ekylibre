@@ -194,7 +194,8 @@ module Backend
       t.column :bank_check_number, hidden: true
       t.column :amount, currency: true, url: true
       t.column :deposit, url: true, hidden: true
-      t.column :bank_statement_number, through: :journal_entry, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statements.first.id'.c }, label: :bank_statement_number
+      t.column :entities_bank_statement_number, through: :journal_entry, label: :bank_reconciliation
+      # Rapprochement bancaire
     end
 
     list(:purchase_payments, conditions: { payee_id: 'params[:id]'.c }, order: { created_at: :desc }, line_class: "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
@@ -206,19 +207,20 @@ module Backend
       t.column :mode, hidden: true
       t.column :bank_check_number, hidden: true
       t.column :amount, currency: true, url: true
-      t.column :bank_statement_number, through: :journal_entry, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statements.first.id'.c }, label: :bank_statement_number
+      t.column :entities_bank_statement_number,
+               through: :journal_entry,
+               label: :bank_reconciliation
     end
 
-    list(:incoming_parcels, model: :parcels, conditions: { sender_id: 'params[:id]'.c }, per_page: 5, order: { created_at: :desc }, line_class: :status) do |t|
+    list(:receptions, conditions: { sender_id: 'params[:id]'.c }, per_page: 5, order: { created_at: :desc }, line_class: :status) do |t|
       t.column :number, url: true
       t.column :content_sentence, label: :contains
       t.column :planned_at
       t.column :created_at, hidden: true
       t.column :state, label_method: :human_state_name
-      t.column :purchase, url: true
     end
 
-    list(:outgoing_parcels, model: :parcels, conditions: { recipient_id: 'params[:id]'.c }, per_page: 5, order: { created_at: :desc }, line_class: :status) do |t|
+    list(:shipments, conditions: { recipient_id: 'params[:id]'.c }, per_page: 5, order: { created_at: :desc }, line_class: :status) do |t|
       t.column :number, url: true
       t.column :content_sentence, label: :contains
       t.column :planned_at
@@ -227,7 +229,18 @@ module Backend
       t.column :sale, url: true
     end
 
-    list(:purchases, conditions: { supplier_id: 'params[:id]'.c }, line_class: "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
+    list(:purchase_invoices, conditions: { supplier_id: 'params[:id]'.c }, line_class: "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
+      # t.action :show, url: {format: :pdf}, image: :print, hidden: true
+      t.action :edit
+      t.action :destroy, if: :destroyable?, hidden: true
+      t.column :number, url: true
+      t.column :created_at, hidden: true
+      t.column :invoiced_at
+      t.column :delivery_address, hidden: true
+      t.column :amount, currency: true
+    end
+
+    list(:purchase_orders, conditions: { supplier_id: 'params[:id]'.c }) do |t|
       # t.action :show, url: {format: :pdf}, image: :print, hidden: true
       t.action :edit
       t.action :destroy, if: :destroyable?, hidden: true

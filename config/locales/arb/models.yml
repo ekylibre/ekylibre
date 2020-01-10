@@ -1,58 +1,4 @@
 arb:
-  activemodel:
-    errors:
-      messages:
-        # accepted: "%{attribute} must be accepted"
-        # after: "%{attribute} must be after %{restriction}"
-        # already_confirmed: "was already confirmed, please try signing in"
-        # before: "%{attribute} must be before %{restriction}"
-        # blank: "%{attribute} can't be blank"
-        # confirmation: "%{attribute} doesn't match confirmation"
-        # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
-        # currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
-        # empty: "%{attribute} can't be empty"
-        # equal_to: "%{attribute} must be equal to %{count}"
-        # even: "%{attribute} must be even"
-        # exclusion: "%{attribute} is reserved"
-        # expired: "has expired, please request a new one"
-        # greater_than: "%{attribute} must be greater than %{count}"
-        # greater_than_or_equal_to: "%{attribute} must be greater than or equal to %{count}"
-        # included_in: "The value of %{attribute} must be included between %{minimum} and %{maximum}"
-        # inclusion: "%{attribute} is not included in the list"
-        # invalid: "%{attribute} is invalid"
-        # invalid_at: "%{attribute} is_invalid. Error near %{error}"
-        # invalid_date: "%{attribute} is not a valid date"
-        # invalid_datetime: "%{attribute} is not a valid datetime"
-        # invalid_time: "%{attribute} is not a valid time"
-        # invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
-        # is: "%{attribute} must be a %{thing}"
-        # is_at: "%{attribute} must be at %{restriction}"
-        # less_than: "%{attribute} must be less than %{count}"
-        # less_than_or_equal_to: "%{attribute} must be less than or equal to %{count}"
-        # missing_bank_details_for_sepa: "Values for IBAN and/or Account owner are missing for the cash account selected."
-        # must_be_a_mail_address: "%{attribute} must be a mail address"
-        # not_a_number: "%{attribute} is not a number"
-        # not_an_end_of_month: "%{attribute} must be an end of month"
-        # not_an_integer: "%{attribute} must be an integer"
-        # not_enough: "not enough %{resource} to complete task"
-        # not_found: "not found"
-        # not_locked: "was not locked"
-        not_saved:
-          # one: "1 error prohibited this %{resource} from being saved:"
-          # other: "%{count} errors prohibited this %{resource} from being saved:"
-        # nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
-        # odd: "%{attribute} must be odd"
-        # on_or_after: "%{attribute} must be on or after %{restriction}"
-        # on_or_before: "%{attribute} must be on or before %{restriction}"
-        # overlap: "%{attribute} overlaps an existing record"
-        # overlap_sibling: "%{attribute} overlaps sibling"
-        # posterior: "%{attribute} must be posterior to %{to}"
-        # record_invalid: "Validations failed: %{errors}"
-        # taken: "%{attribute} has already been taken"
-        # too_long: "%{attribute} is too long (maximum is %{count} characters)"
-        # too_short: "%{attribute} is too short (minimum is %{count} characters)"
-        # unitary_in_parcel: "Unitary items can only be sent one by one"
-        # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
   activerecord:
     attributes:
       account:
@@ -285,6 +231,13 @@ arb:
         amount: "قيمة المخصصة للبيع" #?
         expense_id: "تكلفة" #?
         updated_at: "تم تحديثها في" #?
+      intervention_working_period:
+        started_at:
+          # one: "Started at is inferior than expected"
+          # other: "{{count}} Started at is inferior than expected"
+        stopped_at:
+          # one: "Stopped at is inferior than expected"
+          # other: "{{count}} Stopped at is inferior than expected"
       inventory: #?
         comment: "تعليق" #?
         created_at: "اكتمل يوم" #?
@@ -350,6 +303,8 @@ arb:
       meeting_nature: #?
         duration: "(المدة الافتراضية (بالدقائق" #?
         updated_at: "تم تحديثها في" #?
+      naming_format_field:
+        # field_name: "Field"
       observation: #?
         company_id: "الشركة" #?
         updated_at: "تم انشأئها في" #?
@@ -396,6 +351,9 @@ arb:
         contract: "عقد"
       parcel_item:
         population: "كمية"
+      parcel_item_storing:
+        # reception_given_at: "Given at"
+        # reception_planned_at: "Planned at"
       plant:
         born_at: "زرعت في"
       plant_counting:
@@ -535,13 +493,18 @@ arb:
         number: "رقم" #?
         planned_at: "مقرر الاستقبال يوم" #?
         received: "المستلم" #?
-      purchase_item: #?
+      purchase_item:
         account: "حساب الرسوم المستخدمة" #?
         account_id: "حساب الرسوم المستخدمة" #?
         annotation: "الملاحظة" #?
+        # average_unit_pretax_amount: "Average unit pretax amount"
+        # fixed_asset_stopped_on: "Fixed asset stopped on"
+        # last_unit_pretax_amount: "Last unit pretax amount"
         order: "طلب الشراء" #?
+        # ordered_quantity: "Ordered quantity"
         price: "سعر الوحدة" #?
         product_id: "انتاج" #?
+        # supplier_name: "Supplier"
         tracking: "رقم الحصة" #?
         tracking_id: "رقم الحصة" #?
         unit_id: "الوحدة" #?
@@ -763,62 +726,85 @@ arb:
         too_short: "%{attribute} قصير جدا (%{count}الحد الادنى للاحرف)"
         unitary_in_parcel: "لا يمكن إلا أن ترسل وحدات موحدة واحدا تلو الآخر"
         wrong_length: "%{attribute} الطول الخاطئ  ( %{count} يجب ان يكون عدد الاحرف)"
-      models: #?
-        activity: #?
-          checked_off_with_inspections: "وقد تم بالفعل خلق التفتيش لهذا النشاط" #?
-          checked_without_measures: "على الأقل، يجب أن يتم اختيار نوع واحد الاجراء عندما أراد التفتيش" #?
-        bank_statement: #?
-          no_cash_match_ofx: "لم يتم العثور على رقم الحساب المصرفي الواردة في الملف النقدية" #?
-          ofx_file_has_multiple_bank_accounts: "غير معتمد ملف OFX مع حسابات مصرفية متعددة" #?
-          ofx_file_invalid: "ملف OFX غير صالح" #?
-        bank_statement_item: #?
-          unvalid_amounts: "يجب ان تكون المدخلات معرفة اما بالدين او بالائتمان، وليس الاثنان معا" #?
-        cash: #?
-          unvalid_bban: ".مكون واحد أو اكثر من موجه قاعدة المعلومات غير صحيح" #?
+      models:
+        activity:
+          checked_off_with_inspections: "وقد تم بالفعل خلق التفتيش لهذا النشاط"
+          checked_without_measures: "على الأقل، يجب أن يتم اختيار نوع واحد الاجراء عندما أراد التفتيش"
+        bank_statement:
+          no_cash_match_ofx: "لم يتم العثور على رقم الحساب المصرفي الواردة في الملف النقدية"
+          ofx_file_has_multiple_bank_accounts: "غير معتمد ملف OFX مع حسابات مصرفية متعددة"
+          ofx_file_invalid: "ملف OFX غير صالح"
+        bank_statement_item:
+          unvalid_amounts: "يجب ان تكون المدخلات معرفة اما بالدين او بالائتمان، وليس الاثنان معا"
+        cash:
+          # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
+          # different_of_main_account: "%{attribute} must be different of main account (%{account})"
+          unvalid_bban: ".مكون واحد أو اكثر من موجه قاعدة المعلومات غير صحيح"
         custom_field_datum: #?
           greater_than: "%{field} اكبر من (%{maximum} كحد اقصى)" #?
           less_than: "%{field} اقل من (%{minimum} كحد ادنى)" #?
           required: "%{field} يجب ان يكون معرف" #?
           too_long: "%{field} طويل جدا (%{length} الاحرف)" #?
-        deposit: #?
-          must_be_a_bank_account: "%{field} يجب ان يكون حساب مصرفي وليس بصندوق نقدي" #?
-        entity: #?
-          missing_title: "%{attribute} يجب ان يحتوي على اسم «%{title}»" #?
-          nature_do_not_allow_a_first_name: "«%{nature}» لا يسمح النوع المختار بمعرفة الاسم الاول" #?
-        financial_year: #?
-          attributes: #?
-            started_on: #?
-              consecutive: "يجب ان تكون محاسبة السنة المالية بصف آخر، ويجب ان تبدأ بعد نهاية العام السابق" #?
-              frozen: "لا يمكن تغيير التاريخ العام المالي عندما تم إنشاء الصرف." #?
-            stopped_on: #?
-              end_of_month: "%{attribute} يجب ان يكون التاريخ في نهاية الشهر" #?
-          overlap: "%{attribute} متواجد على قائمة السنة المالية الحالية" #?
-        financial_year_exchange: #?
-          csv_file_entry_dates_invalid: "بعض الإدخالات في CSV هي خارج نطاق تاريخ الصرف في العام المالي" #?
-          csv_file_headers_invalid: "رؤوس CSV غير صالحة" #?
-          csv_file_invalid: "ملف CSV غير صالح" #?
-        integration: #?
-          attributes: #?
-            parameters: #?
-              check_errored: "التحقق من خطأ كونيكسيون. يرجى التأكد من صلاحية الإدخال أو إعادة المحاولة لاحقا." #?
-        journal: #?
-          attributes: #?
-            accountant: #?
-              present: "محاسب لا يمكن إلا أن توضع لمختلف المجلات العمليات" #?
+        deposit:
+          must_be_a_bank_account: "%{field} يجب ان يكون حساب مصرفي وليس بصندوق نقدي"
+        entity:
+          missing_title: "%{attribute} يجب ان يحتوي على اسم «%{title}»"
+          nature_do_not_allow_a_first_name: "«%{nature}» لا يسمح النوع المختار بمعرفة الاسم الاول"
+        financial_year:
+          attributes:
+            accountant:
+              # frozen: "%{attribute} cannot be changed while an exchange is opened"
+            started_on:
+              consecutive: "يجب ان تكون محاسبة السنة المالية بصف آخر، ويجب ان تبدأ بعد نهاية العام السابق"
+              frozen: "لا يمكن تغيير التاريخ العام المالي عندما تم إنشاء الصرف."
+              # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
+            stopped_on:
+              end_of_month: "%{attribute} يجب ان يكون التاريخ في نهاية الشهر"
+          overlap: "%{attribute} متواجد على قائمة السنة المالية الحالية"
+        financial_year_exchange:
+          csv_file_entry_dates_invalid: "بعض الإدخالات في CSV هي خارج نطاق تاريخ الصرف في العام المالي"
+          # csv_file_entry_invalid: "Some entries in the CSV are invalid ('%{entry_number}')"
+          csv_file_headers_invalid: "رؤوس CSV غير صالحة"
+          csv_file_invalid: "ملف CSV غير صالح"
+          # csv_file_journals_invalid: "Some journals are present in the CSV but not in Ekylibre : %{codes}"
+        fixed_asset_depreciation:
+          attributes:
+            started_on:
+              # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
+        incoming_parcel_item:
+          # greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
+        integration:
+          attributes:
+            parameters:
+              check_errored: "التحقق من خطأ كونيكسيون. يرجى التأكد من صلاحية الإدخال أو إعادة المحاولة لاحقا."
+        intervention_working_period:
+          attributes:
+            started_at:
+              # inferior: "Started at is inferior than expected"
+            stopped_at:
+              # inferior: "Stopped at is inferior than expected"
+        journal:
+          attributes:
+            accountant:
+              # entity_frozen: "Booked journals of this %{attribute} cannot change while an exchange is opened for its financial years"
+              present: "محاسب لا يمكن إلا أن توضع لمختلف المجلات العمليات"
+              # previous_entity_frozen: "Booked journals of the previous %{attribute} cannot change while an exchange is opened for its financial years"
             closed_at: #?
               end_of_month: "%{attribute} يجب ان تطابق تاريخ نهاية الشهر (%{closed_at})" #?
-        journal_entry: #?
-          closed_journal: ".مما لا يمكنك انشاءخ او تعديله او الغاءه لغاية هذا التاريخ %{closed_at} تم اغلاق الدفتر اليومي في" #?
-          frozen_by_financial_year_exchange: "لا يمكن تسجيل الدخول للمجلة في الفترة المقابلة لتبادل السنة المالية." #?
-          out_of_existing_financial_year: "يجب تسجيل الدخول للمجلة في الفترة المقابلة لعام المالي الحالي." #?
+            closed_on:
+              # end_of_month: "%{attribute} must be an end of month (%{closed_on})"
+        journal_entry:
+          closed_journal: ".مما لا يمكنك انشاءخ او تعديله او الغاءه لغاية هذا التاريخ %{closed_at} تم اغلاق الدفتر اليومي في"
+          frozen_by_financial_year_exchange: "لا يمكن تسجيل الدخول للمجلة في الفترة المقابلة لتبادل السنة المالية."
+          out_of_existing_financial_year: "يجب تسجيل الدخول للمجلة في الفترة المقابلة لعام المالي الحالي."
           out_of_financial_year: "يجب اغتنام السجل خلال السنة المالية" #?
-          unbalanced: "ان السجل غير متعادل" #?
-        journal_entry_item: #?
-          closed_entry: ".تم اغلاق المدخلات، ولا يمكن التعديل عليها" #?
-          empty_amounts: "يجب أن تكون المدخلات معرفة اما بالدين او بالائتمان" #?
-          unvalid_amounts: "يجب ان تكون المدخلات معرفة اما بالدين او بالائتمان، وليس الاثنان معا" #?
-        outgoing_parcel_item: #?
-          greater_than_undelivered_quantity: "%{product} كمية الانتاج المسلمة تفوق الكمية الغير مسلمة (%{maximum}%{unit})" #?
+          unbalanced: "ان السجل غير متعادل"
+        journal_entry_item:
+          closed_entry: ".تم اغلاق المدخلات، ولا يمكن التعديل عليها"
+          empty_amounts: "يجب أن تكون المدخلات معرفة اما بالدين او بالائتمان"
+          unvalid_amounts: "يجب ان تكون المدخلات معرفة اما بالدين او بالائتمان، وليس الاثنان معا"
+        outgoing_parcel_item:
+          greater_than_undelivered_quantity: "%{product} كمية الانتاج المسلمة تفوق الكمية الغير مسلمة (%{maximum}%{unit})"
         price: #?
           already_defined: "قد تم تحديد السعر لهذا المنتج وقائمة الاسعار سابقا" #?
           range_overlap: "تداخل فاصل زمني اخر للكمية (  %{min} الى\_ %{max})" #?
@@ -835,14 +821,23 @@ arb:
           building_can_not_transfer_product: "لا يمكنك تحويل المنتج %{product} من موقع التخزين %{building}, لاحتوائه على منتج %{contained_product}" #?
           building_can_not_waste_product: "لا يمكنك تسجيل الخسارة للمنتج %{product} من موقع التخزين %{building}, هذا ويحتوي المنتج %{contained_product}" #?
           buildings_can_not_be_identical: "مواقع التخزين (المغادرة والواصلة) قد لا تكون متطابقة" #?
-        purchase_item: #?
-          building_can_not_receive_product: "لا يمكن للخزينة %{building} استقبال النتج %{product}, لاحتوائها منتج سابق %{contained_product}." #?
-          serial_already_used_with_an_other_product: "%{attribute} تم استخدامها لنوع اخر من المنتج من نفس الممون" #?
-        sale_item: #?
-          building_can_not_transfer_product: "لا يمكن تحويل المنتج %{product} من خزينة %{building}, لاحتوائه على %{contained_product}." #?
-          can_not_use_this_tracking: "لا يمكنك الاستفادة من الحصة %{tracking}, لان الكمية المطلوبة اكبر من الكمية المتاحة" #?
-          currency_is_not_sale_currency: "لا يطابق سعر عملة المنتج مجموعة البيع" #?
-          error_no_found_price: "لم يتم العثور على اي سعر لهذا المنتج وقائمة الاسعار" #?
+        purchase:
+          # payment_delay_custom_validation_message: "Accepted formats : %{values}"
+        purchase_item:
+          attributes:
+            fixed:
+              # asset_account: "Invalid asset account"
+              # asset_depreciation_method: "Invalid asset depreciation method"
+              # asset_expenses_account: "Invalid asset expenses account"
+              # asset_wrong_depreciation_method: "Depreciation method must be simplified linear"
+              # fixed_asset_stopped_on_invalid: "Invalid fixed asset stopped on"
+          building_can_not_receive_product: "لا يمكن للخزينة %{building} استقبال النتج %{product}, لاحتوائها منتج سابق %{contained_product}."
+          serial_already_used_with_an_other_product: "%{attribute} تم استخدامها لنوع اخر من المنتج من نفس الممون"
+        sale_item:
+          building_can_not_transfer_product: "لا يمكن تحويل المنتج %{product} من خزينة %{building}, لاحتوائه على %{contained_product}."
+          can_not_use_this_tracking: "لا يمكنك الاستفادة من الحصة %{tracking}, لان الكمية المطلوبة اكبر من الكمية المتاحة"
+          currency_is_not_sale_currency: "لا يطابق سعر عملة المنتج مجموعة البيع"
+          error_no_found_price: "لم يتم العثور على اي سعر لهذا المنتج وقائمة الاسعار"
         stock: #?
           product_cannot_be_in_building: "%{building} لا يمكن تخزين المنتج في خزينة" #?
         stock_transfer: #?
@@ -850,17 +845,17 @@ arb:
           building_can_not_transfer_product: "لا يمكنك تحويل المنتج %{product} من موقع التخزين %{building}, لاحتوائه على منتج %{contained_product}" #?
           building_can_not_waste_product: "لا يمكنك تسجيل الخسارة للمنتج %{product} من موقع التخزين %{building}, هذا ويحتوي المنتج %{contained_product}" #?
           buildings_can_not_be_identical: "مواقع التخزين (المغادرة والواصلة) قد لا تكون متطابقة" #?
-        subscription: #?
-          entity_must_be_the_same_as_the_contact_entity: "يجب على الشخص المشترك ان يكون نفس الشخص المراد الاتصال به" #?
+        subscription:
+          entity_must_be_the_same_as_the_contact_entity: "يجب على الشخص المشترك ان يكون نفس الشخص المراد الاتصال به"
         tax_declaration: #?
           declaration_date_after_period: ".يجب علك عمل التصريح الخاص بك بعد المدة المقررة" #?
           one_data_to_record_tax_declaration: ".يجب ان يكون لديك على الاقل قيمة غير صفرية واحدة" #?
           overlapped_period_declaration: ".يجب ان لا تتداخل مدة التصريح مع اي مدة اخرى" #?
-      template: #?
-        body: ":كان هنالك مشاكل مع الحقوا التالية " #?
-        header: #?
-          one: " من عملية الحفظ%{model} يمنع الخطأ هذا" #?
-          other: "%{count} تمنع الاخطاء تلك  %{model} من عملية الحفظ" #?
+      template:
+        body: ":كان هنالك مشاكل مع الحقوا التالية "
+        header:
+          one: " من عملية الحفظ%{model} يمنع الخطأ هذا"
+          other: "%{count} تمنع الاخطاء تلك  %{model} من عملية الحفظ"
     models:
       account: "الحساب"
       account_balance: "رصيد الحساب"
@@ -896,6 +891,7 @@ arb:
       campaign: "حملة"
       cap_islet: "CAP جزيرة"
       cap_land_parcel: "CAP قطعة أرض"
+      # cap_neutral_area: "Cap neutral area"
       cap_statement: "بيان CAP"
       cash: "الخزينة"
       cash_session: "جلسة نقدية"
@@ -1060,9 +1056,23 @@ arb:
       purchase: "الشراء"
       purchase_affair: "قضية شراء"
       purchase_gap: "الفجوة شراء"
+      # purchase_invoice: "Purchase invoice"
       purchase_item: "طريقة طلب الشراء"
       purchase_nature: "نوع شراء"
+      # purchase_order: "Purchase order"
       purchase_payment: "الدفعة"
+      # reception: "Reception"
+      # reception_item: "Reception item"
+      # registered_agroedi_code: "Registered agroedi code"
+      # registered_pfi_crop: "Registered pfi crop"
+      # registered_pfi_dose: "Registered pfi dose"
+      # registered_pfi_target: "Registered pfi target"
+      # registered_phytosanitary_phrase: "Registered phytosanitary phrase"
+      # registered_phytosanitary_product: "Registered phytosanitary product"
+      # registered_phytosanitary_risk: "Registered phytosanitary risk"
+      # registered_phytosanitary_usage: "Registered phytosanitary usage"
+      # registered_postal_zone: "Registered postal zone"
+      # registered_seed: "Registered seed"
       regularization: "تسوية"
       role: "الدور"
       sale: "البيع"
@@ -1077,6 +1087,8 @@ arb:
       sensor: "الاستشعار"
       sequence: "التسلسل"
       settlement: "مستوطنة"
+      # shipment: "Shipment"
+      # shipment_item: "Shipment item"
       stock: "سهم الانتاج" #?
       stock_move: "حركة السهم" #?
       stock_transfer: "تحول او ضياع السهم" #?
@@ -1152,11 +1164,13 @@ arb:
     administrator: "مسؤول النظام"
     advice_reference_name: "نصيحة المرجعية"
     affair: "قضية"
+    # affair_balance: "Affair balance"
     affairs: "شئون"
     affectation_percentage: "نسبة التكلف"
     affected_at: "أثرت في"
     age: "عمر"
     agency_code: "رمز الوكالة" #?
+    # agroedi_crop_code: "Agroedi crop code"
     alert: "إنذار"
     alerts: "التنبيهات"
     all_addresses: "جميع العناوين"
@@ -1171,12 +1185,15 @@ arb:
     analysis: "تحليل"
     analysis_items: "عناصر التحليل"
     annotation: "ملاحظة"
+    # applications_count: "Applications count"
+    # applications_frequency: "Applications frequency"
     archive: "أرشيف"
     archive_content_type: "الأرشيف نوع المحتوى"
     archive_file_name: "اسم ملف الأرشيف"
     archive_file_size: "حجم ملف الأرشيف"
     archive_updated_at: "الأرشيف تحديث في"
     archiving: "أرشفة"
+    # area: "Area"
     area_measure: "المساحة" #?
     area_unit: "وحدة المساحة" #?
     area_unit_id: "وحدة مساحة" #?
@@ -1201,6 +1218,7 @@ arb:
     available_prices: "الاسعار المتوفرة" #?
     available_products: "المنتجات المتوفرة" #?
     average_value: "متوسط ​​القيمة"
+    # average_yield: "Average yield"
     balance: "توازن"
     balance_amount: "الرصيد" #?
     balance_pretax_amount: "تحقيق التوازن بين كمية قبل خصم الضرائب"
@@ -1223,10 +1241,14 @@ arb:
     bank_statement: "بيانات الحساب المصرفي"
     bank_statement_id: "بيان الحساب المصرفي" #?
     bank_statement_letter: "الرسالة بيان البنك"
+    # bank_statement_number: "Bank statement number"
     bank_statements: "بيانات الحساب المصرفي"
     banks_accounts: "كتاب الحسابات المصرفية" #?
     base: "القاعدة" #?
     base_amount: "كمية قاعدة"
+    # batch: "Batch"
+    # batch_number: "Batch number"
+    # batch_planting: "Batch planting"
     battery_level: "مستوى البطارية"
     bban: "RIB" #?
     bic: "BIC" #?
@@ -1241,14 +1263,18 @@ arb:
     buildings: "مواقع التخزين"
     by_default: "افتراضيا"
     cache: "مخبأ" #?
+    # cached_payment_count: "Cached payment count"
     calibrations: "المعايرة"
     campaign: "حملة"
     campaigns: "حملات"
     canal: "قناة"
+    # cap_2017_crop_code: "Cap 2017 crop code"
+    # cap_2018_crop_code: "Cap 2018 crop code"
     cap_islet: "كاب جزيرة"
     cap_islets: "الجزر كاب"
     cap_land_parcel: "كاب قطعة أرض"
     cap_land_parcels: "قطع الأراضي كاب"
+    # cap_neutral_areas: "Cap neutral areas"
     cap_statement: "بيان كاب"
     cap_statements: "البيانات كاب"
     carried: "حمل"
@@ -1270,6 +1296,7 @@ arb:
     ceded_on: "تنازلت عن"
     # centralizing_account: "Centralizing account"
     # centralizing_account_name: "Centralizing account name"
+    # centroid: "Centroid"
     charge_account: "حساب المسؤول"
     charges_categories: "فئات الرسوم"
     check_number: "رقم الشيك" #?
@@ -1310,6 +1337,7 @@ arb:
     color: "اللون"
     column_name: "اسم العمود"
     columns: "الأعمدة"
+    # command_mode: "Command mode"
     comment: "التعليق"
     commercial: "نشاط تجاري"
     commercial_description: "وصف التجاري"
@@ -1334,6 +1362,8 @@ arb:
     conclusion: "الاستنتاج"
     condition_operator: "المقارنة"
     condition_value: "قيمة المقارنة"
+    # conditionning: "Conditionning"
+    # conditionning_quantity: "Conditionning quantity"
     conditions: "(SQL) شروط"
     confirmation_sent_at: "التأكيد المرسلة في"
     confirmation_token: "رمز التأكيد"
@@ -1369,6 +1399,7 @@ arb:
     credited_sale: "بيع الفضل"
     credits: "الائتمانات"
     critic_quantity_min: "الكمية المنتفدة كحد ادنى" #?
+    # crop: "Crop"
     crumbs: "فتات"
     crypt_key: "مفتاح التشفير" #?
     crypt_mode: "طؤيقة التشفير" #?
@@ -1390,7 +1421,7 @@ arb:
     current_localization: "التعريب الحالي"
     current_memberships: "عضوية الحالية"
     current_mother_link: "رابط الأم الحالي"
-    current_outgoing_stock_ordered_not_delivered: "الأسهم المنتهية ولايته لم يتم تسليمها"
+    current_outgoing_stock_ordered_not_delivered_displayed: "الأسهم المنتهية ولايته لم يتم تسليمها"
     current_ownership: "الملكية الحالية"
     current_password: "كلمة السر الحالية"
     current_phase: "المرحلة الحالية"
@@ -1406,6 +1437,7 @@ arb:
     custom_fields: "الحقول الاضافية"
     custom_fields_columns: "الحقول المخصصة الأعمدة"
     customized_type: "نوع مرغوب"
+    # daily_charges: "Daily charges"
     daily_nitrogen_production: "إنتاج النيتروجين اليومي"
     dashboards: "لوحات"
     data: "بيانات اضافية" #?
@@ -1500,6 +1532,11 @@ arb:
     document_templates: "نماذج الوثائق" #?
     documents: "الوثائق"
     doers: "الفاعلون"
+    # dose_quantity: "Dose quantity"
+    # dose_unit: "Dose unit"
+    # dose_unit_name: "Dose unit name"
+    # dose_unity: "Dose unity"
+    # doses: "Doses"
     downpayment: "القسط"
     downpayment_amount: "قيمة القسط"
     downpayment_minimum: "الحد الادنى للمجموع"
@@ -1550,9 +1587,12 @@ arb:
     entry_number: "رقم الدخول"
     entry_on: "الدخول على موقع"
     entry_reason: "السبب دخول"
+    # equipment: "Equipment"
+    # equipment_nature: "Equipment nature"
     establishment: "المؤسسة" #?
     establishment_id: "مؤسسة" #?
     establishments: "المؤسسات" #?
+    # estimate_reception_date: "Estimate reception date"
     # euid: "EUID"
     event: "حدث"
     event_natures: "نوع الحدث" #?
@@ -1596,6 +1636,8 @@ arb:
     father_variety: "متنوعة الأب"
     fax: "فاكس" #?
     faxes: "الفاكسات"
+    # field_name: "Field name"
+    # fields: "Fields"
     fifth_producer: "منتج الخامس" #?
     file: "ملف"
     file_content_text: "ملف نص المحتوى"
@@ -1615,6 +1657,7 @@ arb:
     financial_years: "المهن" #?
     finish: "النهاية"
     finished_at: "انتهت في"
+    # firm_name: "Firm name"
     first_calving_on: "أول ولادة في"
     first_met_at: "تاريخ اول مقابلة"
     first_name: "الاسم الاول"
@@ -1686,8 +1729,11 @@ arb:
     hashed_password: "تشفير كلمة المرور" #?
     headers: "رؤوس"
     host: "مضيف"
+    # hour_counter: "Hour counter"
+    # hour_counter_unit_name: "Hour counter unit name"
     hour_duration: "(ساعة (ساعات" #?
     human_activities_names: "أسماء الأنشطة"
+    # human_name: "Human name"
     human_shape_area: "منطقة الشكل"
     human_target_names: "أسماء المستهدفة"
     human_working_duration: "مدة العمل"
@@ -1705,6 +1751,7 @@ arb:
     importance: "ذو شأن"
     imported_at: "المستوردة في"
     importer: "المستورد"
+    # in_field_reentry_delay: "In field reentry delay"
     in_name: "الاختصارات تشمل اسم الملف" #?
     in_preparation_at: "في إطار التحضير في"
     included: "تضمنت"
@@ -1716,6 +1763,8 @@ arb:
     indicator: "مؤشر"
     indicator_datatype: "مؤشر نوع البيانات"
     indicator_name: "اسم المؤشر"
+    # indicator_unit: "Indicator unit"
+    # indicator_value: "Indicator value"
     indicators: "مؤشرات"
     indirect_links: "روابط مباشرة"
     initial_balance_credit: "الائتمان توازن الأولية"
@@ -1753,10 +1802,15 @@ arb:
     interpolations: "الزيادات"
     intervention: "تدخل"
     intervention_cast: "تدخل الزهر"
+    # intervention_id: "Intervention"
     intervention_parameter: "معلمة تدخل"
     intervention_participation: "مشاركة التدخل"
     intervention_participations: "المساهمات تدخل"
     intervention_product_parameters: "يلقي تدخل"
+    # intervention_proposal: "Intervention proposal"
+    # intervention_proposals: "Intervention proposals"
+    # intervention_template: "Intervention template"
+    # intervention_templates: "Intervention templates"
     interventions: "التدخلات"
     interventions_used_in: "التدخلات المستخدمة في"
     # intracommunity: "Intracommunity"
@@ -1780,6 +1834,7 @@ arb:
     invoiced_at: "فواتير على"
     invoiced_on: "فواتير على"
     ip_address: "عنوان بروتوكول الإنترنت"
+    # irregular_batch: "Irregular batch"
     irrigated: "المروية"
     irrigation_water_nitrogen: "الري النيتروجين المياه"
     is_debit: "مدين" #?
@@ -1831,6 +1886,7 @@ arb:
     last_transmission_at: "انتقال الماضي"
     last_value: "القيمة الأخيرة"
     last_year: "السنة السابقة"
+    # late_delivery: "Late delivery"
     latest: "آخر"
     latitude: "خطوط العرض" #?
     leaves_parameters: "يترك المعلمات"
@@ -1871,6 +1927,7 @@ arb:
     locked_at: "مغلق في"
     longitude: "خطوط الطول" #?
     lost: "الضائع" #?
+    # maaid: "Maaid"
     mail: "البريد الالكتروني"
     mail_addresses: "عناوين البريد"
     mail_auto_update: "التحديث التلقائي الإلكتروني"
@@ -1929,6 +1986,7 @@ arb:
     members_count: "عد الأعضاء"
     memberships: "عضوية"
     memo: "مذكرة"
+    # merge_stock: "Merge stock"
     message: "الرسالة"
     messages: "رسائل"
     metadata: "البيانات الوصفية"
@@ -1956,6 +2014,7 @@ arb:
     name: "الاسم"
     name_1_to_2: "الملف الاول الى الثاني" #?
     name_2_to_1: "الملف الثاني الى الاول" #?
+    # naming_format: "Naming format"
     nature: "طبيعة"
     nature_code: "الرمز" #?
     nature_id: "نوع" #?
@@ -1979,6 +2038,8 @@ arb:
     node: "العقدة"
     node_id: "عقدة" #?
     nodes: "عقد الاستخراج"
+    # non_compliant: "Non compliant"
+    # non_compliant_detail: "Non compliant detail"
     noticed_start_amount: "كمية بداية لاحظت"
     noticed_stop_amount: "لاحظت كمية توقف"
     notification: "إعلام"
@@ -1986,6 +2047,7 @@ arb:
     number: "الرقم"
     number_format: "التصميم"
     number_increment: "الاضافة"
+    # number_of_batch: "Number of batch"
     number_start: "بدأ الترقيم"
     observations: "ملاحظات"
     observed_at: "لوحظ في"
@@ -2038,6 +2100,7 @@ arb:
     parameter_name: "اسم المعلمة"
     parameters: "المعلمات"
     parcel: "جزء"
+    # parcel_item_storings: "Parcel item storings"
     parcel_items: "عناصر لا يتجزأ"
     parcels: "الطرود"
     parent: "النسب"
@@ -2130,6 +2193,7 @@ arb:
     printed_on: "طبع يوم"
     priority: "أفضلية"
     probability_percentage: "نسبة احتمال"
+    # procedure: "Procedure"
     procedure_name: "اسم الإجراء"
     producer: "المنتج"
     producer_id: "المنتج" #?
@@ -2139,6 +2203,7 @@ arb:
     product_category: "الفئة" #?
     product_category_id: "فئة" #?
     product_components: "مكونات المنتج" #?
+    # product_enjoyment: "Product enjoyment"
     product_enjoyments: "المتعة المنتج"
     product_id: "المنتج" #?
     product_identification_number: "رقم الهوية"
@@ -2162,10 +2227,13 @@ arb:
     product_reading: "قراءة المنتج"
     product_reading_tasks: "مهام القراءة المنتج"
     product_readings: "قراءات المنتج"
+    # product_type: "Product type"
+    # product_work_number: "Product work number"
     productable_products: "المنتجات الممكن انتاجها" #?
     production: "الإنتاج"
     production_campaign: "حملة إنتاج"
     production_cycle: "دورة الإنتاج"
+    # production_nature: "Production nature"
     production_support: "دعم الإنتاج"
     production_supports: "يدعم الانتاج"
     production_system: "نظام الإنتاج"
@@ -2179,10 +2247,12 @@ arb:
     profession_id: "مهنة" #?
     professions: "مهن" #?
     progression_percentage: "تقدم (٪)"
+    # project_budget: "Project budget"
     propagate_contacts: "تعميم الافراد" #?
     proposer: "الكفيل"
     proposer_id: "الكفيل" #?
     prospect: "الراعي"
+    # providers: "Providers"
     provisional: "مؤقت"
     provisional_intervention: "تدخل المؤقت"
     published: "تم نشره" #?
@@ -2191,10 +2261,12 @@ arb:
     purchase_affair: "قضية شراء" #?
     purchase_affairs: "الشؤون شراء"
     purchase_amount: "مبلغ الشراء"
+    # purchase_invoice_item: "Purchase invoice item"
     purchase_invoices: "فواتير الشراء"
     purchase_item: "البند شراء"
     purchase_items: "طرق طلب الشراء"
     purchase_natures: "أنواع شراء"
+    # purchase_order_item: "Purchase order item"
     purchase_payments: "دفعات الشراء"
     purchase_taxations: "الأنظمة الضريبية شراء"
     purchase_taxes: "ضرائب الشراء"
@@ -2210,6 +2282,8 @@ arb:
     quantity_max: "الكمية كحد اقصى" #?
     quantity_min: "الكمية كحد ادنى" #?
     quantity_population: "السكان الكمية"
+    # quantity_purchased: "Purchased quantity"
+    # quantity_received: "Used quantity"
     quantity_unit: "وحدة الكمية"
     quantity_unit_name: "الكمية اسم الوحدة"
     quantity_value: "قيمة الكمية"
@@ -2234,11 +2308,14 @@ arb:
     reception_amount: "كمية الاستقبال"
     reception_cash: "استقبال النقدية"
     reception_currency: "العملة الاستقبال"
+    # reception_items: "Reception items"
     reception_journal_entry: "دخول مجلة الاستقبال"
+    # receptions: "Receptions"
     recipient: "مستلم"
     recommended: "موصى به"
     recommender: "المزكي"
     reconcilable: "مصالحتها"
+    # reconciliation_state: "Reconciliation state"
     record_interventions: "التدخلات سجل"
     record_value: "التسجيل"
     record_value_id: "تسجيل" #?
@@ -2252,6 +2329,7 @@ arb:
     reduction_rate: "معدل الخصم" #?
     reduction_submissive: "خاضع للتخفيض" #?
     reductions: "طرق الخصومات" #?
+    # reference_label_fra: "Reference label fra"
     reference_name: "اسم الإشارة"
     reference_number: "الرقم المرجعي"
     reference_source_content_type: "مرجع نوع المحتوى مصدر"
@@ -2378,6 +2456,8 @@ arb:
     shape: "شكل"
     shift_duration: "مدة التحول"
     shift_method: "طريقة التحول"
+    # shipment_items: "Shipment items"
+    # shipments: "Shipments"
     shipped: "المستلم" #?
     shipped_at: "شحنها يوم" #?
     sign_in_count: "تسجيل الدخول العد"
@@ -2397,7 +2477,10 @@ arb:
     soundex: "خوارزمية مستخدمة لتشفير كلمات بطرقة تمكن مطابقة الكلمات مع الاصوات" #?
     source: "المصدر"
     source_product: "مصدر المنتج"
+    # source_product_movement: "Source product movement"
+    # sowing_interval: "Sowing interval"
     spaced_iban: "متباعدة IBAN"
+    # specie: "Specie"
     sql_type: "SQL نوع"
     ssl: "خدمة تصميم المواقع"
     start: "البداية"
@@ -2422,6 +2505,7 @@ arb:
     storable: "القابل للتخزين"
     storage: "تخزين"
     storages: "المخازن"
+    # storings: "Storings"
     story: "واقع"
     string_value: "القيمة النصية"
     subdir: "المرجع الفرعي" #?
@@ -2492,6 +2576,7 @@ arb:
     taxations: "الأنظمة الضريبية"
     taxes: "الضرائب" #?
     team: "الفريق"
+    # technical_itinerary: "Technical itinerary"
     template: "نموذج"
     template_id: "نموذج" #?
     text_importance: "ذو شأن" #?
@@ -2543,12 +2628,13 @@ arb:
     transports: "وسائل النقل" #?
     trouble_description: "وصف المتاعب"
     trouble_encountered: "مشكلة واجهتها"
+    # vat_account: "VAT account"
     type: "النوع"
     # uid: "UID"
     unconfirmed_email: "البريد الإلكتروني غير مؤكد"
     undelivered_invoice_journal_entry: "دخول فاتورة غير المسلمة"
     undelivered_quantity: "يبقى للتسليم"
-    unit: "الوحدة" #?
+    unit: "الوحدة"
     unit_amount: "كمية وحدة"
     unit_currency: "العملة وحدة"
     unit_id: "وحدة" #?
@@ -2639,59 +2725,6 @@ arb:
     working_zone_area: "منطقة منطقة العمل"
     zone_memberships: "عضوية منطقة"
     zones: "المناطق"
-  errors:
-    messages:
-      # accepted: "%{attribute} must be accepted"
-      # after: "%{attribute} must be after %{restriction}"
-      # already_confirmed: "was already confirmed, please try signing in"
-      # before: "%{attribute} must be before %{restriction}"
-      # blank: "%{attribute} can't be blank"
-      # confirmation: "%{attribute} doesn't match confirmation"
-      # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
-      # currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
-      # empty: "%{attribute} can't be empty"
-      # equal_to: "%{attribute} must be equal to %{count}"
-      # even: "%{attribute} must be even"
-      # exclusion: "%{attribute} is reserved"
-      # expired: "has expired, please request a new one"
-      # greater_than: "%{attribute} must be greater than %{count}"
-      # greater_than_or_equal_to: "%{attribute} must be greater than or equal to %{count}"
-      # included_in: "The value of %{attribute} must be included between %{minimum} and %{maximum}"
-      # inclusion: "%{attribute} is not included in the list"
-      # invalid: "%{attribute} is invalid"
-      # invalid_at: "%{attribute} is_invalid. Error near %{error}"
-      # invalid_date: "%{attribute} is not a valid date"
-      # invalid_datetime: "%{attribute} is not a valid datetime"
-      # invalid_time: "%{attribute} is not a valid time"
-      # invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
-      # is: "%{attribute} must be a %{thing}"
-      # is_at: "%{attribute} must be at %{restriction}"
-      # less_than: "%{attribute} must be less than %{count}"
-      # less_than_or_equal_to: "%{attribute} must be less than or equal to %{count}"
-      # missing_bank_details_for_sepa: "Values for IBAN and/or Account owner are missing for the cash account selected."
-      # must_be_a_mail_address: "%{attribute} must be a mail address"
-      # not_a_number: "%{attribute} is not a number"
-      # not_an_end_of_month: "%{attribute} must be an end of month"
-      # not_an_integer: "%{attribute} must be an integer"
-      # not_enough: "not enough %{resource} to complete task"
-      # not_found: "not found"
-      # not_locked: "was not locked"
-      not_saved:
-        # one: "1 error prohibited this %{resource} from being saved:"
-        # other: "%{count} errors prohibited this %{resource} from being saved:"
-      # nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
-      # odd: "%{attribute} must be odd"
-      # on_or_after: "%{attribute} must be on or after %{restriction}"
-      # on_or_before: "%{attribute} must be on or before %{restriction}"
-      # overlap: "%{attribute} overlaps an existing record"
-      # overlap_sibling: "%{attribute} overlaps sibling"
-      # posterior: "%{attribute} must be posterior to %{to}"
-      # record_invalid: "Validations failed: %{errors}"
-      # taken: "%{attribute} has already been taken"
-      # too_long: "%{attribute} is too long (maximum is %{count} characters)"
-      # too_short: "%{attribute} is too short (minimum is %{count} characters)"
-      # unitary_in_parcel: "Unitary items can only be sent one by one"
-      # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
   models:
     account:
       default_account_name: "دفتر الحسابات %{number}" #?
@@ -2863,6 +2896,9 @@ arb:
         datetime: "التاريخ والوقت" #?
         decimal: "عشري" #?
         string: "نص" #?
+    debt_transfer:
+      # purchase_regularization: "Purchase regularization"
+      # sale_regularization: "Sale regularization"
     delay: #?
       error_unvalid_format_for_expression: "الاسلوب ليس بالشكل الصحيح" #?
     delivery:
@@ -3100,6 +3136,9 @@ arb:
       states:
         draft: "مشروع"
         invoice: "فاتورة"
+    payslip_payment:
+      # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
+      # label: "%{number}. %{amount} on %{date} in %{mode} for %{payee}"
     product:
       informations:
         with_components: "%{product} (%{unit}) (ليس هناك من فترة استراحة)"
@@ -3204,6 +3243,9 @@ arb:
         refused: "أجل رفض"
     purchase_gap:
       # bookkeep: "[%{resource} %{number}] %{supplier}"
+    purchase_invoice:
+      # bookkeep: "[%{resource} %{number}] %{products} from %{supplier}"
+      # quantity_gap_on_invoice: "Gap on stock quantity [%{resource} %{number}] from %{entity}"
     purchase_item:
       name: "%{product} (%{quantity}%{unit}) ل %{amount}%{currency}/%{unit}"
       name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}) لل %{amount}%{currency}/%{unit}"
@@ -3214,6 +3256,16 @@ arb:
     purchase_payment:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} ل %{payee} (%{expenses})"
       label: "%{number}. %{amount} (%{usable_amount} restants) من %{date} بواسطة %{mode} ل %{payee}"
+    reception:
+      # bookkeep: "[%{resource} %{number}] %{entity}"
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     role:
       default:
         administrator: "مدير"
@@ -3308,6 +3360,16 @@ arb:
         sales_invoices: "SI[year|4][number|6]"
         subscriptions: "SUB[number|8]"
         transports: "TR[number|8]"
+    shipment:
+      # bookkeep: "[%{resource} %{number}] %{entity}"
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # received: "Received"
     task:
       state_machine:
         states:

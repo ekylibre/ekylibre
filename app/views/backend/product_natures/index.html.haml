@@ -8,7 +8,7 @@
 - main_toolbar do |t|
   = t.new params: { redirect: nil }
   - if ProductNature.any_reference_available?
-    = t.pick
+    = t.pick params: { selector_label: :product_nature.tl }
 
 = main_list
 

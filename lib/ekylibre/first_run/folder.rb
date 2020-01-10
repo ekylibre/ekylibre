@@ -123,7 +123,7 @@ module Ekylibre
       def default_datasets
         %i[sequences accounts document_templates taxes journals cashes
            sale_natures purchase_natures incoming_payment_modes
-           outgoing_payment_modes product_nature_variants map_layers]
+           outgoing_payment_modes product_nature_variants map_layers naming_format_land_parcels]
       end
 
       protected

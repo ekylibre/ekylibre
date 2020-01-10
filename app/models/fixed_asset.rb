@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -154,6 +154,7 @@ class FixedAsset < Ekylibre::Record::Base
         self.stopped_on += (months - months.floor) * 30.0 - 1
       end
     end
+
     # self.currency = self.journal.currency
     true
   end
@@ -330,16 +331,20 @@ class FixedAsset < Ekylibre::Record::Base
 
   # Depreciate active fixed assets
   def self.depreciate(options = {})
-    depreciations = FixedAssetDepreciation.with_active_asset
-    depreciations = depreciations.up_to(options[:until]) if options[:until]
+    filtered_date = options[:until]
+
+    depreciations = if filtered_date
+                      FixedAssetDepreciation.with_active_asset_up_to(filtered_date)
+                    else
+                      FixedAssetDepreciation.with_active_asset
+                    end
+    count = depreciations.count
     transaction do
       # trusting the bookkeep to take care of the accounting
-      depreciations.find_each do |dep|
-        dep.update!(accountable: true)
-      end
-      return depreciations.count
+      depreciations.find_each { |depreciation| depreciation.update_attribute(:accountable, true) }
     end
-    0
+
+    count
   end
 
   def depreciate!

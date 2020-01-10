@@ -19,6 +19,9 @@ module SVF
         elsif type.to_sym == :float && format.match(/^\d+\.\d+$/)
           definition[:format] = format
           definition[:length] = format.split('.').inject(1) { |s, e| s += e.to_i }
+        elsif type.to_sym == :decimal && format.match(/^\d+\.\d+$/)
+          definition[:format] = format
+          definition[:length] = format.split('.').first.to_i
         end
       else
         definition[:type] = definition[:type].to_sym
@@ -57,7 +60,10 @@ module SVF
       elsif type == :float
         # size = self.format.split(".")[0].to_i
         # value = "(#{line}[#{start}..#{start+size-1}]+'.'+#{line}[#{start+size+1}..#{start+self.length-1}]).to_d"
-        value = "#{value}.to_s.tr(',', '.').to_d"
+        value = "(#{value}.blank? ? 0.0 : #{value}.to_s.tr(',', '.').to_d)"
+      elsif type == :decimal
+        decimal_size = format.split('.').last.to_i
+        value = "(#{line}[#{start}...#{start + length - decimal_size}]+'.'+#{line}[#{start + length - decimal_size}...#{start + length}]).to_d"
       elsif type == :string
         value = "#{value}.to_s.strip.encode('UTF-8')"
       end

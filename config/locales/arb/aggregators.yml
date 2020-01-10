@@ -48,7 +48,7 @@ arb:
     harvested_at: "تحصد في"
     human_roles: "أدوار الإنسان" #?
     implanted_at: "مزروع في"
-    intervention_durations: "مدد تدخل"
+    intervention_durations: "مدد تدخل" #?
     loss_balance: "ميزان الخسارة"
     losses: "خسائر" #?
     meat_saleable_on: "اللحوم على القابلة للبيع"

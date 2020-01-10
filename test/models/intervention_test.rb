@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,6 +25,7 @@
 #  accounted_at                   :datetime
 #  actions                        :string
 #  auto_calculate_working_periods :boolean          default(FALSE)
+#  costing_id                     :integer
 #  created_at                     :datetime         not null
 #  creator_id                     :integer
 #  currency                       :string
@@ -37,8 +38,11 @@
 #  lock_version                   :integer          default(0), not null
 #  nature                         :string           not null
 #  number                         :string
+#  parent_id                      :integer
 #  prescription_id                :integer
 #  procedure_name                 :string           not null
+#  providers                      :jsonb
+#  purchase_id                    :integer
 #  request_compliant              :boolean
 #  request_intervention_id        :integer
 #  started_at                     :datetime         not null
@@ -48,6 +52,7 @@
 #  trouble_encountered            :boolean          default(FALSE), not null
 #  updated_at                     :datetime         not null
 #  updater_id                     :integer
+#  validator_id                   :integer
 #  whole_duration                 :integer          not null
 #  working_duration               :integer          not null
 #
@@ -121,7 +126,7 @@ class InterventionTest < ActiveSupport::TestCase
   test 'killing target' do
     plant = Plant.all.detect { |p| p.dead_first_at.nil? && p.dead_at.nil? }
     assert plant
-    now = Time.utc(2016, 10, 25, 20, 20, 20)
+    now = Time.utc(2016, 07, 25, 20, 20, 20)
 
     last_death_at = now + 1.year
     last_intervention = add_harvesting_intervention(plant, last_death_at)

@@ -34,15 +34,15 @@ module CharentesAlliance
         'Supprimé' => :aborted
       }
 
-      previous_parcel_number = nil
-      parcel = nil
+      previous_reception_number = nil
+      reception = nil
 
       rows = CSV.read(file, encoding: 'UTF-8', col_sep: ';', headers: true)
       w.count = rows.size
 
       rows.sort_by(&:first).each do |row|
         r = OpenStruct.new(
-          parcel_number: row[0],
+          reception_number: row[0],
           ordered_on: Date.civil(*row[1].to_s.split(/\//).reverse.map(&:to_i)),
           product_nature_name: (variants_transcode[row[3].to_s] || 'common_consumable'),
           matter_name: row[4],
@@ -51,20 +51,20 @@ module CharentesAlliance
           quantity: (row[5].blank? ? nil : row[5].tr(',', '.').to_d),
           product_deliver_quantity: (row[6].blank? ? nil : row[6].tr(',', '.').to_d),
           product_unit_price: (row[7].blank? ? nil : row[7].tr(',', '.').to_d),
-          parcel_status: (status[row[8]] || :draft)
+          reception_status: (status[row[8]] || :draft)
         )
 
-        # Create delivery if parcel_number change and all items concerning the same parcel are already created.
-        if parcel && previous_parcel_number && previous_parcel_number != parcel.number
+        # Create delivery if reception_number change and all items concerning the same reception are already created.
+        if reception && previous_reception_number && previous_reception_number != reception.number
           # delivery = Delivery.create!(
-          #   reference_number: previous_parcel_number,
+          #   reference_number: previous_reception_number,
           #   state: :in_preparation,
           #   started_at: r.ordered_on.to_time,
           #   stopped_at: r.ordered_on.to_time + 1
           # )
-          # parcel.delivery_id = delivery.id
-          parcel.give if r.parcel_status == :given
-          # parcel.save!
+          # reception.delivery_id = delivery.id
+          reception.give if r.reception_status == :given
+          # reception.save!
           # delivery.check
           # delivery.start
           # delivery.finish
@@ -73,22 +73,22 @@ module CharentesAlliance
         address = Entity.of_company.default_mail_address ||
                   Entity.of_company.mails.create!(by_default: true)
 
-        # create an parcel if not exist
-        parcel = Parcel.find_by(reference_number: r.parcel_number, currency: 'EUR', nature: :incoming) ||
-                 Parcel.create!(
-                   nature: :incoming,
-                   currency: 'EUR',
-                   reference_number: r.parcel_number,
-                   planned_at: r.ordered_on,
-                   given_at: r.ordered_on,
-                   state: :draft,
-                   sender: sender,
-                   address: address,
-                   delivery_mode: :third,
-                   storage: building_division
-                 )
-        next unless parcel.draft?
-        previous_parcel_number = r.parcel_number
+        # create an reception if not exist
+        reception = Reception.find_by(reference_number: r.reception_number, currency: 'EUR', nature: :incoming) ||
+                    Reception.create!(
+                      nature: :incoming,
+                      currency: 'EUR',
+                      reference_number: r.reception_number,
+                      planned_at: r.ordered_on,
+                      given_at: r.ordered_on,
+                      state: :draft,
+                      sender: sender,
+                      address: address,
+                      delivery_mode: :third,
+                      storage: building_division
+                    )
+        next unless reception.draft?
+        previous_reception_number = r.reception_number
 
         # find a product_nature_variant by mapping current name of matter in coop file in coop reference_name
         unless product_nature_variant = ProductNatureVariant.find_by(work_number: r.coop_reference_name)
@@ -113,10 +113,10 @@ module CharentesAlliance
         catalog_item.amount = r.product_unit_price
         catalog_item.save!
 
-        # if r.parcel_status == :given
-        item = parcel.items.find_or_initialize_by(variant: product_nature_variant)
+        # if r.reception_status == :given
+        item = reception.items.find_or_initialize_by(variant: product_nature_variant)
         item.product_name = r.matter_name + ' (' + r.ordered_on.l + ')'
-        item.product_identification_number = r.ordered_on.to_s + '_' + r.parcel_number + '_' + r.matter_name
+        item.product_identification_number = r.ordered_on.to_s + '_' + r.reception_number + '_' + r.matter_name
         item.quantity = r.quantity
         item.save!
         w.check_point

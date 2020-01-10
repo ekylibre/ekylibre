@@ -1,0 +1,28 @@
+.production-costs {
+  display: flex;
+  padding: 1em;
+
+  .costs-type {
+    flex: 1;
+    @include flex-column(flex-start);
+    border-right: solid 1px $default-border-color;
+    padding-left: 2em;
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  .big-info.cost.total-cost {
+    @include flex-column(center, center);
+    align-self: center;
+
+    .title {
+      font-size: $fs-large;
+    }
+
+    .value {
+      font-weight: bold;
+    }
+  }
+}

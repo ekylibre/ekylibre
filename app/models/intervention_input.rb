@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,6 +23,7 @@
 # == Table: intervention_parameters
 #
 #  assembly_id              :integer
+#  batch_number             :string
 #  component_id             :integer
 #  created_at               :datetime         not null
 #  creator_id               :integer
@@ -52,6 +53,7 @@
 #  updated_at               :datetime         not null
 #  updater_id               :integer
 #  variant_id               :integer
+#  variety                  :string
 #  working_zone             :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
 
@@ -83,14 +85,81 @@ class InterventionInput < InterventionProductParameter
     end
   end
 
+  def input_quantity_per_area
+    if intervention.working_zone_area.to_d > 0.0 && (quantity.dimension == :mass || quantity.dimension == :volume)
+      unit = quantity.unit.to_s + '_per_hectare'
+      q = (quantity.value.to_f / intervention.working_zone_area.to_f).round(2)
+      q_per_hectare = Measure.new(q.to_f, unit.to_sym)
+    elsif quantity.dimension == :volume_area_density || quantity.dimension == :mass_area_density
+      q_per_hectare = quantity
+    end
+    q_per_hectare
+  end
+
+  # return pfi dose according to Lexicon pfi dataset and maaid number
+  def pfi_reference_dose
+    dose = nil
+    if variant.france_maaid
+      act = intervention.activities
+      first_production = intervention.activity_productions.first
+      harvest_year = first_production.campaign.harvest_year if first_production && first_production.campaign
+      crop_code = act.first.production_nature.pfi_crop_code if act.first.production_nature
+      maaid = variant.france_maaid
+      if crop_code && maaid && harvest_year
+        dose = RegisteredPfiDose.where(maaid: maaid, crop_id: crop_code, harvest_year: harvest_year, target_id: nil).first
+      end
+    end
+    dose
+  end
+
+  # return legal dose according to Lexicon phyto dataset and maaid number
+  def legal_pesticide_informations
+    pesticide = RegisteredPhytosanitaryProduct.where(maaid: variant.france_maaid).first
+    if pesticide
+      specie = intervention.activity_productions.first.cultivation_variety
+      usages = pesticide.usages.of_specie(specie)
+
+      info = {}
+      info[:name] = pesticide.proper_name
+      info[:usage] = usages.first.target_name['fra'] if usages.first
+      info[:dose] = Measure.new(usages.first.dose_quantity, usages.first.dose_unit) if usages.first
+      info
+    end
+  end
+
+  # only case in mass_area_density && volume_area_density in legals
+  def legal_treatment_ratio
+    ratio = 1.0
+    if legal_pesticide_informations[:dose].dimension == :mass_area_density && input_quantity_per_area.dimension == :mass_area_density
+      ratio = input_quantity_per_area.convert(legal_pesticide_informations[:dose].unit) / legal_pesticide_informations[:dose].to_d
+    elsif legal_pesticide_informations[:dose].dimension == :volume_area_density && input_quantity_per_area.dimension == :volume_area_density
+      ratio = input_quantity_per_area.convert(legal_pesticide_informations[:dose].unit) / legal_pesticide_informations[:dose].to_d
+    end
+    ratio.to_d
+  end
+
+  # only case in mass_area_density && volume_area_density in pfi reference
+  def pfi_treatment_ratio
+    ratio = 1.0
+    if pfi_reference_dose && pfi_reference_dose.dose.to_d > 0.0
+      if pfi_reference_dose.dose.dimension == :mass_area_density && input_quantity_per_area.dimension == :mass_area_density
+        ratio = input_quantity_per_area.convert(pfi_reference_dose.dose.unit) / pfi_reference_dose.dose.to_d
+      elsif pfi_reference_dose.dose.dimension == :volume_area_density && input_quantity_per_area.dimension == :volume_area_density
+        ratio = input_quantity_per_area.convert(pfi_reference_dose.dose.unit) / pfi_reference_dose.dose.to_d
+      end
+    end
+    ratio.to_d
+  end
+
+  # from EPHY
   def reglementary_status(target)
     dose = quantity.convert(:liter_per_hectare)
 
     # if AMM number on product
-    if product.france_maaid
+    if variant.france_maaid
 
       # get agent if exist
-      agent = Pesticide::Agent.find(product.france_maaid)
+      agent = Pesticide::Agent.find(variant.france_maaid)
 
       reglementary_doses = {}
 
@@ -136,10 +205,10 @@ class InterventionInput < InterventionProductParameter
 
   def cost_amount_computation(nature: nil, natures: {})
     return InterventionParameter::AmountComputation.failed unless product
-    incoming_parcel = product.incoming_parcel_item
+    reception_item = product.incoming_parcel_item
     options = { quantity: quantity_population, unit_name: product.unit_name }
-    if incoming_parcel && incoming_parcel.purchase_item
-      options[:purchase_item] = incoming_parcel.purchase_item
+    if reception_item && reception_item.purchase_order_item
+      options[:purchase_order_item] = reception_item.purchase_order_item
       return InterventionParameter::AmountComputation.quantity(:purchase, options)
     else
       options[:catalog_usage] = :purchase

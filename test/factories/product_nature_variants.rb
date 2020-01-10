@@ -28,4 +28,13 @@ FactoryBot.define do
     association :nature, factory: :deliverable_nature
     association :category, factory: :deliverable_category
   end
+
+  factory :service_variant, class: ProductNatureVariant do
+    sequence(:name) { |n| "Service #{n}" }
+    variety         { 'service' }
+    unit_name       { 'hour' }
+
+    association :nature, factory: :services_nature
+    association :category, factory: :deliverable_category
+  end
 end

@@ -1,78 +1,82 @@
-- if f.object.errors.any? && Rails.env.development?
-  = f.object.errors.inspect
-- procedure = f.object.procedure
-- content_for :main_title do
-  - interpolations = { number: f.object.number, nature: f.object.nature.l }
-  - action_title_key = ['new', 'create'].include?(action_name) ? 'new' : 'edit'
+#intervention-form
+  - if f.object.errors.any? && Rails.env.development?
+    = f.object.errors.inspect
+  - procedure = f.object.procedure
+  - content_for :main_title do
+    - interpolations = { number: f.object.number, nature: f.object.nature.l }
+    - action_title_key = ['new', 'create'].include?(action_name) ? 'new' : 'edit'
+    - if procedure
+      - action_title_key << '_specified'
+      - interpolations[:procedure_name] = procedure.human_name
+    - action_title_key << "_#{f.object.nature}" unless f.object.record?
+    = "actions.#{controller_path}.#{action_title_key}".t(interpolations)
+
+  = hidden_field_tag 'intervention_id', f.object.id
+
+  - if f.object.new_record?
+    - f.object.auto_calculate_working_periods = true
+  = f.input :auto_calculate_working_periods, as: :hidden
+
+  -# Show the different kind of intervention, or the form to create intervention
   - if procedure
-    - action_title_key << '_specified'
-    - interpolations[:procedure_name] = procedure.human_name
-  - action_title_key << "_#{f.object.nature}" unless f.object.record?
-  = "actions.#{controller_path}.#{action_title_key}".t(interpolations)
+    = hidden_field_tag :updater, compute_backend_interventions_path(format: :json), data: {procedure_computing: procedure.name}
+    = field_set do
+      = f.input :procedure_name, as: :hidden, input_html: { data: { procedure: compute_backend_interventions_path(format: :json) }}
+      = f.input :nature, as: :hidden
+      = f.input :state, as: :hidden
+      = hidden_field_tag('is_harvesting', f.object.decorate.harvesting?)
 
-= hidden_field_tag 'intervention_id', f.object.id
+      #working-periods
+        - unless f.object.working_periods.any?
+          - stopped_at ||= Time.zone.now
+          - started_at ||= stopped_at - 1.hour
+          - f.object.working_periods.new(started_at: started_at, stopped_at: stopped_at)
+        = f.nested_association(:working_periods, minimum: 1, locals: {namespace: 'working_periods'}, collection: f.object.working_periods.sort_by(&:started_at), partial: '/backend/interventions/working_period_fields')
+      - if f.object.record?
+        = f.referenced_association :request_intervention, new: false, as: :hidden
+      = f.referenced_association :issue, new: false
+      = f.input :description
+      - procedure.mandatory_actions.each do |a|
+        = hidden_field_tag('intervention[actions][]', a.name)
+      - if procedure.optional_actions.any?
+        = f.items_list(:actions, selection: procedure.optional_actions_selection, required: procedure.mandatory_actions.empty?)
+      - if f.object.record?
+        = f.input :trouble_encountered, show: '#problem-description'
+        #problem-description
+          = f.input :trouble_description, as: :text
+      = f.custom_fields
+      #prescriptions
+        = f.referenced_association :prescription
+        -#= f.referenced_association :recommender
+      #labellings
+        = f.nested_association(:labellings, partial: '/backend/interventions/labelling_fields')
 
-- if f.object.new_record?
-  - f.object.auto_calculate_working_periods = true
-= f.input :auto_calculate_working_periods, as: :hidden
+    = field_set :parameters do
+      - procedure.each_parameter do |parameter|
+        = render '/backend/interventions/parameter_form', reference: parameter, f: f, namespace: ''
 
--# Show the different kind of intervention, or the form to create intervention
-- if procedure
-  = hidden_field_tag :updater, compute_backend_interventions_path(format: :json), data: {procedure_computing: procedure.name}
-  = field_set do
-    = f.input :procedure_name, as: :hidden, input_html: { data: { procedure: compute_backend_interventions_path(format: :json) }}
-    = f.input :nature, as: :hidden
-    = f.input :state, as: :hidden
-    = f.referenced_association :issue, new: false
-    - if f.object.record?
-      = f.referenced_association :request_intervention, new: false, as: :hidden
-    = f.input :description
-    - procedure.mandatory_actions.each do |a|
-      = hidden_field_tag('intervention[actions][]', a.name)
-    - if procedure.optional_actions.any?
-      = f.items_list(:actions, selection: procedure.optional_actions_selection, required: procedure.mandatory_actions.empty?)
-    - if f.object.record?
-      = f.input :trouble_encountered, show: '#problem-description'
-      #problem-description
-        = f.input :trouble_description, as: :text
-    = f.custom_fields
-    #prescriptions
-      = f.referenced_association :prescription
-      -#= f.referenced_association :recommender
-    #working-periods
-      - unless f.object.working_periods.any?
-        - stopped_at ||= Time.zone.now
-        - started_at ||= stopped_at - 1.hour
-        - f.object.working_periods.new(started_at: started_at, stopped_at: stopped_at)
-      = f.nested_association(:working_periods, minimum: 1, locals: {namespace: 'working_periods'})
-    #labellings
-      = f.nested_association(:labellings)
+      -# - if procedure.parameters.any?{|p| p.is_a?(Procedo::Procedure::ProductParameter) and p.beta?}
+      -#   %span.beta
+      -#     = :beta_description.tl
+    = field_set :service_delivering do
+      = f.nested_association(:receptions, maximum: 1, button_label: :add_service_delivering.tl, partial: '/backend/interventions/reception_fields')
+  - else # Root Procedure Natures
+    - main_period_selector(:year)
+    - Nomen::ActivityFamily.find_each do |family|
+      - categories = Nomen::ProcedureCategory.select { |c| c.activity_family.include?(family.name.to_sym) }
+      - next unless categories.any?
+      .activity-family
+        .activity-family-heading
+          %h2.activity-family-title= family.human_name
+        .activity-family-body
+          - categories.sort{|a,b| a.human_name <=> b.human_name }.each do |category|
+            = dropdown_menu_button(category.human_name, class: 'btn-group-lg procedure-dropdown', icon: false) do |menu|
+              - Procedo::Procedure.of_main_category(category.name.to_sym).sort{|a,b| a.human_name <=> b.human_name }.each do |procedure|
+                - menu.item procedure.human_name, { procedure_name: procedure.name, redirect: params[:redirect], nature: params[:nature] }
 
-  = field_set :parameters do
-    - procedure.each_parameter do |parameter|
-      = render 'parameter_form', reference: parameter, f: f, namespace: ''
-
-    - if procedure.parameters.any?{|p| p.is_a?(Procedo::Procedure::ProductParameter) and p.beta?}
-      %span.beta
-        = :beta_description.tl
-
-- else # Root Procedure Natures
-  - main_period_selector(:year)
-  - Nomen::ActivityFamily.find_each do |family|
-    - categories = Nomen::ProcedureCategory.select { |c| c.activity_family.include?(family.name.to_sym) }
-    - next unless categories.any?
-    .activity-family
-      .activity-family-heading
-        %h2.activity-family-title= family.human_name
-      .activity-family-body
-        - categories.sort{|a,b| a.human_name <=> b.human_name }.each do |category|
-          = dropdown_menu_button(category.human_name, class: 'btn-group-lg procedure-dropdown', icon: false) do |menu|
-            - Procedo::Procedure.of_main_category(category.name.to_sym).sort{|a,b| a.human_name <=> b.human_name }.each do |procedure|
-              - menu.item procedure.human_name, { procedure_name: procedure.name, redirect: params[:redirect], nature: params[:nature] }
-
-  - form_action_content(:after) do
-    %span.pull-right
-      = label_tag do
-        = check_box_tag('value', 'true', user_preference_value(User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM, true), data: { remote: true, url: backend_preference_path(id: User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM), method: 'PATCH' })
-        = :view_map_when_creating_an_intervention.tl
-  - f.clear_actions!
+    - form_action_content(:after) do
+      %span.pull-right
+        = label_tag do
+          = check_box_tag('value', 'true', user_preference_value(User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM, true), data: { remote: true, url: backend_preference_path(id: User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM), method: 'PATCH' })
+          = :view_map_when_creating_an_intervention.tl
+    - f.clear_actions!

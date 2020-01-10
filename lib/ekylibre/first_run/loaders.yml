@@ -32,62 +32,6 @@ entities:
 
 # Land parcels
 land_parcels:
-  telepac_v2014_cap_land_parcels:
-    format: :archive
-    path: 'ilot.zip'
-    files:
-      - 'ilot.shp'
-      - 'ilot.dbf'
-      - 'ilot.shx'
-    in: 'telepac'
-  telepac_v2014_land_parcels:
-    format: :archive
-    path: 'parcelle.zip'
-    files:
-      - 'parcelle.shp'
-      - 'parcelle.dbf'
-      - 'parcelle.shx'
-    in: 'telepac'
-
-  telepac_v2015_cap_land_parcels:
-    format: :archive
-    path: 'ilot.zip'
-    files:
-      - 'ilot.shp'
-      - 'ilot.dbf'
-      - 'ilot.shx'
-    in: 'telepac/2015'
-  telepac_v2015_land_parcels:
-    format: :archive
-    path: 'parcelle.zip'
-    files:
-      - 'parcelle.shp'
-      - 'parcelle.dbf'
-      - 'parcelle.shx'
-    in: 'telepac/2015'
-
-  equipments_georeadings:
-    format: :archive
-    path: 'equipments.zip'
-    type: ekylibre_georeadings
-    mimetype: application/vnd.ekylibre.georeading.polygon
-    files:
-      georeading.shp: 'equipments.shp'
-      georeading.dbf: 'equipments.dbf'
-      georeading.shx: 'equipments.shx'
-    in: 'alamano/georeadings'
-
-  geolocations_georeadings:
-    format: :archive
-    path: 'geolocations.zip'
-    type: ekylibre_georeadings
-    mimetype: application/vnd.ekylibre.georeading.point
-    files:
-      georeading.shp: 'geolocations.shp'
-      georeading.dbf: 'geolocations.dbf'
-      georeading.shx: 'geolocations.shx'
-    in: 'alamano/georeadings'
-
   cultivable_zones_georeadings:
     format: :archive
     path: 'cultivable_zones.zip'
@@ -97,28 +41,6 @@ land_parcels:
       georeading.shp: 'cultivable_zones.shp'
       georeading.dbf: 'cultivable_zones.dbf'
       georeading.shx: 'cultivable_zones.shx'
-    in: 'alamano/georeadings'
-
-  building_divisions_georeadings:
-    format: :archive
-    path: 'building_divisions.zip'
-    type: ekylibre_georeadings
-    mimetype: application/vnd.ekylibre.georeading.polygon
-    files:
-      georeading.shp: 'building_divisions.shp'
-      georeading.dbf: 'building_divisions.dbf'
-      georeading.shx: 'building_divisions.shx'
-    in: 'alamano/georeadings'
-
-  buildings_georeadings:
-    format: :archive
-    path: 'buildings.zip'
-    type: ekylibre_georeadings
-    mimetype: application/vnd.ekylibre.georeading.polygon
-    files:
-      georeading.shp: 'buildings.shp'
-      georeading.dbf: 'buildings.dbf'
-      georeading.shx: 'buildings.shx'
     in: 'alamano/georeadings'
 
   zones_georeadings:
@@ -137,6 +59,57 @@ land_parcels:
 
   ekylibre_cultivable_zones:
     path: 'alamano/cultivable_zones.csv'
+
+  telepac_v2014_cap_land_parcels:
+    format: :archive
+    path: 'ilot.zip'
+    files:
+      - 'ilot.shp'
+      - 'ilot.dbf'
+      - 'ilot.shx'
+    in: 'telepac'
+
+  telepac_v2014_land_parcels:
+    format: :archive
+    path: 'parcelle.zip'
+    files:
+      - 'parcelle.shp'
+      - 'parcelle.dbf'
+      - 'parcelle.shx'
+    in: 'telepac'
+
+  telepac_v2015_cap_land_parcels:
+    format: :archive
+    path: 'ilot.zip'
+    files:
+      - 'ilot.shp'
+      - 'ilot.dbf'
+      - 'ilot.shx'
+    in: 'telepac/2015'
+
+  telepac_v2015_land_parcels:
+    format: :archive
+    path: 'parcelle.zip'
+    files:
+      - 'parcelle.shp'
+      - 'parcelle.dbf'
+      - 'parcelle.shx'
+    in: 'telepac/2015'
+
+  telepac_v2015_cap_statements:
+    path: 'telepac/2015/statement.xml'
+
+  telepac_v2016_cap_statements:
+    path: 'telepac/2016/statement.xml'
+
+  telepac_v2017_cap_statements:
+    path: 'telepac/2017/statement.xml'
+
+  telepac_v2018_cap_statements:
+    path: 'telepac/2018/statement.xml'
+
+  telepac_v2019_cap_statements:
+    path: 'telepac/2019/statement.xml'
 
   ekylibre_plants:
     path: 'alamano/plants.csv'
@@ -168,10 +141,54 @@ land_parcels:
     in: 'unicoque/plantation'
 
 buildings:
+  building_divisions_georeadings:
+    format: :archive
+    path: 'building_divisions.zip'
+    type: ekylibre_georeadings
+    mimetype: application/vnd.ekylibre.georeading.polygon
+    files:
+      georeading.shp: 'building_divisions.shp'
+      georeading.dbf: 'building_divisions.dbf'
+      georeading.shx: 'building_divisions.shx'
+    in: 'alamano/georeadings'
+
+  buildings_georeadings:
+    format: :archive
+    path: 'buildings.zip'
+    type: ekylibre_georeadings
+    mimetype: application/vnd.ekylibre.georeading.polygon
+    files:
+      georeading.shp: 'buildings.shp'
+      georeading.dbf: 'buildings.dbf'
+      georeading.shx: 'buildings.shx'
+    in: 'alamano/georeadings'
+
   ekylibre_zones:
     path: 'alamano/zones.csv'
 
 equipments:
+  equipments_georeadings:
+    format: :archive
+    path: 'equipments.zip'
+    type: ekylibre_georeadings
+    mimetype: application/vnd.ekylibre.georeading.polygon
+    files:
+      georeading.shp: 'equipments.shp'
+      georeading.dbf: 'equipments.dbf'
+      georeading.shx: 'equipments.shx'
+    in: 'alamano/georeadings'
+
+  geolocations_georeadings:
+    format: :archive
+    path: 'geolocations.zip'
+    type: ekylibre_georeadings
+    mimetype: application/vnd.ekylibre.georeading.point
+    files:
+      georeading.shp: 'geolocations.shp'
+      georeading.dbf: 'geolocations.dbf'
+      georeading.shx: 'geolocations.shx'
+    in: 'alamano/georeadings'
+
   ekylibre_equipments:
     path: 'alamano/equipments.csv'
   equipments_pictures:
@@ -249,6 +266,8 @@ sales:
     path: 'alamano/incoming_payments.csv'
 
 deliveries:
+  caj_incoming_deliveries:
+    path: 'caj/appros.csv'
   charentes_alliance_incoming_deliveries:
     path: 'charentes_alliance/appros.csv'
   charentes_alliance_outgoing_deliveries:
@@ -276,6 +295,9 @@ interventions:
   ekylibre_interventions:
     path: 'alamano/interventions.csv'
 
+  # Import interventions from DAPLOS EDI
+  #agroedi_daplos:
+    #path: 'daplos/interventions.edi'
   # Import interventions from viniteca
   viniteca_interventions:
     format: :archive
@@ -300,3 +322,7 @@ interventions:
       - 'equipments_transcode.csv'
       - 'interventions.csv'
     in: 'isaculture'
+
+accountancy:
+  isagri_isacompta_fixed_assets:
+    path: 'isacompta/fixed_assets.csv'

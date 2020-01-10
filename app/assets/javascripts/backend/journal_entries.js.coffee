@@ -21,6 +21,7 @@
         label = change_item.find('label[data-change-label]')
         label.html(label.data('change-label').replace(/\{\{FROM\}\}/, data.from).replace(/\{\{TO\}\}/, data.to))
         change_item.find('.financial-year-currency').html(data.to)
+    $.checkDate($(this))
 
   $(document).on('change keyup', '#journal-entry-form #journal_entry_printed_on', E.checkFinancialYearCurrency)
 

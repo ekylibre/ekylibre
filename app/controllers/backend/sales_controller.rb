@@ -22,13 +22,15 @@ module Backend
 
     respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
+    before_action :save_search_preference, only: :index
+
     unroll :number, :amount, :currency, :created_at, client: :full_name
 
     # management -> sales_conditions
     def self.sales_conditions
       code = search_conditions(sales: %i[pretax_amount amount number initial_number description], entities: %i[number full_name]) + " ||= []\n"
       code << "if params[:period].present? && params[:period].to_s != 'all'\n"
-      code << "  c[0] << ' AND #{Sale.table_name}.invoiced_at::DATE BETWEEN ? AND ?'\n"
+      code << "  c[0] << ' AND #{Sale.table_name}.created_at::DATE BETWEEN ? AND ?'\n"
       code << "  if params[:period].to_s == 'interval'\n"
       code << "    c << params[:started_on]\n"
       code << "    c << params[:stopped_on]\n"
@@ -90,13 +92,13 @@ module Backend
       t.column :amount, currency: true
     end
 
-    list(:parcels, children: :items, conditions: { sale_id: 'params[:id]'.c }) do |t|
+    list(:shipments, children: :items, conditions: { sale_id: 'params[:id]'.c }) do |t|
       t.column :number, children: :product_name, url: true
       t.column :delivery_mode
       t.column :delivery
       t.column :address, label_method: :coordinate, children: false
       t.status
-      t.column :state
+      t.column :state, label_method: :human_state_name
       t.column :transporter, children: false, url: true
       t.action :edit, if: :updateable?
       t.action :destroy, if: :destroyable?
@@ -160,7 +162,7 @@ module Backend
                                      } },
                                      affair: { methods: [:balance], include: [incoming_payments: { include: :mode }] },
                                      invoice_address: { methods: [:mail_coordinate] },
-                                     items: { methods: %i[taxes_amount tax_name tax_short_label], include: [:variant, parcel_items: { include: %i[product parcel] }] } }) do |format|
+                                     items: { methods: %i[taxes_amount tax_name tax_short_label], include: [:variant, shipment_items: { include: %i[product parcel] }] } }) do |format|
         format.html do
           t3e @sale.attributes, client: @sale.client.full_name, state: @sale.state_label, label: @sale.label
         end

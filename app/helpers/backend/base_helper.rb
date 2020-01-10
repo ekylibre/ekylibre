@@ -53,6 +53,11 @@ module Backend
       Ekylibre.menu
     end
 
+    # Sort list of array (with label and id) with accent
+    def accented_sort(list)
+      list.sort_by { |e, _i| I18n.transliterate e }
+    end
+
     # BasicCalendar permits to fix some SimpleCalendar issues with param name
     # and partial.
     class BasicCalendar < SimpleCalendar::MonthCalendar
@@ -292,6 +297,11 @@ module Backend
       render 'backend/shared/financial_year_selector', financial_year: current_user.current_financial_year, param_name: options[:param_name] || :current_financial_year
     end
 
+    def financial_year_started_on_stopped_on
+      fy = FinancialYear.current
+      { data: { started_on: fy.started_on, stopped_on: fy.stopped_on } }
+    end
+
     def lights(status, html_options = {})
       if html_options.key?(:class)
         html_options[:class] << " lights lights-#{status}"
@@ -462,13 +472,13 @@ module Backend
       element_class = html_options[:class] || 'period'
       title = html_options[:title] || ''
       url = html_options[:url] || nil
+      data_toggle = html_options['data-toggle'] || nil
 
-      content_tag(:div, style: style, class: element_class, title: title) do
+      content_tag(:div, style: style, class: element_class, data: html_options[:data]) do
         if url.nil?
-          content_tag(:i, '', class: "picto picto-#{picto_class}")
+          content_tag(:i, '', class: "picto picto-#{picto_class}", 'data-toggle': data_toggle, title: title)
         else
-
-          link_to(url) do
+          link_to(url, 'data-toggle': data_toggle, title: title) do
             content_tag(:i, '', class: "picto picto-#{picto_class}")
           end
         end

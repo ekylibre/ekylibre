@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2018 Brice Texier, David Joulin
+# Copyright (C) 2012-2019 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -108,6 +108,9 @@ class ProductNature < Ekylibre::Record::Base
   scope :depreciables, -> { joins(:category).merge(ProductNatureCategory.depreciables).order(:name) }
   scope :storage, -> { of_expression('can store(matter) or can store_liquid or can store_fluid or can store_gaz') }
   scope :identifiables, -> { of_variety(:animal) + select(&:population_counting_unitary?) }
+  scope :services, -> { of_variety(:service) }
+  scope :tools, -> { of_variety(:equipment) }
+
   # scope :producibles, -> { where(:variety => ["bos", "animal", "plant", "organic_matter"]).order(:name) }
 
   scope :derivative_of, proc { |*varieties| of_derivative_of(*varieties) }

@@ -1,7 +1,8 @@
 = main_informations do
   - if @document.file.exists?
     .picture
-      = link_to(backend_document_path(@document, format: :pdf)) do
+      - file_format = @document.file_content_type == "application/xml" ? :xml : :pdf
+      = link_to(backend_document_path(@document, format: file_format), target: '_blank') do
         = image_tag(backend_document_path(@document, format: :jpg))
       .archived-at= @document.created_at.l
       - if @document.template

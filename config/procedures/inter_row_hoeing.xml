@@ -2,7 +2,7 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="inter_row_hoeing" categories="crop_maintenance" optional-actions="weeding, loosening">
     <parameters>
-      <target name="crop" filter="is plant and has indicator shape">
+      <target name="plant" filter="is plant and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
       <doer name="driver" filter="can drive(equipment) and can move" cardinality="*"/>

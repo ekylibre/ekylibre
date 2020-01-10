@@ -34,6 +34,7 @@ module Backend
       code << "   c << interval.second\n"
       code << " end\n"
       code << "end\n"
+
       code << "if params[:dead_at].present? && params[:dead_at].to_s != 'all'\n"
       code << " c[0] << ' AND #{Plant.table_name}.dead_at::DATE BETWEEN ? AND ?'\n"
       code << " if params[:dead_at].to_s == 'interval'\n"
@@ -45,6 +46,7 @@ module Backend
       code << "   c << interval.second\n"
       code << " end\n"
       code << "end\n"
+
       code << "if params[:variety].present?\n"
       code << " c[0] << ' AND #{Plant.table_name}.variety = ?'\n"
       code << " c << params[:variety]\n"

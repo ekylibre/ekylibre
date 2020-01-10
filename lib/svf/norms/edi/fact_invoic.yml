@@ -1,0 +1,129 @@
+---
+encoding: 'ISO-8859-15'
+root:
+  - purchases: "*"
+
+lines:
+  purchase:
+    key: "UNH  "
+    cells:
+      - purchase_order: string-14 #
+    children:
+      - header: 1
+      - suppliers: "*"
+      - clients: "*"
+      - currency: 1
+      - start_item: "*"
+      - items: "*"
+      - footer: 1
+      - purchase_end: 1
+
+  header:
+    key: "BGM  "
+    occurrence: 1
+    cells:
+      - purchase_type: string-3 #invoice : 380 /
+      - purchase_code: string-3 # ACA / ACF / ...
+      - purchase_title: string-32
+      - purchase_number: string-35
+      - purchase_printed_on: string-8
+      - unknow_2: string-2
+      - account_type: string-2 # CC / CS
+      - activity_type: string-2 # 01 / 03
+      - activity_name: string-31
+
+  client:
+    key: "NAD3 "
+    occurrence: 1
+    cells:
+      - client_name: string-28 #invoice : 380 /
+
+  supplier:
+    key: "NAD1 "
+    cells:
+      - supplier_type: string-3 #invoice : 380 /
+      - supplier_number: string-14 #invoice : 380 /
+
+  currency:
+    key: "CUX  "
+    occurrence: 1
+    cells:
+      - currency: string-3 #EUR
+
+  start_item:
+    key: "UNS  "
+    occurrence: 2
+    cells:
+      - type: string-1 #EUR
+
+  item:
+    key: "LIN  "
+    cells:
+      - order: string-6
+      - work_number: string-10
+      - unknow_1: string-25
+      - work_number_type: string-3 # SA / EN
+      - client_work_number: string-35
+      - client_work_number_type: string-3 # TA / TC / IN
+      - price_unit: decimal-17.3
+      - unknow_2: string-2
+      - unit: string-3
+      - quantity: decimal-11.4
+      - pretax_amount: decimal-17.3
+      - unknow_3: string-17
+      - sign: string-1 # F = + / A = -
+    children:
+      - reference: "?"
+      - detail: "?"
+      - tax: 1
+
+  reference:
+    key: "RFF  "
+    occurrence: 1
+    cells:
+      - code: string-3
+      - description: string-35
+      - date: string-8
+
+  detail:
+    key: "IMD  "
+    occurrence: 1
+    cells:
+      - order: string-3
+      - description: string-35
+      - number: string-35
+      - category: string-35
+
+  tax:
+    key: "TRI  "
+    occurrence: 1
+    cells:
+      - order: string-6
+      - rate: decimal-8.4
+      - amount: decimal-17.3
+
+  footer:
+    key: "TMA  "
+    occurrence: 1
+    cells:
+      - global_amount: decimal-17.3
+      - global_pretax_amount: decimal-17.3
+      - unknow: string-51
+      - global_tax_amount: decimal-17.3
+    children:
+      - taxe_subtotals: "*"
+
+  taxe_subtotal:
+    key: "TXS  "
+    cells:
+      - code: string-6
+      - rate: decimal-8.4
+      - pretax_amount: decimal-17.3
+      - tax_amount: decimal-17.3
+
+  purchase_end:
+    key: "UNT  "
+    occurrence: 1
+    cells:
+      - global_order_number: string-14
+      - purchase_order: string-14

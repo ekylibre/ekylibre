@@ -8,12 +8,28 @@
       - started_at = f.object.intervention.started_at
     - else
       - started_at = f.object.intervention.working_periods.map(&:started_at).min
+
   - started_at ||= Time.now
   - if reference.output?
     = f.referenced_association :variant, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: { data: { intervention_updater: prefix + 'variant_id' }}
     -#= f.referenced_association :product, as: :hidden, input_html: { data: { intervention_updater: prefix + 'product_id' }}
   - else
-    = f.referenced_association :product, label: reference.human_name, source: { scope: reference.scope_hash.merge(availables: [at: started_at.strftime("%Y-%m-%d %H:%M")]), keep: true }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'product_id' } }, new: false
+    - if f.object.reference_name.to_sym == :cultivation
+      .control-group.land-parcel-plant-selector
+        = label_tag :target.tl, nil, class: 'control-label'
+
+        .controls
+          = radio_button_tag 'target', 'plant', f.object.decorate.plant?, class: 'plant-radio-button'
+          = label_tag :plant.tl
+          = radio_button_tag 'target', 'land_parcel', f.object.decorate.land_parcel?, class: 'land-parcel-radio-button'
+          = label_tag :land_parcel_name.tl
+
+    = f.referenced_association :product, label: reference.human_name, source: { scope: reference.scope_hash.merge(availables: [at: started_at.strftime("%Y-%m-%d %H:%M")]), keep: true, partial_unroll: reference.input? }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'product_id', harvest_in_progress_error_message: t('errors.messages.harvest_in_progress') } }, new: false
+
+    - if reference.tool?
+      .tool-nested-readings.hidden
+        = f.nested_association :readings, partial: '/backend/interventions/hour_counter_fields', maximum: 1
+
 
   - if reference.doer? || reference.tool?
     - if !f.object.new_record?
@@ -21,17 +37,45 @@
       - datas = { participation: f.object.participation.id  } unless f.object.participation.nil?
       %div{ class: "has-intervention-participations picto picto-#{participation_picto}", data: datas }
 
+      - decorated_object = f.object.decorate
+      - if decorated_object.participation?
+        - field_name = "intervention[participations_attributes][#{ decorated_object.participation.id }]"
+        - field_value = decorated_object.participation_to_json
+        = hidden_field_tag field_name, field_value, { class: 'intervention-participation', data: { product_id: f.object.product_id }}
+
+    -# This case appends when duplicating an intervention with participations
+    - if f.object.new_record? && @intervention.participations.any?
+      - @intervention.participations.each_with_index do |participation, i|
+        - unless participation.product_id == f.object.product_id
+          - participation_picto = 'timer-off'
+          - next
+        - participation_picto = 'timer'
+        - field_name = "intervention[participations_attributes][#{i}]"
+        - participation_json = JSON.parse(participation.to_json(include: :working_periods))
+        - participation_json['working_periods_attributes'] = participation_json.delete('working_periods')
+        - field_value = participation_json.to_json
+        = hidden_field_tag field_name, field_value, { class: 'intervention-participation', data: { product_id: f.object.product_id }}
+        %div{ class: "has-intervention-participations picto picto-#{participation_picto}" }
+
     = modal(id: "working_times", class: "working-times", size: :large) do
       .modal-body
       .modal-footer
-
   - if reference.quantified?
-    = render 'quantifier_field', f: f, reference: reference, prefix: prefix
+    = render '/backend/interventions/quantifier_field', f: f, reference: reference, prefix: prefix
   - if (attr = reference.attribute(:new_name))
     - if attr.hidden?
-      = f.input :new_name, as: :hidden, input_html: { data: { intervention_updater: prefix + 'new_name' }}
+      - if reference.procedure.of_category?(:planting)
+        = f.input :variety, as: :hidden, input_html: { data: { intervention_updater: prefix + 'variety' }}
+        = f.input :batch_number, as: :hidden, input_html: { data: { intervention_updater: prefix + 'batch_number' }}
+      - else
+        = f.input :new_name, as: :hidden, input_html: { data: { intervention_updater: prefix + 'new_name' }}
     - else
-      = f.input :new_name, input_html: { data: { intervention_updater: prefix + 'new_name' }}
+      - if reference.procedure.of_category?(:planting)
+        = f.input :variety, input_html: { data: { intervention_updater: prefix + 'variety' }}
+        = f.input :batch_number, input_html: { data: { intervention_updater: prefix + 'batch_number' }}
+      - else
+        = f.input :new_name, input_html: { data: { intervention_updater: prefix + 'new_name' }}
+
   - if (attr = reference.attribute(:identification_number))
     - if attr.hidden?
       = f.input :identification_number, as: :hidden, input_html: { data: { intervention_updater: prefix + 'identification_number' }}
@@ -50,7 +94,7 @@
       = f.input :new_variant_id, input_html: { data: { intervention_updater: prefix + 'new_variant_id' }}
 
   - if reference.attribute(:working_zone)
-    - if user_preference_value(User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM)
+    - if user_preference_value(User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM, true)
       = f.geometry :working_zone, { show: {}, input_html: { data: { intervention_updater: prefix + 'working_zone' }}, editor: {useFeatures: true, overlaySelector: { editionLayer: f.object.human_attribute_name(:working_zone) }, dynamic_series: backend_map_editor_shapes_path(layers: [:land_parcels, :plants], started_at: started_at)} }
     - else
       - working_zone = f.object.working_zone.to_json if f.object.working_zone.present?
@@ -59,7 +103,7 @@
   - if reference.attribute(:killable)
     = f.yes_no_radio :dead, label: reference.killable_question
   - if reference.component_of?
-    = render 'component_field', f: f, reference: reference, prefix: prefix
+    = render '/backend/interventions/component_field', f: f, reference: reference, prefix: prefix
 
 
   - if reference.readings.any?

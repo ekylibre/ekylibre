@@ -21,6 +21,8 @@
         = content_tag(:div, nil, :class => "task-data #{data[:class]}", style: data[:style]) do
           - unless data[:icon].blank?
             = content_tag(:i, nil, :class => "picto picto-#{data[:icon]} #{data[:icon_class]}")
+          - if data[:image].present?
+            = image_tag(data[:image], class: 'calendar-img')
           - unless data[:text].blank?
             = content_tag(:span, data[:text], :class => "data-text #{data[:text_class]}")
 

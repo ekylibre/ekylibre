@@ -37,6 +37,22 @@ class ::Symbol
   end
 end
 
+class ::DateTime
+  def self.soft_parse(*args, &block)
+    DateTime.parse(*args, &block)
+  rescue ArgumentError
+    nil
+  end
+end
+
+class ::Date
+  def self.soft_parse(*args, &block)
+    Date.parse(*args, &block)
+  rescue ArgumentError
+    nil
+  end
+end
+
 class ::Time
   def to_usec
     (utc.to_f * 1000).to_i
@@ -171,7 +187,7 @@ module ActiveModel
       # to be validated instead of "sometime strings, sometime symbols"
       def include?(record, value)
         value = value.to_s if value.is_a? Symbol
-        super record, value 
+        super record, value
         # `super` here references ActiveModel::Validations::Clusitivity#include?
       end
     end

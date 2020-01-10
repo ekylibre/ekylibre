@@ -18,6 +18,8 @@
 
 module Backend
   class OutgoingPaymentListsController < Backend::BaseController
+    include PdfPrinter
+
     manage_restfully only: %i[index destroy]
 
     respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
@@ -41,7 +43,7 @@ module Backend
       t.column :bank_check_number
       t.column :to_bank_at
       t.column :work_name, through: :affair, label: :affair_number, url: { controller: :purchase_affairs }
-      t.column :deal_work_name, through: :affair, label: :purchase_number, url: { controller: :purchases, id: 'RECORD.affair.deals_of_type(Purchase).first.id'.c }
+      t.column :deal_work_name, through: :affair, label: :purchase_number, url: { controller: :purchase_invoices, id: 'RECORD.affair.deals_of_type(Purchase).first.id'.c }
       t.column :bank_statement_number, through: :journal_entry, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statements.first.id'.c }
     end
 
@@ -51,42 +53,23 @@ module Backend
 
       @entity_of_company_full_name = Entity.of_company.full_name
 
-      if %w[pdf odt docx xml csv].include? params[:format].to_s
-        respond_with(
-          @outgoing_payment_list,
-          methods: %i[currency payments_sum entity],
-          include: {
-            payer: {
-              methods: [:picture_path],
-              include: {
-                default_mail_address: {
-                  methods: [:mail_coordinate]
-                },
-                websites: {},
-                emails: {},
-                mobiles: {}
-              }
-            },
-            payments: {
-              methods: %i[amount_to_letter label affair_reference_numbers],
-              include: {
-                responsible: {},
-                affair: { include: { purchases: {} } },
-                mode: {},
-                payee: {
-                  include: {
-                    default_mail_address: {
-                      methods: [:mail_coordinate]
-                    },
-                    websites: {},
-                    emails: {},
-                    mobiles: {}
-                  }
-                }
-              }
-            }
-          }
-        )
+      document_nature = Nomen::DocumentNature.find(:outgoing_payment_list)
+      key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
+      file_name = "#{t('nomenclatures.document_natures.items.outgoing_payment_list')} (#{@outgoing_payment_list.number})"
+
+      respond_to do |format|
+        format.html
+        format.pdf do
+          template_name = "#{params[:nature]}_outgoing_payment_list"
+          template_path = find_open_document_template template_name
+          raise 'Cannot find template' if template_path.nil?
+          outgoing_payment_list_printer = OutgoingPaymentListPrinter.new(outgoing_payment_list: @outgoing_payment_list,
+                                                                         document_nature: document_nature,
+                                                                         key: key,
+                                                                         template_path: template_path,
+                                                                         nature: params[:nature])
+          send_file outgoing_payment_list_printer.run_pdf, type: 'application/pdf', disposition: 'attachment', filename: "#{file_name}.pdf"
+        end
       end
     end
 
@@ -104,25 +87,27 @@ module Backend
       @outgoing_payment_list = OutgoingPaymentList.new
       @affairs = []
 
-      if params[:started_at].present? && params[:stopped_at].present? && params[:outgoing_payment_list] && params[:outgoing_payment_list][:mode_id]
+      if params[:period_reference] && params[:outgoing_payment_list] && params[:outgoing_payment_list][:mode_id]
+        params[:started_at] = FinancialYear.minimum(:started_on) if params[:started_at].blank?
+        params[:stopped_at] = FinancialYear.maximum(:stopped_on) if params[:stopped_at].blank?
         mode = OutgoingPaymentMode.find_by(id: params[:outgoing_payment_list][:mode_id])
         @outgoing_payment_list.mode = mode
-
         if @outgoing_payment_list.valid?
           @currency = mode.cash.currency
           @affairs = PurchaseAffair
-                     .joins(:purchases)
+                     .joins(:purchase_invoices)
                      .joins(:supplier)
                      .includes(:supplier)
                      .where(closed: false, currency: mode.cash.currency)
-                     .where("((purchases.payment_at IS NOT NULL AND purchases.payment_at BETWEEN ? AND ?) OR (purchases.payment_at IS NULL AND purchases.invoiced_at BETWEEN ? AND ?)) AND purchases.state = 'invoice'", params[:started_at], params[:stopped_at], params[:started_at], params[:stopped_at])
-                     .where(entities: { supplier_payment_mode_id: mode.id })
+                     .where("purchases.#{params[:period_reference]} IS NOT NULL AND purchases.#{params[:period_reference]} BETWEEN ? AND ?", params[:started_at], params[:stopped_at])
+                     .where.not(purchases: { id: nil })
                      .order('entities.full_name ASC')
-                     .order('purchases.payment_at ASC', :number)
+                     .order("purchases.#{params[:period_reference]} ASC", :number)
 
           notify_warning :no_purchase_affair_found_on_given_period if @affairs.empty?
         end
       end
+      @submit_label = :search.tl if @affairs.none?
     end
 
     def create
@@ -138,7 +123,7 @@ module Backend
 
         redirect_to action: :show, id: outgoing_payment_list.id
       else
-        redirect_to new_backend_outgoing_payment_list_path(params.slice(:started_at, :stopped_at, :outgoing_payment_list, :bank_check_number))
+        redirect_to new_backend_outgoing_payment_list_path(params.slice(:period_reference, :started_at, :stopped_at, :outgoing_payment_list, :bank_check_number))
       end
     end
 

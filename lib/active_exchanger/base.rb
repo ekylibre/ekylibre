@@ -105,6 +105,12 @@ module ActiveExchanger
         klass
       end
 
+      def find_by(nature)
+        find nature
+      rescue
+        nil
+      end
+
       # This method check file by default by trying a run and
       # and if no exception raise, it's fine so changes are rolled back.
       def check_by_default

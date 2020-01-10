@@ -1,2 +1,6 @@
-= kujaku
+= kujaku do |k|
+  - k.text
+  - k.multi_choice :account_lettering_state, [[:account_lettered.tl, :lettered], [:partially_lettered_unlettered.tl, 'partially_lettered,unlettered']], label: :account_lettering_state.tl
+  - k.helper :journal_period_crit, :label => :accounts_only_used_at.tl, :default => :all
+
 = main_list(:reconciliation)

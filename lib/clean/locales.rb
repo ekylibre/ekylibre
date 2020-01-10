@@ -313,7 +313,7 @@ module Clean
           to_translate += 1
           if (name = ref[:aggregator_parameters][param_name]) && name.present?
             translation << "    #{param_name}: " + Clean::Support.yaml_value(name) + "\n"
-          elsif name = I18n.translate_or_nil("labels.#{param_name}") || I18n.hardtranslate("attributes.#{param_name}")
+          elsif name = I18n.translate_or_nil("labels.#{param_name}") || I18n.translate_or_nil("attributes.#{param_name}")
             to_translate -= 1
             translation << "    #~ #{param_name}: " + Clean::Support.yaml_value(name) + "\n"
           else
@@ -337,7 +337,7 @@ module Clean
           elsif property_name.to_s.underscore != property_name.to_s
             to_translate -= 1
             translation << "    #~ #{property_name}: " + Clean::Support.yaml_value(property_name.to_s.underscore.humanize) + "\n"
-          elsif name = I18n.translate_or_nil("attributes.#{property_name}") || I18n.hardtranslate("labels.#{property_name}") || I18n.hardtranslate("activerecord.models.#{property_name}")
+          elsif name = I18n.translate_or_nil("attributes.#{property_name}") || I18n.translate_or_nil("labels.#{property_name}") || I18n.translate_or_nil("activerecord.models.#{property_name}")
             to_translate -= 1
             translation << "    #~ #{property_name}: " + Clean::Support.yaml_value(name) + "\n"
           else

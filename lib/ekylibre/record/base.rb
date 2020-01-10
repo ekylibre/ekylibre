@@ -7,6 +7,9 @@ module Ekylibre
     end
 
     class Base < ActiveRecord::Base
+      include ConditionalReadonly # TODO: move to ApplicationRecord
+      prepend IdHumanizable
+      include ScopeIntrospection # TODO: move to ApplicationRecord
       include Userstamp::Stamper
       include Userstamp::Stampable
 
@@ -89,7 +92,6 @@ module Ekylibre
       end
 
       class << self
-        attr_accessor :scopes
         attr_accessor :readonly_counter
 
         def has_picture(options = {})
@@ -113,37 +115,6 @@ module Ekylibre
         def columns_definition
           Ekylibre::Schema.tables[table_name] || {}.with_indifferent_access
         end
-
-        def simple_scopes
-          (scopes || []).select { |x| x.arity.zero? }
-        end
-
-        def complex_scopes
-          (scopes || []).reject { |x| x.arity.zero? }
-        end
-
-        # Permits to consider something and something_id like the same
-        def scope_with_registration(name, body, &block)
-          self.scopes ||= []
-          # Check body.is_a?(Relation) to prevent the relation actually being
-          # loaded by respond_to?
-          if body.is_a?(::ActiveRecord::Relation) || !body.respond_to?(:call)
-            ActiveSupport::Deprecation.warn('Using #scope without passing a callable object is deprecated. For ' \
-                                            "example `scope :red, where(color: 'red')` should be changed to " \
-                                            "`scope :red, -> { where(color: 'red') }`. There are numerous gotchas " \
-                                            'in the former usage and it makes the implementation more complicated ' \
-                                            'and buggy. (If you prefer, you can just define a class method named ' \
-                                            "`self.red`.)\n" + caller.join("\n"))
-          end
-          arity = begin
-                    body.arity
-                  rescue
-                    0
-                  end
-          self.scopes << Scope.new(name.to_sym, arity)
-          scope_without_registration(name, body, &block)
-        end
-        alias_method_chain :scope, :registration
 
         def nomenclature_reflections
           @nomenclature_reflections ||= {}.with_indifferent_access
@@ -198,36 +169,6 @@ module Ekylibre
             self[reflection.foreign_key].present? && item >= self[reflection.foreign_key]
           end
         end
-
-        # Permits to consider something and something_id like the same
-        def human_attribute_name_with_id(attribute, options = {})
-          human_attribute_name_without_id(attribute.to_s.gsub(/_id\z/, ''), options)
-        end
-        alias_method_chain :human_attribute_name, :id
-
-        # Permits to add conditions on attr_readonly
-        def attr_readonly_with_conditions(*args)
-          options = args.extract_options!
-          return attr_readonly_without_conditions(*args) unless options[:if]
-          if options[:if].is_a?(Symbol)
-            method_name = options[:if]
-          else
-            self.readonly_counter ||= 0
-            method_name = "readonly_#{self.readonly_counter += 1}?"
-            send(:define_method, method_name, options[:if])
-          end
-          code = ''
-          code << "before_update do\n"
-          code << "  if self.#{method_name}\n"
-          code << "    old = #{name}.find(self.id)\n"
-          args.each do |attribute|
-            code << "  self['#{attribute}'] = old['#{attribute}']\n"
-          end
-          code << "  end\n"
-          code << "end\n"
-          class_eval code
-        end
-        alias_method_chain :attr_readonly, :conditions
       end
     end
   end
