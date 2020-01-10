@@ -78,8 +78,6 @@ module PanierLocal
       # Ouverture et décodage: CSVReader::read(file)
       rows = ActiveExchanger::CsvReader.new.read(file)
 
-      w.count = rows.size
-
       parser = ActiveExchanger::CsvParser.new(NORMALIZATION_CONFIG)
 
       data, errors = parser.normalize(rows)

@@ -24,10 +24,12 @@ module ActiveExchanger
         value = row[c[:col]]
         type = c[:type]
         constraint = c[:constraint]
+
         value = value.blank? ? nil : transform(value, type)
-        h[key] = value
         valid = constraint ? validate(value, constraint) : true
-        invalid_fields << key if constraint && !validate(value, constraint)
+
+        invalid_fields << key if valid === false
+        h[key] = value
       end
 
       [h.to_struct, invalid_fields]
