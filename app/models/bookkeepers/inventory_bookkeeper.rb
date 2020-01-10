@@ -17,6 +17,7 @@ class InventoryBookkeeper < Ekylibre::Bookkeeper
   #          Mode Inventory     |     Debit                      |            Credit            |
   #     physical inventory      |    stock(3X)                   |   stock_movement(603X/71X)   |
   def call
+    return if disable_accountancy
     journal = ensure_journal_present
 
     journal_entry(journal, printed_on: achieved_at.to_date, if: (financial_year && reflected?)) do |entry|
