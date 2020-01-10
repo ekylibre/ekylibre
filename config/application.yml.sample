@@ -10,3 +10,8 @@ ELASTIC_APM_ACTIVE: false
 ELASTIC_APM_ENVIRONMENT: not-configured
 ELASTIC_APM_SERVER_URL: https://apm.ekylibre.dev
 ELASTIC_APM_SECRET_TOKEN:
+
+MATOMO_ID_SITE:
+MATOMO_SERVER_URL: "matomo.ekylibre.dev"
+MATOMO_ASYNC: "true"
+MATOMO_ENABLE: "false"
