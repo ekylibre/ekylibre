@@ -1,7 +1,7 @@
 require 'test_helper'
 module Backend
   module Products
-    class SearchProductsControllerTest < ActionController::TestCase
+    class SearchProductsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
       test_restfully_all_actions except: :datas
 
       test 'nothing' do

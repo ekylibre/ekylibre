@@ -2,7 +2,7 @@ require 'test_helper'
 require 'procedo'
 
 module Procedo
-  class FormulaTest < ActiveSupport::TestCase
+  class FormulaTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     setup do
       I18n.locale = ENV['LOCALE']
     end

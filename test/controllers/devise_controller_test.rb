@@ -1,3 +1,3 @@
 require 'test_helper'
-class DeviseControllerTest < ActionController::TestCase
+class DeviseControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
 end

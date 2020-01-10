@@ -315,21 +315,6 @@ module Backend
       end
     end
 
-    def state_bar(resource, options = {})
-      machine = resource.class.state_machine
-      state = resource.state
-      state = machine.state(state.to_sym) unless state.is_a?(StateMachine::State) || state.nil?
-      render 'state_bar', states: machine.states, current_state: state, resource: resource, renamings: options[:renamings]
-    end
-
-    def main_state_bar(resource, options = {})
-      content_for(:main_statebar, state_bar(resource, options))
-    end
-
-    def main_state_bar_tag
-      content_for(:main_statebar) if content_for?(:main_statebar)
-    end
-
     def main_list(*args)
       options = args.extract_options!
       list *args, options.deep_merge(content_for: { settings: :meta_toolbar, pagination: :meta_toolbar, actions: :main_toolbar })

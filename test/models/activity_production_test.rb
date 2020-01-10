@@ -50,7 +50,7 @@
 #
 require 'test_helper'
 
-class ActivityProductionTest < ActiveSupport::TestCase
+class ActivityProductionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
   test 'create' do

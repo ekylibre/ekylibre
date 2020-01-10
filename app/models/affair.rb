@@ -234,7 +234,13 @@ class Affair < Ekylibre::Record::Base
   end
 
   def status
-    (closed? ? :go : deals_count > 1 ? :caution : :stop)
+    if closed?
+      :go
+    elsif deals_count > 1
+      :caution
+    else
+      :stop
+    end
   end
 
   # Reload and save! affair to force counts and sums computation

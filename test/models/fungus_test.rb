@@ -87,7 +87,7 @@
 #
 require 'test_helper'
 
-class FungusTest < ActiveSupport::TestCase
+class FungusTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

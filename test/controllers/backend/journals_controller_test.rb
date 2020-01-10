@@ -18,7 +18,7 @@
 
 require 'test_helper'
 module Backend
-  class JournalsControllerTest < ActionController::TestCase
+  class JournalsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions close: :get_and_post, except: :reopen
 
     test 'reopen action in get mode' do

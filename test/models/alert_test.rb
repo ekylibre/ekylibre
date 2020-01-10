@@ -33,7 +33,7 @@
 #
 require 'test_helper'
 
-class AlertTest < ActiveSupport::TestCase
+class AlertTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # test "the truth" do
   #   assert true
   # end

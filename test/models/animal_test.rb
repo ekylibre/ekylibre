@@ -87,7 +87,7 @@
 #
 require 'test_helper'
 
-class AnimalTest < ActiveSupport::TestCase
+class AnimalTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

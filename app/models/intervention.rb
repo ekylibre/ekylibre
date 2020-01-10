@@ -99,6 +99,7 @@ class Intervention < Ekylibre::Record::Base
     has_many :tools, class_name: 'InterventionTool'
     has_many :working_periods, class_name: 'InterventionWorkingPeriod', dependent: :destroy
     has_many :leaves_parameters, -> { where.not(type: InterventionGroupParameter) }, class_name: 'InterventionParameter'
+    has_many :agents, class_name: 'InterventionAgent'
   end
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true

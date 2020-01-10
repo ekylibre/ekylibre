@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Ekylibre
-  class GeneratorTest < ActiveSupport::TestCase
+  class GeneratorTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     setup do
     end
 

@@ -33,7 +33,7 @@
 #
 require 'test_helper'
 
-class TokenTest < ActiveSupport::TestCase
+class TokenTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # test "the truth" do
   #   assert true
   # end

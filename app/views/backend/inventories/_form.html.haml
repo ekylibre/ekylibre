@@ -16,6 +16,7 @@
     = f.input :product_nature_category_id, as: :hidden
 
   :ruby
+    # TODO: move this logic outside of the view!
     f.object.build_missing_items
     items = f.object.items.to_a
     if params[:product_id]

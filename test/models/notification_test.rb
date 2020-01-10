@@ -39,7 +39,7 @@
 #
 require 'test_helper'
 
-class NotificationTest < ActiveSupport::TestCase
+class NotificationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

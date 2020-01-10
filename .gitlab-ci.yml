@@ -1,0 +1,73 @@
+image: docker:18
+
+services:
+  - docker:18-dind
+
+variables:
+  DOCKER_HOST: tcp://localhost:2375
+  TEST_IMAGE: ${CI_REGISTRY_IMAGE}/test:$CI_COMMIT_REF_SLUG
+  TEST_LATEST: ${CI_REGISTRY_IMAGE}/test:latest
+#  PROD_RAILS: ${CI_REGISTRY_IMAGE}/ekylibre-rails:$CI_COMMIT_REF_SLUG
+#  PROD_RAILS_LATEST: ${CI_REGISTRY_IMAGE}/ekylibre-rails:latest
+#  PROD_WEB: ${CI_REGISTRY_IMAGE}/ekylibre-web:$CI_COMMIT_REF_SLUG
+#  PROD_WEB_LATEST: ${CI_REGISTRY_IMAGE}/ekylibre-web:latest
+
+build:
+  stage: build
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker pull "$TEST_LATEST" || true
+    - docker pull "TEST_IMAGE" || true
+  script:
+    - docker build --pull --cache-from "$TEST_LATEST" --cache-from "$TEST_IMAGE" -t $TEST_LATEST -t $TEST_IMAGE . -f docker/test/Dockerfile
+    - docker push $TEST_IMAGE
+    - docker push $TEST_LATEST
+
+#build-prod:
+#  stage: build
+#  variables:
+#    RUBY_VERSION: "2.3"
+#  before_script:
+#    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+#    - docker pull "$PROD_RAILS" || true
+#    - docker pull "$PROD_RAILS_LATEST" || true
+#    - docker pull "$PROD_WEB" || true
+#    - docker pull "$PROD_WEB_LATEST" || true
+#  script:
+#    # Build
+#    - docker build --pull --build-arg RUBY_VERSION
+#        --cache-from "$PROD_RAILS_LATEST" --cache-from "$PROD_RAILS"
+#        -t $PROD_RAILS
+#        -f docker/prod/Dockerfile.base .
+#    - docker build --build-arg IMAGE_SOURCE="${PROD_RAILS}"
+#        --cache-from "$PROD_RAILS_LATEST" --cache-from "$PROD_RAILS"
+#        -t $PROD_RAILS_LATEST -t $PROD_RAILS
+#        -f docker/prod/Dockerfile.prod docker/prod
+#    - docker build --build-arg IMAGE_SOURCE="${PROD_RAILS}"
+#        --cache-from "$PROD_WEB" --cache-from "$PROD_WEB_LATEST"
+#        --cache-from "$PROD_RAILS_LATEST" --cache-from "$PROD_RAILS"
+#        -t $PROD_WEB -t $PROD_WEB_LATEST
+#        -f docker/prod/Dockerfile.web docker/prod
+#    # Push
+#    - docker push $PROD_RAILS
+#    - docker push $PROD_RAILS_LATEST
+#    - docker push $PROD_WEB
+#    - docker push $PROD_WEB_LATEST
+
+test:
+  image: $TEST_IMAGE
+  stage: test
+  variables:
+    # POSTGRES VARIABLES
+    POSTGRES_HOST: 127.0.0.1
+    REDIS_URL: redis://127.0.0.1:6379/
+    POSTGRES_USER: ekylibre
+    POSTGRES_DB: ekylibre_test
+    TZ: Europe/Paris
+    GIT_STRATEGY: none
+  services:
+    - mdillon/postgis:9.6-alpine
+    - redis:5.0-alpine
+  script:
+    - env
+    - bash /app/test/ci/run_tests

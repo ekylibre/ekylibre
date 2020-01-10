@@ -28,6 +28,6 @@
 #
 require 'test_helper'
 
-class RegisteredBuildingZoneTest < ActiveSupport::TestCase
+class RegisteredBuildingZoneTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

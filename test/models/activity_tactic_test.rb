@@ -36,6 +36,6 @@
 #
 require 'test_helper'
 
-class ActivityTacticTest < ActiveSupport::TestCase
+class ActivityTacticTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

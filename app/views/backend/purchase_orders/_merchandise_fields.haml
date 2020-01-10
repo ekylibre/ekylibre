@@ -1,7 +1,7 @@
 - item ||= f.object
 
 .form-field.role-row.role-row--merchandise
-  .item-block-role
+  .item-block-role.item-block-role--purchase-order
     :ruby
       options = {
         label: :merchandise.tl,
@@ -21,6 +21,13 @@
         required: true,
       }
     = f.referenced_association(:variant, **options)
+    .annotation-logo
+      - if f.object.annotation.blank?
+        = link_to("#", data: { annotate: ".annotate", use_closest: "tbody" }, title: :add_annotation.tl) do
+          %i
+      / = f.input_field :computation_method, as: :hidden, data: { compute_from_updater: true }
+
+
 
   .item-block-quantity
     .storing-fields
@@ -51,4 +58,9 @@
           %span.stock-value= f.object.decorate.merchandise_stock_after_order
           %span.stock-unit= f.object.decorate.merchandise_stock_unit
 
+.annotation-section
+  .annotation-field
+    - attrs = {}
+    - attrs[:style] = "display: none" if f.object.annotation.blank?
+    .annotate{attrs}= f.input(:annotation, wrapper: :nested, input_html: { class: "annotation" })
 

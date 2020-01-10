@@ -18,7 +18,7 @@
 
 require 'test_helper'
 module Backend
-  class AnimalsControllerTest < ActionController::TestCase
+  class AnimalsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions add_to_variant: :get_and_post,
                                # add_to_group: :get_and_post, # TODO: Re-activate this test
                                add_to_container: :get_and_post,

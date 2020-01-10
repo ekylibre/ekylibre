@@ -62,7 +62,6 @@ module Backend
     end
 
     list(conditions: list_conditions) do |t|
-      t.action :edit
       t.action :destroy, if: :destroyable?
       t.column :name, url: true
       t.column :work_number

@@ -56,8 +56,14 @@ class CapIslet < Ekylibre::Record::Base
     joins(:cap_statement).merge(CapStatement.of_campaign(*campaigns))
   }
 
-  def self.bounding_box
-    box = ActiveRecord::Base.connection.execute('SELECT ST_Extent(shape) FROM cap_islets').to_a.first['st_extent']
+  # TODO: Write this with a scope
+  def self.bounding_box(islets = [])
+    if islets.present?
+      box = ActiveRecord::Base.connection.execute("SELECT ST_Extent(shape) FROM cap_islets WHERE id IN (#{islets.map(&:id).join(', ')})").to_a.first['st_extent']
+    else
+      box = ActiveRecord::Base.connection.execute('SELECT ST_Extent(shape) FROM cap_islets').to_a.first['st_extent']
+    end
+
     points = ActiveRecord::Base.connection.execute("SELECT ST_XMin(CAST('#{box}' As box2d)), ST_YMin(CAST('#{box}' As box2d)), ST_XMax(CAST('#{box}' As box2d)), ST_YMax(CAST('#{box}' As box2d))")
     points.first.values
   end

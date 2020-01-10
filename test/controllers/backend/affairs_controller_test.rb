@@ -19,7 +19,7 @@
 require 'test_helper'
 
 module Backend
-  class AffairsControllerTest < ActionController::TestCase
+  class AffairsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     # Abstract controller without routes
   end
 end

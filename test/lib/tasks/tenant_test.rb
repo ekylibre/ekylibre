@@ -2,7 +2,7 @@ require 'test_helper'
 
 module Ekylibre
   module Tasks
-    class TenantTest < ActiveSupport::TestCase
+    class TenantTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       setup do
         ENV['TENANT'] = 'my_awesome_tenant'
 

@@ -1,5 +1,5 @@
 require 'test_helper'
 module Devise
-  class RegistrationsControllerTest < ActionController::TestCase
+  class RegistrationsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
   end
 end

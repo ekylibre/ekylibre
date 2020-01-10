@@ -1,5 +1,5 @@
 require 'test_helper'
 
-class SequenceManagerTest < ActiveSupport::TestCase
+class SequenceManagerTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

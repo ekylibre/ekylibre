@@ -1,6 +1,6 @@
 require 'test_helper'
 module Backend
-  class PreferencesControllerTest < ActionController::TestCase
+  class PreferencesControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions only: []
 
     test 'update' do

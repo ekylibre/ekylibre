@@ -18,7 +18,7 @@
 
 require 'test_helper'
 module Backend
-  class AccountsControllerTest < ActionController::TestCase
+  class AccountsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions mark: :show, unmark: :touch, load: :index, except: :reconciliable_list
   end
 end

@@ -41,7 +41,7 @@
 #
 require 'test_helper'
 
-class FinancialYearExchangeTest < ActiveSupport::TestCase
+class FinancialYearExchangeTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
   test 'opened scope includes opened exchanges' do

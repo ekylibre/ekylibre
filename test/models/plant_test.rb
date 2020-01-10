@@ -87,7 +87,7 @@
 #
 require 'test_helper'
 
-class PlantTest < ActiveSupport::TestCase
+class PlantTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   test 'plant status' do
     Plant.find_each do |plant|

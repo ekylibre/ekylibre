@@ -29,6 +29,6 @@
   - c.cobble :items, title: PurchaseOrder.human_attribute_name(:items) do
     = cobble_list :items do
       %tr.total
-        %th{ colspan: 5 }= :total.tl
+        %th{ colspan: 8 }= :total.tl
         %td= "#{resource.pretax_amount.l(currency: resource.currency)} #{:pretax.tl}"
         %td= "#{resource.amount.l(currency: resource.currency)} #{:including_vat.tl}"

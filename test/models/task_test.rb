@@ -40,7 +40,7 @@
 #
 require 'test_helper'
 
-class TaskTest < ActiveSupport::TestCase
+class TaskTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

@@ -43,7 +43,8 @@
 #
 require 'test_helper'
 
-class FixedAssetDepreciationTest < ActiveSupport::TestCase
-  test_model_actions
+class FixedAssetDepreciationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
+  # TODO: Re-enable this with accountancy
+  #test_model_actions
   # Add tests here...
 end

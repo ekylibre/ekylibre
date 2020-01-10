@@ -118,6 +118,9 @@ class ReceptionItem < ParcelItem
     end
   end
 
+  after_destroy do
+    purchase_order_item.purchase.update_reconciliation_status! if purchase_order_item
+  end
   # protect(allow_update_on: ALLOWED, on: %i[create destroy update]) do
   #  !reception_allow_items_update?
   # end

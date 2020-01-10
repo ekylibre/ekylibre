@@ -36,7 +36,7 @@
 #
 require 'test_helper'
 
-class GapItemTest < ActiveSupport::TestCase
+class GapItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

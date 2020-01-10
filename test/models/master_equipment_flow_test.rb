@@ -32,6 +32,6 @@
 #
 require 'test_helper'
 
-class MasterEquipmentFlowTest < ActiveSupport::TestCase
+class MasterEquipmentFlowTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

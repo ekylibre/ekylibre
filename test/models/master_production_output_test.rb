@@ -31,6 +31,6 @@
 #
 require 'test_helper'
 
-class MasterProductionOutputTest < ActiveSupport::TestCase
+class MasterProductionOutputTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

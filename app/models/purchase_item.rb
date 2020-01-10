@@ -71,8 +71,8 @@ class PurchaseItem < Ekylibre::Record::Base
   belongs_to :depreciable_product, class_name: 'Product'
 
   with_options class_name: 'ReceptionItem' do
-    has_many :parcels_purchase_orders_items, inverse_of: :purchase_order_item, foreign_key: 'purchase_order_item_id'
-    has_many :parcels_purchase_invoice_items, inverse_of: :purchase_invoice_item, foreign_key: 'purchase_invoice_item_id'
+    has_many :parcels_purchase_orders_items, inverse_of: :purchase_order_item, foreign_key: 'purchase_order_item_id', dependent: :nullify
+    has_many :parcels_purchase_invoice_items, inverse_of: :purchase_invoice_item, foreign_key: 'purchase_invoice_item_id', dependent: :nullify
   end
 
   # has_many :products, through: :parcels_purchase_orders_items
@@ -93,7 +93,7 @@ class PurchaseItem < Ekylibre::Record::Base
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :currency, match: { with: :purchase }
   validates :account, :tax, :reduction_percentage, presence: true
-  validates :variant, presence: true, unless: proc { |item| item&.variant && (item.variant.variety.eql?('trailed_equipment') || item.variant.variety.eql?('equipment')) }
+  validates :variant, presence: true, unless: proc { |item| item.variant&.variety.eql?('trailed_equipment') || item.variant&.variety.eql?('equipment') }
   validates :quantity, exclusion: { in: [0], message: :invalid }
 
   validates_associated :fixed_asset
@@ -144,6 +144,7 @@ class PurchaseItem < Ekylibre::Record::Base
       self.fixed_asset = nil
       self.depreciable_product = nil
     end
+
 
     if tax && unit_pretax_amount
       precision = Maybe(Nomen::Currency.find(currency)).precision.or_else(2)

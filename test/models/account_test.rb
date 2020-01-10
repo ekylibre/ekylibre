@@ -40,7 +40,7 @@
 #
 require 'test_helper'
 
-class AccountTest < ActiveSupport::TestCase
+class AccountTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
   test 'load the accounts' do

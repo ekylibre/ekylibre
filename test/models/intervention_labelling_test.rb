@@ -33,6 +33,6 @@
 #
 require 'test_helper'
 
-class InterventionLabellingTest < ActiveSupport::TestCase
+class InterventionLabellingTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

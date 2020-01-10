@@ -19,7 +19,7 @@
 module Backend
   class PurchaseInvoicesController < Backend::BaseController
     manage_restfully planned_at: 'Time.zone.today+2'.c, redirect_to: '{action: :show, id: "id".c}'.c,
-                     except: :new, continue: [:nature_id]
+                     except: %i[new create update], continue: [:nature_id]
 
     respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
@@ -145,7 +145,8 @@ module Backend
         permitted_params[:items_attributes].each do |_key, item_attribute|
           ids = item_attribute[:parcels_purchase_invoice_items]
           parcel_item_ids = ids.blank? ? [] : JSON.parse(ids)
-          item_attribute[:parcels_purchase_invoice_items] = ParcelItem.find(parcel_item_ids)
+          unreconciled_parcel_items = ParcelItem.where(id: parcel_item_ids).reject { |parcel_item| parcel_item.purchase_invoice_item }
+          item_attribute[:parcels_purchase_invoice_items] = unreconciled_parcel_items
         end
       end
 
@@ -157,7 +158,11 @@ module Backend
               params[:redirect] || { action: :show, id: 'id'.c }
             end
 
-      return if save_and_redirect(@purchase_invoice, url: url, notify: :record_x_created, identifier: :number)
+      if @purchase_invoice.items.blank?
+        notify_error_now :purchase_invoice_need_at_least_one_item
+      else
+        return if save_and_redirect(@purchase_invoice, url: url, notify: :record_x_created, identifier: :number)
+      end
       render(locals: { cancel_url: { action: :index }, with_continue: true })
     end
 
@@ -172,11 +177,16 @@ module Backend
         end
       end
 
-      if @purchase_invoice.update_attributes(permitted_params)
-        redirect_to action: :show
-      else
-        render :edit
+      @purchase_invoice.assign_attributes(permitted_params)
+
+      if @purchase_invoice.items.all?(&:marked_for_destruction?)
+        notify_error_now :purchase_invoice_need_at_least_one_item
+      elsif @purchase_invoice.save
+        return redirect_to(params[:redirect] || { action: :show, id: @purchase_invoice.id },
+                           notify: :record_x_updated,
+                           identifier: :number)
       end
+      render :edit
     end
 
     def payment_mode

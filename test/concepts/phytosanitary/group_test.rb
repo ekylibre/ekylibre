@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Phytosanitary
-  class GroupTest < ActiveSupport::TestCase
+  class GroupTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     # Add tests here...
   end
 end

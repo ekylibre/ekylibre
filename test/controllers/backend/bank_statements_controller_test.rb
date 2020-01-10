@@ -18,7 +18,7 @@
 
 require 'test_helper'
 module Backend
-  class BankStatementsControllerTest < ActionController::TestCase
+  class BankStatementsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions new: { cash_id: 1 },
                                create: { bank_statement: { cash_id: 1 } },
                                # reconciliation: :get_and_post, # TODO: Re-activate this test

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -e
+
+until nc -z -v -w30 ${POSTGRES_HOST} 5432
+do
+  echo 'Waiting for PostgreSQL...'
+  sleep 1
+done
+echo "PostgreSQL is up and running"
+
+if [[ $# -gt 0 ]]; then
+    $*
+fi

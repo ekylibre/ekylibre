@@ -73,7 +73,7 @@
 #
 require 'test_helper'
 
-class UserTest < ActiveSupport::TestCase
+class UserTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   test 'preferences' do
     user = User.first

@@ -1,6 +1,6 @@
 require 'test_helper'
 module Backend
-  class ProductsControllerTest < ActionController::TestCase
+  class ProductsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     # TODO: Re-activate #show and #edit tests
     test_restfully_all_actions except: %i[show edit update_many]
 

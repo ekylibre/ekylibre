@@ -1,6 +1,6 @@
 module Backend
   class ReceptionsController < Backend::ParcelsController
-    manage_restfully
+    manage_restfully except: %i[new create update]
 
     respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
@@ -137,6 +137,38 @@ module Backend
       end
 
       render locals: { with_continue: true }
+    end
+
+    def create
+      @reception = Reception.new(permitted_params)
+
+      if @reception.items.blank?
+        @reception.validate(:perform_validations)
+        notify_error_now :reception_need_at_least_one_item
+      else
+        return if save_and_redirect(@reception,
+                                    url: (params[:create_and_continue] ? { :action=>:new, :continue=>true} : (params[:redirect] || ({ action: :show, id: 'id'.c }))),
+                                    notify: ((params[:create_and_continue] || params[:redirect]) ? :record_x_created : false),
+                                    identifier: :number)
+      end
+      render(locals: { cancel_url: {:action=>:index}, with_continue: false })
+    end
+
+    def update
+      return unless @reception = find_and_check(:reception)
+
+      t3e(@reception.attributes)
+
+      @reception.assign_attributes(permitted_params)
+
+      if @reception.items.all?(&:marked_for_destruction?)
+        notify_error_now :reception_need_at_least_one_item
+      elsif @reception.save
+        return redirect_to(params[:redirect] || { action: :show, id: @reception.id },
+                           notify: :record_x_updated,
+                           identifier: :number)
+      end
+      render(locals: { cancel_url: {:action=>:index}, with_continue: false })
     end
 
     Reception.state_machine.events.each do |event|

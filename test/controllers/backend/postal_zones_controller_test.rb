@@ -18,7 +18,7 @@
 
 require 'test_helper'
 module Backend
-  class PostalZonesControllerTest < ActionController::TestCase
+  class PostalZonesControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions show: :redirected_get, autocomplete: { column: :name, q: '3451' }
   end
 end

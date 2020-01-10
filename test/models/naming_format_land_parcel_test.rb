@@ -33,6 +33,6 @@
 #
 require 'test_helper'
 
-class NamingFormatLandParcelTest < ActiveSupport::TestCase
+class NamingFormatLandParcelTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

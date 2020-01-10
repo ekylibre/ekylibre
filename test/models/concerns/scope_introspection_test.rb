@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ScopeInstrospectionTest < ActiveSupport::TestCase
+class ScopeInstrospectionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   class Introspectable
     include ScopeIntrospection
 

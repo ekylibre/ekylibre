@@ -18,7 +18,7 @@
 
 require 'test_helper'
 module Backend
-  class SaleNaturesControllerTest < ActionController::TestCase
+  class SaleNaturesControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions
   end
 end

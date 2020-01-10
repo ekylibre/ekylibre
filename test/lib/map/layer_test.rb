@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Map
-  class LayerTest < ActiveSupport::TestCase
+  class LayerTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     test 'should load layers' do
       path = fixture_file('map_layers.yml')
       assert path.exist?, "Map layers config file doesn't exist"

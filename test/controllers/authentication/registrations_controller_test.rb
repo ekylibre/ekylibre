@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Authentication
-  class RegistrationsControllerTest < ActionController::TestCase
+  class RegistrationsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     include ActiveJob::TestHelper
 
     setup do

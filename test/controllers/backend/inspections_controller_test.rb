@@ -1,6 +1,6 @@
 require 'test_helper'
 module Backend
-  class InspectionsControllerTest < ActionController::TestCase
+  class InspectionsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     # TODO: Re-activate #show test
     test_restfully_all_actions new: { params: { activity_id: 1 } }, except: %i[create export show]
 

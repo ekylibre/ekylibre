@@ -54,11 +54,11 @@ fra:
     is_cultivation_completely_destroyed_by_straw_bunching: "L'intervention détruit-elle cette parcelle/culture\_?"
     is_cultivation_completely_destroyed_by_swathing: "L'intervention détruit-elle cette parcelle/culture\_?"
     is_it_completely_destroyed_by_intervention: "Est-ce complètement détruit par l'intervention\_?"
-    is_plant_completely_destroyed_by_harvesting: "Is plant completely destroyed by harvesting?"
+    is_plant_completely_destroyed_by_harvesting: "Est-ce complètement détruit par la récolte\_??"
     is_plant_completely_destroyed_by_intervention: "L'intervention détruit-elle cette culture\_?"
-    is_plant_completely_destroyed_by_lifting: "Is plant completely destroyed by lifting?"
-    is_plant_completely_destroyed_by_plant_mowing: "Is plant completely destroyed by plant mowing?"
-    is_plant_completely_destroyed_by_topkilling: "Is plant completely destroyed by topkilling?"
+    is_plant_completely_destroyed_by_lifting: "Est-ce complètement détruit par le relevage\_??"
+    is_plant_completely_destroyed_by_plant_mowing: "Est-ce complètement détruit par le fauchage\_?"
+    is_plant_completely_destroyed_by_topkilling: "Est-ce complètement détruit par le défanage\_?"
   procedure_parameters:
     adding_wine: "Vin (mineur)"
     adding_wine_to_blend: "Vin à assembler (mineur)" #?
@@ -446,4 +446,4 @@ fra:
     walnuts_transport: "Transport de noix" #?
     watering: "Irrigation" #?
     wine_blending: "Assemblage de vin"
-    wine_bottling: "Embouteillage de vin"
+    wine_bottling: "Mise en bouteille"

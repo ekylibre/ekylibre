@@ -50,6 +50,6 @@
 #
 require 'test_helper'
 
-class OutgoingPaymentTest < ActiveSupport::TestCase
+class OutgoingPaymentTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

@@ -31,12 +31,12 @@
 
     _bindButtons: (form) ->
       that = this
-      $(form).find('button[data-validate="item-form"]').each ->
+      $(form).find('[data-validate="item-form"]').each ->
         $(this).click (event) ->
           that.validate()
           event.preventDefault()
 
-      $(form).find('button[data-cancel="item-form"]').each ->
+      $(form).find('[data-cancel="item-form"]').each ->
         $(this).click (event) ->
           that.cancel()
           event.preventDefault()
@@ -77,6 +77,7 @@
       @oldForm().remove()
       @newForm().addClass('hidden')
       @setFormSubmitable()
+      @line.trigger('iceberg:validated', {iceberg: @, line: @line})
 
     interpolate: (form = @newForm()) ->
       @display.find('*[data-item-value]').each ->
@@ -123,6 +124,7 @@
         @display.removeClass('hidden')
         @newForm().remove()
       @setFormSubmitable()
+      @line.trigger('iceberg:cancelled', {iceberg: @, line: @line})
 
     setFormSubmitable: ->
       if $('.nested-item-form:visible').length >= 1

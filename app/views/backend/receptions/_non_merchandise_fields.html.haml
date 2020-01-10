@@ -9,7 +9,7 @@
           data: {
             product_of_delivery_item: {
               url: backend_product_nature_variant_path("RECORD_ID", format: :json),
-              scope: 'unit'
+              scope: 'target'
             },
             required: true,
           }
@@ -21,11 +21,11 @@
     .item-block__quantifier
       .item-quantifier-population
         = f.input :population, wrapper: :append do
-          = f.input_field :population, class: "total-quantity", placeholder: '0', data: {"when-item": "unitary", "when-set-value": 1, "when-prop-value": "disabled", required: true}
+          = f.input_field :population, class: "total-quantity", placeholder: '0', data: {"when-item": "unitary", "when-set-value": 1, "when-prop-value": "disabled", 'when-scope': 'target', required: true }
   - else
     .item-block__quantifier
       .item-quantifier-population
         = f.input :population, wrapper: :append do
-          = f.input_field :population, class: "total-quantity", placeholder: '0', data: {"when-item": "unitary", "when-set-value": 1, "when-prop-value": "disabled", required: true}
+          = f.input_field :population, class: "total-quantity", placeholder: '0', data: {"when-item": "unitary", "when-set-value": 1, "when-prop-value": "disabled", 'when-scope': 'target', required: true }
           %span.add-on.item-population-unit-name
             = variant.unit_name.or_else('unité')

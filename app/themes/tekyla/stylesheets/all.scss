@@ -1,9 +1,9 @@
 /*
  * This is a manifest file that'll be compiled into screen.css, which will include all the files
  * listed below.
- *= require flatpickr
- *= require flatpickr/plugins/confirmDate/confirmDate
- *= require flatpickr/themes/material_blue
+ *= require flatpickr/dist/flatpickr
+ *= require flatpickr/dist/plugins/confirmDate/confirmDate
+ *= require flatpickr/dist/themes/material_blue
  *= require_self
  */
 
@@ -63,6 +63,8 @@
 @import "tour";
 @import "plants";
 @import "wice_grid";
+
+@import "./components/index";
 
 // Optimization
 @import "symbolic_icons";

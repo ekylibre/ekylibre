@@ -3,7 +3,7 @@ require 'test_helper'
 module Backend
   module BankReconciliation
     # Tests the lettering/unlettering.
-    class LettersControllerTest < ActionController::TestCase
+    class LettersControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
       LETTER = 'B'.freeze
 
       setup do

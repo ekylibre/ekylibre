@@ -36,6 +36,6 @@
 #
 require 'test_helper'
 
-class ContractItemTest < ActiveSupport::TestCase
+class ContractItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

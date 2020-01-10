@@ -47,6 +47,7 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
   validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   validates :stopped_at, presence: true, timeliness: { on_or_after: ->(intervention_working_period) { intervention_working_period.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   # ]VALIDATORS]
+  validate :validate_started_stopped_at
 
   calculable period: :month, column: :duration, at: :started_at, name: :sum
 
@@ -112,20 +113,27 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
   after_commit :update_temporality, unless: -> { intervention.blank? || Intervention.find_by(id: intervention_id).nil? }
   after_destroy :update_temporality, unless: -> { intervention.blank? || Intervention.find_by(id: intervention_id).nil? }
 
-  validate do
-    if intervention.present? && intervention.targets.present?
-      intervention.targets.each do |target|
-        activity_production = target.activity_production
-        check_date_with_activity_production(activity_production) if activity_production.present?
-      end
-    end
+  def last_activity_production_started_on
+    targets = intervention&.targets || []
+    targets.map { |t| t.activity_production&.started_on }.compact.max
   end
 
-  def check_date_with_activity_production(activity_production)
-    errors.add(:started_at, :posterior, to: activity_production.started_on) if intervention.started_at < activity_production.started_on
-    errors.add(:started_at, :inferior, to: activity_production.stopped_on) if intervention.started_at > activity_production.stopped_on
-    errors.add(:stopped_at, :posterior, to: activity_production.started_on) if intervention.stopped_at < activity_production.started_on
-    errors.add(:stopped_at, :inferior, to: activity_production.stopped_on) if intervention.stopped_at > activity_production.stopped_on
+  def first_activity_production_stopped_on
+    targets = intervention&.targets || []
+    targets.map { |t| t.activity_production&.stopped_on }.compact.min
+  end
+
+  def validate_started_stopped_at
+    activity_started_on = last_activity_production_started_on
+    activity_stopped_on = first_activity_production_stopped_on
+    if activity_started_on.present?
+      errors.add(:started_at, :posterior, to: activity_started_on) if started_at < activity_started_on
+      errors.add(:stopped_at, :posterior, to: activity_started_on) if stopped_at < activity_started_on
+    end
+    if activity_stopped_on.present?
+      errors.add(:started_at, :inferior, to: activity_started_on) if started_at > activity_stopped_on
+      errors.add(:stopped_at, :inferior, to: activity_started_on) if stopped_at > activity_stopped_on
+    end
   end
 
   def hide?

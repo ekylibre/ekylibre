@@ -1,5 +1,5 @@
 require 'test_helper'
-class PublicControllerTest < ActionController::TestCase
+class PublicControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
   test 'index' do
     get :index
     assert_response :redirect

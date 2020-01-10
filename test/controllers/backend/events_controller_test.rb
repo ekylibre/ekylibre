@@ -18,7 +18,7 @@
 
 require 'test_helper'
 module Backend
-  class EventsControllerTest < ActionController::TestCase
+  class EventsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions except: [:change_minutes], autocomplete: { column: :place, q: 'par' }
   end
 end

@@ -70,14 +70,16 @@ class CustomField < Ekylibre::Record::Base
 
   before_validation do
     self.column_name ||= name
-    self.column_name = self.column_name.parameterize.gsub(/[^a-z]+/, '_').gsub(/(^\_+|\_+$)/, '')[0..62]
-    while others.where(column_name: column_name, customized_type: customized_type).any?
-      column_name.succ!
+    if column_name
+      self.column_name = self.column_name.parameterize.gsub(/[^a-z]+/, '_').gsub(/(^\_+|\_+$)/, '')[0..62]
+      while others.where(column_name: column_name, customized_type: customized_type).any?
+        column_name.succ!
+      end
     end
   end
 
   validate do
-    if customized_type.present? && !customized_type.to_s.constantize.respond_to?(:custom_fields)
+    if customized_type.nil? || !customized_type.to_s.constantize.respond_to?(:custom_fields)
       errors.add(:customized_type, :invalid)
     end
   end

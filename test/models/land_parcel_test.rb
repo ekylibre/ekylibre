@@ -88,7 +88,7 @@
 
 require 'test_helper'
 
-class LandParcelTest < ActiveSupport::TestCase
+class LandParcelTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

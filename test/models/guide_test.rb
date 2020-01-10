@@ -41,7 +41,7 @@
 #
 require 'test_helper'
 
-class GuideTest < ActiveSupport::TestCase
+class GuideTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

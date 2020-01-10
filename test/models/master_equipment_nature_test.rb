@@ -31,6 +31,6 @@
 #
 require 'test_helper'
 
-class MasterEquipmentNatureTest < ActiveSupport::TestCase
+class MasterEquipmentNatureTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

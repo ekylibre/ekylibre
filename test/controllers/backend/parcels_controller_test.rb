@@ -18,7 +18,7 @@
 
 require 'test_helper'
 module Backend
-  class ParcelsControllerTest < ActionController::TestCase
+  class ParcelsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions
   end
 end

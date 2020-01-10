@@ -27,6 +27,10 @@
         .info
           %span.title= Entity.human_attribute_name("#{nature}_account")
           %span.value= link_to(account.label, { controller: :accounts, action: :show, id: account.id })
+    - if resource.iban.present?
+      .info
+        %span.title= Entity.human_attribute_name("iban")
+        %span.value= resource.iban
   - if resource.description?
     %p= h(resource.description).gsub(/\n/, '<br/>').html_safe
 

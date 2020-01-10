@@ -130,8 +130,8 @@ class FinancialYear < Ekylibre::Record::Base
     self.stopped_on = (started_on + 11.months).end_of_month if stopped_on.blank? && started_on
     # self.stopped_on = self.stopped_on.end_of_month unless self.stopped_on.blank?
     self.code = default_code if started_on && stopped_on && code.blank?
-    code.upper!
-    code.succ! while self.class.where(code: code).where.not(id: id || 0).any?
+    code.upper! if code
+    code&.succ! while self.class.where(code: code).where.not(id: id || 0).any?
   end
 
   validate do
@@ -149,7 +149,7 @@ class FinancialYear < Ekylibre::Record::Base
 
     company = Entity.of_company
     unless company.nil?
-      errors.add(:started_on, :on_or_after, restriction: company.born_on) if company.born_on > started_on
+      errors.add(:started_on, :on_or_after, restriction: company.born_on) if started_on && company.born_on > started_on
     end
   end
 

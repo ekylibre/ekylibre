@@ -1,6 +1,6 @@
 require 'test_helper'
 
 module Backend
-  class GapsControllerTest < ActionController::TestCase
+  class GapsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
   end
 end

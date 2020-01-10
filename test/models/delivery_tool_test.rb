@@ -33,7 +33,7 @@
 #
 require 'test_helper'
 
-class DeliveryToolTest < ActiveSupport::TestCase
+class DeliveryToolTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

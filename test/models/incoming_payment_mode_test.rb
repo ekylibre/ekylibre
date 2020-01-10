@@ -45,7 +45,7 @@
 
 require 'test_helper'
 
-class IncomingPaymentModeTest < ActiveSupport::TestCase
+class IncomingPaymentModeTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

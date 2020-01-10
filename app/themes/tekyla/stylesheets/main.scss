@@ -569,6 +569,10 @@ html.exception {
   &.main-toolbar {
     @include float(left);
   }
+
+  &.main-toolbar-fullwidth {
+    width: 100%;
+  }
 }
 
 #core {
@@ -2491,65 +2495,6 @@ a[data-annotate] {
     }
   }
 }
-
-
-.state-bar {
-  display: table;
-  width: 100%;
-  .state {
-    display: table-cell;
-    background: $caution-color;
-    &.state-lost, &.state-refused, &.state-aborted, &.state-todo, &.state-scrapped, &.state-sold {
-      background: $invalid-color;
-    }
-    &.state-in_use, &.state-won, &.state-invoice, &.state-order, &.state-done, &.state-given, &.state-finished, &.state-ongoing, &.state-repaid, &.state-opened {
-      background: $success-color;
-    }
-    @include text-align(center);
-    @include box-sizing(border-box);
-    font-weight: bold;
-    text-transform: uppercase;
-    padding: $default-gap;
-    line-height: $lh-normal;
-    color: white;
-    opacity: 0.25;
-    &.active {
-      opacity: 1;
-    }
-    &.inaccessible {
-      cursor: not-allowed;
-      background: $neutral-color;
-    }
-    &[disabled], &.disabled {
-      @include disabled;
-    }
-  }
-  a.state:hover {
-    opacity: 0.66;
-  }
-  @for $i from 1 through 16 {
-    .state:first-child:nth-last-child(#{$i}),
-    .state:first-child:nth-last-child(#{$i}) ~ .state {
-      width: floor(100000% / $i) / 1000;
-    }
-  }
-  @include respond-to-smaller-than(small) {
-    display: block;
-    .state {
-      display: none;
-      width: 100% !important;
-      &.active {
-        display: block;
-      }
-    }
-    &:hover {
-      .state {
-        display: block;
-      }
-    }
-  }
-}
-
 
 *[data-toggle='face'] {
   font-size: 0;

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ConfigTest < ActiveSupport::TestCase
+class ConfigTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'paperclip interpolations' do
     tenant = Ekylibre::Tenant.current
     assert_equal 'test', tenant

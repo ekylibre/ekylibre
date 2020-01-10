@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Nomen
-  class NomenclatureSetTest < ActiveSupport::TestCase
+  class NomenclatureSetTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     setup do
       I18n.locale = ENV['LOCALE']
     end

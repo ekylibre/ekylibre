@@ -36,7 +36,7 @@
 #
 require 'test_helper'
 
-class InterventionParticipationTest < ActiveSupport::TestCase
+class InterventionParticipationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
   setup do

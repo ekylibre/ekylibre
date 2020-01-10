@@ -43,7 +43,7 @@
 #
 require 'test_helper'
 
-class LoanRepaymentTest < ActiveSupport::TestCase
+class LoanRepaymentTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

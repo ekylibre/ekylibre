@@ -1,5 +1,5 @@
 require 'test_helper'
 
-class FinancialYearExchangeExportTest < ActiveSupport::TestCase
+class FinancialYearExchangeExportTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

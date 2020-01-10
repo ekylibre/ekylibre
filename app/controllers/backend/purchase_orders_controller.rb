@@ -19,7 +19,7 @@
 module Backend
   class PurchaseOrdersController < Backend::BaseController
     manage_restfully planned_at: 'Time.zone.today+2'.c, redirect_to: '{action: :show, id: "id".c}'.c,
-                     except: :new, continue: [:nature_id]
+                     except: %i[new create], continue: [:nature_id]
 
     unroll :number, :reference_number, :ordered_at, :pretax_amount, supplier: :full_name
 
@@ -113,6 +113,37 @@ module Backend
       end
       @display_items_form = true if params[:display_items_form]
       render locals: { with_continue: true }
+    end
+
+    def create
+      @purchase_order = PurchaseOrder.new(permitted_params)
+
+      if @purchase_order.items.blank?
+        @purchase_order.validate(:perform_validations)
+        notify_error_now :purchase_order_need_at_least_one_item
+      else
+        return if save_and_redirect(@purchase_order,
+                                    url: (params[:create_and_continue] ? {:action=>:new, :continue=>true, :nature_id=>@purchase_order.nature_id} : (params[:redirect] || ({action: :show, id: "id".c}))),
+                                    notify: :record_x_created, identifier: :number)
+      end
+      render(locals: { cancel_url: {:action=>:index}, with_continue: true })
+    end
+
+    def update
+      return unless @purchase_order = find_and_check(:purchase_order)
+
+      t3e(@purchase_order.attributes)
+
+      @purchase_order.assign_attributes(permitted_params)
+
+      if @purchase_order.items.all?(&:marked_for_destruction?)
+        notify_error_now :purchase_order_need_at_least_one_item
+      elsif @purchase_order.save
+        return redirect_to(params[:redirect] || { action: :show, id: @purchase_order.id },
+                           notify: :record_x_updated,
+                           identifier: :number)
+      end
+      render :edit
     end
 
     def open

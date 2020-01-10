@@ -42,6 +42,6 @@
 #
 require 'test_helper'
 
-class PurchaseGapTest < ActiveSupport::TestCase
+class PurchaseGapTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

@@ -20,7 +20,7 @@ fra:
       inclusion: "%{attribute} n’est pas inclus dans la liste"
       invalid: "%{attribute} est invalide"
       invalid_at: "%{attribute} est invalide. Erreur près de %{error}"
-      invalid_child: "Au moins une des valeurs de %{attributes} n'est pas valide."
+      invalid_child: "Au moins une des valeurs de %{attribute} n'est pas valide."
       invalid_date: "Veuillez saisir une date au format jj-mm-aaaa ou jj/mm/aaaa"
       invalid_datetime: "%{attribute} est invalide"
       invalid_siret: "%{value} n'est pas un numéro de SIRET valide" #?
@@ -427,7 +427,6 @@ fra:
               financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période" #?
               financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
               financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
-              invalid_date: "La période d’amortissement doit débuter le %{start} ou en début de mois" #?
               not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
         fixed_asset_depreciation:
           attributes:
@@ -867,6 +866,7 @@ fra:
     cap_land_parcel: "Parcelle PAC"
     cap_land_parcels: "Parcelles PAC"
     cap_neutral_areas: "Surfaces non agricole (SNA)"
+    cap_number: "Numéro PAC"
     cap_statement: "Déclaration PAC"
     cap_statements: "Déclarations PAC"
     carried: "Tracté"
@@ -2185,14 +2185,13 @@ fra:
       purchase_regularization: "Régularisation d'achat"
       sale_regularization: "Régularisation de vente"
     delivery:
-      state_machine:
-        states:
-          draft: "Brouillon"
-          finished: "Terminée"
-          in_preparation: "En préparation"
-          ordered: "Commandée"
-          prepared: "Prête"
-          started: "Commencée"
+      states:
+        draft: "Brouillon"
+        finished: "Terminée"
+        in_preparation: "En préparation"
+        ordered: "Commandée"
+        prepared: "Prête"
+        started: "Commencée"
     deposit:
       bookkeep:
         one: "[%{resource} %{number}] %{count} encaissement %{mode} %{description}"
@@ -2224,12 +2223,11 @@ fra:
       bookkeep_exit_assets: "[%{resource} %{number}] Mise au rébut de %{name}"
       bookkeep_in_sold_assets: "[%{resource} %{number}] Cession de %{name}"
       bookkeep_in_use_assets: " [%{resource} %{number}] Mise en service de %{name}"
-      state_machine:
-        states:
-          draft: "Brouillon"
-          in_use: "En service"
-          scrapped: "Mise au rebut"
-          sold: "Vendue"
+      states:
+        draft: "Brouillon"
+        in_use: "En service"
+        scrapped: "Mise au rebut"
+        sold: "Vendue"
     fixed_asset_depreciation:
       bookkeep: "[%{resource} %{number}] Amortissement de %{name} (%{position}/%{total})"
       bookkeep_partial: "[%{resource} %{number}] Amortissement partiel de %{name} (%{position}/%{total})"
@@ -2304,11 +2302,10 @@ fra:
     loan:
       bookkeep: "[%{resource} %{name}] Réception des fonds"
       bookkeep_guarantee_payment: "[%{resource} %{name}] Paiement de la caution"
-      state_machine:
-        states:
-          draft: "Brouillon"
-          ongoing: "En cours"
-          repaid: "Remboursé"
+      states:
+        draft: "Brouillon"
+        ongoing: "En cours"
+        repaid: "Remboursé"
     loan_repayment:
       bookkeep: "[%{resource} %{name}] Remboursement n°%{position}"
     outgoing_parcel: #?
@@ -2329,14 +2326,13 @@ fra:
           name: "Virement"
     parcel:
       bookkeep: "[%{resource} %{mode} %{number}] %{entity}"
-      state_machine:
-        states:
-          draft: "Brouillon"
-          given: "Donné"
-          in_preparation: "En préparation"
-          ordered: "Commandé"
-          prepared: "Prêt"
-          received: "Reçu"
+      states:
+        draft: "Brouillon"
+        given: "Donné"
+        in_preparation: "En préparation"
+        ordered: "Commandé"
+        prepared: "Prêt"
+        received: "Reçu"
       undelivered_invoice: "Facture non parvenue [%{resource} %{mode} %{number}] %{entity}"
     payslip:
       bookkeep: "[%{resource} %{number}] %{employee} du %{started_on} au %{stopped_on}"
@@ -2409,14 +2405,13 @@ fra:
       label: "%{number}. %{amount} du %{date} en %{mode} pour %{payee}"
     reception:
       bookkeep: "[%{resource} %{number}] %{entity}"
-      state_machine:
-        states:
-          draft: "Brouillon"
-          given: "Donné"
-          in_preparation: "En préparation"
-          ordered: "Commandé"
-          prepared: "Prêt"
-          received: "Reçu"
+      states:
+        draft: "Brouillon"
+        given: "Donné"
+        in_preparation: "En préparation"
+        ordered: "Commandé"
+        prepared: "Prêt"
+        received: "Reçu"
       undelivered_invoice: "Facture non parvenue [%{resource} %{mode} %{number}] %{entity}"
     role:
       default:
@@ -2462,15 +2457,14 @@ fra:
       default:
         name: "Vente standard"
     sale_opportunity:
-      state_machine:
-        states:
-          lost: "Perdue"
-          negociation: "Négociation"
-          price_quote: "Devis"
-          prospecting: "Prospection"
-          qualification: "Qualification"
-          value_proposition: "Proposition de valeur"
-          won: "Gagnée"
+      states:
+        lost: "Perdue"
+        negociation: "Négociation"
+        price_quote: "Devis"
+        prospecting: "Prospection"
+        qualification: "Qualification"
+        value_proposition: "Proposition de valeur"
+        won: "Gagnée"
     sequence:
       default:
         affairs: "A[number|12]"
@@ -2499,27 +2493,24 @@ fra:
         transports: "TR[number|8]"
     shipment:
       bookkeep: "[%{resource} %{number}] %{entity}"
-      state_machine:
-        states:
-          draft: "Brouillon"
-          given: "Donné"
-          in_preparation: "En préparation"
-          ordered: "Commandé"
-          prepared: "Prêt"
-          received: "Reçu"
+      states:
+        draft: "Brouillon"
+        given: "Donné"
+        in_preparation: "En préparation"
+        ordered: "Commandé"
+        prepared: "Prêt"
+        received: "Reçu"
     task:
-      state_machine:
-        states:
-          doing: "En cours"
-          done: "Fini"
-          todo: "À faire"
+      states:
+        doing: "En cours"
+        done: "Fini"
+        todo: "À faire"
     tax_declaration:
       bookkeep: "[%{resource} %{number}] - Période du %{started_on} au %{stopped_on}"
-      state_machine:
-        states:
-          draft: "Brouillon"
-          sent: "Envoyée"
-          validated: "Validée"
+      states:
+        draft: "Brouillon"
+        sent: "Envoyée"
+        validated: "Validée"
     team:
       default: "Général"
     user:

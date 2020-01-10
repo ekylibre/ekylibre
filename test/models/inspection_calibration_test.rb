@@ -37,6 +37,6 @@
 #
 require 'test_helper'
 
-class InspectionCalibrationTest < ActiveSupport::TestCase
+class InspectionCalibrationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

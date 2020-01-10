@@ -1,5 +1,5 @@
 require 'test_helper'
 module Devise
-  class SessionsControllerTest < ActionController::TestCase
+  class SessionsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
   end
 end

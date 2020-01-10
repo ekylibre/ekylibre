@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Ekylibre
-  class SchemaTest < ActiveSupport::TestCase
+  class SchemaTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     # Checks the validity of references files for models
     test 'ekylibre tables' do
       Ekylibre::Schema.tables.each do |table, columns|

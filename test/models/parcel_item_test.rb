@@ -67,6 +67,6 @@
 #
 require 'test_helper'
 
-class ParcelItemTest < ActiveSupport::TestCase
+class ParcelItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

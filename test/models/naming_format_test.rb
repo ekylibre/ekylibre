@@ -33,6 +33,6 @@
 #
 require 'test_helper'
 
-class NamingFormatTest < ActiveSupport::TestCase
+class NamingFormatTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

@@ -52,6 +52,6 @@
 #
 require 'test_helper'
 
-class PayslipAffairTest < ActiveSupport::TestCase
+class PayslipAffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   include Test::Affairable
 end

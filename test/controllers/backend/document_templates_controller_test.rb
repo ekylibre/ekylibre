@@ -18,7 +18,7 @@
 
 require 'test_helper'
 module Backend
-  class DocumentTemplatesControllerTest < ActionController::TestCase
+  class DocumentTemplatesControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions show: :redirected_get
   end
 end

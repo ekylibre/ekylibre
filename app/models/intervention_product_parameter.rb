@@ -84,7 +84,7 @@ class InterventionProductParameter < InterventionParameter
   delegate :name, to: :product_nature, prefix: true
   delegate :evaluated_price, to: :product
   delegate :tracking, to: :product
-  delegate :started_at, :stopped_at, :duration, :procedure, :currency, to: :intervention
+  delegate :started_at, :stopped_at, :duration, :procedure, :currency, to: :intervention, allow_nil: true
   delegate :currency, to: :intervention, prefix: true
   delegate :matching_model, to: :variant
 

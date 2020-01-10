@@ -87,7 +87,7 @@
 #
 require 'test_helper'
 
-class WorkerTest < ActiveSupport::TestCase
+class WorkerTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

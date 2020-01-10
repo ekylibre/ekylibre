@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Nomen
-  class RelationTest < ActiveSupport::TestCase
+  class RelationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     setup do
       I18n.locale = ENV['LOCALE']
     end

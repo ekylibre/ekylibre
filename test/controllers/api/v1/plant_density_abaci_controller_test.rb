@@ -1,7 +1,7 @@
 require 'test_helper'
 module Api
   module V1
-    class PlantDensityAbaciControllerTest < ActionController::TestCase
+    class PlantDensityAbaciControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
       connect_with_token
 
       test 'index' do

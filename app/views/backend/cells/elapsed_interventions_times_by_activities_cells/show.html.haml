@@ -20,8 +20,7 @@
 
     # data for bar chart times by activities and by month
     Activity.actives.find_each do |activity|
-      activity_target_id = activity.productions.pluck(:support_id)
-      targets = Product.find(activity_target_id)
+      targets = activity.productions.map(&:support).compact
       interventions = Intervention.real.with_targets(targets).of_civil_year(@campaign.harvest_year).reorder(:started_at)
       if interventions.any?
         sums = interventions.sums_of_periods.sort.inject({}) do |hash, period|

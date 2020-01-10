@@ -1,7 +1,7 @@
 require 'test_helper'
 module Backend
   module Cells
-    class ThresholdCommercializationByProductionCellsControllerTest < ActionController::TestCase
+    class ThresholdCommercializationByProductionCellsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
       test_restfully_all_actions
     end
   end

@@ -118,7 +118,7 @@ class SaleItem < Ekylibre::Record::Base
   before_validation do
     self.currency = sale.currency if sale
     self.compute_from ||= :unit_pretax_amount
-    if sale_credit
+    if sale && sale_credit
       self.credited_quantity ||= 0.0
       self.quantity = -1 * credited_quantity
     end

@@ -41,7 +41,7 @@
 #
 require 'test_helper'
 
-class EventTest < ActiveSupport::TestCase
+class EventTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ProgressTest < ActiveSupport::TestCase
+class ProgressTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   setup do
     FileUtils.rm_rf(Dir.glob(Ekylibre::Tenant.private_directory.join('tmp', 'imports', '*.progress')))
     Progress.instance_variable_set(:@progresses, nil)

@@ -49,7 +49,7 @@
 
 require 'test_helper'
 
-class EntityAddressTest < ActiveSupport::TestCase
+class EntityAddressTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   test 'presence of canal scopes' do
     for canal in EntityAddress.canal.values

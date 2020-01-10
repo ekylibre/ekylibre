@@ -55,7 +55,7 @@
 
 require 'test_helper'
 
-class CashTest < ActiveSupport::TestCase
+class CashTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
   test "next reconciliation letters on a cash without bank statements starts from 'A'" do

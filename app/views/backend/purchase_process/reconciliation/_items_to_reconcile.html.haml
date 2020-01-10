@@ -5,8 +5,9 @@
 .modal-body
   .purchase-orders
     .list-headers
-      %span.list-header.form-name= purchase_orders ? :reception.tl : :order.tl
+      %span.list-header.form-name= purchase_orders ? :order.tl : :reception.tl
       %span.list-header= :quantity.tl
+      %span.list-header= :quantity_to_receive.tl
       %span.list-header= :unit_amount.tl
       %span.list-header= :total_amount_without_taxes.tl
     .list-models
@@ -26,14 +27,12 @@
 
           %ul.list-items
             - model.items.each do |model_item|
-              - datas = { variant_type: model_item.variant.variety, equipment_id: model_item.equipment_id, responsible_id: model.responsible_id }
-              - datas.merge!({ team_id: model_item.team_id,
-                               activity_budget_id: model_item.activity_budget_id,
-                               conditionning: model_item.conditionning,
+              - next if model_item.respond_to?(:purchase_invoice_item) && model_item.purchase_invoice_item
+
+              - datas = { variant_type: model_item.variant.variety, equipment_id: model_item.equipment_id, activity_budget_id: model_item.activity_budget_id, team_id: model_item.team_id, responsible_id: model.responsible_id, project_budget_id: model_item.project_budget_id }
+              - datas.merge!({ conditionning: model_item.conditionning,
                                conditionning_quantity: model_item.conditionning_quantity }) if model_item.is_a?(PurchaseItem)
-              - datas.merge!({ team_id: model_item.purchase_order_item.try(:team_id),
-                               activity_budget_id: model_item.purchase_order_item.try(:activity_budget_id),
-                               tax_id: model_item.purchase_order_item.try(:tax_id),
+              - datas.merge!({ tax_id: model_item.purchase_order_item.try(:tax_id),
                                reduction_percentage: model_item.purchase_order_item.try(:reduction_percentage) }) if model_item.is_a?(ParcelItem)
               - datas.merge!({ conditionning: model_item.storings.first&.conditionning,
                                conditionning_quantity: model_item.storings.sum(:conditionning_quantity),
@@ -47,7 +46,11 @@
                 - else
                   = check_box_tag('', '1', false, class: 'item-checkbox', data: { id: model_item.id })
                 %span.variant{ data: { id: model_item.variant_id } }= model_item.variant.name
-                %span.item-value.quantity= model_item.quantity.to_d
+                - if model.is_a?(PurchaseOrder)
+                  %span.item-value.quantity= model_item.quantity.to_d
+                  %span.item-value.quantity-to-fill= model_item.quantity_to_receive.to_d
+                - elsif model.is_a?(Reception)
+                  %span.item-value.quantity-to-fill= model_item.quantity.to_d
                 %span.item-value.unit-cost= model_item.unit_pretax_amount
 
                 - pretax_amount = model_item.pretax_amount if model_item.is_a?(PurchaseItem)

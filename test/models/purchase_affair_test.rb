@@ -52,7 +52,7 @@
 #
 require 'test_helper'
 
-class PurchaseAffairTest < ActiveSupport::TestCase
+class PurchaseAffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   include Test::Affairable
 
   test 'homogeneousity' do

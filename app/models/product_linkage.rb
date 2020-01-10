@@ -68,6 +68,6 @@ class ProductLinkage < Ekylibre::Record::Base
 
   # Returns all siblings in the chronological line
   def siblings
-    carrier.linkages.with(point)
+    carrier&.linkages&.with(point) || ProductLinkage.none
   end
 end

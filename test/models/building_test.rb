@@ -88,7 +88,7 @@
 
 require 'test_helper'
 
-class BuildingTest < ActiveSupport::TestCase
+class BuildingTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

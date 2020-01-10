@@ -18,7 +18,7 @@
 
 require 'test_helper'
 module Backend
-  class CustomFieldsControllerTest < ActionController::TestCase
+  class CustomFieldsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     # test_restfully_all_actions
   end
 end

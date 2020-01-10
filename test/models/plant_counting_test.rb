@@ -41,7 +41,7 @@
 #
 require 'test_helper'
 
-class PlantCountingTest < ActiveSupport::TestCase
+class PlantCountingTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   ABACI_ITEM_ATTRIBUTES = [
     [1.2, 70],
     [1.25, 72],

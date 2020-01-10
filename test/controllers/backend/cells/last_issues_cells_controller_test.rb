@@ -1,7 +1,7 @@
 require 'test_helper'
 module Backend
   module Cells
-    class LastIssuesCellsControllerTest < ActionController::TestCase
+    class LastIssuesCellsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
       test_restfully_all_actions
     end
   end

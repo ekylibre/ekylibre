@@ -37,7 +37,7 @@
 #
 require 'test_helper'
 
-class InspectionPointTest < ActiveSupport::TestCase
+class InspectionPointTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
   DISEASES    = %w[Fusarium Mouche Pythium Rhizoctonia Sclérotinia].freeze

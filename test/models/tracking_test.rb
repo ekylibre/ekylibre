@@ -39,7 +39,7 @@
 #
 require 'test_helper'
 
-class TrackingTest < ActiveSupport::TestCase
+class TrackingTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

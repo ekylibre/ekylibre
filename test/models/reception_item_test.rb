@@ -67,6 +67,6 @@
 #
 require 'test_helper'
 
-class ReceptionItemTest < ActiveSupport::TestCase
+class ReceptionItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

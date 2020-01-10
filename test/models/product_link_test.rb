@@ -39,7 +39,7 @@
 #
 require 'test_helper'
 
-class ProductLinkTest < ActiveSupport::TestCase
+class ProductLinkTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

@@ -87,7 +87,7 @@
 #
 require 'test_helper'
 
-class MatterTest < ActiveSupport::TestCase
+class MatterTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

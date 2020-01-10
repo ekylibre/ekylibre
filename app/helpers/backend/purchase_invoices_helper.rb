@@ -1,25 +1,10 @@
 module Backend
   module PurchaseInvoicesHelper
-    def reconciliation_state_title(purchase_invoice)
-      is_reconciliate = purchase_invoice
-                        .items
-                        .select { |purchase_item| purchase_item.parcels_purchase_invoice_items.any? }
-                        .any?
+    def purchase_invoice_badges(purchase_invoice)
+      incident = purchase_invoice.reception_items.any?(&:non_compliant) ? :incident : nil
 
-      if purchase_invoice.reconciliation_state.to_sym == :accepted
-        html_class = 'accepted-title'
-        text = :accepted.tl
-      else
-        if is_reconciliate
-          html_class = 'reconcile-title'
-          text = :reconcile.tl
-        else
-          html_class = 'no-reconciliate-title'
-          text = :to_reconciliate.tl
-        end
-      end
-
-      content_tag(:h2, text, class: "reconciliation-title #{html_class}", data: { no_reconciliate_text: :to_reconciliate.tl, accepted_text: :accepted.tl, reconcile_text: :reconcile.tl, reconcile: is_reconciliate })
+      state_badge_set(incident, states: {incident: :reception_incident}, html: {id: 'incident-badge'})+
+        state_badge_set(purchase_invoice.reconciliation_state, states: %i[reconcile to_reconcile accepted], html: {id: 'reconciliation-badges'})
     end
   end
 end

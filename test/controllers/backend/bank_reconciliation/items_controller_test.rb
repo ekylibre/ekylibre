@@ -75,7 +75,7 @@ end
 module Backend
   module BankReconciliation
     # Tests for BankReconciliation
-    class ItemsControllerTest < ActionController::TestCase
+    class ItemsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
       include ::ReconciliationPeriodTest
       include ::ReconciliationRenderingTest
       include ::AutoLetteringTest

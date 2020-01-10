@@ -46,7 +46,7 @@
 #
 require 'test_helper'
 
-class SensorTest < ActiveSupport::TestCase
+class SensorTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

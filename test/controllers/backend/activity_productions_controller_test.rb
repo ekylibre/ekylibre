@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Backend
-  class ActivityProductionsControllerTest < ActionController::TestCase
+  class ActivityProductionsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     # TODO: Re-activate the #show test
     test_restfully_all_actions new: { params: { activity_id: 1, campaign_id: 6 } }, index: :redirected_get, except: %i[create show]
 

@@ -1,6 +1,6 @@
 require 'test_helper'
 module Authentication
-  class SessionsControllerTest < ActionController::TestCase
+  class SessionsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     setup do
       @request.env['devise.mapping'] = Devise.mappings[:user]
     end

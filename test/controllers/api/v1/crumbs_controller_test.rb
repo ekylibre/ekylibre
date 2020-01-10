@@ -1,7 +1,7 @@
 require 'test_helper'
 module Api
   module V1
-    class CrumbsControllerTest < ActionController::TestCase
+    class CrumbsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
       connect_with_token
 
       test 'create' do

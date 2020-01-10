@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Backend
-  class CampaignsControllerTest < ActionController::TestCase
+  class CampaignsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     # TODO: Re-activate #close test
     test_restfully_all_actions except: %i[open current close]
 

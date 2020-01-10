@@ -27,6 +27,6 @@
 #
 require 'test_helper'
 
-class RegisteredPfiTargetTest < ActiveSupport::TestCase
+class RegisteredPfiTargetTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

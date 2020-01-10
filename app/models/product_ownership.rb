@@ -58,6 +58,6 @@ class ProductOwnership < Ekylibre::Record::Base
   private
 
   def siblings
-    product.ownerships
+    product&.ownerships || ProductOwnership.none
   end
 end

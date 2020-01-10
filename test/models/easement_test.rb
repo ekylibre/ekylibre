@@ -87,7 +87,7 @@
 #
 require 'test_helper'
 
-class EasementTest < ActiveSupport::TestCase
+class EasementTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

@@ -44,5 +44,5 @@
 #
 require 'test_helper'
 
-class TaxDeclarationItemTest < ActiveSupport::TestCase
+class TaxDeclarationItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 end

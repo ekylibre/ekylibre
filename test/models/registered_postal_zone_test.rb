@@ -32,6 +32,6 @@
 #
 require 'test_helper'
 
-class RegisteredPostalZoneTest < ActiveSupport::TestCase
+class RegisteredPostalZoneTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

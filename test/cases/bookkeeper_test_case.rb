@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class BookkeeperTestCase < ActiveSupport::TestCase
+class BookkeeperTestCase < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   attr_reader :bookkeeper
 
   private

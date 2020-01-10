@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PdfPrinterTest < ActiveSupport::TestCase
+class PdfPrinterTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   setup do
     @klass = Class.new do
       include PdfPrinter

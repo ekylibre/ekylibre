@@ -35,7 +35,7 @@
 #
 require 'test_helper'
 
-class OutgoingPaymentListTest < ActiveSupport::TestCase
+class OutgoingPaymentListTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   setup do
     @list = outgoing_payment_lists(:outgoing_payment_lists_001)
     @mode = OutgoingPaymentMode.create!(sepa: true, cash: Cash.bank_accounts.first, name: 'SEPA', with_accounting: true, active: true)

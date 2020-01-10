@@ -1,6 +1,8 @@
 {
   "dependencies": {
     "chart.js": "^2.7.2",
+    "flatpickr": "~4.5.0",
+    "promise-polyfill": "^8.1.3",
     "vue-chartjs": "^3.2.1",
     "vuedraggable": "^2.16.0"
   }

@@ -1,6 +1,6 @@
 require 'test_helper'
 module Backend
-  class TrialBalancesControllerTest < ActionController::TestCase
+  class TrialBalancesControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions show: :index
 
     test 'with period' do

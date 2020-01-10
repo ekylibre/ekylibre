@@ -36,6 +36,6 @@
 #
 require 'test_helper'
 
-class CapNeutralAreaTest < ActiveSupport::TestCase
+class CapNeutralAreaTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

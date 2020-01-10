@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :journal do
     closed_on { Date.parse('1997-12-31') }
     sequence(:name) { |i| "Journal #{i}" }
-    sequence(:code) { |i| "OP#{i}" }
+    sequence(:code) { |i| "J#{i.to_s.ljust(2, '0')}" }
     currency { 'EUR' }
     nature { 'various' }
     used_for_affairs { true }

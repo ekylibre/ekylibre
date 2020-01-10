@@ -43,6 +43,6 @@
 #
 require 'test_helper'
 
-class CallRequestTest < ActiveSupport::TestCase
+class CallRequestTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

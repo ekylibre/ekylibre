@@ -18,7 +18,7 @@
 
 require 'test_helper'
 module Backend
-  class PurchaseNaturesControllerTest < ActionController::TestCase
+  class PurchaseNaturesControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     # TODO: Re-activate #destroy test
     test_restfully_all_actions except: :destroy
   end

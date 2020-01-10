@@ -81,6 +81,6 @@ class ProductPhase < Ekylibre::Record::Base
   private
 
   def siblings
-    product.phases
+    product&.phases || ProductPhase.none
   end
 end

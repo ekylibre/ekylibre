@@ -39,7 +39,7 @@
 #
 require 'test_helper'
 
-class ProductOwnershipTest < ActiveSupport::TestCase
+class ProductOwnershipTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

@@ -124,6 +124,7 @@
     clear: ->
       @element.val('')
       @valueField.val('')
+      @element.trigger('selector:change')
 
     # Check that current selection is valid
     # If autoselect, autoselect first record if empty
@@ -171,13 +172,14 @@
       if @dropDownMenu.is(":visible")
         @dropDownMenu.hide()
       unless $(document).data('editedMode')
-        if triggerEvents is true
-          @valueField.trigger "selector:change"
-          @element.trigger "selector:change", selectedElement
+        was_initializing = @initializing
         if @initializing
           @valueField.trigger "selector:initialized"
           @element.trigger "selector:initialized"
           @initializing = false
+        if triggerEvents is true
+          @valueField.trigger "selector:change", [null, was_initializing]
+          @element.trigger "selector:change", [selectedElement, was_initializing]
         @valueField.trigger "selector:set"
         @element.trigger "selector:set"
       $(document).data('editedMode', false)
@@ -249,7 +251,7 @@
       @element.val search
       if @dropDownMenu.is(":visible")
         @dropDownMenu.hide()
-      @element.trigger('selector:menu-closed')
+        @element.trigger('selector:menu-closed')
       true
 
     _choose: (selected) ->

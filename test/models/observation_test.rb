@@ -38,7 +38,7 @@
 
 require 'test_helper'
 
-class ObservationTest < ActiveSupport::TestCase
+class ObservationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

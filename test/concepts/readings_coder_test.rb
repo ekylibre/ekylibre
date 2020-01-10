@@ -1,5 +1,5 @@
 require 'test_helper'
 
-class ReadingsCoderTest < ActiveSupport::TestCase
+class ReadingsCoderTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

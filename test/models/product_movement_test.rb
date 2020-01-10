@@ -40,7 +40,7 @@
 #
 require 'test_helper'
 
-class ProductMovementTest < ActiveSupport::TestCase
+class ProductMovementTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

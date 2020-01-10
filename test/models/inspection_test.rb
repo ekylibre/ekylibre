@@ -43,7 +43,7 @@
 #
 require 'test_helper'
 
-class InspectionTest < ActiveSupport::TestCase
+class InspectionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
   SCALES_ATTRIBUTES = [

@@ -6,7 +6,7 @@ module Ekylibre
 end
 
 module ActiveExchanger
-  class BaseTest < ActiveSupport::TestCase
+  class BaseTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     test 'naming' do
       assert_equal :ekylibre_best_of_the_world, Ekylibre::BestOfTheWorldExchanger.exchanger_name
     end

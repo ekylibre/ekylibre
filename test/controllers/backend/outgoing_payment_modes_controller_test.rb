@@ -18,7 +18,7 @@
 
 require 'test_helper'
 module Backend
-  class OutgoingPaymentModesControllerTest < ActionController::TestCase
+  class OutgoingPaymentModesControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions show: :redirected_get, except: :sepa
   end
 end

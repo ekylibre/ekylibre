@@ -1,6 +1,6 @@
 require 'test_helper'
 module Backend
-  class PayslipNaturesControllerTest < ActionController::TestCase
+  class PayslipNaturesControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions
   end
 end

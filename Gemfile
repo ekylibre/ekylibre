@@ -69,8 +69,6 @@ gem 'jquery-ui-rails'
 gem 'jquery-scrollto-rails'
 gem 'momentjs-rails', '>= 2.9.0'
 
-gem 'flatpickr', '~> 4.5', '>= 4.5.2.0'
-
 # Forms helper
 gem 'formize', '~> 2.1.0'
 # gem 'codemirror-rails'
@@ -262,10 +260,6 @@ group :test do
   gem 'puma'
   gem 'shoulda-context'
 
-  gem 'capybara'
-  gem 'capybara-webkit', '>= 1.14.0'
-  gem 'selenium-webdriver'
-
   gem 'database_cleaner'
 
   gem 'minitest-reporters'
@@ -273,6 +267,7 @@ group :test do
   gem 'pdf-reader'
 
   gem 'factory_bot', '< 5'
+  gem 'ruby-terminfo'
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles

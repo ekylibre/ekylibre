@@ -1,5 +1,5 @@
 require 'test_helper'
 
-class GlobalCurrencyTest < ActiveSupport::TestCase
+class GlobalCurrencyTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

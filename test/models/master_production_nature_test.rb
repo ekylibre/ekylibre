@@ -37,6 +37,6 @@
 #
 require 'test_helper'
 
-class MasterProductionNatureTest < ActiveSupport::TestCase
+class MasterProductionNatureTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

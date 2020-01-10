@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AggeratioTest < ActiveSupport::TestCase
+class AggeratioTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   setup do
     Ekylibre::Tenant.setup!('test', keep_files: true)
     @parameters = {

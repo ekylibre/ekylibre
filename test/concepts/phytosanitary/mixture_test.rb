@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Phytosanitary
-  class MixtureTest < ActiveSupport::TestCase
+  class MixtureTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     # Add tests here...
   end
 end

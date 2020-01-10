@@ -35,6 +35,6 @@
 #
 require 'test_helper'
 
-class NamingFormatFieldTest < ActiveSupport::TestCase
+class NamingFormatFieldTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Add tests here...
 end

@@ -46,7 +46,7 @@
 
 require 'test_helper'
 
-class CashTransferTest < ActiveSupport::TestCase
+class CashTransferTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

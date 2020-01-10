@@ -87,7 +87,7 @@
 #
 require 'test_helper'
 
-class SettlementTest < ActiveSupport::TestCase
+class SettlementTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

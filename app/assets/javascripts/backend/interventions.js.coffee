@@ -277,6 +277,8 @@
       intervention_id = input.parents().find('#intervention_id').val() if input.parents().find('#intervention_id').val().length > 0
       purchase_id = input.parent().find('.selector-value').val()
       $('.purchase-items-array').empty()
+      return unless input.selector('value')
+
       itemHeader = []
       itemHeader.push("<span class='header-name'>Article</span>")
       itemHeader.push("<span class='header-quantity'>Quantité</span>")

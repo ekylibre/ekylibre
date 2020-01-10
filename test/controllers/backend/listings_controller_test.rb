@@ -18,7 +18,7 @@
 
 require 'test_helper'
 module Backend
-  class ListingsControllerTest < ActionController::TestCase
+  class ListingsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     setup do
       ListingNode.rebuild!
     end

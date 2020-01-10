@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Backend
-  class LoansControllerTest < ActionController::TestCase
+  class LoansControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     # TODO: Re-activate #bookkeep and #repay tests
     test_restfully_all_actions except: %i[bookkeep repay]
 

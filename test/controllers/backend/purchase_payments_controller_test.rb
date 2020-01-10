@@ -18,7 +18,7 @@
 
 require 'test_helper'
 module Backend
-  class PurchasePaymentsControllerTest < ActionController::TestCase
+  class PurchasePaymentsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions except: [:update]
     # TODO: Reactivate :update test
   end

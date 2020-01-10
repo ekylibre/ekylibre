@@ -58,7 +58,7 @@
 #
 require 'test_helper'
 
-class InterventionDoerTest < ActiveSupport::TestCase
+class InterventionDoerTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   # Add tests here...
 end

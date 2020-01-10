@@ -73,7 +73,7 @@ class ::Numeric
     count = 0
     value = dup
     integers_count = Math.log10(value.floor).ceil
-    value /= 10**integers_count
+    value /= 10 ** integers_count
     while value != value.to_i
       count += 1
       value *= 10
@@ -130,6 +130,16 @@ class ::Hash
   def to_struct
     OpenStruct.new(self)
   end
+
+  def reverse
+    self.flat_map { |key, values| values.map { |v| [v, key] } }
+      .group_by(&:first)
+      .map do |key, values|
+        raise StandardError.new "Duplicate value for key #{key}: #{values.join(', ')}" if values.size > 1
+        [key, values.first.second]
+      end
+      .to_h
+  end
 end
 
 module Ekylibre
@@ -173,6 +183,7 @@ end
 
 module StateMachine::Integrations::ActiveModel
   alias around_validation_protected around_validation
+
   def around_validation(*args, &block)
     around_validation_protected(*args, &block)
   end
@@ -183,13 +194,13 @@ module ActiveModel
     module SymbolHandlingClusitivity
       private
 
-      # Redefining the #include? method to make sure we only pass strings
-      # to be validated instead of "sometime strings, sometime symbols"
-      def include?(record, value)
-        value = value.to_s if value.is_a? Symbol
-        super record, value
-        # `super` here references ActiveModel::Validations::Clusitivity#include?
-      end
+        # Redefining the #include? method to make sure we only pass strings
+        # to be validated instead of "sometime strings, sometime symbols"
+        def include?(record, value)
+          value = value.to_s if value.is_a? Symbol
+          super record, value
+          # `super` here references ActiveModel::Validations::Clusitivity#include?
+        end
     end
 
     # Including new module in the validators that use Clusivity
