@@ -2111,7 +2111,8 @@ eng:
     one_condition: "One condition" #??
     open_a_production: "Open a production"
     open_an_activity: "Open an activity"
-    open_financial_year: "Open %{code}"
+    open_financial_year: "Open a financial year"
+    open_financial_year_with_date: "Open %{code}"
     operating_costs: "Operating costs"
     operating_margin: "Operating margin %{financial_year}"
     operating_margin_on_turnover: "Operating margin on turnover %{financial_year}" #?
