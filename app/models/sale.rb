@@ -250,8 +250,9 @@ class Sale < Ekylibre::Record::Base
 
     # For gap between parcel item quantity and sale item quantity
     # if more quantity on sale than parcel then i have value in C of stock account
+    permanent_stock = Preference[:permanent_stock_inventory]
     journal = Journal.used_for_permanent_stock_inventory!(currency: self.currency)
-    b.journal_entry(journal, printed_on: invoiced_on, as: :quantity_gap_on_invoice, if: (with_accounting && invoice? && items.any?)) do |entry|
+    b.journal_entry(journal, printed_on: invoiced_on, as: :quantity_gap_on_invoice, if: (permanent_stock && with_accounting && invoice? && items.any?)) do |entry|
       label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: client.full_name)
 
       for item in items

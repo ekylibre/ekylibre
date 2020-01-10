@@ -67,7 +67,7 @@ class Shipment < Parcel
   belongs_to :sale, inverse_of: :parcels
   has_many :items, class_name: 'ShipmentItem', inverse_of: :shipment, foreign_key: :parcel_id, dependent: :destroy
 
-  accepts_nested_attributes_for :items
+  accepts_nested_attributes_for :items, allow_destroy: true
 
   state_machine initial: :draft do
     state :draft
