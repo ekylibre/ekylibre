@@ -122,7 +122,7 @@ class ListingNode < Ekylibre::Record::Base
     elsif parent
       if nature == 'custom'
         self.sql_type = convert_sql_type(parent.model.custom_fields.find_by(column_name: attribute_name).nature.to_s)
-        self.name = parent.name.underscore + ".custom_fields->'" + attribute_name
+        self.name = parent.name.underscore + ".custom_fields->>'" + attribute_name
       elsif parent.model
         self.sql_type = convert_sql_type(parent.model.columns_definition[attribute_name][:type].to_s)
       end
