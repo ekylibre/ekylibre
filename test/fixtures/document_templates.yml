@@ -54,6 +54,7 @@ document_templates_001:
   nature: sales_invoice
   updated_at: 2014-11-03 11:24:19.636925000 Z
   updater_id: 1
+  signed: true
 document_templates_002:
   active: true
   archiving: last
@@ -144,6 +145,7 @@ document_templates_007:
   nature: general_ledger
   updated_at: 2014-11-03 11:24:19.573062000 Z
   updater_id: 1
+  signed: true
 document_templates_008:
   active: true
   archiving: last
@@ -399,6 +401,7 @@ document_templates_024:
   nature: trial_balance
   updated_at: 2014-11-03 11:24:19.573062000 Z
   updater_id: 1
+  signed: true
 document_templates_025:
   active: true
   archiving: last
@@ -414,3 +417,4 @@ document_templates_025:
   nature: journal_ledger
   updated_at: 2014-11-03 11:24:19.573062000 Z
   updater_id: 1
+  signed: true

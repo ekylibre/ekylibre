@@ -133,7 +133,6 @@ class FinancialYearClose
       @closer.notify(:financial_year_x_could_not_be_closed, { name: @year.name }, level: :error)
     end
     @close_error = error
-
     return false
   ensure
     @progress.clean!
@@ -560,9 +559,9 @@ class FinancialYearClose
 
     printer = Printers::TrialBalancePrinter.new(full_params)
     pdf_data = printer.run_pdf
+
     document = printer.archive_report_template(pdf_data, nature: template.nature, key: printer.key, template: template, document_name: printer.document_name)
-    signer = SignatureManager.new
-    signer.sign(document: document, user: @closer)
+
     copy_generated_documents(timing, 'trial_balance', "#{template.nature.human_name} - #{printer.key}", document.file.path)
   end
 
@@ -571,8 +570,7 @@ class FinancialYearClose
     printer = Printers::GeneralLedgerPrinter.new(params.merge(template: template))
     pdf_data = printer.run_pdf
     document = printer.archive_report_template(pdf_data, nature: template.nature, key: printer.key, template: template, document_name: printer.document_name)
-    signer = SignatureManager.new
-    signer.sign(document: document, user: @closer)
+
     copy_generated_documents(timing, 'general_ledger', "#{template.nature.human_name} - #{printer.key}", document.file.path)
   end
 
@@ -587,8 +585,7 @@ class FinancialYearClose
     printer = Printers::JournalLedgerPrinter.new(full_params)
     pdf_data = printer.run_pdf
     document = printer.archive_report_template(pdf_data, nature: template.nature, key: printer.key, template: template, document_name: printer.document_name)
-    signer = SignatureManager.new
-    signer.sign(document: document, user: @closer)
+
     copy_generated_documents(timing, 'journal_ledger', "#{template.nature.human_name} - #{printer.key}", document.file.path)
   end
 

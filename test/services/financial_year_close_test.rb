@@ -20,7 +20,7 @@ class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase
 
     templates = [['trial_balance', 'Balance comptable'], ['general_ledger', 'Grand livre'], ['journal_ledger', 'Etat du journal']]
     templates.each do |nature, name|
-      DocumentTemplate.create!(nature: nature, name: name, language: 'fra', managed: true)
+      DocumentTemplate.create!(nature: nature, name: name, language: 'fra', managed: true, signed: true)
     end
   end
 

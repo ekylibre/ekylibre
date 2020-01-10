@@ -88,6 +88,7 @@
 - intervention_group_parameter
 - intervention_input
 - intervention_labelling
+- intervention_model
 - intervention_output
 - intervention_parameter
 - intervention_parameter_reading

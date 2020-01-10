@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add signed field to document nature">
+  <property-creation property="document_natures.signed" type="boolean" default="false"/>
+
+  <item-change item="document_natures#sales_invoice" signed="true"/>
+  <item-change item="document_natures#trial_balance" signed="true"/>
+  <item-change item="document_natures#general_ledger" signed="true"/>
+  <item-change item="document_natures#journal_ledger" signed="true"/>
+</migration>

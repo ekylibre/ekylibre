@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2015-2020 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -28,6 +28,7 @@
 #  by_default   :boolean          default(FALSE), not null
 #  created_at   :datetime         not null
 #  creator_id   :integer
+#  extension    :string           default("xml")
 #  formats      :string
 #  id           :integer          not null, primary key
 #  language     :string           not null
@@ -35,6 +36,7 @@
 #  managed      :boolean          default(FALSE), not null
 #  name         :string           not null
 #  nature       :string           not null
+#  signed       :boolean          default(FALSE), not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
@@ -47,7 +49,7 @@ class DocumentTemplate < Ekylibre::Record::Base
   refers_to :nature, class_name: 'DocumentNature'
   has_many :documents, class_name: 'Document', foreign_key: :template_id, dependent: :nullify, inverse_of: :template
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :active, :by_default, :managed, inclusion: { in: [true, false] }
+  validates :active, :by_default, :managed, :signed, inclusion: { in: [true, false] }
   validates :archiving, :language, :nature, presence: true
   validates :formats, length: { maximum: 500 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
@@ -75,6 +77,9 @@ class DocumentTemplate < Ekylibre::Record::Base
   end
 
   before_validation do
+
+    #TODO: Change this when signed can be set with a form
+    self.signed ||= DocumentTemplate.where(nature: nature, managed: true).any? { |e| e.signed }
     # Set extension to odt if source content type == odt
     self.extension = :odt if @source.present? && @source.try(:content_type) == 'application/vnd.oasis.opendocument.text'
 
@@ -195,6 +200,11 @@ class DocumentTemplate < Ekylibre::Record::Base
     if document = self.document(path, key, format, options)
       FileUtils.rm_rf(path)
       path = document.file.path(:original)
+      if signed
+        user = document.creator
+        signer = SignatureManager.new
+        signer.sign(document: document, user: user)
+      end
     end
     # Returns only the path
     path
@@ -293,7 +303,7 @@ class DocumentTemplate < Ekylibre::Record::Base
           if source = template_fallbacks(nature, locale).detect(&:exist?)
             File.open(source, 'rb:UTF-8') do |f|
               unless template = find_by(nature: nature, managed: true)
-                template = new(nature: nature, managed: true, active: true, by_default: false, archiving: 'last')
+                template = new(nature: nature, managed: true, active: true, by_default: false, archiving: 'last', signed: Nomen::DocumentNature.find(nature).signed)
               end
               manageds.delete(template)
               template.attributes = { source: f, language: locale }
