@@ -13,6 +13,7 @@ end
 ruby '>= 2.3.8', '< 3.0.0'
 
 gem 'elastic-apm'
+gem 'piwik_analytics', '~> 1.0.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.11.1'

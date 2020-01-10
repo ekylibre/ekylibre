@@ -177,7 +177,7 @@ GEM
     dry-inflector (0.1.2)
     ekylibre-ofx-parser (1.2.2)
       hpricot (>= 0.6)
-    elastic-apm (3.0.0)
+    elastic-apm (3.1.0)
       concurrent-ruby (~> 1.0)
       http (>= 3.0)
     enumerize (2.3.1)
@@ -201,6 +201,9 @@ GEM
       sax-machine (>= 1.0)
     ffaker (2.11.0)
     ffi (1.11.1)
+    ffi-compiler (1.0.1)
+      ffi (>= 1.0.0)
+      rake
     figaro (1.1.1)
       thor (~> 0.14)
     font-awesome-sass (5.11.2)
@@ -225,16 +228,17 @@ GEM
     hashery (2.1.2)
     hashie (3.6.0)
     hpricot (0.8.6)
-    http (4.1.1)
+    http (4.2.0)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
       http-form_data (~> 2.0)
-      http_parser.rb (~> 0.6.0)
+      http-parser (~> 1.2.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     http-form_data (2.1.1)
+    http-parser (1.2.1)
+      ffi-compiler (>= 1.0, < 2.0)
     http_accept_language (2.1.1)
-    http_parser.rb (0.6.0)
     httpi (2.4.4)
       rack
       socksify
@@ -343,6 +347,10 @@ GEM
       ruby-rc4
       ttfunk
     pg (0.20.0)
+    piwik_analytics (1.0.2)
+      actionpack
+      activesupport
+      rails (>= 3.0.0)
     polyglot (0.3.5)
     powerpack (0.1.2)
     pry (0.12.2)
@@ -661,6 +669,7 @@ DEPENDENCIES
   parallel_tests
   pdf-reader
   pg (~> 0.20.0)
+  piwik_analytics (~> 1.0.1)
   possibly!
   pry-byebug
   pry-rails

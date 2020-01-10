@@ -1,0 +1,33 @@
+# Configuration:
+# 
+# disabled
+#   false if tracking tag should be shown
+# use_async
+#   Set to true if you want to use asynchronous tracking
+# url
+#   The url of your piwik instance (e.g. localhost/piwik/
+# id_site
+#   The id of your website inside Piwik
+#
+production:
+  piwik:
+    id_site: <%= ENV['MATOMO_ID_SITE'] %>
+    url: <%= ENV['MATOMO_SERVER_URL'] %>
+    use_async: <%= ENV['MATOMO_ASYNC'] %>
+    disabled: <%= !(ENV['MATOMO_ENABLE'].present? && ENV['MATOMO_ENABLE'] == "true") %>
+
+development:
+  piwik:
+    id_site: <%= ENV['MATOMO_ID_SITE'] %>
+    url: <%= ENV['MATOMO_SERVER_URL'] %>
+    use_async: <%= ENV['MATOMO_ASYNC'] %>
+    disabled: <%= !(ENV['MATOMO_ENABLE'].present? && ENV['MATOMO_ENABLE'] == "true") %>
+    hostname: localhost
+
+test:
+  piwik:
+    id_site: <%= ENV['MATOMO_ID_SITE'] %>
+    url: <%= ENV['MATOMO_SERVER_URL'] %>
+    use_async: <%= ENV['MATOMO_ASYNC'] %>
+    disabled: <%= !(ENV['MATOMO_ENABLE'].present? && ENV['MATOMO_ENABLE'] == "true") %>
+    hostname: localhost
