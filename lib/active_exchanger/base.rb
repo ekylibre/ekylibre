@@ -92,9 +92,9 @@ module ActiveExchanger
         false
       end
 
-      def build(file, _options = {}, &block)
+      def build(file, options = {}, &block)
         supervisor = Supervisor.new(&block)
-        new(file, supervisor)
+        new(file, supervisor, options)
       end
 
       def find(nature)
@@ -122,7 +122,7 @@ module ActiveExchanger
 
     attr_reader :file, :supervisor
 
-    def initialize(file, supervisor)
+    def initialize(file, supervisor, options = {})
       @file = Pathname.new(file)
       @supervisor = supervisor
     end

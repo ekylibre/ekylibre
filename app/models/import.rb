@@ -59,17 +59,17 @@ class Import < Ekylibre::Record::Base
 
   class << self
     # Create an import and run it in background
-    def launch(nature, file)
+    def launch(nature, file, options = {})
       f = File.open(file)
-      import = create!(nature: nature, archive: f)
+      import = create!(nature: nature, archive: f, options: options)
       ImportRunJob.perform_later(import.id)
       import
     end
 
     # Create an import and run it directly
-    def launch!(nature, file, &block)
+    def launch!(nature, file, options = {}, &block)
       f = File.open(file)
-      import = create!(nature: nature, archive: f)
+      import = create!(nature: nature, archive: f, options: options)
       import.run(&block)
       import
     end
@@ -90,7 +90,7 @@ class Import < Ekylibre::Record::Base
     update_columns(state: :in_progress, progression_percentage: 0)
     File.write(progress_file, 0.to_s)
     Ekylibre::Record::Base.transaction do
-      ActiveExchanger::Base.find_and_import(nature.to_sym, archive.path) do |progression, count|
+      ActiveExchanger::Base.find_and_import(nature.to_sym, archive.path, options) do |progression, count|
         update_columns(progression_percentage: progression)
         raise InterruptRequest unless File.exist? progress_file
         File.write(progress_file, progression.to_i.to_s)

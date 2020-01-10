@@ -3419,7 +3419,8 @@ CREATE TABLE imports (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    options jsonb
 );
 
 
@@ -18809,3 +18810,6 @@ INSERT INTO schema_migrations (version) VALUES ('20190502082326');
 INSERT INTO schema_migrations (version) VALUES ('20190514125010');
 
 INSERT INTO schema_migrations (version) VALUES ('20190705094729');
+
+INSERT INTO schema_migrations (version) VALUES ('20190710002904');
+
