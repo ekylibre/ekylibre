@@ -63,12 +63,6 @@ class InterventionOutput < InterventionProductParameter
   has_one :product_movement, as: :originator, dependent: :destroy
   validates :variant, :quantity_population, presence: true
 
-  after_initialize do
-    next if persisted?
-
-    self.quantity_population ||= 1
-  end
-
   after_save do
     unless destroyed?
       output = product
