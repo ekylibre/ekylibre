@@ -5,7 +5,7 @@ class AddSigneableFieldToDocumentTemplate < ActiveRecord::Migration
     reversible do |dir|
       dir.up do
         execute <<-SQL
-          UPDATE document_templates SET signed = 't' WHERE nature IN ('sale_invoice', 'trial_balance', 'general_ledger', 'journal_ledger')
+          UPDATE document_templates SET signed = 't' WHERE nature IN ('sales_invoice', 'trial_balance', 'general_ledger', 'journal_ledger')
         SQL
       end
     end
