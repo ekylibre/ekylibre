@@ -4,10 +4,10 @@ module PanierLocal
     NORMALIZATION_CONFIG = [
       {col: 1, name: :invoiced_at, type: :date, constraint: :not_nil},
       {col: 3, name: :journal_nature, type: :string},
-      {col: 4, name: :account_number, type: :integer},
+      {col: 4, name: :account_number, type: :string},
       {col: 5, name: :entity_name, type: :string, constraint: :not_nil},
       {col: 6, name: :entity_code, type: :integer, constraint: :not_nil},
-      {col: 7, name: :sale_reference_number, type: :integer, constraint: :not_nil},
+      {col: 7, name: :sale_reference_number, type: :string, constraint: :not_nil},
       {col: 8, name: :sale_description, type: :string},
       {col: 9, name: :sale_item_amount, type: :float, constraint: :greater_or_equal_to_zero},
       {col: 10, name: :sale_item_sens, type: :string},
@@ -90,7 +90,7 @@ module PanierLocal
 
     def sale_creation(sale_info, sale_nature)
       entity = get_or_create_entity(sale_info)
-      sale = Sale.where('providers ->> ? = ?', 'panier_local', sale_info.first.sale_reference_number.to_s).first
+      sale = Sale.where('providers ->> ? = ?', 'panier_local', sale_info.first.sale_reference_number).first
 
       if sale.nil?
         client_sale_info = sale_info.select {|item| item.account_number.to_s.start_with?('411')}.first
@@ -109,7 +109,7 @@ module PanierLocal
 
         if product_account_line.present?
           product_account = check_or_create_product_account(product_account_line)
-          variant = ProductNatureVariant.find_by('providers ->> ? = ?', 'panier_local', product_account_line.account_number.to_s)
+          variant = ProductNatureVariant.find_by('providers ->> ? = ?', 'panier_local', product_account_line.account_number)
           unless variant
             variant = create_variant(product_account, product_account_line)
           end
