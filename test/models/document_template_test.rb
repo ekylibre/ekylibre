@@ -49,6 +49,10 @@ class DocumentTemplateTest < Ekylibre::Testing::ApplicationTestCase::WithFixture
     assert_nothing_raised do
       DocumentTemplate.load_defaults
     end
+
+    managed_purchase_invoice = DocumentTemplate.where(nature: :sales_invoice, managed: true)
+    assert_equal 1, managed_purchase_invoice.count
+    assert_equal 'odt', managed_purchase_invoice.first.extension
     # TODO: Check that XML are good to use
   end
 end

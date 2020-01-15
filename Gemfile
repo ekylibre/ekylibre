@@ -158,6 +158,7 @@ gem 'wannabe_bool'
 
 # XML Parsing/Writing, HTML extraction
 gem 'nokogiri', '~> 1.8.1'
+gem 'mimemagic'
 
 # Parse LALR or LR-1 grammars
 gem 'treetop'
