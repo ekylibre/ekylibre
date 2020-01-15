@@ -515,7 +515,7 @@ class Intervention < Ekylibre::Record::Base
     raise 'Can only generate record for an intervention request' unless request?
     return record_interventions.first if record_interventions.any?
     new_record = deep_clone(
-      only: %i[actions custom_fields description event_id issue_id
+      only: %i[auto_calculate_working_periods actions custom_fields description event_id issue_id
                nature number prescription_id procedure_name
                request_intervention_id started_at state
                stopped_at trouble_description trouble_encountered
