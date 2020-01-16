@@ -2279,7 +2279,7 @@ CREATE TABLE public.document_templates (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    extension character varying DEFAULT 'xml'::character varying,
+    file_extension character varying DEFAULT 'xml'::character varying,
     signed boolean DEFAULT false NOT NULL
 );
 

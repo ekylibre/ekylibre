@@ -23,28 +23,28 @@
 #
 # == Table: document_templates
 #
-#  active       :boolean          default(FALSE), not null
-#  archiving    :string           not null
-#  by_default   :boolean          default(FALSE), not null
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  extension    :string           default("xml")
-#  formats      :string
-#  id           :integer          not null, primary key
-#  language     :string           not null
-#  lock_version :integer          default(0), not null
-#  managed      :boolean          default(FALSE), not null
-#  name         :string           not null
-#  nature       :string           not null
-#  signed       :boolean          default(FALSE), not null
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  active         :boolean          default(FALSE), not null
+#  archiving      :string           not null
+#  by_default     :boolean          default(FALSE), not null
+#  created_at     :datetime         not null
+#  creator_id     :integer
+#  file_extension :string           default("xml")
+#  formats        :string
+#  id             :integer          not null, primary key
+#  language       :string           not null
+#  lock_version   :integer          default(0), not null
+#  managed        :boolean          default(FALSE), not null
+#  name           :string           not null
+#  nature         :string           not null
+#  signed         :boolean          default(FALSE), not null
+#  updated_at     :datetime         not null
+#  updater_id     :integer
 #
 
 # Sources are stored in :private/reporting/:id/content.xml
 class DocumentTemplate < Ekylibre::Record::Base
   enumerize :archiving, in: %i[none_of_template first_of_template last_of_template none first last], default: :none, predicates: { prefix: true }
-  enumerize :extension, in: %i[xml odt], default: :xml, predicates: true
+  enumerize :file_extension, in: %i[xml odt], default: :xml, predicates: true
   refers_to :language
   refers_to :nature, class_name: 'DocumentNature'
   has_many :documents, class_name: 'Document', foreign_key: :template_id, dependent: :nullify, inverse_of: :template
@@ -80,9 +80,9 @@ class DocumentTemplate < Ekylibre::Record::Base
 
     #TODO: Change this when signed can be set with a form
     self.signed ||= DocumentTemplate.where(nature: nature, managed: true).any? { |e| e.signed }
-    # Set extension to odt if source content type == odt
+    # Set file_extension to odt if source content type == odt
 
-    self.extension = :odt if (file = source_file).present? && Printers::MimeTypeGuesser.new.guess(file) == 'application/vnd.oasis.opendocument.text'
+    self.file_extension = :odt if (file = source_file).present? && Printers::MimeTypeGuesser.new.guess(file) == 'application/vnd.oasis.opendocument.text'
 
     # Check that given formats are all known
     unless formats.empty?
@@ -127,7 +127,7 @@ class DocumentTemplate < Ekylibre::Record::Base
 
   # Returns the expected path for the source file
   def source_path
-    source_dir.join("content.#{self.extension}")
+    source_dir.join("content.#{self.file_extension}")
   end
 
   # Print a document with the given datasource and return raw data
@@ -300,7 +300,7 @@ class DocumentTemplate < Ekylibre::Record::Base
     end
 
     def import_template_file(template_file)
-      if extension.odt?
+      if file_extension.odt?
         import_odt template_file
       else
         import_jasper template_file
