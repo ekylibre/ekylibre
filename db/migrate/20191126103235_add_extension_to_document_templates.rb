@@ -1,10 +1,10 @@
 class AddExtensionToDocumentTemplates < ActiveRecord::Migration
   def change
-    add_column :document_templates, :extension, :string, default: :xml
+    add_column :document_templates, :file_extension, :string, default: :xml
 
     sql = <<-SQL
       UPDATE document_templates
-      SET extension = '?'
+      SET "file_extension" = '?'
       WHERE managed = 't'
       AND nature IN (
                       'account_statement_non_letter',
