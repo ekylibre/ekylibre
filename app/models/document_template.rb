@@ -180,7 +180,7 @@ class DocumentTemplate < Ekylibre::Record::Base
     return nil if archiving_none? || archiving_none_of_template?
 
     # Gets historic of document
-    archives = Document.where(nature: nature, key: key).where.not(template_id: nil)
+    archives = Document.where(nature: nature, key: key, mandatory: false).where.not(template_id: nil)
     archives_of_template = archives.where(template_id: id)
 
     # Checks if archiving is expected
