@@ -3,11 +3,10 @@ module Printers
 
     class << self
       # TODO move this elsewhere when refactoring the Document Management System
-      def build_key(financial_year:, accounts:, lettering_state:, states:, ledger:, account_number:)
+      def build_key(financial_year:, lettering_state:, states:, ledger:, account_number:)
         filters = [ledger]
         filters.unshift(financial_year.code) if financial_year
         filters.unshift(account_number) if account_number
-        filters << accounts.join('-') if accounts
         filters << lettering_state.join('-') if lettering_state
         filters << states.select { |k, v| v == '1' }.keys.sort.join('-') if states
         filters.reject(&:blank?).join(' - ')
@@ -27,7 +26,6 @@ module Printers
     def key
       self.class.build_key(financial_year: @financial_year,
                            states: @states,
-                           accounts: @accounts,
                            lettering_state: @lettering_state,
                            account_number: @account_number,
                            ledger: @ledger)
@@ -37,7 +35,14 @@ module Printers
       if @account_number
         "#{@template.nature.human_name} (#{@account_number}, #{@financial_year.code})"
       else
-        "#{@template.nature.human_name} (#{@financial_year.code})"
+        case @ledger
+        when '401'
+          "#{:subledger_of_accounts_x.tl(account: :suppliers.tl)} (#{@financial_year.code})"
+        when '411'
+          "#{:subledger_of_accounts_x.tl(account: :clients.tl)} (#{@financial_year.code})"
+        else
+          "#{@template.nature.human_name} (#{@financial_year.code})"
+        end
       end
     end
 
