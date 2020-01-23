@@ -38,45 +38,30 @@ module PanierLocal
       #  12 - L: tax_rate : '20'
       #  13 - M: quantity : '104'
 
-
-      # Ouverture et décodage: CSVReader::read(file)
-      rows = ActiveExchanger::CsvReader.new.read(file)
-      parser = ActiveExchanger::CsvParser.new(NORMALIZATION_CONFIG)
-
-      data, errors = parser.normalize(rows)
+      data, errors = opening_and_decoding_file(file)
 
       valid = errors.all?(&:empty?)
 
-      fy_start = FinancialYear.at(Date.parse(rows.first[1].to_s))
-      fy_stop = FinancialYear.at(Date.parse(rows[-1][1].to_s))
+      fy_start = FinancialYear.at(data.first.invoiced_at)
+      fy_stop = FinancialYear.at(data.last.invoiced_at)
 
       unless fy_start && fy_stop
         w.warn 'Need a FinancialYear'
         valid = false
       end
 
-        w.info valid.inspect.green
       valid
     end
 
     def import
       # Ouverture et décodage
       rows = ActiveExchanger::CsvReader.new.read(file)
-      w.count = rows.size
 
       # create or find journal for sale nature
       journal = Journal.find_or_create_by(code: 'PALO', nature: 'sales', name: 'Panier Local')
       catalog = Catalog.find_or_create_by(code: 'PALO', currency: 'EUR', usage: 'sale', name: 'Panier Local')
       # create or find sale_nature
       sale_nature = SaleNature.find_or_create_by(name: "Vente en ligne - Panier Local", catalog_id: catalog.id, currency: 'EUR', payment_delay: '30 days', journal_id: journal.id)
-
-      country = Preference[:country]
-      variant = nil
-      tax = nil
-      quantity = nil
-      pretax_amount = nil
-      tax_amount = nil
-      amount = nil
 
       parser = ActiveExchanger::CsvParser.new(NORMALIZATION_CONFIG)
 
@@ -108,38 +93,39 @@ module PanierLocal
         product_account_line = sale_info.select {|i| i.account_number.to_s.start_with?('7') }.first
 
         if product_account_line.present?
-          product_account = check_or_create_product_account(product_account_line)
           variant = ProductNatureVariant.find_by('providers ->> ? = ?', 'panier_local', product_account_line.account_number)
           unless variant
+            product_account = check_or_create_product_account(product_account_line)
             variant = create_variant(product_account, product_account_line)
           end
           pretax_amount = create_pretax_amount(product_account_line)
-          quantity = product_account_line.quantity
+          #TODO: what is the real default quantity ?
+          quantity = product_account_line.quantity || 1
+
+          unless sale.items.find_by(
+            sale_id: sale.id,
+            quantity: quantity,
+            pretax_amount: pretax_amount,
+            variant_id: variant.id
+          )
+            sale.items.build(
+              amount: nil,
+              pretax_amount: pretax_amount,
+              unit_pretax_amount: nil,
+              quantity: quantity,
+              tax: tax,
+              variant: variant,
+              compute_from: :pretax_amount
+            )
+          end
         end
       end
 
-      if sale && quantity && pretax_amount && variant && tax
-        unless SaleItem.where(
-          sale_id: sale.id,
-          quantity: quantity,
-          pretax_amount: pretax_amount,
-          variant_id: variant.id
-        ).first
-          sale.items.build(
-            amount: nil,
-            pretax_amount: pretax_amount,
-            unit_pretax_amount: nil,
-            quantity: quantity,
-            tax: tax,
-            variant: variant,
-            compute_from: :pretax_amount
-          )
-        end
-      end
-      entity.save
-      variant.save
+
+      entity.save!
+      variant.save!
       sale.client = entity
-      sale.save
+      sale.save!
     end
 
     def get_or_create_entity(sale_info)
@@ -257,6 +243,14 @@ module PanierLocal
       elsif product_account_line.sale_item_sens == 'C'
         product_account_line.sale_item_amount
       end
+    end
+
+    def opening_and_decoding_file(file)
+      # Ouverture et décodage: CSVReader::read(file)
+      rows = ActiveExchanger::CsvReader.new.read(file)
+      parser = ActiveExchanger::CsvParser.new(NORMALIZATION_CONFIG)
+
+      data, errors = parser.normalize(rows)
     end
 
   end

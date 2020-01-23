@@ -56,7 +56,7 @@ module ActiveExchanger
       when :greater_or_equal_to_zero
         value.is_a?(Numeric) && value >= 0
       else
-        true
+        false
       end
     end
   end
