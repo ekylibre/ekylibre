@@ -375,6 +375,15 @@ module Backend
           .each { |tool_attributes| tool_attributes.except!(:readings_attributes) }
       end
 
+      if procedure.parameters.reject {|p| p.is_a? Procedo::Procedure::GroupParameter}.any?(&:hour_counter?)
+        intervention_params[:group_parameters_attributes].each do |_id, group_params|
+          group_params[:targets_attributes]
+            .values
+            .first
+            .except!(:readings_attributes)
+        end
+      end
+
       intervention = Procedo::Engine.new_intervention(intervention_params)
       begin
         intervention.impact_with!(params[:updater])

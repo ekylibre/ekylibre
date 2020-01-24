@@ -46,5 +46,9 @@ FactoryBot.define do
         create :entity_address, :email, entity: entity
       end
     end
+
+    trait :transporter do
+      transporter { true }
+    end
   end
 end

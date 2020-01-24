@@ -205,12 +205,8 @@ module Procedo
         end
 
         def impact_on_components(_field = nil)
-          reference.components.each do |component_parameter|
-            inputs = intervention.parameters_of_name(component_parameter.name)
-            inputs.each do |input|
-              input.assign(:assembly, intervention.interpret(input.reference.component_of_tree, env))
-            end
-          end
+          return if reference.components.exclude?(self.name)
+          self.assign(:assembly, intervention.interpret(parameter.reference.component_of_tree, env))
         end
 
         def impact_on_parameters(_field)
