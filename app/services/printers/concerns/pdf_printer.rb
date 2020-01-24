@@ -76,6 +76,8 @@ module Printers
 
       # The `nature` parameter is deprecated
       def find_template(document_template, nature: nil)
+        ActiveSupport::Deprecation.warn "PdfPrinter::find_template is deprecated, use TemplateFileProvider instead"
+
         if (n = document_template.nil?) || document_template.managed?
           file_name = n ? nature : document_template.nature
           dir = Rails.root.join('config', 'locales')

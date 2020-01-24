@@ -664,6 +664,7 @@ DEPENDENCIES
   luhn
   mail (~> 2.6)
   mechanize
+  mimemagic
   minitest-reporters
   nokogiri (~> 1.8.1)
   odf-report!

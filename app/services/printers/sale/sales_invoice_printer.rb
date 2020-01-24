@@ -9,7 +9,7 @@ module Printers
         if sale.has_same_delivery_address?
           []
         else
-          [{ delivery_address: Maybe(sale).delivery_address.mail_coordinate.recover { client.full_name }.fmap(&method(:upcase)).or_else("") }]
+          [{ delivery_address: Maybe(sale).delivery_address.mail_coordinate.recover { client.full_name }.or_else("") }]
         end
       end
 

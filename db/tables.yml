@@ -2075,7 +2075,7 @@ document_templates:
   creator_id:
     type: integer
     references: user
-  extension:
+  file_extension:
     type: string
     default: xml
   formats:

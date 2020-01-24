@@ -12,7 +12,6 @@
                item_label: :export_as_pdf.tl,
                key: Printers::GeneralLedgerPrinter.build_key(financial_year: financial_year,
                                                              states: params[:states],
-                                                             accounts: params[:accounts],
                                                              lettering_state: params[:lettering_state],
                                                              account_number: params[:account_number],
                                                              ledger: params[:ledger]) do |menu|
