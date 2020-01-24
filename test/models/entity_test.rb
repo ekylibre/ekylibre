@@ -183,4 +183,12 @@ class EntityTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
     refute e.tap(&:valid?).errors.key? :siret_number
   end
+
+  test 'automatic employee account creation ventilates based on entity_id' do
+    e = Entity.create! last_name: "Dummy"
+
+    e.update! employee: true
+
+    assert_equal "421#{e.id.to_s.rjust(5, '0')}", e.employee_account.number
+  end
 end
