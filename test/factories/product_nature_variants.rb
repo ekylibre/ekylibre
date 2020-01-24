@@ -12,6 +12,19 @@ FactoryBot.define do
     end
   end
 
+  factory :worker_variant, parent: :product_nature_variant do
+    association :nature, factory: :worker_nature
+    variety { 'worker' }
+  end
+
+  factory :plant_variant, class: ProductNatureVariant do
+    sequence(:name) { |n| "Plant variant - TEST#{n.to_s.rjust(8, '0')}" }
+    variety         { :triticum }
+    unit_name       { :hectare }
+
+    association     :nature, factory: :plants_nature
+  end
+
   factory :corn_plant_variant, class: ProductNatureVariant do
     sequence(:name) { |n| "Corn plant variant - TEST#{n.to_s.rjust(8, '0')}" }
     variety         { :zea_mays }
@@ -42,7 +55,49 @@ FactoryBot.define do
     sequence(:name) { |n| "Equipment variant - TEST#{n.to_s.rjust(8, '0')}" }
     variety         { :tractor }
     unit_name       { :equipment }
-    association     :category, factory: :equipments_category
-    association     :nature, factory: :equipments_nature
+    association     :category, factory: :equipment_category
+    association :nature, factory: :equipment_nature
+  end
+
+  factory :building_division_variant, class: ProductNatureVariant do
+    sequence(:name) { |n| "Building division variant - #{n}" }
+    variety { 'building_division' }
+    unit_name { 'Salle' }
+
+    association :nature, factory: :building_division_nature
+  end
+
+  factory :fertilizer_variant, class: ProductNatureVariant do
+    sequence(:name) { |n| "Fertilizer variant - #{n}" }
+    variety { :preparation }
+    unit_name { :liter }
+
+    association :nature, factory: :fertilizer_nature
+  end
+
+  factory :tractor_variant, class: ProductNatureVariant do
+    sequence(:name) { |n| "Tractor variant - #{n}" }
+    variety { :tractor }
+    unit_name { 'Tracteur' }
+
+    association :nature, factory: :tractor_nature
+  end
+
+  factory :seed_variant, class: ProductNatureVariant do
+    sequence(:name) { |n| "Seed variant - #{n}" }
+    variety { :seed }
+    derivative_of { :plant }
+    unit_name { 'Millier de grains' }
+
+    association :nature, factory: :seed_nature
+  end
+
+  factory :harvest_variant, class: ProductNatureVariant do
+    sequence(:name) { |n| "Harvest variant - #{n}" }
+    variety { :vegetable }
+    derivative_of { :daucus }
+    unit_name { 'Kg' }
+
+    association :nature, factory: :harvest_nature
   end
 end

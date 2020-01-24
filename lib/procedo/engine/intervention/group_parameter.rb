@@ -88,6 +88,14 @@ module Procedo
           parameters
         end
 
+        def parameters_of_type(type)
+          parameters = []
+          each_member do |member|
+            parameters << member if member.type.to_sym == type
+          end
+          parameters
+        end
+
         # Builds and adds a parameter of any type in members
         def add(param_name, id, attributes = {})
           model_name = param_name.to_s.gsub(/_attributes$/, '').singularize
