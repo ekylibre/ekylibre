@@ -10,11 +10,8 @@ module PanierLocal
       {col: 7, name: :payment_reference_number, type: :integer, constraint: :not_nil},
       {col: 8, name: :payment_description, type: :string},
       {col: 9, name: :payment_item_amount, type: :float, constraint: :greater_or_equal_to_zero},
-      {col: 10, name: :payment_item_sens, type: :string},
+      {col: 10, name: :payment_item_direction, type: :string},
     ]
-
-
-
 
     def check
       # Imports incoming_payment entries into incoming payment to make accountancy in CSV format
@@ -32,7 +29,6 @@ module PanierLocal
       #  9 - J: amount : '44,24'
       #  10 - K: sens : 'D'
 
-      # Ouverture et décodage: CSVReader::read(file)
       rows = ActiveExchanger::CsvReader.new.read(file)
 
       parser = ActiveExchanger::CsvParser.new(NORMALIZATION_CONFIG)
@@ -51,7 +47,7 @@ module PanierLocal
 
       # find a responsible
       responsible = User.employees.first
-      unless responsible
+      if responsible.nil?
         w.error 'No responsible found'
         valid = false
       end
@@ -63,7 +59,7 @@ module PanierLocal
         if ipm.any?
           valid = true
         else
-          w.warn 'Need an incoming payment link to cash account'
+          w.error 'Need an incoming payment link to cash account'
           valid = false
         end
       else
@@ -75,16 +71,15 @@ module PanierLocal
     end
 
     def import
-      # Ouverture et décodage: CSVReader::read(file)
       rows = ActiveExchanger::CsvReader.new.read(file)
 
       parser = ActiveExchanger::CsvParser.new(NORMALIZATION_CONFIG)
 
-      data, errors = parser.normalize(rows)
+      data, _errors = parser.normalize(rows)
 
       sales_info = data.group_by { |d| d.payment_reference_number }
 
-      sales_info.each { |_sale_reference_number, sale_info| incoming_payment_creation(sale_info) }
+      sales_info.each { |_payment_reference_number, sale_info| incoming_payment_creation(sale_info) }
 
     end
 
@@ -96,15 +91,14 @@ module PanierLocal
       client_sale_info = sale_info.select {|item| item.account_number.to_s.start_with?('411')}.first
       bank_sale_info = sale_info.select {|item| item.account_number.to_s.start_with?('51')}.first
 
-      entity = get_or_create_entity(sale_info, client_sale_info) if client_sale_info.present?
-
-      if bank_sale_info.present? && entity
+      if bank_sale_info.present? && client_sale_info.present?
+        entity = get_or_create_entity(sale_info, client_sale_info)
         incoming_payment = IncomingPayment.where('providers ->> ? = ?', 'panier_local', bank_sale_info.payment_reference_number.to_s)
                                           .where(payer: entity, paid_at: bank_sale_info.invoiced_at.to_datetime).first
-        unless incoming_payment
-          if bank_sale_info.payment_item_sens == 'D'
+        if incoming_payment.nil?
+          if bank_sale_info.payment_item_direction == 'D'
             amount = bank_sale_info.payment_item_amount
-          elsif bank_sale_info.payment_item_sens == 'C'
+          elsif bank_sale_info.payment_item_direction == 'C'
             amount = bank_sale_info.payment_item_amount * -1
           end
           incoming_payment = IncomingPayment.create!(
@@ -133,7 +127,7 @@ module PanierLocal
 
     def create_entity_account(sale_info, client_sale_info)
       client_number_account = client_sale_info.account_number.to_s
-      acc = Account.find_or_initialize_by(number: client_number_account)#!
+      acc = Account.find_or_initialize_by(number: client_number_account)
 
       attributes = {
                     name: client_sale_info.entity_name,
