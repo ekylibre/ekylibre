@@ -106,4 +106,15 @@ class AccountTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_equal '20000000', Account.normalize(20000000000)
     assert_equal '20000000', Account.normalize('20000000000')
   end
+
+  test'centralizing_account_prefix_for takes into account the company preference' do
+    next_prefix = '999'
+    Account::CENTRALIZING_NATURES.each do |nature|
+      Preference.set! "#{nature}_account_radix", next_prefix, :string
+
+      assert_equal next_prefix, Account.centalizing_account_prefix_for(nature)
+
+      next_prefix = (next_prefix.to_i - 1).to_s
+    end
+  end
 end

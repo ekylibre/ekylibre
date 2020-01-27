@@ -46,6 +46,8 @@
 
 class Account < Ekylibre::Record::Base
   include Customizable
+  CENTRALIZING_NATURES = %i[client supplier employee].freeze
+
   @@references = []
   # has_many :account_balances
   # has_many :attorneys, class_name: "Entity", foreign_key: :attorney_account_id
@@ -117,7 +119,7 @@ class Account < Ekylibre::Record::Base
 
   scope :clients,   -> { of_usages(:clients, :social_agricultural_mutuality, :usual_associates_current_accounts) }
   scope :suppliers, -> { of_usages(:suppliers, :social_agricultural_mutuality, :usual_associates_current_accounts) }
-  scope :employees, -> { of_usages(:staff_due_remunerations) }
+  scope :employees, -> { of_usages(:staff_due_remunerations, :associates_current_accounts) }
   scope :attorneys, -> { of_usage(:attorneys) }
   scope :banks, -> { of_usage(:banks) }
   scope :cashes, -> { of_usage(:cashes) }
@@ -258,6 +260,33 @@ class Account < Ekylibre::Record::Base
         else
           number
         end
+      end
+
+      def centalizing_account_prefix_for(nature)
+        natures = CENTRALIZING_NATURES
+        nature = nature.to_sym
+        unless natures.include?(nature)
+          raise ArgumentError, "Unknown nature #{nature.inspect} (#{natures.to_sentence} are accepted)"
+        end
+
+        account_nomen = nature.to_s.pluralize
+        account_nomen = :staff_due_remunerations if nature == :employee
+
+        prefix = Preference[:"#{nature}_account_radix"]
+        if prefix.blank?
+          prefix = Nomen::Account.find(account_nomen).send(Account.accounting_system)
+        end
+
+        prefix
+      end
+
+      def generate_employee_account_number_for(entity_id)
+        prefix = centalizing_account_prefix_for(:employee)
+        suffix_length = Preference[:account_number_digits] - prefix.length
+
+        suffix = entity_id.to_s.rjust(suffix_length, '0')
+
+        "#{prefix}#{suffix}"
       end
 
     # Create an account with its number (and name)
@@ -423,7 +452,7 @@ class Account < Ekylibre::Record::Base
     # It takes the information in preferences
     def accounting_system
       @systems ||= {}
-      
+
       current_tenant = Ekylibre::Tenant.current.to_sym
       system = @systems.fetch(current_tenant, nil)
 
@@ -447,7 +476,7 @@ class Account < Ekylibre::Record::Base
       end
 
       Preference.set!(:accounting_system, item.name)
-      @systems = @systems.except(Ekylibre::Tenant.current.to_sym)
+      @systems = (@systems || {}).except(Ekylibre::Tenant.current.to_sym)
 
       accounting_system
     end

@@ -217,15 +217,14 @@ module Backend
       t.column :content_sentence, label: :contains
       t.column :planned_at
       t.column :created_at, hidden: true
-      t.column :state, label_method: :human_state_name
-    end
+      t.column :state    end
 
     list(:shipments, conditions: { recipient_id: 'params[:id]'.c }, per_page: 5, order: { created_at: :desc }, line_class: :status) do |t|
       t.column :number, url: true
       t.column :content_sentence, label: :contains
       t.column :planned_at
       t.column :created_at, hidden: true
-      t.column :state, label_method: :human_state_name
+      t.column :state
       t.column :sale, url: true
     end
 
