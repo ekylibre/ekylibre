@@ -249,6 +249,7 @@ class Account < Ekylibre::Record::Base
   class << self
     # Trim account number following preferences
       def normalize(number)
+        number = number.to_s
         account_number_length = Preference[:account_number_digits]
         if number.size > account_number_length
           number[0...account_number_length]
