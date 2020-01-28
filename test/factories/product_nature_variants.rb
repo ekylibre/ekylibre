@@ -5,11 +5,6 @@ FactoryBot.define do
 
     association :nature, factory: :product_nature
     association :category, factory: :product_nature_category
-
-    factory :land_parcel_nature_variant do
-      association :nature, factory: :land_parcel_nature
-      variety { 'land_parcel' }
-    end
   end
 
   factory :worker_variant, parent: :product_nature_variant do
@@ -50,14 +45,6 @@ FactoryBot.define do
 
     association :nature, factory: :services_nature
     association :category, factory: :deliverable_category
-  end
-
-  factory :equipment_variant, class: ProductNatureVariant do
-    sequence(:name) { |n| "Equipment variant - TEST#{n.to_s.rjust(8, '0')}" }
-    variety         { :tractor }
-    unit_name       { :equipment }
-    association     :category, factory: :equipment_category
-    association     :nature, factory: :equipment_nature
   end
 
   factory :building_division_variant, class: ProductNatureVariant do
@@ -105,5 +92,22 @@ FactoryBot.define do
 
     association :nature, factory: :harvest_nature
     association :category, factory: :harvest_category
+  end
+
+  factory :equipment_variant, class: ProductNatureVariant do
+    sequence(:name) { |n| "Equipment variant - TEST#{n.to_s.rjust(8, '0')}" }
+    variety         { :tractor }
+    unit_name       { :equipment }
+    association     :category, factory: :equipment_category
+    association     :nature, factory: :equipment_nature
+  end
+
+  factory :land_parcel_variant, class: ProductNatureVariant do
+    sequence(:name) { |n| "Land parcel variant - #{n}" }
+    unit_name :hectare
+    variety :land_parcel
+
+    association :nature, factory: :land_parcel_nature
+    association :category, factory: :land_parcel_category
   end
 end

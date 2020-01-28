@@ -3,12 +3,6 @@ FactoryBot.define do
     sequence(:name)     { |n| "Cultivable Zone #{n}" }
     population_counting { 'unitary' }
     variety             { 'cultivable_zone' }
-
-    factory :land_parcel_nature do
-      variety { 'land_parcel' }
-      variable_indicators_list { [:shape] }
-      frozen_indicators_list   { [:net_surface_area] }
-    end
   end
 
   factory :worker_nature, parent: :product_nature do
@@ -36,9 +30,9 @@ FactoryBot.define do
   end
 
   factory :equipment_nature, class: ProductNature do
-    sequence(:name) { |n| "Equipment nature - #{n}" }
-    population_counting { :integer }
-    variety { :equipment }
+    sequence(:name)     { |n| "Equipment nature - TEST#{n.to_s.rjust(8, '0')}" }
+    population_counting { :unitary }
+    variety             { :tractor }
   end
 
   factory :building_division_nature, class: ProductNature do
@@ -84,10 +78,11 @@ FactoryBot.define do
     frozen_indicators_list { %i[net_mass] }
   end
 
-  # factory :equipment_nature, class: ProductNature do
-  #   sequence(:name)     { |n| "Equipment nature - TEST#{n.to_s.rjust(8, '0')}" }
-  #   population_counting { :unitary }
-  #   variety             { :tractor }
-  #   association         :category, factory: :equipment_category
-  # end
+  factory :land_parcel_nature, class: ProductNature do
+    sequence(:name) { |n| "Land parcel nature - #{n}" }
+    population_counting :decimal
+    variety :land_parcel
+    variable_indicators_list [:shape]
+    frozen_indicators_list   [:net_surface_area]
+  end
 end
