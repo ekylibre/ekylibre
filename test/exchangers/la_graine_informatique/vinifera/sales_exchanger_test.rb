@@ -4,7 +4,8 @@ module LaGraineInformatique
   module Vinifera
     class SalesExchangerTest < ActiveExchanger::TestCase
       test 'import' do
-        LaGraineInformatique::Vinifera::SalesExchanger.import(fixture_files_path.join('imports', 'la_graine_informatique', 'vinifera', 'sales.csv'))
+        result = LaGraineInformatique::Vinifera::SalesExchanger.build(fixture_files_path.join('imports', 'la_graine_informatique', 'vinifera', 'sales.csv')).run
+        assert result.success?, [result.message, result.exception]
       end
     end
   end

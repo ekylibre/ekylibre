@@ -1,0 +1,38 @@
+module ActiveExchanger
+  class Result
+    class << self
+      private :new
+
+      def success
+        new(:success)
+      end
+
+      def aborted(message = nil, exception: nil)
+        new(:aborted, message: message, exception: exception)
+      end
+
+      def failed(message = nil, exception: nil)
+        new(:failed, message: message, exception: exception)
+      end
+    end
+
+    attr_reader :state, :message, :exception
+
+    def initialize(state, message: nil, exception: nil)
+      @state = state
+      if message.nil? && exception.present?
+        message = exception.message
+      end
+      @message = message
+      @exception = exception
+    end
+
+    def success?
+      state === :success
+    end
+
+    def error?
+      !success?
+    end
+  end
+end

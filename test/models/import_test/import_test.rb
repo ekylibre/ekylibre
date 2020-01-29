@@ -42,7 +42,11 @@
 #
 require 'test_helper'
 
-class ImportTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
-  test_model_actions
-  # Add tests here...
+module ImportTest
+  class ImportTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
+    test_model_actions
+    # Add tests here...
+    #
+    #
+  end
 end

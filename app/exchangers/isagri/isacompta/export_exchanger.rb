@@ -187,6 +187,8 @@ module Isagri
         else
           raise ActiveExchanger::NotWellFormedFileError, 'Version does not seems to be supported'
         end
+
+        true
       end
     end
   end

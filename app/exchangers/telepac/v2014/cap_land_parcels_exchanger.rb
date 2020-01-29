@@ -1,6 +1,8 @@
 module Telepac
   module V2014
     class CapLandParcelsExchanger < ActiveExchanger::Base
+      self.deprecated = true
+
       def import
         # Unzip file
         dir = w.tmp_dir
@@ -66,6 +68,8 @@ module Telepac
             w.check_point
           end
         end
+
+        true
       end
     end
   end
