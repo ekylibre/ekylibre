@@ -101,7 +101,8 @@ module Synel
         end
         w.check_point
       end
-      parents = nil
+
+      true
     end
   end
 end

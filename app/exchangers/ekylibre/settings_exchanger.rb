@@ -268,6 +268,8 @@ module Ekylibre
 
       MapLayer.load_defaults
       w.check_point
+
+      true
     end
 
     protected
