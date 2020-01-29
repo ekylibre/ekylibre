@@ -24,7 +24,7 @@ class ImportRunJob < ActiveJob::Base
 
   def safe_perform(import)
     begin
-      import.run
+      import.run_result
     rescue StandardError => e
       ActiveExchanger::Result.failed('Unknown error while running job', exception: e)
     end

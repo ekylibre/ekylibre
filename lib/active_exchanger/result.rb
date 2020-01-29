@@ -31,6 +31,8 @@ module ActiveExchanger
       state === :success
     end
 
+    alias_method :to_bool, :success?
+
     def error?
       !success?
     end

@@ -87,9 +87,12 @@ class Import < Ekylibre::Record::Base
     ImportRunJob.perform_later(id)
   end
 
+  def run(&block)
+    run_result(&block).to_bool
+  end
   # Run an import.
   # The optional code block allows have access to progression on each check point
-  def run
+  def run_result(&block)
     FileUtils.mkdir_p(progress_file.dirname)
     update_columns(state: :in_progress, progression_percentage: 0)
     File.write(progress_file, 0.to_s)
@@ -100,7 +103,7 @@ class Import < Ekylibre::Record::Base
     result = ActiveExchanger::Base.run(nature, archive.path, options: import_options) do |progression, count|
       update_columns(progression_percentage: progression)
       File.write(progress_file, progression.to_i.to_s)
-      yield(progression, count) if block_given?
+      block.call(progression, count) if block.present?
     end
 
     importer_id = if User.stamper.is_a?(User)
@@ -114,14 +117,13 @@ class Import < Ekylibre::Record::Base
     case result.state
       when :success
         update(state: :finished, progression_percentage: 100, imported_at: Time.zone.now, importer_id: importer_id)
-        true
       when :aborted
         update(state: :aborted)
-        false
       else # when :failure + other cases that should not happen
         update(state: :errored)
-        false
     end
+
+    result
   end
 
   def progress_file
