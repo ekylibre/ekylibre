@@ -3242,6 +3242,7 @@ fra:
       error_on_field: "%{field} est invalide\_: %{message}"
       expired_session: "Session expirée. Veuillez vous reconnecter." #?
       fails_to_extract_listing: "L’extraction n’a pas pu s’effectuer\_: %{message}"
+      feature_in_development: "Fonctionnalité à venir dans une prochaine version de notre appli mobile <u><a href='https://play.google.com/store/apps/details?id=ekylibre.zero' target='_blank'>Zero</a></u>"
       file_generated: "Votre fichier a été généré avec succès"
       financial_year_already_closed: "L'exercice a déjà été clôturé."
       financial_year_is_not_past: "L'exercice est encore en cours."
