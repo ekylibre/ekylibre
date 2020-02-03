@@ -72,7 +72,7 @@ class Intervention < Ekylibre::Record::Base
 
   attr_readonly :procedure_name, :production_id, :currency
   refers_to :currency
-  enumerize :procedure_name, in: Procedo.procedure_names, i18n_scope: ['procedures'], predicates: true
+  enumerize :procedure_name, in: Procedo.procedure_names, i18n_scope: ['procedures'], predicates: true, scope: true
   enumerize :nature, in: %i[request record], default: :record, predicates: true
   enumerize :state, in: %i[in_progress done validated rejected], default: :done, predicates: true
   belongs_to :event, dependent: :destroy, inverse_of: :intervention
