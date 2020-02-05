@@ -3839,6 +3839,8 @@ interventions:
   procedure_name:
     type: string
     required: true
+  provider:
+    type: jsonb
   providers:
     type: jsonb
   purchase_id:

@@ -42,6 +42,7 @@
 #  parent_id                      :integer
 #  prescription_id                :integer
 #  procedure_name                 :string           not null
+#  provider                       :jsonb
 #  providers                      :jsonb
 #  purchase_id                    :integer
 #  request_compliant              :boolean
@@ -60,8 +61,9 @@
 
 class Intervention < Ekylibre::Record::Base
   include CastGroupable
-  include PeriodicCalculable
   include Customizable
+  include PeriodicCalculable
+  include Providable
 
   PLANNED_REALISED_ACCEPTED_GAP = { intervention_doer: 1.2, intervention_tool: 1.2, intervention_input: 1.2 }.freeze
 
@@ -124,8 +126,6 @@ class Intervention < Ekylibre::Record::Base
 
   acts_as_numbered unless: :run_sequence
 
-  store_accessor :providers, :zero_id
-
   before_validation :set_number, on: :create
 
   def set_number
@@ -165,6 +165,7 @@ class Intervention < Ekylibre::Record::Base
     where(id: InterventionTarget.of_activities(activities.flatten))
   }
   scope :ordered_by, ->(by = :started_at) { reorder(by) }
+
   scope :provisional, -> { where('stopped_at > ?', Time.zone.now) }
   scope :real, -> { where(nature: :record).where('stopped_at <= ?', Time.zone.now) }
 

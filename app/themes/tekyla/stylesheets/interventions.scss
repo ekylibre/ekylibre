@@ -235,12 +235,22 @@ $preview-modal-height: 80vh;
       background-color: $darkened-blue-grey;
       color: $white;
     }
+ 
+    .task-indicators {
+      display: flex;
+      justify-content: flex-end;
+      flex-basis: 100%;
 
-    .task-calendar {
-      flex: 0 1 100%;
-      .calendar-img {
-        width: 25px;
-        float: right;
+      .task-calendar {
+        .calendar-img {
+          width: 25px;
+        }
+      }
+      .provided-by-zero {
+        margin-top: 6px;
+        i {
+           font-size: 30px;
+        }
       }
     }
   }
