@@ -10,16 +10,6 @@ module Api
           return
         end
 
-        page = (params[:page] || 1).to_i
-        unless page > 0
-          head :unprocessable_entity
-          return
-        end
-        per_page = (params[:per_page] || 30).to_i
-        unless (30..100).cover?(per_page)
-          head :unprocessable_entity
-          return
-        end
         if params[:contact_email]
           entity = Entity.with_email(params[:contact_email])
           unless entity
@@ -55,7 +45,7 @@ module Api
             end
           end
         end
-        @interventions = @interventions.where(nature: nature).where.not(state: :rejected).page(page).per(per_page).order(:id)
+        @interventions = @interventions.where(nature: nature).where.not(state: :rejected).order(:id)
       end
 
       def create
