@@ -79,10 +79,6 @@ module Api
         false
       end
 
-      def error_message(message, status: :bad_request)
-        render json: { message: message }, status: status
-      end
-
       protected
 
       def permitted_params

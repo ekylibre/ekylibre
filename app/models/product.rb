@@ -452,10 +452,6 @@ class Product < Ekylibre::Record::Base
     activity ? activity.id : nil
   end
 
-  def activity_name
-    activity ? activity.name : nil
-  end
-
   def best_activity_production(_options = {})
     activity_production
   end

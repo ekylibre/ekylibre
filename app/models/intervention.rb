@@ -124,8 +124,6 @@ class Intervention < Ekylibre::Record::Base
 
   acts_as_numbered unless: :run_sequence
 
-  store_accessor :providers, :zero_id
-
   before_validation :set_number, on: :create
 
   def set_number
@@ -164,6 +162,7 @@ class Intervention < Ekylibre::Record::Base
   scope :of_activities, lambda { |*activities|
     where(id: InterventionTarget.of_activities(activities.flatten))
   }
+
   scope :ordered_by, ->(by = :started_at) { reorder(by) }
   scope :provisional, -> { where('stopped_at > ?', Time.zone.now) }
   scope :real, -> { where(nature: :record).where('stopped_at <= ?', Time.zone.now) }

@@ -6,7 +6,7 @@ module Procedo
       class Output < Procedo::Engine::Intervention::Quantified
         attr_reader :variant
 
-        attr_reader :new_name, :identification_number, :variety, :batch_number
+        attr_reader :new_name, :identification_number
 
         def initialize(intervention, id, attributes = {})
           super(intervention, id, attributes)
@@ -15,8 +15,6 @@ module Procedo
           end
           @new_name = @attributes[:new_name]
           @identification_number = @attributes[:identification_number]
-          @variety = @attributes[:variety]
-          @batch_number = @attributes[:batch_number]
         end
 
         def variant_id
@@ -30,16 +28,6 @@ module Procedo
         def variant_id=(id)
           @variant = ProductNatureVariant.find_by(id: id)
           impact_dependencies!(:variant)
-        end
-
-        def variety=(variety)
-          @variety = variety
-          impact_dependencies!(:variety)
-        end
-
-        def batch_number=(batch_number)
-          @batch_number = batch_number
-          impact_dependencies!(:batch_number)
         end
 
         def new_name=(name)
@@ -57,8 +45,6 @@ module Procedo
           hash[:variant_id] = @variant.id if @variant
           hash[:new_name] = @new_name if @new_name.present?
           hash[:identification_number] = @identification_number if @identification_number.present?
-          hash[:variety] = @variety if @variety.present?
-          hash[:batch_number] = @batch_number if @batch_number.present?
           hash
         end
 
@@ -67,13 +53,11 @@ module Procedo
           hash[:variant_id] = @variant.id if @variant
           hash[:new_name] = @new_name if @new_name.present?
           hash[:identification_number] = @identification_number if @identification_number.present?
-          hash[:variety] = @variety if @variety.present?
-          hash[:batch_number] = @batch_number if @batch_number.present?
           hash
         end
 
         def env
-          super.merge(variant: variant, new_name: new_name, identification_number: identification_number, variety: variety, batch_number: batch_number)
+          super.merge(variant: variant, new_name: new_name, identification_number: identification_number)
         end
       end
     end

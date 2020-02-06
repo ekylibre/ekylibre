@@ -2,7 +2,6 @@ module Api
   module V1
     # Interventions API permits to access interventions
     class InterventionsController < Api::V1::BaseController
-      READING_PARAMS = %i[tools targets].freeze
       def index
         nature = params[:nature] || 'record'
         @interventions = Intervention
@@ -60,46 +59,19 @@ module Api
       end
 
       def create
-        return error_message('Zero id not provided') unless params[:providers][:zero_id]
-
-        options = {
-          auto_calculate_working_periods: true,
-          nature: :record,
-          state: :done
-        }
-
-        interactor = Interventions::BuildInterventionInteractor.new(permitted_params, options)
-        if (intervention = interactor.run)
-          intervention = interactor.intervention
+        intervention = Intervention.new(permitted_params)
+        if intervention.save
           render json: { id: intervention.id }, status: :created
         else
-          render json: { errors: interactor.error }, status: :bad_request
+          render json: intervention.errors, status: :unprocessable_entity
         end
       end
 
       protected
 
-        def permitted_params
-          super.permit(:procedure_name,
-                       :description,
-                       actions: [],
-                       providers: %i[zero_id],
-                       working_periods_attributes: %i[started_at stopped_at],
-                       inputs_attributes: %i[product_id quantity_value quantity_handler reference_name quantity_population],
-                       outputs_attributes: %i[variant_id quantity_value quantity_handler reference_name quantity_population],
-                       tools_attributes: [:product_id, :reference_name, readings_attributes: %i[indicator_name measure_value_value measure_value_unit]],
-                       targets_attributes: %i[product_id reference_name],
-                       doers_attributes: %i[product_id reference_name],
-                       group_parameters_attributes: [
-                         :reference_name,
-                         inputs_attributes: %i[product_id quantity_value quantity_handler reference_name quantity_population],
-                         outputs_attributes: %i[variant_id quantity_value quantity_handler reference_name quantity_population batch_number variety],
-                         targets_attributes: [:product_id, :reference_name, readings_attributes: %i[indicator_name measure_value_value measure_value_unit]],
-                         tools_attributes: %i[product_id reference_name],
-                         doers_attributes: %i[product_id reference_name]
-                       ]
-          )
-        end
+      def permitted_params
+        super.permit(:procedure_name, :description, working_periods_attributes: %i[started_at stopped_at])
+      end
     end
   end
 end

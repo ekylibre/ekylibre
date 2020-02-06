@@ -28,12 +28,7 @@ namespace :test do
     task p => 'test:prepare'
   end
 
-  task all: parts #[*parts, :javascripts, :api]
-
-  # desc 'Run tests for api'
-  Rails::TestTask.new(api: 'test:prepare') do |t|
-    t.pattern = 'test/controllers/api/v1/**/*_test.rb'
-  end
+  task all: parts #[*parts, :javascripts]
 end
 
 task :test => 'test:prepare'

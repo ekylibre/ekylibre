@@ -100,10 +100,7 @@ Rails.application.routes.draw do
       resources :issues, only: %i[index create]
       resources :plant_density_abaci, only: %i[index show]
       resources :plant_countings, only: %i[create]
-      get 'products(/:product_type)', to: 'products#index', as: :products
-      resources :variants, only: %i[index]
       resources :plants, only: %i[index]
-      get 'profile', to: 'users#show'
     end
   end
 

@@ -5,9 +5,5 @@ FactoryBot.define do
     sequence(:first_name) { |n| "Toto#{n}" }
     sequence(:last_name) { |n| "Dupont#{n}" }
     administrator { true }
-
-    trait :employed do
-      employed { true }
-    end
   end
 end
