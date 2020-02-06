@@ -39,11 +39,18 @@ module Api
         return render json: { message: :no_worker_associated_with_user_account.tn }, status: :precondition_required if user && user.worker.nil?
 
         if nature == 'request'
-          @interventions = @interventions
-                           .joins('LEFT JOIN interventions record_interventions_interventions ON record_interventions_interventions.request_intervention_id = interventions.id')
-                           .joins('LEFT JOIN intervention_participations ON record_interventions_interventions.id = intervention_participations.intervention_id')
-                           .joins('LEFT JOIN products AS workers_included ON intervention_participations.product_id = workers_included.id')
-                           .where('workers_included.id IS NULL OR workers_included.id != ? OR (workers_included.id = ? AND intervention_participations.state = \'in_progress\')', user.worker.id, user.worker.id)
+          @interventions = @interventions.joins(<<-SQL).where(<<-CONDITIONS, user.worker.id).group('interventions.id')
+            LEFT JOIN interventions record_interventions_interventions ON record_interventions_interventions.request_intervention_id = interventions.id
+            LEFT JOIN intervention_participations ON record_interventions_interventions.id = intervention_participations.intervention_id
+            LEFT JOIN products AS workers_or_tools_included ON intervention_participations.product_id = workers_or_tools_included.id AND workers_or_tools_included.type = 'Worker' 
+          SQL
+
+            (record_interventions_interventions.state IS NULL
+            OR record_interventions_interventions.state = 'in_progress')
+            AND (workers_or_tools_included.id IS NULL
+            OR (workers_or_tools_included.id = ? AND intervention_participations.state = 'in_progress'))
+         CONDITIONS
+
           if params[:with_interventions]
             if params[:with_interventions] == 'true'
               @interventions = @interventions.where(id: Intervention.select(:request_intervention_id))
