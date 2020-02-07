@@ -77,6 +77,10 @@ module Procedo
         @readings[reading.name] = reading
       end
 
+      def remove_reading(name)
+        @readings.delete(name.to_sym) if @readings.key?(name)
+      end
+
       def handlers
         @handlers.values
       end
