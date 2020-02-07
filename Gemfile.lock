@@ -217,7 +217,6 @@ GEM
       thor (~> 0.14)
     font-awesome-sass (5.12.0)
       sassc (>= 1.11)
-    foreman (0.87.0)
     formize (2.1.0)
       jquery-rails (>= 3)
       jquery-ui-rails (>= 5)
@@ -645,7 +644,6 @@ DEPENDENCIES
   ffaker (>= 2.0.0)
   figaro
   font-awesome-sass
-  foreman
   formize (~> 2.1.0)
   gpgme
   haml
