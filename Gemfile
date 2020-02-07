@@ -92,9 +92,6 @@ gem 'timecop'
 # Manipulate map data
 gem 'charta', '~> 0.1.14'
 
-# Manage daemons
-gem 'foreman'
-
 # active_list alternative
 gem 'font-awesome-sass'
 gem 'kaminari', '~> 0.16.0'

@@ -1,7 +1,10 @@
+.bundle/
+.circleci/
 .git
 .gitconfig
-config/application.yml
-config/database.yml
+.idea/
+/config/application.yml
+/config/database.yml
 coverage/
 db/first_runs/
 db/lexicon/data.sql
@@ -11,4 +14,8 @@ log/
 node_modules/
 packaging/
 private/
+public/assets/
 tmp/
+
+**/Dockerfile*
+**/docker-compose*.yml
