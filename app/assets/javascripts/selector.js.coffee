@@ -396,5 +396,20 @@
       $(detailedInput).closest('.selector').append(data)
       $(cell).addClass('with-details')
 
+  $(document).on 'selector:change', '[data-filter-unroll]', (e) ->
+    filterUnroll $(this)
+
+  filterUnroll = ($filteringUnroll) ->
+    $filteredUnroll = $filteringUnroll.closest($filteringUnroll.data('parent')).find($filteringUnroll.data('filter-unroll'))
+    url = $filteredUnroll.data('filters-url')
+
+    $.getJSON url, filter_id: $filteringUnroll.selector('value'), (data) ->
+      if data.scope_url
+        $filteredUnroll.data('selector', data.scope_url)
+        $filteredUnroll.attr('data-selector', data.scope_url)
+      if data.new_url
+        $filteredUnroll.data('selector-new-item', data.new_url)
+        $filteredUnroll.attr('data-selector-new-item', data.new_url)
+
   return
 ) ekylibre, jQuery

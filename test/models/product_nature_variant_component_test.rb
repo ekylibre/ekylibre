@@ -43,15 +43,19 @@ class ProductNatureVariantComponentTest < Ekylibre::Testing::ApplicationTestCase
 
     piston_params = {
       nature: ProductNature.import_from_nomenclature(:equipment),
+      category: ProductNatureCategory.import_from_nomenclature(:equipment),
       name: 'Piston B72 injection retro, alliage titane',
-      unit_name: 'Piston'
+      unit_name: 'Piston',
+      type: 'Variants::EquipmentVariant'
     }
     piston = ProductNatureVariant.create!(piston_params)
 
     motor_v12_param = {
       nature: ProductNature.import_from_nomenclature(:equipment),
+      category: ProductNatureCategory.import_from_nomenclature(:equipment),
       name: 'Moteur V12 injection gtx 18L, 2013',
-      unit_name: 'Moteur'
+      unit_name: 'Moteur',
+      type: 'Variants::EquipmentVariant'
     }
     motor_v12 = ProductNatureVariant.create!(motor_v12_param)
 

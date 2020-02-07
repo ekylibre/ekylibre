@@ -1,5 +1,8 @@
-= main_toolbar do |t|
-  - if ProductNatureCategory.any_reference_available?
-    = t.pick params: { selector_label: :product_nature_category.tl }
+= kujaku do |k|
+  - k.text
+
+- main_toolbar do |t|
+  - %w[article animal crop equipment service worker zone].each do |nature|
+    = link_to nature.pluralize.tl, send("backend_variant_categories_#{nature}_categories_path"), class: 'btn btn-default'
 
 = main_list

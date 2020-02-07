@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add missing units and indicators">
+  <item-creation item="units#kilogram_per_cubic_meter" dimension="mass_concentration" symbol="kg/m&#xB3;"/>
+  <item-creation item="indicators#sodium_concentration" datatype="measure" unit="mass_percent"/>
+</migration>

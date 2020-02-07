@@ -23,13 +23,14 @@ FactoryBot.define do
     unit_name       { :hectare }
 
     association     :nature, factory: :plants_nature
+    association     :category, factory: :plants_category
   end
 
   factory :corn_plant_variant, class: ProductNatureVariant do
     sequence(:name) { |n| "Corn plant variant - TEST#{n.to_s.rjust(8, '0')}" }
     variety         { :zea_mays }
     unit_name       { :hectare }
-    association :category, factory: :deliverable_category
+    association     :category, factory: :deliverable_category
     association     :nature, factory: :plants_nature
   end
 
@@ -56,7 +57,7 @@ FactoryBot.define do
     variety         { :tractor }
     unit_name       { :equipment }
     association     :category, factory: :equipment_category
-    association :nature, factory: :equipment_nature
+    association     :nature, factory: :equipment_nature
   end
 
   factory :building_division_variant, class: ProductNatureVariant do
@@ -65,6 +66,7 @@ FactoryBot.define do
     unit_name { 'Salle' }
 
     association :nature, factory: :building_division_nature
+    association :category, factory: :building_division_category
   end
 
   factory :fertilizer_variant, class: ProductNatureVariant do
@@ -73,6 +75,7 @@ FactoryBot.define do
     unit_name { :liter }
 
     association :nature, factory: :fertilizer_nature
+    association :category, factory: :fertilizer_category
   end
 
   factory :tractor_variant, class: ProductNatureVariant do
@@ -81,6 +84,7 @@ FactoryBot.define do
     unit_name { 'Tracteur' }
 
     association :nature, factory: :tractor_nature
+    association :category, factory: :tractor_category
   end
 
   factory :seed_variant, class: ProductNatureVariant do
@@ -90,6 +94,7 @@ FactoryBot.define do
     unit_name { 'Millier de grains' }
 
     association :nature, factory: :seed_nature
+    association :category, factory: :seed_category
   end
 
   factory :harvest_variant, class: ProductNatureVariant do
@@ -99,5 +104,6 @@ FactoryBot.define do
     unit_name { 'Kg' }
 
     association :nature, factory: :harvest_nature
+    association :category, factory: :harvest_category
   end
 end

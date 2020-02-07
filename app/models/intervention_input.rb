@@ -115,7 +115,7 @@ class InterventionInput < InterventionProductParameter
 
   # return legal dose according to Lexicon phyto dataset and maaid number
   def legal_pesticide_informations
-    pesticide = RegisteredPhytosanitaryProduct.where(maaid: variant.france_maaid).first
+    pesticide = RegisteredPhytosanitaryProduct.where(france_maaid: variant.france_maaid).first
     if pesticide
       specie = intervention.activity_productions.first.cultivation_variety
       usages = pesticide.usages.of_specie(specie)

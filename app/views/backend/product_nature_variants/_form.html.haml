@@ -10,17 +10,19 @@
   end
 
 = field_set do
-  - if f.object.new_record? and nature.nil?
-    = f.referenced_association :nature
-  - else
-    = f.association :nature, as: :hidden
+  = f.referenced_association :nature
+  = f.referenced_association :category
   = f.variety scope: nature, child_scope: f.object.products
   = f.input :name
+  - if %w[animal_variants equipment_variants].include? params[:subdivision]
+    = f.input :specie_variety, label: "#{params[:subdivision]}_specie_variety".tl
   = f.input :work_number
   = f.input :gtin
   = f.input :active
   = f.input :unit_name
-  = f.input :france_maaid
+  - if params[:subdivision] == 'plant_medicine_articles' || f.object.is_a?(Variants::Articles::PlantMedicineArticle)
+    - value = RegisteredPhytosanitaryProduct.find_by_reference_name(f.object.reference_name)
+    = field :france_maaid.tl, selector_tag(:phyto_product_id, { controller: "/backend/registered_phytosanitary_products", action: :unroll }, value: value&.id || f.object.france_maaid)
   = f.picture
   = f.custom_fields
 
@@ -31,6 +33,3 @@
 - if f.object.of_variety? :equipment
   = field_set(:components) do
     = f.nested_association(:components, collection: f.object.components.select { |c| c.parent_id.nil? })
-
-
-

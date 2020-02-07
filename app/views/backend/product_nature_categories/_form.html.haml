@@ -1,7 +1,10 @@
 = f.object.errors.inspect if Rails.env.development? && f.object.errors.any?
+- type = params[:subdivision] ? "VariantCategories::#{params[:subdivision].singularize.classify}" : nil
 
 = field_set do
   = f.input :name
+  - if f.object.new_record?
+    = f.input :type, selected: type
   = f.input :active
   = f.input :description
   = f.custom_fields

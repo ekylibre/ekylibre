@@ -1,0 +1,3 @@
+- main_toolbar do |t|
+  = t.pick params: { redirect: backend_product_nature_variants_path, selector_label: :product_variant.tl }
+  = t.new params: { controller: '/backend/product_nature_variants', subdivision: controller_name }
