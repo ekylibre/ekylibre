@@ -45,6 +45,7 @@
     - l.attribute :name
     - l.attribute :unit_name
     - l.attribute :variety
+    - l.attribute :specie_variety
     - l.attribute :derivative_of
     - l.attribute :stock_account, url: true
     - l.attribute :stock_movement_account, url: true
@@ -69,7 +70,7 @@
               - avatars.each do |item|
                 = image_tag(item_avatar_path(item), class: 'risk-picto', title: item.human_name, alt: item.code)
             = list.to_sentence.html_safe
-      - if agent.usages.any?
+      - if !agent.is_a?(Struct::UnknownAgent) && agent.usages.any?
         %table.table
           %thead
             %tr

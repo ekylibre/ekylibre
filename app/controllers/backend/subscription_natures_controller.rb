@@ -43,10 +43,10 @@ module Backend
     end
 
     list(:product_natures, conditions: { subscription_nature_id: 'params[:id]'.c }) do |t|
-      t.action :edit
-      t.action :destroy
-      t.column :number, url: true
-      t.column :name, url: true
+      t.action :edit, url: { controller: '/backend/product_natures' }
+      t.action :destroy, url: { controller: '/backend/product_natures' }
+      t.column :number, url: { controller: '/backend/product_natures' }
+      t.column :name, url: { controller: '/backend/product_natures' }
       t.column :subscribing
       t.column :subscription_duration
     end

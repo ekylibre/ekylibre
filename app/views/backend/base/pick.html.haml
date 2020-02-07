@@ -2,6 +2,6 @@
   - if params[:redirect]
     = hidden_field_tag(:redirect, params[:redirect])
   - f.add(:submit, :import.tl, data: {disable_with: :please_wait.tl}, class: 'primary')
-  = f.input :reference_name, label: params[:selector_label], collection: @items
+  = field params[:selector_label], selector_tag(:reference_id, { controller: "/backend/#{@lexicon_table}", action: :unroll, exclude: @imported_ids, scope: @scopes })
   - f.add(:link, :cancel.tl, {action: :index}, (params[:dialog] ? {class: 'btn', data: {close_dialog: params[:dialog]}} : {class: 'btn'}))
   = f.actions

@@ -182,7 +182,7 @@ class SaleItem < Ekylibre::Record::Base
       self.amount ||= tax.amount_of(raw_pretax_amount).round(precision)
     end
     if variant
-      self.account_id = variant.nature.category.product_account_id
+      self.account_id = variant.category.product_account_id
       self.label = variant.commercial_name
     end
   end

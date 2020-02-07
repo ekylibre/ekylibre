@@ -18,9 +18,11 @@
 
 module Backend
   class RolesController < Backend::BaseController
+    include Pickable
+
     manage_restfully
 
-    manage_restfully_incorporation
+    importable_from_lexicon :user_roles
 
     unroll
 

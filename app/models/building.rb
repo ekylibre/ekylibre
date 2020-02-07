@@ -88,7 +88,9 @@
 #
 
 class Building < ProductGroup
-  refers_to :variety, scope: :building
+  # Removed scope since building product_nature comes with 'zone' as variety instead of 'building'
+  # refers_to :variety, scope: :building
+  refers_to :variety
   has_shape
 
   # Add a member to the group

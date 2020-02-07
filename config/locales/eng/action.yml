@@ -934,6 +934,78 @@ eng:
       new: "New user"
       show: "User: %{first_name} %{last_name}"
       unlock: "Unlock user"
+    backend/variant_categories/animal_categories:
+      index: "Animals categories"
+      pick: "Import an animals category"
+    backend/variant_categories/article_categories:
+      index: "Articles categories"
+      pick: "Import an articles category"
+    backend/variant_categories/crop_categories:
+      index: "Crops categories"
+      pick: "Import a crops category"
+    backend/variant_categories/equipment_categories:
+      index: "Equipments categories"
+      pick: "Import an equipments category"
+    backend/variant_categories/service_categories:
+      index: "Services categories"
+      pick: "Import a services category"
+    backend/variant_categories/worker_categories:
+      index: "Workers categories"
+      pick: "Import a workers category"
+    backend/variant_categories/zone_categories:
+      index: "Zones categories"
+      pick: "Import a zones category"
+    backend/variant_types/animal_types:
+      index: "Animals types"
+      pick: "Import an animals type"
+    backend/variant_types/article_types:
+      index: "Articles types"
+      pick: "Import an articles type"
+    backend/variant_types/crop_types:
+      index: "Crops types"
+      pick: "Import a crops type"
+    backend/variant_types/equipment_types:
+      index: "Equipments types"
+      pick: "Import an equipments type"
+    backend/variant_types/service_types:
+      index: "Services types"
+      pick: "Import a services type"
+    backend/variant_types/worker_types:
+      index: "Workers types"
+      pick: "Import a workers type"
+    backend/variant_types/zone_types:
+      index: "Zones types"
+      pick: "Import a zones type"
+    backend/variants/animal_variants:
+      index: "Animals"
+      pick: "Import an animal"
+    backend/variants/article_variants:
+      index: "Other articles"
+      pick: "Import an article"
+    backend/variants/crop_variants:
+      index: "Crops"
+      pick: "Import a crop"
+    backend/variants/equipment_variants:
+      index: "Equipements"
+      pick: "Import an equipement"
+    backend/variants/service_variants:
+      index: "Services"
+      pick: "Import a service"
+    backend/variants/worker_variants:
+      index: "Workers"
+      pick: "Import a worker"
+    backend/variants/zone_variants:
+      index: "Zones"
+      pick: "Import a zone"
+    backend/variants/articles/fertilizer_articles:
+      index: "Fertilizers"
+      pick: "Import a fertilizer"
+    backend/variants/articles/plant_medicine_articles:
+      index: "Plant medicines"
+      pick: "Import a plant medicine"
+    backend/variants/articles/seed_and_plant_articles:
+      index: "Seed and plants"
+      pick: "Import a seed or a plant"
     backend/variants/fixed_assets:
       # fixed_assets_datas: "Fixed assets datas fixed asset: %{name}"
     backend/visualizations/land_parcels_visualizations:
@@ -1265,9 +1337,11 @@ eng:
     analytic_preferences: "Analytic preferences"
     anew_reports: "Anew report" #?
     animal_details: "Animal details" #?!
+    animal_natures: "Animals"
     # animal_management: "Animal management"
     animal_purchases: "Animal purchases" #?
     animal_sales: "Animal sales" #?
+    animal_variants_specie_variety: "Variety"
     animals: "Animals"
     any_journal: "Any journal"
     archive_post_closure: "Post closure archive"
@@ -1285,6 +1359,7 @@ eng:
     are_you_sure_you_want_to_invoice: "Are you sure you want to invoice?"
     are_you_sure_you_want_to_send_mails: "Are you sure you want to send emails?"
     area: "Area" #?
+    articles: "Articles"
     asset_exists: "Asset exists"
     assets: "Assets" #?
     assets_gaps: "Assets gaps" #?
@@ -1643,6 +1718,8 @@ eng:
     entry_resource_label: "Record" #?
     equipment: "Equipment"
     equipment_name: "Name of equipment" #?
+    equipment_natures: "Equipments"
+    equipment_variants_specie_variety: "Brand / Model"
     equipments: "Equipment"
     equities: "Equities" #?!
     error: "Sorry..."
@@ -1714,6 +1791,7 @@ eng:
     extract_unlettered_account_x: "Extract unlettered account %{account_number}"
     extraordinary_income: "Extraordinary income"
     fees: "Fees" #?
+    fertilizers: "Fertilizers"
     field: "Field %{counter}" #?
     field_distribution: "Field distribution"
     file_nature: "File type"
@@ -2199,6 +2277,7 @@ eng:
     plant: "Crop"
     plant_counting: "Counting" #?
     plant_countings: "Countings" #?
+    plant_medicines: "Plant medicines"
     plantation_density: "Plantation density" #?
     plants: "Crops" #?
     please_reach_out_for_the_person_in_charge_of_the_closure: "Please reach out for the person in charge of the closure outside of the software to get your documents."
@@ -2382,6 +2461,7 @@ eng:
     see_the_day_book: "See the day book"
     see_the_financial_years: "See the financial years"
     see_the_unbalanced_entries: "See the unbalanced entries"
+    seed_and_plants: "Seed and plants"
     select_a_journal: "Select a journal"
     select_closure_date: "Choose closing date"
     select_columns: "Select columns" #??
@@ -2402,6 +2482,7 @@ eng:
     service: "Service" #?
     service_deliveries: "Service deliveries"
     service_delivering: "Service delivering"
+    services: "Services"
     services_sale: "Service sale" #?
     sessions: "Sessions" #?
     set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)" #?!
@@ -2649,6 +2730,7 @@ eng:
     wind_speed: "Wind speed"
     with_fixed_assets_depreciations: "With fixed assets depreciations"
     worked_zone_not_corresponding: "The worked zone is not corresponding to the planned one"
+    worker_natures: "Workers"
     workers: "Workers"
     workforce: "Workforce" #?!
     # working_area: "Working area"
@@ -2838,6 +2920,7 @@ eng:
     # yield_by_calibration_x: "Yield by calibration x"
     you_can_close_financial_year: "You can close or lock your financial year %{financial_year_to_close}" #?
     you_can_close_financial_year_to_open_a_new_one: "You can close or lock your financial year %{financial_year_to_close} to open %{financial_year_to_open}" #?
+    zone_natures: "Zones"
     zones: "Zones"
     # }: "}"
   notifications:
@@ -2855,6 +2938,7 @@ eng:
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "All parcels must be invoiceable and of same nature and third"
       all_purchases_must_be_ordered_or_invoiced: "All purchases must be ordered or invoiced."
       all_tax_declarations_have_already_existing: "All tax declarations have already existing"
+      an_error_was_raised_during_import: "An error was raised during import process."
       bookkeeping_is_finished: "The commercial data transfer is finished."
       bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
       cannot_add_bank_statement_item: "You can’t add a new line because there is no available bank statement on this day"

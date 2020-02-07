@@ -112,4 +112,24 @@ class Role < Ekylibre::Record::Base
 
     role
   end
+
+  def self.import_from_lexicon(reference_name, _force = false)
+    unless item = UserRole.find_by_reference_name(reference_name)
+      raise ArgumentError, "The role #{reference_name.inspect} is not known"
+    end
+
+    rights = item.accesses.each_with_object({}) do |right, hash|
+      array = right.to_s.split('-')
+      array.insert(0, 'all') if array.size < 3
+      array << 'all' if array.size < 3
+      resource = array.second
+      action = array.third
+      action = Ekylibre::Access.interactions_of(resource) if action == 'all'
+      hash[resource] ||= []
+      hash[resource] += [action].flatten.map(&:to_s)
+      hash
+    end
+
+    create!(name: item.name[I18n.locale.to_s] || item.reference_name.humanize, reference_name: item.reference_name, rights: rights)
+  end
 end

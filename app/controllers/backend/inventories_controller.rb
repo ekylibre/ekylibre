@@ -39,7 +39,7 @@ module Backend
 
     # Displays the main page with the list of inventories
     def index
-      unless ProductNature.stockables.any?
+      unless ProductNatureCategory.stockables.any?
         notify_now(:need_stocks_to_create_inventories)
       end
     end

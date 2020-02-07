@@ -1,0 +1,8 @@
+= kujaku do |k|
+  - k.text
+
+- main_toolbar do |t|
+  = t.pick params: { redirect: backend_product_nature_categories_path, selector_label: :product_nature_category.tl }
+  = t.new params: { controller: '/backend/product_nature_categories', subdivision: controller_name }
+
+= main_list constant_name: "VariantCategories::#{controller_name.classify}".constantize

@@ -57,8 +57,10 @@ class ProductPhase < Ekylibre::Record::Base
 
   # Sets nature and variety from variant
   before_validation on: :create do
-    self.nature   = variant.nature if variant
-    self.category = nature.category if nature
+    if variant
+      self.nature   = variant.nature
+      self.category = variant.category
+    end
   end
 
   # Updates product
