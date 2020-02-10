@@ -39,7 +39,7 @@ module Printers
           r.add_field :client_reference, client_reference
 
           # Expired_at
-          r.add_field :expired_at, sale.expired_at.l(format: '%d %B %Y')
+          r.add_field :expired_at, Delay.new(sale.payment_delay).compute(sale.invoiced_at).l(format: '%d %B %Y')
 
           # Company_address
           r.add_field :company_name, company.full_name
