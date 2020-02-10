@@ -50,7 +50,8 @@ CREATE TABLE lexicon.ephy_cropsets (
     name character varying NOT NULL,
     label jsonb,
     crop_names text[],
-    crop_labels jsonb
+    crop_labels jsonb,
+    record_checksum integer
 );
 
 
@@ -303,7 +304,8 @@ CREATE TABLE lexicon.registered_phytosanitary_products (
     restricted_mentions character varying,
     operator_protection_mentions text,
     firm_name character varying,
-    product_type character varying
+    product_type character varying,
+    record_checksum integer
 );
 
 
@@ -314,7 +316,8 @@ CREATE TABLE lexicon.registered_phytosanitary_products (
 CREATE TABLE lexicon.registered_phytosanitary_risks (
     product_id integer NOT NULL,
     risk_code character varying NOT NULL,
-    risk_phrase character varying NOT NULL
+    risk_phrase character varying NOT NULL,
+    record_checksum integer
 );
 
 
@@ -348,7 +351,8 @@ CREATE TABLE lexicon.registered_phytosanitary_usages (
     untreated_buffer_arthropod integer,
     untreated_buffer_plants integer,
     decision_date date,
-    state character varying NOT NULL
+    state character varying NOT NULL,
+    record_checksum integer
 );
 
 
