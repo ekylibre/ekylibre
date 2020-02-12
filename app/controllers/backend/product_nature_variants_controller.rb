@@ -326,6 +326,8 @@ module Backend
       @product_nature_variant.attributes = permitted_params
       handle_maaid(@product_nature_variant, params[:phyto_product_id])
       return if save_and_redirect(@product_nature_variant, url: params[:redirect] || ({ action: :show, id: 'id'.c }), notify: (params[:redirect] ? :record_x_updated : false), identifier: :name)
+      @form_url = backend_product_nature_variant_path(@product_nature_variant)
+      @key = 'product_nature_variant'
       render(locals: { cancel_url: {:action=>:index}, with_continue: false })
     end
 
