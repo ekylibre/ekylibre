@@ -72,7 +72,6 @@ class ProductNature < Ekylibre::Record::Base
 
   VARIETIES_SUB_NATURES = {
                             fertilizer: %w[compost guano liquid_slurry manure slurry],
-                            plant_medicine: %w[preparation],
                             seed_and_plant: %w[seed seedling]
                           }.freeze
 
