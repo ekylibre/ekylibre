@@ -6,4 +6,4 @@
   = t.pick params: { redirect: backend_product_natures_path, selector_label: :product_nature.tl }
   = t.new params: { controller: '/backend/product_natures' }
 
-= main_list constant_name: "VariantTypes::#{controller_name.classify}".constantize
+= main_list "constant_name" => "VariantTypes::#{controller_name.classify}"
