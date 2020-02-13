@@ -3388,7 +3388,7 @@ fra:
     product_nature_variants:
       choices:
         unit_name:
-          100cl_bottle: "bouteille de 100cl"
+          100cl_bottle: "Bouteille de 100cl"
           100g_dose: "Dose de 100g"
           10kg_bag: "Sac de 10kg"
           10ml_dose: "Dose de 10ml"
@@ -3411,6 +3411,7 @@ fra:
           box: "Boîte"
           building: "Bâtiment"
           can: "Bidon"
+          centiliter: "Centilitre"
           cubic_meter: "Mètre cube"
           day: "Jour"
           domain: "Domaine"
@@ -3425,10 +3426,11 @@ fra:
           hour: "Heure"
           kilogram: "Kilogramme"
           kilometer: "Kilomètre"
-          kilowatt_hour: "Kilowatt-heure"
+          kilowatt_hour: "Kilowattheure"
           liter: "Litre"
           meal: "Repas"
           meter: "Mètre"
+          milliliter: "Millilitre"
           month: "Mois"
           night: "Nuit"
           package: "Pack"
@@ -3443,8 +3445,10 @@ fra:
           square_meter: "Mètre carré"
           stake: "Piquet"
           subject: "Sujet"
+          thousand: "Millier"
           ton: "Tonne"
           unit: "Unité"
+          unity: "Unité"
       items:
         115g_jam: "Pot de 115g de confiture"
         230g_jam: "Pot de 230g de confiture"
