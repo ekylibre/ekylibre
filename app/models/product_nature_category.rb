@@ -234,14 +234,13 @@ class ProductNatureCategory < Ekylibre::Record::Base
       create!(attributes)
     end
 
-    def load_defaults(**_options)
+    def import_all_from_lexicon
       VariantCategory.find_each do |category|
         import_from_lexicon(category.reference_name)
       end
     end
 
-    # Load.all product nature from product nature nomenclature
-    def import_all_from_nomenclature
+    def load_defaults(**_options)
       Nomen::ProductNatureCategory.find_each do |product_nature_category|
         import_from_nomenclature(product_nature_category.name)
       end
