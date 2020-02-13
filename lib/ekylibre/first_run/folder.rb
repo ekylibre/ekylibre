@@ -122,8 +122,8 @@ module Ekylibre
       end
 
       def default_datasets
-        %i[sequences unities accounts document_templates taxes journals cashes
-           sale_natures purchase_natures incoming_payment_modes unities
+        %i[sequences accounts document_templates taxes journals cashes
+           sale_natures purchase_natures incoming_payment_modes
            outgoing_payment_modes product_natures product_nature_categories
            product_nature_variants catalog_items map_layers naming_format_land_parcels]
       end
