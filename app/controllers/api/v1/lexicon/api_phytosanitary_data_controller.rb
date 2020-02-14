@@ -5,6 +5,32 @@ module Api
 
         private
 
+          def paginated_result(model, order: nil)
+            if params.key?(:paginate)
+              per_page = [1000, params.fetch(:per_page, 100).to_i].min
+              asked_page = params.fetch(:page, 1).to_i
+
+              total_elements = model.count
+              page_count = (total_elements.to_f / per_page).ceil
+
+              page = [asked_page, page_count].min
+
+              all_models = model.all
+              all_models = all_models.order(order) if order.present?
+
+              @data = all_models.limit(per_page).offset(per_page * (page - 1))
+
+              @pagination = {
+                elements: @data.count,
+                page: page,
+                total_elements: total_elements,
+                page_count: page_count
+              }.to_struct
+            else
+              _, @data = compute_diff([], model: model, table_name: table_name)
+            end
+          end
+
           def compute_diff(elements, model:, table_name:)
             removed = get_removed_element(elements, table_name: table_name)
             updated_or_inserted_elements = get_updated_or_inserted_elements(elements, model: model)
