@@ -3,13 +3,11 @@ module Api
     module Lexicon
       class EphyCropsetsController < ApiPhytosanitaryDataController
         def index
-          @removed, @updated = compute_diff([], model: EphyCropset, table_name: table_name)
+          paginated_result(EphyCropset, order: :id)
         end
 
         def create
           @removed, @updated = compute_diff(permitted_params, model: EphyCropset, table_name: table_name)
-
-          render "index"
         end
       end
     end

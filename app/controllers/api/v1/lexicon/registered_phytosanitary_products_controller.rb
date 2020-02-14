@@ -3,13 +3,11 @@ module Api
     module Lexicon
       class RegisteredPhytosanitaryProductsController < ApiPhytosanitaryDataController
         def index
-          @removed, @updated = compute_diff([], model: RegisteredPhytosanitaryProduct, table_name: table_name)
+          paginated_result(RegisteredPhytosanitaryProduct, order: :id)
         end
 
         def create
           @removed, @updated = compute_diff(permitted_params, model: RegisteredPhytosanitaryProduct, table_name: table_name)
-
-          render "index"
         end
       end
     end
