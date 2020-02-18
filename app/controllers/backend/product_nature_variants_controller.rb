@@ -18,9 +18,11 @@
 
 module Backend
   class ProductNatureVariantsController < Backend::BaseController
-    manage_restfully active: true
-    manage_restfully_incorporation
+    include Pickable
+    manage_restfully except: %i[edit create update], active: true
     manage_restfully_picture
+
+    importable_from_lexicon :variants
 
     # To edit it, change here the column and edit action.yml unrolls section
     unroll :name, :unit_name, category: { charge_account: :number }
@@ -45,17 +47,21 @@ module Backend
       code << "  c[0] << \" AND product_nature_variants.category_id = ?\"\n"
       code << "  c << params[:category_id].to_i\n"
       code << "end\n"
+      code << "if controller_name == 'article_variants'\n"
+      code << "  c[0] << \" AND product_nature_variants.type = ?\"\n"
+      code << "  c << 'Variants::ArticleVariant'\n"
+      code << "end\n"
       code << "c\n"
       code.c
     end
 
     list(conditions: variants_conditions) do |t|
-      t.action :edit
-      t.action :destroy, if: :destroyable?
-      t.column :name, url: true
+      t.action :edit, url: { controller: '/backend/product_nature_variants' }
+      t.action :destroy, if: :destroyable?, url: { controller: '/backend/product_nature_variants' }
+      t.column :name, url: { controller: '/backend/product_nature_variants' }
       t.column :number
-      t.column :nature, url: true
-      t.column :category, url: true
+      t.column :nature, url: { controller: '/backend/product_natures' }
+      t.column :category, url: { controller: '/backend/product_nature_categories' }
       t.column :current_stock_displayed, label: :current_stock
       t.column :current_outgoing_stock_ordered_not_delivered_displayed
       t.column :unit_name
@@ -74,7 +80,7 @@ module Backend
     end
 
     list(:products, conditions: { variant_id: 'params[:id]'.c }, order: { born_at: :desc }) do |t|
-      t.column :name, url: true
+      t.column :name, url: { controller: '/backend/products' }
       t.column :work_number
       t.column :identification_number
       t.column :born_at, datatype: :datetime
@@ -299,5 +305,43 @@ module Backend
                                   .sum(:quantity)
       render json: { quantity: quantity, unit: ProductNatureVariant.find(params[:id])&.unit_name }
     end
+
+    def edit
+      @product_nature_variant = find_and_check
+      @form_url = backend_product_nature_variant_path(@product_nature_variant)
+      @key = 'product_nature_variant'
+      t3e(@product_nature_variant.attributes)
+    end
+
+    def create
+      @product_nature_variant = resource_model.new(permitted_params)
+      handle_maaid(@product_nature_variant, params[:phyto_product_id])
+      return if save_and_redirect(@product_nature_variant, url: (params[:create_and_continue] ? {:action=>:new, :continue=>true} : (params[:redirect] || ({ action: :show, id: 'id'.c }))), notify: ((params[:create_and_continue] || params[:redirect]) ? :record_x_created : false), identifier: :name)
+      render(locals: { cancel_url: {:action=>:index}, with_continue: false })
+    end
+
+    def update
+      return unless @product_nature_variant = find_and_check(:product_nature_variant)
+      t3e(@product_nature_variant.attributes)
+      @product_nature_variant.attributes = permitted_params
+      handle_maaid(@product_nature_variant, params[:phyto_product_id])
+      return if save_and_redirect(@product_nature_variant, url: params[:redirect] || ({ action: :show, id: 'id'.c }), notify: (params[:redirect] ? :record_x_updated : false), identifier: :name)
+      @form_url = backend_product_nature_variant_path(@product_nature_variant)
+      @key = 'product_nature_variant'
+      render(locals: { cancel_url: {:action=>:index}, with_continue: false })
+    end
+
+    private
+
+      def handle_maaid(variant, phyto_product_id)
+        if phyto_product_id.present?
+          phyto = RegisteredPhytosanitaryProduct.find(phyto_product_id)
+          attributes = { france_maaid: phyto.france_maaid, reference_name: phyto.reference_name, imported_from: 'Lexicon' }
+          variant.attributes = attributes
+        elsif variant.france_maaid.present?
+          attributes = { france_maaid: nil, reference_name: nil, imported_from: nil }
+          variant.attributes = attributes
+        end
+      end
   end
 end

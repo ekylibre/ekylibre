@@ -1,14 +1,12 @@
 = kujaku do |k|
   - k.text
   - k.choice :all, :active, :inactive
-  -# k.helper do
-    %label= tl(:category)
-    = select_tag(:category_id, options_for_select([[]] + ProductNatureCategory.to_a.collect{|s| [s.name, s.id]}, :selected => params[:category_id]))
 
 - main_toolbar do |t|
-  = t.new params: { redirect: nil }
-  - if ProductNature.any_reference_available?
-    = t.pick params: { selector_label: :product_nature.tl }
+  = t.pick params: { redirect: backend_product_natures_path, selector_label: :product_nature.tl }
+  = t.new params: { controller: '/backend/product_natures' }
+
+  - %w[article animal crop equipment service worker zone].each do |nature|
+    = link_to nature.pluralize.tl, send("backend_variant_types_#{nature}_types_path"), class: 'btn btn-default'
 
 = main_list
-

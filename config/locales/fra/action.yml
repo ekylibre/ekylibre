@@ -781,6 +781,78 @@ fra:
       new: "Nouvel utilisateur"
       show: "Utilisateur\_: %{first_name} %{last_name}"
       unlock: "Déverrouiller l’utilisateur"
+    backend/variant_categories/animal_categories:
+      index: "Catégories d'animaux"
+      pick: "Importer une catégorie d'animaux"
+    backend/variant_categories/article_categories:
+      index: "Catégories d'articles"
+      pick: "Importer une catégorie d'articles"
+    backend/variant_categories/crop_categories:
+      index: "Catégories de cultures"
+      pick: "Importer une catégorie de cultures"
+    backend/variant_categories/equipment_categories:
+      index: "Catégories d'équipements"
+      pick: "Importer une catégorie d'équipements"
+    backend/variant_categories/service_categories:
+      index: "Catégories de services"
+      pick: "Importer une catégorie de services"
+    backend/variant_categories/worker_categories:
+      index: "Catégories d'équipiers"
+      pick: "Importer une catégorie d'équipiers"
+    backend/variant_categories/zone_categories:
+      index: "Catégories de zones"
+      pick: "Importer une catégorie de zones"
+    backend/variant_types/animal_types:
+      index: "Types d'animaux"
+      pick: "Importer un type d'animaux"
+    backend/variant_types/article_types:
+      index: "Types d'articles"
+      pick: "Importer un type d'articles"
+    backend/variant_types/crop_types:
+      index: "Types de cultures"
+      pick: "Importer un type de cultures"
+    backend/variant_types/equipment_types:
+      index: "Types d'équipements"
+      pick: "Importer un type d'équipements"
+    backend/variant_types/service_types:
+      index: "Types de services"
+      pick: "Importer un type de services"
+    backend/variant_types/worker_types:
+      index: "Types d'équipiers"
+      pick: "Importer un type d'équipiers"
+    backend/variant_types/zone_types:
+      index: "Types de zones"
+      pick: "Importer un type de zones"
+    backend/variants/animal_variants:
+      index: "Animaux"
+      pick: "Importer un animal"
+    backend/variants/article_variants:
+      index: "Autres articles"
+      pick: "Importer un article"
+    backend/variants/crop_variants:
+      index: "Cultures"
+      pick: "Importer une culture"
+    backend/variants/equipment_variants:
+      index: "Équipements"
+      pick: "Importer un équipement"
+    backend/variants/service_variants:
+      index: "Services"
+      pick: "Importer un service"
+    backend/variants/worker_variants:
+      index: "Équipiers"
+      pick: "Importer un équipier"
+    backend/variants/zone_variants:
+      index: "Zones"
+      pick: "Importer une zone"
+    backend/variants/articles/fertilizer_articles:
+      index: "Engrais"
+      pick: "Importer un engrais"
+    backend/variants/articles/plant_medicine_articles:
+      index: "Produits phytosanitaires"
+      pick: "Importer un produit phytosanitaire"
+    backend/variants/articles/seed_and_plant_articles:
+      index: "Semences et plants"
+      pick: "Importer une semence ou un plant"
     backend/wine_tanks:
       index: "Cuverie"
     backend/wine_transformers: #?
@@ -1117,6 +1189,7 @@ fra:
     and: "Et" #?
     anew_reports: "Report à nouveau"
     animal: "Animal" #?
+    animal_natures: "Animaux"
     animal_bar: "Animaux par lot" #?
     animal_details: "Détails d’un animal"
     animal_identification: "Identification animale" #?
@@ -1125,6 +1198,7 @@ fra:
     animal_productions: "Productions animales" #?
     animal_purchases: "Achats d'animaux"
     animal_sales: "Ventes d'animaux"
+    animal_variants_specie_variety: "Variété"
     animals: "Animaux"
     any_journal: "Tous les journaux"
     apply: "Appliquer" #?
@@ -1145,6 +1219,7 @@ fra:
     are_you_sure_you_want_to_send_mails: "Êtes-vous sûr(e) de vouloir envoyer les mails\_?"
     area: "Zone"
     area_measure: "Superficie" #?
+    articles: "Articles"
     assessable_operations: "Opérations imposables (H.T)" #?
     asset_exists: "Immobilisation en cours existante"
     assets: "Actifs"
@@ -1582,6 +1657,8 @@ fra:
     entry_resource_label: "Pièce"
     equipment: "Équipement"
     equipment_name: "Nom de l’équipement"
+    equipment_natures: "Équipements"
+    equipment_variants_specie_variety: "Marque / Modèle"
     equipments: "Équipements"
     equities: "Capitaux propres"
     error: "Désolé..."
@@ -1675,6 +1752,7 @@ fra:
     fat_matters_concentration: "Teneur en matières grasses" #?
     fax: "Fax" #?
     fees: "Frais"
+    fertilizers: "Engrais"
     field: "Champ %{counter}"
     field_distribution: "Parcellaire"
     file_nature: "Type de fichier"
@@ -2311,6 +2389,7 @@ fra:
     plant: "Culture"
     plant_counting: "Comptage"
     plant_countings: "Comptages"
+    plant_medicines: "Produits phytosanitaires"
     plant_productions: "Productions végétales" #?
     plantation_density: "Densité de plantation"
     plants: "Plantes"
@@ -2597,6 +2676,7 @@ fra:
     see_the_day_book: "Voir le brouillard"
     see_the_financial_years: "Voir les exercices"
     see_the_unbalanced_entries: "Voir les écritures non équilibrées"
+    seed_and_plants: "Semences et plants"
     select_a_journal: "Sélectionnez un journal"
     select_account_client: "Compte à lettrer" #?
     select_account_supplier: "Compte à lettrer" #?
@@ -2630,6 +2710,7 @@ fra:
     service: "Service"
     service_deliveries: "Prestations de services"
     service_delivering: "Prestation de service"
+    services: "Services"
     services_sale: "Vente de services"
     services_sales: "Vente de services" #?
     sessions: "Sessions"
@@ -2965,6 +3046,7 @@ fra:
     worked_zone_not_corresponding: "La zone travaillée ne correspond pas à celle planifiée"
     worker: "Équipier" #?
     workers: "Équipiers"
+    worker_natures: "Équipiers"
     workforce: "Main d'oeuvre"
     working_area: "Surface travaillée" #?
     working_duration: "Temps de travail"
@@ -3181,6 +3263,7 @@ fra:
     yield_by_calibrations: "Rendement par calibre" #?
     you_can_close_financial_year: "Vous pouvez clôturer ou verrouiller votre exercice %{financial_year_to_close}"
     you_can_close_financial_year_to_open_a_new_one: "Vous pouvez clôturer ou verrouiller votre exercice %{financial_year_to_close} pour ouvrir %{financial_year_to_open}"
+    zone_natures: "Zones"
     zones: "Zones"
   notifications:
     levels:
@@ -3198,6 +3281,7 @@ fra:
       all_purchases_must_be_ordered: "Tous les achats doivent être commandés ou facturés." #?
       all_purchases_must_be_ordered_or_invoiced: "Tous les achats doivent être commandés ou facturés."
       all_tax_declarations_have_already_existing: "Toutes les déclarations de TVA existent déjà"
+      an_error_was_raised_during_import: "Une erreur est survenue durant l'import."
       bad_file: "Le fichier ne semble pas correspondre." #?
       bookkeeping_is_finished: "La bascule en comptabilité est finie."
       bookkeeping_works_only_with: "La bascule en comptabilité ne peut se faire actuellement que pour\_: %{list}."
@@ -3487,7 +3571,7 @@ fra:
       pay: "Payer"
       payment_gap: "Écart de règlement"
       payment_mode: "Payer (Mode)"
-      pick: "Piocher"
+      pick: "Importer"
       picture: "Image"
       prepare: "Préparer"
       print: "Imprimer" #?

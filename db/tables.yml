@@ -6465,6 +6465,9 @@ product_nature_variants:
   stock_movement_account_id:
     type: integer
     references: account
+  type:
+    type: string
+    required: true
   unit_name:
     type: string
     required: true
@@ -6486,10 +6489,6 @@ product_natures:
     type: boolean
     required: true
     default: false
-  category_id:
-    type: integer
-    references: product_nature_category
-    required: true
   created_at:
     type: datetime
     required: true

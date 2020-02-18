@@ -76,7 +76,7 @@ module Backend
       t.column :number, url: true
       t.column :work_number
       t.column :name, url: true
-      t.column :variant, url: true
+      t.column :variant, url: { controller: :product_nature_variants }
       t.column :variety
       t.column :population
       t.column :unit_name

@@ -230,9 +230,9 @@ module Backend
         selection = []
         if options[:of].to_s =~ /\#/
           array = options[:of].to_s.split('#')
-          selection = Nomen[array.first].property_natures[array.second].selection
+          selection = Nomen.find(array.first).property_natures[array.second].selection
         else
-          selection = Nomen[options[:of]].selection
+          selection = Nomen.find(options[:of]).selection
         end
       else
         raise 'Need selection'

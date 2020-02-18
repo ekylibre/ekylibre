@@ -61,9 +61,24 @@ FactoryBot.define do
   end
 
   factory :asset_fixable_product, class: Product do
-    association :category, factory: :equipments_category
-    association :nature, factory: :equipments_nature
+    association :category, factory: :equipment_category
+    association :nature, factory: :equipment_nature
     association :variant, factory: :equipment_variant
     variety { 'tractor' }
+  end
+
+  factory :fertilizer_product, class: Product do
+    association :category, factory: :fertilizer_category
+    association :nature, factory: :fertilizer_nature
+    association :variant, factory: :fertilizer_variant
+    variety { :preparation }
+  end
+
+  factory :seed_product, class: Product do
+    association :category, factory: :seed_category
+    association :nature, factory: :seed_nature
+    association :variant, factory: :seed_variant
+    variety { :seed }
+    derivative_of { :plant }
   end
 end

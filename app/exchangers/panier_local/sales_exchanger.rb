@@ -182,11 +182,10 @@ module PanierLocal
           unless variant
             computed_name = "Service - Vente en ligne - #{clean_account_number}"
             v_account = Account.find_or_create_by_number(clean_account_number)
-            pnc = ProductNatureCategory.where(product_account_id: v_account.id, name: computed_name).first
-            pnc ||= ProductNatureCategory.create!(name: computed_name, active: true, saleable: true, product_account_id: v_account.id)
-            pn = ProductNature.where(category_id: pnc.id, name: computed_name).first
-            pn ||= ProductNature.create!(active: true, name: computed_name, category_id: pnc.id, variety: 'service', population_counting: 'decimal')
-            variant = pn.variants.create!(active: true,
+            pnc = ProductNatureCategory.create_with(active: true, saleable: true, type: 'VariantCategories::ServiceCategory').find_or_create_by(product_account_id: v_account.id, name: computed_name)
+            pn = ProductNature.create_with(active: true, variety: 'service', population_counting: 'decimal').find_or_create_by(name: computed_name)
+            variant = pn.variants.create!(category_id: pnc.id,
+                                          active: true,
                                           name: computed_name,
                                           providers: {'panier_local' => r.account_number},
                                           unit_name: 'unity'

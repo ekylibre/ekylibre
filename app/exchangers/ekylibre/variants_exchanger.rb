@@ -49,17 +49,19 @@ module Ekylibre
           # force import variant from reference_nomenclature and update his attributes.
           if r.reference_name.to_s.start_with? '>'
             reference_name = r.reference_name[1..-1]
-            if Nomen::ProductNature.find(reference_name)
+            if nature_item = Nomen::ProductNature.find(reference_name)
               nature = ProductNature.import_from_nomenclature(reference_name)
-              variant = nature.variants.new(name: r.name, active: true)
-            elsif (nature = ProductNature.find_by(number: reference_name))
-              variant = nature.variants.new(name: r.name, active: true)
+              category = ProductNatureCategory.import_from_nomenclature(nature_item.category)
+              type = category.article_type || nature.variant_type
+              variant = nature.variants.new(name: r.name, active: true, category: category, type: type)
             end
           elsif Nomen::ProductNatureVariant.find(r.reference_name)
-            variant = ProductNatureVariant.import_from_nomenclature(r.reference_name, active: true)
-          elsif Nomen::ProductNature.find(r.reference_name)
+            variant = ProductNatureVariant.import_from_nomenclature(r.reference_name, true)
+          elsif nature_item = Nomen::ProductNature.find(r.reference_name)
             nature = ProductNature.import_from_nomenclature(r.reference_name)
-            variant = nature.variants.new(name: r.name, active: true)
+            category = ProductNatureCategory.import_from_nomenclature(nature_item.category)
+            type = category.article_type || nature.variant_type
+            variant = nature.variants.new(name: r.name, active: true, category: category, type: type)
           else
             raise 'Invalid reference name: ' + r.reference_name.inspect
           end

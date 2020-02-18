@@ -159,7 +159,9 @@ module Clean
             if klass < ActiveRecord::Base && !klass.abstract_class?
               annotate(klass, header, types)
             end
-          rescue Exception => e
+          rescue LoadError => le
+            errors << "Unable to annotate #{class_name}: #{le.message}\n"
+          rescue StandardError => e
             errors << "Unable to annotate #{class_name}: #{e.message}\n" + e.backtrace.join("\n")
           end
         end

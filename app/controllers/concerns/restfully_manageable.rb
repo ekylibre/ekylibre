@@ -293,49 +293,6 @@ module RestfullyManageable
       insert_module(code, class_code, name: :list)
     end
 
-    # Build standard actions to manage records of a model
-    def manage_restfully_incorporation
-      name = controller_name
-      record_name = name.to_s.singularize
-      model = name.to_s.singularize.classify.constantize
-      records = model.name.underscore.pluralize
-      code = ''
-      class_code = ''
-
-      columns = model.columns_definition.keys
-      columns = columns.delete_if { |c| %i[depth rgt lft id lock_version updated_at updater_id creator_id created_at].include?(c.to_sym) }
-      values = columns.each_with_object({}) do |attr, hash|
-        hash[attr] = "params[:#{attr}]".c unless attr.blank? || attr.to_s.match(/_attributes$/)
-        hash
-      end.collect { |k, v| "#{k}: (#{v.inspect})" }.join(', ')
-      code << "def pick\n"
-      code << "  @#{record_name} = resource_model.new(#{values})\n"
-      code << "  already_imported = #{model}.pluck(:reference_name).uniq.compact\n"
-      code << "  @items = Nomen::#{controller_name.classify}.without(already_imported).selection\n"
-      code << "end\n"
-
-      code << "def incorporate\n"
-      code << "  reference_name = params[:#{record_name}][:reference_name]\n"
-      code << "  if Nomen::#{controller_name.classify}[reference_name]\n"
-      code << "     begin\n"
-      code << "       @#{record_name} = #{model.name}.import_from_nomenclature(reference_name, true)\n"
-      code << "       notify_success(:record_has_been_imported)\n"
-      code << "     rescue ActiveRecord::RecordInvalid => e\n"
-      code << "       notify_error :record_already_imported\n"
-      code << "     end\n"
-      code << "     redirect_to(params[:redirect] || :back) and return\n"
-      code << "  else\n"
-      code << "    @#{record_name} = resource_model.new(#{values})\n"
-      code << "    @items = Nomen::#{controller_name.classify}.selection\n"
-      code << "    notify_error :invalid_reference_name\n"
-      code << "  end\n"
-      code << "  render 'pick'\n"
-      code << "end\n"
-
-      insert_module(code, class_code, name: :incorporation)
-    end
-
-    #
     def manage_restfully_picture
       name = controller_name
       record_name = name.to_s.singularize

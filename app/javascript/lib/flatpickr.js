@@ -30,7 +30,8 @@ function baseDateOptions(element) {
     dateFormat: 'Y-m-d',
     altInput: true,
     allowInput: true,
-    altFormat: 'd-m-Y'
+    altFormat: 'd-m-Y',
+    static: true
   }
 }
 
@@ -52,7 +53,8 @@ function baseDateRangeOptions(element) {
     ...baseDateOptions(element),
     mode: 'range',
     dateFormat: 'Y-m-d',
-    showMonths: 2
+    showMonths: 2,
+    static: false
   }
 }
 

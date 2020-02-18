@@ -2,6 +2,9 @@ module Lexicon
   SCHEMA = 'lexicon'.freeze
   DISABLED_SCHEMA = '___lexicon'.freeze
 
+  PROD_FILES = %w[data.sql.gz data.sql].freeze
+
+
   class << self
     def connection
       ActiveRecord::Base.connection
@@ -15,7 +18,9 @@ module Lexicon
       if Rails.env == 'test'
         Rails.root.join('test', 'fixture-files', 'data.sql')
       else
-        Rails.root.join('db', 'lexicon', 'data.sql')
+        files = PROD_FILES.map { |name| Rails.root.join('db', 'lexicon', name) }
+
+        files.detect(&:exist?)
       end
     end
 
@@ -42,7 +47,14 @@ module Lexicon
       start = Time.now
       db = Rails.application.config.database_configuration[Rails.env].with_indifferent_access
       db_url = Shellwords.escape("postgresql://#{db[:username]}:#{db[:password]}@#{db[:host]}:#{db[:port] || 5432}/#{db[:database]}")
-      `echo 'SET SEARCH_PATH TO #{SCHEMA};' | cat - #{script.to_s} | psql --dbname=#{db_url}`
+
+      script_content = script.to_s
+
+      if File.extname(script) == '.gz'
+        script_content = "<( cat #{script_content} | gunzip)"
+      end
+
+      `bash -c "echo 'SET SEARCH_PATH TO #{SCHEMA};' | cat - #{script_content} | psql --dbname=#{db_url}"`
       puts "== #{message}: migrated (#{(Time.now - start).round(4)}s) ==".ljust(79, '=').cyan
       puts ''
     end
@@ -50,7 +62,7 @@ module Lexicon
     def load!
       connection.execute "CREATE SCHEMA #{SCHEMA}"
       execute_script(structure_script, 'Add tables in lexicon schema')
-      execute_script(data_script, 'Load data of lexicon') if data_script.exist?
+      execute_script(data_script, 'Load data of lexicon') if data_script.present?
       lock!
     end
 

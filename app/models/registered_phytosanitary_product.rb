@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2015-2020 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -28,7 +28,7 @@
 #  firm_name                    :string
 #  id                           :integer          not null, primary key
 #  in_field_reentry_delay       :integer
-#  maaid                        :string           not null
+#  france_maaid                 :string           not null
 #  mix_category_code            :string           not null
 #  name                         :string           not null
 #  nature                       :string
@@ -43,8 +43,9 @@
 class RegisteredPhytosanitaryProduct < ActiveRecord::Base
   include Lexiconable
   include Searchable
+  include ScopeIntrospection
 
-  search_on :name, :firm_name, :maaid
+  search_on :name, :firm_name, :france_maaid
 
   has_many :risks,   class_name: 'RegisteredPhytosanitaryRisk',
                      foreign_key: :product_id, dependent: :restrict_with_exception
@@ -68,7 +69,11 @@ class RegisteredPhytosanitaryProduct < ActiveRecord::Base
   end
 
   def proper_name
-    [nature, name, maaid, firm_name].compact.join(' - ')
+    [nature, name, france_maaid, firm_name].compact.join(' - ')
+  end
+
+  def label_method
+    "#{france_maaid} - #{name.capitalize}"
   end
 
   class << self

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add nature to new product natures">
+  <item-change item="product_natures#cutting_equipment" nature="equipment"/>
+  <item-change item="product_natures#plant_grinder" nature="equipment"/>
+  <item-change item="product_natures#vine_shoot_extractor" nature="equipment"/>
+  <item-change item="product_natures#tool" nature="equipment"/>
+  <item-change item="product_natures#vine_lifter" nature="equipment"/>
+  <item-change item="product_natures#self_propelled_harvester" nature="equipment"/>
+  <item-change item="product_natures#platform" nature="equipment"/>
+  <item-change item="product_natures#soil_grinder" nature="equipment"/>
+</migration>

@@ -42,6 +42,8 @@ module Ekylibre
           w.check_point
         end
       end
+
+      true
     end
   end
 end

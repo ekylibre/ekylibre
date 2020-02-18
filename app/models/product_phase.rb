@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2015-2020 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -57,8 +57,10 @@ class ProductPhase < Ekylibre::Record::Base
 
   # Sets nature and variety from variant
   before_validation on: :create do
-    self.nature   = variant.nature if variant
-    self.category = nature.category if nature
+    if variant
+      self.nature   = variant.nature
+      self.category = variant.category
+    end
   end
 
   # Updates product

@@ -34,7 +34,7 @@ module Backend
 
       sale_credit_save_successful = false
       ActiveRecord::Base.transaction do
-        @sale_credit.save
+        @sale_credit.save!
         @sale_credit.reload
         @sale_credit.propose!
         @sale_credit.confirm!
