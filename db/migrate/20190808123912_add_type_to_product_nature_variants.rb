@@ -12,7 +12,6 @@ class AddTypeToProductNatureVariants < ActiveRecord::Migration
                             seed_and_plant: 'seed_expenses' }
 
     sub_natures_varieties = { fertilizer: %w[compost guano liquid_slurry manure slurry],
-                              plant_medicine: %w[preparation],
                               seed_and_plant: %w[seed seedling] }
 
     execute <<-SQL
