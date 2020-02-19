@@ -27,9 +27,9 @@
 #  ekylibre_value  :string
 #  id              :integer          not null, primary key
 #  reference_code  :string
-#  reference_id    :string
+#  reference_id    :integer          not null
 #  reference_label :string
-#  repository_id   :string
+#  repository_id   :integer          not null
 #
 require 'test_helper'
 
