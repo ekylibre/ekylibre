@@ -112,7 +112,7 @@ class InterventionInput < InterventionProductParameter
       crop_code = act.first.production_nature.pfi_crop_code if act.first.production_nature
       maaid = variant.france_maaid
       if crop_code && maaid && harvest_year
-        dose = RegisteredPfiDose.where(maaid: maaid, crop_id: crop_code, harvest_year: harvest_year, target_id: nil).first
+        dose = RegisteredPfiDose.where(france_maaid: maaid, crop_id: crop_code, harvest_year: harvest_year, target_id: nil).first
       end
     end
     dose
