@@ -57,7 +57,8 @@ module Api
       end
 
       def create
-        return error_message('Zero id not provided') unless params[:providers][:zero_id]
+        filtered_params = permitted_params
+        return error_message('Provider params not provided') unless validate_provider(filtered_params)
 
         options = {
           auto_calculate_working_periods: true,
@@ -77,10 +78,9 @@ module Api
       protected
 
         def permitted_params
-          super.permit(:procedure_name,
+          permitted = super.permit(:procedure_name,
                        :description,
-                       actions: [],
-                       providers: %i[zero_id],
+                       :actions,
                        working_periods_attributes: %i[started_at stopped_at],
                        inputs_attributes: %i[product_id quantity_value quantity_handler reference_name quantity_population],
                        outputs_attributes: %i[variant_id quantity_value quantity_handler reference_name quantity_population],
@@ -96,6 +96,7 @@ module Api
                          doers_attributes: %i[product_id reference_name]
                        ]
           )
+          add_provider_params(permitted)
         end
     end
   end

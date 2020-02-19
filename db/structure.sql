@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.17
--- Dumped by pg_dump version 9.6.17
+-- Dumped from database version 9.6.16
+-- Dumped by pg_dump version 9.6.16
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -508,7 +508,8 @@ CREATE TABLE public.interventions (
     purchase_id integer,
     costing_id integer,
     validator_id integer,
-    providers jsonb
+    providers jsonb,
+    provider jsonb
 );
 
 
@@ -17870,6 +17871,13 @@ CREATE INDEX index_wice_grid_serialized_queries_on_grid_name_and_id ON public.wi
 
 
 --
+-- Name: intervention_provider_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX intervention_provider_index ON public.interventions USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -19131,6 +19139,8 @@ INSERT INTO schema_migrations (version) VALUES ('20191126103235');
 INSERT INTO schema_migrations (version) VALUES ('20200107092243');
 
 INSERT INTO schema_migrations (version) VALUES ('20200122100513');
+
+INSERT INTO schema_migrations (version) VALUES ('20200128133347');
 
 INSERT INTO schema_migrations (version) VALUES ('20200213102154');
 

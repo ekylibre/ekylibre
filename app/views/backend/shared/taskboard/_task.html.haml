@@ -16,15 +16,16 @@
         = content_tag(:i, nil, :class => "picto picto-#{title[:icon]} #{title[:icon_class]}") unless title[:icon].nil?
 
   - if task.datas.any?
+    - parameters_data = task.datas.select{ |d| d[:category] == 'parameters' }
+    - indicators_data = task.datas.select{ |d| d[:category] == 'indicators' }
     = content_tag(:div, nil, :class => "task-datas") do
-      - task.datas.each do |data|
-        = content_tag(:div, nil, :class => "task-data #{data[:class]}", style: data[:style]) do
-          - unless data[:icon].blank?
-            = content_tag(:i, nil, :class => "picto picto-#{data[:icon]} #{data[:icon_class]}")
-          - if data[:image].present?
-            = image_tag(data[:image], class: 'calendar-img')
-          - unless data[:text].blank?
-            = content_tag(:span, data[:text], :class => "data-text #{data[:text_class]}")
+      - parameters_data.each do |data|
+        = display_task_data data
+
+      = content_tag(:div, nil, :class => "task-indicators") do
+        - indicators_data.sort_by!{ |d| d[:position_number] }
+        - indicators_data.each do |data|
+          = display_task_data data
 
   - if task.actions.any?
     .task-actions

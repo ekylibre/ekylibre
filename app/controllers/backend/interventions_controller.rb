@@ -467,8 +467,22 @@ module Backend
             intervention.working_periods.each do |wp|
               new_intervention.working_periods.build(wp.dup.attributes)
             end
-            intervention.parameters.each do |parameter|
-              new_intervention.parameters.build(parameter.dup.attributes)
+            intervention.group_parameters.each do |group_parameter|
+              duplicate_group_parameter = group_parameter.dup
+              duplicate_group_parameter.intervention = new_intervention
+              %i[doers inputs outputs targets tools].each do |type|
+                parameters = group_parameter.send(type)
+                parameters.each do |parameter|
+                  duplicate_parameter = parameter.dup
+                  duplicate_parameter.group = duplicate_group_parameter
+                  duplicate_parameter.intervention = new_intervention
+                  duplicate_group_parameter.send(type) << duplicate_parameter
+                end
+              end
+              new_intervention.group_parameters << duplicate_group_parameter
+            end
+            intervention.product_parameters.where(group_id: nil).each do |parameter|
+              new_intervention.product_parameters << parameter.dup
             end
             intervention.participations.includes(:working_periods).each do |participation|
               dup_participation = participation.dup.attributes.merge({state: 'in_progress'})
