@@ -23,6 +23,8 @@
 #
 # == Table: intervention_parameters
 #
+#  allowed_entry_factor     :integer
+#  allowed_harvest_factor   :integer
 #  assembly_id              :integer
 #  batch_number             :string
 #  component_id             :integer
@@ -53,6 +55,7 @@
 #  unit_pretax_stock_amount :decimal(19, 4)   default(0.0), not null
 #  updated_at               :datetime         not null
 #  updater_id               :integer
+#  usage_id                 :string
 #  variant_id               :integer
 #  variety                  :string
 #  working_zone             :geometry({:srid=>4326, :type=>"multi_polygon"})
