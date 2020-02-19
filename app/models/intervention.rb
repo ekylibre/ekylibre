@@ -274,6 +274,10 @@ class Intervention < Ekylibre::Record::Base
     where(id: InterventionDoer.of_actors(doers).select(:intervention_id))
   }
 
+  scope :with_maaids, lambda { |*maaids|
+    where(id: InterventionInput.of_maaids(*maaids).pluck(:intervention_id))
+  }
+
   scope :done, -> {}
 
   before_validation do

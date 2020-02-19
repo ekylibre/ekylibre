@@ -76,6 +76,12 @@ class RegisteredPhytosanitaryProduct < ActiveRecord::Base
     "#{france_maaid} - #{name.capitalize}"
   end
 
+  def allowed_for_organic_farming?
+    return false if allowed_mentions.nil?
+
+    allowed_mentions.keys.include? 'organic_usage'
+  end
+
   class << self
     def unit
       Nomen::Unit['liter']

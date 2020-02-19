@@ -8,6 +8,10 @@ module Importable
 
     SOURCES.each do |source|
       scope "from_#{source.downcase}".to_sym, -> { where(imported_from: source) }
+
+      define_method "from_#{source.downcase}?" do
+        imported_from == source && reference_name.present?
+      end
     end
   end
 end

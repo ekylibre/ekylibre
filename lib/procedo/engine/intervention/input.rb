@@ -4,6 +4,49 @@ module Procedo
   module Engine
     class Intervention
       class Input < Procedo::Engine::Intervention::Quantified
+        attr_reader :usage_id, :allowed_entry_factor, :allowed_harvest_factor
+
+        def initialize(intervention, id, attributes = {})
+          super(intervention, id, attributes)
+          @usage_id = attributes[:usage_id]
+          @allowed_entry_factor = attributes[:allowed_entry_factor]
+          @allowed_harvest_factor = attributes[:allowed_harvest_factor]
+        end
+
+        def usage_id=(value)
+          @usage_id = value
+          impact_dependencies!(:usage_id)
+        end
+
+        def allowed_harvest_factor=(value)
+          @allowed_harvest_factor = value
+          impact_dependencies!(:allowed_harvest_factor)
+        end
+
+        def allowed_entry_factor=(value)
+          @allowed_entry_factor = value
+          impact_dependencies!(:allowed_entry_factor)
+        end
+
+        def to_hash
+          hash = super
+          hash[:usage_id] = @usage_id if @usage_id.present?
+          hash[:allowed_entry_factor] = @allowed_entry_factor if @allowed_entry_factor.present?
+          hash[:allowed_harvest_factor] = @allowed_harvest_factor if @allowed_harvest_factor.present?
+          hash
+        end
+
+        def to_attributes
+          hash = super
+          hash[:usage_id] = @usage_id if @usage_id.present?
+          hash[:allowed_entry_factor] = @allowed_entry_factor if @allowed_entry_factor.present?
+          hash[:allowed_harvest_factor] = @allowed_harvest_factor if @allowed_harvest_factor.present?
+          hash
+        end
+
+        def env
+          super.merge(usage_id: @usage_id, allowed_entry_factor: @allowed_entry_factor, allowed_harvest_factor: @allowed_harvest_factor)
+        end
       end
     end
   end

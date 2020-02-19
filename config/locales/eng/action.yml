@@ -1193,6 +1193,10 @@ eng:
       importerButtonTitle: "Import"
       zoomInTitle: "Zoom in"
       zoomOutTitle: "Zoom out"
+    intervention:
+      nature:
+        harvest: "Harvest:"
+        reentry: "Reentry:"
   labels:
     accepted: "Accepted"
     accepted_for_paiment: "Accepted for paiment"
@@ -1344,6 +1348,7 @@ eng:
     animal_variants_specie_variety: "Variety"
     animals: "Animals"
     any_journal: "Any journal"
+    applications_count: "Max applications count"
     archive_post_closure: "Post closure archive"
     archive_prior_to_closure: "Prior to closure archive"
     archives: "Archives"
@@ -1414,6 +1419,8 @@ eng:
     canals: "Canals" #?
     cancel: "Cancel"
     cancelation: "Cancelation"
+    cannot_be_mixed_with: "Cannot be mixed with the product %{phyto}"
+    cannot_be_mixed_with_any_product: "Cannot be mixed with any other product"
     cap_islets: "CAP islets"
     cap_land_parcels: "CAP land parcels"
     capitalised_production: "Capitalised production" #?
@@ -1638,6 +1645,7 @@ eng:
     destroyed_by_ago: "Destroyed by %{author} %{when}"
     detail: "Detail"
     details: "Details"
+    development_stage: "Phenological stage"
     # direct_expenses: "Direct expenses"
     discount: "Discount (%)" #?
     discount_without_percent: "Discount"
@@ -1924,6 +1932,7 @@ eng:
     info: "General parameters" #?
     # informations: "Informations"
     infos: "Product and quantity" #?
+    infos_usage: "Usage informations"
     initial_balance_of_bank_statement: "Initial balance of bank statement"
     input_cost: "Input cost"
     inputs: "Inputs"
@@ -2072,6 +2081,7 @@ eng:
     mass: "Masse" #?
     maximal_temperature: "Maximal temperature" #?!
     maximum_amount: "Maximum amount"
+    maximum_dose: "Maximum dose"
     members: "Members"
     menus: "Menus"
     merchandise: "Merchandise"
@@ -2167,6 +2177,7 @@ eng:
     non_compliant_with_request: "Non compliant with request" #?!
     none: "None"
     normal: "Normal" #?
+    not_allowed_for_organic_farming: "This product cannot be used for organic agriculture"
     not_delivered: "Not delivered" #?
     not_informed: "Not informed"
     not_invoiced_or_aborted_purchases: "You have not invoiced or aborted purchases. Once the financial year closed, it won't be possible to invoice them or abort them on this financial year (%{code})."
@@ -2288,6 +2299,7 @@ eng:
     population: "Population"
     potassium_concentration: "Potassium concentration" #?
     potential_hydrogen: "Potential hydrogen" #?
+    pre_harvest_delay: "Pre harvest delay"
     precipitation: "Precipitation" #?
     preferences: "Preferences"
     prepare_financial_year_for_closure: "Prepare %{code} for closure"
@@ -2362,6 +2374,7 @@ eng:
     radical_class_accounts_dont_have_entries: "Radical class accounts does not contain any entry" #?
     radical_class_accounts_have_entries: "Radical class accounts contains entries" #?
     raw_income: "Raw income" #?!
+    re_entry_interval: "Re-entry interval"
     reading_tasks: "Reading tasks" #?
     readings: "Readings"
     ready: "Ready"
@@ -2545,6 +2558,7 @@ eng:
     subscriptions: "Subscriptions"
     subscriptions_evolution: "Subscriptions evolution" #?
     subsidies: "Subsidies"
+    substances_mixing_not_allowed_due_to_znt_buffer: "Substances mixing not allowed due to the usage %{usage} of product %{phyto} (untreated buffer aquatic >= 100 m)"
     subtotal: "Sub-total %{name}"
     subtotals_at_level: "Sub-total at level"
     # supervision: "Supervision"
@@ -2688,6 +2702,9 @@ eng:
     unset_reconcilable_old_third_accounts: "Unset reconcilable old third accounts (clients, suppliers and attorneys)" #?!
     unsubcribed_capital: "Unsubcribed capital"
     until: "until"
+    untreated_buffer_aquatic: "Untreated buffer aquatic"
+    untreated_buffer_arthropod: "Untreated buffer arthropods"
+    untreated_buffer_plants: "Untreated buffer plants"
     up: "Up" #?
     up_to: "Up to"
     update: "Update"
@@ -2695,6 +2712,7 @@ eng:
     updated_by_ago: "Updated by %{author} %{when}"
     upload: "Upload"
     usage: "Usage" #?
+    usage_phyto: "Usage"
     user_status: "Status" #?
     users: "Users"
     valid: "Valid"

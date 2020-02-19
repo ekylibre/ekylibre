@@ -639,6 +639,8 @@ Rails.application.routes.draw do
         get :purchase_order_items
         get :duplicate_interventions
         get :generate_buttons
+        get :validate_harvest_delay
+        get :validate_reentry_delay
 
         post :create_duplicate_intervention
         get :compare_realised_with_planned
@@ -1044,6 +1046,23 @@ Rails.application.routes.draw do
 
     resources :quick_purchases, only: %i[new create], path: 'quick-purchases'
     resources :quick_sales,     only: %i[new create], path: 'quick-sales'
+
+    resources :registered_phytosanitary_products, only: [], concerns: :unroll do
+      collection do
+        get :get_products_infos
+      end
+    end
+
+    resources :registered_phytosanitary_usages, only: [], concerns: :unroll do
+      collection do
+        get :filter_usages
+      end
+
+      member do
+        get :get_usage_infos
+        get :dose_validations
+      end
+    end
 
     resources :regularizations, only: %i[show create destroy]
 

@@ -20,6 +20,17 @@ GIT
       rubyzip (>= 1.0)
 
 GIT
+  remote: https://gitlab.com/ekylibre/charta.git
+  revision: 162471881a23c1f055f87cc9fdc7b0ba429d23c3
+  branch: feature/intersects-method
+  specs:
+    charta (0.1.15)
+      json (>= 1.8.0)
+      nokogiri (>= 1.7.0)
+      rgeo (~> 0.6.0)
+      rgeo-geojson (~> 0.4.3)
+
+GIT
   remote: https://gitlab.com/ekylibre/eky-possibly.git
   revision: 63d45ace446741560cc5cebf56ec6c2ad5bbae08
   branch: prod
@@ -140,11 +151,6 @@ GEM
     burisu-docsplit (0.7.9)
     byebug (11.0.1)
     charlock_holmes (0.7.7)
-    charta (0.1.15)
-      json (>= 1.8.0)
-      nokogiri (>= 1.7.0)
-      rgeo (~> 0.6.0)
-      rgeo-geojson (~> 0.4.3)
     climate_control (0.2.0)
     cocoon (1.2.14)
     code_analyzer (0.5.1)
@@ -628,7 +634,7 @@ DEPENDENCIES
   browser
   bullet (< 5.6.0)
   charlock_holmes
-  charta (~> 0.1.14)
+  charta!
   cocoon
   code_string (>= 0.0.1)
   coffee-rails (~> 4.1)

@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.16
--- Dumped by pg_dump version 9.6.16
+-- Dumped from database version 9.6.17
+-- Dumped by pg_dump version 9.6.17
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -464,7 +464,10 @@ CREATE TABLE public.intervention_parameters (
     dead boolean DEFAULT false NOT NULL,
     identification_number character varying,
     variety character varying,
-    batch_number character varying
+    batch_number character varying,
+    usage_id character varying,
+    allowed_entry_factor integer,
+    allowed_harvest_factor integer
 );
 
 
@@ -19126,4 +19129,8 @@ INSERT INTO schema_migrations (version) VALUES ('20191101162901');
 INSERT INTO schema_migrations (version) VALUES ('20191126103235');
 
 INSERT INTO schema_migrations (version) VALUES ('20200107092243');
+
+INSERT INTO schema_migrations (version) VALUES ('20200122100513');
+
+INSERT INTO schema_migrations (version) VALUES ('20200213102154');
 

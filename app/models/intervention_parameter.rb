@@ -62,6 +62,7 @@ class InterventionParameter < Ekylibre::Record::Base
   belongs_to :group, class_name: 'InterventionGroupParameter'
   belongs_to :parent, class_name: 'InterventionGroupParameter', foreign_key: :group_id, inverse_of: :children
   belongs_to :intervention, inverse_of: :parameters
+  belongs_to :usage, class_name: 'RegisteredPhytosanitaryUsage'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :batch_number, :currency, :identification_number, :new_name, :quantity_handler, :quantity_indicator_name, :quantity_unit_name, :variety, length: { maximum: 500 }, allow_blank: true

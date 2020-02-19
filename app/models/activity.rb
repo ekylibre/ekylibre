@@ -340,6 +340,10 @@ class Activity < Ekylibre::Record::Base
     end
   end
 
+  def organic_farming?
+    production_system_name == "organic_farming"
+  end
+
   COLORS_INDEX = Rails.root.join('db', 'nomenclatures', 'colors.yml').freeze
   COLORS = (COLORS_INDEX.exist? ? YAML.load_file(COLORS_INDEX) : {}).freeze
 
