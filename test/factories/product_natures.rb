@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :product_nature do
-    sequence(:name)     { |n| "Cultivable Zone #{n}" }
+    sequence(:name) { |n| "Cultivable Zone #{n}" }
     population_counting { 'unitary' }
-    variety             { 'cultivable_zone' }
+    variety { 'cultivable_zone' }
   end
 
   factory :worker_nature, parent: :product_nature do
@@ -10,29 +10,29 @@ FactoryBot.define do
   end
 
   factory :plants_nature, class: ProductNature do
-    sequence(:name)     { |n| "Plant nature - TEST#{n.to_s.rjust(8, '0')}" }
+    sequence(:name) { |n| "Plant nature - TEST#{n.to_s.rjust(8, '0')}" }
     population_counting { :unitary }
-    variety             { :plant }
+    variety { :plant }
     variable_indicators_list { [:shape] }
-    frozen_indicators_list   { [:net_surface_area] }
+    frozen_indicators_list { [:net_surface_area] }
   end
 
   factory :deliverable_nature, class: ProductNature do
-    sequence(:name)     { |n| "Seed #{n}" }
+    sequence(:name) { |n| "Seed #{n}" }
     population_counting { :integer }
-    variety             { 'seed' }
+    variety { 'seed' }
   end
 
   factory :services_nature, class: ProductNature do
-    sequence(:name)     { |n| "Service #{n}" }
+    sequence(:name) { |n| "Service #{n}" }
     population_counting { :integer }
-    variety             { 'service' }
+    variety { 'service' }
   end
 
   factory :equipment_nature, class: ProductNature do
-    sequence(:name)     { |n| "Equipment nature - TEST#{n.to_s.rjust(8, '0')}" }
+    sequence(:name) { |n| "Equipment nature - TEST#{n.to_s.rjust(8, '0')}" }
     population_counting { :unitary }
-    variety             { :tractor }
+    variety { :tractor }
   end
 
   factory :building_division_nature, class: ProductNature do
@@ -42,11 +42,11 @@ FactoryBot.define do
   end
 
   factory :fertilizer_nature, class: ProductNature do
-    sequence(:name)     { |n| "Fertilizer - TEST#{n.to_s.rjust(8, '0')}" }
+    sequence(:name) { |n| "Fertilizer - TEST#{n.to_s.rjust(8, '0')}" }
     population_counting { :decimal }
     variety { 'preparation' }
     variable_indicators_list { %i[approved_input_dose untreated_zone_length wait_before_entering_period] }
-    frozen_indicators_list {   %i[net_mass net_volume wait_before_harvest_period] }
+    frozen_indicators_list { %i[net_mass net_volume wait_before_harvest_period] }
   end
 
   factory :tractor_nature, class: ProductNature do
@@ -80,9 +80,9 @@ FactoryBot.define do
 
   factory :land_parcel_nature, class: ProductNature do
     sequence(:name) { |n| "Land parcel nature - #{n}" }
-    population_counting :decimal
-    variety :land_parcel
-    variable_indicators_list [:shape]
-    frozen_indicators_list   [:net_surface_area]
+    population_counting { :decimal }
+    variety { :land_parcel }
+    variable_indicators_list { [:shape] }
+    frozen_indicators_list { [:net_surface_area] }
   end
 end
