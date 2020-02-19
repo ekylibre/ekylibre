@@ -2997,6 +2997,7 @@ eng:
       error_during_vat_declaration_generation: "An error occured while generating the VAT declaration." #?
       error_on_field: "%{field} in invalid\_: %{message}"
       fails_to_extract_listing: "The listing can't be made: %{message}"
+      feature_in_development: "Feature available in the upcoming version of our mobile application <u><a href='https://play.google.com/store/apps/details?id=ekylibre.zero' target='_blank'>Zero</a></u>"
       file_generated: "Your file was successfully generated" #?
       financial_year_already_closed: "The financial year has already been closed." #?
       # financial_year_closure_in_preparation_initiated_by_someone_else: "Financial year closure in preparation initiated by someone else"

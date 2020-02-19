@@ -3,4 +3,5 @@
 /     - Activities.includes(:plants).where(use_counting: true).pluck(:plants).each do |plant|
 /       - menu.item plant.name, { action: :new, controller: :plant_countings, plant_id: plant.id, plant_density_abacus_id: abacus.id }, title: abacus.name
 / NOT DOABLE BECAUSE OF PLANT_DENSITY_ABACUS
-= main_list
+- if PlantCounting.any?
+  = main_list
