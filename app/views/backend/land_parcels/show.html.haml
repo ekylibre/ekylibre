@@ -16,7 +16,7 @@
               %span= @reentry_possible.next_possible_date.l
 
   - c.cobble :weather do
-    = cell :weather, params: {centroid: resource.initial_shape.centroid}
+    = cell :weather, params: {centroid: resource.initial_shape.centroid} if resource.initial_shape.present?
 
   - if resource&.activity_production&.interventions&.any?
     - c.cobble(:production_costs, title: :production_costs.tl) do
