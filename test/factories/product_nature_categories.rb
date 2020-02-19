@@ -63,5 +63,6 @@ FactoryBot.define do
   factory :land_parcel_category, class: ProductNatureCategory do
     sequence(:name) { |n| "Land parcels - TEST#{n.to_s.rjust(8, '0')}" }
     reference_name { "land_parcel" }
+    type { 'VariantCategories::ZoneCategory' }
   end
 end
