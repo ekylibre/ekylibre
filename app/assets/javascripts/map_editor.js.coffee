@@ -296,7 +296,6 @@
 
       widget.element.trigger "mapeditor:loaded"
 
-
     setDynamicSeries: ->
       return unless @options.dynamic_series?
 

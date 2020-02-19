@@ -1193,6 +1193,10 @@ eng:
       importerButtonTitle: "Import"
       zoomInTitle: "Zoom in"
       zoomOutTitle: "Zoom out"
+    intervention:
+      nature:
+        harvest: "Harvest:"
+        reentry: "Reentry:"
   labels:
     accepted: "Accepted"
     accepted_for_paiment: "Accepted for paiment"
@@ -1344,6 +1348,7 @@ eng:
     animal_variants_specie_variety: "Variety"
     animals: "Animals"
     any_journal: "Any journal"
+    applications_count: "Max applications count"
     archive_post_closure: "Post closure archive"
     archive_prior_to_closure: "Prior to closure archive"
     archives: "Archives"
@@ -1414,6 +1419,8 @@ eng:
     canals: "Canals" #?
     cancel: "Cancel"
     cancelation: "Cancelation"
+    cannot_be_mixed_with: "Cannot be mixed with the product %{phyto}"
+    cannot_be_mixed_with_any_product: "Cannot be mixed with any other product"
     cap_islets: "CAP islets"
     cap_land_parcels: "CAP land parcels"
     capitalised_production: "Capitalised production" #?
@@ -1427,6 +1434,7 @@ eng:
     capitals_profit_or_loss: "capitals_profit_or_loss" #?
     capitals_risk_and_charges_provisions: "capitals_risk_and_charges_provisions" #?
     capitals_values: "capitals_values" #?
+    carcinogen_mutagenic_toxic_for_reproduction: "Carcinogen, mutagenic, toxic for reproduction"
     cartography: "Cartography"
     cash: "Cash"
     cash_balance: "Cash balance"
@@ -1487,6 +1495,7 @@ eng:
     cobbles: "Cobbles" #?
     column: "Column"
     columns: "Columns to import"
+    combustion_agents: "Combustion agents"
     comment: "Comment"
     commercial_margin: "Commercial margin"
     commission: "Commission"
@@ -1535,6 +1544,8 @@ eng:
     corporeal_assets_land_parcels: "Land parcels" #?
     corporeal_assets_others: "Others" #?
     corporeal_assets_settlements: "Settlements" #?
+    corrosive_skin_and_mucosa_risks_of_severe_burns: "Corrosive skin and mucosa, risks of severe burns"
+    corrosive_substances: "Corrosive substances"
     # cost: "Cost"
     cost_per_net_surface_area: "Cost per net surface area"
     costs: "Costs"
@@ -1638,6 +1649,7 @@ eng:
     destroyed_by_ago: "Destroyed by %{author} %{when}"
     detail: "Detail"
     details: "Details"
+    development_stage: "Phenological stage"
     # direct_expenses: "Direct expenses"
     discount: "Discount (%)" #?
     discount_without_percent: "Discount"
@@ -1716,6 +1728,7 @@ eng:
     entry_item_label: "Entry item label" #?
     entry_items: "Entry items" #?
     entry_resource_label: "Record" #?
+    environment_h4: "Environment H4"
     equipment: "Equipment"
     equipment_name: "Name of equipment" #?
     equipment_natures: "Equipments"
@@ -1765,6 +1778,7 @@ eng:
     expired_within: "Expired within" #?
     exploitation_result: "Exploitation result" #?
     exploitation_results: "Exploitation results" #?!
+    explosive_substances: "Explosive substances"
     export: "Export documents" #?
     export_as_csv: "Export as CSV"
     export_as_ods: "Export as ODS"
@@ -1785,6 +1799,7 @@ eng:
     export_xml_fec_ba_bnc_ir_commercial_accountancy: "Export FEC for agriculture and professional operations income taxation commercial accountancy (XML)"
     export_xml_fec_ba_ir_cash_accountancy: "Export FEC agriculture income taxation cash accountancy (XML)"
     export_xml_fec_bnc_ir_cash_accountancy: "Export FEC professional operations income taxation cash accountancy (XML)"
+    external_links: "External links"
     extract_account_x: "Extract account %{account_number}"
     # extract_non_letter_odt: "Extract non letter odt"
     # extract_non_letter_pdf: "Extract non letter pdf"
@@ -1839,6 +1854,7 @@ eng:
     fixed_asset_depreciations_not_accounted_on_current_financial_year: "Fixed asset depreciations not accounted on current financial year"
     fixed_asset_successfully_associated_to_sale: "The fixed asset has been successfully associated to the sale. Click the 'Sold' button to proceed."
     fixed_assets: "Fixed assets"
+    flammable_agents: "Flammable agents"
     forecast_harvest_week: "Forecast harvest week"
     from: "From"
     from_to_date: "from %{from} to %{to}" #?
@@ -1878,6 +1894,7 @@ eng:
     guide_evolution: "Guide evolution"
     harvested_area: "Harvested area"
     harvested_at: "Harvested at" #?
+    health_h3: "Health H3"
     help: "Help"
     help_center: "Help center"
     hide_lettered_lines: "Hide lettered lines"
@@ -1895,6 +1912,7 @@ eng:
     iban: "International Bank Account Number (IBAN)" #?
     identification: "Identification"
     identifiers: "Identifiers"
+    if_closed_environment: "if closed environment"
     illness: "Illness"
     implanted_at: "Implanted at" #?
     import: "Import"
@@ -1924,6 +1942,7 @@ eng:
     info: "General parameters" #?
     # informations: "Informations"
     infos: "Product and quantity" #?
+    infos_usage: "Usage informations"
     initial_balance_of_bank_statement: "Initial balance of bank statement"
     input_cost: "Input cost"
     inputs: "Inputs"
@@ -1955,6 +1974,7 @@ eng:
     invoiced: "Invoiced"
     invoices: "Invoices" #?
     irreversible_operation: "This operation is irreversible"
+    irritating_by_skin_contact_and_inhalation_severe_eyes_irritation: "Irritating by skin contact and inhalation, severe eyes irritation"
     is: "Is" #?
     is_equipment_set_as_inactive_by_intervention: "This intervention set the equipment as inactive ?" #?!
     issue: "Issue"
@@ -2072,6 +2092,7 @@ eng:
     mass: "Masse" #?
     maximal_temperature: "Maximal temperature" #?!
     maximum_amount: "Maximum amount"
+    maximum_dose: "Maximum dose"
     members: "Members"
     menus: "Menus"
     merchandise: "Merchandise"
@@ -2167,6 +2188,7 @@ eng:
     non_compliant_with_request: "Non compliant with request" #?!
     none: "None"
     normal: "Normal" #?
+    not_allowed_for_organic_farming: "This product cannot be used for organic agriculture"
     not_delivered: "Not delivered" #?
     not_informed: "Not informed"
     not_invoiced_or_aborted_purchases: "You have not invoiced or aborted purchases. Once the financial year closed, it won't be possible to invoice them or abort them on this financial year (%{code})."
@@ -2267,6 +2289,7 @@ eng:
     # pfi_parcel_ratio: "Pfi parcel ratio"
     # pfi_treatment_ratio: "Pfi treatment ratio"
     phosphorus_concentration: "Phosphorus concentration" #?
+    physical_h2: "Physical H2"
     phyto_data: "Phytosanitary data"
     picture: "Picture" #?
     placeholder: "Placeholder" #?
@@ -2280,6 +2303,7 @@ eng:
     plant_medicines: "Plant medicines"
     plantation_density: "Plantation density" #?
     plants: "Crops" #?
+    please_provide_a_valid_maaid_to_display_this_article_properties: "Please provide a valid AMM number to display this article's properties"
     please_reach_out_for_the_person_in_charge_of_the_closure: "Please reach out for the person in charge of the closure outside of the software to get your documents."
     please_wait: "Please wait…"
     pluviometry: "Ploviometry"
@@ -2288,6 +2312,7 @@ eng:
     population: "Population"
     potassium_concentration: "Potassium concentration" #?
     potential_hydrogen: "Potential hydrogen" #?
+    pre_harvest_delay: "Pre harvest delay"
     precipitation: "Precipitation" #?
     preferences: "Preferences"
     prepare_financial_year_for_closure: "Prepare %{code} for closure"
@@ -2362,6 +2387,7 @@ eng:
     radical_class_accounts_dont_have_entries: "Radical class accounts does not contain any entry" #?
     radical_class_accounts_have_entries: "Radical class accounts contains entries" #?
     raw_income: "Raw income" #?!
+    re_entry_interval: "Re-entry interval"
     reading_tasks: "Reading tasks" #?
     readings: "Readings"
     ready: "Ready"
@@ -2426,6 +2452,7 @@ eng:
     revise: "Revise"
     rights: "Rights"
     risk_and_charges_provisions: "Risk and charges provisions" #?
+    risks: "Risks"
     role: "Role" #?
     roles: "Roles" #?
     rss: "RSS" #?
@@ -2545,6 +2572,7 @@ eng:
     subscriptions: "Subscriptions"
     subscriptions_evolution: "Subscriptions evolution" #?
     subsidies: "Subsidies"
+    substances_mixing_not_allowed_due_to_znt_buffer: "Substances mixing not allowed due to the usage %{usage} of product %{phyto} (untreated buffer aquatic >= 100 m)"
     subtotal: "Sub-total %{name}"
     subtotals_at_level: "Sub-total at level"
     # supervision: "Supervision"
@@ -2648,6 +2676,8 @@ eng:
         user:
           content: "Here, you can see your notifications, show help, read your farm name. Your user preferences are editable from menu."
           title: "User menu"
+    toxic: "Toxic"
+    toxic_for_aquatic_organisms: "Toxic for aquatic organisms"
     tracking: "Tracking" #?
     trade: "Trade"
     trade_counts: "Trade counts"
@@ -2665,6 +2695,7 @@ eng:
     undefined_container: "Undefined container"
     undelivered: "Undelivered" #?
     undelivered_invoices: "Undelivered invoices" #?!
+    under_pressure_or_refrigerated_gas: "Under pressure or refrigerated gas"
     undone: "Undone" #?
     uninvoiced: "Uninvoiced"
     unit: "Unit"
@@ -2688,6 +2719,9 @@ eng:
     unset_reconcilable_old_third_accounts: "Unset reconcilable old third accounts (clients, suppliers and attorneys)" #?!
     unsubcribed_capital: "Unsubcribed capital"
     until: "until"
+    untreated_buffer_aquatic: "Untreated buffer aquatic"
+    untreated_buffer_arthropod: "Untreated buffer arthropods"
+    untreated_buffer_plants: "Untreated buffer plants"
     up: "Up" #?
     up_to: "Up to"
     update: "Update"
@@ -2695,6 +2729,7 @@ eng:
     updated_by_ago: "Updated by %{author} %{when}"
     upload: "Upload"
     usage: "Usage" #?
+    usage_phyto: "Usage"
     user_status: "Status" #?
     users: "Users"
     valid: "Valid"
@@ -2979,6 +3014,7 @@ eng:
       error_during_vat_declaration_generation: "An error occured while generating the VAT declaration." #?
       error_on_field: "%{field} in invalid\_: %{message}"
       fails_to_extract_listing: "The listing can't be made: %{message}"
+      feature_in_development: "Feature available in the upcoming version of our mobile application <u><a href='https://play.google.com/store/apps/details?id=ekylibre.zero' target='_blank'>Zero</a></u>"
       file_generated: "Your file was successfully generated" #?
       financial_year_already_closed: "The financial year has already been closed." #?
       # financial_year_closure_in_preparation_initiated_by_someone_else: "Financial year closure in preparation initiated by someone else"

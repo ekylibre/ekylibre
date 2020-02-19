@@ -26,15 +26,17 @@
 #  active_compounds             :string
 #  allowed_mentions             :jsonb
 #  firm_name                    :string
+#  france_maaid                 :string           not null
 #  id                           :integer          not null, primary key
 #  in_field_reentry_delay       :integer
-#  france_maaid                 :string           not null
 #  mix_category_code            :string           not null
 #  name                         :string           not null
 #  nature                       :string
 #  operator_protection_mentions :text
 #  other_name                   :string
 #  product_type                 :string
+#  record_checksum              :integer
+#  reference_name               :string           not null
 #  restricted_mentions          :string
 #  started_on                   :date
 #  state                        :string           not null
@@ -74,6 +76,16 @@ class RegisteredPhytosanitaryProduct < ActiveRecord::Base
 
   def label_method
     "#{france_maaid} - #{name.capitalize}"
+  end
+
+  def decorated_reentry_delay
+    decorate.in_field_reentry_delay
+  end
+
+  def allowed_for_organic_farming?
+    return false if allowed_mentions.nil?
+
+    allowed_mentions.keys.include? 'organic_usage'
   end
 
   class << self

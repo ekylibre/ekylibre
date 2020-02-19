@@ -1,0 +1,3 @@
+- main_toolbar do |t|
+  = t.edit resource, controller: '/backend/product_nature_variants', redirect: url_for(controller: "/#{controller_path}", id: resource.id, action: :show)
+  = t.new_inventory params: { controller: '/backend/inventories', action: :new, product_nature_variant_id: resource.id }, icon: false, label: :new_inventory.tl

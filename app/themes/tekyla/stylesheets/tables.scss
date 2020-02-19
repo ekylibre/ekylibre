@@ -29,6 +29,9 @@ table {
   .right-align {
     text-align: right !important;
   }
+  .left-align {
+    text-align: left !important;
+  }
   .center-align {
     text-align: center !important;
   }
@@ -244,6 +247,9 @@ table {
             @include use-icon(cog);
           }
         }
+        &.status {
+          @include text-align(center);
+        }
       }
     }
     tbody {
@@ -279,6 +285,9 @@ table {
           &.list-selector {
             text-align: center;
             width: 3ex;
+          }
+          .list-picto {
+            width: 30px;
           }
         }
         &.first-item {

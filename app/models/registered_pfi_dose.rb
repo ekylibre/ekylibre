@@ -27,9 +27,9 @@
 #  crop_id        :integer          not null
 #  dose_quantity  :decimal(19, 4)
 #  dose_unity     :string
+#  france_maaid   :integer          not null
 #  functions      :string
 #  harvest_year   :integer          not null
-#  maaid          :integer          not null
 #  pesticide_name :string
 #  target_id      :integer
 #

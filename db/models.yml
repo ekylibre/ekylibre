@@ -57,6 +57,7 @@
 - entity
 - entity_address
 - entity_link
+- ephy_cropset
 - equipment
 - equipment_fleet
 - event
@@ -180,6 +181,7 @@
 - registered_pfi_target
 - registered_phytosanitary_product
 - registered_phytosanitary_risk
+- registered_phytosanitary_symbol
 - registered_phytosanitary_usage
 - registered_postal_zone
 - registered_seed
@@ -213,6 +215,10 @@
 - token
 - tracking
 - user
+- user_role
+- variant
+- variant_category
+- variant_nature
 - version
 - wice_grid_serialized_query
 - worker

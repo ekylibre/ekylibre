@@ -35,7 +35,7 @@ module Backend
 
     list(:products, model: :products, conditions: { tracking_id: 'params[:id]'.c }, order: { born_at: :asc }) do |t|
       t.column :number, url: true
-      t.column :variant, url: true
+      t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }
       t.column :name
       t.column :born_at
       t.column :container

@@ -25,7 +25,7 @@ module Backend
       t.column :number, url: true
       t.column :work_number
       t.column :name, url: true
-      t.column :variant, url: true
+      t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }
       t.column :variety
       t.column :population
       t.column :unit_name

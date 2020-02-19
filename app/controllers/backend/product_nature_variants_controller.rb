@@ -19,7 +19,8 @@
 module Backend
   class ProductNatureVariantsController < Backend::BaseController
     include Pickable
-    manage_restfully except: %i[edit create update], active: true
+
+    manage_restfully except: %i[edit create update show], active: true
     manage_restfully_picture
 
     importable_from_lexicon :variants
@@ -58,7 +59,7 @@ module Backend
     list(conditions: variants_conditions) do |t|
       t.action :edit, url: { controller: '/backend/product_nature_variants' }
       t.action :destroy, if: :destroyable?, url: { controller: '/backend/product_nature_variants' }
-      t.column :name, url: { controller: '/backend/product_nature_variants' }
+      t.column :name, url: { namespace: :backend }
       t.column :number
       t.column :nature, url: { controller: '/backend/product_natures' }
       t.column :category, url: { controller: '/backend/product_nature_categories' }
@@ -71,12 +72,12 @@ module Backend
     end
 
     list(:catalog_items, conditions: { variant_id: 'params[:id]'.c }) do |t|
-      t.action :edit
-      t.action :destroy
-      t.column :name, url: true
-      t.column :amount, url: true, currency: true
+      t.action :edit, url: { controller: '/backend/catalog_items' }
+      t.action :destroy, url: { controller: '/backend/catalog_items' }
+      t.column :name, url: { controller: '/backend/catalog_items' }
+      t.column :amount, url: { controller: '/backend/catalog_items' }, currency: true
       t.column :all_taxes_included
-      t.column :catalog, url: true
+      t.column :catalog, url: { controller: '/backend/catalogs' }
     end
 
     list(:products, conditions: { variant_id: 'params[:id]'.c }, order: { born_at: :desc }) do |t|
@@ -91,7 +92,7 @@ module Backend
     end
 
     list(:sale_items, conditions: { variant_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
-      t.column :number, through: :sale, url: true
+      t.column :number, through: :sale, url: { controller: '/backend/sales' }
       t.column :invoiced_at, through: :sale, datatype: :datetime
       t.column :quantity
       t.column :reduction_percentage
@@ -100,7 +101,7 @@ module Backend
 
     list(:purchase_invoice_items, model: :purchase_item, joins: :purchase, conditions: [
       "variant_id = ? AND purchases.type = 'PurchaseInvoice'", 'params[:id]'.c]) do |t|
-      t.column :number, through: :purchase, url: true
+      t.column :number, through: :purchase, url: { controller: '/backend/purchases' }
       t.column :invoiced_at, through: :purchase, datatype: :datetime
       t.column :quantity
       t.column :unit_pretax_amount
@@ -109,12 +110,12 @@ module Backend
       t.column :tax, hidden: true
       t.column :pretax_amount
       t.column :amount
-      t.column :supplier, label_method: 'supplier.full_name', url: { controller: :entities, action: :show, id: 'RECORD.supplier.id'.c }
+      t.column :supplier, label_method: 'supplier.full_name', url: { controller: '/backend/entities', action: :show, id: 'RECORD.supplier.id'.c }
     end
 
     list(:purchase_order_items, model: :purchase_item, joins: :purchase, conditions: [
       "variant_id = ? AND purchases.type = 'PurchaseOrder'", 'params[:id]'.c]) do |t|
-      t.column :number, through: :purchase, url: true
+      t.column :number, through: :purchase, url: { controller: '/backend/purchases' }
       t.column :ordered_at, through: :purchase, datatype: :datetime
       t.column :quantity
       t.column :unit_pretax_amount
@@ -123,23 +124,23 @@ module Backend
       t.column :tax, hidden: true
       t.column :pretax_amount
       t.column :amount
-      t.column :supplier, label_method: 'supplier.full_name', url: { controller: :entities, action: :show, id: 'RECORD.supplier.id'.c }
+      t.column :supplier, label_method: 'supplier.full_name', url: { controller: '/backend/entities', action: :show, id: 'RECORD.supplier.id'.c }
     end
 
     list(:receptions, model: :parcel_item_storings, joins: :parcel_item, conditions: [ 'parcel_items.variant_id = ?', 'params[:id]'.c ], order: { created_at: :desc }) do |t|
-      t.column :reception_number, through: :parcel_item, label: :number, url: { controller: :receptions, action: :show, id: 'RECORD.parcel_item.parcel_id'.c }
+      t.column :reception_number, through: :parcel_item, label: :number, url: { controller: '/backend/receptions', action: :show, id: 'RECORD.parcel_item.parcel_id'.c }
       t.column :reception_planned_at, through: :parcel_item, datatype: :datetime
       t.column :reception_given_at, through: :parcel_item, datatype: :datetime
-      t.column :product, url: true
-      t.column :storage, url: true
+      t.column :product, url: { controller: '/backend/products' }
+      t.column :storage, url: { controller: '/backend/products' }
       t.column :quantity, label: :total_quantity
       t.column :unit_name, through: :parcel_item
       t.column :unit_pretax_amount, through: :parcel_item, hidden: true
-      t.column :sender, label_method: 'sender.full_name', through: :parcel_item, label: :supplier, url: { controller: :entities, action: :show, id: 'RECORD.parcel_item.sender.id'.c }
+      t.column :sender, label_method: 'sender.full_name', through: :parcel_item, label: :supplier, url: { controller: '/backend/entities', action: :show, id: 'RECORD.parcel_item.sender.id'.c }
     end
 
     list(:shipments, model: :shipment_items, conditions: { variant_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
-      t.column :number, through: :shipment, url: true
+      t.column :number, through: :shipment, url: { controller: '/backend/shipments' }
       t.column :planned_at, through: :shipment, datatype: :datetime
       t.column :population
     end
@@ -163,16 +164,16 @@ module Backend
                  average_unit_pretax_amount,
                  last_unit_pretax_amount',
          order: 'supplier_name') do |t|
-      t.column :supplier_name, label: :name, url: { controller: :entities, action: :show, id: 'RECORD.entity_id'.c }
+      t.column :supplier_name, label: :name, url: { controller: '/backend/entities', action: :show, id: 'RECORD.entity_id'.c }
       t.column :ordered_quantity
       t.column :average_unit_pretax_amount
       t.column :last_unit_pretax_amount
-      t.action :order_again, icon_name: 'cart-plus', url: { controller: :purchase_orders, action: :new, supplier_id: 'RECORD.entity_id'.c, items_attributes: [{ variant_id: 'params[:id]'.c, role: 'merchandise' }], display_items_form: true }
+      t.action :order_again, icon_name: 'cart-plus', url: { controller: '/backend/purchase_orders', action: :new, supplier_id: 'RECORD.entity_id'.c, items_attributes: [{ variant_id: 'params[:id]'.c, role: 'merchandise' }], display_items_form: true }
     end
 
     list(:components, model: :product_nature_variant_component, conditions: { product_nature_variant_id: 'params[:id]'.c }, order: { parent_id: :desc }) do |t|
       t.column :name
-      t.column :part_product_nature_variant, url: true
+      t.column :part_product_nature_variant, url: { controller: 'RECORD.product_nature_variant.class.name.tableize'.c, namespace: :backend }
     end
 
     # Returns quantifiers for a given variant
@@ -304,6 +305,11 @@ module Backend
                                   .where(parcels: { state: 'given' })
                                   .sum(:quantity)
       render json: { quantity: quantity, unit: ProductNatureVariant.find(params[:id])&.unit_name }
+    end
+
+    def show
+      instance_variable_set("@#{controller_name.singularize}", find_and_check(model: :product_nature_variant))
+      t3e(instance_variable_get("@#{controller_name.singularize}").attributes)
     end
 
     def edit

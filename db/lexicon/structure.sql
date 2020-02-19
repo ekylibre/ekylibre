@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 11.2
--- Dumped by pg_dump version 11.5 (Debian 11.5-1+deb10u1)
+-- Dumped by pg_dump version 11.6 (Debian 11.6-0+deb10u1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -52,6 +52,25 @@ CREATE TABLE lexicon.ephy_cropsets (
     crop_names text[],
     crop_labels jsonb,
     record_checksum integer
+);
+
+
+--
+-- Name: eu_market_prices; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.eu_market_prices (
+    id character varying NOT NULL,
+    category character varying,
+    sector_code character varying,
+    product_code character varying,
+    product_label character varying,
+    product_description character varying,
+    unit_value integer,
+    unit_name character varying,
+    country character varying,
+    price numeric(8,2),
+    start_date date
 );
 
 
@@ -322,11 +341,22 @@ CREATE TABLE lexicon.registered_phytosanitary_risks (
 
 
 --
+-- Name: registered_phytosanitary_symbols; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.registered_phytosanitary_symbols (
+    id character varying NOT NULL,
+    symbol_name character varying
+);
+
+
+--
 -- Name: registered_phytosanitary_usages; Type: TABLE; Schema: lexicon; Owner: -
 --
 
 CREATE TABLE lexicon.registered_phytosanitary_usages (
     id character varying NOT NULL,
+    lib_court integer,
     product_id integer NOT NULL,
     ephy_usage_phrase character varying NOT NULL,
     crop jsonb,
@@ -606,6 +636,7 @@ CREATE TABLE lexicon.variants (
     default_unit character varying,
     target_specie character varying,
     specie character varying,
+    eu_product_code character varying,
     indicators jsonb,
     variant_category_id integer,
     variant_nature_id integer
@@ -626,6 +657,14 @@ ALTER TABLE ONLY lexicon.cadastral_land_parcel_zones
 
 ALTER TABLE ONLY lexicon.ephy_cropsets
     ADD CONSTRAINT ephy_cropsets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: eu_market_prices eu_market_prices_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.eu_market_prices
+    ADD CONSTRAINT eu_market_prices_pkey PRIMARY KEY (id);
 
 
 --
@@ -730,6 +769,22 @@ ALTER TABLE ONLY lexicon.registered_pfi_targets
 
 ALTER TABLE ONLY lexicon.registered_phytosanitary_products
     ADD CONSTRAINT registered_phytosanitary_products_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: registered_phytosanitary_risks registered_phytosanitary_risks_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.registered_phytosanitary_risks
+    ADD CONSTRAINT registered_phytosanitary_risks_pkey PRIMARY KEY (product_id, risk_code);
+
+
+--
+-- Name: registered_phytosanitary_symbols registered_phytosanitary_symbols_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.registered_phytosanitary_symbols
+    ADD CONSTRAINT registered_phytosanitary_symbols_pkey PRIMARY KEY (id);
 
 
 --
@@ -871,6 +926,34 @@ CREATE INDEX cadastral_land_parcel_zones_shape ON lexicon.cadastral_land_parcel_
 --
 
 CREATE INDEX ephy_cropsets_crop_names ON lexicon.ephy_cropsets USING btree (crop_names);
+
+
+--
+-- Name: eu_market_prices_category; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX eu_market_prices_category ON lexicon.eu_market_prices USING btree (category);
+
+
+--
+-- Name: eu_market_prices_id; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX eu_market_prices_id ON lexicon.eu_market_prices USING btree (id);
+
+
+--
+-- Name: eu_market_prices_product_code; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX eu_market_prices_product_code ON lexicon.eu_market_prices USING btree (product_code);
+
+
+--
+-- Name: eu_market_prices_sector_code; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX eu_market_prices_sector_code ON lexicon.eu_market_prices USING btree (sector_code);
 
 
 --
@@ -1123,6 +1206,20 @@ CREATE INDEX registered_phytosanitary_products_reference_name ON lexicon.registe
 --
 
 CREATE INDEX registered_phytosanitary_risks_product_id ON lexicon.registered_phytosanitary_risks USING btree (product_id);
+
+
+--
+-- Name: registered_phytosanitary_symbols_id; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_phytosanitary_symbols_id ON lexicon.registered_phytosanitary_symbols USING btree (id);
+
+
+--
+-- Name: registered_phytosanitary_symbols_symbol_name; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_phytosanitary_symbols_symbol_name ON lexicon.registered_phytosanitary_symbols USING btree (symbol_name);
 
 
 --

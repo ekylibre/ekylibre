@@ -1,0 +1,42 @@
+= main_informations attachment: true do
+  = infos do
+    - icon = resource.category.pictogram
+    = resource_info(:number, important: true)
+    = resource_info(:work_number, important: true)
+    .med-info.important
+      %span.title= ProductNatureVariant.human_attribute_name(:nature)
+      %span.value
+        %i.picto{class: "picto-#{icon}"}
+        = link_to(resource.nature_name, controller: '/backend/product_natures', action: :show, id: resource.nature_id)
+    - if resource.gtin?
+      .med-info.important
+        %span.title= :gtin.tl
+        %span.value
+          %i.picto{class: "picto-barcode"}
+          = resource.gtin
+    - if resource.current_stock
+      .med-info.important
+        %span.title= :population.tl
+        %span.value
+          %i.picto{class: "picto-stock"}
+          = resource.current_stock.to_s + " " + resource.unit_name
+    .med-info.important
+      %span.title= :quantity_to_receive.tl
+      %span.value
+        = quantity_to_receive resource
+    .med-info.important
+      %span.title= ProductNatureVariant.human_attribute_name(:category)
+      %span.value
+        %i.picto{class: "picto-#{icon}"}
+        = link_to(resource.category.name, controller: '/backend/product_nature_categories', action: :show, id: resource.category.id)
+  - if resource.picture.exists?
+    = image_tag(resource.picture.url(:thumb))
+
+  = attributes_list(resource) do |l|
+    - l.attribute :name
+    - l.attribute :unit_name
+    - l.attribute :variety
+    - l.attribute :specie_variety
+    - l.attribute :derivative_of
+    - l.attribute :stock_account, url: { controller: '/backend/accounts' }
+    - l.attribute :stock_movement_account, url: { controller: '/backend/accounts' }
