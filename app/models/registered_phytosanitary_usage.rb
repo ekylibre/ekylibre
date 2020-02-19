@@ -52,11 +52,48 @@ class RegisteredPhytosanitaryUsage < ActiveRecord::Base
   include ScopeIntrospection
   belongs_to :product, class_name: 'RegisteredPhytosanitaryProduct'
 
-  scope :of_product, -> (*ids) { where(product_id: ids )}
+  scope :of_product, -> (*ids) { where(product_id: ids) }
   scope :of_variety, -> (*varieties) { joins('LEFT OUTER JOIN ephy_cropsets
                                               ON registered_phytosanitary_usages.species[1] = ephy_cropsets.name')
-                                       .where('registered_phytosanitary_usages.species && \'{"' + ActivityProduction.retrieve_varieties_ancestors(*varieties).join('", "') + '"}\'
+                                         .where('registered_phytosanitary_usages.species && \'{"' + ActivityProduction.retrieve_varieties_ancestors(*varieties).join('", "') + '"}\'
                                                OR ephy_cropsets.crop_names && \'{"' + ActivityProduction.retrieve_varieties_ancestors(*varieties).join('", "') + '"}\'') }
+
+  scope :of_specie, ->(specie) { where(specie: specie.to_s) }
+
+  %i[dose_quantity development_stage_min].each do |col|
+    define_method "decorated_#{col}" do
+      decorate.send(col)
+    end
+  end
+
+  %i[pre_harvest_delay applications_frequency].each do |col|
+    define_method "decorated_#{col}" do
+      decorate.value_in_days(col)
+    end
+  end
+
+  %i[untreated_buffer_aquatic untreated_buffer_arthropod untreated_buffer_plants].each do |col|
+    define_method "decorated_#{col}" do
+      decorate.value_in_meters(col)
+    end
+  end
+
+  %i[lib_court ephy_usage_phrase].each do |col|
+    define_method "decorated_#{col}" do
+      decorate.link_to_ephy(col)
+    end
+  end
+
+  def status
+    case state
+      when 'Autorisé'
+        :go
+      when 'Provisoire'
+        :caution
+      when 'Retrait'
+        :stop
+    end
+  end
 
   def of_dimension?(dimension)
     return false unless dose_unit

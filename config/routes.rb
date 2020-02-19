@@ -813,7 +813,20 @@ Rails.application.routes.draw do
 
     %w[animal article crop equipment service worker zone].each do |model|
       namespace :variants do
-        resources "#{model}_variants".to_sym, concerns: %i[incorporate list], only: :index
+        resources "#{model}_variants".to_sym, concerns: %i[incorporate list], only: %i[index show] do
+          member do
+            get :list_components
+            get :list_catalog_items
+            get :list_receptions
+            get :list_shipments
+            get :list_products
+            get :list_sale_items
+            get :list_purchase_invoice_items
+            get :list_purchase_order_items
+            get :list_suppliers
+            get :list_purchase_items
+          end
+        end
       end
 
       namespace :variant_categories do
@@ -828,7 +841,22 @@ Rails.application.routes.draw do
     %w[fertilizer plant_medicine seed_and_plant].each do |model|
       namespace :variants do
         namespace :articles do
-          resources "#{model}_articles".to_sym, concerns: %i[incorporate list], only: :index
+          resources "#{model}_articles".to_sym, concerns: %i[incorporate list], only: %i[index show] do
+            member do
+              get :list_components
+              get :list_catalog_items
+              get :list_receptions
+              get :list_shipments
+              get :list_products
+              get :list_sale_items
+              get :list_purchase_invoice_items
+              get :list_purchase_order_items
+              get :list_suppliers
+              get :list_purchase_items
+              get :list_registered_phytosanitary_usages
+              get :list_registered_phytosanitary_risks
+            end
+          end
         end
       end
     end

@@ -170,7 +170,7 @@ module Backend
       t.column :quantity_population
       t.column :unit_name, through: :variant
       # t.column :working_zone, hidden: true
-      t.column :variant, url: true
+      t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }
     end
 
     list(
@@ -178,7 +178,7 @@ module Backend
       model: :reception_items,
       conditions: { id: 'ReceptionItem.joins(:reception).where(parcels: { intervention_id: params[:id]}).pluck(:id)'.c }
     ) do |t|
-      t.column :variant, url: true, label: :service
+      t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }, label: :service
       t.column :quantity
       t.column :sender_full_name, label: :provider, through: :reception, url: { controller: 'backend/entities', id: 'RECORD.reception.sender.id'.c }
       t.column :purchase_order_number, label: :purchase_order, through: :reception, url: { controller: 'backend/purchase_orders', id: 'RECORD.reception.purchase_order.id'.c }

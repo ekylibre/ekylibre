@@ -1,0 +1,13 @@
+- if (phyto = resource.phytosanitary_product) && phyto.operator_protection_mentions
+  .modal.fade#operator-protection-modal{ tabindex: '-1', role: 'dialog' }
+    .modal-dialog{ role: 'document' }
+      .modal-content
+        .modal-header
+          %h4.modal-title= RegisteredPhytosanitaryProduct.human_attribute_name(:operator_protection_mentions)
+          %button.close{ type: 'button', 'data-dismiss': 'modal', 'aria-label': 'Close' }
+            %span{ 'aria-hidden': 'true' }
+              %i.icon.icon-destroy
+        .modal-body
+          = simple_format phyto.operator_protection_mentions.gsub('_', ';')
+        .modal-footer
+          %button.btn.btn-primary.no-icn{ type: 'button', 'data-dismiss': 'modal' }= :close.tl

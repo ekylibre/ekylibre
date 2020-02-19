@@ -76,6 +76,10 @@ class RegisteredPhytosanitaryProduct < ActiveRecord::Base
     "#{france_maaid} - #{name.capitalize}"
   end
 
+  def decorated_reentry_delay
+    decorate.in_field_reentry_delay
+  end
+
   def allowed_for_organic_farming?
     return false if allowed_mentions.nil?
 

@@ -1434,6 +1434,7 @@ eng:
     capitals_profit_or_loss: "capitals_profit_or_loss" #?
     capitals_risk_and_charges_provisions: "capitals_risk_and_charges_provisions" #?
     capitals_values: "capitals_values" #?
+    carcinogen_mutagenic_toxic_for_reproduction: "Carcinogen, mutagenic, toxic for reproduction"
     cartography: "Cartography"
     cash: "Cash"
     cash_balance: "Cash balance"
@@ -1494,6 +1495,7 @@ eng:
     cobbles: "Cobbles" #?
     column: "Column"
     columns: "Columns to import"
+    combustion_agents: "Combustion agents"
     comment: "Comment"
     commercial_margin: "Commercial margin"
     commission: "Commission"
@@ -1542,6 +1544,8 @@ eng:
     corporeal_assets_land_parcels: "Land parcels" #?
     corporeal_assets_others: "Others" #?
     corporeal_assets_settlements: "Settlements" #?
+    corrosive_skin_and_mucosa_risks_of_severe_burns: "Corrosive skin and mucosa, risks of severe burns"
+    corrosive_substances: "Corrosive substances"
     # cost: "Cost"
     cost_per_net_surface_area: "Cost per net surface area"
     costs: "Costs"
@@ -1724,6 +1728,7 @@ eng:
     entry_item_label: "Entry item label" #?
     entry_items: "Entry items" #?
     entry_resource_label: "Record" #?
+    environment_h4: "Environment H4"
     equipment: "Equipment"
     equipment_name: "Name of equipment" #?
     equipment_natures: "Equipments"
@@ -1773,6 +1778,7 @@ eng:
     expired_within: "Expired within" #?
     exploitation_result: "Exploitation result" #?
     exploitation_results: "Exploitation results" #?!
+    explosive_substances: "Explosive substances"
     export: "Export documents" #?
     export_as_csv: "Export as CSV"
     export_as_ods: "Export as ODS"
@@ -1793,6 +1799,7 @@ eng:
     export_xml_fec_ba_bnc_ir_commercial_accountancy: "Export FEC for agriculture and professional operations income taxation commercial accountancy (XML)"
     export_xml_fec_ba_ir_cash_accountancy: "Export FEC agriculture income taxation cash accountancy (XML)"
     export_xml_fec_bnc_ir_cash_accountancy: "Export FEC professional operations income taxation cash accountancy (XML)"
+    external_links: "External links"
     extract_account_x: "Extract account %{account_number}"
     # extract_non_letter_odt: "Extract non letter odt"
     # extract_non_letter_pdf: "Extract non letter pdf"
@@ -1847,6 +1854,7 @@ eng:
     fixed_asset_depreciations_not_accounted_on_current_financial_year: "Fixed asset depreciations not accounted on current financial year"
     fixed_asset_successfully_associated_to_sale: "The fixed asset has been successfully associated to the sale. Click the 'Sold' button to proceed."
     fixed_assets: "Fixed assets"
+    flammable_agents: "Flammable agents"
     forecast_harvest_week: "Forecast harvest week"
     from: "From"
     from_to_date: "from %{from} to %{to}" #?
@@ -1886,6 +1894,7 @@ eng:
     guide_evolution: "Guide evolution"
     harvested_area: "Harvested area"
     harvested_at: "Harvested at" #?
+    health_h3: "Health H3"
     help: "Help"
     help_center: "Help center"
     hide_lettered_lines: "Hide lettered lines"
@@ -1903,6 +1912,7 @@ eng:
     iban: "International Bank Account Number (IBAN)" #?
     identification: "Identification"
     identifiers: "Identifiers"
+    if_closed_environment: "if closed environment"
     illness: "Illness"
     implanted_at: "Implanted at" #?
     import: "Import"
@@ -1964,6 +1974,7 @@ eng:
     invoiced: "Invoiced"
     invoices: "Invoices" #?
     irreversible_operation: "This operation is irreversible"
+    irritating_by_skin_contact_and_inhalation_severe_eyes_irritation: "Irritating by skin contact and inhalation, severe eyes irritation"
     is: "Is" #?
     is_equipment_set_as_inactive_by_intervention: "This intervention set the equipment as inactive ?" #?!
     issue: "Issue"
@@ -2278,6 +2289,7 @@ eng:
     # pfi_parcel_ratio: "Pfi parcel ratio"
     # pfi_treatment_ratio: "Pfi treatment ratio"
     phosphorus_concentration: "Phosphorus concentration" #?
+    physical_h2: "Physical H2"
     phyto_data: "Phytosanitary data"
     picture: "Picture" #?
     placeholder: "Placeholder" #?
@@ -2291,6 +2303,7 @@ eng:
     plant_medicines: "Plant medicines"
     plantation_density: "Plantation density" #?
     plants: "Crops" #?
+    please_provide_a_valid_maaid_to_display_this_article_properties: "Please provide a valid AMM number to display this article's properties"
     please_reach_out_for_the_person_in_charge_of_the_closure: "Please reach out for the person in charge of the closure outside of the software to get your documents."
     please_wait: "Please wait…"
     pluviometry: "Ploviometry"
@@ -2439,6 +2452,7 @@ eng:
     revise: "Revise"
     rights: "Rights"
     risk_and_charges_provisions: "Risk and charges provisions" #?
+    risks: "Risks"
     role: "Role" #?
     roles: "Roles" #?
     rss: "RSS" #?
@@ -2662,6 +2676,8 @@ eng:
         user:
           content: "Here, you can see your notifications, show help, read your farm name. Your user preferences are editable from menu."
           title: "User menu"
+    toxic: "Toxic"
+    toxic_for_aquatic_organisms: "Toxic for aquatic organisms"
     tracking: "Tracking" #?
     trade: "Trade"
     trade_counts: "Trade counts"
@@ -2679,6 +2695,7 @@ eng:
     undefined_container: "Undefined container"
     undelivered: "Undelivered" #?
     undelivered_invoices: "Undelivered invoices" #?!
+    under_pressure_or_refrigerated_gas: "Under pressure or refrigerated gas"
     undone: "Undone" #?
     uninvoiced: "Uninvoiced"
     unit: "Unit"
