@@ -489,8 +489,11 @@ class ProductNatureVariant < Ekylibre::Record::Base
   end
 
   def phytosanitary_product
-    return unless from_lexicon?
-    RegisteredPhytosanitaryProduct.find_by_reference_name reference_name
+    if imported_from == "Lexicon"
+      RegisteredPhytosanitaryProduct.find_by_reference_name reference_name
+    else
+      nil
+    end
   end
 
   class << self

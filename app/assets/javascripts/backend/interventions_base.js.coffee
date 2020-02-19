@@ -970,7 +970,6 @@
         for data in harvestImpossible
           date = moment(data.next_possible_date).format('DD-MM-YYYY hh:mm')
           harvestWarning = $(".selector-value[value='#{data.id}']").closest('.controls')
-          debugger
           message = I18n.translate("front-end.intervention.nature.#{data.action}")
           harvestWarning.append("<div class='harvest-warning'><i class='picto picto-clear'></i> <span>#{message} #{date}</span></div>")
 

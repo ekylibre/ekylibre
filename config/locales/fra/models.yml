@@ -296,6 +296,35 @@ fra:
       purchase_payment: #?
         delivered: "Remis au bénéficiaire" #?
         list: "Lot de décaissements" #?
+      registered_phytosanitary_product:
+        active_compounds: "Substance(s) active(s)"
+        firm_name: "Fabricant"
+        france_maaid: "N° AMM / N° Permis"
+        in_field_reentry_delay: "Délai de réentrée"
+        name: "Nom usuel"
+        operator_protection_mentions: "Protection de l'opérateur"
+        other_name: "Seconds noms commerciaux"
+        product_type: "Type"
+        state: "État du produit"
+        started_on: "Date d'autorisation"
+        stopped_on: "Date de retrait"
+      registered_phytosanitary_usage:
+        applications_count: "Nb max"
+        applications_frequency: "Intervalle"
+        decision_date: "Date d'autorisation"
+        development_stage_min: "Stade BBCH min-max"
+        dose_quantity: "Dose max"
+        ephy_usage_phrase: "Usage"
+        lib_court: "Numéro"
+        pre_harvest_delay: "Délai avant récolte"
+        status: "Autorisé"
+        untreated_buffer_aquatic: "ZNT aquatique"
+        untreated_buffer_arthropod: "ZNT arthropodes"
+        untreated_buffer_plants: "ZNT plantes"
+      registered_phytosanitary_risk:
+        description: "Descriptif"
+        mentions: "Mentions de danger"
+        symbol_name: "Pictogramme"
       sale:
         affair_balance: "Solde"
         amount: "Montant TTC" #?

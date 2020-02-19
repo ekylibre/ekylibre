@@ -1,0 +1,8 @@
+= render 'backend/variants/shared/show_toolbar_links'
+= render 'backend/variants/shared/main_informations'
+
+= cobbles do |c|
+  = render 'plant_medicines_cobbles', c: c
+  = render 'backend/variants/shared/show_cobbles', c: c
+
+= render 'operator_protection_modal'

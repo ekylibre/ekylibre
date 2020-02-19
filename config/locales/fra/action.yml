@@ -1313,6 +1313,7 @@ fra:
     capitals_risk_and_charges_provisions: "Provisions pour risques et charges"
     capitals_risk_and_charges_provisions_total: "Provisions"
     capitals_values: "Capital"
+    carcinogen_mutagenic_toxic_for_reproduction: "Cancérogène, mutagène, toxique pour la reproduction"
     care: "soins" #?
     cartography: "Cartographie"
     cash: "Trésorerie"
@@ -1389,6 +1390,7 @@ fra:
     column_organization: "Organisation" #?
     column_title: "Titre" #?
     columns: "Colonnes à importer"
+    combustion_agents: "Comburants"
     comment: "Commentaire"
     commercial_margin: "Marge commerciale"
     commission: "Commission"
@@ -1450,6 +1452,8 @@ fra:
     corporeal_assets_others: "Autres"
     corporeal_assets_settlements: "Aménagements fonciers"
     corporeal_assets_total: "Immobilisations corporelles"
+    corrosive_skin_and_mucosa_risks_of_severe_burns: "Corrosif peau et muqueuses, risque de graves brûlures"
+    corrosive_substances: "Matières corrosives"
     cost: "Coût" #?
     cost_income_statement: "Charges" #?
     cost_per_net_surface_area: "Coût par surface"
@@ -1672,6 +1676,7 @@ fra:
     entry_item_label: "Libellé de l'écriture"
     entry_items: "Lignes d’écriture"
     entry_resource_label: "Pièce"
+    environment_h4: "Environnement H4"
     equipment: "Équipement"
     equipment_name: "Nom de l’équipement"
     equipment_natures: "Équipements"
@@ -1760,12 +1765,14 @@ fra:
     export_xml_fec_ba_ir_cash_accountancy: "Export FEC - Cas BA IR - comptabilité de trésorerie (XML)"
     export_xml_fec_bnc_ir_cash_accountancy: "Export FEC - Cas BNC IR - comptabilité de trésorerie (XML)"
     exportation: "Exportation" #?
+    external_links: "Liens externes"
     extract: "Extraire" #?
     extract_account_x: "Extrait de compte %{account_number}"
     extract_non_letter_odt: "Extrait de compte - Non lettrés en ODT" #?
     extract_non_letter_pdf: "Extrait de compte - Non lettrés en PDF" #?
     extract_unlettered_account_x: "Extrait de compte non lettrés %{account_number}"
     extraordinary_income: "Produits exceptionnels"
+    explosive_substances: "Matières explosives"
     fat_matters_concentration: "Teneur en matières grasses" #?
     fax: "Fax" #?
     fees: "Frais"
@@ -1827,6 +1834,7 @@ fra:
     fixed_asset_depreciations_not_accounted_on_current_financial_year: "Des amortissements n'ont pas été passés en comptabilité sur l'exercice %{code}"
     fixed_asset_successfully_associated_to_sale: "L'immobilisation a été rattachée à la vente avec succès. Cliquez à nouveau sur 'Vendue' pour continuer la procédure."
     fixed_assets: "Immobilisations"
+    flammable_agents: "Matières inflammables"
     forbidden: "Non autorisé"
     forecast_harvest_week: "Semaine de récolte"
     france_maaid: "N° AMM" #?
@@ -1874,6 +1882,7 @@ fra:
     guides: "Référentiels" #?
     harvested_area: "Surface récoltée"
     harvested_at: "Récolté le"
+    health_h3: "Santé H3"
     healthy: "Phase du bioprocessus de maladie d’un animal" #?
     help: "Aide"
     help_center: "Centre d’aide"
@@ -1893,6 +1902,7 @@ fra:
     iban: "Numéro de compte bancaire internationale (IBAN)"
     identification: "Identification"
     identifiers: "Identifiants"
+    if_closed_environment: "si milieu fermé"
     illness: "Maladies"
     immunoglobulins_concentration: "Concentration en immunoglobulines Gamma" #?
     implanted_at: "Implantée le"
@@ -1979,6 +1989,7 @@ fra:
     invoices: "Factures"
     invoices_only: "Utiliser seulement les factures" #?
     irreversible_operation: "Cette opération est irréversible"
+    irritating_by_skin_contact_and_inhalation_severe_eyes_irritation: "Irritant par contact cutané et inhalation, irritation sévère des yeux"
     is: "Est"
     # is_equipment_set_as_inactive_by_intervention: "This intervention set the equipment as inactive ?"
     issue: "Incident"
@@ -2399,6 +2410,7 @@ fra:
     phone: "Tél." #?
     phosphorus_concentration: "Teneur en phosphore (P)"
     phosphorus_concentration_per_hectare: "Teneur en phosphore par hectare" #?
+    physical_h2: "Physique H2"
     phyto_data: "Données phytosanitaires"
     picture: "Photo"
     placeholder: "Espace réservé"
@@ -2417,6 +2429,7 @@ fra:
     plant_productions: "Productions végétales" #?
     plantation_density: "Densité de plantation"
     plants: "Plantes"
+    please_provide_a_valid_maaid_to_display_this_article_properties: "Veuillez renseigner un numéro d'AMM valide afin d'afficher toutes les caractéristiques de cet article"
     please_reach_out_for_the_person_in_charge_of_the_closure: "Il faudra vous rapprocher de la personne qui a effectué la clôture en dehors du logiciel pour récupérer vos documents de fin d’exercice."
     please_wait: "Merci de patienter…"
     pluviometry: "Pluviométrie"
@@ -2636,6 +2649,7 @@ fra:
       resources: "Droits module Ressources" #?
     rights: "Droits"
     risk_and_charges_provisions: "Provisions pour risques et charges"
+    risks: "Dangers"
     role: "Rôle"
     role_name: "Entrez le nom du rôle puis attribuez lui ses droits" #?
     roles: "Rôles"
@@ -2945,6 +2959,8 @@ fra:
         user:
           content: "Ici, vous pouvez voir vos notifications, afficher l’aide, lire le nom de votre ferme. Vos préférences utilisateur sont modifiables à partir du menu aussi."
           title: "Menu utilisateur"
+    toxic: "Toxique"
+    toxic_for_aquatic_organisms: "Toxique pour organismes aquatiques"
     traceability_check: "Contrôle de cohérence de la tracabilité (Productions végétales)" #?
     tracking: "Lot"
     trade: "Ventes/Achats"
@@ -2973,6 +2989,7 @@ fra:
     undefined_container: "Emplacement indéfini"
     undelivered: "Reste à livrer"
     undelivered_invoices: "Factures non parvenues"
+    under_pressure_or_refrigerated_gas: "Gaz sous pression ou réfrigéré"
     undone: "Non-fait"
     uninvoiced: "Non facturés"
     uninvoiced_amount: "Montant non facturé" #?

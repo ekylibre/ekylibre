@@ -51,12 +51,12 @@ module Backend
 
     list(:variants, model: :product_nature_variants,
                     conditions: { nature_id: 'params[:id]'.c }, order: :name) do |t|
-      t.action :new, on: :none, url: { nature_id: 'params[:id]'.c, type: 'ProductNature.find(params[:id]).variant_type'.c, redirect: 'request.fullpath'.c }
+      t.action :new, on: :none, url: { nature_id: 'params[:id]'.c, redirect: 'request.fullpath'.c }
       t.action :edit, url: { controller: :product_nature_variants }
       t.action :destroy, url: { controller: :product_nature_variants }
       t.column :active
-      t.column :number, url: { controller: :product_nature_variants }
-      t.column :name, url: { controller: :product_nature_variants }
+      t.column :number, url: { namespace: :backend }
+      t.column :name, url: { namespace: :backend }
       t.column :variety
       t.column :derivative_of
       t.column :unit_name
