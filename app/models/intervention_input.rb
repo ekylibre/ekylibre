@@ -64,11 +64,13 @@
 class InterventionInput < InterventionProductParameter
   belongs_to :intervention, inverse_of: :inputs
   belongs_to :outcoming_product, class_name: 'Product'
+  belongs_to :usage, class_name: 'RegisteredPhytosanitaryUsage'
   has_one :product_movement, as: :originator, dependent: :destroy
   validates :quantity_population, :product, presence: true
   # validates :component, presence: true, if: -> { reference.component_of? }
 
   scope :of_component, ->(component) { where(component: component.self_and_parents) }
+  scope :of_maaids, ->(*maaids) { joins(:variant).where('product_nature_variants.france_maaid IN (?)', maaids)}
 
   before_validation do
     self.variant = product.variant if product
@@ -118,7 +120,7 @@ class InterventionInput < InterventionProductParameter
     pesticide = RegisteredPhytosanitaryProduct.where(france_maaid: variant.france_maaid).first
     if pesticide
       specie = intervention.activity_productions.first.cultivation_variety
-      usages = pesticide.usages.of_specie(specie)
+      usages = pesticide.usages.of_variety(specie)
 
       info = {}
       info[:name] = pesticide.proper_name

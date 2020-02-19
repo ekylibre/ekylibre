@@ -402,14 +402,25 @@
   filterUnroll = ($filteringUnroll) ->
     $filteredUnroll = $filteringUnroll.closest($filteringUnroll.data('parent')).find($filteringUnroll.data('filter-unroll'))
     url = $filteredUnroll.data('filters-url')
+    filterId = $filteringUnroll.selector('value')
+    return unless filterId
 
-    $.getJSON url, filter_id: $filteringUnroll.selector('value'), (data) ->
+    retrievedIds = []
+    if $filteringUnroll.data('retrieve-unroll')
+      $($filteringUnroll.data('retrieve-unroll')).each ->
+        retrievedIds.push $(this).selector('value')
+
+    $.getJSON url, retrieved_ids: retrievedIds, filter_id: filterId, (data) ->  
+      $filteredUnroll.closest('.controls').find('.lights-message').text('')
+      $filteredUnroll.attr('disabled', false)
       if data.scope_url
         $filteredUnroll.data('selector', data.scope_url)
         $filteredUnroll.attr('data-selector', data.scope_url)
       if data.new_url
         $filteredUnroll.data('selector-new-item', data.new_url)
         $filteredUnroll.attr('data-selector-new-item', data.new_url)
-
+      if data.disable
+        $filteredUnroll.attr('disabled', true)
+        $filteredUnroll.closest('.controls').find('.lights-message').text(data.disable)
   return
 ) ekylibre, jQuery

@@ -488,6 +488,11 @@ class ProductNatureVariant < Ekylibre::Record::Base
                      .sum(:quantity)
   end
 
+  def phytosanitary_product
+    return unless from_lexicon?
+    RegisteredPhytosanitaryProduct.find_by_reference_name reference_name
+  end
+
   class << self
     # Returns some nomenclature items are available to be imported, e.g. not
     # already imported

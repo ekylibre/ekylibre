@@ -49,7 +49,21 @@
 #
 class RegisteredPhytosanitaryUsage < ActiveRecord::Base
   include Lexiconable
+  include ScopeIntrospection
   belongs_to :product, class_name: 'RegisteredPhytosanitaryProduct'
 
-  scope :of_specie, ->(specie) { where(specie: specie.to_s) }
+  scope :of_product, -> (*ids) { where(product_id: ids )}
+  scope :of_variety, -> (*varieties) { joins('LEFT OUTER JOIN ephy_cropsets
+                                              ON registered_phytosanitary_usages.species[1] = ephy_cropsets.name')
+                                       .where('registered_phytosanitary_usages.species && \'{"' + ActivityProduction.retrieve_varieties_ancestors(*varieties).join('", "') + '"}\'
+                                               OR ephy_cropsets.crop_names && \'{"' + ActivityProduction.retrieve_varieties_ancestors(*varieties).join('", "') + '"}\'') }
+
+  def of_dimension?(dimension)
+    return false unless dose_unit
+    Nomen::Unit.find(dose_unit).dimension == dimension.to_sym
+  end
+
+  def among_dimensions?(*dimensions)
+    dimensions.any? { |dimension| of_dimension?(dimension) }
+  end
 end

@@ -24,7 +24,21 @@
           = radio_button_tag 'target', 'land_parcel', f.object.decorate.land_parcel?, class: 'land-parcel-radio-button'
           = label_tag :land_parcel_name.tl
 
-    = f.referenced_association :product, label: reference.human_name, source: { scope: reference.scope_hash.merge(availables: [at: started_at.strftime("%Y-%m-%d %H:%M")]), keep: true, partial_unroll: reference.input? }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'product_id', harvest_in_progress_error_message: t('errors.messages.harvest_in_progress') } }, new: false
+    - product_data = {}
+    - if f.object.reference_name.to_sym == :plant_medicine
+      - product_data[:filter_unroll] = "[data-selector-id='intervention_input_usage_id']"
+      - product_data[:parent] = '.nested-fields'
+      - product_data[:retrieve_unroll] = "[data-selector-id='intervention_target_product_id']"
+
+    = f.referenced_association :product, label: reference.human_name, source: { scope: reference.scope_hash.merge(availables: [at: started_at.strftime("%Y-%m-%d %H:%M")]), keep: true, partial_unroll: reference.input? }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'product_id', harvest_in_progress_error_message: t('errors.messages.harvest_in_progress') }.merge(product_data) }, new: false
+
+    - if f.object.reference_name.to_sym == :plant_medicine
+      %span.allowed-mentions
+        %img#bee-usage.hidden{ src: image_path("phytosanitary_products/allowed_mentions/bee-usage.svg"), alt: :bee_usage.tl, title: :bee_usage.tl}
+        %img#biocontrol-usage.hidden{ src: image_path("phytosanitary_products/allowed_mentions/biocontrol-usage.svg"), alt: :biocontrol_usage.tl, title: :biocontrol_usage.tl }
+        %img#organic-usage.hidden{ src: image_path("phytosanitary_products/allowed_mentions/organic-usage.svg"), alt: :organic_usage.tl, title: :organic_usage.tl }
+        %span#product-authorization-message
+        = state_badge_set(nil, states: %i[forbidden allowed], html: {id: 'intervention-products-badges', style: "margin-right: 35px;"})
 
     - if reference.tool?
       .tool-nested-readings.hidden
@@ -62,6 +76,14 @@
       .modal-footer
   - if reference.quantified?
     = render '/backend/interventions/quantifier_field', f: f, reference: reference, prefix: prefix
+
+  - if f.object.reference_name.to_sym == :plant_medicine
+    = f.referenced_association :usage, label: :usage_phyto.tl, input_html: { data: { filters_url: filter_usages_backend_registered_phytosanitary_usages_path, lights: '.controls' } }, new: false
+    = f.input :allowed_entry_factor, as: :hidden, input_html: { class: 'allowed-entry' }
+    = f.input :allowed_harvest_factor, as: :hidden, input_html: { class: 'allowed-harvest' }
+
+    = render 'intervention_usage_informations'
+
   - if (attr = reference.attribute(:new_name))
     - if attr.hidden?
       - if reference.procedure.of_category?(:planting)

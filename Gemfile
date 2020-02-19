@@ -90,7 +90,8 @@ gem 'rake', '~>12.0'
 gem 'timecop'
 
 # Manipulate map data
-gem 'charta', '~> 0.1.14'
+# gem 'charta', '~> 0.1.14'
+gem 'charta', gitlab: 'ekylibre/charta', branch: 'feature/intersects-method'
 
 # active_list alternative
 gem 'font-awesome-sass'

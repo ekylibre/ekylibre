@@ -9,21 +9,24 @@
       <input name="plant_medicine" filter="is preparation and can care(plant)" display-status="miscibility" >
         <handler name="population"/>
         <handler indicator="net_mass" unit="kilogram"
-                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass?"
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass? and (usage_unit_name_include(PRODUCT, 'kilogram') == 1)"
                  backward="POPULATION * PRODUCT..net_mass(kilogram)"
                  forward="VALUE / PRODUCT..net_mass(kilogram)"/>
         <handler indicator="net_volume" unit="liter"
-                          if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_volume?"
-                          backward="POPULATION * PRODUCT..net_volume(liter)"
-                          forward="VALUE / PRODUCT..net_volume(liter)"/>
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_volume? and (usage_unit_name_include(PRODUCT, 'liter') == 1)"
+                 backward="POPULATION * PRODUCT..net_volume(liter)"
+                 forward="VALUE / PRODUCT..net_volume(liter)"/>
         <handler indicator="mass_area_density" unit="kilogram_per_hectare"
-                 if="PRODUCT..net_mass? and sum_working_zone_areas(cultivation) != 0"
+                 if="(sum_working_zone_areas(cultivation) != 0) and PRODUCT..net_mass? and (usage_unit_name_include(PRODUCT, 'kilogram') == 1)"
                  backward="(POPULATION * PRODUCT..net_mass(kilogram)) / sum_working_zone_areas(cultivation, :hectare)"
                  forward="(VALUE * sum_working_zone_areas(cultivation, :hectare)) / PRODUCT..net_mass(kilogram)"/>
         <handler indicator="volume_area_density" unit="liter_per_hectare"
-                 if="PRODUCT..net_volume? and sum_working_zone_areas(cultivation) != 0"
+                 if="PRODUCT..net_volume? and sum_working_zone_areas(cultivation) != 0 and (usage_unit_name_include(PRODUCT, 'liter') == 1)"
                  backward="(POPULATION * PRODUCT..net_volume(liter)) / sum_working_zone_areas(cultivation, :hectare)"
                  forward="(VALUE * sum_working_zone_areas(cultivation, :hectare)) / PRODUCT..net_volume(liter)"/>
+        <attribute name="usage_id" />
+        <attribute name="allowed_entry_factor" />
+        <attribute name="allowed_harvest_factor" />
       </input>
       <doer name="driver" filter="can drive(tractor) and can move" cardinality="*"/>
       <tool name="tractor" filter="is equipment and can catch(equipment)" cardinality="*"/>

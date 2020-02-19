@@ -374,7 +374,6 @@ module Backend
           .values
           .each { |tool_attributes| tool_attributes.except!(:readings_attributes) }
       end
-
       intervention = Procedo::Engine.new_intervention(intervention_params)
       begin
         intervention.impact_with!(params[:updater])
@@ -561,6 +560,42 @@ module Backend
       respond_to do |format|
         format.js
       end
+    end
+
+    def validate_harvest_delay
+      return head :bad_request unless params[:date] && params[:targets]
+      date = params[:date].to_datetime
+      parcels = Product.find(params[:targets])
+
+      harvest_advisor = ::Interventions::Computation::PhytoHarvestAdvisor.new
+
+      result = parcels.map do |parcel|
+        result = harvest_advisor.harvest_possible?(parcel, date)
+        {
+          id: parcel.id,
+          possible: result.possible,
+          date: result.next_possible_date
+        }
+      end
+      render json: { targets: result }
+    end
+
+    def validate_reentry_delay
+      return head :bad_request unless params[:date] && params[:targets]
+      date = params[:date].to_datetime
+      parcels = Product.find(params[:targets])
+
+      harvest_advisor = ::Interventions::Computation::PhytoHarvestAdvisor.new
+
+      result = parcels.map do |parcel|
+        result = harvest_advisor.reentry_possible?(parcel, date)
+        {
+          id: parcel.id,
+          possible: result.possible,
+          date: result.next_possible_date
+        }
+      end
+      render json: { targets: result }
     end
 
     private
