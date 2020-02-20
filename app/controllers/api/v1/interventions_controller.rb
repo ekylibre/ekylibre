@@ -66,8 +66,9 @@ module Api
           state: :done
         }
 
-        interactor = Interventions::BuildInterventionInteractor.new(permitted_params, options)
-        if (intervention = interactor.run)
+        interactor = Interventions::BuildInterventionInteractor.new(filtered_params, options)
+
+        if interactor.run
           intervention = interactor.intervention
           render json: { id: intervention.id }, status: :created
         else
@@ -78,23 +79,24 @@ module Api
       protected
 
         def permitted_params
-          permitted = super.permit(:procedure_name,
-                       :description,
-                       :actions,
-                       working_periods_attributes: %i[started_at stopped_at],
-                       inputs_attributes: %i[product_id quantity_value quantity_handler reference_name quantity_population],
-                       outputs_attributes: %i[variant_id quantity_value quantity_handler reference_name quantity_population],
-                       tools_attributes: [:product_id, :reference_name, readings_attributes: %i[indicator_name measure_value_value measure_value_unit]],
-                       targets_attributes: %i[product_id reference_name],
-                       doers_attributes: %i[product_id reference_name],
-                       group_parameters_attributes: [
-                         :reference_name,
-                         inputs_attributes: %i[product_id quantity_value quantity_handler reference_name quantity_population],
-                         outputs_attributes: %i[variant_id quantity_value quantity_handler reference_name quantity_population batch_number variety],
-                         targets_attributes: [:product_id, :reference_name, readings_attributes: %i[indicator_name measure_value_value measure_value_unit]],
-                         tools_attributes: %i[product_id reference_name],
-                         doers_attributes: %i[product_id reference_name]
-                       ]
+          permitted = super.permit(
+            :procedure_name,
+            :description,
+            :actions,
+            working_periods_attributes: %i[started_at stopped_at],
+            inputs_attributes: %i[product_id quantity_value quantity_handler reference_name quantity_population usage_id],
+            outputs_attributes: %i[variant_id quantity_value quantity_handler reference_name quantity_population],
+            tools_attributes: [:product_id, :reference_name, readings_attributes: %i[indicator_name measure_value_value measure_value_unit]],
+            targets_attributes: %i[product_id reference_name],
+            doers_attributes: %i[product_id reference_name],
+            group_parameters_attributes: [
+              :reference_name,
+              inputs_attributes: %i[product_id quantity_value quantity_handler reference_name quantity_population],
+              outputs_attributes: %i[variant_id quantity_value quantity_handler reference_name quantity_population batch_number variety],
+              targets_attributes: [:product_id, :reference_name, readings_attributes: %i[indicator_name measure_value_value measure_value_unit]],
+              tools_attributes: %i[product_id reference_name],
+              doers_attributes: %i[product_id reference_name]
+            ]
           )
           add_provider_params(permitted)
         end
