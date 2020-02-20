@@ -676,6 +676,8 @@ class ProductNatureVariant < Ekylibre::Record::Base
         unless variant.save
           raise "Cannot import variant #{item.name.inspect}: #{variant.errors.full_messages.join(', ')}"
         end
+
+        set_indicators(item, variant)
       end
       variant
     end
@@ -697,6 +699,13 @@ class ProductNatureVariant < Ekylibre::Record::Base
         else
           dose_unit
         end
+      end
+
+      def set_indicators(item, variant)
+        units = item.usages.pluck(:dose_unit).uniq.compact.map { |u| u.match(/_per_/) ? u.split('_per_').first : u }.uniq
+        dimensions = units.map { |u| Nomen::Unit.find(u).dimension }.uniq
+        variant.read!(:net_mass, Measure.new(1, :kilogram)) if dimensions.include?(:mass)
+        variant.read!(:net_volume, Measure.new(1, :liter)) if dimensions.include?(:volume)
       end
   end
 end
