@@ -5,7 +5,7 @@ module Backend
 
         importable_from_lexicon :registered_phytosanitary_products, model_name: "Variants::Articles::#{controller_name.classify}".constantize
 
-        list(:registered_phytosanitary_usages, conditions: ['product_id = ?', 'ProductNatureVariant.find(params[:id]).phytosanitary_product.id'.c],
+        list(:registered_phytosanitary_usages, conditions: ['product_id = ?', 'ProductNatureVariant.find(params[:id]).phytosanitary_product.france_maaid'.c],
                                                order: [:state, :ephy_usage_phrase],
                                                per_page: 10) do |t|
           t.column :lib_court, label_method: :decorated_lib_court
@@ -24,7 +24,7 @@ module Backend
 
         list(:registered_phytosanitary_risks, select: { 'rps.symbol_name' => 'symbol_name', "string_agg(rps.id, ', ')" => 'mentions' },
                                               joins: 'INNER JOIN registered_phytosanitary_symbols AS rps ON rps.id = registered_phytosanitary_risks.risk_code',
-                                              conditions: ["product_id = ? AND rps.symbol_name <> ''", 'ProductNatureVariant.find(params[:id]).phytosanitary_product.id'.c],
+                                              conditions: ["product_id = ? AND rps.symbol_name <> ''", 'ProductNatureVariant.find(params[:id]).phytosanitary_product.france_maaid'.c],
                                               count: 'DISTINCT rps.symbol_name',
                                               group: 'rps.symbol_name',
                                               order: 'mentions',
