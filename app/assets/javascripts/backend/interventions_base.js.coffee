@@ -935,49 +935,75 @@
             duplicateModal = new ekylibre.modal('#duplicate-modal')
             duplicateModal.getModal().modal 'show'
 
-    $(document).on 'input change', "input.intervention-started-at", ->
+    $(document).on 'change', '.nested-fields.working-period input', ->
       updateHarvestDelayWarnings()
 
     $(document).on 'selector:change', ".nested-targets .intervention_targets_product", ->
       updateHarvestDelayWarnings()
 
-    updateHarvestDelayWarnings = _.debounce ->
-      console.log('retrieve succeeded')
-      $dateInput = $('input.intervention-started-at')[0]
-      $parcelSelectors = $('.nested-targets .intervention_targets_product')
-      date = moment($dateInput.value).toISOString()
-      parcels = $parcelSelectors.get().map((e) => $(e).find('.selector input:first-child').get(0) ).map((e) => $(e).selector('value'))
+  queryDelayWarningsForPeriod = ($periodElement, $parcelSelectors) =>
+    console.log('retrieve succeeded')
+    $dateInput = $periodElement.find("input[id*='started_at']")[0]
+    $dateEndInput = $periodElement.find("input[id*='stopped_at']")[0]
+    date = moment($dateInput.value).toISOString()
+    dateEnd = moment($dateEndInput.value).toISOString()
+    parcels = $parcelSelectors.get().map((e) => $(e).find('.selector input:first-child').get(0) ).map((e) => $(e).selector('value'))
 
-      p = E.ajax.json(url: "/backend/interventions/validate_reentry_delay?#{$.param({date: date, targets: parcels})}")
-        .then(filter_for('reentry'))
+    params = {
+      date: date,
+      date_end: dateEnd,
+      targets: parcels
+    }
 
-      if $('#updater').data('procedure-computing') == "harvesting"
-        p2 = E.ajax.json(url: "/backend/interventions/validate_harvest_delay?#{$.param({date: date, targets: parcels})}")
-          .then(filter_for('harvest'))
+    intervention_id = $('#intervention_id').val()
+    if intervention_id != ""
+      params['ignore_intervention'] = intervention_id
 
-        p = Promise.all([p, p2]).then (array) =>
-          reentry = array[0]
-          harvest = array[1]
-          harvest.map (t) =>
-            if (t.possible)
-              reentry.filter((el) => el.id == t.id)[0]
-            else
-              t
+    p = E.ajax.json(url: "/backend/interventions/validate_reentry_delay?#{$.param(params)}")
+      .then(filter_for('reentry'))
 
-      p.then (e) =>
-        $parcelSelectors.find('.controls .harvest-warning').remove()
-        harvestImpossible = e.filter((t) => t.possible == false)
+    if $('#updater').data('procedure-computing') == "harvesting"
+      p2 = E.ajax.json(url: "/backend/interventions/validate_harvest_delay?#{$.param(params)}")
+        .then(filter_for('harvest'))
 
-        for data in harvestImpossible
-          date = moment(data.next_possible_date).format('DD-MM-YYYY hh:mm')
-          harvestWarning = $(".selector-value[value='#{data.id}']").closest('.controls')
-          message = I18n.translate("front-end.intervention.nature.#{data.action}")
-          harvestWarning.append("<div class='harvest-warning'><i class='picto picto-clear'></i> <span>#{message} #{date}</span></div>")
+      p = Promise.all([p, p2]).then (array) =>
+        reentry = array[0]
+        harvest = array[1]
+        harvest.map (t) =>
+          if (t.possible)
+            reentry.filter((el) => el.id == t.id)[0]
+          else
+            t
+    p
+
+  updateHarvestDelayWarnings = _.debounce ->
+    $parcelSelectors = $('.nested-targets .intervention_targets_product')
+    promises = $('.nested-fields.working-period').toArray().map (e) =>
+      queryDelayWarningsForPeriod($(e), $parcelSelectors)
+
+    Promise.all(promises).then (values) =>
+      removeHarvestWarnings($parcelSelectors)
+      values.forEach (problems) =>
+        harvestImpossible = problems.filter((t) => t.possible == false)
+        displayWarningMessages(harvestImpossible)
+
 
   filter_for = (action) =>
     (data) =>
       data.targets.map (t) =>
         t['action'] = action
         t
+
+  removeHarvestWarnings = ($parcelSelectors) =>
+    $parcelSelectors.find('.controls .harvest-warning').remove()
+
+  displayWarningMessages = (warnings) =>
+    for data in warnings
+      date = moment(data.next_possible_date).format('DD-MM-YYYY HH:mm')
+      harvestWarning = $(".selector-value[value='#{data.id}']").closest('.controls')
+
+      message = I18n.translate("front-end.intervention.nature.#{data.action}")
+      harvestWarning.append("<div class='harvest-warning'><i class='picto picto-clear'></i> <span>#{message} #{date}</span></div>")
+
 
 ) ekylibre, jQuery

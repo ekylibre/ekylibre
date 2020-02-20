@@ -9,7 +9,7 @@ module Backend
       return render json: { disable: :maaid_not_provided.tl } unless (variant = Product.find(params[:filter_id]).variant) && (variant.imported_from == "Lexicon")
       registered_pp = RegisteredPhytosanitaryProduct.find_by_reference_name(variant.reference_name)
       retrieved_ids = params[:retrieved_ids].uniq.reject(&:blank?)
-      scopes = { of_product: registered_pp.id }
+      scopes = { of_product: registered_pp.france_maaid }
       if retrieved_ids.any?
         cultivation_varieties = Product.find(retrieved_ids).map { |p| p.activity&.cultivation_variety }.uniq.compact
         scopes[:of_variety] = cultivation_varieties
