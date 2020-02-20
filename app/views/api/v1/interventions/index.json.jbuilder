@@ -9,6 +9,7 @@ json.array! @interventions do |intervention|
       json.product do
         json.id parameter.product_id
         json.name parameter.product_name
+        json.usage_id parameter.usage_id if parameter.reference_name == "plant_medicine"
       end
     end
   end
