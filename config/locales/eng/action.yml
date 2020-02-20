@@ -2686,6 +2686,7 @@ eng:
     transport: "Transport" #?
     trimester: "Trimester"
     type_of_structure: "Type of structure"
+    unauthorized: "Unauthorized"
     unbalanced: "Unbalanced"
     unbalanced_balance_sheet: "The balance sheet is not balanced."
     unbalanced_clients: "Unbalanced clients" #?
