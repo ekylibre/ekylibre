@@ -70,6 +70,46 @@ class RegisteredPhytosanitaryProduct < ActiveRecord::Base
     :chemical
   end
 
+  def state
+    if product_type == 'PCP'
+      RegisteredPhytosanitaryProduct.find(france_maaid).state
+    else
+      super
+    end
+  end
+
+  def allowed_mentions
+    if product_type == 'PCP'
+      RegisteredPhytosanitaryProduct.find(france_maaid).allowed_mentions
+    else
+      super
+    end
+  end
+
+  def usages
+    if product_type == 'PCP'
+      RegisteredPhytosanitaryProduct.find(france_maaid).usages
+    else
+      super
+    end
+  end
+
+  def risks
+    if product_type == 'PCP'
+      RegisteredPhytosanitaryProduct.find(france_maaid).risks
+    else
+      super
+    end
+  end
+
+  def phrases
+    if product_type == 'PCP'
+      RegisteredPhytosanitaryProduct.find(france_maaid).phrases
+    else
+      super
+    end
+  end
+
   def proper_name
     [nature, name, france_maaid, firm_name].compact.join(' - ')
   end
