@@ -6,7 +6,7 @@
       -                         images = phyto.allowed_mentions.keys.map { |a| image_tag("phytosanitary_products/allowed_mentions/#{a.dasherize}.svg", class: 'sml') }
       -                         content_tag(:span, images.join.html_safe, class: 'allowed-mentions')
     -                         else
-      -                         []
+      -                         ''
 
     = attributes_list(phyto, custom_fields: false, stamps: false) do |l|
       - l.attribute :name
