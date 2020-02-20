@@ -410,7 +410,7 @@
       $($filteringUnroll.data('retrieve-unroll')).each ->
         retrievedIds.push $(this).selector('value')
 
-    $.getJSON url, retrieved_ids: retrievedIds, filter_id: filterId, (data) ->  
+    $.getJSON url, retrieved_ids: retrievedIds, filter_id: filterId, (data) ->
       $filteredUnroll.closest('.controls').find('.lights-message').text('')
       $filteredUnroll.attr('disabled', false)
       if data.scope_url
