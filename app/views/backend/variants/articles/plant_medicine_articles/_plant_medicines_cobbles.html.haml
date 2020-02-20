@@ -3,7 +3,8 @@
     - external_links = { anses: "https://www.anses.fr/fr/decisions?field_amm_number_value=#{phyto.france_maaid}", ephy: "https://ephy.anses.fr/resultats_recherche/ppp?search_api_aggregation_3=#{phyto.france_maaid}" }
     - maaid_link = "https://ephy.anses.fr/#{phyto.product_type}/#{phyto.name.gsub(' ', '-')}"
     - allowed_mentions_imgs = if phyto.allowed_mentions
-      -                         phyto.allowed_mentions.keys.map { |a| image_tag("plant_medicines/allowed_mentions/#{a}.png", class: 'sml') }
+      -                         images = phyto.allowed_mentions.keys.map { |a| image_tag("phytosanitary_products/allowed_mentions/#{a.dasherize}.svg", class: 'sml') }
+      -                         content_tag(:span, images.join.html_safe, class: 'allowed-mentions')
     -                         else
       -                         []
 
@@ -23,8 +24,9 @@
       - l.custom :external_links.tl, external_links.map { |name, url| link_to(image_tag("plant_medicines/#{name}.png"), url, target: "_blank", class: 'smr') }.join.html_safe
       - if phyto.active_compounds
         - l.custom RegisteredPhytosanitaryProduct.human_attribute_name(:active_compounds), simple_format(phyto.active_compounds.gsub(' | ', "\n"))
-      - l.custom RegisteredPhytosanitaryProduct.human_attribute_name(:france_maaid), link_to(phyto.france_maaid, maaid_link, target: "_blank", class: 'info-lg-link') + allowed_mentions_imgs.join.html_safe
-      - l.attribute :other_name
+      - l.custom RegisteredPhytosanitaryProduct.human_attribute_name(:france_maaid), link_to(phyto.france_maaid, maaid_link, target: "_blank", class: 'info-lg-link') + allowed_mentions_imgs.html_safe
+      - if phyto.other_name
+        - l.custom RegisteredPhytosanitaryProduct.human_attribute_name(:other_name), phyto.other_name.gsub(' |', ',')
   - else
     .empty-info-cobble
       = :please_provide_a_valid_maaid_to_display_this_article_properties.tl
