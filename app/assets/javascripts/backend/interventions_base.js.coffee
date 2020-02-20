@@ -525,12 +525,13 @@
         url: '/backend/products/available_time_or_quantity'
         data: { items: items_id, date: date }
         success: (data) =>
-          items.each (index) ->
-            $(this).find('.time-part').remove()
-            product_id = parseInt($(this).attr('data-item-id'))
-            product = data.products_duration.find (e) ->
-              e.product_id == product_id
-            $(this).append "<strong class='time-part'>(#{product.quantity || 0})</strong>"
+          if data.products_duration
+            items.each (index) ->
+              $(this).find('.time-part').remove()
+              product_id = parseInt($(this).attr('data-item-id'))
+              product = data.products_duration.find (e) ->
+                e.product_id == product_id
+              $(this).append "<strong class='time-part'>(#{product.quantity || 0})</strong>"
 
   $(document).on 'shown.bs.modal', '#compare-planned-with-realised', (event) ->
 

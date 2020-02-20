@@ -42,12 +42,6 @@ module Procedo
           impact_dependencies!(:allowed_entry_factor)
         end
 
-        def to_hash
-          hash = super
-          hash[:usage_id] = usage_id if usage_id.present?
-          hash
-        end
-
         def to_attributes
           hash = super
           hash[:usage_id] = usage_id if usage_id.present?
