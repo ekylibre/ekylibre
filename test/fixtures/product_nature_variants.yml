@@ -32,6 +32,7 @@
 #  france_maaid              :string
 #  gtin                      :string
 #  id                        :integer          not null, primary key
+#  imported_from             :string
 #  lock_version              :integer          default(0), not null
 #  name                      :string
 #  nature_id                 :integer          not null
@@ -42,8 +43,10 @@
 #  picture_updated_at        :datetime
 #  providers                 :jsonb
 #  reference_name            :string
+#  specie_variety            :string
 #  stock_account_id          :integer
 #  stock_movement_account_id :integer
+#  type                      :string           not null
 #  unit_name                 :string           not null
 #  updated_at                :datetime         not null
 #  updater_id                :integer

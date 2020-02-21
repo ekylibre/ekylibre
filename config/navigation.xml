@@ -1818,6 +1818,16 @@
         <page to="backend/product_nature_variants#picture"/>
         <page to="backend/product_nature_variants#quantifiers"/>
         <page to="backend/product_nature_variants#show"/>
+        <page to="backend/variants/animal_variants#show"/>
+        <page to="backend/variants/article_variants#show"/>
+        <page to="backend/variants/crop_variants#show"/>
+        <page to="backend/variants/equipment_variants#show"/>
+        <page to="backend/variants/service_variants#show"/>
+        <page to="backend/variants/worker_variants#show"/>
+        <page to="backend/variants/zone_variants#show"/>
+        <page to="backend/variants/articles/fertilizer_articles#show"/>
+        <page to="backend/variants/articles/plant_medicine_articles#show"/>
+        <page to="backend/variants/articles/seed_and_plant_articles#show"/>
         <page to="backend/product_nature_variants#update"/>
         <page to="backend/product_nature_variants#list_catalog_items"/>
         <page to="backend/product_nature_variants#list_products"/>

@@ -34,6 +34,7 @@
 #  evolvable                 :boolean          default(FALSE), not null
 #  frozen_indicators_list    :text
 #  id                        :integer          not null, primary key
+#  imported_from             :string
 #  linkage_points_list       :text
 #  lock_version              :integer          default(0), not null
 #  name                      :string           not null
@@ -49,6 +50,7 @@
 #  subscription_months_count :integer          default(0), not null
 #  subscription_nature_id    :integer
 #  subscription_years_count  :integer          default(0), not null
+#  type                      :string           not null
 #  updated_at                :datetime         not null
 #  updater_id                :integer
 #  variable_indicators_list  :text

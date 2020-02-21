@@ -216,6 +216,19 @@ class ActivityProduction < Ekylibre::Record::Base
     interventions.any? || products.any?
   end
 
+  def self.retrieve_varieties_ancestors(*varieties)
+    varieties.map do |variety|
+      ancestors = [variety]
+      nomen_variety = Nomen::Variety.find(variety)
+      loop do
+        nomen_variety = nomen_variety.parent
+        ancestors << nomen_variety.name
+        break if nomen_variety.name == 'plant'
+      end
+      ancestors
+    end.flatten.uniq
+  end
+
   def computed_support_name
     list = []
     list << cultivable_zone.name if cultivable_zone

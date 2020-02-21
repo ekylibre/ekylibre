@@ -525,12 +525,13 @@
         url: '/backend/products/available_time_or_quantity'
         data: { items: items_id, date: date }
         success: (data) =>
-          items.each (index) ->
-            $(this).find('.time-part').remove()
-            product_id = parseInt($(this).attr('data-item-id'))
-            product = data.products_duration.find (e) ->
-              e.product_id == product_id
-            $(this).append "<strong class='time-part'>(#{product.quantity || 0})</strong>"
+          if data.products_duration
+            items.each (index) ->
+              $(this).find('.time-part').remove()
+              product_id = parseInt($(this).attr('data-item-id'))
+              product = data.products_duration.find (e) ->
+                e.product_id == product_id
+              $(this).append "<strong class='time-part'>(#{product.quantity || 0})</strong>"
 
   $(document).on 'shown.bs.modal', '#compare-planned-with-realised', (event) ->
 
@@ -894,21 +895,21 @@
             $(e.currentTarget).find('.modal-footer').append(data)
 
     $(document).on 'click', '.duplicate-intervention', (e) =>
-      e.stopImmediatePropagation();
-      interventions = $(e.currentTarget).data().interventions
-      $.ajax
-        url: '/backend/interventions/duplicate_interventions'
-        data: { interventions: interventions }
-        success: (data) =>
-          if $('#taskboard-modal').length > 0
-            interventionModal = new ekylibre.modal('#taskboard-modal')
-            interventionModal.getModal().modal 'hide'
-          else
-            interventionModal = new ekylibre.modal('#create-intervention-modal')
-            interventionModal.getModal().modal 'hide'
-          $('#wrap').after(data)
-          duplicateModal = new ekylibre.modal('#duplicate-modal')
-          duplicateModal.getModal().modal 'show'
+#      e.stopImmediatePropagation();
+#      interventions = $(e.currentTarget).data().interventions
+#      $.ajax
+#        url: '/backend/interventions/duplicate_interventions'
+#        data: { interventions: interventions }
+#        success: (data) =>
+#          if $('#taskboard-modal').length > 0
+#            interventionModal = new ekylibre.modal('#taskboard-modal')
+#            interventionModal.getModal().modal 'hide'
+#          else
+#            interventionModal = new ekylibre.modal('#create-intervention-modal')
+#            interventionModal.getModal().modal 'hide'
+#          $('#wrap').after(data)
+#          duplicateModal = new ekylibre.modal('#duplicate-modal')
+#          duplicateModal.getModal().modal 'show'
 
     $(document).on 'click', '#duplicate-modal #validate-duplication', (e) =>
       e.stopImmediatePropagation();
@@ -933,5 +934,76 @@
             $('#wrap').after(data)
             duplicateModal = new ekylibre.modal('#duplicate-modal')
             duplicateModal.getModal().modal 'show'
+
+    $(document).on 'change', '.nested-fields.working-period input', ->
+      updateHarvestDelayWarnings()
+
+    $(document).on 'selector:change', ".nested-targets .intervention_targets_product", ->
+      updateHarvestDelayWarnings()
+
+  queryDelayWarningsForPeriod = ($periodElement, $parcelSelectors) =>
+    console.log('retrieve succeeded')
+    $dateInput = $periodElement.find("input[id*='started_at']")[0]
+    $dateEndInput = $periodElement.find("input[id*='stopped_at']")[0]
+    date = moment($dateInput.value).toISOString()
+    dateEnd = moment($dateEndInput.value).toISOString()
+    parcels = $parcelSelectors.get().map((e) => $(e).find('.selector input:first-child').get(0) ).map((e) => $(e).selector('value'))
+
+    params = {
+      date: date,
+      date_end: dateEnd,
+      targets: parcels
+    }
+
+    intervention_id = $('#intervention_id').val()
+    if intervention_id != ""
+      params['ignore_intervention'] = intervention_id
+
+    p = E.ajax.json(url: "/backend/interventions/validate_reentry_delay?#{$.param(params)}")
+      .then(filter_for('reentry'))
+
+    if $('#updater').data('procedure-computing') == "harvesting"
+      p2 = E.ajax.json(url: "/backend/interventions/validate_harvest_delay?#{$.param(params)}")
+        .then(filter_for('harvest'))
+
+      p = Promise.all([p, p2]).then (array) =>
+        reentry = array[0]
+        harvest = array[1]
+        harvest.map (t) =>
+          if (t.possible)
+            reentry.filter((el) => el.id == t.id)[0]
+          else
+            t
+    p
+
+  updateHarvestDelayWarnings = _.debounce ->
+    $parcelSelectors = $('.nested-targets .intervention_targets_product')
+    promises = $('.nested-fields.working-period').toArray().map (e) =>
+      queryDelayWarningsForPeriod($(e), $parcelSelectors)
+
+    Promise.all(promises).then (values) =>
+      removeHarvestWarnings($parcelSelectors)
+      values.forEach (problems) =>
+        harvestImpossible = problems.filter((t) => t.possible == false)
+        displayWarningMessages(harvestImpossible)
+
+
+  filter_for = (action) =>
+    (data) =>
+      data.targets.map (t) =>
+        t['action'] = action
+        t
+
+  removeHarvestWarnings = ($parcelSelectors) =>
+    $parcelSelectors.find('.controls .harvest-warning').remove()
+
+  displayWarningMessages = (warnings) =>
+    for data in warnings
+      date = moment(data.next_possible_date).format('DD-MM-YYYY HH:mm')
+      harvestWarning = $(".selector-value[value='#{data.id}']").closest('.controls')
+
+      message = I18n.translate("front-end.intervention.nature.#{data.action}")
+      harvestWarning.append("<div class='harvest-warning'><i class='picto picto-clear'></i> <span>#{message} #{date}</span></div>")
+
 
 ) ekylibre, jQuery

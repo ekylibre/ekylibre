@@ -4,5 +4,9 @@ FactoryBot.define do
     reference_name { 'matters' }
     association :variant, factory: :corn_plant_variant
     association :intervention, :harvesting
+
+    factory :plant_output do
+      reference_name { 'plant' }
+    end
   end
 end

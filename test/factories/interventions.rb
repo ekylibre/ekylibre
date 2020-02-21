@@ -6,6 +6,15 @@ FactoryBot.define do
     working_duration { 3600 }
     actions { [:sowing] }
 
+    factory :sowing_intervention_with_all_parameters do
+      after(:create) do |intervention|
+        gp = create :sowing_group_parameter, intervention: intervention
+        intervention.group_parameters << gp
+        input = create :intervention_input, intervention: intervention
+        intervention.inputs << input
+      end
+    end
+
     trait :harvesting do
       procedure_name { 'harvesting' }
       actions { [:harvest] }
