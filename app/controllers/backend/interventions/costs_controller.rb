@@ -23,8 +23,11 @@ module Backend
         amount_interactor = ::Interventions::ParameterAmountInteractor
                             .call(costs_params)
 
-        render json: { human_amount: amount_interactor.human_amount } if amount_interactor.success?
-        render json: { human_amount: amount_interactor.failed_amount_computation } if amount_interactor.fail?
+        if amount_interactor.success?
+          render json: { human_amount: amount_interactor.human_amount }
+        else
+          render json: { human_amount: amount_interactor.failed_amount_computation }
+        end
       end
 
       private

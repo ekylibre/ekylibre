@@ -90,7 +90,7 @@ module Backend
     end
 
     list(:items, model: :parcel_items, order: { id: :asc }, conditions: { parcel_id: 'params[:id]'.c, role: 'service' }) do |t|
-      t.column :variant, url: true
+      t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }
       t.column :purchase_order_number, label: :order, through: :parcel_item, url: { controller: '/backend/purchase_orders', id: 'RECORD.purchase_order_item.purchase.id'.c }
       t.column :purchase_invoice_number, label: :invoice, url: { controller: 'backend/purchase_invoices', id: 'RECORD.purchase_invoice_item.purchase.id'.c }
       # t.column :source_product, url: true
@@ -106,7 +106,7 @@ module Backend
     end
 
     list(:storings, model: :parcel_item_storings, order: { id: :asc }, conditions: { parcel_item_id: 'Reception.find(params[:id]).items.pluck(:id)'.c }) do |t|
-      t.column :variant, label_method: :name, through: :parcel_item, url: { controller: '/backend/product_nature_variants', id: 'RECORD.parcel_item.variant_id'.c }
+      t.column :variant, label_method: :name, through: :parcel_item, url: { controller: 'RECORD.parcel_item.variant.class.name.tableize'.c, id: 'RECORD.parcel_item.variant_id'.c, namespace: :backend }
       t.column :purchase_order_number, label: :order, through: :parcel_item, url: { controller: '/backend/purchase_orders', id: 'RECORD.parcel_item.purchase_order_item.purchase.id'.c }
       t.column :purchase_invoice_number, label: :invoice, through: :parcel_item, url: { controller: '/backend/purchase_invoices', id: 'RECORD.parcel_item.purchase_invoice_item.purchase.id'.c }
       t.column :product_name, through: :parcel_item

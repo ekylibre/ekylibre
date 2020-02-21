@@ -38,10 +38,6 @@
 - main_toolbar do |t|
   = t.new(nature: :request, label: :add_intervention_request.tl, params: { redirect: nil })
   = t.new(nature: :record, label: :add_intervention_record.tl, params: { redirect: nil })
-  - if current_user.intervention_participations.unprompted.any?
-    - count = current_user.intervention_participations.unprompted.count
-    = t.index(params: {controller: :intervention_participations}, label: :validate_crumbs_for_x_interventions.tl(count: count), tool: "my-location")
-
 
 - main_period_selector
 

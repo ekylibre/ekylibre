@@ -8,9 +8,10 @@
       - ["#{unit.symbol} (#{handler.human_name})", handler.name]
     - else
       - fail "Cannot handler #{handler.widget} handlers"
+
   = f.input(:quantity, wrapper: :append, required: f.object.class.validators_on(:quantity_population).any? { |v| v.is_a? ActiveRecord::Validations::PresenceValidator }) do
     = f.input :quantity_value, input_html: { data: { intervention_updater: prefix + 'quantity_value', intervention_field: 'quantity-value', intervention_handler: "quantity" } }, wrapper: :simplest
-    = f.input(:quantity_handler, collection: options, include_blank: false, input_html: { data: { intervention_updater: prefix + 'quantity_handler', intervention_field: 'quantity-handler' } }, wrapper: :simplest)
+    = f.input(:quantity_handler, collection: options, include_blank: false, input_html: { data: { intervention_updater: prefix + 'quantity_handler', intervention_field: 'quantity-handler', lights: '.input-append' } }, wrapper: :simplest)
     = f.error :quantity_population
 
     - if f.object.input?

@@ -9,9 +9,14 @@
         .med-info.important
           %span.title= :working_area.tl
           %span.value= resource.activity_production.decorate.human_working_zone_area
+        - unless @reentry_possible.possible
+          .med-info.delay
+            %span.title= :re_entry_delay.tl
+            %span.value
+              %span= @reentry_possible.next_possible_date.l
 
   - c.cobble :weather do
-    = cell :weather, params: {centroid: resource.initial_shape.centroid}
+    = cell :weather, params: {centroid: resource.initial_shape.centroid} if resource.initial_shape.present?
 
   - if resource&.activity_production&.interventions&.any?
     - c.cobble(:production_costs, title: :production_costs.tl) do

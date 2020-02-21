@@ -23,7 +23,7 @@ module Backend
     end
 
     def resource_model
-      controller_name.classify.constantize
+      resource ? resource.class : controller_name.classify.constantize
     end
 
     def collection

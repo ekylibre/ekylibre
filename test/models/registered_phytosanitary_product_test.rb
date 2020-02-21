@@ -26,15 +26,17 @@
 #  active_compounds             :string
 #  allowed_mentions             :jsonb
 #  firm_name                    :string
+#  france_maaid                 :string           not null
 #  id                           :integer          not null, primary key
 #  in_field_reentry_delay       :integer
-#  maaid                        :string           not null
 #  mix_category_code            :string           not null
 #  name                         :string           not null
 #  nature                       :string
 #  operator_protection_mentions :text
 #  other_name                   :string
 #  product_type                 :string
+#  record_checksum              :integer
+#  reference_name               :string           not null
 #  restricted_mentions          :string
 #  started_on                   :date
 #  state                        :string           not null

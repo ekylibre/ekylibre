@@ -54,7 +54,7 @@ module Backend
     end
 
     list(:items, model: :contract_items, conditions: { contract_id: 'params[:id]'.c }) do |t|
-      t.column :variant, url: true
+      t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }
       t.column :quantity
       t.column :unit_pretax_amount, currency: true
       t.column :pretax_amount, currency: true

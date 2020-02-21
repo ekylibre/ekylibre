@@ -11,13 +11,13 @@ module Procedo
         def initialize(id, attributes = {})
           @id = id.to_s
           @started_at = begin
-                          Time.new(*attributes[:started_at].split(/\D+/))
+                          Time.parse(*attributes[:started_at])
                         rescue
                           nil
                         end
           @started_at ||= (Time.zone.now - DEFAULT_DURATION)
           @stopped_at = begin
-                          Time.new(*attributes[:stopped_at].split(/\D+/))
+                          Time.parse(*attributes[:stopped_at])
                         rescue
                           nil
                         end
