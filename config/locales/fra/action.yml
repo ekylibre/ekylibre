@@ -2980,6 +2980,7 @@ fra:
     trimester: "Trimestre"
     true: "Vrai" #?
     type_of_structure: "Type de structure"
+    unauthorized: "Non autorisé"
     unbalanced: "Non soldés"
     unbalanced_balance_sheet: "Le bilan comptable n'est pas équilibré."
     unbalanced_clients: "Comptes à réconcilier - Clients"

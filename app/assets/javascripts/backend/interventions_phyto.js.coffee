@@ -13,6 +13,7 @@
           @._displayMessages($productField, infos.messages)
 
     _displayAllowedMentions: ($productField, allowedMentions) ->
+      $productField.find('span.allowed-mentions').insertAfter($productField.find('.intervention_inputs_product .selector'))
       for mention in allowedMentions
         $productField.find("##{mention}").show()
 
@@ -25,7 +26,7 @@
     _removeProductInfos: ($productField) ->
 #      $productField.find('.lights').removeClass("lights-go lights-caution lights-stop")
 #      $productField.find('.lights-message').text("")
-      $productField.closest('.nested-plant_medicine').find("[data-selector-id='intervention_input_usage_id']").val('')
+      $productField.find('.allowed-mentions img').each -> $(this).hide()
       $productField.find('#intervention-products-badges').removeClass("state-badge-set--allowed state-badge-set--forbidden")
 
     _retrieveValues: () ->
@@ -40,32 +41,31 @@
 
 
   # Update products infos on target remove
-  $(document).on 'cocoon:after-remove', '.nested-targets, .nested-inputs', ->
+  $(document).on 'cocoon:after-remove', '.nested-targets', ->
     $("[data-selector-id='intervention_input_product_id']").trigger('selector:change')
 
+  $(document).on 'cocoon:after-remove', '.nested-inputs', ->
+    productsInfos.displayProductsInfos()
 
   # Re-trigger all filters on target change
   $(document).on 'selector:change', "[data-selector-id='intervention_target_product_id']", ->
     $("[data-selector-id='intervention_input_product_id']").trigger('selector:change')
-    $($("[data-selector-id='intervention_input_usage_id'] .selector").get(0)).selector('clear')
 
-  #    $(document).on 'selector:change', "[data-selector-id='intervention_input_usage_id']", ->
-  #      $(this).closest('.nested-fields').find("[data-selector-id='intervention_input_product_id']").trigger('selector:change')
+  $(document).on 'selector:change', "[data-selector-id='intervention_input_usage_id']", ->
+    productsInfos.displayProductsInfos()
 
   # Refresh usages, allowed mentions and badges on product update
   $(document).on 'selector:change', "input[data-selector-id='intervention_input_product_id']", ->
+    $usageInput = $(this).closest('.nested-plant_medicine').find("[data-selector-id='intervention_input_usage_id']").first()
+    $usageInput.selector('clear')
     $(this).closest('.nested-plant_medicine').find('.usage-infos-container').hide()
-    $(this).closest('.controls').find('.allowed-mentions img').each -> $(this).hide()
-    $(this).closest('.controls').find('#intervention-products-badges').removeClass("state-badge-set--allowed state-badge-set--forbidden")
-    $(this).closest('.nested-plant_medicine').find('span.allowed-mentions').insertAfter($(this).closest('.selector'))
-
     productsInfos.displayProductsInfos()
 
   # Update usage details on usage change
   $(document).on 'selector:change', "[data-selector-id='intervention_input_usage_id']", ->
-    $(this).closest('.controls').find('#product-authorization-message').text('')
-    $(this).closest('.controls').find('.lights').removeClass("lights-go lights-caution lights-stop")
-    $(this).closest('.controls').find('.lights-message').removeClass('warning').text("")
+    $(this).closest('.nested-plant_medicine').find('#product-authorization-message').text('')
+    $(this).closest('.nested-plant_medicine').find('.lights').removeClass("lights-go lights-caution lights-stop")
+    $(this).closest('.nested-plant_medicine').find('.lights-message').removeClass('warning').text("")
     $("input[data-intervention-field='quantity-value']").trigger('input')
 
     usageId = $(this).next('input').val()

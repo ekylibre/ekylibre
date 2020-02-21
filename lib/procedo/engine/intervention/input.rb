@@ -29,23 +29,14 @@ module Procedo
           self.allowed_harvest_factor = @usage.pre_harvest_delay
           self.allowed_entry_factor = @usage.product.in_field_reentry_delay
 
-          impact_dependencies!(:usage)
         end
 
         def allowed_harvest_factor=(value)
           @allowed_harvest_factor = value
-          impact_dependencies!(:allowed_harvest_factor)
         end
 
         def allowed_entry_factor=(value)
           @allowed_entry_factor = value
-          impact_dependencies!(:allowed_entry_factor)
-        end
-
-        def to_hash
-          hash = super
-          hash[:usage_id] = usage_id if usage_id.present?
-          hash
         end
 
         def to_attributes

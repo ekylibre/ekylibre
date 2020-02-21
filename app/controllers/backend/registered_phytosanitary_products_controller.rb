@@ -44,6 +44,7 @@ module Backend
       end
 
       def check_aquatic_buffer(products, products_infos, usages_ids)
+        return if products.length == 1
         usages = RegisteredPhytosanitaryUsage.where(id: usages_ids)
         usages.each do |usage|
           if usage.untreated_buffer_aquatic && usage.untreated_buffer_aquatic >= 100
