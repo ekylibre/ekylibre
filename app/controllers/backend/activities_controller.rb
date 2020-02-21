@@ -78,6 +78,8 @@ module Backend
           redirect_to backend_activity_path(@activity)
         end
       end
+      harvest_advisor = ::Interventions::Computation::PhytoHarvestAdvisor.new
+      @reentry_possible = harvest_advisor.reentry_possible?(@activity, Time.zone.now)
     end
 
     # Duplicate activity basing on campaign
@@ -153,5 +155,6 @@ module Backend
       t.column :affectation_percentage, percentage: true
       t.column :main_activity, url: true
     end
+
   end
 end

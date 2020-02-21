@@ -316,7 +316,7 @@ module Backend
       t.column :entry_number, url: true
       t.column :printed_on, datatype: :date, label: :column
       t.column :name
-      t.column :variant, url: true
+      t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }
       t.column :state_label
       t.column :letter
       t.column :real_debit,  currency: :real_currency, hidden: true
@@ -341,7 +341,7 @@ module Backend
       t.column :entry_number, url: true
       t.column :printed_on, datatype: :date, label: :column
       t.column :name
-      t.column :variant, url: true
+      t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }
       t.column :state_label
       t.column :letter
       t.column :real_debit,  currency: :real_currency, hidden: true

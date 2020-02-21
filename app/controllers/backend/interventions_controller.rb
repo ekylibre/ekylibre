@@ -170,7 +170,7 @@ module Backend
       t.column :quantity_population
       t.column :unit_name, through: :variant
       # t.column :working_zone, hidden: true
-      t.column :variant, url: true
+      t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }
     end
 
     list(
@@ -178,7 +178,7 @@ module Backend
       model: :reception_items,
       conditions: { id: 'ReceptionItem.joins(:reception).where(parcels: { intervention_id: params[:id]}).pluck(:id)'.c }
     ) do |t|
-      t.column :variant, url: true, label: :service
+      t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }, label: :service
       t.column :quantity
       t.column :sender_full_name, label: :provider, through: :reception, url: { controller: 'backend/entities', id: 'RECORD.reception.sender.id'.c }
       t.column :purchase_order_number, label: :purchase_order, through: :reception, url: { controller: 'backend/purchase_orders', id: 'RECORD.reception.purchase_order.id'.c }
@@ -374,7 +374,6 @@ module Backend
           .values
           .each { |tool_attributes| tool_attributes.except!(:readings_attributes) }
       end
-
       intervention = Procedo::Engine.new_intervention(intervention_params)
       begin
         intervention.impact_with!(params[:updater])
@@ -468,8 +467,22 @@ module Backend
             intervention.working_periods.each do |wp|
               new_intervention.working_periods.build(wp.dup.attributes)
             end
-            intervention.parameters.each do |parameter|
-              new_intervention.parameters.build(parameter.dup.attributes)
+            intervention.group_parameters.each do |group_parameter|
+              duplicate_group_parameter = group_parameter.dup
+              duplicate_group_parameter.intervention = new_intervention
+              %i[doers inputs outputs targets tools].each do |type|
+                parameters = group_parameter.send(type)
+                parameters.each do |parameter|
+                  duplicate_parameter = parameter.dup
+                  duplicate_parameter.group = duplicate_group_parameter
+                  duplicate_parameter.intervention = new_intervention
+                  duplicate_group_parameter.send(type) << duplicate_parameter
+                end
+              end
+              new_intervention.group_parameters << duplicate_group_parameter
+            end
+            intervention.product_parameters.where(group_id: nil).each do |parameter|
+              new_intervention.product_parameters << parameter.dup
             end
             intervention.participations.includes(:working_periods).each do |participation|
               dup_participation = participation.dup.attributes.merge({state: 'in_progress'})
@@ -561,6 +574,67 @@ module Backend
       respond_to do |format|
         format.js
       end
+    end
+
+    class HarvestReentryValidationParams
+      include Ekylibre::Model
+      include ActiveModel::Validations
+
+      attr_accessor :date, :date_end, :targets, :ignore_intervention
+
+      validates :date, :targets, presence: true
+
+      def intervention
+        if ignore_intervention.present?
+          Intervention.find_by(id: ignore_intervention)
+        else
+          nil
+        end
+      end
+    end
+
+    def validate_harvest_delay
+      params_obj = HarvestReentryValidationParams.new(params.permit(:date, :date_end, :ignore_intervention, targets: []))
+      return head :bad_request unless params_obj.valid?
+
+      date = params_obj.date.to_datetime
+      parcels = Product.find(params_obj.targets)
+      ignore_intervention = params_obj.intervention
+      date_end = params_obj.date_end&.to_datetime || date
+
+      harvest_advisor = ::Interventions::Computation::PhytoHarvestAdvisor.new
+
+      result = parcels.map do |parcel|
+        result = harvest_advisor.harvest_possible?(parcel, date, date_end: date_end, ignore_intervention: ignore_intervention)
+        {
+          id: parcel.id,
+          possible: result.possible,
+          date: result.next_possible_date
+        }
+      end
+      render json: { targets: result }
+    end
+
+    def validate_reentry_delay
+      params_obj = HarvestReentryValidationParams.new(params.permit(:date, :date_end, :ignore_intervention, targets: []))
+      return head :bad_request unless params_obj.valid?
+
+      date = params_obj.date.to_datetime
+      parcels = Product.find(params_obj.targets)
+      ignore_intervention = params_obj.intervention
+      date_end = params_obj.date_end&.to_datetime || date
+
+      harvest_advisor = ::Interventions::Computation::PhytoHarvestAdvisor.new
+
+      result = parcels.map do |parcel|
+        result = harvest_advisor.reentry_possible?(parcel, date, date_end: date_end, ignore_intervention: ignore_intervention)
+        {
+          id: parcel.id,
+          possible: result.possible,
+          date: result.next_possible_date
+        }
+      end
+      render json: { targets: result }
     end
 
     private

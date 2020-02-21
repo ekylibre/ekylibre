@@ -42,6 +42,7 @@
 #  parent_id                      :integer
 #  prescription_id                :integer
 #  procedure_name                 :string           not null
+#  provider                       :jsonb
 #  providers                      :jsonb
 #  purchase_id                    :integer
 #  request_compliant              :boolean

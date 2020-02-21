@@ -63,5 +63,12 @@ module Backend
       t.column :dead_at
     end
 
+
+    def show
+      return unless plant = find_and_check
+      harvest_advisor = ::Interventions::Computation::PhytoHarvestAdvisor.new
+      @reentry_possible = harvest_advisor.reentry_possible?(plant, Time.zone.now)
+      super
+    end
   end
 end

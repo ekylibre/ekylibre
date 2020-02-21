@@ -205,6 +205,12 @@ $large-controls-margin-left: round($large-label-width * 1.1);
       @include margin-left($large-controls-margin-left);
       max-width: 100% - $large-controls-margin-left;
     }
+    & .lights, .lights-message {
+      margin-left: 10px;
+    }
+    & .lights-message.warning {
+      color: #f44336;
+    }
   }
   //  &.selector .controls .input {
     //    @include toolbar;

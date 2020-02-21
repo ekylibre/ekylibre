@@ -14,7 +14,7 @@ module Interventions
       @unit_name = params[:unit_name]
 
       @quantity = params[:quantity].to_d if params[:quantity].present?
-      @product = Product.find(params[:product_id]) if params[:product_id].present?
+      @product = Product.find_by(id: params[:product_id]) if params[:product_id].present?
     end
 
     def run

@@ -62,7 +62,7 @@ module Backend
                    'tractor'
                 end
 
-          task_datas << { icon: icon, text: displayed_name, style: "background-color: #{activity_color}; color: #{contrasted_color(activity_color)}" }
+          task_datas << { icon: icon, text: displayed_name, style: "background-color: #{activity_color}; color: #{contrasted_color(activity_color)}", category: 'parameters' }
         end
       end
 
@@ -73,19 +73,21 @@ module Backend
         doers_text = intervention.doers[0].product.name
         doers_text << ' +' + (doers_count - 1).to_s if doers_count > 1
 
-        task_datas << { icon: 'user', text: doers_text, class: 'doers' }
+        task_datas << { icon: 'user', text: doers_text, class: 'doers', category: 'parameters' }
       end
 
       if user_preference_value(User::PREFERENCE_SHOW_COMPARE_REALISED_PLANNED) && intervention.record?
         compare_planned_and_realised = intervention.compare_planned_and_realised
         if compare_planned_and_realised == :no_request
-          task_datas << { image: 'interventions/calendar-no.svg', class: 'task-calendar no-request'}
+          task_datas << { image: 'interventions/calendar-no.svg', class: 'task-calendar no-request', category: 'indicators', position_number: 1 }
         elsif compare_planned_and_realised
-          task_datas << { image: 'interventions/calendar-v.svg', class: 'task-calendar similar'}
+          task_datas << { image: 'interventions/calendar-v.svg', class: 'task-calendar similar', category: 'indicators', position_number: 1 }
         else
-          task_datas << { image: 'interventions/calendar-!.svg', class: 'task-calendar not-similar'}
+          task_datas << { image: 'interventions/calendar-!.svg', class: 'task-calendar not-similar', category: 'indicators', position_number: 1 }
         end
       end
+
+      task_datas << { icon: 'mobile', class: 'provided-by-zero', category: 'indicators', position_number: 0 } if intervention.is_provided_by?(vendor: 'Ekylibre', name: 'zero')
 
       intervention_datas = { id: intervention.id, name: intervention.name }
 

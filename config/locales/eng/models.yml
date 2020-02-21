@@ -173,6 +173,27 @@ eng:
         supplier_name: "Supplier"
       purchase_order:
         delivery_address: "Billing address"
+      registered_phytosanitary_product:
+        active_compounds: "Active compound(s)"
+        france_maaid: "AMM number / Permit number"
+        operator_protection_mentions: "Operator protection"
+        other_name: "Other commercial names"
+        product_type: "Type"
+        state: "Product state"
+        started_on: "Authorization date"
+        stopped_on: "Removal date"
+      registered_phytosanitary_usage:
+        applications_count: "Max amount"
+        applications_frequency: "Interval"
+        decision_date: "Authorization date"
+        development_stage_min: "BBCH stage min-max"
+        dose_quantity: "Max dose"
+        ephy_usage_phrase: "Usage"
+        lib_court: "Number"
+        status: "Allowed"
+      registered_phytosanitary_risk:
+        mentions: "Risk mentions"
+        symbol_name: "Pictogram"
       sale:
         affair_balance: "Balance"
         contact: "Address for the estimate"

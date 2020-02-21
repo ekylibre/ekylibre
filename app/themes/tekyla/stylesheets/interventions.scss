@@ -235,12 +235,22 @@ $preview-modal-height: 80vh;
       background-color: $darkened-blue-grey;
       color: $white;
     }
+ 
+    .task-indicators {
+      display: flex;
+      justify-content: flex-end;
+      flex-basis: 100%;
 
-    .task-calendar {
-      flex: 0 1 100%;
-      .calendar-img {
-        width: 25px;
-        float: right;
+      .task-calendar {
+        .calendar-img {
+          width: 25px;
+        }
+      }
+      .provided-by-zero {
+        margin-top: 6px;
+        i {
+           font-size: 30px;
+        }
       }
     }
   }
@@ -361,6 +371,9 @@ $preview-modal-height: 80vh;
   .nested-inputs .nested-product-parameter {
     .intervention_inputs_quantity {
       @include flex-row(flex-start);
+      & .input-append {
+        margin-left: 5px;
+      }
     }
 
     .intervention_inputs_quantity .controls {
@@ -562,5 +575,74 @@ $preview-modal-height: 80vh;
         max-width: none;
       }
     }
+  }
+}
+
+.allowed-mentions {
+  img {
+    height: 25px;
+    padding: 3px;
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+  }
+
+  #product-authorization-message {
+    color: #f44336;
+  }
+}
+
+
+
+.usage-infos-container {
+  display: none;
+  position: relative;
+  width: 99%;
+  margin: 5px auto;
+  border: 1px solid $neutral-color;
+
+  .usage-infos-header {
+    width: calc(100% - 20px);
+    border-bottom: 1px solid $neutral-color;
+    padding: 10px;
+    color: $neutral-color;
+    font-weight: bolder;
+
+    & i {
+      color: $neutral-color;
+      @include is-icon(20px);
+      @include use-icon(info-outline);
+    }
+  }
+
+  .usage-infos-body {
+    margin: 5px;
+  }
+
+  .usage-infos-line {
+    padding: $default-gap;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .usage-infos-line-item {
+    width: 20%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .usage-infos-line-item-label {
+    color: $neutral-color;
+  }
+
+}
+
+.harvest-warning {
+  display: inline-block;
+  color: red;
+  .picto {
+    font-size: 32px;
+  }
+  span, .picto {
+    color: red;
   }
 }

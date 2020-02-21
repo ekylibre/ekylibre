@@ -28,7 +28,7 @@
 #  cap_2018_crop_code :string
 #  cap_2019_crop_code :string
 #  human_name         :jsonb
-#  human_name_fra     :string
+#  human_name_fra     :string           not null
 #  id                 :integer          not null, primary key
 #  pfi_crop_code      :string
 #  season             :string

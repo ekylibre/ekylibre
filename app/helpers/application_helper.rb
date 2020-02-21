@@ -332,7 +332,7 @@ module ApplicationHelper
       value = value.send(:text)
     elsif attribute.to_s =~ /(^|_)currency$/
       value = Nomen::Currency[value].human_name
-    elsif attribute.to_s =~ /^state$/
+    elsif attribute.to_s =~ /^state$/ && !options[:force_string]
       value = I18n.translate("models.#{model_name}.states.#{value}")
     elsif options[:currency] && value.is_a?(Numeric)
       value = ::I18n.localize(value, currency: (options[:currency].is_a?(TrueClass) ? object.send(:currency) : options[:currency].is_a?(Symbol) ? object.send(options[:currency]) : options[:currency]))
@@ -622,6 +622,12 @@ module ApplicationHelper
       # Return HTML
       html
     end
+  end
+
+  def picto_tag(name, font_size: 18, color: '#333', pointer: false, data: {})
+    style = "font-size: #{font_size}px; color: #{color}; line-height: unset;"
+    style << "cursor: pointer" if pointer
+    content_tag(:i, nil, class: "picto picto-#{name}", style: style, data: data)
   end
 
   def icon_tags(options = {})

@@ -1,4 +1,4 @@
-json.array! data do |phytosanitary_usage|
+json.array! elements do |phytosanitary_usage|
   json.call(phytosanitary_usage, :id,
             :product_id,
             :ephy_usage_phrase,

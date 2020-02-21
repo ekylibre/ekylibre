@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :intervention_target do
     reference_name { 'land_parcel' }
-    product
+    association :product, factory: :land_parcel
     intervention
   end
 end

@@ -32,6 +32,7 @@
 #  france_maaid              :string
 #  gtin                      :string
 #  id                        :integer          not null, primary key
+#  imported_from             :string
 #  lock_version              :integer          default(0), not null
 #  name                      :string
 #  nature_id                 :integer          not null
@@ -42,8 +43,10 @@
 #  picture_updated_at        :datetime
 #  providers                 :jsonb
 #  reference_name            :string
+#  specie_variety            :string
 #  stock_account_id          :integer
 #  stock_movement_account_id :integer
+#  type                      :string           not null
 #  unit_name                 :string           not null
 #  updated_at                :datetime         not null
 #  updater_id                :integer
@@ -488,6 +491,14 @@ class ProductNatureVariant < Ekylibre::Record::Base
                      .sum(:quantity)
   end
 
+  def phytosanitary_product
+    if imported_from == "Lexicon"
+      RegisteredPhytosanitaryProduct.find_by_reference_name reference_name
+    else
+      nil
+    end
+  end
+
   class << self
     # Returns some nomenclature items are available to be imported, e.g. not
     # already imported
@@ -665,6 +676,8 @@ class ProductNatureVariant < Ekylibre::Record::Base
         unless variant.save
           raise "Cannot import variant #{item.name.inspect}: #{variant.errors.full_messages.join(', ')}"
         end
+
+        set_indicators(item, variant)
       end
       variant
     end
@@ -686,6 +699,13 @@ class ProductNatureVariant < Ekylibre::Record::Base
         else
           dose_unit
         end
+      end
+
+      def set_indicators(item, variant)
+        units = item.usages.pluck(:dose_unit).uniq.compact.map { |u| u.match(/_per_/) ? u.split('_per_').first : u }.uniq
+        dimensions = units.map { |u| Nomen::Unit.find(u).dimension }.uniq
+        variant.read!(:net_mass, Measure.new(1, :kilogram)) if dimensions.include?(:mass)
+        variant.read!(:net_volume, Measure.new(1, :liter)) if dimensions.include?(:volume)
       end
   end
 end
