@@ -57,6 +57,8 @@
   # Refresh usages, allowed mentions and badges on product update
   $(document).on 'selector:change', "input[data-selector-id='intervention_input_product_id']", ->
     $usageInput = $(this).closest('.nested-plant_medicine').find("[data-selector-id='intervention_input_usage_id']").first()
+    if $(this).val() != ''
+      $usageInput.attr('disabled', false)
     $usageInput.selector('clear')
     $(this).closest('.nested-plant_medicine').find('.usage-infos-container').hide()
     productsInfos.displayProductsInfos()
