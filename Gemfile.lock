@@ -21,10 +21,10 @@ GIT
 
 GIT
   remote: https://gitlab.com/ekylibre/charta.git
-  revision: 162471881a23c1f055f87cc9fdc7b0ba429d23c3
-  branch: feature/intersects-method
+  revision: 4489b2fc831101ee975f6e8deab3d87c7770aa6d
+  tag: v0.1.16
   specs:
-    charta (0.1.15)
+    charta (0.1.16)
       json (>= 1.8.0)
       nokogiri (>= 1.7.0)
       rgeo (~> 0.6.0)
