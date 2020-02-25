@@ -6,7 +6,7 @@ module Backend
     unroll :crop_label_fra, :target_name_label_fra
 
     def filter_usages
-      return render json: { disable: :maaid_not_provided.tl } unless (variant = Product.find(params[:filter_id]).variant) && (variant.imported_from == "Lexicon")
+      return render json: { disable: :maaid_not_provided.tl, clear: true } unless (variant = Product.find(params[:filter_id]).variant) && (variant.imported_from == "Lexicon")
       registered_pp = RegisteredPhytosanitaryProduct.find_by_reference_name(variant.reference_name)
       retrieved_ids = params[:retrieved_ids].uniq.reject(&:blank?)
       scopes = { of_product: registered_pp.france_maaid }
@@ -14,7 +14,14 @@ module Backend
         cultivation_varieties = Product.find(retrieved_ids).map { |p| p.activity&.cultivation_variety }.uniq.compact
         scopes[:of_variety] = cultivation_varieties
       end
-      render json: { scope_url: unroll_backend_registered_phytosanitary_usages_path(scope: scopes) }
+      clear = if params[:selected_value].present?
+                scoped_collection = RegisteredPhytosanitaryUsage.send(:of_product, scopes[:of_product])
+                scoped_collection = scoped_collection.send(:of_variety, *scopes[:of_variety]) if scopes[:of_variety]
+                scoped_collection.pluck(:id).exclude?(params[:selected_value])
+              else
+                true
+              end
+      render json: { scope_url: unroll_backend_registered_phytosanitary_usages_path(scope: scopes), clear: clear }
     end
 
     def get_usage_infos
@@ -22,17 +29,9 @@ module Backend
       usage = RegisteredPhytosanitaryUsage.find(usage_id)
       usage_dataset = compute_dataset(usage)
       allowed_factors = compute_allowed_factors(usage)
-      maaid = RegisteredPhytosanitaryUsage.find(usage_id).product.france_maaid
+      usage_application = compute_usage_application(usage, params[:targets_data], params[:intervention_id])
 
-      applications_on_targets = params[:targets_data].values.map do |target_info|
-        interventions = Product.find(target_info[:id]).activity_production.interventions.of_nature(:spraying).with_maaids(maaid)
-        interventions.map do |intervention|
-          intervention.targets.map(&:working_zone).select { |zone| Charta.new_geometry(target_info[:shape]).intersects?(zone) }.count
-        end
-      end.flatten.sum
-
-      lights = compare_applications_count(usage, applications_on_targets)
-      render json: { usage_infos: usage_dataset, usage_application: lights, allowed_factors: allowed_factors }
+      render json: { usage_infos: usage_dataset, usage_application: usage_application, allowed_factors: allowed_factors }
     end
 
     def dose_validations
@@ -80,6 +79,22 @@ module Backend
         else
           "#{usage.development_stage_min} #{usage.development_stage_max}"
         end
+      end
+
+      def compute_usage_application(usage, targets_data, intervention_id)
+        return {} unless targets_data
+
+        maaid = usage.product.france_maaid
+
+        applications_on_targets = targets_data.values.map do |target_info|
+          interventions = Product.find(target_info[:id]).activity_production.interventions.of_nature(:spraying).with_maaids(maaid)
+          interventions = interventions.where.not(id: intervention_id) if intervention_id.present?
+          interventions.map do |intervention|
+            intervention.targets.map(&:working_zone).select { |zone| Charta.new_geometry(target_info[:shape]).intersects?(zone) }.count
+          end
+        end.flatten.sum
+
+        compare_applications_count(usage, applications_on_targets)
       end
 
       def compare_applications_count(usage, usage_applications)
