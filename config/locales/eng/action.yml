@@ -1323,6 +1323,8 @@ eng:
     alive_corporeal_assets_young_animals: "Alive corporeal assets young animals" #?
     all: "All"
     allocation_balance: "Budget allocation - %{name} allocation"
+    allowed: "Allowed"
+    allowed_harvest_on: "Allowed harvest on"
     all_accounts: "All accounts"
     all_columns: "All columns" #?
     all_conditions: "All conditions" #?!
@@ -1546,7 +1548,7 @@ eng:
     corporeal_assets_settlements: "Settlements" #?
     corrosive_skin_and_mucosa_risks_of_severe_burns: "Corrosive skin and mucosa, risks of severe burns"
     corrosive_substances: "Corrosive substances"
-    # cost: "Cost"
+    cost: "Cost"
     cost_per_net_surface_area: "Cost per net surface area"
     costs: "Costs"
     costs_per_hectare: "Costs per hectare"
@@ -1677,6 +1679,9 @@ eng:
     dont_generate_result_entries: "— Do not generate result entries —"
     dont_use_journal: "— Do not use journal —" #?!
     # dose: "Dose"
+    dose_bigger_than_max: "Dose bigger than max"
+    dose_equal_to_max: "Dose equal to max"
+    dose_less_than_max: "Dose less than max"
     down: "Down" #?
     download: "Download"
     download_archive: "Download archive (ZIP)"
@@ -1855,6 +1860,7 @@ eng:
     fixed_asset_successfully_associated_to_sale: "The fixed asset has been successfully associated to the sale. Click the 'Sold' button to proceed."
     fixed_assets: "Fixed assets"
     flammable_agents: "Flammable agents"
+    forbidden: "Unauthorized"
     forecast_harvest_week: "Forecast harvest week"
     from: "From"
     from_to_date: "from %{from} to %{to}" #?
@@ -2387,6 +2393,7 @@ eng:
     radical_class_accounts_dont_have_entries: "Radical class accounts does not contain any entry" #?
     radical_class_accounts_have_entries: "Radical class accounts contains entries" #?
     raw_income: "Raw income" #?!
+    re_entry_delay: "Re entry delay"
     re_entry_interval: "Re-entry interval"
     reading_tasks: "Reading tasks" #?
     readings: "Readings"
@@ -2769,7 +2776,7 @@ eng:
     worker_natures: "Workers"
     workers: "Workers"
     workforce: "Workforce" #?!
-    # working_area: "Working area"
+    working_area: "Working area"
     working_duration: "Working duration"
     working_hectare_costs: "Working hectare costs" #?
     working_sets_stocks: "Working sets stocks" #?
