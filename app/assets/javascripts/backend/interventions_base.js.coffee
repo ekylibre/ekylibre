@@ -589,7 +589,7 @@
             if $(nestedProductParameter).find('.product-parameter-cost').length > 0
               $(nestedProductParameter).find('.product-parameter-cost-value').text(data.human_amount)
             else
-              parameterCostBlock = $('<div class="product-parameter-cost"></div>')
+              parameterCostBlock = $('<div class="product-parameter-cost help-block"></div>')
               parameterCostBlock.append('<span class="product-parameter-cost-label">Coût : </span>')
               parameterCostBlock.append('<span class="product-parameter-cost-value">' + data.human_amount + '</span>')
 
