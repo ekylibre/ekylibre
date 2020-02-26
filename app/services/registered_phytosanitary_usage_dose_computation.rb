@@ -102,9 +102,9 @@ class RegisteredPhytosanitaryUsageDoseComputation
     end
 
     def compute_dose_message(user_measure, reference_measure)
-      if user_measure < reference_measure.in(user_measure.unit)
+      if user_measure < reference_measure
         { go: :dose_less_than_max.tl }
-      elsif user_measure == reference_measure.in(user_measure.unit)
+      elsif user_measure == reference_measure
         { caution: :dose_equal_to_max.tl }
       else
         { stop: :dose_bigger_than_max.tl }

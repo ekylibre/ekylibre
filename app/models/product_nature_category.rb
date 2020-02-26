@@ -251,7 +251,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
     private
 
       def compute_type_from_nomenclature(reference_name)
-        Nomen::ProductNature.list.select { |n| n.category == reference_name }.map(&:nature).group_by { |n| n }.max_by { |_k, v| v.count }&.first
+        Nomen::ProductNature.list.select { |n| n.category.to_s == reference_name }.map(&:nature).group_by { |n| n }.max_by { |_k, v| v.count }&.first
       end
   end
 end

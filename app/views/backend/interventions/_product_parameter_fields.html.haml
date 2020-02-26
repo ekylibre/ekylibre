@@ -78,7 +78,7 @@
     = render '/backend/interventions/quantifier_field', f: f, reference: reference, prefix: prefix
 
   - if f.object.reference_name.to_sym == :plant_medicine
-    = f.referenced_association :usage, label: :usage_phyto.tl, input_html: { data: { filters_url: filter_usages_backend_registered_phytosanitary_usages_path, lights: '.controls' } }, new: false
+    = f.referenced_association :usage, label: :usage_phyto.tl, input_html: { disabled: true, data: { filters_url: filter_usages_backend_registered_phytosanitary_usages_path, msg_container: ".intervention_inputs_usage .lights-message", lights: '.controls' } }, new: false
     = f.input :allowed_entry_factor, as: :hidden, input_html: { class: 'allowed-entry' }
     = f.input :allowed_harvest_factor, as: :hidden, input_html: { class: 'allowed-harvest' }
 

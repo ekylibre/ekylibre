@@ -397,30 +397,51 @@
       $(cell).addClass('with-details')
 
   $(document).on 'selector:change', '[data-filter-unroll]', (e) ->
-    filterUnroll $(this)
+    filterableUnroll.filter $(this)
 
-  filterUnroll = ($filteringUnroll) ->
-    $filteredUnroll = $filteringUnroll.closest($filteringUnroll.data('parent')).find($filteringUnroll.data('filter-unroll'))
-    url = $filteredUnroll.data('filters-url')
-    filterId = $filteringUnroll.selector('value')
-    return unless filterId
+  filterableUnroll =
+    filter: ($filteringUnroll) ->
+      filterId = $filteringUnroll.selector('value')
+      return unless filterId
 
-    retrievedIds = []
-    if $filteringUnroll.data('retrieve-unroll')
-      $($filteringUnroll.data('retrieve-unroll')).each ->
-        retrievedIds.push $(this).selector('value')
+      $filteredUnroll = @._retrieveFilteredUnroll($filteringUnroll)
+      url = $filteredUnroll.data('filters-url')
+      values = @._retrieveValues($filteredUnroll, $filteringUnroll)
 
-    $.getJSON url, retrieved_ids: retrievedIds, filter_id: filterId, (data) ->
-      $filteredUnroll.closest('.controls').find('.lights-message').text('')
-      $filteredUnroll.attr('disabled', false)
-      if data.scope_url
-        $filteredUnroll.data('selector', data.scope_url)
-        $filteredUnroll.attr('data-selector', data.scope_url)
-      if data.new_url
-        $filteredUnroll.data('selector-new-item', data.new_url)
-        $filteredUnroll.attr('data-selector-new-item', data.new_url)
-      if data.disable
-        $filteredUnroll.attr('disabled', true)
-        $filteredUnroll.closest('.controls').find('.lights-message').text(data.disable)
+      $.getJSON url, _.merge(values, filter_id: filterId), (data) =>
+        $filteredUnroll.attr('disabled', false)
+        $filteredUnroll.closest($filteringUnroll.data('parent')).find($filteredUnroll.data('msg-container')).text('') if $filteredUnroll.data('msg-container')
+        @._handleScope($filteredUnroll, data.scope_url) if data.scope_url
+        @._handleNew($filteredUnroll, data.new_url) if data.new_url
+        @._handleClear($filteredUnroll, data.clear)
+        @._handleDisable($filteredUnroll, $filteringUnroll, data.disable) if data.disable
+
+    _handleScope: ($filteredUnroll, scope_url) ->
+      $filteredUnroll.data('selector', scope_url)
+      $filteredUnroll.attr('data-selector', scope_url)
+
+    _handleNew: ($filteredUnroll, new_url) ->
+      $filteredUnroll.data('selector-new-item', new_url)
+      $filteredUnroll.attr('data-selector-new-item', new_url)
+
+    _handleDisable: ($filteredUnroll, $filteringUnroll, disable) ->
+      $filteredUnroll.attr('disabled', true)
+      $filteredUnroll.closest($filteringUnroll.data('parent')).find($filteredUnroll.data('msg-container')).text(disable) if $filteredUnroll.data('msg-container')
+
+    _handleClear: ($filteredUnroll, clear) ->
+      if clear then $filteredUnroll.first().selector('clear') else $filteredUnroll.trigger('selector:change')
+
+    _retrieveFilteredUnroll: ($filteringUnroll) ->
+      $filteringUnroll.closest($filteringUnroll.data('parent')).find($filteringUnroll.data('filter-unroll'))
+
+    _retrieveValues: ($filteredUnroll, $filteringUnroll) ->
+      selectedValue = $filteredUnroll.next('.selector-value').val()
+      retrievedIds = []
+      if $filteringUnroll.data('retrieve-unroll')
+        $($filteringUnroll.data('retrieve-unroll')).each ->
+          retrievedIds.push $(this).selector('value')
+
+      { retrieved_ids: retrievedIds, selected_value: selectedValue }
+
   return
 ) ekylibre, jQuery
