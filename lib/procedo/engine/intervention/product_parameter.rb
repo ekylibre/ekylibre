@@ -130,9 +130,6 @@ module Procedo
           hash[:assembly_id] = assembly_id if assembly?
           hash[:component_id] = component_id if component?
           hash[:errors] = {}
-          if reference.display_status.to_s.to_sym == :miscibility
-            hash[:errors][:miscibility] = true unless product? && product.france_maaid
-          end
           hash
         end
 

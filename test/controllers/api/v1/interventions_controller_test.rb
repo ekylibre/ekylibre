@@ -63,41 +63,41 @@ module Api
         assert json['message'].eql? :no_worker_associated_with_user_account.tn
       end
 
-      # test 'create hoeing intervention (with targets/equipments/workers)' do
-      #   add_auth_header
-      #   land_parcel = create(:land_parcel, initial_born_at: Time.parse("2019-01-01T00:00:00Z"))
-      #   worker1 = create(:worker)
-      #   worker2 = create(:worker)
-      #   driver = create(:worker)
-      #   tractor = create(:equipment)
-      #   hoe = create(:equipment)
-      #   params = { procedure_name: 'hoeing',
-      #              providers: { zero_id: 5 },
-      #              working_periods_attributes: [
-      #                { started_at: '01/01/2019 12:00'.to_datetime,
-      #                  stopped_at: '01/01/2019 13:30'.to_datetime
-      #              }],
-      #              targets_attributes: [
-      #                { product_id: land_parcel.id, reference_name: 'land_parcel'}
-      #              ],
-      #              doers_attributes: [
-      #                { product_id: worker1.id, reference_name: 'doer'},
-      #                { product_id: worker2.id, reference_name: 'doer'},
-      #                { product_id: driver.id, reference_name: 'driver'}
-      #              ],
-      #              tools_attributes: [
-      #                { product_id: tractor.id, reference_name: 'tractor'},
-      #                { product_id: hoe.id, reference_name: 'hoe'},
-      #              ]
-      #   }
-      #   post :create, params
-      #   assert_response :created
-      #   id = JSON.parse(response.body)['id']
-      #   intervention = Intervention.find(id)
-      #   assert_equal 1, intervention.targets.count
-      #   assert_equal 3, intervention.doers.count
-      #   assert_equal 2, intervention.tools.count
-      # end
+      test 'create hoeing intervention (with targets/equipments/workers)' do
+        add_auth_header
+        land_parcel = create(:land_parcel, born_at: "2019-01-01T00:00:00Z")
+        worker1 = create(:worker)
+        worker2 = create(:worker)
+        driver = create(:worker)
+        tractor = create(:equipment)
+        hoe = create(:equipment)
+        params = { procedure_name: 'hoeing',
+                   providers: { zero_id: 5 },
+                   working_periods_attributes: [
+                     { started_at: '01/01/2019 12:00'.to_datetime,
+                       stopped_at: '01/01/2019 13:30'.to_datetime
+                   }],
+                   targets_attributes: [
+                     { product_id: land_parcel.id, reference_name: 'land_parcel'}
+                   ],
+                   doers_attributes: [
+                     { product_id: worker1.id, reference_name: 'doer'},
+                     { product_id: worker2.id, reference_name: 'doer'},
+                     { product_id: driver.id, reference_name: 'driver'}
+                   ],
+                   tools_attributes: [
+                     { product_id: tractor.id, reference_name: 'tractor'},
+                     { product_id: hoe.id, reference_name: 'hoe'},
+                   ]
+        }
+        post :create, params
+        assert_response :created
+        id = JSON.parse(response.body)['id']
+        intervention = Intervention.find(id)
+        assert_equal 1, intervention.targets.count
+        assert_equal 3, intervention.doers.count
+        assert_equal 2, intervention.tools.count
+      end
 
       test 'create fertilizing intervention (with inputs)' do
         add_auth_header
@@ -127,38 +127,38 @@ module Api
         assert_equal 1, intervention.inputs.count
       end
 
-      # test 'create harvesting intervention (with outputs)' do
-      #   add_auth_header
-      #
-      #   variant = create(:harvest_variant)
-      #   variant.read!(:net_mass, '2 kilogram')
-      #   plant = create(:corn_plant)
-      #   params = { procedure_name: 'harvesting',
-      #              providers: { zero_id: 5 },
-      #              working_periods_attributes: [
-      #                { started_at: '01/01/2019 12:00'.to_datetime,
-      #                  stopped_at: '01/01/2019 13:30'.to_datetime
-      #              }],
-      #              targets_attributes: [{
-      #                product_id: plant.id,
-      #                reference_name: 'plant'
-      #              }],
-      #              outputs_attributes: [
-      #                {
-      #                  variant_id: variant.id,
-      #                  quantity_value: 5000,
-      #                  quantity_population: 5,
-      #                  quantity_handler: 'net_mass',
-      #                  reference_name: 'matters'
-      #                }]
-      #   }
-      #
-      #   post :create, params
-      #   assert_response :created
-      #   id = JSON.parse(response.body)['id']
-      #   intervention = Intervention.find(id)
-      #   assert_equal 1, intervention.outputs.count
-      # end
+      test 'create harvesting intervention (with outputs)' do
+        add_auth_header
+
+        variant = create(:harvest_variant)
+        variant.read!(:net_mass, '2 kilogram')
+        plant = create(:corn_plant, born_at: "2019-01-01T00:00:00Z")
+        params = { procedure_name: 'harvesting',
+                   providers: { zero_id: 5 },
+                   working_periods_attributes: [
+                     { started_at: '01/01/2019 12:00'.to_datetime,
+                       stopped_at: '01/01/2019 13:30'.to_datetime
+                   }],
+                   targets_attributes: [{
+                     product_id: plant.id,
+                     reference_name: 'plant'
+                   }],
+                   outputs_attributes: [
+                     {
+                       variant_id: variant.id,
+                       quantity_value: 5000,
+                       quantity_population: 5,
+                       quantity_handler: 'net_mass',
+                       reference_name: 'matters'
+                     }]
+        }
+
+        post :create, params
+        assert_response :created
+        id = JSON.parse(response.body)['id']
+        intervention = Intervention.find(id)
+        assert_equal 1, intervention.outputs.count
+      end
 
       test 'create sowing intervention (with group parameters)' do
         add_auth_header

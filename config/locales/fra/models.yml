@@ -299,8 +299,9 @@ fra:
       registered_phytosanitary_product:
         active_compounds: "Substance(s) active(s)"
         firm_name: "Fabricant"
-        france_maaid: "N° AMM / N° Permis"
+        france_maaid: "N° AMM"
         in_field_reentry_delay: "Délai de réentrée"
+        licence_number: "N° Permis"
         name: "Nom usuel"
         operator_protection_mentions: "Protection de l'opérateur"
         other_name: "Seconds noms commerciaux"
@@ -884,6 +885,7 @@ fra:
     all_addresses: "Toutes les adresses"
     all_taxes_included: "Toutes taxes comprises"
     allocation_account: "Compte d'amortissement"
+    allowed_mentions: "Mentions autorisées"
     # already_existing: "Already existing"
     amount: "Montant"
     analysed_at: "Analysé le"
