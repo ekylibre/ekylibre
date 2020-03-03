@@ -5,6 +5,22 @@ module Backend
 
         importable_from_lexicon :registered_phytosanitary_products, model_name: "Variants::Articles::#{controller_name.classify}".constantize
 
+        list(model: :product_nature_variants, conditions: variants_conditions, collection: true) do |t|
+          t.action :edit, url: { controller: '/backend/product_nature_variants' }
+          t.action :destroy, if: :destroyable?, url: { controller: '/backend/product_nature_variants' }
+          t.column :name, url: { namespace: :backend }
+          t.status
+          t.column :number
+          t.column :nature, url: { controller: '/backend/product_natures' }
+          t.column :category, url: { controller: '/backend/product_nature_categories' }
+          t.column :current_stock_displayed, label: :current_stock
+          t.column :current_outgoing_stock_ordered_not_delivered_displayed
+          t.column :unit_name
+          t.column :variety
+          t.column :derivative_of
+          t.column :active
+        end
+
         list(:registered_phytosanitary_usages, conditions: ['product_id = ?', 'ProductNatureVariant.find(params[:id]).phytosanitary_product.france_maaid'.c],
                                                order: [:state, :ephy_usage_phrase],
                                                per_page: 10) do |t|

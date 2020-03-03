@@ -499,6 +499,18 @@ class ProductNatureVariant < Ekylibre::Record::Base
     end
   end
 
+  def status
+    phyto = phytosanitary_product
+    case phyto&.state
+      when 'Autorisé'
+        :go
+      when 'Retiré'
+        :stop
+      else
+        nil
+    end
+  end
+
   class << self
     # Returns some nomenclature items are available to be imported, e.g. not
     # already imported
