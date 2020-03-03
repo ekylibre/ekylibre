@@ -110,4 +110,13 @@ FactoryBot.define do
     association :nature, factory: :land_parcel_nature
     association :category, factory: :land_parcel_category
   end
+
+  factory :plant_medicine_variant, class: ProductNatureVariant do
+    sequence(:name) { |n| "Plant medicine variant - #{n}" }
+    variety { :preparation }
+    unit_name { :liter }
+
+    association :nature, factory: :plant_medicine_nature
+    association :category, factory: :plant_medicine_category
+  end
 end

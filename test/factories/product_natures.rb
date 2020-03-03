@@ -85,4 +85,11 @@ FactoryBot.define do
     variable_indicators_list { [:shape] }
     frozen_indicators_list { [:net_surface_area] }
   end
+
+  factory :plant_medicine_nature, class: ProductNature do
+    sequence(:name) { |n| "Plant medicine - TEST#{n.to_s.rjust(8, '0')}" }
+    population_counting { :decimal }
+    variety { 'preparation' }
+  end
+
 end
