@@ -46,7 +46,7 @@ class FixedAssetDepreciation < Ekylibre::Record::Base
   acts_as_list scope: :fixed_asset
   belongs_to :fixed_asset
   belongs_to :financial_year
-  belongs_to :journal_entry
+  belongs_to :journal_entry, dependent: :destroy
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accountable, :locked, inclusion: { in: [true, false] }
   validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
@@ -71,6 +71,10 @@ class FixedAssetDepreciation < Ekylibre::Record::Base
   sums :fixed_asset, :depreciations, amount: :depreciated_amount
 
   bookkeep
+
+  protect(on: :destroy) do
+    journal_entry.present? && !journal_entry.draft?
+  end
 
   after_initialize do
     next if persisted?
