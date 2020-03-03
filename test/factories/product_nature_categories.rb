@@ -65,4 +65,10 @@ FactoryBot.define do
     reference_name { "land_parcel" }
     type { 'VariantCategories::ZoneCategory' }
   end
+
+  factory :plant_medicine_category, class: ProductNatureCategory do
+    sequence(:name) { |n| "Plant medicine Category - TEST#{n.to_s.rjust(8, '0')}" }
+    type { 'VariantCategories::ArticleCategory' }
+    reference_name { "plant_medicine" }
+  end
 end

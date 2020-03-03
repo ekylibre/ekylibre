@@ -35,5 +35,25 @@ FactoryBot.define do
         create_list :tractor_tool, evaluator.tractor_count , intervention: intervention
       end
     end
+
+    trait :spraying do
+      procedure_name { 'spraying' }
+      actions { %i[herbicide fungicide insecticide growth_regulator biostimulation molluscicide nematicide acaricide bactericide rodenticide talpicide corvicide game_repellent virucide desiccation fireproofing] }
+      after(:build) do |intervention|
+        intervention.inputs << build(:intervention_input, reference_name: 'plant_medicine', product: create(:phytosanitary_product), intervention: intervention, allowed_entry_factor: 6,
+ allowed_harvest_factor: 3)
+      end
+    end
+
+    trait :with_target do
+      transient do
+        on { nil }
+        reference_name { :cultivation }
+      end
+
+      after(:build) do |intervention, evaluator|
+        intervention.targets << build(:intervention_target, product: evaluator.on, intervention: intervention, reference_name: evaluator.reference_name)
+      end
+    end
   end
 end
