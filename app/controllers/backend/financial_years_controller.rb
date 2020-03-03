@@ -227,11 +227,7 @@ module Backend
       end
       if request.post?
         begin
-          ActiveRecord::Base.transaction do
-            FixedAssetDepreciation.up_to(@financial_year.stopped_on).where(locked: false).update_all(locked: true)
-            LoanRepayment.where('due_on <= ?', @financial_year.stopped_on).where(locked: false).update_all(locked: true)
-            @financial_year.update!(state: 'locked')
-          end
+          FinancialYearLocker.new.lock!(@financial_year)
         rescue ActiveRecord::RecordInvalid => error
           notify_error(:please_contact_support_for_further_information, message: error.message)
         end

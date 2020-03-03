@@ -125,10 +125,30 @@ module FixedAssetTest
       assert_equal sold_on, fixed_asset.sold_journal_entry.printed_on
     end
 
+    test 'protection' do
+      fa = create :fixed_asset, :yearly,
+                  started_on: Date.new(2017, 2, 1),
+                  amount: 50_000,
+                  percentage: 20.00
+
+      assert fa.destroyable?
+      assert fa.start_up
+      assert_not fa.destroyable?
+
+      FixedAssetDepreciator.new.depreciate([fa], up_to: Date.new(2017, 12, 31))
+      fa.reload
+
+      assert fa.depreciations.all?(&:destroyable?)
+
+      fdep = fa.depreciations.first
+      fdep.journal_entry.confirm
+      fa.reload
+      assert_not fa.depreciations.first.destroyable?
+    end
+
     test 'depreciate class method returns the amount of depreciations according to until option provided' do
       fixed_asset = create :fixed_asset, :yearly, :in_use, percentage: 100.0 / 3, started_on: Date.new(2017, 1, 1)
       count = FixedAsset.depreciate(until: Date.civil(2018, 12, 31))
-
       assert_equal 2, count, 'Count of depreciations is invalid' + fixed_asset.depreciations.pluck(:started_on, :amount).to_yaml.yellow
     end
 
