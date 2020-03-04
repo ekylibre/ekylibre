@@ -29,6 +29,7 @@ module FixedAssetTest
       current_fy = FinancialYear.opened.first
 
       locked, opened = fa.depreciations.partition { |fad| fad.started_on < current_fy.started_on }
+
       locked.each do |dep|
         assert dep.locked?, "All depreciations before the first FinancialYear should be locked"
         assert dep.has_journal_entry?, "All locked depreciations should be automatically accounted"

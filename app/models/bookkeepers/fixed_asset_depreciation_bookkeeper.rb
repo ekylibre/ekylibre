@@ -16,7 +16,7 @@ class FixedAssetDepreciationBookkeeper < Ekylibre::Bookkeeper
     def bookkeep_in_use
       return if fixed_asset.depreciation_method_none?
 
-      if FinancialYear.at(fixed_asset.started_on)&.opened?
+      if FinancialYear.at(fixed_asset.started_on)&.opened? || FinancialYear.at(stopped_on)&.opened?
         journal_entry(fixed_asset.journal, printed_on: stopped_on, if: accountable && !locked) do |entry|
           name = tc(:bookkeep, resource: FixedAsset.model_name.human, number: fixed_asset.number, name: fixed_asset.name, position: position, total: fixed_asset.depreciations.count)
           entry.add_debit(name, fixed_asset.expenses_account, amount)
@@ -26,7 +26,7 @@ class FixedAssetDepreciationBookkeeper < Ekylibre::Bookkeeper
         current_fy = FinancialYear.opened.first
         waiting_account = Account.find_or_import_from_nomenclature(:suspense)
 
-        journal_entry(fixed_asset.journal, printed_on: current_fy.started_on, unless: accountable && !locked) do |entry|
+        journal_entry(fixed_asset.journal, printed_on: current_fy.started_on, unless: has_journal_entry?) do |entry|
           name = tc(:bookkeep, resource: FixedAsset.model_name.human, number: fixed_asset.number, name: fixed_asset.name, position: position, total: fixed_asset.depreciations.count)
           entry.add_debit(name, waiting_account, amount)
           entry.add_credit(name, fixed_asset.allocation_account, amount)

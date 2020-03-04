@@ -31,14 +31,14 @@ module Ekylibre
         }.freeze
 
         def geom_union(column_name)
-          conn = connection
-          return Charta.new_geometry(conn.select_value('SELECT ST_AsEWKT(ST_Union(' + conn.quote_column_name(column_name) + ')) FROM ' + conn.quote_table_name(table_name) + ' WHERE id in (' + pluck(:id).join(',') + ')'))
-          union = Charta.empty_geometry
-          # FIXME: Quite bad, fix that for Arel
-          find_each do |record|
-            union = record.send(column_name) if column_name.present?
+          plucked_ids = pluck(:id).join(',')
+
+          if plucked_ids.blank?
+            Charta.empty_geometry
+          else
+            conn = connection
+            Charta.new_geometry(conn.select_value('SELECT ST_AsEWKT(ST_Union(' + conn.quote_column_name(column_name) + ')) FROM ' + conn.quote_table_name(table_name) + ' WHERE id in (' + plucked_ids + ')'))
           end
-          union
         end
 
         def has_geometry(*columns)

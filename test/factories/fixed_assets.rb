@@ -12,9 +12,9 @@ FactoryBot.define do
     currency { :EUR }
 
     association :journal, factory: :journal
-    association :allocation_account, factory: :account
-    association :asset_account, factory: :account
-    association :expenses_account, factory: :account
+    association :allocation_account, factory: :fixed_asset_allocation_account
+    association :asset_account, factory: :fixed_asset_account
+    association :expenses_account, factory: :fixed_asset_expenses_account
 
     trait(:yearly) { depreciation_period { :yearly } }
     trait(:monthly) { depreciation_period { :monthly } }
