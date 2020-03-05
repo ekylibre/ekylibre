@@ -617,6 +617,20 @@ $preview-modal-height: 80vh;
     width: 20%;
     display: flex;
     justify-content: space-between;
+
+    &--full-width {
+      width: 100%;
+      justify-content: unset;
+
+      & .usage-infos-line-item-label {
+        min-width: fit-content;
+      }
+
+      & .usage-infos-line-item-data {
+        margin-left: 1rem;
+        flex-grow: 1;
+      }
+    }
   }
 
   .usage-infos-line-item-label {

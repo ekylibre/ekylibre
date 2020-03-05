@@ -78,7 +78,7 @@ module Backend
           redirect_to backend_activity_path(@activity)
         end
       end
-      harvest_advisor = ::Interventions::Computation::PhytoHarvestAdvisor.new
+      harvest_advisor = ::Interventions::Phytosanitary::PhytoHarvestAdvisor.new
       @reentry_possible = harvest_advisor.reentry_possible?(@activity, Time.zone.now)
     end
 

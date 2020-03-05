@@ -576,31 +576,14 @@ module Backend
       end
     end
 
-    class HarvestReentryValidationParams
-      include Ekylibre::Model
-      include ActiveModel::Validations
-
-      attr_accessor :date, :date_end, :targets, :ignore_intervention
-
-      validates :date, :targets, presence: true
-
-      def intervention
-        if ignore_intervention.present?
-          Intervention.find_by(id: ignore_intervention)
-        else
-          nil
-        end
-      end
-    end
-
     def validate_harvest_delay
-      params_obj = HarvestReentryValidationParams.new(params.permit(:date, :date_end, :ignore_intervention, targets: []))
+      params_obj = FormObjects::Backend::Interventions::ValidateHarvestReentry.new(params.permit(:date, :date_end, :ignore_intervention, targets: []))
       return head :bad_request unless params_obj.valid?
 
-      date = params_obj.date.to_datetime
+      date = DateTime.soft_parse(params_obj)
+      date_end = DateTime.soft_parse(params_obj.date_end) || date
       parcels = Product.find(params_obj.targets)
       ignore_intervention = params_obj.intervention
-      date_end = params_obj.date_end&.to_datetime || date
 
       harvest_advisor = ::Interventions::Computation::PhytoHarvestAdvisor.new
 
@@ -616,15 +599,16 @@ module Backend
     end
 
     def validate_reentry_delay
-      params_obj = HarvestReentryValidationParams.new(params.permit(:date, :date_end, :ignore_intervention, targets: []))
+      params_obj = FormObjects::Backend::Interventions::ValidateHarvestReentry.new(params.permit(:date, :date_end, :ignore_intervention, targets: []))
       return head :bad_request unless params_obj.valid?
 
-      date = params_obj.date.to_datetime
+
+      date = DateTime.soft_parse(params_obj)
+      date_end = DateTime.soft_parse(params_obj.date_end) || date
       parcels = Product.find(params_obj.targets)
       ignore_intervention = params_obj.intervention
-      date_end = params_obj.date_end&.to_datetime || date
 
-      harvest_advisor = ::Interventions::Computation::PhytoHarvestAdvisor.new
+      harvest_advisor = ::Interventions::Phytosanitary::PhytoHarvestAdvisor.new
 
       result = parcels.map do |parcel|
         result = harvest_advisor.reentry_possible?(parcel, date, date_end: date_end, ignore_intervention: ignore_intervention)
