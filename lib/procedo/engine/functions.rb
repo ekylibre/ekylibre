@@ -8,7 +8,7 @@ module Procedo
             next parameter.variant if parameter.respond_to? :variant
             parameter.product
           end
-          PhytosanitaryMiscibility.new(products.compact).validity
+          Interventions::Phytosanitary::PhytosanitaryMiscibility.new(products.compact).validity
         end
 
         # Test if population counting is as specified for given product

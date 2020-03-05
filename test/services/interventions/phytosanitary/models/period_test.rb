@@ -1,11 +1,11 @@
 require 'test_helper'
 
 module Interventions
-  module Computation
-    module PhytoHarvestAdvisorTest
+  module Phytosanitary
+    module Models
       class PeriodTest < Ekylibre::Testing::ApplicationTestCase
         setup do
-          @p = PhytoHarvestAdvisor::Period.new("2019-01-12T15:30:25+01:00", "2019-01-12T16:30:25+01:00")
+          @p = Period.parse("2019-01-12T15:30:25+01:00", "2019-01-12T16:30:25+01:00")
         end
 
         test 'intersect periods' do
@@ -19,7 +19,7 @@ module Interventions
           ]
 
           cases.each do |(start, stop, expected)|
-            assert_equal expected, @p.intersect?(PhytoHarvestAdvisor::Period.new(start, stop))
+            assert_equal expected, @p.intersect?(Period.parse(start, stop))
           end
         end
       end

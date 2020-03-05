@@ -17,14 +17,4 @@
   = f.simple_fields_for(reflection, list) do |d|
     = render "/backend/interventions/#{partial_name}", f: d, reference: reference, namespace: prefix
   .links
-    - if reference.display_status
-      - if list.map(&:product).compact.blank?
-        - invisible = 'display: none;'
-      - else
-        - miscibility = PhytosanitaryMiscibility.new(list.map(&:product)).validity
-      -# %span.display-info{ style: invisible }
-      -#   %span= :"intervention_message_#{reference.display_status}".tl
-      -#   %span.status{ 'data-display-status': miscibility }
-      -#   %span.beta
-      -#     = :beta.tl
     = link_to_add_association :add_x.tl(x: reference.human_name), f, reflection, partial: "/backend/interventions/#{partial_name}", render_options: {locals: {thing: reflection, reference: reference, namespace: prefix}}, class: 'nested-add'

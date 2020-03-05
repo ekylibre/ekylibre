@@ -30,8 +30,9 @@ module Backend
       usage_dataset = compute_dataset(usage)
       allowed_factors = compute_allowed_factors(usage)
       usage_application = compute_usage_application(usage, params[:targets_data], params[:intervention_id])
+      authorizations = compute_authorization(usage_application, :usage_application)
 
-      render json: { usage_infos: usage_dataset, usage_application: usage_application, allowed_factors: allowed_factors }
+      render json: { usage_infos: usage_dataset, usage_application: usage_application, allowed_factors: allowed_factors, authorizations: authorizations }
     end
 
     def dose_validations
@@ -46,7 +47,10 @@ module Backend
 
       service = RegisteredPhytosanitaryUsageDoseComputation.new
 
-      return render(json: service.validate_dose(usage, product, quantity.to_f, dimension, targets_data))
+      dose_validation = service.validate_dose(usage, product, quantity.to_f, dimension, targets_data)
+      authorizations = compute_authorization(dose_validation, :dose_validation)
+
+      return render(json: { dose_validation: dose_validation, authorizations: authorizations })
     end
 
     private
@@ -65,7 +69,8 @@ module Backend
           untreated_buffer_arthropod: usage.untreated_buffer_arthropod ? "#{usage.untreated_buffer_arthropod} m" : nil,
           pre_harvest_delay: usage.pre_harvest_delay ? "#{usage.pre_harvest_delay} j" : nil,
           development_stage: compute_development_stage(usage),
-          untreated_buffer_plants: usage.untreated_buffer_plants ? "#{usage.untreated_buffer_plants} m" : nil
+          untreated_buffer_plants: usage.untreated_buffer_plants ? "#{usage.untreated_buffer_plants} m" : nil,
+          usage_conditions: usage.usage_conditions ? usage.usage_conditions.gsub('//', '<br/>').html_safe : nil
         }
       end
 
@@ -82,7 +87,7 @@ module Backend
       end
 
       def compute_usage_application(usage, targets_data, intervention_id)
-        return {} unless targets_data
+        return { none: ''} unless targets_data
 
         maaid = usage.product.france_maaid
 
@@ -98,7 +103,7 @@ module Backend
       end
 
       def compare_applications_count(usage, usage_applications)
-        return {} if usage.applications_count.nil? || usage_applications.nil?
+        return { none: ''} if usage.applications_count.nil? || usage_applications.nil?
 
         applications = usage_applications + 1
         if applications < usage.applications_count
@@ -107,6 +112,16 @@ module Backend
           { caution: :applications_count_equal_to_max.tl }
         else
           { stop: :applications_count_bigger_than_max.tl }
+        end
+      end
+
+      def compute_authorization(lights_hash, authorization_name)
+        if %i[go caution].include?(lights_hash.keys.first)
+          { authorization_name => 'allowed' }
+        elsif %i[none].include?(lights_hash.keys.first)
+          { authorization_name => 'unknown' }
+        else
+          { authorization_name => 'forbidden' }
         end
       end
   end

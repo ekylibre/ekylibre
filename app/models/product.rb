@@ -435,7 +435,7 @@ class Product < Ekylibre::Record::Base
 
   class << self
     def miscibility_of(products_and_variants)
-      PhytosanitaryMiscibility.new(products_and_variants).legality
+      Intervention::Phytosanitary::PhytosanitaryMiscibility.new(products_and_variants).legality
     end
   end
 

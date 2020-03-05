@@ -3036,6 +3036,7 @@ fra:
     uploading_unicoque_traceability: "Télétransmission - Traçabilité Unicoque" #?
     urea_concentration: "Teneur moyenne en urée" #?
     usage: "Utilisation"
+    usage_conditions: "Conditions d'usage"
     usage_duration: "Durée d’utilisation" #?
     usage_phyto: "Usage"
     use_forward: "Sélectionnez un journal pour reporter les à nouveaux" #?

@@ -2737,6 +2737,7 @@ eng:
     updated_by_ago: "Updated by %{author} %{when}"
     upload: "Upload"
     usage: "Usage" #?
+    usage_conditions: "Usage conditions"
     usage_phyto: "Usage"
     user_status: "Status" #?
     users: "Users"

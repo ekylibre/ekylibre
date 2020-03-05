@@ -66,7 +66,7 @@ module Backend
 
     def show
       return unless plant = find_and_check
-      harvest_advisor = ::Interventions::Computation::PhytoHarvestAdvisor.new
+      harvest_advisor = ::Interventions::Phytosanitary::PhytoHarvestAdvisor.new
       @reentry_possible = harvest_advisor.reentry_possible?(plant, Time.zone.now)
       super
     end

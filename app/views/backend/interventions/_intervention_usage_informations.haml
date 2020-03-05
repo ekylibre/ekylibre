@@ -14,3 +14,8 @@
             .usage-infos-line-item-label
               = usage.tl
             .usage-infos-line-item-data{ data: { usage_attribute: usage } }
+    .usage-infos-line
+      .usage-infos-line-item.usage-infos-line-item--full-width
+        .usage-infos-line-item-label
+          = :usage_conditions.tl
+        .usage-infos-line-item-data{ data: { usage_attribute: :usage_conditions } }
