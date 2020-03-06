@@ -14,6 +14,7 @@ module Interventions
             message = :substances_mixing_not_allowed_due_to_znt_buffer.tl(usage: usage.crop_label_fra, phyto: product.name)
 
             result = result.merge(declare_forbidden_mix(product, with: products_usages.map(&:product), message: message))
+            result.add_message(product, message)
           end
 
         result

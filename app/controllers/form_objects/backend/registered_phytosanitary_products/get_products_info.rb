@@ -6,16 +6,16 @@ module FormObjects
           # @return [GetProductsInfo]
           def from_params(params)
             new(params.permit(
-              target_ids: [],
+              targets_ids: [],
               products_and_usages_ids: %i[product_id usage_id]
             ))
           end
         end
 
-        attr_accessor :target_ids, :products_and_usages_ids
+        attr_accessor :targets_ids, :products_and_usages_ids
 
         def targets
-          @targets ||= [Plant, LandParcel].map { |s| s.where(id: target_ids) }.sum
+          @targets ||= [Plant, LandParcel].map { |s| s.where(id: targets_ids) }.sum
         end
 
         def products_and_usages

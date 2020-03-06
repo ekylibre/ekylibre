@@ -17,7 +17,7 @@ module Interventions
         products = products_usages.map(&:product)
 
         # Mix code == 5
-        mix5result = Result.new
+        mix5result = Models::ProductApplicationResult.new
         mix5 = products.select { |p| mix_code(p) == '5' }
         mix5.each do |product|
           mix5result.add_message(product, :cannot_be_mixed_with_any_product.tl)
@@ -37,7 +37,7 @@ module Interventions
           end
         end
 
-        mix5result.merge_all(mix_results)
+        mix5result.merge_all(*mix_results)
       end
     end
   end
