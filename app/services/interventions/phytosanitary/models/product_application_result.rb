@@ -34,9 +34,9 @@ module Interventions
         def add_message(product, message)
           #TODO add message at the correct place
           if messages.key?(product)
-            messages[product] = [message]
-          else
             messages[product] << message
+          else
+            messages[product] = [message]
           end
         end
       end
