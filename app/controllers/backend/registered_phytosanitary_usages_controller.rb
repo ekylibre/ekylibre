@@ -68,22 +68,10 @@ module Backend
           applications_count: usage.applications_count,
           untreated_buffer_arthropod: usage.untreated_buffer_arthropod ? "#{usage.untreated_buffer_arthropod} m" : nil,
           pre_harvest_delay: usage.pre_harvest_delay ? "#{usage.pre_harvest_delay} j" : nil,
-          development_stage: compute_development_stage(usage),
+          development_stage: usage.decorate.development_stage_min,
           untreated_buffer_plants: usage.untreated_buffer_plants ? "#{usage.untreated_buffer_plants} m" : nil,
           usage_conditions: usage.usage_conditions ? usage.usage_conditions.gsub('//', '<br/>').html_safe : nil
         }
-      end
-
-      def compute_development_stage(usage)
-        return nil if usage.development_stage_min.nil? && usage.development_stage_max.nil?
-
-        if usage.development_stage_min && usage.development_stage_max == nil
-          "Min : #{usage.development_stage_min}"
-        elsif usage.development_stage_min == nil && usage.development_stage_max
-          "Max : #{usage.development_stage_max}"
-        else
-          "#{usage.development_stage_min} #{usage.development_stage_max}"
-        end
       end
 
       def compute_usage_application(usage, targets_data, intervention_id)
