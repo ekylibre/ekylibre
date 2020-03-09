@@ -30,4 +30,15 @@ FactoryBot.define do
       end
     end
   end
+
+  factory :lemon_activity, class: Activity do
+    sequence(:name)  { |n| "Lemon - TEST#{n.to_s.rjust(8, '0')}" }
+    family           { :plant_farming }
+    production_cycle { :annual }
+    cultivation_variety { :poncirus }
+
+    trait :organic do
+      production_system_name { :organic_farming }
+    end
+  end
 end

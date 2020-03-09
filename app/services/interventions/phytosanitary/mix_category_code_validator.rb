@@ -31,7 +31,7 @@ module Interventions
         # mix_results: Result[]
         mix_results = p_by_code.flat_map do |_code, prods|
           if prods.length > 1
-            prods.map { |p| declare_forbidden_mix(p, with: prods, message: :cannot_be_mixed_with.tl(phyto: product.name)) }
+            prods.map { |p| declare_forbidden_mix(p, with: prods, message: :cannot_be_mixed_with.tl(phyto: p.name)) }
           else
             [Models::ProductApplicationResult.new]
           end
