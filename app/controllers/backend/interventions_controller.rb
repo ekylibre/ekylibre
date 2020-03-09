@@ -595,13 +595,13 @@ module Backend
           date: result.next_possible_date
         }
       end
+
       render json: { targets: result }
     end
 
     def validate_reentry_delay
       params_obj = FormObjects::Backend::Interventions::ValidateHarvestReentry.new(params.permit(:date, :date_end, :ignore_intervention, targets: []))
       return head :bad_request unless params_obj.valid?
-
 
       date = DateTime.soft_parse(params_obj.date)
       date_end = DateTime.soft_parse(params_obj.date_end) || date
@@ -618,6 +618,7 @@ module Backend
           date: result.next_possible_date
         }
       end
+
       render json: { targets: result }
     end
 

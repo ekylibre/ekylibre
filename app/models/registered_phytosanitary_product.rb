@@ -123,9 +123,7 @@ class RegisteredPhytosanitaryProduct < ActiveRecord::Base
   end
 
   def allowed_for_organic_farming?
-    return false if allowed_mentions.nil?
-
-    allowed_mentions.keys.include? 'organic_usage'
+    allowed_mentions.present? && allowed_mentions.keys.include?('organic_usage')
   end
 
   class << self

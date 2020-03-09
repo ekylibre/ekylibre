@@ -263,22 +263,10 @@ class Intervention < Ekylibre::Record::Base
     { total_count: request.count, interventions: request.page(page) }
   }
 
-  scope :with_targets, lambda { |*targets|
-    where(id: InterventionTarget.of_actors(targets).select(:intervention_id))
-  }
-
-  scope :with_outputs, lambda { |*outputs|
-    where(id: InterventionOutput.of_actors(outputs).select(:intervention_id))
-  }
-
-  scope :with_doers, lambda { |*doers|
-    where(id: InterventionDoer.of_actors(doers).select(:intervention_id))
-  }
-
-  scope :with_maaids, lambda { |*maaids|
-    where(id: InterventionInput.of_maaids(*maaids).pluck(:intervention_id))
-  }
-
+  scope :with_targets, -> (*targets) { where(id: InterventionTarget.of_actors(targets).select(:intervention_id)) }
+  scope :with_outputs, -> (*outputs) { where(id: InterventionOutput.of_actors(outputs).select(:intervention_id)) }
+  scope :with_doers, -> (*doers) { where(id: InterventionDoer.of_actors(doers).select(:intervention_id)) }
+  scope :with_input_of_maaids, ->(*maaids) { where(id: InterventionInput.of_maaids(*maaids).pluck(:intervention_id)) }
   scope :done, -> {}
 
   before_validation do

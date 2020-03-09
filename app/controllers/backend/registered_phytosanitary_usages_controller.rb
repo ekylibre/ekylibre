@@ -92,7 +92,7 @@ module Backend
         maaid = usage.product.france_maaid
 
         applications_on_targets = targets_data.values.map do |target_info|
-          interventions = Product.find(target_info[:id]).activity_production.interventions.of_nature(:spraying).with_maaids(maaid)
+          interventions = Product.find(target_info[:id]).activity_production.interventions.of_nature(:spraying).with_input_of_maaids(maaid)
           interventions = interventions.where.not(id: intervention_id) if intervention_id.present?
           interventions.map do |intervention|
             intervention.targets.map(&:working_zone).select { |zone| Charta.new_geometry(target_info[:shape]).intersects?(zone) }.count
