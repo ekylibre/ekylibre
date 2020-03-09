@@ -47,6 +47,15 @@ FactoryBot.define do
     association :category, factory: :deliverable_category
   end
 
+  factory :animal_variant, class: ProductNatureVariant do
+    sequence(:name) { |n| "Animal #{n}" }
+    variety { 'animal' }
+    unit_name { 'unit' }
+
+    association :nature, factory: :animals_nature
+    association :category, factory: :animal_category
+  end
+
   factory :building_division_variant, class: ProductNatureVariant do
     sequence(:name) { |n| "Building division variant - #{n}" }
     variety { 'building_division' }
@@ -54,6 +63,15 @@ FactoryBot.define do
 
     association :nature, factory: :building_division_nature
     association :category, factory: :building_division_category
+  end
+
+  factory :phytosanitary_variant, class: ProductNatureVariant do
+    sequence(:name) { |n| "Plant Medicine variant - #{n}" }
+    variety { :preparation }
+    unit_name { :liter }
+
+    association :nature, factory: :phytosanitary_nature
+    association :category, factory: :phytosanitary_category
   end
 
   factory :fertilizer_variant, class: ProductNatureVariant do

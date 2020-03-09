@@ -620,7 +620,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
         raise ArgumentError, "The nature of the product_nature_variant #{item.nature.inspect} is not known"
       end
       unless category_item = VariantCategory.find_by_reference_name(item.category)
-        raise ArgumentError, "The category of the product_nature_variant #{nature_item.category.inspect} is not known"
+        raise ArgumentError, "The category of the product_nature_variant #{item.category.inspect} is not known"
       end
       unless !force && variant = ProductNatureVariant.find_by_reference_name(reference_name)
         category = ProductNatureCategory.import_from_lexicon(item.category)

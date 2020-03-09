@@ -37,10 +37,21 @@ FactoryBot.define do
     type { 'VariantCategories::ZoneCategory' }
   end
 
+  factory :animal_category, class: ProductNatureCategory do
+    sequence(:name) { |n| "Animal category - #{n}" }
+    type { 'VariantCategories::AnimalCategory' }
+  end
+
   factory :fertilizer_category, class: ProductNatureCategory do
     sequence(:name) { |n| "Fertilizers - TEST#{n.to_s.rjust(8, '0')}" }
     type { 'VariantCategories::ArticleCategory' }
     reference_name { "fertilizer" }
+  end
+
+  factory :phytosanitary_category, class: ProductNatureCategory do
+    sequence(:name) { |n| "Plant Medicines - TEST#{n.to_s.rjust(8, '0')}" }
+    type { 'VariantCategories::ArticleCategory' }
+    reference_name { 'plant_medicine' }
   end
 
   factory :tractor_category, class: ProductNatureCategory do

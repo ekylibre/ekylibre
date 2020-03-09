@@ -99,4 +99,40 @@ class ProductNatureTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert ProductNature.items_of_expression('is vitis or is bos_taurus').any?
     assert ProductNature.items_of_expression('can store(plant)').any?
   end
+
+  test 'type is correctly set upon import from nomenclature' do
+    references = { animal: :bee_band,
+                   article: :additive,
+                   crop: :cereal_crop,
+                   equipment: :air_compressor,
+                   service: :accommodation_travel,
+                   worker: :inseminator,
+                   zone: :administrative_division }
+
+    references.each { |type, reference| assert ProductNature.import_from_nomenclature(reference).is_a?("VariantTypes::#{type.capitalize}Type".constantize) }
+  end
+
+  test 'type is correctly set upon import from lexicon' do
+    references = { animal: :bird_band,
+                   article: :acidifier,
+                   crop: :crop,
+                   equipment: :air_compressor,
+                   service: :agricultural_service,
+                   worker: :worker,
+                   zone: :zone }
+
+    references.each { |type, reference| assert ProductNature.import_from_lexicon(reference).is_a?("VariantTypes::#{type.capitalize}Type".constantize) }
+  end
+
+  test 'type is correctly set upon creation through model validations' do
+    references = { animal: :animals_nature,
+                   article: :fertilizer_nature,
+                   crop: :plants_nature,
+                   equipment: :equipment_nature,
+                   service: :services_nature,
+                   worker: :worker_nature,
+                   zone: :land_parcel_nature }
+
+    references.each { |type, reference| assert_equal create(reference).type, "VariantTypes::#{type.capitalize}Type" }
+  end
 end
