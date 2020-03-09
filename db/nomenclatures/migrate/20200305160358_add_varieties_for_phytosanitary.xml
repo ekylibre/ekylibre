@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Addvarietiesforphytosanitary">
+	<item-creation item="varieties#ebenaceae" parent="plant" itis_tsn="23852"/>
+	<item-creation item="varieties#diospyros" parent="ebenaceae" itis_tsn="23853"/>
+	<item-creation item="varieties#diospyros_kaki" parent="diospyros" itis_tsn="896176"/>
+	<item-creation item="varieties#nasturtium" parent="brassicaceae" itis_tsn="23252"/>
+	<item-creation item="varieties#nasturtium_officinale" parent="nasturtium" itis_tsn="23255"/>
+	<item-creation item="varieties#arecaceae" parent="plant" itis_tsn="500043"/>
+	<item-creation item="varieties#euterpe" parent="arecaceae" itis_tsn="500808"/>
+	<item-creation item="varieties#euterpe_oleracea" parent="euterpe" itis_tsn="506722"/>
+</migration>
