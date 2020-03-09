@@ -90,6 +90,7 @@ FactoryBot.define do
     sequence(:name) { |n| "Plant medicine - TEST#{n.to_s.rjust(8, '0')}" }
     population_counting { :decimal }
     variety { 'preparation' }
+    reference_name { 'plant_medicine' }
+    frozen_indicators_list { %i[approved_input_dose, net_mass, net_volume, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period] }
   end
-
 end
