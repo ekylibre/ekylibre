@@ -157,4 +157,46 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
     assert_equal service.quantity_received, 30
     assert_equal service.current_stock, 20
   end
+
+  test 'type is correctly set upon import from nomenclature' do
+    references = { animal: :bee_band,
+                   article: :acetal,
+                   crop: :annual_fallow_crop,
+                   equipment: :air_compressor,
+                   service: :accommodation_taxe,
+                   worker: :employee,
+                   zone: :animal_building }
+
+    references.each { |type, reference| assert ProductNatureVariant.import_from_nomenclature(reference).is_a?("Variants::#{type.capitalize}Variant".constantize) }
+
+    article_references = { plant_medicine: :additive, fertilizer: :bulk_ammo_phosphorus_sulfur_20_23_0, seed_and_plant: :ascott_wheat_seed_25 }
+    article_references.each { |type, reference| assert ProductNatureVariant.import_from_nomenclature(reference).is_a?("Variants::Articles::#{type.to_s.classify}Article".constantize) }
+  end
+
+  test 'type is correctly set upon import from lexicon' do
+    references = { article: :stake,
+                   equipment: :hose_reel,
+                   service: :additional_activity,
+                   worker: :permanent }
+
+    references.each { |type, reference| assert ProductNatureVariant.import_from_lexicon(reference).is_a?("Variants::#{type.capitalize}Variant".constantize) }
+
+    article_references = { plant_medicine: :soft_wheat_herbicide, fertilizer: :horse_manure, seed_and_plant: :soft_wheat_seed }
+    article_references.each { |type, reference| assert ProductNatureVariant.import_from_lexicon(reference).is_a?("Variants::Articles::#{type.to_s.classify}Article".constantize) }
+  end
+
+  test 'type is correctly set upon creation through model validations' do
+    references = { animal: :animal_variant,
+                   article: :harvest_variant,
+                   crop: :plant_variant,
+                   equipment: :equipment_variant,
+                   service: :service_variant,
+                   worker: :worker_variant,
+                   zone: :land_parcel_variant }
+
+    references.each { |type, reference| assert_equal create(reference).type, "Variants::#{type.capitalize}Variant" }
+
+    article_references = { plant_medicine: :phytosanitary_variant, fertilizer: :fertilizer_variant, seed_and_plant: :seed_variant }
+    article_references.each { |type, reference| assert create(reference).type, "Variants::Articles::#{type.to_s.classify}Article" }
+  end
 end
