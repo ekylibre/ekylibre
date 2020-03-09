@@ -26,7 +26,7 @@
 
     _clear: ($productField) ->
       $productField.find('.allowed-mentions img').each -> $(this).hide()
-      $productField.find('#intervention-products-badges').removeClass("state-badge-set--allowed state-badge-set--forbidden")
+      new StateBadgeSet($productField.find('#intervention-products-badges')).setState(null)
 
     _retrieveValues: () ->
       targetsIds = $('.nested-cultivation').map ->

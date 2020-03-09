@@ -13,7 +13,6 @@ module Backend
           if prods_usages.empty?
             render json: {}
           else
-            # products_infos = products_ids.map { |id| [id, { authorizations: { state: 'unknown', organic_mentions: 'unknown', aquatic_buffer: 'unknown', mixing_code: 'unknown' }, messages: [], allowed_mentions: [] }] }.to_h
             validator = ::Interventions::Phytosanitary::ValidatorCollectionValidator.new(
               ::Interventions::Phytosanitary::MixCategoryCodeValidator.new,
               ::Interventions::Phytosanitary::AquaticBufferValidator.new,

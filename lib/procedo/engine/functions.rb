@@ -178,8 +178,8 @@ module Procedo
           return 1 unless variant.imported_from == 'Lexicon' && variant.is_a?(Variants::Articles::PlantMedicineArticle)
 
           phyto = RegisteredPhytosanitaryProduct.find_by_reference_name(variant.reference_name)
-
           return 1 if phyto.nil?
+
           usages = phyto.usages
           return 1 if usages.empty?
 
