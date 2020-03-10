@@ -38,7 +38,7 @@ module Backend
       def fetch_allowed_mentions(product)
         phyto = product.variant.phytosanitary_product
 
-        if phyto.present?
+        if phyto.present? && phyto.allowed_mentions.present?
           phyto.allowed_mentions.keys.map { |m| m.parameterize.dasherize }
         else
           []
