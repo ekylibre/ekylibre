@@ -158,6 +158,8 @@ eng:
       plant_density_abacus_item:
         plants_count: "Expected plants count"
         seeding_density_value: "Expected seeding density"
+      product_nature_category:
+        type: "Nature"
       product_nature_variant:
         specie_variety: "Variety"
         status: "Allowed"

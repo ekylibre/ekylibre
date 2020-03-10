@@ -251,6 +251,7 @@ fra:
         fixed_asset_expenses_account: "Compte de dotation aux amortissements" #?
         price: "Prix de revient" #?
         subscribing: "Abonnement ?" #?
+        type: "Nature"
       product_nature_variant: #?
         contour: "Contour de la forme" #?
         horizontal_rotation: "Rotation horizontale de la forme" #?
