@@ -235,7 +235,7 @@ $preview-modal-height: 80vh;
       background-color: $darkened-blue-grey;
       color: $white;
     }
- 
+
     .task-indicators {
       display: flex;
       justify-content: flex-end;
@@ -369,19 +369,8 @@ $preview-modal-height: 80vh;
   }
 
   .nested-inputs .nested-product-parameter {
-    .intervention_inputs_quantity {
-      @include flex-row(flex-start);
-      & .input-append {
-        margin-left: 5px;
-      }
-    }
-
-    .intervention_inputs_quantity .controls {
-      margin-left: 23%;
-    }
-
     .product-parameter-cost {
-      margin-left: $default-gap * 22;
+      margin-left: 28%;
     }
 
     .product-parameter-cost-value {
@@ -628,6 +617,20 @@ $preview-modal-height: 80vh;
     width: 20%;
     display: flex;
     justify-content: space-between;
+
+    &--full-width {
+      width: 100%;
+      justify-content: unset;
+
+      & .usage-infos-line-item-label {
+        min-width: fit-content;
+      }
+
+      & .usage-infos-line-item-data {
+        margin-left: 1rem;
+        flex-grow: 1;
+      }
+    }
   }
 
   .usage-infos-line-item-label {

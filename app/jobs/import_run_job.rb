@@ -32,13 +32,16 @@ class ImportRunJob < ActiveJob::Base
 
   def perform(import_id)
     import = Import.find(import_id)
-    result = safe_perform(import)
-    if result.success?
-      import.notify(:import_finished_successfully)
-    else
-      import.notify(:import_failed, { message: result.message }, level: :error)
 
-      raise result.exception if result.exception.present?
+    Version.with_current_user(import.creator) do
+      result = safe_perform(import)
+      if result.success?
+        import.notify(:import_finished_successfully)
+      else
+        import.notify(:import_failed, { message: result.message }, level: :error)
+
+        raise result.exception if result.exception.present?
+      end
     end
   end
 end

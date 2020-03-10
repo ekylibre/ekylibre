@@ -652,7 +652,6 @@ module Backend
         varieties.keep_if { |(_l, n)| child_scope.all? { |c| c.variety? && Nomen::Variety.find(c.variety) <= n } }
       end
       @object.variety ||= scope.variety if scope
-      @object.variety ||= varieties.first.last if @object.new_record? && varieties.first
       if options[:derivative_of] || (scope && scope.derivative_of)
         derivatives = Nomen::Variety.selection(scope ? scope.derivative_of : nil)
         @object.derivative_of ||= scope.derivative_of if scope

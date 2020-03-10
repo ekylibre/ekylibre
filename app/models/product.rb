@@ -357,7 +357,7 @@ class Product < Ekylibre::Record::Base
   delegate :serial_number, :producer, to: :tracking
   delegate :variety, :derivative_of, :name, :nature, :reference_name,
            to: :variant, prefix: true
-  delegate :unit_name, :france_maaid, to: :variant
+  delegate :unit_name, :france_maaid, :phytosanitary_product, to: :variant
   delegate :able_to_each?, :able_to?, :of_expression, :subscribing?,
            :deliverable?, :asset_account, :product_account, :charge_account,
            :stock_account, :population_counting, :population_counting_unitary?,
@@ -435,7 +435,7 @@ class Product < Ekylibre::Record::Base
 
   class << self
     def miscibility_of(products_and_variants)
-      PhytosanitaryMiscibility.new(products_and_variants).legality
+      Intervention::Phytosanitary::PhytosanitaryMiscibility.new(products_and_variants).legality
     end
   end
 

@@ -81,4 +81,21 @@ FactoryBot.define do
     variety { :seed }
     derivative_of { :plant }
   end
+
+  factory :phytosanitary_product, class: Product do
+    association :variant, factory: :plant_medicine_variant
+    variety { :preparation }
+
+    after(:build) do |product|
+      product.category = product.variant.category
+      product.nature = product.variant.nature
+    end
+
+    %w[copless award sultan zebra].each do |p_name|
+      factory "#{p_name}_phytosanitary_product" do
+        association :variant, factory: "#{p_name}_phytosanitary_variant"
+        name { p_name.capitalize }
+      end
+    end
+  end
 end

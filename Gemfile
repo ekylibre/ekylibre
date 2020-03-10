@@ -255,6 +255,9 @@ group :development, :test do
   gem 'pry-rails'
   gem 'teaspoon-jasmine'
 
+  # For git manipulation in test:git task
+  gem 'git'
+
   # Parallelize tests
   gem 'parallel_tests'
 

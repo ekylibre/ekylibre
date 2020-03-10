@@ -47,6 +47,15 @@ FactoryBot.define do
     association :category, factory: :deliverable_category
   end
 
+  factory :animal_variant, class: ProductNatureVariant do
+    sequence(:name) { |n| "Animal #{n}" }
+    variety { 'animal' }
+    unit_name { 'unit' }
+
+    association :nature, factory: :animals_nature
+    association :category, factory: :animal_category
+  end
+
   factory :building_division_variant, class: ProductNatureVariant do
     sequence(:name) { |n| "Building division variant - #{n}" }
     variety { 'building_division' }
@@ -54,6 +63,15 @@ FactoryBot.define do
 
     association :nature, factory: :building_division_nature
     association :category, factory: :building_division_category
+  end
+
+  factory :phytosanitary_variant, class: ProductNatureVariant do
+    sequence(:name) { |n| "Plant Medicine variant - #{n}" }
+    variety { :preparation }
+    unit_name { :liter }
+
+    association :nature, factory: :phytosanitary_nature
+    association :category, factory: :phytosanitary_category
   end
 
   factory :fertilizer_variant, class: ProductNatureVariant do
@@ -109,5 +127,47 @@ FactoryBot.define do
 
     association :nature, factory: :land_parcel_nature
     association :category, factory: :land_parcel_category
+  end
+
+  factory :plant_medicine_variant, class: ProductNatureVariant do
+    sequence(:name) { |n| "Plant medicine variant - #{n}" }
+    variety { :preparation }
+    unit_name { :liter }
+
+    association :nature, factory: :plant_medicine_nature
+    association :category, factory: :plant_medicine_category
+
+    after(:build) do |variant|
+      create :product_nature_variant_reading, :net_mass, variant: variant
+    end
+
+    factory :copless_phytosanitary_variant do
+      sequence(:name) { |n| "Copless Plant Medicine variant - #{n}" }
+      unit_name { 'Kilogramme' }
+      france_maaid { '2000087' }
+      reference_name { '2000087_copless' }
+      imported_from { 'Lexicon' }
+    end
+
+    factory :award_phytosanitary_variant do
+      sequence(:name) { |n| "Award Plant Medicine variant - #{n}" }
+      france_maaid { '2190613' }
+      reference_name { '2190613_award' }
+      imported_from { 'Lexicon' }
+    end
+
+    factory :sultan_phytosanitary_variant do
+      sequence(:name) { |n| "Sultan Plant Medicine variant - #{n}" }
+      france_maaid { '2000003' }
+      reference_name { '2000003_sultan' }
+      imported_from { 'Lexicon' }
+    end
+
+    factory :zebra_phytosanitary_variant do
+      sequence(:name) { |n| "Zebra Plant Medicine variant - #{n}" }
+      france_maaid { '2000085' }
+      reference_name { '2000085_zebra' }
+      imported_from { 'Lexicon' }
+    end
   end
 end

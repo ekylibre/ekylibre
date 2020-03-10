@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20200107095554">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20200305160358">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -10328,6 +10328,7 @@
       <item name="arctium" parent="asteraceae" itis_tsn="36544"/>
       <item name="arctium_lappa" parent="arctium" itis_tsn="36545"/>
       <item name="arctium_minus" parent="arctium" itis_tsn="36546"/>
+      <item name="arecaceae" parent="plant" itis_tsn="500043"/>
       <item name="argania" parent="sapotaceae"/>
       <item name="argania_spinosa" parent="argania"/>
       <item name="artemisia" parent="asteraceae" itis_tsn="35431"/>
@@ -10909,7 +10910,10 @@
       <item name="dioscorea_trifida" parent="dioscorea" itis_tsn="43378"/>
       <item name="dioscorea_villosa" parent="dioscorea" itis_tsn="43367"/>
       <item name="dioscoreaceae" parent="plant" itis_tsn="43365"/>
+      <item name="diospyros" parent="ebenaceae" itis_tsn="23853"/>
+      <item name="diospyros_kaki" parent="diospyros" itis_tsn="896176"/>
       <item name="easement" parent="zone"/>
+      <item name="ebenaceae" parent="plant" itis_tsn="23852"/>
       <item name="egg" parent="raw_matter" derivative_of="aves"/>
       <item name="elaeagnaceae" parent="plant" itis_tsn="27768"/>
       <item name="elaeagnus" parent="elaeagnaceae" itis_tsn="27769"/>
@@ -10935,6 +10939,8 @@
       <item name="erysiphaceae" parent="fungus" itis_tsn="194121"/>
       <item name="eucalyptus" parent="myrtaceae" itis_tsn="27187"/>
       <item name="euphorbiaceae" parent="plant" itis_tsn="28031"/>
+      <item name="euterpe" parent="arecaceae" itis_tsn="500808"/>
+      <item name="euterpe_oleracea" parent="euterpe" itis_tsn="506722"/>
       <item name="excrement" parent="raw_matter" derivative_of="animal"/>
       <item name="fabaceae" parent="plant" itis_tsn="500059"/>
       <item name="fagaceae" parent="plant" itis_tsn="19275"/>
@@ -11574,6 +11580,8 @@
       <item name="mytilus_edulis" parent="mytilus" itis_tsn="79454"/>
       <item name="mytilus_galloprovincialis" parent="mytilus" itis_tsn="79456"/>
       <item name="mytilus_trossulus" parent="mytilus" itis_tsn="567928"/>
+      <item name="nasturtium" parent="brassicaceae" itis_tsn="23252"/>
+      <item name="nasturtium_officinale" parent="nasturtium" itis_tsn="23255"/>
       <item name="nematoda" parent="animal" itis_tsn="59490"/>
       <item name="nicotiana" parent="solanaceae" itis_tsn="30562"/>
       <item name="nicotiana_tabacum" parent="nicotiana" itis_tsn="30568"/>
