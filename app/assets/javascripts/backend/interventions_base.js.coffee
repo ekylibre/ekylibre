@@ -983,7 +983,7 @@
 
   displayWarningMessages = (warnings) =>
     for data in warnings
-      date = moment(data.next_possible_date).format('DD-MM-YYYY HH:mm')
+      date = moment(data.date).format('DD-MM-YYYY HH:mm')
       harvestWarning = $(".selector-value[value='#{data.id}']").closest('.controls')
 
       message = I18n.translate("front-end.intervention.nature.#{data.action}")
