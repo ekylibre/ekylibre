@@ -67,9 +67,9 @@ class ProductNatureCategory < Ekylibre::Record::Base
   belongs_to :fixed_asset_account, class_name: 'Account'
   belongs_to :fixed_asset_allocation_account, class_name: 'Account'
   belongs_to :fixed_asset_expenses_account, class_name: 'Account'
-  belongs_to :charge_account,    class_name: 'Account'
-  belongs_to :product_account,   class_name: 'Account'
-  belongs_to :stock_account,     class_name: 'Account'
+  belongs_to :charge_account, class_name: 'Account'
+  belongs_to :product_account, class_name: 'Account'
+  belongs_to :stock_account, class_name: 'Account'
   belongs_to :stock_movement_account, class_name: 'Account'
   has_many :products, foreign_key: :category_id, dependent: :restrict_with_exception
   has_many :taxations, class_name: 'ProductNatureCategoryTaxation', dependent: :destroy
@@ -90,8 +90,8 @@ class ProductNatureCategory < Ekylibre::Record::Base
   validates :number, length: { allow_nil: true, maximum: 30 }
   validates :pictogram, length: { allow_nil: true, maximum: 120 }
   validates :product_account, presence: { if: :saleable? }
-  validates :charge_account,  presence: { if: :purchasable? }
-  validates :stock_account,   presence: { if: :storable? }
+  validates :charge_account, presence: { if: :purchasable? }
+  validates :stock_account, presence: { if: :storable? }
   validates :stock_movement_account, presence: { if: :storable? }
   validates :fixed_asset_account, presence: { if: :depreciable? }
   validates :fixed_asset_allocation_account, presence: { if: :depreciable? }
@@ -99,13 +99,13 @@ class ProductNatureCategory < Ekylibre::Record::Base
   validates :number, uniqueness: true
   validates :name, uniqueness: true
 
-  accepts_nested_attributes_for :sale_taxations,     reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :sale_taxations, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :purchase_taxations, reject_if: :all_blank, allow_destroy: true
   acts_as_numbered force: false
 
-  scope :availables,    -> { where(active: true).order(:name) }
-  scope :stockables,    -> { where(storable: true).order(:name) }
-  scope :saleables,     -> { where(saleable: true).order(:name) }
+  scope :availables, -> { where(active: true).order(:name) }
+  scope :stockables, -> { where(storable: true).order(:name) }
+  scope :saleables, -> { where(saleable: true).order(:name) }
   scope :purchaseables, -> { where(purchasable: true).order(:name) }
   scope :depreciables, -> { where(depreciable: true).order(:name) }
   scope :stockables_or_depreciables, -> { where("#{table_name}.depreciable = ? OR #{table_name}.storable = ?", true, true).order(:name) }
@@ -142,21 +142,21 @@ class ProductNatureCategory < Ekylibre::Record::Base
     return unless type.match /Article/
 
     case reference_name
-    when 'fertilizer'
-      return 'Variants::Articles::FertilizerArticle'
-    when 'seed' || 'plant'
-      return 'Variants::Articles::SeedAndPlantArticle'
-    when 'plant_medicine'
-      return 'Variants::Articles::PlantMedicineArticle'
+      when 'fertilizer'
+        return 'Variants::Articles::FertilizerArticle'
+      when 'seed' || 'plant'
+        return 'Variants::Articles::SeedAndPlantArticle'
+      when 'plant_medicine'
+        return 'Variants::Articles::PlantMedicineArticle'
     end
 
     case charge_account&.usages
-    when 'fertilizer_expenses'
-      'Variants::Articles::FertilizerArticle'
-    when 'seed_expenses'
-      'Variants::Articles::SeedAndPlantArticle'
-    when 'plant_medicine_matter_expenses'
-      'Variants::Articles::PlantMedicineArticle'
+      when 'fertilizer_expenses'
+        'Variants::Articles::FertilizerArticle'
+      when 'seed_expenses'
+        'Variants::Articles::SeedAndPlantArticle'
+      when 'plant_medicine_matter_expenses'
+        'Variants::Articles::PlantMedicineArticle'
     end
   end
 
@@ -195,20 +195,36 @@ class ProductNatureCategory < Ekylibre::Record::Base
         type: nature == :fee_and_service ? 'VariantCategories::ServiceCategory' : "VariantCategories::#{nature.to_s.capitalize}Category",
         imported_from: 'Nomenclature'
       }.with_indifferent_access
-      %i[fixed_asset fixed_asset_allocation fixed_asset_expenses
-         charge product stock stock_movement].each do |account|
+      accounts_usage_categories = {
+        :charge => :purchasable,
+        :product => :saleable,
+        :stock => :storable,
+        :stock_movement => :storable,
+        :fixed_asset => :depreciable,
+        :fixed_asset_allocation => :depreciable,
+        :fixed_asset_expenses => :depreciable
+      }.with_indifferent_access
+      %i[fixed_asset fixed_asset_allocation fixed_asset_expenses charge product stock stock_movement].each do |account|
         account_name = item.send("#{account}_account")
+
         if account_name.present?
-          attributes["#{account}_account"] = Account.find_or_import_from_nomenclature(account_name)
+          a = Account.find_or_import_from_nomenclature(account_name)
+
+          if a.present?
+            attributes["#{account}_account"] = a
+          else
+            attributes[accounts_usage_categories[account].to_s] = false
+          end
         end
       end
+
       # TODO: add in rake clean method a way to detect same translation in nomenclatures by locale (to avoid conflict with validation on uniq name for example)
       # puts "#{item.human_name} - #{item.name}".red
       create!(attributes)
     end
 
     def import_from_lexicon(reference_name, force = false)
-      unless item = VariantCategory.find_by(reference_name: reference_name)
+      unless (item = VariantCategory.find_by(reference_name: reference_name))
         raise ArgumentError, "The product nature category #{reference_name.inspect} is unknown"
       end
       if !force && (category = ProductNatureCategory.find_by(reference_name: reference_name))
