@@ -6,7 +6,12 @@ module Interventions
       end
 
       def mix_code(product)
-        product.variant.phytosanitary_product.mix_category_code
+        phyto = product.variant.phytosanitary_product
+        if phyto.present?
+          phyto.mix_category_code
+        else
+          ''
+        end
       end
 
       # @param [Array<Models::ProductWithUsage>] products_usages
