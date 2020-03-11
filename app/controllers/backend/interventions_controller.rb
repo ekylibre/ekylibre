@@ -580,7 +580,7 @@ module Backend
       params_obj = FormObjects::Backend::Interventions::ValidateHarvestReentry.new(params.permit(:date, :date_end, :ignore_intervention, targets: []))
       return head :bad_request unless params_obj.valid?
 
-      date = DateTime.soft_parse(params_obj)
+      date = DateTime.soft_parse(params_obj.date)
       date_end = DateTime.soft_parse(params_obj.date_end) || date
       parcels = Product.find(params_obj.targets)
       ignore_intervention = params_obj.intervention
