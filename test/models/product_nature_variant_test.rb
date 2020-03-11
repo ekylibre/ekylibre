@@ -94,7 +94,7 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
   test 'import from nomenclature seedling' do
     # Seedling PNV doesn't exist on fr_pcg82 so it should raise an error when attempting to import it from nomenclature on this accounting system
     Account.accounting_system = 'fr_pcg82'
-    assert_raise { ProductNatureVariant.import_from_nomenclature(:seedling) }
+    assert_nothing_raised { ProductNatureVariant.import_from_nomenclature(:seedling) }
     Account.accounting_system = 'fr_pcga'
     assert_nothing_raised { ProductNatureVariant.import_from_nomenclature(:seedling) }
   end
