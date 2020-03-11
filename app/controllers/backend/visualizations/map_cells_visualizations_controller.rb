@@ -128,7 +128,7 @@ module Backend
             # end
 
             # compute pfi parcel ratio from pfi treatment ratios
-            popup_content << { label: :pfi_parcel_ratio.tl, value: support.pfi_parcel_ratio.round(2) }
+            # popup_content << { label: :pfi_parcel_ratio.tl, value: support.pfi_parcel_ratio.round(2) }
 
             interventions = support.interventions.real
             if interventions.any?
