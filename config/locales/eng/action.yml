@@ -694,10 +694,10 @@ eng:
       # take: "Take product: %{name}"
       # update_many: "Update many product: %{name}"
     backend/project_budgets:
-      # edit: "Edit project budget: %{name}"
-      # index: "Project budgets"
-      # new: "New project budget"
-      # show: "Project budget: %{name}"
+       edit: "Edit project budget: %{name}"
+       index: "Project budgets"
+       new: "New project budget"
+       show: "Project budget: %{name}"
     backend/purchase_affairs:
       # attach: "Attach purchase affair: %{name}"
       # detach: "Detach purchase affair: %{name}"
@@ -1502,7 +1502,7 @@ eng:
     commercial_margin: "Commercial margin"
     commission: "Commission"
     company: "Society"
-    # compare_planned_and_realised: "Compare planned and realised"
+    compare_planned_and_realised: "Compare planned and done"
     completed: "Completed"
     # components: "Components"
     compute_balances: "Computing balances" #?
@@ -1864,7 +1864,9 @@ eng:
     forecast_harvest_week: "Forecast harvest week"
     from: "From"
     from_to_date: "from %{from} to %{to}" #?
+    fruit_yield: "Fruit yield"
     fullscreen: "Fullscreen"
+    full_name: "Full name"
     function: "Function"
     fungi: "Fungi" #?
     future_events: "Future events"
@@ -2210,6 +2212,7 @@ eng:
     number_of_cap_islets: "Number of CAP islets"
     number_of_cap_land_parcels: "Number of CAP land parcels"
     number_of_cap_neutral_areas: "Number of cap neutral areas"
+    number_with_param: "N° %{number}" #?
     numbers: "Numbers" #?
     # observations: "Observations"
     on_account: "On account" #?
@@ -2291,9 +2294,9 @@ eng:
     permute: "Permute" #?
     personalized_mail: "Send a personalized mail"
     pertinence: "%{value}%"
-    # pfi_dose: "Pfi dose"
-    # pfi_parcel_ratio: "Pfi parcel ratio"
-    # pfi_treatment_ratio: "Pfi treatment ratio"
+    pfi_dose: "Pfi dose"
+    pfi_parcel_ratio: "Pfi parcel ratio"
+    pfi_treatment_ratio: "Pfi treatment ratio"
     phosphorus_concentration: "Phosphorus concentration" #?
     physical_h2: "Physical H2"
     phyto_data: "Phytosanitary data"
@@ -2751,6 +2754,7 @@ eng:
       one: "Validate the entry" #?
       other: "Validate %{count} entries" #?
     validated: "Validated"
+    validated_by: "Validated by"
     validated_vat_declaration: "Definitive VAT declaration" #?!
     values: "Values"
     variable_indicators: "Variable indicators"
@@ -2758,6 +2762,7 @@ eng:
     variants: "Variants" #?
     vat: "VAT"
     vat_rate: "VAT rate"
+    vegetable_yield: "Vegetable yield"
     view: "View"
     view_map_when_creating_an_intervention: "View map when creating an intervention"
     # vine_yield: "Vine yield"
@@ -3278,6 +3283,7 @@ eng:
       prepare: "Prepare"
       print: "Print"
       print_worker_register: "Print worker register"
+      print_land_parcel_register: "Print land parcel register"
       # progress: "Progress"
       propose: "Propose"
       propose_and_invoice: "Propose and invoice"
