@@ -42,6 +42,21 @@ CREATE TABLE lexicon.cadastral_land_parcel_zones (
 
 
 --
+-- Name: datasource_credits; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.datasource_credits (
+    datasource character varying,
+    name character varying,
+    url character varying,
+    provider character varying,
+    licence character varying,
+    licence_url character varying,
+    updated_at timestamp with time zone
+);
+
+
+--
 -- Name: ephy_cropsets; Type: TABLE; Schema: lexicon; Owner: -
 --
 
@@ -120,7 +135,9 @@ CREATE TABLE lexicon.master_production_natures (
     pfi_crop_code character varying,
     cap_2017_crop_code character varying,
     cap_2018_crop_code character varying,
-    cap_2019_crop_code character varying
+    cap_2019_crop_code character varying,
+    start_state_of_production jsonb,
+    life_duration numeric(5,2)
 );
 
 
@@ -314,7 +331,7 @@ CREATE TABLE lexicon.registered_phytosanitary_products (
     nature character varying,
     active_compounds character varying,
     france_maaid character varying NOT NULL,
-    mix_category_code character varying NOT NULL,
+    mix_category_codes integer[],
     in_field_reentry_delay integer,
     state character varying NOT NULL,
     started_on date,

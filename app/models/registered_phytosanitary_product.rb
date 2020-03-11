@@ -110,6 +110,10 @@ class RegisteredPhytosanitaryProduct < ActiveRecord::Base
     end
   end
 
+  def mix_category_codes
+    super || []
+  end
+
   def proper_name
     [nature, name, france_maaid, firm_name].compact.join(' - ')
   end

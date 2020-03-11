@@ -19,7 +19,7 @@ module FormObjects
         end
 
         def products_and_usages_ids
-          @products_and_usages_ids || []
+          @products_and_usages_ids || {}
         end
 
         def targets
