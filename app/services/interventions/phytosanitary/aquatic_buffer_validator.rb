@@ -6,6 +6,7 @@ module Interventions
       # @return [Models::ProductApplicationResult]
       def validate(products_usages)
         result = Models::ProductApplicationResult.new
+        return result if products_usages.length == 1
 
         products_usages.select { |prod_usage| prod_usage.usage.present? && prod_usage.usage.untreated_buffer_aquatic.present? && prod_usage.usage.untreated_buffer_aquatic >= 100 }
           .each do |prod_usage|
