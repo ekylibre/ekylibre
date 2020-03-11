@@ -22,7 +22,7 @@
   = f.input :unit_name
   - if params[:subdivision] == 'plant_medicine_articles' || f.object.is_a?(Variants::Articles::PlantMedicineArticle)
     - value = RegisteredPhytosanitaryProduct.find_by_reference_name(f.object.reference_name)
-    = field :france_maaid.tl, selector_tag(:phyto_product_id, { controller: "/backend/registered_phytosanitary_products", action: :unroll }, value: value&.id || f.object.france_maaid)
+    = field :france_maaid.tl, selector_tag(:phyto_product_id, { controller: "/backend/registered_phytosanitary_products", action: :unroll }, { value: value&.id || f.object.france_maaid }, { disabled: f.object.phytosanitary_product.present? })
   = f.picture
   = f.custom_fields
 

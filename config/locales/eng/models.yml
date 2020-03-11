@@ -224,6 +224,9 @@ eng:
     errors:
       messages:
         <<: *error_messages
+      models:
+        product_nature_variant:
+          cannot_change_maaid_number_if_it_has_already_been_set: "The MAAID number already refers to a phytosanitary product and thus cannot be changed"
     models:
       account: "Account"
       account_balance: "Account balance"

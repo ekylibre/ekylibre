@@ -344,9 +344,6 @@ module Backend
           phyto = RegisteredPhytosanitaryProduct.find(phyto_product_id)
           attributes = { france_maaid: phyto.france_maaid, reference_name: phyto.reference_name, imported_from: 'Lexicon' }
           variant.attributes = attributes
-        elsif variant.france_maaid.present?
-          attributes = { france_maaid: nil, reference_name: nil, imported_from: nil }
-          variant.attributes = attributes
         end
       end
   end
