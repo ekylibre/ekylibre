@@ -21,10 +21,12 @@ module Backend
             )
             result = validator.validate(prods_usages)
 
-            products_infos = prods_usages.map(&:product).map do |product|
-              messages = result.messages.fetch(product, [])
+            products_infos = prods_usages.map do |pu|
+              messages = result.messages.fetch(pu.product, [])
+              state = messages.empty? ? :allowed : :forbidden
+              check_conditions = messages.empty? && pu.usage&.usage_conditions
 
-              [product.id, { state: messages.empty? ? :allowed : :forbidden, allowed_mentions: fetch_allowed_mentions(product), messages: messages }]
+              [pu.product.id, { state: state, allowed_mentions: fetch_allowed_mentions(pu.product), messages: messages, check_conditions: check_conditions }]
             end.to_h
 
             render json: products_infos

@@ -195,6 +195,7 @@ eng:
         ephy_usage_phrase: "Usage"
         lib_court: "Number"
         status: "Allowed"
+        usage_conditions: "Usage conditions"
       registered_phytosanitary_risk:
         mentions: "Risk mentions"
         symbol_name: "Pictogram"

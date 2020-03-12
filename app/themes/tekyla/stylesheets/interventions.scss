@@ -392,22 +392,32 @@ $preview-modal-height: 80vh;
 
 .product_parameters .cast {
   padding: 0;
-  padding-left: $default-gap * 2;
+  padding-left: $default-gap;
+  display: flex;
 
   .picture {
+    flex: 0 0 4%;
     margin: $default-gap 0;
     margin-right: $default-gap;
+    border: unset;
+    box-shadow: unset;
+    & > div, & > img {
+      padding: 4px;
+      border: $menu-border;
+      box-shadow: 0 0 $default-gap rgba(0, 0, 0, 0.15);
+    }
   }
 
   .details {
-    padding-top: $default-gap;
+    flex: 1 1 auto;
+    padding: $default-gap 0;
   }
 }
 
 .product_parameters .periods {
+  flex: 0 0 auto;
   @include flex-row(center, stretch);
-  float: right;
-  height: $fs-awesome * 1.6;
+  height: $fs-awesome * 1.7;
 
   .period,
   .total {
@@ -647,5 +657,17 @@ $preview-modal-height: 80vh;
   }
   span, .picto {
     color: red;
+  }
+}
+
+.input-authorization__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  float: right;
+
+  .input-authorization__text {
+    margin-right: 35px;
   }
 }

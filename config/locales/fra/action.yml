@@ -1247,6 +1247,7 @@ fra:
     attachment: "Pièce jointe"
     attachments: "Pièces jointes"
     attorney: "Informations mandataire" #?
+    authorized: "Autorisé"
     automatic: "Auto"
     auxiliary: "Auxiliaire"
     available: "Disponible"
@@ -1348,6 +1349,7 @@ fra:
     check: "Vérifier"
     check_fields: "Vous devez cocher au moins une case pour effectuer la modification" #?
     check_letter: "Lettre-chèque"
+    check_usage_conditions: "Vérifiez les conditions d'usage"
     check_x_entries_to_balance:
       one: "Consulter l'écriture à équilibrer (%{count})"
       other: "Consulter les écritures à équilibrer (%{count})"

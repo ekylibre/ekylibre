@@ -19,6 +19,11 @@ class RegisteredPhytosanitaryUsageDecorator < Draper::Decorator
     end
   end
 
+  def usage_conditions
+    return unless object.usage_conditions
+    ApplicationController.helpers.picto_tag('info-circle', color: '#3f70ce', pointer: true, data: { toggle: 'modal', target: "#usage-conditions-modal-#{object.id}" })
+  end
+
   def value_in_days(col)
     value = object.send(col)
 
