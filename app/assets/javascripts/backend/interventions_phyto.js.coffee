@@ -10,7 +10,7 @@
           $productField = $(".selector-value[value='#{id}']").closest('.nested-plant_medicine')
 
           @._displayAllowedMentions($productField, infos.allowed_mentions)
-          @._displayBadge($productField, infos.state)
+          @._displayBadge($productField, infos.state, infos.check_conditions)
           @._displayMessages($productField, infos.messages)
 
     _displayAllowedMentions: ($productField, allowedMentions) ->
@@ -18,8 +18,9 @@
       for mention in allowedMentions
         $productField.find("##{mention}").show()
 
-    _displayBadge: ($productField, state) ->
+    _displayBadge: ($productField, state, checkConditions) ->
       new StateBadgeSet($productField.find('#intervention-products-badges')).setState(state)
+      $productField.find('.input-authorization__text').show() if checkConditions
 
     _displayMessages: ($productField, messages) ->
       $productField.find('#product-authorization-message').html(messages.join('<br>'))
@@ -27,6 +28,7 @@
     _clear: ($productField) ->
       $productField.find('.allowed-mentions img').each -> $(this).hide()
       new StateBadgeSet($productField.find('#intervention-products-badges')).setState(null)
+      $productField.find('.input-authorization__text').hide()
 
     _retrieveValues: () ->
       targetsIds = $('.nested-cultivation').map ->

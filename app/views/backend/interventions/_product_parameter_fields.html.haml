@@ -38,7 +38,9 @@
         %img#biocontrol-usage.hidden{ src: image_path("phytosanitary_products/allowed_mentions/biocontrol-usage.svg"), alt: :biocontrol_usage.tl, title: :biocontrol_usage.tl }
         %img#organic-usage.hidden{ src: image_path("phytosanitary_products/allowed_mentions/organic-usage.svg"), alt: :organic_usage.tl, title: :organic_usage.tl }
         %span#product-authorization-message
-        = state_badge_set(nil, states: %i[forbidden allowed], html: {id: 'intervention-products-badges', style: "margin-right: 35px;"})
+        %span.input-authorization__container
+          = state_badge_set(nil, states: %i[forbidden allowed], html: {id: 'intervention-products-badges', style: "margin-right: 35px;"})
+          = content_tag(:span, :check_usage_conditions.tl, class: 'input-authorization__text hidden')
 
     - if reference.tool?
       .tool-nested-readings.hidden

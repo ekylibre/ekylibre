@@ -324,6 +324,7 @@ fra:
         untreated_buffer_aquatic: "ZNT aquatique"
         untreated_buffer_arthropod: "ZNT arthropodes"
         untreated_buffer_plants: "ZNT plantes"
+        usage_conditions: "Conditions d'usage"
       registered_phytosanitary_risk:
         description: "Descriptif"
         mentions: "Mentions de danger"

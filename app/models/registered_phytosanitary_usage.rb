@@ -64,8 +64,9 @@ class RegisteredPhytosanitaryUsage < ActiveRecord::Base
                                                OR ephy_cropsets.crop_names && \'{"' + ActivityProduction.retrieve_varieties_ancestors(*varieties).join('", "') + '"}\'') }
 
   scope :of_specie, ->(specie) { where(specie: specie.to_s) }
+  scope :with_conditions, -> { where.not(usage_conditions: nil) }
 
-  %i[dose_quantity development_stage_min].each do |col|
+  %i[dose_quantity development_stage_min usage_conditions].each do |col|
     define_method "decorated_#{col}" do
       decorate.send(col)
     end
