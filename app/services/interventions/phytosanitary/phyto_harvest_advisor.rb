@@ -2,7 +2,7 @@ module Interventions
   module Phytosanitary
     class PhytoHarvestAdvisor
 
-      # @param [Plant|LandParcel] target
+      # @param [Plant, LandParcel] target
       # @param [DateTime] date
       # @option [DateTime] date_end
       # @option [Intervention] ignore_intervention
@@ -17,9 +17,9 @@ module Interventions
         harvest_possible_from_interventions?(int_period, interventions)
       end
 
-      # @param [Plant|LandParcel] target
-      # @param [Time] date
-      # @option [Time] date_end
+      # @param [Plant, LandParcel] target
+      # @param [DateTime] date
+      # @option [DateTime] date_end
       # @option [Intervention] ignore_intervention
       # @return [Models::HarvestResult]
       def reentry_possible?(target, date, date_end: nil, ignore_intervention: nil)
@@ -75,7 +75,11 @@ module Interventions
       end
 
       def get_spraying_intervention_on(targets)
-        Intervention.where(id: InterventionTarget.where(product_id: targets).pluck(:intervention_id)).of_nature("spraying")
+        Intervention
+          .where(id: InterventionTarget.where(product_id: targets).pluck(:intervention_id))
+          .of_nature("spraying")
+          .joins(:inputs) # inner join removes interventions without inputs
+          .distinct
       end
 
       def select_periods_intersecting(period, periods)

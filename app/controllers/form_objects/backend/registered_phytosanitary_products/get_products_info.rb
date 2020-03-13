@@ -14,6 +14,14 @@ module FormObjects
 
         attr_accessor :targets_ids, :products_and_usages_ids
 
+        def targets_ids
+          @targets_ids || []
+        end
+
+        def products_and_usages_ids
+          @products_and_usages_ids || []
+        end
+
         def targets
           @targets ||= [Plant, LandParcel].map { |s| s.where(id: targets_ids) }.sum
         end
