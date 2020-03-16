@@ -3,6 +3,6 @@
 
 - main_toolbar do |t|
   - %w[article animal crop equipment service worker zone].each do |nature|
-    = link_to nature.pluralize.tl, send("backend_variant_categories_#{nature}_categories_path"), class: 'btn btn-default'
+    = link_to nature.pluralize.tl, send("backend_variant_categories_#{nature}_categories_path"), class: 'btn-pill'
 
 = main_list
