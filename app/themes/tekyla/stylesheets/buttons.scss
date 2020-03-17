@@ -87,7 +87,7 @@ a.btn, button.btn {
       padding: $default-gap 2*$default-gap;
     }
   }
-  & > .btn:not(.no-right-margin):not(:last-child) {
+  & > .btn:not(:last-child) {
     margin-right: 5px;
   }
 }
@@ -107,3 +107,36 @@ a.btn, button.btn {
   @include inline-block;
 }
 
+.btn-pill {
+  @include inline-block;
+  @include margin-right(5px);
+  @include text-shadow(1px 1px 0 white);
+  border: 1px solid transparent;
+  border-radius: 1000px !important;
+  background: $neutral-background;
+  padding: round($default-gap * 0.2 - 1px) $default-gap;
+  color: mix($base-font-color, $active-color) !important;
+  font-size: $fs-normal;
+  line-height: round($lh-ratio * $fs-normal);
+
+  &.dropdown-toggle {
+    @include icon-after(caret-down, $font-size: 14px);
+  }
+  &.active {
+    @include text-shadow(1px 1px 0 $neutral-color)
+    background-color: $primary-color;
+    border-color: $active-color;
+    color: white !important;
+    font-weight: bold;
+  }
+  &:focus {
+    @include box-shadow(0 0 round($fs-normal*0.6) rgba($base-color, 0.6));
+  }
+  &:focus, &:active {
+    outline: none;
+    border-color: $active-color;
+  }
+  &:hover {
+    @include box-shadow(0 0 $default-gap white);
+  }
+}
