@@ -58,10 +58,12 @@ class RegisteredPhytosanitaryUsage < ActiveRecord::Base
   belongs_to :product, class_name: 'RegisteredPhytosanitaryProduct'
 
   scope :of_product, -> (*ids) { where(product_id: ids) }
-  scope :of_variety, -> (*varieties) { joins('LEFT OUTER JOIN ephy_cropsets
-                                              ON registered_phytosanitary_usages.species[1] = ephy_cropsets.name')
-                                         .where('registered_phytosanitary_usages.species && \'{"' + ActivityProduction.retrieve_varieties_ancestors(*varieties).join('", "') + '"}\'
-                                               OR ephy_cropsets.crop_names && \'{"' + ActivityProduction.retrieve_varieties_ancestors(*varieties).join('", "') + '"}\'') }
+  scope :of_variety, -> (*varieties) do
+    with_ancestors = [*varieties, *varieties.flat_map(&:ancestors)].uniq.join('", "')
+
+    joins('LEFT OUTER JOIN ephy_cropsets ON registered_phytosanitary_usages.species[1] = ephy_cropsets.name')
+      .where("registered_phytosanitary_usages.species && '{\"#{with_ancestors}\"}' OR ephy_cropsets.crop_names && '{\"#{with_ancestors}\"}'")
+  end
 
   scope :of_specie, ->(specie) { where(specie: specie.to_s) }
 
