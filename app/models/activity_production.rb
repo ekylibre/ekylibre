@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2015-2020 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -214,6 +214,19 @@ class ActivityProduction < Ekylibre::Record::Base
 
   protect(on: :destroy) do
     interventions.any? || products.any?
+  end
+
+  def self.retrieve_varieties_ancestors(*varieties)
+    varieties.map do |variety|
+      ancestors = [variety]
+      nomen_variety = Nomen::Variety.find(variety)
+      loop do
+        nomen_variety = nomen_variety.parent
+        ancestors << nomen_variety.name
+        break if nomen_variety.name == 'plant'
+      end
+      ancestors
+    end.flatten.uniq
   end
 
   def computed_support_name

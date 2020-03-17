@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2015-2020 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,7 +25,6 @@
 #
 #  abilities_list            :text
 #  active                    :boolean          default(FALSE), not null
-#  category_id               :integer          not null
 #  created_at                :datetime         not null
 #  creator_id                :integer
 #  custom_fields             :jsonb
@@ -35,6 +34,7 @@
 #  evolvable                 :boolean          default(FALSE), not null
 #  frozen_indicators_list    :text
 #  id                        :integer          not null, primary key
+#  imported_from             :string
 #  linkage_points_list       :text
 #  lock_version              :integer          default(0), not null
 #  name                      :string           not null
@@ -50,6 +50,7 @@
 #  subscription_months_count :integer          default(0), not null
 #  subscription_nature_id    :integer
 #  subscription_years_count  :integer          default(0), not null
+#  type                      :string           not null
 #  updated_at                :datetime         not null
 #  updater_id                :integer
 #  variable_indicators_list  :text
@@ -58,7 +59,6 @@
 ---
 product_natures_001:
   active: true
-  category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   evolvable: true
@@ -75,9 +75,9 @@ product_natures_001:
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
   variety: product
+  type: VariantTypes::ArticleType
 product_natures_002:
   active: true
-  category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 2
   evolvable: false
@@ -93,9 +93,9 @@ product_natures_002:
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 2
   variety: animal
+  type: VariantTypes::AnimalType
 product_natures_003:
   active: true
-  category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   evolvable: false
@@ -111,9 +111,9 @@ product_natures_003:
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
   variety: plant
+  type: VariantTypes::CropType
 product_natures_004:
   active: true
-  category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   evolvable: false
@@ -129,9 +129,9 @@ product_natures_004:
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
   variety: building
+  type: VariantTypes::ZoneType
 product_natures_005:
   active: true
-  category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   derivatives_list: meat, milk
@@ -149,9 +149,9 @@ product_natures_005:
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
   variety: bos
+  type: VariantTypes::AnimalType
 product_natures_006:
   active: true
-  category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   evolvable: false
@@ -168,9 +168,9 @@ product_natures_006:
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
   variety: building_division
+  type: VariantTypes::ZoneType
 product_natures_007:
   active: true
-  category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   evolvable: false
@@ -186,10 +186,10 @@ product_natures_007:
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
   variety: animal_group
+  type: VariantTypes::AnimalType
 product_natures_008:
   abilities_list: care(plant), kill(fungus)
   active: true
-  category_id: 3
   created_at: 2014-10-31 20:11:19.889621000 Z
   creator_id: 1
   evolvable: false
@@ -208,10 +208,10 @@ product_natures_008:
   updater_id: 1
   variable_indicators_list: approved_input_dose, untreated_zone_length, wait_before_harvest_period
   variety: preparation
+  type: VariantTypes::ArticleType
 product_natures_009:
   abilities_list: feed(animal)
   active: true
-  category_id: 4
   created_at: 2014-10-31 20:11:30.472907000 Z
   creator_id: 1
   derivative_of: poaceae
@@ -230,10 +230,10 @@ product_natures_009:
   updated_at: 2014-10-31 20:11:30.472907000 Z
   updater_id: 1
   variety: straw
+  type: VariantTypes::ArticleType
 product_natures_010:
   abilities_list: grow
   active: true
-  category_id: 5
   created_at: 2014-10-31 20:11:42.141258000 Z
   creator_id: 1
   derivative_of: plant
@@ -252,10 +252,10 @@ product_natures_010:
   updated_at: 2014-10-31 20:11:42.141258000 Z
   updater_id: 1
   variety: seed
+  type: VariantTypes::ArticleType
 product_natures_011:
   abilities_list: store(building_division)
   active: true
-  category_id: 6
   created_at: 2014-10-31 20:13:23.322567000 Z
   creator_id: 1
   evolvable: false
@@ -273,10 +273,10 @@ product_natures_011:
   updater_id: 1
   variable_indicators_list: net_surface_area, shape
   variety: building
+  type: VariantTypes::ZoneType
 product_natures_012:
   abilities_list: store(equipment)
   active: true
-  category_id: 7
   created_at: 2014-10-31 20:13:55.104377000 Z
   creator_id: 1
   evolvable: false
@@ -295,10 +295,10 @@ product_natures_012:
   variable_indicators_list: net_surface_area, nominal_storable_easement_area, nominal_storable_net_volume,
     shape
   variety: building_division
+  type: VariantTypes::ZoneType
 product_natures_013:
   abilities_list: store(equipment), store(grass), store(mix), store(seed)
   active: true
-  category_id: 7
   created_at: 2014-10-31 20:21:52.482591000 Z
   creator_id: 1
   evolvable: false
@@ -317,10 +317,10 @@ product_natures_013:
   variable_indicators_list: net_surface_area, nominal_storable_easement_area, nominal_storable_net_volume,
     shape
   variety: building_division
+  type: VariantTypes::ZoneType
 product_natures_014:
   abilities_list: store(product)
   active: true
-  category_id: 7
   created_at: 2014-10-31 20:25:22.969151000 Z
   creator_id: 1
   evolvable: false
@@ -339,10 +339,10 @@ product_natures_014:
   variable_indicators_list: net_surface_area, nominal_storable_easement_area, nominal_storable_net_volume,
     shape
   variety: building_division
+  type: VariantTypes::ZoneType
 product_natures_015:
   abilities_list: consume(preparation), consume(water), produce(grain), produce(straw)
   active: true
-  category_id: 8
   created_at: 2014-11-01 19:06:50.030010000 Z
   creator_id: 1
   derivatives_list: grain, straw
@@ -364,11 +364,11 @@ product_natures_015:
   variable_indicators_list: fresh_mass, plant_life_state, plant_reproduction_state,
     plants_count, shape, tiller_count
   variety: plant
+  type: VariantTypes::CropType
 product_natures_016:
   abilities_list: consume(mix), consume(poaceae), consume(silage), consume(water),
     move, produce(animal), produce(excrement), produce(milk)
   active: true
-  category_id: 9
   created_at: 2014-11-01 19:08:36.219671000 Z
   creator_id: 1
   derivatives_list: meat, milk
@@ -392,10 +392,10 @@ product_natures_016:
     mammalia_reproduction_method_embryo_transplant, mammalia_reproduction_state, milk_daily_production,
     net_mass, protein_concentration_index, unique_synthesis_index
   variety: bos
+  type: VariantTypes::AnimalType
 product_natures_017:
   abilities_list: feed(mammalia)
   active: true
-  category_id: 10
   created_at: 2014-11-01 19:09:20.935423000 Z
   creator_id: 1
   derivative_of: mammalia
@@ -420,10 +420,10 @@ product_natures_017:
     lipolysis, protein_matters_concentration, somatic_cell_concentration, temperature,
     total_bacteria_concentration, urea_concentration
   variety: milk
+  type: VariantTypes::ArticleType
 product_natures_018:
   abilities_list: feed(animal)
   active: true
-  category_id: 11
   created_at: 2014-11-01 19:10:35.067432000 Z
   creator_id: 1
   derivative_of: plant
@@ -446,10 +446,10 @@ product_natures_018:
   variable_indicators_list: hagberg_falling_number, impurity_concentration, protein_concentration,
     specific_weight, water_content_rate
   variety: grain
+  type: VariantTypes::ArticleType
 product_natures_019:
   abilities_list: care(animal), kill(bacteria), kill(fungus), kill(virus)
   active: true
-  category_id: 12
   created_at: 2014-11-01 20:20:57.132408000 Z
   creator_id: 1
   derivatives_list: ''
@@ -470,11 +470,11 @@ product_natures_019:
   updated_at: 2014-11-01 20:20:57.132408000 Z
   updater_id: 1
   variety: preparation
+  type: VariantTypes::ArticleType
 product_natures_020:
   abilities_list: administer_care(animal), drive(equipment), milk(mammalia), move,
     repair(equipment)
   active: true
-  category_id: 13
   created_at: 2014-11-01 20:26:13.052907000 Z
   creator_id: 1
   derivatives_list: ''
@@ -494,10 +494,10 @@ product_natures_020:
   updater_id: 1
   variable_indicators_list: geolocation
   variety: worker
+  type: VariantTypes::WorkerType
 product_natures_021:
   abilities_list: catch(equipment), consume(fuel), consume(oil), move, tow(matter)
   active: true
-  category_id: 14
   created_at: 2014-11-02 18:19:37.955910000 Z
   creator_id: 1
   evolvable: false
@@ -516,10 +516,10 @@ product_natures_021:
   updater_id: 1
   variable_indicators_list: geolocation, hour_counter, motor_power, net_surface_area
   variety: tractor
+  type: VariantTypes::EquipmentType
 product_natures_022:
   abilities_list: grind(plant)
   active: true
-  category_id: 14
   created_at: 2014-11-02 18:19:51.679190000 Z
   creator_id: 1
   derivatives_list: ''
@@ -540,10 +540,10 @@ product_natures_022:
   updater_id: 1
   variable_indicators_list: geolocation
   variety: trailed_equipment
+  type: VariantTypes::EquipmentType
 product_natures_023:
   abilities_list: plow
   active: true
-  category_id: 14
   created_at: 2014-11-02 18:29:03.417542000 Z
   creator_id: 1
   derivatives_list: ''
@@ -564,11 +564,11 @@ product_natures_023:
   updater_id: 1
   variable_indicators_list: geolocation
   variety: trailed_equipment
+  type: VariantTypes::EquipmentType
 product_natures_024:
   abilities_list: consume(seed), consume(water), produce(plant), store(animal), store(fungus),
     store(plant)
   active: true
-  category_id: 15
   created_at: 2014-11-02 18:31:53.731583000 Z
   creator_id: 1
   derivatives_list: ''
@@ -589,10 +589,10 @@ product_natures_024:
   updater_id: 1
   variable_indicators_list: shape, soil_cultural_state
   variety: land_parcel
+  type: VariantTypes::ZoneType
 product_natures_025:
   abilities_list: sow
   active: true
-  category_id: 14
   created_at: 2014-11-02 18:36:36.365485000 Z
   creator_id: 1
   derivatives_list: ''
@@ -614,11 +614,11 @@ product_natures_025:
   updater_id: 1
   variable_indicators_list: geolocation
   variety: trailed_equipment
+  type: VariantTypes::EquipmentType
 product_natures_026:
   abilities_list: consume(mix), consume(poaceae), consume(silage), consume(water),
     move, produce(excrement), produce(milk)
   active: true
-  category_id: 16
   created_at: 2014-11-04 17:27:32.647028000 Z
   creator_id: 1
   derivative_of: bos
@@ -639,11 +639,11 @@ product_natures_026:
   updated_at: 2014-11-04 17:27:32.647028000 Z
   updater_id: 1
   variety: animal_group
+  type: VariantTypes::AnimalType
 product_natures_027:
   abilities_list: consume(mix), consume(poaceae), consume(silage), consume(water),
     move, produce(excrement)
   active: true
-  category_id: 16
   created_at: 2014-11-04 17:27:59.301765000 Z
   creator_id: 1
   derivative_of: bos
@@ -664,10 +664,10 @@ product_natures_027:
   updated_at: 2014-11-04 17:27:59.301765000 Z
   updater_id: 1
   variety: animal_group
+  type: VariantTypes::AnimalType
 product_natures_028:
   abilities_list: plow_superficially
   active: true
-  category_id: 14
   created_at: 2014-11-04 18:38:32.184660000 Z
   creator_id: 1
   derivatives_list: ''
@@ -688,10 +688,10 @@ product_natures_028:
   updater_id: 1
   variable_indicators_list: geolocation
   variety: trailed_equipment
+  type: VariantTypes::EquipmentType
 product_natures_029:
   abilities_list: hoe, plow_superficially
   active: true
-  category_id: 14
   created_at: 2014-11-04 18:40:21.555218000 Z
   creator_id: 1
   derivatives_list: ''
@@ -712,10 +712,10 @@ product_natures_029:
   updater_id: 1
   variable_indicators_list: geolocation
   variety: trailed_equipment
+  type: VariantTypes::EquipmentType
 product_natures_030:
   abilities_list: spray
   active: true
-  category_id: 14
   created_at: 2014-11-07 15:00:45.263080000 Z
   creator_id: 1
   derivatives_list: ''
@@ -736,10 +736,10 @@ product_natures_030:
   updater_id: 1
   variable_indicators_list: geolocation
   variety: trailed_equipment
+  type: VariantTypes::EquipmentType
 product_natures_031:
   abilities_list: spread(preparation)
   active: true
-  category_id: 14
   created_at: 2014-11-07 15:22:23.946771000 Z
   creator_id: 1
   derivatives_list: ''
@@ -760,10 +760,10 @@ product_natures_031:
   updater_id: 1
   variable_indicators_list: geolocation
   variety: trailed_equipment
+  type: VariantTypes::EquipmentType
 product_natures_032:
   abilities_list: move, spread(excrement), store(excrement), store_fluid
   active: true
-  category_id: 14
   created_at: 2014-11-07 15:22:31.398219000 Z
   creator_id: 1
   derivatives_list: ''
@@ -783,10 +783,10 @@ product_natures_032:
   updater_id: 1
   variable_indicators_list: geolocation, nominal_storable_net_mass, nominal_storable_net_volume
   variety: trailed_equipment
+  type: VariantTypes::EquipmentType
 product_natures_033:
   abilities_list: fertilize
   active: true
-  category_id: 17
   created_at: 2014-11-07 15:24:11.130698000 Z
   creator_id: 1
   derivatives_list: ''
@@ -807,10 +807,10 @@ product_natures_033:
   updated_at: 2014-11-07 15:24:11.130698000 Z
   updater_id: 1
   variety: preparation
+  type: VariantTypes::ArticleType
 product_natures_034:
   abilities_list: consume(preparation), consume(water), produce(straw)
   active: true
-  category_id: 8
   created_at: 2014-11-07 15:40:58.360188000 Z
   creator_id: 1
   derivatives_list: straw
@@ -832,10 +832,10 @@ product_natures_034:
   variable_indicators_list: fresh_mass, plant_life_state, plant_reproduction_state,
     plants_count, shape, tiller_count
   variety: plant
+  type: VariantTypes::CropType
 product_natures_035:
   abilities_list: feed(animal)
   active: true
-  category_id: 18
   created_at: 2014-11-07 15:46:45.135495000 Z
   creator_id: 1
   derivative_of: plant
@@ -857,10 +857,10 @@ product_natures_035:
   updater_id: 1
   variable_indicators_list: dry_matter_rate
   variety: grass
+  type: VariantTypes::ArticleType
 product_natures_036:
   abilities_list: consume(preparation), consume(water), produce(fruit), produce(straw)
   active: true
-  category_id: 8
   created_at: 2014-11-07 16:33:48.598611000 Z
   creator_id: 1
   derivatives_list: fruit, straw
@@ -882,10 +882,10 @@ product_natures_036:
   variable_indicators_list: certification, plant_life_state, plants_count, plants_interval,
     rows_interval, shape, woodstock_variety
   variety: vitis
+  type: VariantTypes::CropType
 product_natures_037:
   abilities_list: grow
   active: true
-  category_id: 19
   created_at: 2014-11-07 16:33:59.251213000 Z
   creator_id: 1
   derivative_of: vitis
@@ -906,10 +906,10 @@ product_natures_037:
   updated_at: 2014-11-07 16:33:59.251213000 Z
   updater_id: 1
   variety: seedling
+  type: VariantTypes::ArticleType
 product_natures_038:
   abilities_list: implant
   active: true
-  category_id: 14
   created_at: 2014-11-07 16:48:34.917965000 Z
   creator_id: 1
   derivatives_list: ''
@@ -930,10 +930,10 @@ product_natures_038:
   updater_id: 1
   variable_indicators_list: geolocation
   variety: trailed_equipment
+  type: VariantTypes::EquipmentType
 product_natures_039:
   abilities_list: consume(fuel), consume(oil), harvest(grape)
   active: true
-  category_id: 14
   created_at: 2014-11-07 17:04:02.243262000 Z
   creator_id: 1
   derivatives_list: ''
@@ -953,10 +953,10 @@ product_natures_039:
   updater_id: 1
   variable_indicators_list: application_width, geolocation
   variety: trailed_equipment
+  type: VariantTypes::EquipmentType
 product_natures_040:
   abilities_list: produce(juice)
   active: true
-  category_id: 20
   created_at: 2014-11-07 17:05:38.068085000 Z
   creator_id: 1
   derivative_of: vitis
@@ -978,10 +978,10 @@ product_natures_040:
   updater_id: 1
   variable_indicators_list: sucrose_concentration
   variety: grape
+  type: VariantTypes::ArticleType
 product_natures_041:
   abilities_list: ''
   active: true
-  category_id: 21
   created_at: 2014-11-07 17:10:23.472125000 Z
   creator_id: 1
   derivative_of: grape
@@ -1003,10 +1003,10 @@ product_natures_041:
   updater_id: 1
   variable_indicators_list: certification, reference_year, temperature, total_bacteria_concentration
   variety: wine
+  type: VariantTypes::ArticleType
 product_natures_042:
   abilities_list: store(grape), store(juice), store(wine), store_liquid
   active: true
-  category_id: 14
   created_at: 2014-11-07 17:14:18.201534000 Z
   creator_id: 1
   derivatives_list: ''
@@ -1027,10 +1027,10 @@ product_natures_042:
   updater_id: 1
   variable_indicators_list: geolocation
   variety: tank
+  type: VariantTypes::EquipmentType
 product_natures_043:
   abilities_list: press(grape), press(juice), press(wine)
   active: true
-  category_id: 14
   created_at: 2014-11-07 17:23:08.046218000 Z
   creator_id: 1
   derivatives_list: ''
@@ -1050,10 +1050,10 @@ product_natures_043:
   updater_id: 1
   variable_indicators_list: nominal_storable_net_volume
   variety: equipment
+  type: VariantTypes::EquipmentType
 product_natures_044:
   abilities_list: fertilize
   active: true
-  category_id: 17
   created_at: 2014-11-07 17:24:39.590466000 Z
   creator_id: 1
   derivatives_list: ''
@@ -1074,10 +1074,10 @@ product_natures_044:
   updated_at: 2014-11-07 17:24:39.590466000 Z
   updater_id: 1
   variety: preparation
+  type: VariantTypes::ArticleType
 product_natures_045:
   abilities_list: produce(wine)
   active: true
-  category_id: 20
   created_at: 2014-11-07 17:25:14.409838000 Z
   creator_id: 1
   derivative_of: grape
@@ -1098,10 +1098,10 @@ product_natures_045:
   updated_at: 2014-11-07 17:25:14.409838000 Z
   updater_id: 1
   variety: fermented_juice
+  type: VariantTypes::ArticleType
 product_natures_046:
   abilities_list: ''
   active: true
-  category_id: 4
   created_at: 2014-11-07 17:25:46.188857000 Z
   creator_id: 1
   derivative_of: plant
@@ -1122,10 +1122,10 @@ product_natures_046:
   updated_at: 2014-11-07 17:25:46.188857000 Z
   updater_id: 1
   variety: straw
+  type: VariantTypes::ArticleType
 product_natures_047:
   abilities_list: fertilize
   active: true
-  category_id: 20
   created_at: 2014-11-07 17:27:02.354344000 Z
   creator_id: 1
   derivatives_list: ''
@@ -1145,10 +1145,10 @@ product_natures_047:
   updated_at: 2014-11-07 17:27:02.354344000 Z
   updater_id: 1
   variety: pomace
+  type: VariantTypes::ArticleType
 product_natures_048:
   abilities_list: produce(fermented_juice)
   active: true
-  category_id: 20
   created_at: 2014-11-07 18:58:14.603553000 Z
   creator_id: 1
   derivative_of: grape
@@ -1170,10 +1170,10 @@ product_natures_048:
   updater_id: 1
   variable_indicators_list: sucrose_concentration
   variety: juice
+  type: VariantTypes::ArticleType
 product_natures_049:
   abilities_list: acidify(fermented_juice), acidify(wine)
   active: true
-  category_id: 22
   created_at: 2014-11-07 19:03:43.646789000 Z
   creator_id: 1
   derivatives_list: ''
@@ -1193,10 +1193,10 @@ product_natures_049:
   updated_at: 2014-11-07 19:03:43.646789000 Z
   updater_id: 1
   variety: preparation
+  type: VariantTypes::ArticleType
 product_natures_050:
   abilities_list: fermentize(wine)
   active: true
-  category_id: 22
   created_at: 2014-11-07 19:05:20.496080000 Z
   creator_id: 1
   derivative_of: fungus
@@ -1217,10 +1217,10 @@ product_natures_050:
   updated_at: 2014-11-07 19:05:20.496080000 Z
   updater_id: 1
   variety: yeast
+  type: VariantTypes::ArticleType
 product_natures_051:
   abilities_list: chaptelise(fermented_juice), chaptelise(juice)
   active: true
-  category_id: 22
   created_at: 2014-11-07 19:10:37.806634000 Z
   creator_id: 1
   derivatives_list: ''
@@ -1240,10 +1240,10 @@ product_natures_051:
   updated_at: 2014-11-07 19:10:37.806634000 Z
   updater_id: 1
   variety: saccharose
+  type: VariantTypes::ArticleType
 product_natures_052:
   abilities_list: clarify(fermented_juice), clarify(wine)
   active: true
-  category_id: 22
   created_at: 2014-11-07 19:16:38.602689000 Z
   creator_id: 1
   derivatives_list: ''
@@ -1263,10 +1263,10 @@ product_natures_052:
   updated_at: 2014-11-07 19:16:38.602689000 Z
   updater_id: 1
   variety: preparation
+  type: VariantTypes::ArticleType
 product_natures_053:
   abilities_list: sulfurize(wine)
   active: true
-  category_id: 22
   created_at: 2014-11-07 19:18:50.746985000 Z
   creator_id: 1
   derivatives_list: ''
@@ -1286,10 +1286,10 @@ product_natures_053:
   updated_at: 2014-11-07 19:18:50.746985000 Z
   updater_id: 1
   variety: preparation
+  type: VariantTypes::ArticleType
 product_natures_054:
   abilities_list: store(juice), store(wine)
   active: true
-  category_id: 23
   created_at: 2014-11-07 19:29:27.392215000 Z
   creator_id: 1
   derivatives_list: ''
@@ -1310,10 +1310,10 @@ product_natures_054:
   updater_id: 1
   variable_indicators_list: length, net_mass
   variety: bottle
+  type: VariantTypes::ArticleType
 product_natures_055:
   abilities_list: close(cork_bottle)
   active: true
-  category_id: 23
   created_at: 2014-11-07 19:29:44.220259000 Z
   creator_id: 1
   derivatives_list: ''
@@ -1333,10 +1333,10 @@ product_natures_055:
   updater_id: 1
   variable_indicators_list: length, width
   variety: cork
+  type: VariantTypes::ArticleType
 product_natures_056:
   abilities_list: fill(bottle)
   active: true
-  category_id: 14
   created_at: 2014-11-07 19:35:20.874359000 Z
   creator_id: 1
   derivatives_list: ''
@@ -1356,10 +1356,10 @@ product_natures_056:
   updater_id: 1
   variable_indicators_list: nominal_storable_net_volume
   variety: equipment
+  type: VariantTypes::EquipmentType
 product_natures_057:
   abilities_list: close(bottle)
   active: true
-  category_id: 14
   created_at: 2014-11-07 19:35:28.656403000 Z
   creator_id: 1
   derivatives_list: ''
@@ -1378,10 +1378,10 @@ product_natures_057:
   updated_at: 2014-11-07 19:35:28.656403000 Z
   updater_id: 1
   variety: equipment
+  type: VariantTypes::EquipmentType
 product_natures_058:
   abilities_list: treat(diarrhea, bison)
   active: true
-  category_id: 24
   created_at: 2015-04-26 12:49:09.845684000 Z
   creator_id: 1
   description: ''
@@ -1399,9 +1399,9 @@ product_natures_058:
   updater_id: 1
   variable_indicators_list: net_mass
   variety: preparation
+  type: VariantTypes::ArticleType
 product_natures_059:
   active: true
-  category_id: 25
   created_at: 2016-01-21 14:05:46.953382000 Z
   evolvable: false
   frozen_indicators_list: net_surface_area
@@ -1423,9 +1423,9 @@ product_natures_059:
     phosphorus_analysis_method, phosphorus_concentration, potassium_concentration,
     potential_hydrogen, shape, soil_depth, soil_nature, sulfur_concentration, zinc_concentration
   variety: land_parcel
+  type: VariantTypes::ZoneType
 product_natures_060:
   active: true
-  category_id: 26
   created_at: 2016-05-26 21:23:56.026594000 Z
   creator_id: 1
   description: ''
@@ -1443,9 +1443,9 @@ product_natures_060:
   updated_at: 2016-05-26 21:23:56.026594000 Z
   updater_id: 1
   variety: immatter
+  type: VariantTypes::ServiceType
 product_natures_061:
   active: true
-  category_id: 23
   created_at: 2016-08-10 14:23:55.785085000 Z
   creator_id: 1
   derivative_of: equipment
@@ -1463,3 +1463,4 @@ product_natures_061:
   updated_at: 2016-08-10 14:27:34.011711000 Z
   updater_id: 1
   variety: equipment_part
+  type: VariantTypes::ArticleType

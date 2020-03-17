@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2015-2020 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -50,6 +50,7 @@
 #  id                           :integer          not null, primary key
 #  language                     :string           not null
 #  last_name                    :string           not null
+#  legal_position_code          :string
 #  lock_version                 :integer          default(0), not null
 #  locked                       :boolean          default(FALSE), not null
 #  meeting_origin               :string
@@ -140,6 +141,20 @@ class EntityTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     # TODO: Check addresses, attributes, custom fields, and observations
   end
 
+  test 'can only have valid siret numbers or none at all' do
+    company = Entity.normal.find_by(country: 'fr')
+    company.siret_number = nil
+    assert company.valid?
+    company.siret_number = '1234' # Too short
+    assert !company.valid?
+    company.siret_number = '12345678901011' # Right length but invalid
+    assert !company.valid?
+    company.siret_number = '123455555544444444' # Valid but too long
+    assert !company.valid?
+    company.siret_number = '80853428300037' # Valid
+    assert company.valid?
+  end
+
   def accountant_with_financial_year_and_opened_exchange
     accountant = create(:entity, :accountant)
     financial_year = FinancialYear.last
@@ -168,5 +183,13 @@ class EntityTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     e.siret_number=42
 
     refute e.tap(&:valid?).errors.key? :siret_number
+  end
+
+  test 'automatic employee account creation ventilates based on entity_id' do
+    e = Entity.create! last_name: "Dummy"
+
+    e.update! employee: true
+
+    assert_equal "421#{e.id.to_s.rjust(5, '0')}", e.employee_account.number
   end
 end

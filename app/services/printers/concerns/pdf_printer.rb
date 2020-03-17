@@ -50,14 +50,21 @@ module Printers
 
       def archive_report_template(data_or_file, nature:, key:, template:, document_name:, **_options)
         data = data_or_file.is_a?(File) ? data_or_file : StringIO.new(data_or_file)
-        Document.create!(
+        document = Document.create!(
           nature: nature,
           key: key,
           name: document_name,
           file: data,
-          file_file_name: "#{key}.pdf",
+          file_file_name: "#{document_name}.pdf",
           template: template
         )
+
+        if template.present? && template.signed
+          signer = SignatureManager.new
+          signer.sign(document: document, user: document.creator)
+        end
+
+        document
       end
 
       def find_open_document_template(name)
@@ -69,6 +76,8 @@ module Printers
 
       # The `nature` parameter is deprecated
       def find_template(document_template, nature: nil)
+        ActiveSupport::Deprecation.warn "PdfPrinter::find_template is deprecated, use TemplateFileProvider instead"
+
         if (n = document_template.nil?) || document_template.managed?
           file_name = n ? nature : document_template.nature
           dir = Rails.root.join('config', 'locales')

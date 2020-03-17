@@ -4,7 +4,8 @@ module LaGraineInformatique
   module Vinifera
     class EntitiesExchangerTest < ActiveExchanger::TestCase
       test 'import' do
-        LaGraineInformatique::Vinifera::EntitiesExchanger.import(fixture_files_path.join('imports', 'la_graine_informatique', 'vinifera', 'entities.zip'))
+        result = LaGraineInformatique::Vinifera::EntitiesExchanger.build(fixture_files_path.join('imports', 'la_graine_informatique', 'vinifera', 'entities.zip')).run
+        assert result.success?, [result.message, result.exception]
       end
     end
   end

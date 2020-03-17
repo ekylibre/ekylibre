@@ -71,3 +71,5 @@ Aggeratio.load
 # Map and co
 autoload :Map, 'map'
 Map::Layer.load
+
+Zip.write_zip64_support = true

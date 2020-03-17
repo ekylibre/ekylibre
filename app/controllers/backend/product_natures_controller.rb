@@ -18,15 +18,16 @@
 
 module Backend
   class ProductNaturesController < Backend::BaseController
-    manage_restfully population_counting: :decimal, active: true
+    include Pickable
 
-    manage_restfully_incorporation
+    manage_restfully except: %i[edit update], population_counting: :decimal, active: true
+
+    importable_from_lexicon :variant_natures
 
     unroll
 
     def self.product_natures_conditions(_options = {})
-      code = search_conditions(product_natures: %i[number name description],
-                               product_nature_categories: [:name]) + "\n"
+      code = search_conditions(product_natures: %i[number name description]) + "\n"
       code << "if params[:s] == 'active'\n"
       code << "  c[0] += ' AND product_natures.active = ?'\n"
       code << "  c << true\n"
@@ -39,11 +40,10 @@ module Backend
     end
 
     list(conditions: product_natures_conditions) do |t|
-      t.action :edit
-      t.action :destroy, if: :destroyable?
-      t.column :name, url: true
-      t.column :number, url: true
-      t.column :category, url: true
+      t.action :edit, url: { controller: '/backend/product_natures' }
+      t.action :destroy, url: { controller: '/backend/product_natures' }, if: :destroyable?
+      t.column :name, url: { controller: '/backend/product_natures' }
+      t.column :number, url: { controller: '/backend/product_natures' }
       t.column :active
       t.column :variety
       t.column :derivative_of
@@ -52,14 +52,31 @@ module Backend
     list(:variants, model: :product_nature_variants,
                     conditions: { nature_id: 'params[:id]'.c }, order: :name) do |t|
       t.action :new, on: :none, url: { nature_id: 'params[:id]'.c, redirect: 'request.fullpath'.c }
-      t.action :edit
-      t.action :destroy
+      t.action :edit, url: { controller: :product_nature_variants }
+      t.action :destroy, url: { controller: :product_nature_variants }
       t.column :active
-      t.column :number, url: true
-      t.column :name, url: true
+      t.column :number, url: { namespace: :backend }
+      t.column :name, url: { namespace: :backend }
       t.column :variety
       t.column :derivative_of
       t.column :unit_name
+    end
+
+    def edit
+      @product_nature = find_and_check
+      @form_url = backend_product_nature_path(@product_nature)
+      @key = 'product_nature'
+      t3e(@product_nature.attributes)
+    end
+
+    def update
+      return unless @product_nature = find_and_check(:product_nature)
+      t3e(@product_nature.attributes)
+      @product_nature.attributes = permitted_params
+      return if save_and_redirect(@product_nature, url: params[:redirect] || ({ action: :show, id: 'id'.c }), notify: (params[:redirect] ? :record_x_updated : false), identifier: :name)
+      @form_url = backend_product_nature_path(@product_nature)
+      @key = 'product_nature'
+      render(locals: { cancel_url: {:action=>:index}, with_continue: false })
     end
   end
 end

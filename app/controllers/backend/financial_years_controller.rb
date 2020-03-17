@@ -78,24 +78,26 @@ module Backend
           t3e @financial_year.attributes
           @progress_status = fetch_progress_values(params[:id])
         end
+
         format.xml do
           FecExportJob.perform_later(@financial_year, params[:fiscal_position], params[:interval], current_user, 'xml')
           notify_success(:document_in_preparation)
           redirect_to :back
         end
+
         format.text do
           FecExportJob.perform_later(@financial_year, params[:fiscal_position], params[:interval], current_user, 'text')
           notify_success(:document_in_preparation)
           redirect_to :back
         end
+
         format.pdf do
-          if params[:n].present?
-            key = "#{Nomen::DocumentNature.find(params[:n]).name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
-            ClosingDocumentExportJob.perform_later(@financial_year, params[:n], key, current_user)
-            notify_success(:document_in_preparation)
-            redirect_to :back
-          end
+          return unless template = find_and_check(:document_template, params[:template])
+          PrinterJob.perform_later("Printers::#{template.nature.classify}Printer", template: template, financial_year: @financial_year, perform_as: current_user)
+          notify_success(:document_in_preparation)
+          redirect_to :back
         end
+
         format.json
       end
     end
@@ -162,7 +164,7 @@ module Backend
       if request.post? && @financial_year.closable?
         total_amount_to_allocate = @result + @carry_forward_balance
         total_amount_allocated = allocations.values.reduce(0) { |sum, val| sum + val.to_f }
-        if total_amount_to_allocate.abs != total_amount_allocated
+        if total_amount_to_allocate.abs.to_f != total_amount_allocated.to_f
           notify_error_now :record_is_not_valid
         else
           closed_on = params[:financial_year][:stopped_on].to_date
@@ -225,11 +227,7 @@ module Backend
       end
       if request.post?
         begin
-          ActiveRecord::Base.transaction do
-            FixedAssetDepreciation.up_to(@financial_year.stopped_on).where(locked: false).update_all(locked: true)
-            LoanRepayment.where('due_on <= ?', @financial_year.stopped_on).where(locked: false).update_all(locked: true)
-            @financial_year.update!(state: 'locked')
-          end
+          FinancialYearLocker.new.lock!(@financial_year)
         rescue ActiveRecord::RecordInvalid => error
           notify_error(:please_contact_support_for_further_information, message: error.message)
         end

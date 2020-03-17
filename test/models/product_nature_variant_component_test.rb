@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2015-2020 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -43,15 +43,19 @@ class ProductNatureVariantComponentTest < Ekylibre::Testing::ApplicationTestCase
 
     piston_params = {
       nature: ProductNature.import_from_nomenclature(:equipment),
+      category: ProductNatureCategory.import_from_nomenclature(:equipment),
       name: 'Piston B72 injection retro, alliage titane',
-      unit_name: 'Piston'
+      unit_name: 'Piston',
+      type: 'Variants::EquipmentVariant'
     }
     piston = ProductNatureVariant.create!(piston_params)
 
     motor_v12_param = {
       nature: ProductNature.import_from_nomenclature(:equipment),
+      category: ProductNatureCategory.import_from_nomenclature(:equipment),
       name: 'Moteur V12 injection gtx 18L, 2013',
-      unit_name: 'Moteur'
+      unit_name: 'Moteur',
+      type: 'Variants::EquipmentVariant'
     }
     motor_v12 = ProductNatureVariant.create!(motor_v12_param)
 

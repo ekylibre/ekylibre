@@ -6,7 +6,6 @@ module ActiveExchanger
 
     class << self
       def inherited(subclass)
-        name = subclass.exchanger_name
         ActiveExchanger::Base.register_exchanger(subclass)
         super
       end
@@ -46,36 +45,33 @@ module ActiveExchanger
       end
 
       def find_and_import(nature, file, options = {}, &block)
+        ActiveSupport::Deprecation.warn "ActiveExchanger::Base.find_and_import is deprecated, use ActiveExchanger::Base::run instead"
         find(nature).import(file, options, &block)
       end
 
       # Import file without check
       def import!(file, options = {}, &block)
+        ActiveSupport::Deprecation.warn "ActiveExchanger::Base::import! is deprecated, use ActiveExchanger::Base.run instead"
+
         build(file, options, &block).import
+      end
+
+      def run(nature, file, check: true, options: {}, &block)
+        find(nature).build(file, options: options, &block).run(check: check)
       end
 
       # Import file with check if possible
       def import(file, options = {}, &block)
-        exchanger = build(file, options, &block)
-        if exchanger.respond_to? :check
-          if exchanger.check
-            exchanger.import
-          else
-            Rails.logger.warn 'Cannot import file'
-            return false
-          end
-        else
-          exchanger.import
-        end
+        ActiveSupport::Deprecation.warn "ActiveExchanger::Base.import is deprecated, use ActiveExchanger::Base::build and .run instead"
+        build(file, options: options, &block).run.success?
       end
 
       def export(file, options = {}, &block)
         build(file, options, &block).export
       end
 
-      def check(file, _options = {}, &block)
-        supervisor = Supervisor.new(:check, &block)
-        exchanger = new(file, supervisor)
+      def check(file, options = {}, &block)
+        exchanger = build(file, supervisor_mode: :check, options: options, &block)
         valid = false
         ActiveRecord::Base.transaction do
           if exchanger.respond_to? :check
@@ -92,8 +88,8 @@ module ActiveExchanger
         false
       end
 
-      def build(file, options = {}, &block)
-        supervisor = Supervisor.new(&block)
+      def build(file, supervisor_mode: :normal, options: {}, &block)
+        supervisor = Supervisor.new(supervisor_mode, &block)
         new(file, supervisor, options)
       end
 
@@ -114,31 +110,60 @@ module ActiveExchanger
       # This method check file by default by trying a run and
       # and if no exception raise, it's fine so changes are rolled back.
       def check_by_default
+        ActiveSupport::Deprecation.warn "ActiveExchanger::Base.check_by_default is deprecated, use ActiveExchanger::Base::run instead"
+
         define_method :check do
           import
         end
       end
     end
 
-    attr_reader :file, :supervisor
+    attr_reader :file, :supervisor, :options
 
     def initialize(file, supervisor, options = {})
       @file = Pathname.new(file)
       @supervisor = supervisor
+      @options = options
     end
 
     alias w supervisor
 
-    # def import
-    #   raise NotImplementedError
-    # end
+    def run(check: true)
+      result = Result.failed("Somethong is wrong, the import didn't run")
 
-    # def export
-    #   raise NotImplementedError
-    # end
+      Ekylibre::Record::Base.transaction do
+        if !check || (result = safe_check).success?
+          result = safe_import
+        end
 
-    # def check
-    #   raise NotImplementedError
-    # end
+        raise ActiveRecord::Rollback if result.error?
+      end
+
+      result
+    rescue StandardError => e
+      Result.failed("Server error", exception: e)
+    end
+
+    private
+
+      def safe_check
+        if !respond_to?(:check) || check
+          Result.success
+        else
+          Result.aborted("Invalid file provided " + supervisor.errors.join(', '))
+        end
+      rescue StandardError => e
+        Result.aborted(exception: e)
+      end
+
+      def safe_import
+        if !!import
+          Result.success
+        else
+          Result.failed('The import reported an error ' + supervisor.errors.join(', '))
+        end
+      rescue StandardError => e
+        Result.failed(exception: e)
+      end
   end
 end

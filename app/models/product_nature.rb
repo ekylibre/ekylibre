@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2015-2020 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,7 +25,6 @@
 #
 #  abilities_list            :text
 #  active                    :boolean          default(FALSE), not null
-#  category_id               :integer          not null
 #  created_at                :datetime         not null
 #  creator_id                :integer
 #  custom_fields             :jsonb
@@ -35,6 +34,7 @@
 #  evolvable                 :boolean          default(FALSE), not null
 #  frozen_indicators_list    :text
 #  id                        :integer          not null, primary key
+#  imported_from             :string
 #  linkage_points_list       :text
 #  lock_version              :integer          default(0), not null
 #  name                      :string           not null
@@ -50,6 +50,7 @@
 #  subscription_months_count :integer          default(0), not null
 #  subscription_nature_id    :integer
 #  subscription_years_count  :integer          default(0), not null
+#  type                      :string           not null
 #  updated_at                :datetime         not null
 #  updater_id                :integer
 #  variable_indicators_list  :text
@@ -57,12 +58,29 @@
 #
 
 class ProductNature < Ekylibre::Record::Base
+  include Autocastable
   include Customizable
+  include Importable
+
+  VARIETIES_NATURES = {
+                        animal: %w[animal animal_group],
+                        article: %w[bacteria bioproduct equipment_part fungus matter preparation product product_group virus water],
+                        crop: %w[land_parcel_group plant],
+                        equipment: %w[equipment equipment_fleet],
+                        service: %w[electricity immatter property_title service],
+                        worker: %w[worker],
+                        zone: %w[building zone]
+                      }.freeze
+
+  VARIETIES_SUB_NATURES = {
+                            fertilizer: %w[compost guano liquid_slurry manure slurry],
+                            seed_and_plant: %w[seed seedling]
+                          }.freeze
+
   refers_to :variety
   refers_to :derivative_of, class_name: 'Variety'
-  refers_to :reference_name, class_name: 'ProductNature'
   enumerize :population_counting, in: %i[unitary integer decimal], predicates: { prefix: true }
-  belongs_to :category, class_name: 'ProductNatureCategory'
+  enumerize :type, in: %w[Animal Article Crop Equipment Service Worker Zone].map { |t| "VariantTypes::#{t}Type" }
   belongs_to :subscription_nature
   has_many :subscriptions, through: :subscription_nature
   has_many :products, foreign_key: :nature_id, dependent: :restrict_with_exception
@@ -85,7 +103,7 @@ class ProductNature < Ekylibre::Record::Base
   validates :picture_content_type, :picture_file_name, length: { maximum: 500 }, allow_blank: true
   validates :picture_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
-  validates :category, :population_counting, :variety, presence: true
+  validates :population_counting, :variety, presence: true
   # ]VALIDATORS]
   validates :number, length: { allow_nil: true, maximum: 30 }
   validates :derivative_of, :reference_name, :variety, length: { allow_nil: true, maximum: 120 }
@@ -98,15 +116,7 @@ class ProductNature < Ekylibre::Record::Base
 
   acts_as_numbered
 
-  delegate :deliverable?, :purchasable?, :to, to: :category
-  delegate :fixed_asset_account, :product_account, :charge_account, :stock_account, to: :category
-
   scope :availables, -> { where(active: true).order(:name) }
-  scope :stockables, -> { joins(:category).merge(ProductNatureCategory.stockables).order(:name) }
-  scope :saleables,  -> { joins(:category).merge(ProductNatureCategory.saleables).order(:name) }
-  scope :purchaseables, -> { joins(:category).merge(ProductNatureCategory.purchaseables).order(:name) }
-  scope :stockables_or_depreciables, -> { joins(:category).merge(ProductNatureCategory.stockables_or_depreciables).order(:name) }
-  scope :depreciables, -> { joins(:category).merge(ProductNatureCategory.depreciables).order(:name) }
   scope :storage, -> { of_expression('can store(matter) or can store_liquid or can store_fluid or can store_gaz') }
   scope :identifiables, -> { of_variety(:animal) + select(&:population_counting_unitary?) }
   scope :services, -> { of_variety(:service) }
@@ -153,6 +163,7 @@ class ProductNature < Ekylibre::Record::Base
     self.subscription_years_count ||= 0
     self.subscription_months_count ||= 0
     self.subscription_days_count ||= 0
+    self.type ||= "VariantTypes::#{find_nature&.capitalize}Type"
   end
 
   validate do
@@ -170,6 +181,18 @@ class ProductNature < Ekylibre::Record::Base
       if variants.detect { |p| p.derivative_of? && Nomen::Variety.find(p.derivative_of) > derivative_of }
         errors.add(:derivative_of, :invalid)
       end
+    end
+  end
+
+  def find_nature
+    VARIETIES_NATURES.detect { |_k, v| v.include? Nomen::Variety.parent_variety(variety) }&.first
+  end
+
+  def variant_type
+    if type.match(/Article/) && sub_nature = VARIETIES_SUB_NATURES.detect { |_k, v| v.include? variety }
+      "#{type.split('::').first.gsub(/Types/, 's')}::Articles::#{sub_nature.first.to_s.classify}Article"
+    else
+      [type.split('::')].map { |mod, cla| [mod.gsub(/Types/, 's'), cla.gsub(/Type/, 'Variant')] }.flatten.join('::')
     end
   end
 
@@ -351,9 +374,6 @@ class ProductNature < Ekylibre::Record::Base
       unless item = Nomen::ProductNature.find(reference_name)
         raise ArgumentError, "The product nature #{reference_name.inspect} is unknown"
       end
-      unless category_item = Nomen::ProductNatureCategory.find(item.category)
-        raise ArgumentError, "The category of the product_nature #{item.category.inspect} is unknown"
-      end
       if !force && (nature = ProductNature.find_by(reference_name: reference_name))
         return nature
       end
@@ -362,24 +382,51 @@ class ProductNature < Ekylibre::Record::Base
         derivative_of: item.derivative_of.to_s,
         name: item.human_name,
         population_counting: item.population_counting,
-        category: ProductNatureCategory.import_from_nomenclature(item.category),
         reference_name: item.name,
         abilities_list: WorkingSet::AbilityArray.load(item.abilities),
         derivatives_list: (item.derivatives ? item.derivatives.sort : nil),
         frozen_indicators_list: (item.frozen_indicators ? item.frozen_indicators.sort : nil),
         variable_indicators_list: (item.variable_indicators ? item.variable_indicators.sort : nil),
-        active: true
+        active: true,
+        type: item.nature == :fee_and_service ? 'VariantTypes::ServiceType' : "VariantTypes::#{item.nature.capitalize}Type",
+        imported_from: 'Nomenclature'
       }
       attributes[:linkage_points_list] = item.linkage_points if item.linkage_points
       create!(attributes)
     end
 
-    # Load all product nature from product nature nomenclature
+    def import_from_lexicon(reference_name, force = false)
+      unless item = VariantNature.find_by(reference_name: reference_name)
+        raise ArgumentError, "The product nature #{reference_name.inspect} is unknown"
+      end
+      if !force && (nature = ProductNature.find_by(reference_name: reference_name))
+        return nature
+      end
+      attributes = {
+        variety: item.variety,
+        derivative_of: (item.derivative_of.present? ? item.derivative_of : nil),
+        name: item.name[I18n.locale.to_s] || item.reference_name.humanize,
+        population_counting: item.population_counting,
+        reference_name: item.reference_name,
+        abilities_list: item.abilities,
+        frozen_indicators_list: item.indicators.map(&:to_sym),
+        active: true,
+        type: item.nature == 'fee_and_service' ? 'VariantTypes::ServiceType' : "VariantTypes::#{item.nature.capitalize}Type",
+        imported_from: 'Lexicon'
+      }
+      create!(attributes)
+    end
+
+    def import_all_from_lexicon
+      VariantNature.find_each do |nature|
+        import_from_lexicon(nature.reference_name)
+      end
+    end
+
     def load_defaults(**_options)
       Nomen::ProductNature.find_each do |product_nature|
         import_from_nomenclature(product_nature.name)
       end
     end
-    alias import_all_from_nomenclature load_defaults
   end
 end

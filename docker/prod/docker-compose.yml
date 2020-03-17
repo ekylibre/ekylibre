@@ -1,0 +1,41 @@
+version: "3.4"
+
+services:
+  rails:
+    image: ${RAILS_IMAGE:?RAILS_IMAGE is not set or empty}
+    ports:
+      - 0.0.0.0:8080:8080
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_DB: ekylibre
+      POSTGRES_USER: ekylibre
+      POSTGRES_PASSWORD: password
+
+      REDIS_URL: redis://redis
+
+      RAILS_ENV: production
+      RAILS_SERVE_STATIC_FILES: "true"
+      RAILS_LOG_TO_STDOUT: "true"
+      GPG_EMAIL: do-not-trust@ekylibre.com
+      DEVISE_SECRET_KEY: !ChangeMe!
+      SECRET_KEY_BASE: !ChangeMe!
+
+      ELASTIC_APM_ACTIVE: "false"
+
+      SMTP_ADDRESS: smtp-relay.gmail.com
+      SMTP_DOMAIN: ekylibre.com
+      SMTP_USER_NAME: do-not-trust@ekylibre.com
+      SMTP_PASSWORD: !SetMe!
+    volumes:
+      - ../../app:/app/app:ro
+
+  redis:
+    image: redis:5.0-alpine
+
+  db:
+    image: ${DATABASE_IMAGE:?DATABASE_IMAGE is not set or empty}
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: ekylibre
+      POSTGRES_DB: ekylibre
+      TZ: Europe/Paris

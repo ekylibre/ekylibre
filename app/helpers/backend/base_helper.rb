@@ -23,7 +23,7 @@ module Backend
     end
 
     def resource_model
-      controller_name.classify.constantize
+      resource ? resource.class : controller_name.classify.constantize
     end
 
     def collection
@@ -415,7 +415,7 @@ module Backend
     def infos(options = {}, &block)
       css_class = 'big-infos'
       if options[:class]
-        options[:class] += ' ' + css_class
+        options[:class] = css_class + ' ' + options[:class]
       else
         options[:class] = css_class
       end

@@ -13,7 +13,7 @@
     border: solid 2px;
     display: none;
 
-    &--reconcile, &--accepted {
+    &--reconcile, &--accepted, &--allowed {
       color: #4CAF50;
       border-color: #4CAF50;
     }
@@ -23,7 +23,7 @@
       border-color: $caution-color;
     }
 
-    &--to-reconcile {
+    &--to-reconcile, &--forbidden {
       color: #f44336;
       border-color: #f44336;
     }
@@ -32,7 +32,9 @@
   &--reconcile &__badge--reconcile,
   &--incident &__badge--incident,
   &--to-reconcile &__badge--to-reconcile,
-  &--accepted &__badge--accepted {
+  &--accepted &__badge--accepted,
+  &--allowed &__badge--allowed,
+  &--forbidden &__badge--forbidden {
     display: block;
   }
 }

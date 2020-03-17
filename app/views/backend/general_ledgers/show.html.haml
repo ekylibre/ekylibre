@@ -8,12 +8,17 @@
 #general-ledger
   - if params[:period]
     = main_toolbar do |t|
-      = dropdown_menu_button(:export.ta, icon: :download) do |d|
-        - export_params = params.slice(:started_on, :stopped_on, :period, :states, :account_number, :accounts, :centralize, :lettering_state, :level_1, :level_2, :level_3, :level_4, :level_5, :level_6, :level_7, :level_8, :level_9, :level_10)
-        - d.item :export_as_ods.tl, params: export_params.merge(format: :ods)
-        - d.item :export_as_csv.tl, params: export_params.merge(format: :csv)
-        - d.item :export_as_xcsv.tl, params: export_params.merge(format: :xcsv)
-        - d.item :export_as_pdf.tl, params: export_params.merge(format: :pdf)
+      = t.export :general_ledger,
+                 item_label: :export_as_pdf.tl,
+                 key: Printers::GeneralLedgerPrinter.build_key(financial_year: financial_year,
+                                                               states: params[:states],
+                                                               lettering_state: params[:lettering_state],
+                                                               account_number: params[:account_number],
+                                                               ledger: params[:ledger]) do |menu|
+        - export_params = params.slice(:current_financial_year, :states, :account_number, :centralize, :lettering_state, :ledger, :level_1, :level_2, :level_3, :level_4, :level_5, :level_6, :level_7, :level_8, :level_9, :level_10)
+        - menu.item :export_as_ods.tl, params: export_params.merge(format: :ods)
+        - menu.item :export_as_csv.tl, params: export_params.merge(format: :csv)
+        - menu.item :export_as_xcsv.tl, params: export_params.merge(format: :xcsv)
 
   = kujaku actions: false do |k|
     - k.helper :subledger_crit

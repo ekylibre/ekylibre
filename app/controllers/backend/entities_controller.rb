@@ -217,15 +217,14 @@ module Backend
       t.column :content_sentence, label: :contains
       t.column :planned_at
       t.column :created_at, hidden: true
-      t.column :state, label_method: :human_state_name
-    end
+      t.column :state    end
 
     list(:shipments, conditions: { recipient_id: 'params[:id]'.c }, per_page: 5, order: { created_at: :desc }, line_class: :status) do |t|
       t.column :number, url: true
       t.column :content_sentence, label: :contains
       t.column :planned_at
       t.column :created_at, hidden: true
-      t.column :state, label_method: :human_state_name
+      t.column :state
       t.column :sale, url: true
     end
 
@@ -317,7 +316,7 @@ module Backend
       t.column :entry_number, url: true
       t.column :printed_on, datatype: :date, label: :column
       t.column :name
-      t.column :variant, url: true
+      t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }
       t.column :state_label
       t.column :letter
       t.column :real_debit,  currency: :real_currency, hidden: true
@@ -342,7 +341,7 @@ module Backend
       t.column :entry_number, url: true
       t.column :printed_on, datatype: :date, label: :column
       t.column :name
-      t.column :variant, url: true
+      t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }
       t.column :state_label
       t.column :letter
       t.column :real_debit,  currency: :real_currency, hidden: true

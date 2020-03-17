@@ -16,6 +16,5 @@ module Printers
     def document_name
       "#{template.nature.human_name} - #{key}"
     end
-
   end
 end

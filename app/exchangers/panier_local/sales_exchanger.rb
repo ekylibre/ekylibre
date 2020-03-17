@@ -70,7 +70,6 @@ module PanierLocal
       sales_info = data.group_by { |d| d.sale_reference_number }
 
       sales_info.each { |_sale_reference_number, sale_info| sale_creation(sale_info, sale_nature) }
-
     end
 
     def sale_creation(sale_info, sale_nature)

@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2015-2020 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -37,6 +37,7 @@
 #  fixed_asset_depreciation_percentage :decimal(19, 4)   default(0.0)
 #  fixed_asset_expenses_account_id     :integer
 #  id                                  :integer          not null, primary key
+#  imported_from                       :string
 #  lock_version                        :integer          default(0), not null
 #  name                                :string           not null
 #  number                              :string           not null
@@ -50,6 +51,7 @@
 #  stock_movement_account_id           :integer
 #  storable                            :boolean          default(FALSE), not null
 #  subscribing                         :boolean          default(FALSE), not null
+#  type                                :string           not null
 #  updated_at                          :datetime         not null
 #  updater_id                          :integer
 #
@@ -80,6 +82,7 @@ product_nature_categories_001:
   subscribing: false
   updated_at: 2014-12-24 11:11:19.130401000 Z
   updater_id: 1
+  type: VariantCategories::ArticleCategory
 product_nature_categories_002:
   active: true
   asset_fixable: true
@@ -106,6 +109,7 @@ product_nature_categories_002:
   subscribing: false
   updated_at: 2014-12-24 11:11:43.081342000 Z
   updater_id: 1
+  type: VariantCategories::ArticleCategory
 product_nature_categories_003:
   active: true
   asset_fixable: false
@@ -130,6 +134,7 @@ product_nature_categories_003:
   subscribing: false
   updated_at: 2014-10-31 20:11:19.871117000 Z
   updater_id: 1
+  type: VariantCategories::ArticleCategory
 product_nature_categories_004:
   active: true
   asset_fixable: false
@@ -153,6 +158,7 @@ product_nature_categories_004:
   subscribing: false
   updated_at: 2014-10-31 20:11:30.463762000 Z
   updater_id: 1
+  type: VariantCategories::ArticleCategory
 product_nature_categories_005:
   active: true
   asset_fixable: false
@@ -177,6 +183,7 @@ product_nature_categories_005:
   subscribing: false
   updated_at: 2014-10-31 20:11:42.132127000 Z
   updater_id: 1
+  type: VariantCategories::ArticleCategory
 product_nature_categories_006:
   active: true
   asset_fixable: true
@@ -203,6 +210,7 @@ product_nature_categories_006:
   subscribing: false
   updated_at: 2014-12-24 11:13:37.552871000 Z
   updater_id: 1
+  type: VariantCategories::ZoneCategory
 product_nature_categories_007:
   active: true
   asset_fixable: false
@@ -223,6 +231,7 @@ product_nature_categories_007:
   subscribing: false
   updated_at: 2014-10-31 20:13:55.094715000 Z
   updater_id: 1
+  type: VariantCategories::ZoneCategory
 product_nature_categories_008:
   active: true
   asset_fixable: false
@@ -246,6 +255,7 @@ product_nature_categories_008:
   subscribing: false
   updated_at: 2014-11-01 19:06:50.017161000 Z
   updater_id: 1
+  type: VariantCategories::CropCategory
 product_nature_categories_009:
   active: true
   asset_fixable: true
@@ -274,6 +284,7 @@ product_nature_categories_009:
   subscribing: false
   updated_at: 2014-12-24 11:14:06.381046000 Z
   updater_id: 1
+  type: VariantCategories::AnimalCategory
 product_nature_categories_010:
   active: true
   asset_fixable: false
@@ -298,6 +309,7 @@ product_nature_categories_010:
   subscribing: false
   updated_at: 2014-11-01 19:09:20.923402000 Z
   updater_id: 1
+  type: VariantCategories::ArticleCategory
 product_nature_categories_011:
   active: true
   asset_fixable: false
@@ -321,6 +333,7 @@ product_nature_categories_011:
   subscribing: false
   updated_at: 2014-11-01 19:10:35.057312000 Z
   updater_id: 1
+  type: VariantCategories::ArticleCategory
 product_nature_categories_012:
   active: true
   asset_fixable: false
@@ -345,6 +358,7 @@ product_nature_categories_012:
   subscribing: false
   updated_at: 2014-11-01 20:20:57.118801000 Z
   updater_id: 1
+  type: VariantCategories::ArticleCategory
 product_nature_categories_013:
   active: true
   asset_fixable: false
@@ -367,6 +381,7 @@ product_nature_categories_013:
   subscribing: false
   updated_at: 2014-11-01 20:26:13.040696000 Z
   updater_id: 1
+  type: VariantCategories::WorkerCategory
 product_nature_categories_014:
   active: true
   asset_fixable: true
@@ -393,6 +408,7 @@ product_nature_categories_014:
   subscribing: false
   updated_at: 2014-12-24 11:14:29.601420000 Z
   updater_id: 1
+  type: VariantCategories::EquipmentCategory
 product_nature_categories_015:
   active: true
   asset_fixable: false
@@ -413,6 +429,7 @@ product_nature_categories_015:
   subscribing: false
   updated_at: 2014-11-02 18:31:53.721523000 Z
   updater_id: 1
+  type: VariantCategories::ZoneCategory
 product_nature_categories_016:
   active: true
   asset_fixable: false
@@ -434,6 +451,7 @@ product_nature_categories_016:
   subscribing: false
   updated_at: 2014-11-04 17:27:32.635406000 Z
   updater_id: 1
+  type: VariantCategories::AnimalCategory
 product_nature_categories_017:
   active: true
   asset_fixable: false
@@ -458,6 +476,7 @@ product_nature_categories_017:
   subscribing: false
   updated_at: 2014-11-07 15:24:11.118240000 Z
   updater_id: 1
+  type: VariantCategories::ArticleCategory
 product_nature_categories_018:
   active: true
   asset_fixable: false
@@ -481,6 +500,7 @@ product_nature_categories_018:
   subscribing: false
   updated_at: 2014-11-07 15:46:45.124919000 Z
   updater_id: 1
+  type: VariantCategories::ArticleCategory
 product_nature_categories_019:
   active: true
   asset_fixable: true
@@ -509,6 +529,7 @@ product_nature_categories_019:
   subscribing: false
   updated_at: 2014-12-24 11:15:41.250449000 Z
   updater_id: 1
+  type: VariantCategories::ArticleCategory
 product_nature_categories_020:
   active: true
   asset_fixable: false
@@ -532,6 +553,7 @@ product_nature_categories_020:
   subscribing: false
   updated_at: 2014-11-07 17:05:38.057941000 Z
   updater_id: 1
+  type: VariantCategories::ArticleCategory
 product_nature_categories_021:
   active: true
   asset_fixable: false
@@ -555,6 +577,7 @@ product_nature_categories_021:
   subscribing: false
   updated_at: 2014-11-07 17:10:23.458618000 Z
   updater_id: 1
+  type: VariantCategories::ArticleCategory
 product_nature_categories_022:
   active: true
   asset_fixable: false
@@ -579,6 +602,7 @@ product_nature_categories_022:
   subscribing: false
   updated_at: 2014-11-07 19:03:43.632961000 Z
   updater_id: 1
+  type: VariantCategories::ArticleCategory
 product_nature_categories_023:
   active: true
   asset_fixable: false
@@ -603,6 +627,7 @@ product_nature_categories_023:
   subscribing: false
   updated_at: 2014-11-07 19:29:27.376345000 Z
   updater_id: 1
+  type: VariantCategories::ArticleCategory
 product_nature_categories_024:
   active: true
   asset_fixable: false
@@ -626,6 +651,7 @@ product_nature_categories_024:
   subscribing: false
   updated_at: 2015-04-26 12:44:36.194987000 Z
   updater_id: 1
+  type: VariantCategories::ArticleCategory
 product_nature_categories_025:
   active: true
   asset_fixable: false
@@ -647,6 +673,7 @@ product_nature_categories_025:
   storable: false
   subscribing: false
   updated_at: 2016-01-21 14:05:46.940411000 Z
+  type: VariantCategories::ZoneCategory
 product_nature_categories_026:
   active: true
   asset_fixable: false
@@ -669,3 +696,4 @@ product_nature_categories_026:
   subscribing: true
   updated_at: 2016-05-26 21:22:59.404652000 Z
   updater_id: 1
+  type: VariantCategories::ServiceCategory

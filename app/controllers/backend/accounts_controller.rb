@@ -101,7 +101,7 @@ module Backend
       t.column :entry_number, url: true
       t.column :printed_on, datatype: :date, label: :column
       t.column :name
-      t.column :variant, url: true
+      t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }
       t.column :state_label
       t.column :letter
       t.column :real_debit,  currency: :real_currency, hidden: true
@@ -120,8 +120,8 @@ module Backend
     end
 
     list(:product_nature_variants, joins: :category, conditions: ['? IN (product_nature_categories.charge_account_id, product_nature_categories.product_account_id, product_nature_categories.fixed_asset_account_id, product_nature_categories.stock_account_id)', 'params[:id]'.c], order: { created_at: :desc }) do |t|
-      t.column :number, url: true
-      t.column :name, url: true
+      t.column :number, url: { namespace: :backend }
+      t.column :name, url: { namespace: :backend }
     end
 
     def self.account_reconciliation_conditions

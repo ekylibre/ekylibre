@@ -300,7 +300,7 @@ fra:
         activity: "Activité"
         campaign: "Campagne"
         cultivable_zone_code: "Code de la zone cultivable"
-        cultivable_zone_name: "Nom de la zone cultivale"
+        cultivable_zone_name: "Nom de la zone cultivable"
         production_mode: "Mode de production"
         season: "Saisonnalité"
     notification:
@@ -379,6 +379,14 @@ fra:
         decimal: "Décimal"
         integer: "Entier"
         unitary: "Unitaire"
+      type:
+        VariantTypes::AnimalType: "Animaux"
+        VariantTypes::ArticleType: "Articles"
+        VariantTypes::CropType: "Cultures"
+        VariantTypes::EquipmentType: "Équipements"
+        VariantTypes::ServiceType: "Services"
+        VariantTypes::WorkerType: "Équipiers"
+        VariantTypes::ZoneType: "Zones"
     product_nature_category:
       pictogram:
         bank: "Banque"
@@ -424,10 +432,30 @@ fra:
         user: "Utilisateur"
         wheat: "Blé"
         wrench: "Clé"
+      type:
+        VariantCategories::AnimalCategory: "Animaux"
+        VariantCategories::ArticleCategory: "Articles"
+        VariantCategories::CropCategory: "Cultures"
+        VariantCategories::EquipmentCategory: "Équipements"
+        VariantCategories::ServiceCategory: "Services"
+        VariantCategories::WorkerCategory: "Équipiers"
+        VariantCategories::ZoneCategory: "Zones"
     product_nature_category_taxation:
       usage:
         purchase: "Achat"
         sale: "Vente"
+    product_nature_variant:
+      type:
+        Variants::AnimalVariant: "Animaux"
+        Variants::Articles::FertilizerArticle: "Engrais"
+        Variants::Articles::PlantMedicineArticle: "Produits phytosanitaires"
+        Variants::Articles::SeedAndPlantArticle: "Semences et plants"
+        Variants::ArticleVariant: "Articles"
+        Variants::CropVariant: "Cultures"
+        Variants::EquipmentVariant: "Équipements"
+        Variants::ServiceVariant: "Services"
+        Variants::WorkerVariant: "Équipiers"
+        Variants::ZoneVariant: "Zones"
     product_nature_variant_reading:
       indicator_datatype:
         boolean: "Booléen"

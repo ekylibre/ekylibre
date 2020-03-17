@@ -1,3 +1,6 @@
-json.array! @plants do |plant|
-  json.call(plant, :id, :name, :number, :identification_number, :work_number, :born_at, :dead_at, :uuid, :variety, :derivative_of, :variant_id, :nature_id, :category_id, :activity_id)
+json.array! plants do |plant|
+  json.call(plant, :id, :name, :net_surface_area, :variety, :activity_id, :activity_name)
+
+  json.production_started_on plant.production.started_on
+  json.production_stopped_on plant.production.stopped_on
 end

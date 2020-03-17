@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2015-2020 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,6 +23,7 @@
 #
 # == Table: bank_statement_items
 #
+#  accounted_at       :datetime
 #  bank_statement_id  :integer          not null
 #  created_at         :datetime         not null
 #  creator_id         :integer
@@ -31,6 +32,7 @@
 #  debit              :decimal(19, 4)   default(0.0), not null
 #  id                 :integer          not null, primary key
 #  initiated_on       :date
+#  journal_entry_id   :integer
 #  letter             :string
 #  lock_version       :integer          default(0), not null
 #  memo               :string
@@ -49,6 +51,7 @@ class BankStatementItem < Ekylibre::Record::Base
   delegate :started_on, :stopped_on, to: :bank_statement, allow_nil: true
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :credit, :debit, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :bank_statement, :currency, presence: true
   validates :initiated_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true

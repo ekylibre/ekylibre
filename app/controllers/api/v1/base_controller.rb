@@ -29,17 +29,20 @@ module Api
       after_action :add_generic_headers!
 
       hide_action :add_generic_headers!
+
       def add_generic_headers!
         response.headers['X-Ekylibre-Media-Type'] = 'ekylibre.v1'
         # response.headers['Access-Control-Allow-Origin'] = '*'
       end
 
       hide_action :force_json!
+
       def force_json!
         request.format = 'json'
       end
 
       hide_action :authenticate_api_user!
+
       def authenticate_api_user!
         user = nil
         token = nil
@@ -79,11 +82,40 @@ module Api
         false
       end
 
+      def error_message(message, status: :bad_request)
+        render json: { message: message }, status: status
+      end
+
       protected
 
-      def permitted_params
-        params.except(:format)
-      end
+        def validate_provider(filtered_params)
+          provider = filtered_params.fetch(:provider, {})
+
+          %i[vendor name id].all? { |key| provider.key? key }
+        end
+
+        def permitted_params
+          params.except(:format)
+        end
+
+        # This is a hack to be able to permit arbitrary keys for the provider `data` field
+        def add_provider_params(permitted_params)
+          provider_data = {}
+          if params.key?(:provider)
+            provider_params = params.require(:provider)
+            provider_data = provider_params.permit(:vendor, :name, :id)
+            if provider_params.key?(:data)
+              provider_data[:data] = provider_params.require(:data).permit!
+            end
+          end
+
+          if params.key?(:providers) && params[:providers].key?(:zero_id)
+            ActiveSupport::Deprecation.warn('zero_id is deprecated')
+            provider_data = { **provider_data, vendor: 'Ekylibre', name: 'zero', id: 0, data: { zero_id: params[:providers][:zero_id] } }
+          end
+
+          permitted_params.merge(provider: provider_data)
+        end
     end
   end
 end

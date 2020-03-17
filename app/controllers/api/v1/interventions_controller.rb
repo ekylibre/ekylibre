@@ -2,6 +2,7 @@ module Api
   module V1
     # Interventions API permits to access interventions
     class InterventionsController < Api::V1::BaseController
+      READING_PARAMS = %i[tools targets].freeze
       def index
         nature = params[:nature] || 'record'
         @interventions = Intervention
@@ -10,16 +11,6 @@ module Api
           return
         end
 
-        page = (params[:page] || 1).to_i
-        unless page > 0
-          head :unprocessable_entity
-          return
-        end
-        per_page = (params[:per_page] || 30).to_i
-        unless (30..100).cover?(per_page)
-          head :unprocessable_entity
-          return
-        end
         if params[:contact_email]
           entity = Entity.with_email(params[:contact_email])
           unless entity
@@ -39,11 +30,18 @@ module Api
         return render json: { message: :no_worker_associated_with_user_account.tn }, status: :precondition_required if user && user.worker.nil?
 
         if nature == 'request'
-          @interventions = @interventions
-                           .joins('LEFT JOIN interventions record_interventions_interventions ON record_interventions_interventions.request_intervention_id = interventions.id')
-                           .joins('LEFT JOIN intervention_participations ON record_interventions_interventions.id = intervention_participations.intervention_id')
-                           .joins('LEFT JOIN products AS workers_included ON intervention_participations.product_id = workers_included.id')
-                           .where('workers_included.id IS NULL OR workers_included.id != ? OR (workers_included.id = ? AND intervention_participations.state = \'in_progress\')', user.worker.id, user.worker.id)
+          @interventions = @interventions.joins(<<-SQL).where(<<-CONDITIONS, user.worker.id).group('interventions.id')
+            LEFT JOIN interventions record_interventions_interventions ON record_interventions_interventions.request_intervention_id = interventions.id
+            LEFT JOIN intervention_participations ON record_interventions_interventions.id = intervention_participations.intervention_id
+            LEFT JOIN products AS workers_or_tools_included ON intervention_participations.product_id = workers_or_tools_included.id AND workers_or_tools_included.type = 'Worker' 
+          SQL
+
+            (record_interventions_interventions.state IS NULL
+            OR record_interventions_interventions.state = 'in_progress')
+            AND (workers_or_tools_included.id IS NULL
+            OR (workers_or_tools_included.id = ? AND intervention_participations.state = 'in_progress'))
+         CONDITIONS
+
           if params[:with_interventions]
             if params[:with_interventions] == 'true'
               @interventions = @interventions.where(id: Intervention.select(:request_intervention_id))
@@ -55,23 +53,53 @@ module Api
             end
           end
         end
-        @interventions = @interventions.where(nature: nature).where.not(state: :rejected).page(page).per(per_page).order(:id)
+        @interventions = @interventions.where(nature: nature).where.not(state: :rejected).order(:id)
       end
 
       def create
-        intervention = Intervention.new(permitted_params)
-        if intervention.save
+        filtered_params = permitted_params
+        return error_message('Provider params not provided') unless validate_provider(filtered_params)
+
+        options = {
+          auto_calculate_working_periods: true,
+          nature: :record,
+          state: :done
+        }
+
+        interactor = Interventions::BuildInterventionInteractor.new(filtered_params, options)
+
+        if interactor.run
+          intervention = interactor.intervention
           render json: { id: intervention.id }, status: :created
         else
-          render json: intervention.errors, status: :unprocessable_entity
+          render json: { errors: interactor.error }, status: :bad_request
         end
       end
 
       protected
 
-      def permitted_params
-        super.permit(:procedure_name, :description, working_periods_attributes: %i[started_at stopped_at])
-      end
+        def permitted_params
+          permitted = super.permit(
+            :procedure_name,
+            :description,
+            :actions,
+            working_periods_attributes: %i[started_at stopped_at],
+            inputs_attributes: %i[product_id quantity_value quantity_handler reference_name quantity_population usage_id],
+            outputs_attributes: %i[variant_id quantity_value quantity_handler reference_name quantity_population],
+            tools_attributes: [:product_id, :reference_name, readings_attributes: %i[indicator_name measure_value_value measure_value_unit]],
+            targets_attributes: %i[product_id reference_name],
+            doers_attributes: %i[product_id reference_name],
+            group_parameters_attributes: [
+              :reference_name,
+              inputs_attributes: %i[product_id quantity_value quantity_handler reference_name quantity_population],
+              outputs_attributes: %i[variant_id quantity_value quantity_handler reference_name quantity_population batch_number variety],
+              targets_attributes: [:product_id, :reference_name, readings_attributes: %i[indicator_name measure_value_value measure_value_unit]],
+              tools_attributes: %i[product_id reference_name],
+              doers_attributes: %i[product_id reference_name]
+            ]
+          )
+          add_provider_params(permitted)
+        end
     end
   end
 end

@@ -230,9 +230,9 @@ module Backend
         selection = []
         if options[:of].to_s =~ /\#/
           array = options[:of].to_s.split('#')
-          selection = Nomen[array.first].property_natures[array.second].selection
+          selection = Nomen.find(array.first).property_natures[array.second].selection
         else
-          selection = Nomen[options[:of]].selection
+          selection = Nomen.find(options[:of]).selection
         end
       else
         raise 'Need selection'
@@ -652,7 +652,6 @@ module Backend
         varieties.keep_if { |(_l, n)| child_scope.all? { |c| c.variety? && Nomen::Variety.find(c.variety) <= n } }
       end
       @object.variety ||= scope.variety if scope
-      @object.variety ||= varieties.first.last if @object.new_record? && varieties.first
       if options[:derivative_of] || (scope && scope.derivative_of)
         derivatives = Nomen::Variety.selection(scope ? scope.derivative_of : nil)
         @object.derivative_of ||= scope.derivative_of if scope

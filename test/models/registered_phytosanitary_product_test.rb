@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2015-2020 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -26,15 +26,17 @@
 #  active_compounds             :string
 #  allowed_mentions             :jsonb
 #  firm_name                    :string
+#  france_maaid                 :string           not null
 #  id                           :integer          not null, primary key
 #  in_field_reentry_delay       :integer
-#  maaid                        :string           not null
 #  mix_category_code            :string           not null
 #  name                         :string           not null
 #  nature                       :string
 #  operator_protection_mentions :text
 #  other_name                   :string
 #  product_type                 :string
+#  record_checksum              :integer
+#  reference_name               :string           not null
 #  restricted_mentions          :string
 #  started_on                   :date
 #  state                        :string           not null

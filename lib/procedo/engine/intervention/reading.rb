@@ -105,7 +105,7 @@ module Procedo
         alias to_attributes to_hash
 
         def measure?
-          datatype == :measure?
+          datatype == :measure
         end
       end
     end

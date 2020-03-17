@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2015-2020 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -37,6 +37,7 @@
 #  fixed_asset_depreciation_percentage :decimal(19, 4)   default(0.0)
 #  fixed_asset_expenses_account_id     :integer
 #  id                                  :integer          not null, primary key
+#  imported_from                       :string
 #  lock_version                        :integer          default(0), not null
 #  name                                :string           not null
 #  number                              :string           not null
@@ -50,6 +51,7 @@
 #  stock_movement_account_id           :integer
 #  storable                            :boolean          default(FALSE), not null
 #  subscribing                         :boolean          default(FALSE), not null
+#  type                                :string           not null
 #  updated_at                          :datetime         not null
 #  updater_id                          :integer
 #
@@ -57,5 +59,28 @@ require 'test_helper'
 
 class ProductNatureCategoryTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
-  # Add tests here...
+
+  test 'type is correctly set upon import from nomenclature' do
+    references = { animal: :adult_cat,
+                   article: :animal_food,
+                   crop: :crop,
+                   equipment: :electronic_equipment,
+                   service: :agricultural_taxe,
+                   worker: :worker,
+                   zone: :building }
+
+    references.each { |type, reference| assert ProductNatureCategory.import_from_nomenclature(reference).is_a?("VariantCategories::#{type.capitalize}Category".constantize) }
+  end
+
+  test 'type is correctly set upon import from lexicon' do
+    references = { animal: :adult_large_specie_animal,
+                   article: :amortized_office_equipment,
+                   crop: :amortized_plant,
+                   equipment: :depreciable_tool,
+                   service: :additional_activity,
+                   worker: :associate,
+                   zone: :amortized_installation }
+
+    references.each { |type, reference| assert ProductNatureCategory.import_from_lexicon(reference).is_a?("VariantCategories::#{type.capitalize}Category".constantize) }
+  end
 end

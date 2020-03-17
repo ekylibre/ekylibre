@@ -4,7 +4,8 @@ module LaGraineInformatique
   module Vinifera
     class ProductsExchangerTest < ActiveExchanger::TestCase
       test 'import' do
-        LaGraineInformatique::Vinifera::ProductsExchanger.import(fixture_files_path.join('imports', 'la_graine_informatique', 'vinifera', 'products.zip'))
+        result = LaGraineInformatique::Vinifera::ProductsExchanger.build(fixture_files_path.join('imports', 'la_graine_informatique', 'vinifera', 'products.zip')).run
+        assert result.success?, [result.message, result.exception]
       end
     end
   end

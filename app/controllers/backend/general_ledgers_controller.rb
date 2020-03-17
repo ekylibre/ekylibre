@@ -119,7 +119,7 @@ module Backend
       t.column :entry_resource_label, url: { controller: 'RECORD&.entry&.resource&.class&.model_name&.plural'.c, id: 'RECORD&.entry&.resource&.id'.c }, label: :entry_resource_label, class: :largecolumns
       t.column :name, class: :entryname
       t.column :reference_number, through: :entry, hidden: true, class: :smallcolumns
-      t.column :variant, url: true, hidden: true, class: :smallcolumns
+      t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }, hidden: true, class: :smallcolumns
       t.column :letter, class: "smallcolumns letterscolumn"
       t.column :real_debit,  currency: :real_currency, hidden: true, class: "smallcolumns monetary_column"
       t.column :real_credit, currency: :real_currency, hidden: true, class: "smallcolumns monetary_column"
@@ -134,6 +134,8 @@ module Backend
 
       ledger_label = :general_ledger.tl
 
+      financial_year = FinancialYear.find_by(id: params[:current_financial_year]) || FinancialYear.current
+
       params[:ledger] ||= 'general_ledger'
 
       accounts = Account.get_auxiliary_accounts(params[:ledger])
@@ -143,42 +145,43 @@ module Backend
       end
       t3e(ledger: ledger_label)
 
-      document_nature = Nomen::DocumentNature.find(:general_ledger)
-      key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
+      dataset_params = { accounts: params[:accounts],
+                         lettering_state: params[:lettering_state],
+                         states: params[:states],
+                         ledger: params[:ledger],
+                         financial_year: financial_year }
 
       respond_to do |format|
         format.html
         format.ods do
-          @general_ledger = Account.ledger(params) if params[:period]
-          send_data(
-            to_ods(@general_ledger).bytes,
-            filename: key << '.ods'
-          )
+          return unless template = DocumentTemplate.find_by_nature(:general_ledger)
+          printer = Printers::GeneralLedgerPrinter.new(template: template, **dataset_params)
+          send_data printer.run_ods.bytes, filename: "#{printer.document_name}.ods"
         end
+
         format.csv do
-          @general_ledger = Account.ledger(params) if params[:period]
+          return unless template = DocumentTemplate.find_by_nature(:general_ledger)
+          printer = Printers::GeneralLedgerPrinter.new(template: template, **dataset_params)
           csv_string = CSV.generate(headers: true) do |csv|
-            to_csv(@general_ledger, csv)
-          end
-          send_data(csv_string, filename: key << '.csv')
+                         printer.run_csv(csv)
+                       end
+          send_data csv_string, filename: "#{printer.document_name}.csv"
         end
+
         format.xcsv do
-          @general_ledger = Account.ledger(params) if params[:period]
+          return unless template = DocumentTemplate.find_by_nature(:general_ledger)
+          printer = Printers::GeneralLedgerPrinter.new(template: template, **dataset_params)
           csv_string = CSV.generate(headers: true, col_sep: ';', encoding: 'CP1252') do |csv|
-            to_csv(@general_ledger, csv)
-          end
-          send_data(csv_string, filename: key << '.csv')
+                         printer.run_csv(csv)
+                       end
+          send_data csv_string, filename: "#{printer.document_name}.csv"
         end
+
         format.pdf do
-          template_path = find_open_document_template(:general_ledger)
-          @general_ledger = Account.ledger(params) if params[:period]
-          raise 'Cannot find template' if template_path.nil?
-          general_ledger_printer = GeneralLedgerPrinter.new(general_ledger: @general_ledger,
-                                                            document_nature: document_nature,
-                                                            key: key,
-                                                            template_path: template_path,
-                                                            params: params)
-          send_file general_ledger_printer.run, type: 'application/pdf', disposition: 'attachment', filename: key << '.pdf'
+          return unless template = DocumentTemplate.find_by_nature(:general_ledger)
+          PrinterJob.perform_later('Printers::GeneralLedgerPrinter', template: template, perform_as: current_user, **dataset_params)
+          notify_success(:document_in_preparation)
+          redirect_to :back
         end
       end
     end
@@ -188,8 +191,7 @@ module Backend
 
       t3e(account: account.label)
 
-      document_nature = Nomen::DocumentNature.find(:general_ledger)
-      key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
+      financial_year = FinancialYear.find_by(id: params[:current_financial_year]) || FinancialYear.current
 
       conditions_code = '(' + self.class.list_conditions.gsub(/\s*\n\s*/, ';') + ')'
 
@@ -198,39 +200,44 @@ module Backend
       @calculations = JournalEntryItem.joins(%i[entry account journal]).where(obj).pluck("COALESCE(SUM(#{JournalEntryItem.table_name}.absolute_debit), 0) AS cumulated_absolute_debit, COALESCE(SUM(#{JournalEntryItem.table_name}.absolute_credit), 0) AS cumulated_absolute_credit").first
       @calculations << @calculations[0] - @calculations[1]
 
+      dataset_params = { accounts: params[:accounts],
+                         lettering_state: params[:lettering_state],
+                         states: params[:states],
+                         ledger: params[:ledger],
+                         account_number: params[:account_number],
+                         financial_year: financial_year }
+
       respond_to do |format|
         format.html
         format.ods do
-          @general_ledger = Account.ledger(params) if params[:period]
-          send_data(
-            to_ods(@general_ledger).bytes,
-            filename: filename << '.ods'
-          )
+          return unless template = DocumentTemplate.find_by_nature(:general_ledger)
+          printer = Printers::GeneralLedgerPrinter.new(template: template, **dataset_params)
+          send_data printer.run_ods.bytes, filename: "#{printer.document_name}.ods"
         end
+
         format.csv do
-          @general_ledger = Account.ledger(params) if params[:period]
+          return unless template = DocumentTemplate.find_by_nature(:general_ledger)
+          printer = Printers::GeneralLedgerPrinter.new(template: template, **dataset_params)
           csv_string = CSV.generate(headers: true) do |csv|
-            to_csv(@general_ledger, csv)
-          end
-          send_data(csv_string, filename: filename << '.csv')
+                         printer.run_csv(csv)
+                       end
+          send_data csv_string, filename: "#{printer.document_name}.csv"
         end
+
         format.xcsv do
-          @general_ledger = Account.ledger(params) if params[:period]
+          return unless template = DocumentTemplate.find_by_nature(:general_ledger)
+          printer = Printers::GeneralLedgerPrinter.new(template: template, **dataset_params)
           csv_string = CSV.generate(headers: true, col_sep: ';', encoding: 'CP1252') do |csv|
-            to_csv(@general_ledger, csv)
-          end
-          send_data(csv_string, filename: filename << '.csv')
+                         printer.run_csv(csv)
+                       end
+          send_data csv_string, filename: "#{printer.document_name}.csv"
         end
+
         format.pdf do
-          template_path = find_open_document_template(:general_ledger)
-          @general_ledger = Account.ledger(params) if params[:period]
-          raise 'Cannot find template' if template_path.nil?
-          general_ledger_printer = GeneralLedgerPrinter.new(general_ledger: @general_ledger,
-                                                            document_nature: document_nature,
-                                                            key: key,
-                                                            template_path: template_path,
-                                                            params: params)
-          send_file general_ledger_printer.run, type: 'application/pdf', disposition: 'attachment', filename: key << '.pdf'
+          return unless template = DocumentTemplate.find_by_nature(:general_ledger)
+          PrinterJob.perform_later('Printers::GeneralLedgerPrinter', template: template, perform_as: current_user, **dataset_params)
+          notify_success(:document_in_preparation)
+          redirect_to :back
         end
       end
     end
@@ -249,104 +256,6 @@ module Backend
       preference_name << '.draft_items.masked'
       current_user.prefer!(preference_name, params[:masked].to_s == 'true', :boolean)
       head :ok
-    end
-
-    protected
-
-    def to_csv(general_ledger, csv)
-      csv << [
-        JournalEntryItem.human_attribute_name(:account_number),
-        JournalEntryItem.human_attribute_name(:account_name),
-        JournalEntryItem.human_attribute_name(:entry_number),
-        JournalEntryItem.human_attribute_name(:continuous_number),
-        JournalEntryItem.human_attribute_name(:printed_on),
-        JournalEntryItem.human_attribute_name(:name),
-        JournalEntryItem.human_attribute_name(:reference_number),
-        JournalEntryItem.human_attribute_name(:journal_name),
-        JournalEntryItem.human_attribute_name(:letter),
-        JournalEntry.human_attribute_name(:real_debit),
-        JournalEntry.human_attribute_name(:real_credit),
-        JournalEntry.human_attribute_name(:cumulated_balance)
-      ]
-
-      general_ledger.each do |account|
-        account[:items].each do |item|
-
-          item_name = item[:name]
-          account_name = account[:account_name]
-          journal_name = item[:journal_name]
-
-          if csv.encoding.eql?(Encoding::CP1252)
-            item_name = item_name.encode('CP1252', invalid: :replace, undef: :replace, replace: '?')
-            account_name = account_name.encode('CP1252', invalid: :replace, undef: :replace, replace: '?')
-            journal_name = journal_name.encode('CP1252', invalid: :replace, undef: :replace, replace: '?')
-          end
-
-          csv << [
-            account[:account_number],
-            account_name,
-            item[:entry_number],
-            item[:continuous_number],
-            item[:printed_on],
-            item_name,
-            item[:reference_number],
-            journal_name,
-            item[:letter],
-            item[:real_debit],
-            item[:real_credit],
-            item[:cumulated_balance]
-          ]
-        end
-      end
-    end
-
-    def to_ods(general_ledger)
-      require 'rodf'
-      output = RODF::Spreadsheet.new
-
-      output.instance_eval do
-        office_style :head, family: :cell do
-          property :text, 'font-weight': :bold
-          property :paragraph, 'text-align': :center
-        end
-
-        table 'ledger' do
-          row do
-            cell JournalEntryItem.human_attribute_name(:account_number), style: :head
-            cell JournalEntryItem.human_attribute_name(:account_name), style: :head
-            cell JournalEntryItem.human_attribute_name(:entry_number), style: :head
-            cell JournalEntryItem.human_attribute_name(:continuous_number), style: :head
-            cell JournalEntryItem.human_attribute_name(:printed_on), style: :head
-            cell JournalEntryItem.human_attribute_name(:name), style: :head
-            cell JournalEntryItem.human_attribute_name(:reference_number), style: :head
-            cell JournalEntryItem.human_attribute_name(:journal_name), style: :head
-            cell JournalEntryItem.human_attribute_name(:letter), style: :head
-            cell JournalEntry.human_attribute_name(:real_debit), style: :head
-            cell JournalEntry.human_attribute_name(:real_credit), style: :head
-            cell JournalEntry.human_attribute_name(:cumulated_balance), style: :head
-          end
-
-          general_ledger.each do |account|
-            account[:items].each do |item|
-              row do
-                cell account[:account_number], style: :head
-                cell account[:account_name], style: :head
-                cell item[:entry_number]
-                cell item[:continuous_number]
-                cell item[:printed_on]
-                cell item[:name]
-                cell item[:reference_number]
-                cell item[:journal_name]
-                cell item[:letter]
-                cell item[:real_debit]
-                cell item[:real_credit]
-                cell item[:cumulated_balance]
-              end
-            end
-          end
-        end
-      end
-      output
     end
   end
 end

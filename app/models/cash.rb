@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2015-2020 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,36 +23,37 @@
 #
 # == Table: cashes
 #
-#  bank_account_holder_name     :string
-#  bank_account_key             :string
-#  bank_account_number          :string
-#  bank_agency_address          :text
-#  bank_agency_code             :string
-#  bank_code                    :string
-#  bank_identifier_code         :string
-#  bank_name                    :string
-#  by_default                   :boolean          default(FALSE)
-#  container_id                 :integer
-#  country                      :string
-#  created_at                   :datetime         not null
-#  creator_id                   :integer
-#  currency                     :string           not null
-#  custom_fields                :jsonb
-#  iban                         :string
-#  id                           :integer          not null, primary key
-#  journal_id                   :integer          not null
-#  last_number                  :integer
-#  lock_version                 :integer          default(0), not null
-#  main_account_id              :integer          not null
-#  mode                         :string           default("iban"), not null
-#  name                         :string           not null
-#  nature                       :string           default("bank_account"), not null
-#  owner_id                     :integer
-#  spaced_iban                  :string
-#  suspend_until_reconciliation :boolean          default(FALSE), not null
-#  suspense_account_id          :integer
-#  updated_at                   :datetime         not null
-#  updater_id                   :integer
+#  bank_account_holder_name          :string
+#  bank_account_key                  :string
+#  bank_account_number               :string
+#  bank_agency_address               :text
+#  bank_agency_code                  :string
+#  bank_code                         :string
+#  bank_identifier_code              :string
+#  bank_name                         :string
+#  by_default                        :boolean          default(FALSE)
+#  container_id                      :integer
+#  country                           :string
+#  created_at                        :datetime         not null
+#  creator_id                        :integer
+#  currency                          :string           not null
+#  custom_fields                     :jsonb
+#  enable_bookkeep_bank_item_details :boolean          default(FALSE)
+#  iban                              :string
+#  id                                :integer          not null, primary key
+#  journal_id                        :integer          not null
+#  last_number                       :integer
+#  lock_version                      :integer          default(0), not null
+#  main_account_id                   :integer          not null
+#  mode                              :string           default("iban"), not null
+#  name                              :string           not null
+#  nature                            :string           default("bank_account"), not null
+#  owner_id                          :integer
+#  spaced_iban                       :string
+#  suspend_until_reconciliation      :boolean          default(FALSE), not null
+#  suspense_account_id               :integer
+#  updated_at                        :datetime         not null
+#  updater_id                        :integer
 #
 
 class Cash < Ekylibre::Record::Base
@@ -92,7 +93,7 @@ class Cash < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :bank_account_holder_name, :bank_account_key, :bank_account_number, :bank_agency_code, :bank_code, :bank_identifier_code, :bank_name, :iban, :spaced_iban, length: { maximum: 500 }, allow_blank: true
   validates :bank_agency_address, length: { maximum: 500_000 }, allow_blank: true
-  validates :by_default, inclusion: { in: [true, false] }, allow_blank: true
+  validates :by_default, :enable_bookkeep_bank_item_details, inclusion: { in: [true, false] }, allow_blank: true
   validates :currency, :journal, :main_account, :mode, :nature, presence: true
   validates :last_number, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }

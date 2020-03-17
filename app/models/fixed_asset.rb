@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2015-2020 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -77,34 +77,42 @@ class FixedAsset < Ekylibre::Record::Base
   include Customizable
   include Transitionable
 
+  bookkeep # This callback permits to add journal entry corresponding to the fixed asset when entering in use
   acts_as_numbered
+
   enumerize :depreciation_method, in: %i[linear regressive none], predicates: { prefix: true } # graduated
+  enumerize :depreciation_period, in: %i[monthly quarterly yearly], default: -> { Preference.get(:default_depreciation_period).value || Preference.set!(:default_depreciation_period, :yearly, :string) }
   enumerize :state, in: %i[draft waiting in_use sold scrapped], predicates: true, i18n_scope: "models.#{model_name.param_key}.states"
   refers_to :currency
-  belongs_to :waiting_journal_entry, class_name: 'JournalEntry', dependent: :destroy
-  belongs_to :asset_account, class_name: 'Account'
-  belongs_to :expenses_account, class_name: 'Account'
-  belongs_to :allocation_account, class_name: 'Account'
+
   belongs_to :journal, class_name: 'Journal'
   belongs_to :journal_entry, dependent: :destroy
-  belongs_to :sold_journal_entry, class_name: 'JournalEntry', dependent: :destroy
   belongs_to :scrapped_journal_entry, class_name: 'JournalEntry', dependent: :destroy
+  belongs_to :sold_journal_entry, class_name: 'JournalEntry', dependent: :destroy
+  belongs_to :waiting_journal_entry, class_name: 'JournalEntry', dependent: :destroy
+
+  belongs_to :allocation_account, class_name: 'Account'
+  belongs_to :asset_account, class_name: 'Account'
+  belongs_to :expenses_account, class_name: 'Account'
+  belongs_to :special_imputation_asset_account, class_name: 'Account'
+  belongs_to :waiting_asset_account, class_name: 'Account'
+
   belongs_to :product
   belongs_to :tax
   belongs_to :sale
   belongs_to :sale_item
-  belongs_to :special_imputation_asset_account, class_name: 'Account'
-  belongs_to :waiting_asset_account, class_name: 'Account'
   has_many :purchase_items, inverse_of: :fixed_asset
-  has_many :depreciations, -> { order(:position) }, class_name: 'FixedAssetDepreciation' do
+  has_many :depreciations, -> { order(:position) }, dependent: :destroy, class_name: 'FixedAssetDepreciation' do
     def following(depreciation)
       where('position > ?', depreciation.position)
     end
   end
+  has_many :planned_depreciations, -> { order(:position).where('NOT locked OR accounted_at IS NULL') }, class_name: 'FixedAssetDepreciation', dependent: :destroy
+
   has_many :parcel_items, through: :purchase_item
   has_many :delivery_products, through: :parcel_items, source: :product
-  has_many :planned_depreciations, -> { order(:position).where('NOT locked OR accounted_at IS NULL') }, class_name: 'FixedAssetDepreciation', dependent: :destroy
   has_one :tool, class_name: 'Equipment'
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :ceded, inclusion: { in: [true, false] }, allow_blank: true
@@ -119,22 +127,21 @@ class FixedAsset < Ekylibre::Record::Base
   validates :stopped_on, timeliness: { on_or_after: ->(fixed_asset) { fixed_asset.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
   # ]VALIDATORS]
   validates :name, uniqueness: true
-  validates :depreciation_method, inclusion: { in: depreciation_method.values }
   validates :asset_account, presence: true
   validates :currency, match: { with: :journal, to_invalidate: :journal }
   validates :depreciation_fiscal_coefficient, presence: true, if: -> { depreciation_method_regressive? }
-  validates :stopped_on, :allocation_account, :expenses_account, presence: { unless: :depreciation_method_none? }
-  validates :scrapped_on, financial_year_writeable: { if: -> { scrapped_on } }
-  validates :sold_on, financial_year_writeable: { if: -> { sold_on } }
+  validates :depreciation_method, inclusion: { in: depreciation_method.values }
   validates :tax_id, :selling_amount, :pretax_selling_amount, presence: { if: :sold? }
-  validates :scrapped_on, timeliness: { on_or_after: -> (fixed_asset) { fixed_asset.started_on }, on_or_before: -> { Date.today }, type: :date }, if: -> { scrapped_on }
-  validates :sold_on, timeliness: { on_or_after: -> (fixed_asset) { fixed_asset.started_on }, on_or_before: -> { Date.today }, type: :date }, if: -> { sold_on }
-  validates :waiting_on, timeliness: { on_or_before: -> (fixed_asset) { fixed_asset.started_on }, type: :date }, if: -> { waiting_on }, allow_blank: true
-  validates :scrapped_on, :product_id, presence: true, on: :scrap
-  validates :sold_on, :product_id, presence: true, on: :sell
-  validates :waiting_on, presence: true, financial_year_writeable: true, on: :stand_by
 
-  enumerize :depreciation_period, in: %i[monthly quarterly yearly], default: -> { Preference.get(:default_depreciation_period).value || Preference.set!(:default_depreciation_period, :yearly, :string) }
+  validates :scrapped_on, financial_year_writeable: { if: -> { scrapped_on } }
+  validates :scrapped_on, timeliness: { on_or_after: -> (fixed_asset) { fixed_asset.started_on }, on_or_before: -> { Date.today }, type: :date }, if: -> { scrapped_on }
+  validates :scrapped_on, :product_id, presence: true, on: :scrap
+  validates :sold_on, financial_year_writeable: { if: -> { sold_on } }
+  validates :sold_on, :product_id, presence: true, on: :sell
+  validates :sold_on, timeliness: { on_or_after: -> (fixed_asset) { fixed_asset.started_on }, on_or_before: -> { Date.today }, type: :date }, if: -> { sold_on }
+  validates :stopped_on, :allocation_account, :expenses_account, presence: { unless: :depreciation_method_none? }
+  validates :waiting_on, timeliness: { on_or_before: -> (fixed_asset) { fixed_asset.started_on }, type: :date }, if: -> { waiting_on }, allow_blank: true
+  validates :waiting_on, presence: true, financial_year_writeable: true, on: :stand_by
 
   scope :drafts, -> { where(state: %w[draft]) }
   scope :draft_or_waiting, -> { where(state: %w[draft waiting]) }
@@ -173,7 +180,7 @@ class FixedAsset < Ekylibre::Record::Base
     if depreciation_method_linear?
       if started_on
         months = 12 * (100.0 / depreciation_percentage.to_f)
-        self.stopped_on = started_on >> months.floor
+        self.stopped_on = started_on + months.floor.months
         self.stopped_on += (months - months.floor) * 30.0 - 1
       end
     end
@@ -195,18 +202,18 @@ class FixedAsset < Ekylibre::Record::Base
   validate on: :scrap do
     if product && scrapped_on && product.born_at > scrapped_on
       errors.add :scrapped_on, I18n.translate('errors.messages.on_or_after_field', attribute: I18n.translate('attributes.scrapped_on'),
-                                                                                   restriction: product.born_at.to_date.l,
-                                                                                   field: I18n.translate('activerecord.attributes.equipment.born_at'),
-                                                                                   model: product.name)
+                                              restriction: product.born_at.to_date.l,
+                                              field: I18n.translate('activerecord.attributes.equipment.born_at'),
+                                              model: product.name)
     end
   end
 
   validate on: :sell do
     if product && sold_on && product.born_at > sold_on
       errors.add :sold_on, I18n.translate('errors.messages.on_or_after_field', attribute: I18n.translate('attributes.sold_on'),
-                                                                               restriction: product.born_at.to_date.l,
-                                                                               field: I18n.translate('activerecord.attributes.equipment.born_at'),
-                                                                               model: product.name)
+                                          restriction: product.born_at.to_date.l,
+                                          field: I18n.translate('activerecord.attributes.equipment.born_at'),
+                                          model: product.name)
     end
   end
 
@@ -254,7 +261,7 @@ class FixedAsset < Ekylibre::Record::Base
   end
 
   protect on: :destroy do
-    waiting? && waiting_journal_entry&.confirmed? || in_use? || scrapped? || sold?
+    waiting? && waiting_journal_entry&.confirmed? || in_use? || scrapped? || sold? || !depreciations.all?(&:destroyable?)
   end
 
   def on_unclosed_periods?
@@ -296,23 +303,9 @@ class FixedAsset < Ekylibre::Record::Base
     FinancialYear.on(started_on)&.closure_in_preparation?
   end
 
-  # This callback permits to add journal entry corresponding to the fixed asset when entering in use
-  bookkeep
-
   # Depreciate active fixed assets
   def self.depreciate(options = {})
-    depreciations = FixedAssetDepreciation.with_active_asset.not_locked.not_accountable
-    depreciations = depreciations.up_to(options[:until]) if options[:until]
-    transaction do
-      # trusting the bookkeep to take care of the accounting
-      count = 0
-      depreciations.find_each do |dep|
-        dep.update!(accountable: true)
-        count += 1
-      end
-      return count
-    end
-    0
+    FixedAssetDepreciator.new.depreciate(FixedAsset.all, up_to: options[:until])
   end
 
   def depreciate!
@@ -322,11 +315,22 @@ class FixedAsset < Ekylibre::Record::Base
     unless depreciation_method_none?
       fy_reference = FinancialYear.at(started_on) || FinancialYear.opened.first
 
-      periods = DepreciationCalculator.new(fy_reference, depreciation_period.to_sym).depreciation_period(started_on, depreciation_percentage)
+      depreciation_start = started_on
+      depreciation_start = started_on.beginning_of_month if depreciation_method == :regressive
+
+      periods = DepreciationCalculator.new(fy_reference, depreciation_period.to_sym).depreciation_period(depreciation_start, depreciation_percentage)
 
       starts = periods.map(&:first) << (periods.last.second + 1.day)
+      total_duration = periods.sum(&:last)
 
-      send("depreciate_with_#{depreciation_method}_method", starts)
+      case depreciation_method
+        when 'linear'
+          depreciate_with_linear_method starts, total_duration
+        when 'regressive'
+          depreciate_with_regressive_method starts, total_duration
+        else
+          raise StandardError.new("Invalid depreciation method: #{depreciation_method}")
+      end
     end
 
     self
@@ -334,8 +338,7 @@ class FixedAsset < Ekylibre::Record::Base
 
   # Depreciate using linear method
   # Years have 12 months with 30 days
-  def depreciate_with_linear_method(starts)
-    depreciable_days = duration
+  def depreciate_with_linear_method(starts, depreciable_days)
     depreciable_amount = self.depreciable_amount
     reload.depreciations.each do |depreciation|
       depreciable_days -= depreciation.duration
@@ -363,7 +366,7 @@ class FixedAsset < Ekylibre::Record::Base
   end
 
   # Depreciate using regressive method
-  def depreciate_with_regressive_method(starts)
+  def depreciate_with_regressive_method(starts, _depreciable_days)
     depreciable_days = duration
     depreciable_amount = self.depreciable_amount
     reload.depreciations.each do |depreciation|
@@ -382,7 +385,7 @@ class FixedAsset < Ekylibre::Record::Base
       next if starts[index + 1].nil? || remaining_amount <= 0
       depreciation = depreciations.find_by(started_on: start)
       unless depreciation
-        depreciation = depreciations.new(started_on: start, stopped_on: starts[index + 1] - 1)
+        depreciation = depreciations.new(started_on: start.beginning_of_month, stopped_on: starts[index + 1] - 1)
         duration = depreciation.duration
 
         current_year = index

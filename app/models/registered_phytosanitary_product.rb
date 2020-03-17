@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2015-2020 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -26,15 +26,17 @@
 #  active_compounds             :string
 #  allowed_mentions             :jsonb
 #  firm_name                    :string
+#  france_maaid                 :string           not null
 #  id                           :integer          not null, primary key
 #  in_field_reentry_delay       :integer
-#  maaid                        :string           not null
 #  mix_category_code            :string           not null
 #  name                         :string           not null
 #  nature                       :string
 #  operator_protection_mentions :text
 #  other_name                   :string
 #  product_type                 :string
+#  record_checksum              :integer
+#  reference_name               :string           not null
 #  restricted_mentions          :string
 #  started_on                   :date
 #  state                        :string           not null
@@ -43,8 +45,9 @@
 class RegisteredPhytosanitaryProduct < ActiveRecord::Base
   include Lexiconable
   include Searchable
+  include ScopeIntrospection
 
-  search_on :name, :firm_name, :maaid
+  search_on :name, :firm_name, :france_maaid
 
   has_many :risks,   class_name: 'RegisteredPhytosanitaryRisk',
                      foreign_key: :product_id, dependent: :restrict_with_exception
@@ -67,8 +70,64 @@ class RegisteredPhytosanitaryProduct < ActiveRecord::Base
     :chemical
   end
 
+  def state
+    if product_type == 'PCP'
+      RegisteredPhytosanitaryProduct.find(france_maaid).state
+    else
+      super
+    end
+  end
+
+  def allowed_mentions
+    if product_type == 'PCP'
+      RegisteredPhytosanitaryProduct.find(france_maaid).allowed_mentions
+    else
+      super
+    end
+  end
+
+  def usages
+    if product_type == 'PCP'
+      RegisteredPhytosanitaryProduct.find(france_maaid).usages
+    else
+      super
+    end
+  end
+
+  def risks
+    if product_type == 'PCP'
+      RegisteredPhytosanitaryProduct.find(france_maaid).risks
+    else
+      super
+    end
+  end
+
+  def phrases
+    if product_type == 'PCP'
+      RegisteredPhytosanitaryProduct.find(france_maaid).phrases
+    else
+      super
+    end
+  end
+
+  def mix_category_codes
+    super || []
+  end
+
   def proper_name
-    [nature, name, maaid, firm_name].compact.join(' - ')
+    [nature, name, france_maaid, firm_name].compact.join(' - ')
+  end
+
+  def label_method
+    "#{france_maaid} - #{name.capitalize}"
+  end
+
+  def decorated_reentry_delay
+    decorate.in_field_reentry_delay
+  end
+
+  def allowed_for_organic_farming?
+    allowed_mentions.present? && allowed_mentions.keys.include?('organic_usage')
   end
 
   class << self

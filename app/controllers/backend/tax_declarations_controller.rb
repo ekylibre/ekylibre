@@ -59,9 +59,11 @@ module Backend
     end
 
     def index
-      key = "#{Nomen::DocumentNature.find(:vat_register).name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
+      set_period_params
+
       notify_warning_now :tax_declaration_warning
-      params[:period] = "#{params[:started_on]}_#{params[:stopped_on]}" if params[:period] == 'interval'
+
+      dataset_params = { period: params[:period], started_on: params[:started_on], stopped_on: params[:stopped_on], state: params[:state] }
 
       respond_to do |format|
         format.html do
@@ -70,15 +72,21 @@ module Backend
           all_vat_declarations_fulfilled = FinancialYear.with_tax_declaration.all? &:fulfilled_tax_declaration?
           @display_alert = no_financial_year_opened || financial_years_without_tax_declaration || all_vat_declarations_fulfilled
         end
+
         format.pdf do
-          VatExportJob.perform_later('vat_register', key, 'general', 'pdf', params, current_user)
+          return unless template = find_and_check(:document_template, params[:template])
+          PrinterJob.perform_later('Printers::VatRegisterPrinter', template: template, perform_as: current_user, **dataset_params)
           notify_success(:document_in_preparation)
           redirect_to :back
         end
+
         format.csv do
-          VatExportJob.perform_later('vat_register', key, 'general', 'csv', params, current_user)
-          notify_success(:document_in_preparation)
-          redirect_to :back
+          return unless template = DocumentTemplate.find_by_nature(:vat_register)
+          printer = Printers::VatRegisterPrinter.new(template: template, **dataset_params)
+          csv_string = CSV.generate(headers: true) do |csv|
+                         printer.run_csv(csv)
+                       end
+          send_data csv_string, filename: "#{printer.document_name}.csv"
         end
       end
     end
@@ -86,21 +94,24 @@ module Backend
     # Displays details of one tax declaration selected with +params[:id]+
     def show
       return unless @tax_declaration = find_and_check
-      key = "#{Nomen::DocumentNature.find(:vat_register).name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
 
       respond_to do |format|
         format.html do
           t3e @tax_declaration.attributes
         end
         format.pdf do
-          VatExportJob.perform_later('vat_register', key, 'pending', 'pdf', params, current_user)
+          return unless template = find_and_check(:document_template, params[:template])
+          PrinterJob.perform_later('Printers::PendingVatRegisterPrinter', template: template, tax_declaration: @tax_declaration, perform_as: current_user)
           notify_success(:document_in_preparation)
           redirect_to :back
         end
         format.csv do
-          VatExportJob.perform_later('vat_register', key, 'pending', 'csv', params, current_user)
-          notify_success(:document_in_preparation)
-          redirect_to :back
+          return unless template = DocumentTemplate.find_by_nature(:pending_vat_register)
+          printer = Printers::PendingVatRegisterPrinter.new(template: template, tax_declaration: @tax_declaration)
+          csv_string = CSV.generate(headers: true) do |csv|
+                         printer.run_csv(csv)
+                       end
+          send_data csv_string, filename: "#{printer.document_name}.csv"
         end
       end
     end

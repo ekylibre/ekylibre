@@ -92,9 +92,9 @@ $nested-field-border: $menu-border-width solid mix($menu-border-color, white);
       width: 70%;
       resize: vertical;
     }
-    input{
-      max-width: 65%;
-    }
+    //input{
+    //  max-width: 65%;
+    //}
 
     tr.nested-fields, tbody.nested-fields {
       input {
@@ -191,9 +191,9 @@ $large-controls-margin-left: round($large-label-width * 1.1);
     position: relative;
     @include margin-left($controls-margin-left);
     max-width: 100% - $controls-margin-left;
-    input, select, textarea {
-      max-width: 100% - $controls-margin-left;
-    }
+    //input, select, textarea {
+    //  max-width: 100% - $controls-margin-left;
+    //}
     .input-append {
       width: 100%;
     }
@@ -204,6 +204,12 @@ $large-controls-margin-left: round($large-label-width * 1.1);
     &.large-controls {
       @include margin-left($large-controls-margin-left);
       max-width: 100% - $large-controls-margin-left;
+    }
+    & .lights, .lights-message {
+      margin-left: 10px;
+    }
+    & .lights-message.warning {
+      color: #f44336;
     }
   }
   //  &.selector .controls .input {

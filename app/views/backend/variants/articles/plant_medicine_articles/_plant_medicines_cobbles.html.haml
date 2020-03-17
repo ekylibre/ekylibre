@@ -1,0 +1,53 @@
+- c.cobble(:details) do
+  - if phyto = resource.phytosanitary_product
+    :ruby
+      ppp_link = "https://ephy.anses.fr/ppp/#{phyto.name.gsub(' ', '-')}"
+      pcp_link = "https://ephy.anses.fr/ppp/#{RegisteredPhytosanitaryProduct.find(phyto.france_maaid).name.gsub(' ', '-')}"
+      allowed_mentions_imgs = if phyto.allowed_mentions
+                                images = phyto.allowed_mentions.keys.map { |a| image_tag("phytosanitary_products/allowed_mentions/#{a.dasherize}.svg", title: a.tl, class: 'smr') }
+                                content_tag(:span, images.join.html_safe, class: 'allowed-mentions')
+                              else
+                                ''
+                              end
+
+    = attributes_list(phyto, custom_fields: false, stamps: false) do |l|
+      - l.attribute :name
+      - l.attribute :firm_name
+      - l.attribute :state, force_string: true
+      - if phyto.stopped_on
+        - l.attribute :stopped_on
+      - else
+        - l.attribute :started_on
+      - l.attribute :product_type
+      - if phyto.in_field_reentry_delay
+        - l.custom RegisteredPhytosanitaryProduct.human_attribute_name(:in_field_reentry_delay), phyto.decorated_reentry_delay
+      - if phyto.operator_protection_mentions
+        - l.custom RegisteredPhytosanitaryProduct.human_attribute_name(:operator_protection_mentions), picto_tag('info-circle', color: '#3f70ce', pointer: true, data: { toggle: 'modal', target: '#operator-protection-modal' })
+      - if phyto.active_compounds
+        - l.custom RegisteredPhytosanitaryProduct.human_attribute_name(:active_compounds), simple_format(phyto.active_compounds.gsub(' | ', "\n"))
+      - if phyto.product_type == "PPP"
+        - l.custom RegisteredPhytosanitaryProduct.human_attribute_name(:france_maaid), link_to(phyto.france_maaid, ppp_link, target: "_blank", class: 'info-lg-link')
+      - else
+        - l.custom RegisteredPhytosanitaryProduct.human_attribute_name(:france_maaid), link_to(phyto.france_maaid, pcp_link, target: "_blank", class: 'info-lg-link')
+        - l.custom RegisteredPhytosanitaryProduct.human_attribute_name(:licence_number), link_to(phyto.id.to_s, ppp_link, target: "_blank", class: 'info-lg-link')
+      - if phyto.allowed_mentions
+        - l.custom RegisteredPhytosanitaryProduct.human_attribute_name(:allowed_mentions), allowed_mentions_imgs.html_safe
+      - if phyto.other_name
+        - l.custom RegisteredPhytosanitaryProduct.human_attribute_name(:other_name), phyto.other_name.gsub(' |', ',')
+  - else
+    .empty-info-cobble
+      = :please_provide_a_valid_maaid_to_display_this_article_properties.tl
+
+- c.cobble(:usages) do
+  - if resource.phytosanitary_product
+    = cobble_list(:registered_phytosanitary_usages)
+  - else
+    .empty-info-cobble
+      = :please_provide_a_valid_maaid_to_display_this_article_properties.tl
+
+- c.cobble(:risks) do
+  - if resource.phytosanitary_product
+    = cobble_list(:registered_phytosanitary_risks)
+  - else
+    .empty-info-cobble
+      = :please_provide_a_valid_maaid_to_display_this_article_properties.tl

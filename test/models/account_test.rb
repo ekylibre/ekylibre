@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2015-2020 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -91,8 +91,30 @@ class AccountTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     account_1 = build(:account, number: '205000000000000000000')
     account_2 = build(:account, number: '240500')
     account_3 = build(:account, number: '28154000')
+    account_4 = build(:account, number: 20500)
     assert account_1.number, "20500000"
     assert account_2.number, "24050000"
     assert account_3.number, "20500000"
+    assert account_4.number, "20500000"
+  end
+
+  test 'normalize works as expected' do
+    Preference.set! :account_number_digits, 8
+
+    assert_equal '20000000', Account.normalize('2')
+    assert_equal '20000000', Account.normalize(2)
+    assert_equal '20000000', Account.normalize(20000000000)
+    assert_equal '20000000', Account.normalize('20000000000')
+  end
+
+  test'centralizing_account_prefix_for takes into account the company preference' do
+    next_prefix = '999'
+    Account::CENTRALIZING_NATURES.each do |nature|
+      Preference.set! "#{nature}_account_radix", next_prefix, :string
+
+      assert_equal next_prefix, Account.centalizing_account_prefix_for(nature)
+
+      next_prefix = (next_prefix.to_i - 1).to_s
+    end
   end
 end

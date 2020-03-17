@@ -1,44 +1,31 @@
 FactoryBot.define do
   factory :land_parcel do
-    shape = '{
-              "type": "Feature",
-              "properties": {},
-              "geometry": {
-                "type": "Polygon",
-                "coordinates": [
-                  [
-                    [
-                      2.2214162349700928,
-                      45.89087440253303
-                    ],
-                    [
-                      2.220107316970825,
-                      45.88891786700034
-                    ],
-                    [
-                      2.2223711013793945,
-                      45.88809640024204
-                    ],
-                    [
-                      2.2246885299682617,
-                      45.88996335257688
-                    ],
-                    [
-                      2.223111391067505,
-                      45.8900679000522
-                    ],
-                    [
-                      2.2214162349700928,
-                      45.89087440253303
-                    ]
-                  ]
-                ]
-              }
-            }'
-    initial_shape { Charta.new_geometry(shape) }
-    association :category, factory: :product_nature_category
+    initial_shape { Charta.new_geometry("SRID=4326;MultiPolygon (((-1.017533540725708 44.23605999218229, -1.0204195976257324 44.236744122959124, -1.0197114944458008 44.238758034804555, -1.0165786743164062 44.238143107200145, -1.017533540725708 44.23605999218229)))") }
+    born_at { nil }
+
+    association :category, factory: :land_parcel_category
     association :nature, factory: :land_parcel_nature
-    association :variant, factory: :land_parcel_nature_variant
+    association :variant, factory: :land_parcel_variant
     variety { 'land_parcel' }
+
+    transient do
+      production_name { :corn_activity_production }
+    end
+
+    after(:build) do |land_parcel, evaluator|
+      land_parcel.activity_production = create *evaluator.production_name, support: land_parcel, started_on: land_parcel.born_at&.to_date
+    end
+
+    factory :lemon_land_parcel do
+      transient do
+        production_name { :lemon_activity_production }
+      end
+
+      trait :organic do
+        transient do
+          production_name { %i[lemon_activity_production organic] }
+        end
+      end
+    end
   end
 end

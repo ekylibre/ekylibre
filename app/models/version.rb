@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2015-2020 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -43,16 +43,16 @@ class Version < ActiveRecord::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   # ]VALIDATORS]
 
-  scope :creations,    -> { where(event: 'create') }
-  scope :updates,      -> { where(event: 'update') }
+  scope :creations, -> { where(event: 'create') }
+  scope :updates, -> { where(event: 'update') }
   scope :destructions, -> { where(event: 'destroy') }
-  scope :after,   ->(at) { where('created_at > ?', at) }
-  scope :before,  ->(at) { where('created_at < ?', at) }
+  scope :after, ->(at) { where('created_at > ?', at) }
+  scope :before, ->(at) { where('created_at < ?', at) }
   scope :between, lambda { |started_at, stopped_at|
     where(created_at: started_at..stopped_at).order(created_at: :desc)
   }
 
-  serialize :item_object,  HashWithIndifferentAccess
+  serialize :item_object, HashWithIndifferentAccess
   serialize :item_changes, HashWithIndifferentAccess
 
   before_save do
@@ -74,11 +74,21 @@ class Version < ActiveRecord::Base
     raise StandardError, 'Cannot destroy a past version'
   end
 
-  def self.diff(a, b)
-    # return a.diff(b)
-    a.dup
-     .delete_if { |k, v| b[k] == v }
-     .merge!(b.dup.delete_if { |k, _v| a.key?(k) })
+  class << self
+    def diff(a, b)
+      # return a.diff(b)
+      a.dup
+        .delete_if { |k, v| b[k] == v }
+        .merge!(b.dup.delete_if { |k, _v| a.key?(k) })
+    end
+
+    def with_current_user(user, &block)
+      old_user = self.current_user
+      self.current_user = user
+      block.call
+    ensure
+      self.current_user = old_user
+    end
   end
 
   def siblings

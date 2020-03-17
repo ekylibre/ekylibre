@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2015-2020 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -24,7 +24,9 @@
 # == Table: registered_phytosanitary_usages
 #
 #  applications_count         :integer
-#  applications_frequency     :jsonb
+#  applications_frequency     :integer
+#  crop                       :jsonb
+#  crop_label_fra             :string
 #  decision_date              :date
 #  description                :jsonb
 #  development_stage_max      :integer
@@ -35,15 +37,18 @@
 #  dose_unit_name             :string
 #  ephy_usage_phrase          :string           not null
 #  id                         :string           not null, primary key
+#  lib_court                  :integer
 #  pre_harvest_delay          :integer
 #  pre_harvest_delay_bbch     :integer
 #  product_id                 :integer          not null
-#  specie                     :string
+#  record_checksum            :integer
+#  species                    :text
+#  state                      :string           not null
 #  target_name                :jsonb
+#  target_name_label_fra      :string
 #  treatment                  :jsonb
 #  untreated_buffer_aquatic   :integer
 #  untreated_buffer_arthropod :integer
-#  untreated_buffer_distance  :integer
 #  untreated_buffer_plants    :integer
 #  usage_conditions           :string
 #

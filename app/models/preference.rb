@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2015-2020 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -202,6 +202,8 @@ class Preference < Ekylibre::Record::Base
 
   prefer :distribute_sales_and_purchases_on_activities, :boolean, false
   prefer :distribute_sales_and_purchases_on_teams, :boolean, false
+
+  prefer :allow_analytics, :boolean, false
 
   # DEPRECATED PREFERENCES
   prefer :host, :string, 'erp.example.com'

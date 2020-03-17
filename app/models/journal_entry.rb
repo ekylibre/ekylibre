@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2015-2020 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -454,93 +454,5 @@ class JournalEntry < Ekylibre::Record::Base
     def in_opened_financial_year_exchange?
       return unless financial_year
       financial_year.exchanges.opened.any? { |e| (e.started_on..e.stopped_on).cover?(printed_on) }
-    end
-
-    # this method loads the journal ledger for.the given financial year
-    def self.journal_ledger(options = {}, selected_journal_id = 0)
-      ledger = []
-
-      # fy = financial_year if financial_year.is_a? FinancialYear
-      if options[:period] == 'all'
-        started_on = FinancialYear.order(:started_on).pluck(:started_on).first.to_s
-        stopped_on = FinancialYear.order(:stopped_on).pluck(:stopped_on).last.to_s
-      else
-        started_on = options[:period].split("_").first if options[:period]
-        stopped_on = options[:period].split("_").last if options[:period]
-      end
-
-      # options[:states]
-      if options[:states]&.any?
-        a = options[:states].select { |_k, v| v.to_i == 1 }.map { |pair| "'#{pair.first}'" }.join(', ')
-        states_array = "state IN (#{a})"
-      else
-        states_array = '1=1'
-      end
-
-      # options[:journal]
-      if selected_journal_id > 0
-        select_journal = "journal_id = #{selected_journal_id}"
-      else
-        select_journal = "1=1"
-      end
-
-      total_debit = 0.0
-      total_credit = 0.0
-      entry_count = 0
-
-      je = JournalEntry.between(started_on, stopped_on)
-             .where(select_journal)
-             .where(states_array)
-             .order('journal_entries.printed_on ASC, journal_entries.number ASC')
-
-      je.group_by { |e| [e.printed_on.month, e.printed_on.year] }.each do |((month_number, year), entries)|
-        month = HashWithIndifferentAccess.new
-        month[:name] = I18n.t('date.month_names')[month_number].capitalize + '/' + year.to_s
-        month[:items] = []
-        month_total_debit = 0.0
-        month_total_credit = 0.0
-        month_entry_count = entries.count
-        entries.each do |e|
-          item = HashWithIndifferentAccess.new
-          item[:entry_number] = e.number
-          item[:printed_on] = e.printed_on.strftime('%d/%m/%Y')
-          item[:journal_name] = e.journal.name.to_s
-          item[:continuous_number] = e.continuous_number.to_s if e.continuous_number
-          item[:reference_number] = e.reference_number.to_s
-          item[:label] = e.items.first.displayed_label_in_accountancy.to_s
-          item[:state] = e.state_label
-          item[:real_debit] = e.real_debit
-          item[:real_credit] = e.real_credit
-          item[:balance] = e.balance
-          item[:entry_items] = []
-          e.items.each do |i|
-            entry_item = HashWithIndifferentAccess.new
-            entry_item[:account_number] = i.account.number.to_s
-            entry_item[:account_name] = i.account.name.to_s
-            entry_item[:real_debit] = i.real_debit
-            entry_item[:real_credit] = i.real_credit
-            item[:entry_items] << entry_item
-          end
-          month_total_debit += e.real_debit
-          month_total_credit += e.real_credit
-          month[:items] << item
-          total_debit += e.real_debit
-          total_credit += e.real_credit
-          entry_count += 1
-        end
-        month[:total_debit] = month_total_debit
-        month[:total_credit] = month_total_credit
-        month[:balance] = month_total_debit - month_total_credit
-        month[:entry_count] = month_entry_count
-
-        ledger << month
-
-      end
-
-      total_balance = total_debit - total_credit
-
-      ledger << { entry_count: entry_count, total_credit: total_credit, total_debit: total_debit, total_balance: total_balance }
-
-      ledger.compact
     end
 end

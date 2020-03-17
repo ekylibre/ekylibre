@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2015-2020 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -24,7 +24,9 @@
 # == Table: registered_phytosanitary_usages
 #
 #  applications_count         :integer
-#  applications_frequency     :jsonb
+#  applications_frequency     :integer
+#  crop                       :jsonb
+#  crop_label_fra             :string
 #  decision_date              :date
 #  description                :jsonb
 #  development_stage_max      :integer
@@ -35,21 +37,77 @@
 #  dose_unit_name             :string
 #  ephy_usage_phrase          :string           not null
 #  id                         :string           not null, primary key
+#  lib_court                  :integer
 #  pre_harvest_delay          :integer
 #  pre_harvest_delay_bbch     :integer
 #  product_id                 :integer          not null
-#  specie                     :string
+#  record_checksum            :integer
+#  species                    :text
+#  state                      :string           not null
 #  target_name                :jsonb
+#  target_name_label_fra      :string
 #  treatment                  :jsonb
 #  untreated_buffer_aquatic   :integer
 #  untreated_buffer_arthropod :integer
-#  untreated_buffer_distance  :integer
 #  untreated_buffer_plants    :integer
 #  usage_conditions           :string
 #
 class RegisteredPhytosanitaryUsage < ActiveRecord::Base
   include Lexiconable
+  include ScopeIntrospection
   belongs_to :product, class_name: 'RegisteredPhytosanitaryProduct'
 
+  scope :of_product, -> (*ids) { where(product_id: ids) }
+  scope :of_variety, -> (*varieties) { joins('LEFT OUTER JOIN ephy_cropsets
+                                              ON registered_phytosanitary_usages.species[1] = ephy_cropsets.name')
+                                         .where('registered_phytosanitary_usages.species && \'{"' + ActivityProduction.retrieve_varieties_ancestors(*varieties).join('", "') + '"}\'
+                                               OR ephy_cropsets.crop_names && \'{"' + ActivityProduction.retrieve_varieties_ancestors(*varieties).join('", "') + '"}\'') }
+
   scope :of_specie, ->(specie) { where(specie: specie.to_s) }
+  scope :with_conditions, -> { where.not(usage_conditions: nil) }
+
+  %i[dose_quantity development_stage_min usage_conditions].each do |col|
+    define_method "decorated_#{col}" do
+      decorate.send(col)
+    end
+  end
+
+  %i[pre_harvest_delay applications_frequency].each do |col|
+    define_method "decorated_#{col}" do
+      decorate.value_in_days(col)
+    end
+  end
+
+  %i[untreated_buffer_aquatic untreated_buffer_arthropod untreated_buffer_plants].each do |col|
+    define_method "decorated_#{col}" do
+      decorate.value_in_meters(col)
+    end
+  end
+
+  %i[lib_court ephy_usage_phrase].each do |col|
+    define_method "decorated_#{col}" do
+      decorate.link_to_ephy(col)
+    end
+  end
+
+  def status
+    case state
+      when 'Autorisé'
+        :go
+      when 'Provisoire'
+        :caution
+      when 'Retrait'
+        :stop
+      else
+        :stop
+    end
+  end
+
+  def of_dimension?(dimension)
+    dose_unit.present? && Nomen::Unit.find(dose_unit).dimension == dimension.to_sym
+  end
+
+  def among_dimensions?(*dimensions)
+    dimensions.any? { |dimension| of_dimension?(dimension) }
+  end
 end

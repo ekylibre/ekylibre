@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add missing document templates">
+  <item-creation item="document_natures#by_account_fixed_asset_registry" category="accountancy" />
+  <item-creation item="document_natures#gain_and_loss_fixed_asset_registry" category="accountancy" />
+  <item-creation item="document_natures#pending_vat_register" category="accountancy" />
+</migration>

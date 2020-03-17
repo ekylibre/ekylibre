@@ -99,7 +99,7 @@ module Backend
       t.column :product_identification_number, hidden: true
       t.column :population
       t.column :unit_name, through: :variant
-      # t.column :variant, url: true
+      # t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }
       t.status
       # t.column :net_mass
       t.column :analysis, url: true

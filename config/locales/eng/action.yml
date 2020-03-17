@@ -694,10 +694,10 @@ eng:
       # take: "Take product: %{name}"
       # update_many: "Update many product: %{name}"
     backend/project_budgets:
-      # edit: "Edit project budget: %{name}"
-      # index: "Project budgets"
-      # new: "New project budget"
-      # show: "Project budget: %{name}"
+       edit: "Edit project budget: %{name}"
+       index: "Project budgets"
+       new: "New project budget"
+       show: "Project budget: %{name}"
     backend/purchase_affairs:
       # attach: "Attach purchase affair: %{name}"
       # detach: "Detach purchase affair: %{name}"
@@ -934,6 +934,78 @@ eng:
       new: "New user"
       show: "User: %{first_name} %{last_name}"
       unlock: "Unlock user"
+    backend/variant_categories/animal_categories:
+      index: "Animals categories"
+      pick: "Import an animals category"
+    backend/variant_categories/article_categories:
+      index: "Articles categories"
+      pick: "Import an articles category"
+    backend/variant_categories/crop_categories:
+      index: "Crops categories"
+      pick: "Import a crops category"
+    backend/variant_categories/equipment_categories:
+      index: "Equipments categories"
+      pick: "Import an equipments category"
+    backend/variant_categories/service_categories:
+      index: "Services categories"
+      pick: "Import a services category"
+    backend/variant_categories/worker_categories:
+      index: "Workers categories"
+      pick: "Import a workers category"
+    backend/variant_categories/zone_categories:
+      index: "Zones categories"
+      pick: "Import a zones category"
+    backend/variant_types/animal_types:
+      index: "Animals types"
+      pick: "Import an animals type"
+    backend/variant_types/article_types:
+      index: "Articles types"
+      pick: "Import an articles type"
+    backend/variant_types/crop_types:
+      index: "Crops types"
+      pick: "Import a crops type"
+    backend/variant_types/equipment_types:
+      index: "Equipments types"
+      pick: "Import an equipments type"
+    backend/variant_types/service_types:
+      index: "Services types"
+      pick: "Import a services type"
+    backend/variant_types/worker_types:
+      index: "Workers types"
+      pick: "Import a workers type"
+    backend/variant_types/zone_types:
+      index: "Zones types"
+      pick: "Import a zones type"
+    backend/variants/animal_variants:
+      index: "Animals"
+      pick: "Import an animal"
+    backend/variants/article_variants:
+      index: "Other articles"
+      pick: "Import an article"
+    backend/variants/crop_variants:
+      index: "Crops"
+      pick: "Import a crop"
+    backend/variants/equipment_variants:
+      index: "Equipements"
+      pick: "Import an equipement"
+    backend/variants/service_variants:
+      index: "Services"
+      pick: "Import a service"
+    backend/variants/worker_variants:
+      index: "Workers"
+      pick: "Import a worker"
+    backend/variants/zone_variants:
+      index: "Zones"
+      pick: "Import a zone"
+    backend/variants/articles/fertilizer_articles:
+      index: "Fertilizers"
+      pick: "Import a fertilizer"
+    backend/variants/articles/plant_medicine_articles:
+      index: "Plant medicines"
+      pick: "Import a plant medicine"
+    backend/variants/articles/seed_and_plant_articles:
+      index: "Seed and plants"
+      pick: "Import a seed or a plant"
     backend/variants/fixed_assets:
       # fixed_assets_datas: "Fixed assets datas fixed asset: %{name}"
     backend/visualizations/land_parcels_visualizations:
@@ -1121,6 +1193,10 @@ eng:
       importerButtonTitle: "Import"
       zoomInTitle: "Zoom in"
       zoomOutTitle: "Zoom out"
+    intervention:
+      nature:
+        harvest: "Harvest:"
+        reentry: "Reentry:"
   labels:
     accepted: "Accepted"
     accepted_for_paiment: "Accepted for paiment"
@@ -1247,6 +1323,8 @@ eng:
     alive_corporeal_assets_young_animals: "Alive corporeal assets young animals" #?
     all: "All"
     allocation_balance: "Budget allocation - %{name} allocation"
+    allowed: "Allowed"
+    allowed_harvest_on: "Allowed harvest on"
     all_accounts: "All accounts"
     all_columns: "All columns" #?
     all_conditions: "All conditions" #?!
@@ -1265,11 +1343,14 @@ eng:
     analytic_preferences: "Analytic preferences"
     anew_reports: "Anew report" #?
     animal_details: "Animal details" #?!
+    animal_natures: "Animals"
     # animal_management: "Animal management"
     animal_purchases: "Animal purchases" #?
     animal_sales: "Animal sales" #?
+    animal_variants_specie_variety: "Variety"
     animals: "Animals"
     any_journal: "Any journal"
+    applications_count: "Max applications count"
     archive_post_closure: "Post closure archive"
     archive_prior_to_closure: "Prior to closure archive"
     archives: "Archives"
@@ -1285,6 +1366,7 @@ eng:
     are_you_sure_you_want_to_invoice: "Are you sure you want to invoice?"
     are_you_sure_you_want_to_send_mails: "Are you sure you want to send emails?"
     area: "Area" #?
+    articles: "Articles"
     asset_exists: "Asset exists"
     assets: "Assets" #?
     assets_gaps: "Assets gaps" #?
@@ -1293,10 +1375,12 @@ eng:
     associate_receivables: "Associate receivables" #?
     associated_sale: "Associated sale"
     assuming_you_want_to_close_a_financial_year_in_the_future: "Assuming you want to close a financial year in the future, you will have to provide an opening balance sheet."
+    at: "at"
     at_the_address: "At the address"
     attach_deal: "Add a deal"
     attachment: "Attachment"
     attachments: "Attachments"
+    authorized: "Authorized"
     automatic: "Auto" #?
     auxiliary: "Auxiliary" #?
     available: "Available"
@@ -1338,6 +1422,8 @@ eng:
     canals: "Canals" #?
     cancel: "Cancel"
     cancelation: "Cancelation"
+    cannot_be_mixed_with: "Cannot be mixed with the product %{phyto}"
+    cannot_be_mixed_with_any_product: "Cannot be mixed with any other product"
     cap_islets: "CAP islets"
     cap_land_parcels: "CAP land parcels"
     capitalised_production: "Capitalised production" #?
@@ -1351,6 +1437,7 @@ eng:
     capitals_profit_or_loss: "capitals_profit_or_loss" #?
     capitals_risk_and_charges_provisions: "capitals_risk_and_charges_provisions" #?
     capitals_values: "capitals_values" #?
+    carcinogen_mutagenic_toxic_for_reproduction: "Carcinogen, mutagenic, toxic for reproduction"
     cartography: "Cartography"
     cash: "Cash"
     cash_balance: "Cash balance"
@@ -1380,6 +1467,7 @@ eng:
     chart: "Chart"
     check: "Check" #?
     check_letter: "Check letter"
+    check_usage_conditions: "Check usage conditions"
     check_x_entries_to_balance: #?!
       one: "Check entry to balance (%{count})" #?!
       other: "Check entries to balance (%{count})" #?!
@@ -1411,11 +1499,12 @@ eng:
     cobbles: "Cobbles" #?
     column: "Column"
     columns: "Columns to import"
+    combustion_agents: "Combustion agents"
     comment: "Comment"
     commercial_margin: "Commercial margin"
     commission: "Commission"
     company: "Society"
-    # compare_planned_and_realised: "Compare planned and realised"
+    compare_planned_and_realised: "Compare planned and done"
     completed: "Completed"
     # components: "Components"
     compute_balances: "Computing balances" #?
@@ -1459,7 +1548,9 @@ eng:
     corporeal_assets_land_parcels: "Land parcels" #?
     corporeal_assets_others: "Others" #?
     corporeal_assets_settlements: "Settlements" #?
-    # cost: "Cost"
+    corrosive_skin_and_mucosa_risks_of_severe_burns: "Corrosive skin and mucosa, risks of severe burns"
+    corrosive_substances: "Corrosive substances"
+    cost: "Cost"
     cost_per_net_surface_area: "Cost per net surface area"
     costs: "Costs"
     costs_per_hectare: "Costs per hectare"
@@ -1562,6 +1653,7 @@ eng:
     destroyed_by_ago: "Destroyed by %{author} %{when}"
     detail: "Detail"
     details: "Details"
+    development_stage: "Phenological stage"
     # direct_expenses: "Direct expenses"
     discount: "Discount (%)" #?
     discount_without_percent: "Discount"
@@ -1589,6 +1681,9 @@ eng:
     dont_generate_result_entries: "— Do not generate result entries —"
     dont_use_journal: "— Do not use journal —" #?!
     # dose: "Dose"
+    dose_bigger_than_max: "Dose bigger than max"
+    dose_equal_to_max: "Dose equal to max"
+    dose_less_than_max: "Dose less than max"
     down: "Down" #?
     download: "Download"
     download_archive: "Download archive (ZIP)"
@@ -1640,8 +1735,11 @@ eng:
     entry_item_label: "Entry item label" #?
     entry_items: "Entry items" #?
     entry_resource_label: "Record" #?
+    environment_h4: "Environment H4"
     equipment: "Equipment"
     equipment_name: "Name of equipment" #?
+    equipment_natures: "Equipments"
+    equipment_variants_specie_variety: "Brand / Model"
     equipments: "Equipment"
     equities: "Equities" #?!
     error: "Sorry..."
@@ -1687,6 +1785,7 @@ eng:
     expired_within: "Expired within" #?
     exploitation_result: "Exploitation result" #?
     exploitation_results: "Exploitation results" #?!
+    explosive_substances: "Explosive substances"
     export: "Export documents" #?
     export_as_csv: "Export as CSV"
     export_as_ods: "Export as ODS"
@@ -1695,9 +1794,9 @@ eng:
     export_as_xcsv: "Export as Excel CSV"
     export_balance_sheet: "Export balance sheet"
     export_centralizing_journal: "Export centralizing journal"
-    export_fixed_assets_by_account: "Fixed assets by account"
-    export_fixed_assets_gain_and_loss: "Added values and capital losses"
-    export_fixed_assets_general: "Fixed assets"
+    export_by_account_fixed_asset_registry: "Fixed assets by account"
+    export_gain_and_loss_fixed_asset_registry: "Added values and capital losses"
+    export_fixed_asset_registry: "Fixed assets"
     export_income_statement: "Export income statement"
     export_text_fec_all: "Export FEC corporate tax (Text)"
     export_text_fec_ba_bnc_ir_commercial_accountancy: "Export FEC for agriculture and professional operations income taxation commercial accountancy (Text)"
@@ -1707,12 +1806,14 @@ eng:
     export_xml_fec_ba_bnc_ir_commercial_accountancy: "Export FEC for agriculture and professional operations income taxation commercial accountancy (XML)"
     export_xml_fec_ba_ir_cash_accountancy: "Export FEC agriculture income taxation cash accountancy (XML)"
     export_xml_fec_bnc_ir_cash_accountancy: "Export FEC professional operations income taxation cash accountancy (XML)"
+    external_links: "External links"
     extract_account_x: "Extract account %{account_number}"
     # extract_non_letter_odt: "Extract non letter odt"
     # extract_non_letter_pdf: "Extract non letter pdf"
     extract_unlettered_account_x: "Extract unlettered account %{account_number}"
     extraordinary_income: "Extraordinary income"
     fees: "Fees" #?
+    fertilizers: "Fertilizers"
     field: "Field %{counter}" #?
     field_distribution: "Field distribution"
     file_nature: "File type"
@@ -1760,10 +1861,14 @@ eng:
     fixed_asset_depreciations_not_accounted_on_current_financial_year: "Fixed asset depreciations not accounted on current financial year"
     fixed_asset_successfully_associated_to_sale: "The fixed asset has been successfully associated to the sale. Click the 'Sold' button to proceed."
     fixed_assets: "Fixed assets"
+    flammable_agents: "Flammable agents"
+    forbidden: "Unauthorized"
     forecast_harvest_week: "Forecast harvest week"
     from: "From"
     from_to_date: "from %{from} to %{to}" #?
+    fruit_yield: "Fruit yield"
     fullscreen: "Fullscreen"
+    full_name: "Full name"
     function: "Function"
     fungi: "Fungi" #?
     future_events: "Future events"
@@ -1799,6 +1904,7 @@ eng:
     guide_evolution: "Guide evolution"
     harvested_area: "Harvested area"
     harvested_at: "Harvested at" #?
+    health_h3: "Health H3"
     help: "Help"
     help_center: "Help center"
     hide_lettered_lines: "Hide lettered lines"
@@ -1816,9 +1922,12 @@ eng:
     iban: "International Bank Account Number (IBAN)" #?
     identification: "Identification"
     identifiers: "Identifiers"
+    if_closed_environment: "if closed environment"
     illness: "Illness"
     implanted_at: "Implanted at" #?
     import: "Import"
+    import_incoming_payments: "Import incoming payments"
+    import_sales: "Import sales"
     importation_explanation: "Importation explanation"
     in_progress: "In progress" #?
     inactive: "Inactive" #?
@@ -1843,6 +1952,7 @@ eng:
     info: "General parameters" #?
     # informations: "Informations"
     infos: "Product and quantity" #?
+    infos_usage: "Usage informations"
     initial_balance_of_bank_statement: "Initial balance of bank statement"
     input_cost: "Input cost"
     inputs: "Inputs"
@@ -1874,6 +1984,7 @@ eng:
     invoiced: "Invoiced"
     invoices: "Invoices" #?
     irreversible_operation: "This operation is irreversible"
+    irritating_by_skin_contact_and_inhalation_severe_eyes_irritation: "Irritating by skin contact and inhalation, severe eyes irritation"
     is: "Is" #?
     is_equipment_set_as_inactive_by_intervention: "This intervention set the equipment as inactive ?" #?!
     issue: "Issue"
@@ -1924,6 +2035,7 @@ eng:
     last_issues: "Last issues"
     last_movements: "Last movements"
     last_outgoing_parcels: "Last outgoing parcels"
+    last_panier_local_import: "Last Panier Local import"
     last_products: "Last products" #?
     last_purchases: "Last purchases"
     last_purchases_invoices: "Last purchases"
@@ -1990,6 +2102,7 @@ eng:
     mass: "Masse" #?
     maximal_temperature: "Maximal temperature" #?!
     maximum_amount: "Maximum amount"
+    maximum_dose: "Maximum dose"
     members: "Members"
     menus: "Menus"
     merchandise: "Merchandise"
@@ -2085,6 +2198,7 @@ eng:
     non_compliant_with_request: "Non compliant with request" #?!
     none: "None"
     normal: "Normal" #?
+    not_allowed_for_organic_farming: "This product cannot be used for organic agriculture"
     not_delivered: "Not delivered" #?
     not_informed: "Not informed"
     not_invoiced_or_aborted_purchases: "You have not invoiced or aborted purchases. Once the financial year closed, it won't be possible to invoice them or abort them on this financial year (%{code})."
@@ -2100,6 +2214,7 @@ eng:
     number_of_cap_islets: "Number of CAP islets"
     number_of_cap_land_parcels: "Number of CAP land parcels"
     number_of_cap_neutral_areas: "Number of cap neutral areas"
+    number_with_param: "N° %{number}" #?
     numbers: "Numbers" #?
     # observations: "Observations"
     on_account: "On account" #?
@@ -2107,7 +2222,8 @@ eng:
     one_condition: "One condition" #??
     open_a_production: "Open a production"
     open_an_activity: "Open an activity"
-    open_financial_year: "Open %{code}"
+    open_financial_year: "Open a financial year"
+    open_financial_year_with_date: "Open %{code}"
     operating_costs: "Operating costs"
     operating_margin: "Operating margin %{financial_year}"
     operating_margin_on_turnover: "Operating margin on turnover %{financial_year}" #?
@@ -2180,11 +2296,12 @@ eng:
     permute: "Permute" #?
     personalized_mail: "Send a personalized mail"
     pertinence: "%{value}%"
-    # pfi_dose: "Pfi dose"
-    # pfi_parcel_ratio: "Pfi parcel ratio"
-    # pfi_treatment_ratio: "Pfi treatment ratio"
+    pfi_dose: "Pfi dose"
+    pfi_parcel_ratio: "Pfi parcel ratio"
+    pfi_treatment_ratio: "Pfi treatment ratio"
     phosphorus_concentration: "Phosphorus concentration" #?
-    # phyto_data: "Phyto data"
+    physical_h2: "Physical H2"
+    phyto_data: "Phytosanitary data"
     picture: "Picture" #?
     placeholder: "Placeholder" #?
     places: "Places"
@@ -2194,8 +2311,10 @@ eng:
     plant: "Crop"
     plant_counting: "Counting" #?
     plant_countings: "Countings" #?
+    plant_medicines: "Plant medicines"
     plantation_density: "Plantation density" #?
     plants: "Crops" #?
+    please_provide_a_valid_maaid_to_display_this_article_properties: "Please provide a valid AMM number to display this article's properties"
     please_reach_out_for_the_person_in_charge_of_the_closure: "Please reach out for the person in charge of the closure outside of the software to get your documents."
     please_wait: "Please wait…"
     pluviometry: "Ploviometry"
@@ -2204,6 +2323,7 @@ eng:
     population: "Population"
     potassium_concentration: "Potassium concentration" #?
     potential_hydrogen: "Potential hydrogen" #?
+    pre_harvest_delay: "Pre harvest delay"
     precipitation: "Precipitation" #?
     preferences: "Preferences"
     prepare_financial_year_for_closure: "Prepare %{code} for closure"
@@ -2278,6 +2398,8 @@ eng:
     radical_class_accounts_dont_have_entries: "Radical class accounts does not contain any entry" #?
     radical_class_accounts_have_entries: "Radical class accounts contains entries" #?
     raw_income: "Raw income" #?!
+    re_entry_delay: "Re entry delay"
+    re_entry_interval: "Re-entry interval"
     reading_tasks: "Reading tasks" #?
     readings: "Readings"
     ready: "Ready"
@@ -2342,6 +2464,7 @@ eng:
     revise: "Revise"
     rights: "Rights"
     risk_and_charges_provisions: "Risk and charges provisions" #?
+    risks: "Risks"
     role: "Role" #?
     roles: "Roles" #?
     rss: "RSS" #?
@@ -2377,6 +2500,7 @@ eng:
     see_the_day_book: "See the day book"
     see_the_financial_years: "See the financial years"
     see_the_unbalanced_entries: "See the unbalanced entries"
+    seed_and_plants: "Seed and plants"
     select_a_journal: "Select a journal"
     select_closure_date: "Choose closing date"
     select_columns: "Select columns" #??
@@ -2397,6 +2521,7 @@ eng:
     service: "Service" #?
     service_deliveries: "Service deliveries"
     service_delivering: "Service delivering"
+    services: "Services"
     services_sale: "Service sale" #?
     sessions: "Sessions" #?
     set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)" #?!
@@ -2459,11 +2584,13 @@ eng:
     subscriptions: "Subscriptions"
     subscriptions_evolution: "Subscriptions evolution" #?
     subsidies: "Subsidies"
+    substances_mixing_not_allowed_due_to_znt_buffer: "Substances mixing not allowed due to the usage %{usage} of product %{phyto} (untreated buffer aquatic >= 100 m)"
     subtotal: "Sub-total %{name}"
     subtotals_at_level: "Sub-total at level"
     # supervision: "Supervision"
     supplier: "Purchase prices of the supplier"
     supplier_informations: "Supplier informations"
+    merged_entity: "Merged entity (ID=%{other}):\n"
     supplier_payment_mode: "Supplier payment mode"
     supplier_receivables: "Supplier receivables" #?
     supplier_reference: "Supplier reference"
@@ -2561,6 +2688,8 @@ eng:
         user:
           content: "Here, you can see your notifications, show help, read your farm name. Your user preferences are editable from menu."
           title: "User menu"
+    toxic: "Toxic"
+    toxic_for_aquatic_organisms: "Toxic for aquatic organisms"
     tracking: "Tracking" #?
     trade: "Trade"
     trade_counts: "Trade counts"
@@ -2569,6 +2698,7 @@ eng:
     transport: "Transport" #?
     trimester: "Trimester"
     type_of_structure: "Type of structure"
+    unauthorized: "Unauthorized"
     unbalanced: "Unbalanced"
     unbalanced_balance_sheet: "The balance sheet is not balanced."
     unbalanced_clients: "Unbalanced clients" #?
@@ -2578,6 +2708,7 @@ eng:
     undefined_container: "Undefined container"
     undelivered: "Undelivered" #?
     undelivered_invoices: "Undelivered invoices" #?!
+    under_pressure_or_refrigerated_gas: "Under pressure or refrigerated gas"
     undone: "Undone" #?
     uninvoiced: "Uninvoiced"
     unit: "Unit"
@@ -2601,6 +2732,9 @@ eng:
     unset_reconcilable_old_third_accounts: "Unset reconcilable old third accounts (clients, suppliers and attorneys)" #?!
     unsubcribed_capital: "Unsubcribed capital"
     until: "until"
+    untreated_buffer_aquatic: "Untreated buffer aquatic"
+    untreated_buffer_arthropod: "Untreated buffer arthropods"
+    untreated_buffer_plants: "Untreated buffer plants"
     up: "Up" #?
     up_to: "Up to"
     update: "Update"
@@ -2608,6 +2742,8 @@ eng:
     updated_by_ago: "Updated by %{author} %{when}"
     upload: "Upload"
     usage: "Usage" #?
+    usage_conditions: "Usage conditions"
+    usage_phyto: "Usage"
     user_status: "Status" #?
     users: "Users"
     valid: "Valid"
@@ -2620,6 +2756,7 @@ eng:
       one: "Validate the entry" #?
       other: "Validate %{count} entries" #?
     validated: "Validated"
+    validated_by: "Validated by"
     validated_vat_declaration: "Definitive VAT declaration" #?!
     values: "Values"
     variable_indicators: "Variable indicators"
@@ -2627,6 +2764,7 @@ eng:
     variants: "Variants" #?
     vat: "VAT"
     vat_rate: "VAT rate"
+    vegetable_yield: "Vegetable yield"
     view: "View"
     view_map_when_creating_an_intervention: "View map when creating an intervention"
     # vine_yield: "Vine yield"
@@ -2643,9 +2781,10 @@ eng:
     wind_speed: "Wind speed"
     with_fixed_assets_depreciations: "With fixed assets depreciations"
     worked_zone_not_corresponding: "The worked zone is not corresponding to the planned one"
+    worker_natures: "Workers"
     workers: "Workers"
     workforce: "Workforce" #?!
-    # working_area: "Working area"
+    working_area: "Working area"
     working_duration: "Working duration"
     working_hectare_costs: "Working hectare costs" #?
     working_sets_stocks: "Working sets stocks" #?
@@ -2832,6 +2971,7 @@ eng:
     # yield_by_calibration_x: "Yield by calibration x"
     you_can_close_financial_year: "You can close or lock your financial year %{financial_year_to_close}" #?
     you_can_close_financial_year_to_open_a_new_one: "You can close or lock your financial year %{financial_year_to_close} to open %{financial_year_to_open}" #?
+    zone_natures: "Zones"
     zones: "Zones"
     # }: "}"
   notifications:
@@ -2849,6 +2989,7 @@ eng:
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "All parcels must be invoiceable and of same nature and third"
       all_purchases_must_be_ordered_or_invoiced: "All purchases must be ordered or invoiced."
       all_tax_declarations_have_already_existing: "All tax declarations have already existing"
+      an_error_was_raised_during_import: "An error was raised during import process."
       bookkeeping_is_finished: "The commercial data transfer is finished."
       bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
       cannot_add_bank_statement_item: "You can’t add a new line because there is no available bank statement on this day"
@@ -2889,6 +3030,7 @@ eng:
       error_during_vat_declaration_generation: "An error occured while generating the VAT declaration." #?
       error_on_field: "%{field} in invalid\_: %{message}"
       fails_to_extract_listing: "The listing can't be made: %{message}"
+      feature_in_development: "Feature available in the upcoming version of our mobile application <u><a href='https://play.google.com/store/apps/details?id=ekylibre.zero' target='_blank'>Zero</a></u>"
       file_generated: "Your file was successfully generated" #?
       financial_year_already_closed: "The financial year has already been closed." #?
       # financial_year_closure_in_preparation_initiated_by_someone_else: "Financial year closure in preparation initiated by someone else"
@@ -3143,6 +3285,7 @@ eng:
       prepare: "Prepare"
       print: "Print"
       print_worker_register: "Print worker register"
+      print_land_parcel_register: "Print land parcel register"
       # progress: "Progress"
       propose: "Propose"
       propose_and_invoice: "Propose and invoice"

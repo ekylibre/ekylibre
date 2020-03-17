@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2015-2020 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -182,7 +182,7 @@ class SaleItem < Ekylibre::Record::Base
       self.amount ||= tax.amount_of(raw_pretax_amount).round(precision)
     end
     if variant
-      self.account_id = variant.nature.category.product_account_id
+      self.account_id = variant.category.product_account_id
       self.label = variant.commercial_name
     end
   end

@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2015-2020 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -32,6 +32,7 @@
 #  france_maaid              :string
 #  gtin                      :string
 #  id                        :integer          not null, primary key
+#  imported_from             :string
 #  lock_version              :integer          default(0), not null
 #  name                      :string
 #  nature_id                 :integer          not null
@@ -42,8 +43,10 @@
 #  picture_updated_at        :datetime
 #  providers                 :jsonb
 #  reference_name            :string
+#  specie_variety            :string
 #  stock_account_id          :integer
 #  stock_movement_account_id :integer
+#  type                      :string           not null
 #  unit_name                 :string           not null
 #  updated_at                :datetime         not null
 #  updater_id                :integer
@@ -66,6 +69,7 @@ product_nature_variants_001:
   updater_id: 1
   variety: product
   work_number: PNV001
+  type: Variants::ArticleVariant
 product_nature_variants_002:
   active: true
   category_id: 1
@@ -81,6 +85,7 @@ product_nature_variants_002:
   updater_id: 1
   variety: bos
   work_number: PNV002
+  type: Variants::AnimalVariant
 product_nature_variants_003:
   active: true
   category_id: 1
@@ -96,6 +101,7 @@ product_nature_variants_003:
   updater_id: 1
   variety: building
   work_number: PNV004
+  type: Variants::ZoneVariant
 product_nature_variants_004:
   active: true
   category_id: 1
@@ -111,6 +117,7 @@ product_nature_variants_004:
   updater_id: 1
   variety: raw_matter
   work_number: PNV005
+  type: Variants::ArticleVariant
 product_nature_variants_005:
   active: true
   category_id: 1
@@ -126,6 +133,7 @@ product_nature_variants_005:
   updater_id: 1
   variety: bos
   work_number: PNV007
+  type: Variants::AnimalVariant
 product_nature_variants_006:
   active: true
   category_id: 1
@@ -141,6 +149,7 @@ product_nature_variants_006:
   updater_id: 1
   variety: animal_group
   work_number: PNV029
+  type: Variants::AnimalVariant
 product_nature_variants_007:
   active: true
   category_id: 3
@@ -159,6 +168,7 @@ product_nature_variants_007:
   updater_id: 1
   variety: preparation
   work_number: PNV030
+  type: Variants::Articles::PlantMedicineArticle
 product_nature_variants_008:
   active: true
   category_id: 4
@@ -178,6 +188,7 @@ product_nature_variants_008:
   updater_id: 1
   variety: straw
   work_number: PNV031
+  type: Variants::ArticleVariant
 product_nature_variants_009:
   active: true
   category_id: 5
@@ -197,6 +208,7 @@ product_nature_variants_009:
   updater_id: 1
   variety: seed
   work_number: PNV032
+  type: Variants::Articles::SeedAndPlantArticle
 product_nature_variants_010:
   active: true
   category_id: 5
@@ -216,6 +228,7 @@ product_nature_variants_010:
   updater_id: 1
   variety: seed
   work_number: PNV033
+  type: Variants::Articles::SeedAndPlantArticle
 product_nature_variants_011:
   active: true
   category_id: 6
@@ -232,6 +245,7 @@ product_nature_variants_011:
   updater_id: 1
   variety: building
   work_number: PNV034
+  type: Variants::ZoneVariant
 product_nature_variants_012:
   active: true
   category_id: 7
@@ -248,6 +262,7 @@ product_nature_variants_012:
   updater_id: 1
   variety: building_division
   work_number: PNV035
+  type: Variants::ZoneVariant
 product_nature_variants_013:
   active: true
   category_id: 7
@@ -264,6 +279,7 @@ product_nature_variants_013:
   updater_id: 1
   variety: building_division
   work_number: PNV036
+  type: Variants::ZoneVariant
 product_nature_variants_014:
   active: true
   category_id: 7
@@ -280,6 +296,7 @@ product_nature_variants_014:
   updater_id: 1
   variety: building_division
   work_number: PNV037
+  type: Variants::ZoneVariant
 product_nature_variants_015:
   active: true
   category_id: 8
@@ -298,6 +315,7 @@ product_nature_variants_015:
   updater_id: 1
   variety: triticum_aestivum
   work_number: VPNV000000000001
+  type: Variants::CropVariant
 product_nature_variants_016:
   active: true
   category_id: 9
@@ -316,6 +334,7 @@ product_nature_variants_016:
   updater_id: 1
   variety: bos
   work_number: YVPNV000000000002
+  type: Variants::AnimalVariant
 product_nature_variants_017:
   active: true
   category_id: 10
@@ -335,6 +354,7 @@ product_nature_variants_017:
   updater_id: 1
   variety: milk
   work_number: RYVPNV000000000003
+  type: Variants::ArticleVariant
 product_nature_variants_018:
   active: true
   category_id: 11
@@ -354,6 +374,7 @@ product_nature_variants_018:
   updater_id: 1
   variety: grain
   work_number: KRYVPNV000000000004
+  type: Variants::Articles::SeedAndPlantArticle
 product_nature_variants_019:
   active: true
   category_id: 3
@@ -372,6 +393,7 @@ product_nature_variants_019:
   updater_id: 1
   variety: preparation
   work_number: VKRYVPNV000000000005
+  type: Variants::Articles::PlantMedicineArticle
 product_nature_variants_020:
   active: true
   category_id: 12
@@ -390,6 +412,7 @@ product_nature_variants_020:
   updater_id: 1
   variety: preparation
   work_number: NVKRYVPNV000000000006
+  type: Variants::Articles::PlantMedicineArticle
 product_nature_variants_021:
   active: true
   category_id: 12
@@ -408,6 +431,7 @@ product_nature_variants_021:
   updater_id: 1
   variety: preparation
   work_number: WNVKRYVPNV000000000007
+  type: Variants::Articles::PlantMedicineArticle
 product_nature_variants_022:
   active: true
   category_id: 13
@@ -424,6 +448,7 @@ product_nature_variants_022:
   updater_id: 1
   variety: worker
   work_number: GWNVKRYVPNV000000000008
+  type: Variants::WorkerVariant
 product_nature_variants_023:
   active: true
   category_id: 14
@@ -440,6 +465,7 @@ product_nature_variants_023:
   updater_id: 1
   variety: tractor
   work_number: GWNVKRYVPNV000000000009
+  type: Variants::EquipmentVariant
 product_nature_variants_024:
   active: true
   category_id: 14
@@ -456,6 +482,7 @@ product_nature_variants_024:
   updater_id: 1
   variety: trailed_equipment
   work_number: GWNVKRYVPNV000000000010
+  type: Variants::EquipmentVariant
 product_nature_variants_025:
   active: true
   category_id: 14
@@ -472,6 +499,7 @@ product_nature_variants_025:
   updater_id: 1
   variety: tractor
   work_number: GWNVKRYVPNV000000000011
+  type: Variants::EquipmentVariant
 product_nature_variants_026:
   active: true
   category_id: 14
@@ -488,6 +516,7 @@ product_nature_variants_026:
   updater_id: 1
   variety: trailed_equipment
   work_number: GWNVKRYVPNV000000000012
+  type: Variants::EquipmentVariant
 product_nature_variants_027:
   active: true
   category_id: 15
@@ -504,6 +533,7 @@ product_nature_variants_027:
   updater_id: 1
   variety: land_parcel
   work_number: GWNVKRYVPNV000000000013
+  type: Variants::ZoneVariant
 product_nature_variants_028:
   active: true
   category_id: 14
@@ -520,6 +550,7 @@ product_nature_variants_028:
   updater_id: 1
   variety: trailed_equipment
   work_number: GWNVK00014
+  type: Variants::EquipmentVariant
 product_nature_variants_029:
   active: true
   category_id: 16
@@ -538,6 +569,7 @@ product_nature_variants_029:
   updater_id: 1
   variety: animal_group
   work_number: GWNVKRYVPNV000000000015
+  type: Variants::AnimalVariant
 product_nature_variants_030:
   active: true
   category_id: 16
@@ -556,6 +588,7 @@ product_nature_variants_030:
   updater_id: 1
   variety: animal_group
   work_number: GWNVKRYVPNV000000000016
+  type: Variants::AnimalVariant
 product_nature_variants_031:
   active: true
   category_id: 8
@@ -574,6 +607,7 @@ product_nature_variants_031:
   updater_id: 1
   variety: zea_mays
   work_number: GWNVKRYVPNV000000000017
+  type: Variants::CropVariant
 product_nature_variants_032:
   active: true
   category_id: 14
@@ -590,6 +624,7 @@ product_nature_variants_032:
   updater_id: 1
   variety: trailed_equipment
   work_number: GWNVKRYVPNV000000000018
+  type: Variants::EquipmentVariant
 product_nature_variants_033:
   active: true
   category_id: 14
@@ -606,6 +641,7 @@ product_nature_variants_033:
   updater_id: 1
   variety: trailed_equipment
   work_number: GWNVKRYVPNV000000000019
+  type: Variants::EquipmentVariant
 product_nature_variants_034:
   active: true
   category_id: 1
@@ -622,6 +658,7 @@ product_nature_variants_034:
   updater_id: 1
   variety: building_division
   work_number: GWNVKRYVPNV000000000020
+  type: Variants::ZoneVariant
 product_nature_variants_035:
   active: true
   category_id: 14
@@ -638,6 +675,7 @@ product_nature_variants_035:
   updater_id: 1
   variety: trailed_equipment
   work_number: GWNVKRYVPNV000000000021
+  type: Variants::EquipmentVariant
 product_nature_variants_036:
   active: true
   category_id: 14
@@ -654,6 +692,7 @@ product_nature_variants_036:
   updater_id: 1
   variety: trailed_equipment
   work_number: GWNVKRYVPNV000000000022
+  type: Variants::EquipmentVariant
 product_nature_variants_037:
   active: true
   category_id: 14
@@ -670,6 +709,7 @@ product_nature_variants_037:
   updater_id: 1
   variety: trailed_equipment
   work_number: GWNVKRYVPNV000000000023
+  type: Variants::EquipmentVariant
 product_nature_variants_038:
   active: true
   category_id: 17
@@ -688,6 +728,7 @@ product_nature_variants_038:
   updater_id: 1
   variety: preparation
   work_number: GWNVKRYVPNV000000000024
+  type: Variants::Articles::PlantMedicineArticle
 product_nature_variants_039:
   active: true
   category_id: 8
@@ -706,6 +747,7 @@ product_nature_variants_039:
   updater_id: 1
   variety: poa
   work_number: GWNVKRYVPNV000000000025
+  type: Variants::CropVariant
 product_nature_variants_040:
   active: true
   category_id: 5
@@ -725,6 +767,7 @@ product_nature_variants_040:
   updater_id: 1
   variety: seed
   work_number: GWNVKRYVPNV000000000026
+  type: Variants::Articles::SeedAndPlantArticle
 product_nature_variants_041:
   active: true
   category_id: 5
@@ -744,6 +787,7 @@ product_nature_variants_041:
   updater_id: 1
   variety: seed
   work_number: GWNVKRYVPNV000000000027
+  type: Variants::Articles::SeedAndPlantArticle
 product_nature_variants_042:
   active: true
   category_id: 18
@@ -763,6 +807,7 @@ product_nature_variants_042:
   updater_id: 1
   variety: grass
   work_number: GWNVKRYVPNV000000000028
+  type: Variants::Articles::SeedAndPlantArticle
 product_nature_variants_043:
   active: true
   category_id: 8
@@ -781,6 +826,7 @@ product_nature_variants_043:
   updater_id: 1
   variety: vitis_vinifera
   work_number: GWNVKRYVPNV000000000029
+  type: Variants::CropVariant
 product_nature_variants_044:
   active: true
   category_id: 19
@@ -800,6 +846,7 @@ product_nature_variants_044:
   updater_id: 1
   variety: seedling
   work_number: GWNVKRYVPNV000000000030
+  type: Variants::Articles::SeedAndPlantArticle
 product_nature_variants_045:
   active: true
   category_id: 14
@@ -816,6 +863,7 @@ product_nature_variants_045:
   updater_id: 1
   variety: trailed_equipment
   work_number: GWNVKRYVPNV000000000031
+  type: Variants::EquipmentVariant
 product_nature_variants_046:
   active: true
   category_id: 14
@@ -832,6 +880,7 @@ product_nature_variants_046:
   updater_id: 1
   variety: trailed_equipment
   work_number: GWNVKRYVPNV000000000032
+  type: Variants::EquipmentVariant
 product_nature_variants_047:
   active: true
   category_id: 20
@@ -851,6 +900,7 @@ product_nature_variants_047:
   updater_id: 1
   variety: grape
   work_number: GWNVKRYVPNV000000000033
+  type: Variants::ArticleVariant
 product_nature_variants_048:
   active: true
   category_id: 21
@@ -870,6 +920,7 @@ product_nature_variants_048:
   updater_id: 1
   variety: wine
   work_number: GWNVKRYVPNV000000000034
+  type: Variants::ArticleVariant
 product_nature_variants_049:
   active: true
   category_id: 14
@@ -886,6 +937,7 @@ product_nature_variants_049:
   updater_id: 1
   variety: tank
   work_number: GWNVKRYVPNV000000000035
+  type: Variants::EquipmentVariant
 product_nature_variants_050:
   active: true
   category_id: 6
@@ -902,6 +954,7 @@ product_nature_variants_050:
   updater_id: 1
   variety: building
   work_number: GWNVKRYVPNV000000000036
+  type: Variants::ZoneVariant
 product_nature_variants_051:
   active: true
   category_id: 14
@@ -918,6 +971,7 @@ product_nature_variants_051:
   updater_id: 1
   variety: equipment
   work_number: GWNVKRYVPNV000000000037
+  type: Variants::EquipmentVariant
 product_nature_variants_052:
   active: true
   category_id: 20
@@ -937,6 +991,7 @@ product_nature_variants_052:
   updater_id: 1
   variety: fermented_juice
   work_number: GWNVKRYVPNV000000000038
+  type: Variants::ArticleVariant
 product_nature_variants_053:
   active: true
   category_id: 4
@@ -956,6 +1011,7 @@ product_nature_variants_053:
   updater_id: 1
   variety: straw
   work_number: GWNVKRYVPNV000000000039
+  type: Variants::ArticleVariant
 product_nature_variants_054:
   active: true
   category_id: 20
@@ -975,6 +1031,7 @@ product_nature_variants_054:
   updater_id: 1
   variety: pomace
   work_number: GWNVKRYVPNV000000000040
+  type: Variants::ArticleVariant
 product_nature_variants_055:
   active: true
   category_id: 20
@@ -994,6 +1051,7 @@ product_nature_variants_055:
   updater_id: 1
   variety: juice
   work_number: GWNVKRYVPNV000000000042
+  type: Variants::ArticleVariant
 product_nature_variants_056:
   active: true
   category_id: 22
@@ -1012,6 +1070,7 @@ product_nature_variants_056:
   updater_id: 1
   variety: preparation
   work_number: GWNVKRYVPNV000000000043
+  type: Variants::Articles::PlantMedicineArticle
 product_nature_variants_057:
   active: true
   category_id: 22
@@ -1030,6 +1089,7 @@ product_nature_variants_057:
   updater_id: 1
   variety: preparation
   work_number: GWNVKRYVPNV000000000044
+  type: Variants::Articles::PlantMedicineArticle
 product_nature_variants_058:
   active: true
   category_id: 22
@@ -1049,6 +1109,7 @@ product_nature_variants_058:
   updater_id: 1
   variety: yeast
   work_number: GWNVKRYVPNV000000000045
+  type: Variants::ArticleVariant
 product_nature_variants_059:
   active: true
   category_id: 22
@@ -1067,6 +1128,7 @@ product_nature_variants_059:
   updater_id: 1
   variety: saccharose
   work_number: GWNVKRYVPNV000000000046
+  type: Variants::ArticleVariant
 product_nature_variants_060:
   active: true
   category_id: 22
@@ -1085,6 +1147,7 @@ product_nature_variants_060:
   updater_id: 1
   variety: potassium_ferrocyanide
   work_number: GWNVKRYVPNV000000000047
+  type: Variants::ArticleVariant
 product_nature_variants_061:
   active: true
   category_id: 22
@@ -1103,6 +1166,7 @@ product_nature_variants_061:
   updater_id: 1
   variety: preparation
   work_number: GWNVKRYVPNV000000000048
+  type: Variants::Articles::PlantMedicineArticle
 product_nature_variants_062:
   active: true
   category_id: 23
@@ -1121,6 +1185,7 @@ product_nature_variants_062:
   updater_id: 1
   variety: cork_bottle
   work_number: GWNVKRYVPNV000000000049
+  type: Variants::ArticleVariant
 product_nature_variants_063:
   active: true
   category_id: 23
@@ -1139,6 +1204,7 @@ product_nature_variants_063:
   updater_id: 1
   variety: cork
   work_number: GWNVKRYVPNV000000000050
+  type: Variants::ArticleVariant
 product_nature_variants_064:
   active: true
   category_id: 21
@@ -1158,6 +1224,7 @@ product_nature_variants_064:
   updater_id: 1
   variety: wine
   work_number: GWNVKRYVPNV000000000051
+  type: Variants::ArticleVariant
 product_nature_variants_065:
   active: true
   category_id: 14
@@ -1174,6 +1241,7 @@ product_nature_variants_065:
   updater_id: 1
   variety: equipment
   work_number: GWNVKRYVPNV000000000052
+  type: Variants::EquipmentVariant
 product_nature_variants_066:
   active: true
   category_id: 14
@@ -1190,6 +1258,7 @@ product_nature_variants_066:
   updater_id: 1
   variety: equipment
   work_number: GWNVKRYVPNV000000000053
+  type: Variants::EquipmentVariant
 product_nature_variants_067:
   active: true
   category_id: 9
@@ -1207,6 +1276,7 @@ product_nature_variants_067:
   updater_id: 1
   variety: bos_taurus_blonde_aquitaine
   work_number: GWNVKRYVPNV000000000054
+  type: Variants::AnimalVariant
 product_nature_variants_068:
   active: true
   category_id: 25
@@ -1220,6 +1290,7 @@ product_nature_variants_068:
   unit_name: Hectare
   updated_at: 2016-01-21 14:05:46.964632000 Z
   variety: land_parcel
+  type: Variants::ZoneVariant
 product_nature_variants_069:
   active: true
   category_id: 26
@@ -1235,6 +1306,7 @@ product_nature_variants_069:
   updater_id: 1
   variety: immatter
   work_number: A1
+  type: Variants::ServiceVariant
 product_nature_variants_070:
   active: true
   category_id: 14
@@ -1251,3 +1323,4 @@ product_nature_variants_070:
   updater_id: 1
   variety: equipment_part
   work_number: PDM001
+  type: Variants::ArticleVariant

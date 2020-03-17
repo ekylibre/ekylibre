@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2015-2020 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -32,6 +32,7 @@
 #  france_maaid              :string
 #  gtin                      :string
 #  id                        :integer          not null, primary key
+#  imported_from             :string
 #  lock_version              :integer          default(0), not null
 #  name                      :string
 #  nature_id                 :integer          not null
@@ -42,8 +43,10 @@
 #  picture_updated_at        :datetime
 #  providers                 :jsonb
 #  reference_name            :string
+#  specie_variety            :string
 #  stock_account_id          :integer
 #  stock_movement_account_id :integer
+#  type                      :string           not null
 #  unit_name                 :string           not null
 #  updated_at                :datetime         not null
 #  updater_id                :integer
@@ -91,7 +94,7 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
   test 'import from nomenclature seedling' do
     # Seedling PNV doesn't exist on fr_pcg82 so it should raise an error when attempting to import it from nomenclature on this accounting system
     Account.accounting_system = 'fr_pcg82'
-    assert_raise { ProductNatureVariant.import_from_nomenclature(:seedling) }
+    assert_nothing_raised { ProductNatureVariant.import_from_nomenclature(:seedling) }
     Account.accounting_system = 'fr_pcga'
     assert_nothing_raised { ProductNatureVariant.import_from_nomenclature(:seedling) }
   end
@@ -153,5 +156,47 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
 
     assert_equal service.quantity_received, 30
     assert_equal service.current_stock, 20
+  end
+
+  test 'type is correctly set upon import from nomenclature' do
+    references = { animal: :bee_band,
+                   article: :acetal,
+                   crop: :annual_fallow_crop,
+                   equipment: :air_compressor,
+                   service: :accommodation_taxe,
+                   worker: :employee,
+                   zone: :animal_building }
+
+    references.each { |type, reference| assert ProductNatureVariant.import_from_nomenclature(reference).is_a?("Variants::#{type.capitalize}Variant".constantize) }
+
+    article_references = { plant_medicine: :additive, fertilizer: :bulk_ammo_phosphorus_sulfur_20_23_0, seed_and_plant: :ascott_wheat_seed_25 }
+    article_references.each { |type, reference| assert ProductNatureVariant.import_from_nomenclature(reference).is_a?("Variants::Articles::#{type.to_s.classify}Article".constantize) }
+  end
+
+  test 'type is correctly set upon import from lexicon' do
+    references = { article: :stake,
+                   equipment: :hose_reel,
+                   service: :additional_activity,
+                   worker: :permanent }
+
+    references.each { |type, reference| assert ProductNatureVariant.import_from_lexicon(reference).is_a?("Variants::#{type.capitalize}Variant".constantize) }
+
+    article_references = { plant_medicine: :soft_wheat_herbicide, fertilizer: :horse_manure, seed_and_plant: :soft_wheat_seed }
+    article_references.each { |type, reference| assert ProductNatureVariant.import_from_lexicon(reference).is_a?("Variants::Articles::#{type.to_s.classify}Article".constantize) }
+  end
+
+  test 'type is correctly set upon creation through model validations' do
+    references = { animal: :animal_variant,
+                   article: :harvest_variant,
+                   crop: :plant_variant,
+                   equipment: :equipment_variant,
+                   service: :service_variant,
+                   worker: :worker_variant,
+                   zone: :land_parcel_variant }
+
+    references.each { |type, reference| assert_equal create(reference).type, "Variants::#{type.capitalize}Variant" }
+
+    article_references = { plant_medicine: :phytosanitary_variant, fertilizer: :fertilizer_variant, seed_and_plant: :seed_variant }
+    article_references.each { |type, reference| assert create(reference).type, "Variants::Articles::#{type.to_s.classify}Article" }
   end
 end

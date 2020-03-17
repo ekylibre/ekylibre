@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2015-2020 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -88,7 +88,9 @@
 #
 
 class Building < ProductGroup
-  refers_to :variety, scope: :building
+  # Removed scope since building product_nature comes with 'zone' as variety instead of 'building'
+  # refers_to :variety, scope: :building
+  refers_to :variety
   has_shape
 
   # Add a member to the group

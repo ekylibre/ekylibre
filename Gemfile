@@ -13,6 +13,7 @@ end
 ruby '>= 2.3.8', '< 3.0.0'
 
 gem 'elastic-apm'
+gem 'piwik_analytics', github: 'ekylibre/piwik-ruby-tracking'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.11.1'
@@ -89,10 +90,8 @@ gem 'rake', '~>12.0'
 gem 'timecop'
 
 # Manipulate map data
-gem 'charta', '~> 0.1.14'
-
-# Manage daemons
-gem 'foreman'
+# gem 'charta', '~> 0.1.14'
+gem 'charta', gitlab: 'ekylibre/charta', tag: 'v0.1.16'
 
 # active_list alternative
 gem 'font-awesome-sass'
@@ -114,7 +113,7 @@ gem 'draper'
 gem 'exception_notification'
 
 # Views helpers
-gem 'active_list', '~> 7'
+gem 'active_list', gitlab: 'ekylibre/active_list', branch: 'master'
 gem 'haml'
 gem 'simple_calendar'
 
@@ -157,6 +156,7 @@ gem 'wannabe_bool'
 
 # XML Parsing/Writing, HTML extraction
 gem 'nokogiri', '~> 1.8.1'
+gem 'mimemagic'
 
 # Parse LALR or LR-1 grammars
 gem 'treetop'
@@ -182,7 +182,7 @@ gem 'roo'
 gem 'rubyzip', '~> 1.2.2'
 gem 'sepa_king'
 gem 'quandl'
-gem 'odf-report', gitlab: 'ekylibre/odf-report', tag: 'v0.6.0-1'
+gem 'odf-report', gitlab: 'ekylibre/odf-report', tag: 'v0.6.0-2'
 gem 'combine_pdf'
 gem 'rodf'
 
@@ -254,6 +254,9 @@ group :development, :test do
   # gem 'pry-inline'
   gem 'pry-rails'
   gem 'teaspoon-jasmine'
+
+  # For git manipulation in test:git task
+  gem 'git'
 
   # Parallelize tests
   gem 'parallel_tests'

@@ -290,6 +290,19 @@ module Backend
       state
     end
 
+    # TODO: Fix journal_period_crit method and put kujakus above toolbars in views to avoid re-computing ranges
+    def set_period_params
+      params[:started_on], params[:stopped_on] = if !params[:period] && (fy = FinancialYear.current)
+                                                   [fy.started_on, fy.stopped_on].map(&:to_s)
+                                                 elsif params[:period] == 'all'
+                                                   [FinancialYear.minimum(:started_on), FinancialYear.maximum(:stopped_on)].map(&:to_s)
+                                                 elsif params[:period] == 'interval'
+                                                   [params[:started_on], params[:stopped_on]]
+                                                 else
+                                                   params[:period]&.split('_')
+                                                 end
+    end
+
     class << self
       # search is a hash like {table: [columns...]}
       def search_conditions(search = {}, options = {})

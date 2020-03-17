@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2015-2020 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -46,6 +46,8 @@
 
 class Account < Ekylibre::Record::Base
   include Customizable
+  CENTRALIZING_NATURES = %i[client supplier employee].freeze
+
   @@references = []
   # has_many :account_balances
   # has_many :attorneys, class_name: "Entity", foreign_key: :attorney_account_id
@@ -117,7 +119,7 @@ class Account < Ekylibre::Record::Base
 
   scope :clients,   -> { of_usages(:clients, :social_agricultural_mutuality, :usual_associates_current_accounts) }
   scope :suppliers, -> { of_usages(:suppliers, :social_agricultural_mutuality, :usual_associates_current_accounts) }
-  scope :employees, -> { of_usages(:staff_due_remunerations) }
+  scope :employees, -> { of_usages(:staff_due_remunerations, :associates_current_accounts) }
   scope :attorneys, -> { of_usage(:attorneys) }
   scope :banks, -> { of_usage(:banks) }
   scope :cashes, -> { of_usage(:cashes) }
@@ -249,6 +251,7 @@ class Account < Ekylibre::Record::Base
   class << self
     # Trim account number following preferences
       def normalize(number)
+        number = number.to_s
         account_number_length = Preference[:account_number_digits]
         if number.size > account_number_length
           number[0...account_number_length]
@@ -257,6 +260,33 @@ class Account < Ekylibre::Record::Base
         else
           number
         end
+      end
+
+      def centalizing_account_prefix_for(nature)
+        natures = CENTRALIZING_NATURES
+        nature = nature.to_sym
+        unless natures.include?(nature)
+          raise ArgumentError, "Unknown nature #{nature.inspect} (#{natures.to_sentence} are accepted)"
+        end
+
+        account_nomen = nature.to_s.pluralize
+        account_nomen = :staff_due_remunerations if nature == :employee
+
+        prefix = Preference[:"#{nature}_account_radix"]
+        if prefix.blank?
+          prefix = Nomen::Account.find(account_nomen).send(Account.accounting_system)
+        end
+
+        prefix
+      end
+
+      def generate_employee_account_number_for(entity_id)
+        prefix = centalizing_account_prefix_for(:employee)
+        suffix_length = Preference[:account_number_digits] - prefix.length
+
+        suffix = entity_id.to_s.rjust(suffix_length, '0')
+
+        "#{prefix}#{suffix}"
       end
 
     # Create an account with its number (and name)
@@ -421,25 +451,34 @@ class Account < Ekylibre::Record::Base
     # Returns the name of the used accounting system
     # It takes the information in preferences
     def accounting_system
-      valid_cache = defined?(@tenant_when_last_cached) && @tenant_when_last_cached == Ekylibre::Tenant.current
-      @accounting_system = nil unless valid_cache
-      @tenant_when_last_cached = Ekylibre::Tenant.current
-      @accounting_system ||= Preference[:accounting_system]
+      @systems ||= {}
+
+      current_tenant = Ekylibre::Tenant.current.to_sym
+      system = @systems.fetch(current_tenant, nil)
+
+      unless @systems.key?(current_tenant)
+        @systems = { **@systems, current_tenant => (system = Preference[:accounting_system]) }
+      end
+
+      @systems.fetch(current_tenant, system)
     end
 
-    # FIXME: This is an aberration of internationalization.
+  # FIXME: This is an aberration of internationalization.
     def french_accounting_system?
       %w[fr_pcg82 fr_pcga].include?(accounting_system)
     end
 
-    # Returns the name of the used accounting system
-    # It takes the information in preferences
+  # Returns the name of the used accounting system
+  # It takes the information in preferences
     def accounting_system=(name)
-      unless item = Nomen::AccountingSystem[name]
+      unless (item = Nomen::AccountingSystem[name])
         raise ArgumentError, "The accounting system #{name.inspect} is unknown."
       end
+
       Preference.set!(:accounting_system, item.name)
-      @accounting_system = item.name
+      @systems = (@systems || {}).except(Ekylibre::Tenant.current.to_sym)
+
+      accounting_system
     end
 
     # Returns the human name of the accounting system
@@ -764,107 +803,6 @@ class Account < Ekylibre::Record::Base
       end
       # raise StandardError.new(balance.inspect)
       balance.compact
-    end
-
-    # this method loads the general ledger for all the accounts.
-    def ledger(options = {})
-      # build filter for accounts
-      accounts_filter_conditions = '1=1'
-      list_accounts = options[:accounts] ? options[:accounts] : ''
-      # p list_accounts
-      unless list_accounts.empty?
-        accounts_filter_conditions += ' AND ' + list_accounts.collect do |account|
-          "accounts.number LIKE '" + account.to_s + "%'"
-        end.join(' OR ')
-      end
-      # p accounts_filter_conditions
-
-      # build filter for lettering_state
-      # "lettering_state"=>["unlettered", "partially_lettered"]
-      c = options[:lettering_state].count if options[:lettering_state]
-      lettering_state_filter_conditions = if c == 3 && options[:lettering_state].to_set.superset?(%w[unlettered partially_lettered lettered].to_set)
-                                            '1=1'
-                                          elsif c == 2 && options[:lettering_state].to_set.superset?(%w[partially_lettered lettered].to_set)
-                                            'letter IS NOT NULL'
-                                          elsif c == 2 && options[:lettering_state].to_set.superset?(%w[partially_lettered unlettered].to_set)
-                                            "letter IS NULL OR letter ILIKE '%*' "
-                                          elsif c == 2 && options[:lettering_state].to_set.superset?(%w[lettered unlettered].to_set)
-                                            "letter IS NULL OR letter NOT ILIKE '%*' "
-                                          elsif c == 1 && options[:lettering_state].to_set.superset?(['unlettered'].to_set)
-                                            'letter IS NULL'
-                                          elsif c == 1 && options[:lettering_state].to_set.superset?(['lettered'].to_set)
-                                            "letter IS NOT NULL AND letter NOT ILIKE '%*'"
-                                          elsif c == 1 && options[:lettering_state].to_set.superset?(['partially_lettered'].to_set)
-                                            "letter IS NOT NULL AND letter ILIKE '%*'"
-                                          else
-                                            '1=1'
-                                          end
-
-      # options[:states]
-      if options[:states]&.any?
-        a = options[:states].select { |_k, v| v.to_i == 1 }.map { |pair| "'#{pair.first}'" }.join(', ')
-        states_array = "state IN (#{a})"
-      else
-        states_array = '1=1'
-      end
-
-      # build dates
-      start = options[:period].split('_').first if options[:period]
-      stop = options[:period].split('_').last if options[:period]
-
-      ledger = []
-
-      accounts = Account
-                 .where(accounts_filter_conditions)
-                 .includes(journal_entry_items: %i[entry variant])
-                 .where(journal_entry_items: { printed_on: start..stop })
-                 .reorder('accounts.number ASC, journal_entries.number ASC')
-
-      accounts.each do |account|
-        journal_entry_items = account.journal_entry_items.where(lettering_state_filter_conditions).where(states_array).where(printed_on: start..stop).reorder('printed_on ASC, entry_number ASC')
-
-        account_entry = HashWithIndifferentAccess.new
-        # compute << account.number.to_i
-        # compute << account.name.to_s
-        account_balance = 0.0
-        total_debit = 0.0
-        total_credit = 0.0
-        entry_count = 0
-
-        account_entry[:account_number] = account.number
-        account_entry[:account_name] = account.name
-        account_entry[:currency] = journal_entry_items.first.currency if journal_entry_items.any?
-
-        account_entry[:items] = []
-
-        journal_entry_items.each do |e|
-          item = HashWithIndifferentAccess.new
-          item[:entry_number] = e.entry_number
-          item[:continuous_number] = e.continuous_number.to_s if e.continuous_number
-          item[:reference_number] = e.entry.reference_number.to_s if e.entry.reference_number
-          item[:printed_on] = e.printed_on.strftime('%d/%m/%Y')
-          item[:name] = e.name.to_s
-          item[:journal_name] = e.entry.journal.name.to_s
-          item[:letter] = e.letter
-          item[:real_debit] = e.real_debit
-          item[:real_credit] = e.real_credit
-          item[:cumulated_balance] = (account_balance += (e.real_debit - e.real_credit))
-
-          account_entry[:items] << item
-
-          total_debit += e.real_debit
-          total_credit += e.real_credit
-          entry_count += 1
-        end
-
-        account_entry[:count] = entry_count.to_s
-        account_entry[:total_debit] = total_debit
-        account_entry[:total_credit] = total_credit
-
-        ledger << account_entry
-      end
-
-      ledger.compact
     end
   end
 

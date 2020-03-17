@@ -61,9 +61,41 @@ FactoryBot.define do
   end
 
   factory :asset_fixable_product, class: Product do
-    association :category, factory: :equipments_category
-    association :nature, factory: :equipments_nature
+    association :category, factory: :equipment_category
+    association :nature, factory: :equipment_nature
     association :variant, factory: :equipment_variant
     variety { 'tractor' }
+  end
+
+  factory :fertilizer_product, class: Product do
+    association :category, factory: :fertilizer_category
+    association :nature, factory: :fertilizer_nature
+    association :variant, factory: :fertilizer_variant
+    variety { :preparation }
+  end
+
+  factory :seed_product, class: Product do
+    association :category, factory: :seed_category
+    association :nature, factory: :seed_nature
+    association :variant, factory: :seed_variant
+    variety { :seed }
+    derivative_of { :plant }
+  end
+
+  factory :phytosanitary_product, class: Product do
+    association :variant, factory: :plant_medicine_variant
+    variety { :preparation }
+
+    after(:build) do |product|
+      product.category = product.variant.category
+      product.nature = product.variant.nature
+    end
+
+    %w[copless award sultan zebra].each do |p_name|
+      factory "#{p_name}_phytosanitary_product" do
+        association :variant, factory: "#{p_name}_phytosanitary_variant"
+        name { p_name.capitalize }
+      end
+    end
   end
 end

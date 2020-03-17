@@ -52,8 +52,8 @@ module PanierLocal
         valid = false
       end
 
-      # check if cash and incoming payment mode exist
-      c = Cash.bank_accounts.first
+      # check if cash by default exist and incoming payment mode exist
+      c = Cash.bank_accounts.find_by(by_default: true)
       if c
         ipm = IncomingPaymentMode.where(cash_id: c.id, with_accounting: true).order(:name)
         if ipm.any?
@@ -80,7 +80,6 @@ module PanierLocal
       sales_info = data.group_by { |d| d.payment_reference_number }
 
       sales_info.each { |_payment_reference_number, sale_info| incoming_payment_creation(sale_info) }
-
     end
 
     def incoming_payment_creation(sale_info)

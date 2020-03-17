@@ -17,6 +17,11 @@ class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase
     @open  = Account.create!(number: '89', name: 'Opening account')
     @close = Account.create!(number: '891', name: 'Closing account')
     @closer = create(:user)
+
+    templates = [['trial_balance', 'Balance comptable'], ['general_ledger', 'Grand livre'], ['journal_ledger', 'Etat du journal']]
+    templates.each do |nature, name|
+      DocumentTemplate.create!(nature: nature, name: name, language: 'fra', managed: true, signed: true)
+    end
   end
 
   teardown do

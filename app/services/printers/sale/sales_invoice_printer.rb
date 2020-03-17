@@ -9,7 +9,7 @@ module Printers
         if sale.has_same_delivery_address?
           []
         else
-          [{ delivery_address: Maybe(sale).delivery_address.mail_coordinate.recover { client.full_name }.fmap(&method(:upcase)).or_else("") }]
+          [{ delivery_address: Maybe(sale).delivery_address.mail_coordinate.recover { client.full_name }.or_else("") }]
         end
       end
 
@@ -39,7 +39,7 @@ module Printers
           r.add_field :client_reference, client_reference
 
           # Expired_at
-          r.add_field :expired_at, sale.expired_at.l(format: '%d %B %Y')
+          r.add_field :expired_at, Delay.new(sale.payment_delay).compute(sale.invoiced_at).l(format: '%d %B %Y')
 
           # Company_address
           r.add_field :company_name, company.full_name

@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2015-2020 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -219,11 +219,11 @@ class PlantCountingTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       name: 'ÉquipementInspectionTest',
       number: '00000024',
       reference_name: 'equipment',
-      pictogram: 'tractor'
+      pictogram: 'tractor',
+      type: 'VariantCategories::EquipmentCategory'
     )
 
     nature = ProductNature.create!(
-      category_id: category.id,
       name: 'SemoirInspectionTest',
       number: '00000058',
       variety: 'trailed_equipment',
@@ -231,7 +231,8 @@ class PlantCountingTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       abilities_list: ['sow'],
       population_counting: 'unitary',
       variable_indicators_list: [:geolocation],
-      frozen_indicators_list: %i[nominal_storable_net_volume application_width rows_count theoretical_working_speed]
+      frozen_indicators_list: %i[nominal_storable_net_volume application_width rows_count theoretical_working_speed],
+      type: 'VariantTypes::EquipmentType'
     )
 
     variant = ProductNatureVariant.create!(
@@ -242,7 +243,8 @@ class PlantCountingTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       variety: 'trailed_equipment',
       derivative_of: nil,
       reference_name: 'sower',
-      unit_name: 'Équipement'
+      unit_name: 'Équipement',
+      type: 'Variants::EquipmentVariant'
     )
 
     variant.readings.create!(

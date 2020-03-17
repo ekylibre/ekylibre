@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2015-2020 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -338,6 +338,10 @@ class Activity < Ekylibre::Record::Base
     elsif Nomen::Variety[self.cultivation_variety.to_sym] <= :zea
       'CHRIS/LIFFE_EMA10'
     end
+  end
+
+  def organic_farming?
+    production_system_name == "organic_farming"
   end
 
   COLORS_INDEX = Rails.root.join('db', 'nomenclatures', 'colors.yml').freeze

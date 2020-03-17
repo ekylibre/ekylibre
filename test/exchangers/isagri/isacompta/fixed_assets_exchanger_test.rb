@@ -4,7 +4,8 @@ module Isagri
   module Isacompta
     class FixedAssetsExchangerTest < ActiveExchanger::TestCase
       test 'import' do
-        Isagri::Isacompta::FixedAssetsExchanger.import(fixture_files_path.join('imports', 'isagri', 'isacompta', 'fixed_assets.csv'))
+        result = Isagri::Isacompta::FixedAssetsExchanger.build(fixture_files_path.join('imports', 'isagri', 'isacompta', 'fixed_assets.csv')).run
+        assert result.success?, [result.message, result.exception]
       end
 
       test 'change account_number into allocation_account_number' do

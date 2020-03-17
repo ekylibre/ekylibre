@@ -1,0 +1,21 @@
+- usages = [%i[state maximum_dose untreated_buffer_aquatic],
+            %i[re_entry_interval applications_count untreated_buffer_arthropod],
+            %i[pre_harvest_delay development_stage untreated_buffer_plants]]
+
+.usage-infos-container
+  .usage-infos-header
+    %i
+    = :infos_usage.tl
+  .usage-infos-body
+    - usages.each do |array|
+      .usage-infos-line
+        - array.each do |usage|
+          .usage-infos-line-item
+            .usage-infos-line-item-label
+              = usage.tl
+            .usage-infos-line-item-data{ data: { usage_attribute: usage } }
+    .usage-infos-line
+      .usage-infos-line-item.usage-infos-line-item--full-width
+        .usage-infos-line-item-label
+          = :usage_conditions.tl
+        .usage-infos-line-item-data{ data: { usage_attribute: :usage_conditions } }

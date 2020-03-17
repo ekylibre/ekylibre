@@ -1,0 +1,12 @@
+.modal.fade{ id: "usage-conditions-modal-#{id}", tabindex: '-1', role: 'dialog' }
+  .modal-dialog{ role: 'document' }
+    .modal-content
+      .modal-header
+        %h4.modal-title= :usage_conditions.tl
+        %button.close{ type: 'button', 'data-dismiss': 'modal', 'aria-label': 'Close' }
+          %span{ 'aria-hidden': 'true' }
+            %i.icon.icon-destroy
+      .modal-body
+        = simple_format usage.usage_conditions.gsub('//', '<br/>')
+      .modal-footer
+        %button.btn.btn-primary.no-icn{ type: 'button', 'data-dismiss': 'modal' }= :close.tl

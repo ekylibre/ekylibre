@@ -24,7 +24,7 @@ module Telepac
             pacage_number = record.attributes['PACAGE'].to_s
 
             ## find or create cap statement
-            unless cap_statement = CapStatement.find_by(campaign: campaign, pacage_number: pacage_number)
+            unless (cap_statement = CapStatement.find_by(campaign: campaign, pacage_number: pacage_number))
               w.info 'Cap statement will be created'
             end
 
@@ -101,7 +101,7 @@ module Telepac
             }
 
             ## find or create cap statement
-            unless cap_statement = CapStatement.find_by(campaign: campaign, pacage_number: pacage_number)
+            unless (cap_statement = CapStatement.find_by(campaign: campaign, pacage_number: pacage_number))
               cap_statement = CapStatement.create!(cap_statement_attributes)
             end
             # end
@@ -109,7 +109,7 @@ module Telepac
             islet_number = record.attributes['NUMERO'].to_s
 
             # Find an existing islet or stop importing
-            unless cap_islet = CapIslet.find_by(cap_statement: cap_statement, islet_number: islet_number)
+            unless (cap_islet = CapIslet.find_by(cap_statement: cap_statement, islet_number: islet_number))
               w.error 'Import Islets first'
             end
 
@@ -124,7 +124,7 @@ module Telepac
             }
 
             # Find or create a cap land parcel
-            unless cap_land_parcel = CapLandParcel.find_by(cap_land_parcel_attributes.slice(:land_parcel_number, :cap_islet))
+            unless (cap_land_parcel = CapLandParcel.find_by(cap_land_parcel_attributes.slice(:land_parcel_number, :cap_islet)))
               cap_land_parcel = CapLandParcel.create!(cap_land_parcel_attributes)
             end
 
@@ -150,6 +150,8 @@ module Telepac
             w.check_point
           end
         end
+
+        true
       end
     end
   end
