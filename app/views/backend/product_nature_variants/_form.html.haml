@@ -14,8 +14,6 @@
   = f.referenced_association :category
   = f.variety scope: nature, child_scope: f.object.products
   = f.input :name
-  - if %w[animal_variants equipment_variants].include? params[:subdivision]
-    = f.input :specie_variety, label: "#{params[:subdivision]}_specie_variety".tl
   = f.input :work_number
   = f.input :gtin
   = f.input :active
