@@ -15,9 +15,9 @@ module Backend
       patch :update, id: variant.id, phyto_product_id: phyto.id, product_nature_variant: variant.attributes
 
       variant.reload
-      assert_equal variant.france_maaid, phyto.france_maaid
-      assert_equal variant.reference_name, phyto.reference_name
-      assert_equal variant.imported_from, 'Lexicon'
+      assert_equal phyto.france_maaid, variant.france_maaid
+      assert_equal phyto.reference_name, variant.reference_name
+      assert_equal 'Lexicon', variant.imported_from
     end
   end
 end

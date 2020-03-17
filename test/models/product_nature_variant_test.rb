@@ -194,9 +194,9 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
                    worker: :worker_variant,
                    zone: :land_parcel_variant }
 
-    references.each { |type, reference| assert_equal create(reference).type, "Variants::#{type.capitalize}Variant" }
+    references.each { |type, reference| assert_equal "Variants::#{type.capitalize}Variant", create(reference).type}
 
     article_references = { plant_medicine: :phytosanitary_variant, fertilizer: :fertilizer_variant, seed_and_plant: :seed_variant }
-    article_references.each { |type, reference| assert create(reference).type, "Variants::Articles::#{type.to_s.classify}Article" }
+    article_references.each { |type, reference| assert_equal "Variants::Articles::#{type.to_s.classify}Article", create(reference).type }
   end
 end
