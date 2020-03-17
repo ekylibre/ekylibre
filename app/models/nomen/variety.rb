@@ -20,7 +20,7 @@ module Nomen
       end
 
       def ancestors(variety)
-        if variety.parent.nil? || TOPLEVEL_VARIETIES.include?(variety.parent)
+        if variety.parent.nil? || TOPLEVEL_VARIETIES.include?(variety.parent.name)
           []
         else
           [variety.parent, *ancestors(variety.parent)]
