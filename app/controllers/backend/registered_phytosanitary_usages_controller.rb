@@ -12,11 +12,11 @@ module Backend
       scopes = { of_product: registered_pp.france_maaid }
       if retrieved_ids.any?
         cultivation_varieties = Product.find(retrieved_ids).map { |p| p.activity&.cultivation_variety }.uniq.compact
-        scopes[:of_variety] = cultivation_varieties
+        scopes[:of_varieties] = cultivation_varieties
       end
       clear = if params[:selected_value].present?
-                scoped_collection = RegisteredPhytosanitaryUsage.send(:of_product, scopes[:of_product])
-                scoped_collection = scoped_collection.send(:of_variety, *scopes[:of_variety]) if scopes[:of_variety]
+                scoped_collection = RegisteredPhytosanitaryUsage.of_product(scopes[:of_product])
+                scoped_collection = scoped_collection.of_varieties(*scopes[:of_varieties]) if scopes[:of_varieties]
                 scoped_collection.pluck(:id).exclude?(params[:selected_value])
               else
                 true
