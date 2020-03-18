@@ -54,6 +54,9 @@ module PanierLocal
     end
 
     def import
+      # TODO pour récupérer l'import dans l'exchanger
+      i = Import.find(options[:import_id])
+
       # Ouverture et décodage
       rows = ActiveExchanger::CsvReader.new.read(file)
 
@@ -221,16 +224,19 @@ module PanierLocal
       clean_account_number = product_account_line.account_number.to_s[0..Preference[:account_number_digits]]
       computed_name = "Service - Vente en ligne - #{clean_account_number}"
 
-      pnc = ProductNatureCategory.create_with(name: computed_name, active: true, saleable: true, product_account_id: product_account.id)
-          .find_or_initialize_by(product_account_id: product_account.id, name: computed_name)
+      pnc = ProductNatureCategory.create_with(name: computed_name, active: true, saleable: true, product_account_id: product_account.id, nature: :service, type: 'VariantCategories::ServiceCategory')
+          .find_or_create_by(product_account_id: product_account.id, name: computed_name)
 
-      pn = ProductNature.create_with(active: true, name: computed_name, category: pnc, variety: 'service', population_counting: 'decimal')
-          .find_or_initialize_by(category: pnc, name: computed_name)
+      pn = ProductNature.create_with(active: true, name: computed_name, variety: 'service', population_counting: 'decimal')
+          .find_or_create_by(name: computed_name)
 
       if pn
         pn.variants.build(active: true,
                           name: computed_name,
+                          category: pnc,
                           providers: {'panier_local' => product_account_line.account_number},
+      byebug
+                          provider: { vendor: :panier_local, name: :sales, id: import.id, data: { account_number: product_account_line.account_number } }
                           unit_name: 'unity'
                          )
       end

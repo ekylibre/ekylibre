@@ -28,8 +28,8 @@
 #  firm_name                    :string
 #  france_maaid                 :string           not null
 #  id                           :integer          not null, primary key
-#  in_field_reentry_delay       :integer
-#  mix_category_code            :string           not null
+#  in_field_reentry_delay       :string
+#  mix_category_codes           :integer
 #  name                         :string           not null
 #  nature                       :string
 #  operator_protection_mentions :text

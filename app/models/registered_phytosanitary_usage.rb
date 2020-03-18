@@ -38,7 +38,7 @@
 #  ephy_usage_phrase          :string           not null
 #  id                         :string           not null, primary key
 #  lib_court                  :integer
-#  pre_harvest_delay          :integer
+#  pre_harvest_delay          :string
 #  pre_harvest_delay_bbch     :integer
 #  product_id                 :integer          not null
 #  record_checksum            :integer

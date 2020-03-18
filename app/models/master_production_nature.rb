@@ -23,18 +23,20 @@
 #
 # == Table: master_production_natures
 #
-#  agroedi_crop_code  :string
-#  cap_2017_crop_code :string
-#  cap_2018_crop_code :string
-#  cap_2019_crop_code :string
-#  human_name         :jsonb
-#  human_name_fra     :string           not null
-#  id                 :integer          not null, primary key
-#  pfi_crop_code      :string
-#  season             :string
-#  specie             :string           not null
-#  started_on         :date             not null
-#  stopped_on         :date             not null
+#  agroedi_crop_code         :string
+#  cap_2017_crop_code        :string
+#  cap_2018_crop_code        :string
+#  cap_2019_crop_code        :string
+#  human_name                :jsonb
+#  human_name_fra            :string           not null
+#  id                        :integer          not null, primary key
+#  life_duration             :decimal(5, 2)
+#  pfi_crop_code             :string
+#  season                    :string
+#  specie                    :string           not null
+#  start_state_of_production :jsonb
+#  started_on                :date             not null
+#  stopped_on                :date             not null
 #
 class MasterProductionNature < ActiveRecord::Base
   include Lexiconable
