@@ -75,6 +75,7 @@ require 'benchmark'
 class Sale < Ekylibre::Record::Base
   include Attachable
   include Customizable
+  include Providable
   attr_readonly :currency
   refers_to :currency
   belongs_to :affair

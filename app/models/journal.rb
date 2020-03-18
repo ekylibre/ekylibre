@@ -45,6 +45,7 @@
 
 class Journal < Ekylibre::Record::Base
   include Customizable
+  include Providable
   attr_readonly :currency
   refers_to :currency
   belongs_to :accountant, class_name: 'Entity'

@@ -1,1 +1,1 @@
-../../../lexicon/out/structure.sql
+/home/pquintrie/code/pquintrie/lexicon/out/structure.sql

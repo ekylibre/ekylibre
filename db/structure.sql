@@ -258,7 +258,8 @@ CREATE TABLE public.accounts (
     auxiliary_number character varying,
     nature character varying,
     centralizing_account_name character varying,
-    already_existing boolean DEFAULT false NOT NULL
+    already_existing boolean DEFAULT false NOT NULL,
+    provider jsonb
 );
 
 
@@ -1756,7 +1757,8 @@ CREATE TABLE public.catalogs (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    provider jsonb
 );
 
 
@@ -2415,6 +2417,7 @@ CREATE TABLE public.entities (
     supplier_payment_mode_id integer,
     first_financial_year_ends_on date,
     legal_position_code character varying,
+    provider jsonb,
     CONSTRAINT company_born_at_not_null CHECK (((of_company = false) OR ((of_company = true) AND (born_at IS NOT NULL))))
 );
 
@@ -2453,7 +2456,8 @@ CREATE TABLE public.incoming_payments (
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
     codes jsonb,
-    providers jsonb
+    providers jsonb,
+    provider jsonb
 );
 
 
@@ -2720,7 +2724,8 @@ CREATE TABLE public.sales (
     undelivered_invoice_journal_entry_id integer,
     quantity_gap_on_invoice_journal_entry_id integer,
     client_reference character varying,
-    providers jsonb
+    providers jsonb,
+    provider jsonb
 );
 
 
@@ -4227,7 +4232,8 @@ CREATE TABLE public.journals (
     used_for_permanent_stock_inventory boolean DEFAULT false NOT NULL,
     used_for_unbilled_payables boolean DEFAULT false NOT NULL,
     used_for_tax_declarations boolean DEFAULT false NOT NULL,
-    accountant_id integer
+    accountant_id integer,
+    provider jsonb
 );
 
 
@@ -5795,7 +5801,8 @@ CREATE TABLE public.product_nature_categories (
     stock_movement_account_id integer,
     asset_fixable boolean DEFAULT false,
     type character varying NOT NULL,
-    imported_from character varying
+    imported_from character varying,
+    provider jsonb
 );
 
 
@@ -6005,7 +6012,8 @@ CREATE TABLE public.product_nature_variants (
     providers jsonb,
     specie_variety character varying,
     type character varying NOT NULL,
-    imported_from character varying
+    imported_from character varying,
+    provider jsonb
 );
 
 
@@ -6064,7 +6072,8 @@ CREATE TABLE public.product_natures (
     subscription_months_count integer DEFAULT 0 NOT NULL,
     subscription_days_count integer DEFAULT 0 NOT NULL,
     type character varying NOT NULL,
-    imported_from character varying
+    imported_from character varying,
+    provider jsonb
 );
 
 
@@ -6484,7 +6493,8 @@ CREATE TABLE public.sale_natures (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    provider jsonb
 );
 
 
@@ -9692,6 +9702,34 @@ ALTER TABLE ONLY public.versions
 
 ALTER TABLE ONLY public.wice_grid_serialized_queries
     ADD CONSTRAINT wice_grid_serialized_queries_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: account_provider_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX account_provider_index ON public.accounts USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
+-- Name: catalog_provider_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX catalog_provider_index ON public.catalogs USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
+-- Name: entity_provider_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX entity_provider_index ON public.entities USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
+-- Name: incoming_payment_provider_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX incoming_payment_provider_index ON public.incoming_payments USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
 
 
 --
@@ -17878,6 +17916,48 @@ CREATE INDEX intervention_provider_index ON public.interventions USING gin (((pr
 
 
 --
+-- Name: journal_provider_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX journal_provider_index ON public.journals USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
+-- Name: product_nature_category_provider_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX product_nature_category_provider_index ON public.product_nature_categories USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
+-- Name: product_nature_provider_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX product_nature_provider_index ON public.product_natures USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
+-- Name: product_nature_variant_provider_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX product_nature_variant_provider_index ON public.product_nature_variants USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
+-- Name: sale_nature_provider_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX sale_nature_provider_index ON public.sale_natures USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
+-- Name: sale_provider_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX sale_provider_index ON public.sales USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -19143,4 +19223,6 @@ INSERT INTO schema_migrations (version) VALUES ('20200122100513');
 INSERT INTO schema_migrations (version) VALUES ('20200128133347');
 
 INSERT INTO schema_migrations (version) VALUES ('20200213102154');
+
+INSERT INTO schema_migrations (version) VALUES ('20200317155452');
 

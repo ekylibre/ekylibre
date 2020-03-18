@@ -61,6 +61,7 @@ class ProductNature < Ekylibre::Record::Base
   include Autocastable
   include Customizable
   include Importable
+  include Providable
 
   VARIETIES_NATURES = {
                         animal: %w[animal animal_group],

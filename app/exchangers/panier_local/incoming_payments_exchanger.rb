@@ -63,7 +63,7 @@ module PanierLocal
           valid = false
         end
       else
-        w.warn 'Need a bank cash account'
+        w.warn 'Need a default bank cash account'
         valid = false
       end
 
@@ -92,7 +92,7 @@ module PanierLocal
 
       if bank_sale_info.present? && client_sale_info.present?
         entity = get_or_create_entity(sale_info, client_sale_info)
-        incoming_payment = IncomingPayment.where('providers ->> ? = ?', 'panier_local', bank_sale_info.payment_reference_number.to_s)
+        incoming_payment = IncomingPayment.of_provider_name(:panier_local, :incoming_payments).find_by('provider ->> data ->> payment_reference_number = ?', bank_sale_info.payment_reference_number.to_s)
                                           .where(payer: entity, paid_at: bank_sale_info.invoiced_at.to_datetime).first
         if incoming_payment.nil?
           if bank_sale_info.payment_item_direction == 'D'
@@ -108,7 +108,7 @@ module PanierLocal
                                                     payer: entity,
                                                     received: true,
                                                     responsible: responsible,
-                                                    providers: {'panier_local' => bank_sale_info.payment_reference_number}
+                                                    provider: { vendor: :panier_local, name: :incoming_payments, id: import.id, data => { payment_reference_number: bank_sale_info.payment_reference_number.to_s } }
                                                   )
         end
       end

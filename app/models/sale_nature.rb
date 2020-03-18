@@ -47,6 +47,7 @@
 #
 
 class SaleNature < Ekylibre::Record::Base
+  include Providable
   enumerize :payment_delay, in: ['1 week', '30 days', '30 days, end of month', '60 days', '60 days, end of month']
   refers_to :currency
   belongs_to :catalog

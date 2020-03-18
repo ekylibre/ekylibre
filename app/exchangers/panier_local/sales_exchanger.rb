@@ -54,7 +54,7 @@ module PanierLocal
     end
 
     def import
-      # TODO pour récupérer l'import dans l'exchanger
+      # TODO: pour récupérer l'import dans l'exchanger
       i = Import.find(options[:import_id])
 
       # Ouverture et décodage
@@ -77,7 +77,9 @@ module PanierLocal
 
     def sale_creation(sale_info, sale_nature)
       entity = get_or_create_entity(sale_info)
-      sale = Sale.where('providers ->> ? = ?', 'panier_local', sale_info.first.sale_reference_number).first
+
+      # sale = Sale.where('providers ->> ? = ?', 'panier_local', sale_info.first.sale_reference_number).first
+      sale = Sale.of_provider_name(:panier_local, :sales).find_by("provider -> 'data' ->> 'sale_reference_number' = ?", sale_info.first.sale_reference_number)
 
       if sale.nil?
         client_sale_info = sale_info.select {|item| item.account_number.to_s.start_with?('411')}.first
@@ -87,7 +89,7 @@ module PanierLocal
           client: entity,
           nature: sale_nature,
           description: client_sale_info.sale_description,
-          providers: {'panier_local' => client_sale_info.sale_reference_number}
+          provider: { vendor: :panier_local, name: :sales, id: import.id, data => { sale_reference_number: client_sale_info.sale_reference_number } }
           )
 
         tax = check_or_create_vat_account_and_amount(sale_info)
@@ -95,7 +97,8 @@ module PanierLocal
         product_account_line = sale_info.select {|i| i.account_number.to_s.start_with?('7') }.first
 
         if product_account_line.present?
-          variant = ProductNatureVariant.find_by('providers ->> ? = ?', 'panier_local', product_account_line.account_number)
+          # .of_provider_name(:panier_local, :sales).of_provider_data(:account_number, product_account_line.account_number)
+          variant = ProductNatureVariant.of_provider_name(:panier_local, :sales).find_by("provider -> 'data' ->> 'account_number' = ?", product_account_line.account_number)
           unless variant
             product_account = check_or_create_product_account(product_account_line)
             variant = create_variant(product_account, product_account_line)
@@ -234,9 +237,7 @@ module PanierLocal
         pn.variants.build(active: true,
                           name: computed_name,
                           category: pnc,
-                          providers: {'panier_local' => product_account_line.account_number},
-      byebug
-                          provider: { vendor: :panier_local, name: :sales, id: import.id, data: { account_number: product_account_line.account_number } }
+                          provider: { vendor: :panier_local, name: :sales, id: import.id, data: { account_number: product_account_line.account_number } },
                           unit_name: 'unity'
                          )
       end
