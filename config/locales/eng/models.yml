@@ -163,7 +163,7 @@ eng:
       product_nature_variant:
         specie_variety: "Variety"
         status: "Allowed"
-        variety: "Specie"
+        variety: "Variety"
       purchase:
         affair_balance: "Balance"
       purchase_invoice:

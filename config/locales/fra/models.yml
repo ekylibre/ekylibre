@@ -257,7 +257,7 @@ fra:
         horizontal_rotation: "Rotation horizontale de la forme" #?
         specie_variety: "Variété"
         status: "Autorisé"
-        variety: "Espèce"
+        variety: "Variété"
       product_transfer: #?
         building: "Lieu de stockage de départ" #?
         second_building: "Lieu de stockage d’arrivée" #?
