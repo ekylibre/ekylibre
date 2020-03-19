@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 11.2
--- Dumped by pg_dump version 11.6 (Debian 11.6-0+deb10u1)
+-- Dumped by pg_dump version 11.7 (Debian 11.7-0+deb10u1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -53,20 +53,6 @@ CREATE TABLE lexicon.datasource_credits (
     licence character varying,
     licence_url character varying,
     updated_at timestamp with time zone
-);
-
-
---
--- Name: ephy_cropsets; Type: TABLE; Schema: lexicon; Owner: -
---
-
-CREATE TABLE lexicon.ephy_cropsets (
-    id character varying NOT NULL,
-    name character varying NOT NULL,
-    label jsonb,
-    crop_names text[],
-    crop_labels jsonb,
-    record_checksum integer
 );
 
 
@@ -320,6 +306,20 @@ CREATE TABLE lexicon.registered_pfi_targets (
 
 
 --
+-- Name: registered_phytosanitary_cropsets; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.registered_phytosanitary_cropsets (
+    id character varying NOT NULL,
+    name character varying NOT NULL,
+    label jsonb,
+    crop_names text[],
+    crop_labels jsonb,
+    record_checksum integer
+);
+
+
+--
 -- Name: registered_phytosanitary_products; Type: TABLE; Schema: lexicon; Owner: -
 --
 
@@ -327,12 +327,12 @@ CREATE TABLE lexicon.registered_phytosanitary_products (
     id integer NOT NULL,
     reference_name character varying NOT NULL,
     name character varying NOT NULL,
-    other_name character varying,
-    nature character varying,
-    active_compounds character varying,
+    other_names text[],
+    natures text[],
+    active_compounds text[],
     france_maaid character varying NOT NULL,
     mix_category_codes integer[],
-    in_field_reentry_delay integer,
+    in_field_reentry_delay interval,
     state character varying NOT NULL,
     started_on date,
     stopped_on date,
@@ -387,7 +387,7 @@ CREATE TABLE lexicon.registered_phytosanitary_usages (
     dose_unit character varying,
     dose_unit_name character varying,
     dose_unit_factor real,
-    pre_harvest_delay integer,
+    pre_harvest_delay interval,
     pre_harvest_delay_bbch integer,
     applications_count integer,
     applications_frequency integer,
@@ -669,14 +669,6 @@ ALTER TABLE ONLY lexicon.cadastral_land_parcel_zones
 
 
 --
--- Name: ephy_cropsets ephy_cropsets_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
---
-
-ALTER TABLE ONLY lexicon.ephy_cropsets
-    ADD CONSTRAINT ephy_cropsets_pkey PRIMARY KEY (id);
-
-
---
 -- Name: eu_market_prices eu_market_prices_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
 --
 
@@ -778,6 +770,14 @@ ALTER TABLE ONLY lexicon.registered_pfi_crops
 
 ALTER TABLE ONLY lexicon.registered_pfi_targets
     ADD CONSTRAINT registered_pfi_targets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: registered_phytosanitary_cropsets registered_phytosanitary_cropsets_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.registered_phytosanitary_cropsets
+    ADD CONSTRAINT registered_phytosanitary_cropsets_pkey PRIMARY KEY (id);
 
 
 --
@@ -936,13 +936,6 @@ CREATE INDEX cadastral_land_parcel_zones_centroid ON lexicon.cadastral_land_parc
 --
 
 CREATE INDEX cadastral_land_parcel_zones_shape ON lexicon.cadastral_land_parcel_zones USING gist (shape);
-
-
---
--- Name: ephy_cropsets_crop_names; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX ephy_cropsets_crop_names ON lexicon.ephy_cropsets USING btree (crop_names);
 
 
 --
@@ -1184,6 +1177,13 @@ CREATE INDEX registered_pfi_doses_harvest_year ON lexicon.registered_pfi_doses U
 
 
 --
+-- Name: registered_phytosanitary_cropsets_crop_names; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_phytosanitary_cropsets_crop_names ON lexicon.registered_phytosanitary_cropsets USING btree (crop_names);
+
+
+--
 -- Name: registered_phytosanitary_products_firm_name; Type: INDEX; Schema: lexicon; Owner: -
 --
 
@@ -1205,10 +1205,10 @@ CREATE INDEX registered_phytosanitary_products_name ON lexicon.registered_phytos
 
 
 --
--- Name: registered_phytosanitary_products_nature; Type: INDEX; Schema: lexicon; Owner: -
+-- Name: registered_phytosanitary_products_natures; Type: INDEX; Schema: lexicon; Owner: -
 --
 
-CREATE INDEX registered_phytosanitary_products_nature ON lexicon.registered_phytosanitary_products USING btree (nature);
+CREATE INDEX registered_phytosanitary_products_natures ON lexicon.registered_phytosanitary_products USING btree (natures);
 
 
 --

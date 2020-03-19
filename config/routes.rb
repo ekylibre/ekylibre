@@ -105,7 +105,7 @@ Rails.application.routes.draw do
       resources :plants, only: %i[index]
       get 'profile', to: 'users#show'
       namespace :lexicon do
-        resources :ephy_cropsets, only: %i[index create]
+        resources :registered_phytosanitary_cropsets, only: %i[index create]
         resources :registered_phytosanitary_risks, only: %i[index create]
         resources :registered_phytosanitary_usages, only: %i[index create]
         resources :registered_phytosanitary_products, only: %i[index create]

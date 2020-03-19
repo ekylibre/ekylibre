@@ -231,3 +231,29 @@ module ::I18n
     (result.to_s =~ /(translation\ missing|\(\(\()/ ? nil : result)
   end
 end
+
+# TODO: Get rid of this once the switch to Rails 5 has been made
+module ActiveSupport
+  class Duration
+    ISO_INDEX_UNIT = { '1' => :year, '2' => :month, '3' => :day, '4' => :hour, '5' => :minute, '6' => :second }
+    SECONDS_PER_UNIT = { second: 1, minute: 60, hour: 3600, day: 86400, week: 604800, month: 2629746, year: 31556952 }
+
+    def self.parse(string)
+      hourly_format_match = string.match(/\A(\d{2}):(\d{2}):(\d{2})\z/)
+      daily_format_match = string.match(/\A(\d+) days\z/)
+      iso_format_match = string.match(/\AP(?:(\d*)Y)?(?:(\d*)M)?(?:(\d*)D)?(?:T(?:(\d*)H)?(?:(\d*)M)?(?:(\d*)S)?)?/)
+
+      if hourly_format_match
+        hourly_format_match[1].to_i.hour + hourly_format_match[2].to_i.minute + hourly_format_match[3].to_i.second
+      elsif daily_format_match
+        daily_format_match[1].to_i.day
+      elsif iso_format_match
+        (1..6).map { |int| iso_format_match[int] ? iso_format_match[int].to_i.send(ISO_INDEX_UNIT[int.to_s]) : nil }.compact.reduce(:+)
+      end
+    end
+
+    def in_full(unit)
+      to_i / SECONDS_PER_UNIT[unit]
+    end
+  end
+end
