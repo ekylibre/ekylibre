@@ -181,7 +181,7 @@ eng:
         france_maaid: "AMM number"
         licence_number: "Licence number"
         operator_protection_mentions: "Operator protection"
-        other_name: "Other commercial names"
+        other_names: "Other commercial names"
         product_type: "Type"
         state: "Product state"
         started_on: "Authorization date"

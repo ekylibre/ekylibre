@@ -119,6 +119,14 @@ module Ekylibre
           has_attached_file :picture, default_options.deep_merge(options)
         end
 
+        def has_interval(*columns)
+          columns.each do |column|
+            define_method column do
+              self[column].present? ? ActiveSupport::Duration.parse(self[column]) : nil
+            end
+          end
+        end
+
         def columns_definition
           Ekylibre::Schema.tables[table_name] || {}.with_indifferent_access
         end

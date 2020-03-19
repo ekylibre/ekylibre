@@ -2426,21 +2426,6 @@ entity_links:
   updater_id:
     type: integer
     references: user
-ephy_cropsets:
-  crop_labels:
-    type: jsonb
-  crop_names:
-    type: text
-  id:
-    type: string
-    required: true
-  label:
-    type: jsonb
-  name:
-    type: string
-    required: true
-  record_checksum:
-    type: integer
 eu_market_prices:
   category:
     type: string
@@ -7404,6 +7389,21 @@ registered_pfi_targets:
     required: true
   reference_label_fra:
     type: string
+registered_phytosanitary_cropsets:
+  crop_labels:
+    type: jsonb
+  crop_names:
+    type: text
+  id:
+    type: string
+    required: true
+  label:
+    type: jsonb
+  name:
+    type: string
+    required: true
+  record_checksum:
+    type: integer
 registered_phytosanitary_products:
   active_compounds:
     type: string
@@ -7425,11 +7425,11 @@ registered_phytosanitary_products:
   name:
     type: string
     required: true
-  nature:
+  natures:
     type: string
   operator_protection_mentions:
     type: text
-  other_name:
+  other_names:
     type: string
   product_type:
     type: string

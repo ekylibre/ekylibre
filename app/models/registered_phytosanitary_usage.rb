@@ -53,9 +53,12 @@
 #  usage_conditions           :string
 #
 class RegisteredPhytosanitaryUsage < ActiveRecord::Base
+  extend Enumerize
   include Lexiconable
   include ScopeIntrospection
   belongs_to :product, class_name: 'RegisteredPhytosanitaryProduct'
+
+  enumerize :state, in: %w[authorized provisional withdrawn], predicates: true
 
   scope :of_product, -> (*ids) { where(product_id: ids) }
 
@@ -63,8 +66,8 @@ class RegisteredPhytosanitaryUsage < ActiveRecord::Base
   scope :of_variety, -> (*varieties) do
     with_ancestors = [*varieties, *varieties.flat_map { |v| Nomen::Variety.ancestors(Nomen::Variety.find(v)) }].uniq.join('", "')
 
-    joins('LEFT OUTER JOIN ephy_cropsets ON registered_phytosanitary_usages.species[1] = ephy_cropsets.name')
-      .where("registered_phytosanitary_usages.species && '{\"#{with_ancestors}\"}' OR ephy_cropsets.crop_names && '{\"#{with_ancestors}\"}'")
+    joins('LEFT OUTER JOIN registered_phytosanitary_cropsets ON registered_phytosanitary_usages.species[1] = registered_phytosanitary_cropsets.name')
+      .where("registered_phytosanitary_usages.species && '{\"#{with_ancestors}\"}' OR registered_phytosanitary_cropsets.crop_names && '{\"#{with_ancestors}\"}'")
       .order(:state)
   end
 
@@ -74,15 +77,11 @@ class RegisteredPhytosanitaryUsage < ActiveRecord::Base
   scope :of_specie, ->(specie) { where(specie: specie.to_s) }
   scope :with_conditions, -> { where.not(usage_conditions: nil) }
 
-  %i[dose_quantity development_stage_min usage_conditions].each do |col|
+  delegate :decorated_reentry_delay, to: :product
+
+  %i[dose_quantity development_stage_min usage_conditions pre_harvest_delay].each do |col|
     define_method "decorated_#{col}" do
       decorate.send(col)
-    end
-  end
-
-  %i[pre_harvest_delay applications_frequency].each do |col|
-    define_method "decorated_#{col}" do
-      decorate.value_in_days(col)
     end
   end
 
@@ -98,16 +97,19 @@ class RegisteredPhytosanitaryUsage < ActiveRecord::Base
     end
   end
 
+  def decorated_applications_frequency
+    decorate.value_in_days(:applications_frequency)
+  end
+
   def status
-    case state
-      when 'Autorisé'
-        :go
-      when 'Provisoire'
-        :caution
-      when 'Retrait'
-        :stop
-      else
-        :stop
+    if authorized?
+      :go
+    elsif provisional?
+      :caution
+    elsif withdrawn?
+      :stop
+    else
+      :stop
     end
   end
 
@@ -117,5 +119,9 @@ class RegisteredPhytosanitaryUsage < ActiveRecord::Base
 
   def among_dimensions?(*dimensions)
     dimensions.any? { |dimension| of_dimension?(dimension) }
+  end
+
+  def pre_harvest_delay
+    self[:pre_harvest_delay].present? ? ActiveSupport::Duration.parse(self[:pre_harvest_delay]) : nil
   end
 end

@@ -10,9 +10,8 @@ module Interventions
         products_usages.each do |pu|
           phyto = pu.product.variant.phytosanitary_product
 
-          if (pu.usage.present? && pu.usage.state == 'Retrait') || (phyto.present? && phyto.state == 'Retiré')
-            # TODO: translate
-            result.add_message(pu.product, 'Ce produit est retiré')
+          if (pu.usage.present? && pu.usage.withdrawn?) || (phyto.present? && phyto.withdrawn?)
+            result.add_message(pu.product, :this_product_has_been_withdrawn.tl)
           end
         end
 

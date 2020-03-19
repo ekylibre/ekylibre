@@ -23,7 +23,7 @@
 #
 # == Table: registered_phytosanitary_products
 #
-#  active_compounds             :string
+#  active_compounds             :array
 #  allowed_mentions             :jsonb
 #  firm_name                    :string
 #  france_maaid                 :string           not null
@@ -31,9 +31,9 @@
 #  in_field_reentry_delay       :integer
 #  mix_category_code            :string           not null
 #  name                         :string           not null
-#  nature                       :string
+#  natures                      :array
 #  operator_protection_mentions :text
-#  other_name                   :string
+#  other_names                  :array
 #  product_type                 :string
 #  record_checksum              :integer
 #  reference_name               :string           not null
@@ -43,6 +43,7 @@
 #  stopped_on                   :date
 #
 class RegisteredPhytosanitaryProduct < ActiveRecord::Base
+  extend Enumerize
   include Lexiconable
   include Searchable
   include ScopeIntrospection
@@ -55,6 +56,8 @@ class RegisteredPhytosanitaryProduct < ActiveRecord::Base
                      foreign_key: :product_id, dependent: :restrict_with_exception
   has_many :phrases, class_name: 'RegisteredPhytosanitaryPhrase',
                      foreign_key: :product_id, dependent: :restrict_with_exception
+
+  enumerize :state, in: %w[authorized inherited withdrawn], predicates: true
 
   delegate :unit, to: :class
 
@@ -112,6 +115,10 @@ class RegisteredPhytosanitaryProduct < ActiveRecord::Base
 
   def mix_category_codes
     super || []
+  end
+
+  def in_field_reentry_delay
+    self[:in_field_reentry_delay].present? ? ActiveSupport::Duration.parse(self[:in_field_reentry_delay]) : nil
   end
 
   def proper_name

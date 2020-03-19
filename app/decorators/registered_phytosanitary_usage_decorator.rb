@@ -24,6 +24,10 @@ class RegisteredPhytosanitaryUsageDecorator < Draper::Decorator
     ApplicationController.helpers.picto_tag('info-circle', color: '#3f70ce', pointer: true, data: { toggle: 'modal', target: "#usage-conditions-modal-#{object.id}" })
   end
 
+  def pre_harvest_delay
+    object.pre_harvest_delay ? "#{object.pre_harvest_delay.in_full(:day)} j" : nil
+  end
+
   def value_in_days(col)
     value = object.send(col)
 

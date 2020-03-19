@@ -501,13 +501,12 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   def status
     phyto = phytosanitary_product
-    case phyto&.state
-      when 'Autorisé'
-        :go
-      when 'Retiré'
-        :stop
-      else
-        nil
+    if phyto&.authorized?
+      :go
+    elsif phyto&.withdrawn?
+      :stop
+    else
+      nil
     end
   end
 

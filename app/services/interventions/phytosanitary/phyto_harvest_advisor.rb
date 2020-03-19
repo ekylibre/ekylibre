@@ -48,7 +48,7 @@ module Interventions
       # @param [Array<Intervention>] interventions
       # @return [Models::HarvestResult]
       def reentry_possible_from_interventions?(period, interventions)
-        forbidden_periods = interventions.map { |int| Models::Period.new(int.stopped_at, (int.stopped_at + int.inputs.map { |i| i.allowed_entry_factor || 0 }.max.hours)) }
+        forbidden_periods = interventions.map { |i| Models::Period.new(i.stopped_at, (i.stopped_at + (i.inputs.map(&:allowed_entry_factor).compact.max || 0))) }
         compute_result(period, forbidden_periods)
       end
 
@@ -56,7 +56,7 @@ module Interventions
       # @param [Array<Intervention>] interventions
       # @return [Models::HarvestResult]
       def harvest_possible_from_interventions?(period, interventions)
-        forbidden_periods = interventions.map { |int| Models::Period.new(int.stopped_at, (int.stopped_at + int.inputs.map { |i| i.allowed_harvest_factor || 0 }.max.days)) }
+        forbidden_periods = interventions.map { |i| Models::Period.new(i.stopped_at, (i.stopped_at + (i.inputs.map(&:allowed_harvest_factor).compact.max || 0))) }
         compute_result(period, forbidden_periods)
       end
 
