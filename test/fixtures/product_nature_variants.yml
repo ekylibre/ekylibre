@@ -1324,3 +1324,75 @@ product_nature_variants_070:
   variety: equipment_part
   work_number: PDM001
   type: Variants::ArticleVariant
+product_nature_variants_071:
+  active: true
+  category_id: 3
+  created_at: 2016-08-10 14:24:46.796093000 Z
+  creator_id: 1
+  france_maaid: 2000087
+  id: 72
+  imported_from: Lexicon
+  lock_version: 0
+  name: Copless Plant Medicine variant
+  nature_id: 8
+  number: '000072'
+  reference_name: 2000087_copless
+  type: Variants::Articles::PlantMedicineArticle
+  unit_name: Kilogramme
+  updated_at: 2016-08-10 14:24:46.796093000 Z
+  updater_id: 1
+  variety: :preparation
+product_nature_variants_072:
+  active: true
+  category_id: 3
+  created_at: 2016-08-10 14:24:46.796093000 Z
+  creator_id: 1
+  france_maaid: 2190613
+  id: 73
+  imported_from: Lexicon
+  lock_version: 0
+  name: Award Plant Medicine variant
+  nature_id: 8
+  number: '000073'
+  reference_name: 2190613_award
+  type: Variants::Articles::PlantMedicineArticle
+  unit_name: Kilogramme
+  updated_at: 2016-08-10 14:24:46.796093000 Z
+  updater_id: 1
+  variety: :preparation
+product_nature_variants_073:
+  active: true
+  category_id: 3
+  created_at: 2016-08-10 14:24:46.796093000 Z
+  creator_id: 1
+  france_maaid: 2000003
+  id: 74
+  imported_from: Lexicon
+  lock_version: 0
+  name: Sultan Plant Medicine variant
+  nature_id: 8
+  number: '000074'
+  reference_name: 2000003_sultan
+  type: Variants::Articles::PlantMedicineArticle
+  unit_name: Kilogramme
+  updated_at: 2016-08-10 14:24:46.796093000 Z
+  updater_id: 1
+  variety: :preparation
+product_nature_variants_074:
+  active: true
+  category_id: 3
+  created_at: 2016-08-10 14:24:46.796093000 Z
+  creator_id: 1
+  france_maaid: 2000085
+  id: 75
+  imported_from: Lexicon
+  lock_version: 0
+  name: Zebra Plant Medicine variant
+  nature_id: 8
+  number: '000075'
+  reference_name: 2000085_zebra
+  type: Variants::Articles::PlantMedicineArticle
+  unit_name: Kilogramme
+  updated_at: 2016-08-10 14:24:46.796093000 Z
+  updater_id: 1
+  variety: :preparation
