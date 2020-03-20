@@ -813,7 +813,7 @@ Rails.application.routes.draw do
 
     %w[animal article crop equipment service worker zone].each do |model|
       namespace :variants do
-        resources "#{model}_variants".to_sym, concerns: %i[incorporate list], only: %i[index show] do
+        resources "#{model}_variants".to_sym, concerns: %i[incorporate list], only: %i[index show new create] do
           member do
             get :list_components
             get :list_catalog_items
@@ -841,7 +841,7 @@ Rails.application.routes.draw do
     %w[fertilizer plant_medicine seed_and_plant].each do |model|
       namespace :variants do
         namespace :articles do
-          resources "#{model}_articles".to_sym, concerns: %i[incorporate list], only: %i[index show] do
+          resources "#{model}_articles".to_sym, concerns: %i[incorporate list], only: %i[index show new create] do
             member do
               get :list_components
               get :list_catalog_items

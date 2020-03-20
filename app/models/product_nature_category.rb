@@ -112,6 +112,8 @@ class ProductNatureCategory < Ekylibre::Record::Base
   scope :with_catalog_items, -> { where(id: Catalog.joins(items: { variant: :category }).pluck(:category_id)) }
   scope :with_sale_catalog_items, -> { where(id: Catalog.for_sale.joins(items: { variant: :category }).pluck(:category_id)) }
 
+  scope :of_type, ->(nature) { where(type: "VariantCategories::#{nature.to_s.capitalize}Category") }
+
   protect(on: :destroy) do
     products.any? || variants.any?
   end

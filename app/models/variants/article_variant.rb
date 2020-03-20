@@ -54,5 +54,10 @@
 #  work_number               :string
 #
 module Variants
-  class ArticleVariant < ProductNatureVariant; end
+  class ArticleVariant < ProductNatureVariant
+
+    def variant_type
+      :article
+    end
+  end
 end
