@@ -4,9 +4,9 @@ module Backend
       respond_to :json
 
       def show
-        main_serie = LandParcel.find_each.collect do |p|
+        main_serie = LandParcel.find_each.map do |p|
           land_parcel_shape = p.shape
-          next unless land_parcel_shape
+          next if land_parcel_shape.nil? || land_parcel_shape.area.zero?
           popup_content = []
 
           # for all land_parcel
