@@ -9,5 +9,5 @@
     = link_to nature.pluralize.tl, send("backend_variants_#{nature}_variants_path"), class: btn_class
 
   = t.pick params: { redirect: "/#{controller_path}", selector_label: :product_variant.tl }
-  = t.new params: { controller: '/backend/product_nature_variants', subdivision: controller_name }
+  = t.new params: { controller: "/#{controller_path}", subdivision: controller_name }
 

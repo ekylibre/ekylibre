@@ -234,6 +234,11 @@ class ProductNatureVariant < Ekylibre::Record::Base
     category_account
   end
 
+
+  def variant_type
+    type.constantize.variant_type
+  end
+
   # add animals to new variant
   def add_products(products, options = {})
     Intervention.write(:product_evolution, options) do |i|
