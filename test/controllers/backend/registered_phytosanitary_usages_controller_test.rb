@@ -3,9 +3,15 @@ require 'test_helper'
 module Backend
   class RegisteredPhytosanitaryUsagesControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
 
-    test 'get_usage_infos returns correct data according to the usage provided' do
-      run_setup(with_interventions: true)
+    setup do
+      @land_parcel = create :lemon_land_parcel, born_at: DateTime.new(2018, 1, 1)
+      @product = create :phytosanitary_product, variant: ProductNatureVariant.find_by_reference_name('2000087_copless')
+      @usage = RegisteredPhytosanitaryUsage.find('20191211165323116925')
+      2.times { |index| create_intervention(index) }
+      user_sign_in
+    end
 
+    test 'get_usage_infos returns correct data according to the usage provided' do
       get :get_usage_infos, id: @usage.id, targets_data: { '0' => { id: @land_parcel.id, shape: @land_parcel.shape.to_json_feature_collection.to_json } }
       json = JSON.parse(response.body)
 
@@ -15,8 +21,6 @@ module Backend
     end
 
     test 'get_usage_infos allows the user to select a usage if its maximum amount of applications has not been reached' do
-      run_setup(with_interventions: true)
-
       get :get_usage_infos, id: @usage.id, targets_data: { '0' => { id: @land_parcel.id, shape: @land_parcel.shape.to_json_feature_collection.to_json } }
       json = JSON.parse(response.body)
 
@@ -24,7 +28,6 @@ module Backend
     end
 
     test 'get_usage_infos warns the user when selecting a usage if its maximum amount of applications has been reached' do
-      run_setup(with_interventions: true)
       create_intervention(2)
 
       get :get_usage_infos, id: @usage.id, targets_data: { '0' => { id: @land_parcel.id, shape: @land_parcel.shape.to_json_feature_collection.to_json } }
@@ -34,7 +37,6 @@ module Backend
     end
 
     test 'get_usage_infos warns the user when selecting a usage if its maximum amount of applications has been exceeded' do
-      run_setup(with_interventions: true)
       [2, 3].each { |i| create_intervention(i) }
 
       get :get_usage_infos, id: @usage.id, targets_data: { '0' => { id: @land_parcel.id, shape: @land_parcel.shape.to_json_feature_collection.to_json } }
@@ -44,7 +46,6 @@ module Backend
     end
 
     test 'get_usage_infos does not take into consideration the intervention being edited when computing a usage amount of applications' do
-      run_setup(with_interventions: true)
       interventions = [2, 3].map { |i| create_intervention(i) }
 
       get :get_usage_infos, id: @usage.id,
@@ -58,8 +59,6 @@ module Backend
     cases = [%w[allows inferior 3.2 go], %w[warns equal 3.3 caution], %w[forbids superior 3.4 stop]]
     cases.each do |(verb, comparator, quantity, status)|
       test "dose_validations #{verb} input quantity if it is #{comparator} to usage maximum dose" do
-        run_setup
-
         get :dose_validations, id: @usage.id,
                                product_id: @product.id,
                                dimension: 'mass_area_density',
@@ -73,7 +72,6 @@ module Backend
 
     %w[population net_mass].each do |dimension|
       test "dose_validations correctly handles conversion from #{dimension} to mass_area_density" do
-        run_setup
         surface = Measure.new(@land_parcel.shape.area, :square_meter).in(:hectare)
         max_dose = (surface * @usage.dose_quantity).to_d
         max_dose = max_dose / @product.net_mass.in(:kilogram).to_d if dimension == 'population'
@@ -92,14 +90,6 @@ module Backend
     end
 
     private
-
-      def run_setup(with_interventions: false)
-        @land_parcel = create :lemon_land_parcel, born_at: DateTime.new(2018, 1, 1)
-        @product = create :copless_phytosanitary_product
-        @usage = RegisteredPhytosanitaryUsage.find('20191211165323116925')
-        2.times { |index| create_intervention(index) } if with_interventions
-        user_sign_in
-      end
 
       def user_sign_in
         user = User.find_by(administrator: true)

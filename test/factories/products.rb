@@ -90,12 +90,5 @@ FactoryBot.define do
       product.category = product.variant.category
       product.nature = product.variant.nature
     end
-
-    %w[copless award sultan zebra].each do |p_name|
-      factory "#{p_name}_phytosanitary_product" do
-        association :variant, factory: "#{p_name}_phytosanitary_variant"
-        name { p_name.capitalize }
-      end
-    end
   end
 end
