@@ -38,7 +38,7 @@ module PanierLocal
       #  12 - L: tax_rate : '20'
       #  13 - M: quantity : '104'
 
-      data, errors = opening_and_decoding_file(file)
+      data, errors = open_and_decode_file(file)
 
       valid = errors.all?(&:empty?)
 
@@ -54,25 +54,26 @@ module PanierLocal
     end
 
     def import
-      # TODO: pour récupérer l'import dans l'exchanger
-      i = Import.find(options[:import_id])
-
-      # Ouverture et décodage
+      # Opening and decoding
       rows = ActiveExchanger::CsvReader.new.read(file)
 
       # create or find journal for sale nature
       journal = Journal.find_or_create_by(code: 'PALO', nature: 'sales', name: 'Panier Local')
+      # Journal.of_provider_name(:panier_local, :sales).find_or_create_by(code: 'PALO', nature: 'sales', name: 'Panier Local')
       catalog = Catalog.find_or_create_by(code: 'PALO', currency: 'EUR', usage: 'sale', name: 'Panier Local')
       # create or find sale_nature
       sale_nature = SaleNature.find_or_create_by(name: "Vente en ligne - Panier Local", catalog_id: catalog.id, currency: 'EUR', payment_delay: '30 days', journal_id: journal.id)
 
       parser = ActiveExchanger::CsvParser.new(NORMALIZATION_CONFIG)
 
-      data, errors = parser.normalize(rows)
+      data, _errors = parser.normalize(rows)
 
       sales_info = data.group_by { |d| d.sale_reference_number }
 
       sales_info.each { |_sale_reference_number, sale_info| sale_creation(sale_info, sale_nature) }
+
+    rescue Accountancy::AccountNumberNormalizer::NormalizationError => e
+      raise StandardError.new("The account number length cant't be different from your own settings")
     end
 
     def sale_creation(sale_info, sale_nature)
@@ -89,17 +90,17 @@ module PanierLocal
           client: entity,
           nature: sale_nature,
           description: client_sale_info.sale_description,
-          provider: { vendor: :panier_local, name: :sales, id: import.id, data => { sale_reference_number: client_sale_info.sale_reference_number } }
+          provider: { vendor: :panier_local, name: :sales, id: options[:import_id], data: { sale_reference_number: client_sale_info.sale_reference_number } }
           )
 
         tax = check_or_create_vat_account_and_amount(sale_info)
 
-        product_account_line = sale_info.select {|i| i.account_number.to_s.start_with?('7') }.first
+        product_account_line = sale_info.select {|i| i.account_number.start_with?('7') }.first
 
         if product_account_line.present?
           # .of_provider_name(:panier_local, :sales).of_provider_data(:account_number, product_account_line.account_number)
           variant = ProductNatureVariant.of_provider_name(:panier_local, :sales).find_by("provider -> 'data' ->> 'account_number' = ?", product_account_line.account_number)
-          unless variant
+          if variant.nil?
             product_account = check_or_create_product_account(product_account_line)
             variant = create_variant(product_account, product_account_line)
           end
@@ -148,7 +149,6 @@ module PanierLocal
       if client_sale_info.present?
         client_number_account = client_sale_info.account_number.to_s
         acc = Account.find_or_initialize_by(number: client_number_account)#!
-
         attributes = {
                       name: client_sale_info.entity_name,
                       centralizing_account_name: 'clients',
@@ -158,8 +158,7 @@ module PanierLocal
         aux_number = client_number_account[3, client_number_account.length]
 
         if aux_number.match(/\A0*\z/).present?
-          w.info "We can't import auxiliary number #{aux_number} with only 0. Mass change number in your file before importing"
-          attributes[:auxiliary_number] = '00000A'
+          raise StandardError.new("Can't create account. Number provided can't be a radical class")
         else
           attributes[:auxiliary_number] = aux_number
         end
@@ -173,7 +172,7 @@ module PanierLocal
       last_name = client_sale_info.entity_name.mb_chars.capitalize
 
       w.info "Create entity and link account"
-      entity = Entity.new(
+      Entity.new(
         nature: :organization,
         last_name: last_name,
         codes: { 'panier_local' => client_sale_info.entity_code },
@@ -181,34 +180,37 @@ module PanierLocal
         client: true,
         client_account_id: acc.id
       )
-
-      entity
     end
 
     def check_or_create_vat_account_and_amount(sale_info)
-      account_numbers = sale_info.map {|i| i.account_number }
-      vat_account = account_numbers.select { |number| number.to_s.start_with?('445') }
+      vat_account = sale_info.map {|i| i.account_number }.select { |number| number.to_s.start_with?('445') }
       vat_account_info = vat_account.any? ? sale_info.select {|item| item.account_number.to_s.start_with?('445')}.first : nil
-      if vat_account.any? && vat_account_info.present?
-        global_pretax_amount = vat_account_info.sale_item_pretax_amount
-        global_tax_amount = vat_account_info.sale_item_amount
-        clean_tax_account_number = vat_account_info.account_number.to_s[0..Preference[:account_number_digits]]
+      if vat_account_info.present?
+        
+        n = Accountancy::AccountNumberNormalizer.build
+        clean_tax_account_number = n.normalize!(vat_account_info.account_number)
+
+        # byebug
+        # if clean_tax_account_number.length > Preference[:account_number_digits]
+        #   raise StandardError.new("The account number length cant't be different from your own settings")
+        # end
+      
 
         tax_account = Account.find_by(number: clean_tax_account_number)
         tax = Tax.find_by(amount: vat_account_info.vat_percentage)
 
-        unless tax_account.present? && tax
-          tax = create_tax_account(vat_account_info, clean_tax_account_number)
+        if tax_account.blank? && tax.nil?
+          tax = create_tax(vat_account_info, clean_tax_account_number)
         end
       end
       tax
     end
 
-    def create_tax_account(vat_account_info, clean_tax_account_number)
+    def create_tax(vat_account_info, clean_tax_account_number)
       tax_account = Account.find_or_create_by_number(clean_tax_account_number)
       tax = Tax.find_by(amount: vat_account_info.vat_percentage, collect_account_id: tax_account.id)
 
-      unless tax
+      if tax.nil?
         tax = Tax.find_on(vat_account_info.invoiced_at.to_date, country: Preference[:country].to_sym, amount: vat_account_info.vat_percentage)
         tax.collect_account_id = tax_account.id
         tax.active = true
@@ -218,13 +220,16 @@ module PanierLocal
     end
 
     def check_or_create_product_account(product_account_line)
-      clean_account_number = product_account_line.account_number.to_s[0..Preference[:account_number_digits]]
+      n = Accountancy::AccountNumberNormalizer.build
+      clean_account_number = n.normalize!(product_account_line.account_number)
+
       computed_name = "Service - Vente en ligne - #{clean_account_number}"
       product_account = Account.find_or_create_by_number(clean_account_number)
     end
 
     def create_variant(product_account, product_account_line)
-      clean_account_number = product_account_line.account_number.to_s[0..Preference[:account_number_digits]]
+      n = Accountancy::AccountNumberNormalizer.build
+      clean_account_number = n.normalize!(product_account_line.account_number)
       computed_name = "Service - Vente en ligne - #{clean_account_number}"
 
       pnc = ProductNatureCategory.create_with(name: computed_name, active: true, saleable: true, product_account_id: product_account.id, nature: :service, type: 'VariantCategories::ServiceCategory')
@@ -233,14 +238,12 @@ module PanierLocal
       pn = ProductNature.create_with(active: true, name: computed_name, variety: 'service', population_counting: 'decimal')
           .find_or_create_by(name: computed_name)
 
-      if pn
-        pn.variants.build(active: true,
-                          name: computed_name,
-                          category: pnc,
-                          provider: { vendor: :panier_local, name: :sales, id: import.id, data: { account_number: product_account_line.account_number } },
-                          unit_name: 'unity'
-                         )
-      end
+      pn.variants.build(active: true,
+                        name: computed_name,
+                        category: pnc,
+                        provider: { vendor: :panier_local, name: :sales, id: options[:import_id], data: { account_number: product_account_line.account_number } },
+                        unit_name: 'unity'
+                        )
     end
 
     def create_pretax_amount(product_account_line)
@@ -251,8 +254,8 @@ module PanierLocal
       end
     end
 
-    def opening_and_decoding_file(file)
-      # Ouverture et décodage: CSVReader::read(file)
+    def open_and_decode_file(file)
+      # Open and Decode: CSVReader::read(file)
       rows = ActiveExchanger::CsvReader.new.read(file)
       parser = ActiveExchanger::CsvParser.new(NORMALIZATION_CONFIG)
 
@@ -261,6 +264,3 @@ module PanierLocal
 
   end
 end
-
-
-
