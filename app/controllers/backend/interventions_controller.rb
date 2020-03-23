@@ -310,10 +310,14 @@ module Backend
             else
               params[:redirect] || { action: :show, id: 'id'.c }
             end
-      @intervention.save
-      reconcile_receptions
-      return if save_and_redirect(@intervention, url: url, notify: :record_x_created, identifier: :number)
-      render(locals: { cancel_url: { action: :index }, with_continue: true })
+
+      Ekylibre::Record::Base.transaction do
+        @intervention.save!
+        reconcile_receptions
+
+        return if save_and_redirect(@intervention, url: url, notify: :record_x_created, identifier: :number)
+        render(locals: { cancel_url: { action: :index }, with_continue: true })
+      end
     end
 
     def update
