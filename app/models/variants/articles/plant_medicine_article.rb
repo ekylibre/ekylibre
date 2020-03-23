@@ -59,6 +59,10 @@ module Variants
 
       validate :check_lexicon_reference, on: :update
 
+      def variant_type
+        :article
+      end
+
       private
 
         def check_lexicon_reference

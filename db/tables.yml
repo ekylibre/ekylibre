@@ -7447,11 +7447,11 @@ registered_phytosanitary_products:
   name:
     type: string
     required: true
-  nature:
+  natures:
     type: string
   operator_protection_mentions:
     type: text
-  other_name:
+  other_names:
     type: string
   product_type:
     type: string

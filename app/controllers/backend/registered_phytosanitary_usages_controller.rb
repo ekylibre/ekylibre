@@ -60,14 +60,15 @@ module Backend
       end
 
       def compute_dataset(usage)
+        state_label = t("enumerize.registered_phytosanitary_product.state.#{usage.state}")
         {
-          state: usage.decision_date ? "#{usage.state} (#{usage.decision_date.l})" : usage.state,
+          state: usage.decision_date ? "#{state_label} (#{usage.decision_date.l})" : state_label,
           maximum_dose: usage.dose_quantity ? "#{usage.dose_quantity} #{usage.dose_unit_name}" : nil,
           untreated_buffer_aquatic: usage.untreated_buffer_aquatic ? "#{usage.untreated_buffer_aquatic} m" : nil,
-          re_entry_interval: usage.product.in_field_reentry_delay ? "#{usage.product.in_field_reentry_delay} h" : nil,
+          re_entry_interval: usage.decorated_reentry_delay,
           applications_count: usage.applications_count,
           untreated_buffer_arthropod: usage.untreated_buffer_arthropod ? "#{usage.untreated_buffer_arthropod} m" : nil,
-          pre_harvest_delay: usage.pre_harvest_delay ? "#{usage.pre_harvest_delay} j" : nil,
+          pre_harvest_delay: usage.pre_harvest_delay ? "#{usage.pre_harvest_delay.in_full(:day)} j" : nil,
           development_stage: usage.decorate.development_stage_min,
           untreated_buffer_plants: usage.untreated_buffer_plants ? "#{usage.untreated_buffer_plants} m" : nil,
           usage_conditions: usage.usage_conditions ? usage.usage_conditions.gsub('//', '<br/>').html_safe : nil

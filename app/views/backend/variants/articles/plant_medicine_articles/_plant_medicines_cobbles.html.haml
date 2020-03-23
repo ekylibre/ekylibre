@@ -24,7 +24,7 @@
       - if phyto.operator_protection_mentions
         - l.custom RegisteredPhytosanitaryProduct.human_attribute_name(:operator_protection_mentions), picto_tag('info-circle', color: '#3f70ce', pointer: true, data: { toggle: 'modal', target: '#operator-protection-modal' })
       - if phyto.active_compounds
-        - l.custom RegisteredPhytosanitaryProduct.human_attribute_name(:active_compounds), simple_format(phyto.active_compounds.gsub(' | ', "\n"))
+        - l.custom RegisteredPhytosanitaryProduct.human_attribute_name(:active_compounds), simple_format(phyto.active_compounds.join("\n"))
       - if phyto.product_type == "PPP"
         - l.custom RegisteredPhytosanitaryProduct.human_attribute_name(:france_maaid), link_to(phyto.france_maaid, ppp_link, target: "_blank", class: 'info-lg-link')
       - else
@@ -32,8 +32,8 @@
         - l.custom RegisteredPhytosanitaryProduct.human_attribute_name(:licence_number), link_to(phyto.id.to_s, ppp_link, target: "_blank", class: 'info-lg-link')
       - if phyto.allowed_mentions
         - l.custom RegisteredPhytosanitaryProduct.human_attribute_name(:allowed_mentions), allowed_mentions_imgs.html_safe
-      - if phyto.other_name
-        - l.custom RegisteredPhytosanitaryProduct.human_attribute_name(:other_name), phyto.other_name.gsub(' |', ',')
+      - if phyto.other_names
+        - l.custom RegisteredPhytosanitaryProduct.human_attribute_name(:other_name), phyto.other_names.join(', ')
   - else
     .empty-info-cobble
       = :please_provide_a_valid_maaid_to_display_this_article_properties.tl

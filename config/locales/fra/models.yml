@@ -306,7 +306,7 @@ fra:
         licence_number: "N° Permis"
         name: "Nom usuel"
         operator_protection_mentions: "Protection de l'opérateur"
-        other_name: "Seconds noms commerciaux"
+        other_names: "Seconds noms commerciaux"
         product_type: "Type"
         state: "État du produit"
         started_on: "Date d'autorisation"

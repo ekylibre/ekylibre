@@ -235,6 +235,11 @@ class ProductNatureVariant < Ekylibre::Record::Base
     category_account
   end
 
+
+  def variant_type
+    type.constantize.variant_type
+  end
+
   # add animals to new variant
   def add_products(products, options = {})
     Intervention.write(:product_evolution, options) do |i|
@@ -502,13 +507,12 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   def status
     phyto = phytosanitary_product
-    case phyto&.state
-      when 'Autorisé'
-        :go
-      when 'Retiré'
-        :stop
-      else
-        nil
+    if phyto&.authorized?
+      :go
+    elsif phyto&.withdrawn?
+      :stop
+    else
+      nil
     end
   end
 

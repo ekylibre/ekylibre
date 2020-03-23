@@ -124,6 +124,7 @@ class ProductNature < Ekylibre::Record::Base
   scope :tools, -> { of_variety(:equipment) }
 
   # scope :producibles, -> { where(:variety => ["bos", "animal", "plant", "organic_matter"]).order(:name) }
+  scope :of_type, ->(nature) { where(type: "VariantTypes::#{nature.to_s.capitalize}Type") }
 
   scope :derivative_of, proc { |*varieties| of_derivative_of(*varieties) }
 

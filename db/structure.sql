@@ -467,8 +467,8 @@ CREATE TABLE public.intervention_parameters (
     variety character varying,
     batch_number character varying,
     usage_id character varying,
-    allowed_entry_factor integer,
-    allowed_harvest_factor integer
+    allowed_entry_factor interval,
+    allowed_harvest_factor interval
 );
 
 
@@ -19224,5 +19224,9 @@ INSERT INTO schema_migrations (version) VALUES ('20200128133347');
 
 INSERT INTO schema_migrations (version) VALUES ('20200213102154');
 
+<<<<<<< HEAD
 INSERT INTO schema_migrations (version) VALUES ('20200317155452');
 
+=======
+INSERT INTO schema_migrations (version) VALUES ('20200312163243');
+>>>>>>> core

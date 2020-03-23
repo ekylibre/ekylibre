@@ -2614,6 +2614,7 @@ eng:
     third_balance: "(balance - supplier account balance : %{balance} - %{supplier_account_balance})" #?
     third_is_unbalanced: "Third is unbalanced. (balance - supplier account balance)" #?!
     this_archive_is_digitally_signed: "This archive is digitally signed."
+    this_product_has_been_withdrawn: "This product has been withdrawn"
     threshold_commercialization_by_production: "Threshold commercialization by production" #?
     thumb: "Thumb" #?
     time_cost: "Time cost" #?

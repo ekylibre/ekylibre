@@ -10,8 +10,8 @@
   end
 
 = field_set do
-  = f.referenced_association :nature
-  = f.referenced_association :category
+  = f.referenced_association :nature, controller: '/backend/product_natures', source: { scope: { of_type: f.object.variant_type } }
+  = f.referenced_association :category, controller: '/backend/product_nature_categories', source: { scope: { of_type: f.object.variant_type } }
   = f.variety scope: nature, child_scope: f.object.products
   = f.input :name
   = f.input :work_number
@@ -31,3 +31,4 @@
 - if f.object.of_variety? :equipment
   = field_set(:components) do
     = f.nested_association(:components, collection: f.object.components.select { |c| c.parent_id.nil? })
+

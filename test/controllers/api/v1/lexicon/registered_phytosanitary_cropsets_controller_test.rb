@@ -2,7 +2,7 @@ require 'test_helper'
 module Api
   module V1
     module Lexicon
-      class EphyCropsetsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
+      class RegisteredPhytosanitaryCropsetsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
         extend ActiveSupport::Concern
         connect_with_token
 
@@ -11,7 +11,7 @@ module Api
           get :index
           json = JSON.parse response.body
 
-          assert_equal EphyCropset.count, json["data"].count
+          assert_equal RegisteredPhytosanitaryCropset.count, json["data"].count
           assert_response :ok
         end
 
@@ -36,10 +36,10 @@ module Api
 
           post :create, params
           json = JSON.parse response.body
-          
+
           assert_equal({"id"=>"9878888"}, json["data"].detect {|a| a["id"] == "9878888" })
           assert_equal 1, json["data"].last.keys.count
-          
+
           assert json["data"].detect {|a| a["id"] == "2" }
           assert_not_equal 1, json["data"].detect {|a| a["id"] == "2" }.keys.count
 

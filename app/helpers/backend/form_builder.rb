@@ -771,7 +771,7 @@ module Backend
       choices = options.delete(:source) || {}
       choices = { scope: choices } if choices.is_a?(Symbol)
       choices[:action] ||= :unroll
-      choices[:controller] ||= reflection.class_name.underscore.pluralize
+      choices[:controller] ||= options.delete(:controller) || reflection.class_name.underscore.pluralize
 
       model = @object.class
 

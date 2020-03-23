@@ -54,5 +54,10 @@
 #  work_number               :string
 #
 module Variants
-  class CropVariant < ProductNatureVariant; end
+  class CropVariant < ProductNatureVariant
+
+    def variant_type
+      :crop
+    end
+  end
 end
