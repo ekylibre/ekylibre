@@ -10,8 +10,10 @@ module Interventions
         products_usages.each do |pu|
           phyto = pu.product.variant.phytosanitary_product
 
-          if (pu.usage.present? && pu.usage.withdrawn?) || (phyto.present? && phyto.withdrawn?)
-            result.add_message(pu.product, :this_product_has_been_withdrawn.tl)
+          if phyto.nil? || pu.usage.nil?
+            result.vote_unknown(pu.product)
+          elsif phyto.withdrawn? || pu.usage.withdrawn?
+            result.vote_forbidden(pu.product, :this_product_has_been_withdrawn.tl)
           end
         end
 

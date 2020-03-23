@@ -21,7 +21,7 @@ module Interventions
           result = Models::ProductApplicationResult.new
 
           other_products(with, product).each do |p|
-            result.add_message(p, message)
+            result.vote_forbidden(p, message)
           end
 
           result

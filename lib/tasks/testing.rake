@@ -38,10 +38,11 @@ namespace :test do
 
   files = begin
             Git.open(Rails.root, log: Rails.logger)
-                      .diff
-                      .select { |f| %w(new modified).include?(f.type) }
-                      .select { |f| f.path =~ %r{\Atest/.*?_test\.rb\z} }
-                      .map(&:path)
+              .diff(ENV.fetch('BASE', 'core'))
+              .select { |f| %w(new modified).include?(f.type) }
+              .select { |f| f.path =~ %r{\Atest/.*?_test\.rb\z} }
+              .map(&:path)
+              .select { |p| Rails.root.join(p).exist? }
           rescue StandardError
             []
           end
