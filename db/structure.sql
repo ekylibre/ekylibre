@@ -19224,9 +19224,7 @@ INSERT INTO schema_migrations (version) VALUES ('20200128133347');
 
 INSERT INTO schema_migrations (version) VALUES ('20200213102154');
 
-<<<<<<< HEAD
+INSERT INTO schema_migrations (version) VALUES ('20200312163243');
+
 INSERT INTO schema_migrations (version) VALUES ('20200317155452');
 
-=======
-INSERT INTO schema_migrations (version) VALUES ('20200312163243');
->>>>>>> core

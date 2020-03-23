@@ -1,5 +1,5 @@
 module PanierLocal
-  class SalesExchanger < ActiveExchanger::Base
+  class SalesExchanger < Base
 
     NORMALIZATION_CONFIG = [
       {col: 1, name: :invoiced_at, type: :date, constraint: :not_nil},
@@ -15,9 +15,6 @@ module PanierLocal
       {col: 12, name: :vat_percentage, type: :float},
       {col: 13, name: :quantity, type: :integer},
     ]
-
-
-
 
     def check
       # Imports sales entries into sales to make accountancy in CSV format
@@ -56,13 +53,8 @@ module PanierLocal
     def import
       # Opening and decoding
       rows = ActiveExchanger::CsvReader.new.read(file)
-
-      # create or find journal for sale nature
-      journal = Journal.find_or_create_by(code: 'PALO', nature: 'sales', name: 'Panier Local')
-      # Journal.of_provider_name(:panier_local, :sales).find_or_create_by(code: 'PALO', nature: 'sales', name: 'Panier Local')
-      catalog = Catalog.find_or_create_by(code: 'PALO', currency: 'EUR', usage: 'sale', name: 'Panier Local')
       # create or find sale_nature
-      sale_nature = SaleNature.find_or_create_by(name: "Vente en ligne - Panier Local", catalog_id: catalog.id, currency: 'EUR', payment_delay: '30 days', journal_id: journal.id)
+      sale_nature = find_or_create_sale_nature
 
       parser = ActiveExchanger::CsvParser.new(NORMALIZATION_CONFIG)
 
@@ -90,8 +82,8 @@ module PanierLocal
           client: entity,
           nature: sale_nature,
           description: client_sale_info.sale_description,
-          provider: { vendor: :panier_local, name: :sales, id: options[:import_id], data: { sale_reference_number: client_sale_info.sale_reference_number } }
-          )
+          provider: { vendor: :panier_local, name: :sales, id: import_resource.id, data: { sale_reference_number: client_sale_info.sale_reference_number } }
+        )
 
         tax = check_or_create_vat_account_and_amount(sale_info)
 
@@ -190,12 +182,6 @@ module PanierLocal
         n = Accountancy::AccountNumberNormalizer.build
         clean_tax_account_number = n.normalize!(vat_account_info.account_number)
 
-        # byebug
-        # if clean_tax_account_number.length > Preference[:account_number_digits]
-        #   raise StandardError.new("The account number length cant't be different from your own settings")
-        # end
-      
-
         tax_account = Account.find_by(number: clean_tax_account_number)
         tax = Tax.find_by(amount: vat_account_info.vat_percentage)
 
@@ -241,7 +227,7 @@ module PanierLocal
       pn.variants.build(active: true,
                         name: computed_name,
                         category: pnc,
-                        provider: { vendor: :panier_local, name: :sales, id: options[:import_id], data: { account_number: product_account_line.account_number } },
+                        provider: { vendor: :panier_local, name: :sales, id: import_resource.id, data: { account_number: product_account_line.account_number } },
                         unit_name: 'unity'
                         )
     end
@@ -251,6 +237,48 @@ module PanierLocal
         product_account_line.sale_item_amount * -1
       elsif product_account_line.sale_item_sens == 'C'
         product_account_line.sale_item_amount
+      end
+    end
+
+    def find_or_create_sale_nature
+      sale_natures = SaleNature.of_provider_name(:panier_local, :sales)
+      
+      if sale_natures.empty?
+        journal = find_or_create_journal
+        catalog = find_or_create_catalog
+
+        SaleNature.create_with(provider: {vendor: :panier_local, name: :sales, id: import_resource.id})
+                  .find_or_create_by(name: I18n.t('exchanger.panier_local.sales.sale_nature_name'), catalog_id: catalog.id, currency: 'EUR', payment_delay: '30 days', journal_id: journal.id)
+      elsif sale_natures.size == 1
+        sale_natures.first
+      else
+        raise StandardError, "More than one sale_nature found, should not happen"
+      end
+    end
+    
+    def find_or_create_journal
+      journals = Journal.of_provider_name(:panier_local, :sales)
+      
+      if journals.empty?
+        Journal.create_with(provider: {vendor: :panier_local, name: :sales, id: import_resource.id})
+                         .find_or_create_by(code: 'PALO', nature: 'sales', name: 'Panier Local')
+      elsif journals.size == 1
+        journals.first
+      else
+        raise StandardError, "More than one journal found, should not happen"
+      end
+    end
+
+    def find_or_create_catalog
+      catalogs = Catalog.of_provider_name(:panier_local, :sales)
+      
+      if catalogs.empty?
+        Catalog.create_with(provider: {vendor: :panier_local, name: :sales, id: import_resource.id})
+                         .find_or_create_by(code: 'PALO', currency: 'EUR', usage: 'sale', name: 'Panier Local')
+      elsif catalogs.size == 1
+        catalogs.first
+      else
+        raise StandardError, "More than one catalog found, should not happen"
       end
     end
 
