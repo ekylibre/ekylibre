@@ -122,7 +122,7 @@ class RegisteredPhytosanitaryProduct < ActiveRecord::Base
   end
 
   def proper_name
-    [nature, name, france_maaid, firm_name].compact.join(' - ')
+    [natures.first, name, france_maaid, firm_name].compact.join(' - ')
   end
 
   def label_method
