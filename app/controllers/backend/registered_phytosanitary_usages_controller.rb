@@ -50,7 +50,7 @@ module Backend
       dose_validation = service.validate_dose(usage, product, quantity.to_f, dimension, targets_data)
       authorizations = compute_authorization(dose_validation, :dose_validation)
 
-      return render(json: { dose_validation: dose_validation, authorizations: authorizations })
+      render(json: { dose_validation: dose_validation, authorizations: authorizations })
     end
 
     private
