@@ -124,6 +124,16 @@ module Ekylibre
             define_method column do
               self[column].present? ? ActiveSupport::Duration.parse(self[column]) : nil
             end
+
+            define_method "#{column}=" do |value|
+              self[column] = if value.blank?
+                               nil
+                             elsif value.is_a?(String) && ActiveSupport::Duration.parse(value)
+                               value
+                             else
+                               raise ArgumentError, "Invalid duration: #{value}"
+                             end
+            end
           end
         end
 
