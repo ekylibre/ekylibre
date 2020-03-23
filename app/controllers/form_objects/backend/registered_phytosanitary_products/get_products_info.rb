@@ -43,7 +43,7 @@ module FormObjects
           @products_and_usages ||= products_data.map do |pu|
             product = Product.find_by(id: pu[:product_id])
             usage = RegisteredPhytosanitaryUsage.find_by(id: pu[:usage_id])
-            quantity = pu[:quantity]
+            quantity = pu[:quantity].to_f
             dimension = pu[:dimension]
 
             ::Interventions::Phytosanitary::Models::ProductWithUsage.new(product, usage, quantity, dimension)
