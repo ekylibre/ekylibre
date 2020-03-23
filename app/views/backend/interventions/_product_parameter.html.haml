@@ -3,7 +3,6 @@
   - intervention = product_parameter.intervention
   - product = product_parameter.product
   - variant = product_parameter.variant
-
   - if actor
     .picture
       - if actor.picture.file?
@@ -37,12 +36,12 @@
                 - registered = RegisteredPhytosanitaryUsageDoseComputation.new
                 - data = registered.validate_intervention_input(product_parameter)
                 - if data.key?(:go)
-                  %span.value= :authorized.tl
+                  %span.value= :allowed.tl
                 - elsif data.key?(:stop)
-                  %span.value= :unauthorized.tl
+                  %span.value= :forbidden.tl
                   %span.value= data[:stop]
                 - elsif data.key?(:caution)
-                  %span.value= :authorized.tl
+                  %span.value= :allowed.tl
                   %span.value= data[:caution]
               - if product_parameter.usage.usage_conditions
                 %p
