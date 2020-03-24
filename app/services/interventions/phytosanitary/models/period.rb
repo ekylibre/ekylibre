@@ -41,6 +41,11 @@ module Interventions
             start_date <= period.end_date && period.end_date <= end_date ||
             period.start_date <= start_date && end_date <= period.end_date
         end
+
+        def duration
+          (@end_date - @start_date).to_i.seconds
+        end
+
       end
     end
   end

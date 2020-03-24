@@ -44,11 +44,20 @@ module Interventions
         interventions
       end
 
+      #because we don't know if the plant is closed or not
+      def entry_factor_fix_for_closed_usage(duration)
+        if duration == 6.hours
+          8.hours
+        else
+          duration
+        end
+      end
+
       # @param [Period] period
       # @param [Array<Intervention>] interventions
       # @return [Models::HarvestResult]
       def reentry_possible_from_interventions?(period, interventions)
-        forbidden_periods = interventions.map { |i| Models::Period.new(i.stopped_at, (i.stopped_at + (i.inputs.map(&:allowed_entry_factor).compact.max || 0))) }
+        forbidden_periods = interventions.map { |i| Models::Period.new(i.stopped_at, (i.stopped_at + entry_factor_fix_for_closed_usage(i.inputs.map(&:allowed_entry_factor).compact.max || 0))) }
         compute_result(period, forbidden_periods)
       end
 
@@ -91,12 +100,17 @@ module Interventions
       # @return [Models::HarvestResult]
       def compute_result(int_period, forbidden_periods)
         periods = select_periods_intersecting(int_period, forbidden_periods)
+
         if periods.empty?
           Models::HarvestResult.new(true)
         else
-          issue_date = periods.map { |int| int.end_date }.max
-          Models::HarvestResult.new(false, issue_date)
+          period = max_period(periods)
+          Models::HarvestResult.new(false, period)
         end
+      end
+
+      def max_period(periods)
+        periods.reduce { |p1, p2| p1.end_date >= p2.end_date ? p1 : p2 }
       end
     end
   end
