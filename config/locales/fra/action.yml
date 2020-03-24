@@ -1012,6 +1012,7 @@ fra:
       nature:
         harvest: "Récolte :"
         reentry: "Réentrée :"
+        add_two_hours: "Ajouter 2h dans le cas d'une application en milieu fermé"
   labels:
     abilities: "Compétences" #?
     accepted: "Acceptée"

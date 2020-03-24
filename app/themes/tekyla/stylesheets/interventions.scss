@@ -11,6 +11,21 @@ $preview-modal-height: 80vh;
   margin-top: 10px
 }
 
+
+.panel-body {
+  .med-harvest {
+    display: flex;
+    .ready-to-harvest {
+      display: flex;
+      width: 20%;
+      align-items: center;
+    }
+    .delay {
+      width: 33%
+    }
+  }
+}
+
 #compare-planned-with-realised {
   .modal-body {
     h4 {
@@ -654,6 +669,10 @@ $preview-modal-height: 80vh;
   color: red;
   .picto {
     font-size: 32px;
+  }
+  span {
+    color: red;
+    padding-right: 10px;
   }
   span, .picto {
     color: red;
