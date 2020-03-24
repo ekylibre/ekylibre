@@ -68,6 +68,18 @@ class InterventionTarget < InterventionProductParameter
   scope :of_activity_production, ->(activity_production) { where(product_id: Product.where(activity_production: activity_production)) }
   scope :of_interventions, ->(interventions) { where(intervention_id: interventions.map(&:id)) }
 
+  before_validation do
+    # compute quantity_value & quantity_unit_name for imputation_ratio
+    if working_zone
+      a = working_zone.area
+      self.quantity_value = a
+      self.quantity_unit_name = 'square_meter'
+      self.quantity_indicator_name = 'net_surface_area'
+      b = self.intervention.targets.map{|t| t.working_zone.area }.compact.sum
+      self.imputation_ratio = (a/b).to_f if a && b && (b != 0)
+    end
+  end
+
   def best_activity
     production = best_activity_production
     production ? production.activity : nil

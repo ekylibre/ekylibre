@@ -31,4 +31,4 @@
     - c.cobble(:intervention_product_parameters, title: :x_interventions.tl(count: resource.interventions.count)) do
       = cobble_list(:intervention_product_parameters)
 
-  - time_spent_by_activity(resource, cobbler: c, as: :doer)
+  - time_spent_by_activity(resource, cobbler: c, as: :doer, current_campaign: current_campaign)
