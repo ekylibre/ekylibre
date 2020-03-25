@@ -23,10 +23,10 @@
 #
 # == Table: variant_natures
 #
-#  abilities           :text
+#  abilities           Array<:text>
 #  derivative_of       :string
 #  id                  :integer          not null, primary key
-#  indicators          :text
+#  indicators          Array<:text>
 #  label_fra           :string           not null
 #  name                :jsonb
 #  nature              :string

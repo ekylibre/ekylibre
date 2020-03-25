@@ -25,7 +25,7 @@
 #
 #  code             :string           not null
 #  country          :string           not null
-#  fiscal_positions :text
+#  fiscal_positions Array<:text>
 #  id               :integer          not null, primary key
 #  insee_code       :string           not null
 #  name             :jsonb
