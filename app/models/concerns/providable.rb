@@ -7,8 +7,7 @@ module Providable
 
     scope :of_provider, -> (vendor, name, id) { of_provider_name(vendor, name).where("(provider ->> 'id') = ?", id)}
 
-    # TODO: do this!
-    scope :of_provider_data, ->(key, value) {  }
+    scope :of_provider_data, ->(key, value) {  where("provider -> 'data' ->> ? = ?", key, value)}
 
     prepend Prepended
   end

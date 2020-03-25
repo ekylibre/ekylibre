@@ -68,13 +68,12 @@ module PanierLocal
     end
 
     def create_sale(sale_info, sale_nature)
-      entity = get_or_create_entity(sale_info)
-
       # sale = Sale.where('providers ->> ? = ?', 'panier_local', sale_info.first.sale_reference_number).first
       sale = Sale.of_provider_name(:panier_local, :sales)
                  .find_by("provider -> 'data' ->> 'sale_reference_number' = ?", sale_info.first.sale_reference_number)
 
       if sale.nil?
+        entity = get_or_create_entity(sale_info)
         client_sale_info = sale_info.select { |item| item.account_number.to_s.start_with?('411') }.first
         sale = Sale.new(
           invoiced_at: client_sale_info.invoiced_at,
@@ -90,9 +89,8 @@ module PanierLocal
         product_account_line = sale_info.select { |i| i.account_number.start_with?('7') }.first
 
         if product_account_line.present?
-          # .of_provider_name(:panier_local, :sales).of_provider_data(:account_number, product_account_line.account_number)
           variant = ProductNatureVariant.of_provider_name(:panier_local, :sales)
-                                        .find_by("provider -> 'data' ->> 'account_number' = ?", product_account_line.account_number)
+                                        .of_provider_data(:account_number, product_account_line.account_number)
           if variant.nil?
             product_account = check_or_create_product_account(product_account_line)
             variant = create_variant(product_account, product_account_line)

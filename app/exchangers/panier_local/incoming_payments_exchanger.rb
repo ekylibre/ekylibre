@@ -37,24 +37,19 @@ module PanierLocal
       valid = errors.all?(&:empty?)
 
       # check if financial year exist
-      fy_start = FinancialYear.at(Date.parse(rows.first[1].to_s))
-      fy_stop = FinancialYear.at(Date.parse(rows[-1][1].to_s))
+      fy_start = FinancialYear.at(data.first.invoiced_at)
+      fy_stop = FinancialYear.at(data.last.invoiced_at)
 
-      unless fy_start && fy_stop
+      if fy_start.nil? && fy_stop.nil?
         w.warn 'Need a FinancialYear'
         valid = false
       end
 
-      # find a responsible
-      responsible = import_resource.creator
-
       # check if cash by default exist and incoming payment mode exist
-      c = Cash.bank_accounts.find_by(by_default: true)
-      if c
-        ipm = IncomingPaymentMode.where(cash_id: c.id, with_accounting: true).order(:name)
-        if ipm.empty
-          valid = true
-        else
+      cash = Cash.bank_accounts.find_by(by_default: true)
+      if cash
+        ipm = IncomingPaymentMode.where(cash_id: cash.id, with_accounting: true).order(:name)
+        if ipm.empty?
           w.error 'Need an incoming payment link to cash account'
           valid = false
         end
@@ -73,59 +68,60 @@ module PanierLocal
 
       data, _errors = parser.normalize(rows)
 
-      sales_info = data.group_by { |d| d.payment_reference_number }
-
-      sales_info.each { |_payment_reference_number, sale_info| incoming_payment_creation(sale_info) }
+      incoming_payments_info = data.group_by { |d| d.payment_reference_number }
+      c = Cash.bank_accounts.find_by(by_default: true)
+      incoming_payments_info.each { |_payment_reference_number, incoming_payment_info| incoming_payment_creation(incoming_payment_info) }
     end
 
-    def incoming_payment_creation(sale_info)
-      c = Cash.bank_accounts.find_by(by_default: true)
+    def incoming_payment_creation(incoming_payment_info)
       ipm = IncomingPaymentMode.where(cash_id: c.id, with_accounting: true).order(:name).last
       responsible = import_resource.creator
 
-      client_sale_info = sale_info.select { |item| item.account_number.to_s.start_with?('411') }.first
-      bank_sale_info = sale_info.select { |item| item.account_number.to_s.start_with?('51') }.first
+      client_incoming_payment_info = incoming_payment_info.select { |item| item.account_number.to_s.start_with?('411') }.first
+      bank_incoming_payment_info = incoming_payment_info.select { |item| item.account_number.to_s.start_with?('51') }.first
 
-      if bank_sale_info.present? && client_sale_info.present?
-        entity = get_or_create_entity(sale_info, client_sale_info)
+      if bank_incoming_payment_info.present? && client_incoming_payment_info.present?
+        entity = get_or_create_entity(incoming_payment_info, client_incoming_payment_info)
         incoming_payment = IncomingPayment.of_provider_name(:panier_local, :incoming_payments)
-                                          .where("provider -> 'data' ->> 'payment_reference_number' = ?", bank_sale_info.payment_reference_number.to_s)
-                                          .find_by(payer: entity, paid_at: bank_sale_info.invoiced_at.to_datetime)
+                                          .of_provider_data(:payment_reference_number, bank_incoming_payment_info.payment_reference_number.to_s)
+                                          .find_by(payer: entity, paid_at: bank_incoming_payment_info.invoiced_at.to_datetime)
         if incoming_payment.nil?
-          if bank_sale_info.payment_item_direction == 'D'
-            amount = bank_sale_info.payment_item_amount
-          elsif bank_sale_info.payment_item_direction == 'C'
-            amount = bank_sale_info.payment_item_amount * -1
+          if bank_incoming_payment_info.payment_item_direction == 'D'
+            amount = bank_incoming_payment_info.payment_item_amount
+          elsif bank_incoming_payment_info.payment_item_direction == 'C'
+            amount = bank_incoming_payment_info.payment_item_amount * -1
+          else
+            raise StandardError.new("Can't create IncomingPayment. Payment item direction provided isn't a letter supported")
           end
           IncomingPayment.create!(
             mode: ipm,
-            paid_at: bank_sale_info.invoiced_at.to_datetime,
-            to_bank_at: bank_sale_info.invoiced_at.to_datetime,
+            paid_at: bank_incoming_payment_info.invoiced_at.to_datetime,
+            to_bank_at: bank_incoming_payment_info.invoiced_at.to_datetime,
             amount: amount,
             payer: entity,
             received: true,
             responsible: responsible,
-            provider: { vendor: :panier_local, name: :incoming_payments, id: import_resource.id, data: { payment_reference_number: bank_sale_info.payment_reference_number.to_s } }
+            provider: { vendor: :panier_local, name: :incoming_payments, id: import_resource.id, data: { payment_reference_number: bank_incoming_payment_info.payment_reference_number.to_s } }
           )
         end
       end
     end
 
-    def get_or_create_entity(sale_info, client_sale_info)
-      entity = Entity.find_by('codes ->> ? = ?', 'panier_local', sale_info.first.entity_code.to_s)
+    def get_or_create_entity(incoming_payment_info, client_incoming_payment_info)
+      entity = Entity.find_by('codes ->> ? = ?', 'panier_local', incoming_payment_info.first.entity_code.to_s)
       if entity
         entity
       else
-        account = create_entity_account(sale_info, client_sale_info)
-        create_entity(sale_info, account, client_sale_info)
+        account = create_entity_account(client_incoming_payment_info)
+        create_entity(account, client_incoming_payment_info)
       end
     end
 
-    def create_entity_account(sale_info, client_sale_info)
-      client_number_account = client_sale_info.account_number.to_s
+    def create_entity_account(client_incoming_payment_info)
+      client_number_account = client_incoming_payment_info.account_number.to_s
       acc = Account.find_or_initialize_by(number: client_number_account)
       attributes = {
-        name: client_sale_info.entity_name,
+        name: client_incoming_payment_info.entity_name,
         centralizing_account_name: 'clients',
         nature: 'auxiliary'
       }
@@ -141,14 +137,14 @@ module PanierLocal
       acc
     end
 
-    def create_entity(sale_info, acc, client_sale_info)
-      last_name = client_sale_info.entity_name.mb_chars.capitalize
+    def create_entity(acc, client_incoming_payment_info)
+      last_name = client_incoming_payment_info.entity_name.mb_chars.capitalize
 
       w.info "Create entity and link account"
       entity = Entity.new(
         nature: :organization,
         last_name: last_name,
-        codes: { 'panier_local' => client_sale_info.entity_code },
+        codes: { 'panier_local' => client_incoming_payment_info.entity_code },
         active: true,
         client: true,
         client_account_id: acc.id

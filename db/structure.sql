@@ -468,7 +468,8 @@ CREATE TABLE public.intervention_parameters (
     batch_number character varying,
     usage_id character varying,
     allowed_entry_factor interval,
-    allowed_harvest_factor interval
+    allowed_harvest_factor interval,
+    imputation_ratio numeric(19,4)
 );
 
 
@@ -590,12 +591,17 @@ CREATE TABLE public.products (
 
 CREATE VIEW public.activities_interventions AS
  SELECT DISTINCT interventions.id AS intervention_id,
-    activities.id AS activity_id
+    activities.id AS activity_id,
+    interventions.started_at AS intervention_started_at,
+    interventions.working_duration AS intervention_working_duration,
+    sum(intervention_parameters.imputation_ratio) AS imputation_ratio,
+    ((interventions.working_duration)::numeric * sum(intervention_parameters.imputation_ratio)) AS intervention_activity_working_duration
    FROM ((((public.activities
      JOIN public.activity_productions ON ((activity_productions.activity_id = activities.id)))
      JOIN public.products ON ((products.activity_production_id = activity_productions.id)))
      JOIN public.intervention_parameters ON ((products.id = intervention_parameters.product_id)))
      JOIN public.interventions ON ((intervention_parameters.intervention_id = interventions.id)))
+  GROUP BY interventions.id, activities.id, interventions.working_duration, interventions.started_at
   ORDER BY interventions.id;
 
 
@@ -846,11 +852,16 @@ ALTER SEQUENCE public.activity_productions_id_seq OWNED BY public.activity_produ
 
 CREATE VIEW public.activity_productions_interventions AS
  SELECT DISTINCT interventions.id AS intervention_id,
-    products.activity_production_id
+    products.activity_production_id,
+    interventions.started_at AS intervention_started_at,
+    interventions.working_duration AS intervention_working_duration,
+    sum(intervention_parameters.imputation_ratio) AS imputation_ratio,
+    ((interventions.working_duration)::numeric * sum(intervention_parameters.imputation_ratio)) AS intervention_activity_working_duration
    FROM (((public.activity_productions
      JOIN public.products ON ((products.activity_production_id = activity_productions.id)))
      JOIN public.intervention_parameters ON ((products.id = intervention_parameters.product_id)))
      JOIN public.interventions ON ((intervention_parameters.intervention_id = interventions.id)))
+  GROUP BY interventions.id, products.activity_production_id, interventions.working_duration, interventions.started_at
   ORDER BY interventions.id;
 
 
@@ -1389,12 +1400,14 @@ ALTER SEQUENCE public.campaigns_id_seq OWNED BY public.campaigns.id;
 
 CREATE VIEW public.campaigns_interventions AS
  SELECT DISTINCT campaigns.id AS campaign_id,
-    interventions.id AS intervention_id
+    interventions.id AS intervention_id,
+    sum(intervention_parameters.imputation_ratio) AS imputation_ratio
    FROM ((((public.interventions
      JOIN public.intervention_parameters ON ((intervention_parameters.intervention_id = interventions.id)))
      JOIN public.products ON ((products.id = intervention_parameters.product_id)))
      JOIN public.activity_productions ON ((products.activity_production_id = activity_productions.id)))
      JOIN public.campaigns ON ((activity_productions.campaign_id = campaigns.id)))
+  GROUP BY campaigns.id, interventions.id
   ORDER BY campaigns.id;
 
 
@@ -19225,6 +19238,8 @@ INSERT INTO schema_migrations (version) VALUES ('20200128133347');
 INSERT INTO schema_migrations (version) VALUES ('20200213102154');
 
 INSERT INTO schema_migrations (version) VALUES ('20200312163243');
+
+INSERT INTO schema_migrations (version) VALUES ('20200312163701');
 
 INSERT INTO schema_migrations (version) VALUES ('20200317155452');
 
