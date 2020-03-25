@@ -44,6 +44,7 @@
 #
 class RegisteredPhytosanitaryProduct < ActiveRecord::Base
   extend Enumerize
+  include HasInterval
   include Lexiconable
   include Searchable
   include ScopeIntrospection
@@ -58,6 +59,7 @@ class RegisteredPhytosanitaryProduct < ActiveRecord::Base
                      foreign_key: :product_id, dependent: :restrict_with_exception
 
   enumerize :state, in: %w[authorized inherited withdrawn], predicates: true
+  has_interval :in_field_reentry_delay
 
   delegate :unit, to: :class
 
@@ -115,10 +117,6 @@ class RegisteredPhytosanitaryProduct < ActiveRecord::Base
 
   def mix_category_codes
     super || []
-  end
-
-  def in_field_reentry_delay
-    self[:in_field_reentry_delay].present? ? ActiveSupport::Duration.parse(self[:in_field_reentry_delay]) : nil
   end
 
   def proper_name
