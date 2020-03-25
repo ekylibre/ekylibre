@@ -23,7 +23,7 @@
 #
 # == Table: user_roles
 #
-#  accesses       :text
+#  accesses       Array<:text>
 #  id             :integer          not null, primary key
 #  label_fra      :string
 #  name           :jsonb
