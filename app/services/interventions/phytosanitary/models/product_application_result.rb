@@ -35,7 +35,7 @@ module Interventions
 
         # @param [Product] product
         # @param [String] message
-        def vote_forbidden(product, message)
+        def vote_forbidden(product, message = nil)
           add_vote(product, status: :forbidden, message: message)
         end
 

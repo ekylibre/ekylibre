@@ -150,7 +150,9 @@
     usageMainInfos.display($(this), $(this).closest('.nested-plant_medicine'))
 
   # Update allowed doses on quantity change
+  # And compute authorization badge again
   $(document).on 'input change', "input[data-intervention-field='quantity-value']", ->
+    productsInfos.display()
     usageDoseInfos.display($(this), $(this).closest('.nested-plant_medicine'))
 
 
