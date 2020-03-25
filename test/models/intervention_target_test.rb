@@ -23,8 +23,8 @@
 #
 # == Table: intervention_parameters
 #
-#  allowed_entry_factor     :integer
-#  allowed_harvest_factor   :integer
+#  allowed_entry_factor     :interval
+#  allowed_harvest_factor   :interval
 #  assembly_id              :integer
 #  batch_number             :string
 #  component_id             :integer
