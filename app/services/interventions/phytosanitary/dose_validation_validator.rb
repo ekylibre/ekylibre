@@ -24,7 +24,7 @@ module Interventions
             if validation.key? :none
               result.vote_unknown(pu.product)
             elsif validation.key? :stop
-              result.vote_forbidden(pu.product, message: validation.fetch(:stop))
+              result.vote_forbidden(pu.product)
             end
           end
         end
