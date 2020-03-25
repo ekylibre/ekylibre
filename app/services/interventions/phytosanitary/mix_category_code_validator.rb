@@ -18,7 +18,7 @@ module Interventions
       def validate(products_usages)
         result = Models::ProductApplicationResult.new
 
-        if products_usages.length >= 1
+        if products_usages.size > 1
           products = products_usages.map(&:product)
 
           p_by_code = products
