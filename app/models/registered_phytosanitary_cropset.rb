@@ -24,7 +24,7 @@
 # == Table: registered_phytosanitary_cropsets
 #
 #  crop_labels     :jsonb
-#  crop_names      :text
+#  crop_names      Array<:text>
 #  id              :string           not null, primary key
 #  label           :jsonb
 #  name            :string           not null

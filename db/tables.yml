@@ -3662,9 +3662,9 @@ intervention_parameter_readings:
     references: user
 intervention_parameters:
   allowed_entry_factor:
-    type: integer
+    type: string
   allowed_harvest_factor:
-    type: integer
+    type: string
   assembly_id:
     type: integer
     references: product
@@ -7429,7 +7429,7 @@ registered_phytosanitary_cropsets:
     type: integer
 registered_phytosanitary_products:
   active_compounds:
-    type: string
+    type: text
   allowed_mentions:
     type: jsonb
   firm_name:
@@ -7448,11 +7448,11 @@ registered_phytosanitary_products:
     type: string
     required: true
   natures:
-    type: string
+    type: text
   operator_protection_mentions:
     type: text
   other_names:
-    type: string
+    type: text
   product_type:
     type: string
   record_checksum:

@@ -12,9 +12,11 @@ module Backend
     end
 
     test 'get_products_infos checks that products are allowed for organic usage if an organic cultivation is selected' do
-      get :get_products_infos, products_and_usages_ids: { '0' => { product_id: @copless.id.to_s, usage_id: '' }, '1' => { product_id: @award.id.to_s.to_s, usage_id: '' } },
-                               targets_ids: [@land_parcel.id.to_s],
-                               format: :json
+      get :get_products_infos,
+          products_data: { '0' => { product_id: @copless.id.to_s, usage_id: '' }, '1' => { product_id: @award.id.to_s.to_s, usage_id: '' } },
+          targets_data: { '0' => { id: @land_parcel.id.to_s } },
+          format: :json
+
       json = JSON.parse(response.body)
 
       refute_includes json[@copless.id.to_s]['messages'], :not_allowed_for_organic_farming.tl
@@ -25,8 +27,10 @@ module Backend
     end
 
     test 'get_products_infos forbids every products if one of them belongs to mix_category_code 5' do
-      get :get_products_infos, products_and_usages_ids: { '0' => { product_id: @copless.id.to_s, usage_id: '' }, '1' => { product_id: @award.id.to_s.to_s, usage_id: '' } },
-                               format: :json
+      get :get_products_infos,
+          products_data: { '0' => { product_id: @copless.id.to_s, usage_id: '' }, '1' => { product_id: @award.id.to_s.to_s, usage_id: '' } },
+          format: :json
+
       json = JSON.parse(response.body)
 
       assert_includes json[@copless.id.to_s]['messages'], :cannot_be_mixed_with_any_product.tl
@@ -34,8 +38,10 @@ module Backend
     end
 
     test 'get_products_infos forbids every products if one of the usages selected has an untreated_buffer_aquatic >= 100 m' do
-      get :get_products_infos, products_and_usages_ids: { '0' => { product_id: @copless.id.to_s, usage_id: '' }, '1' => { product_id: @award.id.to_s.to_s, usage_id: @award_usage.id.to_s } },
-                               format: :json
+      get :get_products_infos,
+          products_data: { '0' => { product_id: @copless.id.to_s, usage_id: '' }, '1' => { product_id: @award.id.to_s.to_s, usage_id: @award_usage.id.to_s } },
+          format: :json
+
       json = JSON.parse(response.body)
 
       znt_warning = :substances_mixing_not_allowed_due_to_znt_buffer.tl(usage: @award_usage.crop_label_fra, phyto: @award.name)
@@ -45,8 +51,10 @@ module Backend
     end
 
     test 'get_products_infos allows products mixing as long as they do not share the same mix_category_code' do
-      get :get_products_infos, products_and_usages_ids: { '0' => { product_id: @award.id.to_s, usage_id: '' }, '1' => { product_id: @sultan.id.to_s.to_s, usage_id: '' } },
-                               format: :json
+      get :get_products_infos,
+          products_data: { '0' => { product_id: @award.id.to_s, usage_id: '' }, '1' => { product_id: @sultan.id.to_s.to_s, usage_id: '' } },
+          format: :json
+
       json = JSON.parse(response.body)
 
       assert_empty json[@award.id.to_s]['messages']
@@ -54,8 +62,10 @@ module Backend
     end
 
     test 'get_products_infos forbids products mixing if they share the same mix_category_code' do
-      get :get_products_infos, products_and_usages_ids: { '0' => { product_id: @zebra.id.to_s, usage_id: '' }, '1' => { product_id: @sultan.id.to_s.to_s, usage_id: '' } },
-                               format: :json
+      get :get_products_infos,
+          products_data: { '0' => { product_id: @zebra.id.to_s, usage_id: '' }, '1' => { product_id: @sultan.id.to_s.to_s, usage_id: '' } },
+          format: :json
+
       json = JSON.parse(response.body)
 
       assert_includes json[@zebra.id.to_s]['messages'], :cannot_be_mixed_with.tl(phyto: @sultan.name)

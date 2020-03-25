@@ -23,7 +23,7 @@
 #
 # == Table: master_production_outputs
 #
-#  analysis_items         :string
+#  analysis_items         Array<:string>
 #  average_yield          :decimal(19, 4)
 #  main                   :boolean          default(FALSE), not null
 #  name                   :string           not null

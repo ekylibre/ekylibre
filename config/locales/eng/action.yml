@@ -1197,6 +1197,7 @@ eng:
       nature:
         harvest: "Harvest:"
         reentry: "Reentry:"
+        add_two_hours: "Add two hours if application happened in a close area"
   labels:
     accepted: "Accepted"
     accepted_for_paiment: "Accepted for paiment"

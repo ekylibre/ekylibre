@@ -38,11 +38,11 @@
 #  ephy_usage_phrase          :string           not null
 #  id                         :string           not null, primary key
 #  lib_court                  :integer
-#  pre_harvest_delay          :string
+#  pre_harvest_delay          :interval
 #  pre_harvest_delay_bbch     :integer
 #  product_id                 :integer          not null
 #  record_checksum            :integer
-#  species                    :text
+#  species                    Array<:text>
 #  state                      :string           not null
 #  target_name                :jsonb
 #  target_name_label_fra      :string
@@ -64,7 +64,7 @@ class RegisteredPhytosanitaryUsage < ActiveRecord::Base
 
   # Matches at least one of the given varieties
   scope :of_variety, -> (*varieties) do
-    with_ancestors = [*varieties, *varieties.flat_map { |v| Nomen::Variety.ancestors(Nomen::Variety.find(v)) }].uniq.join('", "')
+    with_ancestors = [*varieties, *varieties.flat_map { |v| Nomen::Variety.ancestors(Nomen::Variety.find(v)).map(&:name) }].uniq.join('", "')
 
     joins('LEFT OUTER JOIN registered_phytosanitary_cropsets ON registered_phytosanitary_usages.species[1] = registered_phytosanitary_cropsets.name')
       .where("registered_phytosanitary_usages.species && '{\"#{with_ancestors}\"}' OR registered_phytosanitary_cropsets.crop_names && '{\"#{with_ancestors}\"}'")

@@ -3,21 +3,24 @@ module Backend
     # Show a chart with working time spent between different activities
     # It can accept :cobbler option to specify inclusion.
     def time_spent_by_activity(resource, options = {})
-      working_periods = InterventionWorkingPeriod.precise_working_periods(options[:as] || :tool, resource)
+      campaign = options[:current_campaign]
+      return nil if campaign.nil?
 
-      working_periods = working_periods.of_campaign(current_campaign) if options[:current_campaign]
-      return nil unless current_campaign && working_periods.any?
+      working_periods = InterventionWorkingPeriod
+                          .precise_working_periods(options.fetch(:as, :tool), resource)
+                          .of_campaign(campaign)
+      return nil if working_periods.empty?
+
       stopped_at = working_periods.reorder(stopped_at: :desc).first.stopped_at.to_date
       started_at = working_periods.reorder(started_at: :asc).first.started_at.to_date
-      duration = working_periods.sum(:duration)
+      stopped_at = started_at + 1.day if started_at >= stopped_at
 
-      unit = Nomen::Unit[options[:time_unit] || :hour]
+      unit = Nomen::Unit[options.fetch(:time_unit, :hour)]
 
       series = []
       categories = {}
 
       date = started_at
-      stopped_at = started_at + 1 if started_at >= stopped_at
       while date < stopped_at
         categories[date.year.to_s + date.month.to_s.rjust(3, '0')] = date.l(format: '%b %Y')
         date = date >> 1
@@ -25,14 +28,27 @@ module Backend
 
       # data for bar chart times by activities and by month
       Activity.find_each do |activity|
-        activity_periods = working_periods.of_activities(activity).order(:started_at)
-        if activity_periods.any?
-          sums = activity_periods.sums_of_periods.sort.each_with_object({}) do |period, hash|
-            hash[period.expr.to_i.to_s] = period.sum.to_i.in_second.in(unit).round(2).to_f
-            hash
+        act_interventions = Intervention::HABTM_Activities
+                              .where(intervention_id: working_periods.pluck(:intervention_id), activity_id: activity.id)
+                              .reorder(:intervention_started_at)
+                              .group_by { |m| m.intervention_started_at.year.to_s + m.intervention_started_at.month.to_s.rjust(3, '0') }
+
+        if act_interventions.any?
+          sums = {}
+          act_interventions.each do |act_int_by_month|
+            sums[act_int_by_month[0].to_i.to_s] = act_int_by_month[1]
+                                                    .map{|i| i.intervention_activity_working_duration}
+                                                    .compact.sum.to_i
+                                                    .in_second.in(unit)
+                                                    .round(2).to_f
           end
-          series << { name: activity.name, data: normalize_serie(sums, categories.keys),
-                      tooltip: { value_suffix: unit.symbol }, color: activity.color }
+
+          series << {
+            name: activity.name,
+            data: normalize_serie(sums, categories.keys),
+            tooltip: { value_suffix: unit.symbol },
+            color: activity.color
+          }
         end
       end
 

@@ -24,7 +24,7 @@ default: &default
   postgis_extension: []
 
   # Schema search path. The server defaults to $user,public
-  schema_search_path: public,postgis
+  schema_search_path: public,postgis,lexicon
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
