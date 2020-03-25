@@ -46,20 +46,16 @@ class RegisteredPhytosanitaryProduct < ActiveRecord::Base
   extend Enumerize
   include HasInterval
   include Lexiconable
-  include Searchable
   include ScopeIntrospection
+  include Searchable
 
-  search_on :name, :firm_name, :france_maaid
-
-  has_many :risks,   class_name: 'RegisteredPhytosanitaryRisk',
-                     foreign_key: :product_id, dependent: :restrict_with_exception
-  has_many :usages,  class_name: 'RegisteredPhytosanitaryUsage',
-                     foreign_key: :product_id, dependent: :restrict_with_exception
-  has_many :phrases, class_name: 'RegisteredPhytosanitaryPhrase',
-                     foreign_key: :product_id, dependent: :restrict_with_exception
+  has_many :phrases, class_name: 'RegisteredPhytosanitaryPhrase', foreign_key: :product_id, dependent: :restrict_with_exception
+  has_many :risks, class_name: 'RegisteredPhytosanitaryRisk', foreign_key: :product_id, dependent: :restrict_with_exception
+  has_many :usages, class_name: 'RegisteredPhytosanitaryUsage', foreign_key: :product_id, dependent: :restrict_with_exception
 
   enumerize :state, in: %w[authorized inherited withdrawn], predicates: true
   has_interval :in_field_reentry_delay
+  search_on :name, :firm_name, :france_maaid
 
   delegate :unit, to: :class
 
@@ -116,6 +112,11 @@ class RegisteredPhytosanitaryProduct < ActiveRecord::Base
   end
 
   def mix_category_codes
+    super || []
+  end
+
+  # @return [Array<String>]
+  def natures
     super || []
   end
 
