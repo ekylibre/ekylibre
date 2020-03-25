@@ -1,34 +1,33 @@
 module PanierLocal
   class IncomingPaymentsExchanger < Base
 
+    # Imports incoming_payment entries into incoming payment to make accountancy in CSV format
+    # filename example : ECRITURES.CSV
+    # Columns are:
+    #  0 - A: journal_entry_items_line : "1"
+    #  1 - B: printed_on : "01/01/2017"
+    #  2 - C: journal code : "50"
+    #  3 - D: journal nature : "BANQUE"
+    #  4 - E: account number : "512"
+    #  5 - F: entity name : "AB EPLUCHES"
+    #  6 - G: entity number : "133"
+    #  7 - H: journal_entry number : "336"
+    #  8 - I: journal_entry label : "Versement"
+    #  9 - J: amount : '44,24'
+    #  10 - K: sens : 'D'
     NORMALIZATION_CONFIG = [
-      {col: 1, name: :invoiced_at, type: :date, constraint: :not_nil},
-      {col: 3, name: :journal_nature, type: :string},
-      {col: 4, name: :account_number, type: :string, constraint: :not_nil},
-      {col: 5, name: :entity_name, type: :string, constraint: :not_nil},
-      {col: 6, name: :entity_code, type: :string, constraint: :not_nil},
-      {col: 7, name: :payment_reference_number, type: :integer, constraint: :not_nil},
-      {col: 8, name: :payment_description, type: :string},
-      {col: 9, name: :payment_item_amount, type: :float, constraint: :greater_or_equal_to_zero},
-      {col: 10, name: :payment_item_direction, type: :string},
+      { col: 1, name: :invoiced_at, type: :date, constraint: :not_nil },
+      { col: 3, name: :journal_nature, type: :string },
+      { col: 4, name: :account_number, type: :string, constraint: :not_nil },
+      { col: 5, name: :entity_name, type: :string, constraint: :not_nil },
+      { col: 6, name: :entity_code, type: :string, constraint: :not_nil },
+      { col: 7, name: :payment_reference_number, type: :integer, constraint: :not_nil },
+      { col: 8, name: :payment_description, type: :string },
+      { col: 9, name: :payment_item_amount, type: :float, constraint: :greater_or_equal_to_zero },
+      { col: 10, name: :payment_item_direction, type: :string },
     ]
 
     def check
-      # Imports incoming_payment entries into incoming payment to make accountancy in CSV format
-      # filename example : ECRITURES.CSV
-      # Columns are:
-      #  0 - A: journal_entry_items_line : "1"
-      #  1 - B: printed_on : "01/01/2017"
-      #  2 - C: journal code : "50"
-      #  3 - D: journal nature : "BANQUE"
-      #  4 - E: account number : "512"
-      #  5 - F: entity name : "AB EPLUCHES"
-      #  6 - G: entity number : "133"
-      #  7 - H: journal_entry number : "336"
-      #  8 - I: journal_entry label : "Versement"
-      #  9 - J: amount : '44,24'
-      #  10 - K: sens : 'D'
-
       rows = ActiveExchanger::CsvReader.new.read(file)
 
       parser = ActiveExchanger::CsvParser.new(NORMALIZATION_CONFIG)
@@ -48,12 +47,12 @@ module PanierLocal
 
       # find a responsible
       responsible = import_resource.creator
-      
+
       # check if cash by default exist and incoming payment mode exist
       c = Cash.bank_accounts.find_by(by_default: true)
       if c
         ipm = IncomingPaymentMode.where(cash_id: c.id, with_accounting: true).order(:name)
-        if ipm.any?
+        if ipm.empty
           valid = true
         else
           w.error 'Need an incoming payment link to cash account'
@@ -84,8 +83,8 @@ module PanierLocal
       ipm = IncomingPaymentMode.where(cash_id: c.id, with_accounting: true).order(:name).last
       responsible = import_resource.creator
 
-      client_sale_info = sale_info.select {|item| item.account_number.to_s.start_with?('411')}.first
-      bank_sale_info = sale_info.select {|item| item.account_number.to_s.start_with?('51')}.first
+      client_sale_info = sale_info.select { |item| item.account_number.to_s.start_with?('411') }.first
+      bank_sale_info = sale_info.select { |item| item.account_number.to_s.start_with?('51') }.first
 
       if bank_sale_info.present? && client_sale_info.present?
         entity = get_or_create_entity(sale_info, client_sale_info)
@@ -115,7 +114,7 @@ module PanierLocal
     def get_or_create_entity(sale_info, client_sale_info)
       entity = Entity.find_by('codes ->> ? = ?', 'panier_local', sale_info.first.entity_code.to_s)
       if entity
-          entity
+        entity
       else
         account = create_entity_account(sale_info, client_sale_info)
         create_entity(sale_info, account, client_sale_info)
@@ -126,10 +125,10 @@ module PanierLocal
       client_number_account = client_sale_info.account_number.to_s
       acc = Account.find_or_initialize_by(number: client_number_account)
       attributes = {
-                    name: client_sale_info.entity_name,
-                    centralizing_account_name: 'clients',
-                    nature: 'auxiliary'
-                  }
+        name: client_sale_info.entity_name,
+        centralizing_account_name: 'clients',
+        nature: 'auxiliary'
+      }
 
       aux_number = client_number_account[3, client_number_account.length]
 
