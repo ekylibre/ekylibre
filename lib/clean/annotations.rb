@@ -2,8 +2,8 @@ module Clean
   # Annotations tool permits to set model description in code
   # of models, fixtures and model tests
   module Annotations
-    MODELS_DIR      = Rails.root.join('app', 'models')
-    FIXTURES_DIR    = Rails.root.join('test', 'fixtures')
+    MODELS_DIR = Rails.root.join('app', 'models')
+    FIXTURES_DIR = Rails.root.join('test', 'fixtures')
     MODEL_TESTS_DIR = Rails.root.join('test', 'models')
     PREFIX = '= Informations'.freeze
 
@@ -11,8 +11,10 @@ module Clean
       # Simple quoting for the default column value
       def quote_value(value, type = :string)
         case type
-        when :boolean then (value == 'true' ? 'TRUE' : 'FALSE')
-        when :decimal, :float, :integer then value.to_s
+        when :boolean then
+          (value == 'true' ? 'TRUE' : 'FALSE')
+        when :decimal, :float, :integer then
+          value.to_s
         else
           value.inspect
         end
@@ -21,12 +23,17 @@ module Clean
       # Simple quoting for the default column value
       def quote(value)
         case value
-        when NilClass                 then 'NULL'
-        when TrueClass                then 'TRUE'
-        when FalseClass               then 'FALSE'
-        when Float, Integer, Integer then value.to_s
-        # BigDecimals need to be output in a non-normalized form and quoted.
-        when BigDecimal then value.to_s('F')
+        when NilClass then
+          'NULL'
+        when TrueClass then
+          'TRUE'
+        when FalseClass then
+          'FALSE'
+        when Float, Integer, Integer then
+          value.to_s
+          # BigDecimals need to be output in a non-normalized form and quoted.
+        when BigDecimal then
+          value.to_s('F')
         else
           value.inspect
         end
@@ -57,13 +64,23 @@ module Clean
           attrs << 'primary key' if col.name == klass.primary_key
 
           col_type = col.type.to_s
+
           if col_type == 'decimal'
             col_type << "(#{col.precision}, #{col.scale})"
+          elsif col_type == 'string' && col.sql_type == 'interval'
+            col_type = 'interval'
           elsif col.limit
             col_type << "(#{col.limit.inspect})"
           end
+
+          # Name type with rails symbols
+          col_type = ":#{col_type}"
+
+          # Wrap in an array if defined this way
+          col_type = "Array<#{col_type}>" if col.array
+
           # info << sprintf("#  %-#{max_size}.#{max_size}s:%-16.16s %s\n", col.name, col_type, attrs.join(", "))
-          info << "#  #{col.name.to_s.ljust(max_size)} :#{col_type.to_s.ljust(16)} #{attrs.join(', ')}\n"
+          info << "#  #{col.name.to_s.ljust(max_size)} #{col_type.to_s.ljust(17)} #{attrs.join(', ')}\n"
         end
 
         # info << "#coding: utf-8 \n"
@@ -135,7 +152,7 @@ module Clean
 
         Clean::Support.set_search_path!
 
-        types  = %i[models fixtures model_tests]
+        types = %i[models fixtures model_tests]
         types &= [options.delete(:only)].flatten if options[:only]
         types -= [options.delete(:except)].flatten if options[:except]
 
