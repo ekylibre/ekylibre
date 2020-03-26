@@ -3,7 +3,7 @@ module Backend
     DIMENSIONS_UNIT = { net_volume: :liter, net_mass: :kilogram, mass_area_density: :kilogram_per_hectare, volume_area_density: :liter_per_hectare }.freeze
     AREA_DIMENSIONS = { net_volume: :liter_per_hectare, net_mass: :kilogram_per_hectare }.freeze
 
-    unroll :crop_label_fra, :target_name_label_fra
+    unroll :crop_label_fra, :target_name_label_fra, order: :state
 
     def filter_usages
       return render json: { disable: :maaid_not_provided.tl, clear: true } unless (variant = Product.find(params[:filter_id]).variant) && (variant.imported_from == "Lexicon")
