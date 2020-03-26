@@ -589,7 +589,7 @@ module Backend
       parcels = Product.find(params_obj.targets)
       ignore_intervention = params_obj.intervention
 
-      harvest_advisor = ::Interventions::Computation::PhytoHarvestAdvisor.new
+      harvest_advisor = ::Interventions::Phytosanitary::PhytoHarvestAdvisor.new
 
       result = parcels.map do |parcel|
         result = harvest_advisor.harvest_possible?(parcel, date, date_end: date_end, ignore_intervention: ignore_intervention)
