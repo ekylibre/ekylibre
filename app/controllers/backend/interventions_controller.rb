@@ -620,7 +620,7 @@ module Backend
         unless advisor_result.possible
           data = {
             **data,
-            period_duration: advisor_result.period_duration,
+            period_duration: advisor_result.period_duration.iso8601,
             date: advisor_result.next_possible_date
           }
         end
