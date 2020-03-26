@@ -987,7 +987,7 @@
       harvestWarning = $(".selector-value[value='#{data.id}']").closest('.controls')
       message = I18n.translate("front-end.intervention.nature.#{data.action}")
       harvestWarning.append("<div class='harvest-warning'><i class='picto picto-clear'></i> <span>#{message} #{date}</span></div>")
-      if $(".harvest-warning").length == 1 && data.action == "reentry" && data.period_duration == 8
+      if $(".harvest-warning").length == 1 && data.action == "reentry" && moment.duration(data.period_duration).asHours() == 8
         addTwoHours = I18n.translate("front-end.intervention.nature.add_two_hours")
         $(".harvest-warning").append("<span>#{addTwoHours}</span>")
 
