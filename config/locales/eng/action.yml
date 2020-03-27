@@ -1302,6 +1302,7 @@ eng:
     add_support: "Add support"
     add_tactic: "Add cropping technique"
     add_tool: "Add tool"
+    add_two_hours_reentry_delay: "Add two hours if application happened in a close area"
     add_website: "Add website"
     add_working_period: "Add working period"
     add_x: "Add “%{x}”"

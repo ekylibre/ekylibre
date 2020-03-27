@@ -1141,6 +1141,7 @@ fra:
     add_support: "Ajouter un support de production"
     add_tactic: "Ajouter un itinéraire technique"
     add_tool: "Ajouter un outil"
+    add_two_hours_reentry_delay: "Ajouter 2h dans le cas d'une application en milieu fermé"
     add_website: "Ajouter un site web"
     add_working_period: "Ajouter une période de travail"
     add_x: "Ajouter «\_%{x}\_»"
@@ -1167,6 +1168,7 @@ fra:
     all: "Tous"
     allocation_balance: "Affectation du budget - Allocation %{name}"
     allowed: "Autorisé"
+    allowed_harvest_on: "RÉCOLTE POSSIBLE À PARTIR DU"
     all_accounts: "Tous les comptes"
     all_areas: "— Toutes les zones postales —" #?
     all_cash_balances: "Soldes des comptes" #?
@@ -2560,6 +2562,7 @@ fra:
     radical_class_accounts_have_entries: "Les comptes de classes radicales comportent des écritures."
     raw_income: "Résultat d’exploitation"
     raw_margin: "Marge brute" #?
+    re_entry_delay: "RÉENTRÉE"
     re_entry_interval: "Délai de réentrée"
     reading_tasks: "Relevés d’indicateur"
     readings: "Relevés d’indicateur"
