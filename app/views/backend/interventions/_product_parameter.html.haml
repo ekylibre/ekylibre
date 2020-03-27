@@ -2,51 +2,6 @@
   - actor = product_parameter.product
   - intervention = product_parameter.intervention
   - product = product_parameter.product
-
-  - if intervention.participations.empty? || (product.decorate.not_worker_or_equipment? && product.decorate.no_participation?(intervention.id))
-    = add_working_period_cost(product_parameter)
-  - else
-    - participation = product_parameter.participation if product_parameter.is_a?(InterventionDoer)
-    - is_equipment = product.try(:tractor?) || product.try(:self_prepelled_equipment?)
-    .periods
-      - if (!participation.nil? && participation.has_period_with_nature?(nature: :preparation))
-        - comp = product_parameter.cost_amount_computation(nature: :preparation)
-        - unless comp.failed? || comp.none? || comp.quantity.zero?
-          .period
-            .period-type
-              = image_tag('intervention_participations/action-preparation.svg', class: "period-icon")
-              %h3{ class: "period-label" }= t('enumerize.intervention_working_period.nature.preparation')
-            = add_working_period_cost(product_parameter, nature: :preparation)
-
-      - if !participation.nil? && participation.has_period_with_nature?(nature: :travel) || product.try(:tractor?)
-        - comp = product_parameter.cost_amount_computation(nature: :travel)
-        - unless comp.failed? || comp.none? || comp.quantity.zero?
-          .period
-            .period-type
-              = image_tag('intervention_participations/action-travel.svg', class: "period-icon")
-              %h3{ class: "period-label" }= t('enumerize.intervention_working_period.nature.travel')
-            = add_working_period_cost(product_parameter, nature: :travel)
-
-      - if (!participation.nil? && participation.has_period_with_nature?(nature: :intervention)) || product.is_a?(Equipment)
-        - comp = product_parameter.cost_amount_computation(nature: :intervention)
-        - unless comp.failed? || comp.none? || comp.quantity.zero?
-          .period
-            .period-type
-              = image_tag('intervention_participations/action-intervention.svg', class: "period-icon")
-              %h3{ class: "period-label" }= t('enumerize.intervention_working_period.nature.intervention')
-            = add_working_period_cost(product_parameter, nature: :intervention)
-
-      - if !participation.nil? || is_equipment || product.is_a?(Equipment)
-        .total
-          %h3{ class: "total-label" }= t('labels.total')
-
-          - if product.is_a?(Worker)
-            = add_total_working_period(product_parameter)
-          - elsif product.try(:tractor?)
-            = add_total_working_period(product_parameter, natures: %i[travel intervention])
-          - else
-            = add_total_working_period(product_parameter, natures: %i[intervention])
-
   - variant = product_parameter.variant
   - if actor
     .picture
@@ -81,13 +36,18 @@
                 - registered = RegisteredPhytosanitaryUsageDoseComputation.new
                 - data = registered.validate_intervention_input(product_parameter)
                 - if data.key?(:go)
-                  %span.value= :authorized.tl
+                  %span.value= :allowed.tl
                 - elsif data.key?(:stop)
-                  %span.value= :unauthorized.tl
+                  %span.value= :forbidden.tl
                   %span.value= data[:stop]
                 - elsif data.key?(:caution)
-                  %span.value= :authorized.tl
+                  %span.value= :allowed.tl
                   %span.value= data[:caution]
+              - if product_parameter.usage.usage_conditions
+                %p
+                  %span.title.smr= :usage_conditions.tl
+                  %span.value= picto_tag('info-circle', color: '#3f70ce', pointer: true, data: { toggle: 'modal', target: "#usage-conditions-modal-#{product_parameter.id}" })
+                = render 'usage_conditions_modal', id: product_parameter.id, usage: product_parameter.usage
 
             -# TODO: reactivate when we have updated lexicon's data
             -# if product_parameter.legal_pesticide_informations[:dose]
@@ -132,3 +92,48 @@
     .details
       %h3= product_parameter.name
       %p= product_parameter.model_name.human
+
+
+  - if intervention.participations.empty? || (product.decorate.not_worker_or_equipment? && product.decorate.no_participation?(intervention.id))
+    = add_working_period_cost(product_parameter)
+  - else
+    - participation = product_parameter.participation if product_parameter.is_a?(InterventionDoer)
+    - is_equipment = product.try(:tractor?) || product.try(:self_prepelled_equipment?)
+    .periods
+      - if (participation.present? && participation.has_period_with_nature?(nature: :preparation))
+        - comp = product_parameter.cost_amount_computation(nature: :preparation)
+        - unless comp.failed? || comp.none? || comp.quantity.zero?
+          .period
+            .period-type
+              = image_tag('intervention_participations/action-preparation.svg', class: "period-icon")
+              %h3{ class: "period-label" }= t('enumerize.intervention_working_period.nature.preparation')
+            = add_working_period_cost(product_parameter, nature: :preparation)
+
+      - if participation.present? && participation.has_period_with_nature?(nature: :travel) || product.try(:tractor?)
+        - comp = product_parameter.cost_amount_computation(nature: :travel)
+        - unless comp.failed? || comp.none? || comp.quantity.zero?
+          .period
+            .period-type
+              = image_tag('intervention_participations/action-travel.svg', class: "period-icon")
+              %h3{ class: "period-label" }= t('enumerize.intervention_working_period.nature.travel')
+            = add_working_period_cost(product_parameter, nature: :travel)
+
+      - if (participation.present? && participation.has_period_with_nature?(nature: :intervention)) || product.is_a?(Equipment)
+        - comp = product_parameter.cost_amount_computation(nature: :intervention)
+        - unless comp.failed? || comp.none? || comp.quantity.zero?
+          .period
+            .period-type
+              = image_tag('intervention_participations/action-intervention.svg', class: "period-icon")
+              %h3{ class: "period-label" }= t('enumerize.intervention_working_period.nature.intervention')
+            = add_working_period_cost(product_parameter, nature: :intervention)
+
+      - if participation.present? || is_equipment || product.is_a?(Equipment)
+        .total
+          %h3{ class: "total-label" }= t('labels.total')
+
+          - if product.is_a?(Worker)
+            = add_total_working_period(product_parameter)
+          - elsif product.try(:tractor?)
+            = add_total_working_period(product_parameter, natures: %i[travel intervention])
+          - else
+            = add_total_working_period(product_parameter, natures: %i[intervention])

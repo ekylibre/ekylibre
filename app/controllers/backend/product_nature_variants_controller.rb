@@ -20,7 +20,7 @@ module Backend
   class ProductNatureVariantsController < Backend::BaseController
     include Pickable
 
-    manage_restfully except: %i[edit create update show], active: true
+    manage_restfully except: %i[edit create update show new], active: true
     manage_restfully_picture
 
     importable_from_lexicon :variants
@@ -319,10 +319,17 @@ module Backend
       t3e(@product_nature_variant.attributes)
     end
 
+    def new
+      instance_variable_set("@#{controller_name.singularize}", controller_path.gsub('backend/', '').classify.constantize.new)
+      @key = :product_nature_variant
+    end
+
+
     def create
-      @product_nature_variant = resource_model.new(permitted_params)
-      handle_maaid(@product_nature_variant, params[:phyto_product_id])
-      return if save_and_redirect(@product_nature_variant, url: (params[:create_and_continue] ? {:action=>:new, :continue=>true} : (params[:redirect] || ({ action: :show, id: 'id'.c }))), notify: ((params[:create_and_continue] || params[:redirect]) ? :record_x_created : false), identifier: :name)
+      instance_variable_set("@#{controller_name.singularize}", controller_path.gsub('backend/', '').classify.constantize.new(permitted_params))
+      @key = :product_nature_variant
+      handle_maaid(instance_variable_get("@#{controller_name.singularize}"), params[:phyto_product_id])
+      return if save_and_redirect(instance_variable_get("@#{controller_name.singularize}"), url: (params[:create_and_continue] ? {:action=>:new, :continue=>true} : (params[:redirect] || ({ action: :show, id: 'id'.c }))), notify: ((params[:create_and_continue] || params[:redirect]) ? :record_x_created : false), identifier: :name)
       render(locals: { cancel_url: {:action=>:index}, with_continue: false })
     end
 
@@ -343,9 +350,6 @@ module Backend
         if phyto_product_id.present?
           phyto = RegisteredPhytosanitaryProduct.find(phyto_product_id)
           attributes = { france_maaid: phyto.france_maaid, reference_name: phyto.reference_name, imported_from: 'Lexicon' }
-          variant.attributes = attributes
-        elsif variant.france_maaid.present?
-          attributes = { france_maaid: nil, reference_name: nil, imported_from: nil }
           variant.attributes = attributes
         end
       end

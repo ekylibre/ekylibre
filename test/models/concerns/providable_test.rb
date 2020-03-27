@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ProvidableTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
+class ProvidableTest < Ekylibre::Testing::ApplicationTestCase
   class ParentClass
     attr_accessor :provider
 

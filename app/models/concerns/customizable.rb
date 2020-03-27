@@ -51,7 +51,12 @@ module Customizable
   module ClassMethods
     # Returns the definition of custom fields of the class
     def custom_fields
-      CustomField.of(name)
+      fields_id = self.ancestors
+        .select { |a| a.ancestors.include? Customizable }
+        .flat_map{ |k| CustomField.of(k.name) }
+        .map(&:id)
+
+      CustomField.where(id: fields_id)
     end
   end
 end

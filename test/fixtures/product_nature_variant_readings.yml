@@ -1107,3 +1107,55 @@ product_nature_variant_readings_073:
   updated_at: 2016-08-05 20:03:17.776431000 Z
   updater_id: 1
   variant_id: 29
+product_nature_variant_readings_074:
+  boolean_value: false
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 98
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 0.5
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+  variant_id: 72
+product_nature_variant_readings_075:
+  boolean_value: false
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 99
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 0.5
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+  variant_id: 73
+product_nature_variant_readings_076:
+  boolean_value: false
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 100
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 0.5
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+  variant_id: 74
+product_nature_variant_readings_077:
+  boolean_value: false
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 101
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 0.5
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+  variant_id: 75

@@ -1862,6 +1862,21 @@ dashboards:
   updater_id:
     type: integer
     references: user
+datasource_credits:
+  datasource:
+    type: string
+  licence:
+    type: string
+  licence_url:
+    type: string
+  name:
+    type: string
+  provider:
+    type: string
+  updated_at:
+    type: datetime
+  url:
+    type: string
 debt_transfers:
   accounted_at:
     type: datetime
@@ -2426,21 +2441,6 @@ entity_links:
   updater_id:
     type: integer
     references: user
-ephy_cropsets:
-  crop_labels:
-    type: jsonb
-  crop_names:
-    type: text
-  id:
-    type: string
-    required: true
-  label:
-    type: jsonb
-  name:
-    type: string
-    required: true
-  record_checksum:
-    type: integer
 eu_market_prices:
   category:
     type: string
@@ -3662,9 +3662,9 @@ intervention_parameter_readings:
     references: user
 intervention_parameters:
   allowed_entry_factor:
-    type: integer
+    type: string
   allowed_harvest_factor:
-    type: integer
+    type: string
   assembly_id:
     type: integer
     references: product
@@ -4963,6 +4963,10 @@ master_production_natures:
   id:
     type: integer
     required: true
+  life_duration:
+    type: decimal
+    precision: 5
+    scale: 2
   pfi_crop_code:
     type: string
   season:
@@ -4970,6 +4974,8 @@ master_production_natures:
   specie:
     type: string
     required: true
+  start_state_of_production:
+    type: jsonb
   started_on:
     type: date
     required: true
@@ -7404,9 +7410,24 @@ registered_pfi_targets:
     required: true
   reference_label_fra:
     type: string
+registered_phytosanitary_cropsets:
+  crop_labels:
+    type: jsonb
+  crop_names:
+    type: text
+  id:
+    type: string
+    required: true
+  label:
+    type: jsonb
+  name:
+    type: string
+    required: true
+  record_checksum:
+    type: integer
 registered_phytosanitary_products:
   active_compounds:
-    type: string
+    type: text
   allowed_mentions:
     type: jsonb
   firm_name:
@@ -7418,19 +7439,18 @@ registered_phytosanitary_products:
     type: integer
     required: true
   in_field_reentry_delay:
-    type: integer
-  mix_category_code:
     type: string
-    required: true
+  mix_category_codes:
+    type: integer
   name:
     type: string
     required: true
-  nature:
-    type: string
+  natures:
+    type: text
   operator_protection_mentions:
     type: text
-  other_name:
-    type: string
+  other_names:
+    type: text
   product_type:
     type: string
   record_checksum:
@@ -7502,7 +7522,7 @@ registered_phytosanitary_usages:
   lib_court:
     type: integer
   pre_harvest_delay:
-    type: integer
+    type: string
   pre_harvest_delay_bbch:
     type: integer
   product_id:

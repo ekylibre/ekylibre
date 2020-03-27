@@ -505,6 +505,16 @@ fra:
         market_place: "" #?
         oral: "Verbal" #?
         sms: "SMS" #?
+    registered_phytosanitary_product:
+      state:
+        authorized: Autorisé
+        inherited: Hérité
+        withdrawn: Retiré
+    registered_phytosanitary_usage:
+      state:
+        authorized: Autorisé
+        provisional: Provisoire
+        withdrawn: Retiré
     sale: #?
       payment_delay: #?
         1 week: "à réception" #?

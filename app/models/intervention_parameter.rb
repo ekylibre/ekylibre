@@ -23,8 +23,8 @@
 #
 # == Table: intervention_parameters
 #
-#  allowed_entry_factor     :integer
-#  allowed_harvest_factor   :integer
+#  allowed_entry_factor     :interval
+#  allowed_harvest_factor   :interval
 #  assembly_id              :integer
 #  batch_number             :string
 #  component_id             :integer
@@ -67,8 +67,10 @@ class InterventionParameter < Ekylibre::Record::Base
   belongs_to :intervention, inverse_of: :parameters
   belongs_to :usage, class_name: 'RegisteredPhytosanitaryUsage'
 
+  has_interval :allowed_entry_factor, :allowed_harvest_factor
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :batch_number, :currency, :identification_number, :new_name, :quantity_handler, :quantity_indicator_name, :quantity_unit_name, :variety, length: { maximum: 500 }, allow_blank: true
+  validates :allowed_entry_factor, :allowed_harvest_factor, :batch_number, :currency, :identification_number, :new_name, :quantity_handler, :quantity_indicator_name, :quantity_unit_name, :variety, length: { maximum: 500 }, allow_blank: true
   validates :dead, inclusion: { in: [true, false] }
   validates :quantity_population, :quantity_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :reference_name, presence: true, length: { maximum: 500 }

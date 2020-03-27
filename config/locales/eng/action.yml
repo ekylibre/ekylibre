@@ -1197,6 +1197,7 @@ eng:
       nature:
         harvest: "Harvest:"
         reentry: "Reentry:"
+        add_two_hours: "Add two hours if application happened in a close area"
   labels:
     accepted: "Accepted"
     accepted_for_paiment: "Accepted for paiment"
@@ -1301,6 +1302,7 @@ eng:
     add_support: "Add support"
     add_tactic: "Add cropping technique"
     add_tool: "Add tool"
+    add_two_hours_reentry_delay: "Add two hours if application happened in a close area"
     add_website: "Add website"
     add_working_period: "Add working period"
     add_x: "Add “%{x}”"
@@ -1380,6 +1382,7 @@ eng:
     attach_deal: "Add a deal"
     attachment: "Attachment"
     attachments: "Attachments"
+    authorized: "Authorized"
     automatic: "Auto" #?
     auxiliary: "Auxiliary" #?
     available: "Available"
@@ -1466,6 +1469,7 @@ eng:
     chart: "Chart"
     check: "Check" #?
     check_letter: "Check letter"
+    check_usage_conditions: "Check usage conditions"
     check_x_entries_to_balance: #?!
       one: "Check entry to balance (%{count})" #?!
       other: "Check entries to balance (%{count})" #?!
@@ -2612,6 +2616,7 @@ eng:
     third_balance: "(balance - supplier account balance : %{balance} - %{supplier_account_balance})" #?
     third_is_unbalanced: "Third is unbalanced. (balance - supplier account balance)" #?!
     this_archive_is_digitally_signed: "This archive is digitally signed."
+    this_product_has_been_withdrawn: "This product has been withdrawn"
     threshold_commercialization_by_production: "Threshold commercialization by production" #?
     thumb: "Thumb" #?
     time_cost: "Time cost" #?

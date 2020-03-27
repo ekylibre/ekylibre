@@ -1,12 +1,13 @@
 - main_toolbar do |t|
-  = t.pick params: { redirect: "/#{controller_path}", selector_label: :product_variant.tl }
-  = t.new params: { controller: '/backend/product_nature_variants', subdivision: controller_name }
-
-  = dropdown_menu_button(:articles.tl, class: 'no-right-margin') do |d|
+  = dropdown_menu_button(:articles.tl, main_class: 'btn-pill' + (controller_name.match(/article/) ? ' active' : '')) do |d|
     - %w[fertilizer plant_medicine seed_and_plant].each do |sub_nature|
       - d.item sub_nature.pluralize.tl, { controller: "/backend/variants/articles/#{sub_nature}_articles", action: :index }
     - d.item :others.tl, { controller: '/backend/variants/article_variants', action: :index }
 
   - %w[animal crop equipment service worker zone].each do |nature|
-    = link_to nature.pluralize.tl, send("backend_variants_#{nature}_variants_path"), class: 'btn btn-default'
+    - btn_class = controller_name.match(/#{Regexp.quote(nature)}/) ? 'btn-pill active' : 'btn-pill'
+    = link_to nature.pluralize.tl, send("backend_variants_#{nature}_variants_path"), class: btn_class
+
+  = t.pick params: { redirect: "/#{controller_path}", selector_label: :product_variant.tl }
+  = t.new params: { controller: "/#{controller_path}", subdivision: controller_name }
 

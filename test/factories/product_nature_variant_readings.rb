@@ -7,7 +7,7 @@ FactoryBot.define do
       measure_value_unit { :kilogram }
       indicator_datatype { :measure }
 
-      association :variant, factory: :copless_phytosanitary_variant
+      association :variant, factory: :plant_medicine_variant
     end
   end
 end

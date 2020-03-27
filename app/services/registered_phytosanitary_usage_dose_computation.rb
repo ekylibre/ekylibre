@@ -10,6 +10,8 @@ class RegisteredPhytosanitaryUsageDoseComputation
     return { none: :provide_metrics_for_this_article.tl } unless user_measure
 
     compute_dose_message(user_measure, reference_measure)
+  rescue FloatDomainError
+    {none: ""}
   end
 
   def validate_intervention_input(input)

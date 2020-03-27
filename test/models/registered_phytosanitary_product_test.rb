@@ -23,17 +23,17 @@
 #
 # == Table: registered_phytosanitary_products
 #
-#  active_compounds             :string
+#  active_compounds             Array<:text>
 #  allowed_mentions             :jsonb
 #  firm_name                    :string
 #  france_maaid                 :string           not null
 #  id                           :integer          not null, primary key
-#  in_field_reentry_delay       :integer
-#  mix_category_code            :string           not null
+#  in_field_reentry_delay       :interval
+#  mix_category_codes           Array<:integer>
 #  name                         :string           not null
-#  nature                       :string
+#  natures                      Array<:text>
 #  operator_protection_mentions :text
-#  other_name                   :string
+#  other_names                  Array<:text>
 #  product_type                 :string
 #  record_checksum              :integer
 #  reference_name               :string           not null

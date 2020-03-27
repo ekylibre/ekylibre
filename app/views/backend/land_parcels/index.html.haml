@@ -1,6 +1,7 @@
 - main_period_selector(:year)
 
 = janus do |j|
+  - land_parcels_map(janus: j)
   - j.face :list do
     = kujaku do |k|
       - k.text

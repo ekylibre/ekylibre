@@ -14,6 +14,9 @@
             %span.title= :re_entry_delay.tl
             %span.value
               %span= @reentry_possible.next_possible_date.l
+            - if @reentry_possible.period.duration == 8
+              %span
+                %span= :add_two_hours_reentry_delay.tl
 
   - c.cobble :weather do
     = cell :weather, params: {centroid: resource.initial_shape.centroid} if resource.initial_shape.present?

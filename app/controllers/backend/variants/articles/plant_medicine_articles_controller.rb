@@ -32,6 +32,7 @@ module Backend
           t.column :pre_harvest_delay, label_method: :decorated_pre_harvest_delay, class: 'center-align'
           t.column :applications_frequency, label_method: :decorated_applications_frequency, class: 'center-align'
           t.column :untreated_buffer_aquatic, label_method: :decorated_untreated_buffer_aquatic, class: 'center-align'
+          t.column :usage_conditions, label_method: :decorated_usage_conditions, class: 'center-align'
           t.column :decision_date, class: 'center-align', hidden: true
           t.column :development_stage_min, label_method: :decorated_development_stage_min, class: 'center-align', hidden: true
           t.column :untreated_buffer_arthropod, label_method: :decorated_untreated_buffer_arthropod, class: 'center-align', hidden: true

@@ -55,6 +55,21 @@
 #
 module Variants
   module Articles
-    class PlantMedicineArticle < Variants::ArticleVariant; end
+    class PlantMedicineArticle < Variants::ArticleVariant
+
+      validate :check_lexicon_reference, on: :update
+
+      def variant_type
+        :article
+      end
+
+      private
+
+        def check_lexicon_reference
+          linked_to_lexicon = imported_from_was == 'Lexicon' && reference_name_was.present? && france_maaid_was.present?
+          changing_link = %w[imported_from reference_name france_maaid].any? { |k| changes.has_key?(k) }
+          errors.add :france_maaid, :cannot_change_maaid_number_if_it_has_already_been_set if linked_to_lexicon && changing_link
+        end
+    end
   end
 end

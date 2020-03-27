@@ -21,16 +21,16 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: ephy_cropsets
+# == Table: registered_phytosanitary_cropsets
 #
 #  crop_labels     :jsonb
-#  crop_names      :text
+#  crop_names      Array<:text>
 #  id              :string           not null, primary key
 #  label           :jsonb
 #  name            :string           not null
 #  record_checksum :integer
 #
-class EphyCropset < ActiveRecord::Base
+class RegisteredPhytosanitaryCropset < ActiveRecord::Base
   include Lexiconable
 
 end

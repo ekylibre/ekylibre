@@ -38,7 +38,9 @@
         %img#biocontrol-usage.hidden{ src: image_path("phytosanitary_products/allowed_mentions/biocontrol-usage.svg"), alt: :biocontrol_usage.tl, title: :biocontrol_usage.tl }
         %img#organic-usage.hidden{ src: image_path("phytosanitary_products/allowed_mentions/organic-usage.svg"), alt: :organic_usage.tl, title: :organic_usage.tl }
         %span#product-authorization-message
-        = state_badge_set(nil, states: %i[forbidden allowed], html: {id: 'intervention-products-badges', style: "margin-right: 35px;"})
+        %span.input-authorization__container
+          = state_badge_set(nil, states: %i[forbidden allowed], html: {id: 'intervention-products-badges', style: "margin-right: 35px;"})
+          = content_tag(:span, :check_usage_conditions.tl, class: 'input-authorization__text hidden')
 
     - if reference.tool?
       .tool-nested-readings.hidden
@@ -79,8 +81,6 @@
 
   - if f.object.reference_name.to_sym == :plant_medicine
     = f.referenced_association :usage, label: :usage_phyto.tl, input_html: { disabled: true, data: { filters_url: filter_usages_backend_registered_phytosanitary_usages_path, msg_container: ".intervention_inputs_usage .lights-message", lights: '.controls' } }, new: false
-    = f.input :allowed_entry_factor, as: :hidden, input_html: { class: 'allowed-entry' }
-    = f.input :allowed_harvest_factor, as: :hidden, input_html: { class: 'allowed-harvest' }
 
     = render 'intervention_usage_informations'
 

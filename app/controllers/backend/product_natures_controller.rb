@@ -78,5 +78,12 @@ module Backend
       @key = 'product_nature'
       render(locals: { cancel_url: {:action=>:index}, with_continue: false })
     end
+
+    def compatible_varieties
+      product_nature = ProductNature.find_by(id: params[:id])
+      return if product_nature.nil?
+      varieties = Nomen::Variety.find(product_nature.variety).self_and_children
+      render json: { data: varieties.map { |variety| {name: variety.name, human_name: variety.human_name }} }
+    end
   end
 end
