@@ -35,6 +35,14 @@ module FormObjects
           end
         end
 
+        def targets_ids
+          @targets_ids || []
+        end
+
+        def products_and_usages_ids
+          @products_and_usages_ids || []
+        end
+
         def targets
           targets_and_shape.map(&:target)
         end
