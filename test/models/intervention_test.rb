@@ -168,8 +168,6 @@ class InterventionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     activity_production = create(:activity_production, cultivable_zone: cultivable_zone)
     intervention = create(:intervention)
     create(:intervention_target, intervention: intervention, product: activity_production.support, working_zone: activity_production.support.initial_shape)
-
-    intervention.reload
     assert_equal 0.0, intervention.cost_per_area(:target)
   end
 
