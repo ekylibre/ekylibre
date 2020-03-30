@@ -20,11 +20,12 @@
 
     # data for bar chart times by activities and by month
     Activity.actives.find_each do |activity|
-      act_interventions = Intervention::HABTM_Activities.where(intervention_id: interventions.pluck(:id), activity_id: activity.id).reorder(:intervention_started_at).group_by { |m| m.intervention_started_at.year.to_s + m.intervention_started_at.month.to_s.rjust(3, '0') }
-      if act_interventions.any?
-        sums = {}
-        act_interventions.each do |act_int_by_month|
-          sums[act_int_by_month[0].to_i.to_s] = act_int_by_month[1].map{|i| i.intervention_activity_working_duration}.compact.sum.to_i.in_second.in(unit).round(2).to_f
+      targets = activity.productions.map(&:support).compact
+      interventions = Intervention.real.with_targets(targets).of_civil_year(@campaign.harvest_year).reorder(:started_at)
+      if interventions.any?
+        sums = interventions.sums_of_periods.sort.inject({}) do |hash, period|
+          hash[period.expr.to_i.to_s] = period.sum.to_i.in_second.in(unit).round(2).to_f
+          hash
         end
         series << { name: activity.name, data: normalize_serie(sums, categories.keys), tooltip: {value_suffix: unit.symbol }, color: activity.color, stack: 'time'}
         #cost_sums = interventions.inject({}) do |hash, i|
