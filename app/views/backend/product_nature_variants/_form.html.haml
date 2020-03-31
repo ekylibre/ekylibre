@@ -9,9 +9,16 @@
     end
   end
 
+  variant_type = f.object.variant_type
+  scope = if variant_type.present?
+            { of_type: f.object.variant_type }
+          else
+            {}
+          end
+
 = field_set do
-  = f.referenced_association :nature, controller: '/backend/product_natures', source: { scope: { of_type: f.object.variant_type } }
-  = f.referenced_association :category, controller: '/backend/product_nature_categories', source: { scope: { of_type: f.object.variant_type } }
+  = f.referenced_association :nature, controller: '/backend/product_natures', source: { scope: scope }
+  = f.referenced_association :category, controller: '/backend/product_nature_categories', source: { scope: scope }
   = f.variety scope: nature, child_scope: f.object.products
   = f.input :name
   = f.input :work_number

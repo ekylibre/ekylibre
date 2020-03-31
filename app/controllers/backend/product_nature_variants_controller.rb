@@ -320,7 +320,15 @@ module Backend
     end
 
     def new
-      instance_variable_set("@#{controller_name.singularize}", controller_path.gsub('backend/', '').classify.constantize.new)
+      model_klass = controller_path.gsub('backend/', '').classify.constantize
+      attributes = {}
+
+      if params.key?(:nature_id) && (nature = ProductNature.find_by(id: params[:nature_id])).present?
+        model_klass = nature.variant_type.constantize
+        attributes[:nature] = nature
+      end
+
+      instance_variable_set("@#{controller_name.singularize}", model_klass.new(attributes))
       @key = :product_nature_variant
     end
 
