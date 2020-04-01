@@ -14,7 +14,7 @@ module Printers
         receiver = EntityDecorator.decorate(sale.client)
 
         # Cash
-        cash = Cash.bank_accounts.find_by(by_default: true) || Cash.bank_accounts.first
+        cash = get_company_cash
 
         description = Maybe(sale).description.fmap { |d| [{ description: d }] }.or_else([])
 
@@ -94,11 +94,12 @@ module Printers
 
           # Footer
           r.add_field :footer, "#{I18n.t 'attributes.intracommunity_vat'} : #{company.vat_number} - #{I18n.t 'attributes.siret'} : #{company.siret_number} - #{I18n.t 'attributes.activity_code'} : #{company.activity_code}"
+
           # Bank details
-          r.add_field :account_holder_name, company.bank_account_holder_name
-          r.add_field :bank_name, cash.bank_name
-          r.add_field :bank_identifier_code, cash.bank_identifier_code
-          r.add_field :iban, cash.iban.scan(/.{1,4}/).join(' ')
+          r.add_field :account_holder_name, cash.bank_account_holder_name.recover { company.bank_account_holder_name }.or_else('')
+          r.add_field :bank_name, cash.bank_name.or_else('')
+          r.add_field :bank_identifier_code, cash.bank_identifier_code.or_else('')
+          r.add_field :iban, cash.iban.scan(/.{1,4}/).join(' ').or_else('')
         end
       end
     end
