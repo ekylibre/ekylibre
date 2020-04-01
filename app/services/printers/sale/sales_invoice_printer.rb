@@ -19,7 +19,7 @@ module Printers
         receiver = EntityDecorator.decorate(sale.client)
 
         # Cash
-        cash = Cash.bank_accounts.find_by(by_default: true) || Cash.bank_accounts.first
+        cash = get_company_cash
 
         client_reference = Maybe(sale).client_reference.fmap(&:presence).or_else('Non renseigné')
 
@@ -120,10 +120,10 @@ module Printers
           r.add_field :client_number, receiver.number
 
           # Bank details
-          r.add_field :account_holder_name, company.bank_account_holder_name
-          r.add_field :bank_name, cash.bank_name
-          r.add_field :bank_identifier_code, cash.bank_identifier_code
-          r.add_field :iban, cash.iban.scan(/.{1,4}/).join(' ')
+          r.add_field :account_holder_name, cash.bank_account_holder_name.recover { company.bank_account_holder_name }.or_else('')
+          r.add_field :bank_name, cash.bank_name.or_else('')
+          r.add_field :bank_identifier_code, cash.bank_identifier_code.or_else('')
+          r.add_field :iban, cash.iban.scan(/.{1,4}/).join(' ').or_else('')
         end
       end
     end
