@@ -51,7 +51,7 @@ fr_pcga:
     profit_taxe: '695 697 699 D'
     products_total: '7 C'
     charges_total: '6 D'
-    exercice_result: '70 71 72 74 75 781 791 76 786 796 77 787 797 C, - 60 61 62 63 64 65 681 66 686 67 687 691 695 697 699'
+    exercice_result: '- 7, - 6'
   ratio:
     exercice_production: '70 !707 !7097 71 72 73 756 C'
     commercial_margin: '707 7097 C, - 607 6097 6037'
@@ -187,7 +187,7 @@ fr_pcga:
     entities_assets_gaps: '470 471 F, 476' #
     entities_total: '4091 411 4131 416 417 418 412 4132, 445 F, 4551 F, 4552 F, 4096 4097 4098 425 4287 4387, 441 !4419, 443 F, 444 F, 4487, 451 F, 452 F, 453 F, 454 F, 456 F, 458 F, 461 F, 462 465, 467 F, 4687, 478 F, 502 503 504 505 506 507 508 511, 512 F, 514 F, 515, 516, 517 F, 5187, 53, 54, 486 481, 470 471 F, 476'
     entities_total_depreciations: '4916 4912 4955 4951 4952 4953 4954 4958 496 5903 5904 5906 5908'
-    capitals_values: '- 101'
+    capitals_values: '- 101 108'
     capitals_emissions: '104 105 C'
     reevaluation_gaps: '1 2 3 4 5'
     capitals_liability_reserves: '106 C'
@@ -268,7 +268,7 @@ fr_pcg82:
     profit_taxe: '695 697 699 D'
     products_total: '7 C'
     charges_total: '6 D'
-    exercice_result: '70 71 72 74 75 781 791 76 786 796 77 787 797 C, - 60 61 62 63 64 65 681 66 686 67 687 691 695 697 699'
+    exercice_result: '- 7, - 6'
   ratio:
     exercice_production: '70 !707 !7097 71 72 73 751 752 753 758 C'
     commercial_margin: '707 7097 C, - 607 6097 6087'
@@ -361,7 +361,7 @@ fr_pcg82:
     entities_assets_gaps: '470 471 F, 476' #
     entities_total: '4091 411 4131 416 417 418 412 4132, 445 F, 4551 F, 4552 F, 4096 4097 4098 425 4287 4387, 441 !4419, 443 F, 444 F, 4487, 451 F, 452 F, 453 F, 454 F, 456 F, 458 F, 461 F, 462 465, 467 F, 4687, 478 F, 502 503 504 505 506 507 508 511, 512 F, 514 F, 515, 516, 517 F, 5187, 53, 54, 486 481, 470 471 F, 476'
     entities_total_depreciations: '4916 4912 4955 4951 4952 4953 4954 4958 496 5903 5904 5906 5908'
-    capitals_values: '- 101'
+    capitals_values: '- 101 108'
     capitals_emissions: '104 105 C'
     reevaluation_gaps: '1 2 3 4 5'
     capitals_liability_reserves: '106 C'
