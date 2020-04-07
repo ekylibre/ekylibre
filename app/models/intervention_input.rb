@@ -85,6 +85,7 @@ class InterventionInput < InterventionProductParameter
     end
     if self.usage.present?
       self.allowed_harvest_factor = self.usage.pre_harvest_delay
+      self.applications_frequency = self.usage.applications_frequency
     end
   end
 

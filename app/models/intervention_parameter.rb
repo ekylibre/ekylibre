@@ -67,7 +67,7 @@ class InterventionParameter < Ekylibre::Record::Base
   belongs_to :intervention, inverse_of: :parameters
   belongs_to :usage, class_name: 'RegisteredPhytosanitaryUsage'
 
-  has_interval :allowed_entry_factor, :allowed_harvest_factor
+  has_interval :allowed_entry_factor, :allowed_harvest_factor, :application_frequency
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :allowed_entry_factor, :allowed_harvest_factor, :batch_number, :currency, :identification_number, :new_name, :quantity_handler, :quantity_indicator_name, :quantity_unit_name, :variety, length: { maximum: 500 }, allow_blank: true
