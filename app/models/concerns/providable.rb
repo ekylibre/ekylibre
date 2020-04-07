@@ -22,7 +22,7 @@ module Providable
     end
 
     def provider=(value)
-      super(value.slice(:vendor, :name, :id, :data))
+      super(value&.slice(:vendor, :name, :id, :data))
     end
 
     def provider
