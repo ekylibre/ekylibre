@@ -3,7 +3,7 @@ module Backend
     DIMENSIONS_UNIT = { net_volume: :liter, net_mass: :kilogram, mass_area_density: :kilogram_per_hectare, volume_area_density: :liter_per_hectare }.freeze
     AREA_DIMENSIONS = { net_volume: :liter_per_hectare, net_mass: :kilogram_per_hectare }.freeze
 
-    unroll :crop_label_fra, :target_name_label_fra
+    unroll :crop_label_fra, :target_name_label_fra, order: :state
 
     def filter_usages
       return render json: { disable: :maaid_not_provided.tl, clear: true } unless (variant = Product.find(params[:filter_id]).variant) && (variant.imported_from == "Lexicon")
@@ -81,7 +81,7 @@ module Backend
         maaid = usage.product.france_maaid
 
         applications_on_targets = targets_data.values.map do |target_info|
-          interventions = Product.find(target_info[:id]).activity_production.interventions.of_nature(:spraying).with_input_of_maaids(maaid)
+          interventions = Product.find(target_info[:id]).activity_production.interventions.of_nature_using_phytosanitary.with_input_of_maaids(maaid)
           interventions = interventions.where.not(id: intervention_id) if intervention_id.present?
           interventions.map do |intervention|
             intervention.targets.map(&:working_zone).select { |zone| Charta.new_geometry(target_info[:shape]).intersects?(zone) }.count

@@ -155,7 +155,7 @@ module Backend
               # phosphorus_concentration: phosphorus_concentration.to_s.to_f.round(2),
               # potassium_concentration:  potassium_concentration.to_s.to_f.round(2),
               interventions_count: interventions.count,
-              pfi_parcel_ratio:  support.pfi_parcel_ratio,
+              # pfi_parcel_ratio:  support.pfi_parcel_ratio,
               grain_yield: grain_yield.to_s.to_f.round(2),
               grass_yield: grass_yield.to_s.to_f.round(2),
               vegetable_yield: vegetable_yield.to_s.to_f.round(2),
@@ -183,7 +183,7 @@ module Backend
               v.choropleth :grass_yield, :main, stop_color: '#00AA00'
               v.choropleth :vegetable_yield, :main, stop_color: '#11BB99'
               v.choropleth :fruit_yield, :main, stop_color: '#1122DD'
-              v.choropleth :pfi_parcel_ratio, :main, stop_color: '#E77000'
+              # v.choropleth :pfi_parcel_ratio, :main, stop_color: '#E77000'
             else
               v.choropleth :tool_cost, :main, stop_color: '#00AA00'
               v.choropleth :input_cost, :main, stop_color: '#1122DD'

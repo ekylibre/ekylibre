@@ -21,6 +21,14 @@
   $(document).on "click keyup change", "*[data-ability] select[data-ability-parameter]", ->
     $(this).closest("*[data-ability]").refreshAbilityValue()
 
+  $(document).on 'selector:change', '#product_nature_variant_nature_id', ->
+    id = $(this).selector("value")
+    result = $.getJSON "/backend/product_natures/#{id}/compatible_varieties", (data) =>
+      $selector = $("select[id='product_nature_variant_variety']")
+      $selector.find('option').remove()
+      $selector.append(data.data.map (e) =>  new Option(e.human_name, e.name))
+         
+
   $(document).on "click", ".abilities-list *[data-add-ability]", ->
     element = $(this)
     root = element.closest(".abilities-list")

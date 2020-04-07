@@ -148,11 +148,15 @@ class Intervention < Ekylibre::Record::Base
   }
 
   scope :of_nature, ->(reference_name) { where(procedure_name: reference_name) }
+  scope :of_nature_using_phytosanitary, -> { where(procedure_name: %i[spraying all_in_one_sowing sowing_with_spraying]) }
   scope :of_category, lambda { |category|
     where(procedure_name: Procedo::Procedure.of_category(category).map(&:name))
   }
   scope :of_campaign, lambda { |campaign|
     where(id: HABTM_Campaigns.select(:intervention_id).where(campaign: campaign))
+  }
+  scope :of_campaigns, ->(*campaigns) {
+    where(id: HABTM_Campaigns.select(:intervention_id).where(campaign: campaigns))
   }
   scope :of_current_campaigns, -> { of_campaign(Campaign.current) }
   scope :of_activity_production, lambda { |production|

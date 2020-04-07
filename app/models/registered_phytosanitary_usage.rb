@@ -54,11 +54,14 @@
 #
 class RegisteredPhytosanitaryUsage < ActiveRecord::Base
   extend Enumerize
+  include HasInterval
   include Lexiconable
   include ScopeIntrospection
+
   belongs_to :product, class_name: 'RegisteredPhytosanitaryProduct'
 
   enumerize :state, in: %w[authorized provisional withdrawn], predicates: true
+  has_interval :pre_harvest_delay, :applications_frequency
 
   scope :of_product, -> (*ids) { where(product_id: ids) }
 
@@ -119,9 +122,5 @@ class RegisteredPhytosanitaryUsage < ActiveRecord::Base
 
   def among_dimensions?(*dimensions)
     dimensions.any? { |dimension| of_dimension?(dimension) }
-  end
-
-  def pre_harvest_delay
-    self[:pre_harvest_delay].present? ? ActiveSupport::Duration.parse(self[:pre_harvest_delay]) : nil
   end
 end

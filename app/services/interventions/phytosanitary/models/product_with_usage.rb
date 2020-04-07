@@ -6,6 +6,8 @@ module Interventions
 
         # @param [Product] product
         # @param [RegisteredPhytosanitaryUsage] usage
+        # @param [Numeric] quantity
+        # @param [String] dimension
         def initialize(product, usage, quantity, dimension)
           @product = product
           @usage = usage

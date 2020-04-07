@@ -28,7 +28,7 @@
 
   .storing-area
     = f.label :storage.tl, class: "control-label", required: true
-    = f.referenced_association :storage, source: :storage, label: false, input_html: { class: "parcel-item-storage", data: { product_of_delivery_item: { url: backend_product_path("RECORD_ID", format: :json), scope: 'storage' }, required: true } }
+    = f.referenced_association :storage, source: :storage, label: false, new: false, input_html: { class: "parcel-item-storage", data: { product_of_delivery_item: { url: backend_product_path("RECORD_ID", format: :json), scope: 'storage' }, required: true } }
 
   %div.current-stock
     .merchandise-current-stock

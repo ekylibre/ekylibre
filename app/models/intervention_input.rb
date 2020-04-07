@@ -79,6 +79,16 @@ class InterventionInput < InterventionProductParameter
     self.variant = product.variant if product
   end
 
+  before_validation(on: :create) do 
+    if self.product.present? && (phyto = self.product.phytosanitary_product).present?
+      self.allowed_entry_factor = phyto.in_field_reentry_delay
+    end
+    if self.usage.present?
+      self.allowed_harvest_factor = self.usage.pre_harvest_delay
+      self.applications_frequency = self.usage.applications_frequency
+    end
+  end
+
   after_save do
     if product && intervention.record?
       movement = product_movement ||

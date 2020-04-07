@@ -3,7 +3,7 @@
     display: () ->
       that = this
       $('.nested-plant_medicine').each -> that._clear($(this))
-      values = that._retrieveValues()
+      values = @._retrieveValues()
 
       $.getJSON "/backend/registered_phytosanitary_products/get_products_infos", values, (data) =>
         for id, infos of data
@@ -41,7 +41,10 @@
         quantity: element.querySelector('.intervention_inputs_quantity input').value
         dimension: element.querySelector('.intervention_inputs_quantity select').value
 
-      { products_data: productsData, targets_data: targetsData }
+      firstWorkingPeriodElement = document.querySelector(".intervention_working_periods_period")
+      workingPeriodEndElement = firstWorkingPeriodElement.querySelectorAll('.flatpickr-wrapper input[type="hidden"]')[1]
+      
+      { products_data: productsData, targets_data: targetsData, intervention_stopped_at: moment(workingPeriodEndElement.value).format() }
 
   usageMainInfos =
     display: ($input, $productField) ->
@@ -150,7 +153,9 @@
     usageMainInfos.display($(this), $(this).closest('.nested-plant_medicine'))
 
   # Update allowed doses on quantity change
+  # And compute authorization badge again
   $(document).on 'input change', "input[data-intervention-field='quantity-value']", ->
+    productsInfos.display()
     usageDoseInfos.display($(this), $(this).closest('.nested-plant_medicine'))
 
 

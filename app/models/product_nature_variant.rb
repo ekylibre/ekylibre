@@ -237,7 +237,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
 
   def variant_type
-    type.constantize.variant_type
+    Maybe(type).constantize.variant_type.or_nil
   end
 
   # add animals to new variant

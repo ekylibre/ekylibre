@@ -6,13 +6,24 @@ module FormObjects
           # @return [GetProductsInfo]
           def from_params(params)
             new(params.permit(
+              :intervention_stopped_at,
               targets_data: %i[id shape],
               products_data: %i[product_id usage_id quantity dimension]
-            ))
+            )
+          )
           end
         end
 
-        attr_accessor :targets_data, :products_data
+        attr_accessor :targets_data, :products_data, :intervention_stopped_at
+
+        # @return [DateTime, nil]
+        def intervention_stopped_at
+          if @intervention_stopped_at.nil?
+            nil
+          else
+            DateTime.soft_parse(@intervention_stopped_at)
+          end
+        end
 
         def targets_data
           @targets_data&.values || []
@@ -33,6 +44,14 @@ module FormObjects
               []
             end
           end
+        end
+
+        def targets_ids
+          @targets_ids || []
+        end
+
+        def products_and_usages_ids
+          @products_and_usages_ids || []
         end
 
         def targets

@@ -12,6 +12,7 @@ module Ekylibre
       include ::ScopeIntrospection # TODO: move to ApplicationRecord
       include Userstamp::Stamper
       include Userstamp::Stampable
+      include HasInterval
 
       self.abstract_class = true
 
@@ -117,24 +118,6 @@ module Ekylibre
             }
           }
           has_attached_file :picture, default_options.deep_merge(options)
-        end
-
-        def has_interval(*columns)
-          columns.each do |column|
-            define_method column do
-              self[column].present? ? ActiveSupport::Duration.parse(self[column]) : nil
-            end
-
-            define_method "#{column}=" do |value|
-              self[column] = if value.blank?
-                               nil
-                             elsif value.is_a?(String) && ActiveSupport::Duration.parse(value)
-                               value
-                             else
-                               raise ArgumentError, "Invalid duration: #{value}"
-                             end
-            end
-          end
         end
 
         def columns_definition

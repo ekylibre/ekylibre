@@ -994,6 +994,7 @@ Rails.application.routes.draw do
 
     resources :product_natures, concerns: %i[incorporate list unroll] do
       member do
+        get :compatible_varieties
         get :list_variants
       end
     end
