@@ -18,6 +18,7 @@ module Backend
               ::Interventions::Phytosanitary::MixCategoryCodeValidator.new,
               ::Interventions::Phytosanitary::AquaticBufferValidator.new,
               ::Interventions::Phytosanitary::ProductStateValidator.new,
+              ::Interventions::Phytosanitary::ApplicationFrequencyValidator.new(targets_and_shape: infos.targets_and_shape, intervention_stopped_at: infos.intervention_stopped_at),
               ::Interventions::Phytosanitary::OrganicMentionsValidator.new(targets: infos.targets),
               ::Interventions::Phytosanitary::DoseValidationValidator.new(targets_and_shape: infos.targets_and_shape, dose_computation: dose_computation)
             )
