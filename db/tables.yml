@@ -7254,13 +7254,11 @@ registered_agroedi_codes:
     type: string
   reference_id:
     type: integer
-    references: ''
     required: true
   reference_label:
     type: string
   repository_id:
     type: integer
-    references: ''
     required: true
 registered_building_zones:
   centroid:
