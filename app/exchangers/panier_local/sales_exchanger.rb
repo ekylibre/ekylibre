@@ -89,13 +89,17 @@ module PanierLocal
         product_account_line = sale_info.select { |i| i.account_number.start_with?('7') }.first
 
         if product_account_line.present?
+          # Assuming we only have one variant ?
           variant = ProductNatureVariant.of_provider_name(:panier_local, :sales)
-                                        .of_provider_data(:account_number, product_account_line.account_number)
-          if variant.nil?
+            .of_provider_data(:account_number, product_account_line.account_number)&.first
+
+          if variant.blank?
             product_account = check_or_create_product_account(product_account_line)
             variant = create_variant(product_account, product_account_line)
           end
+
           pretax_amount = create_pretax_amount(product_account_line)
+          
           #TODO: what is the real default quantity ?
           quantity = product_account_line.quantity || 1
 
