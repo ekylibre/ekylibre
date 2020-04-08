@@ -69,12 +69,13 @@ module PanierLocal
       data, _errors = parser.normalize(rows)
 
       incoming_payments_info = data.group_by { |d| d.payment_reference_number }
-      c = Cash.bank_accounts.find_by(by_default: true)
+
       incoming_payments_info.each { |_payment_reference_number, incoming_payment_info| incoming_payment_creation(incoming_payment_info) }
     end
 
     def incoming_payment_creation(incoming_payment_info)
-      ipm = IncomingPaymentMode.where(cash_id: c.id, with_accounting: true).order(:name).last
+      cash = Cash.bank_accounts.find_by(by_default: true)
+      ipm = IncomingPaymentMode.where(cash_id: cash.id, with_accounting: true).order(:name).last
       responsible = import_resource.creator
 
       client_incoming_payment_info = incoming_payment_info.select { |item| item.account_number.to_s.start_with?('411') }.first
