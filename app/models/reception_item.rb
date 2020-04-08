@@ -112,7 +112,8 @@ class ReceptionItem < ParcelItem
         end
       end
     end
-    reception.save if pretax_amount_changed?
+
+    reception.reload.save if pretax_amount_changed?
 
     if purchase_order_to_close.present? && !purchase_order_to_close.closed?
       purchase_order_to_close.close
