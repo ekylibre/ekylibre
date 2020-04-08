@@ -86,6 +86,7 @@ class Entity < Ekylibre::Record::Base
   include Commentable
   include Versionable
   include Customizable
+  include Providable
   attr_accessor :password_confirmation, :old_password
   refers_to :currency
   refers_to :language

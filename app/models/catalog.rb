@@ -39,6 +39,7 @@
 #
 
 class Catalog < Ekylibre::Record::Base
+  include Providable
   refers_to :currency
   enumerize :usage, in: %i[purchase sale stock cost travel_cost], default: :sale
   # has_many :active_items, -> { where(active: true) }, class_name: "CatalogItem"
