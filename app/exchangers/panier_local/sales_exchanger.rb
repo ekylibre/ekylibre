@@ -42,7 +42,7 @@ module PanierLocal
       fy_stop = FinancialYear.at(data.last.invoiced_at)
 
       unless fy_start && fy_stop
-        w.warn 'Need a FinancialYear'
+        w.error 'Need a FinancialYear'
         valid = false
       end
 
@@ -97,9 +97,8 @@ module PanierLocal
             product_account = check_or_create_product_account(product_account_line)
             variant = create_variant(product_account, product_account_line)
           end
-
           pretax_amount = create_pretax_amount(product_account_line)
-          
+
           #TODO: what is the real default quantity ?
           quantity = product_account_line.quantity || 1
 
@@ -122,9 +121,6 @@ module PanierLocal
         end
       end
 
-      entity.save!
-      variant.save!
-      sale.client = entity
       sale.save!
     end
 
@@ -168,7 +164,7 @@ module PanierLocal
       last_name = client_sale_info.entity_name.mb_chars.capitalize
 
       w.info "Create entity and link account"
-      Entity.new(
+      Entity.create!(
         nature: :organization,
         last_name: last_name,
         codes: { 'panier_local' => client_sale_info.entity_code },
@@ -215,7 +211,7 @@ module PanierLocal
       n = Accountancy::AccountNumberNormalizer.build
       clean_account_number = n.normalize!(product_account_line.account_number)
       computed_name = "Service - Vente en ligne - #{clean_account_number}"
-      
+
       Account.find_or_create_by_number(clean_account_number, name: computed_name)
     end
 
@@ -230,7 +226,7 @@ module PanierLocal
       pn = ProductNature.create_with(active: true, name: computed_name, variety: 'service', population_counting: 'decimal')
                         .find_or_create_by(name: computed_name)
 
-      pn.variants.build(
+      pn.variants.create!(
         active: true,
         name: computed_name,
         category: pnc,

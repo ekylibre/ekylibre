@@ -41,7 +41,7 @@ module PanierLocal
       fy_stop = FinancialYear.at(data.last.invoiced_at)
 
       if fy_start.nil? && fy_stop.nil?
-        w.warn 'Need a FinancialYear'
+        w.error 'Need a FinancialYear'
         valid = false
       end
 
@@ -54,7 +54,7 @@ module PanierLocal
           valid = false
         end
       else
-        w.warn 'Need a default bank cash account'
+        w.error 'Need a default bank cash account'
         valid = false
       end
 
