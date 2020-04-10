@@ -8,11 +8,9 @@ module Interventions
         result = Models::ProductApplicationResult.new
 
         products_usages.each do |pu|
-          phyto = pu.product.variant.phytosanitary_product
-
-          if phyto.nil? || pu.usage.nil?
+          if pu.phyto.nil? || pu.usage.nil?
             result.vote_unknown(pu.product)
-          elsif phyto.withdrawn? || pu.usage.withdrawn?
+          elsif pu.phyto.withdrawn? || pu.usage.withdrawn?
             result.vote_forbidden(pu.product, :this_product_has_been_withdrawn.tl)
           end
         end

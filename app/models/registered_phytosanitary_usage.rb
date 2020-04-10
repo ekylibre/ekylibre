@@ -56,6 +56,7 @@ class RegisteredPhytosanitaryUsage < ActiveRecord::Base
   extend Enumerize
   include HasInterval
   include Lexiconable
+  include Dimensionable
   include ScopeIntrospection
 
   belongs_to :product, class_name: 'RegisteredPhytosanitaryProduct'
@@ -80,7 +81,7 @@ class RegisteredPhytosanitaryUsage < ActiveRecord::Base
   scope :of_specie, ->(specie) { where(specie: specie.to_s) }
   scope :with_conditions, -> { where.not(usage_conditions: nil) }
 
-  delegate :decorated_reentry_delay, to: :product
+  delegate :in_field_reentry_delay, :france_maaid, :decorated_reentry_delay, to: :product
 
   %i[dose_quantity development_stage_min usage_conditions pre_harvest_delay].each do |col|
     define_method "decorated_#{col}" do
@@ -114,13 +115,5 @@ class RegisteredPhytosanitaryUsage < ActiveRecord::Base
     else
       :stop
     end
-  end
-
-  def of_dimension?(dimension)
-    dose_unit.present? && Nomen::Unit.find(dose_unit).dimension == dimension.to_sym
-  end
-
-  def among_dimensions?(*dimensions)
-    dimensions.any? { |dimension| of_dimension?(dimension) }
   end
 end
