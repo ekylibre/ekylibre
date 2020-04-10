@@ -7,7 +7,7 @@ module Interventions
         validator = Interventions::Phytosanitary::ApplicationFrequencyValidator.new(targets_and_shape: [])
 
         product = Product.new
-        product_usages = [Models::ProductWithUsage.new(product, RegisteredPhytosanitaryUsage.new, 0, "")]
+        product_usages = [Models::ProductWithUsage.new(product, RegisteredPhytosanitaryProduct.new, RegisteredPhytosanitaryUsage.new, 0, "")]
         result = validator.validate(product_usages)
 
         assert_equal :unknown, result.product_vote(product)
@@ -29,7 +29,7 @@ module Interventions
           product = make_product(france_maaid: maaid, phytosanitary_product: phyto)
           usage = usage_params.nil? ? nil : make_usage(**usage_params)
 
-          product_usage = Models::ProductWithUsage.new(product, usage, 0, "")
+          product_usage = Models::ProductWithUsage.new(product, phyto, usage, 0, "")
 
           validator.stub(:interval_respected?, interval_respected) do
             assert_equal expected, validator.guess_vote(product_usage)

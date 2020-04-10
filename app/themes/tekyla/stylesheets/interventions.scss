@@ -690,3 +690,9 @@ $preview-modal-height: 80vh;
     margin-right: 35px;
   }
 }
+
+.authorization-disclaimer {
+  margin: round($fs-normal/4) $spacing;
+  padding: round($fs-normal/4) 0;
+  font-style: italic;
+}

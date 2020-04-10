@@ -1403,6 +1403,8 @@ eng:
     bank_guarantees: "Bank guarantees"
     bank_statement_number: "Bank statement number" #?
     bank_statements: "Bank statements" #?
+    based_on_current_regulation: "Verifications based on current regulation"
+    based_on_regulation_at_date: "Verifications based on regulation in effect at %{date}"
     bban: "Basic Bank Account Number (BBAN)" #?
     before_taxe_result: "Before taxe result"
     beginning: "Beginning"

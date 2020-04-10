@@ -30,7 +30,7 @@ module Backend
 
               [pu.product.id, {
                 state: result.product_vote(pu.product),
-                allowed_mentions: fetch_allowed_mentions(pu.product),
+                allowed_mentions: fetch_allowed_mentions(pu.phyto),
                 messages: messages,
                 check_conditions: check_conditions
               }]
@@ -44,9 +44,7 @@ module Backend
 
     private
 
-      def fetch_allowed_mentions(product)
-        phyto = product.variant.phytosanitary_product
-
+      def fetch_allowed_mentions(phyto)
         if phyto.present? && phyto.allowed_mentions.present?
           phyto.allowed_mentions.keys.map { |m| m.parameterize.dasherize }
         else

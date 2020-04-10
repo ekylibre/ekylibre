@@ -25,38 +25,50 @@ module Backend
     end
 
     def get_usage_infos
-      usage_id = params[:id]
-      usage = RegisteredPhytosanitaryUsage.find(usage_id)
+      intervention = Intervention.find_by_id params[:intervention_id]
+      input = InterventionInput.find_by_id params[:input_id]
+      inspector = ::Interventions::Phytosanitary::ParametersInspector.new
+
+      modified = inspector.relevant_parameters_modified?(live_data: params[:live_data].to_boolean,
+                                                         intervention: intervention,
+                                                         targets_ids: params[:targets_data].map { |_k, v| v[:id].to_i },
+                                                         inputs_data: [{ input: input, product_id: params[:product_id].to_i, usage_id: params[:id] }])
+
+      usage = fetch_usage(modified, input)
       usage_dataset = compute_dataset(usage)
-      allowed_factors = compute_allowed_factors(usage)
       usage_application = compute_usage_application(usage, params[:targets_data], params[:intervention_id])
       authorizations = compute_authorization(usage_application, :usage_application)
 
-      render json: { usage_infos: usage_dataset, usage_application: usage_application, allowed_factors: allowed_factors, authorizations: authorizations }
+      render json: { usage_infos: usage_dataset, usage_application: usage_application, authorizations: authorizations, modified: modified }
     end
 
     def dose_validations
-      id = params[:id]
-      product_id = params[:product_id]
-      quantity = params[:quantity]
-      dimension = params[:dimension]
-      targets_data = params[:targets_data]
+      intervention = Intervention.find_by_id params[:intervention_id]
+      input = InterventionInput.find_by_id params[:input_id]
+      inspector = ::Interventions::Phytosanitary::ParametersInspector.new
 
-      usage = RegisteredPhytosanitaryUsage.find(id)
-      product = Product.find(product_id)
+      modified = inspector.relevant_parameters_modified?(live_data: params[:live_data].to_boolean,
+                                                         intervention: intervention,
+                                                         targets_ids: params[:targets_data].map { |_k, v| v[:id].to_i },
+                                                         inputs_data: [{ input: input, product_id: params[:product_id].to_i, usage_id: params[:id] }])
 
+      usage = fetch_usage(modified, input)
+      product = Product.find(params[:product_id])
       service = RegisteredPhytosanitaryUsageDoseComputation.new
-
-      dose_validation = service.validate_dose(usage, product, quantity.to_f, dimension, targets_data)
+      dose_validation = service.validate_dose(usage, product, params[:quantity].to_f, params[:dimension], params[:targets_data])
       authorizations = compute_authorization(dose_validation, :dose_validation)
 
-      render(json: { dose_validation: dose_validation, authorizations: authorizations })
+      render json: { dose_validation: dose_validation, authorizations: authorizations, modified: modified }
     end
 
     private
 
-      def compute_allowed_factors(usage)
-        { "allowed-entry" => usage.product.in_field_reentry_delay, "allowed-harvest" => usage.pre_harvest_delay }
+      def fetch_usage(modified, input)
+        if !modified && input.reference_data['usage'].present?
+          InterventionParameter::LoggedPhytosanitaryUsage.new(input.reference_data['usage'])
+        else
+          RegisteredPhytosanitaryUsage.find(params[:id])
+        end
       end
 
       def compute_dataset(usage)
@@ -69,7 +81,7 @@ module Backend
           applications_count: usage.applications_count,
           untreated_buffer_arthropod: usage.untreated_buffer_arthropod ? "#{usage.untreated_buffer_arthropod} m" : nil,
           pre_harvest_delay: usage.pre_harvest_delay ? "#{usage.pre_harvest_delay.in_full(:day)} j" : nil,
-          development_stage: usage.decorate.development_stage_min,
+          development_stage: usage.decorated_development_stage_min,
           untreated_buffer_plants: usage.untreated_buffer_plants ? "#{usage.untreated_buffer_plants} m" : nil,
           usage_conditions: usage.usage_conditions ? usage.usage_conditions.gsub('//', '<br/>').html_safe : nil
         }
@@ -78,7 +90,7 @@ module Backend
       def compute_usage_application(usage, targets_data, intervention_id)
         return { none: ''} unless targets_data
 
-        maaid = usage.product.france_maaid
+        maaid = usage.france_maaid
 
         applications_on_targets = targets_data.values.map do |target_info|
           interventions = Product.find(target_info[:id]).activity_production.interventions.of_nature_using_phytosanitary.with_input_of_maaids(maaid)

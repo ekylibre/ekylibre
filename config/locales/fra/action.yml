@@ -1274,6 +1274,8 @@ fra:
     bank_reconciliation: "Rapprochement bancaire" #?
     bank_statement_number: "N° du relevé de compte bancaire"
     bank_statements: "Relevés de compte bancaire"
+    based_on_current_regulation: "Les vérifications sont effectuées sur la base de la réglementation en vigueur"
+    based_on_regulation_at_date: "Les vérifications sont effectuées sur la base de la réglementation en vigueur au %{date}"
     bban: "Relevé d’identité bancaire (RIB)"
     bee_usage: "Mention abeille"
     before_taxe_result: "Résultat courant avant impôts"

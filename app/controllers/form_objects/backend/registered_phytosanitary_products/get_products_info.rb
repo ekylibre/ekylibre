@@ -6,15 +6,15 @@ module FormObjects
           # @return [GetProductsInfo]
           def from_params(params)
             new(params.permit(
+              :intervention_id,
               :intervention_stopped_at,
               targets_data: %i[id shape],
-              products_data: %i[product_id usage_id quantity dimension]
-            )
-          )
+              products_data: %i[product_id usage_id quantity dimension input_id live_data]
+            ))
           end
         end
 
-        attr_accessor :targets_data, :products_data, :intervention_stopped_at
+        attr_accessor :targets_data, :products_data, :intervention_stopped_at, :intervention_id
 
         # @return [DateTime, nil]
         def intervention_stopped_at
@@ -33,6 +33,21 @@ module FormObjects
           @products_data&.values || {}
         end
 
+        def intervention
+          Intervention.find_by_id(@intervention_id)
+        end
+
+        def live_data?
+          products_data.any? { |pu| pu[:live_data].to_boolean }
+        end
+
+        def modified?
+          inputs_data = products_data.map { |pu| { input: InterventionInput.find_by_id(pu[:input_id]), product_id: pu[:product_id].to_i, usage_id: pu[:usage_id] } }
+          inspector = ::Interventions::Phytosanitary::ParametersInspector.new
+
+          inspector.relevant_parameters_modified?(live_data: live_data?, intervention: intervention, targets_ids: targets_ids, inputs_data: inputs_data)
+        end
+
         def targets_and_shape
           @targets_and_shape ||= targets_data.flat_map do |data|
             target = [Plant, LandParcel].map { |model| model.find_by(id: data[:id]) }.compact.first
@@ -47,7 +62,7 @@ module FormObjects
         end
 
         def targets_ids
-          @targets_ids || []
+          @targets_ids ||= targets_data.map { |data| data[:id].to_i }
         end
 
         def products_and_usages_ids
@@ -59,15 +74,37 @@ module FormObjects
         end
 
         def products_and_usages
+          modified = modified?
+
           @products_and_usages ||= products_data.map do |pu|
             product = Product.find_by(id: pu[:product_id])
-            usage = RegisteredPhytosanitaryUsage.find_by(id: pu[:usage_id])
+            input = InterventionInput.find_by(id: pu[:input_id])
+            phyto = fetch_phyto(modified, input, product)
+            usage = fetch_usage(modified, input, pu[:usage_id])
             quantity = pu[:quantity].to_f
             dimension = pu[:dimension]
 
-            ::Interventions::Phytosanitary::Models::ProductWithUsage.new(product, usage, quantity, dimension)
+            ::Interventions::Phytosanitary::Models::ProductWithUsage.new(product, phyto, usage, quantity, dimension)
           end.reject { |pu| pu.product.nil? }
         end
+
+        private
+
+          def fetch_usage(modified, input, usage_id)
+            if !modified && input.reference_data['usage'].present?
+              InterventionParameter::LoggedPhytosanitaryUsage.new(input.reference_data['usage'])
+            else
+              RegisteredPhytosanitaryUsage.find_by_id(usage_id)
+            end
+          end
+
+          def fetch_phyto(modified, input, product)
+            if !modified && input.reference_data['product'].present?
+              InterventionParameter::LoggedPhytosanitaryProduct.new(input.reference_data['product'])
+            else
+              product.phytosanitary_product
+            end
+          end
       end
     end
   end
