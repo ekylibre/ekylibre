@@ -25,37 +25,39 @@ module Backend
     end
 
     def get_usage_infos
+      targets_data = params.fetch(:targets_data, {})
       intervention = Intervention.find_by_id params[:intervention_id]
       input = InterventionInput.find_by_id params[:input_id]
       inspector = ::Interventions::Phytosanitary::ParametersInspector.new
 
       modified = inspector.relevant_parameters_modified?(live_data: params[:live_data].to_boolean,
                                                          intervention: intervention,
-                                                         targets_ids: params[:targets_data].map { |_k, v| v[:id].to_i },
+                                                         targets_ids: targets_data.map { |_k, v| v[:id].to_i },
                                                          inputs_data: [{ input: input, product_id: params[:product_id].to_i, usage_id: params[:id] }])
 
       usage = fetch_usage(modified, input)
       usage_dataset = compute_dataset(usage)
-      usage_application = compute_usage_application(usage, params[:targets_data], params[:intervention_id])
+      usage_application = compute_usage_application(usage, targets_data, params[:intervention_id])
       authorizations = compute_authorization(usage_application, :usage_application)
 
       render json: { usage_infos: usage_dataset, usage_application: usage_application, authorizations: authorizations, modified: modified }
     end
 
     def dose_validations
+      targets_data = params.fetch(:targets_data, {})
       intervention = Intervention.find_by_id params[:intervention_id]
       input = InterventionInput.find_by_id params[:input_id]
       inspector = ::Interventions::Phytosanitary::ParametersInspector.new
 
       modified = inspector.relevant_parameters_modified?(live_data: params[:live_data].to_boolean,
                                                          intervention: intervention,
-                                                         targets_ids: params[:targets_data].map { |_k, v| v[:id].to_i },
+                                                         targets_ids: targets_data.map { |_k, v| v[:id].to_i },
                                                          inputs_data: [{ input: input, product_id: params[:product_id].to_i, usage_id: params[:id] }])
 
       usage = fetch_usage(modified, input)
       product = Product.find(params[:product_id])
       service = RegisteredPhytosanitaryUsageDoseComputation.new
-      dose_validation = service.validate_dose(usage, product, params[:quantity].to_f, params[:dimension], params[:targets_data])
+      dose_validation = service.validate_dose(usage, product, params[:quantity].to_f, params[:dimension], targets_data)
       authorizations = compute_authorization(dose_validation, :dose_validation)
 
       render json: { dose_validation: dose_validation, authorizations: authorizations, modified: modified }

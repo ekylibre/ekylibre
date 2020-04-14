@@ -31,7 +31,7 @@
       $productField.find('.input-authorization__text').hide()
 
     _retrieveValues: () ->
-      targetsData = Array.from(document.querySelectorAll('.nested-cultivation')).map (element) =>
+      targetsData = Array.from(document.querySelectorAll('.nested-land_parcel, .nested-cultivation')).map (element) =>
         id: $(element).find("[data-selector-id='intervention_target_product_id']").next('.selector-value').val()
         shape: $(element).find('[data-map-editor]').val()
 
