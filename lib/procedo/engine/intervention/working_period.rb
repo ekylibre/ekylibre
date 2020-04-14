@@ -29,7 +29,7 @@ module Procedo
         end
 
         def to_hash
-          { started_at: @started_at.strftime('%Y-%m-%d %H:%M'), stopped_at: @stopped_at.strftime('%Y-%m-%d %H:%M') }
+          { started_at: @started_at.strftime('%Y-%m-%d %H:%M %z'), stopped_at: @stopped_at.strftime('%Y-%m-%d %H:%M %z') }
         end
         alias to_attributes to_hash
 
