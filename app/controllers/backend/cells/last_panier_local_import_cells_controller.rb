@@ -9,7 +9,7 @@ module Backend
                               .reorder(:imported_at)
                               .last
         @ale_imported_count = last_sale_import
-                                .fmap { |import| Sale.where('providers ->> ? = ?', 'import_id', import.id.to_s) }
+                                .fmap { |import| Sale.of_provider(:panier_local, :sales, import.id) }
                                 .count
                                 .or_else(0)
 
@@ -18,7 +18,7 @@ module Backend
                                           .reorder(:imported_at)
                                           .last
         @incoming_payment_imported_count = last_incoming_payment_import
-                                             .fmap { |import| IncomingPayment.where('providers ->> ? = ?', 'import_id', import.id.to_s) }
+                                             .fmap { |import| IncomingPayment.of_provider(:panier_local, :incoming_payments, import.id)}
                                              .count
                                              .or_else(0)
 

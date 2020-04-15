@@ -5,7 +5,7 @@ module Providable
     scope :of_vendor_provider, -> (vendor) { where("(provider ->> 'vendor') = ?", vendor) }
     scope :of_provider_name, -> (vendor, name) { of_vendor_provider(vendor).where("(provider ->> 'name') = ?", name)}
 
-    scope :of_provider, -> (vendor, name, id) { of_provider_name(vendor, name).where("(provider ->> 'id') = ?", id)}
+    scope :of_provider, -> (vendor, name, id) { of_provider_name(vendor, name).where("(provider ->> 'id') = ?", id.to_s)}
 
     scope :of_provider_data, ->(key, value) {  where("provider -> 'data' ->> ? = ?", key, value)}
 
