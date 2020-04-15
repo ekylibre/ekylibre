@@ -33,7 +33,7 @@ module Interventions
       def guess_vote(product_usage)
         usage = product_usage.usage
         product = product_usage.product
-        phyto = product.phytosanitary_product
+        phyto = product_usage.phyto
 
         if usage.nil? || product.france_maaid.blank? || phyto.nil?
           :unknown
@@ -48,7 +48,7 @@ module Interventions
       # @return [Array<Intervention>]
       def get_interventions_with_same_phyto(product)
         current_campaign = Campaign.on(intervention_stopped_at)
-        Intervention.of_campaigns(*[current_campaign, current_campaign.previous, current_campaign.following].compact)
+        Intervention.of_campaigns(*[current_campaign, current_campaign.preceding, current_campaign.following].compact)
                     .of_nature_using_phytosanitary
                     .with_input_of_maaids(product.france_maaid)
       end

@@ -2180,6 +2180,7 @@ eng:
     new_shipment: "New shipment"
     new_writing: "New writing"
     next: "Next"
+    next_application_possible_on: "Next application possible on"
     nitrogen_concentration: "Nitrogen concentration" #?
     no_attachments: "Drop your files here or click on the button"
     no_crumbs_to_check: "No crumbs to check"

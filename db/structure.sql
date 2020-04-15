@@ -1403,14 +1403,15 @@ ALTER SEQUENCE public.campaigns_id_seq OWNED BY public.campaigns.id;
 --
 
 CREATE VIEW public.campaigns_interventions AS
- SELECT DISTINCT campaigns.id AS campaign_id,
-    interventions.id AS intervention_id
-   FROM ((((public.interventions
-     JOIN public.intervention_parameters ON ((intervention_parameters.intervention_id = interventions.id)))
-     JOIN public.products ON ((products.id = intervention_parameters.product_id)))
-     JOIN public.activity_productions ON ((products.activity_production_id = activity_productions.id)))
-     JOIN public.campaigns ON ((activity_productions.campaign_id = campaigns.id)))
-  ORDER BY campaigns.id;
+ SELECT DISTINCT c.id AS campaign_id,
+    i.id AS intervention_id
+   FROM (((((public.interventions i
+     JOIN public.intervention_parameters ip ON ((ip.intervention_id = i.id)))
+     JOIN public.products p ON ((p.id = ip.product_id)))
+     JOIN public.activity_productions ap ON ((ap.id = p.activity_production_id)))
+     JOIN public.activities a ON ((a.id = ap.activity_id)))
+     JOIN public.campaigns c ON (((c.id = ap.campaign_id) OR (((a.production_cycle)::text = 'perennial'::text) AND (i.started_at >= ap.started_on) AND (date_part('year'::text, i.started_at) = (c.harvest_year)::double precision)))))
+  ORDER BY c.id;
 
 
 --
@@ -19246,4 +19247,6 @@ INSERT INTO schema_migrations (version) VALUES ('20200317155452');
 INSERT INTO schema_migrations (version) VALUES ('20200317163950');
 
 INSERT INTO schema_migrations (version) VALUES ('20200330133607');
+
+INSERT INTO schema_migrations (version) VALUES ('20200415163115');
 
