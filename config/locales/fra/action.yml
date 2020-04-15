@@ -2256,6 +2256,7 @@ fra:
     new_value: "Nouvelle valeur" #?
     new_writing: "Nouvel écrit"
     next: "Suivant"
+    next_application_possible_on: "Prochaine application possible à partir du"
     nitrogen_concentration: "Teneur en azote (N)"
     nitrogen_concentration_per_hectare: "Teneur en azote par hectare" #?
     no_attachments: "Déposez vos fichiers ici ou cliquez sur le bouton d’ajout"
