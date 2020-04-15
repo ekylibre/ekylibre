@@ -76,7 +76,7 @@
 class User < Ekylibre::Record::Base
   # No point accepted in preference name
   PREFERENCE_SHOW_MAP_INTERVENTION_FORM = 'show_map_on_intervention_form'.freeze
-  PREFERENCE_SHOW_EXPORT_PREVIEW        = 'show_export_preview'.freeze
+  PREFERENCE_SHOW_EXPORT_PREVIEW = 'show_export_preview'.freeze
   PREFERENCE_SHOW_COMPARE_REALISED_PLANNED = 'compare_planned_and_realised'.freeze
   PREFERENCES = {
     PREFERENCE_SHOW_MAP_INTERVENTION_FORM => :boolean,
@@ -305,14 +305,20 @@ class User < Ekylibre::Record::Base
     update_column(:locked, false)
   end
 
+  # @return [Campaign, nil] Can be nil if no Campaign are present in the database
   def current_campaign
-    return nil unless default_campaign = Campaign.order(harvest_year: :desc).first
-    preference = self.preference('current_campaign.id', default_campaign.id, :integer)
-    unless campaign = Campaign.find_by(id: preference.value)
-      campaign = default_campaign
-      prefer!('current_campaign.id', campaign.id)
+    last_campaign = Campaign.order(harvest_year: :desc).first
+
+    if last_campaign.nil?
+      nil # No campaign in database
+    elsif (campaign = preferred_campaign).present?
+      campaign
+    else
+      # Set preference if not already set
+      self.current_campaign = last_campaign
+
+      last_campaign
     end
-    campaign
   end
 
   def current_campaign=(campaign)
@@ -320,7 +326,7 @@ class User < Ekylibre::Record::Base
   end
 
   def current_financial_year
-    default_financial_year   = FinancialYear.on(Date.current)
+    default_financial_year = FinancialYear.on(Date.current)
     default_financial_year ||= FinancialYear.closest(Date.current)
     return nil unless default_financial_year
     preference = self.preference('current_financial_year', default_financial_year, :record)
@@ -383,25 +389,33 @@ class User < Ekylibre::Record::Base
 
   private
 
-  def administrator_or_unapproved?
-    administrator? || !approved?
-  end
+    # Get the campaign from the user's preferences, if valid
+    # @return [Campaign, nil]
+    def preferred_campaign
+      preference = self.preference('current_campaign.id', nil, :integer)
 
-  def self.generate_password(password_length = 8, mode = :normal)
-    return '' if password_length.blank? || password_length < 1
-    letters = case mode
-              when :dummy then
-                %w[a b c d e f g h j k m n o p q r s t u w x y 3 4 6 7 8 9]
-              when :simple then
-                %w[a b c d e f g h j k m n o p q r s t u w x y A B C D E F G H J K M N P Q R T U W Y X 3 4 6 7 8 9]
-              when :normal then
-                %w[a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W Y X Z 0 1 2 3 4 5 6 7 8 9]
-              else
-                %w(a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W Y X Z 0 1 2 3 4 5 6 7 8 9 _ = + - * | [ ] { } . : ; ! ? , § % / & < >)
-              end
-    letters_length = letters.length
-    password = ''
-    password_length.times { password += letters[(letters_length * rand).to_i] }
-    password
-  end
+      Campaign.find_by(id: preference.value)
+    end
+
+    def administrator_or_unapproved?
+      administrator? || !approved?
+    end
+
+    def self.generate_password(password_length = 8, mode = :normal)
+      return '' if password_length.blank? || password_length < 1
+      letters = case mode
+                when :dummy then
+                  %w[a b c d e f g h j k m n o p q r s t u w x y 3 4 6 7 8 9]
+                when :simple then
+                  %w[a b c d e f g h j k m n o p q r s t u w x y A B C D E F G H J K M N P Q R T U W Y X 3 4 6 7 8 9]
+                when :normal then
+                  %w[a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W Y X Z 0 1 2 3 4 5 6 7 8 9]
+                else
+                  %w(a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W Y X Z 0 1 2 3 4 5 6 7 8 9 _ = + - * | [ ] { } . : ; ! ? , § % / & < >)
+                end
+      letters_length = letters.length
+      password = ''
+      password_length.times { password += letters[(letters_length * rand).to_i] }
+      password
+    end
 end

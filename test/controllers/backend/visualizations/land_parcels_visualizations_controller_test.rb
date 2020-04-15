@@ -15,7 +15,7 @@ module Backend
       end
 
       test 'async loading land parcels visualization' do
-        land_parcels = LandParcel.all
+        land_parcels = LandParcel.supports_of_campaign(@user.current_campaign).all
         expected_land_parcels_count = land_parcels.count
 
         get :show, xhr: true, format: :json
