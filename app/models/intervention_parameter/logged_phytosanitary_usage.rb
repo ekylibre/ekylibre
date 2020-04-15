@@ -4,7 +4,8 @@ class InterventionParameter
     include Ekylibre::Model
 
     ATTRIBUTES = %i[decision_date state dose_quantity dose_unit dose_unit_name dose_unit_factor untreated_buffer_aquatic applications_count usage_conditions
-                    untreated_buffer_arthropod pre_harvest_delay development_stage_min development_stage_max untreated_buffer_plants crop_label_fra].freeze
+                    untreated_buffer_arthropod pre_harvest_delay development_stage_min development_stage_max untreated_buffer_plants crop_label_fra
+                    applications_frequency].freeze
 
     attr_accessor *ATTRIBUTES, :in_field_reentry_delay, :france_maaid
 
@@ -33,6 +34,10 @@ class InterventionParameter
 
     def pre_harvest_delay
       @pre_harvest_delay.present? ? ActiveSupport::Duration.parse(@pre_harvest_delay) : nil
+    end
+
+    def applications_frequency
+      @applications_frequency.present? ? ActiveSupport::Duration.parse(@applications_frequency) : nil
     end
 
     def dose_quantity
