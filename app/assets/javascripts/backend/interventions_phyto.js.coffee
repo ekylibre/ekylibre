@@ -183,5 +183,7 @@
   $(document).on 'selector:clear', "[data-selector-id='intervention_input_usage_id']", ->
     $('.nested-plant_medicine').each -> usageMainInfos.displayAuthorizationDisclaimer($(this), true)
 
+  $(document).on 'change', ".nested-fields.working-period input[type='hidden']", ->
+    productsInfos.display()
 
 ) ekylibre, jQuery
