@@ -2031,6 +2031,7 @@ fra:
       mixed: "Écritures et lignes"
     journals: "Journaux"
     journals_closure: "Clôture des journaux"
+    journals_natures: "Types de journaux"
     label: "Libellé"
     label_value: "%{label}\_: %{value}"
     land_parcel_abbreviation: "P" #?

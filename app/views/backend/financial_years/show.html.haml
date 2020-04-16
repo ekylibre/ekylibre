@@ -61,10 +61,10 @@
   = render 'progress', value: @progress_status[:value], resource: resource, refresh: false, current_step: @progress_status[:step], steps_count: @progress_status[:total], step_label: @progress_status[:label]
 
 = cobbles do |c|
-  - c.cobble(resource.closed ? :balance : :last_computed_balance) do
+  -# c.cobble(resource.closed ? :balance : :last_computed_balance) do
     = cobble_list :account_balances
 
-  - c.cobble(:fixed_asset_depreciations) do
+  -# c.cobble(:fixed_asset_depreciations) do
     = cobble_list :fixed_asset_depreciations
 
   - c.cobble(:exchanges) do

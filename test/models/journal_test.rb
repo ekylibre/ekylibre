@@ -107,7 +107,7 @@ class JournalTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'balance is correctly computed' do
     clean_irrelevant_fixtures
 
-    financial_year_18 = create(:financial_year, started_on: '01/01/2018', stopped_on: '31/12/2018')
+    create(:financial_year, started_on: '01/01/2018', stopped_on: '31/12/2018')
     client = create(:entity, :client)
     sale = create(:sale, client: client)
     sale.invoice! Date.new(2018, 04, 30)
@@ -119,7 +119,8 @@ class JournalTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       # centralize option should be removed after the update of Journal.trial_balance method with the fact that there is no centralizing account anymore in DB
       centralize: '301 302 310 320 330 340 374 401 411 421 467 603'
     }
-    balance = Journal.trial_balance(params)
+    balance = Accountancy::TrialBalanceCalculator.build(connection: Ekylibre::Record::Base.connection)
+                                                 .trial_balance(params)
 
     assert_equal BigDecimal(balance[0][2]), sale.amount
     assert_equal BigDecimal(balance[2][3]), sale.pretax_amount
