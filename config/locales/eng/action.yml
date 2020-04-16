@@ -2021,6 +2021,7 @@ eng:
       mixed: "Entries and items"
     journals: "Journals"
     journals_closure: "Closing journals" #?
+    journals_natures: "Natures journals"
     label: "Label" #?
     label_value: "%{label}: %{value}"
     # land_parcel_name: "Land parcel name"

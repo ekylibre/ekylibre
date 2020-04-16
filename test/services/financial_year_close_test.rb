@@ -47,8 +47,8 @@ class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase
 
     validate_fog
 
-    close = FinancialYearClose.new(@year, @year.stopped_on, @closer, result_journal: result)
-    assert close.execute
+    close = FinancialYearClose.new(@year, @year.stopped_on, @closer, result_journal: result, disable_document_generation: true)
+    assert close.execute, close.close_error
 
     assert_equal 5, JournalEntry.count
     assert_equal 0, accounts[7030].journal_entry_items.sum('debit - credit')
@@ -80,13 +80,16 @@ class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase
     validate_fog
 
     allocations = {}
-    close = FinancialYearClose.new(@year, @year.stopped_on, @closer,
-                                   result_journal: result,
-                                   closure_journal: closing,
-                                   forward_journal: forward,
-                                   allocations: allocations
-                                   )
-    assert close.execute
+    close = FinancialYearClose.new(
+      @year, @year.stopped_on, @closer,
+      result_journal: result,
+      closure_journal: closing,
+      forward_journal: forward,
+      allocations: allocations,
+      disable_document_generation: true
+    )
+
+    assert close.execute, close.close_error
 
     assert_equal 10, @year.journal_entries.count
 
@@ -127,15 +130,17 @@ class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase
     }
     next_years = generate_entry(test_accounts[4], -800, letter: letter, printed_on: @end + 2.days, destination_account: test_accounts[5])
     validate_fog
-    allocations = {}
 
-    close = FinancialYearClose.new(@year, @year.stopped_on, @closer,
-                                   result_journal: result,
-                                   closure_journal: closing,
-                                   forward_journal: forward,
-                                   allocations: { '101' => 800 }
-                                   )
-    assert close.execute
+    close = FinancialYearClose.new(
+      @year, @year.stopped_on, @closer,
+      result_journal: result,
+      closure_journal: closing,
+      forward_journal: forward,
+      allocations: { '101' => 800 },
+      disable_document_generation: true
+    )
+
+    assert close.execute, close.close_error
 
     assert_equal 6, @year.journal_entries.count
     assert_equal 5, @next_year.journal_entries.count
@@ -177,7 +182,11 @@ class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase
 
     validate_fog
 
-    close = FinancialYearClose.new(@year, @year.stopped_on, @closer, result_journal: result)
+    close = FinancialYearClose.new(
+      @year, @year.stopped_on, @closer,
+      result_journal: result,
+      disable_document_generation: true
+    )
 
     assert_not close.execute
   end
@@ -225,13 +234,16 @@ class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase
 
     assert_equal 1700, allocations.values.reduce(&:+)
 
-    close = FinancialYearClose.new(@year, @year.stopped_on, User.first,
-                                  allocations: allocations,
-                                  result_journal: result,
-                                  closure_journal: closing,
-                                  forward_journal: forward)
+    close = FinancialYearClose.new(
+      @year, @year.stopped_on, User.first,
+      allocations: allocations,
+      result_journal: result,
+      closure_journal: closing,
+      forward_journal: forward,
+      disable_document_generation: true
+    )
 
-    assert close.execute
+    assert close.execute, close.close_error
     assert_equal 7, @year.journal_entries.count
     assert_equal 150, test_accounts[1061].totals[:balance].to_f
     assert_equal 150, test_accounts[1063].totals[:balance].to_f

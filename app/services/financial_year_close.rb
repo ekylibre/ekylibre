@@ -1,5 +1,16 @@
 # coding: utf-8
 class FinancialYearClose
+  class << self
+
+    # @param [FinancialYear] year
+    # @param [User] user
+    # @param [Date] close_on
+    # @return [FinancialYearClose]
+    def for_year(year, user:, close_on:, **options)
+      new(year, close_on, user, options)
+    end
+  end
+
   include PdfPrinter
 
   attr_reader :result_account, :carry_forward_account, :close_error
@@ -13,7 +24,7 @@ class FinancialYearClose
                     4 => 'journals_closure',
                     5 => 'generate_documents_post_closure' }
 
-  def initialize(year, to_close_on, closer, options = {})
+  def initialize(year, to_close_on, closer, disable_document_generation: false, **options)
     @year = year
     @started_on = @year.started_on
     @closer = closer
@@ -21,6 +32,7 @@ class FinancialYearClose
     @progress = Progress.new(:close_main, id: @year.id, max: 6)
     @errors = []
     @currency = @year.currency
+    @disable_document_generation = disable_document_generation
     @options = options
   end
 
@@ -526,6 +538,11 @@ class FinancialYearClose
   def generate_documents(timing)
     progress = Progress.new("generate_documents_#{timing}", id: @year.id, max: 6)
 
+    if @disable_document_generation
+      Rails.logger.info("Skipping document generation as they are disabled")
+      return
+    end
+
     generate_balance_documents(timing, { accounts: "", centralize: "401 411" })
     progress.increment!
 
@@ -549,7 +566,7 @@ class FinancialYearClose
 
   def generate_balance_documents(timing, params)
     template = DocumentTemplate.find_by_nature(:trial_balance)
-    full_params = params.merge(states: { confirmed: '1' },
+    full_params = params.merge(states: %i[confirmed],
                                started_on: @year.started_on.to_s,
                                stopped_on: @year.stopped_on.to_s,
                                period: "#{@year.started_on}_#{@year.stopped_on}",
@@ -567,7 +584,7 @@ class FinancialYearClose
 
   def generate_general_ledger_documents(timing, params)
     template = DocumentTemplate.find_by_nature(:general_ledger)
-    printer = Printers::GeneralLedgerPrinter.new(params.merge(template: template))
+    printer = Printers::GeneralLedgerPrinter.new(**params.merge(template: template))
     pdf_data = printer.run_pdf
     document = printer.archive_report_template(pdf_data, nature: template.nature, key: printer.key, template: template, document_name: printer.document_name)
 
@@ -576,7 +593,7 @@ class FinancialYearClose
 
   def generate_journals_documents(timing, params)
     template = DocumentTemplate.find_by_nature(:journal_ledger)
-    full_params = params.merge(states: { confirmed: '1' },
+    full_params = params.merge(states: %i[confirmed],
                                started_on: @year.started_on.to_s,
                                stopped_on: @year.stopped_on.to_s,
                                period: "#{@year.started_on}_#{@year.stopped_on}",

@@ -3,18 +3,23 @@ module Printers
 
     class << self
       # TODO move this elsewhere when refactoring the Document Management System
-      def build_key(started_on:, stopped_on:, states:, balance:, accounts:, centralize:)
+      def build_key(started_on:, stopped_on:, states: nil, natures: nil, balance:, accounts:, centralize:)
+        states = deprecated_filter(states, :states)
+        natures = deprecated_filter(natures, :natures)
+
         filters = [started_on, stopped_on, balance]
-        filters << states.select { |k, v| v == '1' }.keys.sort.join('-') if states
+        filters << states.sort.join('-') if states
+        filters << natures.sort.join('-') if natures
         filters << accounts.gsub(' ', '-') if accounts
         filters << centralize.gsub(' ', '-') if centralize
         filters.reject(&:blank?).join(' - ')
       end
     end
 
-    def initialize(*_args, states:, balance:, accounts:, centralize:, period:, started_on:, stopped_on:, previous_year:, template:, **_options)
+    def initialize(*_args, states: nil, natures: nil, balance:, accounts:, centralize:, period:, started_on:, stopped_on:, previous_year:, template:, **_options)
       super(template: template)
       @states = states
+      @natures = natures
       @balance = balance
       @accounts = accounts
       @centralize = centralize
@@ -28,6 +33,7 @@ module Printers
       self.class.build_key(started_on: @started_on,
                            stopped_on: @stopped_on,
                            states: @states,
+                           natures: @natures,
                            balance: @balance,
                            accounts: @accounts,
                            centralize: @centralize)
@@ -46,6 +52,7 @@ module Printers
 
     def compute_dataset
       Journal.trial_balance_dataset(states: @states,
+                                    natures: @natures,
                                     balance: @balance,
                                     accounts: @accounts,
                                     centralize: @centralize,
@@ -83,7 +90,6 @@ module Printers
         end
 
         e = Entity.of_company
-        company_name = e.full_name
         company_address = e.default_mail_address&.coordinate
         balances = dataset[:balance].map.with_index { |_item, index| [dataset[:balance][index], dataset[:prev_balance][index] || []] }
 
