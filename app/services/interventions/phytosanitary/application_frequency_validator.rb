@@ -1,13 +1,15 @@
 module Interventions
   module Phytosanitary
-    class ApplicationFrequencyValidator
-      attr_reader :targets_and_shape, :intervention_stopped_at
+    class ApplicationFrequencyValidator < ProductApplicationValidator
+      attr_reader :targets_and_shape, :intervention_stopped_at, :ignored_intervention
 
       # @param [Array<Models::TargetAndShape>] targets_and_shape
       # @option [DateTime, nil] intervention_stopped_at
-      def initialize(targets_and_shape:, intervention_stopped_at: nil)
+      # @option [Intervention, nil] ignored_intervention
+      def initialize(targets_and_shape:, ignored_intervention: nil, intervention_stopped_at: nil)
         @targets_and_shape = targets_and_shape
         @intervention_stopped_at = intervention_stopped_at
+        @ignored_intervention = ignored_intervention
       end
 
       # @param [Array<Models::ProductWithUsage>] products_usages
@@ -78,6 +80,7 @@ module Interventions
       # @return [Array<Models::Period>]
       def forbidden_periods(product_usage)
         interventions_with_same_phyto = get_interventions_with_same_phyto(product_usage.product)
+        interventions_with_same_phyto = interventions_with_same_phyto.where.not(id: ignored_intervention.id) if ignored_intervention != nil
         intervention_same_phyto_and_zone = select_with_shape_intersecting(interventions_with_same_phyto, get_targeted_zones)
 
         intervention_same_phyto_and_zone.map do |int|

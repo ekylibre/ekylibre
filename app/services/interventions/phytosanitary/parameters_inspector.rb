@@ -4,7 +4,7 @@ module Interventions
 
       # @param [Boolean] live_data
       # @param [Intervention] intervention
-      # @param [Array<Integer>] target_ids
+      # @param [Array<Integer>] targets_ids
       # @param [Array<Hash{Symbol => InterventionInput, Integer, String}>] inputs_data
       # @return [Boolean]
       def relevant_parameters_modified?(live_data:, intervention:, targets_ids:, inputs_data:)
