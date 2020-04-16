@@ -69,6 +69,7 @@ module FormObjects
           @products_and_usages_ids || []
         end
 
+        # @return [Array<Plant, LandParcel>]
         def targets
           targets_and_shape.map(&:target)
         end
