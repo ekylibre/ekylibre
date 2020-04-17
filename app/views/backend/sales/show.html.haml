@@ -21,6 +21,7 @@
   = attributes_list do |l|
     - l.attribute :client, :label => :label, url: true
     - l.attribute :number
+    - l.attribute :reference_number
     - l.attribute :initial_number if resource.invoice?
     - l.attribute :state_label
     - l.attribute :responsible, :label => :full_name

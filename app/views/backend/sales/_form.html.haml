@@ -7,6 +7,7 @@
   .delivery-item
     = f.referenced_association :client, source: :clients, new: { client: 1 }, input_html: {data: {product_of_delivery_item: {url: backend_entity_path("RECORD_ID", format: :json)}}}
     = f.input :client_reference
+    = f.input :reference_number
     = f.subset :addresses, depend_on: :client
   -# = f.input :expired_at
   = f.input :invoiced_at, wrapper_html: { class: 'apply-fy-date' }

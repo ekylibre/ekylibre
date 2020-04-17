@@ -10,6 +10,7 @@
 = main_informations attachment: true do
   = attributes_list do |l|
     - l.attribute :number
+    - l.attribute :reference_number
     - l.attribute :printed_on
     - l.attribute :created_at
     - if resource.resource
@@ -33,4 +34,3 @@
 
   - c.cobble :items, title: JournalEntry.human_attribute_name(:items) do
     = cobble_list(:items)
-
