@@ -38,15 +38,16 @@ module Backend
 
     def create
       @import = resource_model.new(permitted_params)
-      if save_and_redirect(@import,
-                                  url: (params[:create_and_continue] ? {:action=>:new, :continue=>true} : (params[:redirect] || ({ action: :show, id: 'id'.c }))),
-                                  identifier: :id
+      if save_and_redirect(
+        @import,
+        url: (params[:create_and_continue] ? { :action => :new, :continue => true } : (params[:redirect] || ({ action: :show, id: 'id'.c }))),
+        identifier: :id
       )
         notify(:import_creation_successful_suggest_execute)
         return
       end
 
-      render(locals: { cancel_url: {:action=>:index}, with_continue: false })
+      render(locals: { cancel_url: { :action => :index }, with_continue: false })
     end
 
     def run

@@ -1,4 +1,8 @@
 fra:
+  exchanger: 
+    panier_local:
+      sales:
+        sale_nature_name: "Vente en ligne - Panier Local"
   exchangers:
     agro_systemes_soil_analyses: "Analyses de sol ‒ AGRO Systèmes"
     agro_systemes_water_analyses: "Analyses d’eau ‒ AGRO Systèmes"

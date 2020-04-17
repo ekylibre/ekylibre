@@ -16,11 +16,9 @@ module Interventions
           .any?(&:organic_farming?)
       end
 
-      # @param [Product] product
+      # @param [RegisteredPhytosanitaryProduct, InterventionParameter::LoggedPhytosanitaryProduct] phyto
       # @return [Boolean]
-      def allowed_for_organic_farming?(product)
-        phyto = product.variant.phytosanitary_product
-
+      def allowed_for_organic_farming?(phyto)
         phyto.present? && phyto.allowed_for_organic_farming?
       end
 
@@ -33,7 +31,7 @@ module Interventions
           products_usages.each { |pu| result.vote_unknown(pu.product) }
         elsif organic?
           products_usages
-            .reject { |pu| allowed_for_organic_farming?(pu.product) }
+            .reject { |pu| allowed_for_organic_farming?(pu.phyto) }
             .each { |pu| result.vote_forbidden(pu.product, :not_allowed_for_organic_farming.tl) }
         end
 

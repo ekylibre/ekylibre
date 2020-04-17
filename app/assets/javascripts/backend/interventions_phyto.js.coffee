@@ -3,7 +3,7 @@
     display: () ->
       that = this
       $('.nested-plant_medicine').each -> that._clear($(this))
-      values = that._retrieveValues()
+      values = @._retrieveValues()
 
       $.getJSON "/backend/registered_phytosanitary_products/get_products_infos", values, (data) =>
         for id, infos of data
@@ -31,7 +31,7 @@
       $productField.find('.input-authorization__text').hide()
 
     _retrieveValues: () ->
-      targetsData = Array.from(document.querySelectorAll('.nested-cultivation')).map (element) =>
+      targetsData = Array.from(document.querySelectorAll('.nested-land_parcel, .nested-cultivation')).map (element) =>
         id: $(element).find("[data-selector-id='intervention_target_product_id']").next('.selector-value').val()
         shape: $(element).find('[data-map-editor]').val()
 
@@ -40,8 +40,21 @@
         usage_id: element.querySelector('.intervention_inputs_usage input.selector-value').value
         quantity: element.querySelector('.intervention_inputs_quantity input').value
         dimension: element.querySelector('.intervention_inputs_quantity select').value
+        input_id: element.querySelector('#intervention_parameter_id').value
+        live_data: element.querySelector('.intervention_inputs_using_live_data input').value
 
-      { products_data: productsData, targets_data: targetsData }
+      interventionId = $('input#intervention_id').val()
+
+      firstWorkingPeriodElement = document.querySelector(".intervention_working_periods_period")
+      workingPeriodEndElement = firstWorkingPeriodElement.querySelectorAll('.flatpickr-wrapper input[type="hidden"]')[1]
+
+      {
+        products_data: _.reject(productsData, (data) -> data.product_id == '' ),
+        targets_data: _.reject(targetsData, (data) -> data.id == '' ),
+        intervention_id: interventionId,
+        intervention_stopped_at: moment(workingPeriodEndElement.value).format()
+      }
+
 
   usageMainInfos =
     display: ($input, $productField) ->
@@ -49,12 +62,18 @@
       $productField.find("input[data-intervention-field='quantity-value']").trigger('input')
       usageId = $input.next('.selector-value').val()
       return unless usageId
-      values = @._retrieveValues()
+      values = @._retrieveValues($productField)
 
       $.getJSON "/backend/registered_phytosanitary_usages/#{usageId}/get_usage_infos", values, (data) =>
         @._displayInfos($productField, data.usage_infos)
         @._displayApplication($input, data.usage_application)
-        @._displayAllowedFactors($productField, data.allowed_factors)
+        @.displayAuthorizationDisclaimer($productField, data.modified)
+
+    displayAuthorizationDisclaimer: ($productField, modified) ->
+      if modified
+        $('.authorization-disclaimer--past').hide()
+        $('.authorization-disclaimer--present').show()
+        $productField.find('.intervention_inputs_using_live_data input').val(true)
 
     _displayInfos: ($productField, infos) ->
       for key, value of infos
@@ -71,18 +90,17 @@
         $input.closest('.controls').find('.lights').addClass("lights-#{key}")
         $input.closest('.controls').find('.lights-message').addClass(addedClass).text("#{value}")
 
-    _displayAllowedFactors: ($productField, allowedFactors) ->
-      for key, value of allowedFactors
-        $productField.find(".#{key}").val(value)
-
     _clear: ($productField) ->
       $productField.find('.lights').removeClass('lights-go lights-caution lights-stop')
       $productField.find('.lights-message').removeClass('warning').text('')
       $productField.find('#product-authorization-message').text('')
       $productField.find('.usage-infos-container').hide()
 
-    _retrieveValues: () ->
+    _retrieveValues: ($productField) ->
       interventionId = $('input#intervention_id').val()
+      inputId = $productField.find('#intervention_parameter_id').val()
+      productId = $productField.find("[data-selector-id='intervention_input_product_id']").first().selector('value')
+      liveData = $productField.find('.intervention_inputs_using_live_data input').val()
       $plantInputs = $('.nested-cultivation').filter -> $(this).find("[data-selector-id='intervention_target_product_id']").first().selector('value')
       targetsData = $plantInputs.map ->
         {
@@ -90,7 +108,7 @@
           shape: $(this).find('[data-map-editor]').val()
         }
 
-      { targets_data: targetsData.toArray(), intervention_id: interventionId }
+      { product_id: productId, targets_data: targetsData.toArray(), intervention_id: interventionId, input_id: inputId, live_data: liveData }
 
 
   usageDoseInfos =
@@ -103,6 +121,7 @@
 
       $.getJSON "/backend/registered_phytosanitary_usages/#{usageId}/dose_validations", values, (data) =>
         @._displayDose($quantityInput, data)
+        usageMainInfos.displayAuthorizationDisclaimer($productField, data.modified)
 
     _displayDose: ($input, data) ->
       for key, value of data.dose_validation
@@ -115,13 +134,19 @@
       $input.closest('.controls').find('.lights-message').removeClass("warning")
 
     _retrieveValues: ($input, $productField) ->
+      interventionId = $('input#intervention_id').val()
+      inputId = $productField.find('#intervention_parameter_id').val()
       productId = $productField.find("[data-selector-id='intervention_input_product_id']").first().selector('value')
+      liveData = $productField.find('.intervention_inputs_using_live_data input').val()
       quantity = $input.val()
       dimension = $input.parent().find('select option:selected').val()
       targetsData = $('.nested-cultivation').map ->
-        shape: $(this).find('[data-map-editor]').val()
+        {
+          id: $(this).find("[data-selector-id='intervention_target_product_id']").first().selector('value'),
+          shape: $(this).find('[data-map-editor]').val()
+        }
 
-      { product_id: productId, quantity: quantity, dimension: dimension, targets_data: targetsData.toArray() }
+      { product_id: productId, quantity: quantity, dimension: dimension, targets_data: targetsData.toArray(), intervention_id: interventionId, input_id: inputId, live_data: liveData }
 
 
   # Update products infos on target remove
@@ -155,5 +180,10 @@
     productsInfos.display()
     usageDoseInfos.display($(this), $(this).closest('.nested-plant_medicine'))
 
+  $(document).on 'selector:clear', "[data-selector-id='intervention_input_usage_id']", ->
+    $('.nested-plant_medicine').each -> usageMainInfos.displayAuthorizationDisclaimer($(this), true)
+
+  $(document).on 'change', ".nested-fields.working-period input[type='hidden']", ->
+    productsInfos.display()
 
 ) ekylibre, jQuery

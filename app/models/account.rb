@@ -46,6 +46,7 @@
 
 class Account < Ekylibre::Record::Base
   include Customizable
+  include Providable
   CENTRALIZING_NATURES = %i[client supplier employee].freeze
 
   @@references = []

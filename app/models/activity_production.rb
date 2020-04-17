@@ -440,7 +440,7 @@ class ActivityProduction < Ekylibre::Record::Base
     # compute pfi parcel ratio from pfi treatment ratios
     pfi_parcel_ratio = 0.0
     if interventions.any?
-      i_ids = interventions.real.of_nature('spraying').pluck(:id)
+      i_ids = interventions.real.of_nature_using_phytosanitary.pluck(:id)
       inputs = InterventionInput.where(intervention_id: i_ids, reference_name: 'plant_medicine')
       pfi_parcel_ratio = inputs.map(&:pfi_treatment_ratio).compact.sum
     end

@@ -59,6 +59,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
   include Autocastable
   include Customizable
   include Importable
+  include Providable
 
   # Be careful with the fact that it depends directly on the nomenclature definition
   enumerize :pictogram, in: Nomen::ProductNatureCategory.pictogram.choices
