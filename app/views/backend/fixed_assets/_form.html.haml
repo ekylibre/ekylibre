@@ -36,7 +36,7 @@
     = f.input :depreciation_fiscal_coefficient
 
   = field_set(:accountancy) do
-    = f.referenced_association :journal
+    = f.referenced_association :journal, :source => :purchases_or_fixed_assets
     = f.referenced_association :asset_account, :source => :assets
     = f.referenced_association :special_imputation_asset_account, source: :capitalized_revenues
     = f.referenced_association :allocation_account, :source => :assets_depreciations
