@@ -72,7 +72,7 @@
       = cobble_toolbar do |t|
         = cobble_list(:fixed_assets)
 
-  - time_spent_by_activity(resource, cobbler: c)
+  - time_spent_by_activity(resource, cobbler: c, current_campaign: current_campaign)
 
   - c.cobble(:places) do
     = cobble_toolbar do |t|
@@ -93,4 +93,3 @@
             .component-col.component-count= ProductNatureVariantComponent.human_attribute_name(:replacements)
 
         = render 'components', equipment: resource, components: resource.variant.root_components, depth: 0
-

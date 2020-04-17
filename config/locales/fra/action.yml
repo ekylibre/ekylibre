@@ -1213,6 +1213,7 @@ fra:
     applications_count_bigger_than_max: "Nombre d'application(s) maximum dépassé"
     applications_count_equal_to_max: "Nombre d'application(s) maximum atteint après cette intervention"
     applications_count_less_than_max: "Nombre d'application(s) inférieur au maximum"
+    applications_interval_not_respected: "Intervalle entre application non respecté"
     apply: "Appliquer" #?
     archive_post_closure: "Archive après clôture"
     archive_prior_to_closure: "Archive avant clôture"
@@ -1273,6 +1274,8 @@ fra:
     bank_reconciliation: "Rapprochement bancaire" #?
     bank_statement_number: "N° du relevé de compte bancaire"
     bank_statements: "Relevés de compte bancaire"
+    based_on_current_regulation: "Les vérifications sont effectuées sur la base de la réglementation en vigueur"
+    based_on_regulation_at_date: "Les vérifications sont effectuées sur la base de la réglementation en vigueur au %{date}"
     bban: "Relevé d’identité bancaire (RIB)"
     bee_usage: "Mention abeille"
     before_taxe_result: "Résultat courant avant impôts"
@@ -2253,6 +2256,7 @@ fra:
     new_value: "Nouvelle valeur" #?
     new_writing: "Nouvel écrit"
     next: "Suivant"
+    next_application_possible_on: "Prochaine application possible à partir du"
     nitrogen_concentration: "Teneur en azote (N)"
     nitrogen_concentration_per_hectare: "Teneur en azote par hectare" #?
     no_attachments: "Déposez vos fichiers ici ou cliquez sur le bouton d’ajout"

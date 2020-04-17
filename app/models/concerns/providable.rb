@@ -2,10 +2,12 @@ module Providable
   extend ActiveSupport::Concern
 
   included do
-    scope :of_vendor_provider, -> (vendor) { where("(provider -> vendor) = ?", vendor) }
-    scope :of_provider_name, -> (vendor, name) { of_vendor_provider(vendor).where("(provider -> name) = ?", name)}
+    scope :of_vendor_provider, -> (vendor) { where("(provider ->> 'vendor') = ?", vendor) }
+    scope :of_provider_name, -> (vendor, name) { of_vendor_provider(vendor).where("(provider ->> 'name') = ?", name)}
 
-    scope :of_provider, -> (vendor, name, id) { of_provider_name(vendor, name).where("(provider -> id) = ?", id)}
+    scope :of_provider, -> (vendor, name, id) { of_provider_name(vendor, name).where("(provider ->> 'id') = ?", id.to_s)}
+
+    scope :of_provider_data, ->(key, value) {  where("provider -> 'data' ->> ? = ?", key, value)}
 
     prepend Prepended
   end
@@ -20,7 +22,7 @@ module Providable
     end
 
     def provider=(value)
-      super(value.slice(:vendor, :name, :id, :data))
+      super(value&.slice(:vendor, :name, :id, :data))
     end
 
     def provider

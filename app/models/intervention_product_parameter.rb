@@ -251,4 +251,8 @@ class InterventionProductParameter < InterventionParameter
       end
     end
   end
+
+  def relevant_usage
+    reference_data['usage'].present? ? InterventionParameter::LoggedPhytosanitaryUsage.new(reference_data['usage']) : usage
+  end
 end

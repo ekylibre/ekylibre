@@ -2,12 +2,15 @@ module Interventions
   module Phytosanitary
     module Models
       class ProductApplicationResult
+        # @var [Hash<Product => Array<Models::ProductApplicationVote>>] votes
         attr_reader :votes
 
         def initialize(votes = {})
           @votes = votes
         end
 
+        # @param [Product] product
+        # @return [Array<String>]
         def product_messages(product)
           @votes
             .fetch(product, [])
@@ -15,6 +18,8 @@ module Interventions
             .compact
         end
 
+        # @param [Product] product
+        # @return [Symbol]
         def product_vote(product)
           @votes
             .fetch(product, [])
@@ -22,7 +27,7 @@ module Interventions
         end
 
         # @param [Array<Result>] others
-        # @return [Result]
+        # @return [ProductApplicationResult]
         def merge_all(*others)
           others.reduce(self) { |acc, other| acc.merge(other) }
         end
@@ -49,7 +54,7 @@ module Interventions
         # @option [String] message
         def add_vote(product, status:, message: nil)
           vote = Models::ProductApplicationVote.new(status, message)
-
+ 
           if votes.key?(product)
             votes[product] << vote
           else

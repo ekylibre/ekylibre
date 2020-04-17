@@ -3,6 +3,7 @@
   - intervention = product_parameter.intervention
   - product = product_parameter.product
   - variant = product_parameter.variant
+  - usage = product_parameter.relevant_usage
   - if actor
     .picture
       - if actor.picture.file?
@@ -28,11 +29,11 @@
             %p
               %span.title= :quantity.tl
               %span.value= product_parameter.input_quantity_per_area.l(precision: 2)
-            - unless product_parameter.usage.nil?
+            - unless usage.nil?
               %p
                 = succeed " : " do
                   %span.title= t(:usage)
-                %span.value= product_parameter.usage.ephy_usage_phrase
+                %span.value= usage.ephy_usage_phrase
                 - registered = RegisteredPhytosanitaryUsageDoseComputation.new
                 - data = registered.validate_intervention_input(product_parameter)
                 - if data.key?(:go)
@@ -43,11 +44,15 @@
                 - elsif data.key?(:caution)
                   %span.value= :allowed.tl
                   %span.value= data[:caution]
-              - if product_parameter.usage.usage_conditions
+              - if frequency = usage.applications_frequency
+                %p
+                  %span.title= :next_application_possible_on.tl
+                  %span.value= (resource.stopped_at + frequency).to_date.l
+              - if usage.usage_conditions
                 %p
                   %span.title.smr= :usage_conditions.tl
                   %span.value= picto_tag('info-circle', color: '#3f70ce', pointer: true, data: { toggle: 'modal', target: "#usage-conditions-modal-#{product_parameter.id}" })
-                = render 'usage_conditions_modal', id: product_parameter.id, usage: product_parameter.usage
+                = render 'usage_conditions_modal', id: product_parameter.id, usage: usage
 
             -# TODO: reactivate when we have updated lexicon's data
             -# if product_parameter.legal_pesticide_informations[:dose]
