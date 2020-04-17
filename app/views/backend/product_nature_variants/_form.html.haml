@@ -16,26 +16,29 @@
             {}
           end
 
-= field_set do
-  = f.referenced_association :nature, controller: '/backend/product_natures', source: { scope: scope }
-  = f.referenced_association :category, controller: '/backend/product_nature_categories', source: { scope: scope }
-  = f.variety scope: nature, child_scope: f.object.products
-  = f.input :name
-  = f.input :work_number
-  = f.input :gtin
-  = f.input :active
-  = f.input :unit_name
-  - if params[:subdivision] == 'plant_medicine_articles' || f.object.is_a?(Variants::Articles::PlantMedicineArticle)
-    - value = RegisteredPhytosanitaryProduct.find_by_reference_name(f.object.reference_name)
-    = field :france_maaid.tl, selector_tag(:phyto_product_id, { controller: "/backend/registered_phytosanitary_products", action: :unroll }, { value: value&.id || f.object.france_maaid }, { disabled: f.object.phytosanitary_product.present? })
-  = f.picture
-  = f.custom_fields
+- if f.object.nature.present?
+  = field_set do
+    = f.referenced_association :nature, controller: '/backend/product_natures', source: { scope: scope }, disabled: true
+    = f.referenced_association :category, controller: '/backend/product_nature_categories', source: { scope: scope }
+    = f.variety scope: nature, child_scope: f.object.products
+    = f.input :name
+    = f.input :work_number
+    = f.input :gtin
+    = f.input :active
+    = f.input :unit_name
+    - if params[:subdivision] == 'plant_medicine_articles' || f.object.is_a?(Variants::Articles::PlantMedicineArticle)
+      - value = RegisteredPhytosanitaryProduct.find_by_reference_name(f.object.reference_name)
+      = field :france_maaid.tl, selector_tag(:phyto_product_id, { controller: "/backend/registered_phytosanitary_products", action: :unroll }, { value: value&.id || f.object.france_maaid }, { disabled: f.object.phytosanitary_product.present? })
+    = f.picture
+    = f.custom_fields
 
-- if f.object.readings.any?
-  = field_set(:indicators) do
-    = f.nested_association(:readings, new: false)
+  - if f.object.readings.any?
+    = field_set(:indicators) do
+      = f.nested_association(:readings, new: false)
 
-- if f.object.of_variety? :equipment
-  = field_set(:components) do
-    = f.nested_association(:components, collection: f.object.components.select { |c| c.parent_id.nil? })
-
+  - if f.object.of_variety? :equipment
+    = field_set(:components) do
+      = f.nested_association(:components, collection: f.object.components.select { |c| c.parent_id.nil? })
+- else
+  = field_set do
+    = f.referenced_association :nature, controller: '/backend/product_natures', source: { scope: scope }

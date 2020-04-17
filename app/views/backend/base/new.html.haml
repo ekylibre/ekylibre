@@ -1,5 +1,6 @@
 - options = {}
 - options[:url] = @form_url if @form_url
+- options[:method] = @form_method if @form_method
 - options[:as] = @key if @key
 - options.deep_merge!(data: {dialog: params[:dialog]}) if params[:dialog]
 - options[:namespace] = params[:namespace] if params[:namespace]
