@@ -21,7 +21,7 @@
   = f.custom_fields
   = hidden_field_tag :mode, params[:mode]
 
-- if f.object.draft? && !params[:mode] || f.object.new_record?
+- if (f.object.draft? || f.object.waiting?) && !params[:mode] || f.object.new_record?
   = field_set(:depreciation) do
     = f.money :depreciable_amount
     = f.input :depreciation_method, as: :radio_buttons, show: '#{{value}}_options'
@@ -65,6 +65,9 @@
     = f.input :scrapped_on, required: true
 
 - when 'stand_by'
+  = field_set(:depreciation) do
+    = f.input :started_on
+
   = field_set(:delay) do
     = f.input :waiting_on, required: true
 
