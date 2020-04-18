@@ -1604,6 +1604,7 @@ fra:
     display_accounts: "Affichage des comptes"
     display_help: "Afficher l’aide" #?
     display_n_1: "Afficher N-1"
+    display_vat_details : "Afficher les détails de TVA"
     distribute_unaffected_products: "Distribuer les produits non affectés"
     distributions: "Répartitions"
     district_x: "%{name} (%{code})" #?

@@ -25,7 +25,7 @@ module Accountancy
       end
 
       # Build an SQL condition based on options which should contains acceptable states
-      def journal_condition(journals, table_name)
+      def journal_condition(journals, table_name:)
         if journals.nil? || !journals.is_a(Hash) || journals.empty?
           connection.quoted_false
         else

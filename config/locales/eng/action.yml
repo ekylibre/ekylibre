@@ -1669,6 +1669,7 @@ eng:
     display: "Display"
     display_accounts: "Display accounts"
     display_n_1: "Display N-1"
+    display_vat_details : "Display VAT details"
     distribute_unaffected_products: "Distribute unaffected products"
     distributions: "Distributions" #?
     divide: "Divide"

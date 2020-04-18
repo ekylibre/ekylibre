@@ -33,6 +33,7 @@ module Backend
         period: params[:period],
         started_on: params[:started_on],
         stopped_on: params[:stopped_on],
+        vat_details: params[:vat_details],
         previous_year: params[:previous_year]
       }
 
