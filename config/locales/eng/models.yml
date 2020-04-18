@@ -1169,6 +1169,7 @@ eng:
     main: "Main"
     main_account: "Main account"
     main_activity: "Main activity"
+    main_client_or_supplier_account: "Main third account link"
     main_crop_code: "Main crop code"
     main_crop_commercialisation: "Main crop commercialisation"
     main_crop_precision: "Main crop precision"

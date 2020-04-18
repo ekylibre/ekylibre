@@ -104,6 +104,7 @@ module Backend
       t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }
       t.column :state_label
       t.column :letter
+      t.column :main_client_or_supplier_account, through: :entry, url: true
       t.column :real_debit,  currency: :real_currency, hidden: true
       t.column :real_credit, currency: :real_currency, hidden: true
       t.column :debit,  currency: true, hidden: true
