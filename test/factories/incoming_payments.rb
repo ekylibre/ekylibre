@@ -4,5 +4,6 @@ FactoryBot.define do
     currency { 'EUR' }
     association :mode, factory: :incoming_payment_mode
     association :payer, factory: :entity
+    provider { }
   end
 end

@@ -12,6 +12,7 @@ FactoryBot.define do
     currency { 'EUR' }
     payment_delay { '1 week' }
     state { :draft }
+    provider { }
 
     after(:build) do |sale, eval|
       sale.affair = eval.affair || build(:sale_affair, amount: eval.amount)
