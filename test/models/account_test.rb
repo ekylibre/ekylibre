@@ -48,12 +48,12 @@ require 'test_helper'
 class AccountTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
-  test 'load the accounts' do
-    (Account.accounting_systems - ['pt_snc']).each do |accounting_system|
-      Account.accounting_system = accounting_system
-      Account.load_defaults
-    end
-  end
+  # test 'load the accounts' do
+  #   (Account.accounting_systems - ['pt_snc']).each do |accounting_system|
+  #     Account.accounting_system = accounting_system
+  #     Account.load_defaults
+  #   end
+  # end
 
   test 'merge' do
     main = create :account
@@ -107,7 +107,7 @@ class AccountTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_equal '20000000', Account.normalize('20000000000')
   end
 
-  test'centralizing_account_prefix_for takes into account the company preference' do
+  test 'centralizing_account_prefix_for takes into account the company preference' do
     next_prefix = '999'
     Account::CENTRALIZING_NATURES.each do |nature|
       Preference.set! "#{nature}_account_radix", next_prefix, :string
@@ -116,5 +116,22 @@ class AccountTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
       next_prefix = (next_prefix.to_i - 1).to_s
     end
+  end
+
+  test "attempt_panier_local_resources_merge! merges panier_local provided affairs" do
+    sale = create(:sale, provider: { vendor: :panier_local, name: :sales, id: 31 })
+    incoming_payment = create(:incoming_payment,
+                              payer: sale.affair.client,
+                              amount: sale.amount,
+                              provider: { vendor: :panier_local, name: :sales, id: 32 })
+    sale.invoice!
+
+    account = sale.affair.client.client_account
+
+    account.mark_entries(sale.journal_entry, incoming_payment.journal_entry)
+
+    sale.reload
+    incoming_payment.reload
+    assert_equal sale.affair, incoming_payment.affair
   end
 end

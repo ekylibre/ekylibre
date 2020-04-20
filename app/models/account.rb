@@ -616,11 +616,19 @@ class Account < Ekylibre::Record::Base
   def mark(item_ids, letter = nil)
     conditions = ['id IN (?) AND (letter IS NULL OR LENGTH(TRIM(letter)) <= 0 OR (letter SIMILAR TO ?))', item_ids, '[A-z]*\*?']
     items = journal_entry_items.where(conditions)
-    return nil unless item_ids.size > 1 && items.count == item_ids.size &&
-                      items.collect { |l| l.debit - l.credit }.sum.to_f.zero?
-    letter ||= new_letter
-    journal_entry_items.where(conditions).update_all(letter: letter)
-    letter
+    return nil unless item_ids.size > 1 && items.count == item_ids.size && items.collect { |l| l.debit - l.credit }.sum.to_f.zero?
+
+    Account.transaction do
+      letter ||= new_letter
+      items = journal_entry_items.where(conditions)
+      items.update_all(letter: letter)
+
+      # Merge affairs if all entry items selected belong to one AND same affair third
+      resources = items.map(&:entry).map(&:resource)
+      attempt_panier_local_resources_merge!(resources)
+
+      letter
+    end
   end
 
   # Mark entry items with the given +letter+, even when the items are not balanced together.
@@ -812,10 +820,10 @@ class Account < Ekylibre::Record::Base
     report = HashWithIndifferentAccess.new
     report[:items] = []
     items = if non_letter == 'true'
-      journal_entry_items.where("letter LIKE ? OR letter IS ?", "%*%", nil)
-    else
-      journal_entry_items
-    end
+              journal_entry_items.where("letter LIKE ? OR letter IS ?", "%*%", nil)
+            else
+              journal_entry_items
+            end
     items.order(:printed_on).includes(entry: [:sales, :purchases]).find_each do |item|
       i = HashWithIndifferentAccess.new
       i[:account_number] = number
@@ -832,4 +840,20 @@ class Account < Ekylibre::Record::Base
     report
   end
 
+  private
+
+    # @param [Array<Ekylibre::Record::Base, nil>] resources
+    # @return [void]
+    def attempt_panier_local_resources_merge!(resources)
+      if resources.all?(&:present?) && resources.all? { |r| r.class.respond_to? :affairable? } && # Resources are present and affairable
+        resources.all? { |r| r.is_a?(Providable) && r.provider_vendor == "panier_local" } && # Only merge resources from panier_local
+        resources.map(&:deal_third).uniq.count == 1 # And with the same third
+
+        first, *rest = resources
+
+        if rest.all? { |resource| first.can_be_dealt_with? resource.affair }
+          rest.each { |resource| first.deal_with! resource.affair }
+        end
+      end
+    end
 end
