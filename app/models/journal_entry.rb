@@ -351,8 +351,6 @@ class JournalEntry < Ekylibre::Record::Base
   # in order to show which client or supplier is involved in the entry items
   def main_client_or_supplier_account
     third_accounts = Account.where(id: items.pluck(:account_id)).thirds.reorder(:number)
-    puts third_accounts.any?.inspect.red
-    puts third_accounts.first.inspect.yellow
     if third_accounts.any?
       third_accounts.first.label
     else

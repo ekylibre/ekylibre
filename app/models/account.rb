@@ -518,7 +518,7 @@ class Account < Ekylibre::Record::Base
     # Example : 1-3 41 43
     def clean_range_condition(range, _table_name = nil)
       expression = ''
-      
+
       if range.present?
         valid_expr = /^\d(\d(\d[0-9A-Z]*)?)?$/
         for expr in range.split(/[^0-9A-Z\-\*]+/)
@@ -531,7 +531,7 @@ class Account < Ekylibre::Record::Base
           end
         end
       end
-      
+
       expression.strip
     end
 
@@ -801,31 +801,6 @@ class Account < Ekylibre::Record::Base
       # raise StandardError.new(balance.inspect)
       balance.compact
     end
-  end
-
-  # this method generate a dataset for one account
-  def account_statement_reporting(options = {}, non_letter)
-    report = HashWithIndifferentAccess.new
-    report[:items] = []
-    items = if non_letter == 'true'
-      journal_entry_items.where("letter LIKE ? OR letter IS ?", "%*%", nil)
-    else
-      journal_entry_items
-    end
-    items.order(:printed_on).includes(entry: [:sales, :purchases]).find_each do |item|
-      i = HashWithIndifferentAccess.new
-      i[:account_number] = number
-      i[:name] = name
-      i[:printed_on] = item.printed_on.l(format: '%d/%m/%Y')
-      i[:journal_entry_items_number] = item.entry_number
-      i[:sales_code] = item.entry.sales.pluck(:codes).first&.values&.join(', ') if item.entry.sales.present?
-      i[:purchase_reference_number] = item.entry.purchases.pluck(:reference_number).join(', ') if item.entry.purchases.present?
-      i[:letter] = item.letter
-      i[:real_debit] = item.real_debit
-      i[:real_credit] = item.real_credit
-      report[:items] << i
-    end
-    report
   end
 
 end
