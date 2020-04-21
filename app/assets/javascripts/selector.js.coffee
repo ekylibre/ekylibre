@@ -409,13 +409,17 @@
       url = $filteredUnroll.data('filters-url')
       values = @._retrieveValues($filteredUnroll, $filteringUnroll)
 
-      $.getJSON url, _.merge(values, filter_id: filterId), (data) =>
-        $filteredUnroll.attr('disabled', false)
-        $filteredUnroll.closest($filteringUnroll.data('parent')).find($filteredUnroll.data('msg-container')).text('') if $filteredUnroll.data('msg-container')
-        @._handleScope($filteredUnroll, data.scope_url) if data.scope_url
-        @._handleNew($filteredUnroll, data.new_url) if data.new_url
-        @._handleClear($filteredUnroll, data.clear)
-        @._handleDisable($filteredUnroll, $filteringUnroll, data.disable) if data.disable
+      $.getJSON(url, _.merge(values, filter_id: filterId))
+        .done (data) =>
+          $filteredUnroll.attr('disabled', false)
+          $filteredUnroll.closest($filteringUnroll.data('parent')).find($filteredUnroll.data('msg-container')).text('') if $filteredUnroll.data('msg-container')
+          @._handleScope($filteredUnroll, data.scope_url) if data.scope_url
+          @._handleNew($filteredUnroll, data.new_url) if data.new_url
+          @._handleClear($filteredUnroll, data.clear)
+          @._handleDisable($filteredUnroll, $filteringUnroll, data.disable) if data.disable
+        .fail (e) =>
+          @._handleDisable($filteredUnroll, $filteringUnroll, "Server error")
+          console.error('Error while trying to filter an unroll', e)
 
     _handleScope: ($filteredUnroll, scope_url) ->
       $filteredUnroll.data('selector', scope_url)
