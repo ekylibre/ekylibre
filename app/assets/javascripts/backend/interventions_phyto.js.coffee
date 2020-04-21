@@ -8,7 +8,7 @@
       $.getJSON "/backend/registered_phytosanitary_products/get_products_infos", values, (data) =>
         for id, infos of data
           $productField = $(".selector-value[value='#{id}']").closest('.nested-plant_medicine')
-
+          
           @._displayAllowedMentions($productField, infos.allowed_mentions)
           @._displayBadge($productField, infos.state, infos.check_conditions)
           @._displayMessages($productField, infos.messages)
