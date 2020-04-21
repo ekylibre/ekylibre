@@ -1959,6 +1959,18 @@ eng:
     issue:
       name_with_target: "%{nature} on %{target}"
       name_without_target: "%{nature}"
+    journal:
+      natures:
+        bank: "Bank"
+        cash: "Cash"
+        closure: "Closure"
+        fixed_assets: "Fixed assets"
+        forward: "Forward"
+        purchases: "Purchases"
+        result: "Result"
+        sales: "Sales"
+        stocks: "Stocks"
+        various: "Various"
     journal_entry:
       entry_cancel: "Cancel of entry %{number}: %{name}"
       states:

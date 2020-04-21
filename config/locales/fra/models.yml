@@ -2469,6 +2469,18 @@ fra:
     issue:
       name_with_target: "%{nature} sur %{target}"
       name_without_target: "%{nature}"
+    journal:
+      natures:
+        bank: "Banque"
+        cash: "Caisse"
+        closure: "Clôture"
+        fixed_assets: "Immobilisations"
+        forward: "Report à nouveaux"
+        purchases: "Achats"
+        result: "Résultat"
+        sales: "Ventes"
+        stocks: "Stocks"
+        various: "Opérations diverses"
     journal_entry:
       entry_cancel: "Contre-passation de l’écriture %{number}\_: %{name}"
       states:

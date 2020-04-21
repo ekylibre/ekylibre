@@ -1,7 +1,9 @@
 ((E, $) ->
   'use strict'
 
-  $(document).on "selector:change", "#activity_production_cultivable_zone_id", (event)->
+  $(document).on "selector:change", "#activity_production_cultivable_zone_id", (event, _value, is_initialization)->
+    return if is_initialization
+
     element = $(this)
     id = element.selector('value')
     map = $('#activity_production_support_shape')

@@ -139,46 +139,37 @@ class JournalEntry < Ekylibre::Record::Base
     # end
   end
 
-  # Build an SQL condition based on options which should contains acceptable states
-  def self.state_condition(states = {}, table_name = nil)
-    table = table_name || self.table_name
-    states = {} unless states.is_a? Hash
-    if states.empty?
-      return JournalEntry.connection.quoted_false
-    else
-      return "#{table}.state IN (#{states.collect { |s, _v| JournalEntry.connection.quote(s) }.join(',')})"
+  class << self
+    # Build an SQL condition based on options which should contains acceptable states
+    # @deprecated
+    def state_condition(states = {}, table_name = nil)
+      condition_builder.state_condition(states, table_name: table_name || self.table_name)
     end
-  end
 
-  # Build an SQL condition based on options which should contains acceptable states
-  def self.journal_condition(journals = {}, table_name = nil)
-    table = table_name || self.table_name
-    journals = {} unless journals.is_a? Hash
-    if journals.empty?
-      return JournalEntry.connection.quoted_false
-    else
-      return "#{table}.journal_id IN (#{journals.collect { |s, _v| JournalEntry.connection.quote(s.to_i) }.join(',')})"
+    # Build an SQL condition based on options which should contains acceptable states
+    # @deprecated
+    def journal_condition(journals = {}, table_name = nil)
+      condition_builder.journal_condition(journals, table_name: table_name || self.table_name)
     end
-  end
 
-  # Build a condition for filter journal entries on period
-  def self.period_condition(period, started_on, stopped_on, table_name = nil)
-    table = table_name || self.table_name
-    if period.to_s == 'all'
-      return connection.quoted_true
-    else
-      conditions = []
-      started_on, stopped_on = period.to_s.split('_')[0..1] unless period.to_s == 'interval'
-      if started_on.present? && (started_on.is_a?(Date) || started_on =~ /^\d\d\d\d\-\d\d\-\d\d$/)
-        conditions << "#{table}.printed_on >= #{connection.quote(started_on.to_date)}"
+    # Build a condition for filter journal entries on period
+    # @deprecated
+    def period_condition(period, started_on, stopped_on, table_name = nil)
+      condition_builder.period_condition(period, started_on: started_on, stopped_on: stopped_on, table_name: table_name || self.table_name)
+    end
+
+    # Returns states names
+    def states
+      state_machine.states.collect(&:name)
+    end
+
+    private
+
+      # @deprecated
+      def condition_builder
+        ActiveSupport::Deprecation.warn 'JournalEntry condition methods are deprecated, use Accountancy::ConditionBuilder::* instead'
+        Accountancy::ConditionBuilder::JournalEntryConditionBuilder.new(connection: connection)
       end
-      if stopped_on.present? && (stopped_on.is_a?(Date) || stopped_on =~ /^\d\d\d\d\-\d\d\-\d\d$/)
-        conditions << "#{table}.printed_on <= #{connection.quote(stopped_on.to_date)}"
-      end
-
-      return connection.quoted_false if conditions.empty?
-      return '(' + conditions.join(' AND ') + ')'
-    end
   end
 
   # return the letter if any on items
@@ -193,11 +184,6 @@ class JournalEntry < Ekylibre::Record::Base
     elsif incoming_payments.any?
       incoming_payments.reorder(:paid_at).first
     end
-  end
-
-  # Returns states names
-  def self.states
-    state_machine.states.collect(&:name)
   end
 
   before_validation on: :create do

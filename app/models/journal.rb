@@ -148,7 +148,23 @@ class Journal < Ekylibre::Record::Base
       purchase_natures.any? || incoming_payment_modes.any?
   end
 
+
+  # Prints human name of current state
+  def nature_label
+    self.class.nature_label(self.nature)
+  end
+
   class << self
+    def nature_label(nature)
+      tc('natures.' + nature.to_s)
+    end
+
+    # Build an SQL condition based on options which should contains natures
+    # @deprecated
+    def nature_condition(natures = {}, table_name = nil)
+      condition_builder.nature_condition(natures, table_name: table_name || self.table_name)
+    end
+
     # Returns the default journal from preferences
     # Creates the journal if not exists
     def get(name)
@@ -233,6 +249,14 @@ class Journal < Ekylibre::Record::Base
         )
       end
     end
+
+    private
+
+      # @deprecated
+      def condition_builder
+        ActiveSupport::Deprecation.warn 'Journal condition methods are deprecated, use Accountancy::ConditionBuilder::* instead'
+        Accountancy::ConditionBuilder::JournalConditionBuilder.new(connection: self.class.connection)
+      end
   end
 
   def writable_on?(printed_on)
@@ -327,203 +351,133 @@ class Journal < Ekylibre::Record::Base
     accountant && accountant.financial_year_with_opened_exchange?
   end
 
-  # Computes the value of list of accounts in a String
-  # Examples:
-  #   132 !13245 !1325 D, - 52 56, 975 C
-  #
-  # '!' exclude computation
-  # '+' does nothing. Permits to explicit direction
-  # '-' negates values
-  # Computation:
-  #   B: Balance (= Debit - Credit). Default computation.
-  #   C: -Balance if positive
-  #   D: Balance if positive
-  #   E: - Crédit balance
-  #   F: Débit balance
-  def self.sum_entry_items(expression, options = {})
-    conn = ActiveRecord::Base.connection
-    journal_entry_items = 'jei'
-    journal_entries = 'je'
-    journals = 'j'
-    accounts = 'a'
 
-    journal_entries_states = ''
-    if options[:states]
-      journal_entries_states = ' AND ' + JournalEntry.state_condition(options[:states], journal_entries)
-    end
+  class << self
+    # Computes the value of list of accounts in a String
+    # Examples:
+    #   132 !13245 !1325 D, - 52 56, 975 C
+    #
+    # '!' exclude computation
+    # '+' does nothing. Permits to explicit direction
+    # '-' negates values
+    # Computation:
+    #   B: Balance (= Debit - Credit). Default computation.
+    #   C: -Balance if positive
+    #   D: Balance if positive
+    #   E: - Crédit balance
+    #   F: Débit balance
+    def sum_entry_items(expression, options = {})
+      conn = ActiveRecord::Base.connection
+      journal_entry_items = 'jei'
+      journal_entries = 'je'
+      journals = 'j'
+      accounts = 'a'
 
-    from_where = " FROM #{JournalEntryItem.table_name} AS #{journal_entry_items} JOIN #{Account.table_name} AS #{accounts} ON (account_id=#{accounts}.id) JOIN #{JournalEntry.table_name} AS #{journal_entries} ON (entry_id=#{journal_entries}.id)"
-    if options[:unwanted_journal_nature]
-      from_where << " JOIN #{Journal.table_name} AS #{journals} ON (#{journal_entries}.journal_id=#{journals}.id)"
-      from_where << " WHERE #{journals}.nature NOT IN (" + options[:unwanted_journal_nature].map { |c| "'#{c}'" }.join(', ') + ')'
-    else
-      from_where << ' WHERE true'
-    end
-    if options[:started_on] || options[:stopped_on]
-      from_where << ' AND ' + JournalEntry.period_condition(:interval, options[:started_on], options[:stopped_on], journal_entries)
-    end
+      journal_entries_states = ''
+      if options[:states]
+        journal_entries_states = ' AND ' + JournalEntry.state_condition(options[:states], journal_entries)
+      end
 
-    values = expression.split(/\,/).collect do |expr|
-      words = expr.strip.split(/\s+/)
-      direction = 1
-      direction = -1 if words.first =~ /^(\+|\-)$/ && words.shift == '-'
-      mode = words.last =~ /^[BCDEF]$/ ? words.delete_at(-1) : 'B'
-      accounts_range = {}
-      words.map do |word|
-        position = (word =~ /\!/ ? :exclude : :include)
-        strict = (word =~ /\@/)
-        word.gsub!(/^[\!\@]+/, '')
-        condition = "#{accounts}.number " + (strict ? "= '#{word}'" : "LIKE '#{word}%'")
-        accounts_range[position] ||= []
-        accounts_range[position] << condition
-      end.join
-
-      query = "SELECT
-                SUM(account_summary.sum_debit) as sum_debit,
-                SUM(account_summary.sum_credit) AS sum_credit,
-                SUM(CASE WHEN account_summary.account_balance > 0 THEN account_summary.account_balance ELSE 0 END) as debit_balance,
-                SUM(CASE WHEN account_summary.account_balance < 0 THEN account_summary.account_balance ELSE 0 END) as credit_balance
-                FROM (
-                  SELECT a.number,
-                    sum(COALESCE(jei.debit, 0)) as sum_debit,
-    	              sum(COALESCE(jei.credit, 0)) as sum_credit,
-    	              sum(COALESCE(jei.debit, 0)) - sum(COALESCE(jei.credit, 0)) as account_balance"
-
-      query << from_where
-      query << journal_entries_states
-      query << " AND (#{accounts_range[:include].join(' OR ')})" if accounts_range[:include]
-      query << " AND NOT (#{accounts_range[:exclude].join(' OR ')})" if accounts_range[:exclude]
-
-      query << "GROUP BY a.id ORDER BY a.number) as account_summary"
-
-      req = conn.select_rows(query)
-      row = req.first
-      debit =  row[0].blank? ? 0.0 : row[0].to_d
-      credit = row[1].blank? ? 0.0 : row[1].to_d
-      debit_balance = row[2].blank? ? 0.0 : row[2].to_d
-      credit_balance = row[3].blank? ? 0.0 : row[3].to_d
-      if mode == 'C'
-        c = direction * (credit > debit ? credit - debit : 0)
-      elsif mode == 'D'
-        d = direction * (debit > credit ? debit - credit : 0)
-      elsif mode == 'E'
-        e = direction * (-credit_balance)
-      elsif mode == 'F'
-        f = direction * debit_balance
+      from_where = " FROM #{JournalEntryItem.table_name} AS #{journal_entry_items} JOIN #{Account.table_name} AS #{accounts} ON (account_id=#{accounts}.id) JOIN #{JournalEntry.table_name} AS #{journal_entries} ON (entry_id=#{journal_entries}.id)"
+      if options[:unwanted_journal_nature]
+        from_where << " JOIN #{Journal.table_name} AS #{journals} ON (#{journal_entries}.journal_id=#{journals}.id)"
+        from_where << " WHERE #{journals}.nature NOT IN (" + options[:unwanted_journal_nature].map { |c| "'#{c}'" }.join(', ') + ')'
       else
-        direction * (debit - credit)
+        from_where << ' WHERE true'
       end
-    end
-    values.sum
-  end
+      if options[:started_on] || options[:stopped_on]
+        from_where << ' AND ' + JournalEntry.period_condition(:interval, options[:started_on], options[:stopped_on], journal_entries)
+      end
 
-  # Compute a trial balance with many options
-  # * :started_on Use journal entries printed on after started_on
-  # * :stopped_on Use journal entries printed on before stopped_on
-  # * :draft      Use draft journal entry_items
-  # * :confirmed  Use confirmed journal entry_items
-  # * :closed     Use closed journal entry_items
-  # * :accounts   Select ranges of accounts
-  # * :centralize Select account's prefixe which permits to centralize
-  def self.trial_balance(options = {})
-    conn = ActiveRecord::Base.connection
-    journal_entry_items = 'jei'
-    journal_entries = 'je'
-    accounts = 'a'
+      values = expression.split(/\,/).collect do |expr|
+        words = expr.strip.split(/\s+/)
+        direction = 1
+        direction = -1 if words.first =~ /^(\+|\-)$/ && words.shift == '-'
+        mode = words.last =~ /^[BCDEF]$/ ? words.delete_at(-1) : 'B'
+        accounts_range = {}
+        words.map do |word|
+          position = (word =~ /\!/ ? :exclude : :include)
+          strict = (word =~ /\@/)
+          word.gsub!(/^[\!\@]+/, '')
+          condition = "#{accounts}.number " + (strict ? "= '#{word}'" : "LIKE '#{word}%'")
+          accounts_range[position] ||= []
+          accounts_range[position] << condition
+        end.join
 
-    journal_entries_states = ' AND (' + JournalEntry.state_condition(options[:states], journal_entries) + ')'
+        query = <<~SQL
+          SELECT
+            SUM(account_summary.sum_debit) as sum_debit,
+            SUM(account_summary.sum_credit) AS sum_credit,
+            SUM(CASE WHEN account_summary.account_balance > 0 THEN account_summary.account_balance ELSE 0 END) as debit_balance,
+            SUM(CASE WHEN account_summary.account_balance < 0 THEN account_summary.account_balance ELSE 0 END) as credit_balance
+          FROM (
+            SELECT a.number,
+              sum(COALESCE(jei.debit, 0)) as sum_debit,
+              sum(COALESCE(jei.credit, 0)) as sum_credit,
+              sum(COALESCE(jei.debit, 0)) - sum(COALESCE(jei.credit, 0)) as account_balance
+        SQL
 
-    account_range_condition = Account.range_condition(options[:accounts], accounts)
-    account_range = ' AND (' + account_range_condition + ')' if account_range_condition
+        query << from_where
+        query << journal_entries_states
+        query << " AND (#{accounts_range[:include].join(' OR ')})" if accounts_range[:include]
+        query << " AND NOT (#{accounts_range[:exclude].join(' OR ')})" if accounts_range[:exclude]
 
-    # FIXME: There no centralizing account anymore in DB, the query needs to be adjusted
-    centralize = options[:centralize].to_s.strip.split(/[^A-Z0-9]+/)
-    centralized = '(' + centralize.collect { |c| "#{accounts}.number LIKE #{conn.quote(c + '%')}" }.join(' OR ') + ')'
+        query << "GROUP BY a.id ORDER BY a.number) as account_summary"
 
-    from_where  = " FROM #{JournalEntryItem.table_name} AS #{journal_entry_items} JOIN #{Account.table_name} AS #{accounts} ON (account_id=#{accounts}.id) JOIN #{JournalEntry.table_name} AS #{journal_entries} ON (entry_id=#{journal_entries}.id)"
-    from_where += ' WHERE (' + JournalEntry.period_condition(options[:period], options[:started_on], options[:stopped_on], journal_entries) + ')'
-
-    # Total
-    items = []
-    query = "SELECT '', -1, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), '#{'Z' * 16}' AS skey"
-    query << from_where
-    query << journal_entries_states
-    query << account_range unless account_range.nil?
-    items += conn.select_rows(query)
-
-    # Sub-totals
-    options.select { |k, v| k.to_s.match(/^level_\d+$/) && v.to_i == 1 }.each do |name, _value|
-      level = name.split(/\_/)[-1].to_i
-      query = "SELECT SUBSTR(#{accounts}.number, 1, #{level}) AS subtotal, -2, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), SUBSTR(#{accounts}.number, 1, #{level})||'#{'Z' * (16 - level)}' AS skey"
-      query << from_where
-      query << journal_entries_states
-      query << account_range unless account_range.nil?
-      query << " AND LENGTH(#{accounts}.number) >= #{level}"
-      query << ' GROUP BY subtotal'
-      items += conn.select_rows(query)
-    end
-
-    # NOT centralized accounts (default)
-    query = "SELECT #{accounts}.number, #{accounts}.id AS account_id, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{accounts}.number AS skey"
-    query << from_where
-    query << journal_entries_states
-    query << account_range unless account_range.nil?
-    query << " AND NOT #{centralized}" unless centralize.empty?
-    query << " GROUP BY #{accounts}.id, #{accounts}.number"
-    query << " ORDER BY #{accounts}.number"
-    items += conn.select_rows(query)
-
-    # Centralized accounts
-    for prefix in centralize
-      query = "SELECT SUBSTR(#{accounts}.number, 1, #{prefix.size}) AS centralize, -3, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{conn.quote(prefix)} AS skey"
-      query << from_where
-      query << journal_entries_states
-      query << account_range unless account_range.nil?
-      query << " AND #{accounts}.number LIKE #{conn.quote(prefix + '%')}"
-      query << ' GROUP BY centralize'
-      items += conn.select_rows(query)
-    end
-
-    items.sort_by { |a| a[5] }
-  end
-
-  def self.trial_balance_dataset(states:, balance:, accounts:, centralize:, period:, started_on:, stopped_on:, previous_year:)
-    balance_params = { states: states, accounts: accounts, centralize: centralize, period: period, started_on: started_on, stopped_on: stopped_on }
-    balance_data = trial_balance(balance_params) if period
-    if balance_data
-      credit_balance = balance_data[0...-1].map { |item| item[4].to_f > 0 ? item[4].to_f : 0}.reduce(0, :+).round(2)
-      debit_balance = balance_data[0...-1].map { |item| item[4].to_f < 0 ? item[4].to_f : 0}.reduce(0, :+).round(2)
-      balance_data[-1].insert(5, credit_balance, debit_balance)
-    end
-    if balance_data && balance == 'balanced'
-      balance_data = balance_data.select { |item| item[1].to_i < 0 || Account.find(item[1]).journal_entry_items.pluck(:real_balance).reduce(:+) == 0 }
-    elsif balance_data && balance == 'unbalanced'
-      balance_data = balance_data.select { |item| item[1].to_i < 0 || Account.find(item[1]).journal_entry_items.pluck(:real_balance).reduce(:+) != 0 }
-    end
-
-    prev_balance_data = []
-    if previous_year && started_on && Date.parse(stopped_on) - Date.parse(started_on) < 366
-      prev_balance_data = balance.map do |item|
-        prev_balance_params = balance_params.dup
-        prev_balance_params[:started_on] = (Date.parse(started_on) - 1.year).to_s
-        prev_balance_params[:stopped_on] = (Date.parse(stopped_on) - 1.year).to_s
-        prev_balance_params[:period] = "#{prev_balance_params[:started_on]}_#{prev_balance_params[:stopped_on]}"
-        if item[1].to_i < 0 && item[0].present?
-          prev_balance_params[:centralize] = item[0]
-        elsif item[1].to_i > 0
-          prev_balance_params[:accounts] = item[0]
+        req = conn.select_rows(query)
+        row = req.first
+        debit =  row[0].blank? ? 0.0 : row[0].to_d
+        credit = row[1].blank? ? 0.0 : row[1].to_d
+        debit_balance = row[2].blank? ? 0.0 : row[2].to_d
+        credit_balance = row[3].blank? ? 0.0 : row[3].to_d
+        if mode == 'C'
+          c = direction * (credit > debit ? credit - debit : 0)
+        elsif mode == 'D'
+          d = direction * (debit > credit ? debit - credit : 0)
+        elsif mode == 'E'
+          e = direction * (-credit_balance)
+        elsif mode == 'F'
+          f = direction * debit_balance
+        else
+          direction * (debit - credit)
         end
-        prev_balance_data = Journal.trial_balance(prev_balance_params)
-        prev_items = prev_balance_data.select { |i| i[0] == item[0] }
-        prev_items.any? ? prev_items.first : []
       end
-      solde_prev_credit_balance = prev_balance_data[0...-1].map { |item| item[4].to_f > 0 ? item[4].to_f : 0}.reduce(0, :+).round(2)
-      solde_prev_debit_balance = prev_balance_data[0...-1].map { |item| item[4].to_f < 0 ? item[4].to_f : 0}.reduce(0, :+).round(2)
-      total_prev_credit_balance = prev_balance_data[0...-1].map { |item| item[2].to_f}.reduce(0, :+).round(2)
-      total_prev_debit_balance = prev_balance_data[0...-1].map { |item| item[3].to_f}.reduce(0, :+).round(2)
-      prev_balance_data[-1].insert(5, solde_prev_credit_balance, solde_prev_debit_balance)
-      prev_balance_data[-1].insert(7, total_prev_credit_balance, total_prev_debit_balance)
+      values.sum
     end
-    { balance: balance_data, prev_balance: prev_balance_data }
+
+    # Compute a trial balance with many options
+    # * :started_on Use journal entries printed on after started_on
+    # * :stopped_on Use journal entries printed on before stopped_on
+    # * :draft      Use draft journal entry_items
+    # * :confirmed  Use confirmed journal entry_items
+    # * :closed     Use closed journal entry_items
+    # * :accounts   Select ranges of accounts
+    # * :centralize Select account's prefixe which permits to centralize
+    #
+    # @deprecated
+    def trial_balance(options = {})
+      trial_balance_calculator.trial_balance(options)
+    end
+
+    # @deprecated
+    def trial_balance_calculator
+      ActiveSupport::Deprecation.warn "trial_balance* methods are deprecated, use "
+      Accountancy::TrialBalanceCalculator.build(connection: connection)
+    end
+
+    # @option states
+    # @option natures
+    # @option balance
+    # @option accounts
+    # @option centralize
+    # @option period
+    # @option started_on
+    # @option stopped_on
+    # @option previous_year
+    #
+    # @deprecated
+    def trial_balance_dataset(**options)
+      trial_balance_calculator.trial_balance_dataset(**options)
+    end
   end
 end

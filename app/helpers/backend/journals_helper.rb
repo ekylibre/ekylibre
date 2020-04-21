@@ -224,26 +224,26 @@ module Backend
       code.html_safe
     end
 
-    # Create a widget to select some journals
-    def journals_crit(*_args)
+    # Create a widget to select some journal natures
+    def journals_natures_crit(*)
       code = ''
-      field = :journals
-      code << content_tag(:label, Backend::JournalsController.human_action_name(:index))
-      journals = Journal.all
-      params[field] = {} unless params[field].is_a? Hash
-      no_journal = !journals.detect { |x| params[field].key?(x.id.to_s) }
-      for journal in journals
-        key = journal.id.to_s
-        name = "#{field}[#{key}]"
-        id = "#{field}_#{key}"
-        if active = (params[field][key] == '1' || no_journal)
-          params[field][key] = '1'
+      code << content_tag(:label, :journals_natures.tl)
+      natures = Journal.nature.values.map(&:to_sym)
+      params[:natures] = {} unless params[:natures].is_a? Hash
+      no_nature = !natures.detect { |x| params[:natures].key?(x) }
+      natures.each do |nature|
+        key = nature.to_s
+        name = "natures[#{key}]"
+        id = "natures_#{key}"
+        if (active = (params[:natures][key] == '1' || no_nature))
+          params[:natures][key] = '1'
         else
-          params[field].delete(key)
+          params[:natures].delete(key)
         end
         code << ' ' << check_box_tag(name, '1', active, id: id)
-        code << ' ' << content_tag(:label, journal.name, for: id)
+        code << ' ' << content_tag(:label, Journal.nature_label(nature), for: id)
       end
+
       code.html_safe
     end
 
