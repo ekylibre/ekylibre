@@ -34,20 +34,19 @@
                 = succeed " : " do
                   %span.title= t(:usage)
                 %span.value= usage.ephy_usage_phrase
-                - registered = RegisteredPhytosanitaryUsageDoseComputation.new
-                - data = registered.validate_intervention_input(product_parameter)
-                - if data.key?(:go)
+                - authorization_calculator = Interventions::Phytosanitary::InterventionInputAuthorizationCalculator.for_intervention(intervention)
+                - vote, messages = authorization_calculator.authorization_state(product_parameter)
+                - if vote == :allowed
                   %span.value= :allowed.tl
-                - elsif data.key?(:stop)
+                - elsif vote == :forbidden
                   %span.value= :forbidden.tl
-                  %span.value= data[:stop]
-                - elsif data.key?(:caution)
-                  %span.value= :allowed.tl
-                  %span.value= data[:caution]
+                  %span.value= messages.join(', ')
+
               - if frequency = usage.applications_frequency
                 %p
                   %span.title= :next_application_possible_on.tl
                   %span.value= (resource.stopped_at + frequency).to_date.l
+
               - if usage.usage_conditions
                 %p
                   %span.title.smr= :usage_conditions.tl

@@ -54,7 +54,7 @@ module Interventions
         # @option [String] message
         def add_vote(product, status:, message: nil)
           vote = Models::ProductApplicationVote.new(status, message)
- 
+
           if votes.key?(product)
             votes[product] << vote
           else

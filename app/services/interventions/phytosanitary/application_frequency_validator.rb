@@ -46,24 +46,6 @@ module Interventions
         end
       end
 
-      # @param [Product] product
-      # @return [Array<Intervention>]
-      def get_interventions_with_same_phyto(product)
-        current_campaign = Campaign.on(intervention_stopped_at)
-        Intervention.of_campaigns(*[current_campaign, current_campaign.preceding, current_campaign.following].compact)
-                    .of_nature_using_phytosanitary
-                    .with_input_of_maaids(product.france_maaid)
-      end
-
-      # @param [Array<Intervention>] interventions
-      # @param [Array<Charta::Geometry>] zones
-      # @return [Array<Intervention>]
-      def select_with_shape_intersecting(interventions, zones)
-        interventions.select do |intervention|
-          intervention.targets.map(&:working_zone).any? { |wz| zones.any? { |shape| shape.intersects?(wz) } }
-        end
-      end
-
       # @param [DateTime] intervention_end
       # @param [RegisteredPhytosanitaryUsage] usage
       # @return [Models::Period]
@@ -79,8 +61,8 @@ module Interventions
       # @param [Models::ProductWithUsage] product_usage
       # @return [Array<Models::Period>]
       def forbidden_periods(product_usage)
-        interventions_with_same_phyto = get_interventions_with_same_phyto(product_usage.product)
-        interventions_with_same_phyto = interventions_with_same_phyto.where.not(id: ignored_intervention.id) if ignored_intervention != nil
+        interventions_with_same_phyto = get_interventions_with_same_phyto(product_usage.product, Campaign.on(intervention_stopped_at))
+        interventions_with_same_phyto = interventions_with_same_phyto.where.not(id: ignored_intervention.id) if ignored_intervention.present?
         intervention_same_phyto_and_zone = select_with_shape_intersecting(interventions_with_same_phyto, get_targeted_zones)
 
         intervention_same_phyto_and_zone.map do |int|
