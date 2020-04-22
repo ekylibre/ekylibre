@@ -267,6 +267,9 @@
             parameters.name = selected.data("new-item")
           E.dialog.open @element.data("selector-new-item"),
             data: parameters
+            defaultReturn: (frame, data, status, request) ->
+              frame.html $.parseHTML(request.responseText).filter((e) => !(e.tagName == 'H1' && e.id == 'title'))
+              frame.dialog("option", "position", {my: "center", at: "center", of: window})
             returns:
               success: (frame, data, status, request) =>
                 @_set(request.getResponseHeader("X-Saved-Record-Id"), true)
