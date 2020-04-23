@@ -85,6 +85,10 @@ module Visualization
       layer(name, serie, options.merge(type: :sensor_group))
     end
 
+    def optional(name, serie, options = {})
+      layer(name, serie, options.merge(type: :optional))
+    end
+
     # def multi_points(name, serie, options = {})
     #   layer(name, serie, options.merge(type: :multi_points))
     # end

@@ -26,7 +26,8 @@ module Interventions
               targets_and_shape: targets_and_shape,
               intervention_to_ignore: intervention_to_ignore,
               intervention_stopped_at: intervention_stopped_at
-            )
+            ),
+            ::Interventions::Phytosanitary::NonTreatmentAreasValidator.new(targets_and_shape: targets_and_shape)
           )
         end
       end
@@ -35,7 +36,7 @@ module Interventions
       def initialize(*children)
         @children = children
       end
-      
+
       # @param [Array<Models::ProductWithUsage>] products_usages
       # @return [Models::ProductApplicationResult]
       def validate(products_usages)

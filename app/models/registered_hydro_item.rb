@@ -31,14 +31,37 @@
 #  shape  :geometry({:srid=>4326, :type=>"multi_polygon", :has_z=>true, :has_m=>true})
 #
 class RegisteredHydroItem < ActiveRecord::Base
+  include Ekylibre::Record::HasShape
   include Lexiconable
+
+  has_geometry :shape
+  has_geometry :lines, type: :multi_line_string
+  has_geometry :point, type: :point
 
   scope :in_bounding_box, lambda { |bounding_box|
     where(<<-SQL)
-      registered_hydro_items.shape && ST_MakeEnvelope(#{bounding_box.join(', ')})
-      OR registered_hydro_items.lines && ST_MakeEnvelope(#{bounding_box.join(', ')})
-      OR registered_hydro_items.point && ST_MakeEnvelope(#{bounding_box.join(', ')})
+      registered_hydro_items.shape && ST_MakeEnvelope(#{bounding_box})
+      OR registered_hydro_items.lines && ST_MakeEnvelope(#{bounding_box})
+      OR registered_hydro_items.point && ST_MakeEnvelope(#{bounding_box})
     SQL
   }
 
+  # TODO: improve this once PostGIS has been updated to 2.5 as ST_Intersects now supports GEOMETRYCOLLECTION
+  scope :buffer_intersecting, lambda { |buffer, *geometries|
+    union = geometries.reduce { |geometry, union| union.merge(geometry) }
+    bounding_box = Charta.new_geometry(union).buffer(buffer).bounding_box
+
+    in_bounding_box(bounding_box.to_bbox_string)
+      .where("ST_Intersects(ST_Buffer(shape::geography, #{buffer}), '#{union}')
+              OR ST_Intersects(ST_Buffer(lines::geography, #{buffer}), '#{union}')
+              OR ST_Intersects(ST_Buffer(point::geography, #{buffer}), '#{union}')")
+  }
+
+  def name
+    self[:name].present? ? self[:name]['fra'] : nil
+  end
+
+  def geometry
+    shape || lines || point
+  end
 end

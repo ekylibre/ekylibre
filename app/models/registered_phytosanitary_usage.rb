@@ -59,6 +59,8 @@ class RegisteredPhytosanitaryUsage < ActiveRecord::Base
   include Dimensionable
   include ScopeIntrospection
 
+  UNTREATED_BUFFER_AQUATIC_VALUES = [5, 20, 30, 50, 100]
+
   belongs_to :product, class_name: 'RegisteredPhytosanitaryProduct'
 
   enumerize :state, in: %w[authorized provisional withdrawn], predicates: true

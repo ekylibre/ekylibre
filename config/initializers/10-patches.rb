@@ -388,3 +388,12 @@ module ActiveSupport
     end unless constants.include?(:ISO8601Serializer)
   end
 end
+
+module Charta
+  class Geometry
+    def buffer(radius)
+      buffer_text = ActiveRecord::Base.connection.execute("SELECT ST_AsText(ST_Buffer(ST_GeomFromText('#{feature.as_text}')::geography, #{radius})) AS buffer").first['buffer']
+      Charta.new_geometry(buffer_text)
+    end
+  end
+end
