@@ -19,6 +19,7 @@ class visualization.Optional
     html += "<span class='leaflet-categories-item'>"
     html += "<i class='leaflet-categories-sample' style='background-color: #{@layer.fillColor || @options.parent.options.layerDefaults[@layer.type].fillColor };'></i>"
     html += "<span class='leaflet-categories-item_label'>#{@layer.label}</span>"
+    html += "<span class='leaflet-categories-item_label zoom-guidance'>(#{@options.zoomGuidance})</span>"
     html += "</span>"
     html += "</span>"
     html += "</div>"

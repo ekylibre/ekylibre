@@ -125,6 +125,7 @@
           fill: true
           fillColor: "#CBCFFB"
           fillOpacity: 0.5
+          zoomGuidance: I18n.t("#{I18n.rootKey}.leaflet.zoomGuidance")
         paths:
           stroke: true
           color: "#333333"
@@ -259,7 +260,7 @@
               renderedLayer = V.layer(layer, serieData, options)
               return unless renderedLayer && renderedLayer.valid()
 
-              $(@controls.legendControl.getContainer()).find("#legend-#{layer.name}").show()
+              $(@controls.legendControl.getContainer()).find('.zoom-guidance').hide()
               displayedOverlay = _.find(@options.layers, ['reference', layer.reference]).overlay
               layerGroup = renderedLayer.buildLayerGroup(this, options)
               displayedOverlay.clearLayers()
@@ -269,7 +270,7 @@
 
         else
           for layer in _.filter(@options.layers, ['type', 'optional'])
-            $(@controls.legendControl.getContainer()).find("#legend-#{layer.name}").hide()
+            $(@controls.legendControl.getContainer()).find('.zoom-guidance').show()
             layer.overlay.clearLayers()
 
 

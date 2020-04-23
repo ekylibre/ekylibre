@@ -1191,6 +1191,7 @@ eng:
             removeDisabled: "No layers to delete"
       fullscreenTitle: "Full Screen"
       importerButtonTitle: "Import"
+      zoomGuidance: "Insufficient zoom level"
       zoomInTitle: "Zoom in"
       zoomOutTitle: "Zoom out"
     intervention:

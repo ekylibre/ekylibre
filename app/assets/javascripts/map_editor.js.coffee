@@ -77,6 +77,7 @@
             opacity: 1
             fillOpacity: 0.5
             legend: true
+            zoomGuidance: I18n.t("#{I18n.rootKey}.leaflet.zoomGuidance")
           categories:
             color: "#333"
             fillColor: "#333"
@@ -351,7 +352,7 @@
               renderedLayer = M.layer(layer, serieData, options)
               return unless renderedLayer && renderedLayer.valid()
 
-              $(@controls.legend.getContainer()).find("#legend-#{layer.name}").show()
+              $(@controls.legend.getContainer()).find('.zoom-guidance').hide()
               displayedOverlay = _.find(@options.show.layers, ['name', layer.name]).overlay
               layerGroup = renderedLayer.buildLayerGroup(this, options)
               displayedOverlay.clearLayers()
@@ -361,7 +362,7 @@
 
         else
           for layer in _.filter(@options.show.layers, ['type', 'optional'])
-            $(@controls.legend.getContainer()).find("#legend-#{layer.name}").hide()
+            $(@controls.legend.getContainer()).find('.zoom-guidance').show()
             layer.overlay.clearLayers()
 
 
