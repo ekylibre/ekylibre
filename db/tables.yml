@@ -107,6 +107,8 @@ accounts:
   number:
     type: string
     required: true
+  provider:
+    type: jsonb
   reconcilable:
     type: boolean
     required: true
@@ -992,27 +994,6 @@ bank_statements:
   updater_id:
     type: integer
     references: user
-cadastral_land_parcel_zones:
-  centroid:
-    type: geometry
-    limit:
-      srid: 4326
-      type: st_point
-  id:
-    type: string
-    required: true
-  net_surface_area:
-    type: integer
-  section:
-    type: string
-  shape:
-    type: geometry
-    limit:
-      srid: 4326
-      type: multi_polygon
-    required: true
-  work_number:
-    type: string
 call_messages:
   body:
     type: text
@@ -1552,6 +1533,8 @@ catalogs:
   name:
     type: string
     required: true
+  provider:
+    type: jsonb
   updated_at:
     type: datetime
     required: true
@@ -2289,6 +2272,8 @@ entities:
     type: boolean
     required: true
     default: false
+  provider:
+    type: jsonb
   reminder_submissive:
     type: boolean
     required: true
@@ -3309,7 +3294,7 @@ incoming_payments:
   payer_id:
     type: integer
     references: entity
-  providers:
+  provider:
     type: jsonb
   receipt:
     type: text
@@ -3665,6 +3650,8 @@ intervention_parameters:
     type: string
   allowed_harvest_factor:
     type: string
+  applications_frequency:
+    type: string
   assembly_id:
     type: integer
     references: product
@@ -3696,6 +3683,10 @@ intervention_parameters:
     required: true
   identification_number:
     type: string
+  imputation_ratio:
+    type: decimal
+    precision: 19
+    scale: 4
   intervention_id:
     type: integer
     references: intervention
@@ -3737,6 +3728,8 @@ intervention_parameters:
     type: decimal
     precision: 19
     scale: 4
+  reference_data:
+    type: jsonb
   reference_name:
     type: string
     required: true
@@ -3755,6 +3748,9 @@ intervention_parameters:
     references: user
   usage_id:
     type: string
+  using_live_data:
+    type: boolean
+    default: true
   variant_id:
     type: integer
     references: variant
@@ -4398,6 +4394,8 @@ journals:
   nature:
     type: string
     required: true
+  provider:
+    type: jsonb
   updated_at:
     type: datetime
     required: true
@@ -6315,6 +6313,8 @@ product_nature_categories:
   product_account_id:
     type: integer
     references: account
+  provider:
+    type: jsonb
   purchasable:
     type: boolean
     required: true
@@ -6534,6 +6534,8 @@ product_nature_variants:
     type: integer
   picture_updated_at:
     type: datetime
+  provider:
+    type: jsonb
   providers:
     type: jsonb
   reference_name:
@@ -6617,6 +6619,8 @@ product_natures:
   population_counting:
     type: string
     required: true
+  provider:
+    type: jsonb
   reference_name:
     type: string
   subscribing:
@@ -7260,20 +7264,6 @@ registered_agroedi_codes:
   repository_id:
     type: integer
     required: true
-registered_building_zones:
-  centroid:
-    type: geometry
-    limit:
-      srid: 4326
-      type: st_point
-  nature:
-    type: string
-  shape:
-    type: geometry
-    limit:
-      srid: 4326
-      type: multi_polygon
-    required: true
 registered_chart_of_accounts:
   account_number:
     type: string
@@ -7290,67 +7280,6 @@ registered_chart_of_accounts:
     type: string
   reference_name:
     type: string
-registered_crop_zones:
-  centroid:
-    type: geometry
-    limit:
-      srid: 4326
-      type: st_point
-  city_name:
-    type: string
-  id:
-    type: string
-    required: true
-  shape:
-    type: geometry
-    limit:
-      srid: 4326
-      type: st_polygon
-    required: true
-registered_enterprises:
-  address:
-    type: string
-  city:
-    type: string
-  country:
-    type: string
-  establishment_number:
-    type: string
-    required: true
-  french_main_activity_code:
-    type: string
-    required: true
-  name:
-    type: string
-  postal_code:
-    type: string
-registered_hydro_items:
-  id:
-    type: string
-    required: true
-  lines:
-    type: geometry
-    limit:
-      srid: 4326
-      type: multi_line_string
-      has_z: true
-      has_m: true
-  name:
-    type: jsonb
-  nature:
-    type: string
-  point:
-    type: geometry
-    limit:
-      srid: 4326
-      type: st_point
-  shape:
-    type: geometry
-    limit:
-      srid: 4326
-      type: multi_polygon
-      has_z: true
-      has_m: true
 registered_legal_positions:
   code:
     type: string
@@ -7490,7 +7419,7 @@ registered_phytosanitary_usages:
   applications_count:
     type: integer
   applications_frequency:
-    type: integer
+    type: string
   crop:
     type: jsonb
   crop_label_fra:
@@ -7550,31 +7479,6 @@ registered_phytosanitary_usages:
     type: integer
   usage_conditions:
     type: string
-registered_postal_zones:
-  city_centroid:
-    type: geometry
-    limit:
-      srid: 4326
-      type: st_point
-  city_delivery_detail:
-    type: string
-  city_delivery_name:
-    type: string
-  city_name:
-    type: string
-    required: true
-  code:
-    type: string
-    required: true
-  country:
-    type: string
-    required: true
-  id:
-    type: string
-    required: true
-  postal_code:
-    type: string
-    required: true
 registered_protected_designation_of_origins:
   eu_sign:
     type: string
@@ -7594,17 +7498,6 @@ registered_protected_designation_of_origins:
     type: string
   reference_number:
     type: string
-registered_seeds:
-  complete_name:
-    type: jsonb
-  name:
-    type: jsonb
-  number:
-    type: integer
-    required: true
-  specie:
-    type: string
-    required: true
 regularizations:
   affair_id:
     type: integer
@@ -7823,6 +7716,8 @@ sale_natures:
   payment_mode_id:
     type: integer
     references: incoming_payment_mode
+  provider:
+    type: jsonb
   sales_conditions:
     type: text
   updated_at:
@@ -7935,7 +7830,7 @@ sales:
     precision: 19
     scale: 4
     required: true
-  providers:
+  provider:
     type: jsonb
   quantity_gap_on_invoice_journal_entry_id:
     type: integer
