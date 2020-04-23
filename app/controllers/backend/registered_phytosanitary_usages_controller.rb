@@ -92,7 +92,7 @@ module Backend
       end
 
       def compute_usage_application(usage, targets_data, intervention_id)
-        return { none: ''} unless targets_data
+        return { none: '' } if targets_data.blank?
 
         maaid = usage.france_maaid
 
