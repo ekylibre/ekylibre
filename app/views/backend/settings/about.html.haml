@@ -5,3 +5,7 @@
     .med-info
       %span.title= p[0]
       %span.value= p[1]
+  .med-info
+    %span.title= "Source de données phytosanitaires"
+    %p= "Données E-Phy - ANSES"
+    %p= :updated_at.tl(date: @date)

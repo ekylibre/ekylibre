@@ -1527,6 +1527,7 @@ fra:
     daily_nitrogen_production: "Excretion d’azote journalière" #?
     data_to_export: "Données à exporter" #?
     data_to_extract: "Données à extraire" #?
+    database_version: "Version de la base de données"
     date: "Date" #?
     date_range: "%{from} au %{to}"
     dated_cash: "%{cash}\_: %{on}"
@@ -1653,6 +1654,7 @@ fra:
     edit_budget: "Modifier le budget"
     edition_date: "Date d'édition"
     ekylibre: "www.ekylibre.org"
+    ekylibre_version: "Version Ekylibre"
     elapsed_interventions_times_by_activities: "Temps passé par activité"
     element_status: "Statut"
     email: "Email:"
@@ -3043,6 +3045,7 @@ fra:
     up_to: "Jusqu’au"
     update: "Modifier"
     update_params: "Modifier la recherche" #?
+    updated_at: "Mis à jour le %{date}"
     updated_at_by: "Mis à jour le %{at} par %{author}"
     updated_by_ago: "Mis à jour par %{author} %{when}"
     upload: "Téléversement"
