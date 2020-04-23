@@ -20,8 +20,14 @@ module Backend
   class SettingsController < Backend::BaseController
     def about
       @properties = []
-      @properties.insert(0, ['Ekylibre version', Ekylibre.version])
-      @properties << ['Database version', ActiveRecord::Migrator.current_version]
+      @properties.insert(0, [tl(:ekylibre_version), Ekylibre.version])
+      @properties << [tl(:database_version), ActiveRecord::Migrator.current_version]
+      datasource_credit = DatasourceCredit.find_by(datasource: "ephy")
+      if datasource_credit.present?
+        @date = datasource_credit.updated_at.localize
+      else
+        @date = ""
+      end
     end
   end
 end

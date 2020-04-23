@@ -1604,6 +1604,7 @@ eng:
     # data: "Data"
     # data_transmissions: "Data transmissions"
     # date: "Date"
+    database_version: "Database Version"
     date_range: "%{from} to %{to}"
     dated_cash: "%{cash}: %{on}"
     dates: "Select period start date and Period end date" #?
@@ -1713,6 +1714,7 @@ eng:
     edit_budget: "Edit budget"
     edition_date: "Edition date"
     ekylibre: "www.ekylibre.org" #?
+    ekylibre_version: "Ekylibre version"
     elapsed_interventions_times_by_activities: "Elapsed interventions times by activities"
     element_status: "Status"
     email: "Email:" #?
