@@ -1,7 +1,7 @@
 - main_period_selector(:year)
 
 = janus do |j|
-  - land_parcels_map(janus: j)
+  - land_parcels_map(janus: j, optional_data_url: backend_visualizations_non_treatment_areas_visualizations_path)
   - j.face :list do
     = kujaku do |k|
       - k.text

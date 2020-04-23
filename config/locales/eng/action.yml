@@ -1354,6 +1354,7 @@ eng:
     any_journal: "Any journal"
     applications_count: "Max applications count"
     applications_interval_not_respected: "Applications interval non respected"
+    aquatic_nta: "Aquatic non-treatment area (%{distance} m)"
     archive_post_closure: "Post closure archive"
     archive_prior_to_closure: "Prior to closure archive"
     archives: "Archives"
@@ -2797,6 +2798,7 @@ eng:
     working_hectare_costs: "Working hectare costs" #?
     working_sets_stocks: "Working sets stocks" #?
     working_times: "Working times of %{name}" #?
+    working_zone_overlaps_nta: "Working zone overlaps non-treatment area"
     workload: "Workload" #?!
     x_cashes:
       one: "%{count} cash"

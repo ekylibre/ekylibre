@@ -4,7 +4,7 @@
 = janus do |j|
   - if resource_model.any?
     - j.face :map do
-      = main_resources_map(async: true)
+      = main_resources_map(async: true, optional_data_url: backend_visualizations_non_treatment_areas_visualizations_path)
     -# if current_campaign
       - j.face :chart do
         = cell :cropping_plan_on_cultivable_zones, params: {campaign_id: current_campaign.id}

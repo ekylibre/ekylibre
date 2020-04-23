@@ -26,7 +26,15 @@
       count += 1
     end
   end
-- map = visualization do |v|
+
+  visualization_opts = if resource.spraying? || resource.all_in_one_sowing? || resource.sowing_with_spraying?
+    max_nta = resource.max_non_treatment_area
+    { optional_data_url: backend_visualizations_non_treatment_areas_visualizations_path(add_to_map: max_nta) }
+  else
+    {}
+  end
+
+- map = visualization(visualization_opts) do |v|
   - if data.any?
     - v.serie :main, data
     - v.categories :activity, :main
