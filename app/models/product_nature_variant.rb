@@ -616,6 +616,9 @@ class ProductNatureVariant < Ekylibre::Record::Base
     def import_from_lexicon(reference_name, force = false)
       if RegisteredPhytosanitaryProduct.find_by_reference_name(reference_name)
         return import_phyto_from_lexicon(reference_name)
+      #case pasing a maaid in reference_name
+      elsif RegisteredPhytosanitaryProduct.find_by_id(reference_name)
+        return import_phyto_from_lexicon(reference_name)
       end
 
       unless item = Variant.find_by_reference_name(reference_name)
@@ -672,7 +675,8 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
     def import_phyto_from_lexicon(reference_name)
       item = RegisteredPhytosanitaryProduct.find_by_reference_name(reference_name)
-
+      # case maaid in reference_name
+      item ||= RegisteredPhytosanitaryProduct.find_by_id(reference_name)
       unless variant = ProductNatureVariant.find_by_reference_name(reference_name)
         category = ProductNatureCategory.import_from_lexicon(:plant_medicine)
         nature = ProductNature.import_from_lexicon(:plant_medicine)

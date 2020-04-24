@@ -17,11 +17,11 @@ module Ekylibre
 
         # get information for production context
         campaign_harvest_year = s.cell('A', 2).to_i
-        activity_name = (s.cell('B', 2).blank? ? [] : s.cell('B', 2).to_s.strip.split('/'))
+        activity_name = (s.cell('B', 2).blank? ? nil : s.cell('B', 2).to_s.strip)
         # activity_name[0] : activity_name, ex : 'Les papiers'
         # activity_name[1] : Nomen::ActivityFamily code, ex : administrative
-        production_name = s.cell('C', 2)
-        production_support_numbers = (s.cell('D', 2).blank? ? [] : s.cell('D', 2).to_s.strip.upcase.split(/[\s\,]+/))
+        activity_family = (s.cell('C', 2).blank? ? nil : s.cell('C', 2).to_s.strip)
+        activity_variety = (s.cell('D', 2).blank? ? nil : s.cell('D', 2).to_s.strip)
         # production_support_numbers[0] : support number, ex : ZC32
         # production_support_numbers[1] : quantity, ex : 1.52
         # production_support_numbers could be ZC32:1.5, ZC33
@@ -30,160 +30,67 @@ module Ekylibre
         support_variant_reference_name = nil if support_variant_reference_name.blank?
         production_indicator = (s.cell('G', 2).blank? ? [] : s.cell('G', 2).to_s.strip.downcase.delete(' ').split('/'))
 
-        # puts "#{activity_name.to_s} #{campaign_harvest_year.to_s}".inspect.red
-
         # get budget concerning production (activty / given campaign)
         campaign = Campaign.find_or_create_by!(harvest_year: campaign_harvest_year)
 
-        if cultivation_variant_reference_name
-          if cultivation_variety = Nomen::Variety.find(cultivation_variant_reference_name.to_sym)
-            w.info 'cultivation_variant_reference_name is a variety'
-          elsif cultivation_variant = ProductNatureVariant.find_by(work_number: cultivation_variant_reference_name) ||
-                                      ProductNatureVariant.find_by(reference_name: cultivation_variant_reference_name)
-            w.info 'cultivation_variant_reference_name is an existing variant in DB'
-          elsif cultivation_variant = ProductNatureVariant.import_from_nomenclature(cultivation_variant_reference_name)
-            w.info 'cultivation_variant_reference_name is an existing variant in NOMENCLATURE and will be imported'
-          elsif cultivation_variant.nil?
-            w.error "cultivation_variant_reference_name #{cultivation_variant_reference_name}.inspect is not a variant neither a variety"
-          end
-        end
-
-        cultivation_variety ||= Nomen::Variety.find(cultivation_variant.variety) if cultivation_variant
-
-        # puts cultivation_variety.inspect.red
-
-        if support_variant_reference_name
-          unless support_variant = ProductNatureVariant.find_by(work_number: support_variant_reference_name) ||
-                                   ProductNatureVariant.find_by(reference_name: support_variant_reference_name)
-            support_variant = ProductNatureVariant.import_from_nomenclature(support_variant_reference_name)
-          end
-        end
-
         # get activity by name or variety
-        unless activity = Activity.find_by(name: activity_name[0].strip)
-          activity = Activity.find_by(cultivation_variety: cultivation_variety.name.to_s) if cultivation_variety
-        end
-
-        # puts activity.inspect.green
-
-        # find or create activity
+        activity = Activity.find_by(name: activity_name)
         unless activity
-          family_name = activity_name[1].strip.to_sym if activity_name[1].present?
-          family = if family_name
-                     Nomen::ActivityFamily.find(transcode_activity_family(family_name) || family_name)
-                   else
-                     Activity.find_best_family(cultivation_variety)
-                   end
-          unless family
-            w.error 'Cannot determine activity'
-            raise ActiveExchanger::Error, "Cannot determine activity with support #{support_variant ? support_variant.variety.inspect : '?'} and cultivation #{cultivation_variant ? cultivation_variant.variety.inspect : '?'} in production #{sheet_name}"
-          end
-          activity = Activity.new(
-            name: activity_name[0].strip,
-            family: family.name,
-            size_indicator: (production_indicator[0] ? production_indicator[0].strip.to_sym : nil),
-            size_unit: (production_indicator[1] ? production_indicator[1].strip.to_sym : nil),
-            nature: family.nature,
-            with_supports: (production_support_numbers.any? ? true : false),
-            production_cycle: :annual
-          )
-          if support_variant && support_variant.variety
-            activity.support_variety = (Nomen::Variety.find(support_variant.variety) == :cultivable_zone ? :land_parcel : (Nomen::Variety.find(support_variant.variety) <= :building_division ? :building_division : :product))
-            activity.with_cultivation = (Nomen::Variety.find(activity.support_variety) <= :land_parcel)
-          end
-          activity.cultivation_variety = cultivation_variety if cultivation_variety
-          activity.save!
-        end
+          if activity_name && activity_family
+            family = Nomen::ActivityFamily.find(activity_family.to_sym)
+            variety = Nomen::Variety.find(activity_variety.to_sym) if activity_variety
+            if family
+              # create activity
 
-        w.info "Sheet: #{sheet_name} (#{cultivation_variant})"
-
-        # find or create activity production
-
-        production_support_numbers.each do |number|
-          # get quantity and number given
-          # get CultivableZone, LandParcel, Product or Georeading for this number
-          # build shape
-
-          arr = nil
-          arr = number.to_s.strip.delete(' ').split(':')
-
-          production_support_number = arr[0]
-          production_support_quantity = arr[1]
-          production_support_shape = nil
-
-          # Product
-          if product = Product.find_by(number: production_support_number) ||
-                       Product.find_by(identification_number: production_support_number) ||
-                       Product.find_by(work_number: production_support_number)
-            # puts 'Product exist'.inspect.yellow
-            if product.shape
-              cz = CultivableZone.shape_covering(product.shape, 0.02).first
-              production_support_shape = product.shape
-            end
-          # Existing CultivableZone
-          elsif cz = CultivableZone.find_by(work_number: production_support_number)
-            production_support_shape = cz.shape
-            product = LandParcel.shape_covering(cz.shape, 0.02).first
-          # unless product
-          #  lp_variant = ProductNatureVariant.import_from_nomenclature(:land_parcel)
-          #  product = LandParcel.create!(variant: lp_variant, work_number: cz.work_number,
-          #                              name: cz.work_number, initial_born_at: Time.now,
-          #                               initial_owner: Entity.of_company, initial_shape: cz.shape)
-          #  production_support_shape = product.shape
-          # end
-          # w.error "Cannot find support with number: #{number.inspect}"
-          # Existing Georeading in an existing cultivable zone
-          elsif g = Georeading.find_by(number: production_support_number)
-            # find corresponding cultivable zone
-            cz = CultivableZone.shape_covering(g.content, 0.02).first
-            production_support_shape = g.content
-            product = LandParcel.shape_covering(production_support_shape, 0.02).first
-          end
-
-          w.info 'No Product given for ' unless product
-
-          attributes = {
-            activity: activity,
-            support: product,
-            started_on: Date.new(campaign.harvest_year - 1, 10, 1),
-            stopped_on: Date.new(campaign.harvest_year, 8, 1),
-            state: :opened,
-            campaign_id: campaign.id
-          }
-
-          # PLANT FARMING
-          if activity.with_supports && cz && production_support_shape && Nomen::ActivityFamily[activity.family] <= :plant_farming
-            attributes[:cultivable_zone] = cz
-            attributes[:support_shape] = production_support_shape
-            attributes[:usage] = :grain
-            # find or create AP (support = land_parcel) and TD (target = land_parcel/plant)
-            aps = ActivityProduction.where(activity: activity, campaign: campaign)
-            ap = aps.support_shape_matching(production_support_shape, 0.02).first if aps
-            unless ap
-              ap = ActivityProduction.create!(attributes)
-              ap.support.update(activity_production: ap)
-            end
-          # ANIMAL FARMING
-          elsif activity.with_supports && Nomen::ActivityFamily[activity.family] <= :animal_farming && product.is_a?(AnimalGroup)
-            attributes[:size_value] = 1.0
-            attributes[:size_unit] = :unity
-            attributes[:usage] = :meat
-            # find or create AP (support = animal_group) and TD (target = animal)
-            unless (ap = ActivityProduction.find_by(activity: activity, campaign: campaign, support: product))
-              ap = ActivityProduction.create!(attributes)
-              m = product.members_at(ap.started_on.to_time)
-              if m.any?
-                for animal in m
-                  animal.update(activity_production: ap)
-                end
+              attributes = {
+                name: activity_name,
+                family: activity_family,
+                cultivation_variety: activity_variety,
+                with_cultivation: true,
+                production_cycle: :annual,
+                nature: :main
+              }
+              if activity_variety && family <= :plant_farming
+                attributes.update(
+                  family: :plant_farming,
+                  cultivation_variety: activity_variety,
+                  support_variety: :cultivable_zone,
+                  with_supports: true,
+                  size_indicator: 'net_surface_area',
+                  size_unit: 'hectare'
+                )
+              elsif activity_variety && family <= :animal_farming
+                attributes.update(
+                  family: :animal_farming,
+                  cultivation_variety: activity_variety,
+                  support_variety: :animal_group,
+                  with_supports: true,
+                  size_indicator: 'members_population'
+                )
+              elsif family <= :administering
+                attributes.update(
+                  family: :administering,
+                  with_cultivation: false,
+                  with_supports: false,
+                  cultivation_variety: nil,
+                  support_variety: nil,
+                  nature: :auxiliary
+                )
               end
+
+              activity = Activity.find_or_initialize_by(attributes.slice(:name, :family, :cultivation_variety))
+              activity.attributes = attributes
+              activity.save!
+
+            else
+              raise ActiveExchanger::Error, 'You must mention correct nomen element'
             end
           else
-            attributes[:size_indicator] = 'net_surface_area'
-            attributes[:size_value] = 1.0
-            attributes[:usage] = :grain
+            raise ActiveExchanger::Error, "You must mention activity attributes to create it : activity name : #{activity_name}, activity family : #{activity_family}, activity variety : #{activity_variety}"
           end
         end
+
+        w.info "Sheet: #{sheet_name} "
 
         # file format
         # A "Nom de l'intervention ou de intrant"
@@ -199,10 +106,16 @@ module Ekylibre
         # 3 first line are not budget items
         4.upto(s.last_row) do |row_number|
           next if s.cell('A', row_number).blank?
+          computation_method = case s.cell('C', row_number).to_s.downcase
+                                 when 'uo' then :per_working_unit
+                                 when 'support' then :per_production
+                                 when 'production' then :per_production
+                                 else :per_working_unit
+                               end
           r = {
             item_name: s.cell('A', row_number),
             item_code_variant: s.cell('B', row_number),
-            computation_method: (s.cell('C', row_number).to_s.casecmp('uo') ? :per_working_unit : (s.cell('C', row_number).to_s.casecmp('support') ? :per_production : :per_campaign)),
+            computation_method: computation_method,
             item_quantity: (s.cell('D', row_number).blank? ? nil : s.cell('D', row_number).to_d),
             item_quantity_unity: s.cell('E', row_number).to_s.strip.split(/[\,\.\/\\\(\)]/),
             item_unit_price_amount: (s.cell('F', row_number).blank? ? nil : s.cell('F', row_number).to_d),
@@ -217,11 +130,12 @@ module Ekylibre
           else
             unless item_variant = ProductNatureVariant.find_by(work_number: r.item_code_variant) ||
                                   ProductNatureVariant.find_by(reference_name: r.item_code_variant)
-              unless Nomen::ProductNatureVariant[r.item_code_variant]
-                w.error "Cannot find valid variant for budget: #{r.item_code_variant.inspect.red}"
+              if Nomen::ProductNatureVariant[r.item_code_variant]
+                item_variant = ProductNatureVariant.import_from_nomenclature(r.item_code_variant)
+              else
+                w.error "No variant could be created with #{r.item_code_variant}"
                 next
               end
-              item_variant = ProductNatureVariant.import_from_nomenclature(r.item_code_variant)
             end
           end
 

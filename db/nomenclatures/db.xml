@@ -3211,9 +3211,9 @@
       <item name="arboricultural_platform" nature="platform"/>
       <item name="arboricultural_pneumatic_sprayer" nature="sprayer"/>
       <item name="arboricultural_weeding_boom" nature="sprayer"/>
-      <item name="arezzo_wheat_crop" nature="cereal_crop" variety="triticum_aestivum_arezzo" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
-      <item name="ascott_wheat_crop" nature="cereal_crop" variety="triticum_aestivum_ascott" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
-      <item name="ascott_wheat_seed_25" nature="seed" derivative_of="triticum_aestivum_ascott" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 50gram" unit_name="25kg_bag"/>
+      <item name="arezzo_wheat_crop" nature="cereal_crop" variety="triticum_aestivum" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
+      <item name="ascott_wheat_crop" nature="cereal_crop" variety="triticum_aestivum" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
+      <item name="ascott_wheat_seed_25" nature="seed" derivative_of="triticum_aestivum" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 50gram" unit_name="25kg_bag"/>
       <item name="asparagus_crop" nature="vegetable_crop" variety="asparagus" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="associate_social_contribution" nature="associate_social_contribution"/>
       <item name="back_arboricultural_hay_rake" nature="hay_rake"/>
@@ -3282,8 +3282,8 @@
       <item name="calcium_carbonate_25kg" nature="wine_alkalinizing" frozen_indicators_values="net_mass: 25.00kilogram" unit_name="25kg_bag"/>
       <item name="calf" nature="calf" frozen_indicators_values="livestock_unit: 0.4, reproductor: false" unit_name="head"/>
       <item name="cap_subsidies" nature="exploitation_subsidies"/>
-      <item name="caphorn_wheat_crop" nature="cereal_crop" variety="triticum_aestivum_caphorn" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
-      <item name="caphorn_wheat_seed_25" nature="seed" derivative_of="triticum_aestivum_caphorn" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 50gram" unit_name="25kg_bag"/>
+      <item name="caphorn_wheat_crop" nature="cereal_crop" variety="triticum_aestivum" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
+      <item name="caphorn_wheat_seed_25" nature="seed" derivative_of="triticum_aestivum" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 50gram" unit_name="25kg_bag"/>
       <item name="capra_manure" nature="organic_fertilizer" variety="manure" derivative_of="capra" frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.61percent" unit_name="ton"/>
       <item name="car" nature="car" frozen_indicators_values="" unit_name="equipment"/>
       <item name="car_moving_travel" nature="moving_travel" unit_name="kilometer"/>
@@ -3348,25 +3348,25 @@
       <item name="coop:avoine_d_hiver_une_de_mai_red_25kg" nature="seed" derivative_of="avena_sativa_une_de_mai" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 35gram" unit_name="25kg_bag"/>
       <item name="coop:axial_pratic_5_l" nature="herbicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="liter"/>
       <item name="coop:balmora_5_l" nature="fungicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="liter"/>
-      <item name="coop:bd_s_miradoux_r1_cel_gold_net_25kg" nature="seed" derivative_of="triticum_durum_miradoux" frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 50gram" unit_name="25kg_bag"/>
-      <item name="coop:bd_s_miradoux_r1_gau_red_25kg" nature="seed" derivative_of="triticum_durum_miradoux" frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 50gram" unit_name="25kg_bag"/>
-      <item name="coop:bd_s_r1_miradoux_gau_vibrance_d500mg" nature="seed" derivative_of="triticum_durum_miradoux" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 50gram" unit_name="25kg_bag"/>
-      <item name="coop:bd_s_tablur_r1_cel_gold_net_25kg" nature="seed" derivative_of="triticum_durum_tablur" frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 48gram" unit_name="25kg_bag"/>
-      <item name="coop:bd_s_tablur_r1_gau_red_25kg" nature="seed" derivative_of="triticum_durum_tablur" frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 42gram" unit_name="25kg_bag"/>
+      <item name="coop:bd_s_miradoux_r1_cel_gold_net_25kg" nature="seed" derivative_of="triticum_durum" frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 50gram" unit_name="25kg_bag"/>
+      <item name="coop:bd_s_miradoux_r1_gau_red_25kg" nature="seed" derivative_of="triticum_durum" frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 50gram" unit_name="25kg_bag"/>
+      <item name="coop:bd_s_r1_miradoux_gau_vibrance_d500mg" nature="seed" derivative_of="triticum_durum" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 50gram" unit_name="25kg_bag"/>
+      <item name="coop:bd_s_tablur_r1_cel_gold_net_25kg" nature="seed" derivative_of="triticum_durum" frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 48gram" unit_name="25kg_bag"/>
+      <item name="coop:bd_s_tablur_r1_gau_red_25kg" nature="seed" derivative_of="triticum_durum" frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 42gram" unit_name="25kg_bag"/>
       <item name="coop:bell_star_5_l" nature="fungicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="liter"/>
       <item name="coop:boa_3_l" nature="herbicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="liter"/>
       <item name="coop:bofix_20_l" nature="herbicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="liter"/>
       <item name="coop:bofix_5_l" nature="herbicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="liter"/>
       <item name="coop:bromotril_225_5_l" nature="herbicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="liter"/>
-      <item name="coop:bth_s_arezzo_r1_gau_red_lat_s25kg" nature="seed" derivative_of="triticum_aestivum_arezzo" frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 42gram" unit_name="25kg_bag"/>
-      <item name="coop:bth_s_ascott_r1_gau_red_s25kg" nature="seed" derivative_of="triticum_aestivum_ascott" frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 42gram" unit_name="25kg_bag"/>
-      <item name="coop:bth_s_caphorn_r1_cel_gold_net_25kg" nature="seed" derivative_of="triticum_aestivum_caphorn" frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 42gram" unit_name="25kg_bag"/>
-      <item name="coop:bth_s_caphorn_r1_gau_red_25kg" nature="seed" derivative_of="triticum_aestivum_caphorn" frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 42gram" unit_name="25kg_bag"/>
-      <item name="coop:bth_s_caphorn_r1_gau_red_lat_s25kg" nature="seed" derivative_of="triticum_aestivum_caphorn" frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 42gram" unit_name="25kg_bag"/>
-      <item name="coop:bth_s_euclide_r1_cel_gold_net_25kg" nature="seed" derivative_of="triticum_aestivum_euclide" frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 42gram" unit_name="25kg_bag"/>
-      <item name="coop:bth_s_euclide_r1_gau_red_25kg" nature="seed" derivative_of="triticum_aestivum_euclide" frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 42gram" unit_name="25kg_bag"/>
-      <item name="coop:bth_s_premio_r1_gau_red_25kg" nature="seed" derivative_of="triticum_aestivum_premio" frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 42gram" unit_name="25kg_bag"/>
-      <item name="coop:bth_s_rubisko_r1_gau_red_s25kg" nature="seed" derivative_of="triticum_aestivum_rubisko" frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 42gram" unit_name="25kg_bag"/>
+      <item name="coop:bth_s_arezzo_r1_gau_red_lat_s25kg" nature="seed" derivative_of="triticum_aestivum" frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 42gram" unit_name="25kg_bag"/>
+      <item name="coop:bth_s_ascott_r1_gau_red_s25kg" nature="seed" derivative_of="triticum_aestivum" frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 42gram" unit_name="25kg_bag"/>
+      <item name="coop:bth_s_caphorn_r1_cel_gold_net_25kg" nature="seed" derivative_of="triticum_aestivum" frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 42gram" unit_name="25kg_bag"/>
+      <item name="coop:bth_s_caphorn_r1_gau_red_25kg" nature="seed" derivative_of="triticum_aestivum" frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 42gram" unit_name="25kg_bag"/>
+      <item name="coop:bth_s_caphorn_r1_gau_red_lat_s25kg" nature="seed" derivative_of="triticum_aestivum" frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 42gram" unit_name="25kg_bag"/>
+      <item name="coop:bth_s_euclide_r1_cel_gold_net_25kg" nature="seed" derivative_of="triticum_aestivum" frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 42gram" unit_name="25kg_bag"/>
+      <item name="coop:bth_s_euclide_r1_gau_red_25kg" nature="seed" derivative_of="triticum_aestivum" frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 42gram" unit_name="25kg_bag"/>
+      <item name="coop:bth_s_premio_r1_gau_red_25kg" nature="seed" derivative_of="triticum_aestivum" frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 42gram" unit_name="25kg_bag"/>
+      <item name="coop:bth_s_rubisko_r1_gau_red_s25kg" nature="seed" derivative_of="triticum_aestivum" frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 42gram" unit_name="25kg_bag"/>
       <item name="coop:buggy_plus_100_l" nature="herbicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="liter"/>
       <item name="coop:callisto_5_l" nature="herbicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="liter"/>
       <item name="coop:ceando_5_l" nature="fungicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="liter"/>
@@ -3422,7 +3422,7 @@
       <item name="coop:presite_sx_300_gr" nature="herbicide" frozen_indicators_values="net_volume: 0.300liter, net_mass: 0.300kilogram" unit_name="box"/>
       <item name="coop:prosaro_5_l" nature="fungicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="liter"/>
       <item name="coop:ray_g_hyb_bahial_10kg" nature="seed" derivative_of="lolium_hybridum_bahial" frozen_indicators_values="net_mass: 10.00kilogram, thousand_grains_mass: 2gram" unit_name="10kg_bag"/>
-      <item name="coop:red_label_caphorn_wheat_grain" nature="grain" derivative_of="triticum_aestivum_caphorn" frozen_indicators_values="net_mass: 1.00ton"/>
+      <item name="coop:red_label_caphorn_wheat_grain" nature="grain" derivative_of="triticum_aestivum" frozen_indicators_values="net_mass: 1.00ton"/>
       <item name="coop:sel_mer_essore_la_baleine_sac_25kg" nature="animal_food" variety="mix" frozen_indicators_values="net_mass: 1.00ton" unit_name="bag"/>
       <item name="coop:sorgho_ensilage_bmr_333_220mg" nature="seed" derivative_of="sorghum" frozen_indicators_values="net_mass: 7.70kilogram, thousand_grains_mass: 35gram" unit_name="220tg_bag"/>
       <item name="coop:super_45_gr_vr" nature="chemical_fertilizer" frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, phosphorus_concentration: 45percent" unit_name="ton"/>
@@ -3488,8 +3488,8 @@
       <item name="escalope_veal_meat" nature="beef_meat" derivative_of="bos_taurus" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="escourgeon_barley_crop" nature="cereal_crop" variety="hordeum_vulgare" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="etincel_winter_barley_crop" nature="cereal_crop" variety="hordeum_hexastichum_etincel" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
-      <item name="euclide_wheat_crop" nature="cereal_crop" variety="triticum_aestivum_euclide" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
-      <item name="euclide_wheat_seed_25" nature="seed" derivative_of="triticum_aestivum_euclide" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 50gram" unit_name="25kg_bag"/>
+      <item name="euclide_wheat_crop" nature="cereal_crop" variety="triticum_aestivum" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
+      <item name="euclide_wheat_seed_25" nature="seed" derivative_of="triticum_aestivum" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 50gram" unit_name="25kg_bag"/>
       <item name="ewe_milk" nature="milk" derivative_of="ovis" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.037kilogram" unit_name="liter"/>
       <item name="fallow_crop" nature="crop" variety="poa" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="farm_teaching_service" nature="farm_teaching_services"/>
@@ -3704,8 +3704,8 @@
       <item name="minced_ox_meat" nature="beef_meat" derivative_of="bos_taurus" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="mineral_cleaner" nature="mineral_cleaner" frozen_indicators_values="net_mass: 1kilogram, net_volume: 1.00liter" unit_name="liter"/>
       <item name="mineral_feed_block_25" nature="animal_food" variety="mix" frozen_indicators_values="net_mass: 25.00kilogram" unit_name="25kg_bag"/>
-      <item name="miradoux_hard_wheat_crop" nature="cereal_crop" variety="triticum_durum_miradoux" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
-      <item name="miradoux_hard_wheat_seed_25" nature="seed" derivative_of="triticum_durum_miradoux" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 50gram" unit_name="25kg_bag"/>
+      <item name="miradoux_hard_wheat_crop" nature="cereal_crop" variety="triticum_durum" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
+      <item name="miradoux_hard_wheat_seed_25" nature="seed" derivative_of="triticum_durum" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 50gram" unit_name="25kg_bag"/>
       <item name="mixed_chemical_fertilizer" nature="mixed_chemical_fertilizer" frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton" unit_name="ton"/>
       <item name="mixed_liquid_fertilizer" nature="mixed_liquid_fertilizer" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
       <item name="mixed_organic_fertilizer" nature="mixed_organic_fertilizer" frozen_indicators_values="net_mass: 1.00kg"/>
@@ -3840,7 +3840,7 @@
       <item name="rotary_trimmer_tv" nature="cutting_equipment"/>
       <item name="rotative_intercep_lv" nature="weeder"/>
       <item name="rotavator" nature="seedbed_preparator" frozen_indicators_values="" unit_name="equipment"/>
-      <item name="rubisko_wheat_crop" nature="cereal_crop" variety="triticum_aestivum_rubisko" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
+      <item name="rubisko_wheat_crop" nature="cereal_crop" variety="triticum_aestivum" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="running_water" nature="running_water" frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton" unit_name="cubic_meter"/>
       <item name="rye_crop" nature="cereal_crop" variety="secale" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="rye_grain" nature="grain" variety="grain" derivative_of="secale_cereale" frozen_indicators_values="net_mass: 1.00ton"/>
@@ -3918,8 +3918,8 @@
       <item name="sunflower_grain" nature="grain" derivative_of="helianthus" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
       <item name="sunflower_seed_150tg" nature="seed" derivative_of="helianthus" frozen_indicators_values="net_mass: 7.50kilogram, thousand_grains_mass: 50gram" unit_name="150tg_bag"/>
       <item name="superficial_plow" nature="superficial_plow" frozen_indicators_values="" unit_name="equipment"/>
-      <item name="tablur_hard_wheat_crop" nature="cereal_crop" variety="triticum_durum_tablur" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
-      <item name="tablur_hard_wheat_seed_25" nature="seed" derivative_of="triticum_durum_tablur" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 50gram" unit_name="25kg_bag"/>
+      <item name="tablur_hard_wheat_crop" nature="cereal_crop" variety="triticum_durum" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
+      <item name="tablur_hard_wheat_seed_25" nature="seed" derivative_of="triticum_durum" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 50gram" unit_name="25kg_bag"/>
       <item name="tangerine_crop" nature="fruit_crop" variety="citrus_reticulata" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="plant"/>
       <item name="tank_pump_lv" nature="sprayer"/>
       <item name="tank_pump_tv" nature="sprayer"/>
@@ -4276,7 +4276,7 @@
       <item name="sheep_herd" category="cattle_herd" variety="animal_group" derivative_of="ovis" population_counting="unitary" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix), consume(silage)" frozen_indicators="" nature="animal"/>
       <item name="shell_fruit_reaper" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="harvest(walnut), harvest(hazelnut), consume(oil), consume(fuel)" variable_indicators="application_width" frozen_indicators="" nature="equipment"/>
       <item name="sieve_shaker" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="sieve" frozen_indicators="application_width, theoretical_working_speed" variable_indicators="geolocation" nature="equipment"/>
-      <item name="silage" category="grass" variety="silage" derivative_of="poaceae" population_counting="decimal" abilities="feed(animal)" variable_indicators="dry_matter_rate" frozen_indicators="net_mass, net_volume" nature="article"/>
+      <item name="silage" category="grass" variety="silage" derivative_of="poaceae" population_counting="decimal" abilities="feed(animal)" variable_indicators="mass_volume_density, dry_matter_rate" frozen_indicators="net_mass, net_volume" nature="article"/>
       <item name="silage_division" category="building_division" variety="building_division" population_counting="unitary" abilities="store(silage)" variable_indicators="net_surface_area, shape, nominal_storable_net_volume, nominal_storable_easement_area" frozen_indicators="" nature="zone"/>
       <item name="small_equipment" category="small_equipment" variety="equipment" population_counting="unitary" variable_indicators="net_mass" frozen_indicators="" nature="equipment"/>
       <item name="so2_solution" category="oenological_product" variety="preparation" population_counting="decimal" abilities="sulfurize(wine)" variable_indicators="" frozen_indicators="net_volume, net_mass, sulfur_dioxide_concentration" nature="article"/>
