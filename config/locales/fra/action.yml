@@ -2424,6 +2424,7 @@ fra:
     phosphorus_concentration_per_hectare: "Teneur en phosphore par hectare" #?
     physical_h2: "Physique H2"
     phyto_data: "Données phytosanitaires"
+    phytosanitary_product_does_not_exists:  "Le numéro d’AMM de votre produit est inconnu : corrigez-le pour bénéficier des vérifications réglementaires"
     picture: "Photo"
     placeholder: "Espace réservé"
     places: "Lieux"

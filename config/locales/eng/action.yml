@@ -2311,6 +2311,7 @@ eng:
     phosphorus_concentration: "Phosphorus concentration" #?
     physical_h2: "Physical H2"
     phyto_data: "Phytosanitary data"
+    phytosanitary_product_does_not_exists: "This phytosanitary product does not exists"
     picture: "Picture" #?
     placeholder: "Placeholder" #?
     places: "Places"
