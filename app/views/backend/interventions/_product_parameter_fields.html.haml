@@ -125,7 +125,12 @@
 
   - if reference.attribute(:working_zone)
     - if user_preference_value(User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM, true)
-      - optional_data = f.object.intervention&.spraying? ? { optional_data_url: backend_map_editor_shapes_path(layers: RegisteredPhytosanitaryUsage::UNTREATED_BUFFER_AQUATIC_VALUES.map { |n| :"aquatic_nta_#{n}" }), default_optional_data: :aquatic_nta_5 } : {}
+      :ruby
+        optional_data = if %w[spraying all_in_one_sowing sowing_with_spraying].include?(params[:procedure_name])
+          { optional_data_url: backend_map_editor_shapes_path(layers: RegisteredPhytosanitaryUsage::UNTREATED_BUFFER_AQUATIC_VALUES.map { |n| :"aquatic_nta_#{n}" }), default_optional_data: :aquatic_nta_5 }
+        else
+          {}
+        end
 
       = f.geometry :working_zone, { show: {}, input_html: { data: { intervention_updater: prefix + 'working_zone' }}, editor: { useFeatures: true, overlaySelector: { editionLayer: f.object.human_attribute_name(:working_zone) }, dynamic_series: backend_map_editor_shapes_path(layers: [:land_parcels, :plants], started_at: started_at) }.merge(optional_data) }
     - else
