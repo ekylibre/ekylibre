@@ -33,6 +33,7 @@ module FormObjects
           @products_data&.values || {}
         end
 
+        # @return  [Intervention, nil]
         def intervention
           Intervention.find_by_id(@intervention_id)
         end

@@ -70,6 +70,14 @@
             opacity: 0.8
             fillOpacity: 0.4
             legend: true
+          optional:
+            color: "#333"
+            fillColor: "#CBCFFB"
+            weight: 1
+            opacity: 1
+            fillOpacity: 0.5
+            legend: true
+            zoomGuidance: I18n.t("#{I18n.rootKey}.leaflet.zoomGuidance")
           categories:
             color: "#333"
             fillColor: "#333"
@@ -164,6 +172,9 @@
         attributionControl: true
       )
 
+      @controls = {}
+      @seriesReferencesLayers = {}
+
       this.elementSeries = $('<input>').insertAfter(this.mapElement)
       this.elementSeries.attr "type", "hidden"
 
@@ -177,6 +188,8 @@
       @ghostLayerLabelCluster = L.ghostLabelCluster(type: 'hidden')
       @ghostLayerLabelCluster.addTo @map
 
+      @layersScheduler = L.layersScheduler()
+      @layersScheduler.addTo @map
 
       this.map.on "draw:created", (e) =>
         #Attempt to add a geojson feature
@@ -291,8 +304,11 @@
 #        console.log "NEW BOUNDING BOX", e.target.getBounds().toBBoxString()
 #        @setDynamicSeries()
 
-      @setDynamicSeries()
+      @_buildLegendContainer()
+      @_bindOverlays()
 
+      @setDynamicSeries()
+      @optionalDataLoading() unless @options.dynamic_series
 
       widget.element.trigger "mapeditor:loaded"
 
@@ -313,11 +329,61 @@
           $.extend(true, @options.show, data.show)
           @_refreshReferenceLayerGroup()
           @_refreshControls()
+          @optionalDataLoading()
         complete: () =>
           @map.removeControl @dynamic_loading
 
       #Ensure edition layer is on top
       @edition.bringToFront() if @edition
+
+    optionalDataLoading: ->
+      return unless url = @options.optional_data_url
+
+      _refreshOptionalData = =>
+        optionalLayerDisplayed = @_optionalLayersDisplayed()[0]
+
+        if @zoom() >= 16
+          urlWithoutParams = url.replace(/\?.+/, '')
+          $.getJSON urlWithoutParams, bounds: @bounds(), layers: [optionalLayerDisplayed.name], (data) =>
+            for layer in data.show.layers
+              @options.show.series[layer.serie] = data.show.series[layer.serie]
+              serieData = @_getSerieData(layer.serie)
+              options = $.extend true, {}, @options.show.layerDefaults[layer.type], layer, parent: this
+              renderedLayer = M.layer(layer, serieData, options)
+              return unless renderedLayer && renderedLayer.valid()
+
+              $(@controls.legend.getContainer()).find('.zoom-guidance').hide()
+              displayedOverlay = _.find(@options.show.layers, ['name', layer.name]).overlay
+              layerGroup = renderedLayer.buildLayerGroup(this, options)
+              displayedOverlay.clearLayers()
+
+              for _k, layr of layerGroup._layers
+                displayedOverlay.addLayer(layr)
+
+        else
+          for layer in _.filter(@options.show.layers, ['type', 'optional'])
+            $(@controls.legend.getContainer()).find('.zoom-guidance').show()
+            layer.overlay.clearLayers()
+
+
+      $.getJSON url, (data) =>
+        $.extend(true, @options.show.series, data.show.series)
+
+        for layer in data.show.layers
+          @options.show.layers.push(layer)
+          @_addLayer(layer)
+          @layerSelector.addOverlay(@seriesReferencesLayers[layer.label], layer.label)
+
+        @map.on 'overlayadd', (event) =>
+          if @_optionalLayer(event.name)
+            @map.on 'moveend', _refreshOptionalData if @_optionalLayersDisplayed().length == 1
+            @_optionalSiblings(event.name).forEach (layer) => delay(1, => @map.removeLayer(layer.overlay)) if @map.hasLayer(layer.overlay)
+            delay 1, => _refreshOptionalData()
+
+        @map.on 'overlayremove', (event) =>
+          @map.off 'moveend', _refreshOptionalData unless @_optionalLayersDisplayed().length
+
+        @element.trigger 'mapeditor:optional_data_loaded'
 
     updateFeature: (feature_id, attributeName, attributeValue) ->
       this.updateFeatureProperties(feature_id, attributeName, attributeValue)
@@ -367,10 +433,15 @@
     navigateToLayer: (layer) ->
       this.map.panInsideBounds layer.getBounds(), animate: true
 
-
     removeLayer: (layer) ->
       this.edition.removeLayer layer
 
+    displayOptionalOverlay: (layerName) ->
+      return unless layer = @_optionalLayer(layerName)
+      @map.addLayer(layer.overlay) unless @map.hasLayer(layer)
+
+    hideOptionalOverlays: ->
+      @map.removeLayer(layer.overlay) for layer in @_optionalLayersDisplayed()
 
     popupize: (feature, layer) ->
       popup = ""
@@ -475,6 +546,9 @@
       this.options.view.box.height = height
       this._resize()
 
+    bounds: ->
+      @map.getBounds().toBBoxString()
+
     _resize: ->
       if this.options.box?
         if this.options.box.height?
@@ -537,6 +611,15 @@
           console.log this.options.back
       this
 
+    _optionalLayersDisplayed: ->
+      _.filter(@options.show.layers, (layer) => layer.type == 'optional' && @map.hasLayer(layer.overlay))
+
+    _optionalSiblings: (layerName) ->
+      _.reject(@options.show.layers, (layer) -> layer.type != 'optional' || layer.label == layerName)
+
+    _optionalLayer: (layerName) ->
+      _.find(@options.show.layers, (layer) -> layer.type == 'optional' && (layer.label == layerName || layer.name == layerName))
+
     # Retuns data from a serie found with the given name
     _getSerieData: (name) ->
       if @options.show.series[name]?
@@ -552,24 +635,7 @@
 
           if @options.show.series?
 
-            @seriesReferencesLayers ||= {}
-
-            for layer in @options.show.layers
-
-              data = this._getSerieData(layer.serie)
-              options = $.extend true, {}, @options.show.layerDefaults[layer.type], layer, parent: this
-              renderedLayer = M.layer(layer, data, options)
-              if renderedLayer and renderedLayer.valid()
-                # Build layer group
-                layerGroup = renderedLayer.buildLayerGroup(this, options)
-                layerGroup.name = layer.name
-                layerGroup.renderedLayer = renderedLayer
-
-                if @seriesReferencesLayers[layer.label]?
-                  @map.removeLayer(@seriesReferencesLayers[layer.label])
-
-                @seriesReferencesLayers[layer.label] = layerGroup
-                @map.addLayer(layerGroup)
+            @_addLayer(layer) for layer in _.reject(@options.show.layers, ['type', 'optional'])
 
           else
             this.reference = L.geoJson(this.options.show, {
@@ -578,7 +644,6 @@
                 #required for cap_land_parcel_clusters as names are set later
                 if not feature.properties.name?
                   feature.properties.name = if feature.properties.id? then "#{this.options.defaultEditionFeaturePrefix}#{feature.properties.id}" else this.defaultLabel
-
             })
         else
           this.reference = L.GeoJSON.geometryToLayer(this.options.show)
@@ -587,6 +652,53 @@
           this.reference.setStyle this.options.showStyle
           this.reference.addTo this.map
       this
+
+    _buildLegendContainer: ->
+      @controls.legend = new L.control(position: "bottomright")
+
+      @controls.legend.onAdd = (map) =>
+        L.DomUtil.create('div', 'leaflet-legend-control')
+
+      @map.addControl @controls.legend
+
+      L.DomUtil.addClass(@controls.legend.getContainer(), 'leaflet-hidden-control')
+
+    _bindOverlays: ->
+      @map.on "overlayadd", (event) =>
+        @layersScheduler.schedule event.layer
+        console.log "Add legend control..."
+        legend = $(@controls.legend.getContainer())
+        legend.children("#legend-#{event.layer.name}").show()
+        legend.children(".first").removeClass("first")
+        legend.children(":visible:first").addClass("first")
+        legend.removeClass("empty")
+
+      @map.on "overlayremove", (event) =>
+        console.log "Remove legend control..."
+        legend = $(@controls.legend.getContainer())
+        legend.children("#legend-#{event.layer.name}").hide()
+        legend.children(".first").removeClass("first")
+        legend.children(":visible:first").addClass("first")
+        legend.addClass("empty") if legend.children(":visible").length <= 0
+
+    _addLayer: (layer) ->
+      data = this._getSerieData(layer.serie)
+      options = $.extend true, {}, @options.show.layerDefaults[layer.type], layer, parent: this
+      renderedLayer = M.layer(layer, data, options)
+      if renderedLayer and renderedLayer.valid()
+        # Build layer group
+        layerGroup = renderedLayer.buildLayerGroup(this, options)
+        layerGroup.name = layer.name
+        layerGroup.renderedLayer = renderedLayer
+
+        @controls.legend.getContainer().innerHTML += renderedLayer.buildLegend()
+        L.DomUtil.removeClass(@controls.legend.getContainer(), 'leaflet-hidden-control')
+
+        if @seriesReferencesLayers[layer.label]? && layer.type != 'optional'
+          @map.removeLayer(@seriesReferencesLayers[layer.label])
+
+        layer.overlay = @seriesReferencesLayers[layer.label] = layerGroup
+        @map.addLayer(layerGroup) unless layer.type == 'optional'
 
     _refreshGhostLayerGroup: ->
       if this.ghost?
@@ -750,8 +862,7 @@
     _refreshControls: ->
       if this.controls?
         for name, control of this.controls
-          this.map.removeControl(control)
-      this.controls = {}
+          this.map.removeControl(control) unless name == 'legend'
       unless this.options.controls.zoom is false
         this.controls.zoom = new L.Control.Zoom(this.options.controls.zoom)
         this.map.addControl this.controls.zoom
@@ -833,17 +944,6 @@
         this.map.addControl this.controls.importers_ctrl
         this.map.addControl this.controls.reactiveMeasureControl
 
-
-
-      this.controls.legend = new L.control(position: "bottomright")
-      this.controls.legend.onAdd = (map) =>
-        L.DomUtil.create('div', 'leaflet-legend-control')
-
-      this.map.addControl this.controls.legend
-
-      L.DomUtil.addClass(@controls.legend.getContainer(), 'leaflet-hidden-control')
-
-
       if this.options.multiLevels?
         legend = @controls.legend.getContainer()
 
@@ -877,8 +977,6 @@
             @ghostLabelCluster.removeLayer target: { label: layer.label } unless layer.label is undefined
           @ghostLabelCluster.refresh()
 
-        @layersScheduler = L.layersScheduler()
-        @layersScheduler.addTo @map
         selector = @layerSelector || new L.Control.Layers()
 
         if @ghost? and @ghost.getLayers().length
@@ -894,9 +992,6 @@
           for label, layer of @seriesReferencesLayers
             selector.addOverlay(layer, label)
             @layersScheduler.insert layer._leaflet_id
-            if layer.renderedLayer.options.legend
-              @controls.legend.getContainer().innerHTML += layer.renderedLayer.buildLegend()
-              L.DomUtil.removeClass(@controls.legend.getContainer(), 'leaflet-hidden-control')
 
         if @edition? and @edition.getLayers().length > 0
           selector.addOverlay(@edition, @options.overlaySelector.editionLayer)
@@ -922,6 +1017,8 @@
       this._saveUpdatesSeries()
       this._refreshControls()
       this.element.trigger "mapchange"
+
+  delay = (time, method) -> setTimeout method, time
 
   $(document).ready ->
     $("input[data-map-editor]").each ->

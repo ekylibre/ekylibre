@@ -4,8 +4,7 @@ class ProvidableTest < Ekylibre::Testing::ApplicationTestCase
   class ParentClass
     attr_accessor :provider
 
-    def self.scope(*)
-    end
+    def self.scope(*) end
   end
 
   class ModelClass < ParentClass
@@ -21,21 +20,21 @@ class ProvidableTest < Ekylibre::Testing::ApplicationTestCase
   test 'provider_data = should set the value for the data key' do
     model = ModelClass.new
 
-    model.provider_data = 42
+    model.provider_data = { number: 42 }
 
-    assert_equal(42, model.provider_data)
-    assert_equal({ data: 42 }, model.provider)
+    assert_equal({ number: 42 }, model.provider_data)
+    assert_equal({ data: { number: 42 } }, model.provider)
   end
 
   test 'provider data should only modify the data key' do
     model = ModelClass.new
     model.provider = { name: "test" }
 
-    model.provider_data = 42
+    model.provider_data = { number: 42 }
 
 
-    assert_equal(42, model.provider_data)
-    assert_equal({ name: "test", data: 42 }, model.provider)
+    assert_equal({ number: 42 }, model.provider_data)
+    assert_equal({ name: "test", data: { number: 42 } }, model.provider)
   end
 
   test 'provider = should filter out unwanted keys' do

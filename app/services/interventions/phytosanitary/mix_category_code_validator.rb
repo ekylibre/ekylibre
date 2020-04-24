@@ -24,7 +24,7 @@ module Interventions
           mix5.each do |product|
             mix5result.vote_forbidden(product, :cannot_be_mixed_with_any_product.tl)
 
-            mix5result = mix5result.merge(declare_forbidden_mix(product, with: products_usages.map(&:product), message: :cannot_be_mixed_with.tl(phyto: product.name)))
+            mix5result = mix5result.merge_all(*declare_forbidden_mix(product, with: products_usages.map(&:product), message: :cannot_be_mixed_with.tl(phyto: product.name)))
           end
 
           # Other forbidden mixes

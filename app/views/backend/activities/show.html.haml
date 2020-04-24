@@ -72,7 +72,7 @@
       - if data.empty?
         .placeholding-message= :no_production_defined_for_current_campaign.tn
       - else
-        = visualization do |v|
+        = visualization(optional_data_url: backend_visualizations_non_treatment_areas_visualizations_path) do |v|
           - v.serie :main, data
           - v.simple :support, :main
           - if !inspection_data.blank?

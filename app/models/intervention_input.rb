@@ -235,6 +235,16 @@ class InterventionInput < InterventionProductParameter
     end
   end
 
+  def non_treatment_area
+    if reference_data['usage'].present?
+      reference_data['usage']['untreated_buffer_aquatic']
+    elsif usage.present?
+      usage.untreated_buffer_aquatic
+    else
+      nil
+    end
+  end
+
   private
 
     def assign_reference_data

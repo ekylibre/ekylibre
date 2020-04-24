@@ -1191,6 +1191,7 @@ eng:
             removeDisabled: "No layers to delete"
       fullscreenTitle: "Full Screen"
       importerButtonTitle: "Import"
+      zoomGuidance: "Insufficient zoom level"
       zoomInTitle: "Zoom in"
       zoomOutTitle: "Zoom out"
     intervention:
@@ -1354,6 +1355,7 @@ eng:
     any_journal: "Any journal"
     applications_count: "Max applications count"
     applications_interval_not_respected: "Applications interval non respected"
+    aquatic_nta: "Aquatic non-treatment area (%{distance} m)"
     archive_post_closure: "Post closure archive"
     archive_prior_to_closure: "Prior to closure archive"
     archives: "Archives"
@@ -1603,6 +1605,7 @@ eng:
     # data: "Data"
     # data_transmissions: "Data transmissions"
     # date: "Date"
+    database_version: "Database Version"
     date_range: "%{from} to %{to}"
     dated_cash: "%{cash}: %{on}"
     dates: "Select period start date and Period end date" #?
@@ -1713,6 +1716,7 @@ eng:
     edit_budget: "Edit budget"
     edition_date: "Edition date"
     ekylibre: "www.ekylibre.org" #?
+    ekylibre_version: "Ekylibre version"
     elapsed_interventions_times_by_activities: "Elapsed interventions times by activities"
     element_status: "Status"
     email: "Email:" #?
@@ -2310,6 +2314,7 @@ eng:
     phosphorus_concentration: "Phosphorus concentration" #?
     physical_h2: "Physical H2"
     phyto_data: "Phytosanitary data"
+    phytosanitary_product_does_not_exists: "This phytosanitary product does not exists"
     picture: "Picture" #?
     placeholder: "Placeholder" #?
     places: "Places"
@@ -2798,6 +2803,7 @@ eng:
     working_hectare_costs: "Working hectare costs" #?
     working_sets_stocks: "Working sets stocks" #?
     working_times: "Working times of %{name}" #?
+    working_zone_overlaps_nta: "Working zone overlaps non-treatment area"
     workload: "Workload" #?!
     x_cashes:
       one: "%{count} cash"

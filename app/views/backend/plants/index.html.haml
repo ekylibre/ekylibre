@@ -20,7 +20,7 @@
 = janus do |j|
   - if current_campaign && Plant.of_campaign(current_campaign).any?
     - j.face :map do
-      = plants_map main: true
+      = plants_map(main: true, optional_data_url: backend_visualizations_non_treatment_areas_visualizations_path)
 
   - j.face :list do
     = main_list
