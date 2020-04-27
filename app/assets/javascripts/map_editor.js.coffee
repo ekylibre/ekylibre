@@ -341,10 +341,11 @@
 
       _refreshOptionalData = =>
         optionalLayerDisplayed = @_optionalLayersDisplayed()[0]
+        boundsBuffer = if optionalLayerDisplayed.bounds_buffer then @_computeBoundsBuffer() else 0
 
         if @zoom() >= 16
           urlWithoutParams = url.replace(/\?.+/, '')
-          $.getJSON urlWithoutParams, bounds: @bounds(), layers: [optionalLayerDisplayed.name], (data) =>
+          $.getJSON urlWithoutParams, bounds: @bounds(boundsBuffer), layers: [optionalLayerDisplayed.name], (data) =>
             for layer in data.show.layers
               @options.show.series[layer.serie] = data.show.series[layer.serie]
               serieData = @_getSerieData(layer.serie)
@@ -546,8 +547,12 @@
       this.options.view.box.height = height
       this._resize()
 
-    bounds: ->
-      @map.getBounds().toBBoxString()
+    bounds: (buffer = 0) ->
+      @map.getBounds().pad(buffer).toBBoxString()
+
+    _computeBoundsBuffer: ->
+      zoomBuffers = { 16: 0.15, 17: 0.3, 18: 0.6, 19: 1.2 }
+      zoomBuffers[@zoom()]
 
     _resize: ->
       if this.options.box?
