@@ -19,7 +19,7 @@ class MapEditorManager
     }
 
     RegisteredPhytosanitaryUsage::UNTREATED_BUFFER_AQUATIC_VALUES.each do |n|
-      LAYERS[:"aquatic_nta_#{n}"] = { label: [:aquatic_nta, distance: n], name: :"aquatic_nta_#{n}", serie: :"aquatic_nta_#{n}_serie", type: :optional }
+      LAYERS[:"aquatic_nta_#{n}"] = { label: [:aquatic_nta, distance: n], name: :"aquatic_nta_#{n}", serie: :"aquatic_nta_#{n}_serie", type: :optional, bounds_buffer: true }
     end
 
     LAYERS.freeze
