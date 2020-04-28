@@ -3,12 +3,7 @@ module Backend
     respond_to :json
 
     def index
-      bb = []
-
-      params[:layers] ||= %i[land_parcels plants]
-      params[:started_at] ||= DateTime.now
-
-      shapes = MapEditorManager.shapes started_at: params[:started_at], bounding_box: bb, layers: params[:layers]
+      shapes = MapEditorManager.shapes started_at: params[:started_at], bounding_box: params[:bounds], layers: params[:layers]
       respond_with shapes
     end
   end

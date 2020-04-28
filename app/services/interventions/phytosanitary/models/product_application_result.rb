@@ -39,7 +39,7 @@ module Interventions
         end
 
         # @param [Product] product
-        # @param [String] message
+        # @param [String, nil] message
         def vote_forbidden(product, message = nil)
           add_vote(product, status: :forbidden, message: message)
         end
@@ -50,11 +50,11 @@ module Interventions
         end
 
         # @param [Product] product
-        # @option [Symbol] status
-        # @option [String] message
+        # @param [Symbol] status
+        # @option [String, nil] message
         def add_vote(product, status:, message: nil)
           vote = Models::ProductApplicationVote.new(status, message)
- 
+
           if votes.key?(product)
             votes[product] << vote
           else

@@ -1006,6 +1006,7 @@ fra:
             removeDisabled: "Pas de couches à supprimer"
       fullscreenTitle: "Plein écran"
       importerButtonTitle: "Importer"
+      zoomGuidance: "Niveau de zoom insuffisant"
       zoomInTitle: "Zoomer"
       zoomOutTitle: "Dézoomer"
     intervention:
@@ -1215,6 +1216,7 @@ fra:
     applications_count_less_than_max: "Nombre d'application(s) inférieur au maximum"
     applications_interval_not_respected: "Intervalle entre application non respecté"
     apply: "Appliquer" #?
+    aquatic_nta: "ZNT aquatique (%{distance} m)"
     archive_post_closure: "Archive après clôture"
     archive_prior_to_closure: "Archive avant clôture"
     archived_at: "Archivé à" #?
@@ -2422,6 +2424,7 @@ fra:
     phosphorus_concentration_per_hectare: "Teneur en phosphore par hectare" #?
     physical_h2: "Physique H2"
     phyto_data: "Données phytosanitaires"
+    phytosanitary_product_does_not_exists:  "Le numéro d’AMM de votre produit est inconnu : corrigez-le pour bénéficier des vérifications réglementaires"
     picture: "Photo"
     placeholder: "Espace réservé"
     places: "Lieux"
@@ -3117,6 +3120,7 @@ fra:
     working_sets_stocks: "Stocks d’ensembles de produits"
     working_times: "Temps de travaux de %{name}"
     working_zone: "Zone travaillée" #?
+    working_zone_overlaps_nta: "La zone travaillée chevauche la ZNT"
     workload: "Charge de travail"
     x_cashes:
       one: "1 compte bancaire"

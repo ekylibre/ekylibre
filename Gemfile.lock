@@ -21,8 +21,8 @@ GIT
 
 GIT
   remote: https://gitlab.com/ekylibre/charta.git
-  revision: 4489b2fc831101ee975f6e8deab3d87c7770aa6d
-  tag: v0.1.16
+  revision: 02083a5bfe61a5c6802cf68766d52bf1214a8f74
+  branch: rails-4
   specs:
     charta (0.1.16)
       json (>= 1.8.0)
