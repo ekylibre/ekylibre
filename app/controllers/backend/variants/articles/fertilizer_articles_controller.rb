@@ -3,9 +3,8 @@ module Backend
     module Articles
       class FertilizerArticlesController < Backend::Variants::ArticleVariantsController
 
-        importable_from_lexicon :variants, model_name: "Variants::Articles::#{controller_name.classify}".constantize,
-                                           filter_by_nature: 'article',
-                                           filter_by_sub_nature: 'fertilizer'
+        importable_from_nomenclature :product_nature_variants, model_name: "Variants::Articles::#{controller_name.classify}".constantize,
+                                                               filters: { type: :article, sub_type: :fertilizer }
       end
     end
   end
