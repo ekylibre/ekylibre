@@ -22,7 +22,7 @@ module Backend
 
     manage_restfully except: %i[edit update], population_counting: :decimal, active: true
 
-    importable_from_lexicon :variant_natures
+    importable_from_nomenclature :product_natures
 
     unroll
 
