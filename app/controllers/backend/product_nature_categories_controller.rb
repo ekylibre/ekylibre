@@ -22,7 +22,7 @@ module Backend
 
     manage_restfully except: %i[edit update], active: true, pictogram: :undefined
 
-    importable_from_lexicon :variant_categories
+    importable_from_nomenclature :product_nature_categories
 
     unroll
 

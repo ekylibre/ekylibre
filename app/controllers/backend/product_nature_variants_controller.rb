@@ -23,7 +23,7 @@ module Backend
     manage_restfully except: %i[edit create update show new], active: true
     manage_restfully_picture
 
-    importable_from_lexicon :variants
+    importable_from_nomenclature :product_nature_variants
 
     # To edit it, change here the column and edit action.yml unrolls section
     unroll :name, :unit_name, category: { charge_account: :number }

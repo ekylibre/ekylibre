@@ -429,8 +429,8 @@ module Nomen
     end
 
     # List items with properties filtering
-    def where(properties)
-      list.select do |item|
+    def where(properties, collection = list)
+      collection.select do |item|
         valid = true
         properties.each do |name, value|
           item_value = item.property(name)
@@ -457,7 +457,7 @@ module Nomen
     def without(*names)
       excluded = names.flatten.compact.map(&:to_sym)
       list.reject do |item|
-        excluded.include?(item.name)
+        excluded.include?(item.name.to_sym)
       end
     end
 
