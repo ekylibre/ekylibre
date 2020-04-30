@@ -43,9 +43,16 @@
       - c.cobble(:cap_land_parcels) do
         = cobble_list(:cap_land_parcels)
 
-  - b = CapIslet.bounding_box(resource.cap_islets)
-  - h = RegisteredHydroItem.in_bounding_box(b)
-  - z = RegisteredBuildingZone.in_bounding_box(b)
+  :ruby
+    b = CapIslet.bounding_box(resource.cap_islets)
+    if b.present?
+      h = RegisteredHydroItem.in_bounding_box(b.join(', '))
+      z = RegisteredBuildingZone.in_bounding_box(b)
+    else
+      h = RegisteredHydroItem.none
+      z = RegisteredBuildingZone.none
+    end
+
   - if resource.cap_land_parcels.any?
     - j.face :map do
       - cache resource.cap_land_parcels + resource.cap_islets + h.pluck(:name) + z.pluck(:centroid) do
@@ -60,16 +67,15 @@
             { name: "#{p.land_parcel_number} - #{p.cap_islet.islet_number}", shape: p.shape, main_crop_code: p.main_crop_code, popup: {header: true, content: popup_content} }
           end
 
-
-            neutral_areas = resource.cap_neutral_areas.collect do |p|
-              next unless p.shape
-
-              popup_content = []
-              popup_content << {label: CapLandParcel.human_attribute_name(:net_surface_area), value: p.human_shape_area}
-              popup_content << render('popup', plant: p)
-
-              { name: "#{p.number}", shape: p.shape, category_code: p.category, popup: {header: true, content: popup_content} }
-            end
+          # neutral_areas = resource.cap_neutral_areas.collect do |p|
+          #   next unless p.shape
+          #
+          #   popup_content = []
+          #   popup_content << {label: CapLandParcel.human_attribute_name(:net_surface_area), value: p.human_shape_area}
+          #   popup_content << render('popup', plant: p)
+          #
+          #   { name: "#{p.number}", shape: p.shape, category_code: p.category, popup: {header: true, content: popup_content} }
+          # end
 
           islets = resource.cap_islets.collect do |p|
             next unless p.shape
@@ -80,26 +86,34 @@
             {name: p.islet_number, shape: p.shape, popup: {header: true, content: popup_content} }
           end
 
-          buildings_shape = ActiveRecord::Base.connection.execute(
-            "SELECT ST_AsGeoJSON(ST_COLLECT(buildings.shape)) AS shape
-              FROM (#{z.select(:shape).to_sql}) AS buildings;").first["shape"]
+          if z.count > 0
+            buildings_shape = ActiveRecord::Base.connection.execute(
+              "SELECT ST_AsGeoJSON(ST_COLLECT(buildings.shape)) AS shape
+                FROM (#{z.select(:shape).to_sql}) AS buildings;").first["shape"]
+            building_zones = [{name: "Building", shape: ::Charta.new_geometry(buildings_shape).buffer(50)}]
+          else
+            building_zones = []
+          end
 
-          water_hydro_items_shape = ActiveRecord::Base.connection.execute(
-            "SELECT ST_AsGeoJSON(ST_COLLECT(hydro.shape)) AS shape
-              FROM (#{h.select(:shape).to_sql}) AS hydro;").first["shape"]
+          if h.count > 0
+            water_hydro_items_shape = ActiveRecord::Base.connection.execute(
+              "SELECT ST_AsGeoJSON(ST_COLLECT(hydro.shape)) AS shape
+                FROM (#{h.select(:shape).to_sql}) AS hydro;").first["shape"]
 
-          building_zones = [{name: "Building", shape: ::Charta.new_geometry(buildings_shape).buffer(50)}]
-          water_hydro_items_zones = [{name: "Rivers", shape: ::Charta.new_geometry(water_hydro_items_shape).buffer(50)}]
+            water_hydro_items_zones = [{name: "Rivers", shape: ::Charta.new_geometry(water_hydro_items_shape).buffer(50)}]
+          else
+            water_hydro_items_zones = []
+          end
 
         = visualization({box: {height: "100%"}}, class: 'map-fullwidth') do |v|
           - v.serie :land_parcels, land_parcels
           - v.serie :islets, islets
-          - v.serie :waters, water_hydro_items_zones if water_hydro_items_zones
+          - v.serie :waters, water_hydro_items_zones
           - v.serie :building_zones, building_zones
           -# v.serie :neutral_area_category, neutral_areas
           -# v.categories :category_code, :neutral_areas
           - v.simple :cap_islets, :islets
-          - v.simple :waters, :waters, fill_color: 'blue' if water_hydro_items_zones
+          - v.simple :waters, :waters, fill_color: 'blue'
           -#- v.simple :water_lakes, :water_lakes, fill_color: 'blue' if water_lakes_shape
           - v.simple :building_zones, :building_zones, fill_color: 'yellow', without_ghost_label: true
           - v.categories :main_crop_code, :land_parcels
