@@ -6,7 +6,7 @@ json.array! elements do |phytosanitary_product|
             :natures,
             :active_compounds,
             :france_maaid,
-            :mix_category_code,
+            :mix_category_codes,
             :in_field_reentry_delay,
             :state,
             :started_on,
