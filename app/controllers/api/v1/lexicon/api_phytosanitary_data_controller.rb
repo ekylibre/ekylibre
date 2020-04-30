@@ -5,6 +5,10 @@ module Api
 
         private
 
+          def quote(str)
+            ActiveRecord::Base.connection.quote(str)
+          end
+
           def paginated_result(model, order: nil)
             if params.key?(:paginate)
               per_page = [1000, params.fetch(:per_page, 100).to_i].min
@@ -45,7 +49,7 @@ module Api
           def get_removed_element(elements, table_name:)
             return [] if elements.empty?
 
-            ids = elements.map { |e| "('#{e[:id]}')" }.join(',')
+            ids = elements.map { |e| "(#{quote(e[:id])})" }.join(',')
             Ekylibre::Record::Base.connection.execute("SELECT t.id FROM  (values #{ids}) as t(id) WHERE t.id not in (SELECT id from #{table_name})").to_a
           end
 
