@@ -73,6 +73,8 @@ fra:
     backend/bank_reconciliation/items:
       index: "Pointer le relevé %{cash} n°%{number} (du %{started_on} au %{stopped_on})"
       reconciliate: "Relevés de la trésorerie %{cash} (du %{started_on} au %{stopped_on})"
+    backend/bank_statement_items:
+      show: "Ligne de relevé de compte : %{name}"
     backend/bank_statements:
       edit: "Modifier le relevé N°%{number}"
       edit_interval: "Périodes des relevés bancaires a rapprocher"
