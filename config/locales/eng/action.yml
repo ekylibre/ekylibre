@@ -2627,6 +2627,7 @@ eng:
     third_is_unbalanced: "Third is unbalanced. (balance - supplier account balance)" #?!
     this_archive_is_digitally_signed: "This archive is digitally signed."
     this_product_has_been_withdrawn: "This product has been withdrawn"
+    this_usage_has_been_withdrawn: "This usage has been withdrawn"
     threshold_commercialization_by_production: "Threshold commercialization by production" #?
     thumb: "Thumb" #?
     time_cost: "Time cost" #?

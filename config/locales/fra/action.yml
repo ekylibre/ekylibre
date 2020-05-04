@@ -2887,6 +2887,7 @@ fra:
     third_is_unbalanced: "Tiers à soldes non-rapprochés. (solde - solde comptable fournisseur)"
     this_archive_is_digitally_signed: "Cette archive est signée numériquement."
     this_product_has_been_withdrawn: "Ce produit est retiré"
+    this_usage_has_been_withdrawn: "Cet usage est retiré"
     threshold_commercialization_by_production: "Seuil de commercialisation par production"
     thumb: "Miniature"
     time_cost: "Coût de main d’œuvre"
