@@ -20,11 +20,12 @@ module Interventions
       end
 
       # @param [InterventionInput] intervention_input
+      # @param [Intervention] intervention
       # @return [Array{Symbol, Array<String>}]
-      def authorization_state(intervention_input)
-        product_usage = ::Interventions::Phytosanitary::Models::ProductWithUsage.from_intervention_input(intervention_input)
-        data = @validator.validate([product_usage])
-        [data.product_vote(product_usage.product), data.product_messages(product_usage.product)]
+      def authorization_state(intervention_input, intervention)
+        products_usages = ::Interventions::Phytosanitary::Models::ProductWithUsage.from_intervention(intervention)
+        data = @validator.validate(products_usages)
+        [data.product_vote(intervention_input.product), data.product_messages(intervention_input.product)]
       end
     end
   end

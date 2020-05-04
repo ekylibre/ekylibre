@@ -20,7 +20,7 @@ module Backend
             result = validator.validate(prods_usages)
 
             products_infos = prods_usages.map do |pu|
-              messages = result.product_messages(pu.product)
+              messages = result.product_grouped_messages(pu.product)
               check_conditions = messages.empty? && pu.usage&.usage_conditions
 
               [pu.product.id, {
