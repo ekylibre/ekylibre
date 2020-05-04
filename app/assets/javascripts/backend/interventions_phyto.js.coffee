@@ -23,7 +23,11 @@
       $productField.find('.input-authorization__text').show() if checkConditions
 
     _displayMessages: ($productField, messages) ->
-      $productField.find('#product-authorization-message').html(messages.join('<br>'))
+      for key, value of messages
+        if key == 'usage'
+          htmlString = '<span id="usage-authorization-message"></span>'
+          $productField.find('.intervention_inputs_usage .controls .lights-message').html(htmlString)
+        $productField.find("##{key}-authorization-message").html(messages[key].join('<br>'))
 
     _clear: ($productField) ->
       $productField.find('.allowed-mentions img').each -> $(this).hide()
@@ -31,17 +35,21 @@
       $productField.find('.input-authorization__text').hide()
 
     _retrieveValues: () ->
-      targetsData = Array.from(document.querySelectorAll('.nested-land_parcel, .nested-cultivation')).map (element) =>
-        id: $(element).find("[data-selector-id='intervention_target_product_id']").next('.selector-value').val()
-        shape: $(element).find('[data-map-editor]').val()
+      targetsData = Array.from(document.querySelectorAll('.nested-land_parcel, .nested-cultivation'))
+        .filter((el) => !el.classList.contains('removed-nested-fields'))
+        .map (element) =>
+          id: $(element).find("[data-selector-id='intervention_target_product_id']").next('.selector-value').val()
+          shape: $(element).find('[data-map-editor]').val()
 
-      productsData = Array.from(document.querySelectorAll(".nested-plant_medicine")).map (element) =>
-        product_id: element.querySelector('.intervention_inputs_product input.selector-value').value
-        usage_id: element.querySelector('.intervention_inputs_usage input.selector-value').value
-        quantity: element.querySelector('.intervention_inputs_quantity input').value
-        dimension: element.querySelector('.intervention_inputs_quantity select').value
-        input_id: element.querySelector('#intervention_parameter_id').value
-        live_data: element.querySelector('.intervention_inputs_using_live_data input').value
+      productsData = Array.from(document.querySelectorAll(".nested-plant_medicine"))
+        .filter((el) => !el.classList.contains('removed-nested-fields'))
+        .map (element) =>
+          product_id: element.querySelector('.intervention_inputs_product input.selector-value').value
+          usage_id: element.querySelector('.intervention_inputs_usage input.selector-value').value
+          quantity: element.querySelector('.intervention_inputs_quantity input').value
+          dimension: element.querySelector('.intervention_inputs_quantity select').value
+          input_id: element.querySelector('#intervention_parameter_id').value
+          live_data: element.querySelector('.intervention_inputs_using_live_data input').value
 
       interventionId = $('input#intervention_id').val()
 
@@ -177,7 +185,7 @@
     $("[data-selector-id='intervention_input_product_id']").trigger('selector:change')
 
   $(document).on 'cocoon:after-remove', '.nested-inputs', ->
-    productsInfos.display()
+    $("[data-selector-id='intervention_input_product_id']").trigger('selector:change')
     sprayingMap.refresh()
 
   # Re-trigger all filters on target change
