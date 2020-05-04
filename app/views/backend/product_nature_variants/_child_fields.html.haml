@@ -1,7 +1,7 @@
 .nested-fields
   = link_to_remove_nested_association(:child, f)
-  - autocomplete_params = {controller: :product_nature_variant_components}
+  - autocomplete_params = {controller: '/backend/product_nature_variant_components'}
   = f.input :name, autocomplete: autocomplete_params
-  = f.referenced_association :part_product_nature_variant
+  = f.referenced_association :part_product_nature_variant, controller: '/backend/product_nature_variants'
   - if depth < 10
-    = f.nested_association(:children, locals: {depth: depth + 1 })
+    = f.nested_association :children, locals: {depth: depth + 1 }, controller: '/backend/product_nature_variants'
