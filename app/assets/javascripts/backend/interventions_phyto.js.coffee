@@ -45,14 +45,16 @@
 
       interventionId = $('input#intervention_id').val()
 
-      firstWorkingPeriodElement = document.querySelector(".intervention_working_periods_period")
-      workingPeriodEndElement = firstWorkingPeriodElement.querySelectorAll('.flatpickr-wrapper input[type="hidden"]')[1]
+      stoppedAtDates = $(".intervention-stopped-at[type='hidden']").map ->
+        if $(this).val() then new Date($(this).val()) else null
+
+      maxStoppedAt = _.max(_.compact(stoppedAtDates))
 
       {
         products_data: _.reject(productsData, (data) -> data.product_id == '' ),
         targets_data: _.reject(targetsData, (data) -> data.id == '' ),
         intervention_id: interventionId,
-        intervention_stopped_at: moment(workingPeriodEndElement.value).format()
+        intervention_stopped_at: moment(maxStoppedAt).format()
       }
 
 
@@ -203,7 +205,10 @@
     $('.nested-plant_medicine').each -> usageMainInfos.displayAuthorizationDisclaimer($(this), true)
     sprayingMap.refresh()
 
-  $(document).on 'change', ".nested-fields.working-period input[type='hidden']", ->
+  $(document).on 'change intervention-field:value-updated', ".nested-fields.working-period input[type='hidden']", ->
+    productsInfos.display()
+
+  $(document).on 'cocoon:after-remove', '.nested-working_periods', ->
     productsInfos.display()
 
   $(document).on 'mapeditor:optional_data_loaded', '[data-map-editor]', ->
