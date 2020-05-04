@@ -8,7 +8,7 @@
       $.getJSON "/backend/registered_phytosanitary_products/get_products_infos", values, (data) =>
         for id, infos of data
           $productField = $(".selector-value[value='#{id}']").closest('.nested-plant_medicine')
-          
+
           @._displayAllowedMentions($productField, infos.allowed_mentions)
           @._displayBadge($productField, infos.state, infos.check_conditions)
           @._displayMessages($productField, infos.messages)
@@ -45,14 +45,16 @@
 
       interventionId = $('input#intervention_id').val()
 
-      firstWorkingPeriodElement = document.querySelector(".intervention_working_periods_period")
-      workingPeriodEndElement = firstWorkingPeriodElement.querySelectorAll('.flatpickr-wrapper input[type="hidden"]')[1]
+      stoppedAtDates = $(".intervention-stopped-at[type='hidden']").map ->
+        if $(this).val() then new Date($(this).val()) else null
+
+      maxStoppedAt = _.max(_.compact(stoppedAtDates))
 
       {
         products_data: _.reject(productsData, (data) -> data.product_id == '' ),
         targets_data: _.reject(targetsData, (data) -> data.id == '' ),
         intervention_id: interventionId,
-        intervention_stopped_at: moment(workingPeriodEndElement.value).format()
+        intervention_stopped_at: moment(maxStoppedAt).format()
       }
 
 
@@ -203,7 +205,10 @@
     $('.nested-plant_medicine').each -> usageMainInfos.displayAuthorizationDisclaimer($(this), true)
     sprayingMap.refresh()
 
-  $(document).on 'change', ".nested-fields.working-period input[type='hidden']", ->
+  $(document).on 'change intervention-field:value-updated', ".nested-fields.working-period input[type='hidden']", ->
+    productsInfos.display()
+
+  $(document).on 'cocoon:after-remove', '.nested-working_periods', ->
     productsInfos.display()
 
   $(document).on 'mapeditor:optional_data_loaded', '[data-map-editor]', ->
