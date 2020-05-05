@@ -15,7 +15,7 @@ ita:
     charge_account_label: "Etichetta dell’account di carica" #?
     company: "Società" #?
     container_name: "nome del contenitore"
-    current_result_before_taxes: "risultato corrente al lordo delle imposte"
+    current_result_before_taxes: "risultato corrente al lordo delle imposte" #?
     depreciations_inputations_expenses: "Ammortamenti inputations spese" #?
     doer_cost: "costo doer"
     doer_name: "nome doer"
@@ -27,20 +27,20 @@ ita:
     enterprise: "impresa"
     entity_name: "Nome dell'entità"
     exceptional_expenses: "le spese eccezionali" #?
-    exceptional_expenses_total: "le spese eccezionali totali"
+    exceptional_expenses_total: "le spese eccezionali totali" #?
     exceptional_products: "prodotti eccezionali" #?
-    exceptional_products_total: "prodotti eccezionali totali"
-    exceptional_result: "risultato eccezionale"
-    expenses_total: "Totale spese"
-    exploitation_expenses_total: "le spese di totale sfruttamento"
-    exploitation_products_total: "prodotti totale sfruttamento"
-    exploitation_result: "risultato sfruttamento"
+    exceptional_products_total: "prodotti eccezionali totali" #?
+    exceptional_result: "risultato eccezionale" #?
+    expenses_total: "Totale spese" #?
+    exploitation_expenses_total: "le spese di totale sfruttamento" #?
+    exploitation_products_total: "prodotti totale sfruttamento" #?
+    exploitation_result: "risultato sfruttamento" #?
     family: "Famiglia"
     financial_expenses: "Spese finanziarie" #?
     financial_expenses_total: "Totale oneri finanziari"
     financial_products: "prodotti finanziari" #?
-    financial_products_total: "Prodotti finanziari totali"
-    financial_result: "risultato finanziario"
+    financial_products_total: "Prodotti finanziari totali" #?
+    financial_result: "risultato finanziario" #?
     financial_year_name: "Nome Esercizio"
     financial_years: "esercizi"
     grains_yield: "resa Grani" #?
@@ -48,7 +48,7 @@ ita:
     harvested_at: "raccolte al" #?
     implanted_at: "impiantato a" #?
     intervention_durations: "durate di intervento" #?
-    loss_balance: "equilibrio perdita"
+    loss_balance: "equilibrio perdita" #?
     losses: "Perdite" #?
     meat_saleable_on: "Carne su vendibile"
     meat_withdrawal_period: "periodo di sospensione"
@@ -58,30 +58,30 @@ ita:
     nature: "Digitare"
     net_revenue: "Guadagno netto" #?
     net_surface_area: "superficie netta"
-    number: "Numero"
+    number: "Numero" #?
     observed_at: "osservata alle"
     other_expenses: "Altre spese" #?
     other_products: "Altri prodotti" #?
     other_purchases: "altri acquisti" #?
     owner_name: "Nome del proprietario" #?
     payment_ratio: "rapporto di pagamento" #?
-    person_name: "Nome della persona"
+    person_name: "Nome della persona" #?
     pictogram: "pittogramma" #?
     picture_path: "percorso Picture"
     plan: "Piano"
     population: "Popolazione" #?
     prescription: "Prescrizione"
     pretax_amount: "importo prima delle imposte" #?
-    printed_on: "stampato su"
+    printed_on: "stampato su" #?
     product_account_label: "Etichetta conto del prodotto" #?
     production_support: "supporto alla produzione"
     productions_sales: "vendite Productions" #?
     products_purchases: "Prodotti acquisti" #?
     products_sales: "vendite di prodotti" #?
-    products_total: "prodotti totali"
-    profit_or_loss: "Utile o perdita"
+    products_total: "prodotti totali" #?
+    profit_or_loss: "Utile o perdita" #?
     profits: "I profitti" #?
-    profits_taxes: "tasse Utili"
+    profits_taxes: "tasse Utili" #?
     provisional_yield: "resa provvisorio" #?
     provisions_revenues: "ricavi Accantonamenti" #?
     quantity: "Quantità"
@@ -99,4 +99,4 @@ ita:
     vine_yield: "Produzione in vigna" #?
     wages: "Salari" #?
     working_area: "Area di lavoro"
-    working_duration_in_hours: "Durata di lavoro in ore"
+    working_duration_in_hours: "Durata di lavoro in ore" #?

@@ -44,6 +44,7 @@
 #  picture_file_size         :integer
 #  picture_updated_at        :datetime
 #  population_counting       :string           not null
+#  provider                  :jsonb
 #  reference_name            :string
 #  subscribing               :boolean          default(FALSE), not null
 #  subscription_days_count   :integer          default(0), not null

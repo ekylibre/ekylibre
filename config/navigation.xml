@@ -1731,7 +1731,7 @@
         <page to="backend/product_nature_categories#incorporate"/>
         <page to="backend/product_nature_categories#list"/>
         <page to="backend/product_nature_categories#list_products"/>
-        <page to="backend/product_nature_categories#list_product_natures"/>
+        <page to="backend/product_nature_categories#list_product_natures" nonexistent="true"/>
         <page to="backend/product_nature_categories#list_taxations"/>
         <page to="backend/product_nature_categories#new"/>
         <page to="backend/product_nature_categories#pick"/>
@@ -1902,8 +1902,8 @@
     </group>
     <group>
       <item name="services">
-        <page to="backend/services#index"/>
-        <page to="backend/services#list"/>
+        <page to="backend/services#index" nonexistent="true"/>
+        <page to="backend/services#list" nonexistent="true"/>
       </item>
     </group>
     <group>
@@ -2296,12 +2296,107 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
+      <item name="base">
+        <page to="api/v1/base#error_message"/>
+      </item>
+      <item name="contacts">
+        <page to="api/v1/contacts#error_message"/>
+      </item>
+      <item name="crumbs">
+        <page to="api/v1/crumbs#error_message"/>
+      </item>
+      <item name="intervention_participations">
+        <page to="api/v1/intervention_participations#error_message"/>
+      </item>
+      <item name="intervention_targets">
+        <page to="api/v1/intervention_targets#error_message"/>
+      </item>
+      <item name="interventions">
+        <page to="api/v1/interventions#error_message"/>
+      </item>
+      <item name="issues">
+        <page to="api/v1/issues#error_message"/>
+      </item>
+      <item name="api_phytosanitary_data">
+        <page to="api/v1/lexicon/api_phytosanitary_data#error_message"/>
+      </item>
+      <item name="registered_phytosanitary_cropsets">
+        <page to="api/v1/lexicon/registered_phytosanitary_cropsets#index"/>
+        <page to="api/v1/lexicon/registered_phytosanitary_cropsets#create"/>
+        <page to="api/v1/lexicon/registered_phytosanitary_cropsets#error_message"/>
+      </item>
+      <item name="registered_phytosanitary_products">
+        <page to="api/v1/lexicon/registered_phytosanitary_products#index"/>
+        <page to="api/v1/lexicon/registered_phytosanitary_products#create"/>
+        <page to="api/v1/lexicon/registered_phytosanitary_products#error_message"/>
+      </item>
+      <item name="registered_phytosanitary_risks">
+        <page to="api/v1/lexicon/registered_phytosanitary_risks#index"/>
+        <page to="api/v1/lexicon/registered_phytosanitary_risks#create"/>
+        <page to="api/v1/lexicon/registered_phytosanitary_risks#error_message"/>
+      </item>
+      <item name="registered_phytosanitary_usages">
+        <page to="api/v1/lexicon/registered_phytosanitary_usages#index"/>
+        <page to="api/v1/lexicon/registered_phytosanitary_usages#create"/>
+        <page to="api/v1/lexicon/registered_phytosanitary_usages#error_message"/>
+      </item>
+      <item name="plant_countings">
+        <page to="api/v1/plant_countings#error_message"/>
+      </item>
+      <item name="plant_density_abaci">
+        <page to="api/v1/plant_density_abaci#error_message"/>
+      </item>
+      <item name="plants">
+        <page to="api/v1/plants#error_message"/>
+      </item>
+      <item name="products">
+        <page to="api/v1/products#index"/>
+        <page to="api/v1/products#error_message"/>
+      </item>
+      <item name="tokens">
+        <page to="api/v1/tokens#error_message"/>
+      </item>
+      <item name="users">
+        <page to="api/v1/users#error_message"/>
+        <page to="api/v1/users#show"/>
+      </item>
+      <item name="variants">
+        <page to="api/v1/variants#index"/>
+        <page to="api/v1/variants#error_message"/>
+      </item>
       <item name="account_balances">
         <page to="backend/account_balances#show"/>
       </item>
       <item name="accounts">
         <page to="backend/accounts#filter_select_collection"/>
         <page to="backend/accounts#reconciliable_list"/>
+      </item>
+      <item name="cash_variations_cells">
+        <page to="backend/cells/cash_variations_cells#area_highcharts"/>
+        <page to="backend/cells/cash_variations_cells#area_range_highcharts"/>
+        <page to="backend/cells/cash_variations_cells#area_spline_highcharts"/>
+        <page to="backend/cells/cash_variations_cells#area_spline_range_highcharts"/>
+        <page to="backend/cells/cash_variations_cells#bar_highcharts"/>
+        <page to="backend/cells/cash_variations_cells#cartesian_chart"/>
+        <page to="backend/cells/cash_variations_cells#category_chart"/>
+        <page to="backend/cells/cash_variations_cells#column_highcharts"/>
+        <page to="backend/cells/cash_variations_cells#column_range_highcharts"/>
+        <page to="backend/cells/cash_variations_cells#contrasted_color"/>
+        <page to="backend/cells/cash_variations_cells#distribution_chart"/>
+        <page to="backend/cells/cash_variations_cells#formate_and_translate"/>
+        <page to="backend/cells/cash_variations_cells#lightness"/>
+        <page to="backend/cells/cash_variations_cells#ligthen"/>
+        <page to="backend/cells/cash_variations_cells#line_highcharts"/>
+        <page to="backend/cells/cash_variations_cells#normalize_serie"/>
+        <page to="backend/cells/cash_variations_cells#pie_highcharts"/>
+        <page to="backend/cells/cash_variations_cells#scatter_highcharts"/>
+        <page to="backend/cells/cash_variations_cells#show"/>
+        <page to="backend/cells/cash_variations_cells#spline_highcharts"/>
+        <page to="backend/cells/cash_variations_cells#tree_distribution_chart"/>
+        <page to="backend/cells/cash_variations_cells#waterfall_highcharts"/>
+      </item>
+      <item name="last_panier_local_import_cells">
+        <page to="backend/cells/last_panier_local_import_cells#show"/>
       </item>
       <item name="draft_journals">
         <page to="backend/draft_journals#confirm_all"/>
@@ -2326,6 +2421,7 @@
         <page to="backend/general_ledgers#archive_report"/>
         <page to="backend/general_ledgers#archive_report_template"/>
         <page to="backend/general_ledgers#find_open_document_template"/>
+        <page to="backend/general_ledgers#find_template"/>
         <page to="backend/general_ledgers#generate_document"/>
         <page to="backend/general_ledgers#generate_report"/>
         <page to="backend/general_ledgers#generate_report_file"/>
@@ -2340,6 +2436,8 @@
         <page to="backend/interventions#create_duplicate_intervention"/>
         <page to="backend/interventions#duplicate_interventions"/>
         <page to="backend/interventions#generate_buttons"/>
+        <page to="backend/interventions#validate_harvest_delay"/>
+        <page to="backend/interventions#validate_reentry_delay"/>
       </item>
       <item name="invalid_journal_entries">
         <page to="backend/invalid_journal_entries#delete_all"/>
@@ -2361,11 +2459,419 @@
         <page to="backend/product_nature_variants#storage_detail"/>
         <page to="backend/product_nature_variants#unroll_saleables"/>
       </item>
+      <item name="product_natures">
+        <page to="backend/product_natures#compatible_varieties"/>
+      </item>
       <item name="purchases">
         <page to="backend/purchases#show"/>
       </item>
+      <item name="registered_phytosanitary_products">
+        <page to="backend/registered_phytosanitary_products#get_products_infos"/>
+        <page to="backend/registered_phytosanitary_products#unroll"/>
+      </item>
+      <item name="registered_phytosanitary_usages">
+        <page to="backend/registered_phytosanitary_usages#dose_validations"/>
+        <page to="backend/registered_phytosanitary_usages#filter_usages"/>
+        <page to="backend/registered_phytosanitary_usages#get_usage_infos"/>
+        <page to="backend/registered_phytosanitary_usages#unroll"/>
+      </item>
       <item name="shipments">
         <page to="backend/shipments#invoice"/>
+      </item>
+      <item name="user_roles">
+        <page to="backend/user_roles#unroll"/>
+      </item>
+      <item name="variant_categories">
+        <page to="backend/variant_categories#unroll"/>
+      </item>
+      <item name="animal_categories">
+        <page to="backend/variant_categories/animal_categories#create"/>
+        <page to="backend/variant_categories/animal_categories#destroy"/>
+        <page to="backend/variant_categories/animal_categories#edit"/>
+        <page to="backend/variant_categories/animal_categories#list"/>
+        <page to="backend/variant_categories/animal_categories#list_products"/>
+        <page to="backend/variant_categories/animal_categories#list_taxations"/>
+        <page to="backend/variant_categories/animal_categories#new"/>
+        <page to="backend/variant_categories/animal_categories#show"/>
+        <page to="backend/variant_categories/animal_categories#unroll"/>
+        <page to="backend/variant_categories/animal_categories#update"/>
+      </item>
+      <item name="article_categories">
+        <page to="backend/variant_categories/article_categories#create"/>
+        <page to="backend/variant_categories/article_categories#destroy"/>
+        <page to="backend/variant_categories/article_categories#edit"/>
+        <page to="backend/variant_categories/article_categories#list"/>
+        <page to="backend/variant_categories/article_categories#list_products"/>
+        <page to="backend/variant_categories/article_categories#list_taxations"/>
+        <page to="backend/variant_categories/article_categories#new"/>
+        <page to="backend/variant_categories/article_categories#show"/>
+        <page to="backend/variant_categories/article_categories#unroll"/>
+        <page to="backend/variant_categories/article_categories#update"/>
+      </item>
+      <item name="crop_categories">
+        <page to="backend/variant_categories/crop_categories#create"/>
+        <page to="backend/variant_categories/crop_categories#destroy"/>
+        <page to="backend/variant_categories/crop_categories#edit"/>
+        <page to="backend/variant_categories/crop_categories#list"/>
+        <page to="backend/variant_categories/crop_categories#list_products"/>
+        <page to="backend/variant_categories/crop_categories#list_taxations"/>
+        <page to="backend/variant_categories/crop_categories#new"/>
+        <page to="backend/variant_categories/crop_categories#show"/>
+        <page to="backend/variant_categories/crop_categories#unroll"/>
+        <page to="backend/variant_categories/crop_categories#update"/>
+      </item>
+      <item name="equipment_categories">
+        <page to="backend/variant_categories/equipment_categories#create"/>
+        <page to="backend/variant_categories/equipment_categories#destroy"/>
+        <page to="backend/variant_categories/equipment_categories#edit"/>
+        <page to="backend/variant_categories/equipment_categories#list"/>
+        <page to="backend/variant_categories/equipment_categories#list_products"/>
+        <page to="backend/variant_categories/equipment_categories#list_taxations"/>
+        <page to="backend/variant_categories/equipment_categories#new"/>
+        <page to="backend/variant_categories/equipment_categories#show"/>
+        <page to="backend/variant_categories/equipment_categories#unroll"/>
+        <page to="backend/variant_categories/equipment_categories#update"/>
+      </item>
+      <item name="service_categories">
+        <page to="backend/variant_categories/service_categories#create"/>
+        <page to="backend/variant_categories/service_categories#destroy"/>
+        <page to="backend/variant_categories/service_categories#edit"/>
+        <page to="backend/variant_categories/service_categories#list"/>
+        <page to="backend/variant_categories/service_categories#list_products"/>
+        <page to="backend/variant_categories/service_categories#list_taxations"/>
+        <page to="backend/variant_categories/service_categories#new"/>
+        <page to="backend/variant_categories/service_categories#show"/>
+        <page to="backend/variant_categories/service_categories#unroll"/>
+        <page to="backend/variant_categories/service_categories#update"/>
+      </item>
+      <item name="worker_categories">
+        <page to="backend/variant_categories/worker_categories#create"/>
+        <page to="backend/variant_categories/worker_categories#destroy"/>
+        <page to="backend/variant_categories/worker_categories#edit"/>
+        <page to="backend/variant_categories/worker_categories#list"/>
+        <page to="backend/variant_categories/worker_categories#list_products"/>
+        <page to="backend/variant_categories/worker_categories#list_taxations"/>
+        <page to="backend/variant_categories/worker_categories#new"/>
+        <page to="backend/variant_categories/worker_categories#show"/>
+        <page to="backend/variant_categories/worker_categories#unroll"/>
+        <page to="backend/variant_categories/worker_categories#update"/>
+      </item>
+      <item name="zone_categories">
+        <page to="backend/variant_categories/zone_categories#create"/>
+        <page to="backend/variant_categories/zone_categories#destroy"/>
+        <page to="backend/variant_categories/zone_categories#edit"/>
+        <page to="backend/variant_categories/zone_categories#list"/>
+        <page to="backend/variant_categories/zone_categories#list_products"/>
+        <page to="backend/variant_categories/zone_categories#list_taxations"/>
+        <page to="backend/variant_categories/zone_categories#new"/>
+        <page to="backend/variant_categories/zone_categories#show"/>
+        <page to="backend/variant_categories/zone_categories#unroll"/>
+        <page to="backend/variant_categories/zone_categories#update"/>
+      </item>
+      <item name="variant_natures">
+        <page to="backend/variant_natures#unroll"/>
+      </item>
+      <item name="animal_types">
+        <page to="backend/variant_types/animal_types#compatible_varieties"/>
+        <page to="backend/variant_types/animal_types#create"/>
+        <page to="backend/variant_types/animal_types#destroy"/>
+        <page to="backend/variant_types/animal_types#edit"/>
+        <page to="backend/variant_types/animal_types#list"/>
+        <page to="backend/variant_types/animal_types#list_variants"/>
+        <page to="backend/variant_types/animal_types#new"/>
+        <page to="backend/variant_types/animal_types#show"/>
+        <page to="backend/variant_types/animal_types#unroll"/>
+        <page to="backend/variant_types/animal_types#update"/>
+      </item>
+      <item name="article_types">
+        <page to="backend/variant_types/article_types#compatible_varieties"/>
+        <page to="backend/variant_types/article_types#create"/>
+        <page to="backend/variant_types/article_types#destroy"/>
+        <page to="backend/variant_types/article_types#edit"/>
+        <page to="backend/variant_types/article_types#list"/>
+        <page to="backend/variant_types/article_types#list_variants"/>
+        <page to="backend/variant_types/article_types#new"/>
+        <page to="backend/variant_types/article_types#show"/>
+        <page to="backend/variant_types/article_types#unroll"/>
+        <page to="backend/variant_types/article_types#update"/>
+      </item>
+      <item name="crop_types">
+        <page to="backend/variant_types/crop_types#compatible_varieties"/>
+        <page to="backend/variant_types/crop_types#create"/>
+        <page to="backend/variant_types/crop_types#destroy"/>
+        <page to="backend/variant_types/crop_types#edit"/>
+        <page to="backend/variant_types/crop_types#list"/>
+        <page to="backend/variant_types/crop_types#list_variants"/>
+        <page to="backend/variant_types/crop_types#new"/>
+        <page to="backend/variant_types/crop_types#show"/>
+        <page to="backend/variant_types/crop_types#unroll"/>
+        <page to="backend/variant_types/crop_types#update"/>
+      </item>
+      <item name="equipment_types">
+        <page to="backend/variant_types/equipment_types#compatible_varieties"/>
+        <page to="backend/variant_types/equipment_types#create"/>
+        <page to="backend/variant_types/equipment_types#destroy"/>
+        <page to="backend/variant_types/equipment_types#edit"/>
+        <page to="backend/variant_types/equipment_types#list"/>
+        <page to="backend/variant_types/equipment_types#list_variants"/>
+        <page to="backend/variant_types/equipment_types#new"/>
+        <page to="backend/variant_types/equipment_types#show"/>
+        <page to="backend/variant_types/equipment_types#unroll"/>
+        <page to="backend/variant_types/equipment_types#update"/>
+      </item>
+      <item name="service_types">
+        <page to="backend/variant_types/service_types#compatible_varieties"/>
+        <page to="backend/variant_types/service_types#create"/>
+        <page to="backend/variant_types/service_types#destroy"/>
+        <page to="backend/variant_types/service_types#edit"/>
+        <page to="backend/variant_types/service_types#list"/>
+        <page to="backend/variant_types/service_types#list_variants"/>
+        <page to="backend/variant_types/service_types#new"/>
+        <page to="backend/variant_types/service_types#show"/>
+        <page to="backend/variant_types/service_types#unroll"/>
+        <page to="backend/variant_types/service_types#update"/>
+      </item>
+      <item name="worker_types">
+        <page to="backend/variant_types/worker_types#compatible_varieties"/>
+        <page to="backend/variant_types/worker_types#create"/>
+        <page to="backend/variant_types/worker_types#destroy"/>
+        <page to="backend/variant_types/worker_types#edit"/>
+        <page to="backend/variant_types/worker_types#list"/>
+        <page to="backend/variant_types/worker_types#list_variants"/>
+        <page to="backend/variant_types/worker_types#new"/>
+        <page to="backend/variant_types/worker_types#show"/>
+        <page to="backend/variant_types/worker_types#unroll"/>
+        <page to="backend/variant_types/worker_types#update"/>
+      </item>
+      <item name="zone_types">
+        <page to="backend/variant_types/zone_types#compatible_varieties"/>
+        <page to="backend/variant_types/zone_types#create"/>
+        <page to="backend/variant_types/zone_types#destroy"/>
+        <page to="backend/variant_types/zone_types#edit"/>
+        <page to="backend/variant_types/zone_types#list"/>
+        <page to="backend/variant_types/zone_types#list_variants"/>
+        <page to="backend/variant_types/zone_types#new"/>
+        <page to="backend/variant_types/zone_types#show"/>
+        <page to="backend/variant_types/zone_types#unroll"/>
+        <page to="backend/variant_types/zone_types#update"/>
+      </item>
+      <item name="variants">
+        <page to="backend/variants#unroll"/>
+      </item>
+      <item name="animal_variants">
+        <page to="backend/variants/animal_variants#destroy"/>
+        <page to="backend/variants/animal_variants#detail"/>
+        <page to="backend/variants/animal_variants#edit"/>
+        <page to="backend/variants/animal_variants#list"/>
+        <page to="backend/variants/animal_variants#list_catalog_items"/>
+        <page to="backend/variants/animal_variants#list_components"/>
+        <page to="backend/variants/animal_variants#list_products"/>
+        <page to="backend/variants/animal_variants#list_purchase_invoice_items"/>
+        <page to="backend/variants/animal_variants#list_purchase_order_items"/>
+        <page to="backend/variants/animal_variants#list_receptions"/>
+        <page to="backend/variants/animal_variants#list_sale_items"/>
+        <page to="backend/variants/animal_variants#list_shipments"/>
+        <page to="backend/variants/animal_variants#list_suppliers"/>
+        <page to="backend/variants/animal_variants#picture"/>
+        <page to="backend/variants/animal_variants#quantifiers"/>
+        <page to="backend/variants/animal_variants#storage_detail"/>
+        <page to="backend/variants/animal_variants#unroll"/>
+        <page to="backend/variants/animal_variants#unroll_saleables"/>
+        <page to="backend/variants/animal_variants#update"/>
+      </item>
+      <item name="article_variants">
+        <page to="backend/variants/article_variants#destroy"/>
+        <page to="backend/variants/article_variants#detail"/>
+        <page to="backend/variants/article_variants#edit"/>
+        <page to="backend/variants/article_variants#list"/>
+        <page to="backend/variants/article_variants#list_catalog_items"/>
+        <page to="backend/variants/article_variants#list_components"/>
+        <page to="backend/variants/article_variants#list_products"/>
+        <page to="backend/variants/article_variants#list_purchase_invoice_items"/>
+        <page to="backend/variants/article_variants#list_purchase_order_items"/>
+        <page to="backend/variants/article_variants#list_receptions"/>
+        <page to="backend/variants/article_variants#list_sale_items"/>
+        <page to="backend/variants/article_variants#list_shipments"/>
+        <page to="backend/variants/article_variants#list_suppliers"/>
+        <page to="backend/variants/article_variants#picture"/>
+        <page to="backend/variants/article_variants#quantifiers"/>
+        <page to="backend/variants/article_variants#storage_detail"/>
+        <page to="backend/variants/article_variants#unroll"/>
+        <page to="backend/variants/article_variants#unroll_saleables"/>
+        <page to="backend/variants/article_variants#update"/>
+      </item>
+      <item name="fertilizer_articles">
+        <page to="backend/variants/articles/fertilizer_articles#destroy"/>
+        <page to="backend/variants/articles/fertilizer_articles#detail"/>
+        <page to="backend/variants/articles/fertilizer_articles#edit"/>
+        <page to="backend/variants/articles/fertilizer_articles#list"/>
+        <page to="backend/variants/articles/fertilizer_articles#list_catalog_items"/>
+        <page to="backend/variants/articles/fertilizer_articles#list_components"/>
+        <page to="backend/variants/articles/fertilizer_articles#list_products"/>
+        <page to="backend/variants/articles/fertilizer_articles#list_purchase_invoice_items"/>
+        <page to="backend/variants/articles/fertilizer_articles#list_purchase_order_items"/>
+        <page to="backend/variants/articles/fertilizer_articles#list_receptions"/>
+        <page to="backend/variants/articles/fertilizer_articles#list_sale_items"/>
+        <page to="backend/variants/articles/fertilizer_articles#list_shipments"/>
+        <page to="backend/variants/articles/fertilizer_articles#list_suppliers"/>
+        <page to="backend/variants/articles/fertilizer_articles#picture"/>
+        <page to="backend/variants/articles/fertilizer_articles#quantifiers"/>
+        <page to="backend/variants/articles/fertilizer_articles#storage_detail"/>
+        <page to="backend/variants/articles/fertilizer_articles#unroll"/>
+        <page to="backend/variants/articles/fertilizer_articles#unroll_saleables"/>
+        <page to="backend/variants/articles/fertilizer_articles#update"/>
+      </item>
+      <item name="plant_medicine_articles">
+        <page to="backend/variants/articles/plant_medicine_articles#destroy"/>
+        <page to="backend/variants/articles/plant_medicine_articles#detail"/>
+        <page to="backend/variants/articles/plant_medicine_articles#edit"/>
+        <page to="backend/variants/articles/plant_medicine_articles#list"/>
+        <page to="backend/variants/articles/plant_medicine_articles#list_catalog_items"/>
+        <page to="backend/variants/articles/plant_medicine_articles#list_components"/>
+        <page to="backend/variants/articles/plant_medicine_articles#list_products"/>
+        <page to="backend/variants/articles/plant_medicine_articles#list_purchase_invoice_items"/>
+        <page to="backend/variants/articles/plant_medicine_articles#list_purchase_order_items"/>
+        <page to="backend/variants/articles/plant_medicine_articles#list_receptions"/>
+        <page to="backend/variants/articles/plant_medicine_articles#list_registered_phytosanitary_risks"/>
+        <page to="backend/variants/articles/plant_medicine_articles#list_registered_phytosanitary_usages"/>
+        <page to="backend/variants/articles/plant_medicine_articles#list_sale_items"/>
+        <page to="backend/variants/articles/plant_medicine_articles#list_shipments"/>
+        <page to="backend/variants/articles/plant_medicine_articles#list_suppliers"/>
+        <page to="backend/variants/articles/plant_medicine_articles#picture"/>
+        <page to="backend/variants/articles/plant_medicine_articles#quantifiers"/>
+        <page to="backend/variants/articles/plant_medicine_articles#storage_detail"/>
+        <page to="backend/variants/articles/plant_medicine_articles#unroll"/>
+        <page to="backend/variants/articles/plant_medicine_articles#unroll_saleables"/>
+        <page to="backend/variants/articles/plant_medicine_articles#update"/>
+      </item>
+      <item name="seed_and_plant_articles">
+        <page to="backend/variants/articles/seed_and_plant_articles#destroy"/>
+        <page to="backend/variants/articles/seed_and_plant_articles#detail"/>
+        <page to="backend/variants/articles/seed_and_plant_articles#edit"/>
+        <page to="backend/variants/articles/seed_and_plant_articles#list"/>
+        <page to="backend/variants/articles/seed_and_plant_articles#list_catalog_items"/>
+        <page to="backend/variants/articles/seed_and_plant_articles#list_components"/>
+        <page to="backend/variants/articles/seed_and_plant_articles#list_products"/>
+        <page to="backend/variants/articles/seed_and_plant_articles#list_purchase_invoice_items"/>
+        <page to="backend/variants/articles/seed_and_plant_articles#list_purchase_order_items"/>
+        <page to="backend/variants/articles/seed_and_plant_articles#list_receptions"/>
+        <page to="backend/variants/articles/seed_and_plant_articles#list_sale_items"/>
+        <page to="backend/variants/articles/seed_and_plant_articles#list_shipments"/>
+        <page to="backend/variants/articles/seed_and_plant_articles#list_suppliers"/>
+        <page to="backend/variants/articles/seed_and_plant_articles#picture"/>
+        <page to="backend/variants/articles/seed_and_plant_articles#quantifiers"/>
+        <page to="backend/variants/articles/seed_and_plant_articles#storage_detail"/>
+        <page to="backend/variants/articles/seed_and_plant_articles#unroll"/>
+        <page to="backend/variants/articles/seed_and_plant_articles#unroll_saleables"/>
+        <page to="backend/variants/articles/seed_and_plant_articles#update"/>
+      </item>
+      <item name="crop_variants">
+        <page to="backend/variants/crop_variants#destroy"/>
+        <page to="backend/variants/crop_variants#detail"/>
+        <page to="backend/variants/crop_variants#edit"/>
+        <page to="backend/variants/crop_variants#list"/>
+        <page to="backend/variants/crop_variants#list_catalog_items"/>
+        <page to="backend/variants/crop_variants#list_components"/>
+        <page to="backend/variants/crop_variants#list_products"/>
+        <page to="backend/variants/crop_variants#list_purchase_invoice_items"/>
+        <page to="backend/variants/crop_variants#list_purchase_order_items"/>
+        <page to="backend/variants/crop_variants#list_receptions"/>
+        <page to="backend/variants/crop_variants#list_sale_items"/>
+        <page to="backend/variants/crop_variants#list_shipments"/>
+        <page to="backend/variants/crop_variants#list_suppliers"/>
+        <page to="backend/variants/crop_variants#picture"/>
+        <page to="backend/variants/crop_variants#quantifiers"/>
+        <page to="backend/variants/crop_variants#storage_detail"/>
+        <page to="backend/variants/crop_variants#unroll"/>
+        <page to="backend/variants/crop_variants#unroll_saleables"/>
+        <page to="backend/variants/crop_variants#update"/>
+      </item>
+      <item name="equipment_variants">
+        <page to="backend/variants/equipment_variants#destroy"/>
+        <page to="backend/variants/equipment_variants#detail"/>
+        <page to="backend/variants/equipment_variants#edit"/>
+        <page to="backend/variants/equipment_variants#list"/>
+        <page to="backend/variants/equipment_variants#list_catalog_items"/>
+        <page to="backend/variants/equipment_variants#list_components"/>
+        <page to="backend/variants/equipment_variants#list_products"/>
+        <page to="backend/variants/equipment_variants#list_purchase_invoice_items"/>
+        <page to="backend/variants/equipment_variants#list_purchase_order_items"/>
+        <page to="backend/variants/equipment_variants#list_receptions"/>
+        <page to="backend/variants/equipment_variants#list_sale_items"/>
+        <page to="backend/variants/equipment_variants#list_shipments"/>
+        <page to="backend/variants/equipment_variants#list_suppliers"/>
+        <page to="backend/variants/equipment_variants#picture"/>
+        <page to="backend/variants/equipment_variants#quantifiers"/>
+        <page to="backend/variants/equipment_variants#storage_detail"/>
+        <page to="backend/variants/equipment_variants#unroll"/>
+        <page to="backend/variants/equipment_variants#unroll_saleables"/>
+        <page to="backend/variants/equipment_variants#update"/>
+      </item>
+      <item name="service_variants">
+        <page to="backend/variants/service_variants#destroy"/>
+        <page to="backend/variants/service_variants#detail"/>
+        <page to="backend/variants/service_variants#edit"/>
+        <page to="backend/variants/service_variants#list"/>
+        <page to="backend/variants/service_variants#list_catalog_items"/>
+        <page to="backend/variants/service_variants#list_components"/>
+        <page to="backend/variants/service_variants#list_products"/>
+        <page to="backend/variants/service_variants#list_purchase_invoice_items"/>
+        <page to="backend/variants/service_variants#list_purchase_order_items"/>
+        <page to="backend/variants/service_variants#list_receptions"/>
+        <page to="backend/variants/service_variants#list_sale_items"/>
+        <page to="backend/variants/service_variants#list_shipments"/>
+        <page to="backend/variants/service_variants#list_suppliers"/>
+        <page to="backend/variants/service_variants#picture"/>
+        <page to="backend/variants/service_variants#quantifiers"/>
+        <page to="backend/variants/service_variants#storage_detail"/>
+        <page to="backend/variants/service_variants#unroll"/>
+        <page to="backend/variants/service_variants#unroll_saleables"/>
+        <page to="backend/variants/service_variants#update"/>
+      </item>
+      <item name="worker_variants">
+        <page to="backend/variants/worker_variants#destroy"/>
+        <page to="backend/variants/worker_variants#detail"/>
+        <page to="backend/variants/worker_variants#edit"/>
+        <page to="backend/variants/worker_variants#list"/>
+        <page to="backend/variants/worker_variants#list_catalog_items"/>
+        <page to="backend/variants/worker_variants#list_components"/>
+        <page to="backend/variants/worker_variants#list_products"/>
+        <page to="backend/variants/worker_variants#list_purchase_invoice_items"/>
+        <page to="backend/variants/worker_variants#list_purchase_order_items"/>
+        <page to="backend/variants/worker_variants#list_receptions"/>
+        <page to="backend/variants/worker_variants#list_sale_items"/>
+        <page to="backend/variants/worker_variants#list_shipments"/>
+        <page to="backend/variants/worker_variants#list_suppliers"/>
+        <page to="backend/variants/worker_variants#picture"/>
+        <page to="backend/variants/worker_variants#quantifiers"/>
+        <page to="backend/variants/worker_variants#storage_detail"/>
+        <page to="backend/variants/worker_variants#unroll"/>
+        <page to="backend/variants/worker_variants#unroll_saleables"/>
+        <page to="backend/variants/worker_variants#update"/>
+      </item>
+      <item name="zone_variants">
+        <page to="backend/variants/zone_variants#destroy"/>
+        <page to="backend/variants/zone_variants#detail"/>
+        <page to="backend/variants/zone_variants#edit"/>
+        <page to="backend/variants/zone_variants#list"/>
+        <page to="backend/variants/zone_variants#list_catalog_items"/>
+        <page to="backend/variants/zone_variants#list_components"/>
+        <page to="backend/variants/zone_variants#list_products"/>
+        <page to="backend/variants/zone_variants#list_purchase_invoice_items"/>
+        <page to="backend/variants/zone_variants#list_purchase_order_items"/>
+        <page to="backend/variants/zone_variants#list_receptions"/>
+        <page to="backend/variants/zone_variants#list_sale_items"/>
+        <page to="backend/variants/zone_variants#list_shipments"/>
+        <page to="backend/variants/zone_variants#list_suppliers"/>
+        <page to="backend/variants/zone_variants#picture"/>
+        <page to="backend/variants/zone_variants#quantifiers"/>
+        <page to="backend/variants/zone_variants#storage_detail"/>
+        <page to="backend/variants/zone_variants#unroll"/>
+        <page to="backend/variants/zone_variants#unroll_saleables"/>
+        <page to="backend/variants/zone_variants#update"/>
+      </item>
+      <item name="non_treatment_areas_visualizations">
+        <page to="backend/visualizations/non_treatment_areas_visualizations#show"/>
       </item>
     </group>
   </untreated-actions>

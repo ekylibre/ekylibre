@@ -26,11 +26,11 @@ module Interventions
       def compute_parameter_readings(product_parameter)
         return if product_parameter.reference.readings.empty?
         product_parameter.reference.readings.each_with_index do |ref_reading, i|
-          next if product_parameter.readings.any? { |_index, r| r.name.to_s == ref_reading.name.to_s } 
+          next if product_parameter.readings.any? { |_index, r| r.name.to_s == ref_reading.name.to_s }
           product_parameter.add_reading(i, indicator_name: ref_reading.name)
         end
       end
-      
+
     end
   end
 end

@@ -15,7 +15,7 @@ deu:
     charge_account_label: "Ladekonto-Label" #?
     company: "Unternehmen" #?
     container_name: "Container Name"
-    current_result_before_taxes: "Laufendes Ergebnis vor Steuern"
+    current_result_before_taxes: "Laufendes Ergebnis vor Steuern" #?
     depreciations_inputations_expenses: "Abschreibungen inputations Kosten" #?
     doer_cost: "Macher Kosten"
     doer_name: "Macher Name"
@@ -27,20 +27,20 @@ deu:
     enterprise: "Unternehmen"
     entity_name: "Entitätsname"
     exceptional_expenses: "Außergewöhnliche Kosten" #?
-    exceptional_expenses_total: "Außergewöhnliche Kosten insgesamt"
+    exceptional_expenses_total: "Außergewöhnliche Kosten insgesamt" #?
     exceptional_products: "Außergewöhnliche Produkte" #?
-    exceptional_products_total: "Außergewöhnliche Produkte insgesamt"
-    exceptional_result: "Außergewöhnliches Ergebnis"
-    expenses_total: "Kosten insgesamt"
-    exploitation_expenses_total: "Ausbeutung Kosten insgesamt"
-    exploitation_products_total: "Ausbeutung Produkte insgesamt"
-    exploitation_result: "Ausbeutung Ergebnis"
+    exceptional_products_total: "Außergewöhnliche Produkte insgesamt" #?
+    exceptional_result: "Außergewöhnliches Ergebnis" #?
+    expenses_total: "Kosten insgesamt" #?
+    exploitation_expenses_total: "Ausbeutung Kosten insgesamt" #?
+    exploitation_products_total: "Ausbeutung Produkte insgesamt" #?
+    exploitation_result: "Ausbeutung Ergebnis" #?
     family: "Familie"
     financial_expenses: "Finanzielle Auslagen" #?
     financial_expenses_total: "Die Finanzaufwendungen insgesamt"
     financial_products: "Finanzprodukte" #?
-    financial_products_total: "Finanzprodukte insgesamt"
-    financial_result: "Finanzergebnis"
+    financial_products_total: "Finanzprodukte insgesamt" #?
+    financial_result: "Finanzergebnis" #?
     financial_year_name: "Geschäftsjahr Name"
     financial_years: "Geschäftsjahre"
     grains_yield: "Körner Ausbeute" #?
@@ -48,7 +48,7 @@ deu:
     harvested_at: "geerntete an" #?
     implanted_at: "implantierte an" #?
     intervention_durations: "Intervention Dauern" #?
-    loss_balance: "Verlustbilanz"
+    loss_balance: "Verlustbilanz" #?
     losses: "Verluste" #?
     meat_saleable_on: "Fleisch verkäuflich auf"
     meat_withdrawal_period: "Fleisch Wartezeit"
@@ -58,30 +58,30 @@ deu:
     nature: "Art"
     net_revenue: "Nettoumsatz" #?
     net_surface_area: "Nettofläche"
-    number: "Nummer"
+    number: "Nummer" #?
     observed_at: "Beobachtung:"
     other_expenses: "Andere Ausgaben" #?
     other_products: "Andere Produkte" #?
     other_purchases: "andere Käufe" #?
     owner_name: "Besitzername" #?
     payment_ratio: "Payment-Verhältnis" #?
-    person_name: "Name der Person"
+    person_name: "Name der Person" #?
     pictogram: "Piktogramm" #?
     picture_path: "Bildpfad"
     plan: "Planen"
     population: "Bevölkerung" #?
     prescription: "Rezept"
     pretax_amount: "Der Vorsteuerbetrag" #?
-    printed_on: "gedruckt auf"
+    printed_on: "gedruckt auf" #?
     product_account_label: "Produkt Konto Etikett" #?
     production_support: "Produktionsunterstützung"
     productions_sales: "Productions Vertrieb" #?
     products_purchases: "Produkte Käufe" #?
     products_sales: "Produkte Verkäufe" #?
-    products_total: "Gesamtbetrag"
-    profit_or_loss: "Der Gewinn oder Verlust"
+    products_total: "Gesamtbetrag" #?
+    profit_or_loss: "Der Gewinn oder Verlust" #?
     profits: "Gewinne" #?
-    profits_taxes: "Gewinnsteuern"
+    profits_taxes: "Gewinnsteuern" #?
     provisional_yield: "Vorläufige Ausbeute" #?
     provisions_revenues: "Rückstellungen Einnahmen" #?
     quantity: "Menge"
@@ -99,4 +99,4 @@ deu:
     vine_yield: "Vine Ausbeute" #?
     wages: "Lohn" #?
     working_area: "Arbeitsbereich"
-    working_duration_in_hours: "Arbeitszeit in Stunden"
+    working_duration_in_hours: "Arbeitszeit in Stunden" #?
