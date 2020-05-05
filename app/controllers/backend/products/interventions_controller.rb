@@ -20,7 +20,7 @@ module Backend
   module Products
     class InterventionsController < Backend::BaseController
       def has_harvesting
-        product = Product.find_by(params[:id])
+        product = Product.find_by(id: params[:id])
         intervention_started_at = Time.parse(params[:intervention_started_at])
 
         if product.present?
