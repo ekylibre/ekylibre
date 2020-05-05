@@ -10,7 +10,7 @@ module AnalyticsHelper
       tag = <<-HTML
         <script type="text/javascript">
           // [Matomo tracking code goes here]
-        
+
           // Send Matomo a new event when navigating to a new page using Turbolinks
           // (see https://developer.matomo.org/guides/spa-tracking)
           (function() {

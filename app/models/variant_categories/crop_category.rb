@@ -43,6 +43,7 @@
 #  number                              :string           not null
 #  pictogram                           :string
 #  product_account_id                  :integer
+#  provider                            :jsonb
 #  purchasable                         :boolean          default(FALSE), not null
 #  reductible                          :boolean          default(FALSE), not null
 #  reference_name                      :string

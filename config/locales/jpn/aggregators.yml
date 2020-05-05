@@ -15,7 +15,7 @@ jpn:
     charge_account_label: "課金ラベル" #?
     company: "会社" #?
     container_name: "コンテナ名"
-    current_result_before_taxes: "税金等調整前現在の結果"
+    current_result_before_taxes: "税金等調整前現在の結果" #?
     depreciations_inputations_expenses: "減価償却費inputations" #?
     doer_cost: "行為者のコスト"
     doer_name: "行為者名"
@@ -27,20 +27,20 @@ jpn:
     enterprise: "企業"
     entity_name: "エンティティ名"
     exceptional_expenses: "例外的な経費" #?
-    exceptional_expenses_total: "総例外的費用"
+    exceptional_expenses_total: "総例外的費用" #?
     exceptional_products: "優れた製品" #?
-    exceptional_products_total: "優れた製品は合計します"
-    exceptional_result: "卓越した結果"
-    expenses_total: "総費用"
-    exploitation_expenses_total: "総搾取費用"
-    exploitation_products_total: "搾取製品の合計"
-    exploitation_result: "搾取結果"
+    exceptional_products_total: "優れた製品は合計します" #?
+    exceptional_result: "卓越した結果" #?
+    expenses_total: "総費用" #?
+    exploitation_expenses_total: "総搾取費用" #?
+    exploitation_products_total: "搾取製品の合計" #?
+    exploitation_result: "搾取結果" #?
     family: "家族"
     financial_expenses: "金融費用" #?
     financial_expenses_total: "合計財務費用"
     financial_products: "金融商品" #?
-    financial_products_total: "金融商品の合計"
-    financial_result: "財務結果"
+    financial_products_total: "金融商品の合計" #?
+    financial_result: "財務結果" #?
     financial_year_name: "会計年度の名前"
     financial_years: "ファイナンシャル年"
     grains_yield: "穀物収量" #?
@@ -49,7 +49,7 @@ jpn:
     human_roles: "人間の役割" #?
     implanted_at: "で注入" #?
     intervention_durations: "介入期間" #?
-    loss_balance: "損失残高"
+    loss_balance: "損失残高" #?
     losses: "損失" #?
     meat_saleable_on: "食肉販売可能に"
     meat_withdrawal_period: "肉休薬期間"
@@ -59,29 +59,29 @@ jpn:
     nature: "タイプ"
     net_revenue: "純収入" #?
     net_surface_area: "正味の表面積"
-    number: "数"
+    number: "数" #?
     observed_at: "で観測"
     other_expenses: "その他の費用" #?
     other_products: "その他の製品" #?
     other_purchases: "その他の購入" #?
     owner_name: "所有者名" #?
     payment_ratio: "配当比率" #?
-    person_name: "人名"
+    person_name: "人名" #?
     pictogram: "絵文字" #?
     picture_path: "画像のパス"
     plan: "計画"
     prescription: "処方"
     pretax_amount: "税引前量" #?
-    printed_on: "上の印刷"
+    printed_on: "上の印刷" #?
     product_account_label: "製品のアカウントラベル" #?
     production_support: "生産支援"
     productions_sales: "プロダクションの販売" #?
     products_purchases: "製品の購入" #?
     products_sales: "製品販売" #?
-    products_total: "製品の合計"
-    profit_or_loss: "損益"
+    products_total: "製品の合計" #?
+    profit_or_loss: "損益" #?
     profits: "利益" #?
-    profits_taxes: "利益税"
+    profits_taxes: "利益税" #?
     provisional_yield: "暫定収量" #?
     provisions_revenues: "引当金収入" #?
     quantity: "量"
@@ -103,4 +103,4 @@ jpn:
     vine_yield: "バイン収量" #?
     wages: "賃金" #?
     working_area: "作業領域"
-    working_duration_in_hours: "作業時間（時間単位）"
+    working_duration_in_hours: "作業時間（時間単位）" #?

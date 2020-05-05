@@ -2,7 +2,7 @@ require 'test_helper'
 
 module PanierLocal
   class SalesExchangerTest < ActiveExchanger::TestCase
-    setup do 
+    setup do
       # We wan't to keep tracking of import resource
       @import = Import.create!(nature: :panier_local_sales)
 
@@ -14,7 +14,7 @@ module PanierLocal
       assert_equal 45, SaleNature.find_by(name: "Vente en ligne - Panier Local").sales.count
     end
 
-    teardown do 
+    teardown do
       @import.destroy!
     end
   end

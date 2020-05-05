@@ -20,7 +20,7 @@ fra:
     charge_account_label: "Étiquette du compte de frais" #?
     company: "Entreprise" #?
     container_name: "Nom de l'emplacement"
-    current_result_before_taxes: "Résultat en cours avant taxes"
+    current_result_before_taxes: "Résultat en cours avant taxes" #?
     depreciations_inputations_expenses: "Charges des imputations des dépréciations" #?
     derivative: "Dérivé" #?
     doer: "Opérateur" #?
@@ -34,20 +34,20 @@ fra:
     enterprise: "Entreprise"
     entity_name: "Nom de la personne"
     exceptional_expenses: "Charges exceptionnelles" #?
-    exceptional_expenses_total: "Total des charges exceptionnelles"
+    exceptional_expenses_total: "Total des charges exceptionnelles" #?
     exceptional_products: "Produits exceptionnels" #?
-    exceptional_products_total: "Total des produits exceptionnels"
-    exceptional_result: "Résultat exceptionnel"
-    expenses_total: "Total des charges"
-    exploitation_expenses_total: "Total des charges d'exploitation"
-    exploitation_products_total: "Total des produits d'exploitation"
-    exploitation_result: "Résultat d'exploitation"
+    exceptional_products_total: "Total des produits exceptionnels" #?
+    exceptional_result: "Résultat exceptionnel" #?
+    expenses_total: "Total des charges" #?
+    exploitation_expenses_total: "Total des charges d'exploitation" #?
+    exploitation_products_total: "Total des produits d'exploitation" #?
+    exploitation_result: "Résultat d'exploitation" #?
     family: "Famille"
     financial_expenses: "Charges financières" #?
     financial_expenses_total: "Total des charges financières"
     financial_products: "Produits financiers" #?
-    financial_products_total: "Total des produits financiers"
-    financial_result: "Résultat financier"
+    financial_products_total: "Total des produits financiers" #?
+    financial_result: "Résultat financier" #?
     financial_year_name: "Exercice comptable"
     financial_years: "Exercices comptables"
     grains_yield: "Rendement en grains" #?
@@ -56,7 +56,7 @@ fra:
     human_roles: "Roles" #?
     implanted_at: "Implanté à" #?
     intervention_durations: "Durées d'intervention" #?
-    loss_balance: "Solde de perte"
+    loss_balance: "Solde de perte" #?
     losses: "Pertes" #?
     manure_management_plan_default_computation_method: "Méthode de calcul du PPF" #?
     manure_management_plan_name: "PPF" #?
@@ -71,7 +71,7 @@ fra:
     net_surface_area: "Surface nette"
     nitrogen_balance: "Balance azotée" #?
     nitrogen_input_prev: "Apport d'azote prev" #?
-    number: "Numéro"
+    number: "Numéro" #?
     observed_at: "Obervé à"
     original_input_name: "Stock de l'intrant" #?
     original_input_unit_name: "Unité du stocks de l'intrant" #?
@@ -83,24 +83,24 @@ fra:
     pasturing_period: "Période pâturage" #?
     pasturing_working_area: "Zone de pâturage" #?
     payment_ratio: "Ratio de paiement" #?
-    person_name: "Nom"
+    person_name: "Nom" #?
     pictogram: "Pictogramme" #?
     picture_path: "Chemin d'image"
     # plan: "Plan"
     prescription: "Ordonnance"
     pretax_amount: "Montant avant impôt" #?
     previous_production_name: "Précédente production" #?
-    printed_on: "Imprimé le"
+    printed_on: "Imprimé le" #?
     product_account_label: "Compte de produits" #?
     product_nature_name: "Type de produit" #?
     production_support: "Support à la production"
     productions_sales: "Ventes de productions" #?
     products_purchases: "Achats de produits" #?
     products_sales: "Ventes de produits" #?
-    products_total: "Total des produits"
-    profit_or_loss: "Perte ou profit"
+    products_total: "Total des produits" #?
+    profit_or_loss: "Perte ou profit" #?
     profits: "Profits" #?
-    profits_taxes: "Taxes sur profits"
+    profits_taxes: "Taxes sur profits" #?
     provisional_grains_yield: "Rendement prévisionnel en grains" #?
     provisional_yield: "Rendement prévisionnel" #?
     provisions_revenues: "Revenus de provisions" #?
@@ -129,6 +129,6 @@ fra:
     vine_yield: "Rendement en vin" #?
     wages: "Salaires" #?
     working_area: "Superficie travaillée"
-    working_duration_in_hours: "Durée travaillée en heures"
+    working_duration_in_hours: "Durée travaillée en heures" #?
   aggregators: #?
     vat_register: "Registre de TVA" #?

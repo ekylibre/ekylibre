@@ -15,7 +15,7 @@ spa:
     charge_account_label: "Cargar la etiqueta de la cuenta" #?
     company: "Empresa" #?
     container_name: "Nombre de contenedor"
-    current_result_before_taxes: "Resultado actual antes de impuestos"
+    current_result_before_taxes: "Resultado actual antes de impuestos" #?
     depreciations_inputations_expenses: "Gastos de depreciaciones inputations" #?
     doer_cost: "Costo hacedor"
     doer_name: "Nombre del hacedor"
@@ -27,20 +27,20 @@ spa:
     enterprise: "Empresa"
     entity_name: "Nombre de la entidad"
     exceptional_expenses: "Gastos de carácter excepcional" #?
-    exceptional_expenses_total: "Gastos de carácter excepcional en total"
+    exceptional_expenses_total: "Gastos de carácter excepcional en total" #?
     exceptional_products: "Productos excepcionales" #?
-    exceptional_products_total: "Productos excepcionales en total"
-    exceptional_result: "Resultados extraordinarios"
-    expenses_total: "Los gastos totales"
-    exploitation_expenses_total: "Los gastos de explotación totales"
-    exploitation_products_total: "Productos de explotación totalizan"
-    exploitation_result: "Resultado de la explotación"
+    exceptional_products_total: "Productos excepcionales en total" #?
+    exceptional_result: "Resultados extraordinarios" #?
+    expenses_total: "Los gastos totales" #?
+    exploitation_expenses_total: "Los gastos de explotación totales" #?
+    exploitation_products_total: "Productos de explotación totalizan" #?
+    exploitation_result: "Resultado de la explotación" #?
     family: "Familia"
     financial_expenses: "Gastos financieros" #?
     financial_expenses_total: "Los gastos financieros totales"
     financial_products: "Productos financieros" #?
-    financial_products_total: "Productos financieros totales"
-    financial_result: "Resultado financiero"
+    financial_products_total: "Productos financieros totales" #?
+    financial_result: "Resultado financiero" #?
     financial_year_name: "Nombre del ejercicio"
     financial_years: "Ejercicios"
     grains_yield: "Rendimiento de granos" #?
@@ -49,7 +49,7 @@ spa:
     human_roles: "Papeles humanos" #?
     implanted_at: "Implantado en" #?
     intervention_durations: "Duraciones de intervención" #?
-    loss_balance: "Pérdida de equilibrio"
+    loss_balance: "Pérdida de equilibrio" #?
     losses: "Pérdidas" #?
     meat_saleable_on: "Carne en vendible"
     meat_withdrawal_period: "Tiempo de espera de la carne"
@@ -59,29 +59,29 @@ spa:
     nature: "Tipo"
     net_revenue: "Ingresos netos" #?
     net_surface_area: "Área de superficie Net"
-    number: "Número"
+    number: "Número" #?
     observed_at: "Observado a las"
     other_expenses: "Otros gastos" #?
     other_products: "Otros productos" #?
     other_purchases: "Otras compras" #?
     owner_name: "Nombre del dueño" #?
     payment_ratio: "Ratio de pago" #?
-    person_name: "Nombre de la persona"
+    person_name: "Nombre de la persona" #?
     pictogram: "Pictograma" #?
     picture_path: "Pathimagen"
     # plan: "Plan"
     prescription: "Prescripción"
     pretax_amount: "Cantidad antes de impuestos" #?
-    printed_on: "Impreso en"
+    printed_on: "Impreso en" #?
     product_account_label: "Etiqueta de la cuenta del producto" #?
     production_support: "Soporte de producción"
     productions_sales: "Producciones ventas" #?
     products_purchases: "Compras de productos" #?
     products_sales: "Las ventas de productos" #?
-    products_total: "Total productos"
-    profit_or_loss: "Ganancia o pérdida"
+    products_total: "Total productos" #?
+    profit_or_loss: "Ganancia o pérdida" #?
     profits: "Las ganancias" #?
-    profits_taxes: "Impuestos sobre los beneficios"
+    profits_taxes: "Impuestos sobre los beneficios" #?
     provisional_yield: "Rendimiento provisional" #?
     provisions_revenues: "Provisiones ingresos" #?
     quantity: "Cantidad"
@@ -103,4 +103,4 @@ spa:
     vine_yield: "El rendimiento de la vid" #?
     wages: "Salario" #?
     working_area: "Área de trabajo"
-    working_duration_in_hours: "Duración del trabajo en horas"
+    working_duration_in_hours: "Duración del trabajo en horas" #?
