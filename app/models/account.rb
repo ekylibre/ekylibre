@@ -38,6 +38,7 @@
 #  name                      :string           not null
 #  nature                    :string
 #  number                    :string           not null
+#  provider                  :jsonb
 #  reconcilable              :boolean          default(FALSE), not null
 #  updated_at                :datetime         not null
 #  updater_id                :integer
@@ -518,7 +519,7 @@ class Account < Ekylibre::Record::Base
     # Example : 1-3 41 43
     def clean_range_condition(range, _table_name = nil)
       expression = ''
-      
+
       if range.present?
         valid_expr = /^\d(\d(\d[0-9A-Z]*)?)?$/
         for expr in range.split(/[^0-9A-Z\-\*]+/)
@@ -531,7 +532,7 @@ class Account < Ekylibre::Record::Base
           end
         end
       end
-      
+
       expression.strip
     end
 

@@ -63,6 +63,7 @@
 #  picture_updated_at           :datetime
 #  proposer_id                  :integer
 #  prospect                     :boolean          default(FALSE), not null
+#  provider                     :jsonb
 #  reminder_submissive          :boolean          default(FALSE), not null
 #  responsible_id               :integer
 #  siret_number                 :string

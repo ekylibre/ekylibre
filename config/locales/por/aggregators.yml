@@ -21,7 +21,7 @@ por:
     cluster_pac_number: "Número do aglomerado" #?
     company: "Companhia" #?
     container_name: "Nome container"
-    current_result_before_taxes: "Resultado atual sem impostos"
+    current_result_before_taxes: "Resultado atual sem impostos" #?
     depreciations_inputations_expenses: "Despesas de depreciação" #?
     doer_cost: "Custo doer"
     doer_name: "Nome executor"
@@ -33,20 +33,20 @@ por:
     enterprise: "Empresa"
     entity_name: "Nome entidade"
     exceptional_expenses: "Despesas excepcionais" #?
-    exceptional_expenses_total: "Total de despesas excepcionais"
+    exceptional_expenses_total: "Total de despesas excepcionais" #?
     exceptional_products: "Produtos excepcionais" #?
-    exceptional_products_total: "Total de produtos excepcionais"
-    exceptional_result: "Resultado dos excepcionais"
-    expenses_total: "Total de despesas"
-    exploitation_expenses_total: "Total de despesas de exploração"
-    exploitation_products_total: "Total de produtos de exploração"
-    exploitation_result: "Resultado das explorações"
+    exceptional_products_total: "Total de produtos excepcionais" #?
+    exceptional_result: "Resultado dos excepcionais" #?
+    expenses_total: "Total de despesas" #?
+    exploitation_expenses_total: "Total de despesas de exploração" #?
+    exploitation_products_total: "Total de produtos de exploração" #?
+    exploitation_result: "Resultado das explorações" #?
     family: "Família"
     financial_expenses: "Despesas financeiras" #?
     financial_expenses_total: "Total despesas financeiras"
     financial_products: "Produtos financeiros" #?
-    financial_products_total: "Total de produtos financeiros"
-    financial_result: "Resultado financeiro"
+    financial_products_total: "Total de produtos financeiros" #?
+    financial_result: "Resultado financeiro" #?
     financial_year_name: "Nome ano fiscal"
     financial_years: "Anos fiscais"
     grains_yield: "Rendimento de grãos" #?
@@ -58,7 +58,7 @@ por:
     input_quantity: "Quantidade de entrada" #?
     input_unit_name: "Nome unidade de entrada" #?
     intervention_durations: "Duração das intervenções" #?
-    loss_balance: "Balanço de perdas"
+    loss_balance: "Balanço de perdas" #?
     losses: "Perdas" #?
     manure_management_plan_default_computation_method: "Plano padrão de computação no gerenciamento de dejetos" #?
     manure_management_plan_name: "Nome do plano de gerenciamento de dejetos" #?
@@ -73,7 +73,7 @@ por:
     net_surface_area: "Net surface area"
     nitrogen_balance: "Nitrogen balance" #?
     nitrogen_input_prev: "Nitrogen input prev" #?
-    number: "Número"
+    number: "Número" #?
     observed_at: "Observado em"
     original_input_name: "Original input name" #?
     original_input_unit_name: "Original input unit name" #?
@@ -85,24 +85,24 @@ por:
     pasturing_period: "Período de pastoreio" #?
     pasturing_working_area: "Área de pastorio trabalhável" #?
     payment_ratio: "Rácio de pagamento" #?
-    person_name: "Nome da pessoa"
+    person_name: "Nome da pessoa" #?
     pictogram: "Pictograma" #?
     picture_path: "Caminho imagem"
     plan: "Plano"
     prescription: "Prescrição"
     pretax_amount: "Montante antes de impostos" #?
     previous_production_name: "Nome produção anterior" #?
-    printed_on: "Impresso em"
+    printed_on: "Impresso em" #?
     product_account_label: "Rótulo de conta do produto" #?
     product_nature_name: "Nome Natureza do produto" #?
     production_support: "Apoio à produção"
     productions_sales: "Venda de produção" #?
     products_purchases: "Compra de produtos" #?
     products_sales: "Vendas de produtos" #?
-    products_total: "Total produtos"
-    profit_or_loss: "Lucros ou perdas"
+    products_total: "Total produtos" #?
+    profit_or_loss: "Lucros ou perdas" #?
     profits: "Lucros" #?
-    profits_taxes: "Impostos sobre lucros"
+    profits_taxes: "Impostos sobre lucros" #?
     provisional_grains_yield: "Provisões produção de grãos" #?
     provisional_yield: "Provisões de rendimento" #?
     provisions_revenues: "Provisões de receita" #?
@@ -130,6 +130,6 @@ por:
     vine_yield: "Produção por planta" #?
     wages: "Salários" #?
     working_area: "Área de trabalho"
-    working_duration_in_hours: "Duração do trabalho em horas"
+    working_duration_in_hours: "Duração do trabalho em horas" #?
   aggregators: #?
     vat_register: "Registro de imposto" #?

@@ -41,6 +41,7 @@
 #  picture_file_name         :string
 #  picture_file_size         :integer
 #  picture_updated_at        :datetime
+#  provider                  :jsonb
 #  providers                 :jsonb
 #  reference_name            :string
 #  specie_variety            :string
