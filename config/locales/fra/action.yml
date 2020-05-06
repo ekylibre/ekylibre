@@ -582,10 +582,11 @@ fra:
       index: "Produits"
       new: "Créer un produit"
       show: "%{nature}\_: %{name}"
-    backend/project_budgets: #?
-      edit: "Modifier le budget interne\_: %{name}" #?
-      index: "Budgets internes " #?
-      new: "Nouveau budget interne" #?
+    backend/project_budgets:
+      edit: "Modifier le budget interne\_: %{name}"
+      index: "Budgets internes "
+      new: "Nouveau budget interne"
+      # show: "Project budget: %{name}"
     backend/purchase_invoices:
       edit: "Modifier la facture: %{number}"
       index: "Factures"
@@ -694,8 +695,8 @@ fra:
       index: "Séquences"
       load: "Charger les séquences manquantes"
       new: "Nouvelle séquence"
-    backend/services:
-      index: "Prestations de service"
+    backend/services: #?
+      index: "Prestations de service" #?
     backend/settings:
       about: "À propos…"
     backend/settlements:
@@ -831,6 +832,15 @@ fra:
     backend/variants/article_variants:
       index: "Autres articles"
       pick: "Importer un article"
+    backend/variants/articles/fertilizer_articles:
+      index: "Engrais"
+      pick: "Importer un engrais"
+    backend/variants/articles/plant_medicine_articles:
+      index: "Produits phytosanitaires"
+      pick: "Importer un produit phytosanitaire"
+    backend/variants/articles/seed_and_plant_articles:
+      index: "Semences et plants"
+      pick: "Importer une semence ou un plant"
     backend/variants/crop_variants:
       index: "Cultures"
       pick: "Importer une culture"
@@ -846,15 +856,6 @@ fra:
     backend/variants/zone_variants:
       index: "Zones"
       pick: "Importer une zone"
-    backend/variants/articles/fertilizer_articles:
-      index: "Engrais"
-      pick: "Importer un engrais"
-    backend/variants/articles/plant_medicine_articles:
-      index: "Produits phytosanitaires"
-      pick: "Importer un produit phytosanitaire"
-    backend/variants/articles/seed_and_plant_articles:
-      index: "Semences et plants"
-      pick: "Importer une semence ou un plant"
     backend/wine_tanks:
       index: "Cuverie"
     backend/wine_transformers: #?
@@ -898,6 +899,7 @@ fra:
       # invalid_child: "At least one value of %{attribute} is invalid."
       # invalid_date: "%{attribute} is not a valid date"
       # invalid_datetime: "%{attribute} is not a valid datetime"
+      invalid_population_for_unitary_product: "L'équipement %{name} ne peut avoir une population de %{population} car il est unique."
       # invalid_time: "%{attribute} is not a valid time"
       # invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
       # is: "%{attribute} must be a %{thing}"
@@ -926,6 +928,7 @@ fra:
       # overlap_sibling: "%{attribute} overlaps sibling"
       # posterior: "%{attribute} must be posterior to %{to}"
       # record_invalid: "Validations failed: %{errors}"
+      # record_is_not_valid: "The record is invalid"
       # should_be_consecutive: "Financial years must be consecutive, therefore %{attribute} should be %{expected}."
       # should_be_the_last_day_of_month: "%{attribute} should be the last day of the month."
       # taken: "%{attribute} has already been taken"
@@ -933,7 +936,6 @@ fra:
       # too_short: "%{attribute} is too short (minimum is %{count} characters)"
       # unitary_in_parcel: "Unitary items can only be sent one by one"
       # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
-      invalid_population_for_unitary_product: "L'équipement %{name} ne peut avoir une population de %{population} car il est unique."
     template:
       body: "Il y a eu des problèmes avec les champs suivants\_:"
       header:
@@ -942,6 +944,11 @@ fra:
   front-end:
     bank_reconciliation:
       remove: "Effacer"
+    intervention:
+      nature:
+        add_two_hours: "Ajouter 2h dans le cas d'une application en milieu fermé"
+        harvest: "Récolte :"
+        reentry: "Réentrée :"
     leaflet:
       draw:
         handlers:
@@ -1011,11 +1018,6 @@ fra:
       zoomGuidance: "Niveau de zoom insuffisant"
       zoomInTitle: "Zoomer"
       zoomOutTitle: "Dézoomer"
-    intervention:
-      nature:
-        harvest: "Récolte :"
-        reentry: "Réentrée :"
-        add_two_hours: "Ajouter 2h dans le cas d'une application en milieu fermé"
   labels:
     abilities: "Compétences" #?
     accepted: "Acceptée"
@@ -1166,12 +1168,9 @@ fra:
     alive_corporeal_assets_others: "Autres végétaux immobilisés"
     alive_corporeal_assets_perennial_plants: "Plantations pérennes"
     alive_corporeal_assets_service_animals: "Animaux de service"
-    alive_corporeal_assets_total: "Immobilisations corporelles (biens vivants)"
+    alive_corporeal_assets_total: "Immobilisations corporelles (biens vivants)" #?
     alive_corporeal_assets_young_animals: "Animaux reproducteurs (jeunes)"
     all: "Tous"
-    allocation_balance: "Affectation du budget - Allocation %{name}"
-    allowed: "Autorisé"
-    allowed_harvest_on: "RÉCOLTE POSSIBLE À PARTIR DU"
     all_accounts: "Tous les comptes"
     all_areas: "— Toutes les zones postales —" #?
     all_cash_balances: "Soldes des comptes" #?
@@ -1184,6 +1183,9 @@ fra:
     all_financial_years_not_closed_or_locked: "Tous les exercices précédents ne sont pas clôturés ou verrouillés."
     all_periods: "Tous les exercices"
     all_the_categories: "Toutes les categories" #?
+    allocation_balance: "Affectation du budget - Allocation %{name}"
+    allowed: "Autorisé"
+    allowed_harvest_on: "RÉCOLTE POSSIBLE À PARTIR DU"
     already_credited_quantity: "Qté. déjà passée en avoir" #?
     amount: "Montant"
     amount_computed_from: "Montant calculé à partir de %{source}"
@@ -1200,11 +1202,11 @@ fra:
     and: "Et" #?
     anew_reports: "Report à nouveau"
     animal: "Animal" #?
-    animal_natures: "Animaux"
     animal_bar: "Animaux par lot" #?
     animal_details: "Détails d’un animal"
     animal_identification: "Identification animale" #?
     animal_life_state: "Phase du bioprocessus de vie d’un animal" #?
+    animal_natures: "Animaux"
     animal_pie: "Animaux par lot" #?
     animal_productions: "Productions animales" #?
     animal_purchases: "Achats d'animaux"
@@ -1213,9 +1215,9 @@ fra:
     animals: "Animaux"
     any_journal: "Tous les journaux"
     applications_count: "Nombre d'application(s) max"
-    applications_count_bigger_than_max: "Nombre d'application(s) maximum dépassé"
-    applications_count_equal_to_max: "Nombre d'application(s) maximum atteint après cette intervention"
-    applications_count_less_than_max: "Nombre d'application(s) inférieur au maximum"
+    applications_count_bigger_than_max: "Nombre d'application(s) maximum dépassé" #?
+    applications_count_equal_to_max: "Nombre d'application(s) maximum atteint après cette intervention" #?
+    applications_count_less_than_max: "Nombre d'application(s) inférieur au maximum" #?
     applications_interval_not_respected: "Intervalle entre application non respecté"
     apply: "Appliquer" #?
     aquatic_nta: "ZNT aquatique (%{distance} m)"
@@ -1281,13 +1283,13 @@ fra:
     based_on_current_regulation: "Les vérifications sont effectuées sur la base de la réglementation en vigueur"
     based_on_regulation_at_date: "Les vérifications sont effectuées sur la base de la réglementation en vigueur au %{date}"
     bban: "Relevé d’identité bancaire (RIB)"
-    bee_usage: "Mention abeille"
+    bee_usage: "Mention abeille" #?
     before_taxe_result: "Résultat courant avant impôts"
     beginning: "Début"
     begins: "Commence par" #?
     beta: "Beta"
     beta_description: "Cette fonctionnalité est en cours de développement et ne doit pas être considérée comme source fiable d’information."
-    biocontrol_usage: "Liste biocontrôle"
+    biocontrol_usage: "Liste biocontrôle" #?
     body: "Corps du message"
     bookkeep: "Comptabiliser"
     bookkeep_with_payment: "Comptabiliser avec paiement"
@@ -1322,7 +1324,7 @@ fra:
     capitals_mandatory_provisions: "Provisions réglementées"
     capitals_profit_or_loss: "Résultat de l'exercice"
     capitals_risk_and_charges_provisions: "Provisions pour risques et charges"
-    capitals_risk_and_charges_provisions_total: "Provisions"
+    capitals_risk_and_charges_provisions_total: "Provisions" #?
     capitals_values: "Capital"
     carcinogen_mutagenic_toxic_for_reproduction: "Cancérogène, mutagène, toxique pour la reproduction"
     care: "soins" #?
@@ -1407,7 +1409,7 @@ fra:
     commercial_margin: "Marge commerciale"
     commission: "Commission"
     company: "Société"
-    compare_planned_and_realised: "Comparer avec les interventions planifiées" #?
+    compare_planned_and_realised: "Comparer avec les interventions planifiées"
     complement_sort: "Trier les choix par nom" #?
     complements: "Champs personnalisés" #?
     completed: "Terminées"
@@ -1463,10 +1465,10 @@ fra:
     corporeal_assets_land_parcels: "Terrains"
     corporeal_assets_others: "Autres"
     corporeal_assets_settlements: "Aménagements fonciers"
-    corporeal_assets_total: "Immobilisations corporelles"
+    corporeal_assets_total: "Immobilisations corporelles" #?
     corrosive_skin_and_mucosa_risks_of_severe_burns: "Corrosif peau et muqueuses, risque de graves brûlures"
     corrosive_substances: "Matières corrosives"
-    cost: "Coût" #?
+    cost: "Coût"
     cost_income_statement: "Charges" #?
     cost_per_net_surface_area: "Coût par surface"
     cost_sum: "Total charges d’exploitation" #?
@@ -1543,11 +1545,11 @@ fra:
     debit_balance: "119 - Report à nouveau (solde débiteur), exercice antérieur"
     debts: "Dettes"
     debts_associate_locked_debts: "Associés (comptes courants bloqués)"
-    debts_associate_total: "Associés (comptes courants)"
+    debts_associate_total: "Associés (comptes courants)" #?
     debts_cashe_debts: "Découverts bancaires courants"
-    debts_cashe_debts_total: "Dettes financières"
+    debts_cashe_debts_total: "Dettes financières" #?
     debts_land_parcel_loans: "Emprunts fonciers"
-    debts_loans_total: "Emprunts"
+    debts_loans_total: "Emprunts" #?
     debts_on_assets: "Taux d’endettement (Dettes / Actifs) %{financial_year}"
     debts_other_financial_debts: "Autres emprunts et dettes"
     debts_others_loans: "Autres"
@@ -1628,9 +1630,9 @@ fra:
     dont_generate_closure_entries: "— Ne pas générer les écritures de clôture —"
     dont_generate_result_entries: "— Ne pas générer les écritures de résultat —"
     dont_use_journal: "— Ne pas utiliser de journal —"
-    dose_less_than_max: "Dose inférieure à la dose maximale"
-    dose_equal_to_max: "Dose maximale"
     dose_bigger_than_max: "Dose supérieure à la dose maximale"
+    dose_equal_to_max: "Dose maximale"
+    dose_less_than_max: "Dose inférieure à la dose maximale"
     down: "Descendre"
     down_to_level: "Détailler jusqu’au niveau" #?
     download: "Télécharger"
@@ -1675,7 +1677,7 @@ fra:
     entities_assets_gaps: "Écart de conversion actif"
     entities_associate_receivables: "Associés"
     entities_client_receivables: "Clients"
-    entities_client_total: "Créances clients"
+    entities_client_total: "Créances clients" #?
     entities_investment_security: "Valeurs mobilières de placement"
     entities_other_receivables: "Autres créances"
     entities_others_clients: "Autres clients et conventions"
@@ -1750,6 +1752,7 @@ fra:
     expired_within: "Expiré d’ici"
     exploitation_result: "Résultat d'exploitation"
     exploitation_results: "Résultats d’exploitation"
+    explosive_substances: "Matières explosives"
     export: "Exporter"
     export_as_csv: "Exporter en CSV"
     export_as_ods: "Exporter en ODS"
@@ -1758,19 +1761,19 @@ fra:
     export_as_xcsv: "Exporter en CSV pour Excel"
     export_backup: "Export d’un fichier de sauvegarde" #?
     export_balance_sheet: "Export bilan"
-    export_centralizing_journal: "Exporter le journal centralisateur"
     export_by_account_fixed_asset_registry: "État des immobilisations par compte"
-    export_gain_and_loss_fixed_asset_registry: "État des plus et moins values"
+    export_centralizing_journal: "Exporter le journal centralisateur"
     export_fixed_asset_registry: "État des immobilisations"
-    export_fixed_assets_by_account: "État des immobilisations par compte"
-    export_fixed_assets_gain_and_loss: "État des plus et moins-values"
-    export_fixed_assets_general: "État des immobilisations"
+    export_fixed_assets_by_account: "État des immobilisations par compte" #?
+    export_fixed_assets_gain_and_loss: "État des plus et moins-values" #?
+    export_fixed_assets_general: "État des immobilisations" #?
+    export_gain_and_loss_fixed_asset_registry: "État des plus et moins values"
     export_income_statement: "Export compte de résultat"
     export_sales_aborted: "Abandonné(e)" #?
     export_sales_estimate: "Devis" #?
     export_sales_invoice: "Facture" #?
     export_sales_order: "Bon de commande" #?
-    export_short_balance_sheet: "Export bilan simplifié"
+    export_short_balance_sheet: "Export bilan simplifié" #?
     export_text_fec_all: "Export FEC - Cas général - impôt sur les sociétés (Texte)"
     export_text_fec_ba_bnc_ir_commercial_accountancy: "Export FEC - Cas BA BNC IR - comptabilité commerciale (Texte)"
     export_text_fec_ba_ir_cash_accountancy: "Export FEC - Cas BA IR - comptabilité de trésorerie (Texte)"
@@ -1787,7 +1790,6 @@ fra:
     extract_non_letter_pdf: "Extrait de compte - Non lettrés en PDF" #?
     extract_unlettered_account_x: "Extrait de compte non lettrés %{account_number}"
     extraordinary_income: "Produits exceptionnels"
-    explosive_substances: "Matières explosives"
     fat_matters_concentration: "Teneur en matières grasses" #?
     fax: "Fax" #?
     fees: "Frais"
@@ -1810,7 +1812,7 @@ fra:
     financial_assets_others: "Autres"
     financial_assets_participations: "Participations"
     financial_assets_participations_debts: "Créances rattachées à des participations"
-    financial_assets_total: "Immobilisations financières"
+    financial_assets_total: "Immobilisations financières" #?
     financial_debts: "Valeurs mobilières et créances de l'actif immobilisé"
     financial_depreciations: "Reprises sur dépréciations et provisions, transferts de charges"
     financial_expenses: "Charges financières"
@@ -1855,8 +1857,8 @@ fra:
     france_maaid: "N° AMM" #?
     from: "À partir du"
     from_to_date: "du %{from} au %{to}"
-    fruit_yield: "Rendement fruit" #?
-    full_name: "Client" #?
+    fruit_yield: "Rendement fruit"
+    full_name: "Client"
     fullscreen: "Plein écran"
     function: "Fonction"
     fungi: "Champignons"
@@ -1949,7 +1951,7 @@ fra:
     incorporeal_assets_advances: "Avances et acomptes"
     incorporeal_assets_creation_costs: "Frais d'établissement"
     incorporeal_assets_others: "Autres"
-    incorporeal_assets_total: "Immobilisations incorporelles"
+    incorporeal_assets_total: "Immobilisations incorporelles" #?
     indicative_group_size: "Taille indicative du groupe"
     indicator: "Indicateur"
     indicator_value: "Valeur de l’indicateur"
@@ -2120,11 +2122,11 @@ fra:
     long_cycle_alive_products_others: "Autres en-cours"
     long_cycle_alive_products_plant_advance: "Avances aux cultures"
     long_cycle_alive_products_plant_in_ground: "Autres végétaux en terres"
-    long_cycle_alive_products_total: "Biens vivants et en-court (cycle long)"
+    long_cycle_alive_products_total: "Biens vivants et en-court (cycle long)" #?
     long_cycle_alive_products_wine: "Vins et alcools"
     loss_is_x_for_account: "<span class='loss'> Perte de %{x} </span> à comptabiliser sur le compte %{account_number}"
     losses: "Charges d’exploitations"
-    maaid_not_provided: "Numéro d’AMM non renseigné"
+    maaid_not_provided: "Numéro d’AMM non renseigné" #?
     mail: "Envoyer un courriel"
     mailing: "Mailing"
     mails:
@@ -2157,6 +2159,7 @@ fra:
     mask_draft_items: "Retirer les lignes d'écriture en brouillard"
     mask_lettered_items: "Masquer les lignes lettrées"
     mass: "Masse"
+    max_dose_unit_not_handled: "L’unité de la dose maximale d’application n’est pas prise en charge par Ekylibre" #?
     max_level: "Niveau maximum" #?
     maximal_temperature: "Température maximale"
     maximum_amount: "Montant maximum"
@@ -2175,6 +2178,8 @@ fra:
     merchandises_purchases_stocks_variation: "Variation de stocks de marchandises"
     merchandises_services_costs: "Marchandise, Service ou Frais"
     merge: "Fusionner"
+    merged_entity: |
+      Entitées fusionnées (ID=%{other}):
     method: "Méthode"
     milk_withdrawal_period: "Période d’attente avant remise en vente de lait" #?
     min_level: "Niveau minimum" #?
@@ -2304,7 +2309,6 @@ fra:
     not_contains: "Ne contient pas" #?
     not_delivered: "Non délivré"
     not_finishes: "Ne termine pas par" #?
-    max_dose_unit_not_handled: "L’unité de la dose maximale d’application n’est pas prise en charge par Ekylibre"
     not_informed: "Non renseigné"
     not_invoiced_or_aborted_purchases: "Vous avez des achats non facturés ou non abandonnés en cours. Une fois l'exercice clos, il ne sera plus possible de les facturer ou de les envoyer sur cet exercice (%{code})."
     not_invoiced_or_aborted_sales: "Vous avez des ventes non facturées ou non abandonnés en cours. Une fois l'exercice clos, il ne sera plus possible de les facturer ou de les envoyer sur cet exercice (%{code})."
@@ -2321,7 +2325,7 @@ fra:
     number_of_cap_land_parcels: "Nombre de parcelle PAC"
     number_of_cap_neutral_areas: "Nombre d'élèments SNA"
     number_options: "Options de numérotations" #?
-    number_with_param: "N° %{number}" #?
+    number_with_param: "N° %{number}"
     numbers: "Numéros"
     on_account: "À remettre sur le compte"
     on_all_exercises: "sur tous les exercices"
@@ -2345,7 +2349,7 @@ fra:
     order_amount_with_taxes: "Montant de la commande" #?
     order_print: "Imprimer la commande" #?
     organic_matter_concentration: "Teneur en matière organique"
-    organic_usage: "Utilisable en agriculture biologique"
+    organic_usage: "Utilisable en agriculture biologique" #?
     original_component: "D’origine"
     other_debts: "Autres dettes" #?
     other_expenses: "Autres charges d’exploitation"
@@ -2366,7 +2370,7 @@ fra:
     others_debts_social_debts: "Autres dettes fiscales et sociales"
     others_debts_state_debts: "État (TVA et taxes)"
     others_debts_supplier_receivables: "Fournisseurs d'exploitation et comptes rattachés"
-    others_debts_total: "Autres dettes"
+    others_debts_total: "Autres dettes" #?
     outgoing: "Sortant" #?
     outgoing_parcel_quantities: "Quantités (Colis sortant)"
     outgoing_parcels: "Colis sortants"
@@ -2421,9 +2425,9 @@ fra:
     permute: "Permuter les fiches"
     personalized_mail: "Envoyer un mail personnalisé"
     pertinence: "%{value}%"
-    pfi_dose: "Dose de référence (IFT)" #?
-    pfi_parcel_ratio: "IFT parcelle" #?
-    pfi_treatment_ratio: "IFT traitement" #?
+    pfi_dose: "Dose de référence (IFT)"
+    pfi_parcel_ratio: "IFT parcelle"
+    pfi_treatment_ratio: "IFT traitement"
     phone: "Tél." #?
     phosphorus_concentration: "Teneur en phosphore (P)"
     phosphorus_concentration_per_hectare: "Teneur en phosphore par hectare" #?
@@ -2470,9 +2474,9 @@ fra:
     pretax_amount: "Montant HT"
     previous: "Précédent"
     previous_financial_year_was_locked_warning: "L'exercice précédent ayant été vérouillé, pensez à fournir un bilan de début d'exercice avant d'effectuer la clotûre."
-    previous_year_result_should_be_allocated: "Le résultat de l'exercice comptable précédent doit être alloué avant de fermer cet exercice"
     previous_plant_name: "Nom de la culture précédente" #?
     previous_production_name: "Nom de la production précédente" #?
+    previous_year_result_should_be_allocated: "Le résultat de l'exercice comptable précédent doit être alloué avant de fermer cet exercice"
     price: "Prix"
     price_amount: "Prix HT" #?
     price_amount_with_taxes: "Prix TTC" #?
@@ -2534,7 +2538,7 @@ fra:
     provide_mandatory_information_before_putting_on_hold: "Veuillez fournir les informations nécessaires à la mise en attente de votre immobilisation. Une fois redirigé(e), cliquez à nouveau sur 'En attente' pour finaliser la procédure."
     provide_mandatory_information_before_scrapping: "Veuillez fournir les informations nécessaires à la mise au rebut de votre immobilisation. Une fois redirigé(e), cliquez à nouveau sur 'Mise au rebut' pour finaliser la procédure."
     provide_mandatory_information_before_selling: "Veuillez fournir les informations nécessaires à la vente de votre immobilisation. Une fois redirigé(e), cliquez à nouveau sur 'Vendue' pour finaliser la procédure."
-    provide_metrics_for_this_article: "L'indicateur de cette unité doit être renseigné pour cet article"
+    provide_metrics_for_this_article: "L'indicateur de cette unité doit être renseigné pour cet article" #?
     provider: "Fournisseur" #?
     provisional_grains_yield: "Rendement prévisionnel en grains" #?
     provisionnal_budget: "Budget prévisionnel" #?
@@ -2788,7 +2792,7 @@ fra:
     short_cycle_alive_products_others: "En-cours"
     short_cycle_alive_products_plant_advance: "Avances aux cultures"
     short_cycle_alive_products_plant_in_ground: "Autres végétaux en terre"
-    short_cycle_alive_products_total: "Biens vivants et en-court (cycle court)"
+    short_cycle_alive_products_total: "Biens vivants et en-court (cycle court)" #?
     show: "Afficher"
     show_export_preview: "Afficher un aperçu du document (peut augmenter le temps de chargement)" #?
     sign_out: "Se déconnecter"
@@ -2832,8 +2836,8 @@ fra:
     stocks_others_products: "Autres produits"
     stocks_preferences: "Gestion des stocks" #?
     stocks_supply: "Approvisionnements et marchandises"
-    stocks_total: "Stocks"
-    stocks_total_products: "Produits finis"
+    stocks_total: "Stocks" #?
+    stocks_total_products: "Produits finis" #?
     stop: "Jusqu’au"
     stopped: "Arrêtés"
     stopped_on: "Nous nous sommes arrêtés sur"
@@ -2858,7 +2862,6 @@ fra:
     subtotals_at_level: "Sous-totaux aux niveaux"
     supplier: "Fournisseur"
     supplier_code: "Code fournisseur" #?
-    merged_entity: "Entitées fusionnées (ID=%{other}):\n"
     supplier_informations: "Informations fournisseur"
     supplier_payment_mode: "Mode de paiement du fournisseur"
     supplier_receivables: "Fournisseurs d'exploitations et comptes rattachés"
@@ -2890,6 +2893,7 @@ fra:
     third_is_unbalanced: "Tiers à soldes non-rapprochés. (solde - solde comptable fournisseur)"
     this_archive_is_digitally_signed: "Cette archive est signée numériquement."
     this_product_has_been_withdrawn: "Ce produit est retiré"
+    this_usage_has_been_withdrawn: "Cet usage est retiré"
     threshold_commercialization_by_production: "Seuil de commercialisation par production"
     thumb: "Miniature"
     time_cost: "Coût de main d’œuvre"
@@ -3050,7 +3054,7 @@ fra:
     up_to: "Jusqu’au"
     update: "Modifier"
     update_params: "Modifier la recherche" #?
-    updated_at: "Mis à jour le %{date}"
+    updated_at: "Mis à jour le %{date}" #?
     updated_at_by: "Mis à jour le %{at} par %{author}"
     updated_by_ago: "Mis à jour par %{author} %{when}"
     upload: "Téléversement"
@@ -3077,7 +3081,7 @@ fra:
       one: "Valider l'écriture"
       other: "Valider les %{count} écritures"
     validated: "Validée"
-    validated_by: "Validée par" #?
+    validated_by: "Validée par"
     validated_vat_declaration: "État de TVA définitif"
     values: "Valeurs"
     variable_indicators: "Indicateurs variables"
@@ -3090,7 +3094,7 @@ fra:
     vat_paid: "TVA DEDUCTIBLE" #?
     vat_rate: "Taux TVA"
     vat_register: "Registre de TVA" #?
-    vegetable_yield: "Rendement racine ou légume" #?
+    vegetable_yield: "Rendement racine ou légume"
     video: "Vidéo" #?
     view: "Affichage"
     view_map_when_creating_an_intervention: "Afficher la carte lors de la création d'interventions"
@@ -3103,8 +3107,8 @@ fra:
     warning_if_no_activites_choose: "Si aucune activité n’est sélectionnée, le modèle d'intervention sera disponible pour toutes les activités." #?
     water_lakes: "Lacs"
     water_rivers: "Rivières"
-    waters: "Eaux"
     watering_concentration: "Eau consommée"
+    waters: "Eaux"
     wear: "Usure" #?
     weather: "Météo"
     website: "Site web"
@@ -3117,10 +3121,10 @@ fra:
     worked_on: "Travaillé le" #?
     worked_zone_not_corresponding: "La zone travaillée ne correspond pas à celle planifiée"
     worker: "Équipier" #?
-    workers: "Équipiers"
     worker_natures: "Équipiers"
+    workers: "Équipiers"
     workforce: "Main d'oeuvre"
-    working_area: "Surface travaillée" #?
+    working_area: "Surface travaillée"
     working_duration: "Temps de travail"
     working_hectare_costs: "Coût par hectare travaillé"
     working_sets_stocks: "Stocks d’ensembles de produits"
@@ -3495,7 +3499,7 @@ fra:
       record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement"
       record_has_been_imported: "L’enregistrement a été importé"
       record_has_not_been_removed: "L’enregistrement n’a pas être supprimé correctement" #?
-      record_is_not_valid: "L'enregistrement n'est pas valable"
+      record_is_not_valid: "L'enregistrement n'est pas valable" #?
       record_not_found: "Enregistrement introuvable"
       record_x_created: "%{record} %{name} créé(e)"
       record_x_planned: "%{record} %{name} planifiée" #?
@@ -3648,7 +3652,8 @@ fra:
       pick: "Importer"
       picture: "Image"
       prepare: "Préparer"
-      print: "Imprimer" #?
+      print: "Imprimer"
+      # print_land_parcel_register: "Print land parcel register"
       print_worker_register: "Imprimer le registre horaire des opérateurs"
       propose: "Proposer"
       propose_and_invoice: "Facturer directement"

@@ -60,7 +60,7 @@ module Interventions
               applications = compute_usage_application(product)
 
               if application_forbidden?(applications, max_applications: max_applications)
-                result.vote_forbidden(product, nil)
+                result.vote_forbidden(product, :applications_count_bigger_than_max.tl, on: :usage)
               end
             end
           end

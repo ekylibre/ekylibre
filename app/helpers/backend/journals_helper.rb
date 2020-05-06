@@ -172,7 +172,7 @@ module Backend
                               rescue
                                 (fy ? fy.stopped_on : Time.zone.today)
                               end
-        params[:stopped_on] = params[:started_on] if params[:started_on] > params[:stopped_on]
+        params[:stopped_on] = params[:started_on] if params.key?(:started_on) && params[:started_on] > params[:stopped_on]
         list.insert(0, [configuration[:custom].tl, configuration[:custom]])
       end
 

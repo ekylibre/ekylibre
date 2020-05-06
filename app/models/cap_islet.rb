@@ -65,13 +65,23 @@ class CapIslet < Ekylibre::Record::Base
       box = ActiveRecord::Base.connection.execute('SELECT ST_Extent(shape) FROM cap_islets').to_a.first['st_extent']
     end
 
-    points = ActiveRecord::Base.connection.execute("SELECT ST_XMin(CAST('#{box}' As box2d)), ST_YMin(CAST('#{box}' As box2d)), ST_XMax(CAST('#{box}' As box2d)), ST_YMax(CAST('#{box}' As box2d))")
-    points.first.values
+    if box.present?
+      points = ActiveRecord::Base.connection.execute("SELECT ST_XMin(CAST('#{box}' As box2d)), ST_YMin(CAST('#{box}' As box2d)), ST_XMax(CAST('#{box}' As box2d)), ST_YMax(CAST('#{box}' As box2d))")
+      points.first.values
+    else
+      []
+    end
   end
 
+  # @return [String, nil]
   def city_name
     name = RegisteredPostalZone.find_by(code: town_number)
-    return name.city_name if name
+
+    if name.present?
+      name.city_name
+    else
+      nil
+    end
   end
 
   alias net_surface_area shape_area

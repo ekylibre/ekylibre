@@ -1,16 +1,16 @@
 fra:
-  exchanger: 
-    panier_local:
-      sales:
-        sale_nature_name: "Vente en ligne - Panier Local"
+  exchanger: #?
+    panier_local: #?
+      sales: #?
+        sale_nature_name: "Vente en ligne - Panier Local" #?
   exchangers:
     agro_systemes_soil_analyses: "Analyses de sol ‒ AGRO Systèmes"
     agro_systemes_water_analyses: "Analyses d’eau ‒ AGRO Systèmes"
     agroedi_daplos: "Fiche parcellaire DAPLOS - AGROEDI"
     bordeaux_sciences_agro_istea_balance: "Balance comptable ‒ ISTEA ‒ Bordeaux Sciences Agro"
-    bordeaux_sciences_agro_istea_general_ledger: "Grand livre ‒ ISTEA ‒ Bordeaux Sciences Agro"
-    bordeaux_sciences_agro_istea_journals: "Journaux ‒ ISTEA ‒ Bordeaux Sciences Agro"
-    bordeaux_sciences_agro_istea_journal_entries: "Ecritures comptables ‒ ISTEA ‒ Bordeaux Sciences Agro"
+    bordeaux_sciences_agro_istea_general_ledger: "Grand livre ‒ ISTEA ‒ Bordeaux Sciences Agro" #?
+    bordeaux_sciences_agro_istea_journal_entries: "Ecritures comptables ‒ ISTEA ‒ Bordeaux Sciences Agro" #?
+    bordeaux_sciences_agro_istea_journals: "Journaux ‒ ISTEA ‒ Bordeaux Sciences Agro" #?
     bovins_croissance_cattle_performance_controls: "Contrôles de performance ‒ Bovins Croissance"
     caj_incoming_deliveries: "Approvisionnements (CSV) ‒ CAJ"
     charentes_alliance_incoming_deliveries: "Approvisionnements (CSV) ‒ Charentes Alliance"
@@ -26,7 +26,7 @@ fra:
     ekylibre_buildings_json: "Bâtiments (JSON) ‒ Ekylibre"
     ekylibre_cap_land_parcel_clusters_json: "Îlot PAC (JSON) ‒ Ekylibre" #?
     ekylibre_cap_land_parcels_json: "Parcelles PAC (JSON) ‒ Ekylibre" #?
-    ekylibre_cash_transfers: "Virements (CSV) ‒ Ekylibre" #?
+    ekylibre_cash_transfers: "Virements (CSV) ‒ Ekylibre"
     ekylibre_crumbs: "Miettes ‒ Ekylibre" #?
     ekylibre_cultivable_zones: "Zones cultivables (SHP/ZIP) ‒ Ekylibre"
     ekylibre_cultivable_zones_json: "Zones cultivables (JSON) ‒ Ekylibre"

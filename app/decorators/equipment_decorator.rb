@@ -1,6 +1,6 @@
 class EquipmentDecorator < ProductDecorator
   delegate_all
-  
+
   def hour_counter_present?
     !hour_counter.nil?
   end

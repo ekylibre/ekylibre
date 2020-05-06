@@ -38,6 +38,7 @@
 #  name                      :string           not null
 #  nature                    :string
 #  number                    :string           not null
+#  provider                  :jsonb
 #  reconcilable              :boolean          default(FALSE), not null
 #  updated_at                :datetime         not null
 #  updater_id                :integer

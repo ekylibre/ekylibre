@@ -6,13 +6,13 @@ module Backend
     end
 
     def update
-      # Update company
-      @company = Entity.of_company
-      @company.update_attributes(permitted_params[:entity])
-      @company.nature = :organization
-      @company.save
-      # Update preferences
       ActiveRecord::Base.transaction do
+        # Update company
+        @company = Entity.of_company
+        @company.update_attributes(permitted_params[:entity])
+        @company.nature = :organization
+        @company.save!
+        # Update preferences
         params[:preferences].each do |key, data|
           preference = Preference.get!(key)
           preference.reload
@@ -24,8 +24,12 @@ module Backend
               gc.convert_to(data[:value], rate: rate)
             end
           end
-          preference.value = data[:value]
-          preference.save
+          if preference.value != data[:value]
+            old_value = preference.value
+            preference.value = data[:value]
+            preference.save!
+            preference_changed(preference, old_value, data[:value])
+          end
         end
       end
       render :edit
@@ -35,6 +39,25 @@ module Backend
 
     def permitted_params
       params.permit!
+    end
+
+    # Called after each change in a preference when updating the company
+    # @param [Preference] preference
+    # @param [Object] old_value
+    # @param [Object] new_value
+    def preference_changed(preference, old_value, new_value)
+      account_number_digits_changed(old_value.to_i, new_value.to_i) if preference.name == "account_number_digits"
+    end
+
+    # Called after each change of the preference :account_number:digits when updating the company
+    # @param [Integer] old_value
+    # @param [Integer] new_value
+    def account_number_digits_changed(old_value, new_value)
+      return if JournalEntry.any?
+
+      n = Accountancy::AccountNumberNormalizer.build(standard_length: new_value)
+      Account.where.not(nature: "auxiliary")
+             .each { |acc| acc.update!(number: n.normalize!(acc.number)) }
     end
   end
 end

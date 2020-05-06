@@ -6,9 +6,9 @@ module Accountancy
     DEFAULT_CENTRALIZED_PREFIXES = %w(401 411).freeze
 
     class << self
-      def build
+      def build(standard_length: Preference[:account_number_digits] )
         new(
-          Preference[:account_number_digits],
+          standard_length,
           centralized_accounts_prefixes: DEFAULT_CENTRALIZED_PREFIXES
         )
       end

@@ -14,11 +14,12 @@ module Interventions
           end
         end
 
-        attr_reader :message, :vote
+        attr_reader :message, :vote, :field
 
-        def initialize(vote, message)
+        def initialize(vote, message, field)
           @vote = vote
           @message = message
+          @field = field
         end
       end
     end
