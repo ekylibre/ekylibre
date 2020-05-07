@@ -43,10 +43,12 @@ module Ekylibre
         # create a price
         catalog = Catalog.find_by(usage: :cost)
         if r.unit_pretax_amount && catalog
-          variant.catalog_items.find_or_create_by(catalog: catalog,
-                                        all_taxes_included: false,
-                                        amount: r.unit_pretax_amount,
-                                        currency: 'EUR')
+          variant.catalog_items.find_or_create_by(
+            catalog: catalog,
+            all_taxes_included: false,
+            amount: r.unit_pretax_amount,
+            currency: 'EUR'
+          )
         end
 
         # create the owner if not exist

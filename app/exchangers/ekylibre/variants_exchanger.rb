@@ -56,7 +56,7 @@ module Ekylibre
               variant = nature.variants.new(name: r.name, active: true, category: category, type: type)
             end
           elsif r.france_maaid && RegisteredPhytosanitaryProduct.find_by_id(r.france_maaid)
-            variant = ProductNatureVariant.import_from_lexicon(r.france_maaid)
+            variant = ProductNatureVariant.import_phyto_from_lexicon(r.france_maaid)
           elsif Nomen::ProductNatureVariant.find(r.reference_name)
             variant = ProductNatureVariant.import_from_nomenclature(r.reference_name, true)
           elsif nature_item = Nomen::ProductNature.find(r.reference_name)
@@ -125,10 +125,10 @@ module Ekylibre
             ratio ||= 1.0
 
             # create prices if exist
-            [[r.purchase_unit_pretax_amount, :purchase], [r.stock_unit_pretax_amount, :stock], [r.sale_unit_pretax_amount, :sale]].each do |price|
-              if price[0]
-                catalog = Catalog.by_default!(price[1])
-                attributes = {catalog: catalog, all_taxes_included: false, amount: price[0], currency: currency}
+            [[r.purchase_unit_pretax_amount, :purchase], [r.stock_unit_pretax_amount, :stock], [r.sale_unit_pretax_amount, :sale]].each do |(price, nature)|
+              if price
+                catalog = Catalog.by_default!(nature)
+                attributes = {catalog: catalog, all_taxes_included: false, amount: price, currency: currency}
                 variant.catalog_items.create!(attributes)
               end
             end

@@ -59,7 +59,7 @@ module Ekylibre
       rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
       w.count = rows.size
 
-      currency = Preference[:currency] || 'EUR'
+      currency = Preference[:currency]
       building_division = BuildingDivision.first
 
       rows.each do |row|
@@ -87,8 +87,9 @@ module Ekylibre
           variant = ProductNatureVariant.find_by(work_number: r.variant_reference_name)
           variant ||= ProductNatureVariant.find_by(reference_name: r.variant_reference_name)
           unless variant
+            # if phyto product found with maaid
             if RegisteredPhytosanitaryProduct.find_by_id(r.variant_reference_name)
-              variant = ProductNatureVariant.import_from_lexicon(r.variant_reference_name)
+              variant = ProductNatureVariant.import_phyto_from_lexicon(r.variant_reference_name)
             elsif Nomen::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
               variant = ProductNatureVariant.import_from_nomenclature(r.variant_reference_name.downcase.to_sym)
             else

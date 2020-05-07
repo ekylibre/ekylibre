@@ -162,7 +162,7 @@ module Ekylibre
           animals = Animal.indicate(sex: r.sex.to_s).where(born_at: min_born_at..max_born_at).reorder(:name)
 
           # find support for intervention changing or create it
-          unless ap = ActivityProduction.where(support_id: animal_group.id, campaign_id: campaign.id, activity_id: activity.id).first
+          unless ap = ActivityProduction.find_by(support_id: animal_group.id, campaign_id: campaign.id, activity_id: activity.id)
               ap = ActivityProduction.create!(
                 activity: activity,
                 campaign: campaign,
