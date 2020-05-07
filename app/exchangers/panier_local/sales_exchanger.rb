@@ -23,7 +23,7 @@ module PanierLocal
       { col: 3, name: :journal_nature, type: :string },
       { col: 4, name: :account_number, type: :string },
       { col: 5, name: :entity_name, type: :string, constraint: :not_nil },
-      { col: 6, name: :entity_code, type: :integer, constraint: :not_nil },
+      { col: 6, name: :entity_code, type: :string, constraint: :not_nil },
       { col: 7, name: :sale_reference_number, type: :string, constraint: :not_nil },
       { col: 8, name: :sale_description, type: :string },
       { col: 9, name: :sale_item_amount, type: :float, constraint: :greater_or_equal_to_zero },
@@ -86,8 +86,13 @@ module PanierLocal
 
         tax = check_or_create_vat_account_and_amount(sale_info)
 
-        product_account_line = sale_info.select { |i| i.account_number.start_with?('7') }.first
+        product_account_lines = sale_info.select { |i| i.account_number.start_with?('7') }
 
+        if product_account_lines.count > 1
+          raise StandardError.new("This exchanger does not handle sales with more than one line with an account starting by '7' ")
+        end
+
+        product_account_line = product_account_lines.first
         if product_account_line.present?
           # Assuming we only have one variant ?
           variant = ProductNatureVariant.of_provider_name(:panier_local, :sales)
@@ -129,54 +134,60 @@ module PanierLocal
       if entity.any?
         entity.first
       else
-        account = create_entity_account(sale_info)
-        create_entity(sale_info, account)
+        create_entity(sale_info)
       end
     end
 
-    def create_entity_account(sale_info)
-      client_sale_info = sale_info.select { |item| item.account_number.to_s.start_with?('411') }.first
+    def create_entity_account(client_sale_info)
+      client_number_account = client_sale_info.account_number.to_s
+      acc = Account.find_or_initialize_by(number: client_number_account) #!
+      attributes = {
+        name: client_sale_info.entity_name,
+        centralizing_account_name: 'clients',
+        nature: 'auxiliary'
+      }
 
-      if client_sale_info.present?
-        client_number_account = client_sale_info.account_number.to_s
-        acc = Account.find_or_initialize_by(number: client_number_account) #!
-        attributes = {
-          name: client_sale_info.entity_name,
-          centralizing_account_name: 'clients',
-          nature: 'auxiliary'
-        }
+      aux_number = client_number_account[3, client_number_account.length]
 
-        aux_number = client_number_account[3, client_number_account.length]
-
-        if aux_number.match(/\A0*\z/).present?
-          raise StandardError.new("Can't create account. Number provided can't be a radical class")
-        else
-          attributes[:auxiliary_number] = aux_number
-        end
-        acc.attributes = attributes
-
-        acc
+      if aux_number.match(/\A0*\z/).present?
+        raise StandardError.new("Can't create account. Number provided can't be a radical class")
+      else
+        attributes[:auxiliary_number] = aux_number
       end
+      acc.attributes = attributes
+
+      acc
     end
 
-    def create_entity(sale_info, acc)
-      client_sale_info = sale_info.select { |item| item.account_number.to_s.start_with?('411') }.first
-      last_name = client_sale_info.entity_name.mb_chars.capitalize
+    def create_entity(sale_info)
+      client_sale_infos = sale_info.select { |item| item.account_number.to_s.start_with?('411') }
 
-      w.info "Create entity and link account"
-      Entity.create!(
-        nature: :organization,
-        last_name: last_name,
-        codes: { 'panier_local' => client_sale_info.entity_code },
-        active: true,
-        client: true,
-        client_account_id: acc.id
-      )
+      if client_sale_infos.size == 1
+        client_sale_info = client_sale_infos.first
+        account = create_entity_account(client_sale_info)
+        last_name = client_sale_info.entity_name.mb_chars.capitalize
+
+        w.info "Create entity and link account"
+        Entity.create!(
+          nature: :organization,
+          last_name: last_name,
+          codes: { 'panier_local' => client_sale_info.entity_code },
+          active: true,
+          client: true,
+          client_account_id: account.id
+        )
+      else
+        raise StandardError.new("There should be only one line with an acccount starting with '411', Got #{client_sale_infos.size}")
+      end
     end
 
     def check_or_create_vat_account_and_amount(sale_info)
-      vat_account = sale_info.map { |i| i.account_number }.select { |number| number.to_s.start_with?('445') }
-      vat_account_info = vat_account.any? ? sale_info.select { |item| item.account_number.to_s.start_with?('445') }.first : nil
+      vat_account_infos = sale_info.select { |item| item.account_number.to_s.start_with?('445') }
+      if vat_account_infos.size > 1
+        raise StandardError.new("This exchanger does not handle sales with more than one line with an account starting by '445' ")
+      end
+      
+      vat_account_info = vat_account_infos.first
 
       if vat_account_info.present?
         n = Accountancy::AccountNumberNormalizer.build
@@ -240,6 +251,8 @@ module PanierLocal
         product_account_line.sale_item_amount * -1
       elsif product_account_line.sale_item_sens == 'C'
         product_account_line.sale_item_amount
+      else
+        raise StandardError.new("Can't create Sale item direction provided isn't a letter supported")
       end
     end
 

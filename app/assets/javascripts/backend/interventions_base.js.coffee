@@ -134,6 +134,8 @@
               if update
                 console.log "Updates ##{subprefix} with: ", value
                 element.val(value)
+                element.next('input.flatpickr-input').val(moment(value).format('DD-MM-YYYY HH:mm')) if element.hasClass('flatpickr-input')
+                element.trigger('intervention-field:value-updated')
 
     unserializeList: (form, list, prefix = '', updater_id) ->
       for id, attributes of list
@@ -898,10 +900,13 @@
             duplicateModal = new ekylibre.modal('#duplicate-modal')
             duplicateModal.getModal().modal 'show'
 
-    $(document).on 'change', '.nested-fields.working-period input', ->
+    $(document).on 'change intervention-field:value-updated', '.nested-fields.working-period input', ->
       updateHarvestDelayWarnings()
 
     $(document).on 'selector:change', ".nested-targets .intervention_targets_product", ->
+      updateHarvestDelayWarnings()
+
+    $(document).on 'cocoon:after-remove', '.nested-working_periods', ->
       updateHarvestDelayWarnings()
 
   queryDelayWarningsForPeriod = ($periodElement, $parcelSelectors) =>

@@ -32,7 +32,11 @@ module Interventions
       # @param [Integer] max_applications
       # @return [Boolean]
       def application_forbidden?(applications, max_applications:)
-        applications > max_applications
+        if intervention_to_ignore.nil?
+          applications >= max_applications
+        else
+          applications > max_applications
+        end
       end
 
       # @param [Array<Models::ProductWithUsage>] products_usages
@@ -56,7 +60,7 @@ module Interventions
               applications = compute_usage_application(product)
 
               if application_forbidden?(applications, max_applications: max_applications)
-                result.vote_forbidden(product, :applications_count_bigger_than_max.tl)
+                result.vote_forbidden(product, :applications_count_bigger_than_max.tl, on: :usage)
               end
             end
           end

@@ -4,7 +4,7 @@ module Backend
       html_options ||= {}
       html_options[:class] = 'map-fullwidth' if options.delete(:main)
 
-      visualization({ box: { height: '100%' }, async_url: backend_visualizations_plants_visualizations_path }, html_options) do |v|
+      visualization(options.merge(box: { height: '100%' }, async_url: backend_visualizations_plants_visualizations_path), html_options) do |v|
         v.control :zoom
         v.control :scale
         v.control :fullscreen

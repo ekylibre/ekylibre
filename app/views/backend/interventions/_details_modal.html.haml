@@ -82,12 +82,12 @@
                     %span.title= t(:usage)
                   %span.value= input.usage.ephy_usage_phrase
                   - authorization_calculator = Interventions::Phytosanitary::InterventionInputAuthorizationCalculator.for_intervention(intervention)
-                  - vote, messages = authorization_calculator.authorization_state(input)
+                  - vote, messages = authorization_calculator.authorization_state(input, intervention)
                   - if vote == :allowed
                     %span.value= :allowed.tl
                   - elsif vote == :forbidden
                     %span.value= :forbidden.tl
-                    %span.value= messages.join(', ')
+                    %span.value= messages.compact.uniq.join(', ')
 
     - if intervention.outputs.any?
       .block

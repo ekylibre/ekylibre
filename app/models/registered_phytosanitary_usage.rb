@@ -24,7 +24,7 @@
 # == Table: registered_phytosanitary_usages
 #
 #  applications_count         :integer
-#  applications_frequency     :integer
+#  applications_frequency     :interval
 #  crop                       :jsonb
 #  crop_label_fra             :string
 #  decision_date              :date
@@ -58,6 +58,8 @@ class RegisteredPhytosanitaryUsage < ActiveRecord::Base
   include Lexiconable
   include Dimensionable
   include ScopeIntrospection
+
+  UNTREATED_BUFFER_AQUATIC_VALUES = [5, 20, 30, 50, 100]
 
   belongs_to :product, class_name: 'RegisteredPhytosanitaryProduct'
 

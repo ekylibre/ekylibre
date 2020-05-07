@@ -34,6 +34,7 @@
 #  lock_version                       :integer          default(0), not null
 #  name                               :string           not null
 #  nature                             :string           not null
+#  provider                           :jsonb
 #  updated_at                         :datetime         not null
 #  updater_id                         :integer
 #  used_for_affairs                   :boolean          default(FALSE), not null

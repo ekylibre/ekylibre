@@ -16,7 +16,7 @@ module Api
           def get_removed_element(elements, table_name:)
             return [] if elements.empty?
 
-            ids = elements.map { |e| "('#{e[:id]}'::integer)" }.join(',')
+            ids = elements.map { |e| "(#{quote(e[:id])}::integer)" }.join(',')
             Ekylibre::Record::Base.connection.execute("SELECT t.id FROM  (values #{ids}) as t(id) WHERE t.id not in (SELECT id from #{table_name})").to_a
           end
       end

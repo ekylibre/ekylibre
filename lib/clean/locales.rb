@@ -135,7 +135,7 @@ module Clean
             to_translate += 1
             untranslated += 1 if actions.include?(action_name) && name.blank?
             translation << "      #{missing_prompt if name.blank?}#{action_name}: " + Clean::Support.yaml_value(name.blank? ? Clean::Support.default_action_title(controller_path, action_name) : name, 3)
-            translation << ' #?' unless actions.include?(action_name)
+            # translation << ' #?' unless actions.include?(action_name)
             translation << "\n"
           end
         end
@@ -180,11 +180,11 @@ module Clean
           line << "#{key}:" + (trans.is_a?(Hash) ? '' : ' ') + Clean::Support.yaml_value((trans.blank? ? key.to_s.humanize : trans), 2)
           if unknown_labels.include?(key)
             if Clean::Support.text_found?(/#{key}/, watched_files)
-              line.gsub!(/\ *$/, ' #?')
+              # line.gsub!(/\ *$/, ' #?')
             elsif Clean::Support.text_found?(/#{key.to_s.gsub('_', '.*')}/, watched_files)
-              line.gsub!(/\ *$/, ' #??')
+              # line.gsub!(/\ *$/, ' #??')
             else
-              line.gsub!(/\ *$/, ' #?!')
+              # line.gsub!(/\ *$/, ' #?!')
             end
           end
           translation << line + "\n"
@@ -210,7 +210,7 @@ module Clean
             line += missing_prompt
           end
           line += "#{key}:" + (trans.is_a?(Hash) ? '' : ' ') + Clean::Support.yaml_value((trans.blank? ? key.to_s.humanize : trans), 3)
-          line.gsub!(/\ *$/, ' #?') if unknown_notifications.include?(key)
+          # line.gsub!(/\ *$/, ' #?') if unknown_notifications.include?(key)
           translation << line + "\n"
         end
         warnings << "#{unknown_notifications.size} unknown notifications" if unknown_notifications.any?
@@ -236,7 +236,7 @@ module Clean
             line += missing_prompt
           end
           line += "#{key}: " + Clean::Support.yaml_value((trans.blank? ? key.to_s.humanize : trans), 2)
-          line.gsub!(/$/, ' #?') if unknown_preferences.include?(key)
+          # line.gsub!(/$/, ' #?') if unknown_preferences.include?(key)
           translation << line + "\n"
         end
         warnings << "#{unknown_preferences.size} unknown preferences" if unknown_preferences.any?
@@ -262,7 +262,7 @@ module Clean
             line += missing_prompt
           end
           line += "#{key}: " + Clean::Support.yaml_value((trans.blank? ? key.to_s.humanize : trans), 3)
-          line.gsub!(/$/, ' #?') if unknown_actions.include?(key)
+          # line.gsub!(/$/, ' #?') if unknown_actions.include?(key)
           translation << line + "\n"
         end
         warnings << "#{unknown_actions.size} unknown REST actions" if unknown_actions.any?
@@ -283,7 +283,7 @@ module Clean
         for key, trans in unrolls.sort { |a, b| a[0].to_s <=> b[0].to_s }
           line = '    '
           line += "#{key}: " + Clean::Support.yaml_value((trans.blank? ? key.to_s.humanize : trans), 2)
-          line.gsub!(/$/, ' #?') if unknown_unrolls.include?(key)
+          # line.gsub!(/$/, ' #?') if unknown_unrolls.include?(key)
           translation << line + "\n"
         end
         warnings << "#{unknown_unrolls.size} unknown unrolls" if unknown_unrolls.any?
@@ -469,7 +469,7 @@ module Clean
           translation << '      '
           translation << missing_prompt if definition[1] == :undefined
           translation << "#{model}: " + Clean::Support.yaml_value(definition[0])
-          translation << ' #?' if definition[1] == :unused
+          # translation << ' #?' if definition[1] == :unused
           translation << "\n"
         end
         translation << "  attributes:\n"
@@ -478,7 +478,7 @@ module Clean
           translation << '    '
           translation << missing_prompt if definition[1] == :undefined
           translation << "#{attribute}: " + Clean::Support.yaml_value(definition[0])
-          translation << ' #?' if definition[1] == :unused
+          # translation << ' #?' if definition[1] == :unused
           translation << "\n"
           # end
         end

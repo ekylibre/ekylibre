@@ -117,6 +117,15 @@
           fill: true
           fillColor: "green"
           fillOpacity: 1
+        optional:
+          stroke: true
+          color: "#333333"
+          weight: 1
+          opacity: 1
+          fill: true
+          fillColor: "#CBCFFB"
+          fillOpacity: 0.5
+          zoomGuidance: I18n.t("#{I18n.rootKey}.leaflet.zoomGuidance")
         paths:
           stroke: true
           color: "#333333"
@@ -207,7 +216,10 @@
       this._refreshView()
       this._refreshControls()
 
+      @_bindOverlays()
+
       @async_loading()
+      @optionalDataLoading() unless @options.asyncUrl
 
     async_loading: ->
       return unless @options.asyncUrl?
@@ -224,6 +236,7 @@
         success: (data) =>
           $.extend(true, @options, data)
           @_refreshControls()
+          @optionalDataLoading()
         error: () =>
           dynamic_error = new L.Control(position: "bottomleft")
           dynamic_error.onAdd = (map) =>
@@ -231,6 +244,55 @@
           @map.addControl dynamic_error
         complete: () =>
           @map.removeControl @dynamic_loading
+
+    optionalDataLoading: ->
+      return unless url = @options.optionalDataUrl
+
+      _refreshOptionalData = =>
+        optionalLayerDisplayed = @_optionalLayersDisplayed()[0]
+
+        if @zoom() >= 16
+          $.getJSON url, bounds: @bounds(), required_value: optionalLayerDisplayed.requiredValue, (data) =>
+            for layer in data.layers
+              @options.series[layer.serie] = data.series[layer.serie]
+              serieData = @_getSerieData(layer.serie)
+              options = $.extend true, {}, @options.layerDefaults[layer.type], layer, parent: this
+              renderedLayer = V.layer(layer, serieData, options)
+              return unless renderedLayer && renderedLayer.valid()
+
+              $(@controls.legendControl.getContainer()).find('.zoom-guidance').hide()
+              displayedOverlay = _.find(@options.layers, ['reference', layer.reference]).overlay
+              layerGroup = renderedLayer.buildLayerGroup(this, options)
+              displayedOverlay.clearLayers()
+
+              for _k, layr of layerGroup
+                displayedOverlay.addLayer(layr)
+
+        else
+          for layer in _.filter(@options.layers, ['type', 'optional'])
+            $(@controls.legendControl.getContainer()).find('.zoom-guidance').show()
+            layer.overlay.clearLayers()
+
+
+      $.getJSON url, (data) =>
+        $.extend(true, @options.series, data.series)
+
+        for layer in data.layers
+          @options.layers.push(layer)
+          @_addLayer(layer, {})
+          @controls.layerSelector.addOverlay(layer.overlay, layer.label)
+
+        @map.on 'overlayadd', (event) =>
+          if @_optionalLayer(event.name)
+            @map.on 'moveend', _refreshOptionalData if @_optionalLayersDisplayed().length == 1
+            @_optionalSiblings(event.name).forEach (layer) => delay(1, => @map.removeLayer(layer.overlay)) if @map.hasLayer(layer.overlay)
+            delay 1, => _refreshOptionalData()
+
+        @map.on 'overlayremove', (event) =>
+          @map.off 'moveend', _refreshOptionalData unless @_optionalLayersDisplayed().length
+
+        if layerToDisplay = _.find(@options.layers, { addToMap: true, type: 'optional' })
+          @map.addLayer(layerToDisplay.overlay)
 
     _destroy: ->
       @mapElement.remove()
@@ -244,6 +306,9 @@
       return @options.box.height unless height?
       @options.view.box.height = height
       this._resize()
+
+    bounds: ->
+      @map.getBounds().toBBoxString()
 
     rebuild: ->
       this._destroy()
@@ -273,6 +338,15 @@
       else
         console.error "Cannot find serie #{name}"
         alert "Cannot find serie #{name}"
+
+    _optionalLayersDisplayed: ->
+      _.filter(@options.layers, (layer) => layer.type == 'optional' && @map.hasLayer(layer.overlay))
+
+    _optionalSiblings: (layerName) ->
+      _.reject(@options.layers, (layer) -> layer.type != 'optional' || layer.label == layerName)
+
+    _optionalLayer: (layerName) ->
+      _.find(@options.layers, { label: layerName, type: 'optional' })
 
     # Displays all given controls
     _refreshControls: ->
@@ -338,7 +412,6 @@
           @map.addLayer(backgroundLayer) if index == 0
         @map.fitWorld( { maxZoom: @options.view.maxZoom } )
 
-
       for layer in @options.overlays
         opts = {}
         opts['attribution'] = layer.attribution if layer.attribution?
@@ -357,69 +430,52 @@
 
       L.DomUtil.addClass(@controls.legendControl.getContainer(), 'leaflet-hidden-control')
 
-
       $('.leaflet-legend-control').on 'click', () ->
         $(this).find('#legend-activity').toggleClass('minified')
 
-
       for layer in @options.layers
-        if console.group isnt undefined
-          console.group "Add layer #{layer.name} (#{layer.type})..."
-        else
-          console.log "Add layer #{layer.name}..."
-        options = {} if options is true
+        @_addLayer(layer, overlays)
 
-        data = this._getSerieData(layer.serie)
-        options = $.extend true, {}, @options.layerDefaults[layer.type], layer, parent: this
-        renderedLayer = V.layer(layer, data, options)
-        if renderedLayer and renderedLayer.valid()
-          # Build layer group
-          layerGroup = renderedLayer.buildLayerGroup(this, options)
-          console.log("#{layer.name} layer rendered", layerGroup)
-          # Add layer overlay
-          overlayLayer = L.layerGroup(layerGroup)
-          overlayLayer.name = layer.name
-          @layers.push layer
-          layer.overlay = overlays[layer.label] = overlayLayer
-          @map.addLayer(overlayLayer)
-          @layersScheduler.insert overlayLayer._leaflet_id
-          console.log("#{layer.name} layer added")
+      @controls.layerSelector = new L.Control.Layers(baseLayers, overlays, @options.controlDefaults.layerSelector)
+      @map.addControl @controls.layerSelector
+
+    _addLayer: (layer, overlays) ->
+      if console.group isnt undefined
+        console.group "Add layer #{layer.name} (#{layer.type})..."
+      else
+        console.log "Add layer #{layer.name}..."
+      options = {} if options is true
+
+      data = this._getSerieData(layer.serie)
+      options = $.extend true, {}, @options.layerDefaults[layer.type], layer, parent: this
+      renderedLayer = V.layer(layer, data, options)
+      if renderedLayer and renderedLayer.valid()
+        # Build layer group
+        layerGroup = renderedLayer.buildLayerGroup(this, options)
+        console.log("#{layer.name} layer rendered", layerGroup)
+        # Add layer overlay
+        overlayLayer = L.layerGroup(layerGroup)
+        overlayLayer.name = layer.name
+        @layers.push layer
+        layer.overlay = overlays[layer.label] = overlayLayer
+        @map.addLayer(overlayLayer) unless layer.type == 'optional'
+        @layersScheduler.insert overlayLayer._leaflet_id
+        console.log("#{layer.name} layer added")
+        unless layer.type == 'optional'
           try
             group = new L.featureGroup(layerGroup)
             bounds = group.getBounds()
             @map.fitBounds(bounds)
             if bounds.getNorthEast().equals bounds.getSouthWest()
               @map.setZoom 18
-          # Add legend
-          legend = @controls.legendControl.getContainer()
-          legend.innerHTML += renderedLayer.buildLegend()
-          L.DomUtil.removeClass(legend, 'leaflet-hidden-control')
-        else
-          console.warn "Cannot add layer #{layer.type}"
+        # Add legend
+        legend = @controls.legendControl.getContainer()
+        legend.innerHTML += renderedLayer.buildLegend()
+        L.DomUtil.removeClass(legend, 'leaflet-hidden-control')
+      else
+        console.warn "Cannot add layer #{layer.type}"
 
-        console.groupEnd() if console.groupEnd isnt undefined
-
-      @map.on "overlayadd", (event) =>
-        @layersScheduler.schedule event.layer
-        console.log "Add legend control..."
-        legend = $(@controls.legendControl.getContainer())
-        legend.children("#legend-#{event.layer.name}").show()
-        legend.children(".first").removeClass("first")
-        legend.children(":visible:first").addClass("first")
-        legend.removeClass("empty")
-        return
-
-      @map.on "overlayremove", (event) =>
-        console.log "Remove legend control..."
-        legend = $(@controls.legendControl.getContainer())
-        legend.children("#legend-#{event.layer.name}").hide()
-        legend.children(".first").removeClass("first")
-        legend.children(":visible:first").addClass("first")
-        legend.addClass("empty") if legend.children(":visible").length <= 0
-        return
-
-      @controls.layerSelector = new L.Control.Layers(baseLayers, overlays, @options.controlDefaults.layerSelector)
-      @map.addControl @controls.layerSelector
+      console.groupEnd() if console.groupEnd isnt undefined
 
     _addScaleControl: (options) ->
       options = $.extend true, {}, @options.controlDefaults.scale, options
@@ -450,6 +506,23 @@
       layer.bindPopup(popup)
       return layer
 
+    _bindOverlays: ->
+      @map.on "overlayadd", (event) =>
+        @layersScheduler.schedule event.layer
+        console.log "Add legend control..."
+        legend = $(@controls.legendControl.getContainer())
+        legend.children("#legend-#{event.layer.name}").show()
+        legend.children(".first").removeClass("first")
+        legend.children(":visible:first").addClass("first")
+        legend.removeClass("empty")
+
+      @map.on "overlayremove", (event) =>
+        console.log "Remove legend control..."
+        legend = $(@controls.legendControl.getContainer())
+        legend.children("#legend-#{event.layer.name}").hide()
+        legend.children(".first").removeClass("first")
+        legend.children(":visible:first").addClass("first")
+        legend.addClass("empty") if legend.children(":visible").length <= 0
 
     _refreshView: (view) ->
       this._setDefaultView()

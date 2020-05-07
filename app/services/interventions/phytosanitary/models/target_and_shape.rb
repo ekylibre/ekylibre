@@ -4,7 +4,7 @@ module Interventions
       class TargetAndShape
 
         class << self
-          
+
           # @param [Intervention] intervention
           # @return [Array<TargetAndShape>]
           def from_intervention(intervention)

@@ -932,6 +932,10 @@
           line-height: $lh-small;
           font-weight: bold;
           text-transform: uppercase;
+          &.zoom-guidance {
+            display: none;
+            color: #CD554B;
+          }
         }
       }
     }

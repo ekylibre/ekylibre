@@ -1,5 +1,5 @@
 - if @campaigns && @activity_productions.any?
-  = visualization({async_url: backend_visualizations_map_cells_visualizations_path(@url_params)}, {}) do |v|
+  = visualization({ async_url: backend_visualizations_map_cells_visualizations_path(@url_params), optional_data_url: backend_visualizations_non_treatment_areas_visualizations_path }, {}) do |v|
     - v.control :zoom
     - v.control :scale
     - v.control :fullscreen

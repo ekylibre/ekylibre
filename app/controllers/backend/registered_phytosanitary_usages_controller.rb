@@ -7,7 +7,7 @@ module Backend
 
     def filter_usages
       return render json: { disable: :maaid_not_provided.tl, clear: true } unless (variant = Product.find(params[:filter_id]).variant) && (variant.imported_from == "Lexicon")
-      return render json: { disable: :phyto_does_not_exist.tl, clear: true } unless RegisteredPhytosanitaryProduct.find_by_reference_name(variant.reference_name)
+      return render json: { disable: :phytosanitary_product_does_not_exists.tl, clear: true } unless RegisteredPhytosanitaryProduct.find_by_reference_name(variant.reference_name)
 
       registered_pp = RegisteredPhytosanitaryProduct.find_by_reference_name(variant.reference_name)
       retrieved_ids = params[:retrieved_ids].uniq.reject(&:blank?)
@@ -92,7 +92,7 @@ module Backend
       end
 
       def compute_usage_application(usage, targets_data, intervention_id)
-        return { none: ''} unless targets_data
+        return { none: '' } if targets_data.blank?
 
         maaid = usage.france_maaid
 
