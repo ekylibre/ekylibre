@@ -57,7 +57,7 @@ class OutgoingPayment < Ekylibre::Record::Base
   include Letterable
   refers_to :currency
   belongs_to :cash
-  belongs_to :journal_entry, dependent: :destroy
+  belongs_to :journal_entry #, dependent: :destroy DO NOT USE HERE because we cancel the bookkeep if needed
   belongs_to :mode, class_name: 'OutgoingPaymentMode'
   belongs_to :payee, class_name: 'Entity'
   belongs_to :responsible, class_name: 'User'
@@ -104,8 +104,12 @@ class OutgoingPayment < Ekylibre::Record::Base
     end
   end
 
+  after_destroy do
+    journal_entry.remove
+  end
+
   protect do
-    (journal_entry && !journal_entry.draft?) ||
+    (journal_entry && journal_entry.closed?) ||
       pointed_by_bank_statement? || list.present?
   end
 
