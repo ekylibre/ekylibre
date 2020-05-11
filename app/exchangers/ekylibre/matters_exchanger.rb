@@ -89,7 +89,8 @@ module Ekylibre
           unless variant
             # if phyto product found with maaid
             if RegisteredPhytosanitaryProduct.find_by_id(r.variant_reference_name)
-              variant = ProductNatureVariant.import_phyto_from_lexicon(r.variant_reference_name)
+              item = RegisteredPhytosanitaryProduct.find_by_id(r.variant_reference_name)
+              variant = ProductNatureVariant.import_phyto_from_lexicon(item.reference_name)
             elsif Nomen::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
               variant = ProductNatureVariant.import_from_nomenclature(r.variant_reference_name.downcase.to_sym)
             else

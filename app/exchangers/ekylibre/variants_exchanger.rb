@@ -56,7 +56,8 @@ module Ekylibre
               variant = nature.variants.new(name: r.name, active: true, category: category, type: type)
             end
           elsif r.france_maaid && RegisteredPhytosanitaryProduct.find_by_id(r.france_maaid)
-            variant = ProductNatureVariant.import_phyto_from_lexicon(r.france_maaid)
+            item = RegisteredPhytosanitaryProduct.find_by_id(r.france_maaid)
+            variant = ProductNatureVariant.import_phyto_from_lexicon(item.reference_name)
           elsif Nomen::ProductNatureVariant.find(r.reference_name)
             variant = ProductNatureVariant.import_from_nomenclature(r.reference_name, true)
           elsif nature_item = Nomen::ProductNature.find(r.reference_name)
