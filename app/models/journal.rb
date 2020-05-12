@@ -251,8 +251,17 @@ class Journal < Ekylibre::Record::Base
       end
     end
 
-    private
+    def find_or_create_default_result_journal
+      Journal.create_with(code: 'RESU', name: 'Résultat')
+             .find_or_create_by!(nature: 'result')
+    end
 
+    def find_or_create_default_forward_journal
+      Journal.create_with(code: 'RESU', name: 'Résultat')
+             .find_or_create_by!(nature: 'forward')
+    end
+    
+    private
       # @deprecated
       def condition_builder
         ActiveSupport::Deprecation.warn 'Journal condition methods are deprecated, use Accountancy::ConditionBuilder::* instead'
