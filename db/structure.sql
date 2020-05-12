@@ -4181,7 +4181,8 @@ CREATE TABLE public.journal_entries (
     financial_year_exchange_id integer,
     reference_number character varying,
     continuous_number integer,
-    validated_at timestamp without time zone
+    validated_at timestamp without time zone,
+    provider jsonb
 );
 
 
@@ -17929,6 +17930,13 @@ CREATE INDEX intervention_provider_index ON public.interventions USING gin (((pr
 
 
 --
+-- Name: journal_entry_provider_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX journal_entry_provider_index ON public.journal_entries USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
 -- Name: journal_provider_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -19250,4 +19258,6 @@ INSERT INTO schema_migrations (version) VALUES ('20200330133607');
 INSERT INTO schema_migrations (version) VALUES ('20200415163115');
 
 INSERT INTO schema_migrations (version) VALUES ('20200422084439');
+
+INSERT INTO schema_migrations (version) VALUES ('20200505114024');
 
