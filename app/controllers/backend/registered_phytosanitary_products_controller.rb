@@ -21,8 +21,8 @@ module Backend
 
             products_infos = prods_usages.map do |pu|
               messages = result.product_grouped_messages(pu.product)
-              check_conditions = messages.empty? && pu.usage&.usage_conditions
-
+              check_conditions = result.product_messages(pu.product).empty? && pu.usage&.usage_conditions
+              
               [pu.product.id, {
                 state: result.product_vote(pu.product),
                 allowed_mentions: fetch_allowed_mentions(pu.phyto),
