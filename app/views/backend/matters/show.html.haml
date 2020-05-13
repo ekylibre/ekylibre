@@ -21,7 +21,7 @@
     - if resource.variant.france_maaid
       = resource_info(:france_maaid) do |france_maaid|
         %i.picto{class: "picto-flask"}
-        = link_to(france_maaid, "https://ephy.anses.fr/resultats_recherche/ppp?search_api_aggregation_3=#{france_maaid}")
+        = link_to(france_maaid, "https://ephy.anses.fr/resultats_recherche/ppp?search_api_aggregation_3=#{france_maaid}", target: "_blank")
     - unless resource.population_counting_unitary?
       = product_info :population, important: true do |population|
         = population.l + " " + resource.unit_name
