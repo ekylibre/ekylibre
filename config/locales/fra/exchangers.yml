@@ -64,6 +64,7 @@ fra:
     lely_milk_robot_individual_production: "Production journalière individuelle - Lely Astronaut"
     lilco_milk_analyses: "Analyses de lait ‒ Lilco"
     milklic_individual_production: "Production laitière individuelle - Milklic"
+    sage_i_seven_journal_entries: "Comptabilité (ECX) ‒ Sagei7"
     panier_local_incoming_payments: "Encaissements (CSV) ‒ Panier Local"
     panier_local_sales: "Ventes (CSV) ‒ Panier Local"
     synel_animals: "Animaux ‒ Synel"

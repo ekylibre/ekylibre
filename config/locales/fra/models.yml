@@ -304,7 +304,7 @@ fra:
         active_compounds: "Substance(s) active(s)"
         firm_name: "Fabricant" #?
         france_maaid: "N° AMM"
-        in_field_reentry_delay: "Délai de réentrée" #?
+        in_field_reentry_delay: "Délai de ré-entrée" #?
         licence_number: "N° Permis"
         name: "Nom usuel" #?
         operator_protection_mentions: "Protection de l'opérateur"
