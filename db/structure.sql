@@ -6001,7 +6001,7 @@ CREATE TABLE public.product_nature_variants (
     id integer NOT NULL,
     category_id integer NOT NULL,
     nature_id integer NOT NULL,
-    name character varying,
+    name character varying NOT NULL,
     work_number character varying,
     variety character varying NOT NULL,
     derivative_of character varying,
@@ -19258,6 +19258,8 @@ INSERT INTO schema_migrations (version) VALUES ('20200330133607');
 INSERT INTO schema_migrations (version) VALUES ('20200415163115');
 
 INSERT INTO schema_migrations (version) VALUES ('20200422084439');
+
+INSERT INTO schema_migrations (version) VALUES ('20200512091803');
 
 INSERT INTO schema_migrations (version) VALUES ('20200505114024');
 
