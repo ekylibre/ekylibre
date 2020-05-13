@@ -33,6 +33,7 @@
       $productField.find('.allowed-mentions img').each -> $(this).hide()
       new StateBadgeSet($productField.find('#intervention-products-badges')).setState(null)
       $productField.find('.input-authorization__text').hide()
+      $productField.find('#product-authorization-message').html('')
 
     _retrieveValues: () ->
       targetsData = Array.from(document.querySelectorAll('.nested-land_parcel, .nested-cultivation'))
