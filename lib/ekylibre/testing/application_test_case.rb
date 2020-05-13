@@ -3,6 +3,7 @@ module Ekylibre
     class ApplicationTestCase < ActiveSupport::TestCase
       include FactoryBot::Syntax::Methods
       include Ekylibre::Testing::Concerns::FixturesCleanerModule
+      include Ekylibre::Testing::Concerns::MockUtils
 
       class WithFixtures < ActiveSupport::TestCase
         include FactoryBot::Syntax::Methods
