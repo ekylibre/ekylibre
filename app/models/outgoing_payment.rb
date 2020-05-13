@@ -105,7 +105,7 @@ class OutgoingPayment < Ekylibre::Record::Base
   end
 
   after_destroy do
-    journal_entry.remove
+    journal_entry.remove if journal_entry.state == :draft
   end
 
   protect do
