@@ -76,7 +76,7 @@ module Backend
       end
 
       def compute_dataset(usage)
-        state_label = t("enumerize.registered_phytosanitary_product.state.#{usage.state}")
+        state_label = t("enumerize.registered_phytosanitary_usage.state.#{usage.state}")
         {
           state: usage.decision_date ? "#{state_label} (#{usage.decision_date.l})" : state_label,
           maximum_dose: usage.dose_quantity ? "#{usage.dose_quantity} #{usage.dose_unit_name}" : nil,
