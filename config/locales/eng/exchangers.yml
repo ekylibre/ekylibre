@@ -3,6 +3,8 @@ eng:
     panier_local:
       sales:
         sale_nature_name: "Online sale - Panier Local"
+      incoming_payments:
+        incoming_payment_mode_name: "Panier Local"
     sage:
       i_seven:
         journals:
