@@ -1,18 +1,22 @@
-currency: USD
-country: us
-language: eng
+currency: EUR
+country: fr
+language: fra
 map_measure_srid: 4326
 create_activities_from_telepac: true
 demo: true
 company:
   born_at: 1992-01-01
-  last_name: Sekindovall Inc.
-  siren: 963852741
+  last_name: GAEC JOULIN                         # Nom
+  activity_code: 0111Z
+  siret: 32627372900011
+  vat_number: FR17326273729				 # Nom
   addresses:
-    email: contact@sekindovall.com
+    email: gaec.dupont@truc.com                  # Adresse e-mail de votre société
+    website: www.ekylibre.com
+    mobile: 06 12 34 56 78
     mail:
-      line_4: 4562 Baker Street
-      line_6: 1254-89456 BOSTON
+      line_4: 8 rue du bouil bleu                # Adresse de votre société
+      line_6: 17250 SAINT-PORCHAIRE              # Code postal et ville de votre société
 users:
   admin@ekylibre.org:
     first_name: Christian                        # Prénom
@@ -29,53 +33,69 @@ users:
     password: 12345678                           # Mot de passe
 accounting_system: fr_pcga                       # Code plan comptable
 financial_years:
-  EX1998:                                        # Code d'un exercice comptable
-    started_on: 1998-01-01                       # Début d'un exercice comptable (format AAAA-MM-JJ)
-    stopped_on: 1998-12-31                       # Fin d'un exercice comptable (format AAAA-MM-JJ)
-    currency: FRF
-  EX1999:                                        # Code d'un exercice comptable
-    started_on: 1999-01-01                       # Début d'un exercice comptable (format AAAA-MM-JJ)
-    stopped_on: 1999-12-31                       # Fin d'un exercice comptable (format AAAA-MM-JJ)
-    currency: FRF
-  EX2000:                                        # Code d'un exercice comptable
-    started_on: 2000-01-01                       # Début d'un exercice comptable (format AAAA-MM-JJ)
-    stopped_on: 2000-12-31                       # Fin d'un exercice comptable (format AAAA-MM-JJ)
-    currency: FRF
-  EX2001:                                        # Code d'un exercice comptable
-    started_on: 2001-01-01                       # Début d'un exercice comptable (format AAAA-MM-JJ)
-    stopped_on: 2001-12-31                       # Fin d'un exercice comptable (format AAAA-MM-JJ)
-    currency: USD
+  EX2016:                                        # Code d'un exercice comptable
+    started_on: 2016-01-01                       # Début d'un exercice comptable (format AAAA-MM-JJ)
+    stopped_on: 2016-12-31
+    already_existing: true                      # Fin d'un exercice comptable (format AAAA-MM-JJ)
+    currency: EUR
+  EX2017:                                        # Code d'un exercice comptable
+    started_on: 2017-01-01                       # Début d'un exercice comptable (format AAAA-MM-JJ)
+    stopped_on: 2017-12-31
+    already_existing: true                     # Fin d'un exercice comptable (format AAAA-MM-JJ)
+    currency: EUR
+  EX2018:                                        # Code d'un exercice comptable
+    started_on: 2018-01-01                       # Début d'un exercice comptable (format AAAA-MM-JJ)
+    stopped_on: 2018-12-31
+    already_existing: true                      # Fin d'un exercice comptable (format AAAA-MM-JJ)
+    currency: EUR
+  EX2019:                                        # Code d'un exercice comptable
+    started_on: 2019-01-01                       # Début d'un exercice comptable (format AAAA-MM-JJ)
+    stopped_on: 2019-12-31
+    already_existing: true                      # Fin d'un exercice comptable (format AAAA-MM-JJ)
+    currency: EUR
 journals:
   21:
-    name: Bankovamerika
+    name: Crédit Agricole
     nature: bank
-    currency: USD
+    currency: EUR
   11:
     name: Caisse
     nature: cash
-    currency: USD
-  VEUR:
-    name: Europe sales
-    closed_on: 2013-12-31
-    nature: sales
+    currency: EUR
+  CCCA:
+    name: Compte courant coop Ocealio
+    nature: bank
+    currency: EUR
+  CCTL:
+    name: Compte courant coop Terra Lacta
+    nature: bank
     currency: EUR
 catalogs:
-  VENTE:
-    name: Sale prices
-    usage: sale
+  VENTE:                                         # Code d'un catalogue de prix
+    name: Prix de vente                          # Nom d'un catalogue de prix
+    usage: sale                                  # Usage d'un catalogue de prix
   COUT:
-    name: Usage prices
+    name: "Prix d'usage"
     usage: cost
   ACHAT:
-    name: Purchase prices
+    name: "Prix d'achat"
     usage: purchase
-accounts:
-  banque:
-    name: Banque BKV
-    number: 512100
-  caisse:
-    name: Caisse
-    number: 531101
+  STOCK:
+    name: "Prix de stock"
+    usage: stock
+accounts:                                        # Description de compte comptables
+  banque:                                        # Code d'un compte comptable de banque
+    name: Banque CRCA                            # Nom d'un compte de banque
+    number: 51210000                             # Numéro d'un compte de banque
+  caisse:                                        # Code d'un compte comptable de caisse
+    name: Caisse                                 # Nom d'un compte comptable de caisse
+    number: 53110100                               # Numéro d'un compte de caisse
+  cc_coopca:                                        # Code d'un compte comptable de caisse
+    name: Compte coop ca                         # Nom d'un compte comptable de caisse
+    number: 47201000                                # Numéro d'un compte de caisse
+  cc_cooptl:                                        # Code d'un compte comptable de caisse
+    name: Compte coop tl                         # Nom d'un compte comptable de caisse
+    number: 47202000
 cashes:
   caisse:                                        # Code d'une trésorerie
     name: Caisse                                 # Nom d'une trésorerie
@@ -83,12 +103,62 @@ cashes:
     journal: '11'                                # Code journal d'une trésorerie
     account: caisse                              # Code comptable d'une trésorerie (décrit au dessus)
   banque:
-    name: Bank account
+    name: Compte CRCA
     journal: '21'
     account: banque
+    bank_name: "CA17"
+    bank_account_holder_name: Gaec Joulin
     mode: iban                                   # Mode de saisie IBAN ou BBAN (RIB)
     country: fr                                  # Code pays de la banque
-    iban: "FR7611111222223333333333391"          # Numéro IBAN du compte
+    iban: "FR7611706410292993961500245"          # Numéro IBAN du compte
+  cc_coopca:
+    name: Compte courant activité Coop Ocealio
+    journal: CCCA
+    account: cc_coopca
+    bank_name: "OCEALIO"
+    nature: "associate_account"
+    mode: "" 							#mode
+    country: fr 						#code pays
+    iban: "" 			#numéro IBAN du compte
+  cc_cooptl:
+    name: Compte courant activité Coop Terri Lacti
+    journal: CCTL
+    account: cc_cooptl
+    bank_name: "TERRILACTI"
+    nature: "associate_account"
+    mode: "" 							#mode
+    country: fr 						#code pays
+    iban: "" 			#numéro IBAN du compte
+outgoing_payment_modes:
+  cc_coopca:
+    with_accounting: true
+    cash: cc_coopca
+  cc_cooptl:
+    with_accounting: true
+    cash: cc_cooptl
+  cb:
+    with_accounting: true
+    cash: banque
+  cheque:
+    with_accounting: true
+    cash: banque
+  virement:
+    with_accounting: true
+    cash: banque
+    sepa: true
+incoming_payment_modes:
+  cc_coopca:
+    with_accounting: true
+    cash: cc_coopca
+  cc_cooptl:
+    with_accounting: true
+    cash: cc_cooptl
+  virement:
+    with_accounting: true
+    cash: banque
+  cheque:
+    with_accounting: true
+    cash: banque
 net_services:                                    # Services en ligne
   telepac:                                       # Nom d'un service web (ex: TELEPAC)
     pacage_number: 852364554                     # Nom et valeur du premier identifiant pour ce service

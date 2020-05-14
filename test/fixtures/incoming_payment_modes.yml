@@ -78,3 +78,19 @@ incoming_payment_modes_002:
   with_accounting: true
   with_commission: false
   with_deposit: false
+incoming_payment_modes_003:
+  active: true
+  cash_id: 1
+  commission_base_amount: 0.0
+  commission_percentage: 0.0
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  detail_payments: false
+  id: 3
+  lock_version: 0
+  name: SEPA
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+  with_accounting: true
+  with_commission: false
+  with_deposit: false

@@ -49,18 +49,19 @@ module Ekylibre
           # force import variant from lexicon or reference_nomenclature and update his attributes.
           if r.reference_name.to_s.start_with? '>'
             reference_name = r.reference_name[1..-1]
-            if nature_item = Nomen::ProductNature.find(reference_name)
+            if (nature_item = Nomen::ProductNature.find(reference_name))
               nature = ProductNature.import_from_nomenclature(reference_name)
               category = ProductNatureCategory.import_from_nomenclature(nature_item.category)
               type = category.article_type || nature.variant_type
               variant = nature.variants.new(name: r.name, active: true, category: category, type: type)
+            else
+              raise 'Reference name not found in Product Nature Nomenclature: ' + r.reference_name.inspect
             end
-          elsif r.france_maaid && RegisteredPhytosanitaryProduct.find_by_id(r.france_maaid)
-            item = RegisteredPhytosanitaryProduct.find_by_id(r.france_maaid)
+          elsif r.france_maaid && (item = RegisteredPhytosanitaryProduct.find_by_id(r.france_maaid))
             variant = ProductNatureVariant.import_phyto_from_lexicon(item.reference_name)
           elsif Nomen::ProductNatureVariant.find(r.reference_name)
             variant = ProductNatureVariant.import_from_nomenclature(r.reference_name, true)
-          elsif nature_item = Nomen::ProductNature.find(r.reference_name)
+          elsif (nature_item = Nomen::ProductNature.find(r.reference_name))
             nature = ProductNature.import_from_nomenclature(r.reference_name)
             category = ProductNatureCategory.import_from_nomenclature(nature_item.category)
             type = category.article_type || nature.variant_type
@@ -129,7 +130,7 @@ module Ekylibre
             [[r.purchase_unit_pretax_amount, :purchase], [r.stock_unit_pretax_amount, :stock], [r.sale_unit_pretax_amount, :sale]].each do |(price, nature)|
               if price
                 catalog = Catalog.by_default!(nature)
-                attributes = {catalog: catalog, all_taxes_included: false, amount: price, currency: currency}
+                attributes = {catalog: catalog, all_taxes_included: false, amount: ratio * price, currency: currency}
                 variant.catalog_items.create!(attributes)
               end
             end

@@ -98,8 +98,6 @@ module Ekylibre
             end
           end
 
-          pmodel = variant.matching_model if variant
-
           # create a price
           catalog = Catalog.find_by(usage: :cost)
           if variant && r.unit_pretax_amount && catalog && catalog.items.where(variant: variant).empty?
@@ -128,6 +126,7 @@ module Ekylibre
 
           # create the product
           if variant
+            pmodel = variant.matching_model
             matter = pmodel.create!(
               variant: variant,
               work_number: r.work_number,
