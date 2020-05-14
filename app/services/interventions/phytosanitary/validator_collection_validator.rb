@@ -5,9 +5,10 @@ module Interventions
 
         # @param [Array<Models::TargetAndShape>] targets_and_shape
         # @option [Intervention, nil] intervention_to_ignore
+        # @option [DateTime, nil] intervention_started_at
         # @option [DateTime, nil] intervention_stopped_at
         # @return [ValidatorCollectionValidator]
-        def build(targets_and_shape, intervention_to_ignore: nil, intervention_stopped_at: nil)
+        def build(targets_and_shape, intervention_to_ignore: nil, intervention_started_at: nil, intervention_stopped_at: nil)
           targets = targets_and_shape.map { |element| element.target }
           dose_computation = RegisteredPhytosanitaryUsageDoseComputation.new
 
@@ -18,6 +19,7 @@ module Interventions
             ::Interventions::Phytosanitary::ApplicationFrequencyValidator.new(
               targets_and_shape: targets_and_shape,
               ignored_intervention: intervention_to_ignore,
+              intervention_started_at: intervention_started_at,
               intervention_stopped_at: intervention_stopped_at
             ),
             ::Interventions::Phytosanitary::OrganicMentionsValidator.new(targets: targets),

@@ -59,10 +59,16 @@
 
       maxStoppedAt = _.max(_.compact(stoppedAtDates))
 
+      startedAtDates = $(".intervention-started-at[type='hidden']").map ->
+        if $(this).val() then new Date($(this).val()) else null
+
+      minStartedAt = _.min(_.compact(startedAtDates))
+
       {
         products_data: _.reject(productsData, (data) -> data.product_id == '' ),
         targets_data: _.reject(targetsData, (data) -> data.id == '' ),
         intervention_id: interventionId,
+        intervention_started_at: moment(minStartedAt).format()
         intervention_stopped_at: moment(maxStoppedAt).format()
       }
 

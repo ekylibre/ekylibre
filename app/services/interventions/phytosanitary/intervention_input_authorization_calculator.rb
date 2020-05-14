@@ -8,7 +8,7 @@ module Interventions
         def for_intervention(intervention)
           targets_and_shape = ::Interventions::Phytosanitary::Models::TargetAndShape.from_intervention(intervention)
 
-          new(::Interventions::Phytosanitary::ValidatorCollectionValidator.build(targets_and_shape, intervention_to_ignore: intervention, intervention_stopped_at: intervention.stopped_at))
+          new(::Interventions::Phytosanitary::ValidatorCollectionValidator.build(targets_and_shape, intervention_to_ignore: intervention, intervention_started_at: intervention.started_at, intervention_stopped_at: intervention.stopped_at))
         end
       end
 
