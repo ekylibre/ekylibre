@@ -10,7 +10,7 @@
 
 - unless f.object.population_counting_unitary?
   = f.input(:initial_population, wrapper: :append, class: :inline, label: Product.human_attribute_name(:population)) do
-    = f.input_field(:initial_population, as: :string)
+    = f.input_field(:initial_population)
     %span.add-on= f.object.variant.unit_name
 
 - if f.object.indicators_list.include? :shape
