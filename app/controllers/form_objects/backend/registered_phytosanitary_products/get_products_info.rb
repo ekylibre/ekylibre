@@ -7,6 +7,7 @@ module FormObjects
           def from_params(params)
             new(params.permit(
               :intervention_id,
+              :intervention_started_at,
               :intervention_stopped_at,
               targets_data: %i[id shape],
               products_data: %i[product_id usage_id quantity dimension input_id live_data]
@@ -14,7 +15,16 @@ module FormObjects
           end
         end
 
-        attr_accessor :targets_data, :products_data, :intervention_stopped_at, :intervention_id
+        attr_accessor :targets_data, :products_data, :intervention_started_at, :intervention_stopped_at, :intervention_id
+
+        # @return [DateTime, nil]
+        def intervention_started_at
+          if @intervention_started_at.nil?
+            nil
+          else
+            DateTime.soft_parse(@intervention_started_at)
+          end
+        end
 
         # @return [DateTime, nil]
         def intervention_stopped_at
