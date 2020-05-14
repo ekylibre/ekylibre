@@ -560,6 +560,7 @@ fra:
       pick: "Importer une catégorie de produits"
       show: "Catégorie de produit\_: %{name}"
     backend/product_nature_variants:
+      create: "Nouvelle variante de produit"
       edit: "Modifier la variante de produit\_: %{name}"
       index: "Variantes de produits"
       new: "Nouvelle variante de produit"
