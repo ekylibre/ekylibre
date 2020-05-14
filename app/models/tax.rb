@@ -39,12 +39,15 @@
 #  lock_version                      :integer          default(0), not null
 #  name                              :string           not null
 #  nature                            :string           not null
+#  provider                          :jsonb
 #  reference_name                    :string
 #  updated_at                        :datetime         not null
 #  updater_id                        :integer
 #
 
 class Tax < Ekylibre::Record::Base
+  include Providable
+
   refers_to :country
   refers_to :nature, class_name: 'TaxNature'
   refers_to :reference_name, class_name: 'Tax'

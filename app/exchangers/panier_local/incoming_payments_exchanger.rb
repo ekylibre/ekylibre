@@ -28,11 +28,7 @@ module PanierLocal
     ]
 
     def check
-      rows = ActiveExchanger::CsvReader.new.read(file)
-
-      parser = ActiveExchanger::CsvParser.new(NORMALIZATION_CONFIG)
-
-      data, errors = parser.normalize(rows)
+      data, errors = open_and_decode_file(file)
 
       valid = errors.all?(&:empty?)
 
@@ -45,15 +41,7 @@ module PanierLocal
         valid = false
       end
 
-      # check if cash by default exist and incoming payment mode exist
-      cash = Cash.bank_accounts.find_by(by_default: true)
-      if cash
-        ipm = IncomingPaymentMode.where(cash_id: cash.id, with_accounting: true).order(:name)
-        if ipm.empty?
-          w.error 'Need an incoming payment link to cash account'
-          valid = false
-        end
-      else
+      if find_payment_mode_by_provider.nil? && (default_cash rescue nil).nil?
         w.error 'Need a default bank cash account'
         valid = false
       end
@@ -62,95 +50,126 @@ module PanierLocal
     end
 
     def import
-      rows = ActiveExchanger::CsvReader.new.read(file)
+      data, _errors = open_and_decode_file(file)
 
-      parser = ActiveExchanger::CsvParser.new(NORMALIZATION_CONFIG)
-
-      data, _errors = parser.normalize(rows)
+      payment_mode = find_or_create_payment_mode
 
       incoming_payments_info = data.group_by { |d| d.payment_reference_number }
 
-      incoming_payments_info.each { |_payment_reference_number, incoming_payment_info| incoming_payment_creation(incoming_payment_info) }
+      w.count = incoming_payments_info.size
+
+      incoming_payments_info.each do |_payment_reference_number, incoming_payment_info|
+        find_or_create_incoming_payment(incoming_payment_info, payment_mode)
+
+        w.check_point
+      end
     end
 
-    def incoming_payment_creation(incoming_payment_info)
-      cash = Cash.bank_accounts.find_by(by_default: true)
-      ipm = IncomingPaymentMode.where(cash_id: cash.id, with_accounting: true).order(:name).last
-      responsible = import_resource.creator
+    def find_or_create_payment_mode
+      Maybe(find_payment_mode_by_provider)
+        .recover { create_incoming_payment_mode(default_cash) }
+        .or_raise
+    end
 
-      client_incoming_payment_info = incoming_payment_info.select { |item| item.account_number.to_s.start_with?('411') }.first
-      bank_incoming_payment_info = incoming_payment_info.select { |item| item.account_number.to_s.start_with?('51') }.first
+    # @return [IncomingPaymentMode, nil]
+    def find_payment_mode_by_provider
+      unwrap_one('incoming_payment') { IncomingPaymentMode.of_provider_name(provider_vendor, provider_name) }
+    end
 
-      if bank_incoming_payment_info.present? && client_incoming_payment_info.present?
-        entity = get_or_create_entity(incoming_payment_info, client_incoming_payment_info)
-        incoming_payment = IncomingPayment.of_provider_name(:panier_local, :incoming_payments)
-                                          .of_provider_data(:payment_reference_number, bank_incoming_payment_info.payment_reference_number.to_s)
-                                          .find_by(payer: entity, paid_at: bank_incoming_payment_info.invoiced_at.to_datetime)
-        if incoming_payment.nil?
-          if bank_incoming_payment_info.payment_item_direction == 'D'
-            amount = bank_incoming_payment_info.payment_item_amount
-          elsif bank_incoming_payment_info.payment_item_direction == 'C'
-            amount = bank_incoming_payment_info.payment_item_amount * -1
-          else
-            raise StandardError.new("Can't create IncomingPayment. Payment item direction provided isn't a letter supported")
-          end
-          IncomingPayment.create!(
-            mode: ipm,
-            paid_at: bank_incoming_payment_info.invoiced_at.to_datetime,
-            to_bank_at: bank_incoming_payment_info.invoiced_at.to_datetime,
-            amount: amount,
-            payer: entity,
-            received: true,
-            responsible: responsible,
-            provider: { vendor: :panier_local, name: :incoming_payments, id: import_resource.id, data: { payment_reference_number: bank_incoming_payment_info.payment_reference_number.to_s } }
-          )
+    # @return [Cash]
+    def default_cash
+      @cash = unwrap_one('default bank account', exact: true) { Cash.bank_accounts.where(by_default: true) }
+    end
+
+    # @param [Cash] cash
+    # @return [IncomingPaymentMode]
+    def create_incoming_payment_mode(cash)
+      IncomingPaymentMode.create!(
+        cash: cash,
+        name: tl(:incoming_payment_mode_name),
+        with_accounting: true,
+        with_deposit: false,
+        provider: provider_value
+      )
+    end
+
+    # @param [OpenStruct] incoming_payment_info
+    # @param [IncomingPaymentMode] payment_mode
+    # @return [IncomingPayment]
+    def find_or_create_incoming_payment(incoming_payment_info, payment_mode)
+      reference_number = unwrap_one('reference_number', exact: true) { incoming_payment_info.map(&:sale_reference_number).uniq }
+
+      Maybe(find_incoming_payment_by_provider(reference_number))
+        .recover { create_incoming_payment(incoming_payment_info, reference_number, payment_mode) }
+        .or_raise
+    end
+
+    # @param [String] reference_number
+    # @return [IncomingPayment, nil]
+    def find_incoming_payment_by_provider(reference_number)
+      unwrap_one('incoming payment') do
+        IncomingPayment.of_provider_name(:panier_local, :incoming_payments)
+                       .of_provider_data(:sale_reference_number, reference_number)
+      end
+    end
+
+    # @param [OpenStruct] incoming_payment_info
+    # @param [String] reference_number
+    # @param [IncomingPaymentMode] payment_mode
+    # @return [IncomingPayment]
+    def create_incoming_payment(incoming_payment_info, reference_number, payment_mode)
+      grouped_lines = incoming_payment_info.group_by do |line|
+        account_number = line.account_number
+
+        if account_number.start_with?(client_account_radix)
+          :client
+        elsif account_number.start_with?('51')
+          :bank
+        else
+          :unknown
         end
       end
-    end
 
-    def get_or_create_entity(incoming_payment_info, client_incoming_payment_info)
-      entity = Entity.find_by('codes ->> ? = ?', 'panier_local', incoming_payment_info.first.entity_code.to_s)
-      if entity
-        entity
-      else
-        account = create_entity_account(client_incoming_payment_info)
-        create_entity(account, client_incoming_payment_info)
-      end
-    end
+      client_info = unwrap_one('client info', exact: true) { grouped_lines.fetch(:client, []) }
+      bank_info = unwrap_one('bank info', exact: true) { grouped_lines.fetch(:bank, []) }
 
-    def create_entity_account(client_incoming_payment_info)
-      client_number_account = client_incoming_payment_info.account_number.to_s
-      acc = Account.find_or_initialize_by(number: client_number_account)
-      attributes = {
-        name: client_incoming_payment_info.entity_name,
-        centralizing_account_name: 'clients',
-        nature: 'auxiliary'
-      }
+      entity = find_or_create_entity(client_info.entity_name, client_info.account_number, client_info.entity_code)
 
-      aux_number = client_number_account[3, client_number_account.length]
-
-      if aux_number.match(/\A0*\z/).present?
-        raise StandardError.new("Can't create account. Number provided can't be a radical class")
-      else
-        attributes[:auxiliary_number] = aux_number
-      end
-      acc.attributes = attributes
-      acc
-    end
-
-    def create_entity(acc, client_incoming_payment_info)
-      last_name = client_incoming_payment_info.entity_name.mb_chars.capitalize
-
-      w.info "Create entity and link account"
-      entity = Entity.new(
-        nature: :organization,
-        last_name: last_name,
-        codes: { 'panier_local' => client_incoming_payment_info.entity_code },
-        active: true,
-        client: true,
-        client_account_id: acc.id
+      IncomingPayment.create!(
+        mode: payment_mode,
+        paid_at: bank_info.invoiced_at.to_datetime,
+        to_bank_at: bank_info.invoiced_at.to_datetime,
+        amount: get_incoming_payment_amount(bank_info),
+        payer: entity,
+        received: true,
+        responsible: responsible,
+        provider: provider_value(sale_reference_number: reference_number)
       )
-      entity
     end
+
+    # @param [OpenStruct] info
+    # @return [Float]
+    def get_incoming_payment_amount(info)
+      if info.payment_item_direction == 'D'
+        info.payment_item_amount
+      elsif info.payment_item_direction == 'C'
+        info.payment_item_amount * -1
+      else
+        raise StandardError.new("Can't create IncomingPayment. Payment item direction provided isn't a letter supported")
+      end
+    end
+
+    def provider_name
+      :incoming_payments
+    end
+
+    def open_and_decode_file(file)
+      # Open and Decode: CSVReader::read(file)
+      rows = ActiveExchanger::CsvReader.new.read(file)
+      parser = ActiveExchanger::CsvParser.new(NORMALIZATION_CONFIG)
+
+      parser.normalize(rows)
+    end
+
   end
 end
