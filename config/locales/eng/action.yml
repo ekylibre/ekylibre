@@ -665,6 +665,7 @@ eng:
     backend/product_nature_variant_components:
       # autocomplete: "Autocomplete product nature variant component: %{name}"
     backend/product_nature_variants:
+      create: "New product variant"
       # detail: "Detail product nature variant: %{name}"
       edit: "Edit product variant: %{name}"
       # incorporate: "Incorporate product nature variant: %{name}"
