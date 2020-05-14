@@ -1,8 +1,10 @@
 fra:
-  exchanger: #?
-    panier_local: #?
-      sales: #?
-        sale_nature_name: "Vente en ligne - Panier Local" #?
+  exchanger:
+    panier_local:
+      sales:
+        sale_nature_name: "Vente en ligne - Panier Local"
+      incoming_payments:
+        incoming_payment_mode_name: "Panier Local"
   exchangers:
     agro_systemes_soil_analyses: "Analyses de sol ‒ AGRO Systèmes"
     agro_systemes_water_analyses: "Analyses d’eau ‒ AGRO Systèmes"

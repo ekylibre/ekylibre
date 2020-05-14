@@ -8588,6 +8588,8 @@ taxes:
   nature:
     type: string
     required: true
+  provider:
+    type: jsonb
   reference_name:
     type: string
   updated_at:
