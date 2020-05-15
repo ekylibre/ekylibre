@@ -6,12 +6,12 @@
 = f.input(input_name, as: default_as, wrapper: :append, value: 0, class: :inline, label: indicator.human_name) do
   - if indicator.datatype == :measure
     - f.object.measure_value_unit ||= indicator.unit
-    = f.input_field(indicator.datatype.to_s + '_value_value', label: indicator.human_name, as: :string)
+    = f.input_field(indicator.datatype.to_s + '_value_value', label: indicator.human_name)
     = f.input_field(indicator.datatype.to_s + '_value_unit', label: indicator.human_name, collection: Measure.siblings(indicator.unit).collect { |u| [Nomen::Unit[u].human_name, u] }, as: default_as)
   - elsif indicator.datatype == :choice
     = f.input_field(indicator.datatype.to_s + '_value', label: indicator.human_name, collection: indicator.selection(:choices), as: default_as)
-  - elsif [:boolean, :string, :decimal].include?(indicator.datatype)
-    = f.input_field(indicator.datatype.to_s + '_value', label: indicator.human_name, as: default_as || (indicator.datatype == :decimal ? :string : indicator.datatype))
+  - elsif [:boolean, :decimal].include?(indicator.datatype)
+    = f.input_field(indicator.datatype.to_s + '_value', label: indicator.human_name, as: default_as || indicator.datatype)
   - elsif [:geometry, :point, :multi_polygon].include?(indicator.datatype)
     = f.geolocation_field(indicator.datatype.to_s + '_value', value: f.object.value.to_json, label: indicator.human_name)
   - else
