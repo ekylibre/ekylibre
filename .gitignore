@@ -38,6 +38,8 @@ db/lexicon/data.sql.gz
 # Ignore generated doc
 /doc/app
 /doc/diagrams
+/.yardoc
+/doc/yard
 
 # Ignore backup files
 /backup
@@ -102,7 +104,6 @@ Procfile.*
 
 /public/packs
 /public/packs-test
-/node_modules
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity

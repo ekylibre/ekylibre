@@ -1,0 +1,7 @@
+--output-dir doc/yard
+--template-path doc-src/templates
+--exclude lib/generators/**/*
+app/**/*.rb
+lib/**/*.rb
+-
+doc/**/*.md
