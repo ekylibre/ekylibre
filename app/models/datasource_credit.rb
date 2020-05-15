@@ -1,6 +1,12 @@
+# = Informations
+#
 # == License
+#
 # Ekylibre - Simple agricultural ERP
-# Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2020 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -13,21 +19,18 @@
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program.  If not, see http://www.gnu.org/licenses.
 #
-
-module Backend
-  class SettingsController < Backend::BaseController
-    def about
-      @properties = []
-      @properties.insert(0, [tl(:ekylibre_version), Ekylibre.version])
-      @properties << [tl(:database_version), ActiveRecord::Migrator.current_version]
-      datasource_credit = DatasourceCredit.find_by(datasource: "ephy")
-      if datasource_credit.present?
-        @date = datasource_credit.updated_at.localize
-      else
-        @date = ""
-      end
-    end
-  end
+# == Table: datasource_credits
+#
+#  datasource  :string
+#  licence     :string
+#  licence_url :string
+#  name        :string
+#  provider    :string
+#  updated_at  :datetime
+#  url         :string
+#
+class DatasourceCredit < ActiveRecord::Base
+  include Lexiconable
 end

@@ -33,7 +33,7 @@
       - if phyto.allowed_mentions
         - l.custom RegisteredPhytosanitaryProduct.human_attribute_name(:allowed_mentions), allowed_mentions_imgs.html_safe
       - if phyto.other_names
-        - l.custom RegisteredPhytosanitaryProduct.human_attribute_name(:other_name), phyto.other_names.join(', ')
+        - l.custom RegisteredPhytosanitaryProduct.human_attribute_name(:other_names), phyto.other_names.join(', ')
   - else
     .empty-info-cobble
       = :please_provide_a_valid_maaid_to_display_this_article_properties.tl

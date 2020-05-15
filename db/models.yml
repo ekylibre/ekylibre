@@ -45,6 +45,7 @@
 - custom_field
 - custom_field_choice
 - dashboard
+- datasource_credit
 - debt_transfer
 - delivery
 - delivery_tool

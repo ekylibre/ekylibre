@@ -159,12 +159,12 @@ fra:
         refused: "Refusé"
         waiting: "En attente de réponse"
     financial_year:
-      state: #?
-        closed: "Clôturé" #?
-        closing: "Clôture en cours" #?
-        closure_in_preparation: "Clôture en préparation" #?
-        locked: "Verrouillé" #?
-        opened: "Ouvert" #?
+      state:
+        closed: "Clôturé"
+        closing: "Clôture en cours"
+        closure_in_preparation: "Clôture en préparation"
+        locked: "Verrouillé"
+        opened: "Ouvert"
       tax_declaration_frequency:
         monthly: "Mensuelle"
         none: "Aucune"
@@ -447,10 +447,10 @@ fra:
     product_nature_variant:
       type:
         Variants::AnimalVariant: "Animaux"
+        Variants::ArticleVariant: "Articles"
         Variants::Articles::FertilizerArticle: "Engrais"
         Variants::Articles::PlantMedicineArticle: "Produits phytosanitaires"
         Variants::Articles::SeedAndPlantArticle: "Semences et plants"
-        Variants::ArticleVariant: "Articles"
         Variants::CropVariant: "Cultures"
         Variants::EquipmentVariant: "Équipements"
         Variants::ServiceVariant: "Services"
@@ -507,14 +507,14 @@ fra:
         sms: "SMS" #?
     registered_phytosanitary_product:
       state:
-        authorized: Autorisé
-        inherited: Hérité
-        withdrawn: Retiré
+        authorized: "Autorisé"
+        inherited: "Hérité"
+        withdrawn: "Retiré"
     registered_phytosanitary_usage:
       state:
-        authorized: Autorisé
-        provisional: Provisoire
-        withdrawn: Retiré
+        authorized: "Autorisé"
+        provisional: "Provisoire"
+        withdrawn: "Retiré"
     sale: #?
       payment_delay: #?
         1 week: "à réception" #?

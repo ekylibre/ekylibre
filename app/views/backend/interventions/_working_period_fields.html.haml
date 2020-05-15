@@ -1,7 +1,7 @@
 - prefix = namespace + "[#{f.index}]"
 .nested-fields.working-period
   = link_to_remove_nested_association('working-period', f)
-  = f.datetime_range start_input_html: { class: "intervention-started-at", data: { intervention_updater: prefix + 'started_at' }}, stop_input_html: { data: { intervention_updater: prefix + 'stopped_at' }}, errors: f.object.errors
+  = f.datetime_range start_input_html: { class: "intervention-started-at", data: { intervention_updater: prefix + 'started_at' }}, stop_input_html: { class: 'intervention-stopped-at', data: { intervention_updater: prefix + 'stopped_at' }}, errors: f.object.errors
   %span.help-inline.working-period-errors
     - date_errors = f.object.intervention.errors.to_h.slice(:"working_periods.started_at", :"working_periods.stopped_at", :printed_on)
     = date_errors.values.join(', ') if date_errors.any?

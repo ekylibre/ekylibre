@@ -19,10 +19,10 @@ module Backend
 
       json = JSON.parse(response.body)
 
-      refute_includes json[@copless.id.to_s]['messages'], :not_allowed_for_organic_farming.tl
+      refute_includes json[@copless.id.to_s]['messages']['product'], :not_allowed_for_organic_farming.tl
       assert_includes json[@copless.id.to_s]['allowed_mentions'], 'organic-usage'
 
-      assert_includes json[@award.id.to_s]['messages'], :not_allowed_for_organic_farming.tl
+      assert_includes json[@award.id.to_s]['messages']['product'], :not_allowed_for_organic_farming.tl
       refute_includes json[@award.id.to_s]['allowed_mentions'], 'organic-usage'
     end
 
@@ -33,8 +33,8 @@ module Backend
 
       json = JSON.parse(response.body)
 
-      assert_includes json[@copless.id.to_s]['messages'], :cannot_be_mixed_with_any_product.tl
-      assert_includes json[@award.id.to_s]['messages'], :cannot_be_mixed_with.tl(phyto: @copless.name)
+      assert_includes json[@copless.id.to_s]['messages']['product'], :cannot_be_mixed_with_any_product.tl
+      assert_includes json[@award.id.to_s]['messages']['product'], :cannot_be_mixed_with.tl(phyto: @copless.name)
     end
 
     test 'get_products_infos forbids every products if one of the usages selected has an untreated_buffer_aquatic >= 100 m' do
@@ -46,8 +46,8 @@ module Backend
 
       znt_warning = :substances_mixing_not_allowed_due_to_znt_buffer.tl(usage: @award_usage.crop_label_fra, phyto: @award.name)
 
-      assert_includes json[@copless.id.to_s]['messages'], znt_warning
-      assert_includes json[@award.id.to_s]['messages'], znt_warning
+      assert_includes json[@copless.id.to_s]['messages']['product'], znt_warning
+      assert_includes json[@award.id.to_s]['messages']['product'], znt_warning
     end
 
     test 'get_products_infos allows products mixing as long as they do not share the same mix_category_code' do
@@ -57,8 +57,8 @@ module Backend
 
       json = JSON.parse(response.body)
 
-      assert_empty json[@award.id.to_s]['messages']
-      assert_empty json[@sultan.id.to_s]['messages']
+      assert_empty json[@award.id.to_s]['messages']['product']
+      assert_empty json[@sultan.id.to_s]['messages']['product']
     end
 
     test 'get_products_infos forbids products mixing if they share the same mix_category_code' do
@@ -68,8 +68,8 @@ module Backend
 
       json = JSON.parse(response.body)
 
-      assert_includes json[@zebra.id.to_s]['messages'], :cannot_be_mixed_with.tl(phyto: @sultan.name)
-      assert_includes json[@sultan.id.to_s]['messages'], :cannot_be_mixed_with.tl(phyto: @zebra.name)
+      assert_includes json[@zebra.id.to_s]['messages']['product'], :cannot_be_mixed_with.tl(phyto: @sultan.name)
+      assert_includes json[@sultan.id.to_s]['messages']['product'], :cannot_be_mixed_with.tl(phyto: @zebra.name)
     end
 
     private

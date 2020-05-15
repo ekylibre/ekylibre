@@ -15,7 +15,7 @@ cmn:
     charge_account_label: "收费帐户标签" #?
     company: "公司" #?
     container_name: "容器名称"
-    current_result_before_taxes: "税前当前结果"
+    current_result_before_taxes: "税前当前结果" #?
     depreciations_inputations_expenses: "折旧费用inputations" #?
     doer_cost: "杜尔成本"
     doer_name: "杜尔名"
@@ -27,20 +27,20 @@ cmn:
     enterprise: "企业"
     entity_name: "实体名称"
     exceptional_expenses: "特殊支出" #?
-    exceptional_expenses_total: "特殊支出总计"
+    exceptional_expenses_total: "特殊支出总计" #?
     exceptional_products: "卓越的产品" #?
-    exceptional_products_total: "卓越的产品总"
-    exceptional_result: "出色的结果"
-    expenses_total: "总费用"
-    exploitation_expenses_total: "开发总费用"
-    exploitation_products_total: "开发产品合计"
-    exploitation_result: "开发成果"
+    exceptional_products_total: "卓越的产品总" #?
+    exceptional_result: "出色的结果" #?
+    expenses_total: "总费用" #?
+    exploitation_expenses_total: "开发总费用" #?
+    exploitation_products_total: "开发产品合计" #?
+    exploitation_result: "开发成果" #?
     family: "家庭"
     financial_expenses: "财务费用" #?
     financial_expenses_total: "财务费用合计"
     financial_products: "理财产品" #?
-    financial_products_total: "理财产品总"
-    financial_result: "财务结果"
+    financial_products_total: "理财产品总" #?
+    financial_result: "财务结果" #?
     financial_year_name: "会计年度名称"
     financial_years: "财政年度"
     grains_yield: "谷物产量" #?
@@ -49,7 +49,7 @@ cmn:
     human_roles: "人的角色" #?
     implanted_at: "在植入" #?
     intervention_durations: "干预的持续时间" #?
-    loss_balance: "盈亏平衡"
+    loss_balance: "盈亏平衡" #?
     losses: "损失" #?
     meat_saleable_on: "肉类在出售"
     meat_withdrawal_period: "肉类停药期"
@@ -59,29 +59,29 @@ cmn:
     nature: "类型"
     net_revenue: "净收入" #?
     net_surface_area: "净面积"
-    number: "数"
+    number: "数" #?
     observed_at: "在观察"
     other_expenses: "其他费用" #?
     other_products: "其他产品" #?
     other_purchases: "其他购买" #?
     owner_name: "所有者名称" #?
     payment_ratio: "付款比例" #?
-    person_name: "人名"
+    person_name: "人名" #?
     pictogram: "形符" #?
     picture_path: "图片路径"
     plan: "计划"
     prescription: "处方"
     pretax_amount: "税前金额" #?
-    printed_on: "印上"
+    printed_on: "印上" #?
     product_account_label: "产品帐户标签" #?
     production_support: "生产支持"
     productions_sales: "生产销售" #?
     products_purchases: "产品采购" #?
     products_sales: "产品销售" #?
-    products_total: "产品共有"
-    profit_or_loss: "利润或亏损"
+    products_total: "产品共有" #?
+    profit_or_loss: "利润或亏损" #?
     profits: "利润" #?
-    profits_taxes: "利得税"
+    profits_taxes: "利得税" #?
     provisional_yield: "临时产量" #?
     provisions_revenues: "收入的规定" #?
     quantity: "数量"
@@ -103,4 +103,4 @@ cmn:
     vine_yield: "葡萄产量" #?
     wages: "工资" #?
     working_area: "工作区域"
-    working_duration_in_hours: "工作时间（小时）"
+    working_duration_in_hours: "工作时间（小时）" #?

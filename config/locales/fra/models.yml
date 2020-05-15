@@ -33,6 +33,7 @@ fra:
         invalid_child: "Au moins une des valeurs de %{attribute} n'est pas valide."
         invalid_date: "Veuillez saisir une date au format jj-mm-aaaa ou jj/mm/aaaa"
         invalid_datetime: "%{attribute} est invalide"
+        # invalid_population_for_unitary_product: "The equipment %{name} cannot have a population of %{population} as it is supposed to be unique."
         invalid_siret: "%{value} n'est pas un numéro de SIRET valide" #?
         invalid_syntax: "%{attribute} comporte des erreurs de syntaxe : %{errors}" #?
         invalid_time: "%{attribute} est invalide"
@@ -69,6 +70,7 @@ fra:
         period_overlap: "%{attribute} se trouve sur une période d’un enregistrement existant" #?
         posterior: "%{attribute} doit être postérieure à %{to}"
         record_invalid: "Validations échouées\_: %{errors}"
+        # record_is_not_valid: "The record is invalid"
         should_be_consecutive: "Les exercices fiscaux doivent être consécutifs, %{attribute} doit donc être %{expected}."
         should_be_the_last_day_of_month: "%{attribute} doit être le dernier jour du mois."
         taken: "%{attribute} a déjà été pris"
@@ -106,8 +108,8 @@ fra:
         content_maximal_quantity: "Quantité maximale supportée" #?
         content_nature: "Type de Produit contenu" #?
         variety: "Type" #?
-      cash:
-        enable_bookkeep_bank_item_details: "Comptabiliser le détail du relevé de compte"
+      cash: #?
+        enable_bookkeep_bank_item_details: "Comptabiliser le détail du relevé de compte" #?
       cashes:
         main_account: "Compte principal"
       document:
@@ -243,7 +245,7 @@ fra:
         container: "Zone de stockage" #?
         started_at: "Entrée" #?
         stopped_at: "Sortie" #?
-      product_nature_category: #?
+      product_nature_category:
         asset_fixable: "Immobilisable" #?
         depreciable: "Amortissable" #?
         duration: "Nombre de numéros OU période d’abonnement" #?
@@ -252,7 +254,7 @@ fra:
         price: "Prix de revient" #?
         subscribing: "Abonnement ?" #?
         type: "Nature"
-      product_nature_variant: #?
+      product_nature_variant:
         contour: "Contour de la forme" #?
         horizontal_rotation: "Rotation horizontale de la forme" #?
         specie_variety: "Variété"
@@ -271,7 +273,7 @@ fra:
         label: "Commande" #?
         moved_at: "Reçu le" #?
         planned_at: "Réception prévue le" #?
-      purchase_invoice: #?
+      purchase_invoice:
         delivery_address: "Adresse de facturation"
         description: "Notes" #?
         invoiced_at: "Date de facture" #?
@@ -287,7 +289,7 @@ fra:
         ordered_quantity: "Quantité commandée"
         quantity: "Quantité totale" #?
         supplier_name: "Fournisseur"
-      purchase_order: #?
+      purchase_order:
         command_mode: "Mode de commande" #?
         delivery_address: "Adresse de facturation"
         description: "Notes" #?
@@ -300,17 +302,21 @@ fra:
         list: "Lot de décaissements" #?
       registered_phytosanitary_product:
         active_compounds: "Substance(s) active(s)"
-        firm_name: "Fabricant"
+        firm_name: "Fabricant" #?
         france_maaid: "N° AMM"
-        in_field_reentry_delay: "Délai de réentrée"
+        in_field_reentry_delay: "Délai de réentrée" #?
         licence_number: "N° Permis"
-        name: "Nom usuel"
+        name: "Nom usuel" #?
         operator_protection_mentions: "Protection de l'opérateur"
         other_names: "Seconds noms commerciaux"
         product_type: "Type"
-        state: "État du produit"
         started_on: "Date d'autorisation"
+        state: "État du produit"
         stopped_on: "Date de retrait"
+      registered_phytosanitary_risk:
+        description: "Descriptif" #?
+        mentions: "Mentions de danger"
+        symbol_name: "Pictogramme"
       registered_phytosanitary_usage:
         applications_count: "Nb max"
         applications_frequency: "Intervalle"
@@ -319,16 +325,12 @@ fra:
         dose_quantity: "Dose max"
         ephy_usage_phrase: "Usage"
         lib_court: "Numéro"
-        pre_harvest_delay: "Délai avant récolte"
+        pre_harvest_delay: "Délai avant récolte" #?
         status: "Autorisé"
-        untreated_buffer_aquatic: "ZNT aquatique"
-        untreated_buffer_arthropod: "ZNT arthropodes"
-        untreated_buffer_plants: "ZNT plantes"
+        untreated_buffer_aquatic: "ZNT aquatique" #?
+        untreated_buffer_arthropod: "ZNT arthropodes" #?
+        untreated_buffer_plants: "ZNT plantes" #?
         usage_conditions: "Conditions d'usage"
-      registered_phytosanitary_risk:
-        description: "Descriptif"
-        mentions: "Mentions de danger"
-        symbol_name: "Pictogramme"
       sale:
         affair_balance: "Solde"
         amount: "Montant TTC" #?
@@ -401,6 +403,7 @@ fra:
         invalid_child: "Au moins une des valeurs de %{attribute} n'est pas valide."
         invalid_date: "Veuillez saisir une date au format jj-mm-aaaa ou jj/mm/aaaa"
         invalid_datetime: "%{attribute} est invalide"
+        # invalid_population_for_unitary_product: "The equipment %{name} cannot have a population of %{population} as it is supposed to be unique."
         invalid_siret: "%{value} n'est pas un numéro de SIRET valide" #?
         invalid_syntax: "%{attribute} comporte des erreurs de syntaxe : %{errors}" #?
         invalid_time: "%{attribute} est invalide"
@@ -437,6 +440,7 @@ fra:
         period_overlap: "%{attribute} se trouve sur une période d’un enregistrement existant" #?
         posterior: "%{attribute} doit être postérieure à %{to}"
         record_invalid: "Validations échouées\_: %{errors}"
+        # record_is_not_valid: "The record is invalid"
         should_be_consecutive: "Les exercices fiscaux doivent être consécutifs, %{attribute} doit donc être %{expected}."
         should_be_the_last_day_of_month: "%{attribute} doit être le dernier jour du mois."
         taken: "%{attribute} a déjà été pris"
@@ -448,11 +452,11 @@ fra:
         account: #?
           attributes: #?
             number: #?
-              unauthorized: "Ce numéro ne peut pas correspondre à une classe radicale." #?
               cant_start_with_0: "Le numéro ne peut pas commencer par un '0'" #?
               centralizing_number: "Le numéro ne peut pas commencer par '401' ou '411' qui sont réservés pour les comptes auxiliaires" #?
               incorrect_length: "Le numéro n'a pas la bonne longueur (%{number_length} caractères)" #?
               radical_class: "Le numéro ne peut pas correspondre à une classe radicale" #?
+              unauthorized: "Ce numéro ne peut pas correspondre à une classe radicale." #?
         activity: #?
           checked_off_with_inspections: "Des agréages sont déjà présents pour cette activité" #?
           checked_without_measures: "Au moins un type de mesure doit être sélectionné lorsque l'utilisation des agréages est demandée" #?
@@ -523,14 +527,14 @@ fra:
           attributes: #?
             parameters: #?
               check_errored: "La connexion au partenaire a échoué. Veuillez vérifier les informations saisies ou réessayer plus tard." #?
-        intervention_working_period:
-          attributes:
-            started_at:
-              inferior: "La date de début d'intervention saisie doit être antérieure à la date de fin des cultures sélectionnées (%{to})"
-              posterior: "La date de début d'intervention saisie doit être postérieure à la date de début des cultures sélectionnées (%{to})"
-            stopped_at:
-              inferior: "La date de fin d'intervention saisie doit être antérieure à la date de fin des cultures sélectionnées (%{to})"
-              posterior: "La date de fin d'intervention saisie doit être postérieure à la date de début des cultures sélectionnées (%{to})"
+        intervention_working_period: #?
+          attributes: #?
+            started_at: #?
+              inferior: "La date de début d'intervention saisie doit être antérieure à la date de fin des cultures sélectionnées (%{to})" #?
+              posterior: "La date de début d'intervention saisie doit être postérieure à la date de début des cultures sélectionnées (%{to})" #?
+            stopped_at: #?
+              inferior: "La date de fin d'intervention saisie doit être antérieure à la date de fin des cultures sélectionnées (%{to})" #?
+              posterior: "La date de fin d'intervention saisie doit être postérieure à la date de début des cultures sélectionnées (%{to})" #?
         journal: #?
           attributes: #?
             accountant: #?
@@ -563,8 +567,8 @@ fra:
           financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
           financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
           not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
-        product_nature_variant:
-          cannot_change_maaid_number_if_it_has_already_been_set: "Le numéro d'AMM pointe déjà vers un produit phytosanitaire et ne peut être modifié"
+        product_nature_variant: #?
+          cannot_change_maaid_number_if_it_has_already_been_set: "Le numéro d'AMM pointe déjà vers un produit phytosanitaire et ne peut être modifié" #?
         purchase: #?
           financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période" #?
           financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
@@ -827,7 +831,7 @@ fra:
       worker: "Équipier"
       zone: "Zone"
   attributes:
-    abilities: "Compétences" #?
+    abilities: "Compétences"
     abilities_list: "Liste des compétences"
     absolute_credit: "Crédit (absolu)"
     absolute_currency: "Monnaie (absolu)"
@@ -890,6 +894,8 @@ fra:
     all_addresses: "Toutes les adresses"
     all_taxes_included: "Toutes taxes comprises"
     allocation_account: "Compte d'amortissement"
+    # allowed_entry_factor: "Allowed entry factor"
+    # allowed_harvest_factor: "Allowed harvest factor"
     allowed_mentions: "Mentions autorisées"
     # already_existing: "Already existing"
     amount: "Montant"
@@ -1297,6 +1303,7 @@ fra:
     file: "Fichier"
     file_content_text: "Fichier texte contenu"
     file_content_type: "Fichier type de contenu"
+    # file_extension: "File extension"
     file_file_name: "Nom de fichier du fichier"
     file_file_size: "Taille du fichier"
     file_fingerprint: "Empreinte du fichier"
@@ -1404,7 +1411,9 @@ fra:
     implanter_working_width: "Largeur inter-rangs"
     importance: "Importance"
     imported_at: "Importé le"
+    # imported_from: "Imported from"
     importer: "Importateur"
+    # imputation_ratio: "Imputation ratio"
     in_cash: "En espèce" #?
     # in_field_reentry_delay: "In field reentry delay"
     in_preparation_at: "En préparation le"
@@ -1522,6 +1531,7 @@ fra:
     junctions: "Jonctions" #?
     key: "Clé"
     label: "Libellé"
+    # label_fra: "Label fra"
     labellings: "Étiquetages"
     labels: "Étiquettes"
     land_parcel_number: "Numéro de la parcelle PAC"
@@ -1551,6 +1561,7 @@ fra:
     letter_format: "Devis au format lettre"
     level: "Niveau"
     lft: "Limite gauche"
+    # lines: "Lines"
     linkage_points_list: "Points d’attache"
     linkages: "Attaches"
     linked: "Tiers lié"
@@ -1640,6 +1651,7 @@ fra:
     minimal_size: "Taille minimale"
     minimal_size_value: "Taille minimale"
     minimal_value: "Valeur minimale"
+    # mix_category_codes: "Mix category codes"
     mobiles: "Portables"
     mode: "Mode"
     mode_delta: "Delta Mode"
@@ -1781,6 +1793,7 @@ fra:
     postal_code: "Code postal"
     postal_zone: "Zone postale" #?
     postal_zones: "Zones postales"
+    # pre_harvest_delay: "Pre harvest delay"
     pre_harvest_interval: "DAR"
     # preexisting_asset: "Preexisting asset"
     preferences: "Préférences"
@@ -1864,6 +1877,7 @@ fra:
     project_budget: "Budget interne"
     proposer: "Parrain"
     prospect: "Prospect"
+    # provider: "Provider"
     # providers: "Providers"
     provisional: "Prévisionnel"
     provisional_intervention: "Intervention prévisionnelle"
@@ -1925,6 +1939,7 @@ fra:
     recommender: "Prescripteur"
     reconcilable: "Lettrable"
     # reconciliation_state: "Reconciliation state"
+    # record_checksum: "Record checksum"
     record_interventions: "Interventions record"
     record_value: "Enregistrement"
     record_value_type: "Type d’enregistrement"
@@ -1936,6 +1951,7 @@ fra:
     reduction_percentage: "Réduction (%)"
     reductions: "Lignes de réductions" #?
     reference: "Référence" #?
+    # reference_data: "Reference data"
     # reference_label_fra: "Reference label fra"
     reference_name: "Type d'intervention"
     reference_number: "N°Référence"
@@ -1984,6 +2000,7 @@ fra:
     revenues: "Produits"
     rgt: "Limite droite"
     rights: "Droits"
+    # risks: "Risks"
     road: "Route" #?
     role: "Rôle de base"
     roles: "Rôles"
@@ -2066,6 +2083,7 @@ fra:
     spaced_iban: "IBAN"
     special_imputation_asset_account: "Compte d'imputation spéciale"
     # specie: "Specie"
+    # specie_variety: "Specie variety"
     sql_type: "Type SQL"
     ssl: "Ssl"
     start: "Début"
@@ -2231,6 +2249,7 @@ fra:
     useful_items: "Lignes utiles"
     user: "Utilisateur"
     users: "Utilisateurs"
+    # using_live_data: "Using live data"
     uuid: "UUID"
     validated_at: "Validée le"
     value: "Valeur"
@@ -2238,6 +2257,7 @@ fra:
     variable_indicators_list: "Liste des indicateurs variables"
     variant: "Variante"
     variant_indicator: "Indicateur de la variante"
+    # variant_nature: "Variant nature"
     variant_unit: "Unité de la variante"
     variants: "Variantes"
     variety: "Variété"
@@ -2309,6 +2329,7 @@ fra:
       invalid_child: "Au moins une des valeurs de %{attribute} n'est pas valide."
       invalid_date: "Veuillez saisir une date au format jj-mm-aaaa ou jj/mm/aaaa"
       invalid_datetime: "%{attribute} est invalide"
+      # invalid_population_for_unitary_product: "The equipment %{name} cannot have a population of %{population} as it is supposed to be unique."
       invalid_siret: "%{value} n'est pas un numéro de SIRET valide" #?
       invalid_syntax: "%{attribute} comporte des erreurs de syntaxe : %{errors}" #?
       invalid_time: "%{attribute} est invalide"
@@ -2345,6 +2366,7 @@ fra:
       period_overlap: "%{attribute} se trouve sur une période d’un enregistrement existant" #?
       posterior: "%{attribute} doit être postérieure à %{to}"
       record_invalid: "Validations échouées\_: %{errors}"
+      # record_is_not_valid: "The record is invalid"
       should_be_consecutive: "Les exercices fiscaux doivent être consécutifs, %{attribute} doit donc être %{expected}."
       should_be_the_last_day_of_month: "%{attribute} doit être le dernier jour du mois."
       taken: "%{attribute} a déjà été pris"
@@ -2463,6 +2485,14 @@ fra:
     intervention:
       bookkeep: "[%{resource}] %{name}"
       name: "%{intervention} n°%{number}"
+    intervention_working_period:
+      attributes:
+        started_at:
+          # inferior: "The intervention must start before the end of the selected crops (%{to})"
+          # posterior: "The intervention must start after the beginning of the selected crops (%{to})"
+        stopped_at:
+          # inferior: "The intervention must end before the end of the selected crops (%{to})"
+          # posterior: "The intervention must end after the beginning of the selected crops (%{to})"
     inventory:
       bookkeep: "Inventaire physique - [%{resource}] %{number}"
       bookkeep_exchange: "Inventaire physique - extourne [%{resource}] %{number}"

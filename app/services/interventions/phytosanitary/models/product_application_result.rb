@@ -2,7 +2,7 @@ module Interventions
   module Phytosanitary
     module Models
       class ProductApplicationResult
-        # @var [Hash<Product => Array<Models::ProductApplicationVote>>] votes
+        # @var [Hash{Product => Array<Models::ProductApplicationVote>}] votes
         attr_reader :votes
 
         def initialize(votes = {})
@@ -12,10 +12,16 @@ module Interventions
         # @param [Product] product
         # @return [Array<String>]
         def product_messages(product)
+          product_grouped_messages(product).values.flatten
+        end
+
+        # @param [Product] product
+        # @return [Hash{Symbol => Array<String>}]
+        def product_grouped_messages(product)
           @votes
             .fetch(product, [])
-            .map(&:message)
-            .compact
+            .group_by(&:field)
+            .transform_values { |v| v.map(&:message).compact }
         end
 
         # @param [Product] product
@@ -39,9 +45,10 @@ module Interventions
         end
 
         # @param [Product] product
-        # @param [String, nil] message
-        def vote_forbidden(product, message = nil)
-          add_vote(product, status: :forbidden, message: message)
+        # @param [String] message
+        # @option [Symbol, nil] on
+        def vote_forbidden(product, message = nil, on: nil)
+          add_vote(product, status: :forbidden, message: message, on: on)
         end
 
         # @param [Product] product
@@ -50,10 +57,11 @@ module Interventions
         end
 
         # @param [Product] product
-        # @param [Symbol] status
-        # @option [String, nil] message
-        def add_vote(product, status:, message: nil)
-          vote = Models::ProductApplicationVote.new(status, message)
+        # @option [Symbol] status
+        # @option [String] message
+        # @option [Symbol, nil] on
+        def add_vote(product, status:, message: nil, on: nil)
+          vote = Models::ProductApplicationVote.new(status, message, on || :product)
 
           if votes.key?(product)
             votes[product] << vote

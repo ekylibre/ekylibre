@@ -1,4 +1,4 @@
-# Permits to compute Intervention from a small set of parameters 
+# Permits to compute Intervention from a small set of parameters
 module Interventions
   module Computation
     class Compute

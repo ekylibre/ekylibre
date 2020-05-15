@@ -600,12 +600,11 @@ $preview-modal-height: 80vh;
     border-radius: 3px;
   }
 
-  #product-authorization-message {
-    color: #f44336;
-  }
 }
 
-
+#product-authorization-message, #usage-authorization-message {
+  color: #f44336;
+}
 
 .usage-infos-container {
   display: none;

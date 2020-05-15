@@ -151,6 +151,12 @@ cmn:
         refused: "拒绝"
         waiting: "等候"
     financial_year:
+      state:
+        # closed: "Closed"
+        # closing: "Closing"
+        # closure_in_preparation: "Closure in preparation"
+        # locked: "Locked"
+        # opened: "Opened"
       tax_declaration_frequency:
         monthly: "每月一次"
         none: "没有"
@@ -381,6 +387,14 @@ cmn:
         decimal: "十进制"
         integer: "整数"
         unitary: "酉"
+      type:
+        # VariantTypes::AnimalType: "Animals"
+        # VariantTypes::ArticleType: "Articles"
+        # VariantTypes::CropType: "Crops"
+        # VariantTypes::EquipmentType: "Equipments"
+        # VariantTypes::ServiceType: "Services"
+        # VariantTypes::WorkerType: "Workers"
+        # VariantTypes::ZoneType: "Zones"
     product_nature_category:
       pictogram:
         bank: "银行"
@@ -426,10 +440,30 @@ cmn:
         user: "用户"
         wheat: "小麦"
         wrench: "扳手"
+      type:
+        # VariantCategories::AnimalCategory: "Animals"
+        # VariantCategories::ArticleCategory: "Articles"
+        # VariantCategories::CropCategory: "Crops"
+        # VariantCategories::EquipmentCategory: "Equipments"
+        # VariantCategories::ServiceCategory: "Services"
+        # VariantCategories::WorkerCategory: "Workers"
+        # VariantCategories::ZoneCategory: "Zones"
     product_nature_category_taxation:
       usage:
         purchase: "采购"
         sale: "拍卖"
+    product_nature_variant:
+      type:
+        # Variants::AnimalVariant: "Animals"
+        # Variants::ArticleVariant: "Articles"
+        # Variants::Articles::FertilizerArticle: "Fertilizers"
+        # Variants::Articles::PlantMedicineArticle: "Plant medicines"
+        # Variants::Articles::SeedAndPlantArticle: "Seeds and plants"
+        # Variants::CropVariant: "Crops"
+        # Variants::EquipmentVariant: "Equipments"
+        # Variants::ServiceVariant: "Services"
+        # Variants::WorkerVariant: "Workers"
+        # Variants::ZoneVariant: "Zones"
     product_nature_variant_reading:
       indicator_datatype:
         boolean: "布尔"
@@ -465,6 +499,16 @@ cmn:
       nature: #?
         payslip: "工资单" #?
         purchase: "采购" #?
+    registered_phytosanitary_product:
+      state:
+        # authorized: "Authorized"
+        # inherited: "Inherited"
+        # withdrawn: "Withdrawn"
+    registered_phytosanitary_usage:
+      state:
+        # authorized: "Authorized"
+        # provisional: "Provisional"
+        # withdrawn: "Withdrawn"
     sale_item: #?
       compute_from: #?
         pretax_amount: "税前金额" #?

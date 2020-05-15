@@ -251,6 +251,8 @@ module PanierLocal
         product_account_line.sale_item_amount * -1
       elsif product_account_line.sale_item_sens == 'C'
         product_account_line.sale_item_amount
+      else
+        raise StandardError.new("Can't create Sale item direction provided isn't a letter supported")
       end
     end
 

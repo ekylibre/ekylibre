@@ -15,7 +15,7 @@ eng:
       edit: "Sign up"
       new: "Sign up"
     authentication/sessions:
-      destroy: "Log out" #?
+      destroy: "Log out"
       new: "New session"
     backend/account_balances:
       # show: "Account balance: %{name}"
@@ -23,7 +23,7 @@ eng:
       edit: "Edit account: %{label}"
       # filter_select_collection: "Filter select collection account: %{name}"
       index: "Accounting plans"
-      load: "Load an accounting plan" #?
+      load: "Load an accounting plan"
       mark: "Reconciliate account: %{label}"
       # mask_lettered_items: "Mask lettered items account: %{name}"
       new: "New account"
@@ -101,6 +101,7 @@ eng:
       reconciliate: "Bank statements of %{cash} (from %{started_on} to %{stopped_on})"
     backend/bank_statement_items:
       # new: "New bank statement item"
+      # show: "Bank statement item: %{name}"
     backend/bank_statements:
       edit: "Edit bank statement %{number}"
       edit_interval: "Bank statements periods to reconciliate"
@@ -218,7 +219,7 @@ eng:
       show: "%{name} dashboard"
       stocks: "Stocks dashboard"
       tools: "Tools dashboard"
-      trade: "Trade dashboard" #?
+      trade: "Trade dashboard"
     backend/deliveries:
       # cancel: "Cancel delivery: %{name}"
       # check: "Check delivery: %{name}"
@@ -259,7 +260,7 @@ eng:
     backend/entities:
       # autocomplete: "Autocomplete entity: %{name}"
       edit: "Edit person: %{full_name}"
-      export: "Export people" #?
+      export: "Export people"
       import: "Import people"
       index: "People"
       # mask_lettered_items: "Mask lettered items entity: %{name}"
@@ -312,7 +313,7 @@ eng:
       compute_balances: "Compute financial year balance"
       # destroy_all_empty: "Destroy all empty financial year: %{name}"
       edit: "Edit new financial year"
-      generate_last_journal_entry: "Generate last journal entry of %{code}" #?
+      generate_last_journal_entry: "Generate last journal entry of %{code}"
       index: "Financial years"
       lock: "Lock financial year %{code}"
       new: "Open a new financial year"
@@ -347,6 +348,7 @@ eng:
       # archive_report: "Archive report general ledger: %{name}"
       # archive_report_template: "Archive report template general ledger: %{name}"
       # find_open_document_template: "Find open document template general ledger: %{name}"
+      # find_template: "Find template general ledger: %{name}"
       # generate_document: "Generate document general ledger: %{name}"
       # generate_report: "Generate report general ledger: %{name}"
       # generate_report_file: "Generate report file general ledger: %{name}"
@@ -422,20 +424,22 @@ eng:
       # create_duplicate_intervention: "Create duplicate intervention intervention: %{name}"
       # duplicate_interventions: "Duplicate interventions intervention: %{name}"
       edit: "Edit"
-      edit_request: "Edit request" #?
-      edit_specified: "Edit %{procedure_name} #%{number}" #?
-      edit_specified_request: "Edit %{procedure_name} request #%{number}" #?
+      edit_request: "Edit request"
+      edit_specified: "Edit %{procedure_name} #%{number}"
+      edit_specified_request: "Edit %{procedure_name} request #%{number}"
       # generate_buttons: "Generate buttons intervention: %{name}"
       index: "Interventions"
       # modal: "Modal intervention: %{name}"
       new: "New intervention"
-      new_request: "New intervention request" #?
-      new_specified: "New %{procedure_name}" #?
-      new_specified_request: "New requested %{procedure_name}" #?
+      new_request: "New intervention request"
+      new_specified: "New %{procedure_name}"
+      new_specified_request: "New requested %{procedure_name}"
       # purchase: "Purchase intervention: %{name}"
       # purchase_order_items: "Purchase order items intervention: %{name}"
       # sell: "Sell intervention: %{name}"
       show: "%{nature} %{procedure_name} #%{number}"
+      # validate_harvest_delay: "Validate harvest delay intervention: %{name}"
+      # validate_reentry_delay: "Validate reentry delay intervention: %{name}"
     backend/invalid_journal_entries:
       # delete_all: "Delete all invalid journal entry: %{name}"
       # index: "Invalid journal entries"
@@ -474,7 +478,7 @@ eng:
       edit: "Edit journal: %{name}"
       index: "Journals"
       new: "New journal"
-      reopen: "Reopen journal: %{name}" #?
+      reopen: "Reopen journal: %{name}"
       show: "Journal: %{name} (%{code})"
     backend/kujakus:
       # toggle: "Toggle kujaku: %{name}"
@@ -580,11 +584,11 @@ eng:
       new: "New disbursement"
       show: "Disbursement: %{name}"
     backend/parcels:
-      edit: "Edit %{nature} parcel: %{number}" #?
-      index: "Parcels" #?
-      new: "New parcel" #?
-      ship: "Ship parcels" #?
-      show: "%{nature} parcel: %{number}" #?
+      edit: "Edit %{nature} parcel: %{number}"
+      index: "Parcels"
+      new: "New parcel"
+      ship: "Ship parcels"
+      show: "%{nature} parcel: %{number}"
     backend/payslip_affairs:
       # attach: "Attach payslip affair: %{name}"
       # detach: "Detach payslip affair: %{name}"
@@ -671,6 +675,7 @@ eng:
       show: "Product variant: %{name}"
       # storage_detail: "Storage detail product nature variant: %{name}"
     backend/product_natures:
+      # compatible_varieties: "Compatible varieties product nature: %{name}"
       edit: "Edit product type: %{name}"
       # incorporate: "Incorporate product nature: %{name}"
       index: "Product types"
@@ -694,10 +699,10 @@ eng:
       # take: "Take product: %{name}"
       # update_many: "Update many product: %{name}"
     backend/project_budgets:
-       edit: "Edit project budget: %{name}"
-       index: "Project budgets"
-       new: "New project budget"
-       show: "Project budget: %{name}"
+      edit: "Edit project budget: %{name}"
+      index: "Project budgets"
+      new: "New project budget"
+      show: "Project budget: %{name}"
     backend/purchase_affairs:
       # attach: "Attach purchase affair: %{name}"
       # detach: "Detach purchase affair: %{name}"
@@ -727,7 +732,7 @@ eng:
       index: "Orders"
       new: "New order"
       open: "Open order: %{number}"
-      reconciliate_modal: "Reconciliate modal order: %{number}" #?
+      reconciliate_modal: "Reconciliate modal order: %{number}"
       show: "Purchase order: %{number}"
     backend/purchase_payments:
       edit: "Edit disbursement: %{number}"
@@ -755,6 +760,12 @@ eng:
       index: "Receptions"
       new: "New reception"
       show: "Reception: %{number}"
+    backend/registered_phytosanitary_products:
+      # get_products_infos: "Get products infos registered phytosanitary product: %{name}"
+    backend/registered_phytosanitary_usages:
+      # dose_validations: "Dose validations registered phytosanitary usage: %{name}"
+      # filter_usages: "Filter usages registered phytosanitary usage: %{name}"
+      # get_usage_infos: "Get usage infos registered phytosanitary usage: %{name}"
     backend/registrations:
       edit: "Edit registration"
       index: "Registrations"
@@ -839,8 +850,6 @@ eng:
       load: "Load missing sequences"
       new: "New sequence"
       # show: "Sequence: %{name}"
-    backend/services:
-      index: "Services"
     backend/settings:
       about: "About Ekylibre"
     backend/settlements:
@@ -935,83 +944,218 @@ eng:
       show: "User: %{first_name} %{last_name}"
       unlock: "Unlock user"
     backend/variant_categories/animal_categories:
+      # edit: "Edit animal category: %{name}"
+      # incorporate: "Incorporate animal category: %{name}"
       index: "Animals categories"
+      # new: "New animal category"
       pick: "Import an animals category"
+      # show: "Animal category: %{name}"
     backend/variant_categories/article_categories:
+      # edit: "Edit article category: %{name}"
+      # incorporate: "Incorporate article category: %{name}"
       index: "Articles categories"
+      # new: "New article category"
       pick: "Import an articles category"
+      # show: "Article category: %{name}"
     backend/variant_categories/crop_categories:
+      # edit: "Edit crop category: %{name}"
+      # incorporate: "Incorporate crop category: %{name}"
       index: "Crops categories"
+      # new: "New crop category"
       pick: "Import a crops category"
+      # show: "Crop category: %{name}"
     backend/variant_categories/equipment_categories:
+      # edit: "Edit equipment category: %{name}"
+      # incorporate: "Incorporate equipment category: %{name}"
       index: "Equipments categories"
+      # new: "New equipment category"
       pick: "Import an equipments category"
+      # show: "Equipment category: %{name}"
     backend/variant_categories/service_categories:
+      # edit: "Edit service category: %{name}"
+      # incorporate: "Incorporate service category: %{name}"
       index: "Services categories"
+      # new: "New service category"
       pick: "Import a services category"
+      # show: "Service category: %{name}"
     backend/variant_categories/worker_categories:
+      # edit: "Edit worker category: %{name}"
+      # incorporate: "Incorporate worker category: %{name}"
       index: "Workers categories"
+      # new: "New worker category"
       pick: "Import a workers category"
+      # show: "Worker category: %{name}"
     backend/variant_categories/zone_categories:
+      # edit: "Edit zone category: %{name}"
+      # incorporate: "Incorporate zone category: %{name}"
       index: "Zones categories"
+      # new: "New zone category"
       pick: "Import a zones category"
+      # show: "Zone category: %{name}"
     backend/variant_types/animal_types:
+      # compatible_varieties: "Compatible varieties animal type: %{name}"
+      # edit: "Edit animal type: %{name}"
+      # incorporate: "Incorporate animal type: %{name}"
       index: "Animals types"
+      # new: "New animal type"
       pick: "Import an animals type"
+      # show: "Animal type: %{name}"
     backend/variant_types/article_types:
+      # compatible_varieties: "Compatible varieties article type: %{name}"
+      # edit: "Edit article type: %{name}"
+      # incorporate: "Incorporate article type: %{name}"
       index: "Articles types"
+      # new: "New article type"
       pick: "Import an articles type"
+      # show: "Article type: %{name}"
     backend/variant_types/crop_types:
+      # compatible_varieties: "Compatible varieties crop type: %{name}"
+      # edit: "Edit crop type: %{name}"
+      # incorporate: "Incorporate crop type: %{name}"
       index: "Crops types"
+      # new: "New crop type"
       pick: "Import a crops type"
+      # show: "Crop type: %{name}"
     backend/variant_types/equipment_types:
+      # compatible_varieties: "Compatible varieties equipment type: %{name}"
+      # edit: "Edit equipment type: %{name}"
+      # incorporate: "Incorporate equipment type: %{name}"
       index: "Equipments types"
+      # new: "New equipment type"
       pick: "Import an equipments type"
+      # show: "Equipment type: %{name}"
     backend/variant_types/service_types:
+      # compatible_varieties: "Compatible varieties service type: %{name}"
+      # edit: "Edit service type: %{name}"
+      # incorporate: "Incorporate service type: %{name}"
       index: "Services types"
+      # new: "New service type"
       pick: "Import a services type"
+      # show: "Service type: %{name}"
     backend/variant_types/worker_types:
+      # compatible_varieties: "Compatible varieties worker type: %{name}"
+      # edit: "Edit worker type: %{name}"
+      # incorporate: "Incorporate worker type: %{name}"
       index: "Workers types"
+      # new: "New worker type"
       pick: "Import a workers type"
+      # show: "Worker type: %{name}"
     backend/variant_types/zone_types:
+      # compatible_varieties: "Compatible varieties zone type: %{name}"
+      # edit: "Edit zone type: %{name}"
+      # incorporate: "Incorporate zone type: %{name}"
       index: "Zones types"
+      # new: "New zone type"
       pick: "Import a zones type"
+      # show: "Zone type: %{name}"
     backend/variants/animal_variants:
+      # detail: "Detail animal variant: %{name}"
+      # edit: "Edit animal variant: %{name}"
+      # incorporate: "Incorporate animal variant: %{name}"
       index: "Animals"
+      # new: "New animal variant"
       pick: "Import an animal"
+      # quantifiers: "Quantifiers animal variant: %{name}"
+      # show: "Animal variant: %{name}"
+      # storage_detail: "Storage detail animal variant: %{name}"
     backend/variants/article_variants:
+      # detail: "Detail article variant: %{name}"
+      # edit: "Edit article variant: %{name}"
+      # incorporate: "Incorporate article variant: %{name}"
       index: "Other articles"
+      # new: "New article variant"
       pick: "Import an article"
-    backend/variants/crop_variants:
-      index: "Crops"
-      pick: "Import a crop"
-    backend/variants/equipment_variants:
-      index: "Equipements"
-      pick: "Import an equipement"
-    backend/variants/service_variants:
-      index: "Services"
-      pick: "Import a service"
-    backend/variants/worker_variants:
-      index: "Workers"
-      pick: "Import a worker"
-    backend/variants/zone_variants:
-      index: "Zones"
-      pick: "Import a zone"
+      # quantifiers: "Quantifiers article variant: %{name}"
+      # show: "Article variant: %{name}"
+      # storage_detail: "Storage detail article variant: %{name}"
     backend/variants/articles/fertilizer_articles:
+      # detail: "Detail fertilizer article: %{name}"
+      # edit: "Edit fertilizer article: %{name}"
+      # incorporate: "Incorporate fertilizer article: %{name}"
       index: "Fertilizers"
+      # new: "New fertilizer article"
       pick: "Import a fertilizer"
+      # quantifiers: "Quantifiers fertilizer article: %{name}"
+      # show: "Fertilizer article: %{name}"
+      # storage_detail: "Storage detail fertilizer article: %{name}"
     backend/variants/articles/plant_medicine_articles:
+      # detail: "Detail plant medicine article: %{name}"
+      # edit: "Edit plant medicine article: %{name}"
+      # incorporate: "Incorporate plant medicine article: %{name}"
       index: "Plant medicines"
+      # new: "New plant medicine article"
       pick: "Import a plant medicine"
+      # quantifiers: "Quantifiers plant medicine article: %{name}"
+      # show: "Plant medicine article: %{name}"
+      # storage_detail: "Storage detail plant medicine article: %{name}"
     backend/variants/articles/seed_and_plant_articles:
+      # detail: "Detail seed and plant article: %{name}"
+      # edit: "Edit seed and plant article: %{name}"
+      # incorporate: "Incorporate seed and plant article: %{name}"
       index: "Seed and plants"
+      # new: "New seed and plant article"
       pick: "Import a seed or a plant"
+      # quantifiers: "Quantifiers seed and plant article: %{name}"
+      # show: "Seed and plant article: %{name}"
+      # storage_detail: "Storage detail seed and plant article: %{name}"
+    backend/variants/crop_variants:
+      # detail: "Detail crop variant: %{name}"
+      # edit: "Edit crop variant: %{name}"
+      # incorporate: "Incorporate crop variant: %{name}"
+      index: "Crops"
+      # new: "New crop variant"
+      pick: "Import a crop"
+      # quantifiers: "Quantifiers crop variant: %{name}"
+      # show: "Crop variant: %{name}"
+      # storage_detail: "Storage detail crop variant: %{name}"
+    backend/variants/equipment_variants:
+      # detail: "Detail equipment variant: %{name}"
+      # edit: "Edit equipment variant: %{name}"
+      # incorporate: "Incorporate equipment variant: %{name}"
+      index: "Equipements"
+      # new: "New equipment variant"
+      pick: "Import an equipement"
+      # quantifiers: "Quantifiers equipment variant: %{name}"
+      # show: "Equipment variant: %{name}"
+      # storage_detail: "Storage detail equipment variant: %{name}"
     backend/variants/fixed_assets:
       # fixed_assets_datas: "Fixed assets datas fixed asset: %{name}"
+    backend/variants/service_variants:
+      # detail: "Detail service variant: %{name}"
+      # edit: "Edit service variant: %{name}"
+      # incorporate: "Incorporate service variant: %{name}"
+      index: "Services"
+      # new: "New service variant"
+      pick: "Import a service"
+      # quantifiers: "Quantifiers service variant: %{name}"
+      # show: "Service variant: %{name}"
+      # storage_detail: "Storage detail service variant: %{name}"
+    backend/variants/worker_variants:
+      # detail: "Detail worker variant: %{name}"
+      # edit: "Edit worker variant: %{name}"
+      # incorporate: "Incorporate worker variant: %{name}"
+      index: "Workers"
+      # new: "New worker variant"
+      pick: "Import a worker"
+      # quantifiers: "Quantifiers worker variant: %{name}"
+      # show: "Worker variant: %{name}"
+      # storage_detail: "Storage detail worker variant: %{name}"
+    backend/variants/zone_variants:
+      # detail: "Detail zone variant: %{name}"
+      # edit: "Edit zone variant: %{name}"
+      # incorporate: "Incorporate zone variant: %{name}"
+      index: "Zones"
+      # new: "New zone variant"
+      pick: "Import a zone"
+      # quantifiers: "Quantifiers zone variant: %{name}"
+      # show: "Zone variant: %{name}"
+      # storage_detail: "Storage detail zone variant: %{name}"
     backend/visualizations/land_parcels_visualizations:
       # show: "Land parcels visualization: %{name}"
     backend/visualizations/map_cells_visualizations:
       # show: "Map cells visualization: %{name}"
+    backend/visualizations/non_treatment_areas_visualizations:
+      # show: "Non treatment areas visualization: %{name}"
     backend/visualizations/plants_visualizations:
       # show: "Plants visualization: %{name}"
     backend/visualizations/resources_visualizations:
@@ -1083,6 +1227,7 @@ eng:
       invalid_child: "At least one value of %{attribute} is invalid."
       invalid_date: "%{attribute} is not a valid date"
       invalid_datetime: "%{attribute} is not a valid datetime"
+      invalid_population_for_unitary_product: "The equipment %{name} cannot have a population of %{population} as it is supposed to be unique."
       invalid_time: "%{attribute} is not a valid time"
       invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
       is: "%{attribute} must be a %{thing}"
@@ -1119,7 +1264,6 @@ eng:
       too_short: "%{attribute} is too short (minimum is %{count} characters)"
       unitary_in_parcel: "Unitary items can only be sent one by one"
       wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
-      invalid_population_for_unitary_product: "The equipment %{name} cannot have a population of %{population} as it is supposed to be unique."
     template:
       body: "There were problems with the following fields:"
       header:
@@ -1128,6 +1272,11 @@ eng:
   front-end:
     bank_reconciliation:
       remove: "Remove"
+    intervention:
+      nature:
+        add_two_hours: "Add two hours if application happened in a close area"
+        harvest: "Harvest:"
+        reentry: "Reentry:"
     leaflet:
       draw:
         handlers:
@@ -1194,11 +1343,6 @@ eng:
       zoomGuidance: "Insufficient zoom level"
       zoomInTitle: "Zoom in"
       zoomOutTitle: "Zoom out"
-    intervention:
-      nature:
-        harvest: "Harvest:"
-        reentry: "Reentry:"
-        add_two_hours: "Add two hours if application happened in a close area"
   labels:
     accepted: "Accepted"
     accepted_for_paiment: "Accepted for paiment"
@@ -1218,15 +1362,15 @@ eng:
     accounts: "Accounts"
     accounts_only_used_at: "Accounts only used at"
     accounts_starting_with: "Accounts starting with"
-    accounts_to_change: "Accounts to change" #?!
-    accounts_to_load: "Accounts to load" #?!
+    accounts_to_change: "Accounts to change"
+    accounts_to_load: "Accounts to load"
     action_duration: "Action duration"
     activate_entry_autocompletion: "Activate entry autocompletion"
-    active: "Active" #?
-    active_finishing_after: "Active finishing after" #?
-    active_finishing_within: "Active finishing within" #?
+    active: "Active"
+    active_finishing_after: "Active finishing after"
+    active_finishing_within: "Active finishing within"
     active_totals: "Active Totals"
-    activities: "Activities" #?
+    activities: "Activities"
     activity: "Activity"
     activity_production: "Activity production"
     activity_productions: "Activity productions"
@@ -1308,52 +1452,56 @@ eng:
     add_working_period: "Add working period"
     add_x: "Add “%{x}”"
     added_value: "Added value"
-    advance_charges: "Advance charges" #?
-    advance_giveables: "Advance giveables" #?
+    advance_charges: "Advance charges"
+    advance_giveables: "Advance giveables"
     advance_payment: "4564 - Associates advance payments"
-    advance_products: "Advance products" #?
-    advance_receivables: "Advance receivables" #?
+    advance_products: "Advance products"
+    advance_receivables: "Advance receivables"
     affair: "Affair"
-    affair_number: "Affair number" #?
-    affairs: "Affairs" #?
+    affair_number: "Affair number"
+    affairs: "Affairs"
     # alive_corporeal_assets: "Alive corporeal assets"
-    alive_corporeal_assets_adult_animals: "Alive corporeal assets adult animals" #?
-    alive_corporeal_assets_advances: "Alive corporeal assets advances" #?
-    alive_corporeal_assets_in_progress: "Alive corporeal assets in progress" #?
-    alive_corporeal_assets_others: "Alive corporeal assets others" #?
-    alive_corporeal_assets_perennial_plants: "Alive corporeal assets perennial plants" #?
-    alive_corporeal_assets_service_animals: "Alive corporeal assets service animals" #?
-    alive_corporeal_assets_young_animals: "Alive corporeal assets young animals" #?
+    alive_corporeal_assets_adult_animals: "Alive corporeal assets adult animals"
+    alive_corporeal_assets_advances: "Alive corporeal assets advances"
+    alive_corporeal_assets_in_progress: "Alive corporeal assets in progress"
+    alive_corporeal_assets_others: "Alive corporeal assets others"
+    alive_corporeal_assets_perennial_plants: "Alive corporeal assets perennial plants"
+    alive_corporeal_assets_service_animals: "Alive corporeal assets service animals"
+    alive_corporeal_assets_young_animals: "Alive corporeal assets young animals"
     all: "All"
+    all_accounts: "All accounts"
+    all_columns: "All columns"
+    all_conditions: "All conditions"
+    all_entries_balanced: "All entries are balanced"
+    all_exchanges_closed: "All exchanges are closed"
+    all_financial_years_closed_or_locked: "All financial years are closed or locked"
+    all_financial_years_not_closed_or_locked: "All financial years are not closed or locked"
+    all_periods: "All financial years"
+    # all_the_categories: "All the categories"
     allocation_balance: "Budget allocation - %{name} allocation"
     allowed: "Allowed"
     allowed_harvest_on: "Allowed harvest on"
-    all_accounts: "All accounts"
-    all_columns: "All columns" #?
-    all_conditions: "All conditions" #?!
-    all_entries_balanced: "All entries are balanced" #?
-    all_exchanges_closed: "All exchanges are closed" #?
-    all_financial_years_closed_or_locked: "All financial years are closed or locked" #?
-    all_financial_years_not_closed_or_locked: "All financial years are not closed or locked" #?
-    all_periods: "All financial years"
-    # all_the_categories: "All the categories"
     amount: "Amount"
     amount_computed_from: "Amount computed from %{source}"
     amount_estimated_from: "Amount estimated from %{source}"
-    amount_per_unit: "%{amount}/%{unit}" #??
+    amount_per_unit: "%{amount}/%{unit}"
+    # amount_with_taxes: "Amount with taxes"
     amounts_in_currency: "Amounts (%{currency})"
     analyses: "Analyses"
     analytic_preferences: "Analytic preferences"
-    anew_reports: "Anew report" #?
-    animal_details: "Animal details" #?!
-    animal_natures: "Animals"
+    anew_reports: "Anew report"
+    animal_details: "Animal details"
     # animal_management: "Animal management"
-    animal_purchases: "Animal purchases" #?
-    animal_sales: "Animal sales" #?
+    animal_natures: "Animals"
+    animal_purchases: "Animal purchases"
+    animal_sales: "Animal sales"
     animal_variants_specie_variety: "Variety"
     animals: "Animals"
     any_journal: "Any journal"
     applications_count: "Max applications count"
+    # applications_count_bigger_than_max: "Applications count bigger than max"
+    # applications_count_equal_to_max: "Applications count equal to max"
+    # applications_count_less_than_max: "Applications count less than max"
     applications_interval_not_respected: "Applications interval non respected"
     aquatic_nta: "Aquatic non-treatment area (%{distance} m)"
     archive_post_closure: "Post closure archive"
@@ -1370,14 +1518,14 @@ eng:
     are_you_sure_you_want_to_delete: "Are you sure you want to delete this record?"
     are_you_sure_you_want_to_invoice: "Are you sure you want to invoice?"
     are_you_sure_you_want_to_send_mails: "Are you sure you want to send emails?"
-    area: "Area" #?
+    area: "Area"
     articles: "Articles"
     asset_exists: "Asset exists"
-    assets: "Assets" #?
-    assets_gaps: "Assets gaps" #?
-    associate_debts: "Associate debts" #?
-    associate_locked_debts: "Associate locked debts" #?
-    associate_receivables: "Associate receivables" #?
+    assets: "Assets"
+    assets_gaps: "Assets gaps"
+    associate_debts: "Associate debts"
+    associate_locked_debts: "Associate locked debts"
+    associate_receivables: "Associate receivables"
     associated_sale: "Associated sale"
     assuming_you_want_to_close_a_financial_year_in_the_future: "Assuming you want to close a financial year in the future, you will have to provide an opening balance sheet."
     at: "at"
@@ -1386,8 +1534,8 @@ eng:
     attachment: "Attachment"
     attachments: "Attachments"
     authorized: "Authorized"
-    automatic: "Auto" #?
-    auxiliary: "Auxiliary" #?
+    automatic: "Auto"
+    auxiliary: "Auxiliary"
     available: "Available"
     available_area: "Available area"
     available_columns: "Available columns: %{columns}"
@@ -1397,113 +1545,115 @@ eng:
     balance_allocated_to_retained_earnings: "Budget allocation - Balance allocated to retained earnings"
     balance_of_selection: "Balance of selection"
     balance_of_the_income_statement: "Budget allocation - balance of the income statement"
-    balanced: "Balanced" #?
+    balanced: "Balanced"
     balanced_balance_sheet: "The balance sheet is balanced."
     bank_account: "Bank account"
-    bank_check_number: " no. %{number}" #?
-    bank_check_number_text: "Check no. %{number}" #?
+    bank_check_number: " no. %{number}"
+    bank_check_number_text: "Check no. %{number}"
     bank_guarantees: "Bank guarantees"
-    bank_statement_number: "Bank statement number" #?
-    bank_statements: "Bank statements" #?
+    bank_statement_number: "Bank statement number"
+    bank_statements: "Bank statements"
     based_on_current_regulation: "Verifications based on current regulation"
     based_on_regulation_at_date: "Verifications based on regulation in effect at %{date}"
-    bban: "Basic Bank Account Number (BBAN)" #?
+    bban: "Basic Bank Account Number (BBAN)"
+    # bee_usage: "Bee usage"
     before_taxe_result: "Before taxe result"
     beginning: "Beginning"
     beta: "Beta feature"
     beta_description: "This feature is currently under development and as such its results should not be taken at face value."
+    # biocontrol_usage: "Biocontrol usage"
     body: "Body of the message"
-    bookkeep: "Bookkeep" #?
-    bookkeep_with_payment: "Bookkeep with payment" #?
+    bookkeep: "Bookkeep"
+    bookkeep_with_payment: "Bookkeep with payment"
     budget: "Budget"
     budget_per_working_indicator: "Budget per working indicator"
-    budgets: "Budgets" #?
-    building_zones: "Building zones" #?
-    by_account_fixed_assets: "Fixed assets by account on %{to}" #??
+    budgets: "Budgets"
+    building_zones: "Building zones"
+    by_account_fixed_assets: "Fixed assets by account on %{to}"
     by_year: "By year"
-    calculate: "Calculate" #?
+    calculate: "Calculate"
     calculated_hours: "Calculated hours"
-    calculators: "Calculators" #?
+    calculators: "Calculators"
     calendar: "Calendar"
     campaign: "Campaign"
-    canals: "Canals" #?
+    canals: "Canals"
     cancel: "Cancel"
     cancelation: "Cancelation"
     cannot_be_mixed_with: "Cannot be mixed with the product %{phyto}"
     cannot_be_mixed_with_any_product: "Cannot be mixed with any other product"
     cap_islets: "CAP islets"
     cap_land_parcels: "CAP land parcels"
-    capitalised_production: "Capitalised production" #?
+    capitalised_production: "Capitalised production"
     capitals: "Capitals"
-    capitals_anew_reports: "capitals_anew_reports" #?
-    capitals_derogatory_depreciations: "capitals_derogatory_depreciations" #?
-    capitals_emissions: "capitals_emissions" #?
-    capitals_investment_subsidies: "capitals_investment_subsidies" #?
-    capitals_liability_reserves: "capitals_liability_reserves" #?
-    capitals_mandatory_provisions: "capitals_mandatory_provisions" #?
-    capitals_profit_or_loss: "capitals_profit_or_loss" #?
-    capitals_risk_and_charges_provisions: "capitals_risk_and_charges_provisions" #?
-    capitals_values: "capitals_values" #?
+    capitals_anew_reports: "capitals_anew_reports"
+    capitals_derogatory_depreciations: "capitals_derogatory_depreciations"
+    capitals_emissions: "capitals_emissions"
+    capitals_investment_subsidies: "capitals_investment_subsidies"
+    capitals_liability_reserves: "capitals_liability_reserves"
+    capitals_mandatory_provisions: "capitals_mandatory_provisions"
+    capitals_profit_or_loss: "capitals_profit_or_loss"
+    capitals_risk_and_charges_provisions: "capitals_risk_and_charges_provisions"
+    capitals_values: "capitals_values"
     carcinogen_mutagenic_toxic_for_reproduction: "Carcinogen, mutagenic, toxic for reproduction"
     cartography: "Cartography"
     cash: "Cash"
     cash_balance: "Cash balance"
     cash_variations: "Cash variations"
-    cashe_debts: "Cashe debts" #?
-    cashes_balance: "Cashes balance" #?
+    cashe_debts: "Cashe debts"
+    cashes_balance: "Cashes balance"
     cashes_balance_evolution: "Cashes balance evolution"
-    casting: "Casting" #?
-    casts: "Casts" #?
-    catalog: "Catalog" #?
+    casting: "Casting"
+    casts: "Casts"
+    catalog: "Catalog"
     catalog_items: "Catalog items"
     category: "Category"
     # category_of_product: "Category of product"
     # cell: "Cell"
-    centralize: "Centralize account" #?
+    centralize: "Centralize account"
     centralized_account: "Centralized account %{name}"
     centralizing_account: "Centralizing account"
     centralizing_accounts: "Centralizing accounts"
     centralizing_journal: "Centralizing journal"
-    change: "Change" #?
+    change: "Change"
     change_password: "Change password"
     change_state: "Change state"
     change_status_of_selected_interventions: "Change the status of selected interventions"
-    charge_value: "Charge value" #?!
+    charge_value: "Charge value"
     charges: "Charges"
-    charges_total: "Charge total" #?
+    charges_total: "Charge total"
     chart: "Chart"
-    check: "Check" #?
+    check: "Check"
     check_letter: "Check letter"
     check_usage_conditions: "Check usage conditions"
-    check_x_entries_to_balance: #?!
-      one: "Check entry to balance (%{count})" #?!
-      other: "Check entries to balance (%{count})" #?!
+    check_x_entries_to_balance:
+      one: "Check entry to balance (%{count})"
+      other: "Check entries to balance (%{count})"
     children: "Children"
     choices: "Choices"
     choose_a_type_of_product: "Choose a type of product"
-    choose_creation_mode: "Choose creation mode" #?!
+    choose_creation_mode: "Choose creation mode"
     choose_delete_interventions_options: "Would you :"
     choose_mail_column: "Choose email column"
     choose_options_is_needed: "You must choose the status for the following interventions:"
     clear: "Clear"
     click_the_button_below_to_record_a_new_transaction: "Click the button below to be redirected to the new transaction form."
     click_to_mail: "Click to email with your own mail software"
-    client: "Client" #?
+    client: "Client"
     client_informations: "Client informations"
-    client_receivables: "Client receivables" #?
-    clients: "Clients" #?
+    client_receivables: "Client receivables"
+    clients: "Clients"
     close: "Close"
-    close_carry_forward: "Generating carrying forward entries" #?
+    close_carry_forward: "Generating carrying forward entries"
     close_financial_year: "Close %{code}"
     close_financial_year_exchange_before_preparing_for_closure: "You won't be able to begin the closure process for this financial year until you have closed the current exchange in place."
     close_journal: "Close the journal"
-    close_result_entry: "Generating result entries" #?
+    close_result_entry: "Generating result entries"
     close_settings: "Close settings"
     close_the_financial_year: "Close the financial year"
     closed: "Closed"
     closure_failed_because_balance_sheet_unbalanced: "Closure failed because the balance sheet is not balanced."
     clouds: "Clouds"
-    cobbles: "Cobbles" #?
+    cobbles: "Cobbles"
     column: "Column"
     columns: "Columns to import"
     combustion_agents: "Combustion agents"
@@ -1514,7 +1664,7 @@ eng:
     compare_planned_and_realised: "Compare planned and done"
     completed: "Completed"
     # components: "Components"
-    compute_balances: "Computing balances" #?
+    compute_balances: "Computing balances"
     conditions:
       filter_on_attribute_of_class: "Filter on attribute of class"
       special-subscriber: "Special-subscriber"
@@ -1524,14 +1674,14 @@ eng:
     confirmation_update_historical_plans: "Confirmation update historical plans"
     # confirmed: "Confirmed"
     connect: "Connect"
-    consult_the_day_book: #?
-      one: "Consult the day book (%{count} entry)" #?
-      other: "Consult the day book (%{count} entries)" #?
-      zero: "Consult the day book (%{count} entry)" #?
-    consult_unbalanced_entries: #?
-      one: "Consult the unbalanced entry" #?
-      other: "Consult unbalanced entries (%{count})" #?
-    consume: "Consume" #?
+    consult_the_day_book:
+      one: "Consult the day book (%{count} entry)"
+      other: "Consult the day book (%{count} entries)"
+      zero: "Consult the day book (%{count} entry)"
+    consult_unbalanced_entries:
+      one: "Consult the unbalanced entry"
+      other: "Consult unbalanced entries (%{count})"
+    consume: "Consume"
     contact_support_to_delete_production: "To delete this production, please contact us with the chat."
     contained_products: "Contained products"
     container: "Container"
@@ -1541,20 +1691,20 @@ eng:
     convert_into_organization: "Convert into organization"
     convert_to_cultivable_zone: "Convert to cultivable zone"
     cooperative_cartodb: "Cooperative CartoDB"
-    coordinates: "Coordinates" #?
+    coordinates: "Coordinates"
     copy_from_another_activity: "Copy from another activity"
-    copy_from_previous_campaign: "Copy from previous campaign" #?!
+    copy_from_previous_campaign: "Copy from previous campaign"
     copy_of: "Copy of %{source}"
     copy_previous_budget: "Copy previous budget"
     corporeal_assets: "Corporeal assets"
-    corporeal_assets_advances: "Advances" #?
-    corporeal_assets_buildings: "Buildings" #?
-    corporeal_assets_enhancement: "Enhancement" #?
-    corporeal_assets_equipments: "Equipments" #?
-    corporeal_assets_in_progress: "In progress" #?
-    corporeal_assets_land_parcels: "Land parcels" #?
-    corporeal_assets_others: "Others" #?
-    corporeal_assets_settlements: "Settlements" #?
+    corporeal_assets_advances: "Advances"
+    corporeal_assets_buildings: "Buildings"
+    corporeal_assets_enhancement: "Enhancement"
+    corporeal_assets_equipments: "Equipments"
+    corporeal_assets_in_progress: "In progress"
+    corporeal_assets_land_parcels: "Land parcels"
+    corporeal_assets_others: "Others"
+    corporeal_assets_settlements: "Settlements"
     corrosive_skin_and_mucosa_risks_of_severe_burns: "Corrosive skin and mucosa, risks of severe burns"
     corrosive_substances: "Corrosive substances"
     cost: "Cost"
@@ -1562,7 +1712,7 @@ eng:
     costs: "Costs"
     costs_per_hectare: "Costs per hectare"
     could_not_attach_x_or_y_to_affair: "Could not attach %{trade} or %{payment} to affair."
-    countings: "Countings" #?
+    countings: "Countings"
     counts: "Counts"
     counts_by_nature: "Number of documents to account per type"
     create: "Create"
@@ -1574,52 +1724,54 @@ eng:
     create_or_import_interventions: "Create or import interventions"
     create_or_import_workers: "Create or import workers"
     # create_shipment: "Create shipment"
-    created_at: "Created on" #?
+    created_at: "Created on"
     created_at_by: "Created at %{at} by %{author}"
     created_between: "Created between %{started_at} and %{stopped_at}"
     created_by_ago: "Created by %{author} %{when}"
-    credit: "Credit" #?
-    credit_account_balance: "Credit balance: %{value}€" #?
+    credit: "Credit"
+    credit_account_balance: "Credit balance: %{value}€"
     credit_balance: "110 - Profit carried forward"
-    credited_quantity: "Quantity to credit" #?
+    credited_quantity: "Quantity to credit"
     credits: "Credits"
     cropping_plan: "Cropping plan"
     cropping_plan_on_cultivable_zones: "Cropping plan on cultivable zones"
     crops: "Crops"
-    crumbs: "Crumbs" #?
-    cultivable_zone: "Cultivable zone" #?
-    cultivable_zones: "arable areas" #?
-    cultivated_hectare_costs: "Cultivated hectare costs" #?
-    cumul: "Accumulation of tattle and previous balance N°%{number}" #?
-    currency: "Currency" #?
+    crumbs: "Crumbs"
+    cultivable_zone: "Cultivable zone"
+    cultivable_zones: "arable areas"
+    cultivated_hectare_costs: "Cultivated hectare costs"
+    cumul: "Accumulation of tattle and previous balance N°%{number}"
+    currency: "Currency"
     currency_conversion_rate: "Currency conversion rate"
     current: "Current"
     current_accounts: "455 - Partners/associates - Current accounts"
-    current_assets: "Current assets" #??
+    current_assets: "Current assets"
     current_cultivation: "Current cultivation"
-    current_result_before_taxe: "Current result before taxe" #?!
+    current_result_before_taxe: "Current result before taxe"
     current_stock: "Current stock"
-    current_stocks_by_variety: "Current stocks by variety" #?
+    current_stocks_by_variety: "Current stocks by variety"
     currently_subscribed_to: "Currently subscribed to"
     custom_fields: "Custom fields"
     # data: "Data"
     # data_transmissions: "Data transmissions"
+    database_version: "Database Version"
     # date: "Date"
     date_range: "%{from} to %{to}"
     dated_cash: "%{cash}: %{on}"
-    dates: "Select period start date and Period end date" #?
+    dates: "Select period start date and Period end date"
+    # day: "Day"
     days: "Days"
     deals: "Deals"
-    debit: "Debit" #?
-    debit_account_balance: "Debit balance: %{value}€" #?
-    debts: "Debts"
-    debts_associate_locked_debts: "debts_associate_locked_debts" #?
+    debit: "Debit"
+    debit_account_balance: "Debit balance: %{value}€"
     debit_balance: "119 - Loss carried forward"
-    debts_cashe_debts: "debts_cashe_debts" #?
-    debts_land_parcel_loans: "debts_land_parcel_loans" #?
-    debts_on_assets: "Debts on assets %{financial_year}" #?!
-    debts_other_financial_debts: "debts_other_financial_debts" #?
-    debts_others_loans: "debts_others_loans" #?
+    debts: "Debts"
+    debts_associate_locked_debts: "debts_associate_locked_debts"
+    debts_cashe_debts: "debts_cashe_debts"
+    debts_land_parcel_loans: "debts_land_parcel_loans"
+    debts_on_assets: "Debts on assets %{financial_year}"
+    debts_other_financial_debts: "debts_other_financial_debts"
+    debts_others_loans: "debts_others_loans"
     decision_making: "Decision-making"
     deduction_from_distribution: "4423 - Deductions and levies on distributions"
     default_letter_conclusion: "Please accept, Dear Madam, Dear Sir, the assurances of my highest consideration."
@@ -1627,33 +1779,33 @@ eng:
     default_letter_introduction: "Following our conversation, I give you the elements of the estimate."
     default_subject: "[%{company}]"
     definition: "Definition"
-    deformity: "Deformity" #?
+    deformity: "Deformity"
     deformity_percentage: "Deformity (%)"
     deformity_percentage_evolution: "Deformity percentage evolution"
     delay: "Delay"
     delete: "Delete"
-    delete_only_record: "Or only delete the selected intervention(s) and display the request associate ?" #?
-    delete_request: "Delete also the request associate to the selected intervention(s)" #?
+    delete_only_record: "Or only delete the selected intervention(s) and display the request associate ?"
+    delete_request: "Delete also the request associate to the selected intervention(s)"
     delete_selected_interventions: "Delete the selected interventions"
-    delete_x_entries: #?
-      one: "Delete %{count} entry" #?
-      other: "Delete %{count} entries" #?
+    delete_x_entries:
+      one: "Delete %{count} entry"
+      other: "Delete %{count} entries"
     delete_x_financial_years_without_entry:
       one: "Delete the financial year without entry %{financial_year_code}"
       other: "Delete the %{count} financial years without entry from %{first_financial_year_code} to %{last_financial_year_code}"
-    deliver: "Delivered on" #?
+    deliver: "Delivered on"
     deliveries: "Deliveries"
-    delivery: "Delivery" #?
+    delivery: "Delivery"
     # delivery_mode: "Delivery mode"
     delta: "+/-"
     deposit: "Deposit"
     depositable_options: "Deposit options"
-    deposits: "Deposits" #?
+    deposits: "Deposits"
     depreciation: "Depreciation"
     depreciations: "Depreciations"
-    depreciations_inputations_expenses: "Depreciations inputations expenses" #?
+    depreciations_inputations_expenses: "Depreciations inputations expenses"
     derogatory_depreciation_explanation: "Ekylibre doesn't handle derogatory depreciations"
-    derogatory_depreciations: "Derogatory depreciations" #?
+    derogatory_depreciations: "Derogatory depreciations"
     description: "Description"
     destroy: "Destroy"
     destroyed_at_by: "Destroyed at %{at} by %{author}"
@@ -1662,9 +1814,9 @@ eng:
     details: "Details"
     development_stage: "Phenological stage"
     # direct_expenses: "Direct expenses"
-    discount: "Discount (%)" #?
+    discount: "Discount (%)"
     discount_without_percent: "Discount"
-    disease: "Disease" #?
+    disease: "Disease"
     disease_deformity_percentage: "Disease and deformity percentage"
     disease_percentage: "Disease (%)"
     disease_percentage_evolution: "Disease percentage evolution"
@@ -1672,34 +1824,34 @@ eng:
     display_accounts: "Display accounts"
     display_n_1: "Display N-1"
     distribute_unaffected_products: "Distribute unaffected products"
-    distributions: "Distributions" #?
+    distributions: "Distributions"
     divide: "Divide"
     dividende_payable: "457 - Partners/associates - Dividends payable"
     division: "Division"
     divisions: "Divisions"
-    document: "Document" #?
-    document_natures: "Document types" #?
-    document_templates: "Document templates" #?
+    document: "Document"
+    document_natures: "Document types"
+    document_templates: "Document templates"
     documentation: "Documentation"
     doer_cost: "Doer cost"
-    done: "Done" #?
+    done: "Done"
     dont_generate_carrying_forward_entries: "— Do not generate carrying forward entries —"
     dont_generate_closure_entries: "— Do not generate closure entries —"
     dont_generate_result_entries: "— Do not generate result entries —"
-    dont_use_journal: "— Do not use journal —" #?!
+    dont_use_journal: "— Do not use journal —"
     # dose: "Dose"
     dose_bigger_than_max: "Dose bigger than max"
     dose_equal_to_max: "Dose equal to max"
     dose_less_than_max: "Dose less than max"
-    down: "Down" #?
+    down: "Down"
     download: "Download"
     download_archive: "Download archive (ZIP)"
     downpayment: "Downpayment"
-    draft: "Draft" #?
-    draft_entries_to_validate: "There are draft entries to validate" #?!
-    draft_fixed_asset_on_current_financial_year: "There are remaining draft or standing-by fixed assets, you will no longer be able to put them in use on this financial year once it has been closed." #?!
-    draft_loan_on_current_financial_year: "You have draft loans ongoing. Once the financial year closed, it won't be possible to enter them into service on this financial year (%{code})." #?!
-    draft_vat_declaration: "Pending VAT declaration" #?!
+    draft: "Draft"
+    draft_entries_to_validate: "There are draft entries to validate"
+    draft_fixed_asset_on_current_financial_year: "There are remaining draft or standing-by fixed assets, you will no longer be able to put them in use on this financial year once it has been closed."
+    draft_loan_on_current_financial_year: "You have draft loans ongoing. Once the financial year closed, it won't be possible to enter them into service on this financial year (%{code})."
+    draft_vat_declaration: "Pending VAT declaration"
     driver: "Driver"
     due_date: "Due date"
     duplicate: "Duplicate"
@@ -1713,42 +1865,43 @@ eng:
     edit: "Edit"
     edit_budget: "Edit budget"
     edition_date: "Edition date"
-    ekylibre: "www.ekylibre.org" #?
+    ekylibre: "www.ekylibre.org"
+    ekylibre_version: "Ekylibre version"
     elapsed_interventions_times_by_activities: "Elapsed interventions times by activities"
     element_status: "Status"
-    email: "Email:" #?
-    emissions_and_reevaluation_gaps: "Emissions and reevaluation gaps" #?
-    employee_and_wages: "Employee and wages" #?!
+    email: "Email:"
+    emissions_and_reevaluation_gaps: "Emissions and reevaluation gaps"
+    employee_and_wages: "Employee and wages"
     employee_informations: "Employee informations"
-    employee_involvement: "Employee involvement in results (VII)" #?
-    end: "to" #?
+    employee_involvement: "Employee involvement in results (VII)"
+    end: "to"
     entities: "Entities"
-    entities_advance_charges: "entities_advance_charges" #?
-    entities_advance_giveables: "entities_advance_giveables" #?
-    entities_assets_gaps: "entities_assets_gaps" #?
-    entities_associate_receivables: "entities_associate_receivables" #?
-    entities_client_receivables: "entities_client_receivables" #?
-    entities_investment_security: "entities_investment_security" #?
-    entities_other_receivables: "entities_other_receivables" #?
-    entities_others_clients: "entities_others_clients" #?
-    entities_reserve: "entities_reserve" #?
-    entities_state_receivables: "entities_state_receivables" #?
-    entity_links: "Entity links" #?
+    entities_advance_charges: "entities_advance_charges"
+    entities_advance_giveables: "entities_advance_giveables"
+    entities_assets_gaps: "entities_assets_gaps"
+    entities_associate_receivables: "entities_associate_receivables"
+    entities_client_receivables: "entities_client_receivables"
+    entities_investment_security: "entities_investment_security"
+    entities_other_receivables: "entities_other_receivables"
+    entities_others_clients: "entities_others_clients"
+    entities_reserve: "entities_reserve"
+    entities_state_receivables: "entities_state_receivables"
+    entity_links: "Entity links"
     entity_to_delete: "Person to delete"
     entity_to_update: "Person to update"
-    entries: "Entries" #?
-    entries_to_balance: "Entries to balance" #?
-    entries_to_point: "Entries pointing to" #?!
-    entry_item_label: "Entry item label" #?
-    entry_items: "Entry items" #?
-    entry_resource_label: "Record" #?
+    entries: "Entries"
+    entries_to_balance: "Entries to balance"
+    entries_to_point: "Entries pointing to"
+    entry_item_label: "Entry item label"
+    entry_items: "Entry items"
+    entry_resource_label: "Record"
     environment_h4: "Environment H4"
     equipment: "Equipment"
-    equipment_name: "Name of equipment" #?
+    equipment_name: "Name of equipment"
     equipment_natures: "Equipments"
     equipment_variants_specie_variety: "Brand / Model"
     equipments: "Equipment"
-    equities: "Equities" #?!
+    equities: "Equities"
     error: "Sorry..."
     # error_message_html: "Error message html"
     error_no_file: "No help is available for this part of the application (%{article}). Help has not yet been written. You can visit online website for more information."
@@ -1763,47 +1916,47 @@ eng:
     evaluated_tool_cost: "Evaluated tool cost"
     events: "Events"
     evolution: "Evolution"
-    example: "Example: %{value}" #?
-    exceptional_expenses: "Exceptional expenses" #?
-    exceptional_expenses_on_assets_cessions: "Exceptional expenses on assets cessions" #?
-    exceptional_expenses_on_capital_operations: "Exceptional expenses on capital operations" #?
-    exceptional_expenses_on_management_operations: "Exceptional expenses on management operations" #?
-    exceptional_expenses_on_provisions: "Exceptional expenses on provisions" #?
-    exceptional_products: "Exceptional products" #?
-    exceptional_products_on_assets_cessions: "Exceptional products on assets cessions" #?
-    exceptional_products_on_capital_operations: "Exceptional products on capital operations" #?
-    exceptional_products_on_management_operations: "Exceptional products on management operations" #?
-    exceptional_products_on_provisions: "Exceptional products on provisions" #?
+    example: "Example: %{value}"
+    exceptional_expenses: "Exceptional expenses"
+    exceptional_expenses_on_assets_cessions: "Exceptional expenses on assets cessions"
+    exceptional_expenses_on_capital_operations: "Exceptional expenses on capital operations"
+    exceptional_expenses_on_management_operations: "Exceptional expenses on management operations"
+    exceptional_expenses_on_provisions: "Exceptional expenses on provisions"
+    exceptional_products: "Exceptional products"
+    exceptional_products_on_assets_cessions: "Exceptional products on assets cessions"
+    exceptional_products_on_capital_operations: "Exceptional products on capital operations"
+    exceptional_products_on_management_operations: "Exceptional products on management operations"
+    exceptional_products_on_provisions: "Exceptional products on provisions"
     exceptional_result: "Exceptional result"
     exchange: "Exchange"
     exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     exchanges: "Exchanges"
-    exchanges_to_close: "There is at least one exchange to close: " #?
+    exchanges_to_close: "There is at least one exchange to close: "
     # executed: "Executed"
-    exercice_production: "Exercice production" #?!
-    exercice_result: "Exercice result" #?!
+    exercice_production: "Exercice production"
+    exercice_result: "Exercice result"
     exercice_result_allocation: "Allocation of profit for the year"
-    existing: "Existing" #?
+    existing: "Existing"
     expected_quantity_is_x: "Expected quantity: %{x}"
     expedier: "Expedier"
     expenses: "Expenses"
-    expenses_by_product_nature_category: "Expenses by product nature category" #?
-    expired_since: "Expired since" #?
-    expired_within: "Expired within" #?
-    exploitation_result: "Exploitation result" #?
-    exploitation_results: "Exploitation results" #?!
+    expenses_by_product_nature_category: "Expenses by product nature category"
+    expired_since: "Expired since"
+    expired_within: "Expired within"
+    exploitation_result: "Exploitation result"
+    exploitation_results: "Exploitation results"
     explosive_substances: "Explosive substances"
-    export: "Export documents" #?
+    export: "Export documents"
     export_as_csv: "Export as CSV"
     export_as_ods: "Export as ODS"
     export_as_odt: "Export as ODT"
     export_as_pdf: "Export as PDF"
     export_as_xcsv: "Export as Excel CSV"
     export_balance_sheet: "Export balance sheet"
-    export_centralizing_journal: "Export centralizing journal"
     export_by_account_fixed_asset_registry: "Fixed assets by account"
-    export_gain_and_loss_fixed_asset_registry: "Added values and capital losses"
+    export_centralizing_journal: "Export centralizing journal"
     export_fixed_asset_registry: "Fixed assets"
+    export_gain_and_loss_fixed_asset_registry: "Added values and capital losses"
     export_income_statement: "Export income statement"
     export_text_fec_all: "Export FEC corporate tax (Text)"
     export_text_fec_ba_bnc_ir_commercial_accountancy: "Export FEC for agriculture and professional operations income taxation commercial accountancy (Text)"
@@ -1819,51 +1972,51 @@ eng:
     # extract_non_letter_pdf: "Extract non letter pdf"
     extract_unlettered_account_x: "Extract unlettered account %{account_number}"
     extraordinary_income: "Extraordinary income"
-    fees: "Fees" #?
+    fees: "Fees"
     fertilizers: "Fertilizers"
-    field: "Field %{counter}" #?
+    field: "Field %{counter}"
     field_distribution: "Field distribution"
     file_nature: "File type"
-    file_preview: "Preview" #?
+    file_preview: "Preview"
     file_to_upload: "File to upload"
     file_trimming: "File trimming :"
     filter: "Filter"
     filter_on: "Filter on"
     final_balance: "Final balance"
-    financial_asset_dotations: "Financial asset dotations" #?
+    financial_asset_dotations: "Financial asset dotations"
     financial_assets: "Financial assets"
-    financial_assets_others: "Others" #?
-    financial_assets_participations: "Participations" #?
-    financial_assets_participations_debts: "Participations debts" #?
-    financial_debts: "Financial debts" #?
-    financial_depreciations: "Financial depreciations" #?
-    financial_expenses: "Financial expenses" #?
-    financial_interests_and_charges: "Financial interests and charges" #?
-    financial_negative_change: "Financial negatice change" #?
-    financial_net_cession_debts: "Financial net cession debts" #?
-    financial_net_cession_values: "Financial net cession values" #?
-    financial_others_interests: "Financial others interests" #?
-    financial_participations: "Financial participations" #?
-    financial_positive_change: "Financial positive change" #?
-    financial_products: "Financial products" #?
-    financial_result: "Financial result" #?
+    financial_assets_others: "Others"
+    financial_assets_participations: "Participations"
+    financial_assets_participations_debts: "Participations debts"
+    financial_debts: "Financial debts"
+    financial_depreciations: "Financial depreciations"
+    financial_expenses: "Financial expenses"
+    financial_interests_and_charges: "Financial interests and charges"
+    financial_negative_change: "Financial negatice change"
+    financial_net_cession_debts: "Financial net cession debts"
+    financial_net_cession_values: "Financial net cession values"
+    financial_others_interests: "Financial others interests"
+    financial_participations: "Financial participations"
+    financial_positive_change: "Financial positive change"
+    financial_products: "Financial products"
+    financial_result: "Financial result"
     financial_result_iii_iv: "Financial result (III - IV)"
     financial_year: "Financial year"
     financial_year_close_message: "<p> The close will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. </p>"
     financial_year_closing: "Financial year closure in progress"
     financial_year_closure_in_preparation_initiated_by_someone_else: "Closure of %{code} in preparation, you can't edit entries related to this financial year anymore."
     financial_year_closure_in_preparation_initiated_by_you: "Closure of %{code} in preparation, you're the only person able to edit entries related to this financial year."
-    financial_year_lock_message: "<p> The lock will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. <br/> You will need to get in contact the person who did the close out of the software to get back your year-end documents. </p>" #?!
+    financial_year_lock_message: "<p> The lock will definitively validate all entries of the financial year, which may not be modified or deleted. It will not be possible to add new ones too. <br/> You will need to get in contact the person who did the close out of the software to get back your year-end documents. </p>"
     financial_year_needed: "All commercial and financial operations need to be accounted on an opened financial year. Please open a financial year for the current period or ask a manager"
     financial_year_results: "Financial year results : %{results}"
     financial_year_warning: "<p> If the financial year is not closed or locked before the %{last_financial_year_end_date}, you will not be able to open a financial year on %{new_financial_year_start_date}. Indeed, it is not possible to have more than 2 financial years opened simultaneously. Furthermore, it is necessary to have an opened financial year on the ongoing date to input commercial and financial operations. <br/> If you don't manage your accountacy with Ekylibre, you have the possibility to lock your financial year. <br/> Attention : locked financial years can't be modified like a closed financial year."
     # financials_assets: "Financials assets"
     fingerprint_sha256: "Fingerprint (SHA256)"
-    finish: "Finish" #?
+    finish: "Finish"
     finished: "Finished"
     first_check_number: "Number of the first check"
     first_line_as_title: "First line as title"
-    fixed_asset_debts: "Fixed asset debts" #?
+    fixed_asset_debts: "Fixed asset debts"
     fixed_asset_depreciations: "Fixed asset depreciations"
     fixed_asset_depreciations_not_accounted_on_current_financial_year: "Fixed asset depreciations not accounted on current financial year"
     fixed_asset_successfully_associated_to_sale: "The fixed asset has been successfully associated to the sale. Click the 'Sold' button to proceed."
@@ -1871,84 +2024,85 @@ eng:
     flammable_agents: "Flammable agents"
     forbidden: "Unauthorized"
     forecast_harvest_week: "Forecast harvest week"
+    # france_maaid: "France maaid"
     from: "From"
-    from_to_date: "from %{from} to %{to}" #?
+    from_to_date: "from %{from} to %{to}"
     fruit_yield: "Fruit yield"
-    fullscreen: "Fullscreen"
     full_name: "Full name"
+    fullscreen: "Fullscreen"
     function: "Function"
-    fungi: "Fungi" #?
+    fungi: "Fungi"
     future_events: "Future events"
     future_year_credit_balance: "110 - Profit carried forward"
     future_year_debit_balance: "119 - Loss carried forward"
-    gain_and_loss_fixed_assets: "Gains and losses on %{to}" #?!
+    gain_and_loss_fixed_assets: "Gains and losses on %{to}"
     genealogy: "Genealogy"
-    general: "General" #?
-    general_fixed_assets: "Fixed assets on %{to}" #?!
+    general: "General"
+    general_fixed_assets: "Fixed assets on %{to}"
     general_informations: "General informations"
     general_ledger: "General ledger"
     general_total: "General total"
     generate: "Generate"
-    generate_documents_post_closure: "Generating mandatory documents post closure" #?
-    generate_documents_prior_to_closure: "Generating mandatory documents prior to closure" #?
+    generate_documents_post_closure: "Generating mandatory documents post closure"
+    generate_documents_prior_to_closure: "Generating mandatory documents prior to closure"
     generate_last_journal_entry: "Generate last journal entry"
     generate_parcel: "Generate parcel"
-    generate_repayments: "Pass bookkeeping" #?
-    geolocation: "Geolocation" #?
-    global_costs: "Global costs" #?
+    generate_repayments: "Pass bookkeeping"
+    geolocation: "Geolocation"
+    global_costs: "Global costs"
     global_preferences: "Global preferences"
-    go: "Go" #?
+    go: "Go"
     go_back_to_financial_year_details: "Go back to financial year details"
-    gradings: "Gradings" #?
-    grain_yield: "Grain yield" #?
+    gradings: "Gradings"
+    grain_yield: "Grain yield"
     grains_yield: "Grains yield"
-    grass_yield: "Grass yield" #?
+    grass_yield: "Grass yield"
     gross_profit: "Gross profit"
-    group: "Group" #?
+    group: "Group"
     group_by_centralizing_accounts: "Group by centralizing accounts"
     groups: "Groups"
     # gtin: "Gtin"
     guide_evolution: "Guide evolution"
     harvested_area: "Harvested area"
-    harvested_at: "Harvested at" #?
+    harvested_at: "Harvested at"
     health_h3: "Health H3"
     help: "Help"
     help_center: "Help center"
     hide_lettered_lines: "Hide lettered lines"
-    hint: "Hint: %{value}" #?
-    historic: "Historic" #?
+    hint: "Hint: %{value}"
+    historic: "Historic"
     home: "Home"
     # horizontal_timeline: "Horizontal timeline"
-    hour: "Hour" #?
+    hour: "Hour"
     hour_counter: "Hour counter"
-    hours: "H" #?
+    hours: "H"
     hours_label: "Hours"
-    human_working_duration: "Working duration" #?
+    human_working_duration: "Working duration"
     humans: "HR"
     humidity: "Humidity"
-    iban: "International Bank Account Number (IBAN)" #?
+    iban: "International Bank Account Number (IBAN)"
     identification: "Identification"
     identifiers: "Identifiers"
     if_closed_environment: "if closed environment"
     illness: "Illness"
-    implanted_at: "Implanted at" #?
+    implanted_at: "Implanted at"
     import: "Import"
     import_incoming_payments: "Import incoming payments"
     import_sales: "Import sales"
     importation_explanation: "Importation explanation"
-    in_progress: "In progress" #?
-    inactive: "Inactive" #?
-    include_blank: "Include blank" #?
+    in_progress: "In progress"
+    inactive: "Inactive"
+    include_blank: "Include blank"
     including_vat: "incl. VAT"
-    income_statement: "Income Statement" #?
+    income_statement: "Income Statement"
     incoming_parcels: "Incoming parcels"
-    incoming_payment: "Incoming payment" #?
+    incoming_payment: "Incoming payment"
     incoming_payments: "Incoming payments"
-    incoming_payments_to_deposit: "Incoming payments to deposit" #?
+    incoming_payments_to_deposit: "Incoming payments to deposit"
     incorporeal_assets: "Incorporeal assets"
-    incorporeal_assets_advances: "Advances" #?
-    incorporeal_assets_creation_costs: "Creation costs" #?
-    incorporeal_assets_others: "Others" #?
+    incorporeal_assets_advances: "Advances"
+    incorporeal_assets_creation_costs: "Creation costs"
+    incorporeal_assets_others: "Others"
     indicative_group_size: "Indicative group size"
     indicator: "Indicators"
     indicator_value: "Indicator value"
@@ -1956,15 +2110,15 @@ eng:
     indicators_evolutions: "Indicators evolutions"
     # indirect_expenses: "Indirect expenses"
     individual_capital: "101 - Individual capital"
-    info: "General parameters" #?
+    info: "General parameters"
     # informations: "Informations"
-    infos: "Product and quantity" #?
+    infos: "Product and quantity"
     infos_usage: "Usage informations"
     initial_balance_of_bank_statement: "Initial balance of bank statement"
     input_cost: "Input cost"
     inputs: "Inputs"
     inspections: "Inspections"
-    interactive_maps: "A JS library for interactive maps" #?!
+    interactive_maps: "A JS library for interactive maps"
     interface_preferences: "Interface preferences"
     internal_error: "Oops, something happened."
     interval: "Personalized interval"
@@ -1974,33 +2128,33 @@ eng:
     intervention_product_parameters: "Intervention casts"
     interventions: "Interventions"
     interventions_count: "Interventions count"
-    interventions_paths: "Interventions paths" #?
+    interventions_paths: "Interventions paths"
     intracommunautary_vat: "Intra-communautary VAT"
-    invalid_file: "Invalid file" #?
-    invalid_format: "Invalid format" #?
-    inventories: "Inventories" #?
+    invalid_file: "Invalid file"
+    invalid_format: "Invalid format"
+    inventories: "Inventories"
     inventory: "Inventory"
-    inventory_variations: "Inventory variations" #?
-    investment_security: "Investment security" #?
-    investment_subsidies: "Investment subsidies" #?
-    invitation_status: "Status" #?
-    invoice: "Invoice" #?
+    inventory_variations: "Inventory variations"
+    investment_security: "Investment security"
+    investment_subsidies: "Investment subsidies"
+    invitation_status: "Status"
+    invoice: "Invoice"
     invoice_date: "Invoice date"
     invoice_period: "Invoice period"
     invoice_status: "Invoice status"
     invoiced: "Invoiced"
-    invoices: "Invoices" #?
+    invoices: "Invoices"
     irreversible_operation: "This operation is irreversible"
     irritating_by_skin_contact_and_inhalation_severe_eyes_irritation: "Irritating by skin contact and inhalation, severe eyes irritation"
-    is: "Is" #?
-    is_equipment_set_as_inactive_by_intervention: "This intervention set the equipment as inactive ?" #?!
+    is: "Is"
+    is_equipment_set_as_inactive_by_intervention: "This intervention set the equipment as inactive ?"
     issue: "Issue"
     issues: "Issues"
     issues_count: "Issues count"
     item_concentration_per_hectare: "Item concentration per hectare"
     items: "Items"
     journal: "Journal"
-    journal_entries: "Journal's entries" #?
+    journal_entries: "Journal's entries"
     journal_entries_deletion_confirmation_message: "Once validated, you won't be able to edit or delete these entries. Are you sure you want to validate these entries ?"
     journal_entries_states: "States of entries"
     journal_entry_items: "Journal entry items"
@@ -2016,26 +2170,26 @@ eng:
     journal_entry_items_with_unidentified_revenues:
       one: "%{count} journal entry item with unidentified revenues"
       other: "%{count} journal entry items with unidentified revenues"
-    journal_name: "%{name}" #?
+    journal_name: "%{name}"
     journal_view:
       entries: "Entries"
       items: "Items of entries"
       mixed: "Entries and items"
     journals: "Journals"
-    journals_closure: "Closing journals" #?
+    journals_closure: "Closing journals"
     journals_natures: "Natures journals"
-    label: "Label" #?
+    label: "Label"
     label_value: "%{label}: %{value}"
     # land_parcel_name: "Land parcel name"
     land_parcels: "Land parcels"
     last_analyses: "Last milk analysis"
     last_bank_statement_stopped_on: "last bank statement stopped on"
-    last_computed_balance: "Last computed balance" #?
+    last_computed_balance: "Last computed balance"
     last_confirmation_before_definitive_close: "Last confirmation before definitive close"
     last_confirmation_before_definitive_lock: "Last confirmation before definitive lock"
-    last_documents: "Last documents" #?
+    last_documents: "Last documents"
     last_entities: "Last entities"
-    last_events: "Last events" #?
+    last_events: "Last events"
     last_incoming_parcels: "Last incoming parcels"
     last_inspection: "Last inspection"
     last_intervention: "Last intervention"
@@ -2044,50 +2198,51 @@ eng:
     last_movements: "Last movements"
     last_outgoing_parcels: "Last outgoing parcels"
     last_panier_local_import: "Last Panier Local import"
-    last_products: "Last products" #?
+    last_products: "Last products"
     last_purchases: "Last purchases"
     last_purchases_invoices: "Last purchases"
     last_purchases_orders: "Last orders"
     last_sales: "Last sales"
-    late: "Late" #?
+    late: "Late"
     late_delivery: "Late delivery"
-    # legal_dose: "Legal dose"
     left_to_allocate: "Remaining to allocate:"
+    # legal_dose: "Legal dose"
     legal_position_missing: "You should select the legal form of your company to be able to allocate your result."
     legal_reserves: "1061 - Legal reserve"
-    letter: "Letter" #?
+    letter: "Letter"
     letterable: "Letterable"
     lettered: "Lettered"
     lettering_state: "Lettering state"
-    liabilities: "Liabilities" #?
-    liabilities_gaps: "Liabilities gaps" #?
-    liability_reserves: "Liability reserves" #?
+    liabilities: "Liabilities"
+    liabilities_gaps: "Liabilities gaps"
+    liability_reserves: "Liability reserves"
     line_number: "Line #%{number}"
     linear_options: "Linear options"
     link: "Link"
     link_to_a_sale: "Link to a sale"
-    liquid_assets_on_turnover: "Liquid assets on turnover %{financial_year}" #?!
-    list: "List" #?
-    load: "Load" #?
+    liquid_assets_on_turnover: "Liquid assets on turnover %{financial_year}"
+    list: "List"
+    load: "Load"
     loan_repayments_not_accounted_on_current_financial_year: "Loan repayments not accounted on current financial year"
-    loans_debts: "Loans debts" #??
+    loans_debts: "Loans debts"
     locale: "Language"
-    localization: "Localization" #?
-    lock: "Lock" #?
+    localization: "Localization"
+    lock: "Lock"
     lock_financial_year: "Lock %{code}"
     lock_settings: "Lock settings"
     lock_the_financial_year: "Lock the financial year"
     locking_will_validate_every_journal_entries_for_this_financial_year: "Locking will definitively validate any journal entries related to the financial year, resulting in the impossibility to edit or delete them. As well as it will not be possible to add new ones."
     long_cycle_alive_products: "Long cycle alive products"
-    long_cycle_alive_products_animals: "Long cycle alive products animals" #?
-    long_cycle_alive_products_others: "Long cycle alive products others" #?
-    long_cycle_alive_products_plant_advance: "Long cycle alive products plant advance" #?
-    long_cycle_alive_products_plant_in_ground: "Long cycle alive products plant in ground" #?
-    long_cycle_alive_products_wine: "Long cycle alive products wine" #?
+    long_cycle_alive_products_animals: "Long cycle alive products animals"
+    long_cycle_alive_products_others: "Long cycle alive products others"
+    long_cycle_alive_products_plant_advance: "Long cycle alive products plant advance"
+    long_cycle_alive_products_plant_in_ground: "Long cycle alive products plant in ground"
+    long_cycle_alive_products_wine: "Long cycle alive products wine"
     loss_is_x_for_account: "<span class='loss'> Loss of %{x} </span> to account for the account %{account_number}"
-    losses: "Losses" #?
-    mail: "Send an email" #?
-    mailing: "Mailing" #?
+    losses: "Losses"
+    # maaid_not_provided: "Maaid not provided"
+    mail: "Send an email"
+    mailing: "Mailing"
     mails:
       one: "%{count} email"
       other: "%{count} emails"
@@ -2096,56 +2251,60 @@ eng:
     manage_activities: "Manage activities"
     manage_financial_years: "Manage financial years"
     manage_notifications: "Manage notifications"
-    mandatory_provisions: "Mandatory provisions" #?
-    manual: "Manual" #?
+    mandatory_provisions: "Mandatory provisions"
+    manual: "Manual"
     manual_period: "from %{start} to %{finish}"
     manure_management_plan_chart: "Manure management plan chart"
     map: "Map"
     map_preferences: "Map preferences"
     mark_all_as_read: "Mark all as read"
     mark_as_read: "Mark as read"
-    marketable_net_mass: "Marketable net mass" #?!
+    marketable_net_mass: "Marketable net mass"
     mask_draft_items: "Mask draft items"
     mask_lettered_items: "Mask lettered items"
-    mass: "Masse" #?
-    maximal_temperature: "Maximal temperature" #?!
+    mass: "Masse"
+    # max_dose_unit_not_handled: "Max dose unit not handled"
+    maximal_temperature: "Maximal temperature"
     maximum_amount: "Maximum amount"
     maximum_dose: "Maximum dose"
     members: "Members"
     menus: "Menus"
     merchandise: "Merchandise"
-    merchandises_purchases: "Merchandises purchases" #?
-    merchandises_purchases_stocks_variation: "Merchandises purchases stocks variation" #?
-    merchandises_services_costs: "Merchandises, services or costs" #?!
+    merchandises_purchases: "Merchandises purchases"
+    merchandises_purchases_stocks_variation: "Merchandises purchases stocks variation"
+    merchandises_services_costs: "Merchandises, services or costs"
     merge: "Merge"
-    method: "Method" #?
-    minimal_temperature: "Minimal temperature" #?!
+    merged_entity: |
+    Merged entity (ID=%{other}):
+
+    method: "Method"
+    minimal_temperature: "Minimal temperature"
     minimum_amount: "Minimum amount"
-    minutes: "Min" #?
-    missing_attributes: "Some attributes are missing" #?!
+    minutes: "Min"
+    missing_attributes: "Some attributes are missing"
     missing_help: "Missing page"
-    mobile: "Mobile" #?
-    mode: "Mode" #?
-    model: "Model" #?
-    modes: "Modes" #?
+    mobile: "Mobile"
+    mode: "Mode"
+    model: "Model"
+    modes: "Modes"
     month: "Month"
     month_period: "%{code} - %{month} %{year}"
-    monthly: "Monthly" #?
+    monthly: "Monthly"
     months: "Months"
     # more_details: "More details"
-    move_animal: "Move animals" #??
+    move_animal: "Move animals"
     movements: "Movements"
     n: "No"
     name: "Name"
     nature: "Type"
-    nature_changed: "Le type des animaux a changé" #?!
-    natures: "Types" #?
-    needed_quantity: "Needed quantity" #?!
-    net_income: "Net income" #?!
+    nature_changed: "Le type des animaux a changé"
+    natures: "Types"
+    needed_quantity: "Needed quantity"
+    net_income: "Net income"
     net_mass: "Net mass"
-    net_production_sales: "Net production sales" #?!
+    net_production_sales: "Net production sales"
     net_surface_area: "Net surface area"
-    neutral_area_category: "Neutral area category" #?
+    neutral_area_category: "Neutral area category"
     new: "New"
     new_activity: "New activity"
     new_animal: "New animal"
@@ -2184,245 +2343,246 @@ eng:
     new_writing: "New writing"
     next: "Next"
     next_application_possible_on: "Next application possible on"
-    nitrogen_concentration: "Nitrogen concentration" #?
+    nitrogen_concentration: "Nitrogen concentration"
     no_attachments: "Drop your files here or click on the button"
     no_crumbs_to_check: "No crumbs to check"
     no_data: "No data"
     no_deposits: "No deposits"
-    no_draft_entry: "No draft entry" #?
+    no_draft_entry: "No draft entry"
     no_financial_year_opened: "No financial year opened on current date"
     no_intervention_participations_to_check: "No intervention participations to check"
     no_new_notifications: "No new notifications"
     no_notifications: "No notifications"
-    no_particular_periods: "No particular period" #?
+    no_particular_periods: "No particular period"
     no_previous_closure_so_think_about_providing_carrying_forward_entry: "Think about adding a carrying forward entry for the previous financial year at the first day of the financial year you're about to close."
     no_products: "No products"
     no_results: "No results"
     no_right_defined_for_this_part_of_the_application: "No right defined for this part of the application (%{controller}#%{action})"
     no_right_defined_for_this_part_of_the_application_and_this_user: "No right defined for this part of the application and this user"
     no_sale_to_link_to_this_fixed_asset: "None of the existing sales can be associated to this fixed asset."
-    # no_worker_account: "No worker account"
     nominal_storable_easement_area: "Nominal storable easement area"
     non_compliant: "Non compliant"
-    non_compliant_with_request: "Non compliant with request" #?!
+    non_compliant_with_request: "Non compliant with request"
     none: "None"
-    normal: "Normal" #?
+    normal: "Normal"
     not_allowed_for_organic_farming: "This product cannot be used for organic agriculture"
-    not_delivered: "Not delivered" #?
+    not_delivered: "Not delivered"
     not_informed: "Not informed"
     not_invoiced_or_aborted_purchases: "You have not invoiced or aborted purchases. Once the financial year closed, it won't be possible to invoice them or abort them on this financial year (%{code})."
     not_invoiced_or_aborted_sales: "You have not invoiced or aborted sales. Once the financial year closed, it won't be possible to invoice them or abort them on this financial year (%{code})."
     not_letterable: "Not able to letter"
     not_ready: "Not ready"
-    not_received: "Not received" #?
+    not_received: "Not received"
     not_sent_incoming_parcels_on_current_financial_year: "You have unconfirmed incoming parcels. Once the financial year closed, it won't be possible to receive them on this financial year (%{code})."
     not_sent_outgoing_parcels_on_current_financial_year: "You have unconfirmed outgoing parcels. Once the financial year closed, it won't be possible to send them on this financial year (%{code})."
     not_sent_tax_declaration_on_current_financial_year: "You have not sent tax declarations (draft or validated) ongoing. Once the financial year closed, it won't be possible to sent them on this financial year (%{code})."
-    now: "Now" #?
-    number: "Number" #?
+    now: "Now"
+    number: "Number"
     number_of_cap_islets: "Number of CAP islets"
     number_of_cap_land_parcels: "Number of CAP land parcels"
     number_of_cap_neutral_areas: "Number of cap neutral areas"
-    number_with_param: "N° %{number}" #?
-    numbers: "Numbers" #?
+    number_with_param: "N° %{number}"
+    numbers: "Numbers"
     # observations: "Observations"
-    on_account: "On account" #?
+    on_account: "On account"
     on_all_exercises: "on all exercises"
-    one_condition: "One condition" #??
+    one_condition: "One condition"
     open_a_production: "Open a production"
     open_an_activity: "Open an activity"
     open_financial_year: "Open a financial year"
     open_financial_year_with_date: "Open %{code}"
     operating_costs: "Operating costs"
     operating_margin: "Operating margin %{financial_year}"
-    operating_margin_on_turnover: "Operating margin on turnover %{financial_year}" #?
-    operating_profit: "Operating profit %{financial_year}" #?!
+    operating_margin_on_turnover: "Operating margin on turnover %{financial_year}"
+    operating_profit: "Operating profit %{financial_year}"
     operating_result_i_ii: "Operating result (I - II)"
     operating_revenues: "Operating revenues"
-    operations: "Operations" #?
+    operations: "Operations"
     options: "Options"
     or: "Or"
     # order: "Order"
-    organic_matter_concentration: "Organic matter concentration" #?
+    organic_matter_concentration: "Organic matter concentration"
+    # organic_usage: "Organic usage"
     original_component: "original"
-    other_expenses: "Other expenses" #?
-    other_financial_debts: "Other financial debts" #?
-    other_products: "Other products" #?
-    other_purchases: "Other purchases" #?
-    other_receivables: "Other receivables" #?
+    other_expenses: "Other expenses"
+    other_financial_debts: "Other financial debts"
+    other_products: "Other products"
+    other_purchases: "Other purchases"
+    other_receivables: "Other receivables"
     other_reserves: "1068 - Other reserves"
-    others: "Others" #?
+    others: "Others"
     others_debts: "Others debts"
-    others_debts_advance_products: "others_debts_advance_products" #?
-    others_debts_advance_receivables: "others_debts_advance_receivables" #?
-    others_debts_associate_debts: "others_debts_associate_debts" #?
-    others_debts_fixed_asset_debts: "others_debts_fixed_asset_debts" #?
-    others_debts_liabilities_gaps: "others_debts_liabilities_gaps" #?
-    others_debts_others: "others_debts_others" #?
-    others_debts_social_debts: "others_debts_social_debts" #?
-    others_debts_state_debts: "others_debts_state_debts" #?
-    others_debts_supplier_receivables: "others_debts_supplier_receivables" #?
+    others_debts_advance_products: "others_debts_advance_products"
+    others_debts_advance_receivables: "others_debts_advance_receivables"
+    others_debts_associate_debts: "others_debts_associate_debts"
+    others_debts_fixed_asset_debts: "others_debts_fixed_asset_debts"
+    others_debts_liabilities_gaps: "others_debts_liabilities_gaps"
+    others_debts_others: "others_debts_others"
+    others_debts_social_debts: "others_debts_social_debts"
+    others_debts_state_debts: "others_debts_state_debts"
+    others_debts_supplier_receivables: "others_debts_supplier_receivables"
     outgoing_parcel_quantities: "Quantities (Outgoing parcel)"
     outgoing_parcels: "Outgoing parcels"
-    outgoing_payment: "Disbursement" #?
-    outgoing_payment_list_text: "You will find below the references covered by the payment in the amount of %{amount} %{currency}." #?
-    outgoing_payments: "Disbursements" #?
+    outgoing_payment: "Disbursement"
+    outgoing_payment_list_text: "You will find below the references covered by the payment in the amount of %{amount} %{currency}."
+    outgoing_payments: "Disbursements"
     page_title: "%{company_code} · %{menu} · %{action}"
     page_title_by_default: "Ekylibre · %{action}"
     page_title_special: "%{company_code} · %{action}"
-    paid_amount: "Paid amount" #?
-    paid_at: "Paid at" #?
+    paid_amount: "Paid amount"
+    paid_at: "Paid at"
     parameter_error_miscibility: "Missing MAAID number"
     parameters: "Parameters"
     parcel_items: "Parcel items"
-    parcels: "Parcels" #?
+    parcels: "Parcels"
     partially_lettered: "Partially lettered"
     partially_lettered_unlettered: "Partially lettered / unlettered"
     participants: "Participants"
     participations: "Participations"
     parts: "Modules"
     passive_totals: "Passive Totals"
-    password: "Password" #?
-    payable_taxes: "Payable taxes" #?
-    payment_amount: "Amount of payment" #?
-    payment_at: "Payment on" #?
+    password: "Password"
+    payable_taxes: "Payable taxes"
+    payment_amount: "Amount of payment"
+    payment_at: "Payment on"
     payment_conditions: "Payment conditions"
     payment_delay_placeholder: "eom, 5 days before"
     payment_due_date: "Payment due date"
-    payment_mode: "Payment mode" #?
+    payment_mode: "Payment mode"
     payment_mode_form_label: "Payment mode"
     payments: "Payments"
     payments_count: "Payments count"
-    payslip_number: "Payslip #" #?
+    payslip_number: "Payslip #"
     payslips: "Payslips"
     people: "People"
     percentage_by_calibration: "Percentage by calibration"
     # percentage_by_calibration_x: "Percentage by calibration x"
     period: "Period"
     period_to_take_into_account: "Period to take into account"
-    periods: "Periods" #?
+    periods: "Periods"
     permanent_stock_inventory: "Permanent stock inventory"
-    permute: "Permute" #?
+    permute: "Permute"
     personalized_mail: "Send a personalized mail"
     pertinence: "%{value}%"
     pfi_dose: "Pfi dose"
     pfi_parcel_ratio: "Pfi parcel ratio"
     pfi_treatment_ratio: "Pfi treatment ratio"
-    phosphorus_concentration: "Phosphorus concentration" #?
+    phosphorus_concentration: "Phosphorus concentration"
     physical_h2: "Physical H2"
     phyto_data: "Phytosanitary data"
     phytosanitary_product_does_not_exists: "This phytosanitary product does not exists"
-    picture: "Picture" #?
-    placeholder: "Placeholder" #?
+    picture: "Picture"
+    placeholder: "Placeholder"
     places: "Places"
     planned: "Planned"
     planned_again_intervention_in: "Plan again this intervention on"
     planning_of: "Planning of"
     plant: "Crop"
-    plant_counting: "Counting" #?
-    plant_countings: "Countings" #?
+    plant_counting: "Counting"
+    plant_countings: "Countings"
     plant_medicines: "Plant medicines"
-    plantation_density: "Plantation density" #?
-    plants: "Crops" #?
+    plantation_density: "Plantation density"
+    plants: "Crops"
     please_provide_a_valid_maaid_to_display_this_article_properties: "Please provide a valid AMM number to display this article's properties"
     please_reach_out_for_the_person_in_charge_of_the_closure: "Please reach out for the person in charge of the closure outside of the software to get your documents."
     please_wait: "Please wait…"
     pluviometry: "Ploviometry"
-    point: "Point" #?
+    point: "Point"
     points: "Points"
     population: "Population"
-    potassium_concentration: "Potassium concentration" #?
-    potential_hydrogen: "Potential hydrogen" #?
+    potassium_concentration: "Potassium concentration"
+    potential_hydrogen: "Potential hydrogen"
     pre_harvest_delay: "Pre harvest delay"
-    precipitation: "Precipitation" #?
+    precipitation: "Precipitation"
     preferences: "Preferences"
     prepare_financial_year_for_closure: "Prepare %{code} for closure"
     prerequisites_checks_before_closure: "Prerequisites checks before closure"
-    prescription: "Prescription" #?
-    prescriptions: "Prescriptions" #?
+    prescription: "Prescription"
+    prescriptions: "Prescriptions"
     pressure: "Pressure"
     pretax: "pre-tax"
     pretax_amount: "Pre-tax amount"
     previous: "Previous"
     previous_financial_year_was_locked_warning: "As the previous financial year was locked, remember to provide an opening balance sheet before performing the closure."
     previous_year_result_should_be_allocated: "The result of the previous financial year must be allocated before closing this financial year"
-    price: "Price" #?
-    prices: "Prices" #?
-    print: "Print" #?
-    print_lant_parcel_register: "Print the land parcel register" #?!
+    price: "Price"
+    prices: "Prices"
+    print: "Print"
+    print_lant_parcel_register: "Print the land parcel register"
     printing_document: "Printing %{document}"
     procedures: "Procedures"
     product: "Product"
-    product_account_number: "Product account number" #?
-    product_category: "Product category" #?
-    product_name: "Product name" #?
+    product_account_number: "Product account number"
+    product_category: "Product category"
+    product_name: "Product name"
     product_nature: "Product type"
     product_nature_category: "Product category"
     product_nature_variants: "Variants"
     product_natures: "Product types"
-    product_value: "Product value %{financial_year}" #??
+    product_value: "Product value %{financial_year}"
     product_variant: "Product variant"
     production: "Production"
     production_cost: "Production cost"
     production_costs: "Production costs"
-    production_distribution: "Production distribution" #?
+    production_distribution: "Production distribution"
     production_nature: "Production nature"
     production_others_charges: "Production others charges"
     production_purchases: "Production purchases"
     production_support: "Production support"
     productions: "Productions"
-    productions_sales: "Productions sales" #?
+    productions_sales: "Productions sales"
     products: "Products"
-    products_purchases: "Products purchases" #?
-    products_sales: "Products sales" #?
-    products_total: "Products total" #?
+    products_purchases: "Products purchases"
+    products_sales: "Products sales"
+    products_total: "Products total"
     profile: "Profile"
     profit_and_loss: "Profit and loss"
     profit_is_x_for_account: "<span class='profit'> Profit of %{x} </span> to account for the account %{account_number}"
     profit_or_loss: "Fiscal year result"
-    profit_taxe: "Profit taxe (VIII)" #?
-    profits: "Profits" #?
+    profit_taxe: "Profit taxe (VIII)"
+    profits: "Profits"
     profits_and_losses: "Profits and losses"
-    progress_bar_current_step: "Step %{current}/%{total} : %{label}..." #?
+    progress_bar_current_step: "Step %{current}/%{total} : %{label}..."
     provide_mandatory_information_before_putting_on_hold: "Please provide the mandatory information before putting your fixed asset on hold. Click the 'Waiting' button after the redirection to end the process."
     provide_mandatory_information_before_scrapping: "Please provide the mandatory information before scrapping your fixed asset. Click the 'Scrapped' button after the redirection to end the process."
     provide_mandatory_information_before_selling: "Please provide the mandatory information before selling your fixed asset. Click the 'Sold' button after the redirection to end the process."
-    provisions_revenues: "Provisions revenues" #?
+    # provide_metrics_for_this_article: "Provide metrics for this article"
+    provisions_revenues: "Provisions revenues"
     purchase: "Purchase"
     purchase_invoice_items: "Invoice items"
-    purchase_items: "Purchase items" #?
-    purchase_number: "Purchase number" #?
+    purchase_items: "Purchase items"
+    purchase_number: "Purchase number"
     purchase_order: "Purchase order"
     purchase_order_items: "Order items"
     purchase_payments: "Purchase payments"
     purchases: "Purchases"
     purchases_prices: "Purchases prices"
-    purchases_stocks_variation: "Purchases stocks variation" #?
+    purchases_stocks_variation: "Purchases stocks variation"
     quality: "Quality"
-    quandl: "Quandl" #?
+    quandl: "Quandl"
     quantity: "Quantity"
-    quantity_available: "Quantity available" #??
+    quantity_available: "Quantity available"
     quantity_to_receive: "Quantity to receive"
-    query: "Query:" #?
+    query: "Query:"
     quit_financial_year_closure_preparation: "Quit preparation mode for %{code}"
-    radical_class_accounts_dont_have_entries: "Radical class accounts does not contain any entry" #?
-    radical_class_accounts_have_entries: "Radical class accounts contains entries" #?
-    raw_income: "Raw income" #?!
+    radical_class_accounts_dont_have_entries: "Radical class accounts does not contain any entry"
+    radical_class_accounts_have_entries: "Radical class accounts contains entries"
+    raw_income: "Raw income"
     re_entry_delay: "Re entry delay"
     re_entry_interval: "Re-entry interval"
-    reading_tasks: "Reading tasks" #?
+    reading_tasks: "Reading tasks"
     readings: "Readings"
     ready: "Ready"
     ready_to_harvest: "Ready to harvest"
     receipt_date: "Receipt date"
     receipt_responsible: "Receipt responsible"
-    received: "Received" #?
-    received_quantity: "Received quantity" #?
+    received: "Received"
+    received_quantity: "Received quantity"
     receiving_address: "Receiving address"
     recent_events: "Recent events"
     reception: "Reception"
     # reception_date: "Reception date"
-    reception_incident: "Reception incident" #?
+    reception_incident: "Reception incident"
     reception_items: "Reception items"
     reception_number: "Reception number"
     # reception_number_with_reference: "Reception number with reference"
@@ -2430,69 +2590,69 @@ eng:
     reconcile: "Reconcile"
     reconciliate_with_purchases_orders: "Reconciliate with purchases orders"
     reconciliate_with_receptions: "Reconciliate with receptions"
-    record: "Record" #?
+    record: "Record"
     record_cannot_be_saved: "The record can not be saved"
     record_maintenance: "Record maintenance"
     reevaluation_gaps: "reevaluation_gaps"
     reference: "Reference"
     reference_supplier: "Reference supplier : %{reference_number}"
-    reflect: "Reflect" #?
-    reflected: "Reflected changes" #?
-    reflections: "Reflections" #?
-    refresh: "Refresh" #?
-    register_intervention_request: "Register intervention request" #?!
+    reflect: "Reflect"
+    reflected: "Reflected changes"
+    reflections: "Reflections"
+    refresh: "Refresh"
+    register_intervention_request: "Register intervention request"
     regressive_options: "Regressive options"
     regulated_reserves: "1064 - Tax-regulated reserves"
-    rejected: "Rejected" #?
+    rejected: "Rejected"
     relationship: "Relationship"
     relationship_of_entity: "%{relationship} of %{entity}"
     relationship_of_entity_as_inverse_post: "%{relationship} of %{entity} (%{inverse_post})"
     relationship_of_entity_as_post: "%{relationship} of %{entity} as %{post}"
     remaining_amount_to_reconcile: "Remaining amount to reconcile"
     remaining_items_to_reconcile: "Remaining items to reconcile"
-    remove: "Remove" #?
+    remove: "Remove"
     remove_item: "Remove item"
     remove_subscription: "Remove subscription"
     renewed: "Renewed"
     repayment_period: "Repayment period"
     repayments: "Repayments"
     repayments_graph: "Repayments graph"
-    report: "Report" #?
-    request: "Request" #?
+    report: "Report"
+    request: "Request"
     request_maintenance: "Request maintenance"
-    requests: "Requests" #?
-    reserve: "Reserve" #?
+    requests: "Requests"
+    reserve: "Reserve"
     reset: "Reset"
-    resource: "View original document: %{resource} %{number}" #?
-    resources: "Resources management" #?
+    resource: "View original document: %{resource} %{number}"
+    resources: "Resources management"
     rest: "Rest"
-    restore: "Restore" #?
-    result: "Result" #?
-    revenues: "Revenues" #?
+    restore: "Restore"
+    result: "Result"
+    revenues: "Revenues"
     revenues_by_product_nature: "Revenues by product type"
     reverse: "Reverse condition"
     revise: "Revise"
     rights: "Rights"
-    risk_and_charges_provisions: "Risk and charges provisions" #?
+    risk_and_charges_provisions: "Risk and charges provisions"
     risks: "Risks"
-    role: "Role" #?
-    roles: "Roles" #?
-    rss: "RSS" #?
-    run: "Run" #?
+    role: "Role"
+    roles: "Roles"
+    rss: "RSS"
+    run: "Run"
     salary_payments: "Salary payments"
-    sale: "Sale" #?
+    sale: "Sale"
     sale_items: "Sale items"
-    sale_opportunities: "Sale opportunities" #?
+    sale_opportunities: "Sale opportunities"
     sales: "Sales"
-    sales_conditions: "Conditions of sales" #?
-    sales_invoice: "Invoicing" #?
+    sales_conditions: "Conditions of sales"
+    sales_invoice: "Invoicing"
     sales_preferences: "Sales preferences"
     sales_pretax_amount: "Pretax amount (Sales)"
     same_variant_as_x: "Same variant as %{x}"
     save: "Save"
     save_in_draft: "Save as draft"
     saved_but_couldnt_letter_x_and_y: "Successfully saved %{trade} and %{payment} but couldn't letter them."
-    scheduled: "Scheduled" #?
+    scheduled: "Scheduled"
     scrapped_on: "Scrapped on"
     search: "Search"
     search_placeholder: "Search…"
@@ -2513,86 +2673,86 @@ eng:
     seed_and_plants: "Seed and plants"
     select_a_journal: "Select a journal"
     select_closure_date: "Choose closing date"
-    select_columns: "Select columns" #??
+    select_columns: "Select columns"
     select_date: "Select date"
     select_date_generation: "Limit date for generation"
     select_file_to_upload: "Select file to upload"
-    select_forward_journal: "Selected Journal to renew" #??
+    select_forward_journal: "Selected Journal to renew"
     select_legal_position: "Select legal position"
-    selection: "Selection" #?
+    selection: "Selection"
     selling_amounts: "Selling amounts"
     semester: "Semester"
     send_mail: "Send mail"
     send_test_mail: "Send test mail"
     sensor_model: "Sensor model"
-    sensors: "Sensors" #?
+    sensors: "Sensors"
     sent: "Sent"
-    sent_vat_declaration: "Definitive VAT declaration" #?!
-    service: "Service" #?
+    sent_vat_declaration: "Definitive VAT declaration"
+    service: "Service"
     service_deliveries: "Service deliveries"
     service_delivering: "Service delivering"
     services: "Services"
-    services_sale: "Service sale" #?
-    sessions: "Sessions" #?
-    set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)" #?!
+    services_sale: "Service sale"
+    sessions: "Sessions"
+    set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)"
     settings: "Settings"
     settings_statistics: "Settings statistics"
-    sex: "Sex" #?
-    shape: "Shape" #?
-    ship: "Ship" #?
+    sex: "Sex"
+    shape: "Shape"
+    ship: "Ship"
     shipment_items: "Shipment items"
     shipments: "Shipments"
-    shipping_note: "Shipping bill" #?
+    shipping_note: "Shipping bill"
     short_cycle_alive_products: "Short cycle alive products"
-    short_cycle_alive_products_animals: "Short cycle alive products animals" #?
-    short_cycle_alive_products_others: "Short cycle alive products others" #?
-    short_cycle_alive_products_plant_advance: "Short cycle alive products plant advance" #?
-    short_cycle_alive_products_plant_in_ground: "Short cycle alive products plant in ground" #?
+    short_cycle_alive_products_animals: "Short cycle alive products animals"
+    short_cycle_alive_products_others: "Short cycle alive products others"
+    short_cycle_alive_products_plant_advance: "Short cycle alive products plant advance"
+    short_cycle_alive_products_plant_in_ground: "Short cycle alive products plant in ground"
     show: "Show"
-    sign_out: "Sign out" #?
-    signature_html: "Signature (<a href='%{url}' target='_blank'>Verify signature</a>)" #?
-    simplified: "Simplified Accounting" #?
-    simplified_linear_options: "Simplified linear options" #?!
+    sign_out: "Sign out"
+    signature_html: "Signature (<a href='%{url}' target='_blank'>Verify signature</a>)"
+    simplified: "Simplified Accounting"
+    simplified_linear_options: "Simplified linear options"
     # simulator: "Simulator"
-    social_debts: "Social debts" #?
-    social_expenses: "Social expenses" #?
+    social_debts: "Social debts"
+    social_expenses: "Social expenses"
     sold_on: "Sold on"
-    source: "Source" #?
+    source: "Source"
     # standard: "Standard"
     standard_vat: "Standard VAT"
-    start: "From" #?
+    start: "From"
     start_new_intervention_here: "Start new intervention here"
     started: "Started"
     state: "State"
-    state_debts: "State debts" #?
-    state_receivables: "State receivables" #?
-    statistics: "Statistics" #?
+    state_debts: "State debts"
+    state_receivables: "State receivables"
+    statistics: "Statistics"
     statutory_reserves: "1063 - Statutory or contractual reserves"
-    stewardship: "Stewardship" #?
-    stock: "Stock" #?
+    stewardship: "Stewardship"
+    stock: "Stock"
     stock_after_order: "Stock after order"
-    stock_container_map: "Stock map" #?
+    stock_container_map: "Stock map"
     stock_in_ground: "Stock in ground"
     stock_in_ground_by_calibration: "Stocks in ground by calibration"
     # stock_in_ground_by_calibration_x: "Stock in ground by calibration x"
     stock_of_x: "Stock of %{x}"
     stocks: "Stocks"
-    stocks_end_products: "Stocks end product" #?
-    stocks_others_products: "Stocks other product" #?
-    stocks_supply: "Stocks supply" #?
-    stop: "Stop" #?
+    stocks_end_products: "Stocks end product"
+    stocks_others_products: "Stocks other product"
+    stocks_supply: "Stocks supply"
+    stop: "Stop"
     stopped: "Stopped"
     stopped_on: "Stopped on"
     storage: "Storage"
     subject: "Subject"
     subledger_of_accounts_x: "Sub-ledger of accounts %{account}"
-    submit: "Submit" #?
-    subscribed_on: "Subscribed on" #?
+    submit: "Submit"
+    subscribed_on: "Subscribed on"
     subscriber_period: "Subscribed on %{subscribed_at}"
     subscriber_quantity: "Subscribed at the number %{subscribed_at}"
-    subscription_nature: "Subscription type" #?
+    subscription_nature: "Subscription type"
     subscriptions: "Subscriptions"
-    subscriptions_evolution: "Subscriptions evolution" #?
+    subscriptions_evolution: "Subscriptions evolution"
     subsidies: "Subsidies"
     substances_mixing_not_allowed_due_to_znt_buffer: "Substances mixing not allowed due to the usage %{usage} of product %{phyto} (untreated buffer aquatic >= 100 m)"
     subtotal: "Sub-total %{name}"
@@ -2600,37 +2760,38 @@ eng:
     # supervision: "Supervision"
     supplier: "Purchase prices of the supplier"
     supplier_informations: "Supplier informations"
-    merged_entity: "Merged entity (ID=%{other}):\n"
     supplier_payment_mode: "Supplier payment mode"
-    supplier_receivables: "Supplier receivables" #?
+    supplier_receivables: "Supplier receivables"
     supplier_reference: "Supplier reference"
     suppliers: "Suppliers"
-    supply: "Supply" #?
-    support: "Support" #?
-    supports: "Supports" #?
-    switch_accounting_plan: "Switch accounting plan" #?!
+    supply: "Supply"
+    support: "Support"
+    supports: "Supports"
+    switch_accounting_plan: "Switch accounting plan"
     synthesis: "Synthesis"
     target: "Target"
-    tasks: "Tasks" #?
+    tasks: "Tasks"
     tax_amount: "VAT amount"
     tax_declarations: "VAT declarations"
     tax_declarations_states: "Tax declarations states"
-    tax_label: "Tax label" #?
+    tax_label: "Tax label"
     taxations: "Taxations"
     taxes: "Taxes"
     taxes_and_wages: "Taxes and wages"
+    # teams: "Teams"
     # temperature: "Temperature"
     think_about_registering_regularization_journal_entries_before_closing: "If you haven't done it yet, think about manually adding regularization journal entries before closing the financial year."
-    third_balance: "(balance - supplier account balance : %{balance} - %{supplier_account_balance})" #?
-    third_is_unbalanced: "Third is unbalanced. (balance - supplier account balance)" #?!
+    third_balance: "(balance - supplier account balance : %{balance} - %{supplier_account_balance})"
+    third_is_unbalanced: "Third is unbalanced. (balance - supplier account balance)"
     this_archive_is_digitally_signed: "This archive is digitally signed."
     this_product_has_been_withdrawn: "This product has been withdrawn"
-    threshold_commercialization_by_production: "Threshold commercialization by production" #?
-    thumb: "Thumb" #?
-    time_cost: "Time cost" #?
+    this_usage_has_been_withdrawn: "This usage has been withdrawn"
+    threshold_commercialization_by_production: "Threshold commercialization by production"
+    thumb: "Thumb"
+    time_cost: "Time cost"
     time_spent_by_activity: "Time spent by activity"
     time_zone: "Time zone"
-    timeline: "Timeline" #?
+    timeline: "Timeline"
     timeline_comment: "%{author} commented %{when}"
     timeline_entity_link: "Timeline entity link"
     timeline_event: "%{name} with %{participants} %{when}"
@@ -2646,19 +2807,19 @@ eng:
     times: "Times"
     to: "to"
     to_deposit: "To deposit"
-    to_deposit_later: "To deposit later" #?
-    to_deposit_now: "To deposit now" #?
+    to_deposit_later: "To deposit later"
+    to_deposit_now: "To deposit now"
     to_pay: "to pay"
     to_point: "Point"
     to_reclaim: "to reclaim"
-    to_reconcile: "To reconcile" #?
+    to_reconcile: "To reconcile"
     to_reconciliate: "To reconciliate"
-    today: "Today" #?
+    today: "Today"
     tool_cost: "Tool cost"
     tools: "Tools"
     total: "Total"
     # total_actif: "Total actif"
-    total_amount: "Total amount" #?
+    total_amount: "Total amount"
     total_amount_with_taxes: "Total amount incl. taxes"
     total_amount_without_taxes: "Total amount excl. taxes"
     total_cost: "Total cost"
@@ -2666,7 +2827,7 @@ eng:
     # total_passif: "Total passif"
     total_pretax_expenses: "Total pre-tax expenses"
     total_pretax_revenues: "Total pre-tax revenues"
-    total_quantity: "Total quantity" #?
+    total_quantity: "Total quantity"
     total_revenues: "Revenues incl. taxes"
     totals: "Totals"
     tours:
@@ -2701,26 +2862,26 @@ eng:
           title: "User menu"
     toxic: "Toxic"
     toxic_for_aquatic_organisms: "Toxic for aquatic organisms"
-    tracking: "Tracking" #?
+    tracking: "Tracking"
     trade: "Trade"
     trade_counts: "Trade counts"
-    transactions_by_month: "Transactions by month" #?
-    transfer: "Transfer" #?
-    transport: "Transport" #?
+    transactions_by_month: "Transactions by month"
+    transfer: "Transfer"
+    transport: "Transport"
     trimester: "Trimester"
     type_of_structure: "Type of structure"
     unauthorized: "Unauthorized"
     unbalanced: "Unbalanced"
     unbalanced_balance_sheet: "The balance sheet is not balanced."
-    unbalanced_clients: "Unbalanced clients" #?
-    unbalanced_suppliers: "Unbalanced suppliers" #?
+    unbalanced_clients: "Unbalanced clients"
+    unbalanced_suppliers: "Unbalanced suppliers"
     unbilled_payables: "Unbilled payables"
     undefined_activity: "Undefined activity"
     undefined_container: "Undefined container"
-    undelivered: "Undelivered" #?
-    undelivered_invoices: "Undelivered invoices" #?!
+    undelivered: "Undelivered"
+    undelivered_invoices: "Undelivered invoices"
     under_pressure_or_refrigerated_gas: "Under pressure or refrigerated gas"
-    undone: "Undone" #?
+    undone: "Undone"
     uninvoiced: "Uninvoiced"
     unit: "Unit"
     unit_amount: "Unit cost excl. taxes"
@@ -2733,58 +2894,60 @@ eng:
     unknown_user: "Unknown user"
     unknown_variant: "Unknown variant"
     unlettered: "Unlettered"
-    unlock: "Unlock" #?
+    unlock: "Unlock"
     unmark: "Unmark"
     unmarketable_inspection_categories_evolution: "Unmarketable inspection categories evolution"
-    unpaid: "Unpaid" #?
-    unpaid_days: "Unpaid since (in days)" #?
-    unpaid_purchases: "Unpaid purchases" #?
-    unpaid_sales: "Unpaid sales" #?
-    unset_reconcilable_old_third_accounts: "Unset reconcilable old third accounts (clients, suppliers and attorneys)" #?!
+    unpaid: "Unpaid"
+    unpaid_days: "Unpaid since (in days)"
+    unpaid_purchases: "Unpaid purchases"
+    unpaid_sales: "Unpaid sales"
+    unset_reconcilable_old_third_accounts: "Unset reconcilable old third accounts (clients, suppliers and attorneys)"
     unsubcribed_capital: "Unsubcribed capital"
     until: "until"
     untreated_buffer_aquatic: "Untreated buffer aquatic"
     untreated_buffer_arthropod: "Untreated buffer arthropods"
     untreated_buffer_plants: "Untreated buffer plants"
-    up: "Up" #?
+    up: "Up"
     up_to: "Up to"
     update: "Update"
+    # updated_at: "Updated at"
     updated_at_by: "Updated at %{at} by %{author}"
     updated_by_ago: "Updated by %{author} %{when}"
     upload: "Upload"
-    usage: "Usage" #?
+    usage: "Usage"
     usage_conditions: "Usage conditions"
     usage_phyto: "Usage"
-    user_status: "Status" #?
+    # usages: "Usages"
+    user_status: "Status"
     users: "Users"
     valid: "Valid"
     validate: "Validate"
     validate_crumbs_for_x_interventions:
       one: "Validate crumbs for %{count} intervention"
       other: "Validate crumbs for %{count} interventions"
-    validate_selected_entries: "Validate selected entries" #?!
-    validate_x_entries: #?
-      one: "Validate the entry" #?
-      other: "Validate %{count} entries" #?
+    validate_selected_entries: "Validate selected entries"
+    validate_x_entries:
+      one: "Validate the entry"
+      other: "Validate %{count} entries"
     validated: "Validated"
     validated_by: "Validated by"
-    validated_vat_declaration: "Definitive VAT declaration" #?!
+    validated_vat_declaration: "Definitive VAT declaration"
     values: "Values"
     variable_indicators: "Variable indicators"
-    variant: "Variant" #?
-    variants: "Variants" #?
+    variant: "Variant"
+    variants: "Variants"
     vat: "VAT"
     vat_rate: "VAT rate"
     vegetable_yield: "Vegetable yield"
     view: "View"
     view_map_when_creating_an_intervention: "View map when creating an intervention"
     # vine_yield: "Vine yield"
-    wages: "Wages" #?
+    wages: "Wages"
     warning_date_not_in_period: "Warning: The date entered is not on the current exercise."
-    water_lakes: "Water lakes" #?
-    water_rivers: "Water rivers" #?
+    water_lakes: "Water lakes"
+    water_rivers: "Water rivers"
+    watering_concentration: "Water use"
     waters: "Waters"
-    watering_concentration: "Water use" #?
     # wear: "Wear"
     weather: "Weather"
     website: "Website"
@@ -2794,14 +2957,14 @@ eng:
     worked_zone_not_corresponding: "The worked zone is not corresponding to the planned one"
     worker_natures: "Workers"
     workers: "Workers"
-    workforce: "Workforce" #?!
+    workforce: "Workforce"
     working_area: "Working area"
     working_duration: "Working duration"
-    working_hectare_costs: "Working hectare costs" #?
-    working_sets_stocks: "Working sets stocks" #?
-    working_times: "Working times of %{name}" #?
+    working_hectare_costs: "Working hectare costs"
+    working_sets_stocks: "Working sets stocks"
+    working_times: "Working times of %{name}"
     working_zone_overlaps_nta: "Working zone overlaps non-treatment area"
-    workload: "Workload" #?!
+    workload: "Workload"
     x_cashes:
       one: "%{count} cash"
       other: "%{count} cashes"
@@ -2975,14 +3138,15 @@ eng:
     x_years:
       one: "%{count} year"
       other: "%{count} years"
+    # y: "Y"
     year: "Year"
     year_end: "Year end"
     year_start: "Year start"
-    yield: "Yield" #?
-    yield_by_calibration: "Yield by calibration" #?
+    yield: "Yield"
+    yield_by_calibration: "Yield by calibration"
     # yield_by_calibration_x: "Yield by calibration x"
-    you_can_close_financial_year: "You can close or lock your financial year %{financial_year_to_close}" #?
-    you_can_close_financial_year_to_open_a_new_one: "You can close or lock your financial year %{financial_year_to_close} to open %{financial_year_to_open}" #?
+    you_can_close_financial_year: "You can close or lock your financial year %{financial_year_to_close}"
+    you_can_close_financial_year_to_open_a_new_one: "You can close or lock your financial year %{financial_year_to_close} to open %{financial_year_to_open}"
     zone_natures: "Zones"
     zones: "Zones"
     # }: "}"
@@ -3012,46 +3176,46 @@ eng:
       cannot_mark_entry_items: "Cannot mark these entry lines"
       cannot_merge_an_entity_with_itself: "It's impossible to merge a person with itself"
       cannot_merge_entities: "It's impossible to merge these people."
-      changes_have_been_reflected: "The changes have been reflected in the stocks state" #?
-      changes_have_not_been_reflected: "The changes have not been reflected in the stocks state" #?
+      changes_have_been_reflected: "The changes have been reflected in the stocks state"
+      changes_have_not_been_reflected: "The changes have not been reflected in the stocks state"
       # close_financial_year_exchange_before_preparing_for_closure: "Close financial year exchange before preparing for closure"
       closed_financial_periods: "The fixed asset's duration spans across closed financial periods."
       closed_financial_year_exchange: "The financial year exchange has been closed successfully"
-      closed_financial_years: "The financial year has been closed successfully" #?
+      closed_financial_years: "The financial year has been closed successfully"
       closure_process_started: "Closure process started."
       columns_are_already_uses: "One or many columns are selected many times"
       could_not_attach_x_or_y_to_affair: "Could not attach %{x} or %{y} to affair"
       dashboard_is_being_developed: "Dashboard is under heavy development"
       density_is_not_computable_in_counting: "Could not compute the density for this counting. The missing values should be completed in the counting's properties or the sower's indicators."
-      depreciation_failed: "Assets could not be depreciated." #?
-      depreciation_successful: "Assets have been successfully depreciated." #?
+      depreciation_failed: "Assets could not be depreciated."
+      depreciation_successful: "Assets have been successfully depreciated."
       document_in_preparation: "Your document is in preparation a notification will be sent to you when it is ready"
       document_template_not_handled: "Document template not handled: %{nature}"
-      draft_journal_entries_are_present: "Draft journal entries are present." #?
+      draft_journal_entries_are_present: "Draft journal entries are present."
       draft_journal_entries_cannot_be_validated: "You need to validate every previous entries before these ones"
       draft_journal_entries_have_been_validated:
         one: "%{count} entry has been validated"
         other: "%{count} entries have been validated"
       entity_columns_are_needed: "You need to specify at least one column for the person and in particular its family name."
-      equipment_component_is_at_end_of_life: "The component %{component_name} of the equipment %{equipment_name} is reaching the end of its life. Remaining time: %{remaining_time}." #?
-      equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}." #?
-      equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}." #?
-      equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}." #?
+      equipment_component_is_at_end_of_life: "The component %{component_name} of the equipment %{equipment_name} is reaching the end of its life. Remaining time: %{remaining_time}."
+      equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
+      equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}."
+      equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}."
       error_client_account_empty: "Can not operate, client account is empty"
-      error_during_file_generation: "An error occurred while generating a file" #?
-      error_during_vat_declaration_generation: "An error occured while generating the VAT declaration." #?
+      error_during_file_generation: "An error occurred while generating a file"
+      error_during_vat_declaration_generation: "An error occured while generating the VAT declaration."
       error_on_field: "%{field} in invalid\_: %{message}"
       fails_to_extract_listing: "The listing can't be made: %{message}"
       feature_in_development: "Feature available in the upcoming version of our mobile application <u><a href='https://play.google.com/store/apps/details?id=ekylibre.zero' target='_blank'>Zero</a></u>"
-      file_generated: "Your file was successfully generated" #?
-      financial_year_already_closed: "The financial year has already been closed." #?
+      file_generated: "Your file was successfully generated"
+      financial_year_already_closed: "The financial year has already been closed."
       # financial_year_closure_in_preparation_initiated_by_someone_else: "Financial year closure in preparation initiated by someone else"
       # financial_year_closure_in_preparation_initiated_by_you: "Financial year closure in preparation initiated by you"
-      financial_year_is_not_past: "The financial year hasn't passed yet." #?
+      financial_year_is_not_past: "The financial year hasn't passed yet."
       financial_year_x_could_not_be_closed: "Financial Year  %{name} could not be closed."
       financial_year_x_successfully_closed: "Financial Year %{name} successfully closed !"
       financial_years_missing: "You must create every missing financial years since the first registered"
-      financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}" #?
+      financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
       # fixed_asset_successfully_associated_to_sale: "Fixed asset successfully associated to sale"
       implemented_with_dummy_data: "Implemented with dummy data"
       import_creation_successful_suggest_execute: "Creation successful! You can now import the file with the button 'Run'."
@@ -3070,13 +3234,13 @@ eng:
       journal_entry_has_been_saved: "The journal entry %{number} has been successfully saved"
       journal_entry_has_been_saved_with_a_new_number: "The journal entry has been successfully saved with a new number: %{number}"
       journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
-      journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}." #?
+      journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
       locked_exercice_info: "This financial year is locked. Please get in contact with the person who closed this financial year in order to retrieve your documents and exports of year end"
       locking_version_error: "Sorry, please retry in a moment, someone else is updating this record"
       mails_are_sent: "The emails were sent"
       merge_is_done: "Merge is done"
       need_a_valid_payment_mode: "Need a valid payment mode"
-      need_a_valid_purchase_nature_to_start_new_purchase: "Need a valid purchase type to start new purchase" #?
+      need_a_valid_purchase_nature_to_start_new_purchase: "Need a valid purchase type to start new purchase"
       need_a_valid_sale_nature_to_start_new_sale: "Need a valid sale type to start new sale"
       need_building_to_record_stock_moves: "You must create a building to be able to manage stocks."
       need_entries_to_reconciliate: "No entries to reconciliate on bank statement period"
@@ -3099,11 +3263,11 @@ eng:
       no_production_found_you_can_add_it_or_copy_from_previous_records: "No production found. You can add new or copy some from previous campaign."
       no_purchase_affair_found_on_given_period: "No purchase affair found on given period"
       no_purchases_given: "No purchases given"
-      no_reopenable_journal: "You can not re-open this journal." #?
+      no_reopenable_journal: "You can not re-open this journal."
       no_replacements_since_beginning: "No replacements since beginning"
       # no_worker_associated_with_user_account: "No worker associated with user account"
       please_contact_support_for_further_information: "%{message} Please contact our support for further information."
-      previouos_financial_year_is_not_closed: "The previous financial year hasn't been closed." #?
+      previouos_financial_year_is_not_closed: "The previous financial year hasn't been closed."
       purchase_invoice_need_at_least_one_item: "An invoice should have at least one item"
       purchase_order_need_at_least_one_item: "An order should have at least one item"
       purchases_invalid_for_sepa: "Purchases selected invalid for SEPA transfer (invalid disbursement mode or wrong currency or missing payee's IBAN or bank account holder name)"
@@ -3113,9 +3277,10 @@ eng:
       # record_cannot_be_saved: "Record cannot be saved"
       record_has_been_correctly_removed: "The record has been removed successfully"
       record_has_been_imported: "Record has been imported"
-      record_not_found: "Record not found" #?
-      record_x_created: "%{record} %{name} created" #?
-      record_x_updated: "%{record} %{name} updated" #?
+      # record_is_not_valid: "Record is not valid"
+      record_not_found: "Record not found"
+      record_x_created: "%{record} %{name} created"
+      record_x_updated: "%{record} %{name} updated"
       sale_is_not_duplicatable: "Sale is not duplicatable"
       # saved_but_couldnt_letter_x_and_y: "Saved but couldnt letter x and y"
       select_entry_items_to_mark_together: "Select entry items to mark together"
@@ -3124,9 +3289,9 @@ eng:
       sensor_reading_failed: "Sensor %{name} reading failed: %{message}"
       some_parcels_are_not_shippable: "Some parcels are not shippable"
       subscription_is_not_renewable: "Subscription is not renewable"
-      synchronization_operation_failed: "Operation %{operation_name} failed: %{target} %{message}" #?
-      synchronization_operation_finished_successfully: "Operation %{operation_name} finished successfully" #?
-      synchronization_operation_in_progress: "Operation %{operation_name} in progress" #?
+      synchronization_operation_failed: "Operation %{operation_name} failed: %{target} %{message}"
+      synchronization_operation_finished_successfully: "Operation %{operation_name} finished successfully"
+      synchronization_operation_in_progress: "Operation %{operation_name} in progress"
       # tax_declaration_warning: "Tax declaration warning"
       the_automatic_lettering_cannot_be_done_in_accountancy: "The automatic lettering cannot be done in accountancy"
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "The automatic lettering cannot be done in accountancy because too many thirds are present"
@@ -3135,13 +3300,13 @@ eng:
       there_are_x_remaining_unbalanced_entries:
         one: "%{count} entry during this period remain unbalanced. You have to correct it to be able to perform a global validation."
         other: "%{count} entries during this period remain unbalanced. You have to correct them to be able to perform a global validation."
-      this_service_is_not_activated: "This service is not activated" #?
+      this_service_is_not_activated: "This service is not activated"
       unable_to_modify_purchase_invoice_link_to_tax_declaration: "This invoice is linked to a tax declaration and thus, cannot be updated or deleted. If possible, please delete the tax declaration and retry. You can contact us for more information."
       unavailable_resource: "Nonexistent %{type} #%{id}"
-      unbalanced_journal_entries_are_present_in_year: "Some unbalanced journal entries are present in the financial year." #?
+      unbalanced_journal_entries_are_present_in_year: "Some unbalanced journal entries are present in the financial year."
       unexpected_resource_type: "Unexpected resource type: %{type}"
       update_is_done: "The update has been made"
-      vat_declaration_generated: "VAT declaration was successfully generated." #?
+      vat_declaration_generated: "VAT declaration was successfully generated."
       vat_declaration_in_preparation: "The VAT declaration for the selected period is currently being generated, you will receive a notification as soon as it has been processed."
       x_fixed_asset_depreciations_have_been_bookkept_successfully:
         one: "%{count} fixed asset depreciation has been bookkept successfully"
@@ -3154,12 +3319,13 @@ eng:
         other: "There are %{count} entries to point"
       you_must_have_an_email_column: "You must have an email address in your extraction"
       you_need_to_review_your_application_configuration: "You need to review your application configuration"
-      your_fixed_asset_is_now_ready_to_be_put_on_hold: "Your fixed asset is now ready to be put on hold, click the 'Waiting' button one last time to end the process." #?
-      your_fixed_asset_is_now_ready_to_be_scrapped: "Your fixed asset is now ready to be scrapped, click the 'Scrapped' button one last time to end the process." #?
-      your_fixed_asset_is_now_ready_to_be_sold: "Your fixed asset is now ready to be sold, click the 'Sold' button one last time to end the process." #?
+      your_fixed_asset_is_now_ready_to_be_put_on_hold: "Your fixed asset is now ready to be put on hold, click the 'Waiting' button one last time to end the process."
+      your_fixed_asset_is_now_ready_to_be_scrapped: "Your fixed asset is now ready to be scrapped, click the 'Scrapped' button one last time to end the process."
+      your_fixed_asset_is_now_ready_to_be_sold: "Your fixed asset is now ready to be sold, click the 'Sold' button one last time to end the process."
   preferences:
     account_number_digits: "Account number length"
     accounting_system: "Accounting plan"
+    # allow_analytics: "Allow analytics"
     bookkeep_automatically: "Activate the automatic bookkeeping"
     bookkeep_in_draft: "Save the records in draft mode during bookkeeping"
     catalog_price_item_addition_if_blank: "Catalog Add price to catalog during sale/purchase if catalog blank"
@@ -3181,7 +3347,7 @@ eng:
     sales_conditions: "Sales conditions"
     supplier_account_radix: "Supplier account radix"
     unbilled_payables: "Unbilled payables"
-    use_contextual_help: "Use contextual help" #?
+    use_contextual_help: "Use contextual help"
     use_entity_codes_for_account_numbers: "Use code for creating account numbers"
     use_global_search: "Use global search"
   rest:
@@ -3194,11 +3360,18 @@ eng:
       # add_to_variant: "Add to variant"
       # archive_report: "Archive report"
       # archive_report_template: "Archive report template"
+      # area_highcharts: "Area highcharts"
+      # area_range_highcharts: "Area range highcharts"
+      # area_spline_highcharts: "Area spline highcharts"
+      # area_spline_range_highcharts: "Area spline range highcharts"
       attach: "Attach"
       # autocomplete: "Autocomplete"
+      # bar_highcharts: "Bar highcharts"
       bookkeep: "Bookkeep"
       # build_example: "Build example"
       cancel: "Cancel"
+      # cartesian_chart: "Cartesian chart"
+      # category_chart: "Category chart"
       # change: "Change"
       # change_minutes: "Change minutes"
       # change_page: "Change page"
@@ -3206,12 +3379,16 @@ eng:
       # change_state: "Change state"
       check: "Check"
       close: "Close"
+      # column_highcharts: "Column highcharts"
+      # column_range_highcharts: "Column range highcharts"
       # compare_realised_with_planned: "Compare realised with planned"
+      # compatible_varieties: "Compatible varieties"
       compute: "Compute"
       compute_balances: "Compute balances"
       confirm: "Confirm"
       # confirm_all: "Confirm all"
       contacts: "Contacts"
+      # contrasted_color: "Contrasted color"
       convert: "Convert"
       correct: "Correct"
       # count: "Count"
@@ -3229,6 +3406,8 @@ eng:
       detach: "Detach"
       # detach_gaps: "Detach gaps"
       detail: "Detail"
+      # distribution_chart: "Distribution chart"
+      # dose_validations: "Dose validations"
       down: "Down"
       duplicate: "Duplicate"
       # duplicate_interventions: "Duplicate interventions"
@@ -3236,34 +3415,43 @@ eng:
       edit_interval: "Reconciliate"
       edit_many: "Edit many"
       # ekylibre: "Ekylibre"
+      # error_message: "Error message"
       evaluate: "Evaluate"
       export: "Export"
-      export_closing_documents: "Export closing documents" #?
-      export_fec: "FEC export" #?
+      export_closing_documents: "Export closing documents"
+      export_fec: "FEC export"
       export_to_sepa: "Export to SEPA"
       extract: "Extract"
       # failure: "Failure"
       family: "Family"
       # filter_select_collection: "Filter select collection"
+      # filter_usages: "Filter usages"
       # find_open_document_template: "Find open document template"
+      # find_template: "Find template"
       finish: "Finish"
       # fixed_assets_datas: "Fixed assets datas"
+      # formate_and_translate: "Formate and translate"
       # generate_buttons: "Generate buttons"
       # generate_document: "Generate document"
-      generate_last_journal_entry: "Generate last journal entry" #?
+      generate_last_journal_entry: "Generate last journal entry"
       # generate_report: "Generate report"
       # generate_report_file: "Generate report file"
+      # get_products_infos: "Get products infos"
+      # get_usage_infos: "Get usage infos"
       give: "Give"
       # has_harvesting: "Has harvesting"
       import: "Import"
       incorporate: "Incorporate"
       index: "Index"
       invoice: "Invoice"
-      journal_entries_csv_export: "Export CSV" #?
+      journal_entries_csv_export: "Export CSV"
       journal_entries_export: "Download CSV"
       journal_entries_import: "Import CSV"
       # keep: "Keep"
       # last_locations: "Last locations"
+      # lightness: "Lightness"
+      # ligthen: "Ligthen"
+      # line_highcharts: "Line highcharts"
       # link_to_sale: "Link to sale"
       list: "List"
       load: "Load"
@@ -3280,24 +3468,26 @@ eng:
       # models: "Models"
       negociate: "Negociate"
       new: "New"
-      new_purchase: "New purchase" #?
-      new_sale: "New sale" #?
+      new_purchase: "New purchase"
+      new_sale: "New sale"
+      # normalize_serie: "Normalize serie"
       notify_accountant: "Notify accountant"
       open: "Open"
       order: "Order"
-      order_again: "Order again" #?
+      order_again: "Order again"
       # parameter_cost: "Parameter cost"
       # participations_modal: "Participations modal"
       # passthru: "Passthru"
       pay: "Pay"
-      payment_gap: "Payment gap" #?
+      payment_gap: "Payment gap"
       payment_mode: "Payment mode"
       pick: "Pick"
       picture: "Picture"
+      # pie_highcharts: "Pie highcharts"
       prepare: "Prepare"
       print: "Print"
-      print_worker_register: "Print worker register"
       print_land_parcel_register: "Print land parcel register"
+      print_worker_register: "Print worker register"
       # progress: "Progress"
       propose: "Propose"
       propose_and_invoice: "Propose and invoice"
@@ -3326,27 +3516,30 @@ eng:
       run: "Run"
       # run_progress: "Run progress"
       # save_column: "Save column"
+      # scatter_highcharts: "Scatter highcharts"
       scrap: "Scrap"
-      search: "Search" #?
+      search: "Search"
       # search_by_expression: "Search by expression"
       select: "Select"
       sell: "Turn into sale"
       # sepa: "Sepa"
       ship: "Ship"
       show: "Show"
-      show_export_preview: "View a preview of the document (may increase loading time)" #?
+      show_export_preview: "View a preview of the document (may increase loading time)"
       sort: "Sort"
+      # spline_highcharts: "Spline highcharts"
       stand_by: "Put on hold"
       star: "Star"
       start: "Start"
       start_up: "Commission"
-      stop: "Stop" #?
+      stop: "Stop"
       # storage_detail: "Storage detail"
       suspend: "Suspend"
       take: "Take"
       takeover: "Take over"
       toggle: "Toggle"
       # toggle_autocompletion: "Toggle autocompletion"
+      # tree_distribution_chart: "Tree distribution chart"
       unlock: "Unlock"
       unmark: "Unmark"
       unroll: "Unroll"
@@ -3356,7 +3549,10 @@ eng:
       update: "Update"
       # update_many: "Update many"
       # upload: "Upload"
+      # validate_harvest_delay: "Validate harvest delay"
+      # validate_reentry_delay: "Validate reentry delay"
       # variable_indicators: "Variable indicators"
+      # waterfall_highcharts: "Waterfall highcharts"
       win: "Win"
   simple_form:
     hints:
@@ -3388,7 +3584,7 @@ eng:
     backend/prescriptions: "%{reference_number}"
     backend/product_memberships: "%{started_at}"
     backend/product_nature_variants: "%{name} (%{unit_name}) - %{charge_account_number}"
-    backend/product_nature_variants/saleables: "%{name} (%{unit_name}) - %{product_account_number}" #?
+    backend/product_nature_variants/saleables: "%{name} (%{unit_name}) - %{product_account_number}"
     backend/product_natures: "%{name}"
     backend/products:
       default: "%{work_number} %{name} (%{number})"

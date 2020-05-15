@@ -1,13 +1,15 @@
 module Interventions
   module Phytosanitary
     class ApplicationFrequencyValidator < ProductApplicationValidator
-      attr_reader :targets_and_shape, :intervention_stopped_at, :ignored_intervention
+      attr_reader :targets_and_shape, :intervention_started_at, :intervention_stopped_at, :ignored_intervention
 
       # @param [Array<Models::TargetAndShape>] targets_and_shape
+      # @option [DateTime, nil] intervention_started_at
       # @option [DateTime, nil] intervention_stopped_at
       # @option [Intervention, nil] ignored_intervention
-      def initialize(targets_and_shape:, ignored_intervention: nil, intervention_stopped_at: nil)
+      def initialize(targets_and_shape:, ignored_intervention: nil, intervention_started_at: nil, intervention_stopped_at: nil)
         @targets_and_shape = targets_and_shape
+        @intervention_started_at = intervention_started_at
         @intervention_stopped_at = intervention_stopped_at
         @ignored_intervention = ignored_intervention
       end
@@ -37,7 +39,7 @@ module Interventions
         product = product_usage.product
         phyto = product_usage.phyto
 
-        if usage.nil? || product.france_maaid.blank? || phyto.nil?
+        if usage.nil? || product.france_maaid.blank? || phyto.nil? || (usage.applications_count == 1 && usage.applications_frequency.present?)
           :unknown
         elsif usage.applications_frequency.nil? || interval_respected?(product_usage)
           :allowed
@@ -51,6 +53,14 @@ module Interventions
       # @return [Models::Period]
       def build_intervention_period(intervention_end, usage)
         Models::Period.parse(intervention_end, intervention_end + usage.applications_frequency)
+      end
+
+      # @param [DateTime] intervention_start
+      # @param [DateTime] intervention_end
+      # @param [RegisteredPhytosanitaryUsage] usage
+      # @return [Models::Period]
+      def build_current_intervention_period(intervention_start, intervention_end, usage)
+        Models::Period.parse(intervention_start, intervention_end + usage.applications_frequency)
       end
 
       # @return [Array<Charta::Geometry>]
@@ -73,7 +83,7 @@ module Interventions
       # @param [Models::ProductWithUsage] product_usage
       # @return [Boolean]
       def interval_respected?(product_usage)
-        f_period = build_intervention_period(intervention_stopped_at, product_usage.usage)
+        f_period = build_current_intervention_period(intervention_started_at, intervention_stopped_at, product_usage.usage)
         int_periods = forbidden_periods(product_usage)
 
         int_periods.none? { |int_period| int_period.intersect?(f_period) }

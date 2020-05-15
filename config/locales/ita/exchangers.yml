@@ -3,6 +3,7 @@ ita:
     agro_systemes_soil_analyses: "analisi del terreno AGRO Systèmes"
     agro_systemes_water_analyses: "analisi dell'acqua AGRO Systèmes"
     # agroedi_daplos: "Agroedi daplos"
+    # bordeaux_sciences_agro_istea_balance: "Accounting balance ‒ ISTEA ‒ Bordeaux Sciences Agro"
     bordeaux_sciences_agro_istea_general_ledger: "Bordeaux Scienze Agro ISTEA contabilità generale" #?
     bordeaux_sciences_agro_istea_journals: "Bordeaux Scienze Agro ISTEA riviste" #?
     bovins_croissance_cattle_performance_controls: "Bovins Croissance controlli delle prestazioni del bestiame"
@@ -20,6 +21,7 @@ ita:
     ekylibre_buildings_json: "edifici Ekylibre JSON"
     ekylibre_cap_land_parcel_clusters_json: "Ekylibre cluster pacchi terra tappo JSON" #?
     ekylibre_cap_land_parcels_json: "Ekylibre appezzamenti tappo JSON" #?
+    # ekylibre_cash_transfers: "Ekylibre cash transfers"
     ekylibre_crumbs: "Ekylibre Briciole" #?
     ekylibre_cultivable_zones: "zone coltivabili Ekylibre"
     ekylibre_cultivable_zones_json: "Ekylibre zone coltivabili JSON"
@@ -56,6 +58,8 @@ ita:
     # lely_milk_robot_individual_production: "Lely milk robot individual production"
     lilco_milk_analyses: "le analisi del latte Lilco"
     milklic_individual_production: "produzione individuale Milklic"
+    # panier_local_incoming_payments: "Panier local incoming payments"
+    # panier_local_sales: "Panier Local sales"
     synel_animals: "animali Synel"
     synel_inventory: "inventario Synel"
     # synest_inventory: "Synest inventory"
