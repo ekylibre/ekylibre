@@ -673,7 +673,6 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
     def import_phyto_from_lexicon(reference_name)
       item = RegisteredPhytosanitaryProduct.find_by_reference_name(reference_name)
-
       unless variant = ProductNatureVariant.find_by_reference_name(reference_name)
         category = ProductNatureCategory.import_from_lexicon(:plant_medicine)
         nature = ProductNature.import_from_lexicon(:plant_medicine)

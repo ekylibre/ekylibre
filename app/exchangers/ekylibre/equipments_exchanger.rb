@@ -31,19 +31,24 @@ module Ekylibre
         end
 
         # find or import from variant reference_nameclature the correct ProductNatureVariant
-        unless (variant = ProductNatureVariant.find_by(work_number: r.variant_reference_name))
+        variant = ProductNatureVariant.find_by(work_number: r.variant_reference_name)
+        unless variant
           if Nomen::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
             variant = ProductNatureVariant.import_from_nomenclature(r.variant_reference_name.downcase.to_sym)
           else
             raise "No variant exist in NOMENCLATURE for #{r.variant_reference_name.inspect}"
           end
         end
-        pmodel = variant.matching_model
 
         # create a price
         catalog = Catalog.find_by(usage: :cost)
-        if r.unit_pretax_amount && catalog && catalog.items.where(variant: variant).empty?
-          variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: r.unit_pretax_amount, currency: 'EUR') # , indicator_name: r.price_indicator.to_s
+        if r.unit_pretax_amount && catalog
+          variant.catalog_items.find_or_create_by(
+            catalog: catalog,
+            all_taxes_included: false,
+            amount: r.unit_pretax_amount,
+            currency: 'EUR'
+          )
         end
 
         # create the owner if not exist
@@ -64,7 +69,7 @@ module Ekylibre
         end
 
         # create the equipment
-        equipment = pmodel.create!(
+        equipment = Equipment.create!(
           variant_id: variant.id,
           name: r.name,
           initial_born_at: r.born_at,

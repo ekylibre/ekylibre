@@ -28,10 +28,11 @@ module Ekylibre
         zone = Product.find_by(work_number: r.code)
         unless zone
           zone_variant = ProductNatureVariant.import_from_nomenclature(r.nature)
+          zone_variant ||= ProductNatureVariant.import_from_lexicon(r.nature)
           unless zone_variant
             raise InvalidDataError, "Invalid nature of zone: #{r.nature}"
           end
-          zone = zone_variant.matching_model.new(variant: zone_variant, work_number: r.code)
+          zone = r.nature.to_s.camelcase.constantize.new(variant: zone_variant, work_number: r.code)
         end
 
         zone.name = r.name

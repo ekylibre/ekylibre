@@ -46,18 +46,22 @@ module Ekylibre
             w.warn "Need a reference to build variant for #{r.name}"
             next
           end
-          # force import variant from reference_nomenclature and update his attributes.
+          # force import variant from lexicon or reference_nomenclature and update his attributes.
           if r.reference_name.to_s.start_with? '>'
             reference_name = r.reference_name[1..-1]
-            if nature_item = Nomen::ProductNature.find(reference_name)
+            if (nature_item = Nomen::ProductNature.find(reference_name))
               nature = ProductNature.import_from_nomenclature(reference_name)
               category = ProductNatureCategory.import_from_nomenclature(nature_item.category)
               type = category.article_type || nature.variant_type
               variant = nature.variants.new(name: r.name, active: true, category: category, type: type)
+            else
+              raise 'Reference name not found in Product Nature Nomenclature: ' + r.reference_name.inspect
             end
+          elsif r.france_maaid && (item = RegisteredPhytosanitaryProduct.find_by_id(r.france_maaid))
+            variant = ProductNatureVariant.import_phyto_from_lexicon(item.reference_name)
           elsif Nomen::ProductNatureVariant.find(r.reference_name)
             variant = ProductNatureVariant.import_from_nomenclature(r.reference_name, true)
-          elsif nature_item = Nomen::ProductNature.find(r.reference_name)
+          elsif (nature_item = Nomen::ProductNature.find(r.reference_name))
             nature = ProductNature.import_from_nomenclature(r.reference_name)
             category = ProductNatureCategory.import_from_nomenclature(nature_item.category)
             type = category.article_type || nature.variant_type
@@ -79,8 +83,6 @@ module Ekylibre
           end
 
           if r.price_unity
-            # Find unit and matching indicator
-
             default_indicators = {
               mass: :net_mass,
               volume: :net_volume
@@ -122,27 +124,16 @@ module Ekylibre
             # Find ratio to store the good price link to existing variant indicator
             variant_default_population = variant.send(indicator.to_sym)
             ratio = (variant_default_population.to_d(unit.to_sym) / measure_unit_price.to_d(unit.to_sym)).to_d
-          else
-            ratio = 1.0
-          end
+            ratio ||= 1.0
 
-          # create a purchase price if needed
-          if r.purchase_unit_pretax_amount
-            catalog = Catalog.by_default!(:purchase)
-            variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: (r.purchase_unit_pretax_amount * ratio), currency: currency)
-          end
-          # create a stock price if needed
-          if r.stock_unit_pretax_amount
-            catalog = Catalog.by_default!(:stock)
-            if variant.catalog_items.where(catalog: catalog).empty?
-              variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: r.stock_unit_pretax_amount * ratio, currency: currency)
+            # create prices if exist
+            [[r.purchase_unit_pretax_amount, :purchase], [r.stock_unit_pretax_amount, :stock], [r.sale_unit_pretax_amount, :sale]].each do |(price, nature)|
+              if price
+                catalog = Catalog.by_default!(nature)
+                attributes = {catalog: catalog, all_taxes_included: false, amount: ratio * price, currency: currency}
+                variant.catalog_items.create!(attributes)
+              end
             end
-          end
-          # create a sale price if needed
-          next unless r.sale_unit_pretax_amount
-          catalog = Catalog.by_default!(:sale)
-          if variant.catalog_items.where(catalog: catalog).empty?
-            variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: r.sale_unit_pretax_amount * ratio, currency: currency)
           end
         end
         w.check_point

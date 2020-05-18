@@ -60,6 +60,15 @@ module Ekylibre
             with_supports: true,
             size_indicator: 'members_population'
           )
+        elsif family <= :administering
+          attributes.update(
+            family: :administering,
+            with_cultivation: false,
+            with_supports: false,
+            cultivation_variety: nil,
+            support_variety: nil,
+            nature: :auxiliary
+          )
         end
         activity = Activity.find_or_initialize_by(attributes.slice(:name, :family, :cultivation_variety))
         activity.attributes = attributes
