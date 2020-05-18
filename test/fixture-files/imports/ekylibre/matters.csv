@@ -1,55 +1,61 @@
 nom,variant_nomen,code produit,code place,date naissance,variété,dérivé,nom du propriétaire,indicateurs,notes,prix unitaire
 ,SEMENCE ET PLANT,,,,,,,,,
-Plant de vigne Trad(GS-RN) MERLOT_NOIR SO4,merlot_noir_so4_vine_seedling,,S05_D07,2013-01-01,seedling,vitis_vinifera_merlot_noir,,Population : 8500,,0.96
-Plant de vigne Trad(GS-RN) UGNI BLANC SO4,so4_vine_seedling,,S05_D07,2013-01-01,seedling,vitis_vinifera_ugni_blanc,,Population : 16250,,0.93
 Semence de blé dur,hard_wheat_seed_25,,S05_D07,2013-01-01,seed,triticum_durum,,Population : 4,,3.39
-Semence de blé tendre CAPHORN,wheat_seed_25,WHEAT_SEED_CAPHORN_01,S05_D07,2013-01-01,seed,triticum_aestivum_caphorn,,Population : 6,,3.40
-Semence de tournesol,seed,,S05_D07,2013-01-01,seed,helianthus,,Population : 2 ; net_mass : 40kg,,3.56
-Semence de blé tendre APACHE,wheat_seed_25,WHEAT_SEED_APACHE_01,S05_D07,2013-01-01,seed,triticum_aestivum_apache,,Population : 6,,3.30
-Semence d'orge d'hiver,winter_barley_seed_25,,S05_D07,2013-01-01,seed,hordeum_hibernum,,Population : 6,,3.56
-Semence de maïs,corn_seed_25,ZEA_SEED_SHANNON_2014,S05_D07,2013-01-01,seed,zea_mays_shannon,,Population : 6,,4.10
+Semence de blé tendre CAPHORN,wheat_seed_25,WHEAT_SEED_CAPHORN_01,S05_D07,2013-01-01,seed,triticum_aestivum,,Population : 6,,3.40
+Semence de tournesol,seed,,S05_D07,2013-01-01,seed,helianthus,,Population : 2,,3.56
+Semence de blé tendre APACHE,wheat_seed_25,WHEAT_SEED_APACHE_01,S05_D07,2013-01-01,seed,triticum_aestivum,,Population : 6,,3.30
+Semence d'orge d'hiver,winter_barley_seed_25,WINTER_BARLEY_SEED_01,S05_D07,2013-01-01,seed,hordeum_hexastichum,,Population : 6,,3.56
+Semence de maïs,corn_seed_25,ZEA_SEED_SHANNON_2014,S05_D07,2013-01-01,seed,zea_mays,,Population : 6,,4.10
 Semence de prairie,grass_seed_25,,S05_D07,2013-01-01,seed,poa,,Population : 6,,5.23
 Semence de sorgho,sorghum_seed_25,,S05_D07,2013-01-01,seed,sorghum,,Population : 6,,5.63
+Semence de soja,soy_seed,SOY_SEED,S05_D07,2013-01-01,seed,glycine_max,,Population : 6,,5.63
 Semence d'épeautre,spelt_seed_25,,S05_D07,2013-01-01,seed,triticum_spelta,,Population : 6,,5.36
-Semence de blé dur MIRADOUX,miradoux_hard_wheat_seed_25,HARD_WHEAT_SEED_MIRADOUX_01,S05_D07,2013-01-01,seed,triticum_durum_miradoux,,Population : 6,,5.23
+Semence de blé dur MIRADOUX,hard_wheat_seed_25,HARD_WHEAT_SEED_MIRADOUX_01,S05_D07,2013-01-01,seed,triticum_durum,,Population : 6,,5.23
+Semence de mais 2015,seed,ZEA_SEED_2015,S05_D07,2015-01-01,seed,zea_mays,,Population : 15,,
+Semence de mais 2017,seed,ZEA_SEED_2017,S05_D07,2017-01-01,seed,zea_mays,,Population : 15,,
+Semence de blé Rubisko,seed,WHEAT_SEED_RUBISKO_2014,S05_D07,2013-01-01,seed,triticum_aestivum,,Population : 15,,
+Semence de blé Rubisko,seed,WHEAT_SEED_RUBISKO_2018,S05_D07,2017-01-01,seed,triticum_aestivum,,Population : 15,,
+Semence d’orge Amistar,seed,BARLEY_SEED_AMISTAR_2016,S05_D07,2016-01-01,seed,hordeum_hexastichum,,Population : 15,,
+Semence de luzerne Neovia 2019,lucerne_seed,LUCERNE_SEED_2019,S05_D07,2018-01-01,seed,medicago_sativa,,Population : 15,,
 ,FERTILISANT,,,,,,,,,
-Ammonitrate 33 vrac,bulk_ammonitrate_33,AMMO_2014,S04_D01,2013-01-01,preparation,,,Population : 2.47,,387
-Solution ternaire liquide 15.30 densité 1.4,mixed_liquid_fertilizer,,S04_D01,2013-01-01,preparation,,,Population : 8 ; net_volume: 0.714cubic_meter ;  nitrogen_concentration: 15percent ; phosphorus_concentration: 30percent,,420
-Urée,bulk_urea_46,UREE_2014,S04_D01,2013-01-01,preparation,,,Population : 15,,395
-Solution 10_25,liquid_10_25_d1.4,,S04_D01,2013-01-01,preparation,,,Population : 5,,430
-Fumier de l'exploitation,cattle_manure,FUMIER_2014,S05_D05,2013-01-01,manure,bos,,Population : 4.55,,61
+Ammonitrate 33 vrac,bulk_ammonitrate_33,AMMO_2014,S04_D01,2013-01-01,preparation,,,Population : 2.47 ; net_volume: 1liter ; net_mass : 1kilogram,,387
+Solution ternaire liquide 15.30 densité 1.4,mixed_liquid_fertilizer,,S04_D01,2013-01-01,preparation,,,Population : 8 ; net_volume: 1liter ; net_mass : 1kilogram ;  nitrogen_concentration: 15percent ; phosphorus_concentration: 30percent,,420
+Urée,bulk_urea_46,UREE_2014,S04_D01,2013-01-01,preparation,,,Population : 15; net_volume: 1liter ; net_mass : 1kilogram,,395
+Solution 10_25,liquid_10_25_d1.4,,S04_D01,2013-01-01,preparation,,,Population : 5; net_volume: 1liter ; net_mass : 1kilogram,,430
+Orgabio 10 4 0,mixed_organic_fertilizer,ORGABIO_2018,S04_D01,2017-01-01,preparation,,,Population : 5 ; nitrogen_concentration: 10percent ; phosphorus_concentration: 4percent,,350
+Fumier de l'exploitation,cattle_manure,FUMIER_2014,S05_D05,2013-01-01,manure,bos,,Population : 350; net_volume: 1liter ; net_mass : 1kilogram,,61
+Fumier de l'exploitation,cattle_manure,FUMIER_2015,S05_D05,2014-01-01,manure,bos,,Population : 450; net_volume: 1liter ; net_mass : 1kilogram,,61
+Fumier de l'exploitation,cattle_manure,FUMIER_2016,S05_D05,2015-01-01,manure,bos,,Population : 400; net_volume: 1liter ; net_mass : 1kilogram,,61
 ,EAU (m³),,,,,,,,,
 Eau de la rivière Bruant,irrigation_water,,S09_D02,2013-01-01,,,,Population : 500 ; nitrogen_concentration: 45parts_per_million,,
 Eau du réseau,running_water,,S09_D02,2013-01-01,,,,Population : 500 ; nitrogen_concentration: 15parts_per_million,,
 Eau du puit,natural_water,,S09_D02,2013-01-01,,,,Population : 500 ; nitrogen_concentration: 30parts_per_million,,
 ,DEFENSES DES VEGETAUX,,,,,,,,,
-Axial Pratic,poaceae_herbicide,AXIAL_2015_01,S05_D07,2013-01-01,preparation,,,Population : 50,,23.33
 Opus team,fungicide,OPUS_2015_01,S05_D07,2015-01-01,preparation,,,Population : 50,,78
 Riflexine,riflexine,,S05_D07,2013-01-01,preparation,,,Population : 40,,4
 Actilact,actilact,,S05_D07,2013-01-01,preparation,,,Population : 150,,2.85
 Acetal,acetal,,S05_D07,2013-01-01,preparation,,,Population : 4,,15.58
 Belem 0.8 MG,granulated_insecticide_12,,S05_D07,2013-01-01,preparation,,,Population : 2,,50.23
-Callisto,coop:callisto_5_l,,S05_D07,2014-01-06,preparation,,,Population : 10 ; wait_before_harvest_period : 0day ; approved_input_dose : 1.50kilogram_per_hectare ; untreated_zone_length : 50meter ; wait_before_entering_period : 1day,,45.78
-,PRODUITS OENOLOGIQUES,,,,,,,,,
-Solution Sulfureuse A8,so2_liquid_A8,,S05_D07,2013-01-01,,,,Population : 5,,
-Comprimés de 5g,so2_solid_5g,,S05_D07,2013-01-01,,,,Population : 18,,
-Fermiflor 500g JB3,oenological_yeast_sc_500g,,S05_D07,2013-01-01,,,,Population : 5,,
-Acide malique,malic_acid_25kg,,S05_D07,2014-01-05,,,,Population : 4,,
-Acide lactique,lactic_acid_25kg,,S05_D07,2014-01-05,,,,Population : 1,,
-" 	
-Carbonate de Chaux",calcium_carbonate_25kg,,S05_D07,2014-01-05,,,,Population : 2.5,,
-Clarifiant Ferro-Cyanure,potassium_ferrocyanide_25kg,,S05_D07,2014-01-05,,,,Population : 1,,
-Sucre,white_sugar_25kg,,S05_D07,2014-01-05,,,,Population : 1,,
-,MATIERES SECHES,,,,,,,,,
-BORDELAISE SENSACION 75 cl,bordelaise_75cl_bottle,,S05_D07,2014-01-05,,,,Population : 2500 ; net_volume: 75.00centiliter ; net_mass: 500gram ; length: 324.00millimeter,,0.69
-Bouchon liege,natural_cork,,S05_D07,2014-01-05,,,,Population : 1000 ; width: 24.00millimeter ; length: 36.00millimeter,,0.25
-Bouchon Nomacorc S500,nomacorc_cork,,S05_D07,2014-01-05,,,,Population : 1000 ; width: 23.00millimeter ; length: 44.00millimeter,,0.29
+ZEBRA,2000085,ZEBRA,S05_D07,2014-01-06,preparation,,,Population : 10,,45.78
 ,CARBURANT ET LUBRIFIANT,,,,,,,,,
-Huile moteur MOTUL ,motor_oil,,S09_D01,2013-01-01,oil,,,Population : 220,,2.87
-Huile hydraulique PROBEOL HV,hydraulic_oil,,S09_D01,2013-01-01,oil,,,Population : 80,,4.24
-Gasoil,diesel,GASOIL_2014,S09_D01,2013-01-01,fuel,,,Population : 4500,,0.61
+Huile moteur MOTUL ,motor_oil,,S09_D01,2013-01-01,oil,,,Population : 220; net_volume: 1liter ; net_mass : 1kilogram,,2.87
+Huile hydraulique PROBEOL HV,hydraulic_oil,,S09_D01,2013-01-01,oil,,,Population : 80; net_volume: 1liter ; net_mass : 1kilogram,,4.24
+Gasoil,diesel,GASOIL_2014,S09_D01,2013-01-01,fuel,,,Population : 4500 ; net_volume: 1liter ; net_mass : 1kilogram,,0.61
 ,PIECE ET CONSOMMABLE,,,,,,,,,
 Boulons,bolt,,S09_D01,2013-01-01,,,,Population : 80,,1.05
+,PRODUIT VEGETAUX,,,,,,,,,
+Blé dur 2015,hard_wheat_grain,HARD_WHEAT_GRAIN_2015,SILO_EXT_01,2015-01-01,,,,Population : 15,,398
+Blé tendre en stockage à façon à la coopérative,wheat_grain,WHEAT_GRAIN_2014,SILO_EXT_01,2014-01-01,,,,Population : 27.7,,180
+Blé tendre 2015,wheat_grain,WHEAT_GRAIN_2015,SILO_EXT_01,2015-01-01,,,,Population : 1,,180
+Mais 2017,corn_grain,CORN_GRAIN_2017,SILO_EXT_02,2014-01-01,,,,Population : 1,,
+Blé tendre 2018,wheat_grain,WHEAT_GRAIN_2018,SILO_EXT_01,2017-01-01,,,,Population : 1,,250
+Soja 2018,soy_grain,SOY_GRAIN_2018,SILO_EXT_01,2017-01-01,,,,Population : 1,,
+Orge 2017,barley_grain,BARLEY_GRAIN_2017,SILO_EXT_01,2017-01-01,,,,Population : 1,,
+Mais en stockage à façon,corn_grain,CORN_GRAIN_2014,SILO_EXT_02,2014-01-01,,,,Population : 12,,210
+Merlot Rouge 2012,wine,,TANK_1_S05_D06,2012-10-01,wine,,,Population : 40; reference_year : 2012; certification : bordeaux_rouge,,100.20
+Merlot Rouge 2013,wine,,TANK_2_S05_D06,2013-10-01,wine,,,Population : 50; reference_year : 2013; certification : bordeaux_superieur_rouge,,111.20
+Jus de raisin Merlot 2013,vine_grape_juice,,TANK_6_S05_D06,2013-09-15,juice,grape,,Population : 150; reference_year : 2013; certification : bordeaux_superieur_rouge,,1.11
+Mout Merlot 2013 Cuve N°3,vine_grape_must,,TANK_3_S05_D06,2013-09-15,fermented_juice,grape,,Population : 45; reference_year : 2013; certification : bordeaux_superieur_rouge,,70.00
 ,FOURRAGE,,,,,,,,,
 Ensilage Herbe – Silo Génisse,grass_silage,,S03_D02,2014-01-01,,,,Population : 49,,29
 Ensilage Herbe – Silo VL 2,grass_silage,,S05_D02,2014-01-01,,,,Population : 140,,29
@@ -61,7 +67,7 @@ Foin bottes cubiques  - Génisse,hay_big_rectangular_bales,,S03_D07,2014-01-01,,
 Foin bottes rondes - Intrabois,hay_round_bales,,S06_D02,2014-01-01,,,,Population : 25,"7,5",27.3
 Foin bottes cubiques  - Intrabois,hay_big_rectangular_bales,,S06_D02,2014-01-01,,,,Population : 50,22,39.85
 Foin petites bottes  - Crêche,hay_small_rectangular_bales,,S05_D08,2014-01-01,,,,Population : 350,"8,75",2.27
-Paille bottes cubiques  - Intrabois,wheat_straw_big_rectangular_bales,,S06_D02,2014-01-01,,,,Population : 140,"30,66",8.32
+Paille bottes cubiques  - Intrabois,wheat_straw_big_rectangular_bales,WHEAT_STRAW_2015,S06_D02,2014-01-01,,,,Population : 140,"30,66",8.32
 Paille bottes cubiques  - Nurserie,wheat_straw_big_rectangular_bales,,S03_D12,2014-01-01,,,,Population : 40,"8,76",8.32
 Paille bottes cubiques  - Silo VL 3,wheat_straw_big_rectangular_bales,,S05_D03,2014-01-01,,,,Population : 40,"8,76",8.32
 ,PRODUIT HYGIENE ELEVAGE,,,,,,,,,
@@ -70,24 +76,4 @@ ARCACID,dairy_equipment_cleaner,,S05_D09,2014-01-01,,,,Population : 2.00,,23.56
 FERT HYGIENOR,livestock_cleanliness_product,,S05_D09,2014-01-01,,,,Population : 16.00,,33.12
 PHYTEOS,livestock_cleanliness_product,,S05_D09,2014-01-01,,,,Population : 2.00,,120.47
 ,PRODUIT REPRODUCTION ANIMALE,,,,,,,,,
-Paillette sexée GIROPHARE,bos_vial,,COLD_TANK_01,2014-01-01,vial,bos_taurus_normande,,"Population : 4, sex : female",,45.25
-,ALIMENT,,,,,,,,,
-ECA PACK TONUS - Silo gauche,bulk_animal_food,,TANK_1G_S05,2014-01-01,,,,Population : 0.50,,339.90
-ECA PACK TONUS - Silo droite,bulk_animal_food,,TANK_1D_S05,2014-01-01,,,,Population : 0.40,,339.90
-AZUR HERBE,25kg_bag_animal_food,,S05_D07,2014-01-01,,,,Population : 4,4.00,16.29
-DIGEST OLIGO SACS,25kg_bag_animal_food,,S05_D07,2014-01-01,,,,Population : 20,20.00,27.25
-CRISTALOR TARIE SAC,25kg_bag_animal_food,,S05_D07,2014-01-01,,,,Population : 1,1.00,35.88
-ESTIM NEOMILK 20/12,25kg_bag_animal_food,,S05_D07,2014-01-01,,,,Population : 3,3.00,62.37
-ESTIM SANDIBOOST 26/12,bulk_animal_food,,TANK_1_S05_D07,2014-01-01,,,,Population : 4.50,4.50,415.60
-FLORI ECLAIR SAC ,25kg_bag_animal_food,,S05_D07,2014-01-01,,,,Population : 18,18.00,12.07
-FLORIJUNIOR SAC,25kg_bag_animal_food,,S05_D07,2014-01-01,,,,Population : 9,9.00,11.13
-RUMIDECOX,bulk_kg_animal_food,,S05_D07,2014-01-01,,,,Population : 500,500.00,0.49
-,PRODUIT VEGETAUX,,,,,,,,,
-Blé dur 2015,hard_wheat_grain,HARD_WHEAT_GRAIN_2015,SILO_EXT_01,2015-01-01,,,,Population : 15,,398
-Blé tendre en stockage à façon à la coopérative,wheat_grain,WHEAT_GRAIN_2014,SILO_EXT_01,2014-01-01,,,,Population : 27.7,,180
-Blé tendre 2015,wheat_grain,WHEAT_GRAIN_2015,SILO_EXT_01,2015-01-01,,,,Population : 1,,180
-Mais en stockage à façon,corn_grain,CORN_GRAIN_2014,SILO_EXT_02,2014-01-01,,,,Population : 12,,210
-Merlot Rouge 2012,wine,,TANK_1_S05_D06,2012-10-01,wine,,,Population : 40; reference_year : 2012; certification : bordeaux_rouge,,100.20
-Merlot Rouge 2013,wine,,TANK_2_S05_D06,2013-10-01,wine,,,Population : 50; reference_year : 2013; certification : bordeaux_superieur_rouge,,111.20
-Jus de raisin Merlot 2013,vine_grape_juice,,TANK_6_S05_D06,2013-09-15,juice,grape,,Population : 150; reference_year : 2013; certification : bordeaux_superieur_rouge,,1.11
-Mout Merlot 2013 Cuve N°3,vine_grape_must,,TANK_3_S05_D06,2013-09-15,fermented_juice,grape,,Population : 45; reference_year : 2013; certification : bordeaux_superieur_rouge,,70.00
+Paillette sexée GIROPHARE,bos_vial,,COLD_TANK_01,2014-01-01,vial,bos_taurus,,"Population : 4, sex : female",,45.25

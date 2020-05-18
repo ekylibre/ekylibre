@@ -1,29 +1,9 @@
-Name,Nature,Member nature,Code,Minimum age (days),Maximum age (days),Sex,Place,Date des indicateurs,Indicateurs,Activité,Production,Campagne
-Veaux,cattle_herd,calf,VEAU,1,30,undefined,S03_D12,2014-01-01,Population : 1,Élevage bovin,Veau,2015
-Génisses 1,cattle_herd,female_young_cow,GEN_1,30,366,female,S03_D04,2014-01-01,Population : 1,Élevage bovin,Génisse,2015
-Taurillon 1,cattle_herd,male_young_cow,TAUR_1,30,366,male,S07_D01,2014-01-01,Population : 1,Élevage bovin,Taurillon,2015
-Génisses 2,cattle_herd,female_young_cow,GEN_2,366,732,female,S03_D09,2014-01-01,Population : 1,Élevage bovin,Génisse,2015
-Taurillon 2,cattle_herd,male_young_cow,TAUR_2,366,8000,male,S03_D04,2014-01-01,Population : 1,Élevage bovin,Taurillon,2015
-Génisses 3,cattle_herd,female_young_cow,GEN_3,732,998,female,S03_D11,2014-01-01,Population : 1,Élevage bovin,Génisse,2015
-Vaches taries,female_adult_cattle_herd,female_adult_cow,VT,998,8000,female,S05_D12,2014-01-01,Population : 1,Élevage bovin,Vache laitière,2015
-Vaches laitières,female_adult_cattle_herd,female_adult_cow,VL,998,8000,female,S05_D12,2014-01-01,Population : 1,Élevage bovin,Vache laitière,2015
-Génisses,cattle_herd,female_young_cow,GEN_01,90,700,female,ZC04,01/04/2014,population:3,Élevage bovin,,
-Poules,hen_herd,female_hen_band,POULE_01,90,500,female,S04_D07,01/04/2014,population:300,Élevage bovin,,
-Poulet,hen_herd,male_hen_band,POULET_01,90,500,male,S04_D08,01/04/2014,population:20,Élevage bovin,,
-Jeunes poulets,hen_herd,male_hen_band,JPO_G_01,0,89,male,S05_D01,01/04/2014,population:60,Élevage bovin,,
-Jeunes poulettes,hen_herd,female_hen_band,JPOU_B_01,0,89,female,S05_D02,01/04/2014,population: 100,Élevage bovin,,
-Chèvres,female_adult_goat_herd,female_adult_goat,CHE_01,366,3650,female,ZC16,01/04/2014,Population:6,Élevage bovin,,
-Bouc,male_adult_goat_herd,male_adult_goat,BOU_01,366,3650,male,ZC16,01/04/2014,Population:1,Élevage bovin,,
-Juments,horse_herd,female_adult_horse,JUM_01,366,7300,female,ZC04,01/04/2014,population:1,Élevage bovin,,
-Etalons,horse_herd,male_adult_horse,ETA_01,366,7300,male,ZC04,01/04/2014,population:0,Élevage bovin,,
-Poneys,pony_herd,female_adult_pony,PON_01,366,7300,female,ZC04,01/04/2014,population:1,Élevage bovin,,
-Ponettes,pony_herd,male_adult_pony,PONE_01,366,7300,male,ZC04,01/04/2014,population:2,Élevage bovin,,
-Verrat,pig_herd,male_adult_pig,VER_01,121,3650,male,ZC22,01/04/2014,population:1,Élevage bovin,,
-Truie,pig_herd,female_adult_pig,TRU_01,121,3650,female,ZC22,01/04/2014,population: 1,Élevage bovin,,
-Porcelet mâle,pig_herd,male_young_pig,POR_G_01,0,120,male,ZC22,01/04/2014,population:0,Élevage bovin,,
-Porcelet femelle,pig_herd,female_young_pig,POR_B_01,0,120,female,ZC22,01/04/2014,population:2,Élevage bovin,,
-Brebis,sheep_herd,female_adult_sheep,BRE_01,121,5475,female,ZC22,01/04/2014,population:1,Élevage bovin,,
-lapine,rabbit_herd,female_adult_rabbit,LAPI_01,31,2920,female,ZC22,01/04/2014,population:5,Élevage bovin,,
-lapin,rabbit_herd,male_adult_rabbit,LAP_01,31,2920,male,ZC22,01/04/2014,population:2,Élevage bovin,,
-lapereau femelle,rabbit_herd,female_young_rabbit,LAP_B_01,0,30,female,ZC22,01/04/2014,population:0,Élevage bovin,,
-lapereau mâle,rabbit_herd,male_young_rabbit,LAP_G_01,0,30,male,ZC22,01/04/2014,population:0,Élevage bovin,,
+Name,Nature,Member nature,Code,Minimum age (days),Maximum age (days),Sex,Place,Date des indicateurs,Indicateurs,Activité,Production,Campagne,Debut,Fin,Nombre de tete
+Veaux,cattle_herd,calf,VEAU,1,30,undefined,S03_D12,2014-01-01,Population : 1,Veau,Veau,2015,2015-01-01,2015-12-31,25
+Génisses 1,cattle_herd,female_young_cow,GEN_1,30,366,female,S03_D04,2014-01-01,Population : 1,Génisse,Génisse,2015,2015-01-01,2015-12-31,30
+Taurillon 1,cattle_herd,male_young_cow,TAUR_1,30,366,male,S07_D01,2014-01-01,Population : 1,Taurillon,Taurillon,2015,2015-01-01,2015-12-31,20
+Génisses 2,cattle_herd,female_young_cow,GEN_2,366,732,female,S03_D09,2014-01-01,Population : 1,Génisse,Génisse,2015,2015-01-01,2015-12-31,21
+Taurillon 2,cattle_herd,male_young_cow,TAUR_2,366,8000,male,S03_D04,2014-01-01,Population : 1,Taurillon,Taurillon,2015,2015-01-01,2015-12-31,25
+Génisses 3,cattle_herd,female_young_cow,GEN_3,732,998,female,S03_D11,2014-01-01,Population : 1,Génisse,Génisse,2015,2015-01-01,2015-12-31,15
+Vaches taries,female_adult_cattle_herd,female_adult_cow,VT,0,0,female,S05_D12,2014-01-01,Population : 1,Vache laitière,Vache laitière,2015,2015-01-01,2015-12-31,3
+Vaches laitières,female_adult_cattle_herd,female_adult_cow,VL,998,8000,female,S05_D12,2014-01-01,Population : 1,Vache laitière,Vache laitière,2015,2015-01-01,2015-12-31,55

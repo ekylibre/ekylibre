@@ -185,7 +185,7 @@ module Ekylibre
         basename = nature.to_s.humanize + ' (' + Pathname.new(file).basename.to_s + ') '
         total = 0
         max = options[:max] || @max
-        Import.launch!(nature, file, options.fetch(:options, {})) do |progress, count|
+        Import.launch_result!(nature, file, options.fetch(:options, {})) do |progress, count|
           if @verbose
             status = [' + ' + basename]
             status << " #{progress.to_i}%"
@@ -207,7 +207,7 @@ module Ekylibre
             total = count
           end
           max <= 0 || count < max
-        end
+        end.raise_if_error!
         if @verbose
           stop = Time.zone.now
           status = [' ✔ ' + nature.to_s.humanize, ' (' + Pathname.new(file).basename.to_s + ') ']
