@@ -1,7 +1,5 @@
 :ruby
   if nature = f.object.nature
-    f.object.name ||= nature.name
-    f.object.unit_name ||= Nomen::Variety[nature.variety].human_name
     nature.frozen_indicators.each do |indicator|
       unless f.object.readings.detect { |r| r.indicator_name.to_s == indicator.name.to_s }
         f.object.readings.build(indicator_name: indicator.name, indicator_datatype: indicator.datatype)
