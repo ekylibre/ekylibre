@@ -29,6 +29,9 @@ module Accountancy
 
     def trial_balance(options = {})
       journal_entry_items = 'jei'
+      vat_journal_entry_items = 'vjei'
+      tax_items = 'ti'
+      tax_accounts = 'ta'
       journal_entries = 'je'
       journals = 'j'
       accounts = 'a'
@@ -45,7 +48,7 @@ module Accountancy
       from_where = " FROM #{JournalEntryItem.table_name} AS #{journal_entry_items} JOIN #{Account.table_name} AS #{accounts} ON (account_id=#{accounts}.id) JOIN #{JournalEntry.table_name} AS #{journal_entries} ON (entry_id=#{journal_entries}.id) JOIN #{Journal.table_name} AS #{journals} ON (#{journal_entries}.journal_id=#{journals}.id)"
       from_where += ' WHERE (' + journal_entry_condition_builder.period_condition(options[:period], started_on: options[:started_on], stopped_on: options[:stopped_on], table_name: journal_entries) + ')'
 
-      # Total
+      # Total - position in array -1
       items = []
       query = "SELECT '', -1, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), '#{'Z' * 16}' AS skey"
       query << from_where
@@ -54,7 +57,7 @@ module Accountancy
       query << account_range unless account_range.nil?
       items += connection.select_rows(query)
 
-      # Sub-totals
+      # Sub-totals  - position in array -2
       options.select { |k, v| k.to_s.match(/^level_\d+$/) && v.to_i == 1 }.each do |name, _value|
         level = name.split(/\_/)[-1].to_i
         query = "SELECT SUBSTR(#{accounts}.number, 1, #{level}) AS subtotal, -2, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), SUBSTR(#{accounts}.number, 1, #{level})||'#{'Z' * (16 - level)}' AS skey"
@@ -78,7 +81,7 @@ module Accountancy
       query << " ORDER BY #{accounts}.number"
       items += connection.select_rows(query)
 
-      # Centralized accounts
+      # Centralized accounts  - position in array -3
       for prefix in centralize
         query = "SELECT SUBSTR(#{accounts}.number, 1, #{prefix.size}) AS centralize, -3, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{connection.quote(prefix)} AS skey"
         query << from_where
@@ -90,11 +93,29 @@ module Accountancy
         items += connection.select_rows(query)
       end
 
+      # VAT details on accounts - position in array -4
+      if options[:vat_details]
+        from_where_vat  = " FROM #{JournalEntryItem.table_name} AS #{journal_entry_items} JOIN #{Account.table_name} AS #{accounts} ON (account_id=#{accounts}.id) JOIN #{JournalEntry.table_name} AS #{journal_entries} ON (entry_id=#{journal_entries}.id) JOIN #{Journal.table_name} AS #{journals} ON (#{journal_entries}.journal_id=#{journals}.id)"
+        from_where_vat += " JOIN #{JournalEntryItem.table_name} AS #{vat_journal_entry_items} ON (#{journal_entry_items}.resource_id=#{vat_journal_entry_items}.resource_id AND #{journal_entry_items}.entry_id=#{vat_journal_entry_items}.entry_id AND ABS(#{journal_entry_items}.real_balance)=ABS(#{vat_journal_entry_items}.absolute_pretax_amount) AND #{vat_journal_entry_items}.resource_prism = 'item_tax')"
+        from_where_vat += " JOIN #{Tax.table_name} AS #{tax_items} ON (#{vat_journal_entry_items}.tax_id=#{tax_items}.id)"
+        from_where_vat += " JOIN #{Account.table_name} AS #{tax_accounts} ON (#{vat_journal_entry_items}.account_id=#{tax_accounts}.id)"
+        from_where_vat += ' WHERE (' + journal_entry_condition_builder.period_condition(options[:period], started_on: options[:started_on], stopped_on: options[:stopped_on], table_name: journal_entries) + ')'
+        query = "SELECT COALESCE(#{tax_accounts}.id, 0) AS account_id, -4, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{accounts}.number AS skey"
+        query << from_where_vat
+        query << journal_entries_states
+        query << journals_natures
+        query << account_range unless account_range.nil?
+        query << " AND NOT #{centralized}" unless centralize.empty?
+        query << " GROUP BY #{accounts}.id, #{accounts}.number, #{tax_accounts}.id, #{tax_accounts}.number"
+        query << " ORDER BY #{accounts}.number, #{tax_accounts}.number"
+        items += connection.select_rows(query)
+      end
+
       items.sort_by { |a| a[5] }
     end
 
-    def trial_balance_dataset(states:, natures:, balance:, accounts:, centralize:, period:, started_on:, stopped_on:, previous_year:)
-      balance_params = { states: states, natures: natures, accounts: accounts, centralize: centralize, period: period, started_on: started_on, stopped_on: stopped_on }
+    def trial_balance_dataset(states:, natures:, balance:, accounts:, centralize:, period:, started_on:, stopped_on:, previous_year:, vat_details: false)
+      balance_params = { states: states, natures: natures, accounts: accounts, centralize: centralize, period: period, started_on: started_on, stopped_on: stopped_on, vat_details: vat_details}
 
       balance_data = if period.present?
                        trial_balance(balance_params)

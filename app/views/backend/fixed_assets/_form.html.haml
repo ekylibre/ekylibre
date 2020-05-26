@@ -17,11 +17,11 @@
 = field_set do
   = f.input :name
   = f.input :description, as: :text
-  = f.referenced_association :product, :source => :depreciables, required: %w[sell scrap].include?(params[:mode])
+  = f.referenced_association :product, source: :depreciables, required: %w[sell scrap].include?(params[:mode])
   = f.custom_fields
   = hidden_field_tag :mode, params[:mode]
 
-- if f.object.draft? && !params[:mode] || f.object.new_record?
+- if (f.object.draft? || f.object.waiting?) && !params[:mode] || f.object.new_record?
   = field_set(:depreciation) do
     = f.money :depreciable_amount
     = f.input :depreciation_method, as: :radio_buttons, show: '#{{value}}_options'
@@ -36,19 +36,19 @@
     = f.input :depreciation_fiscal_coefficient
 
   = field_set(:accountancy) do
-    = f.referenced_association :journal
-    = f.referenced_association :asset_account, :source => :assets
+    = f.referenced_association :journal, source: :purchases_or_fixed_assets
+    = f.referenced_association :asset_account, source: :assets
     = f.referenced_association :special_imputation_asset_account, source: :capitalized_revenues
-    = f.referenced_association :allocation_account, :source => :assets_depreciations
-    = f.referenced_association :expenses_account, :source => :asset_depreciations_inputations_expenses
+    = f.referenced_association :allocation_account, source: :assets_depreciations
+    = f.referenced_association :expenses_account, source: :asset_depreciations_inputations_expenses
 - elsif f.object.asset_account.blank? || f.object.allocation_account.blank? || f.object.expenses_account.blank?
   = field_set(:accountancy) do
     - if f.object.asset_account.blank?
-      = f.referenced_association :asset_account, :source => :assets
+      = f.referenced_association :asset_account, source: :assets
     - if f.object.allocation_account.blank?
-      = f.referenced_association :allocation_account, :source => :assets_depreciations
+      = f.referenced_association :allocation_account, source: :assets_depreciations
     - if f.object.expenses_account.blank?
-      = f.referenced_association :expenses_account, :source => :asset_depreciations_inputations_expenses
+      = f.referenced_association :expenses_account, source: :asset_depreciations_inputations_expenses
 
 - case params[:mode]
 - when 'sell'
@@ -65,6 +65,9 @@
     = f.input :scrapped_on, required: true
 
 - when 'stand_by'
+  = field_set(:depreciation) do
+    = f.input :started_on
+
   = field_set(:delay) do
     = f.input :waiting_on, required: true
 

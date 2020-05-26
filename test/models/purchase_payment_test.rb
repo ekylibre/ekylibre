@@ -85,19 +85,22 @@ class PurchasePaymentTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     payer = Entity.normal.find_by!(client: true)
     responsible = User.find(1)
 
+    # create payment
     payment = PurchasePayment.create!(mode: mode, payee: payer, amount: 504.12, delivered: true, currency: currency, cash: cash, responsible: responsible, to_bank_at: DateTime.new(2018, 1, 1))
 
+    # payment must exist and have 504.12 amount
     assert_not_nil payment
     assert_equal 504.12, payment.amount
 
     entry = payment.journal_entry
 
+    # entry payment must exist with 2 items with 504.12
     assert_not_nil entry
     assert_equal 2, entry.items.count
     assert_equal 504.12, entry.real_debit, entry.inspect
     assert_equal 504.12, entry.real_credit, entry.inspect
 
-    # Update with confirmed entry
+    # confirm entry and update payment with another amount
     entry.confirm!
 
     payment.update!(amount: 405.21)
@@ -112,10 +115,13 @@ class PurchasePaymentTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_equal 504.12, entry.real_credit, entry.inspect
 
     entry_v2.reload
-
+    # new entry payment must exist with 2 items with 405.21
     assert_equal 405.21, entry_v2.real_debit, entry_v2.inspect
     assert_equal 405.21, entry_v2.real_credit, entry_v2.inspect
 
+    entry_v2.confirm!
+
+    # destroying payment with entry v2 status confirm must extourn journal entry and adding 1 entry
     journal_entries_count = entry_v2.journal.entries.count
     payment.destroy
     new_journal_entries_count = entry_v2.journal.entries.count

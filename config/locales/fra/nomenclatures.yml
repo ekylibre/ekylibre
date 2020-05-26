@@ -2122,7 +2122,7 @@ fra:
         acta_category: "Catégorie ACTA"
     document_natures:
       items:
-        account_journal_entry_sheet: "Journal compte Fiche d’entrée"
+        account_journal_entry_sheet: "Extrait de compte"
         activity_cost: "Coût de production détaillé"
         animal_husbandry_register: "Registre d’élevage"
         animal_list: "Liste des animaux"

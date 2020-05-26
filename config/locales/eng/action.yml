@@ -100,8 +100,8 @@ eng:
       index: "Reconciliate bank statement %{cash} %{number} (from %{started_on} to %{stopped_on})"
       reconciliate: "Bank statements of %{cash} (from %{started_on} to %{stopped_on})"
     backend/bank_statement_items:
-      # new: "New bank statement item"
-      # show: "Bank statement item: %{name}"
+      new: "New bank statement item"
+      show: "Bank statement item : %{name}"
     backend/bank_statements:
       edit: "Edit bank statement %{number}"
       edit_interval: "Bank statements periods to reconciliate"
@@ -1823,6 +1823,7 @@ eng:
     display: "Display"
     display_accounts: "Display accounts"
     display_n_1: "Display N-1"
+    display_vat_details : "Display VAT details"
     distribute_unaffected_products: "Distribute unaffected products"
     distributions: "Distributions"
     divide: "Divide"

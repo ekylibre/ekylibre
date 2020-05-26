@@ -17,6 +17,9 @@
   - k.helper :journal_entries_states_crit
   - k.helper :journals_natures_crit
   - k.helper do
+    %label= :display_vat_details.tl
+    = check_box_tag("vat_details", "1", params[:vat_details] == "1")
+  - k.helper do
     %label= :display_n_1.tl
     = check_box_tag("previous_year", "1", params[:previous_year] == "1")
   - k.helper do
@@ -107,4 +110,17 @@
             %td.dec{class: "balancecolor"}= number_to_accountancy(-item[4].to_f, currency) if item[4].to_f < 0
             %td.dec{class: "balancecolor"}= number_to_accountancy(prev_item[4], currency) if prev_item[4].to_f > 0
             %td.dec{class: "balancecolor"}= number_to_accountancy(-prev_item[4].to_f, currency) if prev_item[4].to_f < 0
+        - elsif item[1].to_i == -4 && item[0].to_i > 0
+          - vat_account = Account.find(item[0])
+          %tr.subtotal
+            %th{colspan: 2, style: "padding-left: #{d*8+4}px"}= vat_account.label
+            %td.dec{class: "totalcolor"}= number_to_accountancy(item[2], currency)
+            %td.dec{class: "totalcolor"}= number_to_accountancy(item[3], currency)
+            %td.dec{class: "totalcolor"}= number_to_accountancy(prev_item[2], currency)
+            %td.dec{class: "totalcolor"}= number_to_accountancy(prev_item[3], currency)
+            %td.dec{class: "balancecolor"}= number_to_accountancy(item[4], currency) if item[4].to_f > 0
+            %td.dec{class: "balancecolor"}= number_to_accountancy(-item[4].to_f, currency) if item[4].to_f < 0
+            %td.dec{class: "balancecolor"}= number_to_accountancy(prev_item[4], currency) if prev_item[4].to_f > 0
+            %td.dec{class: "balancecolor"}= number_to_accountancy(-prev_item[4].to_f, currency) if prev_item[4].to_f < 0
+
 .end

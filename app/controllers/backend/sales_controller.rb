@@ -28,7 +28,7 @@ module Backend
 
     # management -> sales_conditions
     def self.sales_conditions
-      code = search_conditions(sales: %i[pretax_amount amount number initial_number description], entities: %i[number full_name]) + " ||= []\n"
+      code = search_conditions(sales: %i[pretax_amount amount reference_number number initial_number description], entities: %i[number full_name]) + " ||= []\n"
       code << "if params[:period].present? && params[:period].to_s != 'all'\n"
       code << "  c[0] << ' AND ((#{Sale.table_name}.invoiced_at IS NULL AND #{Sale.table_name}.created_at::DATE BETWEEN ? AND ?)'\n"
       code << "  if params[:period].to_s == 'interval'\n"

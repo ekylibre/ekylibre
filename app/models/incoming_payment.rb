@@ -68,7 +68,7 @@ class IncomingPayment < Ekylibre::Record::Base
   belongs_to :commission_account, class_name: 'Account'
   belongs_to :responsible, class_name: 'User'
   belongs_to :deposit, inverse_of: :payments
-  belongs_to :journal_entry
+  belongs_to :journal_entry #, dependent: :destroy DO NOT USE HERE because we cancel the bookkeep if needed
   belongs_to :payer, class_name: 'Entity', inverse_of: :incoming_payments
   belongs_to :mode, class_name: 'IncomingPaymentMode', inverse_of: :payments
   has_many :journal_entry_items, through: :journal_entry
@@ -128,6 +128,10 @@ class IncomingPayment < Ekylibre::Record::Base
       self.currency = mode.currency
     end
     true
+  end
+
+  after_destroy do
+    journal_entry.remove if journal_entry.draft?
   end
 
   protect do

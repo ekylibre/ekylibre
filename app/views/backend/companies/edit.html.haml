@@ -31,15 +31,18 @@
     = render 'preferences_form', list: [:map_measure_srs], settable: true
 
   = field_set :accountancy_preferences do
-    = render 'preferences_form', list: [:permanent_stock_inventory, :unbilled_payables, :detail_payments_in_deposit_bookkeeping, :use_entity_codes_for_account_numbers, :client_account_radix, :supplier_account_radix, :employee_account_radix, :default_depreciation_period], settable: true
-    - preference = Preference.global.find_by(name: "account_number_digits")
-    = field "preferences.#{preference.name}".t, { choices: (8..14).to_a, datatype: :choice, value: preference.value, name: "preferences[#{preference.name}][value]", html_options: { disabled: JournalEntry.any? } }, { label: { class: 'large-control-label' }, controls: { class: "large-controls" } }
+    = render 'preferences_form', list: [:permanent_stock_inventory, :unbilled_payables, :detail_payments_in_deposit_bookkeeping, :use_entity_codes_for_account_numbers, :client_account_radix, :supplier_account_radix, :employee_account_radix], settable: true
+    - d_d_m_preference = Preference.global.find_by(name: "default_depreciation_period")
+    = field "preferences.#{d_d_m_preference.name}".t, { choices: [[:monthly.tl, :monthly], [:quarterly.tl, :quarterly], [:yearly.tl, :yearly]], datatype: :choice, value: d_d_m_preference.value, name: "preferences[#{d_d_m_preference.name}][value]" }, { label: { class: 'large-control-label' }, controls: { class: "large-controls" } }
+    - a_n_preference = Preference.global.find_by(name: "account_number_digits")
+    = field "preferences.#{a_n_preference.name}".t, { choices: (8..14).to_a, datatype: :choice, value: a_n_preference.value, name: "preferences[#{a_n_preference.name}][value]", html_options: { disabled: JournalEntry.any? } }, { label: { class: 'large-control-label' }, controls: { class: "large-controls" } }
 
 
   = field_set :analytic_preferences do
     = render 'preferences_form', list: [:distribute_sales_and_purchases_on_activities, :distribute_sales_and_purchases_on_teams], settable: true
 
   = field_set :sales_preferences do
-    = render 'preferences_form', list: [:sales_conditions], settable: true
+    - s_c_preference = Preference.global.find_by(name: "sales_conditions")
+    = field "preferences.#{s_c_preference.name}".t, { datatype: :text, value: s_c_preference.value, name: "preferences[#{s_c_preference.name}][value]" }, { label: { class: 'large-control-label' }, controls: { class: "large-controls" } }
 
   = f.actions

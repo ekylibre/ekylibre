@@ -73,7 +73,7 @@ module Backend
       payment_attributes = payment_params
                            .except(:bank_statement_item_ids)
                            .merge(self.class::Payment.third_attribute => third)
-                           .merge(responsible: current_user, to_bank_at: at)
+                           .merge(responsible: current_user, to_bank_at: at, paid_at: at)
       self.class::Payment.new payment_attributes
     end
 

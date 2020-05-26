@@ -91,8 +91,9 @@ class Journal < Ekylibre::Record::Base
   scope :cashes,          -> { where(nature: 'cash') }
   scope :results,         -> { where(nature: 'result') }
   scope :stocks,          -> { where(nature: 'stocks') }
-  scope :fixed_assets,    -> { where(nature: 'fixed_asset') }
+  scope :fixed_assets,    -> { where(nature: 'fixed_assets') }
   scope :banks_or_cashes, -> { where(nature: %w[cashes bank]) }
+  scope :purchases_or_fixed_assets, -> { where(nature: %w[purchases fixed_assets]) }
 
   before_validation(on: :create) do
     self.closed_on ||= FinancialYear.last_closure
