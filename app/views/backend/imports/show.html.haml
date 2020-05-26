@@ -6,7 +6,7 @@
     = t.run resource, method: :post, class: 'primary'
 
 = main_informations do
-  = attributes_list do |l|
+  = attributes_list text_ellipsis: true do |l|
     - l.attribute :importer, url: true
     - l.attribute :state
     - l.attribute :imported_at
