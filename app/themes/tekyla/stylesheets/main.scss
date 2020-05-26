@@ -994,6 +994,11 @@ form.search {
         display: inline;
         vertical-align: middle;
       }
+      &.ellipsis {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
     }
   }
 }
