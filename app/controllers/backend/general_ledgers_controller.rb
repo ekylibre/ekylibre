@@ -118,7 +118,8 @@ module Backend
       t.column :code, through: :journal, label: :journal, hidden: true, class: :smallcolumns
       t.column :entry_resource_label, url: { controller: 'RECORD&.entry&.resource&.class&.model_name&.plural'.c, id: 'RECORD&.entry&.resource&.id'.c }, label: :entry_resource_label, class: :largecolumns
       t.column :name, class: :entryname
-      t.column :reference_number, through: :entry, hidden: true, class: :smallcolumns
+      t.column :reference_number, through: :entry, hidden: true, class: :mediumcolumns
+      t.column :main_client_or_supplier_account, through: :entry, class: :largecolumns
       t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }, hidden: true, class: :smallcolumns
       t.column :letter, class: "smallcolumns letterscolumn"
       t.column :real_debit,  currency: :real_currency, hidden: true, class: "smallcolumns monetary_column"

@@ -59,6 +59,8 @@ module Backend
         end
       elsif %i[string integer decimal].include? datatype
         text_field_tag(name, value, html_options)
+      elsif datatype == :text
+        text_area_tag(name, value, html_options)
       elsif datatype == :choice
         choices = options[:choices] || []
         select_tag(name, options_for_select(choices, value), html_options)

@@ -199,7 +199,7 @@
         when 'pretax_amount'
           E.trade.updatePretaxAmount(item)
         when 'amount', 'conditionning', 'conditionning_quantity'
-          # Do nothing. Ability to customize precisely amount
+          E.trade.updateAmount(item) if item.closest('tbody').is('[data-trade-type="quick_affair"]') # Change THIS
         else
           console.error "Unknown component: #{component}"
 

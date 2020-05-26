@@ -5,7 +5,7 @@
 - reflection = trade_type.to_sym
 - mode       = :"last_#{trade_type}_item"
 
-%tbody.nested-fields{ data: { trade_item: trade_type } }
+%tbody.nested-fields{ data: { trade_item: trade_type, trade_type: :quick_affair } }
   %tr
     %td= f.referenced_association :variant, wrapper: :nested, source: {scope: scope}, input_html: {data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_path("RECORD_ID", nature => f.object.send(reflection).nature_id, mode: mode)}}}
     - if item.respond_to? :compute_from

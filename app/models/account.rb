@@ -812,31 +812,6 @@ class Account < Ekylibre::Record::Base
     end
   end
 
-  # this method generate a dataset for one account
-  def account_statement_reporting(options = {}, non_letter)
-    report = HashWithIndifferentAccess.new
-    report[:items] = []
-    items = if non_letter == 'true'
-              journal_entry_items.where("letter LIKE ? OR letter IS ?", "%*%", nil)
-            else
-              journal_entry_items
-            end
-    items.order(:printed_on).includes(entry: [:sales, :purchases]).find_each do |item|
-      i = HashWithIndifferentAccess.new
-      i[:account_number] = number
-      i[:name] = name
-      i[:printed_on] = item.printed_on.l(format: '%d/%m/%Y')
-      i[:journal_entry_items_number] = item.entry_number
-      i[:sales_code] = item.entry.sales.pluck(:codes).first&.values&.join(', ') if item.entry.sales.present?
-      i[:purchase_reference_number] = item.entry.purchases.pluck(:reference_number).join(', ') if item.entry.purchases.present?
-      i[:letter] = item.letter
-      i[:real_debit] = item.real_debit
-      i[:real_credit] = item.real_credit
-      report[:items] << i
-    end
-    report
-  end
-
   private
 
     # @param [Array<Ekylibre::Record::Base, nil>] resources

@@ -7,7 +7,7 @@ module Backend
         @period_end = params[:period_end]
 
         bank_statement_items = fetch_bank_items
-        journal_entry_items  = fetch_journal_items
+        @journal_entry_items  = fetch_journal_items
 
         if params[:bank_statement_id].present?
           @bank_statement = BankStatement.find(params[:bank_statement_id])
@@ -20,14 +20,14 @@ module Backend
         return head :bad_request unless @cash
         # return head :bad_request unless @bank_statement
 
-        gap = sold(bank_statement_items, journal_entry_items)
+        gap = sold(bank_statement_items, @journal_entry_items)
 
         return unless (accs = accounts(gap))
         new_entry = regul_entry_for(gap.abs, *accs)
         return head :bad_request unless new_entry
 
         letter_and_redirect bank_statement_items,
-                            fuse_items(journal_entry_items,
+                            fuse_items(@journal_entry_items,
                                        with_matching_items_of: new_entry)
       end
 
@@ -57,7 +57,8 @@ module Backend
         JournalEntry.create!(
           journal_entry_params.merge(
             currency: @cash.currency,
-            printed_on: Time.zone.now,
+            printed_on: @journal_entry_items.first.printed_on,
+            financial_year_id: @journal_entry_items.first.financial_year_id,
             items_attributes:
               {
                 '0' => item_for(amount, debit, :debit),

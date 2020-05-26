@@ -347,6 +347,17 @@ class JournalEntry < Ekylibre::Record::Base
     bank_statements.first.number if bank_statements.first
   end
 
+  # return the label of the main client_or_supplier_account of an entry
+  # in order to show which client or supplier is involved in the entry items
+  def main_client_or_supplier_account
+    third_accounts = Account.where(id: items.pluck(:account_id)).thirds.reorder(:number)
+    if third_accounts.any?
+      third_accounts.first.label
+    else
+      nil
+    end
+  end
+
   # FIXME: Nothing to do here. What's the meaning?
   def entity_country_code
     resource && resource.respond_to?(:third) &&

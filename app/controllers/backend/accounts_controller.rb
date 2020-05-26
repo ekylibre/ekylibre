@@ -57,29 +57,26 @@ module Backend
     def show
       return unless @account = find_and_check
       t3e @account
+      dataset_params = {
+        states: params[:states],
+        lettering_state: params[:lettering_state],
+        account: @account,
+        period: params[:period],
+        started_on: params[:started_on],
+        stopped_on: params[:stopped_on]
+      }
       respond_to do |format|
         format.html {}
         format.odt do
-          get_dataset_account
-          if params[:non_letter] == 'true'
-            filename = :extract_unlettered_account_x.tl(account_number: @account.number).tr(' ', '_')
-            send_data non_letter_odt.generate, type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
-          else
-            filename = :extract_account_x.tl(account_number: @account.number).tr(' ', '_')
-            send_data to_odt.generate, type: 'application/vnd.oasis.opendocument.text', disposition: 'attachment', filename: filename << '.odt'
-          end
+          return unless template = DocumentTemplate.find_by_nature(:account_journal_entry_sheet)
+          printer = Printers::AccountJournalEntrySheetPrinter.new(template: template, **dataset_params)
+          send_data printer.run_odt, filename: "#{printer.document_name}.odt"
         end
         format.pdf do
-          if params[:template].present?
-            respond_with(@account, methods: [],
-                                   include: [
-                                     { journal_entry_items: { include: %i[financial_year tax tax_declaration_item] } }
-                                   ],
-                                   procs: proc { |options| options[:builder].tag!(:url, backend_account_url(@account)) })
-          else
-            get_dataset_account
-            to_pdf
-          end
+          return unless template = find_and_check(:document_template, params[:template])
+          PrinterJob.perform_later('Printers::AccountJournalEntrySheetPrinter', template: template, perform_as: current_user, **dataset_params)
+          notify_success(:document_in_preparation)
+          redirect_to :back
         end
       end
     end
@@ -88,6 +85,7 @@ module Backend
       code = ''
       code << search_conditions({ journal_entry_item: %i[name debit credit real_debit real_credit], journal_entry: [:number], product_nature_variant: [:name] }, conditions: 'c', variable: 'params[:b]'.c) + "\n"
       code << journal_period_crit('params')
+      code << journal_letter_crit('params')
       code << journal_entries_states_crit('params')
       # code << journals_crit("params")
       code << "c[0] << ' AND #{JournalEntryItem.table_name}.account_id = ?'\n"
@@ -104,6 +102,7 @@ module Backend
       t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }
       t.column :state_label
       t.column :letter
+      t.column :main_client_or_supplier_account, through: :entry, url: true
       t.column :real_debit,  currency: :real_currency, hidden: true
       t.column :real_credit, currency: :real_currency, hidden: true
       t.column :debit,  currency: true, hidden: true
@@ -199,62 +198,5 @@ module Backend
       @filtered_accounts = @filtered_accounts.sort_by { |a| a.send(Account.accounting_system) }
     end
 
-    protected
-
-     #TODO: Move this into a `Printer` service class.
-    def get_dataset_account
-      @dataset_account = @account.account_statement_reporting(params[:non_letter])
-    end
-
-    def to_pdf
-      if params[:non_letter] == 'true'
-        filename = :extract_unlettered_account_x.tl(account_number: @account.number).tr(' ', '_')
-        file_odt = non_letter_odt.generate
-      else
-        filename = :extract_account_x.tl(account_number: @account.number).tr(' ', '_')
-        file_odt = to_odt.generate
-      end
-      generate_pdf_from_odt(file_odt, filename)
-    end
-
-    def generate_pdf_from_odt(file_odt, filename)
-      tmp_dir = Ekylibre::Tenant.private_directory.join('tmp')
-      uuid = SecureRandom.uuid
-      source = tmp_dir.join(uuid + '.odt')
-      dest = tmp_dir.join(uuid + '.pdf')
-      FileUtils.mkdir_p tmp_dir
-      File.write source, file_odt
-      `soffice  --headless --convert-to pdf --outdir #{Shellwords.escape(tmp_dir.to_s)} #{Shellwords.escape(source)}`
-      send_data(File.read(dest), type: 'application/pdf', disposition: 'attachment', filename: filename + '.pdf')
-    end
-
-    def non_letter_odt
-      ODFReport::Report.new(Rails.root.join('config', 'locales', 'fra', 'reporting', 'account_statement_non_letter.odt')) do |r|
-        r.add_table('ITEM1', @dataset_account[:items], header: true) do |t|
-          add_columns_to_odt(t, false)
-        end
-      end
-    end
-
-    def to_odt
-      # add a generic template system path
-      ODFReport::Report.new(Rails.root.join('config', 'locales', 'fra', 'reporting', 'account_statement.odt')) do |r|
-        r.add_table('ITEM1', @dataset_account[:items], header: true) do |t|
-          add_columns_to_odt(t, true)
-        end
-      end
-    end
-
-    def add_columns_to_odt(t, letter)
-      t.add_column(:account_number) { |item| item[:account_number] }
-      t.add_column(:name)
-      t.add_column(:printed_on)
-      t.add_column(:journal_entry_items_number)
-      t.add_column(:sales_code)
-      t.add_column(:purchase_reference_number)
-      t.add_column(:letter) if letter
-      t.add_column(:real_debit)
-      t.add_column(:real_credit)
-    end
   end
 end

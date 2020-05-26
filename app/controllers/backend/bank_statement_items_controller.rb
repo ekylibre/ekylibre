@@ -11,7 +11,7 @@ module Backend
     end
 
     def show
-      @bank_statement_item = BankStatementItem.find_by(params[:id])
+      @bank_statement_item = BankStatementItem.find(params[:id])
       return head :bad_request unless @bank_statement_item
       t3e @bank_statement_item
       # redirect_to action: :show, controller: 'backend/bank_statements', id: @bank_statement_item.bank_statement_id

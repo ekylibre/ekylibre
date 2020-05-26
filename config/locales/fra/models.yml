@@ -1598,6 +1598,7 @@ fra:
     main: "Principal"
     main_account: "Compte principal"
     main_activity: "Activité principale"
+    main_client_or_supplier_account: "Compte de tiers lié"
     main_crop_code: "Code de la culture principale"
     main_crop_commercialisation: "Commercialisation"
     main_crop_precision: "Code précision de la culture principale"

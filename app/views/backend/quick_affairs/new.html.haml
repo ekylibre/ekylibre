@@ -22,7 +22,8 @@
     = backend_fields_for :trade, @trade do |t|
       = t.input :invoiced_at
       = t.input :reference_number
-      = t.input :tax_payability, as: :radio_buttons
+      - if @trade.is_a? Purchase
+        = t.input :tax_payability, as: :radio_buttons
       = t.input :description
       = t.input_field :nature_id, as: :hidden
 

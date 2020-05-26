@@ -111,19 +111,26 @@ class FixedAssetBookkeeper < Ekylibre::Bookkeeper
       out_on = sold_on
       out_on ||= scrapped_on
 
+      # set correct label for entry
+      if sold?
+       label = :bookkeep_in_sold_assets
+      elsif scrapped?
+       label = :bookkeep_exit_assets
+      end
+
       # get last depreciation for date out_on
       depreciation_out_on = current_depreciation(out_on)
 
       if depreciation_out_on
-        scrapped_value = depreciation_out_on.depreciable_amount
-        scrapped_unvalue = depreciation_out_on.depreciated_amount
+        depreciation_value = depreciation_out_on.depreciable_amount
+        depreciation_unvalue = depreciation_out_on.depreciated_amount
 
-        # fixed asset sold
-        @label = tc(:bookkeep_in_sold_assets, resource: resource.class.model_name.human, number: number, name: name)
-        journal_entry(journal, printed_on: sold_on, as: :sold, if: sold?) do |entry|
+        # fixed asset go out (sold or scrapped)
+        @label = tc(label, resource: resource.class.model_name.human, number: number, name: name)
+        journal_entry(journal, printed_on: out_on, as: self.state.to_sym) do |entry|
           entry.add_credit(@label, asset_account.id, depreciable_amount, resource: resource, as: :fixed_asset)
-          entry.add_debit(@label, @fixed_assets_values_account.id, scrapped_value, resource: resource, as: :fixed_asset)
-          entry.add_debit(@label, allocation_account.id, scrapped_unvalue, resource: resource, as: :fixed_asset)
+          entry.add_debit(@label, @fixed_assets_values_account.id, depreciation_value, resource: resource, as: :fixed_asset)
+          entry.add_debit(@label, allocation_account.id, depreciation_unvalue, resource: resource, as: :fixed_asset)
         end
       end
     end

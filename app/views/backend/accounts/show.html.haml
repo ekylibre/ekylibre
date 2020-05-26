@@ -2,13 +2,13 @@
 
 - main_toolbar do |t|
   = t.edit(resource)
-  = dropdown_menu_button(:export.ta, icon: :download) do |d|
-    - export_params = params.slice(:states)
-    - d.item :etract_account_as_odt.tl, params: export_params.merge(format: :odt)
-    - d.item :extract_non_letter_odt.tl, params: export_params.merge(format: :odt, non_letter: true)
-    - d.item :etract_account_as_pdf.tl, params: export_params.merge(format: :pdf)
-    - d.item :extract_non_letter_pdf.tl, params: export_params.merge(format: :pdf, non_letter: true)
-  = t.export :account_journal_entry_sheet
+  = t.export :account_journal_entry_sheet,
+             item_label: :export_as_pdf.tl,
+             key: Printers::AccountJournalEntrySheetPrinter.build_key(period: params[:period],
+                                                                      states: params[:states],
+                                                                      account: resource) do |menu|
+    - export_params = params.slice(:states, :lettering_state, :period, :started_on, :stopped_on)
+    - menu.item :export_as_odt.tl, params: export_params, format: :odt
   = t.destroy(resource)
   = t.mark(resource) if resource.reconcilable?
 
@@ -30,6 +30,7 @@
     = kujaku do |k|
       - k.text name: :b
       - k.helper :journal_period_crit, :period, use_search_preference: true
+      - k.multi_choice :lettering_state, [[:account_lettered.tl, :lettered], [:partially_lettered.tl, :partially_lettered], [:unlettered.tl, :unlettered]], label: :lettering_state.tl
       - k.helper :journal_entries_states_crit, use_search_preference: true
 
     - items = JournalEntryItem.joins([:entry]).joins('LEFT OUTER JOIN "product_nature_variants" ON "product_nature_variants"."id" = "journal_entry_items"."variant_id"').where(eval(controller.class.account_moves_conditions))
