@@ -359,11 +359,13 @@ module ApplicationHelper
     [label, value]
   end
 
-  def attributes_list(*args, &block)
-    options = args.extract_options!
+
+  # @param [Boolean] text_ellipsis
+  #   Default to false. If true, the text value of the attributes does not expand the container size and has an ellipsis if it overflows
+  def attributes_list(*args, columns: [], text_ellipsis: false, **options, &block)
     record = args.shift || resource
-    options[:columns] ||= []
     attribute_list = AttributesList.new(record)
+
     if block_given?
       unless block.arity == 1
         raise ArgumentError, 'One parameter needed for attribute_list block'
@@ -381,8 +383,8 @@ module ApplicationHelper
       attribute_list.attribute :updated_at
       # attribute_list.attribute :lock_version
     end
-    unless options[:columns].empty?
-      options[:columns].each do |c|
+    unless columns.empty?
+      columns.each do |c|
         next unless record.respond_to? c
         attribute_list.attribute c
       end
@@ -397,7 +399,7 @@ module ApplicationHelper
                          attribute_item(record, *item[1])
                        end
         if value.present? || (item[2].is_a?(Hash) && item[2][:show] == :always)
-          code << content_tag(:dl, content_tag(:dt, label) + content_tag(:dd, value))
+          code << content_tag(:dl, content_tag(:dt, label) + content_tag(:dd, value, class: text_ellipsis ? 'text-ellipsis' : ''))
         end
       end
       code = content_tag(:div, code.html_safe, class: 'attributes-list')
