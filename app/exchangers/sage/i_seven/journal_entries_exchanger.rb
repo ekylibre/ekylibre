@@ -155,7 +155,7 @@ module Sage
           aux_number = acc_number[client_account_radix.length..-1]
 
           if aux_number.match(/\A0*\z/).present?
-            raise StandardError "Can't create account. Number provided (#{aux_number}) can't be a radical class"
+            raise StandardError, "Can't create account. Number provided (#{aux_number}) can't be a radical class"
           end
 
           attrs = attrs.merge(
