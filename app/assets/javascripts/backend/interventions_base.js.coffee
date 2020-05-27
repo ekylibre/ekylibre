@@ -6,6 +6,8 @@
 
   PLANNED_REALISED_ACCEPTED_GAP = { intervention_doer: 1.2, intervention_tool: 1.2 , intervention_input: 1.2}
 
+  no_submit = => false
+
   E.value = (element) ->
     if element.is(":ui-selector")
       return element.selector("value")
@@ -149,6 +151,16 @@
         scopeUri = scopeUri.replace(re, "$1" + newTime + "$3")
         $(item).attr("data-selector", encodeURI(scopeUri))
 
+    _setWaiting: (form, computing) ->
+      computing.prop 'state', 'waiting'
+      form.on('submit', no_submit)
+      form.find('.form-actions input[type="submit"]').prop 'disabled', true
+
+    _setReady: (form, computing) ->
+      computing.prop 'state', 'ready'
+      form.off('submit', no_submit)
+      form.find('.form-actions input[type="submit"]').prop 'disabled', false
+
     # Ask for a refresh of values depending on given update
     refresh: (updater, options = {}) ->
       unless updater?
@@ -170,9 +182,9 @@
           type: "PATCH"
           data: form.serialize()
           beforeSend: ->
-            computing.prop 'state', 'waiting'
+            E.interventions._setWaiting(form, computing)
           error: (request, status, error) ->
-            computing.prop 'state', 'ready'
+            E.interventions._setReady(form, computing)
             false
           success: (data, status, request) ->
             console.group('Unserialize intervention updated by ' + updaterId)
@@ -182,7 +194,7 @@
             E.interventions.handleDynascope(form, data.intervention, 'intervention_', data.updater_id)
             E.interventions.unserializeRecord(form, data.intervention, 'intervention_', data.updater_id)
             E.interventions.updateProcedureLevelAttributes(form, data.procedure_states)
-            computing.prop 'state', 'ready'
+            E.interventions._setReady(form, computing)
             options.success.call(this, data, status, request) if options.success?
             console.groupEnd()
 
