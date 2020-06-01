@@ -222,7 +222,11 @@ class PurchaseInvoice < Purchase
   end
 
   def linked_to_tax_declaration?
-    journal_entry.items.flat_map(&:tax_declaration_item_parts).any?
+    if journal_entry
+      journal_entry.items.flat_map(&:tax_declaration_item_parts).any?
+    else
+      false
+    end
   end
 
   def reconciled?
