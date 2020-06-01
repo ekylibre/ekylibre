@@ -3,7 +3,7 @@ module Accountancy
     class NormalizationError < StandardError
     end
 
-    DEFAULT_CENTRALIZED_PREFIXES = %w(401 411).freeze
+    DEFAULT_CENTRALIZED_PREFIXES = %w(401 411 301 302 303 37 6031 6032 6033 6037 713).freeze
 
     class << self
       def build(standard_length: Preference[:account_number_digits] )

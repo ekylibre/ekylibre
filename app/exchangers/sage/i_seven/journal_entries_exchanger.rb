@@ -4,7 +4,7 @@ module Sage
     class JournalEntriesExchanger < ActiveExchanger::Base
       JOURNAL_CODE_CLOSING = "SAGC"
       JOURNAL_CODE_FORWARD = "SAGF"
-      
+
       # @type [Hash{String => Symbol}]
       DEFAULT_JOURNAL_NATURES = {
         'A' => :purchases,
@@ -167,12 +167,12 @@ module Sage
 
         Account.create!(attrs)
       end
-      
+
       # @return [String]
       def client_account_radix
         @client_account_radix ||= Preference.value(:client_account_radix).presence || '411'
       end
-      
+
       # @return [String]
       def supplier_account_radix
         @supplier_account_radix ||= Preference.value(:supplier_account_radix).presence || '401'
@@ -188,7 +188,7 @@ module Sage
           .or_raise
 
         if entity.first_met_at.nil? || (period_started_on && period_started_on < entity.first_met_at.to_date)
-          entity.update!(first_met_at: period_started_on.datetime)
+          entity.update!(first_met_at: period_started_on.to_datetime)
         end
 
         entity
@@ -226,7 +226,7 @@ module Sage
         attrs = {
           last_name: last_name,
           nature: 'organization',
-          first_met_at: period_started_on,
+          first_met_at: period_started_on.to_datetime,
           provider: provider_value(account_number: sage_account_number)
         }
         if account.centralizing_account_name == "clients"
@@ -236,7 +236,7 @@ module Sage
             client_account_id: account.id
           }
         elsif account.centralizing_account_name == "suppliers"
-          attrs = { 
+          attrs = {
             **attrs,
             supplier: true,
             supplier_account_id: account.id
@@ -244,9 +244,9 @@ module Sage
         else
           raise StandardError, "Unreachable code!"
         end
-        
+
         Entity.create!(attrs)
-      
+
       end
 
       # @param [String] sage_nature
@@ -283,9 +283,9 @@ module Sage
           jou_name = sage_journal.attribute('NOM').value
           jou_nature = sage_journal.attribute('TYPEJOURNAL').value
           nature = DEFAULT_JOURNAL_NATURES[jou_nature]
-          
+
           journal = find_or_create_journal(jou_code, jou_name, nature)
-          
+
           create_cash(sage_journal, journal) if is_bank?(jou_nature)
 
           sage_journal.css('PIECE').each_with_index do |sage_journal_entry, index|
@@ -385,13 +385,13 @@ module Sage
       # @param [Symbol] nature
       # @return [Journal]
       def create_journal(code, name, nature)
-        Journal.create!(name: name, code: code, nature: nature, provider: provider_value(journal_code: code))      
+        Journal.create!(name: name, code: code, nature: nature, provider: provider_value(journal_code: code))
       end
 
       # @param [String]
       # @return [Journal, nil]
       def find_journal_by_provider(code)
-        unwrap_one('journal') do 
+        unwrap_one('journal') do
           Journal.of_provider_name(provider_vendor, provider_name)
                  .of_provider_data(:journal_code, code)
         end
@@ -415,7 +415,7 @@ module Sage
         def unwrap_one(name, exact: false, &block)
           results = block.call
           size = results.size
-    
+
           if size > 1
             raise UniqueResultExpectedError, "Expected only one #{name}, got #{size}"
           elsif exact && size == 0
@@ -429,7 +429,7 @@ module Sage
         def account_normalizer
           @account_normalizer ||= Accountancy::AccountNumberNormalizer.build
         end
-      
+
         # @return [Import]
         def import_resource
           @import_resource ||= Import.find(options[:import_id])
