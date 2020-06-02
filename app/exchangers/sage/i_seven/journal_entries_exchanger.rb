@@ -2,6 +2,8 @@
 module Sage
   module ISeven
     class JournalEntriesExchanger < ActiveExchanger::Base
+      self.deprecated = true # So that the exchanger does not appear in the list
+
       JOURNAL_CODE_CLOSING = "SAGC"
       JOURNAL_CODE_FORWARD = "SAGF"
       
