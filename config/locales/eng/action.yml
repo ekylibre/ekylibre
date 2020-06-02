@@ -1344,6 +1344,8 @@ eng:
       zoomGuidance: "Insufficient zoom level"
       zoomInTitle: "Zoom in"
       zoomOutTitle: "Zoom out"
+    unroll:
+      server_error: "Server error"
   labels:
     accepted: "Accepted"
     accepted_for_paiment: "Accepted for paiment"
