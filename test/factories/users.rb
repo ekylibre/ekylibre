@@ -9,5 +9,9 @@ FactoryBot.define do
     trait :employed do
       employed { true }
     end
+
+    trait :with_person do
+      association :person, factory: :entity
+    end
   end
 end
