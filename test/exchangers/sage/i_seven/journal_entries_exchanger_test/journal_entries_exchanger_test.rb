@@ -33,8 +33,8 @@ module Sage
           assert_equal 282.18, item2.where(account: Account.where(number: '512300000')).first.real_credit.to_f
           assert_equal '512300000', cash_main_account
           assert Account.find_by(number: '401000483')
-          assert Journal.find_by(name: "Sage - Écritures de report à nouveau")
-          assert Journal.find_by(name: "Sage - Écritures de clôture")
+          assert Journal.find_by(code: "SAGC")
+          assert Journal.find_by(code: "SAGF")
         end
       end
     end
