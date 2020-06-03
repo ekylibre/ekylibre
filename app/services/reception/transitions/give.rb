@@ -42,7 +42,7 @@ class Reception
           # Create a matter for each storing
           item.storings.each do |storing|
             product_params = {
-              name: item.product_name || default_product_name(item),
+              name: item.product_name.presence || default_product_name(item),
               identification_number: item.product_identification_number,
               work_number: item.product_work_number,
               initial_born_at: given_at
