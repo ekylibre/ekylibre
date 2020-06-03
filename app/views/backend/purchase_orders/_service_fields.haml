@@ -5,7 +5,7 @@
     :ruby
       options = {
         label: f.object.role.tl,
-        source: {scope: :purchaseables_services},
+        source: {scope: {purchaseables_services: true, active: true}}, 
         input_html: {
           class: "order-variant",
           data: {
