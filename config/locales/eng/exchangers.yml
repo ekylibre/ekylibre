@@ -2,6 +2,8 @@ eng:
   exchanger: 
     panier_local:
       sales:
+        errors:
+          sale_data_missing_tax_information: "The sale with reference number %{reference_number} is invalid as it is missing VAT information."
         sale_nature_name: "Online sale - Panier Local"
       incoming_payments:
         incoming_payment_mode_name: "Panier Local"

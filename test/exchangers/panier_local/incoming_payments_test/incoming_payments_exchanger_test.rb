@@ -4,7 +4,7 @@ module PanierLocal
   module IncomingPaymentsTest
     class IncomingPaymentsExchangerTest < ActiveExchanger::TestCase
       setup do
-        # We wan't to keep tracking of import resource
+        # We want to keep tracking of import resource
         @import = Import.create!(nature: :panier_local_sales)
 
         I18n.locale = :fra
