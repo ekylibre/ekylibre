@@ -53,9 +53,9 @@ module Interventions
             product = product_usage.product
             usage = product_usage.usage
 
-            if usage.nil?
+            if usage.nil? || (usage.applications_count == 1 && usage.applications_frequency.present?)
               result.vote_unknown(product)
-            elsif usage.applications_count.present?
+            elsif usage.applications_count.present? 
               max_applications = usage.applications_count
               applications = compute_usage_application(product)
 

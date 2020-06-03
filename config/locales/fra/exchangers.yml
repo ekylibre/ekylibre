@@ -1,8 +1,12 @@
 fra:
-  exchanger: #?
-    panier_local: #?
-      sales: #?
-        sale_nature_name: "Vente en ligne - Panier Local" #?
+  exchanger:
+    panier_local:
+      sales:
+        errors:
+          sale_data_missing_tax_information: "La vente ayant pour référence %{reference_number} est invalide car elle n'a pas d'information sur la TVA applicable."
+        sale_nature_name: "Vente en ligne - Panier Local"
+      incoming_payments:
+        incoming_payment_mode_name: "Panier Local"
   exchangers:
     agro_systemes_soil_analyses: "Analyses de sol ‒ AGRO Systèmes"
     agro_systemes_water_analyses: "Analyses d’eau ‒ AGRO Systèmes"
@@ -64,6 +68,7 @@ fra:
     lely_milk_robot_individual_production: "Production journalière individuelle - Lely Astronaut"
     lilco_milk_analyses: "Analyses de lait ‒ Lilco"
     milklic_individual_production: "Production laitière individuelle - Milklic"
+    sage_i_seven_journal_entries: "Comptabilité (ECX) ‒ Sagei7"
     panier_local_incoming_payments: "Encaissements (CSV) ‒ Panier Local"
     panier_local_sales: "Ventes (CSV) ‒ Panier Local"
     synel_animals: "Animaux ‒ Synel"

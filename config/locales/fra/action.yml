@@ -560,6 +560,7 @@ fra:
       pick: "Importer une catégorie de produits"
       show: "Catégorie de produit\_: %{name}"
     backend/product_nature_variants:
+      create: "Nouvelle variante de produit"
       edit: "Modifier la variante de produit\_: %{name}"
       index: "Variantes de produits"
       new: "Nouvelle variante de produit"
@@ -652,7 +653,7 @@ fra:
       edit: "Modifier le rôle\_: %{name}"
       index: "Rôles"
       new: "Nouveau rôle"
-      pick: "Piocher un rôle\_"
+      pick: "Importer un rôle\_"
       show: "Rôle\_: %{name}"
     backend/sale_credits:
       new: "Passage en avoir de la facture %{number}"
@@ -948,7 +949,7 @@ fra:
       nature:
         add_two_hours: "Ajouter 2h dans le cas d'une application en milieu fermé"
         harvest: "Récolte :"
-        reentry: "Réentrée :"
+        reentry: "Ré-entrée :"
     leaflet:
       draw:
         handlers:
@@ -2579,8 +2580,8 @@ fra:
     radical_class_accounts_have_entries: "Les comptes de classes radicales comportent des écritures."
     raw_income: "Résultat d’exploitation"
     raw_margin: "Marge brute" #?
-    re_entry_delay: "RÉENTRÉE"
-    re_entry_interval: "Délai de réentrée"
+    re_entry_delay: "RÉ-ENTRÉE"
+    re_entry_interval: "Délai de ré-entrée"
     reading_tasks: "Relevés d’indicateur"
     readings: "Relevés d’indicateur"
     ready: "Prêt(e)"
@@ -2734,7 +2735,9 @@ fra:
     see_more_details: "Voir plus de détails"
     see_outgoing_parcels: "Voir les colis sortants"
     see_purchases: "Voir les achats"
+    see_receptions: "Voir les réceptions"
     see_sales: "Voir les ventes"
+    see_shipments: "Voir les expéditions"
     see_tax_declarations: "Voir les déclarations de TVA"
     see_the_accounts: "Voir les comptes"
     see_the_day_book: "Voir le brouillard"
@@ -3676,7 +3679,7 @@ fra:
       select: "Selectionner"
       sell: "Passer en vente"
       set: "Définir" #?
-      ship: "Expédier"
+      ship: "Livraison"
       show: "Afficher"
       show_export_preview: "Afficher un aperçu du document (peut augmenter le temps de chargement)"
       sort: "Trier"

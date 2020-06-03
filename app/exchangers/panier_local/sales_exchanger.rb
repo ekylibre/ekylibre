@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PanierLocal
   class SalesExchanger < Base
 
@@ -27,7 +29,7 @@ module PanierLocal
       { col: 7, name: :sale_reference_number, type: :string, constraint: :not_nil },
       { col: 8, name: :sale_description, type: :string },
       { col: 9, name: :sale_item_amount, type: :float, constraint: :greater_or_equal_to_zero },
-      { col: 10, name: :sale_item_sens, type: :string },
+      { col: 10, name: :sale_item_direction, type: :string },
       { col: 11, name: :sale_item_pretax_amount, type: :float },
       { col: 12, name: :vat_percentage, type: :float },
       { col: 13, name: :quantity, type: :integer },
@@ -37,6 +39,10 @@ module PanierLocal
       data, errors = open_and_decode_file(file)
 
       valid = errors.all?(&:empty?)
+      if valid == false
+        w.error "The file is invalid: #{errors}"
+        return false
+      end
 
       fy_start = FinancialYear.at(data.first.invoiced_at)
       fy_stop = FinancialYear.at(data.last.invoiced_at)
@@ -46,265 +52,305 @@ module PanierLocal
         valid = false
       end
 
+      if responsible.nil?
+        w.error "A responsible is needed to execute this import"
+        valid = false
+      end
+
       valid
     end
 
     def import
-      # Opening and decoding
-      rows = ActiveExchanger::CsvReader.new.read(file)
-      # create or find sale_nature
-      sale_nature = find_or_create_sale_nature
-
-      parser = ActiveExchanger::CsvParser.new(NORMALIZATION_CONFIG)
-
-      data, _errors = parser.normalize(rows)
+      data, _errors = open_and_decode_file(file)
 
       sales_info = data.group_by { |d| d.sale_reference_number }
 
-      sales_info.each { |_sale_reference_number, sale_info| create_sale(sale_info, sale_nature) }
-
+      sale_nature = find_or_create_sale_nature
+      w.count = sales_info.size
+      sales_info.each { |_sale_reference_number, sale_info| find_or_create_sale(sale_info, sale_nature); w.check_point }
     rescue Accountancy::AccountNumberNormalizer::NormalizationError => e
-      raise StandardError.new("The account number length cant't be different from your own settings")
+      raise StandardError, "The account number length cant't be different from your own settings"
     end
 
-    def create_sale(sale_info, sale_nature)
-      # sale = Sale.where('providers ->> ? = ?', 'panier_local', sale_info.first.sale_reference_number).first
-      sale = Sale.of_provider_name(:panier_local, :sales)
-                 .find_by("provider -> 'data' ->> 'sale_reference_number' = ?", sale_info.first.sale_reference_number)
+    # @param [Array<OpenStruct>] sale_info
+    # @param [SaleNature] sale_nature
+    # @return [Sale]
+    def find_or_create_sale(sale_info, sale_nature)
+      reference_number = unwrap_one('reference_number', exact: true) { sale_info.map(&:sale_reference_number).uniq }
 
-      if sale.nil?
-        entity = get_or_create_entity(sale_info)
-        client_sale_info = sale_info.select { |item| item.account_number.to_s.start_with?('411') }.first
-        sale = Sale.new(
-          invoiced_at: client_sale_info.invoiced_at,
-          reference_number: client_sale_info.sale_reference_number,
-          client: entity,
-          nature: sale_nature,
-          description: client_sale_info.sale_description,
-          provider: { vendor: :panier_local, name: :sales, id: import_resource.id, data: { sale_reference_number: client_sale_info.sale_reference_number } }
+      Maybe(find_sale_by_provider(reference_number))
+        .recover { create_sale(sale_info, reference_number, sale_nature) }
+        .or_raise
+    end
+
+    # @param [Array<OpenStruct>] sale_info
+    # @param [String] reference_number
+    # @param [SaleNature] sale_nature
+    # @return [Sale]
+    def create_sale(sale_info, reference_number, sale_nature)
+      grouped_lines = sale_info.group_by do |line|
+        account_number = line.account_number
+
+        if account_number.start_with?(client_account_radix)
+          :client
+        elsif account_number.start_with?('445')
+          :tax
+        elsif account_number.start_with?('7')
+          :product
+        else
+          :unknown
+        end
+      end
+
+      unknown_lines = grouped_lines.fetch(:unknown, [])
+      if unknown_lines.any?
+        raise StandardError, "Found #{unknown_lines.size} unknown lines for sale #{reference_number}"
+      end
+
+      client_info = unwrap_one("client info", exact: true) { grouped_lines.fetch(:client, []) }
+      tax_info = unwrap_one(
+        "tax info",
+        exact: true,
+        error_none: -> { tl(:errors, :sale_data_missing_tax_information, reference_number: reference_number) }
+      ) { grouped_lines.fetch(:tax, []) }
+      product_infos = grouped_lines.fetch(:product, [])
+
+      entity = find_or_create_entity(client_info.entity_name, client_info.account_number, client_info.entity_code)
+      tax = find_or_create_tax(tax_info)
+
+      sale = Sale.new(
+        client: entity,
+        description: client_info.sale_description,
+        invoiced_at: client_info.invoiced_at,
+        nature: sale_nature,
+        provider: provider_value(sale_reference_number: reference_number),
+        reference_number: reference_number,
+        responsible: responsible
+      )
+
+      product_infos.each do |product_line|
+        variant = Maybe(find_variant_by_provider(product_line.account_number))
+                    .recover { create_variant_with_account(product_line.account_number) }
+                    .or_raise
+
+        sale.items.build(
+          amount: nil,
+          pretax_amount: create_pretax_amount(product_line),
+          unit_pretax_amount: nil,
+          quantity: product_line.quantity || 1,
+          tax: tax,
+          variant: variant,
+          compute_from: :pretax_amount
         )
-
-        tax = check_or_create_vat_account_and_amount(sale_info)
-
-        product_account_lines = sale_info.select { |i| i.account_number.start_with?('7') }
-
-        if product_account_lines.count > 1
-          raise StandardError.new("This exchanger does not handle sales with more than one line with an account starting by '7' ")
-        end
-
-        product_account_line = product_account_lines.first
-        if product_account_line.present?
-          # Assuming we only have one variant ?
-          variant = ProductNatureVariant.of_provider_name(:panier_local, :sales)
-            .of_provider_data(:account_number, product_account_line.account_number)&.first
-
-          if variant.blank?
-            product_account = check_or_create_product_account(product_account_line)
-            variant = create_variant(product_account, product_account_line)
-          end
-          pretax_amount = create_pretax_amount(product_account_line)
-
-          #TODO: what is the real default quantity ?
-          quantity = product_account_line.quantity || 1
-
-          unless sale.items.find_by(
-            sale_id: sale.id,
-            quantity: quantity,
-            pretax_amount: pretax_amount,
-            variant_id: variant.id
-          )
-            sale.items.build(
-              amount: nil,
-              pretax_amount: pretax_amount,
-              unit_pretax_amount: nil,
-              quantity: quantity,
-              tax: tax,
-              variant: variant,
-              compute_from: :pretax_amount
-            )
-          end
-        end
       end
 
       sale.save!
+
+      sale
     end
 
-    def get_or_create_entity(sale_info)
-      entity = Entity.where('codes ->> ? = ?', 'panier_local', sale_info.first.entity_code.to_s)
-      if entity.any?
-        entity.first
-      else
-        create_entity(sale_info)
+    # @param [String] reference_number
+    # @return [Sale, nil]
+    def find_sale_by_provider(reference_number)
+      unwrap_one('sale') { Sale.of_provider_name(:panier_local, :sales).of_provider_data(:sale_reference_number, reference_number) }
+    end
+
+    # @param [OpenStruct] tax_info
+    # @return [Tax]
+    def find_or_create_tax(tax_info)
+      Maybe(find_tax_by_provider(tax_info.vat_percentage, tax_info.account_number))
+        .recover { find_or_create_tax_by_account(tax_info) }
+        .or_raise
+    end
+
+    # @param [Float] vat_percentage
+    # @param [String] account_number
+    # @return [Tax, nil]
+    def find_tax_by_provider(vat_percentage, account_number)
+      unwrap_one('tax') do
+        Tax.of_provider_name(:panier_local, :sales)
+           .of_provider_data(:account_number, account_number)
+           .of_provider_data(:vat_percentage, vat_percentage.to_s)
       end
     end
 
-    def create_entity_account(client_sale_info)
-      client_number_account = client_sale_info.account_number.to_s
-      acc = Account.find_or_initialize_by(number: client_number_account) #!
-      attributes = {
-        name: client_sale_info.entity_name,
-        centralizing_account_name: 'clients',
-        nature: 'auxiliary'
-      }
+    # @param [OpenStruct] tax_info
+    # @return [Tax]
+    def find_or_create_tax_by_account(tax_info)
+      clean_tax_account_number = account_normalizer.normalize!(tax_info.account_number)
 
-      aux_number = client_number_account[3, client_number_account.length]
+      tax_account = Maybe(find_account_by_provider(tax_info.account_number))
+                      .recover { Account.find_or_create_by_number(
+                        clean_tax_account_number,
+                        provider: provider_value(account_number: tax_info.account_number)
+                      ) }
+                      .or_raise
 
-      if aux_number.match(/\A0*\z/).present?
-        raise StandardError.new("Can't create account. Number provided can't be a radical class")
-      else
-        attributes[:auxiliary_number] = aux_number
-      end
-      acc.attributes = attributes
-
-      acc
+      Maybe(Tax.find_by(amount: tax_info.vat_percentage, collect_account_id: tax_account.id))
+        .recover { create_tax(tax_info, tax_account) }
+        .or_raise
     end
 
-    def create_entity(sale_info)
-      client_sale_infos = sale_info.select { |item| item.account_number.to_s.start_with?('411') }
-
-      if client_sale_infos.size == 1
-        client_sale_info = client_sale_infos.first
-        account = create_entity_account(client_sale_info)
-        last_name = client_sale_info.entity_name.mb_chars.capitalize
-
-        w.info "Create entity and link account"
-        Entity.create!(
-          nature: :organization,
-          last_name: last_name,
-          codes: { 'panier_local' => client_sale_info.entity_code },
-          active: true,
-          client: true,
-          client_account_id: account.id
-        )
-      else
-        raise StandardError.new("There should be only one line with an acccount starting with '411', Got #{client_sale_infos.size}")
-      end
-    end
-
-    def check_or_create_vat_account_and_amount(sale_info)
-      vat_account_infos = sale_info.select { |item| item.account_number.to_s.start_with?('445') }
-      if vat_account_infos.size > 1
-        raise StandardError.new("This exchanger does not handle sales with more than one line with an account starting by '445' ")
-      end
-      
-      vat_account_info = vat_account_infos.first
-
-      if vat_account_info.present?
-        n = Accountancy::AccountNumberNormalizer.build
-        clean_tax_account_number = n.normalize!(vat_account_info.account_number)
-
-        tax_account = Account.find_by(number: clean_tax_account_number)
-        tax = Tax.find_by(amount: vat_account_info.vat_percentage)
-
-        if tax_account.blank? && tax.nil?
-          tax = create_tax(vat_account_info, clean_tax_account_number)
-        end
-      end
-
-      tax
-    end
-
-    def create_tax(vat_account_info, clean_tax_account_number)
-      tax_account = Account.find_or_create_by_number(clean_tax_account_number)
-      tax = Tax.find_by(amount: vat_account_info.vat_percentage, collect_account_id: tax_account.id)
-
+    # @param [OpenStruct] tax_info
+    # @param [Account] tax_account
+    # @return [Tax]
+    def create_tax(tax_info, tax_account)
+      # Import from nomenclature!
+      # BUG collect account is created and dropped if it doesn't match with the one from PALO
+      tax = Tax.find_on(tax_info.invoiced_at.to_date, country: Preference[:country].to_sym, amount: tax_info.vat_percentage)
       if tax.nil?
-        tax = Tax.find_on(vat_account_info.invoiced_at.to_date, country: Preference[:country].to_sym, amount: vat_account_info.vat_percentage)
-        tax.collect_account_id = tax_account.id
-        tax.active = true
-        tax.save!
+        raise StandardError, "Unable to create tax"
       end
+
+      tax.provider = provider_value(account_number: tax_info.account_number, vat_percentage: tax_info.vat_percentage)
+      tax.collect_account_id = tax_account.id
+      tax.active = true
+      tax.save!
 
       tax
     end
 
-    def check_or_create_product_account(product_account_line)
-      n = Accountancy::AccountNumberNormalizer.build
-      clean_account_number = n.normalize!(product_account_line.account_number)
-      computed_name = "Service - Vente en ligne - #{clean_account_number}"
-
-      Account.find_or_create_by_number(clean_account_number, name: computed_name)
+    # @param [String] account_number
+    # @return [ProductNatureVariant, nil]
+    def find_variant_by_provider(account_number)
+      unwrap_one('variant') do
+        ProductNatureVariant.of_provider_name(:panier_local, :sales)
+                            .of_provider_data(:account_number, account_number)
+      end
     end
 
-    def create_variant(product_account, product_account_line)
-      n = Accountancy::AccountNumberNormalizer.build
-      clean_account_number = n.normalize!(product_account_line.account_number)
-      computed_name = "Service - Vente en ligne - #{clean_account_number}"
+    # @param [String] account_number
+    # @return [ProductNatureVariant]
+    def create_variant_with_account(account_number)
+      product_account = find_or_create_product_account(account_number)
 
-      pnc = ProductNatureCategory.create_with(name: computed_name, active: true, saleable: true, product_account_id: product_account.id, nature: :service, type: 'VariantCategories::ServiceCategory')
-                                 .find_or_create_by(product_account_id: product_account.id, name: computed_name)
+      create_variant(product_account, account_number)
+    end
 
-      pn = ProductNature.create_with(active: true, name: computed_name, variety: 'service', population_counting: 'decimal')
+    # @param [String] account_number
+    # @return [Account]
+    def find_or_create_product_account(account_number)
+      clean_account_number = account_normalizer.normalize!(account_number)
+
+      Maybe(find_account_by_provider(account_number))
+        .recover {
+          Account.find_or_create_by_number(
+            clean_account_number,
+            name: "Service - Vente en ligne - #{clean_account_number}",
+            provider: provider_value(account_number: account_number)
+          )
+        }
+        .or_raise
+    end
+
+    # @param [Account] account
+    # @param [String] account_number
+    # @return [ProductNatureVariant]
+    def create_variant(account, account_number)
+      computed_name = "Service - Vente en ligne - #{account.number}"
+
+      pnc = ProductNatureCategory.create_with(active: true, saleable: true, nature: :service, type: 'VariantCategories::ServiceCategory')
+                                 .find_or_create_by(product_account_id: account.id, name: computed_name)
+
+      pn = ProductNature.create_with(active: true, variety: 'service', population_counting: 'decimal')
                         .find_or_create_by(name: computed_name)
 
       pn.variants.create!(
         active: true,
         name: computed_name,
         category: pnc,
-        provider: { vendor: :panier_local, name: :sales, id: import_resource.id, data: { account_number: product_account_line.account_number } },
+        provider: provider_value(account_number: account_number),
         unit_name: 'unity'
       )
     end
 
-    def create_pretax_amount(product_account_line)
-      if product_account_line.sale_item_sens == 'D'
-        product_account_line.sale_item_amount * -1
-      elsif product_account_line.sale_item_sens == 'C'
-        product_account_line.sale_item_amount
+    # @param [OpenStruct] product_line
+    # @return [Float]
+    def create_pretax_amount(product_line)
+      if product_line.sale_item_direction == 'D'
+        product_line.sale_item_amount * -1
+      elsif product_line.sale_item_direction == 'C'
+        product_line.sale_item_amount
       else
         raise StandardError.new("Can't create Sale item direction provided isn't a letter supported")
       end
     end
 
+    # @return [SaleNature]
     def find_or_create_sale_nature
-      sale_natures = SaleNature.of_provider_name(:panier_local, :sales)
+      name = I18n.t('exchanger.panier_local.sales.sale_nature_name')
 
-      if sale_natures.empty?
-        journal = find_or_create_journal
-        catalog = find_or_create_catalog
-
-        SaleNature.create_with(provider: { vendor: :panier_local, name: :sales, id: import_resource.id })
-                  .find_or_create_by(name: I18n.t('exchanger.panier_local.sales.sale_nature_name'), catalog_id: catalog.id, currency: 'EUR', payment_delay: '30 days', journal_id: journal.id)
-      elsif sale_natures.size == 1
-        sale_natures.first
-      else
-        raise StandardError, "More than one sale_nature found, should not happen"
-      end
+      Maybe(find_sale_nature_by_provider)
+        .recover { SaleNature.find_by(name: name) }
+        .recover { create_sale_nature(name) }
+        .or_raise
     end
 
+    # @return [SaleNature, nil]
+    def find_sale_nature_by_provider
+      unwrap_one('sale nature') { SaleNature.of_provider_name(:panier_local, :sales) }
+    end
+
+    # @param [String] name
+    # @return [SaleNature]
+    def create_sale_nature(name)
+      journal = find_or_create_journal
+      catalog = find_or_create_catalog
+
+      SaleNature.create!(
+        catalog_id: catalog.id,
+        currency: 'EUR',
+        journal_id: journal.id,
+        name: name,
+        payment_delay: '30 days',
+        provider: { vendor: :panier_local, name: :sales, id: import_resource.id }
+      )
+    end
+
+    # @return [Journal]
     def find_or_create_journal
-      journals = Journal.of_provider_name(:panier_local, :sales)
-
-      if journals.empty?
-        Journal.create_with(provider: { vendor: :panier_local, name: :sales, id: import_resource.id })
-               .find_or_create_by(code: 'PALO', nature: 'sales', name: 'Panier Local')
-      elsif journals.size == 1
-        journals.first
-      else
-        raise StandardError, "More than one journal found, should not happen"
-      end
+      Maybe(find_journal_by_provider)
+        .recover { Journal.create_with(provider: { vendor: :panier_local, name: :sales, id: import_resource.id })
+                          .find_or_create_by(code: 'PALO', nature: 'sales', name: 'Panier Local') }
+        .or_raise
     end
 
+    # @return [Journal, nil]
+    def find_journal_by_provider
+      unwrap_one('journal') { Journal.of_provider_name(:panier_local, :sales) }
+    end
+
+    # @return [Catalog]
     def find_or_create_catalog
-      catalogs = Catalog.of_provider_name(:panier_local, :sales)
+      Maybe(find_catalog_by_provider)
+        .recover { Catalog.create_with(provider: { vendor: :panier_local, name: :sales, id: import_resource.id })
+                          .find_or_create_by(code: 'PALO', currency: 'EUR', usage: 'sale', name: 'Panier Local') }
+        .or_raise
+    end
 
-      if catalogs.empty?
-        Catalog.create_with(provider: { vendor: :panier_local, name: :sales, id: import_resource.id })
-               .find_or_create_by(code: 'PALO', currency: 'EUR', usage: 'sale', name: 'Panier Local')
-      elsif catalogs.size == 1
-        catalogs.first
-      else
-        raise StandardError, "More than one catalog found, should not happen"
+    # @return [Catalog, nil]
+    def find_catalog_by_provider
+      unwrap_one('catalog') { Catalog.of_provider_name(:panier_local, :sales) }
+    end
+
+    protected
+
+      def tl(*unit, **options)
+        I18n.t("exchanger.panier_local.sales.#{unit.map(&:to_s).join('.')}", **options)
       end
-    end
 
-    def open_and_decode_file(file)
-      # Open and Decode: CSVReader::read(file)
-      rows = ActiveExchanger::CsvReader.new.read(file)
-      parser = ActiveExchanger::CsvParser.new(NORMALIZATION_CONFIG)
+      def provider_name
+        :sales
+      end
 
-      parser.normalize(rows)
-    end
+    private
 
+      def open_and_decode_file(file)
+        # Open and Decode: CSVReader::read(file)
+        rows = ActiveExchanger::CsvReader.new.read(file)
+        parser = ActiveExchanger::CsvParser.new(NORMALIZATION_CONFIG)
+
+        parser.normalize(rows)
+      end
   end
 end

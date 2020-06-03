@@ -1,9 +1,9 @@
-class AddProviderToSale < ActiveRecord::Migration
+class AddProviderToTaxAndIncomingPaymentMode < ActiveRecord::Migration
   def change
-    %i[sales catalogs journals sale_natures product_natures product_nature_categories accounts product_nature_variants entities incoming_payments].each{|table_name| add_provider_to_(table_name)}
+    %i[incoming_payment_modes taxes].each { |name| add_provider_to(name) }
   end
 
-  def add_provider_to_(table_name)
+  def add_provider_to(table_name)
     add_column table_name, :provider, :jsonb
 
     reversible do |dir|

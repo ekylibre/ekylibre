@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.17
--- Dumped by pg_dump version 9.6.17
+-- Dumped from database version 9.6.10
+-- Dumped by pg_dump version 12.2
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -21,6 +21,20 @@ SET row_security = off;
 --
 
 CREATE SCHEMA postgis;
+
+
+--
+-- Name: public; Type: SCHEMA; Schema: -; Owner: -
+--
+
+CREATE SCHEMA public;
+
+
+--
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON SCHEMA public IS 'standard public schema';
 
 
 --
@@ -188,8 +202,6 @@ $$;
 
 
 SET default_tablespace = '';
-
-SET default_with_oids = false;
 
 --
 -- Name: account_balances; Type: TABLE; Schema: public; Owner: -
@@ -3574,7 +3586,8 @@ CREATE TABLE public.incoming_payment_modes (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    provider jsonb
 );
 
 
@@ -4181,7 +4194,8 @@ CREATE TABLE public.journal_entries (
     financial_year_exchange_id integer,
     reference_number character varying,
     continuous_number integer,
-    validated_at timestamp without time zone
+    validated_at timestamp without time zone,
+    provider jsonb
 );
 
 
@@ -6000,7 +6014,7 @@ CREATE TABLE public.product_nature_variants (
     id integer NOT NULL,
     category_id integer NOT NULL,
     nature_id integer NOT NULL,
-    name character varying,
+    name character varying NOT NULL,
     work_number character varying,
     variety character varying NOT NULL,
     derivative_of character varying,
@@ -7080,7 +7094,8 @@ CREATE TABLE public.taxes (
     fixed_asset_deduction_account_id integer,
     fixed_asset_collect_account_id integer,
     intracommunity boolean DEFAULT false NOT NULL,
-    intracommunity_payable_account_id integer
+    intracommunity_payable_account_id integer,
+    provider jsonb
 );
 
 
@@ -9736,6 +9751,13 @@ CREATE INDEX catalog_provider_index ON public.catalogs USING gin (((provider -> 
 --
 
 CREATE INDEX entity_provider_index ON public.entities USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
+-- Name: incoming_payment_mode_provider_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX incoming_payment_mode_provider_index ON public.incoming_payment_modes USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
 
 
 --
@@ -17929,6 +17951,13 @@ CREATE INDEX intervention_provider_index ON public.interventions USING gin (((pr
 
 
 --
+-- Name: journal_entry_provider_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX journal_entry_provider_index ON public.journal_entries USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
 -- Name: journal_provider_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -17968,6 +17997,13 @@ CREATE INDEX sale_nature_provider_index ON public.sale_natures USING gin (((prov
 --
 
 CREATE INDEX sale_provider_index ON public.sales USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
+-- Name: tax_provider_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX tax_provider_index ON public.taxes USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
 
 
 --
@@ -19250,4 +19286,10 @@ INSERT INTO schema_migrations (version) VALUES ('20200330133607');
 INSERT INTO schema_migrations (version) VALUES ('20200415163115');
 
 INSERT INTO schema_migrations (version) VALUES ('20200422084439');
+
+INSERT INTO schema_migrations (version) VALUES ('20200428152738');
+
+INSERT INTO schema_migrations (version) VALUES ('20200505114024');
+
+INSERT INTO schema_migrations (version) VALUES ('20200512091803');
 

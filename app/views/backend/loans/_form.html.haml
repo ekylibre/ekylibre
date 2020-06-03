@@ -1,6 +1,6 @@
 = field_set do
   = f.input :name
-  = f.input :amount, as: :string, input_html: { pattern: "[0-9]+([\.][0-9]+)?" }
+  = f.input :amount
   = f.referenced_association :cash
   = f.referenced_association :lender
   = f.input :interest_percentage, wrapper: :append do

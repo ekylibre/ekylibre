@@ -45,6 +45,8 @@
 #
 
 class IncomingPaymentMode < Ekylibre::Record::Base
+  include Providable
+
   attr_readonly :cash_id, :cash
   acts_as_list
   belongs_to :cash

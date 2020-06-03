@@ -665,6 +665,7 @@ eng:
     backend/product_nature_variant_components:
       # autocomplete: "Autocomplete product nature variant component: %{name}"
     backend/product_nature_variants:
+      create: "New product variant"
       # detail: "Detail product nature variant: %{name}"
       edit: "Edit product variant: %{name}"
       # incorporate: "Incorporate product nature variant: %{name}"
@@ -776,7 +777,7 @@ eng:
       # incorporate: "Incorporate role: %{name}"
       index: "Roles"
       new: "New role"
-      pick: "Pick role: %{name}"
+      pick: "Import a role"
       show: "Role: %{name}"
     backend/sale_affairs:
       # attach: "Attach sale affair: %{name}"
@@ -1674,6 +1675,7 @@ eng:
     confirmation_update_historical_plans: "Confirmation update historical plans"
     # confirmed: "Confirmed"
     connect: "Connect"
+    contains: "Contains" #?
     consult_the_day_book:
       one: "Consult the day book (%{count} entry)"
       other: "Consult the day book (%{count} entries)"
@@ -2665,7 +2667,9 @@ eng:
     see_more_details: "See more details"
     see_outgoing_parcels: "See the outgoing parcels"
     see_purchases: "See the purchases"
+    see_receptions: "See the receptions"
     see_sales: "See the sales"
+    see_shipments: "See the shipments"
     see_tax_declarations: "See tax declarations"
     see_the_accounts: "See the accounts"
     see_the_day_book: "See the day book"
@@ -3524,7 +3528,7 @@ eng:
       select: "Select"
       sell: "Turn into sale"
       # sepa: "Sepa"
-      ship: "Ship"
+      ship: "Shipping"
       show: "Show"
       show_export_preview: "View a preview of the document (may increase loading time)"
       sort: "Sort"

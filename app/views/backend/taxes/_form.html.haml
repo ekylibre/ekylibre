@@ -1,7 +1,7 @@
 = field_set do
   = f.input :active
   = f.input :country
-  = f.input :amount, as: :string, input_html: { pattern: "[0-9]+([\.][0-9]+)?" }
+  = f.input :amount
   = f.input :name
   = f.input :nature
   = f.referenced_association :collect_account, source: { scope: :collected_vat}, new: { number: Account.find_or_import_from_nomenclature(:collected_vat).number }

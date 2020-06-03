@@ -80,9 +80,6 @@ gem 'formize', '~> 2.1.0'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
-# bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0', group: :doc
-# gem 'rails-api'
 
 gem 'rake', '~>12.0'
 
@@ -262,6 +259,8 @@ group :development, :test do
 
   # Exception message tips
   gem 'did_you_mean', '~> 0.9', platforms: [:ruby_22]
+
+  gem 'yard'
 end
 
 group :test do
