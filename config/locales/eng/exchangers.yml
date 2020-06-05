@@ -9,6 +9,11 @@ eng:
         incoming_payment_mode_name: "Panier Local"
     sage:
       i_seven:
+        errors:
+          radical_class_number_unauthorized: "Can't create account. Number provided (%{number}) can't be a radical class"
+          incorrect_account_number_length: "The account number length can't be different from your own settings"
+          unreachable_code: "Unreachable code"
+          expected_nature_journal: "Expected journal %{name} to be of nature %{expected_nature}, but found %{nature}"
         journals:
           closing: "Sage - Closing entries"
           forward: "Sage - Carrying forward entries"
