@@ -72,7 +72,7 @@ module Sage
           w.check_point
         end
       rescue Accountancy::AccountNumberNormalizer::NormalizationError
-        raise StandardError, "The account number length cant't be different from your own settings"
+        raise StandardError, tl(:errors, :incorrect_account_number_length)
       end
 
       private
@@ -157,9 +157,9 @@ module Sage
           aux_number = acc_number[client_account_radix.length..-1]
 
           if aux_number.match(/\A0*\z/).present?
-            raise StandardError, "Can't create account. Number provided (#{aux_number}) can't be a radical class"
+            raise StandardError, tl(:errors, :radical_class_number_unauthorized, number: acc_number)
           end
-
+          
           attrs = attrs.merge(
             centralizing_account_name: acc_number.start_with?(client_account_radix) ? 'clients' : 'suppliers',
             auxiliary_number: aux_number,
@@ -214,7 +214,7 @@ module Sage
           elsif account.centralizing_account_name == "suppliers"
             Entity.where(supplier_account: account)
           else
-            raise StandardError, "Unreachable code!"
+            raise StandardError, tl(:errors, :unreachable_code)
           end
         end
       end
@@ -244,7 +244,7 @@ module Sage
             supplier_account_id: account.id
           }
         else
-          raise StandardError, "Unreachable code!"
+          raise StandardError, tl(:errors, :unreachable_code)
         end
         
         Entity.create!(attrs)
@@ -376,7 +376,7 @@ module Sage
         journal = unwrap_one('journal') { Journal.where(name: name) }
 
         if journal.present? && journal.nature != expected_nature
-          raise StandardError, "Expected journal #{name} to be of nature #{expected_nature}, but found #{journal.nature}"
+          raise StandardError, tl(:errors, :expected_nature_journal, name: name, expected_nature: expected_nature, nature: journal.nature)
         end
 
         journal
