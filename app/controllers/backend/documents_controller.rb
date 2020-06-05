@@ -26,7 +26,31 @@ module Backend
 
     # respond_to :html, :json, :xml
 
-    list do |t|
+    def self.list_conditions
+      code = ''
+      code = search_conditions(documents: %i[name]) + " ||= []\n"
+      
+      code << "if params[:created_at].present? && params[:created_at].to_s != 'all'\n"
+      code << " c[0] << ' AND #{Document.table_name}.created_at::DATE BETWEEN ? AND ?'\n"
+      code << " if params[:created_at].to_s == 'interval'\n"
+      code << "   c << params[:created_at_started_on]\n"
+      code << "   c << params[:created_at_stopped_on]\n"
+      code << " else\n"
+      code << "   interval = params[:created_at].to_s.split('_')\n"
+      code << "   c << interval.first\n"
+      code << "   c << interval.second\n"
+      code << " end\n"
+      code << "end\n"
+
+      code << "if params[:nature].present?\n"
+      code << " c[0] << ' AND #{Document.table_name}.nature = ?'\n"
+      code << " c << params[:nature]\n"
+      code << "end\n"
+      code << "c\n "
+      code.c
+    end
+
+    list(conditions: list_conditions) do |t|
       t.action :destroy, if: :destroyable?
       t.column :mandatory, class: "center-align"
       t.column :number, url: true
