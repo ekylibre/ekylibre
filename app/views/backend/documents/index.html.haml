@@ -1,3 +1,12 @@
+= kujaku do |k|
+  - k.text
+  - k.helper do
+    %label= :document_type.tl
+    = select_tag(:nature, options_for_select([[]] + Document.all.pluck(:nature).uniq.compact.map{ |v| [v.human_name, v] }.sort_by(&:first), params[:nature].to_s))
+  - if Document.where.not(created_at: nil).any?
+    - k.helper do
+      = document_period_crit(label: Document.human_attribute_name(:created_at), name: :created_at)
+
 - main_toolbar do |t|
   = t.new params: { redirect: nil }
 = main_list

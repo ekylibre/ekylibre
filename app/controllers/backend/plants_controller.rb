@@ -51,6 +51,7 @@ module Backend
       code << " c[0] << ' AND #{Plant.table_name}.variety = ?'\n"
       code << " c << params[:variety]\n"
       code << "end\n"
+
       code << "if params[:area].present?\n"
       code << " interval = params[:area].split(',')\n"
       code << " c[0] << ' AND (SELECT (ST_Area(ST_Transform(ST_GeomFromEWKB(#{Plant.table_name}.initial_shape),2154))) BETWEEN ? AND ?)'\n"
