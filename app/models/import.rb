@@ -79,7 +79,6 @@ class Import < Ekylibre::Record::Base
 
     def launch!(nature, file, options = {}, &block)
       launch_result!(nature, file, options, &block)
-      import
     end
     
   end
