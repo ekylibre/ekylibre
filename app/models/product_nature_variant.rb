@@ -116,6 +116,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   accepts_nested_attributes_for :catalog_items, reject_if: :all_blank, allow_destroy: true
   validates_associated :components
 
+  scope :active, -> { where(active: true) }
   scope :availables, -> { where(nature_id: ProductNature.availables).order(:name) }
   scope :saleables, -> { joins(:category).merge(ProductNatureCategory.saleables) }
   scope :purchaseables, -> { joins(:category).merge(ProductNatureCategory.purchaseables) }

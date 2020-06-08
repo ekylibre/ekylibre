@@ -2,9 +2,18 @@ fra:
   exchanger:
     panier_local:
       sales:
+        errors:
+          sale_data_missing_tax_information: "La vente ayant pour référence %{reference_number} est invalide car elle n'a pas d'information sur la TVA applicable."
         sale_nature_name: "Vente en ligne - Panier Local"
       incoming_payments:
         incoming_payment_mode_name: "Panier Local"
+    sage:
+      i_seven:
+        errors:
+          expected_nature_journal: "La nature attendue du journal %{name} devrait être %{expected_nature}, actuellement: %{nature}"
+          radical_class_number_unauthorized: "Le compte ne peut pas être créé. Le numéro fourni (%{number}) ne peut pas correspondre à une classe radicale"
+          incorrect_account_number_length: "La longueur du numéro de compte ne peut être différente de votre paramétrage"
+          unreachable_code: "Code inaccessible"
   exchangers:
     agro_systemes_soil_analyses: "Analyses de sol ‒ AGRO Systèmes"
     agro_systemes_water_analyses: "Analyses d’eau ‒ AGRO Systèmes"

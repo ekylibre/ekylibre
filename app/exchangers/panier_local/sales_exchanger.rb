@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PanierLocal
   class SalesExchanger < Base
 
@@ -47,6 +49,11 @@ module PanierLocal
 
       unless fy_start && fy_stop
         w.error 'Need a FinancialYear'
+        valid = false
+      end
+
+      if responsible.nil?
+        w.error "A responsible is needed to execute this import"
         valid = false
       end
 
@@ -101,7 +108,11 @@ module PanierLocal
       end
 
       client_info = unwrap_one("client info", exact: true) { grouped_lines.fetch(:client, []) }
-      tax_info = unwrap_one("tax info", exact: true) { grouped_lines.fetch(:tax, []) }
+      tax_info = unwrap_one(
+        "tax info",
+        exact: true,
+        error_none: -> { tl(:errors, :sale_data_missing_tax_information, reference_number: reference_number) }
+      ) { grouped_lines.fetch(:tax, []) }
       product_infos = grouped_lines.fetch(:product, [])
 
       entity = find_or_create_entity(client_info.entity_name, client_info.account_number, client_info.entity_code)
@@ -134,6 +145,8 @@ module PanierLocal
       end
 
       sale.save!
+
+      sale
     end
 
     # @param [String] reference_number
@@ -321,6 +334,10 @@ module PanierLocal
     end
 
     protected
+
+      def tl(*unit, **options)
+        I18n.t("exchanger.panier_local.sales.#{unit.map(&:to_s).join('.')}", **options)
+      end
 
       def provider_name
         :sales

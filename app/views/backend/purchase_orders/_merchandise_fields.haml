@@ -5,7 +5,7 @@
     :ruby
       options = {
         label: :merchandise.tl,
-        source: {scope: :purchaseables_stockables_or_depreciables},
+        source: {scope: {purchaseables_stockables_or_depreciables: true, active: true}},
         input_html: {
           class: "order-variant",
           data: {

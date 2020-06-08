@@ -1,4 +1,15 @@
 fra:
+  exchanger: 
+    panier_local:
+      sales:
+        sale_nature_name: "Vente en ligne - Panier Local"
+      incoming_payments:
+        incoming_payment_mode_name: "Panier Local"
+    sage:
+      i_seven:
+        journals:
+          closing: "Sage - Écritures de clôture"
+          forward: "Sage - Écritures de report à nouveau"
   formats:
     csv: "Texte CSV"
     doc: "Microsoft Word 97/2000/XP/2003"

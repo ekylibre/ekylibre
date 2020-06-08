@@ -42,6 +42,8 @@ module Backend
       if @invitation.errors.empty?
         redirect_to backend_invitations_path
       else
+        @form_url = backend_invitations_path
+
         render :new
       end
     end

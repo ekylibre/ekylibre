@@ -1344,6 +1344,8 @@ eng:
       zoomGuidance: "Insufficient zoom level"
       zoomInTitle: "Zoom in"
       zoomOutTitle: "Zoom out"
+    unroll:
+      server_error: "Server error"
   labels:
     accepted: "Accepted"
     accepted_for_paiment: "Accepted for paiment"
@@ -1835,6 +1837,7 @@ eng:
     document: "Document"
     document_natures: "Document types"
     document_templates: "Document templates"
+    document_type: "Document type"
     documentation: "Documentation"
     doer_cost: "Doer cost"
     done: "Done"

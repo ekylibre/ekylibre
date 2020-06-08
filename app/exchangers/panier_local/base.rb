@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PanierLocal
   class Base < ActiveExchanger::Base
     class UniqueResultExpectedError < StandardError; end
@@ -11,14 +13,30 @@ module PanierLocal
       @account_normalier ||= Accountancy::AccountNumberNormalizer.build
     end
 
-    def unwrap_one(name, exact: false, &block)
+    def unwrap_one(name, error_many: nil, error_none: nil, exact: false, &block)
       results = block.call
       size = results.size
 
       if size > 1
-        raise UniqueResultExpectedError, "Expected only one #{name}, got #{size}"
+        message = if error_many.nil?
+                    "Expected only one #{name}, got #{size}"
+                  elsif error_many.respond_to?(:call)
+                    error_many.call(size: size)
+                  else
+                    error_many
+                  end
+
+        raise UniqueResultExpectedError, message
       elsif exact && size == 0
-        raise UniqueResultExpectedError, "Expected only one #{name}, got none"
+        message = if error_none.nil?
+                    "Expected only one #{name}, got none"
+                  elsif error_none.respond_to?(:call)
+                    error_none.call
+                  else
+                    error_none
+                  end
+
+        raise UniqueResultExpectedError, message
       else
         results.first
       end
@@ -31,7 +49,7 @@ module PanierLocal
 
     # @return [User]
     def responsible
-      import_resource.creator
+      import_resource.creator&.person
     end
 
     # @param [String] account_number
