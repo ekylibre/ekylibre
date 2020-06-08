@@ -1,5 +1,5 @@
 eng:
-  exchanger: 
+  exchanger:
     panier_local:
       sales:
         errors:
@@ -65,6 +65,7 @@ eng:
     lely_milk_robot_individual_production: "Lely milk robot individual production"
     lilco_milk_analyses: "Lilco milk analyses"
     milklic_individual_production: "Milklic individual production"
+    odicom_fec_txt: "FEC import (TXT) - Odicom"
     sage_i_seven_journal_entries: "Accountancy (ECX) ‒ Sagei7"
     # panier_local_base: "Panier local base"
     panier_local_incoming_payments: "Panier local incoming payments"
