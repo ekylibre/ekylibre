@@ -32,10 +32,10 @@ GIT
 
 GIT
   remote: https://gitlab.com/ekylibre/eky-possibly.git
-  revision: 63d45ace446741560cc5cebf56ec6c2ad5bbae08
-  branch: prod
+  revision: 483d102852e2ab8fcbf695b9e25a40902302a593
+  tag: v3.1.1
   specs:
-    possibly (1.0.1)
+    possibly (3.1.1)
 
 GIT
   remote: https://gitlab.com/ekylibre/odf-report.git
