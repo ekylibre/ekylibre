@@ -87,7 +87,7 @@
                     %span.value= :allowed.tl
                   - elsif vote == :forbidden
                     %span.value= :forbidden.tl
-                    %span.value= messages.compact.uniq.join(', ')
+                    %span.value= messages.uniq.join(', ')
 
     - if intervention.outputs.any?
       .block

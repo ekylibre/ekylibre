@@ -45,7 +45,7 @@ module Interventions
         end
 
         # @param [Product] product
-        # @param [String] message
+        # @param [String, nil] message
         # @option [Symbol, nil] on
         def vote_forbidden(product, message = nil, on: nil)
           add_vote(product, status: :forbidden, message: message, on: on)
@@ -58,7 +58,7 @@ module Interventions
 
         # @param [Product] product
         # @option [Symbol] status
-        # @option [String] message
+        # @option [String, nil] message
         # @option [Symbol, nil] on
         def add_vote(product, status:, message: nil, on: nil)
           vote = Models::ProductApplicationVote.new(status, message, on || :product)
