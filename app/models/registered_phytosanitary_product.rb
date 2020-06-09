@@ -53,7 +53,7 @@ class RegisteredPhytosanitaryProduct < ActiveRecord::Base
   has_many :risks, class_name: 'RegisteredPhytosanitaryRisk', foreign_key: :product_id, dependent: :restrict_with_exception
   has_many :usages, class_name: 'RegisteredPhytosanitaryUsage', foreign_key: :product_id, dependent: :restrict_with_exception
 
-  enumerize :state, in: %w[authorized inherited withdrawn], predicates: true
+  enumerize :state, in: %w[authorized inherited withdrawn provisional], predicates: true
   has_interval :in_field_reentry_delay
   search_on :name, :firm_name, :france_maaid
 
