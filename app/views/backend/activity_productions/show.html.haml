@@ -13,6 +13,11 @@
       .med-info.important
         %span.title= :working_area.tl
         %span.value= resource.decorate.human_working_zone_area
+      - unless @reentry_possible.possible
+        .med-info.delay
+          %span.title= :re_entry_delay.tl
+          %span.value
+            %span= @reentry_possible.next_possible_date.l
 
       - if resource.season
         .med-info
