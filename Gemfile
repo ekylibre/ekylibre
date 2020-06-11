@@ -32,7 +32,7 @@ gem 'apartment', '~> 2.2.1'
 gem 'apartment-sidekiq'
 
 # Ruby syntax extensions
-gem 'possibly', gitlab: 'ekylibre/eky-possibly', branch: :prod
+gem 'possibly', gitlab: 'ekylibre/eky-possibly', tag: 'v3.1.1'
 
 # Code manipulation
 gem 'charlock_holmes'
