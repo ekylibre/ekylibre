@@ -142,6 +142,7 @@ class FixedAsset < Ekylibre::Record::Base
   validates :stopped_on, :allocation_account, :expenses_account, presence: { unless: :depreciation_method_none? }
   validates :waiting_on, timeliness: { on_or_before: -> (fixed_asset) { fixed_asset.started_on }, type: :date }, if: -> { waiting_on }, allow_blank: true
   validates :waiting_on, presence: true, financial_year_writeable: true, on: :stand_by
+  validates :depreciable_amount, numericality: { greater_than_or_equal_to: 0 }
 
   scope :drafts, -> { where(state: %w[draft]) }
   scope :draft_or_waiting, -> { where(state: %w[draft waiting]) }
@@ -324,12 +325,12 @@ class FixedAsset < Ekylibre::Record::Base
       total_duration = periods.sum(&:last)
 
       case depreciation_method
-        when 'linear'
-          depreciate_with_linear_method starts, total_duration
-        when 'regressive'
-          depreciate_with_regressive_method starts, total_duration
-        else
-          raise StandardError.new("Invalid depreciation method: #{depreciation_method}")
+      when 'linear'
+        depreciate_with_linear_method(starts, total_duration)
+      when 'regressive'
+        depreciate_with_regressive_method(starts, total_duration)
+      else
+        raise StandardError.new("Invalid depreciation method: #{depreciation_method}")
       end
     end
 
@@ -386,7 +387,6 @@ class FixedAsset < Ekylibre::Record::Base
       depreciation = depreciations.find_by(started_on: start)
       unless depreciation
         depreciation = depreciations.new(started_on: start.beginning_of_month, stopped_on: starts[index + 1] - 1)
-        duration = depreciation.duration
 
         current_year = index
         if depreciation_period == :quarterly
@@ -398,7 +398,7 @@ class FixedAsset < Ekylibre::Record::Base
         remaining_linear_depreciation_percentage = (100 * depreciation_percentage / (100 - (current_year * depreciation_percentage))).round(2)
         percentage = [regressive_depreciation_percentage, remaining_linear_depreciation_percentage].max
 
-        depreciation.amount = currency.to_currency.round(remaining_amount * (percentage / 100) * (duration / 360))
+        depreciation.amount = [remaining_amount, currency.to_currency.round(remaining_amount * (percentage / 100) * (depreciation.duration / 360))].min
         remaining_amount -= depreciation.amount
       end
       next if depreciation.amount.to_f == 0.0
@@ -406,7 +406,7 @@ class FixedAsset < Ekylibre::Record::Base
       depreciation.position = position
       position += 1
       depreciation.save!
-      remaining_days -= duration
+      remaining_days -= depreciation.duration
     end
   end
 
