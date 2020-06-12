@@ -143,10 +143,10 @@ module PanierLocal
         end
       end
 
-      test 'the responsible is the user linked to the creator of the import' do
-        user = create :user, :employed, :with_person
+      test 'the responsible is the creator of the import' do
+        user = create :user
         stub_many @e.import_resource, creator: user do
-          assert_equal user.person, @e.responsible
+          assert_equal user, @e.responsible
         end
       end
 
