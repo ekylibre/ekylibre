@@ -56,21 +56,6 @@ module Synel
         # animal.read!(:sex, r.sex, at: r.born_at) if animal.sex.blank?
         animal.read!(:healthy, true, at: r.born_at)
 
-        # load demo data weight and state
-        if demo_mode
-          weighted_at = r.born_at
-          if weighted_at && weighted_at < Time.zone.now
-            variation = 0.02
-            while (r.dead_at.nil? || weighted_at < r.dead_at) && weighted_at < Time.zone.now
-              age = (weighted_at - r.born_at).to_f
-              weight = (age < 990 ? 700 * Math.sin(age / (100 * 2 * Math::PI)) + 50.0 : 750)
-              weight += rand(weight * variation * 2) - (weight * variation)
-              animal.read!(:net_mass, weight.in_kilogram.round(1), at: weighted_at)
-              weighted_at += (70 + rand(40)).days + 30.minutes - rand(60).minutes
-            end
-          end
-        end
-
         if group
           animal.memberships.create!(group: group.record, started_at: arrived_on, nature: :interior)
           animal.memberships.create!(started_at: departed_on, nature: :exterior) if r.departed_on

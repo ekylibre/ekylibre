@@ -71,12 +71,16 @@ class Import < Ekylibre::Record::Base
     end
 
     # Create an import and run it directly
-    def launch!(nature, file, options = {}, &block)
+    def launch_result!(nature, file, options = {}, &block)
       f = File.open(file)
       import = create!(nature: nature, archive: f, options: options)
-      import.run(&block)
-      import
+      import.run_result(&block)
     end
+
+    def launch!(nature, file, options = {}, &block)
+      launch_result!(nature, file, options, &block)
+    end
+    
   end
 
   def name

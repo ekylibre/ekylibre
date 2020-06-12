@@ -1,17 +1,21 @@
 .purchase-totals {
-  margin: $default-gap * 3 0 $default-gap * 3 0.6%;
-
+  @media screen and (max-width: 1440px) {
+    margin: $default-gap * 3 0 $default-gap * 3 1%;
+  }
+  @media screen and (min-width: 1441px) {
+    margin: $default-gap * 3 0 $default-gap * 3 0.6%;
+  }
+  
   .purchase-total-row {
     @include flex-row(flex-start, flex-start);
     margin-bottom: $default-gap;
   }
 
   .total-label {
-    flex-basis: 29%;
+    flex-basis: 27.5%;
   }
 
   .total-value {
-    flex-basis: 3%;
     text-align: right;
   }
 

@@ -86,7 +86,10 @@ module Ekylibre
           end,
           activity_family_name: row[10].to_s,
           activity_name: row[11].to_s,
-          campaign_year: row[12].to_i
+          campaign_year: row[12].to_i,
+          started_on: Date.parse(row[13].to_s),
+          stopped_on: Date.parse(row[14].to_s),
+          population_in_production: row[15].to_i
         )
 
         unless variant = ProductNatureVariant.find_by(work_number: r.nature)
@@ -132,6 +135,26 @@ module Ekylibre
           animal_group.save!
         end
 
+        # check campaign
+        campaign = Campaign.find_or_create_by(harvest_year: r.campaign_year)
+
+        # check activity
+        family = Nomen::ActivityFamily.find(:animal_farming)
+        r.activity_name = family.human_name if r.activity_name.blank?
+        unless activity = Activity.find_by(name: r.activity_name)
+          # family = Activity.find_best_family(animal_group.derivative_of, animal_group.variety)
+          unless family
+            w.error 'Cannot determine activity'
+            raise ActiveExchanger::Error, "Cannot determine activity with support #{support_variant ? support_variant.variety.inspect : '?'} and cultivation #{cultivation_variant ? cultivation_variant.variety.inspect : '?'} in production #{sheet_name}"
+          end
+          activity = Activity.create!(
+            name: r.activity_name,
+            family: family.name,
+            nature: family.nature,
+            production_cycle: :annual
+          )
+        end
+
         # Check if animals exist with given sex and age
         if r.minimum_age && r.maximum_age && r.sex
           max_born_at = Time.zone.now - r.minimum_age.days if r.minimum_age
@@ -139,35 +162,16 @@ module Ekylibre
           animals = Animal.indicate(sex: r.sex.to_s).where(born_at: min_born_at..max_born_at).reorder(:name)
 
           # find support for intervention changing or create it
-          unless ap = ActivityProduction.where(support_id: animal_group.id).first
-            # campaign = Campaign.find_or_create_by!(harvest_year: r.campaign_year)
-            family = Nomen::ActivityFamily.find(:animal_farming)
-            r.activity_name = family.human_name if r.activity_name.blank?
-            unless activity = Activity.find_by(name: r.activity_name)
-              # family = Activity.find_best_family(animal_group.derivative_of, animal_group.variety)
-              unless family
-                w.error 'Cannot determine activity'
-                raise ActiveExchanger::Error, "Cannot determine activity with support #{support_variant ? support_variant.variety.inspect : '?'} and cultivation #{cultivation_variant ? cultivation_variant.variety.inspect : '?'} in production #{sheet_name}"
-              end
-              activity = Activity.create!(
-                name: r.activity_name,
-                family: family.name,
-                nature: family.nature,
-                production_cycle: :perennial
-              )
-            end
-            # get first harvest_year of first campaign
-            first_year_of_campaign = Campaign.first_of_all.harvest_year if Campaign.first_of_all
-            if animals.any?
+          unless ap = ActivityProduction.find_by(support_id: animal_group.id, campaign_id: campaign.id, activity_id: activity.id)
               ap = ActivityProduction.create!(
                 activity: activity,
+                campaign: campaign,
                 support_id: animal_group.id,
-                size_value: animals.count,
+                size_value: (animals.count > 0 ? animals.count : r.population_in_production),
                 support_nature: :animal_group,
-                started_on: first_year_of_campaign ? Date.civil(first_year_of_campaign, 1, 1) : Date.civil(1970, 1, 1),
-                usage: :milk
+                started_on: r.started_on,
+                stopped_on: r.stopped_on
               )
-            end
           end
 
           # if animals and production_support, add animals to the target distribution

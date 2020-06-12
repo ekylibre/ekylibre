@@ -421,7 +421,7 @@
           @._handleClear($filteredUnroll, data.clear)
           @._handleDisable($filteredUnroll, $filteringUnroll, data.disable) if data.disable
         .fail (e) =>
-          @._handleDisable($filteredUnroll, $filteringUnroll, "Server error")
+          @._handleDisable($filteredUnroll, $filteringUnroll, I18n.translate('front-end.unroll.server_error'))
           console.error('Error while trying to filter an unroll', e)
 
     _handleScope: ($filteredUnroll, scope_url) ->

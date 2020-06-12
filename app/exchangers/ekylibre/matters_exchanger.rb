@@ -42,8 +42,12 @@ module Ekylibre
         end
 
         next unless r.variant_reference_name
-        next if variant = ProductNatureVariant.find_by(work_number: r.variant_reference_name)
-        unless nomen = Nomen::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
+        next if variant = ProductNatureVariant.find_by(work_number: r.variant_reference_name.downcase.to_sym)
+        if Variant.find_by(reference_name: r.variant_reference_name.downcase.to_sym)
+          valid = true
+        elsif nomen = Nomen::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
+          valid = true
+        else
           w.error "No variant exist in NOMENCLATURE for #{r.variant_reference_name.inspect}"
           valid = false
         end
@@ -55,6 +59,7 @@ module Ekylibre
       rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
       w.count = rows.size
 
+      currency = Preference[:currency]
       building_division = BuildingDivision.first
 
       rows.each do |row|
@@ -79,19 +84,25 @@ module Ekylibre
 
         if r.variant_reference_name
           # find or import from variant reference_nameclature the correct ProductNatureVariant
-          unless variant = ProductNatureVariant.find_by(work_number: r.variant_reference_name)
-            if Nomen::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
+          variant = ProductNatureVariant.find_by(work_number: r.variant_reference_name)
+          variant ||= ProductNatureVariant.find_by(reference_name: r.variant_reference_name)
+          unless variant
+            # if phyto product found with maaid
+            if RegisteredPhytosanitaryProduct.find_by_id(r.variant_reference_name)
+              item = RegisteredPhytosanitaryProduct.find_by_id(r.variant_reference_name)
+              variant = ProductNatureVariant.import_phyto_from_lexicon(item.reference_name)
+            elsif Nomen::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
               variant = ProductNatureVariant.import_from_nomenclature(r.variant_reference_name.downcase.to_sym)
             else
               raise "No variant exist in NOMENCLATURE for #{r.variant_reference_name.inspect}"
             end
           end
-          pmodel = variant.nature.matching_model
 
           # create a price
           catalog = Catalog.find_by(usage: :cost)
-          if r.unit_pretax_amount && catalog && catalog.items.where(variant: variant).empty?
-            variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: r.unit_pretax_amount, currency: 'EUR')
+          if variant && r.unit_pretax_amount && catalog && catalog.items.where(variant: variant).empty?
+            attributes = {catalog: catalog, all_taxes_included: false, amount: r.unit_pretax_amount, currency: currency}
+            variant.catalog_items.create!(attributes)
           end
 
           # create the owner if not exist
@@ -114,28 +125,32 @@ module Ekylibre
           end
 
           # create the product
-          matter = pmodel.create!(
-            variant: variant,
-            work_number: r.work_number,
-            name: r.name,
-            initial_born_at: r.born_at,
-            initial_population: r.indicators[:population].to_f,
-            initial_owner: owner,
-            variety: r.variety,
-            derivative_of: r.derivative_of,
-            initial_container: container,
-            default_storage: container
-          )
-
-          if r.work_number
-            matter.work_number = r.work_number
-            matter.save!
+          if variant
+            pmodel = variant.matching_model
+            matter = pmodel.create!(
+              variant: variant,
+              work_number: r.work_number,
+              name: r.name,
+              initial_born_at: r.born_at,
+              initial_population: r.indicators[:population].to_f,
+              initial_owner: owner,
+              variety: r.variety,
+              derivative_of: r.derivative_of,
+              initial_container: container,
+              default_storage: container
+            )
+          else
+            raise "No variant created or no matching model for #{r.variant_reference_name.inspect}"
           end
 
-          # create indicators linked to matters
-          r.indicators.each do |indicator, value|
-            next unless indicator != :population
-            matter.read!(indicator, value, at: r.born_at, force: true)
+          if matter && r.work_number
+            matter.work_number = r.work_number
+            matter.save!
+            # create indicators linked to matters
+            r.indicators.each do |indicator, value|
+              next unless indicator != :population
+              matter.read!(indicator, value, at: r.born_at, force: true)
+            end
           end
 
           w.check_point

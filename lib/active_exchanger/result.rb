@@ -36,5 +36,15 @@ module ActiveExchanger
     def error?
       !success?
     end
+
+    def raise_if_error!
+      return if success?
+      if @exception.present?
+        raise @exception
+      else
+        raise ActiveExchanger::Error, @message
+      end
+    end
+
   end
 end
