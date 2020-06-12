@@ -160,7 +160,7 @@ module Backend
       fy = FinancialYear.current
       params[:period] = value ||= :all # (fy ? fy.started_on.to_s + "_" + fy.stopped_on.to_s : :all)
       custom_id = "#{configuration[:id]}_#{configuration[:custom]}"
-      toggle_method = "toggle#{custom_id.camelcase}"
+
       if configuration[:custom]
         params[:started_on] = begin
                                 current_user.preferences.value("#{controller}##{action}.started_on")&.to_date || params[:started_on].to_date
@@ -172,7 +172,11 @@ module Backend
                               rescue
                                 (fy ? fy.stopped_on : Time.zone.today)
                               end
-        params[:stopped_on] = params[:started_on] if params.key?(:started_on) && params[:started_on] > params[:stopped_on]
+
+        if params[:started_on].present? && params[:stopped_on].present? && params[:started_on] > params[:stopped_on]
+          params[:stopped_on] = params[:started_on]
+        end
+
         list.insert(0, [configuration[:custom].tl, configuration[:custom]])
       end
 
