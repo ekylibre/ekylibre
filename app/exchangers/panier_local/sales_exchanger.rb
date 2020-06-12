@@ -52,12 +52,17 @@ module PanierLocal
         valid = false
       end
 
-      if responsible.nil?
+      if responsible_person.nil?
         w.error "A responsible is needed to execute this import"
         valid = false
       end
 
       valid
+    end
+
+    # @return [Entity, nil]
+    def responsible_person
+      responsible&.person
     end
 
     def import
@@ -125,7 +130,7 @@ module PanierLocal
         nature: sale_nature,
         provider: provider_value(sale_reference_number: reference_number),
         reference_number: reference_number,
-        responsible: responsible
+        responsible: responsible_person
       )
 
       product_infos.each do |product_line|
