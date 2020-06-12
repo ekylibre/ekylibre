@@ -49,7 +49,7 @@ module PanierLocal
 
     # @return [User]
     def responsible
-      import_resource.creator&.person
+      import_resource.creator
     end
 
     # @param [String] account_number
