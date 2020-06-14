@@ -53,5 +53,12 @@ module Backend
       t.column :born_at
       t.column :dead_at
     end
+
+    def show
+      super
+
+      harvest_advisor = ::Interventions::Phytosanitary::PhytoHarvestAdvisor.new
+      @reentry_possible = harvest_advisor.reentry_possible?(@activity_production.support, Time.zone.now)
+    end
   end
 end
