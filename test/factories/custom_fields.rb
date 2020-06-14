@@ -21,50 +21,37 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: custom_field_choices
+# == Table: custom_fields
 #
+#  active          :boolean          default(TRUE), not null
+#  column_name     :string           not null
 #  created_at      :datetime         not null
 #  creator_id      :integer
-#  custom_field_id :integer          not null
+#  customized_type :string           not null
 #  id              :integer          not null, primary key
 #  lock_version    :integer          default(0), not null
+#  maximal_length  :integer
+#  maximal_value   :decimal(19, 4)
+#  minimal_length  :integer
+#  minimal_value   :decimal(19, 4)
 #  name            :string           not null
+#  nature          :string           not null
 #  position        :integer
+#  required        :boolean          default(FALSE), not null
 #  updated_at      :datetime         not null
 #  updater_id      :integer
-#  value           :string
 #
----
-custom_field_choices_001:
-  created_at: 2016-02-07 22:13:52.162689000 Z
-  creator_id: 1
-  custom_field_id: 3
-  id: 1
-  lock_version: 0
-  name: qsdqd
-  position: 1
-  updated_at: 2016-02-07 22:13:52.162689000 Z
-  updater_id: 1
-  value: QSDQD
-custom_field_choices_002:
-  created_at: 2016-02-07 22:13:52.165185000 Z
-  creator_id: 1
-  custom_field_id: 3
-  id: 2
-  lock_version: 0
-  name: qsdsfdsfgsdfgsdg
-  position: 2
-  updated_at: 2016-02-07 22:13:52.165185000 Z
-  updater_id: 1
-  value: QSDSFDSFGSDFGSDG
-custom_field_choices_003:
-  created_at: 2016-02-07 22:13:52.167312000 Z
-  creator_id: 1
-  custom_field_id: 3
-  id: 3
-  lock_version: 0
-  name: '212'
-  position: 3
-  updated_at: 2016-02-07 22:13:52.167312000 Z
-  updater_id: 1
-  value: '212'
+
+FactoryBot.define do
+    factory :custom_field do
+        active { true }
+        column_name { nil }
+        customized_type { nil }
+        sequence(:name) { |n| "Custom field #{n}" }
+        required { false }
+
+        trait :text do
+            nature { :text }
+        end
+    end
+end
