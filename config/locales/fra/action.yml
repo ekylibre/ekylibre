@@ -1221,6 +1221,7 @@ fra:
     applications_count_bigger_than_max: "Nombre d'application(s) maximum dépassé" #?
     applications_count_equal_to_max: "Nombre d'application(s) maximum atteint après cette intervention" #?
     applications_count_less_than_max: "Nombre d'application(s) inférieur au maximum" #?
+    applications_frequency: "Intervalle entre applications"
     applications_interval_not_respected: "Intervalle entre application non respecté"
     apply: "Appliquer" #?
     aquatic_nta: "ZNT aquatique (%{distance} m)"
