@@ -73,13 +73,13 @@ product_nature_variants_001:
   type: Variants::ArticleVariant
 product_nature_variants_002:
   active: true
-  category_id: 1
+  category_id: 9
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   id: 2
   lock_version: 0
   name: Lorem ipsum 2
-  nature_id: 1
+  nature_id: 2
   number: '00000002'
   unit_name: unit
   updated_at: 2014-10-31 17:19:32.000000000 Z

@@ -78,6 +78,23 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
     Account.delete_all
   end
 
+  test "type is computed from category and variant at each validation" do
+    cat = create(:animal_category)
+    nature = create(:animals_nature)
+
+    pnv = ProductNatureVariant.new(
+      type: "Variants::ArticleVariant",
+      category: cat,
+      nature: nature
+    )
+
+    assert_equal "Variants::ArticleVariant", pnv.type
+
+    pnv.valid?
+
+    assert_equal "Variants::AnimalVariant", pnv.type
+  end
+
   test 'working sets' do
     Nomen::WorkingSet.list.each do |item|
       assert ProductNatureVariant.of_working_set(item.name).count >= 0
@@ -195,7 +212,7 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
                    worker: :worker_variant,
                    zone: :land_parcel_variant }
 
-    references.each { |type, reference| assert_equal "Variants::#{type.capitalize}Variant", create(reference).type}
+    references.each { |type, reference| assert_equal "Variants::#{type.capitalize}Variant", create(reference).type }
 
     article_references = { plant_medicine: :phytosanitary_variant, fertilizer: :fertilizer_variant, seed_and_plant: :seed_variant }
     article_references.each { |type, reference| assert_equal "Variants::Articles::#{type.to_s.classify}Article", create(reference).type }
