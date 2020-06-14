@@ -87,7 +87,8 @@ module Backend
           pre_harvest_delay: usage.pre_harvest_delay ? "#{usage.pre_harvest_delay.in_full(:day)} j" : nil,
           development_stage: usage.decorated_development_stage_min,
           untreated_buffer_plants: usage.untreated_buffer_plants ? "#{usage.untreated_buffer_plants} m" : nil,
-          usage_conditions: usage.usage_conditions ? usage.usage_conditions.gsub('//', '<br/>').html_safe : nil
+          usage_conditions: usage.usage_conditions ? usage.usage_conditions.gsub('//', '<br/>').html_safe : nil,
+          applications_frequency: usage.applications_frequency ? "#{usage.applications_frequency.in_full(:day)} j" : nil
         }
       end
 
