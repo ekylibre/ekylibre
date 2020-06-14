@@ -81,13 +81,12 @@ module Backend
       @template.content_tag(:div, html, html_options)
     end
 
-    # Adds custom fields
     def custom_fields
       return nil unless @object.customizable?
       custom_fields = @object.class.custom_fields
       return nil unless custom_fields.any?
       @template.content_tag(:div, class: 'custom-fields') do
-        simple_fields_for(:custom_fields, OpenStruct.new(@object.custom_fields)) do |cff|
+        simple_fields_for(:custom_fields, @object.custom_fields_model) do |cff|
           custom_fields.map do |custom_field|
             options = { as: custom_field.nature.to_sym, required: custom_field.required?, label: custom_field.name }
             if custom_field.choice?
@@ -103,6 +102,12 @@ module Backend
           end.join.html_safe
         end
       end
+    end
+
+    def get_custom_fields_errors(errors)
+      errors.to_h
+            .select { |error| error.to_s.start_with?('custom_fields__')}
+            .transform_keys { |key| key.to_s.gsub('custom_fields__', '').to_sym }
     end
 
     def attachments_field_set
