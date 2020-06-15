@@ -78,14 +78,19 @@ class AccountTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   test 'invalid numbers' do
+    Preference.set! :account_number_digits, 8
+
     account_1 = build(:account, number: '4110000')
     account_2 = build(:account, number: '4010000')
     account_3 = build(:account, number: '012345')
     account_4 = build(:account, number: '1')
-    refute account_1.valid?
-    refute account_2.valid?
-    refute account_3.valid?
-    refute account_4.valid?
+    account_5 = build(:account, number: '1111111111')
+
+    assert account_1.tap(&:valid?).errors.messages.key?(:number)
+    assert account_2.tap(&:valid?).errors.messages.key?(:number)
+    assert account_3.tap(&:valid?).errors.messages.key?(:number)
+    assert account_4.tap(&:valid?).errors.messages.key?(:number)
+    assert account_5.tap(&:valid?).errors.messages.key?(:number)
   end
 
   test 'number is normalized during before creation' do
@@ -93,19 +98,11 @@ class AccountTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     account_2 = build(:account, number: '240500')
     account_3 = build(:account, number: '28154000')
     account_4 = build(:account, number: 20500)
+
     assert account_1.number, "20500000"
     assert account_2.number, "24050000"
     assert account_3.number, "20500000"
     assert account_4.number, "20500000"
-  end
-
-  test 'normalize works as expected' do
-    Preference.set! :account_number_digits, 8
-
-    assert_equal '20000000', Account.normalize('2')
-    assert_equal '20000000', Account.normalize(2)
-    assert_equal '20000000', Account.normalize(20000000000)
-    assert_equal '20000000', Account.normalize('20000000000')
   end
 
   test 'centralizing_account_prefix_for takes into account the company preference' do

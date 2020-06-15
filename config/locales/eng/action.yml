@@ -2049,6 +2049,7 @@ eng:
     general_ledger: "General ledger"
     general_total: "General total"
     generate: "Generate"
+    general_account_number_length_automatically_truncated: "The general accounts number length is automatically adjusted based on the configuration of the company (%{length} characters)."
     generate_documents_post_closure: "Generating mandatory documents post closure"
     generate_documents_prior_to_closure: "Generating mandatory documents prior to closure"
     generate_last_journal_entry: "Generate last journal entry"
