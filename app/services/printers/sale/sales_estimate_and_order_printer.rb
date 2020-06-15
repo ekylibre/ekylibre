@@ -73,6 +73,25 @@ module Printers
           r.add_field :total_vat, (sale.amount - sale.pretax_amount).round_l
           r.add_field :total, sale.amount.round_l
 
+          if should_display_affair
+            # Details
+            r.add_table('details', sale.other_deals) do |s|
+              s.add_field(:payment_date) { |item| AffairableDecorator.decorate(item).payment_date.l(format: '%d %B %Y') }
+              s.add_field(:payment_number, &:number)
+              s.add_field(:payment_amount) { |item| item.class == sale.class ? '' : item.amount.round_l }
+              s.add_field(:sale_affair) { |item| item.class == sale.class ? item.amount.round_l : '' }
+            end
+
+            # Affair + left to pay or receive
+            r.add_field :affair_number, sale.affair.number
+            if (sale.affair.debit - sale.affair.credit).negative?
+              r.add_field :action, I18n.t('labels.receive').downcase
+            else
+              r.add_field :action, I18n.t('labels.pay').downcase
+            end
+            r.add_field :left_to_pay, (sale.affair.debit - sale.affair.credit).round_l
+          end
+
           # Signature
           r.add_section('Section-signature', signatures) do |signature|
             signature
@@ -102,6 +121,11 @@ module Printers
           r.add_field :iban, cash.iban.scan(/.{1,4}/).join(' ').or_else('')
         end
       end
+
+      def should_display_affair
+        false
+      end
+
     end
   end
 end

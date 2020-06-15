@@ -205,7 +205,7 @@ class SaleItem < Ekylibre::Record::Base
   end
 
   protect(on: :update) do
-    return false if sale.draft?
+    return false if sale.draft? || sale.order?
     authorized_columns = %w[fixed_asset_id depreciable_product_id updated_at]
     (changes.keys - authorized_columns).any?
   end
