@@ -4,7 +4,7 @@ class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase
   setup do
     FileUtils.rm_rf Ekylibre::Tenant.private_directory.join('tmp', 'imports')
 
-    @today = Date.new(2019,3,15)
+    @today = Date.new(2019, 3, 15)
     @dumpster_account = Account.create!(name: 'TestDumpster', number: '10001')
     @dumpster_journal = Journal.create!(name: 'Dumpster journal', code: 'DMPTST')
     @beginning = (@today - 1.month).beginning_of_month
@@ -14,7 +14,7 @@ class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase
     @profits = Account.create!(name: 'FinancialYear result profit', number: '120', usages: :financial_year_result_profit)
     @losses = Account.create!(name: 'FinancialYear result loss', number: '129', usages: :financial_year_result_loss)
 
-    @open  = Account.create!(number: '89', name: 'Opening account')
+    @open = Account.create!(number: '89', name: 'Opening account')
     @close = Account.create!(number: '891', name: 'Closing account')
     @closer = create(:user)
 
@@ -73,19 +73,18 @@ class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase
     generate_entry(test_accounts[1], 300)
     generate_entry(test_accounts[2], -3000)
     generate_entry(test_accounts[2], -465)
-    generate_entry(test_accounts[3],  200)
-    generate_entry(test_accounts[3],  1730)
+    generate_entry(test_accounts[3], 200)
+    generate_entry(test_accounts[3], 1730)
     generate_entry(test_accounts[4], -465)
     generate_entry(test_accounts[4], -300)
     validate_fog
 
-    allocations = {}
     close = FinancialYearClose.new(
       @year, @year.stopped_on, @closer,
       result_journal: result,
       closure_journal: closing,
       forward_journal: forward,
-      allocations: allocations,
+      allocations: {},
       disable_document_generation: true
     )
 
@@ -120,7 +119,7 @@ class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase
       119 => @debit_carry_forward,
       4 => Account.create!(name: 'Test4x', number: '45521'),
       5 => Account.create!(name: 'Test5x', number: '511'),
-      7  => Account.create!(name: 'Test7x', number: '707')
+      7 => Account.create!(name: 'Test7x', number: '707')
     }
 
     letter = test_accounts[4].new_letter
@@ -198,13 +197,13 @@ class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase
     forward = Journal.create!(name: 'Forward TEST', code: 'FWDTST', nature: :forward)
 
     test_accounts = {
-      1061   => Account.create!(name: 'Test1061x', number: '1061'),
-      1063   => Account.create!(name: 'Test1063x', number: '1063'),
-      1064   => Account.create!(name: 'Test1064x', number: '1064'),
-      1068   => Account.create!(name: 'Test1068x', number: '1068'),
-      457   => Account.create!(name: 'Test457x', number: '457'),
-      4423   => Account.create!(name: 'Test4423x', number: '4423'),
-      110   => Account.create!(name: 'Test110x', number: '110')
+      1061 => Account.create!(name: 'Test1061x', number: '1061'),
+      1063 => Account.create!(name: 'Test1063x', number: '1063'),
+      1064 => Account.create!(name: 'Test1064x', number: '1064'),
+      1068 => Account.create!(name: 'Test1068x', number: '1068'),
+      457 => Account.create!(name: 'Test457x', number: '457'),
+      4423 => Account.create!(name: 'Test4423x', number: '4423'),
+      110 => Account.create!(name: 'Test110x', number: '110')
     }
 
     accounts = {
@@ -253,35 +252,39 @@ class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase
 
   private
 
-  def generate_entry(account, debit, letter: nil, printed_on: @beginning + 2.days, destination_account: @dumpster_account)
-    return if debit.zero?
-    side = debit > 0 ? :debit : :credit
-    other_side = debit < 0 ? :debit : :credit
-    amount = debit.abs
-    JournalEntry.create!(journal: @dumpster_journal, printed_on:  printed_on, items_attributes: [
-                           {
-                             name: side.to_s.capitalize,
-                             account: account,
-                             letter: letter,
-                             :"real_#{side}" => amount
-                           },
-                           {
-                             name: other_side.to_s.capitalize,
-                             account: destination_account,
-                             :"real_#{other_side}" => amount
-                           }
-                         ])
-  end
+    def generate_entry(account, debit, letter: nil, printed_on: @beginning + 2.days, destination_account: @dumpster_account)
+      return if debit.zero?
+      side = debit > 0 ? :debit : :credit
+      other_side = debit < 0 ? :debit : :credit
+      amount = debit.abs
+      JournalEntry.create!(
+        journal: @dumpster_journal,
+        printed_on: printed_on,
+        items_attributes: [
+          {
+            name: side.to_s.capitalize,
+            account: account,
+            letter: letter,
+            :"real_#{side}" => amount
+          },
+          {
+            name: other_side.to_s.capitalize,
+            account: destination_account,
+            :"real_#{other_side}" => amount
+          }
+        ]
+      )
+    end
 
-  def validate_fog
-    @year.journal_entries.find_each { |je| je.update(state: :confirmed) }
-  end
+    def validate_fog
+      @year.journal_entries.find_each { |je| je.update(state: :confirmed) }
+    end
 
-  def matching_lettered_item(item)
-    (item.letter_group - [item]).first
-  end
+    def matching_lettered_item(item)
+      (item.letter_group - [item]).first
+    end
 
-  def complementary_in_entry_of(item)
-    (item.entry.items - [item]).first
-  end
+    def complementary_in_entry_of(item)
+      (item.entry.items - [item]).first
+    end
 end
