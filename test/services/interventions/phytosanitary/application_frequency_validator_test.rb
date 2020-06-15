@@ -21,7 +21,7 @@ module Interventions
           [{}, "8548547", "", nil, :allowed],
           [{ applications_frequency: ActiveSupport::Duration.parse("P4D") }, "8548547", "", false, :forbidden],
           [{ applications_frequency: ActiveSupport::Duration.parse("P4D") }, "8548547", "", true, :allowed],
-          [{ applications_frequency: ActiveSupport::Duration.parse("P4D"), applications_count: 1 }, "8548547", "", true, :unknown]
+          [{ applications_frequency: ActiveSupport::Duration.parse("P4D"), applications_count: 1 }, "8548547", "", true, :allowed]
         ]
 
         validator = Interventions::Phytosanitary::ApplicationFrequencyValidator.new(targets_and_shape: [])
