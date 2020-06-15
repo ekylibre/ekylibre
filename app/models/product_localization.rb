@@ -57,6 +57,7 @@ class ProductLocalization < Ekylibre::Record::Base
   scope :of_product_varieties, lambda { |*varieties|
     joins(:product).merge(Product.of_variety(*varieties))
   }
+  
 
   before_validation do
     if container

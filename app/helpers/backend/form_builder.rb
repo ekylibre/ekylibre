@@ -515,7 +515,6 @@ module Backend
     # Build a frame for all product _forms
     def product_form_frame(options = {}, &block)
       html = ''.html_safe
-
       variant = @object.variant
       unless variant
         variant_id = @template.params[:variant_id]
@@ -629,7 +628,7 @@ module Backend
             new_url[:controller] ||= @object.class.name.underscore.pluralize.downcase
             new_url[:action] ||= :new
 
-            choices[:scope] = { of_variety: @object.class.name.underscore.to_sym } if @object.class.name.present?
+            choices[:scope] = { of_variety: @object.class.name.underscore.to_sym, active: true } if @object.class.name.present?
 
             input_id = :variant_id
 

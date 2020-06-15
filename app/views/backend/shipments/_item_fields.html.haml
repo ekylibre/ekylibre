@@ -9,7 +9,7 @@
         = link_to_remove_association(content_tag(:i) + h(:destroy.tl), f, 'data-no-turbolink' => true, class: 'destroy remove remove-item')
     %td.annotable.annotable--shipments
       = f.input :sale_item_id, as: :hidden
-      - scopes = { deliverables: true, alive: true }
+      - scopes = { deliverables: true, alive: true, of_variant_active: true }
       - if item.source_product.blank?
         - variant_id = variant.id.or_else(nil)
         - scopes[:of_variant] = variant_id if variant_id
