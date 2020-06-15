@@ -1873,6 +1873,7 @@ fra:
     gain_and_loss_fixed_assets: "État des plus et moins-values au %{to}"
     genealogy: "Généalogie"
     general: "Informations générales"
+    general_account_number_length_automatically_truncated: "La longueur des numéros de compte comptables généraux est automatiquement ajustée selon la préférence de la société (%{length} caractères)."
     general_fixed_assets: "État des immobilisations au %{to}"
     general_informations: "Informations générales"
     general_ledger: "Grand livre"

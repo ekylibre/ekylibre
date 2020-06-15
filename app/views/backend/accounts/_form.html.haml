@@ -1,3 +1,6 @@
+.flash.information
+  %p= :general_account_number_length_automatically_truncated.tl(length: Preference[:account_number_digits])
+
 = field_set do
   = f.input :nature, as: :radio_buttons, show: '.{{value}}-nature-options'
   .general-nature-options.centralizing-nature-options
