@@ -60,16 +60,7 @@ module FormObjects
         end
 
         def targets_and_shape
-          @targets_and_shape ||= targets_data.flat_map do |data|
-            target = [Plant, LandParcel].map { |model| model.find_by(id: data[:id]) }.compact.first
-            shape = Charta::new_geometry(data[:shape])
-
-            if target.present?
-              [::Interventions::Phytosanitary::Models::TargetAndShape.new(target, shape)]
-            else
-              []
-            end
-          end
+          @targets_and_shape ||= ::Interventions::Phytosanitary::Models::TargetAndShape.from_targets_data(targets_data)
         end
 
         def targets_ids

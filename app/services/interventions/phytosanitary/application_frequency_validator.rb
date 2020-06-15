@@ -39,7 +39,7 @@ module Interventions
         product = product_usage.product
         phyto = product_usage.phyto
 
-        if usage.nil? || product.france_maaid.blank? || phyto.nil? || (usage.applications_count == 1 && usage.applications_frequency.present?)
+        if usage.nil? || product.france_maaid.blank? || phyto.nil? 
           :unknown
         elsif usage.applications_frequency.nil? || interval_respected?(product_usage)
           :allowed
