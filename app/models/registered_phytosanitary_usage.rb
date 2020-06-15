@@ -104,7 +104,7 @@ class RegisteredPhytosanitaryUsage < ActiveRecord::Base
   end
 
   def decorated_applications_frequency
-    decorate.value_in_days(:applications_frequency)
+    decorate.applications_frequency
   end
 
   def status
