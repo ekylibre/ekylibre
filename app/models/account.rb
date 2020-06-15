@@ -210,10 +210,14 @@ class Account < Ekylibre::Record::Base
   }
 
   before_validation do
-    if general? && number && !already_existing
+    if general? && number.present? && !already_existing
       errors.add(:number, :centralizing_number) if number.match(/\A(401|411)0*\z/).present?
       errors.add(:number, :radical_class) if number.match(/\A[1-9]0*\z/).present?
-      self.number = Account.normalize(number)
+      begin
+        self.number = Accountancy::AccountNumberNormalizer.build_deprecated_for_account_creation.normalize!(number)
+      rescue Accountancy::AccountNumberNormalizer::NormalizationError => e
+        errors.add(:number, :truncation_error, count: e.removed.size, standard_length: e.standard_length)
+      end
     elsif auxiliary?
       self.reconcilable = true
       if centralizing_account
@@ -253,15 +257,8 @@ class Account < Ekylibre::Record::Base
   class << self
     # Trim account number following preferences
     def normalize(number)
-      number = number.to_s
-      account_number_length = Preference[:account_number_digits]
-      if number.size > account_number_length
-        number[0...account_number_length]
-      elsif number.size < account_number_length
-        number.ljust(account_number_length, "0")
-      else
-        number
-      end
+      ActiveSupport::Deprecation.warn("Account.normalize is deprecated. Use Accountancy::AccountNumberNormalizer#normalize! instead.")
+      Accountancy::AccountNumberNormalizer.build.normalize!(number)
     end
 
     def centalizing_account_prefix_for(nature)
@@ -297,7 +294,7 @@ class Account < Ekylibre::Record::Base
       number = args.shift.to_s.strip
       options[:name] ||= args.shift
       numbers = Nomen::Account.items.values.collect { |i| i.send(accounting_system) }
-      padded_number = Account.normalize(number)
+      padded_number = Accountancy::AccountNumberNormalizer.build_deprecated_for_account_creation.normalize!(number)
       number = padded_number unless numbers.include?(number) || options[:already_existing]
       item = Nomen::Account.items.values.find { |i| i.send(accounting_system) == padded_number }
       account = find_by(number: number) || find_by(number: padded_number)

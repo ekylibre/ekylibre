@@ -227,6 +227,13 @@ eng:
     errors:
       messages:
         <<: *error_messages
+      models:
+        account:
+          attributes:
+            number:
+              truncation_error:
+                one: "Unable to change the length of %{value} to match the configuration (%{standard_length} characters), the last character can't be removed."
+                other: "Unable to change the length of %{value} to match the configuration (%{standard_length} characters), the last %{count} characters can't be removed."
     models:
       account: "Account"
       account_balance: "Account balance"
