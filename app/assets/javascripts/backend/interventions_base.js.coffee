@@ -888,6 +888,23 @@
             $(e.currentTarget).find('.modal-footer').append(data)
 
 
+    $(document).on 'click', '.duplicate-intervention', (e) =>
+      e.stopImmediatePropagation();
+      interventions = $(e.currentTarget).data().interventions
+      $.ajax
+        url: '/backend/interventions/duplicate_interventions'
+        data: { interventions: interventions }
+        success: (data) =>
+          if $('#taskboard-modal').length > 0
+            interventionModal = new ekylibre.modal('#taskboard-modal')
+            interventionModal.getModal().modal 'hide'
+          else
+            interventionModal = new ekylibre.modal('#create-intervention-modal')
+            interventionModal.getModal().modal 'hide'
+          $('#wrap').after(data)
+          duplicateModal = new ekylibre.modal('#duplicate-modal')
+          duplicateModal.getModal().modal 'show'
+
     $(document).on 'click', '#duplicate-modal #validate-duplication', (e) =>
       e.stopImmediatePropagation();
       intervention = $(e.currentTarget).data().intervention
