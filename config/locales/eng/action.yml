@@ -3168,6 +3168,9 @@ eng:
       warning: "Warning!"
     messages:
       access_denied: "Access denied. %{reason} (%{url})"
+      accounts_cannot_be_truncated_to_preference:
+        one: "The account %{accounts} cannot be truncated to the selected preference (%{preference} characters). Only zero can be automatically removed. Please update this account if you want to change the company preference to %{preference} characters."
+        other: "The accounts %{æccounts} cannot be truncated to the selected preference (%{preference} characters). Only zero can be automatically removed. Please update these accounts if you want to change the company preference to %{preference} characters."
       accountant_notified: "The accountant has been notified"
       accountant_without_email: "Please set the accountant email"
       aggeratio_not_found: "The export requested was not found"
