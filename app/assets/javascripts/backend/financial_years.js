@@ -4,12 +4,12 @@
   }
 
   function displayTotalSum() {
-    $('.fieldset-fields .amount_allocated').find('span').text(totalSumRemainedToAllocate())
+    $('.fieldset-fields .amount_allocated').find('span').text(totalSumRemainedToAllocate().toFixed(2))
     onAmountChange()
   }
 
   function totalSumRemainedToAllocate() {
-    return (Math.abs(balanceBetweenResultsAndCarryForward()) - getAllocatedInputAmountSum()).toFixed(2)
+    return (Math.abs(balanceBetweenResultsAndCarryForward()) - getAllocatedInputAmountSum())
   }
 
   function fillAmountToAllocate() {
@@ -46,7 +46,7 @@
   }
 
 
-  document.addEventListener('DomContentLoaded', function () {
+  document.addEventListener('DOMContentLoaded', function () {
     $('.lock-table #confirm-revised-accounts').on('change', function () {
       const lock_btn = $('#lock-btn')
       lock_btn.attr('disabled', !this.checked)
