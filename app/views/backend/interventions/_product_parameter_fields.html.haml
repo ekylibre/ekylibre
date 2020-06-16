@@ -32,7 +32,7 @@
       - product_data[:parent] = '.nested-fields'
       - product_data[:retrieve_unroll] = "[data-selector-id='intervention_target_product_id']"
 
-    = f.referenced_association :product, label: reference.human_name, source: { scope: reference.scope_hash.merge(availables: [at: started_at.strftime("%Y-%m-%d %H:%M")]), keep: true, partial_unroll: reference.input? }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'product_id', harvest_in_progress_error_message: t('errors.messages.harvest_in_progress') }.merge(product_data) }, new: false
+    = f.referenced_association :product, label: reference.human_name, source: { scope: reference.scope_hash.merge(availables: [at: started_at.strftime("%Y-%m-%d %H:%M")], of_variant_active: true), keep: true, partial_unroll: reference.input? }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'product_id', harvest_in_progress_error_message: t('errors.messages.harvest_in_progress') }.merge(product_data) }, new: false
 
     - if f.object.reference_name.to_sym == :plant_medicine
       %span.allowed-mentions
