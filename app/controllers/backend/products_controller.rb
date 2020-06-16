@@ -86,7 +86,7 @@ module Backend
     end
 
     # Lists contained products of the current product
-    list(:contained_products, model: :product_localizations, conditions: { container_id: 'params[:id]'.c, stopped_at: nil }, order: { started_at: :desc }) do |t|
+    list(:contained_products, model: :product_localizations, joins: { product: :variant }, conditions: { product_nature_variants: { active: true }, container_id: 'params[:id]'.c, stopped_at: nil }, order: { started_at: :desc }) do |t|
       t.column :product, url: true
       t.column :nature, hidden: true
       t.column :intervention, url: true
