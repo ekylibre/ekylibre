@@ -237,6 +237,10 @@ class PurchaseInvoice < Purchase
     affair.status
   end
 
+  def human_status
+    affair.human_status
+  end
+
   def unpaid?
     PurchaseInvoice.unpaid.include?(self)
   end
