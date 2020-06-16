@@ -19,7 +19,19 @@
 module Backend
   class MattersController < Backend::ProductsController
     before_action :save_search_preference, only: :index
-    list(conditions: list_conditions) do |t|
+
+    def self.matters_conditions
+      code = list_conditions
+
+      code << <<~RUBY
+        c[0] << " AND #{ProductNatureVariant.table_name}.active = 't'"
+        c
+      RUBY
+
+      code
+    end
+
+    list(conditions: matters_conditions, join: :variant) do |t|
       t.action :edit
       t.action :destroy, if: :destroyable?
       t.column :number, url: true
