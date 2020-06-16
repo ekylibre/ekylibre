@@ -89,7 +89,7 @@ module Customizable
             custom_fields_model.errors.add(custom_field.column_name.to_sym, :too_long, attribute: custom_field.name, count: custom_field.maximal_length)
           end
           unless custom_field.minimal_length.blank? || custom_field.minimal_length <= 0
-            custom_fields_model.errors.add(custom_field.column_name.to_sym, :too_short, attribute: custom_field.name, count: custom_field.maximal_length) if value.length < custom_field.minimal_length
+            custom_fields_model.errors.add(custom_field.column_name.to_sym, :too_short, attribute: custom_field.name, count: custom_field.minimal_length) if value.length < custom_field.minimal_length
           end
         elsif custom_field.decimal?
           value = value.to_d unless value.is_a?(Numeric)
