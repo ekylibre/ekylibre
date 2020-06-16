@@ -237,6 +237,10 @@ class Loan < Ekylibre::Record::Base
     return :stop if repaid?
   end
 
+  def human_status
+    I18n.t("tooltips.models.loan.#{status}")
+  end
+
   # why ? we have state machine ?
   def draft?
     state.to_sym == :draft

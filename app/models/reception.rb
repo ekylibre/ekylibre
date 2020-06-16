@@ -137,6 +137,10 @@ class Reception < Parcel
     sender_id
   end
 
+  def human_status
+    state.human_name
+  end
+
   def invoiced?
     purchase_order.present?
   end

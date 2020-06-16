@@ -128,6 +128,10 @@ class Plant < Bioproduct
     end
   end
 
+  def human_status
+    I18n.t("tooltips.models.plant.#{status}")
+  end
+
   def last_sowing
     Intervention
       .real

@@ -1,0 +1,41 @@
+fra:
+  tooltips:
+    models:
+      affair:
+        go: "Facture acquittée"
+        caution: "Décaissement différent du montant de la facture"
+        stop: "Facture à payer"
+      animal:
+        go:  "En service"
+        caution: "Consommé/Mort"
+      equipment:
+        go:  "En service"
+        caution: "Au rebut/vendu"
+      intervention:
+        go: "Terminée"
+        caution: "En cours"
+      loan:
+        go: "En cours"
+        caution: "Brouillon"
+        stop: "Remboursé"
+      payslip:
+        go:  "Facturé"
+        stop: "Brouillon"
+      plant:
+        go:  "En cours"
+        caution: "Détruite/Récoltée"
+      sale:
+        aborted: "Devis abandonné"
+        expired_quote: "Devis expiré"
+        expired_quote: "Devis brouillon"
+        invoiced_and_paid_sale: "Vente facturée et payée"
+        incoming_payment_different_from_the_amount_of_the_invoice: "Encaissement différent du montant de la facture"
+        order: "Commande"
+        refused_quote: "Devis refusé"
+        estimate: "Devis envoyé"
+        unpaid_invoice: "Facture impayée"
+        invalid_state: "État invalide"
+      tax_declaration:
+        go: "Envoyée"
+        caution: "Validée"
+        stop: "Brouillon"
