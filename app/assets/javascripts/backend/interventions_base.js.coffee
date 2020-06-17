@@ -148,7 +148,7 @@
       return unless newTime != ''
       $("input.scoped-parameter").each (index, item) ->
         scopeUri = decodeURI($(item).data("selector"))
-        re =  /(scope\[availables\]\[\]\[at\]=)(.*)(&)/
+        re =  /(scope\[availables\]\[\]\[at\]=)(.*?)(&)/
         scopeUri = scopeUri.replace(re, "$1" + newTime + "$3")
         $(item).attr("data-selector", encodeURI(scopeUri))
 
