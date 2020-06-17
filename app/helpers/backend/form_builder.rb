@@ -765,6 +765,7 @@ module Backend
 
     # Compute all needed options for referenced_association
     def referenced_association_input_options(association, options = {})
+      options = options.dup
       reflection = find_association_reflection(association)
       raise "Association #{association.inspect} not found" unless reflection
       if reflection.macro != :belongs_to
