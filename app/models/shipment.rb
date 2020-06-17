@@ -114,7 +114,7 @@ class Shipment < Parcel
   end
 
   protect on: :destroy do
-    prepared? || given?
+    given?
   end
 
   bookkeep
@@ -173,7 +173,7 @@ class Shipment < Parcel
   end
 
   def allow_items_update?
-    !prepared? && !given?
+    !given?
   end
 
   class << self
