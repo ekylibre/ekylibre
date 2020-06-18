@@ -46,7 +46,7 @@ class Listing < Ekylibre::Record::Base
   has_many :custom_fields_columns, -> { where('nature = ?', 'custom').order('position') }, class_name: 'ListingNode'
   has_many :exportable_columns, -> { where(nature: 'column', exportable: true).order('position') }, class_name: 'ListingNode'
   has_many :exportable_fields, -> { where(nature: %w[column custom], exportable: true).order('position') }, class_name: 'ListingNode'
-  has_many :filtered_columns, -> { where("nature = ? AND condition_operator IS NOT NULL AND condition_operator != '' AND condition_operator != ? ", 'column', 'any') }, class_name: 'ListingNode'
+  has_many :filtered_columns, -> { where("nature IN (?, ?) AND condition_operator IS NOT NULL AND condition_operator != '' AND condition_operator != ? ", 'column', 'custom', 'any') }, class_name: 'ListingNode'
   has_many :coordinate_columns, -> { where('name LIKE ? AND nature = ? ', '%.coordinate', 'column') }, class_name: 'ListingNode'
   has_many :nodes, class_name: 'ListingNode', dependent: :delete_all, inverse_of: :listing
   has_many :reflection_nodes, -> { where(nature: %w[belongs_to has_many root]) }, class_name: 'ListingNode'
@@ -81,7 +81,7 @@ class Listing < Ekylibre::Record::Base
       conn = self.class.connection
       root = self.root
       columns_to_export = exportable_columns.collect { |n| [n.position, "#{n.name} AS " + conn.quote_column_name(n.label)] }
-      columns_to_export += custom_fields_columns.collect { |cf| [cf.position, "#{cf.name}' AS #{conn.quote_column_name(cf.label)}"] }
+      columns_to_export += custom_fields_columns.collect { |cf| [cf.position, "#{cf.name} AS #{conn.quote_column_name(cf.label)}"] }
       columns_to_export = columns_to_export.sort_by(&:first).map(&:last)
       query = 'SELECT ' + columns_to_export.join(', ')
       query << " FROM #{root.model.table_name} AS #{root.name}" + root.compute_joins
