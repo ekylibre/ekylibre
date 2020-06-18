@@ -225,8 +225,12 @@ module Backend
     # Controls access to every action/view in Ekylibre.
     def authorize_user!
       unless authorized?(controller: controller_path, action: action_name)
-        notify_error(:access_denied, reason: 'RESTRICTED', url: request.url.inspect)
-        redirect_to root_path
+        if request.xhr?
+          render partial: "application/unroll_error", locals: { error_message: I18n.t('notifications.messages.access_denied') }
+        else
+          notify_error(:access_denied)
+          redirect_to root_path
+        end
         return false
       end
       true
