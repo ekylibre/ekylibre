@@ -255,7 +255,7 @@ module ApplicationHelper
   end
 
   def available_languages(native_language = true)
-    I18n.available_locales.map do |l|
+    [:fra, :eng].map do |l|
       [native_language ? I18n.t('i18n.name', locale: l) : Nomen::Language.find(l).human_name, l]
     end.sort_by(&:second)
   end
