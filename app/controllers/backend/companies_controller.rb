@@ -24,11 +24,13 @@ module Backend
               gc.convert_to(data[:value], rate: rate)
             end
           end
-          if preference.value != data[:value]
-            old_value = preference.value
-            preference.value = data[:value]
+          # This is a nasty hack to use the type coercion of Preference in order to be able to compare values from the form and values inside the Preferences
+          old_value = preference.value
+          preference.value = data[:value]
+
+          if old_value != preference.value # Here, preference.value is the 'new value'
             preference.save!
-            preference_changed(preference, old_value, data[:value])
+            preference_changed(preference, preference.value)
           end
         end
       end
@@ -43,16 +45,14 @@ module Backend
 
       # Called after each change in a preference when updating the company
       # @param [Preference] preference
-      # @param [Object] old_value
       # @param [Object] new_value
-      def preference_changed(preference, old_value, new_value)
-        account_number_digits_changed(old_value.to_i, new_value.to_i) if preference.name == "account_number_digits"
+      def preference_changed(preference, new_value)
+        account_number_digits_changed(new_value.to_i) if preference.name == "account_number_digits"
       end
 
       # Called after each change of the preference :account_number:digits when updating the company
-      # @param [Integer] old_value
       # @param [Integer] new_value
-      def account_number_digits_changed(old_value, new_value)
+      def account_number_digits_changed(new_value)
         return if JournalEntry.any?
 
         n = Accountancy::AccountNumberNormalizer.build(standard_length: new_value)
