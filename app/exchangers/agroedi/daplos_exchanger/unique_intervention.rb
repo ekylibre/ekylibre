@@ -10,7 +10,7 @@ module Agroedi
       def inputs_to_register
         parameter_natures = {
           'sowing_without_plant_output' => :inputs,
-          'harvesting' => :outputs
+          'harvesting_with_plant_or_land_parcel' => :outputs
         }.with_indifferent_access
 
         parameters_to_import = parameter_natures[procedure.name]
