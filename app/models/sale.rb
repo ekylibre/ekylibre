@@ -474,32 +474,7 @@ class Sale < Ekylibre::Record::Base
 
   # Prints human name of current state
   def state_label
-    translation_key = 
-    if invoice?
-      if self.affair.closed?  
-        "invoiced_and_paid_sale"
-      elsif self.affair.credit == 0
-        "unpaid_invoice"
-      else
-        "incoming_payment_different_from_the_amount_of_the_invoice"
-      end
-    elsif aborted?
-      "aborted"
-    elsif order?
-     "order"
-    elsif (draft? && DateTime.now > self.expired_at) || (estimate? && DateTime.now > self.expired_at)
-      "expired_quote"
-    elsif draft?
-      "draft_quote"
-    elsif estimate?
-      "estimate"
-    elsif refused? 
-      "refused_quote"
-    else
-      "INVALID STATE"
-    end
-
-    I18n.t("tooltips.models.sale.#{translation_key}")
+    self.class.state_machine.state(state.to_sym).human_name
   end
 
   # Returns true if there is some products to deliver
@@ -605,14 +580,7 @@ class Sale < Ekylibre::Record::Base
 
   # Returns status of affair if invoiced else "stop"
   def status
-    if invoice? && affair
-      affair.status
-    else
-      :stop
-    end
-  end
-
-  def human_status
-    state_label
+    return affair.status if invoice? && affair
+    :stop
   end
 end

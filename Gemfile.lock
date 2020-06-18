@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: https://gitlab.com/ekylibre/active_list.git
-  revision: f03202476e1927f3663673ec4a5dcd9a1ad3d042
+  revision: d827cfcf557e9182b455254638e383bd7a1d51b7
   branch: master
   specs:
     active_list (7.1.0)
@@ -297,7 +297,7 @@ GEM
     letter_opener (1.7.0)
       launchy (~> 2.2)
     libv8 (3.16.14.19)
-    loofah (2.5.0)
+    loofah (2.4.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     luhn (1.0.2)
@@ -317,7 +317,7 @@ GEM
     mimemagic (0.3.4)
     mini_mime (1.0.2)
     mini_portile2 (2.3.0)
-    minitest (5.14.1)
+    minitest (5.14.0)
     minitest-reporters (1.4.2)
       ansi
       builder
@@ -571,7 +571,7 @@ GEM
       actionpack (>= 3.1)
       jquery-rails
       railties (>= 3.1)
-    tzinfo (1.2.7)
+    tzinfo (1.2.6)
       thread_safe (~> 0.1)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)

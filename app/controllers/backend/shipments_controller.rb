@@ -86,7 +86,9 @@ module Backend
       t.column :delivery, url: true
       t.column :responsible, url: true, hidden: true
       t.column :transporter, url: true, hidden: true
+      # t.column :sent_at
       t.column :delivery_mode
+      # t.column :net_mass, hidden: true
       t.column :sale, url: true
     end
 
@@ -97,6 +99,9 @@ module Backend
       t.column :product_identification_number, hidden: true
       t.column :population
       t.column :unit_name, through: :variant
+      # t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }
+      t.status
+      # t.column :net_mass
       t.column :analysis, url: true
     end
 

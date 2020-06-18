@@ -357,10 +357,6 @@ class Equipment < Matter
     )
   end
 
-  def human_status
-    I18n.t("tooltips.models.equipment.#{status}")
-  end
-
   protected
 
   def interpolations(lifespan)
@@ -377,5 +373,4 @@ class Equipment < Matter
       remaining_time: lifespan.in(:hour).round(2).l(precision: 0)
     }
   end
-
 end

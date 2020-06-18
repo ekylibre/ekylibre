@@ -106,10 +106,6 @@ class Payslip < Ekylibre::Record::Base
     number
   end
 
-  def human_status
-    I18n.t("tooltips.models.payslip.#{status}")
-  end
-
   def status
     return affair.status if invoice?
     :stop

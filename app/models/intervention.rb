@@ -824,10 +824,6 @@ class Intervention < Ekylibre::Record::Base
     return :stop if rejected?
   end
 
-  def human_status
-    I18n.t("tooltips.models.intervention.#{status}")
-  end
-
   def runnable?
     return false unless record? && procedure
     valid = true
