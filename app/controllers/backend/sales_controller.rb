@@ -108,7 +108,7 @@ module Backend
       t.column :delivery
       t.column :address, label_method: :coordinate, children: false
       t.status
-      t.column :state, label_method: :human_state_name
+      t.column :state, label_method: :human_state_name, hidden: true
       t.column :transporter, children: false, url: true
       t.action :edit, if: :updateable?
       t.action :destroy, if: :destroyable?

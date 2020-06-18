@@ -45,7 +45,7 @@ module Backend
       t.column :responsible, hidden: true
       t.column :description, hidden: true
       t.status
-      t.column :state_label
+      t.column :state_label, hidden: true
       t.column :pretax_amount, currency: true
     end
 

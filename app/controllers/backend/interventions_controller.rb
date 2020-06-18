@@ -151,6 +151,7 @@ module Backend
       t.column :stopped_at, hidden: true
       t.column :human_working_duration, on_select: :sum, value_method: 'working_duration.in(:second).in(:hour)', datatype: :decimal
       t.status
+      t.column :state_label, hidden: true
       t.column :human_target_names
       t.column :human_working_zone_area, on_select: :sum, datatype: :decimal
       t.column :total_cost, label_method: :human_total_cost, currency: true, on_select: :sum, datatype: :decimal

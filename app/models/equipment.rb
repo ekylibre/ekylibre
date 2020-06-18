@@ -110,6 +110,10 @@ class Equipment < Matter
     :go
   end
 
+  def human_status
+    I18n.t("tooltips.models.equipment.#{status}")
+  end
+
   def wear_status(component = nil)
     if component.nil?
       # To take into account the tear&wear of the components.
@@ -357,7 +361,7 @@ class Equipment < Matter
     )
   end
 
-  def human_status
+  def state
     I18n.t("tooltips.models.equipment.#{status}")
   end
 

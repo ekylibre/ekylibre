@@ -112,9 +112,13 @@ class Animal < Bioproduct
       :go
     end
   end
-  
+
   def human_status
-    I18n.t("tooltips.models.plant.#{status}")
+    I18n.t("tooltips.models.animal.#{status}")
+  end
+
+  def state
+    I18n.t("tooltips.models.animal.#{status}")
   end
 
   # Compute daily nitrogen production based on indicator of product
