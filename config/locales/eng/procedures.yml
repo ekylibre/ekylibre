@@ -223,6 +223,7 @@ eng:
     handling: "Handling"
     harvest_transportation: "Harvest transportation"
     harvesting: "Harvesting"
+    harvesting_with_plant_or_land_parcel: "Harvesting (plant or land parcel)"
     herd_feeding: "Herd feeding"
     hilling: "Ridging"
     hilling_for_sifting: "Ridging for sifting"

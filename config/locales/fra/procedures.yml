@@ -359,6 +359,7 @@ fra:
     harvest_helping: "Aide à la récolte" #?
     harvest_transportation: "Transport de récolte"
     harvesting: "Récolte"
+    harvesting_with_plant_or_land_parcel: "Récolte (culture ou parcelle)"
     hazelnuts_harvest: "Récolte de noisettes" #?
     hazelnuts_transport: "Transport de noisettes" #?
     herd_feeding: "Alimentation d'un troupeau"

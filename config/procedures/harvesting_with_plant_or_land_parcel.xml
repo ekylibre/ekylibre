@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="harvesting" categories="harvesting" actions="harvest">
+  <procedure name="harvesting_with_plant_or_land_parcel" categories="harvesting" actions="harvest" hidden="true">
     <parameters>
-      <target name="plant" filter="is plant and has indicator shape">
+      <target name="plant" filter="(is plant or is land_parcel) and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
         <attribute name="killable"/>
         <handler indicator="shape">
