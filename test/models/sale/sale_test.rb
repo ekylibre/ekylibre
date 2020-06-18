@@ -231,4 +231,50 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert sale.order?
     assert sale.update invoiced_at: Time.parse("2018-05-08T10-25-52Z")
   end
+
+  test 'A sale with state :order can have its items changed' do
+    # case direct sale on market for farmer like AMAP and ci
+    nature = SaleNature.find_or_create_by(currency: 'EUR')
+    assert nature
+
+    client = Entity.normal.first
+    assert client
+
+    sale = Sale.create!(nature: nature, client: client, invoiced_at: DateTime.new(2018, 1, 1))
+    assert sale
+
+    standard_vat = Tax.create!(
+      name: 'Standard',
+      amount: 20,
+      nature: :normal_vat,
+      collect_account: Account.find_or_create_by_number('45661'),
+      deduction_account: Account.find_or_create_by_number('45671'),
+      country: :fr
+    )
+    item = sale.items.create!(variant: @variant, quantity: 4, unit_pretax_amount: 10, tax: standard_vat)
+
+    assert sale.propose!
+    assert sale.confirm!
+    assert sale.order?
+    assert_equal 48, sale.amount
+
+    # sale order must have an draft entry updateable
+    entry = sale.journal_entry
+    assert 48, entry.items.find_by(account_id: client.account(:client).id).debit
+    assert 40, entry.items.find_by(account_id: item.account_id).credit
+
+    item.update(quantity: 8)
+    assert sale.update invoiced_at: Time.parse("2018-05-08T10-25-52Z")
+
+    sale.reload
+
+    assert_equal 96, sale.amount
+    assert sale.invoice!
+
+    sale.reload
+
+    # sale invoice must have an entry up to date
+    assert 96, entry.items.find_by(account_id: client.account(:client).id).debit
+    assert 80, entry.items.find_by(account_id: item.account_id).credit
+  end
 end

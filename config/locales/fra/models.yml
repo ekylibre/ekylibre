@@ -456,6 +456,9 @@ fra:
               centralizing_number: "Le numéro ne peut pas commencer par '401' ou '411' qui sont réservés pour les comptes auxiliaires" #?
               incorrect_length: "Le numéro n'a pas la bonne longueur (%{number_length} caractères)" #?
               radical_class: "Le numéro ne peut pas correspondre à une classe radicale" #?
+              truncation_error:
+                one: "Impossible d'ajuster la longueur de %{value} pour correspondre à la configuration (%{standard_length} caractères), le dernier caractère ne peut être supprimé."
+                other: "Impossible d'ajuster la longueur de %{value} pour correspondre à la configuration (%{standard_length} caractères), les %{count} derniers caractères ne peuvent être supprimés."
               unauthorized: "Ce numéro ne peut pas correspondre à une classe radicale." #?
         activity: #?
           checked_off_with_inspections: "Des agréages sont déjà présents pour cette activité" #?

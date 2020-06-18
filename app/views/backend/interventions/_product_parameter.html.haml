@@ -45,7 +45,7 @@
               - if frequency = usage.applications_frequency
                 %p
                   %span.title= :next_application_possible_on.tl
-                  %span.value= (resource.stopped_at + frequency).to_date.l
+                  %span.value= (resource.stopped_at + frequency).to_datetime.l
 
               - if usage.usage_conditions
                 %p

@@ -3,7 +3,7 @@ module Interventions
     class MaxApplicationValidator < ProductApplicationValidator
       attr_reader :targets_and_shape, :intervention_to_ignore, :intervention_stopped_at
 
-      # @params [Array<Models::TargetAndShape>] targets_and_shape
+      # @param [Array<Models::TargetAndShape>] targets_and_shape
       # @option [Intervention, nil] intervention_to_ignore
       # @option [DateTime, nil] intervention_stopped_at
       def initialize(targets_and_shape:, intervention_to_ignore: nil, intervention_stopped_at: nil)
@@ -18,14 +18,20 @@ module Interventions
       end
 
       # @param [Product] product
-      # @return [Integer]
+      # @return [Maybe<Integer>]
       def compute_usage_application(product)
-        interventions_with_same_phyto = get_interventions_with_same_phyto(product, Campaign.on(intervention_stopped_at))
+        campaign = Campaign.find_by(harvest_year: intervention_stopped_at.year)
 
-        candidates = select_with_shape_intersecting(interventions_with_same_phyto, get_targeted_zones)
-        candidates = candidates.reject { |int| int == intervention_to_ignore } if intervention_to_ignore.present?
+        if campaign.present?
+          interventions_with_same_phyto = get_interventions_with_same_phyto(product, campaign)
 
-        candidates.size
+          candidates = select_with_shape_intersecting(interventions_with_same_phyto, get_targeted_zones)
+          candidates = candidates.reject { |int| int == intervention_to_ignore } if intervention_to_ignore.present?
+
+          Some(candidates.size)
+        else
+          None()
+        end
       end
 
       # @param [Integer] applications
@@ -57,9 +63,11 @@ module Interventions
               result.vote_unknown(product)
             elsif usage.applications_count.present? 
               max_applications = usage.applications_count
-              applications = compute_usage_application(product)
+              maybe_applications = compute_usage_application(product)
 
-              if application_forbidden?(applications, max_applications: max_applications)
+              if maybe_applications.is_none?
+                result.vote_unknown(product)
+              elsif application_forbidden?(maybe_applications.get, max_applications: max_applications)
                 result.vote_forbidden(product, :applications_count_bigger_than_max.tl, on: :usage)
               end
             end

@@ -11,15 +11,19 @@ $nested-field-border: $menu-border-width solid mix($menu-border-color, white);
   // @include incrust-shadow;
   $size: $fs-normal;
   background: white;
+
   .fieldset-legend {
     padding: $vertical-spacing $spacing;
+
     *, label, span {
       color: $neutral-color;
       font-size: $size;
       line-height: round($lh-ratio * $size);
     }
+
     font-weight: bold;
     vertical-align: middle;
+
     .title {
       i {
         @include is-icon;
@@ -29,12 +33,15 @@ $nested-field-border: $menu-border-width solid mix($menu-border-color, white);
         @include margin-right(round($size/4));
       }
     }
+
     .buttons {
       @include inline-block;
       @include float(right);
+
       > * {
         @include margin-left(round(0.6 * $spacing));
       }
+
       .toggle {
         $tool-size: round(0.95 * $fs-normal);
         width: $tool-size;
@@ -42,6 +49,7 @@ $nested-field-border: $menu-border-width solid mix($menu-border-color, white);
         @include is-icon();
         margin: round(($size - $tool-size)/2) 0 0;
       }
+
       .remove {
         $tool-size: round(0.95 * $fs-normal);
         width: $tool-size;
@@ -51,11 +59,13 @@ $nested-field-border: $menu-border-width solid mix($menu-border-color, white);
         margin: round(($size - $tool-size)/2) 0 0;
       }
     }
+
     &:hover span {
       color: $base-color;
       @include transition(color 0.2s linear);
     }
   }
+
   .fieldset-fields {
     margin: 0;
     padding: $vertical-spacing $spacing;
@@ -80,6 +90,7 @@ $nested-field-border: $menu-border-width solid mix($menu-border-color, white);
         line-height: $lh-normal;
         @include inline-block;
         @include margin-right(round($fs-normal/2));
+
         &.required {
           abbr {
             color: $invalid-color;
@@ -88,10 +99,12 @@ $nested-field-border: $menu-border-width solid mix($menu-border-color, white);
         }
       }
     }
+
     textarea {
       width: 70%;
       resize: vertical;
     }
+
     //input{
     //  max-width: 65%;
     //}
@@ -99,6 +112,7 @@ $nested-field-border: $menu-border-width solid mix($menu-border-color, white);
     tr.nested-fields, tbody.nested-fields {
       input {
         max-width: 100%;
+
         &[type="number"] {
           width: 5em;
         }
@@ -116,11 +130,16 @@ $nested-field-border: $menu-border-width solid mix($menu-border-color, white);
     .buttons .toggle {
       @include use-icon(plus-square-o);
     }
+
     .fieldset-fields {
       display: none;
     }
   }
-  &.not-collapsed .buttons .toggle { @include use-icon(minus-square-o); }
+
+  &.not-collapsed .buttons .toggle {
+    @include use-icon(minus-square-o);
+  }
+
   &.error.collapsed .fieldset-legend {
     &, *, label, span {
       color: $invalid-color;
@@ -169,6 +188,7 @@ $large-controls-margin-left: round($large-label-width * 1.1);
 
   // @include clearfix;
   clear: both;
+
   .control-label {
     max-width: $label-width;
     @include float(left);
@@ -176,17 +196,21 @@ $large-controls-margin-left: round($large-label-width * 1.1);
     margin: round($fs-normal/4) $spacing;
     @include display(block);
     @include ellipsis;
+
     &.required {
       abbr {
         color: $invalid-color;
         float: right;
       }
     }
+
     &.large-control-label {
       max-width: $large-label-width;
     }
   }
+
   width: auto;
+
   .controls {
     position: relative;
     @include margin-left($controls-margin-left);
@@ -197,38 +221,46 @@ $large-controls-margin-left: round($large-label-width * 1.1);
     .input-append {
       width: 100%;
     }
+
     .preview.picture {
       margin-bottom: $spacing;
       @include margin-left(0);
     }
+
     &.large-controls {
       @include margin-left($large-controls-margin-left);
       max-width: 100% - $large-controls-margin-left;
     }
+
     & .lights, .lights-message {
       margin-left: 10px;
     }
+
     & .lights-message.warning {
       color: #f44336;
     }
   }
+
   //  &.selector .controls .input {
-    //    @include toolbar;
-    //   }
+  //    @include toolbar;
+  //   }
   .help-block {
     &, * {
       margin-top: round(0.3 * $spacing);
       font-size: $fs-small;
       font-style: italic;
       line-height: $lh-ratio * 1em;
+
       em {
         font-style: normal;
       }
     }
   }
+
   &.hidden {
     display: none;
   }
+
   &.special {
     background: #CE8;
     @include border-radius($default-border-radius);
@@ -237,8 +269,10 @@ $large-controls-margin-left: round($large-label-width * 1.1);
 
 .input-append {
   @include button-group;
+
   .btn {
     font-size: 0;
+
     i {
       margin-left: 0;
       margin-right: 0;
@@ -249,10 +283,15 @@ $large-controls-margin-left: round($large-label-width * 1.1);
 span.rad, label.radio, span.radio {
   padding: 0 round($fs-normal * 0.7) 0 0;
   @include margin-left(round($fs-normal/2));
-  * { vertical-align: middle; }
+
+  * {
+    vertical-align: middle;
+  }
+
   &:first-child {
     @include margin-left(0);
   }
+
   input {
     @include margin-right(round($fs-normal * 0.4));
   }
@@ -274,16 +313,20 @@ $form-actions-height: 48px;
   background: white;
   border-top: 1px solid #DDD;
   border-bottom: 1px solid #DDD;
+
   &:first-child {
     border-top: none;
   }
+
   & > input, & > .btn {
     @include inline-block;
     margin-left: $fs-normal !important;
+
     &:first-child {
       margin-left: 0;
     }
   }
+
   .cobble & {
     border-bottom: none;
   }
@@ -294,6 +337,7 @@ $form-actions-height: 48px;
   .nested-remove {
     @include display(block);
     font-size: 0;
+
     i {
       @include is-icon;
       @include use-icon(times);
@@ -303,6 +347,7 @@ $form-actions-height: 48px;
 
 div.nested-fields {
   position: relative;
+
   .nested-remove {
     position: absolute;
     z-index: 4;
@@ -317,31 +362,39 @@ div.nested-fields {
   margin-bottom: $fs-normal;
   clear: both;
   @include border-radius($default-border-radius);
+
   div.nested-fields {
     padding: 1px 0;
     border-top: $nested-field-border;
+
     &:first-child {
       border-top: none;
       @include border-top-radius($default-border-radius);
     }
+
     &:last-child {
       @include border-bottom-radius($default-border-radius);
     }
+
     &:nth-of-type(2n) {
       background: rgba($active-color, 0.03);
     }
+
     &:nth-of-type(2n+1) {
       background: rgba(white, 0.75);
     }
   }
+
   .links {
     border-top: $nested-field-border;
     padding: round(0.5 * $spacing);
     background: #F7F7F7;
     @include border-bottom-radius($default-border-radius);
+
     &:first-child {
       border-top: none;
     }
+
     .nested-add {
       @include margin-left($controls-margin-left);
     }
@@ -370,14 +423,17 @@ div.nested-fields {
     font-size: $fs-normal;
     line-height: $menu-text-height;
     height: $menu-text-height;
+
     &:hover {
       outline: none;
       cursor: pointer;
       background: background-hover($menu-background);
     }
+
     &.tt-cursor {
       background: background-hover($menu-background);
     }
+
     p {
       margin: 0;
     }
@@ -388,6 +444,7 @@ div.nested-fields {
   > * {
     margin: 0px 3px;
   }
+
   input[type='submit'] {
     margin: 0px 3px;
   }
@@ -408,6 +465,7 @@ div.nested-fields {
   .multiplicator {
     margin-top: 25px;
     margin-right: 10px;
+
     &--equal-spacing {
       margin-left: 10px;
     }
@@ -424,28 +482,35 @@ div.nested-fields {
     font-size: 16px !important;
   }
 }
+
 .allocated-budget span {
   align-self: center;
   color: #999;
 }
+
 .error {
   color: #D0311B !important;
-  }
+}
+
 .amount_allocated {
   display: flex;
+
   .control-group {
     flex: 0 0 42%;
     display: flex;
     justify-content: space-between;
+
     .controls {
       margin-left: 0 !important;
     }
   }
+
   .allocated-budget {
-  align-self: center;
-  color: #999;
-  font-style: italic;
+    align-self: center;
+    color: #999;
+    font-style: italic;
   }
+
   p {
     margin-right: 4px;
   }
@@ -457,14 +522,17 @@ div.nested-fields {
     padding: 5px;
     font-size: 12px;
     background: #EEE;
+
     &:first-child {
       border-radius: 3px 0 0 3px;
     }
   }
+
   input {
     border-radius: 0;
     margin: 1px -5px 1px -4px !important;
     padding: 3px !important;
+
     &:last-child {
       border-radius: 0 3px 3px 0;
     }
@@ -475,6 +543,7 @@ div.nested-fields {
   > * {
     margin: 0px 3px;
   }
+
   input[type='submit'] {
     margin: 0px 3px;
   }

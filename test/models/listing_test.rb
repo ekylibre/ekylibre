@@ -91,6 +91,8 @@ class ListingTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   test 'extract a custom field column' do
+    create :custom_field, :text, column_name: 'sdqdqsdq_sd_qsq', customized_type: 'Entity'
+
     ListingNode.rebuild!
     listing = Listing.create!(name: 'TestListing', root_model: 'entity')
     root = listing.root
@@ -110,6 +112,8 @@ class ListingTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   test 'extract an associated custom field column' do
+    create :custom_field, :text, column_name: 'account_custom_test', customized_type: 'Account'
+
     ListingNode.rebuild!
     listing = Listing.create!(name: 'TestListing', root_model: 'entity')
     root = listing.root

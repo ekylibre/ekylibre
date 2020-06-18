@@ -1221,6 +1221,7 @@ fra:
     applications_count_bigger_than_max: "Nombre d'application(s) maximum dépassé" #?
     applications_count_equal_to_max: "Nombre d'application(s) maximum atteint après cette intervention" #?
     applications_count_less_than_max: "Nombre d'application(s) inférieur au maximum" #?
+    applications_frequency: "Intervalle entre applications"
     applications_interval_not_respected: "Intervalle entre application non respecté"
     apply: "Appliquer" #?
     aquatic_nta: "ZNT aquatique (%{distance} m)"
@@ -1625,6 +1626,7 @@ fra:
     document: "Document joint"
     document_natures: "Types de documents"
     document_templates: "Modèles de documents"
+    document_type: "Type de document"
     documentation: "Documentation"
     doer_cost: "Coût de main d’œuvre"
     doers: "Opérateurs" #?
@@ -1871,6 +1873,7 @@ fra:
     gain_and_loss_fixed_assets: "État des plus et moins-values au %{to}"
     genealogy: "Généalogie"
     general: "Informations générales"
+    general_account_number_length_automatically_truncated: "La longueur des numéros de compte comptables généraux est automatiquement ajustée selon la préférence de la société (%{length} caractères)."
     general_fixed_assets: "État des immobilisations au %{to}"
     general_informations: "Informations générales"
     general_ledger: "Grand livre"
@@ -3355,6 +3358,9 @@ fra:
       warning: "Attention\_!"
     messages:
       access_denied: "Vous n’avez pas le droit d’accéder à cette page. %{reason} (%{url})"
+      accounts_cannot_be_truncated_to_preference:
+        one: "Le compte comptable %{accounts} ne peut être tronqué à la préférence comptable sélectionnée (%{preference} caractères). Seul le zéro peut être automatiquement supprimé. Veuillez modifier ce compte comptable si vous souhaitez ajuster la préférence de la société à %{preference} caractères"
+        other: "Les comptes comptables 1010020001, 1010020002, 1010020003 ne peuvent être tronqués à la préférence comptable sélectionnée (%{preference} caractères). Seul le zéro peut être automatiquement supprimé. Veuillez modifier ces comptes comptables si vous souhaitez ajuster la préférence de la société à %{preference} caractères"
       accountant_notified: "Le comptable a bien été notifié"
       accountant_without_email: "Merci de renseigner l’email du comptable"
       # aggeratio_not_found: "The export requested was not found"

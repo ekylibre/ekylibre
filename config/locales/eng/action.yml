@@ -1505,6 +1505,7 @@ eng:
     # applications_count_bigger_than_max: "Applications count bigger than max"
     # applications_count_equal_to_max: "Applications count equal to max"
     # applications_count_less_than_max: "Applications count less than max"
+    applications_frequency: "Applications frequency"
     applications_interval_not_respected: "Applications interval non respected"
     aquatic_nta: "Aquatic non-treatment area (%{distance} m)"
     archive_post_closure: "Post closure archive"
@@ -1837,6 +1838,7 @@ eng:
     document: "Document"
     document_natures: "Document types"
     document_templates: "Document templates"
+    document_type: "Document type"
     documentation: "Documentation"
     doer_cost: "Doer cost"
     done: "Done"
@@ -2048,6 +2050,7 @@ eng:
     general_ledger: "General ledger"
     general_total: "General total"
     generate: "Generate"
+    general_account_number_length_automatically_truncated: "The general accounts number length is automatically adjusted based on the configuration of the company (%{length} characters)."
     generate_documents_post_closure: "Generating mandatory documents post closure"
     generate_documents_prior_to_closure: "Generating mandatory documents prior to closure"
     generate_last_journal_entry: "Generate last journal entry"
@@ -3165,6 +3168,9 @@ eng:
       warning: "Warning!"
     messages:
       access_denied: "Access denied. %{reason} (%{url})"
+      accounts_cannot_be_truncated_to_preference:
+        one: "The account %{accounts} cannot be truncated to the selected preference (%{preference} characters). Only zero can be automatically removed. Please update this account if you want to change the company preference to %{preference} characters."
+        other: "The accounts %{æccounts} cannot be truncated to the selected preference (%{preference} characters). Only zero can be automatically removed. Please update these accounts if you want to change the company preference to %{preference} characters."
       accountant_notified: "The accountant has been notified"
       accountant_without_email: "Please set the accountant email"
       aggeratio_not_found: "The export requested was not found"

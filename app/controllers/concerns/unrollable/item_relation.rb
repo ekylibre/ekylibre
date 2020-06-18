@@ -104,8 +104,7 @@ module Unrollable
     end
 
     def with_parameters?(scope, model)
-      false if model.simple_scopes.map(&:name).include?(scope)
-      true if model.complex_scopes.map(&:name).include?(scope)
+      model.complex_scopes.map(&:name).include?(scope)
     end
   end
 end

@@ -16,9 +16,9 @@ module FinancialYearTest
       ValidateDraftJournalEntriesService.new(journal_entries).validate_all if journal_entries.any?
 
       assert f.closable?, "Financial year #{f.code} should be closable: " + f.closure_obstructions.to_sentence
-      allocations = {}
+
       options = {
-        allocations: allocations,
+        allocations: {},
         forward_journal: Journal.find_by(nature: :forward, currency: f.currency) ||
           Journal.create_one!(:forward, f.currency),
         closure_journal: Journal.find_by(nature: :closure, currency: f.currency) ||

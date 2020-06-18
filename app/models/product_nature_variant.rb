@@ -116,6 +116,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   accepts_nested_attributes_for :catalog_items, reject_if: :all_blank, allow_destroy: true
   validates_associated :components
 
+  scope :active, -> { where(active: true) }
   scope :availables, -> { where(nature_id: ProductNature.availables).order(:name) }
   scope :saleables, -> { joins(:category).merge(ProductNatureCategory.saleables) }
   scope :purchaseables, -> { joins(:category).merge(ProductNatureCategory.purchaseables) }
@@ -179,29 +180,35 @@ class ProductNatureVariant < Ekylibre::Record::Base
   end
 
   before_validation do # on: :create
-    if nature
+    if nature.present?
       self.nature_name ||= nature.name
       # self.variable_indicators ||= self.nature.indicators
       self.name ||= self.nature_name
       self.variety ||= nature.variety
+
       if derivative_of.blank? && nature.derivative_of
         self.derivative_of ||= nature.derivative_of
       end
+
       if category && storable?
         self.stock_account ||= create_unique_account(:stock)
         self.stock_movement_account ||= create_unique_account(:stock_movement)
       end
-      self.type ||= category.article_type || nature.variant_type
+    end
+
+    if nature.present? && category.present?
+      self.type = category.article_type || nature.variant_type
     end
   end
 
   validate do
-    if nature
+    if nature.present?
       nv = Nomen::Variety.find(nature_variety)
       unless nv >= self.variety
         logger.debug "#{nature_variety}#{Nomen::Variety.all(nature_variety)} not include #{self.variety.inspect}"
         errors.add(:variety, :is, thing: nv.human_name)
       end
+
       if Nomen::Variety.find(nature_derivative_of)
         if self.derivative_of
           unless Nomen::Variety.find(nature_derivative_of) >= self.derivative_of
@@ -212,12 +219,14 @@ class ProductNatureVariant < Ekylibre::Record::Base
         end
       end
     end
-    if variety && products.any?
+
+    if variety.present? && products.any?
       if products.detect { |p| Nomen::Variety.find(p.variety) > variety }
         errors.add(:variety, :invalid)
       end
     end
-    if derivative_of && products.any?
+
+    if derivative_of.present? && products.any?
       if products.detect { |p| p.derivative_of? && Nomen::Variety.find(p.derivative_of) > derivative_of }
         errors.add(:derivative_of, :invalid)
       end
