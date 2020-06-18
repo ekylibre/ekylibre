@@ -67,7 +67,7 @@ module Interventions
 
               if maybe_applications.is_none?
                 result.vote_unknown(product)
-              elsif application_forbidden?(applications.get, max_applications: max_applications)
+              elsif application_forbidden?(maybe_applications.get, max_applications: max_applications)
                 result.vote_forbidden(product, :applications_count_bigger_than_max.tl, on: :usage)
               end
             end
