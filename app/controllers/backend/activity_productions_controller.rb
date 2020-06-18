@@ -57,8 +57,10 @@ module Backend
     def show
       super
 
-      harvest_advisor = ::Interventions::Phytosanitary::PhytoHarvestAdvisor.new
-      @reentry_possible = harvest_advisor.reentry_possible?(@activity_production.support, Time.zone.now)
+      if @activity_production.present?
+        harvest_advisor = ::Interventions::Phytosanitary::PhytoHarvestAdvisor.new
+        @reentry_possible = harvest_advisor.reentry_possible?(@activity_production.support, Time.zone.now)
+      end
     end
   end
 end
