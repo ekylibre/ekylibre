@@ -6,22 +6,14 @@ fra:
         caution: "Décaissement différent du montant de la facture"
         stop: "Facture à payer"
       animal:
-        caution:  "En service"
-        stop: "Consommé/Mort"
+        go:  "En service"
+        caution: "Consommé/Mort"
       equipment:
         go:  "En service"
-        stop: "Au rebut/vendu"
-      fixed_asset:
-        draft: "Brouillon"
-        in_use: "En service"
-        scrapped: "Mise au rebut"
-        sold: "Vendue"
-        waiting: "En attente"
+        caution: "Au rebut/vendu"
       intervention:
-        in_progress: "En cours"
-        request: "Planifiée"
-        rejected: "Rejetée"
-        done: "Terminée"
+        go: "Terminée"
+        caution: "En cours"
       loan:
         go: "En cours"
         caution: "Brouillon"
@@ -31,7 +23,7 @@ fra:
         stop: "Brouillon"
       plant:
         go:  "En cours"
-        stop: "Détruite/Récoltée"
+        caution: "Détruite/Récoltée"
       sale:
         aborted: "Devis abandonné"
         expired_quote: "Devis expiré"
@@ -43,15 +35,6 @@ fra:
         estimate: "Devis envoyé"
         unpaid_invoice: "Facture impayée"
         invalid_state: "État invalide"
-      sale_opportunity:
-        lost: "Perdue"
-        negociation: "Négociation"
-        price_quote: "Devis"
-        prospecting: "Prospection"
-        qualification: "Qualification"
-        price_quote: "Prospection"
-        value_proposition: "Proposition de valeur"
-        won: "Gagnée"
       tax_declaration:
         go: "Envoyée"
         caution: "Validée"

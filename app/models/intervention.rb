@@ -819,29 +819,13 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def status
-    return :caution if in_progress? || request?
     return :go if done? || validated?
+    return :caution if in_progress?
     return :stop if rejected?
   end
 
   def human_status
-    state_label
-  end
-
-  # Prints human name of current state
-  def state_label
-    translation_key =
-    if request?
-      "request"
-    elsif in_progress?
-      "in_progress"
-    elsif done? || validated?
-      "done"
-    else
-      "rejected"
-    end
-
-    I18n.t("tooltips.models.intervention.#{translation_key}")
+    I18n.t("tooltips.models.intervention.#{status}")
   end
 
   def runnable?

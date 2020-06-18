@@ -445,10 +445,6 @@ class FixedAsset < Ekylibre::Record::Base
     self.class.duration(started_on, self.stopped_on, mode: depreciation_method.to_sym)
   end
 
-  def human_status
-    I18n.t("tooltips.models.fixed_asset.#{state}")
-  end
-
   # Returns the duration in days between to 2 times
   def self.duration(started_on, stopped_on, options = {})
     days = 0

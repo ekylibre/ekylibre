@@ -6,22 +6,14 @@ fra:
         caution: "Outgoing payment different from the amount of the invoice"
         stop: "Invoice to pay"
       animal:
-        caution:  "In service"
-        stop: "Consumed/Dead"
+        go:  "In service"
+        caution: "Consumed/Dead"
       equipment:
         go:  "In service"
-        stop: "Dead at/Sold at"
-      fixed_asset:
-        draft: "Draft"
-        in_use: "In use"
-        scrapped: "Scrapped"
-        sold: "Sold"
-        waiting: "Waiting"
+        caution: "Dead at/Sold at"
       intervention:
-        done: "Done"
-        in_progress: "In progress"
-        rejected: "Rejected"
-        request: "Planned"
+        go: "Done"
+        caution: "In progress"
       loan:
         go: "In progress"
         caution: "Draft"
@@ -31,7 +23,7 @@ fra:
         stop: "Draft"
       plant:
         go:  "In progress"
-        stop: "Destroyed/Harvested"
+        caution: "Destroyed/Harvested"
       sale:
         aborted: "Aborted quote"
         expired_quote: "Expired quote"
@@ -43,14 +35,6 @@ fra:
         estimate: "Estimate quote"
         unpaid_invoice: "Unpaid invoice"
         invalid_state: "Invalid state"
-      sale_opportunity:
-        lost: "Lost"
-        negociation: "Negociation"
-        price_quote: "Price quote"
-        prospecting: "Prospecting"
-        qualification: "Qualification"
-        value_proposition: "Value proposition"
-        won: "Won"
       tax_declaration:
         go: "Sent"
         caution: "Checked"
