@@ -33,7 +33,7 @@
             - unit = stock.unit + "_per_" + resource.net_surface_area.unit
             = (stock.to_d / resource.population).in(unit).round(3).l
     = product_info(:status, important: true) do |status|
-      = lights(status)
+      = lights(status, title: resource.human_status)
     = product_info :description
     = product_info :container do |container|
       %i.picto{class: "zone"}

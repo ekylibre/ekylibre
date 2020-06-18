@@ -63,6 +63,7 @@ module Backend
       t.column :amount, currency: true
       t.column :cash, url: true
       t.status
+      t.column :state_label, hidden: true
       t.column :started_on
       t.column :repayment_duration
       t.column :repayment_period

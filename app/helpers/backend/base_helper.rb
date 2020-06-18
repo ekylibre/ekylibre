@@ -308,6 +308,9 @@ module Backend
       else
         html_options[:class] = "lights lights-#{status}"
       end
+      if html_options.key?(:title)
+        html_options[:data_toggle] = "tooltip"
+      end
       content_tag(:span, html_options) do
         content_tag(:span, nil, class: 'go') +
           content_tag(:span, nil, class: 'caution') +

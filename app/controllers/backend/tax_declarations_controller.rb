@@ -56,6 +56,7 @@ module Backend
       t.column :global_balance
       t.column :description, hidden: true
       t.status
+      t.column :state_label, hidden: true
     end
 
     def index

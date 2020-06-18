@@ -73,6 +73,7 @@ module Backend
       t.column :born_at
       t.column :sex, label_method: :sex_text, label: :sex
       t.status
+      t.column :state, hidden: true
       t.column :net_mass, datatype: :measure
       t.column :container, url: true
       # t.column :groups, url: true

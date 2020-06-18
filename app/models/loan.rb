@@ -241,6 +241,11 @@ class Loan < Ekylibre::Record::Base
     I18n.t("tooltips.models.loan.#{status}")
   end
 
+  # Prints human name of current state
+  def state_label
+    self.class.state_machine.state(self.state.to_sym).human_name
+  end
+
   # why ? we have state machine ?
   def draft?
     state.to_sym == :draft

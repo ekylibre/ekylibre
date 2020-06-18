@@ -79,7 +79,7 @@ module Backend
       t.column :given_at
       t.column :sender, url: true
       t.status
-      t.column :state
+      t.column :state, hidden: true
       t.column :delivery, url: true
       t.column :responsible, url: true, hidden: true
       t.column :transporter, url: true, hidden: true
