@@ -126,7 +126,7 @@ module PanierLocal
 
       test 'sale is not created if found by provider' do
         s = create :sale, provider: { vendor: :panier_local, name: :sales, id: 42, data: { sale_reference_number: '42' } }
-        assert_equal s, @e.find_or_create_sale([{ sale_reference_number: "42" }.to_struct], s.nature)
+        assert_equal s, @e.find_or_create_sale([], s.nature, reference_number: '42').get
       end
 
       test 'the check method returns false when no responsible is linked' do
@@ -150,33 +150,42 @@ module PanierLocal
         end
       end
 
-      test "sale is created if nout foud by provider" do
+      test "sale is created if nout found by provider" do
         create :financial_year, year: 2020
         sale_nature = create :sale_nature
 
         info = [
-          { sale_item_amount: 480, sale_reference_number: '42', account_number: "4110085", entity_name: 'name', entity_code: 'code' }.to_struct,
-          { sale_item_amount: 400, sale_reference_number: '42', sale_description: '', account_number: "7528215", invoiced_at: DateTime.parse("2020-05-05T00:00:00Z"), sale_item_direction: 'C' }.to_struct,
-          { sale_item_amount: 80, sale_reference_number: '42', account_number: "4458558", invoiced_at: DateTime.parse("2020-05-05T00:00:00Z"), vat_percentage: 20 }.to_struct
+          { sale_item_amount: 480, account_number: "4110085", entity_name: 'name', entity_code: 'code' }.to_struct,
+          { sale_item_amount: 400, sale_description: '', account_number: "7528215", invoiced_at: DateTime.parse("2020-05-05T00:00:00Z"), sale_item_direction: 'C' }.to_struct,
+          { sale_item_amount: 80, account_number: "4458558", invoiced_at: DateTime.parse("2020-05-05T00:00:00Z"), vat_percentage: 20 }.to_struct
         ]
 
         stub_many @e, find_sale_by_provider: nil do
-          s = @e.find_or_create_sale(info, sale_nature)
+          s = @e.find_or_create_sale(info, sale_nature, reference_number: 42)
 
-          assert s
-          assert_equal 480, s.amount
+          assert s.is_some?
+          assert_equal 480, s.get.amount
         end
       end
 
       test 'exchanger stops if missing VAT information' do
         info = [
           { sale_item_amount: 480, sale_reference_number: '42', account_number: "4110085", entity_name: 'name', entity_code: 'code' }.to_struct,
-          { sale_item_amount: 400, sale_reference_number: '42', account_number: "7555"}.to_struct,
+          { sale_item_amount: 400, sale_reference_number: '42', account_number: "7555" }.to_struct,
         ]
 
         assert_raise PanierLocal::Base::UniqueResultExpectedError do
-          @e.create_sale(info, '42', create(:sale_nature))
+          @e.create_sale(info, create(:sale_nature), reference_number: '42')
         end
+      end
+
+      test 'sales with only one client line and amount 0 should be ignored' do
+        create :financial_year, year: 2020
+        sale_nature = create :sale_nature
+
+        info = [{ sale_item_amount: 0, account_number: '41100001' }.to_struct]
+
+        assert @e.create_sale(info, sale_nature, reference_number: '42').is_none?
       end
     end
   end
