@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.10
--- Dumped by pg_dump version 12.2
+-- Dumped from database version 9.6.16
+-- Dumped by pg_dump version 12.1 (Ubuntu 12.1-1.pgdg16.04+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -6020,7 +6020,7 @@ CREATE TABLE public.product_nature_variants (
     derivative_of character varying,
     reference_name character varying,
     unit_name character varying NOT NULL,
-    active boolean DEFAULT false NOT NULL,
+    active boolean DEFAULT true NOT NULL,
     picture_file_name character varying,
     picture_content_type character varying,
     picture_file_size integer,
@@ -19285,11 +19285,21 @@ INSERT INTO schema_migrations (version) VALUES ('20200330133607');
 
 INSERT INTO schema_migrations (version) VALUES ('20200415163115');
 
+INSERT INTO schema_migrations (version) VALUES ('20200417183101');
+
+INSERT INTO schema_migrations (version) VALUES ('20200419152901');
+
 INSERT INTO schema_migrations (version) VALUES ('20200422084439');
 
 INSERT INTO schema_migrations (version) VALUES ('20200428152738');
 
 INSERT INTO schema_migrations (version) VALUES ('20200505114024');
 
+INSERT INTO schema_migrations (version) VALUES ('20200507094001');
+
 INSERT INTO schema_migrations (version) VALUES ('20200512091803');
+
+INSERT INTO schema_migrations (version) VALUES ('20200515092158');
+
+INSERT INTO schema_migrations (version) VALUES ('20200611090747');
 

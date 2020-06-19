@@ -123,7 +123,7 @@ class ListingNode < Ekylibre::Record::Base
     elsif parent
       if nature == 'custom'
         self.sql_type = convert_sql_type(parent.model.custom_fields.find_by(column_name: attribute_name).nature.to_s)
-        self.name = parent.name.underscore + ".custom_fields->>'" + attribute_name
+        self.name = parent.name.underscore + ".custom_fields->>'#{attribute_name}'"
       elsif parent.model
         self.sql_type = convert_sql_type(parent.model.columns_definition[attribute_name][:type].to_s)
       end
@@ -181,10 +181,10 @@ class ListingNode < Ekylibre::Record::Base
   end
 
   def condition
-    self.class.condition(name, condition_operator, condition_value, sql_type)
+    self.class.condition(name, condition_operator, condition_value, nature, sql_type)
   end
 
-  def self.condition(column, operator, value, datatype = 'string')
+  def self.condition(column, operator, value, nature, datatype = 'string')
     operation = @@corresponding_comparators[operator.to_sym] || @@corresponding_comparators[:equal]
     c = operation.gsub('{{COLUMN}}', column)
     c.gsub!('{{LIST}}', '(' + value.to_s.gsub(/\,\,/, "\t").split(/\s*\,\s*/).collect { |x| connection.quote(x.tr("\t", ',')) }.join(', ') + ')')
@@ -193,7 +193,11 @@ class ListingNode < Ekylibre::Record::Base
       #       if datatype == "date"
       #         "'"+connection.quoted_date(value.to_date)+"'"
       if datatype == 'boolean'
-        (operator.to_s == 'is_true' ? connection.quoted_true : connection.quoted_false)
+        if nature == 'custom'
+          operator.to_s == 'is_true' ? "'1'" : "'0'"
+        else
+          operator.to_s == 'is_true' ? connection.quoted_true : connection.quoted_false
+        end
       elsif datatype == 'numeric'
         n
       else

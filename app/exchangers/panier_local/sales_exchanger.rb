@@ -72,86 +72,92 @@ module PanierLocal
 
       sale_nature = find_or_create_sale_nature
       w.count = sales_info.size
-      sales_info.each { |_sale_reference_number, sale_info| find_or_create_sale(sale_info, sale_nature); w.check_point }
+      sales_info.each do |sale_reference_number, sale_info|
+        find_or_create_sale(sale_info, sale_nature, reference_number: sale_reference_number)
+
+        w.check_point
+      end
     rescue Accountancy::AccountNumberNormalizer::NormalizationError => e
       raise StandardError, "The account number length cant't be different from your own settings"
     end
 
     # @param [Array<OpenStruct>] sale_info
     # @param [SaleNature] sale_nature
-    # @return [Sale]
-    def find_or_create_sale(sale_info, sale_nature)
-      reference_number = unwrap_one('reference_number', exact: true) { sale_info.map(&:sale_reference_number).uniq }
-
+    # @param [String] reference_number
+    # @return [Maybe<Sale>]
+    def find_or_create_sale(sale_info, sale_nature, reference_number:)
       Maybe(find_sale_by_provider(reference_number))
-        .recover { create_sale(sale_info, reference_number, sale_nature) }
-        .or_raise
+        .recover { create_sale(sale_info, sale_nature, reference_number: reference_number) }
     end
 
     # @param [Array<OpenStruct>] sale_info
-    # @param [String] reference_number
     # @param [SaleNature] sale_nature
-    # @return [Sale]
-    def create_sale(sale_info, reference_number, sale_nature)
-      grouped_lines = sale_info.group_by do |line|
-        account_number = line.account_number
+    # @param [String] reference_number
+    # @return [Maybe<Sale>]
+    def create_sale(sale_info, sale_nature, reference_number:)
+      if sale_info.size == 1 && sale_info.first.sale_item_amount.zero? && sale_info.first.account_number.start_with?(client_account_radix)
+        None()
+      else
+        grouped_lines = sale_info.group_by do |line|
+          account_number = line.account_number
 
-        if account_number.start_with?(client_account_radix)
-          :client
-        elsif account_number.start_with?('445')
-          :tax
-        elsif account_number.start_with?('7')
-          :product
-        else
-          :unknown
+          if account_number.start_with?(client_account_radix)
+            :client
+          elsif account_number.start_with?('445')
+            :tax
+          elsif account_number.start_with?('7')
+            :product
+          else
+            :unknown
+          end
         end
-      end
 
-      unknown_lines = grouped_lines.fetch(:unknown, [])
-      if unknown_lines.any?
-        raise StandardError, "Found #{unknown_lines.size} unknown lines for sale #{reference_number}"
-      end
+        unknown_lines = grouped_lines.fetch(:unknown, [])
+        if unknown_lines.any?
+          raise StandardError, "Found #{unknown_lines.size} unknown lines for sale #{reference_number}"
+        end
 
-      client_info = unwrap_one("client info", exact: true) { grouped_lines.fetch(:client, []) }
-      tax_info = unwrap_one(
-        "tax info",
-        exact: true,
-        error_none: -> { tl(:errors, :sale_data_missing_tax_information, reference_number: reference_number) }
-      ) { grouped_lines.fetch(:tax, []) }
-      product_infos = grouped_lines.fetch(:product, [])
+        client_info = unwrap_one("client info", exact: true) { grouped_lines.fetch(:client, []) }
+        tax_info = unwrap_one(
+          "tax info",
+          exact: true,
+          error_none: -> { tl(:errors, :sale_data_missing_tax_information, reference_number: reference_number) }
+        ) { grouped_lines.fetch(:tax, []) }
+        product_infos = grouped_lines.fetch(:product, [])
 
-      entity = find_or_create_entity(client_info.entity_name, client_info.account_number, client_info.entity_code)
-      tax = find_or_create_tax(tax_info)
+        entity = find_or_create_entity(client_info.entity_name, client_info.account_number, client_info.entity_code)
+        tax = find_or_create_tax(tax_info)
 
-      sale = Sale.new(
-        client: entity,
-        description: client_info.sale_description,
-        invoiced_at: client_info.invoiced_at,
-        nature: sale_nature,
-        provider: provider_value(sale_reference_number: reference_number),
-        reference_number: reference_number,
-        responsible: responsible_person
-      )
-
-      product_infos.each do |product_line|
-        variant = Maybe(find_variant_by_provider(product_line.account_number))
-                    .recover { create_variant_with_account(product_line.account_number) }
-                    .or_raise
-
-        sale.items.build(
-          amount: nil,
-          pretax_amount: create_pretax_amount(product_line),
-          unit_pretax_amount: nil,
-          quantity: product_line.quantity || 1,
-          tax: tax,
-          variant: variant,
-          compute_from: :pretax_amount
+        sale = Sale.new(
+          client: entity,
+          description: client_info.sale_description,
+          invoiced_at: client_info.invoiced_at,
+          nature: sale_nature,
+          provider: provider_value(sale_reference_number: reference_number),
+          reference_number: reference_number,
+          responsible: responsible_person
         )
+
+        product_infos.each do |product_line|
+          variant = Maybe(find_variant_by_provider(product_line.account_number))
+                      .recover { create_variant_with_account(product_line.account_number) }
+                      .or_raise
+
+          sale.items.build(
+            amount: nil,
+            pretax_amount: create_pretax_amount(product_line),
+            unit_pretax_amount: nil,
+            quantity: product_line.quantity || 1,
+            tax: tax,
+            variant: variant,
+            compute_from: :pretax_amount
+          )
+        end
+
+        sale.save!
+
+        Some(sale)
       end
-
-      sale.save!
-
-      sale
     end
 
     # @param [String] reference_number

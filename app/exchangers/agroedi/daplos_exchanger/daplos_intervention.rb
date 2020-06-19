@@ -44,7 +44,7 @@ module Agroedi
       end
 
       def unique?
-        %i[sowing_without_plant_output harvesting].any? do |code|
+        %i[sowing_without_plant_output harvesting_with_plant_or_land_parcel].any? do |code|
           agroedi_code == code
         end
       end
