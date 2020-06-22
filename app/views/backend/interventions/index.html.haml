@@ -67,36 +67,40 @@
           .modal-body
           .modal-footer
 
+        :ruby
+          edit_icon = content_tag(:i, nil, { :class => "picto picto-long-arrow-right picto--invisible edit-tasks", :title => :change_status_of_selected_interventions.tl })
+          delete_icon = content_tag(:i, nil, { :class => "picto picto-delete picto--invisible delete-tasks", :title => :delete_selected_interventions.tl, data: {confirm: :are_you_sure.tl} })
+          headers_actions = [edit_icon, delete_icon]
 
-        - edit_icon = content_tag(:i, nil, { :class => "picto picto-long-arrow-right picto--invisible edit-tasks", :title => :change_status_of_selected_interventions.tl })
-        - delete_icon = content_tag(:i, nil, { :class => "picto picto-delete picto--invisible delete-tasks", :title => :delete_selected_interventions.tl, data: {confirm: :are_you_sure.tl} })
-        - headers_actions = [edit_icon, delete_icon]
+          search_params = params.deep_dup.except(:controller, :action)
+          search_params[:period_interval] = current_period_interval
+          search_params[:period] = current_period
 
-        - search_params = params.deep_dup.except(:controller, :action)
-        - search_params[:period_interval] = current_period_interval
-        - search_params[:period] = current_period
+          header_class = 'taskboard-header--gray'
 
-        - header_class = 'taskboard-header--gray'
+          board.column :requests do |column|
+            requested_interventions = Intervention.with_unroll(search_params.to_unsafe_h.merge(nature: :request))
+            column.header :planned.tl(count: requested_interventions[:total_count]) + " (" + requested_interventions[:total_count].to_s + ")", headers_actions, class: header_class
+            add_taskboard_tasks(requested_interventions[:interventions], column)
+          end
 
-        - board.column :requests do |column|
-          - requested_interventions = Intervention.with_unroll(search_params.merge(nature: :request))
-          - column.header :planned.tl(count: requested_interventions[:total_count]) + " (" + requested_interventions[:total_count].to_s + ")", headers_actions, class: header_class
-          - add_taskboard_tasks(requested_interventions[:interventions], column)
+          board.column :current do |column|
+            interventions_in_progress = Intervention.with_unroll(search_params.to_unsafe_h.merge(nature: :record, state: :in_progress))
+            column.header :current.tl + " (" + interventions_in_progress[:total_count].to_s + ")", headers_actions, class: header_class
+            add_taskboard_tasks(interventions_in_progress[:interventions], column)
+          end
 
-        - board.column :current do |column|
-          - interventions_in_progress = Intervention.with_unroll(search_params.merge(nature: :record, state: :in_progress))
-          - column.header :current.tl + " (" + interventions_in_progress[:total_count].to_s + ")", headers_actions, class: header_class
-          - add_taskboard_tasks(interventions_in_progress[:interventions], column)
+          board.column :finished do |column|
+            interventions_done = Intervention.with_unroll(search_params.to_unsafe_h.merge(nature: :record, state: :done))
+            column.header :completed.tl + " (" + interventions_done[:total_count].to_s + ")", headers_actions, class: header_class
+            add_taskboard_tasks(interventions_done[:interventions], column)
+          end
 
-        - board.column :finished do |column|
-          - interventions_done = Intervention.with_unroll(search_params.merge(nature: :record, state: :done))
-          - column.header :completed.tl + " (" + interventions_done[:total_count].to_s + ")", headers_actions, class: header_class
-          - add_taskboard_tasks(interventions_done[:interventions], column)
-
-        - board.column :validated do |column|
-          - validated_interventions = Intervention.with_unroll(search_params.merge({ :nature => :record, :state => :validated }))
-          - column.header :validated.tl + " (" + validated_interventions[:total_count].to_s + ")", [], class: header_class
-          - add_taskboard_tasks(validated_interventions[:interventions], column)
+          board.column :validated do |column|
+            validated_interventions = Intervention.with_unroll(search_params.to_unsafe_h.merge({ :nature => :record, :state => :validated }))
+            column.header :validated.tl + " (" + validated_interventions[:total_count].to_s + ")", [], class: header_class
+            add_taskboard_tasks(validated_interventions[:interventions], column)
+          end
 
 
     - j.face :list do
