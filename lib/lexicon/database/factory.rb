@@ -16,7 +16,7 @@ module Lexicon
             port = db_config['port'] || '5432'
             dbname = db_config['database']
             password = db_config['password']
-            Shellwords.escape("postgresql://#{user}:#{password}@#{host}:#{port}/#{dbname}")
+            URI.encode("postgresql://#{user}:#{password}@#{host}:#{port}/#{dbname}")
           end
 
           def db_config
