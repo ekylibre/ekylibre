@@ -573,7 +573,7 @@ module Ekylibre
       end
 
       def db_config
-        Rails.application.config.database_configuration[Rails.env]
+        Rails.application.config.database_configuration[Rails.env.to_s]
       end
 
       def zip_up(archive_path, into:)

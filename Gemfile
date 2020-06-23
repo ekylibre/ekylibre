@@ -170,6 +170,11 @@ gem 'beardley-groovy', '>= 2.0.1'
 gem 'beardley-open_sans', '>= 0.0.2'
 gem 'beardley-xml', '>= 1.1.2'
 
+# IRB (already require by other gem but some sependencies seems to be missing in ruby 2.6.x ...
+gem 'irb'
+gem 'fiddle'
+gem 'dl'
+
 # Import/Export
 gem 'ekylibre-ofx-parser'
 gem 'rgeo-geojson'
