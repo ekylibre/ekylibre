@@ -422,10 +422,8 @@ class Product < Ekylibre::Record::Base
 
       build_new_phase unless product_phases.any?
     end
-  end
 
-  after_commit do
-    if nature.population_counting_unitary? && population.zero?
+    if self.persisted? && nature.population_counting_unitary? && population.zero?
       m = movements.build(delta: 1, started_at: Time.now)
       m.save!
     end
