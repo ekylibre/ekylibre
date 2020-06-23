@@ -70,7 +70,7 @@ module Backend
       t.column :work_name, through: :container, url: true
       t.column :net_surface_area, datatype: :measure
       t.status
-      t.column :human_status, hidden: true
+      t.column :human_status, label: :state, hidden: true
       t.column :born_at
       t.column :dead_at
     end

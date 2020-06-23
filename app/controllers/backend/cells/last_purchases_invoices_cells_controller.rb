@@ -5,6 +5,7 @@ module Backend
         t.column :number, url: { controller: '/backend/purchase_invoices' }
         t.column :created_at
         t.status
+        t.column :human_status, label: :state, hidden: true
         t.column :amount, currency: true
       end
 

@@ -1,4 +1,4 @@
-fra:
+eng:
   tooltips:
     models:
       affair:
@@ -34,8 +34,8 @@ fra:
         stop: "Destroyed/Harvested"
       sale:
         aborted: "Aborted quote"
+        draft_quote: "Draft quote"
         expired_quote: "Expired quote"
-        expired_quote: "Expired draft"
         invoiced_and_paid_sale: "Invoiced_and_paid_sale"
         incoming_payment_different_from_the_amount_of_the_invoice: "Incoming payment different from the amount of the invoice"
         order: "Order"
