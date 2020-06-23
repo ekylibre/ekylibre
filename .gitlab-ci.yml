@@ -6,8 +6,10 @@ stages:
   - deploy
 
 variables:
-  TEST_IMAGE: ${CI_REGISTRY_IMAGE}/test:$CI_COMMIT_REF_SLUG
-  TEST_LATEST: ${CI_REGISTRY_IMAGE}/test:latest
+  TEST_IMAGE: ${CI_REGISTRY_IMAGE}/test_2_3:$CI_COMMIT_REF_SLUG
+  TEST_LATEST: ${CI_REGISTRY_IMAGE}/test_2_3:latest
+  TEST_IMAGE_2_6: ${CI_REGISTRY_IMAGE}/test_2_6:$CI_COMMIT_REF_SLUG
+  TEST_LATEST_2_6: ${CI_REGISTRY_IMAGE}/test_2_6:latest
   REVIEW_HOST: ${CI_BUILD_REF_SLUG}.ci.ekylibre.dev
   KUBE_NAMESPACE: eky-test-deploy
 
@@ -20,7 +22,7 @@ variables:
 #########################################
 #                 BUILD                 #
 #########################################
-build_test:
+build_test_2_3:
   image: registry.gitlab.com/ekylibre/docker-base-images/tools/deploy:1
   stage: build
   interruptible: true
@@ -31,7 +33,19 @@ build_test:
   before_script:
     - echo "${CI_BUILD_TOKEN}" | docker login --username $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
   script:
-    - /exec ruby /build.rb -v -r $CI_COMMIT_REF_SLUG -b $CI_REGISTRY_IMAGE -f docker/test/Dockerfile -i test
+    - /exec ruby /build.rb -v -r $CI_COMMIT_REF_SLUG -b $CI_REGISTRY_IMAGE -f docker/test/Dockerfile -i test_2_3
+
+build_test_2_6:
+  image: registry.gitlab.com/ekylibre/docker-base-images/tools/deploy:1
+  stage: build
+  except:
+    - tags
+  services:
+    - docker:18-dind
+  before_script:
+    - echo "${CI_BUILD_TOKEN}" | docker login --username $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
+  script:
+    - /exec ruby /build.rb -v -r $CI_COMMIT_REF_SLUG -b $CI_REGISTRY_IMAGE -f docker/test/Dockerfile_2_6 -i test_2_6
 
 build_ci:
   image: registry.gitlab.com/ekylibre/docker-base-images/tools/deploy:1
@@ -110,7 +124,7 @@ doc_build:
   only:
     - tags
   dependencies:
-    - build_test
+    - build_test_2_3
   services:
     - docker:18-dind
   before_script:
@@ -145,7 +159,6 @@ deploy_doc:
 #               TEMPLATES               #
 #########################################
 .test_tpl: &test_task
-  image: $TEST_IMAGE
   stage: test
   variables: &test_task_variables
     # POSTGRES VARIABLES
@@ -158,8 +171,6 @@ deploy_doc:
   services:
     - mdillon/postgis:9.6-alpine
     - redis:5.0-alpine
-  dependencies:
-    - build_test
   except:
     - tags
   tags:
@@ -168,52 +179,111 @@ deploy_doc:
     - env
     - bash /app/test/ci/run_tests ${TASK}
 
+.test_tpl_2_3: &test_task_2_3
+  <<: *test_task
+  image: $TEST_IMAGE
+  dependencies:
+    - build_test_2_3
+
+.test_tpl_2_6: &test_task_2_6
+  <<: *test_task
+  image: $TEST_IMAGE_2_6
+  dependencies:
+    - build_test_2_6
+
 
 #########################################
 #                 TESTS                 #
 #########################################
 test_concepts:
-  <<: *test_task
+  <<: *test_task_2_3
   variables:
     <<: *test_task_variables
     TASK: test:concepts
 test_controllers:
-  <<: *test_task
+  <<: *test_task_2_3
   variables:
     <<: *test_task_variables
     TASK: test:controllers
 test_exchangers:
-  <<: *test_task
+  <<: *test_task_2_3
   variables:
     <<: *test_task_variables
     TASK: test:exchangers
 test_helpers:
-  <<: *test_task
+  <<: *test_task_2_3
   variables:
     <<: *test_task_variables
     TASK: test:helpers
 test_jobs:
-  <<: *test_task
+  <<: *test_task_2_3
   variables:
     <<: *test_task_variables
     TASK: test:jobs
 test_lib:
-  <<: *test_task
+  <<: *test_task_2_3
   variables:
     <<: *test_task_variables
     TASK: test:lib
 test_models:
-  <<: *test_task
+  <<: *test_task_2_3
   variables:
     <<: *test_task_variables
     TASK: test:models
 test_services:
-  <<: *test_task
+  <<: *test_task_2_3
   variables:
     <<: *test_task_variables
     TASK: test:services
 test_validators:
-  <<: *test_task
+  <<: *test_task_2_3
+  variables:
+    <<: *test_task_variables
+    TASK: test:validators
+
+
+test_concepts_2_6:
+  <<: *test_task_2_6
+  variables:
+    <<: *test_task_variables
+    TASK: test:concepts
+test_controllers_2_6:
+  <<: *test_task_2_6
+  variables:
+    <<: *test_task_variables
+    TASK: test:controllers
+test_exchangers_2_6:
+  <<: *test_task_2_6
+  variables:
+    <<: *test_task_variables
+    TASK: test:exchangers
+test_helpers_2_6:
+  <<: *test_task_2_6
+  variables:
+    <<: *test_task_variables
+    TASK: test:helpers
+test_jobs_2_6:
+  <<: *test_task_2_6
+  variables:
+    <<: *test_task_variables
+    TASK: test:jobs
+test_lib_2_6:
+  <<: *test_task_2_6
+  variables:
+    <<: *test_task_variables
+    TASK: test:lib
+test_models_2_6:
+  <<: *test_task_2_6
+  variables:
+    <<: *test_task_variables
+    TASK: test:models
+test_services_2_6:
+  <<: *test_task_2_6
+  variables:
+    <<: *test_task_variables
+    TASK: test:services
+test_validators_2_6:
+  <<: *test_task_2_6
   variables:
     <<: *test_task_variables
     TASK: test:validators
