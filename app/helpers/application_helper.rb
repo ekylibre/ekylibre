@@ -326,19 +326,23 @@ module ApplicationHelper
       end
       value_class << ' code' if attribute.to_s == 'code'
     end
+    title = None()
     if [TrueClass, FalseClass].include? value.class
       value = content_tag(:div, '', class: "checkbox-#{value}")
     elsif value.respond_to?(:text)
       value = value.send(:text)
+      title = Some(value)
     elsif attribute.to_s =~ /(^|_)currency$/
       value = Nomen::Currency[value].human_name
     elsif attribute.to_s =~ /^state$/ && !options[:force_string]
       value = I18n.translate("models.#{model_name}.states.#{value}")
+      title = Some(value)
     elsif options[:currency] && value.is_a?(Numeric)
       value = ::I18n.localize(value, currency: (options[:currency].is_a?(TrueClass) ? object.send(:currency) : options[:currency].is_a?(Symbol) ? object.send(options[:currency]) : options[:currency]))
       value = link_to(value.to_s, options[:url]) if options[:url]
     elsif value.respond_to?(:strftime) || value.respond_to?(:l) || value.is_a?(Numeric)
       value = value.l
+      title = Some(value)
       value = link_to(value.to_s, options[:url]) if options[:url]
     elsif options[:duration]
       duration = value
@@ -356,7 +360,7 @@ module ApplicationHelper
       value = link_to(value.to_s, options[:url]) if options[:url]
       value = content_tag(:div, value.html_safe, class: classes.join(' '))
     end
-    [label, value]
+    [label, value, title]
   end
 
 
@@ -393,13 +397,13 @@ module ApplicationHelper
     items = attribute_list.items # .delete_if { |x| x[0] == :custom_fields }
     if items.any?
       items.each do |item|
-        label, value = if item[0] == :custom
-                         attribute_item(*item[1])
-                       elsif item[0] == :attribute
-                         attribute_item(record, *item[1])
-                       end
+        label, value, title = if item[0] == :custom
+                                attribute_item(*item[1])
+                              elsif item[0] == :attribute
+                                attribute_item(record, *item[1])
+                              end
         if value.present? || (item[2].is_a?(Hash) && item[2][:show] == :always)
-          code << content_tag(:dl, content_tag(:dt, label) + content_tag(:dd, value, class: text_ellipsis ? 'text-ellipsis' : ''))
+          code << content_tag(:dl, content_tag(:dt, label) + content_tag(:dd, value, title: title.or_nil, class: text_ellipsis ? 'text-ellipsis' : ''))
         end
       end
       code = content_tag(:div, code.html_safe, class: 'attributes-list')

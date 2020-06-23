@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: https://gitlab.com/ekylibre/active_list.git
-  revision: f03202476e1927f3663673ec4a5dcd9a1ad3d042
+  revision: 12a9c2989dad94f1f743fcf5b82eb57fcb445df8
   branch: master
   specs:
     active_list (7.1.0)
@@ -301,7 +301,7 @@ GEM
     letter_opener (1.7.0)
       launchy (~> 2.2)
     libv8 (3.16.14.19)
-    loofah (2.5.0)
+    loofah (2.6.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     luhn (1.0.2)
