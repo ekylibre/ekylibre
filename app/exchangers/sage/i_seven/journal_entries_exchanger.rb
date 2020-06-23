@@ -62,8 +62,8 @@ module Sage
         accounts
           .select { |_k, account| account.auxiliary? }
           .each do |sage_number, entity_account|
-            find_or_create_entity(file_info.period_started_on, entity_account, sage_number)
-          end
+          find_or_create_entity(file_info.period_started_on, entity_account, sage_number)
+        end
 
         entries = entries_items(file_info.doc, financial_year)
         w.count = entries.count
@@ -128,7 +128,7 @@ module Sage
       def find_account_by_provider(account_number)
         unwrap_one('account') do
           Account.of_provider_name(provider_vendor, provider_name)
-                .of_provider_data(:account_number, account_number)
+                 .of_provider_data(:account_number, account_number)
         end
       end
 
@@ -159,7 +159,7 @@ module Sage
           if aux_number.match(/\A0*\z/).present?
             raise StandardError, tl(:errors, :radical_class_number_unauthorized, number: acc_number)
           end
-          
+
           attrs = attrs.merge(
             centralizing_account_name: acc_number.start_with?(client_account_radix) ? 'clients' : 'suppliers',
             auxiliary_number: aux_number,
@@ -185,9 +185,9 @@ module Sage
       # @return [Entity]
       def find_or_create_entity(period_started_on, acc, sage_account_number)
         entity = Maybe(find_entity_by_provider(sage_account_number))
-          .recover { find_entity_by_account(acc) }
-          .recover { create_entity(period_started_on, acc, sage_account_number) }
-          .or_raise
+                   .recover { find_entity_by_account(acc) }
+                   .recover { create_entity(period_started_on, acc, sage_account_number) }
+                   .or_raise
 
         if entity.first_met_at.nil? || (period_started_on && period_started_on < entity.first_met_at.to_date)
           entity.update!(first_met_at: period_started_on.to_datetime)
@@ -248,7 +248,6 @@ module Sage
         end
 
         Entity.create!(attrs)
-
       end
 
       # @param [String] sage_nature
@@ -266,7 +265,7 @@ module Sage
       end
 
       # @param [Date] printed_on
-      # @param [Date] stopped_on
+      # @param [Date] started_on
       # @param [String] state
       # @return [Boolean]
       def is_forward_entry?(printed_on, started_on, state)
@@ -288,7 +287,7 @@ module Sage
 
           journal = find_or_create_journal(jou_code, jou_name, nature)
 
-          create_cash(sage_journal, journal) if is_bank?(jou_nature)
+          find_or_create_cash(sage_journal, journal) if is_bank?(jou_nature)
 
           sage_journal.css('PIECE').each_with_index do |sage_journal_entry, index|
             printed_on = sage_journal_entry.attribute('DATEECR').value.to_date
@@ -307,11 +306,12 @@ module Sage
                         end
 
             attributes = sage_journal_entry.css('LIGNE').map do |sage_journal_entry_item|
-              sjei_account = create_account_by(sage_journal_entry_item)
-
               sjei_label = sage_journal_entry_item.attribute('LIBMANU').value
               sjei_amount = sage_journal_entry_item.attribute('MONTANTREF').value
               sjei_direction = sage_journal_entry_item.attribute('SENS').value # 1 = D / -1 = C
+
+              account_number = sage_journal_entry_item.attribute('COMPTE').value
+              sjei_account = find_or_create_account(account_number, sjei_label)
 
               {
                 real_debit: (sjei_direction == '1' ? sjei_amount.to_f : 0.0),
@@ -337,25 +337,46 @@ module Sage
 
       # @param [] sage_journal
       # @param [Journal] journal
+      def find_or_create_cash(sage_journal, journal)
+        number = sage_journal.attribute('CMPTASSOCIE').value
+        raw_iban = sage_journal.attribute('IBANPAPIER').value.delete(' ')
+        iban = if raw_iban.present? && raw_iban.start_with?('IBAN')
+                 Some(raw_iban[4..-1])
+               else
+                 None()
+               end
+
+        Maybe(find_cash_by_provider(number))
+          .recover { create_cash(number, journal: journal, iban: iban) }
+      end
+
+      def find_cash_by_provider(account_number)
+        unwrap_one(:cash) do
+          Cash.of_provider_name(provider_vendor, provider_name)
+              .of_provider_data('account_number', account_number)
+        end
+      end
+
+      # @param [String] account_number
+      # @param [Journal] journal
+      # @param [Maybe<String>] iban
       # @return [Cash]
-      def create_cash(sage_journal, journal)
-        jou_account = sage_journal.attribute('CMPTASSOCIE').value
-        jou_account = number_normalizer.normalize!(jou_account)
-        main_account = Account.find_or_create_by_number(jou_account)
+      def create_cash(account_number, journal:, iban:)
+        main_account = find_or_create_account(account_number, journal.name)
 
         cash_attributes = {
           name: 'enumerize.cash.nature.bank_account'.t,
           nature: 'bank_account',
           journal: journal,
-          provider: provider_value(account_number: jou_account)
+          provider: provider_value(account_number: account_number)
         }
 
-        jou_iban = sage_journal.attribute('IBANPAPIER').value.delete(' ')
-        if jou_iban.present? && jou_iban.start_with?('IBAN')
-          cash_attributes.merge!(iban: jou_iban[4..-1])
+        iban.fmap do |i|
+          cash_attributes.merge!(iban: i)
         end
 
-        Cash.create_with(cash_attributes).find_or_create_by(main_account: main_account)
+        Cash.create_with(cash_attributes)
+            .find_or_create_by(main_account: main_account)
       end
 
       # @param [String] jou_code
@@ -397,15 +418,6 @@ module Sage
           Journal.of_provider_name(provider_vendor, provider_name)
                  .of_provider_data(:journal_code, code)
         end
-      end
-
-      # @param []
-      # @return [Account]
-      def create_account_by(sage_journal_entry_item)
-        sjei_acc_number = sage_journal_entry_item.attribute('COMPTE').value
-        sjei_acc_number = number_normalizer.normalize!(sjei_acc_number)
-
-        Account.find_or_create_by_number(sjei_acc_number, provider: provider_value(account_number: sjei_acc_number))
       end
 
       protected
