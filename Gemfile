@@ -216,6 +216,8 @@ gem 'bootstrap-slider-rails'
 
 gem 'gpgme'
 
+gem 'semantic'
+
 group :production do
   # Use unicorn as the app server
   gem 'unicorn'
