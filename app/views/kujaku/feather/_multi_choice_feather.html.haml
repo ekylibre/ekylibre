@@ -1,0 +1,8 @@
+%div.label-container
+    %label= label
+%div.value-container
+    - choices.each do |(label, value)|
+        %span.radio
+            %label{for: "#{name}_#{value}"}
+                = check_box_tag "#{name}[]", value
+                = label

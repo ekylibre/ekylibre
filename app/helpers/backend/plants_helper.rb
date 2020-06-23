@@ -48,8 +48,6 @@ module Backend
       configuration[:id] ||= name.to_s.gsub(/\W+/, '_').gsub(/(^_|_$)/, '')
       value ||= params[name] || options[:default]
 
-      code = ''
-      code << content_tag(:label, label_name || :period.tl, for: configuration[:id]) + ' '
       fy = FinancialYear.current
       params[name] = value ||= :all
       # params[:period] = value ||= :all # (fy ? fy.started_on.to_s + "_" + fy.stopped_on.to_s : :all)
@@ -77,6 +75,10 @@ module Backend
         list.insert(0, [(replacement.is_a?(Symbol) ? tl(replacement) : replacement.to_s), ''])
       end
 
+      code = ''
+      code << content_tag(:div, class: "label-container") do
+        content_tag(:label, label_name || :period.tl, for: configuration[:id]) + ' '
+      end
       code << select_tag(name, options_for_select(list, value), :id => custom_id, 'data-show-value' => "##{configuration[:id]}_")
 
       # if configuration[:custom]

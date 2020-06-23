@@ -4,11 +4,12 @@
 .feathers
   - kujaku.feathers.each_with_index do |feather, index|
     .feather{class: "feather-#{feather.feather_name.to_s.dasherize}"}
-      = feather.to_html
-      - if index.zero? && with_actions
-        = button_tag(data: {disable: true}, name: nil, class: "btn btn-default btn-filter") do
-          %i
-          = :search.tl
+      %div.feather-block
+        = feather.to_html
+        - if index.zero? && with_actions
+          = button_tag(data: {disable: true}, name: nil, class: "btn btn-default btn-filter") do
+            %i
+            = :search.tl
 
 - if with_actions
   .search-actions
