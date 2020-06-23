@@ -112,8 +112,8 @@ module Backend
         }
       end
 
-      # @param [RegisteredPhytosanitaryUsage] usage
-      # @param [Maybe<Integer>] usage_application
+      # @param [RegisteredPhytosanitaryUsage] usage
+      # @param [Maybe<Integer>] usage_applications
       def compare_applications_count(usage, usage_applications)
         return { none: '' } if usage.applications_count.nil? || usage_applications.is_none?
 
