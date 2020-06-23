@@ -35,7 +35,7 @@ fra:
       sale:
         aborted: "Devis abandonné"
         expired_quote: "Devis expiré"
-        expired_quote: "Devis brouillon"
+        draft_quote: "Devis brouillon"
         invoiced_and_paid_sale: "Vente facturée et payée"
         incoming_payment_different_from_the_amount_of_the_invoice: "Encaissement différent du montant de la facture"
         order: "Commande"
@@ -49,7 +49,6 @@ fra:
         price_quote: "Devis"
         prospecting: "Prospection"
         qualification: "Qualification"
-        price_quote: "Prospection"
         value_proposition: "Proposition de valeur"
         won: "Gagnée"
       tax_declaration:

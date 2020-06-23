@@ -478,7 +478,7 @@ class Sale < Ekylibre::Record::Base
     if invoice?
       if self.affair.closed?  
         "invoiced_and_paid_sale"
-      elsif self.affair.credit == 0
+      elsif self.affair.credit.zero?
         "unpaid_invoice"
       else
         "incoming_payment_different_from_the_amount_of_the_invoice"

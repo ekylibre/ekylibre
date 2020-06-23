@@ -54,7 +54,6 @@ module Backend
       t.action :destroy
       t.column :name, url: true
       t.column :nature
-      t.column :state
       t.status
       t.column :due_at
       t.column :executor, url: true
