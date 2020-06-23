@@ -34,17 +34,6 @@ module Interventions
         end
       end
 
-      # @param [Integer] applications
-      # @param [Integer] max_applications
-      # @return [Boolean]
-      def application_forbidden?(applications, max_applications:)
-        if intervention_to_ignore.nil?
-          applications >= max_applications
-        else
-          applications > max_applications
-        end
-      end
-
       # @param [Array<Models::ProductWithUsage>] products_usages
       # @return [Models::ProductApplicationResult]
       def validate(products_usages)
@@ -61,13 +50,13 @@ module Interventions
 
             if usage.nil? || (usage.applications_count == 1 && usage.applications_frequency.present?)
               result.vote_unknown(product)
-            elsif usage.applications_count.present? 
+            elsif usage.applications_count.present?
               max_applications = usage.applications_count
               maybe_applications = compute_usage_application(product)
 
               if maybe_applications.is_none?
                 result.vote_unknown(product)
-              elsif application_forbidden?(maybe_applications.get, max_applications: max_applications)
+              elsif maybe_applications.get >= max_applications
                 result.vote_forbidden(product, :applications_count_bigger_than_max.tl, on: :usage)
               end
             end
