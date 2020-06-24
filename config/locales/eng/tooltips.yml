@@ -32,6 +32,12 @@ eng:
       plant:
         go:  "In progress"
         stop: "Destroyed/Harvested"
+      product_nature_variant:
+        go: "Authorized"
+        stop: "Non authorized"
+      registered_phytosanitary_usage:
+        go: "Authorized"
+        stop: "Non authorized"
       sale:
         aborted: "Aborted quote"
         draft_quote: "Draft quote"

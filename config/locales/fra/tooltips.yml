@@ -32,6 +32,12 @@ fra:
       plant:
         go:  "En cours"
         stop: "Détruite/Récoltée"
+      product_nature_variant:
+        go: "Autorisé"
+        stop: "Non autorisé"
+      registered_phytosanitary_usage:
+        go: "Autorisé"
+        stop: "Non autorisé"
       sale:
         aborted: "Devis abandonné"
         expired_quote: "Devis expiré"
