@@ -15,9 +15,9 @@
   = t.new params: { redirect: nil }
   = t.export :loan_registry, key: Time.zone.now.to_s, resource: @loans
 
-  %span.btn-group.action-form.disabled
+  %span.btn-group.action-form
     - bookkeep_until = params[:until].to_s =~ /\A\d\d\d\d\-\d\d\-\d\d\z/ ? params[:until].to_date : (Time.zone.today - 1.month).end_of_month
-    = link_to :accounting.tl, { action: :bookkeep, until: bookkeep_until.iso8601, redirect: request.fullpath }, { class: 'btn btn-default', name: 'loan_ids', data: { confirm: :are_you_sure.tl, update_link_with: '#bookkeep-loans-until', complete_link_with_checked_row_ids: '#loans-list input[type="checkbox"]', enable_if_checked: 'any' }, method: :post }
+    = link_to :accounting.tl, { action: :bookkeep, until: bookkeep_until.iso8601, redirect: request.fullpath }, { class: 'btn btn-default', data: { confirm: :are_you_sure.tl, update_link_with: '#bookkeep-loans-until' }, method: :post }
     %span.add-on= :up_to.tl.downcase
     = date_field_tag(:until, bookkeep_until, id: 'bookkeep-loans-until', data: { max_date: Time.zone.today.iso8601 })
 

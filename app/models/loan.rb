@@ -171,7 +171,6 @@ class Loan < Ekylibre::Record::Base
     limit_on = Time.zone.today
     limit_on = [options[:until], limit_on].min if options[:until]
     repayments = LoanRepayment.bookkeepable_before(limit_on)
-    repayments = repayments.of_loans(options[:id]) if options[:id]
     count = repayments.count
     repayments.find_each { |repayment| repayment.update(accountable: true) }
     count
