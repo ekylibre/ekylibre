@@ -118,4 +118,8 @@ class RegisteredPhytosanitaryUsage < ActiveRecord::Base
       :stop
     end
   end
+
+  def human_status
+    I18n.t("tooltips.models.registered_phytosanitary_usage.#{status}")
+  end
 end
