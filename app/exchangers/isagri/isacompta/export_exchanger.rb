@@ -56,8 +56,32 @@ module Isagri
             # Adds missing accounts
             all_accounts = {}
             isa_fy.accounts.each do |isa_account|
-              unless account = Account.find_by(number: isa_account.number)
-                account = Account.create!(name: (isa_account.label.blank? ? isa_account.number : isa_account.label), number: isa_account.number, reconcilable: isa_account.reconcilable, last_letter: isa_account.letter, debtor: (isa_account.input_direction == 'de'), description: isa_account.to_s)
+              normalized = account_normalizer.normalize!(isa_account.number)
+              if (account = Account.find_by(number: normalized)).nil?
+                attributes = {
+                  name: (isa_account.label.blank? ? isa_account.number : isa_account.label),
+                  number: normalized,
+                  reconcilable: isa_account.reconcilable,
+                  last_letter: isa_account.letter,
+                  debtor: (isa_account.input_direction == 'de'),
+                  description: isa_account.to_s
+                }
+
+                if normalized.start_with?(client_account_radix) || normalized.start_with?(supplier_account_radix)
+                  aux_number = normalized[client_account_radix.length..-1]
+
+                  if aux_number.match(/\A0*\z/).present?
+                    raise StandardError, tl(:errors, :radical_class_number_unauthorized, number: normalized)
+                  end
+
+                  attributes = attributes.merge(
+                    centralizing_account_name: normalized.start_with?(client_account_radix) ? 'clients' : 'suppliers',
+                    auxiliary_number: aux_number,
+                    nature: 'auxiliary'
+                  )
+                end
+
+                account = Account.create!(**attributes)
               end
               all_accounts[isa_account.number] = account.id
               w.check_point
@@ -190,6 +214,22 @@ module Isagri
 
         true
       end
+
+      protected
+
+        def account_normalizer
+          @account_normalier ||= Accountancy::AccountNumberNormalizer.build
+        end
+
+        # @return [String]
+        def client_account_radix
+          @client_account_radix ||= Preference.value(:client_account_radix).presence || '411'
+        end
+
+        # @return [String]
+        def supplier_account_radix
+          @supplier_account_radix ||= Preference.value(:supplier_account_radix).presence || '401'
+        end
     end
   end
 end
