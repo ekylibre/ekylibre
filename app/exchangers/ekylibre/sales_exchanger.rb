@@ -101,7 +101,7 @@ module Ekylibre
       # change status of all new added purchases
       added_sales.each do |sale|
         sale.propose if sale.draft?
-        sale.confirm
+        sale.confirm(sale.invoiced_at)
         sale.invoice(sale.invoiced_at)
         w.check_point
       end
