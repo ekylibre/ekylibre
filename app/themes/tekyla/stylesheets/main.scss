@@ -1314,6 +1314,12 @@ html.backend {
           width: 108px;
           padding: 0px 42px;
         }
+        @media only screen and (min-width: 1600px) {
+          .label-container {
+            width: 202px;
+            padding: 0px 42px;
+          }
+        }
         .select-block--intervention {
           max-width: 75%;
           select#activity_id {

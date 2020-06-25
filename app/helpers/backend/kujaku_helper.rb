@@ -102,18 +102,6 @@ module Backend
           @name = @options.delete(:name) || :n
         end
 
-        def to_html
-          p = @template.current_user.pref("kujaku.feathers.#{@uid}.default", @template.params[@name])
-          @template.params[@name] ||= p.value
-          p.set!(@template.params[@name])
-          html = @template.content_tag(:label, @options[:label] || :minimum_amount.tl)
-          html << ' '.html_safe
-          html << @template.number_field_tag('minimum_amount', @template.params[:minimum_amount], min: 0, step: :any)
-          html << ' '.html_safe
-          html << @template.content_tag(:label, @options[:label] || :maximum_amount.tl)
-          html << ' '.html_safe
-          html << @template.number_field_tag('maximum_amount', @template.params[:maximum_amount], min: 0, step: :any)
-        end
       end
 
       class HiddenFeather < Feather
@@ -150,32 +138,6 @@ module Backend
             choices: choices
           }
         end
-
-        def to_html
-          first = @choices.first
-          @template.params[@name] ||= (first.is_a?(Array) ? first.first : first).to_s
-          scope = @options[:scope] || [:labels]
-          html = @template.content_tag(:label, @options[:label] || :state.tl)
-          default_value = @template.params[@name]
-          @choices.each do |choice|
-            if choice.is_a?(Array)
-              label = choice[0]
-              value = choice[1]
-            else
-              label = ::I18n.translate(choice, scope: scope)
-              value = choice
-            end
-            default_value ||= value.to_s
-            html << @template.content_tag(:span, class: 'radio') do
-              @template.content_tag(:label, for: "#{@name}_#{value}") do
-                @template.radio_button_tag(@name, value, default_value.to_s == value.to_s) <<
-                  ' '.html_safe <<
-                  label
-              end
-            end
-          end
-          html
-        end
       end
 
       # Multi choice feather permits to select multiple choice in a list
@@ -191,20 +153,6 @@ module Backend
             choices: @choices,
             label: @options[:label] || :state.tl
           }
-        end
-
-        def to_html
-          @template.params[@name] ||= []
-          html = @template.content_tag(:label, @options[:label] || :state.tl)
-          for human_name, choice in @choices
-            html << @template.content_tag(:span, class: 'radio') do
-              @template.content_tag(:label, for: "#{@name}_#{choice}") do
-                @template.check_box_tag("#{@name}[]", choice, @template.params[@name].include?(choice.to_s), id: "#{@name}_#{choice}") <<
-                  ' '.html_safe << human_name
-              end
-            end
-          end
-          html
         end
       end
 
@@ -223,16 +171,6 @@ module Backend
             selection: @template.options_for_select(@selection, @options[:selected] || @template.params[@name])
           }
         end
-
-        def to_html
-          @template.params[@name] ||= @selection.first.second if @selection && @selection.first
-          html = @template.content_tag(:label, @options[:label] || :options.tl)
-          html << ' '.html_safe
-          html << @template.content_tag(:span, class: :slc) do
-            @template.select_tag(@name, @template.options_for_select(@selection, @options[:selected] || @template.params[@name]))
-          end
-          html
-        end
       end
 
       # Date search field
@@ -249,12 +187,6 @@ module Backend
           }
         end
 
-        def to_html
-          html = @template.content_tag(:label, @options[:label] || :select_date.tl)
-          html << ' '.html_safe
-          html << @template.date_field_tag(@name, @template.params[@name])
-          html
-        end
       end
 
       # Custom search field based on rendering helper method
