@@ -334,6 +334,7 @@ module ApplicationHelper
       title = Some(value)
     elsif attribute.to_s =~ /(^|_)currency$/
       value = Nomen::Currency[value].human_name
+      title = Some(value)
     elsif attribute.to_s =~ /^state$/ && !options[:force_string]
       value = I18n.translate("models.#{model_name}.states.#{value}")
       title = Some(value)
@@ -352,11 +353,13 @@ module ApplicationHelper
       minutes = (duration / 60 - 60 * hours).floor.to_i
       seconds = (duration - 60 * minutes - 3600 * hours).round.to_i
       value = :duration_in_hours_and_minutes.tl(hours: hours, minutes: minutes, seconds: seconds)
+      title = Some(value)
       value = link_to(value.to_s, options[:url]) if options[:url]
     elsif value.is_a? String
       classes = []
       classes << 'code' if attribute.to_s == 'code'
       classes << value.class.name.underscore
+      title = Some(value)
       value = link_to(value.to_s, options[:url]) if options[:url]
       value = content_tag(:div, value.html_safe, class: classes.join(' '))
     end
@@ -398,7 +401,7 @@ module ApplicationHelper
     if items.any?
       items.each do |item|
         label, value, title = if item[0] == :custom
-                                attribute_item(*item[1])
+                                [*attribute_item(*item[1])[0..1], None()]
                               elsif item[0] == :attribute
                                 attribute_item(record, *item[1])
                               end
