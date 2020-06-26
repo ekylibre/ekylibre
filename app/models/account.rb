@@ -293,11 +293,13 @@ class Account < Ekylibre::Record::Base
       options = args.extract_options!
       number = args.shift.to_s.strip
       options[:name] ||= args.shift
+      account = find_by(number: number)
+      return account if account.present?
       numbers = Nomen::Account.items.values.collect { |i| i.send(accounting_system) }
       padded_number = Accountancy::AccountNumberNormalizer.build_deprecated_for_account_creation.normalize!(number)
       number = padded_number unless numbers.include?(number) || options[:already_existing]
       item = Nomen::Account.items.values.find { |i| i.send(accounting_system) == padded_number }
-      account = find_by(number: number) || find_by(number: padded_number)
+      account = find_by(number: padded_number)
       if account
         if item && !account.usages_array.include?(item)
           account.usages ||= ''
