@@ -28,7 +28,7 @@ module ActiveExchanger
         value = value.blank? ? nil : transform(value, type)
         valid = constraint ? validate(value, constraint) : true
 
-        invalid_fields << key if valid === false
+        invalid_fields << key if valid == false
         h[key] = value
       end
 

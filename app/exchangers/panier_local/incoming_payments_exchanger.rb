@@ -165,7 +165,7 @@ module PanierLocal
 
     def open_and_decode_file(file)
       # Open and Decode: CSVReader::read(file)
-      rows = ActiveExchanger::CsvReader.new.read(file)
+      rows = ActiveExchanger::CsvReader.new(col_sep: ';').read(file)
       parser = ActiveExchanger::CsvParser.new(NORMALIZATION_CONFIG)
 
       parser.normalize(rows)
