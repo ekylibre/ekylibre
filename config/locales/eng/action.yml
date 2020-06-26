@@ -1377,6 +1377,7 @@ eng:
     activity: "Activity"
     activity_production: "Activity production"
     activity_productions: "Activity productions"
+    accumulated_stock: "Accumulated stock of %{name}"
     add: "Add"
     add_a_repayment: "Add a loan repayment"
     add_a_worker: "Add a worker"
