@@ -4,12 +4,14 @@
   - categories = ProductNatureCategory.all
   - if categories.any?
     - k.helper do
-      %label= ProductNatureVariant.human_attribute_name(:category)
+      %div.label-container
+        %label= ProductNatureVariant.human_attribute_name(:category)
       = select_tag(:category_id, options_for_select([[]] + categories.order(:name).collect{|u| [u.name, u.id]}, params[:category_id]))
   - natures = ProductNature.all
   - if natures.any?
     - k.helper do
-      %label= ProductNatureVariant.human_attribute_name(:nature)
+      %div.label-container
+        %label= ProductNatureVariant.human_attribute_name(:nature)
       = select_tag(:nature_id, options_for_select([[]] + natures.order(:name).collect{|u| [u.name, u.id]}, params[:nature_id]))
 
 - main_toolbar do |t|

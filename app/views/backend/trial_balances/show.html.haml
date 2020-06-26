@@ -29,12 +29,13 @@
   - k.helper do
     %div.label-container
       %label= :display_accounts.tl
-    = radio_button_tag :balance, 'all', !params[:balance] || params[:balance] == 'all'
-    %label= :all.tl
-    = radio_button_tag :balance, 'balanced', params[:balance] == 'balanced'
-    %label= :balanced.tl
-    = radio_button_tag :balance, 'unbalanced', params[:balance] == 'unbalanced'
-    %label= :unbalanced.tl
+    %div.value-container
+      = radio_button_tag :balance, 'all', !params[:balance] || params[:balance] == 'all'
+      %label= :all.tl
+      = radio_button_tag :balance, 'balanced', params[:balance] == 'balanced'
+      %label= :balanced.tl
+      = radio_button_tag :balance, 'unbalanced', params[:balance] == 'unbalanced'
+      %label= :unbalanced.tl
   - k.helper :accounts_range_crit
   - k.helper do
     - centralized_account = Nomen::Account.select { |a| a.centralizing }.collect {|a| a.send(Account.accounting_system)}.sort.join(" ")
@@ -45,10 +46,11 @@
     - max = Account.maximum("LENGTH(TRIM(number))").to_i
     %div.label-container
       %label= :subtotals_at_level.tl
-    - for level in 1..max-1
-      - name = "level_#{level}"
-      = check_box_tag(name, "1", params[name]=="1")
-      %label{ for: name }= level
+    %div.value-container
+      - for level in 1..max-1
+        - name = "level_#{level}"
+        = check_box_tag(name, "1", params[name]=="1")
+        %label{ for: name }= level
 - if @balance
   - currency = Preference[:currency]
   .active-list

@@ -1320,6 +1320,15 @@ html.backend {
             padding: 0px 42px;
           }
         }
+        .value-container {
+          span.radio {
+            display: inline-block;
+            margin-left: 0;
+          }
+        }
+        .value-container--journal-nature-crit {
+          max-width: 70%;
+        }
         .select-block--intervention {
           max-width: 75%;
           select#activity_id {
