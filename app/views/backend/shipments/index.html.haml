@@ -16,7 +16,8 @@
 
   - if responsibles.any?
     - k.helper do
-      %label= Shipment.human_attribute_name(:responsible)
+      %div.label-container
+        %label= Shipment.human_attribute_name(:responsible)
       = select_tag(:responsible_id, options_for_select([[]] +  responsibles.map{|u| [u.label, u.id]}, params[:responsible_id].to_i))
 
   -# - senders = Entity.all

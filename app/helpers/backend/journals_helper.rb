@@ -220,18 +220,23 @@ module Backend
         end
       end
       no_state = !states.detect { |x| params[:states].key?(x) }
-      for state in states
-        key = state.to_s
-        name = "states[#{key}]"
-        id = "states_#{key}"
-        if active = (params[:states][key] == '1' || no_state)
-          params[:states][key] = '1'
-        else
-          params[:states].delete(key)
-        end
+      code << content_tag(:div, class: "value-container") do
+        states.map do |state|
+          key = state.to_s
+          name = "states[#{key}]"
+          id = "states_#{key}"
+          if active = (params[:states][key] == '1' || no_state)
+            params[:states][key] = '1'
+          else
+            params[:states].delete(key)
+          end
 
-        code << ' ' << check_box_tag(name, '1', active, id: id)
-        code << ' ' << content_tag(:label, JournalEntry.state_label(state), for: id)
+          content_tag(:span, class: "radio") do
+            content_tag(:label, for: id) do 
+              check_box_tag(name, '1', active, id: id) + JournalEntry.state_label(state)
+            end
+          end
+        end.join.html_safe
       end
       code.html_safe
     end
@@ -245,19 +250,25 @@ module Backend
       natures = Journal.nature.values.map(&:to_sym)
       params[:natures] = {} unless params[:natures].is_a? Hash
       no_nature = !natures.detect { |x| params[:natures].key?(x) }
-      natures.each do |nature|
-        key = nature.to_s
-        name = "natures[#{key}]"
-        id = "natures_#{key}"
-        if (active = (params[:natures][key] == '1' || no_nature))
-          params[:natures][key] = '1'
-        else
-          params[:natures].delete(key)
-        end
-        code << ' ' << check_box_tag(name, '1', active, id: id)
-        code << ' ' << content_tag(:label, Journal.nature_label(nature), for: id)
-      end
+              
+      code << content_tag(:div, class: "value-container value-container--journal-nature-crit") do
+        natures.map do |nature|
+          key = nature.to_s
+          name = "natures[#{key}]"
+          id = "natures_#{key}"
+          if (active = (params[:natures][key] == '1' || no_nature))
+            params[:natures][key] = '1'
+          else
+            params[:natures].delete(key)
+          end
 
+          content_tag(:span, class: "radio") do
+            content_tag(:label, for: id) do 
+              check_box_tag(name, '1', active, id: id) + Journal.nature_label(nature)
+            end
+          end
+        end.join.html_safe
+      end
       code.html_safe
     end
 
