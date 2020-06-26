@@ -57,18 +57,9 @@ class ProductLocalization < Ekylibre::Record::Base
   scope :of_product_varieties, lambda { |*varieties|
     joins(:product).merge(Product.of_variety(*varieties))
   }
-  
 
   before_validation do
-    if container
-      self.nature ||= (container.owner.nil? || container.owner == Entity.of_company ? :interior : :exterior)
-    else
-      self.nature = :exterior unless transfer?
-    end
-  end
-
-  before_save do
-    self.container = nil unless interior?
+    self.nature = container.present? ? :interior : :exterior
   end
 
   after_save do
