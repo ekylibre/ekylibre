@@ -8,11 +8,11 @@ module Backend
         coordinates = params[:centroid]
 
         # We try to get weather from cultivable zones
-        coordinates ||= CultivableZone.geom_union(:shape).centroid
+        coordinates ||= CultivableZone.geom_union_centroid(:shape)
 
         # We use the 5days forecast free from openwheathermap
         if coordinates.present?
-          json = weather_client.fetch_forecast(coordinates)
+          json = weather_client.fetch_forecast([coordinates.y, coordinates.x])
 
           @forecast = json.fmap { |j| build_forecast j }.or_nil
         end
