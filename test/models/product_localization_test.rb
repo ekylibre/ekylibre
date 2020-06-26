@@ -42,5 +42,39 @@ require 'test_helper'
 
 class ProductLocalizationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
-  # Add tests here...
+
+  test 'localization is interior if a container is provided' do
+    zone = create :building_division
+    product = create :fertilizer_product
+
+    localization = ProductLocalization.create!(
+      product: product,
+      container: zone
+    )
+    assert localization.interior?
+  end
+
+  test 'localization is interior if a container is provided even if it does not belong to the company' do
+    zone = create :building_division, initial_owner: create(:entity)
+    product = create :fertilizer_product
+
+    localization = ProductLocalization.create!(
+      product: product,
+      container: zone
+    )
+    assert localization.interior?
+  end
+
+
+  test 'localization is exterior if no container are provided' do
+    product = create :fertilizer_product
+
+    localization = ProductLocalization.create!(
+      product: product,
+      container: nil
+    )
+    assert localization.exterior?
+  end
+
+
 end
