@@ -1881,6 +1881,7 @@ eng:
     employee_and_wages: "Employee and wages"
     employee_informations: "Employee informations"
     employee_involvement: "Employee involvement in results (VII)"
+    empty_shape: "Support shape can't be empty"
     end: "to"
     entities: "Entities"
     entities_advance_charges: "entities_advance_charges"

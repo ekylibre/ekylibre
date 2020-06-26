@@ -93,6 +93,9 @@ class ActivityProduction < Ekylibre::Record::Base
   validates :support_nature, presence: { if: :plant_farming? }
   validates :campaign, :stopped_on, presence: { if: :annual? }
   validates :started_on, presence: true
+  validates :support, presence: true
+  validates_associated :support
+
   # validates_numericality_of :size_value, greater_than: 0
   # validates_presence_of :size_unit, if: :size_value?
 
@@ -189,10 +192,6 @@ class ActivityProduction < Ekylibre::Record::Base
   before_validation(on: :create) do
     self.state ||= :opened
     true
-  end
-
-  validate do
-    errors.add(:support_shape, :empty) if plant_farming? && support_shape && support_shape.empty?
   end
 
   after_save do
