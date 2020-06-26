@@ -30,6 +30,7 @@ module Ekylibre
           rgf93: 2154
         }.freeze
 
+        # BUG: does not handle polygons with holes in them. If you need the centroid, use `geom_union_centroid` that let Postgis do everything
         def geom_union(column_name)
           plucked_ids = pluck(:id).join(',')
 
@@ -38,6 +39,18 @@ module Ekylibre
           else
             conn = connection
             Charta.new_geometry(conn.select_value('SELECT ST_AsEWKT(ST_Union(' + conn.quote_column_name(column_name) + ')) FROM ' + conn.quote_table_name(table_name) + ' WHERE id in (' + plucked_ids + ')'))
+          end
+        end
+
+        # More robust implementation of geom_union(:column_name).centroid that does everything in Postgis and handles weird geometries that RGeo does not.
+        def geom_union_centroid(column_name)
+          plucked_ids = pluck(:id).join(',')
+
+          if plucked_ids.blank?
+            Charta.empty_geometry
+          else
+            conn = connection
+            Charta.new_feature(conn.select_value('SELECT ST_AsEWKT(ST_Centroid(ST_Union(' + conn.quote_column_name(column_name) + '))) FROM ' + conn.quote_table_name(table_name) + ' WHERE id in (' + plucked_ids + ')'))
           end
         end
 
