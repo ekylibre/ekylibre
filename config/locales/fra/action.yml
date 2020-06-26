@@ -1075,6 +1075,7 @@ fra:
     activity: "Activités"
     activity_production: "Production"
     activity_productions: "Productions"
+    accumulated_stock: "Cumul des stocks de %{name}"
     add: "Ajouter"
     add_a_repayment: "Ajouter une échéance"
     add_a_worker: "Ajouter un équipier"
