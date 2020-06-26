@@ -1675,6 +1675,7 @@ fra:
     employee_informations: "Informations sociales"
     employee_involvement: "Participation des salariés aux résultats (VII)"
     employee_name: "Employé" #?
+    empty_shape: "La forme du support ne peut pas être vide"
     end: "au"
     entities: "Tiers"
     entities_advance_charges: "Charges constatées d'avance"

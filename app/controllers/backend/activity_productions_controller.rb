@@ -62,5 +62,15 @@ module Backend
         @reentry_possible = harvest_advisor.reentry_possible?(@activity_production.support, Time.zone.now)
       end
     end
+
+    def create
+      begin
+        super
+
+      rescue ActiveRecord::RecordInvalid
+        notify_error_now(:empty_shape.tl)
+        render :new
+      end
+    end
   end
 end
