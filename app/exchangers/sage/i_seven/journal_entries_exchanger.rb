@@ -2,8 +2,6 @@
 module Sage
   module ISeven
     class JournalEntriesExchanger < ActiveExchanger::Base
-      self.deprecated = true # So that the exchanger does not appear in the list
-
       JOURNAL_CODE_CLOSING = "SAGC"
       JOURNAL_CODE_FORWARD = "SAGF"
 
@@ -62,8 +60,8 @@ module Sage
         accounts
           .select { |_k, account| account.auxiliary? }
           .each do |sage_number, entity_account|
-            find_or_create_entity(file_info.period_started_on, entity_account, sage_number)
-          end
+          find_or_create_entity(file_info.period_started_on, entity_account, sage_number)
+        end
 
         entries = entries_items(file_info.doc, financial_year)
         w.count = entries.count
@@ -72,7 +70,7 @@ module Sage
           w.check_point
         end
       rescue Accountancy::AccountNumberNormalizer::NormalizationError
-        raise StandardError, "The account number length cant't be different from your own settings"
+        raise StandardError, tl(:errors, :incorrect_account_number_length)
       end
 
       private
@@ -128,7 +126,7 @@ module Sage
       def find_account_by_provider(account_number)
         unwrap_one('account') do
           Account.of_provider_name(provider_vendor, provider_name)
-                .of_provider_data(:account_number, account_number)
+                 .of_provider_data(:account_number, account_number)
         end
       end
 
@@ -157,7 +155,7 @@ module Sage
           aux_number = acc_number[client_account_radix.length..-1]
 
           if aux_number.match(/\A0*\z/).present?
-            raise StandardError, "Can't create account. Number provided (#{aux_number}) can't be a radical class"
+            raise StandardError, tl(:errors, :radical_class_number_unauthorized, number: acc_number)
           end
 
           attrs = attrs.merge(
@@ -185,9 +183,9 @@ module Sage
       # @return [Entity]
       def find_or_create_entity(period_started_on, acc, sage_account_number)
         entity = Maybe(find_entity_by_provider(sage_account_number))
-          .recover { find_entity_by_account(acc) }
-          .recover { create_entity(period_started_on, acc, sage_account_number) }
-          .or_raise
+                   .recover { find_entity_by_account(acc) }
+                   .recover { create_entity(period_started_on, acc, sage_account_number) }
+                   .or_raise
 
         if entity.first_met_at.nil? || (period_started_on && period_started_on < entity.first_met_at.to_date)
           entity.update!(first_met_at: period_started_on.to_datetime)
@@ -214,7 +212,7 @@ module Sage
           elsif account.centralizing_account_name == "suppliers"
             Entity.where(supplier_account: account)
           else
-            raise StandardError, "Unreachable code!"
+            raise StandardError, tl(:errors, :unreachable_code)
           end
         end
       end
@@ -244,11 +242,10 @@ module Sage
             supplier_account_id: account.id
           }
         else
-          raise StandardError, "Unreachable code!"
+          raise StandardError, tl(:errors, :unreachable_code)
         end
 
         Entity.create!(attrs)
-
       end
 
       # @param [String] sage_nature
@@ -266,7 +263,7 @@ module Sage
       end
 
       # @param [Date] printed_on
-      # @param [Date] stopped_on
+      # @param [Date] started_on
       # @param [String] state
       # @return [Boolean]
       def is_forward_entry?(printed_on, started_on, state)
@@ -288,7 +285,7 @@ module Sage
 
           journal = find_or_create_journal(jou_code, jou_name, nature)
 
-          create_cash(sage_journal, journal) if is_bank?(jou_nature)
+          find_or_create_cash(sage_journal, journal) if is_bank?(jou_nature)
 
           sage_journal.css('PIECE').each_with_index do |sage_journal_entry, index|
             printed_on = sage_journal_entry.attribute('DATEECR').value.to_date
@@ -307,11 +304,12 @@ module Sage
                         end
 
             attributes = sage_journal_entry.css('LIGNE').map do |sage_journal_entry_item|
-              sjei_account = create_account_by(sage_journal_entry_item)
-
               sjei_label = sage_journal_entry_item.attribute('LIBMANU').value
               sjei_amount = sage_journal_entry_item.attribute('MONTANTREF').value
               sjei_direction = sage_journal_entry_item.attribute('SENS').value # 1 = D / -1 = C
+
+              account_number = sage_journal_entry_item.attribute('COMPTE').value
+              sjei_account = find_or_create_account(account_number, sjei_label)
 
               {
                 real_debit: (sjei_direction == '1' ? sjei_amount.to_f : 0.0),
@@ -337,25 +335,46 @@ module Sage
 
       # @param [] sage_journal
       # @param [Journal] journal
+      def find_or_create_cash(sage_journal, journal)
+        number = sage_journal.attribute('CMPTASSOCIE').value
+        raw_iban = sage_journal.attribute('IBANPAPIER').value.delete(' ')
+        iban = if raw_iban.present? && raw_iban.start_with?('IBAN')
+                 Some(raw_iban[4..-1])
+               else
+                 None()
+               end
+
+        Maybe(find_cash_by_provider(number))
+          .recover { create_cash(number, journal: journal, iban: iban) }
+      end
+
+      def find_cash_by_provider(account_number)
+        unwrap_one(:cash) do
+          Cash.of_provider_name(provider_vendor, provider_name)
+              .of_provider_data('account_number', account_number)
+        end
+      end
+
+      # @param [String] account_number
+      # @param [Journal] journal
+      # @param [Maybe<String>] iban
       # @return [Cash]
-      def create_cash(sage_journal, journal)
-        jou_account = sage_journal.attribute('CMPTASSOCIE').value
-        jou_account = number_normalizer.normalize!(jou_account)
-        main_account = Account.find_or_create_by_number(jou_account)
+      def create_cash(account_number, journal:, iban:)
+        main_account = find_or_create_account(account_number, journal.name)
 
         cash_attributes = {
           name: 'enumerize.cash.nature.bank_account'.t,
           nature: 'bank_account',
           journal: journal,
-          provider: provider_value(account_number: jou_account)
+          provider: provider_value(account_number: account_number)
         }
 
-        jou_iban = sage_journal.attribute('IBANPAPIER').value.delete(' ')
-        if jou_iban.present? && jou_iban.start_with?('IBAN')
-          cash_attributes.merge!(iban: jou_iban[4..-1])
+        iban.fmap do |i|
+          cash_attributes.merge!(iban: i)
         end
 
-        Cash.create_with(cash_attributes).find_or_create_by(main_account: main_account)
+        Cash.create_with(cash_attributes)
+            .find_or_create_by(main_account: main_account)
       end
 
       # @param [String] jou_code
@@ -376,7 +395,7 @@ module Sage
         journal = unwrap_one('journal') { Journal.where(name: name) }
 
         if journal.present? && journal.nature != expected_nature
-          raise StandardError, "Expected journal #{name} to be of nature #{expected_nature}, but found #{journal.nature}"
+          raise StandardError, tl(:errors, :expected_nature_journal, name: name, expected_nature: expected_nature, nature: journal.nature)
         end
 
         journal
@@ -397,15 +416,6 @@ module Sage
           Journal.of_provider_name(provider_vendor, provider_name)
                  .of_provider_data(:journal_code, code)
         end
-      end
-
-      # @param []
-      # @return [Account]
-      def create_account_by(sage_journal_entry_item)
-        sjei_acc_number = sage_journal_entry_item.attribute('COMPTE').value
-        sjei_acc_number = number_normalizer.normalize!(sjei_acc_number)
-
-        Account.find_or_create_by_number(sjei_acc_number, provider: provider_value(account_number: sjei_acc_number))
       end
 
       protected

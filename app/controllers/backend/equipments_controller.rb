@@ -50,6 +50,7 @@ module Backend
       t.column :name, url: true
       t.column :born_at
       t.status
+      t.column :state, hidden: true
       t.column :container, url: true
     end
   end

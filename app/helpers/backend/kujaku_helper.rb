@@ -69,7 +69,7 @@ module Backend
         end
 
         def to_html
-          raise NotImplementedError
+          @template.render("kujaku/feather/#{self.class.name.demodulize.underscore}", **vars)
         end
 
         def inspect
@@ -83,14 +83,17 @@ module Backend
           @name = @options.delete(:name) || :q
         end
 
-        def to_html
+        def vars
           p = @template.current_user.pref("kujaku.feathers.#{@uid}.default", @template.params[@name])
-          @template.params[@name] ||= p.value
-          p.set!(@template.params[@name])
-          html = @template.content_tag(:label, @options[:label] || :search.tl)
-          html << ' '.html_safe
-          html << @template.text_field_tag(@name, @template.params[@name])
-          html
+          value = @template.params[@name] || p.value
+          p.set!(value)
+
+          {
+            label: @options[:label] || :search.tl,
+            name: @name,
+            name_value: value,
+            preference: @template.current_user.pref("kujaku.feathers.#{@uid}.default", @template.params[@name])
+          }
         end
       end
 
@@ -99,18 +102,6 @@ module Backend
           @name = @options.delete(:name) || :n
         end
 
-        def to_html
-          p = @template.current_user.pref("kujaku.feathers.#{@uid}.default", @template.params[@name])
-          @template.params[@name] ||= p.value
-          p.set!(@template.params[@name])
-          html = @template.content_tag(:label, @options[:label] || :minimum_amount.tl)
-          html << ' '.html_safe
-          html << @template.number_field_tag('minimum_amount', @template.params[:minimum_amount], min: 0, step: :any)
-          html << ' '.html_safe
-          html << @template.content_tag(:label, @options[:label] || :maximum_amount.tl)
-          html << ' '.html_safe
-          html << @template.number_field_tag('maximum_amount', @template.params[:maximum_amount], min: 0, step: :any)
-        end
       end
 
       class HiddenFeather < Feather
@@ -130,30 +121,22 @@ module Backend
           @choices = args
         end
 
-        def to_html
-          first = @choices.first
-          @template.params[@name] ||= (first.is_a?(Array) ? first.first : first).to_s
+        def vars
           scope = @options[:scope] || [:labels]
-          html = @template.content_tag(:label, @options[:label] || :state.tl)
-          default_value = @template.params[@name]
-          @choices.each do |choice|
+          #@type [Arrray<Array{String, String}>] choices
+          choices = @choices.map do |choice|
             if choice.is_a?(Array)
-              label = choice[0]
-              value = choice[1]
+              choice
             else
-              label = ::I18n.translate(choice, scope: scope)
-              value = choice
-            end
-            default_value ||= value.to_s
-            html << @template.content_tag(:span, class: 'radio') do
-              @template.content_tag(:label, for: "#{@name}_#{value}") do
-                @template.radio_button_tag(@name, value, default_value.to_s == value.to_s) <<
-                  ' '.html_safe <<
-                  label
-              end
+              [::I18n.translate(choice, scope: scope), choice]
             end
           end
-          html
+          {
+            label: @options[:label] || :state.tl,
+            name: @name,
+            default_value: @template.params[@name],
+            choices: choices
+          }
         end
       end
 
@@ -164,18 +147,12 @@ module Backend
           @name = args.shift || @options.delete(:name) || :c
         end
 
-        def to_html
-          @template.params[@name] ||= []
-          html = @template.content_tag(:label, @options[:label] || :state.tl)
-          for human_name, choice in @choices
-            html << @template.content_tag(:span, class: 'radio') do
-              @template.content_tag(:label, for: "#{@name}_#{choice}") do
-                @template.check_box_tag("#{@name}[]", choice, @template.params[@name].include?(choice.to_s), id: "#{@name}_#{choice}") <<
-                  ' '.html_safe << human_name
-              end
-            end
-          end
-          html
+        def vars
+          {
+            name: @name,
+            choices: @choices,
+            label: @options[:label] || :state.tl
+          }
         end
       end
 
@@ -187,14 +164,12 @@ module Backend
           @name = args.shift || @options.delete(:name) || :o
         end
 
-        def to_html
-          @template.params[@name] ||= @selection.first.second if @selection && @selection.first
-          html = @template.content_tag(:label, @options[:label] || :options.tl)
-          html << ' '.html_safe
-          html << @template.content_tag(:span, class: :slc) do
-            @template.select_tag(@name, @template.options_for_select(@selection, @options[:selected] || @template.params[@name]))
-          end
-          html
+        def vars
+          {
+            name: @name,
+            label: @options[:label] || :options.tl,
+            selection: @template.options_for_select(@selection, @options[:selected] || @template.params[@name])
+          }
         end
       end
 
@@ -204,12 +179,14 @@ module Backend
           @name = args.shift || @options.delete(:name) || :d
         end
 
-        def to_html
-          html = @template.content_tag(:label, @options[:label] || :select_date.tl)
-          html << ' '.html_safe
-          html << @template.date_field_tag(@name, @template.params[@name])
-          html
+        def vars
+          {
+            name: @name,
+            label: @options[:label] || :select_date.tl,
+            value: value = @template.params[@name]
+          }
         end
+
       end
 
       # Custom search field based on rendering helper method

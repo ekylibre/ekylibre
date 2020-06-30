@@ -8,7 +8,8 @@
   - responsibles = User.where(id: PurchaseOrder.select(:responsible_id).distinct)
   - if responsibles.any?
     - k.helper do
-      %label= PurchaseOrder.human_attribute_name(:responsible)
+      %div.label-container
+        %label= PurchaseOrder.human_attribute_name(:responsible)
       = select_tag(:responsible_id, options_for_select([[]] +  responsibles.map{|u| [u.label, u.id]}, params[:responsible_id].to_i))
 - main_toolbar do |t|
   = t.new params: { redirect: nil }

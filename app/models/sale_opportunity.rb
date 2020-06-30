@@ -134,15 +134,19 @@ class SaleOpportunity < SaleAffair
     end
   end
 
-  # Prints human name of current state
-  def state_label
-    self.class.state_machine.state(self.state.to_sym).human_name
-  end
-
   # Returns timeleft in seconds of the sale opportunities
   def timeleft(at = Time.zone.now)
     return nil if dead_line_at.nil? || dead_line_at <= at
     (dead_line_at - at)
+  end
+
+  def human_status
+    I18n.t("tooltips.models.sale_opportunity.#{state}")
+  end
+
+  # Prints human name of current state
+  def state_label
+    self.class.state_machine.state(self.state.to_sym).human_name
   end
 
   # Returns age in seconds of the sale opportunities

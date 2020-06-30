@@ -114,7 +114,7 @@ class Shipment < Parcel
   end
 
   protect on: :destroy do
-    prepared? || given?
+    given?
   end
 
   bookkeep
@@ -142,6 +142,12 @@ class Shipment < Parcel
     update_columns(values)
     super
   end
+
+  # Prints human name of current state
+  def state_label
+    self.class.state_machine.state(self.state.to_sym).human_name
+  end
+
 
   def check
     state = true
@@ -173,7 +179,7 @@ class Shipment < Parcel
   end
 
   def allow_items_update?
-    !prepared? && !given?
+    !given?
   end
 
   class << self

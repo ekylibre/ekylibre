@@ -119,10 +119,14 @@ module Printers
           end
         end
 
+        # @todo Get rid of this method and do good documents that don't have an empty page at the end...
         def remove_empty_tailing_page(pdf_path)
           pdf = CombinePDF.load(pdf_path)
-          pdf.remove(pdf.pages.count - 1)
-          pdf.save pdf_path
+
+          if pdf.pages.count > 1
+            pdf.remove(pdf.pages.count - 1)
+            pdf.save pdf_path
+          end
         end
 
         def fill_checks(pdf_path, checks)

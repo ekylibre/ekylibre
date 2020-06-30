@@ -123,7 +123,8 @@
                 try
                   element.mapeditor "view", "edit"
             else if element.is('select')
-              element.find("option[value='#{value}']")[0].selected = true
+              v = if value == null then '' else value
+              element.find("option[value='#{v}']")[0].selected = true
             else
               valueType = typeof value
               update = true
@@ -887,6 +888,23 @@
             $(e.currentTarget).find('.duplicate-intervention').remove()
             $(e.currentTarget).find('.modal-footer').append(data)
 
+
+    $(document).on 'click', '.duplicate-intervention', (e) =>
+      e.stopImmediatePropagation();
+      interventions = $(e.currentTarget).data().interventions
+      $.ajax
+        url: '/backend/interventions/duplicate_interventions'
+        data: { interventions: interventions }
+        success: (data) =>
+          if $('#taskboard-modal').length > 0
+            interventionModal = new ekylibre.modal('#taskboard-modal')
+            interventionModal.getModal().modal 'hide'
+          else
+            interventionModal = new ekylibre.modal('#create-intervention-modal')
+            interventionModal.getModal().modal 'hide'
+          $('#wrap').after(data)
+          duplicateModal = new ekylibre.modal('#duplicate-modal')
+          duplicateModal.getModal().modal 'show'
 
     $(document).on 'click', '#duplicate-modal #validate-duplication', (e) =>
       e.stopImmediatePropagation();

@@ -110,6 +110,10 @@ class Equipment < Matter
     :go
   end
 
+  def human_status
+    I18n.t("tooltips.models.equipment.#{status}")
+  end
+
   def wear_status(component = nil)
     if component.nil?
       # To take into account the tear&wear of the components.
@@ -357,6 +361,10 @@ class Equipment < Matter
     )
   end
 
+  def state
+    I18n.t("tooltips.models.equipment.#{status}")
+  end
+
   protected
 
   def interpolations(lifespan)
@@ -373,4 +381,5 @@ class Equipment < Matter
       remaining_time: lifespan.in(:hour).round(2).l(precision: 0)
     }
   end
+
 end

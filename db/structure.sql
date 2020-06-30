@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.16
--- Dumped by pg_dump version 12.1 (Ubuntu 12.1-1.pgdg16.04+1)
+-- Dumped from database version 9.6.18
+-- Dumped by pg_dump version 12.3 (Ubuntu 12.3-1.pgdg16.04+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1702,7 +1702,8 @@ CREATE TABLE public.cashes (
     suspend_until_reconciliation boolean DEFAULT false NOT NULL,
     suspense_account_id integer,
     by_default boolean DEFAULT false,
-    enable_bookkeep_bank_item_details boolean DEFAULT false
+    enable_bookkeep_bank_item_details boolean DEFAULT false,
+    provider jsonb
 );
 
 
@@ -9737,6 +9738,13 @@ ALTER TABLE ONLY public.wice_grid_serialized_queries
 --
 
 CREATE INDEX account_provider_index ON public.accounts USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
+-- Name: cash_provider_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX cash_provider_index ON public.cashes USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
 
 
 --
@@ -19302,4 +19310,6 @@ INSERT INTO schema_migrations (version) VALUES ('20200512091803');
 INSERT INTO schema_migrations (version) VALUES ('20200515092158');
 
 INSERT INTO schema_migrations (version) VALUES ('20200611090747');
+
+INSERT INTO schema_migrations (version) VALUES ('20200622101923');
 

@@ -12,6 +12,7 @@ module Backend
       t.column :emitted_on
       t.column :amount, currency: true, on_select: :sum
       t.status
+      t.column :state_label, hidden: true
       t.column :affair_balance, currency: true, on_select: :sum, hidden: true
       t.column :started_on
       t.column :stopped_on

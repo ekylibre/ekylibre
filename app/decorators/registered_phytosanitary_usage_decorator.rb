@@ -28,6 +28,10 @@ class RegisteredPhytosanitaryUsageDecorator < Draper::Decorator
     object.pre_harvest_delay ? "#{object.pre_harvest_delay.in_full(:day)} j" : nil
   end
 
+  def applications_frequency
+    object.applications_frequency ? "#{object.applications_frequency.in_full(:day)} j" : nil
+  end
+
   def value_in_days(col)
     value = object.send(col)
 

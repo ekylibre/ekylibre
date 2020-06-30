@@ -8,7 +8,10 @@ module Sage
           FinancialYear.delete_all
           create(:financial_year, year: 2018)
           Preference.set!(:account_number_digits, 9)
-          Sage::ISeven::JournalEntriesExchanger.import(fixture_files_path.join('imports', 'sage', 'i_seven', 'journal_entries.ecx'), import_id: 1 )
+          exchanger = Sage::ISeven::JournalEntriesExchanger.build(fixture_files_path.join('imports', 'sage', 'i_seven', 'journal_entries.ecx'), options: { import_id: 1 })
+
+          res = exchanger.run
+          assert res.success?
 
           journal1 = Journal.find_by(name: "Ventes eaux-de-vie")
           assert journal1
@@ -33,8 +36,8 @@ module Sage
           assert_equal 282.18, item2.where(account: Account.where(number: '512300000')).first.real_credit.to_f
           assert_equal '512300000', cash_main_account
           assert Account.find_by(number: '401000483')
-          assert Journal.find_by(name: "Sage - Écritures de report à nouveau")
-          assert Journal.find_by(name: "Sage - Écritures de clôture")
+          assert Journal.find_by(code: "SAGC")
+          assert Journal.find_by(code: "SAGF")
         end
       end
     end

@@ -1,0 +1,8 @@
+%div.label-container
+    %label= label
+%div.value-container
+    - choices.each do |(label, value)|
+        %span
+            %label
+                = radio_button_tag name, value
+                = label

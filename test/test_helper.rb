@@ -1,5 +1,4 @@
 require 'minitest/mock'
-require 'rake'
 
 ENV['RAILS_ENV'] ||= 'test'
 
@@ -9,36 +8,8 @@ require 'rails/test_help'
 require 'minitest/reporters'
 require 'database_cleaner'
 
-Minitest::Reporters.use!(
-  (ENV['CI'] ? Minitest::Reporters::DefaultReporter.new : Ekylibre::Testing::SpecReporter.new),
-  ENV,
-  Minitest.backtrace_filter
-)
-
-# Permits to test locales
-I18n.locale = ENV['LOCALE'] || I18n.default_locale
-puts "Locale set to #{I18n.locale.to_s.green}".yellow
-
-# Configure tenants.yml
-
-puts "Setup tenant: #{'sekindovall'.green}".yellow
-Ekylibre::Tenant.setup!('sekindovall')
-
-puts "Setup tenant: #{'test_without_fixtures'.green}".yellow
-Ekylibre::Tenant.setup!('test_without_fixtures')
-
-puts "Setup tenant: #{'test'.green}".yellow
-Ekylibre::Tenant.setup!('test', keep_files: true)
-
-
-Ekylibre::Tenant.switch 'test_without_fixtures' do
-  puts "Cleaning tenant: #{'test_without_fixtures'.green}".yellow
-  DatabaseCleaner.clean_with :truncation, { except: ['spatial_ref_sys', "registered_legal_positions", "registered_phytosanitary_cropsets", "registered_phytosanitary_products", "registered_phytosanitary_risks", "registered_phytosanitary_usages", "variant_natures", "variant_categories", "variants", "registered_hydro_items"] }
-end
-
-DatabaseCleaner.strategy = :transaction
-
-FactoryBot.find_definitions
+helper = Ekylibre::Testing::Helper.new
+helper.setup
 
 if RUBY_VERSION >= '2.6.0'
   if Rails.version < '5'
@@ -92,21 +63,25 @@ class HashCollector
 end
 
 class ActiveSupport::TestCase
+  include ::Ekylibre::Testing::Concerns::LocaleSetter
+
   setup do
-    I18n.locale = :eng
+    reset_locale
   end
 end
 
 module ActionController
   class TestCase
     include Devise::Test::ControllerHelpers
+    include ::Ekylibre::Testing::Concerns::LocaleSetter
 
     setup do
       Ekylibre::Tenant.filter_list!
       Ekylibre::Tenant.switch_each do
         Preference.set!("first_run.executed", true)
       end
-      I18n.locale = :eng
+
+      reset_locale
     end
 
     def fixture_files
@@ -254,11 +229,11 @@ module ActionController
 
           sanitized_params = proc do |p = {}|
             p.deep_symbolize_keys
-              .merge(locale: '@locale'.c)
-              .deep_merge(params)
-              .inspect
-              .gsub('OTHER_RECORD', other_record)
-              .gsub('RECORD', record)
+             .merge(locale: '@locale'.c)
+             .deep_merge(params)
+             .inspect
+             .gsub('OTHER_RECORD', other_record)
+             .gsub('RECORD', record)
           end
           if mode == :index
             test_code << "get :#{action}, #{sanitized_params[]}\n"
@@ -312,7 +287,8 @@ module ActionController
             test_code << "assert_equal 1, #{model_name}.where(id: #{record}.id).count\n"
             test_code << "get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
             test_code << "assert_response :success, #{context}\n"
-            %i[csv ods].each do |format| # :xcsv,
+            %i[csv ods].each do |format|
+              # :xcsv,
               test_code << "get :#{action}, #{sanitized_params[id: 'RECORD.id'.c, format: format]}\n"
               test_code << "assert_response :success, 'Action #{action} does not export in format #{format}'\n"
             end
@@ -330,7 +306,8 @@ module ActionController
           elsif mode == :list
             test_code << "get :#{action}, #{sanitized_params[]}\n"
             test_code << "assert_response :success, \"The action #{action.inspect} does not seem to support GET method \#{redirect_to_url} / \#{flash.inspect}\"\n"
-            %i[csv ods].each do |format| # , :xcsv
+            %i[csv ods].each do |format|
+              # , :xcsv
               test_code << "get :#{action}, #{sanitized_params[format: format]}\n"
               test_code << "assert_response :success, 'Action #{action} does not export in format #{format}'\n"
             end
