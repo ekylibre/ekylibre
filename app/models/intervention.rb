@@ -359,8 +359,6 @@ class Intervention < Ekylibre::Record::Base
     update_costing
 
     add_activity_production_to_output if procedure.of_category?(:planting)
-
-    reconcile_receptions
   end
 
   after_create do
@@ -999,14 +997,6 @@ class Intervention < Ekylibre::Record::Base
 
   def max_non_treatment_area
     inputs.map(&:non_treatment_area).compact.max
-  end
-
-  # @private
-  # Lifecycle: called after save
-  private def reconcile_receptions
-    receptions.each do |reception|
-        reception.update(reconciliation_state: 'reconcile') if reception.reconciliation_state != 'reconcile'
-      end
   end
 
   class << self
