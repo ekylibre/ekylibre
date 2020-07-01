@@ -2214,7 +2214,7 @@ fra:
     moves: "Mouvements de stocks" #?
     n: "Non"
     n_1_guidance_1: "La balance N-1 n'apparaît que si la période sélectionnée ne comporte qu'un seul exercice comptable."
-    n_1_guidance_2: "Lorsque la période est inférieure à la durée d'un exercice complet, la balance N-1 apparaissant porte néanmoins sur l'intégralité de l'exercice comptable précédant."
+    n_1_guidance_2: "Lorsque la période est inférieure à la durée d'un exercice complet, la balance N-1 apparaissant porte néanmoins sur l'intégralité de l'exercice comptable précédent."
     n_1_trial_balance_display: "Affichage de la période N-1 de la balance comptable"
     name: "Nom"
     nature: "Type"
