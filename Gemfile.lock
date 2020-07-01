@@ -526,7 +526,7 @@ GEM
     sidekiq-unique-jobs (4.0.18)
       sidekiq (>= 2.6)
       thor
-    simple_calendar (2.4.1)
+    simple_calendar (2.3.0)
       rails (>= 3.0)
     simple_form (3.5.1)
       actionpack (> 4, < 5.2)
@@ -728,7 +728,7 @@ DEPENDENCIES
   sidekiq (~> 4.0)
   sidekiq-cron (~> 0.6)
   sidekiq-unique-jobs (~> 4.0)
-  simple_calendar
+  simple_calendar (~> 2.3.0)
   simple_form (~> 3.4)
   spring
   state_machine
