@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 9.6.18
--- Dumped by pg_dump version 9.6.18
+-- Dumped by pg_dump version 12.3 (Ubuntu 12.3-1.pgdg16.04+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -21,6 +21,20 @@ SET row_security = off;
 --
 
 CREATE SCHEMA postgis;
+
+
+--
+-- Name: public; Type: SCHEMA; Schema: -; Owner: -
+--
+
+CREATE SCHEMA public;
+
+
+--
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON SCHEMA public IS 'standard public schema';
 
 
 --
@@ -188,8 +202,6 @@ $$;
 
 
 SET default_tablespace = '';
-
-SET default_with_oids = false;
 
 --
 -- Name: account_balances; Type: TABLE; Schema: public; Owner: -
