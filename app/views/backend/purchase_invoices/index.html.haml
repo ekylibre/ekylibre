@@ -13,8 +13,7 @@
       = select_tag(:responsible_id, options_for_select([[]] +  responsibles.map{|u| [u.label, u.id]}, params[:responsible_id].to_i))
   - if supplier_payment_modes.any?
     - k.helper do
-      %div.label-container
-        %label= :supplier_payment_mode.tl
+      %label= :supplier_payment_mode.tl
       = select_tag(:payment_mode_id, options_for_select([[]] +  supplier_payment_modes.map{|u| [u.name, u.id]}, params[:payment_mode_id].to_i))
 - main_toolbar do |t|
   = t.new variants: PurchaseNature.actives.reorder(:name).to_a.map{ |n| [n.name, {nature_id: n.id}, {by_default: n.by_default}] }, params: { redirect: nil }

@@ -8,8 +8,7 @@
   - cashes = Cash.where(id: cash_ids).reorder(:name)
   - if cashes.any?
     - k.helper do
-      %div.label-container
-        %label= Cash.human_attribute_name(:name)
+      %label= Cash.human_attribute_name(:name)
       = select_tag(:cash_id, options_for_select([[]] +  cashes.map{|u| [u.name, u.id]}, params[:cash_id].to_i))
 
 - main_toolbar do |t|
