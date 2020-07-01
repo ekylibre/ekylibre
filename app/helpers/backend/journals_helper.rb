@@ -155,7 +155,8 @@ module Backend
         list2.reverse! unless options[:sort] == :asc
         list += list2
       end
-
+      code = ''
+      code << content_tag(:label, options[:label] || :period.tl, for: configuration[:id]) + ' '
       fy = FinancialYear.current
       params[:period] = value ||= :all # (fy ? fy.started_on.to_s + "_" + fy.stopped_on.to_s : :all)
       custom_id = "#{configuration[:id]}_#{configuration[:custom]}"
@@ -183,15 +184,9 @@ module Backend
         list.insert(0, [(replacement.is_a?(Symbol) ? tl(replacement) : replacement.to_s), ''])
       end
 
-      code = ''
-      code << content_tag(:div, class: "label-container") do
-        content_tag(:label, options[:label] || :period.tl, for: configuration[:id])
-      end
-
       code << select_tag(name, options_for_select(list, value), :id => configuration[:id], 'data-show-value' => "##{configuration[:id]}_")
 
       code << ' ' << content_tag(:span, :manual_period.tl(start: date_field_tag(:started_on, params[:started_on], size: 10), finish: date_field_tag(:stopped_on, params[:stopped_on], size: 10)).html_safe, id: custom_id)
-
       code.html_safe
     end
 
@@ -201,9 +196,7 @@ module Backend
       controller = params[:controller]
       action = params[:action]
       code = ''
-      code << content_tag(:div, class: "label-container") do
-        content_tag(:label, :journal_entries_states.tl)
-      end
+      code << content_tag(:label, :journal_entries_states.tl)
       states = JournalEntry.states
       params[:states] = {} unless params[:states].is_a? Hash
       if options.present? && options[:use_search_preference]
@@ -229,7 +222,6 @@ module Backend
         else
           params[:states].delete(key)
         end
-
         code << ' ' << check_box_tag(name, '1', active, id: id)
         code << ' ' << content_tag(:label, JournalEntry.state_label(state), for: id)
       end
@@ -239,9 +231,7 @@ module Backend
     # Create a widget to select some journal natures
     def journals_natures_crit(*)
       code = ''
-      code << content_tag(:div, class: "label-container") do
-        content_tag(:label, :journals_natures.tl)
-      end
+      code << content_tag(:label, :journals_natures.tl)
       natures = Journal.nature.values.map(&:to_sym)
       params[:natures] = {} unless params[:natures].is_a? Hash
       no_nature = !natures.detect { |x| params[:natures].key?(x) }

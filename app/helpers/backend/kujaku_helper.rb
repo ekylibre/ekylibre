@@ -69,7 +69,7 @@ module Backend
         end
 
         def to_html
-          @template.render("kujaku/feather/#{self.class.name.demodulize.underscore}", **vars)
+          raise NotImplementedError
         end
 
         def inspect
@@ -83,17 +83,14 @@ module Backend
           @name = @options.delete(:name) || :q
         end
 
-        def vars
+        def to_html
           p = @template.current_user.pref("kujaku.feathers.#{@uid}.default", @template.params[@name])
-          value = @template.params[@name] || p.value
-          p.set!(value)
-
-          {
-            label: @options[:label] || :search.tl,
-            name: @name,
-            name_value: value,
-            preference: @template.current_user.pref("kujaku.feathers.#{@uid}.default", @template.params[@name])
-          }
+          @template.params[@name] ||= p.value
+          p.set!(@template.params[@name])
+          html = @template.content_tag(:label, @options[:label] || :search.tl)
+          html << ' '.html_safe
+          html << @template.text_field_tag(@name, @template.params[@name])
+          html
         end
       end
 
@@ -133,24 +130,6 @@ module Backend
           @choices = args
         end
 
-        def vars
-          scope = @options[:scope] || [:labels]
-          #@type [Arrray<Array{String, String}>] choices
-          choices = @choices.map do |choice|
-            if choice.is_a?(Array)
-              choice
-            else
-              [::I18n.translate(choice, scope: scope), choice]
-            end
-          end
-          {
-            label: @options[:label] || :state.tl,
-            name: @name,
-            default_value: @template.params[@name],
-            choices: choices
-          }
-        end
-
         def to_html
           first = @choices.first
           @template.params[@name] ||= (first.is_a?(Array) ? first.first : first).to_s
@@ -185,14 +164,6 @@ module Backend
           @name = args.shift || @options.delete(:name) || :c
         end
 
-        def vars
-          {
-            name: @name,
-            choices: @choices,
-            label: @options[:label] || :state.tl
-          }
-        end
-
         def to_html
           @template.params[@name] ||= []
           html = @template.content_tag(:label, @options[:label] || :state.tl)
@@ -216,14 +187,6 @@ module Backend
           @name = args.shift || @options.delete(:name) || :o
         end
 
-        def vars
-          {
-            name: @name,
-            label: @options[:label] || :options.tl,
-            selection: @template.options_for_select(@selection, @options[:selected] || @template.params[@name])
-          }
-        end
-
         def to_html
           @template.params[@name] ||= @selection.first.second if @selection && @selection.first
           html = @template.content_tag(:label, @options[:label] || :options.tl)
@@ -239,14 +202,6 @@ module Backend
       class DateFeather < ChoiceFeather
         def configure(*args)
           @name = args.shift || @options.delete(:name) || :d
-        end
-
-        def vars
-          {
-            name: @name,
-            label: @options[:label] || :select_date.tl,
-            value: value = @template.params[@name]
-          }
         end
 
         def to_html

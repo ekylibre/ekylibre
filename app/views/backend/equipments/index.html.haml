@@ -14,14 +14,12 @@
       - variants = ProductNatureVariant.of_variety(:equipment)
       - if variants.any?
         - k.helper do
-          %div.label-container
-            %label= Equipment.human_attribute_name(:variant)
+          %label= Equipment.human_attribute_name(:variant)
           = select_tag(:variant_id, options_for_select([[]] + variants.order(:name).collect{|u| [u.name, u.id]}, params[:variant_id]))
       - if current_campaign
         - activities = Activity.of_campaign(current_campaign)
         - if activities && activities.any?
           - k.helper do
-            %div.label-container
-              %label= Activity.human_attribute_name(:activity)
+            %label= Activity.human_attribute_name(:activity)
             = select_tag(:activity_id, options_for_select([[]] + activities.order(:name).collect{|u| [u.name, u.id]}, params[:activity_id]))
     = main_list

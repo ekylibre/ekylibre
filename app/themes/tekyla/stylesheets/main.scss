@@ -1304,23 +1304,9 @@ html.backend {
       padding: round($default-gap * 0.6) 0 0;
       margin-top: round($default-gap * 0.6);
       vertical-align: middle;
-      // text-align: center;
+      text-align: center;
       line-height: $line-height;
       min-height: $line-height;
-      .feather-block {
-        display: flex;
-        margin-left: 30%;
-        .label-container {
-          width: 108px;
-          padding: 0px 42px;
-        }
-        .select-block--intervention {
-          max-width: 75%;
-          select#activity_id {
-            width: 30%;
-          }
-        }
-      }
       label { color: $color; }
       .btn-filter {
         display: none;
