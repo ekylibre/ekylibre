@@ -51,6 +51,9 @@ module Printers
           # Invoice_address
           r.add_field :invoice_address, Maybe(sale).invoice_address.mail_coordinate.recover { receiver.full_name }.or_else('')
 
+          # Receiver vat_number
+          r.add_field :receiver_vat_number, receiver.vat_number
+
           r.add_section('Section-delivery-address', delivery_address_dataset(sale, receiver)) do |da_s|
             da_s.add_field(:delivery_address) { |e| e[:delivery_address] }
           end
