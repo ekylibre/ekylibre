@@ -1308,17 +1308,11 @@ html.backend {
       line-height: $line-height;
       min-height: $line-height;
       .feather-block {
+        margin-left: 25%;
         display: flex;
-        margin-left: 30%;
         .label-container {
-          width: 108px;
+          width: 180px;
           padding: 0px 42px;
-        }
-        @media only screen and (min-width: 1600px) {
-          .label-container {
-            width: 202px;
-            padding: 0px 42px;
-          }
         }
         .value-container {
           span.radio {
@@ -1326,9 +1320,14 @@ html.backend {
             margin-left: 0;
           }
         }
+
         .value-container--journal-nature-crit {
-          max-width: 70%;
+          @media only screen and (max-width: 1200px) {
+            max-width: 49%;
+          }
+          max-width: 60%;
         }
+
         .select-block--intervention {
           max-width: 75%;
           select#activity_id {
@@ -1336,6 +1335,7 @@ html.backend {
           }
         }
       }
+
       label { color: $color; }
       .btn-filter {
         display: none;
@@ -1413,9 +1413,6 @@ html.backend {
     width: auto;
   }
 }
-
-
-
 
 .ui-dialog {
   position: absolute;
