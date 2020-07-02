@@ -98,7 +98,7 @@ class ActivityProductionDecorator < Draper::Decorator
   end
 
   def divider_costs(costs, divider)
-    costs.each { |key, value| costs[key] = value / divider }
+    costs.each { |key, value| costs[key] = value / divider unless divider.zero? }
   end
 
   def sum_costs(plant_costs, costs)
