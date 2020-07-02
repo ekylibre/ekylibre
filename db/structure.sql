@@ -485,7 +485,8 @@ CREATE TABLE public.intervention_parameters (
     reference_data jsonb DEFAULT '{}'::jsonb,
     using_live_data boolean DEFAULT true,
     applications_frequency interval,
-    spray_volume numeric
+    spray_volume numeric,
+    treatment_type_id character varying
 );
 
 
@@ -19306,9 +19307,13 @@ INSERT INTO schema_migrations (version) VALUES ('20200505114024');
 
 INSERT INTO schema_migrations (version) VALUES ('20200507094001');
 
+INSERT INTO schema_migrations (version) VALUES ('20200511141949');
+
 INSERT INTO schema_migrations (version) VALUES ('20200512091803');
 
 INSERT INTO schema_migrations (version) VALUES ('20200515092158');
+
+INSERT INTO schema_migrations (version) VALUES ('20200522131537');
 
 INSERT INTO schema_migrations (version) VALUES ('20200611090747');
 
