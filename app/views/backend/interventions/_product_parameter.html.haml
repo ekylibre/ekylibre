@@ -71,6 +71,9 @@
               %p
                 %span.title= :pfi_treatment_ratio.tl
                 %span.value= product_parameter.pfi_treatment_ratio.round(2)
+          - elsif product_parameter.is_a?(InterventionTarget)
+            - area = Measure.new(product_parameter.quantity_value, product_parameter.quantity_unit_name).in(:hectare).to_f.round(2)
+            %span.value= "#{area} ha"
           - else
             = product_parameter.quantity.l(precision: 0)
   - elsif variant
