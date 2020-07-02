@@ -45,8 +45,7 @@
     $('#close-btn').attr('disabled', (!$('#confirm-revised-accounts').prop('checked') || totalSumRemainedToAllocate() !== 0))
   }
 
-
-  document.addEventListener('DOMContentLoaded', function () {
+  $(document).ready(function () {
     $('.lock-table #confirm-revised-accounts').on('change', function () {
       const lock_btn = $('#lock-btn')
       lock_btn.attr('disabled', !$(this).is(':checked'))
@@ -81,4 +80,5 @@
       $(document).on('input', '.fieldset-fields .amount_allocated input', () => displayTotalSum())
     })
   })
+
 }(ekylibre, jQuery))
