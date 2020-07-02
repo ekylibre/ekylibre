@@ -5,14 +5,16 @@ module Backend
         openweathermap_api_key = Identifier.find_by(nature: :openweathermap_api_key)
         weather_client = OpenWeatherMapClient.from_identifier openweathermap_api_key
 
-        coordinates = params[:centroid]
-
-        # We try to get weather from cultivable zones
-        coordinates ||= CultivableZone.geom_union_centroid(:shape)
+        coordinates = if params[:centroid]
+          params[:centroid]
+        else
+          geom_centroid = CultivableZone.geom_union_centroid(:shape)
+          geom_centroid.present? ? [geom_centroid.y, geom_centroid.x] : nil
+        end
 
         # We use the 5days forecast free from openwheathermap
         if coordinates.present?
-          json = weather_client.fetch_forecast([coordinates.y, coordinates.x])
+          json = weather_client.fetch_forecast(coordinates)
 
           @forecast = json.fmap { |j| build_forecast j }.or_nil
         end
