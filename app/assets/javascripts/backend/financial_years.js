@@ -49,14 +49,14 @@
   document.addEventListener('DOMContentLoaded', function () {
     $('.lock-table #confirm-revised-accounts').on('change', function () {
       const lock_btn = $('#lock-btn')
-      lock_btn.attr('disabled', !this.checked)
+      lock_btn.attr('disabled', !$(this).is(':checked'))
     })
 
     $('.close-table #confirm-revised-accounts').on('change', function () {
       if ($('.amount_allocated').length) {
-        $('#close-btn').attr('disabled', !this.checked || (totalSumRemainedToAllocate() !== 0))
+        $('#close-btn').attr('disabled', !$(this).is(':checked') || (totalSumRemainedToAllocate() !== 0))
       } else {
-        $('#close-btn').attr('disabled', !this.checked)
+        $('#close-btn').attr('disabled', !$(this).is(':checked'))
       }
     })
 
