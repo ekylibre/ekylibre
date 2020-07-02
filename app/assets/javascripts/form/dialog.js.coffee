@@ -182,4 +182,8 @@
           frame.html request.responseText
           return
 
+  $(document).on 'dialog:show', '.dialog', ->
+    if $('.modal').length
+      $(this).parent().css('z-index', '1050')
+
 ) ekylibre, jQuery
