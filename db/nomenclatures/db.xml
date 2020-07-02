@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20200421123503">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20200514092205">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -10140,6 +10140,7 @@
       <item name="kilowatt_hour" dimension="energy" symbol="kWh" a="3600000.0" base_unit="kilowatt_hour" base_dimension="energy"/>
       <item name="liter" dimension="volume" symbol="l" a="0.001" base_unit="liter" base_dimension="volume"/>
       <item name="liter_per_hectare" dimension="volume_area_density" symbol="l/ha" a="0.001" d="10000.0" base_unit="liter" base_dimension="volume" repartition_unit="hectare" repartition_dimension="surface_area"/>
+      <item name="liter_per_hectoliter" dimension="volume_concentration" symbol="l/hl" a="1.0" d="0.1" base_unit="liter" base_dimension="volume" repartition_unit="hectoliter" repartition_dimension="volume"/>
       <item name="liter_per_hour" dimension="volume_flow" symbol="l/h" a="0.001" d="3600.0" base_unit="liter" base_dimension="volume" repartition_unit="hour" repartition_dimension="time"/>
       <item name="liter_per_minute" dimension="volume_flow" symbol="l/min" a="0.001" d="60.0" base_unit="liter" base_dimension="volume" repartition_unit="minute" repartition_dimension="time"/>
       <item name="liter_per_square_meter" dimension="volume_area_density" symbol="l/m&#xB2;" a="0.001" base_unit="liter" base_dimension="volume" repartition_unit="square_meter" repartition_dimension="surface_area"/>

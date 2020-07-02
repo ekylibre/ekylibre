@@ -1,17 +1,21 @@
+# frozen_string_literal: true
+
 class RegisteredPhytosanitaryUsageDoseComputation
-
   def validate_dose(usage, product, quantity, dimension, targets_data)
-    return { none: :max_dose_unit_not_handled.tl } unless usage.among_dimensions?(:volume_area_density, :mass_area_density, :mass, :volume)
+    if dimension == 'population' && !check_indicators(product, usage)
+      { none: :provide_metrics_for_this_article.tl }
+    else
+      reference_measure = Measure.new((usage.dose_quantity * usage.dose_unit_factor).to_f, usage.dose_unit)
+      user_measure = compute_user_measure(quantity, usage, product, targets_data, dimension)
 
-    reference_measure = Measure.new((usage.dose_quantity * usage.dose_unit_factor).to_f, usage.dose_unit)
-    return { none: :provide_metrics_for_this_article.tl } if dimension == 'population' && !check_indicators(product, usage)
-
-    user_measure = compute_user_measure(quantity, usage, product, targets_data, dimension)
-    return { none: :provide_metrics_for_this_article.tl } unless user_measure
-
-    compute_dose_message(user_measure, reference_measure)
+      if user_measure.present? && reference_measure.dimension == user_measure.dimension
+        compute_dose_message(user_measure, reference_measure)
+      else
+        { none: :max_dose_unit_not_handled.tl }
+      end
+    end
   rescue FloatDomainError
-    {none: ""}
+    { none: "" }
   end
 
   def validate_intervention_input(input)
@@ -22,13 +26,12 @@ class RegisteredPhytosanitaryUsageDoseComputation
   end
 
   private
-
+    # @return [Boolean]
+    #   True if the amount can be computed from population (the product has a net_mass or net_volume)
     def check_indicators(product, usage)
-      %i[mass volume].each do |el|
-        return false if usage.among_dimensions?(el, "#{el}_area_density".to_sym) && (!product.has_indicator?("net_#{el}".to_sym) || product.send("net_#{el}".to_sym).to_f == 0)
+      %i[mass volume].none? do |el|
+        usage.among_dimensions?(el, "#{el}_area_density".to_sym) && (!product.has_indicator?("net_#{el}".to_sym) || product.send("net_#{el}".to_sym).to_f == 0)
       end
-
-      true
     end
 
     def handle_volume_area_density(quantity, usage, product, targets)
@@ -87,6 +90,15 @@ class RegisteredPhytosanitaryUsageDoseComputation
       end
     end
 
+    # Tries to convert the user input to a Measure of the same dimension of the usage max dose
+    #
+    # param [Number] quantity
+    # param [RegisteredPhytosanitaryUsage, InterventionParameter::LoggedPhytosanitaryUsage] usage
+    # param [Product] product
+    # param [Hash] targets_data
+    # param [String] dimension
+    # @return [Measure, nil]
+    #   Returns nil either when the dimension is not handled or the computation fails
     def compute_user_measure(quantity, usage, product, targets_data, dimension)
       case dimension
         when 'population'
@@ -99,6 +111,12 @@ class RegisteredPhytosanitaryUsageDoseComputation
           handle_mass_area_density(quantity, usage, product, targets_data)
         when 'volume_area_density'
           handle_volume_area_density(quantity, usage, product, targets_data)
+        when 'mass_concentration'
+          Measure.new(quantity, :kilogram_per_hectoliter)
+        when 'volume_concentration'
+          Measure.new(quantity, :liter_per_hectoliter)
+        else
+          nil
       end
     end
 
@@ -133,7 +151,7 @@ class RegisteredPhytosanitaryUsageDoseComputation
     def handle_population(quantity, usage, product, targets)
       converted_population = convert_population_into_mass_or_volume(quantity, usage, product)
 
-      if usage.among_dimensions?(:mass, :volume)
+      if converted_population.nil? || usage.among_dimensions?(:mass, :volume)
         converted_population
       else
         convert_into_area_density(converted_population, targets)
@@ -145,6 +163,8 @@ class RegisteredPhytosanitaryUsageDoseComputation
         product.net_mass.in(:kilogram) * quantity
       elsif usage.among_dimensions?(:volume, :volume_area_density)
         product.net_volume.in(:liter) * quantity
+      else
+        nil
       end
     end
 end

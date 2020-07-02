@@ -484,7 +484,8 @@ CREATE TABLE public.intervention_parameters (
     imputation_ratio numeric(19,4),
     reference_data jsonb DEFAULT '{}'::jsonb,
     using_live_data boolean DEFAULT true,
-    applications_frequency interval
+    applications_frequency interval,
+    spray_volume numeric
 );
 
 
