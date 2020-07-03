@@ -28,10 +28,13 @@ module Printers
 
       {
         index: [], #TODO re-enable this when the index rendering problem is fixed: build_index_dataset(aps_dataset),
+        display_no_data_message: grouped_interventions.empty? ? [{}] : [],
         dataset: normalize_dataset_interventions_for_sections(aps_dataset)
       }
     end
 
+    # @param [Array<ActivityProduction>] activity_productions
+    # @retun [Hash{Plant, LandParcel => Array<Intervention>}]
     def compute_grouped_interventions(activity_productions)
       activity_productions
         .flat_map(&:interventions).uniq
@@ -107,6 +110,9 @@ module Printers
     end
 
     # Computes the dataset for all given intervention relative to the given target
+    # @param [Plant, LandParcel] target
+    # @param [Array<Intervention>] intervention
+    # @return [Array<Hash>]
     def compute_interventions_dataset(target, interventions)
       interventions.sort_by { |intervention| intervention.started_at }.map do |intervention|
         maybe_intervention = Maybe(intervention)
@@ -350,7 +356,7 @@ module Printers
 
     def normalize_dataset_interventions_for_sections(aps_dataset)
       # Disable filtering as LibreOffice has a bug when rendering produxtion index
-      # TODO reactiva when the problem is fixed
+      # TODO reactivate when the problem is fixed
       # aps_dataset = aps_dataset.select do |ap_dataset| # remove productions that don't have interventions
       #   ap_dataset.fetch(:support_interventions).any? || ap_dataset.fetch(:plants).flat_map { |plant| plant.fetch(:interventions) }.any?
       # end
@@ -412,6 +418,10 @@ module Printers
               end
             end
           end
+        end
+
+        r.add_section(:section_no_interventions, dataset.fetch(:display_no_data_message)) do |msg|
+          msg
         end
 
         # Productions

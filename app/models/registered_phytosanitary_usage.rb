@@ -53,11 +53,20 @@
 #  usage_conditions           :string
 #
 class RegisteredPhytosanitaryUsage < ActiveRecord::Base
+  module SprayVolumeMethods
+
+    # @return [Boolean]
+    def dose_unit_refers_to_spray_volume?
+      %w[kg/hL kg/L g/L mL/L L/hL].include?(dose_unit_name)
+    end
+  end
+
   extend Enumerize
   include HasInterval
   include Lexiconable
   include Dimensionable
   include ScopeIntrospection
+  include SprayVolumeMethods
 
   UNTREATED_BUFFER_AQUATIC_VALUES = [5, 20, 30, 50, 100]
 
@@ -104,7 +113,7 @@ class RegisteredPhytosanitaryUsage < ActiveRecord::Base
   end
 
   def decorated_applications_frequency
-    decorate.value_in_days(:applications_frequency)
+    decorate.applications_frequency
   end
 
   def status
@@ -117,5 +126,9 @@ class RegisteredPhytosanitaryUsage < ActiveRecord::Base
     else
       :stop
     end
+  end
+
+  def human_status
+    I18n.t("tooltips.models.registered_phytosanitary_usage.#{status}")
   end
 end

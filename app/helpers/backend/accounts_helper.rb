@@ -38,7 +38,9 @@ module Backend
       id = :accounts
       params[id] = Account.clean_range_condition(params[id])
       code = ''
-      code << content_tag(:label, :accounts_starting_with.tl, for: id)
+      code << content_tag(:div, class: "label-container") do
+        content_tag(:label, :accounts_starting_with.tl, for: id)
+      end
       code << ' ' << text_field_tag(id, params[id], size: 30)
       code.html_safe
     end

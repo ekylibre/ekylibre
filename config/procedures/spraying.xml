@@ -9,24 +9,34 @@
       <input name="plant_medicine" filter="is preparation and can care(plant)" display-status="miscibility" >
         <handler name="population"/>
         <handler indicator="net_mass" unit="kilogram"
-                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass? and (usage_unit_name_include(PRODUCT, 'kilogram') == 1)"
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass? and (product_usages_among_dimensions(PRODUCT, :mass) == 1)"
                  backward="POPULATION * PRODUCT..net_mass(kilogram)"
                  forward="VALUE / PRODUCT..net_mass(kilogram)"/>
         <handler indicator="net_volume" unit="liter"
-                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_volume? and (usage_unit_name_include(PRODUCT, 'liter') == 1)"
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_volume? and (product_usages_among_dimensions(PRODUCT, :volume) == 1)"
                  backward="POPULATION * PRODUCT..net_volume(liter)"
                  forward="VALUE / PRODUCT..net_volume(liter)"/>
         <handler indicator="mass_area_density" unit="kilogram_per_hectare"
-                 if="(sum_working_zone_areas(cultivation) != 0) and PRODUCT..net_mass? and (usage_unit_name_include(PRODUCT, 'kilogram') == 1)"
+                 if="(sum_working_zone_areas(cultivation) != 0) and PRODUCT..net_mass? and (product_usages_among_dimensions(PRODUCT, :mass) == 1)"
                  backward="(POPULATION * PRODUCT..net_mass(kilogram)) / sum_working_zone_areas(cultivation, :hectare)"
                  forward="(VALUE * sum_working_zone_areas(cultivation, :hectare)) / PRODUCT..net_mass(kilogram)"/>
         <handler indicator="volume_area_density" unit="liter_per_hectare"
-                 if="PRODUCT..net_volume? and sum_working_zone_areas(cultivation) != 0 and (usage_unit_name_include(PRODUCT, 'liter') == 1)"
+                 if="PRODUCT..net_volume? and sum_working_zone_areas(cultivation) != 0 and (product_usages_among_dimensions(PRODUCT, :volume) == 1)"
                  backward="(POPULATION * PRODUCT..net_volume(liter)) / sum_working_zone_areas(cultivation, :hectare)"
                  forward="(VALUE * sum_working_zone_areas(cultivation, :hectare)) / PRODUCT..net_volume(liter)"/>
+        <handler indicator="specific_weight" unit="kilogram_per_hectoliter"
+                 if="(sum_working_zone_areas(cultivation) != 0) and PRODUCT..net_mass? and (product_usages_among_dimensions(PRODUCT, :mass_concentration) == 1) and USAGE? and dose_unit_refers_to_spray_volume(USAGE) == 1"
+                 backward="SPRAY_VOLUME? ? (POPULATION * PRODUCT..net_mass(kilogram) / (SPRAY_VOLUME * sum_working_zone_areas(cultivation, :hectare))) : POPULATION"
+                 forward="SPRAY_VOLUME? ? ((VALUE * SPRAY_VOLUME * sum_working_zone_areas(cultivation, :hectare)) / PRODUCT..net_mass(kilogram)) : VALUE"/>
+        <handler indicator="volume_density" unit="liter_per_hectoliter"
+                 if="PRODUCT..net_volume? and sum_working_zone_areas(cultivation) != 0 and (product_usages_among_dimensions(PRODUCT, :volume_concentration) == 1) and USAGE? and dose_unit_refers_to_spray_volume(USAGE) == 1"
+                 backward="SPRAY_VOLUME? ? ((POPULATION * PRODUCT..net_volume(liter)) / (SPRAY_VOLUME * sum_working_zone_areas(cultivation, :hectare))) : POPULATION"
+                 forward="SPRAY_VOLUME? ? ((VALUE * SPRAY_VOLUME * sum_working_zone_areas(cultivation, :hectare)) / PRODUCT..net_volume(liter)) : VALUE"/>
         <attribute name="usage_id" />
         <attribute name="allowed_entry_factor" />
         <attribute name="allowed_harvest_factor" />
+        <attribute name="spray_volume"/>
+        <attribute name="treatment_type"/>
       </input>
       <doer name="driver" filter="can drive(tractor) and can move" cardinality="*"/>
       <tool name="tractor" filter="is equipment and can catch(equipment)" cardinality="*"/>

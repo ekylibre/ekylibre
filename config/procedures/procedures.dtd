@@ -1,0 +1,114 @@
+<!--<!DOCTYPE procedure-->
+<!--[-->
+
+<!ELEMENT procedures (procedure)>
+<!ELEMENT procedure (parameters)>
+<!ATTLIST procedure
+        name CDATA #REQUIRED
+        categories CDATA #REQUIRED
+        actions CDATA #IMPLIED
+        optional-actions CDATA #IMPLIED
+        varieties CDATA #IMPLIED
+        deprecated CDATA #FIXED "true"
+        hidden CDATA #FIXED "true"
+>
+<!ELEMENT parameters (parameter group doer target output input tool)>
+
+<!ELEMENT parameter (handler*)>
+<!ATTLIST parameter
+        name CDATA #REQUIRED
+        type CDATA #REQUIRED
+        filter CDATA #IMPLIED
+        variety CDATA #IMPLIED
+        default-actor CDATA #IMPLIED
+        derivative-of CDATA #IMPLIED
+        default-name CDATA #IMPLIED
+>
+
+
+<!ELEMENT group (target output input)>
+<!ATTLIST group
+        name CDATA #REQUIRED
+        cardinality CDATA #IMPLIED
+>
+
+<!ELEMENT doer ()>
+<!ATTLIST doer
+        name CDATA #REQUIRED
+        filter CDATA #IMPLIED
+        cardinality CDATA #IMPLIED
+>
+
+<!ELEMENT target (attribute handler*)>
+<!ATTLIST target
+        name CDATA #REQUIRED
+        filter CDATA #IMPLIED
+        cardinality CDATA #IMPLIED
+        default-actor CDATA #IMPLIED
+        component-of CDATA #IMPLIED
+>
+
+<!ELEMENT input (attribute*, handler*)>
+<!ATTLIST input
+        name CDATA #REQUIRED
+        filter CDATA #IMPLIED
+        cardinality CDATA #IMPLIED
+        component-of CDATA #IMPLIED
+        default-actor CDATA #IMPLIED
+        display-status CDATA #IMPLIED <!-- DEPRECATED -->
+>
+
+<!ELEMENT output (attribute*, reading*, handler*)>
+<!ATTLIST output
+        name CDATA #REQUIRED
+        filter CDATA #IMPLIED
+        distribution CDATA #IMPLIED
+        cardinality CDATA #IMPLIED
+        derivative-of CDATA #IMPLIED
+        default-name CDATA #IMPLIED
+        default-variant CDATA #IMPLIED
+>
+
+<!ELEMENT attribute ()>
+<!ATTLIST attribute
+        name CDATA #REQUIRED
+        default-value CDATA #IMPLIED
+        if CDATA #IMPLIED
+        filter CDATA #IMPLIED
+        compute-filter CDATA #IMPLIED
+        value CDATA #IMPLIED
+>
+
+<!ELEMENT reading (compute?)>
+<!ATTLIST reading
+        name CDATA #REQUIRED
+        value CDATA #IMPLIED
+>
+
+<!ELEMENT handler (compute*)>
+<!ATTLIST handler
+        name CDATA #IMPLIED
+        indicator CDATA #IMPLIED
+        datatype CDATA #IMPLIED
+        unit CDATA #IMPLIED
+        if CDATA #IMPLIED
+        backward CDATA #IMPLIED
+        forward CDATA #IMPLIED
+        to CDATA #IMPLIED
+>
+
+<!ELEMENT compute ()>
+<!ATTLIST compute
+        expr CDATA #IMPLIED
+        if CDATA #IMPLIED
+        to CDATA #IMPLIED
+>
+<!ELEMENT tool ()>
+<!ATTLIST tool
+        name CDATA #REQUIRED
+        filter CDATA #IMPLIED
+        default-actor CDATA #IMPLIED
+        cardinality CDATA #IMPLIED
+>
+
+<!--]>-->

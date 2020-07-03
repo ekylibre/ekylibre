@@ -4,7 +4,7 @@ module Backend
       list(model: :purchase_orders, order: 'created_at DESC', per_page: 5) do |t|
         t.column :number, url: { controller: '/backend/purchase_orders' }
         t.column :created_at
-        t.column :state_label
+        t.column :state_label, hidden: true
         t.column :amount, currency: true
       end
 

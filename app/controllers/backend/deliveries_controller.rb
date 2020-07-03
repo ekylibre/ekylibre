@@ -35,6 +35,7 @@ module Backend
       t.column :number, url: true
       t.column :annotation
       t.status
+      t.column :state_label, hidden: true
       t.column :mode
       t.column :responsible
       t.column :started_at
@@ -49,6 +50,7 @@ module Backend
       t.column :nature
       t.column :state, label_method: :human_state_name
       t.status
+      t.column :state_label, hidden: true
       # t.column :sender, url: true
       # t.column :recipient, url: true
       # t.column :sale, url: true, hidden: true
@@ -62,6 +64,7 @@ module Backend
       t.column :number, url: true
       t.column :state, label_method: :human_state_name
       t.status
+      t.column :state_label, hidden: true
       t.column :sender, url: true
       # t.column :purchase, url: true, hidden: true
       # t.column :net_mass
@@ -73,6 +76,7 @@ module Backend
       t.column :number, url: true
       t.column :state, label_method: :human_state_name
       t.status
+      t.column :state_label, hidden: true
       t.column :recipient, url: true
       t.column :sale, url: true, hidden: true
       # t.column :net_mass

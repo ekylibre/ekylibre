@@ -11,15 +11,20 @@
       selectedOrdersIds = selectedOrders.map ->
                             $(this).data('list-selector')
                           .toArray()
+      selectedOrdersSupplierIds = selectedOrders.map ->
+                                    $(this).closest('tr').data().supplierId
+                                  .toArray()
       reconciledOrders = selectedOrders.filter ->
-                           $(this).closest('tr').data('reconciliation-state') == 'reconcile'
+                            $(this).closest('tr').data('reconciliation-state') == 'reconcile'
+
+      sameSupplier = _.uniq(_.compact(selectedOrdersSupplierIds)).length == 1
 
       if selectedOrdersIds.length > 0
         $newParcelBtn.prop('href', "#{newParcelUrl}?mode=prefilled&purchase_order_ids=#{selectedOrdersIds}")
       else
         $newParcelBtn.prop('href', newParcelUrl)
 
-      disabled = !selectedOrders.length || reconciledOrders.length
+      disabled = !selectedOrders.length || reconciledOrders.length || !sameSupplier
       # !! so we're sure disabled is a Boolean and not just truthy/falsy — for jQuery
       $newParcelBtn.toggleClass('disabled', !!disabled)
 

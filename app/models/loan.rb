@@ -171,7 +171,6 @@ class Loan < Ekylibre::Record::Base
     limit_on = Time.zone.today
     limit_on = [options[:until], limit_on].min if options[:until]
     repayments = LoanRepayment.bookkeepable_before(limit_on)
-    repayments = repayments.of_loans(options[:id]) if options[:id]
     count = repayments.count
     repayments.find_each { |repayment| repayment.update(accountable: true) }
     count
@@ -235,6 +234,15 @@ class Loan < Ekylibre::Record::Base
     return :go if ongoing?
     return :caution if draft?
     return :stop if repaid?
+  end
+
+  def human_status
+    I18n.t("tooltips.models.loan.#{status}")
+  end
+
+  # Prints human name of current state
+  def state_label
+    self.class.state_machine.state(self.state.to_sym).human_name
   end
 
   # why ? we have state machine ?

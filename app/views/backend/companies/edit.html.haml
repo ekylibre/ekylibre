@@ -21,11 +21,11 @@
 
   - # NEVER SET currency and accounting_system HERE !!!
   = field_set :global_preferences do
-    = render 'preferences_form', list: [:country, :language, :currency], settable: true
-    = field "currency_conversion_rate".tl, { datatype: :decimal, value: 1, name: "currency_change_rate" }, {label: {class: 'large-control-label'}, controls: {class: 'large-controls'}}
+    - lang_preference = Preference.global.find_by(name: "language")
+    = field "preferences.#{lang_preference.name}".t, { datatype: :choice, choices: [:eng, :fra, lang_preference.value.to_sym].uniq.map{|k| [Nomen::Language.find(k).human_name, k]}, value: lang_preference.value, name: "preferences[#{lang_preference.name}][value]" }, { label: { class: 'large-control-label' }, controls: { class: "large-controls" } }
 
-  = field_set :interface_preferences do
-    = render 'preferences_form', list: [:use_global_search], settable: true
+    = render 'preferences_form', list: [:country, :currency], settable: true
+    = field "currency_conversion_rate".tl, { datatype: :decimal, value: 1, name: "currency_change_rate" }, {label: {class: 'large-control-label'}, controls: {class: 'large-controls'}}
 
   = field_set :map_preferences do
     = render 'preferences_form', list: [:map_measure_srs], settable: true

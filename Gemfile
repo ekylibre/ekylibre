@@ -111,7 +111,7 @@ gem 'exception_notification'
 # Views helpers
 gem 'active_list', gitlab: 'ekylibre/active_list', branch: 'master'
 gem 'haml'
-gem 'simple_calendar'
+gem 'simple_calendar', '~> 2.3.0'
 
 # Models helpers
 gem 'acts_as_list'
@@ -170,6 +170,11 @@ gem 'beardley-groovy', '>= 2.0.1'
 gem 'beardley-open_sans', '>= 0.0.2'
 gem 'beardley-xml', '>= 1.1.2'
 
+# IRB (already require by other gem but some sependencies seems to be missing in ruby 2.6.x ...
+gem 'irb'
+gem 'fiddle'
+gem 'dl'
+
 # Import/Export
 gem 'ekylibre-ofx-parser'
 gem 'rgeo-geojson'
@@ -211,6 +216,8 @@ gem 'bootstrap-slider-rails'
 
 gem 'gpgme'
 
+gem 'semantic'
+
 group :production do
   # Use unicorn as the app server
   gem 'unicorn'
@@ -246,6 +253,7 @@ group :development do
 end
 
 group :development, :test do
+  gem 'pry',  '~> 0.12.0'
   gem 'pry-byebug'
   # gem 'pry-inline'
   gem 'pry-rails'

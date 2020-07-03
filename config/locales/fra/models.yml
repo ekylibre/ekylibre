@@ -14,6 +14,7 @@ fra:
         contains_blank_page: "%{attribute} contient une page vide" #?
         currency_does_not_match: "La devise de «\_%{attribute}\_» ne correspond pas celle attendue\_: %{currency}"
         empty: "%{attribute} ne peut pas être vide"
+        empty_shape: "La forme de %{attribute} ne peut être vide"
         # end_of_month: "%{attribute} should be at the end of the month"
         entry_has_been_already_validated: "La pièce a été validée et ne peut plus être modifiée" #?
         equal_to: "%{attribute} doit être égal à %{count}"
@@ -34,6 +35,7 @@ fra:
         invalid_date: "Veuillez saisir une date au format jj-mm-aaaa ou jj/mm/aaaa"
         invalid_datetime: "%{attribute} est invalide"
         # invalid_population_for_unitary_product: "The equipment %{name} cannot have a population of %{population} as it is supposed to be unique."
+        invalid_shape: "La forme géographique n'est pas valide pour %{attribute}"
         invalid_siret: "%{value} n'est pas un numéro de SIRET valide" #?
         invalid_syntax: "%{attribute} comporte des erreurs de syntaxe : %{errors}" #?
         invalid_time: "%{attribute} est invalide"

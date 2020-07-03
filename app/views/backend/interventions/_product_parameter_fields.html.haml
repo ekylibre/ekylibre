@@ -82,7 +82,9 @@
     = render '/backend/interventions/quantifier_field', f: f, reference: reference, prefix: prefix
 
   - if f.object.reference_name.to_sym == :plant_medicine
-    = f.referenced_association :usage, label: :usage_phyto.tl, input_html: { disabled: true, data: { filters_url: filter_usages_backend_registered_phytosanitary_usages_path, msg_container: ".intervention_inputs_usage .lights-message", lights: '.controls' } }, new: false
+    = f.referenced_association :usage, label: :usage_phyto.tl, input_html: { disabled: true, data: { intervention_updater: prefix + 'usage', filters_url: filter_usages_backend_registered_phytosanitary_usages_path, msg_container: ".intervention_inputs_usage .lights-message", lights: '.controls' } }, new: false
+    = f.input :spray_volume, label: :spray_volume.tl, required: true, input_html: { data: { intervention_updater: prefix + 'spray_volume' } }
+    = f.referenced_association :treatment_type, label: :treatment_type.tl, input_html: { data: { intervention_updater: prefix + 'treatment_type' } }, new: false
 
     = render 'intervention_usage_informations'
 

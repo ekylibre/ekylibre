@@ -21,7 +21,8 @@
       -# k.choice :all, :healthy, :illness
       - k.helper :journal_period_crit
       - k.helper do
-        %label= Animal.human_attribute_name(:variant)
+        %div.label-container
+          %label= Animal.human_attribute_name(:variant)
         = select_tag(:variant_id, options_for_select([[]] + ProductNatureVariant.of_variety(:animal).order(:name).collect{|u| [u.name, u.id]}, params[:variant_id]))
     = main_list
 

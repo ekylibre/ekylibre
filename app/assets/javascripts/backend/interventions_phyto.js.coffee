@@ -229,10 +229,8 @@
   $(document).on 'mapchange', '[data-map-editor]', ->
     productsInfos.display()
 
-  $(document).on 'mapeditor:optional_data_loaded', '[data-map-editor]', ->
-    sprayingMap.refresh()
-
-  $(document).on 'mapchange', '[data-map-editor]', ->
-    productsInfos.display()
+  $(document).on 'select change', "[data-intervention-field='quantity-handler']", ->
+    $container = $(this).closest('.nested-plant_medicine').find('.intervention_inputs_spray_volume')
+    $container.toggle _.includes(['volume_density', 'mass_density'], $(this).val())
 
 ) ekylibre, jQuery

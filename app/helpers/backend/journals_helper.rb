@@ -155,8 +155,7 @@ module Backend
         list2.reverse! unless options[:sort] == :asc
         list += list2
       end
-      code = ''
-      code << content_tag(:label, options[:label] || :period.tl, for: configuration[:id]) + ' '
+
       fy = FinancialYear.current
       params[:period] = value ||= :all # (fy ? fy.started_on.to_s + "_" + fy.stopped_on.to_s : :all)
       custom_id = "#{configuration[:id]}_#{configuration[:custom]}"
@@ -184,9 +183,15 @@ module Backend
         list.insert(0, [(replacement.is_a?(Symbol) ? tl(replacement) : replacement.to_s), ''])
       end
 
+      code = ''
+      code << content_tag(:div, class: "label-container") do
+        content_tag(:label, options[:label] || :period.tl, for: configuration[:id])
+      end
+
       code << select_tag(name, options_for_select(list, value), :id => configuration[:id], 'data-show-value' => "##{configuration[:id]}_")
 
       code << ' ' << content_tag(:span, :manual_period.tl(start: date_field_tag(:started_on, params[:started_on], size: 10), finish: date_field_tag(:stopped_on, params[:stopped_on], size: 10)).html_safe, id: custom_id)
+
       code.html_safe
     end
 
@@ -196,7 +201,9 @@ module Backend
       controller = params[:controller]
       action = params[:action]
       code = ''
-      code << content_tag(:label, :journal_entries_states.tl)
+      code << content_tag(:div, class: "label-container") do
+        content_tag(:label, :journal_entries_states.tl)
+      end
       states = JournalEntry.states
       params[:states] = {} unless params[:states].is_a? Hash
       if options.present? && options[:use_search_preference]
@@ -213,17 +220,23 @@ module Backend
         end
       end
       no_state = !states.detect { |x| params[:states].key?(x) }
-      for state in states
-        key = state.to_s
-        name = "states[#{key}]"
-        id = "states_#{key}"
-        if active = (params[:states][key] == '1' || no_state)
-          params[:states][key] = '1'
-        else
-          params[:states].delete(key)
-        end
-        code << ' ' << check_box_tag(name, '1', active, id: id)
-        code << ' ' << content_tag(:label, JournalEntry.state_label(state), for: id)
+      code << content_tag(:div, class: "value-container") do
+        states.map do |state|
+          key = state.to_s
+          name = "states[#{key}]"
+          id = "states_#{key}"
+          if active = (params[:states][key] == '1' || no_state)
+            params[:states][key] = '1'
+          else
+            params[:states].delete(key)
+          end
+
+          content_tag(:span, class: "radio") do
+            content_tag(:label, for: id) do 
+              check_box_tag(name, '1', active, id: id) + JournalEntry.state_label(state)
+            end
+          end
+        end.join.html_safe
       end
       code.html_safe
     end
@@ -231,23 +244,31 @@ module Backend
     # Create a widget to select some journal natures
     def journals_natures_crit(*)
       code = ''
-      code << content_tag(:label, :journals_natures.tl)
+      code << content_tag(:div, class: "label-container") do
+        content_tag(:label, :journals_natures.tl)
+      end
       natures = Journal.nature.values.map(&:to_sym)
       params[:natures] = {} unless params[:natures].is_a? Hash
       no_nature = !natures.detect { |x| params[:natures].key?(x) }
-      natures.each do |nature|
-        key = nature.to_s
-        name = "natures[#{key}]"
-        id = "natures_#{key}"
-        if (active = (params[:natures][key] == '1' || no_nature))
-          params[:natures][key] = '1'
-        else
-          params[:natures].delete(key)
-        end
-        code << ' ' << check_box_tag(name, '1', active, id: id)
-        code << ' ' << content_tag(:label, Journal.nature_label(nature), for: id)
-      end
+              
+      code << content_tag(:div, class: "value-container value-container--journal-nature-crit") do
+        natures.map do |nature|
+          key = nature.to_s
+          name = "natures[#{key}]"
+          id = "natures_#{key}"
+          if (active = (params[:natures][key] == '1' || no_nature))
+            params[:natures][key] = '1'
+          else
+            params[:natures].delete(key)
+          end
 
+          content_tag(:span, class: "radio") do
+            content_tag(:label, for: id) do 
+              check_box_tag(name, '1', active, id: id) + Journal.nature_label(nature)
+            end
+          end
+        end.join.html_safe
+      end
       code.html_safe
     end
 

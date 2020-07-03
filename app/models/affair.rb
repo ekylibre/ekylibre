@@ -244,6 +244,10 @@ class Affair < Ekylibre::Record::Base
     end
   end
 
+  def human_status
+    I18n.t("tooltips.models.affair.#{status}")
+  end
+
   # Reload and save! affair to force counts and sums computation
   def refresh!
     reload

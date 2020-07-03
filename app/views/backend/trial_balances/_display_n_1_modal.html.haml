@@ -1,0 +1,13 @@
+.modal.fade#display-n-1-modal{ tabindex: '-1', role: 'dialog' }
+  .modal-dialog{ role: 'document' }
+    .modal-content
+      .modal-header
+        %h4.modal-title= :n_1_trial_balance_display.tl
+        %button.close{ type: 'button', 'data-dismiss': 'modal', 'aria-label': 'Close' }
+          %span{ 'aria-hidden': 'true' }
+            %i.icon.icon-destroy
+      .modal-body
+        %p.text-justify= :n_1_guidance_1.tl
+        %p.text-justify= :n_1_guidance_2.tl
+      .modal-footer
+        %button.btn.btn-primary.no-icn{ type: 'button', 'data-dismiss': 'modal' }= :close.tl

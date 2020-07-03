@@ -106,6 +106,15 @@ class Payslip < Ekylibre::Record::Base
     number
   end
 
+  def human_status
+    I18n.t("tooltips.models.payslip.#{status}")
+  end
+
+   # Prints human name of current state
+   def state_label
+    self.class.state_machine.state(self.state.to_sym).human_name
+  end
+
   def status
     return affair.status if invoice?
     :stop

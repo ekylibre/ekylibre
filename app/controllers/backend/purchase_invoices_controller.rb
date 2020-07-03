@@ -75,6 +75,7 @@ module Backend
       t.column :entity_payment_mode_name, through: :supplier, label: :supplier_payment_mode
       t.column :created_at
       t.status
+      t.column :human_status, label: :state, hidden: true
       t.column :pretax_amount, currency: true, on_select: :sum, hidden: true
       t.column :amount, currency: true, on_select: :sum
     end

@@ -164,6 +164,12 @@ class Delivery < Ekylibre::Record::Base
     super
   end
 
+  # Prints human name of current state
+  def state_label
+    self.class.state_machine.state(self.state.to_sym).human_name
+  end
+
+
   def all_parcels_almost_prepared?
     parcels.all? { |p| p.prepared? || p.in_preparation? }
   end

@@ -56,13 +56,14 @@ module Backend
       code.c
     end
 
-    list(conditions: list_conditions, selectable: true) do |t|
+    list(conditions: list_conditions) do |t|
       t.action :edit, if: :editable?
       t.action :destroy, if: :destroyable?
       t.column :name, url: true
       t.column :amount, currency: true
       t.column :cash, url: true
       t.status
+      t.column :state_label, hidden: true
       t.column :started_on
       t.column :repayment_duration
       t.column :repayment_period
@@ -112,9 +113,8 @@ module Backend
         notify_error(:the_bookkeep_date_format_is_invalid)
         return redirect_to(params[:redirect] || { action: :index })
       end
-      loan_ids = params[:loan_ids].to_s.strip.split(/\s*\,\s*/).map(&:to_i)
 
-      count = Loan.bookkeep_repayments(until: bookkeep_until, id: loan_ids)
+      count = Loan.bookkeep_repayments(until: bookkeep_until)
       notify_success(:x_loan_repayments_have_been_bookkept_successfully, count: count)
 
       redirect_to(params[:redirect] || { action: :index })

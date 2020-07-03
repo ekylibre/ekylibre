@@ -1,7 +1,8 @@
 = kujaku do |k|
   - k.text
   - k.helper do
-    %label= :document_type.tl
+    %div.label-container
+      %label= :document_type.tl
     = select_tag(:nature, options_for_select([[]] + Document.all.pluck(:nature).uniq.compact.map{ |v| [v.human_name, v] }.sort_by(&:first), params[:nature].to_s))
   - if Document.where.not(created_at: nil).any?
     - k.helper do

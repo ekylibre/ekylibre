@@ -1,0 +1,63 @@
+fra:
+  tooltips:
+    models:
+      affair:
+        go: "Facture acquittée"
+        caution: "Décaissement différent du montant de la facture"
+        stop: "Facture à payer"
+      animal:
+        caution:  "En service"
+        stop: "Consommé/Mort"
+      equipment:
+        go:  "En service"
+        stop: "Au rebut/vendu"
+      fixed_asset:
+        draft: "Brouillon"
+        in_use: "En service"
+        scrapped: "Mise au rebut"
+        sold: "Vendue"
+        waiting: "En attente"
+      intervention:
+        in_progress: "En cours"
+        request: "Planifiée"
+        rejected: "Rejetée"
+        done: "Terminée"
+      loan:
+        go: "En cours"
+        caution: "Brouillon"
+        stop: "Remboursé"
+      payslip:
+        go:  "Facturé"
+        stop: "Brouillon"
+      plant:
+        go:  "En cours"
+        stop: "Détruite/Récoltée"
+      product_nature_variant:
+        go: "Autorisé"
+        stop: "Non autorisé"
+      registered_phytosanitary_usage:
+        go: "Autorisé"
+        stop: "Non autorisé"
+      sale:
+        aborted: "Devis abandonné"
+        expired_quote: "Devis expiré"
+        draft_quote: "Devis brouillon"
+        invoiced_and_paid_sale: "Vente facturée et payée"
+        incoming_payment_different_from_the_amount_of_the_invoice: "Encaissement différent du montant de la facture"
+        order: "Commande"
+        refused_quote: "Devis refusé"
+        estimate: "Devis envoyé"
+        unpaid_invoice: "Facture impayée"
+        invalid_state: "État invalide"
+      sale_opportunity:
+        lost: "Perdue"
+        negociation: "Négociation"
+        price_quote: "Devis"
+        prospecting: "Prospection"
+        qualification: "Qualification"
+        value_proposition: "Proposition de valeur"
+        won: "Gagnée"
+      tax_declaration:
+        go: "Envoyée"
+        caution: "Validée"
+        stop: "Brouillon"
