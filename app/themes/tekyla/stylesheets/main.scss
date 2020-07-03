@@ -1311,7 +1311,7 @@ html.backend {
         margin-left: 25%;
         display: flex;
         .label-container {
-          width: 180px;
+          width: 190px;
           padding: 0px 42px;
         }
         .value-container {
@@ -1329,9 +1329,9 @@ html.backend {
         }
 
         .select-block--intervention {
-          max-width: 75%;
+          max-width: 49%;
           select#activity_id {
-            width: 30%;
+            width: 70%;
           }
         }
       }
