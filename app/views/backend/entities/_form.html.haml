@@ -8,8 +8,7 @@
     = f.input :last_name, autocomplete: true
   - else
     = f.input :last_name, label: Entity.human_attribute_name(:full_name)
-  - if f.object.organization?
-    = f.input :siret_number
+  = f.input :siret_number
   = f.input :number, required: false, placeholder: f.object.unique_predictable_number
   = f.custom_fields
   = f.input :language, collection: Nomen::Language.selection
@@ -51,11 +50,11 @@
     = f.referenced_association :supplier_payment_mode
     = f.input :transporter
 
-- if f.object.organization?
-  = field_set(:bank_account) do
-    = f.input :bank_account_holder_name
-    = f.input :bank_identifier_code
-    = f.input :iban
+
+= field_set(:bank_account) do
+  = f.input :bank_account_holder_name
+  = f.input :bank_identifier_code
+  = f.input :iban
 
 
 - if f.object.contact?
