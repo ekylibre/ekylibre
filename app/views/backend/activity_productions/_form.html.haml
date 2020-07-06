@@ -17,7 +17,7 @@
     - if activity && activity.production_system.present?
       - source = { scope: { of_production_system: activity.production_system.name } }
     = f.referenced_association :cultivable_zone, source: source
-    = f.shape :support_shape
+    = f.shape :support_shape, required: true
     = f.input :irrigated
     = f.input :nitrate_fixing
   - elsif activity.animal_farming?

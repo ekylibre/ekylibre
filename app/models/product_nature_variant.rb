@@ -526,6 +526,12 @@ class ProductNatureVariant < Ekylibre::Record::Base
     end
   end
 
+  def human_status
+    return unless status
+    I18n.t("tooltips.models.product_nature_variant.#{status}")
+  end
+
+
   class << self
     # Returns some nomenclature items are available to be imported, e.g. not
     # already imported

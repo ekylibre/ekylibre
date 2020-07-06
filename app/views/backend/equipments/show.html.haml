@@ -1,5 +1,6 @@
 - main_toolbar do |t|
-  = t.edit resource
+  = t.edit
+  = t.destroy
 
 - main_period_selector(:year)
 
@@ -19,7 +20,7 @@
         = human_age(resource.born_at, display: 2)
     .med-info.important
       %span.title= Equipment.human_attribute_name(:state)
-      %span.value= lights(resource.status)
+      %span.value= lights(resource.status, title: resource.human_status)
 
     - if resource.remaining_working_lifespan || resource.remaining_lifespan
       .med-info.important

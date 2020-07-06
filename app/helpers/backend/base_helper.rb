@@ -221,9 +221,9 @@ module Backend
     def movements_chart(resource)
       populations = resource.populations.reorder(:started_at)
       series = []
-      now = (Time.zone.now + 7.days)
+      now = Time.zone.now
       window = 1.day
-      min = (resource.born_at ? resource.born_at : now - window) - 7.days
+      min = (resource.born_at ? resource.born_at : now - window)
       min = now - window if (now - min) < window
       if populations.any?
         data = []
@@ -234,10 +234,10 @@ module Backend
         end.collect { |k, v| [k, v.to_s.to_f] }
         # current population
         data << [now.to_usec, resource.population.to_d.to_s.to_f]
-        series << { name: resource.name, data: data.sort_by(&:first), step: 'left' }
+        series << { name: resource.name, data: data.sort_by(&:first) }
       end
       return no_data if series.empty?
-      line_highcharts(series, legend: {}, y_axis: { title: { text: :indicator.tl } }, x_axis: { type: 'datetime', title: { enabled: true, text: :months.tl }, min: min.to_usec })
+      line_highcharts(series, legend: { layout: 'horizontal', align: 'bottom', vertical_align: 'bottom', border_width: 0, align: 'center' }, y_axis: { title: { text: :indicator.tl } }, chart: { spacing_bottom: 40 }, tooltip: { value_decimals: 2, xDateFormat: '%Y-%m-%d, %H:%M' }, x_axis: { type: 'datetime', title: { enabled: true, text: :months.tl }, min: min.to_usec })
     end
 
     def main_campaign_selector
@@ -307,6 +307,9 @@ module Backend
         html_options[:class] << " lights lights-#{status}"
       else
         html_options[:class] = "lights lights-#{status}"
+      end
+      if html_options.key?(:title)
+        html_options[:data_toggle] = "tooltip"
       end
       content_tag(:span, html_options) do
         content_tag(:span, nil, class: 'go') +

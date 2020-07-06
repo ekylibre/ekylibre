@@ -1,0 +1,182 @@
+{
+  "version": "3.0.0",
+  "content": {
+    "variants": {
+      "name": "variants",
+      "structure": "variants__structure.sql",
+      "data": "variants.sql",
+      "tables": [
+        "variant_categories",
+        "variant_natures",
+        "variants",
+        "variant_doer_contracts",
+        "variant_units",
+        "variant_prices"
+      ]
+    },
+    "ign_hydro": {
+      "name": "ign_hydro",
+      "structure": "ign_hydro__structure.sql",
+      "data": "ign_hydro.sql",
+      "tables": [
+        "registered_hydro_items"
+      ]
+    },
+    "cadastre": {
+      "name": "cadastre",
+      "structure": "cadastre__structure.sql",
+      "tables": [
+        "registered_building_zones",
+        "cadastral_land_parcel_zones"
+      ]
+    },
+    "technical_workflows": {
+      "name": "technical_workflows",
+      "structure": "technical_workflows__structure.sql",
+      "tables": [
+        "technical_workflows",
+        "technical_workflow_procedures",
+        "technical_workflow_procedure_items"
+      ]
+    },
+    "pesticide_frequency_indicator": {
+      "name": "pesticide_frequency_indicator",
+      "structure": "pesticide_frequency_indicator__structure.sql",
+      "tables": [
+        "registered_pfi_crops",
+        "registered_pfi_targets",
+        "registered_pfi_doses",
+        "registered_pfi_treatment_types",
+        "registered_pfi_segments"
+      ]
+    },
+    "user_roles": {
+      "name": "user_roles",
+      "structure": "user_roles__structure.sql",
+      "tables": [
+        "user_roles"
+      ]
+    },
+    "rpg": {
+      "name": "rpg",
+      "structure": "rpg__structure.sql",
+      "tables": [
+        "registered_crop_zones"
+      ]
+    },
+    "postal_codes": {
+      "name": "postal_codes",
+      "structure": "postal_codes__structure.sql",
+      "tables": [
+        "registered_postal_zones"
+      ]
+    },
+    "sirene": {
+      "name": "sirene",
+      "structure": "sirene__structure.sql",
+      "tables": [
+        "registered_enterprises"
+      ]
+    },
+    "eu_commodities": {
+      "name": "eu_commodities",
+      "structure": "eu_commodities__structure.sql",
+      "tables": [
+        "eu_market_prices"
+      ]
+    },
+    "agroedi": {
+      "name": "agroedi",
+      "structure": "agroedi__structure.sql",
+      "tables": [
+        "registered_agroedi_codes"
+      ]
+    },
+    "intervention_models": {
+      "name": "intervention_models",
+      "structure": "intervention_models__structure.sql",
+      "tables": [
+        "intervention_models",
+        "intervention_model_items"
+      ]
+    },
+    "gnis": {
+      "name": "gnis",
+      "structure": "gnis__structure.sql",
+      "tables": [
+        "registered_seeds"
+      ]
+    },
+    "technical_workflow_sequences": {
+      "name": "technical_workflow_sequences",
+      "structure": "technical_workflow_sequences__structure.sql",
+      "tables": [
+        "technical_workflow_sequences"
+      ]
+    },
+    "legal_positions": {
+      "name": "legal_positions",
+      "structure": "legal_positions__structure.sql",
+      "data": "legal_positions.sql",
+      "tables": [
+        "registered_legal_positions"
+      ]
+    },
+    "ephy": {
+      "name": "ephy",
+      "structure": "ephy__structure.sql",
+      "data": "ephy.sql",
+      "tables": [
+        "registered_phytosanitary_cropsets",
+        "registered_phytosanitary_products",
+        "registered_phytosanitary_usages",
+        "registered_phytosanitary_risks",
+        "registered_phytosanitary_symbols",
+        "registered_phytosanitary_target_name_to_pfi_targets"
+      ]
+    },
+    "chart_of_accounts": {
+      "name": "chart_of_accounts",
+      "structure": "chart_of_accounts__structure.sql",
+      "tables": [
+        "registered_chart_of_accounts"
+      ]
+    },
+    "productions": {
+      "name": "productions",
+      "structure": "productions__structure.sql",
+      "tables": [
+        "master_production_natures",
+        "master_production_outputs"
+      ]
+    },
+    "vine_variety": {
+      "name": "vine_variety",
+      "structure": "vine_variety__structure.sql",
+      "tables": [
+        "master_vine_varieties"
+      ]
+    },
+    "protected_designation_of_origin": {
+      "name": "protected_designation_of_origin",
+      "structure": "protected_designation_of_origin__structure.sql",
+      "tables": [
+        "registered_protected_designation_of_origins"
+      ]
+    },
+    "phenological_stages": {
+      "name": "phenological_stages",
+      "structure": "phenological_stages__structure.sql",
+      "tables": [
+        "phenological_stages"
+      ]
+    },
+    "datasource_credits": {
+      "name": "datasource_credits",
+      "structure": "datasource_credits__structure.sql",
+      "tables": [
+        "datasource_credits"
+      ]
+    }
+  }
+}

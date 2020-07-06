@@ -17,7 +17,7 @@
 
     .med-info.important
       %span.title= Animal.human_attribute_name(:state)
-      %span.value= lights(resource.status)
+      %span.value{ title: resource.state }= lights(resource.status)
 
     .med-info
       %span.title= Animal.human_attribute_name(:identification_number)

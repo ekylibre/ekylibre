@@ -20,7 +20,9 @@
     %label= :display_vat_details.tl
     = check_box_tag("vat_details", "1", params[:vat_details] == "1")
   - k.helper do
-    %label= :display_n_1.tl
+    %label
+      = :display_n_1.tl
+      = picto_tag('info-circle', color: '#3f70ce', pointer: true, data: { toggle: 'modal', target: '#display-n-1-modal' })
     = check_box_tag("previous_year", "1", params[:previous_year] == "1")
   - k.helper do
     %label= :display_accounts.tl
@@ -123,4 +125,4 @@
             %td.dec{class: "balancecolor"}= number_to_accountancy(prev_item[4], currency) if prev_item[4].to_f > 0
             %td.dec{class: "balancecolor"}= number_to_accountancy(-prev_item[4].to_f, currency) if prev_item[4].to_f < 0
 
-.end
+= render 'display_n_1_modal'

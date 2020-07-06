@@ -104,7 +104,7 @@ class RegisteredPhytosanitaryUsage < ActiveRecord::Base
   end
 
   def decorated_applications_frequency
-    decorate.value_in_days(:applications_frequency)
+    decorate.applications_frequency
   end
 
   def status
@@ -117,5 +117,9 @@ class RegisteredPhytosanitaryUsage < ActiveRecord::Base
     else
       :stop
     end
+  end
+
+  def human_status
+    I18n.t("tooltips.models.registered_phytosanitary_usage.#{status}")
   end
 end

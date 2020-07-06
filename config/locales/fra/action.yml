@@ -1075,6 +1075,7 @@ fra:
     activity: "Activités"
     activity_production: "Production"
     activity_productions: "Productions"
+    accumulated_stock: "Cumul des stocks de %{name}"
     add: "Ajouter"
     add_a_repayment: "Ajouter une échéance"
     add_a_worker: "Ajouter un équipier"
@@ -1675,6 +1676,7 @@ fra:
     employee_informations: "Informations sociales"
     employee_involvement: "Participation des salariés aux résultats (VII)"
     employee_name: "Employé" #?
+    empty_shape: "La forme du support ne peut pas être vide"
     end: "au"
     entities: "Tiers"
     entities_advance_charges: "Charges constatées d'avance"
@@ -2211,6 +2213,9 @@ fra:
     movements: "Mouvements"
     moves: "Mouvements de stocks" #?
     n: "Non"
+    n_1_guidance_1: "La balance N-1 n'apparaît que si la période sélectionnée ne comporte qu'un seul exercice comptable."
+    n_1_guidance_2: "Lorsque la période est inférieure à la durée d'un exercice complet, la balance N-1 apparaissant porte néanmoins sur l'intégralité de l'exercice comptable précédent."
+    n_1_trial_balance_display: "Affichage de la période N-1 de la balance comptable"
     name: "Nom"
     nature: "Type"
     nature_changed: "Le type des animaux a changé"
@@ -3357,7 +3362,7 @@ fra:
       success: "Bien joué\_!"
       warning: "Attention\_!"
     messages:
-      access_denied: "Vous n’avez pas le droit d’accéder à cette page. %{reason} (%{url})"
+      access_denied: "Vous n’avez pas le droit d’accéder à cette page."
       accounts_cannot_be_truncated_to_preference:
         one: "Le compte comptable %{accounts} ne peut être tronqué à la préférence comptable sélectionnée (%{preference} caractères). Seul le zéro peut être automatiquement supprimé. Veuillez modifier ce compte comptable si vous souhaitez ajuster la préférence de la société à %{preference} caractères"
         other: "Les comptes comptables 1010020001, 1010020002, 1010020003 ne peuvent être tronqués à la préférence comptable sélectionnée (%{preference} caractères). Seul le zéro peut être automatiquement supprimé. Veuillez modifier ces comptes comptables si vous souhaitez ajuster la préférence de la société à %{preference} caractères"
