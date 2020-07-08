@@ -15,12 +15,21 @@ module Ekylibre
                   else
                     Charta.new_geometry(value)
                   end
+
+          fixed_value = correct_shape(value)
+          value = fixed_value.get unless fixed_value.is_none?
+
           if options[:type] && options[:type] == :multi_polygon
             value = value.convert_to(:multi_polygon)
           elsif options[:type] && options[:type] == :point
             value = value.convert_to(:point)
           end
           value.to_rgeo
+        end
+
+        def correct_shape(shape)
+          corrector = ShapeCorrector.build
+          fixed_shape = corrector.try_fix(shape)
         end
       end
 
