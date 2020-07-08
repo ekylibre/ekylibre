@@ -282,6 +282,9 @@ class Product < Ekylibre::Record::Base
       available.at(at)
     end
   }
+  scope :excluding, -> (*ids) {
+    where.not(id: ids)
+  }
   scope :alive, -> { where(dead_at: nil) }
   scope :identifiables, -> { where(nature: ProductNature.identifiables) }
   scope :tools, -> { of_variety(:equipment) }
