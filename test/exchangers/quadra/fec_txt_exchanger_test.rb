@@ -8,6 +8,7 @@ module Quadra
       FinancialYear.create! started_on: '2018-08-01', stopped_on: '2019-07-31'
       # We want to keep tracking of import resource
       I18n.locale = :fra
+      Preference.set!(:accounting_system, 'fr_pcg82')
       @import = Import.create!(nature: :quadra_fec_txt, creator: User.first)
     end
 
@@ -16,12 +17,9 @@ module Quadra
       assert result.success?, [result.message, result.exception]
       # check data on balance sheet
       fy = FinancialYear.at(Date.parse('2018-08-01'))
-      document_scope = :balance_sheet
       current_compute = AccountancyComputation.new(fy)
-      entities_reserve_value = current_compute.sum_entry_items_by_line(document_scope, :entities_reserve)
-      debts_cashe_debts_total_value = current_compute.sum_entry_items_by_line(document_scope, :debts_cashe_debts_total)
-      assert_equal 299934.85, entities_reserve_value.to_f
-      assert_equal 389429.97, debts_cashe_debts_total_value.to_f
+      balance_sheet_balance = current_compute.active_balance_sheet_amount - current_compute.passive_balance_sheet_amount
+      assert_equal true, balance_sheet_balance.zero?
     end
 
   end

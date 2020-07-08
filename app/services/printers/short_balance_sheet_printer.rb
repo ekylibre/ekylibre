@@ -3,7 +3,7 @@ module Printers
 
     def compute_dataset
       dataset = []
-      document_scope = :balance_sheet
+      document_scope = :short_balance_sheet
       current_compute = AccountancyComputation.new(@financial_year)
       previous_compute = AccountancyComputation.new(@financial_year.previous) if @financial_year.previous
 
@@ -17,7 +17,8 @@ module Printers
 
       g = HashWithIndifferentAccess.new
       g[:items] = []
-      items = [[0, :unsubcribed_capital, :capitals_values],
+      if @accounting_system == :fr_pcga
+        items = [[0, :unsubcribed_capital, :capitals_values],
                [1, :incorporeal_assets_total, :capitals_emissions],
                [1, :corporeal_assets_total, :reevaluation_gaps],
                [1, :alive_corporeal_assets_total, :capitals_liability_reserves],
@@ -27,7 +28,7 @@ module Printers
                [1, :stocks_supply, :capitals_risk_and_charges_provisions_total],
                [1, :stocks_total_products, :debts_loans_total],
                [0, :entities_advance_giveables, :others_debts_advance_receivables],
-               [1, :entities_client_total, :others_debts_supplier_receivables],
+               [0, :entities_client_total, :others_debts_supplier_receivables],
                [0, :entities_state_receivables, :others_debts_state_debts],
                [1, :entities_associate_receivables, :debts_associate_total],
                [1, :entities_other_receivables, :others_debts_social_debts],
@@ -36,6 +37,27 @@ module Printers
                [0, :entities_advance_charges, :others_debts_advance_products],
                [0, :entities_assets_gaps, :others_debts_liabilities_gaps]
               ]
+      elsif @accounting_system == :fr_pcg82
+        items = [[0, :unsubcribed_capital, :capitals_values],
+               [1, :incorporeal_assets_total, :capitals_emissions],
+               [1, :corporeal_assets_total, :reevaluation_gaps],
+               [1, :financial_assets_total, :capitals_liability_reserves],
+               [1, :raw_matters_total, :capitals_anew_reports],
+               [1, :stocks_supply_products_total, :capitals_profit_or_loss],
+               [1, :stocks_supply_services_total, :capitals_investment_subsidies],
+               [1, :stocks_middle_products_total, :capitals_risk_and_charges_provisions_total],
+               [1, :stocks_end_products_total, :debts_loans_total],
+               [0, :entities_advance_giveables, :others_debts_advance_receivables],
+               [0, :entities_client_total, :others_debts_supplier_receivables],
+               [0, :entities_state_receivables, :others_debts_state_debts],
+               [1, :entities_associate_receivables, :debts_associate_total],
+               [1, :entities_other_receivables, :others_debts_social_debts],
+               [1, :entities_investment_security, :others_debts_total],
+               [0, :entities_reserve, :debts_cashe_debts_total],
+               [0, :entities_advance_charges, :others_debts_advance_products],
+               [0, :entities_assets_gaps, :others_debts_liabilities_gaps]
+              ]
+      end
       items.each do |item|
         i = HashWithIndifferentAccess.new
         i[:actif_name] = item[1].tl
