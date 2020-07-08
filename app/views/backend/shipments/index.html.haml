@@ -7,7 +7,8 @@
     = journal_period_crit(label: Shipment.human_attribute_name(:planned_at))
   - if recipients.any?
     - k.helper do
-      %label= Shipment.human_attribute_name(:recipient)
+      %div.label-container
+        %label= Shipment.human_attribute_name(:recipient)
       = select_tag(:recipient_id, options_for_select([[]] + recipients.order(:name).collect{|u| [u.name, u.id]}, params[:recipient_id]))
   - if senders.any?
     - k.helper do
