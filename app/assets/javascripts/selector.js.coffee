@@ -80,6 +80,7 @@
       else
         @initializing = false
       @element.prop("widgetInitialized", true)
+      @element.trigger("selector:created")
 
     value: (newValue, callback = false) ->
       if newValue is null or newValue is undefined or newValue is ""

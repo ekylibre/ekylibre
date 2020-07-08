@@ -183,6 +183,25 @@
       values = _.reject(values, (val) -> isNaN val)
       if _.isEmpty(values) then null else Math.max(values)
 
+  productListManager =
+    retrieveProductsIds: ->
+      Array.from(document.querySelectorAll(".nested-plant_medicine"))
+          .filter((el) => !el.classList.contains('removed-nested-fields'))
+          .map (element) =>
+            element.querySelector('.intervention_inputs_product input.selector-value').value
+
+    filterProducts: ->
+      productsIds = productListManager.retrieveProductsIds()
+      $productSelectors = $('[data-selector-id="intervention_input_product_id"]')
+      $productSelectors.each -> ProductListManager.filterProduct($(this), productsIds)
+
+    filterProduct: ($productSelector, productsIds) ->
+      url = new URL(window.location.origin.concat($productSelector.data('selector')))
+      selectorId = $productSelector.next('.selector-value').val()
+      url.searchParams.set('scope[excluding]', _.reject(productsIds, (n) -> n == selectorId ))
+      dataSelectorUrl = url.pathname.concat(url.search)
+      $productSelector.data('selector', dataSelectorUrl)
+      $productSelector.attr('data-selector', dataSelectorUrl)
 
   # Update products infos on target remove
   $(document).on 'cocoon:after-remove', '.nested-targets', ->
@@ -190,7 +209,11 @@
 
   $(document).on 'cocoon:after-remove', '.nested-inputs', ->
     $("[data-selector-id='intervention_input_product_id']").trigger('selector:change')
+    productListManager.filterProducts()
     sprayingMap.refresh()
+
+  $(document).on 'selector:created', "[data-selector-id='intervention_input_product_id']", ->
+    productListManager.filterProduct($(this), productListManager.retrieveProductsIds())
 
   # Re-trigger all filters on target change
   $(document).on 'selector:change', "[data-selector-id='intervention_target_product_id']", ->
@@ -207,6 +230,9 @@
     if $(this).val() != ''
       $usageInput.attr('disabled', false)
 
+  $(document).on 'selector:change', "input[data-selector-id='intervention_input_product_id']", ->
+    productListManager.filterProducts()
+
   # Update allowed doses on quantity change
   # And compute authorization badge again
   $(document).on 'input change', "input[data-intervention-field='quantity-value']", ->
@@ -221,12 +247,6 @@
     productsInfos.display()
 
   $(document).on 'cocoon:after-remove', '.nested-working_periods', ->
-    productsInfos.display()
-
-  $(document).on 'mapeditor:optional_data_loaded', '[data-map-editor]', ->
-    sprayingMap.refresh()
-
-  $(document).on 'mapchange', '[data-map-editor]', ->
     productsInfos.display()
 
   $(document).on 'mapeditor:optional_data_loaded', '[data-map-editor]', ->
