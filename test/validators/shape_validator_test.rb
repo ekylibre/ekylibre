@@ -31,7 +31,7 @@ class ShapeValidatorTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     obj.shape = INVALID_SHAPE
 
     assert_not obj.valid?
-    assert_equal "The geographic shape for Shape is invalid", obj.errors.messages.fetch(:shape).first
+    assert_equal "The geographic shape is invalid", obj.errors.messages.fetch(:shape).first
   end
 
   test 'shape validation accept valid shapes' do
