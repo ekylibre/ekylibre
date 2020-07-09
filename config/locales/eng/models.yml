@@ -31,7 +31,7 @@ eng:
       invalid_date: "%{attribute} is not a valid date"
       invalid_datetime: "%{attribute} is not a valid datetime"
       invalid_population_for_unitary_product: "The equipment %{name} cannot have a population of %{population} as it is supposed to be unique."
-      invalid_shape: "The geographic shape for %{attribute} is invalid"
+      invalid_shape: "The geographic shape is invalid"
       invalid_time: "%{attribute} is not a valid time"
       invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
       is: "%{attribute} must be a %{thing}"
