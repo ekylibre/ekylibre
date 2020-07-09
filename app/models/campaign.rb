@@ -59,6 +59,8 @@ class Campaign < Ekylibre::Record::Base
     ActiveSupport::Deprecation.warn "Campaign#at is deprecated, use Campaign#on instead"
     where(harvest_year: searched_at.year)
   }
+  scope :with_interventions, -> { where(id: HABTM_Interventions.select(:campaign_id)) }
+
   scope :on, ->(searched_on) { find_by(harvest_year: searched_on.year) }
   scope :of_activity_production, lambda { |activity_production|
     where('id IN (SELECT campaign_id FROM activity_productions_campaigns WHERE activity_production_id = ?)', activity_production.id)
