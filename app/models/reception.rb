@@ -98,7 +98,7 @@ class Reception < Parcel
     self.state = :draft
   end
 
-  before_validation :remove_all_items, if: ->(obj) { obj.intervention.present? && obj.purchase_id_changed? }
+  before_validation :remove_all_items, if: ->(obj) { obj.intervention.present? && obj.purchase_id_changed? && !obj.updated_at_changed? }
 
   before_validation do
     if self.items.reject { |i| i.instance_variable_get :@marked_for_destruction }.any? { |i| i.purchase_order_item.present? }
