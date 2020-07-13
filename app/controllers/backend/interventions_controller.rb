@@ -348,7 +348,7 @@ module Backend
     def purchase
       interventions = params[:id].split(',')
       if interventions
-        redirect_to new_backend_purchase_path(intervention_ids: interventions)
+        redirect_to new_backend_purchase_invoice_path(intervention_ids: interventions)
       else
         redirect_to action: :index
       end
