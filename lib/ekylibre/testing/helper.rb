@@ -10,12 +10,21 @@ module Ekylibre
         setup_database_cleaner
         setup_factories
 
+        setup_timestamp_format
         reload_lexicon
 
         setup_minitest_reporters
       end
 
       private
+
+        def setup_timestamp_format
+          db_config = Rails.application.config.database_configuration[Rails.env.to_s]
+
+          Ekylibre::Record::Base.connection.execute <<~SQL
+            ALTER DATABASE "#{db_config['database']}" SET intervalstyle='iso_8601';
+          SQL
+        end
 
         def setup_minitest_reporters
           Minitest::Reporters.use!(
