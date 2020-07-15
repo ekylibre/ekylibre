@@ -2822,7 +2822,6 @@ fra:
     sowable: "Semable" #?
     sowed_at: "Semé le" #?
     spraying_map: "Carte de pulvérisation" #?
-    spray_volume: "Volume de bouillie"
     standard: "Standard" #?
     standard_vat: "TVA Standard"
     start: "Du"

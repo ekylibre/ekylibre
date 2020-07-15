@@ -695,11 +695,3 @@ $preview-modal-height: 80vh;
   padding: round($fs-normal/4) 0;
   font-style: italic;
 }
-
-.intervention_inputs_spray_volume {
-  display: none;
-  & .controls::after {
-    margin-left: $spacing;
-    content:"l/ha";
-  }
-}

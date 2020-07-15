@@ -255,8 +255,4 @@
   $(document).on 'mapchange', '[data-map-editor]', ->
     productsInfos.display()
 
-  $(document).on 'select change', "[data-intervention-field='quantity-handler']", ->
-    $container = $(this).closest('.nested-plant_medicine').find('.intervention_inputs_spray_volume')
-    $container.toggle _.includes(['volume_density', 'specific_weight'], $(this).val())
-
 ) ekylibre, jQuery
