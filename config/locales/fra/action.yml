@@ -1883,6 +1883,7 @@ fra:
     generate: "Générer"
     generate_documents_post_closure: "Génération des documents obligatoires post-clôture"
     generate_documents_prior_to_closure: "Génération des documents obligatoires pré-clôture"
+    generate_invoice: "Générer une facture"
     generate_last_journal_entry: "Générer la dernière écriture"
     generate_parcel: "Créer une réception"
     generate_repayments: "Passer en comptabilité"
