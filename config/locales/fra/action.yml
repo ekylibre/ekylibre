@@ -3024,7 +3024,6 @@ fra:
       shipped: "Expédié" #?
       waiting: "En attente" #?
     treatment: "Traitement" #?
-    treatment_type: "Type de traitement"
     trimester: "Trimestre"
     true: "Vrai" #?
     type_of_structure: "Type de structure"

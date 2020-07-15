@@ -6,15 +6,12 @@ module Procedo
       class Input < Procedo::Engine::Intervention::Quantified
         attr_reader :usage
 
-        attr_reader :allowed_entry_factor, :allowed_harvest_factor, :treatment_type
+        attr_reader :allowed_entry_factor, :allowed_harvest_factor
 
         def initialize(intervention, id, attributes = {})
           super(intervention, id, attributes)
           if @attributes[:usage_id].present?
             self.usage_id = @attributes[:usage_id]
-          end
-          if @attributes[:treatment_type_id].present?
-            self.treatment_type_id = @attributes[:treatment_type_id]
           end
         end
 
@@ -22,15 +19,12 @@ module Procedo
           usage&.id
         end
 
-        # @private Call should only be made by Procedo Updater
-        # @param [RegisteredPhytosanitaryUsage] usage
         def usage=(value)
           self.usage_id = value.id
-          @treatment_type = RegisteredPhytosanitaryTargetNameToPfiTarget.find_by(ephy_name: @usage.target_name_label_fra).default_pfi_treatment_type
         end
 
         def usage_id=(value)
-          @usage = RegisteredPhytosanitaryUsage.find_by(id: value)
+          @usage = RegisteredPhytosanitaryUsage.find(value)
 
           if @usage.present?
             self.allowed_harvest_factor = @usage.pre_harvest_delay
@@ -38,17 +32,14 @@ module Procedo
           end
         end
 
-        # @private Call should only be made by Procedo Updater
         def allowed_harvest_factor=(value)
           @allowed_harvest_factor = value
         end
 
-        # @private Call should only be made by Procedo Updater
         def allowed_entry_factor=(value)
           @allowed_entry_factor = value
         end
 
-        # @private Call should only be made by Procedo Updater
         def spray_volume=(value)
           @spray_volume = value
         end
@@ -59,26 +50,12 @@ module Procedo
           handler_requires_spray_volume? ? @spray_volume : nil
         end
 
-        def treatment_type_id
-          treatment_type&.id
-        end
-
-        def treatment_type_id=(treatment_type_id)
-          @treatment_type = RegisteredPfiTreatmentType.find_by(id: treatment_type_id)
-        end
-
-        # @private Call should only be made by Procedo Updater
-        def treatment_type=(value)
-          @treatment_type = value
-        end
-
         def to_attributes
           hash = super
           hash[:usage_id] = usage_id if usage_id.present?
           hash[:allowed_entry_factor] = allowed_entry_factor if allowed_entry_factor.present?
           hash[:allowed_harvest_factor] = allowed_harvest_factor if allowed_harvest_factor.present?
           hash[:spray_volume] = spray_volume if spray_volume.present?
-          hash[:treatment_type_id] = treatment_type_id if treatment_type.present?
           hash
         end
 
@@ -88,19 +65,11 @@ module Procedo
           hash[:allowed_entry_factor] = allowed_entry_factor if allowed_entry_factor.present?
           hash[:allowed_harvest_factor] = allowed_harvest_factor if allowed_harvest_factor.present?
           hash[:spray_volume] = spray_volume
-          hash[:treatment_type_id] = treatment_type_id if treatment_type.present?
           hash
         end
 
         def env
-          super.merge(
-            usage_id: usage_id,
-            usage: usage,
-            allowed_entry_factor: allowed_entry_factor,
-            allowed_harvest_factor: allowed_harvest_factor,
-            spray_volume: spray_volume,
-            treatment_type: treatment_type
-          )
+          super.merge(usage_id: usage_id, usage: usage, allowed_entry_factor: allowed_entry_factor, allowed_harvest_factor: allowed_harvest_factor, spray_volume: spray_volume)
         end
 
         private
