@@ -18,13 +18,15 @@
       $('.nested-plant_medicine').each -> that._clear($(this))
       values = @._retrieveValues()
 
-      $.getJSON "/backend/registered_phytosanitary_products/get_products_infos", values, (data) =>
-        for id, infos of data
-          $productField = $(".selector-value[value='#{id}']").closest('.nested-plant_medicine')
+      $.ajax(url: '/backend/registered_phytosanitary_products/get_products_infos',dataType: "json", data: values, method: 'POST')
+       .done( (data) =>
+          for id, infos of data
+            $productField = $(".selector-value[value='#{id}']").closest('.nested-plant_medicine')
 
-          @._displayAllowedMentions($productField, infos.allowed_mentions)
-          @._displayBadge($productField, infos.state, infos.check_conditions)
-          @._displayMessages($productField, infos.messages)
+            @._displayAllowedMentions($productField, infos.allowed_mentions)
+            @._displayBadge($productField, infos.state, infos.check_conditions)
+            @._displayMessages($productField, infos.messages)
+        )
 
     _displayAllowedMentions: ($productField, allowedMentions) ->
       $productField.find('span.allowed-mentions').insertAfter($productField.find('.intervention_inputs_product .selector'))
@@ -85,11 +87,13 @@
       return unless usageId
       values = @._retrieveValues($productField)
 
-      $.getJSON "/backend/registered_phytosanitary_usages/#{usageId}/get_usage_infos", values, (data) =>
-        @._displayInfos($productField, data.usage_infos)
-        @._displayApplication($input, data.usage_application)
-        @.displayAuthorizationDisclaimer($productField, data.modified)
-        sprayingMap.refresh()
+      $.ajax(url: "/backend/registered_phytosanitary_usages/#{usageId}/get_usage_infos", dataType: "json", data: values, method: 'POST')
+        .done( (data) =>
+          @._displayInfos($productField, data.usage_infos)
+          @._displayApplication($input, data.usage_application)
+          @.displayAuthorizationDisclaimer($productField, data.modified)
+          sprayingMap.refresh()
+        )
 
     displayAuthorizationDisclaimer: ($productField, modified) ->
       if modified
@@ -138,9 +142,11 @@
       values = @._retrieveValues($quantityInput, $productField)
       return unless values.product_id && values.quantity && values.dimension && values.targets_data
 
-      $.getJSON "/backend/registered_phytosanitary_usages/#{usageId}/dose_validations", values, (data) =>
-        @._displayDose($quantityInput, data)
-        usageMainInfos.displayAuthorizationDisclaimer($productField, data.modified)
+      $.ajax(url: "/backend/registered_phytosanitary_usages/#{usageId}/dose_validations", dataType: "json", data: values, method: 'POST')
+        .done( (data) =>
+          @._displayDose($quantityInput, data)
+          usageMainInfos.displayAuthorizationDisclaimer($productField, data.modified)
+        )
 
     _displayDose: ($input, data) ->
       for key, value of data.dose_validation
