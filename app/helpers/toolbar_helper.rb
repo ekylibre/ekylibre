@@ -116,7 +116,7 @@ module ToolbarHelper
         variants = options.delete(:variants)
         # variants ||= { action_label => url } if authorized?(url)
         # variants ||= {}
-        menu(action_label) do |menu|
+        menu(action_label, options) do |menu|
           variants.each do |name, url_options, link_options|
             variant_url = url.merge(url_options)
             if authorized?(variant_url)

@@ -1,34 +1,62 @@
 ((E, $) ->
   'use strict'
 
-  toggleNewReceptionButton = () ->
-    $newParcelBtn = $('#generate-parcel-btn')
-    newParcelUrl = $newParcelBtn.prop('href')
+  listControlledBtn =
+    toggleNewInvoiceButton: () ->
+      $btn = $('#generate-invoice-btn').find('a')
+      url = $btn.prop('href')
+      @_bindInputs('reception', 'sender', $btn, url)
 
-    $(document).on 'change', 'input[data-list-selector]', ->
-      selectedOrders = $('input[data-list-selector]:checked').filter ->
-                         /\d/.test($(this).data('list-selector'))
-      selectedOrdersIds = selectedOrders.map ->
-                            $(this).data('list-selector')
-                          .toArray()
-      selectedOrdersSupplierIds = selectedOrders.map ->
-                                    $(this).closest('tr').data().supplierId
-                                  .toArray()
-      reconciledOrders = selectedOrders.filter ->
-                            $(this).closest('tr').data('reconciliation-state') == 'reconcile'
+    toggleNewReceptionButton: () ->
+      $btn = $('#generate-parcel-btn')
+      url = $btn.prop('href')
+      @_bindInputs('purchase_order', 'supplier', $btn, url)
 
-      sameSupplier = _.uniq(_.compact(selectedOrdersSupplierIds)).length == 1
+    _bindInputs: (model, third, $btn, url) ->
+      $(document).on 'change', 'input[data-list-selector]', =>
+        $selectedItems = @_getSelectedItems()
+        selectedItemsIds = @_getSelectedItemsIds($selectedItems)
+        $reconciledItems = @_getReconciledItems($selectedItems)
+        sameThird = @_checkThirdUniqueness($selectedItems, third)
+        @_setBtnUrl(selectedItemsIds, $btn, model, url)
+        @_setDisabledProp(model, $btn, $selectedItems, $reconciledItems, sameThird)
 
-      if selectedOrdersIds.length > 0
-        $newParcelBtn.prop('href', "#{newParcelUrl}?mode=prefilled&purchase_order_ids=#{selectedOrdersIds}")
+    _getSelectedItems: () ->
+      $('input[data-list-selector]:checked').filter ->
+        /\d/.test($(this).data('list-selector'))
+
+    _getSelectedItemsIds: ($selectedItems) ->
+      $selectedItems.map ->
+        $(this).data('list-selector')
+      .toArray()
+
+    _getReconciledItems: ($selectedItems) ->
+      $selectedItems.filter ->
+        $(this).closest('tr').data('reconciliation-state') == 'reconcile'
+
+    _checkThirdUniqueness: ($selectedItems, third) ->
+      selectedItemsThirdIds = $selectedItems.map ->
+                                $(this).closest('tr').data("#{third}Id")
+                              .toArray()
+
+      _.uniq(_.compact(selectedItemsThirdIds)).length == 1
+
+    _setBtnUrl: (selectedItemsIds, $btn, model, url) ->
+      if selectedItemsIds.length > 0
+        $btn.prop('href', "#{url}?mode=prefilled&#{model}_ids=#{selectedItemsIds}")
       else
-        $newParcelBtn.prop('href', newParcelUrl)
+        $btn.prop('href', url)
 
-      disabled = !selectedOrders.length || reconciledOrders.length || !sameSupplier
-      # !! so we're sure disabled is a Boolean and not just truthy/falsy — for jQuery
-      $newParcelBtn.toggleClass('disabled', !!disabled)
+    _setDisabledProp: (model, $btn, $selectedItems, $reconciledItems, sameThird) ->
+      disabled = if model == 'reception'
+        !$selectedItems.length || !sameThird
+      else if model == 'purchase_order'
+        !$selectedItems.length || $reconciledItems.length || !sameThird
+
+      $btn.toggleClass('disabled', !!disabled)
 
   $(document).ready ->
-    toggleNewReceptionButton() if $('#purchase_orders-list, #unreceived_purchase_orders-list').length > 0
+    listControlledBtn.toggleNewReceptionButton() if $('#purchase_orders-list, #unreceived_purchase_orders-list').length > 0
+    listControlledBtn.toggleNewInvoiceButton() if $('#receptions-list').length > 0
 
 ) ekylibre, jQuery

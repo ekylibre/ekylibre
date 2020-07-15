@@ -18,5 +18,5 @@
         %label= :supplier_payment_mode.tl
       = select_tag(:payment_mode_id, options_for_select([[]] +  supplier_payment_modes.map{|u| [u.name, u.id]}, params[:payment_mode_id].to_i))
 - main_toolbar do |t|
-  = t.new variants: PurchaseNature.actives.reorder(:name).to_a.map{ |n| [n.name, {nature_id: n.id}, {by_default: n.by_default}] }, params: { redirect: nil }
+  = t.new label: :generate_invoice.tl, variants: PurchaseNature.actives.reorder(:name).to_a.map{ |n| [n.name, {nature_id: n.id}] }
 = main_list
