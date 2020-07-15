@@ -112,7 +112,7 @@
     - if attr.hidden?
       = f.input :identification_number, as: :hidden, input_html: { data: { intervention_updater: prefix + 'identification_number' }}
     - else
-      = f.input :identification_number, input_html: { data: { intervention_updater: prefix + 'identification_number' }, disabled: (f.object.product.present? and f.object.product.identification_number) ? true : false }
+      = f.input :identification_number, required: true, input_html: { data: { intervention_updater: prefix + 'identification_number' }, disabled: (f.object.product.present? and f.object.product.identification_number) ? true : false }
   - if (attr = reference.attribute(:new_container))
     = f.referenced_association :new_container, source: { scope: reference.attribute(:new_container).scope_hash.merge(availables: [at: started_at.strftime("%Y-%m-%d %H:%M")]), keep: true }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'new_container_id' } }, new: false
 
