@@ -111,7 +111,7 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
     end
   end
 
-  after_commit :update_temporality, unless: -> { intervention.blank? || Intervention.find_by(id: intervention_id).nil? }
+  after_save :update_temporality, unless: -> { intervention.blank? || Intervention.find_by(id: intervention_id).nil? }
   after_destroy :update_temporality, unless: -> { intervention.blank? || Intervention.find_by(id: intervention_id).nil? }
 
   def last_activity_production_started_on
