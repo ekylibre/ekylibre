@@ -239,6 +239,7 @@ GEM
     fugit (1.3.6)
       et-orbi (~> 1.1, >= 1.1.8)
       raabro (~> 1.3)
+    geocoder (1.6.3)
     git (1.7.0)
       rchardet (~> 1.8)
     globalid (0.4.2)
@@ -667,6 +668,7 @@ DEPENDENCIES
   figaro
   font-awesome-sass
   formize (~> 2.1.0)
+  geocoder
   git
   gpgme
   haml
