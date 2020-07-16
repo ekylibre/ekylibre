@@ -1,7 +1,8 @@
 = kujaku do |k|
   - k.text
   - k.helper do
-    %label= SaleOpportunity.human_attribute_name(:responsible)
+    %div.label-container
+      %label= SaleOpportunity.human_attribute_name(:responsible)
     = select_tag(:responsible_id, options_for_select([[]] + Entity.users.all.collect{|u| [u.label, u.id]}, params[:responsible_id]))
 
 - main_toolbar do |t|

@@ -69,7 +69,7 @@ module Backend
         end
 
         def to_html
-          raise NotImplementedError
+          @template.render("kujaku/feather/#{self.class.name.demodulize.underscore}", **vars)
         end
 
         def inspect
@@ -83,14 +83,17 @@ module Backend
           @name = @options.delete(:name) || :q
         end
 
-        def to_html
+        def vars
           p = @template.current_user.pref("kujaku.feathers.#{@uid}.default", @template.params[@name])
-          @template.params[@name] ||= p.value
-          p.set!(@template.params[@name])
-          html = @template.content_tag(:label, @options[:label] || :search.tl)
-          html << ' '.html_safe
-          html << @template.text_field_tag(@name, @template.params[@name])
-          html
+          value = @template.params[@name] || p.value
+          p.set!(value)
+
+          {
+            label: @options[:label] || :search.tl,
+            name: @name,
+            name_value: value,
+            preference: @template.current_user.pref("kujaku.feathers.#{@uid}.default", @template.params[@name])
+          }
         end
       end
 
@@ -183,6 +186,7 @@ module Backend
             value: value = @template.params[@name]
           }
         end
+
       end
 
       # Custom search field based on rendering helper method

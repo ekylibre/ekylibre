@@ -1304,7 +1304,7 @@ html.backend {
       padding: round($default-gap * 0.6) 0 0;
       margin-top: round($default-gap * 0.6);
       vertical-align: middle;
-      text-align: center;
+      // text-align: center;
       line-height: $line-height;
       min-height: $line-height;
       .feather-block {
