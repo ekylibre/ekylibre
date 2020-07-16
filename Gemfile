@@ -88,6 +88,7 @@ gem 'timecop'
 
 # Manipulate map data
 gem 'charta', gitlab: 'ekylibre/charta', branch: 'rails-4'
+gem 'geocoder'
 
 # active_list alternative
 gem 'font-awesome-sass'
