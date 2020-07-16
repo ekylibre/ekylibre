@@ -236,6 +236,9 @@
         error: (request, status, error) ->
           alert "Selector failure on #{url} (#{status}): #{error}"
 
+    close: ->
+      @_closeMenu()
+
     _closeMenu: ->
       # console.log "closeMenu"
       if @element.attr("required") is "true"
@@ -407,7 +410,7 @@
   $(document).on 'selector:menu-opened', '.selector', (e) ->
     $currentDropDown = $(this)
     $('.selector').not($currentDropDown).each ->
-      $(this).find('.items-menu').hide()
+      $($(this).find('input[data-selector]').get(0)).selector('close')
 
   filterableUnroll =
     filter: ($filteringUnroll) ->
