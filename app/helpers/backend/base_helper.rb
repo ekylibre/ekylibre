@@ -237,7 +237,7 @@ module Backend
         series << { name: resource.name, data: data.sort_by(&:first) }
       end
       return no_data if series.empty?
-      line_highcharts(series, legend: { layout: 'horizontal', align: 'bottom', vertical_align: 'bottom', border_width: 0, align: 'center' }, y_axis: { title: { text: :indicator.tl } }, chart: { spacing_bottom: 40 }, tooltip: { value_decimals: 2, xDateFormat: '%Y-%m-%d, %H:%M' }, x_axis: { type: 'datetime', title: { enabled: true, text: :months.tl }, min: min.to_usec })
+      line_highcharts(series, legend: { layout: 'horizontal', vertical_align: 'bottom', border_width: 0, align: 'center' }, y_axis: { title: { text: :indicator.tl } }, chart: { spacing_bottom: 40 }, tooltip: { value_decimals: 2, xDateFormat: '%Y-%m-%d, %H:%M' }, x_axis: { type: 'datetime', title: { enabled: true, text: :months.tl }, min: min.to_usec })
     end
 
     def main_campaign_selector
