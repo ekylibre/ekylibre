@@ -19,8 +19,10 @@
     - targets = InterventionTarget.joins(:product)
     - if productions && productions.any?
       - k.helper do
-        %label= :target.tl
-        = select_tag(:product_id, options_for_select([[]] + accented_sort(targets.select(:product_id).distinct.collect{|u| [u.product.work_name, u.product_id]}), params[:product_id]))
+        %div.label-container
+          %label= :target.tl
+        %div.select-block--intervention
+          = select_tag(:product_id, options_for_select([[]] + accented_sort(targets.select(:product_id).distinct.collect{|u| [u.product.work_name, u.product_id]}), params[:product_id]))
   - if InterventionLabelling.any?
     - k.helper do
       %label= Label.model_name.human

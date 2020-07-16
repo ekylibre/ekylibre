@@ -2590,6 +2590,8 @@ fra:
     radical_class_accounts_have_entries: "Les comptes de classes radicales comportent des écritures."
     raw_income: "Résultat d’exploitation"
     raw_margin: "Marge brute" #?
+    raw_matters: "Matières premières et approvisionnements"
+    raw_matters_total: "Matières premières et approvisionnements"
     re_entry_delay: "RÉ-ENTRÉE"
     re_entry_interval: "Délai de ré-entrée"
     reading_tasks: "Relevés d’indicateur"
@@ -2845,10 +2847,17 @@ fra:
     stocks: "Stocks"
     stocks_by_calibrations: "Stock en terre par calibre" #?
     stocks_end_products: "Produits finis"
+    stocks_end_products_total: "Produits finis"
     stocks_in_ground: "Stock en terre" #?
+    stocks_middle_products: "Produits intermédiaires"
+    stocks_middle_products_total: "Produits intermédiaires"
     stocks_others_products: "Autres produits"
     stocks_preferences: "Gestion des stocks" #?
     stocks_supply: "Approvisionnements et marchandises"
+    stocks_supply_products: "En-cours de production de biens"
+    stocks_supply_products_total: "En-cours de production de biens"
+    stocks_supply_services: "En-cours de production de services"
+    stocks_supply_services_total: "En-cours de production de services"
     stocks_total: "Stocks" #?
     stocks_total_products: "Produits finis" #?
     stop: "Jusqu’au"

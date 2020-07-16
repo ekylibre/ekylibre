@@ -404,6 +404,11 @@
   $(document).on 'selector:change', '[data-filter-unroll]', (e) ->
     filterableUnroll.filter $(this)
 
+  $(document).on 'selector:menu-opened', '.selector', (e) ->
+    $currentDropDown = $(this)
+    $('.selector').not($currentDropDown).each ->
+      $(this).find('.items-menu').hide()
+
   filterableUnroll =
     filter: ($filteringUnroll) ->
       filterId = $filteringUnroll.selector('value')
@@ -451,6 +456,5 @@
           retrievedIds.push $(this).selector('value')
 
       { retrieved_ids: retrievedIds, selected_value: selectedValue }
-
   return
 ) ekylibre, jQuery

@@ -7,16 +7,19 @@
     = journal_period_crit(label: Shipment.human_attribute_name(:planned_at))
   - if recipients.any?
     - k.helper do
-      %label= Shipment.human_attribute_name(:recipient)
+      %div.label-container
+        %label= Shipment.human_attribute_name(:recipient)
       = select_tag(:recipient_id, options_for_select([[]] + recipients.order(:name).collect{|u| [u.name, u.id]}, params[:recipient_id]))
   - if senders.any?
     - k.helper do
-      %label= Shipment.human_attribute_name(:sender)
+      %div.label-container
+        %label= Shipment.human_attribute_name(:sender)
       = select_tag(:sender_id, options_for_select([[]] + senders.order(:name).collect{|u| [u.name, u.id]}, params[:sender_id]))
 
   - if responsibles.any?
     - k.helper do
-      %label= Shipment.human_attribute_name(:responsible)
+      %div.label-container
+        %label= Shipment.human_attribute_name(:responsible)
       = select_tag(:responsible_id, options_for_select([[]] +  responsibles.map{|u| [u.label, u.id]}, params[:responsible_id].to_i))
 
   -# - senders = Entity.all

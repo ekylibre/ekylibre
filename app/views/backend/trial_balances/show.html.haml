@@ -17,21 +17,25 @@
   - k.helper :journal_entries_states_crit
   - k.helper :journals_natures_crit
   - k.helper do
-    %label= :display_vat_details.tl
+    %div.label-container
+      %label= :display_vat_details.tl
     = check_box_tag("vat_details", "1", params[:vat_details] == "1")
   - k.helper do
-    %label
-      = :display_n_1.tl
-      = picto_tag('info-circle', color: '#3f70ce', pointer: true, data: { toggle: 'modal', target: '#display-n-1-modal' })
+    %div.label-container
+      %label
+        = :display_n_1.tl
+        = picto_tag('info-circle', color: '#3f70ce', pointer: true, data: { toggle: 'modal', target: '#display-n-1-modal' })
     = check_box_tag("previous_year", "1", params[:previous_year] == "1")
   - k.helper do
-    %label= :display_accounts.tl
-    = radio_button_tag :balance, 'all', !params[:balance] || params[:balance] == 'all'
-    %label= :all.tl
-    = radio_button_tag :balance, 'balanced', params[:balance] == 'balanced'
-    %label= :balanced.tl
-    = radio_button_tag :balance, 'unbalanced', params[:balance] == 'unbalanced'
-    %label= :unbalanced.tl
+    %div.label-container
+      %label= :display_accounts.tl
+    %div.value-container
+      = radio_button_tag :balance, 'all', !params[:balance] || params[:balance] == 'all'
+      %label= :all.tl
+      = radio_button_tag :balance, 'balanced', params[:balance] == 'balanced'
+      %label= :balanced.tl
+      = radio_button_tag :balance, 'unbalanced', params[:balance] == 'unbalanced'
+      %label= :unbalanced.tl
   - k.helper :accounts_range_crit
   - k.helper do
     - centralized_account = Nomen::Account.select { |a| a.centralizing }.collect {|a| a.send(Account.accounting_system)}.sort.join(" ")
@@ -39,11 +43,13 @@
     = text_field_tag("centralize", params[:centralize]||centralized_account, size: 30)
   - k.helper do
     - max = Account.maximum("LENGTH(TRIM(number))").to_i
-    %label= :subtotals_at_level.tl
-    - for level in 1..max-1
-      - name = "level_#{level}"
-      = check_box_tag(name, "1", params[name]=="1")
-      %label{ for: name }= level
+    %div.label-container
+      %label= :subtotals_at_level.tl
+    %div.value-container
+      - for level in 1..max-1
+        - name = "level_#{level}"
+        = check_box_tag(name, "1", params[name]=="1")
+        %label{ for: name }= level
 - if @balance
   - currency = Preference[:currency]
   .active-list
