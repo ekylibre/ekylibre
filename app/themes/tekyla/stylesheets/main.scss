@@ -1294,6 +1294,7 @@ html.backend {
   // margin: 0 0 $default-gap;
   padding: 0;
   background: $background-color; // mix(white, #CE0, 80%);
+  position: relative;
   @include clearfix;
   $line-height: $lh-normal;
   .feathers {
@@ -1308,10 +1309,10 @@ html.backend {
       line-height: $line-height;
       min-height: $line-height;
       .feather-block {
-        margin-left: 25%;
         display: flex;
         .label-container {
-          width: 190px;
+          text-align: right;
+          width: 40%;
           padding: 0px 42px;
         }
         .value-container {
@@ -1322,10 +1323,7 @@ html.backend {
         }
 
         .value-container--journal-nature-crit {
-          @media only screen and (max-width: 1200px) {
-            max-width: 49%;
-          }
-          max-width: 60%;
+          max-width: 49%;
         }
 
         .select-block--intervention {
@@ -1364,8 +1362,9 @@ html.backend {
     background: lighten($active-color, 20%);
   }
   a[data-toggle="kujaku"] {
-    @include float(right);
-    margin: $default-gap $default-gap * $default-ratio;
+    position: absolute;
+    top: $default-gap;
+    right: $default-gap;
     i {
       @include is-icon;
       @include use-icon(minus-square-o);
