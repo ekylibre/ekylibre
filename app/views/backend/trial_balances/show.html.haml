@@ -19,13 +19,15 @@
   - k.helper do
     %div.label-container
       %label= :display_vat_details.tl
-    = check_box_tag("vat_details", "1", params[:vat_details] == "1")
+    %div.value-container
+      = check_box_tag("vat_details", "1", params[:vat_details] == "1")
   - k.helper do
     %div.label-container
       %label
         = :display_n_1.tl
         = picto_tag('info-circle', color: '#3f70ce', pointer: true, data: { toggle: 'modal', target: '#display-n-1-modal' })
-    = check_box_tag("previous_year", "1", params[:previous_year] == "1")
+    %div.value-container
+      = check_box_tag("previous_year", "1", params[:previous_year] == "1")
   - k.helper do
     %div.label-container
       %label= :display_accounts.tl
@@ -41,7 +43,8 @@
     - centralized_account = Nomen::Account.select { |a| a.centralizing }.collect {|a| a.send(Account.accounting_system)}.sort.join(" ")
     %div.label-container
       %label= :group_by_centralizing_accounts.tl
-    = text_field_tag("centralize", params[:centralize]||centralized_account, size: 30)
+    %div.value-container
+      = text_field_tag("centralize", params[:centralize]||centralized_account, size: 30)
   - k.helper do
     - max = Account.maximum("LENGTH(TRIM(number))").to_i
     %div.label-container
