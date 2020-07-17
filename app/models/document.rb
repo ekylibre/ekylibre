@@ -62,7 +62,7 @@ class Document < Ekylibre::Record::Base
   validates :file_content_text, :signature, length: { maximum: 500_000 }, allow_blank: true
   validates :file_content_type, :file_file_name, :file_fingerprint, :sha256_fingerprint, length: { maximum: 500 }, allow_blank: true
   validates :file_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
-  validates :file_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :file_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :key, :name, :number, presence: true, length: { maximum: 500 }
   validates :mandatory, inclusion: { in: [true, false] }, allow_blank: true
   validates :uploaded, inclusion: { in: [true, false] }

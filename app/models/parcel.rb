@@ -89,11 +89,11 @@ class Parcel < Ekylibre::Record::Base
   # has_many :interventions, class_name: 'Intervention', as: :resource
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, :given_at, :in_preparation_at, :ordered_at, :prepared_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :accounted_at, :given_at, :in_preparation_at, :ordered_at, :prepared_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :late_delivery, :separated_stock, inclusion: { in: [true, false] }, allow_blank: true
   validates :nature, presence: true
   validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
-  validates :planned_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :planned_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
   validates :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :reference_number, length: { maximum: 500 }, allow_blank: true
   validates :remain_owner, :with_delivery, inclusion: { in: [true, false] }

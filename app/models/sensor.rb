@@ -59,7 +59,7 @@ class Sensor < Ekylibre::Record::Base
   validates :active, :embedded, inclusion: { in: [true, false] }
   validates :battery_level, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :euid, :model_euid, :partner_url, :token, :vendor_euid, length: { maximum: 500 }, allow_blank: true
-  validates :last_transmission_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :last_transmission_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
   validates :retrieval_mode, presence: true
   # ]VALIDATORS]

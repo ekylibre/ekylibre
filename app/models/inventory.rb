@@ -58,7 +58,7 @@ class Inventory < Ekylibre::Record::Base
   belongs_to :product_nature_category
   belongs_to :journal, inverse_of: :inventories
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, :achieved_at, :reflected_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :accounted_at, :achieved_at, :reflected_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :disable_accountancy, inclusion: { in: [true, false] }, allow_blank: true
   validates :name, :number, presence: true, length: { maximum: 500 }
   validates :reflected, inclusion: { in: [true, false] }

@@ -103,7 +103,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   validates :accounting_label, :bank_statement_letter, :letter, :resource_prism, :resource_type, :tax_declaration_mode, length: { maximum: 500 }, allow_blank: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :entry_number, :name, :state, presence: true, length: { maximum: 500 }
-  validates :printed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :printed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }
   validates :real_currency_rate, presence: true, numericality: { greater_than: -1_000_000_000, less_than: 1_000_000_000 }
   # ]VALIDATORS]
   validates :absolute_currency, :currency, :real_currency, length: { allow_nil: true, maximum: 3 }

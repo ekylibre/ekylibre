@@ -114,17 +114,17 @@ class FixedAsset < Ekylibre::Record::Base
   has_one :tool, class_name: 'Equipment'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :ceded, inclusion: { in: [true, false] }, allow_blank: true
-  validates :ceded_on, :purchased_on, :scrapped_on, :sold_on, :waiting_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
+  validates :ceded_on, :purchased_on, :scrapped_on, :sold_on, :waiting_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }, allow_blank: true
   validates :currency, :depreciation_method, :journal, presence: true
   validates :current_amount, :depreciation_percentage, :pretax_selling_amount, :purchase_amount, :selling_amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :depreciable_amount, :depreciated_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :depreciation_fiscal_coefficient, numericality: true, allow_blank: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :name, :number, presence: true, length: { maximum: 500 }
-  validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
-  validates :stopped_on, timeliness: { on_or_after: ->(fixed_asset) { fixed_asset.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
+  validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }
+  validates :stopped_on, timeliness: { on_or_after: ->(fixed_asset) { fixed_asset.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }, allow_blank: true
   # ]VALIDATORS]
   validates :name, uniqueness: true
   validates :asset_account, presence: true

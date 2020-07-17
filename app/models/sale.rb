@@ -99,7 +99,7 @@ class Sale < Ekylibre::Record::Base
   has_many :subscriptions, through: :items, class_name: 'Subscription', source: 'subscription'
   has_many :parcel_items, through: :parcels, source: :items
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, :confirmed_at, :expired_at, :invoiced_at, :payment_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :accounted_at, :confirmed_at, :expired_at, :invoiced_at, :payment_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :amount, :downpayment_amount, :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :annotation, :conclusion, :description, :introduction, length: { maximum: 500_000 }, allow_blank: true
   validates :client_reference, :expiration_delay, :function_title, :initial_number, :reference_number, :subject, length: { maximum: 500 }, allow_blank: true

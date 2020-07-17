@@ -106,13 +106,13 @@ class Intervention < Ekylibre::Record::Base
     has_many :agents, class_name: 'InterventionAgent'
   end
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :actions, :number, length: { maximum: 500 }, allow_blank: true
   validates :auto_calculate_working_periods, :request_compliant, inclusion: { in: [true, false] }, allow_blank: true
   validates :description, :trouble_description, length: { maximum: 500_000 }, allow_blank: true
   validates :nature, :procedure_name, :state, presence: true
-  validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates :stopped_at, presence: true, timeliness: { on_or_after: ->(intervention) { intervention.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
+  validates :stopped_at, presence: true, timeliness: { on_or_after: ->(intervention) { intervention.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
   validates :trouble_encountered, inclusion: { in: [true, false] }
   validates :whole_duration, :working_duration, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
   # ]VALIDATORS]

@@ -44,8 +44,8 @@ class GuideAnalysis < Ekylibre::Record::Base
   validates :acceptance_status, :guide, presence: true
   validates :execution_number, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
   validates :latest, inclusion: { in: [true, false] }
-  validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates :stopped_at, presence: true, timeliness: { on_or_after: ->(guide_analysis) { guide_analysis.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
+  validates :stopped_at, presence: true, timeliness: { on_or_after: ->(guide_analysis) { guide_analysis.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
   # ]VALIDATORS]
   validates :acceptance_status, inclusion: { in: acceptance_status.values }
 

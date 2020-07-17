@@ -51,8 +51,8 @@ class EntityLink < Ekylibre::Record::Base
   validates :main, inclusion: { in: [true, false] }
   validates :entity, :linked, :nature, presence: true
   validates :post, length: { maximum: 500 }, allow_blank: true
-  validates :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
-  validates :stopped_at, timeliness: { on_or_after: ->(entity_link) { entity_link.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
+  validates :stopped_at, timeliness: { on_or_after: ->(entity_link) { entity_link.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   # ]VALIDATORS]
   validates :nature, inclusion: { in: nature.values }
 

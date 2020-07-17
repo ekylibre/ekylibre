@@ -48,8 +48,8 @@ class ProductPhase < Ekylibre::Record::Base
   belongs_to :category, class_name: 'ProductNatureCategory'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :originator_type, length: { maximum: 500 }, allow_blank: true
-  validates :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
-  validates :stopped_at, timeliness: { on_or_after: ->(product_phase) { product_phase.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
+  validates :stopped_at, timeliness: { on_or_after: ->(product_phase) { product_phase.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :category, :nature, :product, :variant, presence: true
   # ]VALIDATORS]
 

@@ -40,7 +40,7 @@ module Clean
               on_or_after = "->(#{record}) { #{record}.started_#{suffix} || Time.new(1, 1, 1).in_time_zone }"
             end
             on_or_after ||= '-> { Time.new(1, 1, 1).in_time_zone }'
-            list << "timeliness: { on_or_after: #{on_or_after}, on_or_before: -> { Time.zone.#{suffix == 'on' ? 'today' : 'now'} + 50.years }#{', type: :date' if type == :date} }" # #{ 'allow_blank: true, ' if column.null }
+            list << "timeliness: { on_or_after: #{on_or_after}, on_or_before: -> { Time.zone.#{suffix == 'on' ? 'today' : 'now'} + 100.years }#{', type: :date' if type == :date} }" # #{ 'allow_blank: true, ' if column.null }
           elsif type == :boolean
             list << 'inclusion: { in: [true, false] }'
           elsif type == :integer

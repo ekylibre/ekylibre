@@ -69,8 +69,8 @@ class FinancialYear < Ekylibre::Record::Base
   validates :code, presence: true, length: { maximum: 500 }
   validates :currency, :tax_declaration_mode, presence: true
   validates :currency_precision, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
-  validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
-  validates :stopped_on, presence: true, timeliness: { on_or_after: ->(financial_year) { financial_year.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }
+  validates :stopped_on, presence: true, timeliness: { on_or_after: ->(financial_year) { financial_year.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }
   # ]VALIDATORS]
   validates :currency, presence: true, length: { allow_nil: true, maximum: 3 }
   validates :code, uniqueness: true, length: { allow_nil: true, maximum: 20 }

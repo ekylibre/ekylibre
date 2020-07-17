@@ -45,8 +45,8 @@ class CashSession < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :expected_stop_amount, :noticed_start_amount, :noticed_stop_amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :number, length: { maximum: 500 }, allow_blank: true
-  validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates :stopped_at, timeliness: { on_or_after: ->(cash_session) { cash_session.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
+  validates :stopped_at, timeliness: { on_or_after: ->(cash_session) { cash_session.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :cash, presence: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }

@@ -42,7 +42,7 @@ class ProductNatureVariantComponent < Ekylibre::Record::Base
   has_many :children, class_name: 'ProductNatureVariantComponent', foreign_key: :parent_id, inverse_of: :parent
   has_many :part_replacements, class_name: 'InterventionInput', inverse_of: :component, foreign_key: :component_id, dependent: :restrict_with_exception
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :deleted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :deleted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
   validates :product_nature_variant, presence: true
   # ]VALIDATORS]

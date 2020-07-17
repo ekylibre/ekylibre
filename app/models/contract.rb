@@ -56,8 +56,8 @@ class Contract < Ekylibre::Record::Base
   validates :currency, :responsible, :supplier, presence: true
   validates :description, :number, :reference_number, :state, length: { maximum: 500 }, allow_blank: true
   validates :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
-  validates :started_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
-  validates :stopped_on, timeliness: { on_or_after: ->(contract) { contract.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
+  validates :started_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }, allow_blank: true
+  validates :stopped_on, timeliness: { on_or_after: ->(contract) { contract.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }, allow_blank: true
   # ]VALIDATORS]
   validates :number, :state, length: { allow_nil: true, maximum: 60 }
   validates :state, presence: true

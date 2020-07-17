@@ -46,15 +46,15 @@ class FinancialYearExchange < Ekylibre::Record::Base
   has_one :accountant, through: :financial_year
   has_attached_file :import_file, path: ':tenant/:class/:id/:style.:extension'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :closed_at, :import_file_updated_at, :public_token_expired_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :closed_at, :import_file_updated_at, :public_token_expired_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :import_file_content_type, :import_file_file_name, length: { maximum: 500 }, allow_blank: true
   validates :import_file_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :public_token, uniqueness: true, length: { maximum: 500 }, allow_blank: true
-  validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
-  validates :stopped_on, presence: true, timeliness: { on_or_after: ->(financial_year_exchange) { financial_year_exchange.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }
+  validates :stopped_on, presence: true, timeliness: { on_or_after: ->(financial_year_exchange) { financial_year_exchange.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }
   validates :financial_year, presence: true
   # ]VALIDATORS]
-  validates :stopped_on, presence: true, timeliness: { on_or_before: ->(exchange) { exchange.financial_year_stopped_on || (Time.zone.today + 50.years) }, type: :date }
+  validates :stopped_on, presence: true, timeliness: { on_or_before: ->(exchange) { exchange.financial_year_stopped_on || (Time.zone.today + 100.years) }, type: :date }
   do_not_validate_attachment_file_type :import_file
 
   scope :opened, -> { where(closed_at: nil) }
