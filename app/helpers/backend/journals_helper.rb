@@ -58,9 +58,16 @@ module Backend
       list.unshift [:general_ledger.tl, :general_ledger]
 
       code = ''
-      code << content_tag(:label, options[:label] || :display.tl, for: configuration[:id]) + ' '
+
+      code << content_tag(:div, class: "label-container") do
+        content_tag(:label, options[:label] || :display.tl, for: configuration[:id]) + ' '
+      end
+
       custom_id = "#{configuration[:id]}_#{configuration[:custom]}"
-      code << select_tag(name, options_for_select(list, value), :id => configuration[:id], 'data-show-value' => custom_id)
+      code << content_tag(:div, class: 'value-container') do
+        select_tag(name, options_for_select(list, value), :id => configuration[:id], 'data-show-value' => custom_id)
+      end
+
       code.html_safe
     end
 
