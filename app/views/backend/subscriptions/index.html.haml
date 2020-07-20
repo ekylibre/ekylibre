@@ -1,8 +1,10 @@
 = kujaku do |k|
   - k.helper do
-    = select_tag(:nature_id, options_for_select(SubscriptionNature.all.map{|x| [x.name, x.id]}, selected: params[:nature_id].to_i), data: {dependents: "#subscriptions_options"})
-    %label= :select_date.tl
-    = date_field_tag(:instant, session[:subscriptions_instant])
+    %div.label-container
+      = select_tag(:nature_id, options_for_select(SubscriptionNature.all.map{|x| [x.name, x.id]}, selected: params[:nature_id].to_i), data: {dependents: "#subscriptions_options"})
+      %label= :select_date.tl
+    %div.value-container
+      = date_field_tag(:instant, session[:subscriptions_instant])
 
 - main_toolbar
 
