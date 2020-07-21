@@ -116,3 +116,12 @@
     transform: scale(1);
   }
 }
+
+
+.warning {
+  .notification_body {
+    a {
+      font-weight: bold;
+    }
+  }
+}

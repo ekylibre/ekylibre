@@ -486,7 +486,8 @@ module ApplicationHelper
   def dropdown_menu_button(name, options = {})
     menu = Ekylibre::Support::Lister.new(:item, :separator)
     yield menu
-    return nil unless menu.any?
+    return nil if menu.empty?
+
     menu_size = menu.size
     default_item = menu.detect_and_extract! do |item|
       item.args[2].is_a?(Hash) && item.args[2][:by_default]
