@@ -2727,6 +2727,7 @@ fra:
       unpaid: "Impayées" #?
     same_variant_as_x: "Même variante de produit que %{x}"
     save: "Enregistrer"
+    save_salary: "Enregistrer un salaire"
     save_and_go_to_x: "Enregistrer et passer à «\_%{x}\_»" #?
     save_in_draft: "Sauvegarder dans le brouillard"
     saved_but_couldnt_letter_x_and_y: "Les %{trade}/%{payment} ont été enregistrés mais n’ont pas pu être lettrés."
@@ -3506,6 +3507,7 @@ fra:
       no_purchases_given: "Aucun achat n’a donné"
       no_reopenable_journal: "Vous ne pouvez pas déclôturer ce journal."
       no_replacements_since_beginning: "Aucun changement depuis le début"
+      no_saved_a_x_html: "Vous n'avez pas encore enregistré un %{x}"
       no_stocks: "Vous n’avez aucun stock. Si vous désirez gérer le stock d’un produit, veuillez cocher l’option «\_Gérer les stocks\_» dans les caractéristiques de votre produit." #?
       no_template_journal: "Pas de modèle journal" #?
       no_template_journal_by_id: "Pas de modèle journal" #?

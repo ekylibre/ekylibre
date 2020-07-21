@@ -4,6 +4,12 @@ module Backend
 
     unroll :number, :amount, :currency, :created_at, employee: :full_name
 
+    def index
+      notify_warning_now(:no_saved_a_x_html, x: helpers.link_to(PayslipNature.model_name.human, backend_payslip_natures_path), html: true) if PayslipNature.count.zero?
+
+      super
+    end
+
     list(joins: %i[affair employee], order: { emitted_on: :desc }) do |t|
       t.action :edit
       t.action :destroy
