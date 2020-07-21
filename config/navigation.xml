@@ -1223,6 +1223,17 @@
         <page to="backend/payslip_affairs#show"/>
         <page to="backend/payslip_affairs#unroll"/>
       </item>
+      <item name="payslip_natures">
+        <page to="backend/payslip_natures#index"/>
+        <page to="backend/payslip_natures#create"/>
+        <page to="backend/payslip_natures#destroy"/>
+        <page to="backend/payslip_natures#edit"/>
+        <page to="backend/payslip_natures#list"/>
+        <page to="backend/payslip_natures#new"/>
+        <page to="backend/payslip_natures#show"/>
+        <page to="backend/payslip_natures#unroll"/>
+        <page to="backend/payslip_natures#update"/>
+      </item>
       <item name="payslip_payments">
         <page to="backend/payslip_payments#index"/>
         <page to="backend/payslip_payments#create"/>
@@ -1877,19 +1888,6 @@
         <page to="backend/catalog_items#show"/>
         <page to="backend/catalog_items#unroll"/>
         <page to="backend/catalog_items#update"/>
-      </item>
-    </group>
-    <group name="humans">
-      <item name="payslip_natures">
-        <page to="backend/payslip_natures#index"/>
-        <page to="backend/payslip_natures#create"/>
-        <page to="backend/payslip_natures#destroy"/>
-        <page to="backend/payslip_natures#edit"/>
-        <page to="backend/payslip_natures#list"/>
-        <page to="backend/payslip_natures#new"/>
-        <page to="backend/payslip_natures#show"/>
-        <page to="backend/payslip_natures#unroll"/>
-        <page to="backend/payslip_natures#update"/>
       </item>
     </group>
   </part>
