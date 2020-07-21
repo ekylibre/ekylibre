@@ -3,22 +3,22 @@
 
   listControlledBtn =
     toggleNewInvoiceButton: () ->
-      $btn = $('#generate-invoice-btn').find('a')
-      url = $btn.prop('href')
-      @_bindInputs('reception', 'sender', $btn, url)
+      $btn = if $('#generate-invoice-btn button').length then $('#generate-invoice-btn button') else $('#generate-invoice-btn a')
+      linksUrls = $('#generate-invoice-btn a').map -> { element: $(this), url: $(this).prop('href') }
+      @_bindInputs('reception', 'sender', $btn, linksUrls)
 
     toggleNewReceptionButton: () ->
       $btn = $('#generate-parcel-btn')
-      url = $btn.prop('href')
-      @_bindInputs('purchase_order', 'supplier', $btn, url)
+      linksUrls = [{ element: $btn, url: $btn.prop('href') }]
+      @_bindInputs('purchase_order', 'supplier', $btn, linksUrls)
 
-    _bindInputs: (model, third, $btn, url) ->
+    _bindInputs: (model, third, $btn, linksUrls) ->
       $(document).on 'change', 'input[data-list-selector]', =>
         $selectedItems = @_getSelectedItems()
         selectedItemsIds = @_getSelectedItemsIds($selectedItems)
         $reconciledItems = @_getReconciledItems($selectedItems)
         sameThird = @_checkThirdUniqueness($selectedItems, third)
-        @_setBtnUrl(selectedItemsIds, $btn, model, url)
+        @_setBtnUrl(selectedItemsIds, $btn, model, linksUrls)
         @_setDisabledProp(model, $btn, $selectedItems, $reconciledItems, sameThird)
 
     _getSelectedItems: () ->
@@ -41,11 +41,14 @@
 
       _.uniq(_.compact(selectedItemsThirdIds)).length == 1
 
-    _setBtnUrl: (selectedItemsIds, $btn, model, url) ->
-      if selectedItemsIds.length > 0
-        $btn.prop('href', "#{url}?mode=prefilled&#{model}_ids=#{selectedItemsIds}")
-      else
-        $btn.prop('href', url)
+    _setBtnUrl: (selectedItemsIds, $btn, model, linksUrls) ->
+      urlSeparator = if $btn.hasClass('dropdown-toggle') then '&' else '?'
+
+      for linkUrl in linksUrls
+        if selectedItemsIds.length > 0
+          $(linkUrl.element).prop('href', "#{linkUrl.url}#{urlSeparator}mode=prefilled&#{model}_ids=#{selectedItemsIds}")
+        else
+          $(linkUrl.element).prop('href', linkUrl.url)
 
     _setDisabledProp: (model, $btn, $selectedItems, $reconciledItems, sameThird) ->
       disabled = if model == 'reception'
