@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Triticale derivative of">
+  <item-change item="product_nature_variants#triticale_seed" derivative_of="triticosecale"/>
+  <item-change item="product_nature_variants#triticale_straw" derivative_of="triticosecale"/>
+</migration>
