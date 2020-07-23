@@ -80,7 +80,6 @@ eng:
         fr_pcga: "French PCGA"
         pt_snc: "Portuguese SNC"
       name: "Accounting systems"
-    
     accounts:
       items:
         accrued_bank_interests: "Accrued bank interests"
@@ -2069,8 +2068,6 @@ eng:
         spheroid: "Spheroid"
         vehicle: "Vehicle"
       name: "Figures"
-    fiscal_positions:
-      
     
     guide_natures:
       items:
@@ -4043,7 +4040,6 @@ eng:
         linkage_points:
           front: "Front"
           rear: "Rear"
-        
         population_counting:
           decimal: "Decimal"
           integer: "Integer"
