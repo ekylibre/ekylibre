@@ -12,7 +12,7 @@ end
 
 ruby '>= 2.3.8', '< 3.0.0'
 
-gem 'elastic-apm'
+gem 'elastic-apm', '~> 3.4.0'
 gem 'piwik_analytics', github: 'ekylibre/piwik-ruby-tracking'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

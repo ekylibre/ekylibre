@@ -200,7 +200,7 @@ GEM
     dry-inflector (0.1.2)
     ekylibre-ofx-parser (1.2.2)
       hpricot (>= 0.6)
-    elastic-apm (3.8.0)
+    elastic-apm (3.4.0)
       concurrent-ruby (~> 1.0)
       http (>= 3.0)
     enumerize (2.3.1)
@@ -658,7 +658,7 @@ DEPENDENCIES
   dl
   draper
   ekylibre-ofx-parser
-  elastic-apm
+  elastic-apm (~> 3.4.0)
   enumerize
   exception_notification
   factory_bot (< 5)
