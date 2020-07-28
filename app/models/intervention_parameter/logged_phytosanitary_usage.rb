@@ -2,7 +2,6 @@ class InterventionParameter
   class LoggedPhytosanitaryUsage
     include Dimensionable
     include Ekylibre::Model
-    include RegisteredPhytosanitaryUsage::SprayVolumeMethods
 
     ATTRIBUTES = %i[decision_date state dose_quantity dose_unit dose_unit_name dose_unit_factor untreated_buffer_aquatic applications_count usage_conditions
                     untreated_buffer_arthropod pre_harvest_delay development_stage_min development_stage_max untreated_buffer_plants crop_label_fra

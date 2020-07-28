@@ -75,7 +75,6 @@ class InterventionInput < InterventionProductParameter
   has_one :product_movement, as: :originator, dependent: :destroy
   validates :quantity_population, :product, presence: true
   # validates :component, presence: true, if: -> { reference.component_of? }
-  validates :spray_volume, presence: { if: :spray_volume_handler? }
 
   scope :of_component, ->(component) { where(component: component.self_and_parents) }
   scope :of_maaids, ->(*maaids) { joins(:variant).where('product_nature_variants.france_maaid IN (?)', maaids)}
@@ -251,10 +250,6 @@ class InterventionInput < InterventionProductParameter
   end
 
   private
-
-    def spray_volume_handler?
-      %w[specific_weight volume_density].include?(quantity_handler)
-    end
 
     def assign_reference_data
       assign_usage_reference_data

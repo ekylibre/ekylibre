@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<migration name="Add liter per hectoliter unit">
-  <item-creation item="units#liter_per_hectoliter" dimension="volume_concentration" symbol="l/hl" a="1.0e-0.3" d="0.1" base_unit="liter" base_dimension="volume" repartition_unit="hectoliter" repartition_dimension="volume"/>
-</migration>

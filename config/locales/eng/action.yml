@@ -2737,7 +2737,6 @@ eng:
     sold_on: "Sold on"
     source: "Source"
     # standard: "Standard"
-    spray_volume: "Spray volume"
     standard_vat: "Standard VAT"
     start: "From"
     start_new_intervention_here: "Start new intervention here"
