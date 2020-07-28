@@ -6,7 +6,7 @@
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
         <attribute name="killable"/>
       </target>
-      <input name="herbicide" filter="can kill(plant) and can care(plant)" cardinality="*">
+      <input name="herbicide" filter="is preparation and can care(plant)" cardinality="*">
         <handler name="population"/>
       </input>
       <doer name="worker" filter="is worker" cardinality="*"/>
