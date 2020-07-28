@@ -31,6 +31,18 @@
           }
         }
       }
+      .modal-header--document {
+        background: #688ED8;
+        .modal-title {
+          margin: 4px;
+          font-weight: bold;
+          font-size: 18px;
+          line-height: 29px;
+          height: 29px;
+          color: white;
+          text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+        }
+      }
       .modal-body {
         .modal-introduction {
           padding: $default-gap * 2;
