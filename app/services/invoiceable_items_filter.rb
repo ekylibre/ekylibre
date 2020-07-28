@@ -9,12 +9,14 @@ class InvoiceableItemsFilter
             unit_pretax_amount: item.unit_pretax_amount,
             pretax_amount: item.pretax_amount,
             role: item.role,
+            quantity: item.quantity,
             tax_id: item.purchase_order_item&.tax_id,
             activity_budget_id: item.activity_budget_id,
             project_budget_id: item.project_budget_id,
             team_id: item.team_id,
             equipment_id: item.equipment_id,
-            annotation: item.annotation
+            annotation: item.annotation,
+            parcels_purchase_invoice_items: [item]
           }
 
           PurchaseItem.new(invoice_item_attributes)

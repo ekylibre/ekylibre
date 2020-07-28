@@ -37,8 +37,7 @@ module Backend
       end
 
       def receptions_to_reconciliate
-        given_receptions = Reception.with_state(:given)
-                                    .joins(:items)
+        given_receptions = Reception.joins(:items)
                                     .where(parcel_items: { purchase_invoice_item_id: nil })
                                     .uniq
         if params[:supplier].present?
