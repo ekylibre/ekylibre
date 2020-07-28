@@ -1614,6 +1614,7 @@ fra:
     disease_percentage_evolution: "Evolution des maladies"
     display: "Afficher"
     display_accounts: "Affichage des comptes"
+    display_electronic_signature: "Afficher la signature électronique"
     display_help: "Afficher l’aide" #?
     display_n_1: "Afficher N-1"
     display_vat_details : "Afficher les détails de TVA"
@@ -1668,6 +1669,7 @@ fra:
     ekylibre: "www.ekylibre.org"
     ekylibre_version: "Version Ekylibre"
     elapsed_interventions_times_by_activities: "Temps passé par activité"
+    electronic_signature: "Signature électronique"
     element_status: "Statut"
     email: "Email:"
     emissions_and_reevaluation_gaps: "Ecart de réévaluation, primes d’émission"
@@ -2813,6 +2815,8 @@ fra:
     show: "Afficher"
     show_export_preview: "Afficher un aperçu du document (peut augmenter le temps de chargement)" #?
     sign_out: "Se déconnecter"
+    signature: "Signature"
+    signature_check: "Vérifier la signature"
     signature_html: "Signature (<a href='%{url}' target='_blank'>Vérifier la signature</a>)"
     simplified: "Régime du réel simplifié"
     simplified_linear_options: "Options linéaire simplifié"
