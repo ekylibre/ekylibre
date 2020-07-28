@@ -850,7 +850,7 @@
         if view.zoom?
           this.map.setView(center, view.zoom)
         else
-          this.map.setView(center, 17)
+          this.map.setView(center, 15)
       else if view.bounds?
         this.map.fitBounds(view.bounds)
       else
