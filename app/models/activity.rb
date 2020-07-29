@@ -115,6 +115,8 @@ class Activity < Ekylibre::Record::Base
   scope :availables, -> { where.not('suspended') }
   scope :main, -> { where(nature: 'main') }
 
+  scope :of_support_variety, -> (variety) { where(support_variety: variety) }
+
   scope :of_campaign, lambda { |campaign|
     if campaign
       c = campaign.is_a?(Campaign) || campaign.is_a?(ActiveRecord::Relation) ? campaign : campaign.map { |c| c.is_a?(Campaign) ? c : Campaign.find(c) }
