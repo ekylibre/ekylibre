@@ -1278,6 +1278,9 @@ eng:
         add_two_hours: "Add two hours if application happened in a close area"
         harvest: "Harvest:"
         reentry: "Reentry:"
+    land_parcel:
+        create_modal:
+          title: "Choose an activity"
     leaflet:
       draw:
         handlers:
@@ -1378,6 +1381,7 @@ eng:
     activity_production: "Activity production"
     activity_productions: "Activity productions"
     accumulated_stock: "Accumulated stock of %{name}"
+    a_cultivable_zone: "A cultivable zone"
     add: "Add"
     add_a_repayment: "Add a loan repayment"
     add_a_worker: "Add a worker"
@@ -1491,6 +1495,7 @@ eng:
     amount_per_unit: "%{amount}/%{unit}"
     # amount_with_taxes: "Amount with taxes"
     amounts_in_currency: "Amounts (%{currency})"
+    an_activity: "An activity"
     analyses: "Analyses"
     analytic_preferences: "Analytic preferences"
     anew_reports: "Anew report"
@@ -1635,6 +1640,7 @@ eng:
       other: "Check entries to balance (%{count})"
     children: "Children"
     choices: "Choices"
+    choose_an_activity: "Choose an activity"
     choose_a_type_of_product: "Choose a type of product"
     choose_creation_mode: "Choose creation mode"
     choose_delete_interventions_options: "Would you :"
@@ -2058,6 +2064,7 @@ eng:
     generate_documents_post_closure: "Generating mandatory documents post closure"
     generate_documents_prior_to_closure: "Generating mandatory documents prior to closure"
     generate_invoice: "Generate invoice"
+    generate_land_parcel: "Create a parcel"
     generate_last_journal_entry: "Generate last journal entry"
     generate_parcel: "Generate parcel"
     generate_repayments: "Pass bookkeeping"
