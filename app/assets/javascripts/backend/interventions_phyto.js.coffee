@@ -1,6 +1,6 @@
 ((E, $) ->
   retrieveTargetsData = () =>
-    Array.from(document.querySelectorAll('.nested-land_parcel, .nested-cultivation'))
+    $('[data-phytosanitary-target]').toArray()
          .filter((el) => !el.classList.contains('removed-nested-fields'))
          .map (element) =>
            id: $(element).find("[data-selector-id='intervention_target_product_id']").next('.selector-value').val()

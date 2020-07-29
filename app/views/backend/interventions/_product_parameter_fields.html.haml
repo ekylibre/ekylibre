@@ -1,6 +1,6 @@
 - prefix = namespace + "[#{f.index}]"
 - f.object.reference_name = reference.name
-.nested-fields.nested-product-parameter{class: "nested-#{reference.name.to_s.parameterize}", data: { intervention_parameter: reference.name } }
+.nested-fields.nested-product-parameter{class: "nested-#{reference.name.to_s.parameterize}", data: { intervention_parameter: reference.name }.merge( reference.target? && @intervention.using_phytosanitary? ? { phytosanitary_target: true } : {}) }
   = link_to_remove_nested_association(:destroy.ta, f)
   = hidden_field_tag :intervention_parameter_id, f.object.id
   = f.input :using_live_data, as: :hidden
