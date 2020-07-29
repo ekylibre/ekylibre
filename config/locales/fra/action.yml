@@ -950,6 +950,9 @@ fra:
         add_two_hours: "Ajouter 2h dans le cas d'une application en milieu fermé"
         harvest: "Récolte :"
         reentry: "Ré-entrée :"
+    land_parcel:
+      create_modal:
+        title: "Choisir une activité"
     leaflet:
       draw:
         handlers:
@@ -1076,6 +1079,7 @@ fra:
     activity_production: "Production"
     activity_productions: "Productions"
     accumulated_stock: "Cumul des stocks de %{name}"
+    a_cultivable_zone: "Une zone cultivable"
     add: "Ajouter"
     add_a_repayment: "Ajouter une échéance"
     add_a_worker: "Ajouter un équipier"
@@ -1199,6 +1203,7 @@ fra:
     amount_to_reduce: "Sommes à imputer, exprimées en euros, y compris acompte congés" #?
     amount_with_taxes: "Montant TTC" #?
     amounts_in_currency: "Montants (%{currency})"
+    an_activity: "Une activité"
     analyses: "Analyses"
     analysis: "Analyse" #?
     analytic_preferences: "Préférences analytiques"
@@ -1374,6 +1379,7 @@ fra:
     children: "Descendance"
     childrens: "Enfants" #?
     choices: "Choix"
+    choose_an_activity: "Choisir une activité"
     choose_a_type_of_product: "Choisissez un type de produit"
     choose_creation_mode: "Choisissez un mode de création"
     choose_delete_interventions_options: "Vous souhaitez :"
@@ -1887,6 +1893,7 @@ fra:
     generate_documents_post_closure: "Génération des documents obligatoires post-clôture"
     generate_documents_prior_to_closure: "Génération des documents obligatoires pré-clôture"
     generate_invoice: "Générer une facture"
+    generate_land_parcel: "Créer une parcelle"
     generate_last_journal_entry: "Générer la dernière écriture"
     generate_parcel: "Créer une réception"
     generate_repayments: "Passer en comptabilité"
@@ -3396,6 +3403,7 @@ fra:
       all_tax_declarations_have_already_existing: "Toutes les déclarations de TVA existent déjà"
       an_error_was_raised_during_import: "Une erreur est survenue durant l'import."
       bad_file: "Le fichier ne semble pas correspondre." #?
+      before_add_a_land_parcel_add_a_x_html: "Avant d’ajouter une parcelle, vous devez d’abord ajouter\_: %{x}"
       bookkeeping_is_finished: "La bascule en comptabilité est finie."
       bookkeeping_works_only_with: "La bascule en comptabilité ne peut se faire actuellement que pour\_: %{list}."
       cannot_add_bank_statement_item: "Vous ne pouvez pas ajouter de nouvelle ligne parce que vous n’avez pas de relevé bancaire ce jour-là."

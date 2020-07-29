@@ -255,6 +255,10 @@ Rails.application.routes.draw do
       end
     end
 
+    namespace :controller_helpers do
+      resources :activity_production_creations, only: %i[new create]
+    end
+
     resources :activity_seasons, concerns: [:unroll]
 
     # resources :affairs, concerns: [:affairs, :list], only: [:show, :index]
