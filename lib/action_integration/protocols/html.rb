@@ -4,8 +4,8 @@ module ActionIntegration
     module HTML
       include Protocols::RestBase
 
-      def get(path, &block)
-        get_base(path, &block)
+      def get(path, headers = {}, &block)
+        get_base(path, headers, &block)
       end
     end
   end
