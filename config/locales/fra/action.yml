@@ -1169,6 +1169,7 @@ fra:
     affair: "Affaire"
     affair_number: "N° d’affaire"
     affairs: "Affaires"
+    a_land_parcel: "Une parcelle"
     alive_corporeal_assets: "Immobilisations corporelles (biens vivants)" #?
     alive_corporeal_assets_adult_animals: "Animaux reproducteurs (adultes)"
     alive_corporeal_assets_advances: "Avances et acomptes"
@@ -1189,6 +1190,7 @@ fra:
     all_f: "Toutes" #?
     all_financial_years_closed_or_locked: "Tous les exercices précédents sont clôturés ou verrouillés."
     all_financial_years_not_closed_or_locked: "Tous les exercices précédents ne sont pas clôturés ou verrouillés."
+    all_in_one_sowing: "Semis tout en un"
     all_periods: "Tous les exercices"
     all_the_categories: "Toutes les categories" #?
     allocation_balance: "Affectation du budget - Allocation %{name}"
@@ -1249,6 +1251,7 @@ fra:
     area: "Zone"
     area_measure: "Superficie" #?
     articles: "Articles"
+    seeds_or_plants_stock: "Des semences ou des plants en stock"
     assessable_operations: "Opérations imposables (H.T)" #?
     asset_exists: "Immobilisation en cours existante"
     assets: "Actifs"
@@ -1294,6 +1297,7 @@ fra:
     based_on_regulation_at_date: "Les vérifications sont effectuées sur la base de la réglementation en vigueur au %{date}"
     bban: "Relevé d’identité bancaire (RIB)"
     bee_usage: "Mention abeille" #?
+    before_add_a_plant: "Avant d’ajouter une culture, vous devez d’abord ajouter des semences ou des plants dans la liste des matières."
     before_taxe_result: "Résultat courant avant impôts"
     beginning: "Début"
     begins: "Commence par" #?
@@ -1895,6 +1899,7 @@ fra:
     generate_land_parcel: "Créer une parcelle"
     generate_last_journal_entry: "Générer la dernière écriture"
     generate_parcel: "Créer une réception"
+    generate_plant: "Nouvelle culture"
     generate_repayments: "Passer en comptabilité"
     geolocation: "Géolocalisation"
     give_discount: "Octroyer une remise" #?
@@ -2184,6 +2189,7 @@ fra:
     maximum_dose: "Dose max"
     measure_options: "Indicateur de type mesure" #?
     meat_withdrawal_period: "Période d’attente avant remise en vente de viande" #?
+    mechanical_planting: "Plantation"
     medical_informations: "Informations médicales" #?
     medicines: "Remèdes" #?
     meeting: "Rencontre" #?
@@ -2834,6 +2840,8 @@ fra:
     source: "Source de données"
     sowable: "Semable" #?
     sowed_at: "Semé le" #?
+    sowing: "Semis"
+    sowing_with_spraying: "Semis avec pulvérisation"
     spraying_map: "Carte de pulvérisation" #?
     spray_volume: "Volume de bouillie"
     standard: "Standard" #?
@@ -3400,6 +3408,7 @@ fra:
       all_tax_declarations_have_already_existing: "Toutes les déclarations de TVA existent déjà"
       an_error_was_raised_during_import: "Une erreur est survenue durant l'import."
       bad_file: "Le fichier ne semble pas correspondre." #?
+      before_add_a_plant_add_a_x_html: "Avant d’ajouter une culture, vous devez d’abord ajouter\_: %{x}"
       before_add_a_land_parcel_add_a_x_html: "Avant d’ajouter une parcelle, vous devez d’abord ajouter\_: %{x}"
       bookkeeping_is_finished: "La bascule en comptabilité est finie."
       bookkeeping_works_only_with: "La bascule en comptabilité ne peut se faire actuellement que pour\_: %{list}."

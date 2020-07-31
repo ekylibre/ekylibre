@@ -32,6 +32,9 @@
   - else
     = no_data
 
-  - if resource&.activity_production&.decorate&.plants?
-    - c.cobble(:plants, title: :crops.tl) do
-      = cobble_list(:plants)
+  - c.cobble(:plants, title: :crops.tl) do
+    - disabled = LandParcel.count.zero? && (Matter.of_variety("seed").count.zero? || Matter.of_variety("plant").count.zero?)
+    = dropdown_menu_button(:new.tl, main_class: "btn btn-default #{'disabled' if disabled}", title: "#{:before_add_a_plant.tl if disabled}") do |d|
+      - %w[sowing mechanical_planting all_in_one_sowing sowing_with_spraying].each do |variety|
+        - d.item variety.tl, { controller: "/backend/interventions", action: :new, procedure_name: variety }
+    = cobble_list(:plants)
