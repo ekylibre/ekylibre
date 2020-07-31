@@ -81,6 +81,12 @@ module Backend
       t.column :read_at, label: :date
     end
 
+    def index
+      notify_plant_creation_warning
+
+      super
+    end
+ 
     def show
       return unless plant = find_and_check
       harvest_advisor = ::Interventions::Phytosanitary::PhytoHarvestAdvisor.new
@@ -88,6 +94,34 @@ module Backend
       @reentry_possible = harvest_advisor.reentry_possible?(plant, Time.zone.now)
       super
     end
+
+    private
+
+      def notify_plant_creation_warning
+        warnings = []
+        if LandParcel.count.zero?
+          warnings << helpers.link_to(:a_land_parcel.tl, backend_land_parcels_path)
+        end
+
+        if !Matter.any?{|matter| matter.nature.variety == 'seed' || matter.nature.variety == 'plant' }
+          warnings << helpers.link_to(:seeds_or_plants_stock.tl, backend_matters_path)
+        end
+
+        if warnings.any?
+          notify_warning_now(:before_add_a_plant_add_a_x_html, x: as_list(warnings), html: true)
+        end
+      end
+
+      # @param [Array<String>] elements
+      # @return [String] HTML representation of a list that contains all the elements in `elements`
+      def as_list(elements)
+        helpers.content_tag(:ul) do
+          elements.map do |element|
+            helpers.content_tag(:li, element)
+          end.join.html_safe
+        end
+      end
+
 
   end
 end

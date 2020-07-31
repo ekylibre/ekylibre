@@ -91,6 +91,7 @@ class Matter < Product
   validates :initial_population, presence: true
 
   scope :of_category, ->(category) { where(category: category) if category.present? }
+  scope :of_variety, ->(variety) { where(variety: variety) }
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   # ]VALIDATORS]
   def choose_default_name
