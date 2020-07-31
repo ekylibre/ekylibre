@@ -510,6 +510,7 @@ module ApplicationHelper
     html_options = { class: 'btn-group' + (options[:dropup] ? ' dropup' : '') }
     html_options[:class] << ' ' + options[:class].to_s if options[:class]
     html_options[:id] = options[:id] if options[:id]
+    html_options[:title] = options[:title].to_s if options[:title]
     content_tag(:div, html_options) do
       if default_item
         html = tool_to(default_item.args.first, default_item.args.second,
