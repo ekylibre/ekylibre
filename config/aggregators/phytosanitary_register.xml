@@ -2,7 +2,7 @@
 <aggregators xmlns="http://www.ekylibre.org/XML/2013/aggregators">
   <aggregator name="phytosanitary_register" version="0.0" category="land_parcel_management">
     <parameters>
-      <parameter name="campaigns" type="record-list" of="campaign" default="current"/>
+      <parameter name="campaigns" type="record-list" of="campaign" default="current" scope="with_interventions"/>
     </parameters>
     <section name="campaigns">
       <variable name="company" value="Entity.of_company"/>

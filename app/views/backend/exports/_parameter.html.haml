@@ -3,7 +3,8 @@
     %div.label-container
       %label= parameter.human_name
     %div.value-container
-      - parameter.foreign_class.with_interventions.sort_by(&:name).each do |item|
+      - export_foreign_class_scope = parameter.options[:scope] ? parameter.foreign_class.send(parameter.options[:scope]) : parameter.foreign_class.all
+      - export_foreign_class_scope.sort_by(&:name).each do |item|
         %span.radio
           %label
             - checked = !params[parameter.name][item.id.to_s].to_i.zero? rescue false
