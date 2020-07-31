@@ -170,6 +170,11 @@ class Intervention < Ekylibre::Record::Base
   scope :of_activities, lambda { |*activities|
     where(id: InterventionTarget.of_activities(activities.flatten))
   }
+
+  scope :of_activity_family, ->(activity_family) {
+    where(procedure_name: Procedo::Procedure.of_activity_family(activity_family).map(&:name))
+  }
+
   scope :ordered_by, ->(by = :started_at) { reorder(by) }
 
   scope :provisional, -> { where('stopped_at > ?', Time.zone.now) }
