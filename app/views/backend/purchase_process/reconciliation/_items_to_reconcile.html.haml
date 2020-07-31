@@ -21,7 +21,7 @@
           - reference_number = !reference_number.blank? ? reference_number : :not_informed.tl
           %span.model-ref= :reference_supplier.tl(reference_number: reference_number) unless model.is_a?(Reception)
           %span.model-ref= :reception_number_with_reference.tl(reference_number: reference_number) if model.is_a?(Reception)
-          - if model.is_a?(Reception) && model.given?
+          - if model.is_a?(Reception)
             %br
             %span.model-ref.reception-date= :reception_date.tl(date: l(model.given_at.to_date))
 

@@ -43,7 +43,7 @@ module Backend
         reception_ids = parsing_response_reception.css('input[type="checkbox"].model-checkbox').map { |k, v| k["data-id"].to_i }
 
         assert_includes reception_ids, @reception_two.id
-        assert_includes reception_ids, @reception_one.id
+        refute_includes reception_ids, @reception_one.id
       end
 
       test "only purchaseOrders with state 'opened' appear in the reception form modal could be reconciled" do
