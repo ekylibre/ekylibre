@@ -533,6 +533,11 @@ fra:
           attributes: #?
             parameters: #?
               check_errored: "La connexion au partenaire a échoué. Veuillez vérifier les informations saisies ou réessayer plus tard." #?
+        intervention_target:
+          attributes:
+            product:
+              target_dont_exist_after: "%{target} sélectionné(e) n'existe pas après le %{date}" #?
+              target_dont_exist_before: "%{target} sélectionné(e) n'existe pas avant le %{date}" #?
         intervention_working_period: #?
           attributes: #?
             started_at: #?

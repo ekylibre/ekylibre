@@ -171,8 +171,8 @@ module Api
                    providers: { zero_id: 5 },
                    working_periods_attributes: [
                      {
-                       started_at: (Time.zone.now + 1.hour).localtime.strftime("%Y-%m-%d %H:%M"),
-                       stopped_at: (Time.zone.now + 2.hours).localtime.strftime("%Y-%m-%d %H:%M")
+                       started_at: "2017-11-06 10:04:39",
+                       stopped_at: "2017-11-06 12:04:39"
                      }
                    ],
                    group_parameters_attributes: [{
