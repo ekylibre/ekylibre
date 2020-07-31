@@ -61,10 +61,11 @@ module Backend
     cases.each do |(verb, comparator, quantity, status)|
       test "dose_validations #{verb} input quantity if it is #{comparator} to usage maximum dose" do
         post :dose_validations, id: @usage.id,
-                               product_id: @product.id,
-                               dimension: 'mass_area_density',
-                               quantity: quantity,
-                               targets_data: { '0' => { id: @land_parcel.id, shape: @land_parcel.shape.to_json_feature_collection.to_json } }
+                                spray_volume: "",
+                                product_id: @product.id,
+                                dimension: 'mass_area_density',
+                                quantity: quantity,
+                                targets_data: { '0' => { id: @land_parcel.id, shape: @land_parcel.shape.to_json_feature_collection.to_json } }
         json = JSON.parse(response.body)
 
         assert_includes json['dose_validation'].keys, status
@@ -79,10 +80,11 @@ module Backend
 
         [%w[- go], %w[+ stop]].each do |(operator, status)|
           post :dose_validations, id: @usage.id,
-                                 product_id: @product.id,
-                                 dimension: dimension,
-                                 quantity: max_dose.send(operator, 0.01),
-                                 targets_data: { '0' => { id: @land_parcel.id, shape: @land_parcel.shape.to_json_feature_collection.to_json } }
+                                  spray_volume: "", 
+                                  product_id: @product.id,
+                                  dimension: dimension,
+                                  quantity: max_dose.send(operator, 0.01),
+                                  targets_data: { '0' => { id: @land_parcel.id, shape: @land_parcel.shape.to_json_feature_collection.to_json } }
           json = JSON.parse(response.body)
 
           assert_includes json['dose_validation'].keys, status
@@ -94,12 +96,13 @@ module Backend
       intervention = create_intervention(2)
 
       post :dose_validations, id: @usage.id,
-                             product_id: @product.id,
-                             dimension: 'population',
-                             quantity: 1,
-                             targets_data: { '0' => { id: @land_parcel.id, shape: @land_parcel.shape.to_json_feature_collection.to_json } },
-                             intervention_id: intervention.id,
-                             input_id: intervention.inputs.order(:id).last.id
+                              spray_volume: "",
+                              product_id: @product.id,
+                              dimension: 'population',
+                              quantity: 1,
+                              targets_data: { '0' => { id: @land_parcel.id, shape: @land_parcel.shape.to_json_feature_collection.to_json } },
+                              intervention_id: intervention.id,
+                              input_id: intervention.inputs.order(:id).last.id
       json = JSON.parse(response.body)
 
       refute json['modified']
@@ -112,12 +115,13 @@ module Backend
 
       cases.each do |(usage, product, land_parcel)|
         post :dose_validations, id: usage.id,
-                               product_id: product.id,
-                               dimension: 'mass_area_density',
-                               quantity: 2,
-                               targets_data: { '0' => { id: land_parcel.id, shape: land_parcel.shape.to_json_feature_collection.to_json } },
-                               intervention_id: intervention.id,
-                               input_id: intervention.inputs.order(:id).last.id
+                                spray_volume: "",
+                                product_id: product.id,
+                                dimension: 'mass_area_density',
+                                quantity: 2,
+                                targets_data: { '0' => { id: land_parcel.id, shape: land_parcel.shape.to_json_feature_collection.to_json } },
+                                intervention_id: intervention.id,
+                                input_id: intervention.inputs.order(:id).last.id
         json = JSON.parse(response.body)
 
         assert json['modified']
@@ -130,12 +134,13 @@ module Backend
       dose_max = @usage.dose_quantity
 
       post :dose_validations, id: @usage.id,
-                             product_id: @product.id,
-                             dimension: 'mass_area_density',
-                             quantity: dose_max - 0.01,
-                             targets_data: { '0' => { id: @land_parcel.id, shape: @land_parcel.shape.to_json_feature_collection.to_json } },
-                             intervention_id: intervention.id,
-                             input_id: input.id
+                              spray_volume: "",
+                              product_id: @product.id,
+                              dimension: 'mass_area_density',
+                              quantity: dose_max - 0.01,
+                              targets_data: { '0' => { id: @land_parcel.id, shape: @land_parcel.shape.to_json_feature_collection.to_json } },
+                              intervention_id: intervention.id,
+                              input_id: input.id
       json = JSON.parse(response.body)
 
       refute json['modified']
@@ -145,12 +150,13 @@ module Backend
       input.save!
 
       post :dose_validations, id: @usage.id,
-                             product_id: @product.id,
-                             dimension: 'mass_area_density',
-                             quantity: dose_max - 0.01,
-                             targets_data: { '0' => { id: @land_parcel.id, shape: @land_parcel.shape.to_json_feature_collection.to_json } },
-                             intervention_id: intervention.id,
-                             input_id: input.id
+                              spray_volume: "",
+                              product_id: @product.id,
+                              dimension: 'mass_area_density',
+                              quantity: dose_max - 0.01,
+                              targets_data: { '0' => { id: @land_parcel.id, shape: @land_parcel.shape.to_json_feature_collection.to_json } },
+                              intervention_id: intervention.id,
+                              input_id: input.id
       json = JSON.parse(response.body)
 
       refute json['modified']

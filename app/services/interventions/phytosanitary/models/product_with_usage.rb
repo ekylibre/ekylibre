@@ -11,8 +11,9 @@ module Interventions
             usage = RegisteredPhytosanitaryUsage.find(intervention_input.usage_id)
             quantity = intervention_input.quantity_value
             dimension = intervention_input.quantity_unit_name
+            spray_volume = intervention_input.spray_volume
 
-            new(product, phyto, usage, quantity, dimension)
+            new(product, phyto, usage, quantity, dimension, spray_volume)
           end
 
           # @return [Array<ProductWithUsage>]
@@ -23,19 +24,21 @@ module Interventions
           end
         end
 
-        attr_reader :product, :phyto, :usage, :quantity, :dimension
+        attr_reader :product, :phyto, :usage, :quantity, :dimension, :spray_volume
 
         # @param [Product] product
         # @param [RegisteredPhytosanitaryProduct, InterventionParameter::LoggedPhytosanitaryProduct] phyto
         # @param [RegisteredPhytosanitaryUsage, InterventionParameter::LoggedPhytosanitaryUsage] usage
         # @param [Numeric] quantity
         # @param [String] dimension
-        def initialize(product, phyto, usage, quantity, dimension)
+        # @param [BigDecimal, nil] spray_volume
+        def initialize(product, phyto, usage, quantity, dimension, spray_volume)
           @product = product
           @phyto = phyto
           @usage = usage
           @quantity = quantity
           @dimension = dimension
+          @spray_volume = spray_volume
         end
       end
     end
