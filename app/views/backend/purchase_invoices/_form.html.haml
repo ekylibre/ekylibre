@@ -53,7 +53,7 @@
   .items
     %table.list#items-table
       = f.simple_fields_for :items, f.object.items.sort_by { |i| i.id.to_i } do |item|
-        = render 'item_fields', f: item, display_activity_item_field: display_activity_item_field, display_team_item_field: display_team_item_field, form_updatable: form_updatable
+        = render 'item_fields', f: item, mode: params[:mode], display_activity_item_field: display_activity_item_field, display_team_item_field: display_team_item_field, form_updatable: form_updatable
       %tfoot#items__footer
     - if form_updatable
       .row-footer
