@@ -236,6 +236,11 @@ eng:
               truncation_error:
                 one: "Unable to change the length of %{value} to match the configuration (%{standard_length} characters), the last character can't be removed."
                 other: "Unable to change the length of %{value} to match the configuration (%{standard_length} characters), the last %{count} characters can't be removed."
+        intervention_target:
+          attributes:
+            product:
+              target_dont_exist_after: "%{target} chosen don't exist after %{date}"
+              target_dont_exist_before: "%{target} chosen don't exist before %{date}"
     models:
       account: "Account"
       account_balance: "Account balance"

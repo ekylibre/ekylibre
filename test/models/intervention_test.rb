@@ -93,24 +93,7 @@ class InterventionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   test 'creation and destruction' do
-    intervention = Intervention.create!(
-      procedure_name: :sowing,
-      working_periods: fake_working_periods,
-      # , actions: [:game_repellent, :fungicide]
-    )
-    Worker.of_expression('can drive(equipment) and can move').limit(2) do |bob|
-      intervention.add_parameter!(:driver, bob)
-    end
-    intervention.add_parameter!(:tractor, Equipment.of_expression('can tow(equipment) and can move').first)
-    intervention.add_parameter!(:sower, Equipment.of_expression('can sow').first)
-    intervention.add_parameter!(:seeds, Product.of_expression('is seed and derives from plant and can grow').first, quantity: 25.in_kilogram, quantity_handler: :net_mass, quantity_population: 1)
-    cultivation_variant = ProductNatureVariant.import_from_nomenclature(:wheat_crop)
-    LandParcel.of_expression('can store(plant)').limit(3).each do |land_parcel|
-      intervention.add_parameter!(:zone) do |g|
-        g.add_parameter!(:land_parcel, land_parcel)
-        g.add_parameter!(:plant, variant: cultivation_variant, working_zone: land_parcel.shape, quantity_population: land_parcel.shape_area / cultivation_variant.net_surface_area)
-      end
-    end
+    intervention = create(:sowing_intervention_with_all_parameters)
     assert intervention.runnable?, 'Intervention should be runnable'
 
     intervention.destroy!
@@ -164,10 +147,8 @@ class InterventionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   test 'cost_per_area' do
-    cultivable_zone = create(:cultivable_zone)
-    activity_production = create(:activity_production, cultivable_zone: cultivable_zone)
-    intervention = create(:intervention)
-    create(:intervention_target, intervention: intervention, product: activity_production.support, working_zone: activity_production.support.initial_shape)
+    land_parcel = create(:land_parcel)
+    intervention = create(:intervention, :with_target, on: land_parcel, reference_name: 'land_parcel')
 
     intervention.reload
     assert_equal 0.0, intervention.cost_per_area(:target)

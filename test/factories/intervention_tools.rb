@@ -10,4 +10,10 @@ FactoryBot.define do
     association :product, factory: :tractor
     reference_name { 'tractor' }
   end
+
+  factory :sower_tool, class: InterventionTool do
+    intervention
+    association :product, factory: :sower
+    reference_name { 'sower' }
+  end
 end

@@ -2915,6 +2915,10 @@ fra:
     taxes: "Taxes"
     taxes_and_wages: "Taxes et charges de personnels"
     temperature: "Température" #?
+    the_cultivation: "La parcelle ou culture"
+    the_equipement: "L'équipement"
+    the_land_parcel: "La parcelle"
+    the_plant: "La culture"
     theoric_quantity: "Quantité théorique" #?
     think_about_registering_regularization_journal_entries_before_closing: "Si vous ne l'avez pas encore fait, pensez à saisir manuellement vos écritures de régularisation avant de clôturer l'exercice."
     third_balance: "(solde - solde comptable fournisseur : %{balance} - %{supplier_account_balance})"

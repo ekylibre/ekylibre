@@ -71,6 +71,13 @@ FactoryBot.define do
     variable_indicators_list { %i[hour_counter] }
   end
 
+  factory :sower_nature, class: ProductNature do
+    sequence(:name) { |n| "Sower nature - #{n}" }
+    population_counting { :unitary }
+    variety { :trailed_equipment }
+    abilities_list { %w[sow] }
+  end
+
   factory :seed_nature, class: ProductNature do
     sequence(:name) { |n| "Seed nature - #{n}" }
     population_counting { :decimal }
