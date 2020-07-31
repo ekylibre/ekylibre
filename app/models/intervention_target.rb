@@ -84,6 +84,18 @@ class InterventionTarget < InterventionProductParameter
     end
   end
 
+  validate do
+    if product
+      target_type = "the_#{reference_name}".tl
+      if product.dead_at && (product.dead_at < intervention.started_at)
+        errors.add(:product, :target_dont_exist_after, target: target_type, date: product.dead_at.l) 
+      end
+      if product.born_at && (product.born_at > intervention.started_at)
+        errors.add(:product, :target_dont_exist_before, target: target_type, date: product.born_at.l) 
+      end
+    end
+  end
+
   def best_activity
     production = best_activity_production
     production ? production.activity : nil

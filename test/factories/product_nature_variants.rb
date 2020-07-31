@@ -92,6 +92,15 @@ FactoryBot.define do
     association :category, factory: :tractor_category
   end
 
+  factory :sower_variant, class: ProductNatureVariant do
+    sequence(:name) { |n| "Sower variant - #{n}" }
+    variety { :trailed_equipment }
+    unit_name { 'Sower' }
+
+    association :nature, factory: :sower_nature
+    association :category, factory: :sower_category
+  end
+
   factory :seed_variant, class: ProductNatureVariant do
     sequence(:name) { |n| "Seed variant - #{n}" }
     variety { :seed }

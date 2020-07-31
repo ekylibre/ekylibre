@@ -54,7 +54,7 @@ FactoryBot.define do
     reference_name { 'plant_medicine' }
   end
 
-  factory :tractor_category, class: ProductNatureCategory do
+  factory :tractor_category, class: ProductNatureCategory, aliases: [:sower_category] do
     sequence(:name) { |n| "Tractors - TEST#{n.to_s.rjust(8, '0')}" }
     type { 'VariantCategories::EquipmentCategory' }
     reference_name { "equipment" }
