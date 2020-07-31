@@ -199,7 +199,7 @@
     filterProducts: ->
       productsIds = productListManager.retrieveProductsIds()
       $productSelectors = $('[data-selector-id="intervention_input_product_id"]')
-      $productSelectors.each -> ProductListManager.filterProduct($(this), productsIds)
+      $productSelectors.each -> productListManager.filterProduct($(this), productsIds)
 
     filterProduct: ($productSelector, productsIds) ->
       url = new URL(window.location.origin.concat($productSelector.data('selector')))
