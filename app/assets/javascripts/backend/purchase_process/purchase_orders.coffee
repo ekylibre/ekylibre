@@ -17,9 +17,10 @@
         $selectedItems = @_getSelectedItems()
         selectedItemsIds = @_getSelectedItemsIds($selectedItems)
         $reconciledItems = @_getReconciledItems($selectedItems)
+        $draftItems = @_getDraftItems($selectedItems)
         sameThird = @_checkThirdUniqueness($selectedItems, third)
         @_setBtnUrl(selectedItemsIds, $btn, model, linksUrls)
-        @_setDisabledProp(model, $btn, $selectedItems, $reconciledItems, sameThird)
+        @_setDisabledProp(model, $btn, $selectedItems, $reconciledItems, $draftItems, sameThird)
 
     _getSelectedItems: () ->
       $('input[data-list-selector]:checked').filter ->
@@ -33,6 +34,10 @@
     _getReconciledItems: ($selectedItems) ->
       $selectedItems.filter ->
         $(this).closest('tr').data('reconciliation-state') == 'reconcile'
+
+    _getDraftItems: ($selectedItems) ->
+      $selectedItems.filter ->
+        $(this).closest('tr').data('state') == 'draft'
 
     _checkThirdUniqueness: ($selectedItems, third) ->
       selectedItemsThirdIds = $selectedItems.map ->
@@ -50,9 +55,9 @@
         else
           $(linkUrl.element).prop('href', linkUrl.url)
 
-    _setDisabledProp: (model, $btn, $selectedItems, $reconciledItems, sameThird) ->
+    _setDisabledProp: (model, $btn, $selectedItems, $reconciledItems, $draftItems, sameThird) ->
       disabled = if model == 'reception'
-        !$selectedItems.length || !sameThird
+        !$selectedItems.length || !sameThird || $draftItems.length
       else if model == 'purchase_order'
         !$selectedItems.length || $reconciledItems.length || !sameThird
 
