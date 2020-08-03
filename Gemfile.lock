@@ -490,8 +490,6 @@ GEM
     ruby-terminfo (0.1.1)
     rubyntlm (0.6.2)
     rubyzip (1.2.4)
-    rufus-scheduler (3.6.0)
-      fugit (~> 1.1, >= 1.1.6)
     sassc (2.4.0)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
@@ -521,8 +519,8 @@ GEM
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
       redis (~> 3.2, >= 3.2.1)
-    sidekiq-cron (0.6.3)
-      rufus-scheduler (>= 3.3.0)
+    sidekiq-cron (1.2.0)
+      fugit (~> 1.1)
       sidekiq (>= 4.2.1)
     sidekiq-unique-jobs (4.0.18)
       sidekiq (>= 2.6)
@@ -728,7 +726,7 @@ DEPENDENCIES
   sepa_king
   shoulda-context
   sidekiq (~> 4.0)
-  sidekiq-cron (~> 0.6)
+  sidekiq-cron (~> 1.1)
   sidekiq-unique-jobs (~> 4.0)
   simple_calendar (~> 2.3.0)
   simple_form (~> 3.4)
