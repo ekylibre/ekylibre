@@ -97,7 +97,7 @@ gem 'wice_grid' # , github: "leikind/wice_grid", branch: "rails3"
 
 # Background jobs
 gem 'sidekiq', '~> 4.0'
-gem 'sidekiq-cron', '~> 0.6'
+gem 'sidekiq-cron', '~> 1.1'
 gem 'sidekiq-unique-jobs', '~> 4.0'
 
 # Decorator pattern
