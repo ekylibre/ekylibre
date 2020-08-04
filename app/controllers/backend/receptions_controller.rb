@@ -69,7 +69,7 @@ module Backend
       code.c
     end
 
-    list(conditions: receptions_conditions, selectable: true, order: { planned_at: :desc }) do |t|
+    list(conditions: receptions_conditions, order: { planned_at: :desc }) do |t|
       t.action :edit, if: :updateable?
       t.action :destroy
       t.column :number, url: true
