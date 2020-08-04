@@ -9,7 +9,7 @@ module Ekylibre
     end
 
     class Lister
-      delegate :map, :collect, :each, :any?, :size, :first, :[], :detect, to: :list
+      delegate :map, :collect, :each, :empty?, :any?, :size, :first, :[], :detect, to: :list
 
       attr_reader :list
 

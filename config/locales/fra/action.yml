@@ -1614,6 +1614,7 @@ fra:
     disease_percentage_evolution: "Evolution des maladies"
     display: "Afficher"
     display_accounts: "Affichage des comptes"
+    display_electronic_signature: "Afficher la signature électronique"
     display_help: "Afficher l’aide" #?
     display_n_1: "Afficher N-1"
     display_vat_details : "Afficher les détails de TVA"
@@ -1668,6 +1669,7 @@ fra:
     ekylibre: "www.ekylibre.org"
     ekylibre_version: "Version Ekylibre"
     elapsed_interventions_times_by_activities: "Temps passé par activité"
+    electronic_signature: "Signature électronique"
     element_status: "Statut"
     email: "Email:"
     emissions_and_reevaluation_gaps: "Ecart de réévaluation, primes d’émission"
@@ -1883,6 +1885,7 @@ fra:
     generate: "Générer"
     generate_documents_post_closure: "Génération des documents obligatoires post-clôture"
     generate_documents_prior_to_closure: "Génération des documents obligatoires pré-clôture"
+    generate_invoice: "Générer une facture"
     generate_last_journal_entry: "Générer la dernière écriture"
     generate_parcel: "Créer une réception"
     generate_repayments: "Passer en comptabilité"
@@ -2726,6 +2729,7 @@ fra:
       unpaid: "Impayées" #?
     same_variant_as_x: "Même variante de produit que %{x}"
     save: "Enregistrer"
+    save_salary: "Enregistrer un salaire"
     save_and_go_to_x: "Enregistrer et passer à «\_%{x}\_»" #?
     save_in_draft: "Sauvegarder dans le brouillard"
     saved_but_couldnt_letter_x_and_y: "Les %{trade}/%{payment} ont été enregistrés mais n’ont pas pu être lettrés."
@@ -2811,6 +2815,8 @@ fra:
     show: "Afficher"
     show_export_preview: "Afficher un aperçu du document (peut augmenter le temps de chargement)" #?
     sign_out: "Se déconnecter"
+    signature: "Signature"
+    signature_check: "Vérifier la signature"
     signature_html: "Signature (<a href='%{url}' target='_blank'>Vérifier la signature</a>)"
     simplified: "Régime du réel simplifié"
     simplified_linear_options: "Options linéaire simplifié"
@@ -3374,7 +3380,7 @@ fra:
       access_denied: "Vous n’avez pas le droit d’accéder à cette page."
       accounts_cannot_be_truncated_to_preference:
         one: "Le compte comptable %{accounts} ne peut être tronqué à la préférence comptable sélectionnée (%{preference} caractères). Seul le zéro peut être automatiquement supprimé. Veuillez modifier ce compte comptable si vous souhaitez ajuster la préférence de la société à %{preference} caractères"
-        other: "Les comptes comptables 1010020001, 1010020002, 1010020003 ne peuvent être tronqués à la préférence comptable sélectionnée (%{preference} caractères). Seul le zéro peut être automatiquement supprimé. Veuillez modifier ces comptes comptables si vous souhaitez ajuster la préférence de la société à %{preference} caractères"
+        other: "Les comptes comptables %{accounts} ne peuvent être tronqués à la préférence comptable sélectionnée (%{preference} caractères). Seul le zéro peut être automatiquement supprimé. Veuillez modifier ces comptes comptables si vous souhaitez ajuster la préférence de la société à %{preference} caractères"
       accountant_notified: "Le comptable a bien été notifié"
       accountant_without_email: "Merci de renseigner l’email du comptable"
       # aggeratio_not_found: "The export requested was not found"
@@ -3503,6 +3509,7 @@ fra:
       no_purchases_given: "Aucun achat n’a donné"
       no_reopenable_journal: "Vous ne pouvez pas déclôturer ce journal."
       no_replacements_since_beginning: "Aucun changement depuis le début"
+      no_saved_a_x_html: "Vous n'avez pas encore enregistré un %{x}"
       no_stocks: "Vous n’avez aucun stock. Si vous désirez gérer le stock d’un produit, veuillez cocher l’option «\_Gérer les stocks\_» dans les caractéristiques de votre produit." #?
       no_template_journal: "Pas de modèle journal" #?
       no_template_journal_by_id: "Pas de modèle journal" #?

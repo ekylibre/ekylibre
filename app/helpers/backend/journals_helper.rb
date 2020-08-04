@@ -58,9 +58,16 @@ module Backend
       list.unshift [:general_ledger.tl, :general_ledger]
 
       code = ''
-      code << content_tag(:label, options[:label] || :display.tl, for: configuration[:id]) + ' '
+
+      code << content_tag(:div, class: "label-container") do
+        content_tag(:label, options[:label] || :display.tl, for: configuration[:id]) + ' '
+      end
+
       custom_id = "#{configuration[:id]}_#{configuration[:custom]}"
-      code << select_tag(name, options_for_select(list, value), :id => configuration[:id], 'data-show-value' => custom_id)
+      code << content_tag(:div, class: 'value-container') do
+        select_tag(name, options_for_select(list, value), :id => configuration[:id], 'data-show-value' => custom_id)
+      end
+
       code.html_safe
     end
 
@@ -183,14 +190,14 @@ module Backend
         list.insert(0, [(replacement.is_a?(Symbol) ? tl(replacement) : replacement.to_s), ''])
       end
 
-      code = ''
-      code << content_tag(:div, class: "label-container") do
+      code = content_tag(:div, class: "label-container") do
         content_tag(:label, options[:label] || :period.tl, for: configuration[:id])
       end
 
-      code << select_tag(name, options_for_select(list, value), :id => configuration[:id], 'data-show-value' => "##{configuration[:id]}_")
-
-      code << ' ' << content_tag(:span, :manual_period.tl(start: date_field_tag(:started_on, params[:started_on], size: 10), finish: date_field_tag(:stopped_on, params[:stopped_on], size: 10)).html_safe, id: custom_id)
+      code << content_tag(:div, class: 'value-container') do
+        select_tag(name, options_for_select(list, value), :id => configuration[:id], 'data-show-value' => "##{configuration[:id]}_") + 
+          content_tag(:span, :manual_period.tl(start: date_field_tag(:started_on, params[:started_on], size: 10), finish: date_field_tag(:stopped_on, params[:stopped_on], size: 10)).html_safe, id: custom_id)
+      end
 
       code.html_safe
     end

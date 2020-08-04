@@ -666,7 +666,8 @@
 
       @map.addControl @controls.legend
 
-      L.DomUtil.addClass(@controls.legend.getContainer(), 'leaflet-hidden-control')
+      unless @options.multiLevels?
+        L.DomUtil.addClass(@controls.legend.getContainer(), 'leaflet-hidden-control')
 
     _bindOverlays: ->
       @map.on "overlayadd", (event) =>
@@ -849,7 +850,7 @@
         if view.zoom?
           this.map.setView(center, view.zoom)
         else
-          this.map.setView(center, 12)
+          this.map.setView(center, 15)
       else if view.bounds?
         this.map.fitBounds(view.bounds)
       else
@@ -949,10 +950,10 @@
         this.map.addControl this.controls.importers_ctrl
         this.map.addControl this.controls.reactiveMeasureControl
 
-      if this.options.multiLevels?
+      if this.options.multiLevels? && @controls.legend?
         legend = @controls.legend.getContainer()
 
-        legend.innerHTML += this.buildMultiLevelLegend(this.edition)
+        legend.innerHTML = this.buildMultiLevelLegend(this.edition)
 
         $(legend).on 'click', '.leaflet-multilevel-legend', (e) =>
           e.preventDefault()
@@ -961,7 +962,9 @@
             this.edition.eachLayer (layer) =>
               if parseInt(layer.feature.properties.level) == level
                 shape = $(layer._container)
+                label = $(layer.label._container)
                 shape.toggle()
+                label.toggle()
                 $(e.currentTarget).children('i').toggleClass('active')
 
       if @options.overlaySelector?

@@ -17,8 +17,21 @@
     -# l.attribute :file_content_text
 
   - if @document.mandatory
-    .signature-infos
-      .signature-title= :fingerprint_sha256.tl
-      = @document.sha256_fingerprint
-      .signature-title= t('labels.signature_html', url: "#{FinancialYearArchive::PUBLIC_KEY_URL}?signature=#{@document.signature.gsub(/\n/, '¤').gsub(/\+/, '§')}")
-      = @document.signature.gsub(/\n/, '<br />').html_safe
+    .controls
+      = button_tag :display_electronic_signature.tl, data: { toggle: 'modal', target: '#signature-modal' }, class: "btn btn-default", id: "lock-btn", type: 'button'
+
+      #signature-modal.modal.fade{ tabindex: '-1', role: 'dialog', 'aria-labelledby': 'indexModal', 'aria-hidden': 'true' }
+        .modal-dialog.modal-dialog-centered{ role: 'document' }
+          .modal-content
+            .modal-header.modal-header--document
+              %button.close{ data: { dismiss: 'modal' }, 'aria-label': 'Close', type: 'button' }
+                %i.icon.icon-destroy{ 'aria-hidden': 'true' }
+              %b.modal-title= :electronic_signature.tl
+            .modal-signature-infos
+              = field_set(:fingerprint_sha256.tl) do
+                = @document.sha256_fingerprint
+              = field_set(:signature.tl) do
+                = @document.signature.gsub(/\n/, '<br />').html_safe
+            .modal-footer
+              = link_to :signature_check.tl, "#{FinancialYearArchive::PUBLIC_KEY_URL}?signature=#{@document.signature.gsub(/\n/, '¤').gsub(/\+/, '§')}", class: "btn btn-primary", target: '_blank'
+              %button.btn.btn-primary.no-icn{ type: 'button', 'data-dismiss': 'modal' }= :cancel.tl

@@ -1437,8 +1437,6 @@ fra:
         ghs_toxic: "Toxique "
         ghs-h360fd2: "Peut nuire à la fertilité. Peut nuire au fœtus."
       name: "Classifications chimiques"
-      property_natures:
-        # code: "Code"
     chemical_elements:
       items:
         actinium: "Actinium"

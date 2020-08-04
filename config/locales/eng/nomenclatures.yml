@@ -81,8 +81,6 @@ eng:
         fr_pcga: "French PCGA"
         pt_snc: "Portuguese SNC"
       name: "Accounting systems"
-      property_natures:
-        # country: "Country"
     accounts:
       items:
         accrued_bank_interests: "Accrued bank interests"
@@ -2111,19 +2109,6 @@ eng:
         spheroid: "Spheroid"
         vehicle: "Vehicle"
       name: "Figures"
-    fiscal_positions:
-      items:
-        # fr_ba_ir: "Fr ba ir"
-        # fr_ba_is: "Fr ba is"
-        # fr_bic_ir: "Fr bic ir"
-        # fr_bic_is: "Fr bic is"
-        # fr_bnc_ir: "Fr bnc ir"
-        # fr_bnc_is: "Fr bnc is"
-      # name: "Fiscal positions"
-      property_natures:
-        # accounting_system: "Accounting system"
-        # code: "Code"
-        # country: "Country"
     guide_natures:
       items:
         best_practices: "Best practices"
@@ -4106,14 +4091,6 @@ eng:
         linkage_points:
           front: "Front"
           rear: "Rear"
-        nature:
-          # animal: "Animal"
-          # article: "Article"
-          # crop: "Crop"
-          # equipment: "Equipment"
-          # fee_and_service: "Fee and service"
-          # worker: "Worker"
-          # zone: "Zone"
         population_counting:
           decimal: "Decimal"
           integer: "Integer"

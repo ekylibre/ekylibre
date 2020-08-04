@@ -130,6 +130,17 @@ module Backend
       @purchase_invoice = if params[:duplicate_of]
                             PurchaseInvoice.find_by(id: params[:duplicate_of])
                               .deep_clone(include: :items, except: %i[state number affair_id reference_number payment_delay])
+                          elsif params[:reception_ids]
+                            receptions = Reception.where(id: params[:reception_ids].split(','))
+                            supplier_ids = receptions.pluck(:sender_id)
+                            supplier_id = supplier_ids.uniq.first
+                            invoice_attributes = {
+                              nature: nature,
+                              supplier_id: supplier_id,
+                              reconciliation_state: 'reconcile',
+                              items: InvoiceableItemsFilter.new.filter(receptions)
+                            }
+                            PurchaseInvoice.new(invoice_attributes)
                           else
                             PurchaseInvoice.new(nature: nature)
                           end

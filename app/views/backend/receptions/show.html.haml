@@ -4,6 +4,9 @@
 - main_toolbar do |t|
   = t.edit resource if resource.updateable?
   = t.destroy
+  -# TODO: Reactivate when fixed
+  -# = t.new params: { controller: :purchase_invoices, reception_ids: resource.id, mode: 'prefilled' }, variants: PurchaseNature.actives.reorder(:name).to_a.map{ |n| [n.name, {nature_id: n.id}] }, label: :generate_invoice.tl, class: (resource.draft? ? 'disabled' : '')
+
 
 - renamings = {}
 - renamings = renamings.merge(given: :received)

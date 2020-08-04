@@ -12,7 +12,7 @@ end
 
 ruby '>= 2.3.8', '< 3.0.0'
 
-gem 'elastic-apm'
+gem 'elastic-apm', '~> 3.4.0'
 gem 'piwik_analytics', github: 'ekylibre/piwik-ruby-tracking'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -88,6 +88,7 @@ gem 'timecop'
 
 # Manipulate map data
 gem 'charta', gitlab: 'ekylibre/charta', branch: 'rails-4'
+gem 'geocoder'
 
 # active_list alternative
 gem 'font-awesome-sass'

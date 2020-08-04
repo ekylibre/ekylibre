@@ -13,10 +13,14 @@ class ShapeValidator < ActiveModel::EachValidator
     # @param [Charta::Geometry] shape
     # @return [Boolean]
     def valid?(shape)
-      res = ActiveRecord::Base.connection.execute <<~SQL
+      pg_res = ActiveRecord::Base.connection.execute <<~SQL
         SELECT ST_IsValid(ST_GeomFromEWKT('#{shape.to_ewkt}')) AS v
       SQL
 
-      res.to_a.first['v'] == 't'
+      # With AR 4.2 't' was returned
+      # With AR 5.0, we have true
+      res = pg_res.to_a.first['v']
+
+      res.is_a?(TrueClass) || res == 't'
     end
 end
