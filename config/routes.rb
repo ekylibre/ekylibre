@@ -612,6 +612,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :exchanger_template_files, only: [:show]
+
     resources :incoming_payments, concerns: %i[list unroll]
 
     resources :incoming_payment_modes, concerns: %i[list unroll] do

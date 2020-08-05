@@ -1372,6 +1372,7 @@ deu:
     down: "nach unten"
     # download: "Download"
     # download_archive: "Download archive (ZIP)"
+    # download_template_file: "Download template file"
     downpayment: "Anzahlung"
     draft: "Entwurf"
     # draft_entries_to_validate: "There are draft entries to validate"

@@ -1485,6 +1485,7 @@ spa:
     # download: "Download"
     # download_archive: "Download archive (ZIP)"
     download_firefox: "Carga Mozilla Firefox..." #?
+    # download_template_file: "Download template file"
     downpayment: "Pago inicial"
     draft: "Niebla"
     draft_entries: "niebla" #?

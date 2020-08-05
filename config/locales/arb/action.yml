@@ -1713,6 +1713,7 @@ arb:
     # download: "Download"
     # download_archive: "Download archive (ZIP)"
     download_firefox: "تحميل موزيلا فاير فوكس" #?
+    # download_template_file: "Download template file"
     downpayment: "شروط العربون"
     draft: "المسودات"
     # draft_entries_to_validate: "There are draft entries to validate"

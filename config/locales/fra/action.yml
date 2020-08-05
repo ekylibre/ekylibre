@@ -1645,6 +1645,7 @@ fra:
     download: "Télécharger"
     download_archive: "Télécharger l'archive (ZIP)"
     download_firefox: "Télécharger Mozilla Firefox…" #?
+    download_template_file: "Télécharger un fichier modèle"
     downpayment: "Acompte"
     draft: "Brouillard"
     draft_entries_to_validate: "Des écritures sont à valider."

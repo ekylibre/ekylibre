@@ -1377,6 +1377,7 @@ por:
     down: "Baixa"
     # download: "Download"
     # download_archive: "Download archive (ZIP)"
+    # download_template_file: "Download template file"
     downpayment: "Pagamento inicial"
     draft: "Esboço"
     # draft_entries_to_validate: "There are draft entries to validate"
