@@ -36,6 +36,15 @@ module Backend
       t.column :importer
     end
 
+    def new
+      @exchanger_selection = ActiveExchanger::Base.importers_selection.map do |(label, exchanger_name)|
+        template_present = ActiveExchanger::Base.template_file_for(exchanger_name, locale).is_some?
+
+        [label, exchanger_name, data: { template_present: template_present }]
+      end
+      super
+    end
+
     def create
       @import = resource_model.new(permitted_params)
       if save_and_redirect(

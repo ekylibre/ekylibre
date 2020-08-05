@@ -1372,6 +1372,7 @@ cmn:
     down: "下"
     # download: "Download"
     # download_archive: "Download archive (ZIP)"
+    # download_template_file: "Download template file"
     downpayment: "首付"
     draft: "草案"
     # draft_entries_to_validate: "There are draft entries to validate"
