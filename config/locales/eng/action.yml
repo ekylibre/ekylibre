@@ -1865,6 +1865,7 @@ eng:
     down: "Down"
     download: "Download"
     download_archive: "Download archive (ZIP)"
+    download_template_file: "Download template file"
     downpayment: "Downpayment"
     draft: "Draft"
     draft_entries_to_validate: "There are draft entries to validate"

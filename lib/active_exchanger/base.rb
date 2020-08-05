@@ -116,6 +116,13 @@ module ActiveExchanger
           import
         end
       end
+
+      # @param [String] exchange_name
+      # @param [String] locale
+      # @return [Maybe<String>] If exchanger template file exists, return Some(file_path), else return None
+      def template_file_for(exchanger_name, locale)
+        Maybe(Dir[Rails.root.join("config/locales/#{locale}/exchangers/#{exchanger_name}.*")].first)
+      end
     end
 
     attr_reader :file, :supervisor, :options

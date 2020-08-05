@@ -1440,6 +1440,7 @@ jpn:
     down: "ダウン"
     # download: "Download"
     # download_archive: "Download archive (ZIP)"
+    # download_template_file: "Download template file"
     downpayment: "頭金"
     draft: "ドラフト"
     # draft_entries_to_validate: "There are draft entries to validate"
