@@ -1,4 +1,4 @@
-class ReflectInventoryJob < ActiveJob::Base
+class ReflectInventoryJob < ApplicationJob
   queue_as :default
 
   # Change the number of all the different product
