@@ -66,7 +66,7 @@ class Intervention < Ekylibre::Record::Base
   include Providable
 
   PLANNED_REALISED_ACCEPTED_GAP = { intervention_doer: 1.2, intervention_tool: 1.2, intervention_input: 1.2 }.freeze
-  PHYTO_PROCEDURE_NAMES = %i[spraying all_in_one_sowing sowing_with_spraying vine_spraying_without_fertilizing vine_leaves_fertilizing_with_spraying].freeze
+  PHYTO_PROCEDURE_NAMES = %w[spraying all_in_one_sowing sowing_with_spraying vine_spraying_without_fertilizing vine_leaves_fertilizing_with_spraying].freeze
 
   attr_readonly :procedure_name, :production_id, :currency
   refers_to :currency
