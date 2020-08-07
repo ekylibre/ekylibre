@@ -244,66 +244,6 @@ module ChartsHelper
     end
   end
 
-  # Permit to produce pie or gauge
-  # Values are represented relatively to all
-  #   engine:     Engine for rendering. c3 by default.
-  def distribution_chart(_options = {})
-    raise NotImplemented
-  end
-
-  # Permits to draw a nonlinear chart (line, spline)
-  # Values are represented with given abscissa for each value
-  #   :abscissa
-  #   :ordinates
-  #   engine:     Engine for rendering. c3 by default.
-  def category_chart(options = {})
-    html_options = options.slice!(:series, :abscissa, :ordinates, :engine)
-    options[:type] = :nonlinear
-    # TODO: Check options validity
-    html_options[:class] ||= 'chart'
-    html_options.deep_merge!(data: { chart: options.to_json })
-    content_tag(:div, nil, html_options)
-  end
-
-  # Permits to draw a linear chart (line, spline, bar)
-  # Values are represented with regular interval
-  #   series:    (Array of) Hash for series
-  #     name:       ID
-  #     values:     Array of numeric values
-  #     label:      Label for the legend
-  #     ordinate:   Name of the used ordinate
-  #     type:       One of: line, spline, bar
-  #     area:       Boolean
-  #     style:      Styles
-  #   abscissa:   X axis details
-  #     label:      Label for the X axis
-  #     values:     Array of labels used for indexes
-  #   ordinates: (Array of) Hash for Y axes
-  #     name:       ID
-  #     label:      Name of the Y axis
-  #   engine:     Engine for rendering. c3 by default.
-  def cartesian_chart(options = {})
-    html_options = options.slice!(:series, :abscissa, :ordinates, :engine)
-    options[:type] = :time
-    # TODO: Check options validity
-    options[:series] = [options[:series]] unless options[:series].is_a?(Array)
-    options[:series].each do |serie|
-      serie[:values].each do |coordinates|
-        coordinates[0] = coordinates[0].utc.l(format: '%Y-%m-%dT%H:%M:%S')
-      end
-    end
-    html_options[:class] ||= 'chart'
-    html_options.deep_merge!(data: { chart: options.to_json })
-    content_tag(:div, nil, html_options)
-  end
-
-  # Permit to produce pie or gauge
-  # Values are represented relatively to all
-  #   engine:     Engine for rendering. c3 by default.
-  def tree_distribution_chart(_options = {})
-    raise NotImplemented
-  end
-
   def formate_and_translate(categories)
     categories.map { |category| category.l(format: "%b %Y") }
   end
