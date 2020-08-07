@@ -17,9 +17,7 @@
     = t.close resource, label: :close_financial_year.tl(code: resource.name), icon: false
     = t.lock resource, label: :lock_financial_year.tl(code: resource.name), icon: false
 
-  - style = resource.closing? ? 'disabled-btn' : ''
   = dropdown_menu_button(:export_fec.ta, { icon: :download }) do |d|
-    - export_params = params.slice(:id)
     - %i[text xml].each do |format|
       - %i[all ba_bnc_ir_commercial_accountancy ba_ir_cash_accountancy bnc_ir_cash_accountancy].each do |position|
         - d.item "export_#{format}_fec_#{position}".tl, action: :show, fiscal_position: position, format: format
@@ -47,25 +45,15 @@
           = link_to backend_financial_year_archive_path(resource, timing: "#{timing}_closure"), method: :post do
             %button.btn.btn-default.icn.btn-download= :download_archive.tl
           %br
-          %span.signature-trigger
-            %i.lock-picto
-            = :this_archive_is_digitally_signed.tl
-            %i.chevron
-          .signature-details
-            .signature-title= :fingerprint_sha256.tl
-            = resource.send("#{timing}_closure_archive").sha256_fingerprint
-            - signature_for_url = resource.send("#{timing}_closure_archive").signature.gsub(/\n/, '¤').gsub(/\+/, '§')
-            .signature-title= t('labels.signature_html', url: "#{FinancialYearArchive::PUBLIC_KEY_URL}?signature=#{signature_for_url}")
-            = resource.send("#{timing}_closure_archive").signature.gsub(/\n/, '<br />').html_safe
-
+          .controls
+            = button_tag :display_electronic_signature.tl, data: { toggle: 'modal', target: "##{timing}-signature-modal" }, class: "btn btn-default signature-trigger", id: "lock-btn", type: 'button'
+ 
   = render 'progress', value: @progress_status[:value], resource: resource, refresh: false, current_step: @progress_status[:step], steps_count: @progress_status[:total], step_label: @progress_status[:label]
 
 = cobbles do |c|
-  -# c.cobble(resource.closed ? :balance : :last_computed_balance) do
-    = cobble_list :account_balances
-
-  -# c.cobble(:fixed_asset_depreciations) do
-    = cobble_list :fixed_asset_depreciations
-
   - c.cobble(:exchanges) do
     = cobble_list :exchanges
+
+- if resource.closed? && resource.archives.any?
+  = render "signature_modal", type: 'prior_to', fingerprint: resource.prior_to_closure_archive.sha256_fingerprint, signature: resource.prior_to_closure_archive.signature
+  = render "signature_modal", type: 'post', fingerprint: resource.post_closure_archive.sha256_fingerprint, signature: resource.post_closure_archive.signature

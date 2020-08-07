@@ -1,0 +1,18 @@
+- id = "#{type}-signature-modal"
+- title_id = "{id}__title"
+.modal.fade{ tabindex: '-1', role: 'dialog', 'aria-labelledby': title_id, 'aria-hidden': 'true', id: id }
+  .modal-dialog.modal-dialog-centered{ role: 'document' }
+    .modal-content
+      .modal-header.modal-header--document
+        %button.close{ data: { dismiss: 'modal' }, 'aria-label': 'Close', type: 'button' }
+          %i.icon.icon-destroy{ 'aria-hidden': 'true' }
+        %b.modal-title{id: title_id}= :electronic_signature.tl
+      .modal-signature-infos
+        = field_set(:fingerprint_sha256.tl) do
+          = fingerprint
+        - signature_for_url = signature.gsub(/\n/, '¤').gsub(/\+/, '§')
+        = field_set(:signature.tl) do
+          = signature.gsub(/\n/, '<br />').html_safe
+      .modal-footer
+        = link_to :signature_check.tl, "#{FinancialYearArchive::PUBLIC_KEY_URL}?signature=#{signature_for_url}", class: "btn btn-primary", target: '_blank'
+        %button.btn.btn-primary.no-icn{ type: 'button', 'data-dismiss': 'modal' }= :cancel.tl
