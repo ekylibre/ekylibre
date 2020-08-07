@@ -131,22 +131,6 @@
     - else
       = no_data
 
-    -# c.cobble(:horizontal_timeline) do
-
-      = timeline_chart("chart", resource.started_on, resource.stopped_on) do |chart|
-        - interventions_menu = pop_menu :class => "timeline-chart-menu" do |menu|
-          - intervention_url = { controller: :interventions, action: :new}
-          - menu.item 'Ajouter une intervention', { item_options: {:class => "menu-item"}, link_url: intervention_url, link_options: {:class => "menu-link"}}
-          - if resource.tactic.present?
-            - period_url = { controller: :activity_tactics, action: :edit, id: resource.tactic.id }
-            - menu.item 'Ajouter une période', { item_options: {:class => "menu-item"}, link_url: period_url, link_options: {:class => "menu-link"}}
-
-        - chart.group "Interventions" do |item|
-
-          - if resource.interventions.any?
-            - resource.interventions.each do |intervention|
-              - item.icon 'test', intervention.started_at, 'tractor', "40px", {"id": "icone2", "custom_class": "blue-interval"}
-
     - c.cobble(:interventions) do
       = cobble_toolbar do |t|
         = t.new(params: { controller: :interventions, production_support_id: resource.id })
