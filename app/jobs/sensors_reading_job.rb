@@ -1,4 +1,4 @@
-class SensorsReadingJob < ActiveJob::Base
+class SensorsReadingJob < ApplicationJob
   queue_as :default
 
   def perform(options = {})
