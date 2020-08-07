@@ -23,9 +23,6 @@
         = f.object.non_compliant_detail
     %td.storage-column
       #storing-display
-        %p{ "v-for" => "zone in zones"}
-          %strong{ class: "storage-quantity" }= "{{zone.quantity}} {{zone.unit}}"
-          %span{ class: "storage-zone" }= "{{zone.name}}"
     %td.quantity-column
       %label
         %span{ data: { item_value: ".total-quantity" } }= f.object.population ? f.object.population : 'ERROR'

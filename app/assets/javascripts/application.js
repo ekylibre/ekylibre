@@ -66,12 +66,8 @@
 //= require tour
 //= require bootstrap-slider
 
-//= require vue
 //= require sortablejs/Sortable.min.js
-//= require vuedraggable/dist/vuedraggable.js
-//= require vue-chartjs/dist/vue-chartjs.min.js
 
-//= require ext-plugins/vuejs/vue-chartjs
 
 // FIX Browser interoperability
 // href function seems to be ineffective
