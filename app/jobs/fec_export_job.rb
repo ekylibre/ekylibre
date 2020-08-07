@@ -1,4 +1,4 @@
-class FecExportJob < ActiveJob::Base
+class FecExportJob < ApplicationJob
   queue_as :default
   include Rails.application.routes.url_helpers
 

@@ -1,4 +1,4 @@
-class FinancialYearCloseJob < ActiveJob::Base
+class FinancialYearCloseJob < ApplicationJob
   queue_as :default
 
   def perform(financial_year, closer, to_close_on, allocations, result_journal_id:, forward_journal_id:, closure_journal_id:)

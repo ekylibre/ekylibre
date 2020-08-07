@@ -1,4 +1,4 @@
-class ExportJob < ActiveJob::Base
+class ExportJob < ApplicationJob
   queue_as :default
   include Rails.application.routes.url_helpers
 
