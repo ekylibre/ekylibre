@@ -18,6 +18,8 @@
 
 module Backend
   class JournalsController < Backend::BaseController
+    JOURNAL_VIEWS = %w[items entries mixed].freeze
+
     include JournalEntriesCondition
 
     manage_restfully nature: 'params[:nature]'.c, currency: 'Preference[:currency]'.c
@@ -34,11 +36,6 @@ module Backend
       t.column :currency
     end
 
-    hide_action :journal_views
-
-    @@journal_views = %w[items entries mixed]
-    cattr_reader :journal_views
-
     list(:items, model: :journal_entry_items, conditions: journal_entries_conditions, joins: :entry, line_class: "(RECORD.position==1 ? 'first-item' : '') + (RECORD.entry_balanced? ? '' : ' error')".c, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
       t.column :entry_number, url: true
       t.column :printed_on, through: :entry, datatype: :date
@@ -49,11 +46,11 @@ module Backend
       t.column :variant
       t.column :reference_number, through: :entry
       t.column :state_label
-      t.column :real_debit,  currency: :real_currency
+      t.column :real_debit, currency: :real_currency
       t.column :real_credit, currency: :real_currency
-      t.column :debit,  currency: true, hidden: true
+      t.column :debit, currency: true, hidden: true
       t.column :credit, currency: true, hidden: true
-      t.column :absolute_debit,  currency: :absolute_currency, hidden: true
+      t.column :absolute_debit, currency: :absolute_currency, hidden: true
       t.column :absolute_credit, currency: :absolute_currency, hidden: true
       t.column :product_item_to_tax_label, label: :tax_label, hidden: true
       t.column :number, through: :bank_statement, label: :bank_statement_number, url: true, hidden: true
@@ -65,11 +62,11 @@ module Backend
       t.column :number, url: true
       t.column :printed_on
       t.column :state_label
-      t.column :real_debit,  currency: :real_currency
+      t.column :real_debit, currency: :real_currency
       t.column :real_credit, currency: :real_currency
-      t.column :debit,  currency: true, hidden: true
+      t.column :debit, currency: true, hidden: true
       t.column :credit, currency: true, hidden: true
-      t.column :absolute_debit,  currency: :absolute_currency, hidden: true
+      t.column :absolute_debit, currency: :absolute_currency, hidden: true
       t.column :absolute_credit, currency: :absolute_currency, hidden: true
     end
 
@@ -80,11 +77,11 @@ module Backend
       t.column :printed_on, datatype: :date, children: false
       # t.column :label, through: :account, url: {action: :account}
       t.column :state_label
-      t.column :real_debit,  currency: :real_currency
+      t.column :real_debit, currency: :real_currency
       t.column :real_credit, currency: :real_currency
-      t.column :debit,  currency: true, hidden: true
+      t.column :debit, currency: true, hidden: true
       t.column :credit, currency: true, hidden: true
-      t.column :absolute_debit,  currency: :absolute_currency, hidden: true
+      t.column :absolute_debit, currency: :absolute_currency, hidden: true
       t.column :absolute_credit, currency: :absolute_currency, hidden: true
     end
 
@@ -94,10 +91,10 @@ module Backend
       @unbalanced_entries_count = financial_year ? financial_year.journal_entries.reject(&:balanced?).count : 0
       respond_to do |format|
         format.html
-        format.xml  { render xml:  Journal.all }
+        format.xml { render xml: Journal.all }
         format.json { render json: Journal.all }
         format.pdf do
-          return unless template = find_and_check(:document_template, params[:template])
+          return unless (template = find_and_check(:document_template, params[:template]))
           PrinterJob.perform_later('Printers::GeneralJournalPrinter', template: template, financial_year: financial_year, perform_as: current_user)
           notify_success(:document_in_preparation)
           redirect_to :back
@@ -109,10 +106,10 @@ module Backend
     def show
       set_period_params
 
-      return unless @journal = find_and_check
+      return unless (@journal = find_and_check)
       journal_view = current_user.preference("interface.journal.#{@journal.code}.view")
       journal_view.value = journal_views[0] unless journal_views.include? journal_view.value
-      if view = journal_views.detect { |x| params[:view] == x }
+      if (view = JOURNAL_VIEWS.detect { |x| params[:view] == x })
         journal_view.value = view
         journal_view.save
       end
@@ -125,14 +122,14 @@ module Backend
       respond_to do |format|
         format.html
         format.pdf do
-          return unless template = find_and_check(:document_template, params[:template])
+          return unless (template = find_and_check(:document_template, params[:template]))
           PrinterJob.perform_later('Printers::JournalLedgerPrinter', template: template,
-                                                                     journal: @journal,
-                                                                     states: params[:states],
-                                                                     period: params[:period],
-                                                                     started_on: params[:started_on],
-                                                                     stopped_on: params[:stopped_on],
-                                                                     perform_as: current_user)
+                                   journal: @journal,
+                                   states: params[:states],
+                                   period: params[:period],
+                                   started_on: params[:started_on],
+                                   stopped_on: params[:stopped_on],
+                                   perform_as: current_user)
           notify_success(:document_in_preparation)
           redirect_to :back
         end
@@ -140,7 +137,7 @@ module Backend
     end
 
     def close
-      return unless @journal = find_and_check
+      return unless (@journal = find_and_check)
       unless @journal.closable?
         notify(:no_closable_journal)
         redirect_to action: :index
@@ -197,9 +194,16 @@ module Backend
             end
           end
           notify_success(:bookkeeping_is_finished)
-          redirect_to (state == :draft ? { controller: :draft_journals, action: :show } : { action: :bookkeep })
+          redirect_to(state == :draft ? { controller: :draft_journals, action: :show } : { action: :bookkeep })
         end
       end
     end
+
+    protected
+
+      def journal_views
+        ActiveSupport::Deprecation.warn "Journal::journal_views is deprecated, use the class constant JOURNAL_VIEWS"
+        JOURNAL_VIEWS
+      end
   end
 end
