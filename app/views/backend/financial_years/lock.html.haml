@@ -21,7 +21,7 @@
 #confirmLockModal.modal.fade{ tabindex: '-1', role: 'dialog', 'aria-labelledby': 'indexModal', 'aria-hidden': 'true' }
   .modal-dialog{ role: 'document' }
     .modal-content
-      .modal-header
+      .modal-header.modal-header-generic
         %button.close{ data: { dismiss: 'modal' }, 'aria-label': 'Close', type: 'button' }
           %i.icon.icon-destroy{ 'aria-hidden': 'true' }
         %b.modal-title= :last_confirmation_before_definitive_lock.tl

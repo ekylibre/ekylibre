@@ -2,7 +2,7 @@
   .modal.fade#operator-protection-modal{ tabindex: '-1', role: 'dialog' }
     .modal-dialog{ role: 'document' }
       .modal-content
-        .modal-header
+        .modal-header.modal-header-generic
           %h4.modal-title= RegisteredPhytosanitaryProduct.human_attribute_name(:operator_protection_mentions)
           %button.close{ type: 'button', 'data-dismiss': 'modal', 'aria-label': 'Close' }
             %span{ 'aria-hidden': 'true' }
