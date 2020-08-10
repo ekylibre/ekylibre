@@ -448,7 +448,7 @@ class Sale < Ekylibre::Record::Base
     raise StandardError, 'Uncancelable sale' unless duplicatable?
     hash = %i[
       client_id nature_id letter_format annotation subject
-      function_title introduction conclusion description
+      function_title introduction conclusion description custom_fields
     ].each_with_object({}) do |field, h|
       h[field] = send(field)
     end
