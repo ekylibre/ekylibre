@@ -70,7 +70,7 @@
     #confirmCloseModal.modal.fade{ tabindex: '-1', role: 'dialog', 'aria-labelledby': 'indexModal', 'aria-hidden': 'true' }
       .modal-dialog{ role: 'document' }
         .modal-content
-          .modal-header
+          .modal-header.modal-header-generic
             %button.close{ data: { dismiss: 'modal' }, 'aria-label': 'Close', type: 'button' }
               %i.icon.icon-destroy{ 'aria-hidden': 'true' }
             %b.modal-title= :last_confirmation_before_definitive_close.tl
@@ -93,4 +93,4 @@
 
   = form_actions do
     = button_tag :close_the_financial_year.tl, data: { toggle: 'modal', target: '#confirmCloseModal' }, class: "btn btn-primary", id: "close-btn", type: 'button', disabled: true
-    = link_to(:cancel.tl, (params[:redirect] || {action: :index}), class: "btn")
+    %button.btn.btn-primary.no-icn{ type: 'button', 'data-dismiss': 'modal' }= :cancel.tl
