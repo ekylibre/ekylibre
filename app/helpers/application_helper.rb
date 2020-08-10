@@ -1024,7 +1024,7 @@ module ApplicationHelper
 
   def modal_header(title, options = {})
     title_id = options[:title_id] || title.parameterize.underscore.camelcase(:lower)
-    content_tag(:div, class: 'modal-header') do
+    content_tag(:div, class: 'modal-header modal-header-generic') do
       if options[:close_button].is_a? FalseClass
         content_tag(:h4, title, class: 'modal-title', id: title_id)
       else
