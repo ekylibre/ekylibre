@@ -2,7 +2,6 @@
 - partial_name = "#{reference.class.type}_fields"
 - attrs = { class: "nested-#{reflection.to_s.parameterize}" }
 - cardinality = reference.cardinality
-- list = f.object.send(reflection).select{|v| v.reference_name.to_s == reference.name.to_s}
 - unless cardinality == '*'
   - attrs[:data] ||= {}
   - if cardinality.minimum?
