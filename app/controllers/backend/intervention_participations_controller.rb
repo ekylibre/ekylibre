@@ -94,11 +94,11 @@ module Backend
 
     private
 
-    def permitted_params
-      params[:intervention_participation].permit(:intervention_id,
-                                                 :product_id,
-                                                 working_periods_attributes: %i[id started_at stopped_at nature])
-    end
+      def permitted_params
+        params[:intervention_participation].permit(:intervention_id,
+                                                   :product_id,
+                                                   working_periods_attributes: %i[id started_at stopped_at nature])
+      end
 
     def form_participations
       form_participations = []

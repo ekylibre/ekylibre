@@ -37,9 +37,9 @@ module NamingFormats
 
       private
 
-      def fail!(error)
-        @error = error
-      end
+        def fail!(error)
+          @error = error
+        end
 
       def naming_format_fields_names
         NamingFormatLandParcel.last.fields.map(&:field_name)

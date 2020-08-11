@@ -132,16 +132,16 @@ class JournalTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
   private
 
-  def clean_irrelevant_fixtures
-    FinancialYear.delete_all
-    OutgoingPayment.delete_all
-    Sale.delete_all
-    SaleItem.delete_all
-    Regularization.delete_all
-    Payslip.delete_all
-    JournalEntry.delete_all
-    JournalEntryItem.delete_all
-    Affair.delete_all
-    TaxDeclaration.delete_all
-  end
+    def clean_irrelevant_fixtures
+      FinancialYear.delete_all
+      OutgoingPayment.delete_all
+      Sale.delete_all
+      SaleItem.delete_all
+      Regularization.delete_all
+      Payslip.delete_all
+      JournalEntry.delete_all
+      JournalEntryItem.delete_all
+      Affair.delete_all
+      TaxDeclaration.delete_all
+    end
 end

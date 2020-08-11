@@ -58,7 +58,7 @@ class ProductEnjoyment < Ekylibre::Record::Base
 
   private
 
-  def siblings
-    product&.enjoyments || ProductEnjoyment.none
-  end
+    def siblings
+      product&.enjoyments || ProductEnjoyment.none
+    end
 end

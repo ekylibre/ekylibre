@@ -120,29 +120,29 @@ module Aggeratio
 
     private
 
-    def xpath(element)
-      return nil if %w[comment variable].include?(element.name)
-      name = element.name.to_s.upcase
-      if %w[matrix sections].include?(element.name)
-        name = normalize_name(element.attr('for'))
-        if element.has_attribute?('name')
-          name = normalize_name(element.attr('name')) + '/' + name
+      def xpath(element)
+        return nil if %w[comment variable].include?(element.name)
+        name = element.name.to_s.upcase
+        if %w[matrix sections].include?(element.name)
+          name = normalize_name(element.attr('for'))
+          if element.has_attribute?('name')
+            name = normalize_name(element.attr('name')) + '/' + name
+          end
+        elsif element.has_attribute?('name')
+          name = normalize_name(element.attr('name'))
         end
-      elsif element.has_attribute?('name')
-        name = normalize_name(element.attr('name'))
-      end
-      prefix = (%w[property title].include?(element.name) ? '/@' : '/')
-      if element == @root
-        return prefix + name
-      elsif element.parent && !element.parent.is_a?(Nokogiri::XML::Document)
-        begin
-          return xpath(element.parent) + prefix + name
-        rescue
-          nil
+        prefix = (%w[property title].include?(element.name) ? '/@' : '/')
+        if element == @root
+          return prefix + name
+        elsif element.parent && !element.parent.is_a?(Nokogiri::XML::Document)
+          begin
+            return xpath(element.parent) + prefix + name
+          rescue
+            nil
+          end
+        else
+          return nil
         end
-      else
-        return nil
       end
-    end
   end
 end

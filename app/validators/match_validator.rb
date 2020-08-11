@@ -16,9 +16,9 @@ class MatchValidator < ActiveModel::EachValidator
 
   private
 
-  def attribute_to_invalidate
-    options[:to_invalidate] || @attribute
-  end
+    def attribute_to_invalidate
+      options[:to_invalidate] || @attribute
+    end
 
   def reference
     return @value unless options[:middleman]

@@ -312,14 +312,14 @@ module RestfullyManageable
 
     private
 
-    def name_module(mod, kind)
-      # Ensure we don't collide with other controllers but still don't need
-      # intermediate namespacing modules
-      unique_controller_name = controller_path.camelize.simpleize
-      kind_name = kind.to_s.classify
-      mod_name = "#{unique_controller_name}#{kind_name}Actions"
-      RestfullyManageable.const_set mod_name, mod
-    end
+      def name_module(mod, kind)
+        # Ensure we don't collide with other controllers but still don't need
+        # intermediate namespacing modules
+        unique_controller_name = controller_path.camelize.simpleize
+        kind_name = kind.to_s.classify
+        mod_name = "#{unique_controller_name}#{kind_name}Actions"
+        RestfullyManageable.const_set mod_name, mod
+      end
 
     def insert_module(code, class_code, name: '')
       restful_module = Module.new

@@ -97,7 +97,7 @@ class FinancialYearExchange < Ekylibre::Record::Base
 
   private
 
-  delegate :stopped_on, to: :financial_year, prefix: true, allow_nil: true
+    delegate :stopped_on, to: :financial_year, prefix: true, allow_nil: true
 
   def initializeable?
     new_record?

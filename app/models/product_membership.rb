@@ -58,8 +58,8 @@ class ProductMembership < Ekylibre::Record::Base
 
   private
 
-  def siblings
-    # self.member.memberships
-    self.class.where(member: member) # group: self.group,
-  end
+    def siblings
+      # self.member.memberships
+      self.class.where(member: member) # group: self.group,
+    end
 end

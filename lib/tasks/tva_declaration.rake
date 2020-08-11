@@ -23,15 +23,15 @@ namespace :tva_declaration do
 
   private
 
-  def csv_generation(td, csv)
-    td.items.includes(parts: { journal_entry_item: :entry }).each do |i|
-      i.parts.each do |p|
-        jei = p.journal_entry_item
-        e = jei.entry
-        csv << [e.number, e.printed_on.l, I18n.l(Date::MONTHNAMES[e.printed_on.month]), jei.account.number, jei.account.name, jei.name, jei.debit.to_f, jei.credit.to_f, p.tax_amount.to_f, p.pretax_amount.to_f, jei.tax.name, jei.vat_item_to_product_account]
+    def csv_generation(td, csv)
+      td.items.includes(parts: { journal_entry_item: :entry }).each do |i|
+        i.parts.each do |p|
+          jei = p.journal_entry_item
+          e = jei.entry
+          csv << [e.number, e.printed_on.l, I18n.l(Date::MONTHNAMES[e.printed_on.month]), jei.account.number, jei.account.name, jei.name, jei.debit.to_f, jei.credit.to_f, p.tax_amount.to_f, p.pretax_amount.to_f, jei.tax.name, jei.vat_item_to_product_account]
+        end
       end
     end
-  end
 
   def create_tax_declaration_file
     puts 'Start to generate_file'.green

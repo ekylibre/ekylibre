@@ -152,15 +152,15 @@ class InterventionOutput < InterventionProductParameter
 
   private
 
-  def output_name_without_params(compute_name)
-    compute_name << variant.name
-    output_duplicate_count = output_name_count(compute_name.join(' '))
+    def output_name_without_params(compute_name)
+      compute_name << variant.name
+      output_duplicate_count = output_name_count(compute_name.join(' '))
 
-    rank_number = I18n.t('labels.number_with_param', number: output_duplicate_count + 1)
-    compute_name << rank_number.downcase
+      rank_number = I18n.t('labels.number_with_param', number: output_duplicate_count + 1)
+      compute_name << rank_number.downcase
 
-    compute_name.join(' ')
-  end
+      compute_name.join(' ')
+    end
 
   def output_name_count(name)
     Plant.where('name like ?', "%#{Regexp.escape(name)}%").count

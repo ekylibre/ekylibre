@@ -62,11 +62,11 @@ module Backend
 
     protected
 
-    def new_trade
-      return self.class::Trade.find_by(id: affair_params[:trade_id]) if @mode_for[:trade] =~ /existing/
-      third_param = { self.class::Trade.third_attribute => Entity.find_by(id: affair_params[:third_id]) }
-      self.class::Trade.new(trade_params.merge(third_param))
-    end
+      def new_trade
+        return self.class::Trade.find_by(id: affair_params[:trade_id]) if @mode_for[:trade] =~ /existing/
+        third_param = { self.class::Trade.third_attribute => Entity.find_by(id: affair_params[:third_id]) }
+        self.class::Trade.new(trade_params.merge(third_param))
+      end
 
     def new_payment(third, at)
       return self.class::Payment.find_by(id: affair_params[:payment_id]) if @mode_for[:payment] =~ /existing/

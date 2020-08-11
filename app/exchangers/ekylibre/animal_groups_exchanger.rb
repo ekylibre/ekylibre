@@ -163,15 +163,15 @@ module Ekylibre
 
           # find support for intervention changing or create it
           unless ap = ActivityProduction.find_by(support_id: animal_group.id, campaign_id: campaign.id, activity_id: activity.id)
-              ap = ActivityProduction.create!(
-                activity: activity,
-                campaign: campaign,
-                support_id: animal_group.id,
-                size_value: (animals.count > 0 ? animals.count : r.population_in_production),
-                support_nature: :animal_group,
-                started_on: r.started_on,
-                stopped_on: r.stopped_on
-              )
+            ap = ActivityProduction.create!(
+              activity: activity,
+              campaign: campaign,
+              support_id: animal_group.id,
+              size_value: (animals.count > 0 ? animals.count : r.population_in_production),
+              support_nature: :animal_group,
+              started_on: r.started_on,
+              stopped_on: r.stopped_on
+            )
           end
 
           # if animals and production_support, add animals to the target distribution

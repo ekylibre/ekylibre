@@ -195,11 +195,11 @@ module Ekylibre
 
     protected
 
-    def transcode_activity_family(activity_family)
-      results = ACTIVITIES.select do |_k, v|
-        v.include?(activity_family)
+      def transcode_activity_family(activity_family)
+        results = ACTIVITIES.select do |_k, v|
+          v.include?(activity_family)
+        end
+        results.keys.first
       end
-      results.keys.first
-    end
   end
 end

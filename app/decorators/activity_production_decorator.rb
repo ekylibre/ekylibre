@@ -68,24 +68,24 @@ class ActivityProductionDecorator < Draper::Decorator
 
   private
 
-  def calcul_global_costs(with_working_zone_area: false)
-    interventions = decorated_interventions
-    costs = new_costs_hash
-    working_zone = 0.in(:hectare)
+    def calcul_global_costs(with_working_zone_area: false)
+      interventions = decorated_interventions
+      costs = new_costs_hash
+      working_zone = 0.in(:hectare)
 
-    interventions.each do |intervention|
-      global_costs = intervention.global_costs
+      interventions.each do |intervention|
+        global_costs = intervention.global_costs
 
-      calcul_with_surface_area(intervention, global_costs) if intervention.many_targets?
-      sum_costs(costs, global_costs)
+        calcul_with_surface_area(intervention, global_costs) if intervention.many_targets?
+        sum_costs(costs, global_costs)
 
-      working_zone += intervention_working_zone_area(intervention).in(:hectare).round(2) if with_working_zone_area
+        working_zone += intervention_working_zone_area(intervention).in(:hectare).round(2) if with_working_zone_area
+      end
+
+      calcul_with_working_zone_area(costs, working_zone) if with_working_zone_area
+      total_costs(costs)
+      costs
     end
-
-    calcul_with_working_zone_area(costs, working_zone) if with_working_zone_area
-    total_costs(costs)
-    costs
-  end
 
   def total_costs(costs)
     costs = costs.except!(:total) if costs.key?(:total)

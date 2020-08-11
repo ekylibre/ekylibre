@@ -185,20 +185,20 @@ class Plant < Bioproduct
   private
 
   # FIXME: Why this code is here??? Not linked to Plant
-  def curves(collection, set_first_val, get_value, get_name, round = 2)
-    hashes = inspections.reorder(:sampled_at).map do |intervention|
-      pairs = collection.map do |grouping_crit|
-        pre_val = set_first_val.call(intervention, grouping_crit)
-        value = (pre_val ? get_value.call(pre_val) : 0).to_s.to_f
-        value = value.round(round) if round
-        [get_name.call(grouping_crit), value]
+    def curves(collection, set_first_val, get_value, get_name, round = 2)
+      hashes = inspections.reorder(:sampled_at).map do |intervention|
+        pairs = collection.map do |grouping_crit|
+          pre_val = set_first_val.call(intervention, grouping_crit)
+          value = (pre_val ? get_value.call(pre_val) : 0).to_s.to_f
+          value = value.round(round) if round
+          [get_name.call(grouping_crit), value]
+        end
+        Rails.logger.info pairs.inspect.red
+        pairs_to_hash(pairs)
       end
-      Rails.logger.info pairs.inspect.red
-      pairs_to_hash(pairs)
-    end
 
-    merge_all(hashes)
-  end
+      merge_all(hashes)
+    end
 
   # FIXME: Why this code is here??? Not linked to Plant
   # [ {[1]}, {[2]}, {[3]} ] => { [1,2], [3] }

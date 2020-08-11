@@ -134,9 +134,9 @@ module Ekylibre
 
       protected
 
-      def warn(message)
-        Rails.logger.warn(message)
-      end
+        def warn(message)
+          Rails.logger.warn(message)
+        end
     end
   end
 end

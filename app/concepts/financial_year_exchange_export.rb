@@ -16,7 +16,7 @@ class FinancialYearExchangeExport
 
   private
 
-  attr_reader :exchange
+    attr_reader :exchange
 
   def build_export(format, &block)
     if format == 'csv'

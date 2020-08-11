@@ -31,9 +31,9 @@ module Procedo
 
       private
 
-      def sub(items)
-        self.class.new(@intervention, @parameter, items)
-      end
+        def sub(items)
+          self.class.new(@intervention, @parameter, items)
+        end
     end
   end
 end

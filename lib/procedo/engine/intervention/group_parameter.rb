@@ -117,14 +117,14 @@ module Procedo
 
         protected
 
-        def add_parameter(parameter)
-          unless parameter.is_a?(Procedo::Engine::Intervention::Parameter)
-            raise "Invalid parameter: #{parameter.inspect}"
+          def add_parameter(parameter)
+            unless parameter.is_a?(Procedo::Engine::Intervention::Parameter)
+              raise "Invalid parameter: #{parameter.inspect}"
+            end
+            @members[parameter.reference_reflection_name] ||= {}.with_indifferent_access
+            @members[parameter.reference_reflection_name][parameter.id] = parameter
+            parameter
           end
-          @members[parameter.reference_reflection_name] ||= {}.with_indifferent_access
-          @members[parameter.reference_reflection_name][parameter.id] = parameter
-          parameter
-        end
       end
     end
   end

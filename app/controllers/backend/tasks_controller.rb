@@ -43,10 +43,10 @@ module Backend
 
     protected
 
-    def fire_event(event)
-      return unless @task = find_and_check
-      @task.send(event)
-      redirect_to params[:redirect] || { action: :show, id: @task.id }
-    end
+      def fire_event(event)
+        return unless @task = find_and_check
+        @task.send(event)
+        redirect_to params[:redirect] || { action: :show, id: @task.id }
+      end
   end
 end

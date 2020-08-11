@@ -56,10 +56,10 @@ class Progress
 
     private
 
-    def fetch!(name, id: DEFAULT_ID)
-      return nil unless File.exist?(file_for(name, id))
-      build(name, id: id).tap(&:read_only!)
-    end
+      def fetch!(name, id: DEFAULT_ID)
+        return nil unless File.exist?(file_for(name, id))
+        build(name, id: id).tap(&:read_only!)
+      end
 
     def registration(name, id)
       name = name.to_s

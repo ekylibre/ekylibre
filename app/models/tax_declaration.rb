@@ -245,14 +245,14 @@ class TaxDeclaration < Ekylibre::Record::Base
 
   private
 
-  def set_entry_items_tax_modes
-    all = JournalEntryItem
-          .where.not(tax_id: nil)
-          .where('printed_on <= ?', stopped_on)
-          .where(tax_declaration_mode: nil)
-    set_non_purchase_entry_items_tax_modes all.where.not(resource_type: 'PurchaseItem')
-    set_purchase_entry_items_tax_modes all.where(resource_type: 'PurchaseItem')
-  end
+    def set_entry_items_tax_modes
+      all = JournalEntryItem
+            .where.not(tax_id: nil)
+            .where('printed_on <= ?', stopped_on)
+            .where(tax_declaration_mode: nil)
+      set_non_purchase_entry_items_tax_modes all.where.not(resource_type: 'PurchaseItem')
+      set_purchase_entry_items_tax_modes all.where(resource_type: 'PurchaseItem')
+    end
 
   def set_non_purchase_entry_items_tax_modes(entry_items)
     entry_items.update_all tax_declaration_mode: financial_year.tax_declaration_mode

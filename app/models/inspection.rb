@@ -260,9 +260,9 @@ class Inspection < Ekylibre::Record::Base
 
   # CODE FACTORING
 
-  def mappable(method, dimension)
-    ->(point_or_calib) { point_or_calib.send(method, dimension) }
-  end
+    def mappable(method, dimension)
+      ->(point_or_calib) { point_or_calib.send(method, dimension) }
+    end
 
   # Returns the sum of measurements on a scale if one is provided or the average
   # of measurements across all scales if none is.

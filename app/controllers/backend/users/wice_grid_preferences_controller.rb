@@ -32,9 +32,9 @@ module Backend
 
       private
 
-      def permitted_params
-        params.require(:preference).permit(:name, :value, :nature)
-      end
+        def permitted_params
+          params.require(:preference).permit(:name, :value, :nature)
+        end
     end
   end
 end

@@ -75,10 +75,10 @@ module Unrollable
 
     protected
 
-    def conditions_for(keys, searchables)
-      keys.map { |key| searchables.map { |filter| unaccented_match(filter.search, key) }.join(' OR ') }
-          .map { |condition| "(#{condition})" }
-    end
+      def conditions_for(keys, searchables)
+        keys.map { |key| searchables.map { |filter| unaccented_match(filter.search, key) }.join(' OR ') }
+            .map { |condition| "(#{condition})" }
+      end
 
     def exact_conditions_for(keys, searchables)
       searchables.map { |filter| exact_unaccented_match(filter.search, keys) }

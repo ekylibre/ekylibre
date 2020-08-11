@@ -176,32 +176,32 @@ class ReceptionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
   private
 
-  def new_reception(delivery_mode: :third, address: nil, sender: nil, separated: nil, items_attributes: nil, storage: nil)
-    attributes = {
-      delivery_mode: delivery_mode,
-      address: address || @address,
-      sender: sender || @sender,
-      separated_stock: separated,
-      given_at: DateTime.new(2018, 1, 1)
-    }
+    def new_reception(delivery_mode: :third, address: nil, sender: nil, separated: nil, items_attributes: nil, storage: nil)
+      attributes = {
+        delivery_mode: delivery_mode,
+        address: address || @address,
+        sender: sender || @sender,
+        separated_stock: separated,
+        given_at: DateTime.new(2018, 1, 1)
+      }
 
-    items_attributes ||= [{
-      # population: 20,
-      unit_pretax_stock_amount: 15,
-      variant: @variant,
-      storings_attributes: [
-        {
-          quantity: 20,
-          storage: storage || @storage
-        }
-      ]
-    }]
+      items_attributes ||= [{
+        # population: 20,
+        unit_pretax_stock_amount: 15,
+        variant: @variant,
+        storings_attributes: [
+          {
+            quantity: 20,
+            storage: storage || @storage
+          }
+        ]
+      }]
 
-    reception = Reception.create!(attributes)
-    items_attributes.each do
-      reception.items.create!(items_attributes)
+      reception = Reception.create!(attributes)
+      items_attributes.each do
+        reception.items.create!(items_attributes)
+      end
+
+      reception
     end
-
-    reception
-  end
 end

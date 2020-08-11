@@ -164,27 +164,27 @@ module Backend
 
     protected
 
-    def to_pdf
-      filename = "#{:purchase_order.tl} #{@purchase_order.reference_number}"
-      key = "#{filename}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
-      @dataset_purchase_order = @purchase_order.order_reporting
-      file_odt = to_odt(@dataset_purchase_order, filename, params).generate
-      tmp_dir = Ekylibre::Tenant.private_directory.join('tmp')
-      uuid = SecureRandom.uuid
-      source = tmp_dir.join(uuid + '.odt')
-      dest = tmp_dir.join(uuid + '.pdf')
-      FileUtils.mkdir_p tmp_dir
-      File.write source, file_odt
-      `soffice  --headless --convert-to pdf --outdir #{Shellwords.escape(tmp_dir.to_s)} #{Shellwords.escape(source)}`
-      Document.create!(
-                 nature: 'purchases_order',
-                 key: key,
-                 name: filename,
-                 file: File.open(dest),
-                 file_file_name: "#{key}.pdf"
-               )
-      send_data(File.read(dest), type: 'application/pdf', disposition: 'attachment', filename: filename + '.pdf')
-    end
+      def to_pdf
+        filename = "#{:purchase_order.tl} #{@purchase_order.reference_number}"
+        key = "#{filename}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
+        @dataset_purchase_order = @purchase_order.order_reporting
+        file_odt = to_odt(@dataset_purchase_order, filename, params).generate
+        tmp_dir = Ekylibre::Tenant.private_directory.join('tmp')
+        uuid = SecureRandom.uuid
+        source = tmp_dir.join(uuid + '.odt')
+        dest = tmp_dir.join(uuid + '.pdf')
+        FileUtils.mkdir_p tmp_dir
+        File.write source, file_odt
+        `soffice  --headless --convert-to pdf --outdir #{Shellwords.escape(tmp_dir.to_s)} #{Shellwords.escape(source)}`
+        Document.create!(
+                   nature: 'purchases_order',
+                   key: key,
+                   name: filename,
+                   file: File.open(dest),
+                   file_file_name: "#{key}.pdf"
+                 )
+        send_data(File.read(dest), type: 'application/pdf', disposition: 'attachment', filename: filename + '.pdf')
+      end
 
     def to_odt(order_reporting, filename, _params)
       # TODO: add a generic template system path

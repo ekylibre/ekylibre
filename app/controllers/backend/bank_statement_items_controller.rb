@@ -45,11 +45,11 @@ module Backend
 
     protected
 
-    def permitted_params
-      params
-        .reject { |_key, value| value == '0.0' || value == '' }
-        .require(:bank_statement_item)
-        .permit(:debit, :credit, :transfered_on, :initiated_on, :transaction_number, :letter, :name)
-    end
+      def permitted_params
+        params
+          .reject { |_key, value| value == '0.0' || value == '' }
+          .require(:bank_statement_item)
+          .permit(:debit, :credit, :transfered_on, :initiated_on, :transaction_number, :letter, :name)
+      end
   end
 end

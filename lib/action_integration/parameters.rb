@@ -49,9 +49,9 @@ module ActionIntegration
 
     private
 
-    def self.encode(value)
-      Base64.encode64(value)
-    end
+      def self.encode(value)
+        Base64.encode64(value)
+      end
 
     def self.decode(value)
       Base64.decode64(value)

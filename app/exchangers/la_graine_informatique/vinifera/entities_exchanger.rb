@@ -144,31 +144,31 @@ module LaGraineInformatique
 
       private
 
-      def create_custom_fields(file, dir)
-        list = []
-        return list unless file.exist?
-        CSV.foreach(file, headers: true) do |row|
-          r = {
-            name: row[0].to_s,
-            label: row[1].to_s,
-            nature: row[2].blank? ? :string : row[2].to_sym,
-            customized_type: 'Entity',
-            choices: {}
-          }.to_struct
-          path = dir.join("#{r.name.pluralize}_transcode.csv")
-          if path.exist?
-            CSV.foreach(path, headers: true) do |under_row|
-              r.choices[under_row[0].strip.gsub(/[[:space:]\_]+/, '-')] = under_row[1].strip
+        def create_custom_fields(file, dir)
+          list = []
+          return list unless file.exist?
+          CSV.foreach(file, headers: true) do |row|
+            r = {
+              name: row[0].to_s,
+              label: row[1].to_s,
+              nature: row[2].blank? ? :string : row[2].to_sym,
+              customized_type: 'Entity',
+              choices: {}
+            }.to_struct
+            path = dir.join("#{r.name.pluralize}_transcode.csv")
+            if path.exist?
+              CSV.foreach(path, headers: true) do |under_row|
+                r.choices[under_row[0].strip.gsub(/[[:space:]\_]+/, '-')] = under_row[1].strip
+              end
+            elsif nature == :choice
+              w.warn 'No path found for choices'
             end
-          elsif nature == :choice
-            w.warn 'No path found for choices'
+            r.field = create_custom_field(r.label, r.customized_type,
+                                          choices: r.choices, nature: r.nature, column_name: r.name)
+            list << r
           end
-          r.field = create_custom_field(r.label, r.customized_type,
-                                        choices: r.choices, nature: r.nature, column_name: r.name)
-          list << r
+          list
         end
-        list
-      end
 
       def create_custom_field(name, customized_type, options = {})
         # create custom field if not exist

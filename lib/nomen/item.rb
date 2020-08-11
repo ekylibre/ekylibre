@@ -323,9 +323,9 @@ module Nomen
 
     private
 
-    def cast_property(name, value)
-      @nomenclature.cast_property(name, value)
-    end
+      def cast_property(name, value)
+        @nomenclature.cast_property(name, value)
+      end
 
     def item_for_comparison(other)
       item = nomenclature[other.is_a?(Item) ? other.name : other]

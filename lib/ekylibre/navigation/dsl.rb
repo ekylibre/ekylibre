@@ -48,9 +48,9 @@ module Ekylibre
 
       private
 
-      def current_node
-        @stack.first
-      end
+        def current_node
+          @stack.first
+        end
 
       def yield_in_node(node, &_block)
         @stack ||= []

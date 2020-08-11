@@ -231,18 +231,18 @@ class PlantDecorator < ProductDecorator
 
   private
 
-  def inspection_points_percentage(dimension, category, unit_name)
-    return nil if last_inspection.nil?
+    def inspection_points_percentage(dimension, category, unit_name)
+      return nil if last_inspection.nil?
 
-    last_inspection
-      .points_percentage(dimension, category)
-      .in(unit_name)
-      .round(2)
-      .l(precision: 2)
-      .split(' ')
-      .insert(1, '%')
-      .join(' ')
-  end
+      last_inspection
+        .points_percentage(dimension, category)
+        .in(unit_name)
+        .round(2)
+        .l(precision: 2)
+        .split(' ')
+        .insert(1, '%')
+        .join(' ')
+    end
 
   def dimension(user)
     last_inspection

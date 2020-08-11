@@ -8,9 +8,9 @@ module Backend
 
     private
 
-    def exchanger_name
-      params[:id].gsub(/[^a-z0-9_]/i, '')
-    end
+      def exchanger_name
+        params[:id].gsub(/[^a-z0-9_]/i, '')
+      end
 
     def file_path
       ActiveExchanger::Base.template_file_for(exchanger_name, locale)

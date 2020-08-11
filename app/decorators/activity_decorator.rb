@@ -57,9 +57,9 @@ class ActivityDecorator < Draper::Decorator
 
   private
 
-  def sum_costs(activity_costs, costs)
-    activity_costs.each { |key, _value| activity_costs[key] = activity_costs[key] + costs[key] }
-  end
+    def sum_costs(activity_costs, costs)
+      activity_costs.each { |key, _value| activity_costs[key] = activity_costs[key] + costs[key] }
+    end
 
   def multiply_costs(costs, multiplier)
     costs.each { |key, value| costs[key] = value * multiplier }
