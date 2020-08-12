@@ -46,6 +46,8 @@ eng:
       # autocomplete: "Autocomplete activity inspection point nature: %{name}"
     backend/activity_productions:
       edit: "Edit production: %{name}"
+      edit_specified: "Edit production: %{activity}"
+      new_specified: "New production: %{activity}"
       index: "Productions"
       new: "New production"
       show: "Production: %{name}"
@@ -1570,6 +1572,7 @@ eng:
     based_on_regulation_at_date: "Verifications based on regulation in effect at %{date}"
     bban: "Basic Bank Account Number (BBAN)"
     # bee_usage: "Bee usage"
+    before_add_a_land_parcel: "Before add a land parcel you should add an activity"
     before_add_a_plant: "Before add a plant you should add seeds or plants in the matter list"
     before_taxe_result: "Before taxe result"
     beginning: "Beginning"

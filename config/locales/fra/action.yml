@@ -33,8 +33,10 @@ fra:
       show: "Budget: %{name}"
     backend/activity_productions:
       edit: "Modifier une production"
+      edit_specified: "Modifier la production de %{activity}"
       index: "Productions"
       new: "Nouvelle production"
+      new_specified: "Nouvelle production de %{activity}"
       show: "Production\_: %{name}"
     backend/affairs:
       attach: "Associer une affaire"
@@ -1297,6 +1299,7 @@ fra:
     based_on_regulation_at_date: "Les vérifications sont effectuées sur la base de la réglementation en vigueur au %{date}"
     bban: "Relevé d’identité bancaire (RIB)"
     bee_usage: "Mention abeille" #?
+    before_add_a_land_parcel: "Avant d’ajouter une parcelle, vous devez d’abord ajouter une activité."
     before_add_a_plant: "Avant d’ajouter une culture, vous devez d’abord ajouter des semences ou des plants dans la liste des matières."
     before_taxe_result: "Résultat courant avant impôts"
     beginning: "Début"
