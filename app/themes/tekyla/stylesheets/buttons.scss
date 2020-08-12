@@ -20,6 +20,7 @@ input[type="submit"], input[type="button"], input[type="reset"] {
 // @include button($passive-bg, $active-bg);
 // @include button(#D88E68, #D88E68, "&.important");
 
+
 a.btn, button.btn {
   @include button();
   &.primary, &.btn-primary {
@@ -27,6 +28,9 @@ a.btn, button.btn {
   }
   &.btn-success {
     @include button($background-color: $success-color, $input: true);
+  }
+  &.btn-default--parcel {
+    margin: 2px;
   }
   &.important, &.caution, &.btn-warning {
     @include button($background-color: $caution-color);

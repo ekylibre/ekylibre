@@ -63,6 +63,38 @@ module Backend
       end
     end
 
+    def new
+      #params.keys == %i[cultivable_zone_id, activity_id, campaign_id]
+      if params[:cultivable_zone_id].present?
+        cultivable_zone_shape = CultivableZone.find_by(id: params[:cultivable_zone_id]).shape 
+      end
+
+      @activity_production = resource_model.new(
+        activity_id: (params[:activity_id]), 
+        campaign_id: (params[:campaign_id]), 
+        cultivable_zone_id: (params[:cultivable_zone_id]), 
+        custom_fields: (params[:custom_fields]), 
+        irrigated: (params[:irrigated]), 
+        nitrate_fixing: (params[:nitrate_fixing]), 
+        rank_number: (params[:rank_number]), 
+        season_id: (params[:season_id]), 
+        size_indicator_name: (params[:size_indicator_name]), 
+        size_unit_name: (params[:size_unit_name]), 
+        size_value: (params[:size_value]), 
+        started_on: (params[:started_on]), 
+        state: (params[:state]), 
+        stopped_on: (params[:stopped_on]), 
+        support_id: (params[:support_id]), 
+        support_nature: (params[:support_nature]), 
+        support_shape: (params.fetch(:support_shape, cultivable_zone_shape)),
+        tactic_id: (params[:tactic_id]), 
+        usage: (params[:usage])
+      )
+
+      t3e(@activity_production.attributes.merge(name: (@activity_production.name)))
+      render(locals: { cancel_url: :back, with_continue: false })
+    end
+
     def create
       begin
         super

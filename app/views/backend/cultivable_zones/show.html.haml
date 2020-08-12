@@ -36,6 +36,9 @@
     = cell :weather, params: {centroid: resource.shape.centroid}
 
   - c.cobble(:productions) do
+    - disabled = Activity.count.zero?
+    %button{ class: "btn btn-default btn-default--parcel #{'disabled' if disabled}", id: "generate-land-parcel-btn", title: "#{:before_add_a_land_parcel.tl if disabled}", data: { cultivable_zone: resource.id} }
+      = :new.tl
     = cobble_list(:productions)
   -# c.cobble(:contained_products) do
     = cobble_list(:contained_products)

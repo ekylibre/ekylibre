@@ -1,5 +1,11 @@
 - activity = f.object.activity
 = f.object.errors.inspect if f.object.errors.any? && Rails.env.development?
+- content_for :main_title do
+  - action_title_key = ['new', 'create'].include?(action_name) ? 'new' : 'edit'
+  - if activity
+    - action_title_key << '_specified'
+  = "actions.#{controller_path}.#{action_title_key}".t(activity: activity.name)
+
 = field_set do
   -# = f.input :name
   = f.referenced_association :activity, as: :hidden
