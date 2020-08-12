@@ -173,7 +173,7 @@
           name: $(this).find('input.hidden').val()
       data = zones: zones
 
-      @line.find('#storing-display:first').innerHTML = storing_display_template(zones)
+      @line.find('#storing-display').html(storing_display_template(zones))
 
     retrievePreviousItemValue: ->
       line = @line
