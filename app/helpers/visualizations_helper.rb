@@ -123,72 +123,72 @@ module Visualization
     protected
 
     # Build a data structure for popup building
-    def compile_visualization_popup(object, item)
-      if object.is_a?(TrueClass)
-        hash = { header: item[:name] }
-        for key, value in item
-          unless %i[header footer name shape].include?(key)
-            hash[key] = value.to_s
-          end
-        end
-        compile_visualization_popup(hash, item)
-      elsif object.is_a?(String)
-        [{ type: :content, content: object }]
-      elsif object.is_a?(Hash)
-        blocks = []
-        if header = object[:header]
-          blocks << compile_block(header, :header, content: item[:name])
-        end
-        if content = object[:content]
-          if content.is_a? String
-            blocks << { type: :content, content: content }
-          elsif content.is_a? Array
-            for value in content
-              block = {}
-              if value.is_a? String
-                block[:content] = value
-              elsif value.is_a? Hash
-                block.update(value)
-              else
-                raise "Not implemented array block for #{object.class}"
-              end
-              if block[:label].is_a?(TrueClass)
-                block[:label] = "attributes.#{attribute}".t(default: ["labels.#{attribute}".to_sym, attribute.to_s.humanize])
-              elsif !block[:label]
-                block.delete(:label)
-              end
-              blocks << block.merge(type: :content)
+      def compile_visualization_popup(object, item)
+        if object.is_a?(TrueClass)
+          hash = { header: item[:name] }
+          for key, value in item
+            unless %i[header footer name shape].include?(key)
+              hash[key] = value.to_s
             end
-          elsif content.is_a? Hash
-            for attribute, value in content
-              block = {}
-              if value.is_a? String
-                block[:content] = value
-              elsif value.is_a? Hash
-                block.update(value)
-              elsif value.is_a? TrueClass
-                block[:value] = item[attribute].to_s
-                block[:label] = true
-              end
-              if block[:label].is_a?(TrueClass)
-                block[:label] = "attributes.#{attribute}".t(default: ["labels.#{attribute}".to_sym, attribute.to_s.humanize])
-              elsif !block[:label]
-                block.delete(:label)
-              end
-              blocks << block.merge(type: :content)
-            end
-          else
-            raise "Not implemented content for #{content.class}"
           end
+          compile_visualization_popup(hash, item)
+        elsif object.is_a?(String)
+          [{ type: :content, content: object }]
+        elsif object.is_a?(Hash)
+          blocks = []
+          if header = object[:header]
+            blocks << compile_block(header, :header, content: item[:name])
+          end
+          if content = object[:content]
+            if content.is_a? String
+              blocks << { type: :content, content: content }
+            elsif content.is_a? Array
+              for value in content
+                block = {}
+                if value.is_a? String
+                  block[:content] = value
+                elsif value.is_a? Hash
+                  block.update(value)
+                else
+                  raise "Not implemented array block for #{object.class}"
+                end
+                if block[:label].is_a?(TrueClass)
+                  block[:label] = "attributes.#{attribute}".t(default: ["labels.#{attribute}".to_sym, attribute.to_s.humanize])
+                elsif !block[:label]
+                  block.delete(:label)
+                end
+                blocks << block.merge(type: :content)
+              end
+            elsif content.is_a? Hash
+              for attribute, value in content
+                block = {}
+                if value.is_a? String
+                  block[:content] = value
+                elsif value.is_a? Hash
+                  block.update(value)
+                elsif value.is_a? TrueClass
+                  block[:value] = item[attribute].to_s
+                  block[:label] = true
+                end
+                if block[:label].is_a?(TrueClass)
+                  block[:label] = "attributes.#{attribute}".t(default: ["labels.#{attribute}".to_sym, attribute.to_s.humanize])
+                elsif !block[:label]
+                  block.delete(:label)
+                end
+                blocks << block.merge(type: :content)
+              end
+            else
+              raise "Not implemented content for #{content.class}"
+            end
+          end
+          if footer = object[:footer]
+            blocks << compile_block(footer, :footer, content: item[:name])
+          end
+          blocks
+        else
+          raise "Not implemented for #{object.class}"
         end
-        if footer = object[:footer]
-          blocks << compile_block(footer, :footer, content: item[:name])
-        end
-        blocks
-      else
-        raise "Not implemented for #{object.class}"
       end
-    end
 
     def compile_block(*args)
       options = args.extract_options!

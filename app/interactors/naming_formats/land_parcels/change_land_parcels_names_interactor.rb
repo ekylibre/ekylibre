@@ -29,9 +29,9 @@ module NamingFormats
 
       private
 
-      def fail!(error)
-        @error << error
-      end
+        def fail!(error)
+          @error << error
+        end
 
       def change_land_parcels_name
         LandParcel.all.each do |land_parcel|

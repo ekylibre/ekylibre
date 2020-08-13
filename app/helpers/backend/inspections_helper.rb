@@ -208,9 +208,9 @@ module Backend
 
     private
 
-    def decimal_cell(value)
-      { tag: :td, class: :decimal, content: value }
-    end
+      def decimal_cell(value)
+        { tag: :td, class: :decimal, content: value }
+      end
 
     def total_decimal_cell(value)
       { tag: :th, class: :decimal, content: value }

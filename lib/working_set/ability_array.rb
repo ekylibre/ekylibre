@@ -79,11 +79,11 @@ module WorkingSet
 
     protected
 
-    def find_nomenclature_item(nomenclature, name)
-      unless item = Nomen[nomenclature].find(name)
-        raise InvalidExpression, "Unknown item in #{nomenclature} nomenclature: #{name}"
+      def find_nomenclature_item(nomenclature, name)
+        unless item = Nomen[nomenclature].find(name)
+          raise InvalidExpression, "Unknown item in #{nomenclature} nomenclature: #{name}"
+        end
+        item
       end
-      item
-    end
   end
 end

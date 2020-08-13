@@ -89,26 +89,26 @@ class InterventionParameterReading < Ekylibre::Record::Base
 
   private
 
-  def save_hour_counter
-    self.product_reading ||= product.readings.find_by(indicator_name: indicator_name)
+    def save_hour_counter
+      self.product_reading ||= product.readings.find_by(indicator_name: indicator_name)
 
-    return if self.product_reading.present? && self.product_reading.value > 0.in(:hour) && value.zero?
+      return if self.product_reading.present? && self.product_reading.value > 0.in(:hour) && value.zero?
 
-    return if self.product_reading.present? &&
-              self.product_reading.read_at.present? &&
-              self.product_reading.read_at > intervention.stopped_at
+      return if self.product_reading.present? &&
+                self.product_reading.read_at.present? &&
+                self.product_reading.read_at > intervention.stopped_at
 
-    if self.product_reading.nil?
-      self.product_reading ||= product.readings.new(indicator: indicator,
-                                                    measure_value_value: value,
-                                                    measure_value_unit: measure_value_unit,
-                                                    read_at: intervention.stopped_at)
+      if self.product_reading.nil?
+        self.product_reading ||= product.readings.new(indicator: indicator,
+                                                      measure_value_value: value,
+                                                      measure_value_unit: measure_value_unit,
+                                                      read_at: intervention.stopped_at)
 
-      return
+        return
+      end
+
+      self.product_reading.read_at = intervention.stopped_at
+      self.product_reading.value = value
+      self.product_reading.save!
     end
-
-    self.product_reading.read_at = intervention.stopped_at
-    self.product_reading.value = value
-    self.product_reading.save!
-  end
 end

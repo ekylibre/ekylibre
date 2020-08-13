@@ -93,7 +93,7 @@ module Lexicon
       private
 
       # @return [PG::Connection]
-      attr_reader :connection
+        attr_reader :connection
 
       def disable_notices
         query <<~SQL

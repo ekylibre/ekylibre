@@ -43,15 +43,15 @@
 #
 
 FactoryBot.define do
-    factory :custom_field do
-        active { true }
-        column_name { nil }
-        customized_type { nil }
-        sequence(:name) { |n| "Custom field #{n}" }
-        required { false }
+  factory :custom_field do
+    active { true }
+      column_name { nil }
+      customized_type { nil }
+      sequence(:name) { |n| "Custom field #{n}" }
+      required { false }
 
-        trait :text do
-            nature { :text }
-        end
-    end
+      trait :text do
+        nature { :text }
+      end
+  end
 end

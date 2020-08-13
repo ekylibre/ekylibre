@@ -246,12 +246,12 @@ module Backend
 
     protected
 
-    def find_all
-      @ids = []
-      params[:id].split(',').each do |id|
-        return false unless find_and_check(id: id)
-        @ids << id
+      def find_all
+        @ids = []
+        params[:id].split(',').each do |id|
+          return false unless find_and_check(id: id)
+          @ids << id
+        end
       end
-    end
   end
 end

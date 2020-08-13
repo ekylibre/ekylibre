@@ -154,28 +154,28 @@ module Backend
 
     private
 
-    def inspection_quality(dimension, plant)
-      inspections   = plant.inspections.reorder(sampled_at: :desc).limit(2)
-      last_i        = inspections.first
-      before_last_i = inspections.second
-      unit          = last_i.quantity_unit(dimension)
-      ActivityInspectionPointNature
-        .unmarketable_categories
-        .map do |category|
-          data = category_percentage_and_evolution(dimension, category, last_i, before_last_i)
-          next unless data
-          next [category, data] unless data[:evolution]
-          data[:evolution] = {
-            label: "#{category}_percentage_evolution".tl,
-            value: data[:evolution].round(0)
-                                   .in(unit)
-                                   .l
-          }
-          [category, data]
-        end
-        .compact
-        .to_h
-    end
+      def inspection_quality(dimension, plant)
+        inspections   = plant.inspections.reorder(sampled_at: :desc).limit(2)
+        last_i        = inspections.first
+        before_last_i = inspections.second
+        unit          = last_i.quantity_unit(dimension)
+        ActivityInspectionPointNature
+          .unmarketable_categories
+          .map do |category|
+            data = category_percentage_and_evolution(dimension, category, last_i, before_last_i)
+            next unless data
+            next [category, data] unless data[:evolution]
+            data[:evolution] = {
+              label: "#{category}_percentage_evolution".tl,
+              value: data[:evolution].round(0)
+                                     .in(unit)
+                                     .l
+            }
+            [category, data]
+          end
+          .compact
+          .to_h
+      end
 
     def category_percentage_and_evolution(dimension, category, old_i, new_i)
       return unless new_i && old_i

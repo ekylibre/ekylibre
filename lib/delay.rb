@@ -183,13 +183,13 @@ class DelayValidator < ActiveModel::EachValidator
 
   private
 
-  def bad_delay_message(*_args)
-    message_key = 'activerecord.errors.models.purchase.payment_delay_custom_validation_message'
-    delay_arguments = delay_arguments_for(Preference[:language]) || delay_arguments_for(:eng)
-    month_keywords = month_keywords_for(Preference[:language]) || month_keywords_for(:eng)
-    values = delay_arguments + month_keywords
-    I18n.translate(message_key, values: values.join(', '))
-  end
+    def bad_delay_message(*_args)
+      message_key = 'activerecord.errors.models.purchase.payment_delay_custom_validation_message'
+      delay_arguments = delay_arguments_for(Preference[:language]) || delay_arguments_for(:eng)
+      month_keywords = month_keywords_for(Preference[:language]) || month_keywords_for(:eng)
+      values = delay_arguments + month_keywords
+      I18n.translate(message_key, values: values.join(', '))
+    end
 
   def delay_arguments_for(language)
     language = language.to_sym

@@ -15,26 +15,26 @@ module ActionIntegration
 
       private
 
-      def request(operation, options, message = {})
-        client = ::Savon.client(options[:globals])
+        def request(operation, options, message = {})
+          client = ::Savon.client(options[:globals])
 
-        request_log = CallRequest.create_from_savon_httpi_request!(
-          client.build_request(operation, options[:locals].merge(message: message)),
-          @format
-        )
-        messages << request_log
+          request_log = CallRequest.create_from_savon_httpi_request!(
+            client.build_request(operation, options[:locals].merge(message: message)),
+            @format
+          )
+          messages << request_log
 
-        response = client.call(operation, options[:locals].merge(message: message))
+          response = client.call(operation, options[:locals].merge(message: message))
 
-        messages << CallResponse.create_from_savon_httpi_response!(
-          response.http,
-          request_log
-        )
+          messages << CallResponse.create_from_savon_httpi_response!(
+            response.http,
+            request_log
+          )
 
-        res = ActionIntegration::Response.new_from_savon(response)
-        yield res if block_given?
-        res
-      end
+          res = ActionIntegration::Response.new_from_savon(response)
+          yield res if block_given?
+          res
+        end
     end
   end
 end

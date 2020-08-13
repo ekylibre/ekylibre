@@ -30,11 +30,11 @@ module Interventions
 
       private
 
-      def purchase_item_amount(purchase_item, options)
-        options[:purchase_item] = purchase_item
+        def purchase_item_amount(purchase_item, options)
+          options[:purchase_item] = purchase_item
 
-        InterventionParameter::AmountComputation.quantity(:purchase, options)
-      end
+          InterventionParameter::AmountComputation.quantity(:purchase, options)
+        end
     end
   end
 end

@@ -150,24 +150,24 @@ class Sequence < Ekylibre::Record::Base
   protected
 
   # Compute next counters values
-  def next_counters(today = nil)
-    today ||= Time.zone.today
-    counters = { year: today.year, month: today.month, cweek: today.cweek }
-    period = self.period.to_sym
-    counters[:number] = last_number
-    if counters[:number].nil?
-      counters[:number] = number_start
-    else
-      counters[:number] += number_increment
-    end
-    last_period_value = send('last_' + period.to_s)
-    if period != :number && last_period_value.present?
-      if last_period_value != counters[period.to_sym] || last_year != counters[:year]
+    def next_counters(today = nil)
+      today ||= Time.zone.today
+      counters = { year: today.year, month: today.month, cweek: today.cweek }
+      period = self.period.to_sym
+      counters[:number] = last_number
+      if counters[:number].nil?
         counters[:number] = number_start
+      else
+        counters[:number] += number_increment
       end
+      last_period_value = send('last_' + period.to_s)
+      if period != :number && last_period_value.present?
+        if last_period_value != counters[period.to_sym] || last_year != counters[:year]
+          counters[:number] = number_start
+        end
+      end
+      counters
     end
-    counters
-  end
 
   # Compute number with number_format and given counters
   def compute(counters)

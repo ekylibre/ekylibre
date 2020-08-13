@@ -23,9 +23,9 @@ module Userstamp
       # are not the case in your application you will want to manually add
       # your own implementation of this method to the private section of
       # the controller where you are including the Userstamp module.
-      def set_stamper
-        User.stamper = current_user
-      end
+        def set_stamper
+          User.stamper = current_user
+        end
 
       # The <tt>reset_stamper</tt> method as implemented here assumes that a
       # +User+ model is being used as the stamper. If this is not the case then

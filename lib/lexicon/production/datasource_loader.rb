@@ -38,7 +38,7 @@ module Lexicon
       private
 
       # @return [Database::Factory]
-      attr_reader :database_factory
+        attr_reader :database_factory
       # @return [ShellExecutor]
       attr_reader :shell
 

@@ -29,48 +29,48 @@ module Backend
 
     # for testing data upload for unicoque traceability in cartodb account
     # Activity :orchard_crops
-    def cooperative_cartodb
-      if (account = Identifier.find_by(nature: :cooperative_cartodb_account)) &&
-         (key = Identifier.find_by(nature: :cooperative_cartodb_key))
-        @cooperative_config = { account: account.value, key: key.value }
-        @cooperative_config[:member] = Entity.of_company.name.downcase
-        conn = CartoDBConnection.new(@cooperative_config[:account], @cooperative_config[:key])
-        data = []
-        company = @cooperative_config[:member]
-        activities = Activity.of_families(:arboriculture)
-        Intervention.includes(:production, :production_support, :issue, :recommender, :activity, :campaign, :storage).of_activities(activities).find_each do |intervention|
-          line = {
-            company: company,
-            campaign:   intervention.campaign.name,
-            activity:   intervention.activity.name,
-            production: intervention.production.name,
-            intervention_recommended: intervention.recommended,
-            intervention_recommender_name: (intervention.recommended ? intervention.recommender.name : nil),
-            intervention_name: intervention.name,
-            intervention_reference: intervention.procedure.human_name,
-            intervention_start_time: intervention.start_time,
-            intervention_duration: (intervention.duration.to_d / 3600).round(2),
-            support: intervention.storage.name,
-            the_geom:   (intervention.storage.shape ? intervention.storage.shape_to_ewkt : nil),
-            tool_cost:  intervention.cost(:tool).to_s.to_f.round(2),
-            input_cost: intervention.cost(:input).to_s.to_f.round(2),
-            time_cost:  intervention.cost(:doer).to_s.to_f.round(2)
-          }
-          data << line
-        end
-        conn.exec("DELETE FROM interventions WHERE company='#{company}'")
-        for line in data
-          insert = []
-          values = []
-          for name, value in line
-            insert << name
-            values << ActiveRecord::Base.connection.quote(value)
+      def cooperative_cartodb
+        if (account = Identifier.find_by(nature: :cooperative_cartodb_account)) &&
+           (key = Identifier.find_by(nature: :cooperative_cartodb_key))
+          @cooperative_config = { account: account.value, key: key.value }
+          @cooperative_config[:member] = Entity.of_company.name.downcase
+          conn = CartoDBConnection.new(@cooperative_config[:account], @cooperative_config[:key])
+          data = []
+          company = @cooperative_config[:member]
+          activities = Activity.of_families(:arboriculture)
+          Intervention.includes(:production, :production_support, :issue, :recommender, :activity, :campaign, :storage).of_activities(activities).find_each do |intervention|
+            line = {
+              company: company,
+              campaign:   intervention.campaign.name,
+              activity:   intervention.activity.name,
+              production: intervention.production.name,
+              intervention_recommended: intervention.recommended,
+              intervention_recommender_name: (intervention.recommended ? intervention.recommender.name : nil),
+              intervention_name: intervention.name,
+              intervention_reference: intervention.procedure.human_name,
+              intervention_start_time: intervention.start_time,
+              intervention_duration: (intervention.duration.to_d / 3600).round(2),
+              support: intervention.storage.name,
+              the_geom:   (intervention.storage.shape ? intervention.storage.shape_to_ewkt : nil),
+              tool_cost:  intervention.cost(:tool).to_s.to_f.round(2),
+              input_cost: intervention.cost(:input).to_s.to_f.round(2),
+              time_cost:  intervention.cost(:doer).to_s.to_f.round(2)
+            }
+            data << line
           end
-          q = 'INSERT INTO interventions (' + insert.join(', ') + ') SELECT ' + values.join(', ')
-          conn.exec(q)
+          conn.exec("DELETE FROM interventions WHERE company='#{company}'")
+          for line in data
+            insert = []
+            values = []
+            for name, value in line
+              insert << name
+              values << ActiveRecord::Base.connection.quote(value)
+            end
+            q = 'INSERT INTO interventions (' + insert.join(', ') + ') SELECT ' + values.join(', ')
+            conn.exec(q)
+          end
         end
       end
-    end
 
     class CartoDBConnection
       def initialize(account, key)

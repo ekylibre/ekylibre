@@ -15,7 +15,7 @@ class FinancialYearExchangeExport
 
     private
 
-    attr_reader :exchange
+      attr_reader :exchange
 
     def write_csv(filepath)
       CSV.open(filepath, 'w+') do |csv|

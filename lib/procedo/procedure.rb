@@ -248,7 +248,7 @@ module Procedo
 
     private
 
-    attr_reader :root_group
+      attr_reader :root_group
 
     def action_selection(list)
       list.map do |action|

@@ -24,20 +24,20 @@ module ActionIntegration
     # Example with HTML#get :
     #   - the method becomes Call#get_html once the module is included
     #   - Base#execute_request will be able to log the request as a HTML one.
-    def method_with_format!(protocol, m)
-      # Protcols::JSON -> "json"
-      protocol_name = protocol.name.demodulize.downcase
-      format_overridden = protocol.constants.include?(:FORMAT)
-      format = format_overridden ? protocol.const_get(:FORMAT) : protocol_name
-      original_method = protocol.instance_method(m)
+      def method_with_format!(protocol, m)
+        # Protcols::JSON -> "json"
+        protocol_name = protocol.name.demodulize.downcase
+        format_overridden = protocol.constants.include?(:FORMAT)
+        format = format_overridden ? protocol.const_get(:FORMAT) : protocol_name
+        original_method = protocol.instance_method(m)
 
-      protocol.send(:define_method, "#{m}_#{protocol_name}") do |*args, &block|
-        @format = format
-        original_method.bind(self).call(*args, &block)
+        protocol.send(:define_method, "#{m}_#{protocol_name}") do |*args, &block|
+          @format = format
+          original_method.bind(self).call(*args, &block)
+        end
+
+        # Removes method from module once we have set up the prefixed version.
+        protocol.send :remove_method, m
       end
-
-      # Removes method from module once we have set up the prefixed version.
-      protocol.send :remove_method, m
-    end
   end
 end

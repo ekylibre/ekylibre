@@ -322,16 +322,16 @@ module Procedo
       # @param [Nomen::Variety] actor_item the actor's variety or derivative_of
       #   to compare
       # @return [Boolean]
-      def same_items?(parameter_item, actor_item)
-        # if possible it is better to squeeze nomenclature items comparison since it's quite slow
-        return true if actor_item == parameter_item
+        def same_items?(parameter_item, actor_item)
+          # if possible it is better to squeeze nomenclature items comparison since it's quite slow
+          return true if actor_item == parameter_item
 
-        begin
-          return Nomen::Variety[parameter_item] >= actor_item
-        rescue # manage the case when there is no item in nomenclature for the varieties to compare
-          return false
+          begin
+            return Nomen::Variety[parameter_item] >= actor_item
+          rescue # manage the case when there is no item in nomenclature for the varieties to compare
+            return false
+          end
         end
-      end
     end
   end
 end

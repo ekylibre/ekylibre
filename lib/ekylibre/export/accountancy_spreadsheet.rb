@@ -61,9 +61,9 @@ module Ekylibre
 
       private
 
-      def self.fdt(date)
-        date.day.to_s.rjust(2, '0') + date.month.to_s.rjust(2, '0') + date.year.to_s.rjust(4, '0')
-      end
+        def self.fdt(date)
+          date.day.to_s.rjust(2, '0') + date.month.to_s.rjust(2, '0') + date.year.to_s.rjust(4, '0')
+        end
     end
   end
 end

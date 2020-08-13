@@ -127,23 +127,23 @@ module Backend
 
     protected
 
-    def find_mode(id = nil)
-      unless mode = IncomingPaymentMode.find_by(id: id || params[:mode_id])
-        notify_warning(:need_payment_mode_to_create_deposit)
-        redirect_to action: :index
-        return nil
+      def find_mode(id = nil)
+        unless mode = IncomingPaymentMode.find_by(id: id || params[:mode_id])
+          notify_warning(:need_payment_mode_to_create_deposit)
+          redirect_to action: :index
+          return nil
+        end
+        if params[:deposit] && params[:deposit][:mode_id] && params[:deposit][:mode_id].to_i != mode.id
+          notify_error(:need_payment_mode_to_create_deposit)
+          redirect_to action: :index
+          return nil
+        end
+        unless mode.depositable_payments.any?
+          notify_warning(:no_payment_to_deposit)
+          redirect_to action: :index
+          return nil
+        end
+        mode
       end
-      if params[:deposit] && params[:deposit][:mode_id] && params[:deposit][:mode_id].to_i != mode.id
-        notify_error(:need_payment_mode_to_create_deposit)
-        redirect_to action: :index
-        return nil
-      end
-      unless mode.depositable_payments.any?
-        notify_warning(:no_payment_to_deposit)
-        redirect_to action: :index
-        return nil
-      end
-      mode
-    end
   end
 end

@@ -57,15 +57,15 @@ module Backend
 
       private
 
-      def items_to_reconcile(models, purchase_orders: true)
-        render partial: 'backend/purchase_process/reconciliation/items_to_reconcile',
-               locals: {
-                 models: models,
-                 purchase_orders: purchase_orders,
-                 reconciliate_item: params[:reconciliate_item],
-                 item_field_id: params[:item_field_id]
-               }
-      end
+        def items_to_reconcile(models, purchase_orders: true)
+          render partial: 'backend/purchase_process/reconciliation/items_to_reconcile',
+                 locals: {
+                   models: models,
+                   purchase_orders: purchase_orders,
+                   reconciliate_item: params[:reconciliate_item],
+                   item_field_id: params[:item_field_id]
+                 }
+        end
     end
   end
 end

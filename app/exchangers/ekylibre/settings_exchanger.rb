@@ -274,9 +274,9 @@ module Ekylibre
 
     protected
 
-    def can_load?(key)
-      !@manifest[key].is_a?(FalseClass)
-    end
+      def can_load?(key)
+        !@manifest[key].is_a?(FalseClass)
+      end
 
     def can_load_default?(key)
       can_load?(key) && !@manifest[key].is_a?(Hash)

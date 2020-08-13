@@ -18,9 +18,9 @@ module Backend
 
     private
 
-    def fetch_collection(financial_year, collection_or_method)
-      return financial_year.send(collection_or_method) if collection_or_method.is_a? Symbol
-      collection_or_method
-    end
+      def fetch_collection(financial_year, collection_or_method)
+        return financial_year.send(collection_or_method) if collection_or_method.is_a? Symbol
+        collection_or_method
+      end
   end
 end

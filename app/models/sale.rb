@@ -486,7 +486,7 @@ class Sale < Ekylibre::Record::Base
     elsif aborted?
       "aborted"
     elsif order?
-     "order"
+      "order"
     elsif (draft? && DateTime.now > self.expired_at) || (estimate? && DateTime.now > self.expired_at)
       "expired_quote"
     elsif draft?

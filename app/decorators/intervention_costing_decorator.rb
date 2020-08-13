@@ -43,11 +43,11 @@ class InterventionCostingDecorator < Draper::Decorator
 
   private
 
-  def human_cost(cost)
-    cost
-      .to_f
-      .round(2)
-  end
+    def human_cost(cost)
+      cost
+        .to_f
+        .round(2)
+    end
 
   def total_cost
     object.inputs_cost +

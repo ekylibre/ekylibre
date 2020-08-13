@@ -34,9 +34,9 @@ module NamingFormats
 
       private
 
-      def fail!(error)
-        @error = error
-      end
+        def fail!(error)
+          @error = error
+        end
     end
   end
 end

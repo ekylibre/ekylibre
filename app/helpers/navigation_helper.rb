@@ -30,15 +30,15 @@ module NavigationHelper
 
   private
 
-  def named(collection, naming_method)
-    {
-      record: collection.first,
-      name:   name_for(collection.first, naming_method)
-    }
-  rescue ActiveRecord::StatementInvalid => e
-    raise e unless (pg_error = e.original_exception).is_a?(PG::UndefinedColumn)
-    raise OrderingCriterionNotFound, pg_error
-  end
+    def named(collection, naming_method)
+      {
+        record: collection.first,
+        name:   name_for(collection.first, naming_method)
+      }
+    rescue ActiveRecord::StatementInvalid => e
+      raise e unless (pg_error = e.original_exception).is_a?(PG::UndefinedColumn)
+      raise OrderingCriterionNotFound, pg_error
+    end
 
   def next_records(resource, order, scope)
     matching_attrs = resource.attributes.slice(*order.keys.map(&:to_s))

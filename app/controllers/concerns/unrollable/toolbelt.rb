@@ -31,9 +31,9 @@ module Unrollable
 
     protected
 
-    def first_if_alone(enum)
-      Unrollable::Toolbelt.first_if_alone(enum)
-    end
+      def first_if_alone(enum)
+        Unrollable::Toolbelt.first_if_alone(enum)
+      end
 
     def if_there(obj)
       Unrollable::Toolbelt.if_there(obj)

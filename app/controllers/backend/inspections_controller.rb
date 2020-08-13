@@ -51,16 +51,16 @@ module Backend
 
     private
 
-    def find_inspections
-      inspection_ids = params[:id].split(',')
-      inspections = Inspection.where(id: inspection_ids)
-      unless inspections.any?
-        notify_error :no_inspections_given
-        redirect_to(params[:redirect] || { action: :index })
-        return nil
+      def find_inspections
+        inspection_ids = params[:id].split(',')
+        inspections = Inspection.where(id: inspection_ids)
+        unless inspections.any?
+          notify_error :no_inspections_given
+          redirect_to(params[:redirect] || { action: :index })
+          return nil
+        end
+        inspections
       end
-      inspections
-    end
 
     # FIXME
     # Not satisfied that the code is here instead of somewhere else but I can't

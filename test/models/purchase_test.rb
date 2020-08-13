@@ -258,17 +258,17 @@ class PurchaseTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
   private
 
-  def new_purchase(type: 'PurchaseInvoice', nature: nil, supplier: nil, invoiced_at: nil, currency: 'EUR', state: nil, items_attributes: nil)
-    attributes = {
-      type: type,
-      nature: nature || @nature,
-      supplier: supplier || @supplier,
-      invoiced_at: invoiced_at || @invoiced_at,
-      currency: currency,
-      state: state,
-      items_attributes: items_attributes || {}
-    }
+    def new_purchase(type: 'PurchaseInvoice', nature: nil, supplier: nil, invoiced_at: nil, currency: 'EUR', state: nil, items_attributes: nil)
+      attributes = {
+        type: type,
+        nature: nature || @nature,
+        supplier: supplier || @supplier,
+        invoiced_at: invoiced_at || @invoiced_at,
+        currency: currency,
+        state: state,
+        items_attributes: items_attributes || {}
+      }
 
-    Purchase.create!(attributes)
-  end
+      Purchase.create!(attributes)
+    end
 end

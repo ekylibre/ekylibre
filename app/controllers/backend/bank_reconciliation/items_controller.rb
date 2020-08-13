@@ -46,9 +46,9 @@ module Backend
 
       private
 
-      def find_cash
-        find_and_check :cash, params[:cash_id]
-      end
+        def find_cash
+          find_and_check :cash, params[:cash_id]
+        end
 
       def find_bank_statement
         @bank_statement = find_and_check :bank_statement, params[:bank_statement_id]

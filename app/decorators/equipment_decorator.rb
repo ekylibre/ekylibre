@@ -11,13 +11,13 @@ class EquipmentDecorator < ProductDecorator
 
   private
 
-  def hour_counter
-    hour_counter_product_reading = object
-                                   .readings
-                                   .find_by(indicator_name: :hour_counter)
+    def hour_counter
+      hour_counter_product_reading = object
+                                     .readings
+                                     .find_by(indicator_name: :hour_counter)
 
-    return nil if hour_counter_product_reading.nil?
+      return nil if hour_counter_product_reading.nil?
 
-    hour_counter_product_reading.value
-  end
+      hour_counter_product_reading.value
+    end
 end

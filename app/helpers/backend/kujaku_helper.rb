@@ -232,9 +232,9 @@ module Backend
 
       private
 
-      def add_feather(feather)
-        @feathers << feather
-      end
+        def add_feather(feather)
+          @feathers << feather
+        end
     end
   end
 end

@@ -24,8 +24,8 @@ module Backend
 
     protected
 
-    def permitted_preference
-      User::PREFERENCES.keys.detect { |p| p == params[:id] }
-    end
+      def permitted_preference
+        User::PREFERENCES.keys.detect { |p| p == params[:id] }
+      end
   end
 end

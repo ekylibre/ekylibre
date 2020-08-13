@@ -108,9 +108,9 @@ class Call < Ekylibre::Record::Base
 
   private
 
-  def result
-    @response.result
-  end
+    def result
+      @response.result
+    end
 
   # Returns true for a nil/false code.
   def state_code_matches?(code)

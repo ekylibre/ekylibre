@@ -30,33 +30,33 @@ module Calculus
     protected
 
     # Compute shift period  calculations
-    def compute_shift(&_block)
-      amount = @amount.dup
-      return amount unless @shift > 0
-      @shift.times do
-        repayment = { base_amount: 0 }
-        # Interests
-        if @shift_method == :anatocism
-          @interests.each do |name, rate|
-            repayment[name] = 0
-            amount += (@amount * rate / @period).round(@precision)
+      def compute_shift(&_block)
+        amount = @amount.dup
+        return amount unless @shift > 0
+        @shift.times do
+          repayment = { base_amount: 0 }
+          # Interests
+          if @shift_method == :anatocism
+            @interests.each do |name, rate|
+              repayment[name] = 0
+              amount += (@amount * rate / @period).round(@precision)
+            end
+          else
+            @interests.each do |name, rate|
+              repayment[name] = (@amount * rate / @period).round(@precision)
+            end
           end
-        else
-          @interests.each do |name, rate|
-            repayment[name] = (@amount * rate / @period).round(@precision)
+
+          # Insurances
+          @insurances.each do |name, rate|
+            repayment[name] = send(@insurance_method, rate, amount)
           end
-        end
 
-        # Insurances
-        @insurances.each do |name, rate|
-          repayment[name] = send(@insurance_method, rate, amount)
+          repayment[:remaining_amount] = amount
+          yield repayment
         end
-
-        repayment[:remaining_amount] = amount
-        yield repayment
+        amount
       end
-      amount
-    end
 
     def compute_constant_rate_repayments
       array = []

@@ -6,7 +6,7 @@ module Quadra
         # filename example : 451104780FEC20200331.TXT
         # separator is 'tab' and encoding is UTF-8
 
-        source = File.read(file)
+      source = File.read(file)
         detection = CharlockHolmes::EncodingDetector.detect(source)
         rows = CSV.read(file, headers: true, encoding: detection[:encoding], col_sep: "\t")
         w.count = rows.size
@@ -42,7 +42,7 @@ module Quadra
     end
 
     def import
-        source = File.read(file)
+      source = File.read(file)
         detection = CharlockHolmes::EncodingDetector.detect(source)
         rows = CSV.read(file, headers: true, encoding: detection[:encoding], col_sep: "\t")
         w.count = rows.size
@@ -151,28 +151,28 @@ module Quadra
         #  16 - Q: MontantDevise : ""
         #  17 - R: Idevise : ""
 
-        def parse_row(row)
-          {
-            journal_code: row[0].to_s.strip,
-            journal_lib: row[1].to_s.strip,
-            continuous_number: ((row[2].blank? || row[2].to_s == 0) ? nil : row[2].to_s),
-            printed_on: Date.parse(row[3].to_s),
-            account_number: row[4].to_s.strip,
-            account_name: (row[5].blank? ? nil : row[5].to_s.strip),
-            auxiliary_account_number: (row[6].blank? ? nil : row[6].to_s.strip),
-            auxiliary_account_name: (row[7].blank? ? nil : row[7].to_s.strip),
-            item_name: row[8].to_s.strip,
-            item_printed_on: Date.parse(row[9].to_s),
-            entry_item_name: row[10].to_s.strip,
-            debit_amount: (row[11].blank? ? 0.0 : row[11].tr(',', '.').to_d),
-            credit_amount: (row[12].blank? ? 0.0 : row[12].tr(',', '.').to_d),
-            entry_item_letter: (row[13].blank? ? nil : row[13].to_s.strip),
-            entry_item_lettered_on: (row[14].blank? ? nil : Date.parse(row[14].to_s)),
-            validated_on: (row[15].blank? ? nil : Date.parse(row[15].to_s)),
-            currency_value: (row[16].blank? ? nil : row[16].tr(',', '.').to_d),
-            currency_id: (row[17].blank? ? nil : row[17].to_s.strip)
-          }.to_struct
-        end
+      def parse_row(row)
+        {
+          journal_code: row[0].to_s.strip,
+          journal_lib: row[1].to_s.strip,
+          continuous_number: ((row[2].blank? || row[2].to_s == 0) ? nil : row[2].to_s),
+          printed_on: Date.parse(row[3].to_s),
+          account_number: row[4].to_s.strip,
+          account_name: (row[5].blank? ? nil : row[5].to_s.strip),
+          auxiliary_account_number: (row[6].blank? ? nil : row[6].to_s.strip),
+          auxiliary_account_name: (row[7].blank? ? nil : row[7].to_s.strip),
+          item_name: row[8].to_s.strip,
+          item_printed_on: Date.parse(row[9].to_s),
+          entry_item_name: row[10].to_s.strip,
+          debit_amount: (row[11].blank? ? 0.0 : row[11].tr(',', '.').to_d),
+          credit_amount: (row[12].blank? ? 0.0 : row[12].tr(',', '.').to_d),
+          entry_item_letter: (row[13].blank? ? nil : row[13].to_s.strip),
+          entry_item_lettered_on: (row[14].blank? ? nil : Date.parse(row[14].to_s)),
+          validated_on: (row[15].blank? ? nil : Date.parse(row[15].to_s)),
+          currency_value: (row[16].blank? ? nil : row[16].tr(',', '.').to_d),
+          currency_id: (row[17].blank? ? nil : row[17].to_s.strip)
+        }.to_struct
+      end
 
         # @return [Accountancy::AccountNumberNormalizer]
         def number_normalizer

@@ -105,9 +105,9 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def set_theme
-    @current_theme = 'tekyla'
-  end
+    def set_theme
+      @current_theme = 'tekyla'
+    end
 
   # Initialize locale with params[:locale] or HTTP_ACCEPT_LANGUAGE
   def set_locale
