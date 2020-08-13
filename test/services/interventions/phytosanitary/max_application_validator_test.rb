@@ -9,8 +9,7 @@ module Interventions
           Product.new,
           InterventionParameter::LoggedPhytosanitaryProduct.new,
           RegisteredPhytosanitaryUsage.new(applications_count: 1, applications_frequency: 'P4D'),
-          4,
-          "test",
+          nil,
           nil
         )
         result = validator.validate([product_usage])
@@ -34,8 +33,7 @@ module Interventions
           Product.new,
           InterventionParameter::LoggedPhytosanitaryProduct.new,
           RegisteredPhytosanitaryUsage.new(applications_count: 1),
-          4,
-          "test",
+          nil,
           nil
         )
 
@@ -63,8 +61,7 @@ module Interventions
           Product.new,
           InterventionParameter::LoggedPhytosanitaryProduct.new,
           RegisteredPhytosanitaryUsage.new(applications_count: 1),
-          4,
-          "test",
+          nil,
           nil
         )
 

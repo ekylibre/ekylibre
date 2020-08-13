@@ -12,7 +12,7 @@ module Interventions
         usage = RegisteredPhytosanitaryUsage.find('20180109110633214028')
 
         targets_and_shape = [::Interventions::Phytosanitary::Models::TargetAndShape.new(target, shape)]
-        products_usages = [::Interventions::Phytosanitary::Models::ProductWithUsage.new(product, phyto, usage, 1, 'population', nil)]
+        products_usages = [::Interventions::Phytosanitary::Models::ProductWithUsage.new(product, phyto, usage, 1.in(:population), nil)]
 
         validator = ::Interventions::Phytosanitary::NonTreatmentAreasValidator.new(targets_and_shape: targets_and_shape)
         result = validator.validate(products_usages)

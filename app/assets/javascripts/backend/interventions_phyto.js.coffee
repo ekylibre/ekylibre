@@ -59,7 +59,7 @@
           product_id: element.querySelector('.intervention_inputs_product input.selector-value').value
           usage_id: element.querySelector('.intervention_inputs_usage input.selector-value').value
           quantity: element.querySelector('.intervention_inputs_quantity input').value
-          dimension: element.querySelector('.intervention_inputs_quantity select').value
+          unit_name: element.querySelector('.intervention_inputs_quantity select').selectedOptions[0].dataset.handlerUnit
           input_id: element.querySelector('#intervention_parameter_id').value
           live_data: element.querySelector('.intervention_inputs_using_live_data input').value
           spray_volume: element.querySelector('.intervention_inputs_spray_volume input').value

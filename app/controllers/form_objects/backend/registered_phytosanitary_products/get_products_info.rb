@@ -10,7 +10,7 @@ module FormObjects
               :intervention_started_at,
               :intervention_stopped_at,
               targets_data: %i[id shape],
-              products_data: %i[product_id usage_id quantity dimension input_id live_data spray_volume]
+              products_data: %i[product_id usage_id quantity unit_name input_id live_data spray_volume]
             ))
           end
         end
@@ -84,11 +84,10 @@ module FormObjects
             input = InterventionInput.find_by(id: pu[:input_id])
             phyto = fetch_phyto(modified, input, product)
             usage = fetch_usage(modified, input, pu[:usage_id])
-            quantity = pu[:quantity].to_f
-            dimension = pu[:dimension]
+            measure = Measure.new(pu[:quantity].to_f, pu[:unit_name])
             spray_volume = pu[:spray_volume].blank? ? nil : pu[:spray_volume].to_d
 
-            ::Interventions::Phytosanitary::Models::ProductWithUsage.new(product, phyto, usage, quantity, dimension, spray_volume)
+            ::Interventions::Phytosanitary::Models::ProductWithUsage.new(product, phyto, usage, measure, spray_volume)
           end.reject { |pu| pu.product.nil? }
         end
 
