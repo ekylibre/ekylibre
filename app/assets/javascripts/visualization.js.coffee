@@ -45,7 +45,7 @@
       controlDefaults:
         fullscreen:
           position: 'topleft'
-          title: I18n.t("#{I18n.rootKey}.leaflet.fullscreenTitle")
+          title: I18n.t("front-end.leaflet.fullscreenTitle")
         geocoder:
           collapsed: true,
           position: 'topright',
@@ -65,9 +65,9 @@
         zoom:
           position: 'topleft'
           zoomInText: ''
-          zoomInTitle: I18n.t("#{I18n.rootKey}.leaflet.zoomInTitle")
+          zoomInTitle: I18n.t("front-end.leaflet.zoomInTitle")
           zoomOutText: ''
-          zoomOutTitle: I18n.t("#{I18n.rootKey}.leaflet.zoomOutTitle")
+          zoomOutTitle: I18n.t("front-end.leaflet.zoomOutTitle")
       layers: {}
       layerDefaults:
         band:
@@ -125,7 +125,7 @@
           fill: true
           fillColor: "#CBCFFB"
           fillOpacity: 0.5
-          zoomGuidance: I18n.t("#{I18n.rootKey}.leaflet.zoomGuidance")
+          zoomGuidance: I18n.t("front-end.leaflet.zoomGuidance")
         paths:
           stroke: true
           color: "#333333"
