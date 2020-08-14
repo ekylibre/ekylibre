@@ -21,8 +21,6 @@ namespace :test do
     end
   end
 
-  task all: parts
-
   files = begin
             Git.open(Rails.root, log: Rails.logger)
               .diff(ENV.fetch('BASE', 'core'))

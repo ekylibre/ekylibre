@@ -195,95 +195,24 @@ deploy_doc:
 #########################################
 #                 TESTS                 #
 #########################################
-test_concepts:
+test_fast:
   <<: *test_task_2_3
   variables:
     <<: *test_task_variables
-    TASK: test:concepts
-test_controllers:
+    SELECT: lower
+test_long:
   <<: *test_task_2_3
   variables:
     <<: *test_task_variables
-    TASK: test:controllers
-test_exchangers:
-  <<: *test_task_2_3
-  variables:
-    <<: *test_task_variables
-    TASK: test:exchangers
-test_helpers:
-  <<: *test_task_2_3
-  variables:
-    <<: *test_task_variables
-    TASK: test:helpers
-test_jobs:
-  <<: *test_task_2_3
-  variables:
-    <<: *test_task_variables
-    TASK: test:jobs
-test_lib:
-  <<: *test_task_2_3
-  variables:
-    <<: *test_task_variables
-    TASK: test:lib
-test_models:
-  <<: *test_task_2_3
-  variables:
-    <<: *test_task_variables
-    TASK: test:models
-test_services:
-  <<: *test_task_2_3
-  variables:
-    <<: *test_task_variables
-    TASK: test:services
-test_validators:
-  <<: *test_task_2_3
-  variables:
-    <<: *test_task_variables
-    TASK: test:validators
+    SELECT: higher
 
-
-test_concepts_2_6:
+test_fast_2_6:
   <<: *test_task_2_6
   variables:
     <<: *test_task_variables
-    TASK: test:concepts
-test_controllers_2_6:
+    SELECT: lower
+test_long_2_6:
   <<: *test_task_2_6
   variables:
     <<: *test_task_variables
-    TASK: test:controllers
-test_exchangers_2_6:
-  <<: *test_task_2_6
-  variables:
-    <<: *test_task_variables
-    TASK: test:exchangers
-test_helpers_2_6:
-  <<: *test_task_2_6
-  variables:
-    <<: *test_task_variables
-    TASK: test:helpers
-test_jobs_2_6:
-  <<: *test_task_2_6
-  variables:
-    <<: *test_task_variables
-    TASK: test:jobs
-test_lib_2_6:
-  <<: *test_task_2_6
-  variables:
-    <<: *test_task_variables
-    TASK: test:lib
-test_models_2_6:
-  <<: *test_task_2_6
-  variables:
-    <<: *test_task_variables
-    TASK: test:models
-test_services_2_6:
-  <<: *test_task_2_6
-  variables:
-    <<: *test_task_variables
-    TASK: test:services
-test_validators_2_6:
-  <<: *test_task_2_6
-  variables:
-    <<: *test_task_variables
-    TASK: test:validators
+    SELECT: higher
