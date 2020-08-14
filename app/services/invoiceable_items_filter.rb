@@ -23,5 +23,4 @@ class InvoiceableItemsFilter
       end
     end.compact
   end
-  end
-  
+end

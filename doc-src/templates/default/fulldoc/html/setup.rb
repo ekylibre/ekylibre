@@ -155,4 +155,3 @@ def grouped(children, groups)
           .map { |k, e| [k, e.sort_by(&:path)] } #TODO use transform_values when ruby2.6 is here
           .to_h
 end
-

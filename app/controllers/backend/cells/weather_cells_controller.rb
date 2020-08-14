@@ -6,11 +6,11 @@ module Backend
         weather_client = OpenWeatherMapClient.from_identifier openweathermap_api_key
 
         coordinates = if params[:centroid]
-          params[:centroid]
-        else
-          geom_centroid = CultivableZone.geom_union_centroid(:shape)
-          geom_centroid.present? ? [geom_centroid.y, geom_centroid.x] : nil
-        end
+                        params[:centroid]
+                      else
+                        geom_centroid = CultivableZone.geom_union_centroid(:shape)
+                        geom_centroid.present? ? [geom_centroid.y, geom_centroid.x] : nil
+                      end
 
         # We use the 5days forecast free from openwheathermap
         if coordinates.present?

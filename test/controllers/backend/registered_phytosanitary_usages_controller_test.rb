@@ -80,7 +80,7 @@ module Backend
 
         [%w[- go], %w[+ stop]].each do |(operator, status)|
           post :dose_validations, id: @usage.id,
-                                  spray_volume: "", 
+                                  spray_volume: "",
                                   product_id: @product.id,
                                   dimension: dimension,
                                   quantity: max_dose.send(operator, 0.01),
