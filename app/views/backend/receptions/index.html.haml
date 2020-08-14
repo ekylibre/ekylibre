@@ -24,7 +24,6 @@
 
 - main_toolbar do |t|
   = t.new params: { redirect: nil }, label: :new_reception.tl
-  -# TODO: reactivate when fixed
-  -# = t.new params: { controller: :purchase_invoices }, label: :generate_invoice.tl, variants: PurchaseNature.actives.reorder(:name).to_a.map{ |n| [n.name, {nature_id: n.id}] }, class: 'disabled', id: 'generate-invoice-btn'
+  = t.new params: { controller: :purchase_invoices }, label: :generate_invoice.tl, variants: PurchaseNature.actives.reorder(:name).to_a.map{ |n| [n.name, {nature_id: n.id}] }, class: 'disabled', id: 'generate-invoice-btn'
 
 = main_list data: ['reconciliation_state', 'sender_id', 'state']
