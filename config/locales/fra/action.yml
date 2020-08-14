@@ -2847,6 +2847,7 @@ fra:
     sowing: "Semis"
     sowing_with_spraying: "Semis avec pulvérisation"
     spraying_map: "Carte de pulvérisation" #?
+    spray_volume: "Volume de bouillie"
     standard: "Standard" #?
     standard_vat: "TVA Standard"
     start: "Du"

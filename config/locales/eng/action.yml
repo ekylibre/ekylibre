@@ -2760,6 +2760,7 @@ eng:
     sowing: "Sowing"
     sowing_with_spraying: "Sowing with spraying"
     # standard: "Standard"
+    spray_volume: "Spray volume"
     standard_vat: "Standard VAT"
     start: "From"
     start_new_intervention_here: "Start new intervention here"
