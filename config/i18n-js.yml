@@ -26,6 +26,7 @@
 #     only: "*"
 #
 export_i18n_js: false
+json_only: true
 translations:
-  - file: "app/assets/javascripts/i18n/translations.js"
+  - file: "app/javascript/services/i18n/translations.json"
     only: ['*.front-end.*', '*.date.*', '*.time.*']

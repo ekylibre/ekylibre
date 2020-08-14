@@ -1,0 +1,417 @@
+{
+  "eng": {
+    "date": {
+      "abbr_day_names": [
+        "Sun",
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat"
+      ],
+      "abbr_month_names": [
+        "",
+        "jan",
+        "feb",
+        "mar",
+        "apr",
+        "may",
+        "jun",
+        "jul",
+        "aug",
+        "sep",
+        "oct",
+        "nov",
+        "dec"
+      ],
+      "day_names": [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "formats": {
+        "default": "%m/%d/%Y",
+        "legal": "%d %B %Y",
+        "long": "%B %d, %Y",
+        "month": "%B %Y",
+        "month_letter": "%d %B %Y",
+        "month_name": "%B",
+        "short": "%b %d",
+        "short_month": "%m/%Y"
+      },
+      "month_names": [
+        "",
+        "january",
+        "february",
+        "march",
+        "april",
+        "may",
+        "june",
+        "july",
+        "august",
+        "september",
+        "october",
+        "november",
+        "december"
+      ],
+      "order": [
+        "month",
+        "day",
+        "year"
+      ]
+    },
+    "front-end": {
+      "bank_reconciliation": {
+        "remove": "Remove"
+      },
+      "intervention": {
+        "nature": {
+          "add_two_hours": "Add two hours if application happened in a close area",
+          "harvest": "Harvest:",
+          "reentry": "Reentry:"
+        }
+      },
+      "land_parcel": {
+        "create_modal": {
+          "title": "Choose an activity"
+        }
+      },
+      "leaflet": {
+        "draw": {
+          "handlers": {
+            "circle": {
+              "tooltip": {
+                "start": "Click and drag to draw circle."
+              }
+            },
+            "marker": {
+              "tooltip": {
+                "start": "Click map to place marker."
+              }
+            },
+            "polygon": {
+              "tooltip": {
+                "cont": "Click to continue drawing shape.",
+                "end": "Click first point to close this shape.",
+                "start": "Click to start drawing shape."
+              }
+            },
+            "polyline": {
+              "error": "\u003cstrong\u003eError:\u003c/strong\u003e shape edges cannot cross!",
+              "tooltip": {
+                "cont": "Click to continue drawing line.",
+                "end": "Click last point to finish line.",
+                "start": "Click to start drawing line."
+              }
+            },
+            "rectangle": {
+              "tooltip": {
+                "start": "Click and drag to draw rectangle."
+              }
+            },
+            "simpleshape": {
+              "tooltip": {
+                "end": "Release mouse to finish drawing."
+              }
+            }
+          },
+          "toolbar": {
+            "actions": {
+              "text": "Cancel",
+              "title": "Cancel drawing"
+            },
+            "buttons": {
+              "circle": "Draw a circle",
+              "marker": "Draw a marker",
+              "polygon": "Draw a polygon",
+              "polyline": "Draw a polyline",
+              "rectangle": "Draw a rectangle"
+            },
+            "undo": {
+              "text": "Delete last point",
+              "title": "Delete last point drawn"
+            }
+          }
+        },
+        "edit": {
+          "handlers": {
+            "edit": {
+              "tooltip": {
+                "subtext": "Click cancel to undo changes",
+                "text": "Drag handles, or marker to edit feature"
+              }
+            },
+            "remove": {
+              "tooltip": {
+                "text": "Click on a feature to remove"
+              }
+            }
+          },
+          "toolbar": {
+            "actions": {
+              "cancel": {
+                "text": "Cancel",
+                "title": "Cancel editing, discards all changes"
+              },
+              "save": {
+                "text": "Save",
+                "title": "Save changes"
+              }
+            },
+            "buttons": {
+              "edit": "Edit layers",
+              "editDisabled": "No layers to edit",
+              "remove": "Delete layers",
+              "removeDisabled": "No layers to delete"
+            }
+          }
+        },
+        "fullscreenTitle": "Full Screen",
+        "importerButtonTitle": "Import",
+        "zoomGuidance": "Insufficient zoom level",
+        "zoomInTitle": "Zoom in",
+        "zoomOutTitle": "Zoom out"
+      },
+      "unroll": {
+        "server_error": "Server error"
+      }
+    },
+    "time": {
+      "am": "am",
+      "formats": {
+        "compact": "%m/%d/%Y %H:%M",
+        "default": "%b. %d, %Y at %H:%M:%S",
+        "devise": {
+          "mailer": {
+            "invitation_instructions": {
+              "accept_until_format": "%B %d, %Y %I:%M %p"
+            }
+          }
+        },
+        "full": "%m/%d/%Y %H:%M:%S",
+        "long": "%B %d, %Y %H:%M",
+        "short": "%d %b %H:%M"
+      },
+      "js_formats": {
+        "compact": "MM/DD/YYYY HH:mm",
+        "full": "MM/DD/YYYY HH:mm:ss"
+      },
+      "pm": "pm"
+    }
+  },
+  "fra": {
+    "date": {
+      "abbr_day_names": [
+        "Dim",
+        "Lun",
+        "Mar",
+        "Mer",
+        "Jeu",
+        "Ven",
+        "Sam"
+      ],
+      "abbr_month_names": [
+        "",
+        "janv",
+        "févr",
+        "mars",
+        "avr",
+        "mai",
+        "juin",
+        "juil",
+        "août",
+        "sept",
+        "oct",
+        "nov",
+        "déc"
+      ],
+      "day_names": [
+        "Dimanche",
+        "Lundi",
+        "Mardi",
+        "Mercredi",
+        "Jeudi",
+        "Vendredi",
+        "Samedi"
+      ],
+      "formats": {
+        "default": "%d/%m/%Y",
+        "legal": "%d %B %Y",
+        "long": "%A %d %B %Y",
+        "month": "%B %Y",
+        "month_letter": "%d %B %Y",
+        "month_name": "%B",
+        "short": "%d %b",
+        "short_month": "%m/%Y"
+      },
+      "month_names": [
+        "",
+        "janvier",
+        "février",
+        "mars",
+        "avril",
+        "mai",
+        "juin",
+        "juillet",
+        "août",
+        "septembre",
+        "octobre",
+        "novembre",
+        "décembre"
+      ],
+      "order": [
+        "day",
+        "month",
+        "year"
+      ]
+    },
+    "front-end": {
+      "bank_reconciliation": {
+        "remove": "Effacer"
+      },
+      "intervention": {
+        "nature": {
+          "add_two_hours": "Ajouter 2h dans le cas d'une application en milieu fermé",
+          "harvest": "Récolte :",
+          "reentry": "Ré-entrée :"
+        }
+      },
+      "land_parcel": {
+        "create_modal": {
+          "title": "Choisir une activité"
+        }
+      },
+      "leaflet": {
+        "draw": {
+          "handlers": {
+            "circle": {
+              "tooltip": {
+                "start": "Cliquez et déplacez pour dessiner un cercle."
+              }
+            },
+            "marker": {
+              "tooltip": {
+                "start": "Cliquez sur la carte pour placer un marqueur."
+              }
+            },
+            "polygon": {
+              "tooltip": {
+                "cont": "Cliquez pour continuer à dessiner une forme.",
+                "end": "Cliquez sur le dernier point pour fermer cette forme.",
+                "start": "Cliquez pour commencer à dessiner une forme."
+              }
+            },
+            "polyline": {
+              "error": "\u003cstrong\u003eErreur:\u003c/strong\u003e Les arrêtes de la forme ne doivent pas se croiser!",
+              "tooltip": {
+                "cont": "Cliquez pour continuer à dessiner une ligne.",
+                "end": "Cliquez sur le dernier point pour terminer la ligne.",
+                "start": "Cliquez pour commencer à dessiner d’une ligne."
+              }
+            },
+            "rectangle": {
+              "tooltip": {
+                "start": "Cliquez et déplacez pour dessiner un rectangle."
+              }
+            },
+            "simpleshape": {
+              "tooltip": {
+                "end": "Relachez la souris pour finir de dessiner."
+              }
+            }
+          },
+          "toolbar": {
+            "actions": {
+              "text": "Annuler",
+              "title": "Annulez le dessin"
+            },
+            "buttons": {
+              "circle": "Dessiner un cercle",
+              "marker": "Dessiner un marqueur",
+              "polygon": "Dessiner un polygone",
+              "polyline": "Dessiner une polyligne",
+              "rectangle": "Dessiner un rectangle"
+            },
+            "finish": {
+              "text": "Terminer",
+              "title": "Terminer le dessin"
+            },
+            "undo": {
+              "text": "Supprimer le dernier point",
+              "title": "Supprimer le dernier point déssiné"
+            }
+          }
+        },
+        "edit": {
+          "handlers": {
+            "edit": {
+              "tooltip": {
+                "subtext": "Cliquez sur Annuler pour revenir sur les changements",
+                "text": "Déplacez les ancres, ou le marqueur pour éditer l’objet"
+              }
+            },
+            "remove": {
+              "tooltip": {
+                "text": "Cliquez sur l’objet à enlever"
+              }
+            }
+          },
+          "toolbar": {
+            "actions": {
+              "cancel": {
+                "text": "Annuler",
+                "title": "Annulez l’édition, ignorer tous les changements"
+              },
+              "save": {
+                "text": "Sauver",
+                "title": "Sauvegardez les changements"
+              }
+            },
+            "buttons": {
+              "edit": "Editer les couches",
+              "editDisabled": "Pas de couches à éditer",
+              "remove": "Supprimer les couches",
+              "removeDisabled": "Pas de couches à supprimer"
+            }
+          }
+        },
+        "fullscreenTitle": "Plein écran",
+        "importerButtonTitle": "Importer",
+        "zoomGuidance": "Niveau de zoom insuffisant",
+        "zoomInTitle": "Zoomer",
+        "zoomOutTitle": "Dézoomer"
+      },
+      "unroll": {
+        "server_error": "Erreur serveur"
+      }
+    },
+    "time": {
+      "am": "am",
+      "formats": {
+        "compact": "%d/%m/%Y %H:%M",
+        "default": "%d/%m/%Y %H:%M",
+        "devise": {
+          "mailer": {
+            "invitation_instructions": {
+              "accept_until_format": "%d %B %Y %kh%M"
+            }
+          }
+        },
+        "full": "%d/%m/%Y %H:%M:%S",
+        "long": "%A %d %B %Y à %H:%M",
+        "short": "%d %b %H:%M",
+        "time": "%H:%M"
+      },
+      "js_formats": {
+        "compact": "DD/MM/YYYY HH:mm",
+        "full": "DD/MM/YYYY HH:mm:ss"
+      },
+      "pm": "pm"
+    }
+  }
+}

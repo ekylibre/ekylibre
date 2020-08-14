@@ -28,15 +28,11 @@
 //= require turbolinks
 //= require active_list.jquery
 //= require knockout
+//= require behave_compat
 //= require_self
-//= require i18n
-//= require i18n/translations
-//= require i18n/locale
-//= require i18n/ext
 //= require wice_grid
 //= require wice_grid/settings
 //= require ekylibre
-//= require formize/behave
 //= require form/dialog
 //= require formize/observe
 //= require form/scope
@@ -60,7 +56,6 @@
 //= require leaflet/easy-button
 //= require leaflet/modal
 //= require leaflet/label
-//= require autosize
 //= require plugins
 //= require_tree .
 //= require tour
