@@ -474,9 +474,9 @@ class Sale < Ekylibre::Record::Base
 
   # Prints human name of current state
   def state_label
-    translation_key = 
+    translation_key =
     if invoice?
-      if self.affair.closed?  
+      if self.affair.closed?
         "invoiced_and_paid_sale"
       elsif self.affair.credit.zero?
         "unpaid_invoice"
@@ -493,7 +493,7 @@ class Sale < Ekylibre::Record::Base
       "draft_quote"
     elsif estimate?
       "estimate"
-    elsif refused? 
+    elsif refused?
       "refused_quote"
     else
       "INVALID STATE"

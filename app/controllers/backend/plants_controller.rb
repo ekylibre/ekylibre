@@ -86,7 +86,7 @@ module Backend
 
       super
     end
- 
+
     def show
       return unless plant = find_and_check
       harvest_advisor = ::Interventions::Phytosanitary::PhytoHarvestAdvisor.new
