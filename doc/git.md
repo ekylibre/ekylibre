@@ -128,6 +128,7 @@ Release branches are created the last day of the sprint (in the evening) or the 
   - Bump version (edit the `VERSION` file)
   - run `rake http:errors:compile`
   - Commit
+  - Push to origin!
 
 #### Working with the release branch
 
@@ -146,7 +147,7 @@ Some housekeeping needs to be done in the issues/merge requests before releasing
 - All MRs associated should be either closed or merged.
 
 When the above is checked and all tests are done and validated, the following can be done:
-- Create a merge request from `release/<version>` to `prod`, with the milestone set to `<version>`
+- Create a merge request from `release/<version>` targeting `prod`, with the milestone set to `<version>`
 - Merge the release branch into `prod` __without squash__ (can be done manually with the `--no-ff` options) and __tag the commit__. Push to origin.
 - Create a feature beanch from prod named `feature/release-x-y-z`
 - Created a merge request for `feature/release-x-y-z` that targets `core`, associated with the __next patch milestone__
@@ -156,14 +157,12 @@ When the above is checked and all tests are done and validated, the following ca
 
 When a feature was merged in `core` for the current release but appears to not be compliant with the specifications or has bugs that can't be efficiently fixed befure the release deadline, it should be reverted.  
 As this is a heavy procedure, it should be avoided.
-- The revert takes place in the feature branch either by using the revert function of gitlab of via command line.
-- A branch need be created from the revert commit that reverts the revert
-    - A MR targeting `core` should be created for the branch
-        - Its milestone should be the next minor one
-        - It should reference the related issue
-    - This MR can only be merged into core __after__ the `feature/<version>` branch for the version about to be released is merged into `core`
-    - Bugfix for this feature should be done on this branch 
-- The issue should be moved to the next milestone
+
+- If the feature to revert will be pushed back to the next version, the revert takes place in the release branch.  
+In this case, this revert should be reverted in the `feature/release-x-y-z` branch before the merge into `core` to avoid conflicts.
+
+- If the feature is pushed back more than one release, the revert should be done in core and cherry-picked in the release branch.
+In order to reapply the patch, create a branch from `core` and revert the revert commit (or commits) to get back the buggy feature code back.
 
 ### Hotfixes
 
