@@ -9,11 +9,10 @@ module Interventions
             product = Product.find(intervention_input.product_id)
             phyto = RegisteredPhytosanitaryProduct.find_by(france_maaid: intervention_input.variant.france_maaid)
             usage = RegisteredPhytosanitaryUsage.find(intervention_input.usage_id)
-            quantity = intervention_input.quantity_value
-            dimension = intervention_input.quantity_unit_name
+            measure = Measure.new(intervention_input.quantity_value, intervention_input.quantity_unit_name)
             spray_volume = intervention_input.spray_volume
 
-            new(product, phyto, usage, quantity, dimension, spray_volume)
+            new(product, phyto, usage, measure, spray_volume)
           end
 
           # @return [Array<ProductWithUsage>]
