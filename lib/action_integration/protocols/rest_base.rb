@@ -6,9 +6,9 @@ module ActionIntegration
     module RestBase
       private
 
-      def get_base(path, headers = {}, &block)
-        action_base(path, nil, Net::HTTP::Get, headers, &block)
-      end
+        def get_base(path, headers = {}, &block)
+          action_base(path, nil, Net::HTTP::Get, headers, &block)
+        end
 
       def post_base(path, data, headers = {}, &block)
         action_base(path, data, Net::HTTP::Post, headers, &block)

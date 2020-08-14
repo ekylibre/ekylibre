@@ -21,7 +21,7 @@ class PurchaseDecorator < Draper::Decorator
 
   private
 
-  def decorate_items
-    PurchaseItemDecorator.decorate_collection(object.items)
-  end
+    def decorate_items
+      PurchaseItemDecorator.decorate_collection(object.items)
+    end
 end

@@ -143,27 +143,27 @@ class ShipmentTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
   private
 
-  def new_shipment(delivery_mode: :third, address: nil, recipient: nil, separated: true, items_attributes: nil)
-    attributes = {
-      delivery_mode: delivery_mode,
-      recipient: recipient || @recipient,
-      address: address || @address,
-      separated_stock: separated,
-      given_at: DateTime.new(2018, 1, 1)
-    }
+    def new_shipment(delivery_mode: :third, address: nil, recipient: nil, separated: true, items_attributes: nil)
+      attributes = {
+        delivery_mode: delivery_mode,
+        recipient: recipient || @recipient,
+        address: address || @address,
+        separated_stock: separated,
+        given_at: DateTime.new(2018, 1, 1)
+      }
 
-    items_attributes ||= [{
-      population: 20,
-      source_product: @product,
-      unit_pretax_stock_amount: 15,
-      variant: @variant
-    }]
+      items_attributes ||= [{
+        population: 20,
+        source_product: @product,
+        unit_pretax_stock_amount: 15,
+        variant: @variant
+      }]
 
-    shipment = Shipment.create!(attributes)
-    items_attributes.each do
-      shipment.items.create!(items_attributes)
+      shipment = Shipment.create!(attributes)
+      items_attributes.each do
+        shipment.items.create!(items_attributes)
+      end
+
+      shipment
     end
-
-    shipment
-  end
 end

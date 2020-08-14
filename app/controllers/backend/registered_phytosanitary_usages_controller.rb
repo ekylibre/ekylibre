@@ -54,16 +54,17 @@ module Backend
 
       # TODO: Refactor this to have it only in the Validators
       usage_applications = if stopped_at.nil? || product.nil? || usage.nil? || usage.applications_count == 1 && usage.applications_frequency.present?
-                            { none: '' }
-                          else
-                            compare_applications_count(usage, application_validator.compute_usage_application(product))
-                          end
-      
+                             { none: '' }
+                           else
+                             compare_applications_count(usage, application_validator.compute_usage_application(product))
+                           end
+
 
       render json: { usage_infos: usage_dataset, usage_application: usage_applications, modified: modified }
     end
 
     def dose_validations
+      spray_volume = params[:spray_volume].blank? ? nil : params[:spray_volume].to_d
       targets_data = params.fetch(:targets_data, {})
       intervention = Intervention.find_by_id params[:intervention_id]
       input = InterventionInput.find_by_id params[:input_id]
@@ -79,7 +80,7 @@ module Backend
       usage = fetch_usage(modified, input)
       product = Product.find(params[:product_id])
       service = RegisteredPhytosanitaryUsageDoseComputation.new
-      dose_validation = service.validate_dose(usage, product, params[:quantity].to_f, params[:dimension], targets_data)
+      dose_validation = service.validate_dose(usage, product, params[:quantity].to_f, params[:dimension], targets_data, spray_volume)
       authorizations = compute_authorization(dose_validation, :dose_validation)
 
       render json: { dose_validation: dose_validation, authorizations: authorizations, modified: modified }
@@ -94,7 +95,7 @@ module Backend
           RegisteredPhytosanitaryUsage.find(params[:id])
         end
       end
-      
+
       def compute_dataset(usage)
         state_label = t("enumerize.registered_phytosanitary_usage.state.#{usage.state}")
         {
@@ -126,7 +127,7 @@ module Backend
           { stop: :applications_count_bigger_than_max.tl }
         end
       end
-          
+
       def compute_authorization(lights_hash, authorization_name)
         if %i[go].include?(lights_hash.keys.first)
           { authorization_name => 'allowed' }

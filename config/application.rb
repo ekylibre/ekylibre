@@ -13,6 +13,7 @@ module Ekylibre
     # -- all .rb files in that directory are automatically loaded.
     config.autoload_paths << Rails.root.join('lib')
     config.autoload_paths << Rails.root.join('app', 'models', 'bookkeepers')
+    config.autoload_paths << Rails.root.join('app', 'models', 'lexicon')
 
     # We want to use the structure.sql file
     config.active_record.schema_format = :sql

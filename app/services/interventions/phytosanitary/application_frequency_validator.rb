@@ -26,7 +26,7 @@ module Interventions
           groups = products_usages.group_by { |pu| guess_vote(pu) }
 
           groups.fetch(:unknown, []).each { |pu| result.vote_unknown(pu.product) }
-          groups.fetch(:forbidden, []).each { |pu| result.vote_forbidden(pu.product, :applications_interval_not_respected.tl) }
+          groups.fetch(:forbidden, []).each { |pu| result.vote_forbidden(pu.product, :applications_interval_not_respected.tl(next_date: next_application_date(pu).l(format: :long))) }
         end
 
         result
@@ -39,7 +39,7 @@ module Interventions
         product = product_usage.product
         phyto = product_usage.phyto
 
-        if usage.nil? || product.france_maaid.blank? || phyto.nil? 
+        if usage.nil? || product.france_maaid.blank? || phyto.nil?
           :unknown
         elsif usage.applications_frequency.nil? || interval_respected?(product_usage)
           :allowed
@@ -81,12 +81,24 @@ module Interventions
       end
 
       # @param [Models::ProductWithUsage] product_usage
-      # @return [Boolean]
-      def interval_respected?(product_usage)
-        f_period = build_current_intervention_period(intervention_started_at, intervention_stopped_at, product_usage.usage)
-        int_periods = forbidden_periods(product_usage)
+      # @return [Array<Models::Period>]
+      def conflicting_periods(product_usage)
+        intervention_period = build_current_intervention_period(intervention_started_at, intervention_stopped_at, product_usage.usage)
+        forbidden_periods = forbidden_periods(product_usage)
 
-        int_periods.none? { |int_period| int_period.intersect?(f_period) }
+        forbidden_periods.select { |fp| fp.intersect?(intervention_period) }
+      end
+
+      # @param [Models::ProductWithUsage] product_usage
+      # @return [DateTime, nil]
+      def next_application_date(product_usage)
+        conflicting_periods(product_usage).map(&:end_date).max
+      end
+
+      # @param [Models::ProductWithUsage] product_usage
+      # @return [Boolean] True if the interval is respected
+      def interval_respected?(product_usage)
+        conflicting_periods(product_usage).empty?
       end
     end
   end

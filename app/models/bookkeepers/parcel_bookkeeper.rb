@@ -9,27 +9,27 @@ class ParcelBookkeeper < Ekylibre::Bookkeeper
 
   private
 
-  def bookkeep_payables_not_billed
-    label = tc(:undelivered_invoice,
-               resource: resource.class.model_name.human,
-               number: number, entity: entity.full_name, mode: nature.l)
+    def bookkeep_payables_not_billed
+      label = tc(:undelivered_invoice,
+                 resource: resource.class.model_name.human,
+                 number: number, entity: entity.full_name, mode: nature.l)
 
-    account = Account.find_or_import_from_nomenclature(payables_not_billed_account)
+      account = Account.find_or_import_from_nomenclature(payables_not_billed_account)
 
-    # For unbilled payables
-    journal = Journal.used_for_unbilled_payables!(currency: currency)
-    journal_entry(journal, printed_on: printed_on, as: :undelivered_invoice) do |entry|
-      items.each do |item|
-        amount = (item.trade_item && item.trade_item.pretax_amount) || item.stock_amount
-        next unless item.variant && item.variant.charge_account && amount.nonzero?
-        accounts = { unbilled: account.id,
-                     expense:  item.variant.charge_account.id }
+      # For unbilled payables
+      journal = Journal.used_for_unbilled_payables!(currency: currency)
+      journal_entry(journal, printed_on: printed_on, as: :undelivered_invoice) do |entry|
+        items.each do |item|
+          amount = (item.trade_item && item.trade_item.pretax_amount) || item.stock_amount
+          next unless item.variant && item.variant.charge_account && amount.nonzero?
+          accounts = { unbilled: account.id,
+                       expense:  item.variant.charge_account.id }
 
 
-        generate_entry(entry, amount, label: label, from: accounts.to_a.first, to: accounts.to_a.last, item: item)
+          generate_entry(entry, amount, label: label, from: accounts.to_a.first, to: accounts.to_a.last, item: item)
+        end
       end
     end
-  end
 
   # This method permits to add stock journal entries corresponding to the
   # incoming or outgoing parcels.

@@ -214,9 +214,9 @@ module Backend
 
     protected
 
-    def permitted_params
-      params.require(:journal_entry).permit(:printed_on, :journal_id, :number, :real_currency_rate, items_attributes: %i[id name variant_id account_id real_debit real_credit activity_budget_id project_budget_id team_id equipment_id _destroy])
-    end
+      def permitted_params
+        params.require(:journal_entry).permit(:printed_on, :journal_id, :number, :real_currency_rate, items_attributes: %i[id name variant_id account_id real_debit real_credit activity_budget_id project_budget_id team_id equipment_id _destroy])
+      end
 
     def notify_global_errors
       @journal_entry.errors.messages.except(:printed_on).each do |field, messages|

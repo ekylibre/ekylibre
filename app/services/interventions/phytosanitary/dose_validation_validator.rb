@@ -19,7 +19,7 @@ module Interventions
           products_usages.each { |pu| result.vote_unknown(pu.product) }
         else
           products_usages.each do |pu|
-            validation = dose_computation.validate_dose(pu.usage, pu.product, pu.quantity, pu.dimension, targets_data)
+            validation = dose_computation.validate_dose(pu.usage, pu.product, pu.quantity, pu.dimension, targets_data, pu.spray_volume)
 
             if validation.key? :none
               result.vote_unknown(pu.product)

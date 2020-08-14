@@ -61,9 +61,9 @@ module Ekylibre
 
       protected
 
-      def read_models
-        YAML.load_file(root.join('models.yml')).map(&:to_sym)
-      end
+        def read_models
+          YAML.load_file(root.join('models.yml')).map(&:to_sym)
+        end
 
       def read_tables
         hash = begin

@@ -184,7 +184,10 @@ module Procedo
           return 1 if usages.empty?
 
           usage_units = usages.pluck(:dose_unit).uniq.compact
-          checks = usage_units.any? { |unit| dimensions.include? Nomen::Unit.find(unit).dimension }
+          checks = usage_units.any? do |usage_unit|
+            unit = Nomen::Unit.find(usage_unit)
+            dimensions.include?(unit.base_dimension.to_sym) || dimensions.include?(unit.dimension.to_sym)
+          end
 
           checks || usage_units.empty? ? 1 : 0
         end

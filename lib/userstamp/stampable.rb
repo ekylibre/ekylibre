@@ -100,11 +100,11 @@ module Userstamp
     module InstanceMethods #:nodoc:
       private
 
-      def has_stamper?
-        !self.class.stamper_class.nil? && !self.class.stamper_class.stamper.nil?
-      rescue
-        false
-      end
+        def has_stamper?
+          !self.class.stamper_class.nil? && !self.class.stamper_class.stamper.nil?
+        rescue
+          false
+        end
 
       def set_creator_attribute
         return unless record_userstamp

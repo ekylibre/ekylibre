@@ -161,8 +161,8 @@ module Backend
 
     protected
 
-    def permitted_params
-      params.require(:listing).permit!
-    end
+      def permitted_params
+        params.require(:listing).permit!
+      end
   end
 end

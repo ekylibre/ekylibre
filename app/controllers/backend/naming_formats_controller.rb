@@ -28,8 +28,8 @@ module Backend
 
     private
 
-    def set_naming_format
-      @naming_format = NamingFormat.find(params[:id])
-    end
+      def set_naming_format
+        @naming_format = NamingFormat.find(params[:id])
+      end
   end
 end

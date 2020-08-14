@@ -298,10 +298,10 @@ module Backend
 
     protected
 
-    def complete_request(action, except: nil, **args)
-      params = args.present? ? send(:"complete_#{action}_params", **args) : send(:"complete_#{action}_params")
-      [action.to_sym, params.except(except)]
-    end
+      def complete_request(action, except: nil, **args)
+        params = args.present? ? send(:"complete_#{action}_params", **args) : send(:"complete_#{action}_params")
+        [action.to_sym, params.except(except)]
+      end
 
     def complete_new_params
       { bank_statement_item_ids: @tanks.map(&:id), nature_id: @nature.id }

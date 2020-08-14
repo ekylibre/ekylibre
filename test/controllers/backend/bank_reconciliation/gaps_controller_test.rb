@@ -35,15 +35,15 @@ module Backend
 
       protected
 
-      def signin
-        role = Role.create!(name: 'Imperator')
-        user = User.create!(first_name: 'Furiosa', last_name: 'Vuvalini',
-                            email: 'furiosa@greenland.org',
-                            password: 'youkilledtheworld',
-                            administrator: true,
-                            role: role)
-        sign_in user
-      end
+        def signin
+          role = Role.create!(name: 'Imperator')
+          user = User.create!(first_name: 'Furiosa', last_name: 'Vuvalini',
+                              email: 'furiosa@greenland.org',
+                              password: 'youkilledtheworld',
+                              administrator: true,
+                              role: role)
+          sign_in user
+        end
 
       def wipe_db
         [Payslip,

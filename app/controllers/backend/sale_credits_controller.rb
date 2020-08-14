@@ -52,9 +52,9 @@ module Backend
 
     protected
 
-    def permitted_params
-      params.permit!
-    end
+      def permitted_params
+        params.permit!
+      end
 
     def find_credited_sale
       return false unless @credited_sale = find_and_check(:sale, params[:credited_sale_id])

@@ -97,12 +97,12 @@ class InterventionParameter < Ekylibre::Record::Base
 
     protected
 
-    def check_option_presence!(*options)
-      options.each do |option|
-        unless @options[option]
-          raise ArgumentError, "An option #{option.inspect} must be given. #{@options.inspect}"
+      def check_option_presence!(*options)
+        options.each do |option|
+          unless @options[option]
+            raise ArgumentError, "An option #{option.inspect} must be given. #{@options.inspect}"
+          end
         end
       end
-    end
   end
 end

@@ -46,10 +46,10 @@ module Backend
 
       private
 
-      def find_cash
-        @cash = Cash.find_by(id: params[:cash_id])
-        @cash || (head(:bad_request) && nil)
-      end
+        def find_cash
+          @cash = Cash.find_by(id: params[:cash_id])
+          @cash || (head(:bad_request) && nil)
+        end
     end
   end
 end

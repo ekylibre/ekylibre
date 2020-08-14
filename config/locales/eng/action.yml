@@ -1516,7 +1516,7 @@ eng:
     # applications_count_equal_to_max: "Applications count equal to max"
     # applications_count_less_than_max: "Applications count less than max"
     applications_frequency: "Applications frequency"
-    applications_interval_not_respected: "Applications interval non respected"
+    applications_interval_not_respected: "Next application possible on %{next_date}"
     aquatic_nta: "Aquatic non-treatment area (%{distance} m)"
     archive_post_closure: "Post closure archive"
     archive_prior_to_closure: "Prior to closure archive"

@@ -78,11 +78,11 @@ class TaxDeclarationItem < Ekylibre::Record::Base
 
   private
 
-  def generate_parts
-    parts.clear
-    generate_debit_parts
-    generate_payment_parts
-  end
+    def generate_parts
+      parts.clear
+      generate_debit_parts
+      generate_payment_parts
+    end
 
   def generate_debit_parts
     entry_items = JournalEntryItem

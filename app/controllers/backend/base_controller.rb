@@ -42,9 +42,9 @@ module Backend
 
     protected
 
-    def current_campaign
-      @current_campaign ||= current_user.current_campaign
-    end
+      def current_campaign
+        @current_campaign ||= current_user.current_campaign
+      end
 
     def set_current_campaign
       if params[:current_campaign]
@@ -183,13 +183,13 @@ module Backend
 
     private
 
-    def set_interval_preference(attribute, controller, action)
-      if preference = current_user.preferences.find_by(name: "#{controller}##{action}.#{attribute}")
-        preference.set(params[attribute])
-      else
-        current_user.preferences.get("#{controller}##{action}.#{attribute}", params[attribute], :string)
+      def set_interval_preference(attribute, controller, action)
+        if preference = current_user.preferences.find_by(name: "#{controller}##{action}.#{attribute}")
+          preference.set(params[attribute])
+        else
+          current_user.preferences.get("#{controller}##{action}.#{attribute}", params[attribute], :string)
+        end
       end
-    end
 
     def dialog_or_not
       (request.xhr? ? 'popover' : params[:dialog] ? 'dialog' : 'backend')

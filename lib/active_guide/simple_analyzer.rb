@@ -120,14 +120,14 @@ module ActiveGuide
 
     protected
 
-    def call_callbacks(item, env, &_block)
-      if item.accept_block
-        return false unless env.instance_eval(&item.accept_block)
+      def call_callbacks(item, env, &_block)
+        if item.accept_block
+          return false unless env.instance_eval(&item.accept_block)
+        end
+        env.instance_eval(&item.before_block) if item.before_block
+        env.answer = yield
+        env.instance_eval(&item.after_block) if item.after_block
       end
-      env.instance_eval(&item.before_block) if item.before_block
-      env.answer = yield
-      env.instance_eval(&item.after_block) if item.after_block
-    end
 
     def log_result(env, message, passed, depth = 0)
       return unless env.verbose

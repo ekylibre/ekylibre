@@ -195,7 +195,7 @@ module Backend
       end
 
       code << content_tag(:div, class: 'value-container') do
-        select_tag(name, options_for_select(list, value), :id => configuration[:id], 'data-show-value' => "##{configuration[:id]}_") + 
+        select_tag(name, options_for_select(list, value), :id => configuration[:id], 'data-show-value' => "##{configuration[:id]}_") +
           content_tag(:span, :manual_period.tl(start: date_field_tag(:started_on, params[:started_on], size: 10), finish: date_field_tag(:stopped_on, params[:stopped_on], size: 10)).html_safe, id: custom_id)
       end
 
@@ -239,7 +239,7 @@ module Backend
           end
 
           content_tag(:span, class: "radio") do
-            content_tag(:label, for: id) do 
+            content_tag(:label, for: id) do
               check_box_tag(name, '1', active, id: id) + JournalEntry.state_label(state)
             end
           end
@@ -257,7 +257,7 @@ module Backend
       natures = Journal.nature.values.map(&:to_sym)
       params[:natures] = {} unless params[:natures].is_a? Hash
       no_nature = !natures.detect { |x| params[:natures].key?(x) }
-              
+
       code << content_tag(:div, class: "value-container value-container--journal-nature-crit") do
         natures.map do |nature|
           key = nature.to_s
@@ -270,7 +270,7 @@ module Backend
           end
 
           content_tag(:span, class: "radio") do
-            content_tag(:label, for: id) do 
+            content_tag(:label, for: id) do
               check_box_tag(name, '1', active, id: id) + Journal.nature_label(nature)
             end
           end

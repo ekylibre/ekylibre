@@ -80,7 +80,7 @@ class NavigationHelperTest < ActionView::TestCase
 
   private
 
-  Struct.new('Link', :url, :label)
+    Struct.new('Link', :url, :label)
 
   def content_in(identifier)
     @view_flow.content[identifier]

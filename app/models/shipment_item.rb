@@ -150,9 +150,9 @@ class ShipmentItem < ParcelItem
 
   protected
 
-  def check_outgoing(_checked_at)
-    update! product: source_product
-  end
+    def check_outgoing(_checked_at)
+      update! product: source_product
+    end
 
   def give_outgoing
     if population == source_product.population(at: shipment_given_at) && !shipment_remain_owner

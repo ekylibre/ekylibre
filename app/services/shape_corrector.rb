@@ -43,17 +43,17 @@ class ShapeCorrector
 
   # @param [String] ewkt
   # @return [Maybe<String>]
-  def try_postgis_fix(ewkt)
-    res = @connection.execute(<<~SQL).to_a.first
+    def try_postgis_fix(ewkt)
+      res = @connection.execute(<<~SQL).to_a.first
       SELECT ST_AsEWKT(ST_MakeValid(ST_GeomFromEWKT('#{ewkt}'))) AS valid_shape
     SQL
 
-    if res.present?
-      Maybe(res['valid_shape'])
-    else
-      None()
+      if res.present?
+        Maybe(res['valid_shape'])
+      else
+        None()
+      end
     end
-  end
 
   # @param [Charta::Geometry] original_shape
   # @param [Charta::Geometry] new_shape

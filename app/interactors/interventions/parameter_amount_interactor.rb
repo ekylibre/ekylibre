@@ -51,9 +51,9 @@ module Interventions
 
     private
 
-    def fail!(error)
-      @error = error
-    end
+      def fail!(error)
+        @error = error
+      end
 
     def init_param_error
       fail!('Product param is missing') if @product.nil?

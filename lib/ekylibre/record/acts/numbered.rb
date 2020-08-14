@@ -46,12 +46,12 @@ module Ekylibre
 
           private
 
-          def define_sequence_methods(column)
-            define_next(column)
-            define_load_reliable(column)
-            define_load_predictable(column)
-            define_unique_predictable(column)
-          end
+            def define_sequence_methods(column)
+              define_next(column)
+              define_load_reliable(column)
+              define_load_predictable(column)
+              define_unique_predictable(column)
+            end
 
           def ensure_validity!(column, usage)
             raise "Usage #{usage} must be defined in Sequence usages" unless Sequence.usage.values.include?(usage)

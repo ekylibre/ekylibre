@@ -9,9 +9,9 @@ module Ekylibre
 
     private
 
-    def journal_entry(*args, &block)
-      recorder.journal_entry(*args, &block)
-    end
+      def journal_entry(*args, &block)
+        recorder.journal_entry(*args, &block)
+      end
 
     def method_missing(method_name, *args, &block)
       super unless resource.respond_to? method_name

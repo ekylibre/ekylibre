@@ -382,9 +382,9 @@ module Ekylibre
 
       private
 
-      def config_file
-        Rails.root.join('config', 'tenants.yml')
-      end
+        def config_file
+          Rails.root.join('config', 'tenants.yml')
+        end
 
       # Return the env
       def env

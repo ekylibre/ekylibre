@@ -12,7 +12,7 @@ module Customizable
     SETTER_REGEX = /\A.*?=\z/.freeze
 
     attr_reader :fields, :values
-    
+
     # @param [Array<CustomField>] fields
     # @param [Hash{String => Object}] values
     def initialize(fields:, values: )

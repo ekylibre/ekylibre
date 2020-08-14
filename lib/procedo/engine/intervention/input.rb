@@ -4,9 +4,8 @@ module Procedo
   module Engine
     class Intervention
       class Input < Procedo::Engine::Intervention::Quantified
-        attr_reader :usage
 
-        attr_reader :allowed_entry_factor, :allowed_harvest_factor, :treatment_type
+        attr_reader :usage, :allowed_entry_factor, :allowed_harvest_factor, :treatment_type, :spray_volume
 
         def initialize(intervention, id, attributes = {})
           super(intervention, id, attributes)
@@ -15,6 +14,9 @@ module Procedo
           end
           if @attributes[:treatment_type_id].present?
             self.treatment_type_id = @attributes[:treatment_type_id]
+          end
+          if @attributes[:spray_volume].present?
+            self.spray_volume = @attributes[:spray_volume].blank? ? nil : @attributes[:spray_volume].to_d
           end
         end
 
@@ -50,7 +52,7 @@ module Procedo
 
         # @private Call should only be made by Procedo Updater
         def spray_volume=(value)
-          @spray_volume = value
+          @spray_volume = value.to_d
         end
 
         # @return [Number, nil]

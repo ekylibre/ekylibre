@@ -593,7 +593,6 @@ GEM
     uuidtools (2.1.5)
     validates_timeliness (4.1.1)
       timeliness (>= 0.3.10, < 1)
-    vuejs-rails (2.5.13)
     wannabe_bool (0.7.1)
     warden (1.2.7)
       rack (>= 1.0)
@@ -745,7 +744,6 @@ DEPENDENCIES
   unicorn
   uuidtools
   validates_timeliness (~> 4)
-  vuejs-rails
   wannabe_bool
   web-console (~> 3.0)
   webpacker (~> 4.x)

@@ -77,7 +77,7 @@
             opacity: 1
             fillOpacity: 0.5
             legend: true
-            zoomGuidance: I18n.t("#{I18n.rootKey}.leaflet.zoomGuidance")
+            zoomGuidance: I18n.t("front-end.leaflet.zoomGuidance")
           categories:
             color: "#333"
             fillColor: "#333"
@@ -126,15 +126,15 @@
           position: "topleft"
           zoomInText: ""
           zoomOutText: ""
-          zoomInTitle: I18n.t("#{I18n.rootKey}.leaflet.zoomInTitle")
-          zoomOutTitle: I18n.t("#{I18n.rootKey}.leaflet.zoomOutTitle")
+          zoomInTitle: I18n.t("front-end.leaflet.zoomInTitle")
+          zoomOutTitle: I18n.t("front-end.leaflet.zoomOutTitle")
         scale:
           position: "bottomright"
           imperial: false
           maxWidth: 200
         fullscreen:
           position: 'topleft'
-          title: I18n.t("#{I18n.rootKey}.leaflet.fullscreenTitle")
+          title: I18n.t("front-end.leaflet.fullscreenTitle")
         reactiveMeasure:
           metric: true
           feet: false
@@ -144,7 +144,7 @@
           kml: true
           title: ''
           content: ''
-          buttonTitle: I18n.t("#{I18n.rootKey}.leaflet.importerButtonTitle")
+          buttonTitle: I18n.t("front-end.leaflet.importerButtonTitle")
           template: '<div class="modal-header"><i class="leaflet-importer-ctrl"></i><span>{title}</span></div>
                      <div class="modal-body">{content}</div>
                      <div class="modal-footer">

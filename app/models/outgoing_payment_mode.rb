@@ -78,9 +78,9 @@ class OutgoingPaymentMode < Ekylibre::Record::Base
 
   private
 
-  def bank_details_for_sepa
-    if sepa && (cash.bank_account_holder_name.blank? || cash.iban.blank?)
-      errors.add(:sepa, :missing_bank_details_for_sepa)
+    def bank_details_for_sepa
+      if sepa && (cash.bank_account_holder_name.blank? || cash.iban.blank?)
+        errors.add(:sepa, :missing_bank_details_for_sepa)
+      end
     end
-  end
 end

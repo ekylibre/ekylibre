@@ -27,9 +27,9 @@ module Backend
 
       private
 
-      def permitted_params
-        params.permit(:id)
-      end
+        def permitted_params
+          params.permit(:id)
+        end
     end
   end
 end

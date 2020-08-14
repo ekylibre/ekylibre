@@ -23,7 +23,7 @@ class FinancialYearExchangeImport
 
   private
 
-  attr_reader :file, :exchange, :parsed
+    attr_reader :file, :exchange, :parsed
 
   def read_and_parse_file
     @parsed = CSV.parse(file.read, headers: true, header_converters: ->(header) { format_header(header) })

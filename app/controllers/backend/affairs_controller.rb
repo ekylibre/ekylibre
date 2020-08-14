@@ -87,18 +87,18 @@ module Backend
 
     protected
 
-    def redirect_to_best_page(affair = nil)
-      affair ||= @affair
-      url = params[:redirect]
-      unless url
-        originator = affair.originator
-        url = if originator
-                { controller: originator.class.name.tableize, action: :show, id: originator.id }
-              else
-                { controller: affair.class.name.tableize, action: :show, id: affair.id }
-              end
+      def redirect_to_best_page(affair = nil)
+        affair ||= @affair
+        url = params[:redirect]
+        unless url
+          originator = affair.originator
+          url = if originator
+                  { controller: originator.class.name.tableize, action: :show, id: originator.id }
+                else
+                  { controller: affair.class.name.tableize, action: :show, id: affair.id }
+                end
+        end
+        redirect_to params[:redirect] || url
       end
-      redirect_to params[:redirect] || url
-    end
   end
 end

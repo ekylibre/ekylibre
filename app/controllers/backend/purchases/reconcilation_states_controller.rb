@@ -41,11 +41,11 @@ module Backend
 
       private
 
-      def set_purchase
-        return unless permitted_params.key?(:id)
+        def set_purchase
+          return unless permitted_params.key?(:id)
 
-        @purchase = Purchase.find(permitted_params[:id])
-      end
+          @purchase = Purchase.find(permitted_params[:id])
+        end
 
       def permitted_params
         params.permit(:id)

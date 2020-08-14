@@ -22,7 +22,7 @@ module Backend
   class TrialBalancesController < Backend::BaseController
 
     before_action :save_search_preference, only: :show
-    
+
     def show
       set_period_params
 

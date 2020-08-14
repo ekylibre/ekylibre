@@ -201,24 +201,24 @@ class ParcelItem < Ekylibre::Record::Base
 
   protected
 
-  def check_incoming(checked_at)
-    product_params = {}
-    no_fusing = parcel_separated_stock? || product_is_unitary?
+    def check_incoming(checked_at)
+      product_params = {}
+      no_fusing = parcel_separated_stock? || product_is_unitary?
 
-    product_params[:name] = product_name
-    product_params[:name] ||= "#{variant.name} (#{parcel.number})"
-    product_params[:identification_number] = product_identification_number
-    product_params[:initial_born_at] = [checked_at, parcel_given_at].compact.min
+      product_params[:name] = product_name
+      product_params[:name] ||= "#{variant.name} (#{parcel.number})"
+      product_params[:identification_number] = product_identification_number
+      product_params[:initial_born_at] = [checked_at, parcel_given_at].compact.min
 
-    self.product = existing_product_in_storage unless no_fusing || storage.blank?
+      self.product = existing_product_in_storage unless no_fusing || storage.blank?
 
-    self.product ||= variant.create_product(product_params)
-    # FIXME: bad fix for date collision between incoming parcel creation and intervention creation.
-    self.product.born_at = product_params[:initial_born_at]
+      self.product ||= variant.create_product(product_params)
+      # FIXME: bad fix for date collision between incoming parcel creation and intervention creation.
+      self.product.born_at = product_params[:initial_born_at]
 
-    return false, self.product.errors if self.product.errors.any?
-    true
-  end
+      return false, self.product.errors if self.product.errors.any?
+      true
+    end
 
   def check_outgoing(_checked_at)
     update! product: source_product

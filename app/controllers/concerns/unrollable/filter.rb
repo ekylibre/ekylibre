@@ -52,8 +52,8 @@ module Unrollable
 
     protected
 
-    def lineage
-      @parents + [@attribute]
-    end
+      def lineage
+        @parents + [@attribute]
+      end
   end
 end

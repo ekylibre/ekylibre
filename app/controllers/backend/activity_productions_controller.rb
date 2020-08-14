@@ -96,13 +96,10 @@ module Backend
     end
 
     def create
-      begin
-        super
-
-      rescue ActiveRecord::RecordInvalid
-        notify_error_now(:empty_shape.tl)
-        render :new
-      end
+      super
+    rescue ActiveRecord::RecordInvalid
+      notify_error_now(:empty_shape.tl)
+      render :new
     end
   end
 end

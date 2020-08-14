@@ -3,44 +3,44 @@ module FEC
     class CSV < FEC::Exporter::Base
       private
 
-      def build(journals)
-        columns = {
-          'JournalCode' => 'j.code',
-          'JournalLib' => 'j.name',
-          'EcritureNum' => 'je.continuous_number',
-          'EcritureDate' => "TO_CHAR(je.printed_on::DATE, 'YYYYMMDD')",
-          'CompteNum' => "greatest(a.number::VARCHAR, rpad(a.number::VARCHAR, 3, '0'))",
-          'CompteLib' => 'a.name',
-          'CompAuxNum' => "NULL",
-          'CompAuxLib' => "NULL",
-          'PieceRef' => 'je.number',
-          'PieceDate' => "TO_CHAR(je.printed_on::DATE, 'YYYYMMDD')",
-          'EcritureLib' => 'jei.name',
-          'Debit' => "replace((ROUND(jei.debit, 2))::text, '.', ',')",
-          'Credit' => "replace((ROUND(jei.credit, 2))::text, '.', ',')",
-          'EcritureLet' => "jei.letter",
-          'DateLet' => "NULL",
-          'ValidDate' => "TO_CHAR(je.validated_at::DATE, 'YYYYMMDD')",
-          'Montantdevise' => "NULL",
-          'Idevise' => "NULL"
-        }
+        def build(journals)
+          columns = {
+            'JournalCode' => 'j.code',
+            'JournalLib' => 'j.name',
+            'EcritureNum' => 'je.continuous_number',
+            'EcritureDate' => "TO_CHAR(je.printed_on::DATE, 'YYYYMMDD')",
+            'CompteNum' => "greatest(a.number::VARCHAR, rpad(a.number::VARCHAR, 3, '0'))",
+            'CompteLib' => 'a.name',
+            'CompAuxNum' => "NULL",
+            'CompAuxLib' => "NULL",
+            'PieceRef' => 'je.number',
+            'PieceDate' => "TO_CHAR(je.printed_on::DATE, 'YYYYMMDD')",
+            'EcritureLib' => 'jei.name',
+            'Debit' => "replace((ROUND(jei.debit, 2))::text, '.', ',')",
+            'Credit' => "replace((ROUND(jei.credit, 2))::text, '.', ',')",
+            'EcritureLet' => "jei.letter",
+            'DateLet' => "NULL",
+            'ValidDate' => "TO_CHAR(je.validated_at::DATE, 'YYYYMMDD')",
+            'Montantdevise' => "NULL",
+            'Idevise' => "NULL"
+          }
 
-        if %w[ba_ir_cash_accountancy bnc_ir_cash_accountancy].include? fiscal_position
-          columns.merge!({
-            'DateRglt' => "TO_CHAR(payments.paid_at, 'YYYYMMDD')",
-            'ModeRglt' => "payments.mode_name",
-            'NatOp' => "NULL"
-          })
-        end
+          if %w[ba_ir_cash_accountancy bnc_ir_cash_accountancy].include? fiscal_position
+            columns.merge!({
+              'DateRglt' => "TO_CHAR(payments.paid_at, 'YYYYMMDD')",
+              'ModeRglt' => "payments.mode_name",
+              'NatOp' => "NULL"
+            })
+          end
 
-        if fiscal_position == 'bnc_ir_cash_accountancy'
-          columns.merge!({
-            'IdClient' => "t.number"
-          })
-        end
+          if fiscal_position == 'bnc_ir_cash_accountancy'
+            columns.merge!({
+              'IdClient' => "t.number"
+            })
+          end
 
-        select = columns.map { |k, v| "#{v} AS \"#{k}\"" }.join(', ')
-        query = <<-SQL.strip_heredoc
+          select = columns.map { |k, v| "#{v} AS \"#{k}\"" }.join(', ')
+          query = <<-SQL.strip_heredoc
           SELECT #{select}
           FROM journal_entry_items AS jei
             JOIN journal_entries AS je
@@ -66,8 +66,8 @@ module FEC
             LEFT JOIN entities AS t ON (t.id = p.third_id)
         SQL
 
-        if %w[ba_ir_cash_accountancy bnc_ir_cash_accountancy].include? fiscal_position
-          query += <<-SQL.strip_heredoc
+          if %w[ba_ir_cash_accountancy bnc_ir_cash_accountancy].include? fiscal_position
+            query += <<-SQL.strip_heredoc
             LEFT JOIN (
               (SELECT 'IncomingPayment' AS type, incoming_payments.id, paid_at, incoming_payment_modes.name AS mode_name
                 FROM incoming_payments
@@ -80,26 +80,26 @@ module FEC
                 ORDER BY "paid_at" ASC)
             ) AS payments ON (payments.id = je.resource_id AND payments.type = je.resource_type)
           SQL
-        end
+          end
 
-        query += <<-SQL.strip_heredoc
+          query += <<-SQL.strip_heredoc
           WHERE jei.journal_id IN (#{journals.pluck(:id).join(', ')}) AND jei.balance <> 0.0
           AND j.nature <> 'closure' AND a.number ~ '\\\A[1-7]'
           ORDER BY je.validated_at::DATE, je.continuous_number, je.created_at
         SQL
 
-        ::CSV.generate col_sep: '|', encoding: 'ISO-8859-15' do |csv|
-          csv << columns.keys
-          ActiveRecord::Base.connection.select_rows(query).each do |row|
+          ::CSV.generate col_sep: '|', encoding: 'ISO-8859-15' do |csv|
+            csv << columns.keys
+            ActiveRecord::Base.connection.select_rows(query).each do |row|
 
-            row[1] = CGI::escapeHTML(row[1].dump[1..-2])
-            row[5] = CGI::escapeHTML(row[5].dump[1..-2])
-            row[10] = CGI::escapeHTML(row[10].dump[1..-2])
+              row[1] = CGI::escapeHTML(row[1].dump[1..-2])
+              row[5] = CGI::escapeHTML(row[5].dump[1..-2])
+              row[10] = CGI::escapeHTML(row[10].dump[1..-2])
 
-            csv << row
+              csv << row
+            end
           end
         end
-      end
     end
   end
 end

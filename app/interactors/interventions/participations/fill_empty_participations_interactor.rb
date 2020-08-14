@@ -51,9 +51,9 @@ module Interventions
 
       private
 
-      def fail!(error)
-        @error = error
-      end
+        def fail!(error)
+          @error = error
+        end
 
       def build_working_periods(intervention: nil, nature: :intervention)
         return [] if intervention.nil?

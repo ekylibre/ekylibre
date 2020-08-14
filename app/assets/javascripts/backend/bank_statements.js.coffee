@@ -264,7 +264,7 @@
         $(this).find('.details').html("<div class='letter'></div>")
 
     _clearButtonTemplate: (bankStatementId, letter) ->
-      removeLabel = I18n.t("#{I18n.rootKey}.bank_reconciliation.remove")
+      removeLabel = I18n.t("front-end.bank_reconciliation.remove")
       "<div class='letter'>#{letter}</div>
        <a href='/backend/bank-reconciliation/letters/#{bankStatementId}?letter=#{letter}' data-remote='true' rel='nofollow' data-method='delete' id='clear'>
          <i></i>

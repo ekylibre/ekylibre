@@ -90,9 +90,9 @@ module TimeLineable
 
   private
 
-  def siblings
-    raise NotImplementedError, 'Private method :siblings must be implemented'
-  end
+    def siblings
+      raise NotImplementedError, 'Private method :siblings must be implemented'
+    end
 
   def other_siblings
     safe_id = id

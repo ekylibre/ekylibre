@@ -199,20 +199,20 @@ class PlantCountingTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
   protected
 
-  def new_counting(nature: :sowing, plant: nil, working_width_value: nil, rows_count_value: nil, plant_density_abacus: nil, plant_density_abacus_item: nil, average_value: nil, item_values: [])
-    plant_density_abacus      ||= @abacus
-    plant_density_abacus_item ||= @abacus.items.order(:seeding_density_value).first
-    plant ||= @plant
-    plant.plant_countings.create!(
-      nature: nature,
-      plant_density_abacus_id: plant_density_abacus.id,
-      plant_density_abacus_item_id: plant_density_abacus_item.id,
-      average_value: average_value,
-      working_width_value: working_width_value,
-      rows_count_value: rows_count_value,
-      items_attributes: item_values.map { |item_value| { value: item_value } }
-    )
-  end
+    def new_counting(nature: :sowing, plant: nil, working_width_value: nil, rows_count_value: nil, plant_density_abacus: nil, plant_density_abacus_item: nil, average_value: nil, item_values: [])
+      plant_density_abacus      ||= @abacus
+      plant_density_abacus_item ||= @abacus.items.order(:seeding_density_value).first
+      plant ||= @plant
+      plant.plant_countings.create!(
+        nature: nature,
+        plant_density_abacus_id: plant_density_abacus.id,
+        plant_density_abacus_item_id: plant_density_abacus_item.id,
+        average_value: average_value,
+        working_width_value: working_width_value,
+        rows_count_value: rows_count_value,
+        items_attributes: item_values.map { |item_value| { value: item_value } }
+      )
+    end
 
   def sow_plant
     category = ProductNatureCategory.create!(

@@ -1,32 +1,49 @@
 import 'whatwg-fetch'
-import {StateSet, StateBadgeSet} from "components/state_badge_set"
-import {customFetch, ajax} from "services/ajax"
+import 'pages/index'
+
+import {StateBadgeSet, StateSet} from "components/state_badge_set"
+import {ajax, customFetch} from "services/ajax"
 import RBush from "rbush"
 import * as moment from 'moment'
-import {setup, notify} from 'services/notification'
+import {notify, setup} from 'services/notification'
 import {enableDatePicker, enableDateRangePicker, enableDatetimePicker} from "lib/flatpickr"
+import {open, openFromElementDataAttributes, openRemote} from "components/modal"
+import {I18n} from "services/i18n/index"
+import * as Behave from 'services/behave'
+import {delegateListener, onDomReady, onElementDetected} from "lib/domEventUtils"
+import autosize from "autosize/dist/autosize"
 
 export let Ekylibre = {
+  ajax,
+  delegateListener,
   fetch: customFetch,
-  ajax: ajax,
-  notification: {setup, notify},
   forms: {
     date: {enableDatePicker, enableDateRangePicker, enableDatetimePicker}
-  }
+  },
+  notification: {setup, notify},
+  onElementDetected,
+  onDomReady
 }
 
 export let globals = {
-  visualization: {},
-  mapeditor: {},
+  Behave,
   calcul: {},
+  DynamicModal: {
+    open,
+    openFromElementDataAttributes,
+    openRemote
+  },
   golumn: {},
-  StateSet: StateSet,
-  StateBadgeSet: StateBadgeSet
+  mapeditor: {},
+  StateBadgeSet,
+  StateSet,
+  visualization: {},
 }
 
 export let vendors = {
   _: require('lodash'),
-  RBush: RBush,
-  moment: moment
+  autosize,
+  I18n,
+  moment,
+  RBush,
 }
-

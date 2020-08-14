@@ -25,7 +25,7 @@ class OfxImport
 
   private
 
-  attr_reader :file, :parsed
+    attr_reader :file, :parsed
 
   def read_and_parse_file
     encoding = detect_encoding(file)

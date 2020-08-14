@@ -50,12 +50,12 @@ class PseudoEnvironment < SimpleDelegator
 
   private
 
-  def define_env_response(env, response)
-    return if env.blank?
-    define_singleton_method(:"#{env}?") do
-      in_caller = binding.callers.find { |binding| binding.eval('self') == scope }
-      return response if in_caller
-      real_env.send("#{env}?")
+    def define_env_response(env, response)
+      return if env.blank?
+      define_singleton_method(:"#{env}?") do
+        in_caller = binding.callers.find { |binding| binding.eval('self') == scope }
+        return response if in_caller
+        real_env.send("#{env}?")
+      end
     end
-  end
 end

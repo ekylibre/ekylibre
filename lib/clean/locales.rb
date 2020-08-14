@@ -709,9 +709,9 @@ module Clean
 
       protected
 
-      def locale_dir
-        Rails.root.join('config', 'locales', @locale.to_s)
-      end
+        def locale_dir
+          Rails.root.join('config', 'locales', @locale.to_s)
+        end
 
       def log(text)
         return unless @log

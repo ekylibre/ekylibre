@@ -40,9 +40,9 @@ class InterventionWorkingTimeDurationCalculationService
 
   private
 
-  def auto_calculate_working_periods?
-    !@intervention.nil? && @intervention.auto_calculate_working_periods
-  end
+    def auto_calculate_working_periods?
+      !@intervention.nil? && @intervention.auto_calculate_working_periods
+    end
 
   def worker_working_duration(nature)
     duration = if nature.nil?

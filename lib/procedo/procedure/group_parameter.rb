@@ -98,13 +98,13 @@ module Procedo
 
       # Retrieve all (nested or not) Parameter objects in the group in the order
       # defined by default.
-      def all_parameters
-        list = []
-        browse_all do |parameter|
-          list << parameter
+        def all_parameters
+          list = []
+          browse_all do |parameter|
+            list << parameter
+          end
+          list
         end
-        list
-      end
 
       def browse_all(&block)
         @parameters.each do |_k, parameter|

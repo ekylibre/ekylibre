@@ -182,9 +182,9 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
 
   private
 
-  def gap
-    Time.diff(stopped_at, started_at)
-  end
+    def gap
+      Time.diff(stopped_at, started_at)
+    end
 
   def first?
     intervention_participation.working_periods.first == self

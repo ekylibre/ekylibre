@@ -32,14 +32,14 @@ module Backend
 
       private
 
-      def costs_params
-        params.require(:intervention).permit(:intervention_id,
-                                             :product_id,
-                                             :quantity,
-                                             :unit_name,
-                                             :intervention_started_at,
-                                             :intervention_stopped_at)
-      end
+        def costs_params
+          params.require(:intervention).permit(:intervention_id,
+                                               :product_id,
+                                               :quantity,
+                                               :unit_name,
+                                               :intervention_started_at,
+                                               :intervention_stopped_at)
+        end
     end
   end
 end

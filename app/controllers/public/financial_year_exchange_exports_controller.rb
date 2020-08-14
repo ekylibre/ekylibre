@@ -32,9 +32,9 @@ module Public
 
     private
 
-    def find_exchange
-      public_token = params[:id]
-      FinancialYearExchange.for_public_token(public_token)
-    end
+      def find_exchange
+        public_token = params[:id]
+        FinancialYearExchange.for_public_token(public_token)
+      end
   end
 end

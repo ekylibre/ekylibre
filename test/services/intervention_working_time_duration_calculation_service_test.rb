@@ -236,22 +236,22 @@ class InterventionWorkingTimeDurationCalculationServiceTest < Ekylibre::Testing:
 
   private
 
-  def sum_working_periods_of(participation: nil, participations: {}, nature: nil)
-    unless participations.empty?
-      return participations
-             .map(&:working_periods)
-             .flatten
-             .select { |working_period| working_period.nature == nature }
-             .map(&:duration_gap)
-             .inject(0, :+)
-    end
+    def sum_working_periods_of(participation: nil, participations: {}, nature: nil)
+      unless participations.empty?
+        return participations
+               .map(&:working_periods)
+               .flatten
+               .select { |working_period| working_period.nature == nature }
+               .map(&:duration_gap)
+               .inject(0, :+)
+      end
 
-    participation
-      .working_periods
-      .select { |working_period| working_period.nature.to_sym == nature }
-      .map(&:duration)
-      .inject(0, :+)
-  end
+      participation
+        .working_periods
+        .select { |working_period| working_period.nature.to_sym == nature }
+        .map(&:duration)
+        .inject(0, :+)
+    end
 
   def working_duration_of(nature: nil, participations: {}, participation: nil, product: nil, modal: false)
     working_params = working_duration_params(participations: participations,

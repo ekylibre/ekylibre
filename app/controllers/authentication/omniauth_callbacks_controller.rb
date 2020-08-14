@@ -32,9 +32,9 @@ module Authentication
 
     private
 
-    def user_by_omniauth(auth)
-      User.find_by(email: auth.info.email)
-    end
+      def user_by_omniauth(auth)
+        User.find_by(email: auth.info.email)
+      end
 
     def invitation_token
       @invitation_token ||= params[:invitation_token]

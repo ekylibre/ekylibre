@@ -35,9 +35,9 @@ class VersionChange < Struct.new(:version, :attribute, :old_value, :new_value)
 
   private
 
-  def model
-    version.item.class
-  end
+    def model
+      version.item.class
+    end
 
   def human_value(value)
     attr = model.enumerized_attributes[attribute]

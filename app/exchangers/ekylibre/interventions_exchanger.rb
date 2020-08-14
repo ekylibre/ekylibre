@@ -241,33 +241,33 @@ module Ekylibre
     protected
 
     # convert measure to variant unit and divide by variant_indicator
-    def measure_conversion(_product, population, unit, unit_target_dose)
-      value = population
-      w.debug value.inspect.yellow
-      nomen_unit = nil
-      # concat units if needed
-      if unit.present? && unit_target_dose.present?
-        u = unit + '_per_' + unit_target_dose
-      elsif unit.present?
-        u = unit
-      end
-      # case units are symbol
-      if u && !Nomen::Unit[u]
-        if u = Nomen::Unit.find_by(symbol: u)
-          u = u.name.to_s
+      def measure_conversion(_product, population, unit, unit_target_dose)
+        value = population
+        w.debug value.inspect.yellow
+        nomen_unit = nil
+        # concat units if needed
+        if unit.present? && unit_target_dose.present?
+          u = unit + '_per_' + unit_target_dose
+        elsif unit.present?
+          u = unit
+        end
+        # case units are symbol
+        if u && !Nomen::Unit[u]
+          if u = Nomen::Unit.find_by(symbol: u)
+            u = u.name.to_s
+          else
+            raise ActiveExchanger::NotWellFormedFileError, "Unknown unit #{u.inspect}."
+          end
+        end
+        u = u.to_sym if u
+        nomen_unit = Nomen::Unit[u] if u
+        if value >= 0.0 && nomen_unit
+          measure = Measure.new(value, u)
+          return measure
         else
-          raise ActiveExchanger::NotWellFormedFileError, "Unknown unit #{u.inspect}."
+          return nil
         end
       end
-      u = u.to_sym if u
-      nomen_unit = Nomen::Unit[u] if u
-      if value >= 0.0 && nomen_unit
-        measure = Measure.new(value, u)
-        return measure
-      else
-        return nil
-      end
-    end
 
     # convert measure to variant unit and divide by variant_indicator
     # ex : for a wheat_seed_25kg

@@ -33,15 +33,15 @@ module Backend
 
       private
 
-      def accounts(gap)
-        bank = @cash.account
-        if gap > 0
-          return (head(:bad_request) && nil) unless Account.of_usage(:other_usual_running_profits).count.nonzero?
-          return [bank, credit_gap_account]
+        def accounts(gap)
+          bank = @cash.account
+          if gap > 0
+            return (head(:bad_request) && nil) unless Account.of_usage(:other_usual_running_profits).count.nonzero?
+            return [bank, credit_gap_account]
+          end
+          return (head(:bad_request) && nil) unless Account.of_usage(:other_usual_running_expenses).count.nonzero?
+          [debit_gap_account, bank]
         end
-        return (head(:bad_request) && nil) unless Account.of_usage(:other_usual_running_expenses).count.nonzero?
-        [debit_gap_account, bank]
-      end
 
       def sold(bank_items, journal_items)
         [bank_items, journal_items].sum { |items| items.sum(:credit) - items.sum(:debit) }

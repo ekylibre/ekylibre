@@ -36,11 +36,11 @@ module Backend
 
       private
 
-      def set_variant
-        return unless permitted_params.key?(:id)
+        def set_variant
+          return unless permitted_params.key?(:id)
 
-        @variant = ProductNatureVariant.find(permitted_params[:id])
-      end
+          @variant = ProductNatureVariant.find(permitted_params[:id])
+        end
 
       def permitted_params
         params.permit(:id)

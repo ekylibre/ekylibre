@@ -25,13 +25,13 @@
                  backward="(POPULATION * PRODUCT..net_volume(liter)) / sum_working_zone_areas(cultivation, :hectare)"
                  forward="(VALUE * sum_working_zone_areas(cultivation, :hectare)) / PRODUCT..net_volume(liter)"/>
         <handler indicator="specific_weight" unit="kilogram_per_hectoliter"
-                 if="(sum_working_zone_areas(cultivation) != 0) and PRODUCT..net_mass? and (product_usages_among_dimensions(PRODUCT, :mass_concentration) == 1) and USAGE? and dose_unit_refers_to_spray_volume(USAGE) == 1"
-                 backward="SPRAY_VOLUME? ? (POPULATION * PRODUCT..net_mass(kilogram) / (SPRAY_VOLUME * sum_working_zone_areas(cultivation, :hectare))) : POPULATION"
-                 forward="SPRAY_VOLUME? ? ((VALUE * SPRAY_VOLUME * sum_working_zone_areas(cultivation, :hectare)) / PRODUCT..net_mass(kilogram)) : VALUE"/>
+                 if="(sum_working_zone_areas(cultivation) != 0) and PRODUCT..net_mass? and (product_usages_among_dimensions(PRODUCT, :mass_concentration) == 1)"
+                 backward="SPRAY_VOLUME? ? ((POPULATION * PRODUCT..net_mass(kilogram)) / ((SPRAY_VOLUME * sum_working_zone_areas(cultivation, :hectare)) * 0.01)) : POPULATION"
+                 forward="SPRAY_VOLUME? ? (VALUE * SPRAY_VOLUME * sum_working_zone_areas(cultivation, :hectare) * PRODUCT..net_mass(kilogram) * 0.01) : VALUE"/>
         <handler indicator="volume_density" unit="liter_per_hectoliter"
-                 if="PRODUCT..net_volume? and sum_working_zone_areas(cultivation) != 0 and (product_usages_among_dimensions(PRODUCT, :volume_concentration) == 1) and USAGE? and dose_unit_refers_to_spray_volume(USAGE) == 1"
-                 backward="SPRAY_VOLUME? ? ((POPULATION * PRODUCT..net_volume(liter)) / (SPRAY_VOLUME * sum_working_zone_areas(cultivation, :hectare))) : POPULATION"
-                 forward="SPRAY_VOLUME? ? ((VALUE * SPRAY_VOLUME * sum_working_zone_areas(cultivation, :hectare)) / PRODUCT..net_volume(liter)) : VALUE"/>
+                 if="PRODUCT..net_volume? and sum_working_zone_areas(cultivation) != 0 and (product_usages_among_dimensions(PRODUCT, :volume_concentration) == 1)"
+                 backward="SPRAY_VOLUME? ? ((POPULATION * PRODUCT..net_volume(liter)) / ((SPRAY_VOLUME * sum_working_zone_areas(cultivation, :hectare)) * 0.01)) : POPULATION"
+                 forward="SPRAY_VOLUME? ? (VALUE * SPRAY_VOLUME * sum_working_zone_areas(cultivation, :hectare) * PRODUCT..net_volume(liter) * 0.01) : VALUE"/>
         <attribute name="usage_id" />
         <attribute name="allowed_entry_factor" />
         <attribute name="allowed_harvest_factor" />

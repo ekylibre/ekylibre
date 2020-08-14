@@ -12,7 +12,7 @@ module Interventions
           end
 
           # @param [Hash{String => Hash{String => String}}] targets_data
-          #     Each value has two keys: 
+          #     Each value has two keys:
           #       'id' A Product id that is expected to be a Planr or LandParcel
           #       'shape' A GeoJSON String
           # @return [Array<TargetAndShape>]
@@ -20,7 +20,7 @@ module Interventions
             targets_data.flat_map do |data|
               target = [Plant, LandParcel].map { |model| model.find_by(id: data[:id]) }.compact.first
               shape = Charta::new_geometry(data[:shape])
-  
+
               if target.present?
                 [::Interventions::Phytosanitary::Models::TargetAndShape.new(target, shape)]
               else

@@ -26,17 +26,17 @@ module NamingFormats
 
       private
 
-      def add_cultivable_zone(field_value)
-        return if @cultivable_zone.nil?
+        def add_cultivable_zone(field_value)
+          return if @cultivable_zone.nil?
 
-        if field_value.to_sym == :cultivable_zone_name
-          @compute_name << @cultivable_zone.name
-        end
+          if field_value.to_sym == :cultivable_zone_name
+            @compute_name << @cultivable_zone.name
+          end
 
-        if field_value.to_sym == :cultivable_zone_code
-          @compute_name << @cultivable_zone.work_number
+          if field_value.to_sym == :cultivable_zone_code
+            @compute_name << @cultivable_zone.work_number
+          end
         end
-      end
 
       def add_activity
         return if @activity.nil?

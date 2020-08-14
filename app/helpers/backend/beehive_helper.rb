@@ -179,16 +179,16 @@ module Backend
 
       protected
 
-      def box(&block)
-        raise StandardError, 'Cannot define box in other box' if @current_box
-        old_current_box = @current_box
-        if block_given?
-          @current_box = Box.new
-          block[self]
-          @boxes << @current_box unless @current_box.empty?
+        def box(&block)
+          raise StandardError, 'Cannot define box in other box' if @current_box
+          old_current_box = @current_box
+          if block_given?
+            @current_box = Box.new
+            block[self]
+            @boxes << @current_box unless @current_box.empty?
+          end
+          @current_box = old_current_box
         end
-        @current_box = old_current_box
-      end
     end
   end
 end

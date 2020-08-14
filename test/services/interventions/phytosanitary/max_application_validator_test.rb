@@ -9,8 +9,8 @@ module Interventions
           Product.new,
           InterventionParameter::LoggedPhytosanitaryProduct.new,
           RegisteredPhytosanitaryUsage.new(applications_count: 1, applications_frequency: 'P4D'),
-          4,
-          "test"
+          nil,
+          nil
         )
         result = validator.validate([product_usage])
 
@@ -33,8 +33,8 @@ module Interventions
           Product.new,
           InterventionParameter::LoggedPhytosanitaryProduct.new,
           RegisteredPhytosanitaryUsage.new(applications_count: 1),
-          4,
-          "test"
+          nil,
+          nil
         )
 
         # We are adding an intervention that conflicts with i1
@@ -61,8 +61,8 @@ module Interventions
           Product.new,
           InterventionParameter::LoggedPhytosanitaryProduct.new,
           RegisteredPhytosanitaryUsage.new(applications_count: 1),
-          4,
-          "test"
+          nil,
+          nil
         )
 
         # We are editing i2 that was already created despite being 'forbidden'

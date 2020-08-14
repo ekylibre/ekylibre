@@ -124,7 +124,7 @@ module Procedo
 
       private
 
-      attr_reader :root_group
+        attr_reader :root_group
     end
   end
 end

@@ -362,9 +362,9 @@ module Ekylibre
 
     private
 
-    def snippets_directory
-      @view_path.join('snippets')
-    end
+      def snippets_directory
+        @view_path.join('snippets')
+      end
 
     def assets_directory
       @root.join('app', 'assets')
