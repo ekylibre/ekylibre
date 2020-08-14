@@ -1099,6 +1099,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :registered_pfi_treatment_types, concerns: :unroll
+
     resources :regularizations, only: %i[show create destroy]
 
     resources :roles, concerns: %i[incorporate list unroll] do
