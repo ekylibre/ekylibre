@@ -154,12 +154,12 @@ class ShipmentItem < ParcelItem
       update! product: source_product
     end
 
-  def give_outgoing
-    if population == source_product.population(at: shipment_given_at) && !shipment_remain_owner
-      ProductOwnership.create!(product: product, owner: shipment_recipient, started_at: shipment_given_at, originator: self)
-      ProductLocalization.create!(product: product, nature: :exterior, started_at: shipment_given_at, originator: self)
-      ProductEnjoyment.create!(product: product, enjoyer: shipment_recipient, nature: :other, started_at: shipment_given_at, originator: self)
+    def give_outgoing
+      if population == source_product.population(at: shipment_given_at) && !shipment_remain_owner
+        ProductOwnership.create!(product: product, owner: shipment_recipient, started_at: shipment_given_at, originator: self)
+        ProductLocalization.create!(product: product, nature: :exterior, started_at: shipment_given_at, originator: self)
+        ProductEnjoyment.create!(product: product, enjoyer: shipment_recipient, nature: :other, started_at: shipment_given_at, originator: self)
+      end
+      ProductMovement.create!(product: product, delta: -1 * population, started_at: shipment_given_at, originator: self)
     end
-    ProductMovement.create!(product: product, delta: -1 * population, started_at: shipment_given_at, originator: self)
-  end
 end

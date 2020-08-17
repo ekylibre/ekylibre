@@ -33,35 +33,35 @@ namespace :tva_declaration do
       end
     end
 
-  def create_tax_declaration_file
-    puts 'Start to generate_file'.green
-    taxe_declarations = TaxDeclaration.where('started_on >= ? AND stopped_on <= ?', @started_on, @stopped_on)
-    path = "private/integration/tmp/year-tax-declarations#{@started_on}.csv"
-    CSV.open(path, 'w') do |csv|
-      taxe_declarations.each do |td|
-        csv_generation(td, csv)
+    def create_tax_declaration_file
+      puts 'Start to generate_file'.green
+      taxe_declarations = TaxDeclaration.where('started_on >= ? AND stopped_on <= ?', @started_on, @stopped_on)
+      path = "private/integration/tmp/year-tax-declarations#{@started_on}.csv"
+      CSV.open(path, 'w') do |csv|
+        taxe_declarations.each do |td|
+          csv_generation(td, csv)
+        end
+      end
+      puts "File is generated => #{path}".green
+    end
+
+    def set_parameters(args, end_date = true)
+      until @tenant.present?
+        puts 'Enter tenant name :'.blue
+        @tenant = STDIN.gets.chomp
+      end
+      puts "#{Ekylibre::Tenant.switch!(@tenant)}".yellow
+
+      until @started_on.present?
+        puts 'Enter date of start (dd/mm/yyyy):'.blue
+        @started_on = STDIN.gets.chomp.to_date
+      end
+      puts "#{@started_on}".yellow
+
+      if end_date
+        puts 'Enter date of end (empty if end of month) (dd/mm/yyyy):'.blue
+        @stopped_on = STDIN.gets.chomp&.to_date || @started_on.end_of_month
+        puts "#{@stopped_on}".yellow
       end
     end
-    puts "File is generated => #{path}".green
-  end
-
-  def set_parameters(args, end_date = true)
-    until @tenant.present?
-      puts 'Enter tenant name :'.blue
-      @tenant = STDIN.gets.chomp
-    end
-    puts "#{Ekylibre::Tenant.switch!(@tenant)}".yellow
-
-    until @started_on.present?
-      puts 'Enter date of start (dd/mm/yyyy):'.blue
-      @started_on = STDIN.gets.chomp.to_date
-    end
-    puts "#{@started_on}".yellow
-
-    if end_date
-      puts 'Enter date of end (empty if end of month) (dd/mm/yyyy):'.blue
-      @stopped_on = STDIN.gets.chomp&.to_date || @started_on.end_of_month
-      puts "#{@stopped_on}".yellow
-    end
-  end
 end

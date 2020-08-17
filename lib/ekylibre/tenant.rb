@@ -386,205 +386,205 @@ module Ekylibre
           Rails.root.join('config', 'tenants.yml')
         end
 
-      # Return the env
-      def env
-        Rails.env.to_s
-      end
+        # Return the env
+        def env
+          Rails.env.to_s
+        end
 
-      def write
-        file = config_file
-        # byebug
-        semaphore.synchronize do
-          FileUtils.mkdir_p(file.dirname)
-
+        def write
+          file = config_file
           # byebug
+          semaphore.synchronize do
+            FileUtils.mkdir_p(file.dirname)
 
-          temp = File.open(file, 'w')
-          temp.write @list.to_yaml
-          temp.flush
-          temp.close
+            # byebug
 
-          # byebug
-          # File.write(config_file, @list.to_yaml)
+            temp = File.open(file, 'w')
+            temp.write @list.to_yaml
+            temp.flush
+            temp.close
+
+            # byebug
+            # File.write(config_file, @list.to_yaml)
+          end
         end
-      end
 
-      def semaphore
-        @@semaphore ||= Mutex.new
-      end
-
-      def dump_v2(name, options = {})
-        dump_archive(name, options) { |opt| dump_tables_v2(opt[:tables_path]) }
-      end
-
-      def restore_v2(archive_path, name, options = {})
-        restore_dump(archive_path, name, options) do |data_options|
-          data_options = data_options.dup
-          tenant_name = data_options.delete(:tenant_name)
-          Fixturing.restore(tenant_name, **data_options)
+        def semaphore
+          @@semaphore ||= Mutex.new
         end
-      end
 
-      def dump_v3(name, options = {})
-        dump_archive(name, options) { |opt| dump_tables_v3(opt) }
-      end
-
-      def restore_v3(archive_path, name, options = {})
-        restore_dump(archive_path, name, options) do |opt|
-          tenant_name = opt[:tenant_name]
-          restore_tables_v3(opt)
-          Fixturing.migrate(tenant_name, origin: opt[:version])
+        def dump_v2(name, options = {})
+          dump_archive(name, options) { |opt| dump_tables_v2(opt[:tables_path]) }
         end
-      end
 
-      def dump_archive(name, options = {})
-        destination_path = options.delete(:path) || Rails.root.join('tmp', 'archives')
-        switch(name) do
-          archive_file = destination_path.join("#{name}.zip")
-          archive_path = destination_path.join("#{name}-dump")
+        def restore_v2(archive_path, name, options = {})
+          restore_dump(archive_path, name, options) do |data_options|
+            data_options = data_options.dup
+            tenant_name = data_options.delete(:tenant_name)
+            Fixturing.restore(tenant_name, **data_options)
+          end
+        end
+
+        def dump_v3(name, options = {})
+          dump_archive(name, options) { |opt| dump_tables_v3(opt) }
+        end
+
+        def restore_v3(archive_path, name, options = {})
+          restore_dump(archive_path, name, options) do |opt|
+            tenant_name = opt[:tenant_name]
+            restore_tables_v3(opt)
+            Fixturing.migrate(tenant_name, origin: opt[:version])
+          end
+        end
+
+        def dump_archive(name, options = {})
+          destination_path = options.delete(:path) || Rails.root.join('tmp', 'archives')
+          switch(name) do
+            archive_file = destination_path.join("#{name}.zip")
+            archive_path = destination_path.join("#{name}-dump")
+            tables_path = archive_path.join('tables')
+            files_path = archive_path.join('files')
+
+            FileUtils.rm_rf(archive_path)
+            FileUtils.mkdir_p(archive_path)
+
+            dump_options = options.merge(archive_path: archive_path,
+                                         tenant_name: name,
+                                         tables_path: tables_path)
+            version = yield(dump_options)
+
+            dump_files(files_path)
+            dump_mimetype(archive_path)
+            dump_manifest(archive_path, version, name, options)
+
+            FileUtils.rm_rf(archive_file)
+            zip_up(archive_path, into: archive_file)
+            FileUtils.rm_rf(archive_path)
+          end
+        end
+
+        def restore_dump(archive_path, name, options = {})
+          start = Time.current
+
           tables_path = archive_path.join('tables')
           files_path = archive_path.join('files')
 
-          FileUtils.rm_rf(archive_path)
-          FileUtils.mkdir_p(archive_path)
+          manifest = YAML.load_file(archive_path.join('manifest.yml')).symbolize_keys
 
-          dump_options = options.merge(archive_path: archive_path,
-                                       tenant_name: name,
-                                       tables_path: tables_path)
-          version = yield(dump_options)
-
-          dump_files(files_path)
-          dump_mimetype(archive_path)
-          dump_manifest(archive_path, version, name, options)
-
-          FileUtils.rm_rf(archive_file)
-          zip_up(archive_path, into: archive_file)
-          FileUtils.rm_rf(archive_path)
-        end
-      end
-
-      def restore_dump(archive_path, name, options = {})
-        start = Time.current
-
-        tables_path = archive_path.join('tables')
-        files_path = archive_path.join('files')
-
-        manifest = YAML.load_file(archive_path.join('manifest.yml')).symbolize_keys
-
-        database_version = manifest[:database_version].to_i
-        if database_version > ActiveRecord::Migrator.last_version
-          raise 'Too recent archive'
-        end
-
-        verbose = !options[:verbose].is_a?(FalseClass)
-        puts "Resetting tenant #{name}...".yellow if verbose
-        drop(name) if exist?(name)
-        create(name)
-
-        switch(name) do
-          if files_path.exist?
-            puts 'Restoring files...'.yellow if verbose
-            FileUtils.rm_rf private_directory
-            FileUtils.mv files_path, private_directory
-          else
-            puts 'No files to restore'.yellow if verbose
+          database_version = manifest[:database_version].to_i
+          if database_version > ActiveRecord::Migrator.last_version
+            raise 'Too recent archive'
           end
 
-          puts 'Restoring database and migrating...'.yellow if verbose
-          restore_options = options.merge(
-            tenant_name: name,
-            version: database_version,
-            path: tables_path,
-            verbose: verbose
-          )
-          yield(restore_options)
-          puts 'Restored!'.yellow if verbose
+          verbose = !options[:verbose].is_a?(FalseClass)
+          puts "Resetting tenant #{name}...".yellow if verbose
+          drop(name) if exist?(name)
+          create(name)
+
+          switch(name) do
+            if files_path.exist?
+              puts 'Restoring files...'.yellow if verbose
+              FileUtils.rm_rf private_directory
+              FileUtils.mv files_path, private_directory
+            else
+              puts 'No files to restore'.yellow if verbose
+            end
+
+            puts 'Restoring database and migrating...'.yellow if verbose
+            restore_options = options.merge(
+              tenant_name: name,
+              version: database_version,
+              path: tables_path,
+              verbose: verbose
+            )
+            yield(restore_options)
+            puts 'Restored!'.yellow if verbose
+          end
+
+          duration = Time.current - start
+          puts "Done! (#{duration.round(2)}s)".yellow if verbose
         end
 
-        duration = Time.current - start
-        puts "Done! (#{duration.round(2)}s)".yellow if verbose
-      end
-
-      def dump_mimetype(archive_path)
-        File.open(archive_path.join('mimetype'), 'wb') do |f|
-          f.write 'application/vnd.ekylibre.tenant.archive'
+        def dump_mimetype(archive_path)
+          File.open(archive_path.join('mimetype'), 'wb') do |f|
+            f.write 'application/vnd.ekylibre.tenant.archive'
+          end
         end
-      end
 
-      def dump_manifest(archive_path, version, name, options = {})
-        File.open(archive_path.join('manifest.yml'), 'wb') do |f|
-          options.update(
-            tenant: name,
-            format_version: 3,
-            database_version: version,
-            creation_at: Time.zone.now,
-            created_with: "Ekylibre #{Ekylibre::VERSION}".strip
-          )
-          f.write options.stringify_keys.to_yaml
+        def dump_manifest(archive_path, version, name, options = {})
+          File.open(archive_path.join('manifest.yml'), 'wb') do |f|
+            options.update(
+              tenant: name,
+              format_version: 3,
+              database_version: version,
+              creation_at: Time.zone.now,
+              created_with: "Ekylibre #{Ekylibre::VERSION}".strip
+            )
+            f.write options.stringify_keys.to_yaml
+          end
         end
-      end
 
-      def dump_files(files_path)
-        return unless private_directory.exist?
-        FileUtils.mkdir_p(files_path.dirname)
-        FileUtils.cp_r(private_directory.to_s, files_path.to_s)
-      end
-
-      def dump_tables_v2(options)
-        tables_path = options[:tables_path]
-        FileUtils.mkdir_p(tables_path)
-        Fixturing.extract(path: tables_path)
-      end
-
-      def dump_tables_v3(options)
-        path = options[:archive_path]
-        tenant = options[:tenant_name]
-        Dir.chdir path do
-          sh("pg_dump -n #{tenant} -x -O --dbname=#{db_url} > #{tenant}.sql")
-          sh("sed -i'' -e '/^CREATE SCHEMA/d' #{tenant}.sql")
-          sh("sed -i'' -e '/^SET search_path = /d' #{tenant}.sql")
+        def dump_files(files_path)
+          return unless private_directory.exist?
+          FileUtils.mkdir_p(files_path.dirname)
+          FileUtils.cp_r(private_directory.to_s, files_path.to_s)
         end
-        ActiveRecord::Migrator.current_version
-      end
 
-      def restore_tables_v3(options)
-        path = options[:path]
-        tenant_name = options[:tenant_name]
+        def dump_tables_v2(options)
+          tables_path = options[:tables_path]
+          FileUtils.mkdir_p(tables_path)
+          Fixturing.extract(path: tables_path)
+        end
 
-        # DROP/CREATE
-        sh("echo 'SET client_min_messages TO WARNING; DROP SCHEMA IF EXISTS \"#{tenant_name}\" CASCADE; SET client_min_messages TO NOTICE;' | psql --dbname=#{db_url}")
-        sh("echo 'CREATE SCHEMA \"#{tenant_name}\";' | psql --dbname=#{db_url}")
+        def dump_tables_v3(options)
+          path = options[:archive_path]
+          tenant = options[:tenant_name]
+          Dir.chdir path do
+            sh("pg_dump -n #{tenant} -x -O --dbname=#{db_url} > #{tenant}.sql")
+            sh("sed -i'' -e '/^CREATE SCHEMA/d' #{tenant}.sql")
+            sh("sed -i'' -e '/^SET search_path = /d' #{tenant}.sql")
+          end
+          ActiveRecord::Migrator.current_version
+        end
 
-        # Prepend SET search_path to sql
-        sh("echo 'SET search_path = \"#{tenant_name}\", postgis, lexicon, pg_catalog;' | cat - #{Shellwords.escape(options[:dump_file].to_s)} | psql --dbname=#{db_url}")
-      end
+        def restore_tables_v3(options)
+          path = options[:path]
+          tenant_name = options[:tenant_name]
 
-      def sh(command)
-        system(command)
-      end
+          # DROP/CREATE
+          sh("echo 'SET client_min_messages TO WARNING; DROP SCHEMA IF EXISTS \"#{tenant_name}\" CASCADE; SET client_min_messages TO NOTICE;' | psql --dbname=#{db_url}")
+          sh("echo 'CREATE SCHEMA \"#{tenant_name}\";' | psql --dbname=#{db_url}")
 
-      def db_url
-        user     = db_config['username']
-        host     = db_config['host']
-        port     = db_config['port'] || '5432'
-        dbname   = db_config['database']
-        password = db_config['password']
-        Shellwords.escape("postgresql://#{user}:#{password}@#{host}:#{port}/#{dbname}")
-      end
+          # Prepend SET search_path to sql
+          sh("echo 'SET search_path = \"#{tenant_name}\", postgis, lexicon, pg_catalog;' | cat - #{Shellwords.escape(options[:dump_file].to_s)} | psql --dbname=#{db_url}")
+        end
 
-      def db_config
-        Rails.application.config.database_configuration[Rails.env.to_s]
-      end
+        def sh(command)
+          system(command)
+        end
 
-      def zip_up(archive_path, into:)
-        Zip::File.open(into, Zip::File::CREATE) do |zile|
-          Dir.chdir archive_path do
-            Dir.glob('**/*').each do |path|
-              zile.add(path, archive_path.join(path))
+        def db_url
+          user     = db_config['username']
+          host     = db_config['host']
+          port     = db_config['port'] || '5432'
+          dbname   = db_config['database']
+          password = db_config['password']
+          Shellwords.escape("postgresql://#{user}:#{password}@#{host}:#{port}/#{dbname}")
+        end
+
+        def db_config
+          Rails.application.config.database_configuration[Rails.env.to_s]
+        end
+
+        def zip_up(archive_path, into:)
+          Zip::File.open(into, Zip::File::CREATE) do |zile|
+            Dir.chdir archive_path do
+              Dir.glob('**/*').each do |path|
+                zile.add(path, archive_path.join(path))
+              end
             end
           end
         end
-      end
     end
   end
 end

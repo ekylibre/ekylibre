@@ -191,17 +191,17 @@ class DelayValidator < ActiveModel::EachValidator
       I18n.translate(message_key, values: values.join(', '))
     end
 
-  def delay_arguments_for(language)
-    language = language.to_sym
-    keywords = Delay::TRANSLATIONS[language]&.keys
-  end
+    def delay_arguments_for(language)
+      language = language.to_sym
+      keywords = Delay::TRANSLATIONS[language]&.keys
+    end
 
-  def month_keywords_for(language)
-    language = language.to_sym
-    bom = Delay::MONTH_KEYWORDS[:bom][language]
-    eom = Delay::MONTH_KEYWORDS[:eom][language]
-    return nil unless bom || eom
-    (bom || []) + (eom || [])
-  end
+    def month_keywords_for(language)
+      language = language.to_sym
+      bom = Delay::MONTH_KEYWORDS[:bom][language]
+      eom = Delay::MONTH_KEYWORDS[:eom][language]
+      return nil unless bom || eom
+      (bom || []) + (eom || [])
+    end
 
 end

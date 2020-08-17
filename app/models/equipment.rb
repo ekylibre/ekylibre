@@ -374,12 +374,12 @@ class Equipment < Matter
       }
     end
 
-  def interpolations_for(component, lifespan)
-    {
-      equipment_name: name,
-      component_name: component.name,
-      remaining_time: lifespan.in(:hour).round(2).l(precision: 0)
-    }
-  end
+    def interpolations_for(component, lifespan)
+      {
+        equipment_name: name,
+        component_name: component.name,
+        remaining_time: lifespan.in(:hour).round(2).l(precision: 0)
+      }
+    end
 
 end

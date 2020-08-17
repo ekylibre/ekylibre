@@ -162,7 +162,7 @@ class InterventionOutput < InterventionProductParameter
       compute_name.join(' ')
     end
 
-  def output_name_count(name)
-    Plant.where('name like ?', "%#{Regexp.escape(name)}%").count
-  end
+    def output_name_count(name)
+      Plant.where('name like ?', "%#{Regexp.escape(name)}%").count
+    end
 end

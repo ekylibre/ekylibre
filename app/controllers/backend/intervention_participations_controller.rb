@@ -100,67 +100,67 @@ module Backend
                                                    working_periods_attributes: %i[id started_at stopped_at nature])
       end
 
-    def form_participations
-      form_participations = []
+      def form_participations
+        form_participations = []
 
-      return form_participations if params[:participations].blank?
+        return form_participations if params[:participations].blank?
 
-      params[:participations].each do |form_participation|
-        form_participations << InterventionParticipation.new(JSON.parse(form_participation))
+        params[:participations].each do |form_participation|
+          form_participations << InterventionParticipation.new(JSON.parse(form_participation))
+        end
+
+        form_participations
       end
 
-      form_participations
-    end
+      def intervention_tool
+        return nil if params[:product_id].nil?
 
-    def intervention_tool
-      return nil if params[:product_id].nil?
+        product = Product.find(params[:product_id])
 
-      product = Product.find(params[:product_id])
+        return nil unless product.is_a?(Equipment)
 
-      return nil unless product.is_a?(Equipment)
-
-      product
-    end
-
-    def intervention_started_at
-      return Time.parse(params['intervention_started_at']) if params['intervention_started_at'].present?
-
-      Time.now
-    end
-
-    def calculate_working_periods(intervention, participation)
-      participations = form_participations
-      tool = intervention_tool
-      auto_calcul_mode = params[:auto_calcul_mode]
-
-      return [] if !auto_calcul_mode.nil? &&
-                   auto_calcul_mode.to_sym == :false ||
-                   participations.blank? || tool.nil?
-
-      working_duration_params = { intervention: intervention,
-                                  participations: participations,
-                                  product: participation.product }
-
-      natures = [:intervention, (:travel if tool.try(:tractor?))].compact
-
-      compute_service = InterventionWorkingTimeDurationCalculationService
-                   .new(**working_duration_params)
-      previous_stopped_at = intervention_started_at
-
-      natures.map do |nature|
-        duration = compute_service.perform(nature: nature, modal: true)
-
-        stopped_at = previous_stopped_at + (duration * 60 * 60)
-
-        working_period = InterventionWorkingPeriod
-                           .new(nature: nature,
-                                started_at: previous_stopped_at,
-                                stopped_at: stopped_at)
-
-        previous_stopped_at = stopped_at
-
-        working_period
+        product
       end
-    end
+
+      def intervention_started_at
+        return Time.parse(params['intervention_started_at']) if params['intervention_started_at'].present?
+
+        Time.now
+      end
+
+      def calculate_working_periods(intervention, participation)
+        participations = form_participations
+        tool = intervention_tool
+        auto_calcul_mode = params[:auto_calcul_mode]
+
+        return [] if !auto_calcul_mode.nil? &&
+                     auto_calcul_mode.to_sym == :false ||
+                     participations.blank? || tool.nil?
+
+        working_duration_params = { intervention: intervention,
+                                    participations: participations,
+                                    product: participation.product }
+
+        natures = [:intervention, (:travel if tool.try(:tractor?))].compact
+
+        compute_service = InterventionWorkingTimeDurationCalculationService
+                     .new(**working_duration_params)
+        previous_stopped_at = intervention_started_at
+
+        natures.map do |nature|
+          duration = compute_service.perform(nature: nature, modal: true)
+
+          stopped_at = previous_stopped_at + (duration * 60 * 60)
+
+          working_period = InterventionWorkingPeriod
+                             .new(nature: nature,
+                                  started_at: previous_stopped_at,
+                                  stopped_at: stopped_at)
+
+          previous_stopped_at = stopped_at
+
+          working_period
+        end
+      end
   end
 end

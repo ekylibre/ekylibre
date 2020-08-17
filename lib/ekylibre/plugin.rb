@@ -366,18 +366,18 @@ module Ekylibre
         @view_path.join('snippets')
       end
 
-    def assets_directory
-      @root.join('app', 'assets')
-    end
+      def assets_directory
+        @root.join('app', 'assets')
+      end
 
-    def themes_directory
-      @root.join('app', 'themes')
-    end
+      def themes_directory
+        @root.join('app', 'themes')
+      end
 
-    def add_theme_asset(theme, file, type)
-      @themes_assets[theme] ||= {}
-      @themes_assets[theme][type] ||= []
-      @themes_assets[theme][type] << file
-    end
+      def add_theme_asset(theme, file, type)
+        @themes_assets[theme] ||= {}
+        @themes_assets[theme][type] ||= []
+        @themes_assets[theme][type] << file
+      end
   end
 end

@@ -94,9 +94,9 @@ module TimeLineable
       raise NotImplementedError, 'Private method :siblings must be implemented'
     end
 
-  def other_siblings
-    safe_id = id
-    safe_id ||= 0
-    siblings.where.not(id: safe_id)
-  end
+    def other_siblings
+      safe_id = id
+      safe_id ||= 0
+      siblings.where.not(id: safe_id)
+    end
 end

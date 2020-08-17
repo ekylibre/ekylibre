@@ -29,7 +29,7 @@ module Calculus
 
     protected
 
-    # Compute shift period  calculations
+      # Compute shift period  calculations
       def compute_shift(&_block)
         amount = @amount.dup
         return amount unless @shift > 0
@@ -58,70 +58,70 @@ module Calculus
         amount
       end
 
-    def compute_constant_rate_repayments
-      array = []
-      amount = compute_shift do |repayment|
-        array << repayment
-      end
-      m = (amount / @count).round(@precision)
-      @count.times do |_index|
-        repayment = {}
-        @interests.each do |name, rate|
-          repayment[name] = (amount * rate / @period).round(@precision)
+      def compute_constant_rate_repayments
+        array = []
+        amount = compute_shift do |repayment|
+          array << repayment
         end
-        @insurances.each do |name, rate|
-          repayment[name] = send(@insurance_method, rate, amount)
+        m = (amount / @count).round(@precision)
+        @count.times do |_index|
+          repayment = {}
+          @interests.each do |name, rate|
+            repayment[name] = (amount * rate / @period).round(@precision)
+          end
+          @insurances.each do |name, rate|
+            repayment[name] = send(@insurance_method, rate, amount)
+          end
+          repayment[:base_amount] = m
+          amount -= repayment[:base_amount]
+          repayment[:remaining_amount] = amount
+          array << repayment
         end
-        repayment[:base_amount] = m
-        amount -= repayment[:base_amount]
-        repayment[:remaining_amount] = amount
-        array << repayment
-      end
-      array
-    end
-
-    def compute_constant_amount_repayments
-      array = []
-      amount = compute_shift do |repayment|
-        array << repayment
-      end
-      in_rate = []
-      in_rate << @interests
-      in_rate << @insurances if @insurance_method == :compute_to_repay_insurance
-
-      global_rate = in_rate.map(&:values).flatten.sum / @period
-      repayment_amount = if global_rate == 0
-                           amount / @count
-                         else
-                           amount * global_rate / (1 - ((1 + global_rate)**-@count))
+        array
       end
 
-      @count.times do |_index|
-        repayment = {}
-        @interests.each do |name, rate|
-          repayment[name] = (amount * rate / @period).round(@precision)
+      def compute_constant_amount_repayments
+        array = []
+        amount = compute_shift do |repayment|
+          array << repayment
         end
-        @insurances.each do |name, rate|
-          repayment[name] = send(@insurance_method, rate, amount)
+        in_rate = []
+        in_rate << @interests
+        in_rate << @insurances if @insurance_method == :compute_to_repay_insurance
+
+        global_rate = in_rate.map(&:values).flatten.sum / @period
+        repayment_amount = if global_rate == 0
+                             amount / @count
+                           else
+                             amount * global_rate / (1 - ((1 + global_rate)**-@count))
         end
 
-        costs = repayment.slice(*in_rate.map(&:keys).flatten).values.sum
+        @count.times do |_index|
+          repayment = {}
+          @interests.each do |name, rate|
+            repayment[name] = (amount * rate / @period).round(@precision)
+          end
+          @insurances.each do |name, rate|
+            repayment[name] = send(@insurance_method, rate, amount)
+          end
 
-        repayment[:base_amount] = (repayment_amount - costs).round(@precision)
-        amount -= repayment[:base_amount]
-        repayment[:remaining_amount] = amount
-        array << repayment
+          costs = repayment.slice(*in_rate.map(&:keys).flatten).values.sum
+
+          repayment[:base_amount] = (repayment_amount - costs).round(@precision)
+          amount -= repayment[:base_amount]
+          repayment[:remaining_amount] = amount
+          array << repayment
+        end
+        array
       end
-      array
-    end
 
-    def compute_initial_insurance(rate, _amount)
-      compute_insurance(rate, @amount)
-    end
+      def compute_initial_insurance(rate, _amount)
+        compute_insurance(rate, @amount)
+      end
 
-    def compute_insurance(rate, amount)
-      (amount * rate / @period).round(@precision)
-    end
-    alias compute_to_repay_insurance compute_insurance
+      def compute_insurance(rate, amount)
+        (amount * rate / @period).round(@precision)
+      end
+      alias compute_to_repay_insurance compute_insurance
   end
 end

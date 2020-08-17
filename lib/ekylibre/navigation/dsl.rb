@@ -52,12 +52,12 @@ module Ekylibre
           @stack.first
         end
 
-      def yield_in_node(node, &_block)
-        @stack ||= []
-        @stack.insert(0, node)
-        yield
-        @stack.shift
-      end
+        def yield_in_node(node, &_block)
+          @stack ||= []
+          @stack.insert(0, node)
+          yield
+          @stack.shift
+        end
     end
   end
 end

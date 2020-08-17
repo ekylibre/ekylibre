@@ -115,25 +115,25 @@ module WorkingSet
         end
       end
 
-    def find_nomenclature_item(nomenclature, name)
-      unless item = Nomen[nomenclature].find(name)
-        raise InvalidExpression, "Unknown item in #{nomenclature} nomenclature: #{name}"
+      def find_nomenclature_item(nomenclature, name)
+        unless item = Nomen[nomenclature].find(name)
+          raise InvalidExpression, "Unknown item in #{nomenclature} nomenclature: #{name}"
+        end
+        item
       end
-      item
-    end
 
-    def column_for(name)
-      if @tables[name].is_a?(Symbol)
-        return "#{@tables[name]}.#{name}"
-      elsif @tables[name].is_a?(String)
-        return @tables[name]
+      def column_for(name)
+        if @tables[name].is_a?(Symbol)
+          return "#{@tables[name]}.#{name}"
+        elsif @tables[name].is_a?(String)
+          return @tables[name]
+        end
+        name
       end
-      name
-    end
 
-    def indicator_test(type, exp)
-      column = column_for("#{type}_indicators_list".to_sym)
-      "(#{column} IS NOT NULL AND #{column} ~ #{exp})"
-    end
+      def indicator_test(type, exp)
+        column = column_for("#{type}_indicators_list".to_sym)
+        "(#{column} IS NOT NULL AND #{column} ~ #{exp})"
+      end
   end
 end

@@ -218,21 +218,21 @@ module Backend
         params.require(:journal_entry).permit(:printed_on, :journal_id, :number, :real_currency_rate, items_attributes: %i[id name variant_id account_id real_debit real_credit activity_budget_id project_budget_id team_id equipment_id _destroy])
       end
 
-    def notify_global_errors
-      @journal_entry.errors.messages.except(:printed_on).each do |field, messages|
-        next if /items\./ =~ field
-        messages.each { |m| notify_error_now m }
+      def notify_global_errors
+        @journal_entry.errors.messages.except(:printed_on).each do |field, messages|
+          next if /items\./ =~ field
+          messages.each { |m| notify_error_now m }
+        end
       end
-    end
 
-    def find_and_check_updateability
-      return false unless (@journal_entry = find_and_check)
-      unless @journal_entry.updateable?
-        notify_error(:journal_entry_already_validated)
-        redirect_to_back
-        return
+      def find_and_check_updateability
+        return false unless (@journal_entry = find_and_check)
+        unless @journal_entry.updateable?
+          notify_error(:journal_entry_already_validated)
+          redirect_to_back
+          return
+        end
+        @journal_entry
       end
-      @journal_entry
-    end
   end
 end

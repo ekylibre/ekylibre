@@ -56,18 +56,18 @@ module Backend
         params.permit!
       end
 
-    def find_credited_sale
-      return false unless @credited_sale = find_and_check(:sale, params[:credited_sale_id])
-      unless @credited_sale.cancellable?
-        notify_error :the_sales_invoice_is_not_cancellable
-        redirect_to params[:redirect] || { action: :index }
-        return false
+      def find_credited_sale
+        return false unless @credited_sale = find_and_check(:sale, params[:credited_sale_id])
+        unless @credited_sale.cancellable?
+          notify_error :the_sales_invoice_is_not_cancellable
+          redirect_to params[:redirect] || { action: :index }
+          return false
+        end
       end
-    end
 
-    def render_form
-      @form_url = backend_sale_credits_path(credited_sale_id: @credited_sale.id)
-      # render locals: {cancel_url: backend_sales_path}
-    end
+      def render_form
+        @form_url = backend_sale_credits_path(credited_sale_id: @credited_sale.id)
+        # render locals: {cancel_url: backend_sales_path}
+      end
   end
 end

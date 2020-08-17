@@ -713,56 +713,56 @@ module Clean
           Rails.root.join('config', 'locales', @locale.to_s)
         end
 
-      def log(text)
-        return unless @log
-        @log.write(text)
-        @log.flush
-      end
-
-      def write(file, translation, total, untranslated = 0)
-        file = locale_dir.join(file) if file.is_a?(String)
-        File.write(file, translation.strip.gsub(/\ +\n/, "\n"))
-        log "  - #{(file.basename.to_s + ':').ljust(20)} #{(100 * (total - untranslated) / total).round.to_s.rjust(3)}% (#{total - untranslated}/#{total})\n"
-        @total += total
-        @count += total - untranslated
-      end
-
-      def scrut
-        s = Scrutator.new
-        yield s
-        s
-      end
-
-      def translate(basename)
-        file = locale_dir.join(basename)
-        ref = load_file(file)
-        translation = "#{locale}:\n"
-        scrutator = scrut do |s|
-          yield(ref, translation, s)
+        def log(text)
+          return unless @log
+          @log.write(text)
+          @log.flush
         end
-        write(file, translation, scrutator.to_translate, scrutator.untranslated)
-      end
 
-      def watched_files
-        '{app,config,db,lib,test}/**/*.{rb,haml,erb}'
-      end
+        def write(file, translation, total, untranslated = 0)
+          file = locale_dir.join(file) if file.is_a?(String)
+          File.write(file, translation.strip.gsub(/\ +\n/, "\n"))
+          log "  - #{(file.basename.to_s + ':').ljust(20)} #{(100 * (total - untranslated) / total).round.to_s.rjust(3)}% (#{total - untranslated}/#{total})\n"
+          @total += total
+          @count += total - untranslated
+        end
 
-      def missing_prompt
-        Clean::Support.missing_prompt
-      end
+        def scrut
+          s = Scrutator.new
+          yield s
+          s
+        end
 
-      def clean_file!(basename)
-        yaml_file = locale_dir.join("#{basename}.yml")
-        return unless yaml_file.exist?
-        translation, total = Clean::Support.hash_sort_and_count(Clean::Support.yaml_to_hash(yaml_file))
-        write(yaml_file, translation, total)
-      end
+        def translate(basename)
+          file = locale_dir.join(basename)
+          ref = load_file(file)
+          translation = "#{locale}:\n"
+          scrutator = scrut do |s|
+            yield(ref, translation, s)
+          end
+          write(file, translation, scrutator.to_translate, scrutator.untranslated)
+        end
 
-      def load_file(file)
-        Clean::Support.yaml_to_hash(file)[locale] || {}
-      rescue
-        {}
-      end
+        def watched_files
+          '{app,config,db,lib,test}/**/*.{rb,haml,erb}'
+        end
+
+        def missing_prompt
+          Clean::Support.missing_prompt
+        end
+
+        def clean_file!(basename)
+          yaml_file = locale_dir.join("#{basename}.yml")
+          return unless yaml_file.exist?
+          translation, total = Clean::Support.hash_sort_and_count(Clean::Support.yaml_to_hash(yaml_file))
+          write(yaml_file, translation, total)
+        end
+
+        def load_file(file)
+          Clean::Support.yaml_to_hash(file)[locale] || {}
+        rescue
+          {}
+        end
     end
 
     def self.run!(reference = nil)

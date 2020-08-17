@@ -258,35 +258,35 @@ class Inspection < Ekylibre::Record::Base
 
   protected
 
-  # CODE FACTORING
+    # CODE FACTORING
 
     def mappable(method, dimension)
       ->(point_or_calib) { point_or_calib.send(method, dimension) }
     end
 
-  # Returns the sum of measurements on a scale if one is provided or the average
-  # of measurements across all scales if none is.
-  def calibration_values(dimension, method_name, scale = nil, marketable = false)
-    on_scales = [scale]
-    on_scales = scales if scale.nil?
-    return 0 if on_scales.empty?
-    sum_per_calib = on_scales.map do |s|
-      calib = calibrations.of_scale(s)
-      calib = calib.marketable if marketable
-      calib.map(&mappable(method_name, dimension)).compact.sum
+    # Returns the sum of measurements on a scale if one is provided or the average
+    # of measurements across all scales if none is.
+    def calibration_values(dimension, method_name, scale = nil, marketable = false)
+      on_scales = [scale]
+      on_scales = scales if scale.nil?
+      return 0 if on_scales.empty?
+      sum_per_calib = on_scales.map do |s|
+        calib = calibrations.of_scale(s)
+        calib = calib.marketable if marketable
+        calib.map(&mappable(method_name, dimension)).compact.sum
+      end
+      sum_per_calib.compact.reject(&:zero?).sum / sum_per_calib.size
     end
-    sum_per_calib.compact.reject(&:zero?).sum / sum_per_calib.size
-  end
 
-  def sum_on_points(method, from: nil, with: nil, round: false)
-    sum = points_of_category(from)
-          .map(&mappable(method, with))
-          .sum
-    round ? sum.round(round) : sum
-  end
+    def sum_on_points(method, from: nil, with: nil, round: false)
+      sum = points_of_category(from)
+            .map(&mappable(method, with))
+            .sum
+      round ? sum.round(round) : sum
+    end
 
-  def sum_column_on(points, dimension)
-    column = column_for(dimension)
-    points.sum(column).in quantity_unit(dimension)
-  end
+    def sum_column_on(points, dimension)
+      column = column_for(dimension)
+      points.sum(column).in quantity_unit(dimension)
+    end
 end

@@ -149,7 +149,7 @@ class Sequence < Ekylibre::Record::Base
 
   protected
 
-  # Compute next counters values
+    # Compute next counters values
     def next_counters(today = nil)
       today ||= Time.zone.today
       counters = { year: today.year, month: today.month, cweek: today.cweek }
@@ -169,8 +169,8 @@ class Sequence < Ekylibre::Record::Base
       counters
     end
 
-  # Compute number with number_format and given counters
-  def compute(counters)
-    self.class.compute(number_format, counters)
-  end
+    # Compute number with number_format and given counters
+    def compute(counters)
+      self.class.compute(number_format, counters)
+    end
 end

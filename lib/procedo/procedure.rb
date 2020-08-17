@@ -250,10 +250,10 @@ module Procedo
 
       attr_reader :root_group
 
-    def action_selection(list)
-      list.map do |action|
-        [action.human_name, action.name]
+      def action_selection(list)
+        list.map do |action|
+          [action.human_name, action.name]
+        end
       end
-    end
   end
 end

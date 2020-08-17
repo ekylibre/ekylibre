@@ -61,13 +61,13 @@ class Progress
         build(name, id: id).tap(&:read_only!)
       end
 
-    def registration(name, id)
-      name = name.to_s
-      unregister(name, id: id) unless File.exist?(file_for(name, id))
-      @progresses &&
-        @progresses[name.underscore] &&
-        @progresses[name.underscore][id]
-    end
+      def registration(name, id)
+        name = name.to_s
+        unregister(name, id: id) unless File.exist?(file_for(name, id))
+        @progresses &&
+          @progresses[name.underscore] &&
+          @progresses[name.underscore][id]
+      end
   end
 
   def counting?

@@ -184,7 +184,7 @@ class Plant < Bioproduct
 
   private
 
-  # FIXME: Why this code is here??? Not linked to Plant
+    # FIXME: Why this code is here??? Not linked to Plant
     def curves(collection, set_first_val, get_value, get_name, round = 2)
       hashes = inspections.reorder(:sampled_at).map do |intervention|
         pairs = collection.map do |grouping_crit|
@@ -200,28 +200,28 @@ class Plant < Bioproduct
       merge_all(hashes)
     end
 
-  # FIXME: Why this code is here??? Not linked to Plant
-  # [ {[1]}, {[2]}, {[3]} ] => { [1,2], [3] }
-  def merge_all(hashes)
-    hashes.reduce do |final, caliber_hash|
-      final.merge(caliber_hash) { |_k, old_val, new_val| old_val + new_val }
+    # FIXME: Why this code is here??? Not linked to Plant
+    # [ {[1]}, {[2]}, {[3]} ] => { [1,2], [3] }
+    def merge_all(hashes)
+      hashes.reduce do |final, caliber_hash|
+        final.merge(caliber_hash) { |_k, old_val, new_val| old_val + new_val }
+      end
     end
-  end
 
-  # FIXME: Why this code is here??? Not linked to Plant
-  # [[1, 2], [1, 3], [2, 3]] => { 1: [2, 3], 2: [3] }
-  def pairs_to_hash(array_of_pairs)
-    array_of_pairs
-      .group_by(&:first)
-      .map { |crit, g_pairs| [crit, g_pairs.map(&:last)] }
-      .to_h
-  end
-
-  def link_to_production
-    outputs = InterventionOutput.where(product: self, reference_name: 'plant')
-    unless outputs.empty?
-      ap = outputs.first.intervention.targets.where(reference_name: 'land_parcel').first.product.activity_production
-      update(activity_production: ap)
+    # FIXME: Why this code is here??? Not linked to Plant
+    # [[1, 2], [1, 3], [2, 3]] => { 1: [2, 3], 2: [3] }
+    def pairs_to_hash(array_of_pairs)
+      array_of_pairs
+        .group_by(&:first)
+        .map { |crit, g_pairs| [crit, g_pairs.map(&:last)] }
+        .to_h
     end
-  end
+
+    def link_to_production
+      outputs = InterventionOutput.where(product: self, reference_name: 'plant')
+      unless outputs.empty?
+        ap = outputs.first.intervention.targets.where(reference_name: 'land_parcel').first.product.activity_production
+        update(activity_production: ap)
+      end
+    end
 end

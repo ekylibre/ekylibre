@@ -68,48 +68,48 @@ module Backend
         self.class::Trade.new(trade_params.merge(third_param))
       end
 
-    def new_payment(third, at)
-      return self.class::Payment.find_by(id: affair_params[:payment_id]) if @mode_for[:payment] =~ /existing/
-      payment_attributes = payment_params
-                           .except(:bank_statement_item_ids)
-                           .merge(self.class::Payment.third_attribute => third)
-                           .merge(responsible: current_user, to_bank_at: at, paid_at: at)
-      self.class::Payment.new payment_attributes
-    end
+      def new_payment(third, at)
+        return self.class::Payment.find_by(id: affair_params[:payment_id]) if @mode_for[:payment] =~ /existing/
+        payment_attributes = payment_params
+                             .except(:bank_statement_item_ids)
+                             .merge(self.class::Payment.third_attribute => third)
+                             .merge(responsible: current_user, to_bank_at: at, paid_at: at)
+        self.class::Payment.new payment_attributes
+      end
 
-    def use_existing?(name)
-      params[:affair][:"use_existing_#{name}"].present?
-    end
+      def use_existing?(name)
+        params[:affair][:"use_existing_#{name}"].present?
+      end
 
-    def trade_params
-      params.require(:trade)
-            .permit :invoiced_at,
-                    :nature_id,
-                    :reference_number,
-                    :tax_payability,
-                    :description,
-                    items_attributes: %i[
-                      variant_id
-                      quantity
-                      amount
-                      tax_id
-                      reduction_percentage
-                      unit_pretax_amount
-                    ]
-    end
+      def trade_params
+        params.require(:trade)
+              .permit :invoiced_at,
+                      :nature_id,
+                      :reference_number,
+                      :tax_payability,
+                      :description,
+                      items_attributes: %i[
+                        variant_id
+                        quantity
+                        amount
+                        tax_id
+                        reduction_percentage
+                        unit_pretax_amount
+                      ]
+      end
 
-    def payment_params
-      params.require(:payment)
-            .permit :mode_id,
-                    :amount,
-                    :bank_statement_item_ids
-    end
+      def payment_params
+        params.require(:payment)
+              .permit :mode_id,
+                      :amount,
+                      :bank_statement_item_ids
+      end
 
-    def affair_params
-      params.require(:affair)
-            .permit :trade_id,
-                    :third_id,
-                    :payment_id
-    end
+      def affair_params
+        params.require(:affair)
+              .permit :trade_id,
+                      :third_id,
+                      :payment_id
+      end
   end
 end

@@ -92,43 +92,43 @@ module Lexicon
 
       private
 
-      # @return [PG::Connection]
+        # @return [PG::Connection]
         attr_reader :connection
 
-      def disable_notices
-        query <<~SQL
+        def disable_notices
+          query <<~SQL
               SET client_min_messages TO WARNING;
-        SQL
-      end
-
-      def with_search_path(*path, &block)
-        return if block.nil?
-
-        begin
-          saved_path = @search_path
-          @search_path = path
-
-          query <<~SQL
-                SET search_path TO #{path.map { |part| "\"#{part}\"" }.join(', ')};
           SQL
-
-          result = block.call
-
-          result
-        ensure
-          path = if saved_path.any?
-                   saved_path.map { |part| "\"#{part}\"" }.join(', ')
-                 else
-                   '" "'
-                 end
-
-          query <<~SQL
-              SET search_path TO #{path};
-          SQL
-
-          @search_path = saved_path
         end
-      end
+
+        def with_search_path(*path, &block)
+          return if block.nil?
+
+          begin
+            saved_path = @search_path
+            @search_path = path
+
+            query <<~SQL
+                SET search_path TO #{path.map { |part| "\"#{part}\"" }.join(', ')};
+            SQL
+
+            result = block.call
+
+            result
+          ensure
+            path = if saved_path.any?
+                     saved_path.map { |part| "\"#{part}\"" }.join(', ')
+                   else
+                     '" "'
+                   end
+
+            query <<~SQL
+              SET search_path TO #{path};
+            SQL
+
+            @search_path = saved_path
+          end
+        end
     end
   end
 end

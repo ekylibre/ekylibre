@@ -27,9 +27,9 @@ namespace :journal_entry_error do
     end
 
 
-  def find_invalid_journal_entries
-    list_of_invalid = JournalEntry.where(state: [:draft, :confirmed]).select(:number).group(:number).having("count(*) > 1").all
-    @invalids = list_of_invalid.map { |a| JournalEntry.where(number: a.number, state: [:confirmed, :draft]) }.flatten
-  end
+    def find_invalid_journal_entries
+      list_of_invalid = JournalEntry.where(state: [:draft, :confirmed]).select(:number).group(:number).having("count(*) > 1").all
+      @invalids = list_of_invalid.map { |a| JournalEntry.where(number: a.number, state: [:confirmed, :draft]) }.flatten
+    end
 
 end

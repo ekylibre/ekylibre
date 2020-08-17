@@ -64,7 +64,7 @@ module FEC
                 FROM outgoing_payments
               ) AS p ON (p.id = je.resource_id AND p.type = je.resource_type)
             LEFT JOIN entities AS t ON (t.id = p.third_id)
-        SQL
+          SQL
 
           if %w[ba_ir_cash_accountancy bnc_ir_cash_accountancy].include? fiscal_position
             query += <<-SQL.strip_heredoc
@@ -79,14 +79,14 @@ module FEC
                 JOIN outgoing_payment_modes ON outgoing_payment_modes.id = outgoing_payments.mode_id
                 ORDER BY "paid_at" ASC)
             ) AS payments ON (payments.id = je.resource_id AND payments.type = je.resource_type)
-          SQL
+            SQL
           end
 
           query += <<-SQL.strip_heredoc
           WHERE jei.journal_id IN (#{journals.pluck(:id).join(', ')}) AND jei.balance <> 0.0
           AND j.nature <> 'closure' AND a.number ~ '\\\A[1-7]'
           ORDER BY je.validated_at::DATE, je.continuous_number, je.created_at
-        SQL
+          SQL
 
           ::CSV.generate col_sep: '|', encoding: 'ISO-8859-15' do |csv|
             csv << columns.keys

@@ -122,7 +122,7 @@ module Visualization
 
     protected
 
-    # Build a data structure for popup building
+      # Build a data structure for popup building
       def compile_visualization_popup(object, item)
         if object.is_a?(TrueClass)
           hash = { header: item[:name] }
@@ -190,25 +190,25 @@ module Visualization
         end
       end
 
-    def compile_block(*args)
-      options = args.extract_options!
-      info = args.shift
-      type = args.shift || options[:type]
-      if info.is_a? String
-        block = { type: type, content: info }
-      elsif info.is_a? TrueClass
-        if options[:content]
-          block = { type: type, content: options[:content] }
+      def compile_block(*args)
+        options = args.extract_options!
+        info = args.shift
+        type = args.shift || options[:type]
+        if info.is_a? String
+          block = { type: type, content: info }
+        elsif info.is_a? TrueClass
+          if options[:content]
+            block = { type: type, content: options[:content] }
+          else
+            raise StandardError, 'Option :content must be given when info is a TrueClass'
+          end
+        elsif info.is_a? Hash
+          block = info.merge(type: type)
         else
-          raise StandardError, 'Option :content must be given when info is a TrueClass'
+          raise StandardError, "Not implemented #{type} for #{object.class}"
         end
-      elsif info.is_a? Hash
-        block = info.merge(type: type)
-      else
-        raise StandardError, "Not implemented #{type} for #{object.class}"
+        block
       end
-      block
-    end
   end
 end
 

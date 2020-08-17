@@ -51,12 +51,12 @@ module Backend
                   ])
       end
 
-    def valid_permitted_params
-      permitted_params.tap do |param|
-        (param[:fields_attributes] || {}).values
-                                         .select { |value| value[:id].nil? }
-                                         .each { |value| value[:type] = NamingFormatFieldLandParcel.to_s }
+      def valid_permitted_params
+        permitted_params.tap do |param|
+          (param[:fields_attributes] || {}).values
+                                           .select { |value| value[:id].nil? }
+                                           .each { |value| value[:type] = NamingFormatFieldLandParcel.to_s }
+        end
       end
-    end
   end
 end

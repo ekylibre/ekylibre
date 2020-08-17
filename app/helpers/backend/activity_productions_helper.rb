@@ -114,8 +114,8 @@ module Backend
         number.round(2).to_s.to_f
       end
 
-    def pie_style
-      { type: 'pie', center: [50, 50], size: 100, show_in_legend: false, data_labels: { enabled: false } }
-    end
+      def pie_style
+        { type: 'pie', center: [50, 50], size: 100, show_in_legend: false, data_labels: { enabled: false } }
+      end
   end
 end

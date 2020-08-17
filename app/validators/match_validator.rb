@@ -20,33 +20,33 @@ class MatchValidator < ActiveModel::EachValidator
       options[:to_invalidate] || @attribute
     end
 
-  def reference
-    return @value unless options[:middleman]
-    middleman.send(@attribute)
-  end
+    def reference
+      return @value unless options[:middleman]
+      middleman.send(@attribute)
+    end
 
-  def middleman
-    middleman = options[:middleman]
-    return unless middleman
-    @record.send(middleman)
-  end
+    def middleman
+      middleman = options[:middleman]
+      return unless middleman
+      @record.send(middleman)
+    end
 
-  def with
-    @record.send(options[:with])
-  end
+    def with
+      @record.send(options[:with])
+    end
 
-  def comparison
-    with.send(@attribute)
-  end
+    def comparison
+      with.send(@attribute)
+    end
 
-  def empty_comparisons?
-    return with.blank? unless options[:middleman]
-    with.blank? && middleman.blank?
-  end
+    def empty_comparisons?
+      return with.blank? unless options[:middleman]
+      with.blank? && middleman.blank?
+    end
 
-  def equals?(val, oth)
-    val = val.to_s if val.is_a? Symbol
-    oth = oth.to_s if oth.is_a? Symbol
-    val == oth
-  end
+    def equals?(val, oth)
+      val = val.to_s if val.is_a? Symbol
+      oth = oth.to_s if oth.is_a? Symbol
+      val == oth
+    end
 end

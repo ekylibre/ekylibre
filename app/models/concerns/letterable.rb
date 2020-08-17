@@ -38,15 +38,15 @@ module Letterable
       end
     end
 
-  def letterable_items(bank_statement_items)
-    return false unless journal_entry && bank_statement_items.present?
+    def letterable_items(bank_statement_items)
+      return false unless journal_entry && bank_statement_items.present?
 
-    cash_id = bank_statement_items.first.cash.id
-    return false unless mode.cash_id == cash_id
+      cash_id = bank_statement_items.first.cash.id
+      return false unless mode.cash_id == cash_id
 
-    # items = BankStatementItem.where(id: bank_statement_items)
-    bank_items_balance = bank_statement_items.map(&:credit).compact.sum - bank_statement_items.map(&:debit).compact.sum
-    return false unless relative_amount == bank_items_balance
-    bank_statement_items
-  end
+      # items = BankStatementItem.where(id: bank_statement_items)
+      bank_items_balance = bank_statement_items.map(&:credit).compact.sum - bank_statement_items.map(&:debit).compact.sum
+      return false unless relative_amount == bank_items_balance
+      bank_statement_items
+    end
 end

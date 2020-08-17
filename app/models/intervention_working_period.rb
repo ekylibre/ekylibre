@@ -186,15 +186,15 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
       Time.diff(stopped_at, started_at)
     end
 
-  def first?
-    intervention_participation.working_periods.first == self
-  end
+    def first?
+      intervention_participation.working_periods.first == self
+    end
 
-  def last?
-    intervention_participation.working_periods.last == self
-  end
+    def last?
+      intervention_participation.working_periods.last == self
+    end
 
-  def index
-    intervention_participation.working_periods.find_index(self)
-  end
+    def index
+      intervention_participation.working_periods.find_index(self)
+    end
 end

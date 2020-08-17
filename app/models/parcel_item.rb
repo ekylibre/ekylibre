@@ -220,18 +220,18 @@ class ParcelItem < Ekylibre::Record::Base
       true
     end
 
-  def check_outgoing(_checked_at)
-    update! product: source_product
-  end
-
-
-  def existing_product_in_storage
-    similar_products = Product.where(variant: variant)
-
-    similar_products.find do |p|
-      location = p.localizations.last.container
-      owner = p.owner
-      location == storage && owner == Entity.of_company
+    def check_outgoing(_checked_at)
+      update! product: source_product
     end
-  end
+
+
+    def existing_product_in_storage
+      similar_products = Product.where(variant: variant)
+
+      similar_products.find do |p|
+        location = p.localizations.last.container
+        owner = p.owner
+        location == storage && owner == Entity.of_company
+      end
+    end
 end

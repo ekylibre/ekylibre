@@ -152,6 +152,6 @@ def grouped(children, groups)
   children.compact
           .reject { |c| c.type == :method }
           .group_by { |child| groups.detect { |v| v.contains?(child) } || :std }
-          .map { |k, e| [k, e.sort_by(&:path)] } #TODO use transform_values when ruby2.6 is here
+          .map { |k, e| [k, e.sort_by(&:path)] } #TODO: use transform_values when ruby2.6 is here
           .to_h
 end

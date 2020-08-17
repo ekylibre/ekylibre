@@ -38,33 +38,33 @@ module NamingFormats
           end
         end
 
-      def add_activity
-        return if @activity.nil?
+        def add_activity
+          return if @activity.nil?
 
-        @compute_name << @activity.name
-      end
+          @compute_name << @activity.name
+        end
 
-      def add_campaign
-        return if @campaign.nil? || @campaign.name.blank?
+        def add_campaign
+          return if @campaign.nil? || @campaign.name.blank?
 
-        @compute_name << @campaign.name
-      end
+          @compute_name << @campaign.name
+        end
 
-      def add_season
-        return if @season.nil? || @season.name.blank?
+        def add_season
+          return if @season.nil? || @season.name.blank?
 
-        @compute_name << @season.name
-      end
+          @compute_name << @season.name
+        end
 
-      def add_production_system
-        return if @activity.nil? || @activity.production_system_name.blank?
+        def add_production_system
+          return if @activity.nil? || @activity.production_system_name.blank?
 
-        @compute_name << @activity.human_production_system_name
-      end
+          @compute_name << @activity.human_production_system_name
+        end
 
-      def call_if_equal(field_value, format_field_name, method_callback)
-        method_callback.call if field_value.to_sym == format_field_name
-      end
+        def call_if_equal(field_value, format_field_name, method_callback)
+          method_callback.call if field_value.to_sym == format_field_name
+        end
     end
   end
 end

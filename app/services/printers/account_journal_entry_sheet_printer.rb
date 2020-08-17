@@ -4,7 +4,7 @@ module Printers
     include ApplicationHelper
 
     class << self
-      # TODO move this elsewhere when refactoring the Document Management System
+      # TODO: move this elsewhere when refactoring the Document Management System
       def build_key(period:, states:, account:)
         filters = [account.label.strip, period]
         filters.reject(&:blank?).join(' - ')
@@ -167,7 +167,7 @@ module Printers
       dataset = compute_dataset
       data_filters = dataset[:data_filters]
 
-      # TODO have to modify pdf_printer to return correct ODT file
+      # TODO: have to modify pdf_printer to return correct ODT file
       # @remi
       generate_report(template_path) do |r|
 

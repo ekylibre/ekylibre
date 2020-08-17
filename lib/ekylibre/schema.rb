@@ -65,27 +65,27 @@ module Ekylibre
           YAML.load_file(root.join('models.yml')).map(&:to_sym)
         end
 
-      def read_tables
-        hash = begin
-                 YAML.load_file(root.join('tables.yml')).deep_symbolize_keys
-               rescue
-                 {}
-               end
-        tables = {}.with_indifferent_access
-        for table, columns in hash
-          tables[table] = columns.each_with_object({}.with_indifferent_access) do |pair, h|
-            options = pair.second
-            type = options.delete(:type)
-            options[:null] = !options.delete(:required)
-            if ref = options[:references]
-              options[:references] = (ref.start_with?('~') ? ref[1..-1] : ref.to_sym)
+        def read_tables
+          hash = begin
+                   YAML.load_file(root.join('tables.yml')).deep_symbolize_keys
+                 rescue
+                   {}
+                 end
+          tables = {}.with_indifferent_access
+          for table, columns in hash
+            tables[table] = columns.each_with_object({}.with_indifferent_access) do |pair, h|
+              options = pair.second
+              type = options.delete(:type)
+              options[:null] = !options.delete(:required)
+              if ref = options[:references]
+                options[:references] = (ref.start_with?('~') ? ref[1..-1] : ref.to_sym)
+              end
+              h[pair.first] = Column.new(pair.first, type, options).freeze
+              h
             end
-            h[pair.first] = Column.new(pair.first, type, options).freeze
-            h
           end
+          tables
         end
-        tables
-      end
     end
   end
 end
