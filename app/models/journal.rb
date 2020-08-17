@@ -75,7 +75,7 @@ class Journal < Ekylibre::Record::Base
 
   scope :used_for, lambda { |nature|
     unless Journal.nature.values.include?(nature.to_s)
-      raise ArgumentError, "Journal#used_for must be one of these: #{Journal.nature.values.join(', ')}"
+      raise ArgumentError.new("Journal#used_for must be one of these: #{Journal.nature.values.join(', ')}")
     end
     where(nature: nature.to_s)
   }
@@ -172,7 +172,7 @@ class Journal < Ekylibre::Record::Base
     def get(name)
       name = name.to_s
       pref_name = "#{name}_journal"
-      raise ArgumentError, "Unvalid journal name: #{name.inspect}" unless self.class.preferences_reference.key? pref_name
+      raise ArgumentError.new("Unvalid journal name: #{name.inspect}") unless self.class.preferences_reference.key? pref_name
       unless journal = preferred(pref_name)
         journal = journals.find_by(nature: name)
         journal ||= journals.create!(name: tc("default.journals.#{name}"), nature: name, currency: default_currency)

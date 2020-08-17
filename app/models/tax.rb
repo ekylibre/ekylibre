@@ -135,7 +135,7 @@ class Tax < Ekylibre::Record::Base
     # Load a tax from tax nomenclature
     def import_from_nomenclature(reference_name, active = nil)
       unless item = Nomen::Tax.find(reference_name)
-        raise ArgumentError, "The tax #{reference_name.inspect} is not known"
+        raise ArgumentError.new("The tax #{reference_name.inspect} is not known")
       end
       tax = Tax.find_by(amount: item.amount, nature: item.nature, country: item.country)
       tax ||= Tax.find_by(reference_name: reference_name)
@@ -146,7 +146,7 @@ class Tax < Ekylibre::Record::Base
       end
       nature = Nomen::TaxNature.find(item.nature)
       if nature.computation_method != :percentage
-        raise StandardError, 'Can import only percentage computed taxes'
+        raise StandardError.new('Can import only percentage computed taxes')
       end
       attributes = {
         amount: item.amount,

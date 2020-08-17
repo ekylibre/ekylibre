@@ -238,7 +238,7 @@ class Equipment < Matter
 
   # Returns the list of replacements
   def replacements_of(component)
-    raise ArgumentError, 'Incompatible component' unless component.product_nature_variant == variant
+    raise ArgumentError.new('Incompatible component') unless component.product_nature_variant == variant
     part_replacements.where(component: component.self_and_parents)
   end
 

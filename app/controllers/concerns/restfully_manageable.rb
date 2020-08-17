@@ -110,7 +110,7 @@ module RestfullyManageable
         elsif Dir.glob(lookup.join('index.*')).any?
           code << "  redirect_to action: :index, '#{name}-id' => @#{record_name}.id\n"
         else
-          raise StandardError, "Cannot build a default show action without view for show or index actions in #{parents.map(&:controller_path).to_sentence(locale: :eng)} (#{lookup.join('show.*')})."
+          raise StandardError.new("Cannot build a default show action without view for show or index actions in #{parents.map(&:controller_path).to_sentence(locale: :eng)} (#{lookup.join('show.*')}).")
         end
         code << "end\n"
       end
@@ -259,7 +259,7 @@ module RestfullyManageable
       record_name = name.to_s.singularize
       model = name.to_s.singularize.classify.constantize
       records = model.name.underscore.pluralize
-      raise ArgumentError, "Unknown column for #{model.name}" unless model.columns_definition[order_by]
+      raise ArgumentError.new("Unknown column for #{model.name}") unless model.columns_definition[order_by]
       code = ''
       class_code = ''
 

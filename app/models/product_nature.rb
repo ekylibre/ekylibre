@@ -141,7 +141,7 @@ class ProductNature < Ekylibre::Record::Base
     if item = Nomen::WorkingSet.find(working_set)
       of_expression(item.expression)
     else
-      raise StandardError, "#{working_set.inspect} is not in Nomen::WorkingSet nomenclature"
+      raise StandardError.new("#{working_set.inspect} is not in Nomen::WorkingSet nomenclature")
     end
   }
 
@@ -375,7 +375,7 @@ class ProductNature < Ekylibre::Record::Base
     # Load a product nature from product nature nomenclature
     def import_from_nomenclature(reference_name, force = false)
       unless item = Nomen::ProductNature.find(reference_name)
-        raise ArgumentError, "The product nature #{reference_name.inspect} is unknown"
+        raise ArgumentError.new("The product nature #{reference_name.inspect} is unknown")
       end
       if !force && (nature = ProductNature.find_by(reference_name: reference_name))
         return nature
@@ -400,7 +400,7 @@ class ProductNature < Ekylibre::Record::Base
 
     def import_from_lexicon(reference_name, force = false)
       unless item = VariantNature.find_by(reference_name: reference_name)
-        raise ArgumentError, "The product nature #{reference_name.inspect} is unknown"
+        raise ArgumentError.new("The product nature #{reference_name.inspect} is unknown")
       end
       if !force && (nature = ProductNature.find_by(reference_name: reference_name))
         return nature

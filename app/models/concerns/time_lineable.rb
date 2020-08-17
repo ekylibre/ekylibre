@@ -91,7 +91,7 @@ module TimeLineable
   private
 
     def siblings
-      raise NotImplementedError, 'Private method :siblings must be implemented'
+      raise NotImplementedError.new('Private method :siblings must be implemented')
     end
 
     def other_siblings

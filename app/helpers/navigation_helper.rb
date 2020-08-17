@@ -37,7 +37,7 @@ module NavigationHelper
       }
     rescue ActiveRecord::StatementInvalid => e
       raise e unless (pg_error = e.original_exception).is_a?(PG::UndefinedColumn)
-      raise OrderingCriterionNotFound, pg_error
+      raise OrderingCriterionNotFound.new(pg_error)
     end
 
     def next_records(resource, order, scope)

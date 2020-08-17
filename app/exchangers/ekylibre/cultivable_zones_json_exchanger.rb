@@ -32,7 +32,7 @@ module Ekylibre
     private
 
       def ensure_clusters_valid_geojson(clusters)
-        raise ActiveExchanger::NotWellFormedFileError, 'File seems to be JSON but not GeoJSON.' if clusters['type'] != 'FeatureCollection'
+        raise ActiveExchanger::NotWellFormedFileError.new('File seems to be JSON but not GeoJSON.') if clusters['type'] != 'FeatureCollection'
       end
 
       def zones_overlapping(shape)

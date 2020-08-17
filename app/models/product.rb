@@ -188,7 +188,7 @@ class Product < Ekylibre::Record::Base
   }
   scope :of_working_set, lambda { |working_set|
     item = Nomen::WorkingSet.find(working_set)
-    raise StandardError, "#{working_set.inspect} is not in Nomen::WorkingSet nomenclature" unless item
+    raise StandardError.new("#{working_set.inspect} is not in Nomen::WorkingSet nomenclature") unless item
     of_expression(item.expression)
   }
   scope :of_expression, lambda { |expression|

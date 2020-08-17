@@ -41,12 +41,12 @@ module Indicateable
   # Measure a product for a given indicator
   def read!(indicator, value, options = {})
     unless indicator.present? && (indicator.is_a?(Nomen::Item) || (indicator = Nomen::Indicator.find(indicator)))
-      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
+      raise ArgumentError.new("Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}.")
     end
-    raise ArgumentError, 'Value must be given' if value.nil?
+    raise ArgumentError.new('Value must be given') if value.nil?
     unless options[:force]
       if frozen_indicators.include?(indicator)
-        raise ArgumentError, "A frozen indicator (#{indicator.name}) cannot be read"
+        raise ArgumentError.new("A frozen indicator (#{indicator.name}) cannot be read")
       end
     end
     options[:at] = Time.new(1, 1, 1, 0, 0, 0, '+00:00') if options[:at] == :origin
@@ -62,7 +62,7 @@ module Indicateable
   # Return the indicator reading
   def reading(indicator, options = {})
     unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
-      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
+      raise ArgumentError.new("Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}.")
     end
     read_at = options[:at] || Time.zone.now
     readings.where(indicator_name: indicator.name).where('read_at <= ?', read_at).order(read_at: :desc).first
@@ -79,7 +79,7 @@ module Indicateable
   # if option :interpolate is true, it returns the interpolated value
   def get(indicator, *args)
     unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
-      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
+      raise ArgumentError.new("Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}.")
     end
     options = args.extract_options!
     cast_or_time = args.shift || options[:cast] || options[:at] || Time.zone.now
@@ -88,9 +88,9 @@ module Indicateable
       # Find value
       if options[:interpolate]
         if %i[measure decimal integer].include?(indicator.datatype)
-          raise NotImplementedError, 'Interpolation is not available for now'
+          raise NotImplementedError.new('Interpolation is not available for now')
         end
-        raise StandardError, "Can not use :interpolate option with #{indicator.datatype.inspect} datatype"
+        raise StandardError.new("Can not use :interpolate option with #{indicator.datatype.inspect} datatype")
       elsif reading = self.reading(indicator.name, at: cast_or_time)
         value = reading.value
       elsif !options[:default].is_a?(FalseClass)
@@ -112,12 +112,12 @@ module Indicateable
         value = cast_or_time.send(indicator_name)
       elsif cast_or_time.parameter.new?
         unless variant = cast_or_time.variant || cast_or_time.parameter.variant(cast_or_time.intervention)
-          raise StandardError, "Need variant to know how to read it (#{cast_or_time.intervention.procedure_name}##{cast_or_time.reference_name})"
+          raise StandardError.new("Need variant to know how to read it (#{cast_or_time.intervention.procedure_name}##{cast_or_time.reference_name})")
         end
         if variant.frozen_indicators.include?(indicator)
           value = variant.get(indicator)
         else
-          raise StandardError, "Cannot find a frozen indicator #{indicator.name} for variant"
+          raise StandardError.new("Cannot find a frozen indicator #{indicator.name} for variant")
         end
       elsif reading = self.reading(indicator_name, at: cast_or_time.intervention.started_at)
         value = reading.value
@@ -138,7 +138,7 @@ module Indicateable
 
   def get!(indicator, *args)
     unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
-      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
+      raise ArgumentError.new("Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}.")
     end
     unless value = get(indicator, *args)
       raise "Cannot get value of #{indicator.name} for product ##{id}"
@@ -149,10 +149,10 @@ module Indicateable
   def density(numerator, denominator, options = {})
     # Check indicator
     unless numerator.is_a?(Nomen::Item) || numerator = Nomen::Indicator[numerator]
-      raise ArgumentError, "Unknown indicator #{numerator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
+      raise ArgumentError.new("Unknown indicator #{numerator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}.")
     end
     unless denominator.is_a?(Nomen::Item) || denominator = Nomen::Indicator[denominator]
-      raise ArgumentError, "Unknown indicator #{denominator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
+      raise ArgumentError.new("Unknown indicator #{denominator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}.")
     end
 
     # Find dimension and unit
@@ -205,7 +205,7 @@ module Indicateable
     whole_indicators_list.each do |indicator_name|
       operand_value = operand.send(indicator_name)
       unless operand_value
-        raise StandardError, "No given #{indicator_name} value"
+        raise StandardError.new("No given #{indicator_name} value")
       end
       indicator = Nomen::Indicator.find(indicator_name)
       # Perform operation
@@ -216,7 +216,7 @@ module Indicateable
       elsif operation == :substract
         value -= operand_value
       else
-        raise StandardError, "Unknown operation: #{operation.inspect}"
+        raise StandardError.new("Unknown operation: #{operation.inspect}")
       end
       # Read new value
       reading = readings.find_or_initialize_by(
@@ -241,7 +241,7 @@ module Indicateable
 
   def operate_on_readings(indicator, value, options = {})
     unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
-      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
+      raise ArgumentError.new("Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}.")
     end
     data = readings.where(indicator_name: indicator.name)
     operation = options.delete(:operation)
@@ -252,7 +252,7 @@ module Indicateable
     elsif operation == :substract
       expr = (indicator.datatype == :shape ? 'ST_Difference(VALUE, ?)' : 'VALUE - ?')
     else
-      raise StandardError, "Unknown operation: #{operation.inspect}"
+      raise StandardError.new("Unknown operation: #{operation.inspect}")
     end
     data.update_all(["VALUE = #{expr}".gsub('VALUE', "#{indicator.datatype}_value"), value])
   end

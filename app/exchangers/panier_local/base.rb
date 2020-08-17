@@ -26,7 +26,7 @@ module PanierLocal
                     error_many
                   end
 
-        raise UniqueResultExpectedError, message
+        raise UniqueResultExpectedError.new(message)
       elsif exact && size == 0
         message = if error_none.nil?
                     "Expected only one #{name}, got none"
@@ -36,7 +36,7 @@ module PanierLocal
                     error_none
                   end
 
-        raise UniqueResultExpectedError, message
+        raise UniqueResultExpectedError.new(message)
       else
         results.first
       end
@@ -136,7 +136,7 @@ module PanierLocal
       end
 
       def provider_name
-        raise StandardError, "Unimplemented!"
+        raise StandardError.new("Unimplemented!")
       end
 
       def provider_vendor

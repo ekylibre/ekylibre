@@ -74,7 +74,7 @@ module Clean
         model.reflect_on_all_associations(:belongs_to).select do |association|
           column = model.columns_hash[association.foreign_key.to_s]
           unless column
-            raise StandardError, "Column #{association.foreign_key} is missing. See #{association.active_record.name} at '#{association.macro} :#{association.name}'"
+            raise StandardError.new("Column #{association.foreign_key} is missing. See #{association.active_record.name} at '#{association.macro} :#{association.name}'")
           end
           !column.null && validable_column?(column)
         end.each do |reflection|

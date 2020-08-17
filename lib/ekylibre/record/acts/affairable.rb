@@ -163,7 +163,7 @@ module Ekylibre
             elsif options[:debit].is_a?(Symbol)
               code << "  return self.#{options[:debit]}\n"
             else
-              raise ArgumentError, 'Option :debit must be boolean or Symbol'
+              raise ArgumentError.new('Option :debit must be boolean or Symbol')
             end
             code << "end\n"
 

@@ -293,7 +293,7 @@ module Nomen
           [i.human_name, i.name]
         end
       else
-        raise StandardError, 'Cannot call selection for a non-list property'
+        raise StandardError.new('Cannot call selection for a non-list property')
       end
     end
 
@@ -330,7 +330,7 @@ module Nomen
       def item_for_comparison(other)
         item = nomenclature[other.is_a?(Item) ? other.name : other]
         unless item
-          raise StandardError, "Invalid operand to compare: #{other.inspect} not in #{nomenclature.name}"
+          raise StandardError.new("Invalid operand to compare: #{other.inspect} not in #{nomenclature.name}")
         end
         item
       end

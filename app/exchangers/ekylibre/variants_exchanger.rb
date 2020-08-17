@@ -95,7 +95,7 @@ module Ekylibre
                 unit = u.name.to_s
                 measure_unit_price = 1.00.in(unit.to_sym) if unit
               else
-                raise ActiveExchanger::NotWellFormedFileError, "Unknown unit #{unit.inspect} for variant #{variant.name.inspect}."
+                raise ActiveExchanger::NotWellFormedFileError.new("Unknown unit #{unit.inspect} for variant #{variant.name.inspect}.")
               end
             end
 
@@ -109,13 +109,13 @@ module Ekylibre
                 if indics.include?(default_indicators[dimension].to_s)
                   indicator = default_indicators[dimension]
                 else
-                  raise ActiveExchanger::NotWellFormedFileError, "Ambiguity on unit #{unit.inspect} for variant #{variant.name.inspect} between #{indics.to_sentence(locale: :eng)}. Cannot known what is wanted, insert indicator name after unit like: '#{unit} (#{indics.first})'."
+                  raise ActiveExchanger::NotWellFormedFileError.new("Ambiguity on unit #{unit.inspect} for variant #{variant.name.inspect} between #{indics.to_sentence(locale: :eng)}. Cannot known what is wanted, insert indicator name after unit like: '#{unit} (#{indics.first})'.")
                 end
               elsif indics.empty?
                 if unit == 'hour'
                   indicator = 'working_duration'
                 else
-                  raise ActiveExchanger::NotWellFormedFileError, "Unit #{unit.inspect} is invalid for variant #{variant.name.inspect}. No indicator can be used with this unit."
+                  raise ActiveExchanger::NotWellFormedFileError.new("Unit #{unit.inspect} is invalid for variant #{variant.name.inspect}. No indicator can be used with this unit.")
                 end
               else
                 indicator = indics.first

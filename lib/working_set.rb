@@ -38,7 +38,7 @@ module WorkingSet
     def parse(expression, options = {})
       @parser ||= ::WorkingSet::Parser.new
       unless tree = @parser.parse(expression.to_s, options)
-        raise SyntaxError, @parser.failure_reason + "\nExpression: " + expression.inspect
+        raise SyntaxError.new(@parser.failure_reason + "\nExpression: " + expression.inspect)
       end
       tree
     end

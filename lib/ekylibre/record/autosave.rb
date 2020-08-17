@@ -19,7 +19,7 @@ module Ekylibre
           code << "def #{method_name}\n"
           for reflection in reflections_list
             unless ref = reflect_on_association(reflection)
-              raise ArgumentError, "Reflection #{reflection.inspect} unknown (#{reflect_on_all_associations.map(&:name).to_sentence} available)"
+              raise ArgumentError.new("Reflection #{reflection.inspect} unknown (#{reflect_on_all_associations.map(&:name).to_sentence} available)")
             end
             if ref.macro == :belongs_to || ref.macro == :has_one
               code << "  if self.#{reflection} and not (self.#{reflection}.destroyed? or self.#{reflection}.marked_for_destruction?)\n"

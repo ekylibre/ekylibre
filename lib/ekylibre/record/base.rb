@@ -35,7 +35,7 @@ module Ekylibre
 
       def check_if_destroyable?
         unless destroyable?
-          raise RecordNotDestroyable, "#{self.class.name} ID=#{id} is not destroyable"
+          raise RecordNotDestroyable.new("#{self.class.name} ID=#{id} is not destroyable")
         end
       end
 

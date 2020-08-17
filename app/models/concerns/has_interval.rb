@@ -16,7 +16,7 @@ module HasInterval
                          elsif value.is_a?(String) && ActiveSupport::Duration.parse(value)
                            value
                          else
-                           raise ArgumentError, "Invalid duration: #{value}"
+                           raise ArgumentError.new("Invalid duration: #{value}")
                          end
         end
       end

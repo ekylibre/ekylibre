@@ -42,7 +42,7 @@ module ActiveExchanger
       if @exception.present?
         raise @exception
       else
-        raise ActiveExchanger::Error, @message
+        raise ActiveExchanger::Error.new(@message)
       end
     end
 

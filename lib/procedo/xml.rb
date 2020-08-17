@@ -215,7 +215,7 @@ module Procedo
       # Parse <parameter-group> element
       def parse_parameter_group(procedure, element, _options = {})
         unless element.has_attribute?('name')
-          raise Procedo::Errors::MissingAttribute, "Missing name for parameter-group in #{procedure.name} at line #{element.line}"
+          raise Procedo::Errors::MissingAttribute.new("Missing name for parameter-group in #{procedure.name} at line #{element.line}")
         end
         name = element.attr('name').to_sym
         options = {}

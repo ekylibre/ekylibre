@@ -34,7 +34,7 @@ module Procedo
       def indicator=(value)
         @indicator = value
         unless @indicator.respond_to?(:nomenclature) && @indicator.nomenclature.name == :indicators
-          raise Procedo::Errors::InvalidHandler, "Handler of #{@parameter.name} must have a valid 'indicator' attribute. Got: #{value.inspect}"
+          raise Procedo::Errors::InvalidHandler.new("Handler of #{@parameter.name} must have a valid 'indicator' attribute. Got: #{value.inspect}")
         end
         self.unit_name = indicator.unit if unit.nil? && measure?
       end
@@ -49,7 +49,7 @@ module Procedo
         raise 'Cant assign unit with indicator which is not a measure' unless measure?
         unit = Nomen::Unit.find(value)
         unless unit
-          raise Procedo::Errors::InvalidHandler, "Cannot find unit. Got: #{value.inspect}"
+          raise Procedo::Errors::InvalidHandler.new("Cannot find unit. Got: #{value.inspect}")
         end
         if @indicator
           indicator_dimension = Nomen::Unit.find(indicator.unit).dimension

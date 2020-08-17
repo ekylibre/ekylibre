@@ -46,7 +46,7 @@ module Ekylibre
           variants = ProductNatureVariant.find_or_import!(options[:variety] || model.name.underscore, derivative_of: options[:derivative_of])
           variants.can(options[:can]) if options[:can]
           unless attributes[:variant] = variants.first
-            raise StandardError, "Cannot find product variant with options #{options.inspect}"
+            raise StandardError.new("Cannot find product variant with options #{options.inspect}")
           end
           model.create!(attributes)
         end
@@ -75,14 +75,14 @@ module Ekylibre
           # Find procedure
           procedure = Procedo[procedure_name]
           unless procedure
-            raise ArgumentError, "Unknown procedure: #{procedure_name.inspect}"
+            raise ArgumentError.new("Unknown procedure: #{procedure_name.inspect}")
           end
 
           # Find actors
           booker = new(procedure, Time.new(year, month, day), duration)
           yield booker
           actors = booker.product_parameters.collect { |c| c[:actor] }.compact
-          raise ArgumentError, "What's the fuck ? No actors ? " if actors.empty?
+          raise ArgumentError.new("What's the fuck ? No actors ? ") if actors.empty?
 
           # Adds fixed durations to given time
           fixed_duration = procedure.fixed_duration / 3600
@@ -138,7 +138,7 @@ module Ekylibre
           # Find procedure
           procedure = Procedo[procedure_name]
           unless procedure
-            raise ArgumentError, "Unknown procedure: #{procedure_name.inspect}"
+            raise ArgumentError.new("Unknown procedure: #{procedure_name.inspect}")
           end
 
           # Adds fixed durations to given time
@@ -149,7 +149,7 @@ module Ekylibre
           booker = new(procedure, started_at, duration)
           yield booker
           actors = booker.product_parameters.collect { |c| c[:actor] }.compact
-          raise ArgumentError, "What's the fuck ? No actors ? " if actors.empty?
+          raise ArgumentError.new("What's the fuck ? No actors ? ") if actors.empty?
 
           # Find a slot for all actors for given day and given duration
           at = nil

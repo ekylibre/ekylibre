@@ -67,7 +67,7 @@ class DocumentTemplate < Ekylibre::Record::Base
     return none unless natures.respond_to?(:any?) && natures.any?
     invalids = natures.select { |nature| Nomen::DocumentNature[nature].nil? }
     if invalids.any?
-      raise ArgumentError, "Unknown nature(s) for a DocumentTemplate: #{invalids.map(&:inspect).to_sentence}"
+      raise ArgumentError.new("Unknown nature(s) for a DocumentTemplate: #{invalids.map(&:inspect).to_sentence}")
     end
     where(nature: natures, active: true).order(:name)
   }

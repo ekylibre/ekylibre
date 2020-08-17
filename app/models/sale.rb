@@ -445,7 +445,7 @@ class Sale < Ekylibre::Record::Base
   # Duplicates a +sale+ in estimate state with its items and its active
   # subscriptions
   def duplicate(attributes = {})
-    raise StandardError, 'Uncancelable sale' unless duplicatable?
+    raise StandardError.new('Uncancelable sale') unless duplicatable?
     hash = %i[
       client_id nature_id letter_format annotation subject
       function_title introduction conclusion description custom_fields

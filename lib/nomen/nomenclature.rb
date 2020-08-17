@@ -132,11 +132,11 @@ module Nomen
         elsif element.has_attribute?('nomenclature')
           options[:choices] = element.attr('nomenclature').to_s.strip.to_sym
         else
-          raise MissingChoices, "[#{@name}] Property #{name} must have nomenclature as choices"
+          raise MissingChoices.new("[#{@name}] Property #{name} must have nomenclature as choices")
         end
       end
       unless Nomen::PROPERTY_TYPES.include?(type)
-        raise ArgumentError, "Property #{name} type is unknown: #{type.inspect}"
+        raise ArgumentError.new("Property #{name} type is unknown: #{type.inspect}")
       end
       add_property(name, type, options)
     end
@@ -245,11 +245,11 @@ module Nomen
       # Check properties
       @properties.values.each do |property|
         if property.choices_nomenclature && !property.inline_choices? && !Nomen[property.choices_nomenclature.to_s]
-          raise InvalidPropertyNature, "[#{name}] #{property.name} nomenclature property must refer to an existing nomenclature. Got #{property.choices_nomenclature.inspect}. Expecting: #{Nomen.names.inspect}"
+          raise InvalidPropertyNature.new("[#{name}] #{property.name} nomenclature property must refer to an existing nomenclature. Got #{property.choices_nomenclature.inspect}. Expecting: #{Nomen.names.inspect}")
         end
         next unless property.type == :choice && property.default
         unless property.choices.include?(property.default)
-          raise InvalidPropertyNature, "The default choice #{property.default.inspect} is invalid (in #{name}##{property.name}). Pick one from #{property.choices.sort.inspect}."
+          raise InvalidPropertyNature.new("The default choice #{property.default.inspect} is invalid (in #{name}##{property.name}). Pick one from #{property.choices.sort.inspect}.")
         end
       end
 
@@ -261,14 +261,14 @@ module Nomen
             # Cleans for parametric reference
             name = item.property(property.name).to_s.split(/\(/).first.to_sym
             unless choices.include?(name)
-              raise InvalidProperty, "The given choice #{name.inspect} is invalid (in #{self.name}##{item.name}). Pick one from #{choices.sort.inspect}."
+              raise InvalidProperty.new("The given choice #{name.inspect} is invalid (in #{self.name}##{item.name}). Pick one from #{choices.sort.inspect}.")
             end
           elsif item.property(property.name) && property.type == :list && property.choices_nomenclature
             for name in item.property(property.name) || []
               # Cleans for parametric reference
               name = name.to_s.split(/\(/).first.to_sym
               unless choices.include?(name)
-                raise InvalidProperty, "The given choice #{name.inspect} is invalid (in #{self.name}##{item.name}). Pick one from #{choices.sort.inspect}."
+                raise InvalidProperty.new("The given choice #{name.inspect} is invalid (in #{self.name}##{item.name}). Pick one from #{choices.sort.inspect}.")
               end
             end
           end
@@ -401,7 +401,7 @@ module Nomen
     # found in nomenclature
     def find!(item_name)
       i = find(item_name)
-      raise ItemNotFound, "Cannot find item #{item_name.inspect} in #{name}" unless i
+      raise ItemNotFound.new("Cannot find item #{item_name.inspect} in #{name}") unless i
       i
     end
 
@@ -501,7 +501,7 @@ module Nomen
       if property = properties[name]
         if property.type == :choice || property.type == :item
           if value =~ /\,/
-            raise InvalidPropertyNature, 'A property nature of choice type cannot contain commas'
+            raise InvalidPropertyNature.new('A property nature of choice type cannot contain commas')
           end
           value = value.strip.to_sym
         elsif property.list?
@@ -516,12 +516,12 @@ module Nomen
           value = (value.blank? ? nil : value.to_date)
         elsif property.type == :symbol
           unless value =~ /\A\w+\z/
-            raise InvalidPropertyNature, "A property '#{name}' must contains a symbol. /[a-z0-9_]/ accepted. No spaces. Got #{value.inspect}"
+            raise InvalidPropertyNature.new("A property '#{name}' must contains a symbol. /[a-z0-9_]/ accepted. No spaces. Got #{value.inspect}")
           end
           value = value.to_sym
         end
       elsif !%w[name parent aliases].include?(name.to_s)
-        raise ArgumentError, "Undefined property '#{name}' in #{@name}"
+        raise ArgumentError.new("Undefined property '#{name}' in #{@name}")
       end
       value
     end

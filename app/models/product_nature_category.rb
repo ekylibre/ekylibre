@@ -176,7 +176,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
     # Load a product nature category from product nature category nomenclature
     def import_from_nomenclature(reference_name, force = false)
       unless (item = Nomen::ProductNatureCategory.find(reference_name))
-        raise ArgumentError, "The product_nature_category #{reference_name.inspect} is unknown"
+        raise ArgumentError.new("The product_nature_category #{reference_name.inspect} is unknown")
       end
       unless force
         category = ProductNatureCategory.find_by(reference_name: reference_name)
@@ -229,7 +229,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
 
     def import_from_lexicon(reference_name, force = false)
       unless (item = VariantCategory.find_by(reference_name: reference_name))
-        raise ArgumentError, "The product nature category #{reference_name.inspect} is unknown"
+        raise ArgumentError.new("The product nature category #{reference_name.inspect} is unknown")
       end
       if !force && (category = ProductNatureCategory.find_by(reference_name: reference_name))
         return category

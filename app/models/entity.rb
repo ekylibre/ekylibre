@@ -374,7 +374,7 @@ class Entity < Ekylibre::Record::Base
     nature = nature.to_sym
     nature = conversions[nature] || nature
     unless natures.include?(nature)
-      raise ArgumentError, "Unknown nature #{nature.inspect} (#{natures.to_sentence} are accepted)"
+      raise ArgumentError.new("Unknown nature #{nature.inspect} (#{natures.to_sentence} are accepted)")
     end
     valid_account = send("#{nature}_account")
     if valid_account.nil?
@@ -461,7 +461,7 @@ class Entity < Ekylibre::Record::Base
   # Merge given entity into record. Alls related records of given entity will point on
   # self. Given entity is destroyed at the end, self remains.
   def merge_with(other, options = {})
-    raise StandardError, 'Company entity is not mergeable' if other.of_company?
+    raise StandardError.new('Company entity is not mergeable') if other.of_company?
     author = options[:author]
     Ekylibre::Record::Base.transaction do
       # EntityAddress

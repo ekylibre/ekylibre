@@ -205,7 +205,7 @@ class Shipment < Parcel
             if transporter_ids.size == 1
               options[:transporter_id] = transporter_ids.first
             else
-              raise StandardError, 'Need an obvious transporter to ship parcels'
+              raise StandardError.new('Need an obvious transporter to ship parcels')
             end
           end
         end

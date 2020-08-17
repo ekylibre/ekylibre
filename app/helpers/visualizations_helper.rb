@@ -95,7 +95,7 @@ module Visualization
 
     # Add a serie of geo data
     def serie(name, data)
-      raise StandardError, 'data must be an array. Got: ' + data.class.name unless data.is_a? Array
+      raise StandardError.new('data must be an array. Got: ' + data.class.name) unless data.is_a? Array
       @config[:series] ||= {}.with_indifferent_access
       @config[:series][name] = data.compact.collect do |item|
         next unless item[:shape]
@@ -200,12 +200,12 @@ module Visualization
           if options[:content]
             block = { type: type, content: options[:content] }
           else
-            raise StandardError, 'Option :content must be given when info is a TrueClass'
+            raise StandardError.new('Option :content must be given when info is a TrueClass')
           end
         elsif info.is_a? Hash
           block = info.merge(type: type)
         else
-          raise StandardError, "Not implemented #{type} for #{object.class}"
+          raise StandardError.new("Not implemented #{type} for #{object.class}")
         end
         block
       end

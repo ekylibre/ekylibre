@@ -84,7 +84,7 @@ class Role < Ekylibre::Record::Base
   # Load a role from nomenclature
   def self.import_from_nomenclature(reference_name, _force = false)
     unless item = Nomen::Role[reference_name]
-      raise ArgumentError, "The role #{reference_name.inspect} is not known"
+      raise ArgumentError.new("The role #{reference_name.inspect} is not known")
     end
 
     # parse rights
@@ -115,7 +115,7 @@ class Role < Ekylibre::Record::Base
 
   def self.import_from_lexicon(reference_name, _force = false)
     unless item = UserRole.find_by_reference_name(reference_name)
-      raise ArgumentError, "The role #{reference_name.inspect} is not known"
+      raise ArgumentError.new("The role #{reference_name.inspect} is not known")
     end
 
     rights = item.accesses.each_with_object({}) do |right, hash|

@@ -67,11 +67,11 @@ class Version < ApplicationRecord
   end
 
   before_update do
-    raise StandardError, 'Cannot update a past version'
+    raise StandardError.new('Cannot update a past version')
   end
 
   before_destroy do
-    raise StandardError, 'Cannot destroy a past version'
+    raise StandardError.new('Cannot destroy a past version')
   end
 
   class << self

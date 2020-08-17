@@ -130,7 +130,7 @@ module ToolbarHelper
     end
 
     def method_missing(method_name, *args)
-      raise ArgumentError, 'Block can not be accepted' if block_given?
+      raise ArgumentError.new('Block can not be accepted') if block_given?
       options = args.extract_options!
       name = method_name.to_s.gsub(/\_+$/, '').to_sym
       record = args.shift

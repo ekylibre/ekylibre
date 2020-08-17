@@ -22,7 +22,7 @@ module Printers
     end
 
     def key
-      raise NotImplementedError, "`key` should be implemented in subclasses"
+      raise NotImplementedError.new("`key` should be implemented in subclasses")
     end
 
     def document_name

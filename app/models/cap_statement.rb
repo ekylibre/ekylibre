@@ -57,7 +57,7 @@ class CapStatement < Ekylibre::Record::Base
     campaigns.flatten!
     for campaign in campaigns
       unless campaign.is_a?(Campaign)
-        raise ArgumentError, "Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}"
+        raise ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}")
       end
     end
     where(campaign_id: campaigns.map(&:id))

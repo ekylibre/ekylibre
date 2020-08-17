@@ -27,7 +27,7 @@ module Ekylibre
       # Returns the current tenant
       def current
         unless name = Apartment::Tenant.current
-          raise TenantError, 'No current tenant'
+          raise TenantError.new('No current tenant')
         end
         name
       end
@@ -46,7 +46,7 @@ module Ekylibre
       def create(name)
         name = name.to_s
         check!(name)
-        raise TenantError, 'Already existing tenant' if exist?(name)
+        raise TenantError.new('Already existing tenant') if exist?(name)
         create_database_for!(name) if multi_database > 0
         add(name)
         Apartment::Tenant.create(name)
@@ -137,7 +137,7 @@ module Ekylibre
       # Drop tenant
       def drop(name, options = {})
         name = name.to_s
-        raise TenantError, "Unexistent tenant: #{name}" unless exist?(name)
+        raise TenantError.new("Unexistent tenant: #{name}") unless exist?(name)
         switch_to_database_for(name)
         Apartment::Tenant.drop(name) if Apartment.connection.schema_exists? name
         FileUtils.rm_rf private_directory(name) unless options[:keep_files]
@@ -155,8 +155,8 @@ module Ekylibre
       def rename(old, new)
         return if old == new
         check!(old)
-        raise TenantError, "Unexistent tenant: #{old}" unless Apartment.connection.schema_exists?(old)
-        raise TenantError, "Tenant already exists: #{new}" if Apartment.connection.schema_exists?(new)
+        raise TenantError.new("Unexistent tenant: #{old}") unless Apartment.connection.schema_exists?(old)
+        raise TenantError.new("Tenant already exists: #{new}") if Apartment.connection.schema_exists?(new)
         ActiveRecord::Base.connection.execute("ALTER SCHEMA #{old.to_s.inspect} RENAME TO #{new.to_s.inspect};")
         if private_directory(old).exist?
           FileUtils.rm_rf(private_directory(new))
@@ -233,7 +233,7 @@ module Ekylibre
 
       def switch_default!
         if list.empty?
-          raise TenantError, 'No default tenant'
+          raise TenantError.new('No default tenant')
         else
           switch!(list.first)
         end

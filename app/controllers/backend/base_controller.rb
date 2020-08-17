@@ -156,7 +156,7 @@ module Backend
         for arg in args
           arg = arg.attributes if arg.respond_to?(:attributes)
           unless arg.is_a? Hash
-            raise ArgumentError, "Hash expected, got #{arg.class.name}:#{arg.inspect}"
+            raise ArgumentError.new("Hash expected, got #{arg.class.name}:#{arg.inspect}")
           end
           arg.each do |k, v|
             @title[k.to_sym] = (v.respond_to?(:localize) ? v.localize : v.to_s)

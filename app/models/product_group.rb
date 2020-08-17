@@ -127,7 +127,7 @@ class ProductGroup < Product
   # Add a member to the group
   def add(member, options = {})
     unless member.is_a?(Product)
-      raise ArgumentError, "Product expected, got #{member.class}:#{member.inspect}"
+      raise ArgumentError.new("Product expected, got #{member.class}:#{member.inspect}")
     end
     Intervention.write(:group_inclusion, options) do |i|
       i.cast :group, self, as: 'group_inclusion-target'
@@ -140,7 +140,7 @@ class ProductGroup < Product
   # Remove a member from the group
   def remove(member, _options = {})
     unless member.is_a?(Product)
-      raise ArgumentError, "Product expected, got #{member.class}:#{member.inspect}"
+      raise ArgumentError.new("Product expected, got #{member.class}:#{member.inspect}")
     end
     Intervention.write(:group_exclusion, at: started_at, production: production) do |i|
       i.cast :group, self, as: 'group_exclusion-target'

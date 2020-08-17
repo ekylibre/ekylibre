@@ -41,10 +41,10 @@ module Isagri
           fy = FinancialYear.find_by(started_on: isa_fy.started_on, stopped_on: isa_fy.stopped_on)
           unless fy
             if FinancialYear.where('? BETWEEN started_on AND stopped_on OR ? BETWEEN started_on AND stopped_on', isa_fy.started_on, isa_fy.stopped_on).any?
-              raise ActiveExchanger::IncompatibleDataError, 'Financial year dates overlaps existing financial years'
+              raise ActiveExchanger::IncompatibleDataError.new('Financial year dates overlaps existing financial years')
             else
               if isa_fy.currency != 'EUR'
-                raise ActiveExchanger::IncompatibleDataError, "Accountancy must be in Euro (EUR) not in '#{isa_fy.currency}'"
+                raise ActiveExchanger::IncompatibleDataError.new("Accountancy must be in Euro (EUR) not in '#{isa_fy.currency}'")
               end
               fy = FinancialYear.create!(started_on: isa_fy.started_on, stopped_on: isa_fy.stopped_on)
             end
@@ -71,7 +71,7 @@ module Isagri
                   aux_number = normalized[client_account_radix.length..-1]
 
                   if aux_number.match(/\A0*\z/).present?
-                    raise StandardError, tl(:errors, :radical_class_number_unauthorized, number: normalized)
+                    raise StandardError.new(tl(:errors, :radical_class_number_unauthorized, number: normalized))
                   end
 
                   attributes = attributes.merge(
@@ -196,12 +196,12 @@ module Isagri
             found = fy.journal_entries.size
             expected = isa_fy.entries.size
             if found != expected
-              raise StandardError, "The count of entries is different: #{found} in database and #{expected} in file"
+              raise StandardError.new("The count of entries is different: #{found} in database and #{expected} in file")
             end
             found = JournalEntryItem.between(fy.started_on, fy.stopped_on).count
             expected = isa_fy.entries.inject(0) { |s, e| s += e.lines.size }
             if found != expected
-              raise StandardError, "The count of entry items is different: #{found} in database and #{expected} in file"
+              raise StandardError.new("The count of entry items is different: #{found} in database and #{expected} in file")
             end
             # fy.journal_entries.each do |entry|
             # end
@@ -209,7 +209,7 @@ module Isagri
           end
 
         else
-          raise ActiveExchanger::NotWellFormedFileError, 'Version does not seems to be supported'
+          raise ActiveExchanger::NotWellFormedFileError.new('Version does not seems to be supported')
         end
 
         true

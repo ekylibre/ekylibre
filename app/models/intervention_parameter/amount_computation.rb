@@ -21,12 +21,12 @@ class InterventionParameter < Ekylibre::Record::Base
 
     def initialize(nature, origin = nil, options = {})
       unless NATURES.include?(nature)
-        raise ArgumentError, "Invalid nature. Got: #{nature.inspect}"
+        raise ArgumentError.new("Invalid nature. Got: #{nature.inspect}")
       end
       @nature = nature
       if quantity?
         unless ORIGINS.include?(origin)
-          raise ArgumentError, "Invalid origin. Got: #{origin.inspect}"
+          raise ArgumentError.new("Invalid origin. Got: #{origin.inspect}")
         end
         @origin = origin
       end
@@ -100,7 +100,7 @@ class InterventionParameter < Ekylibre::Record::Base
       def check_option_presence!(*options)
         options.each do |option|
           unless @options[option]
-            raise ArgumentError, "An option #{option.inspect} must be given. #{@options.inspect}"
+            raise ArgumentError.new("An option #{option.inspect} must be given. #{@options.inspect}")
           end
         end
       end

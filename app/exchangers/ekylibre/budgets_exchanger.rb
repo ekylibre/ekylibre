@@ -83,10 +83,10 @@ module Ekylibre
               activity.save!
 
             else
-              raise ActiveExchanger::Error, 'You must mention correct nomen element'
+              raise ActiveExchanger::Error.new('You must mention correct nomen element')
             end
           else
-            raise ActiveExchanger::Error, "You must mention activity attributes to create it : activity name : #{activity_name}, activity family : #{activity_family}, activity variety : #{activity_variety}"
+            raise ActiveExchanger::Error.new("You must mention activity attributes to create it : activity name : #{activity_name}, activity family : #{activity_family}, activity variety : #{activity_variety}")
           end
         end
 
@@ -150,7 +150,7 @@ module Ekylibre
             if u = Nomen::Unit.find_by(symbol: unit)
               unit = u.name.to_s
             else
-              raise ActiveExchanger::NotWellFormedFileError, "Unknown unit #{unit.inspect} for variant #{item_variant.name.inspect}."
+              raise ActiveExchanger::NotWellFormedFileError.new("Unknown unit #{unit.inspect} for variant #{item_variant.name.inspect}.")
             end
           end
           unless indicator = (unit.blank? ? :population : r.item_quantity_unity.second)
@@ -163,13 +163,13 @@ module Ekylibre
               if indics.include?(default_indicators[dimension].to_s)
                 indicator = default_indicators[dimension]
               else
-                raise ActiveExchanger::NotWellFormedFileError, "Ambiguity on unit #{unit.inspect} for variant #{item_variant.name.inspect} between #{indics.to_sentence(locale: :eng)}. Cannot known what is wanted, insert indicator name after unit like: '#{unit} (#{indics.first})'."
+                raise ActiveExchanger::NotWellFormedFileError.new("Ambiguity on unit #{unit.inspect} for variant #{item_variant.name.inspect} between #{indics.to_sentence(locale: :eng)}. Cannot known what is wanted, insert indicator name after unit like: '#{unit} (#{indics.first})'.")
               end
             elsif indics.empty?
               if unit == 'hour'
                 indicator = 'usage_duration'
               else
-                raise ActiveExchanger::NotWellFormedFileError, "Unit #{unit.inspect} is invalid for variant #{item_variant.name.inspect}. No indicator can be used with this unit."
+                raise ActiveExchanger::NotWellFormedFileError.new("Unit #{unit.inspect} is invalid for variant #{item_variant.name.inspect}. No indicator can be used with this unit.")
               end
             else
               indicator = indics.first
@@ -177,7 +177,7 @@ module Ekylibre
           end
 
           unless r.item_unit_price_amount
-            raise ActiveExchanger::NotWellFormedFileError, "No price given for #{r.item_name}"
+            raise ActiveExchanger::NotWellFormedFileError.new("No price given for #{r.item_name}")
           end
 
           activity_budget_items = activity_budget.items.find_or_initialize_by(variant: item_variant, unit_amount: r.item_unit_price_amount)

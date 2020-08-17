@@ -256,7 +256,7 @@ module Ekylibre
           if u = Nomen::Unit.find_by(symbol: u)
             u = u.name.to_s
           else
-            raise ActiveExchanger::NotWellFormedFileError, "Unknown unit #{u.inspect}."
+            raise ActiveExchanger::NotWellFormedFileError.new("Unknown unit #{u.inspect}.")
           end
         end
         u = u.to_sym if u
@@ -288,7 +288,7 @@ module Ekylibre
           if u = Nomen::Unit.find_by(symbol: unit)
             unit = u.name.to_s
           else
-            raise ActiveExchanger::NotWellFormedFileError, "Unknown unit #{unit.inspect} for variant #{item_variant.name.inspect}."
+            raise ActiveExchanger::NotWellFormedFileError.new("Unknown unit #{unit.inspect} for variant #{item_variant.name.inspect}.")
           end
         end
         unit = unit.to_sym if unit
