@@ -269,18 +269,13 @@
           parameters = {}
           if selected.data("new-item").length > 0
             parameters.name = selected.data("new-item")
-          E.dialog.open @element.data("selector-new-item"),
-            data: parameters
-            defaultReturn: (frame, data, status, request) ->
-              frame.html $.parseHTML(request.responseText).filter((e) => !(e.tagName == 'H1' && e.id == 'title'))
-              frame.dialog("option", "position", {my: "center", at: "center", of: window})
-            returns:
-              success: (frame, data, status, request) =>
-                @_set(request.getResponseHeader("X-Saved-Record-Id"), true)
-                frame.dialog "close"
-              invalid: (frame, data, status, request) ->
-                frame.html request.responseText
-                frame.trigger('dialog:show')
+
+          E.Dialog.open @element.data("selector-new-item"),
+            success: (response) =>
+              @_set(response.headers['x-saved-record-id'])
+            error: (response) =>
+              console.error('Selector dialog error', response)
+
         else
           console.log "Don't known how to manage this option"
           console.log selected

@@ -1,12 +1,14 @@
 import {parseHTML} from "lib/parseHtml";
 import {refresh as behaveRefresh} from "services/behave";
 import {delegateListener} from "lib/domEventUtils.ts";
-import axios from "axios";
+import axios, {AxiosRequestConfig} from "axios";
 
-function modalTemplate(id: string) {
+function modalTemplate(id: string, size: ModalSize) {
+    const additionalClass = size === "default" ? '' : `modal-${size}`;
+
     return `
-        <div class="modal fade" id="${id}" role="dialog">
-            <div class="modal-dialog modal-dialog-centered">
+        <div class="modal fade " id="${id}" role="dialog">
+            <div class="modal-dialog modal-dialog-centered ${additionalClass}">
                 <div class="modal-content">
                     <div class="modal-header modal-header--document">
                         <button class="close" data-dismiss="modal">
@@ -14,7 +16,7 @@ function modalTemplate(id: string) {
                         </button>
                         <b class="modal-title"></b>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" style="max-height: 80vh; overflow: auto">
                     </div>
                 </div>
             </div>
@@ -33,21 +35,29 @@ class EscListener {
     }
 }
 
+let idSequence = 0;
+
+type ModalSize = 'default' | 'sm' | 'lg';
+
 interface ModalOptions {
-    title?: string
+    size?: ModalSize
 }
 
-let idSequence = 0;
+const defaultOptions: Required<ModalOptions> = {
+    size: 'default'
+};
 
 export class Modal {
     private element: Element;
     private titleElement: Element;
     private bodyElement: Element;
     private backdrop: Element;
+    private options: Required<ModalOptions>;
     private readonly escListener: EventListenerObject;
 
-    constructor(private title: string, private content: string | Element) {
+    constructor(private title: string, private content: string | Element, options: ModalOptions = {}) {
         this.escListener = new EscListener(this);
+        this.options = {...defaultOptions, ...options};
     }
 
     getBodyElement() {
@@ -57,6 +67,10 @@ export class Modal {
     setBodyString(content: string) {
         this.getBodyElement().innerHTML = content;
         behaveRefresh();
+    }
+
+    setTitle(title: string){
+        this.titleElement.textContent = title
     }
 
     setBody(content: Element | string) {
@@ -70,7 +84,7 @@ export class Modal {
     }
 
     open() {
-        const fragment = parseHTML(modalTemplate(`modal-${idSequence++}`));
+        const fragment = parseHTML(modalTemplate(`modal-${idSequence++}`, this.options.size));
 
         // Safety: We know these elements exist because they are defined in the template returned by `modalTemplate`
         this.element = fragment.firstElementChild!;
@@ -80,10 +94,10 @@ export class Modal {
         document.body.append(this.element);
         delegateListener(this.element, 'click', '[data-dismiss="modal"]', _e => this.close());
 
+        this.show();
+
         this.titleElement.textContent = this.title;
         this.setBody(this.content);
-
-        this.show();
     }
 
     on<K extends keyof HTMLElementEventMap>(eventName: K, selector: string, callback: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any) {
@@ -108,6 +122,8 @@ export class Modal {
     }
 
     hide() {
+        window.removeEventListener('keyup', this.escListener)
+
         this.element.classList.add('out');
         this.element.classList.remove('in');
         this.element.setAttribute('style', 'display: none;');
@@ -126,11 +142,17 @@ export class Modal {
     }
 }
 
-export function openRemote(url: string, options: ModalOptions = {}): Promise<{ modal: Modal, responseText: string }> {
-    return axios.get(this.url)
+interface ModalOpenRemoteOptions extends ModalOptions {
+    containerId?: string,
+    title?: string,
+    requestConfig?: AxiosRequestConfig
+}
+
+export function openRemote(url: string, options: ModalOpenRemoteOptions = {}): Promise<{ modal: Modal, responseText: string }> {
+    return axios.get(url, options.requestConfig)
         .then(response => {
             const {title = ''} = options;
-            const modal = new Modal(title, response.data);
+            const modal = new Modal(title, response.data, options);
             modal.open();
 
             return {modal, responseText: response.data};
