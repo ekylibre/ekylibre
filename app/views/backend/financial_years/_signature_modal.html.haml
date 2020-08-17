@@ -3,7 +3,7 @@
 .modal.fade{ tabindex: '-1', role: 'dialog', 'aria-labelledby': title_id, 'aria-hidden': 'true', id: id }
   .modal-dialog.modal-dialog-centered{ role: 'document' }
     .modal-content
-      .modal-header.modal-header--document
+      .modal-header.modal-header-generic
         %button.close{ data: { dismiss: 'modal' }, 'aria-label': 'Close', type: 'button' }
           %i.icon.icon-destroy{ 'aria-hidden': 'true' }
         %b.modal-title{id: title_id}= :electronic_signature.tl
