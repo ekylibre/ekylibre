@@ -33,15 +33,15 @@ module NamingFormats
           @error << error
         end
 
-      def change_land_parcels_name
-        LandParcel.all.each do |land_parcel|
-          interactor = NamingFormats::LandParcels::BuildActivityProductionNameInteractor
-                       .call(activity_production: land_parcel.activity_production)
+        def change_land_parcels_name
+          LandParcel.all.each do |land_parcel|
+            interactor = NamingFormats::LandParcels::BuildActivityProductionNameInteractor
+                         .call(activity_production: land_parcel.activity_production)
 
-          land_parcel.update_attribute(:name, interactor.build_name) if interactor.success?
-          fail!(interactor.error) if interactor.fail?
+            land_parcel.update_attribute(:name, interactor.build_name) if interactor.success?
+            fail!(interactor.error) if interactor.fail?
+          end
         end
-      end
     end
   end
 end

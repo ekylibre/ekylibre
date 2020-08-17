@@ -37,65 +37,65 @@ module Lexicon
 
       private
 
-      # @return [Database::Factory]
+        # @return [Database::Factory]
         attr_reader :database_factory
-      # @return [ShellExecutor]
-      attr_reader :shell
+        # @return [ShellExecutor]
+        attr_reader :shell
 
-      def load_structure_files(files, schema:)
-        database = database_factory.new_instance
-        database.prepend_search_path(schema) do
-          files.each do |file|
-            database.query(file.read)
+        def load_structure_files(files, schema:)
+          database = database_factory.new_instance
+          database.prepend_search_path(schema) do
+            files.each do |file|
+              database.query(file.read)
+            end
           end
         end
-      end
 
-      # @param [Pathname] data_file
-      # @return [Boolean]
-      def load_file(data_file)
-        if data_file.basename.to_s =~ /\.sql\z/
-          load_sql(data_file)
-        elsif data_file.basename.to_s =~ /\.sql\.gz\z/
-          load_archive(data_file)
-        else
-          raise StandardError, "Unknown file type: #{data_file.basename}"
+        # @param [Pathname] data_file
+        # @return [Boolean]
+        def load_file(data_file)
+          if data_file.basename.to_s =~ /\.sql\z/
+            load_sql(data_file)
+          elsif data_file.basename.to_s =~ /\.sql\.gz\z/
+            load_archive(data_file)
+          else
+            raise StandardError, "Unknown file type: #{data_file.basename}"
+          end
         end
-      end
 
-      # @param [String] version
-      def lexicon_schema_name(version)
-        "lexicon__#{version.gsub('.', '_')}"
-      end
+        # @param [String] version
+        def lexicon_schema_name(version)
+          "lexicon__#{version.gsub('.', '_')}"
+        end
 
-      # @param [Pathname] archive
-      # @return [Boolean]
-      def load_archive(archive)
-        shell.execute <<~BASH
+        # @param [Pathname] archive
+        # @return [Boolean]
+        def load_archive(archive)
+          shell.execute <<~BASH
           cat '#{archive}' | gzip -d | psql '#{database_factory.url}' -v ON_ERROR_STOP=1 -q
-        BASH
+          BASH
 
-        true
-      end
+          true
+        end
 
-      # @param [Pathname] file
-      # @return [Boolean]
-      def load_sql(file)
-        shell.execute <<~BASH
+        # @param [Pathname] file
+        # @return [Boolean]
+        def load_sql(file)
+          shell.execute <<~BASH
           psql '#{database_factory.url}' -v ON_ERROR_STOP=1 -q < '#{file}'
-        BASH
+          BASH
 
-        true
-      end
+          true
+        end
 
-      # @param [Package::Package] package
-      def lock_tables(package)
-        database = database_factory.new_instance
+        # @param [Package::Package] package
+        def lock_tables(package)
+          database = database_factory.new_instance
 
-        schema = lexicon_schema_name(package.version.to_s)
+          schema = lexicon_schema_name(package.version.to_s)
 
-        database.prepend_search_path schema do
-          database.query <<~SQL
+          database.prepend_search_path schema do
+            database.query <<~SQL
             CREATE OR REPLACE FUNCTION #{schema}.deny_changes()
               RETURNS TRIGGER
             AS $$
@@ -104,9 +104,9 @@ module Lexicon
               END;
             $$
             LANGUAGE plpgsql;
-          SQL
-          package.file_sets.flat_map(&:tables).each do |table_name|
-            database.query <<~SQL
+            SQL
+            package.file_sets.flat_map(&:tables).each do |table_name|
+              database.query <<~SQL
               CREATE TRIGGER deny_changes
                 BEFORE INSERT
                     OR UPDATE
@@ -115,10 +115,10 @@ module Lexicon
                 ON #{schema}.#{table_name}
                 FOR EACH STATEMENT
                   EXECUTE PROCEDURE #{schema}.deny_changes()
-            SQL
+              SQL
+            end
           end
         end
-      end
     end
   end
 end

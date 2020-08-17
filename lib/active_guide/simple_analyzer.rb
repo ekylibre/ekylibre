@@ -129,21 +129,21 @@ module ActiveGuide
         env.instance_eval(&item.after_block) if item.after_block
       end
 
-    def log_result(env, message, passed, depth = 0)
-      return unless env.verbose
-      if depth >= 0
-        prefix = '  ' * depth
-        puts "#{(prefix + ' - ' + message.to_s.humanize).ljust(70).white} [#{passed ? '  OK  '.green : 'FAILED'.red}]"
+      def log_result(env, message, passed, depth = 0)
+        return unless env.verbose
+        if depth >= 0
+          prefix = '  ' * depth
+          puts "#{(prefix + ' - ' + message.to_s.humanize).ljust(70).white} [#{passed ? '  OK  '.green : 'FAILED'.red}]"
+        end
+        passed
       end
-      passed
-    end
 
-    def log_group(env, message, depth = 0)
-      return unless env.verbose
-      if depth >= 0
-        prefix = '  ' * depth
-        puts (prefix + message.to_s.humanize).yellow.to_s
+      def log_group(env, message, depth = 0)
+        return unless env.verbose
+        if depth >= 0
+          prefix = '  ' * depth
+          puts (prefix + message.to_s.humanize).yellow.to_s
+        end
       end
-    end
   end
 end

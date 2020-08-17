@@ -99,43 +99,43 @@ class FinancialYearExchange < Ekylibre::Record::Base
 
     delegate :stopped_on, to: :financial_year, prefix: true, allow_nil: true
 
-  def initializeable?
-    new_record?
-  end
-
-  def set_initial_values
-    if stopped_on.blank? && financial_year
-      self.stopped_on = [Date.yesterday, financial_year.stopped_on].min
+    def initializeable?
+      new_record?
     end
-  end
 
-  def set_started_on
-    self.started_on = compute_started_on unless started_on
-  end
+    def set_initial_values
+      if stopped_on.blank? && financial_year
+        self.stopped_on = [Date.yesterday, financial_year.stopped_on].min
+      end
+    end
 
-  def set_public_token_and_expiration
-    self.public_token = SecureRandom.urlsafe_base64(32)
-    self.public_token_expired_at = Time.zone.today + 1.month
-  end
+    def set_started_on
+      self.started_on = compute_started_on unless started_on
+    end
 
-  def close_journal_entries
-    JournalEntryItem.where(entry: related_journal_entries).update_all(state: 'closed')
-    related_journal_entries.update_all(state: 'closed')
-    # related_journal_entries.where(state: :draft).find_each(&:confirm)
-    # related_journal_entries.where(state: :confirmed).find_each(&:close)
-  end
+    def set_public_token_and_expiration
+      self.public_token = SecureRandom.urlsafe_base64(32)
+      self.public_token_expired_at = Time.zone.today + 1.month
+    end
 
-  def set_journal_entries_financial_year_exchange
-    related_journal_entries.update_all financial_year_exchange_id: id
-  end
+    def close_journal_entries
+      JournalEntryItem.where(entry: related_journal_entries).update_all(state: 'closed')
+      related_journal_entries.update_all(state: 'closed')
+      # related_journal_entries.where(state: :draft).find_each(&:confirm)
+      # related_journal_entries.where(state: :confirmed).find_each(&:close)
+    end
 
-  def related_journal_entries
-    JournalEntry.joins(:journal).where(printed_on: started_on..stopped_on).where('journals.accountant_id IS NULL OR journals.accountant_id != ?', financial_year.accountant_id)
-  end
+    def set_journal_entries_financial_year_exchange
+      related_journal_entries.update_all financial_year_exchange_id: id
+    end
 
-  def compute_started_on
-    return unless financial_year
-    previous_exchange_stopped_on = financial_year.exchanges.limit(1).where('stopped_on < ?', stopped_on).reorder(stopped_on: :desc).pluck(:stopped_on).first
-    previous_exchange_stopped_on || financial_year.started_on
-  end
+    def related_journal_entries
+      JournalEntry.joins(:journal).where(printed_on: started_on..stopped_on).where('journals.accountant_id IS NULL OR journals.accountant_id != ?', financial_year.accountant_id)
+    end
+
+    def compute_started_on
+      return unless financial_year
+      previous_exchange_stopped_on = financial_year.exchanges.limit(1).where('stopped_on < ?', stopped_on).reorder(stopped_on: :desc).pluck(:stopped_on).first
+      previous_exchange_stopped_on || financial_year.started_on
+    end
 end

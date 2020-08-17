@@ -61,89 +61,89 @@ class ActivityDecorator < Draper::Decorator
       activity_costs.each { |key, _value| activity_costs[key] = activity_costs[key] + costs[key] }
     end
 
-  def multiply_costs(costs, multiplier)
-    costs.each { |key, value| costs[key] = value * multiplier }
-  end
-
-  def divider_costs(costs, divider)
-    costs.each { |key, value| costs[key] = value / divider unless divider.zero? }
-  end
-
-  def human_costs(costs)
-    costs.each { |key, _value| costs[key] = costs[key].to_i }
-  end
-
-  def decorated_activity_productions(current_campaign)
-    activity_productions = object
-                           .productions
-                           .of_campaign(current_campaign)
-
-    ActivityProductionDecorator.decorate_collection(activity_productions)
-  end
-
-  def calcul_productions_costs(current_campaign)
-    costs = new_productions_costs_hash
-    activity_productions = decorated_activity_productions(current_campaign)
-    sum_surface_area = 0.in(:hectare)
-    sum_parameters_cultivated_hectare = { total: 0, inputs: 0, doers: 0, tools: 0, receptions: 0 }
-
-    activity_productions.each do |activity_production|
-      activity_production_costs = activity_production.global_costs
-
-      sum_costs(costs[:global_costs], activity_production_costs)
-      human_costs(costs[:global_costs])
-
-      sum_surface_area += activity_production.net_surface_area
-      sum_costs(costs[:cultivated_hectare_costs], activity_production_costs)
+    def multiply_costs(costs, multiplier)
+      costs.each { |key, value| costs[key] = value * multiplier }
     end
 
-    divider_costs(costs[:cultivated_hectare_costs], calculated_surface_area(sum_surface_area))
-    human_costs(costs[:cultivated_hectare_costs])
+    def divider_costs(costs, divider)
+      costs.each { |key, value| costs[key] = value / divider unless divider.zero? }
+    end
 
-    sum_costs(costs[:working_hectare_costs], costs[:global_costs])
-    divider_costs(costs[:working_hectare_costs], working_zone_area(current_campaign).to_d)
-    human_costs(costs[:working_hectare_costs])
+    def human_costs(costs)
+      costs.each { |key, _value| costs[key] = costs[key].to_i }
+    end
 
-    costs
-  end
+    def decorated_activity_productions(current_campaign)
+      activity_productions = object
+                             .productions
+                             .of_campaign(current_campaign)
 
-  def sum_activities_productions_surface_area
-    object
-      .productions
-      .map(&:net_surface_area)
-      .sum
-  end
+      ActivityProductionDecorator.decorate_collection(activity_productions)
+    end
 
-  def new_productions_costs_hash
-    {
-      global_costs: {
-        total: 0,
-        inputs: 0,
-        doers: 0,
-        tools: 0,
-        receptions: 0
-      },
-      cultivated_hectare_costs: {
-        total: 0,
-        inputs: 0,
-        doers: 0,
-        tools: 0,
-        receptions: 0
-      },
-      working_hectare_costs: {
-        total: 0,
-        inputs: 0,
-        doers: 0,
-        tools: 0,
-        receptions: 0
+    def calcul_productions_costs(current_campaign)
+      costs = new_productions_costs_hash
+      activity_productions = decorated_activity_productions(current_campaign)
+      sum_surface_area = 0.in(:hectare)
+      sum_parameters_cultivated_hectare = { total: 0, inputs: 0, doers: 0, tools: 0, receptions: 0 }
+
+      activity_productions.each do |activity_production|
+        activity_production_costs = activity_production.global_costs
+
+        sum_costs(costs[:global_costs], activity_production_costs)
+        human_costs(costs[:global_costs])
+
+        sum_surface_area += activity_production.net_surface_area
+        sum_costs(costs[:cultivated_hectare_costs], activity_production_costs)
+      end
+
+      divider_costs(costs[:cultivated_hectare_costs], calculated_surface_area(sum_surface_area))
+      human_costs(costs[:cultivated_hectare_costs])
+
+      sum_costs(costs[:working_hectare_costs], costs[:global_costs])
+      divider_costs(costs[:working_hectare_costs], working_zone_area(current_campaign).to_d)
+      human_costs(costs[:working_hectare_costs])
+
+      costs
+    end
+
+    def sum_activities_productions_surface_area
+      object
+        .productions
+        .map(&:net_surface_area)
+        .sum
+    end
+
+    def new_productions_costs_hash
+      {
+        global_costs: {
+          total: 0,
+          inputs: 0,
+          doers: 0,
+          tools: 0,
+          receptions: 0
+        },
+        cultivated_hectare_costs: {
+          total: 0,
+          inputs: 0,
+          doers: 0,
+          tools: 0,
+          receptions: 0
+        },
+        working_hectare_costs: {
+          total: 0,
+          inputs: 0,
+          doers: 0,
+          tools: 0,
+          receptions: 0
+        }
       }
-    }
-  end
+    end
 
-  def calculated_surface_area(surface_area)
-    surface_area
-      .in(:hectare)
-      .round(2)
-      .to_d
-  end
+    def calculated_surface_area(surface_area)
+      surface_area
+        .in(:hectare)
+        .round(2)
+        .to_d
+    end
 end

@@ -87,87 +87,87 @@ class ActivityProductionDecorator < Draper::Decorator
       costs
     end
 
-  def total_costs(costs)
-    costs = costs.except!(:total) if costs.key?(:total)
+    def total_costs(costs)
+      costs = costs.except!(:total) if costs.key?(:total)
 
-    costs[:total] = costs.values.sum
-  end
-
-  def multiply_costs(costs, multiplier)
-    costs.each { |key, value| costs[key] = value * multiplier }
-  end
-
-  def divider_costs(costs, divider)
-    costs.each { |key, value| costs[key] = value / divider unless divider.zero? }
-  end
-
-  def sum_costs(plant_costs, costs)
-    plant_costs.each { |key, _value| plant_costs[key] = plant_costs[key] + costs[key] }
-  end
-
-  def human_costs(costs)
-    costs.each { |key, _value| costs[key] = costs[key].to_i }
-  end
-
-  def new_costs_hash
-    { total: 0, inputs: 0, doers: 0, tools: 0, receptions: 0 }
-  end
-
-  def decorated_interventions
-    production_interventions = object
-                               .interventions_of_nature('record')
-
-    InterventionDecorator.decorate_collection(production_interventions)
-  end
-
-  def calcul_with_surface_area(intervention, costs)
-    relation = intervention.outputs.with_working_zone if intervention.planting?
-    relation = intervention.targets.with_working_zone unless intervention.planting?
-
-    return if relation.empty?
-
-    parameters = Products::SearchByActivityProductionQuery.call(relation, activity_production: object)
-
-    sum_surface_area = 0.in(:hectare)
-    sum_targets = intervention.sum_targets_working_zone_area.to_d
-
-    if sum_targets != 0
-      sum_surface_area = parameters.map do |parameter|
-        product = parameter.product.decorate
-        surface = product.net_surface_area unless product.is_a?(LandParcel)
-        surface = parameter.working_zone_area if product.is_a?(LandParcel)
-
-        surface_area = surface.in(:hectare).round(2) / sum_targets
-      end.sum.in(:hectare).round(2)
+      costs[:total] = costs.values.sum
     end
 
-    multiply_costs(costs, sum_surface_area.to_d)
-  end
-
-  def intervention_working_zone_area(intervention)
-    return intervention.working_zone_area unless intervention.many_targets?
-
-    relation = intervention.outputs if intervention.planting?
-    relation = intervention.targets unless intervention.planting?
-    parameters = Products::SearchByActivityProductionQuery.call(relation, activity_production: object)
-
-    sum_working_zone = 0.in(:hectare)
-    parameters.each do |parameter|
-      product = parameter.product
-
-      sum_working_zone += intervention.sum_products_working_zone_area(product) unless intervention.planting?
-      sum_working_zone += intervention.sum_outputs_working_zone_area_of_product(product) if intervention.planting?
+    def multiply_costs(costs, multiplier)
+      costs.each { |key, value| costs[key] = value * multiplier }
     end
 
-    sum_working_zone
-  end
+    def divider_costs(costs, divider)
+      costs.each { |key, value| costs[key] = value / divider unless divider.zero? }
+    end
 
-  def calcul_with_working_zone_area(costs, working_zone)
-    working_zone = working_zone
-                   .in(:hectare)
-                   .round(2)
-                   .to_f
+    def sum_costs(plant_costs, costs)
+      plant_costs.each { |key, _value| plant_costs[key] = plant_costs[key] + costs[key] }
+    end
 
-    divider_costs(costs, working_zone)
-  end
+    def human_costs(costs)
+      costs.each { |key, _value| costs[key] = costs[key].to_i }
+    end
+
+    def new_costs_hash
+      { total: 0, inputs: 0, doers: 0, tools: 0, receptions: 0 }
+    end
+
+    def decorated_interventions
+      production_interventions = object
+                                 .interventions_of_nature('record')
+
+      InterventionDecorator.decorate_collection(production_interventions)
+    end
+
+    def calcul_with_surface_area(intervention, costs)
+      relation = intervention.outputs.with_working_zone if intervention.planting?
+      relation = intervention.targets.with_working_zone unless intervention.planting?
+
+      return if relation.empty?
+
+      parameters = Products::SearchByActivityProductionQuery.call(relation, activity_production: object)
+
+      sum_surface_area = 0.in(:hectare)
+      sum_targets = intervention.sum_targets_working_zone_area.to_d
+
+      if sum_targets != 0
+        sum_surface_area = parameters.map do |parameter|
+          product = parameter.product.decorate
+          surface = product.net_surface_area unless product.is_a?(LandParcel)
+          surface = parameter.working_zone_area if product.is_a?(LandParcel)
+
+          surface_area = surface.in(:hectare).round(2) / sum_targets
+        end.sum.in(:hectare).round(2)
+      end
+
+      multiply_costs(costs, sum_surface_area.to_d)
+    end
+
+    def intervention_working_zone_area(intervention)
+      return intervention.working_zone_area unless intervention.many_targets?
+
+      relation = intervention.outputs if intervention.planting?
+      relation = intervention.targets unless intervention.planting?
+      parameters = Products::SearchByActivityProductionQuery.call(relation, activity_production: object)
+
+      sum_working_zone = 0.in(:hectare)
+      parameters.each do |parameter|
+        product = parameter.product
+
+        sum_working_zone += intervention.sum_products_working_zone_area(product) unless intervention.planting?
+        sum_working_zone += intervention.sum_outputs_working_zone_area_of_product(product) if intervention.planting?
+      end
+
+      sum_working_zone
+    end
+
+    def calcul_with_working_zone_area(costs, working_zone)
+      working_zone = working_zone
+                     .in(:hectare)
+                     .round(2)
+                     .to_f
+
+      divider_costs(costs, working_zone)
+    end
 end

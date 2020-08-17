@@ -96,8 +96,8 @@ module Procedo
 
       protected
 
-      # Retrieve all (nested or not) Parameter objects in the group in the order
-      # defined by default.
+        # Retrieve all (nested or not) Parameter objects in the group in the order
+        # defined by default.
         def all_parameters
           list = []
           browse_all do |parameter|
@@ -106,12 +106,12 @@ module Procedo
           list
         end
 
-      def browse_all(&block)
-        @parameters.each do |_k, parameter|
-          yield parameter
-          parameter.browse_all(&block) if parameter.is_a?(Procedo::Procedure::GroupParameter)
+        def browse_all(&block)
+          @parameters.each do |_k, parameter|
+            yield parameter
+            parameter.browse_all(&block) if parameter.is_a?(Procedo::Procedure::GroupParameter)
+          end
         end
-      end
     end
   end
 end

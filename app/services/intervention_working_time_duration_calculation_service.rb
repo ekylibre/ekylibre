@@ -44,171 +44,171 @@ class InterventionWorkingTimeDurationCalculationService
       !@intervention.nil? && @intervention.auto_calculate_working_periods
     end
 
-  def worker_working_duration(nature)
-    duration = if nature.nil?
-                 participation_working_durations
-               else
-                 participation_working_durations_of_nature(nature)
-               end
+    def worker_working_duration(nature)
+      duration = if nature.nil?
+                   participation_working_durations
+                 else
+                   participation_working_durations_of_nature(nature)
+                 end
 
-    duration.to_d / 3600
-  end
-
-  def tractor_working_duration(nature, not_nature)
-    tractor_working_periods(nature, not_nature)
-      .map(&:duration)
-      .inject(0, :+).to_d / 3600
-  end
-
-  def tool_working_duration(nature, not_nature)
-    tool_working_periods(nature, not_nature)
-      .map(&:duration)
-      .inject(0, :+).to_d / 3600
-  end
-
-  def participation_working_durations
-    @participation
-      .working_periods
-      .map(&:duration)
-      .inject(0, :+)
-  end
-
-  def participation_working_durations_of_nature(nature)
-    unless @participation.nil?
-      return @participation.working_periods
-                           .select { |working_period| working_period.nature.to_sym == nature }
-                           .map(&:duration)
-                           .inject(0, :+)
+      duration.to_d / 3600
     end
 
-    @participations.select { |participation| participation.product == @product }
-                   .map(&:working_periods)
-                   .flatten
-                   .select { |working_period| working_period.nature.to_sym == nature }
-                   .map(&:duration)
-                   .inject(0, :+)
-  end
-
-  def intervention_working_duration
-    @intervention.working_duration.to_d / 3600
-  end
-
-  def worker?
-    @product.is_a?(Worker)
-  end
-
-  def tractor?
-    @product.is_a?(Equipment) && @product.try(:tractor?)
-  end
-
-  def any_tractor?
-    tractors_count > 0 || prepelled_equipments_count > 0
-  end
-
-  def any_tool?
-    tools_count > 0
-  end
-
-  def self_prepelled_equipment?
-    @product.variety.to_sym == :self_prepelled_equipment
-  end
-
-  def tool?
-    @product.is_a?(Equipment) && product.try(:tractor?) == false
-  end
-
-  def tractors_count
-    count = @participations
-            .select { |participation| participation.product.try(:tractor?) }
-            .size
-
-    count += 1 if tractor? && !product_participation?
-
-    unless @intervention.tools.blank?
-      count = @intervention.tools.select{ |t| t.product.try(:tractor?) }.count
+    def tractor_working_duration(nature, not_nature)
+      tractor_working_periods(nature, not_nature)
+        .map(&:duration)
+        .inject(0, :+).to_d / 3600
     end
 
-    count
-  end
-
-  def tools_count
-    count = @participations
-            .select { |participation| participation.product.is_a?(Equipment) && participation.product.try(:tractor?) == false }
-            .size
-
-    count += 1 if !tractor? && tool? && !product_participation?
-
-    unless @intervention.tools.blank?
-      count = @intervention.tools.select{ |t| t.product.is_a?(Equipment) && t.product.try(:tractor?) == false }.count
+    def tool_working_duration(nature, not_nature)
+      tool_working_periods(nature, not_nature)
+        .map(&:duration)
+        .inject(0, :+).to_d / 3600
     end
 
-    count
-  end
-
-  def product_participation?
-    @participations
-      .select { |participation| participation.product == @product }
-      .present?
-  end
-
-  def prepelled_equipments_count
-    @participations
-      .select { |participation| participation.product.variety.to_sym == :self_prepelled_equipment }
-      .size
-  end
-
-  def workers_times(nature: nil, not_nature: nil)
-    worker_working_periods(nature, not_nature)
-      .map(&:duration_gap)
-      .reduce(0, :+)
-  end
-
-  def worker_working_periods(nature, not_nature)
-    participations = @participations.select { |participation| participation.product.is_a?(Worker) }
-
-    working_periods(participations, nature, not_nature)
-  end
-
-  def tractor_working_periods(nature, not_nature)
-    participations = @participations.select do |participation|
-      participation.product.variety == :tractor ||
-        participation.product.variety == :self_prepelled_equipment
+    def participation_working_durations
+      @participation
+        .working_periods
+        .map(&:duration)
+        .inject(0, :+)
     end
 
-    working_periods(participations, nature, not_nature)
-  end
-
-  def tool_working_periods(nature, not_nature)
-    participations = @participations.select { |participation| participation.product.is_a?(Equipment) }
-
-    working_periods(participations, nature, not_nature)
-  end
-
-  def working_periods(participations, nature, not_nature)
-    working_periods = nil
-
-    if nature.nil? && not_nature.nil?
-      return participations.map(&:working_periods).flatten
-    end
-
-    return working_periods_of_nature(participations, nature) unless nature.nil?
-
-    working_periods_not_nature(participations, nature)
-  end
-
-  def working_periods_of_nature(participations, nature, reverse_result: false)
-    participations.map do |participation|
-      participation.working_periods.select do |working_period|
-        if reverse_result == false
-          working_period.nature.to_sym == nature
-        else
-          working_period.nature.to_sym != nature
-        end
+    def participation_working_durations_of_nature(nature)
+      unless @participation.nil?
+        return @participation.working_periods
+                             .select { |working_period| working_period.nature.to_sym == nature }
+                             .map(&:duration)
+                             .inject(0, :+)
       end
-    end.flatten
-  end
 
-  def working_periods_not_nature(participations, nature)
-    working_periods_of_nature(participations, nature, reverse_result: true)
-  end
+      @participations.select { |participation| participation.product == @product }
+                     .map(&:working_periods)
+                     .flatten
+                     .select { |working_period| working_period.nature.to_sym == nature }
+                     .map(&:duration)
+                     .inject(0, :+)
+    end
+
+    def intervention_working_duration
+      @intervention.working_duration.to_d / 3600
+    end
+
+    def worker?
+      @product.is_a?(Worker)
+    end
+
+    def tractor?
+      @product.is_a?(Equipment) && @product.try(:tractor?)
+    end
+
+    def any_tractor?
+      tractors_count > 0 || prepelled_equipments_count > 0
+    end
+
+    def any_tool?
+      tools_count > 0
+    end
+
+    def self_prepelled_equipment?
+      @product.variety.to_sym == :self_prepelled_equipment
+    end
+
+    def tool?
+      @product.is_a?(Equipment) && product.try(:tractor?) == false
+    end
+
+    def tractors_count
+      count = @participations
+              .select { |participation| participation.product.try(:tractor?) }
+              .size
+
+      count += 1 if tractor? && !product_participation?
+
+      unless @intervention.tools.blank?
+        count = @intervention.tools.select{ |t| t.product.try(:tractor?) }.count
+      end
+
+      count
+    end
+
+    def tools_count
+      count = @participations
+              .select { |participation| participation.product.is_a?(Equipment) && participation.product.try(:tractor?) == false }
+              .size
+
+      count += 1 if !tractor? && tool? && !product_participation?
+
+      unless @intervention.tools.blank?
+        count = @intervention.tools.select{ |t| t.product.is_a?(Equipment) && t.product.try(:tractor?) == false }.count
+      end
+
+      count
+    end
+
+    def product_participation?
+      @participations
+        .select { |participation| participation.product == @product }
+        .present?
+    end
+
+    def prepelled_equipments_count
+      @participations
+        .select { |participation| participation.product.variety.to_sym == :self_prepelled_equipment }
+        .size
+    end
+
+    def workers_times(nature: nil, not_nature: nil)
+      worker_working_periods(nature, not_nature)
+        .map(&:duration_gap)
+        .reduce(0, :+)
+    end
+
+    def worker_working_periods(nature, not_nature)
+      participations = @participations.select { |participation| participation.product.is_a?(Worker) }
+
+      working_periods(participations, nature, not_nature)
+    end
+
+    def tractor_working_periods(nature, not_nature)
+      participations = @participations.select do |participation|
+        participation.product.variety == :tractor ||
+          participation.product.variety == :self_prepelled_equipment
+      end
+
+      working_periods(participations, nature, not_nature)
+    end
+
+    def tool_working_periods(nature, not_nature)
+      participations = @participations.select { |participation| participation.product.is_a?(Equipment) }
+
+      working_periods(participations, nature, not_nature)
+    end
+
+    def working_periods(participations, nature, not_nature)
+      working_periods = nil
+
+      if nature.nil? && not_nature.nil?
+        return participations.map(&:working_periods).flatten
+      end
+
+      return working_periods_of_nature(participations, nature) unless nature.nil?
+
+      working_periods_not_nature(participations, nature)
+    end
+
+    def working_periods_of_nature(participations, nature, reverse_result: false)
+      participations.map do |participation|
+        participation.working_periods.select do |working_period|
+          if reverse_result == false
+            working_period.nature.to_sym == nature
+          else
+            working_period.nature.to_sym != nature
+          end
+        end
+      end.flatten
+    end
+
+    def working_periods_not_nature(participations, nature)
+      working_periods_of_nature(participations, nature, reverse_result: true)
+    end
 end

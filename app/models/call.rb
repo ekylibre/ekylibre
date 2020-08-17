@@ -112,19 +112,19 @@ class Call < Ekylibre::Record::Base
       @response.result
     end
 
-  # Returns true for a nil/false code.
-  def state_code_matches?(code)
-    !code || state_code_is?(code)
-  end
+    # Returns true for a nil/false code.
+    def state_code_matches?(code)
+      !code || state_code_is?(code)
+    end
 
-  def state_is?(state)
-    resp = @response.state.to_s.split('_')
-    state_array = state.to_s.split('_')
-    state_array.all? { |s| resp.include?(s) }
-  end
+    def state_is?(state)
+      resp = @response.state.to_s.split('_')
+      state_array = state.to_s.split('_')
+      state_array.all? { |s| resp.include?(s) }
+    end
 
-  # Returns false for a nil/false code.
-  def state_code_is?(state)
-    @response.state.to_s.split('_')[1..-1].join('_') == state.to_s
-  end
+    # Returns false for a nil/false code.
+    def state_code_is?(state)
+      @response.state.to_s.split('_')[1..-1].join('_') == state.to_s
+    end
 end

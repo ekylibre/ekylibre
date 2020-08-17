@@ -39,8 +39,8 @@ class VersionChange < Struct.new(:version, :attribute, :old_value, :new_value)
       version.item.class
     end
 
-  def human_value(value)
-    attr = model.enumerized_attributes[attribute]
-    (attr ? attr.human_value_name(value) : value.respond_to?(:l) ? value.l : value).to_s
-  end
+    def human_value(value)
+      attr = model.enumerized_attributes[attribute]
+      (attr ? attr.human_value_name(value) : value.respond_to?(:l) ? value.l : value).to_s
+    end
 end

@@ -29,9 +29,9 @@ module FEC
           list
         end
 
-      def build(_journals)
-        raise NotImplementedError
-      end
+        def build(_journals)
+          raise NotImplementedError
+        end
     end
   end
 end

@@ -212,8 +212,8 @@ module Backend
         { tag: :td, class: :decimal, content: value }
       end
 
-    def total_decimal_cell(value)
-      { tag: :th, class: :decimal, content: value }
-    end
+      def total_decimal_cell(value)
+        { tag: :th, class: :decimal, content: value }
+      end
   end
 end

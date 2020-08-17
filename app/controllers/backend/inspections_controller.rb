@@ -62,47 +62,48 @@ module Backend
         inspections
       end
 
-    # FIXME
-    # Not satisfied that the code is here instead of somewhere else but I can't
-    # really figure out where it should be.
-    #
-    # Maybe an Exporter ? A Presenter ? Something along those lines ?
-    def to_ods(inspections)
-      require 'rodf'
-      output = RODF::Spreadsheet.new
-      output.instance_eval do
-        office_style :important, family: :cell do
-          property :text, 'font-weight': :bold, 'font-size': '11px'
-        end
-        office_style :bold, family: :cell do
-          property :text, 'font-weight': :bold
-        end
+      # FIXME
+      # Not satisfied that the code is here instead of somewhere else but I can't
+      # really figure out where it should be.
+      #
+      # Maybe an Exporter ? A Presenter ? Something along those lines ?
+      def to_ods(inspections)
+        require 'rodf'
+        output = RODF::Spreadsheet.new
+        output.instance_eval do
+          office_style :important, family: :cell do
+            property :text, 'font-weight': :bold, 'font-size': '11px'
+          end
+          office_style :bold, family: :cell do
+            property :text, 'font-weight': :bold
+          end
 
-        inspections.group_by(&:activity).each do |activity, a_inspections|
-          dimensions = %i[items_count net_mass].select { |dim| a_inspections.any? { |i| i.measure_grading(dim) } }
+          inspections.group_by(&:activity).each do |activity, a_inspections|
+            dimensions = %i[items_count net_mass].select { |dim| a_inspections.any? { |i| i.measure_grading(dim) } }
 
-          table activity.name do
-            row do
-              cell Plant.model_name.human,                    style: :important
-              cell Plant.human_attribute_name(:variety),      style: :important
-              cell Inspection.human_attribute_name(:number),  style: :important
-              cell InspectionCalibration.model_name.human,    style: :important
-              dimensions.each do |dimension|
-                cell Inspection.human_attribute_name("total_#{dimension}"), style: :important
+            table activity.name do
+              row do
+                cell Plant.model_name.human,                    style: :important
+                cell Plant.human_attribute_name(:variety),      style: :important
+                cell Inspection.human_attribute_name(:number),  style: :important
+                cell InspectionCalibration.model_name.human,    style: :important
+                dimensions.each do |dimension|
+                  cell Inspection.human_attribute_name("total_#{dimension}"), style: :important
+                end
               end
-            end
 
-            a_inspections.group_by(&:product).each do |plant, p_inspections|
-              p_inspections.each do |inspection|
-                inspection.calibrations.each do |calib|
-                  row do
-                    cell plant.name
-                    cell plant.variety.capitalize
-                    cell inspection.number
-                    cell calib.nature_name
-                    dimensions.each do |dimension|
-                      next cell('-') unless inspection.measure_grading(dimension)
-                      cell calib.projected_total(dimension).round(0).l(precision: 0)
+              a_inspections.group_by(&:product).each do |plant, p_inspections|
+                p_inspections.each do |inspection|
+                  inspection.calibrations.each do |calib|
+                    row do
+                      cell plant.name
+                      cell plant.variety.capitalize
+                      cell inspection.number
+                      cell calib.nature_name
+                      dimensions.each do |dimension|
+                        next cell('-') unless inspection.measure_grading(dimension)
+                        cell calib.projected_total(dimension).round(0).l(precision: 0)
+                      end
                     end
                   end
                 end
@@ -110,8 +111,7 @@ module Backend
             end
           end
         end
+        output
       end
-      output
-    end
   end
 end

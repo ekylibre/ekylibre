@@ -55,10 +55,10 @@ module Interventions
         @error = error
       end
 
-    def init_param_error
-      fail!('Product param is missing') if @product.nil?
-      fail!('Quantity param is missing.') if @quantity.nil?
-      fail!('Unit_name param is missing.') if @unit_name.nil?
-    end
+      def init_param_error
+        fail!('Product param is missing') if @product.nil?
+        fail!('Quantity param is missing.') if @quantity.nil?
+        fail!('Unit_name param is missing.') if @unit_name.nil?
+      end
   end
 end

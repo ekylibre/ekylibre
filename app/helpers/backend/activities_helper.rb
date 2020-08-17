@@ -177,37 +177,37 @@ module Backend
           .to_h
       end
 
-    def category_percentage_and_evolution(dimension, category, old_i, new_i)
-      return unless new_i && old_i
-      new_percentage = new_i.points_percentage(dimension, category)
-      old_percentage = old_i.points_percentage(dimension, category)
-      evolution = (new_percentage - old_percentage) if old_percentage.to_d.nonzero?
-      {
-        percentage: new_percentage,
-        evolution: evolution
-      }
-    end
+      def category_percentage_and_evolution(dimension, category, old_i, new_i)
+        return unless new_i && old_i
+        new_percentage = new_i.points_percentage(dimension, category)
+        old_percentage = old_i.points_percentage(dimension, category)
+        evolution = (new_percentage - old_percentage) if old_percentage.to_d.nonzero?
+        {
+          percentage: new_percentage,
+          evolution: evolution
+        }
+      end
 
-    def popup_calibrations(dimension, plant, round = 2)
-      last_i  = plant.inspections.reorder(:sampled_at).last
-      unit    = last_i.quantity_unit(dimension)
+      def popup_calibrations(dimension, plant, round = 2)
+        last_i  = plant.inspections.reorder(:sampled_at).last
+        unit    = last_i.quantity_unit(dimension)
 
-      last_i
-        .scales
-        .map do |scale|
-          dataset = last_i.calibrations.includes(nature: :scale).of_scale(scale).reorder(:id)
-          dataset.map do |calibration|
-            {
-              label: calibration.name,
-              value: Maybe(calibration.marketable_quantity(dimension))
-                .or_else(0)
-                .convert(unit)
-                .round(round)
-                .l(precision: 0)
-            }
+        last_i
+          .scales
+          .map do |scale|
+            dataset = last_i.calibrations.includes(nature: :scale).of_scale(scale).reorder(:id)
+            dataset.map do |calibration|
+              {
+                label: calibration.name,
+                value: Maybe(calibration.marketable_quantity(dimension))
+                  .or_else(0)
+                  .convert(unit)
+                  .round(round)
+                  .l(precision: 0)
+              }
+            end
           end
-        end
-        .flatten
-    end
+          .flatten
+      end
   end
 end

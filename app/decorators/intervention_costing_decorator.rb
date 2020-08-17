@@ -49,10 +49,10 @@ class InterventionCostingDecorator < Draper::Decorator
         .round(2)
     end
 
-  def total_cost
-    object.inputs_cost +
-      object.doers_cost +
-      object.tools_cost +
-      object.receptions_cost
-  end
+    def total_cost
+      object.inputs_cost +
+        object.doers_cost +
+        object.tools_cost +
+        object.receptions_cost
+    end
 end

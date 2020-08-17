@@ -170,22 +170,22 @@ module LaGraineInformatique
           list
         end
 
-      def create_custom_field(name, customized_type, options = {})
-        # create custom field if not exist
-        unless cf = CustomField.find_by(name: name)
-          # create custom field
-          cf = CustomField.create!(name: name, customized_type: customized_type,
-                                   nature: options[:nature] || :string,
-                                   column_name: options[:column_name])
-          # create custom field choice if nature is choice
-          if cf.choice? && options[:choices]
-            options[:choices].each do |value, label|
-              cf.choices.create!(name: label, value: value)
+        def create_custom_field(name, customized_type, options = {})
+          # create custom field if not exist
+          unless cf = CustomField.find_by(name: name)
+            # create custom field
+            cf = CustomField.create!(name: name, customized_type: customized_type,
+                                     nature: options[:nature] || :string,
+                                     column_name: options[:column_name])
+            # create custom field choice if nature is choice
+            if cf.choice? && options[:choices]
+              options[:choices].each do |value, label|
+                cf.choices.create!(name: label, value: value)
+              end
             end
           end
+          cf
         end
-        cf
-      end
     end
   end
 end

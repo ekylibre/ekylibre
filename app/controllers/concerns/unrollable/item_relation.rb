@@ -80,31 +80,31 @@ module Unrollable
             .map { |condition| "(#{condition})" }
       end
 
-    def exact_conditions_for(keys, searchables)
-      searchables.map { |filter| exact_unaccented_match(filter.search, keys) }
-                 .map { |condition| "(#{condition})" }.join(',')
-    end
+      def exact_conditions_for(keys, searchables)
+        searchables.map { |filter| exact_unaccented_match(filter.search, keys) }
+                   .map { |condition| "(#{condition})" }.join(',')
+      end
 
-    def unaccented_match(term, pattern)
-      "unaccent(CAST(#{term} AS VARCHAR)) ILIKE unaccent(#{ApplicationRecord.sanitize("[!BEGIN!]#{pattern}%")})"
-    end
+      def unaccented_match(term, pattern)
+        "unaccent(CAST(#{term} AS VARCHAR)) ILIKE unaccent(#{ApplicationRecord.sanitize("[!BEGIN!]#{pattern}%")})"
+      end
 
-    def exact_unaccented_match(term, pattern)
-      "unaccent(CAST(#{term} AS VARCHAR)) NOT ILIKE unaccent(#{ApplicationRecord.sanitize(pattern.to_s)})"
-    end
+      def exact_unaccented_match(term, pattern)
+        "unaccent(CAST(#{term} AS VARCHAR)) NOT ILIKE unaccent(#{ApplicationRecord.sanitize(pattern.to_s)})"
+      end
 
-    def bad_scope(scope, model)
-      raise InvalidScopeException, <<-BAD_SCOPE
+      def bad_scope(scope, model)
+        raise InvalidScopeException, <<-BAD_SCOPE
         Scope #{scope.inspect} is unknown for #{model.name}. #{model.scopes.map(&:name).inspect} are expected."
-      BAD_SCOPE
-    end
+        BAD_SCOPE
+      end
 
-    def multiple_params_in?(parameter)
-      parameter.is_a?(String) || parameter.is_a?(Array)
-    end
+      def multiple_params_in?(parameter)
+        parameter.is_a?(String) || parameter.is_a?(Array)
+      end
 
-    def with_parameters?(scope, model)
-      model.complex_scopes.map(&:name).include?(scope)
-    end
+      def with_parameters?(scope, model)
+        model.complex_scopes.map(&:name).include?(scope)
+      end
   end
 end

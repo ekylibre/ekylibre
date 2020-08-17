@@ -5,8 +5,8 @@ class ShipmentBookkeeper < ParcelBookkeeper
       :invoice_to_create_clients
     end
 
-  def generate_entry(entry_recorder, amount, label:, from:, to:, item:)
-    from, to = to, from
-    super
-  end
+    def generate_entry(entry_recorder, amount, label:, from:, to:, item:)
+      from, to = to, from
+      super
+    end
 end

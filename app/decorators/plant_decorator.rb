@@ -244,123 +244,123 @@ class PlantDecorator < ProductDecorator
         .join(' ')
     end
 
-  def dimension(user)
-    last_inspection
-      .activity
-      .unit_preference(user)
-  end
-
-  def calcul_global_costs(with_working_zone_area: false)
-    costs = { inputs: 0, doers: 0, tools: 0, receptions: 0 }
-    interventions = decorated_interventions
-    working_zone_area = 0.in(:hectare)
-
-    interventions.map do |intervention|
-      global_costs = intervention.global_costs
-
-      calcul_with_surface_area(intervention, global_costs) if intervention.many_targets?
-      working_zone_area += intervention_working_zone_area(intervention).in(:hectare).round(2) if with_working_zone_area
-
-      sum_costs(costs, global_costs)
+    def dimension(user)
+      last_inspection
+        .activity
+        .unit_preference(user)
     end
 
-    calcul_with_working_zone_area(costs, working_zone_area) if with_working_zone_area
-    total_costs(costs)
-    costs
-  end
+    def calcul_global_costs(with_working_zone_area: false)
+      costs = { inputs: 0, doers: 0, tools: 0, receptions: 0 }
+      interventions = decorated_interventions
+      working_zone_area = 0.in(:hectare)
 
-  def decorated_interventions
-    InterventionDecorator.decorate_collection(object.interventions)
-  end
+      interventions.map do |intervention|
+        global_costs = intervention.global_costs
 
-  # @deprecated
-  def sum_costs(plant_costs, costs)
-    plant_costs.each { |key, _value| plant_costs[key] = plant_costs[key] + costs[key] }
-  end
+        calcul_with_surface_area(intervention, global_costs) if intervention.many_targets?
+        working_zone_area += intervention_working_zone_area(intervention).in(:hectare).round(2) if with_working_zone_area
 
-  # @deprecated
-  def human_costs(costs)
-    costs.each do |key, _value|
-      costs[key] = begin
-                     costs[key].to_i
-                   rescue FloatDomainError => e
-                     :error.tl
-                     ElasticAPM.report(e)
-                   end
+        sum_costs(costs, global_costs)
+      end
+
+      calcul_with_working_zone_area(costs, working_zone_area) if with_working_zone_area
+      total_costs(costs)
+      costs
     end
-  end
 
-  # @param [Hash{Symbol => Numeric}] costs
-  # @return [Hash{Symbol => Numeric}]
-  def humanize_costs(costs)
-    costs.transform_values do |value|
-      begin
-        value.to_i
-      rescue FloatDomainError => e
-        ElasticAPM.report(e)
+    def decorated_interventions
+      InterventionDecorator.decorate_collection(object.interventions)
+    end
 
-        :error.tl
+    # @deprecated
+    def sum_costs(plant_costs, costs)
+      plant_costs.each { |key, _value| plant_costs[key] = plant_costs[key] + costs[key] }
+    end
+
+    # @deprecated
+    def human_costs(costs)
+      costs.each do |key, _value|
+        costs[key] = begin
+                       costs[key].to_i
+                     rescue FloatDomainError => e
+                       :error.tl
+                       ElasticAPM.report(e)
+                     end
       end
     end
-  end
 
-  # @deprecated
-  def multiply_costs(costs, multiplier)
-    costs.each { |key, value| costs[key] = value * multiplier }
-  end
+    # @param [Hash{Symbol => Numeric}] costs
+    # @return [Hash{Symbol => Numeric}]
+    def humanize_costs(costs)
+      costs.transform_values do |value|
+        begin
+          value.to_i
+        rescue FloatDomainError => e
+          ElasticAPM.report(e)
 
-  # @deprecated
-  def divider_costs(costs, divider)
-    costs.each { |key, value| costs[key] = value / divider }
-  end
+          :error.tl
+        end
+      end
+    end
 
-  # @param [Hash{Symbol => Numeric}] costs
-  # @param [Numeric] area
-  # @return [Hash{Symbol => Numeric}]
-  def costs_by_area(costs, area)
-    costs.transform_values { |v| v / area }
-  end
+    # @deprecated
+    def multiply_costs(costs, multiplier)
+      costs.each { |key, value| costs[key] = value * multiplier }
+    end
 
-  # @param [Hash{Symbol => Numeric}] costs
-  # @return [Hash{Symbol => Numeric}]
-  def with_total_costs(costs)
-    { **costs, total: costs.except(:total).values.sum }
-  end
+    # @deprecated
+    def divider_costs(costs, divider)
+      costs.each { |key, value| costs[key] = value / divider }
+    end
 
-  # @deprecated
-  def total_costs(costs)
-    costs = costs.except!(:total) if costs.key?(:total)
+    # @param [Hash{Symbol => Numeric}] costs
+    # @param [Numeric] area
+    # @return [Hash{Symbol => Numeric}]
+    def costs_by_area(costs, area)
+      costs.transform_values { |v| v / area }
+    end
 
-    costs[:total] = costs.values.sum
-  end
+    # @param [Hash{Symbol => Numeric}] costs
+    # @return [Hash{Symbol => Numeric}]
+    def with_total_costs(costs)
+      { **costs, total: costs.except(:total).values.sum }
+    end
 
-  def calcul_with_surface_area(intervention, costs)
-    product = nil
-    product = intervention.outputs.of_actor(object).first.product if intervention.procedure.of_category?(:planting)
-    product = intervention.targets.of_actor(object).first.product unless intervention.procedure.of_category?(:planting)
+    # @deprecated
+    def total_costs(costs)
+      costs = costs.except!(:total) if costs.key?(:total)
 
-    sum_surface_area = product.net_surface_area.to_d / intervention.sum_targets_working_zone_area.to_d
+      costs[:total] = costs.values.sum
+    end
 
-    multiply_costs(costs, sum_surface_area)
-  end
+    def calcul_with_surface_area(intervention, costs)
+      product = nil
+      product = intervention.outputs.of_actor(object).first.product if intervention.procedure.of_category?(:planting)
+      product = intervention.targets.of_actor(object).first.product unless intervention.procedure.of_category?(:planting)
 
-  def intervention_working_zone_area(intervention)
-    return intervention.working_zone_area unless intervention.many_targets?
+      sum_surface_area = product.net_surface_area.to_d / intervention.sum_targets_working_zone_area.to_d
 
-    product = nil
-    product = intervention.outputs.of_actor(object).first.product if intervention.procedure.of_category?(:planting)
-    product = intervention.targets.of_actor(object).first.product unless intervention.procedure.of_category?(:planting)
+      multiply_costs(costs, sum_surface_area)
+    end
 
-    return intervention.sum_products_working_zone_area(product) unless intervention.planting?
-    intervention.sum_outputs_working_zone_area_of_product(product) if intervention.planting?
-  end
+    def intervention_working_zone_area(intervention)
+      return intervention.working_zone_area unless intervention.many_targets?
 
-  def calcul_with_working_zone_area(costs, working_zone_area)
-    working_zone_area = working_zone_area
-                        .in(:hectare)
-                        .round(2)
-                        .to_f
+      product = nil
+      product = intervention.outputs.of_actor(object).first.product if intervention.procedure.of_category?(:planting)
+      product = intervention.targets.of_actor(object).first.product unless intervention.procedure.of_category?(:planting)
 
-    divider_costs(costs, working_zone_area)
-  end
+      return intervention.sum_products_working_zone_area(product) unless intervention.planting?
+      intervention.sum_outputs_working_zone_area_of_product(product) if intervention.planting?
+    end
+
+    def calcul_with_working_zone_area(costs, working_zone_area)
+      working_zone_area = working_zone_area
+                          .in(:hectare)
+                          .round(2)
+                          .to_f
+
+      divider_costs(costs, working_zone_area)
+    end
 end

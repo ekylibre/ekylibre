@@ -327,12 +327,12 @@ module Nomen
         @nomenclature.cast_property(name, value)
       end
 
-    def item_for_comparison(other)
-      item = nomenclature[other.is_a?(Item) ? other.name : other]
-      unless item
-        raise StandardError, "Invalid operand to compare: #{other.inspect} not in #{nomenclature.name}"
+      def item_for_comparison(other)
+        item = nomenclature[other.is_a?(Item) ? other.name : other]
+        unless item
+          raise StandardError, "Invalid operand to compare: #{other.inspect} not in #{nomenclature.name}"
+        end
+        item
       end
-      item
-    end
   end
 end

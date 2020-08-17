@@ -19,11 +19,11 @@ module ActionIntegration
 
     private
 
-    # Prefixes the method name with the name of the protocol
-    # and makes it set the Call @format attribute to the protocol's.
-    # Example with HTML#get :
-    #   - the method becomes Call#get_html once the module is included
-    #   - Base#execute_request will be able to log the request as a HTML one.
+      # Prefixes the method name with the name of the protocol
+      # and makes it set the Call @format attribute to the protocol's.
+      # Example with HTML#get :
+      #   - the method becomes Call#get_html once the module is included
+      #   - Base#execute_request will be able to log the request as a HTML one.
       def method_with_format!(protocol, m)
         # Protcols::JSON -> "json"
         protocol_name = protocol.name.demodulize.downcase

@@ -134,14 +134,14 @@ module ActiveSensor
         @translations.deep_merge!(scope => value)
       end
 
-    def translate(scope, options = {})
-      locale = options[:locale] || I18n.locale
-      @translations ||= {}.with_indifferent_access
-      text = @translations.try(:[], scope).try(:[], locale)
-      unless text
-        Rails.logger.warn "Missing translation for sensor #{@vendor}##{@model}: #{scope}"
+      def translate(scope, options = {})
+        locale = options[:locale] || I18n.locale
+        @translations ||= {}.with_indifferent_access
+        text = @translations.try(:[], scope).try(:[], locale)
+        unless text
+          Rails.logger.warn "Missing translation for sensor #{@vendor}##{@model}: #{scope}"
+        end
+        text
       end
-      text
-    end
   end
 end

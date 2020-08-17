@@ -79,9 +79,9 @@ module ActionIntegration
         end
       end
 
-    def code_match?(code, http_codes)
-      return http_codes.include?(code.to_s.first) if http_codes.is_a? Array
-      http_codes.to_s == code.to_s.first
-    end
+      def code_match?(code, http_codes)
+        return http_codes.include?(code.to_s.first) if http_codes.is_a? Array
+        http_codes.to_s == code.to_s.first
+      end
   end
 end

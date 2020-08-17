@@ -50,89 +50,89 @@ module Backend
           find_and_check :cash, params[:cash_id]
         end
 
-      def find_bank_statement
-        @bank_statement = find_and_check :bank_statement, params[:bank_statement_id]
-      end
-
-      def find_bank_statements(cash)
-        @bank_statements = BankStatement.where(cash: cash.id)
-
-        if @bank_statements
-          @bank_statements = @bank_statements.between(params[:period_start].to_date.beginning_of_day, params[:period_end].to_date.end_of_day)
+        def find_bank_statement
+          @bank_statement = find_and_check :bank_statement, params[:bank_statement_id]
         end
 
-        return @bank_statements if @bank_statements.present?
+        def find_bank_statements(cash)
+          @bank_statements = BankStatement.where(cash: cash.id)
 
-        notify_error :no_bank_statement_found_for_this_period
-        redirect_to_back
-        false
-      end
+          if @bank_statements
+            @bank_statements = @bank_statements.between(params[:period_start].to_date.beginning_of_day, params[:period_end].to_date.end_of_day)
+          end
 
-      def reconciliate_one(bank_statement)
-        bank_statement_items = bank_statement.items unless @bank_statement.nil?
-        bank_statement_items = bank_statement.items.transfered_between(@period_start, @period_end) unless @bank_statements.nil?
+          return @bank_statements if @bank_statements.present?
 
-        @journal_entry_items ||= bank_statement.eligible_entries_in(@period_start, @period_end)
-
-        return no_entries if @journal_entry_items.blank? && @bank_statements.nil?
-
-        auto_reconciliate!(bank_statement, bank_statement_items, @journal_entry_items)
-
-        @items = [] if @items.nil?
-        @items += bank_statement_items + @journal_entry_items
-      end
-
-      def set_period!
-        @period_start = @bank_statement.started_on - 20.days if params[:bank_statement_id].present?
-        @period_end   = @bank_statement.stopped_on + 20.days if params[:bank_statement_id].present?
-
-        %i[start end].each do |boundary|
-          next unless params[:"period_#{boundary}"].present?
-          date = Date.strptime(params[:"period_#{boundary}"], '%Y-%m-%d')
-          instance_variable_set("@period_#{boundary}", date)
+          notify_error :no_bank_statement_found_for_this_period
+          redirect_to_back
+          false
         end
 
-        @period_start ||= (Date.today - 20.days).at_beginning_of_month
-        @period_end ||= Date.today
-      end
+        def reconciliate_one(bank_statement)
+          bank_statement_items = bank_statement.items unless @bank_statement.nil?
+          bank_statement_items = bank_statement.items.transfered_between(@period_start, @period_end) unless @bank_statements.nil?
 
-      def no_entries
-        notify_error :need_entries_to_reconciliate
-        redirect_to params[:redirect] if params[:redirect].present?
-        backend_bank_statement_path(@bank_statement) unless @bank_statement.nil?
-        backend_bank_statements_path(@bank_statements) unless @bank_statements.nil?
-      end
+          @journal_entry_items ||= bank_statement.eligible_entries_in(@period_start, @period_end)
 
-      def auto_reconciliate!(bank_statement, items, entries)
-        items.where(letter: nil).find_each do |bank_item|
-          next unless item_is_unique?(bank_item, others: items.where.not(id: bank_item.id))
+          return no_entries if @journal_entry_items.blank? && @bank_statements.nil?
 
-          matching_entry = entries.where(printed_on: bank_item.transfered_on,
-                                         credit: bank_item.debit,
-                                         debit: bank_item.credit,
-                                         bank_statement_letter: nil)
-          next if matching_entry.count(:id) != 1
+          auto_reconciliate!(bank_statement, bank_statement_items, @journal_entry_items)
 
-          bank_statement.letter_items(items.where(id: bank_item), matching_entry)
+          @items = [] if @items.nil?
+          @items += bank_statement_items + @journal_entry_items
         end
-      end
 
-      def item_is_unique?(item, others: [])
-        others
-          .where(transfered_on: item.transfered_on,
-                 debit: item.debit,
-                 credit: item.credit)
-          .blank?
-      end
+        def set_period!
+          @period_start = @bank_statement.started_on - 20.days if params[:bank_statement_id].present?
+          @period_end   = @bank_statement.stopped_on + 20.days if params[:bank_statement_id].present?
 
-      def group_by_date(items)
-        return {} if items.nil?
+          %i[start end].each do |boundary|
+            next unless params[:"period_#{boundary}"].present?
+            date = Date.strptime(params[:"period_#{boundary}"], '%Y-%m-%d')
+            instance_variable_set("@period_#{boundary}", date)
+          end
 
-        items.each(&:reload).group_by do |item|
-          attributes = item.attributes
-          attributes['transfered_on'] || attributes['printed_on']
-        end.sort.to_h
-      end
+          @period_start ||= (Date.today - 20.days).at_beginning_of_month
+          @period_end ||= Date.today
+        end
+
+        def no_entries
+          notify_error :need_entries_to_reconciliate
+          redirect_to params[:redirect] if params[:redirect].present?
+          backend_bank_statement_path(@bank_statement) unless @bank_statement.nil?
+          backend_bank_statements_path(@bank_statements) unless @bank_statements.nil?
+        end
+
+        def auto_reconciliate!(bank_statement, items, entries)
+          items.where(letter: nil).find_each do |bank_item|
+            next unless item_is_unique?(bank_item, others: items.where.not(id: bank_item.id))
+
+            matching_entry = entries.where(printed_on: bank_item.transfered_on,
+                                           credit: bank_item.debit,
+                                           debit: bank_item.credit,
+                                           bank_statement_letter: nil)
+            next if matching_entry.count(:id) != 1
+
+            bank_statement.letter_items(items.where(id: bank_item), matching_entry)
+          end
+        end
+
+        def item_is_unique?(item, others: [])
+          others
+            .where(transfered_on: item.transfered_on,
+                   debit: item.debit,
+                   credit: item.credit)
+            .blank?
+        end
+
+        def group_by_date(items)
+          return {} if items.nil?
+
+          items.each(&:reload).group_by do |item|
+            attributes = item.attributes
+            attributes['transfered_on'] || attributes['printed_on']
+          end.sort.to_h
+        end
     end
   end
 end

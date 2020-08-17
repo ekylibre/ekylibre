@@ -12,12 +12,12 @@ module Backend
         params[:id].gsub(/[^a-z0-9_]/i, '')
       end
 
-    def file_path
-      ActiveExchanger::Base.template_file_for(exchanger_name, locale)
-    end
+      def file_path
+        ActiveExchanger::Base.template_file_for(exchanger_name, locale)
+      end
 
-    def file_name
-      "exchangers.#{exchanger_name}".t.parameterize + File.extname(file_path.get)
-    end
+      def file_name
+        "exchangers.#{exchanger_name}".t.parameterize + File.extname(file_path.get)
+      end
   end
 end

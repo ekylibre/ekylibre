@@ -321,16 +321,16 @@ module RestfullyManageable
         RestfullyManageable.const_set mod_name, mod
       end
 
-    def insert_module(code, class_code, name: '')
-      restful_module = Module.new
-      name_module(restful_module, name)
-      restful_module.class_eval(code)
-      restful_module.extend ActiveSupport::Concern
-      restful_module.send(:included) do
-        eval class_code
+      def insert_module(code, class_code, name: '')
+        restful_module = Module.new
+        name_module(restful_module, name)
+        restful_module.class_eval(code)
+        restful_module.extend ActiveSupport::Concern
+        restful_module.send(:included) do
+          eval class_code
+        end
+        include restful_module
+        self
       end
-      include restful_module
-      self
-    end
   end
 end

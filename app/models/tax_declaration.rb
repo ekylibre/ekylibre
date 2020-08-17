@@ -254,17 +254,17 @@ class TaxDeclaration < Ekylibre::Record::Base
       set_purchase_entry_items_tax_modes all.where(resource_type: 'PurchaseItem')
     end
 
-  def set_non_purchase_entry_items_tax_modes(entry_items)
-    entry_items.update_all tax_declaration_mode: financial_year.tax_declaration_mode
-  end
-
-  def set_purchase_entry_items_tax_modes(entry_items)
-    { 'at_invoicing' => 'debit', 'at_paying' => 'payment' }.each do |tax_payability, declaration_mode|
-      entry_items
-        .joins('INNER JOIN purchase_items pi ON pi.id = journal_entry_items.resource_id')
-        .joins('INNER JOIN purchases p ON p.id = pi.purchase_id')
-        .where('p.tax_payability' => tax_payability)
-        .update_all tax_declaration_mode: declaration_mode
+    def set_non_purchase_entry_items_tax_modes(entry_items)
+      entry_items.update_all tax_declaration_mode: financial_year.tax_declaration_mode
     end
-  end
+
+    def set_purchase_entry_items_tax_modes(entry_items)
+      { 'at_invoicing' => 'debit', 'at_paying' => 'payment' }.each do |tax_payability, declaration_mode|
+        entry_items
+          .joins('INNER JOIN purchase_items pi ON pi.id = journal_entry_items.resource_id')
+          .joins('INNER JOIN purchases p ON p.id = pi.purchase_id')
+          .where('p.tax_payability' => tax_payability)
+          .update_all tax_declaration_mode: declaration_mode
+      end
+    end
 end

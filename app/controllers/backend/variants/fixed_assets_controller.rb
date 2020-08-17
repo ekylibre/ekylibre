@@ -42,9 +42,9 @@ module Backend
           @variant = ProductNatureVariant.find(permitted_params[:id])
         end
 
-      def permitted_params
-        params.permit(:id)
-      end
+        def permitted_params
+          params.permit(:id)
+        end
     end
   end
 end

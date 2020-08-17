@@ -18,27 +18,27 @@ class FinancialYearExchangeExport
 
     attr_reader :exchange
 
-  def build_export(format, &block)
-    if format == 'csv'
-      CsvExport.new(exchange).export(&block)
-    else
-      raise InvalidFormatError, "Format '#{format}' is not supported"
+    def build_export(format, &block)
+      if format == 'csv'
+        CsvExport.new(exchange).export(&block)
+      else
+        raise InvalidFormatError, "Format '#{format}' is not supported"
+      end
     end
-  end
 
-  def zip_file(zip_filename, filename, filepath)
-    tempfile = build_zip_tempfile(zip_filename)
-    Zip::File.open(tempfile.path, Zip::File::CREATE) do |z|
-      z.add filename, filepath
+    def zip_file(zip_filename, filename, filepath)
+      tempfile = build_zip_tempfile(zip_filename)
+      Zip::File.open(tempfile.path, Zip::File::CREATE) do |z|
+        z.add filename, filepath
+      end
+      yield tempfile
+    ensure
+      tempfile.close!
     end
-    yield tempfile
-  ensure
-    tempfile.close!
-  end
 
-  def build_zip_tempfile(filename)
-    tempfile = Tempfile.new(filename)
-    Zip::OutputStream.open(tempfile) { |_| } # initialize tempfile as a ZIP file
-    tempfile
-  end
+    def build_zip_tempfile(filename)
+      tempfile = Tempfile.new(filename)
+      Zip::OutputStream.open(tempfile) { |_| } # initialize tempfile as a ZIP file
+      tempfile
+    end
 end

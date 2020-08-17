@@ -85,7 +85,7 @@ class ProductLocalization < Ekylibre::Record::Base
 
   private
 
-  # Returns all siblings in the chronological line
+    # Returns all siblings in the chronological line
     def siblings
       (product ? product.localizations : self.class.none)
     end

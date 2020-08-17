@@ -47,9 +47,9 @@ module Backend
           @purchase = Purchase.find(permitted_params[:id])
         end
 
-      def permitted_params
-        params.permit(:id)
-      end
+        def permitted_params
+          params.permit(:id)
+        end
     end
   end
 end

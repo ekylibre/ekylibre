@@ -278,46 +278,46 @@ module Ekylibre
         !@manifest[key].is_a?(FalseClass)
       end
 
-    def can_load_default?(key)
-      can_load?(key) && !@manifest[key].is_a?(Hash)
-    end
+      def can_load_default?(key)
+        can_load?(key) && !@manifest[key].is_a?(Hash)
+      end
 
-    def create_records(records, *args)
-      options = args.extract_options!
-      main_column = args.shift || :name
-      model = records.to_s.classify.constantize
-      if data = @manifest[records]
-        @records ||= {}.with_indifferent_access
-        @records[records] ||= {}.with_indifferent_access
-        unless data.is_a?(Hash)
-          raise "Cannot load #{records}: Hash expected, got #{records.class.name} (#{records.inspect})"
-        end
-        data.each do |identifier, attributes|
-          attributes = attributes.with_indifferent_access
-          attributes[main_column] ||= identifier.to_s
-          model.reflect_on_all_associations.each do |reflection|
-            if attributes[reflection.name] && !attributes[reflection.name].is_a?(ActiveRecord::Base)
-              attributes[reflection.name] = find_record(reflection.class_name.tableize, attributes[reflection.name].to_s)
-            end
+      def create_records(records, *args)
+        options = args.extract_options!
+        main_column = args.shift || :name
+        model = records.to_s.classify.constantize
+        if data = @manifest[records]
+          @records ||= {}.with_indifferent_access
+          @records[records] ||= {}.with_indifferent_access
+          unless data.is_a?(Hash)
+            raise "Cannot load #{records}: Hash expected, got #{records.class.name} (#{records.inspect})"
           end
-          record = options[:unless_exist] ? model.find_by(main_column => identifier) : nil
-          record ||= model.new
-          record.attributes = attributes
-          if record.save(attributes)
-            @records[records][identifier.to_s] = record
-          else
-            w.error "\nError on #{record.inspect.red}: #{record.errors.full_messages.to_sentence}"
-            raise ActiveRecord::RecordInvalid, record
+          data.each do |identifier, attributes|
+            attributes = attributes.with_indifferent_access
+            attributes[main_column] ||= identifier.to_s
+            model.reflect_on_all_associations.each do |reflection|
+              if attributes[reflection.name] && !attributes[reflection.name].is_a?(ActiveRecord::Base)
+                attributes[reflection.name] = find_record(reflection.class_name.tableize, attributes[reflection.name].to_s)
+              end
+            end
+            record = options[:unless_exist] ? model.find_by(main_column => identifier) : nil
+            record ||= model.new
+            record.attributes = attributes
+            if record.save(attributes)
+              @records[records][identifier.to_s] = record
+            else
+              w.error "\nError on #{record.inspect.red}: #{record.errors.full_messages.to_sentence}"
+              raise ActiveRecord::RecordInvalid, record
+            end
           end
         end
       end
-    end
 
-    # Returns the record corresponding to the identifier
-    def find_record(records, identifier)
-      @records ||= {}.with_indifferent_access
-      return @records[records][identifier] if @records[records]
-      nil
-    end
+      # Returns the record corresponding to the identifier
+      def find_record(records, identifier)
+        @records ||= {}.with_indifferent_access
+        return @records[records][identifier] if @records[records]
+        nil
+      end
   end
 end

@@ -186,47 +186,47 @@ module Backend
         send_data(File.read(dest), type: 'application/pdf', disposition: 'attachment', filename: filename + '.pdf')
       end
 
-    def to_odt(order_reporting, filename, _params)
-      # TODO: add a generic template system path
-      report = ODFReport::Report.new(Rails.root.join('config', 'locales', 'fra', 'reporting', 'purchase_order.odt')) do |r|
-        # TODO: add a helper with generic metod to implemend header and footer
+      def to_odt(order_reporting, filename, _params)
+        # TODO: add a generic template system path
+        report = ODFReport::Report.new(Rails.root.join('config', 'locales', 'fra', 'reporting', 'purchase_order.odt')) do |r|
+          # TODO: add a helper with generic metod to implemend header and footer
 
-        e = Entity.of_company
-        company_name = e.full_name
-        company_address = e.default_mail_address.present? ? e.default_mail_address.coordinate : '-'
-        company_phone = e.phones.present? ? e.phones.first.coordinate : '-'
-        company_email = order_reporting[:purchase_responsible_email]
-        r.add_field 'COMPANY_ADDRESS', company_address
-        r.add_field 'COMPANY_NAME', company_name
-        r.add_field 'COMPANY_PHONE', company_phone
-        r.add_field 'COMPANY_EMAIL', company_email
-        r.add_field 'FILENAME', filename
-        r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
+          e = Entity.of_company
+          company_name = e.full_name
+          company_address = e.default_mail_address.present? ? e.default_mail_address.coordinate : '-'
+          company_phone = e.phones.present? ? e.phones.first.coordinate : '-'
+          company_email = order_reporting[:purchase_responsible_email]
+          r.add_field 'COMPANY_ADDRESS', company_address
+          r.add_field 'COMPANY_NAME', company_name
+          r.add_field 'COMPANY_PHONE', company_phone
+          r.add_field 'COMPANY_EMAIL', company_email
+          r.add_field 'FILENAME', filename
+          r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
 
-        r.add_field 'PURCHASE_NUMBER', order_reporting[:purchase_number]
-        r.add_field 'PURCHASE_ORDERED_AT', order_reporting[:purchase_ordered_at]
-        r.add_field 'PURCHASE_ESTIMATE_RECEPTION_DATE', order_reporting[:purchase_estimate_reception_date]
-        r.add_field 'PURCHASE_RESPONSIBLE', order_reporting[:purchase_responsible]
-        r.add_field 'SUPPLIER_NAME', order_reporting[:supplier_name]
-        r.add_field 'SUPPLIER_PHONE', order_reporting[:supplier_phone]
-        r.add_field 'SUPPLIER_MOBILE_PHONE', order_reporting[:supplier_mobile_phone]
-        r.add_field 'SUPPLIER_ADDRESS', order_reporting[:supplier_address]
-        r.add_field 'SUPPLIER_EMAIL', order_reporting[:supplier_email]
-        r.add_image :company_logo, order_reporting[:entity_picture]
+          r.add_field 'PURCHASE_NUMBER', order_reporting[:purchase_number]
+          r.add_field 'PURCHASE_ORDERED_AT', order_reporting[:purchase_ordered_at]
+          r.add_field 'PURCHASE_ESTIMATE_RECEPTION_DATE', order_reporting[:purchase_estimate_reception_date]
+          r.add_field 'PURCHASE_RESPONSIBLE', order_reporting[:purchase_responsible]
+          r.add_field 'SUPPLIER_NAME', order_reporting[:supplier_name]
+          r.add_field 'SUPPLIER_PHONE', order_reporting[:supplier_phone]
+          r.add_field 'SUPPLIER_MOBILE_PHONE', order_reporting[:supplier_mobile_phone]
+          r.add_field 'SUPPLIER_ADDRESS', order_reporting[:supplier_address]
+          r.add_field 'SUPPLIER_EMAIL', order_reporting[:supplier_email]
+          r.add_image :company_logo, order_reporting[:entity_picture]
 
-        r.add_table('P_ITEMS', order_reporting[:items], header: true) do |t|
-          t.add_column(:variant)
-          t.add_column(:quantity)
-          t.add_column(:unity)
-          t.add_column(:unit_pretax_amount)
-          t.add_column(:pretax_amount)
-          t.add_column(:amount)
+          r.add_table('P_ITEMS', order_reporting[:items], header: true) do |t|
+            t.add_column(:variant)
+            t.add_column(:quantity)
+            t.add_column(:unity)
+            t.add_column(:unit_pretax_amount)
+            t.add_column(:pretax_amount)
+            t.add_column(:amount)
+          end
+
+          r.add_field 'PURCHASE_PRETAX_AMOUNT', order_reporting[:purchase_pretax_amount]
+          r.add_field 'PURCHASE_AMOUNT', order_reporting[:purchase_amount]
+          r.add_field 'PURCHASE_CURRENCY', order_reporting[:purchase_currency]
         end
-
-        r.add_field 'PURCHASE_PRETAX_AMOUNT', order_reporting[:purchase_pretax_amount]
-        r.add_field 'PURCHASE_AMOUNT', order_reporting[:purchase_amount]
-        r.add_field 'PURCHASE_CURRENCY', order_reporting[:purchase_currency]
       end
-    end
   end
 end

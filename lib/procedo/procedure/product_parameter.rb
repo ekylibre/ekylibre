@@ -314,14 +314,14 @@ module Procedo
 
       private
 
-      # Compares two Nomen::Variety items. Returns true if actor's item is the
-      # same as parameter's one or if actor's item is a child of parameter's
-      # variety, false otherwise.
-      # @param [Nomen::Variety] parameter_item current parameter own variety or
-      #   derivative_of
-      # @param [Nomen::Variety] actor_item the actor's variety or derivative_of
-      #   to compare
-      # @return [Boolean]
+        # Compares two Nomen::Variety items. Returns true if actor's item is the
+        # same as parameter's one or if actor's item is a child of parameter's
+        # variety, false otherwise.
+        # @param [Nomen::Variety] parameter_item current parameter own variety or
+        #   derivative_of
+        # @param [Nomen::Variety] actor_item the actor's variety or derivative_of
+        #   to compare
+        # @return [Boolean]
         def same_items?(parameter_item, actor_item)
           # if possible it is better to squeeze nomenclature items comparison since it's quite slow
           return true if actor_item == parameter_item

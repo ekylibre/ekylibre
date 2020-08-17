@@ -16,25 +16,25 @@ module Userstamp
     module InstanceMethods
       private
 
-      # The <tt>set_stamper</tt> method as implemented here assumes a couple
-      # of things. First, that you are using a +User+ model as the stamper
-      # and second that your controller has a <tt>current_user</tt> method
-      # that contains the currently logged in stamper. If either of these
-      # are not the case in your application you will want to manually add
-      # your own implementation of this method to the private section of
-      # the controller where you are including the Userstamp module.
+        # The <tt>set_stamper</tt> method as implemented here assumes a couple
+        # of things. First, that you are using a +User+ model as the stamper
+        # and second that your controller has a <tt>current_user</tt> method
+        # that contains the currently logged in stamper. If either of these
+        # are not the case in your application you will want to manually add
+        # your own implementation of this method to the private section of
+        # the controller where you are including the Userstamp module.
         def set_stamper
           User.stamper = current_user
         end
 
-      # The <tt>reset_stamper</tt> method as implemented here assumes that a
-      # +User+ model is being used as the stamper. If this is not the case then
-      # you will need to manually add your own implementation of this method to
-      # the private section of the controller where you are including the
-      # Userstamp module.
-      def reset_stamper
-        User.reset_stamper
-      end
+        # The <tt>reset_stamper</tt> method as implemented here assumes that a
+        # +User+ model is being used as the stamper. If this is not the case then
+        # you will need to manually add your own implementation of this method to
+        # the private section of the controller where you are including the
+        # Userstamp module.
+        def reset_stamper
+          User.reset_stamper
+        end
       # end private
     end
   end

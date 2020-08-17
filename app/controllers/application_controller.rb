@@ -109,51 +109,51 @@ class ApplicationController < ActionController::Base
       @current_theme = 'tekyla'
     end
 
-  # Initialize locale with params[:locale] or HTTP_ACCEPT_LANGUAGE
-  def set_locale
-    if current_user && current_user.language.present? && I18n.available_locales.include?(current_user.language.to_sym)
-      I18n.locale = current_user.language
-    else
-      session[:locale] = params[:locale] if params[:locale]
-      if session[:locale].blank?
-        if locale = http_accept_language.compatible_language_from(Ekylibre.http_languages.keys)
-          session[:locale] = Ekylibre.http_languages[locale]
-        end
+    # Initialize locale with params[:locale] or HTTP_ACCEPT_LANGUAGE
+    def set_locale
+      if current_user && current_user.language.present? && I18n.available_locales.include?(current_user.language.to_sym)
+        I18n.locale = current_user.language
       else
-        session[:locale] = nil unless ::I18n.available_locales.include?(session[:locale].to_sym)
+        session[:locale] = params[:locale] if params[:locale]
+        if session[:locale].blank?
+          if locale = http_accept_language.compatible_language_from(Ekylibre.http_languages.keys)
+            session[:locale] = Ekylibre.http_languages[locale]
+          end
+        else
+          session[:locale] = nil unless ::I18n.available_locales.include?(session[:locale].to_sym)
+        end
+        if ::I18n.available_locales.include?(Preference[:language])
+          session[:locale] ||= Preference[:language]
+        end
+        session[:locale] ||= I18n.default_locale
+        I18n.locale = session[:locale]
       end
-      if ::I18n.available_locales.include?(Preference[:language])
-        session[:locale] ||= Preference[:language]
-      end
-      session[:locale] ||= I18n.default_locale
-      I18n.locale = session[:locale]
     end
-  end
 
-  # Change the time zone from the given params or reuse session variable
-  def set_time_zone
-    session[:time_zone] = params[:time_zone] if params[:time_zone]
-    session[:time_zone] ||= 'UTC'
-    Time.zone = session[:time_zone]
-  end
+    # Change the time zone from the given params or reuse session variable
+    def set_time_zone
+      session[:time_zone] = params[:time_zone] if params[:time_zone]
+      session[:time_zone] ||= 'UTC'
+      Time.zone = session[:time_zone]
+    end
 
-  # Sets mailer host on each request to ensure to get the valid domain
-  def set_mailer_host
-    ActionMailer::Base.default_url_options = { host: request.host_with_port }
-  end
+    # Sets mailer host on each request to ensure to get the valid domain
+    def set_mailer_host
+      ActionMailer::Base.default_url_options = { host: request.host_with_port }
+    end
 
-  def check_browser
-    browser = Browser.new(ua: request.headers['HTTP_USER_AGENT'], accept_language: request.headers['HTTP_ACCEPT_LANGUAGE'])
-    notify_warning_now :incompatible_browser if browser.ie?
-  end
+    def check_browser
+      browser = Browser.new(ua: request.headers['HTTP_USER_AGENT'], accept_language: request.headers['HTTP_ACCEPT_LANGUAGE'])
+      notify_warning_now :incompatible_browser if browser.ie?
+    end
 
-  def configure_application(exception)
-    title = exception.class.name.underscore.t(scope: 'exceptions')
-    render '/public/configure_application', layout: 'exception', locals: { title: title, message: exception.message, class_name: exception.class.name }, status: 500
-  end
+    def configure_application(exception)
+      title = exception.class.name.underscore.t(scope: 'exceptions')
+      render '/public/configure_application', layout: 'exception', locals: { title: title, message: exception.message, class_name: exception.class.name }, status: 500
+    end
 
-  # TODO: remove for Rails 5
-  def helpers
-    view_context
-  end
+    # TODO: remove for Rails 5
+    def helpers
+      view_context
+    end
 end

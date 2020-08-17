@@ -53,8 +53,8 @@ module ActionIntegration
         Base64.encode64(value)
       end
 
-    def self.decode(value)
-      Base64.decode64(value)
-    end
+      def self.decode(value)
+        Base64.decode64(value)
+      end
   end
 end
