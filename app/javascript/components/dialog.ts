@@ -22,7 +22,7 @@ const requestConfigDefaults = {
 };
 
 export async function openDialog(url: string, options: DialogOptions): Promise<Modal> {
-    let {modal} = await openRemote(url, {size: 'lg', requestConfig: {...requestConfigDefaults, params: {dialog: '1'}});
+    let {modal} = await openRemote(url, {size: 'lg', requestConfig: {...requestConfigDefaults, params: {dialog: '1'}}});
     handleTitle(modal);
 
     modal.on('submit', 'form', e => {
