@@ -90,8 +90,7 @@ module FEC
 
           ::CSV.generate col_sep: '|', encoding: 'ISO-8859-15' do |csv|
             csv << columns.keys
-            ActiveRecord::Base.connection.select_rows(query).each do |row|
-
+            ApplicationRecord.connection.select_rows(query).each do |row|
               row[1] = CGI::escapeHTML(row[1].dump[1..-2])
               row[5] = CGI::escapeHTML(row[5].dump[1..-2])
               row[10] = CGI::escapeHTML(row[10].dump[1..-2])

@@ -6,7 +6,7 @@ module Backend
     end
 
     def update
-      ActiveRecord::Base.transaction do
+      ApplicationRecord.transaction do
         # Update company
         @company = Entity.of_company
         @company.update_attributes(permitted_params[:entity])

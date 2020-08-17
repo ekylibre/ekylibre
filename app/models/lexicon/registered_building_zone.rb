@@ -27,9 +27,8 @@
 #  nature   :string
 #  shape    :geometry({:srid=>4326, :type=>"multi_polygon"}) not null
 #
-class RegisteredBuildingZone < ActiveRecord::Base
+class RegisteredBuildingZone < ApplicationRecord
   include Lexiconable
-
   scope :in_bounding_box, lambda { |bounding_box|
     where("registered_building_zones.shape && ST_MakeEnvelope(#{bounding_box.join(', ')})")
   }

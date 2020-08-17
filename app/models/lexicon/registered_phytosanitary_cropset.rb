@@ -30,7 +30,6 @@
 #  name            :string           not null
 #  record_checksum :integer
 #
-class RegisteredPhytosanitaryCropset < ActiveRecord::Base
+class RegisteredPhytosanitaryCropset < ApplicationRecord
   include Lexiconable
-
 end

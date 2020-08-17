@@ -115,7 +115,7 @@ module Backend
 
     def save_and_redirect(record, options = {})
       record.attributes = options[:attributes] if options[:attributes]
-      ActiveRecord::Base.transaction do
+      ApplicationRecord.transaction do
         can_be_saved =  record.new_record? ? record.createable? : record.updateable?
 
         if can_be_saved && (options[:saved] || record.save(context: options[:context]))

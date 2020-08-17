@@ -13,7 +13,7 @@ class ShapeValidator < ActiveModel::EachValidator
     # @param [Charta::Geometry] shape
     # @return [Boolean]
     def valid?(shape)
-      pg_res = ActiveRecord::Base.connection.execute <<~SQL
+      pg_res = ApplicationRecord.connection.execute <<~SQL
         SELECT ST_IsValid(ST_GeomFromEWKT('#{shape.to_ewkt}')) AS v
       SQL
 

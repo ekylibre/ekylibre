@@ -52,9 +52,9 @@
 #  untreated_buffer_plants    :integer
 #  usage_conditions           :string
 #
-class RegisteredPhytosanitaryUsage < ActiveRecord::Base
+class RegisteredPhytosanitaryUsage < ApplicationRecord
+  include Lexiconable
   module SprayVolumeMethods
-
     # @return [Boolean]
     def dose_unit_refers_to_spray_volume?
       %w[kg/hL kg/L g/L mL/L L/hL].include?(dose_unit_name)
@@ -63,7 +63,6 @@ class RegisteredPhytosanitaryUsage < ActiveRecord::Base
 
   extend Enumerize
   include HasInterval
-  include Lexiconable
   include Dimensionable
   include ScopeIntrospection
   include SprayVolumeMethods

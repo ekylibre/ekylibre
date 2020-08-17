@@ -395,7 +395,7 @@ class JournalEntry < Ekylibre::Record::Base
   # Create counter-entry_items
   def cancel
     return nil unless useful_items.any?
-    ActiveRecord::Base.transaction do
+    ApplicationRecord.transaction do
       reconcilable_accounts = []
       list = []
       useful_items.each do |item|

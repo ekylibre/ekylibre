@@ -277,7 +277,7 @@ module Backend
     def invoice
       return unless @sale = find_and_check
       if @sale.client.client_account.present?
-        ActiveRecord::Base.transaction do
+        ApplicationRecord.transaction do
           raise ActiveRecord::Rollback unless @sale.invoice
         end
       else
@@ -294,7 +294,7 @@ module Backend
 
     def propose_and_invoice
       return unless @sale = find_and_check
-      ActiveRecord::Base.transaction do
+      ApplicationRecord.transaction do
         raise ActiveRecord::Rollback unless @sale.propose
         raise ActiveRecord::Rollback unless @sale.confirm
         # raise ActiveRecord::Rollback unless @sale.deliver

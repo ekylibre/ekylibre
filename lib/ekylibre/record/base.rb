@@ -6,10 +6,10 @@ module Ekylibre
     class Scope < Struct.new(:name, :arity)
     end
 
-    class Base < ActiveRecord::Base
-      include ::ConditionalReadonly # TODO: move to ApplicationRecord
-      prepend ::IdHumanizable
-      include ::ScopeIntrospection # TODO: move to ApplicationRecord
+    class Base < ApplicationRecord
+      include ConditionalReadonly # TODO: move to ApplicationRecord
+      prepend IdHumanizable
+      include ScopeIntrospection # TODO: move to ApplicationRecord
       include Userstamp::Stamper
       include Userstamp::Stampable
       include HasInterval

@@ -227,7 +227,7 @@ class BankStatement < Ekylibre::Record::Base
   end
 
   def save_with_items(statement_items)
-    ActiveRecord::Base.transaction do
+    ApplicationRecord.transaction do
       saved = save
 
       previous_journal_entry_item_ids_by_letter = items.each_with_object({}) do |item, hash|

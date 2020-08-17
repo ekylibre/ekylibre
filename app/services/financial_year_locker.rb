@@ -2,7 +2,7 @@ class FinancialYearLocker
 
   # @param [FinancialYear] year
   def lock!(year)
-    ActiveRecord::Base.transaction do
+    ApplicationRecord.transaction do
       get_depreciations_to_lock(year).update_all(locked: true)
       get_loan_repayments_to_lock(year).update_all(locked: true)
 

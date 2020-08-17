@@ -6,7 +6,7 @@ module Api
         private
 
           def quote(str)
-            ActiveRecord::Base.connection.quote(str)
+            ApplicationRecord.connection.quote(str)
           end
 
           def paginated_result(model, order: nil)

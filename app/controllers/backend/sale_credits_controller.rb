@@ -33,7 +33,7 @@ module Backend
       @sale_credit = Sale.new(attributes)
 
       sale_credit_save_successful = false
-      ActiveRecord::Base.transaction do
+      ApplicationRecord.transaction do
         @sale_credit.save!
         @sale_credit.reload
         @sale_credit.propose!

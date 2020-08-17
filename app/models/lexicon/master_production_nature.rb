@@ -38,7 +38,7 @@
 #  started_on                :date             not null
 #  stopped_on                :date             not null
 #
-class MasterProductionNature < ActiveRecord::Base
+class MasterProductionNature < ApplicationRecord
   include Lexiconable
   belongs_to :pfi_crop, class_name: 'RegisteredPfiCrop', foreign_key: :pfi_crop_code
 end

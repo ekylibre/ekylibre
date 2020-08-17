@@ -31,8 +31,7 @@
 #  reference_label :string
 #  repository_id   :integer          not null
 #
-class RegisteredAgroediCode < ActiveRecord::Base
+class RegisteredAgroediCode < ApplicationRecord
   include Lexiconable
-
   scope :of_reference_code, ->(code) { where(reference_code: code.to_s) }
 end

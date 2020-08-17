@@ -26,8 +26,7 @@
 #  id                  :integer          not null, primary key
 #  reference_label_fra :string
 #
-class RegisteredPfiTarget < ActiveRecord::Base
+class RegisteredPfiTarget < ApplicationRecord
   include Lexiconable
-  has_many :doses,   class_name: 'RegisteredPfiDose',
-                     foreign_key: :target_id, dependent: :restrict_with_exception
+  has_many :doses, class_name: 'RegisteredPfiDose', foreign_key: :target_id, dependent: :restrict_with_exception
 end

@@ -28,8 +28,7 @@
 #  pfi_id                        :integer
 #  pfi_name                      :string
 #
-class RegisteredPhytosanitaryTargetNameToPfiTarget < ActiveRecord::Base
+class RegisteredPhytosanitaryTargetNameToPfiTarget < ApplicationRecord
   include Lexiconable
-
   belongs_to :default_pfi_treatment_type, class_name: 'RegisteredPfiTreatmentType'
 end

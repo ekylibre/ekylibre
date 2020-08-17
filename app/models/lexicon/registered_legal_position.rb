@@ -31,7 +31,6 @@
 #  name             :jsonb
 #  nature           :string           not null
 #
-class RegisteredLegalPosition < ActiveRecord::Base
+class RegisteredLegalPosition < ApplicationRecord
   include Lexiconable
-
 end

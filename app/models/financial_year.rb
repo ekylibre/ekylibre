@@ -96,7 +96,7 @@ class FinancialYear < Ekylibre::Record::Base
 
   class << self
     def closest(searched_on)
-      sql_date = ActiveRecord::Base.connection.quote(searched_on)
+      sql_date = ApplicationRecord.connection.quote(searched_on)
       started_on_clause = "ABS(#{sql_date} - started_on)"
       stopped_on_clause = "ABS(#{sql_date} - stopped_on)"
       order("LEAST(#{started_on_clause}, #{stopped_on_clause}) ASC").first
@@ -377,7 +377,7 @@ class FinancialYear < Ekylibre::Record::Base
     query = "SELECT sum(#{balance}) AS balance FROM #{AccountBalance.table_name} AS ab JOIN #{Account.table_name} AS a ON (a.id=ab.account_id) WHERE ab.financial_year_id=#{id}"
     query << ' AND (' + normals.sort.collect { |c| "a.number LIKE '#{c}%'" }.join(' OR ') + ')'
     query << ' AND NOT (' + excepts.sort.collect { |c| "a.number LIKE '#{c}%'" }.join(' OR ') + ')' unless excepts.empty?
-    balance = ActiveRecord::Base.connection.select_value(query)
+    balance = ApplicationRecord.connection.select_value(query)
     (balance.blank? ? nil : balance.to_d)
   end
 
@@ -412,7 +412,7 @@ class FinancialYear < Ekylibre::Record::Base
 
   # Re-create all account_balances record for the financial year
   def compute_balances!
-    results = ActiveRecord::Base.connection.select_all("SELECT account_id, sum(debit) AS debit, sum(credit) AS credit, count(id) AS count FROM #{JournalEntryItem.table_name} WHERE state != 'draft' AND printed_on BETWEEN #{self.class.connection.quote(started_on)} AND #{self.class.connection.quote(stopped_on)} GROUP BY account_id")
+    results = ApplicationRecord.connection.select_all("SELECT account_id, sum(debit) AS debit, sum(credit) AS credit, count(id) AS count FROM #{JournalEntryItem.table_name} WHERE state != 'draft' AND printed_on BETWEEN #{self.class.connection.quote(started_on)} AND #{self.class.connection.quote(stopped_on)} GROUP BY account_id")
     account_balances.clear
     results.each do |result|
       account_balances.create!(

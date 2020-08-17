@@ -69,7 +69,7 @@ class TaxDeclarationItem < Ekylibre::Record::Base
 
   def compute!
     raise 'Cannot compute item without its tax' unless tax
-    ActiveRecord::Base.transaction do
+    ApplicationRecord.transaction do
       generate_parts
       compute_amounts
       save!
@@ -213,7 +213,7 @@ class TaxDeclarationItem < Ekylibre::Record::Base
       HAVING ROUND(((#{balance}) * SUM(#{paid_balance}) / total.balance), 2) - COALESCE(declared.tax_amount, 0) != 0.0
     SQL
 
-    part_rows = ActiveRecord::Base.connection.execute(sql)
+    part_rows = ApplicationRecord.connection.execute(sql)
     part_rows.to_a.each do |part_attributes|
       parts.build part_attributes.merge direction: direction
     end
