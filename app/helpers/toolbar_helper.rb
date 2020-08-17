@@ -108,7 +108,7 @@ module ToolbarHelper
       url.update(options.delete(:params)) if options[:params].is_a? Hash
       url[:controller] ||= @template.controller_path
       url[:action] ||= name
-      url[:id] = record.id if record && record.class < ActiveRecord::Base
+      url[:id] = record.id if record && record.class < ApplicationRecord
       url[:format] = options.delete(:format) if options.key?(:format)
       action_label = options[:label] || I18n.t(name, scope: 'rest.actions')
       url[:nature] = options[:nature] if options[:nature]

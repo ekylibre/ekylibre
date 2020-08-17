@@ -44,7 +44,7 @@
 #  stock_movement_account         :string
 #  storable                       :boolean
 #
-class VariantCategory < ActiveRecord::Base
+class VariantCategory < ApplicationRecord
   include Lexiconable
   include ScopeIntrospection
 

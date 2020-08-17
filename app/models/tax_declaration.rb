@@ -132,9 +132,9 @@ class TaxDeclaration < Ekylibre::Record::Base
   after_create :compute!, if: :draft?
 
   def destroy
-    ActiveRecord::Base.transaction do
-      ActiveRecord::Base.connection.execute("DELETE FROM tax_declaration_item_parts tdip USING tax_declaration_items tdi WHERE tdip.tax_declaration_item_id = tdi.id AND tdi.tax_declaration_id = #{id}")
-      ActiveRecord::Base.connection.execute("DELETE FROM tax_declaration_items WHERE tax_declaration_id = #{id}")
+    ApplicationRecord.transaction do
+      ApplicationRecord.connection.execute("DELETE FROM tax_declaration_item_parts tdip USING tax_declaration_items tdi WHERE tdip.tax_declaration_item_id = tdi.id AND tdi.tax_declaration_id = #{id}")
+      ApplicationRecord.connection.execute("DELETE FROM tax_declaration_items WHERE tax_declaration_id = #{id}")
       items.reload
       super
     end

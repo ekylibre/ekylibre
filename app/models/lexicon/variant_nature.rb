@@ -34,7 +34,7 @@
 #  reference_name      :string           not null
 #  variety             :string
 #
-class VariantNature < ActiveRecord::Base
+class VariantNature < ApplicationRecord
   include Lexiconable
   include ScopeIntrospection
 

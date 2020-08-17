@@ -303,7 +303,7 @@ class Journal < Ekylibre::Record::Base
       errors.add(:closed_on, :draft_entry_items, closed_on: new_closed_on.l)
     end
     return false unless errors.empty?
-    ActiveRecord::Base.transaction do
+    ApplicationRecord.transaction do
       entries.where(printed_on: (self.closed_on + 1)..new_closed_on).find_each(&:close)
       update_column(:closed_on, new_closed_on)
     end
@@ -313,7 +313,7 @@ class Journal < Ekylibre::Record::Base
   # Close a journal and force validation of draft entries to the given date
   def close!(closed_on)
     finished = false
-    ActiveRecord::Base.transaction do
+    ApplicationRecord.transaction do
       JournalEntryItem.where(journal_id: id).where('printed_on <= ?', closed_on).where.not(state: :closed).update_all(state: :closed)
       JournalEntry.where(journal_id: id).where('printed_on <= ?', closed_on).where.not(state: :closed).update_all(state: :closed)
       update_column(:closed_on, closed_on)
@@ -362,7 +362,6 @@ class Journal < Ekylibre::Record::Base
     accountant && accountant.financial_year_with_opened_exchange?
   end
 
-
   class << self
     # Computes the value of list of accounts in a String
     # Examples:
@@ -378,7 +377,7 @@ class Journal < Ekylibre::Record::Base
     #   E: - Crédit balance
     #   F: Débit balance
     def sum_entry_items(expression, options = {})
-      conn = ActiveRecord::Base.connection
+      conn = ApplicationRecord.connection
       journal_entry_items = 'jei'
       journal_entries = 'je'
       journals = 'j'

@@ -26,7 +26,6 @@
 #  id        :string           not null, primary key
 #  label_fra :string
 #
-class RegisteredPfiTreatmentType < ActiveRecord::Base
+class RegisteredPfiTreatmentType < ApplicationRecord
   include Lexiconable
-
 end

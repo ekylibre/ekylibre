@@ -9,7 +9,7 @@ class FinancialYearExchangeImport
   end
 
   def run
-    ActiveRecord::Base.transaction do
+    ApplicationRecord.transaction do
       read_and_parse_file || rollback!
       ensure_headers_are_valid || rollback!
       ensure_all_journals_exists || rollback!

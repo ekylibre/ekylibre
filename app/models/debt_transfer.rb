@@ -101,7 +101,7 @@ class DebtTransfer < Ekylibre::Record::Base
       record = nil
       reflected = nil
 
-      ActiveRecord::Base.transaction do
+      ApplicationRecord.transaction do
         record = new(attributes.merge(amount: nil))
         reflected = create_reflection record
 

@@ -34,7 +34,7 @@
 #  item_type    :string
 #
 
-class Version < ActiveRecord::Base
+class Version < ApplicationRecord
   extend Enumerize
   cattr_accessor :current_user
   belongs_to :creator, class_name: 'User'

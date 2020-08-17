@@ -30,9 +30,9 @@
 #  point  :geometry({:srid=>4326, :type=>"st_point"})
 #  shape  :geometry({:srid=>4326, :type=>"multi_polygon", :has_z=>true, :has_m=>true})
 #
-class RegisteredHydroItem < ActiveRecord::Base
-  include Ekylibre::Record::HasShape
+class RegisteredHydroItem < ApplicationRecord
   include Lexiconable
+  include Ekylibre::Record::HasShape
 
   has_geometry :shape
   has_geometry :lines, type: :multi_line_string

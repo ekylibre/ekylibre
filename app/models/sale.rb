@@ -415,7 +415,7 @@ class Sale < Ekylibre::Record::Base
   # Changes number with an invoice number saving exiting number in +initial_number+.
   def invoice(invoiced_at = Time.zone.now)
     return false unless can_invoice?
-    ActiveRecord::Base.transaction do
+    ApplicationRecord.transaction do
       # Set values for invoice
       self.invoiced_at ||= invoiced_at
       self.confirmed_at ||= self.invoiced_at

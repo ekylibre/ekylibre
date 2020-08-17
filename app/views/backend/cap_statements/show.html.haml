@@ -87,7 +87,7 @@
           end
 
           if z.count > 0
-            buildings_shape = ActiveRecord::Base.connection.execute(
+            buildings_shape = ApplicationRecord.connection.execute(
               "SELECT ST_AsGeoJSON(ST_COLLECT(buildings.shape)) AS shape
                 FROM (#{z.select(:shape).to_sql}) AS buildings;").first["shape"]
             building_zones = [{name: "Building", shape: ::Charta.new_geometry(buildings_shape).buffer(50)}]
@@ -96,7 +96,7 @@
           end
 
           if h.count > 0
-            water_hydro_items_shape = ActiveRecord::Base.connection.execute(
+            water_hydro_items_shape = ApplicationRecord.connection.execute(
               "SELECT ST_AsGeoJSON(ST_COLLECT(hydro.shape)) AS shape
                 FROM (#{h.select(:shape).to_sql}) AS hydro;").first["shape"]
 

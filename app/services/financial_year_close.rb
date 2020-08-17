@@ -80,7 +80,7 @@ class FinancialYearClose
     return false unless @year.closable?
     ensure_closability!
 
-    ActiveRecord::Base.transaction do
+    ApplicationRecord.transaction do
       @year.update_attributes({ state: 'opened' })
 
       dump_tenant
@@ -457,10 +457,10 @@ class FinancialYearClose
           model = type.constantize
           table = model.table_name
           root_model = model.table_name.singularize.camelize
-          query = "UPDATE affairs SET letter = #{ActiveRecord::Base.connection.quote(new_letter)} " \
+          query = "UPDATE affairs SET letter = #{ApplicationRecord.connection.quote(new_letter)} " \
                 '  FROM journal_entry_items AS jei' \
-                "    JOIN #{table} AS res ON (resource_id = res.id AND resource_type = #{ActiveRecord::Base.connection.quote(root_model)}) " \
-                "  WHERE jei.account_id = #{account_id} AND jei.letter = #{ActiveRecord::Base.connection.quote(letter)} AND jei.printed_on > #{ActiveRecord::Base.connection.quote(@to_close_on)} "
+                "    JOIN #{table} AS res ON (resource_id = res.id AND resource_type = #{ApplicationRecord.connection.quote(root_model)}) " \
+                "  WHERE jei.account_id = #{account_id} AND jei.letter = #{ApplicationRecord.connection.quote(letter)} AND jei.printed_on > #{ApplicationRecord.connection.quote(@to_close_on)} "
           '    AND res.affair_id = affairs.id'
           Affair.connection.execute query
         end
@@ -468,8 +468,8 @@ class FinancialYearClose
     end
 
     def disable_partial_lettering
-      ActiveRecord::Base.connection.execute('ALTER TABLE journal_entry_items DISABLE TRIGGER compute_partial_lettering_status_insert_delete')
-      ActiveRecord::Base.connection.execute('ALTER TABLE journal_entry_items DISABLE TRIGGER compute_partial_lettering_status_update')
+      ApplicationRecord.connection.execute('ALTER TABLE journal_entry_items DISABLE TRIGGER compute_partial_lettering_status_insert_delete')
+      ApplicationRecord.connection.execute('ALTER TABLE journal_entry_items DISABLE TRIGGER compute_partial_lettering_status_update')
     end
 
     def enable_partial_lettering
@@ -484,7 +484,7 @@ class FinancialYearClose
         GROUP BY account_id, RTRIM(letter, '*')
       SQL
 
-      ActiveRecord::Base.connection.execute <<-SQL.strip_heredoc
+      ApplicationRecord.connection.execute <<-SQL.strip_heredoc
         UPDATE journal_entry_items AS jei
           SET letter = ref.new_letter
           FROM (#{account_letterings}) AS ref
@@ -492,8 +492,8 @@ class FinancialYearClose
             AND RTRIM(COALESCE(jei.letter, ''), '*') = ref.letter_radix
             AND letter <> ref.new_letter;
       SQL
-      ActiveRecord::Base.connection.execute('ALTER TABLE journal_entry_items ENABLE TRIGGER compute_partial_lettering_status_insert_delete')
-      ActiveRecord::Base.connection.execute('ALTER TABLE journal_entry_items ENABLE TRIGGER compute_partial_lettering_status_update')
+      ApplicationRecord.connection.execute('ALTER TABLE journal_entry_items ENABLE TRIGGER compute_partial_lettering_status_insert_delete')
+      ApplicationRecord.connection.execute('ALTER TABLE journal_entry_items ENABLE TRIGGER compute_partial_lettering_status_update')
     end
 
     def generate_closing_or_opening_entry!(journal, account_info, items, result, printed_on: @to_close_on)

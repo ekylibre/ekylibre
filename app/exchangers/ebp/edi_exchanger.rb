@@ -19,7 +19,7 @@ module EBP
         started_on = Date.civil(started_on[4..7].to_i, started_on[2..3].to_i, started_on[0..1].to_i).to_datetime.beginning_of_day
         stopped_on = f.readline
         stopped_on = Date.civil(stopped_on[4..7].to_i, stopped_on[2..3].to_i, stopped_on[0..1].to_i).to_datetime.end_of_day
-        ActiveRecord::Base.transaction do
+        ApplicationRecord.transaction do
           entries = {}
           loop do
             begin

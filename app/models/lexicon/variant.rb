@@ -39,7 +39,7 @@
 #  variant_category_id :integer
 #  variant_nature_id   :integer
 #
-class Variant < ActiveRecord::Base
+class Variant < ApplicationRecord
   include Lexiconable
   include ScopeIntrospection
 

@@ -48,7 +48,7 @@ module Backend
         # FIXME: Manage suppression of CURRENT_COMPANY...
         first_item = []
         @listing.exportable_fields.each { |item| first_item << item.label }
-        result = ActiveRecord::Base.connection.select_rows(query)
+        result = ApplicationRecord.connection.select_rows(query)
         result.insert(0, first_item)
 
         respond_to do |format|
@@ -118,7 +118,7 @@ module Backend
         return
       end
       if session[:listing_coordinate_column] || @listing.coordinate_columns.count == 1
-        full_results = ActiveRecord::Base.connection.select_all(query)
+        full_results = ApplicationRecord.connection.select_all(query)
         listing_coordinate_column = @listing.coordinate_columns.count == 1 ? @listing.coordinate_columns[0] : find_and_check(:listing_node, session[:listing_coordinate_column])
         # raise StandardError.new listing_coordinate_column.inspect
         results = full_results.reject { |c| c[listing_coordinate_column.label].blank? }
