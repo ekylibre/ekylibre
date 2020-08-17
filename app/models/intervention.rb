@@ -137,6 +137,11 @@ class Intervention < Ekylibre::Record::Base
     request_intervention.present?
   end
 
+  # Big hack to access private constant as it seems that HABTM classes are now private in Rails 5.0
+  def self.habtm_activities
+    HABTM_Activities
+  end
+
   accepts_nested_attributes_for :group_parameters, :participations, :doers, :inputs, :outputs, :targets, :tools, :working_periods, :labellings, allow_destroy: true
   accepts_nested_attributes_for :receptions, reject_if: :all_blank, allow_destroy: true
 
