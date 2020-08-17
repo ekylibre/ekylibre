@@ -42,7 +42,7 @@
     # Show point on map
     map = $('#map .map')
     if point
-       map.find('.crumb.hover').each ->
+      map.find('.crumb.hover').each ->
         L.DomUtil.removeClass(this, 'hover')
       console.log map.find(".crumb-t#{point.x}")
       L.DomUtil.addClass(map.find(".crumb-t#{point.x}")[0], 'hover')
