@@ -12,10 +12,12 @@ import {I18n} from "services/i18n/index"
 import * as Behave from 'services/behave'
 import {delegateListener, onDomReady, onElementDetected} from "lib/domEventUtils"
 import autosize from "autosize/dist/autosize"
+import {openDialog} from "components/dialog"
 
 export let Ekylibre = {
   ajax,
   delegateListener,
+  Dialog: { open: openDialog },
   fetch: customFetch,
   forms: {
     date: {enableDatePicker, enableDateRangePicker, enableDatetimePicker}
