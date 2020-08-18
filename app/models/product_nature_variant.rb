@@ -245,7 +245,6 @@ class ProductNatureVariant < Ekylibre::Record::Base
     category_account
   end
 
-
   def variant_type
     Maybe(type).constantize.variant_type.or_nil
   end
@@ -530,7 +529,6 @@ class ProductNatureVariant < Ekylibre::Record::Base
     return unless status
     I18n.t("tooltips.models.product_nature_variant.#{status}")
   end
-
 
   class << self
     # Returns some nomenclature items are available to be imported, e.g. not

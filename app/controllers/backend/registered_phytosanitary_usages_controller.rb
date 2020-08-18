@@ -59,7 +59,6 @@ module Backend
                              compare_applications_count(usage, application_validator.compute_usage_application(product))
                            end
 
-
       render json: { usage_infos: usage_dataset, usage_application: usage_applications, modified: modified }
     end
 

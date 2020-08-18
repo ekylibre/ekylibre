@@ -38,7 +38,6 @@ module Backend
       render(locals: { cancel_url: {:action=>:index}, with_continue: false })
     end
 
-
     def show
       if @loan_repayment = LoanRepayment.find_by(id: params[:id])
         redirect_to backend_loan_path(@loan_repayment.loan_id)

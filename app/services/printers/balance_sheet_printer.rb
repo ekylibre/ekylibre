@@ -145,7 +145,6 @@ module Printers
                                :others_debts_liabilities_gaps]]
       ]
 
-
       base_passive.each do |group_item, is_multi_items, items|
         g = generate_items(group_item, is_multi_items, items)
         current_net_total_passif += g[:current_net_total]

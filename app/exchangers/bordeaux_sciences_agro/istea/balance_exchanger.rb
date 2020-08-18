@@ -15,7 +15,6 @@ module BordeauxSciencesAgro
         #  6 - G: variation_credit_amount
         #  7 - H: global_balance (start_debit_amount + variation_debit_amount ) - (start_credit_amount + variation_credit_amount)
 
-
         source = File.read(file)
         detection = CharlockHolmes::EncodingDetector.detect(source)
         rows = CSV.read(file, headers: false, encoding: detection[:encoding], col_sep: ';')
@@ -57,13 +56,11 @@ module BordeauxSciencesAgro
           rows = CSV.read(file, headers: false, encoding: detection[:encoding], col_sep: ';')
           w.count = rows.size
 
-
           journal = Journal.find_or_create_by(code: 'ISTE', nature: 'various', name: 'Import ISTEA')
 
           w.count = rows.size
 
           entries = {}
-
 
           rows.each_with_index do |row, index|
 

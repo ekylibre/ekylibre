@@ -25,7 +25,6 @@ class ParcelBookkeeper < Ekylibre::Bookkeeper
           accounts = { unbilled: account.id,
                        expense:  item.variant.charge_account.id }
 
-
           generate_entry(entry, amount, label: label, from: accounts.to_a.first, to: accounts.to_a.last, item: item)
         end
       end

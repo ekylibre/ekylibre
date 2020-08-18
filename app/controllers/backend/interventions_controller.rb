@@ -493,7 +493,6 @@ module Backend
             new_intervention.request_intervention_id = intervention.id
           end
 
-
           if new_state == :validated
             new_intervention.validator = current_user
           end

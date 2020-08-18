@@ -366,7 +366,6 @@ module ApplicationHelper
     [label, value, title]
   end
 
-
   # @param [Boolean] text_ellipsis
   #   Default to false. If true, the text value of the attributes does not expand the container size and has an ellipsis if it overflows
   def attributes_list(*args, columns: [], text_ellipsis: false, **options, &block)

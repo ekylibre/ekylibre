@@ -27,7 +27,6 @@ module Backend
     # respond_to :html, :json, :xml
 
     def self.list_conditions
-      code = ''
       code = search_conditions(documents: %i[name]) + " ||= []\n"
 
       code << "if params[:created_at].present? && params[:created_at].to_s != 'all'\n"

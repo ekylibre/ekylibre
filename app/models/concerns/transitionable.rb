@@ -98,7 +98,6 @@ module Transitionable
       end
   end
 
-
   ##
   # This is the base class that must be extended by all transitions.
   #

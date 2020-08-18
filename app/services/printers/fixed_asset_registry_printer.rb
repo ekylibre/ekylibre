@@ -101,7 +101,6 @@ module Printers
                         assets: grouped_dataset.fixed_assets.flat_map { |g| g[:assets] }.sort { |a, b| a[:started_on] <=> b[:started_on] }
                       }]
 
-
       totals = grouped_dataset.totals
 
       generate_report(@template_path) do |r|

@@ -187,7 +187,6 @@ class TaxDeclaration < Ekylibre::Record::Base
     I18n.t("tooltips.models.tax_declaration.#{status}")
   end
 
-
   # FIXME: Too french
   def undeclared_tax_journal_entry_items
     JournalEntryItem

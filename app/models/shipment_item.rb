@@ -104,7 +104,6 @@ class ShipmentItem < ParcelItem
     true
   end
 
-
   ALLOWED = %w[
     product_localization_id
     product_movement_id
