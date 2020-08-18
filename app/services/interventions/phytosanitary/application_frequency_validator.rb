@@ -26,7 +26,7 @@ module Interventions
           groups = products_usages.group_by { |pu| guess_vote(pu) }
 
           groups.fetch(:unknown, []).each { |pu| result.vote_unknown(pu.product) }
-          groups.fetch(:forbidden, []).each { |pu| result.vote_forbidden(pu.product, :applications_interval_not_respected.tl(next_date: next_application_date(pu).l(format: :long))) }
+          groups.fetch(:forbidden, []).each { |pu| result.vote_forbidden(pu.product, :applications_interval_not_respected.tl(next_date: next_application_date(pu).l(format: :full))) }
         end
 
         result

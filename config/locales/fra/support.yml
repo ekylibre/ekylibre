@@ -121,7 +121,7 @@ fra:
     formats:
       compact: "%d/%m/%Y %H:%M"
       default: "%d/%m/%Y %H:%M"
-      full: "%d/%m/%Y %H:%M:%S"
+      full: "%d/%m/%Y à %H:%M:%S"
       long: "%A %d %B %Y à %H:%M"
       short: "%d %b %H:%M"
       time: "%H:%M" #?
