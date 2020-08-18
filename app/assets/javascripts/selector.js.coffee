@@ -172,7 +172,7 @@
       @valueField.val id
       @id = parseInt id
       if @dropDownMenu.is(":visible")
-        @dropDownMenu.hide()
+        @_closeMenu()
       unless $(document).data('editedMode')
         was_initializing = @initializing
         if @initializing
@@ -310,13 +310,13 @@
             if search.length > 0
               @_openMenu search
             else
-              @dropDownMenu.hide()
+              @_closeMenu()
           , 500)
         @lastSearch = search
       else if @dropDownMenu.is(":visible")
         selected = @dropDownMenu.find("ul li.selected.item").first()
         if code is 27 # Escape
-          @dropDownMenu.hide()
+          @_closeMenu()
         else if selected[0] is null or selected[0] is undefined
           selected = @dropDownMenu.find("ul li.item").first()
           selected.addClass "selected"
@@ -342,7 +342,7 @@
 
     _buttonClick: (event) ->
       if @dropDownMenu.is(":visible")
-        @dropDownMenu.hide()
+        @_closeMenu()
       else if !@element.is(":disabled")
         this._openMenu()
       false
