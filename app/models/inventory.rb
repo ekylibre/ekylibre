@@ -105,7 +105,7 @@ class Inventory < Ekylibre::Record::Base
 
   # Apply deltas on products and raises an error if any problem
   def reflect!
-    raise StandardError, 'Cannot reflect inventory on stocks' unless reflect
+    raise StandardError.new('Cannot reflect inventory on stocks') unless reflect
   end
 
   # Apply deltas on products
@@ -137,7 +137,7 @@ class Inventory < Ekylibre::Record::Base
   end
 
   def refresh!
-    raise StandardError, 'Cannot refresh uneditable inventory' unless editable?
+    raise StandardError.new('Cannot refresh uneditable inventory') unless editable?
     items.clear
     build_missing_items
     save!

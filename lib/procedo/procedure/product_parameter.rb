@@ -22,7 +22,7 @@ module Procedo
         super(procedure, name, options)
         @type = type
         unless ProductParameter::TYPES.include?(@type)
-          raise ArgumentError, "Unknown parameter type: #{@type.inspect}"
+          raise ArgumentError.new("Unknown parameter type: #{@type.inspect}")
         end
         if options[:filter]
           @filter = options[:filter]
@@ -54,7 +54,7 @@ module Procedo
       def add_handler(name, options = {})
         handler = Procedo::Procedure::Handler.new(self, name, options)
         if @handlers.key?(handler.name)
-          raise ArgumentError, "Handler name already taken: #{name}"
+          raise ArgumentError.new("Handler name already taken: #{name}")
         end
         @handlers[handler.name] = handler
       end
@@ -63,7 +63,7 @@ module Procedo
       def add_attribute(name, options = {})
         attribute = Procedo::Procedure::Attribute.new(self, name, options)
         if @attributes.key?(attribute.name)
-          raise ArgumentError, "Attribute name already taken: #{name}"
+          raise ArgumentError.new("Attribute name already taken: #{name}")
         end
         @attributes[attribute.name] = attribute
       end
@@ -72,7 +72,7 @@ module Procedo
       def add_reading(name, options = {})
         reading = Procedo::Procedure::Reading.new(self, name, options)
         if @readings.key?(reading.name)
-          raise ArgumentError, "Reading name already taken: #{name}"
+          raise ArgumentError.new("Reading name already taken: #{name}")
         end
         @readings[reading.name] = reading
       end
@@ -192,7 +192,7 @@ module Procedo
         attr, other = attribute.split(/\:/)[0..1].map(&:strip)
         attr = attribute_name.to_s.underscore if attr.blank?
         unless parameter = @procedure.parameters[other]
-          raise Procedo::Errors::MissingParameter, "Parameter #{other.inspect} can not be found"
+          raise Procedo::Errors::MissingParameter.new("Parameter #{other.inspect} can not be found")
         end
         parameter.send("computed_#{attr}")
       end

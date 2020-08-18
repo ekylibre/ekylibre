@@ -59,7 +59,7 @@ module Lexicon
           elsif data_file.basename.to_s =~ /\.sql\.gz\z/
             load_archive(data_file)
           else
-            raise StandardError, "Unknown file type: #{data_file.basename}"
+            raise StandardError.new("Unknown file type: #{data_file.basename}")
           end
         end
 

@@ -33,7 +33,7 @@ module Ekylibre
         end
 
         def initialize(resource, action, draft)
-          raise ArgumentError, "Unvalid action #{action.inspect} (#{Ekylibre::Record::Bookkeep.actions.to_sentence} are accepted)" unless Ekylibre::Record::Bookkeep.actions.include? action
+          raise ArgumentError.new("Unvalid action #{action.inspect} (#{Ekylibre::Record::Bookkeep.actions.to_sentence} are accepted)") unless Ekylibre::Record::Bookkeep.actions.include? action
           @resource = resource
           @action = action
           @draft = draft
@@ -41,12 +41,12 @@ module Ekylibre
 
         def journal_entry(journal, options = {}, &block)
           if (options.keys & %i[if unless]).size > 1
-            raise ArgumentError, 'Options :if and :unless are incompatible.'
+            raise ArgumentError.new('Options :if and :unless are incompatible.')
           end
           if options.key? :list
-            raise ArgumentError, 'Option :list is not supported anymore.'
+            raise ArgumentError.new('Option :list is not supported anymore.')
           end
-          raise ArgumentError, 'Block is missing' unless block_given?
+          raise ArgumentError.new('Block is missing') unless block_given?
           condition = (options.key?(:if) ? options.delete(:if) : !options.delete(:unless))
           prism = options.delete(:as)
           column = options.delete(:column)
@@ -63,11 +63,11 @@ module Ekylibre
           # attributes[:state]      ||= @state
           attributes[:printed_on] ||= @resource.created_at.to_date if @resource.respond_to? :created_at
           unless attributes[:printed_on].is_a?(Date)
-            raise ArgumentError, "Date of journal_entry (printed_on) must be given. Date expected, got #{attributes[:printed_on].class.name} (#{attributes[:printed_on].inspect})"
+            raise ArgumentError.new("Date of journal_entry (printed_on) must be given. Date expected, got #{attributes[:printed_on].class.name} (#{attributes[:printed_on].inspect})")
           end
           if condition
             unless journal.is_a? Journal
-              raise ArgumentError, "Unknown journal: (#{journal.inspect})"
+              raise ArgumentError.new("Unknown journal: (#{journal.inspect})")
             end
             attributes[:journal_id] = journal.id
           end
@@ -133,17 +133,17 @@ module Ekylibre
           klass = nil
           if block
             options = options_or_klass || options
-            raise ArgumentError, "Wrong number of arguments (#{block.arity} for 1)" unless block.arity == 1
+            raise ArgumentError.new("Wrong number of arguments (#{block.arity} for 1)") unless block.arity == 1
           else
             klass = options_or_klass
             implicit_bookkeeper_name = "#{self.name}Bookkeeper"
             if klass.nil? || const_defined?(implicit_bookkeeper_name)
               klass ||= const_get(implicit_bookkeeper_name)
             end
-            raise ArgumentError, 'Provided class does not respond to #call method' unless klass.nil? || klass.instance_methods.include?(:call)
+            raise ArgumentError.new('Provided class does not respond to #call method') unless klass.nil? || klass.instance_methods.include?(:call)
           end
 
-          raise ArgumentError, 'Neither bookkeeping class nor block given' unless klass || block
+          raise ArgumentError.new('Neither bookkeeping class nor block given') unless klass || block
 
           configuration = { on: Ekylibre::Record::Bookkeep.actions, column: :accounted_at, method_name: __method__ }
           configuration.update(options) if options.is_a?(Hash)

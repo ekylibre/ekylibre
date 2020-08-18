@@ -281,7 +281,7 @@ module Ekylibre
       options = requirements.extract_options!
       requirements.each do |requirement|
         unless requirement =~ /\A((~>|>=|>|<|<=)\s+)?\d+.\d+(\.[a-z0-9]+)*\z/
-          raise PluginRequirementError, "Invalid version requirement expression: #{requirement}"
+          raise PluginRequirementError.new("Invalid version requirement expression: #{requirement}")
         end
       end
 
@@ -289,7 +289,7 @@ module Ekylibre
       version = version.split(' - ').first if version.include?('-')
 
       unless Gem::Requirement.new(*requirements) =~ Gem::Version.create(version)
-        raise PluginRequirementError, "Plugin (#{@name}) is incompatible with current version of app (#{Ekylibre.version} not #{requirements.inspect})"
+        raise PluginRequirementError.new("Plugin (#{@name}) is incompatible with current version of app (#{Ekylibre.version} not #{requirements.inspect})")
       end
       true
     end

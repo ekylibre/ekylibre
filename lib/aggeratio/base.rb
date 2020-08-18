@@ -32,7 +32,7 @@ module Aggeratio
       array << element if %w[section cell property title].include?(element.name)
       for child in element.children
         if child.has_attribute?('name') && child.attr('name') !~ /^\w+(\_\w+)*$/
-          raise InvalidDocument, "#{child.name} element has invalid name attribute: #{child.attr('name')}"
+          raise InvalidDocument.new("#{child.name} element has invalid name attribute: #{child.attr('name')}")
         end
         array += properties(child)
       end

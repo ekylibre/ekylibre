@@ -60,7 +60,7 @@ class Delay
     expression ||= []
     expression = expression.to_s.strip.split(/\s*\,\s*/) if expression.is_a?(String)
     unless expression.is_a?(Array)
-      raise ArgumentError, "String or Array expected (got #{expression.class.name}:#{expression.inspect})"
+      raise ArgumentError.new("String or Array expected (got #{expression.class.name}:#{expression.inspect})")
     end
     @expression = expression.collect do |step|
       # step = step.mb_chars.downcase
@@ -71,11 +71,11 @@ class Delay
       elsif step =~ /\A\d+\ (#{KEYS})(\ (avant|ago))?\z/
         words = step.split(/\s+/).map(&:to_s)
         if ALL_TRANSLATIONS[words[1]].nil?
-          raise InvalidDelayExpression, "#{words[1].inspect} is an undefined period (#{step.inspect} of #{base.inspect})"
+          raise InvalidDelayExpression.new("#{words[1].inspect} is an undefined period (#{step.inspect} of #{base.inspect})")
         end
         [ALL_TRANSLATIONS[words[1]], (words[2].blank? ? 1 : -1) * words[0].to_i]
       elsif step.present?
-        raise InvalidDelayExpression, "#{step.inspect} is an invalid step. (From #{base.inspect} => #{expression.inspect})"
+        raise InvalidDelayExpression.new("#{step.inspect} is an invalid step. (From #{base.inspect} => #{expression.inspect})")
       end
     end
   end
@@ -140,7 +140,7 @@ class Delay
     elsif delay.is_a?(Measure) && delay.dimension == :time && %i[second minute hour day month year].include?(delay.unit.to_sym)
       Delay.new(to_s + ', ' + Delay.new(delay.value.to_i.to_s + ' ' + delay.unit.to_s).to_s)
     else
-      raise ArgumentError, "Cannot sum #{delay} [#{delay.class.name}] to a #{self.class.name}"
+      raise ArgumentError.new("Cannot sum #{delay} [#{delay.class.name}] to a #{self.class.name}")
     end
   end
 
@@ -155,7 +155,7 @@ class Delay
     elsif delay.is_a?(Measure) && delay.dimension == :time && %i[second minute hour day month year].include?(delay.unit.to_sym)
       Delay.new(to_s + ', ' + Delay.new(delay.value.to_i.to_s + ' ' + delay.unit.to_s).invert.to_s)
     else
-      raise ArgumentError, "Cannot subtract #{delay} [#{delay.class.name}] from a #{self.class.name}"
+      raise ArgumentError.new("Cannot subtract #{delay} [#{delay.class.name}] from a #{self.class.name}")
     end
   end
 

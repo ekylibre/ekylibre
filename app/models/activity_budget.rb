@@ -125,7 +125,7 @@ class ActivityBudget < Ekylibre::Record::Base
     # set default parameter if theres no one given
     yield_unit = Nomen::Unit.find(options[:unit] || :quintal_per_hectare)
     unless yield_unit
-      raise ArgumentError, "Cannot find unit for yield estimate: #{options[:unit].inspect}"
+      raise ArgumentError.new("Cannot find unit for yield estimate: #{options[:unit].inspect}")
     end
 
     Nomen::Variety.find!(variety)

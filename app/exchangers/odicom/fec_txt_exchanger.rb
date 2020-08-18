@@ -200,7 +200,7 @@ module Odicom
           aux_number = acc_number[client_account_radix.length..-1]
 
           if aux_number.match(/\A0*\z/).present?
-            raise StandardError, "Can't create account. Number provided (#{aux_number}) can't be a radical class"
+            raise StandardError.new("Can't create account. Number provided (#{aux_number}) can't be a radical class")
           end
 
           attrs = attrs.merge(
@@ -248,7 +248,7 @@ module Odicom
         elsif account.centralizing_account_name == "suppliers"
           Entity.where(supplier_account: account).to_a
         else
-          raise StandardError, "Unreachable code!"
+          raise StandardError.new("Unreachable code!")
         end
       end
 
@@ -277,7 +277,7 @@ module Odicom
             supplier_account_id: account.id
           }
         else
-          raise StandardError, "Unreachable code!"
+          raise StandardError.new("Unreachable code!")
         end
 
         Entity.create!(attrs)
@@ -318,9 +318,9 @@ module Odicom
         size = results.size
 
         if size > 1
-          raise UniqueResultExpectedError, "Expected only one #{name}, got #{size}"
+          raise UniqueResultExpectedError.new("Expected only one #{name}, got #{size}")
         elsif exact && size == 0
-          raise UniqueResultExpectedError, "Expected only one #{name}, got none"
+          raise UniqueResultExpectedError.new("Expected only one #{name}, got none")
         else
           results.first
         end

@@ -1,7 +1,7 @@
 module Backend
   class ExchangerTemplateFilesController < Backend::BaseController
     def show
-      raise ActionController::RoutingError, 'Not Found' if file_path.is_none?
+      raise ActionController::RoutingError.new('Not Found') if file_path.is_none?
 
       send_file file_path.get, file_name: file_name
     end

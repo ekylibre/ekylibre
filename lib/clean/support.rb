@@ -184,7 +184,7 @@ module Clean
       end
 
       def browse(paths)
-        raise ArgumentError, 'Missing block' unless block_given?
+        raise ArgumentError.new('Missing block') unless block_given?
         paths.each do |path|
           Dir.glob(path).each do |file|
             yield file

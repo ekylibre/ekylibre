@@ -9,7 +9,7 @@ class MatchValidator < ActiveModel::EachValidator
   end
 
   def check_validity!
-    raise ArgumentError, <<-ERROR unless options[:with]
+    raise ArgumentError.new(<<-ERROR) unless options[:with]
       Please specify who the record should match property #{attribute} on with option :with"
     ERROR
   end

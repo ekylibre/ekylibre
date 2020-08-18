@@ -197,7 +197,7 @@ module Backend
           elsif @name = args.shift
             @args = args
           else
-            raise ArgumentError, 'block or name is missing for helper feather'
+            raise ArgumentError.new('block or name is missing for helper feather')
           end
         end
 

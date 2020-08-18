@@ -71,7 +71,7 @@ module Quadra
         elsif r.item_name
           raw_number = r.printed_on.strftime("%Y%m%d") + r.journal_code + r.item_name
         else
-          raise StandardError, "Invalid #{r.continuous_number} or #{r.item_name}"
+          raise StandardError.new("Invalid #{r.continuous_number} or #{r.item_name}")
         end
         number = raw_number.strip.delete("-").delete("_").delete(" ")
 
@@ -222,7 +222,7 @@ module Quadra
           aux_number = acc_number[client_account_radix.length..-1]
 
           if aux_number.match(/\A0*\z/).present?
-            raise StandardError, "Can't create account. Number provided (#{aux_number}) can't be a radical class"
+            raise StandardError.new("Can't create account. Number provided (#{aux_number}) can't be a radical class")
           end
 
           attrs = attrs.merge(
@@ -279,7 +279,7 @@ module Quadra
           elsif account.centralizing_account_name == "suppliers"
             Entity.where(supplier_account: account)
           else
-            raise StandardError, "Unreachable code!"
+            raise StandardError.new("Unreachable code!")
           end
         end
       end
@@ -309,7 +309,7 @@ module Quadra
             supplier_account_id: account.id
           }
         else
-          raise StandardError, "Unreachable code!"
+          raise StandardError.new("Unreachable code!")
         end
 
         Entity.create!(attrs)
@@ -350,9 +350,9 @@ module Quadra
         size = results.size
 
         if size > 1
-          raise UniqueResultExpectedError, "Expected only one #{name}, got #{size}"
+          raise UniqueResultExpectedError.new("Expected only one #{name}, got #{size}")
         elsif exact && size == 0
-          raise UniqueResultExpectedError, "Expected only one #{name}, got none"
+          raise UniqueResultExpectedError.new("Expected only one #{name}, got none")
         else
           results.first
         end

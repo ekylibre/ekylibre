@@ -70,7 +70,7 @@ module Sage
           w.check_point
         end
       rescue Accountancy::AccountNumberNormalizer::NormalizationError
-        raise StandardError, tl(:errors, :incorrect_account_number_length)
+        raise StandardError.new(tl(:errors, :incorrect_account_number_length))
       end
 
       private
@@ -155,7 +155,7 @@ module Sage
           aux_number = acc_number[client_account_radix.length..-1]
 
           if aux_number.match(/\A0*\z/).present?
-            raise StandardError, tl(:errors, :radical_class_number_unauthorized, number: acc_number)
+            raise StandardError.new(tl(:errors, :radical_class_number_unauthorized, number: acc_number))
           end
 
           attrs = attrs.merge(
@@ -212,7 +212,7 @@ module Sage
           elsif account.centralizing_account_name == "suppliers"
             Entity.where(supplier_account: account)
           else
-            raise StandardError, tl(:errors, :unreachable_code)
+            raise StandardError.new(tl(:errors, :unreachable_code))
           end
         end
       end
@@ -242,7 +242,7 @@ module Sage
             supplier_account_id: account.id
           }
         else
-          raise StandardError, tl(:errors, :unreachable_code)
+          raise StandardError.new(tl(:errors, :unreachable_code))
         end
 
         Entity.create!(attrs)
@@ -395,7 +395,7 @@ module Sage
         journal = unwrap_one('journal') { Journal.where(name: name) }
 
         if journal.present? && journal.nature != expected_nature
-          raise StandardError, tl(:errors, :expected_nature_journal, name: name, expected_nature: expected_nature, nature: journal.nature)
+          raise StandardError.new(tl(:errors, :expected_nature_journal, name: name, expected_nature: expected_nature, nature: journal.nature))
         end
 
         journal
@@ -429,9 +429,9 @@ module Sage
           size = results.size
 
           if size > 1
-            raise UniqueResultExpectedError, "Expected only one #{name}, got #{size}"
+            raise UniqueResultExpectedError.new("Expected only one #{name}, got #{size}")
           elsif exact && size == 0
-            raise UniqueResultExpectedError, "Expected only one #{name}, got none"
+            raise UniqueResultExpectedError.new("Expected only one #{name}, got none")
           else
             results.first
           end

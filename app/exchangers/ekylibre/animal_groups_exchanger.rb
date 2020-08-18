@@ -145,7 +145,7 @@ module Ekylibre
           # family = Activity.find_best_family(animal_group.derivative_of, animal_group.variety)
           unless family
             w.error 'Cannot determine activity'
-            raise ActiveExchanger::Error, "Cannot determine activity with support #{support_variant ? support_variant.variety.inspect : '?'} and cultivation #{cultivation_variant ? cultivation_variant.variety.inspect : '?'} in production #{sheet_name}"
+            raise ActiveExchanger::Error.new("Cannot determine activity with support #{support_variant ? support_variant.variety.inspect : '?'} and cultivation #{cultivation_variant ? cultivation_variant.variety.inspect : '?'} in production #{sheet_name}")
           end
           activity = Activity.create!(
             name: r.activity_name,

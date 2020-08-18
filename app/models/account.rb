@@ -105,7 +105,7 @@ class Account < Ekylibre::Record::Base
   # default_scope order(:number, :name)
   scope :of_usage, lambda { |usage|
     unless Nomen::Account.find(usage)
-      raise ArgumentError, "Unknown usage #{usage.inspect}"
+      raise ArgumentError.new("Unknown usage #{usage.inspect}")
     end
     where('usages ~ E?', "\\\\m#{usage}\\\\M")
   }
@@ -265,7 +265,7 @@ class Account < Ekylibre::Record::Base
       natures = CENTRALIZING_NATURES
       nature = nature.to_sym
       unless natures.include?(nature)
-        raise ArgumentError, "Unknown nature #{nature.inspect} (#{natures.to_sentence} are accepted)"
+        raise ArgumentError.new("Unknown nature #{nature.inspect} (#{natures.to_sentence} are accepted)")
       end
 
       account_nomen = nature.to_s.pluralize
@@ -419,8 +419,8 @@ class Account < Ekylibre::Record::Base
     def find_or_import_from_nomenclature(usage, create_if_nonexistent: true)
       item = Nomen::Account.find(usage)
       acc_number = item.send(accounting_system)
-      raise ArgumentError, "The usage #{usage.inspect} is unknown" unless item
-      raise ArgumentError, "The usage #{usage.inspect} is not implemented in #{accounting_system.inspect}" unless acc_number
+      raise ArgumentError.new("The usage #{usage.inspect} is unknown") unless item
+      raise ArgumentError.new("The usage #{usage.inspect} is not implemented in #{accounting_system.inspect}") unless acc_number
 
       account = find_by_usage(usage, except: { nature: :auxiliary })
       unless account
@@ -441,8 +441,8 @@ class Account < Ekylibre::Record::Base
 
     def generate_auxiliary_account_number(usage)
       item = Nomen::Account.select { |a| a.name == usage.to_s && a.centralizing }.first
-      raise ArgumentError, "The usage #{usage.inspect} is unknown" unless item
-      raise ArgumentError, "The usage #{usage.inspect} is not implemented in #{accounting_system.inspect}" unless item.send(accounting_system)
+      raise ArgumentError.new("The usage #{usage.inspect} is unknown") unless item
+      raise ArgumentError.new("The usage #{usage.inspect} is not implemented in #{accounting_system.inspect}") unless item.send(accounting_system)
       centralizing_number = item.send(accounting_system)
       auxiliary_number = '1'
       until Account.find_by('number LIKE ?', centralizing_number + auxiliary_number).nil?
@@ -475,7 +475,7 @@ class Account < Ekylibre::Record::Base
     # It takes the information in preferences
     def accounting_system=(name)
       unless (item = Nomen::AccountingSystem[name])
-        raise ArgumentError, "The accounting system #{name.inspect} is unknown."
+        raise ArgumentError.new("The accounting system #{name.inspect} is unknown.")
       end
 
       Preference.set!(:accounting_system, item.name)

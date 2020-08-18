@@ -121,7 +121,7 @@ class FinancialYearClose
 
       log("Close Financial Year")
 
-      raise UnbalancedBalanceSheet, :closure_failed_because_balance_sheet_unbalanced.tl unless @year.balanced_balance_sheet?(:post_closure)
+      raise UnbalancedBalanceSheet.new(:closure_failed_because_balance_sheet_unbalanced.tl) unless @year.balanced_balance_sheet?(:post_closure)
 
       generate_documents('post_closure')
       @progress.increment!

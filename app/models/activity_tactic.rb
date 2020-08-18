@@ -57,6 +57,6 @@ class ActivityTactic < Ekylibre::Record::Base
   end
 
   def mode_unit_name=(value)
-    raise ArgumentError, 'Mode unit must be: day' unless value.to_s == 'day'
+    raise ArgumentError.new('Mode unit must be: day') unless value.to_s == 'day'
   end
 end

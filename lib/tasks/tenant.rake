@@ -216,7 +216,7 @@ namespace :tenant do
 
   task restore: :environment do
     if Rails.env.production? && !ENV['DANGEROUS_MODE']
-      raise Ekylibre::ForbiddenImport, 'No restore is allowed on the production server.'
+      raise Ekylibre::ForbiddenImport.new('No restore is allowed on the production server.')
     end
     archive = ENV['ARCHIVE'] || ENV['archive']
     tenant = ENV['TENANT'] || ENV['name']

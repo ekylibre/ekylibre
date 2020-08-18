@@ -94,7 +94,7 @@ module Unrollable
       end
 
       def bad_scope(scope, model)
-        raise InvalidScopeException, <<-BAD_SCOPE
+        raise InvalidScopeException.new(<<-BAD_SCOPE)
         Scope #{scope.inspect} is unknown for #{model.name}. #{model.scopes.map(&:name).inspect} are expected."
         BAD_SCOPE
       end

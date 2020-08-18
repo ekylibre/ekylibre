@@ -59,7 +59,7 @@ module ActiveSensor
       def find!(vendor, model)
         equipment = find(vendor, model)
         unless equipment
-          raise EquipmentNotFound, "Cannot find vendor=#{vendor.inspect}, model=#{model.inspect}"
+          raise EquipmentNotFound.new("Cannot find vendor=#{vendor.inspect}, model=#{model.inspect}")
         end
         equipment
       end

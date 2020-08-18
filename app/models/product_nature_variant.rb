@@ -142,7 +142,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
     if item = Nomen::WorkingSet.find(working_set)
       of_expression(item.expression)
     else
-      raise StandardError, "#{working_set.inspect} is not in Nomen::WorkingSet nomenclature"
+      raise StandardError.new("#{working_set.inspect} is not in Nomen::WorkingSet nomenclature")
     end
   }
 
@@ -266,7 +266,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
     unless indicator.is_a?(Nomen::Item)
       indicator = Nomen::Indicator.find(indicator)
       unless indicator
-        raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
+        raise ArgumentError.new("Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}.")
       end
     end
     reading = readings.find_or_initialize_by(indicator_name: indicator.name)
@@ -278,7 +278,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   # Return the reading
   def reading(indicator)
     unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
-      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
+      raise ArgumentError.new("Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}.")
     end
     readings.find_by(indicator_name: indicator.name)
   end
@@ -286,7 +286,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   # Returns the direct value of an indicator of variant
   def get(indicator, _options = {})
     unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
-      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
+      raise ArgumentError.new("Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}.")
     end
     if reading = reading(indicator.name)
       return reading.value
@@ -587,13 +587,13 @@ class ProductNatureVariant < Ekylibre::Record::Base
     # Load a product nature variant from product nature variant nomenclature
     def import_from_nomenclature(reference_name, force = false)
       unless item = Nomen::ProductNatureVariant[reference_name]
-        raise ArgumentError, "The product_nature_variant #{reference_name.inspect} is not known"
+        raise ArgumentError.new("The product_nature_variant #{reference_name.inspect} is not known")
       end
       unless nature_item = Nomen::ProductNature[item.nature]
-        raise ArgumentError, "The nature of the product_nature_variant #{item.nature.inspect} is not known"
+        raise ArgumentError.new("The nature of the product_nature_variant #{item.nature.inspect} is not known")
       end
       unless Nomen::ProductNatureCategory[nature_item.category]
-        raise ArgumentError, "The category of the product_nature_variant #{nature_item.category.inspect} is not known"
+        raise ArgumentError.new("The category of the product_nature_variant #{nature_item.category.inspect} is not known")
       end
       unless !force && (variant = ProductNatureVariant.find_by(reference_name: reference_name.to_s))
         category = ProductNatureCategory.import_from_nomenclature(nature_item.category)
@@ -633,13 +633,13 @@ class ProductNatureVariant < Ekylibre::Record::Base
       end
 
       unless item = Variant.find_by_reference_name(reference_name)
-        raise ArgumentError, "The product_nature_variant #{reference_name.inspect} is not known"
+        raise ArgumentError.new("The product_nature_variant #{reference_name.inspect} is not known")
       end
       unless nature_item = VariantNature.find_by_reference_name(item.nature)
-        raise ArgumentError, "The nature of the product_nature_variant #{item.nature.inspect} is not known"
+        raise ArgumentError.new("The nature of the product_nature_variant #{item.nature.inspect} is not known")
       end
       unless category_item = VariantCategory.find_by_reference_name(item.category)
-        raise ArgumentError, "The category of the product_nature_variant #{item.category.inspect} is not known"
+        raise ArgumentError.new("The category of the product_nature_variant #{item.category.inspect} is not known")
       end
       unless !force && variant = ProductNatureVariant.find_by_reference_name(reference_name)
         category = ProductNatureCategory.import_from_lexicon(item.category)

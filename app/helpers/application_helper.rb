@@ -40,10 +40,10 @@ module ApplicationHelper
     object = options[:object] || instance_variable_get("@#{object_name}")
     model = object.class
     unless reflection = object.class.reflect_on_association(association)
-      raise ArgumentError, "Unknown reflection for #{model.name}: #{association.inspect}"
+      raise ArgumentError.new("Unknown reflection for #{model.name}: #{association.inspect}")
     end
     if reflection.macro != :belongs_to
-      raise ArgumentError, "Reflection #{reflection.name} must be a belongs_to"
+      raise ArgumentError.new("Reflection #{reflection.name} must be a belongs_to")
     end
     text_field(object_name, reflection.foreign_key, html_options.merge('data-selector' => url_for(choices)))
   end
@@ -374,7 +374,7 @@ module ApplicationHelper
 
     if block_given?
       unless block.arity == 1
-        raise ArgumentError, 'One parameter needed for attribute_list block'
+        raise ArgumentError.new('One parameter needed for attribute_list block')
       end
       yield attribute_list
     end
@@ -734,7 +734,7 @@ module ApplicationHelper
   end
 
   def subheading(i18n_key, options = {})
-    raise StandardError, 'A subheading has already been given.' if content_for?(:subheading)
+    raise StandardError.new('A subheading has already been given.') if content_for?(:subheading)
     if options[:here]
       return subheading_tag(tl(i18n_key, options))
     else
@@ -769,7 +769,7 @@ module ApplicationHelper
   # TOOLBAR
 
   def menu_to(name, url, options = {})
-    raise ArgumentError, "##{__method__} cannot use blocks" if block_given?
+    raise ArgumentError.new("##{__method__} cannot use blocks") if block_given?
     icon = (options.key?(:menu) ? options.delete(:menu) : url.is_a?(Hash) ? url[:action] : nil)
     sprite = options.delete(:sprite) || 'icons-16'
     options[:class] = (options[:class].blank? ? 'mn' : options[:class] + ' mn')
@@ -794,7 +794,7 @@ module ApplicationHelper
   # end
 
   def tool_to(name, url, options = {})
-    raise ArgumentError, "##{__method__} cannot use blocks" if block_given?
+    raise ArgumentError.new("##{__method__} cannot use blocks") if block_given?
     icon = options.key?(:tool) ? options.delete(:tool) : options.key?(:icon) ? options.delete(:icon) : nil
     icon ||= url[:action] if url.is_a?(Hash) && !icon.is_a?(FalseClass)
     options[:class] = (options[:class].blank? ? 'btn btn-default' : options[:class].to_s + ' btn btn-default')

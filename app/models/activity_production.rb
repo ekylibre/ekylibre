@@ -741,7 +741,7 @@ class ActivityProduction < Ekylibre::Record::Base
 
   def get(*args)
     if support.blank?
-      raise StandardError, "No support defined. Got: #{support.inspect}"
+      raise StandardError.new("No support defined. Got: #{support.inspect}")
     end
     support.get(*args)
   end

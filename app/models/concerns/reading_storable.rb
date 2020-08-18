@@ -91,7 +91,7 @@ module ReadingStorable
   module ClassMethods
     def value_column(indicator_name)
       unless indicator = Nomen::Indicator[indicator_name]
-        raise ArgumentError, "Expecting an indicator name. Got #{indicator_name.inspect}."
+        raise ArgumentError.new("Expecting an indicator name. Got #{indicator_name.inspect}.")
       end
       { measure: :measure_value_value }[indicator.datatype] || "#{indicator.datatype}_value".to_sym
     end

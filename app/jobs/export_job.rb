@@ -11,7 +11,7 @@ class ExportJob < ApplicationJob
     name = params['template'].to_i
 
     unless template = DocumentTemplate.find_active_template(name)
-      raise StandardError, "Can not find template for \#{name.inspect}"
+      raise StandardError.new("Can not find template for \#{name.inspect}")
     end
 
     filename = "#{klass.human_name}.#{format}"

@@ -33,7 +33,7 @@ module Ekylibre
       #  - verbose
       def launch(options = {})
         if options[:path] && options[:folder]
-          raise ArgumentError, ':path and :folder options are incompatible'
+          raise ArgumentError.new(':path and :folder options are incompatible')
         end
         name = options.delete(:name)
         if path = options.delete(:path)
@@ -41,7 +41,7 @@ module Ekylibre
         elsif options[:folder]
           path = Ekylibre::FirstRun.path.join(options.delete(:folder))
         else
-          raise ArgumentError, 'Need at least :path or :folder option'
+          raise ArgumentError.new('Need at least :path or :folder option')
         end
         manifest = YAML.load_file(path.join('manifest.yml'))
         sentence = 'Launch first run'

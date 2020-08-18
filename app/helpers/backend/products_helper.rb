@@ -80,7 +80,7 @@ module Backend
     def product_mini_map(product = nil)
       product ||= resource
       unless product.is_a?(Product)
-        raise ArgumentError, 'Product expected, got ' + product.inspect
+        raise ArgumentError.new('Product expected, got ' + product.inspect)
       end
       mini_map(product) do |r|
         { name: r.name, shape: r.shape }

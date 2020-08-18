@@ -22,7 +22,7 @@ module Backend
     def referenced_nomenclature(association, options = {})
       klass = @object.class
       reflection = klass.nomenclature_reflections[association]
-      raise ArgumentError, "Invalid nomenclature reflection: #{association}" unless reflection
+      raise ArgumentError.new("Invalid nomenclature reflection: #{association}") unless reflection
       options[:collection] ||= reflection.klass.selection
       options[:label] ||= klass.human_attribute_name(association)
       input(reflection.foreign_key, options)
@@ -768,7 +768,7 @@ module Backend
       reflection = find_association_reflection(association)
       raise "Association #{association.inspect} not found" unless reflection
       if reflection.macro != :belongs_to
-        raise ArgumentError, "Reflection #{reflection.name} must be a belongs_to"
+        raise ArgumentError.new("Reflection #{reflection.name} must be a belongs_to")
       end
 
       choices = options.delete(:source) || {}

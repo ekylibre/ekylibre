@@ -183,7 +183,7 @@ module Ekylibre
       if can_load_default?(:cashes)
         @manifest[:cashes] = %i[bank_account cash_box].each_with_object({}) do |nature, hash|
           unless journal_nature = { bank_account: :bank, cash_box: :cash }[nature]
-            raise StandardError, 'Need a valid journal nature to register a cash'
+            raise StandardError.new('Need a valid journal nature to register a cash')
           end
           journal = Journal.find_by(nature: journal_nature)
           account = Account.find_by(name: "enumerize.cash.nature.#{nature}".t)
@@ -307,7 +307,7 @@ module Ekylibre
               @records[records][identifier.to_s] = record
             else
               w.error "\nError on #{record.inspect.red}: #{record.errors.full_messages.to_sentence}"
-              raise ActiveRecord::RecordInvalid, record
+              raise ActiveRecord::RecordInvalid.new(record)
             end
           end
         end

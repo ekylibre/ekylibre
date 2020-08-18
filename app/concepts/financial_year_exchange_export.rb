@@ -22,7 +22,7 @@ class FinancialYearExchangeExport
       if format == 'csv'
         CsvExport.new(exchange).export(&block)
       else
-        raise InvalidFormatError, "Format '#{format}' is not supported"
+        raise InvalidFormatError.new("Format '#{format}' is not supported")
       end
     end
 

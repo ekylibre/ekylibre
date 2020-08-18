@@ -194,7 +194,7 @@ class Affair < Ekylibre::Record::Base
     end
     return self if self == other
     if other.currency != currency
-      raise ArgumentError, "The currency (#{currency}) is different of the affair currency(#{other.currency})"
+      raise ArgumentError.new("The currency (#{currency}) is different of the affair currency(#{other.currency})")
     end
     Ekylibre::Record::Base.transaction do
       other.deals.each do |deal|
@@ -209,7 +209,7 @@ class Affair < Ekylibre::Record::Base
 
   def extract!(deal)
     unless deals.include?(deal)
-      raise ArgumentError, 'Given deal is not one of the affair'
+      raise ArgumentError.new('Given deal is not one of the affair')
     end
     Ekylibre::Record::Base.transaction do
       affair = self.class.create!(currency: deal.currency, third: deal.deal_third)

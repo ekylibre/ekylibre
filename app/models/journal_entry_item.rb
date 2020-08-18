@@ -260,7 +260,7 @@ class JournalEntryItem < Ekylibre::Record::Base
     else
       # FIXME: We need to do something better when currencies don't match
       if currency.present? && (absolute_currency.present? || real_currency.present?)
-        raise JournalEntry::IncompatibleCurrencies, "You cannot create an entry where the absolute currency (#{absolute_currency.inspect}) is not the real (#{real_currency.inspect}) or current one (#{currency.inspect})"
+        raise JournalEntry::IncompatibleCurrencies.new("You cannot create an entry where the absolute currency (#{absolute_currency.inspect}) is not the real (#{real_currency.inspect}) or current one (#{currency.inspect})")
       end
     end
 

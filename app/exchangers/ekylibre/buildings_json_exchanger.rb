@@ -29,7 +29,7 @@ module Ekylibre
           end
         end
       else
-        raise ActiveExchanger::NotWellFormedFileError, 'File seems to be JSON but not GeoJSON.'
+        raise ActiveExchanger::NotWellFormedFileError.new('File seems to be JSON but not GeoJSON.')
       end
     end
   end
