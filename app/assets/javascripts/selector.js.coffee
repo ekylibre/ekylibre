@@ -231,6 +231,7 @@
           if data.length > 0
             menu.show()
             @element.trigger('selector:menu-opened')
+            @element.get(0).dispatchEvent(new CustomEvent('unroll:menu-opened', {bubbles: true, detail: {unroll: @}}))
           else
             menu.hide()
         error: (request, status, error) ->
@@ -257,6 +258,7 @@
       if @dropDownMenu.is(":visible")
         @dropDownMenu.hide()
         @element.trigger('selector:menu-closed')
+        @element.get(0).dispatchEvent(new CustomEvent('unroll:menu-closed', {bubbles: true, detail: {unroll: @}}))
       true
 
     _choose: (selected) ->

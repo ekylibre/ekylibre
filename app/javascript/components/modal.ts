@@ -69,8 +69,8 @@ export class Modal {
         behaveRefresh();
     }
 
-    setTitle(title: string){
-        this.titleElement.textContent = title
+    setTitle(title: string) {
+        this.titleElement.textContent = title;
     }
 
     setBody(content: Element | string) {
@@ -98,6 +98,22 @@ export class Modal {
 
         this.titleElement.textContent = this.title;
         this.setBody(this.content);
+        this.on('unroll:menu-opened' as any as keyof HTMLElementEventMap, 'input', e => {
+            const element = (e as any).detail.unroll.dropDownMenu.get(0);
+            if (this.getBodyElement().clientHeight < element.clientHeight){
+                const actions: HTMLDivElement = this.getBodyElement().querySelector('.form-actions') as HTMLDivElement
+                if(actions){
+                    actions.style.marginTop = `${element.clientHeight}px`
+                }
+            }
+        });
+        this.on('unroll:menu-closed' as any as keyof HTMLElementEventMap, 'input', e => {
+            const actions: HTMLDivElement = this.getBodyElement().querySelector('.form-actions') as HTMLDivElement
+            if(actions){
+                actions.style.marginTop = ''
+            }
+        })
+
     }
 
     on<K extends keyof HTMLElementEventMap>(eventName: K, selector: string, callback: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any) {
@@ -122,7 +138,7 @@ export class Modal {
     }
 
     hide() {
-        window.removeEventListener('keyup', this.escListener)
+        window.removeEventListener('keyup', this.escListener);
 
         this.element.classList.add('out');
         this.element.classList.remove('in');

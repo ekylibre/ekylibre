@@ -13,7 +13,7 @@ onElementDetected('generate-land-parcel-btn', element => {
 
         const response = await axios.get('/backend/controller_helpers/activity_production_creations/new', {params});
         const title = t('front-end.land_parcel.create_modal.title');
-        const modal = new Modal(title, response.data);
+        const modal = new Modal(title, response.data, {size: 'lg'});
 
         modal.open();
 

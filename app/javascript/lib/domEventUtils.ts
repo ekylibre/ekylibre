@@ -23,12 +23,12 @@ export function onDomReady(callback: DomeEventListener) {
  * @param selector
  * @param callback
  */
-export function delegateListener<K extends keyof HTMLElementEventMap>(element: Element, eventName: K, selector: string, callback: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any) {
+export function delegateListener<K extends keyof HTMLElementEventMap>(element: Element, eventName: K, selector: string, callback: (ev: HTMLElementEventMap[K]) => any) {
     element.addEventListener(eventName, function (e) {
         // loop parent nodes from the target to the delegation node
         for (let target = e.target as Element; target && target != this; target = (target as Element).parentNode as Element) {
             if (target.matches(selector)) {
-                callback.call(target, e);
+                callback(e as any);
                 break;
             }
         }
