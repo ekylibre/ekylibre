@@ -1031,7 +1031,9 @@ module ApplicationHelper
         title = content_tag(:h4, title, class: 'modal-title', id: title_id)
 
         close_button = button_tag({ class: 'close', aria: { label: :close.tl }, data: { dismiss: 'modal' }, type: 'button' }.deep_merge(options[:close_html] || {})) do
-          content_tag(:span, '&times;'.html_safe, aria: { hidden: 'true' })
+          content_tag(:span, aria: { hidden: 'true' }) do
+            content_tag(:i, '', class: 'icon icon-destroy')
+          end
         end
 
         if options[:flex]

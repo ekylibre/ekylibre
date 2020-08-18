@@ -10,7 +10,7 @@ function modalTemplate(id: string, size: ModalSize) {
         <div class="modal fade " id="${id}" role="dialog">
             <div class="modal-dialog modal-dialog-centered ${additionalClass}">
                 <div class="modal-content">
-                    <div class="modal-header modal-header--document">
+                    <div class="modal-header modal-header-generic">
                         <button class="close" data-dismiss="modal">
                             <i class="icon icon-destroy"></i>
                         </button>
