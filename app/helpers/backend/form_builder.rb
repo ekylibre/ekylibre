@@ -203,7 +203,6 @@ module Backend
       super(attribute_name, options, &block)
     end
 
-
     def find_input(attribute_name, options = {}, &block)
       input = super
 

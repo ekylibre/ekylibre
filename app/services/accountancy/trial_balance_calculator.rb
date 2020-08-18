@@ -128,7 +128,6 @@ module Accountancy
         debit_balance = balance_data[0...-1].map { |item| item[4].to_f < 0 ? item[4].to_f : 0 }.reduce(0, :+).round(2)
         balance_data[-1].insert(5, credit_balance, debit_balance)
 
-
         if balance == 'balanced'
           balance_data = balance_data.select { |item| item[1].to_i < 0 || Account.find(item[1]).journal_entry_items.pluck(:real_balance).reduce(:+) == 0 }
         elsif balance == 'unbalanced'

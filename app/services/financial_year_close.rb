@@ -108,7 +108,6 @@ class FinancialYearClose
 
       allocate_results if @forward_journal
 
-
       log("Enable Partial Lettering Triggers")
       enable_partial_lettering
 
@@ -393,7 +392,6 @@ class FinancialYearClose
                  real_credit: result_balance_debit,
                  account_id: result_account.id
                }]
-
 
       if (pcfa = previous_carry_forward_account)
         previous_carry_forward_balance_debit = pcfa.totals[:balance_debit]

@@ -69,8 +69,6 @@ class CashTransfer < Ekylibre::Record::Base
   validates :emission_amount, numericality: { greater_than: 0.0 }
   validates :transfered_at, presence: true, financial_year_writeable: true
 
-
-
   before_validation do
     self.transfered_at ||= Time.zone.today
     self.emission_currency = emission_cash.currency if emission_cash

@@ -18,45 +18,47 @@ module Printers
       g = HashWithIndifferentAccess.new
       g[:items] = []
       if @accounting_system == :fr_pcga
-        items = [[0, :unsubcribed_capital, :capitals_values],
-               [1, :incorporeal_assets_total, :capitals_emissions],
-               [1, :corporeal_assets_total, :reevaluation_gaps],
-               [1, :alive_corporeal_assets_total, :capitals_liability_reserves],
-               [1, :financial_assets_total, :capitals_anew_reports],
-               [1, :long_cycle_alive_products_total, :capitals_profit_or_loss],
-               [1, :short_cycle_alive_products_total, :capitals_investment_subsidies],
-               [1, :stocks_supply, :capitals_risk_and_charges_provisions_total],
-               [1, :stocks_total_products, :debts_loans_total],
-               [0, :entities_advance_giveables, :others_debts_advance_receivables],
-               [0, :entities_client_total, :others_debts_supplier_receivables],
-               [0, :entities_state_receivables, :others_debts_state_debts],
-               [1, :entities_associate_receivables, :debts_associate_total],
-               [1, :entities_other_receivables, :others_debts_social_debts],
-               [1, :entities_investment_security, :others_debts_total],
-               [0, :entities_reserve, :debts_cashe_debts_total],
-               [0, :entities_advance_charges, :others_debts_advance_products],
-               [0, :entities_assets_gaps, :others_debts_liabilities_gaps]
-              ]
+        items = [
+          [0, :unsubcribed_capital, :capitals_values],
+          [1, :incorporeal_assets_total, :capitals_emissions],
+          [1, :corporeal_assets_total, :reevaluation_gaps],
+          [1, :alive_corporeal_assets_total, :capitals_liability_reserves],
+          [1, :financial_assets_total, :capitals_anew_reports],
+          [1, :long_cycle_alive_products_total, :capitals_profit_or_loss],
+          [1, :short_cycle_alive_products_total, :capitals_investment_subsidies],
+          [1, :stocks_supply, :capitals_risk_and_charges_provisions_total],
+          [1, :stocks_total_products, :debts_loans_total],
+          [0, :entities_advance_giveables, :others_debts_advance_receivables],
+          [0, :entities_client_total, :others_debts_supplier_receivables],
+          [0, :entities_state_receivables, :others_debts_state_debts],
+          [1, :entities_associate_receivables, :debts_associate_total],
+          [1, :entities_other_receivables, :others_debts_social_debts],
+          [1, :entities_investment_security, :others_debts_total],
+          [0, :entities_reserve, :debts_cashe_debts_total],
+          [0, :entities_advance_charges, :others_debts_advance_products],
+          [0, :entities_assets_gaps, :others_debts_liabilities_gaps]
+        ]
       elsif @accounting_system == :fr_pcg82
-        items = [[0, :unsubcribed_capital, :capitals_values],
-               [1, :incorporeal_assets_total, :capitals_emissions],
-               [1, :corporeal_assets_total, :reevaluation_gaps],
-               [1, :financial_assets_total, :capitals_liability_reserves],
-               [1, :raw_matters_total, :capitals_anew_reports],
-               [1, :stocks_supply_products_total, :capitals_profit_or_loss],
-               [1, :stocks_supply_services_total, :capitals_investment_subsidies],
-               [1, :stocks_middle_products_total, :capitals_risk_and_charges_provisions_total],
-               [1, :stocks_end_products_total, :debts_loans_total],
-               [0, :entities_advance_giveables, :others_debts_advance_receivables],
-               [0, :entities_client_total, :others_debts_supplier_receivables],
-               [0, :entities_state_receivables, :others_debts_state_debts],
-               [1, :entities_associate_receivables, :debts_associate_total],
-               [1, :entities_other_receivables, :others_debts_social_debts],
-               [1, :entities_investment_security, :others_debts_total],
-               [0, :entities_reserve, :debts_cashe_debts_total],
-               [0, :entities_advance_charges, :others_debts_advance_products],
-               [0, :entities_assets_gaps, :others_debts_liabilities_gaps]
-              ]
+        items = [
+          [0, :unsubcribed_capital, :capitals_values],
+          [1, :incorporeal_assets_total, :capitals_emissions],
+          [1, :corporeal_assets_total, :reevaluation_gaps],
+          [1, :financial_assets_total, :capitals_liability_reserves],
+          [1, :raw_matters_total, :capitals_anew_reports],
+          [1, :stocks_supply_products_total, :capitals_profit_or_loss],
+          [1, :stocks_supply_services_total, :capitals_investment_subsidies],
+          [1, :stocks_middle_products_total, :capitals_risk_and_charges_provisions_total],
+          [1, :stocks_end_products_total, :debts_loans_total],
+          [0, :entities_advance_giveables, :others_debts_advance_receivables],
+          [0, :entities_client_total, :others_debts_supplier_receivables],
+          [0, :entities_state_receivables, :others_debts_state_debts],
+          [1, :entities_associate_receivables, :debts_associate_total],
+          [1, :entities_other_receivables, :others_debts_social_debts],
+          [1, :entities_investment_security, :others_debts_total],
+          [0, :entities_reserve, :debts_cashe_debts_total],
+          [0, :entities_advance_charges, :others_debts_advance_products],
+          [0, :entities_assets_gaps, :others_debts_liabilities_gaps]
+        ]
       end
       items.each do |item|
         i = HashWithIndifferentAccess.new
@@ -107,7 +109,7 @@ module Printers
 
       data_filters = []
       data_filters << :currency.tl + " : " + @financial_year.currency
-      data_filters <<  :accounting_system.tl + " : " + Nomen::AccountingSystem.find(@accounting_system).human_name
+      data_filters << :accounting_system.tl + " : " + Nomen::AccountingSystem.find(@accounting_system).human_name
 
       dataset << data_filters
       dataset.compact
@@ -150,12 +152,12 @@ module Printers
           end
           s.add_field(:sum_actif_name, :sum_actif_name)
           s.add_field(:sum_passif_name, :sum_passif_name)
-          s.add_field(:t_a_c_r_v) {|d| number_to_accountancy(d[:total_current_actif_raw_value])}
-          s.add_field(:t_a_c_v_v) {|d| number_to_accountancy(d[:total_current_actif_variations])}
-          s.add_field(:t_a_c_n_v) {|d| number_to_accountancy(d[:total_current_actif_net_value])}
-          s.add_field(:t_p_c_n_v) {|d| number_to_accountancy(d[:total_current_passif_net_value])}
-          s.add_field(:t_a_p_n_v) {|d| number_to_accountancy(d[:total_previous_actif_net_value])}
-          s.add_field(:t_p_p_n_v) {|d| number_to_accountancy(d[:total_previous_passif_net_value])}
+          s.add_field(:t_a_c_r_v) { |d| number_to_accountancy(d[:total_current_actif_raw_value]) }
+          s.add_field(:t_a_c_v_v) { |d| number_to_accountancy(d[:total_current_actif_variations]) }
+          s.add_field(:t_a_c_n_v) { |d| number_to_accountancy(d[:total_current_actif_net_value]) }
+          s.add_field(:t_p_c_n_v) { |d| number_to_accountancy(d[:total_current_passif_net_value]) }
+          s.add_field(:t_a_p_n_v) { |d| number_to_accountancy(d[:total_previous_actif_net_value]) }
+          s.add_field(:t_p_p_n_v) { |d| number_to_accountancy(d[:total_previous_passif_net_value]) }
         end
       end
     end

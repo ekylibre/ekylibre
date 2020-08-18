@@ -295,7 +295,6 @@ class ActivityProduction < Ekylibre::Record::Base
       support.work_number = computed_work_number
     end
 
-
     if support.initial_movement
       support.initial_movement.delta = support_shape_area.to_d(size_unit_name)
       support.initial_movement.started_at = started_on

@@ -150,7 +150,6 @@ class Journal < Ekylibre::Record::Base
       purchase_natures.any? || incoming_payment_modes.any?
   end
 
-
   # Prints human name of current state
   def nature_label
     self.class.nature_label(self.nature)

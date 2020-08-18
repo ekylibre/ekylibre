@@ -224,7 +224,6 @@ class ParcelItem < Ekylibre::Record::Base
       update! product: source_product
     end
 
-
     def existing_product_in_storage
       similar_products = Product.where(variant: variant)
 

@@ -93,7 +93,6 @@ module Printers
       vat_dataset << vat_label
       vat_dataset << vat_balance
 
-
       intra_taxes = Tax.where(id: @tax_declaration.items.pluck(:tax_id), intracommunity: true, nature: :eu_vat).reorder(amount: :desc)
       # intra_columns = [:collected, :intracommunity_payable, :deductible, :fixed_asset_deductible]
       intra_columns = [:collected, :deductible]

@@ -27,7 +27,6 @@ module Backend
 
     before_action :save_search_preference, only: :index
 
-
     def self.list_conditions
       code = ''
       code = search_conditions(purchase_invoice: %i[number reference_number created_at pretax_amount amount], entities: %i[number full_name]) + " ||= []\n"

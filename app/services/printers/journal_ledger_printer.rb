@@ -144,7 +144,6 @@ module Printers
         r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
         r.add_field 'DATA_FILTERS', data_filters * ' | '
 
-
         r.add_section('Section2', dataset[0...-1]) do |sm|
 
           sm.add_field(:month_name) { |month| month[:name] }

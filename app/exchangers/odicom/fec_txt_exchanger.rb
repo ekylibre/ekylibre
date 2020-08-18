@@ -119,7 +119,6 @@ module Odicom
           items_attributes: {}
         }
 
-
         # create account
         if row.account_number.start_with?(client_account_radix, supplier_account_radix)
           account = find_or_create_account(row.account_number, row.account_name)

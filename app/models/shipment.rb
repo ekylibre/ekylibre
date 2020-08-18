@@ -148,7 +148,6 @@ class Shipment < Parcel
     self.class.state_machine.state(self.state.to_sym).human_name
   end
 
-
   def check
     state = true
     order if can_order?

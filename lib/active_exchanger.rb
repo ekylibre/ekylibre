@@ -20,7 +20,6 @@ require 'active_exchanger/supervisor'
 require 'active_exchanger/csv_reader'
 require 'active_exchanger/csv_parser'
 
-
 Dir.glob(Rails.root.join('app', 'exchangers', '**', '*.rb')).each do |path|
   require_dependency path
 end
