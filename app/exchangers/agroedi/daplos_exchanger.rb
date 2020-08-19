@@ -38,7 +38,7 @@ module Agroedi
       end
       alias_method :daplos?, :daplos
 
-      #TODO: Do this as pre-import work instead of destroying interventions
+      # TODO: Do this as pre-import work instead of destroying interventions
       def regroup_interventions!
         saved_interventions = interventions.map(&:record).uniq
 

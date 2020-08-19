@@ -22,7 +22,7 @@ module Accountancy
         )
       end
 
-      # @todo Remove with https://gitlab.com/ekylibre/eky/-/issues/719
+      #  @todo Remove with https://gitlab.com/ekylibre/eky/-/issues/719
       # @deprecated
       def build_deprecated_for_account_creation(standard_length: Preference[:account_number_digits])
         new(

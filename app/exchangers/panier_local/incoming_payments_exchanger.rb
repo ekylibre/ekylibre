@@ -104,7 +104,7 @@ module PanierLocal
         .or_raise
     end
 
-    # @param [String] reference_number
+    #  @param [String] reference_number
     # @return [IncomingPayment, nil]
     def find_incoming_payment_by_provider(reference_number)
       unwrap_one('incoming payment') do

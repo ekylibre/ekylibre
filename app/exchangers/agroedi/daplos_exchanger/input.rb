@@ -70,7 +70,7 @@ module Agroedi
       end
 
       def handler
-        #BUG: What if we don't find a handler?
+        # BUG: What if we don't find a handler?
         super(daplos_quantity)
       end
 
@@ -92,7 +92,7 @@ module Agroedi
                        Nomen::Unit.find(edi_unit.ekylibre_value.to_sym)
                      end
         return nomen_unit if nomen_unit
-        #BUG: What if the unit isn't in the lexicon or not in Nomen?
+        # BUG: What if the unit isn't in the lexicon or not in Nomen?
         raise "No unit for #{unit_edicode}"
       end
 
@@ -135,7 +135,7 @@ module Agroedi
 
           store_in = BuildingDivision.first
           product_model = variant.nature.matching_model
-          #BUG: What if building_division.blank?
+          # BUG: What if building_division.blank?
           matter = product_model.create!(variant: variant,
                                          initial_born_at: intervention.started_at,
                                          initial_population: 0.0,
@@ -155,14 +155,14 @@ module Agroedi
           variant = ProductNatureVariant.where(name: name, active: true).first
 
           unless variant
-            #BUG: what if article.blank?
+            # BUG: what if article.blank?
             variant = ProductNatureVariant.import_from_nomenclature(article, force: true) if article
             variant.name = name
             variant.save!
           end
 
           if daplos.input_phytosanitary_number.present?
-            #BUG: What if two inputs with different MAAID have the same variant
+            # BUG: What if two inputs with different MAAID have the same variant
             # (since the find_by is on `name` only)
             variant.france_maaid = daplos.input_phytosanitary_number
             variant.save!

@@ -94,7 +94,7 @@ class Entity < Ekylibre::Record::Base
   refers_to :country
   enumerize :nature, in: %i[organization contact], default: :organization, predicates: true
   enumerize :supplier_payment_delay, in: ['1 week', '30 days', '30 days, end of month', '60 days', '60 days, end of month']
-  #TODO: it should be rewritten when refers_to_lexicon is available
+  # TODO: it should be rewritten when refers_to_lexicon is available
   enumerize :legal_position_code, in: RegisteredLegalPosition.pluck(:code)
   versionize exclude: [:full_name]
   belongs_to :client_account, class_name: 'Account'

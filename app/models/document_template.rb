@@ -78,7 +78,7 @@ class DocumentTemplate < Ekylibre::Record::Base
 
   before_validation do
 
-    #TODO: Change this when signed can be set with a form
+    # TODO: Change this when signed can be set with a form
     self.signed ||= DocumentTemplate.where(nature: nature, managed: true).any? { |e| e.signed }
     # Set file_extension to odt if source content type == odt
 

@@ -26,7 +26,7 @@ class RegisteredPhytosanitaryUsageDoseComputation
   end
 
   def validate_intervention_input(input)
-    #targets_data wants a hash of "k" => {shape: }
+    # targets_data wants a hash of "k" => {shape: }
     targets_data = input.intervention.targets.map.with_index { |v, i| [i.to_s, { shape: v.working_zone }] }.to_h
 
     validate_dose(input.relevant_usage, input.product, input.quantity_value, input.quantity_indicator_name, targets_data)

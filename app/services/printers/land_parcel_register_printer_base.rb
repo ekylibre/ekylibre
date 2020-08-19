@@ -27,7 +27,7 @@ module Printers
       aps_dataset = activity_productions.map { |ap| compute_ap_dataset ap, grouped_interventions }
 
       {
-        index: [], #TODO re-enable this when the index rendering problem is fixed: build_index_dataset(aps_dataset),
+        index: [], # TODO re-enable this when the index rendering problem is fixed: build_index_dataset(aps_dataset),
         display_no_data_message: grouped_interventions.empty? ? [{}] : [],
         dataset: normalize_dataset_interventions_for_sections(aps_dataset)
       }
@@ -250,7 +250,7 @@ module Printers
           to_standard_yield_dataset product, values, base_unit: :quintal
         when "volume"
           to_standard_yield_dataset product, values, base_unit: :hectoliter
-        else #unitary/none
+        else # unitary/none
           to_special_yield_dataset product, values
       end
     end

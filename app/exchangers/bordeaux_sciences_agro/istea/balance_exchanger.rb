@@ -42,9 +42,9 @@ module BordeauxSciencesAgro
               valid = false
             end
 
-            #if (r.start_debit_amount + r.variation_debit_amount) - (r.start_credit_amount + r.variation_credit_amount)!= r.global_balance
+            # if (r.start_debit_amount + r.variation_debit_amount) - (r.start_credit_amount + r.variation_credit_amount)!= r.global_balance
             #  valid = false
-            #end
+            # end
 
           end
           valid

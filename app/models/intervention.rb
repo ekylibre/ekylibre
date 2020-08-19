@@ -394,8 +394,8 @@ class Intervention < Ekylibre::Record::Base
   bookkeep do |b|
     if Preference[:permanent_stock_inventory]
       stock_journal = Journal.find_by(nature: :various, used_for_permanent_stock_inventory: true)
-      #HACK: adding other code choices instead of properly addressing the problem
-      #of code collision
+      # HACK: adding other code choices instead of properly addressing the problem
+      # of code collision
       unless stock_journal
         stock_journal_name = [:stocks.tl, :inventory.tl].find do |name|
           !Journal.find_by(name: name)

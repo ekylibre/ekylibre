@@ -56,7 +56,7 @@ module Customizable
   end
 
   included do
-    #serialize :custom_fields
+    # serialize :custom_fields
 
     # FIXME: Message doesn't appear in form...
     validate :validate_custom_fields

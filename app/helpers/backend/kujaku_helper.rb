@@ -123,7 +123,7 @@ module Backend
 
         def vars
           scope = @options[:scope] || [:labels]
-          #@type [Arrray<Array{String, String}>] choices
+          # @type [Arrray<Array{String, String}>] choices
           choices = @choices.map do |choice|
             if choice.is_a?(Array)
               choice

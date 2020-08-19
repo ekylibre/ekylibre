@@ -79,7 +79,7 @@ class ActivityBudgetItem < Ekylibre::Record::Base
   end
 
   validate do
-    #???: Why do we even have both if we check that they're always equals??
+    # ???: Why do we even have both if we check that they're always equals??
     if currency && unit_currency
       errors.add(:currency, :invalid) if currency != unit_currency
     end

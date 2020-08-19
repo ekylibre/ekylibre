@@ -100,7 +100,7 @@ module Ekylibre
               attributes[:financial_year] = FinancialYear.at(attributes[:printed_on])
               attributes[:currency] = attributes[:financial_year].currency if attributes[:financial_year]
               attributes[:real_currency] = Journal.find(attributes[:journal_id]).currency
-              attributes[:real_currency_rate] = 1 #FIXME: we should have a real currency conversion system
+              attributes[:real_currency_rate] = 1 # FIXME: we should have a real currency conversion system
               journal_entry ||= JournalEntry.new
               journal_entry.attributes = attributes
               journal_entry.save!
