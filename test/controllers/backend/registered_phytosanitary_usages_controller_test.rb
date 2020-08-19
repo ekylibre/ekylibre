@@ -63,7 +63,7 @@ module Backend
         post :dose_validations, id: @usage.id,
                                 spray_volume: "",
                                 product_id: @product.id,
-                                dimension: 'mass_area_density',
+                                unit_name: 'kilogram_per_hectare',
                                 quantity: quantity,
                                 targets_data: { '0' => { id: @land_parcel.id, shape: @land_parcel.shape.to_json_feature_collection.to_json } }
         json = JSON.parse(response.body)
@@ -72,17 +72,17 @@ module Backend
       end
     end
 
-    %w[population net_mass].each do |dimension|
-      test "dose_validations correctly handles conversion from #{dimension} to mass_area_density" do
+    %w[kouraks kilogram].each do |unit_name|
+      test "dose_validations correctly handles conversion from #{unit_name} to mass_area_density" do
         surface = Measure.new(@land_parcel.shape.area, :square_meter).in(:hectare)
         max_dose = (surface * @usage.dose_quantity).to_d
-        max_dose = max_dose / @product.net_mass.in(:kilogram).to_d if dimension == 'population'
+        max_dose = max_dose / @product.net_mass.in(:kilogram).to_d if unit_name == 'kouraks'
 
         [%w[- go], %w[+ stop]].each do |(operator, status)|
           post :dose_validations, id: @usage.id,
                                   spray_volume: "",
                                   product_id: @product.id,
-                                  dimension: dimension,
+                                  unit_name: unit_name,
                                   quantity: max_dose.send(operator, 0.01),
                                   targets_data: { '0' => { id: @land_parcel.id, shape: @land_parcel.shape.to_json_feature_collection.to_json } }
           json = JSON.parse(response.body)
@@ -98,7 +98,7 @@ module Backend
       post :dose_validations, id: @usage.id,
                               spray_volume: "",
                               product_id: @product.id,
-                              dimension: 'population',
+                              unit_name: 'population',
                               quantity: 1,
                               targets_data: { '0' => { id: @land_parcel.id, shape: @land_parcel.shape.to_json_feature_collection.to_json } },
                               intervention_id: intervention.id,
@@ -136,7 +136,7 @@ module Backend
       post :dose_validations, id: @usage.id,
                               spray_volume: "",
                               product_id: @product.id,
-                              dimension: 'mass_area_density',
+                              unit_name: 'kilogram_per_hectare',
                               quantity: dose_max - 0.01,
                               targets_data: { '0' => { id: @land_parcel.id, shape: @land_parcel.shape.to_json_feature_collection.to_json } },
                               intervention_id: intervention.id,
@@ -152,7 +152,7 @@ module Backend
       post :dose_validations, id: @usage.id,
                               spray_volume: "",
                               product_id: @product.id,
-                              dimension: 'mass_area_density',
+                              unit_name: 'kilogram_per_hectare',
                               quantity: dose_max - 0.01,
                               targets_data: { '0' => { id: @land_parcel.id, shape: @land_parcel.shape.to_json_feature_collection.to_json } },
                               intervention_id: intervention.id,

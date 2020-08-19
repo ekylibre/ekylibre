@@ -166,10 +166,10 @@
       productId = $productField.find("[data-selector-id='intervention_input_product_id']").first().selector('value')
       liveData = $productField.find('.intervention_inputs_using_live_data input').val()
       quantity = $input.val()
-      dimension = $input.parent().find('select option:selected').val()
+      unitName = element.querySelector('.intervention_inputs_quantity select').selectedOptions[0].dataset.handlerUnit
       targetsData = retrieveTargetsData()
 
-      { product_id: productId, quantity: quantity, dimension: dimension, targets_data: targetsData, intervention_id: interventionId, input_id: inputId, live_data: liveData, spray_volume: sprayVolume }
+      { product_id: productId, quantity: quantity, unit_name: unitName, targets_data: targetsData, intervention_id: interventionId, input_id: inputId, live_data: liveData, spray_volume: sprayVolume }
 
 
   sprayingMap =
