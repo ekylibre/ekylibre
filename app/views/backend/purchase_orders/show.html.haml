@@ -6,8 +6,8 @@
     - d.item :export_as_pdf.tl, html_options: { data: { no_turbolink: true } }, params: export_params.merge(format: :pdf)
   = t.destroy
   - if current_user.can?(:write, :incoming_deliveries) && resource.can_generate_parcel?
-    = t.new(params: { controller: :receptions, purchase_order_ids: resource.id, nature: :incoming, mode: 'prefilled' }, label: :generate_parcel.tl)
-
+    - disabled = resource.closed? || resource.fully_reconciled?
+    = t.new(params: { controller: :receptions, purchase_order_ids: resource.id, nature: :incoming, mode: 'prefilled' }, disabled: disabled, label: :generate_parcel.tl)
 = main_state_bar(resource)
 
 = main_informations attachment: true do
