@@ -10,7 +10,7 @@ git_source(:gitlab) do |repo_name|
   "https://gitlab.com/#{repo_name}.git"
 end
 
-ruby '>= 2.3.8', '< 3.0.0'
+ruby '>= 2.6.6', '< 3.0.0'
 
 gem 'elastic-apm', '~> 3.4.0'
 gem 'piwik_analytics', github: 'ekylibre/piwik-ruby-tracking'
