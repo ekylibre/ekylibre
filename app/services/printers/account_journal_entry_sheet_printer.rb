@@ -89,7 +89,7 @@ module Printers
 
       items_dataset = @account.journal_entry_items
                       .between(@started_on, @stopped_on)
-                      .includes(entry: [:sales, :purchases])
+                      .includes(entry: %i[sales purchases])
                       .where(states_array)
                       .where(letter_condition)
                       .reorder('journal_entry_items.printed_on ASC, journal_entry_items.entry_number ASC')
