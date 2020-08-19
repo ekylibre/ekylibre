@@ -48,5 +48,5 @@ class VariantCategory < ApplicationRecord
   include Lexiconable
   include ScopeIntrospection
 
-  scope :of_class_name, -> (*class_names) { where(nature: class_names) }
+  scope :of_class_name, ->(*class_names) { where(nature: class_names) }
 end

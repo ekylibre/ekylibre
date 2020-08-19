@@ -130,7 +130,7 @@ module Ekylibre
             [[r.purchase_unit_pretax_amount, :purchase], [r.stock_unit_pretax_amount, :stock], [r.sale_unit_pretax_amount, :sale]].each do |(price, nature)|
               if price
                 catalog = Catalog.by_default!(nature)
-                attributes = {catalog: catalog, all_taxes_included: false, amount: ratio * price, currency: currency}
+                attributes = { catalog: catalog, all_taxes_included: false, amount: ratio * price, currency: currency }
                 variant.catalog_items.create!(attributes)
               end
             end

@@ -39,20 +39,20 @@ module Printers
                     [:unsubcribed_capital, false, [:unsubcribed_capital]], # unsubcribed_capital - 109
                     [:incorporeal_assets, true, [:incorporeal_assets_creation_costs, :incorporeal_assets_others, :incorporeal_assets_advances]], # incorporeal_assets - 201...
                     [:corporeal_assets, true, [:corporeal_assets_land_parcels, :corporeal_assets_settlements,
-                             :corporeal_assets_enhancement, :corporeal_assets_buildings,
-                             :corporeal_assets_equipments, :corporeal_assets_others,
-                             :corporeal_assets_in_progress, :corporeal_assets_advances]],
+                                               :corporeal_assets_enhancement, :corporeal_assets_buildings,
+                                               :corporeal_assets_equipments, :corporeal_assets_others,
+                                               :corporeal_assets_in_progress, :corporeal_assets_advances]],
                     [:financial_assets, true, [:financial_assets_participations, :financial_assets_participations_debts,
-                             :financial_assets_others]],
+                                               :financial_assets_others]],
 
                     ]
 
       base_bottom_active = [
                             [:entities, false, [:entities_advance_giveables, :entities_client_receivables,
-                             :entities_others_clients, :entities_state_receivables,
-                             :entities_associate_receivables, :entities_other_receivables,
-                             :entities_investment_security, :entities_reserve,
-                             :entities_advance_charges, :entities_assets_gaps]]
+                                                :entities_others_clients, :entities_state_receivables,
+                                                :entities_associate_receivables, :entities_other_receivables,
+                                                :entities_investment_security, :entities_reserve,
+                                                :entities_advance_charges, :entities_assets_gaps]]
       ]
 
       base_active.each do |group_item, is_multi_items, items|
@@ -66,14 +66,14 @@ module Printers
       if @accounting_system == :fr_pcga
         pcga_alive_active = [
                         [:alive_corporeal_assets, true, [:alive_corporeal_assets_adult_animals, :alive_corporeal_assets_young_animals,
-                                 :alive_corporeal_assets_service_animals, :alive_corporeal_assets_perennial_plants,
-                                 :alive_corporeal_assets_others, :alive_corporeal_assets_in_progress,
-                                 :alive_corporeal_assets_advances]],
+                                                         :alive_corporeal_assets_service_animals, :alive_corporeal_assets_perennial_plants,
+                                                         :alive_corporeal_assets_others, :alive_corporeal_assets_in_progress,
+                                                         :alive_corporeal_assets_advances]],
                         [:long_cycle_alive_products, true, [:long_cycle_alive_products_animals, :long_cycle_alive_products_plant_advance,
-                                 :long_cycle_alive_products_plant_in_ground, :long_cycle_alive_products_wine,
-                                 :long_cycle_alive_products_others]],
+                                                            :long_cycle_alive_products_plant_in_ground, :long_cycle_alive_products_wine,
+                                                            :long_cycle_alive_products_others]],
                         [:short_cycle_alive_products, true, [:short_cycle_alive_products_animals, :short_cycle_alive_products_plant_advance,
-                                 :short_cycle_alive_products_plant_in_ground, :short_cycle_alive_products_others]],
+                                                             :short_cycle_alive_products_plant_in_ground, :short_cycle_alive_products_others]],
                         [:stocks, true, [:stocks_supply, :stocks_others_products, :stocks_end_products]],
 
         ]
@@ -131,18 +131,18 @@ module Printers
 
       base_passive = [
                       [:capitals, false, [:capitals_values, :capitals_emissions, :reevaluation_gaps,
-                               :capitals_liability_reserves, :capitals_anew_reports,
-                               :capitals_profit_or_loss, :capitals_investment_subsidies,
-                               :capitals_derogatory_depreciations, :capitals_mandatory_provisions,
-                               :capitals_risk_and_charges_provisions]],
+                                          :capitals_liability_reserves, :capitals_anew_reports,
+                                          :capitals_profit_or_loss, :capitals_investment_subsidies,
+                                          :capitals_derogatory_depreciations, :capitals_mandatory_provisions,
+                                          :capitals_risk_and_charges_provisions]],
                       [:debts, false, [:debts_land_parcel_loans, :debts_others_loans,
-                               :debts_associate_locked_debts, :debts_cashe_debts,
-                               :debts_other_financial_debts]],
+                                       :debts_associate_locked_debts, :debts_cashe_debts,
+                                       :debts_other_financial_debts]],
                       [:others_debts, false, [:others_debts_advance_receivables, :others_debts_supplier_receivables,
-                               :others_debts_state_debts, :others_debts_social_debts,
-                               :others_debts_associate_debts, :others_debts_fixed_asset_debts,
-                               :others_debts_others, :others_debts_advance_products,
-                               :others_debts_liabilities_gaps]]
+                                              :others_debts_state_debts, :others_debts_social_debts,
+                                              :others_debts_associate_debts, :others_debts_fixed_asset_debts,
+                                              :others_debts_others, :others_debts_advance_products,
+                                              :others_debts_liabilities_gaps]]
       ]
 
       base_passive.each do |group_item, is_multi_items, items|

@@ -3,21 +3,21 @@ class AccountancyComputation
   # see short balance for items active / passive definition
 
   PCGA_ACTIVE_LINES = %i[unsubcribed_capital incorporeal_assets_total_net corporeal_assets_total_net
-                    alive_corporeal_assets_total_net financial_assets_total_net
-                    long_cycle_alive_products_total_net short_cycle_alive_products_total_net
-                    stocks_supply_net stocks_total_products_net
-                    entities_advance_giveables
-                    entities_client_total entities_state_receivables entities_associate_receivables_net
-                    entities_other_receivables_net entities_investment_security_net
-                    entities_reserve entities_advance_charges entities_assets_gaps].freeze
+                         alive_corporeal_assets_total_net financial_assets_total_net
+                         long_cycle_alive_products_total_net short_cycle_alive_products_total_net
+                         stocks_supply_net stocks_total_products_net
+                         entities_advance_giveables
+                         entities_client_total entities_state_receivables entities_associate_receivables_net
+                         entities_other_receivables_net entities_investment_security_net
+                         entities_reserve entities_advance_charges entities_assets_gaps].freeze
 
   PCG82_ACTIVE_LINES = %i[unsubcribed_capital incorporeal_assets_total_net corporeal_assets_total_net financial_assets_total_net
-                    raw_matters_total_net stocks_supply_products_total_net stocks_supply_services_total_net
-                    stocks_middle_products_total_net stocks_end_products_total_net
-                    entities_advance_giveables
-                    entities_client_total entities_state_receivables entities_associate_receivables_net
-                    entities_other_receivables_net entities_investment_security_net
-                    entities_reserve entities_advance_charges entities_assets_gaps].freeze
+                          raw_matters_total_net stocks_supply_products_total_net stocks_supply_services_total_net
+                          stocks_middle_products_total_net stocks_end_products_total_net
+                          entities_advance_giveables
+                          entities_client_total entities_state_receivables entities_associate_receivables_net
+                          entities_other_receivables_net entities_investment_security_net
+                          entities_reserve entities_advance_charges entities_assets_gaps].freeze
 
   PASSIVE_LINES = %i[capitals_values capitals_emissions reevaluation_gaps capitals_liability_reserves
                      capitals_anew_reports capitals_profit_or_loss capitals_investment_subsidies

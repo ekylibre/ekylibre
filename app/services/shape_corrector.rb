@@ -45,7 +45,7 @@ class ShapeCorrector
     # @return [Maybe<String>]
     def try_postgis_fix(ewkt)
       res = @connection.execute(<<~SQL).to_a.first
-      SELECT ST_AsEWKT(ST_MakeValid(ST_GeomFromEWKT('#{ewkt}'))) AS valid_shape
+        SELECT ST_AsEWKT(ST_MakeValid(ST_GeomFromEWKT('#{ewkt}'))) AS valid_shape
       SQL
 
       if res.present?

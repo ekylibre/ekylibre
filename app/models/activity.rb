@@ -115,7 +115,7 @@ class Activity < Ekylibre::Record::Base
   scope :availables, -> { where.not('suspended') }
   scope :main, -> { where(nature: 'main') }
 
-  scope :of_support_variety, -> (variety) { where(support_variety: variety) }
+  scope :of_support_variety, ->(variety) { where(support_variety: variety) }
 
   scope :of_campaign, lambda { |campaign|
     if campaign
