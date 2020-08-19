@@ -1,5 +1,3 @@
-- item_reconciliation = !reconciliate_item.nil? || reconciliate_item.to_b
-= hidden_field_tag 'item-reconciliation', item_reconciliation
 = hidden_field_tag 'purchase-orders', purchase_orders
 
 .modal-body
@@ -13,8 +11,7 @@
     .list-models
       - models.each do |model|
         .model
-          - unless item_reconciliation
-            = check_box_tag('', '1', false, class: 'model-checkbox', data: { id: model.id })
+          = check_box_tag('', '1', false, class: 'model-checkbox', data: { id: model.id })
 
           - reference_number = model.reference_number if model.is_a?(Purchase) || model.is_a?(Reception)
           - reference_number = model.items.first.purchase_order_item.purchase.reference_number unless model.is_a?(Purchase) || model.is_a?(Reception)
@@ -41,10 +38,7 @@
                 - datas.merge!({ non_compliant: model_item.non_compliant.to_s })
 
               %li.item{ data: datas }
-                - if item_reconciliation
-                  = radio_button_tag(model_item.id, nil, false, class: "item-checkbox", data: { id: model_item.id, item_field_id: item_field_id })
-                - else
-                  = check_box_tag('', '1', false, class: 'item-checkbox', data: { id: model_item.id })
+                = check_box_tag('', '1', false, class: 'item-checkbox', data: { id: model_item.id })
                 %span.variant{ data: { id: model_item.variant_id } }= model_item.variant.name
                 - if model.is_a?(PurchaseOrder)
                   %span.item-value.quantity= model_item.quantity.to_d
@@ -67,4 +61,4 @@
 
 .modal-footer
   .actions
-    %button{ class: "btn btn-default valid-modal", data: { 'item-reconciliation': item_reconciliation }}= :valid.tl
+    %button{ class: "btn btn-default valid-modal" }= :valid.tl
