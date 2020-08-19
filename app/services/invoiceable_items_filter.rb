@@ -1,7 +1,7 @@
 class InvoiceableItemsFilter
   def filter(receptions)
     receptions.flat_map do |reception|
-      reception.items.map do |item|
+      reception.items.where(purchase_invoice_item_id: nil).map do |item|
         invoice_item_attributes = {
           variant_id: item.variant_id,
           purchase_id: item.parcel_id,
