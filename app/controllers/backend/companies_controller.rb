@@ -43,7 +43,7 @@ module Backend
         params.permit!
       end
 
-      # Called after each change in a preference when updating the company
+      #  Called after each change in a preference when updating the company
       # @param [Preference] preference
       # @param [Object] new_value
       def preference_changed(preference, new_value)

@@ -80,7 +80,7 @@ module Sage
         @number_normalizer ||= Accountancy::AccountNumberNormalizer.build
       end
 
-      # @return [SageFileInformation]
+      #  @return [SageFileInformation]
       def file_info
         @file_info ||= SageFileInformation.load_from(file, options)
       end
@@ -296,7 +296,7 @@ module Sage
             # Sate == 8 ==> Ecriture de generation de résultat si générées à la date de cloture
             c_journal = if is_closing_entry?(printed_on, fy.stopped_on, state)
                           find_or_create_journal(JOURNAL_CODE_CLOSING, tl(:journals, :closing), :closure)
-                          #find_or_create_default_result_journal()
+                          # find_or_create_default_result_journal()
                         elsif is_forward_entry?(printed_on, fy.started_on, state)
                           find_or_create_journal(JOURNAL_CODE_FORWARD, tl(:journals, :forward), :forward)
                         else

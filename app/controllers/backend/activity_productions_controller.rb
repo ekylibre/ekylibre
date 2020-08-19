@@ -64,7 +64,7 @@ module Backend
     end
 
     def new
-      #params.keys == %i[cultivable_zone_id, activity_id, campaign_id]
+      # params.keys == %i[cultivable_zone_id, activity_id, campaign_id]
       if params[:cultivable_zone_id].present?
         cultivable_zone_shape = CultivableZone.find_by(id: params[:cultivable_zone_id]).shape
       end

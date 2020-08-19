@@ -38,7 +38,7 @@ class RegisteredPhytosanitaryUsageDoseComputation
 
   # @param [InterventionInput] input
   def validate_intervention_input(input)
-    #targets_data wants a hash of "k" => {shape: }
+    # targets_data wants a hash of "k" => {shape: }
     targets_data = input.intervention.targets.map.with_index { |v, i| [i.to_s, { shape: v.working_zone }] }.to_h
 
     pu = ProductWithUsage.from_intervention_input(input)

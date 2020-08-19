@@ -9,7 +9,7 @@ namespace :test do
     :models,
     :services,
     # misc
-    :validators #, :decorators, :javascripts
+    :validators # , :decorators, :javascripts
   ]
 
   parts.each do |p|

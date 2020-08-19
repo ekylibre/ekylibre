@@ -167,7 +167,7 @@ module Printers
     end
 
     def generate_items(group_item, is_multi_items, items)
-      #TODO
+      # TODO
       g1 = HashWithIndifferentAccess.new
       g1[:group_name] = group_item.tl
       g1[:items] = []
