@@ -50,7 +50,7 @@ module Backend
 
     def create
       @inventory = resource_model.new(permitted_params)
-      return if save_and_redirect(@inventory, url: (params[:create_and_continue] ? {:action=>:new, :continue=>true} : (params[:redirect] || ({action: :show, id: "id".c}))), notify: :record_x_created, identifier: :name)
+      return if save_and_redirect(@inventory, url: (params[:create_and_continue] ? {:action=>:new, :continue=>true} : (params[:redirect] || {action: :show, id: "id".c})), notify: :record_x_created, identifier: :name)
       render(locals: { cancel_url: :back, with_continue: false })
     end
 

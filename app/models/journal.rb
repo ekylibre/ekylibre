@@ -444,7 +444,7 @@ class Journal < Ekylibre::Record::Base
         elsif mode == 'D'
           d = direction * (debit > credit ? debit - credit : 0)
         elsif mode == 'E'
-          e = direction * (-credit_balance)
+          e = direction * -credit_balance
         elsif mode == 'F'
           f = direction * debit_balance
         else

@@ -27,7 +27,7 @@ module Interventions
 
       def parameter_selector(attribute)
         (Constants::PRODUCT_PARAMETERS & Constants::PARAMETER_ACCEPTED_TYPES[attribute]).map do |collection_name|
-          (@parameters.fetch("#{collection_name}_attributes", {})).keys.map do |i|
+          @parameters.fetch("#{collection_name}_attributes", {}).keys.map do |i|
             "#{collection_name}[#{i}]#{attribute}"
           end
         end
@@ -42,7 +42,7 @@ module Interventions
 
       def group_parameter_selector(attribute, group_parameters, index)
         (Constants::PRODUCT_PARAMETERS & Constants::GROUP_PARAMETER_ACCEPTED_TYPES[attribute]).map do |collection_name|
-          (group_parameters.fetch("#{collection_name}_attributes", {})).keys.map do |j|
+          group_parameters.fetch("#{collection_name}_attributes", {}).keys.map do |j|
             "group_parameters[#{index}]#{collection_name}[#{j}]#{attribute}"
           end
         end
