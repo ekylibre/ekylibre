@@ -72,7 +72,7 @@ module Lexicon
         # @return [Boolean]
         def load_archive(archive)
           shell.execute <<~BASH
-          cat '#{archive}' | gzip -d | psql '#{database_factory.url}' -v ON_ERROR_STOP=1 -q
+            cat '#{archive}' | gzip -d | psql '#{database_factory.url}' -v ON_ERROR_STOP=1 -q
           BASH
 
           true
@@ -82,7 +82,7 @@ module Lexicon
         # @return [Boolean]
         def load_sql(file)
           shell.execute <<~BASH
-          psql '#{database_factory.url}' -v ON_ERROR_STOP=1 -q < '#{file}'
+            psql '#{database_factory.url}' -v ON_ERROR_STOP=1 -q < '#{file}'
           BASH
 
           true
@@ -96,25 +96,25 @@ module Lexicon
 
           database.prepend_search_path schema do
             database.query <<~SQL
-            CREATE OR REPLACE FUNCTION #{schema}.deny_changes()
-              RETURNS TRIGGER
-            AS $$
-              BEGIN
-                RAISE EXCEPTION '% denied on % (master data)', TG_OP, TG_RELNAME;
-              END;
-            $$
-            LANGUAGE plpgsql;
+              CREATE OR REPLACE FUNCTION #{schema}.deny_changes()
+                RETURNS TRIGGER
+              AS $$
+                BEGIN
+                  RAISE EXCEPTION '% denied on % (master data)', TG_OP, TG_RELNAME;
+                END;
+              $$
+              LANGUAGE plpgsql;
             SQL
             package.file_sets.flat_map(&:tables).each do |table_name|
               database.query <<~SQL
-              CREATE TRIGGER deny_changes
-                BEFORE INSERT
-                    OR UPDATE
-                    OR DELETE
-                    OR TRUNCATE
-                ON #{schema}.#{table_name}
-                FOR EACH STATEMENT
-                  EXECUTE PROCEDURE #{schema}.deny_changes()
+                CREATE TRIGGER deny_changes
+                  BEFORE INSERT
+                      OR UPDATE
+                      OR DELETE
+                      OR TRUNCATE
+                  ON #{schema}.#{table_name}
+                  FOR EACH STATEMENT
+                    EXECUTE PROCEDURE #{schema}.deny_changes()
               SQL
             end
           end

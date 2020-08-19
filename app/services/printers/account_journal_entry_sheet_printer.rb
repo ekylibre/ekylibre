@@ -110,7 +110,7 @@ module Printers
       total_debit = items_dataset.sum(:real_debit)
       total_credit = items_dataset.sum(:real_credit)
       total_balance = items_dataset.sum(:balance)
-      h[:total_items] << {total_debit: total_debit, total_credit: total_credit, total_balance: total_balance}
+      h[:total_items] << { total_debit: total_debit, total_credit: total_credit, total_balance: total_balance }
 
       h[:data_filters] = []
 

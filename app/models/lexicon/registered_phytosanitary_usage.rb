@@ -74,10 +74,10 @@ class RegisteredPhytosanitaryUsage < ApplicationRecord
   enumerize :state, in: %w[authorized provisional withdrawn provisional], predicates: true
   has_interval :pre_harvest_delay, :applications_frequency
 
-  scope :of_product, -> (*ids) { where(product_id: ids) }
+  scope :of_product, ->(*ids) { where(product_id: ids) }
 
   # Matches at least one of the given varieties
-  scope :of_variety, -> (*varieties) do
+  scope :of_variety, ->(*varieties) do
     with_ancestors = [*varieties, *varieties.flat_map { |v| Nomen::Variety.ancestors(Nomen::Variety.find(v)).map(&:name) }].uniq.join('", "')
 
     joins('LEFT OUTER JOIN registered_phytosanitary_cropsets ON registered_phytosanitary_usages.species[1] = registered_phytosanitary_cropsets.name')
@@ -86,7 +86,7 @@ class RegisteredPhytosanitaryUsage < ApplicationRecord
   end
 
   # Matches all the given varieties
-  scope :of_varieties, -> (*varieties) { varieties.reduce(self) { |acc, v| acc.of_variety(v) } }
+  scope :of_varieties, ->(*varieties) { varieties.reduce(self) { |acc, v| acc.of_variety(v) } }
 
   scope :of_specie, ->(specie) { where(specie: specie.to_s) }
   scope :with_conditions, -> { where.not(usage_conditions: nil) }

@@ -282,7 +282,7 @@ class Product < Ekylibre::Record::Base
       available.at(at)
     end
   }
-  scope :excluding, -> (*ids) {
+  scope :excluding, ->(*ids) {
     where.not(id: ids)
   }
   scope :alive, -> { where(dead_at: nil) }

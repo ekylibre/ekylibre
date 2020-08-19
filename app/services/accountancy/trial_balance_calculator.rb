@@ -115,7 +115,7 @@ module Accountancy
     end
 
     def trial_balance_dataset(states:, natures:, balance:, accounts:, centralize:, period:, started_on:, stopped_on:, previous_year:, vat_details: false)
-      balance_params = { states: states, natures: natures, accounts: accounts, centralize: centralize, period: period, started_on: started_on, stopped_on: stopped_on, vat_details: vat_details}
+      balance_params = { states: states, natures: natures, accounts: accounts, centralize: centralize, period: period, started_on: started_on, stopped_on: stopped_on, vat_details: vat_details }
 
       balance_data = if period.present?
                        trial_balance(balance_params)

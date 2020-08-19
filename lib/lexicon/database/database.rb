@@ -97,7 +97,7 @@ module Lexicon
 
         def disable_notices
           query <<~SQL
-              SET client_min_messages TO WARNING;
+            SET client_min_messages TO WARNING;
           SQL
         end
 
@@ -109,7 +109,7 @@ module Lexicon
             @search_path = path
 
             query <<~SQL
-                SET search_path TO #{path.map { |part| "\"#{part}\"" }.join(', ')};
+              SET search_path TO #{path.map { |part| "\"#{part}\"" }.join(', ')};
             SQL
 
             result = block.call

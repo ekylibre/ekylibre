@@ -101,7 +101,7 @@ module Ekylibre
           # create a price
           catalog = Catalog.find_by(usage: :cost)
           if variant && r.unit_pretax_amount && catalog && catalog.items.where(variant: variant).empty?
-            attributes = {catalog: catalog, all_taxes_included: false, amount: r.unit_pretax_amount, currency: currency}
+            attributes = { catalog: catalog, all_taxes_included: false, amount: r.unit_pretax_amount, currency: currency }
             variant.catalog_items.create!(attributes)
           end
 
