@@ -78,8 +78,10 @@ module Backend
 
       usage = fetch_usage(modified, input)
       product = Product.find(params[:product_id])
-      service = RegisteredPhytosanitaryUsageDoseComputation.new
-      dose_validation = service.validate_dose(usage, product, params[:quantity].to_f, params[:dimension], targets_data, spray_volume)
+      service = RegisteredPhytosanitaryUsageDoseComputation.build
+      measure = Measure.new(params[:quantity].to_f, params[:unit_name])
+
+      dose_validation = service.validate_dose(usage, product, measure, targets_data, spray_volume)
       authorizations = compute_authorization(dose_validation, :dose_validation)
 
       render json: { dose_validation: dose_validation, authorizations: authorizations, modified: modified }

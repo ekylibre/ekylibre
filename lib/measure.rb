@@ -289,6 +289,7 @@ class Measure
   alias_method :round_l, :rounded_localize
 
   # Returns the unit from the nomenclature
+  # @return [Nomen::Item<Unit>]
   def nomenclature_unit
     @@units[unit]
   end

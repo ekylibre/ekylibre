@@ -2,7 +2,6 @@ module Interventions
   module Phytosanitary
     module Models
       class ProductWithUsage
-
         class << self
           # @return [ProductWithUsage]
           def from_intervention_input(intervention_input)

@@ -130,4 +130,9 @@ class RegisteredPhytosanitaryUsage < ApplicationRecord
   def human_status
     I18n.t("tooltips.models.registered_phytosanitary_usage.#{status}")
   end
+
+  # @return [Measure]
+  def max_dose_measure
+    Measure.new(dose_quantity * dose_unit_factor, dose_unit)
+  end
 end

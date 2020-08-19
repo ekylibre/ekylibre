@@ -10,7 +10,7 @@ module Interventions
         # @return [ValidatorCollectionValidator]
         def build(targets_and_shape, intervention_to_ignore: nil, intervention_started_at: nil, intervention_stopped_at: nil)
           targets = targets_and_shape.map { |element| element.target }
-          dose_computation = RegisteredPhytosanitaryUsageDoseComputation.new
+          dose_computation = RegisteredPhytosanitaryUsageDoseComputation.build
 
           ::Interventions::Phytosanitary::ValidatorCollectionValidator.new(
             ::Interventions::Phytosanitary::MixCategoryCodeValidator.new,

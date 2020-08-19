@@ -166,8 +166,7 @@ module Indicateable
     end
 
     # Compute calculation
-    (get(numerator, options).to_d(numerator_dimension.symbol) /
-     get(denominator, options).to_d(denominator_dimension.symbol)).in(unit)
+    (get(numerator, options).to_d(numerator_dimension.symbol) / get(denominator, options).to_d(denominator_dimension.symbol)).in(unit)
   end
 
   # Read only whole indicators and store it with given options

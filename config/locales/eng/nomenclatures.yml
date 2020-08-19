@@ -2068,7 +2068,6 @@ eng:
         spheroid: "Spheroid"
         vehicle: "Vehicle"
       name: "Figures"
-    
     guide_natures:
       items:
         best_practices: "Best practices"
