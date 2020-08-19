@@ -62,7 +62,6 @@ module Backend
                  locals: {
                    models: models,
                    purchase_orders: purchase_orders,
-                   reconciliate_item: params[:reconciliate_item],
                    item_field_id: params[:item_field_id]
                  }
         end
