@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ShapeCorrector
-  DEFAULT_CHANGE_PERCENTAGE_THRESHOLD = 0.01.freeze
+  DEFAULT_CHANGE_PERCENTAGE_THRESHOLD = 0.01
 
   class << self
     def build

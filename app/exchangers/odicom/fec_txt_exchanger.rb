@@ -37,7 +37,7 @@ module Odicom
       { col: 15, name: :validated_on, type: :date },
       { col: 16, name: :currency_value, type: :float },
       { col: 17, name: :currency_id, type: :string }
-    ]
+    ].freeze
 
     def check
       # Imports FEC journal entries into journal to make accountancy in CSV format
