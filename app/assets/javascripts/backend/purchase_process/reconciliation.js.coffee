@@ -76,7 +76,8 @@
   ##############################
   # Open modal on button click
   $(document).on 'click', '#showReconciliationModal', (event) =>
-    open_reconciliation_modal($(event.target))
+    $form = $(event.target).closest('form')
+    open_reconciliation_modal($form)
 
   # Validate modal
   handle_modal_validation = (modal) =>
@@ -106,15 +107,18 @@
       data['reception'] = action.substr(action.lastIndexOf('/') + 1)
     {url: url, data: data}
 
+  isPurchaseInvoiceForm = ($form) => 
+    $form.closest('.simple_form').is('.new_purchase_invoice, .edit_purchase_invoice')
+  
+  isReceptionForm = ($form) => 
+    $form.closest('.simple_form').is('.new_reception, .edit_reception')
+  
   # Returns a promise that resolves to the content for the modal to be opened
   content_for_reconciliation_modal = ($form) =>
-    isPurchaseInvoiceForm = $form.is('.new_purchase_invoice, .edit_purchase_invoice')
-    isReceptionForm = $form.closest('.simple_form').is('.new_reception, .edit_reception')
-
     options = {}
-    if isPurchaseInvoiceForm
+    if isPurchaseInvoiceForm($form)
       options = purchase_invoice_modal_options()
-    else if isReceptionForm
+    else if isReceptionForm($form)
       options = reception_modal_options()
     else return Promise.reject("Modal type cannot be guessed!")
     E.ajax.html options
@@ -128,25 +132,25 @@
       # Attacher un ecouteur evenement sur les checkbox des items
       E.delegateListener root, 'click', ".item-checkbox", (e) =>
         commandContainer = e.target.closest('.model')
-        syncState(commandContainer)
+        syncState(commandContainer, $form)
         return
 
       # Handle automated selection of multiple checkbox
       E.delegateListener root, 'click', '.model-checkbox', (e) =>
         checked = e.target.checked
         commandContainer = e.target.closest('.model')
-        setAllChildrenTo(commandContainer, checked) 
+        setAllChildrenTo(commandContainer, checked, $form) 
         return
 
       displayedItemIds = Array.from(document.querySelectorAll('.nested-fields .nested-item-form[data-item-id]'))
       displayedItemIds = displayedItemIds.map((item) => item.dataset.itemId)
 
       displayedItemIds.forEach (id) => 
-        checkbox = content.querySelector("input[type='checkbox'][data-id='#{id}']")
+        checkbox = content.querySelector(".item input[type='checkbox'][data-id='#{id}']")
         commandContainer = checkbox.closest('.model')
         if checkbox
           checkbox.checked = true
-          syncState(commandContainer)
+          syncState(commandContainer, $form)
       return
 
     prom.then (modal) =>
@@ -157,19 +161,19 @@
   # Checks the parent checkbox if all children are checked. Uncheck it if not.
   # If all checked, set 'close command to true, else to false'
   # Also hide/display the close command radio
-  syncState = (commandContainer) => 
+  syncState = (commandContainer, $form) => 
     itemCheckboxes = Array.from(commandContainer.querySelectorAll('.item-checkbox'))
     allItemsCheckboxesChecked = itemCheckboxes.map((cb) => cb.checked).reduce(((acc, e) => acc && e), true)
-    anyItemsCheckboxesChecked = itemCheckboxes.map((cb) => cb.checked).includes(true)
-    closePurchaseOrderBlock = commandContainer.querySelector('.close-purchase-order')
-
     commandContainer.querySelector('.model-checkbox').checked = allItemsCheckboxesChecked
-    setCloseCommand(commandContainer, allItemsCheckboxesChecked)
 
-    if anyItemsCheckboxesChecked
-      closePurchaseOrderBlock.classList.remove('hidden')
-    else
-      closePurchaseOrderBlock.classList.add('hidden')
+    if isReceptionForm($form)
+      setCloseCommand(commandContainer, allItemsCheckboxesChecked)
+
+      closePurchaseOrderBlock = commandContainer.querySelector('.close-purchase-order')
+      if itemCheckboxes.map((cb) => cb.checked).includes(true)
+        closePurchaseOrderBlock.classList.remove('hidden')
+      else
+        closePurchaseOrderBlock.classList.add('hidden')
 
   # Sets the value of the radiobutton to `value`
   setCloseCommand = (commandContainer, value) => 
@@ -177,9 +181,9 @@
     closePurchaseOrderBlock.querySelector("input[type='radio'][value=#{value}").checked = true
 
   # Sets all children checkboxes to 'value' and sync state
-  setAllChildrenTo = (commandContainer, value) =>
+  setAllChildrenTo = (commandContainer, value, $form) =>
     commandContainer.querySelectorAll('.item-checkbox').forEach((item) => item.checked = value)
-    syncState(commandContainer)
+    syncState(commandContainer, $form)
 
   E.reconciliation =
     reconciliateItems: (modalContent) ->
@@ -333,8 +337,6 @@
         $(lastLineForm).find('.nested-fields.storing-fields:first .conditionning-quantity').val(itemConditionningQuantity)
         $(lastLineForm).find('.nested-fields.storing-fields:first .conditionning').val(itemConditionning)
 
-      # purchaseOrderToCloseUpdate(checkboxLine, lastLineForm)
-  
   # Given checkbox and formContainer, this method sets the purchase-order-to-close-id property to the purchase order id on the given reception item's form fields
   #    if the purchase order of the selected element is marked for closure when saving the reception
   # 
@@ -350,6 +352,11 @@
   E.onElementDetected 'new_reception', (form) => 
     urlParams = new URLSearchParams(window.location.search)
     if urlParams.has('purchase_order_ids')
+      open_reconciliation_modal $(form)
+  
+  E.onElementDetected 'new_purchase_invoice', (form) => 
+    urlParams = new URLSearchParams(window.location.search)
+    if urlParams.has('reception_ids')
       open_reconciliation_modal $(form)
 
 
