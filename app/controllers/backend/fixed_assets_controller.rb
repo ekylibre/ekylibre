@@ -145,7 +145,7 @@ module Backend
 
     def create
       @fixed_asset = resource_model.new(parameters_with_processed_percentage)
-      return if save_and_redirect(@fixed_asset, url: (params[:create_and_continue] ? {:action=>:new, :continue=>true} : (params[:redirect] || ({ action: :show, id: 'id'.c }))), notify: ((params[:create_and_continue] || params[:redirect]) ? :record_x_created : false), identifier: :name)
+      return if save_and_redirect(@fixed_asset, url: (params[:create_and_continue] ? {:action=>:new, :continue=>true} : (params[:redirect] || { action: :show, id: 'id'.c })), notify: ((params[:create_and_continue] || params[:redirect]) ? :record_x_created : false), identifier: :name)
       render(locals: { cancel_url: {:action=>:index}, with_continue: false })
     end
 
@@ -166,7 +166,7 @@ module Backend
                        false
                      end
 
-      return if record_valid && save_and_redirect(@fixed_asset, url: params[:redirect] || ({ action: :show, id: 'id'.c }), notify: notification, identifier: :name)
+      return if record_valid && save_and_redirect(@fixed_asset, url: params[:redirect] || { action: :show, id: 'id'.c }, notify: notification, identifier: :name)
       render(locals: { cancel_url: {:action=>:index}, with_continue: false })
     end
 
