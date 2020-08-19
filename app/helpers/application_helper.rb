@@ -182,6 +182,13 @@ module ApplicationHelper
     link_to_remove_association(content_tag(:i) + h("labels.remove_#{name}".t(default: :destroy.ta)), f, options.deep_merge(data: { no_turbolink: true }, class: 'nested-remove'))
   end
 
+  private def warn_link_to_params
+    if !defined?(@@__warned_link_to)
+      @@__warned_link_to = true
+      ActiveSupport::Deprecation.warn "Don't give params to `link_to`. Just don't."
+    end
+  end
+
   # Re-writing of link_to helper
   def link_to(*args, &block)
     if block_given?
@@ -210,6 +217,16 @@ module ApplicationHelper
 
       html_options = convert_options_to_data_attributes(options, html_options)
       begin
+        # TODO: Rails 5 upgrade, secure and remove this ASAP
+        if options.is_a?(Hash) && options[:params].respond_to?(:permit!)
+          warn_link_to_params
+          options[:params].permit!
+        end
+        if options.respond_to? :permit!
+          warn_link_to_params
+          options.permit!
+        end
+
         url = url_for(options)
       rescue ActionController::UrlGenerationError => uge
         # Trying to fail gracefully in production
