@@ -113,7 +113,7 @@ class Payslip < Ekylibre::Record::Base
   # Prints human name of current state
   def state_label
     self.class.state_machine.state(self.state.to_sym).human_name
- end
+  end
 
   def status
     return affair.status if invoice?

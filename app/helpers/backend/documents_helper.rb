@@ -40,15 +40,15 @@ module Backend
       toggle_method = "toggle#{custom_id.camelcase}"
       if configuration[:custom]
         params["#{name}_started_on"] = begin
-                                params["#{name}_started_on"].to_date
-                              rescue
-                                (fy ? fy.started_on : Time.zone.today)
-                              end
+                                         params["#{name}_started_on"].to_date
+                                       rescue StandardError
+                                         (fy ? fy.started_on : Time.zone.today)
+                                       end
         params["#{name}_stoped_on"] = begin
-                                params["#{name}_stopped_on"].to_date
-                              rescue
-                                (fy ? fy.stopped_on : Time.zone.today)
-                              end
+                                        params["#{name}_stopped_on"].to_date
+                                      rescue StandardError
+                                        (fy ? fy.stopped_on : Time.zone.today)
+                                      end
         params["#{name}_stoped_on"] = params["#{name}_started_on"] if params["#{name}_started_on"] > params["#{name}_stoped_on"]
         list.insert(0, [configuration[:custom].tl, configuration[:custom]])
       else
@@ -56,7 +56,7 @@ module Backend
         params["#{name}_stoped_on"] = fy ? fy.stopped_on : Time.zone.today
         list.insert(1, [:interval.tl, :interval])
       end
-      if replacement = options.delete(:include_blank)
+      if (replacement = options.delete(:include_blank))
         list.insert(0, [(replacement.is_a?(Symbol) ? tl(replacement) : replacement.to_s), ''])
       end
 
@@ -71,6 +71,6 @@ module Backend
       # end
 
       code.html_safe
-      end
+    end
   end
 end

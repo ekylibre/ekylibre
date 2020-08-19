@@ -107,10 +107,10 @@ module Ekylibre
         4.upto(s.last_row) do |row_number|
           next if s.cell('A', row_number).blank?
           computation_method = case s.cell('C', row_number).to_s.downcase
-                                 when 'uo' then :per_working_unit
-                                 when 'support' then :per_production
-                                 when 'production' then :per_production
-                                 else :per_working_unit
+                               when 'uo' then :per_working_unit
+                               when 'support' then :per_production
+                               when 'production' then :per_production
+                               else :per_working_unit
                                end
           r = {
             item_name: s.cell('A', row_number),

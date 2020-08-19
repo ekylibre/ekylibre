@@ -144,7 +144,7 @@ class Reception < Parcel
   # Prints human name of current state
   def state_label
     self.class.state(self.state.to_sym).human_name
- end
+  end
 
   def invoiced?
     purchase_order.present?
