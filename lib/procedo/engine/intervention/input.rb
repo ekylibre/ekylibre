@@ -5,7 +5,7 @@ module Procedo
     class Intervention
       class Input < Procedo::Engine::Intervention::Quantified
 
-        attr_reader :usage, :allowed_entry_factor, :allowed_harvest_factor, :treatment_type, :spray_volume
+        attr_reader :usage, :allowed_entry_factor, :allowed_harvest_factor, :treatment_type
 
         def initialize(intervention, id, attributes = {})
           super(intervention, id, attributes)

@@ -145,8 +145,8 @@ def make_rails_subgroups
   end
 end
 
-RAILS_GROUPS_IDS = %w[concepts controllers decorators exchangers helpers inputs integrations interactors jobs mailers models queries services validators]
-RAILS_SUBGROUPS_IDS = %w[concerns bookkeepers]
+RAILS_GROUPS_IDS = %w[concepts controllers decorators exchangers helpers inputs integrations interactors jobs mailers models queries services validators].freeze
+RAILS_SUBGROUPS_IDS = %w[concerns bookkeepers].freeze
 
 def grouped(children, groups)
   children.compact
