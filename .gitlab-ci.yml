@@ -1,6 +1,6 @@
 stages:
-  - build
   - lint
+  - build
   - test
 #  - review
   - doc
@@ -144,11 +144,12 @@ deploy_doc:
 #########################################
 rubocop:
   stage: lint
-  image: $TEST_IMAGE
+  image: ruby:2.6-alpine
   variables:
-    GIT_STRATEGY: none
+     GIT_DEPTH: 1
   script:
-    - cd /app && bundle exec rubocop
+    - gem install rubocop
+    - rubocop
 
 #########################################
 #               TEMPLATES               #
