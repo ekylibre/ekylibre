@@ -365,24 +365,22 @@ class PurchaseItem < Ekylibre::Record::Base
   private
 
     def first_reception
-      case purchase.class
-        when PurchaseInvoice
-          parcels_purchase_invoice_items.first&.parcel
-        when PurchaseOrder
-          parcels_purchase_orders_items.first&.parcel
-        else
-          nil
+      if purchase.is_a?(PurchaseInvoice)
+        parcels_purchase_invoice_items.first&.parcel
+      elsif purchase.is_a?(PurchaseOrder)
+        parcels_purchase_orders_items.first&.parcel
+      else
+        nil
       end
     end
 
     def receptions_count
-      case purchase.class
-        when PurchaseInvoice
-          parcels_purchase_invoice_items.count
-        when PurchaseOrder
-          parcels_purchase_orders_items.count
-        else
-          0
+      if purchase.is_a?(PurchaseInvoice)
+        parcels_purchase_invoice_items.count
+      elsif purchase.is_a?(PurchaseOrder)
+        parcels_purchase_orders_items.count
+      else
+        0
       end
     end
 
