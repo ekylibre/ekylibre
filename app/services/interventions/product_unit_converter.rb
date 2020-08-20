@@ -85,7 +85,7 @@ module Interventions
     # @param [Nomen::Item<Unit>] into
     # @param [Maybe<Measure<mass>>] net_mass
     # @param [Maybe<Measure<volume>>] net_volume
-    def convert_population_into_mass_or_volume(measure, into:, net_mass: , net_volume:)
+    def convert_population_into_mass_or_volume(measure, into:, net_mass:, net_volume:)
       reference = case into.dimension
                   when :mass
                     net_mass
