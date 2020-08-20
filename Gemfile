@@ -237,7 +237,8 @@ group :development do
 
   # Code metrics
   gem 'rails_best_practices', require: false
-  gem 'rubocop', '~> 0.49.1', require: false
+  gem 'rubocop', '~> 0.89', require: false
+  gem 'parser', '~> 2.6'
 
   # Webservers
   gem 'thin'
@@ -252,7 +253,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'pry',  '~> 0.12.0'
+  gem 'pry', '~> 0.12.0'
   gem 'pry-byebug'
   # gem 'pry-inline'
   gem 'pry-rails'

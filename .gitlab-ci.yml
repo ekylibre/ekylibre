@@ -1,5 +1,6 @@
 stages:
   - build
+  - lint
   - test
 #  - review
   - doc
@@ -120,8 +121,6 @@ doc_build:
 deploy_doc:
   image: registry.gitlab.com/ekylibre/helm-charts/ci-tool:master
   stage: deploy
-  dependencies:
-    - doc_build
   only:
     - tags
   when: manual
@@ -139,6 +138,17 @@ deploy_doc:
       --set image.tag=${CI_COMMIT_REF_SLUG}
       ekylibre-latest
       /apps/doc
+
+#########################################
+#                  LINT                 #
+#########################################
+rubocop:
+  stage: lint
+  image: $TEST_IMAGE
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - cd /app && bundle exec rubocop
 
 #########################################
 #               TEMPLATES               #
@@ -162,7 +172,6 @@ deploy_doc:
   tags:
     - kubernetes
   script:
-    - env
     - bash /app/test/ci/run_tests ${TASK}
 
 #########################################
