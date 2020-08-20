@@ -271,37 +271,37 @@ module ActiveSupport
     class << self
       # FROM ActiveSupport 6.0
       def seconds(value) #:nodoc:
-        new(value, seconds: value)
+        new(value, [[:seconds, value]])
       end unless ActiveSupport::Duration.methods.include?(:parse)
 
       # FROM ActiveSupport 6.0
       def minutes(value) #:nodoc:
-        new(value * SECONDS_PER_MINUTE, minutes: value)
+        new(value * SECONDS_PER_MINUTE, [[:minutes, value]])
       end unless ActiveSupport::Duration.methods.include?(:parse)
 
       # FROM ActiveSupport 6.0
       def hours(value) #:nodoc:
-        new(value * SECONDS_PER_HOUR, hours: value)
+        new(value * SECONDS_PER_HOUR, [[:hours, value]])
       end unless ActiveSupport::Duration.methods.include?(:parse)
 
       # FROM ActiveSupport 6.0
       def days(value) #:nodoc:
-        new(value * SECONDS_PER_DAY, days: value)
+        new(value * SECONDS_PER_DAY, [[:days, value]])
       end unless ActiveSupport::Duration.methods.include?(:parse)
 
       # FROM ActiveSupport 6.0
       def weeks(value) #:nodoc:
-        new(value * SECONDS_PER_WEEK, weeks: value)
+        new(value * SECONDS_PER_WEEK, [[:weeks, value]])
       end unless ActiveSupport::Duration.methods.include?(:parse)
 
       # FROM ActiveSupport 6.0
       def months(value) #:nodoc:
-        new(value * SECONDS_PER_MONTH, months: value)
+        new(value * SECONDS_PER_MONTH, [[:months, value]])
       end unless ActiveSupport::Duration.methods.include?(:parse)
 
       # FROM ActiveSupport 6.0
       def years(value) #:nodoc:
-        new(value * SECONDS_PER_YEAR, years: value)
+        new(value * SECONDS_PER_YEAR, [[:years, value]])
       end unless ActiveSupport::Duration.methods.include?(:parse)
 
       def parse(string)
