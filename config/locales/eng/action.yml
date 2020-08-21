@@ -3318,6 +3318,7 @@ eng:
       no_saved_a_x_html: "You haven't saved a %{x} yet"
       # no_worker_associated_with_user_account: "No worker associated with user account"
       please_contact_support_for_further_information: "%{message} Please contact our support for further information."
+      please_select_a_period_containing_journal_entries: "Please select a period containing journal entries and click the search button to be able to display or export the trial balance."
       previouos_financial_year_is_not_closed: "The previous financial year hasn't been closed."
       purchase_invoice_need_at_least_one_item: "An invoice should have at least one item"
       purchase_order_need_at_least_one_item: "An order should have at least one item"
