@@ -48,7 +48,7 @@ module Backend
       aggregator_parameters = @aggregator.class.parameters.map(&:name).uniq
       t3e name: klass.human_name
       if params[:format] == 'pdf'
-        ExportJob.perform_later(JSON(params), current_user.id)
+        ExportJob.perform_later(JSON(params.to_unsafe_h), current_user.id)
         notify_success(:document_in_preparation)
         redirect_to :back
       else

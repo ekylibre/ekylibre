@@ -19,7 +19,7 @@ module Backend
                            params[:value]
                          end
       preference.save!
-      render nothing: true
+      head :ok
     end
 
     protected

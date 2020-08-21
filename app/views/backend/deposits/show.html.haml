@@ -18,7 +18,7 @@
     %table.list
       %tr.total
         %th= :payments_count.tl(mode: resource.mode.name)
-        %td= resource.payments_count
+        %td= resource.payments.count
       %tr.total.important
         %th= :total.tl
         %td= resource.amount.l(currency: resource.currency)

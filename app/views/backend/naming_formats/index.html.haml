@@ -1,6 +1,7 @@
-- fields_count = @naming_formats_grid.resultset.map(&:fields).flatten.map(&:position).uniq.count
 
 = grid(@naming_formats_grid, html: { class: "wice-grid-list naming-formats-list" }) do |g|
+  - fields_count = @naming_formats_grid.resultset.map(&:fields).flatten.map(&:position).uniq.count
+
   - g.column name: '', html: { style: 'width: 10px;' } do |naming_format|
     - link_to(edit_backend_naming_format_land_parcel_path(naming_format), class: "wice-grid-action") do
       %i.wice-grid-action-icon.picto.picto-edit

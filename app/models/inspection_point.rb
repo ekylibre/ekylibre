@@ -38,9 +38,12 @@
 #
 
 class InspectionPoint < Ekylibre::Record::Base
-  include Inspectable
   belongs_to :nature, class_name: 'ActivityInspectionPointNature'
   belongs_to :inspection, inverse_of: :points
+
+  # Need to import AFTER nature and inspection because some Inspectable is delegating some calls to them
+  include Inspectable
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :items_count_value, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :maximal_size_value, :minimal_size_value, :net_mass_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true

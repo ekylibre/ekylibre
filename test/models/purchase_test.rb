@@ -139,19 +139,19 @@ class PurchaseTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'simple creation with nested items' do
     items_attributes = [
       {
-        tax: Tax.find_by!(amount: 20),
+        tax: Tax.find_by!(amount: 20.to_d),
         variant: ProductNatureVariant.first,
         unit_pretax_amount: 100,
         quantity: 1
       },
       {
-        tax: Tax.find_by!(amount: 0),
+        tax: Tax.find_by!(amount: 0.to_d),
         variant_id: ProductNatureVariant.first.id,
         unit_pretax_amount: 450,
         quantity: 2
       },
       { # Invalid item (rejected)
-        tax: Tax.find_by!(amount: 19.6),
+        tax: Tax.find_by!(amount: 19.6.to_d),
         unit_pretax_amount: 123,
         quantity: 17
       }

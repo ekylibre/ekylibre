@@ -2,6 +2,8 @@ require 'test_helper'
 
 class AggeratioTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   setup do
+    @current_tenant = Ekylibre::Tenant.current
+
     Ekylibre::Tenant.setup!('test', keep_files: true)
     @parameters = {
       vat_register: { started_on: '2013-06-01', stopped_on: '2014-12-31' }.with_indifferent_access,
@@ -13,6 +15,11 @@ class AggeratioTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     # All document template should be loaded already
     DocumentTemplate.load_defaults
   end
+
+  teardown do
+    Ekylibre::Tenant.switch! @current_tenant
+  end
+
 
   Aggeratio.each_xml_aggregator do |element|
     agg = Aggeratio::Base.new(element)
