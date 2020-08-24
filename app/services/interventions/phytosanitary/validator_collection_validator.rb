@@ -23,7 +23,10 @@ module Interventions
               intervention_stopped_at: intervention_stopped_at
             ),
             ::Interventions::Phytosanitary::OrganicMentionsValidator.new(targets: targets),
-            ::Interventions::Phytosanitary::DoseValidationValidator.new(targets_and_shape: targets_and_shape, dose_computation: dose_computation),
+            ::Interventions::Phytosanitary::DoseValidationValidator.new(
+              targets_and_shape: targets_and_shape,
+              unit_converter: ::Interventions::ProductUnitConverter.new
+            ),
             ::Interventions::Phytosanitary::MaxApplicationValidator.new(
               targets_and_shape: targets_and_shape,
               intervention_to_ignore: intervention_to_ignore,
