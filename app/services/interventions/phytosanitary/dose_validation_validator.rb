@@ -56,6 +56,8 @@ module Interventions
         else
           result.vote_unknown(product_usage.product)
         end
+
+        result
       end
 
       private
