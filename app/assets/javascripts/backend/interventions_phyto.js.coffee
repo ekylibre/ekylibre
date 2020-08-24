@@ -1,10 +1,10 @@
 ((E, $) ->
   retrieveTargetsData = () =>
     $('[data-phytosanitary-target]').toArray()
-         .filter((el) => !el.classList.contains('removed-nested-fields'))
-         .map (element) =>
-           id: $(element).find("[data-selector-id='intervention_target_product_id']").next('.selector-value').val()
-           shape: $(element).find('[data-map-editor]').val()
+      .filter((el) => !el.classList.contains('removed-nested-fields'))
+      .map (element) =>
+        id: $(element).find("[data-selector-id='intervention_target_product_id']").next('.selector-value').val()
+        shape: $(element).find('[data-map-editor]').val()
 
   retrieveMaxStoppedAt = () =>
     stoppedAtDates = $(".intervention-stopped-at[type='hidden']").map ->
@@ -166,7 +166,7 @@
       productId = $productField.find("[data-selector-id='intervention_input_product_id']").first().selector('value')
       liveData = $productField.find('.intervention_inputs_using_live_data input').val()
       quantity = $input.val()
-      unitName = element.querySelector('.intervention_inputs_quantity select').selectedOptions[0].dataset.handlerUnit
+      unitName = $productField.find('.intervention_inputs_quantity select').get(0).selectedOptions[0].dataset.handlerUnit
       targetsData = retrieveTargetsData()
 
       { product_id: productId, quantity: quantity, unit_name: unitName, targets_data: targetsData, intervention_id: interventionId, input_id: inputId, live_data: liveData, spray_volume: sprayVolume }
