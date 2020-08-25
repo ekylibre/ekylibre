@@ -1,10 +1,10 @@
-import {parseHTML} from "lib/parseHtml";
-import {refresh as behaveRefresh} from "services/behave";
-import {delegateListener} from "lib/domEventUtils.ts";
-import axios, {AxiosRequestConfig} from "axios";
+import { parseHTML } from 'lib/parseHtml';
+import { refresh as behaveRefresh } from 'services/behave';
+import { delegateListener } from 'lib/domEventUtils.ts';
+import axios, { AxiosRequestConfig } from 'axios';
 
 function modalTemplate(id: string, size: ModalSize) {
-    const additionalClass = size === "default" ? '' : `modal-${size}`;
+    const additionalClass = size === 'default' ? '' : `modal-${size}`;
 
     return `
         <div class="modal fade " id="${id}" role="dialog">
@@ -25,8 +25,7 @@ function modalTemplate(id: string, size: ModalSize) {
 }
 
 class EscListener {
-    constructor(private modal: Modal) {
-    }
+    constructor(private modal: Modal) {}
 
     handleEvent(e: Event) {
         if (e instanceof KeyboardEvent && e.key === 'Escape') {
@@ -40,11 +39,11 @@ let idSequence = 0;
 type ModalSize = 'default' | 'sm' | 'lg';
 
 interface ModalOptions {
-    size?: ModalSize
+    size?: ModalSize;
 }
 
 const defaultOptions: Required<ModalOptions> = {
-    size: 'default'
+    size: 'default',
 };
 
 export class Modal {
@@ -57,10 +56,10 @@ export class Modal {
 
     constructor(private title: string, private content: string | Element, options: ModalOptions = {}) {
         this.escListener = new EscListener(this);
-        this.options = {...defaultOptions, ...options};
+        this.options = { ...defaultOptions, ...options };
     }
 
-    getBodyElement() {
+    getBodyElement(): Element {
         return this.bodyElement;
     }
 
@@ -92,31 +91,34 @@ export class Modal {
         this.bodyElement = this.element.querySelector('.modal-body')!;
 
         document.body.append(this.element);
-        delegateListener(this.element, 'click', '[data-dismiss="modal"]', _e => this.close());
+        delegateListener(this.element, 'click', '[data-dismiss="modal"]', (_e) => this.close());
 
         this.show();
 
         this.titleElement.textContent = this.title;
         this.setBody(this.content);
-        this.on('unroll:menu-opened' as any as keyof HTMLElementEventMap, 'input', e => {
+        this.on(('unroll:menu-opened' as any) as keyof HTMLElementEventMap, 'input', (e) => {
             const element = (e as any).detail.unroll.dropDownMenu.get(0);
-            if (this.getBodyElement().clientHeight < element.clientHeight){
-                const actions: HTMLDivElement = this.getBodyElement().querySelector('.form-actions') as HTMLDivElement
-                if(actions){
-                    actions.style.marginTop = `${element.clientHeight}px`
+            if (this.getBodyElement().clientHeight < element.clientHeight) {
+                const actions: HTMLDivElement = this.getBodyElement().querySelector('.form-actions') as HTMLDivElement;
+                if (actions) {
+                    actions.style.marginTop = `${element.clientHeight}px`;
                 }
             }
         });
-        this.on('unroll:menu-closed' as any as keyof HTMLElementEventMap, 'input', e => {
-            const actions: HTMLDivElement = this.getBodyElement().querySelector('.form-actions') as HTMLDivElement
-            if(actions){
-                actions.style.marginTop = ''
+        this.on(('unroll:menu-closed' as any) as keyof HTMLElementEventMap, 'input', (e) => {
+            const actions: HTMLDivElement = this.getBodyElement().querySelector('.form-actions') as HTMLDivElement;
+            if (actions) {
+                actions.style.marginTop = '';
             }
-        })
-
+        });
     }
 
-    on<K extends keyof HTMLElementEventMap>(eventName: K, selector: string, callback: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any) {
+    on<K extends keyof HTMLElementEventMap>(
+        eventName: K,
+        selector: string,
+        callback: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any
+    ) {
         delegateListener(this.element, eventName, selector, callback);
     }
 
@@ -129,7 +131,7 @@ export class Modal {
         this.addBackdrop();
         this.element.classList.add('in');
         this.element.setAttribute('style', 'display: block;');
-        this.element.addEventListener('click', e => {
+        this.element.addEventListener('click', (e) => {
             if (e.target === this.element) {
                 this.close();
             }
@@ -159,30 +161,29 @@ export class Modal {
 }
 
 interface ModalOpenRemoteOptions extends ModalOptions {
-    containerId?: string,
-    title?: string,
-    requestConfig?: AxiosRequestConfig
+    containerId?: string;
+    title?: string;
+    requestConfig?: AxiosRequestConfig;
 }
 
-export function openRemote(url: string, options: ModalOpenRemoteOptions = {}): Promise<{ modal: Modal, responseText: string }> {
-    return axios.get(url, options.requestConfig)
-        .then(response => {
-            const {title = ''} = options;
-            const modal = new Modal(title, response.data, options);
-            modal.open();
+export function openRemote(url: string, options: ModalOpenRemoteOptions = {}): Promise<{ modal: Modal; responseText: string }> {
+    return axios.get(url, options.requestConfig).then((response) => {
+        const { title = '' } = options;
+        const modal = new Modal(title, response.data, options);
+        modal.open();
 
-            return {modal, responseText: response.data};
-        });
+        return { modal, responseText: response.data };
+    });
 }
 
-export function openFromElementDataAttributes(element: Element) {
-    const title = element.getAttribute('data-modal-title') || "";
-    const body = element.getAttribute('data-modal-body') || "";
+export function openFromElementDataAttributes(element: Element): Modal {
+    const title = element.getAttribute('data-modal-title') || '';
+    const body = element.getAttribute('data-modal-body') || '';
 
     return open(title, body);
 }
 
-export function open(title: string, body: string) {
+export function open(title: string, body: string): Modal {
     const modal = new Modal(title, body);
     modal.open();
 

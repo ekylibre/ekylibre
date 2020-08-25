@@ -1,10 +1,10 @@
-import axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
-import {Modal, openRemote} from "components/modal";
+import axios, { AxiosResponse } from 'axios';
+import { Modal, openRemote } from 'components/modal';
 
 interface DialogOptions {
-    success?: (response: AxiosResponse) => any
-    invalid?: (response: AxiosResponse) => any
-    error?: (response: AxiosResponse) => any
+    success?: (response: AxiosResponse) => any;
+    invalid?: (response: AxiosResponse) => any;
+    error?: (response: AxiosResponse) => any;
 }
 
 function handleTitle(modal: Modal) {
@@ -17,15 +17,15 @@ function handleTitle(modal: Modal) {
 
 const requestConfigDefaults = {
     headers: {
-        'X-Requested-With': 'XMLHTTPRequest'
-    }
+        'X-Requested-With': 'XMLHTTPRequest',
+    },
 };
 
 export async function openDialog(url: string, options: DialogOptions): Promise<Modal> {
-    let {modal} = await openRemote(url, {size: 'lg', requestConfig: {...requestConfigDefaults, params: {dialog: '1'}}});
+    const { modal } = await openRemote(url, { size: 'lg', requestConfig: { ...requestConfigDefaults, params: { dialog: '1' } } });
     handleTitle(modal);
 
-    modal.on('submit', 'form', e => {
+    modal.on('submit', 'form', (e) => {
         e.preventDefault();
 
         const form = e.target as HTMLFormElement;
@@ -33,8 +33,9 @@ export async function openDialog(url: string, options: DialogOptions): Promise<M
         const data = new FormData(form);
         data.set('dialog', '1');
 
-        axios.post(form.action, data, requestConfigDefaults)
-            .then(response => {
+        axios
+            .post(form.action, data, requestConfigDefaults)
+            .then((response) => {
                 const statusCode = response.headers['x-return-code'];
 
                 if (statusCode && statusCode == 'invalid') {
@@ -46,7 +47,7 @@ export async function openDialog(url: string, options: DialogOptions): Promise<M
                     modal.close();
                 }
             })
-            .catch(({response}) => {
+            .catch(({ response }) => {
                 options.error && options.error(response);
             });
     });

@@ -1,4 +1,4 @@
-type Selector = string | ((e: Element) => Array<Element>)
+type Selector = string | ((e: Element) => Array<Element>);
 
 function resolveElements(root: Element, selector: Selector): Array<Element> {
     if (typeof selector === 'string') {
@@ -9,26 +9,19 @@ function resolveElements(root: Element, selector: Selector): Array<Element> {
 }
 
 class Behavior {
-    constructor(
-        private element: HTMLElement,
-        private selector: Selector,
-        private handler: (item: any) => any,
-        private sequence: number
-    ) {
-    }
+    constructor(private element: HTMLElement, private selector: Selector, private handler: (item: any) => any, private sequence: number) {}
 
     refresh() {
-        resolveElements(this.element, this.selector).forEach(e => {
+        resolveElements(this.element, this.selector).forEach((e) => {
             const key = `alreadyBound${this.sequence}`;
 
             if (!e.hasAttribute(key)) {
-                e.setAttribute(key, "1");
+                e.setAttribute(key, '1');
                 this.handler.call(e);
             }
         });
     }
 }
-
 
 const behaviors: Behavior[] = [];
 let sequence = 0;
@@ -40,5 +33,5 @@ export function register(element: HTMLElement, selector: string, handler: (item:
 }
 
 export function refresh() {
-    behaviors.forEach(b => b.refresh());
+    behaviors.forEach((b) => b.refresh());
 }

@@ -1,6 +1,6 @@
-export function parseHTML(html: String): DocumentFragment {
-    const template = document.createElement('template')
-    template.innerHTML = html.trim()
+export function parseHTML(html: string): DocumentFragment {
+    const template = document.createElement('template');
+    template.innerHTML = html.trim();
 
-    return template.content
+    return template.content;
 }

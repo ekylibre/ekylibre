@@ -1,28 +1,28 @@
 export class StateSet {
-  constructor(selector, base) {
-    this.$element = $(selector)
-    this.base = base
-  }
-
-  _getStateClasses() {
-    const classes = this.$element.attr('class')
-    if (classes) {
-      return classes.split(/\s+/).filter(e => e.match(new RegExp(`^${this.base}--(.*)$`)))
-    } else {
-      return []
+    constructor(selector, base) {
+        /* eslint-disable no-undef */
+        this.$element = $(selector);
+        this.base = base;
     }
-  }
 
-  setState(state) {
-    this.$element.removeClass(this._getStateClasses().join(' '))
+    _getStateClasses() {
+        const classes = this.$element.attr('class');
+        if (classes) {
+            return classes.split(/\s+/).filter((e) => e.match(new RegExp(`^${this.base}--(.*)$`)));
+        } else {
+            return [];
+        }
+    }
 
-    if (state)
-      this.$element.addClass(`${this.base}--${state}`)
-  }
+    setState(state) {
+        this.$element.removeClass(this._getStateClasses().join(' '));
+
+        if (state) this.$element.addClass(`${this.base}--${state}`);
+    }
 }
 
 export class StateBadgeSet extends StateSet {
-  constructor(selector) {
-    super(selector, 'state-badge-set')
-  }
+    constructor(selector) {
+        super(selector, 'state-badge-set');
+    }
 }
