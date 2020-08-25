@@ -140,7 +140,7 @@
       usageId = $productField.find("[data-selector-id='intervention_input_usage_id']").next('.selector-value').val()
       return unless usageId
       values = @._retrieveValues($quantityInput, $productField)
-      return unless values.product_id && values.quantity && values.dimension && values.targets_data
+      return unless values.product_id && values.quantity && values.unit_name && values.targets_data
 
       $.ajax(url: "/backend/registered_phytosanitary_usages/#{usageId}/dose_validations", dataType: "json", data: values, method: 'POST')
         .done( (data) =>

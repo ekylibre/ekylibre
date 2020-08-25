@@ -48,7 +48,7 @@ module Interventions
                             reference = product_usage.usage.max_dose_measure
 
                             if converted_dose > reference
-                              result.vote_forbidden(product_usage.product, :dose_bigger_than_max.tl)
+                              result.vote_forbidden(product_usage.product, :dose_bigger_than_max.tl, on: :quantity)
                             end
                           }
                         )
