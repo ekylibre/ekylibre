@@ -61,7 +61,7 @@ module Backend
     cases.each do |(verb, comparator, quantity, status)|
       test "dose_validations #{verb} input quantity if it is #{comparator} to usage maximum dose" do
         post :dose_validations, id: @usage.id,
-                                spray_volume: "",
+                                # spray_volume: "",
                                 product_id: @product.id,
                                 unit_name: 'kilogram_per_hectare',
                                 quantity: quantity,
@@ -80,7 +80,7 @@ module Backend
 
         [%w[- go], %w[+ stop]].each do |(operator, status)|
           post :dose_validations, id: @usage.id,
-                                  spray_volume: "",
+                                  # spray_volume: "",
                                   product_id: @product.id,
                                   unit_name: unit_name,
                                   quantity: max_dose.send(operator, 0.01),
@@ -96,7 +96,7 @@ module Backend
       intervention = create_intervention(2)
 
       post :dose_validations, id: @usage.id,
-                              spray_volume: "",
+                              # spray_volume: "",
                               product_id: @product.id,
                               unit_name: 'population',
                               quantity: 1,
@@ -115,13 +115,12 @@ module Backend
 
       cases.each do |(usage, product, land_parcel)|
         post :dose_validations, id: usage.id,
-                                spray_volume: "",
-                                product_id: product.id,
-                                dimension: 'mass_area_density',
-                                quantity: 2,
-                                targets_data: { '0' => { id: land_parcel.id, shape: land_parcel.shape.to_json_feature_collection.to_json } },
-                                intervention_id: intervention.id,
-                                input_id: intervention.inputs.order(:id).last.id
+                               product_id: product.id,
+                               dimension: 'mass_area_density',
+                               quantity: 2,
+                               targets_data: { '0' => { id: land_parcel.id, shape: land_parcel.shape.to_json_feature_collection.to_json } },
+                               intervention_id: intervention.id,
+                               input_id: intervention.inputs.order(:id).last.id
         json = JSON.parse(response.body)
 
         assert json['modified']
@@ -134,7 +133,7 @@ module Backend
       dose_max = @usage.dose_quantity
 
       post :dose_validations, id: @usage.id,
-                              spray_volume: "",
+                              # spray_volume: "",
                               product_id: @product.id,
                               unit_name: 'kilogram_per_hectare',
                               quantity: dose_max - 0.01,
@@ -150,7 +149,7 @@ module Backend
       input.save!
 
       post :dose_validations, id: @usage.id,
-                              spray_volume: "",
+                              # spray_volume: "",
                               product_id: @product.id,
                               unit_name: 'kilogram_per_hectare',
                               quantity: dose_max - 0.01,

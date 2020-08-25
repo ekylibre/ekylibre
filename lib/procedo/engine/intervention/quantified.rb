@@ -33,7 +33,6 @@ module Procedo
           end
         end
 
-        # @return [Procedure::Handler, nil]
         def quantity_handler_reference
           @quantity_handler ? reference.handler(@quantity_handler) : nil
         end

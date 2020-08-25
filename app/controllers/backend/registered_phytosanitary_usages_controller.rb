@@ -63,7 +63,6 @@ module Backend
     end
 
     def dose_validations
-      spray_volume = params[:spray_volume].blank? ? nil : params[:spray_volume].to_d
       targets_data = params.fetch(:targets_data, {})
       intervention = Intervention.find_by_id params[:intervention_id]
       input = InterventionInput.find_by_id params[:input_id]
@@ -81,7 +80,7 @@ module Backend
       service = RegisteredPhytosanitaryUsageDoseComputation.build
       measure = Measure.new(params[:quantity].to_f, params[:unit_name])
 
-      dose_validation = service.validate_dose(usage, product, measure, targets_data, spray_volume)
+      dose_validation = service.validate_dose(usage, product, measure, targets_data, nil)
       authorizations = compute_authorization(dose_validation, :dose_validation)
 
       render json: { dose_validation: dose_validation, authorizations: authorizations, modified: modified }
