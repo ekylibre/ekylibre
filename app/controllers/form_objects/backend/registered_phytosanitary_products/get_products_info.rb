@@ -85,7 +85,7 @@ module FormObjects
             phyto = fetch_phyto(modified, input, product)
             usage = fetch_usage(modified, input, pu[:usage_id])
             measure = Measure.new(pu[:quantity].to_f, pu[:unit_name])
-            spray_volume = pu[:spray_volume].blank? ? nil : pu[:spray_volume].to_d
+            spray_volume = nil # pu[:spray_volume].blank? ? nil : pu[:spray_volume].to_d
 
             ::Interventions::Phytosanitary::Models::ProductWithUsage.new(product, phyto, usage, measure, spray_volume)
           end.reject { |pu| pu.product.nil? }

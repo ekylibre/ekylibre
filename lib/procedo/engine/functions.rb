@@ -173,29 +173,18 @@ module Procedo
           set.collect { |h| DateTime.parse(h[:stopped_at]) }.max
         end
 
-        # @param [Product] product
-        # @param [Array<Symbol>] dimensions
-        # @return [Integer] 1 for true, 0 for false
-        def product_usages_among_dimensions(product, *dimensions)
-          phyto = product.variant.phytosanitary_product
+        def usage_unit_name_include(product, unit)
+          variant = product.variant
+          return 1 unless variant.imported_from == 'Lexicon' && variant.is_a?(Variants::Articles::PlantMedicineArticle)
+
+          phyto = RegisteredPhytosanitaryProduct.find_by_reference_name(variant.reference_name)
           return 1 if phyto.nil?
 
           usages = phyto.usages
           return 1 if usages.empty?
 
           usage_units = usages.pluck(:dose_unit).uniq.compact
-          checks = usage_units.any? do |usage_unit|
-            unit = Nomen::Unit.find(usage_unit)
-            dimensions.include?(unit.base_dimension.to_sym) || dimensions.include?(unit.dimension.to_sym)
-          end
-
-          checks || usage_units.empty? ? 1 : 0
-        end
-
-        # @param [#dose_unit_refers_to_spray_volume?] usage
-        # @return [Integer] 0 or 1
-        def dose_unit_refers_to_spray_volume(usage)
-          usage.dose_unit_refers_to_spray_volume? ? 1 : 0
+          usage_units.any? { |u| u =~ /\A#{Regexp.quote(unit)}_/ } || usage_units.empty? ? 1 : 0
         end
       end
     end

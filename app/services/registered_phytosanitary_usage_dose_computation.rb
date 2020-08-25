@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class RegisteredPhytosanitaryUsageDoseComputation
   class << self
     def build

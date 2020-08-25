@@ -54,18 +54,10 @@
 #
 class RegisteredPhytosanitaryUsage < ApplicationRecord
   include Lexiconable
-  module SprayVolumeMethods
-    # @return [Boolean]
-    def dose_unit_refers_to_spray_volume?
-      %w[kg/hL kg/L g/L mL/L L/hL].include?(dose_unit_name)
-    end
-  end
-
   extend Enumerize
   include HasInterval
   include Dimensionable
   include ScopeIntrospection
-  include SprayVolumeMethods
 
   UNTREATED_BUFFER_AQUATIC_VALUES = [5, 20, 30, 50, 100].freeze
 

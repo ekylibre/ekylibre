@@ -18,7 +18,7 @@
       $('.nested-plant_medicine').each -> that._clear($(this))
       values = @._retrieveValues()
 
-      $.ajax(url: '/backend/registered_phytosanitary_products/get_products_infos', dataType: "json", data: values, method: 'POST')
+      $.ajax(url: '/backend/registered_phytosanitary_products/get_products_infos',dataType: "json", data: values, method: 'POST')
        .done( (data) =>
           for id, infos of data
             $productField = $(".selector-value[value='#{id}']").closest('.nested-plant_medicine')
@@ -62,7 +62,6 @@
           unit_name: element.querySelector('.intervention_inputs_quantity select').selectedOptions[0].dataset.handlerUnit
           input_id: element.querySelector('#intervention_parameter_id').value
           live_data: element.querySelector('.intervention_inputs_using_live_data input').value
-          spray_volume: element.querySelector('.intervention_inputs_spray_volume input').value
 
       interventionId = $('input#intervention_id').val()
 
@@ -160,7 +159,6 @@
       $input.closest('.controls').find('.lights-message').removeClass("warning")
 
     _retrieveValues: ($input, $productField) ->
-      sprayVolume = $productField.find('.intervention_inputs_spray_volume input').val()
       interventionId = $('input#intervention_id').val()
       inputId = $productField.find('#intervention_parameter_id').val()
       productId = $productField.find("[data-selector-id='intervention_input_product_id']").first().selector('value')
@@ -169,7 +167,7 @@
       unitName = $productField.find('.intervention_inputs_quantity select').get(0).selectedOptions[0].dataset.handlerUnit
       targetsData = retrieveTargetsData()
 
-      { product_id: productId, quantity: quantity, unit_name: unitName, targets_data: targetsData, intervention_id: interventionId, input_id: inputId, live_data: liveData, spray_volume: sprayVolume }
+      { product_id: productId, quantity: quantity, unit_name: unitName, targets_data: targetsData, intervention_id: interventionId, input_id: inputId, live_data: liveData }
 
 
   sprayingMap =
@@ -263,11 +261,10 @@
   $(document).on 'mapchange', '[data-map-editor]', ->
     productsInfos.display()
 
-  $(document).on 'select change', "[data-intervention-field='quantity-handler']", ->
-    $container = $(this).closest('.nested-plant_medicine').find('.intervention_inputs_spray_volume')
-    $container.toggle _.includes(['volume_density', 'specific_weight'], $(this).val())
+  $(document).on 'mapeditor:optional_data_loaded', '[data-map-editor]', ->
+    sprayingMap.refresh()
 
-  $(document).on 'input change', '.intervention_inputs_spray_volume input', ->
-    $(this).closest('.nested-plant_medicine').find("input[data-intervention-field='quantity-value']").trigger('change')
+  $(document).on 'mapchange', '[data-map-editor]', ->
+    productsInfos.display()
 
 ) ekylibre, jQuery
