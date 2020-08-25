@@ -1,6 +1,6 @@
 import I18n from 'i18n-js';
 import translations from './translations.json';
-import {ext} from './ext';
+import { ext } from './ext';
 
 const ISO3_LANG_KEY = 'data-lang-iso3';
 const DEFAULT_LANGUAGE = 'fra';
@@ -20,5 +20,5 @@ I18n.locale = I18n.defaultLocale;
 I18n.translations = translations;
 (I18n as any).ext = ext;
 
-export {I18n};
+export { I18n };
 export const translate = I18n.translate.bind(I18n);

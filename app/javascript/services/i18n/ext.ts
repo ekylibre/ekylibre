@@ -1,5 +1,4 @@
-import I18n from "i18n-js";
-
+import I18n from 'i18n-js';
 
 function sliceMonthList(key: string) {
     const translation = I18n.translate(key);
@@ -27,9 +26,7 @@ function cleanArray(list: Array<any>) {
     });
 }
 
-
 class Dates {
-
     getDayNames() {
         return I18n.translate('date.day_names');
     }
@@ -51,9 +48,7 @@ class Dates {
     }
 }
 
-
 class DateFormat {
-
     default() {
         return I18n.translate('date.formats.default');
     }
@@ -79,9 +74,7 @@ class DateFormat {
     }
 }
 
-
 class Datetime {
-
     am() {
         return I18n.translate('time.am');
     }
@@ -95,9 +88,7 @@ class Datetime {
     }
 }
 
-
 class DatetimeFormat {
-
     default() {
         return I18n.translate('time.formats.default');
     }
@@ -127,5 +118,5 @@ export const ext = {
     dates: new Dates(),
     dateFormat: new DateFormat(),
     datetime: new Datetime(),
-    datetimeFormat: new DatetimeFormat()
-}
+    datetimeFormat: new DatetimeFormat(),
+};

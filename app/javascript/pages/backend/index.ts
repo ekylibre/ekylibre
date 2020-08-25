@@ -1,1 +1,1 @@
-import './land_parcels'
+import './land_parcels';

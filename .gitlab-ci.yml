@@ -151,6 +151,15 @@ rubocop:
     - gem install rubocop
     - rubocop
 
+eslint:
+  stage: lint
+  image: node:lts-alpine
+  variables:
+    GIT_DEPTH: 1
+  script:
+    - yarn
+    - yarn eslint .
+
 #########################################
 #               TEMPLATES               #
 #########################################
