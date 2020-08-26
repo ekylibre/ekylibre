@@ -18,6 +18,7 @@ module Printers
 
     def initialize(*_args, states: nil, natures: nil, balance:, accounts:, centralize:, period:, started_on:, stopped_on:, previous_year:, template:, **_options)
       super(template: template)
+
       @states = states
       @natures = natures
       @balance = balance
@@ -40,7 +41,7 @@ module Printers
     end
 
     def document_name
-      "#{@template.nature.human_name} (#{humanized_period})"
+      "#{template.nature.human_name} (#{humanized_period})"
     end
 
     def humanized_period
@@ -62,65 +63,62 @@ module Printers
                                     previous_year: @previous_year)
     end
 
-    def run_pdf
+    def generate(r)
       dataset = compute_dataset
 
-      generate_report(template_path) do |r|
+      data_filters = []
 
-        data_filters = []
+      if @states&.any?
+        content = []
+        content << :draft.tl if @states.include?('draft') && @states['draft'].to_i == 1
+        content << :confirmed.tl if @states.include?('confirmed') && @states['confirmed'].to_i == 1
+        content << :closed.tl if @states.include?('closed') && @states['closed'].to_i == 1
+        data_filters << :journal_entries_states.tl + ' : ' + content.to_sentence
+      end
 
-        if @states&.any?
-          content = []
-          content << :draft.tl if @states.include?('draft') && @states['draft'].to_i == 1
-          content << :confirmed.tl if @states.include?('confirmed') && @states['confirmed'].to_i == 1
-          content << :closed.tl if @states.include?('closed') && @states['closed'].to_i == 1
-          data_filters << :journal_entries_states.tl + ' : ' + content.to_sentence
-        end
+      if @balance
+        data_filters << :display_accounts.tl + ' : ' + @balance.to_sym.tl
+      end
 
-        if @balance
-          data_filters << :display_accounts.tl + ' : ' + @balance.to_sym.tl
-        end
+      if @accounts.present?
+        data_filters << :accounts_starting_with.tl + ' : ' + @accounts.split(' ').to_sentence
+      end
 
-        if @accounts.present?
-          data_filters << :accounts_starting_with.tl + ' : ' + @accounts.split(' ').to_sentence
-        end
+      if @centralize.present?
+        data_filters << :group_by_centralizing_accounts.tl + ' : ' + @centralize.split(' ').to_sentence
+      end
 
-        if @centralize.present?
-          data_filters << :group_by_centralizing_accounts.tl + ' : ' + @centralize.split(' ').to_sentence
-        end
+      e = Entity.of_company
+      company_address = e.default_mail_address&.coordinate
+      balances = dataset[:balance].map.with_index { |_item, index| [dataset[:balance][index], dataset[:prev_balance][index] || []] }
 
-        e = Entity.of_company
-        company_address = e.default_mail_address&.coordinate
-        balances = dataset[:balance].map.with_index { |_item, index| [dataset[:balance][index], dataset[:prev_balance][index] || []] }
+      r.add_field 'COMPANY_ADDRESS', company_address
+      r.add_field 'DOCUMENT_NAME', document_name
+      r.add_field 'FILE_NAME', key
+      r.add_field 'PERIOD', humanized_period
+      r.add_field 'DATE', Date.today.l
+      r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
+      r.add_field 'DATA_FILTERS', data_filters * ' | '
 
-        r.add_field 'COMPANY_ADDRESS', company_address
-        r.add_field 'DOCUMENT_NAME', document_name
-        r.add_field 'FILE_NAME', key
-        r.add_field 'PERIOD', humanized_period
-        r.add_field 'DATE', Date.today.l
-        r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
-        r.add_field 'DATA_FILTERS', data_filters * ' | '
-
-        r.add_table('Tableau2', balances, header: false) do |t|
-          t.add_column(:a) { |item| item[0][0] if item[0][1].to_i > 0 }
-          t.add_column(:b) do |item|
-            if item[0][1].to_i > 0
-              Account.find(item[0][1]).name
-            elsif item[0][1] == '-1'
-              :total.tl
-            elsif item[0][1] == '-2'
-              I18n.translate('labels.subtotal', name: item[0][0])
-            elsif item[0][1] == '-3'
-              I18n.translate('labels.centralized_account', name: item[0][0])
-            end
+      r.add_table('Tableau2', balances, header: false) do |t|
+        t.add_column(:a) { |item| item[0][0] if item[0][1].to_i > 0 }
+        t.add_column(:b) do |item|
+          if item[0][1].to_i > 0
+            Account.find(item[0][1]).name
+          elsif item[0][1] == '-1'
+            :total.tl
+          elsif item[0][1] == '-2'
+            I18n.translate('labels.subtotal', name: item[0][0])
+          elsif item[0][1] == '-3'
+            I18n.translate('labels.centralized_account', name: item[0][0])
           end
-          t.add_column(:debit) { |item| item[0][2].to_f }
-          t.add_column(:credit) { |item| item[0][3].to_f }
-          t.add_column(:debit_n) { |item| item[1].any? ? item[1][2].to_f : '' }
-          t.add_column(:credit_n) { |item| item[1].any? ? item[1][3].to_f : '' }
-          t.add_column(:balance) { |item| item[0][4].to_f }
-          t.add_column(:balance_n) { |item| item[1].any? ? item[1][4].to_f : '' }
         end
+        t.add_column(:debit) { |item| item[0][2].to_f }
+        t.add_column(:credit) { |item| item[0][3].to_f }
+        t.add_column(:debit_n) { |item| item[1].any? ? item[1][2].to_f : '' }
+        t.add_column(:credit_n) { |item| item[1].any? ? item[1][3].to_f : '' }
+        t.add_column(:balance) { |item| item[0][4].to_f }
+        t.add_column(:balance_n) { |item| item[1].any? ? item[1][4].to_f : '' }
       end
     end
 

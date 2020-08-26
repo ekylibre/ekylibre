@@ -319,9 +319,17 @@ module Backend
           return false
         end
 
+        g = Ekylibre::DocumentManagement::DocumentGenerator.build
         printer = klass.new(template: template, sale: sale)
-        pdf_data = printer.run_pdf
-        printer.archive_report_template(pdf_data, nature: template.nature, key: printer.key, template: template, document_name: printer.document_name)
+        pdf_data = g.generate_pdf(template: template, printer: printer)
+
+        archiver = Ekylibre::DocumentManagement::DocumentArchiver.build
+        archiver.archive_document(
+          pdf_content: pdf_data,
+          template: template,
+          key: printer.key,
+          name: printer.document_name
+        )
 
         send_data pdf_data, filename: "#{printer.document_name}.pdf", type: 'application/pdf', disposition: 'inline'
 

@@ -6,11 +6,13 @@ class PrinterJob < ApplicationJob
 
     def perform(printer_class, *args, template:, perform_as:, **options)
       begin
+        generator = Ekylibre::DocumentManagement::DocumentGenerator.build
+        archiver = Ekylibre::DocumentManagement::DocumentArchiver.build
+
         printer = printer_class.constantize.new(*args, template: template, **options)
+        pdf_data = generator.generate_pdf(template: template, printer: printer)
 
-        pdf_data = printer.run_pdf
-
-        document = printer.archive_report_template(pdf_data, nature: template.nature, key: printer.key, template: template, document_name: printer.document_name)
+        document = archiver.archive_document(pdf_content: pdf_data, template: template, key: printer.key, name: printer.document_name)
 
         perform_as.notifications.create!(success_notification_params(document.id))
 

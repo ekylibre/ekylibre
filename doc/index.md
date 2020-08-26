@@ -9,3 +9,4 @@ Create API doc via the `rake rerdoc` command. Also available at
   - State bar
 - [Backend components](components.md)
   - State machines and transitions
+  - ODT Printers architecture

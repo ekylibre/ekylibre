@@ -19,7 +19,9 @@ module Printers
       assert shipment.valid?, "Shipment 006 must be valid (#{shipment.errors.inspect})"
 
       printer = Printers::ShippingNotePrinter.new(template: @template, shipment: shipment)
-      assert printer.run_pdf
+      generator = Ekylibre::DocumentManagement::DocumentGenerator.build
+      pdf_data = generator.generate_pdf(template: @template, printer: printer)
+      assert pdf_data
     end
   end
 end

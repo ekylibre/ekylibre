@@ -13,6 +13,7 @@ module Printers
 
     def initialize(account:, states:, lettering_state:, period:, started_on:, stopped_on:, template:)
       super(template: template)
+
       states = self.class.deprecated_filter(states, :states)
 
       @account = account
@@ -27,7 +28,8 @@ module Printers
       elsif @period == 'interval'
         @started_on = started_on
         @stopped_on = stopped_on
-      else # period=2019-01-01_2019-12-31
+      else
+        # period=2019-01-01_2019-12-31
         @started_on = period.split('_').first
         @stopped_on = period.split('_').last
       end
@@ -88,22 +90,22 @@ module Printers
       end
 
       items_dataset = @account.journal_entry_items
-                      .between(@started_on, @stopped_on)
-                      .includes(entry: %i[sales purchases])
-                      .where(states_array)
-                      .where(letter_condition)
-                      .reorder('journal_entry_items.printed_on ASC, journal_entry_items.entry_number ASC')
+                              .between(@started_on, @stopped_on)
+                              .includes(entry: %i[sales purchases])
+                              .where(states_array)
+                              .where(letter_condition)
+                              .reorder('journal_entry_items.printed_on ASC, journal_entry_items.entry_number ASC')
 
       h[:items] = items_dataset.map do |item|
         {
-        name: item.name,
-        printed_on: item.printed_on.l(format: '%d/%m/%Y'),
-        journal_entry_items_number: item.entry_number,
-        journal_entry_reference_number: item.entry.reference_number,
-        letter: item.letter,
-        real_debit: item.real_debit,
-        real_credit: item.real_credit
-      }.with_indifferent_access
+          name: item.name,
+          printed_on: item.printed_on.l(format: '%d/%m/%Y'),
+          journal_entry_items_number: item.entry_number,
+          journal_entry_reference_number: item.entry.reference_number,
+          letter: item.letter,
+          real_debit: item.real_debit,
+          real_credit: item.real_credit
+        }.with_indifferent_access
       end
 
       h[:total_items] = []
@@ -126,81 +128,37 @@ module Printers
       h.compact
     end
 
-    def run_pdf
+    def generate(r)
       dataset = compute_dataset
       data_filters = dataset[:data_filters]
 
-      generate_report(template_path) do |r|
+      e = Entity.of_company
+      company_name = e.full_name
+      company_address = e.default_mail_address&.coordinate
 
-        e = Entity.of_company
-        company_name = e.full_name
-        company_address = e.default_mail_address&.coordinate
+      r.add_field 'COMPANY_ADDRESS', company_address
+      r.add_field 'DOCUMENT_NAME', document_name
+      r.add_field 'FILE_NAME', key
+      r.add_field 'PERIOD', humanized_period
+      r.add_field 'DATE', Date.today.l
+      r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
+      r.add_field 'DATA_FILTERS', data_filters * ' | '
 
-        r.add_field 'COMPANY_ADDRESS', company_address
-        r.add_field 'DOCUMENT_NAME', document_name
-        r.add_field 'FILE_NAME', key
-        r.add_field 'PERIOD', humanized_period
-        r.add_field 'DATE', Date.today.l
-        r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
-        r.add_field 'DATA_FILTERS', data_filters * ' | '
+      r.add_table('ITEM1', dataset[:items], header: true) do |t|
+        t.add_column(:name)
+        t.add_column(:printed_on)
+        t.add_column(:journal_entry_items_number)
+        t.add_column(:journal_entry_reference_number)
+        t.add_column(:letter)
+        t.add_column(:real_debit) { |d| number_to_accountancy(d[:real_debit]) }
+        t.add_column(:real_credit) { |d| number_to_accountancy(d[:real_credit]) }
+      end
 
-        r.add_table('ITEM1', dataset[:items], header: true) do |t|
-          t.add_column(:name)
-          t.add_column(:printed_on)
-          t.add_column(:journal_entry_items_number)
-          t.add_column(:journal_entry_reference_number)
-          t.add_column(:letter)
-          t.add_column(:real_debit) { |d| number_to_accountancy(d[:real_debit]) }
-          t.add_column(:real_credit) { |d| number_to_accountancy(d[:real_credit]) }
-        end
-
-        r.add_table('TOTAL', dataset[:total_items], header: false) do |t|
-          t.add_column(:total_debit) { |d| number_to_accountancy(d[:total_debit]) }
-          t.add_column(:total_credit) { |d| number_to_accountancy(d[:total_credit]) }
-          t.add_column(:total_balance) { |d| number_to_accountancy(d[:total_balance]) }
-        end
-
+      r.add_table('TOTAL', dataset[:total_items], header: false) do |t|
+        t.add_column(:total_debit) { |d| number_to_accountancy(d[:total_debit]) }
+        t.add_column(:total_credit) { |d| number_to_accountancy(d[:total_credit]) }
+        t.add_column(:total_balance) { |d| number_to_accountancy(d[:total_balance]) }
       end
     end
-
-    def run_odt
-      dataset = compute_dataset
-      data_filters = dataset[:data_filters]
-
-      # TODO: have to modify pdf_printer to return correct ODT file
-      # @remi
-      generate_report(template_path) do |r|
-
-        e = Entity.of_company
-        company_name = e.full_name
-        company_address = e.default_mail_address&.coordinate
-
-        r.add_field 'COMPANY_ADDRESS', company_address
-        r.add_field 'DOCUMENT_NAME', document_name
-        r.add_field 'FILE_NAME', key
-        r.add_field 'PERIOD', humanized_period
-        r.add_field 'DATE', Date.today.l
-        r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
-        r.add_field 'DATA_FILTERS', data_filters * ' | '
-
-        r.add_table('ITEM1', dataset[:items], header: true) do |t|
-          t.add_column(:name)
-          t.add_column(:printed_on)
-          t.add_column(:journal_entry_items_number)
-          t.add_column(:journal_entry_reference_number)
-          t.add_column(:letter)
-          t.add_column(:real_debit) { |d| number_to_accountancy(d[:real_debit]) }
-          t.add_column(:real_credit) { |d| number_to_accountancy(d[:real_credit]) }
-        end
-
-        r.add_table('TOTAL', dataset[:total_items], header: false) do |t|
-          t.add_column(:total_debit) { |d| number_to_accountancy(d[:total_debit]) }
-          t.add_column(:total_credit) { |d| number_to_accountancy(d[:total_credit]) }
-          t.add_column(:total_balance) { |d| number_to_accountancy(d[:total_balance]) }
-        end
-
-      end
-    end
-
   end
 end
