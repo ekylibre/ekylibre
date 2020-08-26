@@ -1,1 +1,1 @@
-import './backend/index'
+import './backend/index';
