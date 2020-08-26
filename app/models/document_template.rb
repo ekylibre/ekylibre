@@ -158,7 +158,7 @@ class DocumentTemplate < Ekylibre::Record::Base
       path = document.file.path(:original)
       if signed
         user = document.creator
-        signer = SignatureManager.new
+        signer = Ekylibre::DocumentManagement::SignatureManager.new
         signer.sign(document: document, user: user)
       end
     end
@@ -231,7 +231,7 @@ class DocumentTemplate < Ekylibre::Record::Base
 
     # Compute fallback chain for a given document nature
     def template_fallbacks(nature, locale)
-      ActiveSupport::Deprecation.warn "DocumentTemplate#template_fallbacks is deprecated, use Printers::TemplateFileProvider instead."
+      ActiveSupport::Deprecation.warn "DocumentTemplate#template_fallbacks is deprecated, use Ekylibre::DocumentManagement::TemplateFileProvider instead."
 
       stack = []
       load_path.each do |path|
@@ -256,7 +256,7 @@ class DocumentTemplate < Ekylibre::Record::Base
     def load_defaults(options = {})
       locale = (options[:locale] || Preference[:language] || I18n.locale).to_s
 
-      file_provider = Printers::TemplateFileProvider.new(locale: locale)
+      file_provider = Ekylibre::DocumentManagement::TemplateFileProvider.build(locale: locale)
 
       Ekylibre::Record::Base.transaction do
         manageds = where(managed: true).select(&:destroyable?)

@@ -1,4 +1,7 @@
 module Printers
+  # Base interface for Printers
+  #
+  # Each subclass should implement `key` and `generate`.
   class PrinterBase
     class << self
       def deprecated_filter(value, name)
@@ -12,19 +15,30 @@ module Printers
       end
     end
 
-    include Concerns::PdfPrinter
-
-    attr_reader :template, :template_path
+    attr_reader :template
 
     def initialize(template:)
       @template = template
-      @template_path = find_template(template)
     end
 
+    # This method should use the provided `report` to generate the ODT file using the computed dataset
+    #
+    # @param [ODFReport::Report] report
+    # @return [Array<byte>]
+    def generate(report)
+      raise NotImplementedError.new("`generate` should be implemented in subclasses")
+    end
+
+    # The key to identify documents belonging to the same record in database
+    #
+    # @return [String]
     def key
       raise NotImplementedError.new("`key` should be implemented in subclasses")
     end
 
+    # Returns the document name. Used by DocumentArchiver to archive the Document in the Document Management System
+    #
+    # @return [String]
     def document_name
       "#{template.nature.human_name} - #{key}"
     end

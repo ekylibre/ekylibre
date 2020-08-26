@@ -70,7 +70,8 @@ module Backend
         format.odt do
           return unless template = DocumentTemplate.find_by_nature(:account_journal_entry_sheet)
           printer = Printers::AccountJournalEntrySheetPrinter.new(template: template, **dataset_params)
-          send_data printer.run_odt, filename: "#{printer.document_name}.odt"
+          g = Ekylibre::DocumentManagement::DocumentGenerator.build
+          send_data g.generate_odt(template: template, printer: printer), filename: "#{printer.document_name}.odt"
         end
         format.pdf do
           return unless template = find_and_check(:document_template, params[:template])

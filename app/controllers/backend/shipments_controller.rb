@@ -114,8 +114,11 @@ module Backend
 
           printer = Printers::ShippingNotePrinter.new(template: template, shipment: shipment)
 
-          pdf_data = printer.run_pdf
-          printer.archive_report_template(pdf_data, nature: template.nature, key: printer.key, template: template, document_name: printer.document_name)
+          generator = Ekylibre::DocumentManagement::DocumentGenerator.build
+          pdf_data = generator.generate_pdf(template: template, printer: printer)
+
+          archiver = Ekylibre::DocumentManagement::DocumentArchiver.build
+          archiver.archive_document(pdf_content: pdf_data, template: template, key: printer.key, name: printer.document_name)
 
           send_data pdf_data, filename: "#{printer.document_name}.pdf", type: 'application/pdf', disposition: 'inline'
         end

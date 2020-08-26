@@ -20,8 +20,6 @@
 
 module Backend
   class GeneralLedgersController < Backend::BaseController
-    include PdfPrinter
-
     before_action :save_search_preference, only: :show
 
     def self.list_conditions

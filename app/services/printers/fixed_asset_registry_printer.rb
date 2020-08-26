@@ -10,6 +10,7 @@ module Printers
 
     def initialize(*_args, stopped_on:, template:, **_options)
       super(template: template)
+
       @stopped_on = Date.parse stopped_on
     end
 
@@ -18,7 +19,7 @@ module Printers
     end
 
     def document_name
-      "#{@template.nature.human_name} (#{:at.tl} #{@stopped_on.l})"
+      "#{template.nature.human_name} (#{:at.tl} #{@stopped_on.l})"
     end
 
     def compute_dataset
@@ -95,7 +96,7 @@ module Printers
       value.l(currency: currency.name, precision: 2)
     end
 
-    def run_pdf
+    def generate(r)
       grouped_dataset = compute_dataset
       fixed_assets = [{ # Hack to still be compatible with the way the document is structured
                         assets: grouped_dataset.fixed_assets.flat_map { |g| g[:assets] }.sort { |a, b| a[:started_on] <=> b[:started_on] }
@@ -103,33 +104,31 @@ module Printers
 
       totals = grouped_dataset.totals
 
-      generate_report(@template_path) do |r|
-        r.add_field 'COMPANY_ADDRESS', grouped_dataset.company_address
-        r.add_field 'DOCUMENT_NAME', document_name
-        r.add_field 'FILE_NAME', key
-        r.add_field 'STOPPED_ON', @stopped_on.to_date.l
-        r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
-        r.add_field 'TOTAL_AMOUNT', as_currency(totals[:total_amount])
-        r.add_field 'TOTAL_DEPRECIABLE_AMOUNT', as_currency(totals[:total_depreciable_amount])
-        r.add_field 'TOTAL_DEPRECIATED_AMOUNT', as_currency(totals[:total_depreciated_amount])
-        r.add_field 'TOTAL_CURRENT_DEPRECIATION_AMOUNT', as_currency(totals[:total_current_depreciation_amount])
-        r.add_field 'TOTAL_CUMULATED_DEPRECIATION_AMOUNT', as_currency(totals[:total_cumulated_depreciated_amount])
-        r.add_field 'TOTAL_NET_BOOK_VALUE', as_currency(totals[:total_net_book_value])
+      r.add_field 'COMPANY_ADDRESS', grouped_dataset.company_address
+      r.add_field 'DOCUMENT_NAME', document_name
+      r.add_field 'FILE_NAME', key
+      r.add_field 'STOPPED_ON', @stopped_on.to_date.l
+      r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
+      r.add_field 'TOTAL_AMOUNT', as_currency(totals[:total_amount])
+      r.add_field 'TOTAL_DEPRECIABLE_AMOUNT', as_currency(totals[:total_depreciable_amount])
+      r.add_field 'TOTAL_DEPRECIATED_AMOUNT', as_currency(totals[:total_depreciated_amount])
+      r.add_field 'TOTAL_CURRENT_DEPRECIATION_AMOUNT', as_currency(totals[:total_current_depreciation_amount])
+      r.add_field 'TOTAL_CUMULATED_DEPRECIATION_AMOUNT', as_currency(totals[:total_cumulated_depreciated_amount])
+      r.add_field 'TOTAL_NET_BOOK_VALUE', as_currency(totals[:total_net_book_value])
 
-        r.add_section('Section1', fixed_assets) do |s|
-          s.add_table('Table2', :assets) do |t|
-            t.add_column(:label) { |asset| asset[:label] }
-            t.add_column(:started_on) { |asset| asset[:started_on].strftime('%d/%m/%Y') }
-            t.add_column(:amount) { |asset| as_currency(asset[:amount]) }
-            t.add_column(:tax_amount) { |asset| asset[:tax_amount] }
-            t.add_column(:depreciable_amount) { |asset| as_currency(asset[:depreciable_amount]) }
-            t.add_column(:depreciation_percentage) { |asset| asset[:depreciation_percentage] }
-            t.add_column(:depreciation_method) { |asset| I18n.translate("enumerize.fixed_asset.depreciation_method.#{asset[:depreciation_method]}") }
-            t.add_column(:depreciated_amount) { |asset| as_currency(asset[:depreciated_amount]) }
-            t.add_column(:current_depreciation_amount) { |asset| as_currency(asset[:current_depreciation_amount]) }
-            t.add_column(:cumulated_depreciated_amount) { |asset| as_currency(asset[:cumulated_depreciated_amount]) }
-            t.add_column(:net_book_value) { |asset| as_currency(asset[:net_book_value]) }
-          end
+      r.add_section('Section1', fixed_assets) do |s|
+        s.add_table('Table2', :assets) do |t|
+          t.add_column(:label) { |asset| asset[:label] }
+          t.add_column(:started_on) { |asset| asset[:started_on].strftime('%d/%m/%Y') }
+          t.add_column(:amount) { |asset| as_currency(asset[:amount]) }
+          t.add_column(:tax_amount) { |asset| asset[:tax_amount] }
+          t.add_column(:depreciable_amount) { |asset| as_currency(asset[:depreciable_amount]) }
+          t.add_column(:depreciation_percentage) { |asset| asset[:depreciation_percentage] }
+          t.add_column(:depreciation_method) { |asset| I18n.translate("enumerize.fixed_asset.depreciation_method.#{asset[:depreciation_method]}") }
+          t.add_column(:depreciated_amount) { |asset| as_currency(asset[:depreciated_amount]) }
+          t.add_column(:current_depreciation_amount) { |asset| as_currency(asset[:current_depreciation_amount]) }
+          t.add_column(:cumulated_depreciated_amount) { |asset| as_currency(asset[:cumulated_depreciated_amount]) }
+          t.add_column(:net_book_value) { |asset| as_currency(asset[:net_book_value]) }
         end
       end
     end

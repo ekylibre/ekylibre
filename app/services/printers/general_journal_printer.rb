@@ -10,6 +10,7 @@ module Printers
 
     def initialize(*_args, financial_year:, template:, **_options)
       super(template: template)
+
       @financial_year = financial_year
     end
 
@@ -18,7 +19,7 @@ module Printers
     end
 
     def document_name
-      "#{@template.nature.human_name} (#{@financial_year.code})"
+      "#{template.nature.human_name} (#{@financial_year.code})"
     end
 
     def compute_dataset
@@ -45,35 +46,31 @@ module Printers
         months: monthly_data }
     end
 
-    def run_pdf
+    def generate(r)
       dataset = compute_dataset
 
-      generate_report(@template_path) do |r|
+      e = Entity.of_company
+      company_address = e.default_mail_address&.coordinate
 
-        e = Entity.of_company
-        company_name = e.full_name
-        company_address = e.default_mail_address&.coordinate
+      r.add_field 'COMPANY_ADDRESS', company_address
+      r.add_field 'DOCUMENT_NAME', document_name
+      r.add_field 'FILE_NAME', key
+      r.add_field 'STARTED_ON', @financial_year.started_on.l
+      r.add_field 'STOPPED_ON', @financial_year.stopped_on.l
+      r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
+      r.add_field 'YEAR_DEBIT', dataset[:year_debit]
+      r.add_field 'YEAR_CREDIT', dataset[:year_credit]
 
-        r.add_field 'COMPANY_ADDRESS', company_address
-        r.add_field 'DOCUMENT_NAME', document_name
-        r.add_field 'FILE_NAME', key
-        r.add_field 'STARTED_ON', @financial_year.started_on.l
-        r.add_field 'STOPPED_ON', @financial_year.stopped_on.l
-        r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
-        r.add_field 'YEAR_DEBIT', dataset[:year_debit]
-        r.add_field 'YEAR_CREDIT', dataset[:year_credit]
+      r.add_section('Section1', dataset[:months]) do |s|
+        s.add_field(:month) { |month| month[:month] }
+        s.add_field(:month_debit) { |month| month[:month_debit] }
+        s.add_field(:month_credit) { |month| month[:month_credit] }
 
-        r.add_section('Section1', dataset[:months]) do |s|
-          s.add_field(:month) { |month| month[:month] }
-          s.add_field(:month_debit) { |month| month[:month_debit] }
-          s.add_field(:month_credit) { |month| month[:month_credit] }
-
-          s.add_table('Table5', :journals) do |t|
-            t.add_column(:journal_code) { |journal| journal[:journal_code] }
-            t.add_column(:journal_name) { |journal| journal[:journal_name] }
-            t.add_column(:journal_debit) { |journal| journal[:journal_debit] }
-            t.add_column(:journal_credit) { |journal| journal[:journal_credit] }
-          end
+        s.add_table('Table5', :journals) do |t|
+          t.add_column(:journal_code) { |journal| journal[:journal_code] }
+          t.add_column(:journal_name) { |journal| journal[:journal_name] }
+          t.add_column(:journal_debit) { |journal| journal[:journal_debit] }
+          t.add_column(:journal_credit) { |journal| journal[:journal_credit] }
         end
       end
     end

@@ -1,11 +1,11 @@
 module Printers
- class GainAndLossFixedAssetRegistryPrinter < FixedAssetRegistryPrinter
+  class GainAndLossFixedAssetRegistryPrinter < FixedAssetRegistryPrinter
 
     def compute_dataset
       fixed_assets = FixedAsset.sold_or_scrapped.start_before(@stopped_on)
 
       assets = fixed_assets.map do |fixed_asset|
-        asset = {
+        {
           number: fixed_asset.number,
           label: fixed_asset.name,
           purchased_on: fixed_asset.purchased_on,
@@ -24,40 +24,36 @@ module Printers
         total_gain_and_loss: assets.map { |asset| asset[:gain_and_loss] }.sum
       }
 
-      dataset = [ { assets: assets }, totals ]
+      [{ assets: assets }, totals]
     end
 
-    def run_pdf
+    def generate(r)
       dataset = compute_dataset
 
-      generate_report(@template_path) do |r|
+      e = Entity.of_company
+      company_address = e.default_mail_address&.coordinate
 
-        e = Entity.of_company
-        company_name = e.full_name
-        company_address = e.default_mail_address&.coordinate
+      r.add_field 'COMPANY_ADDRESS', company_address
+      r.add_field 'DOCUMENT_NAME', document_name
+      r.add_field 'FILE_NAME', key
+      r.add_field 'STOPPED_ON', @stopped_on.to_date.l
+      r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
+      r.add_field 'TOTAL_RESIDUAL_VALUE', dataset.last[:total_residual_value]
+      r.add_field 'TOTAL_SOLD_AMOUNT', dataset.last[:total_sold_amount]
+      r.add_field 'TOTAL_GAIN_AND_LOSS', dataset.last[:total_gain_and_loss]
 
-        r.add_field 'COMPANY_ADDRESS', company_address
-        r.add_field 'DOCUMENT_NAME', document_name
-        r.add_field 'FILE_NAME', key
-        r.add_field 'STOPPED_ON', @stopped_on.to_date.l
-        r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
-        r.add_field 'TOTAL_RESIDUAL_VALUE', dataset.last[:total_residual_value]
-        r.add_field 'TOTAL_SOLD_AMOUNT', dataset.last[:total_sold_amount]
-        r.add_field 'TOTAL_GAIN_AND_LOSS', dataset.last[:total_gain_and_loss]
+      r.add_section('Section1', dataset[0...-1]) do |s|
 
-        r.add_section('Section1', dataset[0...-1]) do |s|
-
-          s.add_table('Table2', :assets) do |t|
-            t.add_column(:fixed_asset_number) { |asset| asset[:number] }
-            t.add_column(:label) { |asset| asset[:label] }
-            t.add_column(:purchased_on) { |asset| asset[:purchased_on]&.strftime('%d/%m/%Y') }
-            t.add_column(:ceded_on) { |asset| asset[:ceded_on]&.strftime('%d/%m/%Y') }
-            t.add_column(:purchase_amount) { |asset| asset[:purchase_amount] }
-            t.add_column(:depreciated_amount) { |asset| asset[:depreciated_amount] }
-            t.add_column(:residual_value) { |asset| asset[:residual_value] }
-            t.add_column(:selling_amount) { |asset| asset[:selling_amount] }
-            t.add_column(:gain_and_loss) { |asset| asset[:gain_and_loss] }
-          end
+        s.add_table('Table2', :assets) do |t|
+          t.add_column(:fixed_asset_number) { |asset| asset[:number] }
+          t.add_column(:label) { |asset| asset[:label] }
+          t.add_column(:purchased_on) { |asset| asset[:purchased_on]&.strftime('%d/%m/%Y') }
+          t.add_column(:ceded_on) { |asset| asset[:ceded_on]&.strftime('%d/%m/%Y') }
+          t.add_column(:purchase_amount) { |asset| asset[:purchase_amount] }
+          t.add_column(:depreciated_amount) { |asset| asset[:depreciated_amount] }
+          t.add_column(:residual_value) { |asset| asset[:residual_value] }
+          t.add_column(:selling_amount) { |asset| asset[:selling_amount] }
+          t.add_column(:gain_and_loss) { |asset| asset[:gain_and_loss] }
         end
       end
     end

@@ -35,7 +35,9 @@ module Printers
         sale = sales(:sales_001)
         assert sale.valid?, "Sales 001 must be valid (#{sale.errors.inspect})"
         printer = SalesOrderPrinter.new(template: @template, sale: sale)
-        assert printer.run_pdf
+        generator = Ekylibre::DocumentManagement::DocumentGenerator.build
+        pdf_data = generator.generate_pdf(template: @template, printer: printer)
+        assert pdf_data
       end
     end
   end

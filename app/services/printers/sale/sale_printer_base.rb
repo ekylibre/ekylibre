@@ -3,7 +3,7 @@ module Printers
     class SalePrinterBase < PrinterBase
       attr_reader :sale
 
-      def initialize(template:, sale:)
+      def initialize(sale:, template:)
         super(template: template)
 
         @sale = sale

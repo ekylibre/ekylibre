@@ -59,7 +59,11 @@ module Backend
           raise 'Cannot find template' if printer.template_path.nil?
 
           file_name = "#{t('nomenclatures.document_natures.items.outgoing_payment_list')} (#{@outgoing_payment_list.number})"
-          send_file printer.run_pdf, type: 'application/pdf', disposition: 'attachment', filename: "#{file_name}.pdf"
+
+          generator = Ekylibre::DocumentManagement::DocumentGenerator.build
+          pdf_data = generator.generate_pdf(template: template, printer: printer)
+
+          send_file pdf_data, type: 'application/pdf', disposition: 'attachment', filename: "#{file_name}.pdf"
         end
       end
     end

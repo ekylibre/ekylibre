@@ -11,8 +11,6 @@ class FinancialYearClose
     end
   end
 
-  include PdfPrinter
-
   attr_reader :result_account, :carry_forward_account, :close_error
 
   class UnbalancedBalanceSheet < StandardError; end
@@ -570,18 +568,26 @@ class FinancialYearClose
       )
 
       printer = Printers::TrialBalancePrinter.new(full_params)
-      pdf_data = printer.run_pdf
 
-      document = printer.archive_report_template(pdf_data, nature: template.nature, key: printer.key, template: template, document_name: printer.document_name)
+      document = print_and_archive(template, printer)
 
       copy_generated_documents(timing, 'trial_balance', "#{template.nature.human_name} - #{printer.key}", document.file.path)
+    end
+
+    def print_and_archive(template, printer)
+      generator = Ekylibre::DocumentManagement::DocumentGenerator.build
+      archiver = Ekylibre::DocumentManagement::DocumentArchiver.build
+
+      pdf_data = generator.generate_pdf(template: template, printer: printer)
+
+      archiver.archive_document(pdf_content: pdf_data, template: template, key: printer.key, name: printer.document_name)
     end
 
     def generate_general_ledger_documents(timing, params)
       template = DocumentTemplate.find_by_nature(:general_ledger)
       printer = Printers::GeneralLedgerPrinter.new(**params.merge(template: template))
-      pdf_data = printer.run_pdf
-      document = printer.archive_report_template(pdf_data, nature: template.nature, key: printer.key, template: template, document_name: printer.document_name)
+
+      document = print_and_archive(template, printer)
 
       copy_generated_documents(timing, 'general_ledger', "#{template.nature.human_name} - #{printer.key}", document.file.path)
     end
@@ -597,8 +603,8 @@ class FinancialYearClose
       )
 
       printer = Printers::JournalLedgerPrinter.new(full_params)
-      pdf_data = printer.run_pdf
-      document = printer.archive_report_template(pdf_data, nature: template.nature, key: printer.key, template: template, document_name: printer.document_name)
+
+      document = print_and_archive(template, printer)
 
       copy_generated_documents(timing, 'journal_ledger', "#{template.nature.human_name} - #{printer.key}", document.file.path)
     end
