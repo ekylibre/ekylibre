@@ -192,6 +192,7 @@ GEM
       trollop
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
+    dotenv (2.7.6)
     draper (2.1.0)
       actionpack (>= 3.0)
       activemodel (>= 3.0)
@@ -228,8 +229,6 @@ GEM
       ffi (>= 1.0.0)
       rake
     fiddle (1.0.0)
-    figaro (1.2.0)
-      thor (>= 0.14.0, < 2)
     font-awesome-sass (5.13.0)
       sassc (>= 1.11)
     formize (2.1.0)
@@ -657,6 +656,7 @@ DEPENDENCIES
   devise_invitable
   did_you_mean (~> 0.9)
   dl
+  dotenv
   draper
   ekylibre-ofx-parser
   elastic-apm (~> 3.4.0)
@@ -666,7 +666,6 @@ DEPENDENCIES
   feedjira
   ffaker (>= 2.0.0)
   fiddle
-  figaro
   font-awesome-sass
   formize (~> 2.1.0)
   geocoder

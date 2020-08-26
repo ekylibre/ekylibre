@@ -42,9 +42,6 @@ gem 'browser'
 
 gem 'actionpack-xml_parser'
 
-# Manage env vars
-gem 'figaro'
-
 # Maintenance mode
 gem 'turnout'
 
@@ -269,6 +266,8 @@ group :development, :test do
   gem 'did_you_mean', '~> 0.9', platforms: [:ruby_22]
 
   gem 'yard'
+
+  gem 'dotenv'
 end
 
 group :test do
