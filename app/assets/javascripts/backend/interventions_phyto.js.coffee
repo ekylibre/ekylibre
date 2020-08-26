@@ -4,7 +4,7 @@
       .filter((el) => !el.classList.contains('removed-nested-fields'))
       .map (element) =>
         id: $(element).find("[data-selector-id='intervention_target_product_id']").next('.selector-value').val()
-        shape: $(element).find('[data-map-editor]').val()
+        shape: $(element).find('.intervention_targets_working_zone input').val()
 
   retrieveMaxStoppedAt = () =>
     stoppedAtDates = $(".intervention-stopped-at[type='hidden']").map ->
