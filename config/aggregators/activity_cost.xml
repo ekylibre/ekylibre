@@ -21,7 +21,7 @@
           <property name="id" of="activity" level="api"/>
           <property name="production_count" if="activity.productions.where(campaign: campaign).count" value="activity.productions.where(campaign: campaign).count" type="integer"/>
           <!-- looking for all Interventions in current campaign and activity -->
-          <matrix name="interventions" for="intervention" in="Intervention.real.where(state: 'done').of_activity(activity).of_campaign(campaign).order(:started_at)">
+          <matrix name="interventions" for="intervention" in="Intervention.real.where(state: ['done', 'validated']).of_activity(activity).of_campaign(campaign).order(:started_at)">
             <cell name="id" of="intervention" level="api"/>
             <cell name="ratio" value="intervention.activity_imputation(activity).to_s.to_f" level="api"/>
             <cell name="name" of="intervention" of-type="record"/>
