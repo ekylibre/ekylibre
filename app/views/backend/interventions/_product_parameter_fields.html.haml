@@ -1,5 +1,6 @@
 - prefix = namespace + "[#{f.index}]"
 - f.object.reference_name = reference.name
+
 .nested-fields.nested-product-parameter{class: "nested-#{reference.name.to_s.parameterize}", data: { intervention_parameter: reference.name }.merge( reference.target? && @intervention.using_phytosanitary? ? { phytosanitary_target: true } : {}) }
   = link_to_remove_nested_association(:destroy.ta, f)
   = hidden_field_tag :intervention_parameter_id, f.object.id
@@ -128,7 +129,7 @@
   - if reference.attribute(:working_zone)
     - if user_preference_value(User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM, true)
       :ruby
-        procedures = %w[spraying all_in_one_sowing sowing_with_spraying]
+        procedures = Intervention::PHYTO_PROCEDURE_NAMES
         optional_data = if procedures.include?(params[:procedure_name]) || procedures.any? { |p| f.object&.intervention&.send("#{p}?") }
           { optional_data_url: backend_map_editor_shapes_path(layers: RegisteredPhytosanitaryUsage::UNTREATED_BUFFER_AQUATIC_VALUES.map { |n| :"aquatic_nta_#{n}" }), default_optional_data: :aquatic_nta_5 }
         else
