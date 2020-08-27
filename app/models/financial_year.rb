@@ -502,7 +502,7 @@ class FinancialYear < Ekylibre::Record::Base
   end
 
   def balanced_balance_sheet?(timing = :prior_to_closure)
-    return Journal.sum_entry_items('1 2 3 4 5 6 7', started_on: started_on, stopped_on: stopped_on).zero? if timing == :prior_to_closure
+    return Journal.sum_entry_items('1 2 3 4 5 6 7 8', started_on: started_on, stopped_on: stopped_on).zero? if timing == :prior_to_closure
     computation = AccountancyComputation.new(self)
     balance_sheet_balance = computation.active_balance_sheet_amount - computation.passive_balance_sheet_amount
     balance_sheet_balance.zero?
