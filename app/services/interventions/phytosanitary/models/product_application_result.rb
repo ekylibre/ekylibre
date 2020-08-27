@@ -2,7 +2,8 @@ module Interventions
   module Phytosanitary
     module Models
       class ProductApplicationResult
-        # @var [Hash{Product => Array<Models::ProductApplicationVote>}] votes
+        # @var [Hash{String => Array<Models::ProductApplicationVote>}] votes
+        #    The keys are maaid numbers
         attr_reader :votes
 
         def initialize(votes = {})
@@ -18,18 +19,25 @@ module Interventions
         # @param [Product] product
         # @return [Hash{Symbol => Array<String>}]
         def product_grouped_messages(product)
-          @votes
-            .fetch(product, [])
-            .group_by(&:field)
-            .transform_values { |v| v.map(&:message).compact }
+          maaid_for(product).cata(
+            none: ->{ { product: [:maaid_not_provided.tl] } },
+            some: ->(maaid) {
+              @votes
+                .fetch(maaid, [])
+                .group_by(&:field)
+                .transform_values { |v| v.map(&:message).compact }
+            }
+          )
         end
 
         # @param [Product] product
         # @return [Symbol]
         def product_vote(product)
-          @votes
-            .fetch(product, [])
-            .reduce(:allowed) { |acc, v| Models::ProductApplicationVote.vote_reducer(acc, v.vote) }
+          maaid_for(product)
+            .cata(
+              none: ->{ :unknown },
+              some: ->(maaid) { @votes.fetch(maaid, []).reduce(:allowed) { |acc, v| Models::ProductApplicationVote.vote_reducer(acc, v.vote) } }
+            )
         end
 
         # @param [Array<Result>] others
@@ -61,14 +69,24 @@ module Interventions
         # @option [String, nil] message
         # @option [Symbol, nil] on
         def add_vote(product, status:, message: nil, on: nil)
-          vote = Models::ProductApplicationVote.new(status, message, on || :product)
+          maaid_for(product).fmap do |maaid|
+            vote = Models::ProductApplicationVote.new(status, message, on || :product)
 
-          if votes.key?(product)
-            votes[product] << vote
-          else
-            votes[product] = [vote]
+            if votes.key?(maaid)
+              votes[maaid] << vote
+            else
+              votes[maaid] = [vote]
+            end
           end
         end
+
+        private
+
+          # @param [Product] product
+          # @return [Maybe<String>]
+          def maaid_for(product)
+            Maybe(product.phytosanitary_product&.france_maaid)
+          end
       end
     end
   end

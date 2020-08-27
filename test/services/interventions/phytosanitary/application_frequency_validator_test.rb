@@ -6,8 +6,8 @@ module Interventions
       test "if no targets, all products should be marked as unknown" do
         validator = Interventions::Phytosanitary::ApplicationFrequencyValidator.new(targets_and_shape: [])
 
-        product = Product.new
-        product_usages = [Models::ProductWithUsage.new(product, RegisteredPhytosanitaryProduct.new, RegisteredPhytosanitaryUsage.new, 0, nil)]
+        product = { phytosanitary_product: { france_maaid: "qzdqzd" }.to_struct }.to_struct
+        product_usages = [Models::ProductWithUsage.new(product, RegisteredPhytosanitaryProduct.new, RegisteredPhytosanitaryUsage.new, nil, nil)]
         result = validator.validate(product_usages)
 
         assert_equal :unknown, result.product_vote(product)
