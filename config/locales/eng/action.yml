@@ -2269,7 +2269,7 @@ eng:
     long_cycle_alive_products_wine: "Long cycle alive products wine"
     loss_is_x_for_account: "<span class='loss'> Loss of %{x} </span> to account for the account %{account_number}"
     losses: "Losses"
-    # maaid_not_provided: "Maaid not provided"
+    maaid_not_provided: "Maaid not provided"
     mail: "Send an email"
     mailing: "Mailing"
     mails:

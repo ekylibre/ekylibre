@@ -17,8 +17,8 @@ module Interventions
         validator = ::Interventions::Phytosanitary::NonTreatmentAreasValidator.new(targets_and_shape: targets_and_shape)
         result = validator.validate(products_usages)
 
-        assert result.votes.has_key?(product)
-        assert_includes result.votes[product].map { |v| [v.vote, v.message] }, [:forbidden, :working_zone_overlaps_nta.tl]
+        assert_equal :forbidden, result.product_vote(product)
+        assert_equal [:working_zone_overlaps_nta.tl], result.product_messages(product)
         assert_empty RegisteredHydroItem.buffer_intersecting(1, shape)
       end
     end

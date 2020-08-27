@@ -3,12 +3,43 @@ require 'test_helper'
 module Interventions
   module Phytosanitary
     class MaxApplicationValidatorTest < Ekylibre::Testing::ApplicationTestCase
+
+      class ProductMock
+        def id
+          1199
+        end
+
+        def name
+          'Delfin Jardin'
+        end
+
+        def phytosanitary_product
+          PhytoProductMock.new
+        end
+
+      end
+
+      class UsageMock
+        attr_accessor :applications_count, :applications_frequency
+
+        def initialize(applications_count:, applications_frequency:)
+          @applications_count = applications_count
+          @applications_frequency = applications_frequency
+        end
+      end
+
+      class PhytoProductMock
+        def france_maaid
+          '2030175'
+        end
+      end
+
       test 'vaidate product_usages' do
         validator = MaxApplicationValidator.new(targets_and_shape: [Models::TargetAndShape.new(nil, nil)], intervention_stopped_at: DateTime.new(2001, 2, 3, 4, 5, 6))
         product_usage = Models::ProductWithUsage.new(
-          Product.new,
+          ProductMock.new,
           InterventionParameter::LoggedPhytosanitaryProduct.new,
-          RegisteredPhytosanitaryUsage.new(applications_count: 1, applications_frequency: 'P4D'),
+          UsageMock.new(applications_count: 1, applications_frequency: 'P4D'),
           nil,
           nil
         )
@@ -30,9 +61,9 @@ module Interventions
         )
 
         product_usage = Models::ProductWithUsage.new(
-          Product.new,
+          ProductMock.new,
           InterventionParameter::LoggedPhytosanitaryProduct.new,
-          RegisteredPhytosanitaryUsage.new(applications_count: 1),
+          UsageMock.new(applications_count: 1, applications_frequency: nil),
           nil,
           nil
         )
@@ -58,9 +89,9 @@ module Interventions
         )
 
         product_usage = Models::ProductWithUsage.new(
-          Product.new,
+          ProductMock.new,
           InterventionParameter::LoggedPhytosanitaryProduct.new,
-          RegisteredPhytosanitaryUsage.new(applications_count: 1),
+          UsageMock.new(applications_count: 1, applications_frequency: nil),
           nil,
           nil
         )
