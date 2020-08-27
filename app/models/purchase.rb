@@ -80,7 +80,7 @@ class Purchase < Ekylibre::Record::Base
   has_many :fixed_assets, through: :items
   has_one :supplier_payment_mode, through: :supplier
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, :confirmed_at, :estimate_reception_date, :invoiced_at, :ordered_at, :payment_at, :planned_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :accounted_at, :confirmed_at, :estimate_reception_date, :invoiced_at, :ordered_at, :payment_at, :planned_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :amount, :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :command_mode, :reference_number, length: { maximum: 500 }, allow_blank: true
   validates :currency, :payee, :supplier, :tax_payability, presence: true

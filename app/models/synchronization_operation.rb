@@ -43,7 +43,7 @@ class SynchronizationOperation < Ekylibre::Record::Base
   enumerize :operation_name, in: %i[get_inventory authenticate get_urls], predicates: true
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :finished_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :finished_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :operation_name, :state, presence: true
   validates :originator_type, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]

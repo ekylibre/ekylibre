@@ -55,7 +55,7 @@ class PlantCounting < Ekylibre::Record::Base
   validates :average_value, :working_width_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :comment, length: { maximum: 500_000 }, allow_blank: true
   validates :number, length: { maximum: 500 }, allow_blank: true
-  validates :read_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :read_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :rows_count_value, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :plant, :plant_density_abacus, :plant_density_abacus_item, presence: true
   # ]VALIDATORS]

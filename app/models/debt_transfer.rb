@@ -52,7 +52,7 @@ class DebtTransfer < Ekylibre::Record::Base
   belongs_to :debt_transfer_affair, class_name: 'Affair', inverse_of: :debt_regularizations
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :currency, presence: true, length: { maximum: 500 }
   validates :affair, :debt_transfer_affair, :nature, presence: true

@@ -41,7 +41,7 @@ class Prescription < Ekylibre::Record::Base
   belongs_to :prescriptor, class_name: 'Entity'
   has_many :interventions
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :delivered_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :delivered_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :reference_number, length: { maximum: 500 }, allow_blank: true
   validates :prescriptor, presence: true

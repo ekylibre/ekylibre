@@ -51,7 +51,7 @@ class Crumb < Ekylibre::Record::Base
   validates :device_uid, presence: true, length: { maximum: 500 }
   validates :geolocation, :nature, presence: true
   validates :metadata, length: { maximum: 500_000 }, allow_blank: true
-  validates :read_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :read_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
   # ]VALIDATORS]
   serialize :metadata, Hash
 

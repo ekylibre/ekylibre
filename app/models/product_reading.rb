@@ -61,7 +61,7 @@ class ProductReading < Ekylibre::Record::Base
   validates :boolean_value, inclusion: { in: [true, false] }
   validates :indicator_datatype, :indicator_name, :product, presence: true
   validates :integer_value, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
-  validates :read_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :read_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
   validates :string_value, length: { maximum: 500_000 }, allow_blank: true
   # ]VALIDATORS]
 

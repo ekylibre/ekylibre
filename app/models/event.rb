@@ -57,8 +57,8 @@ class Event < Ekylibre::Record::Base
   validates :nature, presence: true
   validates :place, length: { maximum: 500 }, allow_blank: true
   validates :restricted, inclusion: { in: [true, false] }
-  validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates :stopped_at, timeliness: { on_or_after: ->(event) { event.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
+  validates :stopped_at, timeliness: { on_or_after: ->(event) { event.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   # ]VALIDATORS]
   validates :nature, inclusion: { in: nature.values }
   validates :stopped_at, presence: true

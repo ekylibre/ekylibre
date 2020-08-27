@@ -49,7 +49,7 @@ class Tracking < Ekylibre::Record::Base
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
   validates :serial, length: { maximum: 500 }, allow_blank: true
-  validates :usage_limit_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }, type: :date }, allow_blank: true
+  validates :usage_limit_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years }, type: :date }, allow_blank: true
   # ]VALIDATORS]
   validates :usage_limit_on, presence: { unless: :no_limit? }
 
