@@ -12,7 +12,7 @@ function modalTemplate(id: string, size: ModalSize) {
                 <div class="modal-content">
                     <div class="modal-header modal-header-generic">
                         <button class="close" data-dismiss="modal">
-                            <i class="icon icon-destroy"></i>
+                            <span><i class="icon icon-destroy"></i></span>
                         </button>
                         <b class="modal-title"></b>
                     </div>

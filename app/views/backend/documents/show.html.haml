@@ -25,7 +25,8 @@
           .modal-content
             .modal-header.modal-header-generic
               %button.close{ data: { dismiss: 'modal' }, 'aria-label': 'Close', type: 'button' }
-                %i.icon.icon-destroy{ 'aria-hidden': 'true' }
+                %span
+                  %i.icon.icon-destroy{ 'aria-hidden': 'true' }
               %b.modal-title= :electronic_signature.tl
             .modal-signature-infos
               = field_set(:fingerprint_sha256.tl) do

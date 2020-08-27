@@ -1042,10 +1042,10 @@ module ApplicationHelper
     title_id = options[:title_id] || title.parameterize.underscore.camelcase(:lower)
     content_tag(:div, class: 'modal-header modal-header-generic') do
       if options[:close_button].is_a? FalseClass
-        content_tag(:h4, title, class: 'modal-title', id: title_id)
+        content_tag(:b, title, class: 'modal-title', id: title_id)
       else
 
-        title = content_tag(:h4, title, class: 'modal-title', id: title_id)
+        title = content_tag(:b, title, class: 'modal-title', id: title_id)
 
         close_button = button_tag({ class: 'close', aria: { label: :close.tl }, data: { dismiss: 'modal' }, type: 'button' }.deep_merge(options[:close_html] || {})) do
           content_tag(:span, aria: { hidden: 'true' }) do
