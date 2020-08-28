@@ -744,6 +744,7 @@ ita:
     # format: "%{message}"
     front-end: #?
       leaflet: #?
+        interactive_maps: "Una libreria JS per mappe interattive"
         draw: #?
           handlers: #?
             circle: #?
@@ -1704,7 +1705,6 @@ ita:
     input_cost_per_hectare: "costo di ingresso per ettaro" #?
     inputs: "ingressi"
     inspections: "ispezioni"
-    interactive_maps: "Una libreria JS per mappe interattive"
     interface_preferences: "Preferenze di interfaccia"
     internal_error: "Ops, qualcosa è successo."
     interval: "Intervallo personalizzato"

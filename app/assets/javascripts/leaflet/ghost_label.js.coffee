@@ -1,17 +1,18 @@
 ###
-# Extend L.Label to provide a label on centroid, calculated from a L.Latlng[]
+# Extend L.Tooltip to provide a label on centroid, calculated from a L.Latlng[]
 # options:
 #   toBack {boolean} if true, label is set to objectsPane, allowing to be covered by higher level pane
 #   opacity: {string} ([0..1] | 'inherit') inherit allows to use opacity in your class. Default: 'inherit'
  ###
-L.GhostLabel = L.Label.extend
-  __initialize: L.Label::initialize
-  _onAdd: L.Label.prototype.onAdd
-  __updateContent: L.Label.prototype._updateContent
-  __setOpacity: L.Label::setOpacity
+L.GhostLabel = L.Tooltip.extend
+  __initialize: L.Tooltip::initialize
+  _onAdd: L.Tooltip.prototype.onAdd
+  __setOpacity: L.Tooltip::setOpacity
 
   initialize: (options, source) ->
     options.opacity ||= 'inherit'
+    options.direction ||= 'center'
+    options.permanent ||= 'true'
 
     @__initialize.apply @, arguments
 
@@ -29,17 +30,15 @@ L.GhostLabel = L.Label.extend
     @options.noHide = true
 
     if @options.toBack
+      unless map.getPane('objectsPane')
+        map.createPane('objectsPane').style.zIndex = 300
       @options.pane = 'objectsPane'
+
 
     @_onAdd.apply this, arguments
 
     map.on 'zoomend', @_onZoomEnd, @
 
-    if @options.toBack
-      # ZIndex 3 is default index of objectsPane
-      @updateZIndex '3'
-
-      @_updatePosition()
     return
 
   setOpacity: (opacity) ->
@@ -60,27 +59,11 @@ L.GhostLabel = L.Label.extend
 
     @_latlng
 
+  updateZIndex: (zIndex)->
+    @_zIndex = zIndex
 
-  ###
-  # Override to set position on pos, considering label center
-   ###
-  _setPosition: (pos) ->
-    map = @_map
-    container = @_container
-    labelWidth = @_labelWidth
-    labelHeight = @_labelHeight || 0
-
-    pos = pos.add(L.point(-labelWidth/2, -labelHeight/2))
-    L.DomUtil.setPosition container, pos
-    return
-
-  ###
-  #  Override to set position on pos, considering label center
-   ###
-  _updateContent: ->
-    @__updateContent.call this
-    @_labelHeight = @_container.offsetHeight if @_container
-
+    if (@_container && @._zIndex)
+      @_container.style.zIndex = zIndex
 
 L.extendedMethods =
   # Allow to be updated
@@ -88,12 +71,13 @@ L.extendedMethods =
 
     if !@label
       @label = object
+      @_tooltip = object
 
-    if !@_showLabelAdded
-      @on 'remove', @_hideLabel, @
-
-    @_showLabelAdded = true
     return
+  
+  updateLabelContent: (content) ->
+    if @label
+      @setTooltipContent(content)
 
 L.Polygon.include L.extendedMethods
 L.FeatureGroup.include L.extendedMethods

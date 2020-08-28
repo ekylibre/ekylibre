@@ -956,11 +956,15 @@ fra:
       create_modal:
         title: "Choisir une activité"
     leaflet:
+      interactive_maps: "Une librairie JavaScript pour des cartes interactives"
       draw:
         handlers:
           circle:
             tooltip:
               start: "Cliquez et déplacez pour dessiner un cercle."
+          circlemarker:
+            tooltip:
+              start: "Cliquez et déplacez pour dessiner un marqueur circulaire."    
           marker:
             tooltip:
               start: "Cliquez sur la carte pour placer un marqueur."
@@ -1014,6 +1018,9 @@ fra:
             save:
               text: "Sauver"
               title: "Sauvegardez les changements"
+            clearAll:
+              text: "Supprimer"
+              title: "Supprimer toutes les couches"
           buttons:
             edit: "Editer les couches"
             editDisabled: "Pas de couches à éditer"
@@ -1998,7 +2005,6 @@ fra:
     insert_actual_password: "Saisissez votre mot de passe actuel" #?
     insert_password: "Saisissez votre nouveau mot de passe" #?
     inspections: "Agréages"
-    interactive_maps: "Une librairie JavaScript pour des cartes interactives"
     interface_preferences: "Préférences de l’interface"
     internal_error: "Oups, quelque chose s’est mal passé."
     interval: " personnalisé"

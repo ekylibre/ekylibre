@@ -14,6 +14,9 @@ import { delegateListener, onDomReady, onElementDetected } from 'lib/domEventUti
 import autosize from 'autosize/dist/autosize';
 import { openDialog } from 'components/dialog';
 import _ from 'lodash';
+import L from 'leaflet';
+import 'leaflet-draw';
+import 'lib/leaflet/default-icon';
 
 export let Ekylibre = {
     ajax,
@@ -49,4 +52,5 @@ export let vendors = {
     I18n,
     moment,
     RBush,
+    L,
 };

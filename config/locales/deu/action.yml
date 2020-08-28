@@ -822,6 +822,7 @@ deu:
         # harvest: "Harvest:"
         # reentry: "Reentry:"
     leaflet:
+      interactive_maps: "Eine JS-Bibliothek für interaktive Karten"
       draw:
         handlers:
           circle:
@@ -1638,7 +1639,6 @@ deu:
     input_cost_per_hectare: "Inputkosten pro Hektar" #?
     inputs: "Eingänge"
     inspections: "Inspektionen"
-    interactive_maps: "Eine JS-Bibliothek für interaktive Karten"
     interface_preferences: "Interface-Einstellungen"
     internal_error: "Hoppla, was passiert ist."
     interval: "Personalisierte Interval"

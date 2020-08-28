@@ -827,6 +827,7 @@ por:
         # harvest: "Harvest:"
         # reentry: "Reentry:"
     leaflet:
+      interactive_maps: "Uma biblioteca JS para mapas interativos"
       draw:
         handlers:
           circle:
@@ -1643,7 +1644,6 @@ por:
     input_cost_per_hectare: "Custo de insumos por hectare" #?
     inputs: "Entradas"
     inspections: "inspeções"
-    interactive_maps: "Uma biblioteca JS para mapas interativos"
     interface_preferences: "Preferências de interface"
     internal_error: "Opa, algo aconteceu."
     interval: "Intervalo personalizado"

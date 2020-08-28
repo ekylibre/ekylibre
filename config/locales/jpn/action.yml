@@ -744,6 +744,7 @@ jpn:
     # format: "%{message}"
     front-end: #?
       leaflet: #?
+        interactive_maps: "インタラクティブマップ用のJSライブラリ"
         draw: #?
           handlers: #?
             circle: #?
@@ -1706,7 +1707,6 @@ jpn:
     input_cost_per_hectare: "ヘクタール当たりの入力コスト" #?
     inputs: "入力"
     inspections: "検査"
-    interactive_maps: "インタラクティブマップ用のJSライブラリ"
     interface_preferences: "インターフェースのプリファレンス"
     internal_error: "おっと、何かが起こりました。"
     interval: "パーソナライズされた間隔"

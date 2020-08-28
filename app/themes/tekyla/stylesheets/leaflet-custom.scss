@@ -1,0 +1,195 @@
+@import "leaflet/modal";
+@import "leaflet/easy-button";
+@import "leaflet/fullscreen";
+@import "leaflet/tooltip";
+
+// leaflet control layers must be over leaflet legend control
+.leaflet-top {
+  z-index: 1100;
+}
+
+.map {
+  z-index: 1;
+}
+
+.leaflet-container {
+  font: $fs-small/$lh-small $base-font-family;
+}
+
+.leaflet-bar {
+  a {
+    @include is-icon;
+    color: $active-link-color;
+  }
+}
+
+/* zoom control */
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+  @include text-align(center);
+}
+
+.leaflet-control-zoom-in {
+  @include use-icon(plus);
+}
+
+.leaflet-control-zoom-out {
+  @include use-icon(minus);
+}
+
+.leaflet-control-zoom-fullscreen {
+  @include use-icon(arrows-alt);
+}
+
+/* layers control */
+
+.leaflet-control-layers {
+  .leaflet-control-layers-toggle {
+    color: $active-link-color;
+    @include is-icon;
+    @include use-icon(layers);
+    @include text-align(center);
+    width: $map-button-size;
+    height: $map-button-size;
+    line-height: $map-button-size;
+  }
+}
+
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 0px;
+}
+
+.leaflet-popup {
+  .leaflet-popup-content-wrapper {
+    background: white;
+    border: none;
+    .leaflet-popup-content {
+      .popup-header {
+        .popup-block-content {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+      .popup-content,
+      .popup-header,
+      .popup-footer {
+        padding: $default-gap 2 * $default-gap;
+      }
+      .popup-header,
+      .popup-footer {
+        background-color: $popover-title-bg;
+      }
+      .popup-content {
+        .popup-block-label {
+          display: block;
+          @include legend-label;
+        }
+        &:last-child {
+          padding-bottom: 2 * $default-gap;
+        }
+      }
+    }
+  }
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 0px;
+}
+
+.leaflet-popup-content {
+  margin: unset;
+  line-height: unset;
+  p {
+    margin: unset;
+  }
+}
+
+.leaflet-popup {
+  .leaflet-container & a.leaflet-popup-close-button {
+    $size: 18px;
+    $padding: round($default-gap * 0.4);
+    @include menu-box;
+    position: absolute;
+    top: -1 * round(($size + $padding) / 2);
+    right: -1 * round(($size + $padding) / 2);
+    padding: $padding;
+    @include border-radius(50%);
+    @include text-align(center);
+    width: $size;
+    height: $size;
+    font-size: $size;
+    line-height: $size;
+    text-decoration: none;
+    font-weight: bold;
+  }
+}
+
+/* ================================================================== */
+/* Draw toolbar
+  /* ================================================================== */
+
+.leaflet-draw-toolbar {
+  .leaflet-draw-draw-polyline {
+    @include use-icon(angle-down);
+  }
+  .leaflet-draw-draw-polygon {
+    @include use-icon(star-o);
+  }
+  .leaflet-draw-draw-rectangle {
+    @include use-icon(square-o);
+  }
+  .leaflet-draw-draw-circle {
+    @include use-icon(circle-thin);
+  }
+  .leaflet-draw-draw-marker {
+    @include use-icon(map-marker);
+  }
+  .leaflet-draw-edit-edit {
+    @include use-icon(edit);
+  }
+  .leaflet-draw-edit-remove {
+    @include use-icon(times);
+  }
+}
+
+// custom edit/draw marker
+.leaflet-div-icon,
+.leaflet-mouse-marker {
+  /*background: #fff;*/
+  border: 1px solid rgb(44, 83, 158);
+  border-radius: 50%;
+  background: rgb(255, 255, 255); /* Old browsers */
+  background: -moz-radial-gradient(
+    center,
+    ellipse cover,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(246, 246, 246, 1) 47%,
+    rgba(237, 237, 237, 1) 100%
+  ); /* FF3.6-15 */
+  background: -webkit-radial-gradient(
+    center,
+    ellipse cover,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(246, 246, 246, 1) 47%,
+    rgba(237, 237, 237, 1) 100%
+  ); /* Chrome10-25,Safari5.1-6 */
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(246, 246, 246, 1) 47%,
+    rgba(237, 237, 237, 1) 100%
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+  margin-left: -8px !important;
+  margin-top: -8px !important;
+  width: 16px !important;
+  height: 16px !important;
+  box-sizing: border-box;
+}

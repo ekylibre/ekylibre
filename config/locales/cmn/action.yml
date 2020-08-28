@@ -822,6 +822,7 @@ cmn:
         # harvest: "Harvest:"
         # reentry: "Reentry:"
     leaflet:
+      interactive_maps: "一个用于交互式地图的JS库"
       draw:
         handlers:
           circle:
@@ -1638,7 +1639,6 @@ cmn:
     input_cost_per_hectare: "每公顷投入成本" #?
     inputs: "输入"
     inspections: "检查"
-    interactive_maps: "一个用于交互式地图的JS库"
     interface_preferences: "界面首"
     internal_error: "哎呀，事情发生了。"
     interval: "个性化间隔"
