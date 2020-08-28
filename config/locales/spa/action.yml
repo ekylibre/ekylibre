@@ -860,6 +860,7 @@ spa:
         # harvest: "Harvest:"
         # reentry: "Reentry:"
     leaflet:
+      interactive_maps: "Una biblioteca JS para mapas interactivos"
       draw:
         handlers:
           circle:
@@ -1765,7 +1766,6 @@ spa:
     insert_actual_password: "Coja su contraseña actual" #?
     insert_password: "Coja su nueva contraseña" #?
     inspections: "inspecciones"
-    interactive_maps: "Una biblioteca JS para mapas interactivos"
     interface_preferences: "Preferencias de la interfaz"
     internal_error: "Vaya, algo sucedió."
     international_normal_vat_collected: "Tasa normal a 8,5%" #?

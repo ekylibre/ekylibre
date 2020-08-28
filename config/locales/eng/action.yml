@@ -1284,11 +1284,15 @@ eng:
         create_modal:
           title: "Choose an activity"
     leaflet:
+      interactive_maps: "A JS library for interactive maps"
       draw:
         handlers:
           circle:
             tooltip:
               start: "Click and drag to draw circle."
+          circlemarker:
+            tooltip:
+              start: "Click and drag to draw circlemarker."
           marker:
             tooltip:
               start: "Click map to place marker."
@@ -1339,6 +1343,9 @@ eng:
             save:
               text: "Save"
               title: "Save changes"
+            clearAll:
+              text: "Clear All"
+              title: "Clear all layers"
           buttons:
             edit: "Edit layers"
             editDisabled: "No layers to edit"
@@ -2147,7 +2154,6 @@ eng:
     input_cost: "Input cost"
     inputs: "Inputs"
     inspections: "Inspections"
-    interactive_maps: "A JS library for interactive maps"
     interface_preferences: "Interface preferences"
     internal_error: "Oops, something happened."
     interval: "Personalized interval"

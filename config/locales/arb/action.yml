@@ -1057,6 +1057,7 @@ arb:
         # harvest: "Harvest:"
         # reentry: "Reentry:"
     leaflet:
+      interactive_maps: "مكتبة جس للخرائط التفاعلية"
       draw:
         handlers:
           circle:
@@ -2026,7 +2027,6 @@ arb:
     insert_actual_password: "أدخل كلمة المرور الحالية" #?
     insert_password: "أدخل كلمة المرور الجديدة" #?
     inspections: "عمليات التفتيش"
-    interactive_maps: "مكتبة جس للخرائط التفاعلية"
     interface_preferences: "تفضيلات واجهة"
     internal_error: "عفوا، حدث شيء ما."
     international_normal_vat_collected: "معدل ضريبة القيمة المضافة الدولية العادية %8.5" #?

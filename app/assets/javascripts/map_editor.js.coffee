@@ -118,8 +118,10 @@
             polyline: false
             rectangle: false
             circle: false
+            circlemarker: false
             polygon:
               allowIntersection: false
+              allowOverlap: true
               showArea: false
             reactiveMeasure: true
         zoom:
@@ -170,6 +172,7 @@
       this.map = L.map(this.mapElement[0],
         zoomControl: false
         attributionControl: true
+        drawControlTooltips: false
       )
 
       @controls = {}
@@ -961,8 +964,8 @@
           if level?
             this.edition.eachLayer (layer) =>
               if parseInt(layer.feature.properties.level) == level
-                shape = $(layer._container)
-                label = $(layer.label._container)
+                shape = $(layer.getElement())
+                label = $(layer.label.getElement())
                 shape.toggle()
                 label.toggle()
                 $(e.currentTarget).children('i').toggleClass('active')
@@ -988,23 +991,30 @@
         selector = @layerSelector || new L.Control.Layers()
 
         if @ghost? and @ghost.getLayers().length
+          @_removeFromLayerControl(@ghost)
           selector.addOverlay(@ghost, @options.overlaySelector.ghostLayer)
           @layersScheduler.insert @ghost._leaflet_id, back: true
 
         if @reference? and @reference.getLayers().length > 0
+          @_removeFromLayerControl(@reference)
           selector.addOverlay(@reference, @options.overlaySelector.referenceLayer)
           @layersScheduler.insert @reference._leaflet_id
 
 
         if @seriesReferencesLayers?
           for label, layer of @seriesReferencesLayers
+            @_removeFromLayerControl(layer)
             selector.addOverlay(layer, label)
             @layersScheduler.insert layer._leaflet_id
 
         if @edition? and @edition.getLayers().length > 0
+          @_removeFromLayerControl(@edition)
           selector.addOverlay(@edition, @options.overlaySelector.editionLayer)
           @layersScheduler.insert @edition._leaflet_id
 
+    _removeFromLayerControl: (layer)->
+      if @layerSelector._layers.filter((clItem) -> clItem.overlay).map((clItem) -> clItem.layer).includes(layer)
+        @layerSelector.removeLayer(layer)
 
     _saveUpdates: ->
       if this.edition?

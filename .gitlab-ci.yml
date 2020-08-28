@@ -157,6 +157,7 @@ eslint:
   variables:
     GIT_DEPTH: 1
   script:
+    - apk add git
     - yarn
     - yarn eslint .
 

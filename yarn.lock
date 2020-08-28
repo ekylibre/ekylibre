@@ -3262,6 +3262,11 @@ gaze@^1.0.0:
   dependencies:
     globule "^1.0.0"
 
+geographiclib@^1.49.0:
+  version "1.50.0"
+  resolved "https://registry.yarnpkg.com/geographiclib/-/geographiclib-1.50.0.tgz#6751532492cf2bae600baa24dc941bd459d2ac61"
+  integrity sha512-7cVNdWTMuDbj0GQyg5DRAH2w/NGVeIFNmgT//Yi1IuPpWP0aib1T3T8sduIAtpVBe9OLSlRvK0i71OrQg5StFA==
+
 get-caller-file@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-1.0.3.tgz#f978fa4c90d1dfe7ff2d6beda2a515e713bdcf4a"
@@ -4279,6 +4284,42 @@ lcid@^2.0.0:
   integrity sha512-avPEb8P8EGnwXKClwsNUgryVjllcRqtMYa49NTsbQagYuT1DcXnl1915oxWjoyGrXR6zH/Y0Zc96xWsPcoDKeA==
   dependencies:
     invert-kv "^2.0.0"
+
+leaflet-draw@0.4.12:
+  version "0.4.12"
+  resolved "https://registry.yarnpkg.com/leaflet-draw/-/leaflet-draw-0.4.12.tgz#04c9f3506e3b3a8a488ad389381331dc5b2affd8"
+  integrity sha512-vvgJo9jt54ETssDZKni1hue3INU/yf/zJ6ewAshScQRLaLWQ10mWeZVtPkhk8KmxWffeOQk6keN0QoB/0W56hg==
+
+leaflet-draw@^0.4.12:
+  version "0.4.14"
+  resolved "https://registry.yarnpkg.com/leaflet-draw/-/leaflet-draw-0.4.14.tgz#1b5b06d570873a015aa96b80d664dab496c45a4a"
+  integrity sha512-O99KSPjyHNMDE+uD/fpdPydvQfTE8QruaG7ylEEtKCIaSSb60mCWoDdGUqGEHU9PGPu2JxbEfkGTXY9eYv7aEw==
+
+"leaflet-geographicutil@git+https://github.com/ekylibre/Leaflet.GeographicUtil.git":
+  version "0.0.1"
+  resolved "git+https://github.com/ekylibre/Leaflet.GeographicUtil.git#c2a7777155c8b16d1d350ff849fe8e687863f319"
+  dependencies:
+    geographiclib "^1.49.0"
+    leaflet "^1.2.0"
+
+"leaflet-reactive_measure@https://github.com/ekylibre/Leaflet.ReactiveMeasure":
+  version "0.1.2"
+  resolved "https://github.com/ekylibre/Leaflet.ReactiveMeasure#4dcc58605f91637e2251c9a585891c527e7eb9c0"
+  dependencies:
+    geographiclib "^1.49.0"
+    leaflet "^1.2.0"
+    leaflet-draw "^0.4.12"
+    leaflet-geographicutil "git+https://github.com/ekylibre/Leaflet.GeographicUtil.git"
+
+leaflet@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.2.0.tgz#fd5d93d9cb00091f5f8a69206d0d6744c1c82697"
+  integrity sha512-Bold8phAE6WcRsuwhofrQ7cOK1REFHaYIkKuj7+TBYK3ONKRpGGIb5oXR5akYotFnrWN0TWKh6Svlhflm3dogg==
+
+leaflet@^1.2.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.6.0.tgz#aecbb044b949ec29469eeb31c77a88e2f448f308"
+  integrity sha512-CPkhyqWUKZKFJ6K8umN5/D2wrJ2+/8UIpXppY7QDnUZW5bZL5+SEI2J7GBpwh4LIupOKqbNSQXgqmrEJopHVNQ==
 
 levn@^0.4.1:
   version "0.4.1"
