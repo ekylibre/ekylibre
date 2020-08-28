@@ -8,6 +8,20 @@ Bundler.require(*Rails.groups)
 
 module Ekylibre
   class Application < Rails::Application
+    # @return [Array<Ekylibre::Plugin::Base>]
+    attr_reader :plugins
+
+    def initialize(*args, **opts, &block)
+      super
+
+      @plugins = []
+    end
+
+    # @return [Array<Ekylibre::Plugin::Theme>]
+    def themes
+      plugins.flat_map(&:themes).map { |name| Ekylibre::Plugin::Theme.new(name) }
+    end
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -17,25 +31,15 @@ module Ekylibre
 
     # We want to use the structure.sql file
     config.active_record.schema_format = :sql
+    # Do not swallow errors in after_commit/after_rollback callbacks.
+    config.active_record.raise_in_transactional_callbacks = true
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'
 
-    # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-    # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    # config.i18n.default_locale = :de
-    config.i18n.available_locales = %i[eng fra]
-    I18n.config.enforce_available_locales = false
-    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
-    config.i18n.default_locale = :eng
-    config.i18n.locale = :eng
-
     # Confiure ActiveJob queue adapter
     config.active_job.queue_adapter = :sidekiq
-
-    # Do not swallow errors in after_commit/after_rollback callbacks.
-    config.active_record.raise_in_transactional_callbacks = true
 
     # Configure defaults for generators
     config.generators do |g|
@@ -55,13 +59,8 @@ module Ekylibre
 
     config.middleware.insert_after ActionDispatch::ParamsParser, ActionDispatch::XmlParamsParser
 
-    # Configure layouts for devise
-    config.to_prepare do
-      Devise::SessionsController.layout 'authentication'
-      Devise::RegistrationsController.layout proc { |_controller| user_signed_in? ? 'backend' : 'authentication' }
-      Devise::ConfirmationsController.layout 'authentication'
-      Devise::UnlocksController.layout 'authentication'
-      Devise::PasswordsController.layout 'authentication'
+    initializer :register_core_plugin, before: :load_config_initializers do
+      Ekylibre::Application.instance.plugins << Ekylibre::Core::Plugin.new
     end
 
     initializer :after_append_asset_paths, group: :all, after: :append_assets_path do

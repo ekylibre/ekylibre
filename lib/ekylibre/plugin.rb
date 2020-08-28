@@ -8,9 +8,9 @@ module Ekylibre
     @registered_plugins = {}
 
     cattr_accessor :directory, :mirrored_assets_directory
-    self.directory = Ekylibre.root.join('plugins')
+    self.directory = Rails.root.join('plugins')
     # Where the plugins assets are gathered for asset pipeline
-    self.mirrored_assets_directory = Ekylibre.root.join('tmp', 'plugins', 'assets')
+    self.mirrored_assets_directory = Rails.root.join('tmp', 'plugins', 'assets')
 
     # Returns a type (stylesheets, fonts...) directory for all plugins
     def self.type_assets_directory(type)
