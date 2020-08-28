@@ -27,8 +27,6 @@
         <attribute name="usage_id"/>
         <attribute name="allowed_entry_factor"/>
         <attribute name="allowed_harvest_factor"/>
-        <attribute name="spray_volume"/>
-        <attribute name="treatment_type"/>
       </input>
       <doer name="driver"  filter="can drive(tractor) and can move" cardinality="*"/>
       <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
