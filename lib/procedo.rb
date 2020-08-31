@@ -23,7 +23,7 @@ module Procedo
 
   class << self
     def registry
-      @registry ||= ::Procedo::ProcedureRegistry.new
+      Ekylibre::Application.instance.procedo_registry
     end
 
     def procedures

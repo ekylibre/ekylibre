@@ -17,6 +17,11 @@ module Ekylibre
       @plugins = []
     end
 
+    # @return [Procedo::ProcedureRegistry]
+    def procedo_registry
+      @procedo_registry ||= Procedo::ProcedureRegistry.new
+    end
+
     # @return [Array<Ekylibre::Plugin::Theme>]
     def themes
       plugins.flat_map(&:themes).map { |name| Ekylibre::Plugin::Theme.new(name) }
