@@ -24,7 +24,7 @@ module Backend
 
     list do |t|
       t.action :destroy, if: :destroyable?
-      t.action :export_to_sepa, method: :get, if: :sepa?
+      t.action :export_to_sepa, method: :get, if: :sepa_exportable?
       t.column :number, url: true
       t.column :created_at
       t.column :mode

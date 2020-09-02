@@ -3,7 +3,7 @@
   = dropdown_menu_button(:export.ta, icon: :download) do |d|
     - d.item :standard.tl, nature: 'standard', format: :pdf
     - d.item :check_letter.tl, nature: 'check_letter', format: :pdf
-  = t.export_to_sepa resource if resource.sepa?
+  = t.export_to_sepa resource if resource.sepa_exportable?
 
 = main_informations do
   = attributes_list do |l|
