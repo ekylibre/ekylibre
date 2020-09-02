@@ -55,10 +55,14 @@ class OutgoingPaymentList < Ekylibre::Record::Base
     payments.joins(journal_entry: :items).where('LENGTH(TRIM(journal_entry_items.bank_statement_letter)) > 0 OR journal_entry_items.state = ?', :closed).exists?
   end
 
+  def sepa_exportable?
+    sepa? && payments.any?
+  end
+
   def to_sepa
     sct = SEPA::CreditTransfer.new(
       name: mode.cash.bank_account_holder_name.truncate(70, omission: ''),
-      bic: mode.cash.bank_identifier_code || 'NOTPROVIDED',
+      bic: mode.cash.bank_identifier_code.presence || 'NOTPROVIDED',
       iban: mode.cash.iban
     )
 
