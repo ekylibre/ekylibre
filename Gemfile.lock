@@ -188,8 +188,6 @@ GEM
       devise (>= 4.0.0)
     did_you_mean (0.10.0)
       interception
-    dl (1.2.4)
-      trollop
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.7.6)
@@ -568,7 +566,6 @@ GEM
     timeliness (0.4.4)
     treetop (1.6.10)
       polyglot (~> 0.3)
-    trollop (2.9.10)
     ttfunk (1.5.1)
     turbolinks (2.5.4)
       coffee-rails
@@ -655,7 +652,6 @@ DEPENDENCIES
   devise-i18n-views
   devise_invitable
   did_you_mean (~> 0.9)
-  dl
   dotenv
   draper
   ekylibre-ofx-parser
