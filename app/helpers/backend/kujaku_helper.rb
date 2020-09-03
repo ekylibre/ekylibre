@@ -85,13 +85,13 @@ module Backend
 
         def vars
           p = @template.current_user.pref("kujaku.feathers.#{@uid}.default", @template.params[@name])
-          value = @template.params[@name] || p.value
-          p.set!(value)
+          @template.params[@name] ||= p.value
+          p.set!(@template.params[@name])
 
           {
             label: @options[:label] || :search.tl,
             name: @name,
-            name_value: value,
+            name_value: @template.params[@name],
             preference: @template.current_user.pref("kujaku.feathers.#{@uid}.default", @template.params[@name])
           }
         end
