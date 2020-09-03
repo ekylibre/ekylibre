@@ -82,6 +82,10 @@ class DebtTransfer < Ekylibre::Record::Base
                     end
   end
 
+  before_validation do
+    self.accounted_at ||= Time.zone.now
+  end
+
   before_destroy do
     DebtTransfer.where(
       affair: debt_transfer_affair,
@@ -120,6 +124,7 @@ class DebtTransfer < Ekylibre::Record::Base
 
     def create_reflection(record)
       new(
+        accounted_at: record.accounted_at,
         affair: record.debt_transfer_affair,
         debt_transfer_affair: record.affair,
         currency: record.currency,
@@ -141,7 +146,7 @@ class DebtTransfer < Ekylibre::Record::Base
     # TODO: refactor
     if purchase_regularization?
       # Debit on supplier account + credit on regularization account
-      b.journal_entry(debt_transfer_affair.journal_entry ? debt_transfer_affair.journal_entry.journal : debt_transfer_affair.originator.journal_entry.journal, printed_on: created_at.to_date, if: (debt_transfer_affair.unbalanced? && affair.unbalanced? && debt_transfer_affair.deals_count > 0)) do |entry|
+      b.journal_entry(debt_transfer_affair.journal_entry ? debt_transfer_affair.journal_entry.journal : debt_transfer_affair.originator.journal_entry.journal, printed_on: accounted_at.to_date, if: (debt_transfer_affair.unbalanced? && affair.unbalanced? && debt_transfer_affair.deals_count > 0)) do |entry|
         label = tc(nature, resource: debt_transfer_affair.class.model_name.human, number: debt_transfer_affair.number, entity: debt_transfer_affair.third.full_name)
 
         debt_transfer_affair.third.reload
@@ -153,7 +158,7 @@ class DebtTransfer < Ekylibre::Record::Base
 
     if sale_regularization?
       # debit on regularization account + Credit on client account
-      b.journal_entry(affair.journal_entry ? affair.journal_entry.journal : affair.originator.journal_entry.journal, printed_on: created_at.to_date, if: (debt_transfer_affair.unbalanced? && affair.unbalanced? && affair.deals_count > 0)) do |entry|
+      b.journal_entry(affair.journal_entry ? affair.journal_entry.journal : affair.originator.journal_entry.journal, printed_on: accounted_at.to_date, if: (debt_transfer_affair.unbalanced? && affair.unbalanced? && affair.deals_count > 0)) do |entry|
         label = tc(nature, resource: affair.class.model_name.human, number: affair.number, entity: affair.third.full_name)
 
         affair.third.reload

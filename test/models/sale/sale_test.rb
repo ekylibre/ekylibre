@@ -113,7 +113,7 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_equal 496, sale.amount
 
     assert sale.propose!
-    assert sale.confirm!
+    assert sale.confirm!(DateTime.new(2018, 1, 1))
     assert sale.invoice!
 
     sale.reload
@@ -226,7 +226,7 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     sale = create :sale, amount: 5000, items: 1
 
     assert sale.propose
-    assert sale.confirm
+    assert sale.confirm(Time.parse("2018-05-08T09-25-52Z"))
 
     assert sale.order?
     assert sale.update invoiced_at: Time.parse("2018-05-08T10-25-52Z")
@@ -254,7 +254,7 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     item = sale.items.create!(variant: @variant, quantity: 4, unit_pretax_amount: 10, tax: standard_vat)
 
     assert sale.propose!
-    assert sale.confirm!
+    assert sale.confirm!(Time.parse("2018-05-08T09-25-52Z"))
     assert sale.order?
     assert_equal 48, sale.amount
 

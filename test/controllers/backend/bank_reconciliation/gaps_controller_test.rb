@@ -84,7 +84,7 @@ module Backend
         @entry = JournalEntry.create!(
           journal: @journal,
           currency: @bank_statement.currency,
-          printed_on: Time.zone.now,
+          printed_on: DateTime.parse('2018-01-01T00:00:00Z'),
           items_attributes:
             {
               '0' => {
@@ -104,7 +104,7 @@ module Backend
       def setup_items(amount)
         amount_attr = (@payment_class == IncomingPayment ? :credit : :debit)
 
-        now = Time.zone.now
+        now = DateTime.parse('2018-01-01T00:00:00Z')
         @bank_statement = BankStatement.create!(
           currency: 'EUR',
           number: 'Fuel level check',

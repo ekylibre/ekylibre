@@ -327,7 +327,13 @@ class Sale < Ekylibre::Record::Base
 
   # Gives the date to use for affair bookkeeping
   def dealt_at
-    (invoice? ? invoiced_at : self.created_at)
+    if invoice?
+      invoiced_at
+    elsif order?
+      confirmed_at
+    else
+      created_at
+    end
   end
 
   # Gives the amount to use for affair bookkeeping
@@ -407,7 +413,7 @@ class Sale < Ekylibre::Record::Base
   # Confirm the sale order. This permits to define parcels and assert validity of sale
   def confirm(confirmed_at = Time.zone.now)
     return false unless can_confirm?
-    update_column(:confirmed_at, confirmed_at || Time.zone.now)
+    update!(confirmed_at: confirmed_at || Time.zone.now)
     super
   end
 
@@ -513,6 +519,7 @@ class Sale < Ekylibre::Record::Base
   def name
     tc("label.#{credit? && invoice? ? :credit : state}", number: number)
   end
+
   alias label name
 
   # Alias for letter_format? method

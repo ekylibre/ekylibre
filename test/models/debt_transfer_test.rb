@@ -85,7 +85,7 @@ class DebtTransferTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
       count = DebtTransfer.count
 
-      dt, dt2 = DebtTransfer.create_and_reflect!(affair: sale.affair, debt_transfer_affair: purchase.affair)
+      dt, dt2 = DebtTransfer.create_and_reflect!(affair: sale.affair, debt_transfer_affair: purchase.affair, accounted_at: DateTime.new(2018, 1, 2))
 
       assert_equal count + 2, DebtTransfer.count, 'Two debt transfers should be created. Got: ' + (DebtTransfer.count - count).to_s
 
