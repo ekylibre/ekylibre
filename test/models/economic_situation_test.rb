@@ -90,7 +90,7 @@ class EconomicSituationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtur
         last_name: 'Test',
         role: Role.create!(name: 'Test')
       ),
-      to_bank_at: Time.now,
+      to_bank_at: DateTime.new(2018, 1, 2),
       amount: 9,
       mode: OutgoingPaymentMode.create!(
         name: 'TestMode',
@@ -121,6 +121,7 @@ class EconomicSituationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtur
       amount: 11,
       currency: 'EUR',
       payer: @entity,
+      to_bank_at: DateTime.new(2018, 1, 2),
       mode: IncomingPaymentMode.create!(
         name: 'IModeTest',
         cash: cash

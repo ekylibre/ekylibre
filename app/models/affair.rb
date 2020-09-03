@@ -287,7 +287,7 @@ class Affair < Ekylibre::Record::Base
   # Each of those holds a value equal to (VATed amount / total) * gap
   # so the amounts amounts taxed at each VAT %s in the gap are
   # proportional to the VAT %s amounts in the debit/credit.
-  def finish
+  def finish(at: nil)
     return false if balance.zero?
     raise 'Cannot finish anymore multi-thirds affairs' if multi_thirds?
     precision = Nomen::Currency.find(currency).precision
@@ -354,6 +354,7 @@ class Affair < Ekylibre::Record::Base
       # TODO: Check that rounds fit exactly wanted amount
 
       gap_class.create!(
+        printed_at: at,
         affair: self,
         amount: gap_amount,
         currency: currency,

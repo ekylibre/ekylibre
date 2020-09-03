@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SaleInvoicingTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   setup do
-    @sale = Sale.new(client: entities(:entities_003), nature: sale_natures(:sale_natures_001))
+    @sale = Sale.new(client: entities(:entities_003), nature: sale_natures(:sale_natures_001), invoiced_at: DateTime.parse('2019-02-02T00:00:00Z'))
     assert @sale.save, @sale.errors.inspect
     assert_equal Date.today, @sale.created_at.to_date
     assert !@sale.affair.nil?, 'A sale must be linked to an affair'
@@ -20,10 +20,9 @@ class SaleInvoicingTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert @sale.propose
     assert_equal 'estimate', @sale.state
     assert @sale.can_invoice?
-    assert @sale.confirm
+    assert @sale.confirm(Date.new(2019, 2, 1))
     assert @sale.invoice
     assert_equal 'invoice', @sale.state
-    assert_equal Date.today, @sale.invoiced_at.to_date
   end
 
   test "A sale should be invoicable with a description containing windows newlines" do
