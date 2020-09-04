@@ -1,5 +1,8 @@
 module Quadra
   class FecTxtExchanger < ActiveExchanger::Base
+    category :accountancy
+    vendor :quadra
+
     def check
       # Imports FEC journal entries into journal to make accountancy in CSV format
       # From software QUADRA
@@ -192,7 +195,7 @@ module Quadra
       # @return [Account, nil]
       def find_account_by_provider(account_number)
         unwrap_one('account') do
-          Account.of_provider_name(provider_vendor, provider_name)
+          Account.of_provider_name(self.class.vendor, provider_name)
                 .of_provider_data(:account_number, account_number)
         end
       end
@@ -265,7 +268,7 @@ module Quadra
       # @return [Entity, nil]
       def find_entity_by_provider(provider_account_number)
         unwrap_one('entity') do
-          Entity.of_provider_name(provider_vendor, provider_name)
+          Entity.of_provider_name(self.class.vendor, provider_name)
                 .of_provider_data(:account_number, provider_account_number)
         end
       end
@@ -338,7 +341,7 @@ module Quadra
       # @return [Journal, nil]
       def find_journal_by_provider(code)
         unwrap_one('journal') do
-          Journal.of_provider_name(provider_vendor, provider_name)
+          Journal.of_provider_name(self.class.vendor, provider_name)
                  .of_provider_data(:journal_code, code)
         end
       end
@@ -369,16 +372,11 @@ module Quadra
       end
 
       def provider_value(**data)
-        { vendor: provider_vendor, name: provider_name, id: import_resource.id, data: { sender_infos: '', **data } }
+        { vendor: self.class.vendor, name: provider_name, id: import_resource.id, data: { sender_infos: '', **data } }
       end
 
       def provider_name
         :journal_entries
       end
-
-      def provider_vendor
-        :quadra
-      end
-
   end
 end

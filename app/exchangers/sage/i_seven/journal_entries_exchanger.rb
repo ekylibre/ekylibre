@@ -2,6 +2,9 @@
 module Sage
   module ISeven
     class JournalEntriesExchanger < ActiveExchanger::Base
+      category :accountancy
+      vendor :sage
+
       JOURNAL_CODE_CLOSING = "SAGC"
       JOURNAL_CODE_FORWARD = "SAGF"
 
@@ -125,7 +128,7 @@ module Sage
       # @return [Account, nil]
       def find_account_by_provider(account_number)
         unwrap_one('account') do
-          Account.of_provider_name(provider_vendor, provider_name)
+          Account.of_provider_name(self.class.vendor, provider_name)
                  .of_provider_data(:account_number, account_number)
         end
       end
@@ -198,7 +201,7 @@ module Sage
       # @return [Entity, nil]
       def find_entity_by_provider(sage_account_number)
         unwrap_one('entity') do
-          Entity.of_provider_name(provider_vendor, provider_name)
+          Entity.of_provider_name(self.class.vendor, provider_name)
                 .of_provider_data(:account_number, sage_account_number)
         end
       end
@@ -350,7 +353,7 @@ module Sage
 
       def find_cash_by_provider(account_number)
         unwrap_one(:cash) do
-          Cash.of_provider_name(provider_vendor, provider_name)
+          Cash.of_provider_name(self.class.vendor, provider_name)
               .of_provider_data('account_number', account_number)
         end
       end
@@ -413,7 +416,7 @@ module Sage
       # @return [Journal, nil]
       def find_journal_by_provider(code)
         unwrap_one('journal') do
-          Journal.of_provider_name(provider_vendor, provider_name)
+          Journal.of_provider_name(self.class.vendor, provider_name)
                  .of_provider_data(:journal_code, code)
         end
       end
@@ -448,15 +451,11 @@ module Sage
         end
 
         def provider_value(**data)
-          { vendor: provider_vendor, name: provider_name, id: import_resource.id, data: { sender_infos: file_info.version_information, **data } }
+          { vendor: self.class.vendor, name: provider_name, id: import_resource.id, data: { sender_infos: file_info.version_information, **data } }
         end
 
         def provider_name
           :journal_entries
-        end
-
-        def provider_vendor
-          :i_seven_sage
         end
     end
   end

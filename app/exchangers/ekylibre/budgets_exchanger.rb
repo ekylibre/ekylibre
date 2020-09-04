@@ -1,5 +1,8 @@
 module Ekylibre
   class BudgetsExchanger < ActiveExchanger::Base
+    category :accountancy
+    vendor :ekylibre
+
     ACTIVITIES = {
       tool_maintaining: %i[maintenance equipment_management],
       administering: %i[accountancy sales purchases stocks exploitation],

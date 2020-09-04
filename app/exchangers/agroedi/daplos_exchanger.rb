@@ -1,5 +1,8 @@
 module Agroedi
   class DaplosExchanger < ActiveExchanger::Base
+    category :plant_farming
+    vendor :agroedi
+
     attr_reader :children
 
     def check

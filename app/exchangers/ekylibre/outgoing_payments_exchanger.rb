@@ -1,5 +1,8 @@
 module Ekylibre
   class OutgoingPaymentsExchanger < ActiveExchanger::Base
+    category :sales
+    vendor :ekylibre
+
     def check
       rows = CSV.read(file, headers: true).delete_if { |r| r[2].blank? }
       valid = true

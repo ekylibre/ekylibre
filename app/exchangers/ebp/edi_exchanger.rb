@@ -1,5 +1,8 @@
 module EBP
   class EDIExchanger < ActiveExchanger::Base
+    category :accountancy
+    vendor :ebp
+
     def import
       w.count = `wc -l #{file}`.split.first.to_i - 6
 

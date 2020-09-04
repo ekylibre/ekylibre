@@ -1,5 +1,8 @@
 module Ekylibre
   class AnimalGroupsExchanger < ActiveExchanger::Base
+    category :animal_farming
+    vendor :ekylibre
+
     def check
       valid = true
 

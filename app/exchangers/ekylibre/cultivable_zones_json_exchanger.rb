@@ -2,6 +2,9 @@ module Ekylibre
   # Import a GeoJSON file (as FeatureCollection) with `name` and `number`
   # properties for each feature.
   class CultivableZonesJsonExchanger < ActiveExchanger::Base
+    category :plant_farming
+    vendor :ekylibre
+
     # def check
     #   valid = true
     #   clusters = JSON.parse(file.read).deep_symbolize_keys

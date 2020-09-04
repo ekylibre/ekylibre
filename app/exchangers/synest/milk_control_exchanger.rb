@@ -1,5 +1,8 @@
 module Synest
   class MilkControlExchanger < ActiveExchanger::Base
+    category :animal_farming
+    vendor :synest
+
     def import
       unless analyser = Entity.where('LOWER(full_name) LIKE ?', '%Synest%'.mb_chars.downcase).first
         analyser = Entity.create!(

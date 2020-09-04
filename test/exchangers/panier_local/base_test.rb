@@ -3,6 +3,7 @@ require 'test_helper'
 module PanierLocal
   class BaseTest < Ekylibre::Testing::ApplicationTestCase
     class MyExchanger < PanierLocal::Base
+      vendor :panier_local
 
       def provider_name
         :my_provider

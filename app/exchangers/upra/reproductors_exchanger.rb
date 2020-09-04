@@ -1,5 +1,8 @@
 module UPRA
   class ReproductorsExchanger < ActiveExchanger::Base
+    category :animal_farming
+    vendor :upra
+
     # Create or updates UPRA reproductors
     def import
       male_adult_cow = ProductNatureVariant.import_from_nomenclature(:male_adult_cow)

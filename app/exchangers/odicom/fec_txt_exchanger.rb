@@ -1,5 +1,8 @@
 module Odicom
   class FecTxtExchanger < ActiveExchanger::Base
+    category :accountancy
+    vendor :odicom
+
     #  0 - A: JournalCode : "2"
     #  1 - B: JournalLib : "BILAN D'OUVERTURE"
     #  2 - C: EcritureNum : "0"
@@ -170,7 +173,7 @@ module Odicom
       # @return [Account, nil]
       def find_account_by_provider(account_number)
         unwrap_one('account') do
-          Account.of_provider_name(provider_vendor, provider_name)
+          Account.of_provider_name(self.class.vendor, provider_name)
                  .of_provider_data(:account_number, account_number)
         end
       end
@@ -236,7 +239,7 @@ module Odicom
       # @param [String] provider_account_number
       # @return [Array<Entity>]
       def find_entities_by_provider(provider_account_number)
-        Entity.of_provider_name(provider_vendor, provider_name)
+        Entity.of_provider_name(self.class.vendor, provider_name)
               .of_provider_data(:account_number, provider_account_number)
       end
 
@@ -306,7 +309,7 @@ module Odicom
       # @return [Journal, nil]
       def find_journal_by_provider(code)
         unwrap_one('journal') do
-          Journal.of_provider_name(provider_vendor, provider_name)
+          Journal.of_provider_name(self.class.vendor, provider_name)
                  .of_provider_data(:journal_code, code)
         end
       end
@@ -337,15 +340,11 @@ module Odicom
       end
 
       def provider_value(**data)
-        { vendor: provider_vendor, name: provider_name, id: import_resource.id, data: data }
+        { vendor: self.class.vendor, name: provider_name, id: import_resource.id, data: data }
       end
 
       def provider_name
         :journal_entries
-      end
-
-      def provider_vendor
-        :odicom
       end
 
       def parse_file(file)

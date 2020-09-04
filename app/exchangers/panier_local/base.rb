@@ -2,6 +2,8 @@
 
 module PanierLocal
   class Base < ActiveExchanger::Base
+    vendor :panier_local
+
     class UniqueResultExpectedError < StandardError; end
 
     # @return [Import]
@@ -132,15 +134,11 @@ module PanierLocal
     protected
 
       def provider_value(**data)
-        { vendor: provider_vendor, name: provider_name, id: import_resource.id, data: data }
+        { vendor: self.class.vendor, name: provider_name, id: import_resource.id, data: data }
       end
 
       def provider_name
         raise StandardError.new("Unimplemented!")
-      end
-
-      def provider_vendor
-        :panier_local
       end
 
       def tl(*unit, **options)

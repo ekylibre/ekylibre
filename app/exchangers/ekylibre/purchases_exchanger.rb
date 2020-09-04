@@ -1,5 +1,8 @@
 module Ekylibre
   class PurchasesExchanger < ActiveExchanger::Base
+    category :purchases
+    vendor :ekylibre
+
     self.deprecated = true
 
     def initialize(file, supervisor, options = {})

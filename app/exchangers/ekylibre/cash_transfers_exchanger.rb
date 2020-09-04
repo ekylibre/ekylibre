@@ -1,5 +1,8 @@
 module Ekylibre
   class CashTransfersExchanger < ActiveExchanger::Base
+    category :accountancy
+    vendor :ekylibre
+
     # Create cash_transfert between internal accounts
     def import
       rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }

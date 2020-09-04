@@ -4,6 +4,10 @@ module ActiveExchanger
 
     @@exchangers = {}
 
+    CATEGORIES = %i[accountancy animal_farming human_resources none plant_farming purchases sales settings stocks].freeze
+    VENDORS = %i[agro_systemes agroedi bordeaux_sciences_agro bovins_croissance caj charentes_alliance ebp ekylibre fiea isagri
+                 lely_milk_robot lilco milklic none odicom panier_local quadra sage synel synest telepac upra vivescia].freeze
+
     class << self
       def inherited(subclass)
         ActiveExchanger::Base.register_exchanger(subclass)
@@ -12,6 +16,28 @@ module ActiveExchanger
 
       attr_accessor :deprecated do
         false
+      end
+
+      # @param [Symbol] value
+      # @return [Symbol]
+      def category(value = nil)
+        if value.nil?
+          @category || :none
+        else
+          raise ArgumentError.new("Invalid category #{value} for #{exchanger_name} exchanger, please provide one among #{CATEGORIES.join(', ')}") unless CATEGORIES.include?(value)
+          @category = value
+        end
+      end
+
+      # @param [Symbol] value
+      # @return [Symbol]
+      def vendor(value = nil)
+        if value.nil?
+          @vendor || :none
+        else
+          raise ArgumentError.new("Invalid vendor #{value} for #{exchanger_name} exchanger, please provide one among #{VENDORS.join(', ')}") unless VENDORS.include?(value)
+          @vendor = value
+        end
       end
 
       def deprecated?

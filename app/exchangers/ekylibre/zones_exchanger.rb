@@ -8,6 +8,9 @@ module Ekylibre
   #  - Description
   # Zones can be: building, settlement,
   class ZonesExchanger < ActiveExchanger::Base
+    category :stocks
+    vendor :ekylibre
+
     # Create or updates zones
     def import
       born_at = Time.new(1995, 1, 1, 10, 0, 0, '+00:00')

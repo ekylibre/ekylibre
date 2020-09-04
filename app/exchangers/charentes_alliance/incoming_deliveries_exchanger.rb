@@ -1,6 +1,9 @@
 module CharentesAlliance
   # Incoming deliveries extracted from Charentes Alliance extranet
   class IncomingDeliveriesExchanger < ActiveExchanger::Base
+    category :stocks
+    vendor :charentes_alliance
+
     def import
       here = Pathname.new(__FILE__).dirname
 

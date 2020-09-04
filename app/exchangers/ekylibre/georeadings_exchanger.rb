@@ -2,6 +2,9 @@ module Ekylibre
   # Georeadings exchanger permit to import georeadings in Shapefile
   # in WGS84 spatial reference system.
   class GeoreadingsExchanger < ActiveExchanger::Base
+    category :plant_farming
+    vendor :ekylibre
+
     def import
       # Unzip file
       dir = w.tmp_dir

@@ -1,5 +1,8 @@
 module Ekylibre
   class BuildingsJsonExchanger < ActiveExchanger::Base
+    category :stocks
+    vendor :ekylibre
+
     # def check
     #   valid = true
     #   clusters = JSON.parse(file.read).deep_symbolize_keys

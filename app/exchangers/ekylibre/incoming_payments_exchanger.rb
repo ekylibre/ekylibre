@@ -10,6 +10,9 @@ module Ekylibre
   #  - G: reference of document in DMS (optional)
   #  - H: description (optional)
   class IncomingPaymentsExchanger < ActiveExchanger::Base
+    category :stocks
+    vendor :ekylibre
+
     def check
       rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
       valid = true

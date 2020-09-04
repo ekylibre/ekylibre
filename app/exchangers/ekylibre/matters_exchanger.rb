@@ -1,5 +1,8 @@
 module Ekylibre
   class MattersExchanger < ActiveExchanger::Base
+    category :stocks
+    vendor :ekylibre
+
     def check
       valid = true
 

@@ -1,0 +1,132 @@
+.import-container {
+  display: flex;
+  flex-direction: column;
+  .activity-family-heading {
+    margin: 0px 15px;
+  }
+  a#template_file_link {
+    font-size: 10px;
+  }
+  .import-row {
+    $import-width: $narrow-page-width / 3;
+    @include box-sizing(border-box);
+    position: relative;
+
+    .import-card-container {
+      float: left;
+      margin: 15px 15px 0px 15px;
+      width: 250px;
+      min-height: 295px;
+
+      .import-card {
+        text-align: center;
+        align-items: center;
+        border-radius: $default-border-radius;
+        border: $menu-border;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: filter 0.2s ease-in-out 0s;
+
+        .import-logo {
+          background: mix($white, $desktop-background);
+          align-items: center;
+          display: flex;
+          flex: 2 1 100%;
+          justify-content: center;
+          padding: $fs-normal;
+          width: 100%;
+          @include box-sizing(border-box);
+          @include border-top-radius($default-border-radius - $menu-border-width);
+
+          img {
+            width: 0.6 * $import-width;
+            height: 0.4 * $import-width;
+            object-fit: contain;
+          }
+        }
+      }
+      .import-description {
+        .import-title {
+          padding: 3px;
+          margin: 5px;
+          font-weight: bold;
+          font-size: 20px;
+        }
+        form {
+          max-width: 100%;
+          .control-group {
+            label {
+              font-size: 10px;
+              margin: 0px;
+              margin-right: 16px;
+              margin-left: 6px;
+            }
+            .controls {
+              display: flex;
+              margin-left: 0 !important;
+              input {
+                font-size: 10px;
+                margin-left: 4px;
+              }
+              select {
+                padding: 3px 0px;
+                font-size: 10px;
+                margin-right: 4px;;
+                height: 14px;
+              }
+            }
+          }
+          .form-actions {
+            padding: 8px;
+            border: none;
+            input {
+              font-size: 10px;
+              padding: 0px 9px;
+              height: 20px;
+              vertical-align: middle;
+            }
+            button {
+              padding: 0px 9px;
+              height: 20px;
+              vertical-align: middle;
+              font-size: 10px;
+              margin-left: 6px !important;
+            }
+          }
+        }
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        flex: 1 2 100%;
+        flex-direction: column;
+        width: 100%;
+        @include box-sizing(border-box);
+        border-top: $menu-border;
+        background: $white;
+        @include border-bottom-radius($default-border-radius - $menu-border-width);
+
+        select {
+          width: 100%;
+        }
+
+        h3 {
+          color: $text-color;
+          font-weight: bold;
+          font-size: $fs-large;
+          line-height: $lh-large;
+        }
+
+        p {
+          color: $text-color;
+          text-align: center;
+          font-size: $fs-normal;
+          line-height: $lh-normal;
+          overflow: ellipsis;
+        }
+      }
+    }
+
+  }
+}
+

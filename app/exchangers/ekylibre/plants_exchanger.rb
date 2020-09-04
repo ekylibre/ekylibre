@@ -1,5 +1,8 @@
 module Ekylibre
   class PlantsExchanger < ActiveExchanger::Base
+    category :plant_farming
+    vendor :ekylibre
+
     def import
       rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
       w.count = rows.size

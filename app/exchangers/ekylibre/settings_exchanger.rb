@@ -1,5 +1,8 @@
 module Ekylibre
   class SettingsExchanger < ActiveExchanger::Base
+    category :settings
+    vendor :ekylibre
+
     # Create or updates main settings of folder
     def import
       @manifest = YAML.load_file(file) || {}

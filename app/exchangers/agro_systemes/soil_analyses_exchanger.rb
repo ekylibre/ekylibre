@@ -1,5 +1,8 @@
 module AgroSystemes
   class SoilAnalysesExchanger < ActiveExchanger::Base
+    category :plant_farming
+    vendor :agro_systemes
+
     SOIL_NATURES = {
       'LIMON SABLEUX' => :silt_soil,
       'ARGILO CALCAIRE MOYEN' => :clay_limestone_soil,
