@@ -2,6 +2,8 @@
 
 module PanierLocal
   class SalesExchanger < Base
+    category :sales
+    vendor :panier_local
 
     # Imports sales entries into sales to make accountancy in CSV format
     # filename example : ECRITURES.CSV

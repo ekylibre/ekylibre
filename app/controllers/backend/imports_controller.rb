@@ -37,11 +37,8 @@ module Backend
     end
 
     def new
-      @exchanger_selection = ActiveExchanger::Base.importers_selection.map do |(label, exchanger_name)|
-        template_present = ActiveExchanger::Base.template_file_for(exchanger_name, locale).is_some?
-
-        [label, exchanger_name, data: { template_present: template_present }]
-      end
+      registry = ExchangersRegistry.new
+      @exchangers_by_category = registry.list_by_category_and_vendor
       super
     end
 

@@ -1,6 +1,9 @@
 module Isagri
   module Isacompta
     class FixedAssetsExchanger < ActiveExchanger::Base
+      category :accountancy
+      vendor :isagri
+
       # Check fixed assets
       def check
         valid = true

@@ -1,5 +1,8 @@
 module Ekylibre
   class LandParcelsExchanger < ActiveExchanger::Base
+    category :plant_farming
+    vendor :ekylibre
+
     def import
       # Set count of rows
       rows = CSV.read(file, headers: true)

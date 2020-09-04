@@ -3,6 +3,9 @@ module Ekylibre
   # Prefer ekylibre/cultivable_zones_json to import directly cultivable zones
   # REMOVEME This exchanger is not very useful in standalone mode
   class CultivableZonesExchanger < ActiveExchanger::Base
+    category :plant_farming
+    vendor :ekylibre
+
     DEFAULT_SHAPE = Charta.new_geometry('MULTIPOLYGON(((0 0,0 1,1 1,1 0,0 0)))').freeze
 
     def find_zone_by_matching_shape(shape)

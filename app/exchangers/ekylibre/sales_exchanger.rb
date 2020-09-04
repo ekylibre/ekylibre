@@ -1,5 +1,8 @@
 module Ekylibre
   class SalesExchanger < ActiveExchanger::Base
+    category :sales
+    vendor :ekylibre
+
     def initialize(file, supervisor, options = {})
       super file, supervisor
       @attachments_dir = options['attachments_path']

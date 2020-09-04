@@ -4,6 +4,9 @@ module Ekylibre
   #  - Family (from nomenclature ActivityFamily)
   #  - Cultivation variety (from nomenclature Variety)
   class ActivitiesExchanger < ActiveExchanger::Base
+    category :plant_farming
+    vendor :ekylibre
+
     def check
       valid = true
       rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }

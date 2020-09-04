@@ -1,5 +1,8 @@
 module Ekylibre
   class EntitiesExchanger < ActiveExchanger::Base
+    category :stocks
+    vendor :ekylibre
+
     # Create or updates entities
     def import
       rows = CSV.read(file, headers: true)

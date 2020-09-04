@@ -964,7 +964,7 @@ fra:
               start: "Cliquez et déplacez pour dessiner un cercle."
           circlemarker:
             tooltip:
-              start: "Cliquez et déplacez pour dessiner un marqueur circulaire."    
+              start: "Cliquez et déplacez pour dessiner un marqueur circulaire."
           marker:
             tooltip:
               start: "Cliquez sur la carte pour placer un marqueur."
@@ -1224,6 +1224,7 @@ fra:
     animal: "Animal" #?
     animal_bar: "Animaux par lot" #?
     animal_details: "Détails d’un animal"
+    animal_farming: "Production animale"
     animal_identification: "Identification animale" #?
     animal_life_state: "Phase du bioprocessus de vie d’un animal" #?
     animal_natures: "Animaux"
@@ -1945,6 +1946,7 @@ fra:
     hour_counter: "Compteur horaire"
     hours: "H"
     hours_label: "Heures"
+    human_resources: "RH"
     human_target_names: "Nom des cibles" #?
     human_working_duration: "Temps de travail"
     human_working_zone_area: "Zone travaillée" #?
@@ -2484,6 +2486,7 @@ fra:
     plant: "Culture"
     plant_counting: "Comptage"
     plant_countings: "Comptages"
+    plant_farming: "Production végétale"
     plant_medicines: "Produits phytosanitaires"
     plant_productions: "Productions végétales" #?
     plantation_density: "Densité de plantation"
@@ -3175,6 +3178,7 @@ fra:
     wice_grid_columns: "Colonnes"
     wind_speed: "Vitesse du vent"
     wine_tanks: "Cuverie" #?
+    wish_to_see_other_available_import_in_the_list_html: "Vous souhaitez voir d'autres imports disponibles dans la liste ? Faites le nous savoir dans <strong>l'aide</strong> en bas de la page !"
     with_fixed_assets_depreciations: "Inclure les amortissements des immobilisations"
     with_prints: "Inclure les impressions (factures, commandes…)" #?
     worked_on: "Travaillé le" #?

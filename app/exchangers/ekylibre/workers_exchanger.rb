@@ -11,6 +11,9 @@ module Ekylibre
   # I: Hourly cost (in EUR)
   # J: E-mail, used to create user
   class WorkersExchanger < ActiveExchanger::Base
+    category :human_resources
+    vendor :ekylibre
+
     def check
       valid = true
 

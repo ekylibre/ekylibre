@@ -1,5 +1,8 @@
 module Ekylibre
   class InterventionsExchanger < ActiveExchanger::Base
+    category :plant_farming
+    vendor :ekylibre
+
     def check
       rows = CSV.read(file, headers: true, col_sep: ';').delete_if { |r| r[0].blank? }.sort { |a, b| [a[2].split(/\D/).reverse.join, a[0]] <=> [b[2].split(/\D/).reverse.join, b[0]] }
       valid = true

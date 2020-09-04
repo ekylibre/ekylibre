@@ -1,5 +1,8 @@
 module Synel
   class AnimalsExchanger < ActiveExchanger::Base
+    category :animal_farming
+    vendor :synel
+
     # Create or updates animals
     def import
       demo_mode = Preference.value(:demo, false, :boolean)

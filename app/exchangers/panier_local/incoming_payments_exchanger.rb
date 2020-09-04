@@ -1,5 +1,7 @@
 module PanierLocal
   class IncomingPaymentsExchanger < Base
+    category :sales
+    vendor :panier_local
 
     # Imports incoming_payment entries into incoming payment to make accountancy in CSV format
     # filename example : ECRITURES.CSV
@@ -73,7 +75,7 @@ module PanierLocal
 
     # @return [IncomingPaymentMode, nil]
     def find_payment_mode_by_provider
-      unwrap_one('incoming_payment') { IncomingPaymentMode.of_provider_name(provider_vendor, provider_name) }
+      unwrap_one('incoming_payment') { IncomingPaymentMode.of_provider_name(self.class.vendor, provider_name) }
     end
 
     # @return [Cash]

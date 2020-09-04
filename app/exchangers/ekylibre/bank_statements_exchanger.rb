@@ -1,5 +1,8 @@
 module Ekylibre
   class BankStatementsExchanger < ActiveExchanger::Base
+    category :accountancy
+    vendor :ekylibre
+
     def import
       s = Roo::OpenOffice.new(file)
       w.count = s.sheets.count

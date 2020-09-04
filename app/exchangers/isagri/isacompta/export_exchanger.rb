@@ -2,6 +2,9 @@ module Isagri
   module Isacompta
     # Exchanger to import COFTW.isa files from IsaCompta software
     class ExportExchanger < ActiveExchanger::Base
+      category :accountancy
+      vendor :isagri
+
       def check
         SVF::Isacompta8550.parse(file)
       rescue SVF::InvalidSyntax

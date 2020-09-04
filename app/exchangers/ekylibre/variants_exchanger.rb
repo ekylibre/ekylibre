@@ -13,6 +13,9 @@ module Ekylibre
   # I: Price unity
   # J: Indicators - HASH
   class VariantsExchanger < ActiveExchanger::Base
+    category :settings
+    vendor :ekylibre
+
     # Create or updates variants
     def import
       currency = Preference[:currency] || 'EUR'

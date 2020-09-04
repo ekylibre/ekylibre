@@ -1,5 +1,8 @@
 module FIEA
   class GalacteaExchanger < ActiveExchanger::Base
+    category :animal_farming
+    vendor :fiea
+
     def import
       unless analyser = Entity.where('LOWER(full_name) LIKE ?', '%Atlantic Conseil Elevage%'.mb_chars.downcase).first
         analyser = Entity.create!(

@@ -1,5 +1,8 @@
 module Synest
   class InventoryExchanger < ActiveExchanger::Base
+    category :stocks
+    vendor :synest
+
     # Create or updates Synel Inventories
     def import
       male_adult_cow = ProductNatureVariant.import_from_nomenclature(:male_adult_cow)

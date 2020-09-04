@@ -1,6 +1,9 @@
 module Vivescia
   # Exchanger to import COFTW.isa files from IsaCompta software
   class PurchaseExchanger < ActiveExchanger::Base
+    category :purchases
+    vendor :vivescia
+
     def check
       SVF::EdiFactInvoic.parse(file)
     rescue SVF::InvalidSyntax

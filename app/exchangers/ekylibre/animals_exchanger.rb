@@ -1,5 +1,8 @@
 module Ekylibre
   class AnimalsExchanger < ActiveExchanger::Base
+    category :animal_farming
+    vendor :ekylibre
+
     # Create or updates animals
     def import
       rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }

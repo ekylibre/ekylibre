@@ -1,6 +1,9 @@
 module BordeauxSciencesAgro
   module Istea
     class JournalEntriesExchanger < ActiveExchanger::Base
+      category :accountancy
+      vendor :bordeaux_sciences_agro
+
       def check
         # Imports journal entries into journal to make accountancy in CSV format
         # filename example : 17005534_EXPORT_ECRITURES_COMPTABLES.TXT

@@ -1,5 +1,8 @@
 module CharentesAlliance
   class OutgoingDeliveriesExchanger < ActiveExchanger::Base
+    category :stocks
+    vendor :charentes_alliance
+
     def import
       # Unzip files
       dir = w.tmp_dir

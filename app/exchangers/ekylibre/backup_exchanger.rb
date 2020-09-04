@@ -1,5 +1,7 @@
 module Ekylibre
   class BackupExchanger < ActiveExchanger::Base
+    vendor :ekylibre
+
     self.deprecated = true
 
     class Backup < Hash
