@@ -169,7 +169,6 @@ gem 'beardley-xml', '>= 1.1.2'
 # IRB (already require by other gem but some sependencies seems to be missing in ruby 2.6.x ...
 gem 'irb'
 gem 'fiddle'
-gem 'dl'
 
 # Import/Export
 gem 'ekylibre-ofx-parser'
