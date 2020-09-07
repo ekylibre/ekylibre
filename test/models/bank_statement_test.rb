@@ -402,19 +402,19 @@ class BankStatementTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     @warrig_tank = Cash.create!(journal: journal, main_account: fuel_act, name: 'War-rig\'s Tank')
     @caps_stash = Cash.create!(journal: journal, main_account: caps_act, name: 'Stash o\' Caps')
 
-    setup_items(options[:amount_mismatch] ? 1336 : 1337)
-    setup_payment(options[:cash_mismatch])
+    date = DateTime.parse("2020-02-01T00:00:00Z")
+    setup_items(options[:amount_mismatch] ? 1336 : 1337, at: date)
+    setup_payment(options[:cash_mismatch], at: date)
   end
 
-  def setup_items(amount)
+  def setup_items(amount, at:)
     amount_attr = (@payment_class == IncomingPayment ? :credit : :debit)
 
-    now = Time.zone.now
     fuel_level = BankStatement.create!(
       currency: 'EUR',
       number: 'Fuel level check',
-      started_on: now - 10.days,
-      stopped_on: now,
+      started_on: at - 10.days,
+      stopped_on: at,
       cash: @warrig_tank
     )
 
@@ -422,26 +422,33 @@ class BankStatementTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     @tanks << BankStatementItem.create!(
       name: 'Main tank',
       bank_statement: fuel_level,
-      transfered_on: now - 5.days,
+      transfered_on: at - 5.days,
       amount_attr => 42
     )
 
     @tanks << BankStatementItem.create!(
       name: 'Backup tank',
       bank_statement: fuel_level,
-      transfered_on: now - 5.days,
+      transfered_on: at - 5.days,
       amount_attr => amount
     )
   end
 
-  def setup_payment(cash_match)
+  def setup_payment(cash_match, at:)
     cash = cash_match ? @caps_stash : @warrig_tank
 
     Account.create!(name: 'Citadel', number: '106')
 
     diesel = "#{@payment_class == IncomingPayment ? 'Incoming' : 'Outgoing'}PaymentMode".constantize.create!(cash: cash, with_accounting: true, name: 'Diesel')
     max = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)
-    @payment = @payment_class.create!(amount: 1379, currency: 'EUR', @payment_class.third_attribute => max, mode: diesel, responsible: User.first, to_bank_at: Time.zone.now - 5.days)
+    @payment = @payment_class.create!(
+      amount: 1379,
+      currency: 'EUR',
+      @payment_class.third_attribute => max,
+      mode: diesel,
+      responsible: User.first,
+      to_bank_at: at - 5.days
+    )
   end
 
   def inspect_errors(object)
