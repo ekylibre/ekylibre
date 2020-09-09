@@ -11,39 +11,35 @@
     $import-width: $narrow-page-width / 3;
     @include box-sizing(border-box);
     position: relative;
-
-    .import-card-container {
+    .import-card {
       float: left;
-      margin: 15px 15px 0px 15px;
+      margin: 15px;
       width: 250px;
-      min-height: 295px;
+      height: 300px;
+      text-align: center;
+      align-items: center;
+      border-radius: $default-border-radius;
+      border: $menu-border;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: filter 0.2s ease-in-out 0s;
 
-      .import-card {
-        text-align: center;
+      .import-logo {
+        background: mix($white, $desktop-background);
         align-items: center;
-        border-radius: $default-border-radius;
-        border: $menu-border;
         display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        transition: filter 0.2s ease-in-out 0s;
+        flex: 2 1 100%;
+        justify-content: center;
+        padding: $fs-normal;
+        width: 100%;
+        @include box-sizing(border-box);
+        @include border-top-radius($default-border-radius - $menu-border-width);
 
-        .import-logo {
-          background: mix($white, $desktop-background);
-          align-items: center;
-          display: flex;
-          flex: 2 1 100%;
-          justify-content: center;
-          padding: $fs-normal;
-          width: 100%;
-          @include box-sizing(border-box);
-          @include border-top-radius($default-border-radius - $menu-border-width);
-
-          img {
-            width: 0.6 * $import-width;
-            height: 0.4 * $import-width;
-            object-fit: contain;
-          }
+        img {
+          width: 0.6 * $import-width;
+          height: 0.4 * $import-width;
+          object-fit: contain;
         }
       }
       .import-description {
