@@ -22,12 +22,16 @@
     E.refresh.interval = window.setInterval(E.refresh.all, E.refresh.delay * 1000)
 
   $(document).on 'change', 'select#import_nature', (event) ->
+    pos = $('#core').scrollTop()
     $(this).closest('form').find('.import-file-upload').toggle(!!$(this).val())
+    $('#core').scrollTop(pos)
 
   $(document).on 'click', 'button.btn[data-hide-content]', (e) ->
     e.preventDefault()
+    pos = $('#core').scrollTop()
     $selector = $(this).closest('form').find($(this).data('hide-content'))
     $selector.hide()
+    $('#core').scrollTop(pos)
     $(this).closest('form').find('select#import_nature').prop('selectedIndex', 0)
 
 ) ekylibre, jQuery
