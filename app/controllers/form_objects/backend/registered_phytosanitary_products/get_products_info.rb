@@ -76,6 +76,10 @@ module FormObjects
           targets_and_shape.map(&:target)
         end
 
+        def shapes
+          targets_and_shape.map(&:shape)
+        end
+
         def products_and_usages
           modified = modified?
 

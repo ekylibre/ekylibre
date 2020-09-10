@@ -2119,6 +2119,7 @@ eng:
     humans: "HR"
     humidity: "Humidity"
     iban: "International Bank Account Number (IBAN)"
+    identical_usage_should_be_selected: "It is mandatory to select the same usage as the one chosen for the other product having the same maaid or to create two separate interventions"
     identification: "Identification"
     identifiers: "Identifiers"
     if_closed_environment: "if closed environment"

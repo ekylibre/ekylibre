@@ -12,13 +12,17 @@ module Backend
           if prods_usages.empty?
             render json: {}
           else
+            merger = ::Interventions::Phytosanitary::ProductUsageMerger.build(area: shapes_area(infos.shapes))
+            merge_success, merge_errors = merger.merge(prods_usages).partition(&:success?)
+
             validator = ::Interventions::Phytosanitary::ValidatorCollectionValidator.build(
               infos.targets_and_shape,
               intervention_to_ignore: infos.intervention,
               intervention_started_at: infos.intervention_started_at,
               intervention_stopped_at: infos.intervention_stopped_at
             )
-            result = validator.validate(prods_usages)
+            result = merge_error_result(merge_errors)
+                       .merge(validator.validate(merge_success.map(&:value)))
 
             products_infos = prods_usages.map do |pu|
               messages = result.product_grouped_messages(pu.product)
@@ -39,6 +43,26 @@ module Backend
     end
 
     private
+
+      def merge_error_result(merge_errors)
+        result = ::Interventions::Phytosanitary::Models::ProductApplicationResult.new
+
+        merge_errors.each { |me| result.add_maaid_vote(me.maaid, status: me.vote, message: me.message) }
+
+        result
+      end
+
+      # @param [Array<Charta::Geometry>] shapes
+      # @return [Maybe<Measure<area>>]
+      def shapes_area(shapes)
+        area = shapes.reduce(0.in(:hectare)) { |acc, shape| acc + shape.area.in(:square_meter) }
+
+        if area.zero?
+          None()
+        else
+          Some(area)
+        end
+      end
 
       def fetch_allowed_mentions(phyto)
         if phyto.present? && phyto.allowed_mentions.present?
