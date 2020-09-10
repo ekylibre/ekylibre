@@ -12,6 +12,15 @@ module Interventions
                                         on: @target,
                                         started_at: "2020-02-26T12:00:25+00:00",
                                         stopped_at: "2020-02-26T14:00:25+00:00"
+        ProductNatureVariant.import_from_lexicon('2160478_slider')
+        @product = create :phytosanitary_product, variant: ProductNatureVariant.find_by_reference_name('2160478_slider')
+        @usage = RegisteredPhytosanitaryUsage.find('20160712164039054134')
+        create :phyto_intervention_input, intervention: @spraying_intervention, product: @product, usage: @usage
+
+        @spraying_intervention.reload
+
+        intervention_reentry_delay = @spraying_intervention.inputs.first.allowed_entry_factor
+        assert_equal 6.hours, intervention_reentry_delay, "Expected reentry delay to be 6 hours, got #{intervention_reentry_delay}"
       end
 
       test 'compute result not possible' do
@@ -57,17 +66,17 @@ module Interventions
 
         reentry_delay = PhytoHarvestAdvisor.new.reentry_possible_from_interventions?(harvest_period, [@spraying_intervention])
 
+        assert_not reentry_delay.possible, "Reentry should not be possible"
         assert_equal DateTime.soft_parse("2020-02-26T20:00:25+00:00"), reentry_delay.next_possible_date
         assert_equal 8.hours, reentry_delay.period_duration
-        assert_not reentry_delay.possible
       end
 
       test 'harvest not possible from interventions' do
         harvest_period = Models::Period.parse("2020-02-26T14:05:25+00:00", "2020-02-26T17:00:25+00:00")
         pre_harvest_delay = PhytoHarvestAdvisor.new.harvest_possible_from_interventions?(harvest_period, [@spraying_intervention])
 
+        assert_not pre_harvest_delay.possible, "Harvest should not be possible"
         assert_equal DateTime.soft_parse("2020-02-29T14:00:25+00:00"), pre_harvest_delay.next_possible_date
-        assert_not pre_harvest_delay.possible
       end
 
       test 'harvest possible from interventions' do

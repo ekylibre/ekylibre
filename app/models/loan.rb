@@ -133,7 +133,7 @@ class Loan < Ekylibre::Record::Base
 
   # Prevents from deleting if entry exist
   protect on: :destroy do
-    journal_entry && ongoing?
+    (journal_entry && ongoing?) || repaid?
   end
 
   # Prevents from deleting if entry exist

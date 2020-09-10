@@ -70,13 +70,21 @@ module Interventions
         # @option [Symbol, nil] on
         def add_vote(product, status:, message: nil, on: nil)
           maaid_for(product).fmap do |maaid|
-            vote = Models::ProductApplicationVote.new(status, message, on || :product)
+            add_maaid_vote(maaid, status: status, message: message, on: on)
+          end
+        end
 
-            if votes.key?(maaid)
-              votes[maaid] << vote
-            else
-              votes[maaid] = [vote]
-            end
+        # @param [String] maaid
+        # @option [Symbol] status
+        # @option [String, nil] message
+        # @option [Symbol, nil] on
+        def add_maaid_vote(maaid, status:, message: nil, on: nil)
+          vote = Models::ProductApplicationVote.new(status, message, on || :product)
+
+          if votes.key?(maaid)
+            votes[maaid] << vote
+          else
+            votes[maaid] = [vote]
           end
         end
 

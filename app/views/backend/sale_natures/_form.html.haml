@@ -1,6 +1,6 @@
 = field_set do
   = f.input :name
-  = f.input :active
+  = f.input :active, input_html: { checked: "checked" }
   = f.input :by_default
   = f.input :currency
   = f.input :downpayment, :show => :downpayment

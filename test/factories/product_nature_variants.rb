@@ -142,6 +142,8 @@ FactoryBot.define do
     sequence(:name) { |n| "Plant medicine variant - #{n}" }
     variety { :preparation }
     unit_name { :liter }
+    imported_from { 'Lexicon' }
+    reference_name { nil }
 
     association :nature, factory: :plant_medicine_nature
     association :category, factory: :plant_medicine_category

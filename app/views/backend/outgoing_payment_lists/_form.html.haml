@@ -10,9 +10,9 @@
   .control-group
     = label_tag :period, :period.tl, class: 'control-label'
     .controls.inline-date-fields
-      %span= :from.tl
+      %span.addon= :from.tl
       = date_field_tag :started_at, params[:started_at], disabled: @affairs.present?
-      %span= :to.tl
+      %span.addon= :to.tl
       = date_field_tag :stopped_at, params[:stopped_at], disabled: @affairs.present?
 
   = f.association :mode, label: :payment_mode_form_label.tl, input_html: { data: { trigger_visibility: '#first-check-number', trigger_visibility_url: '/backend/outgoing_payment_modes/:id/sepa' } }

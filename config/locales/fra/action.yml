@@ -1953,6 +1953,7 @@ fra:
     humans: "RH"
     humidity: "Humidité"
     iban: "Numéro de compte bancaire internationale (IBAN)"
+    identical_usage_should_be_selected: "Il est nécessaire de sélectionner le même usage que celui choisi pour le premier produit portant le même n° d'AMM ou d'enregistrer deux interventions distinctes."
     identification: "Identification"
     identifiers: "Identifiants"
     if_closed_environment: "si milieu fermé"
