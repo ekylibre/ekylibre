@@ -1,109 +1,138 @@
 # Installation for developers
 
-This a short explanation on installation steps for developers.
+This process is for Ubuntu 18.04.
 
-If you are on Debian Jessie, please take a look at [detailed installation guide](https://github.com/ekylibre/ekylibre/blob/master/doc/guides/installation-debian-jessie.md).
+Please note that Ubuntu 20.04 and Debuan Buster are not supported yet as they are missing libraries for the old version of rgeo we are using.
+This can be fixed by manually downloading/compiling and installing proj4.
 
-## 1. Dependencies
+Please don't use Windows, you are just hurting yourself. And if you are using MacOS, you are on your own.
 
-*   Before all, install all database. See http://www.postgresql.org/download/
-    to install PostgreSQL on your system. PostgreSQL 9.5 is required at least
-    with PostGIS 2.2 and PostgreSQL contrib for its `uuid-ossp` extension.
+## 0. Ruby and Node.js installation
 
-*   Then, install all dependencies. Command and package can differ between
-    distributions or OS:
+We recommend installing Ruby using rbenv and Node with nvm 
 
-        sudo apt-get install imagemagick graphicsmagick tesseract-ocr tesseract-ocr-ara tesseract-ocr-jpn tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data ghostscript openjdk-7-jdk libicu52 redis-server postgresql-9.5-postgis-2.2 postgresql-contrib-9.5 libcurl4-openssl-dev libgeos-dev libgeos++-dev libproj-dev libpq-dev libxml2-dev libxslt1-dev zlib1g-dev libicu-dev libqtwebkit-dev
+``` bash
+# Base packages needed
+apt-get -y install git curl build-essential libreadline-dev libssl1.0-dev zlib1g-dev lsb-release wget
+```
 
+### Node
 
-## 2. Ruby
+``` bash
+# https://github.com/nvm-sh/nvm#install--update-script
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+```
+If you are using bash it is done automatically, but if not, it may be possible you need to add the following lines in your configuration:
+``` bash
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+```
 
-*   Install Ruby 2.2. If your distribution isn't up-to-date, see
-    [RVM](https://rvm.io) or [RbEnv](https://github.com/sstephenson/rbenv) to
-    install the good version.
+Then, install the latest LTS
+``` bash
+nvm install --lts
+nvm alias default lts
 
+# Install yarn globally
+npm i -g yarn
+```
 
-## 3. Get sources
+### Ruby
+#### rbenv and ruby-build
 
-*   Clone sources from repository
+Install rbenv and ruby-build through rbenv-installer
+``` bash
+curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-installer | bash
+```
 
-        git clone https://github.com/ekylibre/ekylibre.git /path/to/ekylibre
+You may have an error-message at the end:
 
-## 4. Configure Database
+    Running doctor script to verify installation...
+    Checking for `rbenv' in PATH: not found
+      You seem to have rbenv installed in `/root/.rbenv/bin', but that
+      directory is not present in PATH. Please add it to PATH by configuring
+      your `~/.bashrc', `~/.zshrc', or `~/.config/fish/config.fish'.
+    
+In this case you should put `export PATH="$HOME/.rbenv/bin:$PATH` and `eval "$(rbenv init -)"` in the configuration file of your shell
 
-*   Configure a DB superuser as default user in your `config/database.yml`. In
-    production mode, you'll need to use a normal user without SUPERUSER not
-    CREATEDB right.
+You can re-run the command above to make sure everything is set-up correctly
 
-*   Create your `database.yml` in `config/`
+#### Install Ruby
 
-        default: &default
-          adapter: postgis
-          encoding: unicode
-          pool: 5
-          postgis_extension: []
-          schema_search_path: public,postgis
-          username: ekylibre
-          password: ekylibre
-          host: 127.0.0.1
+``` bash
+MAKEFLAGS="-j $(nproc)" rbenv install 2.6.6
 
-        development:
-          <<: *default
-          database: ekylibre_development
+rbenv global 2.6.6
+gem install bundler --version==1.17.3
+```
 
+## 1. Ekylibre dependencies
 
-## 5. Configure ruby dependencies
+Postgres 9.6 and postgis 2.X are used. Redis is also required.
+``` bash
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
+wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | sudo apt-key add -
+sudo apt-get update
+ 
+sudo apt-get -y install postgresql-9.6-postgis-2.5 postgresql-contrib-9.6 redis-server
+```
 
-*   Install bundler with rubygems:
-
-        gem install bundler
-
-*   Move to Ekylibre directory root and install gems with bundler:
-
-        cd /path/to/ekylibre
-        JAVA_HOME=/usr/lib/jvm/java-7-openjdk NOKOGIRI_USE_SYSTEM_LIBRARIES=1 bundle install
-
-    Or you can add the following lines in your +~/.bash_profile+ in your home
-    directory and run +bundle install+ after:
-
-        export JAVA_HOME=/usr/lib/jvm/java-7-openjdk
-        export NOKOGIRI_USE_SYSTEM_LIBRARIES=1
-
-
-## 6. Initialize database
-
-*   Create and migrate database:
-
-        rake db:create db:migrate
-
-
-See [rails guide](http://guides.rubyonrails.org/active_record_migrations.html#running-migrations) for more informations on migrations.
-
-## 7. Create an empty farm
-
-*  Execute command:
-
-        rake tenant:init TENANT=my-little-farm
-
-*   Add in `/etc/hosts` a line to configure an artificial subdomain
-    corresponding to your instance:
-
-        echo '127.0.0.1 my-little-farm.ekylibre.lan' | sudo tee --append /etc/hosts
+Configure postgres with:
+``` bash
+sudo su - postgres
+createuser -d -P -s ekylibre
+echo "ALTER USER ekylibre SUPERUSER;" | psql
+``` 
 
 
-Optionally, it's possible to load anonymized data of a real (french
-polycultural-cattling) farm. Install data from
-https://github.com/ekylibre/first_run-demo in
-`/path/to/ekylibre/db/first_runs/demo`, and run:
+The gems used in ekylibre require the following dependencies:
+``` bash
+sudo apt install \
+    graphicsmagick \
+    libproj-dev libgeos-dev libgeos++-dev `#rgeo` \
+    openjdk-8-jdk  `#rjb` \
+    libqtwebkit-dev `#capybara` \
+    libicu-dev `#charlock_holmes` \
+    libpq-dev `#pq`
+```
 
-    rake first_run TENANT=demo
+JAVA_HOME needs to be set in your shell configuration file (example is for bash, change it based on your shell):
+``` bash
+echo 'export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"' >> ~/.bashrc
+```
 
-Don't forget to update your `/etc/hosts` file.
+## 3. Ekylibre installation
 
-## 8. Try it
+Get the code
+``` bash
+# Everything related to ekylibre is in the ekylibre folder
+mkdir ekylibre && cd ekylibre
 
-*   Launch server:
+# Clone the repository
+git clone git@gitlab.com:ekylibre/eky.git
+cd eky
+```
 
-        foreman start
+Configure the app
+``` bash
+# Copy the default database configuration. You should edit the username and password configuration to match your postgres installation
+cp config/database.yml.sample config/database.yml
 
-*   Open your web browser and go to http://my-farm.ekylibre.lan:8080
+# Configure the application
+cp .env.dist .env
+
+# TODO: edit the .env file with sensible values
+```
+
+Get the gems and js packages then initialize the database
+``` bash
+# Install dependencies
+yarn
+bundle install -j $(nproc)
+
+# Create database
+bin/rake db:{create,migrate}
+
+# Create the demo farm
+bin/rake tenant:init TENANT=demo
+```
