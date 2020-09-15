@@ -146,6 +146,10 @@
       <item name="trial_balance">
         <page to="backend/trial_balances#show"/>
       </item>
+      <item name="entries_ledger">
+        <page to="backend/entries_ledgers#show"/>
+        <page to="backend/entries_ledgers#list_journal_entry_items"/>
+      </item>
       <item name="general_ledger">
         <page to="backend/general_ledgers#index"/>
         <page to="backend/general_ledgers#show"/>

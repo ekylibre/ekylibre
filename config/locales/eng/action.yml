@@ -280,6 +280,8 @@ eng:
       # index: "Entity links"
       new: "New link"
       # show: "Entity link: %{name}"
+    backend/entries_ledgers:
+      show: "Entries"
     backend/equipments:
       edit: "Edit equipment: %{name}"
       # edit_many: "Edit many equipment: %{name}"

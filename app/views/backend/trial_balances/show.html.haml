@@ -102,6 +102,7 @@
             %td.dec{class: "balancecolor"}= number_to_accountancy(-item[6], currency) if item[6].to_f < 0
             %td.dec{class: "balancecolor"}= number_to_accountancy(prev_item[5], currency)
             %td.dec{class: "balancecolor"}= number_to_accountancy(-prev_item[6], currency) if prev_item[6].to_f < 0
+        - elsif item[1].to_i == -2
           %tr.subtotal
             %th{colspan: 2, style: "padding-left: #{d*8+4}px"}= :subtotal.tl(name: item[0])
             %td.dec{class: "totalcolor"}= number_to_accountancy(item[2], currency)

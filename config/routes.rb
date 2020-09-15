@@ -505,6 +505,12 @@ Rails.application.routes.draw do
 
     resources :equipments, concerns: :products
 
+    resource :entries_ledger, only: [:show], path: 'entries-ledger' do
+      member do
+        get :list_journal_entry_items
+      end
+    end
+
     resources :event_participations
 
     resources :events, concerns: %i[autocomplete list unroll] do

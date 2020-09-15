@@ -228,6 +228,8 @@ fra:
       edit: "Modifier le lien"
       new: "Nouveau lien"
       show: "Lien" #?
+    backend/entries_ledgers:
+      show: "Ecritures"
     backend/equipments:
       edit: "Modifier l’équipement\_: %{name}"
       index: "Équipements"

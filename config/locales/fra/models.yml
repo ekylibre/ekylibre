@@ -2638,11 +2638,11 @@ fra:
         rent: "Location"
         sales: "Vente"
     purchase:
-      bookkeep: "[%{resource} %{number}] %{products} de %{supplier}"
-      exchange_undelivered_invoice: "Facture non parvenue - extourne [%{resource} %{mode} %{number}] %{entity}"
+      bookkeep: "%{supplier} [%{resource} %{number}] %{products}"
+      exchange_undelivered_invoice: "%{entity} Facture non parvenue - extourne [%{resource} %{mode} %{number}]"
       label: "%{supplier} à %{address}"
       purchase: "Achat"
-      quantity_gap_on_invoice: "Écart de stock en quantité [%{resource} %{number}] de %{entity}"
+      quantity_gap_on_invoice: "%{entity} Écart de stock en quantité [%{resource} %{number}]"
       states:
         aborted: "Abandonné"
         draft: "Devis brouillon"
@@ -2651,9 +2651,9 @@ fra:
         order: "Commande"
         refused: "Refusé"
     purchase_gap:
-      bookkeep: "[%{resource} %{number}] %{supplier}"
+      bookkeep: "%{supplier} [%{resource} %{number}]"
     purchase_invoice:
-      bookkeep: "[%{resource} %{number}] %{products} de %{supplier}"
+      bookkeep: "%{supplier} [%{resource} %{number}] %{products}"
       quantity_gap_on_invoice: "Écart de stock en quantité [%{resource} %{number}] de %{entity}"
     purchase_item:
       name: "%{product} (%{quantity}%{unit}) à %{amount}%{currency}/%{unit}"
@@ -2668,10 +2668,10 @@ fra:
         estimate: "Brouillon" #?
         opened: "Ouverte" #?
     purchase_payment:
-      bookkeep: "[%{resource} %{number}] %{mode} %{check_number} pour %{payee}"
-      label: "%{number}. %{amount} du %{date} en %{mode} pour %{payee}"
+      bookkeep: "%{payee} [%{resource} %{number}] %{mode} %{check_number}"
+      label: "%{payee} %{number}. %{amount} du %{date} en %{mode}"
     reception:
-      bookkeep: "[%{resource} %{number}] %{entity}"
+      bookkeep: "%{entity} [%{resource} %{number}]"
       states:
         draft: "Brouillon"
         given: "Donné"
@@ -2679,14 +2679,14 @@ fra:
         ordered: "Commandé"
         prepared: "Prêt"
         received: "Reçu"
-      undelivered_invoice: "Facture non parvenue [%{resource} %{mode} %{number}] %{entity}"
+      undelivered_invoice: "%{entity} Facture non parvenue [%{resource} %{mode} %{number}]"
     role:
       default:
         administrator: "Gérant"
         public: "Public"
     sale:
-      bookkeep: "[%{resource} %{number}] %{products} pour %{client} (%{sale})"
-      exchange_undelivered_invoice: "Facture non parvenue - extourne [%{resource} %{mode} %{number}] %{entity}"
+      bookkeep: "%{client} [%{resource} %{number}] %{products} (%{sale})"
+      exchange_undelivered_invoice: "%{entity} Facture non parvenue - extourne [%{resource} %{mode} %{number}]"
       label:
         aborted: "Vente abandonnée %{number}"
         credit: "Avoir %{number}"
@@ -2695,7 +2695,7 @@ fra:
         invoice: "Facture %{number}"
         order: "Commande %{number}"
         refused: "Devis refusé %{number}"
-      quantity_gap_on_invoice: "Écart de stock en quantité [%{resource} %{number}] de %{entity}"
+      quantity_gap_on_invoice: "%{entity} Écart de stock en quantité [%{resource} %{number}]"
       sale: "Vente %{number}"
       sales_conditions:
         downpayment: "Un acompte de %{percentage}% (soit %{amount}) devra être versé à la signature du présent devis."
@@ -2712,7 +2712,7 @@ fra:
         order: "Commande"
         refused: "Devis refusé"
     sale_gap:
-      bookkeep: "[%{resource} %{number}] %{client}"
+      bookkeep: "%{client} [%{resource} %{number}]"
     sale_item:
       building_can_not_transfer_product: "Le produit %{product} ne peut être sorti du réservoir %{building}, celui-ci contient %{contained_product} "
       can_not_use_this_tracking: "Vous ne  pouvez pas utiliser le lot %{name}, la quantité commandée est supérieure à la quantité disponible "

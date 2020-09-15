@@ -36,7 +36,8 @@ module Backend
         started_on: params[:started_on],
         stopped_on: params[:stopped_on],
         vat_details: params[:vat_details],
-        previous_year: params[:previous_year]
+        previous_year: params[:previous_year],
+        levels: params.to_unsafe_h.select{|k, v| k =~ /\Alevel_/ && v.to_s == "1"}.map{|k, _v| k.sub('level_', '').to_i}
       }
 
       respond_to do |format|
