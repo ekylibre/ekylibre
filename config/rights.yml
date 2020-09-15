@@ -1841,6 +1841,8 @@ journal_entries:
 journals:
   read:
     actions:
+    - "backend/entries_ledgers#list_journal_entry_items"
+    - "backend/entries_ledgers#show"
     - "backend/general_ledgers#index"
     - "backend/general_ledgers#list_journal_entry_items" #?
     - "backend/general_ledgers#show"

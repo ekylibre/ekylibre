@@ -28,6 +28,8 @@ module Accountancy
     end
 
     def trial_balance(options = {})
+      levels = options.fetch(:levels, [])
+
       journal_entry_items = 'jei'
       vat_journal_entry_items = 'vjei'
       tax_items = 'ti'
@@ -58,8 +60,7 @@ module Accountancy
       items += connection.select_rows(query)
 
       # Sub-totals  - position in array -2
-      options.select { |k, v| k.to_s.match(/^level_\d+$/) && v.to_i == 1 }.each do |name, _value|
-        level = name.split(/\_/)[-1].to_i
+      levels.each do |level|
         query = "SELECT SUBSTR(#{accounts}.number, 1, #{level}) AS subtotal, -2, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), SUBSTR(#{accounts}.number, 1, #{level})||'#{'Z' * (16 - level)}' AS skey"
         query << from_where
         query << journal_entries_states
@@ -114,8 +115,8 @@ module Accountancy
       items.sort_by { |a| a[5] }
     end
 
-    def trial_balance_dataset(states:, natures:, balance:, accounts:, centralize:, period:, started_on:, stopped_on:, previous_year:, vat_details: false)
-      balance_params = { states: states, natures: natures, accounts: accounts, centralize: centralize, period: period, started_on: started_on, stopped_on: stopped_on, vat_details: vat_details }
+    def trial_balance_dataset(states:, natures:, balance:, accounts:, centralize:, period:, started_on:, stopped_on:, previous_year:, vat_details: false, levels: [])
+      balance_params = { states: states, natures: natures, accounts: accounts, centralize: centralize, period: period, started_on: started_on, stopped_on: stopped_on, vat_details: vat_details, levels: levels }
 
       balance_data = if period.present?
                        trial_balance(balance_params)

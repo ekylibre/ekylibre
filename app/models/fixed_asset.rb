@@ -304,8 +304,11 @@ class FixedAsset < Ekylibre::Record::Base
     FinancialYear.on(started_on)&.closure_in_preparation?
   end
 
-  # Depreciate active fixed assets
+  # Depreciate active fixe²d assets
+  # @deprecated
   def self.depreciate(options = {})
+    ActiveSupport::Deprecation.warn 'FixedAsset::depreciate is deprecated, use FixedAssetDepreciator instead.'
+
     FixedAssetDepreciator.new.depreciate(FixedAsset.all, up_to: options[:until])
   end
 

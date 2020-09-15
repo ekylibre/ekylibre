@@ -49,11 +49,11 @@ module Printers
       ]
 
       base_bottom_active = [
-        [:entities, false, [:entities_advance_giveables, :entities_client_receivables,
-                            :entities_others_clients, :entities_state_receivables,
-                            :entities_associate_receivables, :entities_other_receivables,
-                            :entities_investment_security, :entities_reserve,
-                            :entities_advance_charges, :entities_assets_gaps]]
+        [:entities, true, [:entities_advance_giveables, :entities_client_receivables,
+                           :entities_others_clients, :entities_state_receivables,
+                           :entities_associate_receivables, :entities_other_receivables,
+                           :entities_investment_security, :entities_reserve,
+                           :entities_advance_charges, :entities_assets_gaps]]
       ]
 
       base_active.each do |group_item, is_multi_items, items|
