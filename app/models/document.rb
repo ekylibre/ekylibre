@@ -91,4 +91,11 @@ class Document < Ekylibre::Record::Base
     # DB limitation
     self.file_content_text = file_content_text.truncate(500_000) if file_content_text
   end
+
+  # Hack to alow zip in the doeument management system
+  before_post_process :skip_for_zip
+
+  def skip_for_zip
+    !%w[application/zip application/x-zip].include?(file_content_type)
+  end
 end
