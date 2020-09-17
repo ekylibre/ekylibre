@@ -140,11 +140,10 @@ module Backend
       accounts = Account.get_auxiliary_accounts(params[:ledger])
       if accounts.present?
         ledger_label = :subledger_of_accounts_x.tl(account: accounts.first.centralizing_account_name.tl)
-        params[:accounts] = accounts.pluck(:number)
       end
       t3e(ledger: ledger_label)
 
-      dataset_params = { accounts: params[:accounts],
+      dataset_params = { accounts: accounts.pluck(:number),
                          lettering_state: params[:lettering_state],
                          states: params[:states],
                          ledger: params[:ledger],
