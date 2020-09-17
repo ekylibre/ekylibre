@@ -31,7 +31,9 @@ module PanierLocal
         create :financial_year, year: 2020
 
         assert_nil @e.find_incoming_payment_by_provider("42")
-        ip = create :incoming_payment, at: Date.new(2020, 1, 2), provider: { vendor: :panier_local, name: :incoming_payments, id: 42, data: { sale_reference_number: "42" } }
+        ip = create :incoming_payment,
+                    at: Date.new(2020, 1, 2),
+                    provider: { vendor: :panier_local, name: :incoming_payments, id: 42, data: { sale_reference_number: "42" } }
         assert_equal ip, @e.find_incoming_payment_by_provider("42")
       end
 
