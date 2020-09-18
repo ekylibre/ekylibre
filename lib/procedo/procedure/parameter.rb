@@ -59,6 +59,10 @@ module Procedo
       def depend_on?(_parameter_name)
         false
       end
+
+      def required?
+        cardinality.minimum == 1
+      end
     end
   end
 end
