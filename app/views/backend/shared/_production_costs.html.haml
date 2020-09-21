@@ -9,8 +9,7 @@
         %span.value
           = costs_types[:total].l(currency: currency.name)
 
-      - costs_types.except!(:total)
-      - costs_types.each do |key, value|
+      - costs_types.except(:total).each do |key, value|
         - cost_type = key.to_s.singularize
 
         .big-info.cost
