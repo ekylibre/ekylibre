@@ -432,6 +432,7 @@ module Backend
 
       Intervention.transaction do
         @interventions.each do |intervention|
+          next if intervention.request? && intervention.record_interventions.any?
           if intervention.nature == :record && new_state == :rejected
 
             unless intervention.request_intervention_id.nil?
