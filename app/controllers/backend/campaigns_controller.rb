@@ -18,7 +18,7 @@
 
 module Backend
   class CampaignsController < Backend::BaseController
-    manage_restfully
+    manage_restfully except: :show
 
     before_action only: :show do
       if params[:current_campaign]
@@ -42,14 +42,19 @@ module Backend
       t.column :closed
     end
 
-    # List of productions for one campaign
-    # list(:activity_productions, conditions: "campaign = Campaign.find(params[:id])\n['(started_on, stopped_on) OVERLAPS (?, ?)', campaign.started_on, campaign.stopped_on]".c, order: { started_on: :desc }) do |t|
-    #   t.column :name, url: true
-    #   # t.column :product_nature, url: true
-    #   t.column :state
-    #   t.column :started_on
-    #   t.column :stopped_on
-    # end
+    def show
+      return unless @campaign = find_and_check(:campaign)
+
+      @currency = Nomen::Currency.find(Preference[:currency])
+      activities_of_campaign = Activity.of_campaign(@campaign)
+      @availables_activities = Activity.availables.where.not(id: activities_of_campaign)
+      @families = activities_of_campaign.order(:family).collect(&:family).uniq
+      @activities = activities_of_campaign
+                    .left_join_working_duration_of_campaign(current_campaign)
+                    .left_join_issues_count_of_campaign(current_campaign)
+                    .left_join_production_costs_of_campaign(current_campaign)
+      t3e(@campaign.attributes)
+    end
 
     def open
       return unless (@campaign = find_and_check)

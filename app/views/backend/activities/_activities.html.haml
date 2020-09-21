@@ -1,0 +1,19 @@
+- if activities.exists?
+  = janus do |j|
+    - j.face :cobbles do
+      - families.each do |family|
+        .activity-family.activity-cards
+          .activity-family-heading
+            %h2.activity-family-title= family.human_name
+          .activity-family-body
+            .activity-containers
+              - activities.where(family: family).order(:name).each do |activity|
+                .activity-container= render 'backend/activities/card', activity: activity, campaign: campaign || current_campaign, currency: currency
+    - j.face :timeline do
+      .productions-list
+        = production_chronologies(current_campaign.activity_productions)
+    - j.face :list do
+      = main_list
+- else
+  .placeholding-message
+    = :no_production_found_you_can_add_it_or_copy_from_previous_records.tn
