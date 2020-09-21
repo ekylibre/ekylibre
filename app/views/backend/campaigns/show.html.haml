@@ -1,34 +1,13 @@
-- activities = Activity.of_campaign(current_campaign)
+- main_period_selector(:year)
 
 - main_toolbar do |t|
-  - availables = Activity.availables.where.not(id: activities)
-  - if availables.any?
+  - if @availables_activities.any?
     = t.menu :open, icon: false do |menu|
-      - availables.order(:name).each do |a|
+      - @availables_activities.order(:name).each do |a|
         - menu.item a.name, { action: :open, controller: :campaigns, id: current_campaign.id, activity_id: a.id }, method: :post, title: a.name
       - menu.separator
       - menu.item :manage_activities.tl, { controller: :activities, action: :index }, as: 'main'
   - else
     = tool_to :manage_activities.tl, { controller: :activities, action: :index }
 
-
-- main_period_selector(:year)
-
-- if activities.any?
-  = janus do |j|
-    - j.face :cobbles do
-      - families = activities.order(:family).collect(&:family).uniq
-      - families.each do |family|
-        .activity-family.activity-cards
-          .activity-family-heading
-            %h2.activity-family-title= family.human_name
-          .activity-family-body
-            .activity-containers
-              - activities.where(family: family).order(:name).each do |activity|
-                .activity-container= render 'backend/activities/card', activity: activity, campaign: current_campaign
-    - j.face :list do
-      .productions-list
-        = production_chronologies(current_campaign.activity_productions)
-- else
-  .placeholding-message
-    = :no_production_found_you_can_add_it_or_copy_from_previous_records.tn
+= render 'backend/activities/activities', activities: @activities, families: @families, campaign: @campaign, currency: @currency
