@@ -1,8 +1,6 @@
 - main_toolbar do |t|
   = t.destroy resource
-  = dropdown_menu_button(:export.ta, icon: :download) do |d|
-    - d.item :standard.tl, nature: 'standard', format: :pdf
-    - d.item :check_letter.tl, nature: 'check_letter', format: :pdf
+  = t.export  :outgoing_payment_list__standard, :outgoing_payment_list__check_letter, key: :number
   = t.export_to_sepa resource if resource.sepa_exportable?
 
 = main_informations do
