@@ -3,7 +3,7 @@ module Printers
     AMOUNT_OF_ROWS_FITTING_IN_PAGE_ONE = 8
     AMOUNT_OF_ROWS_FITTING_IN_OTHER_PAGES = 16
 
-    attr_accessor :template_path
+    attr_accessor :template_path, :outgoing_payment_list
 
     def initialize(outgoing_payment_list:, nature:, template:)
       super(template: template)
@@ -13,9 +13,7 @@ module Printers
     end
 
     def key
-      document_nature = Nomen::DocumentNature.find(:outgoing_payment_list)
-
-      "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
+      outgoing_payment_list.number
     end
 
     def compute_dataset

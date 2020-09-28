@@ -46,24 +46,67 @@ module Backend
     end
 
     def show
-      return unless @outgoing_payment_list = find_and_check
-      t3e @outgoing_payment_list
+      return unless (@outgoing_payment_list = find_and_check)
 
-      @entity_of_company_full_name = Entity.of_company.full_name
+      t3e @outgoing_payment_list
 
       respond_to do |format|
         format.html
         format.pdf do
-          printer = OutgoingPaymentListPrinter.new(outgoing_payment_list: @outgoing_payment_list, nature: params[:nature])
+          template = DocumentTemplate.find(params[:template])
 
-          raise 'Cannot find template' if printer.template_path.nil?
+          if template.file_extension == 'odt'
+            printer = Printers::OutgoingPaymentListPrinter.new(outgoing_payment_list: @outgoing_payment_list, nature: params[:nature], template: template)
 
-          file_name = "#{t('nomenclatures.document_natures.items.outgoing_payment_list')} (#{@outgoing_payment_list.number})"
+            generator = Ekylibre::DocumentManagement::DocumentGenerator.build
+            pdf_data = generator.generate_pdf(template: template, printer: printer)
 
-          generator = Ekylibre::DocumentManagement::DocumentGenerator.build
-          pdf_data = generator.generate_pdf(template: template, printer: printer)
+            archiver = Ekylibre::DocumentManagement::DocumentArchiver.build
+            archiver.archive_document(
+              pdf_content: pdf_data,
+              template: template,
+              key: printer.key,
+              name: printer.document_name
+            )
 
-          send_file pdf_data, type: 'application/pdf', disposition: 'attachment', filename: "#{file_name}.pdf"
+            send_data pdf_data, type: 'application/pdf', disposition: 'attachment', filename: "#{printer.document_name}.pdf"
+          else
+            respond_with(
+              @outgoing_payment_list,
+              methods: %i[currency payments_sum entity],
+              include: {
+                payer: {
+                  methods: [:picture_path],
+                  include: {
+                    default_mail_address: {
+                      methods: [:mail_coordinate]
+                    },
+                    websites: {},
+                    emails: {},
+                    mobiles: {}
+                  }
+                },
+                payments: {
+                  methods: %i[amount_to_letter label affair_reference_numbers],
+                  include: {
+                    responsible: {},
+                    affair: { include: { purchase_invoices: {} } },
+                    mode: {},
+                    payee: {
+                      include: {
+                        default_mail_address: {
+                          methods: [:mail_coordinate]
+                        },
+                        websites: {},
+                        emails: {},
+                        mobiles: {}
+                      }
+                    }
+                  }
+                }
+              }
+            )
+          end
         end
       end
     end
