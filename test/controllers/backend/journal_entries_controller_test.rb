@@ -21,6 +21,7 @@ require 'test_helper'
 module Backend
   class JournalEntriesControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions(
+      except: :list,
       new: { journal_id: 3 },
       toggle_autocompletion: { format: :json },
       currency_state: { from: 'EUR' },
