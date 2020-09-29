@@ -42,6 +42,7 @@ eng:
     ekylibre_entities: "Ekylibre Entities"
     ekylibre_equipments: "Ekylibre equipment"
     ekylibre_equipments_json: "Ekylibre equipment JSON"
+    ekylibre_fixed_assets: "Ekylibre fixed assets"
     ekylibre_georeadings: "Ekylibre Georeadings"
     ekylibre_incoming_payments: "Ekylibre incoming payments"
     ekylibre_interventions: "Ekylibre interventions"

@@ -76,6 +76,7 @@ class FixedAsset < Ekylibre::Record::Base
   include Attachable
   include Customizable
   include Transitionable
+  include Providable
 
   bookkeep # This callback permits to add journal entry corresponding to the fixed asset when entering in use
   acts_as_numbered
