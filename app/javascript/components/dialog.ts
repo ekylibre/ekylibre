@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse, Method } from 'axios';
 import { Modal, openRemote } from 'components/modal';
 
 interface DialogOptions {
@@ -33,13 +33,26 @@ export async function openDialog(url: string, options: DialogOptions): Promise<M
         const data = new FormData(form);
         data.set('dialog', '1');
 
+        const formMethod: Method = form.method.toLowerCase() as Method;
+        const dataOrParams = {};
+        if (formMethod == 'get' || formMethod == 'head') {
+            // Handle passing data as params for get-like requests
+            dataOrParams['params'] = Object.fromEntries(data.entries());
+        } else {
+            dataOrParams['data'] = data;
+        }
+
         axios
-            .post(form.action, data, requestConfigDefaults)
+            .request({ ...requestConfigDefaults, method: formMethod, url: form.action, ...dataOrParams })
             .then((response) => {
                 const statusCode = response.headers['x-return-code'];
 
-                if (statusCode && statusCode == 'invalid') {
-                    options.invalid && options.invalid(response);
+                if (!statusCode || statusCode == 'invalid') {
+                    // No status code means this is likely a multistep form
+                    if (statusCode == 'invalid' && options.invalid) {
+                        options.invalid && options.invalid(response);
+                    }
+
                     modal.setBodyString(response.data);
                     handleTitle(modal);
                 } else {
