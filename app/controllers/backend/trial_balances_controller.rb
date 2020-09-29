@@ -42,10 +42,8 @@ module Backend
 
       respond_to do |format|
         format.html do
-          dataset = Journal.trial_balance_dataset(dataset_params)
-          @balance = dataset[:balance]
-          @prev_balance = dataset[:prev_balance]
-          @empty_balances = @balance.length == 1 && @prev_balance.length.zero?
+          @balance = Journal.trial_balance_dataset(dataset_params)
+          @empty_balances = @balance.length <= 1
           notify_now(:please_select_a_period_containing_journal_entries) if @empty_balances
         end
 
