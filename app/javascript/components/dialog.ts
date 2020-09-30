@@ -21,6 +21,11 @@ const requestConfigDefaults = {
     },
 };
 
+interface DataOrParams {
+    params?: Record<string, File | string>;
+    data?: FormData;
+}
+
 export async function openDialog(url: string, options: DialogOptions): Promise<Modal> {
     const { modal } = await openRemote(url, { size: 'lg', requestConfig: { ...requestConfigDefaults, params: { dialog: '1' } } });
     handleTitle(modal);
@@ -34,12 +39,12 @@ export async function openDialog(url: string, options: DialogOptions): Promise<M
         data.set('dialog', '1');
 
         const formMethod: Method = form.method.toLowerCase() as Method;
-        const dataOrParams = {};
+        const dataOrParams: DataOrParams = {};
         if (formMethod == 'get' || formMethod == 'head') {
             // Handle passing data as params for get-like requests
-            dataOrParams['params'] = Object.fromEntries(data.entries());
+            dataOrParams.params = Object.fromEntries(data.entries());
         } else {
-            dataOrParams['data'] = data;
+            dataOrParams.data = data;
         }
 
         axios
