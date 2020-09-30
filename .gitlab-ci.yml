@@ -7,6 +7,9 @@ stages:
   - deploy
 
 variables:
+  DOCKER_BUILDKIT: 1
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: ""
   TEST_IMAGE: ${CI_REGISTRY_IMAGE}/test:$CI_COMMIT_REF_SLUG
   TEST_LATEST: ${CI_REGISTRY_IMAGE}/test:latest
   REVIEW_HOST: ${CI_BUILD_REF_SLUG}.ci.ekylibre.dev
@@ -22,12 +25,12 @@ variables:
 #                 BUILD                 #
 #########################################
 build_test:
-  image: registry.gitlab.com/ekylibre/docker-base-images/tools/deploy:1
+  image: registry.gitlab.com/ekylibre/docker-base-images/tools/deploy:1.5
   stage: build
   except:
     - tags
   services:
-    - docker:18-dind
+    - docker:19.03-dind
   before_script:
     - echo "${CI_BUILD_TOKEN}" | docker login --username $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
   script:
@@ -112,7 +115,7 @@ doc_build:
   dependencies:
     - build_test
   services:
-    - docker:18-dind
+    - docker:19.03-dind
   before_script:
     - echo "${CI_BUILD_TOKEN}" | docker login --username $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
   script:
