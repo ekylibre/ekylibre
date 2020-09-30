@@ -3,16 +3,6 @@
 module ActivityProductions
   class WorkingZoneAreaCalculation
 
-    SELECT_SRID = <<~SQL
-      SELECT CASE
-        WHEN string_value = 'WGS84' THEN 4326
-        WHEN string_value = 'RGF93' THEN 2154
-        WHEN string_value ~ '_' THEN SPLIT_PART(string_value, '_', 2)::INTEGER
-        ELSE 0
-      END AS srid
-      FROM preferences WHERE name = 'map_measure_srs' LIMIT 1
-    SQL
-
     PLANTING = Procedo::Procedure.of_category(:planting).map do |procedure|
       procedure.name.to_s.insert(0, "'").insert(-1, "'")
     end.join(', ')
@@ -30,13 +20,10 @@ module ActivityProductions
             activity_productions.id AS activity_production_id,
             CASE
               WHEN interventions.procedure_name NOT IN (#{PLANTING})
-              THEN ST_Area(ST_Transform(intervention_parameters.working_zone,
-                (#{SELECT_SRID}))
-                )/10000
+              THEN ST_Area(intervention_parameters.working_zone, TRUE) / 10000
               /* if procedure is planting, it should take the initial shape of
                  the associated products                                    */
-              ELSE ST_Area(ST_Transform(products.initial_shape,
-                (#{SELECT_SRID})))/10000
+              ELSE ST_Area(products.initial_shape, TRUE) / 10000
             END AS area
           FROM interventions
           INNER JOIN intervention_parameters
