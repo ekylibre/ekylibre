@@ -19,15 +19,15 @@ module ActivityProductions
         INNER JOIN interventions ON interventions.id = intervention_targets.intervention_id
         INNER JOIN intervention_costings ON interventions.costing_id = intervention_costings.id
         WHERE activity_productions.id = #{activity_production.id}
+        -- only with interventions with nature record and state is not rejected
+        AND interventions.state != 'rejected'
+        AND interventions.nature = 'record'
         GROUP BY activity_productions.id;
       SQL
 
       return { inputs: 0, doers: 0, tools: 0, receptions: 0, total: 0 } if activity_production_costs.values.empty?
 
-      activity_production_costs = activity_production_costs.first.symbolize_keys.except(:id)
-      activity_production_costs.each do |k, v|
-        activity_production_costs[k] = v.to_i
-      end
+      activity_production_costs.first.symbolize_keys.except(:id).transform_values(&:to_i)
     end
   end
 end
