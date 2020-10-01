@@ -989,7 +989,7 @@ class Intervention < Ekylibre::Record::Base
       associations_group_parameters = { intervention: { group_parameters_attributes: {} } }
       self.group_parameters.each_with_index do |gp, gp_index|
         associations_group_parameters[:intervention][:group_parameters_attributes][gp_index] = { reference_name: gp.reference_name }
-        %w[targets tools inputs doers outputs participations working_periods].each do |product_parameter|
+        %w[targets tools inputs doers outputs].each do |product_parameter|
           next unless gp.send(product_parameter).any?
           key = (product_parameter + '_attributes').to_sym
           associations_group_parameters[:intervention][:group_parameters_attributes][gp_index][key] = {}
