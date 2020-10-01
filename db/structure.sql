@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 9.6.12
--- Dumped by pg_dump version 12.4
+-- Dumped by pg_dump version 12.3 (Ubuntu 12.3-1.pgdg19.10+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -227,7 +227,7 @@ SET default_tablespace = '';
 -- Name: cadastral_land_parcel_zones; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.cadastral_land_parcel_zones (
+CREATE UNLOGGED TABLE lexicon.cadastral_land_parcel_zones (
     id character varying NOT NULL,
     section character varying,
     work_number character varying,
@@ -256,7 +256,7 @@ CREATE TABLE lexicon.datasource_credits (
 -- Name: eu_market_prices; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.eu_market_prices (
+CREATE UNLOGGED TABLE lexicon.eu_market_prices (
     id character varying NOT NULL,
     category character varying,
     sector_code character varying,
@@ -275,7 +275,7 @@ CREATE TABLE lexicon.eu_market_prices (
 -- Name: intervention_model_items; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.intervention_model_items (
+CREATE UNLOGGED TABLE lexicon.intervention_model_items (
     id character varying NOT NULL,
     procedure_item_reference character varying NOT NULL,
     article_reference character varying,
@@ -290,7 +290,7 @@ CREATE TABLE lexicon.intervention_model_items (
 -- Name: intervention_models; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.intervention_models (
+CREATE UNLOGGED TABLE lexicon.intervention_models (
     id character varying NOT NULL,
     name jsonb,
     category_name jsonb,
@@ -305,7 +305,7 @@ CREATE TABLE lexicon.intervention_models (
 -- Name: master_production_natures; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.master_production_natures (
+CREATE UNLOGGED TABLE lexicon.master_production_natures (
     id integer NOT NULL,
     specie character varying NOT NULL,
     human_name jsonb,
@@ -328,7 +328,7 @@ CREATE TABLE lexicon.master_production_natures (
 -- Name: master_production_outputs; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.master_production_outputs (
+CREATE UNLOGGED TABLE lexicon.master_production_outputs (
     production_nature_id integer NOT NULL,
     production_system_name character varying NOT NULL,
     name character varying NOT NULL,
@@ -342,7 +342,7 @@ CREATE TABLE lexicon.master_production_outputs (
 -- Name: master_vine_varieties; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.master_vine_varieties (
+CREATE UNLOGGED TABLE lexicon.master_vine_varieties (
     id character varying NOT NULL,
     specie_name character varying NOT NULL,
     specie_long_name character varying,
@@ -373,7 +373,7 @@ CREATE TABLE lexicon.phenological_stages (
 -- Name: registered_agroedi_codes; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.registered_agroedi_codes (
+CREATE UNLOGGED TABLE lexicon.registered_agroedi_codes (
     id integer NOT NULL,
     repository_id integer NOT NULL,
     reference_id integer NOT NULL,
@@ -388,7 +388,7 @@ CREATE TABLE lexicon.registered_agroedi_codes (
 -- Name: registered_building_zones; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.registered_building_zones (
+CREATE UNLOGGED TABLE lexicon.registered_building_zones (
     nature character varying,
     shape postgis.geometry(MultiPolygon,4326) NOT NULL,
     centroid postgis.geometry(Point,4326)
@@ -399,7 +399,7 @@ CREATE TABLE lexicon.registered_building_zones (
 -- Name: registered_chart_of_accounts; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.registered_chart_of_accounts (
+CREATE UNLOGGED TABLE lexicon.registered_chart_of_accounts (
     id character varying NOT NULL,
     account_number character varying NOT NULL,
     chart_id character varying NOT NULL,
@@ -413,7 +413,7 @@ CREATE TABLE lexicon.registered_chart_of_accounts (
 -- Name: registered_crop_zones; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.registered_crop_zones (
+CREATE UNLOGGED TABLE lexicon.registered_crop_zones (
     id character varying NOT NULL,
     city_name character varying,
     shape postgis.geometry(Polygon,4326) NOT NULL,
@@ -425,7 +425,7 @@ CREATE TABLE lexicon.registered_crop_zones (
 -- Name: registered_enterprises; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.registered_enterprises (
+CREATE UNLOGGED TABLE lexicon.registered_enterprises (
     establishment_number character varying NOT NULL,
     french_main_activity_code character varying NOT NULL,
     name character varying,
@@ -440,7 +440,7 @@ CREATE TABLE lexicon.registered_enterprises (
 -- Name: registered_hydro_items; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.registered_hydro_items (
+CREATE UNLOGGED TABLE lexicon.registered_hydro_items (
     id character varying NOT NULL,
     name jsonb,
     nature character varying,
@@ -454,7 +454,7 @@ CREATE TABLE lexicon.registered_hydro_items (
 -- Name: registered_legal_positions; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.registered_legal_positions (
+CREATE UNLOGGED TABLE lexicon.registered_legal_positions (
     id integer NOT NULL,
     name jsonb,
     nature character varying NOT NULL,
@@ -469,7 +469,7 @@ CREATE TABLE lexicon.registered_legal_positions (
 -- Name: registered_pfi_crops; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.registered_pfi_crops (
+CREATE UNLOGGED TABLE lexicon.registered_pfi_crops (
     id integer NOT NULL,
     reference_label_fra character varying
 );
@@ -479,7 +479,7 @@ CREATE TABLE lexicon.registered_pfi_crops (
 -- Name: registered_pfi_doses; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.registered_pfi_doses (
+CREATE UNLOGGED TABLE lexicon.registered_pfi_doses (
     france_maaid integer NOT NULL,
     pesticide_name character varying,
     harvest_year integer NOT NULL,
@@ -496,7 +496,7 @@ CREATE TABLE lexicon.registered_pfi_doses (
 -- Name: registered_pfi_segments; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.registered_pfi_segments (
+CREATE UNLOGGED TABLE lexicon.registered_pfi_segments (
     id character varying NOT NULL,
     label_fra character varying,
     description character varying
@@ -507,7 +507,7 @@ CREATE TABLE lexicon.registered_pfi_segments (
 -- Name: registered_pfi_targets; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.registered_pfi_targets (
+CREATE UNLOGGED TABLE lexicon.registered_pfi_targets (
     id integer NOT NULL,
     reference_label_fra character varying
 );
@@ -517,7 +517,7 @@ CREATE TABLE lexicon.registered_pfi_targets (
 -- Name: registered_pfi_treatment_types; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.registered_pfi_treatment_types (
+CREATE UNLOGGED TABLE lexicon.registered_pfi_treatment_types (
     id character varying NOT NULL,
     label_fra character varying
 );
@@ -541,7 +541,7 @@ CREATE TABLE lexicon.registered_phytosanitary_cropsets (
 -- Name: registered_phytosanitary_products; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.registered_phytosanitary_products (
+CREATE UNLOGGED TABLE lexicon.registered_phytosanitary_products (
     id integer NOT NULL,
     reference_name character varying NOT NULL,
     name character varying NOT NULL,
@@ -567,7 +567,7 @@ CREATE TABLE lexicon.registered_phytosanitary_products (
 -- Name: registered_phytosanitary_risks; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.registered_phytosanitary_risks (
+CREATE UNLOGGED TABLE lexicon.registered_phytosanitary_risks (
     product_id integer NOT NULL,
     risk_code character varying NOT NULL,
     risk_phrase character varying NOT NULL,
@@ -579,7 +579,7 @@ CREATE TABLE lexicon.registered_phytosanitary_risks (
 -- Name: registered_phytosanitary_symbols; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.registered_phytosanitary_symbols (
+CREATE UNLOGGED TABLE lexicon.registered_phytosanitary_symbols (
     id character varying NOT NULL,
     symbol_name character varying
 );
@@ -589,7 +589,7 @@ CREATE TABLE lexicon.registered_phytosanitary_symbols (
 -- Name: registered_phytosanitary_target_name_to_pfi_targets; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.registered_phytosanitary_target_name_to_pfi_targets (
+CREATE UNLOGGED TABLE lexicon.registered_phytosanitary_target_name_to_pfi_targets (
     ephy_name character varying NOT NULL,
     pfi_id integer,
     pfi_name character varying,
@@ -601,7 +601,7 @@ CREATE TABLE lexicon.registered_phytosanitary_target_name_to_pfi_targets (
 -- Name: registered_phytosanitary_usages; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.registered_phytosanitary_usages (
+CREATE UNLOGGED TABLE lexicon.registered_phytosanitary_usages (
     id character varying NOT NULL,
     lib_court integer,
     product_id integer NOT NULL,
@@ -653,7 +653,7 @@ CREATE TABLE lexicon.registered_postal_zones (
 -- Name: registered_protected_designation_of_origins; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.registered_protected_designation_of_origins (
+CREATE UNLOGGED TABLE lexicon.registered_protected_designation_of_origins (
     id integer NOT NULL,
     ida integer NOT NULL,
     geographic_area character varying,
@@ -669,7 +669,7 @@ CREATE TABLE lexicon.registered_protected_designation_of_origins (
 -- Name: registered_seeds; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.registered_seeds (
+CREATE UNLOGGED TABLE lexicon.registered_seeds (
     number integer NOT NULL,
     specie character varying NOT NULL,
     name jsonb,
@@ -681,7 +681,7 @@ CREATE TABLE lexicon.registered_seeds (
 -- Name: technical_workflow_procedure_items; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.technical_workflow_procedure_items (
+CREATE UNLOGGED TABLE lexicon.technical_workflow_procedure_items (
     id character varying NOT NULL,
     actor_reference character varying,
     procedure_item_reference character varying,
@@ -697,7 +697,7 @@ CREATE TABLE lexicon.technical_workflow_procedure_items (
 -- Name: technical_workflow_procedures; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.technical_workflow_procedures (
+CREATE UNLOGGED TABLE lexicon.technical_workflow_procedures (
     id character varying NOT NULL,
     "position" integer NOT NULL,
     name jsonb NOT NULL,
@@ -714,7 +714,7 @@ CREATE TABLE lexicon.technical_workflow_procedures (
 -- Name: technical_workflow_sequences; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.technical_workflow_sequences (
+CREATE UNLOGGED TABLE lexicon.technical_workflow_sequences (
     id character varying NOT NULL,
     technical_workflow_sequence_id character varying NOT NULL,
     name jsonb NOT NULL,
@@ -731,7 +731,7 @@ CREATE TABLE lexicon.technical_workflow_sequences (
 -- Name: technical_workflows; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.technical_workflows (
+CREATE UNLOGGED TABLE lexicon.technical_workflows (
     id character varying NOT NULL,
     name jsonb NOT NULL,
     family character varying,
@@ -762,7 +762,7 @@ CREATE TABLE lexicon.user_roles (
 -- Name: variant_categories; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.variant_categories (
+CREATE UNLOGGED TABLE lexicon.variant_categories (
     id integer NOT NULL,
     reference_name character varying NOT NULL,
     name jsonb,
@@ -790,7 +790,7 @@ CREATE TABLE lexicon.variant_categories (
 -- Name: variant_doer_contracts; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.variant_doer_contracts (
+CREATE UNLOGGED TABLE lexicon.variant_doer_contracts (
     id character varying NOT NULL,
     reference_name character varying NOT NULL,
     name jsonb,
@@ -807,7 +807,7 @@ CREATE TABLE lexicon.variant_doer_contracts (
 -- Name: variant_natures; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.variant_natures (
+CREATE UNLOGGED TABLE lexicon.variant_natures (
     id integer NOT NULL,
     reference_name character varying NOT NULL,
     name jsonb,
@@ -825,7 +825,7 @@ CREATE TABLE lexicon.variant_natures (
 -- Name: variant_prices; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.variant_prices (
+CREATE UNLOGGED TABLE lexicon.variant_prices (
     id character varying NOT NULL,
     reference_name character varying NOT NULL,
     reference_article_name character varying NOT NULL,
@@ -851,7 +851,7 @@ CREATE TABLE lexicon.variant_prices (
 -- Name: variant_units; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.variant_units (
+CREATE UNLOGGED TABLE lexicon.variant_units (
     id character varying NOT NULL,
     class_name character varying NOT NULL,
     reference_name character varying NOT NULL,
@@ -871,7 +871,7 @@ CREATE TABLE lexicon.variant_units (
 -- Name: variants; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.variants (
+CREATE UNLOGGED TABLE lexicon.variants (
     id character varying NOT NULL,
     class_name character varying,
     reference_name character varying NOT NULL,
@@ -1180,7 +1180,9 @@ CREATE TABLE public.intervention_parameters (
     imputation_ratio numeric(19,4),
     reference_data jsonb DEFAULT '{}'::jsonb,
     using_live_data boolean DEFAULT true,
-    applications_frequency interval
+    applications_frequency interval,
+    spray_volume numeric,
+    treatment_type_id character varying
 );
 
 
@@ -1934,7 +1936,8 @@ CREATE TABLE public.bank_statement_items (
     lock_version integer DEFAULT 0 NOT NULL,
     memo character varying,
     accounted_at timestamp without time zone,
-    journal_entry_id integer
+    journal_entry_id integer,
+    transaction_nature character varying
 );
 
 
@@ -4952,6 +4955,8 @@ CREATE TABLE public.journals (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
+    name character varying NOT NULL,
+    achieved_at timestamp without time zone,
     custom_fields jsonb,
     used_for_permanent_stock_inventory boolean DEFAULT false NOT NULL,
     used_for_unbilled_payables boolean DEFAULT false NOT NULL,
@@ -5121,7 +5126,13 @@ CREATE TABLE public.listings (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    custom_fields jsonb,
+    used_for_permanent_stock_inventory boolean DEFAULT false NOT NULL,
+    used_for_unbilled_payables boolean DEFAULT false NOT NULL,
+    used_for_tax_declarations boolean DEFAULT false NOT NULL,
+    accountant_id integer,
+    provider jsonb
 );
 
 
@@ -5440,7 +5451,8 @@ CREATE TABLE public.naming_formats (
     updated_at timestamp without time zone,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    maximum_nitrogen_input numeric(19,4)
 );
 
 
@@ -5515,7 +5527,10 @@ CREATE TABLE public.notifications (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    nature character varying,
+    "position" integer,
+    opacity integer
 );
 
 
@@ -5553,6 +5568,7 @@ CREATE TABLE public.observations (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
+    created_at timestamp without time zone,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL
 );
@@ -5912,7 +5928,31 @@ CREATE TABLE public.payslips (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    product_movement_id integer,
+    source_product_movement_id integer,
+    product_identification_number character varying,
+    product_name character varying,
+    currency character varying,
+    unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    unit_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    non_compliant boolean,
+    delivery_mode character varying,
+    delivery_id integer,
+    transporter_id integer,
+    non_compliant_detail character varying,
+    role character varying,
+    equipment_id integer,
+    purchase_order_item_id integer,
+    product_work_number character varying,
+    type character varying,
+    merge_stock boolean DEFAULT true,
+    project_budget_id integer,
+    purchase_order_to_close_id integer,
+    activity_budget_id integer,
+    team_id integer,
+    annotation text
 );
 
 
@@ -5947,7 +5987,21 @@ CREATE TABLE public.plant_counting_items (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    custom_fields jsonb,
+    with_delivery boolean DEFAULT false NOT NULL,
+    separated_stock boolean,
+    accounted_at timestamp without time zone,
+    currency character varying,
+    journal_entry_id integer,
+    undelivered_invoice_journal_entry_id integer,
+    contract_id integer,
+    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    responsible_id integer,
+    type character varying,
+    late_delivery boolean,
+    intervention_id integer,
+    reconciliation_state character varying
 );
 
 
@@ -6104,7 +6158,11 @@ CREATE TABLE public.postal_zones (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    number character varying,
+    nature character varying,
+    working_width_value numeric(19,4),
+    rows_count_value integer
 );
 
 
@@ -6562,7 +6620,17 @@ CREATE TABLE public.product_nature_category_taxations (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    fixed_asset_allocation_account_id integer,
+    fixed_asset_expenses_account_id integer,
+    fixed_asset_depreciation_percentage numeric(19,4) DEFAULT 0.0,
+    fixed_asset_depreciation_method character varying,
+    custom_fields jsonb,
+    stock_movement_account_id integer,
+    asset_fixable boolean DEFAULT false,
+    type character varying NOT NULL,
+    imported_from character varying,
+    provider jsonb
 );
 
 
@@ -21124,9 +21192,13 @@ INSERT INTO schema_migrations (version) VALUES ('20200505114024');
 
 INSERT INTO schema_migrations (version) VALUES ('20200507094001');
 
+INSERT INTO schema_migrations (version) VALUES ('20200511141949');
+
 INSERT INTO schema_migrations (version) VALUES ('20200512091803');
 
 INSERT INTO schema_migrations (version) VALUES ('20200515092158');
+
+INSERT INTO schema_migrations (version) VALUES ('20200522131537');
 
 INSERT INTO schema_migrations (version) VALUES ('20200611090747');
 
@@ -21134,5 +21206,5 @@ INSERT INTO schema_migrations (version) VALUES ('20200622101923');
 
 INSERT INTO schema_migrations (version) VALUES ('20200824133243');
 
-INSERT INTO schema_migrations (version) VALUES ('20200925170636');
+INSERT INTO schema_migrations (version) VALUES ('20200928073618');
 
