@@ -1,6 +1,7 @@
 module SVF
   class Occurrence
     attr_reader :name, :range, :line
+
     def initialize(name, definition)
       @name = name.to_s
       @line = @name

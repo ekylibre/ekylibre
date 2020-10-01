@@ -1832,6 +1832,7 @@ eng:
     tracking: "Tracking"
     trackings: "Trackings"
     trade_balance: "Trade balance"
+    transaction_nature: "Transaction nature"
     transaction_number: "Transaction number"
     transfered_at: "Transfered at"
     transfered_on: "Transfered on"

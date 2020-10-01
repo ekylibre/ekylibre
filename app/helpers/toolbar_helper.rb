@@ -51,6 +51,14 @@ module ToolbarHelper
       end
     end
 
+    def import(*formats, label: :import, **options)
+      @template.dropdown_menu_button(label) do |menu|
+        formats.each do |format|
+          menu.item(format, controller: "/backend/#{options[:controller]}", action: "import_#{format}")
+        end
+      end
+    end
+
     # Propose all listings available for given models. Model is one of current
     # controller. Option +:model+ permit to change it.
     def extract(options = {})
