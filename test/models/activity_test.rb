@@ -69,8 +69,7 @@ class ActivityTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     target = create(
       :intervention_target,
       product: production.products.first,
-      intervention: intervention1,
-      imputation_ratio: 1
+      intervention: intervention1
     )
     doer = create(
       :driver,
@@ -87,8 +86,7 @@ class ActivityTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     target = create(
       :intervention_target,
       product: production.products.first,
-      intervention: intervention2,
-      imputation_ratio: 1
+      intervention: intervention2
     )
     doer = create(
       :driver,
