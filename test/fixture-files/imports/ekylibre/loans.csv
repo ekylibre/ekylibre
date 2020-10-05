@@ -1,0 +1,20 @@
+N° externe unique d'emprunt;Nom (texte);Montant (décimal)  ;Trésorerie (nom du compte de trésorerie parmi ceux disponibles dans l’instance)  ;Prêteur (Nom du prêteur parmi les tiers fournisseurs de l’instance)  ;Taux d’intérêt (%) annuel (décimal)  ;Taux d’assurance (%) annuel (décimal)  ;"Méthode de remboursement de l’assurance : 
+ Fraction du capital initial  (initial)
+Fraction du capital à rembourser restant   (to_repay)";"Méthode de remboursement :  
+Pourcentage constant  (constant_rate)
+Montant constant  (constant_amount)";"Méthode de différé :  
+Paiement immédiat des intérêts (immediate_payment)
+ Capitalisation des intérêts (anatocism)  ";Date de déblocage des fonds  (jj/mm/aaaa)  ;Date de la 1ère échéance  (jj/mm/aaaa)  ;"Période de remboursement : 
+  Mois (month )
+Année (year)
+Trimestre(trimester)
+ Semestre(semester)";Durée des remboursements en fonction de la période de remboursement sélectionnée   (nombre entier);Durée du différé  (nombre entier);Numéro de compte comptable des emprunts   (nombre entier ayant un nombre de caractères maximum correspondant à la longueur des comptes généraux de ton plan de comptes c'est à dire 9 pour toi);Libellé du compte comptable des emprunts (texte);Numéro de compte comptable des intérêts  ;Libellé du compte comptable des intérêts (texte);"Numéro de compte comptable ADI  
+(nombre entier ayant un nombre de caractères maximum correspondant à la longueur des comptes généraux de ton plan de comptes c'est à dire 9 pour toi)";Libellé du compte comptable ADI (s'il n'existe pas et qu'il est nécessaire de le créer);"Déblocage initial du montant emprunté   (boléen) : 
+vrai = 1
+faux = 0
+";Date de début de prise en compte des échéances (jj/mm/aaaa);"Caution : 
+vrai = 1
+faux = 0";Montant caution;Numéro de compte comptable de la caution;Libellé du compte comptable de la caution
+1;EMPRUNT BATIMENTS;206351,26;Capitalis;CREDIT MUTUEL;2,5;0;to_repay;constant_amount;immediate_payment;31/07/2017;31/07/2018;year;17;0;16420000;EMPRUNT CM303 BATIMEN;66120000;INTERETS EMPRUNTS EXPL;61680000;AUTRES ASSURANCES (ADI);;01/04/2019;;;;
+2;EMPRUNT TUNNELS;67956,09;Capitalis;CREDIT MUTUEL;2,5;0,68;to_repay;constant_amount;immediate_payment;31/08/2017;31/08/2018;year;11;0;16420000;EMPRUNT CM404 TUNNELS;66120000;INTERETS EMPRUNTS EXPL;61680000;AUTRES ASSURANCES (ADI);;01/04/2019;;;;
+3;EMPRUNT Tracteur;127415,98;Capitalis;CREDIT MUTUEL;3;1;to_repay;constant_amount;immediate_payment;31/05/2017;31/05/2018;semester;19;0;16430000;EMPRUNT CM505 MAT. PEPI;66120000;INTERETS EMPRUNTS EXPL;61680000;AUTRES ASSURANCES (ADI);;01/04/2019;;;;
