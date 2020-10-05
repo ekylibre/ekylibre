@@ -6,16 +6,14 @@
   = f.input :interest_percentage, wrapper: :append do
     = f.input_field(:interest_percentage)
     %span.add-on= :by_year.tl
+  = f.input :repayment_method, as: :radio_buttons
   = f.input :insurance_percentage, wrapper: :append do
     = f.input_field(:insurance_percentage)
     %span.add-on= :by_year.tl
   = f.input :insurance_repayment_method, as: :radio_buttons
-  = f.input :repayment_method, as: :radio_buttons
-  = f.input :shift_method, as: :radio_buttons
+
 
 = field_set(:delay) do
-  = f.input :ongoing_at
-  = f.input :started_on
   = f.input :repayment_period, as: :radio_buttons
   = f.input :repayment_duration, wrapper: :append do
     = f.input_field(:repayment_duration)
@@ -23,6 +21,9 @@
   = f.input :shift_duration, wrapper: :append do
     = f.input_field(:shift_duration)
     %span.add-on.period
+  = f.input :shift_method, as: :radio_buttons
+  = f.input :ongoing_at
+  = f.input :started_on
 
 
 = field_set(:accountancy) do
