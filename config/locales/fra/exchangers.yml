@@ -49,6 +49,7 @@ fra:
     ekylibre_incoming_payments: "Encaissements (CSV) - Ekylibre"
     ekylibre_interventions: "Interventions (CSV)- Ekylibre "
     ekylibre_land_parcels: "Parcelles (CSV) ‒ Ekylibre"
+    ekylibre_loans: "Emprunts (CSV) ‒ Ekylibre"
     ekylibre_matters: "Matières ‒ Ekylibre"
     ekylibre_original_purchase_files: "Pièces originales d’achats (ZIP ‒ ’PDF/JPG’)- Ekylibre" #?
     ekylibre_outgoing_payments: "Décaissements (CSV) ‒ Ekylibre"

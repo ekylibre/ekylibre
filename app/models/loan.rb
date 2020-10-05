@@ -61,6 +61,7 @@
 class Loan < Ekylibre::Record::Base
   include Attachable
   include Customizable
+  include Providable
   enumerize :repayment_method, in: %i[constant_rate constant_amount], default: :constant_amount
   enumerize :shift_method, in: %i[immediate_payment anatocism], default: :immediate_payment
   enumerize :repayment_period, in: %i[month year trimester semester], default: :month, predicates: { prefix: true }
@@ -93,7 +94,6 @@ class Loan < Ekylibre::Record::Base
   validates :insurance_account, presence: { if: -> { updateable? && insurance_percentage.present? && insurance_percentage.nonzero? } }
   validates :amount, numericality: { greater_than: 0 }
   validates :currency, match: { with: :cash }
-  validates :ongoing_at, financial_year_writeable: true, allow_blank: true
 
   scope :drafts, -> { where(state: %w[draft]) }
   scope :start_before, ->(date) { where('loans.ongoing_at <= ?', date.to_time) }
@@ -112,7 +112,7 @@ class Loan < Ekylibre::Record::Base
   end
 
   before_validation(on: :create) do
-    self.state = :draft
+    self.state ||= :draft
     self.currency ||= cash.currency if cash
     self.shift_duration ||= 0
   end
@@ -125,6 +125,7 @@ class Loan < Ekylibre::Record::Base
 
   after_save do
     generate_repayments
+    # if accountable_repayments_started_on, locked repayments before accountable_repayments_started_on
     if accountable_repayments_started_on
       r = repayments.where('due_on < ?', accountable_repayments_started_on)
       r.update_all(locked: true)
@@ -145,11 +146,9 @@ class Loan < Ekylibre::Record::Base
     # when money arrive (ongoing_at)
     # when first payment started (started_on)
 
-    ongoing_on = ongoing_at.to_date
+    existing_financial_year = FinancialYear.at(ongoing_at)
 
-    existing_financial_year = FinancialYear.on(ongoing_on)
-
-    b.journal_entry(journal, printed_on: ongoing_on, if: ongoing_on <= Time.zone.today && existing_financial_year && ongoing? && initial_releasing_amount) do |entry|
+    b.journal_entry(journal, printed_on: ongoing_at.to_date, if: (initial_releasing_amount && ongoing_at? && ongoing_at <= Time.zone.now && existing_financial_year)) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, name: name)
 
       entry.add_debit(label, cash.account_id, amount, as: :bank)
