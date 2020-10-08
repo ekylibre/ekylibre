@@ -38,6 +38,14 @@ module Backend
     end
 
     def index
+      @currency = Nomen::Currency.find(Preference[:currency])
+      activities_of_campaign = Activity.of_campaign(current_campaign)
+      @availables_activities = Activity.availables.where.not(id: activities_of_campaign)
+      @families = activities_of_campaign.order(:family).collect(&:family).uniq
+      @activities = activities_of_campaign
+                      .left_join_working_duration_of_campaign(current_campaign)
+                      .left_join_issues_count_of_campaign(current_campaign)
+                      .left_join_production_costs_of_campaign(current_campaign)
       respond_to do |format|
         format.html
         format.xml { render xml: resource_model.all }

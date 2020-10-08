@@ -246,6 +246,11 @@ module Procedo
       parameters.select(&:handled?)
     end
 
+    def required_parameters
+      parameters.select(&:required?)
+                .select {|p| p.is_a?(Procedo::Procedure::ProductParameter)}
+    end
+
     private
 
       attr_reader :root_group

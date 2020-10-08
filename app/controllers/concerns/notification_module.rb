@@ -68,7 +68,9 @@ module NotificationModule
   private
 
     def translate_message_if_necessary(message, options)
-      if message.is_a? String
+      if message.nil?
+        nil
+      elsif message.is_a? String
         message
       else
         ScopedTranslationHelper.with_i18n_scope :notifications, :messages, replace: true do

@@ -19,6 +19,6 @@
 require 'test_helper'
 module Backend
   class JournalsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
-    test_restfully_all_actions close: :get_and_post
+    test_restfully_all_actions close: :get_and_post, except: :list_items
   end
 end

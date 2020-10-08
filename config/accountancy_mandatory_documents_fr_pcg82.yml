@@ -78,9 +78,9 @@ balance_sheet:
   corporeal_assets_equipments_depreciations: '2815 2915 C'
   corporeal_assets_others: '218'
   corporeal_assets_others_depreciations: '2818 2918 C'
-  corporeal_assets_in_progress: '231'
-  corporeal_assets_in_progress_depreciations: '2931 C'
-  corporeal_assets_advances: '2381'
+  corporeal_assets_in_progress: '23 !238'
+  corporeal_assets_in_progress_depreciations: '293 C'
+  corporeal_assets_advances: '238'
   financial_assets_participations: '261 262 266'
   financial_assets_participations_depreciations: '2961 2962 2966 C'
   financial_assets_participations_debts: '267 268'
@@ -99,9 +99,8 @@ balance_sheet:
   stocks_end_products_depreciations: '397 C'
   entities_advance_giveables: '4091' #
   entities_client_receivables: '411 4131 416 417 418'
-  entities_client_receivables_depreciations: '4916'
+  entities_client_receivables_depreciations: '491 C'
   entities_others_clients: '412 4132'
-  entities_others_clients_depreciations: '4912'
   entities_state_receivables: '445 F' #
   entities_associate_receivables: '4551 F, 4552 F, 4558 F' #
   entities_associate_receivables_depreciations: '4955'
@@ -131,7 +130,6 @@ balance_sheet:
   capitals_risk_and_charges_provisions_total: '14 15 C'
   debts_land_parcel_loans: '1640 1641 C'
   debts_others_loans: '1642 1643 C'
-  debts_loans_total: '16 17 C' #
   debts_associate_locked_debts: '4553 4554 C' #
   others_debts_associate_debts: '4551 E, 4552 E, 4558 E' #
   debts_cashe_debts: '519 C, 512 E, 514 E, 517 E, 5186 C'
@@ -141,7 +139,7 @@ balance_sheet:
   others_debts_state_debts: '445 E' #
   others_debts_social_debts: '421 422 424 427 4282 4283 4284 4286 431 437 4382 4383 4386 442 C, 443 E, 444 E, 446, 447 4482 4486 457 C'
   others_debts_fixed_asset_debts: '269 279 404 405 C'
-  others_debts_others: '4196 4197 4198 4419 C, 452 E, 453 E, 454 E, 461 E, 464, 467 E, 478 E, 4686 C, 478 E, 509'
+  others_debts_others: '4419 C, 452 E, 453 E, 454 E, 461 E, 464, 467 E, 478 E, 4686 C, 478 E, 509'
   others_debts_advance_products: '487' #
   others_debts_liabilities_gaps: '470 471 E, 477' #
 short_balance_sheet:
@@ -174,7 +172,10 @@ short_balance_sheet:
   stocks_end_products_total_depreciations: '397 C'
   stocks_end_products_total_net: '37 38 397'
   entities_advance_giveables: '4091' #
-  entities_client_total: '41 !419' #
+  entities_client_total: '41 !419 491' #
+  entities_client_total_depreciations: '491 C' #
+  entities_client_total_net: '41 !419 491' #
+  entities_client_total_raw: '41 !419' #
   entities_state_receivables: '445 F' #
   entities_associate_receivables: '4551 F, 4552 F, 4558 F' #
   entities_associate_receivables_depreciations: '4955'
@@ -205,7 +206,7 @@ short_balance_sheet:
   others_debts_state_debts: '445 E'
   debts_associate_total: '4551 E, 4552 E, 4558 E, 4553 4554 C'
   others_debts_social_debts: '421 422 424 427 4282 4283 4284 4286 431 437 4382 4383 4386 442 C, 443 E, 444 E, 446, 447 4482 4486 457 C'
-  others_debts_total: '269 279 404 405 4196 4197 4198 4419 C, 452 E, 453 E, 454 E, 461 E, 464, 467 E, 478 E, 4686 C, 478 E, 509'
+  others_debts_total: '269 279 404 405 4419 C, 452 E, 453 E, 454 E, 461 E, 464, 467 E, 478 E, 4686 C, 478 E, 509'
   debts_cashe_debts_total: '519 C, 512 E, 514 E, 517 E, 5186 C, 426, 451 C, 456 C, 458 E'
   others_debts_advance_products: '487' #
   others_debts_liabilities_gaps: '470 471 E, 477' #

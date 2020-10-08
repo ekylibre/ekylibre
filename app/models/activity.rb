@@ -64,6 +64,8 @@
 class Activity < Ekylibre::Record::Base
   include Attachable
   include Customizable
+  include Activities::LeftJoinable
+
   refers_to :family, class_name: 'ActivityFamily', predicates: true
   refers_to :cultivation_variety, class_name: 'Variety'
   refers_to :support_variety, class_name: 'Variety'

@@ -67,6 +67,10 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
     where(intervention_id: InterventionParameter.of_generic_role(role).of_actor(object).select(:intervention_id))
   }
 
+  scope :with_record_intervention_parameter, lambda { |role, object|
+    where(intervention_id: InterventionParameter.of_intervention_nature(:record).of_generic_role(role).of_actor(object).select(:intervention_id))
+  }
+
   scope :of_intervention_participations, lambda { |intervention_participations|
     where(intervention_participation: intervention_participations)
   }

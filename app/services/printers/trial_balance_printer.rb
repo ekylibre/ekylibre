@@ -16,7 +16,7 @@ module Printers
       end
     end
 
-    def initialize(*_args, states: nil, natures: nil, balance:, accounts:, centralize:, period:, started_on:, stopped_on:, previous_year:, template:, **_options)
+    def initialize(*_args, states: nil, natures: nil, balance:, accounts:, centralize:, period:, started_on:, stopped_on:, previous_year:, template:, levels:, **_options)
       super(template: template)
 
       @states = states
@@ -28,6 +28,7 @@ module Printers
       @started_on = started_on
       @stopped_on = stopped_on
       @previous_year = previous_year
+      @levels = levels
     end
 
     def key
@@ -60,11 +61,12 @@ module Printers
                                     period: @period,
                                     started_on: @started_on,
                                     stopped_on: @stopped_on,
-                                    previous_year: @previous_year)
+                                    previous_year: @previous_year,
+                                    levels: @levels)
     end
 
     def generate(r)
-      dataset = compute_dataset
+      dataset = compute_dataset.map { |k, v| v.merge(ids: k) }
 
       data_filters = []
 
@@ -90,7 +92,6 @@ module Printers
 
       e = Entity.of_company
       company_address = e.default_mail_address&.coordinate
-      balances = dataset[:balance].map.with_index { |_item, index| [dataset[:balance][index], dataset[:prev_balance][index] || []] }
 
       r.add_field 'COMPANY_ADDRESS', company_address
       r.add_field 'DOCUMENT_NAME', document_name
@@ -100,25 +101,25 @@ module Printers
       r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
       r.add_field 'DATA_FILTERS', data_filters * ' | '
 
-      r.add_table('Tableau2', balances, header: false) do |t|
-        t.add_column(:a) { |item| item[0][0] if item[0][1].to_i > 0 }
+      r.add_table('Tableau2', dataset, header: false) do |t|
+        t.add_column(:a) { |item| item[:ids][0] if item[:ids][1].to_i > 0 }
         t.add_column(:b) do |item|
-          if item[0][1].to_i > 0
-            Account.find(item[0][1]).name
-          elsif item[0][1] == '-1'
+          if item[:ids][1].to_i > 0
+            Account.find(item[:ids][1]).name
+          elsif item[:ids][1] == '-1'
             :total.tl
-          elsif item[0][1] == '-2'
-            I18n.translate('labels.subtotal', name: item[0][0])
-          elsif item[0][1] == '-3'
-            I18n.translate('labels.centralized_account', name: item[0][0])
+          elsif item[:ids][1] == '-2'
+            I18n.translate('labels.subtotal', name: item[:ids][0])
+          elsif item[:ids][1] == '-3'
+            I18n.translate('labels.centralized_account', name: item[:ids][0])
           end
         end
-        t.add_column(:debit) { |item| item[0][2].to_f }
-        t.add_column(:credit) { |item| item[0][3].to_f }
-        t.add_column(:debit_n) { |item| item[1].any? ? item[1][2].to_f : '' }
-        t.add_column(:credit_n) { |item| item[1].any? ? item[1][3].to_f : '' }
-        t.add_column(:balance) { |item| item[0][4].to_f }
-        t.add_column(:balance_n) { |item| item[1].any? ? item[1][4].to_f : '' }
+        t.add_column(:debit) { |item| item[:n].any? ? item[:n][2].to_f : '' }
+        t.add_column(:credit) { |item| item[:n].any? ? item[:n][3].to_f : '' }
+        t.add_column(:debit_n) { |item| item[:n_1].any? ? item[:n_1][2].to_f : '' }
+        t.add_column(:credit_n) { |item| item[:n_1].any? ? item[:n_1][3].to_f : '' }
+        t.add_column(:balance) { |item| item[:n].any? ? item[:n][4].to_f : '' }
+        t.add_column(:balance_n) { |item| item[:n_1].any? ? item[:n_1][4].to_f : '' }
       end
     end
 
@@ -167,61 +168,60 @@ module Printers
             cell JournalEntry.human_attribute_name(:credit) + ' N-1', style: :head
           end
 
-          dataset[:balance].each_with_index do |item, index|
-            prev_item = dataset[:prev_balance][index] || []
-            if item[1].to_i > 0
-              account = Account.find(item[1])
+          dataset.each do |keys, values|
+            if keys[1].to_i > 0
+              account = Account.find(keys[1])
               row do
                 cell account.number
                 cell account.name
-                cell (item[2]).l, type: :float
-                cell (item[3]).l, type: :float
-                cell prev_item.any? ? prev_item[2].l : '', type: :float
-                cell prev_item.any? ? prev_item[3].l : '', type: :float
-                cell (item[4].to_f > 0 ? item[4] : 0).l, type: :float
-                cell (item[4].to_f < 0 ? (-item[4].to_f).to_s : 0).l, type: :float
-                cell (prev_item.any? ? (prev_item[4].to_f > 0 ? prev_item[4] : 0) : '').l, type: :float
-                cell (prev_item.any? ? (prev_item[4].to_f < 0 ? (-prev_item[4].to_f).to_s : 0) : '').l, type: :float
+                cell values[:n].any? ? values[:n][2].l : '', type: :float
+                cell values[:n].any? ? values[:n][3].l : '', type: :float
+                cell values[:n_1].any? ? values[:n_1][2].l : '', type: :float
+                cell values[:n_1].any? ? values[:n_1][3].l : '', type: :float
+                cell (values[:n].any? ? (values[:n][4].to_f > 0 ? values[:n][4] : 0) : '').l, type: :float
+                cell (values[:n].any? ? (values[:n][4].to_f < 0 ? (-values[:n][4].to_f).to_s : 0) : '').l, type: :float
+                cell (values[:n_1].any? ? (values[:n_1][4].to_f > 0 ? values[:n_1][4] : 0) : '').l, type: :float
+                cell (values[:n_1].any? ? (values[:n_1][4].to_f < 0 ? (-values[:n_1][4].to_f).to_s : 0) : '').l, type: :float
               end
 
-            elsif item[1].to_i == -1
+            elsif keys[1].to_i == -1
               row do
                 cell ''
                 cell :total.tl, style: :bold
-                cell (item[2]).l, style: :bold, type: :float
-                cell (item[3]).l, style: :bold, type: :float
-                cell prev_item.any? ? prev_item[2].l : '', style: :bold, type: :float
-                cell prev_item.any? ? prev_item[3].l : '', style: :bold, type: :float
-                cell (item[4].to_f > 0 ? item[4] : 0).l, style: :bold, type: :float
-                cell (item[4].to_f < 0 ? (-item[4].to_f).to_s : 0).l, style: :bold, type: :float
-                cell (prev_item.any? ? (prev_item[4].to_f > 0 ? prev_item[4] : 0) : '').l, style: :bold, type: :float
-                cell (prev_item.any? ? (prev_item[4].to_f < 0 ? (-prev_item[4].to_f).to_s : 0) : '').l, style: :bold, type: :float
+                cell values[:n][2].present? ? values[:n][2].l : '', style: :bold, type: :float
+                cell values[:n][3].present? ? values[:n][3].l : '', style: :bold, type: :float
+                cell values[:n_1][2].present? ? values[:n_1][2].l : '', style: :bold, type: :float
+                cell values[:n_1][3].present? ? values[:n_1][3].l : '', style: :bold, type: :float
+                cell (values[:n][4].present? ? (values[:n][4].to_f > 0 ? values[:n][4] : 0) : '').l, style: :bold, type: :float
+                cell (values[:n][4].present? ? (values[:n][4].to_f < 0 ? (-values[:n][4].to_f).to_s : 0) : '').l, style: :bold, type: :float
+                cell (values[:n_1][4].present? ? (values[:n_1][4].to_f > 0 ? values[:n_1][4] : 0) : '').l, style: :bold, type: :float
+                cell (values[:n_1][4].present? ? (values[:n_1][4].to_f < 0 ? (-values[:n_1][4].to_f).to_s : 0) : '').l, style: :bold, type: :float
               end
-            elsif item[1].to_i == -2
+            elsif keys[1].to_i == -2
               row do
                 cell
-                cell :subtotal.tl(name: item[0]).l, style: :right
-                cell (item[2]).l, style: :bold, type: :float
-                cell (item[3]).l, style: :bold, type: :float
-                cell prev_item.any? ? prev_item[2].l : '', style: :bold, type: :float
-                cell prev_item.any? ? prev_item[3].l : '', style: :bold, type: :float
-                cell (item[4].to_f > 0 ? item[4] : 0).l, style: :bold, type: :float
-                cell (item[4].to_f < 0 ? (-item[4].to_f).to_s : 0).l, style: :bold, type: :float
-                cell (prev_item.any? ? (prev_item[4].to_f > 0 ? prev_item[4] : 0) : '').l, style: :bold, type: :float
-                cell (prev_item.any? ? (prev_item[4].to_f < 0 ? (-prev_item[4].to_f).to_s : 0) : '').l, style: :bold, type: :float
+                cell :subtotal.tl(name: keys[0]).l, style: :right
+                cell values[:n].any? ? values[:n][2].l : '', style: :bold, type: :float
+                cell values[:n].any? ? values[:n][3].l : '', style: :bold, type: :float
+                cell values[:n_1].any? ? values[:n_1][2].l : '', style: :bold, type: :float
+                cell values[:n_1].any? ? values[:n_1][3].l : '', style: :bold, type: :float
+                cell (values[:n].any? ? (values[:n][4].to_f > 0 ? values[:n][4] : 0) : '').l, style: :bold, type: :float
+                cell (values[:n].any? ? (values[:n][4].to_f < 0 ? (-values[:n][4].to_f).to_s : 0) : '').l, style: :bold, type: :float
+                cell (values[:n_1].any? ? (values[:n_1][4].to_f > 0 ? values[:n_1][4] : 0) : '').l, style: :bold, type: :float
+                cell (values[:n_1].any? ? (values[:n_1][4].to_f < 0 ? (-values[:n_1][4].to_f).to_s : 0) : '').l, style: :bold, type: :float
               end
-            elsif item[1].to_i == -3
+            elsif keys[1].to_i == -3
               row do
-                cell item[0], style: :italic
-                cell :centralized_account.tl(name: item[0]).l, style: :italic
-                cell (item[2]).l, style: :italic, type: :float
-                cell (item[3]).l, style: :italic, type: :float
-                cell prev_item.any? ? prev_item[2].l : '', style: :italic, type: :float
-                cell prev_item.any? ? prev_item[3].l : '', style: :italic, type: :float
-                cell (item[4].to_f > 0 ? item[4] : 0).l, style: :italic, type: :float
-                cell (item[4].to_f < 0 ? (-item[4].to_f).to_s : 0).l, style: :italic, type: :float
-                cell (prev_item.any? ? (prev_item[4].to_f > 0 ? prev_item[4] : 0) : '').l, style: :italic, type: :float
-                cell (prev_item.any? ? (prev_item[4].to_f < 0 ? (-prev_item[4].to_f).to_s : 0) : '').l, style: :italic, type: :float
+                cell keys[0], style: :italic
+                cell :centralized_account.tl(name: keys[0]).l, style: :italic
+                cell values[:n].any? ? values[:n][2].l : '', style: :italic, type: :float
+                cell values[:n].any? ? values[:n][3].l : '', style: :italic, type: :float
+                cell values[:n_1].any? ? values[:n_1][2].l : '', style: :italic, type: :float
+                cell values[:n_1].any? ? values[:n_1][3].l : '', style: :italic, type: :float
+                cell (values[:n].any? ? (values[:n][4].to_f > 0 ? values[:n][4] : 0) : '').l, style: :italic, type: :float
+                cell (values[:n].any? ? (values[:n][4].to_f < 0 ? (-values[:n][4].to_f).to_s : 0) : '').l, style: :italic, type: :float
+                cell (values[:n_1].any? ? (values[:n_1][4].to_f > 0 ? values[:n_1][4] : 0) : '').l, style: :italic, type: :float
+                cell (values[:n_1].any? ? (values[:n_1][4].to_f < 0 ? (-values[:n_1][4].to_f).to_s : 0) : '').l, style: :italic, type: :float
               end
             end
           end
@@ -242,6 +242,7 @@ module Printers
         '',
         :balance.tl
       ]
+
       csv << [
         '',
         '',
@@ -254,10 +255,10 @@ module Printers
         JournalEntry.human_attribute_name(:debit) + ' N-1',
         JournalEntry.human_attribute_name(:credit) + ' N-1'
       ]
-      dataset[:balance].each_with_index do |item, index|
-        prev_item = dataset[:prev_balance][index] || []
-        if item[1].to_i > 0
-          account = Account.find(item[1])
+
+      dataset.each do |keys, values|
+        if keys[1].to_i > 0
+          account = Account.find(keys[1])
           account_name = account.name
 
           if csv.encoding.eql?(Encoding::CP1252)
@@ -267,54 +268,54 @@ module Printers
           csv << [
             account.number,
             account_name,
-            item[2].to_f,
-            item[3].to_f,
-            prev_item[2].present? ? prev_item[2].to_f : '',
-            prev_item[3].present? ? prev_item[3].to_f : '',
-            item[4].to_f > 0 ? item[4].to_f : 0,
-            item[4].to_f < 0 ? -item[4].to_f : 0,
-            prev_item[4].present? ? (prev_item[4].to_f > 0 ? prev_item[4].to_f : 0) : '',
-            prev_item[4].present? ? (prev_item[4].to_f < 0 ? -prev_item[4].to_f : 0) : ''
+            values[:n][2].present? ? values[:n][2].to_f : '',
+            values[:n][3].present? ? values[:n][3].to_f : '',
+            values[:n_1][2].present? ? values[:n_1][2].to_f : '',
+            values[:n_1][3].present? ? values[:n_1][3].to_f : '',
+            values[:n][4].present? ? (values[:n][4].to_f > 0 ? values[:n][4].to_f : 0) : '',
+            values[:n][4].present? ? (values[:n][4].to_f < 0 ? -values[:n][4].to_f : 0) : '',
+            values[:n_1][4].present? ? (values[:n_1][4].to_f > 0 ? values[:n_1][4].to_f : 0) : '',
+            values[:n_1][4].present? ? (values[:n_1][4].to_f < 0 ? -values[:n_1][4].to_f : 0) : ''
           ]
-        elsif item[1].to_i == -1
+        elsif keys[1].to_i == -1
           # Part for the total
           csv << [
             '',
             :total.tl,
-            item[2].to_f,
-            item[3].to_f,
-            prev_item[2].present? ? prev_item[2].to_f : '',
-            prev_item[3].present? ? prev_item[3].to_f : '',
-            item[4].to_f > 0 ? item[4].to_f : 0,
-            item[4].to_f < 0 ? -item[4].to_f : 0,
-            prev_item[4].present? ? (prev_item[4].to_f > 0 ? prev_item[4].to_f : 0) : '',
-            prev_item[4].present? ? (prev_item[4].to_f < 0 ? -prev_item[4].to_f : 0) : ''
+            values[:n][2].present? ? values[:n][2].to_f : '',
+            values[:n][3].present? ? values[:n][3].to_f : '',
+            values[:n_1][2].present? ? values[:n_1][2].to_f : '',
+            values[:n_1][3].present? ? values[:n_1][3].to_f : '',
+            values[:n][4].present? ? (values[:n][4].to_f > 0 ? values[:n][4].to_f : 0) : '',
+            values[:n][4].present? ? (values[:n][4].to_f < 0 ? -values[:n][4].to_f : 0) : '',
+            values[:n_1][4].present? ? (values[:n_1][4].to_f > 0 ? values[:n_1][4].to_f : 0) : '',
+            values[:n_1][4].present? ? (values[:n_1][4].to_f < 0 ? -values[:n_1][4].to_f : 0) : ''
           ]
-        elsif item[1].to_i == -2
+        elsif keys[1].to_i == -2
           csv << [
             '',
-            :subtotal.tl(name: item[0]).l,
-            item[2].to_f,
-            item[3].to_f,
-            prev_item[2].present? ? prev_item[2].to_f : '',
-            prev_item[3].present? ? prev_item[3].to_f : '',
-            item[4].to_f > 0 ? item[4].to_f : 0,
-            item[4].to_f < 0 ? -item[4].to_f : 0,
-            prev_item[4].present? ? (prev_item[4].to_f > 0 ? prev_item[4].to_f : 0) : '',
-            prev_item[4].present? ? (prev_item[4].to_f < 0 ? -prev_item[4].to_f : 0) : ''
+            :subtotal.tl(name: keys[0]).l,
+            values[:n][2].present? ? values[:n][2].to_f : '',
+            values[:n][3].present? ? values[:n][3].to_f : '',
+            values[:n_1][2].present? ? values[:n_1][2].to_f : '',
+            values[:n_1][3].present? ? values[:n_1][3].to_f : '',
+            values[:n][4].present? ? (values[:n][4].to_f > 0 ? values[:n][4].to_f : 0) : '',
+            values[:n][4].present? ? (values[:n][4].to_f < 0 ? -values[:n][4].to_f : 0) : '',
+            values[:n_1][4].present? ? (values[:n_1][4].to_f > 0 ? values[:n_1][4].to_f : 0) : '',
+            values[:n_1][4].present? ? (values[:n_1][4].to_f < 0 ? -values[:n_1][4].to_f : 0) : ''
           ]
-        elsif item[1].to_i == -3
+        elsif keys[1].to_i == -3
           csv << [
-            item[0],
-            :centralized_account.tl(name: item[0]).l,
-            item[2].to_f,
-            item[3].to_f,
-            prev_item[2].present? ? prev_item[2].to_f : '',
-            prev_item[3].present? ? prev_item[3].to_f : '',
-            item[4].to_f > 0 ? item[4].to_f : 0,
-            item[4].to_f < 0 ? -item[4].to_f : 0,
-            prev_item[4].present? ? (prev_item[4].to_f > 0 ? prev_item[4].to_f : 0) : '',
-            prev_item[4].present? ? (prev_item[4].to_f < 0 ? -prev_item[4].to_f : 0) : ''
+            keys[0],
+            :centralized_account.tl(name: keys[0]).l,
+            values[:n][2].present? ? values[:n][2].to_f : '',
+            values[:n][3].present? ? values[:n][3].to_f : '',
+            values[:n_1][2].present? ? values[:n_1][2].to_f : '',
+            values[:n_1][3].present? ? values[:n_1][3].to_f : '',
+            values[:n][4].present? ? (values[:n][4].to_f > 0 ? values[:n][4].to_f : 0) : '',
+            values[:n][4].present? ? (values[:n][4].to_f < 0 ? -values[:n][4].to_f : 0) : '',
+            values[:n_1][4].present? ? (values[:n_1][4].to_f > 0 ? values[:n_1][4].to_f : 0) : '',
+            values[:n_1][4].present? ? (values[:n_1][4].to_f < 0 ? -values[:n_1][4].to_f : 0) : ''
           ]
         end
       end

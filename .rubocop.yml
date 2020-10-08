@@ -11,7 +11,7 @@ AllCops:
     - 'lib/generators/**/*'
     - 'node_modules/**/*'
     - 'plugins/**/*'
-    - 'tmp/code/**/*'
+    - 'tmp/**/*'
     - 'vendor/**/*'
 # Disable cops for tests
 # TODO: enable later?
@@ -63,8 +63,15 @@ Style/DoubleNegation:
 Style/IfUnlessModifier:
   Enabled: false
 
+Style/YodaCondition:
+  Enabled: false
+
 Style/SymbolArray:
   EnforcedStyle: percent
+
+# This rule is just bullshit. Naming a parameter 'e' over 'error' by default when we are advised to use at least 3 characters for parameter naming?
+Naming/RescuedExceptionsVariableName:
+  Enabled: false
 
 # We enforce _compact_ for the sake of uniformity. No need to ask yourself if you should instanciate or not your error: ALWAYS do it.
 Style/RaiseArgs:

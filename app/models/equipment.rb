@@ -215,7 +215,7 @@ class Equipment < Matter
   # working in interventions.
   def working_duration_from_interventions(options = {})
     role = options[:as] || :tool
-    periods = InterventionWorkingPeriod.with_intervention_parameter(role, self)
+    periods = InterventionWorkingPeriod.with_record_intervention_parameter(role, self)
     periods = periods.where('started_at >= ?', options[:since]) if options[:since]
     periods = periods.of_campaign(options[:campaign]) if options[:campaign]
     periods.sum(:duration).in_second

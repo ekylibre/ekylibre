@@ -136,7 +136,6 @@ module Backend
 
     # INDEX
     # @TODO conditions: list_conditions, joins: [:production, :activity, :campaign, :support]
-
     # conditions: list_conditions,
     list(conditions: list_conditions, order: { started_at: :desc }, line_class: :status, includes: [:receptions, :activities, :targets, :participations], joins: 'LEFT OUTER JOIN interventions I ON interventions.id = I.request_intervention_id') do |t|
       t.action :sell, on: :both, method: :post
@@ -154,7 +153,7 @@ module Backend
       t.column :state_label, hidden: true
       t.column :human_target_names
       t.column :human_working_zone_area, on_select: :sum, datatype: :decimal
-      t.column :total_cost, label_method: :human_total_cost, currency: true, on_select: :sum, datatype: :decimal
+      t.column :total_cost, label_method: 'costing.decorate.human_total_cost', currency: true, datatype: :decimal
       t.column :nature
       t.column :issue, url: true
       t.column :trouble_encountered, hidden: true
@@ -433,6 +432,7 @@ module Backend
 
       Intervention.transaction do
         @interventions.each do |intervention|
+          next if intervention.request? && intervention.record_interventions.any?
           if intervention.nature == :record && new_state == :rejected
 
             unless intervention.request_intervention_id.nil?

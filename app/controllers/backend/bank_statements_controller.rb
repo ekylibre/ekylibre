@@ -47,24 +47,60 @@ module Backend
       t.column :transfered_on
       t.column :name
       t.column :memo
+      t.column :transaction_nature, label_method: "transaction_nature&.t(scope: 'interbank_transaction_codes')"
       t.column :letter
       t.column :journal_entry, url: true
       t.column :debit, currency: :currency
       t.column :credit, currency: :currency
     end
 
-    def import
+    def import_ofx
       @cash = Cash.find_by(id: params[:cash_id])
-      return unless request.post?
-      file = params[:upload]
-      @import = OfxImport.new(file, @cash)
-      if @import.run
-        redirect_to action: :show, id: @import.bank_statement.id
-      elsif @import.recoverable?
-        @cash = @import.cash
-        @bank_statement = @import.bank_statement
-        @bank_statement.errors.add(:cash, :no_cash_match_ofx) unless @cash.valid?
-        render :new
+      if request.get?
+        render :import
+      elsif request.post?
+        file = params[:upload]
+        @import = OfxImport.new(file, @cash)
+        if @import.run
+          redirect_to action: :show, id: @import.bank_statement.id
+        elsif @import.recoverable?
+          @cash = @import.cash
+          @bank_statement = @import.bank_statement
+          @bank_statement.errors.add(:cash, :no_cash_match_ofx) unless @cash.valid?
+          render :new
+        end
+      else
+        head 404
+      end
+    end
+
+    def import_cfonb
+      if request.get?
+        render :import
+      elsif request.post?
+        importer = Accountancy::Cfonb::Importer.build
+        file = params[:upload]
+        result = importer.import_bank_statement(Pathname.new(file.path))
+
+        if result.success?
+          @bank_statement = result.value
+
+          redirect_to action: :show, id: @bank_statement.id
+        else
+          # recoverable? si validation error
+          @error = result.error
+          if @error.is_a?(Accountancy::Cfonb::Importer::ModelValidationError)
+            @bank_statement = @error.bank_statement
+            @cash = @bank_statement.cash
+            render :new
+          else
+            error_message = @error.is_a?(Accountancy::Cfonb::Importer::ImporterError) ? @error.translated_message : :default_error_message.t(scope: 'errors.messages')
+            notify_error_now(error_message)
+            render :import
+          end
+        end
+      else
+        head 404
       end
     end
 

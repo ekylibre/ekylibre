@@ -1,0 +1,109 @@
+eng:
+  interbank_transaction_codes:
+    paid_check: Paid check
+    check_deposit: Check deposit
+    unpaid_check: Unpaid check
+    cash_payment: Cash payment
+    received_transfer: Received transfer
+    issued_transfer: Issued transfer
+    preauthorized_bill_of_exchange: Preauthorized bill of exchange
+    direct_debit_and_domiciled_ipo: Direct debit and domiciled ipo
+    issued_direct_debit_and_ipo: Issued direct debit and ipo
+    rejected_direct_debit_and_ipo: Rejected direct debit and ipo
+    payment_card_invoices: Payment card invoices
+    transfer_reject: Transfer reject
+    received_cash_transfer: Received cash transfer
+    issued_cash_transfer: Issued cash transfer
+    check_deposit_on_cash: Check deposit on cash
+    other_received_transfer: Other received transfer
+    other_issued_transfer: Other issued transfer
+    domiciled_ipo: Domiciled ipo
+    domiciled_direct_debit: Domiciled direct debit
+    issued_ipo: Issued ipo
+    issued_direct_debit: Issued direct debit
+    rejected_or_unpayed_ipo: Rejected or unpayed ipo
+    rejected_or_unpayed_direct_debit: Rejected or unpayed direct debit
+    paid_payment_card_invoices: Paid payment card invoices
+    atm_withdrawal: Atm withdrawal
+    payment_card_invoice_remittance: Payment card invoice remittance
+    bills_delivery_for_collection: Bills delivery for collection
+    unpaid_trade_bill: Unpaid trade bill
+    discounting: Discounting
+    incident_on_trade_bill: Incident on trade bill
+    bill_of_exchange_remittance_to_collection: Bill of exchange remittance to collection
+    credit_card_invoice_remittance: Credit card invoice remittance
+    bill_of_exchange_discounting: Bill of exchange discounting
+    rejected_or_unpaid_card_invoice: Rejected or unpaid card invoice
+    received_external_transfer: Received external transfer
+    received_edi_transfer: Received edi transfer
+    transfer_to_or_from_abroad: Transfer to or from abroad
+    currencies_sales_or_purchases: Currencies sales or purchases
+    other_foreign_operations: Other foreign operations
+    issued_transfers: Issued transfers
+    received_transfers: Received transfers
+    cash_currencies_purchases: Cash purchases
+    cash_currencies_sales: Cash sales
+    purchase_option_exercise: Purchase option exercise
+    forward_sale_delivery: Forward sale delivery
+    issued_edi_transfer: Issued edi transfer
+    securities_purchase_or_sale: Securities purchase or sale
+    various_securities_operations: Various securities operations
+    security_investments_purchases_or_subscriptions: Security investments purchases or subscriptions
+    security_investments_sales: Security investments sales
+    french_stock_exchange_liquidation_balance: French stock exchange liquidation balance
+    ucits_purchases: Ucits purchases
+    ucits_sales: Ucits sales
+    negociable_debt_securities_purchases: Negociable debt securities purchases
+    negociable_debt_securities_sales: Negociable debt securities sales
+    reserved: Reserved
+    agios: Agios
+    various_commissions_and_fees: Various commissions and fees
+    financial_products: Financial products
+    including_taxes_commissions: Including taxes commissions
+    excluding_taxes_commissions: Excluding taxes commissions
+    non_taxable_commissions: Non taxable commissions
+    taxes: Taxes
+    other_foreign_operations_debit: Other foreign operations debit
+    other_foreign_operations_credit: Other foreign operations credit
+    financial_costs: Financial costs
+    credit_draw: Credit draw
+    credit_maturities: Credit maturities
+    securities_issuances: Securities issuances
+    debt_securities_issuances: Debt securities issuances
+    refund: Refund
+    term_deposit: Term deposit
+    term_deposit_maturities: Term deposit maturities
+    received_referenced_transfers: Received referenced transfers
+    issud_referenced_transfers: Issud referenced transfers
+    debt_securities_purchases: Debt securities purchases
+    debt_securities_sales: Debt securities sales
+    contracts: Contracts
+    stock_options: Stock options
+    foreign_stock_exchange_purchases: Foreign stock exchange purchases
+    foreign_stock_exchange_sales: Foreign stock exchange sales
+    securities_operations: Securities operations
+    securities_income: Securities income
+    commissions_and_custody_fees: Commissions and custody fees
+    foreign_tax_refund: Foreign tax refund
+    issued_commercial_transfer: Issued commercial transfer
+    various_operations: Various operations
+    revenue_centralization: Revenue centralization
+    expense_centralization: Expense centralization
+    credit_cash_centralization: Cash centralization - Credit
+    debit_cash_centralization: Cash centralization - Debit
+    domiciled_electronic_payment: Domiciled electronic payment
+    issued_electronic_payment: Issued electronic payment
+    rejected_or_unpaid_electronic_payment: Rejected or unpaid electronic payment
+    cancellations_and_adjustments: Cancellations and adjustments
+    issued_sepa_direct_debits: Issued sepa direct debits
+    issued_b2b_sepa_direct_debits: Issued b2b sepa direct debits
+    rejected_or_unpaid_sepa_direct_debits: Rejected or unpaid sepa direct debits
+    rejected_or_unpaid_b2b_sepa_direct_debits: Rejected or unpaid b2b sepa direct debits
+    issued_remittance_sepa_direct_debits: Issued remittance sepa direct debits
+    issued_remittance_b2b_sepa_direct_debits: Issued remittance b2b sepa direct debits
+    domiciled_sepa_direct_debits: Domiciled sepa direct debits
+    domiciled_b2b_sepa_direct_debits: Domiciled b2b sepa direct debits
+    received_rejected_or_unpaid_sepa_direct_debits: Received rejected or unpaid sepa direct debits
+    received_rejected_or_unpaid_b2b_sepa_direct_debits: Received rejected or unpaid b2b sepa direct debits
+    received_remittance_sepa_direct_debits: Received remittance sepa direct debits
+    received_remittance_b2b_sepa_direct_debits: Received remittance b2b sepa direct debits
