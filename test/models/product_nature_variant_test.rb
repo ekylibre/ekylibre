@@ -67,10 +67,10 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
     Parcel.delete_all
     SaleItem.delete_all
     Sale.delete_all
-    ProductNatureCategory.delete_all
     ProductNature.delete_all
     ParcelItemStoring.delete_all
     Product.delete_all
+    ProductNatureCategory.delete_all
     JournalEntryItem.delete_all
     ProductNatureVariant.delete_all
     Payslip.delete_all
