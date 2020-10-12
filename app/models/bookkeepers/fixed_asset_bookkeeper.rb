@@ -1,5 +1,7 @@
 class FixedAssetBookkeeper < Ekylibre::Bookkeeper
   def call
+    return unless changed.include?('state')
+
     @label = tc(:bookkeep_in_use_assets, resource: FixedAsset.model_name.human, number: number, name: name)
     @generic_waiting_asset_account = Account.find_or_import_from_nomenclature(:outstanding_assets)
     @fixed_assets_suppliers_account = Account.find_or_import_from_nomenclature(:fixed_assets_suppliers)

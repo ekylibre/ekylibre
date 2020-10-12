@@ -294,6 +294,8 @@ Style/OptionalBooleanParameter:
   Enabled: false
 Style/RedundantAssignment:
   Enabled: false
+Style/RedundantBegin:
+  Enabled: false
 Style/RedundantFetchBlock:
   Enabled: false
 Style/RedundantFileExtensionInRequire:
