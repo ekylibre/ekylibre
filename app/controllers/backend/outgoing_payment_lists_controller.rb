@@ -161,7 +161,7 @@ module Backend
 
         redirect_to action: :show, id: outgoing_payment_list.id
       else
-        permitted = params.permit(:period_reference, :started_at, :stopped_at, :outgoing_payment_list, :bank_check_number)
+        permitted = params.permit(:period_reference, :started_at, :stopped_at, :bank_check_number, outgoing_payment_list: %i[mode_id])
 
         redirect_to new_backend_outgoing_payment_list_path(permitted.to_h)
       end
