@@ -364,14 +364,8 @@
       false
 
   $(document).behave "load", "input[data-selector]", (event) ->
-    enableSelectors = ($collection) =>
-      $collection.each ->
-        $(this).selector()
-
-    document.addEventListener 'DOMContentLoaded', ->
-      enableSelectors($("input[data-selector]"))
-
-    E.onDOMElementAdded("input[data-selector]", enableSelectors)
+    $("input[data-selector]").each ->
+      $(this).selector()
 
   $(document).on "selector:change", (changeEvent, value) ->
     $("*[data-selector-update]").each ->
