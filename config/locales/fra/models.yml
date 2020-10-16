@@ -2386,6 +2386,7 @@ fra:
       too_long: "%{attribute} est trop long (%{count} caractères maximum)"
       too_short: "%{attribute} est trop court (%{count} caractères minimum)"
       unitary_in_parcel: "Articles unitaires ne peuvent être envoyés un par un"
+      used_in_intervention: "%{attribute} doit être le ou après le %{restriction} (date à laquelle %{model} est utilisé dans les interventions pour la dernière fois)"
       wrong_length: "%{attribute} n’est pas d’une bonne longueur (%{count} caractères)"
   models:
     account:

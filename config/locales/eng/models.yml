@@ -67,6 +67,7 @@ eng:
       too_long: "%{attribute} is too long (maximum is %{count} characters)"
       too_short: "%{attribute} is too short (minimum is %{count} characters)"
       unitary_in_parcel: "Unitary items can only be sent one by one"
+      used_in_intervention: "%{attribute} must be on of after %{restriction} (date on which %{model} is used for the last time in interventions)"
       wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
   activemodel:
     errors:

@@ -202,20 +202,38 @@ class FixedAsset < Ekylibre::Record::Base
   end
 
   validate on: :scrap do
-    if product && scrapped_on && product.born_at > scrapped_on
-      errors.add :scrapped_on, I18n.translate('errors.messages.on_or_after_field', attribute: I18n.translate('attributes.scrapped_on'),
-                                              restriction: product.born_at.to_date.l,
-                                              field: I18n.translate('activerecord.attributes.equipment.born_at'),
-                                              model: product.name)
+    if product && scrapped_on
+      if product.born_at > scrapped_on
+        errors.add(:scrapped_on, :on_or_after_field, attribute: I18n.translate('attributes.scrapped_on'),
+                                                     restriction: product.born_at.to_date.l,
+                                                     field: I18n.translate('activerecord.attributes.equipment.born_at'),
+                                                     model: product.name)
+      end
+
+      last_used_at = product.interventions.maximum(:stopped_at)
+      if last_used_at && last_used_at > scrapped_on
+        errors.add(:scrapped_on, :used_in_intervention, attribute: I18n.translate('attributes.scrapped_on'),
+                                                        restriction: last_used_at.to_date.l,
+                                                        model: product.name)
+      end
     end
   end
 
   validate on: :sell do
-    if product && sold_on && product.born_at > sold_on
-      errors.add :sold_on, I18n.translate('errors.messages.on_or_after_field', attribute: I18n.translate('attributes.sold_on'),
-                                          restriction: product.born_at.to_date.l,
-                                          field: I18n.translate('activerecord.attributes.equipment.born_at'),
-                                          model: product.name)
+    if product && sold_on
+      if product.born_at > sold_on
+        errors.add(:sold_on, :on_or_after_field, attribute: I18n.translate('attributes.sold_on'),
+                                                 restriction: product.born_at.to_date.l,
+                                                 field: I18n.translate('activerecord.attributes.equipment.born_at'),
+                                                 model: product.name)
+      end
+
+      last_used_at = product.interventions.maximum(:stopped_at)
+      if last_used_at && last_used_at > sold_on
+        errors.add(:sold_on, :used_in_intervention, attribute: I18n.translate('attributes.sold_on'),
+                                                    restriction: last_used_at.to_date.l,
+                                                    model: product.name)
+      end
     end
   end
 
