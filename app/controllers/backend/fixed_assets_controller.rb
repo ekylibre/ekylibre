@@ -189,8 +189,8 @@ module Backend
       end
 
       if FinancialYear.on(bookkeep_until)
-        count = FixedAsset.depreciate(until: bookkeep_until)
-        notify_success(:x_fixed_asset_depreciations_have_been_bookkept_successfully, count: count)
+        Accountancy::FixedAssetDepreciationJob.perform_later(FixedAsset.all.pluck(:id), up_to: params[:until], perform_as: current_user)
+        notify_success(:fixed_asset_depreciations_in_preparation)
         redirect_to(params[:redirect] || { action: :index })
       else
         notify_error(:need_financial_year_over_entire_period)

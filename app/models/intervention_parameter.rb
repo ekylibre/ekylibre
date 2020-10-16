@@ -116,6 +116,10 @@ class InterventionParameter < Ekylibre::Record::Base
     where('intervention_id = ? AND variant_id IN (?)', intervention_id, product_nature_variant_ids).to_a
   }
 
+  scope :of_intervention_nature, lambda { |nature|
+    joins(:intervention).where("interventions.nature = ?", nature)
+  }
+
   before_validation do
     self.intervention ||= group.intervention if group
     if reference

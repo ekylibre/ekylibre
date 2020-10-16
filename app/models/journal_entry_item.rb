@@ -113,7 +113,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   validates :account, presence: true
   validates_format_of :name, with: /\A(?!translation missing: [a-z][a-z_]*).*\z/, allow_blank: true
 
-  delegate :balanced?, to: :entry, prefix: true
+  delegate :balanced?, :reference_number, to: :entry, prefix: true
   delegate :name, :number, :label, to: :account, prefix: true
   delegate :entity_country, :expected_financial_year, :continuous_number, to: :entry
   delegate :resource_label, to: :entry, prefix: true

@@ -105,7 +105,7 @@ gem 'draper'
 gem 'exception_notification'
 
 # Views helpers
-gem 'active_list', gitlab: 'ekylibre/active_list', branch: 'master'
+gem 'active_list', '~> 7.3.0'
 gem 'haml'
 gem 'simple_calendar', '~> 2.3.0'
 

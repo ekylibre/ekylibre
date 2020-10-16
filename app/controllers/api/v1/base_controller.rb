@@ -28,6 +28,8 @@ module Api
       before_action :force_json!
       after_action :add_generic_headers!
 
+      before_action :set_locale
+
       hide_action :add_generic_headers!
 
       def add_generic_headers!
@@ -58,6 +60,27 @@ module Api
         end
         render status: :unauthorized, json: { message: 'Unauthorized.' }
         false
+      end
+
+      # Initialize locale with params[:locale] or HTTP_ACCEPT_LANGUAGE
+      def set_locale
+        if current_user && I18n.available_locales.include?(current_user.language.to_sym)
+          I18n.locale = current_user.language
+        else
+          session[:locale] = params[:locale] if params[:locale]
+          if session[:locale].blank?
+            if locale = http_accept_language.compatible_language_from(Ekylibre.http_languages.keys)
+              session[:locale] = Ekylibre.http_languages[locale]
+            end
+          else
+            session[:locale] = nil unless ::I18n.available_locales.include?(session[:locale].to_sym)
+          end
+          if ::I18n.available_locales.include?(Preference[:language])
+            session[:locale] ||= Preference[:language]
+          end
+          session[:locale] ||= I18n.default_locale
+          I18n.locale = session[:locale]
+        end
       end
 
       hide_action :authenticate_user_from_simple_token!

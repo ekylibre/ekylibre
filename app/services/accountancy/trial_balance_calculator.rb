@@ -28,6 +28,8 @@ module Accountancy
     end
 
     def trial_balance(options = {})
+      levels = options.fetch(:levels, [])
+
       journal_entry_items = 'jei'
       vat_journal_entry_items = 'vjei'
       tax_items = 'ti'
@@ -58,8 +60,7 @@ module Accountancy
       items += connection.select_rows(query)
 
       # Sub-totals  - position in array -2
-      options.select { |k, v| k.to_s.match(/^level_\d+$/) && v.to_i == 1 }.each do |name, _value|
-        level = name.split(/\_/)[-1].to_i
+      levels.each do |level|
         query = "SELECT SUBSTR(#{accounts}.number, 1, #{level}) AS subtotal, -2, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), SUBSTR(#{accounts}.number, 1, #{level})||'#{'Z' * (16 - level)}' AS skey"
         query << from_where
         query << journal_entries_states
@@ -114,51 +115,46 @@ module Accountancy
       items.sort_by { |a| a[5] }
     end
 
-    def trial_balance_dataset(states:, natures:, balance:, accounts:, centralize:, period:, started_on:, stopped_on:, previous_year:, vat_details: false)
-      balance_params = { states: states, natures: natures, accounts: accounts, centralize: centralize, period: period, started_on: started_on, stopped_on: stopped_on, vat_details: vat_details }
+    def trial_balance_dataset(states:, natures:, balance:, accounts:, centralize:, period:, started_on:, stopped_on:, previous_year:, vat_details: false, levels: [])
+      return {} if started_on.nil? || stopped_on.nil?
 
-      balance_data = if period.present?
-                       trial_balance(balance_params)
-                     else
-                       []
-                     end
+      params = { states: states, natures: natures, accounts: accounts, centralize: centralize, period: period, started_on: started_on, stopped_on: stopped_on, vat_details: vat_details, levels: levels }
 
-      if balance_data.present?
-        credit_balance = balance_data[0...-1].map { |item| item[4].to_f > 0 ? item[4].to_f : 0 }.reduce(0, :+).round(2)
-        debit_balance = balance_data[0...-1].map { |item| item[4].to_f < 0 ? item[4].to_f : 0 }.reduce(0, :+).round(2)
-        balance_data[-1].insert(5, credit_balance, debit_balance)
+      start_date = Date.parse(started_on)
+      stop_date = Date.parse(stopped_on)
+
+      current_data = {}
+      current_data = retrieve_balance_data(params, balance: balance).transform_values { |v| { n: v.flatten, n_1: [] } } if period.present?
+
+      prev_data = {}
+      if previous_year && stop_date.between?(start_date, start_date.next_year)
+        prev_started_on = (start_date - 1.year).to_s
+        prev_stopped_on = (stop_date - 1.year).to_s
+        prev_period = "#{prev_started_on}_#{prev_stopped_on}"
+
+        prev_params = params.merge(started_on: prev_started_on, stopped_on: prev_stopped_on, period: prev_period)
+        prev_data = retrieve_balance_data(prev_params, balance: balance).transform_values { |v| { n: [], n_1: v.flatten } }
+      end
+
+      data = current_data.merge(prev_data) do |_key, this, other|
+        this.merge(other) { |_k, t, o| t.presence || o.presence || [] }
+      end
+
+      data.sort_by { |k, _v| k.last }.to_h
+    end
+
+    private
+
+      def retrieve_balance_data(params, balance:)
+        data = trial_balance(params)
 
         if balance == 'balanced'
-          balance_data = balance_data.select { |item| item[1].to_i < 0 || Account.find(item[1]).journal_entry_items.pluck(:real_balance).reduce(:+) == 0 }
+          data = data.select { |item| item[1].to_i < 0 || Account.find(item[1]).journal_entry_items.between(params[:started_on], params[:stopped_on]).pluck(:real_balance).reduce(:+) == 0 }
         elsif balance == 'unbalanced'
-          balance_data = balance_data.select { |item| item[1].to_i < 0 || Account.find(item[1]).journal_entry_items.pluck(:real_balance).reduce(:+) != 0 }
+          data = data.select { |item| item[1].to_i < 0 || Account.find(item[1]).journal_entry_items.between(params[:started_on], params[:stopped_on]).pluck(:real_balance).reduce(:+) != 0 }
         end
-      end
 
-      prev_balance_data = []
-      if previous_year && started_on && Date.parse(stopped_on) - Date.parse(started_on) < 366
-        prev_balance_data = balance_data.map do |item|
-          prev_balance_params = balance_params.dup
-          prev_balance_params[:started_on] = (Date.parse(started_on) - 1.year).to_s
-          prev_balance_params[:stopped_on] = (Date.parse(stopped_on) - 1.year).to_s
-          prev_balance_params[:period] = "#{prev_balance_params[:started_on]}_#{prev_balance_params[:stopped_on]}"
-          if item[1].to_i < 0 && item[0].present?
-            prev_balance_params[:centralize] = item[0]
-          elsif item[1].to_i > 0
-            prev_balance_params[:accounts] = item[0]
-          end
-          prev_balance_data = trial_balance(prev_balance_params)
-          prev_items = prev_balance_data.select { |i| i[0] == item[0] }
-          prev_items.any? ? prev_items.first : []
-        end
-        solde_prev_credit_balance = prev_balance_data[0...-1].map { |item| item[4].to_f > 0 ? item[4].to_f : 0 }.reduce(0, :+).round(2)
-        solde_prev_debit_balance = prev_balance_data[0...-1].map { |item| item[4].to_f < 0 ? item[4].to_f : 0 }.reduce(0, :+).round(2)
-        total_prev_credit_balance = prev_balance_data[0...-1].map { |item| item[2].to_f }.reduce(0, :+).round(2)
-        total_prev_debit_balance = prev_balance_data[0...-1].map { |item| item[3].to_f }.reduce(0, :+).round(2)
-        prev_balance_data[-1].insert(5, solde_prev_credit_balance, solde_prev_debit_balance)
-        prev_balance_data[-1].insert(7, total_prev_credit_balance, total_prev_debit_balance)
+        data.group_by { |a| [a.first, a.second, a.last] }
       end
-      { balance: balance_data, prev_balance: prev_balance_data }
-    end
   end
 end

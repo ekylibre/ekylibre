@@ -105,7 +105,7 @@ module Backend
       t.column :cumulated_absolute_credit_balance, currency: :account_currency, class: "smallcolumns monetary_column creditcolor", default: ''
     end
 
-    list(:subledger_journal_entry_items, model: :journal_entry_items, conditions: list_conditions, joins: %i[entry account journal], order: "#{JournalEntryItem.table_name}.printed_on, #{JournalEntryItem.table_name}.id") do |t|
+    list(:subledger_journal_entry_items, model: :journal_entry_items, conditions: list_conditions, joins: %i[entry account journal], order: "#{JournalEntryItem.table_name}.printed_on, #{JournalEntryItem.table_name}.id", export_class: ListExportJob) do |t|
       t.column :printed_on, class: "smallcolumns printed_on_column"
       t.column :journal_name, url: { controller: :journals, id: 'RECORD.journal_id'.c }, label: :journal, class: :mediumcolumns
       t.column :account, url: true, hidden: true, class: :largecolumns
@@ -140,11 +140,10 @@ module Backend
       accounts = Account.get_auxiliary_accounts(params[:ledger])
       if accounts.present?
         ledger_label = :subledger_of_accounts_x.tl(account: accounts.first.centralizing_account_name.tl)
-        params[:accounts] = accounts.pluck(:number)
       end
       t3e(ledger: ledger_label)
 
-      dataset_params = { accounts: params[:accounts],
+      dataset_params = { accounts: accounts.pluck(:number),
                          lettering_state: params[:lettering_state],
                          states: params[:states],
                          ledger: params[:ledger],

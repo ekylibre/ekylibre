@@ -1,7 +1,7 @@
 require 'test_helper'
 module Backend
   class DraftJournalsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
-    test_restfully_all_actions show: :index, confirm: :post_and_redirect, list_journal_entry_items: :list, except: %i[confirm_all list]
+    test_restfully_all_actions show: :index, confirm: :post_and_redirect, except: %i[confirm_all list list_journal_entry_items]
 
     test 'confirm all draft journal entries' do
       get :show

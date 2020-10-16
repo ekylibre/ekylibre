@@ -190,6 +190,10 @@ class Measure
     zero? ? nil : self
   end
 
+  def positive?
+    @value.positive?
+  end
+
   # Returns the dimension of a other
   def +(other)
     unless other.is_a?(Measure)

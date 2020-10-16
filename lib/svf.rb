@@ -2,7 +2,7 @@ module SVF
   autoload :Cell,      'svf/cell'
   autoload :Formater,  'svf/formater'
   autoload :Line,      'svf/line'
-  autoload :Occurence, 'svf/occurrence'
+  autoload :Occurrence, 'svf/occurrence'
 
   class InvalidSyntax < StandardError
   end
@@ -11,7 +11,7 @@ module SVF
     # Build submodule to handle format defined in the file
     # Format must be defined in YAML
     def load(name, file)
-      module_eval(Formater.new(name, file).generate)
+      module_eval(::SVF::Formater.new(name, file).generate)
     end
 
     # Convert an array of items to an array of occurrences
@@ -36,4 +36,5 @@ end
 SVF.load(:isacompta_8550, SVF.norms_path.join('isacompta', '8550.yml'))
 SVF.load(:edi_daplos_2, SVF.norms_path.join('edi', 'daplos_2.yml'))
 SVF.load(:edi_fact_invoic, SVF.norms_path.join('edi', 'fact_invoic.yml'))
+SVF.load(:edi_cfonb, SVF.norms_path.join('edi', 'cfonb.yml'))
 # SVF.load(:isacompta_8700, SVF.norms_path.join('isacompta', '8700.yml'))

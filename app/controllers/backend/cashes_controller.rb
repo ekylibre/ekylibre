@@ -48,7 +48,6 @@ module Backend
       t.action :reconciliation, url: { controller: '/backend/bank_reconciliation/items', action: :index, bank_statement_id: 'r.id'.c }
       t.action :destroy
       t.action :new, on: :none, url: { cash_id: 'params[:id]'.c }
-      t.action :import, on: :none, url: { cash_id: 'params[:id]'.c }
       t.action :edit_interval, on: :none, url: { cash_id: 'params[:id]'.c }
       t.column :number, url: true
       t.column :started_on

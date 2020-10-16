@@ -131,7 +131,7 @@ a.btn, button.btn {
     @include icon-after(caret-down, $font-size: 14px);
   }
   &.active {
-    @include text-shadow(1px 1px 0 $neutral-color)
+    @include text-shadow(1px 1px 0 $neutral-color);
     background-color: $primary-color;
     border-color: $active-color;
     color: white !important;

@@ -43,6 +43,8 @@
 
   - if resource.pointable?
     - c.cobble(:bank_statements, title: Cash.human_attribute_name(:bank_statements)) do
+      = cobble_toolbar do |t|
+        = t.import :ofx, :cfonb, controller: :bank_statements
       = cobble_list(:bank_statements)
 
   - if resource.cash_box?

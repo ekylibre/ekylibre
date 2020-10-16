@@ -20,13 +20,13 @@
       = select_tag(:activity_id, options_for_select([[]] + Activity.pluck(:name, :id).sort, params[:activity_id]))
   - if current_campaign
     - productions = ActivityProduction.of_campaign(current_campaign)
-    - targets = InterventionTarget.joins(:product)
+    - targeted_products = Product.joins(:intervention_targets).distinct if productions.exists?
     - if productions && productions.any?
       - k.helper do
         %div.label-container
           %label= :target.tl
         %div.select-block--intervention
-          = select_tag(:product_id, options_for_select([[]] + accented_sort(targets.select(:product_id).distinct.collect{|u| [u.product.work_name, u.product_id]}), params[:product_id]))
+          = select_tag(:product_id, options_for_select([[]] + accented_sort(targeted_products.map { |u| [u.work_name, u.id] }), params[:product_id]))
   - if InterventionLabelling.any?
     - k.helper do
       %div.label-container
