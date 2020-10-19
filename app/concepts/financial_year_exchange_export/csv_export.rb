@@ -29,7 +29,7 @@ class FinancialYearExchangeExport
               journal_entry_items.absolute_debit AS debit,
               journal_entry_items.absolute_credit AS credit,
               journal_entry_items.letter AS letter
-          
+
           FROM journal_entries
           JOIN journal_entry_items ON (journal_entries.id = journal_entry_items.entry_id)
           JOIN accounts ON (journal_entry_items.account_id = accounts.id)
@@ -48,8 +48,8 @@ class FinancialYearExchangeExport
           ApplicationRecord.connection.execute(query).each do |row|
             csv << [
               row['printed_on'],
-              row['account_number,'],
-              row['journal_code,'],
+              row['account_number'],
+              row['journal_code'],
               row['full_name'],
               row['journal_entry_number'],
               row['name'],
