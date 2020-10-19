@@ -1,27 +1,27 @@
 profit_and_loss_statement:
-  products_sales: '707 7097 C'
-  productions_sales: '701 702 703 7091 7092 C'
-  services_sales: '704 705 706 708 7094 7095 7096 7098 C'
-  inventory_variations: '- 7133 7134 7135'
+  products_sales: '707 C, - 7097'
+  productions_sales: '701 702 703 C, - 7090 7091 7092'
+  services_sales: '704 705 706 708 C, - 7094 7095 7096 7098'
+  inventory_variations: '- 713'
   capitalised_production: '72 73 C'
   subsidies: '74 C'
   provisions_revenues: '781 791 C'
-  other_products: '751 752 753 758 C'
+  other_products: '75 C, !756'
   merchandises_purchases: '607 6087 6097 D'
   merchandises_purchases_stocks_variation: '6037'
   products_purchases: '601 602 6081 6091 6092 D'
   purchases_stocks_variation: '6031 6032'
-  other_purchases: '604 605 606 61 62 6094 6095 6096 D'
-  taxes: '631 633 635 637 D'
-  wages: '641 644 D'
+  other_purchases: '604 605 606 61 62 6094 6095 6096 6098 656 D'
+  taxes: '63 D'
+  wages: '64 D, !645 !646 !647 !648'
   social_expenses: '645 646 647 648 649 D'
-  depreciations_inputations_expenses: '6811 6812 6816 6817 6815 D'
-  other_expenses: '651 653 654 658 D'
-  products_subtotal: '70 71 72 74 751 752 753 758 781 791 C'
-  charges_subtotal: '60 61 62 63 64 651 653 654 658 6811 6812 6815 6816 6817 D'
+  depreciations_inputations_expenses: '681 D'
+  other_expenses: '65 D, !656'
+  products_subtotal: '70 !709 71 72 74 75 781 791 C, - 709'
+  charges_subtotal: '60 61 62 63 64 65 681'
   exploitation_result: '70 71 72 74 751 752 753 758 781 791 C, - 60 61 62 63 64 651 653 654 658 6811 6812 6815 6816 6817'
   financial_participations: '761 C'
-  financial_debts: '761 762 C'
+  financial_debts: '762 C'
   financial_others_interests: '763 764 765 768 C'
   financial_depreciations: '786 796 C'
   financial_positive_change: '766 C'
@@ -51,14 +51,14 @@ profit_and_loss_statement:
   charges_total: '6 D'
   exercice_result: '70 71 72 74 75 781 791 76 786 796 77 787 797 C, - 60 61 62 63 64 65 681 66 686 67 687 691 695 697 699'
 ratio:
-  exercice_production: '70 !707 !7097 71 72 73 751 752 753 758 C'
+  exercice_production: '70 !707 !7097 71 72 73 75 C'
   commercial_margin: '707 7097 C, - 607 6097 6087'
   production_purchases: '601 602 6081 6091 6092 6031 6032 D'
   production_others_charges: '605 606 61 62 6355 6095 6096 6098 D'
-  added_value: '70 71 72 73 751 752 753 758 C, - 607 6097 6087 601 602 6081 6091 6092 6031 6032 605 606 61 62 6355 6095 6096 6098'
+  added_value: '70 71 72 73 75 C, - 607 6097 6087 601 602 6081 6091 6092 6031 6032 605 606 61 62 6355 6095 6096 6098'
   taxes_and_wages: '63 !6355 64 D'
   subsidies: '742 743 744 745 C'
-  operating_margin: '70 71 72 73 751 752 753 758 742 743 744 745 C, - 607 6097 6087 601 602 6081 6091 6092 6031 6032 605 606 61 62 6095 6096 6098 63 64'
+  operating_margin: '70 71 72 73 75 742 743 744 745 C, - 607 6097 6087 601 602 6081 6091 6092 6031 6032 605 606 61 62 6095 6096 6098 63 64'
 balance_sheet:
   unsubcribed_capital: '109'
   incorporeal_assets_creation_costs: '201'
@@ -133,13 +133,13 @@ balance_sheet:
   debts_associate_locked_debts: '4553 4554 C' #
   others_debts_associate_debts: '4551 E, 4552 E, 4558 E' #
   debts_cashe_debts: '519 C, 512 E, 514 E, 517 E, 5186 C'
-  debts_other_financial_debts: '161 163 165 1675 168 C, 17, 426, 451 C, 456 C, 458 E'
+  debts_other_financial_debts: '161 163 165 1675 168 C, 17, 426, 451 E, 456 E, 458 E'
   others_debts_advance_receivables: '419 C' #
   others_debts_supplier_receivables: '401 4031 402 4032 408 C, 472 E' #
   others_debts_state_debts: '445 E' #
-  others_debts_social_debts: '421 422 424 427 4282 4283 4284 4286 431 437 4382 4383 4386 442 C, 443 E, 444 E, 446, 447 4482 4486 457 C'
+  others_debts_social_debts: '- 421 422 424 427 4280 4282 4283 4284 4286 431 437 4382 4383 4386 442, 443 E, 444 E, 446, 447 4482 4486 457 C'
   others_debts_fixed_asset_debts: '269 279 404 405 C'
-  others_debts_others: '4419 C, 452 E, 453 E, 454 E, 461 E, 464, 467 E, 478 E, 4686 C, 478 E, 509'
+  others_debts_others: '4419 C, 452 E, 453 E, 454 E, 461 E, 464, 467 E, 4686 C, 478 E, 509'
   others_debts_advance_products: '487' #
   others_debts_liabilities_gaps: '470 471 E, 477' #
 short_balance_sheet:
@@ -205,8 +205,8 @@ short_balance_sheet:
   others_debts_supplier_receivables: '401 4031 402 4032 408 C, 472 E'
   others_debts_state_debts: '445 E'
   debts_associate_total: '4551 E, 4552 E, 4558 E, 4553 4554 C'
-  others_debts_social_debts: '421 422 424 427 4282 4283 4284 4286 431 437 4382 4383 4386 442 C, 443 E, 444 E, 446, 447 4482 4486 457 C'
-  others_debts_total: '269 279 404 405 4419 C, 452 E, 453 E, 454 E, 461 E, 464, 467 E, 478 E, 4686 C, 478 E, 509'
-  debts_cashe_debts_total: '519 C, 512 E, 514 E, 517 E, 5186 C, 426, 451 C, 456 C, 458 E'
+  others_debts_social_debts: '- 421 422 424 427 4280 4282 4283 4284 4286 431 437 4382 4383 4386 442, 443 E, 444 E, 446, 447 4482 4486 457 C'
+  others_debts_total: '269 279 404 405 4419 C, 452 E, 453 E, 454 E, 461 E, 464, 467 E, 4686 C, 478 E, 509'
+  debts_cashe_debts_total: '519 C, 512 E, 514 E, 517 E, 5186 C, 426, 451 E, 456 E, 458 E'
   others_debts_advance_products: '487' #
   others_debts_liabilities_gaps: '470 471 E, 477' #
