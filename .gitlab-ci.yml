@@ -151,7 +151,7 @@ rubocop:
   variables:
      GIT_DEPTH: 1
   script:
-    - gem install rubocop
+    - gem install rubocop --version=0.89.0
     - rubocop
 
 eslint:
