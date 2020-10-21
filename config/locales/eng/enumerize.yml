@@ -251,8 +251,8 @@ eng:
         undone: "Undone"
     intervention:
       nature:
-        record: "Record"
-        request: "Request"
+        record: "Completed"
+        request: "Planned"
       state:
         done: "Done"
         in_progress: "In progress"

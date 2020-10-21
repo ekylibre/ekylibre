@@ -224,8 +224,8 @@ fra:
         undone: "En attente"
     intervention:
       nature:
-        record: "Enregistrement"
-        request: "Demande"
+        record: "Réalisée"
+        request: "Planifiée"
       state:
         done: "Terminée"
         in_progress: "En cours"
