@@ -129,6 +129,8 @@ class PurchaseItem < Ekylibre::Record::Base
     joins(:variant).merge(ProductNatureVariant.of_categories(product_nature_category))
   }
 
+  scope :of_role, ->(role) { where(role: role) }
+
   protect on: :update do
     !self.purchase.updateable?
   end
