@@ -90,7 +90,7 @@ class Purchase < Ekylibre::Record::Base
   validates :number, :state, length: { allow_nil: true, maximum: 60 }
   validates :created_at, :state, :nature, :type, presence: true
   validates :number, uniqueness: true
-  validates :invoiced_at, financial_year_writeable: true, allow_blank: true
+  validates :invoiced_at, financial_year_writeable: true, ongoing_exchanges: true, allow_blank: true
   validates_associated :items
   validates_delay_format_of :payment_delay
 
@@ -130,10 +130,7 @@ class Purchase < Ekylibre::Record::Base
   end
 
   validate do
-    if invoiced_at
-      errors.add(:invoiced_at, :financial_year_exchange_on_this_period) if invoiced_during_financial_year_exchange?
-      errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
-    end
+    errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at && invoiced_at > Time.zone.now
   end
 
   after_validation do
@@ -174,10 +171,6 @@ class Purchase < Ekylibre::Record::Base
 
   def has_content?
     items.any?
-  end
-
-  def invoiced_during_financial_year_exchange?
-    FinancialYearExchange.opened.where('? BETWEEN started_on AND stopped_on', invoiced_at).any?
   end
 
   def opened_financial_year?

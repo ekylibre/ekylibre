@@ -67,7 +67,7 @@ class CashTransfer < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :emission_currency, :reception_currency, length: { allow_nil: true, maximum: 3 }
   validates :emission_amount, numericality: { greater_than: 0.0 }
-  validates :transfered_at, presence: true, financial_year_writeable: true
+  validates :transfered_at, presence: true, financial_year_writeable: true, ongoing_exchanges: true
 
   before_validation do
     self.transfered_at ||= Time.zone.today
@@ -87,9 +87,6 @@ class CashTransfer < Ekylibre::Record::Base
 
   validate do
     errors.add(:reception_cash, :invalid) if reception_cash_id == emission_cash_id
-    if transfered_at
-      errors.add(:transfered_at, :financial_year_exchange_on_this_period) if transfered_during_financial_year_exchange?
-    end
   end
 
   bookkeep do |b|
@@ -103,10 +100,6 @@ class CashTransfer < Ekylibre::Record::Base
       entry.add_debit(label, reception_cash.account_id, reception_amount, as: :receiver)
       entry.add_credit(label, transfer_account.id, reception_amount, as: :transfer)
     end
-  end
-
-  def transfered_during_financial_year_exchange?
-    FinancialYearExchange.opened.where('? BETWEEN started_on AND stopped_on', transfered_at).any?
   end
 
   def opened_financial_year?

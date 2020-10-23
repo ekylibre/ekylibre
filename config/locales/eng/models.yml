@@ -241,6 +241,9 @@ eng:
             product:
               target_dont_exist_after: "%{target} chosen don't exist after %{date}"
               target_dont_exist_before: "%{target} chosen don't exist before %{date}"
+        loan:
+          started_on:
+            financial_year_exchange_on_this_period: "There is an opened accounting exchange at this date"
     models:
       account: "Account"
       account_balance: "Account balance"
