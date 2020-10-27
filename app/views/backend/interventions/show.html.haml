@@ -1,5 +1,5 @@
 - displayed_state = resource.state.tl
-- displayed_state = resource.nature.l if resource.nature.to_sym == :request
+- displayed_state = :planned.tl(count: 1) if resource.nature.to_sym == :request
 
 - main_toolbar do |t|
   = t.export :intervention_sheet
