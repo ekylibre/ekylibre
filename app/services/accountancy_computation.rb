@@ -10,14 +10,14 @@ class AccountancyComputation
                     long_cycle_alive_products_others short_cycle_alive_products_animals short_cycle_alive_products_plant_advance
                     short_cycle_alive_products_plant_in_ground short_cycle_alive_products_others stocks_supply stocks_end_products stocks_others_products
                     entities_advance_giveables entities_client_receivables entities_others_clients entities_state_receivables entities_associate_receivables
-                    entities_other_receivables entities_investment_security entities_reserve entities_advance_charges entities_assets_gaps]
+                    entities_other_receivables entities_investment_security entities_reserve entities_advance_charges entities_assets_gaps].freeze
 
   PASSIVE_LINES = %i[capitals_values capitals_emissions reevaluation_gaps capitals_liability_reserves capitals_anew_reports capitals_profit_or_loss
                      capitals_investment_subsidies capitals_derogatory_depreciations capitals_mandatory_provisions capitals_risk_and_charges_provisions
                      debts_land_parcel_loans debts_others_loans debts_associate_locked_debts debts_cashe_debts debts_other_financial_debts
                      others_debts_advance_receivables others_debts_supplier_receivables others_debts_state_debts others_debts_social_debts
                      others_debts_associate_debts others_debts_fixed_asset_debts others_debts_others others_debts_advance_products
-                     others_debts_liabilities_gaps]
+                     others_debts_liabilities_gaps].freeze
 
   def initialize(year, nature = :profit_and_loss_statement)
     @year = year
@@ -47,7 +47,7 @@ class AccountancyComputation
   end
 
   def active_balance_sheet_amount
-    ACTIVE_LINES.reduce(0) { |sum, line| sum + sum_entry_items_by_line(:balance_sheet, line) }
+    ACTIVE_LINES.reduce(0) { |sum, line| sum + sum_entry_items_by_line(:balance_sheet, line) - sum_entry_items_by_line(:balance_sheet, "#{line}_depreciations".to_sym) }
   end
 
   def passive_balance_sheet_amount
