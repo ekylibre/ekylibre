@@ -182,7 +182,7 @@ gem 'roo'
 gem 'rubyzip', '~> 1.2.2'
 gem 'sepa_king'
 gem 'quandl'
-gem 'odf-report', gitlab: 'ekylibre/odf-report', tag: 'v0.6.0-1'
+gem 'odf-report', gitlab: 'ekylibre/odf-report', tag: 'v0.6.0-2'
 gem 'combine_pdf'
 gem 'rodf'
 
