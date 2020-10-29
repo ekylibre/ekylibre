@@ -20,18 +20,25 @@ module Backend
   module Products
     class InterventionsController < Backend::BaseController
       def has_harvesting
-        harvesting_count = ::Interventions::HarvestInProgressQuery
-                           .call(Intervention, permitted_params)
-                           .count
+        product = Product.find_by(id: params[:id])
+        intervention_started_at = Time.parse(params[:intervention_started_at])
 
-        render json: { has_harvesting: harvesting_count > 0 ? true : false }
+        if product.present?
+          harvesting_count = ::Interventions::HarvestInProgressQuery
+                               .call(Intervention, product, intervention_started_at)
+                               .count
+
+          render json: { has_harvesting: harvesting_count > 0 ? true : false }
+        else
+          render json: { error: { message: "Cannot find product of id='#{params[:id]}'" } }, status: :not_found
+        end
       end
 
       private
 
-      def permitted_params
-        params.permit(:id, :intervention_started_at)
-      end
+        def permitted_params
+          params.permit(:id, :intervention_started_at)
+        end
     end
   end
 end
