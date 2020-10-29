@@ -29,6 +29,7 @@
 #  city_name            :string           not null
 #  code                 :string           not null
 #  country              :string           not null
+#  id                   :string           not null, primary key
 #  postal_code          :string           not null
 #
 class RegisteredPostalZone < ActiveRecord::Base

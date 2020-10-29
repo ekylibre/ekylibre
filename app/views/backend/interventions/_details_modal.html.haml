@@ -75,6 +75,22 @@
               - detail << " " + unit
 
             = add_detail_to_modal_block(title, detail, {icon: 'picto-matter'})
+            .registered-phytosanitary-usage-block
+              - unless input.usage.nil?
+                %p
+                  = succeed " : " do
+                    %span.title= t(:usage)
+                  %span.value= input.usage.ephy_usage_phrase
+                  - registered = RegisteredPhytosanitaryUsageDoseComputation.new
+                  - data = registered.validate_intervention_input(input)
+                  - if data.key?(:go)
+                    %span.value= :authorized.tl
+                  - elsif data.key?(:stop)
+                    %span.value= :unauthorized.tl
+                    %span.value= data[:stop]
+                  - elsif data.key?(:caution)
+                    %span.value= :authorized.tl
+                    %span.value= data[:caution]
 
     - if intervention.outputs.any?
       .block

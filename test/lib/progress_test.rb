@@ -93,18 +93,6 @@ class ProgressTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_equal 0, progress.value
   end
 
-  test 'progresses can be set to read_only which prevents the modification of the value' do
-    progress = Progress.new('Readonly')
-    progress.value = 3
-    progress.read_only!
-
-    assert_equal 3, progress.value
-
-    assert_raise(Progress::ReadOnlyError) { progress.clear!     }
-    assert_raise(Progress::ReadOnlyError) { progress.value = 5  }
-    assert_raise(Progress::ReadOnlyError) { progress.increment! }
-  end
-
   test 'fetch when a progress file exists but no Progress object instantiates a read-only progress' do
     path_to_file = Ekylibre::Tenant.private_directory.join('tmp', 'imports', 'external-0.progress')
     FileUtils.mkdir_p(path_to_file.dirname)

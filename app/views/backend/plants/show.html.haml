@@ -34,10 +34,6 @@
             = (stock.to_d / resource.population).in(unit).round(3).l
     = product_info(:status, important: true) do |status|
       = lights(status)
-    .med-info
-      %span.title= :ready_to_harvest.tl
-      %span.value
-        %i.picto{class: "picto-#{resource.ready_to_harvest? ? :done : :clear}"}
     = product_info :description
     = product_info :container do |container|
       %i.picto{class: "zone"}
@@ -45,7 +41,21 @@
     - if resource.customized?
       = attributes_list(stamps: false)
   = labels_info(resource.labels)
-
+  .med-harvest
+    .med-info.ready-to-harvest
+      %span.title= :ready_to_harvest.tl
+      %span.value
+        %i.picto{class: "picto-#{resource.ready_to_harvest? ? :done : :clear}"}
+    - unless @reentry_possible.possible
+      .med-info.delay
+        %span.title= :re_entry_delay.tl
+        %span.value
+          %span= @reentry_possible.next_possible_date.l
+    - unless @harvest_possible.possible
+      .med-info.delay
+        %span.title= :allowed_harvest_on.tl
+        %span.value
+          %span= @harvest_possible.next_possible_date.l
 = cobbles do |c|
 
   - c.cobble(:production_costs, title: :production_costs.tl) do

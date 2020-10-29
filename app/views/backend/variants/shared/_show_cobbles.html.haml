@@ -1,0 +1,65 @@
+- if resource.products.any? && resource.storable?
+  - c.cobble(:stocks) do
+    :ruby
+      dataset = resource.products
+
+      series = []
+      variant_data = {}
+      dataset.each do |product|
+        items = ProductMovement.where(product: product).reorder(:started_at)
+        item_h = items.sort.inject({}) do |hash, pair|
+          hash[pair.started_at.to_usec] = pair.population.to_d
+          hash
+        end
+        data = []
+        data = item_h.collect{|k,v| [k, v.to_s.to_f] }.sort_by(&:first)
+        series << {name: product.name, data: data }
+      end
+      datas = series.map { |s| s[:data] }
+      sorted_datas = datas.map do |data|
+        changes = (data + [[0, 0]]).sort_by(&:first).reverse.each_cons(2).map do |one, two|
+          [one.first, one.last - two.last]
+        end
+        changes.reverse
+      end
+      variant_datas = sorted_datas.flatten(1).sort_by(&:first).reduce([]) do |vd, data_point|
+        key = data_point.first
+        value = Maybe(vd.last).last.or_else(0)
+        vd << [key, value+data_point.last]
+      end
+      series << {name: "Variant " + resource.name, data: variant_datas.to_a}
+
+    = line_highcharts(series, legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom', border_width: 0 }, y_axis: {title: { text: :population.tl}, min: 0}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}})
+
+  - c.cobble(:products) do
+    = cobble_list(:products)
+
+- if resource.saleable?
+  - c.cobble(:sale_items) do
+    = cobble_list(:sale_items)
+
+  - c.cobble(:shipments) do
+    = cobble_list(:shipments)
+
+- if resource.purchasable?
+  - c.cobble(:purchase_order_items) do
+    = cobble_list(:purchase_order_items)
+
+  - c.cobble(:receptions) do
+    = cobble_list(:receptions)
+
+  - c.cobble(:purchase_invoice_items) do
+    = cobble_list(:purchase_invoice_items)
+
+  - c.cobble(:suppliers) do
+    = cobble_list(:suppliers)
+
+- if resource.purchasable? || resource.saleable? || resource.storable?
+  - c.cobble(:catalog_items) do
+    = cobble_toolbar do |t|
+      = t.new(params: {controller: '/backend/catalog_items', :variant_id => resource.id, redirect: request.fullpath}, tool: 'new-price')
+    = cobble_list(:catalog_items)
+
+- if resource.of_variety? :equipment
+  - c.cobble(:components) do
+    = cobble_list(:components)

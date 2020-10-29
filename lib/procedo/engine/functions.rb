@@ -172,6 +172,20 @@ module Procedo
         def intervention_stopped_at(set)
           set.collect { |h| DateTime.parse(h[:stopped_at]) }.max
         end
+
+        def usage_unit_name_include(product, unit)
+          variant = product.variant
+          return 1 unless variant.imported_from == 'Lexicon' && variant.is_a?(Variants::Articles::PlantMedicineArticle)
+
+          phyto = RegisteredPhytosanitaryProduct.find_by_reference_name(variant.reference_name)
+
+          return 1 if phyto.nil?
+          usages = phyto.usages
+          return 1 if usages.empty?
+
+          usage_units = usages.pluck(:dose_unit).uniq.compact
+          usage_units.any? { |u| u =~ /\A#{Regexp.quote(unit)}_/ } || usage_units.empty? ? 1 : 0
+        end
       end
     end
   end

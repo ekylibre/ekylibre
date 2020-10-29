@@ -14,7 +14,7 @@ module Procedo
             @product = Product.find_by(id: @attributes[:product_id])
           end
           if attributes[:working_zone].present?
-            @working_zone = Charta.from_geojson(attributes[:working_zone])
+            @working_zone = Charta.new_geometry(attributes[:working_zone])
             @working_zone = @working_zone.convert_to(:multi_polygon)
           end
           if intervention && intervention.working_periods.present?

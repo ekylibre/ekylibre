@@ -25,6 +25,7 @@ module Api
             new_intervention.creator_id = current_user
             new_intervention.created_at = Time.zone.now
             new_intervention.description = filtered_params[:description] if filtered_params[:description]
+            new_intervention.provider = filtered_params[:provider] if filtered_params[:provider]
             new_intervention.save!
             intervention = new_intervention
             # equipments parameters is expected only to create hour_counter reading associated with the tools of the intervention
@@ -84,7 +85,18 @@ module Api
       private
 
       def permitted_params
-        super.permit(:intervention_id, :procedure_name, :description, { working_periods: %i[started_at stopped_at nature] }, { equipments: %i[product_id hour_counter] }, :request_compliant, :state, :device_uid, crumbs: %i[read_at accuracy geolocation nature])
+        permitted = super.permit(
+          :description,
+          :device_uid,
+          :intervention_id,
+          :procedure_name,
+          :request_compliant,
+          :state,
+          crumbs: %i[read_at accuracy geolocation nature],
+          equipments: %i[product_id hour_counter],
+          working_periods: %i[started_at stopped_at nature],
+        )
+        add_provider_params(permitted)
       end
 
       def params_errors(filtered_params)

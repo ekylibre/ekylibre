@@ -2666,6 +2666,18 @@ a[data-annotate] {
         }
         .cobble-content {
           clear: both;
+          .empty-info-cobble {
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(0, 0, 0, 0.3);
+            font-weight: bold;
+          }
+          .info-lg-link {
+            font-weight: bold;
+            font-size: 25px;
+          }
         }
         .cobble-end {
           clear: both;
@@ -2761,4 +2773,12 @@ a[data-annotate] {
 
 .fieldset .fieldset-fields tr.nested-fields input.numeric, .fieldset .fieldset-fields tbody.nested-fields input.numeric {
   width: 5em;
+}
+
+.smr {
+  margin-right: 10px;
+}
+
+.sml {
+  margin-left: 10px;
 }

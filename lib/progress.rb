@@ -85,7 +85,7 @@ class Progress
   end
 
   def value=(value)
-    no_read_only!
+    return if read_only?
     self.class.register(self)
     @value = value.to_f
     percentage = value.to_f / @max.to_f * 100
@@ -95,7 +95,7 @@ class Progress
   alias set_value value=
 
   def clear!
-    no_read_only! unless completed?
+    return if read_only? && !completed?
     return true unless counting?
     FileUtils.rm_rf(progress_file)
     self.class.unregister(name, id: id)
@@ -124,11 +124,5 @@ class Progress
 
   def read_only?
     @read_only
-  end
-
-  private
-
-  def no_read_only!
-    raise ReadOnlyError if read_only?
   end
 end
