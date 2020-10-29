@@ -14,10 +14,10 @@ module FEC
           'CompAuxNum' => "NULL",
           'CompAuxLib' => "NULL",
           'PieceRef' => 'je.number',
-          'PieceDate' => "TO_CHAR(je.created_at::DATE, 'YYYYMMDD')",
+          'PieceDate' => "TO_CHAR(je.printed_on::DATE, 'YYYYMMDD')",
           'EcritureLib' => 'jei.name',
-          'Debit' => 'ROUND(jei.debit, 2)',
-          'Credit' => 'ROUND(jei.credit, 2)',
+          'Debit' => "replace((ROUND(jei.debit, 2))::text, '.', ',')",
+          'Credit' => "replace((ROUND(jei.credit, 2))::text, '.', ',')",
           'EcritureLet' => "jei.letter",
           'DateLet' => "NULL",
           'ValidDate' => "TO_CHAR(je.validated_at::DATE, 'YYYYMMDD')",
@@ -83,7 +83,8 @@ module FEC
         end
 
         query += <<-SQL.strip_heredoc
-          WHERE jei.journal_id IN (#{journals.pluck(:id).join(', ')})
+          WHERE jei.journal_id IN (#{journals.pluck(:id).join(', ')}) AND jei.balance <> 0.0
+          AND j.nature <> 'closure' AND a.number ~ '\\\A[1-7]'
           ORDER BY je.validated_at::DATE, je.continuous_number, je.created_at
         SQL
 
