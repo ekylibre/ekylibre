@@ -160,12 +160,16 @@ eng:
         seeding_density_value: "Expected seeding density"
       purchase:
         affair_balance: "Balance"
+      purchase_invoice:
+        delivery_address: "Billing address"
       purchase_item:
         average_unit_pretax_amount: "Average unit pretax amount"
         fixed_asset_stopped_on: "Fixed asset stopped on"
         last_unit_pretax_amount: "Last unit pretax amount"
         ordered_quantity: "Ordered quantity"
         supplier_name: "Supplier"
+      purchase_order:
+        delivery_address: "Billing address"
       sale:
         affair_balance: "Balance"
         contact: "Address for the estimate"

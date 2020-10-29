@@ -7,10 +7,11 @@ GIT
 
 GIT
   remote: https://gitlab.com/ekylibre/odf-report.git
-  revision: 37cf65d4099ff461bfc84418b6a2afcb638baac0
-  branch: prod
+  revision: 829e0402fe0b1fcedb4cdb0b0d38960dafddb088
+  tag: v0.6.0-1
   specs:
     odf-report (0.6.0)
+      fastimage (~> 2.1)
       nokogiri (>= 1.5.0)
       rubyzip (~> 1.2.0)
 
@@ -194,6 +195,7 @@ GEM
       activesupport (>= 3.0.0)
     faraday (0.17.0)
       multipart-post (>= 1.2, < 3)
+    fastimage (2.1.7)
     feedjira (3.0.0)
       loofah (>= 2.2.1)
       sax-machine (>= 1.0)

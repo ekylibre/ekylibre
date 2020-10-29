@@ -7,6 +7,7 @@
   = f.referenced_association :supplier, source: :suppliers, new: { supplier: 1 }
   = f.input :reference_number
   = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
+  = f.referenced_association :delivery_address, source: :own_mails, new: false
   = f.input :ordered_at, as: :date
   = f.input :command_mode
   = f.input :estimate_reception_date, as: :date

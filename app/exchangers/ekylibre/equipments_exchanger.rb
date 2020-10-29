@@ -56,24 +56,36 @@ module Ekylibre
 
         container = r.place_code.present? ? Product.find_by(work_number: r.place_code) : nil
 
+        # Extract population from indicators
+        population = r.indicators.fetch(:population, 1).to_i
+
+        if population > 1 && variant.population_counting_unitary?
+          raise StandardError.new(I18n.t('errors.messages.invalid_population_for_unitary_product', name: r.name, population: population))
+        end
+
         # create the equipment
-        equipment = pmodel.create!(variant_id: variant.id, name: r.name, initial_born_at: r.born_at, initial_owner: owner, initial_container: container, default_storage: container, work_number: r.work_number)
+        equipment = pmodel.create!(
+          variant_id: variant.id,
+          name: r.name,
+          initial_born_at: r.born_at,
+          initial_population: population,
+          initial_owner: owner,
+          initial_container: container,
+          default_storage: container,
+          work_number: r.work_number
+        )
 
         # create indicators linked to equipment
-        r.indicators.each do |indicator, value|
-          if indicator.to_sym == :population
-            equipment.move!(value, at: r.born_at)
-          else
-            equipment.read!(indicator, value, at: r.born_at, force: true)
-          end
+        r.indicators.except(:population).each do |(indicator, value)|
+          equipment.read!(indicator, value, at: r.born_at, force: true)
         end
 
         # attach georeading if exist for equipment
         if equipment
-          if georeading = Georeading.find_by(number: r.work_number, nature: :polygon)
+          if (georeading = Georeading.find_by(number: r.work_number, nature: :polygon))
             equipment.read!(:shape, georeading.content, at: r.born_at, force: true)
           end
-          if georeading = Georeading.find_by(number: r.work_number, nature: :point)
+          if (georeading = Georeading.find_by(number: r.work_number, nature: :point))
             equipment.read!(:geolocation, georeading.content, at: r.born_at, force: true)
           end
         end

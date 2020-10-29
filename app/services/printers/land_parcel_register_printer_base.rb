@@ -35,7 +35,7 @@ module Printers
     def compute_grouped_interventions(activity_productions)
       activity_productions
         .flat_map(&:interventions).uniq
-        .select { |i| i.campaigns.include? campaign }
+        .reject { |i| i.campaigns.empty? && campaign_year != i.started_at.year } # Only happens for production that spans multiple campaigns. We only want the interventions that happened during the year.
         .flat_map { |i| i.targets.map { |t| [t.product, i] } }
         .group_by(&:first)
         .map { |key, vals| [key, vals.map(&:second)] }
@@ -498,5 +498,12 @@ module Printers
       def fetch(key, default = '_ _')
         ->(value) { value.fetch(key).or_else default }
       end
+
+    def campaign_year
+      campaign.harvest_year
+    rescue StandardError => e
+      Rails.logger.warn e
+      nil
+    end
   end
 end
