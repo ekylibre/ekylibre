@@ -1276,6 +1276,7 @@ Rails.application.routes.draw do
       resource :map_cells_visualizations, only: :show
       resource :land_parcels_visualizations, only: :show
       resource :resources_visualizations, only: :show
+      resource :non_treatment_areas_visualizations, only: :show
     end
 
     resources :wine_tanks, only: [:index], concerns: [:list]

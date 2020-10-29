@@ -21,7 +21,7 @@ module TimeLineable
         self.stopped_at = following_object.started_at
       else
         self.started_at ||= Time.zone.now if other_siblings.any?
-        self.started_at ||= Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+        self.started_at ||= Time.new(1, 1, 1).in_time_zone
         self.stopped_at ||= nil
       end
     end

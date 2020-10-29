@@ -127,7 +127,7 @@ module Backend
       t.column :supplier, label_method: 'supplier.full_name', url: { controller: '/backend/entities', action: :show, id: 'RECORD.supplier.id'.c }
     end
 
-    list(:receptions, model: :parcel_item_storings, joins: :parcel_item, conditions: [ 'parcel_items.variant_id = ?', 'params[:id]'.c ], order: { created_at: :desc }) do |t|
+    list(:receptions, model: :parcel_item_storings, joins: :parcel_item, conditions: ['parcel_items.variant_id = ?', 'params[:id]'.c], order: { created_at: :desc }) do |t|
       t.column :reception_number, through: :parcel_item, label: :number, url: { controller: '/backend/receptions', action: :show, id: 'RECORD.parcel_item.parcel_id'.c }
       t.column :reception_planned_at, through: :parcel_item, datatype: :datetime
       t.column :reception_given_at, through: :parcel_item, datatype: :datetime
@@ -323,22 +323,33 @@ module Backend
       model_klass = controller_path.gsub('backend/', '').classify.constantize
       attributes = {}
 
-      if params.key?(:nature_id) && (nature = ProductNature.find_by(id: params[:nature_id])).present?
+      nature_id = if params.key?(:nature_id)
+                    params[:nature_id]
+                  else
+                    pnv = params.fetch(:product_nature_variant, {})
+
+                    pnv.is_a?(Hash) ? pnv.fetch(:nature_id, nil) : nil
+                  end
+
+      if nature_id.present? && (nature = ProductNature.find_by(id: nature_id)).present?
         model_klass = nature.variant_type.constantize
         attributes[:nature] = nature
+      else
+        @submit_label = :next.tl
+        @form_url = { action: :new }
+        @form_method = :get
       end
 
       instance_variable_set("@#{controller_name.singularize}", model_klass.new(attributes))
       @key = :product_nature_variant
     end
 
-
     def create
       instance_variable_set("@#{controller_name.singularize}", controller_path.gsub('backend/', '').classify.constantize.new(permitted_params))
       @key = :product_nature_variant
       handle_maaid(instance_variable_get("@#{controller_name.singularize}"), params[:phyto_product_id])
-      return if save_and_redirect(instance_variable_get("@#{controller_name.singularize}"), url: (params[:create_and_continue] ? {:action=>:new, :continue=>true} : (params[:redirect] || ({ action: :show, id: 'id'.c }))), notify: ((params[:create_and_continue] || params[:redirect]) ? :record_x_created : false), identifier: :name)
-      render(locals: { cancel_url: {:action=>:index}, with_continue: false })
+      return if save_and_redirect(instance_variable_get("@#{controller_name.singularize}"), url: (params[:create_and_continue] ? { :action => :new, :continue => true } : (params[:redirect] || ({ action: :show, id: 'id'.c }))), notify: ((params[:create_and_continue] || params[:redirect]) ? :record_x_created : false), identifier: :name)
+      render(locals: { cancel_url: { :action => :index }, with_continue: false })
     end
 
     def update
@@ -349,7 +360,7 @@ module Backend
       return if save_and_redirect(@product_nature_variant, url: params[:redirect] || ({ action: :show, id: 'id'.c }), notify: (params[:redirect] ? :record_x_updated : false), identifier: :name)
       @form_url = backend_product_nature_variant_path(@product_nature_variant)
       @key = 'product_nature_variant'
-      render(locals: { cancel_url: {:action=>:index}, with_continue: false })
+      render(locals: { cancel_url: { :action => :index }, with_continue: false })
     end
 
     private

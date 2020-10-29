@@ -1,9 +1,10 @@
 module Backend
   module LandParcelsHelper
     def land_parcels_map(options = {})
+      janus = options.delete(:janus)
       html_options ||= {}
       html_options[:class] = 'map-fullwidth'
-      html = visualization({ box: { height: '100%' }, async_url: backend_visualizations_land_parcels_visualizations_path }, html_options) do |v|
+      html = visualization(options.merge(box: { height: '100%' }, async_url: backend_visualizations_land_parcels_visualizations_path), html_options) do |v|
         v.control :zoom
         v.control :scale
         v.control :fullscreen
@@ -13,8 +14,8 @@ module Backend
         end
       end
 
-      if options[:janus]
-        options[:janus].face :map do
+      if janus
+        janus.face :map do
           html
         end
       else

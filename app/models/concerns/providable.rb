@@ -13,34 +13,45 @@ module Providable
   end
 
   module Prepended
+
+    # @param [Hash{Symbol => Object}] data
     def provider_data=(data)
-      self.provider[:data]= data
+      self.provider = {**provider, data: data}
     end
 
+    # @return [Hash{Symbol => Object}]
     def provider_data
-      self.provider.fetch(:data, {})
+      self.provider.fetch(:data, {}).transform_keys(&:to_sym)
     end
 
+    # @param [Hash{Symbol => String, Hash}] value
     def provider=(value)
       super(value&.slice(:vendor, :name, :id, :data))
     end
 
     def provider
-      @provider ||= {}
+      (super || {}).transform_keys(&:to_sym)
     end
 
+    # @return [String]
     def provider_vendor
       self.provider[:vendor]
     end
 
+    # @return [String]
     def provider_name
       self.provider[:name]
     end
 
+    # @return [String]
     def provider_id
       self.provider[:id]
     end
 
+    # @param [String] vendor
+    # @param [String] name
+    # @option [String, nil] id
+    # @return [Boolean]
     def is_provided_by?(vendor:, name:, id: nil)
       vendor == self.provider_vendor && name == self.provider_name && (id.nil? || id == self.provider_id)
     end
