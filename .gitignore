@@ -28,6 +28,7 @@ db/first_runs
 
 # Ignore lexicon data
 db/lexicon/data.sql
+db/lexicon/data.sql.gz
 
 # Ignore all logfiles and tempfiles.
 /log/*

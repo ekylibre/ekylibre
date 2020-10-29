@@ -105,7 +105,7 @@ Rails.application.routes.draw do
       resources :plants, only: %i[index]
       get 'profile', to: 'users#show'
       namespace :lexicon do
-        resources :ephy_cropsets, only: %i[index create]
+        resources :registered_phytosanitary_cropsets, only: %i[index create]
         resources :registered_phytosanitary_risks, only: %i[index create]
         resources :registered_phytosanitary_usages, only: %i[index create]
         resources :registered_phytosanitary_products, only: %i[index create]
@@ -813,7 +813,7 @@ Rails.application.routes.draw do
 
     %w[animal article crop equipment service worker zone].each do |model|
       namespace :variants do
-        resources "#{model}_variants".to_sym, concerns: %i[incorporate list], only: %i[index show] do
+        resources "#{model}_variants".to_sym, concerns: %i[incorporate list], only: %i[index show new create] do
           member do
             get :list_components
             get :list_catalog_items
@@ -841,7 +841,7 @@ Rails.application.routes.draw do
     %w[fertilizer plant_medicine seed_and_plant].each do |model|
       namespace :variants do
         namespace :articles do
-          resources "#{model}_articles".to_sym, concerns: %i[incorporate list], only: %i[index show] do
+          resources "#{model}_articles".to_sym, concerns: %i[incorporate list], only: %i[index show new create] do
             member do
               get :list_components
               get :list_catalog_items
@@ -994,6 +994,7 @@ Rails.application.routes.draw do
 
     resources :product_natures, concerns: %i[incorporate list unroll] do
       member do
+        get :compatible_varieties
         get :list_variants
       end
     end

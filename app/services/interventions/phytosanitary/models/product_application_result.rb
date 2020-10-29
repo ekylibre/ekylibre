@@ -2,19 +2,23 @@ module Interventions
   module Phytosanitary
     module Models
       class ProductApplicationResult
-        attr_reader :messages
+        attr_reader :votes
 
-        def initialize(result = 'allowed', messages = {})
-          @result = result
-          @messages = messages
+        def initialize(votes = {})
+          @votes = votes
         end
 
-        def allowed?
-          @result == 'allowed'
+        def product_messages(product)
+          @votes
+            .fetch(product, [])
+            .map(&:message)
+            .compact
         end
 
-        def forbidden?
-          @result == 'forbidden'
+        def product_vote(product)
+          @votes
+            .fetch(product, [])
+            .reduce(:allowed) { |acc, v| Models::ProductApplicationVote.vote_reducer(acc, v.vote) }
         end
 
         # @param [Array<Result>] others
@@ -26,17 +30,30 @@ module Interventions
         # @param [ProductApplicationResult] other
         # @return [ProductApplicationResult]
         def merge(other)
-          ProductApplicationResult.new(nil, messages.deep_merge(other.messages) { |_key, messages, other_messages| messages + other_messages })
+          ProductApplicationResult.new(votes.deep_merge(other.votes) { |_key, votes, other_votes| votes + other_votes })
         end
 
         # @param [Product] product
         # @param [String] message
-        def add_message(product, message)
-          #TODO add message at the correct place
-          if messages.key?(product)
-            messages[product] << message
+        def vote_forbidden(product, message = nil)
+          add_vote(product, status: :forbidden, message: message)
+        end
+
+        # @param [Product] product
+        def vote_unknown(product)
+          add_vote(product, status: :unknown)
+        end
+
+        # @param [Product] product
+        # @option [Symbol] status
+        # @option [String] message
+        def add_vote(product, status:, message: nil)
+          vote = Models::ProductApplicationVote.new(status, message)
+
+          if votes.key?(product)
+            votes[product] << vote
           else
-            messages[product] = [message]
+            votes[product] = [vote]
           end
         end
       end

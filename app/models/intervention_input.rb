@@ -23,8 +23,8 @@
 #
 # == Table: intervention_parameters
 #
-#  allowed_entry_factor     :integer
-#  allowed_harvest_factor   :integer
+#  allowed_entry_factor     :interval
+#  allowed_harvest_factor   :interval
 #  assembly_id              :integer
 #  batch_number             :string
 #  component_id             :integer
@@ -77,6 +77,15 @@ class InterventionInput < InterventionProductParameter
 
   before_validation do
     self.variant = product.variant if product
+  end
+
+  before_validation(on: :create) do 
+    if self.product.present? && (phyto = self.product.phytosanitary_product).present?
+      self.allowed_entry_factor = phyto.in_field_reentry_delay
+    end
+    if self.usage.present?
+      self.allowed_harvest_factor = self.usage.pre_harvest_delay
+    end
   end
 
   after_save do

@@ -2540,7 +2540,7 @@ fra:
         volume_area_density: "Volume par surface"
         volume_density: "Concentration volumique"
         volume_flow: "Débit volumique"
-        wait_before_entering_period: "Délai De Rentrée (DDR)"
+        wait_before_entering_period: "Délai De Rentrée (DRE)"
         wait_before_harvest_period: "Délai Avant Récolte (DAR)"
         water_content_rate: "Teneur en eau"
         weekly_pest_count: "Nombre de ravageurs (7 jours)"

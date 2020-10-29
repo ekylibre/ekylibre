@@ -2,13 +2,25 @@ module Interventions
   module Phytosanitary
     module Models
       class HarvestResult
-        attr_reader :possible, :next_possible_date
+        attr_reader :possible, :period
 
         # @param [Boolean] possible
-        # @param [Date|nil] next_possible_date
-        def initialize(possible, next_possible_date = nil)
+        # @param [Period] period
+        def initialize(possible, period = nil)
           @possible = possible
-          @next_possible_date = next_possible_date
+          @period = period
+        end
+
+        def period_duration
+          period.duration
+        end
+
+        def next_possible_date
+          if period.duration == 8.hours
+            period.end_date - 2.hours
+          else
+            period.end_date
+          end
         end
       end
     end

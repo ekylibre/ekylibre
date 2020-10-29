@@ -1012,6 +1012,7 @@ fra:
       nature:
         harvest: "Récolte :"
         reentry: "Réentrée :"
+        add_two_hours: "Ajouter 2h dans le cas d'une application en milieu fermé"
   labels:
     abilities: "Compétences" #?
     accepted: "Acceptée"
@@ -1140,6 +1141,7 @@ fra:
     add_support: "Ajouter un support de production"
     add_tactic: "Ajouter un itinéraire technique"
     add_tool: "Ajouter un outil"
+    add_two_hours_reentry_delay: "Ajouter 2h dans le cas d'une application en milieu fermé"
     add_website: "Ajouter un site web"
     add_working_period: "Ajouter une période de travail"
     add_x: "Ajouter «\_%{x}\_»"
@@ -1166,6 +1168,7 @@ fra:
     all: "Tous"
     allocation_balance: "Affectation du budget - Allocation %{name}"
     allowed: "Autorisé"
+    allowed_harvest_on: "RÉCOLTE POSSIBLE À PARTIR DU"
     all_accounts: "Tous les comptes"
     all_areas: "— Toutes les zones postales —" #?
     all_cash_balances: "Soldes des comptes" #?
@@ -1247,6 +1250,7 @@ fra:
     attachment: "Pièce jointe"
     attachments: "Pièces jointes"
     attorney: "Informations mandataire" #?
+    authorized: "Autorisé"
     automatic: "Auto"
     auxiliary: "Auxiliaire"
     available: "Disponible"
@@ -1348,6 +1352,7 @@ fra:
     check: "Vérifier"
     check_fields: "Vous devez cocher au moins une case pour effectuer la modification" #?
     check_letter: "Lettre-chèque"
+    check_usage_conditions: "Vérifiez les conditions d'usage"
     check_x_entries_to_balance:
       one: "Consulter l'écriture à équilibrer (%{count})"
       other: "Consulter les écritures à équilibrer (%{count})"
@@ -2557,6 +2562,7 @@ fra:
     radical_class_accounts_have_entries: "Les comptes de classes radicales comportent des écritures."
     raw_income: "Résultat d’exploitation"
     raw_margin: "Marge brute" #?
+    re_entry_delay: "RÉENTRÉE"
     re_entry_interval: "Délai de réentrée"
     reading_tasks: "Relevés d’indicateur"
     readings: "Relevés d’indicateur"
@@ -2870,6 +2876,7 @@ fra:
     third_informations: "Informations tierces" #?
     third_is_unbalanced: "Tiers à soldes non-rapprochés. (solde - solde comptable fournisseur)"
     this_archive_is_digitally_signed: "Cette archive est signée numériquement."
+    this_product_has_been_withdrawn: "Ce produit est retiré"
     threshold_commercialization_by_production: "Seuil de commercialisation par production"
     thumb: "Miniature"
     time_cost: "Coût de main d’œuvre"

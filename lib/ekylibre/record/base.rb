@@ -12,6 +12,7 @@ module Ekylibre
       include ::ScopeIntrospection # TODO: move to ApplicationRecord
       include Userstamp::Stamper
       include Userstamp::Stampable
+      include HasInterval
 
       self.abstract_class = true
 

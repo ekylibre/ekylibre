@@ -100,7 +100,7 @@ class ProductNature < Ekylibre::Record::Base
   validates :active, :evolvable, :subscribing, inclusion: { in: [true, false] }
   validates :name, presence: true, length: { maximum: 500 }
   validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
-  validates :picture_content_type, :picture_file_name, length: { maximum: 500 }, allow_blank: true
+  validates :picture_content_type, :picture_file_name, :reference_name, length: { maximum: 500 }, allow_blank: true
   validates :picture_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :population_counting, :variety, presence: true
@@ -123,6 +123,7 @@ class ProductNature < Ekylibre::Record::Base
   scope :tools, -> { of_variety(:equipment) }
 
   # scope :producibles, -> { where(:variety => ["bos", "animal", "plant", "organic_matter"]).order(:name) }
+  scope :of_type, ->(nature) { where(type: "VariantTypes::#{nature.to_s.capitalize}Type") }
 
   scope :derivative_of, proc { |*varieties| of_derivative_of(*varieties) }
 

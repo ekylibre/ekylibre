@@ -3,7 +3,7 @@ module Backend
     DIMENSIONS_UNIT = { net_volume: :liter, net_mass: :kilogram, mass_area_density: :kilogram_per_hectare, volume_area_density: :liter_per_hectare }.freeze
     AREA_DIMENSIONS = { net_volume: :liter_per_hectare, net_mass: :kilogram_per_hectare }.freeze
 
-    unroll :crop_label_fra, :target_name_label_fra
+    unroll :crop_label_fra, :target_name_label_fra, order: :state
 
     def filter_usages
       return render json: { disable: :maaid_not_provided.tl, clear: true } unless (variant = Product.find(params[:filter_id]).variant) && (variant.imported_from == "Lexicon")
@@ -12,11 +12,11 @@ module Backend
       scopes = { of_product: registered_pp.france_maaid }
       if retrieved_ids.any?
         cultivation_varieties = Product.find(retrieved_ids).map { |p| p.activity&.cultivation_variety }.uniq.compact
-        scopes[:of_variety] = cultivation_varieties
+        scopes[:of_varieties] = cultivation_varieties
       end
       clear = if params[:selected_value].present?
-                scoped_collection = RegisteredPhytosanitaryUsage.send(:of_product, scopes[:of_product])
-                scoped_collection = scoped_collection.send(:of_variety, *scopes[:of_variety]) if scopes[:of_variety]
+                scoped_collection = RegisteredPhytosanitaryUsage.of_product(scopes[:of_product])
+                scoped_collection = scoped_collection.of_varieties(*scopes[:of_varieties]) if scopes[:of_varieties]
                 scoped_collection.pluck(:id).exclude?(params[:selected_value])
               else
                 true
@@ -50,7 +50,7 @@ module Backend
       dose_validation = service.validate_dose(usage, product, quantity.to_f, dimension, targets_data)
       authorizations = compute_authorization(dose_validation, :dose_validation)
 
-      return render(json: { dose_validation: dose_validation, authorizations: authorizations })
+      render(json: { dose_validation: dose_validation, authorizations: authorizations })
     end
 
     private
@@ -60,30 +60,19 @@ module Backend
       end
 
       def compute_dataset(usage)
+        state_label = t("enumerize.registered_phytosanitary_product.state.#{usage.state}")
         {
-          state: usage.decision_date ? "#{usage.state} (#{usage.decision_date.l})" : usage.state,
+          state: usage.decision_date ? "#{state_label} (#{usage.decision_date.l})" : state_label,
           maximum_dose: usage.dose_quantity ? "#{usage.dose_quantity} #{usage.dose_unit_name}" : nil,
           untreated_buffer_aquatic: usage.untreated_buffer_aquatic ? "#{usage.untreated_buffer_aquatic} m" : nil,
-          re_entry_interval: usage.product.in_field_reentry_delay ? "#{usage.product.in_field_reentry_delay} h" : nil,
+          re_entry_interval: usage.decorated_reentry_delay,
           applications_count: usage.applications_count,
           untreated_buffer_arthropod: usage.untreated_buffer_arthropod ? "#{usage.untreated_buffer_arthropod} m" : nil,
-          pre_harvest_delay: usage.pre_harvest_delay ? "#{usage.pre_harvest_delay} j" : nil,
-          development_stage: compute_development_stage(usage),
+          pre_harvest_delay: usage.pre_harvest_delay ? "#{usage.pre_harvest_delay.in_full(:day)} j" : nil,
+          development_stage: usage.decorate.development_stage_min,
           untreated_buffer_plants: usage.untreated_buffer_plants ? "#{usage.untreated_buffer_plants} m" : nil,
           usage_conditions: usage.usage_conditions ? usage.usage_conditions.gsub('//', '<br/>').html_safe : nil
         }
-      end
-
-      def compute_development_stage(usage)
-        return nil if usage.development_stage_min.nil? && usage.development_stage_max.nil?
-
-        if usage.development_stage_min && usage.development_stage_max == nil
-          "Min : #{usage.development_stage_min}"
-        elsif usage.development_stage_min == nil && usage.development_stage_max
-          "Max : #{usage.development_stage_max}"
-        else
-          "#{usage.development_stage_min} #{usage.development_stage_max}"
-        end
       end
 
       def compute_usage_application(usage, targets_data, intervention_id)

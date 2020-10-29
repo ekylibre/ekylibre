@@ -38,11 +38,11 @@
 #  ephy_usage_phrase          :string           not null
 #  id                         :string           not null, primary key
 #  lib_court                  :integer
-#  pre_harvest_delay          :integer
+#  pre_harvest_delay          :interval
 #  pre_harvest_delay_bbch     :integer
 #  product_id                 :integer          not null
 #  record_checksum            :integer
-#  species                    :text
+#  species                    Array<:text>
 #  state                      :string           not null
 #  target_name                :jsonb
 #  target_name_label_fra      :string
@@ -55,5 +55,30 @@
 require 'test_helper'
 
 class RegisteredPhytosanitaryUsageTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
-  # Add tests here...
+
+  setup do
+    @trees_and_shrubs_usage = RegisteredPhytosanitaryUsage.find('20170220100309958136')
+    @tropical_crops_usage = RegisteredPhytosanitaryUsage.find('20191105094833754529')
+    @citrus_usage = RegisteredPhytosanitaryUsage.find('20160315165402324037')
+  end
+
+  test 'of_variety scope returns usages matching at least one of the provided varieties' do
+    assert_includes RegisteredPhytosanitaryUsage.of_variety(:citrus), @trees_and_shrubs_usage
+    assert_includes RegisteredPhytosanitaryUsage.of_variety(:citrus), @citrus_usage
+    refute_includes RegisteredPhytosanitaryUsage.of_variety(:citrus), @tropical_crops_usage
+
+    assert_includes RegisteredPhytosanitaryUsage.of_variety(:carica), @trees_and_shrubs_usage
+    assert_includes RegisteredPhytosanitaryUsage.of_variety(:carica), @tropical_crops_usage
+    refute_includes RegisteredPhytosanitaryUsage.of_variety(:carica), @citrus_usage
+
+    assert_includes RegisteredPhytosanitaryUsage.of_variety(:citrus, :carica), @trees_and_shrubs_usage
+    assert_includes RegisteredPhytosanitaryUsage.of_variety(:citrus, :carica), @citrus_usage
+    assert_includes RegisteredPhytosanitaryUsage.of_variety(:citrus, :carica), @tropical_crops_usage
+  end
+
+  test 'of_varieties scope returns usages matching every single provided varieties' do
+    assert_includes RegisteredPhytosanitaryUsage.of_varieties(:citrus, :carica), @trees_and_shrubs_usage
+    refute_includes RegisteredPhytosanitaryUsage.of_varieties(:citrus, :carica), @citrus_usage
+    refute_includes RegisteredPhytosanitaryUsage.of_varieties(:citrus, :carica), @tropical_crops_usage
+  end
 end

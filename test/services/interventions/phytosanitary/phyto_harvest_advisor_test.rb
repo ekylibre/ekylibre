@@ -58,6 +58,7 @@ module Interventions
         reentry_delay = PhytoHarvestAdvisor.new.reentry_possible_from_interventions?(harvest_period, [@spraying_intervention])
 
         assert_equal DateTime.soft_parse("2020-02-26T20:00:25+00:00"), reentry_delay.next_possible_date
+        assert_equal 8.hours, reentry_delay.period_duration
         assert_not reentry_delay.possible
       end
 

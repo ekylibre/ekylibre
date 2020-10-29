@@ -54,5 +54,10 @@
 #  work_number               :string
 #
 module Variants
-  class ZoneVariant < ProductNatureVariant; end
+  class ZoneVariant < ProductNatureVariant
+
+    def variant_type
+      :zone
+    end
+  end
 end

@@ -10,19 +10,17 @@
   end
 
 = field_set do
-  = f.referenced_association :nature
-  = f.referenced_association :category
+  = f.referenced_association :nature, controller: '/backend/product_natures', source: { scope: { of_type: f.object.variant_type } }
+  = f.referenced_association :category, controller: '/backend/product_nature_categories', source: { scope: { of_type: f.object.variant_type } }
   = f.variety scope: nature, child_scope: f.object.products
   = f.input :name
-  - if %w[animal_variants equipment_variants].include? params[:subdivision]
-    = f.input :specie_variety, label: "#{params[:subdivision]}_specie_variety".tl
   = f.input :work_number
   = f.input :gtin
   = f.input :active
   = f.input :unit_name
   - if params[:subdivision] == 'plant_medicine_articles' || f.object.is_a?(Variants::Articles::PlantMedicineArticle)
     - value = RegisteredPhytosanitaryProduct.find_by_reference_name(f.object.reference_name)
-    = field :france_maaid.tl, selector_tag(:phyto_product_id, { controller: "/backend/registered_phytosanitary_products", action: :unroll }, value: value&.id || f.object.france_maaid)
+    = field :france_maaid.tl, selector_tag(:phyto_product_id, { controller: "/backend/registered_phytosanitary_products", action: :unroll }, { value: value&.id || f.object.france_maaid }, { disabled: f.object.phytosanitary_product.present? })
   = f.picture
   = f.custom_fields
 
@@ -33,3 +31,4 @@
 - if f.object.of_variety? :equipment
   = field_set(:components) do
     = f.nested_association(:components, collection: f.object.components.select { |c| c.parent_id.nil? })
+

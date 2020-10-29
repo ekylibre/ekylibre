@@ -133,6 +133,6 @@ class ProductNatureTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
                    worker: :worker_nature,
                    zone: :land_parcel_nature }
 
-    references.each { |type, reference| assert_equal create(reference).type, "VariantTypes::#{type.capitalize}Type" }
+    references.each { |type, reference| assert_equal "VariantTypes::#{type.capitalize}Type", create(reference).type }
   end
 end

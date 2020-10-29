@@ -23,17 +23,17 @@
 #
 # == Table: registered_phytosanitary_products
 #
-#  active_compounds             :string
+#  active_compounds             Array<:text>
 #  allowed_mentions             :jsonb
 #  firm_name                    :string
 #  france_maaid                 :string           not null
 #  id                           :integer          not null, primary key
-#  in_field_reentry_delay       :integer
-#  mix_category_code            :string           not null
+#  in_field_reentry_delay       :interval
+#  mix_category_codes           Array<:integer>
 #  name                         :string           not null
-#  nature                       :string
+#  natures                      Array<:text>
 #  operator_protection_mentions :text
-#  other_name                   :string
+#  other_names                  Array<:text>
 #  product_type                 :string
 #  record_checksum              :integer
 #  reference_name               :string           not null
@@ -43,18 +43,19 @@
 #  stopped_on                   :date
 #
 class RegisteredPhytosanitaryProduct < ActiveRecord::Base
+  extend Enumerize
+  include HasInterval
   include Lexiconable
-  include Searchable
   include ScopeIntrospection
+  include Searchable
 
+  has_many :phrases, class_name: 'RegisteredPhytosanitaryPhrase', foreign_key: :product_id, dependent: :restrict_with_exception
+  has_many :risks, class_name: 'RegisteredPhytosanitaryRisk', foreign_key: :product_id, dependent: :restrict_with_exception
+  has_many :usages, class_name: 'RegisteredPhytosanitaryUsage', foreign_key: :product_id, dependent: :restrict_with_exception
+
+  enumerize :state, in: %w[authorized inherited withdrawn], predicates: true
+  has_interval :in_field_reentry_delay
   search_on :name, :firm_name, :france_maaid
-
-  has_many :risks,   class_name: 'RegisteredPhytosanitaryRisk',
-                     foreign_key: :product_id, dependent: :restrict_with_exception
-  has_many :usages,  class_name: 'RegisteredPhytosanitaryUsage',
-                     foreign_key: :product_id, dependent: :restrict_with_exception
-  has_many :phrases, class_name: 'RegisteredPhytosanitaryPhrase',
-                     foreign_key: :product_id, dependent: :restrict_with_exception
 
   delegate :unit, to: :class
 
@@ -110,8 +111,17 @@ class RegisteredPhytosanitaryProduct < ActiveRecord::Base
     end
   end
 
+  def mix_category_codes
+    super || []
+  end
+
+  # @return [Array<String>]
+  def natures
+    super || []
+  end
+
   def proper_name
-    [nature, name, france_maaid, firm_name].compact.join(' - ')
+    [natures.first, name, france_maaid, firm_name].compact.join(' - ')
   end
 
   def label_method
