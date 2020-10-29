@@ -178,7 +178,7 @@ class Preference < Ekylibre::Record::Base
 
   prefer :entry_autocompletion, :boolean, true
   prefer :bookkeep_automatically, :boolean, true
-  prefer :permanent_stock_inventory, :boolean, true
+  prefer :permanent_stock_inventory, :boolean, false
   prefer :unbilled_payables, :boolean, false
   prefer :bookkeep_in_draft, :boolean, true
   prefer :detail_payments_in_deposit_bookkeeping, :boolean, true

@@ -812,7 +812,7 @@ fra:
       expired: "a expiré, merci d’en faire une nouvelle demande"
       # financial_year_exchange_on_this_period: "There is an opened accounting exchange at this date"
       # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
-      # financial_year_not_found: "There is no financial year at this date"
+      financial_year_not_found: "Il n'y a pas d'exercice comptable a cette date"
       # greater_than: "%{attribute} must be greater than %{count}"
       # greater_than_or_equal_to: "%{attribute} must be greater than or equal to %{count}"
       harvest_in_progress: "Attention, cette culture est en cours de récolte"
