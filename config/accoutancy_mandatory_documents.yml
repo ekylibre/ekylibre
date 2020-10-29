@@ -165,10 +165,10 @@ fr_pcga:
     entities_client_receivables_depreciations: '4916'
     entities_others_clients: '412 4132'
     entities_others_clients_depreciations: '4912'
-    entities_client_total: '41 !4191' #
+    entities_client_total: '41 !419' #
     entities_client_total_depreciations: '491'
-    entities_client_total_net: '41 !4191 491'
-    entities_client_total_raw: '41 !4191'
+    entities_client_total_net: '41 !419 491'
+    entities_client_total_raw: '41 !419'
     entities_state_receivables: '445 F' #
     entities_associate_receivables: '4551 F, 4552 F, 4558 F' #
     entities_associate_receivables_depreciations: '4955'
@@ -191,14 +191,14 @@ fr_pcga:
     capitals_emissions: '104 105 C'
     reevaluation_gaps: '1 2 3 4 5'
     capitals_liability_reserves: '106 C'
-    capitals_anew_reports: '11 C'
+    capitals_anew_reports: '- 11'
     capitals_profit_or_loss: '- 12'
     capitals_investment_subsidies: '13 C'
     capitals_derogatory_depreciations: '145 C'
     capitals_mandatory_provisions: '142 143 144 146 147 148 C'
     capitals_risk_and_charges_provisions: '151 153 155 156 157 158 C'
     capitals_risk_and_charges_provisions_total: '14 15 C'
-    debts_land_parcel_loans: '1641 C'
+    debts_land_parcel_loans: '1640 1641 C'
     debts_others_loans: '1642 1643 C'
     debts_loans_total: '16 17 C' #
     debts_associate_locked_debts: '4553 4554 C' #
@@ -207,7 +207,7 @@ fr_pcga:
     debts_cashe_debts: '519 C, 512 E, 514 E, 517 E, 5186 C'
     debts_other_financial_debts: '161 163 165 1675 168 C, 17, 426, 451 C, 456 C, 458 E'
     debts_cashe_debts_total: '519 C, 512 E, 514 E, 517 E, 5186 C, 426, 451 C, 456 C, 458 E' #
-    others_debts_advance_receivables: '4191 C' #
+    others_debts_advance_receivables: '419 C' #
     others_debts_supplier_receivables: '401 4031 402 4032 408 C, 472 E' #
     others_debts_state_debts: '445 E' #
     others_debts_social_debts: '421 422 424 427 4282 4283 4284 4286 431 437 4382 4383 4386 442 C, 443 E, 444 E, 446, 447 4482 4486 457 C'
@@ -339,10 +339,10 @@ fr_pcg82:
     entities_client_receivables_depreciations: '4916'
     entities_others_clients: '412 4132'
     entities_others_clients_depreciations: '4912'
-    entities_client_total: '41 !4191' #
+    entities_client_total: '41 !419' #
     entities_client_total_depreciations: '491'
-    entities_client_total_net: '41 !4191 491'
-    entities_client_total_raw: '41 !4191'
+    entities_client_total_net: '41 !419 491'
+    entities_client_total_raw: '41 !419'
     entities_state_receivables: '445 F' #
     entities_associate_receivables: '4551 F, 4552 F, 4558 F' #
     entities_associate_receivables_depreciations: '4955'
@@ -365,14 +365,14 @@ fr_pcg82:
     capitals_emissions: '104 105 C'
     reevaluation_gaps: '1 2 3 4 5'
     capitals_liability_reserves: '106 C'
-    capitals_anew_reports: '11 C'
+    capitals_anew_reports: '- 11'
     capitals_profit_or_loss: '- 12'
     capitals_investment_subsidies: '13 C'
     capitals_derogatory_depreciations: '145 C'
     capitals_mandatory_provisions: '142 143 144 146 147 148 C'
     capitals_risk_and_charges_provisions: '151 153 155 156 157 158 C'
     capitals_risk_and_charges_provisions_total: '14 15 C'
-    debts_land_parcel_loans: '1641 C'
+    debts_land_parcel_loans: '1640 1641 C'
     debts_others_loans: '1642 1643 C'
     debts_loans_total: '16 17 C' #
     debts_associate_locked_debts: '4553 4554 C' #
@@ -381,7 +381,7 @@ fr_pcg82:
     debts_cashe_debts: '519 C, 512 E, 514 E, 517 E, 5186 C'
     debts_other_financial_debts: '161 163 165 1675 168 C, 17, 426, 451 C, 456 C, 458 E'
     debts_cashe_debts_total: '519 C, 512 E, 514 E, 517 E, 5186 C, 426, 451 C, 456 C, 458 E' #
-    others_debts_advance_receivables: '4191 C' #
+    others_debts_advance_receivables: '419 C' #
     others_debts_supplier_receivables: '401 4031 402 4032 408 C, 472 E' #
     others_debts_state_debts: '445 E' #
     others_debts_social_debts: '421 422 424 427 4282 4283 4284 4286 431 437 4382 4383 4386 442 C, 443 E, 444 E, 446, 447 4482 4486 457 C'
