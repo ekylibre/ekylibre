@@ -260,7 +260,7 @@ class Measure
       reduced = ((ref.a * value.to_d(precision)) / ref.d) + ref.b
       # Coeff to dest
       ref = @@units[other_unit]
-      (ref.d * ((reduced - ref.b) / ref.a)).to_r
+      (ref.d * ((reduced - ref.b) / ref.a)).to_f.to_r
     end
   end
 
