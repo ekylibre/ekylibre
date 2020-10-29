@@ -68,7 +68,7 @@ module FEC
 
         if %w[ba_ir_cash_accountancy bnc_ir_cash_accountancy].include? fiscal_position
           query += <<-SQL.strip_heredoc
-            JOIN (
+            LEFT JOIN (
               (SELECT 'IncomingPayment' AS type, incoming_payments.id, paid_at, incoming_payment_modes.name AS mode_name
                 FROM incoming_payments
                 JOIN incoming_payment_modes ON incoming_payment_modes.id = incoming_payments.mode_id
