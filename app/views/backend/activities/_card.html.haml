@@ -25,8 +25,9 @@
           = issues.opened.count.to_s + '/' + issues.count.to_s
         .activity-indicator.cash
           = activity.decorate.production_costs(current_campaign)[:global_costs][:total].l(currency: currency.name)
-        - if activity.production_nature && activity.productions.of_campaign(campaign).any?
-          .activity-indicator.pfi
-            = activity.pfi_activity_ratio(campaign)
+        -#  TODO Enable this when pfi are finalized
+        -#- if activity.production_nature && activity.productions.of_campaign(campaign).any?
+        -#  .activity-indicator.pfi
+        -#    = activity.pfi_activity_ratio(campaign)
     - else
       = link_to(:new_production.tl, {controller: :activity_productions, action: :new, activity_id: activity.id, campaign_id: campaign.id}, class: 'btn btn-default')

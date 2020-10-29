@@ -1335,6 +1335,7 @@ eng:
     close_settings: "Close settings" #?!
     close_the_financial_year: "Close the financial year" #??
     closed: "Closed" #?
+    clouds: "Clouds"
     cobbles: "Cobbles" #?
     column: "Column"
     columns: "Columns to import"
@@ -1670,6 +1671,7 @@ eng:
     hours_label: "Hours"
     human_working_duration: "Working duration" #?
     humans: "HR"
+    humidity: "Humidity"
     iban: "International Bank Account Number (IBAN)" #?
     identification: "Identification"
     identifiers: "Identifiers"
@@ -2019,6 +2021,7 @@ eng:
     plantation_density: "Plantation density" #?
     plants: "Crops" #?
     please_wait: "Please wait…"
+    pluviometry: "Ploviometry"
     point: "Point" #?
     points: "Points"
     population: "Population"
@@ -2030,12 +2033,14 @@ eng:
     prerequisites_checks_before_closure: "Prerequisites checks before closure" #?!
     prescription: "Prescription" #?
     prescriptions: "Prescriptions" #?
+    pressure: "Pressure"
     pretax: "pre-tax"
     pretax_amount: "Pre-tax amount"
     previous: "Previous"
     price: "Price" #?
     prices: "Prices" #?
     print: "Print" #?
+    print_lant_parcel_register: "Print the land parcel register"
     printing_document: "Printing %{document}"
     procedures: "Procedures"
     product: "Product"
@@ -2211,6 +2216,7 @@ eng:
     ship: "Ship" #?
     shipment_items: "Shipment items"
     shipments: "Shipments"
+    shipping_note: "Shipping bill"
     show: "Show"
     # show_export_preview: "Show export preview"
     sign_out: "Sign out" #?
@@ -2657,6 +2663,7 @@ eng:
       depreciation_failed: "Assets could not be depreciated." #?
       depreciation_successful: "Assets have been successfully depreciated." #?
       document_in_preparation: "Your document is in preparation a notification will be sent to you when it is ready"
+      document_template_not_handled: "Document template not handled: %{nature}"
       draft_journal_entries_are_present: "Draft journal entries are present." #?
       draft_journal_entries_cannot_be_validated: "You need to validate every previous entries before these ones" #?
       draft_journal_entries_have_been_validated:
@@ -2757,6 +2764,7 @@ eng:
         one: "%{count} entry during this period remain unbalanced. You have to correct it to be able to perform a global validation." #?
         other: "%{count} entries during this period remain unbalanced. You have to correct them to be able to perform a global validation." #?
       this_service_is_not_activated: "This service is not activated" #?
+      unable_to_modify_purchase_invoice_link_to_tax_declaration: "This invoice is linked to a tax declaration and thus, cannot be updated or deleted. If possible, please delete the tax declaration and retry. You can contact us for more information."
       unavailable_resource: "Nonexistent %{type} #%{id}"
       unbalanced_journal_entries_are_present_in_year: "Some unbalanced journal entries are present in the financial year." #?
       unexpected_resource_type: "Unexpected resource type: %{type}"

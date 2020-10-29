@@ -2692,7 +2692,8 @@ CREATE TABLE public.sales (
     custom_fields jsonb,
     codes jsonb,
     undelivered_invoice_journal_entry_id integer,
-    quantity_gap_on_invoice_journal_entry_id integer
+    quantity_gap_on_invoice_journal_entry_id integer,
+    client_reference character varying
 );
 
 
@@ -18927,4 +18928,8 @@ INSERT INTO schema_migrations (version) VALUES ('20190726092304');
 INSERT INTO schema_migrations (version) VALUES ('20190807075910');
 
 INSERT INTO schema_migrations (version) VALUES ('20190808152235');
+
+INSERT INTO schema_migrations (version) VALUES ('20190916124521');
+
+INSERT INTO schema_migrations (version) VALUES ('20191002104944');
 

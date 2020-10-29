@@ -338,3 +338,48 @@ document_templates_020:
   nature: outgoing_delivery_docket
   updated_at: 2016-04-18 07:12:45.532973000 Z
   updater_id: 1
+document_templates_021:
+  active: true
+  archiving: last
+  by_default: true
+  created_at: 2019-9-04 11:24:19.630599000 Z
+  creator_id: 1
+  formats: ''
+  id: 27
+  language: fra
+  lock_version: 0
+  managed: false
+  name: Devis de vente
+  nature: sales_estimate
+  updated_at: 2019-9-04 11:24:19.630599000 Z
+  updater_id: 1
+document_templates_022:
+  active: true
+  archiving: last
+  by_default: true
+  created_at: 2019-9-04 11:24:19.630599000 Z
+  creator_id: 1
+  formats: ''
+  id: 28
+  language: fra
+  lock_version: 0
+  managed: false
+  name: Commande de vente
+  nature: sales_order
+  updated_at: 2019-9-04 11:24:19.630599000 Z
+  updater_id: 1
+document_templates_023:
+  active: true
+  archiving: last
+  by_default: true
+  created_at: 2019-9-04 11:24:19.630599000 Z
+  creator_id: 1
+  formats: ''
+  id: 29
+  language: fra
+  lock_version: 1
+  managed: false
+  name: Facture de vente
+  nature: sales_invoice
+  updated_at: 2019-9-04 11:24:19.630599000 Z
+  updater_id: 1

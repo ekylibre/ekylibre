@@ -1,6 +1,7 @@
 :ruby
   display_activity_item_field = !!Preference[:distribute_sales_and_purchases_on_activities]
   display_team_item_field = !!Preference[:distribute_sales_and_purchases_on_teams]
+  form_updatable = !@purchase_invoice.persisted? || (@purchase_invoice.updateable? && !@purchase_invoice.linked_to_tax_declaration?)
 
 = f.object.errors.full_messages if f.object.errors.present? && Rails.env.development?
 = content_for(:heading_toolbar) do
@@ -38,7 +39,7 @@
 
   .control-group.button-modal-reconciliation
     .controls
-      - if f.object.updateable?
+      - if form_updatable
         = button_tag :reconciliate_with_receptions.tl, id: 'showReconciliationModal', class: 'btn btn-default', type: :button
 
   = modal(id: "purchase_process_reconciliation", class: "", size: :large) do
@@ -51,10 +52,20 @@
   .items
     %table.list#items-table
       = f.simple_fields_for :items, f.object.items.sort_by { |i| i.id.to_i } do |item|
-        = render 'item_fields', f: item, display_activity_item_field: display_activity_item_field, display_team_item_field: display_team_item_field
+        = render 'item_fields', f: item, display_activity_item_field: display_activity_item_field, display_team_item_field: display_team_item_field, form_updatable: form_updatable
       %tfoot#items__footer
-    - if f.object.updateable?
+    - if form_updatable
       .row-footer
         - PurchaseItem.role.values.each do |role|
-          %span{ class: "links add-#{role}"}= link_to_add_association :"add_#{role}".tl, f, :items, partial: 'item_fields', render_options: { locals: { role: role, mode: params[:mode], display_activity_item_field: display_activity_item_field, display_team_item_field: display_team_item_field } }, 'data-association-insertion-node' => '#items__footer', 'data-association-insertion-method' => :before
+          :ruby
+            render_options = {
+              locals: {
+                role: role,
+                mode: params[:mode],
+                display_activity_item_field: display_activity_item_field,
+                display_team_item_field: display_team_item_field,
+                form_updatable: form_updatable
+              }
+            }
+          %span{ class: "links add-#{role}"}= link_to_add_association :"add_#{role}".tl, f, :items, partial: 'item_fields', render_options: render_options, 'data-association-insertion-node' => '#items__footer', 'data-association-insertion-method' => :before
 

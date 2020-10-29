@@ -91,6 +91,11 @@ class ::Numeric
 
   alias trimesters trimester
   alias semesters semester
+
+  def rounded_localize(precision: 2)
+    round(precision).localize(precision: precision)
+  end
+  alias round_l rounded_localize
 end
 
 class ::BigDecimal

@@ -148,6 +148,10 @@ class InterventionProductParameter < InterventionParameter
     quantity.l if quantity
   end
 
+  def working_area
+    working_zone&.area&.in_square_meter
+  end
+
   def working_zone_svg
     working_zone.to_svg if working_zone
   end

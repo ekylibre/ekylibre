@@ -1236,6 +1236,7 @@ fra:
     close_the_financial_year: "Clôturer l’exercice"
     closed: "Verrouillées"
     clostridial_spores_concentration: "Concentration en spores butyriques" #?
+    clouds: "Couverture nuageuse"
     clusters_work_number: "Numéro d’ilot(s)" #?
     cobbles: "Pavés"
     column: "Donnée"
@@ -1540,6 +1541,10 @@ fra:
     export_as_pdf: "Exporter en PDF"
     export_as_xcsv: "Exporter en CSV pour Excel"
     export_backup: "Export d’un fichier de sauvegarde" #?
+    export_sales_aborted: "Abandonné(e)"
+    export_sales_estimate: "Devis"
+    export_sales_invoice: "Facture"
+    export_sales_order: "Bon de commande"
     export_xml_fec_all: "Export FEC - Cas général - impôt sur les sociétés (XML)"
     export_xml_fec_ba_bnc_ir_commercial_accountancy: "Export FEC - Cas BA BNC IR - comptabilité commerciale (XML)"
     export_xml_fec_ba_ir_cash_accountancy: "Export FEC - Cas BA IR - comptabilité de trésorerie (XML)"
@@ -1653,6 +1658,7 @@ fra:
     human_working_duration: "Temps de travail"
     human_working_zone_area: "Zone travaillée" #?
     humans: "RH"
+    humidity: "Humidité"
     iban: "Numéro de compte bancaire internationale (IBAN)"
     identification: "Identification"
     identifiers: "Identifiants"
@@ -2082,6 +2088,7 @@ fra:
     parts: "Modules"
     password: "Mot de passe"
     paths_to_convert: "Chemins à convertir" #?
+    pay: "Payer"
     payable_taxes: "Taxes payables"
     payback: "Remboursement demandée" #?
     payment_amount: "Montant de l’encaissement"
@@ -2129,6 +2136,7 @@ fra:
     plantation_density: "Densité de plantation"
     plants: "Plantes"
     please_wait: "Merci de patienter…"
+    pluviometry: "Pluviométrie"
     point: "Point"
     points: "Points"
     population: "Population"
@@ -2142,6 +2150,7 @@ fra:
     prerequisites_checks_before_closure: "Vérifications préalables à la clôture"
     prescription: "Prescription"
     prescriptions: "Prescriptions"
+    pressure: "Pression"
     pretax: "HT"
     pretax_amount: "Montant HT"
     previous: "Précédent"
@@ -2158,6 +2167,7 @@ fra:
     prices_for_suppliers: "Les prix d’achat du fournisseur" #?
     prices_import: "Importer un fichier CSV" #?
     print: "Imprimer"
+    print_land_parcel_register: "Imprimer le cahier de traçabilité"
     print_at: "Le" #?
     print_with_template: "Imprimer %{name}" #?
     printing_document: "Impression de %{document}"
@@ -2248,6 +2258,7 @@ fra:
     ready_to_harvest: "Prêt(e) à être récolté(e)"
     receipt_date: "Date de réception"
     receipt_responsible: "Responsable réception"
+    receive: "Recevoir"
     received: "Reçue"
     received_quantity: "Quantité réceptionnée"
     receiving_address: "Adresse de réception"
@@ -2434,6 +2445,7 @@ fra:
     ship: "Prévue le"
     shipment_items: "Articles expédiés"
     shipments: "Expéditions"
+    shipping_note: "Bon d'expédition"
     show: "Afficher"
     show_export_preview: "Afficher un aperçu du document (peut augmenter le temps de chargement)" #?
     sign_out: "Se déconnecter"
@@ -2992,6 +3004,7 @@ fra:
       depreciation_failed: "Les immobilisations n’ont pas pu être dépréciées."
       depreciation_successful: "Les immobilisations ont correctement été dépréciées."
       document_in_preparation: "Votre document est en cours de préparation et une notification vous sera envoyée dès qu'il sera prêt."
+      document_template_not_handled: "Modèle de document non géré: %{nature}"
       draft_journal_entries_are_present: "Des écritures sont encore présentes dans le brouillard."
       draft_journal_entries_cannot_be_validated: "Vous devez valider toutes les écritures précédentes avant de valider celles-ci"
       draft_journal_entries_have_been_validated:
@@ -3127,6 +3140,7 @@ fra:
         one: "%{count} écriture sur la période n'est pas équilibrée. Elle doit être corrigée pour effectuer une validation globale."
         other: "%{count} écritures sur la période ne sont pas équilibrées. Elle doivent être corrigées pour effectuer une validation globale."
       this_service_is_not_activated: "Ce service n’est pas activé"
+      unable_to_modify_purchase_invoice_link_to_tax_declaration: "Cette facture de vente est liée a une déclaration de TVA. Elle ne peut donc pas être modifiée ou supprimée. Si possible, veuillez supprimer la déclaration de TVA et réessayer. Vous pouvez contacter le support pour plus d'information."
       unavailable_resource: "%{type} indisponible ou inexistant(e) #%{id}"
       unbalanced_journal_entries_are_present_in_year: "L'exercice comporte des écritures non-équilibrées."
       unexpected_resource_type: "Type de ressource inattendue\_: %{type}"
@@ -3244,6 +3258,7 @@ fra:
       pick: "Piocher"
       picture: "Image"
       prepare: "Préparer"
+      print: "Imprimer"
       propose: "Proposer"
       propose_and_invoice: "Facturer directement"
       prospect: "Prospecter"

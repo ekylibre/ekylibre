@@ -2,6 +2,7 @@
   = f.input :name
   = f.input :currency
   = f.input :nature, show: '.{{value}}-options', as: :radio_buttons
+  = f.input :by_default, as: :boolean
   .associate_account-options
     = f.referenced_association :owner
   = f.custom_fields

@@ -255,11 +255,13 @@ module Backend
       file
     end
 
-    def redirect_to_back(options = {})
+    def redirect_to_back(fallback_location: nil, **options)
       if params[:redirect].present?
         redirect_to params[:redirect], options
       elsif request.referer && request.referer != request.fullpath
         redirect_to request.referer, options
+      elsif fallback_location.present?
+        redirect_to fallback_location
       else
         redirect_to(root_path)
       end
