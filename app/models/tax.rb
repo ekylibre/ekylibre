@@ -239,6 +239,6 @@ class Tax < Ekylibre::Record::Base
 
   # Returns the short label of a tax
   def short_label
-    "#{amount.l(precision: 0)}% (#{country}) #{nature.l}"
+    "#{amount.l(precision: 0)}% (#{country}) #{name}"
   end
 end

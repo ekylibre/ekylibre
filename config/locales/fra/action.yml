@@ -1228,6 +1228,7 @@ fra:
     cartography: "Cartographie"
     cash: "Trésorerie"
     cash_balance: "Solde de trésorerie"
+    cash_variations: "Variations de trésorerie"
     cashe_debts: "Découverts bancaires"
     cashes_balance: "Soldes des trésoreries"
     cashes_balance_evolution: "Évolution des soldes des trésoreries"
@@ -2527,6 +2528,7 @@ fra:
     run: "Exécuter"
     running_cost: "Charges d’exploitation" #?
     running_finished: "Produits d’exploitation" #?
+    salary_payments: "Paiements de salaire"
     sale: "Vente"
     sale_cancel: "Faire un avoir sur la facture" #?
     sale_deliveries: "Livraisons" #?
@@ -2784,12 +2786,14 @@ fra:
     total_cost_per_working_unit: "Coût total par unité d’œuvre" #?
     total_earn: "Gain total" #?
     total_earn_per_working_unit: "Gain total par unité d’œuvre" #?
+    total_expenses: "Dépenses(TTC)"
     total_invoiced_amount: "Total montant facturé" #?
     total_paid_amount: "Montant total payé" #?
     total_passif: "Montant Total (Passif)" #?
     total_pretax_expenses: "Dépenses (HT)"
     total_pretax_revenues: "Revenus (HT)"
     total_quantity: "Quantité totale"
+    total_revenues: "Revenus (TTC)"
     total_unpaid_amount: "Montant total impayé" #?
     totals: "Totaux"
     tours:

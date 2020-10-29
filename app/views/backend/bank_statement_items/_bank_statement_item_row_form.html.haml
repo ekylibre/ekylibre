@@ -1,6 +1,6 @@
 - type = BankStatementItem === item ? 'bank_statement_item' : 'journal_entry_item'
 
-= simple_form_for item, url: '/backend/bank-statement-items', remote: true do |f|
+= simple_form_for item, url: '/backend/bank-statement-items', remote: true, defaults: { error: false } do |f|
   .reconciliation-item{ data: { id: item.id, type: type, form_id: f.hash } }
     .hidden
       = f.hidden_field :initiator_id, value: f.hash
@@ -21,3 +21,9 @@
     .details
       .letter= type =~ /bank_statement_item/ ? item.letter : item.bank_statement_letter
       = f.button :submit, :save.tl
+
+  .bank-stament-item-errors
+    - if f.object.errors.any?
+      %div.help-inline
+        = f.object.errors.full_messages.to_sentence
+

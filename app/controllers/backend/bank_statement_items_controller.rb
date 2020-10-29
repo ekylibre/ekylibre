@@ -22,9 +22,13 @@ module Backend
       return head :bad_request unless @initiator_form && @bank_statement = BankStatement.find(params[:bank_statement_item][:bank_statement_id])
       safe_params = permitted_params
       @bank_statement_item = @bank_statement.items.new(safe_params)
-      return head :bad_request unless @bank_statement_item.save!
+
       respond_to do |format|
-        format.js { render }
+        if @bank_statement_item.save
+          format.js { render }
+        else
+          format.js { render 'error' }
+        end
       end
     end
 

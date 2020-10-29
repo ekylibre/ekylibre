@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="hoeing" categories="crop_maintenance" optional-actions="weeding, loosening">
+  <procedure name="hoeing" categories="soil_working" optional-actions="weeding, loosening">
     <parameters>
       <target name="land_parcel" filter="is land_parcel and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>

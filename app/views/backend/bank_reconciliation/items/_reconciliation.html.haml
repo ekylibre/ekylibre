@@ -3,7 +3,7 @@
 - cash_id = @bank_statement.cash.id unless @bank_statement.nil?
 
 = hidden_field_tag :cash_id, cash_id
-.reconciliation-list{ data: { currency_precision: precision } }
+#reconciliation-list.reconciliation-list{ data: { currency_precision: precision } }
   .top-part
     .buttons
       = button_tag(:reset.tl, type: :button, "data-confirm": :are_you_sure.tl, class: "btn btn-default", id: "reset_reconciliation")
@@ -46,15 +46,16 @@
           .field= initial_balance_credit || 0.0
       .details
 
-    -# JS template for DatePicker.
-    .date-section.hidden
-    - @items_grouped_by_date.each do |date, items|
-      .date-section
-        - bank_statement_id = items.select{ |item| item.is_a?(BankStatementItem) }.map(&:bank_statement_id).uniq.first
-        - bank_statement = bank_statement_id && BankStatement.find(bank_statement_id)
-        = render 'date_header', date: date, bank_statement: bank_statement, cash_id: cash_id
-        - items.uniq.each do |item|
-          = render 'reconciliation_item', item: item
+    - (@period_start..@period_end).each do |date|
+      :ruby
+        items = @items_grouped_by_date.fetch(date, [])
+        bs = BankStatement.on(date).for_cash(cash_id).first
+        should_create = items.any? || bs.present?
+      - if should_create
+        .date-section{ class: ('hidden' if items.empty?)}
+          = render 'date_header', date: date, bank_statement: bs, cash_id: cash_id
+          - items.uniq.each do |item|
+            = render 'reconciliation_item', item: item
 
   .totals
     #matching
@@ -68,8 +69,10 @@
           - bank_statements_collection = BankStatement.where(id: bank_statements.map(&:bank_statement_id).uniq).map { |bs| [bs.id, bs] }.to_h
           - bank_statement_dates_ranges = bank_statements.map{|item| { start: bank_statements_collection[item.bank_statement_id].started_on, end: bank_statements_collection[item.bank_statement_id].stopped_on }}.uniq
 
-        #new-item= date_field_tag "add-bank-statement-item-date", nil, id: "add-bank-statement-item-date", data: { flatpickr: false, label: :add_line.tl, classes: "btn btn-new icn", bank_statement_dates_ranges: bank_statement_dates_ranges, min_date: @period_start.to_s, max_date: @period_end.to_s }
+        %button#new-line.btn.btn-new.icn{ data: { bank_statement_dates_ranges: bank_statement_dates_ranges.to_json } }
+          = :add_line.tl
         %p= :balance_of_selection.tl
+
       .amounts
         .hidden.total_debit{data: {use: '.reconciliation-item.selected .amounts .debit', calculate: :sum, 'use-closest': '.reconciliation-list' }}= 0
         .hidden.total_credit{data: {use: '.reconciliation-item.selected .amounts .credit', calculate: :sum, 'use-closest': '.reconciliation-list'}}= 0

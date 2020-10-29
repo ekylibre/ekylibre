@@ -4,11 +4,15 @@ import {customFetch, ajax} from "services/ajax"
 import RBush from "rbush"
 import * as moment from 'moment'
 import {setup, notify} from 'services/notification'
+import {enableDatePicker, enableDateRangePicker, enableDatetimePicker} from "lib/flatpickr"
 
 export let Ekylibre = {
   fetch: customFetch,
   ajax: ajax,
-  notification: {setup, notify}
+  notification: {setup, notify},
+  forms: {
+    date: {enableDatePicker, enableDateRangePicker, enableDatetimePicker}
+  }
 }
 
 export let globals = {

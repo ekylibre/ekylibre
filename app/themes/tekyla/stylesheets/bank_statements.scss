@@ -25,6 +25,10 @@
         @include margin-left($default-gap);
         text-align: center;
       }
+
+      .flatpickr-input {
+        width: 200px;
+      }
     }
   }
 
@@ -179,9 +183,15 @@
 
 .amounts {
   * {
-    width: 100%;
+    width: calc(100% - 4px);
     text-align: center;
   }
+}
+
+.bank-stament-item-errors {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .reconciliation-item {
@@ -227,7 +237,7 @@
       flex: 1;
 
       input {
-        width: 100%;
+        width: calc(100% - 8px);
       }
     }
   }
