@@ -1,0 +1,10 @@
+- if resource.closing?
+  .progress-container{ data: { refresh_after: 4, url: run_progress_backend_financial_year_path } }
+    .progress-title= :financial_year_closing.tl
+    .progress.thin
+      .progress-bar.thin{ role: "progressbar", 'aria-valuenow': "#{value}", 'aria-valuemin': 0, 'aria-valuemax': 100, style: "width:#{value}%" }
+    .progress-step= t('labels.progress_bar_current_step', current: current_step, total: steps_count, label: t("labels.#{step_label}"))
+
+- if refresh
+  %script
+    location.reload();

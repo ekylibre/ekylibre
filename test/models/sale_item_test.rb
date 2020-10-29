@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,32 +23,37 @@
 #
 # == Table: sale_items
 #
-#  account_id           :integer
-#  activity_budget_id   :integer
-#  amount               :decimal(19, 4)   default(0.0), not null
-#  annotation           :text
-#  codes                :jsonb
-#  compute_from         :string           not null
-#  created_at           :datetime         not null
-#  creator_id           :integer
-#  credited_item_id     :integer
-#  credited_quantity    :decimal(19, 4)
-#  currency             :string           not null
-#  id                   :integer          not null, primary key
-#  label                :text
-#  lock_version         :integer          default(0), not null
-#  position             :integer
-#  pretax_amount        :decimal(19, 4)   default(0.0), not null
-#  quantity             :decimal(19, 4)   default(1.0), not null
-#  reduction_percentage :decimal(19, 4)   default(0.0), not null
-#  sale_id              :integer          not null
-#  tax_id               :integer
-#  team_id              :integer
-#  unit_amount          :decimal(19, 4)   default(0.0), not null
-#  unit_pretax_amount   :decimal(19, 4)
-#  updated_at           :datetime         not null
-#  updater_id           :integer
-#  variant_id           :integer          not null
+#  account_id             :integer
+#  accounting_label       :string
+#  activity_budget_id     :integer
+#  amount                 :decimal(19, 4)   default(0.0), not null
+#  annotation             :text
+#  codes                  :jsonb
+#  compute_from           :string           not null
+#  created_at             :datetime         not null
+#  creator_id             :integer
+#  credited_item_id       :integer
+#  credited_quantity      :decimal(19, 4)
+#  currency               :string           not null
+#  depreciable_product_id :integer
+#  fixed                  :boolean          default(FALSE), not null
+#  fixed_asset_id         :integer
+#  id                     :integer          not null, primary key
+#  label                  :text
+#  lock_version           :integer          default(0), not null
+#  position               :integer
+#  preexisting_asset      :boolean
+#  pretax_amount          :decimal(19, 4)   default(0.0), not null
+#  quantity               :decimal(19, 4)   default(1.0), not null
+#  reduction_percentage   :decimal(19, 4)   default(0.0), not null
+#  sale_id                :integer          not null
+#  tax_id                 :integer
+#  team_id                :integer
+#  unit_amount            :decimal(19, 4)   default(0.0), not null
+#  unit_pretax_amount     :decimal(19, 4)
+#  updated_at             :datetime         not null
+#  updater_id             :integer
+#  variant_id             :integer          not null
 #
 
 require 'test_helper'
@@ -62,7 +68,7 @@ class SaleItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert nature
     client = Entity.normal.first
     assert client
-    @sale = Sale.create!(nature: nature, client: client)
+    @sale = Sale.create!(nature: nature, client: client, invoiced_at: DateTime.new(2018, 1, 1))
     assert @sale
 
     # Standard case
@@ -149,5 +155,20 @@ class SaleItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_equal 4, item.unit_pretax_amount
     assert_equal 15, item.pretax_amount
     assert_equal 16, item.amount
+  end
+
+  test 'fixed_asset_id and depreciable_product_id are the only fields that can be updated if the sale status is invoice' do
+    sale_item = create :sale_item, sale: sale
+    fixed_asset = create :fixed_asset, :in_use, started_on: Date.new(2018, 1, 1)
+    product = create :asset_fixable_product
+
+    sale.invoice
+
+    assert sale_item.sale.invoice?
+    assert sale_item.update!(fixed_asset: fixed_asset)
+    assert sale_item.update!(depreciable_product: product)
+    assert_raises Ekylibre::Record::RecordNotUpdateable do
+      sale_item.update!(amount: 100)
+    end
   end
 end

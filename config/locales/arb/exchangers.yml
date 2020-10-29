@@ -16,7 +16,6 @@ arb:
     ekylibre_bank_statements: "البيانات المصرفية Ekylibre"
     ekylibre_budgets: "الميزانيات Ekylibre"
     ekylibre_buildings_json: "المباني Ekylibre JSON"
-    # ekylibre_cash_transferts: "Ekylibre cash transferts"
     ekylibre_cultivable_zones: "مناطق Ekylibre الصالحة"
     ekylibre_cultivable_zones_json: "Ekylibre المناطق الصالحة للزراعة JSON"
     ekylibre_entities: "الكيانات Ekylibre"

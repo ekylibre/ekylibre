@@ -1,8 +1,8 @@
 - main_toolbar do |t|
-  = t.journal_entries_export resource, format: :csv, label: :journal_entries_csv_export.ta
+  = t.journal_entries_export resource, format: :csv, label: :journal_entries_export.ta, class: 'btn-download'
   - if resource.opened?
-    = t.journal_entries_import resource, label: :journal_entries_import.ta
-    = t.notify_accountant(resource)
+    = t.journal_entries_import resource, label: :journal_entries_import.ta, class: 'btn-upload'
+    = t.notify_accountant resource, class: 'btn-envelope'
     = t.close(resource)
 
 = main_informations do

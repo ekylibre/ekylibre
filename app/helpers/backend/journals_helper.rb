@@ -43,6 +43,74 @@ module Backend
       content_tag(:dl, code, id: 'journal-views')
     end
 
+    def ledger_crit(*args)
+      options = args.extract_options!
+      name = args.shift || :ledger
+      value = args.shift
+      configuration = { custom: :general_ledger }.merge(options)
+      configuration[:id] ||= name.to_s.gsub(/\W+/, '_').gsub(/(^_|_$)/, '')
+      value ||= params[name] || options[:default]
+
+      list = Account.auxiliary.pluck(:centralizing_account_name, :number).map { |a| [a[0], a[1][0..2]] }.uniq.collect do |account_name, account_number|
+        [:subledger_of_accounts_x.tl(account: account_name.tl), account_number]
+      end
+
+      list.unshift [:general_ledger.tl, :general_ledger]
+
+      code = ''
+      code << content_tag(:label, options[:label] || :display.tl, for: configuration[:id]) + ' '
+      custom_id = "#{configuration[:id]}_#{configuration[:custom]}"
+      code << select_tag(name, options_for_select(list, value), :id => configuration[:id], 'data-show-value' => custom_id)
+      code.html_safe
+    end
+
+    def subledger_crit(*args)
+      options = args.extract_options!
+      name = args.shift || :account_number
+      value = args.shift
+      configuration = {}.merge(options)
+      configuration[:id] ||= name.to_s.gsub(/\W+/, '_').gsub(/(^_|_$)/, '')
+      value ||= params[name] || options[:default]
+
+      code = ''
+
+      if centralizing_account = Account.find_by(number: params[:ledger])
+        code << select_tag(name, options_from_collection_for_select(centralizing_account.auxiliary_accounts.order(:number), 'number', 'label', value), id: configuration[:id])
+      end
+
+      code.html_safe
+    end
+
+    def previous_ledger(*args)
+      options = args.extract_options!
+      parameters = options.delete(:params)
+
+      code = ''
+
+      acc = Account.find_by(number: params[:account_number])
+
+      if acc.previous
+        code << link_to(acc.previous.label, backend_general_ledger_path(acc.previous.number, parameters), options)
+      end
+
+      code.html_safe
+    end
+
+    def next_ledger(*args)
+      options = args.extract_options!
+      parameters = options.delete(:params)
+
+      code = ''
+
+      acc = Account.find_by(number: params[:account_number])
+
+      if acc.following
+        code << link_to(acc.following.label, backend_general_ledger_path(acc.following.number, parameters), options)
+      end
+
+      code.html_safe
+    end
+
     # Create a widget with all the possible periods
     def journal_period_crit(*args)
       options = args.extract_options!
@@ -67,16 +135,25 @@ module Backend
       configuration[:id] ||= name.to_s.gsub(/\W+/, '_').gsub(/(^_|_$)/, '')
       list = []
       list << [:all_periods.tl, 'all']
-      for year in FinancialYear.reorder(started_on: :desc)
+
+      financial_years = FinancialYear.reorder(options[:sort] == :asc ? :started_on : { started_on: :desc })
+      if options[:limit_to_draft]
+        financial_years = financial_years.distinct.joins(:journal_entries).where(journal_entries: { state: :draft })
+        financial_years = financial_years.where('journal_entries.printed_on BETWEEN financial_years.started_on AND financial_years.stopped_on') # TODO: remove once journal entries will always have its financial_year_id associated to the printed_on
+      end
+      for year in financial_years
         list << [year.code, year.started_on.to_s << '_' << year.stopped_on.to_s]
         list2 = []
         date = year.started_on
         while date < year.stopped_on && date < Time.zone.today
           date2 = date.end_of_month
-          list2 << [:month_period.tl(year: date.year, month: 'date.month_names'.t[date.month], code: year.code), date.to_s << '_' << date2.to_s]
+          if !options[:limit_to_draft] || year.journal_entries.where(state: :draft, printed_on: (date..date2)).any?
+            list2 << [:month_period.tl(year: date.year, month: 'date.month_names'.t[date.month], code: year.code), date.to_s << '_' << date2.to_s]
+          end
           date = date2 + 1
         end
-        list += list2.reverse
+        list2.reverse! unless options[:sort] == :asc
+        list += list2
       end
       code = ''
       code << content_tag(:label, options[:label] || :period.tl, for: configuration[:id]) + ' '
@@ -205,5 +282,19 @@ module Backend
       end
     end
 
+    def mask_draft_items_button(*args)
+      options = args.extract_options!
+      list_id = args.shift || options[:list_id] || :journal_entry_items
+      mask_context = options[:context] || list_id
+      options[:controller] ||= controller_path
+      label_tag do
+        check_box_tag(:masked, 'true', current_user.mask_draft_items?(controller: options[:controller].dup, context: mask_context),
+                      data: {
+                        mask_draft_items: '#' + list_id.to_s,
+                        preference_url: url_for(controller: options[:controller], action: :mask_draft_items, context: mask_context)
+                      }) +
+          :mask_draft_items.tl
+      end
+    end
   end
 end

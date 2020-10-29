@@ -1,0 +1,118 @@
+.navbar__notifications {
+  padding: 0 round($fs-normal * 1);
+  cursor: pointer;
+  &:hover {
+    background: rgba(black, 0.07);
+    @include transition(background 0.4s, box-shadow 0.4s);
+  }
+}
+
+.notifications-btn {
+  height: $topbar-height;
+  line-height: $topbar-height;
+
+  &__icon {
+    padding: 0 !important;
+    font-size: 0;
+    position: relative;
+    float: left;
+    i {
+      @include is-icon($topbar-icon-size);
+      @include use-icon(bell-o);
+    }
+  }
+
+  &__counter {
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    vertical-align: top;
+
+    &--with-notifications {
+      float: right;
+      background: $invalid-color;
+      padding: 0 5px;
+      margin: 1px -7px 0 -5px;
+      border-radius: 50%;
+      line-height: 15px;
+    }
+
+    &--animated {
+      animation: pulsate 0.5s ease-in-out 5 both;
+    }
+  }
+}
+
+.notifications-menu {
+  background: #f7f7f7;
+  box-shadow: 0 0 3.25px rgba(0, 0, 0, 0.3);
+  border: 1px solid #dedede;
+  min-width: 500px;
+  margin-top: 0;
+  padding: 0;
+  max-height: 675px;
+  overflow: auto;
+
+  &__link, &__placeholder {
+    color: $text-color !important;
+    height: $lh-huge !important;
+    line-height: $lh-huge !important;
+  }
+
+  &__placeholder {
+    border-bottom: 1px solid $lighten-border-color;
+  }
+}
+
+.notification {
+  display: flex;
+  align-items: center;
+  padding: 0 5px;
+  border-bottom: 1px solid $lighten-border-color;
+  &:hover {
+    background: rgba(black, 0.07);
+    @include transition(background 0.4s, box-shadow 0.4s);
+  }
+
+  &__message {
+    flex: 1 1 auto;
+    padding: 0 20px 0 10px;
+    color: $text-color !important;
+  }
+
+  &__time {
+    flex: 0 0 22%;
+    color: $neutral-color !important;
+    font-size: 10px;
+  }
+
+  &__state {
+    flex: 0 0 5%;
+    line-height: $lh-huge;
+
+    i.icon-info-circle {
+      color: $base-color;
+    }
+    i.icon-check-circle {
+      color: $success-color;
+    }
+    i.icon-exclamation-circle {
+      color: $caution-color;
+    }
+    i.icon-times-circle {
+      color: $invalid-color;
+    }
+  }
+}
+
+@keyframes pulsate {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

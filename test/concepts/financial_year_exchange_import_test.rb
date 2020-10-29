@@ -17,7 +17,7 @@ class FinancialYearExchangeImportTest < Ekylibre::Testing::ApplicationTestCase::
 
     @financial_year_exchange = create(:financial_year_exchange, :opened, financial_year: financial_year)
 
-    @account = create(:account, number: '8001000000001')
+    @account = create(:account, number: '80010001')
   end
 
   test 'run fails when the file is invalid' do

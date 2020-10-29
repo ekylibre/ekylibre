@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -127,7 +128,7 @@ class SaleAffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
     journal_entry = JournalEntry.create!(
       journal: Journal.find_by(nature: :various, currency: sale.currency),
-      printed_on: sale.invoiced_on + 15,
+      printed_on: sale.invoiced_on + 10,
       items_attributes: {
         '0' => {
           name: 'Insurance care',
@@ -159,7 +160,7 @@ class SaleAffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
   # Creates a sale and check affair informations
   def new_valid_sales_invoice
-    client = entities(:entities_005)
+    client = create(:entity, :client)
     journal = Journal.find_by(nature: :sales)
     nature = SaleNature.find_or_initialize_by(
       journal: journal,
@@ -178,7 +179,7 @@ class SaleAffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
         tax: Tax.all.sample
       )
     end
-    sale = Sale.create!(client: client, nature: nature, items: items)
+    sale = Sale.create!(client: client, nature: nature, items: items, invoiced_at: DateTime.new(2018, 1, 1))
     sale.invoice!
     sale.reload
     assert sale.amount > 0, "Sale amount should be greater than 0. Got: #{sale.amount.inspect}"

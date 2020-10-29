@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -99,7 +100,7 @@ taxes_004:
   id: 8
   intracommunity: false
   lock_version: 0
-  name: TVA française intermédiaire 2014
+  name: TVA 10.0 %
   nature: intermediate_vat
   reference_name: french_vat_intermediate_2014
   updated_at: 2016-05-10 19:21:37.154673000 Z
@@ -115,7 +116,7 @@ taxes_005:
   id: 9
   intracommunity: false
   lock_version: 0
-  name: TVA française particulière 1989
+  name: TVA 2.1 %
   nature: particular_vat
   reference_name: french_vat_particular_1989
   updated_at: 2016-05-10 19:21:37.351341000 Z
@@ -131,7 +132,7 @@ taxes_006:
   id: 10
   intracommunity: false
   lock_version: 0
-  name: TVA française réduite
+  name: TVA 5.5 %
   nature: reduced_vat
   reference_name: french_vat_reduced
   updated_at: 2016-05-10 19:21:37.582543000 Z

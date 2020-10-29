@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -30,6 +31,7 @@
 #  bank_code                    :string
 #  bank_identifier_code         :string
 #  bank_name                    :string
+#  by_default                   :boolean          default(FALSE)
 #  container_id                 :integer
 #  country                      :string
 #  created_at                   :datetime         not null
@@ -80,6 +82,8 @@ class Cash < Ekylibre::Record::Base
            through: :main_account, source: :journal_entry_items
   has_many :unpointed_suspended_journal_entry_items, -> { unpointed.where.not(entry_id: BankStatement.where('journal_entry_id IS NOT NULL').select(:journal_entry_id)) },
            through: :suspense_account, source: :journal_entry_items
+  has_many :unpointed_lines_suspended_journal_entry_items, -> { unpointed.where.not(entry_id: BankStatementItem.where('journal_entry_id IS NOT NULL').select(:journal_entry_id)) },
+                    through: :suspense_account, source: :journal_entry_items
   has_one :last_bank_statement, -> { order(stopped_on: :desc) }, class_name: 'BankStatement'
 
   enumerize :nature, in: %i[bank_account cash_box associate_account], default: :bank_account, predicates: true
@@ -88,6 +92,7 @@ class Cash < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :bank_account_holder_name, :bank_account_key, :bank_account_number, :bank_agency_code, :bank_code, :bank_identifier_code, :bank_name, :iban, :spaced_iban, length: { maximum: 500 }, allow_blank: true
   validates :bank_agency_address, length: { maximum: 500_000 }, allow_blank: true
+  validates :by_default, inclusion: { in: [true, false] }, allow_blank: true
   validates :currency, :journal, :main_account, :mode, :nature, presence: true
   validates :last_number, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
@@ -116,7 +121,7 @@ class Cash < Ekylibre::Record::Base
 
   # before create a bank account, this computes automati.ally code iban.
   before_validation do
-    mode.lower! if mode.present?
+    self.mode = mode.to_s.lower if mode.present?
     self.mode = self.class.mode.default_value if mode.blank?
     self.suspend_until_reconciliation = false unless bank_account?
     unless bank_account_holder_name.nil?
@@ -167,7 +172,15 @@ class Cash < Ekylibre::Record::Base
   end
 
   def unpointed_journal_entry_items
-    suspend_until_reconciliation ? unpointed_suspended_journal_entry_items : unpointed_main_journal_entry_items
+    if suspend_until_reconciliation
+      if enable_bookkeep_bank_item_details
+        unpointed_lines_suspended_journal_entry_items
+      else
+        unpointed_suspended_journal_entry_items
+      end
+    else
+      unpointed_main_journal_entry_items
+    end
   end
 
   def account_id
@@ -223,7 +236,7 @@ class Cash < Ekylibre::Record::Base
   end
 
   # Load default cashes (1 bank account and 1 cash box)
-  def self.load_defaults
+  def self.load_defaults(**_options)
     [
       %i[bank_account bank banks],
       %i[cash_box cash cashes]
@@ -279,6 +292,15 @@ class Cash < Ekylibre::Record::Base
     main_journal_entry_items.reorder(printed_on: :desc).first
   end
 
+  # Return last date of bank_item from bank statements link to current cash
+  def last_bank_statement_stopped_on
+    if last_bank_statement
+      last_bank_statement.stopped_on
+    else
+      nil
+    end
+  end
+
   # Returns (real) main account cash balance in the global currency
   def balance(at = Time.zone.now)
     if at == Time.zone.now
@@ -299,6 +321,7 @@ class Cash < Ekylibre::Record::Base
     new_letter = next_reconciliation_letter
     return false if (journal_entry_items + statement_items).length.zero?
 
+    bank_statement_id = statement_items.map(&:bank_statement_id).uniq.first
     statement_entries = JournalEntryItem.where(resource: statement_items)
     to_letter = journal_entry_items + statement_entries
     suspense_account.mark(to_letter) if suspend_until_reconciliation
@@ -306,7 +329,8 @@ class Cash < Ekylibre::Record::Base
     saved = true
     saved &&= statement_items.update_all(letter: new_letter)
     saved &&= journal_entry_items.update_all(
-      bank_statement_letter: new_letter
+      bank_statement_letter: new_letter,
+      bank_statement_id: bank_statement_id
     )
 
     saved && new_letter

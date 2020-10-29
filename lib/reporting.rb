@@ -4,7 +4,7 @@ Ekylibre::Reporting.formats.each do |format|
   ActionController::Renderers.add(format) do |object, options| # Find template
     name = options[:with]
     unless template = DocumentTemplate.find_active_template(name)
-      raise StandardError, "Can not find template for \#{name.inspect}"
+      raise StandardError, "Can not find template for #{name.inspect}"
     end
     if ENV['IN_PASSENGER'] == '1'
       logger.warn 'Using Jasper/Rjb with Passenger is not sure for now. Be careful.'

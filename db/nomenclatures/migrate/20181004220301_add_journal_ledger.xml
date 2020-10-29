@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add journal ledger">
+  <item-creation item="document_natures#journal_ledger" category="accountancy"/>
+</migration>

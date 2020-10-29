@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add new accounts">
+  <item-creation item="accounts#statutory_or_contractual_reserves" fr_pcga="1063" fr_pcg82="1063"/>
+  <item-creation item="accounts#tax_regulated_reserves" fr_pcga="1064" fr_pcg82="1064"/>
+  <item-creation item="accounts#partners_or_associates_dividends_payable" fr_pcga="457" fr_pcg82="457"/>
+  <item-creation item="accounts#levies_and_taxes_from_distributions" fr_pcga="4423" fr_pcg82="4423"/>
+  <item-creation item="accounts#partners_or_associates_advance_payments" fr_pcga="4564" fr_pcg82="4564"/>
+</migration>

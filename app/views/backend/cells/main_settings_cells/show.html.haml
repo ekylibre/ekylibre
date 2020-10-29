@@ -11,3 +11,8 @@
   .big-info
     %span.title= :accounting_system.t(scope: 'preferences')
     %span.value= Preference[:accounting_system].mb_chars.upcase.gsub('_', '-') rescue "?"
+  - fiscal_position = Nomen::FiscalPosition[Preference[:fiscal_position]]
+  - if fiscal_position.country.to_s == Preference[:country]
+    .big-info
+      %span.title= :fiscal_position.t(scope: 'preferences')
+      %span.value= Preference[:fiscal_position].mb_chars.upcase.gsub('_', '-') rescue "?"

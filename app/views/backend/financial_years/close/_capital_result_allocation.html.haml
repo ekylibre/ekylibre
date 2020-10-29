@@ -1,0 +1,4 @@
+- if @result + @carry_forward_balance >= 0
+  = render 'backend/financial_years/close/positive_result_allocation_capital'
+- else
+  = render 'backend/financial_years/close/negative_result_allocation_capital'

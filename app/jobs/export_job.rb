@@ -17,7 +17,7 @@ class ExportJob < ActiveJob::Base
     filename = "#{klass.human_name}.#{format}"
 
     key = params['key'] || SecureRandom.hex(2)
-    # Export & send file
+    # Export and send file
     begin
       # Export the file
       path = template.export(aggregator.to_xml, key, format)
@@ -26,6 +26,9 @@ class ExportJob < ActiveJob::Base
       notification = user.notifications.build(valid_generation_notification_params(path, filename, document_id))
     rescue => error
       # When error create a notification with error message
+      Rails.logger.error $!
+      Rails.logger.error $!.backtrace.join("\n")
+      ExceptionNotifier.notify_exception($!, data: { message: error })
       notification = user.notifications.build(error_generation_notification_params(filename, params['id'], error.message))
     end
     notification.save

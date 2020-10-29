@@ -1,0 +1,2 @@
+$('select[data-filter-collection-url]').html('<%= j options_from_collection_for_select(@filtered_accounts, :name, lambda { |a| a.send(Account.accounting_system) + " - " + a.human_name }) %>');
+$('select[data-filter-collection-url]').prepend("<option value=''></option>");

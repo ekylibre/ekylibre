@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -27,6 +28,7 @@
 #  absolute_debit            :decimal(19, 4)   default(0.0), not null
 #  absolute_pretax_amount    :decimal(19, 4)   default(0.0), not null
 #  account_id                :integer          not null
+#  accounting_label          :string
 #  activity_budget_id        :integer
 #  balance                   :decimal(19, 4)   default(0.0), not null
 #  bank_statement_id         :integer
@@ -91,7 +93,7 @@ class JournalEntryItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixture
     journal = Journal.where(currency: Preference[:currency]).first
     entry = JournalEntry.new(
       journal: journal,
-      printed_on: Time.zone.today,
+      printed_on: Time.zone.parse('2018-1-1 00:00:00'),
       items: [
         JournalEntryItem.new(account: Account.first, real_debit: 125, real_credit: 0, name: 'Yeah!'),
         JournalEntryItem.new(account: Account.second, real_debit: 0, real_credit: 125, name: 'Yeah!')
@@ -116,11 +118,11 @@ class JournalEntryItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixture
   end
 
   test 'lettering is indicated as partial (*) when lettered items are not balanced' do
-    first_account = Account.create!(name: 'First account', number: '123FIRST')
-    random_account = Account.create!(name: 'Random account', number: '123RANDOM')
-    other_random = Account.create!(name: 'Random account bis', number: '123RANBIS')
+    first_account = Account.create!(name: 'First account', number: '123RAND1')
+    random_account = Account.create!(name: 'Random account', number: '123RAND2')
+    other_random = Account.create!(name: 'Random account bis', number: '123RAND3')
     journal = Journal.create!(name: 'Test journal JEI', code: 'JEITEST', currency: 'EUR')
-    entry = JournalEntry.create!(journal: journal, currency: 'EUR', printed_on: Date.today, items_attributes:
+    entry = JournalEntry.create!(journal: journal, currency: 'EUR', printed_on: Date.new(2018, 1, 1), items_attributes:
       [{ account: first_account, name: 'Hello', real_debit: 10, letter: 'A' },
        { account: random_account, name: 'Is it me', real_credit: 10 }])
     assert_equal 'A*', entry.items.find_by(real_debit: 10).letter
@@ -131,7 +133,7 @@ class JournalEntryItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixture
     to_letter_with = JournalEntry.create!(
       journal: journal,
       currency: 'EUR',
-      printed_on: Date.today,
+      printed_on: Date.new(2018, 1, 1),
       items_attributes:
         [{ account: random_account, name: 'You\'re', real_debit: 10 },
          { account: first_account, name: 'Looking for?', real_credit: 10, letter: 'A' }]

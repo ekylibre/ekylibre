@@ -85,6 +85,7 @@ module Ekylibre
           outgoing_payment_mode_name: (row[3].blank? ? nil : row[3].to_s),
           amount: (row[4].blank? ? nil : row[4].tr(',', '.').to_d),
           paid_on: (row[5].blank? ? nil : Date.parse(row[5].to_s)),
+          payment_reference_number:   (row[6].blank? ? nil : row[6].to_s),
           # Extra infos
           document_reference_number: "#{Date.parse(row[0].to_s)}_#{row[1]}_#{row[2].upcase}".tr(' ', '-'),
           description: now.l
@@ -118,7 +119,8 @@ module Ekylibre
               to_bank_at: paid_at,
               amount: r.amount,
               payee: entity,
-              responsible: responsible
+              responsible: responsible,
+              bank_check_number: (r.payment_reference_number? ? r.payment_reference_number : nil)
             )
             w.info "Outgoing payment was created with #{purchase_payment.id}"
           end

@@ -1,14 +1,6 @@
 class EquipmentDecorator < ProductDecorator
   delegate_all
-
-  def hour_counter?
-    object
-      .variant
-      .nature
-      .decorate
-      .hour_counter?
-  end
-
+  
   def hour_counter_present?
     !hour_counter.nil?
   end

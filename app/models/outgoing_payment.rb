@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -74,6 +75,8 @@ class OutgoingPayment < Ekylibre::Record::Base
   validates :to_bank_at, presence: true
 
   delegate :full_name, to: :payee, prefix: true
+
+  alias_attribute :third_id, :payee_id
 
   acts_as_numbered
   acts_as_affairable :payee, dealt_at: :to_bank_at, debit: false

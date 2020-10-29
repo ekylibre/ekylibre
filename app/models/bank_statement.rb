@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -69,6 +70,14 @@ class BankStatement < Ekylibre::Record::Base
     find_by('started_on <= ? AND stopped_on >= ? AND cash_id = ?', started_on, stopped_on, cash_id)
   }
 
+  scope :between, lambda { |started_on, stopped_on|
+    start_range = where(started_on: started_on..stopped_on)
+    stop_range = where(stopped_on: started_on..stopped_on)
+    start_range = start_range.where_values.reduce(:and)
+    stop_range = stop_range.where_values.reduce(:and)
+    where(start_range.or(stop_range)).distinct
+  }
+
   before_validation do
     self.currency = cash_currency if cash
     active_items = items.to_a.delete_if(&:marked_for_destruction?)
@@ -107,9 +116,9 @@ class BankStatement < Ekylibre::Record::Base
   end
 
   bookkeep do |b|
-    b.journal_entry(cash_journal, printed_on: stopped_on, if: cash.suspend_until_reconciliation) do |entry|
-      # label = "BS #{cash.name} #{number}"
-      # balance = items.sum('credit - debit')
+    b.journal_entry(cash_journal, printed_on: stopped_on, if: (!cash.enable_bookkeep_bank_item_details && cash.suspend_until_reconciliation)) do |entry|
+        # label = "BS #{cash.name} #{number}"
+        # balance = items.sum('credit - debit')
       items.each do |item|
         entry.add_debit(item.name, cash.main_account_id, item.credit_balance, as: :bank)
         entry.add_credit(item.name, cash.suspense_account_id, item.credit_balance, as: :suspended, resource: item)
@@ -125,6 +134,24 @@ class BankStatement < Ekylibre::Record::Base
 
   def balance_debit
     (debit > credit ? debit - credit : 0.0)
+  end
+
+  def remaining_items_to_reconcile
+    if items_to_lettered = items.where(letter: nil)
+      items_to_lettered.count
+    else
+      return 0
+    end
+  end
+
+  def remaining_amount_to_reconcile
+    remaining_amount = 0.0
+    if items_to_lettered = items.where(letter: nil)
+      items_to_lettered.each do |i|
+        remaining_amount += i.credit_balance.abs
+      end
+    end
+    remaining_amount
   end
 
   def siblings
@@ -167,14 +194,30 @@ class BankStatement < Ekylibre::Record::Base
 
   def eligible_journal_entry_items
     unpointed = cash.unpointed_journal_entry_items
-    pointed = JournalEntryItem.pointed_by(self)
-    JournalEntryItem.where(id: unpointed.pluck(:id) + pointed.pluck(:id))
+    pointed = JournalEntryItem.where.not(bank_statement_letter: nil).where(account_id: self.cash.account_id)
+    eligible_items = JournalEntryItem.where(id: unpointed.pluck(:id) + pointed.pluck(:id))
+
+    if cash.enable_bookkeep_bank_item_details
+      bsi_journal_entries_id = items.pluck(:journal_entry_id)
+      bsi_bookkeeped = JournalEntryItem.where(entry_id: bsi_journal_entries_id)
+      eligible_items = eligible_items.where.not(id: bsi_bookkeeped.pluck(:id))
+    end
+
+    eligible_items
   end
 
   def eligible_entries_in(start, finish)
     unpointed = cash.unpointed_journal_entry_items.between(start, finish)
-    pointed = JournalEntryItem.pointed_by(self).between(start, finish)
-    JournalEntryItem.where(id: unpointed.pluck(:id) + pointed.pluck(:id))
+    pointed = JournalEntryItem.where.not(bank_statement_letter: nil).where(account_id: self.cash.account_id).between(start, finish)
+    eligible_items = JournalEntryItem.where(id: unpointed.pluck(:id) + pointed.pluck(:id))
+
+    if cash.enable_bookkeep_bank_item_details
+      bsi_journal_entries_id = items.pluck(:journal_entry_id)
+      bsi_bookkeeped = JournalEntryItem.where(entry_id: bsi_journal_entries_id)
+      eligible_items = eligible_items.where.not(id: bsi_bookkeeped.pluck(:id))
+    end
+
+    eligible_items
   end
 
   def save_with_items(statement_items)

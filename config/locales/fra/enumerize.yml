@@ -465,10 +465,10 @@ fra:
       tax_payability:
         at_invoicing: "À la facturation (débit)"
         at_paying: "Au paiement"
-    purchase_nature:
-      nature:
-        payslip: "Fiche de paie"
-        purchase: "Achat"
+    purchase_nature: #?
+      nature: #?
+        payslip: "Fiche de paie" #?
+        purchase: "Achat" #?
     purchase_order: #?
       command_mode: #?
         fax: "Fax" #?

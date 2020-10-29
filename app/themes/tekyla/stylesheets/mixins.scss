@@ -493,6 +493,7 @@
       filter: contrast(75%) grayscale(100%);
       cursor: default;
       pointer-events: none;
+      opacity: 0.5;
     }
   }
 }
@@ -673,6 +674,7 @@
     filter: contrast(75%) grayscale(100%);
     cursor: default;
     pointer-events: none;
+    opacity: 0.5;
   }
 }
 

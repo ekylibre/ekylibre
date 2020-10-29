@@ -468,10 +468,10 @@ por:
       tax_payability:
         at_invoicing: "No facturação"
         at_paying: "Ao pagar"
-    purchase_nature:
-      nature:
-        payslip: "Recibo de Pagamento"
-        purchase: "Compra"
+    purchase_nature: #?
+      nature: #?
+        payslip: "Recibo de Pagamento" #?
+        purchase: "Compra" #?
     sale: #?
       computation_method: #?
         adaptative: "Adaptativo" #?

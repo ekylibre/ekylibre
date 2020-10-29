@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ReceivableItemsFilterTest < ActiveSupport::TestCase
+class ReceivableItemsFilterTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   setup do
     @filter = ReceivableItemsFilter.new
   end

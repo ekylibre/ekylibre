@@ -76,7 +76,7 @@ module Ekylibre
             journal_entry = JournalEntry.find_by(id: @resource.send(column))
             list = record(&block)
 
-            if journal_entry && (!journal_entry.draft? || list.empty? ||
+            if journal_entry && condition && (!journal_entry.draft? || list.empty? ||
                                  attributes[:journal_id] != journal_entry.journal_id ||
                                  @action == :destroy)
               journal_entry.cancel
@@ -100,6 +100,7 @@ module Ekylibre
               attributes[:financial_year] = FinancialYear.at(attributes[:printed_on])
               attributes[:currency] = attributes[:financial_year].currency if attributes[:financial_year]
               attributes[:real_currency] = Journal.find(attributes[:journal_id]).currency
+              attributes[:real_currency_rate] = 1 #FIXME: we should have a real currency conversion system
               journal_entry ||= JournalEntry.new
               journal_entry.attributes = attributes
               journal_entry.save!

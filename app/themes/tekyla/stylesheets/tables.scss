@@ -3,7 +3,7 @@
 
 $sort-mask: rgba(0, 18, 132, 0.05);
 
-$list-line-backgrounds:      ("&" rgba(#FFF, 1)) ("&.error, &.critic" rgba($invalid-color, 0.12)) ("&.warning, &.waiting, &.undone" rgba($caution-color, 0.12)) ("&.selected, &.in_progress, &.active" rgba($active-color, 0.12)) ("&.done, &.disabled" rgba($neutral-color, 0.09)) ("&.success, &.finished" rgba($success-color, 0.12)) ("&.focus" rgba($highlight-color, 0.8));
+$list-line-backgrounds:      ("&" rgba(#FFF, 1)) ("&.error, &.critic" rgba($invalid-color, 0.12)) ("&.warning, &.waiting, &.undone" rgba($caution-color, 0.12)) ("&.selected, &.in_progress, &.active, &[data-read-status='unread']" rgba($active-color, 0.12)) ("&.done, &.disabled" rgba($neutral-color, 0.09)) ("&.success, &.finished" rgba($success-color, 0.12)) ("&.focus" rgba($highlight-color, 0.8));
 $list-column-backgrounds:    ("&" rgba(#FFF, 0)) ("&.sor" $sort-mask);
 $list-selection-backgrounds: ("&" rgba(#FFF, 0)) ("&.selected" rgba($selection-color, 0.08));
 $list-hover-backgrounds:     ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
@@ -25,6 +25,12 @@ table {
     line-height: $lh-normal;
     background: white;
     min-height: $lh-normal;
+  }
+  .right-align {
+    text-align: right !important;
+  }
+  .center-align {
+    text-align: center !important;
   }
   thead{
     tr{
@@ -52,6 +58,12 @@ table {
     }
     &.boolean {
       @include text-align(center);
+    }
+    &.center {
+      text-align: center !important;
+    }
+    &.right {
+      text-align: right !important;
     }
   }
   th {
@@ -88,7 +100,6 @@ table {
     }
     td.act {
       width: 16px;
-      padding-bottom: 0 !important;
       a {
         font-size: 0;
         i {
@@ -124,6 +135,11 @@ table {
           &, * {
             @include text-shadow(1px 1px 0px rgba(#FFF, 0.5));
           }
+        }
+      }
+      &.first-item {
+        td {
+          border-top-color: $invalid-color;
         }
       }
     }
@@ -211,10 +227,10 @@ table {
           &.sor {
             background: $sort-mask;
             &[data-list-column-sort="desc"] i {
-              @include use-icon(sort-down);
+              @include use-icon(sort-desc);
             }
             &[data-list-column-sort="asc"] i {
-              @include use-icon(sort-up);
+              @include use-icon(sort-asc);
             }
           }
         }
@@ -290,16 +306,6 @@ table {
             @include padding-left(2*$fs-normal);
           }
         }
-        /* &.focus { */
-        /*   td { */
-        /*     @include transition(background 6s ease-in); */
-        /*   } */
-        /*   &.focus-active { */
-        /*     td { */
-        /*       background: $highlight-color; */
-        /*     } */
-        /*   } */
-        /* } */
       }
     }
 
@@ -465,6 +471,12 @@ table {
     height: 1.2em;
     background: $menu-border-color;
   }
+}
+
+.footer-btn-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0px;
 }
 
 .custom-main-toolbar, .custom-meta-toolbar {

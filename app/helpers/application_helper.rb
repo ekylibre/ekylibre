@@ -75,9 +75,9 @@ module ApplicationHelper
       content_tag(:label, ::I18n.translate('general.n'), for: "#{object_name}_#{method}_#{unchecked_value}")
   end
 
-  def number_to_accountancy(value, currency = nil)
+  def number_to_accountancy(value, currency = nil, allow_blank = true)
     number = value.to_f
-    (number.zero? ? '' : number.l(currency: currency || Preference[:currency]))
+    (number.zero? && allow_blank ? '' : number.l(currency: currency || Preference[:currency]))
   end
 
   def number_to_management(value)
@@ -728,38 +728,6 @@ module ApplicationHelper
     nil
   end
 
-  def notification_tag(mode, messages = nil)
-    unless messages
-      if flash[:notifications].is_a?(Hash) && flash[:notifications][mode.to_s].is_a?(Array)
-        messages = flash[:notifications][mode.to_s]
-      end
-    end
-    messages = [messages] if messages.is_a?(String)
-    code = ''.html_safe
-    return code unless messages
-    messages.each do |message|
-      code << flash_message_tag(mode, h(message).gsub(/\n/, '<br/>').html_safe)
-    end
-    code
-  end
-
-  def flash_message_tag(mode, message)
-    content_tag :div, { class: "flash #{mode}", data: { alert: true } } do
-      content_tag(:a, "&times;".html_safe, { class: :close, href: '#' }) +
-        content_tag(:div, '', { class: :icon }) +
-        content_tag(:div, { class: :message }) do
-          content_tag(:h3, mode.t(scope: 'notifications.levels').html_safe) + content_tag(:p, message)
-        end
-    end
-  end
-
-  def notifications_tag
-    notification_tag(:error) <<
-      notification_tag(:warning) <<
-      notification_tag(:success) <<
-      notification_tag(:information)
-  end
-
   def table_of(array, html_options = {}, &block)
     coln = html_options.delete(:columns) || 3
     html = ''
@@ -831,9 +799,8 @@ module ApplicationHelper
       noko = Nokogiri::HTML.fragment(html)
       wrapper = noko.children.select { |e| e.matches?(".toolbar-wrapper") }.first
       return toolbar_tag(name, wrap: true) if wrapper.nil? # If no wrapper element and wrap is false, thats an error, just wrap everything
-
       other_content = noko.children.select { |e| e.matches?(":not(.toolbar-wrapper)") }
-      other_content.each { |node| wrapper.add_child node }
+      other_content.each { |node| wrapper.add_child node } if wrapper
       noko.to_html.html_safe
     end
   end

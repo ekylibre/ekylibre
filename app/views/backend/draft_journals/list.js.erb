@@ -1,0 +1,12 @@
+$('#custom-list').html("<%= escape_javascript(render partial: 'list') %>");
+$('.flash.warning').remove();
+<% unless @unbalanced_entries_count < 1 %>
+  $('#main #content').prepend("<div class='flash warning' data-alert='true'>\
+                                 <a href='#' class='close'>x</a>\
+                                 <div class='icon'></div>\
+                                 <div class='message'>\
+                                   <h3><%= t('notifications.levels.warning') %></h3>\
+                                   <p><%= t('notifications.messages.there_are_x_remaining_unbalanced_entries', count: @unbalanced_entries_count) %></p>\
+                                 </div>\
+                               </div>");
+<% end %>

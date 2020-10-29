@@ -178,13 +178,21 @@ module Nomen
 
     # Return human name of item
     def human_name(options = {})
-      "nomenclatures.#{I18n.escape_key(nomenclature.name)}.items.#{I18n.escape_key(name)}"
-        .t(options.merge(default: [
-                           "items.#{I18n.escape_key(name)}".to_sym,
-                           "enumerize.#{I18n.escape_key(nomenclature.name)}.#{I18n.escape_key(name)}".to_sym,
-                           "labels.#{I18n.escape_key(name)}".to_sym,
-                           name.humanize
-                         ]))
+      scope = options.delete(:scope)
+      no_attribute_translation = "nomenclatures.#{I18n.escape_key(nomenclature.name)}.items.#{I18n.escape_key(name)}"
+      if scope
+        scope_attribute = scope
+        other_attributes = attributes.except(scope_attribute)
+        scope_translation = "nomenclatures.#{I18n.escape_key(nomenclature.name)}.items.#{I18n.escape_key(scope_attribute)}.#{I18n.escape_key(name)}"
+        other_translations = other_attributes.map { |attr_name, _value| "nomenclatures.#{I18n.escape_key(nomenclature.name)}.items.#{I18n.escape_key(attr_name)}.#{I18n.escape_key(name)}" }
+        root = scope_translation
+        defaults = [no_attribute_translation, *other_translations]
+      else
+        scoped_by_attributes = attributes.map { |attr_name, _value| "nomenclatures.#{I18n.escape_key(nomenclature.name)}.items.#{I18n.escape_key(attr_name)}.#{I18n.escape_key(name)}" }
+        root = "nomenclatures.#{I18n.escape_key(nomenclature.name)}.items.#{I18n.escape_key(name)}"
+        defaults = scoped_by_attributes
+      end
+      root.t(options.merge(default: [*defaults.map(&:to_sym), "items.#{I18n.escape_key(name)}".to_sym, "enumerize.#{I18n.escape_key(nomenclature.name)}.#{I18n.escape_key(name)}".to_sym, "labels.#{I18n.escape_key(name)}".to_sym, name.humanize]))
     end
     alias humanize human_name
     alias localize human_name

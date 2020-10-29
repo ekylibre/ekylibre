@@ -1,3 +1,5 @@
+= render 'backend/shared/financial_year_warning' if Preference.get(:permanent_stock_inventory, true).boolean_value
+
 - recipients = Entity.where(id: Parcel.pluck(:recipient_id).compact.uniq)
 - senders = Entity.where(id: Parcel.pluck(:sender_id).compact.uniq)
 - responsibles = User.where(id: Parcel.select(:responsible_id).distinct)

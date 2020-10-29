@@ -47,6 +47,9 @@ a.btn, button.btn {
       @include icon-after(cog, $font-size: 14px);
     }
   }
+  &.no-icn {
+    line-height: 21px !important;
+  }
   &.dropdown-toggle {
     @include icon-after(caret-down, $font-size: 14px);
     .dropup > & {

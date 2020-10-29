@@ -20,7 +20,6 @@ ita:
     ekylibre_buildings_json: "edifici Ekylibre JSON"
     ekylibre_cap_land_parcel_clusters_json: "Ekylibre cluster pacchi terra tappo JSON" #?
     ekylibre_cap_land_parcels_json: "Ekylibre appezzamenti tappo JSON" #?
-    # ekylibre_cash_transferts: "Ekylibre cash transferts"
     ekylibre_crumbs: "Ekylibre Briciole" #?
     ekylibre_cultivable_zones: "zone coltivabili Ekylibre"
     ekylibre_cultivable_zones_json: "Ekylibre zone coltivabili JSON"

@@ -1,0 +1,6 @@
+- icon_class = success ? :correct : :wrong
+- message = success ? :no_draft_entry : :draft_entries_to_validate
+%p
+  %i{class: "#{icon_class}-validation"}
+  = message.tl
+  = link_to(:see_the_day_book.tl, backend_draft_journal_path(current_financial_year: financial_year.id), target: '_blank') unless success

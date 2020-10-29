@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -374,7 +375,7 @@ class ProductNature < Ekylibre::Record::Base
     end
 
     # Load all product nature from product nature nomenclature
-    def load_defaults
+    def load_defaults(**_options)
       Nomen::ProductNature.find_each do |product_nature|
         import_from_nomenclature(product_nature.name)
       end

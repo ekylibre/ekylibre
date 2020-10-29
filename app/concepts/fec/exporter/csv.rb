@@ -44,9 +44,9 @@ module FEC
           SELECT #{select}
           FROM journal_entry_items AS jei
             JOIN journal_entries AS je
-              ON (jei.entry_id = je.id 
+              ON (jei.entry_id = je.id
                   AND je.state <> 'draft'
-                  AND je.printed_on BETWEEN '#{@started_on}' AND '#{@stopped_on}'          
+                  AND je.printed_on BETWEEN '#{@started_on}' AND '#{@stopped_on}'
                   )
             JOIN journals AS j ON (je.journal_id = j.id)
             JOIN accounts AS a ON (jei.account_id = a.id)
@@ -71,7 +71,7 @@ module FEC
             JOIN (
               (SELECT 'IncomingPayment' AS type, incoming_payments.id, paid_at, incoming_payment_modes.name AS mode_name
                 FROM incoming_payments
-                JOIN incoming_payment_modes ON incoming_payment_modes.id = incoming_payments.mode_id 
+                JOIN incoming_payment_modes ON incoming_payment_modes.id = incoming_payments.mode_id
                 ORDER BY "paid_at" ASC)
               UNION ALL
               (SELECT 'OutgoingPayment' AS type, outgoing_payments.id, paid_at, outgoing_payment_modes.name AS mode_name
@@ -84,7 +84,7 @@ module FEC
 
         query += <<-SQL.strip_heredoc
           WHERE jei.journal_id IN (#{journals.pluck(:id).join(', ')})
-          ORDER BY je.validated_at::DATE, je.continuous_number, je.created_at 
+          ORDER BY je.validated_at::DATE, je.continuous_number, je.created_at
         SQL
 
         ::CSV.generate col_sep: '|', encoding: 'ISO-8859-15' do |csv|

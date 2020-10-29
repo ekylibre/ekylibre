@@ -7,8 +7,9 @@
 
     run: () ->
       element = $(this)
+      signatureDetails = $('span.signature-trigger').length
       $.ajax
-        url: element.data('url')
+        url: element.data('url') + "?archives=#{signatureDetails}"
         success: (data, status, request) =>
           element.replaceWith(data)
 

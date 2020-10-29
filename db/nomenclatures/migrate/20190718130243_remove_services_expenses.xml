@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Remove services expenses">
+  <item-removal item="accounts#services_expenses"/>
+  <item-change item="accounts#making_services_expenses" fr_pcg82="604"/>
+</migration>

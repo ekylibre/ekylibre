@@ -52,12 +52,12 @@ module Ekylibre
         end
         if r.client_account_number
           person.client = true
-          person.client_account = Account.find_or_create_by_number(r.client_account_number, name: person.full_name)
+          # person.client_account = Account.find_or_create_by_number(r.client_account_number, name: person.full_name)
           person.save!
         end
         if r.supplier_account_number
           person.supplier = true
-          person.supplier_account = Account.find_or_create_by_number(r.supplier_account_number, name: person.full_name)
+          # person.supplier_account = Account.find_or_create_by_number(r.supplier_account_number, name: person.full_name)
           person.save!
         end
         if r.supplier

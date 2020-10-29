@@ -59,4 +59,11 @@ FactoryBot.define do
       end
     end
   end
+
+  factory :asset_fixable_product, class: Product do
+    association :category, factory: :equipments_category
+    association :nature, factory: :equipments_nature
+    association :variant, factory: :equipment_variant
+    variety { 'tractor' }
+  end
 end

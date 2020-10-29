@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,27 +23,30 @@
 #
 # == Table: accounts
 #
-#  created_at    :datetime         not null
-#  creator_id    :integer
-#  custom_fields :jsonb
-#  debtor        :boolean          default(FALSE), not null
-#  description   :text
-#  id            :integer          not null, primary key
-#  label         :string           not null
-#  last_letter   :string
-#  lock_version  :integer          default(0), not null
-#  name          :string           not null
-#  number        :string           not null
-#  reconcilable  :boolean          default(FALSE), not null
-#  updated_at    :datetime         not null
-#  updater_id    :integer
-#  usages        :text
+#  already_existing          :boolean          default(FALSE), not null
+#  auxiliary_number          :string
+#  centralizing_account_name :string
+#  created_at                :datetime         not null
+#  creator_id                :integer
+#  custom_fields             :jsonb
+#  debtor                    :boolean          default(FALSE), not null
+#  description               :text
+#  id                        :integer          not null, primary key
+#  label                     :string           not null
+#  last_letter               :string
+#  lock_version              :integer          default(0), not null
+#  name                      :string           not null
+#  nature                    :string
+#  number                    :string           not null
+#  reconcilable              :boolean          default(FALSE), not null
+#  updated_at                :datetime         not null
+#  updater_id                :integer
+#  usages                    :text
 #
 
 class Account < Ekylibre::Record::Base
   include Customizable
   @@references = []
-  attr_readonly :number
   # has_many :account_balances
   # has_many :attorneys, class_name: "Entity", foreign_key: :attorney_account_id
   has_many :balances, class_name: 'AccountBalance', dependent: :destroy
@@ -74,21 +78,27 @@ class Account < Ekylibre::Record::Base
   has_many :loans,                        class_name: 'Loan', foreign_key: :loan_account_id
   has_many :loans_as_interest,            class_name: 'Loan', foreign_key: :interest_account_id
   has_many :loans_as_insurance,           class_name: 'Loan', foreign_key: :insurance_account_id
-  has_many :bank_guarantees_loans,               class_name: 'Loan', foreign_key: :bank_guarantee_account_id
+  has_many :bank_guarantees_loans,        class_name: 'Loan', foreign_key: :bank_guarantee_account_id
+
+  refers_to :centralizing_account, -> { where(centralizing: true) }, class_name: 'Account'
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :debtor, :reconcilable, inclusion: { in: [true, false] }
+  validates :already_existing, :debtor, :reconcilable, inclusion: { in: [true, false] }
+  validates :auxiliary_number, :last_letter, length: { maximum: 500 }, allow_blank: true
   validates :description, :usages, length: { maximum: 500_000 }, allow_blank: true
   validates :label, :name, :number, presence: true, length: { maximum: 500 }
-  validates :last_letter, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   validates :last_letter, length: { allow_nil: true, maximum: 10 }
-  validates :number, length: { allow_nil: true, maximum: 20 }
-  validates :name, length: { allow_nil: true, maximum: 200 }
-  validates :number, format: { with: /\A\d(\d(\d[0-9A-Z]*)?)?\z/ }
+  validates :name, length: { allow_nil: true, maximum: 500 }
   validates :number, uniqueness: true
+  validates :number, length: { minimum: 4 }, if: :auxiliary?
+  validates :number, format: { with: /\A\d(\d(\d[0-9A-Z]*)?)?\z/ }
+  validates :auxiliary_number, presence: true, format: { without: /\A(0*)\z/ }, if: :auxiliary?
+  validates :centralizing_account_name, presence: true, if: :auxiliary?
+
+  enumerize :nature, in: %i[general auxiliary], default: :general, predicates: true
 
   # default_scope order(:number, :name)
-  scope :majors, -> { where("number LIKE '_'").order(:number, :name) }
   scope :of_usage, lambda { |usage|
     unless Nomen::Account.find(usage)
       raise ArgumentError, "Unknown usage #{usage.inspect}"
@@ -151,6 +161,15 @@ class Account < Ekylibre::Record::Base
   # scope :asset_depreciations_inputations_expenses, -> { where('number LIKE ?', '68%').order(:number, :name) }
   scope :asset_depreciations_inputations_expenses, -> { of_usages(:incorporeals_depreciations_inputations_expenses, :land_parcel_construction_depreciations_inputations_expenses, :building_depreciations_inputations_expenses, :animals_depreciations_inputations_expenses, :equipments_depreciations_inputations_expenses, :others_corporeals_depreciations_inputations_expenses) }
 
+  scope :outstanding_assets, -> {
+    of_usages(:outstanding_adult_animal_assets, :outstanding_assets, :outstanding_construction_on_other_land_parcel_assets, :outstanding_land_parcel_assets,
+              :outstanding_living_corporeal_assets, :outstanding_service_animal_assets, :outstanding_sustainables_plants_assets,
+              :outstanding_young_animal_assets, :outstanding_corporeal_assets, :outstanding_land_parcel_construction_assets,
+              :outstanding_construction_on_own_land_parcel_assets, :outstanding_equipment_assets, :outstanding_other_general_installation_assets)
+  }
+
+  scope :capitalized_revenues, -> { of_usages(:capitalized_revenues, :incorporeal_asset_revenues, :corporeal_asset_revenues) }
+
   scope :stocks_variations, -> {
     of_usages(:fertilizer_stocks_variation, :seed_stocks_variation, :plant_medicine_stocks_variation,
               :livestock_feed_stocks_variation, :animal_medicine_stocks_variation, :animal_reproduction_stocks_variation,
@@ -163,46 +182,93 @@ class Account < Ekylibre::Record::Base
   }
 
   scope :collected_vat, -> {
-    of_usages(:collected_vat, :enterprise_collected_vat)
+    of_usages(:collected_vat, :enterprise_collected_vat, :collected_intra_eu_vat)
   }
 
   scope :deductible_vat, -> {
-    of_usages(:deductible_vat, :enterprise_deductible_vat)
+    of_usages(:deductible_vat, :enterprise_deductible_vat, :deductible_intra_eu_vat)
+  }
+
+  scope :intracommunity_payable, -> {
+    of_usages(:collected_intra_eu_vat)
+  }
+
+  scope :general, -> {
+    where(nature: 'general')
+  }
+
+  scope :auxiliary, -> {
+    where(nature: 'auxiliary')
   }
 
   scope :tax_declarations, -> {
     of_usages(:fixed_assets, :expenses, :revenues)
   }
 
-  # This method:allows to create the parent accounts if it is necessary.
   before_validation do
-    self.reconcilable = reconcilableable? if reconcilable.nil?
+    if general? && number && !already_existing
+      errors.add(:number, :centralizing_number) if number.match(/\A(401|411)0*\z/).present?
+      errors.add(:number, :radical_class) if number.match(/\A[1-9]0*\z/).present?
+      self.number = Account.normalize(number)
+    elsif auxiliary?
+      self.reconcilable = true
+      if centralizing_account
+        centralizing_account_number = centralizing_account.send(Account.accounting_system)
+        self.number = centralizing_account_number + auxiliary_number
+      end
+    end
+  end
+
+  # This method:allows to create the parent accounts if it is necessary.
+  before_validation(on: :create) do
+    if number
+      if general?
+        self.auxiliary_number = nil
+        self.centralizing_account = nil
+        errors.add(:number, :incorrect_length, number_length: Preference[:account_number_digits]) if number.length != Preference[:account_number_digits] && !already_existing
+        errors.add(:number, :cant_start_with_0) if number.match(/\A0/).present? && !already_existing
+      end
+      self.reconcilable = reconcilableable? if reconcilable.nil?
+      self.label = tc(:label, number: number.to_s, name: name.to_s)
+      self.usages = Account.find_parent_usage(number) if usages.blank? && number
+    end
+  end
+
+  after_validation do
     self.label = tc(:label, number: number.to_s, name: name.to_s)
-    self.usages = Account.find_parent_usage(number) if usages.blank? && number
+  end
+
+  def protected_auxiliary_number?
+    journal_entry_items.where.not(state: :draft).any?
   end
 
   protect(on: :destroy) do
-    for r in self.class.reflect_on_all_associations(:has_many)
-      return true if send(r.name).any?
-    end
-    return false
+    self.class.reflect_on_all_associations(:has_many).any? { |a| send(a.name).any? }
   end
 
   class << self
+    # Trim account number following preferences
+      def normalize(number)
+        account_number_length = Preference[:account_number_digits]
+        if number.size > account_number_length
+          number[0...account_number_length]
+        elsif number.size < account_number_length
+          number.ljust(account_number_length, "0")
+        else
+          number
+        end
+      end
+
     # Create an account with its number (and name)
     def find_or_create_by_number(*args)
       options = args.extract_options!
       number = args.shift.to_s.strip
       options[:name] ||= args.shift
       numbers = Nomen::Account.items.values.collect { |i| i.send(accounting_system) }
-      unless numbers.include?(number)
-        while number =~ /0$/
-          break if numbers.include?(number)
-          number.gsub!(/0$/, '')
-        end
-      end
-      item = Nomen::Account.items.values.detect { |i| i.send(accounting_system) == number }
-      account = find_by(number: number)
+      padded_number = Account.normalize(number)
+      number = padded_number unless numbers.include?(number) || options[:already_existing]
+      item = Nomen::Account.items.values.find { |i| i.send(accounting_system) == padded_number }
+      account = find_by(number: number) || find_by(number: padded_number)
       if account
         if item && !account.usages_array.include?(item)
           account.usages ||= ''
@@ -215,42 +281,55 @@ class Account < Ekylibre::Record::Base
           options[:usages] ||= ''
           options[:usages] << ' ' + item.name.to_s
         end
-        options[:name] ||= number.to_s
-        account = create!(options.merge(number: number))
+        options[:name] ||= options.delete(:default_name) || number.to_s
+        merge_attributes = {
+          number: number,
+          already_existing: (options[:already_existing] || false)
+        }
+        account = create!(options.merge(merge_attributes))
       end
       account
     end
 
     # Find account with its usage among all existing account records
-    def find_in_nomenclature(usage)
-      account = of_usage(usage).first
-      unless account
-        item = Nomen::Account[usage]
-        account = find_by(number: item.send(accounting_system)) if item
+    def find_by_usage(usage, except: [], sort_by: [])
+      accounts = of_usage(usage)
+      accounts = Array(except).reduce(accounts) do |accs, (criterion_or_key, value)|
+        key = criterion = criterion_or_key
+        next accs.where.not(key => value) if value
+        next accs.where.not(id: Account.send(criterion)) if criterion_or_key.is_a? Symbol
+        accounts.where.not(id: except)
       end
-      account
+      accounts = Array(sort_by).reduce(accounts) do |accs, (criterion_or_key, desc_or_asc)|
+        key = criterion = criterion_or_key
+        next accs.order(key => desc_or_asc) if desc_or_asc
+        accs.order(criterion)
+      end
+      return accounts.first if accounts.any?
+      item = Nomen::Account[usage]
+      find_by(number: item.send(accounting_system)) if item
     end
 
     # Find usage in parent account by number
     def find_parent_usage(number)
       number = number.to_s
 
-      parent_accounts = nil
-      items = nil
+      parent_accounts = []
+      items = []
 
       max = number.size - 1
       # get usages of nearest existing account by number
       (0..max).to_a.reverse.each do |i|
         n = number[0, i]
-        items = Nomen::Account.where(accounting_system.to_sym => n)
-        parent_accounts = Account.find_with_regexp(n).where('LENGTH("accounts"."number") <= ?', i).reorder(:number)
-        break if parent_accounts.any?
+        items << Nomen::Account.where(accounting_system.to_sym => n)
+        parent_accounts << Account.find_with_regexp(n).where('LENGTH("accounts"."number") <= ?', i).reorder(:number)
+        break if parent_accounts.flatten.any?
       end
 
-      usages = if parent_accounts && parent_accounts.any? && parent_accounts.first.usages
-                 parent_accounts.first.usages
-               elsif items.present?
-                 items.first.name
+      usages = if parent_accounts && parent_accounts.flatten.any? && parent_accounts.flatten.first.usages
+                 parent_accounts.flatten.first.usages
+               elsif items.flatten.any?
+                 items.flatten.first.name
                end
 
       usages
@@ -290,21 +369,53 @@ class Account < Ekylibre::Record::Base
       where(regexp_condition(expr))
     end
 
+    def number_unique?(number)
+      Account.where(number: number).count == 0
+    end
+
+    def valid_item?(item)
+      item_number = item.send(accounting_system)
+      return false unless item_number != 'NONE' && number_unique?(item_number.ljust(Preference[:account_number_digits], '0'))
+      Nomen::Account.find_each do |compared_account|
+        compared_account_number = compared_account.send(accounting_system)
+        return false if item_number == compared_account_number.sub(/0*$/, '') && item_number != compared_account_number
+      end
+      true
+    end
+
     # Find or create an account with its name in accounting system if not exist in DB
-    def find_or_import_from_nomenclature(usage)
+    def find_or_import_from_nomenclature(usage, create_if_nonexistent: true)
       item = Nomen::Account.find(usage)
       raise ArgumentError, "The usage #{usage.inspect} is unknown" unless item
       raise ArgumentError, "The usage #{usage.inspect} is not implemented in #{accounting_system.inspect}" unless item.send(accounting_system)
-      account = find_in_nomenclature(usage)
-      account ||= create!(
-        name: item.human_name,
-        number: item.send(accounting_system),
-        debtor: !!item.debtor,
-        usages: item.name
-      )
+
+      account = find_by_usage(usage, except: { nature: :auxiliary })
+      unless account
+        return unless valid_item?(item) && item.send(accounting_system).match(/\A[1-9]0*\z|\A0/).nil?
+        account = new(
+          name: item.human_name(scope: accounting_system),
+          number: item.send(accounting_system),
+          debtor: !!item.debtor,
+          usages: item.name,
+          nature: 'general'
+        )
+        account.save! if create_if_nonexistent
+      end
       account
     end
     alias import_from_nomenclature find_or_import_from_nomenclature
+
+    def generate_auxiliary_account_number(usage)
+      item = Nomen::Account.select { |a| a.name == usage.to_s && a.centralizing }.first
+      raise ArgumentError, "The usage #{usage.inspect} is unknown" unless item
+      raise ArgumentError, "The usage #{usage.inspect} is not implemented in #{accounting_system.inspect}" unless item.send(accounting_system)
+      centralizing_number = item.send(accounting_system)
+      auxiliary_number = '1'
+      until Account.find_by('number LIKE ?', centralizing_number + auxiliary_number).nil?
+        auxiliary_number.succ!
+      end
+      auxiliary_number
+    end
 
     # Returns the name of the used accounting system
     # It takes the information in preferences
@@ -327,6 +438,7 @@ class Account < Ekylibre::Record::Base
         raise ArgumentError, "The accounting system #{name.inspect} is unknown."
       end
       Preference.set!(:accounting_system, item.name)
+      @accounting_system = item.name
     end
 
     # Returns the human name of the accounting system
@@ -340,14 +452,15 @@ class Account < Ekylibre::Record::Base
     end
 
     # Load a accounting system
-    def load_defaults
+    def load_defaults(**_options)
       transaction do
         # Destroy unused existing accounts
         find_each do |account|
           account.destroy if account.destroyable?
         end
         Nomen::Account.find_each do |item|
-          if item.send(accounting_system)
+          # Load except radical and centralizing accounts
+          if item.send(accounting_system).match(/\A[1-9]0*\z|\A0/).nil? && !item.centralizing
             find_or_import_from_nomenclature(item.name)
           end
         end
@@ -534,10 +647,15 @@ class Account < Ekylibre::Record::Base
 
   # Compute debit, credit, balance, balance_debit and balance_credit of the account
   # with.all the entry items
-  def totals
+  def totals(on = nil, validated = false)
+    financial_year = FinancialYear.on(on) if on
+    entry_items = journal_entry_items
+    entry_items = entry_items.between(financial_year.started_on, financial_year.stopped_on) if financial_year
+    entry_items = entry_items.where.not(state: 'draft') if validated
+
     hash = {}
-    hash[:debit]  = journal_entry_items.sum(:debit)
-    hash[:credit] = journal_entry_items.sum(:credit)
+    hash[:debit]  = entry_items.sum(:debit)
+    hash[:credit] = entry_items.sum(:credit)
     hash[:balance_debit] = 0.0
     hash[:balance_credit] = 0.0
     hash[:balance] = (hash[:debit] - hash[:credit]).abs
@@ -554,112 +672,196 @@ class Account < Ekylibre::Record::Base
     journal_entry_items.where(printed_on: started_at..stopped_at).calculate(operation, column)
   end
 
-  # This method loads the balance for a given period.
-  def self.balance(from, to, list_accounts = [])
-    balance = []
-    conditions = '1=1'
-    unless list_accounts.empty?
-      conditions += ' AND ' + list_accounts.collect do |account|
-        "number LIKE '" + account.to_s + "%'"
-      end.join(' OR ')
-    end
-    accounts = Account.where(conditions).order('number ASC')
-    # solde = 0
-
-    res_debit = 0
-    res_credit = 0
-    res_balance = 0
-
-    accounts.each do |account|
-      debit  = account.journal_entry_items.sum(:debit,  conditions: { 'r.created_at' => from..to }, joins: "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").to_f
-      credit = account.journal_entry_items.sum(:credit, conditions: { 'r.created_at' => from..to }, joins: "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").to_f
-
-      compute = HashWithIndifferentAccess.new
-      compute[:id] = account.id.to_i
-      compute[:number] = account.number.to_i
-      compute[:name] = account.name.to_s
-      compute[:debit] = debit
-      compute[:credit] = credit
-      compute[:balance] = debit - credit
-
-      if debit.zero? || credit.zero?
-        compute[:debit] = debit
-        compute[:credit] = credit
-      end
-
-      # if not debit.zero? and not credit.zero?
-      #         if compute[:balance] > 0
-      #           compute[:debit] = compute[:balance]
-      #           compute[:credit] = 0
-      #         else
-      #           compute[:debit] = 0
-      #           compute[:credit] = compute[:balance].abs
-      #         end
-      #       end
-
-      # if account.number.match /^12/
-      # raise StandardError.new compute[:balance].to_s
-      # end
-
-      if account.number =~ /^(6|7)/
-        res_debit += compute[:debit]
-        res_credit += compute[:credit]
-        res_balance += compute[:balance]
-      end
-
-      # solde += compute[:balance] if account.number.match /^(6|7)/
-      #      raise StandardError.new solde.to_s if account.number.match /^(6|7)/
-      balance << compute
-    end
-    # raise StandardError.new res_balance.to_s
-    balance.each do |account|
-      if res_balance > 0
-        if account[:number].to_s =~ /^12/
-          account[:debit] += res_debit
-          account[:credit] += res_credit
-          account[:balance] += res_balance # solde
-        end
-      elsif res_balance < 0
-        if account[:number].to_s =~ /^129/
-          account[:debit] += res_debit
-          account[:credit] += res_credit
-          account[:balance] += res_balance # solde
-        end
-      end
-    end
-    # raise StandardError.new(balance.inspect)
-    balance.compact
+  def previous
+    self.class.order(number: :desc).where('number < ?', number).limit(1).first
   end
 
-  # this method loads the general ledger for.all the accounts.
-  def self.ledger(from, to)
-    ledger = []
-    accounts = Account.order('number ASC')
-    accounts.each do |account|
-      compute = [] # HashWithIndifferentAccess.new
+  def following
+    self.class.order(:number).where('number > ?', number).limit(1).first
+  end
 
-      journal_entry_items = account.journal_entry_items.where('r.created_at' => from..to).joins("INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").order('r.number ASC')
-
-      next if journal_entry_items.empty?
-      entries = []
-      compute << account.number.to_i
-      compute << account.name.to_s
-      journal_entry_items.each do |e|
-        entry = HashWithIndifferentAccess.new
-        entry[:date] = e.entry.created_at
-        entry[:name] = e.name.to_s
-        entry[:number_entry] = e.entry.number
-        entry[:journal] = e.entry.journal.name.to_s
-        entry[:credit] = e.credit
-        entry[:debit] = e.debit
-        entries << entry
-        # compute[:journal_entry_items] << entry
-      end
-      compute << entries
-      ledger << compute
+  class << self
+    def get_auxiliary_accounts(centralizing_number)
+      Account.auxiliary.where('number ~* ?', '^' + centralizing_number + '(.*$)')
     end
 
-    ledger.compact
+    # This method loads the balance for a given period.
+    def balance(from, to, list_accounts = [])
+      balance = []
+      conditions = '1=1'
+      unless list_accounts.empty?
+        conditions += ' AND ' + list_accounts.collect do |account|
+          "number LIKE '" + account.to_s + "%'"
+        end.join(' OR ')
+      end
+      accounts = Account.where(conditions).order('number ASC')
+      # solde = 0
+
+      res_debit = 0
+      res_credit = 0
+      res_balance = 0
+
+      accounts.each do |account|
+        debit  = account.journal_entry_items.sum(:debit,  conditions: { 'r.created_at' => from..to }, joins: "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").to_f
+        credit = account.journal_entry_items.sum(:credit, conditions: { 'r.created_at' => from..to }, joins: "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").to_f
+
+        compute = HashWithIndifferentAccess.new
+        compute[:id] = account.id.to_i
+        compute[:number] = account.number.to_i
+        compute[:name] = account.name.to_s
+        compute[:debit] = debit
+        compute[:credit] = credit
+        compute[:balance] = debit - credit
+
+        if debit.zero? || credit.zero?
+          compute[:debit] = debit
+          compute[:credit] = credit
+        end
+
+        # if not debit.zero? and not credit.zero?
+        #         if compute[:balance] > 0
+        #           compute[:debit] = compute[:balance]
+        #           compute[:credit] = 0
+        #         else
+        #           compute[:debit] = 0
+        #           compute[:credit] = compute[:balance].abs
+        #         end
+        #       end
+
+        # if account.number.match /^12/
+        # raise StandardError.new compute[:balance].to_s
+        # end
+
+        if account.number =~ /^(6|7)/
+          res_debit += compute[:debit]
+          res_credit += compute[:credit]
+          res_balance += compute[:balance]
+        end
+
+        # solde += compute[:balance] if account.number.match /^(6|7)/
+        #      raise StandardError.new solde.to_s if account.number.match /^(6|7)/
+        balance << compute
+      end
+      # raise StandardError.new res_balance.to_s
+      balance.each do |account|
+        if res_balance > 0
+          if account[:number].to_s =~ /^12/
+            account[:debit] += res_debit
+            account[:credit] += res_credit
+            account[:balance] += res_balance # solde
+          end
+        elsif res_balance < 0
+          if account[:number].to_s =~ /^129/
+            account[:debit] += res_debit
+            account[:credit] += res_credit
+            account[:balance] += res_balance # solde
+          end
+        end
+      end
+      # raise StandardError.new(balance.inspect)
+      balance.compact
+    end
+
+    # this method loads the general ledger for all the accounts.
+    def ledger(options = {})
+      # build filter for accounts
+      accounts_filter_conditions = '1=1'
+      list_accounts = options[:accounts] ? options[:accounts] : ''
+      # p list_accounts
+      unless list_accounts.empty?
+        accounts_filter_conditions += ' AND ' + list_accounts.collect do |account|
+          "accounts.number LIKE '" + account.to_s + "%'"
+        end.join(' OR ')
+      end
+      # p accounts_filter_conditions
+
+      # build filter for lettering_state
+      # "lettering_state"=>["unlettered", "partially_lettered"]
+      c = options[:lettering_state].count if options[:lettering_state]
+      lettering_state_filter_conditions = if c == 3 && options[:lettering_state].to_set.superset?(%w[unlettered partially_lettered lettered].to_set)
+                                            '1=1'
+                                          elsif c == 2 && options[:lettering_state].to_set.superset?(%w[partially_lettered lettered].to_set)
+                                            'letter IS NOT NULL'
+                                          elsif c == 2 && options[:lettering_state].to_set.superset?(%w[partially_lettered unlettered].to_set)
+                                            "letter IS NULL OR letter ILIKE '%*' "
+                                          elsif c == 2 && options[:lettering_state].to_set.superset?(%w[lettered unlettered].to_set)
+                                            "letter IS NULL OR letter NOT ILIKE '%*' "
+                                          elsif c == 1 && options[:lettering_state].to_set.superset?(['unlettered'].to_set)
+                                            'letter IS NULL'
+                                          elsif c == 1 && options[:lettering_state].to_set.superset?(['lettered'].to_set)
+                                            "letter IS NOT NULL AND letter NOT ILIKE '%*'"
+                                          elsif c == 1 && options[:lettering_state].to_set.superset?(['partially_lettered'].to_set)
+                                            "letter IS NOT NULL AND letter ILIKE '%*'"
+                                          else
+                                            '1=1'
+                                          end
+
+      # options[:states]
+      if options[:states]&.any?
+        a = options[:states].select { |_k, v| v.to_i == 1 }.map { |pair| "'#{pair.first}'" }.join(', ')
+        states_array = "state IN (#{a})"
+      else
+        states_array = '1=1'
+      end
+
+      # build dates
+      start = options[:period].split('_').first if options[:period]
+      stop = options[:period].split('_').last if options[:period]
+
+      ledger = []
+
+      accounts = Account
+                 .where(accounts_filter_conditions)
+                 .includes(journal_entry_items: %i[entry variant])
+                 .where(journal_entry_items: { printed_on: start..stop })
+                 .reorder('accounts.number ASC, journal_entries.number ASC')
+
+      accounts.each do |account|
+        journal_entry_items = account.journal_entry_items.where(lettering_state_filter_conditions).where(states_array).where(printed_on: start..stop).reorder('printed_on ASC, entry_number ASC')
+
+        account_entry = HashWithIndifferentAccess.new
+        # compute << account.number.to_i
+        # compute << account.name.to_s
+        account_balance = 0.0
+        total_debit = 0.0
+        total_credit = 0.0
+        entry_count = 0
+
+        account_entry[:account_number] = account.number
+        account_entry[:account_name] = account.name
+        account_entry[:currency] = journal_entry_items.first.currency if journal_entry_items.any?
+
+        account_entry[:items] = []
+
+        journal_entry_items.each do |e|
+          item = HashWithIndifferentAccess.new
+          item[:entry_number] = e.entry_number
+          item[:continuous_number] = e.continuous_number.to_s if e.continuous_number
+          item[:reference_number] = e.entry.reference_number.to_s if e.entry.reference_number
+          item[:printed_on] = e.printed_on.strftime('%d/%m/%Y')
+          item[:name] = e.name.to_s
+          item[:journal_name] = e.entry.journal.name.to_s
+          item[:letter] = e.letter
+          item[:real_debit] = e.real_debit
+          item[:real_credit] = e.real_credit
+          item[:cumulated_balance] = (account_balance += (e.real_debit - e.real_credit))
+
+          account_entry[:items] << item
+
+          total_debit += e.real_debit
+          total_credit += e.real_credit
+          entry_count += 1
+        end
+
+        account_entry[:count] = entry_count.to_s
+        account_entry[:total_debit] = total_debit
+        account_entry[:total_credit] = total_credit
+
+        ledger << account_entry
+      end
+
+      ledger.compact
+    end
   end
 
   # this method generate a dataset for one account

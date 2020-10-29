@@ -43,10 +43,10 @@ module Agroedi
         end
 
         def work_time_duration
-          flow = MasterEquipmentFlow.find_by(procedure_name: intervention.procedure.name)
+          flows = InterventionModel.where(procedure_reference: intervention.procedure.name, working_flow_unit: 'ha/h')
+          inverse_speed = flows.average(:working_flow)
           working_area = intervention.working_zone_area
-          return unless flow && working_area.to_f > 0.0
-          inverse_speed = flow.intervention_flow
+          return unless inverse_speed.to_d > 0.0 && working_area.to_f > 0.0
           duration = (inverse_speed.to_d * working_area.to_d).hours
           duration
         end

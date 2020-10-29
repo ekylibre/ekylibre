@@ -254,7 +254,11 @@ CREATE TABLE public.accounts (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb
+    custom_fields jsonb,
+    auxiliary_number character varying,
+    nature character varying,
+    centralizing_account_name character varying,
+    already_existing boolean DEFAULT false NOT NULL
 );
 
 
@@ -1201,7 +1205,9 @@ CREATE TABLE public.bank_statement_items (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    memo character varying
+    memo character varying,
+    accounted_at timestamp without time zone,
+    journal_entry_id integer
 );
 
 
@@ -1663,7 +1669,8 @@ CREATE TABLE public.cashes (
     bank_account_holder_name character varying,
     suspend_until_reconciliation boolean DEFAULT false NOT NULL,
     suspense_account_id integer,
-    by_default boolean DEFAULT false
+    by_default boolean DEFAULT false,
+    enable_bookkeep_bank_item_details boolean DEFAULT false
 );
 
 
@@ -2318,7 +2325,10 @@ CREATE TABLE public.documents (
     file_fingerprint character varying,
     file_pages_count integer,
     file_content_text text,
-    custom_fields jsonb
+    custom_fields jsonb,
+    sha256_fingerprint character varying,
+    signature text,
+    mandatory boolean DEFAULT false
 );
 
 
@@ -2397,6 +2407,8 @@ CREATE TABLE public.entities (
     bank_identifier_code character varying,
     iban character varying,
     supplier_payment_mode_id integer,
+    first_financial_year_ends_on date,
+    legal_position_code character varying,
     CONSTRAINT company_born_at_not_null CHECK (((of_company = false) OR ((of_company = true) AND (born_at IS NOT NULL))))
 );
 
@@ -2489,7 +2501,8 @@ CREATE TABLE public.journal_entry_items (
     variant_id integer,
     tax_declaration_mode character varying,
     project_budget_id integer,
-    equipment_id integer
+    equipment_id integer,
+    accounting_label character varying
 );
 
 
@@ -2563,7 +2576,8 @@ CREATE TABLE public.purchase_items (
     conditionning_quantity integer,
     conditionning integer,
     project_budget_id integer,
-    fixed_asset_stopped_on date
+    fixed_asset_stopped_on date,
+    accounting_label character varying
 );
 
 
@@ -2640,7 +2654,12 @@ CREATE TABLE public.sale_items (
     activity_budget_id integer,
     team_id integer,
     codes jsonb,
-    compute_from character varying NOT NULL
+    compute_from character varying NOT NULL,
+    accounting_label character varying,
+    fixed boolean DEFAULT false NOT NULL,
+    preexisting_asset boolean,
+    depreciable_product_id integer,
+    fixed_asset_id integer
 );
 
 
@@ -2947,6 +2966,39 @@ ALTER SEQUENCE public.events_id_seq OWNED BY public.events.id;
 
 
 --
+-- Name: financial_year_archives; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.financial_year_archives (
+    id integer NOT NULL,
+    financial_year_id integer NOT NULL,
+    timing character varying NOT NULL,
+    sha256_fingerprint character varying NOT NULL,
+    signature text NOT NULL,
+    path character varying NOT NULL
+);
+
+
+--
+-- Name: financial_year_archives_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.financial_year_archives_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: financial_year_archives_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.financial_year_archives_id_seq OWNED BY public.financial_year_archives.id;
+
+
+--
 -- Name: financial_year_exchanges; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3010,7 +3062,10 @@ CREATE TABLE public.financial_years (
     custom_fields jsonb,
     tax_declaration_frequency character varying,
     tax_declaration_mode character varying NOT NULL,
-    accountant_id integer
+    accountant_id integer,
+    state character varying,
+    already_existing boolean DEFAULT false NOT NULL,
+    closer_id integer
 );
 
 
@@ -3084,7 +3139,7 @@ ALTER SEQUENCE public.fixed_asset_depreciations_id_seq OWNED BY public.fixed_ass
 
 CREATE TABLE public.fixed_assets (
     id integer NOT NULL,
-    allocation_account_id integer NOT NULL,
+    allocation_account_id integer,
     journal_id integer NOT NULL,
     name character varying NOT NULL,
     number character varying NOT NULL,
@@ -3098,7 +3153,7 @@ CREATE TABLE public.fixed_assets (
     sale_item_id integer,
     purchase_amount numeric(19,4),
     started_on date NOT NULL,
-    stopped_on date NOT NULL,
+    stopped_on date,
     depreciable_amount numeric(19,4) NOT NULL,
     depreciated_amount numeric(19,4) NOT NULL,
     depreciation_method character varying NOT NULL,
@@ -3121,7 +3176,15 @@ CREATE TABLE public.fixed_assets (
     sold_on date,
     scrapped_on date,
     sold_journal_entry_id integer,
-    scrapped_journal_entry_id integer
+    scrapped_journal_entry_id integer,
+    depreciation_fiscal_coefficient numeric,
+    selling_amount numeric(19,4),
+    pretax_selling_amount numeric(19,4),
+    tax_id integer,
+    waiting_on date,
+    waiting_journal_entry_id integer,
+    waiting_asset_account_id integer,
+    special_imputation_asset_account_id integer
 );
 
 
@@ -4090,6 +4153,7 @@ CREATE TABLE public.journal_entries (
     real_balance numeric(19,4) DEFAULT 0.0 NOT NULL,
     resource_prism character varying,
     financial_year_exchange_id integer,
+    reference_number character varying,
     continuous_number integer,
     validated_at timestamp without time zone
 );
@@ -5720,7 +5784,8 @@ CREATE TABLE public.product_nature_categories (
     fixed_asset_depreciation_percentage numeric(19,4) DEFAULT 0.0,
     fixed_asset_depreciation_method character varying,
     custom_fields jsonb,
-    stock_movement_account_id integer
+    stock_movement_account_id integer,
+    asset_fixable boolean DEFAULT false
 );
 
 
@@ -7620,6 +7685,13 @@ ALTER TABLE ONLY public.events ALTER COLUMN id SET DEFAULT nextval('public.event
 
 
 --
+-- Name: financial_year_archives id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.financial_year_archives ALTER COLUMN id SET DEFAULT nextval('public.financial_year_archives_id_seq'::regclass);
+
+
+--
 -- Name: financial_year_exchanges id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -8760,6 +8832,14 @@ ALTER TABLE ONLY public.event_participations
 
 ALTER TABLE ONLY public.events
     ADD CONSTRAINT events_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: financial_year_archives financial_year_archives_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.financial_year_archives
+    ADD CONSTRAINT financial_year_archives_pkey PRIMARY KEY (id);
 
 
 --
@@ -10422,6 +10502,13 @@ CREATE INDEX index_bank_statement_items_on_creator_id ON public.bank_statement_i
 
 
 --
+-- Name: index_bank_statement_items_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_bank_statement_items_on_journal_entry_id ON public.bank_statement_items USING btree (journal_entry_id);
+
+
+--
 -- Name: index_bank_statement_items_on_letter; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -11948,6 +12035,13 @@ CREATE INDEX index_financial_years_on_accountant_id ON public.financial_years US
 
 
 --
+-- Name: index_financial_years_on_closer_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_financial_years_on_closer_id ON public.financial_years USING btree (closer_id);
+
+
+--
 -- Name: index_financial_years_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -12155,6 +12249,13 @@ CREATE INDEX index_fixed_assets_on_scrapped_journal_entry_id ON public.fixed_ass
 --
 
 CREATE INDEX index_fixed_assets_on_sold_journal_entry_id ON public.fixed_assets USING btree (sold_journal_entry_id);
+
+
+--
+-- Name: index_fixed_assets_on_tax_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fixed_assets_on_tax_id ON public.fixed_assets USING btree (tax_id);
 
 
 --
@@ -16645,6 +16746,13 @@ CREATE INDEX index_sale_items_on_credited_item_id ON public.sale_items USING btr
 
 
 --
+-- Name: index_sale_items_on_fixed_asset_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sale_items_on_fixed_asset_id ON public.sale_items USING btree (fixed_asset_id);
+
+
+--
 -- Name: index_sale_items_on_sale_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -17941,6 +18049,14 @@ ALTER TABLE ONLY public.journal_entry_items
 
 
 --
+-- Name: sale_items fk_rails_3ed1a3f84a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sale_items
+    ADD CONSTRAINT fk_rails_3ed1a3f84a FOREIGN KEY (depreciable_product_id) REFERENCES public.products(id);
+
+
+--
 -- Name: parcel_items fk_rails_41a9d1c170; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -18218,6 +18334,14 @@ ALTER TABLE ONLY public.journal_entry_items
 
 ALTER TABLE ONLY public.cap_neutral_areas
     ADD CONSTRAINT fk_rails_f9fd6a9e09 FOREIGN KEY (cap_statement_id) REFERENCES public.cap_statements(id);
+
+
+--
+-- Name: financial_years fk_rails_fe34e6ff17; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.financial_years
+    ADD CONSTRAINT fk_rails_fe34e6ff17 FOREIGN KEY (closer_id) REFERENCES public.users(id);
 
 
 --
@@ -18750,15 +18874,25 @@ INSERT INTO schema_migrations (version) VALUES ('20170831180835');
 
 INSERT INTO schema_migrations (version) VALUES ('20171010075206');
 
+INSERT INTO schema_migrations (version) VALUES ('20171122125351');
+
+INSERT INTO schema_migrations (version) VALUES ('20171210080901');
+
 INSERT INTO schema_migrations (version) VALUES ('20171211091817');
+
+INSERT INTO schema_migrations (version) VALUES ('20171212100101');
 
 INSERT INTO schema_migrations (version) VALUES ('20180417083701');
 
 INSERT INTO schema_migrations (version) VALUES ('20180419140723');
 
+INSERT INTO schema_migrations (version) VALUES ('20180502102741');
+
 INSERT INTO schema_migrations (version) VALUES ('20180503081248');
 
 INSERT INTO schema_migrations (version) VALUES ('20180626121433');
+
+INSERT INTO schema_migrations (version) VALUES ('20180629093901');
 
 INSERT INTO schema_migrations (version) VALUES ('20180702115000');
 
@@ -18870,13 +19004,27 @@ INSERT INTO schema_migrations (version) VALUES ('20180702124800');
 
 INSERT INTO schema_migrations (version) VALUES ('20180702124900');
 
+INSERT INTO schema_migrations (version) VALUES ('20180702131326');
+
 INSERT INTO schema_migrations (version) VALUES ('20180704145001');
+
+INSERT INTO schema_migrations (version) VALUES ('20180711133214');
+
+INSERT INTO schema_migrations (version) VALUES ('20180712091619');
+
+INSERT INTO schema_migrations (version) VALUES ('20180730150532');
+
+INSERT INTO schema_migrations (version) VALUES ('20180830120145');
 
 INSERT INTO schema_migrations (version) VALUES ('20180918182905');
 
 INSERT INTO schema_migrations (version) VALUES ('20180920121004');
 
 INSERT INTO schema_migrations (version) VALUES ('20180920134223');
+
+INSERT INTO schema_migrations (version) VALUES ('20180921092835');
+
+INSERT INTO schema_migrations (version) VALUES ('20181003092024');
 
 INSERT INTO schema_migrations (version) VALUES ('20181012145914');
 
@@ -18886,11 +19034,23 @@ INSERT INTO schema_migrations (version) VALUES ('20181022152412');
 
 INSERT INTO schema_migrations (version) VALUES ('20181023083957');
 
+INSERT INTO schema_migrations (version) VALUES ('20181031091651');
+
+INSERT INTO schema_migrations (version) VALUES ('20181106100439');
+
 INSERT INTO schema_migrations (version) VALUES ('20181125122238');
+
+INSERT INTO schema_migrations (version) VALUES ('20181126152417');
+
+INSERT INTO schema_migrations (version) VALUES ('20190104105501');
 
 INSERT INTO schema_migrations (version) VALUES ('20190207094545');
 
+INSERT INTO schema_migrations (version) VALUES ('20190313140443');
+
 INSERT INTO schema_migrations (version) VALUES ('20190313201333');
+
+INSERT INTO schema_migrations (version) VALUES ('20190325145542');
 
 INSERT INTO schema_migrations (version) VALUES ('20190329164621');
 
@@ -18899,6 +19059,20 @@ INSERT INTO schema_migrations (version) VALUES ('20190429111001');
 INSERT INTO schema_migrations (version) VALUES ('20190502082326');
 
 INSERT INTO schema_migrations (version) VALUES ('20190514125010');
+
+INSERT INTO schema_migrations (version) VALUES ('20190520152229');
+
+INSERT INTO schema_migrations (version) VALUES ('20190528093045');
+
+INSERT INTO schema_migrations (version) VALUES ('20190529095536');
+
+INSERT INTO schema_migrations (version) VALUES ('20190606134257');
+
+INSERT INTO schema_migrations (version) VALUES ('20190611101828');
+
+INSERT INTO schema_migrations (version) VALUES ('20190614122154');
+
+INSERT INTO schema_migrations (version) VALUES ('20190614123521');
 
 INSERT INTO schema_migrations (version) VALUES ('20190617200314');
 
@@ -18912,15 +19086,25 @@ INSERT INTO schema_migrations (version) VALUES ('20190705143350');
 
 INSERT INTO schema_migrations (version) VALUES ('20190710002904');
 
+INSERT INTO schema_migrations (version) VALUES ('20190712124724');
+
+INSERT INTO schema_migrations (version) VALUES ('20190718133342');
+
 INSERT INTO schema_migrations (version) VALUES ('20190726092304');
 
 INSERT INTO schema_migrations (version) VALUES ('20190807075910');
 
 INSERT INTO schema_migrations (version) VALUES ('20190808152235');
 
+INSERT INTO schema_migrations (version) VALUES ('20190911153350');
+
 INSERT INTO schema_migrations (version) VALUES ('20190916124521');
 
+INSERT INTO schema_migrations (version) VALUES ('20190929224101');
+
 INSERT INTO schema_migrations (version) VALUES ('20191002104944');
+
+INSERT INTO schema_migrations (version) VALUES ('20191007122201');
 
 INSERT INTO schema_migrations (version) VALUES ('20191010151901');
 

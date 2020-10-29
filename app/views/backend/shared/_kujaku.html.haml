@@ -4,6 +4,6 @@
 .kujaku{class: classes, id: kujaku.uid}
   - if with_form
     = form_tag(url, method: :get) do
-      = render "backend/shared/kujaku/body", kujaku: kujaku
+      = render "backend/shared/kujaku/body", kujaku: kujaku, with_actions: with_actions
   - else
-    = render "backend/shared/kujaku/body", kujaku: kujaku
+    = render "backend/shared/kujaku/body", kujaku: kujaku, with_actions: with_actions

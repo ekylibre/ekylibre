@@ -1,0 +1,15 @@
+= main_informations do
+  .pull-right
+    .med-info.important
+      %span.title= :number.tl
+      %span.value= resource.transaction_number
+  = attributes_list do |l|
+    - l.attribute(:name)
+    - l.attribute(:memo)
+    - l.attribute(:bank_statement, url: true)
+    - l.attribute(:cash, url: true)
+    - l.attribute(:credit, currency: true)
+    - l.attribute(:debit, currency: true)
+    - l.attribute(:transfered_on)
+    - l.attribute(:stopped_on)
+    - l.attribute(:journal_entry, url: true)

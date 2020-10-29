@@ -4,16 +4,16 @@ deu:
     started_on: "Erste auf"
     stopped_on: "gestoppt auf"
   aggregator_properties:
-    active: "Aktiv"
+    active: "Aktiv" #?
     area: "Bereich"
     area_in_hectare: "Fläche in ha"
     born_at: "geboren an"
     breeding_number: "Zuchtnummer"
     campaigns: "Kampagnen"
     capitalised_production: "Die aktivierten Herstellungs" #?
-    catalog_name: "Katalogname"
-    charge_account_label: "Ladekonto-Label"
-    company: "Unternehmen"
+    catalog_name: "Katalogname" #?
+    charge_account_label: "Ladekonto-Label" #?
+    company: "Unternehmen" #?
     container_name: "Container Name"
     current_result_before_taxes: "Laufendes Ergebnis vor Steuern"
     depreciations_inputations_expenses: "Abschreibungen inputations Kosten" #?
@@ -43,10 +43,10 @@ deu:
     financial_result: "Finanzergebnis"
     financial_year_name: "Geschäftsjahr Name"
     financial_years: "Geschäftsjahre"
-    grains_yield: "Körner Ausbeute"
+    grains_yield: "Körner Ausbeute" #?
     harvest_year: "Erntejahr"
-    harvested_at: "geerntete an"
-    implanted_at: "implantierte an"
+    harvested_at: "geerntete an" #?
+    implanted_at: "implantierte an" #?
     intervention_durations: "Intervention Dauern" #?
     loss_balance: "Verlustbilanz"
     losses: "Verluste" #?
@@ -63,17 +63,17 @@ deu:
     other_expenses: "Andere Ausgaben" #?
     other_products: "Andere Produkte" #?
     other_purchases: "andere Käufe" #?
-    owner_name: "Besitzername"
-    payment_ratio: "Payment-Verhältnis"
+    owner_name: "Besitzername" #?
+    payment_ratio: "Payment-Verhältnis" #?
     person_name: "Name der Person"
-    pictogram: "Piktogramm"
+    pictogram: "Piktogramm" #?
     picture_path: "Bildpfad"
     plan: "Planen"
     population: "Bevölkerung" #?
     prescription: "Rezept"
-    pretax_amount: "Der Vorsteuerbetrag"
+    pretax_amount: "Der Vorsteuerbetrag" #?
     printed_on: "gedruckt auf"
-    product_account_label: "Produkt Konto Etikett"
+    product_account_label: "Produkt Konto Etikett" #?
     production_support: "Produktionsunterstützung"
     productions_sales: "Productions Vertrieb" #?
     products_purchases: "Produkte Käufe" #?
@@ -82,21 +82,21 @@ deu:
     profit_or_loss: "Der Gewinn oder Verlust"
     profits: "Gewinne" #?
     profits_taxes: "Gewinnsteuern"
-    provisional_yield: "Vorläufige Ausbeute"
+    provisional_yield: "Vorläufige Ausbeute" #?
     provisions_revenues: "Rückstellungen Einnahmen" #?
     quantity: "Menge"
     raw_matters_purchases: "Rohmassen Käufe" #?
     raw_matters_stocks_variation: "Rohmassen Aktien Variation" #?
     # sex: "Sex"
     social_expenses: "Sozialkosten" #?
-    stock_account_label: "Aktienkonto-Label"
+    stock_account_label: "Aktienkonto-Label" #?
     stock_production: "Auf Produktions" #?
     stocks_variation: "Aktien Variation" #?
     subsidies: "Subventionen" #?
     # targets_name: "Targets name"
     # tools_name: "Tools name"
     variant_name: "Name der Variante"
-    vine_yield: "Vine Ausbeute"
+    vine_yield: "Vine Ausbeute" #?
     wages: "Lohn" #?
     working_area: "Arbeitsbereich"
     working_duration_in_hours: "Arbeitszeit in Stunden"

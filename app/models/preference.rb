@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -42,7 +43,7 @@
 class Preference < Ekylibre::Record::Base
   # attr_accessible :nature, :name, :value
   enumerize :nature, in: %i[accounting_system country currency boolean
-                            decimal language integer record
+                            decimal language integer record fiscal_position
                             spatial_reference_system string], predicates: true
   @@conversions = { float: :decimal, true_class: :boolean, false_class: :boolean, fixnum: :integer }
   cattr_reader :reference
@@ -70,6 +71,7 @@ class Preference < Ekylibre::Record::Base
   alias_attribute :currency_value, :string_value
   alias_attribute :language_value, :string_value
   alias_attribute :spatial_reference_system_value, :string_value
+  alias_attribute :fiscal_position_value, :string_value
 
   scope :global, -> { where(name: @@reference.keys.map(&:to_s), user_id: nil) }
 
@@ -183,16 +185,18 @@ class Preference < Ekylibre::Record::Base
   prefer :use_global_search, :boolean, false
   prefer :use_entity_codes_for_account_numbers, :boolean, true
   prefer :sales_conditions, :string, ''
-  prefer :accounting_system, :accounting_system, Nomen::AccountingSystem.default
+  prefer :accounting_system, :accounting_system, Nomen::AccountingSystem.default('fr_pcga')
+  prefer :fiscal_position, :fiscal_position, Nomen::FiscalPosition.default('fr_ba_ir')
   prefer :language, :language, Nomen::Language.default
   prefer :country,  :country, Nomen::Country.default
-  prefer :currency, :currency, Nomen::Currency.default
+  prefer :currency, :currency, :EUR
   prefer :map_measure_srs, :spatial_reference_system, Nomen::SpatialReferenceSystem.default
   prefer :create_activities_from_telepac, :boolean, false
   prefer :catalog_price_item_addition_if_blank, :boolean, true
   prefer :client_account_radix, :string, ''
   prefer :supplier_account_radix, :string, ''
   prefer :employee_account_radix, :string, ''
+  prefer :account_number_digits, :integer, 8
   # TODO: manage period as list selector
   prefer :default_depreciation_period, :string, 'yearly'
 

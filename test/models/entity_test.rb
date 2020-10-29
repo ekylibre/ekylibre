@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,57 +23,58 @@
 #
 # == Table: entities
 #
-#  active                    :boolean          default(TRUE), not null
-#  activity_code             :string
-#  authorized_payments_count :integer
-#  bank_account_holder_name  :string
-#  bank_identifier_code      :string
-#  born_at                   :datetime
-#  client                    :boolean          default(FALSE), not null
-#  client_account_id         :integer
-#  codes                     :jsonb
-#  country                   :string
-#  created_at                :datetime         not null
-#  creator_id                :integer
-#  currency                  :string           not null
-#  custom_fields             :jsonb
-#  dead_at                   :datetime
-#  deliveries_conditions     :string
-#  description               :text
-#  employee                  :boolean          default(FALSE), not null
-#  employee_account_id       :integer
-#  first_met_at              :datetime
-#  first_name                :string
-#  full_name                 :string           not null
-#  iban                      :string
-#  id                        :integer          not null, primary key
-#  language                  :string           not null
-#  last_name                 :string           not null
-#  lock_version              :integer          default(0), not null
-#  locked                    :boolean          default(FALSE), not null
-#  meeting_origin            :string
-#  nature                    :string           not null
-#  number                    :string
-#  of_company                :boolean          default(FALSE), not null
-#  picture_content_type      :string
-#  picture_file_name         :string
-#  picture_file_size         :integer
-#  picture_updated_at        :datetime
-#  proposer_id               :integer
-#  prospect                  :boolean          default(FALSE), not null
-#  reminder_submissive       :boolean          default(FALSE), not null
-#  responsible_id            :integer
-#  siret_number              :string
-#  supplier                  :boolean          default(FALSE), not null
-#  supplier_account_id       :integer
-#  supplier_payment_delay    :string
-#  supplier_payment_mode_id  :integer
-#  title                     :string
-#  transporter               :boolean          default(FALSE), not null
-#  updated_at                :datetime         not null
-#  updater_id                :integer
-#  vat_number                :string
-#  vat_subjected             :boolean          default(TRUE), not null
+#  active                       :boolean          default(TRUE), not null
+#  activity_code                :string
+#  authorized_payments_count    :integer
+#  bank_account_holder_name     :string
+#  bank_identifier_code         :string
+#  born_at                      :datetime
+#  client                       :boolean          default(FALSE), not null
+#  client_account_id            :integer
+#  codes                        :jsonb
+#  country                      :string
+#  created_at                   :datetime         not null
+#  creator_id                   :integer
+#  currency                     :string           not null
+#  custom_fields                :jsonb
+#  dead_at                      :datetime
+#  deliveries_conditions        :string
+#  description                  :text
+#  employee                     :boolean          default(FALSE), not null
+#  employee_account_id          :integer
+#  first_financial_year_ends_on :date
+#  first_met_at                 :datetime
+#  first_name                   :string
+#  full_name                    :string           not null
+#  iban                         :string
+#  id                           :integer          not null, primary key
+#  language                     :string           not null
+#  last_name                    :string           not null
+#  lock_version                 :integer          default(0), not null
+#  locked                       :boolean          default(FALSE), not null
+#  meeting_origin               :string
+#  nature                       :string           not null
+#  number                       :string
+#  of_company                   :boolean          default(FALSE), not null
+#  picture_content_type         :string
+#  picture_file_name            :string
+#  picture_file_size            :integer
+#  picture_updated_at           :datetime
+#  proposer_id                  :integer
+#  prospect                     :boolean          default(FALSE), not null
+#  reminder_submissive          :boolean          default(FALSE), not null
+#  responsible_id               :integer
+#  siret_number                 :string
+#  supplier                     :boolean          default(FALSE), not null
+#  supplier_account_id          :integer
+#  supplier_payment_delay       :string
+#  supplier_payment_mode_id     :integer
+#  title                        :string
+#  transporter                  :boolean          default(FALSE), not null
+#  updated_at                   :datetime         not null
+#  updater_id                   :integer
+#  vat_number                   :string
+#  vat_subjected                :boolean          default(TRUE), not null
 #
 
 require 'test_helper'
@@ -144,5 +146,27 @@ class EntityTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     financial_year.update_attribute :accountant_id, accountant.id
     create(:financial_year_exchange, :opened, financial_year: financial_year)
     accountant
+  end
+
+  test 'is_france true if country fr' do
+    e = Entity.new
+    e.country = 'fr'
+
+    assert e.in_france?
+  end
+
+  test 'is_france false if other country' do
+    e = Entity.new
+    e.country = 'de'
+
+    refute e.in_france?
+  end
+
+  test 'do not validate siret if entity not in france' do
+    e = Entity.new
+    e.country = 'de'
+    e.siret_number=42
+
+    refute e.tap(&:valid?).errors.key? :siret_number
   end
 end

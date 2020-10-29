@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Fix accounting systems">
+  <property-creation property="accounting_systems.country" type="item" choices="countries"/>
+  <item-change item="accounting_systems#fr_pcg82" country="fr"/>
+  <item-change item="accounting_systems#fr_pcga" country="fr"/>
+  <item-change item="accounting_systems#pt_snc" country="pt"/>
+</migration>

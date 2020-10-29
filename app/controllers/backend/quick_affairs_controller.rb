@@ -18,7 +18,7 @@ module Backend
     end
 
     def create
-      @bank_statement_items = BankStatementItem.where(id: payment_params[:bank_statement_item_ids]) if payment_params[:bank_statement_item_ids]
+      @bank_statement_items = BankStatementItem.where(id: payment_params[:bank_statement_item_ids].split(' ')) if payment_params[:bank_statement_item_ids]
 
       @mode_for = {
         trade: params[:"mode-trade"],
@@ -85,6 +85,9 @@ module Backend
       params.require(:trade)
             .permit :invoiced_at,
                     :nature_id,
+                    :reference_number,
+                    :tax_payability,
+                    :description,
                     items_attributes: %i[
                       variant_id
                       quantity

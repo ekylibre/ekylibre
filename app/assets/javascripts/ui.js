@@ -196,22 +196,31 @@
     return true;
   });
 
-  // Adds a HTML
+  // Adds a new row
   $(document).on("focusout", "input[data-add-item-unless]", function () {
     var element = $(this);
     if (element.numericalValue() !== 0 && !$(element.data("add-item-unless")).hasClass("valid")) {
       if (element.data("toggled-by") === undefined || $(element.data("toggled-by")).is(':checked')) {
-        if (element.data("with")) {
-          var params = {};
-          $(element.data("with")).each(function () {
-            var paramName = $(this).data("parameter-name") || $(this).attr("id");
-            if (paramName !== null && paramName !== undefined) {
-              params[paramName] = $(this).val() || $(this).html();
+        $(document).one('cocoon:after-insert', function(e, newRow) {
+          var fillItemWith = element.data("fill-item-with");
+          var attributesToFill = fillItemWith.split(',');
+          attributesToFill = attributesToFill.map(function(attr) {
+            return attr.split('=>');
+          });
+          attributesToFill.forEach(function(toFromPair) {
+            var [toField, from] = toFromPair;
+            var [scope, fromField] = from.split('@');
+            var scope = $(element).closest(scope) || $(element).closest(element.data("use-closest")) || $(document);
+            var fromField = $(scope).find(fromField);
+            if ($(toField).parent().hasClass('selector') && fromField.val() !== null ) {
+              $(newRow).find(toField).data('ui-selector').value(fromField.val());
+            } else {
+              var fromValue = (fromField.val().length < 1) || isNaN(fromField.val()) ? fromField.val() : fromField.numericalValue();
+              $(newRow).find(toField).val(fromValue);
             }
           });
-          element.data("params", $.param(params));
-        }
-        $.rails.handleRemote(element);
+        });
+        $('a[data-association-insertion-node]').click();
       }
     }
   });
@@ -561,7 +570,6 @@
   });
 
   $(document).ready(function () {
-    $("input[type='checkbox'][data-show], input[type='checkbox'][data-hide], input[type='radio'][data-show], input[type='radio'][data-hide]").each($.toggleCheckboxes);
     $("select[data-auto-timezone]").val(jstz.determine().name());
     $("*[data-regulator]").each(function () {
       var element = $(this), options = element.data("regulator"), value = options.value, display = element.next();

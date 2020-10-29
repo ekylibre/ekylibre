@@ -1,7 +1,6 @@
 - main_toolbar do |t|
   = t.edit resource if resource.updateable?
   = t.destroy resource if resource.destroyable?
-  = t.export :fixed_asset_sheet, key: :number
 
 = main_state_bar(resource)
 
@@ -12,8 +11,10 @@
     - l.attribute :depreciation_method
     - l.attribute :depreciable_amount, currency: true
     - l.attribute :depreciation_percentage
+    - l.attribute :waiting_on
     - l.attribute :started_on
     - l.attribute :stopped_on
+    - l.attribute :waiting_journal_entry, url: true
     - l.attribute :journal_entry, url: true
     - l.attribute :sold_journal_entry, url: true
     - l.attribute :scrapped_journal_entry, url: true
@@ -41,13 +42,24 @@
               = link_to(purchase_item.journal_entry.number, {controller: :journal_entries, action: :show, id: purchase_item.journal_entry.id})
 
   = infos do
-    - if resource.sold_on
+    - if resource.sold?
       .med-info
         %span.title= :sold_on.tl
         %span.value
           %i.picto{class: "picto-bar-chart"}
           = resource.sold_on.l
-    - if resource.scrapped_on
+      .med-info
+        %span.title= t('attributes.pretax_selling_amount')
+        %span.value
+          %i.picto{class: "picto-credit-card"}
+          = "#{resource.pretax_selling_amount} #{Preference[:currency]}"
+      .med-info
+        %span.title= t('attributes.selling_amount')
+        %span.value
+          %i.picto{class: "picto-credit-card"}
+          = "#{resource.selling_amount} #{Preference[:currency]}"
+
+    - if resource.scrapped? && resource.scrapped_on
       .med-info
         %span.title= :scrapped_on.tl
         %span.value
@@ -58,3 +70,6 @@
 
   - c.cobble(:depreciations) do
     = cobble_list(:depreciations)
+
+- if resource.in_use?
+  = render 'selling_actions_modal', resource: resource

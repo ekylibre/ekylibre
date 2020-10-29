@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -53,6 +54,26 @@ require 'test_helper'
 
 class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
+
+  setup do
+    Crumb.delete_all
+    InterventionWorkingPeriod.delete_all
+    InterventionParticipation.delete_all
+    ParcelItem.delete_all
+    Parcel.delete_all
+    SaleItem.delete_all
+    Sale.delete_all
+    ProductNatureCategory.delete_all
+    ProductNature.delete_all
+    ParcelItemStoring.delete_all
+    Product.delete_all
+    JournalEntryItem.delete_all
+    ProductNatureVariant.delete_all
+    Payslip.delete_all
+    PayslipNature.delete_all
+    Account.delete_all
+  end
+
   test 'working sets' do
     Nomen::WorkingSet.list.each do |item|
       assert ProductNatureVariant.of_working_set(item.name).count >= 0
@@ -67,15 +88,11 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
     assert ProductNatureVariant.items_of_expression('is triticum or is bos_taurus').any?
   end
 
-  test 'inner sequence' do
-    nature = ProductNature.first
-    v = nature.variants.create!(name: 'Titi', unit_name: 'Piaf')
-    v.destroy
-    v2 = nature.variants.create!(name: 'Gros minet', unit_name: 'Cat')
-    assert v.number != v2.number, 'Numbers should be different'
-  end
-
   test 'import from nomenclature seedling' do
+    # Seedling PNV doesn't exist on fr_pcg82 so it should raise an error when attempting to import it from nomenclature on this accounting system
+    Account.accounting_system = 'fr_pcg82'
+    assert_raise { ProductNatureVariant.import_from_nomenclature(:seedling) }
+    Account.accounting_system = 'fr_pcga'
     assert_nothing_raised { ProductNatureVariant.import_from_nomenclature(:seedling) }
   end
 

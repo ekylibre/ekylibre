@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -128,7 +129,7 @@ journals_005:
   used_for_tax_declarations: false
   used_for_unbilled_payables: false
 journals_006:
-  closed_on: 1992-11-16
+  closed_on: 1991-11-16
   code: CUN
   created_at: 2014-11-05 12:08:09.491204000 Z
   creator_id: 1
@@ -145,7 +146,7 @@ journals_006:
   used_for_tax_declarations: false
   used_for_unbilled_payables: false
 journals_007:
-  closed_on: 1992-11-16
+  closed_on: 1991-11-16
   code: BCA
   created_at: 2014-11-05 12:13:12.680296000 Z
   creator_id: 1
@@ -162,7 +163,7 @@ journals_007:
   used_for_tax_declarations: false
   used_for_unbilled_payables: false
 journals_008:
-  closed_on: 1992-11-16
+  closed_on: 1991-11-16
   code: RESE
   created_at: 2016-11-20 22:08:58.338278000 Z
   creator_id: 1
@@ -179,7 +180,7 @@ journals_008:
   used_for_tax_declarations: false
   used_for_unbilled_payables: false
 journals_009:
-  closed_on: 1992-11-16
+  closed_on: 1991-11-16
   code: FNOP
   created_at: 2016-11-20 22:08:58.347492000 Z
   creator_id: 1
@@ -196,7 +197,7 @@ journals_009:
   used_for_tax_declarations: false
   used_for_unbilled_payables: false
 journals_010:
-  closed_on: 1992-11-16
+  closed_on: 1991-11-16
   code: RE
   created_at: 2016-12-20 08:53:53.385377000 Z
   creator_id: 1
@@ -213,7 +214,7 @@ journals_010:
   used_for_tax_declarations: false
   used_for_unbilled_payables: false
 journals_011:
-  closed_on: 1992-11-16
+  closed_on: 1991-11-16
   code: OP
   created_at: 2016-12-20 09:05:17.945307000 Z
   creator_id: 1
@@ -230,7 +231,7 @@ journals_011:
   used_for_tax_declarations: true
   used_for_unbilled_payables: true
 journals_012:
-  closed_on: 1992-11-16
+  closed_on: 1991-11-16
   code: CR
   created_at: 2014-11-05 12:13:12.680296000 Z
   creator_id: 1
@@ -247,7 +248,7 @@ journals_012:
   used_for_tax_declarations: false
   used_for_unbilled_payables: false
 journals_013:
-  closed_on: 1992-11-16
+  closed_on: 1991-11-16
   code: SA
   created_at: 2017-06-07 16:08:42.092471000 Z
   creator_id: 1
@@ -264,7 +265,7 @@ journals_013:
   used_for_tax_declarations: false
   used_for_unbilled_payables: false
 journals_014:
-  closed_on: 1992-11-16
+  closed_on: 1991-11-16
   code: STOC
   created_at: 2018-09-20 09:33:26.431317000 Z
   creator_id: 1

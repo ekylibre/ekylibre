@@ -14,6 +14,7 @@ class ReadingsCoder
                     .tap { |h| h[Bignum]               = proc { |_, value| value.to_i } }
                     .tap { |h| h[Fixnum]               = proc { |_, value| value.to_i } }
                     .tap { |h| h[Float]                = proc { |_, value| value.to_f } }
+                    .tap { |h| h[BigDecimal]           = proc { |_, value| BigDecimal(value) } }
                     .freeze
 
   def self.load(json)

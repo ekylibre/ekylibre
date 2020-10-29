@@ -55,8 +55,13 @@ module Backend
       end
 
       def find_bank_statements(cash)
-        bs = BankStatement.where(cash: cash.id)
-        return bs if bs.present?
+        @bank_statements = BankStatement.where(cash: cash.id)
+
+        if @bank_statements
+          @bank_statements = @bank_statements.between(params[:period_start].to_date.beginning_of_day, params[:period_end].to_date.end_of_day)
+        end
+
+        return @bank_statements if @bank_statements.present?
 
         notify_error :no_bank_statement_found_for_this_period
         redirect_to_back
@@ -67,15 +72,14 @@ module Backend
         bank_statement_items = bank_statement.items unless @bank_statement.nil?
         bank_statement_items = bank_statement.items.transfered_between(@period_start, @period_end) unless @bank_statements.nil?
 
-        journal_entry_items  = bank_statement.eligible_entries_in(@period_start, @period_end) unless @bank_statement.nil?
-        journal_entry_items  = JournalEntryItem.pointed_by(bank_statement).between(@period_start, @period_end) unless @bank_statements.nil?
+        @journal_entry_items ||= bank_statement.eligible_entries_in(@period_start, @period_end)
 
-        return no_entries if journal_entry_items.blank? && @bank_statements.nil?
+        return no_entries if @journal_entry_items.blank? && @bank_statements.nil?
 
-        auto_reconciliate!(bank_statement, bank_statement_items, journal_entry_items)
+        auto_reconciliate!(bank_statement, bank_statement_items, @journal_entry_items)
 
         @items = [] if @items.nil?
-        @items += bank_statement_items + journal_entry_items
+        @items += bank_statement_items + @journal_entry_items
       end
 
       def set_period!

@@ -24,7 +24,7 @@ module Ekylibre
           supplier_full_name: (row[1].blank? ? nil : row[1]),
           reference_number:   (row[2].blank? ? nil : row[2].upcase),
           variant_code:       (row[3].blank? ? nil : row[3]),
-          annotation:         (row[4].blank? ? nil : row[4]),
+          role:         (row[4].blank? ? 'merchandise' : row[4]),
           quantity:           (row[5].blank? ? nil : row[5].tr(',', '.').to_d),
           unit_pretax_amount: (row[6].blank? ? nil : row[6].tr(',', '.').to_d),
           vat_percentage:     (row[7].blank? ? nil : row[7].tr(',', '.').to_d),
@@ -77,7 +77,7 @@ module Ekylibre
           supplier_full_name: (row[1].blank? ? nil : row[1]),
           reference_number:   (row[2].blank? ? nil : row[2].upcase),
           variant_code:       (row[3].blank? ? nil : row[3]),
-          annotation:         (row[4].blank? ? nil : row[4]),
+          role:               (row[4].blank? ? 'merchandise' : row[4]),
           quantity:           (row[5].blank? ? nil : row[5].tr(',', '.').to_d),
           unit_pretax_amount: (row[6].blank? ? nil : row[6].tr(',', '.').to_d),
           vat_percentage:     (row[7].blank? ? nil : row[7].tr(',', '.').to_d),
@@ -109,7 +109,7 @@ module Ekylibre
               suffix = r.variant[:fixed_asset_account][1..-1]
               r.variant[:fixed_asset_allocation_account] ||= "28#{suffix}"
               r.variant[:fixed_asset_expenses_account] ||= "68#{suffix}"
-              r.variant[:fixed_asset_depreciation_method] ||= :simplified_linear
+              r.variant[:fixed_asset_depreciation_method] ||= :linear
               r.variant[:fixed_asset_depreciation_percentage] ||= 15
             end
             %w[product charge fixed_asset fixed_asset_allocation fixed_asset_expenses].each do |type|
@@ -173,17 +173,18 @@ module Ekylibre
         end
 
         # Find or create a tax
-        # TODO: search country before for good tax request (country and amount)
         # country via supplier if information exist
         raise "Missing VAT at line #{line_index}" unless r.vat_percentage
-        item = Nomen::Tax.find_by(country: purchase.supplier.country.to_sym, amount: r.vat_percentage)
-        tax = Tax.import_from_nomenclature(item.name)
+
+        tax = Tax.find_on(purchase.invoiced_at.to_date, country: purchase.supplier.country.to_sym, amount: r.vat_percentage)
+        raise "No tax found for given #{r.vat_percentage}" unless tax
 
         # find or create a purchase line
         unless purchase.items.find_by(pretax_amount: r.pretax_amount, variant_id: variant.id, tax_id: tax.id)
           raise "Missing quantity at line #{line_index}" unless r.quantity
           # puts r.variant_code.inspect.red
-          purchase.items.create!(quantity: r.quantity, tax: tax, unit_pretax_amount: r.unit_pretax_amount, variant: variant, fixed: r.depreciate)
+
+          purchase.items.create!(role: r.role, quantity: r.quantity, tax: tax, unit_pretax_amount: r.unit_pretax_amount, variant: variant, fixed: r.depreciate)
         end
 
         w.check_point

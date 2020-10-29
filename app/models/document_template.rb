@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -67,12 +68,6 @@ class DocumentTemplate < Ekylibre::Record::Base
     end
     where(nature: natures, active: true).order(:name)
   }
-
-  scope :find_active_template, ->(name) do
-    where(active: true)
-      .where(name.is_a?(Integer) ? { id: name.to_i } : { by_default: true, nature: name.to_s })
-      .first
-  end
 
   protect(on: :destroy) do
     documents.any?
@@ -238,6 +233,12 @@ class DocumentTemplate < Ekylibre::Record::Base
         return template.print(datasource, key, format, options)
       end
       nil
+    end
+
+    def find_active_template(name)
+      where(active: true)
+        .where(name.is_a?(Integer) ? { id: name.to_i } : { by_default: true, nature: name.to_s })
+        .first
     end
 
     # Returns the root directory for the document templates's sources

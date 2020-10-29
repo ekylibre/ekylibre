@@ -82,7 +82,7 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert nature
     client = Entity.normal.first
     assert client
-    sale = Sale.create!(nature: nature, client: client)
+    sale = Sale.create!(nature: nature, client: client, invoiced_at: DateTime.new(2018, 1, 1))
     assert sale
     variants = ProductNatureVariant.where(nature: ProductNature.where(population_counting: :decimal))
     # Standard case
@@ -195,7 +195,7 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       country: :fr
     )
 
-    sale = Sale.create!(nature: nature, client: Entity.normal.first, state: :order)
+    sale = Sale.create!(nature: nature, client: Entity.normal.first, state: :order, invoiced_at: DateTime.new(2018, 1, 1))
     sale.items.create!(variant: @variant, quantity: 4, unit_pretax_amount: 100, tax: standard_vat)
     sale.reload
 
@@ -210,6 +210,16 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     # jei_s variant must be defined
     assert_not jei_s.variant.nil?
     assert_equal jei_s.variant, @variant
+  end
+
+  test 'Cannot create a sale during a financial year exchange' do
+    FinancialYear.delete_all
+    financial_year = create(:financial_year, started_on: Date.today.beginning_of_year, stopped_on: Date.today.end_of_year)
+    exchange = FinancialYearExchange.create(financial_year: financial_year, stopped_on: Date.today - 2.day)
+    assert create(:sale, invoiced_at: Date.today - 1.day)
+    assert_raises ActiveRecord::RecordInvalid do
+      create(:sale, invoiced_at: Date.today - 3.day)
+    end
   end
 
   test 'A sale with state :order can have its invoice date changed' do

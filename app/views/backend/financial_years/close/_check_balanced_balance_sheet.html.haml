@@ -1,0 +1,5 @@
+- icon_class = success ? :correct : :wrong
+- message = success ? :balanced_balance_sheet : :unbalanced_balance_sheet
+%p
+  %i{class: "#{icon_class}-validation"}
+  = message.tl

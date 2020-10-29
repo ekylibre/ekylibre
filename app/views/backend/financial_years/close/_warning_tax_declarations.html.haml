@@ -1,0 +1,5 @@
+%p
+  %i.warning-validation
+  - periods = "#{financial_year.started_on.to_s}_#{financial_year.stopped_on.to_s}"
+  = :not_sent_tax_declaration_on_current_financial_year.tl(code: financial_year.code)
+  = link_to(:see_tax_declarations.tl, backend_tax_declarations_path(params: {period: periods, state: [:draft, :validated]}), target: '_blank')

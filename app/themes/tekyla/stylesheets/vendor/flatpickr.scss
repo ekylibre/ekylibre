@@ -338,7 +338,7 @@
   background: transparent;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  color: inherit;
+  color: white;
   cursor: text;
   padding: 0 0 0 0.5ch;
   margin: 0;
@@ -391,7 +391,7 @@ span.flatpickr-weekday {
   cursor: default;
   font-size: 90%;
   background: $base-color;
-  color: rgba(0,0,0,0.54);
+  color: white;
   line-height: 1;
   margin: 0;
   text-align: center;
@@ -442,8 +442,8 @@ span.flatpickr-weekday {
   flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   -ms-flex-pack: justify;
-  -webkit-justify-content: space-around;
-  justify-content: space-around;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
   -webkit-transform: translate3d(0px, 0px, 0px);
   transform: translate3d(0px, 0px, 0px);
   opacity: 1;
@@ -461,13 +461,13 @@ span.flatpickr-weekday {
   color: #484848;
   cursor: pointer;
   font-weight: 400;
-  width: 14.2857143%;
+  width: calc(100% / 7);
   -webkit-flex-basis: 14.2857143%;
   -ms-flex-preferred-size: 14.2857143%;
   flex-basis: 14.2857143%;
-  max-width: 39px;
-  height: 39px;
-  line-height: 39px;
+  max-width: unset;
+  height: 45px;
+  line-height: 45px;
   margin: 0;
   display: inline-block;
   position: relative;

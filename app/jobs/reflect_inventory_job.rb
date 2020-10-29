@@ -4,7 +4,13 @@ class ReflectInventoryJob < ActiveJob::Base
   # Change the number of all the different product
   # Create a notification, with a message
   def perform(inventory, user)
-    result = inventory.reflect
+    begin
+      result = inventory.reflect
+    rescue => error
+      Rails.logger.error $!
+      Rails.logger.error $!.backtrace.join("\n")
+      ExceptionNotifier.notify_exception($!, data: { message: error })
+    end
     notification = user.notifications.build(notification_params(result, inventory))
     notification.save
   end

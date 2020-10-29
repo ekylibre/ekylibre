@@ -1,0 +1,6 @@
+- icon_class = success ? :correct : :wrong
+- message = success ? :all_entries_balanced : :entries_to_balance
+%p
+  %i{class: "#{icon_class}-validation"}
+  = message.tl
+  = link_to(:see_the_unbalanced_entries.tl, backend_invalid_journal_entries_path, target: '_blank') unless success

@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -65,6 +66,7 @@ class Purchase < Ekylibre::Record::Base
   attr_readonly :currency, :nature_id
   enumerize :tax_payability, in: %i[at_paying at_invoicing], default: :at_invoicing
   enumerize :reconciliation_state, in: %i[to_reconcile accepted reconcile], default: :to_reconcile
+  enumerize :payment_delay, in: ['1 week', '30 days', '30 days, end of month', '60 days', '60 days, end of month']
   refers_to :currency
   belongs_to :delivery_address, class_name: 'EntityAddress'
   belongs_to :nature, class_name: 'PurchaseNature'
@@ -80,7 +82,7 @@ class Purchase < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, :confirmed_at, :estimate_reception_date, :invoiced_at, :ordered_at, :payment_at, :planned_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :amount, :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
-  validates :command_mode, :payment_delay, :reference_number, length: { maximum: 500 }, allow_blank: true
+  validates :command_mode, :reference_number, length: { maximum: 500 }, allow_blank: true
   validates :currency, :payee, :supplier, :tax_payability, presence: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :number, :state, presence: true, length: { maximum: 500 }
@@ -88,8 +90,11 @@ class Purchase < Ekylibre::Record::Base
   validates :number, :state, length: { allow_nil: true, maximum: 60 }
   validates :created_at, :state, :nature, :type, presence: true
   validates :number, uniqueness: true
+  validates :invoiced_at, financial_year_writeable: true, allow_blank: true
   validates_associated :items
   validates_delay_format_of :payment_delay
+
+  alias_attribute :third_id, :supplier_id
 
   acts_as_numbered
   accepts_nested_attributes_for :items, reject_if: proc { |item| item[:variant_id].blank? && item[:variant].blank? }, allow_destroy: true
@@ -126,6 +131,7 @@ class Purchase < Ekylibre::Record::Base
 
   validate do
     if invoiced_at
+      errors.add(:invoiced_at, :financial_year_exchange_on_this_period) if invoiced_during_financial_year_exchange?
       errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
     end
   end
@@ -147,7 +153,7 @@ class Purchase < Ekylibre::Record::Base
   end
 
   def self.affair_class
-    "#{name}Affair".constantize
+    PurchaseAffair
   end
 
   def default_currency
@@ -164,6 +170,26 @@ class Purchase < Ekylibre::Record::Base
 
   def third
     send(third_attribute)
+  end
+
+  def has_content?
+    items.any?
+  end
+
+  def invoiced_during_financial_year_exchange?
+    FinancialYearExchange.opened.where('? BETWEEN started_on AND stopped_on', invoiced_at).any?
+  end
+
+  def opened_financial_year?
+    FinancialYear.on(invoiced_at)&.opened?
+  end
+
+  def invoiced_during_financial_year_closure_preparation?
+    FinancialYear.on(invoiced_at)&.closure_in_preparation?
+  end
+
+  def purchased?
+    (order? || invoice?)
   end
 
   # Computes an amount (with or without taxes) of the undelivered products
@@ -211,5 +237,9 @@ class Purchase < Ekylibre::Record::Base
       currency == cash_mode.cash.currency &&
       payee.iban.present? &&
       payee.bank_account_holder_name.present?
+  end
+
+  def invoice?
+    state == 'invoice'
   end
 end

@@ -1,6 +1,9 @@
 - main_toolbar do |t|
   = t.edit resource if resource.draft?
   = t.destroy if resource.destroyable?
+  = dropdown_menu_button(:export.ta, icon: :download) do |d|
+    - d.item :export_as_pdf.tl, params: { format: :pdf }
+    - d.item :export_as_csv.tl, params: { format: :csv }
 
 = main_state_bar(resource)
 
@@ -18,10 +21,9 @@
 
 = cobbles do |c|
 
-  - c.cobble :items, title: TaxDeclaration.human_attribute_name(:items) do
-    -# = cobble_list :items do
-    - columns = [:deductible, :fixed_asset_deductible, :collected, :intracommunity_payable, :balance]
-    - account_transcode = { collected: :collect_account_id, deductible: :deduction_account_id, fixed_asset_deductible: :fixed_asset_deduction_account_id, intracommunity_payable: :intracommunity_payable_account_id }
+  - c.cobble :items, title: :standard_vat.tl do
+    - columns = [:collected, :deductible, :fixed_asset_deductible, :balance]
+    - account_transcode = { collected: :collect_account_id, deductible: :deduction_account_id, fixed_asset_deductible: :fixed_asset_deduction_account_id}
 
     %table.list
       %thead
@@ -35,18 +37,18 @@
           %th{ colspan: 2 }= :totals.tl
           - columns.each do |column|
             %td.decimal
-              .tax-amount= resource.items.sum("#{column}_tax_amount").l(currency: resource.currency)
-              %small.pretax-amount= resource.items.sum("#{column}_pretax_amount").l(currency: resource.currency)
+              .tax-amount= resource.items.where.not(tax_id: Tax.intracommunity.pluck(:id)).sum("#{column}_tax_amount").l(currency: resource.currency)
+              %small.pretax-amount= resource.items.where.not(tax_id: Tax.intracommunity.pluck(:id)).sum("#{column}_pretax_amount").l(currency: resource.currency)
         %tr.total
-          - to_pay = resource.items.sum(:balance_tax_amount)
+          - to_pay = resource.items.where.not(tax_id: Tax.intracommunity.pluck(:id)).sum(:balance_tax_amount)
           - if to_pay >= 0
-            %th{ colspan: 6}= :to_pay.tl
+            %th{ colspan: 5}= :to_pay.tl
             %td= to_pay.l(currency: resource.currency)
           - else
-            %th{ colspan: 6}= :to_reclaim.tl
+            %th{ colspan: 5}= :to_reclaim.tl
             %td= (-to_pay).l(currency: resource.currency)
 
-      - resource.items.includes(:tax).order(:id).each do |item|
+      - resource.items.where.not(tax_id: Tax.intracommunity.pluck(:id)).joins(:tax).reorder("taxes.amount DESC").each do |item|
         - tax = Tax.find(item.tax_id)
         %tbody
           %tr
@@ -57,6 +59,36 @@
               %td.decimal
                 .tax-amount= link_to(item.send("#{column}_tax_amount").l(currency: item.currency), { controller: :journal_entry_items, action: :index, tax_declaration_item_id: item.id, account_id: account_id})
                 %small.pretax-amount= item.send("#{column}_pretax_amount").l(currency: item.currency)
+
+  - c.cobble :intra_items, title: :intracommunautary_vat.tl do
+    - columns = [:collected, :deductible]
+    - column_labels = { collected: :sales.tl, deductible: :purchases.tl }
+    - account_transcode = { collected: :collect_account_id, deductible: :deduction_account_id }
+
+    %table.list
+      %thead
+        %tr
+          %th= TaxDeclarationItem.human_attribute_name(:tax)
+          %th
+          - columns.each do |column|
+            %th.decimal= column_labels[column]
+      %tfoot
+        %tr.total
+          %th{ colspan: 2 }= :totals.tl
+          - columns.each do |column|
+            %td.decimal
+              .pretax-amount= resource.items.where(tax_id: Tax.intracommunity.pluck(:id)).map { |i| i.parts.where(direction: column).reject { |p| p.direction == 'collected' && p.tax_amount > 0 }.map(&:pretax_amount).sum }.sum.l(currency: resource.currency)
+
+      - resource.items.where(tax_id: Tax.intracommunity.pluck(:id)).joins(:tax).reorder("taxes.amount DESC").each do |item|
+        - tax = Tax.find(item.tax_id)
+        %tbody
+          %tr
+            %td= link_to(item.tax_name, { controller: :taxes, action: :show, id: item.tax_id })
+            %td.decimal= number_to_percentage(item.tax.amount)
+            - columns.each do |column|
+              - account_id = tax.send(account_transcode[column]) if account_transcode[column]
+              %td.decimal
+                .pretax-amount= link_to(item.parts.where(direction: column).reject { |p| p.direction == 'collected' && p.tax_amount > 0 }.map(&:pretax_amount).sum.l(currency: item.currency), { controller: :journal_entry_items, action: :index, tax_declaration_item_id: item.id, account_id: account_id})
 
   - c.cobble :out_of_range, title: :journal_entry_items_with_taxes_out_of_range.tl(count: resource.out_of_range_tax_journal_entry_items.count) do
     %table.list
@@ -199,7 +231,11 @@
             %td= truncate(item.name, length: 50)
             %td
               - if item.entry && item.entry.resource
-                = link_to(item.entry.resource.number, { controller: item.entry.resource_type.tableize, action: :show, id: item.entry.resource_id })
+                - begin
+                  - url = url_for(action: :show, controller: item.entry.resource_type.tableize, id: item.entry.resource_id)
+                  = link_to(item.entry.resource.number, { controller: item.entry.resource_type.tableize, action: :show, id: item.entry.resource_id })
+                - rescue ActionController::UrlGenerationError => e
+                  = item.entry.resource.number
               - else
                 = '-'
             %td= item.printed_on.l

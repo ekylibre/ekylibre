@@ -17,10 +17,10 @@
               %li
                 %p
                   - if change.old_value.blank?
-                    = :x_has_been_updated_to_a.th(x: change.human_attribute_name, a: change.human_new_value)
+                    = :x_has_been_updated_to_a.th(x: change.human_attribute_name, a: resource.human_changed_attribute_value(change, 'new'))
                   - elsif change.new_value.blank?
-                    = :x_has_been_cleared.th(x: change.human_attribute_name, a: change.human_old_value)
+                    = :x_has_been_cleared.th(x: change.human_attribute_name, a: resource.human_changed_attribute_value(change, 'old'))
                   - else
-                    = :x_has_been_updated_from_a_to_b.th(x: change.human_attribute_name, a: change.human_old_value, b: change.human_new_value)
+                    = :x_has_been_updated_from_a_to_b.th(x: change.human_attribute_name, a: resource.human_changed_attribute_value(change, 'old'), b: resource.human_changed_attribute_value(change, 'new'))
     - elsif version.destroy?
       %p.log-heading= :destroyed_by_ago.th(defaults)

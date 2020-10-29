@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -46,6 +47,7 @@
 #
 
 class SaleNature < Ekylibre::Record::Base
+  enumerize :payment_delay, in: ['1 week', '30 days', '30 days, end of month', '60 days', '60 days, end of month']
   refers_to :currency
   belongs_to :catalog
   belongs_to :journal
@@ -54,10 +56,10 @@ class SaleNature < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, :by_default, :downpayment, inclusion: { in: [true, false] }
-  validates :catalog, :currency, presence: true
+  validates :catalog, :currency, :payment_delay, presence: true
   validates :description, :payment_mode_complement, :sales_conditions, length: { maximum: 500_000 }, allow_blank: true
   validates :downpayment_minimum, :downpayment_percentage, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
-  validates :expiration_delay, :name, :payment_delay, presence: true, length: { maximum: 500 }
+  validates :expiration_delay, :name, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
 
@@ -74,14 +76,14 @@ class SaleNature < Ekylibre::Record::Base
 
   before_validation do
     self.expiration_delay = '0 minutes' if expiration_delay.blank?
-    self.payment_delay    = '0 minutes' if payment_delay.blank?
+    self.payment_delay    = '1 week' if payment_delay.blank?
     self.downpayment_minimum ||= 0
     self.downpayment_percentage ||= 0
   end
 
   class << self
     # Load default sale natures
-    def load_defaults
+    def load_defaults(**_options)
       nature = :sales
       usage = :sale
       currency = Preference[:currency]
@@ -97,13 +99,13 @@ class SaleNature < Ekylibre::Record::Base
           name: tc('default.name'),
           active: true,
           expiration_delay: '30 day',
-          payment_delay: '30 day',
+          payment_delay: '30 days',
           downpayment: false,
           downpayment_minimum: 300,
           downpayment_percentage: 30,
-          currency: currency,
           journal: journal,
-          catalog: catalog
+          catalog: catalog,
+          currency: currency
         )
       end
     end

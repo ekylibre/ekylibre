@@ -1,13 +1,6 @@
-= kujaku do |k|
-  - k.helper :journal_period_crit
-  - k.helper :journals_crit
+- financial_year = FinancialYear.find_by(id: params[:current_financial_year])
+- financial_year ||= FinancialYear.current
+- main_financial_year_selector(financial_year)
 
-= form_tag(action: :confirm) do
-  .hidden-filter-parameters{style: "display: none"}
-    = kujaku(popover: false, form: false) do |k|
-      - k.helper :journal_period_crit
-      - k.helper :journals_crit
-  = form_fields do
-    = main_list(:journal_entry_items)
-  = form_actions do
-    = submit_tag(:validate_selected_entries.tl, "data-confirm" => :are_you_sure.tl, :name => :validate)
+#custom-list
+  = render "backend/draft_journals/list"

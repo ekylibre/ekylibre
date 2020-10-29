@@ -10,7 +10,7 @@ i.icon {
   @include box-shadow(0 0 $fs-normal rgba(#000, 0.2));
   height: $topbar-height;
 
-  a {
+  a:not(.notifications-menu__item) {
     display: block;
     height: $topbar-height;
     line-height: $topbar-height;
@@ -21,9 +21,8 @@ i.icon {
       color: white;
     }
     font-weight: bold;
-    &:hover {
+    &:not([data-toggle='notifications']):hover {
       background: rgba(black, 0.07);
-      // @include box-shadow(0 0 round($fs-normal *0.7) rgba(black, 0.5) inset);
       @include transition(background 0.4s, box-shadow 0.4s);
     }
   }
@@ -223,27 +222,9 @@ a[data-toggle='help'] {
     }
   }
   i {
-    @include use-icon(support);
+    @include use-icon(life-ring);
   }
 }
-
-a[data-toggle='notifications'] {
-  position: relative;
-  nav#top & {
-    font-size: 0;
-    i {
-      @include is-icon($topbar-icon-size);
-    }
-  }
-  i {
-    @include use-icon(bell-o);
-  }
-  &.with-notifications {
-    background: $invalid-color;
-  }
-}
-
-
 
 $header-height: 64px;
 $toolbar-height: round($button-height * $golden-ratio);
@@ -579,9 +560,14 @@ html.exception {
   clear: both;
   @include calc(height, "100vh - #{$header-height + $topbar-height}");
   .toolbar + & {
-    @include calc(height, "100vh - #{$header-height + $topbar-height + $toolbar-height}");
+    @include calc(height, "100vh - #{$header-height + $topbar-height + $toolbar-height} - 1px");
+  }
+  .flash + & {
+    height: unset;
   }
 }
+
+
 
 #about-us {
   padding: 15vh 15vw;
@@ -831,6 +817,19 @@ form.search {
   // border: 1px solid #DDD;
   // margin: 0 $default-gap $default-gap;
 
+  a > button {
+    margin: 10px 0px 5px 0px;
+  }
+  .signature-trigger {
+    cursor: pointer;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+  .signature-details {
+    display: none;
+    overflow-wrap: break-word;
+  }
   .title {
     display: block;
     @include legend-label;
@@ -1138,8 +1137,14 @@ html.backend {
     @include margin-right($default-gap);
   }
   .message {
+    display: flex;
+
+    & .notification-body {
+      flex-grow: 1;
+    }
+
     &, * {
-      display: inline;
+      //display: inline;
       vertical-align: baseline;
       font-size: $fs-normal;
       line-height: $lh-normal;
@@ -1147,10 +1152,10 @@ html.backend {
     h3 {
       font-weight: bold;
       $gap: floor(($default-gap - $menu-border-width)/2);
-      @include margin-right($default-gap);
+      @include margin-right($default-gap * 4);
     }
     p {
-      display: inline;
+      //display: inline;
       font-weight: normal;
     }
     ul {
@@ -1258,6 +1263,13 @@ html.backend {
 }
 
 
+#general-ledger {
+  .feathers {
+    position: relative;
+    padding : 12px;
+  }
+}
+
 .kujaku {
   $color: $text-color;
   $background-color: lighten($active-color, 23%);
@@ -1328,6 +1340,20 @@ html.backend {
           .btn-filter {
             display: inline;
           }
+        }
+        &.feather-previous-navigation, &.feather-next-navigation{
+          display: block;
+          position:absolute;
+          top: 0;
+          border: none;
+          margin-left: $default-gap;
+          margin-right: $default-gap;
+        }
+        &.feather-previous-navigation {
+          left: 0;
+        }
+        &.feather-next-navigation {
+          right: 0;
         }
       }
     }

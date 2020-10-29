@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Change deductible vat account">
+  <item-change item="accounts#deductible_vat" name="deductible_products_and_services_vat"/>
+  <item-change item="accounts#enterprise_deductible_vat" name="deductible_vat"/>
+</migration>

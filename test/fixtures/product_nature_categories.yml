@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,6 +24,7 @@
 # == Table: product_nature_categories
 #
 #  active                              :boolean          default(FALSE), not null
+#  asset_fixable                       :boolean          default(FALSE)
 #  charge_account_id                   :integer
 #  created_at                          :datetime         not null
 #  creator_id                          :integer
@@ -54,6 +56,7 @@
 ---
 product_nature_categories_001:
   active: true
+  asset_fixable: true
   charge_account_id: 115
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
@@ -67,7 +70,7 @@ product_nature_categories_001:
   lock_version: 2
   name: Generic Product Nature Category
   number: PNC001
-  product_account_id: 152
+  product_account_id: 535
   purchasable: true
   reductible: true
   saleable: true
@@ -79,6 +82,7 @@ product_nature_categories_001:
   updater_id: 1
 product_nature_categories_002:
   active: true
+  asset_fixable: true
   charge_account_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
@@ -104,6 +108,7 @@ product_nature_categories_002:
   updater_id: 1
 product_nature_categories_003:
   active: true
+  asset_fixable: false
   charge_account_id: 140
   created_at: 2014-10-31 20:11:19.871117000 Z
   creator_id: 1
@@ -114,7 +119,7 @@ product_nature_categories_003:
   name: Produit phytosanitaire
   number: PNC003
   pictogram: beaker
-  product_account_id: 152
+  product_account_id: 535
   purchasable: true
   reductible: false
   reference_name: plant_medicine
@@ -127,6 +132,7 @@ product_nature_categories_003:
   updater_id: 1
 product_nature_categories_004:
   active: true
+  asset_fixable: false
   created_at: 2014-10-31 20:11:30.463762000 Z
   creator_id: 1
   depreciable: false
@@ -149,6 +155,7 @@ product_nature_categories_004:
   updater_id: 1
 product_nature_categories_005:
   active: true
+  asset_fixable: false
   charge_account_id: 154
   created_at: 2014-10-31 20:11:42.132127000 Z
   creator_id: 1
@@ -159,7 +166,7 @@ product_nature_categories_005:
   name: Semence
   number: PNC005
   pictogram: matter
-  product_account_id: 152
+  product_account_id: 535
   purchasable: true
   reductible: false
   reference_name: seed
@@ -172,6 +179,7 @@ product_nature_categories_005:
   updater_id: 1
 product_nature_categories_006:
   active: true
+  asset_fixable: true
   charge_account_id: 134
   created_at: 2014-10-31 20:13:23.311480000 Z
   creator_id: 1
@@ -197,6 +205,7 @@ product_nature_categories_006:
   updater_id: 1
 product_nature_categories_007:
   active: true
+  asset_fixable: false
   created_at: 2014-10-31 20:13:55.094715000 Z
   creator_id: 1
   depreciable: false
@@ -216,6 +225,7 @@ product_nature_categories_007:
   updater_id: 1
 product_nature_categories_008:
   active: true
+  asset_fixable: false
   created_at: 2014-11-01 19:06:50.017161000 Z
   creator_id: 1
   depreciable: false
@@ -230,7 +240,7 @@ product_nature_categories_008:
   reductible: false
   reference_name: crop
   saleable: true
-  stock_account_id: 160
+  stock_account_id: 470
   stock_movement_account_id: 535
   storable: true
   subscribing: false
@@ -238,6 +248,7 @@ product_nature_categories_008:
   updater_id: 1
 product_nature_categories_009:
   active: true
+  asset_fixable: true
   charge_account_id: 11
   created_at: 2014-11-01 19:08:36.210197000 Z
   creator_id: 1
@@ -265,6 +276,7 @@ product_nature_categories_009:
   updater_id: 1
 product_nature_categories_010:
   active: true
+  asset_fixable: false
   charge_account_id: 147
   created_at: 2014-11-01 19:09:20.923402000 Z
   creator_id: 1
@@ -288,6 +300,7 @@ product_nature_categories_010:
   updater_id: 1
 product_nature_categories_011:
   active: true
+  asset_fixable: false
   created_at: 2014-11-01 19:10:35.057312000 Z
   creator_id: 1
   depreciable: false
@@ -310,6 +323,7 @@ product_nature_categories_011:
   updater_id: 1
 product_nature_categories_012:
   active: true
+  asset_fixable: false
   charge_account_id: 16
   created_at: 2014-11-01 20:20:57.118801000 Z
   creator_id: 1
@@ -320,7 +334,7 @@ product_nature_categories_012:
   name: Produit vétérinaire
   number: PNC012
   pictogram: pill
-  product_account_id: 152
+  product_account_id: 535
   purchasable: true
   reductible: false
   reference_name: animal_medicine
@@ -333,6 +347,7 @@ product_nature_categories_012:
   updater_id: 1
 product_nature_categories_013:
   active: true
+  asset_fixable: false
   charge_account_id: 171
   created_at: 2014-11-01 20:26:13.040696000 Z
   creator_id: 1
@@ -343,7 +358,7 @@ product_nature_categories_013:
   name: Responsable
   number: PNC013
   pictogram: male
-  product_account_id: 152
+  product_account_id: 535
   purchasable: true
   reductible: false
   reference_name: worker
@@ -354,6 +369,7 @@ product_nature_categories_013:
   updater_id: 1
 product_nature_categories_014:
   active: true
+  asset_fixable: true
   charge_account_id: 47
   created_at: 2014-11-02 18:19:37.942990000 Z
   creator_id: 1
@@ -379,6 +395,7 @@ product_nature_categories_014:
   updater_id: 1
 product_nature_categories_015:
   active: true
+  asset_fixable: false
   created_at: 2014-11-02 18:31:53.721523000 Z
   creator_id: 1
   depreciable: false
@@ -398,6 +415,7 @@ product_nature_categories_015:
   updater_id: 1
 product_nature_categories_016:
   active: true
+  asset_fixable: false
   created_at: 2014-11-04 17:27:32.635406000 Z
   creator_id: 1
   depreciable: false
@@ -418,6 +436,7 @@ product_nature_categories_016:
   updater_id: 1
 product_nature_categories_017:
   active: true
+  asset_fixable: false
   charge_account_id: 54
   created_at: 2014-11-07 15:24:11.118240000 Z
   creator_id: 1
@@ -428,7 +447,7 @@ product_nature_categories_017:
   name: Engrais
   number: PNC017
   pictogram: matter
-  product_account_id: 152
+  product_account_id: 535
   purchasable: true
   reductible: false
   reference_name: fertilizer
@@ -441,6 +460,7 @@ product_nature_categories_017:
   updater_id: 1
 product_nature_categories_018:
   active: true
+  asset_fixable: false
   created_at: 2014-11-07 15:46:45.124919000 Z
   creator_id: 1
   depreciable: false
@@ -463,6 +483,7 @@ product_nature_categories_018:
   updater_id: 1
 product_nature_categories_019:
   active: true
+  asset_fixable: true
   charge_account_id: 154
   created_at: 2014-11-07 16:33:59.239806000 Z
   creator_id: 1
@@ -477,7 +498,7 @@ product_nature_categories_019:
   name: Plant
   number: PNC019
   pictogram: matter
-  product_account_id: 152
+  product_account_id: 535
   purchasable: true
   reductible: false
   reference_name: plant
@@ -490,6 +511,7 @@ product_nature_categories_019:
   updater_id: 1
 product_nature_categories_020:
   active: true
+  asset_fixable: false
   created_at: 2014-11-07 17:05:38.057941000 Z
   creator_id: 1
   depreciable: false
@@ -512,6 +534,7 @@ product_nature_categories_020:
   updater_id: 1
 product_nature_categories_021:
   active: true
+  asset_fixable: false
   created_at: 2014-11-07 17:10:23.458618000 Z
   creator_id: 1
   depreciable: false
@@ -534,6 +557,7 @@ product_nature_categories_021:
   updater_id: 1
 product_nature_categories_022:
   active: true
+  asset_fixable: false
   charge_account_id: 147
   created_at: 2014-11-07 19:03:43.632961000 Z
   creator_id: 1
@@ -544,7 +568,7 @@ product_nature_categories_022:
   name: Produit œnologique
   number: PNC022
   pictogram: beaker
-  product_account_id: 152
+  product_account_id: 535
   purchasable: true
   reductible: false
   reference_name: oenological_product
@@ -557,6 +581,7 @@ product_nature_categories_022:
   updater_id: 1
 product_nature_categories_023:
   active: true
+  asset_fixable: false
   charge_account_id: 115
   created_at: 2014-11-07 19:29:27.376345000 Z
   creator_id: 1
@@ -567,7 +592,7 @@ product_nature_categories_023:
   name: Matières sèches (vin)
   number: PNC023
   pictogram: matter
-  product_account_id: 152
+  product_account_id: 535
   purchasable: true
   reductible: false
   reference_name: wine_package_consumable
@@ -580,6 +605,7 @@ product_nature_categories_023:
   updater_id: 1
 product_nature_categories_024:
   active: true
+  asset_fixable: false
   charge_account_id: 573
   created_at: 2015-04-26 12:44:36.194987000 Z
   creator_id: 1
@@ -602,6 +628,7 @@ product_nature_categories_024:
   updater_id: 1
 product_nature_categories_025:
   active: true
+  asset_fixable: false
   charge_account_id: 467
   created_at: 2016-01-21 14:05:46.940411000 Z
   depreciable: false
@@ -622,6 +649,7 @@ product_nature_categories_025:
   updated_at: 2016-01-21 14:05:46.940411000 Z
 product_nature_categories_026:
   active: true
+  asset_fixable: false
   created_at: 2016-05-26 21:22:59.404652000 Z
   creator_id: 1
   depreciable: false

@@ -23,6 +23,7 @@
         %tr
           %th= PurchaseItem.human_attribute_name(:variant)
           %th= Parcel.human_attribute_name(:number) if f.object.parcels.any?
+          %th= PurchaseItem.human_attribute_name(:accounting_label)
           %th= PurchaseItem.human_attribute_name(:quantity)
           %th= PurchaseItem.human_attribute_name(:unit_pretax_amount)
           %th= PurchaseItem.human_attribute_name(:tax)
@@ -37,8 +38,8 @@
           %td= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary"
           - colspan = f.object.parcels.any? ? 5 : 4
           %th{ colspan: 4 }= :total.tl
-          %td#pta.decimal{ data:{ use: ".nested-fields .pta", calculate: "sum", calculate_round: precision } }= f.object.pretax_amount
-          %td#wta.decimal{ data:{ use: ".nested-fields .wta", calculate: "sum", calculate_round: precision } }= f.object.amount
+          %td#pta{ data:{ use: ".nested-fields .pta", calculate: "sum", calculate_round: precision } }= f.object.pretax_amount
+          %td#wta{ data:{ use: ".nested-fields .wta", calculate: "sum", calculate_round: precision } }= f.object.amount
           %td= f.object.currency
           %th
       = f.simple_fields_for :items, f.object.items.sort_by { |i| i.id.to_i } do |item|

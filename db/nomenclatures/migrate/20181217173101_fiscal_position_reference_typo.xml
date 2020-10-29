@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Fiscal position reference typo">
+  <item-change item="fiscal_positions#fr_ba_is" accounting_system="fr_pcga"/>
+</migration>

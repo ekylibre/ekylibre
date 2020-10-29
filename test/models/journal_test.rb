@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -103,18 +104,42 @@ class JournalTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     refute journal.valid?
   end
 
-  test 'cannot be closed with an accountant' do
-    journal = create(:journal, :various)
-    assert journal.closable?, 'Journal should be closable'
-    journal.accountant = create(:entity, :accountant)
-    refute journal.closable?
+  test 'balance is correctly computed' do
+    clean_irrelevant_fixtures
+
+    financial_year_18 = create(:financial_year, started_on: '01/01/2018', stopped_on: '31/12/2018')
+    client = create(:entity, :client)
+    sale = create(:sale, client: client)
+    sale.invoice! Date.new(2018, 04, 30)
+    params = {
+      period: '2018-01-01_2018-12-31',
+      started_on: '2018-01-01',
+      stopped_on: '2018-12-31',
+      states: { draft: '1', confirmed: '1', closed: '1' },
+      # centralize option should be removed after the update of Journal.trial_balance method with the fact that there is no centralizing account anymore in DB
+      centralize: '301 302 310 320 330 340 374 401 411 421 467 603'
+    }
+    balance = Journal.trial_balance(params)
+
+    assert_equal BigDecimal(balance[0][2]), sale.amount
+    assert_equal BigDecimal(balance[2][3]), sale.pretax_amount
+    assert_equal BigDecimal(balance[1][3]), sale.amount - sale.pretax_amount
+    assert_equal BigDecimal(balance[3][2]), sale.amount
+    assert_equal BigDecimal(balance[3][3]), sale.amount
   end
 
-  test 'cannot be reopened with an accountant' do
-    journal = create(:journal, :various)
-    assert journal.close!(Time.zone.now.to_date)
-    assert journal.reopenable?
-    journal.accountant = create(:entity, :accountant)
-    refute journal.reopenable?
+  private
+
+  def clean_irrelevant_fixtures
+    FinancialYear.delete_all
+    OutgoingPayment.delete_all
+    Sale.delete_all
+    SaleItem.delete_all
+    Regularization.delete_all
+    Payslip.delete_all
+    JournalEntry.delete_all
+    JournalEntryItem.delete_all
+    Affair.delete_all
+    TaxDeclaration.delete_all
   end
 end

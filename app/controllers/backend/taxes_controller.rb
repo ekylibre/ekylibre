@@ -29,6 +29,7 @@ module Backend
       t.column :name, url: true
       t.column :amount, precision: 3
       t.column :nature
+      t.column :intracommunity
       t.column :country
       t.column :deduction_account, url: true, label_method: :number
       t.column :collect_account, url: true, label_method: :number

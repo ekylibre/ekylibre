@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -44,6 +45,7 @@
 #  real_currency              :string           not null
 #  real_currency_rate         :decimal(19, 10)  default(0.0), not null
 #  real_debit                 :decimal(19, 4)   default(0.0), not null
+#  reference_number           :string
 #  resource_id                :integer
 #  resource_prism             :string
 #  resource_type              :string
@@ -538,6 +540,7 @@ journal_entries_019:
   real_currency: EUR
   real_currency_rate: 1.0
   real_debit: 1848.0
+  reference_number: ''
   resource_id: 8
   resource_prism: purchase
   resource_type: Purchase
@@ -589,6 +592,7 @@ journal_entries_021:
   real_currency: EUR
   real_currency_rate: 1.0
   real_debit: 20520.0
+  reference_number: ''
   resource_id: 11
   resource_prism: purchase
   resource_type: Purchase
@@ -616,6 +620,7 @@ journal_entries_022:
   real_currency: USD
   real_currency_rate: 0.9397
   real_debit: 1848.0
+  reference_number: ''
   resource_id: 12
   resource_prism: purchase
   resource_type: Purchase
@@ -1709,6 +1714,7 @@ journal_entries_064:
   real_currency: USD
   real_currency_rate: 0.8977
   real_debit: 17329.62
+  reference_number: '1255482478'
   resource_id: 13
   resource_prism: purchase
   resource_type: Purchase
@@ -2178,6 +2184,7 @@ journal_entries_082:
   real_currency: EUR
   real_currency_rate: 1.0
   real_debit: 447.12
+  reference_number: F2016000004
   resource_id: 20
   resource_prism: sale
   resource_type: Sale
@@ -2205,6 +2212,7 @@ journal_entries_083:
   real_currency: EUR
   real_currency_rate: 1.0
   real_debit: 0.0
+  reference_number: F2016000004
   resource_id: 20
   resource_type: Sale
   state: draft
@@ -2257,6 +2265,7 @@ journal_entries_085:
   real_currency: EUR
   real_currency_rate: 1.0
   real_debit: 37.44
+  reference_number: F2016000005
   resource_id: 21
   resource_prism: sale
   resource_type: Sale
@@ -2284,6 +2293,7 @@ journal_entries_086:
   real_currency: EUR
   real_currency_rate: 1.0
   real_debit: 0.0
+  reference_number: F2016000005
   resource_id: 21
   resource_type: Sale
   state: draft
@@ -2336,6 +2346,7 @@ journal_entries_088:
   real_currency: EUR
   real_currency_rate: 1.0
   real_debit: 3.74
+  reference_number: F2016000006
   resource_id: 22
   resource_prism: sale
   resource_type: Sale
@@ -2363,6 +2374,7 @@ journal_entries_089:
   real_currency: EUR
   real_currency_rate: 1.0
   real_debit: 0.0
+  reference_number: F2016000006
   resource_id: 22
   resource_type: Sale
   state: draft
@@ -2416,6 +2428,7 @@ journal_entries_091:
   real_currency: EUR
   real_currency_rate: 1.0
   real_debit: 2676.0
+  reference_number: F2016000007
   resource_id: 23
   resource_prism: sale
   resource_type: Sale
@@ -2443,6 +2456,7 @@ journal_entries_092:
   real_currency: EUR
   real_currency_rate: 1.0
   real_debit: 0.0
+  reference_number: F2016000007
   resource_id: 23
   resource_type: Sale
   state: draft
@@ -2469,6 +2483,7 @@ journal_entries_093:
   real_currency: EUR
   real_currency_rate: 1.0
   real_debit: 2676.0
+  reference_number: F2016000008
   resource_id: 24
   resource_prism: sale
   resource_type: Sale
@@ -2496,6 +2511,7 @@ journal_entries_094:
   real_currency: EUR
   real_currency_rate: 1.0
   real_debit: 0.0
+  reference_number: F2016000008
   resource_id: 24
   resource_type: Sale
   state: draft
@@ -2522,6 +2538,7 @@ journal_entries_095:
   real_currency: EUR
   real_currency_rate: 1.0
   real_debit: 717.12
+  reference_number: ''
   resource_id: 14
   resource_prism: purchase
   resource_type: Purchase
@@ -2549,6 +2566,7 @@ journal_entries_096:
   real_currency: EUR
   real_currency_rate: 1.0
   real_debit: 0.0
+  reference_number: ''
   resource_id: 14
   resource_type: Purchase
   state: draft
@@ -2601,6 +2619,7 @@ journal_entries_098:
   real_currency: EUR
   real_currency_rate: 1.0
   real_debit: 1200.0
+  reference_number: ''
   resource_id: 15
   resource_prism: purchase
   resource_type: Purchase
@@ -2628,6 +2647,7 @@ journal_entries_099:
   real_currency: EUR
   real_currency_rate: 1.0
   real_debit: 0.0
+  reference_number: ''
   resource_id: 15
   resource_type: Purchase
   state: draft
@@ -2706,6 +2726,7 @@ journal_entries_102:
   real_currency: EUR
   real_currency_rate: 1.0
   real_debit: 400.0
+  reference_number: F2016000009
   resource_id: 25
   resource_prism: sale
   resource_type: Sale
@@ -2786,6 +2807,7 @@ journal_entries_105:
   real_currency: EUR
   real_currency_rate: 1.0
   real_debit: 4878.72
+  reference_number: ''
   resource_id: 16
   resource_prism: purchase
   resource_type: Purchase
@@ -2840,6 +2862,7 @@ journal_entries_107:
   real_currency: EUR
   real_currency_rate: 1.0
   real_debit: 489.75
+  reference_number: ''
   resource_id: 17
   resource_prism: purchase
   resource_type: Purchase

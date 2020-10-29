@@ -47,7 +47,7 @@ module Backend
       t.column :number, url: true
       t.column :name, url: true
       t.column :usages, hidden: true
-      t.column :reconcilable
+      t.column :nature
       t.column :description
     end
 
@@ -162,18 +162,6 @@ module Backend
       redirect_to_back
     end
 
-    def load
-      if request.post?
-        Account.accounting_system = params[:accounting_system]
-        if Nomen::Account.property_natures.keys.include?(Account.accounting_system.to_s)
-          Account.load_defaults
-        else
-          raise 'Arrrggggg'
-        end
-        redirect_to action: :index
-      end
-    end
-
     def reconciliable_list
       return unless @account = Account.find_by_id(params[:id])
 
@@ -203,6 +191,12 @@ module Backend
       preference_name << '.lettered_items.masked'
       current_user.prefer!(preference_name, params[:masked].to_s == 'true', :boolean)
       head :ok
+    end
+
+    def filter_select_collection
+      regexp = /\A#{Regexp.quote(params[:filter_value].first(3))}/
+      @filtered_accounts = Nomen::Account.list.reject { |a| a.send(Account.accounting_system) == 'NONE' || !a.send(Account.accounting_system).match(regexp) }
+      @filtered_accounts = @filtered_accounts.sort_by { |a| a.send(Account.accounting_system) }
     end
 
     protected

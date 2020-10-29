@@ -11,6 +11,7 @@ FactoryBot.define do
     started_on { Date.new year, month, day }
     stopped_on { started_on + 1.year - 1.day }
     currency { :EUR }
+    state { :opened }
     closed { false }
 
     after(:build) do |year|

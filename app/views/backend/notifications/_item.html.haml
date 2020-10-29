@@ -1,0 +1,10 @@
+.notification{ data: { id: notification.id } }
+  .notification__state.text-center
+    %i.icon{ class: notification_icon_class(notification) }
+
+  .notification__message
+    = notification.human_message
+
+  .notification__time
+    = distance_of_time_in_words_to_now(notification.created_at)
+

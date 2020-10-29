@@ -19,10 +19,20 @@
 module Backend
   class ExportsController < Backend::BaseController
     respond_to :pdf, :odt, :ods, :docx, :xlsx, :xml, :json, :html, :csv
+    HIDDEN_AGGREGATORS = [ "fr_pcg82_balance_sheet",
+                           "fr_pcg82_profit_and_loss_statement",
+                           "fr_pcga_balance_sheet",
+                           "fr_pcga_profit_and_loss_statement",
+                           "vat_register",
+                           "income_statement"]
+
 
     def index
       # FIXME: It should not be necessary to do that
       DocumentTemplate.load_defaults unless DocumentTemplate.any?
+      @aggregators = helpers.export_categories.each_with_object({}) do |export_category, hash|
+        hash[export_category] = (Aggeratio.of_category(export_category.name) - HIDDEN_AGGREGATORS.map { |agg| Aggeratio[agg] })
+      end
     end
 
     def show

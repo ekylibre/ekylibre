@@ -1,0 +1,10 @@
+#financial-year-container
+  %i
+  .financial-year-message
+    .financial-year-title
+      %b= locals[:title].tl(financial_year_to_close: locals[:fy_to_close].name, financial_year_to_open: locals[:fy_to_open].code)
+    .financial-year-description
+      = :financial_year_warning.tl(last_financial_year_end_date: locals[:fy_to_close].stopped_on.l, new_financial_year_start_date: locals[:fy_to_open].started_on.l).html_safe
+    .financial-year-button
+      - destroyables = FinancialYear.consecutive_destroyables
+      = link_to(:delete_x_financial_years_without_entry.tl(count: destroyables.count, first_financial_year_code: destroyables.first.code, last_financial_year_code: destroyables.last.code), destroy_all_empty_backend_financial_years_path(year_ids: destroyables.pluck(:id)), method: :delete, class: 'btn btn-default') if destroyables.count > 1

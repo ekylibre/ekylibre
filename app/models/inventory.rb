@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -28,9 +29,11 @@
 #  creator_id                 :integer
 #  currency                   :string
 #  custom_fields              :jsonb
+#  disable_accountancy        :boolean          default(FALSE)
 #  financial_year_id          :integer
 #  id                         :integer          not null, primary key
 #  journal_entry_id           :integer
+#  journal_id                 :integer
 #  lock_version               :integer          default(0), not null
 #  name                       :string           not null
 #  number                     :string           not null
@@ -56,6 +59,7 @@ class Inventory < Ekylibre::Record::Base
   belongs_to :journal, inverse_of: :inventories
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, :achieved_at, :reflected_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :disable_accountancy, inclusion: { in: [true, false] }, allow_blank: true
   validates :name, :number, presence: true, length: { maximum: 500 }
   validates :reflected, inclusion: { in: [true, false] }
   # ]VALIDATORS]

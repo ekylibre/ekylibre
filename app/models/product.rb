@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -872,5 +873,9 @@ class Product < Ekylibre::Record::Base
   def stock_info
     info = "#{self.population.round(2)} #{self.variant.unit_name.downcase}"
     info
+  end
+
+  def used_in_interventions_before(date)
+    InterventionTool.where(product: self).joins(:intervention).where('interventions.started_at < ?', date).any?
   end
 end

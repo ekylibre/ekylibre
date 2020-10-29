@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add account exceptional depreciations imputations expenses for fixed assets">
+  <item-creation item="accounts#exceptional_depreciations_imputations_expenses_for_fixed_assets" fr_pcga="6871" fr_pcg82="6871"/>
+</migration>

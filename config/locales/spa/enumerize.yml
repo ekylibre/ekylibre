@@ -461,10 +461,10 @@ spa:
       tax_payability:
         at_invoicing: "En la facturación"
         at_paying: "Al pagar"
-    purchase_nature:
-      nature:
-        payslip: "Recibo de sueldo"
-        purchase: "Compra"
+    purchase_nature: #?
+      nature: #?
+        payslip: "Recibo de sueldo" #?
+        purchase: "Compra" #?
     sale_item: #?
       compute_from: #?
         pretax_amount: "Cantidad antes de impuestos" #?

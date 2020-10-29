@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -218,7 +219,7 @@ class Journal < Ekylibre::Record::Base
     end
 
     # Load default journal if not exist
-    def load_defaults
+    def load_defaults(**_options)
       nature.values.each do |nature|
         next if find_by(nature: nature)
         financial_year = FinancialYear.first_of_all
@@ -241,7 +242,6 @@ class Journal < Ekylibre::Record::Base
   # Test if journal is closable
   def closable?(new_closed_on = nil)
     new_closed_on ||= (Time.zone.today << 1).end_of_month
-    return false if booked_for_accountant?
     return false if new_closed_on.end_of_month != new_closed_on
     return false if new_closed_on < self.closed_on
     true
@@ -278,36 +278,12 @@ class Journal < Ekylibre::Record::Base
   def close!(closed_on)
     finished = false
     ActiveRecord::Base.transaction do
-      JournalEntryItem.where(journal_id: self.id).where('printed_on < ?', closed_on).where.not(state: :closed).update_all(state: :closed)
-      JournalEntry.where(journal_id: self.id).where('printed_on < ?', closed_on).where.not(state: :closed).update_all(state: :closed)
+      JournalEntryItem.where(journal_id: id).where('printed_on <= ?', closed_on).where.not(state: :closed).update_all(state: :closed)
+      JournalEntry.where(journal_id: id).where('printed_on <= ?', closed_on).where.not(state: :closed).update_all(state: :closed)
       update_column(:closed_on, closed_on)
       finished = true
     end
     finished
-  end
-
-  def reopenable?
-    !booked_for_accountant? && reopenings.any?
-  end
-
-  def reopenings
-    year = FinancialYear.current
-    return [] if year.nil?
-    array = []
-    date = year.started_on - 1
-    while date < self.closed_on
-      array << date
-      date = (date + 1).end_of_month
-    end
-    array
-  end
-
-  def reopen(closed_on)
-    ActiveRecord::Base.transaction do
-      entries.where(printed_on: (closed_on + 1)..self.closed_on).find_each(&:reopen)
-      update_column :closed_on, closed_on
-    end
-    true
   end
 
   # Takes the very last created entry in the journal to generate the entry number
@@ -359,8 +335,10 @@ class Journal < Ekylibre::Record::Base
   # '-' negates values
   # Computation:
   #   B: Balance (= Debit - Credit). Default computation.
-  #   C: Credit balance if positive
-  #   D: Debit balance if positive
+  #   C: -Balance if positive
+  #   D: Balance if positive
+  #   E: - Crédit balance
+  #   F: Débit balance
   def self.sum_entry_items(expression, options = {})
     conn = ActiveRecord::Base.connection
     journal_entry_items = 'jei'
@@ -388,7 +366,7 @@ class Journal < Ekylibre::Record::Base
       words = expr.strip.split(/\s+/)
       direction = 1
       direction = -1 if words.first =~ /^(\+|\-)$/ && words.shift == '-'
-      mode = words.last =~ /^[BCD]$/ ? words.delete_at(-1) : 'B'
+      mode = words.last =~ /^[BCDEF]$/ ? words.delete_at(-1) : 'B'
       accounts_range = {}
       words.map do |word|
         position = (word =~ /\!/ ? :exclude : :include)
@@ -398,18 +376,39 @@ class Journal < Ekylibre::Record::Base
         accounts_range[position] ||= []
         accounts_range[position] << condition
       end.join
-      query = "SELECT SUM(#{journal_entry_items}.absolute_debit) AS debit, SUM(#{journal_entry_items}.absolute_credit) AS credit"
+
+      query = "SELECT
+                SUM(account_summary.sum_debit) as sum_debit,
+                SUM(account_summary.sum_credit) AS sum_credit,
+                SUM(CASE WHEN account_summary.account_balance > 0 THEN account_summary.account_balance ELSE 0 END) as debit_balance,
+                SUM(CASE WHEN account_summary.account_balance < 0 THEN account_summary.account_balance ELSE 0 END) as credit_balance
+                FROM (
+                  SELECT a.number,
+                    sum(COALESCE(jei.debit, 0)) as sum_debit,
+    	              sum(COALESCE(jei.credit, 0)) as sum_credit,
+    	              sum(COALESCE(jei.debit, 0)) - sum(COALESCE(jei.credit, 0)) as account_balance"
+
       query << from_where
       query << journal_entries_states
       query << " AND (#{accounts_range[:include].join(' OR ')})" if accounts_range[:include]
       query << " AND NOT (#{accounts_range[:exclude].join(' OR ')})" if accounts_range[:exclude]
-      row = conn.select_rows(query).first
+
+      query << "GROUP BY a.id ORDER BY a.number) as account_summary"
+
+      req = conn.select_rows(query)
+      row = req.first
       debit =  row[0].blank? ? 0.0 : row[0].to_d
       credit = row[1].blank? ? 0.0 : row[1].to_d
+      debit_balance = row[2].blank? ? 0.0 : row[2].to_d
+      credit_balance = row[3].blank? ? 0.0 : row[3].to_d
       if mode == 'C'
-        direction * (credit > debit ? credit - debit : 0)
+        c = direction * (credit > debit ? credit - debit : 0)
       elsif mode == 'D'
-        direction * (debit > credit ? debit - credit : 0)
+        d = direction * (debit > credit ? debit - credit : 0)
+      elsif mode == 'E'
+        e = direction * (-credit_balance)
+      elsif mode == 'F'
+        f = direction * debit_balance
       else
         direction * (debit - credit)
       end
@@ -436,6 +435,7 @@ class Journal < Ekylibre::Record::Base
     account_range_condition = Account.range_condition(options[:accounts], accounts)
     account_range = ' AND (' + account_range_condition + ')' if account_range_condition
 
+    # FIXME: There no centralizing account anymore in DB, the query needs to be adjusted
     centralize = options[:centralize].to_s.strip.split(/[^A-Z0-9]+/)
     centralized = '(' + centralize.collect { |c| "#{accounts}.number LIKE #{conn.quote(c + '%')}" }.join(' OR ') + ')'
 

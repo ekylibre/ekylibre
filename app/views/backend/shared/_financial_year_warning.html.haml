@@ -1,0 +1,10 @@
+- unless FinancialYear.on(Time.zone.today)&.opened?
+  .warning-container
+    %i
+    .warning-message
+      .warning-title
+        %b= :no_financial_year_opened.tl
+      .warning-description
+        = :financial_year_needed.tl.html_safe
+      .warning-button
+        = link_to(:manage_financial_years.tl, backend_financial_years_path, class: 'btn btn-default')

@@ -17,6 +17,9 @@ module Ekylibre
             self.class.fixture_files_path
           end
 
+          def with_fixtures?
+            true
+          end
         end
 
         module ClassMethods

@@ -41,6 +41,8 @@
 
           if data.depreciable
             item.find('.fixed-asset').show()
+            preexistingAsset = item.find(".sale_items_preexisting_asset input[type='checkbox']").prop('checked')
+            item.find('#new_asset').hide() if preexistingAsset
           else
             item.find('.fixed-asset').hide()
 

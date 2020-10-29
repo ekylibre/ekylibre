@@ -103,10 +103,6 @@ module Isagri
           'Dérogatoire' => :regressive
         }
 
-        # get default allocation and expenses account
-        exchange_allocation_account = Account.find_or_import_from_nomenclature(:fixed_asset_depreciations) # 28
-        exchange_expenses_account = Account.find_or_import_from_nomenclature(:depreciations_inputations_expenses) # 68
-
         rows.each_with_index do |row, index|
           line_number = index + 2
           prompt = "L#{line_number.to_s.yellow} | "
@@ -115,10 +111,10 @@ module Isagri
             asset_account: row[0].blank? ? nil : row[0].to_s,
             number: row[1].blank? ? '' : row[1].to_s.strip,
             name: row[2].blank? ? nil : row[2].to_s.strip,
-            purchase_on: row[4].blank? ? nil : Date.strptime(row[4].to_s, '%d/%m/%y'),
+            purchase_on: row[4].blank? ? nil : Date.strptime(row[4].to_s, '%d/%m/%Y'),
             purchase_amount: row[5].blank? ? nil : row[5].tr(',', '.').to_d,
             depreciation_method: row[6].blank? ? nil : depreciation_method_transcode[row[6].to_s.strip],
-            in_use_on: row[7].blank? ? nil : Date.strptime(row[7].to_s, '%d/%m/%y'),
+            in_use_on: row[7].blank? ? nil : Date.strptime(row[7].to_s, '%d/%m/%Y'),
             asset_amount: row[8].blank? ? nil : row[8].tr(',', '.').to_d,
             duration_in_year: row[9].blank? ? nil : row[9].to_i,
             depreciation_rate: row[10].blank? ? nil : row[10].tr(',', '.').to_f,
@@ -127,12 +123,21 @@ module Isagri
             product_work_number: row[26].blank? ? nil : row[26].to_s
           }.to_struct
 
+          # get allocation and expenses account
+          if r.depreciation_method == :linear || :regressive
+            allocation_account_parent_usage = Account.find_parent_usage(self.class.to_allocation_account(r.asset_account))
+            allocation_account_default_name = Nomen::Account.find(allocation_account_parent_usage).l
+            exchange_allocation_account = Account.find_or_create_by_number(self.class.to_allocation_account(r.asset_account), default_name: allocation_account_default_name)
+            exchange_expenses_account = Account.find_or_import_from_nomenclature(:depreciations_inputations_expenses)
+          end
+
           description = r.number + ' | ' + r.name + ' | ' + r.purchase_on.to_s + ' | ' + r.net_value.to_s
 
           # get or create asset account
-          if r.asset_account && r.name
-            exchange_asset_account_name = r.number + ' | ' + r.name
-            exchange_asset_account = Account.find_or_create_by_number(r.asset_account, name: exchange_asset_account_name)
+          if r.asset_account
+            parent_usage = Account.find_parent_usage(r.asset_account)
+            default_name = Account.find_by(name: parent_usage) || Nomen::Account.find(parent_usage).l
+            exchange_asset_account = Account.find_or_create_by_number(r.asset_account, default_name: default_name)
             w.info prompt + "exchange asset account : #{exchange_asset_account.label.inspect.red}"
           end
 
@@ -191,6 +196,16 @@ module Isagri
           w.check_point
         end
       end
+
+      # Generate allocation account number
+      def self.to_allocation_account(number)
+        if number.first == "2" && number[1..2] != "11"
+          number.chars.insert(1, "8")[0...-1].join
+        else
+          number
+        end
+      end
+
     end
   end
 end

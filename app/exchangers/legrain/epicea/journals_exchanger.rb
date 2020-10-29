@@ -34,7 +34,7 @@ module Legrain
             }
           end
           account_number = row[3].to_s.upcase
-          account = Account.find_or_create_by_number(account_number, name: account_number)
+          account = Account.find_or_create_by_number(account_number, name: account_number, already_existing: true)
           id = (entries[number][:items_attributes].keys.max || 0) + 1
           entries[number][:items_attributes][id] = {
             real_debit: row[6].to_f,

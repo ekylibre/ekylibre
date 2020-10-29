@@ -316,9 +316,21 @@
       @_showOrHideReconciliatedLines()
 
     _showOrHideClearButtons: ->
-      @_showAndHideLinkForCollection 'clear',
-        @_reconciliatedLines().find(".details a"),
-        @_notReconciliatedLines().find(".details a")
+      @_reconciliatedLines().each (_index, line) =>
+        letter = @_reconciliationLetter($(line))
+        bankStatementId = $(line).data('bank-statement-id') || $(".reconciliation-item[data-type='bank_statement_item'][data-letter='#{letter}']").first().data('bank-statement-id')
+        $(line).find('.details').html(@_clearButtonTemplate(bankStatementId, letter))
+
+      @_notReconciliatedLines().each ->
+        $(this).find('.details').html("<div class='letter'></div>")
+
+    _clearButtonTemplate: (bankStatementId, letter) ->
+      removeLabel = I18n.t("#{I18n.rootKey}.bank_reconciliation.remove")
+      "<div class='letter'>#{letter}</div>
+       <a href='/backend/bank-reconciliation/letters/#{bankStatementId}?letter=#{letter}' data-remote='true' rel='nofollow' data-method='delete' id='clear'>
+         <i></i>
+         <span>#{removeLabel}</span>
+       </a>"
 
     _showOrHideCompleteButtons: ->
       @_showAndHideLinkForCollection 'complete',
@@ -339,23 +351,23 @@
       selectedJournalItems   = @_journalEntryLines().filter(".selected")
       if selectedBankStatements.length > 0
         @_updateIdsInButtons()
-        $("a.from-selected-bank").show()
-        $("a.from-selected-bank").parents('.btn-group').show()
+        $("a.from-selected-bank").attr("disabled", false)
+        $("a.from-selected-bank").parents('.btn-group').attr("disabled", false)
       else
-        $("a.from-selected-bank").hide()
-        $("a.from-selected-bank").parents('.btn-group').hide()
+        $("a.from-selected-bank").attr("disabled", true)
+        $("a.from-selected-bank").parents('.btn-group').attr("disabled", true)
 
       if selectedJournalItems.length > 0
         @_updateIdsInButtons()
-        $("a.from-selected-journal").show()
-        $("a.from-selected-journal").parents('.btn-group').show()
+        $("a.from-selected-journal").attr("disabled", false)
+        $("a.from-selected-journal").parents('.btn-group').attr("disabled", false)
       else
-        $("a.from-selected-journal").hide()
-        $("a.from-selected-journal").parents('.btn-group').hide()
+        $("a.from-selected-journal").attr("disabled", true)
+        $("a.from-selected-journal").parents('.btn-group').attr("disabled", true)
 
       unless selectedBankStatements.length > 0 and selectedJournalItems.length > 0
-        $("a.from-selected-journal.from-selected-bank").hide()
-        $("a.from-selected-journal.from-selected-bank").parents('.btn-group').hide()
+        $("a.from-selected-journal.from-selected-bank").attr("disabled", true)
+        $("a.from-selected-journal.from-selected-bank").parents('.btn-group').attr("disabled", true)
 
     _showOrHideReconciliatedLines: ->
       if $("#hide-lettered").is(":checked")
@@ -418,11 +430,13 @@
           return false
 
     _unletterItems: (letter) ->
-      # url = '/backend/bank-reconciliation/letters/' + letter
-      url = $(event.target).closest('#clear').attr('href')
-      $.ajax url,
+      $.ajax
+        url: '/backend/bank-reconciliation/letters/'
         type: 'DELETE'
         dataType: 'JSON'
+        data:
+          cash_id: $('#cash_id').val()
+          letter: letter
         success: (response) =>
           lines = @_linesWithReconciliationLetter(response.letter)
           lines.find(".details .letter").text ""

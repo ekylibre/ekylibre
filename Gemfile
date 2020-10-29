@@ -20,20 +20,18 @@ gem 'rails', '4.2.11.1'
 gem 'webpacker', '~> 4.x'
 
 # Security fix for mail
-gem 'mail', '~> 2.6.6.rc1'
+gem 'mail', '~> 2.6'
 
 # Database adapters
 gem 'activerecord-postgis-adapter', '>= 3.0.0'
 gem 'pg', '~> 0.20.0' # Needed for some tasks
 
 # Multi-tenancy
-gem 'apartment', github:'influitive/apartment', branch: 'development'
+gem 'apartment', '~> 2.2.1'
 gem 'apartment-sidekiq'
 
 # Ruby syntax extensions
 gem 'possibly', gitlab: 'ekylibre/eky-possibly', branch: :prod
-
-gem 'better_errors'
 
 # Code manipulation
 gem 'charlock_holmes'
@@ -112,13 +110,6 @@ gem 'draper'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-# Use unicorn as the app server
-gem 'loofah', group: :production
-gem 'unicorn', group: :production
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
 # Exception management
 gem 'exception_notification'
 
@@ -132,7 +123,7 @@ gem 'acts_as_list'
 gem 'awesome_nested_set', '~> 3.1.1'
 gem 'deep_cloneable', '~> 2.2.1'
 gem 'enumerize'
-gem 'jc-validates_timeliness', '~> 3.1.1'
+gem 'validates_timeliness', '~> 4'
 gem 'state_machine'
 gem 'uuidtools'
 
@@ -209,7 +200,7 @@ gem 'bootstrap-sass', '~> 3.4.1'
 gem 'twitter-typeahead-rails'
 
 # Iconic font
-gem 'agric', github: 'ekylibre/agric', tag: 'v3.0.2'
+gem 'agric', '~> 4.1'
 
 # Web services
 gem 'mechanize'
@@ -222,6 +213,15 @@ gem 'luhn'
 # For interval selector
 gem 'bootstrap-slider-rails'
 
+gem 'gpgme'
+
+group :production do
+  # Use unicorn as the app server
+  gem 'unicorn'
+
+  gem 'loofah'
+end
+
 group :development do
   gem 'bullet', '< 5.6.0'
 
@@ -230,6 +230,8 @@ group :development do
 
   # Get the time of a process
   gem 'ruby-prof'
+
+  gem 'better_errors'
 
   # Code metrics
   gem 'rails_best_practices', require: false
@@ -267,11 +269,11 @@ group :test do
   gem 'database_cleaner'
 
   gem 'minitest-reporters'
-
-  gem 'pdf-reader'
+  gem 'ruby-terminfo'
 
   gem 'factory_bot', '< 5'
-  gem 'ruby-terminfo'
+
+  gem 'pdf-reader'
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles

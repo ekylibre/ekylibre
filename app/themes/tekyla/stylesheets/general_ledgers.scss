@@ -1,0 +1,105 @@
+.fixed-footer-line{
+  @include calc(width, "100% - #{$side-width}");
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  box-shadow: 0 -1px 15px 0 rgba(0, 0, 0, 0.3);
+  height: $fixed-footer-line-height;
+  border: none;
+  table {
+    th, td{
+      background-color: #E4E4E4;
+      font-weight: bold;
+    }
+  }
+}
+
+#subledger-journal-entry-items-totals {
+  td {
+    height: $fixed-footer-line-height;
+    line-height: $fixed-footer-line-height;
+    padding-top: 0;
+    padding-bottom: 0;
+    text-align: right;
+    vertical-align: middle;
+    border-left: 1px solid #E4E4E4;
+
+    &.smallcolumns{
+      background-color: white;
+    }
+  }
+}
+
+#subledger_accounts-list, #centralized_ledger_accounts-list {
+  th, td {
+    padding: 3px 5px;
+    &.monetary_column {
+      text-align: right;
+    }
+  }
+  td {
+    &.debitcolor {
+      background-color: $background-debit-balance;
+    }
+    &.creditcolor {
+      background-color: $background-credit-balance;
+    }
+  }
+}
+
+#subledger_journal_entry_items-list, #subledger-journal-entry-items-totals {
+  display: block;
+
+  thead tr, tbody tr {
+    display: flex;
+    align-items: stretch;
+    @include calc(width, "100vw - #{$side-width}");
+  }
+  thead th, tbody td {
+    padding: 3px 5px;
+    max-width: none;
+    &.hidden {
+      display: none;
+    }
+    &.smallcolumns {
+      flex: 0 0 6%;
+    }
+    &.mediumcolumns {
+      flex: 0 0 8%;
+    }
+    &.largecolumns {
+      flex: 0 0 13%;
+    }
+    &.entryname {
+      flex: 1 1 auto;
+    }
+    &.printed_on_column {
+      text-align: left;
+    }
+    &.monetary_column {
+      text-align: right;
+    }
+    &.totalscolumn {
+      flex: 1 1 auto;
+    }
+    &.letterscolumn {
+      text-align: center;
+    }
+  }
+
+  td {
+    &.debitcolor {
+      background-color: $background-debit-balance;
+    }
+    &.creditcolor {
+      background-color: $background-credit-balance;
+    }
+  }
+
+  tbody {
+    display: block;
+    overflow-y: auto;
+    @include calc(height, "100vh - #{$menu-border-width*3 + $fixed-footer-line-height + $lh-normal + round($fs-normal*0.2)*2 + $lh-normal + $button-vertical-padding*2 + $menu-border-width + round($default-gap * 0.6) + round($default-gap * 0.6) + $toolbar-height + $header-height + $topbar-height + $menu-border-width*6}");
+    @include calc(width, "100vw - #{$side-width}");
+  }
+}

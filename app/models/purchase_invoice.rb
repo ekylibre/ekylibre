@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -76,6 +77,7 @@ class PurchaseInvoice < Purchase
   scope :unpaid_and_not_empty, -> { where.not(affair: Affair.closeds.where("debit != 0 OR credit != 0")) }
   scope :current, -> { unpaid }
   scope :current_or_self, ->(purchase) { where(unpaid).or(where(id: (purchase.is_a?(Purchase) ? purchase.id : purchase))) }
+  scope :with_nature, ->(id) { where(nature_id: id) }
 
   protect on: :update, allow_update_on: %i[reference_number responsible_id invoiced_at payment_delay tax_payability description] do
     items.any? && !PurchaseInvoice.unpaid_and_not_empty.include?(self)
@@ -146,7 +148,7 @@ class PurchaseInvoice < Purchase
 
     # For undelivered invoice
     # exchange undelivered invoice from parcel
-    journal = unsuppress { Journal.used_for_unbilled_payables!(currency: currency) }
+    journal = Journal.used_for_unbilled_payables!(currency: currency)
     b.journal_entry(journal, printed_on: invoiced_on, as: :undelivered_invoice) do |entry|
       parcels.each do |parcel|
         next unless parcel.undelivered_invoice_journal_entry
@@ -161,7 +163,7 @@ class PurchaseInvoice < Purchase
 
     # For gap between parcel item quantity and purchase item quantity
     # if more quantity on purchase than parcel then i have value in D of stock account
-    journal = unsuppress { Journal.used_for_permanent_stock_inventory!(currency: currency) }
+    journal = Journal.used_for_permanent_stock_inventory!(currency: currency)
     b.journal_entry(journal, printed_on: invoiced_on, as: :quantity_gap_on_invoice, if: items.any?) do |entry|
       label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: supplier.full_name)
       items.each do |item|

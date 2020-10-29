@@ -1,10 +1,39 @@
-= kujaku do |k|
-  - k.text
-  - k.helper :journal_period_crit
-  - k.helper :journal_entries_states_crit
-  - k.helper :accounts_range_crit
-  - k.helper :journals_crit
-  - k.number :amount_range_crit
-  - k.multi_choice :lettering_state, [:lettered, :unlettered, :partially_lettered].map{ |s| [s.tl, s] }, label: :lettering_state.tl
+- financial_year = FinancialYear.find_by(id: params[:current_financial_year])
+- financial_year ||= FinancialYear.current
+- main_financial_year_selector(financial_year)
+- params[:period] = financial_year.started_on.to_s << '_' << financial_year.stopped_on.to_s
+- params[:current_financial_year] ||= financial_year.id
+- params[:accounts] = [Account.find_by(number: params[:account_number]).number]
 
-= main_list(:journal_entry_items)
+#general-ledger
+  - if params[:period]
+    = main_toolbar do |t|
+      = dropdown_menu_button(:export.ta, icon: :download) do |d|
+        - export_params = params.slice(:started_on, :stopped_on, :period, :states, :account_number, :accounts, :centralize, :lettering_state, :level_1, :level_2, :level_3, :level_4, :level_5, :level_6, :level_7, :level_8, :level_9, :level_10)
+        - d.item :export_as_ods.tl, params: export_params.merge(format: :ods)
+        - d.item :export_as_csv.tl, params: export_params.merge(format: :csv)
+        - d.item :export_as_xcsv.tl, params: export_params.merge(format: :xcsv)
+        - d.item :export_as_pdf.tl, params: export_params.merge(format: :pdf)
+
+  = kujaku actions: false do |k|
+    - k.helper :subledger_crit
+    - k.hidden :current_financial_year
+    - k.previous_navigation :previous_ledger, class: "btn btn-previous icn icn-before", params: params.slice(:current_financial_year, :ledger)
+    - k.next_navigation :next_ledger, class: "btn btn-next icn icn-after", params: params.slice(:current_financial_year, :ledger)
+
+
+  = main_list(:subledger_journal_entry_items)
+  - content_for 'meta_toolbar'.to_sym do
+    .active-list-actions
+      = mask_lettered_items_button 'journal_entry_items-list'
+      = mask_draft_items_button 'journal_entry_items-list'
+
+  = footer_line do
+    %table#subledger-journal-entry-items-totals
+      %tbody
+        %tr
+          %td.totalscolumn= :account_totals.tl
+          %td.smallcolumns= number_to_accountancy @calculations[0]
+          %td.smallcolumns= number_to_accountancy @calculations[1]
+          %td.smallcolumns= @calculations[2] >= 0 ? number_to_accountancy(@calculations[2]) : nil
+          %td.smallcolumns= @calculations[2] < 0 ? number_to_accountancy(@calculations[2].abs) : nil

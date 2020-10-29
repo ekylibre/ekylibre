@@ -24,14 +24,14 @@ FactoryBot.define do
     trait :client do
       client { true }
       after(:build) do |entity|
-        entity.client_account = Account.find_by!(number: '411')
+        entity.client_account = create :account, :client
       end
     end
 
     trait :supplier do
       supplier { true }
       after(:build) do |entity|
-        entity.supplier_account = Account.find_by!(number: '401')
+        entity.supplier_account = create :account, :supplier
       end
     end
 

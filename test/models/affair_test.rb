@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -104,8 +105,9 @@ class AffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     account = client.client_account
     subject = create(:sale_affair, client: client)
 
-    deal = create(:sale, nature: sale_natures(:sale_natures_001), affair: subject, state: 'draft')
+    deal = create(:sale, affair: subject, state: 'draft', invoiced_at: DateTime.new(2018, 1, 1))
     create :sale_item, sale: deal, tax: a_tax
+
     assert deal.invoice # bookkeep affair which creates its journal entry
 
     deal_entry_items_in_third_account = deal.journal_entry.items.select { |item| item.account == account }
@@ -125,7 +127,7 @@ class AffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     client = create(:entity, :client)
     subject = create(:sale_affair, client: client)
 
-    deal = create(:sale, nature: sale_natures(:sale_natures_001), affair: subject, state: 'draft')
+    deal = create(:sale, nature: sale_natures(:sale_natures_001), affair: subject, state: 'draft', invoiced_at: DateTime.new(2018, 1, 1))
     create :sale_item, sale: deal, tax: a_tax
     assert deal.invoice # bookkeep affair which creates its journal entry
 
@@ -141,6 +143,17 @@ class AffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
     assert_equal letter_on_first_save, subject.letter
     assert_equal lettered_items_on_first_save, JournalEntryItem.where(letter: [letter_on_first_save, letter_on_first_save + '*']).pluck(:id).to_set
+  end
+
+  test "updating a sale's client also changes the affair's third" do
+    client_one = create(:entity, :client, full_name: 'Duck Mirack')
+    client_two = create(:entity, :client, full_name: 'Nick Celio')
+
+    sale = create(:sale, client: client_one)
+    assert sale.affair.third, client_one
+
+    sale.update!(client: client_two)
+    assert sale.affair.third, client_two
   end
 
   # Check that affair of given sale is actually closed perfectly

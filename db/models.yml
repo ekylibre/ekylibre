@@ -62,6 +62,7 @@
 - event
 - event_participation
 - financial_year
+- financial_year_archive
 - financial_year_exchange
 - fixed_asset
 - fixed_asset_depreciation
@@ -111,9 +112,6 @@
 - manure_management_plan
 - manure_management_plan_zone
 - map_layer
-- master_equipment_cost
-- master_equipment_flow
-- master_equipment_nature
 - master_production_nature
 - master_production_output
 - matter
@@ -174,17 +172,16 @@
 - reception_item
 - registered_agroedi_code
 - registered_building_zone
+- registered_hydro_item
+- registered_legal_position
 - registered_pfi_crop
 - registered_pfi_dose
 - registered_pfi_target
-- registered_phytosanitary_phrase
 - registered_phytosanitary_product
 - registered_phytosanitary_risk
 - registered_phytosanitary_usage
 - registered_postal_zone
 - registered_seed
-- registered_water_lake
-- registered_water_river
 - regularization
 - role
 - sale

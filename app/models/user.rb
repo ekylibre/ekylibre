@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -319,7 +320,9 @@ class User < Ekylibre::Record::Base
   end
 
   def current_financial_year
-    return nil unless default_financial_year = FinancialYear.on(Date.current)
+    default_financial_year   = FinancialYear.on(Date.current)
+    default_financial_year ||= FinancialYear.closest(Date.current)
+    return nil unless default_financial_year
     preference = self.preference('current_financial_year', default_financial_year, :record)
     unless financial_year = preference.value
       financial_year = default_financial_year
@@ -352,6 +355,13 @@ class User < Ekylibre::Record::Base
     preference_name = options[:controller] || 'all'
     preference_name << ".#{options[:context]}" if options[:context]
     preference_name << '.lettered_items.masked'
+    preference(preference_name, false, :boolean).value
+  end
+
+  def mask_draft_items?(options = {})
+    preference_name = options[:controller] || 'all'
+    preference_name << ".#{options[:context]}" if options[:context]
+    preference_name << '.draft_items.masked'
     preference(preference_name, false, :boolean).value
   end
 

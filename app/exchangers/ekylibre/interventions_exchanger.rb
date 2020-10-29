@@ -148,8 +148,6 @@ module Ekylibre
           raise "Need a duration for intervention ##{r.intervention_number}"
         end
 
-        w.debug r.supports.inspect.red
-
         # Get supports
         # Supports are Product : LandParcel, Plant, Animal...link to Campaign and ActivityProduction
         r.production_supports = []
@@ -161,21 +159,22 @@ module Ekylibre
           p_ids = []
           r.supports.each do |support|
             # case A1 : CZ
-            if support.is_a?(CultivableZone) && r.target_variety && r.campaign
-              # find by variety, campaign and cultivable zone id
-              ap = ActivityProduction
-                  .of_campaign(r.campaign)
-                  .where(cultivable_zone: support)
-                  .of_cultivation_variety(r.target_variety)
-
-              # or find by variety, campaign and geolocation intersection
-              if ap.blank?
-                ap = ActivityProduction
-                    .support_shape_intersecting(support.shape)
-                    .of_campaign(r.campaign)
-                    .of_cultivation_variety(r.target_variety)
+            if support.is_a?(CultivableZone) && r.campaign
+              ap = ActivityProduction.of_campaign(r.campaign)
+              # find by variety, campaign and cultivable zone id or try to find by geolocation intersection
+              if r.target_variety
+                aps = ap.of_cultivation_variety(r.target_variety).where(cultivable_zone: support)
+                aps ||= ap.support_shape_intersecting(support.shape).of_cultivation_variety(r.target_variety)
               end
-              ps = ap.map(&:support)
+              # or try to find without variety if theres only one production for the current campaign and cultivable zone
+              if aps.blank? && ap.where(cultivable_zone: support).any? && ap.where(cultivable_zone: support).count == 1
+                aps = ap.where(cultivable_zone: support)
+              end
+              # or try to find with shape if theres only one production for the current campaign
+              if aps.blank? && ap.support_shape_intersecting(support.shape).any? && ap.support_shape_intersecting(support.shape).count == 1
+                aps = ap.support_shape_intersecting(support.shape)
+              end
+              ps = aps.map(&:support)
               w.info "case A1 : CZ #{ps}".inspect.blue
             # case A2 : Product
             elsif support.is_a?(Product) || support.is_a?(LandParcel)

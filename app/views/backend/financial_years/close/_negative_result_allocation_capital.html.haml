@@ -1,0 +1,6 @@
+%div.amount_allocated
+  = field :future_year_debit_balance.tl, number_field_tag('allocations[119]', (@result + @carry_forward_balance).abs, class: 'allocation debit_balance', step: :any, disabled: true)
+  %p.allocated-budget= :left_to_allocate.tl
+  %span.allocated-budget='xxxx€'
+  %p.allocated-budget='€'
+

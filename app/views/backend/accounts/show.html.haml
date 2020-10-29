@@ -29,10 +29,8 @@
   - c.cobble(:journal_entry_items) do
     = kujaku do |k|
       - k.text name: :b
-      - k.helper(:journal_period_crit, use_search_preference: true)
-      - k.helper(:journal_entries_states_crit, use_search_preference: true)
-
-
+      - k.helper :journal_period_crit, :period, use_search_preference: true
+      - k.helper :journal_entries_states_crit, use_search_preference: true
 
     - items = JournalEntryItem.joins([:entry]).joins('LEFT OUTER JOIN "product_nature_variants" ON "product_nature_variants"."id" = "journal_entry_items"."variant_id"').where(eval(controller.class.account_moves_conditions))
     - totals = {}

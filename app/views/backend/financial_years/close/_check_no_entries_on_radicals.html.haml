@@ -1,0 +1,10 @@
+- icon_class = success ? :correct : :wrong
+- message = success ? :radical_class_accounts_dont_have_entries : :radical_class_accounts_have_entries
+- unless success
+  - links = []
+  - financial_year.unbalanced_radical_account_classes_array.each do |rad_account|
+    - links << link_to(rad_account[:number], backend_account_path(id: rad_account[:id], period: rad_account[:period]), target: '_blank')
+%p
+  %i{class: "#{icon_class}-validation"}
+  = message.tl
+  = (:see_the_accounts.tl + ' ' + links.to_sentence).html_safe unless success

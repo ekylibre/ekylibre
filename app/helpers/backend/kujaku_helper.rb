@@ -32,7 +32,7 @@ module Backend
       end
       return '' unless k.feathers.any?
       collapsed = current_user.preference("interface.kujakus.#{k.uid}.collapsed", (options.key?(:collapsed) ? !!options[:collapsed] : true), :boolean).value
-      render('backend/shared/kujaku', kujaku: k, url: url, collapsed: collapsed, with_form: !options[:form].is_a?(FalseClass))
+      render('backend/shared/kujaku', kujaku: k, url: url, collapsed: collapsed, with_form: !options[:form].is_a?(FalseClass), with_actions: !options[:actions].is_a?(FalseClass))
     end
 
     class Kujaku
@@ -110,6 +110,16 @@ module Backend
           html << @template.content_tag(:label, @options[:label] || :maximum_amount.tl)
           html << ' '.html_safe
           html << @template.number_field_tag('maximum_amount', @template.params[:maximum_amount], min: 0, step: :any)
+        end
+      end
+
+      class HiddenFeather < Feather
+        def configure(*args)
+          @name = @options.delete(:name) || args.shift || :n
+        end
+
+        def to_html
+          @template.hidden_field_tag @name, @template.params[@name]
         end
       end
 
@@ -223,6 +233,10 @@ module Backend
         end
       end
 
+      class NavigationFeather < HelperFeather; end
+      class PreviousNavigationFeather < NavigationFeather; end
+      class NextNavigationFeather < NavigationFeather; end
+
       attr_reader :feathers, :template, :uid
       def initialize(template, uid)
         @template = template
@@ -232,6 +246,11 @@ module Backend
 
       def inspect
         "<#{self.class.name}##{@uid}>"
+      end
+
+      def visible_feathers
+        # TODO: Improve
+        feathers.reject { |f| f.class.name.demodulize =~ /^Hidden|PreviousNavigation|NextNavigation/ }
       end
 
       private

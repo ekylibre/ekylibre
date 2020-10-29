@@ -5,7 +5,8 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2019 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,32 +23,37 @@
 #
 # == Table: sale_items
 #
-#  account_id           :integer
-#  activity_budget_id   :integer
-#  amount               :decimal(19, 4)   default(0.0), not null
-#  annotation           :text
-#  codes                :jsonb
-#  compute_from         :string           not null
-#  created_at           :datetime         not null
-#  creator_id           :integer
-#  credited_item_id     :integer
-#  credited_quantity    :decimal(19, 4)
-#  currency             :string           not null
-#  id                   :integer          not null, primary key
-#  label                :text
-#  lock_version         :integer          default(0), not null
-#  position             :integer
-#  pretax_amount        :decimal(19, 4)   default(0.0), not null
-#  quantity             :decimal(19, 4)   default(1.0), not null
-#  reduction_percentage :decimal(19, 4)   default(0.0), not null
-#  sale_id              :integer          not null
-#  tax_id               :integer
-#  team_id              :integer
-#  unit_amount          :decimal(19, 4)   default(0.0), not null
-#  unit_pretax_amount   :decimal(19, 4)
-#  updated_at           :datetime         not null
-#  updater_id           :integer
-#  variant_id           :integer          not null
+#  account_id             :integer
+#  accounting_label       :string
+#  activity_budget_id     :integer
+#  amount                 :decimal(19, 4)   default(0.0), not null
+#  annotation             :text
+#  codes                  :jsonb
+#  compute_from           :string           not null
+#  created_at             :datetime         not null
+#  creator_id             :integer
+#  credited_item_id       :integer
+#  credited_quantity      :decimal(19, 4)
+#  currency               :string           not null
+#  depreciable_product_id :integer
+#  fixed                  :boolean          default(FALSE), not null
+#  fixed_asset_id         :integer
+#  id                     :integer          not null, primary key
+#  label                  :text
+#  lock_version           :integer          default(0), not null
+#  position               :integer
+#  preexisting_asset      :boolean
+#  pretax_amount          :decimal(19, 4)   default(0.0), not null
+#  quantity               :decimal(19, 4)   default(1.0), not null
+#  reduction_percentage   :decimal(19, 4)   default(0.0), not null
+#  sale_id                :integer          not null
+#  tax_id                 :integer
+#  team_id                :integer
+#  unit_amount            :decimal(19, 4)   default(0.0), not null
+#  unit_pretax_amount     :decimal(19, 4)
+#  updated_at             :datetime         not null
+#  updater_id             :integer
+#  variant_id             :integer          not null
 #
 
 class SaleItem < Ekylibre::Record::Base
@@ -59,8 +65,10 @@ class SaleItem < Ekylibre::Record::Base
   belongs_to :account
   belongs_to :activity_budget
   belongs_to :team
+  belongs_to :fixed_asset
   belongs_to :sale, inverse_of: :items
   belongs_to :credited_item, class_name: 'SaleItem'
+  belongs_to :depreciable_product, class_name: 'Product'
   belongs_to :variant, class_name: 'ProductNatureVariant'
   belongs_to :tax
   # belongs_to :tracking
@@ -89,10 +97,13 @@ class SaleItem < Ekylibre::Record::Base
   sums :sale, :items, :pretax_amount, :amount
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :accounting_label, length: { maximum: 500 }, allow_blank: true
   validates :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :annotation, :label, length: { maximum: 500_000 }, allow_blank: true
   validates :compute_from, :currency, :sale, :variant, presence: true
   validates :credited_quantity, :unit_pretax_amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  validates :fixed, inclusion: { in: [true, false] }
+  validates :preexisting_asset, inclusion: { in: [true, false] }, allow_blank: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :tax, presence: true
@@ -112,6 +123,12 @@ class SaleItem < Ekylibre::Record::Base
   scope :of_product_nature, lambda { |product_nature|
     joins(:variant).merge(ProductNatureVariant.of_natures(product_nature))
   }
+
+  scope :active, -> { includes(:sale).where.not(sales: { state: %i[refused aborted] }).order(created_at: :desc) }
+  scope :invoiced_on_or_after, -> (date) { includes(:sale).where("invoiced_at >= ? OR invoiced_at IS NULL", date) }
+  scope :fixed, -> { where(fixed: true) }
+  scope :linkable_to_fixed_asset, -> { active.fixed.where(fixed_asset_id: nil) }
+  scope :linked_to_fixed_asset, -> { active.where.not(fixed_asset_id: nil) }
 
   calculable period: :month, column: :pretax_amount, at: 'sales.invoiced_at', name: :sum, joins: :sale
 
@@ -171,6 +188,9 @@ class SaleItem < Ekylibre::Record::Base
   end
 
   after_save do
+    unlink_fixed_asset(attribute_was(:fixed_asset_id)) if attribute_was(:fixed_asset_id)
+    link_fixed_asset(fixed_asset_id) if fixed_asset_id
+
     next unless Preference[:catalog_price_item_addition_if_blank]
     %i[stock sale].each do |usage|
       # set stock catalog price if blank
@@ -180,8 +200,23 @@ class SaleItem < Ekylibre::Record::Base
     end
   end
 
+  after_destroy do
+    unlink_fixed_asset(attribute_was(:fixed_asset_id)) if attribute_was(:fixed_asset_id)
+  end
+
   protect(on: :update) do
-    !sale.draft?
+    return false if sale.draft?
+    authorized_columns = %w[fixed_asset_id depreciable_product_id updated_at]
+    (changes.keys - authorized_columns).any?
+  end
+
+  def unlink_fixed_asset(former_id)
+    # Instead of dependent: :nullify since we need to update more attributes than just the foreign key and it doesn't trigger callbacks
+    FixedAsset.find(former_id).update!(sale_id: nil, sale_item_id: nil, tax_id: nil, selling_amount: nil, pretax_selling_amount: nil, sold_on: nil)
+  end
+
+  def link_fixed_asset(fixed_asset_id)
+    FixedAsset.find(fixed_asset_id).update!(sale_id: sale.id, sale_item_id: id, tax_id: tax_id, selling_amount: amount, pretax_selling_amount: pretax_amount, sold_on: sale.invoiced_at&.to_date)
   end
 
   def reduction_coefficient
