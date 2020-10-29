@@ -1,9 +1,0 @@
-ARG IMAGE_SOURCE
-
-FROM ${IMAGE_SOURCE} AS files
-
-FROM abiosoft/caddy:no-stats
-
-RUN mkdir /app
-WORKDIR /app
-COPY --from=0 /app/public /app/

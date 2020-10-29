@@ -386,6 +386,14 @@ eng:
         decimal: "Decimal"
         integer: "Integer"
         unitary: "Unitary"
+      type:
+        VariantTypes::AnimalType: "Animals"
+        VariantTypes::ArticleType: "Articles"
+        VariantTypes::CropType: "Crops"
+        VariantTypes::EquipmentType: "Equipments"
+        VariantTypes::ServiceType: "Services"
+        VariantTypes::WorkerType: "Workers"
+        VariantTypes::ZoneType: "Zones"
     product_nature_category:
       pictogram:
         bank: "Bank"
@@ -433,10 +441,30 @@ eng:
         user: "User"
         wheat: "Wheat"
         wrench: "Wrench"
+      type:
+        VariantCategories::AnimalCategory: "Animals"
+        VariantCategories::ArticleCategory: "Articles"
+        VariantCategories::CropCategory: "Crops"
+        VariantCategories::EquipmentCategory: "Equipments"
+        VariantCategories::ServiceCategory: "Services"
+        VariantCategories::WorkerCategory: "Workers"
+        VariantCategories::ZoneCategory: "Zones"
     product_nature_category_taxation:
       usage:
         purchase: "Purchase"
         sale: "Sale"
+    product_nature_variant:
+      type:
+        Variants::AnimalVariant: "Animals"
+        Variants::Articles::FertilizerArticle: "Fertilizers"
+        Variants::Articles::PlantMedicineArticle: "Plant medicines"
+        Variants::Articles::SeedAndPlantArticle: "Seeds and plants"
+        Variants::ArticleVariant: "Articles"
+        Variants::CropVariant: "Crops"
+        Variants::EquipmentVariant: "Equipments"
+        Variants::ServiceVariant: "Services"
+        Variants::WorkerVariant: "Workers"
+        Variants::ZoneVariant: "Zones"
     product_nature_variant_reading:
       indicator_datatype:
         boolean: "Boolean"

@@ -1,10 +1,18 @@
 (function () {
-
   // Sets the time of the selected date if the
   function handleSelectDate() {
     const element = document.querySelector('#sale_invoiced_at')
-    const flatInstance = element._flatpickr
 
+    if (element) {
+      const flatInstance = element._flatpickr
+
+      if (flatInstance) {
+        configureFlatpickr(element, flatInstance)
+      }
+    }
+  }
+
+  function configureFlatpickr(element, flatInstance) {
     let lastValue
     flatInstance.set('onOpen', function (selectedDates) {
       lastValue = selectedDates[0]
@@ -28,6 +36,7 @@
 
       lastValue = selectedDate
     })
+
   }
 
   document.addEventListener('DOMContentLoaded', handleSelectDate)

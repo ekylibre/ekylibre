@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 set -e
 
-until nc -z -v -w30 ${POSTGRES_HOST} 5432
-do
-  echo 'Waiting for PostgreSQL...'
+trap "exit 0" SIGTERM
+
+RETRIES=300 # 5 minutes
+until psql "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}/${POSTGRES_DB}" -c "select 1" > /dev/null 2>&1 || [ $RETRIES -eq 0 ]; do
+  echo "Waiting for postgres server, $((RETRIES--)) remaining attempts..."
   sleep 1
 done
-echo "PostgreSQL is up and running"
 
 if [[ $# -gt 0 ]]; then
-    $*
+    exec "$*"
 fi

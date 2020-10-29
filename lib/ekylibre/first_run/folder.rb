@@ -64,10 +64,14 @@ module Ekylibre
         default_datasets.each do |dataset|
           next if @defaults[dataset].is_a?(FalseClass)
           puts "Load default #{dataset}..."
-          model = dataset.to_s.classify.constantize
+          model = default_dataset_model(dataset)
           model.load_defaults(**options, preferences: @preferences)
           @progress.increment!
         end
+      end
+
+      def default_dataset_model(dataset)
+        dataset.to_s.classify.constantize
       end
 
       # Load company informations (entity) and its activities
@@ -124,7 +128,8 @@ module Ekylibre
       def default_datasets
         %i[sequences accounts document_templates taxes journals cashes
            sale_natures purchase_natures incoming_payment_modes
-           outgoing_payment_modes product_nature_variants map_layers naming_format_land_parcels]
+           outgoing_payment_modes product_natures product_nature_categories
+           product_nature_variants map_layers naming_format_land_parcels]
       end
 
       protected

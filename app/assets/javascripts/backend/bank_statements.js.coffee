@@ -60,29 +60,21 @@
 
   $(document).on "change", "#set_period", (event) ->
     matches = event.target.value.match(/\d+-\d+-\d+/g)
-    if matches.length < 2
+    if matches.length != 2
       return
-    dates = {date1: new Date(matches[0]), date2: new Date(matches[1])}
 
-    current_params = document.location.search
+    start = moment(matches[0]).format('YYYY-MM-DD')
+    end = moment(matches[1]).format('YYYY-MM-DD')
 
-    start = dates.date1
-    start = "period_start=#{start.getFullYear()}-#{start.getMonth()+1}-#{start.getDate()}"
-    param_space = new RegExp("(&|\\?)period_start=[^\&]*")
-    if param_space.exec(current_params)
-      current_params = current_params.replace(param_space, "$1" + start)
-    else
-      current_params += (if current_params.length > 0 then '&' else '?') + start
+    url = new URL(location.href)
+    url.searchParams.set('period_start', start)
+    url.searchParams.set('period_end', end)
 
-    end = dates.date2
-    end = "period_end=#{end.getFullYear()}-#{end.getMonth()+1}-#{end.getDate()}"
-    param_space = new RegExp("(&|\\?)period_end=[^\&]*")
-    if param_space.exec(current_params)
-      current_params = current_params.replace(param_space, "$1" + end)
-    else
-      current_params += (if current_params.length > 0 then '&' else '?') + end
+    urlStr = url.toString()
 
-    document.location.search = current_params
+    if location.href != urlStr
+      location.href = urlStr
+
 
   class BankReconciliation
     constructor: (@precision) ->
@@ -302,7 +294,7 @@
 
     _showOrHideNewPaymentButtons: ->
       selectedBankStatements = @_bankStatementLines().filter(".selected")
-      selectedJournalItems   = @_journalEntryLines().filter(".selected")
+      selectedJournalItems = @_journalEntryLines().filter(".selected")
       if selectedBankStatements.length > 0
         @_updateIdsInButtons()
         @_setButtonActiveState $("a.from-selected-bank"), true
@@ -425,7 +417,7 @@
       $(".reconciliation-item[data-type=journal_entry_item]")
 
     _filterLinesBy: (lines, filters) ->
-      { date, debit, credit } = filters
+      {date, debit, credit} = filters
       lines.filter (i, e) =>
         return if @_dateForLine($(e)) isnt date
         @_debitForLine($(e)) is debit && @_creditForLine($(e)) is credit

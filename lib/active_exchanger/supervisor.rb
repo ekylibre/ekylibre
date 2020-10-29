@@ -1,6 +1,6 @@
 module ActiveExchanger
   class Supervisor
-    attr_reader :color, :cursor
+    attr_reader :color, :cursor, :errors
 
     def initialize(mode = :normal, &block)
       if block_given?
@@ -12,6 +12,7 @@ module ActiveExchanger
       @count = nil
       @color = :green
       @cursor = 0
+      @errors = []
     end
 
     def count=(value)
@@ -66,6 +67,8 @@ module ActiveExchanger
     end
 
     def error(msg)
+      @errors << msg
+
       print("\n" + 'ERROR'.red + ': ' + msg) if verbose?
       Rails.logger.error(msg)
     end

@@ -2,7 +2,7 @@ require 'test_helper'
 
 module Backend
   class ProductNatureCategoriesControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
-    test_restfully_all_actions
+    test_restfully_all_actions except: :edit
 
     # TODO: Re-activate following test
 

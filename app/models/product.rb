@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2015-2020 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -259,9 +259,9 @@ class Product < Ekylibre::Record::Base
   }
 
   # scope :saleables, -> { joins(:nature).where(:active => true, :product_natures => {:saleable => true}) }
-  scope :saleables, -> { joins(:nature).merge(ProductNature.saleables) }
-  scope :deliverables, -> { joins(:nature).merge(ProductNature.stockables) }
-  scope :depreciables, -> { joins(:nature).merge(ProductNature.depreciables) }
+  scope :saleables, -> { joins(:category).merge(ProductNatureCategory.saleables) }
+  scope :deliverables, -> { joins(:category).merge(ProductNatureCategory.stockables) }
+  scope :depreciables, -> { joins(:category).merge(ProductNatureCategory.depreciables) }
   scope :production_supports, -> { where(variety: ['cultivable_zone']) }
   scope :supportables, -> { of_variety(%i[cultivable_zone animal_group equipment]) }
   scope :supporters, -> { where(id: ActivityProduction.pluck(:support_id)) }
@@ -314,8 +314,7 @@ class Product < Ekylibre::Record::Base
   validates :category, :nature, :variant, :variety, presence: true
   # ]VALIDATORS]
   validates :derivative_of, :variety, length: { allow_nil: true, maximum: 120 }
-  validates :nature, :variant, :name, :uuid, presence: true
-  validates :nature, match: { with: :variant }
+  validates :uuid, presence: true
   validates_attachment_content_type :picture, content_type: /image/
 
   validate :born_at_in_interventions, if: ->(product) { product.born_at? && product.interventions_used_in.pluck(:started_at).any? }
@@ -450,6 +449,10 @@ class Product < Ekylibre::Record::Base
 
   def activity_id
     activity ? activity.id : nil
+  end
+
+  def activity_name
+    activity ? activity.name : nil
   end
 
   def best_activity_production(_options = {})
@@ -587,8 +590,8 @@ class Product < Ekylibre::Record::Base
       if derivative_of.blank? && variant.derivative_of.present?
         self.derivative_of = variant.derivative_of
       end
+      self.category_id = variant.category_id
     end
-    self.category_id = nature.category_id if nature
   end
 
   # Update nature and variety and variant from phase
@@ -601,8 +604,8 @@ class Product < Ekylibre::Record::Base
       if derivative_of.blank? && !phase_variant.derivative_of.nil?
         self.derivative_of = phase_variant.derivative_of
       end
+      self.category_id = phase_variant.category_id
     end
-    self.category_id = nature.category_id if nature
   end
 
   def initial_reading(indicator_name)

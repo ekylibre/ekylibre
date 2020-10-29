@@ -1,0 +1,11 @@
+= kujaku do |k|
+  - k.text
+  - k.choice :all, :active, :inactive
+
+- main_toolbar do |t|
+  = t.pick params: { redirect: backend_product_natures_path, selector_label: :product_nature.tl }
+  = t.new params: { controller: '/backend/product_natures' }
+  - %w[article animal crop equipment service worker zone].each do |nature|
+    = link_to nature.pluralize.tl, send("backend_variant_types_#{nature}_types_path"), class: 'btn btn-default'
+
+= main_list "constant_name" => "VariantTypes::#{controller_name.classify}"

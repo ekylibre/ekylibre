@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2015-2020 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -87,22 +87,43 @@ class Import < Ekylibre::Record::Base
     ImportRunJob.perform_later(id)
   end
 
+  def run(&block)
+    run_result(&block).to_bool
+  end
   # Run an import.
-  # The optional code block permit have access to progression on each check point
-  def run(options = {})
+  # The optional code block allows have access to progression on each check point
+  def run_result(&block)
     FileUtils.mkdir_p(progress_file.dirname)
     update_columns(state: :in_progress, progression_percentage: 0)
     File.write(progress_file, 0.to_s)
-    Ekylibre::Record::Base.transaction do
-      ActiveExchanger::Base.find_and_import(nature.to_sym, archive.path, options.merge(import_id: self.id)) do |progression, count|
-        update_columns(progression_percentage: progression)
-        raise InterruptRequest unless File.exist? progress_file
-        File.write(progress_file, progression.to_i.to_s)
-        break if block_given? && !yield(progression, count)
-      end
+
+    import_options = options || {}
+    import_options = import_options.merge(import_id: id)
+
+    result = ActiveExchanger::Base.run(nature, archive.path, options: import_options) do |progression, count|
+      update_columns(progression_percentage: progression)
+      File.write(progress_file, progression.to_i.to_s)
+      block.call(progression, count) if block.present?
     end
-    raise InterruptRequest unless File.exist? progress_file
-    update_columns(state: :finished, progression_percentage: 100, imported_at: Time.zone.now, importer_id: (User.stamper.is_a?(User) ? User.stamper.id : User.stamper.is_a?(Integer) ? User.stamper : nil))
+
+    importer_id = if User.stamper.is_a?(User)
+                    User.stamper.id
+                  elsif User.stamper.is_a?(Integer)
+                    User.stamper
+                  else
+                    nil
+                  end
+
+    case result.state
+      when :success
+        update(state: :finished, progression_percentage: 100, imported_at: Time.zone.now, importer_id: importer_id)
+      when :aborted
+        update(state: :aborted)
+      else # when :failure + other cases that should not happen
+        update(state: :errored)
+    end
+
+    result
   end
 
   def progress_file

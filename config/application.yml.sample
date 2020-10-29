@@ -3,6 +3,7 @@ DEVISE_SECRET_KEY: cbfa6828e7f6f052484db145404f9b00bf3ba234fedcbb1db9c79b85c8f02
 MAILER_SENDER: sender-is-not-defined@example.org
 SECRET_KEY_BASE: c4b280c6d3e57376151af41fbc69a5609a89c851b92da6c41216b7ed38323dde698f67d4d66f5aa0e9f1442bdae2a161e031a7b61fd68995b5a4ea37075dfd88
 HOST_DOMAIN_NAME: example.org
+GPG_EMAIL: test-key@ekylibre.org
 
 # APM configuration
 APM_SERVICE_NAME: Ekylibre

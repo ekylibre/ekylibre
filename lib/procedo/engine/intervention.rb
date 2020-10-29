@@ -101,6 +101,10 @@ module Procedo
         @root_group.parameters_of_name(name.to_sym)
       end
 
+      def parameters_of_type(type)
+        @root_group.parameters_of_type(type.to_sym)
+      end
+
       # Impact changes
       def impact_with!(steps)
         steps = steps.to_s.split(/[\[\]]+/) unless steps.is_a?(Array)

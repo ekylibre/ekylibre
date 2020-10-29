@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2015-2020 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -53,10 +53,14 @@
 
 class ProductNatureVariant < Ekylibre::Record::Base
   include Attachable
+  include Autocastable
   include Customizable
+  include Importable
+
   attr_readonly :number
   refers_to :variety
   refers_to :derivative_of, class_name: 'Variety'
+  enumerize :type, in: %w[Animal Article Crop Equipment Service Worker Zone].map { |t| "Variants::#{t}Variant" } + %w[Fertilizer PlantMedicine SeedAndPlant].map { |t| "Variants::Articles::#{t}Article" }
   belongs_to :nature, class_name: 'ProductNature', inverse_of: :variants
   belongs_to :category, class_name: 'ProductNatureCategory', inverse_of: :variants
   has_many :catalog_items, foreign_key: :variant_id, dependent: :destroy
@@ -108,11 +112,11 @@ class ProductNatureVariant < Ekylibre::Record::Base
   validates_associated :components
 
   scope :availables, -> { where(nature_id: ProductNature.availables).order(:name) }
-  scope :saleables, -> { joins(:nature).merge(ProductNature.saleables) }
-  scope :purchaseables, -> { joins(:nature).merge(ProductNature.purchaseables) }
-  scope :deliverables, -> { joins(:nature).merge(ProductNature.stockables) }
-  scope :stockables_or_depreciables, -> { joins(:nature).merge(ProductNature.stockables_or_depreciables).order(:name) }
-  scope :depreciables, -> { joins(:nature).merge(ProductNature.depreciables).order(:name) }
+  scope :saleables, -> { joins(:category).merge(ProductNatureCategory.saleables) }
+  scope :purchaseables, -> { joins(:category).merge(ProductNatureCategory.purchaseables) }
+  scope :deliverables, -> { joins(:category).merge(ProductNatureCategory.stockables) }
+  scope :stockables_or_depreciables, -> { joins(:category).merge(ProductNatureCategory.stockables_or_depreciables).order(:name) }
+  scope :depreciables, -> { joins(:category).merge(ProductNatureCategory.depreciables).order(:name) }
   scope :identifiables, -> { where(nature: ProductNature.identifiables) }
   scope :services, -> { where(nature: ProductNature.services) }
   scope :tools, -> { where(nature: ProductNature.tools) }
@@ -155,7 +159,6 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   before_validation on: :create do
     if ProductNatureVariant.any?
-      self.category = nature.category if nature
       if category
         num = ProductNatureVariant.order('number::INTEGER DESC').first.number.to_i.to_s.rjust(6, '0').succ
         if category.storable?
@@ -172,7 +175,6 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   before_validation do # on: :create
     if nature
-      self.category_id = nature.category_id
       self.nature_name ||= nature.name
       # self.variable_indicators ||= self.nature.indicators
       self.name ||= self.nature_name
@@ -180,10 +182,11 @@ class ProductNatureVariant < Ekylibre::Record::Base
       if derivative_of.blank? && nature.derivative_of
         self.derivative_of ||= nature.derivative_of
       end
-      if storable?
+      if category && storable?
         self.stock_account ||= create_unique_account(:stock)
         self.stock_movement_account ||= create_unique_account(:stock_movement)
       end
+      self.type ||= category.article_type || nature.variant_type
     end
   end
 
@@ -547,16 +550,23 @@ class ProductNatureVariant < Ekylibre::Record::Base
       unless nature_item = Nomen::ProductNature[item.nature]
         raise ArgumentError, "The nature of the product_nature_variant #{item.nature.inspect} is not known"
       end
+      unless Nomen::ProductNatureCategory[nature_item.category]
+        raise ArgumentError, "The category of the product_nature_variant #{nature_item.category.inspect} is not known"
+      end
       unless !force && (variant = ProductNatureVariant.find_by(reference_name: reference_name.to_s))
+        category = ProductNatureCategory.import_from_nomenclature(nature_item.category)
+        nature = ProductNature.import_from_nomenclature(item.nature)
         variant = new(
           name: item.human_name,
           active: true,
-          nature: ProductNature.import_from_nomenclature(item.nature),
+          nature: nature,
+          category: category,
           reference_name: item.name,
           unit_name: I18n.translate("nomenclatures.product_nature_variants.choices.unit_name.#{item.unit_name}"),
-          # :frozen_indicators => item.frozen_indicators_values.to_s,
           variety: item.variety || nil,
-          derivative_of: item.derivative_of || nil
+          derivative_of: item.derivative_of || nil,
+          type: category.article_type || nature.variant_type,
+          imported_from: 'Nomenclature'
         )
         unless variant.save
           raise "Cannot import variant #{reference_name.inspect}: #{variant.errors.full_messages.join(', ')}"
@@ -572,8 +582,55 @@ class ProductNatureVariant < Ekylibre::Record::Base
           variant.read!(indicator_name, i.second)
         end
       end
-
       variant
+    end
+
+    def import_from_lexicon(reference_name, force = false)
+      if RegisteredPhytosanitaryProduct.find_by_reference_name(reference_name)
+        return import_phyto_from_lexicon(reference_name)
+      end
+
+      unless item = Variant.find_by_reference_name(reference_name)
+        raise ArgumentError, "The product_nature_variant #{reference_name.inspect} is not known"
+      end
+      unless nature_item = VariantNature.find_by_reference_name(item.nature)
+        raise ArgumentError, "The nature of the product_nature_variant #{item.nature.inspect} is not known"
+      end
+      unless category_item = VariantCategory.find_by_reference_name(item.category)
+        raise ArgumentError, "The category of the product_nature_variant #{nature_item.category.inspect} is not known"
+      end
+      unless !force && variant = ProductNatureVariant.find_by_reference_name(reference_name)
+        category = ProductNatureCategory.import_from_lexicon(item.category)
+        nature = ProductNature.import_from_lexicon(item.nature)
+        type = item.sub_nature.present? ? "Variants::Articles::#{item.sub_nature.classify}Article" : nature.variant_type
+        variant = new(
+          name: item.name[I18n.locale.to_s] || item.reference_name.humanize,
+          active: true,
+          nature: nature,
+          category: category,
+          reference_name: item.reference_name,
+          unit_name: I18n.translate("nomenclatures.product_nature_variants.choices.unit_name.#{item.default_unit}"),
+          type: type,
+          imported_from: 'Lexicon'
+        )
+        unless variant.save
+          raise "Cannot import variant #{reference_name.inspect}: #{variant.errors.full_messages.join(', ')}"
+        end
+      end
+
+      if item.indicators.present?
+        item.indicators.each do |indicator, value|
+          next unless variant.has_indicator? indicator.to_sym
+          variant.read!(indicator.to_sym, value)
+        end
+      end
+      variant
+    end
+
+    def import_all_from_lexicon
+      Variant.find_each do |variant|
+        import_from_lexicon(variant.reference_name)
+      end
     end
 
     def load_defaults(options = {})
@@ -583,7 +640,52 @@ class ProductNatureVariant < Ekylibre::Record::Base
       variants_to_load.flatten.collect do |p|
         import_from_nomenclature(p.to_s)
       end
-
     end
+
+    def import_phyto_from_lexicon(reference_name)
+      item = RegisteredPhytosanitaryProduct.find_by_reference_name(reference_name)
+
+      unless variant = ProductNatureVariant.find_by_reference_name(reference_name)
+        category = ProductNatureCategory.import_from_lexicon(:plant_medicine)
+        nature = ProductNature.import_from_lexicon(:plant_medicine)
+        default_unit_name = item.usages.any? ? get_phyto_unit(item) : :liter
+
+        variant = new(
+            name: item.name.capitalize,
+            reference_name: item.reference_name,
+            active: true,
+            nature: nature,
+            france_maaid: item.france_maaid,
+            category: category,
+            unit_name: I18n.translate("nomenclatures.product_nature_variants.choices.unit_name.#{default_unit_name}"),
+            type: "Variants::Articles::PlantMedicineArticle",
+            imported_from: 'Lexicon'
+        )
+
+        unless variant.save
+          raise "Cannot import variant #{item.name.inspect}: #{variant.errors.full_messages.join(', ')}"
+        end
+      end
+      variant
+    end
+
+    def load_phyto_defaults(**_options)
+      RegisteredPhytosanitaryProduct.find_each do |phyto|
+        import_phyto_from_lexicon(phyto.reference_name)
+      end
+    end
+
+    protected
+
+      def get_phyto_unit(item)
+        dose_unit = item.usages.group(:dose_unit).order('count_id DESC').limit(1).count(:id).keys.first
+        return :liter unless dose_unit
+
+        if formatted_unit = dose_unit.match(/\A(\w+)_per_\w+/)
+          formatted_unit[1]
+        else
+          dose_unit
+        end
+      end
   end
 end

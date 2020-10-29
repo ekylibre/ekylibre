@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add staff supply stock account">
+  <item-creation item="accounts#staff_supply_stock" fr_pcga="3025" fr_pcg82="3025"/>
+</migration>

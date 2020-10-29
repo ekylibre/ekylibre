@@ -5789,7 +5789,9 @@ CREATE TABLE public.product_nature_categories (
     fixed_asset_depreciation_method character varying,
     custom_fields jsonb,
     stock_movement_account_id integer,
-    asset_fixable boolean DEFAULT false
+    asset_fixable boolean DEFAULT false,
+    type character varying NOT NULL,
+    imported_from character varying
 );
 
 
@@ -5996,7 +5998,10 @@ CREATE TABLE public.product_nature_variants (
     stock_account_id integer,
     stock_movement_account_id integer,
     france_maaid character varying,
-    providers jsonb
+    providers jsonb,
+    specie_variety character varying,
+    type character varying NOT NULL,
+    imported_from character varying
 );
 
 
@@ -6025,7 +6030,6 @@ ALTER SEQUENCE public.product_nature_variants_id_seq OWNED BY public.product_nat
 
 CREATE TABLE public.product_natures (
     id integer NOT NULL,
-    category_id integer NOT NULL,
     name character varying NOT NULL,
     number character varying NOT NULL,
     variety character varying NOT NULL,
@@ -6054,7 +6058,9 @@ CREATE TABLE public.product_natures (
     subscription_nature_id integer,
     subscription_years_count integer DEFAULT 0 NOT NULL,
     subscription_months_count integer DEFAULT 0 NOT NULL,
-    subscription_days_count integer DEFAULT 0 NOT NULL
+    subscription_days_count integer DEFAULT 0 NOT NULL,
+    type character varying NOT NULL,
+    imported_from character varying
 );
 
 
@@ -15943,13 +15949,6 @@ CREATE INDEX index_product_nature_variants_on_updater_id ON public.product_natur
 
 
 --
--- Name: index_product_natures_on_category_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_product_natures_on_category_id ON public.product_natures USING btree (category_id);
-
-
---
 -- Name: index_product_natures_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -19090,11 +19089,21 @@ INSERT INTO schema_migrations (version) VALUES ('20190710002904');
 
 INSERT INTO schema_migrations (version) VALUES ('20190712124724');
 
+INSERT INTO schema_migrations (version) VALUES ('20190715114423');
+
+INSERT INTO schema_migrations (version) VALUES ('20190716125202');
+
+INSERT INTO schema_migrations (version) VALUES ('20190716162315');
+
 INSERT INTO schema_migrations (version) VALUES ('20190718133342');
+
+INSERT INTO schema_migrations (version) VALUES ('20190719140916');
 
 INSERT INTO schema_migrations (version) VALUES ('20190726092304');
 
 INSERT INTO schema_migrations (version) VALUES ('20190807075910');
+
+INSERT INTO schema_migrations (version) VALUES ('20190808123912');
 
 INSERT INTO schema_migrations (version) VALUES ('20190808152235');
 

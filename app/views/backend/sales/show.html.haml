@@ -27,7 +27,7 @@
     - l.attribute :confirmed_at if resource.confirmed_at?
     - l.attribute :invoiced_at if resource.invoiced_at?
     - l.attribute :credited_sale, url: true if resource.invoice? and resource.credited_sale
-    - l.attribute :payment_delay, :label => :name
+    - l.attribute :payment_delay
     - l.attribute :nature
     - l.attribute :currency unless resource.currency == Preference[:currency]
     - l.attribute :description if resource.description?

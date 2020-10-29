@@ -1,0 +1,11 @@
+production:
+  adapter: postgis
+  encoding: unicode
+  pool: 5
+  postgis_extension: []
+  schema_search_path: public,postgis,lexicon
+
+  host: <%= ENV['POSTGRES_HOST'] %>
+  database: <%= ENV['POSTGRES_DB'] %>
+  username: <%= ENV['POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>

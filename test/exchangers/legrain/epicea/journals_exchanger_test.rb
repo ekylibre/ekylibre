@@ -4,7 +4,8 @@ module Legrain
   module Epicea
     class JournalsExchangerTest < ActiveExchanger::TestCase
       test 'import' do
-        Legrain::Epicea::JournalsExchanger.import(fixture_files_path.join('imports', 'legrain', 'epicea', 'journals.txt'))
+        result = Legrain::Epicea::JournalsExchanger.build(fixture_files_path.join('imports', 'legrain', 'epicea', 'journals.txt')).run
+        assert result.success?, [result.message, result.exception]
       end
     end
   end

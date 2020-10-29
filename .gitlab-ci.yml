@@ -1,10 +1,13 @@
 stages:
   - build
   - test
+  - review
 
 variables:
   TEST_IMAGE: ${CI_REGISTRY_IMAGE}/test:$CI_COMMIT_REF_SLUG
   TEST_LATEST: ${CI_REGISTRY_IMAGE}/test:latest
+  REVIEW_HOST: ${CI_BUILD_REF_SLUG}.ci.ekylibre.dev
+  KUBE_NAMESPACE: eky-test-deploy
 #  PROD_RAILS: ${CI_REGISTRY_IMAGE}/ekylibre-rails:$CI_COMMIT_REF_SLUG
 #  PROD_RAILS_LATEST: ${CI_REGISTRY_IMAGE}/ekylibre-rails:latest
 #  PROD_WEB: ${CI_REGISTRY_IMAGE}/ekylibre-web:$CI_COMMIT_REF_SLUG
@@ -17,6 +20,7 @@ variables:
 build_test:
   image: registry.gitlab.com/ekylibre/docker-base-images/tools/deploy:1
   stage: build
+  interruptible: true
   except:
     - tags
   services:
@@ -26,36 +30,76 @@ build_test:
   script:
     - /exec ruby /build.rb -v -r $CI_COMMIT_REF_SLUG -b $CI_REGISTRY_IMAGE -f docker/test/Dockerfile -i test
 
-#build-prod:
-#  stage: build
-#  variables:
-#    RUBY_VERSION: "2.3"
-#  before_script:
-#    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-#    - docker pull "$PROD_RAILS" || true
-#    - docker pull "$PROD_RAILS_LATEST" || true
-#    - docker pull "$PROD_WEB" || true
-#    - docker pull "$PROD_WEB_LATEST" || true
-#  script:
-#    # Build
-#    - docker build --pull --build-arg RUBY_VERSION
-#        --cache-from "$PROD_RAILS_LATEST" --cache-from "$PROD_RAILS"
-#        -t $PROD_RAILS
-#        -f docker/prod/Dockerfile.base .
-#    - docker build --build-arg IMAGE_SOURCE="${PROD_RAILS}"
-#        --cache-from "$PROD_RAILS_LATEST" --cache-from "$PROD_RAILS"
-#        -t $PROD_RAILS_LATEST -t $PROD_RAILS
-#        -f docker/prod/Dockerfile.prod docker/prod
-#    - docker build --build-arg IMAGE_SOURCE="${PROD_RAILS}"
-#        --cache-from "$PROD_WEB" --cache-from "$PROD_WEB_LATEST"
-#        --cache-from "$PROD_RAILS_LATEST" --cache-from "$PROD_RAILS"
-#        -t $PROD_WEB -t $PROD_WEB_LATEST
-#        -f docker/prod/Dockerfile.web docker/prod
-#    # Push
-#    - docker push $PROD_RAILS
-#    - docker push $PROD_RAILS_LATEST
-#    - docker push $PROD_WEB
-#    - docker push $PROD_WEB_LATEST
+build_ci:
+  image: registry.gitlab.com/ekylibre/docker-base-images/tools/deploy:1
+  stage: build
+  when: manual
+  only:
+    - branches
+  variables:
+    RUBY_VERSION: "2.3"
+  services:
+    - docker:18-dind
+  before_script:
+    - apk add openssh-client
+    - /install-ssh-key $PLUGIN_SSH_KEY
+    - echo "${CI_BUILD_TOKEN}" | docker login --username $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
+  script:
+    - for plugin in $EKYLIBRE_PLUGINS; do echo "git@gitlab.com:ekylibre/ekylibre-${plugin}.git" && git clone "git@gitlab.com:ekylibre/ekylibre-${plugin}.git" "plugins/${plugin}"; done
+    - /exec ruby /build.rb -v -r $CI_COMMIT_REF_SLUG -b $CI_REGISTRY_IMAGE -f docker/prod/Dockerfile -i ci-rails-aio-2.3
+
+
+.review_key: &REVIEW_KEY
+  name: review/eky/$CI_BUILD_REF_NAME
+
+.review_branches: &REVIEW_BRANCHES
+  only:
+    - branches
+  except:
+    - prod
+    - core
+
+.default_review: &DEFAULT_REVIEW
+  <<: *REVIEW_BRANCHES
+  environment:
+    <<: *REVIEW_KEY
+    url: https://$REVIEW_HOST
+    on_stop: review_stop
+
+review_start:
+  <<: *DEFAULT_REVIEW
+  stage: review
+  dependencies:
+    - build_ci
+  image: registry.gitlab.com/ekylibre/helm-charts/ci-tool:master
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - (cd /apps/eky-ci && helm dep update)
+    - helm tiller run "$KUBE_NAMESPACE" -- helm upgrade
+      --install
+      --namespace "$KUBE_NAMESPACE"
+      --set eky.image.tag=$CI_COMMIT_REF_SLUG
+      --set eky.postgres.database=$CI_COMMIT_REF_SLUG
+      --set eky.ingress.domain=${REVIEW_HOST}
+      --set eky.rails.init.tenants[0]=demo1
+      --set eky.rails.load.tenants[0]=demo
+      --set eky.rails.load.lexicon=true
+      ci-eky-${CI_COMMIT_REF_SLUG} /apps/eky-ci
+  when: manual
+
+review_stop:
+  <<: *REVIEW_BRANCHES
+  environment:
+    <<: *REVIEW_KEY
+    action: stop
+  stage: review
+  image: registry.gitlab.com/ekylibre/docker-base-images/tools/deploy:1
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - helm tiller run "$KUBE_NAMESPACE" -- helm delete --purge ci-eky-${CI_COMMIT_REF_SLUG}
+  when: manual
 
 
 #########################################
@@ -75,6 +119,8 @@ build_test:
   services:
     - mdillon/postgis:9.6-alpine
     - redis:5.0-alpine
+  dependencies:
+    - build_test
   except:
     - tags
   tags:

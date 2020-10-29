@@ -13,8 +13,14 @@
       = select_tag(:nature_id, options_for_select([[]] + natures.order(:name).collect{|u| [u.name, u.id]}, params[:nature_id]))
 
 - main_toolbar do |t|
-  -# t.new
-  - if ProductNatureVariant.any_reference_available?
-    = t.pick params: { selector_label: :product_variant.tl }
+  = t.pick params: { redirect: backend_product_nature_variants_path, selector_label: :product_variant.tl }
+  = t.new params: { controller: '/backend/product_nature_variants', subdivision: controller_name }
+
+  = dropdown_menu_button(:articles.tl, class: 'no-right-margin') do |d|
+    - %w[fertilizer plant_medicine seed_and_plant].each do |sub_nature|
+      - d.item sub_nature.pluralize.tl, { controller: "/backend/variants/articles/#{sub_nature}_articles", action: :index }
+    - d.item :others.tl, { controller: '/backend/variants/article_variants', action: :index }
+  - %w[animal crop equipment service worker zone].each do |nature|
+    = link_to nature.pluralize.tl, send("backend_variants_#{nature}_variants_path"), class: 'btn btn-default'
 
 = main_list

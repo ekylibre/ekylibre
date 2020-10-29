@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-echo "== STARTING UNICORN... =="
-bundle exec unicorn -c config/unicorn.rb
+bundle exec rake db:migrate
+
+echo "== STARTING PROCODILE... =="
+exec procodile start -f

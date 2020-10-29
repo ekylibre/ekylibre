@@ -36,6 +36,8 @@ module Ekylibre
           end
         end
       end
+
+      true
     end
   end
 end

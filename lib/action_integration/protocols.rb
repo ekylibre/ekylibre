@@ -13,7 +13,7 @@ module ActionIntegration
       # Delegating all the request methods from ActionIntegration to its Call object.
       protocol.instance_methods.each do |method|
         delegate method, to: :call
-        Rails.logger.info "Caller method ##{method} delegated to Call object."
+        #Rails.logger.info "Caller method ##{method} delegated to Call object."
       end
     end
 

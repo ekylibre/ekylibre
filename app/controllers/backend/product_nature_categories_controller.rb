@@ -18,31 +18,37 @@
 
 module Backend
   class ProductNatureCategoriesController < Backend::BaseController
-    manage_restfully active: true, pictogram: :undefined
+    include Pickable
 
-    manage_restfully_incorporation
+    manage_restfully except: %i[edit update], active: true, pictogram: :undefined
+
+    importable_from_lexicon :variant_categories
 
     unroll
 
-    list do |t|
-      t.action :new, on: :none
-      t.action :edit
-      t.action :destroy, if: :destroyable?
-      t.column :name, url: true
+    def self.categories_conditions
+      code = search_conditions(product_nature_categories: %i[name number]) + " ||= []\n"
+      code << "c\n"
+      code.c
+    end
+
+    list(conditions: categories_conditions) do |t|
+      t.action :edit, url: { controller: '/backend/product_nature_categories' }
+      t.action :destroy, url: { controller: '/backend/product_nature_categories' }, if: :destroyable?
+      t.column :name, url: { controller: '/backend/product_nature_categories' }
       t.column :saleable, hidden: true
-      t.column :product_account, if: :saleable?, url: true
+      t.column :product_account, if: :saleable?, url: { controller: '/backend/accounts' }
       t.column :purchasable, hidden: true
-      t.column :charge_account, if: :purchasable?, url: true
+      t.column :charge_account, if: :purchasable?, url: { controller: '/backend/accounts' }
       t.column :storable, hidden: true
-      t.column :stock_account, if: :storable?, url: true
+      t.column :stock_account, if: :storable?, url: { controller: '/backend/accounts' }
       t.column :depreciable, hidden: true
-      t.column :fixed_asset_account, if: :depreciable?, url: true
-      t.column :natures_count, hidden: true
+      t.column :fixed_asset_account, if: :depreciable?, url: { controller: '/backend/accounts' }
       t.column :variants_count, hidden: true
     end
 
     list(:products, conditions: { category_id: 'params[:id]'.c }, order: { born_at: :desc }) do |t|
-      t.column :name, url: true
+      t.column :name, url: { controller: '/backend/products' }
       t.column :identification_number
       t.column :born_at
       t.column :net_mass
@@ -50,16 +56,26 @@ module Backend
       t.column :population
     end
 
-    list(:product_natures, conditions: { category_id: 'params[:id]'.c }, order: :name) do |t|
-      t.action :edit
-      t.action :destroy, if: :destroyable?
-      t.column :name, url: true
-      t.column :variety
-    end
-
     list(:taxations, model: :product_nature_category_taxations, conditions: { product_nature_category_id: 'params[:id]'.c }, order: :id) do |t|
       t.column :tax, url: true
       t.column :usage
+    end
+
+    def edit
+      @product_nature_category = find_and_check
+      @form_url = backend_product_nature_category_path(@product_nature_category)
+      @key = 'product_nature_category'
+      t3e(@product_nature_category.attributes)
+    end
+
+    def update
+      return unless @product_nature_category = find_and_check(:product_nature_category)
+      t3e(@product_nature_category.attributes)
+      @product_nature_category.attributes = permitted_params
+      return if save_and_redirect(@product_nature_category, url: params[:redirect] || ({ action: :show, id: 'id'.c }), notify: (params[:redirect] ? :record_x_updated : false), identifier: :name)
+      @form_url = backend_product_nature_category_path(@product_nature_category)
+      @key = 'product_nature_category'
+      render(locals: { cancel_url: {:action=>:index}, with_continue: false })
     end
   end
 end

@@ -1,5 +1,7 @@
 module Ekylibre
   class PurchasesExchanger < ActiveExchanger::Base
+    self.deprecated = true
+
     def initialize(file, supervisor, options = {})
       super file, supervisor
       @attachments_dir = options['attachments_path']
@@ -128,16 +130,21 @@ module Ekylibre
             attrs[:saleable] = true if attrs[:product_account]
             attrs[:purchasable] = true if attrs[:charge_account]
             attrs[:depreciable] = true if attrs[:fixed_asset_account]
+            attrs[:type] = variant.type.gsub /Variant/, 'Category'
             unless category = ProductNatureCategory.find_by(attrs)
               category = ProductNatureCategory.create!(attrs.merge(active: true, pictogram: :undefined))
             end
             attrs[:variety] = r.variant[:variety] || :product
-            # puts r.variant[:variety].inspect.red
-            unless nature = category.natures.first
-              nature = category.natures.create!(name: attrs[:name], variety: attrs[:variety], population_counting: :decimal)
-            end
+
+            n_attrs[:name] = attrs[:name]
+            n_attrs[:variety] = attrs[:variety]
+            n_attrs[:population_counting] = :decimal
+            n_attrs[:type] = variant.type.gsub /Variant/, 'Type'
+            nature = ProductNature.find_or_create_by!(n_attrs)
+
             unless variant = nature.variants.first
-              variant = nature.variants.create!(name: attrs[:name], variety: attrs[:variety], unit_name: 'Unit')
+              type = category.article_type || nature.variant_type
+              variant = nature.variants.create!(name: attrs[:name], variety: attrs[:variety], unit_name: 'Unit', category: category, type: type)
             end
           end
         end

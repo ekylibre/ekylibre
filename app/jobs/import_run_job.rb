@@ -22,15 +22,23 @@
 class ImportRunJob < ActiveJob::Base
   queue_as :default
 
+  def safe_perform(import)
+    begin
+      import.run_result
+    rescue StandardError => e
+      ActiveExchanger::Result.failed('Unknown error while running job', exception: e)
+    end
+  end
+
   def perform(import_id)
     import = Import.find(import_id)
-    begin
-      import.run
+    result = safe_perform(import)
+    if result.success?
       import.notify(:import_finished_successfully)
-    rescue => e
-      import.update_columns(state: e.is_a?(Import::InterruptRequest) ? :aborted : :errored)
-      import.notify(:import_failed, { message: e.message }, level: :error)
-      raise e
+    else
+      import.notify(:import_failed, { message: result.message }, level: :error)
+
+      raise result.exception if result.exception.present?
     end
   end
 end

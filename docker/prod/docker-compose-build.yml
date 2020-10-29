@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+  rails:
+    build:
+      dockerfile: docker/prod/Dockerfile
+      context: ../..
+      target: rails
+      cache_from:
+        - ${RAILS_IMAGE:?RAILS_IMAGE is not set or empty}
+    image: ${RAILS_IMAGE:?RAILS_IMAGE is not set or empty}

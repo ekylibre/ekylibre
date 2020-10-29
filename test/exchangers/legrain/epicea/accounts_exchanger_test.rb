@@ -4,7 +4,8 @@ module Legrain
   module Epicea
     class AccountsExchangerTest < ActiveExchanger::TestCase
       test 'import' do
-        Legrain::Epicea::AccountsExchanger.import(fixture_files_path.join('imports', 'legrain', 'epicea', 'accounts.txt'))
+        result = Legrain::Epicea::AccountsExchanger.build(fixture_files_path.join('imports', 'legrain', 'epicea', 'accounts.txt')).run
+        assert result.success?, [result.message, result.exception]
       end
     end
   end

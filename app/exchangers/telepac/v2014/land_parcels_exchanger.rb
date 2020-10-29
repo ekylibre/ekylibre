@@ -1,6 +1,8 @@
 module Telepac
   module V2014
     class LandParcelsExchanger < ActiveExchanger::Base
+      self.deprecated = true
+
       def check
         # Unzip file
         dir = w.tmp_dir
@@ -32,13 +34,13 @@ module Telepac
             }
 
             ## find or create cap statement
-            unless cap_statement = CapStatement.find_by(campaign: campaign, pacage_number: pacage_number)
+            unless (cap_statement = CapStatement.find_by(campaign: campaign, pacage_number: pacage_number))
               w.info 'Cap statement will be created'
             end
 
             islet_number = record.attributes['NUMERO'].to_s
             # Find an existing islet or stop importing
-            unless cap_islet = CapIslet.find_by(cap_statement: cap_statement, islet_number: islet_number)
+            unless (cap_islet = CapIslet.find_by(cap_statement: cap_statement, islet_number: islet_number))
               w.error "No way to find pacage #{pacage_number} - islet number #{islet_number}. You have to import islets first"
               valid = false
             end
@@ -94,14 +96,14 @@ module Telepac
             }
 
             ## find or create cap statement
-            unless cap_statement = CapStatement.find_by(campaign: campaign, pacage_number: pacage_number)
+            unless (cap_statement = CapStatement.find_by(campaign: campaign, pacage_number: pacage_number))
               cap_statement = CapStatement.create!(cap_statement_attributes)
             end
 
             islet_number = record.attributes['NUMERO'].to_s
 
             # Find an existing islet or stop importing
-            unless cap_islet = CapIslet.find_by(cap_statement: cap_statement, islet_number: islet_number)
+            unless (cap_islet = CapIslet.find_by(cap_statement: cap_statement, islet_number: islet_number))
               w.error 'Import Islets first'
             end
 
@@ -116,7 +118,7 @@ module Telepac
             }
 
             # Find or create a cap land parcel
-            unless cap_land_parcel = CapLandParcel.find_by(cap_land_parcel_attributes.slice(:land_parcel_number, :cap_islet))
+            unless (cap_land_parcel = CapLandParcel.find_by(cap_land_parcel_attributes.slice(:land_parcel_number, :cap_islet)))
               cap_land_parcel = CapLandParcel.create!(cap_land_parcel_attributes)
             end
 
@@ -128,7 +130,7 @@ module Telepac
               nature: :polygon,
               content: cap_land_parcel.shape
             }
-            unless georeading = Georeading.find_by(georeadings_attributes.slice(:number))
+            unless (georeading = Georeading.find_by(georeadings_attributes.slice(:number)))
               georeading = Georeading.create!(georeadings_attributes)
             end
 
@@ -142,6 +144,8 @@ module Telepac
             w.check_point
           end
         end
+
+        true
       end
     end
   end

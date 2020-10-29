@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="add-caliber-indicator">
+  <item-creation item="indicators#caliber" datatype="measure" unit="millimeter"/>
+</migration>
