@@ -301,7 +301,7 @@ module Backend
         pdf_data = printer.run_pdf
         printer.archive_report_template(pdf_data, nature: template.nature, key: printer.key, template: template, document_name: printer.document_name)
 
-        send_data pdf_data, filename: printer.document_name, type: 'application/pdf', disposition: 'inline'
+        send_data pdf_data, filename: "#{printer.document_name}.pdf", type: 'application/pdf', disposition: 'inline'
 
         true
       end
