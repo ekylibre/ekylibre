@@ -132,6 +132,7 @@ $button-horizontal-padding: round($fs-normal*0.70) !default;
 $button-line-height: round($lh-normal) !default;
 $button-content-height: $button-vertical-padding * 2 + $button-line-height;
 $button-height: $button-content-height + $menu-border-width * 2;
+$chat-btn-height: 60px;
 
 
 $all-aliases: $buttons-aliases;

@@ -1,6 +1,6 @@
 - main_toolbar do |t|
   = t.edit resource
-  = t.index params: { controller: '/backend/bank_reconciliation/items', bank_statement_id: resource.id }
+  = t.index params: { controller: '/backend/bank_reconciliation/items', bank_statement_id: resource.id }, label: :to_point.tl
   = t.destroy resource
 
 = main_informations attachment: true do

@@ -9,17 +9,19 @@
       - y = (current_page < pages_count) ? current_page * limit : count
       %span.status= 'list.pagination.x_to_y_of_total'.t(x: x, y: y, total: count)
       %span.paginator
-        %a{href: list_backend_draft_journal_path(page: current_page - 1, journal_id: @journal_id, to: @current_date.strftime("%F"), redirection: @redirection), class: [("btn previous-page"),("disabled" if current_page == 1)], data: {remote: :true}}
+        %a{href: list_backend_draft_journal_path(page: current_page - 1, journal_id: @journal_id, from: @current_from_date.strftime("%F"), to: @current_to_date.strftime("%F"), redirection: @redirection), class: [("btn previous-page"),("disabled" if current_page == 1)], data: {remote: :true}}
           %i
-        %a{href: list_backend_draft_journal_path(page: current_page + 1, journal_id: @journal_id, to: @current_date.strftime("%F"), redirection: @redirection), class: [("btn next-page"),("disabled" if current_page == @draft_entries.total_pages)], data: {remote: :true}}
+        %a{href: list_backend_draft_journal_path(page: current_page + 1, journal_id: @journal_id, from: @current_from_date.strftime("%F"), to: @current_to_date.strftime("%F"), redirection: @redirection), class: [("btn next-page"),("disabled" if current_page == @draft_entries.total_pages)], data: {remote: :true}}
           %i
 
   .main-toolbar.toolbar.custom-main-toolbar
     = form_tag list_backend_draft_journal_path, method: :get, remote: true, class: 'filter-form' do
       = label_tag :filter_on.tl
       = select_tag :journal_id, options_from_collection_for_select(Journal.all, :id, :name, @journal_id == 'All' ? nil : @journal_id), prompt: :any_journal.tl
+      = label_tag :from, :from.tl
+      = date_field_tag :from, @current_from_date.strftime("%F"), class: 'no-arrow-date-input'
       = label_tag :to, :until.tl
-      = date_field_tag :to, @current_date.strftime("%F"), class: 'no-arrow-date-input'
+      = date_field_tag :to, @current_to_date.strftime("%F"), class: 'no-arrow-date-input'
       = hidden_field_tag :redirection, @redirection
       = button_tag type: 'submit', class: 'btn btn-default' do
         <i class='icon icon-search'></i> #{:filter.tl}
@@ -79,4 +81,4 @@
         = :journal_entries_deletion_confirmation_message.tl
       .modal-footer
         %button.btn.btn-default.no-icn{ type: 'button', 'data-dismiss': 'modal' }= :cancel.tl
-        = link_to t("labels.validate_x_entries", count: @draft_entries_count), { controller: :draft_journals, action: :confirm_all, to: @current_date, journal_id: @journal_id, redirection: params[:redirection] }, { class: 'btn btn-primary no-icn', method: :post}
+        = link_to t("labels.validate_x_entries", count: @draft_entries_count), { controller: :draft_journals, action: :confirm_all, from: @current_from_date, to: @current_to_date, journal_id: @journal_id, redirection: params[:redirection] }, { class: 'btn btn-primary no-icn', method: :post}

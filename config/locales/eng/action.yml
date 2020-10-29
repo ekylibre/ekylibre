@@ -2088,8 +2088,8 @@ eng:
     not_letterable: "Not able to letter"
     not_ready: "Not ready"
     not_received: "Not received" #?
-    not_sent_incoming_parcels_on_current_financial_year: "You have unreceived incoming parcels. Once the financial year closed, it won't be possible to receive them on this financial year (%{code})."
-    not_sent_outgoing_parcels_on_current_financial_year: "You have unsent outgoing parcels. Once the financial year closed, it won't be possible to send them on this financial year (%{code})."
+    not_sent_incoming_parcels_on_current_financial_year: "You have unconfirmed incoming parcels. Once the financial year closed, it won't be possible to receive them on this financial year (%{code})."
+    not_sent_outgoing_parcels_on_current_financial_year: "You have unconfirmed outgoing parcels. Once the financial year closed, it won't be possible to send them on this financial year (%{code})."
     not_sent_tax_declaration_on_current_financial_year: "You have not sent tax declarations (draft or validated) ongoing. Once the financial year closed, it won't be possible to sent them on this financial year (%{code})."
     now: "Now" #?
     number: "Number" #?
@@ -2503,6 +2503,7 @@ eng:
     to_deposit_later: "To deposit later" #?
     to_deposit_now: "To deposit now" #?
     to_pay: "to pay"
+    to_point: "Point"
     to_reclaim: "to reclaim"
     to_reconcile: "To reconcile" #?
     to_reconciliate: "To reconciliate"
