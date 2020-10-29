@@ -1,4 +1,4 @@
-- main_toolbar do |t|
+- main_toolbar name: :main do |t|
   = t.export :animal_list, key: Time.zone.now.to_s, resource: @animals
   = t.menu :new.tl do |menu|
     - menu.item :add_entrance.tl, { controller: :receptions, action: :new }, data: { toggle: 'dialog', refresh: true }
@@ -12,7 +12,6 @@
   .btn-group
     = t.new icon: false, label: :all.tl, data: { toggle: 'item-scope', scoped_items: 'all' }, href: ''
     = t.new icon: false, label: :available.tl, data: { toggle: 'item-scope', scoped_items: 'now' }, href: '', class: 'active'
-
 
 
 = janus do |j|

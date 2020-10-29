@@ -21,14 +21,26 @@ module Backend
     # params:
     #   :q Text search
     def self.list_conditions
-      code = ''
-      code = search_conditions(products: %i[name number]) + " ||= []\n"
-      # Current campaign
-      code << "if current_campaign\n"
-      code << "   c[0] << \" AND  #{LandParcel.table_name}.activity_production_id IN ( SELECT id FROM #{ActivityProduction.table_name} WHERE campaign_id = ?)\"\n"
-      code << "   c << current_campaign.id\n"
-      code << "end\n"
-      code << "c\n"
+      # Neede to handle campaign for perennial activities.
+      sql = <<~SQL.gsub(/\n/, ' ')
+        SELECT lp.id
+        FROM #{LandParcel.table_name} lp
+        JOIN #{ActivityProduction.table_name} ap ON lp.id = ap.support_id
+        WHERE ap.id IN (
+            SELECT activity_production_id
+            FROM activity_productions_campaigns
+            WHERE campaign_id = ?
+          )
+      SQL
+
+      code = <<~RUBY
+        #{search_conditions(products: %i[name number])} ||= []
+        if current_campaign
+          c[0] << " AND #{LandParcel.table_name}.id IN (#{sql})"
+          c << current_campaign.id
+        end
+        c
+      RUBY
       code.c
     end
 

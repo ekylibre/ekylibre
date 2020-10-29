@@ -24,14 +24,17 @@ module Backend
     def show
       set_period_params
 
-      dataset_params = { states: params[:states],
-                         balance: params[:balance],
-                         accounts: params[:accounts],
-                         centralize: params[:centralize],
-                         period: params[:period],
-                         started_on: params[:started_on],
-                         stopped_on: params[:stopped_on],
-                         previous_year: params[:previous_year] }
+      dataset_params = {
+        states: params[:states],
+        natures: params[:natures],
+        balance: params[:balance],
+        accounts: params[:accounts],
+        centralize: params[:centralize],
+        period: params[:period],
+        started_on: params[:started_on],
+        stopped_on: params[:stopped_on],
+        previous_year: params[:previous_year]
+      }
 
       respond_to do |format|
         format.html do
@@ -50,8 +53,8 @@ module Backend
           return unless template = DocumentTemplate.find_by_nature(:trial_balance)
           printer = Printers::TrialBalancePrinter.new(template: template, **dataset_params)
           csv_string = CSV.generate(headers: true) do |csv|
-                         printer.run_csv(csv)
-                       end
+            printer.run_csv(csv)
+          end
           send_data csv_string, filename: "#{printer.document_name}.csv"
         end
 
@@ -59,8 +62,8 @@ module Backend
           return unless template = DocumentTemplate.find_by_nature(:trial_balance)
           printer = Printers::TrialBalancePrinter.new(template: template, **dataset_params)
           csv_string = CSV.generate(headers: true, col_sep: ';', encoding: 'CP1252') do |csv|
-                         printer.run_csv(csv)
-                       end
+            printer.run_csv(csv)
+          end
           send_data csv_string, filename: "#{printer.document_name}.csv"
         end
 
