@@ -8,7 +8,7 @@ module Procedo
             next parameter.variant if parameter.respond_to? :variant
             parameter.product
           end
-          PhytosanitaryMiscibility.new(products.compact).validity
+          Interventions::Phytosanitary::PhytosanitaryMiscibility.new(products.compact).validity
         end
 
         # Test if population counting is as specified for given product
@@ -178,8 +178,8 @@ module Procedo
           return 1 unless variant.imported_from == 'Lexicon' && variant.is_a?(Variants::Articles::PlantMedicineArticle)
 
           phyto = RegisteredPhytosanitaryProduct.find_by_reference_name(variant.reference_name)
-
           return 1 if phyto.nil?
+
           usages = phyto.usages
           return 1 if usages.empty?
 

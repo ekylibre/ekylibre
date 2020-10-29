@@ -29,6 +29,12 @@ FactoryBot.define do
     variety { 'service' }
   end
 
+  factory :animals_nature, class: ProductNature do
+    sequence(:name) { |n| "Animal #{n}" }
+    population_counting { :integer }
+    variety { 'animal' }
+  end
+
   factory :equipment_nature, class: ProductNature do
     sequence(:name) { |n| "Equipment nature - TEST#{n.to_s.rjust(8, '0')}" }
     population_counting { :unitary }
@@ -47,6 +53,14 @@ FactoryBot.define do
     variety { 'preparation' }
     variable_indicators_list { %i[approved_input_dose untreated_zone_length wait_before_entering_period] }
     frozen_indicators_list { %i[net_mass net_volume wait_before_harvest_period] }
+  end
+
+  factory :phytosanitary_nature, class: ProductNature do
+    sequence(:name) { |n| "Plant Medicine - TEST#{n.to_s.rjust(8, '0')}" }
+    population_counting { :decimal }
+    variety { 'preparation' }
+    reference_name { 'plant_medicine' }
+    frozen_indicators_list { %i[approved_input_dose, net_mass, net_volume, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period] }
   end
 
   factory :tractor_nature, class: ProductNature do
@@ -84,5 +98,13 @@ FactoryBot.define do
     variety { :land_parcel }
     variable_indicators_list { [:shape] }
     frozen_indicators_list { [:net_surface_area] }
+  end
+
+  factory :plant_medicine_nature, class: ProductNature do
+    sequence(:name) { |n| "Plant medicine - TEST#{n.to_s.rjust(8, '0')}" }
+    population_counting { :decimal }
+    variety { 'preparation' }
+    reference_name { 'plant_medicine' }
+    frozen_indicators_list { %i[approved_input_dose, net_mass, net_volume, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period] }
   end
 end

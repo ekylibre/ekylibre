@@ -78,7 +78,7 @@
   - c.cobble :details do
     = attributes_list do |l| # liste des champs à afficher
       - l.attribute :name
-      - l.attribute :variant, url: { controller: :product_nature_variants }
+      - l.attribute :variant, url: { controller: ProductNatureVariantDecorator.new(resource.variant).get_controller_path, action: :show }
       - l.attribute :variety
       -#l.attribute :group, url: true # on affiche l'attribut name de l'entité ProductGroup associé par l'attribut group de l'entité courante Product avec un lien vers ce groupe
       - l.attribute :born_at

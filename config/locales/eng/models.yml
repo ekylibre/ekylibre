@@ -160,6 +160,7 @@ eng:
         seeding_density_value: "Expected seeding density"
       product_nature_variant:
         specie_variety: "Variety"
+        status: "Allowed"
         variety: "Specie"
       purchase:
         affair_balance: "Balance"

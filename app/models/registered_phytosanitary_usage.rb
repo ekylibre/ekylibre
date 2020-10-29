@@ -97,12 +97,13 @@ class RegisteredPhytosanitaryUsage < ActiveRecord::Base
         :caution
       when 'Retrait'
         :stop
+      else
+        :stop
     end
   end
 
   def of_dimension?(dimension)
-    return false unless dose_unit
-    Nomen::Unit.find(dose_unit).dimension == dimension.to_sym
+    dose_unit.present? && Nomen::Unit.find(dose_unit).dimension == dimension.to_sym
   end
 
   def among_dimensions?(*dimensions)

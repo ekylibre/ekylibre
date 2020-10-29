@@ -59,5 +59,28 @@ require 'test_helper'
 
 class ProductNatureCategoryTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
-  # Add tests here...
+
+  test 'type is correctly set upon import from nomenclature' do
+    references = { animal: :adult_cat,
+                   article: :animal_food,
+                   crop: :crop,
+                   equipment: :electronic_equipment,
+                   service: :agricultural_taxe,
+                   worker: :worker,
+                   zone: :building }
+
+    references.each { |type, reference| assert ProductNatureCategory.import_from_nomenclature(reference).is_a?("VariantCategories::#{type.capitalize}Category".constantize) }
+  end
+
+  test 'type is correctly set upon import from lexicon' do
+    references = { animal: :adult_large_specie_animal,
+                   article: :amortized_office_equipment,
+                   crop: :amortized_plant,
+                   equipment: :depreciable_tool,
+                   service: :additional_activity,
+                   worker: :associate,
+                   zone: :amortized_installation }
+
+    references.each { |type, reference| assert ProductNatureCategory.import_from_lexicon(reference).is_a?("VariantCategories::#{type.capitalize}Category".constantize) }
+  end
 end

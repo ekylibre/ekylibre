@@ -17,6 +17,6 @@
     - if f.object.input?
       - real_cost = f.object.decorate.real_cost
       - unless real_cost.nil?
-        .product-parameter-cost
+        .product-parameter-cost.help-block
           %span.product-parameter-cost-label= :cost.tl
           %span.product-parameter-cost-value= real_cost

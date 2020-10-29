@@ -8,8 +8,24 @@ FactoryBot.define do
     association :variant, factory: :land_parcel_variant
     variety { 'land_parcel' }
 
-    after(:build) do |land_parcel|
-      land_parcel.activity_production = create :corn_activity_production, support: land_parcel, started_on: land_parcel.born_at&.to_date
+    transient do
+      production_name { :corn_activity_production }
+    end
+
+    after(:build) do |land_parcel, evaluator|
+      land_parcel.activity_production = create *evaluator.production_name, support: land_parcel, started_on: land_parcel.born_at&.to_date
+    end
+
+    factory :lemon_land_parcel do
+      transient do
+        production_name { :lemon_activity_production }
+      end
+
+      trait :organic do
+        transient do
+          production_name { %i[lemon_activity_production organic] }
+        end
+      end
     end
   end
 end
