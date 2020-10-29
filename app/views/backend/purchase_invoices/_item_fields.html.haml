@@ -59,7 +59,7 @@
               = '%'
 
         .vat-total-controls
-          = f.input(:tax_id, label: :vat_rate.tl, collection: Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.usable_amount)/100)}]}, input_html: { class: "vat-total", data: {value: 'rate', trade_component: "tax"}})
+          = f.input(:tax_id, label: :vat_rate.tl, required: true, collection: Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.usable_amount)/100)}]}, input_html: { class: "vat-total", data: {value: 'rate', trade_component: "tax", required: true}})
 
         .pta-controls.pre-tax-invoice-total-controls
           = f.input :pretax_amount, wrapper: :append do
@@ -86,7 +86,7 @@
           .item-form.item-form__product_work_number
             = f.referenced_association :team, input_html: {data: { remember: 'team'}}
         .item-form.item-form__equipment
-          = f.referenced_association :equipment, source: :tools, label: :equipment.tl, input_html: {data: { remember: 'equipment'}}
+          = f.referenced_association :equipment, source: :tools, input_html: {data: { remember: 'equipment'}}
           - parcels_purchase_invoice_item_id = f.object.parcels_purchase_invoice_items.empty? ? nil : [f.object.parcels_purchase_invoice_items.first.id].to_s
           -#HACK: new_items == new_ + <relation name> -- used by cocoon for interpolation of new_record pseudoid
           = hidden_field_tag 'purchase_invoice[items_attributes][new_items][parcels_purchase_invoice_items]', parcels_purchase_invoice_item_id, class: "purchase-item-attribute"

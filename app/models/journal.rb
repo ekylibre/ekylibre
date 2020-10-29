@@ -485,4 +485,44 @@ class Journal < Ekylibre::Record::Base
 
     items.sort_by { |a| a[5] }
   end
+
+  def self.trial_balance_dataset(states:, balance:, accounts:, centralize:, period:, started_on:, stopped_on:, previous_year:)
+    balance_params = { states: states, accounts: accounts, centralize: centralize, period: period, started_on: started_on, stopped_on: stopped_on }
+    balance_data = trial_balance(balance_params) if period
+    if balance_data
+      credit_balance = balance_data[0...-1].map { |item| item[4].to_f > 0 ? item[4].to_f : 0}.reduce(0, :+).round(2)
+      debit_balance = balance_data[0...-1].map { |item| item[4].to_f < 0 ? item[4].to_f : 0}.reduce(0, :+).round(2)
+      balance_data[-1].insert(5, credit_balance, debit_balance)
+    end
+    if balance_data && balance == 'balanced'
+      balance_data = balance_data.select { |item| item[1].to_i < 0 || Account.find(item[1]).journal_entry_items.pluck(:real_balance).reduce(:+) == 0 }
+    elsif balance_data && balance == 'unbalanced'
+      balance_data = balance_data.select { |item| item[1].to_i < 0 || Account.find(item[1]).journal_entry_items.pluck(:real_balance).reduce(:+) != 0 }
+    end
+
+    prev_balance_data = []
+    if previous_year && started_on && Date.parse(stopped_on) - Date.parse(started_on) < 366
+      prev_balance_data = balance.map do |item|
+        prev_balance_params = balance_params.dup
+        prev_balance_params[:started_on] = (Date.parse(started_on) - 1.year).to_s
+        prev_balance_params[:stopped_on] = (Date.parse(stopped_on) - 1.year).to_s
+        prev_balance_params[:period] = "#{prev_balance_params[:started_on]}_#{prev_balance_params[:stopped_on]}"
+        if item[1].to_i < 0 && item[0].present?
+          prev_balance_params[:centralize] = item[0]
+        elsif item[1].to_i > 0
+          prev_balance_params[:accounts] = item[0]
+        end
+        prev_balance_data = Journal.trial_balance(prev_balance_params)
+        prev_items = prev_balance_data.select { |i| i[0] == item[0] }
+        prev_items.any? ? prev_items.first : []
+      end
+      solde_prev_credit_balance = prev_balance_data[0...-1].map { |item| item[4].to_f > 0 ? item[4].to_f : 0}.reduce(0, :+).round(2)
+      solde_prev_debit_balance = prev_balance_data[0...-1].map { |item| item[4].to_f < 0 ? item[4].to_f : 0}.reduce(0, :+).round(2)
+      total_prev_credit_balance = prev_balance_data[0...-1].map { |item| item[2].to_f}.reduce(0, :+).round(2)
+      total_prev_debit_balance = prev_balance_data[0...-1].map { |item| item[3].to_f}.reduce(0, :+).round(2)
+      prev_balance_data[-1].insert(5, solde_prev_credit_balance, solde_prev_debit_balance)
+      prev_balance_data[-1].insert(7, total_prev_credit_balance, total_prev_debit_balance)
+    end
+    { balance: balance_data, prev_balance: prev_balance_data }
+  end
 end

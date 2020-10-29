@@ -26,7 +26,7 @@ namespace :db do
                   .reject {|schema| schema_whitelist.include?(schema) || schema =~ /^pg_/ }
 
       schemas.each do |schema|
-        Ekylibre::Record::Base.connection.execute("DROP SCHEMA #{schema} CASCADE")
+        Ekylibre::Record::Base.connection.execute("DROP SCHEMA \"#{schema}\" CASCADE")
       end
 
       Rake::Task['tenant:clear'].invoke

@@ -55,7 +55,7 @@
           .item-form.item-form__product_work_number
             = f.referenced_association :team, input_html: {data: { remember: 'team'}}
         .item-form.item-form__equipment
-          = f.referenced_association :equipment, source: :tools, label: :equipment.tl, input_html: {data: { remember: 'equipment'}}
+          = f.referenced_association :equipment, source: :tools, input_html: {data: { remember: 'equipment'}}
 
       .item-form-button
         .item-form-state

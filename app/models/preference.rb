@@ -203,6 +203,8 @@ class Preference < Ekylibre::Record::Base
   prefer :distribute_sales_and_purchases_on_activities, :boolean, false
   prefer :distribute_sales_and_purchases_on_teams, :boolean, false
 
+  prefer :allow_analytics, :boolean, false
+
   # DEPRECATED PREFERENCES
   prefer :host, :string, 'erp.example.com'
 

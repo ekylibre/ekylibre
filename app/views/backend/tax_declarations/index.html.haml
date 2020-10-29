@@ -1,16 +1,18 @@
 - main_toolbar do |t|
   = t.new variants: FinancialYear.opened.with_tax_declaration.with_missing_tax_declaration.map { |fy| [fy.code.to_s, { financial_year_id: fy.id }] }, params: { redirect: nil }, icon: false
-  - if params[:period]
-    = dropdown_menu_button(:export.ta, icon: :download) do |d|
-      - export_params = params.slice(:period, :state)
-      - d.item :export_as_pdf.tl, params: export_params.merge(format: :pdf)
-      - d.item :export_as_csv.tl, params: export_params.merge(format: :csv)
+  - if params[:started_on] && params[:stopped_on]
+    = t.export :vat_register, item_label: :export_as_pdf.tl, key: Printers::VatRegisterPrinter.build_key(started_on: params[:started_on],
+                                                                                                         stopped_on: params[:stopped_on],
+                                                                                                         state: params[:state]) do |menu|
+      - export_params = params.slice(:period, :started_on, :stopped_on, :state)
+      - menu.item :export_as_csv.tl, params: export_params.merge(format: :csv)
 
 = kujaku do |k|
   - k.text
   - sm = TaxDeclaration.state_machine.states
   - k.multi_choice :state, [:draft, :validated, :sent].map{|s| [sm[s].human_name, s] }, label: TaxDeclaration.human_attribute_name(:state)
-  - k.helper :journal_period_crit
+  - args = FinancialYear.current ? { default: "#{FinancialYear.current.started_on}_#{FinancialYear.current.stopped_on}" } : {}
+  - k.helper :journal_period_crit, args
 
 = render "alert_no_VAT_declaration" if @display_alert
 

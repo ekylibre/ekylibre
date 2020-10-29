@@ -173,7 +173,7 @@ class FixedAsset < Ekylibre::Record::Base
     if depreciation_method_linear?
       if started_on
         months = 12 * (100.0 / depreciation_percentage.to_f)
-        self.stopped_on = started_on >> months.floor
+        self.stopped_on = started_on + months.floor.months
         self.stopped_on += (months - months.floor) * 30.0 - 1
       end
     end
@@ -195,18 +195,18 @@ class FixedAsset < Ekylibre::Record::Base
   validate on: :scrap do
     if product && scrapped_on && product.born_at > scrapped_on
       errors.add :scrapped_on, I18n.translate('errors.messages.on_or_after_field', attribute: I18n.translate('attributes.scrapped_on'),
-                                                                                   restriction: product.born_at.to_date.l,
-                                                                                   field: I18n.translate('activerecord.attributes.equipment.born_at'),
-                                                                                   model: product.name)
+                                              restriction: product.born_at.to_date.l,
+                                              field: I18n.translate('activerecord.attributes.equipment.born_at'),
+                                              model: product.name)
     end
   end
 
   validate on: :sell do
     if product && sold_on && product.born_at > sold_on
       errors.add :sold_on, I18n.translate('errors.messages.on_or_after_field', attribute: I18n.translate('attributes.sold_on'),
-                                                                               restriction: product.born_at.to_date.l,
-                                                                               field: I18n.translate('activerecord.attributes.equipment.born_at'),
-                                                                               model: product.name)
+                                          restriction: product.born_at.to_date.l,
+                                          field: I18n.translate('activerecord.attributes.equipment.born_at'),
+                                          model: product.name)
     end
   end
 
@@ -322,11 +322,22 @@ class FixedAsset < Ekylibre::Record::Base
     unless depreciation_method_none?
       fy_reference = FinancialYear.at(started_on) || FinancialYear.opened.first
 
-      periods = DepreciationCalculator.new(fy_reference, depreciation_period.to_sym).depreciation_period(started_on, depreciation_percentage)
+      depreciation_start = started_on
+      depreciation_start = started_on.beginning_of_month if depreciation_method == :regressive
+
+      periods = DepreciationCalculator.new(fy_reference, depreciation_period.to_sym).depreciation_period(depreciation_start, depreciation_percentage)
 
       starts = periods.map(&:first) << (periods.last.second + 1.day)
+      total_duration = periods.sum(&:last)
 
-      send("depreciate_with_#{depreciation_method}_method", starts)
+      case depreciation_method
+        when 'linear'
+          depreciate_with_linear_method starts, total_duration
+        when 'regressive'
+          depreciate_with_regressive_method starts, total_duration
+        else
+          raise StandardError.new("Invalid depreciation method: #{depreciation_method}")
+      end
     end
 
     self
@@ -334,8 +345,7 @@ class FixedAsset < Ekylibre::Record::Base
 
   # Depreciate using linear method
   # Years have 12 months with 30 days
-  def depreciate_with_linear_method(starts)
-    depreciable_days = duration
+  def depreciate_with_linear_method(starts, depreciable_days)
     depreciable_amount = self.depreciable_amount
     reload.depreciations.each do |depreciation|
       depreciable_days -= depreciation.duration
@@ -363,7 +373,7 @@ class FixedAsset < Ekylibre::Record::Base
   end
 
   # Depreciate using regressive method
-  def depreciate_with_regressive_method(starts)
+  def depreciate_with_regressive_method(starts, _depreciable_days)
     depreciable_days = duration
     depreciable_amount = self.depreciable_amount
     reload.depreciations.each do |depreciation|
@@ -382,7 +392,7 @@ class FixedAsset < Ekylibre::Record::Base
       next if starts[index + 1].nil? || remaining_amount <= 0
       depreciation = depreciations.find_by(started_on: start)
       unless depreciation
-        depreciation = depreciations.new(started_on: start, stopped_on: starts[index + 1] - 1)
+        depreciation = depreciations.new(started_on: start.beginning_of_month, stopped_on: starts[index + 1] - 1)
         duration = depreciation.duration
 
         current_year = index

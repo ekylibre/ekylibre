@@ -84,7 +84,7 @@ fra:
       reset: "Ré-initialiser la cellule: %{name}"
     backend/building_divisions:
       edit: "Modifier la zone\_: %{name}"
-      index: "Découpes de bâtiments"
+      index: "Zones de bâtiments"
       new: "Nouvelle zone"
       show: "Zone\_: %{name}"
     backend/buildings:
@@ -1155,6 +1155,7 @@ fra:
     associate_receivables: "Créances associés - comptes courants"
     associated_sale: "Vente liée"
     assuming_you_want_to_close_a_financial_year_in_the_future: "Si vous souhaitez clôturer un exercice ultérieurement, vous devrez enregistrer un bilan de début d'exercice."
+    at: "au"
     at_the_address: "À l’adresse"
     attach_an_incoming_payment_to_expense: "Rattacher un encaissement\_: %{type} N°%{number}" #?
     attach_an_outgoing_payment_to_expense: "Rattacher un décaissement\_: %{type} N°%{number}" #?
@@ -1199,7 +1200,7 @@ fra:
     building_name: "Sortie de" #?
     building_zones: "Bâtiments"
     buildings_map: "Carte des bâtiments" #?
-    by_account_fixed_assets: "Etat de immobilisations par compte au %{to}"
+    by_account_fixed_assets: "État de immobilisations par compte au %{to}"
     by_year: "Par an"
     calculate: "Calculer"
     calculated_hours: "Horaires calculées"
@@ -1530,7 +1531,7 @@ fra:
     draft_entries_to_validate: "Des écritures sont à valider."
     draft_fixed_asset_on_current_financial_year: "Des immobilisations sont encore en état brouillon ou en attente, il ne vous sera plus possible de les mettre en service sur cet exercice une fois qu'il sera clôturé."
     draft_loan_on_current_financial_year: "Vous avez des emprunts brouillons en cours. Une fois l'exercice clos, il ne sera plus possible de les mettre en service sur cet exercice (%{code})."
-    draft_vat_declaration: "Etat de TVA préparatoire"
+    draft_vat_declaration: "État de TVA préparatoire"
     driver: "Conducteur"
     drug: "Médicament" #?
     due_date: "À régler le"
@@ -1644,9 +1645,12 @@ fra:
     export_backup: "Export d’un fichier de sauvegarde" #?
     export_balance_sheet: "Export bilan"
     export_centralizing_journal: "Exporter le journal centralisateur"
-    export_fixed_assets_by_account: "Etat des immobilisations par compte"
-    export_fixed_assets_gain_and_loss: "Etat des plus et moins values"
-    export_fixed_assets_general: "Etat des immobilisations"
+    export_by_account_fixed_asset_registry: "État des immobilisations par compte"
+    export_gain_and_loss_fixed_asset_registry: "État des plus et moins values"
+    export_fixed_asset_registry: "État des immobilisations"
+    export_fixed_assets_by_account: "État des immobilisations par compte"
+    export_fixed_assets_gain_and_loss: "État des plus et moins-values"
+    export_fixed_assets_general: "État des immobilisations"
     export_income_statement: "Export compte de résultat"
     export_sales_aborted: "Abandonné(e)" #?
     export_sales_estimate: "Devis" #?
@@ -1740,10 +1744,10 @@ fra:
     future_events: "Futurs événements"
     future_year_credit_balance: "110 - Report à nouveau (solde créditeur)"
     future_year_debit_balance: "119 - Report à nouveau (solde débiteur)"
-    gain_and_loss_fixed_assets: "Etat des plus et moins values au %{to}"
+    gain_and_loss_fixed_assets: "État des plus et moins-values au %{to}"
     genealogy: "Généalogie"
     general: "Informations générales"
-    general_fixed_assets: "Etat des immobilisations au %{to}"
+    general_fixed_assets: "État des immobilisations au %{to}"
     general_informations: "Informations générales"
     general_ledger: "Grand livre"
     general_total: "Total général"
@@ -2196,7 +2200,8 @@ fra:
     open_a_campaign: "Ouvrir une campagne de production" #?
     open_a_production: "Créer une production"
     open_an_activity: "Créer une activité"
-    open_financial_year: "Ouvrir %{code}"
+    open_financial_year: "Ouvrir un exercice"
+    open_financial_year_with_date: "Ouvrir %{code}"
     operating_costs: "Charges d'exploitation"
     operating_margin: "EBE (Excédent Brut d’Exploitation)"
     operating_margin_on_turnover: "EBE / CA (Excédent Brut d’Exploitation / Chiffre d’affaire HT)"
@@ -2292,6 +2297,7 @@ fra:
     phone: "Tél." #?
     phosphorus_concentration: "Teneur en phosphore (P)"
     phosphorus_concentration_per_hectare: "Teneur en phosphore par hectare" #?
+    phyto_data: "Données phytosanitaires"
     picture: "Photo"
     placeholder: "Espace réservé"
     places: "Lieux"
@@ -2694,7 +2700,7 @@ fra:
     storage: "Zone de stockage"
     string_case: "Options pour le texte" #?
     subject: "Sujet"
-    subledger_of_accounts_x: "Grand-livre auxiliaire des comptes %{account}"
+    subledger_of_accounts_x: "Grand livre auxiliaire des comptes %{account}"
     submit: "Envoyer"
     subscribed_on: "Abonné au"
     subscriber_period: "Abonné(e) le %{subscribed_at}"
@@ -2710,6 +2716,7 @@ fra:
     subtotals_at_level: "Sous-totaux aux niveaux"
     supplier: "Fournisseur"
     supplier_code: "Code fournisseur" #?
+    merged_entity: "Entitées fusionnées (ID=%{other}):\n"
     supplier_informations: "Informations fournisseur"
     supplier_payment_mode: "Mode de paiement du fournisseur"
     supplier_receivables: "Fournisseurs d'exploitations et comptes rattachés"
@@ -2918,7 +2925,7 @@ fra:
       other: "Valider les %{count} écritures"
     validated: "Validée"
     validated_by: "Validée par" #?
-    validated_vat_declaration: "Etat de TVA définitif"
+    validated_vat_declaration: "État de TVA définitif"
     values: "Valeurs"
     variable_indicators: "Indicateurs variables"
     variant: "Variante"
@@ -3478,7 +3485,7 @@ fra:
       order: "Commander"
       order_again: "Commander à nouveau"
       pay: "Payer"
-      payment_gap: "Écart de réglement"
+      payment_gap: "Écart de règlement"
       payment_mode: "Payer (Mode)"
       pick: "Piocher"
       picture: "Image"

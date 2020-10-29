@@ -1,16 +1,19 @@
-- main_toolbar do |t|
-  = t.new(params: { controller: :journal_entries, journal_id: resource.id, redirect: nil }, label: :add_entry.tl, disabled: FinancialYear.opened.none?) unless resource.booked_for_accountant?
-  = t.edit resource
-  = link_to t("labels.consult_the_day_book", count: @draft_entries_count), { controller: :draft_journals, action: :show, redirection: backend_journal_path(params[:id]), journal_id: params[:id] }, { class: [('btn btn-default no-icn'),('disabled' if @draft_entries_count < 1)] }
-  - export_params = { journal_id: resource.id }.merge(params.slice(:period, :states))
-  = link_to :export.ta, export_params.merge(format: :pdf), { class: [('btn btn-default icn btn-download'),('disabled' unless params[:period].present?)] }
-
-= journals_tag
-
 = kujaku(popover: false) do |k|
   - k.text
   - k.helper :journal_entries_states_crit
   - k.helper :journal_period_crit, default: @current_financial_year_period
+
+- main_toolbar do |t|
+  = t.new(params: { controller: :journal_entries, journal_id: resource.id, redirect: nil }, label: :add_entry.tl, disabled: FinancialYear.opened.none?) unless resource.booked_for_accountant?
+  = t.edit resource
+  = link_to t("labels.consult_the_day_book", count: @draft_entries_count), { controller: :draft_journals, action: :show, redirection: backend_journal_path(params[:id]), journal_id: params[:id] }, { class: [('btn btn-default no-icn'),('disabled' if @draft_entries_count < 1)] }
+  - if params[:period]
+    = t.export :journal_ledger, key: Printers::JournalLedgerPrinter.build_key(started_on: params[:started_on],
+                                                                              stopped_on: params[:stopped_on],
+                                                                              states: params[:states],
+                                                                              journal: resource)
+
+= journals_tag
 
 = main_list(:items)
 

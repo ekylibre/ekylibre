@@ -22,6 +22,8 @@ module Printers
     class SalesInvoicePrinterTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
       setup do
         @template = Minitest::Mock.new
+        @template.expect :nil?, false
+        @template.expect :managed?, true
         @template.expect :nature, :shipping_note
       end
 

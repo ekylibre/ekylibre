@@ -13,6 +13,7 @@ end
 ruby '>= 2.3.8', '< 3.0.0'
 
 gem 'elastic-apm'
+gem 'piwik_analytics', github: 'ekylibre/piwik-ruby-tracking'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.11.1'
@@ -157,6 +158,7 @@ gem 'wannabe_bool'
 
 # XML Parsing/Writing, HTML extraction
 gem 'nokogiri', '~> 1.8.1'
+gem 'mimemagic'
 
 # Parse LALR or LR-1 grammars
 gem 'treetop'

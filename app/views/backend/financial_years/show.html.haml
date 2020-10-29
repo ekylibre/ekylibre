@@ -5,25 +5,26 @@
 - main_toolbar do |t|
   - unless resource.closing? || resource.closed? || resource.locked?
     = t.edit resource unless resource.closure_in_preparation? && @closer != current_user
+
   = t.new(label: :new_financial_year_exchange.tl, params: { controller: :financial_year_exchanges, financial_year_id: resource.id }) if resource.can_create_exchange? && resource.opened?
+
   - if resource == FinancialYear.closable_or_lockable && !resource.closure_in_preparation?
     = link_to :prepare_financial_year_for_closure.tl(code: resource.code), { controller: :financial_year_closure_preparations, action: :create, financial_year_id: resource.id, redirect: backend_financial_year_path(resource) }, { class: 'btn btn-default no-icn', method: :post } unless resource.exchanges.opened.any?
     = t.lock resource, label: :lock_financial_year.tl(code: resource.name), icon: false
+
   - if resource.closure_in_preparation? && @closer == current_user
     = link_to :quit_financial_year_closure_preparation.tl(code: resource.code), { controller: :financial_year_closure_preparations, action: :destroy, financial_year_id: resource.id, redirect: backend_financial_year_path(resource) }, { class: 'btn btn-default no-icn', method: :delete }
     = t.close resource, label: :close_financial_year.tl(code: resource.name), icon: false
     = t.lock resource, label: :lock_financial_year.tl(code: resource.name), icon: false
+
   - style = resource.closing? ? 'disabled-btn' : ''
   = dropdown_menu_button(:export_fec.ta, { icon: :download }) do |d|
     - export_params = params.slice(:id)
     - %i[text xml].each do |format|
       - %i[all ba_bnc_ir_commercial_accountancy ba_ir_cash_accountancy bnc_ir_cash_accountancy].each do |position|
         - d.item "export_#{format}_fec_#{position}".tl, action: :show, fiscal_position: position, format: format
-  = dropdown_menu_button(:export_closing_documents.ta, { icon: :download, class: style }) do |d|
-    - export_params = params.slice(:id)
-    - d.item :export_income_statement.tl, params: export_params.merge(format: :pdf, n: :income_statement)
-    - d.item :export_balance_sheet.tl, params: export_params.merge(format: :pdf, n: :balance_sheet)
-    - d.item :export_short_balance_sheet.tl, params: export_params.merge(format: :pdf, n: :short_balance_sheet)
+
+  = t.export :income_statement, :balance_sheet, :short_balance_sheet, key: Printers::BalanceSheetPrinter.build_key(financial_year: resource)
 
 = main_informations attachment: true do
   = infos do

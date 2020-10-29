@@ -2,7 +2,7 @@
 class FinancialYearClose
   include PdfPrinter
 
-  attr_reader :result_account, :carry_forward_account
+  attr_reader :result_account, :carry_forward_account, :close_error
 
   class UnbalancedBalanceSheet < StandardError; end
 
@@ -119,7 +119,7 @@ class FinancialYearClose
     end
     @closer.notify(:financial_year_x_successfully_closed, { name: @year.name }, level: :success )
     true
-  rescue => error
+  rescue StandardError => error
     @year.update_columns(state: 'opened')
     FileUtils.rm_rf Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}")
 
@@ -132,7 +132,7 @@ class FinancialYearClose
     else
       @closer.notify(:financial_year_x_could_not_be_closed, { name: @year.name }, level: :error)
     end
-
+    @close_error = error
     return false
   ensure
     @progress.clean!
@@ -535,10 +535,10 @@ class FinancialYearClose
     generate_balance_documents(timing, { accounts: "411", centralize: "" })
     progress.increment!
 
-    ['general_ledger', '401', '411'].each { |ledger| generate_general_ledger_documents(timing, { current_financial_year: @year.id.to_s, ledger: ledger, period: "#{@year.started_on}_#{@year.stopped_on}" }) }
+    ['general_ledger', '401', '411'].each { |ledger| generate_general_ledger_documents(timing, { financial_year: @year, ledger: ledger }) }
     progress.increment!
 
-    Journal.all.each { |journal| generate_journals_documents(timing, { journal_id: journal.id, id: journal.id, period: "#{@year.started_on}_#{@year.stopped_on}", states: { confirmed: '1' } }) }
+    Journal.all.each { |journal| generate_journals_documents(timing, { journal: journal }) }
     progress.increment!
 
     generate_archive(timing)
@@ -548,71 +548,45 @@ class FinancialYearClose
   end
 
   def generate_balance_documents(timing, params)
-    document_nature = Nomen::DocumentNature.find(:trial_balance)
-    key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
-    template_path = find_open_document_template(:trial_balance)
-    full_params = params.merge(states: { "confirmed" => "1" },
-                               started_on: @year.started_on,
-                               stopped_on: @year.stopped_on,
+    template = DocumentTemplate.find_by_nature(:trial_balance)
+    full_params = params.merge(states: { confirmed: '1' },
+                               started_on: @year.started_on.to_s,
+                               stopped_on: @year.stopped_on.to_s,
                                period: "#{@year.started_on}_#{@year.stopped_on}",
-                               balance: "all")
+                               balance: "all",
+                               previous_year: false,
+                               template: template)
 
-    balance = Journal.trial_balance(started_on: full_params[:started_on],
-                                    stopped_on: full_params[:stopped_on],
-                                    period: full_params[:period],
-                                    states: full_params[:states],
-                                    balance: full_params[:balance],
-                                    accounts: full_params[:accounts],
-                                    centralize: full_params[:centralize])
+    printer = Printers::TrialBalancePrinter.new(full_params)
+    pdf_data = printer.run_pdf
 
-    balance_printer = BalancePrinter.new(balance: balance,
-                                         prev_balance: [],
-                                         document_nature: document_nature,
-                                         key: key,
-                                         template_path: template_path,
-                                         params: full_params,
-                                         mandatory: true,
-                                         closer: @closer)
-    file_path = balance_printer.run
-    copy_generated_documents(timing, 'balance', key, file_path)
+    document = printer.archive_report_template(pdf_data, nature: template.nature, key: printer.key, template: template, document_name: printer.document_name)
+
+    copy_generated_documents(timing, 'trial_balance', "#{template.nature.human_name} - #{printer.key}", document.file.path)
   end
 
   def generate_general_ledger_documents(timing, params)
-    document_nature = Nomen::DocumentNature.find(:general_ledger)
-    key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
-    template_path = find_open_document_template(:general_ledger)
+    template = DocumentTemplate.find_by_nature(:general_ledger)
+    printer = Printers::GeneralLedgerPrinter.new(params.merge(template: template))
+    pdf_data = printer.run_pdf
+    document = printer.archive_report_template(pdf_data, nature: template.nature, key: printer.key, template: template, document_name: printer.document_name)
 
-    general_ledger = Account.ledger(params)
-
-    general_ledger_printer = GeneralLedgerPrinter.new(general_ledger: general_ledger,
-                                                      document_nature: document_nature,
-                                                      key: key,
-                                                      template_path: template_path,
-                                                      params: params,
-                                                      mandatory: true,
-                                                      closer: @closer)
-    file_path = general_ledger_printer.run
-    copy_generated_documents(timing, 'general_ledger', key, file_path)
+    copy_generated_documents(timing, 'general_ledger', "#{template.nature.human_name} - #{printer.key}", document.file.path)
   end
 
   def generate_journals_documents(timing, params)
-    document_nature = Nomen::DocumentNature.find(:journal_ledger)
-    key = "#{document_nature.name}-#{Time.zone.now.l(format: '%Y-%m-%d-%H:%M:%S')}"
-    template_path = find_open_document_template(:journal_ledger)
-    journal = Journal.find(params[:id])
+    template = DocumentTemplate.find_by_nature(:journal_ledger)
+    full_params = params.merge(states: { confirmed: '1' },
+                               started_on: @year.started_on.to_s,
+                               stopped_on: @year.stopped_on.to_s,
+                               period: "#{@year.started_on}_#{@year.stopped_on}",
+                               template: template)
 
-    journal_ledger = JournalEntry.journal_ledger(params, journal.id)
+    printer = Printers::JournalLedgerPrinter.new(full_params)
+    pdf_data = printer.run_pdf
+    document = printer.archive_report_template(pdf_data, nature: template.nature, key: printer.key, template: template, document_name: printer.document_name)
 
-    journal_printer = JournalPrinter.new(journal: journal,
-                                         journal_ledger: journal_ledger,
-                                         document_nature: document_nature,
-                                         key: key,
-                                         template_path: template_path,
-                                         params: params,
-                                         mandatory: true,
-                                         closer: @closer)
-    file_path = journal_printer.run
-    copy_generated_documents(timing, 'journal_ledger', key, file_path)
+    copy_generated_documents(timing, 'journal_ledger', "#{template.nature.human_name} - #{printer.key}", document.file.path)
   end
 
   def copy_generated_documents(timing, nature, key, file_path)

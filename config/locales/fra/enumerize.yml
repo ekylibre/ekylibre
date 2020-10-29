@@ -300,7 +300,7 @@ fra:
         activity: "Activité"
         campaign: "Campagne"
         cultivable_zone_code: "Code de la zone cultivable"
-        cultivable_zone_name: "Nom de la zone cultivale"
+        cultivable_zone_name: "Nom de la zone cultivable"
         production_mode: "Mode de production"
         season: "Saisonnalité"
     notification:

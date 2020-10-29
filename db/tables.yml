@@ -876,6 +876,8 @@ attachments:
     type: integer
     references: user
 bank_statement_items:
+  accounted_at:
+    type: datetime
   bank_statement_id:
     type: integer
     references: bank_statement
@@ -904,6 +906,9 @@ bank_statement_items:
     required: true
   initiated_on:
     type: date
+  journal_entry_id:
+    type: integer
+    references: journal_entry
   letter:
     type: string
   lock_version:
@@ -1416,6 +1421,9 @@ cashes:
     required: true
   custom_fields:
     type: jsonb
+  enable_bookkeep_bank_item_details:
+    type: boolean
+    default: false
   iban:
     type: string
   id:
@@ -2067,6 +2075,9 @@ document_templates:
   creator_id:
     type: integer
     references: user
+  file_extension:
+    type: string
+    default: xml
   formats:
     type: string
   id:
@@ -2088,6 +2099,10 @@ document_templates:
   nature:
     type: string
     required: true
+  signed:
+    type: boolean
+    required: true
+    default: false
   updated_at:
     type: datetime
     required: true
@@ -3253,6 +3268,8 @@ incoming_payments:
   payer_id:
     type: integer
     references: entity
+  providers:
+    type: jsonb
   receipt:
     type: text
   received:
@@ -7787,6 +7804,8 @@ sales:
     precision: 19
     scale: 4
     required: true
+  providers:
+    type: jsonb
   quantity_gap_on_invoice_journal_entry_id:
     type: integer
     references: journal_entry

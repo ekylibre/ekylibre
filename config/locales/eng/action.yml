@@ -1293,6 +1293,7 @@ eng:
     associate_receivables: "Associate receivables" #?
     associated_sale: "Associated sale"
     assuming_you_want_to_close_a_financial_year_in_the_future: "Assuming you want to close a financial year in the future, you will have to provide an opening balance sheet."
+    at: "at"
     at_the_address: "At the address"
     attach_deal: "Add a deal"
     attachment: "Attachment"
@@ -1695,9 +1696,9 @@ eng:
     export_as_xcsv: "Export as Excel CSV"
     export_balance_sheet: "Export balance sheet"
     export_centralizing_journal: "Export centralizing journal"
-    export_fixed_assets_by_account: "Fixed assets by account"
-    export_fixed_assets_gain_and_loss: "Added values and capital losses"
-    export_fixed_assets_general: "Fixed assets"
+    export_by_account_fixed_asset_registry: "Fixed assets by account"
+    export_gain_and_loss_fixed_asset_registry: "Added values and capital losses"
+    export_fixed_asset_registry: "Fixed assets"
     export_income_statement: "Export income statement"
     export_text_fec_all: "Export FEC corporate tax (Text)"
     export_text_fec_ba_bnc_ir_commercial_accountancy: "Export FEC for agriculture and professional operations income taxation commercial accountancy (Text)"
@@ -2110,7 +2111,8 @@ eng:
     one_condition: "One condition" #??
     open_a_production: "Open a production"
     open_an_activity: "Open an activity"
-    open_financial_year: "Open %{code}"
+    open_financial_year: "Open a financial year"
+    open_financial_year_with_date: "Open %{code}"
     operating_costs: "Operating costs"
     operating_margin: "Operating margin %{financial_year}"
     operating_margin_on_turnover: "Operating margin on turnover %{financial_year}" #?
@@ -2187,7 +2189,7 @@ eng:
     # pfi_parcel_ratio: "Pfi parcel ratio"
     # pfi_treatment_ratio: "Pfi treatment ratio"
     phosphorus_concentration: "Phosphorus concentration" #?
-    # phyto_data: "Phyto data"
+    phyto_data: "Phytosanitary data"
     picture: "Picture" #?
     placeholder: "Placeholder" #?
     places: "Places"
@@ -2467,6 +2469,7 @@ eng:
     # supervision: "Supervision"
     supplier: "Purchase prices of the supplier"
     supplier_informations: "Supplier informations"
+    merged_entity: "Merged entity (ID=%{other}):\n"
     supplier_payment_mode: "Supplier payment mode"
     supplier_receivables: "Supplier receivables" #?
     supplier_reference: "Supplier reference"

@@ -6,6 +6,8 @@ module Printers
       setup do
         template = Minitest::Mock.new
         template.expect :nature, :land_parcel_register
+        template.expect :nil?, false
+        template.expect :managed?, true
         @printer = LandParcelRegisterPrinterBase.new template: template
       end
 

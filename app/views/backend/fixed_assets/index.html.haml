@@ -20,8 +20,7 @@
     = link_to :account_for.tl, { action: :depreciate_all, until: depreciate_until&.iso8601, redirect: request.fullpath }, { class: ['btn btn-default', ('disabled' if depreciate_until == nil)], data: { confirm: :are_you_sure.tl, update_link_with: '#depreciate-fixed-assets-until' }, method: :post }
     %span.add-on= :up_to.tl.downcase
     = date_field_tag(:until, depreciate_until, id: 'depreciate-fixed-assets-until', data: { max_date: FinancialYear.opened.any? ? max_date.iso8601 : Time.zone.today.iso8601 }, disabled: (true if FinancialYear.count == 0))
-  = dropdown_menu_button(:export.ta, icon: :download) do |d|
-    - %i[general by_account gain_and_loss].each do |nature|
-      - d.item "export_fixed_assets_#{nature}".tl, nature: nature, period: params[:period], format: :pdf
+
+  = t.export :fixed_asset_registry, :by_account_fixed_asset_registry, :gain_and_loss_fixed_asset_registry, key: Printers::FixedAssetRegistryPrinter.build_key(stopped_on: params[:stopped_on])
 
 = main_list

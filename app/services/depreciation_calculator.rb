@@ -34,7 +34,7 @@ class DepreciationCalculator
     groups.map do |_, v|
       first_period_start = v.first.first
       last_period_end = v.last.second
-      period_duration = v.map(&:third).reduce(&:+)
+      period_duration = v.sum(&:third)
 
       [first_period_start, last_period_end, period_duration]
     end
@@ -47,6 +47,7 @@ class DepreciationCalculator
 
     months = []
     current = started_on
+    current = current + 1.day if started_on.day === 31
     remaining_days = depreciation_duration
     while remaining_days >= 30
       month_end = current.end_of_month

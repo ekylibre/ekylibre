@@ -164,7 +164,8 @@ module Backend
       respond_to do |format|
         format.pdf do
           document_template = DocumentTemplate.find(params[:template])
-          if document_template.managed?
+
+          if document_template.file_extension.odt?
             generate_n_send_pdf_for(@sale, document_template) || redirect_to_back(fallback_location: backend_sale_path(@sale))
           else
             create_response

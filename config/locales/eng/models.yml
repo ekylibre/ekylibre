@@ -1654,6 +1654,7 @@ eng:
     supports: "Supports"
     suspend_until_reconciliation: "Suspend until reconciliation"
     suspended: "Suspended"
+    suspended_balance: "Temporary account balance"
     suspended_journal_entry_items: "Suspended journal entry items"
     suspense_account: "Suspense account"
     # suspense_cashes: "Suspense cashes"

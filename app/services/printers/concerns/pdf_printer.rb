@@ -50,22 +50,45 @@ module Printers
 
       def archive_report_template(data_or_file, nature:, key:, template:, document_name:, **_options)
         data = data_or_file.is_a?(File) ? data_or_file : StringIO.new(data_or_file)
-        Document.create!(
+        document = Document.create!(
           nature: nature,
           key: key,
           name: document_name,
           file: data,
-          file_file_name: "#{key}.pdf",
+          file_file_name: "#{document_name}.pdf",
           template: template
         )
+
+        if template.present? && template.signed
+          signer = SignatureManager.new
+          signer.sign(document: document, user: document.creator)
+        end
+
+        document
       end
 
       def find_open_document_template(name)
-        dir = Rails.root.join('config', 'locales')
-        paths = [dir.join(I18n.locale.to_s, 'reporting', "#{name}.odt"),
-                 dir.join('eng', 'reporting', "#{name}.odt"),
-                 dir.join('fra', 'reporting', "#{name}.odt")]
-        paths.detect(&:exist?)
+        ActiveSupport::Deprecation.warn('Use find_template instead of find_open_document_template')
+
+        document_template = DocumentTemplate.find_by nature: name
+        find_template(document_template, nature: name)
+      end
+
+      # The `nature` parameter is deprecated
+      def find_template(document_template, nature: nil)
+        ActiveSupport::Deprecation.warn "PdfPrinter::find_template is deprecated, use TemplateFileProvider instead"
+
+        if (n = document_template.nil?) || document_template.managed?
+          file_name = n ? nature : document_template.nature
+          dir = Rails.root.join('config', 'locales')
+          paths = [dir.join(I18n.locale.to_s, 'reporting', "#{file_name}.odt"),
+                   dir.join('eng', 'reporting', "#{file_name}.odt"),
+                   dir.join('fra', 'reporting', "#{file_name}.odt")]
+          document_template_path = paths.detect(&:exist?)
+        else
+          document_template_path = document_template.source_path
+        end
+        document_template_path
       end
 
       private
