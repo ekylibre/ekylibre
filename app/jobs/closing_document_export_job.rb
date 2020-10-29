@@ -9,6 +9,8 @@ class ClosingDocumentExportJob < ActiveJob::Base
           r = IncomeStatementPrinter.new(financial_year: financial_year, key: key, document_nature: nature, params: params)
         elsif nature == 'balance_sheet'
           r = BalanceSheetPrinter.new(financial_year: financial_year, key: key, document_nature: nature, params: params)
+        elsif nature == 'short_balance_sheet'
+          r = ShortBalanceSheetPrinter.new(financial_year: financial_year, key: key, document_nature: nature, params: params)
         end
 
         file_path = r.run_pdf

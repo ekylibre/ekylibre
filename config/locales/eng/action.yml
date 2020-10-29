@@ -1146,6 +1146,7 @@ eng:
     active: "Active" #?
     active_finishing_after: "Active finishing after" #?
     active_finishing_within: "Active finishing within" #?
+    active_totals: "Active Totals"
     activities: "Activities" #?
     activity: "Activity"
     activity_production: "Activity production"
@@ -2148,6 +2149,7 @@ eng:
     participants: "Participants"
     participations: "Participations"
     parts: "Modules"
+    passive_totals: "Passive Totals"
     password: "Password" #?
     payable_taxes: "Payable taxes" #?
     payment_amount: "Amount of payment" #?

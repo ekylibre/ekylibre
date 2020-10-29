@@ -78,7 +78,7 @@ fra:
       items:
         fr_pcg82: "Plan comptable général de 1982 ‒ Arrêté du 14/12/2007"
         fr_pcga: "Plan comptable agricole ‒ Arrêté du 11/12/1986"
-        ifrs: "Normes internationales d’information financière (IFRS)" #?
+        ifrs: "Normes internationales d’information financière (IFRS)"
         pt_snc: "Plan comptable Portugais - (SNC)"
       name: "Plans de comptes"
     accounts:
@@ -119,7 +119,7 @@ fra:
         banks_and_similar: "Banques, établissements financiers et assimilés"
         banks_services_expenses: "Services bancaires"
         biocorporeal_asset_depreciations: "Amortissements des biens vivants"
-        bonus_staff_expenses: "Primes et gratifications du personnel" #?
+        bonus_staff_expenses: "Primes et gratifications du personnel"
         brands_and_patents_assets: "Immobilisations des brevets, licences, marques et procédés"
         brands_and_patents_assets_amortization: "Concessions et droits similaires, brevets, licences, droits et valeurs similaires"
         building_assets: "Bâtiments"
@@ -133,7 +133,7 @@ fra:
         catalog_and_print_expenses: "Catalogues et imprimés"
         clients: "Clients"
         co_ownership_and_locative_expenses: "Charges locatives et de copropriété"
-        collected_intra_eu_vat: "TVA due intracommunautaire" #?
+        collected_intra_eu_vat: "TVA due intracommunautaire"
         collected_vat: "Taxes sur le chiffre d’affaires collectées par l’entreprise"
         collected_vat_to_resolve: "TVA collectée à régulariser"
         commercial_property: "Fonds commercial"
@@ -149,8 +149,6 @@ fra:
         corporeal_asset_revenues: "Immobilisations corporelles"
         corporeal_asset_revenues_of_livestock: "Production immobilisée – Immobilisations corporelles (biens vivants)"
         corporeal_assets: "Immobilisations corporelles"
-        # corporeal_depreciations_inputations_expenses: "Land parcel construction depreciations inputations expenses"
-        # corporeal_depreciations_inputations_expenses_living_goods: "Animals depreciations inputations expenses"
         corporeals_and_incorporeals_depreciations_inputations_expenses: "Dotat. aux amort. des immobilisations incorporelles et corporelles"
         credit_retained_earnings: "Report à nouveau (solde créditeur)"
         creditor_clients: "Clients créditeurs"
@@ -170,20 +168,18 @@ fra:
         discount_from_cooperatives: "Ristournes percues des coopératives agricoles"
         discount_granted_expenses: "Escomptes accordés"
         donation_exceptional_expenses: "Charges exceptionnelles - dons"
-        # electricity_expenses: "Electricity expenses"
         employee_participation_and_income_taxes_and_assimilated_payments_expenses: "Participation des salariés - impôts sur les bénéfices et assimilés"
         employee_participation_expenses: "Participation des salariés aux résultats"
         employee_representative_committees: "Comités d'entreprises"
         end_products_stock: "Stock de produits finis et intermédiaires"
         enterprise_collected_vat: "TVA collectée"
-        enterprise_deductible_vat: "TVA déductible" #?
+        enterprise_deductible_vat: "TVA déductible"
         entity_collectable_taxes: "Etat - Impôts et taxes recouvrables"
         equipment_asset_depreciations: "Amortissements des installations techniques, matériels et outillage"
         equipment_assets: "Matériels"
         equipment_assets_amortization: "Amortissements du matériel"
         equipment_cooperative_participation_assets: "CUMA"
         equipment_depreciations_inputations_expenses: "Dotat. aux amort. des équipements"
-        # equipment_expenses: "Equipment expenses"
         equipment_locative_expenses: "Charges locatives du matériel"
         equipment_maintenance_expenses: "Installations techniques, matériel et outillage"
         equipment_rent_expenses: "Location de matériel"
@@ -197,11 +193,11 @@ fra:
         exceptional_depreciations_inputations_expenses: "Dotations aux amortissements, dépréciations et provisions - Charges financières"
         exceptional_depreciations_inputations_revenues: "Reprises sur dépréciations et provisions (à inscrire dans les produits financiers)"
         exceptional_expenses: "Charges exceptionnelles"
-        exceptional_incorporeal_asset_depreciation_revenues: "Reprises sur provisions (produits exceptionnels) " #?
+        exceptional_incorporeal_asset_depreciation_revenues: "Reprises sur provisions (produits exceptionnels) "
         exceptional_revenues: "Revenus exceptionnels"
-        exceptionnal_charge_transfer_revenues: "Transferts de charges exceptionnelles" #?
-        exceptionnal_depreciations_inputations_expenses: "Dotations aux amortissements et aux provisions - Charges exceptionnelles" #?
-        exceptionnal_incorporeal_asset_depreciation_revenues: "Reprises sur provisions (produits exceptionnels) " #?
+        exceptionnal_charge_transfer_revenues: "Transferts de charges exceptionnelles"
+        exceptionnal_depreciations_inputations_expenses: "Dotations aux amortissements et aux provisions - Charges exceptionnelles"
+        exceptionnal_incorporeal_asset_depreciation_revenues: "Reprises sur provisions (produits exceptionnels) "
         expenses: "Comptes de charges"
         exploitation_depreciations_inputations_expenses: "Dotations aux amortissements et aux provisions - Charges d'exploitation"
         exploitation_expenses_transfers: "Transferts de charges d’exploitation"
@@ -239,56 +235,56 @@ fra:
         foreign_exchange_expenses: "Pertes de change"
         foreign_exchange_financials_revenues: "Gains de change"
         forwarding_agent_fees_expenses: "Rémunération des transitaires"
-        fr_pcg82: #?
-          corporeal_depreciations_inputations_expenses: "Immobilisations corporelles" #?
-          equipment_expenses: "Achats de matériels, équipements et travaux" #?
-          intangible_fixed_asset_in_progress: "Immobilisations incorporelles en cours" #?
-          little_office_equipment_expenses: "Fournitures d'entretien et de petit équipement" #?
-          paid_vacation: "Congés payés" #?
-          payments_on_account_on_orders_for_tangible_fixed_assets: "Avances et acomptes versés sur commandes d'immobilisations corporelles" #?
-          services_expenses: "Achat de prestations de services" #?
-          tangible_fixed_assets_revenues_without_livestock: "Immobilisations corporelles" #?
-        fr_pcga: #?
-          animal_expenses: "Achats d'animaux" #?
-          animal_rent_expenses: "Locations d'animaux" #?
-          animals_making_expenses: "Achats de prestations de services (productions animales)" #?
-          associates_salary: "Rémunérations (associés d'exploitation)" #?
-          corporeal_asset_revenues_of_livestock: "Production immobilisée – Immobilisations corporelles (biens vivants)" #?
-          corporeal_depreciations_inputations_expenses: "Immobilisations corporelles (hors biens vivants)" #?
-          corporeal_depreciations_inputations_expenses_living_goods: "Immobilisations corporelles (biens vivants)" #?
-          electricity_expenses: "Électricité" #?
-          insurance_compensations: "Indemnités d'assurance" #?
-          intangible_fixed_asset_in_progress: "Immobilisations incorporelles en cours" #?
-          little_office_equipment_expenses: "Fournitures d'entretien et de petit équipement" #?
-          maintenances_consumables_stocks_variation: "Produits d'entretien" #?
-          making_services_expenses: "Achats de travaux et services incorporés aux produits" #?
-          managing_associates_salary: "Rémunérations (administrateurs, gérants, associés)" #?
-          materials_stocks_variation: "Matériaux divers" #?
-          office_supplies_stock: "Fourniture de bureau" #?
-          office_supply_matter_stocks_variation: "Fournitures de bureau" #?
-          other_consumable_matter_stocks_variation: "Autres fournitures consommables" #?
-          other_plants_tangible_fixed_asset_in_progress: "Autres végétaux immobilisés" #?
-          other_rent_expenses: "Autres locations" #?
-          packaging_stock: "Emballages" #?
-          packaging_stocks_variation: "Emballages" #?
-          paid_vacation: "Congés payés" #?
-          payments_on_account_on_intangible_fixed_assets: "Avances et acomptes versés sur immobilisations incorporelles" #?
-          payments_on_account_on_orders_for_tangible_fixed_assets: "Avances et acomptes versés sur commandes d'immobilisations corporelles" #?
-          payments_on_account_on_orders_for_tangible_fixed_assets_except_for_livestock: "Immobilisations corporelles (hors biens vivants)" #?
-          payments_on_account_on_orders_for_tangible_fixed_assets_for_livestock: "Immobilisations corporelles (biens vivants)" #?
-          permanent_staff_salary: "Personnel permanent ou régulier" #?
-          products_specials_taxes_for_animal_products: "Produits animaux" #?
-          products_specials_taxes_for_animals: "Animaux" #?
-          products_specials_taxes_for_plant_products: "Produits végétaux" #?
-          products_specials_taxes_for_processed_products: "Produits transformés" #?
-          raw_material_stocks_variation: "Matières premières" #?
-          staff_supply_expenses: "Denrées et fournitures pour le personnel" #?
-          staff_supply_stocks_variation: "Denrées et fournitures pour le personnel" #?
-          tangible_fixed_assets_revenues_livestock: "Immobilisations corporelles (biens vivants)" #?
-          tangible_fixed_assets_revenues_without_livestock: "Immobilisations corporelles (hors biens vivants)" #?
-          temporary_staff_salary: "Personnel temporaire ou occasionnel" #?
-          workshop_and_warehouse_supplies_expenses: "Fournitures d’atelier et de magasin" #?
-          workshop_and_warehouse_supplies_stocks_variation: "Fournitures d'atelier et de magasin" #?
+        fr_pcg82:
+          corporeal_depreciations_inputations_expenses: "Immobilisations corporelles"
+          equipment_expenses: "Achats de matériels, équipements et travaux"
+          intangible_fixed_asset_in_progress: "Immobilisations incorporelles en cours"
+          little_office_equipment_expenses: "Fournitures d'entretien et de petit équipement"
+          paid_vacation: "Congés payés"
+          payments_on_account_on_orders_for_tangible_fixed_assets: "Avances et acomptes versés sur commandes d'immobilisations corporelles"
+          services_expenses: "Achat de prestations de services"
+          tangible_fixed_assets_revenues_without_livestock: "Immobilisations corporelles"
+        fr_pcga:
+          animal_expenses: "Achats d'animaux"
+          animal_rent_expenses: "Locations d'animaux"
+          animals_making_expenses: "Achats de prestations de services (productions animales)"
+          associates_salary: "Rémunérations (associés d'exploitation)"
+          corporeal_asset_revenues_of_livestock: "Production immobilisée – Immobilisations corporelles (biens vivants)"
+          corporeal_depreciations_inputations_expenses: "Immobilisations corporelles (hors biens vivants)"
+          corporeal_depreciations_inputations_expenses_living_goods: "Immobilisations corporelles (biens vivants)"
+          electricity_expenses: "Électricité"
+          insurance_compensations: "Indemnités d'assurance"
+          intangible_fixed_asset_in_progress: "Immobilisations incorporelles en cours"
+          little_office_equipment_expenses: "Fournitures d'entretien et de petit équipement"
+          maintenances_consumables_stocks_variation: "Produits d'entretien"
+          making_services_expenses: "Achats de travaux et services incorporés aux produits"
+          managing_associates_salary: "Rémunérations (administrateurs, gérants, associés)"
+          materials_stocks_variation: "Matériaux divers"
+          office_supplies_stock: "Fourniture de bureau"
+          office_supply_matter_stocks_variation: "Fournitures de bureau"
+          other_consumable_matter_stocks_variation: "Autres fournitures consommables"
+          other_plants_tangible_fixed_asset_in_progress: "Autres végétaux immobilisés"
+          other_rent_expenses: "Autres locations"
+          packaging_stock: "Emballages"
+          packaging_stocks_variation: "Emballages"
+          paid_vacation: "Congés payés"
+          payments_on_account_on_intangible_fixed_assets: "Avances et acomptes versés sur immobilisations incorporelles"
+          payments_on_account_on_orders_for_tangible_fixed_assets: "Avances et acomptes versés sur commandes d'immobilisations corporelles"
+          payments_on_account_on_orders_for_tangible_fixed_assets_except_for_livestock: "Immobilisations corporelles (hors biens vivants)"
+          payments_on_account_on_orders_for_tangible_fixed_assets_for_livestock: "Immobilisations corporelles (biens vivants)"
+          permanent_staff_salary: "Personnel permanent ou régulier"
+          products_specials_taxes_for_animal_products: "Produits animaux"
+          products_specials_taxes_for_animals: "Animaux"
+          products_specials_taxes_for_plant_products: "Produits végétaux"
+          products_specials_taxes_for_processed_products: "Produits transformés"
+          raw_material_stocks_variation: "Matières premières"
+          staff_supply_expenses: "Denrées et fournitures pour le personnel"
+          staff_supply_stocks_variation: "Denrées et fournitures pour le personnel"
+          tangible_fixed_assets_revenues_livestock: "Immobilisations corporelles (biens vivants)"
+          tangible_fixed_assets_revenues_without_livestock: "Immobilisations corporelles (hors biens vivants)"
+          temporary_staff_salary: "Personnel temporaire ou occasionnel"
+          workshop_and_warehouse_supplies_expenses: "Fournitures d’atelier et de magasin"
+          workshop_and_warehouse_supplies_stocks_variation: "Fournitures d'atelier et de magasin"
         fuel_matter_expenses: "Achats stockés ‒ Carburants et lubrifiants"
         fuel_stock: "Stock de carburants et lubrifiants"
         fuels_expenses: "Carburants et lubrifiants"
@@ -326,14 +322,14 @@ fra:
         insurance_expenses: "Primes d’assurance"
         intangible_fixed_asset_in_progress: "Immobilisations incorporelles en cours"
         intangible_fixed_assets_revenues: "Immobilisations incorporelles"
-        interests_expenses: "Charges d’intérêts" #?
+        interests_expenses: "Charges d’intérêts"
         internal_transfers: "Virements internes"
         inventory_variations: "Variations d’inventaires"
         invoice_to_create_clients: "Clients - Produits non encore facturés"
         irrecoverable_losses_on_debt_obligation_expenses: "Pertes sur créances irrécouvrables"
         irrigation_expenses: "Eau d’irrigation"
-        land_charges: "Immobilisations corporelles (hors biens vivants)" #?
-        land_fixed_assets: "Terrains nus" #?
+        land_charges: "Immobilisations corporelles (hors biens vivants)"
+        land_fixed_assets: "Terrains nus"
         land_loans: "Emprunts fonciers"
         land_loans_interests: "Intérêts des emprunts fonciers"
         land_parcel_asset_depreciations: "Amortissements des terrains de gisement"
@@ -342,7 +338,7 @@ fra:
         land_parcel_construction_assets: "Aménagements fonciers"
         land_parcel_locative_expenses: "Charges locatives du foncier"
         land_parcel_rent_expenses: "Fermages et loyers du foncier"
-        land_sales: "Immobilisations corporelles (hors biens vivants)" #?
+        land_sales: "Immobilisations corporelles (hors biens vivants)"
         leasing_expenses: "Charges de bail et location"
         legal_reserves: "Réserve légale"
         levies_and_taxes_from_distributions: "Retenues et prélèvements sur les distributions"
@@ -367,11 +363,10 @@ fra:
         long_term_loans: "Emprunts à moyen et long terme"
         long_term_loans_interests: "Intérêts des autres emprunts à moyen et long terme"
         long_time_animal_stock: "Animaux (cycle long)"
-        mails_expenses: "Frais postaux et de télécommunications" #?
+        mails_expenses: "Frais postaux et de télécommunications"
         maintenance_expenses: "Maintenance"
         maintenances_consumables_expenses: "Produits d’entretien"
         maintenances_consumables_stock: "Stock de produits d’entretien"
-        # making_services_expenses: "Making services expenses"
         making_services_revenues: "Ventes de prestations de services"
         management_operation_exceptional_expenses: "Charges exceptionnelles sur opération de gestion"
         management_operation_exceptional_revenues: "Produits exceptionnels sur opérations de gestion"
@@ -388,7 +383,7 @@ fra:
         office_furniture_asset_depreciations: "Amortissements du mobilier"
         office_furniture_assets: "Mobilier"
         office_supply_matter_expenses: "Fournitures de bureau"
-        operation: "Opération" #?
+        operation: "Opération"
         other_animal_expenses: "Achats Autres animaux"
         other_animal_revenues: "Ventes Autres animaux"
         other_asset_depreciations: "Amortissements des autres immobilisations"
@@ -429,7 +424,7 @@ fra:
         other_supplies: "Autres approvisionnements"
         other_supply_expenses: "Achats stockés - Autres approvisionnements"
         other_supply_stocks_variation: "Variation des stocks autres approvisionnements"
-        other_taxes: "Autres impôts, taxes et versements assimilés" #?
+        other_taxes: "Autres impôts, taxes et versements assimilés"
         other_usual_running_expenses: "Charges diverses de gestion courante"
         other_usual_running_profits: "Produits divers de gestion courante"
         other_various_interests_expenses: "Autres charges diverses d’intérêts"
@@ -514,8 +509,8 @@ fra:
         service_animal_asset_depreciations: "Amortissements des animaux de services"
         service_animal_assets: "Animaux de service"
         service_discount_and_reductions_expenses: "Rabais, remises et ristournes obtenus sur services extérieurs"
-        services: "Prestations de services" #?
-        services_expenses: "Achat de prestations de services" #?
+        services: "Prestations de services"
+        services_expenses: "Achat de prestations de services"
         services_revenues: "Vente de prestations de services"
         share_asset_subsidies: "Quote-part des subventions d’investissement virée au résultat de l’exercice"
         share_capital_bonus: "Primes liées au capital social"
@@ -621,135 +616,135 @@ fra:
           main: "Principale"
           standalone: "Indépendante"
       items:
-        accountancy: "Comptabilité" #?
+        accountancy: "Comptabilité"
         administering: "Administratif"
-        agricultural_works: "Travaux agricoles" #?
-        alfalfa_crops: "Luzerne" #?
-        almond_orchards: "Amandiers" #?
+        agricultural_works: "Travaux agricoles"
+        alfalfa_crops: "Luzerne"
+        almond_orchards: "Amandiers"
         animal_farming: "Production animale"
-        animal_housing: "Pension animale" #?
-        apple_orchards: "Pommiers" #?
-        arboriculture: "Arboriculture" #?
-        aromatic_and_medicinal_plants: "Plantes médicinales et aromatiques" #?
-        artichoke_crops: "Artichaud" #?
-        asparagus_crops: "Asperges" #?
-        avocado_crops: "Avocats" #?
-        barley_crops: "Orge" #?
-        bean_crops: "Haricots" #?
-        beekeeping: "Apiculture" #?
-        beet_crops: "Betteraves" #?
-        bere_crops: "Escourgeon" #?
-        bison_farming: "Bisons" #?
-        black_mustard_crops: "Moutarde noire" #?
-        blackcurrant_crops: "Cassissiers" #?
-        building_works: "Travaux de bâtiment" #?
-        cabbage_crops: "Choux" #?
-        canary_grass_crops: "Alpiste" #?
-        carob_orchards: "Caroubiers" #?
-        carrot_crops: "Carottes" #?
-        catering: "Restauration" #?
-        cattle_farming: "Bovins" #?
-        celery_crops: "Céleri" #?
-        cereal_crops: "Céréales" #?
-        chestnut_orchards: "Châtaigniers" #?
-        chickpea_crops: "Pois chiche" #?
-        chicory_crops: "Chicorée" #?
-        cichorium_crops: "Chicorée" #?
-        citrus_orchards: "Agrumes" #?
-        cocoa_crops: "Cacaoyers" #?
-        common_wheat_crops: "Blé tendre" #?
-        cotton_crops: "Coton" #?
-        durum_wheat_crops: "Blé dur" #?
-        eggplant_crops: "Aubergine" #?
-        equipment_management: "Équipements" #?
-        exploitation: "Exploitation" #?
-        fallow_land: "Jachère" #?
-        field_crops: "Cultures de plein champ" #?
-        fish_farming: "Aquaculture" #?
-        flax_crops: "Lin" #?
-        flower_crops: "Floriculture" #?
-        fodder_crops: "Fourrages" #?
-        fruits_crops: "Cultures fruitières" #?
-        garden_pea_crops: "Petits pois" #?
-        garlic_crops: "Ail" #?
-        goat_farming: "Caprins" #?
-        handicraft: "Artisanat" #?
-        hazel_orchards: "Noisetiers" #?
-        hemp_crops: "Chanvre" #?
-        hop_crops: "Houblon" #?
-        horsebean_crops: "Fèves" #?
-        lavender_crops: "Lavande" #?
-        leek_crops: "Poireaux" #?
-        leguminous_crops: "Légumineux" #?
-        lentil_crops: "Lentilles" #?
-        lettuce_crops: "Laitues" #?
-        lodging: "Hébergement" #?
-        lupin_crops: "Lupin" #?
-        maize_crops: "Maïs" #?
-        market_garden_crops: "Maraîchage" #?
-        meadow: "Prairie" #?
-        muskmelon_crops: "Melons" #?
-        mussel_farming: "Mytiliculture" #?
-        oat_crops: "Avoine" #?
-        oilseed_crops: "Culture oléagineuse" #?
-        olive_groves: "Oliviers" #?
-        olive_orchards: "Oliviers" #?
-        onion_crops: "Oignons" #?
-        orchard_crops: "Vergers" #?
-        ostrich_farming: "Autruches" #?
-        oyster_farming: "Ostréïculture" #?
-        palmiped_farming: "Palmipèdes" #?
-        parsley_crops: "Persil" #?
-        pea_crops: "Pois" #?
-        peach_orchards: "Pêchers" #?
-        peanut_crops: "Arachides" #?
-        pear_orchards: "Poiriers" #?
-        pig_farming: "Porcins" #?
-        pineapple_crops: "Ananas" #?
-        pistachio_orchards: "Pistachiers" #?
+        animal_housing: "Pension animale"
+        apple_orchards: "Pommiers"
+        arboriculture: "Arboriculture"
+        aromatic_and_medicinal_plants: "Plantes médicinales et aromatiques"
+        artichoke_crops: "Artichaud"
+        asparagus_crops: "Asperges"
+        avocado_crops: "Avocats"
+        barley_crops: "Orge"
+        bean_crops: "Haricots"
+        beekeeping: "Apiculture"
+        beet_crops: "Betteraves"
+        bere_crops: "Escourgeon"
+        bison_farming: "Bisons"
+        black_mustard_crops: "Moutarde noire"
+        blackcurrant_crops: "Cassissiers"
+        building_works: "Travaux de bâtiment"
+        cabbage_crops: "Choux"
+        canary_grass_crops: "Alpiste"
+        carob_orchards: "Caroubiers"
+        carrot_crops: "Carottes"
+        catering: "Restauration"
+        cattle_farming: "Bovins"
+        celery_crops: "Céleri"
+        cereal_crops: "Céréales"
+        chestnut_orchards: "Châtaigniers"
+        chickpea_crops: "Pois chiche"
+        chicory_crops: "Chicorée"
+        cichorium_crops: "Chicorée"
+        citrus_orchards: "Agrumes"
+        cocoa_crops: "Cacaoyers"
+        common_wheat_crops: "Blé tendre"
+        cotton_crops: "Coton"
+        durum_wheat_crops: "Blé dur"
+        eggplant_crops: "Aubergine"
+        equipment_management: "Équipements"
+        exploitation: "Exploitation"
+        fallow_land: "Jachère"
+        field_crops: "Cultures de plein champ"
+        fish_farming: "Aquaculture"
+        flax_crops: "Lin"
+        flower_crops: "Floriculture"
+        fodder_crops: "Fourrages"
+        fruits_crops: "Cultures fruitières"
+        garden_pea_crops: "Petits pois"
+        garlic_crops: "Ail"
+        goat_farming: "Caprins"
+        handicraft: "Artisanat"
+        hazel_orchards: "Noisetiers"
+        hemp_crops: "Chanvre"
+        hop_crops: "Houblon"
+        horsebean_crops: "Fèves"
+        lavender_crops: "Lavande"
+        leek_crops: "Poireaux"
+        leguminous_crops: "Légumineux"
+        lentil_crops: "Lentilles"
+        lettuce_crops: "Laitues"
+        lodging: "Hébergement"
+        lupin_crops: "Lupin"
+        maize_crops: "Maïs"
+        market_garden_crops: "Maraîchage"
+        meadow: "Prairie"
+        muskmelon_crops: "Melons"
+        mussel_farming: "Mytiliculture"
+        oat_crops: "Avoine"
+        oilseed_crops: "Culture oléagineuse"
+        olive_groves: "Oliviers"
+        olive_orchards: "Oliviers"
+        onion_crops: "Oignons"
+        orchard_crops: "Vergers"
+        ostrich_farming: "Autruches"
+        oyster_farming: "Ostréïculture"
+        palmiped_farming: "Palmipèdes"
+        parsley_crops: "Persil"
+        pea_crops: "Pois"
+        peach_orchards: "Pêchers"
+        peanut_crops: "Arachides"
+        pear_orchards: "Poiriers"
+        pig_farming: "Porcins"
+        pineapple_crops: "Ananas"
+        pistachio_orchards: "Pistachiers"
         plant_farming: "Production végétale"
-        plum_orchards: "Pruniers" #?
-        poaceae_crops: "Graminées" #?
-        potato_crops: "Pommes de terre" #?
-        poultry_farming: "Volaille" #?
+        plum_orchards: "Pruniers"
+        poaceae_crops: "Graminées"
+        potato_crops: "Pommes de terre"
+        poultry_farming: "Volaille"
         processing: "Transformation"
-        protein_crops: "Culture protéagineuse" #?
-        purchases: "Achats" #?
-        rabbit_farming: "Cuniculture" #?
-        radish_crops: "Radis" #?
-        rapeseed_crops: "Colza" #?
-        raspberry_crops: "Framboisiers" #?
-        redcurrant_crops: "Groseillers" #?
-        renting: "Location" #?
-        rice_crops: "Riz" #?
-        rye_crops: "Sègle" #?
-        saffron_crops: "Safran" #?
-        sales: "Ventes" #?
-        salmon_farming: "Saumons" #?
-        scallop_farming: "Pectiniculture" #?
+        protein_crops: "Culture protéagineuse"
+        purchases: "Achats"
+        rabbit_farming: "Cuniculture"
+        radish_crops: "Radis"
+        rapeseed_crops: "Colza"
+        raspberry_crops: "Framboisiers"
+        redcurrant_crops: "Groseillers"
+        renting: "Location"
+        rice_crops: "Riz"
+        rye_crops: "Sègle"
+        saffron_crops: "Safran"
+        sales: "Ventes"
+        salmon_farming: "Saumons"
+        scallop_farming: "Pectiniculture"
         service_delivering: "Prestation de service"
-        sheep_farming: "Ovins" #?
-        snail_farming: "Héliciculture" #?
-        sorghum_crops: "Sorgho" #?
-        soybean_crops: "Soja" #?
-        stocks: "Stocks" #?
-        straw_cereal_crops: "Céréales à paille" #?
-        strawberry_crops: "Fraises" #?
-        sturgeon_farming: "Esturgeons" #?
-        sunflower_crops: "Tournesol" #?
-        theobroma_crops: "Theobroma" #?
-        tobacco_crops: "Tabac" #?
-        tomato_crops: "Tomates" #?
+        sheep_farming: "Ovins"
+        snail_farming: "Héliciculture"
+        sorghum_crops: "Sorgho"
+        soybean_crops: "Soja"
+        stocks: "Stocks"
+        straw_cereal_crops: "Céréales à paille"
+        strawberry_crops: "Fraises"
+        sturgeon_farming: "Esturgeons"
+        sunflower_crops: "Tournesol"
+        theobroma_crops: "Theobroma"
+        tobacco_crops: "Tabac"
+        tomato_crops: "Tomates"
         tool_maintaining: "Maintenance"
-        triticale_crops: "Triticale" #?
-        turnip_crops: "Navets" #?
-        vetch_crops: "Vesce" #?
-        vine_wine: "Vignes & vin" #?
-        vines: "Vignes" #?
-        walnut_orchards: "Noyers" #?
-        watermelon_crops: "Pastèques" #?
+        triticale_crops: "Triticale"
+        turnip_crops: "Navets"
+        vetch_crops: "Vesce"
+        vine_wine: "Vignes & vin"
+        vines: "Vignes"
+        walnut_orchards: "Noyers"
+        watermelon_crops: "Pastèques"
         wine_making: "Vinification"
-        works: "Travaux" #?
+        works: "Travaux"
       name: "Familles d’activité"
       property_natures:
         cultivation_variety: "Variété de la culture"
@@ -1436,8 +1431,7 @@ fra:
         ghs_toxic: "Toxique "
         ghs-h360fd2: "Peut nuire à la fertilité. Peut nuire au fœtus."
       name: "Classifications chimiques"
-      property_natures:
-        # code: "Code"
+
     chemical_elements:
       items:
         actinium: "Actinium"
@@ -2127,7 +2121,7 @@ fra:
         animal_list: "Liste des animaux"
         animal_sheet: "Fiche animal"
         balance_sheet: "Bilan comptable"
-        deposit: "Remise en banque" #?
+        deposit: "Remise en banque"
         deposit_list: "Remise en banque"
         entity_sheet: "Fiche tiers"
         equipment_certification: "Certification des équipements"
@@ -2147,7 +2141,7 @@ fra:
         inventory_sheet: "Inventaire"
         journal: "Journal"
         journal_entry_sheet: "Journal feuille d’entrée"
-        journal_ledger: "Etat du journal" #?
+        journal_ledger: "Etat du journal"
         land_parcel_register: "Cahier de culture"
         loan_registry: "Registre de prêt"
         manure_management_plan: "Cahier d’épandage"
@@ -2169,6 +2163,7 @@ fra:
         sales_order: "Commande de vente"
         security_data_sheet: "Fiche de données de sécurité"
         shipping_note: "Bon de livraison"
+        short_balance_sheet: "Bilan simplifié"
         stocks: "Stocks"
         tax_assessment: "Avis d’imposition"
         trial_balance: "Balance comptable"
@@ -2213,27 +2208,27 @@ fra:
         entity: "Personne 1"
         linked: "Personne 2"
         symmetric: "Lien symétrique"
-    entity_natures: #?
-      items: #?
-        association: "Association" #?
-        civil_society: "Société civile" #?
-        collectivity: "Collectivité" #?
-        company: "Société" #?
-        contact: "Contact" #?
-        cooperative: "Coopérative" #?
-        doctor: "Docteur" #?
-        economic_interest_group: "Groupement d’intérêt économique" #?
-        entity: "Entité" #?
-        foundation: "Fondation" #?
-        madam: "Madame" #?
-        organization: "Organisation" #?
-        professor: "Professeur" #?
-        public_establishment: "Établissement public" #?
-        public_interest_group: "Groupement d’intérêt public" #?
-        sir: "Monsieur" #?
-        sir_and_madam: "Monsieur et Madame" #?
-        syndicate: "Syndicat" #?
-      name: "Types de tiers" #?
+    entity_natures:
+      items:
+        association: "Association"
+        civil_society: "Société civile"
+        collectivity: "Collectivité"
+        company: "Société"
+        contact: "Contact"
+        cooperative: "Coopérative"
+        doctor: "Docteur"
+        economic_interest_group: "Groupement d’intérêt économique"
+        entity: "Entité"
+        foundation: "Fondation"
+        madam: "Madame"
+        organization: "Organisation"
+        professor: "Professeur"
+        public_establishment: "Établissement public"
+        public_interest_group: "Groupement d’intérêt public"
+        sir: "Monsieur"
+        sir_and_madam: "Monsieur et Madame"
+        syndicate: "Syndicat"
+      name: "Types de tiers"
     event_natures:
       items:
         absence: "Absence"
@@ -2281,18 +2276,18 @@ fra:
         spheroid: "Sphéroïde"
         vehicle: "Véhicule"
       name: "Formes"
-    fiscal_positions: #?
-      items: #?
-        fr_ba_ir: "Bénéfices agricoles - Impôt sur le revenu" #?
-        fr_ba_is: "Bénéfices agricoles - Impôt sur les sociétés" #?
-        fr_bic_ir: "Bénéfices industriels et commerciaux - Impôt sur le revenu" #?
-        fr_bic_is: "Bénéfices industriels et commerciaux - Impôt sur les sociétés" #?
-        fr_bnc_ir: "Bénéfices non commerciaux - Impôt sur le revenu" #?
-        fr_bnc_is: "Bénéfices non commerciaux - Impôt sur les sociétés" #?
-      name: "Régimes fiscaux" #?
-      property_natures: #?
-        code: "Code" #?
-        country: "Pays" #?
+    fiscal_positions:
+      items:
+        fr_ba_ir: "Bénéfices agricoles - Impôt sur le revenu"
+        fr_ba_is: "Bénéfices agricoles - Impôt sur les sociétés"
+        fr_bic_ir: "Bénéfices industriels et commerciaux - Impôt sur le revenu"
+        fr_bic_is: "Bénéfices industriels et commerciaux - Impôt sur les sociétés"
+        fr_bnc_ir: "Bénéfices non commerciaux - Impôt sur le revenu"
+        fr_bnc_is: "Bénéfices non commerciaux - Impôt sur les sociétés"
+      name: "Régimes fiscaux"
+      property_natures:
+        code: "Code"
+        country: "Pays"
     guide_natures:
       items:
         best_practices: "Bonnes pratiques"
@@ -2492,7 +2487,7 @@ fra:
         plants_count: "Nombre de plantes"
         plants_interval: "Intervalle inter-pieds"
         plowshare_count: "Nombre de socs"
-        population: "Population" #?
+        population: "Population"
         potash_concentration: "Teneur en potasse (K₂O)"
         potassium_concentration: "Teneur en potassium"
         potential_hydrogen: "Potentiel hydrogène (pH)"
@@ -2633,11 +2628,10 @@ fra:
         limping: "Boîterie"
         longhorn_beetle: "Longicorne"
         mammite: "Mammite"
-        matoda: "Nématodes" #?
+        matoda: "Nématodes"
         mechanical_issue: "Problème mécanique"
         mediterranean_corn_borer: "Sésamie"
         moth: "Teigne (insecte)"
-        # nematoda: "Nematoda"
         nematoda_disease: "Maladie à nématodes"
         nightshade: "Morelle"
         noble_rot: "Pourriture grise ou noble"
@@ -2864,8 +2858,8 @@ fra:
         identifiers: "Identifiants"
         nature: "Type"
         url: "URL"
-    nmp_poitou_charentes_abacus_one: #?
-      name: "Abaque 1 de la méthode de calcul de bilan azoté Poitou-Charentes" #?
+    nmp_poitou_charentes_abacus_one:
+      name: "Abaque 1 de la méthode de calcul de bilan azoté Poitou-Charentes"
     opportunity_origins:
       items:
         advertisement: "Publicité"
@@ -3156,7 +3150,7 @@ fra:
         nuts_harvest: "Récolte de fruits à coques"
         nuts_transport: "Transport de fruits à coques"
         oviparous_birth: "Reproduction (ovipare)"
-        packaging: "Packaging" #?
+        packaging: "Packaging"
         pasturing: "Pâturage"
         physical_weed_killing: "Désherbage physique"
         piece_replacement: "Remplacement de pièces"
@@ -3270,16 +3264,16 @@ fra:
         bonus_staff_expense: "Primes et gratifications au personnel"
         building: "Bâtiment"
         building_division: "Pièce ou découpe d’un bâtiment"
-        building_rental: "Location de bâtiment" #?
+        building_rental: "Location de bâtiment"
         calf: "Veau"
-        car_rental: "Location de véhicule" #?
+        car_rental: "Location de véhicule"
         carriage: "Transport"
         catalog_and_print: "Catalogues et imprimés"
         cattle_herd: "Troupeau de bovins"
         congress: "Congrès"
         construction_materials_in_own_outstanding_installation: "Matériaux de construction (utilisation en cours et sol propre)"
         consumer_goods_office_item: "Fourniture de bureau (consommable)"
-        cooperative_participation: "Titre de participation (coopérative)" #?
+        cooperative_participation: "Titre de participation (coopérative)"
         crop: "Culture"
         discount_and_reduction: "Réduction"
         duty_and_taxe: "Frais et taxe"
@@ -3290,7 +3284,7 @@ fra:
         equipment_fleet: "Parc matériel"
         equipment_rent: "Location d’équipement"
         equipment_repair_services: "Prestations de réparation d’équipements"
-        equity: "Action" #?
+        equity: "Action"
         exploitation_subsidies: "Subventions d’exploitation"
         farm_teaching_services: "Enseignement à la ferme"
         fee: "Honoraire"
@@ -3429,7 +3423,7 @@ fra:
           kilowatt_hour: "Kilowatt-heure"
           liter: "Litre"
           meal: "Repas"
-          meter: "Mètre" #?
+          meter: "Mètre"
           month: "Mois"
           night: "Nuit"
           package: "Pack"
@@ -3459,7 +3453,7 @@ fra:
         actilact: "Actilact"
         additive: "Adjuvant"
         air_compressor: "Compresseur"
-        alfalfa_seed: "Semence de luzerne" #?
+        alfalfa_seed: "Semence de luzerne"
         all_inclusive_corn_sower: "Semoir maïs tout intégré"
         animal_building: "Bâtiment d’accueil pour les animaux"
         animal_division: "Zone accueillant des animaux"
@@ -3608,7 +3602,7 @@ fra:
         coop:bofix_5_l: "Bofix 5 l"
         coop:bromotril_225_5_l: "Bromotril 225 5 l"
         coop:bth_s_arezzo_r1_gau_red_lat_s25kg: "Semence de Blé tendre Arezzo (r1 gau+red) sac de 25kg"
-        coop:bth_s_ascott_r1_gau__red_s25kg: "Semence de Blé tendre Ascott (r1 gau+red) sac de 25kg" #?
+        coop:bth_s_ascott_r1_gau__red_s25kg: "Semence de Blé tendre Ascott (r1 gau+red) sac de 25kg"
         coop:bth_s_ascott_r1_gau_red_s25kg: "Semence de Blé tendre Ascott (r1 gau+red) sac de 25kg"
         coop:bth_s_caphorn_r1_cel_gold_net_25kg: "Semence de Blé tendre Caphorn (r1 cel gold) sac de 25kg"
         coop:bth_s_caphorn_r1_gau_red_25kg: "Semence de Blé tendre Caphorn (r1 gau+red) sac de 25kg"
@@ -3685,8 +3679,8 @@ fra:
         coop:uree_gr_vrac: "Uree gr vrac"
         coop:vesce_velue_savane_hiver_10k: "Semence de vesce velue ‒ Savane ‒ sac de 10kg"
         coop:yellow_pea_grain: "Pois jaune"
-        cooperative_participation: "Titre de participation (coopérative)" #?
-        cooperative_share: "Action (coopérative)" #?
+        cooperative_participation: "Titre de participation (coopérative)"
+        cooperative_share: "Action (coopérative)"
         corabel_hazelnut: "Noisette Corabel"
         corker: "Boucheuse"
         corn_crop: "Culture de maïs"
@@ -3879,12 +3873,9 @@ fra:
         lettuce_crop: "Culture de laitue"
         lewis_hazelnut: "Noisette Lewis"
         lifter: "Souleveur"
-        liquid_10_25_d1-4: "Azote binaire 10-25-0 densité 1.4" #?
-        # liquid_10_25_d1.4: "Liquid 10 25 d1.4"
-        liquid_10_34_d1-4: "Azote binaire 10-34-0 densité 1.4" #?
-        # liquid_10_34_d1.4: "Liquid 10 34 d1.4"
-        liquid_nitrogen_30_d1-3: "Azote liquide 30% densité 1.3" #?
-        # liquid_nitrogen_30_d1.3: "Liquid nitrogen 30 d1.3"
+        liquid_10_25_d1-4: "Azote binaire 10-25-0 densité 1.4"
+        liquid_10_34_d1-4: "Azote binaire 10-34-0 densité 1.4"
+        liquid_nitrogen_30_d1-3: "Azote liquide 30% densité 1.3"
         little_office_equipment: "Petit équipement de bureau"
         little_office_good: "Consommable de bureau"
         livestock_cleanliness_product: "Produit d’hygiène d’élevage"
@@ -3921,11 +3912,11 @@ fra:
         market_gardening_crop: "Maraîchage"
         meadow_grass: "Herbe de prairie"
         meal_travel: "Frais repas (déplacement)"
-        melon_crop: "Culture de melon" #?
+        melon_crop: "Culture de melon"
         merlot_noir_so4_vine_seedling: "Plant de Merlot Noir sur so4"
         merveille_hazelnut: "Noisette Merveille"
         milk_tank: "Tank à lait"
-        milk_taxe: "Taxe sur les produits laitiers" #?
+        milk_taxe: "Taxe sur les produits laitiers"
         milked_lamb_meat: "Viande d’agneau de lait"
         milked_pork_meat: "Viande de cochon de lait"
         milking_division: "Laiterie"
@@ -3994,7 +3985,7 @@ fra:
         piglet_band: "Bande de porcelet"
         piglet_meat: "Viande de porcellet"
         plant_medicine_tank: "Réserve de produits phytosanitaires"
-        plastic_cover: "Couvert plastique" #?
+        plastic_cover: "Couvert plastique"
         plastic_cover_500m: "Couvert plastique 500m"
         plow: "Charrue"
         plum: "Prune"
@@ -4166,7 +4157,7 @@ fra:
         wire_50m_roll: "Bobine de 50 mètres de fil de clôture"
         wood_stake_200: "Piquet bois de 2 mètres"
         wood_stake_250: "Piquet bois de 2,5 mètres"
-        young_goat: "Chevreau" #?
+        young_goat: "Chevreau"
         young_pig_band: "Bande de porcelets"
         young_rabbit: "Lapereau"
         zea_herbicide: "Herbicide maïs"
@@ -4236,7 +4227,7 @@ fra:
         congress: "Congrès"
         construction_material_in_own_outstanding_installation: "Matériel de construction sur sol propre"
         consumer_goods_office_item: "Fourniture de bureau (consommable)"
-        cooperative_participation: "Titre de participations (cooperative)" #?
+        cooperative_participation: "Titre de participations (cooperative)"
         cork: "Bouchon"
         corker: "Boucheuse"
         corn_topper: "Écimeuse"
@@ -4280,7 +4271,7 @@ fra:
         fermented_grape_juice: "Jus fermenté de raisin"
         fermented_milk: "Lait fermenté"
         ferry: "Transbordeur"
-        fertilizer_division: "Zone de stockage des engrais" #?
+        fertilizer_division: "Zone de stockage des engrais"
         fiscal_fine: "Amende fiscale"
         flower_crop: "Culture florale"
         fodder_bale: "Botte de fourrage"
@@ -4444,7 +4435,7 @@ fra:
         seedbed_preparator: "Outil de préparation du lit de semences"
         seedling: "Plant"
         settlement: "Aménagement"
-        share: "Action" #?
+        share: "Action"
         sheep_herd: "Troupeau de mouton"
         shell_fruit_reaper: "Récolteuse de fruits à coques"
         sieve_shaker: "Tamiseuse"
@@ -4502,7 +4493,7 @@ fra:
         wine_storage_division: "Zone de stockage ‒ vins conditionnés"
         wine_tank: "Cuve à vin"
         wire: "Fil"
-        young_goat: "Chevreau" #?
+        young_goat: "Chevreau"
         young_rabbit: "Lapereau"
       name: "Types de produits"
       property_natures:
@@ -4517,110 +4508,110 @@ fra:
         variable_indicators: "Indicateurs variables"
         variety: "Variété"
     production_natures:
-      items: #?
-        administrative: "Administratif" #?
-        annual_frost_fallow_land: "Gel annuel" #?
-        apple: "Pomme" #?
-        asparagus: "Asperge" #?
-        bean: "Haricot" #?
-        beet: "Betterave" #?
-        building: "Bâtiment" #?
-        calf: "Veau" #?
-        carrot: "Carotte" #?
-        chicken: "Poulet" #?
-        duck: "Canard" #?
-        escourgeon_barley: "Orge escourgeon" #?
-        exploitation: "Exploitation" #?
-        five_years_temporary_meadow: "Prairie temporaire de plus de 5 ans" #?
-        fixed_frost_fallow_land: "Gel fixe" #?
-        flax: "Lin" #?
-        forager_lupin: "Lupin fourrager" #?
-        forager_soy: "Soja fourrager" #?
-        fruit_processing: "Transformation de fruits" #?
-        garden_center: "Pépinière" #?
-        garlic: "Ail" #?
-        goat: "Chèvre" #?
-        gooseberry: "Groseille" #?
-        grain_corn: "Maïs grain" #?
-        green_fallow_land: "Gel vert" #?
-        hazel: "Noisetier" #?
-        horsebean: "Féverole" #?
-        lavender: "Lavande" #?
-        laying_hen: "Poule pondeuse" #?
-        lentil: "Lentille" #?
-        maintenance: "Maintenance" #?
-        market_gardening: "Maraîchage" #?
-        market_gardening_under_greenhouse: "Maraîchage sous serre" #?
-        marketable_bean: "Haricot commercialisé" #?
-        marketable_flax: "Lin commercialisé" #?
-        marketable_forager_lupin: "Lupin fourrager commercialisé" #?
-        marketable_forager_soy: "Soja fourrager commercialisé" #?
-        marketable_garden_center: "Pépinière commercialisée" #?
-        marketable_hazel: "Noisette commercialisée" #?
-        marketable_lentil: "Lentille commercialisée" #?
-        marketable_soy: "Soja commercialisé" #?
-        marketable_sunflower: "Tournesol commercialisé" #?
-        marketable_walnut: "Noix commercialisée" #?
-        meat_cattle: "Bovins Viande" #?
-        melon: "Melon" #?
-        milk_bull_calf: "Taurillons Lait" #?
-        milk_cattle: "Bovins Lait" #?
-        other_crop: "Autre culture" #?
-        other_gardening: "Autres fruits et légumes" #?
-        others_usages: "Autres utilisations (non admissibles)" #?
-        oyster: "Huître" #?
-        peach: "Péche" #?
-        pear: "Poire" #?
-        permanent_meadow: "Prairie permanente" #?
-        pig: "Porc" #?
-        plum: "Prune" #?
-        potato: "Pomme de terre" #?
-        raspberry: "Framboise" #?
-        rose: "Rose" #?
-        rye: "Seigle" #?
-        saffron: "Safran" #?
-        salmon: "Saumon" #?
-        seed_bean: "Haricot semence" #?
-        seed_corn: "Maïs semence" #?
-        seed_pea: "Pois semence" #?
-        services: "Services" #?
-        silage_corn: "Maïs ensilage" #?
-        sorghum: "Sorgho" #?
-        soy: "Soja" #?
-        specific_fallow_land: "Gel spécifique" #?
-        spring_barley: "Orge de printemps" #?
-        spring_hard_wheat: "Blé dur de printemps" #?
-        spring_oat: "Avoine de printemps" #?
-        spring_pea: "Pois de printemps" #?
-        spring_rapeseed: "Colza de printemps" #?
-        spring_soft_wheat: "Blé de printemps" #?
-        strawberry: "Fraise" #?
-        sunflower: "Tournesol" #?
-        table_grape_vine: "Vigne à raisin de table" #?
-        temporary_meadow: "Prairie temporaire" #?
-        thicket: "Taillis" #?
-        tobacco: "Tabac" #?
-        trade: "Commerce" #?
-        triticale: "Triticale" #?
-        unexploited_cultivable_zone: "Zone cultivable inexploitée" #?
-        vine: "Vigne" #?
-        vine_restructuration: "Restructuration vigne" #?
-        walnut: "Noyer" #?
-        wine_storehouse: "Cave" #?
-        winery: "Chai" #?
-        winter_barley: "Orge d’hiver" #?
-        winter_hard_wheat: "Blé dur d’hiver" #?
-        winter_oat: "Avoine d’hiver" #?
-        winter_pea: "Pois d’hiver" #?
-        winter_rapeseed: "Colza d’hiver" #?
-        winter_soft_wheat: "Blé tendre d’hiver" #?
-        without_crop: "Hors culture" #?
+      items:
+        administrative: "Administratif"
+        annual_frost_fallow_land: "Gel annuel"
+        apple: "Pomme"
+        asparagus: "Asperge"
+        bean: "Haricot"
+        beet: "Betterave"
+        building: "Bâtiment"
+        calf: "Veau"
+        carrot: "Carotte"
+        chicken: "Poulet"
+        duck: "Canard"
+        escourgeon_barley: "Orge escourgeon"
+        exploitation: "Exploitation"
+        five_years_temporary_meadow: "Prairie temporaire de plus de 5 ans"
+        fixed_frost_fallow_land: "Gel fixe"
+        flax: "Lin"
+        forager_lupin: "Lupin fourrager"
+        forager_soy: "Soja fourrager"
+        fruit_processing: "Transformation de fruits"
+        garden_center: "Pépinière"
+        garlic: "Ail"
+        goat: "Chèvre"
+        gooseberry: "Groseille"
+        grain_corn: "Maïs grain"
+        green_fallow_land: "Gel vert"
+        hazel: "Noisetier"
+        horsebean: "Féverole"
+        lavender: "Lavande"
+        laying_hen: "Poule pondeuse"
+        lentil: "Lentille"
+        maintenance: "Maintenance"
+        market_gardening: "Maraîchage"
+        market_gardening_under_greenhouse: "Maraîchage sous serre"
+        marketable_bean: "Haricot commercialisé"
+        marketable_flax: "Lin commercialisé"
+        marketable_forager_lupin: "Lupin fourrager commercialisé"
+        marketable_forager_soy: "Soja fourrager commercialisé"
+        marketable_garden_center: "Pépinière commercialisée"
+        marketable_hazel: "Noisette commercialisée"
+        marketable_lentil: "Lentille commercialisée"
+        marketable_soy: "Soja commercialisé"
+        marketable_sunflower: "Tournesol commercialisé"
+        marketable_walnut: "Noix commercialisée"
+        meat_cattle: "Bovins Viande"
+        melon: "Melon"
+        milk_bull_calf: "Taurillons Lait"
+        milk_cattle: "Bovins Lait"
+        other_crop: "Autre culture"
+        other_gardening: "Autres fruits et légumes"
+        others_usages: "Autres utilisations (non admissibles)"
+        oyster: "Huître"
+        peach: "Péche"
+        pear: "Poire"
+        permanent_meadow: "Prairie permanente"
+        pig: "Porc"
+        plum: "Prune"
+        potato: "Pomme de terre"
+        raspberry: "Framboise"
+        rose: "Rose"
+        rye: "Seigle"
+        saffron: "Safran"
+        salmon: "Saumon"
+        seed_bean: "Haricot semence"
+        seed_corn: "Maïs semence"
+        seed_pea: "Pois semence"
+        services: "Services"
+        silage_corn: "Maïs ensilage"
+        sorghum: "Sorgho"
+        soy: "Soja"
+        specific_fallow_land: "Gel spécifique"
+        spring_barley: "Orge de printemps"
+        spring_hard_wheat: "Blé dur de printemps"
+        spring_oat: "Avoine de printemps"
+        spring_pea: "Pois de printemps"
+        spring_rapeseed: "Colza de printemps"
+        spring_soft_wheat: "Blé de printemps"
+        strawberry: "Fraise"
+        sunflower: "Tournesol"
+        table_grape_vine: "Vigne à raisin de table"
+        temporary_meadow: "Prairie temporaire"
+        thicket: "Taillis"
+        tobacco: "Tabac"
+        trade: "Commerce"
+        triticale: "Triticale"
+        unexploited_cultivable_zone: "Zone cultivable inexploitée"
+        vine: "Vigne"
+        vine_restructuration: "Restructuration vigne"
+        walnut: "Noyer"
+        wine_storehouse: "Cave"
+        winery: "Chai"
+        winter_barley: "Orge d’hiver"
+        winter_hard_wheat: "Blé dur d’hiver"
+        winter_oat: "Avoine d’hiver"
+        winter_pea: "Pois d’hiver"
+        winter_rapeseed: "Colza d’hiver"
+        winter_soft_wheat: "Blé tendre d’hiver"
+        without_crop: "Hors culture"
       name: "Types de productions"
-      property_natures: #?
-        activity: "Activité" #?
-        production_code: "Code" #?
-        telepac_crop_code: "Code de type de culture TéléPAC" #?
-        variant_support: "Variant" #?
+      property_natures:
+        activity: "Activité"
+        production_code: "Code"
+        telepac_crop_code: "Code de type de culture TéléPAC"
+        variant_support: "Variant"
     production_systems:
       items:
         extensive_farming: "Agriculture extensive"
@@ -4727,7 +4718,7 @@ fra:
           amount: "Montant fixe"
           percentage: "Pourcentage"
       items:
-        asset_vat: "TVA sur immobilisations" #?
+        asset_vat: "TVA sur immobilisations"
         eu_vat: "TVA intra-communautaire"
         import_export_vat: "TVA import/export"
         inflated_vat: "TVA augmentée"
@@ -4745,21 +4736,21 @@ fra:
         fixed_asset_deduction_account: "Compte de déduction pour les immobilisations"
         suffix: "Suffixe"
     taxes:
-      choices: #?
-        computation_method: #?
-          amount: "Montant fixe" #?
-          percentage: "Pourcentage" #?
+      choices:
+        computation_method:
+          amount: "Montant fixe"
+          percentage: "Pourcentage"
       items:
         algerian_vat_normal: "TVA algérienne normale"
         algerian_vat_normal_2017: "TVA algérienne normale 2017"
         algerian_vat_null: "TVA null Algérie"
         algerian_vat_reduced: "TVA algérienne réduite"
         algerian_vat_reduced_2017: "TVA algérienne réduite 2017"
-        fr_vat_intermediate: "TVA française intermédiaire" #?
-        fr_vat_normal: "TVA française normale" #?
-        fr_vat_null: "TVA française nulle" #?
-        fr_vat_particular: "TVA française particuliere" #?
-        fr_vat_reduced: "TVA française normale réduite" #?
+        fr_vat_intermediate: "TVA française intermédiaire"
+        fr_vat_normal: "TVA française normale"
+        fr_vat_null: "TVA française nulle"
+        fr_vat_particular: "TVA française particuliere"
+        fr_vat_reduced: "TVA française normale réduite"
         french_vat_eu: "TVA intra-communautaire"
         french_vat_import_export: "TVA import/export"
         french_vat_intermediate_2012: "TVA 7.0 % (2012)"
@@ -4791,16 +4782,16 @@ fra:
         swiss_vat_reduced_2011: "TVA suisse réduite 2011"
       name: "Taxes"
       property_natures:
-        active: "actif" #?
+        active: "actif"
         amount: "valeur"
-        collect_account: "compte de TVA collectée (radical)" #?
-        computation_method: "Methode de calcul" #?
+        collect_account: "compte de TVA collectée (radical)"
+        computation_method: "Methode de calcul"
         country: "pays"
-        deduction_account: "compte de TVA déductible (radical)" #?
+        deduction_account: "compte de TVA déductible (radical)"
         nature: "Type"
         started_on: "Débutée le"
         stopped_on: "Arrêté le"
-        suffix: "suffixe du compte comptable" #?
+        suffix: "suffixe du compte comptable"
     units:
       items:
         acre: "Acre"
@@ -5963,7 +5954,7 @@ fra:
         ligustrum: "Troène"
         ligustrum_ovalifolium: "Troène de Californie"
         ligustrum_vulgare: "Troène commun"
-        liliaceae: "Liliacée" #?
+        liliaceae: "Liliacée"
         limacidae: "Limacidé"
         limonium: "Limonium"
         limonium_vulgare: "Lavande de mer"
@@ -6366,7 +6357,7 @@ fra:
         oryctolagus_cuniculus_nain_belier: "Lapin commun nain belier"
         oryza: "Riz"
         oryza_sativa: "Riz cultivé"
-        osteichthyes: "Poissons osseux" #?
+        osteichthyes: "Poissons osseux"
         ostreidae: "Ostréïdé"
         ovis: "Ovin"
         ovis_aries: "Mouton"
@@ -6478,7 +6469,7 @@ fra:
         pistacia: "Pistachier"
         pistacia_vera: "Pistachier commun"
         pisum: "Pois"
-        pisum_hibernum: "Pois d’hiver" #?
+        pisum_hibernum: "Pois d’hiver"
         pisum_sativum: "Pois commun"
         pisum_sativum_astronaute: "Pois de printemps Astronaute"
         pisum_sativum_audit: "Pois de printemps Audit"
@@ -6493,7 +6484,7 @@ fra:
         pisum_sativum_rocket: "Pois de printemps Rocket"
         pisum_sativum_style: "Pois Style"
         pisum_sativum_touracq: "Pois Touracq"
-        pisum_vernum: "Pois de printemps" #?
+        pisum_vernum: "Pois de printemps"
         plant: "Culture"
         plantaginaceae: "Plantaginacée"
         plantago: "Plantago"
@@ -6810,7 +6801,7 @@ fra:
         solanum_lycopersicum_calabash_red: "Tomate Calabash red"
         solanum_lycopersicum_caro_rich: "Tomate Caro rich"
         solanum_lycopersicum_cerise: "Tomate Cerise"
-        solanum_lycopersicum_cersasiforme: "Tomate Cerise" #?
+        solanum_lycopersicum_cersasiforme: "Tomate Cerise"
         solanum_lycopersicum_chair_de_boeuf: "Tomate Chair de bœuf"
         solanum_lycopersicum_champion: "Tomate Champion"
         solanum_lycopersicum_charbonniere: "Tomate Charbonnière"
