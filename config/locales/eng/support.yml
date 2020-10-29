@@ -21,6 +21,7 @@ eng:
       long: "%B %d, %Y"
       month: "%B %Y"
       month_letter: "%d %B %Y"
+      month_name: "%B"
       short: "%b %d"
       short_month: "%m/%Y"
     month_names: ["", "january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]

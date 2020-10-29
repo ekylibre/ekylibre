@@ -1,5 +1,6 @@
 - main_toolbar do |t|
   = t.new params: { redirect: nil }
+  = t.export(:worker_register, key: Printers::WorkerRegisterPrinter.build_key(campaign: current_campaign), label: :print_worker_register)
 
 - main_period_selector(:year)
 

@@ -188,11 +188,8 @@ module Ekylibre
         FileUtils.mkdir_p(archive_path)
 
         puts "Decompressing #{archive_file.basename} to #{archive_path.basename}...".yellow if verbose
-        Zip::File.open(archive_file.to_s) do |zile|
-          zile.each do |entry|
-            entry.extract(archive_path.join(entry.name))
-          end
-        end
+
+        system "unzip -d #{archive_path} #{archive_file} > /dev/null"
 
         puts 'Checking archive...'.yellow if verbose
         if !archive_path.join('manifest.yml').exist?

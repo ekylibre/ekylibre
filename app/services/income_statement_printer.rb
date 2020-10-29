@@ -20,7 +20,7 @@ class IncomeStatementPrinter
       # products
       # puts @accounting_system.inspect.red
       g1 = HashWithIndifferentAccess.new
-      g1[:group_name] = "Produits d'exploitation"
+      g1[:group_name] = :operating_revenues.tl
       g1[:items] = []
       if @accounting_system == :fr_pcga
         items = [:products_sales, :animal_sales, :productions_sales,
@@ -44,7 +44,7 @@ class IncomeStatementPrinter
 
       # charges
       g2 = HashWithIndifferentAccess.new
-      g2[:group_name] = "Charges d'exploitation"
+      g2[:group_name] = :operating_costs.tl
       g2[:items] = []
       if @accounting_system == :fr_pcga
         items = [:merchandises_purchases, :merchandises_purchases_stocks_variation, :products_purchases,
@@ -63,14 +63,14 @@ class IncomeStatementPrinter
       g2[:sum_name] = "Total II"
       g2[:current_sum] = current_compute.sum_entry_items_by_line(document_scope, :charges_subtotal)
       g2[:previous_sum] = previous_compute.sum_entry_items_by_line(document_scope, :charges_subtotal) if @financial_year.previous
-      g2[:sub_result_name] = "Résultat d'exploitation (I - II)"
+      g2[:sub_result_name] = :operating_result_i_ii.tl
       g2[:sub_result_current_value] = current_compute.sum_entry_items_by_line(document_scope, :exploitation_result)
       g2[:sub_result_previous_value] = previous_compute.sum_entry_items_by_line(document_scope, :exploitation_result) if @financial_year.previous
       dataset << g2
 
       # produits financiers
       g3 = HashWithIndifferentAccess.new
-      g3[:group_name] = "Produits financiers"
+      g3[:group_name] = :financial_products.tl
       g3[:items] = []
       items = [:financial_participations, :financial_debts, :financial_others_interests,
                :financial_depreciations, :financial_positive_change, :financial_net_cession_values]
@@ -87,7 +87,7 @@ class IncomeStatementPrinter
 
       # charges financieres
       g4 = HashWithIndifferentAccess.new
-      g4[:group_name] = "Charges financieres"
+      g4[:group_name] = :financial_expenses.tl
       g4[:items] = []
       items = [:financial_asset_dotations, :financial_interests_and_charges,
                :financial_negative_change, :financial_net_cession_debts]
@@ -100,7 +100,7 @@ class IncomeStatementPrinter
       g4[:sum_name] = "Total IV"
       g4[:current_sum] = current_compute.sum_entry_items_by_line(document_scope, :financial_expenses_subtotal)
       g4[:previous_sum] = previous_compute.sum_entry_items_by_line(document_scope, :financial_expenses_subtotal) if @financial_year.previous
-      g4[:sub_result_name] = "Résultat financier (III - IV)"
+      g4[:sub_result_name] = :financial_result_iii_iv.tl
       g4[:sub_result_current_value] = current_compute.sum_entry_items_by_line(document_scope, :financial_result)
       g4[:sub_result_previous_value] = previous_compute.sum_entry_items_by_line(document_scope, :financial_result) if @financial_year.previous
       dataset << g4
@@ -115,7 +115,7 @@ class IncomeStatementPrinter
 
       # produits exceptionnelles
       g6 = HashWithIndifferentAccess.new
-      g6[:group_name] = "Produits exceptionnels"
+      g6[:group_name] = :extraordinary_income.tl
       g6[:items] = []
       items = [:exceptional_products_on_management_operations, :exceptional_products_on_assets_cessions,
                :exceptional_products_on_capital_operations, :exceptional_products_on_provisions]
@@ -132,7 +132,7 @@ class IncomeStatementPrinter
 
       # charges exceptionnelles
       g7 = HashWithIndifferentAccess.new
-      g7[:group_name] = "Charges exceptionnelles"
+      g7[:group_name] = :exceptional_expenses.tl
       g7[:items] = []
       items = [:exceptional_expenses_on_management_operations, :exceptional_expenses_on_assets_cessions,
                :exceptional_expenses_on_capital_operations, :exceptional_expenses_on_provisions]

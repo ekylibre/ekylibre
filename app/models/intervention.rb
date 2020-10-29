@@ -904,8 +904,11 @@ class Intervention < Ekylibre::Record::Base
     InterventionParticipation.of_intervention(self).of_product(product).first
   end
 
-  def worker_working_periods(nature: nil, not_nature: nil)
+  def worker_working_periods(nature: nil, not_nature: nil, worker_id: nil)
     workers_participations = participations.select { |participation| participation.product.is_a?(Worker) }
+    if worker_id
+      workers_participations = workers_participations.select { |participation| participation.product_id = worker_id }
+    end
     working_periods = nil
 
     if nature.nil? && not_nature.nil?

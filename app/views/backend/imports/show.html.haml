@@ -10,4 +10,7 @@
     - l.attribute :importer, url: true
     - l.attribute :state
     - l.attribute :imported_at
+    - l.attribute :archive_file_name
+    - l.attribute :archive_content_type
+    - l.attribute :archive_file_size
   = render 'progress', import: resource

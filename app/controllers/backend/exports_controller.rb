@@ -60,7 +60,7 @@ module Backend
       else
         if (aggregator_parameters - params.keys).empty?
           notify(:information_success_print)
-          @btn_class = "btn-primary"
+          @btn_class = 'btn-primary'
         end
         respond_with @aggregator
       end

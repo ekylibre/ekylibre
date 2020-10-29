@@ -128,7 +128,7 @@ class ShortBalanceSheetPrinter
       r.add_field 'DATE', Date.today.l
       r.add_field 'STARTED_ON', started_on.to_date.l
       r.add_field 'N', stopped_on.to_date.l
-      r.add_field 'N_1', @financial_year.previous.stopped_on.to_date.l if @financial_year.previous
+      r.add_field 'N_1', @financial_year.previous ? @financial_year.previous.stopped_on.to_date.l : 'N-1'
       r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
       r.add_field 'DATA_FILTERS', data_filters * ' | '
 
