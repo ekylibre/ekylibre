@@ -59,6 +59,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   include Autocastable
   include Customizable
   include Importable
+  include Providable
 
   attr_readonly :number
   refers_to :variety

@@ -1353,6 +1353,7 @@ eng:
     animals: "Animals"
     any_journal: "Any journal"
     applications_count: "Max applications count"
+    applications_interval_not_respected: "Applications interval non respected"
     archive_post_closure: "Post closure archive"
     archive_prior_to_closure: "Prior to closure archive"
     archives: "Archives"
@@ -1402,6 +1403,8 @@ eng:
     bank_guarantees: "Bank guarantees"
     bank_statement_number: "Bank statement number" #?
     bank_statements: "Bank statements" #?
+    based_on_current_regulation: "Verifications based on current regulation"
+    based_on_regulation_at_date: "Verifications based on regulation in effect at %{date}"
     bban: "Basic Bank Account Number (BBAN)" #?
     before_taxe_result: "Before taxe result"
     beginning: "Beginning"
@@ -2177,6 +2180,7 @@ eng:
     new_shipment: "New shipment"
     new_writing: "New writing"
     next: "Next"
+    next_application_possible_on: "Next application possible on"
     nitrogen_concentration: "Nitrogen concentration" #?
     no_attachments: "Drop your files here or click on the button"
     no_crumbs_to_check: "No crumbs to check"

@@ -2,6 +2,8 @@
 - f.object.reference_name = reference.name
 .nested-fields.nested-product-parameter{class: "nested-#{reference.name.to_s.parameterize}", data: { intervention_parameter: reference.name } }
   = link_to_remove_nested_association(:destroy.ta, f)
+  = hidden_field_tag :intervention_parameter_id, f.object.id
+  = f.input :using_live_data, as: :hidden
   = f.input :reference_name, as: :hidden
   - if f.object.intervention
     - if f.object.intervention.started_at
@@ -83,6 +85,12 @@
     = f.referenced_association :usage, label: :usage_phyto.tl, input_html: { disabled: true, data: { filters_url: filter_usages_backend_registered_phytosanitary_usages_path, msg_container: ".intervention_inputs_usage .lights-message", lights: '.controls' } }, new: false
 
     = render 'intervention_usage_informations'
+
+    .authorization-disclaimer.authorization-disclaimer--past{ class: f.object.new_record? ? 'hidden' : '' }
+      - updated_on = f.object.reference_data['updated_on']
+      = :based_on_regulation_at_date.tl(date: updated_on.present? ? Date.parse(updated_on).l : f.object.intervention.updated_at&.to_date&.l)
+    .authorization-disclaimer.authorization-disclaimer--present{ class: f.object.new_record? ? '' : 'hidden' }
+      = :based_on_current_regulation.tl
 
   - if (attr = reference.attribute(:new_name))
     - if attr.hidden?

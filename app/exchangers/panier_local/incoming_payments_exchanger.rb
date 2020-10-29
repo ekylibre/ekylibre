@@ -1,185 +1,156 @@
 module PanierLocal
-  class IncomingPaymentsExchanger < ActiveExchanger::Base
+  class IncomingPaymentsExchanger < Base
+
+    # Imports incoming_payment entries into incoming payment to make accountancy in CSV format
+    # filename example : ECRITURES.CSV
+    # Columns are:
+    #  0 - A: journal_entry_items_line : "1"
+    #  1 - B: printed_on : "01/01/2017"
+    #  2 - C: journal code : "50"
+    #  3 - D: journal nature : "BANQUE"
+    #  4 - E: account number : "512"
+    #  5 - F: entity name : "AB EPLUCHES"
+    #  6 - G: entity number : "133"
+    #  7 - H: journal_entry number : "336"
+    #  8 - I: journal_entry label : "Versement"
+    #  9 - J: amount : '44,24'
+    #  10 - K: sens : 'D'
+    NORMALIZATION_CONFIG = [
+      { col: 1, name: :invoiced_at, type: :date, constraint: :not_nil },
+      { col: 3, name: :journal_nature, type: :string },
+      { col: 4, name: :account_number, type: :string, constraint: :not_nil },
+      { col: 5, name: :entity_name, type: :string, constraint: :not_nil },
+      { col: 6, name: :entity_code, type: :string, constraint: :not_nil },
+      { col: 7, name: :payment_reference_number, type: :integer, constraint: :not_nil },
+      { col: 8, name: :payment_description, type: :string },
+      { col: 9, name: :payment_item_amount, type: :float, constraint: :greater_or_equal_to_zero },
+      { col: 10, name: :payment_item_direction, type: :string },
+    ]
+
     def check
-      # Imports incoming_payment entries into incoming payment to make accountancy in CSV format
-      # filename example : ECRITURES.CSV
-      # Columns are:
-      #  0 - A: journal_entry_items_line : "1"
-      #  1 - B: printed_on : "01/01/2017"
-      #  2 - C: journal code : "50"
-      #  3 - D: journal nature : "BANQUE"
-      #  4 - E: account number : "512"
-      #  5 - F: entity name : "AB EPLUCHES"
-      #  6 - G: entity number : "133"
-      #  7 - H: journal_entry number : "336"
-      #  8 - I: journal_entry label : "Versement"
-      #  9 - J: amount : '44,24'
-      #  10 - K: sens : 'D'
+      rows = ActiveExchanger::CsvReader.new.read(file)
 
-      source = File.read(file)
-      detection = CharlockHolmes::EncodingDetector.detect(source)
-      rows = CSV.read(file, headers: true, encoding: detection[:encoding], col_sep: ';')
-      w.count = rows.size
-      valid = true
+      parser = ActiveExchanger::CsvParser.new(NORMALIZATION_CONFIG)
 
-      last_line = rows.size - 1
+      data, errors = parser.normalize(rows)
+
+      valid = errors.all?(&:empty?)
 
       # check if financial year exist
-      fy_start = FinancialYear.at(Date.parse(rows.first[1].to_s))
-      fy_stop = FinancialYear.at(Date.parse(rows[last_line][1].to_s))
-      unless fy_start && fy_stop
-        w.warn 'Need a FinancialYear'
-        valid = false
-      end
+      fy_start = FinancialYear.at(data.first.invoiced_at)
+      fy_stop = FinancialYear.at(data.last.invoiced_at)
 
-      # find a responsible
-      responsible = User.employees.first
-      unless responsible
-        w.error 'No responsible found'
+      if fy_start.nil? && fy_stop.nil?
+        w.error 'Need a FinancialYear'
         valid = false
       end
 
       # check if cash by default exist and incoming payment mode exist
-      c = Cash.bank_accounts.find_by(by_default: true)
-      if c
-        ipm = IncomingPaymentMode.where(cash_id: c.id, with_accounting: true).order(:name)
-        if ipm.any?
-          valid = true
-        else
-          w.warn 'Need an incoming payment link to cash account'
+      cash = Cash.bank_accounts.find_by(by_default: true)
+      if cash
+        ipm = IncomingPaymentMode.where(cash_id: cash.id, with_accounting: true).order(:name)
+        if ipm.empty?
+          w.error 'Need an incoming payment link to cash account'
           valid = false
         end
       else
-        w.warn 'Need a bank cash account'
+        w.error 'Need a default bank cash account'
         valid = false
       end
 
-      w.info "Requirement is #{valid}".inspect.green
-
-      rows.each_with_index do |row, index|
-        line_number = index + 2
-        prompt = "L#{line_number.to_s.yellow}"
-        r = {
-          payment_item_line: (row[0].blank? ? nil : row[0]),
-          invoiced_at:        (row[1].blank? ? nil : Date.parse(row[1].to_s)),
-          journal_nature: (row[3].blank? ? nil : row[3].to_s),
-          account_number:   (row[4].blank? ? nil : row[4].upcase),
-          entity_name: (row[5].blank? ? nil : row[5].to_s),
-          entity_code: (row[6].blank? ? nil : row[6].to_s),
-          payment_reference_number: (row[7].blank? ? nil : row[7].to_s),
-          payment_description: (row[8].blank? ? nil : row[8].to_s),
-          payment_item_amount: (row[9].blank? ? nil : row[9].tr(',', '.').to_f),
-          payment_item_sens: (row[10].blank? ? nil : row[10].to_s)
-        }.to_struct
-
-        # check data quality basics on file
-        unless r.payment_item_amount >= 0.0
-          valid = false
-        end
-
-        if r.account_number.nil? || r.invoiced_at.nil? || r.entity_name.nil? || r.entity_code.nil? || r.payment_reference_number.nil?
-          valid = false
-        end
-
-        w.info "Line data quality is #{valid}".inspect.green
-
-      end
       valid
     end
 
     def import
+      rows = ActiveExchanger::CsvReader.new.read(file)
 
-      source = File.read(file)
-      detection = CharlockHolmes::EncodingDetector.detect(source)
-      rows = CSV.read(file, headers: true, encoding: detection[:encoding], col_sep: ';')
-      w.count = rows.size
+      parser = ActiveExchanger::CsvParser.new(NORMALIZATION_CONFIG)
 
-      # create or find journal for sale nature
-      c = Cash.bank_accounts.find_by(by_default: true)
-      ipm = IncomingPaymentMode.where(cash_id: c.id, with_accounting: true).order(:name).last
-      responsible = User.employees.first
+      data, _errors = parser.normalize(rows)
 
-      rows.each_with_index do |row, index|
-        line_number = index + 2
-        prompt = "L#{line_number.to_s.yellow}"
-        r = {
-          payment_item_line: (row[0].blank? ? nil : row[0]),
-          invoiced_at:        (row[1].blank? ? nil : Date.parse(row[1].to_s)),
-          journal_nature: (row[3].blank? ? nil : row[3].to_s),
-          account_number:   (row[4].blank? ? nil : row[4].upcase),
-          entity_name: (row[5].blank? ? nil : row[5].to_s),
-          entity_code: (row[6].blank? ? nil : row[6].to_s),
-          payment_reference_number: (row[7].blank? ? nil : row[7].to_s),
-          payment_description: (row[8].blank? ? nil : row[8].to_s),
-          payment_item_amount: (row[9].blank? ? nil : row[9].tr(',', '.').to_f),
-          payment_item_sens: (row[10].blank? ? nil : row[10].to_s)
-        }.to_struct
+      incoming_payments_info = data.group_by { |d| d.payment_reference_number }
 
-        next if r.payment_item_amount == 0.0
+      incoming_payments_info.each { |_payment_reference_number, incoming_payment_info| incoming_payment_creation(incoming_payment_info) }
+    end
 
-        # find or create an entity when being on line like 411....
-        if r.entity_name && r.account_number.start_with?('411')
-          entity = Entity.where('codes ->> ? = ?', 'panier_local', r.entity_code).first
-          last_name = r.entity_name.mb_chars.capitalize
-          unless entity
-            # check entity account
-            acc = Account.find_or_initialize_by(number: r.account_number)
-            attributes = {name: r.entity_name}
-            attributes[:centralizing_account_name] = r.account_number.start_with?('401') ? 'suppliers' : 'clients'
-            attributes[:nature] = 'auxiliary'
-            aux_number = r.account_number[3, r.account_number.length]
-            if aux_number.match(/\A0*\z/).present?
-              w.info "We can't import auxiliary number #{aux_number} with only 0. Mass change number in your file before importing"
-              attributes[:auxiliary_number] = '00000A'
-            else
-              attributes[:auxiliary_number] = aux_number
-            end
-            acc.attributes = attributes
-            acc.save!
-            w.info "account saved ! : #{acc.label.inspect.red}"
-            # check entity
-            w.info "Create entity and link account"
-            entity = Entity.where('last_name ILIKE ?', last_name).first
-            entity ||= Entity.new
-            entity.nature = :organization
-            entity.last_name = last_name
-            entity.codes = { 'panier_local' => r.entity_code }
-            entity.active = true
-            entity.client = true
-            entity.client_account_id = acc.id
-            entity.save!
-            w.info prompt
-            w.info "Entity created ! : #{entity.full_name.inspect.red}"
+    def incoming_payment_creation(incoming_payment_info)
+      cash = Cash.bank_accounts.find_by(by_default: true)
+      ipm = IncomingPaymentMode.where(cash_id: cash.id, with_accounting: true).order(:name).last
+      responsible = import_resource.creator
+
+      client_incoming_payment_info = incoming_payment_info.select { |item| item.account_number.to_s.start_with?('411') }.first
+      bank_incoming_payment_info = incoming_payment_info.select { |item| item.account_number.to_s.start_with?('51') }.first
+
+      if bank_incoming_payment_info.present? && client_incoming_payment_info.present?
+        entity = get_or_create_entity(incoming_payment_info, client_incoming_payment_info)
+        incoming_payment = IncomingPayment.of_provider_name(:panier_local, :incoming_payments)
+                                          .of_provider_data(:payment_reference_number, bank_incoming_payment_info.payment_reference_number.to_s)
+                                          .find_by(payer: entity, paid_at: bank_incoming_payment_info.invoiced_at.to_datetime)
+        if incoming_payment.nil?
+          if bank_incoming_payment_info.payment_item_direction == 'D'
+            amount = bank_incoming_payment_info.payment_item_amount
+          elsif bank_incoming_payment_info.payment_item_direction == 'C'
+            amount = bank_incoming_payment_info.payment_item_amount * -1
+          else
+            raise StandardError.new("Can't create IncomingPayment. Payment item direction provided isn't a letter supported")
           end
+          IncomingPayment.create!(
+            mode: ipm,
+            paid_at: bank_incoming_payment_info.invoiced_at.to_datetime,
+            to_bank_at: bank_incoming_payment_info.invoiced_at.to_datetime,
+            amount: amount,
+            payer: entity,
+            received: true,
+            responsible: responsible,
+            provider: { vendor: :panier_local, name: :incoming_payments, id: import_resource.id, data: { payment_reference_number: bank_incoming_payment_info.payment_reference_number.to_s } }
+          )
         end
-
-        # get the entity when being on the line like 512..
-        entity = Entity.where('codes ->> ? = ?', 'panier_local', r.entity_code).first
-
-        if r.account_number.start_with?('51') && entity
-          incoming_payment = IncomingPayment.where('providers ->> ? = ?', 'panier_local', r.payment_reference_number).where(payer: entity, paid_at: r.invoiced_at.to_datetime).first
-          unless incoming_payment
-            if r.payment_item_sens == 'D'
-              amount = r.payment_item_amount
-            elsif r.payment_item_sens == 'C'
-              amount = r.payment_item_amount * -1
-            end
-            incoming_payment = IncomingPayment.create!(
-                                                      mode: ipm,
-                                                      paid_at: r.invoiced_at.to_datetime,
-                                                      to_bank_at: r.invoiced_at.to_datetime,
-                                                      amount: amount,
-                                                      payer: entity,
-                                                      received: true,
-                                                      responsible: responsible,
-                                                      providers: {'panier_local' => r.payment_reference_number, 'import_id' => options[:import_id]}
-                                                    )
-            w.info "Incoming Payment created ! : #{incoming_payment.amount}".inspect.green
-          end
-        end
-        w.check_point
       end
+    end
 
+    def get_or_create_entity(incoming_payment_info, client_incoming_payment_info)
+      entity = Entity.find_by('codes ->> ? = ?', 'panier_local', incoming_payment_info.first.entity_code.to_s)
+      if entity
+        entity
+      else
+        account = create_entity_account(client_incoming_payment_info)
+        create_entity(account, client_incoming_payment_info)
+      end
+    end
+
+    def create_entity_account(client_incoming_payment_info)
+      client_number_account = client_incoming_payment_info.account_number.to_s
+      acc = Account.find_or_initialize_by(number: client_number_account)
+      attributes = {
+        name: client_incoming_payment_info.entity_name,
+        centralizing_account_name: 'clients',
+        nature: 'auxiliary'
+      }
+
+      aux_number = client_number_account[3, client_number_account.length]
+
+      if aux_number.match(/\A0*\z/).present?
+        raise StandardError.new("Can't create account. Number provided can't be a radical class")
+      else
+        attributes[:auxiliary_number] = aux_number
+      end
+      acc.attributes = attributes
+      acc
+    end
+
+    def create_entity(acc, client_incoming_payment_info)
+      last_name = client_incoming_payment_info.entity_name.mb_chars.capitalize
+
+      w.info "Create entity and link account"
+      entity = Entity.new(
+        nature: :organization,
+        last_name: last_name,
+        codes: { 'panier_local' => client_incoming_payment_info.entity_code },
+        active: true,
+        client: true,
+        client_account_id: acc.id
+      )
+      entity
     end
   end
 end

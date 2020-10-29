@@ -512,27 +512,6 @@
       dataType: 'script'
       success: (data) =>
 
-  # Add value to unroll of product in intervention form
-  $(document).on 'selector:menu-opened', '#intervention-form .nested-product-parameter .selector-search', (event) =>
-    unless $(event.target).parents('.control-group').hasClass('intervention_targets_product')
-      items = $(event.target).parents('.controls').find('.item')
-      type = $(event.target).parents('.parameter-type').data('type')
-      date = $('.intervention-started-at').val()
-      items_id = $(items).map(->
-        $(this).attr 'data-item-id'
-      ).get()
-      $.ajax
-        url: '/backend/products/available_time_or_quantity'
-        data: { items: items_id, date: date }
-        success: (data) =>
-          if data.products_duration
-            items.each (index) ->
-              $(this).find('.time-part').remove()
-              product_id = parseInt($(this).attr('data-item-id'))
-              product = data.products_duration.find (e) ->
-                e.product_id == product_id
-              $(this).append "<strong class='time-part'>(#{product.quantity || 0})</strong>"
-
   $(document).on 'shown.bs.modal', '#compare-planned-with-realised', (event) ->
 
     $('.details').each ->

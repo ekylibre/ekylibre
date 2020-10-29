@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 9.6.16
--- Dumped by pg_dump version 9.6.16
+-- Dumped by pg_dump version 12.1 (Ubuntu 12.1-1.pgdg16.04+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -21,6 +21,20 @@ SET row_security = off;
 --
 
 CREATE SCHEMA postgis;
+
+
+--
+-- Name: public; Type: SCHEMA; Schema: -; Owner: -
+--
+
+CREATE SCHEMA public;
+
+
+--
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON SCHEMA public IS 'standard public schema';
 
 
 --
@@ -189,8 +203,6 @@ $$;
 
 SET default_tablespace = '';
 
-SET default_with_oids = false;
-
 --
 -- Name: account_balances; Type: TABLE; Schema: public; Owner: -
 --
@@ -258,7 +270,8 @@ CREATE TABLE public.accounts (
     auxiliary_number character varying,
     nature character varying,
     centralizing_account_name character varying,
-    already_existing boolean DEFAULT false NOT NULL
+    already_existing boolean DEFAULT false NOT NULL,
+    provider jsonb
 );
 
 
@@ -467,7 +480,10 @@ CREATE TABLE public.intervention_parameters (
     batch_number character varying,
     usage_id character varying,
     allowed_entry_factor interval,
-    allowed_harvest_factor interval
+    allowed_harvest_factor interval,
+    reference_data jsonb DEFAULT '{}'::jsonb,
+    using_live_data boolean DEFAULT true,
+    applications_frequency interval
 );
 
 
@@ -1387,14 +1403,15 @@ ALTER SEQUENCE public.campaigns_id_seq OWNED BY public.campaigns.id;
 --
 
 CREATE VIEW public.campaigns_interventions AS
- SELECT DISTINCT campaigns.id AS campaign_id,
-    interventions.id AS intervention_id
-   FROM ((((public.interventions
-     JOIN public.intervention_parameters ON ((intervention_parameters.intervention_id = interventions.id)))
-     JOIN public.products ON ((products.id = intervention_parameters.product_id)))
-     JOIN public.activity_productions ON ((products.activity_production_id = activity_productions.id)))
-     JOIN public.campaigns ON ((activity_productions.campaign_id = campaigns.id)))
-  ORDER BY campaigns.id;
+ SELECT DISTINCT c.id AS campaign_id,
+    i.id AS intervention_id
+   FROM (((((public.interventions i
+     JOIN public.intervention_parameters ip ON ((ip.intervention_id = i.id)))
+     JOIN public.products p ON ((p.id = ip.product_id)))
+     JOIN public.activity_productions ap ON ((ap.id = p.activity_production_id)))
+     JOIN public.activities a ON ((a.id = ap.activity_id)))
+     JOIN public.campaigns c ON (((c.id = ap.campaign_id) OR (((a.production_cycle)::text = 'perennial'::text) AND (i.started_at >= ap.started_on) AND (date_part('year'::text, i.started_at) = (c.harvest_year)::double precision)))))
+  ORDER BY c.id;
 
 
 --
@@ -1756,7 +1773,8 @@ CREATE TABLE public.catalogs (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    provider jsonb
 );
 
 
@@ -2415,6 +2433,7 @@ CREATE TABLE public.entities (
     supplier_payment_mode_id integer,
     first_financial_year_ends_on date,
     legal_position_code character varying,
+    provider jsonb,
     CONSTRAINT company_born_at_not_null CHECK (((of_company = false) OR ((of_company = true) AND (born_at IS NOT NULL))))
 );
 
@@ -2453,7 +2472,8 @@ CREATE TABLE public.incoming_payments (
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
     codes jsonb,
-    providers jsonb
+    providers jsonb,
+    provider jsonb
 );
 
 
@@ -2720,7 +2740,8 @@ CREATE TABLE public.sales (
     undelivered_invoice_journal_entry_id integer,
     quantity_gap_on_invoice_journal_entry_id integer,
     client_reference character varying,
-    providers jsonb
+    providers jsonb,
+    provider jsonb
 );
 
 
@@ -4227,7 +4248,8 @@ CREATE TABLE public.journals (
     used_for_permanent_stock_inventory boolean DEFAULT false NOT NULL,
     used_for_unbilled_payables boolean DEFAULT false NOT NULL,
     used_for_tax_declarations boolean DEFAULT false NOT NULL,
-    accountant_id integer
+    accountant_id integer,
+    provider jsonb
 );
 
 
@@ -5795,7 +5817,8 @@ CREATE TABLE public.product_nature_categories (
     stock_movement_account_id integer,
     asset_fixable boolean DEFAULT false,
     type character varying NOT NULL,
-    imported_from character varying
+    imported_from character varying,
+    provider jsonb
 );
 
 
@@ -6005,7 +6028,8 @@ CREATE TABLE public.product_nature_variants (
     providers jsonb,
     specie_variety character varying,
     type character varying NOT NULL,
-    imported_from character varying
+    imported_from character varying,
+    provider jsonb
 );
 
 
@@ -6064,7 +6088,8 @@ CREATE TABLE public.product_natures (
     subscription_months_count integer DEFAULT 0 NOT NULL,
     subscription_days_count integer DEFAULT 0 NOT NULL,
     type character varying NOT NULL,
-    imported_from character varying
+    imported_from character varying,
+    provider jsonb
 );
 
 
@@ -6484,7 +6509,8 @@ CREATE TABLE public.sale_natures (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    provider jsonb
 );
 
 
@@ -9692,6 +9718,34 @@ ALTER TABLE ONLY public.versions
 
 ALTER TABLE ONLY public.wice_grid_serialized_queries
     ADD CONSTRAINT wice_grid_serialized_queries_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: account_provider_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX account_provider_index ON public.accounts USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
+-- Name: catalog_provider_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX catalog_provider_index ON public.catalogs USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
+-- Name: entity_provider_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX entity_provider_index ON public.entities USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
+-- Name: incoming_payment_provider_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX incoming_payment_provider_index ON public.incoming_payments USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
 
 
 --
@@ -17878,6 +17932,48 @@ CREATE INDEX intervention_provider_index ON public.interventions USING gin (((pr
 
 
 --
+-- Name: journal_provider_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX journal_provider_index ON public.journals USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
+-- Name: product_nature_category_provider_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX product_nature_category_provider_index ON public.product_nature_categories USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
+-- Name: product_nature_provider_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX product_nature_provider_index ON public.product_natures USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
+-- Name: product_nature_variant_provider_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX product_nature_variant_provider_index ON public.product_nature_variants USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
+-- Name: sale_nature_provider_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX sale_nature_provider_index ON public.sale_natures USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
+-- Name: sale_provider_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX sale_provider_index ON public.sales USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -19145,3 +19241,12 @@ INSERT INTO schema_migrations (version) VALUES ('20200128133347');
 INSERT INTO schema_migrations (version) VALUES ('20200213102154');
 
 INSERT INTO schema_migrations (version) VALUES ('20200312163243');
+
+INSERT INTO schema_migrations (version) VALUES ('20200317155452');
+
+INSERT INTO schema_migrations (version) VALUES ('20200317163950');
+
+INSERT INTO schema_migrations (version) VALUES ('20200330133607');
+
+INSERT INTO schema_migrations (version) VALUES ('20200415163115');
+

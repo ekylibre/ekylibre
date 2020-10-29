@@ -86,7 +86,7 @@ module Interventions
       def get_spraying_intervention_on(targets)
         Intervention
           .where(id: InterventionTarget.where(product_id: targets).pluck(:intervention_id))
-          .of_nature("spraying")
+          .of_nature_using_phytosanitary
           .joins(:inputs) # inner join removes interventions without inputs
           .distinct
       end
