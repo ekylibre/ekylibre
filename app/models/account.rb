@@ -386,15 +386,16 @@ class Account < Ekylibre::Record::Base
     # Find or create an account with its name in accounting system if not exist in DB
     def find_or_import_from_nomenclature(usage, create_if_nonexistent: true)
       item = Nomen::Account.find(usage)
+      acc_number = item.send(accounting_system)
       raise ArgumentError, "The usage #{usage.inspect} is unknown" unless item
-      raise ArgumentError, "The usage #{usage.inspect} is not implemented in #{accounting_system.inspect}" unless item.send(accounting_system)
+      raise ArgumentError, "The usage #{usage.inspect} is not implemented in #{accounting_system.inspect}" unless acc_number
 
       account = find_by_usage(usage, except: { nature: :auxiliary })
       unless account
-        return unless valid_item?(item) && item.send(accounting_system).match(/\A[1-9]0*\z|\A0/).nil?
+        return unless valid_item?(item) && acc_number.match(/\A[1-9]0*\z|\A0/).nil?
         account = new(
           name: item.human_name(scope: accounting_system),
-          number: item.send(accounting_system),
+          number: acc_number,
           debtor: !!item.debtor,
           usages: item.name,
           nature: 'general'
@@ -458,9 +459,12 @@ class Account < Ekylibre::Record::Base
         find_each do |account|
           account.destroy if account.destroyable?
         end
+
+        acc_sys = accounting_system
+
         Nomen::Account.find_each do |item|
           # Load except radical and centralizing accounts
-          if item.send(accounting_system).match(/\A[1-9]0*\z|\A0/).nil? && !item.centralizing
+          if item.send(acc_sys).match(/\A[1-9]0*\z|\A0/).nil? && !item.centralizing
             find_or_import_from_nomenclature(item.name)
           end
         end
