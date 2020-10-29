@@ -18,7 +18,7 @@
 
 module Backend
   class PurchaseNaturesController < Backend::BaseController
-    manage_restfully currency: 'Preference[:currency]'.c
+    manage_restfully
 
     unroll
 
@@ -29,7 +29,6 @@ module Backend
       t.column :active
       t.column :by_default
       t.column :currency
-      t.column :with_accounting
       t.column :journal, url: true
     end
   end

@@ -6241,19 +6241,15 @@ ALTER SEQUENCE public.purchase_items_id_seq OWNED BY public.purchase_items.id;
 CREATE TABLE public.purchase_natures (
     id integer NOT NULL,
     active boolean DEFAULT true NOT NULL,
-    name character varying,
+    name character varying NOT NULL,
     description text,
-    currency character varying NOT NULL,
-    with_accounting boolean DEFAULT false NOT NULL,
-    journal_id integer,
+    journal_id integer NOT NULL,
     by_default boolean DEFAULT false NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL,
-    nature character varying NOT NULL,
-    CONSTRAINT purchase_natures_nature CHECK (((nature)::text = 'purchase'::text))
+    lock_version integer DEFAULT 0 NOT NULL
 );
 
 
@@ -16418,13 +16414,6 @@ CREATE INDEX index_purchase_natures_on_creator_id ON public.purchase_natures USI
 
 
 --
--- Name: index_purchase_natures_on_currency; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_purchase_natures_on_currency ON public.purchase_natures USING btree (currency);
-
-
---
 -- Name: index_purchase_natures_on_journal_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -18932,4 +18921,6 @@ INSERT INTO schema_migrations (version) VALUES ('20190808152235');
 INSERT INTO schema_migrations (version) VALUES ('20190916124521');
 
 INSERT INTO schema_migrations (version) VALUES ('20191002104944');
+
+INSERT INTO schema_migrations (version) VALUES ('20191010151901');
 

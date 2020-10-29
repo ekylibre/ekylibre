@@ -239,7 +239,7 @@ module Ekylibre
       if can_load_default?(:purchase_natures)
         nature = :purchases
         journal = Journal.find_by(nature: nature, currency: currency) || Journal.create!(name: "enumerize.journal.nature.#{nature}".t, nature: nature.to_s, currency: currency, closed_on: Date.new(1899, 12, 31).end_of_month)
-        @manifest[:purchase_natures] = { default: { name: PurchaseNature.tc('default.name'), active: true, currency: currency, with_accounting: true, journal: journal } }
+        @manifest[:purchase_natures] = { default: { name: PurchaseNature.tc('default.name'), active: true, journal: journal } }
       end
       create_records(:purchase_natures)
       w.check_point

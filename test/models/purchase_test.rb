@@ -168,7 +168,7 @@ class PurchaseTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     OutgoingPayment.delete_all
     Entity.delete_all
 
-    nature     = PurchaseNature.create!(currency: 'EUR', name: 'Perishables')
+    nature     = PurchaseNature.create!(journal: Journal.find_by(currency: :EUR), name: 'Perishables')
     max        = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)
     with       = new_purchase(supplier: max, nature: nature, currency: 'USD')
     without    = new_purchase(supplier: max, nature: nature)

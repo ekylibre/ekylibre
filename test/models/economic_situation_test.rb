@@ -46,11 +46,15 @@ class EconomicSituationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtur
     @entity.update(client: true, client_account: @client_account)
     @entity.update(supplier: true, supplier_account: @supplier_account)
 
+    @journal = create :journal, nature: :purchases, currency: :EUR
+    @nature = create :purchase_nature, journal_currency: :EUR
+
+
     Purchase.create!(
       currency: 'EUR',
       type: 'PurchaseInvoice',
       supplier: @entity,
-      nature: PurchaseNature.create!(currency: 'EUR'),
+      nature: @nature,
       items_attributes: [
         {
           unit_pretax_amount: 12,
@@ -178,7 +182,7 @@ class EconomicSituationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtur
   end
 
   test 'entities\' accounting balance is computed' do
-    assert_equal 3, @entity.economic_situation[:accounting_balance]
+    assert_equal 15, @entity.economic_situation[:accounting_balance]
   end
 
   test 'entities\' trade balance is computed correctly' do
@@ -190,7 +194,7 @@ class EconomicSituationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtur
   end
 
   test 'entities\' supplier accounting balance is computed correctly' do
-    assert_equal -7, @entity.economic_situation[:supplier_accounting_balance]
+    assert_equal 5, @entity.economic_situation[:supplier_accounting_balance]
   end
 
   test 'entities\' client trade balance is computed correctly' do
