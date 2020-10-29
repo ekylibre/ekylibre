@@ -243,7 +243,7 @@ class Product < Ekylibre::Record::Base
     joins(:supports).merge(ActivityProduction.of_campaign(campaign))
   }
   scope :shape_intersecting, lambda { |shape|
-    where(id: ProductReading.multi_polygon_value_intersecting(shape).select(:product_id))
+    where(id: ProductReading.multi_polygon_value_surface_intersecting(shape).select(:product_id))
   }
   scope :shape_within, lambda { |shape|
     where(id: ProductReading.multi_polygon_value_within(shape).select(:product_id))

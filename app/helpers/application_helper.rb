@@ -425,6 +425,10 @@ module ApplicationHelper
       raise 'Cannot show custom fields on ' + @object.class.name unless @object.customizable?
       @object.class.custom_fields.each do |custom_field|
         value = @object.custom_value(custom_field)
+        if value && custom_field.nature == :boolean
+          value = true if value == '1'
+          value = false if value == '0'
+        end
         custom(custom_field.name, value) if value.present?
       end
       @items << [:custom_fields]
