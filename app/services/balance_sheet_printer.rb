@@ -1,6 +1,7 @@
 # This object allow printing the general ledger
 class BalanceSheetPrinter
   include PdfPrinter
+  include ApplicationHelper
 
   def initialize(options)
     @document_nature = Nomen::DocumentNature.find(options[:document_nature])
@@ -467,32 +468,32 @@ class BalanceSheetPrinter
         s.add_field(:group_name, :group_name)
         s.add_table('Tableau1', :items, header: true) do |t|
           t.add_column(:name) { |item| item[:name] }
-          t.add_column(:current_raw_value) { |item| item[:current_raw_value] }
-          t.add_column(:current_variations) { |item| item[:current_variations] }
-          t.add_column(:current_net_value) { |item| item[:current_net_value] }
-          t.add_column(:previous_raw_value) { |item| item[:previous_raw_value] }
-          t.add_column(:previous_variations) { |item| item[:previous_variations] }
-          t.add_column(:previous_net_value) { |item| item[:previous_net_value] }
+          t.add_column(:current_raw_value) { |item| number_to_accountancy(item[:current_raw_value]) }
+          t.add_column(:current_variations) { |item| number_to_accountancy(item[:current_variations]) }
+          t.add_column(:current_net_value) { |item| number_to_accountancy(item[:current_net_value]) }
+          t.add_column(:previous_raw_value) { |item| number_to_accountancy(item[:previous_raw_value]) }
+          t.add_column(:previous_variations) { |item| number_to_accountancy(item[:previous_variations]) }
+          t.add_column(:previous_net_value) { |item| number_to_accountancy(item[:previous_net_value]) }
         end
         s.add_field(:sum_name, :sum_name)
-        s.add_field(:c_r_total, :current_raw_total)
-        s.add_field(:c_v_total, :current_variations_total)
-        s.add_field(:c_n_total, :current_net_total)
-        s.add_field(:p_r_total, :previous_raw_total)
-        s.add_field(:p_v_total, :previous_variations_total)
-        s.add_field(:p_n_total, :previous_net_total)
+        s.add_field(:c_r_total) {|d| number_to_accountancy(d[:current_raw_total])}
+        s.add_field(:c_v_total) {|d| number_to_accountancy(d[:current_variations_total])}
+        s.add_field(:c_n_total) {|d| number_to_accountancy(d[:current_net_total])}
+        s.add_field(:p_r_total) {|d| number_to_accountancy(d[:previous_raw_total])}
+        s.add_field(:p_v_total) {|d| number_to_accountancy(d[:previous_variations_total])}
+        s.add_field(:p_n_total) {|d| number_to_accountancy(d[:previous_net_total])}
       end
 
       r.add_section('Section2', dataset[1]) do |s|
         s.add_field(:group_name, :group_name)
         s.add_table('Tableau5', :items, header: true) do |t|
           t.add_column(:name) { |item| item[:name] }
-          t.add_column(:current_raw_value) { |item| item[:current_raw_value] }
-          t.add_column(:previous_raw_value) { |item| item[:previous_raw_value] }
+          t.add_column(:current_raw_value) { |item| number_to_accountancy(item[:current_raw_value]) }
+          t.add_column(:previous_raw_value) { |item| number_to_accountancy(item[:previous_raw_value]) }
         end
         s.add_field(:sum_name, :sum_name)
-        s.add_field(:c_r_total, :current_net_total)
-        s.add_field(:p_r_total, :previous_net_total)
+        s.add_field(:c_r_total) {|d| number_to_accountancy(d[:current_net_total])}
+        s.add_field(:p_r_total) {|d| number_to_accountancy(d[:previous_net_total])}
       end
 
     end

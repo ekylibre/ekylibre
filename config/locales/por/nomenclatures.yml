@@ -700,7 +700,6 @@ por:
         senescence: "Senescência"
       name: "Estados vida animal"
     cation_exchange_capacity_analysis_methods:
-      
       name: "Métodos de análise de capacidade de troca catiônica"
     certification_labels:
       items:
@@ -1663,15 +1662,12 @@ por:
         precision: "Precisão"
         symbol: "Símbolo"
     delivery_modes:
-      choices:
-        
       items:
         delivered_at_place: "Entregue no local"
         delivered_at_terminal: "Entregue no terminal"
         delivered_duty_paid: "Imposto entregue pago"
         ex_works: "Antigo trabalho"
       name: "Modos de entrega"
-    
     dimensions:
       items:
         amount_of_substance: "Quantidade de substância"

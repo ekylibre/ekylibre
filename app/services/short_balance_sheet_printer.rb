@@ -1,6 +1,7 @@
 # This object allow printing the general ledger
 class ShortBalanceSheetPrinter
   include PdfPrinter
+  include ApplicationHelper
 
   def initialize(options)
     @document_nature = Nomen::DocumentNature.find(options[:document_nature])
@@ -134,22 +135,22 @@ class ShortBalanceSheetPrinter
       r.add_section('Section1', dataset) do |s|
         s.add_table('Tableau1', :items, header: false) do |t|
           t.add_column(:actif_name) { |item| item[:actif_name] }
-          t.add_column(:c_a_r_v) { |item| item[:current_actif_raw_value] }
-          t.add_column(:c_a_v) { |item| item[:current_actif_variations] }
-          t.add_column(:c_a_n_v) { |item| item[:current_actif_net_value] }
-          t.add_column(:p_a_n_v) { |item| item[:previous_actif_net_value] }
+          t.add_column(:c_a_r_v) { |item| number_to_accountancy(item[:current_actif_raw_value]) }
+          t.add_column(:c_a_v) { |item| number_to_accountancy(item[:current_actif_variations]) }
+          t.add_column(:c_a_n_v) { |item| number_to_accountancy(item[:current_actif_net_value]) }
+          t.add_column(:p_a_n_v) { |item| number_to_accountancy(item[:previous_actif_net_value]) }
           t.add_column(:passif_name) { |item| item[:passif_name] }
-          t.add_column(:c_p_n_v) { |item| item[:current_passif_net_value] }
-          t.add_column(:p_p_n_v) { |item| item[:previous_passif_net_value] }
+          t.add_column(:c_p_n_v) { |item| number_to_accountancy(item[:current_passif_net_value]) }
+          t.add_column(:p_p_n_v) { |item| number_to_accountancy(item[:previous_passif_net_value]) }
         end
         s.add_field(:sum_actif_name, :sum_actif_name)
         s.add_field(:sum_passif_name, :sum_passif_name)
-        s.add_field(:t_a_c_r_v, :total_current_actif_raw_value)
-        s.add_field(:t_a_c_v_v, :total_current_actif_variations)
-        s.add_field(:t_a_c_n_v, :total_current_actif_net_value)
-        s.add_field(:t_p_c_n_v, :total_current_passif_net_value)
-        s.add_field(:t_a_p_n_v, :total_previous_actif_net_value)
-        s.add_field(:t_p_p_n_v, :total_previous_passif_net_value)
+        s.add_field(:t_a_c_r_v) {|d| number_to_accountancy(d[:total_current_actif_raw_value])}
+        s.add_field(:t_a_c_v_v) {|d| number_to_accountancy(d[:total_current_actif_variations])}
+        s.add_field(:t_a_c_n_v) {|d| number_to_accountancy(d[:total_current_actif_net_value])}
+        s.add_field(:t_p_c_n_v) {|d| number_to_accountancy(d[:total_current_passif_net_value])}
+        s.add_field(:t_a_p_n_v) {|d| number_to_accountancy(d[:total_previous_actif_net_value])}
+        s.add_field(:t_p_p_n_v) {|d| number_to_accountancy(d[:total_previous_passif_net_value])}
       end
     end
     report.file.path

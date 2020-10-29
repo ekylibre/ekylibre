@@ -1,6 +1,7 @@
 # This object allow printing the general ledger
 class IncomeStatementPrinter
   include PdfPrinter
+  include ApplicationHelper
 
   def initialize(options)
     @document_nature = Nomen::DocumentNature.find(options[:document_nature])
@@ -185,6 +186,7 @@ class IncomeStatementPrinter
 
       # build filters
       data_filters = []
+      data_filters << :currency.tl + " : " + @financial_year.currency
       data_filters <<  :accounting_system.tl + " : " + Nomen::AccountingSystem.find(@accounting_system).human_name
 
       # build started and stopped
@@ -206,8 +208,8 @@ class IncomeStatementPrinter
         s.add_field(:group_name, :group_name)
         s.add_table('Tableau1', :items, header: false) do |t|
           t.add_column(:name) { |item| item[:name] }
-          t.add_column(:current_value) { |item| item[:current_value] }
-          t.add_column(:previous_value) { |item| item[:previous_value] }
+          t.add_column(:current_value) { |item| number_to_accountancy(item[:current_value]) }
+          t.add_column(:previous_value) { |item| number_to_accountancy(item[:previous_value]) }
           t.add_column(:variation_value) do |v|
             if @financial_year.previous && v[:previous_value].to_i != 0
               a = (((v[:current_value] - v[:previous_value]) / v[:previous_value].abs) * 100).round(2)
@@ -220,8 +222,8 @@ class IncomeStatementPrinter
           end
         end
         s.add_field(:sum_name, :sum_name) if :sum_name?
-        s.add_field(:current_sum, :current_sum) if :current_sum?
-        s.add_field(:previous_sum, :previous_sum) if :previous_sum?
+        s.add_field(:current_sum) {|d| number_to_accountancy(d[:current_sum])} if :current_sum?
+        s.add_field(:previous_sum) {|d| number_to_accountancy(d[:previous_sum])} if :previous_sum?
         s.add_field(:variation_sum) do |v_s|
           if @financial_year.previous && v_s[:previous_sum].to_i != 0
             a = (((v_s[:current_sum] - v_s[:previous_sum]) / v_s[:previous_sum].abs) * 100).round(2)
@@ -233,8 +235,8 @@ class IncomeStatementPrinter
           end
         end
         s.add_field(:sub_result_name, :sub_result_name) if :sub_result_name?
-        s.add_field(:sub_result_current_value, :sub_result_current_value) if :sub_result_current_value?
-        s.add_field(:sub_result_previous_value, :sub_result_previous_value) if :sub_result_previous_value?
+        s.add_field(:sub_result_current_value) {|d| number_to_accountancy(d[:sub_result_current_value])} if :sub_result_current_value?
+        s.add_field(:sub_result_previous_value) {|d| number_to_accountancy(d[:sub_result_previous_value])} if :sub_result_previous_value?
 
       end
 
