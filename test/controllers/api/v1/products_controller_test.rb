@@ -9,7 +9,6 @@ module Api
       end
 
       test 'create and get all products' do
-        add_auth_header
         create_list(:equipment, 10)
         create_list(:worker, 10)
         create_list(:land_parcel, 10)
@@ -23,8 +22,6 @@ module Api
       end
 
       test 'create and get product of a given type' do
-        add_auth_header
-
         create_list(:worker, 10, updated_at: '15/12/2016')
         create_list(:equipment, 10, updated_at: '15/12/2016')
 
@@ -53,7 +50,6 @@ module Api
       end
 
       test 'get records from a given date' do
-        add_auth_header
         create_list(:worker, 10, updated_at: '15/12/2016')
         create_list(:worker, 5, updated_at: '05/01/2017')
         modified_since = '01/01/2017'
