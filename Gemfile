@@ -78,9 +78,6 @@ gem 'jbuilder', '~> 2.0'
 
 gem 'rake', '~>12.0'
 
-# Freeze time for demo and/or tests
-gem 'timecop'
-
 # Manipulate map data
 gem 'charta', gitlab: 'ekylibre/charta', branch: 'rails-4'
 gem 'geocoder'
@@ -270,6 +267,9 @@ group :development, :test do
 end
 
 group :test do
+  # Freeze time for demo and/or tests
+  gem 'timecop'
+
   gem 'puma'
   gem 'shoulda-context'
 
