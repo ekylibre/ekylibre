@@ -7,7 +7,6 @@ module Api
       # TODO: Re-activate the following
 
       # test 'create' do
-      #   add_auth_header
       #   post :create, comment: 'Yeah yeah yeah!!!',
       #                 plant_id: Plant.first.id,
       #                 plant_density_abacus_item_id: PlantDensityAbacus.first.id,

@@ -7,7 +7,6 @@ module Api
       connect_with_token
 
       test 'index' do
-        add_auth_header
         get :index
         json = JSON.parse response.body
         assert_response :ok
@@ -43,8 +42,6 @@ module Api
       end
 
       test 'Test user worker' do
-        add_auth_header
-
         worker = create(:entity, :client, :transporter)
         user_with_worker = create(:user, :employed, person: worker)
         create(:worker, person: worker)
@@ -64,7 +61,6 @@ module Api
       end
 
       test 'create hoeing intervention (with targets/equipments/workers)' do
-        add_auth_header
         land_parcel = create(:land_parcel, born_at: "2019-01-01T00:00:00Z")
         worker1 = create(:worker)
         worker2 = create(:worker)
@@ -100,8 +96,6 @@ module Api
       end
 
       test 'create fertilizing intervention (with inputs)' do
-        add_auth_header
-
         input_product = create(:fertilizer_product)
         input_product.variant.read!(:net_mass, '4 kilogram')
         params = { procedure_name: 'fertilizing',
@@ -128,8 +122,6 @@ module Api
       end
 
       test 'create harvesting intervention (with outputs)' do
-        add_auth_header
-
         variant = create(:harvest_variant)
         variant.read!(:net_mass, '2 kilogram')
         plant = create(:corn_plant, born_at: "2019-01-01T00:00:00Z")
@@ -161,8 +153,6 @@ module Api
       end
 
       test 'create sowing intervention (with group parameters)' do
-        add_auth_header
-
         land_parcel = create(:land_parcel)
         variant = create(:product_nature_variant)
         product = create(:seed_product)
@@ -206,8 +196,6 @@ module Api
       end
 
       test 'create fertilizing intervention (with readings on tools)' do
-        add_auth_header
-
         input_product = create(:fertilizer_product)
         input_product.variant.read!(:net_mass, '4 kilogram')
         tractor1 = create(:tractor)
@@ -263,8 +251,6 @@ module Api
       end
 
       test 'equipment_maintenance intervention with readings on target' do
-        add_auth_header
-
         tractor1 = create(:tractor)
         tractor2 = create(:tractor)
         tractor3 = create(:tractor)
