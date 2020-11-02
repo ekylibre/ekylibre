@@ -79,7 +79,7 @@
           header_class = 'taskboard-header--gray'
 
           board.column :requests do |column|
-            requested_interventions = Intervention.with_unroll(search_params.to_unsafe_h.merge(nature: :request))
+            requested_interventions = Intervention.with_unroll(search_params.to_unsafe_h.merge(nature: :request, state: :done))
             column.header :planned.tl(count: requested_interventions[:total_count]) + " (" + requested_interventions[:total_count].to_s + ")", headers_actions, class: header_class
             add_taskboard_tasks(requested_interventions[:interventions], column)
           end
@@ -101,7 +101,6 @@
             column.header :validated.tl + " (" + validated_interventions[:total_count].to_s + ")", [], class: header_class
             add_taskboard_tasks(validated_interventions[:interventions], column)
           end
-
 
     - j.face :list do
       = main_list
