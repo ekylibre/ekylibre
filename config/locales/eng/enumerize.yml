@@ -534,9 +534,9 @@ eng:
         # 60 days: "60 days"
         # 60 days, end of month: "60 days, end of month"
       reconciliation_state:
-        # accepted: "Accepted"
-        # reconcile: "Reconcile"
-        # to_reconcile: "To reconcile"
+        accepted: "Accepted"
+        reconcile: "Reconcile"
+        to_reconcile: "To reconcile"
       tax_payability:
         at_invoicing: "At invoicing"
         at_paying: "At paying"

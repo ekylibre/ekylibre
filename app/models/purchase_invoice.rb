@@ -60,6 +60,7 @@
 #  updater_id                               :integer
 #
 class PurchaseInvoice < Purchase
+  include Versionable
   belongs_to :journal_entry, dependent: :destroy
   belongs_to :undelivered_invoice_journal_entry, class_name: 'JournalEntry', dependent: :destroy
   belongs_to :quantity_gap_on_invoice_journal_entry, class_name: 'JournalEntry', dependent: :destroy
@@ -110,11 +111,6 @@ class PurchaseInvoice < Purchase
     if invoiced_at
       errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
     end
-  end
-
-  after_update do
-    affair.reload_gaps if affair
-    true
   end
 
   after_save do

@@ -359,6 +359,8 @@ GEM
     parallel (1.19.2)
     parallel_tests (2.32.0)
       parallel
+    paranoia (2.4.2)
+      activerecord (>= 4.0, < 6.1)
     parser (2.7.1.4)
       ast (~> 2.4.1)
     pdf-reader (2.4.0)
@@ -688,6 +690,7 @@ DEPENDENCIES
   paperclip
   paperclip-document (> 0.0.8)
   parallel_tests
+  paranoia (~> 2.2)
   parser (~> 2.6)
   pdf-reader
   pg (~> 0.20.0)

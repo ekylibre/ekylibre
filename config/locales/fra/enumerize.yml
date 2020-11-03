@@ -490,6 +490,10 @@ fra:
         30 days, end of month: "30 jours fin du mois" #?
         60 days: "60 jours" #?
         60 days, end of month: "60 jours fin du mois" #?
+      reconciliation_state:
+        accepted: "Accepté"
+        reconcile: "Rapproché"
+        to_reconcile: "À rapprocher"
       tax_payability:
         at_invoicing: "À la facturation (débit)"
         at_paying: "Au paiement"

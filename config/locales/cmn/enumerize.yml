@@ -492,6 +492,10 @@ cmn:
         point: "点"
         string: "串"
     purchase:
+      reconciliation_state:
+        # accepted: "Accepted"
+        # reconcile: "Reconcile"
+        # to_reconcile: "To reconcile"
       tax_payability:
         at_invoicing: "在开票"
         at_paying: "在支付"

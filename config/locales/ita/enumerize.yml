@@ -492,6 +492,10 @@ ita:
         point: "Punto"
         string: "Corda"
     purchase:
+      reconciliation_state:
+        # accepted: "Accepted"
+        # reconcile: "Reconcile"
+        # to_reconcile: "To reconcile"
       tax_payability:
         at_invoicing: "A fatturazione"
         at_paying: "A pagamento"

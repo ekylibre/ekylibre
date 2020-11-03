@@ -115,6 +115,9 @@ gem 'validates_timeliness', '~> 4'
 gem 'state_machine'
 gem 'uuidtools'
 
+# Hide and restore records without actually deleting them
+gem "paranoia", "~> 2.2"
+
 # Authentication & Authorization
 gem 'devise'
 gem 'devise-i18n-views'
