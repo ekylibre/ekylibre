@@ -1,0 +1,4 @@
+= timeline(resource) do |l|
+  - l.side :versions, new: false, except: %i[accounted_at]
+  - l.side :attachments, new: false, with_deleted: true
+

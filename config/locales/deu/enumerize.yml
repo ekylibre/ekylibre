@@ -492,6 +492,10 @@ deu:
         point: "Punkt"
         string: "Schnur"
     purchase:
+      reconciliation_state:
+        # accepted: "Accepted"
+        # reconcile: "Reconcile"
+        # to_reconcile: "To reconcile"
       tax_payability:
         at_invoicing: "Bei Fakturierung"
         at_paying: "Zu zahlen"

@@ -110,6 +110,9 @@ module Backend
 
     def show
       return unless @purchase_invoice = find_and_check
+      if @purchase_invoice.versions.find_by(event: :create).nil?
+        Version.create!(event: :create, item: @purchase_invoice, created_at: @purchase_invoice.created_at, creator_id: @purchase_invoice.creator_id)
+      end
       respond_with(@purchase_invoice, methods: %i[taxes_amount affair_closed],
                    include: { delivery_address: { methods: [:mail_coordinate] },
                               supplier: { methods: [:picture_path], include: { default_mail_address: { methods: [:mail_coordinate] } } },

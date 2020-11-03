@@ -492,6 +492,10 @@ jpn:
         point: "ポイント"
         string: "文字列"
     purchase:
+      reconciliation_state:
+        # accepted: "Accepted"
+        # reconcile: "Reconcile"
+        # to_reconcile: "To reconcile"
       tax_payability:
         at_invoicing: "請求書発行で"
         at_paying: "支払う時"

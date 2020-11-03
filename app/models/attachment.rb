@@ -38,6 +38,10 @@
 class Attachment < Ekylibre::Record::Base
   belongs_to :document
   belongs_to :resource, polymorphic: true, inverse_of: :attachments
+
+  acts_as_paranoid
+  belongs_to :deleter, class_name: 'User'
+
   refers_to :nature, class_name: 'DocumentNature'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :expired_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
@@ -50,6 +54,12 @@ class Attachment < Ekylibre::Record::Base
   before_validation do
     self.resource_type = resource.class.base_class.name if resource
     self.nature = document.nature if document
+  end
+
+  before_destroy do
+    # Trick to get current_user in model where it should not be accessible
+    current_user = User.find(User.stamper)
+    self.update!(deleter: current_user)
   end
 
   accepts_nested_attributes_for :document
