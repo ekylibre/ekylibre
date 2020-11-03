@@ -67,6 +67,9 @@ class PurchaseInvoice < Purchase
   has_many :journal_entries, as: :resource
   has_many :reception_items, through: :items, source: :parcels_purchase_invoice_items
   has_many :receptions, through: :reception_items
+  has_many :storings, through: :reception_items
+  has_many :products, through: :storings
+  has_many :interventions, through: :products
   acts_as_affairable :supplier, class_name: 'PurchaseAffair'
 
   scope :invoiced_between, lambda { |started_at, stopped_at|
@@ -121,6 +124,7 @@ class PurchaseInvoice < Purchase
 
       item.update_fixed_asset if item.fixed_asset.present? && item.pretax_amount_changed?
     end
+    interventions.where(state: :done).each(&:update_costing)
   end
 
   # This callback permits to add journal entries corresponding to the purchase order/invoice
