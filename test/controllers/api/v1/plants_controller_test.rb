@@ -10,6 +10,7 @@ require 'test_helper'
 	      end
 
 	      test 'get all records' do
+	        add_auth_header
 	        get :index
 	        plants = JSON.parse response.body
 	        assert_equal 10, plants.count
@@ -17,6 +18,7 @@ require 'test_helper'
 	      end
 
 	      test 'get records from a given date' do
+	        add_auth_header
 	        create_list(:corn_plant, 5, updated_at: '05/01/2017')
 	        modified_since = '01/01/2017'
 	        get :index, modified_since: modified_since

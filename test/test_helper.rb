@@ -97,23 +97,15 @@ module ActionController
       def connect_with_token
         class_eval do
           setup do
-            @admin_user = User.find_by(email: 'admin@ekylibre.org')
-            authorize_user @admin_user
+            @user = User.find_by(email: 'admin@ekylibre.org')
+            if @user.authentication_token.blank?
+              @user.update_column(:authentication_token, User.generate_authentication_token)
+            end
+            @token = @user.authentication_token
           end
 
-          def switch_user(user, &block)
-            authorize_user user
-            sign_out @admin_user
-            sign_in user
-            yield
-            sign_out user
-            sign_in @admin_user
-          end
-
-          def authorize_user(user)
-            user.update_column(:authentication_token, User.generate_authentication_token) if user.authentication_token.blank?
-            authorization_token = "simple-token #{user.email} " + user.authentication_token
-            @request.headers['Authorization'] = authorization_token
+          def add_auth_header
+            @request.headers['Authorization'] = 'simple-token admin@ekylibre.org ' + @token
           end
         end
       end

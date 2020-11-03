@@ -63,50 +63,6 @@ module Api
           period.destroy
         end
 
-        # Group following dates by group in order to create a working_period for each group
-        # Following dates means dates where stopped_at of current date equals started_at of next one
-        dates_groups = []
-        following_dates = []
-        working_periods = intervention
-                          .participations
-                          .flat_map(&:working_periods)
-                          .map{ |wp| wp.slice(:started_at, :stopped_at) }
-                          .sort_by { |wp| wp[:started_at] }
-        working_periods.each_with_index do |wp_params, index|
-          next following_dates << wp_params if index == 0
-          previous_wp_params = working_periods[index - 1]
-          if wp_params[:started_at] > previous_wp_params[:stopped_at]
-            dates_groups << following_dates
-            following_dates = []
-          end
-          following_dates << wp_params
-        end
-        dates_groups << following_dates
-
-        # Use a transaction to ensure there is always a working_period associated with the intervention in case there is a problem during the working_periods creation with dates_groups
-        ActiveRecord::Base.transaction do
-          intervention.working_periods.delete_all
-          dates_groups.each do |group|
-            started_at = group.map{ |g| g[:started_at] }.min
-            stopped_at = group.map{ |g| g[:stopped_at] }.max
-            InterventionWorkingPeriod.create!(intervention: intervention, started_at: started_at, stopped_at: stopped_at)
-          end
-          intervention.reload.save!
-        end
-
-        if filtered_params[:crumbs].present?
-          filtered_params[:crumbs].each do |crumb|
-            participation.crumbs.create!(
-              nature: crumb['nature'],
-              geolocation: crumb['geolocation'],
-              read_at: crumb['read_at'],
-              accuracy: crumb['accuracy'],
-              device_uid: filtered_params[:device_uid],
-              user_id: current_user
-            )
-          end
-        end
-
         if filtered_params[:crumbs].present?
           filtered_params[:crumbs].each do |crumb|
             participation.crumbs.create!(

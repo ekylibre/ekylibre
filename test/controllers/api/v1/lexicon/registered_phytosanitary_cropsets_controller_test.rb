@@ -7,6 +7,7 @@ module Api
         connect_with_token
 
         test 'index' do
+          add_auth_header
           get :index
           json = JSON.parse response.body
 
@@ -15,6 +16,7 @@ module Api
         end
 
         test 'create' do
+          add_auth_header
           params = {
             "data": [
                 {

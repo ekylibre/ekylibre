@@ -5,11 +5,13 @@ module Api
       extend ActiveSupport::Concern
       included do
         test 'receiving an empty payload doesn\'t blow up' do
+          add_auth_header
 
           assert_nothing_raised { post :create }
         end
 
         test 'receiving an appropriate payload creates an appropriate InterventionParticipation and returns its id' do
+          add_auth_header
           payload = correct_payload
 
           part_id = JSON(post(:create, payload).body)['id']
@@ -22,6 +24,7 @@ module Api
         end
 
         test 'receiving a payload doesn\'t generate an InterventionParticipation if not needed' do
+          add_auth_header
           payload = correct_payload
 
           part_id_una = JSON(post(:create, payload).body)['id']
@@ -33,55 +36,9 @@ module Api
         end
 
         test 'handles completely wrong payload graciously' do
+          add_auth_header
 
           assert_nothing_raised { post :create, params: { yolo: :swag, test: [:bidouille, 'le malin', 1_543_545], 54 => 1_014_441 } }
-        end
-
-        test 'can finish an intervention even if there is no working periods' do
-          payload = payload_without_working_periods
-          request_intervention_id = payload[:intervention_id]
-          request_intervention = Intervention.find(request_intervention_id)
-          post :create, payload
-
-          done_intervention = request_intervention.record_interventions.first
-          assert_not_nil done_intervention
-          assert_equal 'done', done_intervention.state
-        end
-
-        test 'can pause then finish an intervention even if there is no working periods' do
-          in_progress_payload = payload_without_working_periods(state: :in_progress)
-          request_intervention_id = in_progress_payload[:intervention_id]
-          request_intervention = Intervention.find(request_intervention_id)
-          post :create, in_progress_payload
-
-          in_progress_intervention = request_intervention.record_interventions.first
-          assert_not_nil in_progress_intervention
-          assert_equal 'in_progress', in_progress_intervention.state
-
-          done_payload = in_progress_payload.merge(state: :done)
-          post :create, done_payload
-
-          done_intervention = request_intervention.record_interventions.first
-          assert_equal in_progress_intervention, done_intervention
-          assert_equal 'done', done_intervention.state
-        end
-
-        test 'participation with no working periods do not recalculate intervention working periods' do
-          payload = payload_without_working_periods
-          request_intervention_id = payload[:intervention_id]
-          request_intervention = Intervention.find(request_intervention_id)
-          post :create, payload
-
-          done_intervention = request_intervention.record_interventions.first
-          assert_not_nil done_intervention
-          assert_equal request_intervention.started_at, done_intervention.started_at
-          assert_equal request_intervention.stopped_at, done_intervention.stopped_at
-        end
-
-        private
-
-        def payload_without_working_periods(state: :done)
-          correct_payload(state: state).except(:working_periods)
         end
       end
     end
@@ -90,6 +47,7 @@ module Api
       extend ActiveSupport::Concern
       included do
         test 'instantiate an intervention if it doesn\'t exist' do
+          add_auth_header
 
           original_count = Intervention.where(nature: :record).count
           payload = correct_payload
@@ -99,6 +57,7 @@ module Api
         end
 
         test 'doesn\'t instantiate an intervention if a fitting one exists' do
+          add_auth_header
           payload = correct_payload
 
           post :create, payload
@@ -116,6 +75,7 @@ module Api
       extend ActiveSupport::Concern
       included do
         test 'ignores working periods that already exist' do
+          add_auth_header
           request_intervention = create(:intervention,
                                         :with_working_period,
                                         procedure_name: :plant_watering,
@@ -164,6 +124,7 @@ module Api
         end
 
         test 'ignores overlapping working periods' do
+          add_auth_header
           payload = overlapping_payload
 
           part_id = JSON(post(:create, payload).body)['id']
@@ -179,6 +140,8 @@ module Api
         end
 
         test 'created working_periods have the correct nature' do
+          add_auth_header
+
           payload = correct_payload
           part_id = JSON(post(:create, payload).body)['id']
           natures = InterventionParticipation.find(part_id).working_periods.order(:started_at).pluck(:nature).map(&:to_sym)
@@ -186,134 +149,15 @@ module Api
           assert_equal %i[preparation travel intervention travel preparation travel intervention travel preparation], natures
         end
 
-        test 'working periods without pause of participation override intervention working periods' do
-
-          working_periods = [
-            {
-              started_at: "2020-02-01T11:15:28.108+0000",
-              stopped_at: "2020-02-01T12:15:31.672+0000",
-              nature: "preparation"
-            },
-            {
-              started_at: "2020-02-01T12:15:31.672+0000",
-              stopped_at: "2020-02-01T13:26:35.728+0000",
-              nature: "travel"
-            },
-            {
-              started_at: "2020-02-01T14:58:35.728+0000",
-              stopped_at: "2020-02-01T16:27:41.456+0000",
-              nature: "intervention"
-            }
-          ]
-          payload = default_payload.merge(working_periods: working_periods)
-          request_intervention = Intervention.find(payload[:intervention_id])
-          started_at_before_action = request_intervention.started_at
-          stopped_at_before_action = request_intervention.stopped_at
-          post :create, payload
-
-          record_intervention = request_intervention.record_interventions.first
-          assert_not_equal record_intervention.started_at, started_at_before_action
-          assert_not_equal record_intervention.stopped_at, stopped_at_before_action
-          assert_equal record_intervention.started_at.to_datetime, "2020-02-01T11:15:28.108+0000".to_datetime
-          assert_equal record_intervention.stopped_at.to_datetime, "2020-02-01T16:27:41.456+0000".to_datetime
-          assert_equal 2, record_intervention.working_periods.count
-        end
-
-        test 'working periods with pause of participation override intervention working periods' do
-
-          in_progress_working_periods = [
-            {
-              started_at: "2020-02-01T11:15:28.108+0000",
-              stopped_at: "2020-02-01T12:15:31.672+0000",
-              nature: "preparation"
-            },
-            {
-              started_at: "2020-02-01T12:15:31.672+0000",
-              stopped_at: "2020-02-01T13:26:35.728+0000",
-              nature: "travel"
-            },
-          ]
-          in_progress_payload = default_payload.merge(state: :in_progress, working_periods: in_progress_working_periods)
-          post :create, in_progress_payload
-
-          request_intervention = Intervention.find(in_progress_payload[:intervention_id])
-          in_progress_intervention = request_intervention.record_interventions.first
-          assert_equal "2020-02-01T11:15:28.108+0000".to_datetime, in_progress_intervention.started_at.to_datetime
-          assert_equal "2020-02-01T13:26:35.728+0000".to_datetime, in_progress_intervention.stopped_at.to_datetime
-          assert_equal 1, in_progress_intervention.working_periods.count
-
-          done_working_periods = [
-            {
-              started_at: "2020-02-01T14:58:35.728+0000",
-              stopped_at: "2020-02-01T16:27:41.456+0000",
-              nature: "intervention"
-            }
-          ]
-          done_payload = in_progress_payload.merge(state: :done, working_periods: done_working_periods)
-          post :create, done_payload
-
-          done_intervention = request_intervention.record_interventions.first
-          assert_equal in_progress_intervention, done_intervention
-          assert_equal "2020-02-01T11:15:28.108+0000".to_datetime, done_intervention.started_at.to_datetime
-          assert_equal "2020-02-01T16:27:41.456+0000".to_datetime, done_intervention.stopped_at.to_datetime
-          assert_equal 2, done_intervention.working_periods.count
-        end
-
-        test 'many participations on a single intervention override intervention working periods' do
-          working_period_1 = [
-            {
-              started_at: "2020-02-01T10:00:00.108+0000",
-              stopped_at: "2020-02-01T12:00:00.672+0000",
-              nature: "preparation"
-            }
-          ]
-          payload = default_payload.merge(state: :in_progress, working_periods: working_period_1)
-          post :create, payload
-          user = create(:user)
-          switch_user(user) do
-            working_period_2 = [
-            {
-              started_at: "2020-02-01T11:00:00.108+0000",
-              stopped_at: "2020-02-01T13:00:00.672+0000",
-              nature: "preparation"
-            }
-          ]
-            payload.merge!(working_periods: working_period_2)
-            post :create, payload
-          end
-          working_period_3 = [
-            {
-              started_at: "2020-02-01T14:00:00.108+0000",
-              stopped_at: "2020-02-01T15:00:00.672+0000",
-              nature: "preparation"
-            }
-          ]
-          payload.merge!(working_periods: working_period_3)
-          post :create, payload
-          switch_user(user) do
-            working_period_4 = [
-            {
-              started_at: "2020-02-01T16:00:00.108+0000",
-              stopped_at: "2020-02-01T17:00:00.672+0000",
-              nature: "preparation"
-            }
-          ]
-            payload.merge!(working_periods: working_period_4)
-            post :create, payload
-          end
-          request_intervention = Intervention.find(payload[:intervention_id])
-          intervention = request_intervention.record_interventions.first
-          assert_equal "2020-02-01T10:00:00.108+0000".to_datetime, intervention.started_at.to_datetime
-          assert_equal "2020-02-01T17:00:00.672+0000".to_datetime, intervention.stopped_at.to_datetime
-          assert_equal 3, intervention.working_periods.count
-          assert_equal 2, intervention.participations.count
-        end
-
         private
 
           def overlapping_payload(only_overlap: false)
-            payload = default_payload
-
+            request_intervention = create(:intervention,
+                                          :with_working_period,
+                                          procedure_name: :plant_watering,
+                                          actions: [:irrigation],
+                                          nature: :request
+                                         )
             overlapping = {
               started_at: '2016-09-30T10:30:00.836+0200',
               stopped_at: '2016-09-30T11:30:00.620+0200',
@@ -332,16 +176,7 @@ module Api
                 nature:     'travel'
               }
             ]
-            payload.merge(working_periods: (only_overlap ? [overlapping] : working_periods))
-          end
 
-          def default_payload
-            request_intervention = create(:intervention,
-                                          :with_working_period,
-                                          procedure_name: :plant_watering,
-                                          actions: [:irrigation],
-                                          nature: :request
-                                         )
             {
               intervention_id: request_intervention.id,
               request_compliant: 1,
@@ -349,6 +184,7 @@ module Api
               state: 'done',
               procedure_name: 'plant_watering',
               device_uid: 'android:dd60319e524d3d24',
+              working_periods: only_overlap ? [overlapping] : working_periods
             }
           end
       end
@@ -598,6 +434,7 @@ module Api
         private
 
           def default_setup
+            add_auth_header
             @request_intervention = create(:intervention,
                                           :with_tractor_tool,
                                           nature: :request
