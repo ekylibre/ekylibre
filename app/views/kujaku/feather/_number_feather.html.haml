@@ -1,0 +1,7 @@
+.label-container
+  %label= label
+.value-container
+  = 'Min'
+  = number_field_tag('minimum_amount', min_value, min: 0, step: :any)
+  = 'Max'
+  = number_field_tag('maximum_amount', max_value, min: 0, step: :any)

@@ -102,6 +102,13 @@ module Backend
           @name = @options.delete(:name) || :n
         end
 
+        def vars
+          {
+            label: @options[:label] || :amount.tl,
+            min_value: @template.params[:minimum_amount],
+            max_value: @template.params[:maximum_amount]
+          }
+        end
       end
 
       class HiddenFeather < Feather
