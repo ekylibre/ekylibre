@@ -279,6 +279,38 @@ module Backend
       code.html_safe
     end
 
+    # Create a widget to select some journals
+    def journals_crit(*_args)
+      code = ''
+      field = :journals
+      code << content_tag(:div, class: "label-container") do
+        content_tag(:label, Backend::JournalsController.human_action_name(:index))
+      end
+      journals = Journal.all
+      params[field] = {} unless params[field].is_a? Hash
+      no_journal = !journals.detect { |x| params[field].key?(x.id.to_s) }
+
+      code << content_tag(:div, class: "value-container value-container--journal-nature-crit") do
+        journals.map do |journal|
+          key = journal.id.to_s
+          name = "#{field}[#{key}]"
+          id = "#{field}_#{key}"
+          if active = (params[field][key] == '1' || no_journal)
+            params[field][key] = '1'
+          else
+            params[field].delete(key)
+          end
+
+          content_tag(:span, class: "radio") do
+            content_tag(:label, for: id) do
+              check_box_tag(name, '1', active, id: id) + journal.name
+            end
+          end
+        end.join.html_safe
+      end
+      code.html_safe
+    end
+
     def mask_lettered_items_button(*args)
       options = args.extract_options!
       list_id = args.shift || options[:list_id] || :journal_entry_items
