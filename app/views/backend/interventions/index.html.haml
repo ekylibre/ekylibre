@@ -1,47 +1,23 @@
 = render 'backend/shared/financial_year_warning' if Preference.get(:permanent_stock_inventory, true).boolean_value
 = kujaku do |k|
   - k.text
-  - k.multi_choice :state, [:in_progress, :done, :validated].map{ |s| [s.tl, s] }
-  - k.multi_choice :nature, [[:planned.tl(count: 1), :request], [:conducted.tl, :record]]
-  - k.helper do
-    %div.label-container
-      %label= CultivableZone.model_name.human
-    = select_tag :cultivable_zone_id, options_for_select([[]] + CultivableZone.pluck(:name, :id).sort, params[:cultivable_zone_id])
-  -# Type of intervention
-  - k.helper do
-    %div.label-container
-      %label= Intervention.human_attribute_name(:reference_name)
-    = select_tag(:procedure_name, options_for_select([[]] + Intervention.used_procedures.collect{|p| [p.human_name, p.name.to_s]}.sort_by(&:first), params[:procedure_name]))
-  -# Filter by Activities
-  - k.helper do
-    %div.label-container
-      %label= Activity.model_name.human
-    %div.select-block--intervention
-      = select_tag(:activity_id, options_for_select([[]] + Activity.pluck(:name, :id).sort, params[:activity_id]))
+  - k.multi_choice :state, data: [:in_progress, :done, :validated].map { |s| { label: s.tl, name: s } }
+  - k.multi_choice :nature, data: [{ label: :planned.tl(count: 1), name: :request }, { label: :conducted.tl, name: :record }]
+  - k.list :cultivable_zone, value_label: :name
+  - procedure_names = Intervention.used_procedures.collect { |p| [p.human_name, p.name.to_s] }.sort_by(&:first)
+  - k.list :procedure_name, label: Intervention.human_attribute_name(:reference_name), list_values: procedure_names
+  - k.list :activity, value_label: :name
   - if current_campaign
     - productions = ActivityProduction.of_campaign(current_campaign)
     - targeted_products = Product.joins(:intervention_targets).distinct if productions.exists?
     - if productions && productions.any?
-      - k.helper do
-        %div.label-container
-          %label= :target.tl
-        %div.select-block--intervention
-          = select_tag(:product_id, options_for_select([[]] + accented_sort(targeted_products.map { |u| [u.work_name, u.id] }), params[:product_id]))
+      - targets_list = accented_sort(targeted_products.map { |t| [t.work_name, t.id] })
+      - k.list :target, list_values: targets_list
   - if InterventionLabelling.any?
-    - k.helper do
-      %div.label-container
-        %label= Label.model_name.human
-      = select_tag(:label_id, options_for_select([[]] + accented_sort(Label.where(id: InterventionLabelling.select(:label_id).uniq).pluck(:name, :id)), params[:label_id].to_i))
-  -# Filter by driver
-  - k.helper do
-    %div.label-container
-      %label= :driver.tl
-    = select_tag(:driver_id, options_for_select([[]] + accented_sort(Worker.drivers.pluck(:name, :id)), params[:driver_id]))
-  -# Filter by equipment
-  - k.helper do
-    %div.label-container
-      %label= Equipment.model_name.human
-    = select_tag(:equipment_id, options_for_select([[]] + accented_sort(Equipment.pluck(:name, :id)), params[:equipment_id]))
+    - labels_list = Label.where(id: InterventionLabelling.select(:label_id).uniq).pluck(:name, :id)
+    - k.list :label, list_values: labels_list
+  - k.list :worker, value_label: :name
+  - k.list :equipment, value_label: :name
 
 - main_toolbar do |t|
   = t.new(nature: :request, label: :add_intervention_request.tl, params: { redirect: nil })

@@ -259,21 +259,14 @@
             @workingTimesModal.getModal().modal 'show'
 
 
-    addLazyLoading: (taskboard) ->
+    addLazyLoading: (taskboard, params) ->
       loadContent = false
       currentPage = 1
       taskHeight = 60
       halfTaskList = 12
 
-      urlParams = decodeURIComponent(window.location.search.substring(1)).split("&")
-      params = urlParams.reduce((map, obj) ->
-        param = obj.split("=")
-        map[param[0]] = param[1]
-        return map
-      , {})
-
-      $('#content').scroll ->
-        if !loadContent && $('#content').scrollTop() > (currentPage * halfTaskList) * taskHeight
+      $('#core').scroll ->
+        if !loadContent && $('#core').scrollTop() > (currentPage * halfTaskList) * taskHeight
           currentPage++
           params['page'] = currentPage
 
@@ -647,12 +640,20 @@
           $(productParameterCostBlock).appendTo(target)
       )
 
-    if $('.taskboard').length > 0
+    if $('.taskboard').length > 0 && $('.kujaku').length > 0
 
       taskboard = new InterventionsTaskboard
       taskboard.initTaskboard()
 
-      E.interventions.addLazyLoading(taskboard)
+      encodedUrlParams = $('.kujaku').find('form').serialize()
+      urlParams = decodeURIComponent(encodedUrlParams).split("&")
+      params = urlParams.reduce((map, obj) ->
+        param = obj.split("=")
+        map[param[0]] = param[1]
+        return map
+      , {})
+
+      E.interventions.addLazyLoading(taskboard, params)
 
 
   class InterventionsTaskboard
@@ -949,6 +950,8 @@
     date = moment($dateInput.value).toISOString()
     dateEnd = moment($dateEndInput.value).toISOString()
     parcels = $parcelSelectors.get().map((e) => $(e).find('.selector input:first-child').get(0) ).map((e) => $(e).selector('value'))
+
+    return Promise.resolve([]) if parcels.length == 0
 
     params = {
       date: date,
