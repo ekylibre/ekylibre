@@ -192,7 +192,7 @@ class Intervention < Ekylibre::Record::Base
   }
 
   scope :with_unroll, lambda { |*args|
-    params = args.extract_options!
+    params = args.extract_options!.with_indifferent_access
     search_params = []
 
     if params[:q].present?
@@ -205,16 +205,40 @@ class Intervention < Ekylibre::Record::Base
                        end
     end
 
-    if params[:procedure_name].present?
-      search_params << "#{Intervention.table_name}.procedure_name = '#{params[:procedure_name]}'"
+    # CAUTION: params[:nature] is not used as in controller list filter
+    if params[:nature].present?
+      search_params << "#{Intervention.table_name}.nature = '#{params[:nature]}'"
+      if params[:nature] == :request
+        search_params << "#{Intervention.table_name}.state != '#{Intervention.state.rejected}' AND I.request_intervention_id IS NULL"
+      end
     end
 
-    if params[:product_id].present?
-      search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE product_id = '#{params[:product_id]}')"
+    if params[:state].present? && params[:nature] != :request
+      search_params << "#{Intervention.table_name}.state = '#{params[:state]}'"
     end
 
     if params[:cultivable_zone_id].present?
       search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM activity_productions_interventions INNER JOIN #{ActivityProduction.table_name} ON #{ActivityProduction.table_name}.id = activity_production_id INNER JOIN #{CultivableZone.table_name} ON #{CultivableZone.table_name}.id = #{ActivityProduction.table_name}.cultivable_zone_id WHERE #{CultivableZone.table_name}.id = '#{params[:cultivable_zone_id]}')"
+    end
+
+    if params[:procedure_name_id].present?
+      search_params << "#{Intervention.table_name}.procedure_name = '#{params[:procedure_name_id]}'"
+    end
+
+    if params[:activity_id].present?
+      search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM interventions INNER JOIN activities_interventions ON activities_interventions.intervention_id = interventions.id INNER JOIN activities ON activities.id = activities_interventions.activity_id WHERE activities.id = '#{params[:activity_id]}')"
+    end
+
+    if params[:target_id].present?
+      search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE product_id = '#{params[:target_id]}')"
+    end
+
+    if params[:worker_id].present?
+      search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM interventions INNER JOIN #{InterventionDoer.table_name} ON #{InterventionDoer.table_name}.intervention_id = #{Intervention.table_name}.id WHERE #{InterventionDoer.table_name}.product_id = '#{params[:worker_id]}')"
+    end
+
+    if params[:equipment_id].present?
+      search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM interventions INNER JOIN #{InterventionParameter.table_name} ON #{InterventionParameter.table_name}.intervention_id = #{Intervention.table_name}.id WHERE #{InterventionParameter.table_name}.product_id = '#{params[:equipment_id]}')"
     end
 
     unless params[:period_interval].blank? && params[:period].blank?
@@ -239,33 +263,6 @@ class Intervention < Ekylibre::Record::Base
       if period_interval == :year
         search_params << "EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = #{period.to_date.year}"
       end
-    end
-
-    if params[:production_id].present?
-      search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id IN (SELECT target_id FROM target_distributions WHERE activity_production_id = '#{params[:production_id]}'))"
-      # search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id = '#{params[:product_id]}')"
-    elsif params[:activity_id].present?
-      search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM interventions INNER JOIN activities_interventions ON activities_interventions.intervention_id = interventions.id INNER JOIN activities ON activities.id = activities_interventions.activity_id WHERE activities.id = '#{params[:activity_id]}')"
-    end
-
-    if params[:driver_id].present?
-      search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM interventions INNER JOIN #{InterventionDoer.table_name} ON #{InterventionDoer.table_name}.intervention_id = #{Intervention.table_name}.id WHERE #{InterventionDoer.table_name}.product_id = '#{params[:driver_id]}' AND #{InterventionDoer.table_name}.reference_name = 'driver')"
-    end
-
-    if params[:equipment_id].present?
-      search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM interventions INNER JOIN #{InterventionParameter.table_name} ON #{InterventionParameter.table_name}.intervention_id = #{Intervention.table_name}.id WHERE #{InterventionParameter.table_name}.product_id = '#{params[:equipment_id]}')"
-    end
-
-    # CAUTION: params[:nature] is not used as in controller list filter
-    if params[:nature].present?
-      search_params << "#{Intervention.table_name}.nature = '#{params[:nature]}'"
-      if params[:nature] == :request
-        search_params << "#{Intervention.table_name}.state != '#{Intervention.state.rejected}' AND I.request_intervention_id IS NULL"
-      end
-    end
-
-    if params[:state].present?
-      search_params << "#{Intervention.table_name}.state = '#{params[:state]}'"
     end
 
     page = params[:page]

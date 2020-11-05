@@ -28,11 +28,12 @@
 //= require turbolinks
 //= require active_list.jquery
 //= require knockout
-//= require behave_compat
+// = require behave_compat
 //= require_self
 //= require wice_grid
 //= require wice_grid/settings
 //= require ekylibre
+//= require formize/behave
 //= require form/dialog
 //= require formize/observe
 //= require form/scope
