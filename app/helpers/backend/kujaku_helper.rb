@@ -92,6 +92,7 @@ module Backend
             label: @options[:label] || :search.tl,
             name: @name,
             name_value: @template.params[@name],
+            # This variable is not used in the associated partial
             preference: @template.current_user.pref("kujaku.feathers.#{@uid}.default", @template.params[@name])
           }
         end
@@ -141,6 +142,7 @@ module Backend
           {
             label: @options[:label] || :state.tl,
             name: @name,
+            # This variable is not used in the associated partial
             default_value: @template.params[@name],
             choices: choices
           }
@@ -150,8 +152,24 @@ module Backend
       # Multi choice feather permits to select multiple choice in a list
       class MultiChoiceFeather < Feather
         def configure(*args)
-          @choices = args.last.is_a?(Array) ? args.delete_at(-1) : []
+          if args.last.is_a?(Array)
+            ActiveSupport::Deprecation.warn("Please use an array of hash named 'data' instead of an anonymous array of array : Refer to intervention index view for an example")
+            choices = args.delete_at(-1)
+            @choices = choices.map do |choice|
+              {
+                label: choice[0],
+                name: choice[1]
+              }
+            end
+          elsif @options[:data]
+            @choices = @options[:data]
+          else
+            raise 'You need to pass a data argument'
+          end
+
           @name = args.shift || @options.delete(:name) || :c
+
+          preferences_and_default_values
         end
 
         def vars
@@ -161,23 +179,33 @@ module Backend
             label: @options[:label] || :state.tl
           }
         end
-      end
 
-      # Multi choice feather permits to select one choice in a long list
-      # Like a "search a needle in hay"
-      class NeedleChoiceFeather < ChoiceFeather
-        def configure(*args)
-          @selection = args.last.is_a?(Array) ? args.delete_at(-1) : []
-          @name = args.shift || @options.delete(:name) || :o
-        end
+        private
 
-        def vars
-          {
-            name: @name,
-            label: @options[:label] || :options.tl,
-            selection: @template.options_for_select(@selection, @options[:selected] || @template.params[@name])
-          }
-        end
+          def preferences_and_default_values
+            current_user = @template.current_user
+            controller = @template.params[:controller]
+            action = @template.params[:action]
+
+            if @template.params[@name].nil?
+              preference_value = []
+              @choices.each do |choice|
+                preference_name = "#{controller}##{action}.#{@name}_#{choice[:name]}"
+                @template.params[@name] ||= []
+                preference = current_user.preference(preference_name, nil, :boolean)
+                choice[:checked] = preference.boolean_value
+                preference_value << choice[:name].to_s if preference.boolean_value
+              end
+              @template.params[@name] = preference_value
+            else
+              @choices.each do |choice|
+                preference_name = "#{controller}##{action}.#{@name}_#{choice[:name]}"
+                is_checked = @template.params[@name].include?(choice[:name].to_s)
+                choice[:checked] = is_checked
+                current_user.prefer!(preference_name, is_checked, 'boolean')
+              end
+            end
+          end
       end
 
       # Date search field
@@ -193,7 +221,52 @@ module Backend
             value: value = @template.params[@name]
           }
         end
+      end
 
+      # Maybe a duplicate of needle_choice, inspect this later
+      class ListFeather < Feather
+        def configure(*args)
+          @name = (args.shift || @options.delete(:name) || :l).to_s
+          @label = @options.delete(:label) || @name.tl
+          @value_label = @options.delete(:value_label) || :name
+          @list_values = @options.delete(:list_values)
+
+          preferences_and_default_values
+        end
+
+        def vars
+          list_values = [[]]
+          if @list_values
+            list_values += @list_values
+          else
+            list_values += @name.camelize.constantize.pluck(@value_label, :id).sort
+          end
+
+          {
+            label: @label,
+            select_tag_name: @name + '_id',
+            list_values: list_values,
+            default_value: @default_value
+          }
+        end
+
+        private
+
+          def preferences_and_default_values
+            current_user = @template.current_user
+            controller = @template.params[:controller]
+            action = @template.params[:action]
+
+            suffix_preference_name = @name + '_id'
+            preference_name = "#{controller}##{action}.#{suffix_preference_name}"
+            if @template.params[suffix_preference_name].nil?
+              @template.params[suffix_preference_name] = current_user.preference(preference_name).value
+            else
+              current_user.prefer!(preference_name, @template.params[suffix_preference_name], 'string')
+            end
+
+            @default_value = @template.params[suffix_preference_name]
+          end
       end
 
       # Custom search field based on rendering helper method
