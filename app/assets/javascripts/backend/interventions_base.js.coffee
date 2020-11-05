@@ -950,6 +950,8 @@
     dateEnd = moment($dateEndInput.value).toISOString()
     parcels = $parcelSelectors.get().map((e) => $(e).find('.selector input:first-child').get(0) ).map((e) => $(e).selector('value'))
 
+    return Promise.resolve([]) if parcels.length == 0
+
     params = {
       date: date,
       date_end: dateEnd,
