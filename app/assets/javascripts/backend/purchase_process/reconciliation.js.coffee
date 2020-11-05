@@ -107,12 +107,12 @@
       data['reception'] = action.substr(action.lastIndexOf('/') + 1)
     {url: url, data: data}
 
-  isPurchaseInvoiceForm = ($form) =>
+  isPurchaseInvoiceForm = ($form) => 
     $form.closest('.simple_form').is('.new_purchase_invoice, .edit_purchase_invoice')
-
-  isReceptionForm = ($form) =>
+  
+  isReceptionForm = ($form) => 
     $form.closest('.simple_form').is('.new_reception, .edit_reception')
-
+  
   # Returns a promise that resolves to the content for the modal to be opened
   content_for_reconciliation_modal = ($form) =>
     options = {}
@@ -139,13 +139,13 @@
       E.delegateListener root, 'click', '.model-checkbox', (e) =>
         checked = e.target.checked
         commandContainer = e.target.closest('.model')
-        setAllChildrenTo(commandContainer, checked, $form)
+        setAllChildrenTo(commandContainer, checked, $form) 
         return
 
       displayedItemIds = Array.from(document.querySelectorAll('.nested-fields .nested-item-form[data-item-id]'))
       displayedItemIds = displayedItemIds.map((item) => item.dataset.itemId)
 
-      displayedItemIds.forEach (id) =>
+      displayedItemIds.forEach (id) => 
         checkbox = content.querySelector(".item input[type='checkbox'][data-id='#{id}']")
         commandContainer = checkbox.closest('.model')
         if checkbox
@@ -161,7 +161,7 @@
   # Checks the parent checkbox if all children are checked. Uncheck it if not.
   # If all checked, set 'close command to true, else to false'
   # Also hide/display the close command radio
-  syncState = (commandContainer, $form) =>
+  syncState = (commandContainer, $form) => 
     itemCheckboxes = Array.from(commandContainer.querySelectorAll('.item-checkbox'))
     allItemsCheckboxesChecked = itemCheckboxes.map((cb) => cb.checked).reduce(((acc, e) => acc && e), true)
     commandContainer.querySelector('.model-checkbox').checked = allItemsCheckboxesChecked
@@ -176,7 +176,7 @@
         closePurchaseOrderBlock.classList.add('hidden')
 
   # Sets the value of the radiobutton to `value`
-  setCloseCommand = (commandContainer, value) =>
+  setCloseCommand = (commandContainer, value) => 
     closePurchaseOrderBlock = commandContainer.querySelector('.close-purchase-order')
     closePurchaseOrderBlock.querySelector("input[type='radio'][value=#{value}").checked = true
 
@@ -209,12 +209,12 @@
             $('#purchase_invoice_responsible_id').first().selector('value', responsibleId)
 
           E.reconciliation._fillNewLineForm(itemCheckbox, isPurchaseOrderModal)
-
+        
         if isPurchaseOrderModal == "true"
           $itemCb = $(itemCheckbox)
           purchaseOrderItemId = $itemCb.data('id')
           $formContainer = $("table.list .nested-fields .nested-item-form[data-item-id='#{purchaseOrderItemId}']")
-          purchaseOrderToCloseUpdate($itemCb, $formContainer)
+          purchaseOrderToCloseUpdate($itemCb, $formContainer) 
 
     removeLineWithUnselectedItems: (modal, displayedItemIds, event) ->
       for id in displayedItemIds
@@ -258,10 +258,10 @@
       else
         E.reconciliation._fillReceptionItem(lastLineForm, checkboxLine, itemId, itemQuantity, itemAnnotation)
 
-      $(lastLineForm).find('input[data-remember="equipment"]').first().val(equipmentId)
-      $(lastLineForm).find('input[data-remember="team"]').first().val(teamId)
-      $(lastLineForm).find('input[data-remember="project_budget"]').first().val(projectBudgetId)
-      $(lastLineForm).find('input[data-remember="activity_budget"]').first().val(activityBudgetId)
+      $(lastLineForm).find('input[data-remember="equipment"]').first().selector('value', equipmentId)
+      $(lastLineForm).find('input[data-remember="team"]').first().selector('value', teamId)
+      $(lastLineForm).find('input[data-remember="project_budget"]').first().selector('value', projectBudgetId)
+      $(lastLineForm).find('input[data-remember="activity_budget"]').first().selector('value', activityBudgetId)
       $(lastLineForm).find('.no-reconciliate-item-state').addClass('hidden')
       $(lastLineForm).find('.reconciliate-item-state').removeClass('hidden')
       $line = $(lastLineForm).parent('.nested-fields')
@@ -294,14 +294,10 @@
       $(lastLineForm).find('.form-field .invoice-unit-amount').val(itemUnitCost)
       $(lastLineForm).find('.form-field .invoice-discount-percentage').val(itemReductionPercentage)
       $(lastLineForm).find('.form-field .pre-tax-invoice-total').val(itemTotalAmount)
-
       $selectorInput = $(lastLineForm).find('.form-field .invoice-variant').first()
-      $selectorInput.val(variantId)
-      disable_selector_input($selectorInput)
-
-      $(lastLineForm).find('.form-field .invoice-quantity').trigger('change')
-      $(lastLineForm).find('.form-field .purchase_invoice_items_activity_budget .selector-search').first().val(activityBudgetId)
-      $(lastLineForm).find('.form-field .purchase_invoice_items_team .selector-search').first().val(teamId)
+      $selectorInput.selector('value', variantId, (-> disable_selector_input($selectorInput);$(lastLineForm).find('.form-field .invoice-quantity').trigger('change')))
+      $(lastLineForm).find('.form-field .purchase_invoice_items_activity_budget .selector-search').first().selector('value', activityBudgetId)
+      $(lastLineForm).find('.form-field .purchase_invoice_items_team .selector-search').first().selector('value', teamId)
       $(lastLineForm).find('.annotation-logo .annotation-field').trigger('click')
       $(lastLineForm).find('.annotation-section .annotation').val(itemAnnotation)
 
@@ -327,10 +323,8 @@
       $(lastLineForm).find('.purchase-item-attribute').val(itemId)
 
       $selectorInput = $(lastLineForm).find('.item-block-role .parcel-item-variant').first()
-      $selectorInput.val(variantId)
-      disable_selector_input($selectorInput)
 
-      $(lastLineForm).find('.form-field .invoice-quantity').trigger('change')
+      $selectorInput.selector('value', variantId, (-> disable_selector_input($selectorInput);$(lastLineForm).find('.form-field .invoice-quantity').trigger('change')))
       $(lastLineForm).find('.hidden.purchase-item-attribute').val(itemId)
       $(lastLineForm).find('.annotation-logo .annotation-field').trigger('click')
       $(lastLineForm).find('.annotation-section .annotation').val(itemAnnotation)
@@ -345,7 +339,7 @@
 
   # Given checkbox and formContainer, this method sets the purchase-order-to-close-id property to the purchase order id on the given reception item's form fields
   #    if the purchase order of the selected element is marked for closure when saving the reception
-  #
+  # 
   # @param [jQuery<HTMLElement>] checkbox %li containing a checkbox for an item to maybereconcile
   # @param [jQuery<HTMLElement>] formContainer form line containing information about a reception item
   purchaseOrderToCloseUpdate = ($checkbox, $formContainer) ->
@@ -354,13 +348,13 @@
     $closePurchaseOrderBlock = $purchaseOrderLine.find('.close-purchase-order')
     if $closePurchaseOrderBlock.find('input[type="radio"][value="true"]').is(':checked')
       $formContainer.find('.purchase-order-to-close-id').val(modelId)
-
-  E.onElementDetected 'new_reception', (form) =>
+  
+  E.onElementDetected 'new_reception', (form) => 
     urlParams = new URLSearchParams(window.location.search)
     if urlParams.has('purchase_order_ids')
       open_reconciliation_modal $(form)
-
-  E.onElementDetected 'new_purchase_invoice', (form) =>
+  
+  E.onElementDetected 'new_purchase_invoice', (form) => 
     urlParams = new URLSearchParams(window.location.search)
     if urlParams.has('reception_ids')
       open_reconciliation_modal $(form)
