@@ -926,6 +926,14 @@
         <page to="backend/interventions#purchase"/>
         <page to="backend/interventions#sell"/>
         <page to="backend/interventions#unroll"/>
+        <page to="backend/crumbs#index"/>
+        <page to="backend/crumbs#update"/>
+        <page to="backend/crumbs#convert"/>
+        <page to="backend/crumbs#destroy"/>
+        <page to="backend/intervention_participations#index"/>
+        <page to="backend/intervention_participations#convert"/>
+        <page to="backend/intervention_participations#destroy"/>
+        <page to="backend/intervention_participations#update"/>
         <page to="backend/intervention_participations#participations_modal"/>
         <page to="backend/prescriptions#index"/>
         <page to="backend/prescriptions#create"/>

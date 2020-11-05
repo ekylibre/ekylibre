@@ -20,6 +20,33 @@ module Backend
   class InterventionParticipationsController < Backend::BaseController
     manage_restfully only: %i[update destroy]
 
+    def index
+      @worked_on = if params[:worked_on].blank?
+                     first_participation = current_user.intervention_participations.unprompted.order(created_at: :desc).first
+                     first_participation.present? ? first_participation.created_at : Time.zone.today
+                   else
+                     params[:worked_on].to_date
+                   end
+    end
+
+    # Creates an intervention from intervention participation and redirects to an edit form for
+    # the newly created intervention.
+    def convert
+      return unless intervention_participation = find_and_check
+      begin
+        if intervention = intervention_participation.convert!(params.slice(:procedure_name, :working_width))
+          redirect_to edit_backend_intervention_path(intervention)
+        elsif current_user.intervention_participations.unprompted.any?
+          redirect_to backend_intervention_participations_path(worked_on: params[:worked_on])
+        else
+          redirect_to backend_interventions_path
+        end
+      rescue StandardError => e
+        notify_error(e.message)
+        redirect_to backend_intervention_participations_path(worked_on: params[:worked_on])
+      end
+    end
+
     def participations_modal
       @participation = nil
 

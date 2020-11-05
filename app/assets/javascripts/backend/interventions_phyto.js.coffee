@@ -261,4 +261,10 @@
   $(document).on 'mapchange', '[data-map-editor]', ->
     productsInfos.display()
 
+  $(document).on 'mapeditor:optional_data_loaded', '[data-map-editor]', ->
+    sprayingMap.refresh()
+
+  $(document).on 'mapchange', '[data-map-editor]', ->
+    productsInfos.display()
+
 ) ekylibre, jQuery

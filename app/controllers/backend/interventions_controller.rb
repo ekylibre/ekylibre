@@ -38,87 +38,99 @@ module Backend
       # , productions: [:name], campaigns: [:name], activities: [:name], products: [:name]
       expressions = []
       expressions << 'CASE ' + Procedo.selection.map { |l, n| "WHEN #{Intervention.table_name}.procedure_name = #{conn.quote(n)} THEN #{conn.quote(l)}" }.join(' ') + " ELSE '' END"
+      code = search_conditions({ interventions: %i[state procedure_name number] }, expressions: expressions) + " ||= []\n"
+      code << "unless params[:state].blank?\n"
+      code << "  c[0] << ' AND #{Intervention.table_name}.state IN (?)'\n"
+      code << "  c << params[:state]\n"
+      code << "end\n"
 
-      code = <<~RUBY
-        #{search_conditions({ interventions: %i[state procedure_name number] }, expressions: expressions)} ||= []
+      code << "unless params[:nature].blank?\n"
+      code << "  c[0] << ' AND #{Intervention.table_name}.nature IN (?)'\n"
+      code << "  c << params[:nature]\n"
+      code << "end\n"
 
-        if params[:state].present?
-          c[0] << ' AND #{Intervention.table_name}.state IN (?)'
-          c << params[:state]
-        end
+      code << "c[0] << ' AND #{Intervention.table_name}.state != ?'\n"
+      code << "c[0] << ' AND ((#{Intervention.table_name}.nature = ? AND I.request_intervention_id IS NULL) OR #{Intervention.table_name}.nature = ?)'\n"
+      code << "c << '#{Intervention.state.rejected}'\n"
+      code << "c << 'request'\n"
+      code << "c << 'record'\n"
 
-        if params[:nature].present?
-          c[0] << ' AND #{Intervention.table_name}.nature IN (?)'
-          c << params[:nature]
-        end
+      code << "unless params[:procedure_name].blank?\n"
+      code << "  c[0] << ' AND #{Intervention.table_name}.procedure_name IN (?)'\n"
+      code << "  c << params[:procedure_name]\n"
+      code << "end\n"
 
-        c[0] << ' AND #{Intervention.table_name}.state != ?'
-        c[0] << ' AND ((#{Intervention.table_name}.nature = ? AND I.request_intervention_id IS NULL) OR #{Intervention.table_name}.nature = ?)'
-        c << '#{Intervention.state.rejected}'
-        c << 'request'
-        c << 'record'
+      # select the interventions according to the user current period
+      code << "unless current_period_interval.blank? && current_period.blank?\n"
 
-        if params[:cultivable_zone_id].present?
-          c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM activity_productions_interventions INNER JOIN #{ActivityProduction.table_name} ON #{ActivityProduction.table_name}.id = activity_production_id INNER JOIN #{CultivableZone.table_name} ON #{CultivableZone.table_name}.id = #{ActivityProduction.table_name}.cultivable_zone_id WHERE #{CultivableZone.table_name}.id = ' + params[:cultivable_zone_id] + ')'
-          c
-        end
+      code << " if current_period_interval.to_sym == :day\n"
+      code << "   c[0] << ' AND EXTRACT(DAY FROM #{Intervention.table_name}.started_at) = ? AND EXTRACT(MONTH FROM #{Intervention.table_name}.started_at) = ? AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = ?'\n"
+      code << "   c << current_period.to_date.day\n"
+      code << "   c << current_period.to_date.month\n"
+      code << "   c << current_period.to_date.year\n"
 
-        if params[:procedure_name_id].present?
-          c[0] << ' AND #{Intervention.table_name}.procedure_name IN (?)'
-          c << params[:procedure_name_id]
-        end
+      code << " elsif current_period_interval.to_sym == :week\n"
+      code << "   c[0] << ' AND #{Intervention.table_name}.started_at >= ? AND #{Intervention.table_name}.stopped_at <= ?'\n"
+      code << "   c << current_period.to_date.at_beginning_of_week.to_time.beginning_of_day\n"
+      code << "   c << current_period.to_date.at_end_of_week.to_time.end_of_day\n"
 
-        if params[:activity_id].present?
-          c[0] << 'AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM interventions INNER JOIN activities_interventions ON activities_interventions.intervention_id = interventions.id INNER JOIN activities ON activities.id = activities_interventions.activity_id WHERE activities.id = ?)'
-          c << params[:activity_id].to_i
-        end
+      code << " elsif current_period_interval.to_sym == :month\n"
+      code << "   c[0] << ' AND EXTRACT(MONTH FROM #{Intervention.table_name}.started_at) = ? AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = ?'\n"
+      code << "   c << current_period.to_date.month\n"
+      code << "   c << current_period.to_date.year\n"
 
-        if params[:target_id].present?
-          c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE product_id IN (?))'
-          c << params[:target_id].to_i
-        end
+      code << " elsif current_period_interval.to_sym == :year\n"
+      code << "   c[0] << ' AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = ?'\n"
+      code << "   c << current_period.to_date.year\n"
+      code << " end\n"
 
-        if params[:label_id].present?
-          c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_labellings WHERE label_id IN (?))'
-          c << params[:label_id].to_i
-        end
+      # Cultivable zones
+      code << "  if params[:cultivable_zone_id].to_i > 0\n"
+      code << "    c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM activity_productions_interventions INNER JOIN #{ActivityProduction.table_name} ON #{ActivityProduction.table_name}.id = activity_production_id INNER JOIN #{CultivableZone.table_name} ON #{CultivableZone.table_name}.id = #{ActivityProduction.table_name}.cultivable_zone_id WHERE #{CultivableZone.table_name}.id = ' + params[:cultivable_zone_id] + ')'\n"
+      code << "    c \n"
+      code << "  end\n"
 
-        if params[:worker_id].present?
-           c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM interventions INNER JOIN #{InterventionDoer.table_name} ON #{InterventionDoer.table_name}.intervention_id = #{Intervention.table_name}.id WHERE #{InterventionDoer.table_name}.product_id = ?)'
-           c << params[:worker_id].to_i
-        end
+      # Current campaign
+      code << "  if current_campaign\n"
+      code << "    c[0] << \" AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = ?\"\n"
+      code << "    c << current_campaign.harvest_year\n"
+      code << "  end\n"
+      code << "end\n"
 
-        if params[:equipment_id].present?
-           c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM interventions INNER JOIN #{InterventionParameter.table_name} ON #{InterventionParameter.table_name}.intervention_id = #{Intervention.table_name}.id WHERE #{InterventionParameter.table_name}.product_id = ?)'
-           c << params[:equipment_id].to_i
-        end
+      # Support
+      code << "if params[:product_id].to_i > 0\n"
+      code << "  c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE product_id IN (?))'\n"
+      code << "  c << params[:product_id].to_i\n"
+      code << "end\n"
 
-        if current_period_interval.present? && current_period.present?
-          if current_period_interval.to_sym == :day
-            c[0] << ' AND EXTRACT(DAY FROM #{Intervention.table_name}.started_at) = ? AND EXTRACT(MONTH FROM #{Intervention.table_name}.started_at) = ? AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = ?'
-            c << current_period.to_date.day
-            c << current_period.to_date.month
-            c << current_period.to_date.year
+      # Label
+      code << "if params[:label_id].to_i > 0\n"
+      code << "  c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_labellings WHERE label_id IN (?))'\n"
+      code << "  c << params[:label_id].to_i\n"
+      code << "end\n"
 
-          elsif current_period_interval.to_sym == :week
-            c[0] << ' AND #{Intervention.table_name}.started_at >= ? AND #{Intervention.table_name}.stopped_at <= ?'
-            c << current_period.to_date.at_beginning_of_week.to_time.beginning_of_day
-            c << current_period.to_date.at_end_of_week.to_time.end_of_day
+      # ActivityProduction || Activity
+      code << "if params[:production_id].to_i > 0\n"
+      code << "  c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = \\'InterventionTarget\\' AND product_id IN (SELECT target_id FROM target_distributions WHERE activity_production_id = ?))'\n"
+      code << "  c << params[:production_id].to_i\n"
+      code << "elsif params[:activity_id].to_i > 0\n"
+      code << "  c[0] << 'AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM interventions INNER JOIN activities_interventions ON activities_interventions.intervention_id = interventions.id INNER JOIN activities ON activities.id = activities_interventions.activity_id WHERE activities.id = ?)'\n"
+      code << "  c << params[:activity_id].to_i\n"
+      code << "end\n"
 
-          elsif current_period_interval.to_sym == :month
-            c[0] << ' AND EXTRACT(MONTH FROM #{Intervention.table_name}.started_at) = ? AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = ?'
-            c << current_period.to_date.month
-            c << current_period.to_date.year
+      # Worker || Driver
+      code << "unless params[:driver_id].blank? \n"
+      code << "   c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM interventions INNER JOIN #{InterventionDoer.table_name} ON #{InterventionDoer.table_name}.intervention_id = #{Intervention.table_name}.id WHERE #{InterventionDoer.table_name}.product_id = ? AND #{InterventionDoer.table_name}.reference_name = \\'driver\\')'\n"
+      code << "   c << params[:driver_id].to_i\n"
+      code << "end\n"
 
-          elsif current_period_interval.to_sym == :year
-            c[0] << ' AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = ?'
-            c << current_period.to_date.year
-          end
-        end
+      # Intervention tool
+      code << "unless params[:equipment_id].blank? \n"
+      code << "   c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM interventions INNER JOIN #{InterventionParameter.table_name} ON #{InterventionParameter.table_name}.intervention_id = #{Intervention.table_name}.id WHERE #{InterventionParameter.table_name}.product_id = ?)'\n"
+      code << "   c << params[:equipment_id].to_i\n"
+      code << "end\n"
 
-        c
-      RUBY
-
+      code << "c\n "
       code.c
     end
 
@@ -360,7 +372,6 @@ module Backend
           .values
           .each { |tool_attributes| tool_attributes.except!(:readings_attributes) }
       end
-
       intervention = Procedo::Engine.new_intervention(intervention_params)
       begin
         intervention.impact_with!(params[:updater])
@@ -507,7 +518,7 @@ module Backend
 
     # FIXME: Not linked directly to interventions
     def change_page
-      options = params.require(:interventions_taskboard).permit(:q, :state, :nature, :cultivable_zone_id, :procedure_name_id, :activity_id, :target_id, :worker_id, :equipment_id, :period_interval, :period, :page)
+      options = params.require(:interventions_taskboard).permit(:q, :procedure_name, :product_id, :cultivable_zone_id, :period_interval, :period, :page)
       options[:period_interval] ||= current_period_interval
       options[:period] ||= current_period
 

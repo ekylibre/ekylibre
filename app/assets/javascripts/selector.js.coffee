@@ -363,9 +363,15 @@
       item.addClass "selected"
       false
 
-  $(document).behave "load", "input[data-selector]", (event) ->
-    $("input[data-selector]").each ->
+  enableSelectors = ($collection) =>
+    $collection.each ->
       $(this).selector()
+
+  document.addEventListener 'DOMContentLoaded', ->
+    enableSelectors($("input[data-selector]"))
+
+  E.onDOMElementAdded("input[data-selector]", enableSelectors)
+
 
   $(document).on "selector:change", (changeEvent, value) ->
     $("*[data-selector-update]").each ->

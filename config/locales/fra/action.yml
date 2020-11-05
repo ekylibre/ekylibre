@@ -1094,7 +1094,7 @@ fra:
     active_sum: "Total actifs" #?
     active_totals: "Total général"
     activities: "Activités"
-    activity: "Activité"
+    activity: "Activités"
     activity_production: "Production"
     activity_productions: "Productions"
     accumulated_stock: "Cumul des stocks de %{name}"

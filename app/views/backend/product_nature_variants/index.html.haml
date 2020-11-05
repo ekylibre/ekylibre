@@ -1,6 +1,6 @@
 = kujaku do |k|
   - k.text
-  - k.list :working_set, label: :options.tl, list_values: Nomen::WorkingSet.selection
+  - k.needle_choice :working_set, [[]] + Nomen::WorkingSet.selection
   - categories = ProductNatureCategory.all
   - if categories.any?
     - k.helper do
