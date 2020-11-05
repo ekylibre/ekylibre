@@ -399,12 +399,6 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :crumbs, only: %i[index update destroy] do
-      member do
-        post :convert
-      end
-    end
-
     resources :cultivable_zones, concerns: %i[list unroll], path: 'cultivable-zones' do
       member do
         get :list_productions
@@ -675,12 +669,9 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :intervention_participations, only: %i[index update destroy] do
+    resources :intervention_participations, only: [] do
       collection do
         post :participations_modal
-      end
-      member do
-        post :convert
       end
     end
 
