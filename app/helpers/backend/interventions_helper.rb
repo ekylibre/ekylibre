@@ -177,5 +177,17 @@ module Backend
     def add_total_working_period(product_parameter, natures: {})
       render partial: 'intervention_total_costs', locals: { product_parameter: product_parameter, natures: natures }
     end
+
+    def quantity_info(quantified_parameter)
+      return '' if quantified_parameter.quantity_value.nil?
+
+      if quantified_parameter.quantity_handler == 'population'
+        quantity_value = quantified_parameter.quantity_value.round(2).l(precision: 0)
+        variant = quantified_parameter.variant || quantified_parameter.product.variant
+        "#{quantity_value} #{:unit.tl.lower} (#{variant.unit_name})"
+      else
+        quantified_parameter.quantity.round_l
+      end
+    end
   end
 end
