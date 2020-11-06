@@ -55,54 +55,31 @@
           - detail = doer.name
           = add_detail_to_modal_block(title, detail, doer, {icon: 'picto-male'})
 
-    - if intervention.inputs.any?
-      .block
-        %h3.block-title= Intervention.human_attribute_name(:inputs)
+    - %i(inputs outputs).each do |parameter_type|
+      - if intervention.send(parameter_type).any?
+        .block
+          %h3.block-title= Intervention.human_attribute_name(parameter_type)
 
-        - intervention.inputs.each do |input|
-          - unless input.product.blank?
-            - title = input.product.name
-            - detail = ""
+          - intervention.send(parameter_type).each do |quantified_parameter|
+            - target = parameter_type == :inputs ? quantified_parameter.product.presence : quantified_parameter.variant
+            - title = target.name
+            - detail = quantity_info(quantified_parameter)
 
-            - unless input.quantity_value.nil?
-              - detail = input.quantity_value.round(2).l(precision: 0)
-
-              - if input.is_population?
-                - unit = input.variant.unit_name.mb_chars.downcase
-              - else
-                - unit = input.quantity_handler_reference.unit.symbol
-
-              - detail << " " + unit
-
-            = add_detail_to_modal_block(title, detail, {icon: 'picto-matter'})
-            .registered-phytosanitary-usage-block
-              - unless input.usage.nil?
-                %p
-                  = succeed " : " do
-                    %span.title= t(:usage)
-                  %span.value= input.usage.ephy_usage_phrase
-                  - authorization_calculator = Interventions::Phytosanitary::InterventionInputAuthorizationCalculator.for_intervention(intervention)
-                  - vote, messages = authorization_calculator.authorization_state(input, intervention)
-                  - if vote == :allowed
-                    %span.value= :allowed.tl
-                  - elsif vote == :forbidden
-                    %span.value= :forbidden.tl
-                    %span.value= messages.uniq.join(', ')
-
-    - if intervention.outputs.any?
-      .block
-        %h3.block-title= Intervention.human_attribute_name(:outputs)
-
-        - intervention.outputs.each do |output|
-          - unless output.product.blank?
-            - title = output.product.name
-            - detail = ""
-
-            - unless output.quantity_value.nil? || output.quantity_handler_reference.unit.nil?
-              - detail = output.quantity_value.round(2).l(precision: 0)
-              - detail << " " + output.quantity_handler_reference.unit.symbol
-            = add_detail_to_modal_block(title, detail, {icon: 'picto-matter'})
-
+            = add_detail_to_modal_block(title, detail, { icon: 'picto-matter' })
+            - if parameter_type == :inputs
+              .registered-phytosanitary-usage-block
+                - unless quantified_parameter.usage.nil?
+                  %p
+                    = succeed " : " do
+                      %span.title= t(:usage)
+                    %span.value= quantified_parameter.usage.ephy_usage_phrase
+                    - authorization_calculator = Interventions::Phytosanitary::InterventionInputAuthorizationCalculator.for_intervention(intervention)
+                    - vote, messages = authorization_calculator.authorization_state(quantified_parameter, intervention)
+                    - if vote == :allowed
+                      %span.value= :allowed.tl
+                    - elsif vote == :forbidden
+                      %span.value= :forbidden.tl
+                      %span.value= messages.uniq.join(', ')
 
     - if intervention.tools.any?
       .block
