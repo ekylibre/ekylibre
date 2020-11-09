@@ -92,7 +92,7 @@
       :ruby
         resource.distributions.reorder(:affectation_percentage).find_each.map do |distribution|
           percentage = distribution.affectation_percentage.to_s.to_f
-          { name: :label_value.th(label: distribution.main_activity_name, value: number_to_percentage(y, precision: 2)), y: percentage }
+          { name: :label_value.th(label: distribution.main_activity_name, value: number_to_percentage(percentage, precision: 2)), y: percentage }
         end
         series = [{type: 'pie', name: Activity.human_attribute_name(:distributions), data: data}]
 
