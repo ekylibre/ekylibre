@@ -13,10 +13,11 @@ class Behavior {
 
     refresh() {
         resolveElements(this.element, this.selector).forEach((e) => {
+            const elem = e as any;
             const key = `alreadyBound${this.sequence}`;
 
-            if (!e[key]) {
-                e[key] = true;
+            if (!elem[key]) {
+                elem[key] = true;
                 this.handler.call(e);
             }
         });
