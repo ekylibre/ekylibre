@@ -104,8 +104,8 @@ class ::Numeric
   alias trimesters trimester
   alias semesters semester
 
-  def rounded_localize(precision: 2)
-    round(precision).localize(precision: precision)
+  def rounded_localize(precision: 2, **options)
+    round(precision).localize(precision: precision, **options)
   end
 
   alias round_l rounded_localize
