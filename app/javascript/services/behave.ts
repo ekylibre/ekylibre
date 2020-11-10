@@ -15,8 +15,8 @@ class Behavior {
         resolveElements(this.element, this.selector).forEach((e) => {
             const key = `alreadyBound${this.sequence}`;
 
-            if (!e.hasAttribute(key)) {
-                e.setAttribute(key, '1');
+            if (!e[key]) {
+                e[key] = true;
                 this.handler.call(e);
             }
         });
