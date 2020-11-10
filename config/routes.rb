@@ -316,7 +316,8 @@ Rails.application.routes.draw do
     resources :bank_statements, concerns: %i[list unroll], path: 'bank-statements' do
       collection do
         get :list_items
-        match :import, via: %i[get post]
+        match :import_ofx, via: %i[get post]
+        match :import_cfonb, via: %i[get post]
         get :edit_interval
       end
     end
@@ -504,6 +505,12 @@ Rails.application.routes.draw do
     resources :entity_links
 
     resources :equipments, concerns: :products
+
+    resource :entries_ledger, only: [:show], path: 'entries-ledger' do
+      member do
+        get :list_journal_entry_items
+      end
+    end
 
     resources :event_participations
 

@@ -18,7 +18,7 @@
   .modal-footer
     - templates = DocumentTemplate.of_nature(nature.name.to_s)
     - if templates.any?
-      = dropdown_menu_button(:print) do |menu|
+      = dropdown_menu_button(:print, dropup: true) do |menu|
         - templates.each do |template|
           - menu.item(template.name, params.merge(format: :pdf, template: template.id, key: key))
     = button_tag(:close.tl, class: 'btn btn-default', data: { dismiss: 'modal' })

@@ -82,7 +82,7 @@ class Reception < Parcel
   end
 
   delegate :full_name, to: :sender, prefix: true
-  delegate :number, to: :purchase_order, prefix: true
+  delegate :number, to: :purchase_order, prefix: true, allow_nil: true
 
   alias_method :allow_items_update?, :draft?
   alias_method :entity, :sender

@@ -682,6 +682,11 @@
         legend.children(":visible:first").addClass("first")
         legend.removeClass("empty")
 
+        if @options.overlaySelector?
+          event.layer.eachLayer (layer) =>
+            @ghostLabelCluster.bind layer.label, layer unless layer.label is undefined
+          @ghostLabelCluster.refresh()
+
       @map.on "overlayremove", (event) =>
         console.log "Remove legend control..."
         legend = $(@controls.legend.getContainer())
@@ -689,6 +694,11 @@
         legend.children(".first").removeClass("first")
         legend.children(":visible:first").addClass("first")
         legend.addClass("empty") if legend.children(":visible").length <= 0
+
+        if @options.overlaySelector?
+          event.layer.eachLayer (layer) =>
+            @ghostLabelCluster.removeLayer target: { label: layer.label } unless layer.label is undefined
+          @ghostLabelCluster.refresh()
 
     _addLayer: (layer) ->
       data = this._getSerieData(layer.serie)
@@ -971,23 +981,6 @@
                 $(e.currentTarget).children('i').toggleClass('active')
 
       if @options.overlaySelector?
-
-        @map.on "overlayadd", (event) =>
-
-          @layersScheduler.schedule event.layer
-
-          # for each layer in the layerGroup
-          event.layer.eachLayer (layer) =>
-            @ghostLabelCluster.bind layer.label, layer unless layer.label is undefined
-          @ghostLabelCluster.refresh()
-
-
-        @map.on "overlayremove", (event) =>
-
-          event.layer.eachLayer (layer) =>
-            @ghostLabelCluster.removeLayer target: { label: layer.label } unless layer.label is undefined
-          @ghostLabelCluster.refresh()
-
         selector = @layerSelector || new L.Control.Layers()
 
         if @ghost? and @ghost.getLayers().length

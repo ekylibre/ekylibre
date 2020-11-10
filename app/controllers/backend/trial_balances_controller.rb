@@ -36,15 +36,14 @@ module Backend
         started_on: params[:started_on],
         stopped_on: params[:stopped_on],
         vat_details: params[:vat_details],
-        previous_year: params[:previous_year]
+        previous_year: params[:previous_year],
+        levels: params.to_unsafe_h.select{|k, v| k =~ /\Alevel_/ && v.to_s == "1"}.map{|k, _v| k.sub('level_', '').to_i}
       }
 
       respond_to do |format|
         format.html do
-          dataset = Journal.trial_balance_dataset(dataset_params)
-          @balance = dataset[:balance]
-          @prev_balance = dataset[:prev_balance]
-          @empty_balances = @balance.length == 1 && @prev_balance.length.zero?
+          @balance = Journal.trial_balance_dataset(dataset_params)
+          @empty_balances = @balance.length <= 1
           notify_now(:please_select_a_period_containing_journal_entries) if @empty_balances
         end
 

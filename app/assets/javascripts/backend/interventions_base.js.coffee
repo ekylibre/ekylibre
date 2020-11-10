@@ -352,17 +352,20 @@
       E.interventions.refresh $(this)
 
   $(document).ready ->
-    $('*[data-intervention-updater]').each ->
-      E.interventions.refresh $(this)
+    updaters = $('*[data-intervention-updater]')
+    # Previous system was calling refresh method with each updater, we now use first updater because the returned values were all the same (except for a very specific case which we avoid by selecting first updater)
+    updater = updaters[0]
+    E.interventions.refresh $(updater)
+  
+  $(document).on 'selector:change', '*[data-intervention-updater]', (event, _element, options) ->
+      # Don't refresh values if selector is initializing
+      return if options? && options['initializing']
+      $(this).each ->
+        options = {}
+        options['display_cost'] = true
+        options['targetted_element'] = $(event.target)
 
-  #  selector:initialized
-  $(document).on 'selector:change', '*[data-intervention-updater]', (event) ->
-    $(this).each ->
-      options = {}
-      options['display_cost'] = true
-      options['targetted_element'] = $(event.target)
-
-      E.interventions.refresh $(this), options
+        E.interventions.refresh $(this), options
 
   $(document).on 'keyup', 'input[data-selector]', (e) ->
     $(this).each ->
@@ -946,6 +949,8 @@
     date = moment($dateInput.value).toISOString()
     dateEnd = moment($dateEndInput.value).toISOString()
     parcels = $parcelSelectors.get().map((e) => $(e).find('.selector input:first-child').get(0) ).map((e) => $(e).selector('value'))
+
+    return Promise.resolve([]) if parcels.length == 0
 
     params = {
       date: date,

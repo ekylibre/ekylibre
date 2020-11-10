@@ -564,7 +564,8 @@ class FinancialYearClose
         period: "#{@year.started_on}_#{@year.stopped_on}",
         balance: "all",
         previous_year: false,
-        template: template
+        template: template,
+        levels: []
       )
 
       printer = Printers::TrialBalancePrinter.new(full_params)

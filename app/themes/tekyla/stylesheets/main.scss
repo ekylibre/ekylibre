@@ -568,9 +568,9 @@ html.exception {
   .toolbar + & {
     @include calc(height, "100vh - #{$header-height + $topbar-height + $chat-btn-height + $toolbar-height} - 1px");
   }
-  .flash + & {
-    height: unset;
-  }
+  // .flash + & {
+  //   height: unset;
+  // }
 }
 
 #about-us {
@@ -2683,7 +2683,7 @@ a[data-annotate] {
       .cobble-body {
         // padding: $default-gap;
         .cobble-toolbar {
-          .list-pagination {
+          .list-pagination, .list-footer-pagination {
             float: none;
           }
           &.cobble-meta-toolbar {
