@@ -189,6 +189,8 @@ module Backend
         quantity_value = quantified_parameter.quantity_value.round(2).l(precision: 0)
         variant = quantified_parameter.variant || quantified_parameter.product.variant
         "#{quantity_value} #{:unit.tl.lower} (#{variant.unit_name})"
+      elsif quantified_parameter.quantity_indicator_name == 'net_surface_area'
+        quantified_parameter.quantity.in(:hectare).round_l
       else
         quantified_parameter.quantity.round_l
       end
