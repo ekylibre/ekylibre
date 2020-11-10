@@ -21,13 +21,17 @@ module Backend
     def next_state
       intervention = @interventions.present? ? @interventions.first : @intervention
       next_state = if intervention.nature == :request
-        'in_progress'
-      else
-        case intervention.state
-          when 'in_progress' then 'done'
-          when 'done' then 'validated'
-        end
-      end
+                     'in_progress'
+                   else
+                     case intervention.state
+                     when 'in_progress'
+                       'done'
+                     when 'done'
+                       'validated'
+                     else
+                       nil
+                     end
+                   end
       Intervention.state.options.find { |_, v| v == next_state } if next_state
     end
 
