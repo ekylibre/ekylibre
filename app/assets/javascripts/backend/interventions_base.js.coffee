@@ -349,7 +349,7 @@
     # Previous system was calling refresh method with each updater, we now use first updater because the returned values were all the same (except for a very specific case which we avoid by selecting first updater)
     updater = updaters[0]
     E.interventions.refresh $(updater)
-  
+
   $(document).on 'selector:change', '*[data-intervention-updater]', (event, _element, options) ->
       # Don't refresh values if selector is initializing
       return if options? && options['initializing']
@@ -524,7 +524,6 @@
       success: (data) =>
 
   $(document).on 'shown.bs.modal', '#compare-planned-with-realised', (event) ->
-
     $('.details').each ->
       product_id = $(this).data('productId')
       type = $(this).data('type')
