@@ -13,7 +13,8 @@ module Ekylibre
         manure_management_plan manure_management_plan_sheet outgoing_deliveries_journal phytosanitary_certification prescription
         products_sheet provisional_manure_management_plan purchases_estimate purchases_order purchases_original security_data_sheet
         stocks tax_assessment vine_phytosanitary_register wine_bottling_register wine_detention_register wine_manipulation_register
-      ]
+        fec_data_error fec_structure_error
+        ]
 
         # Keep the test up to date: If a nature is removed make sure it is not flagged as missing
         assert missing.all? { |s| Nomen::DocumentNature.all.include?(s) }

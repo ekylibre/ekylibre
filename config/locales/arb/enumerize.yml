@@ -491,6 +491,10 @@ arb:
         point: "نقطة"
         string: "خيط"
     purchase:
+      reconciliation_state:
+        # accepted: "Accepted"
+        # reconcile: "Reconcile"
+        # to_reconcile: "To reconcile"
       tax_payability:
         at_invoicing: "في الفواتير"
         at_paying: "في دفع"

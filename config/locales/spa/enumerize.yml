@@ -492,6 +492,10 @@ spa:
         point: "Punto"
         string: "Cuerda"
     purchase:
+      reconciliation_state:
+        # accepted: "Accepted"
+        # reconcile: "Reconcile"
+        # to_reconcile: "To reconcile"
       tax_payability:
         at_invoicing: "En la facturación"
         at_paying: "Al pagar"

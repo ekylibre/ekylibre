@@ -2861,7 +2861,8 @@ eng:
     timeline_event_without_participants: "%{name} %{when}"
     timeline_incoming_call: "%{author} called %{entity} about %{name} %{when}"
     timeline_incoming_mail: "%{entity} wrote to %{author} about %{name} %{when}"
-    timeline_item: "%{type} %{name} added by %{author} %{when}"
+    timeline_item_added: "%{type} %{name} added by %{author} %{when}"
+    timeline_item_deleted: "%{type} %{name} removed by %{author} %{when}" #?!
     timeline_outgoing_call: "%{author} called %{entity} about %{name} %{when}"
     timeline_outgoing_mail: "%{author} wrote to %{entity} about %{name} %{when}"
     timeline_payment: "%{type} %{name} of %{amount} by %{mode} added by %{author} %{when}"

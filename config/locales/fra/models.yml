@@ -1950,7 +1950,7 @@ fra:
     recommended: "Prescrit"
     recommender: "Prescripteur"
     reconcilable: "Lettrable"
-    # reconciliation_state: "Reconciliation state"
+    reconciliation_state: "État de rapprochement"
     # record_checksum: "Record checksum"
     record_interventions: "Interventions record"
     record_value: "Enregistrement"

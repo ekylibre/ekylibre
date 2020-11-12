@@ -1094,7 +1094,7 @@ fra:
     active_sum: "Total actifs" #?
     active_totals: "Total général"
     activities: "Activités"
-    activity: "Activités"
+    activity: "Activité"
     activity_production: "Production"
     activity_productions: "Productions"
     accumulated_stock: "Cumul des stocks de %{name}"
@@ -2978,7 +2978,8 @@ fra:
     timeline_event_without_participants: "%{name} %{when}"
     timeline_incoming_call: "%{entity} a appelé %{author} à propos de %{name} %{when}"
     timeline_incoming_mail: "%{entity} a écrit à %{author} à propos de %{name} %{when}"
-    timeline_item: "%{type} %{name} ajouté par %{author} %{when}"
+    timeline_item_added: "%{type} %{name} ajoutée par %{author} %{when}"
+    timeline_item_deleted: "%{type} %{name} supprimée par %{deletor} %{when}"
     timeline_outgoing_call: "%{author} a appelé %{entity} à propos de %{name} %{when}"
     timeline_outgoing_mail: "%{author} a écrit à %{entity} à propos de %{name} %{when}"
     timeline_payment: "%{type} %{name} de %{amount} par %{mode} ajouté par %{author} %{when}"

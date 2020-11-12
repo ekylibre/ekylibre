@@ -259,21 +259,14 @@
             @workingTimesModal.getModal().modal 'show'
 
 
-    addLazyLoading: (taskboard) ->
+    addLazyLoading: (taskboard, params) ->
       loadContent = false
       currentPage = 1
       taskHeight = 60
       halfTaskList = 12
 
-      urlParams = decodeURIComponent(window.location.search.substring(1)).split("&")
-      params = urlParams.reduce((map, obj) ->
-        param = obj.split("=")
-        map[param[0]] = param[1]
-        return map
-      , {})
-
-      $('#content').scroll ->
-        if !loadContent && $('#content').scrollTop() > (currentPage * halfTaskList) * taskHeight
+      $('#core').scroll ->
+        if !loadContent && $('#core').scrollTop() > (currentPage * halfTaskList) * taskHeight
           currentPage++
           params['page'] = currentPage
 
@@ -356,7 +349,7 @@
     # Previous system was calling refresh method with each updater, we now use first updater because the returned values were all the same (except for a very specific case which we avoid by selecting first updater)
     updater = updaters[0]
     E.interventions.refresh $(updater)
-  
+
   $(document).on 'selector:change', '*[data-intervention-updater]', (event, _element, options) ->
       # Don't refresh values if selector is initializing
       return if options? && options['initializing']
@@ -531,7 +524,6 @@
       success: (data) =>
 
   $(document).on 'shown.bs.modal', '#compare-planned-with-realised', (event) ->
-
     $('.details').each ->
       product_id = $(this).data('productId')
       type = $(this).data('type')
@@ -647,12 +639,20 @@
           $(productParameterCostBlock).appendTo(target)
       )
 
-    if $('.taskboard').length > 0
+    if $('.taskboard').length > 0 && $('.kujaku').length > 0
 
       taskboard = new InterventionsTaskboard
       taskboard.initTaskboard()
 
-      E.interventions.addLazyLoading(taskboard)
+      encodedUrlParams = $('.kujaku').find('form').serialize()
+      urlParams = decodeURIComponent(encodedUrlParams).split("&")
+      params = urlParams.reduce((map, obj) ->
+        param = obj.split("=")
+        map[param[0]] = param[1]
+        return map
+      , {})
+
+      E.interventions.addLazyLoading(taskboard, params)
 
 
   class InterventionsTaskboard

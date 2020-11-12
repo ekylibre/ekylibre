@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add fec document templates">
+  <!-- Add your changes here -->
+  <item-creation item="document_natures#fec_data_error" category="accountancy" />
+  <item-creation item="document_natures#fec_structure_error" category="accountancy" />
+</migration>

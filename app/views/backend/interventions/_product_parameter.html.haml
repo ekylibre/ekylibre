@@ -21,9 +21,7 @@
       %p= product_parameter.model_name.human
       - if actor.is_a?(Product) && !actor.population_counting_unitary? && variant && product_parameter.quantity_unit_name && product_parameter.quantity
         %p
-          - if product_parameter.is_population?
-            = :x_thing.tl(x: product_parameter.quantity.round(2).l(precision: 0), thing: variant.unit_name.mb_chars.downcase)
-          - elsif product_parameter.product.france_maaid.present? && product_parameter.is_a?(InterventionInput)
+          - if product_parameter.product.france_maaid.present? && product_parameter.is_a?(InterventionInput)
             %p
               %span.value= product_parameter.legal_pesticide_informations&.fetch(:name, nil)
             %p
@@ -53,29 +51,9 @@
                   %span.value= picto_tag('info-circle', color: '#3f70ce', pointer: true, data: { toggle: 'modal', target: "#usage-conditions-modal-#{product_parameter.id}" })
                 = render 'usage_conditions_modal', id: product_parameter.id, usage: usage
 
-            -# TODO: reactivate when we have updated lexicon's data
-            -# if product_parameter.legal_pesticide_informations[:dose]
-              %p
-                %span.title= :legal_dose.tl
-                %span.value= product_parameter.legal_pesticide_informations[:dose].l(precision: 2)
-                = lights('stop') if product_parameter.legal_treatment_ratio > 1.0
-                = lights('caution') if product_parameter.legal_treatment_ratio == 1.0
-                = lights('go') if product_parameter.legal_treatment_ratio < 1.0
-            -# if product_parameter.pfi_reference_dose
-              %p
-                %span.title= :pfi_dose.tl
-                %span.value= product_parameter.pfi_reference_dose.dose.l(precision: 2)
-                = lights('stop') if product_parameter.pfi_treatment_ratio > 1.0
-                = lights('caution') if product_parameter.pfi_treatment_ratio == 1.0
-                = lights('go') if product_parameter.pfi_treatment_ratio < 1.0
-              %p
-                %span.title= :pfi_treatment_ratio.tl
-                %span.value= product_parameter.pfi_treatment_ratio.round(2)
-          - elsif product_parameter.is_a?(InterventionTarget)
-            - area = Measure.new(product_parameter.quantity_value, product_parameter.quantity_unit_name).in(:hectare).to_f.round(2)
-            %span.value= "#{area} ha"
           - else
-            = product_parameter.quantity.l(precision: 0)
+            = quantity_info(product_parameter)
+
   - elsif variant
     .picture
       - if variant.picture.file?

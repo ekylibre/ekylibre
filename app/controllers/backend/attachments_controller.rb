@@ -50,7 +50,7 @@ module Backend
       document = @attachment.document
       @attachment.destroy
       document.destroy
-      if document.destroyed? && @attachment.destroyed?
+      if document.destroyed? && @attachment.paranoia_destroyed?
         render json: { attachment: 'deleted', status: :ok }
       else
         render json: { message: 'error' }, status: :unprocessable_entity
