@@ -218,7 +218,7 @@
     productListManager.filterProducts()
     sprayingMap.refresh()
 
-  $(document).on 'selector:created', "[data-selector-id='intervention_input_product_id']", ->
+  $(document).on 'selector:created', ".nested-plant_medicine [data-selector-id='intervention_input_product_id']", ->
     productListManager.filterProduct($(this), productListManager.retrieveProductsIds())
 
   # Re-trigger all filters on target change
