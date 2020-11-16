@@ -330,6 +330,7 @@ eng:
         cultivable_zone_name: "Cultivable zone name"
         production_mode: "Production mode"
         season: "Season"
+        free_field: "Free field"
     notification:
       level:
         error: "Error"

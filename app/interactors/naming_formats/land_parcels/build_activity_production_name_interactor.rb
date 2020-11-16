@@ -18,7 +18,8 @@ module NamingFormats
                       .new(cultivable_zone: @activity_production.cultivable_zone,
                            activity: @activity_production.activity,
                            campaign: @activity_production.campaign,
-                           season: @activity_production.season)
+                           season: @activity_production.season,
+                           free_field: @activity_production.custom_name)
                       .perform(field_values: naming_format_fields_names)
 
         rank_number = :rank.t(number: @activity_production.rank_number)

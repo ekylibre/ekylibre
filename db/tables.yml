@@ -449,6 +449,8 @@ activity_productions:
     references: cultivable_zone
   custom_fields:
     type: jsonb
+  custom_name:
+    type: string
   id:
     type: integer
     required: true

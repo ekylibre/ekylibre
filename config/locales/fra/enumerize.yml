@@ -303,6 +303,7 @@ fra:
         cultivable_zone_name: "Nom de la zone cultivable"
         production_mode: "Mode de production"
         season: "Saisonnalité"
+        free_field: "Champ libre"
     notification:
       level:
         error: "Erreur"

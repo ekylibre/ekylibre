@@ -1044,6 +1044,8 @@ fra:
     unroll:
       server_error: "Erreur serveur"
   labels:
+    configure_naming_format: "Paramétrer le format de nommage"
+    free_field: "Champ libre"
     abilities: "Compétences" #?
     accepted: "Acceptée"
     accepted_for_paiment: "Acceptée pour paiement"

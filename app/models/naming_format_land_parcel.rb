@@ -40,7 +40,8 @@ class NamingFormatLandParcel < NamingFormat
       fields_attributes: [
         { field_name: :cultivable_zone_name, position: 1, type: 'NamingFormatFieldLandParcel' },
         { field_name: :activity, position: 2, type: 'NamingFormatFieldLandParcel' },
-        { field_name: :campaign, position: 3, type: 'NamingFormatFieldLandParcel' }
+        { field_name: :campaign, position: 3, type: 'NamingFormatFieldLandParcel' },
+        { field_name: :free_field, position: 4, type: 'NamingFormatFieldLandParcel' }
       ]
     )
   end

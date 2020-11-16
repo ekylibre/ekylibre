@@ -8,3 +8,13 @@
     }
   }
 }
+
+form {
+  .activity_production_custom_name{
+    span:nth-child(3){
+      margin: 0 2em 0 2em;
+      font-weight: bold;
+      position: relative;
+    }
+  }
+}
