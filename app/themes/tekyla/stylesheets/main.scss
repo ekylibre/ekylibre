@@ -2811,6 +2811,10 @@ a[data-annotate] {
   width: 5em;
 }
 
+.fieldset .fieldset-fields tr.nested-fields input.lg-numeric, .fieldset .fieldset-fields tbody.nested-fields input.lg-numeric {
+  width: 10em;
+}
+
 .smr {
   margin-right: 10px;
 }

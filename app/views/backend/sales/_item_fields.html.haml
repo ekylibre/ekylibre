@@ -14,8 +14,8 @@
     %td= f.input(:unit_pretax_amount, wrapper: :nested, input_html: {size: 8, data: {trade_component: "unit_pretax_amount", compute_from: :unit_pretax_amount }})
     %td= f.select(:tax_id, Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.usable_amount)/100)}]}, {}, data: {value: 'rate', trade_component: "tax"})
     %td= f.input(:reduction_percentage, wrapper: :nested, input_html: {size: 8, data: {trade_component: "reduction_percentage"}})
-    %td= f.input(:pretax_amount, wrapper: :nested, input_html: {class: "pta", size: 8, data: {trade_component: "pretax_amount", compute_from: :pretax_amount }})
-    %td= f.input(:amount, wrapper: :nested, input_html: { class: "wta", size: 8, data: { trade_component: "amount", compute_from: :amount } })
+    %td= f.input(:pretax_amount, wrapper: :nested, input_html: {class: "pta lg-numeric", size: 8, data: {trade_component: "pretax_amount", compute_from: :pretax_amount }})
+    %td= f.input(:amount, wrapper: :nested, input_html: { class: "wta lg-numeric", size: 8, data: { trade_component: "amount", compute_from: :amount } })
     %td.currency= f.object.sale_currency
     %td.action= link_to_remove_association(content_tag(:i) + h(:destroy.ta), f, 'data-no-turbolink' => true, class: 'remove-item')
 
