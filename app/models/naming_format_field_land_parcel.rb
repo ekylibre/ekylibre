@@ -35,5 +35,5 @@
 #  updater_id       :integer
 #
 class NamingFormatFieldLandParcel < NamingFormatField
-  enumerize :field_name, in: %i[cultivable_zone_name cultivable_zone_code activity campaign season production_mode], default: :cultivable_zone_name
+  enumerize :field_name, in: %i[cultivable_zone_name cultivable_zone_code activity campaign season production_mode free_field], default: :cultivable_zone_name
 end

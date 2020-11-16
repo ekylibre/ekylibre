@@ -1141,6 +1141,7 @@ fra:
     custom_field: "Champ complémentaire"
     custom_fields: "Champs complémentaires"
     custom_fields_columns: "Champs personnalisés colonnes"
+    custom_name: "Nommage du support"
     customized: "Enregistrement personnalisé" #?
     customized_type: "Type d’enregistrement personnalisé"
     # daily_charges: "Daily charges"

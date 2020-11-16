@@ -1,14 +1,15 @@
 module NamingFormats
   module LandParcels
     class BuildNamingService
-      attr_reader :compute_name, :cultivable_zone, :activity, :campaign, :season
+      attr_reader :compute_name, :cultivable_zone, :activity, :campaign, :season, :free_field
 
-      def initialize(cultivable_zone: nil, activity: nil, campaign: nil, season: nil)
+      def initialize(cultivable_zone: nil, activity: nil, campaign: nil, season: nil, free_field: nil)
         @compute_name = []
         @cultivable_zone = cultivable_zone
         @activity = activity
         @campaign = campaign
         @season = season
+        @free_field = free_field
       end
 
       def perform(field_values: [])
@@ -19,6 +20,7 @@ module NamingFormats
           call_if_equal(field_value, :campaign, method(:add_campaign))
           call_if_equal(field_value, :season, method(:add_season))
           call_if_equal(field_value, :production_mode, method(:add_production_system))
+          call_if_equal(field_value, :free_field, method(:add_free_field))
         end
 
         @compute_name.join(' ')
@@ -60,6 +62,12 @@ module NamingFormats
           return if @activity.nil? || @activity.production_system_name.blank?
 
           @compute_name << @activity.human_production_system_name
+        end
+
+        def add_free_field
+          return if @free_field.blank?
+
+          @compute_name << @free_field
         end
 
         def call_if_equal(field_value, format_field_name, method_callback)

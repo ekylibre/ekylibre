@@ -23,6 +23,12 @@
     - if activity && activity.production_system.present?
       - source = { scope: { of_production_system: activity.production_system.name } }
     = f.referenced_association :cultivable_zone, source: source
+    - if @land_parcel_naming_format && @land_parcel_naming_format.fields.free_field.any?
+      = f.input :custom_name, wrapper: :append do
+        = content_tag(:span, :free_field.tl, class: 'add-on')
+        = f.input_field :custom_name
+        = content_tag(:span, '', data: { support_name_preview: { activity_production: { activity_id: activity.id, campaign_id: current_campaign.id } }})
+        = link_to(:configure_naming_format.tl, edit_backend_naming_format_land_parcel_path(@land_parcel_naming_format), target: :_blank)
     = f.shape :support_shape, required: true
     = f.input :irrigated
     = f.input :nitrate_fixing

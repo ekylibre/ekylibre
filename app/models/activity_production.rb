@@ -163,7 +163,7 @@ class ActivityProduction < Ekylibre::Record::Base
 
   before_validation on: :create do
     if activity
-      self.rank_number = (activity.productions.maximum(:rank_number) ? activity.productions.maximum(:rank_number) : 0) + 1
+      self.rank_number = activity.productions_next_rank_number
     end
     true
   end
@@ -722,6 +722,7 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   # Returns unique i18nized name for given production
+  # FIXME: Not unique if interactor fails
   def name(_options = {})
     interactor = NamingFormats::LandParcels::BuildActivityProductionNameInteractor
                  .call(activity_production: self)
