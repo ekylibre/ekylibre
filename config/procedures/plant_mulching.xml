@@ -12,7 +12,7 @@
                  backward="(POPULATION / PRODUCT.net_length(meter))"
                  forward="(VALUE * PRODUCT.net_length(meter))"/>
         <handler indicator="surface_area_percentage" unit="percent"
-                 if="sum_working_zone_areas(cultivation) != 0 and sum(cultivation, :net_surface_area, :hectare) != 0 and PRODUCT.net_length? and PRODUCT.net_length != 0 and PRODUCT.width? and PRODUCT.width != 0"
+                 if="cultivation? and sum(cultivation, :net_surface_area, :hectare) != 0 and PRODUCT.net_length? and PRODUCT.net_length != 0 and PRODUCT.width? and PRODUCT.width != 0"
                  backward="(POPULATION * PRODUCT.net_length(meter) * PRODUCT.width(meter)) / sum(cultivation, :net_surface_area, :square_meter)"
                  forward="(VALUE * sum(cultivation, :net_surface_area, :square_meter)) / (PRODUCT.net_length(meter) * PRODUCT.width(meter))"/>
       </input>
