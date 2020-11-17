@@ -715,9 +715,9 @@ class Account < Ekylibre::Record::Base
   #   self.journal_entry_items.joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)").where(printed_on: started_at..stopped_at).order("printed_on, journal_entries.id, #{JournalEntryItem.table_name}.id")
   # end
 
-  def journal_entry_items_calculate(column, started_at, stopped_at, operation = :sum)
+  def journal_entry_items_calculate(column, started_at, stopped_at, operation = :sum, except: [])
     column = (column == :balance ? "#{JournalEntryItem.table_name}.real_debit - #{JournalEntryItem.table_name}.real_credit" : "#{JournalEntryItem.table_name}.real_#{column}")
-    journal_entry_items.where(printed_on: started_at..stopped_at).calculate(operation, column)
+    journal_entry_items.where.not(entry_id: except).where(printed_on: started_at..stopped_at).calculate(operation, column)
   end
 
   def previous

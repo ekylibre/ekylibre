@@ -96,7 +96,13 @@ class Inventory < Ekylibre::Record::Base
   end
 
   protect do
-    old_record.reflected? && old_record.journal_entry && !old_record.journal_entry.draft?
+    if old_record.reflected? && old_record.journal_entry && !old_record.journal_entry.draft?
+      true
+    elsif product_nature_category_id.nil?
+      Inventory.where("achieved_at > ?", achieved_at).exists?
+    else
+      Inventory.where("achieved_at > ?", achieved_at).where("product_nature_category_id = ? OR product_nature_category_id IS NULL", product_nature_category_id).exists?
+    end
   end
 
   def reflectable?
