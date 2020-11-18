@@ -88,11 +88,9 @@ class CatalogItem < Ekylibre::Record::Base
   end
 
   after_save do
-    # if self.amount_changed?
     variant.products.each do |product|
       product.interventions.tap(&:reload).map(&:save!)
     end
-    # end
   end
 
   # Compute a pre-tax amount

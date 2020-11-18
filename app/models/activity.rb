@@ -448,4 +448,9 @@ class Activity < Ekylibre::Record::Base
     pref = unit_choices.find { |c| c.to_sym == pref.to_sym }
     pref ||= unit_choices.first
   end
+
+  # @return [Interger] rank number of the next activity_production
+  def productions_next_rank_number
+    (productions.maximum(:rank_number) || 0) + 1
+  end
 end

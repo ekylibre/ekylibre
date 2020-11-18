@@ -40,7 +40,7 @@
 
         - display_new_asset = "display: none;" if item.preexisting_asset
         .new_asset{style: display_new_asset}
-          = f.referenced_association(:depreciable_product)
+          = f.referenced_association(:depreciable_product, new: false)
 
   .item-block-quantity
     .storing-fields

@@ -350,7 +350,7 @@ fra:
       edit: "Modifier l’intervention"
       edit_request: "Modifier la demande d’intervention"
       edit_specified: "Modifier l’intervention %{procedure_name} n°%{number}"
-      edit_specified_request: "Modifier la demande de %{procedure_name} n°%{number}"
+      edit_specified_request: "Modifier la planification de %{procedure_name} n°%{number}"
       index: "Interventions"
       new: "Nouvelle intervention"
       new_request: "Nouvelle planification d’intervention"
@@ -1044,6 +1044,8 @@ fra:
     unroll:
       server_error: "Erreur serveur"
   labels:
+    configure_naming_format: "Paramétrer le format de nommage"
+    free_field: "Champ libre"
     abilities: "Compétences" #?
     accepted: "Acceptée"
     accepted_for_paiment: "Acceptée pour paiement"

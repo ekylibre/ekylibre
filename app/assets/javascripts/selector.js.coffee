@@ -181,7 +181,9 @@
           @initializing = false
         if triggerEvents is true
           @valueField.trigger "selector:change", [null, was_initializing]
+          @valueField.get(0).dispatchEvent(new CustomEvent('unroll:selector:change', {bubbles: true, detail: {unroll: @}}))
           @element.trigger "selector:change", [selectedElement, was_initializing]
+          @element.get(0).dispatchEvent(new CustomEvent('unroll:selector:change', {bubbles: true, detail: {unroll: @}}))
         @valueField.trigger "selector:set"
         @element.trigger "selector:set"
       $(document).data('editedMode', false)

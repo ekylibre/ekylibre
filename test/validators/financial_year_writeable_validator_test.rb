@@ -34,7 +34,7 @@ class FinancialYearWriteableValidatorTest < Ekylibre::Testing::ApplicationTestCa
 
     validates :printed_on, financial_year_writeable: true
 
-    attr_accessor :financial_year, :creator_id, :printed_on
+    attr_accessor :financial_year, :updater_id, :printed_on
   end
 
   def setup
@@ -91,7 +91,7 @@ class FinancialYearWriteableValidatorTest < Ekylibre::Testing::ApplicationTestCa
       true
     end
 
-    @record.creator_id = 10
+    @record.updater_id = 10
 
     refute_empty @record.tap(&:valid?).errors
   end
@@ -109,7 +109,7 @@ class FinancialYearWriteableValidatorTest < Ekylibre::Testing::ApplicationTestCa
       true
     end
 
-    @record.creator_id = 42
+    @record.updater_id = 42
 
     assert_empty @record.tap(&:valid?).errors
   end

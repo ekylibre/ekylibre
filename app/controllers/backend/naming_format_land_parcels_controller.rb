@@ -28,6 +28,26 @@ module Backend
       render json: { example: build_example_interactor.error } if build_example_interactor.fail?
     end
 
+    def build
+      activity = Activity.includes(:productions).find(params[:activity_id])
+      activity_production = ActivityProduction.new(
+        cultivable_zone: params[:cultivable_zone_id].blank? ? nil : CultivableZone.find(params[:cultivable_zone_id]),
+        activity: activity,
+        campaign: Campaign.find(params[:campaign_id]),
+        season: params[:season_id].blank? ? nil : ActivitySeason.find(params[season_id]),
+        custom_name: params[:free_field],
+        rank_number: activity.productions_next_rank_number,
+      )
+
+      build_interactor = NamingFormats::LandParcels::BuildActivityProductionNameInteractor.call(activity_production: activity_production)
+
+      if build_interactor.success?
+        render json: { name: build_interactor.build_name }
+      else
+        render json: { name: build_interactor.error }
+      end
+    end
+
     def update
       @naming_format.update(valid_permitted_params)
 

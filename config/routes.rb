@@ -806,6 +806,7 @@ Rails.application.routes.draw do
     resources :naming_format_land_parcels do
       collection do
         get :build_example
+        get :build
       end
     end
 

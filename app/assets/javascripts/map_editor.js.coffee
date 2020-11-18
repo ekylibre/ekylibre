@@ -131,13 +131,14 @@
           zoomInTitle: I18n.t("front-end.leaflet.zoomInTitle")
           zoomOutTitle: I18n.t("front-end.leaflet.zoomOutTitle")
         scale:
-          position: "bottomright"
+          position: "bottomleft"
           imperial: false
           maxWidth: 200
         fullscreen:
           position: 'topleft'
           title: I18n.t("front-end.leaflet.fullscreenTitle")
         reactiveMeasure:
+          position: "bottomleft"
           metric: true
           feet: false
         importers:

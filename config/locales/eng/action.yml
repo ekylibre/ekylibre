@@ -1367,6 +1367,8 @@ eng:
     unroll:
       server_error: "Server error"
   labels:
+    configure_naming_format: "Configure Naming Format"
+    free_field: "Free field"
     accepted: "Accepted"
     accepted_for_paiment: "Accepted for paiment"
     access: "Access"
