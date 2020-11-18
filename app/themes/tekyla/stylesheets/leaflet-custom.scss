@@ -55,6 +55,10 @@
   }
 }
 
+.leaflet-control-scale {
+  margin: 0 0 10px 10px !important;
+}
+
 .leaflet-touch .leaflet-control-layers,
 .leaflet-touch .leaflet-bar {
   border: 1px solid rgba(0, 0, 0, 0.2);
