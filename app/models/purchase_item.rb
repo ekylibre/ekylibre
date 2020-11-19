@@ -187,10 +187,6 @@ class PurchaseItem < Ekylibre::Record::Base
     true
   end
 
-  before_destroy do
-    parcels_purchase_invoice_items.map { |parcel_item| parcel_item.update_attributes(purchase_invoice_item_id: nil) }
-  end
-
   after_destroy do
     if fixed && fixed_asset && purchase.purchased?
       fixed_asset.add_amount(-pretax_amount.to_f) if fixed_asset
