@@ -15,7 +15,6 @@ module Backend
       reception_error_notified = parsing_response_reception.css("div[data-alert='true']")
       reception_form = parsing_response_reception.css("form[id='new_reception']")
 
-
       assert reception_error_notified.present?
       assert reception_form.present?
     end

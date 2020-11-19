@@ -69,7 +69,6 @@ module FinancialYearTest
       assert year.valid?
     end
 
-
     test 'financial year can t be created before company born at date' do
       assert FinancialYear.on(Date.civil(1900, 1, 4)).nil?
       assert FinancialYear.on(Date.civil(2015, 5, 4))

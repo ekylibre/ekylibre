@@ -62,8 +62,8 @@ module PanierLocal
       end
 
       test 'create_pretax_amount computation' do
-        assert_equal 42, @e.create_pretax_amount({ sale_item_direction: 'C', sale_item_amount: 42 }.to_struct)
-        assert_equal -42, @e.create_pretax_amount({ sale_item_direction: 'D', sale_item_amount: 42 }.to_struct)
+        assert_equal(42, @e.create_pretax_amount({ sale_item_direction: 'C', sale_item_amount: 42 }.to_struct))
+        assert_equal(-42, @e.create_pretax_amount({ sale_item_direction: 'D', sale_item_amount: 42 }.to_struct))
       end
 
       test 'find_or_create_product_account find by number' do

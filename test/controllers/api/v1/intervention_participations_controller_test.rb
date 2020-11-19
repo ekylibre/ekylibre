@@ -519,41 +519,6 @@ module Api
             ]
           }
         end
-
-
-      # def repeating_payload(state: :done, procedure: :plant_watering, action: :irrigation)
-        # {
-          # intervention_id: @intervention_request.id,
-          # request_compliant: 1,
-          # uuid: '1d5fd107-7321-49d3-915f-88ab27599d9f',
-          # state: state.to_s,
-          # procedure_name: procedure.to_s,
-          # device_uid: 'android:dd60319e524d3d24',
-          # working_periods:
-          # [
-            # {
-              # started_at: '2016-09-30T11:59:49.320+0200',
-              # stopped_at: '2016-09-30T11:59:50.770+0200',
-              # nature:     'preparation'
-            # },
-            # {
-              # started_at: '2016-09-30T11:59:49.320+0200',
-              # stopped_at: '2016-09-30T11:59:50.770+0200',
-              # nature:     'preparation'
-            # },
-            # {
-              # started_at: '2016-09-30T11:59:49.320+0200',
-              # stopped_at: '2016-09-30T11:59:50.770+0200',
-              # nature:     'preparation'
-            # },
-            # {
-              # started_at: '2016-09-30T11:59:52.620+0200',
-              # stopped_at: '2016-09-30T11:59:55.903+0200',
-              # nature:     'travel'
-            # }
-          # ]
-        # }
-      # end
     end
   end
 end

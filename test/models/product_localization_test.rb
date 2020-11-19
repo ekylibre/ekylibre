@@ -65,7 +65,6 @@ class ProductLocalizationTest < Ekylibre::Testing::ApplicationTestCase::WithFixt
     assert localization.interior?
   end
 
-
   test 'localization is exterior if no container are provided' do
     product = create :fertilizer_product
 
@@ -75,6 +74,4 @@ class ProductLocalizationTest < Ekylibre::Testing::ApplicationTestCase::WithFixt
     )
     assert localization.exterior?
   end
-
-
 end

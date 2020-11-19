@@ -4,7 +4,6 @@ module Backend
     class ReconciliationControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
       test_restfully_all_actions
 
-
       setup do
         Reception.delete_all
         PurchaseOrder.delete_all
@@ -20,7 +19,6 @@ module Backend
 
         @reception_three = create(:reception, state: :given, given_at: DateTime.new(2018, 1, 1))
         @reception_item_three = create(:reception_item, purchase_invoice_item_id: @purchase_item.id, reception: @reception_three)
-
 
         @purchase_order_one = create(:purchase_order, state: :opened)
         @purchase_item_one = create(:purchase_item, :of_purchase_order, purchase: @purchase_order_one)

@@ -14,13 +14,13 @@ module Accountancy
         bank_statement_items = bank_statement.items
         assert import.success?
 
-        assert_equal [DateTime.new(2020,7,31), DateTime.new(2020,9,1)], [bank_statement.started_on, bank_statement.stopped_on]
+        assert_equal [DateTime.new(2020, 7, 31), DateTime.new(2020, 9, 1)], [bank_statement.started_on, bank_statement.stopped_on]
 
         assert_equal 3, bank_statement_items.count
 
-        assert_equal [DateTime.new(2020,8,3), DateTime.new(2020,8,5), DateTime.new(2020,8,6)], bank_statement_items.map(&:transfered_on)
+        assert_equal [DateTime.new(2020, 8, 3), DateTime.new(2020, 8, 5), DateTime.new(2020, 8, 6)], bank_statement_items.map(&:transfered_on)
 
-        assert_equal [-50000.0, 54.96, -200.0], bank_statement_items.map(&:balance)
+        assert_equal [-50_000.0, 54.96, -200.0], bank_statement_items.map(&:balance)
 
         assert bank_statement_items.any?(&:memo)
 
@@ -49,6 +49,7 @@ module Accountancy
       end
 
       private
+
         # @param [String] file
         # @return [Pathname]
         def file_path(file)

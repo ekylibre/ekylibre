@@ -87,44 +87,44 @@ module Backend
       validate_fog
 
       allocations = {
-                     '1061' => 0,
-                     '1063' => 150,
-                     '1064' => 150,
-                     '1068' => 150,
-                     '457' => 400,
-                     '4423' => 300,
-                     '110' => 400
-                    }
+        '1061' => 0,
+        '1063' => 150,
+        '1064' => 150,
+        '1068' => 150,
+        '457' => 400,
+        '4423' => 300,
+        '110' => 400
+      }
 
       post :close, id: @financial_year, financial_year: { stopped_on: @financial_year.stopped_on },
-                                        result_journal: result,
-                                        closure_journal: closing,
-                                        forward_journal: forward,
-                                        allocations: allocations
+           result_journal: result,
+           closure_journal: closing,
+           forward_journal: forward,
+           allocations: allocations
 
       assert_equal 1, flash[:notifications]['error'].count
 
       allocations = {
-                     '1061' => 150,
-                     '1063' => 150,
-                     '1064' => 150,
-                     '1068' => 150,
-                     '457' => 400,
-                     '4423' => 300,
-                     '110' => 400
-                    }
+        '1061' => 150,
+        '1063' => 150,
+        '1064' => 150,
+        '1068' => 150,
+        '457' => 400,
+        '4423' => 300,
+        '110' => 400
+      }
 
       post :close, id: @financial_year, financial_year: { stopped_on: @financial_year.stopped_on },
-                                        result_journal: result,
-                                        closure_journal: closing,
-                                        forward_journal: forward,
-                                        allocations: allocations
+           result_journal: result,
+           closure_journal: closing,
+           forward_journal: forward,
+           allocations: allocations
 
       assert_equal 1, flash[:notifications]['success'].count
       assert @financial_year.reload.close(User.first, nil, result_journal: result)
 
       @company.update!(legal_position_code: "GAEC")
-      @next_year2 = create(:financial_year, started_on: Date.new(2010,1,1), stopped_on: Date.new(2010,12,31))
+      @next_year2 = create(:financial_year, started_on: Date.new(2010, 1, 1), stopped_on: Date.new(2010, 12, 31))
       generate_entry(accounts[6028], 30000, printed_on: @financial_year.stopped_on + 2.days, destination_account: accounts[4552])
       validate_fog
       @next_year.reload
@@ -133,10 +133,10 @@ module Backend
       assert_template partial: '_negative_result_allocation_person'
 
       post :close, id: @next_year, financial_year: { stopped_on: @next_year.stopped_on },
-                                   result_journal: result,
-                                   closure_journal: closing,
-                                   forward_journal: forward ,
-                                   allocations: allocations
+           result_journal: result,
+           closure_journal: closing,
+           forward_journal: forward,
+           allocations: allocations
 
       assert_equal 1, flash[:notifications]['success'].count
     end
@@ -146,40 +146,40 @@ module Backend
       def setup_allocation
         @dumpster_account = Account.create!(name: 'TestDumpster', number: '10001')
         @dumpster_journal = Journal.create!(name: 'Dumpster journal', code: 'DMPTST')
-        @financial_year = create(:financial_year, started_on: Date.new(2008,1,1), stopped_on: Date.new(2008,12,31))
-        @next_year = create(:financial_year, started_on: Date.new(2009,1,1), stopped_on: Date.new(2009,12,31))
+        @financial_year = create(:financial_year, started_on: Date.new(2008, 1, 1), stopped_on: Date.new(2008, 12, 31))
+        @next_year = create(:financial_year, started_on: Date.new(2009, 1, 1), stopped_on: Date.new(2009, 12, 31))
         @profits = Account.create!(name: 'FinancialYear result profit', number: '120', usages: :financial_year_result_profit)
         @losses = Account.create!(name: 'FinancialYear result loss', number: '129', usages: :financial_year_result_loss)
         @credit_carry_forward = Account.create!(name: 'credit carry forward', number: '110', usages: :credit_retained_earnings)
         @debit_carry_forward = Account.create!(name: 'debit carry forward', number: '119', usages: :debit_retained_earnings)
         @company = Entity.create!(last_name: 'Test', nature: :organization, of_company: true)
-        @open  = Account.create!(number: '89', name: 'Opening account')
+        @open = Account.create!(number: '89', name: 'Opening account')
         @close = Account.create!(number: '891', name: 'Closing account')
       end
 
-      def generate_entry(account, debit, letter: nil, printed_on: Date.new(2008,1,1) + 2.days, destination_account: @dumpster_account)
+      def generate_entry(account, debit, letter: nil, printed_on: Date.new(2008, 1, 1) + 2.days, destination_account: @dumpster_account)
         return if debit.zero?
         side = debit > 0 ? :debit : :credit
         other_side = debit < 0 ? :debit : :credit
         amount = debit.abs
-        JournalEntry.create!(journal: @dumpster_journal, printed_on:  printed_on, items_attributes: [
-                               {
-                                 name: side.to_s.capitalize,
-                                 account: account,
-                                 letter: letter,
-                                 :"real_#{side}" => amount
-                               },
-                               {
-                                 name: other_side.to_s.capitalize,
-                                 account: destination_account,
-                                 :"real_#{other_side}" => amount
-                               }
-                             ])
+        JournalEntry.create!(journal: @dumpster_journal, printed_on: printed_on, items_attributes: [
+          {
+            name: side.to_s.capitalize,
+            account: account,
+            letter: letter,
+            :"real_#{side}" => amount
+          },
+          {
+            name: other_side.to_s.capitalize,
+            account: destination_account,
+            :"real_#{other_side}" => amount
+          }
+        ])
       end
 
       def validate_fog
         JournalEntry.find_each { |je| je.update(state: :confirmed) }
       end
 
-      end
+  end
 end

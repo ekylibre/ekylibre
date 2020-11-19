@@ -12,7 +12,6 @@ module Interventions
 
       target_product = create(:corn_plant, initial_shape: Charta.new_geometry(ewkt))
 
-
       tool_product = create(:tractor)
 
       attributes = {
@@ -53,15 +52,14 @@ module Interventions
       }
 
       @attributes = Interventions::Computation::Compute
-                            .new(parameters: attributes)
-                            .perform(options: options)
+                      .new(parameters: attributes)
+                      .perform(options: options)
 
       assert @attributes.present?
       assert @attributes.key? :procedure_name
     end
 
     test 'computation of complex intervention' do
-
       ## seed
       input_product = create(:seed_product)
       input_product.variant.read!(:net_mass, '2000 kilogram')

@@ -7,7 +7,6 @@ module FinancialYearTest
       FileUtils.rm_rf Ekylibre::Tenant.private_directory.join('prior_to_closure_dump')
     end
 
-
     test 'close' do
       Preference.set!(:currency, :FRF)
       f = FinancialYear.where('stopped_on < ?', Date.today).order(:started_on).reject { |f| f.closed? }.first

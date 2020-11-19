@@ -13,9 +13,9 @@ module Backend
 
     test 'get_products_infos checks that products are allowed for organic usage if an organic cultivation is selected' do
       post :get_products_infos,
-          products_data: { '0' => { product_id: @copless.id.to_s, usage_id: '' }, '1' => { product_id: @award.id.to_s.to_s, usage_id: '' } },
-          targets_data: { '0' => { id: @land_parcel.id.to_s } },
-          format: :json
+           products_data: { '0' => { product_id: @copless.id.to_s, usage_id: '' }, '1' => { product_id: @award.id.to_s.to_s, usage_id: '' } },
+           targets_data: { '0' => { id: @land_parcel.id.to_s } },
+           format: :json
 
       json = JSON.parse(response.body)
 
@@ -28,8 +28,8 @@ module Backend
 
     test 'get_products_infos forbids every products if one of them belongs to mix_category_code 5' do
       post :get_products_infos,
-          products_data: { '0' => { product_id: @copless.id.to_s, usage_id: '' }, '1' => { product_id: @award.id.to_s.to_s, usage_id: '' } },
-          format: :json
+           products_data: { '0' => { product_id: @copless.id.to_s, usage_id: '' }, '1' => { product_id: @award.id.to_s.to_s, usage_id: '' } },
+           format: :json
 
       json = JSON.parse(response.body)
 
@@ -39,8 +39,8 @@ module Backend
 
     test 'get_products_infos forbids every products if one of the usages selected has an untreated_buffer_aquatic >= 100 m' do
       post :get_products_infos,
-          products_data: { '0' => { product_id: @copless.id.to_s, usage_id: '' }, '1' => { product_id: @award.id.to_s.to_s, usage_id: @award_usage.id.to_s } },
-          format: :json
+           products_data: { '0' => { product_id: @copless.id.to_s, usage_id: '' }, '1' => { product_id: @award.id.to_s.to_s, usage_id: @award_usage.id.to_s } },
+           format: :json
 
       json = JSON.parse(response.body)
 
@@ -52,8 +52,8 @@ module Backend
 
     test 'get_products_infos allows products mixing as long as they do not share the same mix_category_code' do
       post :get_products_infos,
-          products_data: { '0' => { product_id: @award.id.to_s, usage_id: '' }, '1' => { product_id: @sultan.id.to_s.to_s, usage_id: '' } },
-          format: :json
+           products_data: { '0' => { product_id: @award.id.to_s, usage_id: '' }, '1' => { product_id: @sultan.id.to_s.to_s, usage_id: '' } },
+           format: :json
 
       json = JSON.parse(response.body)
 
@@ -63,8 +63,8 @@ module Backend
 
     test 'get_products_infos forbids products mixing if they share the same mix_category_code' do
       post :get_products_infos,
-          products_data: { '0' => { product_id: @zebra.id.to_s, usage_id: '' }, '1' => { product_id: @sultan.id.to_s.to_s, usage_id: '' } },
-          format: :json
+           products_data: { '0' => { product_id: @zebra.id.to_s, usage_id: '' }, '1' => { product_id: @sultan.id.to_s.to_s, usage_id: '' } },
+           format: :json
 
       json = JSON.parse(response.body)
 
