@@ -20,7 +20,6 @@ class AggeratioTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     Ekylibre::Tenant.switch! @current_tenant
   end
 
-
   Aggeratio.each_xml_aggregator do |element|
     agg = Aggeratio::Base.new(element)
     klass = "Aggeratio::#{agg.class_name}".constantize

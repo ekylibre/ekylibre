@@ -26,10 +26,10 @@ module PanierLocal
 
         asserts.each do |(reference, amount, item_count, quantities)|
           sale = sales.of_provider_data(:sale_reference_number, reference).first
-          assert sale
-          assert_equal amount, sale.amount
-          assert_equal item_count, sale.items.count
-          assert quantities.all? { |q| sale.items.any? { |i| i.quantity == q } }
+          assert(sale)
+          assert_equal(amount, sale.amount)
+          assert_equal(item_count, sale.items.count)
+          assert(quantities.all? { |q| sale.items.any? { |i| i.quantity == q } })
         end
       end
 

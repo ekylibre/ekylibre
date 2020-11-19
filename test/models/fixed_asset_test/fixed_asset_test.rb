@@ -163,7 +163,6 @@ module FixedAssetTest
 
       assert_equal 5, fixed_asset.depreciations.count
 
-
       depreciation_amount_assertion = [4375, 15968.75, 10379.69, 9638.28, 9638.28]
 
       currency = Preference[:currency]

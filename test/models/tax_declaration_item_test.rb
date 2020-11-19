@@ -160,9 +160,9 @@ class TaxDeclarationItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtu
       TaxDeclaration.delete_all
     end
 
-  def create_journals
-    create(:journal, nature: 'result')
-    create(:journal, nature: 'closure')
-    create(:journal, nature: 'forward')
-  end
+    def create_journals
+      create(:journal, nature: 'result')
+      create(:journal, nature: 'closure')
+      create(:journal, nature: 'forward')
+    end
 end

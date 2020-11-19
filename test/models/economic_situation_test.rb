@@ -50,7 +50,6 @@ class EconomicSituationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtur
     @journal = create :journal, nature: :purchases, currency: :EUR
     @nature = create :purchase_nature, journal_currency: :EUR
 
-
     Purchase.create!(
       invoiced_at: DateTime.new(2018, 1, 1),
       currency: 'EUR',
@@ -65,7 +64,7 @@ class EconomicSituationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtur
             country: :fr,
             nature: :null_vat,
             name: 'Test',
-            collect_account:  trash_account,
+            collect_account: trash_account,
             deduction_account: trash_account
           ),
           variant: ProductNatureVariant.find_or_import!(:daucus_carotta).first,

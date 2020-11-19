@@ -20,18 +20,18 @@ module Backend
       Role.delete_all
       User.delete_all
 
-      role        = Role.create!(name: 'Imperator')
-      user        = User.create!(first_name: 'Furiosa', last_name: 'Vuvalini', email: 'furiosa@greenland.org', password: 'youkilledtheworld', role: role)
+      role = Role.create!(name: 'Imperator')
+      user = User.create!(first_name: 'Furiosa', last_name: 'Vuvalini', email: 'furiosa@greenland.org', password: 'youkilledtheworld', role: role)
       sign_in user
 
-      journal     = Journal.create!(name: 'The Record')
-      caps_act    = Account.create!(name: 'Caps', number: '001')
-      fuel_act    = Account.create!(name: 'Fuel', number: '6')
+      journal = Journal.create!(name: 'The Record')
+      caps_act = Account.create!(name: 'Caps', number: '001')
+      fuel_act = Account.create!(name: 'Fuel', number: '6')
       citadel_act = Account.create!(name: 'Citadel', number: '003')
-      caps_stash  = Cash.create!(journal: journal, main_account: caps_act, name: 'Stash o\' Caps')
+      caps_stash = Cash.create!(journal: journal, main_account: caps_act, name: 'Stash o\' Caps')
       interceptor = Cash.create!(journal: journal, main_account: fuel_act, name: 'Interceptor\'s Tank')
       @fuel_level = BankStatement.create!(currency: 'EUR', number: 'Fuel level check', started_on: Time.zone.now - 10.days, stopped_on: Time.zone.now, cash: interceptor)
-      @tanks      = []
+      @tanks = []
       @tanks << BankStatementItem.create!(
         name: 'Main tank',
         bank_statement: @fuel_level,
@@ -45,19 +45,19 @@ module Backend
         debit: 1337
       )
 
-      @citadels   = Tax.create!(name: 'Citadel\'s tax', country: 'au', deduction_account: fuel_act, collect_account: citadel_act, nature: :normal_vat)
+      @citadels = Tax.create!(name: 'Citadel\'s tax', country: 'au', deduction_account: fuel_act, collect_account: citadel_act, nature: :normal_vat)
 
-      @journal    = create(:journal, nature: :purchases)
-      @nature     = PurchaseNature.create!(journal: journal, name: 'Perishables')
+      @journal = create(:journal, nature: :purchases)
+      @nature = PurchaseNature.create!(journal: journal, name: 'Perishables')
 
-      @diesel     = OutgoingPaymentMode.create!(cash: interceptor, with_accounting: true, name: 'Diesel')
-      @caps       = OutgoingPaymentMode.create!(cash: caps_stash,  with_accounting: true, name: 'Caps')
+      @diesel = OutgoingPaymentMode.create!(cash: interceptor, with_accounting: true, name: 'Diesel')
+      @caps = OutgoingPaymentMode.create!(cash: caps_stash, with_accounting: true, name: 'Caps')
 
-      @max        = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)
+      @max = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)
 
-      @deal       = Purchase.create!(supplier: @max, nature: @nature, currency: 'EUR')
-      @carrots    = ProductNatureVariant.import_from_nomenclature :carrot
-      @payment    = PurchasePayment.create!(amount: 4242, currency: 'EUR', payee: @max, mode: @diesel, responsible: user, to_bank_at: Time.zone.now - 5.days)
+      @deal = Purchase.create!(supplier: @max, nature: @nature, currency: 'EUR')
+      @carrots = ProductNatureVariant.import_from_nomenclature :carrot
+      @payment = PurchasePayment.create!(amount: 4242, currency: 'EUR', payee: @max, mode: @diesel, responsible: user, to_bank_at: Time.zone.now - 5.days)
 
       @deal.items.create!(variant_id: @carrots.id,
                           quantity: 500,
@@ -303,44 +303,44 @@ module Backend
         [action.to_sym, params.except(except)]
       end
 
-    def complete_new_params
-      { bank_statement_item_ids: @tanks.map(&:id), nature_id: @nature.id }
-    end
+      def complete_new_params
+        { bank_statement_item_ids: @tanks.map(&:id), nature_id: @nature.id }
+      end
 
-    def complete_create_params(modes: { trade: :new, payment: :new }, matching: { cash: true, amount: true })
-      amount = matching[:amount] ? 1379 : 1250
-      mode   = matching[:cash]   ? @diesel : @caps
-      @deal.reload
-      @deal.update!(amount: amount)
-      @deal.items.first.update!(amount: amount, unit_pretax_amount: amount / 500.0)
-      @payment.reload
-      @payment.update!(amount: amount, mode_id: mode.id)
-      {
-        'mode-trade': modes[:trade],
-        'mode-payment': modes[:payment],
-        affair: {
-          trade_id: @deal.id,
-          third_id: @max.id,
-          payment_id: @payment.id
-        },
-        trade: {
-          invoiced_at: Time.zone.now,
-          nature_id: @nature.id,
-          items_attributes: [{
-            variant_id: @carrots,
-            quantity: 100,
+      def complete_create_params(modes: { trade: :new, payment: :new }, matching: { cash: true, amount: true })
+        amount = matching[:amount] ? 1379 : 1250
+        mode = matching[:cash] ? @diesel : @caps
+        @deal.reload
+        @deal.update!(amount: amount)
+        @deal.items.first.update!(amount: amount, unit_pretax_amount: amount / 500.0)
+        @payment.reload
+        @payment.update!(amount: amount, mode_id: mode.id)
+        {
+          'mode-trade': modes[:trade],
+          'mode-payment': modes[:payment],
+          affair: {
+            trade_id: @deal.id,
+            third_id: @max.id,
+            payment_id: @payment.id
+          },
+          trade: {
+            invoiced_at: Time.zone.now,
+            nature_id: @nature.id,
+            items_attributes: [{
+                                 variant_id: @carrots,
+                                 quantity: 100,
+                                 amount: amount,
+                                 tax_id: @citadels.id,
+                                 reduction_percentage: 0,
+                                 unit_pretax_amount: amount / 100.0
+                               }]
+          },
+          payment: {
+            mode_id: mode,
             amount: amount,
-            tax_id: @citadels.id,
-            reduction_percentage: 0,
-            unit_pretax_amount: amount / 100.0
-          }]
-        },
-        payment: {
-          mode_id: mode,
-          amount: amount,
-          bank_statement_item_ids: @tanks.map(&:id)
+            bank_statement_item_ids: @tanks.map(&:id)
+          }
         }
-      }
-    end
+      end
   end
 end

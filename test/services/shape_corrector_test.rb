@@ -32,6 +32,6 @@ class ShapeCorrectorTest < Ekylibre::Testing::ApplicationTestCase
   end
 
   test "area_ratio returns None if the original area is 0" do
-    assert @corrector.send(:area_ratio, {area: 0}.to_struct, {area: 42}.to_struct).is_none?
+    assert @corrector.send(:area_ratio, { area: 0 }.to_struct, { area: 42 }.to_struct).is_none?
   end
 end

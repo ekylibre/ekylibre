@@ -117,16 +117,16 @@ class PlantCountingTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'sower-related data methods raise errors when plant hasn\'t been sowed and data isn\'t filled out' do
     counting = new_counting # No data + No sower
     assert_raises { counting.implanter_working_width }
-    assert_raises { counting.rows_count              }
+    assert_raises { counting.rows_count }
 
     counting = new_counting rows_count_value: 4, working_width_value: 2.05
     assert_nothing_raised { counting.implanter_working_width }
-    assert_nothing_raised { counting.rows_count              }
+    assert_nothing_raised { counting.rows_count }
 
     plant = sow_plant
     counting = new_counting plant: plant
     assert_nothing_raised { counting.implanter_working_width }
-    assert_nothing_raised { counting.rows_count              }
+    assert_nothing_raised { counting.rows_count }
   end
 
   test 'expected_seeding_density is correctly computed' do
@@ -200,7 +200,7 @@ class PlantCountingTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   protected
 
     def new_counting(nature: :sowing, plant: nil, working_width_value: nil, rows_count_value: nil, plant_density_abacus: nil, plant_density_abacus_item: nil, average_value: nil, item_values: [])
-      plant_density_abacus      ||= @abacus
+      plant_density_abacus ||= @abacus
       plant_density_abacus_item ||= @abacus.items.order(:seeding_density_value).first
       plant ||= @plant
       plant.plant_countings.create!(
@@ -214,94 +214,94 @@ class PlantCountingTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       )
     end
 
-  def sow_plant
-    category = ProductNatureCategory.create!(
-      name: 'ÉquipementInspectionTest',
-      number: '00000024',
-      reference_name: 'equipment',
-      pictogram: 'tractor',
-      type: 'VariantCategories::EquipmentCategory'
-    )
+    def sow_plant
+      category = ProductNatureCategory.create!(
+        name: 'ÉquipementInspectionTest',
+        number: '00000024',
+        reference_name: 'equipment',
+        pictogram: 'tractor',
+        type: 'VariantCategories::EquipmentCategory'
+      )
 
-    nature = ProductNature.create!(
-      name: 'SemoirInspectionTest',
-      number: '00000058',
-      variety: 'trailed_equipment',
-      reference_name: 'sower',
-      abilities_list: ['sow'],
-      population_counting: 'unitary',
-      variable_indicators_list: [:geolocation],
-      frozen_indicators_list: %i[nominal_storable_net_volume application_width rows_count theoretical_working_speed],
-      type: 'VariantTypes::EquipmentType'
-    )
+      nature = ProductNature.create!(
+        name: 'SemoirInspectionTest',
+        number: '00000058',
+        variety: 'trailed_equipment',
+        reference_name: 'sower',
+        abilities_list: ['sow'],
+        population_counting: 'unitary',
+        variable_indicators_list: [:geolocation],
+        frozen_indicators_list: %i[nominal_storable_net_volume application_width rows_count theoretical_working_speed],
+        type: 'VariantTypes::EquipmentType'
+      )
 
-    variant = ProductNatureVariant.create!(
-      category_id: category.id,
-      nature_id: nature.id,
-      name: 'SemoirInspectionTest',
-      work_number: nil,
-      variety: 'trailed_equipment',
-      derivative_of: nil,
-      reference_name: 'sower',
-      unit_name: 'Équipement',
-      type: 'Variants::EquipmentVariant'
-    )
+      variant = ProductNatureVariant.create!(
+        category_id: category.id,
+        nature_id: nature.id,
+        name: 'SemoirInspectionTest',
+        work_number: nil,
+        variety: 'trailed_equipment',
+        derivative_of: nil,
+        reference_name: 'sower',
+        unit_name: 'Équipement',
+        type: 'Variants::EquipmentVariant'
+      )
 
-    variant.readings.create!(
-      indicator_name: 'rows_count',
-      indicator_datatype: 'integer',
-      integer_value: 4
-    )
+      variant.readings.create!(
+        indicator_name: 'rows_count',
+        indicator_datatype: 'integer',
+        integer_value: 4
+      )
 
-    variant.readings.create!(
-      indicator_name: 'application_width',
-      indicator_datatype: 'measure',
-      absolute_measure_value_value: 2.05,
-      absolute_measure_value_unit: 'meter',
-      measure_value_value: 2.05E1,
-      measure_value_unit: 'meter'
-    )
+      variant.readings.create!(
+        indicator_name: 'application_width',
+        indicator_datatype: 'measure',
+        absolute_measure_value_value: 2.05,
+        absolute_measure_value_unit: 'meter',
+        measure_value_value: 2.05E1,
+        measure_value_unit: 'meter'
+      )
 
-    equipment = variant.products.create!(
-      type: 'Equipment',
-      name: 'Semoir Agricola neuf',
-      number: 'P00000000087',
-      initial_population: 0.0,
-      variety: 'trailed_equipment',
-      born_at: Time.zone.now
-    )
+      equipment = variant.products.create!(
+        type: 'Equipment',
+        name: 'Semoir Agricola neuf',
+        number: 'P00000000087',
+        initial_population: 0.0,
+        variety: 'trailed_equipment',
+        born_at: Time.zone.now
+      )
 
-    intervention = Intervention.create!(
-      procedure_name: 'sowing',
-      state: 'done',
-      number: '50',
-      nature: 'record',
-      working_periods: fake_working_periods
-    )
+      intervention = Intervention.create!(
+        procedure_name: 'sowing',
+        state: 'done',
+        number: '50',
+        nature: 'record',
+        working_periods: fake_working_periods
+      )
 
-    intervention.outputs.create!(
-      quantity_population: @plant.net_surface_area,
-      variant_id: @variant.id,
-      reference_name: 'plant',
-      position: 3
-    )
+      intervention.outputs.create!(
+        quantity_population: @plant.net_surface_area,
+        variant_id: @variant.id,
+        reference_name: 'plant',
+        position: 3
+      )
 
-    intervention.tools.create!(
-      product_id: equipment.id,
-      reference_name: 'sower',
-      position: 5
-    )
+      intervention.tools.create!(
+        product_id: equipment.id,
+        reference_name: 'sower',
+        position: 5
+      )
 
-    intervention.outputs.first.product
-  end
+      intervention.outputs.first.product
+    end
 
-  def fake_working_periods
-    now = Time.zone.parse('2018-1-1 00:00:00')
-    [
-      InterventionWorkingPeriod.new(started_at: now - 3.hours, stopped_at: now - 2.hours, nature: 'preparation'),
-      InterventionWorkingPeriod.new(started_at: now - 2.hours, stopped_at: now - 90.minutes, nature: 'travel'),
-      InterventionWorkingPeriod.new(started_at: now - 90.minutes, stopped_at: now - 30.minutes, nature: 'intervention'),
-      InterventionWorkingPeriod.new(started_at: now - 30.minutes, stopped_at: now, nature: 'travel')
-    ]
-  end
+    def fake_working_periods
+      now = Time.zone.parse('2018-1-1 00:00:00')
+      [
+        InterventionWorkingPeriod.new(started_at: now - 3.hours, stopped_at: now - 2.hours, nature: 'preparation'),
+        InterventionWorkingPeriod.new(started_at: now - 2.hours, stopped_at: now - 90.minutes, nature: 'travel'),
+        InterventionWorkingPeriod.new(started_at: now - 90.minutes, stopped_at: now - 30.minutes, nature: 'intervention'),
+        InterventionWorkingPeriod.new(started_at: now - 30.minutes, stopped_at: now, nature: 'travel')
+      ]
+    end
 end

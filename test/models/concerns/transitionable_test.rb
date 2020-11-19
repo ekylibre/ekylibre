@@ -39,6 +39,7 @@ class TransitionableTest < Ekylibre::Testing::ApplicationTestCase
         class Pouet < Transitionable::Transition
           event :pouet
         end
+
         class Tut < Transitionable::Transition
           event :tut
         end
@@ -46,6 +47,7 @@ class TransitionableTest < Ekylibre::Testing::ApplicationTestCase
 
       include Transitionable
     end
+
     res = TransitionableForTestPredicatesMethod.new
 
     def res.state
@@ -84,6 +86,7 @@ class TransitionableTest < Ekylibre::Testing::ApplicationTestCase
       class Transition < Transitionable::Transition
         from :draft
       end
+
       assert_equal [:draft], Transition.from
 
       res = Object.new
@@ -94,7 +97,6 @@ class TransitionableTest < Ekylibre::Testing::ApplicationTestCase
 
       transition1 = Transition.new(res)
       assert transition1.can_run?
-
 
       res2 = Object.new
 

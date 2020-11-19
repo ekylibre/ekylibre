@@ -18,7 +18,6 @@ module Backend
       purchase_invoice_error_notified = parsing_response_purchase_invoice.css("div[data-alert='true']")
       purchase_invoice_form = parsing_response_purchase_invoice.css("form[id='new_purchase_invoice']")
 
-
       assert purchase_invoice_error_notified.present?
       assert purchase_invoice_form.present?
     end
