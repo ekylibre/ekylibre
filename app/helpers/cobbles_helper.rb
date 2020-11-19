@@ -90,11 +90,15 @@ module CobblesHelper
 
   def cobble_list(name, options = {}, &block)
     id = Cobble.current.id
-    list(name, options.deep_merge(content_for: {
+    list = list(name, options.deep_merge(content_for: {
                                     settings:   "cobble_#{id}_meta_toolbar".to_sym,
                                     pagination: "cobble_#{id}_meta_toolbar".to_sym,
                                     actions:    "cobble_#{id}_main_toolbar".to_sym
                                   }), &block)
+    footer_pagination = content_tag :div, class: 'list-footer-pagination' do
+      content_for("cobble_#{id}_meta_toolbar".to_sym)
+    end
+    return list << footer_pagination
   end
 
   def cobble_toolbar_tag(cobble, name)
