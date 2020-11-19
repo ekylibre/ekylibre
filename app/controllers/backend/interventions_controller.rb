@@ -579,7 +579,7 @@ module Backend
         {
           id: parcel.id,
           possible: result.possible,
-          date: result.next_possible_date
+          date: result.possible ? nil : result.next_possible_date
         }
       end
 
