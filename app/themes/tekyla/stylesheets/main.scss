@@ -2682,8 +2682,13 @@ a[data-annotate] {
       }
       .cobble-body {
         // padding: $default-gap;
+        .list-footer-pagination { 
+          padding: 8px;
+          padding-right: 14px;
+          float: right;
+        }
         .cobble-toolbar {
-          .list-pagination, .list-footer-pagination {
+          .list-pagination {
             float: none;
           }
           &.cobble-meta-toolbar {
@@ -2711,6 +2716,7 @@ a[data-annotate] {
         }
         .cobble-end {
           clear: both;
+          padding-top: 8px;
         }
       }
       &.cobble-placeholder {
