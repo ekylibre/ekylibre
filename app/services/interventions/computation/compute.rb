@@ -18,6 +18,8 @@ module Interventions
           # Extract readings from the attributes since procedo doesn't create readings when initialized
           readings = ExtractReadings.new(attributes).perform
 
+          @parameters = AddNecessaryAttributes.new(@parameters).perform
+
           # Convert set of attributes from an array of hash to a hash with index in order to make Procedo to handle them
           attrs = ComputedParameters.new(@parameters).perform
           engine_intervention = Procedo::Engine.new_intervention(attrs)

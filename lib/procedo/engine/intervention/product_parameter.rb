@@ -13,7 +13,8 @@ module Procedo
           if @attributes[:product_id].present?
             @product = Product.find_by(id: @attributes[:product_id])
           end
-          if attributes[:working_zone].present?
+
+          if attributes[:working_zone]
             @working_zone = Charta.new_geometry(attributes[:working_zone])
             @working_zone = @working_zone.convert_to(:multi_polygon)
           end

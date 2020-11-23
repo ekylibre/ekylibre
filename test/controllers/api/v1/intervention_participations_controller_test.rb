@@ -5,13 +5,11 @@ module Api
       extend ActiveSupport::Concern
       included do
         test 'receiving an empty payload doesn\'t blow up' do
-          add_auth_header
 
           assert_nothing_raised { post :create }
         end
 
         test 'receiving an appropriate payload creates an appropriate InterventionParticipation and returns its id' do
-          add_auth_header
           payload = correct_payload
 
           part_id = JSON(post(:create, payload).body)['id']
@@ -24,7 +22,6 @@ module Api
         end
 
         test 'receiving a payload doesn\'t generate an InterventionParticipation if not needed' do
-          add_auth_header
           payload = correct_payload
 
           part_id_una = JSON(post(:create, payload).body)['id']
@@ -36,7 +33,6 @@ module Api
         end
 
         test 'handles completely wrong payload graciously' do
-          add_auth_header
 
           assert_nothing_raised { post :create, params: { yolo: :swag, test: [:bidouille, 'le malin', 1_543_545], 54 => 1_014_441 } }
         end
@@ -47,7 +43,6 @@ module Api
       extend ActiveSupport::Concern
       included do
         test 'instantiate an intervention if it doesn\'t exist' do
-          add_auth_header
 
           original_count = Intervention.where(nature: :record).count
           payload = correct_payload
@@ -57,7 +52,6 @@ module Api
         end
 
         test 'doesn\'t instantiate an intervention if a fitting one exists' do
-          add_auth_header
           payload = correct_payload
 
           post :create, payload
@@ -75,7 +69,6 @@ module Api
       extend ActiveSupport::Concern
       included do
         test 'ignores working periods that already exist' do
-          add_auth_header
           request_intervention = create(:intervention,
                                         :with_working_period,
                                         procedure_name: :plant_watering,
@@ -124,7 +117,6 @@ module Api
         end
 
         test 'ignores overlapping working periods' do
-          add_auth_header
           payload = overlapping_payload
 
           part_id = JSON(post(:create, payload).body)['id']
@@ -140,8 +132,6 @@ module Api
         end
 
         test 'created working_periods have the correct nature' do
-          add_auth_header
-
           payload = correct_payload
           part_id = JSON(post(:create, payload).body)['id']
           natures = InterventionParticipation.find(part_id).working_periods.order(:started_at).pluck(:nature).map(&:to_sym)
@@ -434,7 +424,6 @@ module Api
         private
 
           def default_setup
-            add_auth_header
             @request_intervention = create(:intervention,
                                           :with_tractor_tool,
                                           nature: :request

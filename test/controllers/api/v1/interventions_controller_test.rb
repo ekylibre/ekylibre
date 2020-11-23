@@ -7,7 +7,6 @@ module Api
       connect_with_token
 
       test 'index' do
-        add_auth_header
         get :index
         json = JSON.parse response.body
         assert_response :ok
@@ -43,7 +42,6 @@ module Api
       end
 
       test 'Test user worker' do
-        add_auth_header
 
         worker = create(:entity, :client, :transporter)
         user_with_worker = create(:user, :employed, person: worker)
@@ -64,7 +62,6 @@ module Api
       end
 
       test 'create hoeing intervention (with targets/equipments/workers)' do
-        add_auth_header
         land_parcel = create(:land_parcel, born_at: "2019-01-01T00:00:00Z")
         worker1 = create(:worker)
         worker2 = create(:worker)
@@ -100,7 +97,7 @@ module Api
       end
 
       test 'create fertilizing intervention (with inputs)' do
-        add_auth_header
+        authorize_user(@admin_user)
 
         input_product = create(:fertilizer_product)
         input_product.variant.read!(:net_mass, '4 kilogram')
@@ -128,7 +125,6 @@ module Api
       end
 
       test 'create harvesting intervention (with outputs)' do
-        add_auth_header
 
         variant = create(:harvest_variant)
         variant.read!(:net_mass, '2 kilogram')
@@ -161,9 +157,9 @@ module Api
       end
 
       test 'create sowing intervention (with group parameters)' do
-        add_auth_header
 
-        land_parcel = create(:land_parcel)
+        land_parcel1 = create(:land_parcel)
+        land_parcel2 = create(:land_parcel)
         variant = create(:product_nature_variant)
         product = create(:seed_product)
         product.variant.read!(:net_mass, '2000 kilogram')
@@ -178,7 +174,20 @@ module Api
                    group_parameters_attributes: [{
                      reference_name: 'zone',
                      targets_attributes: [{
-                       product_id: land_parcel.id,
+                       product_id: land_parcel1.id,
+                       reference_name: 'land_parcel'
+                     }],
+                     outputs_attributes: [{
+                       variant_id: variant.id,
+                       reference_name: 'plant',
+                       variety: 'test',
+                       batch_number: 'test2'
+                     }]
+                   },
+                   {
+                     reference_name: 'zone',
+                     targets_attributes: [{
+                       product_id: land_parcel2.id,
                        reference_name: 'land_parcel'
                      }],
                      outputs_attributes: [{
@@ -199,14 +208,13 @@ module Api
         assert_response :created
         id = JSON.parse(response.body)['id']
         intervention = Intervention.find(id)
-        assert_equal 1, intervention.group_parameters.count
-        assert_equal 1, intervention.outputs.count
+        assert_equal 2, intervention.group_parameters.count
+        assert_equal 2, intervention.outputs.count
         assert_equal 'test', intervention.outputs.last.variety
         assert_equal 'test2', intervention.outputs.last.batch_number
       end
 
       test 'create fertilizing intervention (with readings on tools)' do
-        add_auth_header
 
         input_product = create(:fertilizer_product)
         input_product.variant.read!(:net_mass, '4 kilogram')
@@ -263,8 +271,6 @@ module Api
       end
 
       test 'equipment_maintenance intervention with readings on target' do
-        add_auth_header
-
         tractor1 = create(:tractor)
         tractor2 = create(:tractor)
         tractor3 = create(:tractor)
