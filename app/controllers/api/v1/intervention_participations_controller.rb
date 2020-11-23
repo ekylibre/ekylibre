@@ -25,7 +25,7 @@ module Api
             new_intervention.creator_id = current_user
             new_intervention.created_at = Time.zone.now
             new_intervention.description = filtered_params[:description] if filtered_params[:description]
-            new_intervention.provider = filtered_params[:provider] if filtered_params[:provider]
+            new_intervention.provider = filtered_params[:provider]
             new_intervention.save!
             intervention = new_intervention
             # equipments parameters is expected only to create hour_counter reading associated with the tools of the intervention

@@ -91,8 +91,7 @@ module Backend
         end
       end
 
-      task_datas << { icon: 'mobile', class: 'provided-by-zero', category: 'indicators', position_number: 0 } if intervention.is_provided_by?(vendor: 'Ekylibre', name: 'zero')
-
+      task_datas << { icon: 'mobile', class: 'provided-by-zero', category: 'indicators', position_number: 0 } if intervention.is_provided_by?(vendor: 'ekylibre', name: 'zero')
       intervention_datas = { id: intervention.id, name: intervention.name }
 
       request_intervention_id = ''

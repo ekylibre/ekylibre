@@ -72,7 +72,7 @@ class InterventionParameterReading < Ekylibre::Record::Base
     end
   end
 
-  after_commit do
+  after_save do
     if product
       if indicator_name == :hour_counter
         save_hour_counter
