@@ -3,8 +3,9 @@
     $('[data-phytosanitary-target]').toArray()
       .filter((el) => !el.classList.contains('removed-nested-fields'))
       .map (element) =>
+        shape_value = $(element).find('.intervention_targets_working_zone input').val() || $(element).find('.intervention_group_parameters_targets_working_zone input').val()
         id: $(element).find("[data-selector-id='intervention_target_product_id']").next('.selector-value').val()
-        shape: $(element).find('.intervention_targets_working_zone input').val()
+        shape: shape_value
 
   retrieveMaxStoppedAt = () =>
     stoppedAtDates = $(".intervention-stopped-at[type='hidden']").map ->
