@@ -210,6 +210,9 @@ module Backend
                            notify: :record_x_updated,
                            identifier: :number)
       end
+
+      t3e(@purchase_invoice.attributes)
+
       render :edit
     end
 
