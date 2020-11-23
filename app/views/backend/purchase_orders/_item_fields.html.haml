@@ -77,11 +77,11 @@
             = f.referenced_association(:activity_budget, new: false)
         .item-form.item-form__project-budget
           = f.referenced_association(:project_budget)
+        .item-form.item-form__equipment
+          = f.referenced_association(:equipment, new: false, source: :tools, input_html: {data: { remember: 'equipment'}})
         - if display_team_item_field
           .item-form.item-form__product_work_number
             = f.referenced_association(:team)
-        .item-form.item-form__equipment
-          = f.referenced_association(:equipment, new: false, source: :tools, input_html: {data: { remember: 'equipment'}})
 
 
       .item-form-button.item-form-button--non-merchandise
