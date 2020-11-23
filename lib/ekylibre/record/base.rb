@@ -95,7 +95,7 @@ module Ekylibre
         att = change.attribute.gsub(/_id$/, '')
         value_retrievable = change.attribute.match(/_id$/) && respond_to?(att) && send(att).respond_to?('name')
         return change.send("human_#{state}_value") unless value_retrievable
-        send(att).respond_to?('label') ? send(att).label : send(att).name
+        (send(att).respond_to?('label') ? send(att).label : send(att).name).to_s
       end
 
       class << self
