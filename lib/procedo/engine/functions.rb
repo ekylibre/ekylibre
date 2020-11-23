@@ -89,15 +89,15 @@ module Procedo
         end
 
         def area(shape)
-          return shape.area.in(:square_meter).to_f(:square_meter)
+          shape.area.in(:square_meter).to_f(:square_meter)
         rescue
-          raise Procedo::Errors::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall.new(:area, shape)
         end
 
         def intersection(shape, other_shape)
-          return shape.intersection(other_shape)
+          shape.intersection(other_shape)
         rescue
-          raise Procedo::Errors::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall.new(:intersection, shape, other_shape)
         end
 
         def members_count(set)
@@ -109,13 +109,13 @@ module Procedo
             return 0
           end
         rescue
-          raise Procedo::Errors::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall.new(:members_count, set)
         end
 
         def contents_count(container)
-          return container.actor.containeds.count(&:available?)
+          container.actor.containeds.count(&:available?)
         rescue
-          raise Procedo::Errors::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall.new(:contents_count, container)
         end
 
         # compute a name from given variant
@@ -139,28 +139,28 @@ module Procedo
         end
 
         def variety_of(product)
-          return product.variety
+          product.variety
         rescue
-          raise Procedo::Errors::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall.new(:variant_of, product)
         end
 
         def variant_of(product)
           return product.member_variant unless product.nil?
           nil
         rescue
-          raise Procedo::Errors::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall.new(:variant_of, product)
         end
 
         def father_of(vial)
-          return vial.mother.last_transplantation.input.father || vial.mother.last_insemination.input.producer
+          vial.mother.last_transplantation.input.father || vial.mother.last_insemination.input.producer
         rescue
-          raise Procedo::Errors::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall.new(:father_of, vial)
         end
 
         def mother_of(vial)
-          return vial.mother.last_transplantation.input.mother || vial.mother
+          vial.mother.last_transplantation.input.mother || vial.mother
         rescue
-          raise Procedo::Errors::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall.new(:mother_of, vial)
         end
 
         # return first date as Datetime object
