@@ -115,7 +115,6 @@
                 if selector_url.indexOf(scope) < 0
                   if selector_url.indexOf('?') < 0 then selector_url += '?' else selector_url += '&'
                   selector_url += scope
-                  $(this).selector('clear')
                 $(this).attr('data-selector', selector_url)
 
             else
