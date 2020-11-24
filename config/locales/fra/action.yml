@@ -1753,8 +1753,8 @@ fra:
     estimate: "Devis" #?
     estimate_to_order: "Passer le devis en commande" #?
     estimate_yield: "Rendement estimé"
-    etract_account_as_odt: "Extrait de compte en ODT" #?
-    etract_account_as_pdf: "Extrait de compte en PDF" #?
+    extract_account_as_odt: "Extrait de compte en ODT" #?
+    extract_account_as_pdf: "Extrait de compte en PDF" #?
     europe_out_export: "Exportations hors CE" #?
     evaluated_direct_margin: "Marge directe évaluée" #?
     evaluated_doer_cost: "Coût main d’œuvre"

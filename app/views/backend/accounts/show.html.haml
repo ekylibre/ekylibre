@@ -3,12 +3,12 @@
 - main_toolbar do |t|
   = t.edit(resource)
   = t.export :account_journal_entry_sheet,
-             item_label: :export_as_pdf.tl,
+             item_label: :extract_account_as_pdf.tl,
              key: Printers::AccountJournalEntrySheetPrinter.build_key(period: params[:period],
                                                                       states: params[:states],
                                                                       account: resource) do |menu|
     - export_params = params.slice(:states, :lettering_state, :period, :started_on, :stopped_on)
-    - menu.item :export_as_odt.tl, params: export_params, format: :odt
+    - menu.item :extract_account_as_odt.tl, params: export_params, format: :odt
   = t.destroy(resource)
   = t.mark(resource) if resource.reconcilable?
 
