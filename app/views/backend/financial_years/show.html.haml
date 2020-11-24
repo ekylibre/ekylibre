@@ -17,7 +17,8 @@
     = t.close resource, label: :close_financial_year.tl(code: resource.name), icon: false
     = t.lock resource, label: :lock_financial_year.tl(code: resource.name), icon: false
 
-  = dropdown_menu_button(:export_fec.ta, { icon: :download }) do |d|
+  - html_class = @financial_year.has_validated_entries? ? '' : 'disabled'
+  = dropdown_menu_button(:export_fec.ta, { icon: :download, class: html_class }) do |d|
     - %i[text xml].each do |format|
       - %i[all ba_bnc_ir_commercial_accountancy ba_ir_cash_accountancy bnc_ir_cash_accountancy].each do |position|
         - d.item "export_#{format}_fec_#{position}".tl, action: :show, fiscal_position: position, format: format
