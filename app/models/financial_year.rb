@@ -547,6 +547,10 @@ class FinancialYear < Ekylibre::Record::Base
       .order('accounts.number')
   end
 
+  def has_validated_entries?
+    journal_entries.where(state: ['closed', 'confirmed']).exists?
+  end
+
   private
 
     def compute_ranges(number_of_months)
