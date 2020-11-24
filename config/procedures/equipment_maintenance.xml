@@ -16,7 +16,7 @@
         </input>
       </group>
       <doer name="mechanic" filter="is worker" cardinality="*"/>
-      <tool name="tool" filter="is matter" cardinality="*"/>
+      <tool name="tool" filter="is equipment" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>
