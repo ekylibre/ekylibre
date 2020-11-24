@@ -83,7 +83,7 @@ module Api
           permitted = super.permit(
             :procedure_name,
             :description,
-            :actions,
+            actions: [],
             working_periods_attributes: %i[started_at stopped_at],
             inputs_attributes: %i[product_id quantity_value quantity_handler reference_name quantity_population usage_id],
             outputs_attributes: %i[variant_id quantity_value quantity_handler reference_name quantity_population],
