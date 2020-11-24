@@ -8,10 +8,10 @@
   = t.destroy
 
   - unless @purchase_invoice.reconciled?
-    .change-reconcilation-state-block
+    .change-reconciliation-state-block
       - checked = false
       - checked = true if resource.reconciliation_state == :accepted
-      = check_box_tag 'new-reconcilation-state', checked, checked
+      = check_box_tag 'new-reconciliation-state', checked, checked
       %label= :accepted_for_paiment.tl
 
 = main_informations attachment: true do

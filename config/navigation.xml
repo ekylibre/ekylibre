@@ -456,9 +456,9 @@
         <page to="backend/purchase_invoices#new"/>
         <page to="backend/purchase_invoices#list_receptions"/>
         <page to="backend/purchase_process/reconciliation#receptions_to_reconciliate"/>
-        <page to="backend/purchases/reconcilation_states#put_accepted_state"/>
-        <page to="backend/purchases/reconcilation_states#put_reconcile_state"/>
-        <page to="backend/purchases/reconcilation_states#put_to_reconcile_state"/>
+        <page to="backend/purchases/reconciliation_states#put_accepted_state"/>
+        <page to="backend/purchases/reconciliation_states#put_reconcile_state"/>
+        <page to="backend/purchases/reconciliation_states#put_to_reconcile_state"/>
         <page to="backend/purchase_process/reconciliation#purchase_orders_to_reconciliate"/>
         <page to="backend/purchase_invoices#pay"/>
         <page to="backend/purchase_invoices#payment_mode"/>
@@ -1841,7 +1841,6 @@
         <page to="backend/product_nature_variants#list"/>
         <page to="backend/product_nature_variants#new"/>
         <page to="backend/product_nature_variants#pick"/>
-        <page to="backend/variants/fixed_assets#fixed_assets_datas"/>
         <page to="backend/product_nature_variants#picture"/>
         <page to="backend/product_nature_variants#quantifiers"/>
         <page to="backend/product_nature_variants#show"/>

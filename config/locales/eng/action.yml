@@ -747,10 +747,10 @@ eng:
     backend/purchase_process/reconciliation:
       # purchase_orders_to_reconciliate: "Purchase orders to reconciliate reconciliation: %{name}"
       # receptions_to_reconciliate: "Receptions to reconciliate reconciliation: %{name}"
-    backend/purchases/reconcilation_states:
-      # put_accepted_state: "Put accepted state reconcilation state: %{name}"
-      # put_reconcile_state: "Put reconcile state reconcilation state: %{name}"
-      # put_to_reconcile_state: "Put to reconcile state reconcilation state: %{name}"
+    backend/purchases/reconciliation_states:
+      # put_accepted_state: "Put accepted state reconciliation state: %{name}"
+      # put_reconcile_state: "Put reconcile state reconciliation state: %{name}"
+      # put_to_reconcile_state: "Put to reconcile state reconciliation state: %{name}"
     backend/purchases:
       # show: "Purchase: %{name}"
     backend/quick_affairs:
@@ -1123,8 +1123,6 @@ eng:
       # quantifiers: "Quantifiers equipment variant: %{name}"
       # show: "Equipment variant: %{name}"
       # storage_detail: "Storage detail equipment variant: %{name}"
-    backend/variants/fixed_assets:
-      # fixed_assets_datas: "Fixed assets datas fixed asset: %{name}"
     backend/variants/service_variants:
       # detail: "Detail service variant: %{name}"
       # edit: "Edit service variant: %{name}"
@@ -2411,6 +2409,8 @@ eng:
     no_particular_periods: "No particular period"
     no_previous_closure_so_think_about_providing_carrying_forward_entry: "Think about adding a carrying forward entry for the previous financial year at the first day of the financial year you're about to close."
     no_products: "No products"
+    no_purchase_order_to_reconcile_for_this_supplier: "There is no purchase order to reconcile for this supplier."
+    no_reception_to_reconcile_for_this_supplier: "There is no reception to reconcile for this supplier."
     no_results: "No results"
     no_right_defined_for_this_part_of_the_application: "No right defined for this part of the application (%{controller}#%{action})"
     no_right_defined_for_this_part_of_the_application_and_this_user: "No right defined for this part of the application and this user"
@@ -3506,7 +3506,6 @@ eng:
       # find_open_document_template: "Find open document template"
       # find_template: "Find template"
       finish: "Finish"
-      # fixed_assets_datas: "Fixed assets datas"
       # formate_and_translate: "Formate and translate"
       # generate_buttons: "Generate buttons"
       # generate_document: "Generate document"

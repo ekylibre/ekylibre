@@ -1,209 +1,219 @@
-.purchase-totals {
-  @media screen and (max-width: 1440px) {
-    margin: $default-gap * 3 0 $default-gap * 3 1%;
-  }
-  @media screen and (min-width: 1441px) {
-    margin: $default-gap * 3 0 $default-gap * 3 0.6%;
-  }
-  
-  .purchase-total-row {
-    @include flex-row(flex-start, flex-start);
-    margin-bottom: $default-gap;
-  }
+.purchase-form {
+  .purchase-totals {
+    @media screen and (max-width: 1440px) {
+      margin: $default-gap * 3 0 $default-gap * 3 1%;
+    }
+    @media screen and (min-width: 1441px) {
+      margin: $default-gap * 3 0 $default-gap * 3 0.6%;
+    }
 
-  .total-label {
-    flex-basis: 27.5%;
-  }
+    .purchase-total-row {
+      @include flex-row(flex-start, flex-start);
+      margin-bottom: $default-gap;
+    }
 
-  .total-value {
-    text-align: right;
-  }
+    .total-label {
+      flex-basis: 27.5%;
+    }
 
-  .total-label,
-  .total-value,
-  .total-currency {
-    color: #999;
-    font-weight: bold;
-  }
+    .total-value {
+      text-align: right;
+    }
 
-  .total-currency {
-    margin-left: $default-gap;
-  }
-}
+    .total-label,
+    .total-value,
+    .total-currency {
+      color: #999;
+      font-weight: bold;
+    }
 
-.annotation-logo {
-  display: flex;
-  align-items: flex-end;
-  padding-bottom: 5px;
-}
-
-.fieldset .fieldset-fields .nested-fields .input-append {
-  .invoice-unit-amount, .pre-tax-invoice-total, .invoice-total, .middle-input {
-    width: 10em;
-  }
-}
-
-.control-label {
-  max-width: none !important;
-  overflow: visible !important;
-}
-
-.decimal-row .controls {
-   margin-left: 0 !important;
-}
-
-.decimal-row {
-  .vat-total {
-    display: block;
-  }
-}
-
-.item-form-information {
-  max-width: 93%;
-  display: flex;
-  margin-bottom: 15px;
-
-  .control-group .control-label {
-    float: none !important;
-    max-width: 100% !important;
-    margin: 0 !important;
+    .total-currency {
+      margin-left: $default-gap;
+    }
   }
 
-  .controls  {
-    margin-left: 0 !important;
-    max-width: 100% !important;
-  }
-
-  .item-form {
-    flex-grow: 1;
-    max-width: 25%;
-  }
-
-
-}
-
-  .item-form-button {
+  .annotation-logo {
     display: flex;
-    justify-content: flex-end;
+    align-items: flex-end;
+    padding-bottom: 5px;
+  }
+
+  .fieldset .fieldset-fields .nested-fields .input-append {
+    .invoice-unit-amount, .pre-tax-invoice-total, .invoice-total, .middle-input {
+      width: 10em;
+    }
+  }
+
+  .control-label {
+    max-width: none !important;
+    overflow: visible !important;
+  }
+
+  .decimal-row .controls {
+     margin-left: 0 !important;
+  }
+
+  .decimal-row {
+    .vat-total {
+      display: block;
+    }
+  }
+
+  .item-form-information {
+    max-width: 93%;
+    display: flex;
+    margin-bottom: 15px;
+
+    .control-group .control-label {
+      float: none !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+    }
+
+    .controls  {
+      margin-left: 0 !important;
+      max-width: 100% !important;
+    }
+
+    .item-form {
+      flex-grow: 1;
+      max-width: 25%;
+    }
+
+
+  }
+
+    .item-form-button {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .storing-calculation {
+      width: 45%;
+      display: flex;
+      align-items: flex-end;
+    }
+
+  .role-row {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
   }
 
   .storing-calculation {
-    width: 45%;
     display: flex;
+    justify-content: space-around;
     align-items: flex-end;
-  }
-
-.role-row {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 20px;
-}
-
-.storing-calculation {
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-end;
-  .controls {
-    margin-left: 0 !important;
-  }
-
-}
-
-.item-block-role--purchase-invoice {
-  display: flex;
-  width: 40%;
-  .control-group {
-    width: 72%;
-    flex-direction: column;
     .controls {
       margin-left: 0 !important;
-      max-width: unset !important ;
+    }
 
-      .selector {
-        width: 100%;
+  }
+
+  .item-block-role--purchase-invoice {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    .variant-information--mandatory, .variant-information--optional {
+      display: flex;
+      width: 100%;
+    }
+    .variant-information--optional {
+      flex-direction: column;
+    }
+    .control-group {
+      width: 72%;
+      flex-direction: column;
+      .controls {
+        margin-left: 0 !important;
+        max-width: unset !important ;
+
+        .selector {
+          width: 100%;
+        }
       }
     }
   }
-}
 
-.item-block-role--purchase-order {
-  display: flex;
-  width: 40%;
-  .control-group {
-    width: 60%;
-    flex-direction: column;
-    .controls {
-      margin-left: 0 !important;
+  .item-block-role--purchase-order {
+    display: flex;
+    width: 40%;
+    .control-group {
+      width: 60%;
+      flex-direction: column;
+      .controls {
+        margin-left: 0 !important;
+        max-width: unset !important;
+
+        .selector {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .annotation-section .annotation-field {
+    width: 40%;
+  }
+
+  .decimal-row {
+    display: flex;
+    width: 70%;
+    justify-content: space-between;
+    .vat-total {
       max-width: unset !important;
+    }
+  }
 
-      .selector {
-        width: 100%;
+  .current-stock {
+    align-self: flex-end;
+    margin-right: 30px;
+
+    span {
+      color: #999;
+    }
+  }
+
+   .row-footer {
+      margin-top: 5px;
+      .links {
+        padding: 8px;
+        font-weight: bold;
+      }
+      .add-fees {
+        text-align: center;
+      }
+    }
+
+  .storing-fields {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .storing-quantifier--fee  {
+    .controls {
+      max-width: unset;
+      input {
+        width: 100% !important;
       }
     }
   }
-}
 
-.annotation-section .annotation-field {
-  width: 40%;
-}
+  .item-block-quantity {
+    width: 60%;
 
-.decimal-row {
-  display: flex;
-  width: 70%;
-  justify-content: space-between;
-  .vat-total {
-    max-width: unset !important;
-  }
-}
-
-.current-stock {
-  align-self: flex-end;
-  margin-right: 30px;
-
-  span {
-    color: #999;
-  }
-}
-
- .row-footer {
-    margin-top: 5px;
-    .links {
-      padding: 8px;
-      font-weight: bold;
-    }
-    .add-fees {
-      text-align: center;
+    .control-label.required abbr {
+      margin-right: -8px;
     }
   }
 
-.storing-fields {
-  display: flex;
-  justify-content: space-between;
-}
+  .purchase_order_items_conditionning, .purchase_order_items_conditionning_quantity {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-.storing-quantifier--fee  {
-  .controls {
-    max-width: unset;
-    input {
-      width: 100% !important;
+    .controls {
+      max-width: 100%;
     }
-  }
-}
-
-.item-block-quantity {
-  width: 60%;
-
-  .control-label.required abbr {
-    margin-right: -8px;
-  }
-}
-
-.purchase_order_items_conditionning, .purchase_order_items_conditionning_quantity {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  .controls {
-    max-width: 100%;
   }
 }

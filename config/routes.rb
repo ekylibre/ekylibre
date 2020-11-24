@@ -1051,7 +1051,7 @@ Rails.application.routes.draw do
     resources :purchases, only: :show
 
     namespace :purchases do
-      resources :reconcilation_states, only: [] do
+      resources :reconciliation_states, only: [] do
         member do
           get :put_reconcile_state
           get :put_to_reconcile_state
@@ -1262,14 +1262,6 @@ Rails.application.routes.draw do
 
     %i[variants variant_natures variant_categories registered_phytosanitary_products user_roles].each do |controller|
       resources controller, only: [], concerns: :unroll
-    end
-
-    namespace :variants do
-      resources :fixed_assets, only: [] do
-        member do
-          get :fixed_assets_datas
-        end
-      end
     end
 
     resources :visuals, only: [] do

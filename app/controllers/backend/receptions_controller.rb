@@ -121,14 +121,14 @@ module Backend
 
     def new
       if params[:purchase_order_ids]
-        purchase_orders = PurchaseOrder.find(params[:purchase_order_ids].split(','))
-        supplier_ids = purchase_orders.map(&:supplier_id)
+        purchase_orders = PurchaseOrder.where(id: params[:purchase_order_ids].split(','))
+        supplier_ids = purchase_orders.pluck(:supplier_id).uniq
 
         reception_attributes = {
-          sender_id: supplier_ids.uniq.length > 1 ? nil : supplier_ids.first,
+          sender_id: supplier_ids.length > 1 ? nil : supplier_ids.first,
           given_at: Date.today,
           reconciliation_state: 'reconcile',
-          items: ReceivableItemsFilter.new.filter(purchase_orders)
+          items: ReceivableItemsFilter.new.filter(purchase_orders.includes(items: [parcels_purchase_orders_items: :reception]).references(items: [parcels_purchase_orders_items: :reception]))
         }
 
         @reception = Reception.new(reception_attributes)

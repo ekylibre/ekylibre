@@ -1,6 +1,6 @@
 # == License
 # Ekylibre - Simple agricultural ERP
-# Copyright (C) 2014 Sebastien Gauvrit, Brice Texier
+# Copyright (C) 2012-2013 David Joulin, Brice Texier
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,29 +17,34 @@
 #
 
 module Backend
-  module Variants
-    class FixedAssetsController < Backend::BaseController
-      before_action :set_variant, only: [:fixed_assets_datas]
+  module Purchases
+    class ReconciliationStatesController < Backend::BaseController
+      before_action :set_purchase, only: %i[put_reconcile_state put_to_reconcile_state put_accepted_state]
 
-      def fixed_assets_datas
-        return render json: { error: 'No variant with this id' } if @variant.nil?
+      def put_reconcile_state
+        @purchase.update!(reconciliation_state: :reconcile)
 
-        fixed_assets_datas = {
-          asset_account_id: @variant.fixed_asset_account&.id,
-          expenses_account_id: @variant.fixed_asset_expenses_account&.id,
-          depreciation_method: @variant.fixed_asset_depreciation_method,
-          depreciation_percentage: @variant.fixed_asset_depreciation_percentage
-        }
+        render json: @purchase.to_json
+      end
 
-        render json: fixed_assets_datas
+      def put_to_reconcile_state
+        @purchase.update!(reconciliation_state: :to_reconcile)
+
+        render json: @purchase.to_json
+      end
+
+      def put_accepted_state
+        @purchase.update!(reconciliation_state: :accepted)
+
+        render json: @purchase.to_json
       end
 
       private
 
-        def set_variant
+        def set_purchase
           return unless permitted_params.key?(:id)
 
-          @variant = ProductNatureVariant.find(permitted_params[:id])
+          @purchase = Purchase.find(permitted_params[:id])
         end
 
         def permitted_params
