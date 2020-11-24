@@ -116,6 +116,8 @@ class ParcelItem < Ekylibre::Record::Base
   delegate :separated_stock?, :currency, to: :parcel, prefix: true, allow_nil: true
   delegate :unit_name, to: :variant
 
+  scope :of_role, ->(role) { where(role: role) }
+
   before_validation do
     if variant
       catalog_item = variant.catalog_items.of_usage(:stock)
