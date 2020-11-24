@@ -2341,7 +2341,9 @@ fra:
     no_previous_closure_so_think_about_providing_carrying_forward_entry: "Pensez à saisir votre écriture de report à nouveau de l'exercice précédent au premier jour de l'exercice à clôturer."
     no_products: "Sans produit"
     no_proposer: "— Sans parrain ni marraine —" #?
+    no_purchase_order_to_reconcile_for_this_supplier: "Il n'y a pas de commande à rapprocher pour ce fournisseur."
     no_purchases: "Aucun achat en attente de reception" #?
+    no_reception_to_reconcile_for_this_supplier: "Il n'y a pas de réception à rapprocher pour ce fournisseur."
     no_records: "Pas d’enregistrements" #?
     no_results: "Aucun résultat"
     no_right_defined_for_this_part_of_the_application: "Aucun droit défini pour cette partie de l’application (%{controller}#%{action})"

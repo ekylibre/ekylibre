@@ -85,8 +85,8 @@
               item.find(options.tax or "*[data-trade-component='tax']").val(data.tax_id)
 
           # Compute totals
-          if ['change', 'readystatechange'].includes event.type
-            E.trade.updateUnitPretaxAmount(item)
+          E.trade.updateUnitPretaxAmount(item)
+          E.toggleValidateButton(item, false)
 
         error: (request, status, error) ->
           console.log("Error while retrieving price and tax fields content: #{error}")

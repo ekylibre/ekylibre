@@ -472,6 +472,13 @@ $.behave(root => {
     return false;
   });
 
+  $(document).on('selector:change', '[data-toggle-enable]', function (event) {
+    const $target = $(this).closest($(this).data('parent')).find($(this).data('toggle-enable'));
+    if (!$target.length) {
+      return;
+    }
+    $target.toggleClass('disabled', !!!$(this).selector('value'));
+  });
 
   $(document).on("mouseenter", ".btn, a", function (event) {
     var button = $(this), text;

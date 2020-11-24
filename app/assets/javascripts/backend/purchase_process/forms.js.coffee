@@ -16,10 +16,10 @@
       E.toggleValidateButton(item)
 
   $(document).on "keyup change", "*[data-trade-component]", (event) ->
-
     component = $(this)
     item = component.closest('.storing-fields')
     component_name = component.data('trade-component')
+
     if component_name == 'conditionning' || component_name == 'conditionning_quantity' && item.length > 0
       conditionning = item.find('.conditionning')
       conditionning_quantity = item.find('.conditionning-quantity')
@@ -28,12 +28,12 @@
       quantity.val(quantity_value)
       quantity.trigger('change')
       E.toggleValidateButton(item.closest('.incoming-parcel-item'))
-    if component_name == 'conditionning'
 
+    if component_name == 'conditionning'
       val = item.find('.conditionning').val()
       item.closest('#add-storing').find('.conditionning').each ->
         $(this).val(val)
-        $('.conditionning-quantity').trigger('change')
+        $(this).closest('.storing-fields').find('.conditionning-quantity').trigger('change')
 
   $(document).ready ->
     $('table.list').on 'cocoon:after-insert', ->

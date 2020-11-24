@@ -94,10 +94,12 @@ class PurchaseInvoice < Purchase
   end
 
   before_validation do
-    if self.items.reject(&:marked_for_destruction?).any?
-      self.reconciliation_state = 'reconcile'
-    else
-      self.reconciliation_state = 'to_reconcile'
+    if reconciliation_state.to_s != 'accepted'
+      if self.items.reject(&:marked_for_destruction?).any?
+        self.reconciliation_state = 'reconcile'
+      else
+        self.reconciliation_state = 'to_reconcile'
+      end
     end
   end
 
