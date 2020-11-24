@@ -291,50 +291,94 @@ spa:
         # too_short: "%{attribute} is too short (minimum is %{count} characters)"
         unitary_in_parcel: "artículos unitarios sólo se pueden enviar una a una"
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
-      models: #?
-        activity: #?
-          checked_off_with_inspections: "Inspecciones ya se han creado para esta actividad" #?
-          checked_without_measures: "Al menos, un tipo de medida debe seleccionarse cuando se quieren inspecciones" #?
-        bank_statement: #?
-          no_cash_match_ofx: "No hay resultados para el número de cuenta bancaria que figura en el archivo de efectivo" #?
-          ofx_file_has_multiple_bank_accounts: "archivo OFX con varias cuentas bancarias no se admite" #?
-          ofx_file_invalid: "archivo OFX es válido" #?
-        bank_statement_item: #?
-          unvalid_amounts: "El asiento debe ser llenado ya sea de débito o de crédito, pero no al mismo tiempo." #?
-        cash: #?
-          unvalid_bban: "Unvalid BBAN. Uno o más elementos son incorrectos." #?
-        financial_year: #?
-          attributes: #?
-            started_on: #?
-              consecutive: "Los ejercicios deben ser consecutivos. Debe comenzar tras el fin de la anterior." #?
-              frozen: "La fecha de ejercicio no se puede cambiar cuando se ha creado un intercambio." #?
-        financial_year_exchange: #?
-          csv_file_entry_dates_invalid: "Algunas entradas de la CSV están fuera del intervalo de fechas de cambio ejercicio" #?
-          csv_file_headers_invalid: "Cabeceras CSV no son válidos" #?
-          csv_file_invalid: "Archivo CSV no es válido" #?
-        integration: #?
-          attributes: #?
-            parameters: #?
-              check_errored: "Comprobación de conexión errónea. Asegúrese de que la entrada es válida o vuelva a intentarlo más tarde." #?
-        journal: #?
-          attributes: #?
-            accountant: #?
-              present: "Contador sólo se puede configurar para diversas revistas de operaciones" #?
-        journal_entry: #?
-          frozen_by_financial_year_exchange: "La entrada de diario no se puede grabar en un período que corresponde a un cambio de ejercicio." #?
-          out_of_existing_financial_year: "El asiento debe ser registrada en un periodo correspondiente a un ejercicio ya existente." #?
-          unbalanced: "La entrada de diario no es equilibrada" #?
-        journal_entry_item: #?
-          closed_entry: "El asiento está bloqueado. No se puede actualizarlo." #?
-          empty_amounts: "El asiento debe ser llenado ya sea de débito o de crédito" #?
-          unvalid_amounts: "El asiento debe ser llenado ya sea de débito o de crédito, pero no al mismo tiempo." #?
-        sale_item: #?
-          currency_is_not_sale_currency: "La moneda no es idéntica a la moneda de venta" #?
-          error_no_found_price: "No hay precio encontrado" #?
-        subscription: #?
-          entity_must_be_the_same_as_the_contact_entity: "La persona tiene que ser la misma que la persona de contacto" #?
-      template: #?
-        body: "Hubo problemas con los siguientes campos:" #?
+      models:
+        activity:
+          checked_off_with_inspections: "Inspecciones ya se han creado para esta actividad"
+          checked_without_measures: "Al menos, un tipo de medida debe seleccionarse cuando se quieren inspecciones"
+          # productions_present: "Productions are present on this activity"
+        bank_statement:
+          no_cash_match_ofx: "No hay resultados para el número de cuenta bancaria que figura en el archivo de efectivo"
+          ofx_file_has_multiple_bank_accounts: "archivo OFX con varias cuentas bancarias no se admite"
+          ofx_file_invalid: "archivo OFX es válido"
+        bank_statement_item:
+          unvalid_amounts: "El asiento debe ser llenado ya sea de débito o de crédito, pero no al mismo tiempo."
+        cash:
+          # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
+          # different_of_main_account: "%{attribute} must be different of main account (%{account})"
+          unvalid_bban: "Unvalid BBAN. Uno o más elementos son incorrectos."
+        deposit:
+          # must_be_a_bank_account: "%{attribute} must be a bank account and not a cash"
+        entity:
+          # missing_title: "%{attribute} must contains the title “%{title}”"
+          # nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
+        financial_year:
+          attributes:
+            accountant:
+              # frozen: "%{attribute} cannot be changed while an exchange is opened"
+            started_on:
+              consecutive: "Los ejercicios deben ser consecutivos. Debe comenzar tras el fin de la anterior."
+              frozen: "La fecha de ejercicio no se puede cambiar cuando se ha creado un intercambio."
+              # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
+            stopped_on:
+              # end_of_month: "%{attribute} must be an end of month"
+          # overlap: "%{attribute} overlaps an existing financial year"
+        financial_year_exchange:
+          csv_file_entry_dates_invalid: "Algunas entradas de la CSV están fuera del intervalo de fechas de cambio ejercicio"
+          # csv_file_entry_invalid: "Some entries in the CSV are invalid ('%{entry_number}')"
+          csv_file_headers_invalid: "Cabeceras CSV no son válidos"
+          csv_file_invalid: "Archivo CSV no es válido"
+          # csv_file_journals_invalid: "Some journals are present in the CSV but not in Ekylibre : %{codes}"
+        fixed_asset_depreciation:
+          attributes:
+            started_on:
+              # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
+        incoming_parcel_item:
+          # greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
+        integration:
+          attributes:
+            parameters:
+              check_errored: "Comprobación de conexión errónea. Asegúrese de que la entrada es válida o vuelva a intentarlo más tarde."
+        journal:
+          attributes:
+            accountant:
+              # entity_frozen: "Booked journals of this %{attribute} cannot change while an exchange is opened for its financial years"
+              present: "Contador sólo se puede configurar para diversas revistas de operaciones"
+              # previous_entity_frozen: "Booked journals of the previous %{attribute} cannot change while an exchange is opened for its financial years"
+            closed_on:
+              # end_of_month: "%{attribute} must be an end of month (%{closed_on})"
+        journal_entry:
+          # closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
+          frozen_by_financial_year_exchange: "La entrada de diario no se puede grabar en un período que corresponde a un cambio de ejercicio."
+          out_of_existing_financial_year: "El asiento debe ser registrada en un periodo correspondiente a un ejercicio ya existente."
+          unbalanced: "La entrada de diario no es equilibrada"
+        journal_entry_item:
+          closed_entry: "El asiento está bloqueado. No se puede actualizarlo."
+          empty_amounts: "El asiento debe ser llenado ya sea de débito o de crédito"
+          unvalid_amounts: "El asiento debe ser llenado ya sea de débito o de crédito, pero no al mismo tiempo."
+        outgoing_parcel_item:
+          # greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
+        purchase_item:
+          attributes:
+            fixed:
+              # asset_account: "Invalid asset account"
+              # asset_depreciation_method: "Invalid asset depreciation method"
+              # asset_expenses_account: "Invalid asset expenses account"
+              # asset_wrong_depreciation_method: "Depreciation method must be simplified linear"
+              # fixed_asset_stopped_on_invalid: "Invalid fixed asset stopped on"
+          # building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
+          # serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
+        sale_item:
+          # building_can_not_transfer_product: "%{product} can not be found in %{building}, it only contains %{contained_product}."
+          # can_not_use_this_tracking: "You can not user the S/N %{tracking}, the quantity is greater than the available quantity"
+          currency_is_not_sale_currency: "La moneda no es idéntica a la moneda de venta"
+          error_no_found_price: "No hay precio encontrado"
+        subscription:
+          entity_must_be_the_same_as_the_contact_entity: "La persona tiene que ser la misma que la persona de contacto"
+      template:
+        body: "Hubo problemas con los siguientes campos:"
+        header:
+          # one: "1 error prohibited this %{model} from being saved"
+          # other: "%{count} errors prohibited this %{model} from being saved"
     models:
       account: "Cuenta"
       account_balance: "Saldo de la cuenta"

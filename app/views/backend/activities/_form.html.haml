@@ -4,7 +4,7 @@
   = f.input :nature, as: :radio_buttons, show: '.{{value}}-nature-options'
   = f.referenced_nomenclature :production_system
   = f.referenced_association :production_nature, new: false, label: :production_nature.tl
-  = f.referenced_nomenclature :family, input_html: {data: {activity_family: true}}
+  = f.referenced_nomenclature :family, input_html: { data: { activity_family: true }, disabled: f.object.productions.exists? }
   - family = Nomen::ActivityFamily[f.object.family]
   = f.input :with_cultivation, as: :hidden
   = f.referenced_nomenclature :cultivation_variety, collection: ((family and family.cultivation_variety.present?) ? Nomen::Variety.selection(family.cultivation_variety) : []), wrapper_html: {style: "display: #{(family and family.cultivation_variety.present?) ? 'block' : 'none'}"}
