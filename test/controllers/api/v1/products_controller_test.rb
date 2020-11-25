@@ -24,7 +24,6 @@ module Api
 
       test 'create and get product of a given type' do
 
-
         create_list(:worker, 10, updated_at: '15/12/2016')
         create_list(:equipment, 10, updated_at: '15/12/2016')
 
