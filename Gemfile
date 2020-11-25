@@ -233,8 +233,8 @@ group :development do
 
   # Code metrics
   gem 'rails_best_practices', require: false
-  gem 'rubocop', '~> 0.89', require: false
-  gem 'parser', '~> 2.6'
+  gem 'rubocop', '~> 1.3.1', require: false
+  gem 'parser', '~> 2.7.1.5'
 
   # Webservers
   gem 'thin'

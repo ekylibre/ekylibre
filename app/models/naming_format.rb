@@ -39,4 +39,8 @@ class NamingFormat < Ekylibre::Record::Base
   # ]VALIDATORS]
 
   accepts_nested_attributes_for :fields, reject_if: :all_blank, allow_destroy: true
+
+  def has_free_field?
+    fields.free_field.any?
+  end
 end

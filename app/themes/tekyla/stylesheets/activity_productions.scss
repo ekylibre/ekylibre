@@ -11,8 +11,11 @@
 
 form {
   .activity_production_custom_name{
+    input{
+      margin-right: 2em;
+    }
     span:nth-child(3){
-      margin: 0 2em 0 2em;
+      margin-right: 2em;
       font-weight: bold;
       position: relative;
     }
