@@ -1366,7 +1366,9 @@ eng:
       server_error: "Server error"
   labels:
     configure_naming_format: "Configure Naming Format"
+    free_field_naming_format_hint: "You can customize name by adding a free field to naming format"
     free_field: "Free field"
+    land_parcel_support_name: "Land parcel name"
     accepted: "Accepted"
     accepted_for_paiment: "Accepted for paiment"
     access: "Access"
