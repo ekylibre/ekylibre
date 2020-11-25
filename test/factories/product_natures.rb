@@ -3,6 +3,8 @@ FactoryBot.define do
     sequence(:name) { |n| "Cultivable Zone #{n}" }
     population_counting { 'unitary' }
     variety { 'cultivable_zone' }
+    variable_indicators_list { [:shape] }
+    frozen_indicators_list { [:net_surface_area] }
   end
 
   factory :worker_nature, parent: :product_nature do
