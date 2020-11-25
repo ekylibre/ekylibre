@@ -1,6 +1,6 @@
 - main_toolbar do |t|
   = t.edit resource
-  = t.destroy show_disabled: true, disabled_tooltip_content: :contact_support_to_delete_production.tl
+  = t.destroy show_disabled: true, disabled_tooltip_content: :cannot_delete_this_production.tl
 
 = main_informations attachment: true do
   - if resource.plant_farming? && (resource.support.is_a?(LandParcel) || resource.support.is_a?(Plant))

@@ -812,10 +812,13 @@ module ApplicationHelper
 
   def tool_to(name, url, options = {})
     raise ArgumentError.new("##{__method__} cannot use blocks") if block_given?
+
     icon = options.key?(:tool) ? options.delete(:tool) : options.key?(:icon) ? options.delete(:icon) : nil
     icon ||= url[:action] if url.is_a?(Hash) && !icon.is_a?(FalseClass)
+    tooltip_options = options.delete(:tooltip_options)
     options[:class] = (options[:class].blank? ? 'btn btn-default' : options[:class].to_s + ' btn btn-default')
     options[:class] << ' icn btn-' + icon.to_s if icon
+
     if url.is_a?(Hash)
       if url.key?(:redirect)
         url.delete(:redirect) if url[:redirect].nil?
@@ -823,7 +826,14 @@ module ApplicationHelper
         url[:redirect] = request.fullpath
       end
     end
-    link_to(name, url, options)
+
+    if tooltip_options
+      content_tag :span, tooltip_options do
+        link_to(name, url, options)
+      end
+    else
+      link_to(name, url, options)
+    end
   end
 
   def toolbar_tag(name, wrap: true)
