@@ -1351,6 +1351,7 @@ fra:
     cancelled: "Passées en avoir" #?
     cannot_be_mixed_with: "Ne peut être mélangé avec le produit %{phyto}"
     cannot_be_mixed_with_any_product: "Ne peut être mélangé avec aucun autre produit"
+    cannot_delete_this_production: "Intervention ou culture est liée à cette production. Vous ne pouvez pas la supprimer."
     cap_islets: "Îlots PAC"
     cap_land_parcels: "Parcelles PAC"
     capitalised_production: "Production immobilisée"

@@ -158,14 +158,10 @@ module ToolbarHelper
         return ''.html_safe if !show_disabled && !resource.destroyable?
 
         unless resource.destroyable?
-          options = {
-            **options,
-            disabled: true,
-            style: 'pointer-events: auto'
-          }
+          options = { **options, disabled: true }
 
           if (tooltip_content = options.fetch(:disabled_tooltip_content))
-            options = { **options, data: { toggle: :tooltip, placement: :top }, title: tooltip_content }
+            options = { **options, tooltip_options: { data: { toggle: :tooltip, placement: :top }, title: tooltip_content, style: 'pointer-events: auto' } }
           end
         end
 
