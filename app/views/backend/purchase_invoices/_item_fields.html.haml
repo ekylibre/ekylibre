@@ -79,10 +79,10 @@
           .item-form.item-form__product_work_number
             = f.referenced_association :team, input_html: {data: { remember: 'team'}}
 
-          - #HACK: new_items == new_ + <relation name> -- used by cocoon for interpolation of new_record pseudoid
-          - parcels_purchase_invoice_item_id = f.object.parcels_purchase_invoice_items.empty? ? nil : [f.object.parcels_purchase_invoice_items.first.id].to_s
-          - parcels_purchase_invoice_item_id ||= locals[:reception_item_id] if defined?(locals) && locals[:reception_item_id]
-          = hidden_field_tag 'purchase_invoice[items_attributes][RECORD_ID][parcels_purchase_invoice_items]', parcels_purchase_invoice_item_id, class: "purchase-item-attribute"
+        - #HACK: new_items == new_ + <relation name> -- used by cocoon for interpolation of new_record pseudoid
+        - parcels_purchase_invoice_item_id = f.object.parcels_purchase_invoice_items.empty? ? nil : [f.object.parcels_purchase_invoice_items.first.id].to_s
+        - parcels_purchase_invoice_item_id ||= locals[:reception_item_id] if defined?(locals) && locals[:reception_item_id]
+        = hidden_field_tag 'purchase_invoice[items_attributes][RECORD_ID][parcels_purchase_invoice_items]', parcels_purchase_invoice_item_id, class: "purchase-item-attribute"
 
       .item-form-button.item-form-button--non-merchandise
         .item-form__btn
