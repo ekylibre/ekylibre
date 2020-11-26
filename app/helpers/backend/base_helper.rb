@@ -200,7 +200,7 @@ module Backend
       window = 1.day
       min = (resource.born_at ? resource.born_at : now - window)
       min = now - window if (now - min) < window
-      indicators.each do |indicator| # [:population, :nitrogen_concentration].collect{|i| Nomen::Indicator[i] }
+      indicators.each do |indicator| # [:population, :nitrogen_concentration].collect{|i| Onoma::Indicator[i] }
         items = ProductReading.where(indicator_name: indicator.name, product: resource).where('? < read_at AND read_at < ?', min, now).order(:read_at)
         next unless items.any?
         data = []
@@ -379,9 +379,9 @@ module Backend
       return nil if value.blank? && !options[:force]
       nomenclature = options.delete(:nomenclature)
       if nomenclature.is_a?(TrueClass)
-        value = Nomen.find(name.to_s.pluralize, value)
+        value = Onoma.find(name.to_s.pluralize, value)
       elsif nomenclature.is_a?(Symbol)
-        value = Nomen.find(nomenclature, value)
+        value = Onoma.find(nomenclature, value)
       end
       label = options.delete(:label) || resource_model.human_attribute_name(name)
       if block_given?

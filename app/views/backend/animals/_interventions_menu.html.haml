@@ -1,7 +1,7 @@
 - filtering_varieties ||= []
 = t ||= ToolbarHelper::Toolbar.new(self)
 = t.menu :interventions, icon: false do |menu|
-  - Nomen::ProcedureCategory.select { |c| c.activity_family.include?(Nomen::ActivityFamily[:animal_farming].name.to_sym) }.sort{|a,b| a.human_name <=> b.human_name }.each_with_index do |category, index|
+  - Onoma::ProcedureCategory.select { |c| c.activity_family.include?(Onoma::ActivityFamily[:animal_farming].name.to_sym) }.sort{|a,b| a.human_name <=> b.human_name }.each_with_index do |category, index|
     - procedures = Procedo::Procedure.of_main_category(category.name.to_sym)
     - procedures.select!{|p| p.has_varieties?(*filtering_varieties)} unless filtering_varieties.empty?
     - menu.separator if index > 0 && procedures.any?

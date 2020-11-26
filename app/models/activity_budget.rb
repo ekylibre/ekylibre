@@ -79,7 +79,7 @@ class ActivityBudget < Ekylibre::Record::Base
   end
 
   def currency_precision
-    Nomen::Currency.find(currency).precision
+    Onoma::Currency.find(currency).precision
   end
 
   def productions
@@ -123,12 +123,12 @@ class ActivityBudget < Ekylibre::Record::Base
   # return estimate yield from revenues item for given variety
   def estimate_yield(variety, options = {})
     # set default parameter if theres no one given
-    yield_unit = Nomen::Unit.find(options[:unit] || :quintal_per_hectare)
+    yield_unit = Onoma::Unit.find(options[:unit] || :quintal_per_hectare)
     unless yield_unit
       raise ArgumentError.new("Cannot find unit for yield estimate: #{options[:unit].inspect}")
     end
 
-    Nomen::Variety.find!(variety)
+    Onoma::Variety.find!(variety)
 
     r = []
     revenues.where(variant: ProductNatureVariant.of_variety(variety)).find_each do |item|
@@ -141,7 +141,7 @@ class ActivityBudget < Ekylibre::Record::Base
                    item.quantity
                  end
       # TODO: do dimensional analysis to find exiting unit in matching dimension if necessary
-      item_unit = Nomen::Unit.find("#{quantity_unit}_per_#{activity.size_unit.name}")
+      item_unit = Onoma::Unit.find("#{quantity_unit}_per_#{activity.size_unit.name}")
       next unless item_unit
       next unless item_unit.dimension == yield_unit.dimension
       harvest_yield = if item.per_working_unit?

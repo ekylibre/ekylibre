@@ -32,7 +32,7 @@ module Pickable
     def importable_from_nomenclature(nomenclature_table, model_name: nil, filters: {})
       record_name = controller_name.singularize
       model = model_name || controller_name.classify.constantize
-      nomenclature_model = "Nomen::#{nomenclature_table.to_s.classify}".constantize
+      nomenclature_model = "Onoma::#{nomenclature_table.to_s.classify}".constantize
 
       define_method :pick do
         instance_variable_set "@#{record_name}", model.new

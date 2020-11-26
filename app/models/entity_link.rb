@@ -70,7 +70,7 @@ class EntityLink < Ekylibre::Record::Base
 
   before_validation do
     self.started_at ||= Time.zone.now
-    if (item = Nomen::EntityLinkNature[nature])
+    if (item = Onoma::EntityLinkNature[nature])
       self.entity_role = item.entity
       self.linked_role = item.linked
     end

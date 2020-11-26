@@ -15,7 +15,7 @@ module Backend
       started_at = working_periods.reorder(started_at: :asc).first.started_at.to_date
       stopped_at = started_at + 1.day if started_at >= stopped_at
 
-      unit = Nomen::Unit[options.fetch(:time_unit, :hour)]
+      unit = Onoma::Unit[options.fetch(:time_unit, :hour)]
 
       series = []
       categories = {}

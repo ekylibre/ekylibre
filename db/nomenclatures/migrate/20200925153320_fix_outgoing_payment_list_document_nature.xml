@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<migration name="Fix outgoing payment list document nature">
-  <!-- Add your changes here -->
-  <item-removal item="document_natures#outgoing_payment_list"/>
-  <item-creation item="document_natures#outgoing_payment_list__standard" category="exploitation"/>
-  <item-creation item="document_natures#outgoing_payment_list__check_letter" category="exploitation"/>
-</migration>

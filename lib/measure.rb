@@ -14,8 +14,8 @@ class Measure
   cattr_reader :dimensions
   delegate :symbol, :base_unit, :base_dimension, :repartition_unit, :repartition_dimension, to: :nomenclature_unit
 
-  @@dimensions = Nomen.find_or_initialize(:dimensions)
-  @@units = Nomen.find_or_initialize(:units)
+  @@dimensions = Onoma.find_or_initialize(:dimensions)
+  @@units = Onoma.find_or_initialize(:units)
 
   class << self
     # Lists all units. Can be filtered on a given dimension
@@ -71,7 +71,7 @@ class Measure
       raise ArgumentError.new("Value can't be converted to float: #{value.inspect}")
     end
     @value = value.to_r
-    unit = unit.name.to_s if unit.is_a?(Nomen::Item)
+    unit = unit.name.to_s if unit.is_a?(Onoma::Item)
     @unit = unit.to_s
     unless @@units.items[@unit]
       units = @@units.where(symbol: @unit)
@@ -251,7 +251,7 @@ class Measure
     if other_unit.nil?
       value
     else
-      other_unit = other_unit.name if other_unit.is_a?(Nomen::Item)
+      other_unit = other_unit.name if other_unit.is_a?(Onoma::Item)
       unless @@units[other_unit]
         raise ArgumentError.new("Unknown unit: #{other_unit.inspect}")
       end
@@ -293,7 +293,7 @@ class Measure
   alias_method :round_l, :rounded_localize
 
   # Returns the unit from the nomenclature
-  # @return [Nomen::Item<Unit>]
+  # @return [Onoma::Item<Unit>]
   def nomenclature_unit
     @@units[unit]
   end

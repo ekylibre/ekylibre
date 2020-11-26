@@ -27,7 +27,7 @@
       %tbody#items
         = f.simple_fields_for :items, f.object.items do |item|
           = render 'item_fields', f: item
-      - precision = Nomen::Currency[f.object.currency].precision
+      - precision = Onoma::Currency[f.object.currency].precision
       %tfoot
         %tr.total
           %th

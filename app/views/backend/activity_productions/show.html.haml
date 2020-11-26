@@ -125,7 +125,7 @@
 
         = waterfall_highcharts(series, tooltip: {point_format: '{point.y: 1.3f}'}, title: {text: 'Budget prévisionnel'}, legend: {enabled: false}, x_axis: {type: 'category'}, y_axis: {title: {text: '€'}})
 
-    - if resource.interventions.any? and Nomen::Variety[resource.activity.cultivation_variety] <= :plant
+    - if resource.interventions.any? and Onoma::Variety[resource.activity.cultivation_variety] <= :plant
       - c.cobble(:production_costs, title: :production_costs.tl) do
         = render partial: 'backend/shared/production_costs', locals: { costs: resource.decorate.production_costs }
     - else

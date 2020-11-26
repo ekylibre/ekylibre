@@ -37,7 +37,7 @@
 
     .med-info.important
       %span.title= :currency.t(scope: 'preferences')
-      %span.value= Nomen::Currency.find(resource.currency).human_name.upcase
+      %span.value= Onoma::Currency.find(resource.currency).human_name.upcase
 
     - if resource.closed? && resource.archives.any?
       - ['prior_to', 'post'].each do |timing|

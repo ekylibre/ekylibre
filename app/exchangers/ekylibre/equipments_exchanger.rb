@@ -36,7 +36,7 @@ module Ekylibre
         # find or import from variant reference_nameclature the correct ProductNatureVariant
         variant = ProductNatureVariant.find_by(work_number: r.variant_reference_name)
         unless variant
-          if Nomen::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
+          if Onoma::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
             variant = ProductNatureVariant.import_from_nomenclature(r.variant_reference_name.downcase.to_sym)
           else
             raise "No variant exist in NOMENCLATURE for #{r.variant_reference_name.inspect}"

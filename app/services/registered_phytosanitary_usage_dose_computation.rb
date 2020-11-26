@@ -63,7 +63,7 @@ class RegisteredPhytosanitaryUsageDoseComputation
     # @return [Measure, nil]
     #   Returns nil either when the dimension is not handled or the computation fails
     def compute_user_measure(measure, usage, product, targets_data, spray_volume)
-      usage_unit = Nomen::Unit.find(usage.dose_unit)
+      usage_unit = Onoma::Unit.find(usage.dose_unit)
 
       if usage_unit.nil?
         nil

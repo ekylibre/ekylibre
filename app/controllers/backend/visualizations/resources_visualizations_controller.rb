@@ -20,7 +20,7 @@ module Backend
           else
             area_unit = params[:area_unit] || :hectare
             content = []
-            content << { label: Nomen::Indicator.find(:net_surface_area).human_name,
+            content << { label: Onoma::Indicator.find(:net_surface_area).human_name,
                          value: record.net_surface_area.in(area_unit).round(3).l }
             content << view_context.content_tag(:div, class: 'btn-group') do
               view_context.link_to(:show.tl, { controller: controller, action: :show, id: record.id }, class: 'btn btn-default') +

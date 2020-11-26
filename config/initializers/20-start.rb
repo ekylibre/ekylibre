@@ -26,7 +26,7 @@ require 'lexicon'
 require 'working_set'
 
 # XML definitions
-autoload :Nomen,     'nomen'
+autoload :Onoma,     'onoma'
 autoload :Aggeratio, 'aggeratio'
 # autoload :Procedo,   'procedo'
 # require 'nomen'
@@ -54,7 +54,7 @@ require 'reporting'
 require 'enumerize/xml'
 require 'state_machine/i18n'
 
-require 'open_weather_map' if Nomen[:indicators]
+require 'open_weather_map' if Onoma[:indicators]
 
 # require 'active_list'
 # ::ActionController::Base.send(:include, ActiveList::ActionPack::ActionController)

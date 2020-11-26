@@ -20,7 +20,7 @@ module Backend
   class AnalysisItemsController < Backend::BaseController
     def new
       if request.xhr?
-        unless indicator = Nomen::Indicator.find(params[:indicator_name])
+        unless indicator = Onoma::Indicator.find(params[:indicator_name])
           head :not_found
           return
         end

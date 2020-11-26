@@ -52,7 +52,7 @@ module Ekylibre
           # force import variant from lexicon or reference_nomenclature and update his attributes.
           if r.reference_name.to_s.start_with? '>'
             reference_name = r.reference_name[1..-1]
-            if (nature_item = Nomen::ProductNature.find(reference_name))
+            if (nature_item = Onoma::ProductNature.find(reference_name))
               nature = ProductNature.import_from_nomenclature(reference_name)
               category = ProductNatureCategory.import_from_nomenclature(nature_item.category)
               type = category.article_type || nature.variant_type
@@ -62,9 +62,9 @@ module Ekylibre
             end
           elsif r.france_maaid && (item = RegisteredPhytosanitaryProduct.find_by_id(r.france_maaid))
             variant = ProductNatureVariant.import_phyto_from_lexicon(item.reference_name)
-          elsif Nomen::ProductNatureVariant.find(r.reference_name)
+          elsif Onoma::ProductNatureVariant.find(r.reference_name)
             variant = ProductNatureVariant.import_from_nomenclature(r.reference_name, true)
-          elsif (nature_item = Nomen::ProductNature.find(r.reference_name))
+          elsif (nature_item = Onoma::ProductNature.find(r.reference_name))
             nature = ProductNature.import_from_nomenclature(r.reference_name)
             category = ProductNatureCategory.import_from_nomenclature(nature_item.category)
             type = category.article_type || nature.variant_type
@@ -93,8 +93,8 @@ module Ekylibre
 
             unit = r.price_unity.first
 
-            if unit.present? && !Nomen::Unit[unit]
-              if u = Nomen::Unit.find_by(symbol: unit)
+            if unit.present? && !Onoma::Unit[unit]
+              if u = Onoma::Unit.find_by(symbol: unit)
                 unit = u.name.to_s
                 measure_unit_price = 1.00.in(unit.to_sym) if unit
               else

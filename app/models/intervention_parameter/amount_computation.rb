@@ -58,7 +58,7 @@ class InterventionParameter < Ekylibre::Record::Base
 
     # FIXME: Not suitable more multi-money support
     def currency
-      Nomen::Currency.find(Preference[:currency])
+      Onoma::Currency.find(Preference[:currency])
     end
 
     def human_unit_amount(_options = {})

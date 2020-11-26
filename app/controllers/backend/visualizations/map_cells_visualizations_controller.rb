@@ -79,23 +79,23 @@ module Backend
             # TODO: refactor
             # if nitrogen_concentration
             #  popup_content << {label: :item_concentration_per_hectare.tl}
-            #  symbol = Nomen::ChemicalElement[:nitrogen].symbol
+            #  symbol = Onoma::ChemicalElement[:nitrogen].symbol
             #  popup_content << {value: "#{symbol} : #{nitrogen_concentration.in(:unity_per_hectare).round(2).l}"}
             # end
 
             # if phosphorus_concentration
-            #  symbol = Nomen::ChemicalElement[:phosphorus].symbol
+            #  symbol = Onoma::ChemicalElement[:phosphorus].symbol
             #  popup_content << {value: "#{symbol} : #{phosphorus_concentration.in(:unity_per_hectare).round(2).l}"}
             # end
 
             # if potassium_concentration
-            #  symbol = Nomen::ChemicalElement[:potassium].symbol
+            #  symbol = Onoma::ChemicalElement[:potassium].symbol
             #  popup_content << {value: "#{symbol} : #{potassium_concentration.in(:unity_per_hectare).round(2).l}"}
             # end
 
             # TODO: refactor
             # measure_unit = "#{mass_unit.to_s}_per_#{surface_unit.to_s}"
-            # yield_symbol = Nomen::Unit[measure_unit.to_sym]
+            # yield_symbol = Onoma::Unit[measure_unit.to_sym]
             surface_unit_name = :hectare
 
             # case fodder (hay, grass) in ton per hectare

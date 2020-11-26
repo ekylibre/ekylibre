@@ -290,7 +290,7 @@ class Affair < Ekylibre::Record::Base
   def finish(at: nil)
     return false if balance.zero?
     raise 'Cannot finish anymore multi-thirds affairs' if multi_thirds?
-    precision = Nomen::Currency.find(currency).precision
+    precision = Onoma::Currency.find(currency).precision
     self.class.transaction do
       # Get all VAT-specified deals
       deals_amount = deals.map do |deal|

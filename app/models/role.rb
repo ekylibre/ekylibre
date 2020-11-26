@@ -83,7 +83,7 @@ class Role < Ekylibre::Record::Base
 
   # Load a role from nomenclature
   def self.import_from_nomenclature(reference_name, _force = false)
-    unless item = Nomen::Role[reference_name]
+    unless item = Onoma::Role[reference_name]
       raise ArgumentError.new("The role #{reference_name.inspect} is not known")
     end
 

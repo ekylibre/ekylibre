@@ -98,7 +98,7 @@ class Preference < Ekylibre::Record::Base
 
     def type_to_nature(object)
       klass = object.class.to_s
-      if object.is_a?(Nomen::Item) && nature = object.nomenclature.name.to_s.singularize.to_sym && nature.values.include?(nature)
+      if object.is_a?(Onoma::Item) && nature = object.nomenclature.name.to_s.singularize.to_sym && nature.values.include?(nature)
         nature
       elsif %w[String Symbol NilClass].include? klass
         :string
@@ -185,12 +185,12 @@ class Preference < Ekylibre::Record::Base
   prefer :use_global_search, :boolean, false
   prefer :use_entity_codes_for_account_numbers, :boolean, true
   prefer :sales_conditions, :string, ''
-  prefer :accounting_system, :accounting_system, Nomen::AccountingSystem.default('fr_pcga')
-  prefer :fiscal_position, :fiscal_position, Nomen::FiscalPosition.default('fr_ba_ir')
-  prefer :language, :language, Nomen::Language.default
-  prefer :country,  :country, Nomen::Country.default
+  prefer :accounting_system, :accounting_system, Onoma::AccountingSystem.default('fr_pcga')
+  prefer :fiscal_position, :fiscal_position, Onoma::FiscalPosition.default('fr_ba_ir')
+  prefer :language, :language, Onoma::Language.default
+  prefer :country,  :country, Onoma::Country.default
   prefer :currency, :currency, :EUR
-  prefer :map_measure_srs, :spatial_reference_system, Nomen::SpatialReferenceSystem.default
+  prefer :map_measure_srs, :spatial_reference_system, Onoma::SpatialReferenceSystem.default
   prefer :create_activities_from_telepac, :boolean, false
   prefer :catalog_price_item_addition_if_blank, :boolean, true
   prefer :client_account_radix, :string, ''

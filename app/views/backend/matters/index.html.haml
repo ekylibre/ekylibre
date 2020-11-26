@@ -2,7 +2,7 @@
   - k.text
   - k.helper :journal_period_crit
   - k.choice :all, :consume, :available
-  - k.list :working_set, label: :options.tl, list_values: Nomen::WorkingSet.selection
+  - k.list :working_set, label: :options.tl, list_values: Onoma::WorkingSet.selection
   - if ProductLabelling.any?
     - k.helper do
       %label= Label.model_name.human

@@ -218,13 +218,13 @@ class Inspection < Ekylibre::Record::Base
 
   # UNITS
   def quantity_unit(dimension)
-    return Nomen::Unit.find(default_quantity_unit(dimension)) if dimension.to_sym == :items_count
+    return Onoma::Unit.find(default_quantity_unit(dimension)) if dimension.to_sym == :items_count
     return grading_net_mass_unit                              if dimension.to_sym == :net_mass
   end
 
   def quantity_per_area_unit(dimension)
     possible_unit = "#{quantity_unit(dimension).name}_per_#{product_net_surface_area.unit}"
-    return possible_unit if Nomen::Unit.find(possible_unit)
+    return possible_unit if Onoma::Unit.find(possible_unit)
     default_per_area_unit(dimension)
   end
 

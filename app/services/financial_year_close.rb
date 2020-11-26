@@ -193,7 +193,7 @@ class FinancialYearClose
     # FIXME: Manage non-french accounts
     def generate_result_entry!
       accounts = %i[expenses revenues]
-      accounts = accounts.map { |acc| Nomen::Account.find(acc).send(Account.accounting_system) }
+      accounts = accounts.map { |acc| Onoma::Account.find(acc).send(Account.accounting_system) }
 
       balances = @year.account_balances_for(accounts)
 

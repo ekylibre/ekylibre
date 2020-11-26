@@ -38,7 +38,7 @@ module Backend
     end
 
     def index
-      @currency = Nomen::Currency.find(Preference[:currency])
+      @currency = Onoma::Currency.find(Preference[:currency])
       activities_of_campaign = Activity.of_campaign(current_campaign)
       @availables_activities = Activity.availables.where.not(id: activities_of_campaign)
       @families = activities_of_campaign.order(:family).collect(&:family).uniq
@@ -126,7 +126,7 @@ module Backend
 
     # Returns wanted varieties proposition for given family_name
     def family
-      unless family = Nomen::ActivityFamily[params[:name]]
+      unless family = Onoma::ActivityFamily[params[:name]]
         head :not_found
         return
       end
@@ -135,10 +135,10 @@ module Backend
         name: family.name
       }
       if family.cultivation_variety.present?
-        data[:cultivation_varieties] = Nomen::Variety.selection_hash(family.cultivation_variety)
+        data[:cultivation_varieties] = Onoma::Variety.selection_hash(family.cultivation_variety)
       end
       if family.support_variety.present?
-        data[:support_varieties] = Nomen::Variety.selection_hash(family.support_variety)
+        data[:support_varieties] = Onoma::Variety.selection_hash(family.support_variety)
       end
       render json: data
     end

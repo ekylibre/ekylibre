@@ -11,7 +11,7 @@
     = t.menu(displayed_state, class: "btn btn-primary dropdown", icon: false, disable_with: tl(:please_wait), force_menu: true) do |menu|
       - menu.item(next_state[0], change_state_backend_interventions_path(:intervention => { :interventions_ids => ([resource.id]).to_json, state: next_state[1].to_sym }), method: :post) if next_state
 
-- currency = Nomen::Currency.find(resource.currency)
+- currency = Onoma::Currency.find(resource.currency)
 
 = cobbles do |c|
   - if params[:mode] == 'spraying'
@@ -25,7 +25,7 @@
       tractor = tractor_tool.product
       series = []
       [:fuel_consumption].each do |indicator_name|
-        indicator = Nomen::Indicator[indicator_name]
+        indicator = Onoma::Indicator[indicator_name]
         readings = ProductReading.where(indicator_name: indicator_name, product: tractor).between(resource.started_at, resource.stopped_at)
         next unless readings.any?
         data = readings.reorder(:read_at).map do |reading|
@@ -36,7 +36,7 @@
           name: indicator.human_name,
           data: data,
           tooltip: {
-            value_suffix: " #{Nomen::Unit[indicator.unit].symbol}"
+            value_suffix: " #{Onoma::Unit[indicator.unit].symbol}"
           }
         }
       end
@@ -68,7 +68,7 @@
           %span.value= resource.human_working_zone_area(precision: 2)
 
         .big-info
-          - unit = Nomen::Unit.find(:hectare)
+          - unit = Onoma::Unit.find(:hectare)
           %span.title= Intervention.human_attribute_name(:costs_per_unit, unit: unit.human_name)
           - total_cost_per_area = resource.total_cost_per_area(unit)
           - if total_cost_per_area

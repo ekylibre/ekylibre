@@ -33,7 +33,7 @@ module Interventions
 
         zero_as_nil = ->(value) { value.zero? ? None() : value }
         params = {
-          into: Nomen::Unit.find(product_usage.usage.dose_unit),
+          into: Onoma::Unit.find(product_usage.usage.dose_unit),
           area: Maybe(shapes_area.in(:hectare)).fmap(&zero_as_nil),
           net_mass: Maybe(product_usage.product.net_mass).fmap(&zero_as_nil),
           net_volume: Maybe(product_usage.product.net_volume).fmap(&zero_as_nil),

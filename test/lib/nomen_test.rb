@@ -1,11 +1,11 @@
 require 'test_helper'
 
-class NomenTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
+class OnomaTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   setup do
     I18n.locale = ENV['LOCALE']
   end
 
-  Nomen.each do |nomenclature|
+  Onoma.each do |nomenclature|
     test "#{nomenclature.name} translations unicity" do
       translations = nomenclature.list.map(&:human_name)
       unique_translations = translations.uniq
@@ -16,7 +16,7 @@ class NomenTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
   test 'working_sets expression' do
     invalids = []
-    Nomen::WorkingSet.list.each do |item|
+    Onoma::WorkingSet.list.each do |item|
       begin
         WorkingSet.to_sql(item.expression)
       rescue WorkingSet::SyntaxError => e
@@ -36,7 +36,7 @@ class NomenTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
   test 'product_natures abilities' do
     invalids = []
-    Nomen::ProductNature.list.each do |item|
+    Onoma::ProductNature.list.each do |item|
       begin
         WorkingSet::AbilityArray.load(item.abilities).check!
       rescue Exception => e
@@ -56,12 +56,12 @@ class NomenTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
   test 'product_nature_variants indicators' do
     invalids = []
-    Nomen::ProductNatureVariant.find_each do |item|
+    Onoma::ProductNatureVariant.find_each do |item|
       if item.frozen_indicators_values.to_s.present?
         item.frozen_indicators_values.to_s.strip.split(/[[:space:]]*\,[[:space:]]*/)
             .collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.each do |i|
           indicator_name = i.first.strip.downcase.to_sym
-          nature = Nomen::ProductNature.find(item.nature)
+          nature = Onoma::ProductNature.find(item.nature)
           unless nature.frozen_indicators.include? indicator_name
             invalids << { item: item, exception: "Indicator :#{indicator_name} is not one of '#{item.name}' nature '#{item.nature}'" }
           end

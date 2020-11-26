@@ -139,7 +139,7 @@ module Ekylibre
           Rails.logger.warn "Cannot support Proc scope in #{self.class.name}" unless scope.nil?
           column = ["#{name}_tid".to_sym, "#{name}_name".to_sym, name].detect { |c| columns_definition[c] }
           options[:foreign_key] ||= column
-          reflection = Nomen::Reflection.new(self, name, options)
+          reflection = Onoma::Reflection.new(self, name, options)
           @nomenclature_reflections ||= {}.with_indifferent_access
           @nomenclature_reflections[reflection.name] = reflection
           enumerize reflection.foreign_key, in: reflection.all(reflection.scope),
@@ -163,7 +163,7 @@ module Ekylibre
           end
 
           define_method "#{name}=" do |value|
-            self[reflection.foreign_key] = value.is_a?(Nomen::Item) ? value.name : value
+            self[reflection.foreign_key] = value.is_a?(Onoma::Item) ? value.name : value
           end
 
           # Define a default scope "of_<name>"
@@ -172,7 +172,7 @@ module Ekylibre
           }
 
           define_method "of_#{name}?" do |item_or_name|
-            item = item_or_name.is_a?(Nomen::Item) ? item_or_name : reflection.klass.find(item_or_name)
+            item = item_or_name.is_a?(Onoma::Item) ? item_or_name : reflection.klass.find(item_or_name)
             self[reflection.foreign_key].present? && item >= self[reflection.foreign_key]
           end
         end

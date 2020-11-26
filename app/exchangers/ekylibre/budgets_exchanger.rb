@@ -22,7 +22,7 @@ module Ekylibre
         campaign_harvest_year = s.cell('A', 2).to_i
         activity_name = (s.cell('B', 2).blank? ? nil : s.cell('B', 2).to_s.strip)
         # activity_name[0] : activity_name, ex : 'Les papiers'
-        # activity_name[1] : Nomen::ActivityFamily code, ex : administrative
+        # activity_name[1] : Onoma::ActivityFamily code, ex : administrative
         activity_family = (s.cell('C', 2).blank? ? nil : s.cell('C', 2).to_s.strip)
         activity_variety = (s.cell('D', 2).blank? ? nil : s.cell('D', 2).to_s.strip)
         # production_support_numbers[0] : support number, ex : ZC32
@@ -40,8 +40,8 @@ module Ekylibre
         activity = Activity.find_by(name: activity_name)
         unless activity
           if activity_name && activity_family
-            family = Nomen::ActivityFamily.find(activity_family.to_sym)
-            variety = Nomen::Variety.find(activity_variety.to_sym) if activity_variety
+            family = Onoma::ActivityFamily.find(activity_family.to_sym)
+            variety = Onoma::Variety.find(activity_variety.to_sym) if activity_variety
             if family
               # create activity
 
@@ -133,7 +133,7 @@ module Ekylibre
           else
             unless item_variant = ProductNatureVariant.find_by(work_number: r.item_code_variant) ||
                                   ProductNatureVariant.find_by(reference_name: r.item_code_variant)
-              if Nomen::ProductNatureVariant[r.item_code_variant]
+              if Onoma::ProductNatureVariant[r.item_code_variant]
                 item_variant = ProductNatureVariant.import_from_nomenclature(r.item_code_variant)
               else
                 w.error "No variant could be created with #{r.item_code_variant}"
@@ -149,8 +149,8 @@ module Ekylibre
 
           # Find unit and matching indicator
           unit = r.item_quantity_unity.first
-          if unit.present? && !Nomen::Unit[unit]
-            if u = Nomen::Unit.find_by(symbol: unit)
+          if unit.present? && !Onoma::Unit[unit]
+            if u = Onoma::Unit.find_by(symbol: unit)
               unit = u.name.to_s
             else
               raise ActiveExchanger::NotWellFormedFileError.new("Unknown unit #{unit.inspect} for variant #{item_variant.name.inspect}.")

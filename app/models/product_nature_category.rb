@@ -63,7 +63,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
   include Providable
 
   # Be careful with the fact that it depends directly on the nomenclature definition
-  enumerize :pictogram, in: Nomen::ProductNatureCategory.pictogram.choices
+  enumerize :pictogram, in: Onoma::ProductNatureCategory.pictogram.choices
   enumerize :type, in: %w[Animal Article Crop Equipment Service Worker Zone].map { |t| "VariantCategories::#{t}Category" }
   # refers_to :pictogram, class_name: 'ProductPictograms'
   belongs_to :fixed_asset_account, class_name: 'Account'
@@ -170,12 +170,12 @@ class ProductNatureCategory < Ekylibre::Record::Base
     # Returns some nomenclature items are available to be imported, e.g. not
     # already imported
     def any_reference_available?
-      Nomen::ProductNatureCategory.without(ProductNatureCategory.pluck(:reference_name).uniq).any?
+      Onoma::ProductNatureCategory.without(ProductNatureCategory.pluck(:reference_name).uniq).any?
     end
 
     # Load a product nature category from product nature category nomenclature
     def import_from_nomenclature(reference_name, force = false)
-      unless (item = Nomen::ProductNatureCategory.find(reference_name))
+      unless (item = Onoma::ProductNatureCategory.find(reference_name))
         raise ArgumentError.new("The product_nature_category #{reference_name.inspect} is unknown")
       end
       unless force
@@ -263,7 +263,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
     end
 
     def load_defaults(**_options)
-      Nomen::ProductNatureCategory.find_each do |product_nature_category|
+      Onoma::ProductNatureCategory.find_each do |product_nature_category|
         import_from_nomenclature(product_nature_category.name)
       end
     end
@@ -271,7 +271,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
     private
 
       def compute_type_from_nomenclature(reference_name)
-        Nomen::ProductNature.list.select { |n| n.category.to_s == reference_name.to_s }.map(&:nature).group_by { |n| n }.max_by { |_k, v| v.count }&.first
+        Onoma::ProductNature.list.select { |n| n.category.to_s == reference_name.to_s }.map(&:nature).group_by { |n| n }.max_by { |_k, v| v.count }&.first
       end
   end
 end

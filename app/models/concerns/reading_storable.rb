@@ -78,7 +78,7 @@ module ReadingStorable
   end
 
   def indicator
-    Nomen::Indicator[indicator_name]
+    Onoma::Indicator[indicator_name]
   end
 
   def indicator=(item)
@@ -90,7 +90,7 @@ module ReadingStorable
   # methods defined here are going to extend the class, not the instance of it
   module ClassMethods
     def value_column(indicator_name)
-      unless indicator = Nomen::Indicator[indicator_name]
+      unless indicator = Onoma::Indicator[indicator_name]
         raise ArgumentError.new("Expecting an indicator name. Got #{indicator_name.inspect}.")
       end
       { measure: :measure_value_value }[indicator.datatype] || "#{indicator.datatype}_value".to_sym

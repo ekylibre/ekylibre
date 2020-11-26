@@ -135,7 +135,7 @@ class MeasureTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
   test 'all units' do
     value = 5123.23
-    Nomen::Unit.items.values.each do |unit|
+    Onoma::Unit.items.values.each do |unit|
       assert_nothing_raised do
         Measure.new("#{value} #{unit.symbol}")
         Measure.new("#{value}#{unit.symbol}")

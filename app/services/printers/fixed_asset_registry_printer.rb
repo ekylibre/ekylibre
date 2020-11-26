@@ -89,7 +89,7 @@ module Printers
     end
 
     def currency
-      @currency ||= Nomen::Currency.find(Preference[:currency])
+      @currency ||= Onoma::Currency.find(Preference[:currency])
     end
 
     def as_currency(value)
