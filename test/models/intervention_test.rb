@@ -87,7 +87,10 @@ class InterventionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'destruction protection' do
     # It should not be possible to destroy an intervention marked as done
     assert_not interventions(:interventions_005).destroyable?
-    assert_raise Ekylibre::Record::RecordNotDestroyable do
+
+    # This was updated from Ekylibre::Record::RecordNotDestroyable to ActiveRecord::DeleteRestrictionError because it seems the last changes
+    # made the ActiveRecord callbacks checking for dependent models run BEFORE the Ekylibre::Record::Acts::Protected callbacks.
+    assert_raise ActiveRecord::DeleteRestrictionError do
       Intervention.destroy(interventions(:interventions_005).id)
     end
   end

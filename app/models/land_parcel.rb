@@ -106,8 +106,8 @@ class LandParcel < Easement
     end
   end
 
-  def destroyable?
-    super && !(activity_productions.any? || analyses.any?)
+  protect(on: :destroy) do
+    activity_productions.any? || analyses.any?
   end
 
   def human_initial_shape_area_unit
