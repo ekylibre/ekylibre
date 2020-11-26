@@ -45,5 +45,3 @@ module Ekylibre
     end
   end
 end
-
-Ekylibre::Record::Base.send(:include, Ekylibre::Record::Autosave)

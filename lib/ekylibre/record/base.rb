@@ -1,12 +1,33 @@
+require_dependency 'ekylibre/record/acts/affairable'
+require_dependency 'ekylibre/record/acts/numbered'
+require_dependency 'ekylibre/record/acts/picturable'
+require_dependency 'ekylibre/record/acts/protected'
+require_dependency 'ekylibre/record/acts/reconcilable'
+require_dependency 'ekylibre/record/acts/referable'
+require_dependency 'ekylibre/record/autosave'
+require_dependency 'ekylibre/record/bookkeep'
+require_dependency 'ekylibre/record/dependents'
+require_dependency 'ekylibre/record/has_shape'
+require_dependency 'ekylibre/record/selects_among_all'
+require_dependency 'ekylibre/record/sums'
+
 module Ekylibre
   module Record
-    class RecordInvalid < ActiveRecord::RecordNotSaved
-    end
-
-    class Scope < Struct.new(:name, :arity)
-    end
-
     class Base < ApplicationRecord
+      include Ekylibre::Record::Acts::Affairable
+      include Ekylibre::Record::Acts::Numbered
+      include Ekylibre::Record::Acts::Picturable
+      include Ekylibre::Record::Acts::Protected
+      include Ekylibre::Record::Acts::Reconcilable
+      include Ekylibre::Record::Acts::Referable
+
+      include Ekylibre::Record::Autosave
+      include Ekylibre::Record::Bookkeep
+      include Ekylibre::Record::Dependents
+      include Ekylibre::Record::HasShape
+      include Ekylibre::Record::SelectsAmongAll
+      include Ekylibre::Record::Sums
+
       include ConditionalReadonly # TODO: move to ApplicationRecord
       include ScopeIntrospection # TODO: move to ApplicationRecord
       include Userstamp::Stamper
@@ -15,36 +36,11 @@ module Ekylibre
 
       self.abstract_class = true
 
-      # Replaces old module: ActiveRecord::Acts::Tree
-      # include ActsAsTree
-
       # Permits to use enumerize in all models
       extend Enumerize
 
       # Make all models stampables
       stampable
-
-      before_update :check_if_updateable?
-      before_destroy :check_if_destroyable?
-
-      def check_if_updateable?
-        true
-        # raise RecordNotUpdateable unless self.updateable?
-      end
-
-      def check_if_destroyable?
-        unless destroyable?
-          raise RecordNotDestroyable.new("#{self.class.name} ID=#{id} is not destroyable")
-        end
-      end
-
-      def destroyable?
-        true
-      end
-
-      def updateable?
-        true
-      end
 
       def editable?
         updateable?
@@ -101,80 +97,8 @@ module Ekylibre
       class << self
         attr_accessor :readonly_counter
 
-        def has_picture(options = {})
-          default_options = {
-            url: '/backend/:class/:id/picture/:style',
-            path: ':tenant/:class/:attachment/:id_partition/:style.:extension',
-            styles: {
-              thumb: ['64x64>', :jpg],
-              identity: ['180x180#', :jpg],
-              contact: ['720x720#', :jpg]
-            },
-            convert_options: {
-              thumb:    '-background white -gravity center -extent 64x64',
-              identity: '-background white -gravity center -extent 180x180',
-              contact: '-background white -gravity center -extent 720x720'
-            }
-          }
-          has_attached_file :picture, default_options.deep_merge(options)
-        end
-
         def columns_definition
           Ekylibre::Schema.tables[table_name] || {}.with_indifferent_access
-        end
-
-        def nomenclature_reflections
-          @nomenclature_reflections ||= {}.with_indifferent_access
-          if superclass.respond_to?(:nomenclature_reflections)
-            superclass.nomenclature_reflections.merge(@nomenclature_reflections)
-          else
-            @nomenclature_reflections
-          end
-        end
-
-        # Link to nomenclature
-        def refers_to(name, *args)
-          options = args.extract_options!
-          scope = args.shift
-          Rails.logger.warn "Cannot support Proc scope in #{self.class.name}" unless scope.nil?
-          column = ["#{name}_tid".to_sym, "#{name}_name".to_sym, name].detect { |c| columns_definition[c] }
-          options[:foreign_key] ||= column
-          reflection = Onoma::Reflection.new(self, name, options)
-          @nomenclature_reflections ||= {}.with_indifferent_access
-          @nomenclature_reflections[reflection.name] = reflection
-          enumerize reflection.foreign_key, in: reflection.all(reflection.scope),
-                                            predicates: options[:predicates],
-                                            i18n_scope: ["nomenclatures.#{reflection.nomenclature}.items"]
-
-          if reflection.foreign_key != reflection.name
-            define_method name do
-              reflection.klass.find(self[reflection.foreign_key])
-            end
-          else
-            define_method "#{name}_name" do
-              item = reflection.klass.find(self[reflection.foreign_key])
-              item ? item.name : nil
-            end
-          end
-
-          define_method "human_#{name}_name" do
-            item = reflection.klass.find(self[reflection.foreign_key])
-            item ? item.human_name : nil
-          end
-
-          define_method "#{name}=" do |value|
-            self[reflection.foreign_key] = value.is_a?(Onoma::Item) ? value.name : value
-          end
-
-          # Define a default scope "of_<name>"
-          scope "of_#{name}".to_sym, proc { |*items|
-            where(reflection.foreign_key => items.map { |i| reflection.klass.all(i) }.flatten.uniq)
-          }
-
-          define_method "of_#{name}?" do |item_or_name|
-            item = item_or_name.is_a?(Onoma::Item) ? item_or_name : reflection.klass.find(item_or_name)
-            self[reflection.foreign_key].present? && item >= self[reflection.foreign_key]
-          end
         end
       end
     end
