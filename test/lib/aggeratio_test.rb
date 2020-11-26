@@ -20,7 +20,6 @@ class AggeratioTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     Ekylibre::Tenant.switch! @current_tenant
   end
 
-
   Aggeratio.each_xml_aggregator do |element|
     agg = Aggeratio::Base.new(element)
     klass = "Aggeratio::#{agg.class_name}".constantize
@@ -37,7 +36,7 @@ class AggeratioTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       xml = aggregator.to_xml
 
       # Test PDF export
-      if defined?(Beardley) && Nomen::DocumentNature[klass.aggregator_name]
+      if defined?(Beardley) && Onoma::DocumentNature[klass.aggregator_name]
         DocumentTemplate.where(nature: klass.aggregator_name).each do |template|
           template.export(xml, rand(999_999).to_s(36), :pdf)
         end

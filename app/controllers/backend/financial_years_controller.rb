@@ -145,7 +145,7 @@ module Backend
       @result = AccountancyComputation.new(@financial_year).sum_entry_items_by_line(:profit_and_loss_statement, :exercice_result)
       allocations = if Entity.of_company.of_capital? || Entity.of_company.of_person?
                       if (@result + @carry_forward_balance).positive?
-                        params[:allocations].to_unsafe_h || {}
+                        params[:allocations]&.to_unsafe_h || {}
                       else
                         { '119' => (@result + @carry_forward_balance).abs }
                       end

@@ -31,7 +31,7 @@ module Backend
       code
     end
 
-    list(conditions: matters_conditions, join: :variant) do |t|
+    list(conditions: matters_conditions, join: :variant, distinct: true) do |t|
       t.action :edit
       t.action :destroy, if: :destroyable?
       t.column :number, url: true

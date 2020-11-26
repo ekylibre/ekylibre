@@ -17,7 +17,7 @@ class PurchaseDecorator < Draper::Decorator
     return 0 unless object.items.any?
 
     decorate_items.map do |item|
-      if item.tax.nil?
+      if item.tax.nil? || item.tax.intracommunity
         0
       else
         item.pretax_amount * item.tax.amount / 100

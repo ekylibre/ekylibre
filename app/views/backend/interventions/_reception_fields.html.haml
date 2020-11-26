@@ -18,7 +18,7 @@
 			disabled: true,
 			value: purchase_order,
 			data: { 'when-item': 'id',
-				'when-filter-value': { of_supplier: 'RECORD_VALUE'}, 'generate-items': true }},
+				'when-filter-value': { of_supplier_with_only_services: 'RECORD_VALUE' }, 'generate-items': true }},
 				required: true
 	= f.input :reference_number, label: :supplier_reference.tl, input_html: {name:"intervention[receptions_attributes][0][reference_number]"}
 	.purchase-items-array

@@ -29,7 +29,7 @@ module Interventions
 
     test 'convert_net_into_population computes value if net reference is provided' do
       assert_measure_equal 25.in(:population), @converter.convert_net_into_population(50.in(:kilogram), net_unit_value: Maybe(2.in(:kilogram))).or_raise
-      assert_measure_equal 25000.in(:population), @converter.convert_net_into_population(50.in(:kilogram), net_unit_value: Maybe(2.in(:gram))).or_raise
+      assert_measure_equal 25_000.in(:population), @converter.convert_net_into_population(50.in(:kilogram), net_unit_value: Maybe(2.in(:gram))).or_raise
     end
 
     test 'convert_net_into_population returns None if net reference is not in the same dimension as the measure to convert' do
@@ -41,7 +41,7 @@ module Interventions
     end
 
     test 'convert_mass_or_volume_into_population computes value if unit handled' do
-      assert_measure_equal 25.in(:population), @converter.convert_mass_or_volume_into_population(50000.in(:gram), net_mass: Maybe(2.in(:kilogram)), net_volume: Maybe(3.in(:liter))).or_raise
+      assert_measure_equal 25.in(:population), @converter.convert_mass_or_volume_into_population(50_000.in(:gram), net_mass: Maybe(2.in(:kilogram)), net_volume: Maybe(3.in(:liter))).or_raise
       assert_measure_equal 25.in(:population), @converter.convert_mass_or_volume_into_population(50.in(:kilogram), net_mass: Maybe(2.in(:kilogram)), net_volume: Maybe(3.in(:liter))).or_raise
       assert_measure_equal 20.in(:population), @converter.convert_mass_or_volume_into_population(60.in(:liter), net_mass: Maybe(2.in(:kilogram)), net_volume: Maybe(3.in(:liter))).or_raise
     end
@@ -49,9 +49,9 @@ module Interventions
     test 'compute_ratio_between_net_units computes the ratio' do
       assert_equal 2.0, @converter.compute_ratio_between_net_units(from: unit(:kilogram), to: unit(:liter), net_mass: Maybe(1.in(:kilogram)), net_volume: Maybe(2.in(:liter))).or_raise
       assert_equal 0.5, @converter.compute_ratio_between_net_units(from: unit(:liter), to: unit(:kilogram), net_mass: Maybe(1.in(:kilogram)), net_volume: Maybe(2.in(:liter))).or_raise
-      assert_equal 0.5, @converter.compute_ratio_between_net_units(from: unit(:liter), to: unit(:kilogram), net_mass: Maybe(1000.in(:gram)), net_volume: Maybe(2.in(:liter))).or_raise
-      assert_equal 0.5, @converter.compute_ratio_between_net_units(from: unit(:liter), to: unit(:kilogram) ,net_mass: Maybe(1.in(:kilogram)), net_volume: Maybe(2000.in(:milliliter))).or_raise
-      assert_equal 1.0, @converter.compute_ratio_between_net_units(from: unit(:liter), to: unit(:liter), net_mass: Maybe(1.in(:kilogram)), net_volume: Maybe(2000.in(:milliliter))).or_raise
+      assert_equal 0.5, @converter.compute_ratio_between_net_units(from: unit(:liter), to: unit(:kilogram), net_mass: Maybe(1_000.in(:gram)), net_volume: Maybe(2.in(:liter))).or_raise
+      assert_equal 0.5, @converter.compute_ratio_between_net_units(from: unit(:liter), to: unit(:kilogram), net_mass: Maybe(1.in(:kilogram)), net_volume: Maybe(2_000.in(:milliliter))).or_raise
+      assert_equal 1.0, @converter.compute_ratio_between_net_units(from: unit(:liter), to: unit(:liter), net_mass: Maybe(1.in(:kilogram)), net_volume: Maybe(2_000.in(:milliliter))).or_raise
       assert_equal 0.005, @converter.compute_ratio_between_net_units(from: unit(:centiliter), to: unit(:kilogram), net_mass: Maybe(1.in(:kilogram)), net_volume: Maybe(2.in(:liter))).or_raise
       assert_equal None(), @converter.compute_ratio_between_net_units(from: unit(:kilogram_per_liter), to: unit(:liter), net_mass: Maybe(1.in(:kilogram)), net_volume: Maybe(2.in(:liter)))
       assert_equal None(), @converter.compute_ratio_between_net_units(from: unit(:kilogram), to: unit(:kilogram_per_liter), net_mass: Maybe(1.in(:kilogram)), net_volume: Maybe(2.in(:liter)))
@@ -75,8 +75,8 @@ module Interventions
     end
 
     test 'convert works if measure and asked units have the same dimension' do
-      assert_measure_equal 1.in(:kilogram), @converter.convert(1000.in(:gram), into: unit(:kilogram), area: None(), net_mass: None(), net_volume: None(), spray_volume: None()).or_raise
-      assert_measure_equal 1.in(:liter), @converter.convert(1000.in(:milliliter), into: unit(:liter), area: None(), net_mass: None(), net_volume: None(), spray_volume: None()).or_raise
+      assert_measure_equal 1.in(:kilogram), @converter.convert(1_000.in(:gram), into: unit(:kilogram), area: None(), net_mass: None(), net_volume: None(), spray_volume: None()).or_raise
+      assert_measure_equal 1.in(:liter), @converter.convert(1_000.in(:milliliter), into: unit(:liter), area: None(), net_mass: None(), net_volume: None(), spray_volume: None()).or_raise
       assert_measure_equal 1.in(:liter_per_hectare), @converter.convert(0.0001.in(:liter_per_square_meter), into: unit(:liter_per_hectare), area: None(), net_mass: None(), net_volume: None(), spray_volume: None()).or_raise
     end
 
@@ -103,7 +103,7 @@ module Interventions
 
     test 'convert_net_into_area_density handles conversion from net to net_area_density' do
       assert_measure_equal 1.in(:liter_per_hectare), @converter.convert_net_into_area_density(5.in(:liter), into: unit(:liter_per_hectare), area: Maybe(5.in(:hectare))).or_raise
-      assert_measure_equal 0.1.in(:gram_per_square_meter), @converter.convert_net_into_area_density(5000.in(:kilogram), into: unit(:gram_per_square_meter), area: Maybe(50000.in(:square_meter))).or_raise
+      assert_measure_equal 0.1.in(:gram_per_square_meter), @converter.convert_net_into_area_density(5_000.in(:kilogram), into: unit(:gram_per_square_meter), area: Maybe(50_000.in(:square_meter))).or_raise
     end
 
     test 'convert_net_into_area_density does not handle net unit conversion' do
@@ -143,7 +143,7 @@ module Interventions
       assert_measure_equal 2.in(:liter), @converter.convert_concentration_into_net(2.in(:liter_per_hectoliter), into: unit(:liter), area: Maybe(5.in(:hectare)), net_mass: Maybe(1.in(:kilogram)), net_volume: Maybe(2.in(:liter)), spray_volume: Maybe(20.in(:liter_per_hectare))).or_raise
       assert_measure_equal 2.in(:liter), @converter.convert_concentration_into_net(1.in(:kilogram_per_hectoliter), into: unit(:liter), area: Maybe(5.in(:hectare)), net_mass: Maybe(1.in(:kilogram)), net_volume: Maybe(2.in(:liter)), spray_volume: Maybe(20.in(:liter_per_hectare))).or_raise
       assert_measure_equal 1.in(:kilogram), @converter.convert_concentration_into_net(2.in(:liter_per_hectoliter), into: unit(:kilogram), area: Maybe(5.in(:hectare)), net_mass: Maybe(1.in(:kilogram)), net_volume: Maybe(2.in(:liter)), spray_volume: Maybe(20.in(:liter_per_hectare))).or_raise
-      assert_measure_equal 1.in(:kilogram), @converter.convert_concentration_into_net(1.in(:kilogram_per_hectoliter), into: unit(:kilogram), area: Maybe(50000.in(:square_meter)), net_mass: Maybe(1.in(:kilogram)), net_volume: Maybe(2.in(:liter)), spray_volume: Maybe(20.in(:liter_per_hectare))).or_raise
+      assert_measure_equal 1.in(:kilogram), @converter.convert_concentration_into_net(1.in(:kilogram_per_hectoliter), into: unit(:kilogram), area: Maybe(50_000.in(:square_meter)), net_mass: Maybe(1.in(:kilogram)), net_volume: Maybe(2.in(:liter)), spray_volume: Maybe(20.in(:liter_per_hectare))).or_raise
       assert_equal None(), @converter.convert_concentration_into_net(1.in(:kilogram_per_hectoliter), into: unit(:kilogram), area: Maybe(5.in(:hectare)), net_mass: Maybe(1.in(:kilogram)), net_volume: Maybe(2.in(:liter)), spray_volume: Maybe(20.in(:milliliter_per_square_meter)))
       assert_equal None(), @converter.convert_concentration_into_net(1.in(:gram_per_liter), into: unit(:kilogram), area: Maybe(5.in(:hectare)), net_mass: Maybe(1.in(:kilogram)), net_volume: Maybe(2.in(:liter)), spray_volume: Maybe(20.in(:milliliter_per_square_meter)))
     end
@@ -176,7 +176,7 @@ module Interventions
     end
 
     def unit(name)
-      u = Nomen::Unit.find(name)
+      u = Onoma::Unit.find(name)
       refute_nil u, "The unit #{name} does not exist"
       u
     end

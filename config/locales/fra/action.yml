@@ -350,7 +350,7 @@ fra:
       edit: "Modifier l’intervention"
       edit_request: "Modifier la demande d’intervention"
       edit_specified: "Modifier l’intervention %{procedure_name} n°%{number}"
-      edit_specified_request: "Modifier la demande de %{procedure_name} n°%{number}"
+      edit_specified_request: "Modifier la planification de %{procedure_name} n°%{number}"
       index: "Interventions"
       new: "Nouvelle intervention"
       new_request: "Nouvelle planification d’intervention"
@@ -1044,6 +1044,10 @@ fra:
     unroll:
       server_error: "Erreur serveur"
   labels:
+    configure_naming_format: "Paramétrer le format de nommage"
+    free_field_naming_format_hint: "Vous pouvez ajouter un champ libre personnalisé en paramétrant votre format de nommage"
+    land_parcel_support_name: "Nom de la parcelle"
+    free_field: "Champ libre"
     abilities: "Compétences" #?
     accepted: "Acceptée"
     accepted_for_paiment: "Acceptée pour paiement"
@@ -1347,6 +1351,7 @@ fra:
     cancelled: "Passées en avoir" #?
     cannot_be_mixed_with: "Ne peut être mélangé avec le produit %{phyto}"
     cannot_be_mixed_with_any_product: "Ne peut être mélangé avec aucun autre produit"
+    cannot_delete_this_production: "Intervention ou culture est liée à cette production. Vous ne pouvez pas la supprimer."
     cap_islets: "Îlots PAC"
     cap_land_parcels: "Parcelles PAC"
     capitalised_production: "Production immobilisée"
@@ -1751,8 +1756,8 @@ fra:
     estimate: "Devis" #?
     estimate_to_order: "Passer le devis en commande" #?
     estimate_yield: "Rendement estimé"
-    etract_account_as_odt: "Extrait de compte en ODT" #?
-    etract_account_as_pdf: "Extrait de compte en PDF" #?
+    extract_account_as_odt: "Extrait de compte en ODT" #?
+    extract_account_as_pdf: "Extrait de compte en PDF" #?
     europe_out_export: "Exportations hors CE" #?
     evaluated_direct_margin: "Marge directe évaluée" #?
     evaluated_doer_cost: "Coût main d’œuvre"
@@ -2339,7 +2344,9 @@ fra:
     no_previous_closure_so_think_about_providing_carrying_forward_entry: "Pensez à saisir votre écriture de report à nouveau de l'exercice précédent au premier jour de l'exercice à clôturer."
     no_products: "Sans produit"
     no_proposer: "— Sans parrain ni marraine —" #?
+    no_purchase_order_to_reconcile_for_this_supplier: "Il n'y a pas de commande à rapprocher pour ce fournisseur."
     no_purchases: "Aucun achat en attente de reception" #?
+    no_reception_to_reconcile_for_this_supplier: "Il n'y a pas de réception à rapprocher pour ce fournisseur."
     no_records: "Pas d’enregistrements" #?
     no_results: "Aucun résultat"
     no_right_defined_for_this_part_of_the_application: "Aucun droit défini pour cette partie de l’application (%{controller}#%{action})"

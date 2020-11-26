@@ -203,8 +203,8 @@ class InterventionProductParameter < InterventionParameter
       }.with_indifferent_access
       if produced = product
         words[:variant]     = produced.variant_name
-        words[:variety]     = Nomen::Variety[produced.variety].human_name
-        words[:derivative_of] = (produced.derivative_of ? Nomen::Variety[produced.variety].human_name : nil)
+        words[:variety]     = Onoma::Variety[produced.variety].human_name
+        words[:derivative_of] = (produced.derivative_of ? Onoma::Variety[produced.variety].human_name : nil)
         words[:container] = (produced.container ? produced.container.name : nil)
         words[:default_storage] = (produced.default_storage ? produced.default_storage.name : nil)
         words[:born_at]     = produced.born_at.l
@@ -246,9 +246,9 @@ class InterventionProductParameter < InterventionParameter
   def units_selector_list
     options = self.reference.handlers.map do |handler|
       if handler.population?
-        [Nomen::Unit.find(:unity).human_name, handler.name]
+        [Onoma::Unit.find(:unity).human_name, handler.name]
       elsif handler.widget == :number
-        unit = handler.unit? ? handler.unit : Nomen::Unit.find(:unity)
+        unit = handler.unit? ? handler.unit : Onoma::Unit.find(:unity)
         ["#{unit.symbol} (#{handler.human_name})", handler.name]
       else
         fail "Cannot handler #{handler.widget} handlers"

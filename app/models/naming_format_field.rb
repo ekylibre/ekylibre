@@ -40,6 +40,8 @@ class NamingFormatField < Ekylibre::Record::Base
   validates :field_name, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
 
+  scope :free_field, -> { where(field_name: 'free_field') }
+
   before_create do
     last_field = naming_format.fields.last
     self.position = 0 unless naming_format.fields.any?

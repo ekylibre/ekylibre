@@ -10,9 +10,9 @@ module Backend
 
     test 'finish action in touch' do
       Timecop.travel(DateTime.parse('2018-01-01T00:00:00Z')) do
-        post :finish, { :id => 20, :locale => @locale }
+        post :finish, { id: 20, locale: @locale }
         sale_affair = affairs(:sale_affairs_001)
-        post :finish, { :id => 20, :locale => @locale }
+        post :finish, { id: 20, locale: @locale }
         assert_response :redirect, show_context
       end
     end

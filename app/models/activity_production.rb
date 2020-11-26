@@ -163,14 +163,14 @@ class ActivityProduction < Ekylibre::Record::Base
 
   before_validation on: :create do
     if activity
-      self.rank_number = (activity.productions.maximum(:rank_number) ? activity.productions.maximum(:rank_number) : 0) + 1
+      self.rank_number = activity.productions_next_rank_number
     end
     true
   end
 
   before_validation do
     self.started_on ||= Date.today
-    self.usage = Nomen::ProductionUsage.first unless usage
+    self.usage = Onoma::ProductionUsage.first unless usage
     if activity
       self.stopped_on ||= self.started_on + 1.year - 1.day if annual?
       self.size_indicator_name ||= activity_size_indicator_name if activity_size_indicator_name
@@ -218,7 +218,7 @@ class ActivityProduction < Ekylibre::Record::Base
   def self.retrieve_varieties_ancestors(*varieties)
     varieties.map do |variety|
       ancestors = [variety]
-      nomen_variety = Nomen::Variety.find(variety)
+      nomen_variety = Onoma::Variety.find(variety)
       loop do
         nomen_variety = nomen_variety.parent
         ancestors << nomen_variety.name
@@ -240,7 +240,7 @@ class ActivityProduction < Ekylibre::Record::Base
 
   # compile unique work_number for support
   # a : P_ for Parcel
-  # b : First letter of activity cultivation variety (v for vitis_vinifera, t for triticum)
+  # b : First letter of activity cultivation variety (v for vitis, t for triticum)
   # c : production rank number
   # d : cultivable zone number (work number or cap number or id )
   # e : harvest year
@@ -563,10 +563,10 @@ class ActivityProduction < Ekylibre::Record::Base
   # Generic method to get harvest yield
   def harvest_yield(harvest_variety, options = {})
     size_indicator_name = options[:size_indicator_name] || :net_mass
-    ind = Nomen::Indicator.find(size_indicator_name)
+    ind = Onoma::Indicator.find(size_indicator_name)
     raise "Invalid indicator: #{size_indicator_name}" unless ind
     size_unit_name = options[:size_unit_name] || ind.unit
-    unless Nomen::Unit.find(size_unit_name)
+    unless Onoma::Unit.find(size_unit_name)
       raise "Invalid indicator unit: #{size_unit_name.inspect}"
     end
     surface_unit_name = options[:surface_unit_name] || :hectare
@@ -578,7 +578,7 @@ class ActivityProduction < Ekylibre::Record::Base
     end
     harvest_yield_unit_name = "#{size_unit_name}_per_#{surface_unit_name}".to_sym
     # puts "harvest_yield_unit_name : #{harvest_yield_unit_name}".inspect.red
-    unless Nomen::Unit.find(harvest_yield_unit_name)
+    unless Onoma::Unit.find(harvest_yield_unit_name)
       raise "Harvest yield unit doesn't exist: #{harvest_yield_unit_name.inspect}"
     end
     total_quantity = 0.0.in(size_unit_name)
@@ -607,7 +607,7 @@ class ActivityProduction < Ekylibre::Record::Base
         harvest.outputs.each do |cast|
           actor = cast.product
           next unless actor && actor.variety
-          variety = Nomen::Variety.find(actor.variety)
+          variety = Onoma::Variety.find(actor.variety)
           if variety && variety <= harvest_variety
             quantity = cast.quantity_population.in(actor.variant.send(size_indicator_name).unit)
             total_quantity += quantity.convert(size_unit_name) if quantity
@@ -722,6 +722,7 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   # Returns unique i18nized name for given production
+  # FIXME: Not unique if interactor fails
   def name(_options = {})
     interactor = NamingFormats::LandParcels::BuildActivityProductionNameInteractor
                  .call(activity_production: self)
@@ -748,7 +749,7 @@ class ActivityProduction < Ekylibre::Record::Base
 
   # # Returns value of an indicator if its name correspond to
   # def method_missing(method_name, *args)
-  #   if Nomen::Indicator.include?(method_name.to_s)
+  #   if Onoma::Indicator.include?(method_name.to_s)
   #     return get(method_name, *args)
   #   end
   #   super

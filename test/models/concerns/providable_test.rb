@@ -32,7 +32,6 @@ class ProvidableTest < Ekylibre::Testing::ApplicationTestCase
 
     model.provider_data = { number: 42 }
 
-
     assert_equal({ number: 42 }, model.provider_data)
     assert_equal({ name: "test", data: { number: 42 } }, model.provider)
   end

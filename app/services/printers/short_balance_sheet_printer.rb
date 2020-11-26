@@ -109,7 +109,7 @@ module Printers
 
       data_filters = []
       data_filters << :currency.tl + " : " + @financial_year.currency
-      data_filters << :accounting_system.tl + " : " + Nomen::AccountingSystem.find(@accounting_system).human_name
+      data_filters << :accounting_system.tl + " : " + Onoma::AccountingSystem.find(@accounting_system).human_name
 
       dataset << data_filters
       dataset.compact

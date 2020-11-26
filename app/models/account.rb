@@ -104,7 +104,7 @@ class Account < Ekylibre::Record::Base
 
   # default_scope order(:number, :name)
   scope :of_usage, lambda { |usage|
-    unless Nomen::Account.find(usage)
+    unless Onoma::Account.find(usage)
       raise ArgumentError.new("Unknown usage #{usage.inspect}")
     end
     where('usages ~ E?', "\\\\m#{usage}\\\\M")
@@ -273,7 +273,7 @@ class Account < Ekylibre::Record::Base
 
       prefix = Preference[:"#{nature}_account_radix"]
       if prefix.blank?
-        prefix = Nomen::Account.find(account_nomen).send(Account.accounting_system)
+        prefix = Onoma::Account.find(account_nomen).send(Account.accounting_system)
       end
 
       prefix
@@ -295,10 +295,10 @@ class Account < Ekylibre::Record::Base
       options[:name] ||= args.shift
       account = find_by(number: number)
       return account if account.present?
-      numbers = Nomen::Account.items.values.collect { |i| i.send(accounting_system) }
+      numbers = Onoma::Account.items.values.collect { |i| i.send(accounting_system) }
       padded_number = Accountancy::AccountNumberNormalizer.build_deprecated_for_account_creation.normalize!(number)
       number = padded_number unless numbers.include?(number) || options[:already_existing]
-      item = Nomen::Account.items.values.find { |i| i.send(accounting_system) == padded_number }
+      item = Onoma::Account.items.values.find { |i| i.send(accounting_system) == padded_number }
       account = find_by(number: padded_number)
       if account
         if item && !account.usages_array.include?(item)
@@ -337,7 +337,7 @@ class Account < Ekylibre::Record::Base
         accs.order(criterion)
       end
       return accounts.first if accounts.any?
-      item = Nomen::Account[usage]
+      item = Onoma::Account[usage]
       find_by(number: item.send(accounting_system)) if item
     end
 
@@ -352,7 +352,7 @@ class Account < Ekylibre::Record::Base
       # get usages of nearest existing account by number
       (0..max).to_a.reverse.each do |i|
         n = number[0, i]
-        items << Nomen::Account.where(accounting_system.to_sym => n)
+        items << Onoma::Account.where(accounting_system.to_sym => n)
         parent_accounts << Account.find_with_regexp(n).where('LENGTH("accounts"."number") <= ?', i).reorder(:number)
         break if parent_accounts.flatten.any?
       end
@@ -408,7 +408,7 @@ class Account < Ekylibre::Record::Base
     def valid_item?(item)
       item_number = item.send(accounting_system)
       return false unless item_number != 'NONE' && number_unique?(item_number.ljust(Preference[:account_number_digits], '0'))
-      Nomen::Account.find_each do |compared_account|
+      Onoma::Account.find_each do |compared_account|
         compared_account_number = compared_account.send(accounting_system)
         return false if item_number == compared_account_number.sub(/0*$/, '') && item_number != compared_account_number
       end
@@ -417,7 +417,7 @@ class Account < Ekylibre::Record::Base
 
     # Find or create an account with its name in accounting system if not exist in DB
     def find_or_import_from_nomenclature(usage, create_if_nonexistent: true)
-      item = Nomen::Account.find(usage)
+      item = Onoma::Account.find(usage)
       acc_number = item.send(accounting_system)
       raise ArgumentError.new("The usage #{usage.inspect} is unknown") unless item
       raise ArgumentError.new("The usage #{usage.inspect} is not implemented in #{accounting_system.inspect}") unless acc_number
@@ -440,7 +440,7 @@ class Account < Ekylibre::Record::Base
     alias import_from_nomenclature find_or_import_from_nomenclature
 
     def generate_auxiliary_account_number(usage)
-      item = Nomen::Account.select { |a| a.name == usage.to_s && a.centralizing }.first
+      item = Onoma::Account.select { |a| a.name == usage.to_s && a.centralizing }.first
       raise ArgumentError.new("The usage #{usage.inspect} is unknown") unless item
       raise ArgumentError.new("The usage #{usage.inspect} is not implemented in #{accounting_system.inspect}") unless item.send(accounting_system)
       centralizing_number = item.send(accounting_system)
@@ -474,7 +474,7 @@ class Account < Ekylibre::Record::Base
     # Returns the name of the used accounting system
     # It takes the information in preferences
     def accounting_system=(name)
-      unless (item = Nomen::AccountingSystem[name])
+      unless (item = Onoma::AccountingSystem[name])
         raise ArgumentError.new("The accounting system #{name.inspect} is unknown.")
       end
 
@@ -486,12 +486,12 @@ class Account < Ekylibre::Record::Base
 
     # Returns the human name of the accounting system
     def accounting_system_name(name = nil)
-      Nomen::AccountingSystem[name || accounting_system].human_name
+      Onoma::AccountingSystem[name || accounting_system].human_name
     end
 
     # Find.all available accounting systems in all languages
     def accounting_systems
-      Nomen::AccountingSystem.all
+      Onoma::AccountingSystem.all
     end
 
     # Load a accounting system
@@ -504,7 +504,7 @@ class Account < Ekylibre::Record::Base
 
         acc_sys = accounting_system
 
-        Nomen::Account.find_each do |item|
+        Onoma::Account.find_each do |item|
           # Load except radical and centralizing accounts
           if item.send(acc_sys).match(/\A[1-9]0*\z|\A0/).nil? && !item.centralizing
             find_or_import_from_nomenclature(item.name)
@@ -545,7 +545,7 @@ class Account < Ekylibre::Record::Base
     # Returns list of reconcilable prefixes defined in preferences
     def reconcilable_prefixes
       %i[clients suppliers attorneys].collect do |mode|
-        Nomen::Account[mode].send(accounting_system).to_s
+        Onoma::Account[mode].send(accounting_system).to_s
       end
     end
 
@@ -566,7 +566,7 @@ class Account < Ekylibre::Record::Base
   # Returns list of usages as an array of usage items from the nomenclature
   def usages_array
     usages.to_s.strip.split(/[\,\s]/).collect do |i|
-      Nomen::Account[i]
+      Onoma::Account[i]
     end.compact
   end
 
@@ -715,9 +715,9 @@ class Account < Ekylibre::Record::Base
   #   self.journal_entry_items.joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)").where(printed_on: started_at..stopped_at).order("printed_on, journal_entries.id, #{JournalEntryItem.table_name}.id")
   # end
 
-  def journal_entry_items_calculate(column, started_at, stopped_at, operation = :sum)
+  def journal_entry_items_calculate(column, started_at, stopped_at, operation = :sum, except: [])
     column = (column == :balance ? "#{JournalEntryItem.table_name}.real_debit - #{JournalEntryItem.table_name}.real_credit" : "#{JournalEntryItem.table_name}.real_#{column}")
-    journal_entry_items.where(printed_on: started_at..stopped_at).calculate(operation, column)
+    journal_entry_items.where.not(entry_id: except).where(printed_on: started_at..stopped_at).calculate(operation, column)
   end
 
   def previous

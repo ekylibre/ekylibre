@@ -125,8 +125,8 @@ class Purchase < Ekylibre::Record::Base
       self.payment_delay = supplier.supplier_payment_delay
     end
 
-    self.pretax_amount = items.sum(:pretax_amount)
-    self.amount = items.sum(:amount)
+    self.pretax_amount = items.reject(&:marked_for_destruction?).sum(&:pretax_amount)
+    self.amount = items.reject(&:marked_for_destruction?).sum(&:amount)
   end
 
   validate do
@@ -161,7 +161,7 @@ class Purchase < Ekylibre::Record::Base
   end
 
   def precision
-    Nomen::Currency.find(currency).precision
+    Onoma::Currency.find(currency).precision
   end
 
   def refresh

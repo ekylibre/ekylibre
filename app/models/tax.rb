@@ -83,7 +83,7 @@ class Tax < Ekylibre::Record::Base
   scope :intracommunity, -> { where(intracommunity: true, nature: 'eu_vat') }
 
   before_validation do
-    if Nomen::TaxNature.find(nature)
+    if Onoma::TaxNature.find(nature)
       self.name = short_label if name.blank?
     end
     self.active = false if active.nil?
@@ -102,8 +102,8 @@ class Tax < Ekylibre::Record::Base
 
     # Returns TaxNature items which are used by recorded taxes
     def available_natures
-      Nomen::TaxNature.select do |item|
-        references = Nomen::Tax.list.keep_if { |tax| tax.nature.to_s == item.name.to_s }
+      Onoma::TaxNature.select do |item|
+        references = Onoma::Tax.list.keep_if { |tax| tax.nature.to_s == item.name.to_s }
         taxes = Tax.where(reference_name: references.map(&:name))
         taxes.any?
       end
@@ -120,7 +120,7 @@ class Tax < Ekylibre::Record::Base
     # `tax_natures` nomenclature.
     def find_on(wanted_on, conditions = {})
       name = nil
-      Nomen::Tax.where(conditions).find_each do |item|
+      Onoma::Tax.where(conditions).find_each do |item|
         if item.started_on <= wanted_on &&
            (item.stopped_on.blank? ||
             wanted_on <= item.stopped_on)
@@ -134,7 +134,7 @@ class Tax < Ekylibre::Record::Base
 
     # Load a tax from tax nomenclature
     def import_from_nomenclature(reference_name, active = nil)
-      unless item = Nomen::Tax.find(reference_name)
+      unless item = Onoma::Tax.find(reference_name)
         raise ArgumentError.new("The tax #{reference_name.inspect} is not known")
       end
       tax = Tax.find_by(amount: item.amount, nature: item.nature, country: item.country)
@@ -144,7 +144,7 @@ class Tax < Ekylibre::Record::Base
         tax.update_column(:active, active) unless active.nil?
         return tax
       end
-      nature = Nomen::TaxNature.find(item.nature)
+      nature = Onoma::TaxNature.find(item.nature)
       if nature.computation_method != :percentage
         raise StandardError.new('Can import only percentage computed taxes')
       end
@@ -175,7 +175,7 @@ class Tax < Ekylibre::Record::Base
     def import_all_from_nomenclature(options = {})
       country = options[:country] || Preference[:country]
       today = Time.zone.today
-      Nomen::Tax.where(country: country.to_sym).find_each do |tax|
+      Onoma::Tax.where(country: country.to_sym).find_each do |tax|
         if options[:active]
           if tax.started_on
             next unless today > tax.started_on

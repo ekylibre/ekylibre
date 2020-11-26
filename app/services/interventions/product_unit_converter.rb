@@ -3,7 +3,7 @@
 module Interventions
   class ProductUnitConverter
     # @param [Measure] measure
-    # @param [Nomen::Item<Unit>] into
+    # @param [Onoma::Item<Unit>] into
     # @param [Maybe<Measure<area>>] area
     # @param [Maybe<Measure<mass>>] net_mass
     # @param [Maybe<Measure<volume>>] net_volume
@@ -12,12 +12,12 @@ module Interventions
     def convert(measure, into:, area:, net_mass:, net_volume:, spray_volume:)
       # Population <=> any
       if population_dimension?(measure.nomenclature_unit)
-        convert_population_into_mass_or_volume(measure, into: Nomen::Unit.find(into.base_unit), net_mass: net_mass, net_volume: net_volume)
+        convert_population_into_mass_or_volume(measure, into: Onoma::Unit.find(into.base_unit), net_mass: net_mass, net_volume: net_volume)
           .fmap do |net_measure|
             convert(net_measure, into: into, area: area, net_mass: net_mass, net_volume: net_volume, spray_volume: spray_volume)
           end
       elsif population_dimension?(into)
-        convert(measure, into: Nomen::Unit.find(measure.base_unit), area: area, net_mass: net_mass, net_volume: net_volume, spray_volume: spray_volume)
+        convert(measure, into: Onoma::Unit.find(measure.base_unit), area: area, net_mass: net_mass, net_volume: net_volume, spray_volume: spray_volume)
           .fmap do |net_unit|
             convert_mass_or_volume_into_population(net_unit, net_mass: net_mass, net_volume: net_volume)
           end
@@ -27,7 +27,7 @@ module Interventions
       # Base dimensions are different
       elsif measure.base_dimension != into.base_dimension
         if net_dimension?(measure.dimension.to_sym)
-          convert_net_into_other(measure, into: Nomen::Unit.find(into.base_unit), net_mass: net_mass, net_volume: net_volume)
+          convert_net_into_other(measure, into: Onoma::Unit.find(into.base_unit), net_mass: net_mass, net_volume: net_volume)
             .fmap do |new_measure|
               convert(new_measure, into: into, area: area, net_mass: net_mass, net_volume: net_volume, spray_volume: spray_volume)
             end
@@ -47,7 +47,7 @@ module Interventions
         convert_concentration_into_net(measure, into: into, area: area, net_mass: net_mass, net_volume: net_volume, spray_volume: spray_volume)
       # Concentration => area_density
       elsif measure.repartition_dimension == :volume && into.repartition_dimension == :surface_area
-        into_base_unit = Nomen::Unit.find(into.base_unit)
+        into_base_unit = Onoma::Unit.find(into.base_unit)
 
         convert(measure, into: into_base_unit, net_mass: net_mass, net_volume: net_volume, area: area, spray_volume: spray_volume)
           .fmap do |new_measure|
@@ -82,7 +82,7 @@ module Interventions
     end
 
     # @param [Measure] measure
-    # @param [Nomen::Item<Unit>] into
+    # @param [Onoma::Item<Unit>] into
     # @param [Maybe<Measure<mass>>] net_mass
     # @param [Maybe<Measure<volume>>] net_volume
     def convert_population_into_mass_or_volume(measure, into:, net_mass:, net_volume:)
@@ -112,8 +112,8 @@ module Interventions
       end
     end
 
-    # @param [Nomen::Item<Unit>] from
-    # @param [Nomen::Item<Unit>] to
+    # @param [Onoma::Item<Unit>] from
+    # @param [Onoma::Item<Unit>] to
     # @param [Maybe<Measure<mass>>] net_mass
     # @param [Maybe<Measure<volume>>] net_volume
     # @return [Maybe<Float>] ratio between from and to in :from/
@@ -134,11 +134,11 @@ module Interventions
     end
 
     # @param [Measure] measure
-    # @param [Nomen::Item<Unit>] into
+    # @param [Onoma::Item<Unit>] into
     # @param [Maybe<Measure<mass>>] net_mass
     # @param [Maybe<Measure<volume>>] net_volume
     def convert_net_into_other(measure, into:, net_mass:, net_volume:)
-      from = Nomen::Unit.find(measure.unit.to_sym)
+      from = Onoma::Unit.find(measure.unit.to_sym)
 
       if from.nil?
         None()
@@ -151,7 +151,7 @@ module Interventions
     end
 
     # @param [Measure] measure
-    # @param [Nomen::Item<Unit>] into
+    # @param [Onoma::Item<Unit>] into
     # @param [Maybe<Measure<area>>] area
     def convert_net_into_area_density(measure, into:, area:)
       if into.dimension.to_s.include?(measure.dimension.to_s)
@@ -164,7 +164,7 @@ module Interventions
     end
 
     # @param [Measure] measure
-    # @param [Nomen::Item<Unit>] into
+    # @param [Onoma::Item<Unit>] into
     # @param [Maybe<Measure<area>>] area
     def convert_area_density_into_net(measure, into:, area:)
       area.fmap do |area|
@@ -173,7 +173,7 @@ module Interventions
     end
 
     def convert_base_unit(measure, into:, net_mass:, net_volume:)
-      compute_ratio_between_net_units(from: Nomen::Unit.find(measure.base_unit), to: Nomen::Unit.find(into.base_unit), net_mass: net_mass, net_volume: net_volume)
+      compute_ratio_between_net_units(from: Onoma::Unit.find(measure.base_unit), to: Onoma::Unit.find(into.base_unit), net_mass: net_mass, net_volume: net_volume)
         .fmap do |ratio|
           new_unit = "#{into.base_unit}_per_#{measure.repartition_unit}"
 
@@ -182,7 +182,7 @@ module Interventions
     end
 
     # @param [Measure] measure
-    # @param [Nomen::Item<Unit>] into
+    # @param [Onoma::Item<Unit>] into
     # @param [Maybe<Measure<mass>>] net_mass
     # @param [Maybe<Measure<volume>>] net_volume
     def convert_area_density_into_other(measure, into:, net_mass:, net_volume:)
@@ -191,7 +191,7 @@ module Interventions
       elsif measure.base_dimension == into.base_dimension
         Maybe(measure.in(into))
       else
-        compute_ratio_between_net_units(from: Nomen::Unit.find(measure.base_unit), to: Nomen::Unit.find(into.base_unit), net_mass: net_mass, net_volume: net_volume)
+        compute_ratio_between_net_units(from: Onoma::Unit.find(measure.base_unit), to: Onoma::Unit.find(into.base_unit), net_mass: net_mass, net_volume: net_volume)
           .fmap do |ratio|
             new_unit = "#{into.base_unit}_per_#{measure.repartition_unit}"
             Measure.new(measure.value.to_f * ratio, new_unit).in(into)
@@ -200,7 +200,7 @@ module Interventions
     end
 
     # @param [Measure] measure
-    # @param [Nomen::Item<Unit>] into
+    # @param [Onoma::Item<Unit>] into
     # @param [Maybe<Measure<area>>] area
     # @param [Maybe<Measure<mass>>] net_mass
     # @param [Maybe<Measure<volume>>] net_volume
@@ -211,7 +211,7 @@ module Interventions
           None()
         else
           area.fmap do |area|
-            compute_ratio_between_net_units(from: Nomen::Unit.find(measure.base_unit), to: into, net_mass: net_mass, net_volume: net_volume)
+            compute_ratio_between_net_units(from: Onoma::Unit.find(measure.base_unit), to: into, net_mass: net_mass, net_volume: net_volume)
               .fmap do |ratio|
                 total_sprayed = spray_volume.value.to_f * area.in(:hectare).value.to_f
                 product_sprayed = measure.value.to_f * total_sprayed / 100.0 * ratio
@@ -227,7 +227,7 @@ module Interventions
       dimension == :mass || dimension == :volume
     end
 
-    # @param [Nomen::Item<Unit>] unit
+    # @param [Onoma::Item<Unit>] unit
     # @return [Boolean]
     def population_dimension?(unit)
       unit.dimension.to_sym == :none

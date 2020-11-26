@@ -67,10 +67,10 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
     Parcel.delete_all
     SaleItem.delete_all
     Sale.delete_all
-    ProductNatureCategory.delete_all
     ProductNature.delete_all
     ParcelItemStoring.delete_all
     Product.delete_all
+    ProductNatureCategory.delete_all
     JournalEntryItem.delete_all
     ProductNatureVariant.delete_all
     Payslip.delete_all
@@ -96,7 +96,7 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
   end
 
   test 'working sets' do
-    Nomen::WorkingSet.list.each do |item|
+    Onoma::WorkingSet.list.each do |item|
       assert ProductNatureVariant.of_working_set(item.name).count >= 0
     end
   end

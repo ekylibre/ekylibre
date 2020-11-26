@@ -123,7 +123,7 @@ class Product < Ekylibre::Record::Base
   # has_many :groups, :through => :memberships
   has_many :issues, as: :target, dependent: :destroy
   has_many :intervention_product_parameters, -> { unscope(where: :type).of_generic_roles(%i[input output target doer tool]) }, foreign_key: :product_id, inverse_of: :product, dependent: :restrict_with_exception
-  has_many :interventions, through: :intervention_product_parameters
+  has_many :interventions, -> { distinct }, through: :intervention_product_parameters
   has_many :used_intervention_parameters, -> { unscope(where: :type).of_generic_roles(%i[input target doer tool]) }, foreign_key: :product_id, inverse_of: :product, dependent: :restrict_with_exception, class_name: 'InterventionProductParameter'
   has_many :interventions_used_in, through: :used_intervention_parameters, source: :intervention
   has_many :labellings, class_name: 'ProductLabelling', dependent: :destroy, inverse_of: :product
@@ -188,8 +188,8 @@ class Product < Ekylibre::Record::Base
     of_expression(abilities.map { |a| "can #{a}" }.join(' and '))
   }
   scope :of_working_set, lambda { |working_set|
-    item = Nomen::WorkingSet.find(working_set)
-    raise StandardError.new("#{working_set.inspect} is not in Nomen::WorkingSet nomenclature") unless item
+    item = Onoma::WorkingSet.find(working_set)
+    raise StandardError.new("#{working_set.inspect} is not in Onoma::WorkingSet nomenclature") unless item
     of_expression(item.expression)
   }
   scope :of_expression, lambda { |expression|
@@ -326,7 +326,7 @@ class Product < Ekylibre::Record::Base
   validate :born_at_in_interventions, if: ->(product) { product.born_at? && product.interventions_used_in.pluck(:started_at).any? }
   validate :dead_at_in_interventions, if: ->(product) { product.dead_at? && product.interventions.pluck(:stopped_at).any? }
 
-  store :reading_cache, accessors: Nomen::Indicator.all, coder: ReadingsCoder
+  store :reading_cache, accessors: Onoma::Indicator.all, coder: ReadingsCoder
 
   # [DEPRECATIONS[
   #  - fixed_asset_id
@@ -394,13 +394,13 @@ class Product < Ekylibre::Record::Base
       errors.add(:dead_at, :invalid) if dead_at < born_at
     end
     if variant
-      if variety && Nomen::Variety.find(variant_variety)
-        unless Nomen::Variety.find(variant_variety) >= variety
+      if variety && Onoma::Variety.find(variant_variety)
+        unless Onoma::Variety.find(variant_variety) >= variety
           errors.add(:variety, :invalid)
         end
       end
-      if derivative_of && Nomen::Variety.find(variant_derivative_of)
-        unless Nomen::Variety.find(variant_derivative_of) >= derivative_of
+      if derivative_of && Onoma::Variety.find(variant_derivative_of)
+        unless Onoma::Variety.find(variant_derivative_of) >= derivative_of
           errors.add(:derivative_of, :invalid)
         end
       end
@@ -762,7 +762,7 @@ class Product < Ekylibre::Record::Base
     containeds.select { |p| p.variant == variant }
   end
 
-  Nomen::Indicator.each do |indicator|
+  Onoma::Indicator.each do |indicator|
     alias_method :"cache_#{indicator}", indicator
 
     define_method indicator.to_sym do |*args|
@@ -820,8 +820,8 @@ class Product < Ekylibre::Record::Base
   def variables(_options = {})
     list = []
     abilities = self.abilities
-    variety       = Nomen::Variety[self.variety]
-    derivative_of = Nomen::Variety[self.derivative_of]
+    variety       = Onoma::Variety[self.variety]
+    derivative_of = Onoma::Variety[self.derivative_of]
     Procedo.each_variable do |variable|
       next if variable.new?
       if v = variable.computed_variety

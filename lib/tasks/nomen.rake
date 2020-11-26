@@ -3,7 +3,7 @@ namespace :nomen do
   task flatten: :environment do
     builder = Nokogiri::XML::Builder.new do |xml|
       xml.migration name: 'Add initial data' do
-        Nomen.all.sort_by(&:dependency_index).each do |nomenclature|
+        Onoma.all.sort_by(&:dependency_index).each do |nomenclature|
           name = nomenclature.name.to_s # .gsub(/(nmp|france|poitou_charentes)_/, '\1/')
           # xml.comment "Dependency index: #{nomenclature.dependency_index}"
           attrs = { name: name }
@@ -51,7 +51,7 @@ namespace :nomen do
   end
 
   task list: :environment do
-    Nomen.all.each do |n|
+    Onoma.all.each do |n|
       if n.name.to_s.classify.tableize != n.name.to_s
         puts n.name.to_s.red
       else
@@ -66,7 +66,7 @@ namespace :nomen do
       output = Rails.root.join('tmp', 'nomenclatures')
       FileUtils.rm_rf(output)
       FileUtils.mkdir_p(output)
-      Nomen.all.each do |n|
+      Onoma.all.each do |n|
         n.to_csv(output.join("#{n.name}.csv"))
       end
     end
@@ -94,40 +94,40 @@ namespace :nomen do
     end
 
     task model: :environment do
-      Nomen.missing_migrations.each do |migration|
-        Nomen::Migrator::Model.run(migration)
+      Onoma.missing_migrations.each do |migration|
+        Onoma::Migrator::Model.run(migration)
       end
     end
 
     task translation: :environment do
-      Nomen.missing_migrations.each do |migration|
-        Nomen::Migrator::Translation.run(migration)
+      Onoma.missing_migrations.each do |migration|
+        Onoma::Migrator::Translation.run(migration)
       end
     end
 
     task reference: :environment do
-      Nomen.missing_migrations.each do |migration|
-        Nomen::Migrator::Reference.run(migration)
+      Onoma.missing_migrations.each do |migration|
+        Onoma::Migrator::Reference.run(migration)
       end
     end
   end
 
-  desc 'Migrate Nomen data'
+  desc 'Migrate Onoma data'
   task migrate: :environment do
     Rails.application.eager_load! if Rails.env.development?
-    Nomen.missing_migrations.each do |migration|
+    Onoma.missing_migrations.each do |migration|
       puts migration.name.yellow
-      Nomen::Migrator::Reference.run(migration)
-      Nomen::Migrator::Model.run(migration)
-      Nomen::Migrator::Translation.run(migration)
+      Onoma::Migrator::Reference.run(migration)
+      Onoma::Migrator::Model.run(migration)
+      Onoma::Migrator::Translation.run(migration)
     end
   end
 
   task avatar: :environment do
     cache = {}
     avatars_dir = Rails.root.join('app', 'assets', 'images')
-    Nomen.load!
-    Nomen.each do |nomenclature|
+    Onoma.load!
+    Onoma.each do |nomenclature|
       folder = nomenclature.table_name
       dir = avatars_dir.join(folder)
       next unless dir.exist?
@@ -142,7 +142,7 @@ namespace :nomen do
         end
       end
     end
-    File.write(NomenHelper::AVATARS_INDEX, cache.to_yaml)
+    File.write(OnomaHelper::AVATARS_INDEX, cache.to_yaml)
   end
 
   task srs: :environment do
@@ -155,11 +155,11 @@ namespace :nomen do
     Rake::Task['nomen:migrate:generate'].invoke
 
     # filename
-    filename = %W[#{Nomen.missing_migrations.last.number} #{Nomen.missing_migrations.last.name.downcase.split(' ').join('_')}].join('_')
-    file = Nomen.migrations_path.join("#{filename}.xml")
+    filename = %W[#{Onoma.missing_migrations.last.number} #{Onoma.missing_migrations.last.name.downcase.split(' ').join('_')}].join('_')
+    file = Onoma.migrations_path.join("#{filename}.xml")
 
     # already existing nomenclature ?
-    systems = Nomen::SpatialReferenceSystem
+    systems = Onoma::SpatialReferenceSystem
 
     # access to postgis and get reference systems
     table = ActiveRecord::Base.connection.execute('select * from spatial_ref_sys')
@@ -167,7 +167,7 @@ namespace :nomen do
       xml.migration name: migration_name do
         nomenclature_name = 'spatial_reference_systems'
 
-        if Nomen.find(nomenclature_name).blank?
+        if Onoma.find(nomenclature_name).blank?
           attrs = { name: nomenclature_name }
           attrs[:translateable] = 'false'
           xml.send('nomenclature-creation', attrs)

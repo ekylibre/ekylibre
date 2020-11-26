@@ -948,7 +948,7 @@
     $dateEndInput = $periodElement.find("input[id*='stopped_at']")[0]
     date = moment($dateInput.value).toISOString()
     dateEnd = moment($dateEndInput.value).toISOString()
-    parcels = $parcelSelectors.get().map((e) => $(e).find('.selector input:first-child').get(0) ).map((e) => $(e).selector('value'))
+    parcels = $parcelSelectors.get().map((e) => $(e).find('.selector input:first-child').get(0) ).map((e) => $(e).selector('value')).filter((e) => e != null)
 
     return Promise.resolve([]) if parcels.length == 0
 

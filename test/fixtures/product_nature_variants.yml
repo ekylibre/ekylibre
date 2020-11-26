@@ -825,7 +825,7 @@ product_nature_variants_043:
   unit_name: Plant
   updated_at: 2014-11-07 16:33:48.624554000 Z
   updater_id: 1
-  variety: vitis_vinifera
+  variety: vitis
   work_number: GWNVKRYVPNV000000000029
   type: Variants::CropVariant
 product_nature_variants_044:
@@ -887,7 +887,7 @@ product_nature_variants_047:
   category_id: 20
   created_at: 2014-11-07 17:05:38.082911000 Z
   creator_id: 1
-  derivative_of: vitis_vinifera
+  derivative_of: vitis
   id: 48
   lock_version: 0
   name: Grappe de raisin
@@ -1018,7 +1018,7 @@ product_nature_variants_054:
   category_id: 20
   created_at: 2014-11-07 17:27:02.369419000 Z
   creator_id: 1
-  derivative_of: vitis_vinifera
+  derivative_of: vitis
   id: 55
   lock_version: 0
   name: Co-produit du raisin

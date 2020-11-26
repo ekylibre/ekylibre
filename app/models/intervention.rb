@@ -623,7 +623,7 @@ class Intervention < Ekylibre::Record::Base
 
   # Returns human actions names
   def human_actions_names
-    actions.map { |action| Nomen::ProcedureAction.find(action).human_name }
+    actions.map { |action| Onoma::ProcedureAction.find(action).human_name }
       .to_sentence
   end
 
@@ -752,7 +752,7 @@ class Intervention < Ekylibre::Record::Base
   def human_total_cost
     %i[input tool doer].map do |type|
       (cost(type) || 0.0).to_d
-    end.sum.round(Nomen::Currency.find(currency).precision)
+    end.sum.round(Onoma::Currency.find(currency).precision)
   end
 
   def total_cost_per_area(area_unit = :hectare)
@@ -989,7 +989,7 @@ class Intervention < Ekylibre::Record::Base
       associations_group_parameters = { intervention: { group_parameters_attributes: {} } }
       self.group_parameters.each_with_index do |gp, gp_index|
         associations_group_parameters[:intervention][:group_parameters_attributes][gp_index] = { reference_name: gp.reference_name }
-        %w[targets tools inputs doers outputs participations working_periods].each do |product_parameter|
+        %w[targets tools inputs doers outputs].each do |product_parameter|
           next unless gp.send(product_parameter).any?
           key = (product_parameter + '_attributes').to_sym
           associations_group_parameters[:intervention][:group_parameters_attributes][gp_index][key] = {}

@@ -40,7 +40,7 @@ module Interventions
       end
 
       setup do
-        @targets_area = {"0" => {shape: Charta.new_geometry("SRID=4326;GeometryCollection (Polygon ((-0.78234864413389 45.80315394565934, -0.7814045065606479 45.80410007498097, -0.7775850409234408 45.80380838465042, -0.778599307523109 45.80205583444929, -0.78234864413389 45.80315394565934)))")}}
+        @targets_area = { "0" => { shape: Charta.new_geometry("SRID=4326;GeometryCollection (Polygon ((-0.78234864413389 45.80315394565934, -0.7814045065606479 45.80410007498097, -0.7775850409234408 45.80380838465042, -0.778599307523109 45.80205583444929, -0.78234864413389 45.80315394565934)))") } }
         @service = RegisteredPhytosanitaryUsageDoseComputation.build
       end
 
@@ -77,7 +77,7 @@ module Interventions
       # volume/mass => area_density
       test 'convert volume or mass into area_density' do
         cases = [
-          [1.in(:kilogram), UsageMock.new(:kilogram_per_hectare), ProductMock.new, @targets_area, nil, Measure.new(1.0/5.0, :kilogram_per_hectare)],
+          [1.in(:kilogram), UsageMock.new(:kilogram_per_hectare), ProductMock.new, @targets_area, nil, Measure.new(1.0 / 5.0, :kilogram_per_hectare)],
           [1.in(:kilogram), UsageMock.new(:liter_per_hectare), ProductMock.new, @targets_area, nil, Measure.new(0.3, :liter_per_hectare)]
         ]
 
@@ -87,7 +87,7 @@ module Interventions
       # volume_area_density => mass*
       test 'convert volume_area_density into mass' do
         cases = [
-          [1.in(:liter_per_hectare), UsageMock.new(:kilogram), ProductMock.new, @targets_area, nil, Measure.new(5.0*2.0/3.0, :kilogram)]
+          [1.in(:liter_per_hectare), UsageMock.new(:kilogram), ProductMock.new, @targets_area, nil, Measure.new(5.0 * 2.0 / 3.0, :kilogram)]
         ]
 
         stub_many_with(cases)
@@ -115,7 +115,7 @@ module Interventions
 
       # specific_weight => mass
       test 'convert specific_weight into mass' do
-        cases =[
+        cases = [
           [1.in(:kilogram_per_hectoliter), UsageMock.new(:kilogram), ProductMock.new, @targets_area, 5.0, Measure.new(0.25, :kilogram)],
           [1.in(:kilogram_per_hectoliter), UsageMock.new(:kilogram), ProductMock.new, @targets_area, nil, nil]
         ]
@@ -126,7 +126,7 @@ module Interventions
       # volume_concentration => mass
       test 'convert volume_concentration into mass' do
         cases = [
-          [1.in(:liter_per_hectoliter), UsageMock.new(:kilogram), ProductMock.new, @targets_area, 5.0, Measure.new(0.25*2.0/3.0, :kilogram)]
+          [1.in(:liter_per_hectoliter), UsageMock.new(:kilogram), ProductMock.new, @targets_area, 5.0, Measure.new(0.25 * 2.0 / 3.0, :kilogram)]
         ]
 
         stub_many_with(cases)
@@ -135,7 +135,7 @@ module Interventions
       # specific_weight => volume
       test 'convert specific_weight into volume' do
         cases = [
-          [1.in(:kilogram_per_hectoliter), UsageMock.new(:liter), ProductMock.new, @targets_area, 5.0, Measure.new(0.25*3.0/2.0, :liter)]
+          [1.in(:kilogram_per_hectoliter), UsageMock.new(:liter), ProductMock.new, @targets_area, 5.0, Measure.new(0.25 * 3.0 / 2.0, :liter)]
         ]
 
         stub_many_with(cases)
@@ -144,7 +144,7 @@ module Interventions
       # specific_weight => mass_area_density
       test 'convert specific_weight into mass_area_density' do
         cases = [
-          [1.in(:kilogram_per_hectoliter), UsageMock.new(:kilogram_per_hectare), ProductMock.new, @targets_area, 5.0, Measure.new(1.0*5.0/100.0, :kilogram_per_hectare)]
+          [1.in(:kilogram_per_hectoliter), UsageMock.new(:kilogram_per_hectare), ProductMock.new, @targets_area, 5.0, Measure.new(1.0 * 5.0 / 100.0, :kilogram_per_hectare)]
         ]
 
         stub_many_with(cases)
@@ -153,7 +153,7 @@ module Interventions
       # specific_weight => volume_area_density
       test 'convert specific_weight into volume_area_density' do
         cases = [
-          [1.in(:kilogram_per_hectoliter), UsageMock.new(:liter_per_hectare), ProductMock.new, @targets_area, 5.0, Measure.new(1.0*3.0/2.0*5.0/100.0, :liter_per_hectare)]
+          [1.in(:kilogram_per_hectoliter), UsageMock.new(:liter_per_hectare), ProductMock.new, @targets_area, 5.0, Measure.new(1.0 * 3.0 / 2.0 * 5.0 / 100.0, :liter_per_hectare)]
         ]
 
         stub_many_with(cases)
@@ -162,7 +162,7 @@ module Interventions
       # volume_concentration => volume_area_density
       test 'convert volume_concentration into volume_area_density' do
         cases = [
-          [1.in(:liter_per_hectoliter), UsageMock.new(:liter_per_hectare), ProductMock.new, @targets_area, 5.0, Measure.new(1.0*5.0/100.0, :liter_per_hectare)]
+          [1.in(:liter_per_hectoliter), UsageMock.new(:liter_per_hectare), ProductMock.new, @targets_area, 5.0, Measure.new(1.0 * 5.0 / 100.0, :liter_per_hectare)]
         ]
 
         stub_many_with(cases)
@@ -171,7 +171,7 @@ module Interventions
       # volume_concentration => mass_area_density
       test 'convert volume_concentration into mass_area_density' do
         cases = [
-          [1.in(:liter_per_hectoliter), UsageMock.new(:liter_per_hectare), ProductMock.new, @targets_area, 5.0, Measure.new(1.0*5.0/100.0, :liter_per_hectare)]
+          [1.in(:liter_per_hectoliter), UsageMock.new(:liter_per_hectare), ProductMock.new, @targets_area, 5.0, Measure.new(1.0 * 5.0 / 100.0, :liter_per_hectare)]
         ]
 
         stub_many_with(cases)
@@ -180,7 +180,7 @@ module Interventions
       # @param [Array] cases
       #   cases array order = [quantity, usage, product, targets_data, indicator, spray_volume, expected_result]
       def stub_many_with(cases)
-        stub_many @service, compute_area: 50000.0.in(:square_meter).in(:hectare) do
+        stub_many @service, compute_area: 50_000.0.in(:square_meter).in(:hectare) do
           cases.each do |values|
             *params, expected = values
             if expected.nil?

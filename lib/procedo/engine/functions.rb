@@ -31,7 +31,7 @@ module Procedo
 
         # Sums indicator values for a set of product
         def sum(set, indicator_name, unit = nil)
-          indicator = Nomen::Indicator.find!(indicator_name)
+          indicator = Onoma::Indicator.find!(indicator_name)
           raise 'Only measure indicator can use this function' unless indicator.datatype == :measure
           list = set.map do |parameter|
             unless parameter.is_a?(Procedo::Engine::Intervention::ProductParameter)
@@ -89,15 +89,15 @@ module Procedo
         end
 
         def area(shape)
-          return shape.area.in(:square_meter).to_f(:square_meter)
+          shape.area.in(:square_meter).to_f(:square_meter)
         rescue
-          raise Procedo::Errors::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall.new(:area, shape)
         end
 
         def intersection(shape, other_shape)
-          return shape.intersection(other_shape)
+          shape.intersection(other_shape)
         rescue
-          raise Procedo::Errors::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall.new(:intersection, shape, other_shape)
         end
 
         def members_count(set)
@@ -109,13 +109,13 @@ module Procedo
             return 0
           end
         rescue
-          raise Procedo::Errors::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall.new(:members_count, set)
         end
 
         def contents_count(container)
-          return container.actor.containeds.count(&:available?)
+          container.actor.containeds.count(&:available?)
         rescue
-          raise Procedo::Errors::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall.new(:contents_count, container)
         end
 
         # compute a name from given variant
@@ -139,28 +139,28 @@ module Procedo
         end
 
         def variety_of(product)
-          return product.variety
+          product.variety
         rescue
-          raise Procedo::Errors::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall.new(:variant_of, product)
         end
 
         def variant_of(product)
           return product.member_variant unless product.nil?
           nil
         rescue
-          raise Procedo::Errors::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall.new(:variant_of, product)
         end
 
         def father_of(vial)
-          return vial.mother.last_transplantation.input.father || vial.mother.last_insemination.input.producer
+          vial.mother.last_transplantation.input.father || vial.mother.last_insemination.input.producer
         rescue
-          raise Procedo::Errors::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall.new(:father_of, vial)
         end
 
         def mother_of(vial)
-          return vial.mother.last_transplantation.input.mother || vial.mother
+          vial.mother.last_transplantation.input.mother || vial.mother
         rescue
-          raise Procedo::Errors::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall.new(:mother_of, vial)
         end
 
         # return first date as Datetime object
@@ -185,7 +185,7 @@ module Procedo
 
           usage_units = usages.pluck(:dose_unit).uniq.compact
           checks = usage_units.any? do |usage_unit|
-            unit = Nomen::Unit.find(usage_unit)
+            unit = Onoma::Unit.find(usage_unit)
             dimensions.include?(unit.base_dimension.to_sym) || dimensions.include?(unit.dimension.to_sym)
           end
 

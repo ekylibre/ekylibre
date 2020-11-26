@@ -129,6 +129,8 @@ class PurchaseItem < Ekylibre::Record::Base
     joins(:variant).merge(ProductNatureVariant.of_categories(product_nature_category))
   }
 
+  scope :of_role, ->(role) { where(role: role) }
+
   protect on: :update do
     !self.purchase.updateable?
   end
@@ -155,7 +157,7 @@ class PurchaseItem < Ekylibre::Record::Base
     end
 
     if tax && unit_pretax_amount
-      precision = Maybe(Nomen::Currency.find(currency)).precision.or_else(2)
+      precision = Maybe(Onoma::Currency.find(currency)).precision.or_else(2)
       self.unit_amount = tax.amount_of(unit_pretax_amount)
       raw_pretax_amount = nil
       if pretax_amount.nil? || pretax_amount.zero?
@@ -187,10 +189,6 @@ class PurchaseItem < Ekylibre::Record::Base
     true
   end
 
-  before_destroy do
-    parcels_purchase_invoice_items.map { |parcel_item| parcel_item.update_attributes(purchase_invoice_item_id: nil) }
-  end
-
   after_destroy do
     if fixed && fixed_asset && purchase.purchased?
       fixed_asset.add_amount(-pretax_amount.to_f) if fixed_asset
@@ -207,10 +205,6 @@ class PurchaseItem < Ekylibre::Record::Base
 
     depreciation_method = variant.fixed_asset_depreciation_method
     errors.add(:fixed, :asset_depreciation_method) if depreciation_method.blank?
-
-    # if depreciation_method.present? && depreciation_method.to_sym != :simplified_linear && fixed_asset_stopped_on.nil?
-    #   errors.add(:fixed, :fixed_asset_stopped_on_invalid)
-    # end
   end
 
   after_save do

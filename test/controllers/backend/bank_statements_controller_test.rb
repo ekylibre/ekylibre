@@ -32,10 +32,11 @@ module Backend
     end
 
     private
-        # @param [String] file_path
-        # @return [Rack::Test::UploadedFile]
-        def uploaded_file(file_path)
-          Rack::Test::UploadedFile.new(Rails.root.join("test/fixture-files/accountancy/cfonb", file_path).open)
-        end
+
+      # @param [String] file_path
+      # @return [Rack::Test::UploadedFile]
+      def uploaded_file(file_path)
+        Rack::Test::UploadedFile.new(Rails.root.join("test/fixture-files/accountancy/cfonb", file_path).open)
+      end
   end
 end

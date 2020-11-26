@@ -1,4 +1,4 @@
-- if resource.products.any? && resource.storable?
+- if resource.storable?
   - c.cobble(:stocks) do
     :ruby
       dataset = resource.products
@@ -11,7 +11,7 @@
           hash
         end
         data = item_h.collect{|k,v| [k, v.to_s.to_f] }.sort_by(&:first)
-        
+
         { name: product.name, data: data, visible: false }
       end
 
@@ -29,11 +29,11 @@
       end
 
       series << { name: tl(:accumulated_stock, name: resource.name), data: variant_datas.to_a, visible: true }
-      
+
     = line_highcharts(series, legend: { layout: 'horizontal', align: 'bottom', vertical_align: 'bottom', border_width: 0, align: 'center' }, y_axis: { title: { text: :population.tl}, min: 0 }, x_axis: { type: 'datetime', title: { enabled: true, text: :months.tl }}, chart: { spacing_bottom: 40 }, tooltip: { value_decimals: 2, xDateFormat: '%Y-%m-%d, %H:%M' })
 
-  - c.cobble(:products) do
-    = cobble_list(:products)
+- c.cobble(:products) do
+  = cobble_list(:products)
 
 - if resource.saleable?
   - c.cobble(:sale_items) do

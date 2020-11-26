@@ -192,9 +192,9 @@ class InterventionInput < InterventionProductParameter
           # get variables
           activity_variety = target.product.variety
           activity_variety ||= target.best_activity_production.cultivation_variety if target.best_activity_production
-          uv = Nomen::Variety[usage.subject_variety.to_sym]
+          uv = Onoma::Variety[usage.subject_variety.to_sym]
 
-          next unless activity_variety && (uv >= Nomen::Variety[activity_variety.to_sym])
+          next unless activity_variety && (uv >= Onoma::Variety[activity_variety.to_sym])
           reglementary_doses[index] = {}
           reglementary_doses[index][:name] = usage.name.to_s.downcase
           reglementary_doses[index][:variety] = uv.l

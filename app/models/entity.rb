@@ -416,7 +416,7 @@ class Entity < Ekylibre::Record::Base
   end
 
   def add_event(usage, operator, at = Time.zone.now)
-    if operator && item = Nomen::EventNature[usage]
+    if operator && item = Onoma::EventNature[usage]
       Event.create!(name: item.human_name, started_at: at, duration: item.default_duration.to_i, participations_attributes: { '0' => { participant_id: id, state: 'informative' }, '1' => { participant_id: operator.id, state: 'accepted' } })
     end
   end

@@ -94,10 +94,12 @@ class PurchaseInvoice < Purchase
   end
 
   before_validation do
-    if self.items.reject { |i| i.instance_variable_get :@marked_for_destruction }.any? { |i| i.parcels_purchase_invoice_items.present? }
-      self.reconciliation_state = 'reconcile'
-    else
-      self.reconciliation_state = 'to_reconcile'
+    if reconciliation_state.to_s != 'accepted'
+      if self.items.reject(&:marked_for_destruction?).any?
+        self.reconciliation_state = 'reconcile'
+      else
+        self.reconciliation_state = 'to_reconcile'
+      end
     end
   end
 
@@ -148,7 +150,7 @@ class PurchaseInvoice < Purchase
     # exchange undelivered invoice from parcel
     journal = Journal.used_for_unbilled_payables!(currency: currency)
     b.journal_entry(journal, printed_on: invoiced_on, as: :undelivered_invoice) do |entry|
-      parcels.each do |parcel|
+      parcels.includes(undelivered_invoice_journal_entry: :items).references(undelivered_invoice_journal_entry: :items).each do |parcel|
         next unless parcel.undelivered_invoice_journal_entry
         label = tc(:exchange_undelivered_invoice, resource: parcel.class.model_name.human, number: parcel.number, entity: supplier.full_name, mode: parcel.nature.l)
         undelivered_items = parcel.undelivered_invoice_journal_entry.items
@@ -164,13 +166,13 @@ class PurchaseInvoice < Purchase
     journal = Journal.used_for_permanent_stock_inventory!(currency: currency)
     b.journal_entry(journal, printed_on: invoiced_on, as: :quantity_gap_on_invoice, if: items.any?) do |entry|
       label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: supplier.full_name)
-      items.each do |item|
+      items.includes(:parcels_purchase_orders_items).references(:parcels_purchase_orders_items).each do |item|
         next unless item.variant.storable?
 
         parcel_items_quantity = if !item.parcels_purchase_orders_items.empty?
-                                  item.parcels_purchase_orders_items.map(&:population).compact.sum
+                                  item.parcels_purchase_orders_items.sum(:population)
                                 else
-                                  item.parcels_purchase_invoice_items.map(&:population).compact.sum
+                                  item.parcels_purchase_invoice_items.sum(:population)
                                 end
 
         gap = item.quantity - parcel_items_quantity

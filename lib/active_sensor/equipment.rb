@@ -87,7 +87,7 @@ module ActiveSensor
       raise 'Need model' unless @model
       if options[:indicators]
         @indicators = options[:indicators].collect do |i|
-          raise "Invalid indicator: #{i.inspect}" unless Nomen::Indicator.find(i)
+          raise "Invalid indicator: #{i.inspect}" unless Onoma::Indicator.find(i)
           i.to_sym
         end
       end

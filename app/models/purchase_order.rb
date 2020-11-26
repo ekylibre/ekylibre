@@ -82,6 +82,7 @@ class PurchaseOrder < Purchase
 
   scope :with_state, ->(state) { where(state: state) }
   scope :of_supplier, ->(supplier) { where(supplier: supplier) }
+  scope :of_supplier_with_only_services, ->(supplier) { of_supplier(supplier).joins(:items).where('purchase_items.role = ?', 'service') }
 
   def self.third_attribute
     :supplier
@@ -170,7 +171,7 @@ class PurchaseOrder < Purchase
 
     report[:purchase_pretax_amount] = '%.2f' % pretax_amount
     report[:purchase_amount] = '%.2f' % amount
-    report[:purchase_currency] = Nomen::Currency.find(currency).symbol
+    report[:purchase_currency] = Onoma::Currency.find(currency).symbol
     report
   end
 

@@ -7,7 +7,7 @@ fra:
     grains_area_density: "Densité surfacique de grains"
     grains_area_density_in_thousand_per_hectare: "Densité surfacique de grains en milliers par hectare"
     grains_count: "Millers de grains"
-    items_count: "Nombres d'élèments"
+    items_count: "Nombre d'éléments"
     length: "Longueur"
     mass_area_density: "Densité surfacique"
     mass_area_density_in_gram_per_square_meter: "Densité surfacique en grammes par mètre carré" #?

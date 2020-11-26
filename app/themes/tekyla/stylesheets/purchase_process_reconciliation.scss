@@ -35,7 +35,7 @@
   }
 }
 
-.change-reconcilation-state-block {
+.change-reconciliation-state-block {
   float: right;
   margin-right: 2em;
 }
@@ -75,36 +75,56 @@
   }
 
   .modal-content {
-    padding: $default-gap * 6 0;
+    padding-top: $default-gap * 6;
+    .modal-body {
+      max-height: 700px;
+      overflow: auto;
+      .modal-body__msg-container {
+        font-size: 20px;
+        text-align: center;
+        font-weight: bold;
+        opacity: 0.5;
+        margin-bottom: 20px;
+      }
+    }
   }
 
   .list-headers {
-    @include flex-row(flex-start);
-    padding-left: $default-gap * 7;
+    display: flex;
+    position: fixed;
+    width: 92%;
+    top: 20px;
+    padding-left: $default-gap * 10;
     border-bottom: solid 1px #ddd;
+    font-weight: bold;
 
     .list-header.form-name {
-      flex-basis: 80%;
+      flex: 0 0 40%;
       text-align: left;
     }
 
     .list-header {
       text-align: center;
-      flex-basis: 20%;
+      flex: 0 0 12%;
     }
   }
 
   .list-models {
     .model {
-      padding: $default-gap * 2 $default-gap * 5 $default-gap * 0.7;
+      padding: $default-gap * 2 0 0 $default-gap * 7;
       &:not(:last-child) {
         border-bottom: solid 1px #ddd;
+      }
+      .reception-date {
+        font-size: 12px;
+        font-weight: 300;
+        font-style: italic;
       }
     }
   }
 
   .list-items {
-    padding-left: $default-gap * 4;
+    padding-left: $default-gap * 3;
 
     .item {
       @include flex-row(flex-start);
@@ -112,15 +132,15 @@
       list-style: none;
 
       .item-checkbox {
-        margin-right: $default-gap;
+        flex: 0 0 2%
       }
 
       .variant {
-        flex-basis: 60%;
+        flex: 0 0 38%;
       }
 
       .item-value {
-        flex-basis: 14.5%;
+        flex: 0 0 12%;
         text-align: center;
       }
 
@@ -143,6 +163,25 @@
 
     &-radio-label {
       font-style: italic;
+    }
+  }
+
+  .modal-footer {
+    display: flex;
+    padding-left: $default-gap * 12;
+    .total-label {
+      flex: 0 0 40%;
+      font-weight: bold;
+      font-size: 18px;
+      text-align: left;
+    }
+    .footer-item {
+      text-align: center;
+      flex: 0 0 12%;
+      font-weight: bold;
+      &.actions {
+        text-align: right;
+      }
     }
   }
 }

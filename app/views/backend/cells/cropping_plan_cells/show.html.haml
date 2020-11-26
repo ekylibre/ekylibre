@@ -1,5 +1,5 @@
 :ruby
-  area_unit = Nomen::Unit[:hectare]
+  area_unit = Onoma::Unit[:hectare]
   if @campaigns
     campaign = @campaigns
     activities = Activity.of_campaign(campaign).of_families(:plant_farming).order(:id)

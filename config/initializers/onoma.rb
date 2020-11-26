@@ -1,0 +1,1 @@
+Onoma.load_locales

@@ -12,9 +12,9 @@ module Backend
       assert_equal FinancialYear.first.closer, User.first
       assert_equal FinancialYear.first.state, 'closure_in_preparation'
 
-      assert create(:journal_entry, :with_items, printed_on: Date.today, creator: User.first)
+      assert create(:journal_entry, :with_items, printed_on: Date.today, updater: User.first)
       assert_raises ActiveRecord::RecordInvalid do
-        create(:journal_entry, :with_items, printed_on: Date.today, creator: User.second)
+        create(:journal_entry, :with_items, printed_on: Date.today, updater: User.second)
       end
 
       delete :destroy, financial_year_id: financial_year.id, redirect: backend_financial_years_path
@@ -22,8 +22,8 @@ module Backend
       assert_nil FinancialYear.first.closer
       assert_equal FinancialYear.first.state, 'opened'
 
-      assert create(:journal_entry, :with_items, printed_on: Date.today, creator: User.first)
-      assert create(:journal_entry, :with_items, printed_on: Date.today, creator: User.second)
+      assert create(:journal_entry, :with_items, printed_on: Date.today, updater: User.first)
+      assert create(:journal_entry, :with_items, printed_on: Date.today, updater: User.second)
     end
   end
 end

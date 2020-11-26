@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<migration name="Add intracommunautary vat">
-  <item-creation item="accounts#collected_intra_eu_vat"  fr_pcg82="4452" fr_pcga="4452"/>
-  <item-creation item="accounts#deductible_intra_eu_vat"  fr_pcg82="445662" fr_pcga="445662"/>
-  <item-change item="tax_natures#eu_vat" computation_method="percentage" deduction_account="deductible_intra_eu_vat" fixed_asset_deduction_account="deductible_intra_eu_vat" collect_account="collected_vat"/>
-</migration>

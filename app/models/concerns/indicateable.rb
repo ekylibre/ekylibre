@@ -13,7 +13,7 @@ module Indicateable
       ids = []
       # TODO: Build conditions to filter on indicator_values
       indicator_values.each do |name, value|
-        data = ProductReading.of_products(self, name, read_at).where("#{Nomen::Indicator[name].datatype}_value" => value)
+        data = ProductReading.of_products(self, name, read_at).where("#{Onoma::Indicator[name].datatype}_value" => value)
         ids += data.pluck(:product_id) if data.any?
       end
       where(id: ids)
@@ -25,7 +25,7 @@ module Indicateable
       # TODO: Build conditions to filter on indicator_values
       indicator_values.each do |name, value|
         # puts name.inspect.yellow
-        data = ProductReading.of_products(self, name, read_at).where("#{Nomen::Indicator[name].datatype}_value" => value)
+        data = ProductReading.of_products(self, name, read_at).where("#{Onoma::Indicator[name].datatype}_value" => value)
         ids += data.pluck(:product_id) if data.any?
       end
       where.not(id: ids)
@@ -40,8 +40,8 @@ module Indicateable
 
   # Measure a product for a given indicator
   def read!(indicator, value, options = {})
-    unless indicator.present? && (indicator.is_a?(Nomen::Item) || (indicator = Nomen::Indicator.find(indicator)))
-      raise ArgumentError.new("Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}.")
+    unless indicator.present? && (indicator.is_a?(Onoma::Item) || (indicator = Onoma::Indicator.find(indicator)))
+      raise ArgumentError.new("Unknown indicator #{indicator.inspect}. Expecting one of them: #{Onoma::Indicator.all.sort.to_sentence}.")
     end
     raise ArgumentError.new('Value must be given') if value.nil?
     unless options[:force]
@@ -61,8 +61,8 @@ module Indicateable
 
   # Return the indicator reading
   def reading(indicator, options = {})
-    unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
-      raise ArgumentError.new("Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}.")
+    unless indicator.is_a?(Onoma::Item) || indicator = Onoma::Indicator[indicator]
+      raise ArgumentError.new("Unknown indicator #{indicator.inspect}. Expecting one of them: #{Onoma::Indicator.all.sort.to_sentence}.")
     end
     read_at = options[:at] || Time.zone.now
     readings.where(indicator_name: indicator.name).where('read_at <= ?', read_at).order(read_at: :desc).first
@@ -78,8 +78,8 @@ module Indicateable
   # if option :at specify at which moment
   # if option :interpolate is true, it returns the interpolated value
   def get(indicator, *args)
-    unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
-      raise ArgumentError.new("Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}.")
+    unless indicator.is_a?(Onoma::Item) || indicator = Onoma::Indicator[indicator]
+      raise ArgumentError.new("Unknown indicator #{indicator.inspect}. Expecting one of them: #{Onoma::Indicator.all.sort.to_sentence}.")
     end
     options = args.extract_options!
     cast_or_time = args.shift || options[:cast] || options[:at] || Time.zone.now
@@ -137,8 +137,8 @@ module Indicateable
   end
 
   def get!(indicator, *args)
-    unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
-      raise ArgumentError.new("Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}.")
+    unless indicator.is_a?(Onoma::Item) || indicator = Onoma::Indicator[indicator]
+      raise ArgumentError.new("Unknown indicator #{indicator.inspect}. Expecting one of them: #{Onoma::Indicator.all.sort.to_sentence}.")
     end
     unless value = get(indicator, *args)
       raise "Cannot get value of #{indicator.name} for product ##{id}"
@@ -148,20 +148,20 @@ module Indicateable
 
   def density(numerator, denominator, options = {})
     # Check indicator
-    unless numerator.is_a?(Nomen::Item) || numerator = Nomen::Indicator[numerator]
-      raise ArgumentError.new("Unknown indicator #{numerator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}.")
+    unless numerator.is_a?(Onoma::Item) || numerator = Onoma::Indicator[numerator]
+      raise ArgumentError.new("Unknown indicator #{numerator.inspect}. Expecting one of them: #{Onoma::Indicator.all.sort.to_sentence}.")
     end
-    unless denominator.is_a?(Nomen::Item) || denominator = Nomen::Indicator[denominator]
-      raise ArgumentError.new("Unknown indicator #{denominator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}.")
+    unless denominator.is_a?(Onoma::Item) || denominator = Onoma::Indicator[denominator]
+      raise ArgumentError.new("Unknown indicator #{denominator.inspect}. Expecting one of them: #{Onoma::Indicator.all.sort.to_sentence}.")
     end
 
     # Find dimension and unit
-    numerator_dimension   = Nomen::Dimension.find_by(symbol: numerator.symbol)
-    denominator_dimension = Nomen::Dimension.find_by(symbol: denominator.symbol)
-    unless dimension = Nomen::Dimension.find_by(symbol: "#{numerator_dimension.symbol}/#{denominator_dimension.symbol}")
+    numerator_dimension   = Onoma::Dimension.find_by(symbol: numerator.symbol)
+    denominator_dimension = Onoma::Dimension.find_by(symbol: denominator.symbol)
+    unless dimension = Onoma::Dimension.find_by(symbol: "#{numerator_dimension.symbol}/#{denominator_dimension.symbol}")
       raise "No dimension found for: #{numerator.symbol}/#{denominator.symbol}"
     end
-    unless unit = Nomen::Unit.find_by(dimension: dimension)
+    unless unit = Onoma::Unit.find_by(dimension: dimension)
       raise "No unit found for: #{dimension.inspect}"
     end
 
@@ -206,7 +206,7 @@ module Indicateable
       unless operand_value
         raise StandardError.new("No given #{indicator_name} value")
       end
-      indicator = Nomen::Indicator.find(indicator_name)
+      indicator = Onoma::Indicator.find(indicator_name)
       # Perform operation
       value = get(indicator, at: taken_at)
       value = Charta.new_geometry(value) if indicator.datatype == :shape
@@ -239,8 +239,8 @@ module Indicateable
   end
 
   def operate_on_readings(indicator, value, options = {})
-    unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
-      raise ArgumentError.new("Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}.")
+    unless indicator.is_a?(Onoma::Item) || indicator = Onoma::Indicator[indicator]
+      raise ArgumentError.new("Unknown indicator #{indicator.inspect}. Expecting one of them: #{Onoma::Indicator.all.sort.to_sentence}.")
     end
     data = readings.where(indicator_name: indicator.name)
     operation = options.delete(:operation)

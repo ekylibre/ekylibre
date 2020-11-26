@@ -88,28 +88,20 @@
       targettedElement = $(event.target)
       E.PurchaseInvoices.displayAssetsBlock(targettedElement)
 
-      if targettedElement.is(':checked')
-        E.PurchaseInvoices.manageStoppedOnFieldDisplay(targettedElement)
-
-
     $(document).on 'change', '.nested-item-form .fixed-asset-fields .purchase_invoice_items_preexisting_asset input[type="checkbox"]', (event) ->
       targettedElement = $(event.target)
       E.PurchaseInvoices.manageExistingAssetDisplay(targettedElement)
 
-      unless targettedElement.is(':checked')
-        E.PurchaseInvoices.manageStoppedOnFieldDisplay(targettedElement)
-
-
-    $(document).on 'click', '.change-reconcilation-state-block input[type="checkbox"]', (event) ->
+    $(document).on 'click', '.change-reconciliation-state-block input[type="checkbox"]', (event) ->
       checkbox = $(event.target)
-      E.PurchaseInvoicesShow.changeEventReconcilationStateBlock(checkbox)
+      E.PurchaseInvoicesShow.changeEventReconciliationStateBlock(checkbox)
 
     E.PurchaseInvoicesShow =
-      changeEventReconcilationStateBlock: (checkbox) ->
+      changeEventReconciliationStateBlock: (checkbox) ->
         reconciliationTitle = $('.reconciliation-title')
         purchase_invoice_id = window.location.pathname.split('/').pop()
         isReconcile = $(reconciliationTitle).attr('data-reconcile') == 'true'
-        url = "/backend/purchases/reconcilation_states/#{ purchase_invoice_id }"
+        url = "/backend/purchases/reconciliation_states/#{ purchase_invoice_id }"
 
         if checkbox.is(':checked')
           url += '/put_accepted_state'
@@ -145,23 +137,5 @@
       else
         existingAssetBlock.css('display', 'none')
         newAssetBlock.css('display', 'block')
-
-
-    manageStoppedOnFieldDisplay: (checkbox) ->
-      assetsFields = checkbox.closest('.assets')
-      assetsFields = checkbox.closest('.fixed-asset-fields').find('.assets') if assetsFields.length == 0
-
-      stoppedOnFieldBlock = assetsFields.find('.fixed-asset-stopped-on')
-
-      merchandise = checkbox.closest('.merchandise')
-      variantId = merchandise.find('.purchase_invoice_items_variant .selector-value').val()
-
-      $.ajax
-        url: "/backend/variants/fixed_assets/#{variantId}/fixed_assets_datas",
-        success: (data, status, request) ->
-          if data.depreciation_method == "simplified_linear" || data.depreciation_method == ""
-            stoppedOnFieldBlock.css('display', 'none')
-          else
-            stoppedOnFieldBlock.css('display', 'block')
 
 ) ekylibre, jQuery

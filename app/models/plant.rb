@@ -179,7 +179,7 @@ class Plant < Bioproduct
   def self.unique_varieties
     pluck(:variety)
       .uniq
-      .map { |variety| Nomen::Variety.find(variety) }
+      .map { |variety| Onoma::Variety.find(variety) }
   end
 
   private

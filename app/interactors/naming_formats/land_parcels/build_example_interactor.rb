@@ -18,7 +18,8 @@ module NamingFormats
                    .new(cultivable_zone: CultivableZone.first,
                         activity: Activity.first,
                         campaign: Campaign.first,
-                        season: ActivitySeason.first)
+                        season: ActivitySeason.first,
+                        free_field: "[#{I18n.t('free_field', scope: 'enumerize.naming_format_field_land_parcel.field_name', locale: Preference[:language])}]")
                    .perform(field_values: @field_values)
       rescue StandardError => exception
         fail!(exception.message)

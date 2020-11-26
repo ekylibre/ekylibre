@@ -11,8 +11,8 @@
   = f.input :siret_number
   = f.input :number, required: false, placeholder: f.object.unique_predictable_number
   = f.custom_fields
-  = f.input :language, collection: Nomen::Language.selection
-  -# = f.input :country, collection: Nomen::Country.selection
+  = f.input :language, collection: Onoma::Language.selection
+  -# = f.input :country, collection: Onoma::Country.selection
   - if f.object.organization?
     = f.input :activity_code
     = f.input :vat_number

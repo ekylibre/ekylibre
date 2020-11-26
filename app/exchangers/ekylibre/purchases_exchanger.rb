@@ -107,7 +107,7 @@ module Ekylibre
           raise "Variant identifiant must be given at line #{line_index}"
         end
         unless variant = ProductNatureVariant.find_by(work_number: r.variant_code)
-          if Nomen::ProductNatureVariant.find(r.variant_code)
+          if Onoma::ProductNatureVariant.find(r.variant_code)
             variant = ProductNatureVariant.import_from_nomenclature(r.variant_code)
           else
             if r.variant[:fixed_asset_account]

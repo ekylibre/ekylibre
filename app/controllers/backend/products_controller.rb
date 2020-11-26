@@ -36,7 +36,7 @@ module Backend
     def self.list_conditions
       code = search_conditions(products: %i[name work_number number description uuid], product_nature_variants: [:name]) + " ||= []\n"
       code << "unless params[:working_set].blank?\n"
-      code << "  item = Nomen::WorkingSet.find(params[:working_set])\n"
+      code << "  item = Onoma::WorkingSet.find(params[:working_set])\n"
       code << "  c[0] << \" AND products.nature_id IN (SELECT id FROM product_natures WHERE \#{WorkingSet.to_sql(item.expression)})\"\n"
       code << "end\n"
 
@@ -223,7 +223,7 @@ module Backend
     # Returns value of an indicator
     def take
       return unless @product = find_and_check
-      indicator = Nomen::Indicator.find(params[:indicator])
+      indicator = Onoma::Indicator.find(params[:indicator])
       unless indicator
         head :unprocessable_entity
         return
@@ -231,7 +231,7 @@ module Backend
 
       value = @product.get(indicator)
       if indicator.datatype == :measure
-        if unit = Nomen::Unit[params[:unit]]
+        if unit = Onoma::Unit[params[:unit]]
           value = value.convert(unit)
         end
         value = { unit: value.unit, value: value.to_d.round(4) }

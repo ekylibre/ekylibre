@@ -138,7 +138,7 @@ class RegisteredPhytosanitaryProduct < ApplicationRecord
 
   class << self
     def unit
-      Nomen::Unit['liter']
+      Onoma::Unit['liter']
     end
   end
 end

@@ -273,14 +273,14 @@ module ApplicationHelper
 
   def available_languages(native_language = true)
     %i[fra eng].map do |l|
-      [native_language ? I18n.t('i18n.name', locale: l) : Nomen::Language.find(l).human_name, l]
+      [native_language ? I18n.t('i18n.name', locale: l) : Onoma::Language.find(l).human_name, l]
     end.sort_by(&:second)
   end
 
   # Returns a selection from names list
   def nomenclature_as_options(nomenclature_name, *args)
     options = args.extract_options!
-    nomenclature = Nomen[nomenclature_name]
+    nomenclature = Onoma[nomenclature_name]
     items = args.shift || nomenclature.all
     items.collect do |name|
       item = nomenclature.find(name)
@@ -332,7 +332,7 @@ module ApplicationHelper
           # raise [model_name.pluralize, record, record.class.name.underscore.pluralize].inspect
           options[:url][:controller] ||= record.class.name.underscore.pluralize
         end
-      elsif value.is_a? Nomen::Item
+      elsif value.is_a? Onoma::Item
         value = value.human_name
       else
         options[:url] = { action: :show } if options[:url].is_a? TrueClass
@@ -350,7 +350,7 @@ module ApplicationHelper
       value = value.send(:text)
       title = Some(value)
     elsif attribute.to_s =~ /(^|_)currency$/
-      value = Nomen::Currency[value].human_name
+      value = Onoma::Currency[value].human_name
       title = Some(value)
     elsif attribute.to_s =~ /^state$/ && !options[:force_string]
       value = I18n.translate("models.#{model_name}.states.#{value}")
@@ -812,10 +812,13 @@ module ApplicationHelper
 
   def tool_to(name, url, options = {})
     raise ArgumentError.new("##{__method__} cannot use blocks") if block_given?
+
     icon = options.key?(:tool) ? options.delete(:tool) : options.key?(:icon) ? options.delete(:icon) : nil
     icon ||= url[:action] if url.is_a?(Hash) && !icon.is_a?(FalseClass)
+    tooltip_options = options.delete(:tooltip_options)
     options[:class] = (options[:class].blank? ? 'btn btn-default' : options[:class].to_s + ' btn btn-default')
     options[:class] << ' icn btn-' + icon.to_s if icon
+
     if url.is_a?(Hash)
       if url.key?(:redirect)
         url.delete(:redirect) if url[:redirect].nil?
@@ -823,7 +826,14 @@ module ApplicationHelper
         url[:redirect] = request.fullpath
       end
     end
-    link_to(name, url, options)
+
+    if tooltip_options
+      content_tag :span, tooltip_options do
+        link_to(name, url, options)
+      end
+    else
+      link_to(name, url, options)
+    end
   end
 
   def toolbar_tag(name, wrap: true)

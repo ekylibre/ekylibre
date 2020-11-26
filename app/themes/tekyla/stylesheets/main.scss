@@ -568,9 +568,9 @@ html.exception {
   .toolbar + & {
     @include calc(height, "100vh - #{$header-height + $topbar-height + $chat-btn-height + $toolbar-height} - 1px");
   }
-  // .flash + & {
-  //   height: unset;
-  // }
+  .toolbar + .flash + & {
+    @include calc(height, "100vh - #{$header-height + $topbar-height + $chat-btn-height + $toolbar-height + $lh-normal + $default-gap * 4}");
+  }
 }
 
 #about-us {
@@ -2682,8 +2682,13 @@ a[data-annotate] {
       }
       .cobble-body {
         // padding: $default-gap;
+        .list-footer-pagination { 
+          padding: 8px;
+          padding-right: 14px;
+          float: right;
+        }
         .cobble-toolbar {
-          .list-pagination, .list-footer-pagination {
+          .list-pagination {
             float: none;
           }
           &.cobble-meta-toolbar {
@@ -2711,6 +2716,7 @@ a[data-annotate] {
         }
         .cobble-end {
           clear: both;
+          padding-top: 8px;
         }
       }
       &.cobble-placeholder {
@@ -2803,6 +2809,10 @@ a[data-annotate] {
 
 .fieldset .fieldset-fields tr.nested-fields input.numeric, .fieldset .fieldset-fields tbody.nested-fields input.numeric {
   width: 5em;
+}
+
+.fieldset .fieldset-fields tr.nested-fields input.lg-numeric, .fieldset .fieldset-fields tbody.nested-fields input.lg-numeric {
+  width: 10em;
 }
 
 .smr {

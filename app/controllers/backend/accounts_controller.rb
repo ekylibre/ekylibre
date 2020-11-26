@@ -181,7 +181,7 @@ module Backend
       @confirm_label = :are_you_sure.tl
       @account_id = @account.id
       @currency = Preference[:currency]
-      @precision = Nomen::Currency[@currency].precision
+      @precision = Onoma::Currency[@currency].precision
 
     end
 
@@ -195,7 +195,7 @@ module Backend
 
     def filter_select_collection
       regexp = /\A#{Regexp.quote(params[:filter_value].first(3))}/
-      @filtered_accounts = Nomen::Account.list.reject { |a| a.send(Account.accounting_system) == 'NONE' || !a.send(Account.accounting_system).match(regexp) }
+      @filtered_accounts = Onoma::Account.list.reject { |a| a.send(Account.accounting_system) == 'NONE' || !a.send(Account.accounting_system).match(regexp) }
       @filtered_accounts = @filtered_accounts.sort_by { |a| a.send(Account.accounting_system) }
     end
 

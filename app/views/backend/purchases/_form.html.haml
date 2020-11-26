@@ -32,7 +32,7 @@
           %th= PurchaseItem.human_attribute_name(:amount)
           %th= PurchaseItem.human_attribute_name(:currency)
           %th
-      - precision = Nomen::Currency[f.object.currency].precision
+      - precision = Onoma::Currency[f.object.currency].precision
       %tfoot
         %tr.total
           %td= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary"
