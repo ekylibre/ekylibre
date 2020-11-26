@@ -11104,7 +11104,7 @@
     "duration": 0.0018
   },
   {
-    "name": "Nomen::RelationTest#test_collect",
+    "name": "Onoma::RelationTest#test_collect",
     "duration": 0.0018
   },
   {
@@ -11280,7 +11280,7 @@
     "duration": 0.0015
   },
   {
-    "name": "Nomen::NomenclatureSetTest#test_set_manipulation",
+    "name": "Onoma::NomenclatureSetTest#test_set_manipulation",
     "duration": 0.0015
   },
   {
@@ -11800,7 +11800,7 @@
     "duration": 0.0010
   },
   {
-    "name": "Nomen::RelationTest#test_detect",
+    "name": "Onoma::RelationTest#test_detect",
     "duration": 0.0010
   },
   {
@@ -11864,7 +11864,7 @@
     "duration": 0.0009
   },
   {
-    "name": "Nomen::RelationTest#test_select",
+    "name": "Onoma::RelationTest#test_select",
     "duration": 0.0009
   },
   {
@@ -11924,7 +11924,7 @@
     "duration": 0.0008
   },
   {
-    "name": "Nomen::VarietyTest#test_parent_variety_does_not_raise_error_when_unknown_variety_reference_is_provided",
+    "name": "Onoma::VarietyTest#test_parent_variety_does_not_raise_error_when_unknown_variety_reference_is_provided",
     "duration": 0.0008
   },
   {
@@ -11936,7 +11936,7 @@
     "duration": 0.0008
   },
   {
-    "name": "Nomen::VarietyTest#test_parent_variety_returns_the_most_distant_and_not_generic_parent",
+    "name": "Onoma::VarietyTest#test_parent_variety_returns_the_most_distant_and_not_generic_parent",
     "duration": 0.0008
   },
   {
@@ -11952,7 +11952,7 @@
     "duration": 0.0007
   },
   {
-    "name": "Nomen::VarietyTest#test_parent_variety_returns_the_provided_variety's_name_if_it_has_no_parent",
+    "name": "Onoma::VarietyTest#test_parent_variety_returns_the_provided_variety's_name_if_it_has_no_parent",
     "duration": 0.0007
   },
   {

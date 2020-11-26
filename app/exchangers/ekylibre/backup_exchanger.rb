@@ -260,7 +260,7 @@ module Ekylibre
       accounting_system = Preference[:accounting_system]
       data.browse_and_match(:account) do |item|
         unless account = Account.find_by(number: item.number)
-          reference = Nomen::Account.list.detect do |ref|
+          reference = Onoma::Account.list.detect do |ref|
             ref.send(accounting_system).to_s == item.number
           end
           account = Account.create!(number: item.number, name: item.name, label: item.label, last_letter: item.last_letter, debtor: item.is_debit, reconcilable: item.reconcilable, usages: (reference ? reference.name : nil), description: item.comment)

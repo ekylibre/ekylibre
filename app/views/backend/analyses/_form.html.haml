@@ -15,10 +15,10 @@
 
 = field_set :items do
   :ruby
-    if params[:nature] and nature = Nomen::AnalysisNature.find(params[:nature])
+    if params[:nature] and nature = Onoma::AnalysisNature.find(params[:nature])
       unless nature.items.nil?
         nature.items.each do |item|
-          next unless indicator = Nomen::Indicator.find(item.to_s)
+          next unless indicator = Onoma::Indicator.find(item.to_s)
           unless f.object.items.detect{|i| i.indicator_name.to_s == item.to_s}
             attrs = {indicator_name: item}
             if indicator.datatype == :measure
@@ -37,7 +37,7 @@
     .links
       :ruby
         existing = f.object.items.map(&:indicator_name).map(&:to_s)
-        indicator_values = Nomen::Indicator.selection
+        indicator_values = Onoma::Indicator.selection
         indicator_values.each { |elem| elem << { disabled: true, hidden: true } if existing.include?(elem.last) }
       %span.nested-add= :add_item.tl
       %span.input-append= select_tag(:indicator_name, options_for_select(indicator_values), id: 'indicator-selector')

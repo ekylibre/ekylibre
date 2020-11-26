@@ -161,7 +161,7 @@ class Purchase < Ekylibre::Record::Base
   end
 
   def precision
-    Nomen::Currency.find(currency).precision
+    Onoma::Currency.find(currency).precision
   end
 
   def refresh

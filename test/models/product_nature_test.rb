@@ -62,7 +62,7 @@ require 'test_helper'
 class ProductNatureTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   test 'working sets scope' do
-    Nomen::WorkingSet.list.each do |item|
+    Onoma::WorkingSet.list.each do |item|
       assert ProductNature.of_working_set(item.name).count >= 0
     end
   end

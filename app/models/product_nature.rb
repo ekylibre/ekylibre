@@ -138,10 +138,10 @@ class ProductNature < Ekylibre::Record::Base
   }
 
   scope :of_working_set, lambda { |working_set|
-    if item = Nomen::WorkingSet.find(working_set)
+    if item = Onoma::WorkingSet.find(working_set)
       of_expression(item.expression)
     else
-      raise StandardError.new("#{working_set.inspect} is not in Nomen::WorkingSet nomenclature")
+      raise StandardError.new("#{working_set.inspect} is not in Onoma::WorkingSet nomenclature")
     end
   }
 
@@ -176,19 +176,19 @@ class ProductNature < Ekylibre::Record::Base
       end
     end
     if variety && variants.any?
-      if variants.detect { |p| Nomen::Variety.find(p.variety) > variety }
+      if variants.detect { |p| Onoma::Variety.find(p.variety) > variety }
         errors.add(:variety, :invalid)
       end
     end
     if derivative_of && variants.any?
-      if variants.detect { |p| p.derivative_of? && Nomen::Variety.find(p.derivative_of) > derivative_of }
+      if variants.detect { |p| p.derivative_of? && Onoma::Variety.find(p.derivative_of) > derivative_of }
         errors.add(:derivative_of, :invalid)
       end
     end
   end
 
   def find_nature
-    VARIETIES_NATURES.detect { |_k, v| v.include? Nomen::Variety.parent_variety(variety) }&.first
+    VARIETIES_NATURES.detect { |_k, v| v.include? Onoma::Variety.parent_variety(variety) }&.first
   end
 
   def variant_type
@@ -214,7 +214,7 @@ class ProductNature < Ekylibre::Record::Base
 
   # Returns the closest matching model based on the given variety
   def self.matching_model(variety)
-    if item = Nomen::Variety.find(variety)
+    if item = Onoma::Variety.find(variety)
       for ancestor in item.self_and_parents
         next unless model = begin
                               ancestor.name.camelcase.constantize
@@ -254,12 +254,12 @@ class ProductNature < Ekylibre::Record::Base
 
   # Returns list of froezen indicators as an array of indicator items from the nomenclature
   def frozen_indicators
-    frozen_indicators_list.collect { |i| Nomen::Indicator[i] }.compact
+    frozen_indicators_list.collect { |i| Onoma::Indicator[i] }.compact
   end
 
   # Returns list of variable indicators as an array of indicator items from the nomenclature
   def variable_indicators
-    variable_indicators_list.collect { |i| Nomen::Indicator[i] }.compact
+    variable_indicators_list.collect { |i| Onoma::Indicator[i] }.compact
   end
 
   # Returns list of indicators as an array of indicator items from the nomenclature
@@ -290,7 +290,7 @@ class ProductNature < Ekylibre::Record::Base
   # Returns list of abilities as an array of ability items from the nomenclature
   def abilities
     abilities_list.collect do |i|
-      (Nomen::Ability[i.to_s.split(/\(/).first] ? i.to_s : nil)
+      (Onoma::Ability[i.to_s.split(/\(/).first] ? i.to_s : nil)
     end.compact
   end
 
@@ -343,7 +343,7 @@ class ProductNature < Ekylibre::Record::Base
     # Returns some nomenclature items are available to be imported, e.g. not
     # already imported
     def any_reference_available?
-      Nomen::ProductNature.without(ProductNature.pluck(:reference_name).uniq).any?
+      Onoma::ProductNature.without(ProductNature.pluck(:reference_name).uniq).any?
     end
 
     Item = Struct.new(:name, :variety, :derivative_of, :abilities_list, :indicators, :frozen_indicators, :variable_indicators)
@@ -351,13 +351,13 @@ class ProductNature < Ekylibre::Record::Base
     # Returns core attributes of nomenclature merge with nature if necessary
     # name, variety, derivative_of, abilities
     def flattened_nomenclature
-      @flattened_nomenclature ||= Nomen::ProductNature.list.collect do |item|
+      @flattened_nomenclature ||= Onoma::ProductNature.list.collect do |item|
         f = (item.frozen_indicators || []).map(&:to_sym)
         v = (item.variable_indicators || []).map(&:to_sym)
         Item.new(
           item.name,
-          Nomen::Variety.find(item.variety),
-          Nomen::Variety.find(item.derivative_of),
+          Onoma::Variety.find(item.variety),
+          Onoma::Variety.find(item.derivative_of),
           WorkingSet::AbilityArray.load(item.abilities),
           f + v, f, v
         )
@@ -374,7 +374,7 @@ class ProductNature < Ekylibre::Record::Base
 
     # Load a product nature from product nature nomenclature
     def import_from_nomenclature(reference_name, force = false)
-      unless item = Nomen::ProductNature.find(reference_name)
+      unless item = Onoma::ProductNature.find(reference_name)
         raise ArgumentError.new("The product nature #{reference_name.inspect} is unknown")
       end
       if !force && (nature = ProductNature.find_by(reference_name: reference_name))
@@ -427,7 +427,7 @@ class ProductNature < Ekylibre::Record::Base
     end
 
     def load_defaults(**_options)
-      Nomen::ProductNature.find_each do |product_nature|
+      Onoma::ProductNature.find_each do |product_nature|
         import_from_nomenclature(product_nature.name)
       end
     end

@@ -71,7 +71,7 @@ module Agroedi
       private
 
         def target_variety
-          Nomen::Variety[intervention.activity_production.cultivation_variety]
+          Onoma::Variety[intervention.activity_production.cultivation_variety]
         end
 
         def find_or_create_variant!

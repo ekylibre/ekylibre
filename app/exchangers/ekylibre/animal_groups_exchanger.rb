@@ -60,7 +60,7 @@ module Ekylibre
 
         next unless r.variant_reference_name
         next if variant = ProductNatureVariant.find_by(work_number: r.variant_reference_name)
-        unless nomen = Nomen::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
+        unless nomen = Onoma::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
           w.error "No variant exist in NOMENCLATURE for #{r.variant_reference_name.inspect}"
           valid = false
         end
@@ -142,7 +142,7 @@ module Ekylibre
         campaign = Campaign.find_or_create_by(harvest_year: r.campaign_year)
 
         # check activity
-        family = Nomen::ActivityFamily.find(:animal_farming)
+        family = Onoma::ActivityFamily.find(:animal_farming)
         r.activity_name = family.human_name if r.activity_name.blank?
         unless activity = Activity.find_by(name: r.activity_name)
           # family = Activity.find_best_family(animal_group.derivative_of, animal_group.variety)

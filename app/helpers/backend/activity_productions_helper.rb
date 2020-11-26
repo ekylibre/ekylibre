@@ -67,9 +67,9 @@ module Backend
     def production_cost_charts(activity_production)
       unit = activity_production.activity.size_unit_name.to_sym
       unit ||= :hectare
-      unit_item = Nomen::Unit[unit]
+      unit_item = Onoma::Unit[unit]
       currency = Preference[:currency]
-      currency_item = Nomen::Currency[currency]
+      currency_item = Onoma::Currency[currency]
       global_cost_per_hectare = 0.0
       ordered_interventions = activity_production.interventions.includes(:targets, tools: %i[product intervention], inputs: :product, doers: %i[product intervention]).reorder(:started_at)
 

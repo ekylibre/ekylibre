@@ -96,7 +96,7 @@ module Procedo
 
     # Adds category to procedure
     def add_category(name)
-      category = Nomen::ProcedureCategory.find(name)
+      category = Onoma::ProcedureCategory.find(name)
       raise "Invalid category: #{name.inspect}".red unless category
       @categories << category unless @categories.include?(category)
     end
@@ -113,7 +113,7 @@ module Procedo
 
     # Adds action to procedure
     def add_action(name, optional = false)
-      action = Nomen::ProcedureAction.find(name)
+      action = Onoma::ProcedureAction.find(name)
       raise "Invalid action: #{name.inspect}".red unless action
       actions = optional ? @optional_actions : @mandatory_actions
       actions << action unless actions.include?(action)
@@ -172,7 +172,7 @@ module Procedo
 
     # Adds variety scope of procedure
     def add_variety(name)
-      variety = Nomen::Variety.find(name)
+      variety = Onoma::Variety.find(name)
       raise "Invalid variety: #{name.inspect}".red unless variety
       @varieties << variety unless @varieties.include?(variety)
     end
@@ -181,7 +181,7 @@ module Procedo
     def has_varieties?(*varieties)
       @varieties.any? do |obj|
         varieties.all? do |v|
-          variety = Nomen::Variety.find(v)
+          variety = Onoma::Variety.find(v)
           variety && obj >= variety
         end
       end
@@ -216,7 +216,7 @@ module Procedo
       @activity_families ||= categories.map do |c|
         families = c.activity_family || []
         families.map do |f|
-          Nomen::ActivityFamily.all(f)
+          Onoma::ActivityFamily.all(f)
         end
       end.flatten.uniq.map(&:to_sym)
     end

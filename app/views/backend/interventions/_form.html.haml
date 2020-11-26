@@ -62,8 +62,8 @@
       = f.nested_association(:receptions, maximum: 1, button_label: :add_service_delivering.tl, partial: '/backend/interventions/reception_fields')
   - else # Root Procedure Natures
     - main_period_selector(:year)
-    - Nomen::ActivityFamily.find_each do |family|
-      - categories = Nomen::ProcedureCategory.select { |c| c.activity_family.include?(family.name.to_sym) }
+    - Onoma::ActivityFamily.find_each do |family|
+      - categories = Onoma::ProcedureCategory.select { |c| c.activity_family.include?(family.name.to_sym) }
       - next unless categories.any?
       .activity-family
         .activity-family-heading

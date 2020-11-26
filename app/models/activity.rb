@@ -128,18 +128,18 @@ class Activity < Ekylibre::Record::Base
     end
   }
   scope :with_cultivation_variety, lambda { |variety|
-    where(cultivation_variety: (variety.is_a?(Nomen::Item) ? variety : Nomen::Variety.find(variety)).self_and_parents.map(&:name))
+    where(cultivation_variety: (variety.is_a?(Onoma::Item) ? variety : Onoma::Variety.find(variety)).self_and_parents.map(&:name))
   }
   scope :of_cultivation_variety, lambda { |variety|
-    where(cultivation_variety: (variety.is_a?(Nomen::Item) ? variety : Nomen::Variety.find(variety)).self_and_children.map(&:name))
+    where(cultivation_variety: (variety.is_a?(Onoma::Item) ? variety : Onoma::Variety.find(variety)).self_and_children.map(&:name))
   }
   scope :main_of_campaign, ->(campaign) { main.of_campaign(campaign) }
   scope :of_current_campaigns, -> { joins(:campaign).merge(Campaign.current) }
   scope :of_families, proc { |*families|
-    where(family: families.flatten.collect { |f| Nomen::ActivityFamily.all(f.to_sym) }.flatten.uniq.map(&:to_s))
+    where(family: families.flatten.collect { |f| Onoma::ActivityFamily.all(f.to_sym) }.flatten.uniq.map(&:to_s))
   }
   scope :of_family, proc { |family|
-    where(family: Nomen::ActivityFamily.all(family))
+    where(family: Onoma::ActivityFamily.all(family))
   }
 
   accepts_nested_attributes_for :distributions, reject_if: :all_blank, allow_destroy: true
@@ -157,7 +157,7 @@ class Activity < Ekylibre::Record::Base
   end
 
   before_validation do
-    if Nomen::ActivityFamily.find(family)
+    if Onoma::ActivityFamily.find(family)
       # FIXME: Need to use nomenclatures to set that data!
       if plant_farming?
         self.with_supports = true
@@ -206,11 +206,11 @@ class Activity < Ekylibre::Record::Base
     errors.add :use_gradings, :checked_without_measures if use_gradings && !measure_something?
     errors.add :family, :productions_present if changed.include?('family') && productions.exists?
 
-    next unless family_item = Nomen::ActivityFamily[family]
-    if with_supports && variety = Nomen::Variety[support_variety] && family_item.support_variety
+    next unless family_item = Onoma::ActivityFamily[family]
+    if with_supports && variety = Onoma::Variety[support_variety] && family_item.support_variety
       errors.add(:support_variety, :invalid) unless variety <= family_item.support_variety
     end
-    next unless with_cultivation && variety = Nomen::Variety[cultivation_variety]
+    next unless with_cultivation && variety = Onoma::Variety[cultivation_variety]
     next unless family_item.cultivation_variety.present?
     errors.add(:cultivation_variety, :invalid) unless variety <= family_item.cultivation_variety
     true
@@ -285,9 +285,9 @@ class Activity < Ekylibre::Record::Base
     productions.of_campaign(campaign).any?
   end
 
-  Nomen::ActivityFamily.find_each do |base_family|
+  Onoma::ActivityFamily.find_each do |base_family|
     define_method base_family.name.to_s + '?' do
-      family && Nomen::ActivityFamily.find(family) <= base_family
+      family && Onoma::ActivityFamily.find(family) <= base_family
     end
   end
 
@@ -303,21 +303,21 @@ class Activity < Ekylibre::Record::Base
 
   # Returns human_name of support variety
   def support_variety_name
-    item = Nomen::Variety.find(support_variety)
+    item = Onoma::Variety.find(support_variety)
     return nil unless item
     item.human_name
   end
 
   # Returns human_name of support variety
   def cultivation_variety_name
-    item = Nomen::Variety.find(cultivation_variety)
+    item = Onoma::Variety.find(cultivation_variety)
     return nil unless item
     item.human_name
   end
 
   # Returns human name of activity family
   def family_label
-    Nomen::ActivityFamily.find(family).human_name
+    Onoma::ActivityFamily.find(family).human_name
   end
 
   # Returns a specific color for the given activity
@@ -336,13 +336,13 @@ class Activity < Ekylibre::Record::Base
   end
 
   def quandl_dataset
-    if Nomen::Variety[self.cultivation_variety.to_sym] <= :triticum_aestivum
+    if Onoma::Variety[self.cultivation_variety.to_sym] <= :triticum_aestivum
       'CHRIS/LIFFE_EBM4'
-    elsif Nomen::Variety[self.cultivation_variety.to_sym] <= :brassica_napus
+    elsif Onoma::Variety[self.cultivation_variety.to_sym] <= :brassica_napus
       'CHRIS/LIFFE_ECO4'
-    elsif Nomen::Variety[self.cultivation_variety.to_sym] <= :hordeum_hexastichum
+    elsif Onoma::Variety[self.cultivation_variety.to_sym] <= :hordeum_hexastichum
       'CHRIS/ICE_BW2'
-    elsif Nomen::Variety[self.cultivation_variety.to_sym] <= :zea
+    elsif Onoma::Variety[self.cultivation_variety.to_sym] <= :zea
       'CHRIS/LIFFE_EMA10'
     end
   end
@@ -358,8 +358,8 @@ class Activity < Ekylibre::Record::Base
     # Returns a color for given family and variety
     # short-way solution, can be externalized in mid-way solution
     def color(family, variety)
-      activity_family = Nomen::ActivityFamily.find(family)
-      variety = Nomen::Variety.find(variety)
+      activity_family = Onoma::ActivityFamily.find(family)
+      variety = Onoma::Variety.find(variety)
       return 'White' unless activity_family
       if activity_family <= :plant_farming
         list = COLORS['varieties']
@@ -379,7 +379,7 @@ class Activity < Ekylibre::Record::Base
     # Find nearest family on cultivation variety and support variety
     def best_for_cultivation(family, cultivation_variety)
       return nil unless any?
-      searched = Nomen::Variety.find(cultivation_variety)
+      searched = Onoma::Variety.find(cultivation_variety)
       activities = of_family(family).select do |activity|
         searched <= activity.cultivation_variety
       end
@@ -408,7 +408,7 @@ class Activity < Ekylibre::Record::Base
         family = :wine_making if cultivation_variety <= :wine
       end
       family ||= :administering
-      Nomen::ActivityFamily.find(family)
+      Onoma::ActivityFamily.find(family)
     end
   end
 
@@ -426,7 +426,7 @@ class Activity < Ekylibre::Record::Base
   end
 
   def is_of_family?(family)
-    Nomen::ActivityFamily[self.family] <= family
+    Onoma::ActivityFamily[self.family] <= family
   end
 
   def inspectionable?

@@ -84,7 +84,7 @@ module Backend
       if product_nature.nil?
         render json: { message: 'Not found' }, status: :not_found
       else
-        varieties = Nomen::Variety.find(product_nature.variety).self_and_children
+        varieties = Onoma::Variety.find(product_nature.variety).self_and_children
         render json: { data: varieties.map { |variety| {name: variety.name, human_name: variety.human_name }} }
       end
     end

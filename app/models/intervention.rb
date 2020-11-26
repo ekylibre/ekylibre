@@ -623,7 +623,7 @@ class Intervention < Ekylibre::Record::Base
 
   # Returns human actions names
   def human_actions_names
-    actions.map { |action| Nomen::ProcedureAction.find(action).human_name }
+    actions.map { |action| Onoma::ProcedureAction.find(action).human_name }
       .to_sentence
   end
 
@@ -752,7 +752,7 @@ class Intervention < Ekylibre::Record::Base
   def human_total_cost
     %i[input tool doer].map do |type|
       (cost(type) || 0.0).to_d
-    end.sum.round(Nomen::Currency.find(currency).precision)
+    end.sum.round(Onoma::Currency.find(currency).precision)
   end
 
   def total_cost_per_area(area_unit = :hectare)

@@ -51,7 +51,7 @@ module Procedo
         end
 
         def indicator_name=(name)
-          @indicator = Nomen::Indicator.find!(name)
+          @indicator = Onoma::Indicator.find!(name)
         end
 
         def value=(val)

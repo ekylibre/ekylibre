@@ -38,7 +38,7 @@ module Ekylibre
 
         # FILE GIVE VARIANT OR VARIETY CODES BUT NOT EXIST IN DB OR IN NOMENCLATURE
         if r.variety
-          unless Nomen::Variety.find(r.variety)
+          unless Onoma::Variety.find(r.variety)
             w.error "#{prompt} #{r.variety} does not exist in NOMENCLATURE"
             valid = false
           end
@@ -48,7 +48,7 @@ module Ekylibre
         next if variant = ProductNatureVariant.find_by(work_number: r.variant_reference_name.downcase.to_sym)
         if Variant.find_by(reference_name: r.variant_reference_name.downcase.to_sym)
           valid = true
-        elsif nomen = Nomen::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
+        elsif nomen = Onoma::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
           valid = true
         else
           w.error "No variant exist in NOMENCLATURE for #{r.variant_reference_name.inspect}"
@@ -94,7 +94,7 @@ module Ekylibre
             if RegisteredPhytosanitaryProduct.find_by_id(r.variant_reference_name)
               item = RegisteredPhytosanitaryProduct.find_by_id(r.variant_reference_name)
               variant = ProductNatureVariant.import_phyto_from_lexicon(item.reference_name)
-            elsif Nomen::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
+            elsif Onoma::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
               variant = ProductNatureVariant.import_from_nomenclature(r.variant_reference_name.downcase.to_sym)
             else
               raise "No variant exist in NOMENCLATURE for #{r.variant_reference_name.inspect}"

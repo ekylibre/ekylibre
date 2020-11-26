@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<migration name="Change mixture seed product nature variant">
-  <item-change item="product_nature_variants#mixture_seed" derivative_of="plant"/>
-</migration>

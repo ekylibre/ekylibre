@@ -6969,7 +6969,7 @@ versions_131:
     initial_father_id:
     initial_mother_id:
     variety: seedling
-    derivative_of: vitis_vinifera_sauvignon_blanc
+    derivative_of: vitis_sauvignon_blanc
     tracking_id: 3
     financial_asset_id:
     born_at:
@@ -7106,7 +7106,7 @@ versions_134:
     initial_population: !ruby/object:BigDecimal 18:0.0
     initial_father_id:
     initial_mother_id:
-    variety: vitis_vinifera
+    variety: vitis
     derivative_of:
     tracking_id:
     financial_asset_id:
@@ -7195,7 +7195,7 @@ versions_135:
     initial_father_id:
     initial_mother_id:
     variety: seedling
-    derivative_of: vitis_vinifera_sauvignon_blanc
+    derivative_of: vitis_sauvignon_blanc
     tracking_id: 3
     financial_asset_id:
     born_at: 2014-11-07 16:47:34.875169000 Z
@@ -7626,7 +7626,7 @@ versions_143:
     initial_population: !ruby/object:BigDecimal 18:0.0
     initial_father_id:
     initial_mother_id:
-    variety: vitis_vinifera
+    variety: vitis
     derivative_of:
     tracking_id:
     financial_asset_id:
@@ -7853,7 +7853,7 @@ versions_147:
     initial_father_id:
     initial_mother_id:
     variety: grape
-    derivative_of: vitis_vinifera
+    derivative_of: vitis
     tracking_id:
     financial_asset_id:
     born_at:
@@ -7898,7 +7898,7 @@ versions_148:
     initial_population: !ruby/object:BigDecimal 18:0.0
     initial_father_id:
     initial_mother_id:
-    variety: vitis_vinifera
+    variety: vitis
     derivative_of:
     tracking_id:
     financial_asset_id:
@@ -8297,7 +8297,7 @@ versions_155:
     initial_father_id:
     initial_mother_id:
     variety: grape
-    derivative_of: vitis_vinifera
+    derivative_of: vitis
     tracking_id:
     financial_asset_id:
     born_at:
@@ -8343,7 +8343,7 @@ versions_156:
     initial_father_id:
     initial_mother_id:
     variety: grape
-    derivative_of: vitis_vinifera
+    derivative_of: vitis
     tracking_id:
     financial_asset_id:
     born_at:
@@ -8389,7 +8389,7 @@ versions_157:
     initial_father_id:
     initial_mother_id:
     variety: pomace
-    derivative_of: vitis_vinifera
+    derivative_of: vitis
     tracking_id:
     financial_asset_id:
     born_at:
@@ -8435,7 +8435,7 @@ versions_158:
     initial_father_id:
     initial_mother_id:
     variety: grape
-    derivative_of: vitis_vinifera
+    derivative_of: vitis
     tracking_id:
     financial_asset_id:
     born_at: 2013-09-16 16:38:00.000000000 Z
@@ -8481,7 +8481,7 @@ versions_159:
     initial_father_id:
     initial_mother_id:
     variety: grape
-    derivative_of: vitis_vinifera
+    derivative_of: vitis
     tracking_id:
     financial_asset_id:
     born_at: 2013-10-01 07:30:00.000000000 Z
@@ -8527,7 +8527,7 @@ versions_160:
     initial_father_id:
     initial_mother_id:
     variety: grape
-    derivative_of: vitis_vinifera
+    derivative_of: vitis
     tracking_id:
     financial_asset_id:
     born_at: 2013-10-01 07:30:00.000000000 Z
@@ -8573,7 +8573,7 @@ versions_161:
     initial_father_id:
     initial_mother_id:
     variety: grape
-    derivative_of: vitis_vinifera
+    derivative_of: vitis
     tracking_id:
     financial_asset_id:
     born_at:
@@ -8665,7 +8665,7 @@ versions_163:
     initial_father_id:
     initial_mother_id:
     variety: pomace
-    derivative_of: vitis_vinifera
+    derivative_of: vitis
     tracking_id:
     financial_asset_id:
     born_at:
@@ -8711,7 +8711,7 @@ versions_164:
     initial_father_id:
     initial_mother_id:
     variety: grape
-    derivative_of: vitis_vinifera
+    derivative_of: vitis
     tracking_id:
     financial_asset_id:
     born_at: 2013-09-16 16:38:00.000000000 Z
@@ -8757,7 +8757,7 @@ versions_165:
     initial_father_id:
     initial_mother_id:
     variety: grape
-    derivative_of: vitis_vinifera
+    derivative_of: vitis
     tracking_id:
     financial_asset_id:
     born_at: 2013-10-02 07:30:00.000000000 Z
@@ -8803,7 +8803,7 @@ versions_166:
     initial_father_id:
     initial_mother_id:
     variety: grape
-    derivative_of: vitis_vinifera
+    derivative_of: vitis
     tracking_id:
     financial_asset_id:
     born_at: 2013-10-02 07:30:00.000000000 Z

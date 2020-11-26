@@ -31,7 +31,7 @@ module Procedo
 
         # Sums indicator values for a set of product
         def sum(set, indicator_name, unit = nil)
-          indicator = Nomen::Indicator.find!(indicator_name)
+          indicator = Onoma::Indicator.find!(indicator_name)
           raise 'Only measure indicator can use this function' unless indicator.datatype == :measure
           list = set.map do |parameter|
             unless parameter.is_a?(Procedo::Engine::Intervention::ProductParameter)
@@ -185,7 +185,7 @@ module Procedo
 
           usage_units = usages.pluck(:dose_unit).uniq.compact
           checks = usage_units.any? do |usage_unit|
-            unit = Nomen::Unit.find(usage_unit)
+            unit = Onoma::Unit.find(usage_unit)
             dimensions.include?(unit.base_dimension.to_sym) || dimensions.include?(unit.dimension.to_sym)
           end
 

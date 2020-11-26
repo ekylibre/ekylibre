@@ -21,7 +21,7 @@
 
   %tr.tr-add-on.currency-change
     - financial_year = f.object.expected_financial_year
-    - precision = financial_year ? Nomen::Currency[financial_year.currency].precision : 3
+    - precision = financial_year ? Onoma::Currency[financial_year.currency].precision : 3
     %td.dec{ colspan: 3 + budget_size + team_size }
       .debit-without-error-correction.hidden=  f.object.debit
       .credit-without-error-correction.hidden= f.object.credit

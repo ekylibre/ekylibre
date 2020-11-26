@@ -38,7 +38,7 @@ module Ekylibre
         if r.variant_code
           variant = ProductNatureVariant.where(name: r.variant_code).first || ProductNatureVariant.where(work_number: r.variant_code).first
           unless variant
-            if Nomen::ProductNatureVariant.find(r.variant_code.to_sym)
+            if Onoma::ProductNatureVariant.find(r.variant_code.to_sym)
               variant = ProductNatureVariant.import_from_nomenclature(r.variant_code.to_sym)
             end
           end

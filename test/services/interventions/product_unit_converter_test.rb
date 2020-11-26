@@ -176,7 +176,7 @@ module Interventions
     end
 
     def unit(name)
-      u = Nomen::Unit.find(name)
+      u = Onoma::Unit.find(name)
       refute_nil u, "The unit #{name} does not exist"
       u
     end

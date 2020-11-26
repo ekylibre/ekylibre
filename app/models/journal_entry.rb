@@ -215,7 +215,7 @@ class JournalEntry < Ekylibre::Record::Base
     self.balance = debit - credit
 
     if real_balance.zero? && !balance.zero?
-      magnitude = 10 ** Nomen::Currency.find(currency).precision
+      magnitude = 10 ** Onoma::Currency.find(currency).precision
       error_sum = balance * magnitude
       column = error_sum > 0 ? :credit : :debit
 

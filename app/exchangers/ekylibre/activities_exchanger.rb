@@ -17,8 +17,8 @@ module Ekylibre
           family: (row[1].blank? ? nil : row[1].to_s),
           variety: (row[2].blank? ? nil : row[2].to_sym)
         }.to_struct
-        valid = false unless Nomen::ActivityFamily.find(r.family)
-        valid = false unless Nomen::Variety.find(r.variety)
+        valid = false unless Onoma::ActivityFamily.find(r.family)
+        valid = false unless Onoma::Variety.find(r.variety)
         w.check_point
       end
       valid
@@ -36,7 +36,7 @@ module Ekylibre
           variety: (row[2].blank? ? nil : row[2].to_s)
         }.to_struct
 
-        family = Nomen::ActivityFamily.find(r.family)
+        family = Onoma::ActivityFamily.find(r.family)
 
         attributes = {
           name: r.name,

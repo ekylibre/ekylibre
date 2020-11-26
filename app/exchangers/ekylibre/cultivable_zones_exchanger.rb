@@ -49,7 +49,7 @@ module Ekylibre
         # update name & code anyway
         zone.name = r.name if r.name
         zone.work_number = r.code if r.code
-        if r.soil_nature && Nomen::SoilNature[r.soil_nature]
+        if r.soil_nature && Onoma::SoilNature[r.soil_nature]
           zone.soil_nature ||= r.soil_nature
         end
 

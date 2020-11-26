@@ -48,13 +48,13 @@ class NetService < Ekylibre::Record::Base
   end
 
   def reference
-    Nomen::NetService[reference_name]
+    Onoma::NetService[reference_name]
   end
 
   def each_identifier(&_block)
     if reference
       reference.identifiers.each do |identifier|
-        yield Nomen::IdentifierNature[identifier]
+        yield Onoma::IdentifierNature[identifier]
       end
     end
   end

@@ -58,7 +58,7 @@ module WorkingSet
           "#{column_for(column)} NOT IN (#{compliants})"
         elsif object.is_a?(WorkingSet::QueryLanguage::AbilityTest)
           ability = object.ability
-          unless ability_item = Nomen::Ability.find(ability.ability_name.text_value)
+          unless ability_item = Onoma::Ability.find(ability.ability_name.text_value)
             raise InvalidExpression.new("Unknown ability: #{ability.ability_name.text_value}")
           end
           parameters = []
@@ -116,7 +116,7 @@ module WorkingSet
       end
 
       def find_nomenclature_item(nomenclature, name)
-        unless item = Nomen[nomenclature].find(name)
+        unless item = Onoma[nomenclature].find(name)
           raise InvalidExpression.new("Unknown item in #{nomenclature} nomenclature: #{name}")
         end
         item

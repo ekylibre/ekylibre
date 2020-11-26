@@ -240,8 +240,8 @@ class JournalEntryItem < Ekylibre::Record::Base
         self.debit  = real_debit * real_currency_rate
         self.credit = real_credit * real_currency_rate
         self.pretax_amount = real_pretax_amount * real_currency_rate
-        if currency && Nomen::Currency.find(currency)
-          precision = Nomen::Currency.find(currency).precision
+        if currency && Onoma::Currency.find(currency)
+          precision = Onoma::Currency.find(currency).precision
           self.debit  = debit.round(precision)
           self.credit = credit.round(precision)
           self.pretax_amount = pretax_amount.round(precision)

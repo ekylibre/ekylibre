@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<migration name="Add suspense account">
-  <item-creation item="accounts#suspense" fr_pcga="471" fr_pcg82="471" />
-</migration>

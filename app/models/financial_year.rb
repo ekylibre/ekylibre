@@ -154,7 +154,7 @@ class FinancialYear < Ekylibre::Record::Base
 
   before_validation do
     self.currency ||= Preference[:currency]
-    if ref = Nomen::Currency.find(self.currency)
+    if ref = Onoma::Currency.find(self.currency)
       self.currency_precision ||= ref.precision
     end
     # self.started_on = self.started_on.beginning_of_day if self.started_on
@@ -483,7 +483,7 @@ class FinancialYear < Ekylibre::Record::Base
 
   def unbalanced_radical_account_classes_array
     # Expected to have a range from 1 to 7
-    radical_numbers = Nomen::Account.items.values.select { |a| a.send(Account.accounting_system)&.match(/^[1-9]$/) }.map { |a| a.send(Account.accounting_system) }
+    radical_numbers = Onoma::Account.items.values.select { |a| a.send(Account.accounting_system)&.match(/^[1-9]$/) }.map { |a| a.send(Account.accounting_system) }
     balanced_radical_account_classes = []
     accounts = radical_numbers.map { |rad_numb| Account.where('number ~* ?', '^' + rad_numb + '0*$') }.flatten
     accounts.each do |account|

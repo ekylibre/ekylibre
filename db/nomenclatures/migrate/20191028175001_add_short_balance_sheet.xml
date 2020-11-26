@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<migration name="Add short balance sheet">
-  <item-creation item="document_natures#short_balance_sheet"/>
-</migration>

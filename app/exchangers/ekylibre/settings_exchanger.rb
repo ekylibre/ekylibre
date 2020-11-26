@@ -29,7 +29,7 @@ module Ekylibre
       if srs = @manifest[:map_measure_srs]
         Preference.set!(:map_measure_srs, srs)
       elsif srid = @manifest[:map_measure_srid]
-        Preference.set!(:map_measure_srs, Nomen::SpatialReferenceSystem.find_by(srid: srid.to_i).name)
+        Preference.set!(:map_measure_srs, Onoma::SpatialReferenceSystem.find_by(srid: srid.to_i).name)
       end
       demo = !!@manifest[:demo]
       if demo

@@ -131,7 +131,7 @@ module Backend
           area_unit = options[:area_unit] || :hectare
           content = []
           # content << { label: klass.human_attribute_name(label_method), value: record.send(label_method) }
-          content << { label: Nomen::Indicator.find(:net_surface_area).human_name,
+          content << { label: Onoma::Indicator.find(:net_surface_area).human_name,
                        value: record.net_surface_area.in(area_unit).round(3).l }
           content << content_tag(:div, class: 'btn-group') do
             link_to(:show.tl, { controller: controller, action: :show, id: record.id }, class: 'btn btn-default') +

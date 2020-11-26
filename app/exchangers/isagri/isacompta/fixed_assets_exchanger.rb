@@ -129,7 +129,7 @@ module Isagri
           # get allocation and expenses account
           if r.depreciation_method == :linear || :regressive
             allocation_account_parent_usage = Account.find_parent_usage(self.class.to_allocation_account(r.asset_account))
-            allocation_account_default_name = Nomen::Account.find(allocation_account_parent_usage).l
+            allocation_account_default_name = Onoma::Account.find(allocation_account_parent_usage).l
             exchange_allocation_account = Account.find_or_create_by_number(self.class.to_allocation_account(r.asset_account), default_name: allocation_account_default_name)
             exchange_expenses_account = Account.find_or_import_from_nomenclature(:depreciations_inputations_expenses)
           end
@@ -139,7 +139,7 @@ module Isagri
           # get or create asset account
           if r.asset_account
             parent_usage = Account.find_parent_usage(r.asset_account)
-            default_name = Account.find_by(name: parent_usage) || Nomen::Account.find(parent_usage).l
+            default_name = Account.find_by(name: parent_usage) || Onoma::Account.find(parent_usage).l
             exchange_asset_account = Account.find_or_create_by_number(r.asset_account, default_name: default_name)
             w.info prompt + "exchange asset account : #{exchange_asset_account.label.inspect.red}"
           end

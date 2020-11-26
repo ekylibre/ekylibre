@@ -34,7 +34,7 @@ module Iot
       items = []
       report[:items] ||= {}
       report[:items].each do |name, value|
-        indicator = Nomen::Indicator.find(name)
+        indicator = Onoma::Indicator.find(name)
         unless indicator
           render json: { message: "Indicator #{name} is unacceptable" }, status: :not_acceptable
           return false
