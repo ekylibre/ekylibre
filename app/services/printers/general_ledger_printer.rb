@@ -111,7 +111,6 @@ module Printers
           item[:reference_number] = e.entry.reference_number.to_s if e.entry.reference_number
           item[:printed_on] = e.printed_on.strftime('%d/%m/%Y')
           item[:name] = e.name.to_s
-          item[:variant] = e.variant.name if e.variant
           item[:journal_name] = e.entry.journal.name.to_s
           item[:letter] = e.letter
           item[:real_debit] = e.real_debit
@@ -198,7 +197,6 @@ module Printers
           t.add_column(:reference_number) { |item| item[:reference_number] }
           t.add_column(:printed_on) { |item| item[:printed_on] }
           t.add_column(:name) { |item| item[:name] }
-          t.add_column(:variant) { |item| item[:variant] }
           t.add_column(:journal_name) { |item| item[:journal_name] }
           t.add_column(:letter) { |item| item[:letter] }
           t.add_column(:real_debit) { |item| item[:real_debit] }
