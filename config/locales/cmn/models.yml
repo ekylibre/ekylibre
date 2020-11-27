@@ -291,94 +291,50 @@ cmn:
         # too_short: "%{attribute} is too short (minimum is %{count} characters)"
         unitary_in_parcel: "酉项只能由一个被发送的一个"
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
-      models:
-        activity:
-          checked_off_with_inspections: "检查已为这一活动创建"
-          checked_without_measures: "至少，当检查被通缉应选择的一种度量类型"
-          # productions_present: "Productions are present on this activity"
-        bank_statement:
-          no_cash_match_ofx: "没有现金找到该文件中给出的银行账号"
-          ofx_file_has_multiple_bank_accounts: "与多个银行账户OFX文件不支持"
-          ofx_file_invalid: "OFX文件无效"
-        bank_statement_item:
-          unvalid_amounts: "日记条目必须同时填写无论是借记卡还是信用卡，但并非如此。"
-        cash:
-          # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
-          # different_of_main_account: "%{attribute} must be different of main account (%{account})"
-          unvalid_bban: "Unvalid BBAN。一个或多个元素是不正确的。"
-        deposit:
-          # must_be_a_bank_account: "%{attribute} must be a bank account and not a cash"
-        entity:
-          # missing_title: "%{attribute} must contains the title “%{title}”"
-          # nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
-        financial_year:
-          attributes:
-            accountant:
-              # frozen: "%{attribute} cannot be changed while an exchange is opened"
-            started_on:
-              consecutive: "该财政年度必须consecutives。它必须与先前的结束后开始。"
-              frozen: "交易所已创建时的财政年度日期不能更改。"
-              # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
-            stopped_on:
-              # end_of_month: "%{attribute} must be an end of month"
-          # overlap: "%{attribute} overlaps an existing financial year"
-        financial_year_exchange:
-          csv_file_entry_dates_invalid: "在CSV一些条目没有财政年度交换日期范围"
-          # csv_file_entry_invalid: "Some entries in the CSV are invalid ('%{entry_number}')"
-          csv_file_headers_invalid: "CSV标头是无效"
-          csv_file_invalid: "CSV文件无效"
-          # csv_file_journals_invalid: "Some journals are present in the CSV but not in Ekylibre : %{codes}"
-        fixed_asset_depreciation:
-          attributes:
-            started_on:
-              # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
-        incoming_parcel_item:
-          # greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
-        integration:
-          attributes:
-            parameters:
-              check_errored: "连接检查错误。请确保输入的有效性或稍后再试。"
-        journal:
-          attributes:
-            accountant:
-              # entity_frozen: "Booked journals of this %{attribute} cannot change while an exchange is opened for its financial years"
-              present: "会计师只能对各种操作日志设置"
-              # previous_entity_frozen: "Booked journals of the previous %{attribute} cannot change while an exchange is opened for its financial years"
-            closed_on:
-              # end_of_month: "%{attribute} must be an end of month (%{closed_on})"
-        journal_entry:
-          # closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
-          frozen_by_financial_year_exchange: "日记帐分录不能被记录在相应于一个财政年度交流的时间。"
-          out_of_existing_financial_year: "日记帐分录必须记录在相应于现有财政年度期间。"
-          unbalanced: "日记帐分录不平衡"
-        journal_entry_item:
-          closed_entry: "日记帐分录被锁定。你不能更新。"
-          empty_amounts: "日记帐分录必须填写无论是借记卡或信用卡"
-          unvalid_amounts: "日记条目必须同时填写无论是借记卡还是信用卡，但并非如此。"
-        outgoing_parcel_item:
-          # greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
-        purchase_item:
-          attributes:
-            fixed:
-              # asset_account: "Invalid asset account"
-              # asset_depreciation_method: "Invalid asset depreciation method"
-              # asset_expenses_account: "Invalid asset expenses account"
-              # asset_wrong_depreciation_method: "Depreciation method must be simplified linear"
-              # fixed_asset_stopped_on_invalid: "Invalid fixed asset stopped on"
-          # building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
-          # serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
-        sale_item:
-          # building_can_not_transfer_product: "%{product} can not be found in %{building}, it only contains %{contained_product}."
-          # can_not_use_this_tracking: "You can not user the S/N %{tracking}, the quantity is greater than the available quantity"
-          currency_is_not_sale_currency: "货币不相同买卖货币"
-          error_no_found_price: "未发现价格"
-        subscription:
-          entity_must_be_the_same_as_the_contact_entity: "人必须是相同的联系人"
-      template:
-        body: "有以下字段的问题："
-        header:
-          # one: "1 error prohibited this %{model} from being saved"
-          # other: "%{count} errors prohibited this %{model} from being saved"
+      models: #?
+        activity: #?
+          checked_off_with_inspections: "检查已为这一活动创建" #?
+          checked_without_measures: "至少，当检查被通缉应选择的一种度量类型" #?
+        bank_statement: #?
+          no_cash_match_ofx: "没有现金找到该文件中给出的银行账号" #?
+          ofx_file_has_multiple_bank_accounts: "与多个银行账户OFX文件不支持" #?
+          ofx_file_invalid: "OFX文件无效" #?
+        bank_statement_item: #?
+          unvalid_amounts: "日记条目必须同时填写无论是借记卡还是信用卡，但并非如此。" #?
+        cash: #?
+          unvalid_bban: "Unvalid BBAN。一个或多个元素是不正确的。" #?
+        financial_year: #?
+          attributes: #?
+            started_on: #?
+              consecutive: "该财政年度必须consecutives。它必须与先前的结束后开始。" #?
+              frozen: "交易所已创建时的财政年度日期不能更改。" #?
+        financial_year_exchange: #?
+          csv_file_entry_dates_invalid: "在CSV一些条目没有财政年度交换日期范围" #?
+          csv_file_headers_invalid: "CSV标头是无效" #?
+          csv_file_invalid: "CSV文件无效" #?
+        integration: #?
+          attributes: #?
+            parameters: #?
+              check_errored: "连接检查错误。请确保输入的有效性或稍后再试。" #?
+        journal: #?
+          attributes: #?
+            accountant: #?
+              present: "会计师只能对各种操作日志设置" #?
+        journal_entry: #?
+          frozen_by_financial_year_exchange: "日记帐分录不能被记录在相应于一个财政年度交流的时间。" #?
+          out_of_existing_financial_year: "日记帐分录必须记录在相应于现有财政年度期间。" #?
+          unbalanced: "日记帐分录不平衡" #?
+        journal_entry_item: #?
+          closed_entry: "日记帐分录被锁定。你不能更新。" #?
+          empty_amounts: "日记帐分录必须填写无论是借记卡或信用卡" #?
+          unvalid_amounts: "日记条目必须同时填写无论是借记卡还是信用卡，但并非如此。" #?
+        sale_item: #?
+          currency_is_not_sale_currency: "货币不相同买卖货币" #?
+          error_no_found_price: "未发现价格" #?
+        subscription: #?
+          entity_must_be_the_same_as_the_contact_entity: "人必须是相同的联系人" #?
+      template: #?
+        body: "有以下字段的问题：" #?
     models:
       account: "帐户"
       account_balance: "账户余额"
