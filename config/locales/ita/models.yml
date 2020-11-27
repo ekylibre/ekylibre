@@ -300,92 +300,51 @@ ita:
         wrong_length: #? String expected ("%{attribute} is the wrong length (should be %{count} characters)")
           one: "è della lunghezza sbagliata (deve essere di 1 carattere)" #?
           other: "è della lunghezza sbagliata (deve essere di %{count} caratteri)" #?
-      models:
-        activity:
-          checked_off_with_inspections: "Le ispezioni sono già stati creati per questa attività"
-          checked_without_measures: "Almeno, un tipo di misura dovrebbe essere selezionato quando i controlli sono ricercati"
-          # productions_present: "Productions are present on this activity"
-        bank_statement:
-          no_cash_match_ofx: "Nessun denaro trovato per il numero di conto bancario data nel file"
-          ofx_file_has_multiple_bank_accounts: "il file OFX con più conti bancari non è supportata"
-          ofx_file_invalid: "il file OFX è valido"
-        bank_statement_item:
-          unvalid_amounts: "La voce di diario deve essere compilato o di debito o di credito, ma non allo stesso tempo."
-        cash:
-          # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
-          # different_of_main_account: "%{attribute} must be different of main account (%{account})"
-          unvalid_bban: "Caduca BBAN. Uno o più elementi non sono corretti."
-        deposit:
-          # must_be_a_bank_account: "%{attribute} must be a bank account and not a cash"
-        entity:
-          # missing_title: "%{attribute} must contains the title “%{title}”"
-          # nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
-        financial_year:
-          attributes:
-            accountant:
-              # frozen: "%{attribute} cannot be changed while an exchange is opened"
-            started_on:
-              consecutive: "Gli esercizi devono essere consecutivi. Si deve iniziare dopo la fine del precedente."
-              frozen: "La data di esercizio non può essere modificato quando è stato creato uno scambio."
-              # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
-            stopped_on:
-              # end_of_month: "%{attribute} must be an end of month"
-          # overlap: "%{attribute} overlaps an existing financial year"
-        financial_year_exchange:
-          csv_file_entry_dates_invalid: "Alcune voci del CSV sono fuori dell’esercizio di date scambio"
-          # csv_file_entry_invalid: "Some entries in the CSV are invalid ('%{entry_number}')"
-          csv_file_headers_invalid: "Intestazioni CSV non sono validi"
-          csv_file_invalid: "File CSV non è valido"
-          # csv_file_journals_invalid: "Some journals are present in the CSV but not in Ekylibre : %{codes}"
-        fixed_asset_depreciation:
-          attributes:
-            started_on:
-              # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
-        incoming_parcel_item:
-          # greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
-        integration:
-          attributes:
-            parameters:
-              check_errored: "Verifica di connessione errata. Assicurati la validità del tuo contributo o riprova più tardi."
-        journal:
-          attributes:
-            accountant:
-              # entity_frozen: "Booked journals of this %{attribute} cannot change while an exchange is opened for its financial years"
-              present: "Commercialista può essere impostato solo per varie riviste operazioni"
-              # previous_entity_frozen: "Booked journals of the previous %{attribute} cannot change while an exchange is opened for its financial years"
-            closed_on:
-              # end_of_month: "%{attribute} must be an end of month (%{closed_on})"
-        journal_entry:
-          # closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
-          frozen_by_financial_year_exchange: "La voce del diario non può essere registrato in un periodo corrispondente ad uno scambio esercizio."
-          out_of_existing_financial_year: "La voce di diario deve essere registrato in un periodo corrispondente a un esercizio esistente."
-          unbalanced: "La voce di diario è sbilanciato"
-        journal_entry_item:
-          closed_entry: "La voce di diario è bloccato. Non è possibile aggiornarlo."
-          empty_amounts: "La voce di diario deve essere compilato o di debito o di credito"
-          unvalid_amounts: "La voce di diario deve essere compilato o di debito o di credito, ma non allo stesso tempo."
-        outgoing_parcel_item:
-          # greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
-        purchase_item:
-          attributes:
-            fixed:
-              # asset_account: "Invalid asset account"
-              # asset_depreciation_method: "Invalid asset depreciation method"
-              # asset_expenses_account: "Invalid asset expenses account"
-              # asset_wrong_depreciation_method: "Depreciation method must be simplified linear"
-              # fixed_asset_stopped_on_invalid: "Invalid fixed asset stopped on"
-          # building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
-          # serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
-        sale_item:
-          # building_can_not_transfer_product: "%{product} can not be found in %{building}, it only contains %{contained_product}."
-          # can_not_use_this_tracking: "You can not user the S/N %{tracking}, the quantity is greater than the available quantity"
-          currency_is_not_sale_currency: "Valuta non è identica alla valuta vendita"
-          error_no_found_price: "Nessun prezzo trovato"
-        subscription:
-          entity_must_be_the_same_as_the_contact_entity: "Persona deve essere la stessa persona di contatto"
-      template:
-        body: "Ricontrolla i seguenti campi:"
-        header:
+      models: #?
+        activity: #?
+          checked_off_with_inspections: "Le ispezioni sono già stati creati per questa attività" #?
+          checked_without_measures: "Almeno, un tipo di misura dovrebbe essere selezionato quando i controlli sono ricercati" #?
+        bank_statement: #?
+          no_cash_match_ofx: "Nessun denaro trovato per il numero di conto bancario data nel file" #?
+          ofx_file_has_multiple_bank_accounts: "il file OFX con più conti bancari non è supportata" #?
+          ofx_file_invalid: "il file OFX è valido" #?
+        bank_statement_item: #?
+          unvalid_amounts: "La voce di diario deve essere compilato o di debito o di credito, ma non allo stesso tempo." #?
+        cash: #?
+          unvalid_bban: "Caduca BBAN. Uno o più elementi non sono corretti." #?
+        financial_year: #?
+          attributes: #?
+            started_on: #?
+              consecutive: "Gli esercizi devono essere consecutivi. Si deve iniziare dopo la fine del precedente." #?
+              frozen: "La data di esercizio non può essere modificato quando è stato creato uno scambio." #?
+        financial_year_exchange: #?
+          csv_file_entry_dates_invalid: "Alcune voci del CSV sono fuori dell’esercizio di date scambio" #?
+          csv_file_headers_invalid: "Intestazioni CSV non sono validi" #?
+          csv_file_invalid: "File CSV non è valido" #?
+        integration: #?
+          attributes: #?
+            parameters: #?
+              check_errored: "Verifica di connessione errata. Assicurati la validità del tuo contributo o riprova più tardi." #?
+        journal: #?
+          attributes: #?
+            accountant: #?
+              present: "Commercialista può essere impostato solo per varie riviste operazioni" #?
+        journal_entry: #?
+          frozen_by_financial_year_exchange: "La voce del diario non può essere registrato in un periodo corrispondente ad uno scambio esercizio." #?
+          out_of_existing_financial_year: "La voce di diario deve essere registrato in un periodo corrispondente a un esercizio esistente." #?
+          unbalanced: "La voce di diario è sbilanciato" #?
+        journal_entry_item: #?
+          closed_entry: "La voce di diario è bloccato. Non è possibile aggiornarlo." #?
+          empty_amounts: "La voce di diario deve essere compilato o di debito o di credito" #?
+          unvalid_amounts: "La voce di diario deve essere compilato o di debito o di credito, ma non allo stesso tempo." #?
+        sale_item: #?
+          currency_is_not_sale_currency: "Valuta non è identica alla valuta vendita" #?
+          error_no_found_price: "Nessun prezzo trovato" #?
+        subscription: #?
+          entity_must_be_the_same_as_the_contact_entity: "Persona deve essere la stessa persona di contatto" #?
+      template: #?
+        body: "Ricontrolla i seguenti campi:" #?
+        header: #?
           nothing_to_pay: "Niente da pagare. Se si desidera registrare un acconto, non dimenticate di notare che." #?
           one: "Non posso salvare questo %{model}: 1 errore" #?
           other: "Non posso salvare questo %{model}: %{count} errori." #?

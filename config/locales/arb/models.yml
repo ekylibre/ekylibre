@@ -848,21 +848,18 @@ arb:
         too_short: "%{attribute} قصير جدا (%{count}الحد الادنى للاحرف)"
         unitary_in_parcel: "لا يمكن إلا أن ترسل وحدات موحدة واحدا تلو الآخر"
         wrong_length: "%{attribute} الطول الخاطئ  ( %{count} يجب ان يكون عدد الاحرف)"
-      models:
-        activity:
-          checked_off_with_inspections: "وقد تم بالفعل خلق التفتيش لهذا النشاط"
-          checked_without_measures: "على الأقل، يجب أن يتم اختيار نوع واحد الاجراء عندما أراد التفتيش"
-          # productions_present: "Productions are present on this activity"
-        bank_statement:
-          no_cash_match_ofx: "لم يتم العثور على رقم الحساب المصرفي الواردة في الملف النقدية"
-          ofx_file_has_multiple_bank_accounts: "غير معتمد ملف OFX مع حسابات مصرفية متعددة"
-          ofx_file_invalid: "ملف OFX غير صالح"
-        bank_statement_item:
-          unvalid_amounts: "يجب ان تكون المدخلات معرفة اما بالدين او بالائتمان، وليس الاثنان معا"
-        cash:
-          # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
-          # different_of_main_account: "%{attribute} must be different of main account (%{account})"
-          unvalid_bban: ".مكون واحد أو اكثر من موجه قاعدة المعلومات غير صحيح"
+      models: #?
+        activity: #?
+          checked_off_with_inspections: "وقد تم بالفعل خلق التفتيش لهذا النشاط" #?
+          checked_without_measures: "على الأقل، يجب أن يتم اختيار نوع واحد الاجراء عندما أراد التفتيش" #?
+        bank_statement: #?
+          no_cash_match_ofx: "لم يتم العثور على رقم الحساب المصرفي الواردة في الملف النقدية" #?
+          ofx_file_has_multiple_bank_accounts: "غير معتمد ملف OFX مع حسابات مصرفية متعددة" #?
+          ofx_file_invalid: "ملف OFX غير صالح" #?
+        bank_statement_item: #?
+          unvalid_amounts: "يجب ان تكون المدخلات معرفة اما بالدين او بالائتمان، وليس الاثنان معا" #?
+        cash: #?
+          unvalid_bban: ".مكون واحد أو اكثر من موجه قاعدة المعلومات غير صحيح" #?
         custom_field_datum: #?
           greater_than: "%{field} اكبر من (%{maximum} كحد اقصى)" #?
           less_than: "%{field} اقل من (%{minimum} كحد ادنى)" #?

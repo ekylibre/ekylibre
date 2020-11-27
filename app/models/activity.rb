@@ -160,31 +160,26 @@ class Activity < Ekylibre::Record::Base
     if Onoma::ActivityFamily.find(family)
       # FIXME: Need to use nomenclatures to set that data!
       if plant_farming?
-        self.with_supports = true
-        self.support_variety = :land_parcel
-        self.with_cultivation = true
-        self.cultivation_variety = :plant
+        self.with_supports ||= true
+        self.support_variety ||= :land_parcel
+        self.with_cultivation ||= true
+        self.cultivation_variety ||= :plant
         self.size_indicator_name = 'net_surface_area' if size_indicator_name.blank?
         self.size_unit_name = 'hectare' if size_unit_name.blank?
       elsif animal_farming?
         self.with_supports = true
         self.support_variety = :animal_group
         self.with_cultivation = true
-        self.cultivation_variety = :animal
+        self.cultivation_variety ||= :animal
         self.size_indicator_name = 'members_population' if size_indicator_name.blank?
         self.size_unit_name = 'unity' if size_unit_name.blank?
       elsif tool_maintaining?
         self.with_supports = true
         self.support_variety = :equipment_fleet
         self.with_cultivation = true
-        self.cultivation_variety = :equipment
+        self.cultivation_variety ||= :equipment
         self.size_indicator_name = 'members_population' if size_indicator_name.blank?
         self.size_unit_name = 'unity' if size_unit_name.blank?
-      else
-        self.with_supports = false
-        self.support_variety = nil
-        self.with_cultivation = false
-        self.cultivation_variety = nil
       end
       # if with_supports || family.support_variety
       #   self.with_supports = true
@@ -199,12 +194,14 @@ class Activity < Ekylibre::Record::Base
       #   self.with_cultivation = false
       # end
     end
+    self.with_supports = false if with_supports.nil?
+    self.with_cultivation = false if with_cultivation.nil?
+    true
   end
 
   validate do
     errors.add :use_gradings, :checked_off_with_inspections if inspections.any? && !use_gradings
     errors.add :use_gradings, :checked_without_measures if use_gradings && !measure_something?
-    errors.add :family, :productions_present if changed.include?('family') && productions.exists?
 
     next unless family_item = Onoma::ActivityFamily[family]
     if with_supports && variety = Onoma::Variety[support_variety] && family_item.support_variety
