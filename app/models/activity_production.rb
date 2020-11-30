@@ -206,13 +206,11 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   after_destroy do
-    support.destroy if support.is_a?(LandParcel) && support.activity_productions.empty?
-
     Ekylibre::Hook.publish(:activity_production_destroy, activity_production_id: id)
   end
 
   protect(on: :destroy) do
-    interventions.any? || products.any?
+    interventions.any? || products.where.not(id: support.id).any?
   end
 
   def self.retrieve_varieties_ancestors(*varieties)
