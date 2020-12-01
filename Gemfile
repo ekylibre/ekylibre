@@ -101,7 +101,7 @@ gem 'draper'
 # Exception management
 gem 'exception_notification'
 
-gem 'onoma', "~> 0.5.0"
+gem 'onoma', "~> 0.4.2"
 
 # Views helpers
 gem 'active_list', "~> 8.0"
