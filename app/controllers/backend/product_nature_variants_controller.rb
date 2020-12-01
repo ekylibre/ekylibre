@@ -36,8 +36,8 @@ module Backend
     #   :category_id
     def self.variants_conditions
       code = search_conditions(product_nature_variants: %i[name number]) + " ||= []\n"
-      code << "unless params[:working_set].blank?\n"
-      code << "  item = Onoma::WorkingSet.find(params[:working_set])\n"
+      code << "unless params[:working_set_id].blank?\n"
+      code << "  item = Onoma::WorkingSet.find(params[:working_set_id])\n"
       code << "  c[0] << \" AND product_nature_variants.nature_id IN (SELECT id FROM product_natures WHERE \#{WorkingSet.to_sql(item.expression)})\"\n"
       code << "end\n"
       code << "if params[:nature_id].to_i > 0\n"
