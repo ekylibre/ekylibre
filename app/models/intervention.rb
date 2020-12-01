@@ -528,24 +528,9 @@ class Intervention < Ekylibre::Record::Base
                whole_duration working_duration],
       include:
         [
-          { group_parameters: %i[
-            parameters
-            group_parameters
-            doers
-            inputs
-            outputs
-            targets
-            tools
-          ] },
-          { root_parameters: :group },
-          { parameters: :group },
-          { product_parameters: %i[readings group] },
-          { doers: :group },
-          { inputs: :group },
-          { outputs: :group },
-          { targets: :group },
-          { tools: :group },
-          :working_periods
+          { group_parameters: :parameters },
+          :working_periods,
+          :root_parameters
         ],
       use_dictionary: true
     ) do |original, kopy|
