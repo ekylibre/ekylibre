@@ -35,8 +35,8 @@ module Backend
     #   :working_set
     def self.list_conditions
       code = search_conditions(products: %i[name work_number number description uuid], product_nature_variants: [:name]) + " ||= []\n"
-      code << "unless params[:working_set].blank?\n"
-      code << "  item = Onoma::WorkingSet.find(params[:working_set])\n"
+      code << "unless params[:working_set_id].blank?\n"
+      code << "  item = Onoma::WorkingSet.find(params[:working_set_id])\n"
       code << "  c[0] << \" AND products.nature_id IN (SELECT id FROM product_natures WHERE \#{WorkingSet.to_sql(item.expression)})\"\n"
       code << "end\n"
 
