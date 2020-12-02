@@ -498,7 +498,12 @@ Rails.application.routes.draw do
 
     resources :entity_links
 
-    resources :equipments, concerns: :products
+    resources :equipments, concerns: :products do
+      member do
+        get :list_interventions_on_field
+        get :list_equipment_maintenance_interventions
+      end
+    end
 
     resource :entries_ledger, only: [:show], path: 'entries-ledger' do
       member do

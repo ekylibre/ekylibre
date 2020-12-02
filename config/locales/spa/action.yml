@@ -2745,6 +2745,9 @@ spa:
     x_entity_links:
       # one: "%{count} link"
       # other: "%{count} links"
+    x_equipment_maintenance_interventions:
+      # one: "%{count} equipment maintenance intervention"
+      # other: "%{count} equipment maintenance interventions"
     x_events:
       one: "%{count} evento"
       other: "%{count} eventos"

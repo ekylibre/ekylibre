@@ -3246,6 +3246,9 @@ fra:
     x_entity_links:
       one: "%{count} lien"
       other: "%{count} liens"
+    x_equipment_maintenance_interventions:
+      one: "%{count} intervention de maintenance"
+      other: "%{count} interventions de maintenance"
     x_events:
       one: "%{count} évènement"
       other: "%{count} évènements"
