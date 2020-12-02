@@ -160,6 +160,7 @@ Rails.application.routes.draw do
     namespace :cobbles do
       resource :production_cost_cobble, only: :show
       resource :stock_in_ground_cobble, only: :show
+      resource :inspections_cobble, only: :show
     end
 
     namespace :cells do
@@ -1274,6 +1275,7 @@ Rails.application.routes.draw do
       resource :land_parcels_visualizations, only: :show
       resource :resources_visualizations, only: :show
       resource :non_treatment_areas_visualizations, only: :show
+      resource :inspections_visualizations, only: :show
     end
 
     resources :wine_tanks, only: [:index], concerns: [:list]
