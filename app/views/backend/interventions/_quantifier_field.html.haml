@@ -4,9 +4,9 @@
   :ruby
     options = reference.handlers.map do |handler|
       if handler.population?
-        [Nomen::Unit.find(:unity).human_name, handler.name, { data: { handler_unit: Nomen::Unit.find(:unity).name } }]
+        [Onoma::Unit.find(:unity).human_name, handler.name, { data: { handler_unit: Onoma::Unit.find(:unity).name } }]
       elsif handler.widget == :number
-        unit = handler.unit? ? handler.unit : Nomen::Unit.find(:unity)
+        unit = handler.unit? ? handler.unit : Onoma::Unit.find(:unity)
         ["#{unit.symbol} (#{handler.human_name})", handler.name, { data: { handler_unit: unit.name } }]
       else
         fail "Cannot handler #{handler.widget} handlers"

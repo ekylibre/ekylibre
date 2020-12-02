@@ -41,8 +41,8 @@ namespace :diagrams do
   end
 
   task nomenclature: :environment do
-    Diagram::Nomenclature.inheritance_all(Nomen::Variety)
-    graph = Diagram::Nomenclature.inheritance(Nomen::Variety)
+    Diagram::Nomenclature.inheritance_all(Onoma::Variety)
+    graph = Diagram::Nomenclature.inheritance(Onoma::Variety)
     graph.write
   end
 

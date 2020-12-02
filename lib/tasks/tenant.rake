@@ -104,11 +104,11 @@ namespace :tenant do
     Ekylibre::Tenant.create(tenant) unless Ekylibre::Tenant.exist?(tenant)
     Ekylibre::Tenant.switch(tenant) do
       # Set basic preferences
-      language = Nomen::Language.find(ENV['LANGUAGE'])
+      language = Onoma::Language.find(ENV['LANGUAGE'])
       Preference.set! :language, language ? language.name : 'fra'
-      country = Nomen::Country.find(ENV['COUNTRY'])
+      country = Onoma::Country.find(ENV['COUNTRY'])
       Preference.set! :country, country ? country.name : 'fr'
-      currency = Nomen::Currency.find(ENV['CURRENCY'])
+      currency = Onoma::Currency.find(ENV['CURRENCY'])
       Preference.set! :currency, currency ? currency.name : 'EUR'
       Preference.set! :map_measure_srs, ENV['MAP_MEASURE_SRS'] || ENV['SRS'] || 'WGS84'
       # Add user

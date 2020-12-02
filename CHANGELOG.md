@@ -1474,7 +1474,7 @@
 - Fix orthograph error on Intervention\#ressource, only one "s" is better [\#259](https://github.com/ekylibre/ekylibre/issues/259)
 - Improve use of redirect [\#250](https://github.com/ekylibre/ekylibre/issues/250)
 - Print screen could be seperated vertically and doc presented inline if possible [\#195](https://github.com/ekylibre/ekylibre/issues/195)
-- Converts Nomen::Item translation pattern from Nomen::MyItems\[foobar\].human\_name to Nomen::MyItems.human\_name\(foobar\) [\#180](https://github.com/ekylibre/ekylibre/issues/180)
+- Converts Onoma::Item translation pattern from Onoma::MyItems\[foobar\].human\_name to Onoma::MyItems.human\_name\(foobar\) [\#180](https://github.com/ekylibre/ekylibre/issues/180)
 - Externalize General ledger, Balance and Draft journal to specific controllers  [\#169](https://github.com/ekylibre/ekylibre/issues/169)
 - Add paper\_trail by default in all models [\#82](https://github.com/ekylibre/ekylibre/issues/82)
 - Add tools to manage picture with paperclip in form [\#81](https://github.com/ekylibre/ekylibre/issues/81)

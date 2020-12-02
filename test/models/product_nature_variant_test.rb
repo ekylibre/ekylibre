@@ -96,7 +96,7 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
   end
 
   test 'working sets' do
-    Nomen::WorkingSet.list.each do |item|
+    Onoma::WorkingSet.list.each do |item|
       assert ProductNatureVariant.of_working_set(item.name).count >= 0
     end
   end

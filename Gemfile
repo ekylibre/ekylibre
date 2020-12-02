@@ -101,8 +101,10 @@ gem 'draper'
 # Exception management
 gem 'exception_notification'
 
+gem 'onoma', "~> 0.4.2"
+
 # Views helpers
-gem 'active_list', '~> 7.3.0'
+gem 'active_list', "~> 8.0"
 gem 'haml'
 gem 'simple_calendar', '~> 2.3.0'
 
@@ -147,7 +149,7 @@ gem 'time_diff'
 gem 'wannabe_bool'
 
 # XML Parsing/Writing, HTML extraction
-gem 'nokogiri', '~> 1.8.1'
+gem 'nokogiri', '~> 1.8'
 gem 'mimemagic'
 
 # Parse LALR or LR-1 grammars
@@ -213,6 +215,8 @@ gem 'gpgme'
 
 gem 'semantic'
 
+gem 'sprockets', '< 4.0'
+
 group :production do
   # Use unicorn as the app server
   gem 'unicorn'
@@ -233,8 +237,8 @@ group :development do
 
   # Code metrics
   gem 'rails_best_practices', require: false
-  gem 'rubocop', '~> 0.89', require: false
-  gem 'parser', '~> 2.6'
+  gem 'rubocop', '~> 1.3.1', require: false
+  gem 'parser', '~> 2.7.1.5'
 
   # Webservers
   gem 'thin'

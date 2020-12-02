@@ -189,7 +189,7 @@ module Ekylibre
       end
 
       def find_currency!(name)
-        currency = Nomen::Currency.find(name || @currency)
+        currency = Onoma::Currency.find(name || @currency)
         raise "What? #{name.inspect}" unless currency
         currency
       end
@@ -349,7 +349,7 @@ module Ekylibre
 
       def create_purchase(options = {})
         currency = options[:currency] || @currency
-        c = Nomen::Currency.find(currency)
+        c = Onoma::Currency.find(currency)
         raise "What? #{currency.inspect}" unless c
         journal = Journal.find_or_create_by!(
           currency: currency,
@@ -447,7 +447,7 @@ module Ekylibre
             set_storable(item.variant.category)
             item.variant.reload
             item.reload
-            name = item.variant.population_counting_unitary? && Nomen::Variety.find(:bioproduct) >= item.variant.variety ? FFaker::NameFR.first_name : item.variant.name + ' ' + Date.today.l
+            name = item.variant.population_counting_unitary? && Onoma::Variety.find(:bioproduct) >= item.variant.variety ? FFaker::NameFR.first_name : item.variant.name + ' ' + Date.today.l
             h[item.id.to_s] = {
               variant: item.variant,
               product_identification_number: rand(50_000).to_s + name.codeize[0..15],

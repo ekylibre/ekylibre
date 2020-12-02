@@ -7,7 +7,7 @@
       %span.title= :total_cost.tl
       %span.value
         %i.picto.picto-timelapse
-        - currency = Nomen::Currency.find(resource.currency)
+        - currency = Onoma::Currency.find(resource.currency)
         = resource.total_cost.round(currency.precision).l(currency: currency.name)
 
     .med-info

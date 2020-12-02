@@ -216,7 +216,7 @@ module Procedo
         if @variant.start_with?(':')
           other = @variant[1..-1]
           return intervention.product_parameters.find_by(parameter: other).variant
-        elsif Nomen::ProductNatureVariant[@variant]
+        elsif Onoma::ProductNatureVariant[@variant]
           unless variant = ProductNatureVariant.find_by(nomen: @variant.to_s)
             variant = ProductNatureVariant.import_from_nomenclature(@variant)
           end
@@ -282,7 +282,7 @@ module Procedo
       # true if all information provided by the parameter (variety, derivative_of
       # and/or abilities) match with actor's ones, false if at least one does not
       # fit or is missing
-      # @params [Product] actor a Product object or any object responding to
+      # @param [Product] actor a Product object or any object responding to
       #   #variety, #derivative_of and #abilities
       # @return [Boolean]
       def fulfilled_by?(actor)
@@ -314,12 +314,12 @@ module Procedo
 
       private
 
-        # Compares two Nomen::Variety items. Returns true if actor's item is the
+        # Compares two Onoma::Variety items. Returns true if actor's item is the
         # same as parameter's one or if actor's item is a child of parameter's
         # variety, false otherwise.
-        # @param [Nomen::Variety] parameter_item current parameter own variety or
+        # @param [Onoma::Variety] parameter_item current parameter own variety or
         #   derivative_of
-        # @param [Nomen::Variety] actor_item the actor's variety or derivative_of
+        # @param [Onoma::Variety] actor_item the actor's variety or derivative_of
         #   to compare
         # @return [Boolean]
         def same_items?(parameter_item, actor_item)
@@ -327,7 +327,7 @@ module Procedo
           return true if actor_item == parameter_item
 
           begin
-            return Nomen::Variety[parameter_item] >= actor_item
+            return Onoma::Variety[parameter_item] >= actor_item
           rescue # manage the case when there is no item in nomenclature for the varieties to compare
             return false
           end

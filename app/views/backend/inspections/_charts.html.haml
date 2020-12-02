@@ -1,6 +1,6 @@
 - dimension = resource.activity.unit_preference(current_user)
-- symbol_measure = Nomen::Unit.find(resource.user_quantity_unit(dimension)).symbol
-- yield_symbol = Nomen::Unit.find(resource.user_per_area_unit(dimension)).symbol
+- symbol_measure = Onoma::Unit.find(resource.user_quantity_unit(dimension)).symbol
+- yield_symbol = Onoma::Unit.find(resource.user_per_area_unit(dimension)).symbol
 
 - dataset = resource.calibrations.of_scale(scale).reorder(:id)
 

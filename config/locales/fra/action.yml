@@ -1045,6 +1045,8 @@ fra:
       server_error: "Erreur serveur"
   labels:
     configure_naming_format: "Paramétrer le format de nommage"
+    free_field_naming_format_hint: "Vous pouvez ajouter un champ libre personnalisé en paramétrant votre format de nommage"
+    land_parcel_support_name: "Nom de la parcelle"
     free_field: "Champ libre"
     abilities: "Compétences" #?
     accepted: "Acceptée"
@@ -1349,6 +1351,7 @@ fra:
     cancelled: "Passées en avoir" #?
     cannot_be_mixed_with: "Ne peut être mélangé avec le produit %{phyto}"
     cannot_be_mixed_with_any_product: "Ne peut être mélangé avec aucun autre produit"
+    cannot_delete_this_production: "Intervention ou culture est liée à cette production. Vous ne pouvez pas la supprimer."
     cap_islets: "Îlots PAC"
     cap_land_parcels: "Parcelles PAC"
     capitalised_production: "Production immobilisée"

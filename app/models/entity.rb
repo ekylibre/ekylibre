@@ -178,7 +178,6 @@ class Entity < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :country, length: { allow_nil: true, maximum: 2 }
   validates :language, length: { allow_nil: true, maximum: 3 }
-  validates :siret_number, length: { allow_nil: true, maximum: 14 }
   validates :vat_number, length: { allow_nil: true, maximum: 20 }
   validates :activity_code, length: { allow_nil: true, maximum: 30 }
   validates :deliveries_conditions, :number, length: { allow_nil: true, maximum: 60 }
@@ -416,7 +415,7 @@ class Entity < Ekylibre::Record::Base
   end
 
   def add_event(usage, operator, at = Time.zone.now)
-    if operator && item = Nomen::EventNature[usage]
+    if operator && item = Onoma::EventNature[usage]
       Event.create!(name: item.human_name, started_at: at, duration: item.default_duration.to_i, participations_attributes: { '0' => { participant_id: id, state: 'informative' }, '1' => { participant_id: operator.id, state: 'accepted' } })
     end
   end

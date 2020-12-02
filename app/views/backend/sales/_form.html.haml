@@ -48,7 +48,7 @@
             %th= SaleItem.human_attribute_name(:amount)
             %th= SaleItem.human_attribute_name(:currency)
             %th
-        - precision = Nomen::Currency[f.object.currency].precision
+        - precision = Onoma::Currency[f.object.currency].precision
         %tfoot
           %tr.total
             %th

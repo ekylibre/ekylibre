@@ -5,7 +5,7 @@
   = f.input :working_width_value, wrapper: :append do
     - placeholder = f.object.density_computable? ? f.object.indicator_working_width.to_d(:meter).to_s : nil
     = f.input_field :working_width_value, placeholder: placeholder
-    %span.add-on= Nomen::Unit[:meter].l
+    %span.add-on= Onoma::Unit[:meter].l
   - placeholder = f.object.density_computable? ? f.object.indicator_rows_count.to_s : nil
   = f.input :rows_count_value, placeholder: placeholder
   = f.input :sampling_length, wrapper: :append do

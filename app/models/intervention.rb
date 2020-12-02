@@ -528,24 +528,9 @@ class Intervention < Ekylibre::Record::Base
                whole_duration working_duration],
       include:
         [
-          { group_parameters: %i[
-            parameters
-            group_parameters
-            doers
-            inputs
-            outputs
-            targets
-            tools
-          ] },
-          { root_parameters: :group },
-          { parameters: :group },
-          { product_parameters: %i[readings group] },
-          { doers: :group },
-          { inputs: :group },
-          { outputs: :group },
-          { targets: :group },
-          { tools: :group },
-          :working_periods
+          { group_parameters: :parameters },
+          :working_periods,
+          :root_parameters
         ],
       use_dictionary: true
     ) do |original, kopy|
@@ -623,7 +608,7 @@ class Intervention < Ekylibre::Record::Base
 
   # Returns human actions names
   def human_actions_names
-    actions.map { |action| Nomen::ProcedureAction.find(action).human_name }
+    actions.map { |action| Onoma::ProcedureAction.find(action).human_name }
       .to_sentence
   end
 
@@ -752,7 +737,7 @@ class Intervention < Ekylibre::Record::Base
   def human_total_cost
     %i[input tool doer].map do |type|
       (cost(type) || 0.0).to_d
-    end.sum.round(Nomen::Currency.find(currency).precision)
+    end.sum.round(Onoma::Currency.find(currency).precision)
   end
 
   def total_cost_per_area(area_unit = :hectare)

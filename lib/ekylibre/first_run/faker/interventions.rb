@@ -5,15 +5,15 @@ module Ekylibre
         def run
           # interventions for all poaceae
           autumn_sowables = %i[poa hordeum_hibernum secale triticosecale triticum brassica_napus pisum_hibernum].collect do |n|
-            Nomen::Variety[n]
+            Onoma::Variety[n]
           end
 
           # spring_sowables = %i[hordeum_vernum pisum_vernum helianthus].collect do |n|
-          #   Nomen::Variety[n]
+          #   Onoma::Variety[n]
           # end
 
           later_spring_sowables = [:zea].collect do |n|
-            Nomen::Variety[n]
+            Onoma::Variety[n]
           end
 
           GC.start
@@ -35,7 +35,7 @@ module Ekylibre
             }
             ActivityProduction.joins(:activity).find_each do |production|
               next unless production.active?
-              variety = Nomen::Variety[production.cultivation_variety]
+              variety = Onoma::Variety[production.cultivation_variety]
               if autumn_sowables.detect { |v| variety <= v }
                 year = production.campaign.name.to_i
                 Ekylibre::FirstRun::Booker.production = production
@@ -126,7 +126,7 @@ module Ekylibre
             }
             Production.joins(:variant, :activity, :campaign).find_each do |production|
               next unless production.active?
-              variety = Nomen::Variety[production.variant.variety]
+              variety = Onoma::Variety[production.variant.variety]
               if later_spring_sowables.detect { |v| variety <= v }
                 year = production.campaign.name.to_i
                 Ekylibre::FirstRun::Booker.production = production
@@ -232,7 +232,7 @@ module Ekylibre
           count :grass_interventions do |w|
             Production.joins(:variant, :activity, :campaign).find_each do |production|
               next unless production.active?
-              variety = Nomen::Variety[production.variant.variety]
+              variety = Onoma::Variety[production.variant.variety]
               next unless variety <= :poa
               year = production.campaign.name.to_i
               Ekylibre::FirstRun::Booker.production = production
@@ -275,7 +275,7 @@ module Ekylibre
           count :cereals_interventions do |w|
             Production.joins(:variant, :activity, :campaign).find_each do |production|
               next unless production.active?
-              variety = Nomen::Variety[production.variant.variety]
+              variety = Onoma::Variety[production.variant.variety]
               next unless variety <= :triticum_aestivum || variety <= :triticum_durum || variety <= :zea || variety <= :hordeum
               year = production.campaign.name.to_i
               Ekylibre::FirstRun::Booker.production = production
@@ -310,7 +310,7 @@ module Ekylibre
             workers = Worker.all
             products = Product.where(variety: 'preparation').can('care(bos)').all
             Production.joins(:variant, :campaign).find_each do |production|
-              variety = Nomen::Variety[production.variant.variety]
+              variety = Onoma::Variety[production.variant.variety]
               next unless variety <= :bos
               year = production.campaign.name.to_i
               Ekylibre::FirstRun::Booker.production = production
@@ -343,7 +343,7 @@ module Ekylibre
               break
             end
             Production.joins(:variant, :campaign).find_each do |production|
-              variety = Nomen::Variety[production.variant.variety]
+              variety = Onoma::Variety[production.variant.variety]
               next unless variety <= :bos && production.variant.sex == 'female'
               year = production.campaign.name.to_i
               Ekylibre::FirstRun::Booker.production = production
@@ -365,7 +365,7 @@ module Ekylibre
 
           count :wine_interventions do |w|
             Production.joins(:variant, :campaign).find_each do |production|
-              variety = Nomen::Variety[production.variant.variety]
+              variety = Onoma::Variety[production.variant.variety]
               next unless variety <= :wine
               year = production.campaign.name.to_i
               Ekylibre::FirstRun::Booker.production = production

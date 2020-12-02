@@ -89,7 +89,7 @@ class InterventionAgent < InterventionProductParameter
                  natures_quantity(natures)
                end
 
-    unit_name = Nomen::Unit.find(:hour).human_name
+    unit_name = Onoma::Unit.find(:hour).human_name
     unit_name = unit_name.pluralize if quantity > 1
 
     catalog_item =

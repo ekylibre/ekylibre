@@ -19,13 +19,13 @@
       %label{ data: { item_value: "span.item-population-unit-name"}}= f.object.variant ? f.object.variant.unit_name : '#'
     %td.unit-amount-column
       %label{ data: { item_value: "input.order-unit-amount" } }= f.object.variant ? f.object.variant.name : 'ERROR'
-      %label= Nomen::Currency.find(f.object.currency).symbol
+      %label= Onoma::Currency.find(f.object.currency).symbol
     %td
       %label{ data: { item_value: "input.order-discount-percentage" } }= f.object.variant ? f.object.variant.name : 'ERROR'
       %label= "%"
     %td.total-column
       %label{ class: 'amount-excluding-taxes', data: { item_value: "input.order-total" } }= f.object.variant ? f.object.variant.name : 'ERROR'
-      %label= Nomen::Currency.find(f.object.currency).symbol
+      %label= Onoma::Currency.find(f.object.currency).symbol
     %td.total-column
       %label{ class: 'vat-rate', data: { item_value: "select.vat-total option:selected" } }= f.object.variant ? f.object.variant.name : 'ERROR'
 
@@ -39,7 +39,7 @@
           = f.input :unit_pretax_amount, wrapper: :append do
             = f.input_field :unit_pretax_amount, class: "order-unit-amount middle-input", label: :unit_amount.tl, data: { trade_component: "unit_pretax_amount" }
             %span.add-on
-              = Nomen::Currency.find(f.object.currency).symbol
+              = Onoma::Currency.find(f.object.currency).symbol
 
         .invoice-discount-percentage
           = f.input :reduction_percentage, wrapper: :append do
@@ -54,13 +54,13 @@
           = f.input :pretax_amount, wrapper: :append do
             = f.input_field :pretax_amount, class: "pta order-total middle-input", data: {trade_component: "pretax_amount", required: true}
             %span.add-on
-              = Nomen::Currency.find(f.object.currency).symbol
+              = Onoma::Currency.find(f.object.currency).symbol
 
         .pta.invoice-total-controls
           = f.input :amount, wrapper: :append do
             = f.input_field :amount, class: "pta order-total middle-input", data: {trade_component: "amount", required: true}
             %span.add-on
-              = Nomen::Currency.find(f.object.currency).symbol
+              = Onoma::Currency.find(f.object.currency).symbol
 
       .item-form-information
         - if display_activity_item_field

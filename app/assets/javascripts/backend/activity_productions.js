@@ -1,6 +1,7 @@
 (function (E) {
     const onKeyUpDelay = 1000;
     const namingFromatUrl = '/backend/naming_format_land_parcels/build.json';
+    const namingFromatDetailsUrl = '/backend/naming_format_land_parcels/details.json';
 
     class SupportNamePreview {
         constructor(formElement) {
@@ -9,12 +10,13 @@
             this.customNameInput = formElement.querySelector('#activity_production_custom_name');
             this.cultivableZoneSelect = formElement.querySelector('input#activity_production_cultivable_zone_id');
             this.namingBaseParams = JSON.parse(this.previewElement.dataset.supportNamePreview).activity_production;
+            this.boundInput = new FreeFieldInput(this.customNameInput);
         }
 
         init() {
-            this.customNameInput.addEventListener('keyup', () => this.enableLoader());
+            this.boundInput.inputElement.addEventListener('keyup', () => this.enableLoader());
 
-            this.customNameInput.addEventListener('keyup', _.debounce(this.update.bind(this), onKeyUpDelay));
+            this.boundInput.inputElement.addEventListener('keyup', _.debounce(this.update.bind(this), onKeyUpDelay));
 
             this.cultivableZoneSelect.addEventListener('unroll:selector:change', () => {
                 this.enableLoader();
@@ -22,6 +24,7 @@
             });
 
             window.addEventListener('focus', () => this.update());
+            this.update();
         }
 
         enableLoader() {
@@ -37,7 +40,7 @@
         }
 
         setValue(value) {
-            this.previewElement.textContent = '(' + value + ')';
+            this.previewElement.textContent = value;
         }
 
         getParams() {
@@ -63,6 +66,7 @@
                 success: function (data, status, request) {
                     this.disableLoader();
                     this.setValue(data.name);
+                    this.boundInput.setVisibility(data.has_free_field);
                 },
                 error: function (err) {
                     _.delay(
@@ -73,6 +77,22 @@
                     );
                 },
             });
+        }
+    }
+
+    class FreeFieldInput {
+        constructor(inputElement) {
+            this.inputElement = inputElement;
+            this.addonElement = inputElement.previousElementSibling;
+            this.hintElement = inputElement.closest('.controls').querySelector('.help-block');
+        }
+
+        setVisibility(value) {
+            const display = value ? 'inline-block' : 'none';
+            this.inputElement.disabled = !value;
+            this.addonElement.style.display = display;
+            this.inputElement.style.display = display;
+            this.hintElement.style.display = value ? 'none' : 'inline-block';
         }
     }
 

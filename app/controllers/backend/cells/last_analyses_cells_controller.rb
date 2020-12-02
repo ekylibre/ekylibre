@@ -2,7 +2,7 @@ module Backend
   module Cells
     class LastAnalysesCellsController < Backend::Cells::BaseController
       def show
-        if @nature = Nomen::AnalysisNature[params[:nature] || 'cow_milk_analysis']
+        if @nature = Onoma::AnalysisNature[params[:nature] || 'cow_milk_analysis']
           months = params[:months].to_i
           months = 12 if months.zero?
           @product = begin

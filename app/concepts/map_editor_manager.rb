@@ -61,7 +61,7 @@ class MapEditorManager
       plants = Plant.at(options[:started_at]).collect do |l|
         next unless l.shape
 
-        [l.shape.to_text, { name: l.name, variety: Nomen::Variety[l.variety].human_name, color: Activity.color(:plant_farming, l.variety), fillColor: Activity.color(:plant_farming, l.variety) }]
+        [l.shape.to_text, { name: l.name, variety: Onoma::Variety[l.variety].human_name, color: Activity.color(:plant_farming, l.variety), fillColor: Activity.color(:plant_farming, l.variety) }]
       end.compact
 
       shapes = plants.collect(&:first)

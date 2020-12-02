@@ -37,7 +37,7 @@ module Synel
           group = nil
 
           # find a bos variety from corabo field in file
-          item = Nomen::Variety.find_by(french_race_code: r.corabo)
+          item = Onoma::Variety.find_by(french_race_code: r.corabo)
           variety = (item ? item.name : :bos_taurus)
           variant = ProductNatureVariant.import_from_nomenclature(r.sex == :male ? :male_adult_cow : :female_adult_cow)
 

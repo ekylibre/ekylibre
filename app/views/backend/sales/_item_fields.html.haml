@@ -1,5 +1,5 @@
 - item ||= f.object
-- precision = Nomen::Currency[f.object.sale_currency].precision
+- precision = Onoma::Currency[f.object.sale_currency].precision
 %tbody.nested-fields{ data: { trade_item: "sale", currency_precision: precision } }
   %tr
     %td.annotable

@@ -121,7 +121,7 @@ module Backend
     end
 
     def reading(options = {})
-      indicator = Nomen::Indicator.find!(@object.indicator_name)
+      indicator = Onoma::Indicator.find!(@object.indicator_name)
       @template.render(partial: 'backend/shared/reading_form', locals: { f: self, indicator: indicator, hidden: (options[:as] == :hidden) })
     end
 
@@ -234,9 +234,9 @@ module Backend
         selection = []
         if options[:of].to_s =~ /\#/
           array = options[:of].to_s.split('#')
-          selection = Nomen.find(array.first).property_natures[array.second].selection
+          selection = Onoma.find(array.first).property_natures[array.second].selection
         else
-          selection = Nomen.find(options[:of]).selection
+          selection = Onoma.find(options[:of]).selection
         end
       else
         raise 'Need selection'
@@ -263,14 +263,14 @@ module Backend
       input(attribute_name, options) do
         data_lists = {}
         @template.content_tag(:span, class: 'control-group abilities-list') do
-          abilities_for_select = Nomen::Ability.list.sort_by(&:human_name).map do |a|
+          abilities_for_select = Onoma::Ability.list.sort_by(&:human_name).map do |a|
             attrs = { value: a.name }
             if a.parameters
               a.parameters.each do |parameter|
                 if parameter == :variety
-                  data_lists[parameter] ||= Nomen::Variety.selection
+                  data_lists[parameter] ||= Onoma::Variety.selection
                 elsif parameter == :issue_nature
-                  data_lists[parameter] ||= Nomen::IssueNature.selection
+                  data_lists[parameter] ||= Onoma::IssueNature.selection
                 else
                   raise "Unknown parameter type for an ability: #{parameter.inspect}"
                 end
@@ -283,7 +283,7 @@ module Backend
             if list = @object.send(attribute_name)
               list.collect do |a|
                 ar = a.to_s.split(/[\(\,\s\)]+/).compact
-                ability = Nomen::Ability[ar.shift]
+                ability = Onoma::Ability[ar.shift]
                 @template.content_tag(:div, data: { ability: ability.name }, class: :ability) do
                   html = @template.label_tag ability.human_name
                   html << @template.hidden_field_tag(prefix, a, class: 'ability-value')
@@ -435,7 +435,7 @@ module Backend
       currency_attribute_name = args.shift || options[:currency_attribute] || :currency
       input(attribute_name, options.merge(wrapper: :append)) do
         html = input_field(attribute_name)
-        html << input_field(currency_attribute_name, collection: Nomen::Currency.items.values.collect { |c| [c.human_name, c.name.to_s] }.sort)
+        html << input_field(currency_attribute_name, collection: Onoma::Currency.items.values.collect { |c| [c.human_name, c.name.to_s] }.sort)
         html
       end
     end
@@ -649,17 +649,17 @@ module Backend
 
     def variety(options = {})
       scope = options[:scope]
-      varieties = Nomen::Variety.selection(scope ? scope.variety : nil)
+      varieties = Onoma::Variety.selection(scope ? scope.variety : nil)
       child_scope = options[:child_scope]
       if child_scope
-        varieties.keep_if { |(_l, n)| child_scope.all? { |c| c.variety? && Nomen::Variety.find(c.variety) <= n } }
+        varieties.keep_if { |(_l, n)| child_scope.all? { |c| c.variety? && Onoma::Variety.find(c.variety) <= n } }
       end
       @object.variety ||= scope.variety if scope
       if options[:derivative_of] || (scope && scope.derivative_of)
-        derivatives = Nomen::Variety.selection(scope ? scope.derivative_of : nil)
+        derivatives = Onoma::Variety.selection(scope ? scope.derivative_of : nil)
         @object.derivative_of ||= scope.derivative_of if scope
         if child_scope
-          derivatives.keep_if { |(_l, n)| child_scope.all? { |c| c.derivative_of? && Nomen::Variety.find(c.derivative_of) <= n } }
+          derivatives.keep_if { |(_l, n)| child_scope.all? { |c| c.derivative_of? && Onoma::Variety.find(c.derivative_of) <= n } }
         end
       end
       if !derivatives.nil? && derivatives.any?

@@ -17,8 +17,7 @@
     = t.close resource, label: :close_financial_year.tl(code: resource.name), icon: false
     = t.lock resource, label: :lock_financial_year.tl(code: resource.name), icon: false
 
-  - html_class = @financial_year.has_validated_entries? ? '' : 'disabled'
-  = dropdown_menu_button(:export_fec.ta, { icon: :download, class: html_class }) do |d|
+  = dropdown_menu_button(:export_fec.ta, { icon: :download }) do |d|
     - %i[text xml].each do |format|
       - %i[all ba_bnc_ir_commercial_accountancy ba_ir_cash_accountancy bnc_ir_cash_accountancy].each do |position|
         - d.item "export_#{format}_fec_#{position}".tl, action: :show, fiscal_position: position, format: format
@@ -37,7 +36,7 @@
 
     .med-info.important
       %span.title= :currency.t(scope: 'preferences')
-      %span.value= Nomen::Currency.find(resource.currency).human_name.upcase
+      %span.value= Onoma::Currency.find(resource.currency).human_name.upcase
 
     - if resource.closed? && resource.archives.any?
       - ['prior_to', 'post'].each do |timing|

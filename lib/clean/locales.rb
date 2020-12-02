@@ -354,7 +354,7 @@ module Clean
           agg_name = aggregator.aggregator_name.to_sym
           if (name = ref[:aggregators][agg_name]) && name.present?
             translation << "    #{aggregator.aggregator_name}: " + Clean::Support.yaml_value(name) + "\n"
-          elsif item = Nomen::DocumentNature[agg_name]
+          elsif item = Onoma::DocumentNature[agg_name]
             to_translate -= 1
             translation << "    #~ #{aggregator.aggregator_name}: " + Clean::Support.yaml_value(item.human_name) + "\n"
           else
@@ -503,9 +503,9 @@ module Clean
         translation = "#{locale}:\n"
         translation << "  nomenclatures:\n"
         scrutator = scrut do |s|
-          Nomen.load!
-          Nomen.names.sort.each do |name| #  { |a, b| a.to_s <=> b.to_s }
-            nomenclature = Nomen[name]
+          Onoma.load!
+          Onoma.names.sort.each do |name| #  { |a, b| a.to_s <=> b.to_s }
+            nomenclature = Onoma[name]
             translation << "    #{nomenclature.name}:\n"
             trl = {}
 
@@ -598,7 +598,7 @@ module Clean
           to_translate += 1
           if name = ref[:procedure_handlers][handler]
             translation << "    #{handler}: " + Clean::Support.yaml_value(name) + "\n"
-          elsif Nomen::Indicator[handler] # Facultative translation
+          elsif Onoma::Indicator[handler] # Facultative translation
             to_translate -= 1
             translation << "    #~ #{handler}: " + Clean::Support.yaml_value(handler.to_s.humanize) + "\n"
           else

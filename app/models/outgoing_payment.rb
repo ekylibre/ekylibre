@@ -136,7 +136,7 @@ class OutgoingPayment < Ekylibre::Record::Base
   end
 
   def amount_to_letter
-    c = Nomen::Currency[currency]
+    c = Onoma::Currency[currency]
     precision = c.precision
     integers, decimals = amount.round(precision).divmod(1)
     decimals = (decimals * 10**precision).round

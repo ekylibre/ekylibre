@@ -99,7 +99,7 @@ module Procedo
           elsif node.is_a?(Procedo::Formula::Language::VariablePresenceTest)
             run(node.variable).any?
           elsif node.is_a?(Procedo::Formula::Language::IndicatorPresenceTest)
-            indicator = Nomen::Indicator.find!(node.indicator.text_value)
+            indicator = Onoma::Indicator.find!(node.indicator.text_value)
             product = run(node.object)
             unless product.is_a?(Product) || product.is_a?(ProductNatureVariant)
               Rails.logger.warn 'Invalid product. Got: ' + product.inspect
@@ -109,7 +109,7 @@ module Procedo
             !!(product.has_indicator?(indicator.name.to_sym) &&
               (indicator.datatype == :measure ? product.get(indicator.name).to_f.nonzero? : product.get(indicator.name).present?))
           elsif node.is_a?(Procedo::Formula::Language::IndividualIndicatorPresenceTest)
-            indicator = Nomen::Indicator.find!(node.indicator.text_value)
+            indicator = Onoma::Indicator.find!(node.indicator.text_value)
             product = run(node.object)
             unless product.is_a?(Product)
               Rails.logger.warn 'Invalid product. Got: ' + product.inspect
@@ -122,11 +122,11 @@ module Procedo
           elsif node.is_a?(Procedo::Formula::Language::Reading)
             unit = nil
             if node.options && node.options.respond_to?(:unit)
-              unless unit = Nomen::Unit[node.options.unit.text_value]
+              unless unit = Onoma::Unit[node.options.unit.text_value]
                 raise "Valid unit expected in #{node.inspect}"
               end
             end
-            unless indicator = Nomen::Indicator[node.indicator.text_value]
+            unless indicator = Onoma::Indicator[node.indicator.text_value]
               raise 'Invalid indicator: ' + node.indicator.text_value.inspect
             end
             product = run(node.object)

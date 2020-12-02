@@ -65,7 +65,7 @@ class DocumentTemplate < Ekylibre::Record::Base
     natures.flatten!
     natures.compact!
     return none unless natures.respond_to?(:any?) && natures.any?
-    invalids = natures.select { |nature| Nomen::DocumentNature[nature].nil? }
+    invalids = natures.select { |nature| Onoma::DocumentNature[nature].nil? }
     if invalids.any?
       raise ArgumentError.new("Unknown nature(s) for a DocumentTemplate: #{invalids.map(&:inspect).to_sentence}")
     end
@@ -269,7 +269,7 @@ class DocumentTemplate < Ekylibre::Record::Base
             File.open(template_path, 'rb:UTF-8') do |f|
               template = find_by(nature: nature, managed: true)
               if template.nil?
-                template = new(nature: nature, managed: true, active: true, by_default: false, archiving: 'last', signed: Nomen::DocumentNature.find(nature).signed)
+                template = new(nature: nature, managed: true, active: true, by_default: false, archiving: 'last', signed: Onoma::DocumentNature.find(nature).signed)
               end
 
               manageds.delete(template)

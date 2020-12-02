@@ -45,7 +45,7 @@ module Backend
     def show
       return unless @campaign = find_and_check(:campaign)
 
-      @currency = Nomen::Currency.find(Preference[:currency])
+      @currency = Onoma::Currency.find(Preference[:currency])
       activities_of_campaign = Activity.of_campaign(@campaign)
       @availables_activities = Activity.availables.where.not(id: activities_of_campaign)
       @families = activities_of_campaign.order(:family).collect(&:family).uniq

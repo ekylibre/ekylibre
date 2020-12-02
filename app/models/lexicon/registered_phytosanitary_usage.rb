@@ -70,7 +70,7 @@ class RegisteredPhytosanitaryUsage < ApplicationRecord
 
   # Matches at least one of the given varieties
   scope :of_variety, ->(*varieties) do
-    with_ancestors = [*varieties, *varieties.flat_map { |v| Nomen::Variety.ancestors(Nomen::Variety.find(v)).map(&:name) }].uniq.join('", "')
+    with_ancestors = [*varieties, *varieties.flat_map { |v| Onoma::Variety.ancestors(Onoma::Variety.find(v)).map(&:name) }].uniq.join('", "')
 
     joins('LEFT OUTER JOIN registered_phytosanitary_cropsets ON registered_phytosanitary_usages.species[1] = registered_phytosanitary_cropsets.name')
       .where("registered_phytosanitary_usages.species && '{\"#{with_ancestors}\"}' OR registered_phytosanitary_cropsets.crop_names && '{\"#{with_ancestors}\"}'")

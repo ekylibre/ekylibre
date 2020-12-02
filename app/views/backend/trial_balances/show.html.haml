@@ -40,7 +40,7 @@
       %label= :unbalanced.tl
   - k.helper :accounts_range_crit
   - k.helper do
-    - centralized_account = Nomen::Account.select { |a| a.centralizing }.collect {|a| a.send(Account.accounting_system)}.sort.join(" ")
+    - centralized_account = Onoma::Account.select { |a| a.centralizing }.collect {|a| a.send(Account.accounting_system)}.sort.join(" ")
     %div.label-container
       %label= :group_by_centralizing_accounts.tl
     %div.value-container

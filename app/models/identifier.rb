@@ -45,6 +45,6 @@ class Identifier < Ekylibre::Record::Base
   delegate :reference, to: :net_service, prefix: true
 
   def name
-    (nature ? Nomen::IdentifierNature[nature].human_name : :unknown.tl)
+    (nature ? Onoma::IdentifierNature[nature].human_name : :unknown.tl)
   end
 end

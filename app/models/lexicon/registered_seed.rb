@@ -54,7 +54,7 @@ class RegisteredSeed < ApplicationRecord
   end
 
   def proper_name
-    n = Nomen::Variety.find(specie.to_sym)
+    n = Onoma::Variety.find(specie.to_sym)
     if n
       n.human_name + '-' + name[Preference[:language]]
     else
@@ -76,7 +76,7 @@ class RegisteredSeed < ApplicationRecord
     end
 
     def unit
-      Nomen::Unit['kilogram']
+      Onoma::Unit['kilogram']
     end
   end
 end

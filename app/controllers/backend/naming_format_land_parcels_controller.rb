@@ -29,6 +29,7 @@ module Backend
     end
 
     def build
+      naming_format = NamingFormatLandParcel.last
       activity = Activity.includes(:productions).find(params[:activity_id])
       activity_production = ActivityProduction.new(
         cultivable_zone: params[:cultivable_zone_id].blank? ? nil : CultivableZone.find(params[:cultivable_zone_id]),
@@ -42,7 +43,7 @@ module Backend
       build_interactor = NamingFormats::LandParcels::BuildActivityProductionNameInteractor.call(activity_production: activity_production)
 
       if build_interactor.success?
-        render json: { name: build_interactor.build_name }
+        render json: { name: build_interactor.build_name, has_free_field: naming_format.has_free_field? }
       else
         render json: { name: build_interactor.error }
       end

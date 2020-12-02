@@ -8,7 +8,7 @@
   = f.object.errors.inspect
 
 :ruby
-  currency = Nomen::Currency.find(Preference[:currency])
+  currency = Onoma::Currency.find(Preference[:currency])
   precision = currency.precision
   currency_symbol = currency.symbol
   computation_methods = f.object.computation_methods.map do |m|

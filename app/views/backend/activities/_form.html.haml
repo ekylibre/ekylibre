@@ -4,12 +4,12 @@
   = f.input :nature, as: :radio_buttons, show: '.{{value}}-nature-options'
   = f.referenced_nomenclature :production_system
   = f.referenced_association :production_nature, new: false, label: :production_nature.tl
-  = f.referenced_nomenclature :family, input_html: { data: { activity_family: true }, disabled: f.object.productions.exists? }
-  - family = Nomen::ActivityFamily[f.object.family]
+  = f.referenced_nomenclature :family, input_html: {data: {activity_family: true}}
+  - family = Onoma::ActivityFamily[f.object.family]
   = f.input :with_cultivation, as: :hidden
-  = f.referenced_nomenclature :cultivation_variety, collection: ((family and family.cultivation_variety.present?) ? Nomen::Variety.selection(family.cultivation_variety) : []), wrapper_html: {style: "display: #{(family and family.cultivation_variety.present?) ? 'block' : 'none'}"}
+  = f.referenced_nomenclature :cultivation_variety, collection: ((family and family.cultivation_variety.present?) ? Onoma::Variety.selection(family.cultivation_variety) : []), wrapper_html: {style: "display: #{(family and family.cultivation_variety.present?) ? 'block' : 'none'}"}
   -#= f.input :with_supports, as: :hidden
-  -# = f.input :support_variety, collection: ((family and family.support_variety) ? Nomen::Variety.selection(family.support_variety) : []), wrapper_html: {style: "display: #{(family and family.support_variety) ? 'block' : 'none'}"}
+  -# = f.input :support_variety, collection: ((family and family.support_variety) ? Onoma::Variety.selection(family.support_variety) : []), wrapper_html: {style: "display: #{(family and family.support_variety) ? 'block' : 'none'}"}
   = f.input :production_cycle, as: :radio_buttons, show: '.{{value}}-production-cycle-options'
   .perennial-production-cycle-options
     = f.input :production_campaign, as: :radio_buttons
@@ -25,12 +25,12 @@
     = f.input :measure_grading_items_count
     = f.input :measure_grading_net_mass, show: '#grading_net_mass'
     #grading_net_mass
-      - unit_collection = Nomen::Unit.where(dimension: :mass).sort { |one, two| one.a <=> two.a }
+      - unit_collection = Onoma::Unit.where(dimension: :mass).sort { |one, two| one.a <=> two.a }
       = f.referenced_nomenclature :grading_net_mass_unit, collection: unit_collection.selection(false), include_blanks: false
     = f.input :measure_grading_sizes, show: '#grading_sizes'
     #grading_sizes
-      = f.referenced_nomenclature :grading_sizes_indicator, collection: Nomen::Indicator.where(unit: Nomen::Unit.where(dimension: :distance)).selection, include_blanks: false
-      = f.referenced_nomenclature :grading_sizes_unit, collection: Nomen::Unit.where(dimension: :distance).selection, include_blanks: false
+      = f.referenced_nomenclature :grading_sizes_indicator, collection: Onoma::Indicator.where(unit: Onoma::Unit.where(dimension: :distance)).selection, include_blanks: false
+      = f.referenced_nomenclature :grading_sizes_unit, collection: Onoma::Unit.where(dimension: :distance).selection, include_blanks: false
 
     = f.nested_association(:inspection_calibration_scales)
     = f.nested_association(:inspection_point_natures)

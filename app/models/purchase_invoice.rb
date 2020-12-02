@@ -95,7 +95,7 @@ class PurchaseInvoice < Purchase
 
   before_validation do
     if reconciliation_state.to_s != 'accepted'
-      if self.items.reject(&:marked_for_destruction?).any?
+      if self.items.reject(&:marked_for_destruction?).any? { |i| i.parcels_purchase_invoice_items.present? }
         self.reconciliation_state = 'reconcile'
       else
         self.reconciliation_state = 'to_reconcile'

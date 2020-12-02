@@ -4,7 +4,7 @@ module Procedo
     class Reading < Procedo::Procedure::Setter
       def initialize(parameter, name, options = {})
         super(parameter, name, options)
-        unless Nomen::Indicator.find(@name)
+        unless Onoma::Indicator.find(@name)
           raise "Unknown reading type for #{procedure_name}/#{parameter_name}: " + @name.inspect
         end
       end

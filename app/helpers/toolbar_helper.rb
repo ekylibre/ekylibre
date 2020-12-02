@@ -36,7 +36,7 @@ module ToolbarHelper
       key = (options[:key].is_a?(Symbol) ? record.send(options[:key]) : options[:key]).to_s
       @template.dropdown_menu_button(label, class: options[:class]) do |menu|
         natures.each do |nature_name|
-          nature = Nomen::DocumentNature.find(nature_name)
+          nature = Onoma::DocumentNature.find(nature_name)
           modal_id = nature.name.to_s + '-exporting'
           if Document.of(nature.name, key).any?
             @template.content_for :popover, @template.render('backend/shared/export', nature: nature, key: key, modal_id: modal_id, document_label: options[:document_label])
@@ -158,14 +158,10 @@ module ToolbarHelper
         return ''.html_safe if !show_disabled && !resource.destroyable?
 
         unless resource.destroyable?
-          options = {
-            **options,
-            disabled: true,
-            style: 'pointer-events: auto'
-          }
+          options = { **options, disabled: true }
 
           if (tooltip_content = options.fetch(:disabled_tooltip_content))
-            options = { **options, data: { toggle: :tooltip, placement: :top }, title: tooltip_content }
+            options = { **options, tooltip_options: { data: { toggle: :tooltip, placement: :top }, title: tooltip_content, style: 'pointer-events: auto' } }
           end
         end
 

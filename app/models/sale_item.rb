@@ -140,7 +140,7 @@ class SaleItem < Ekylibre::Record::Base
       self.quantity = -1 * credited_quantity
     end
     if tax
-      precision = Maybe(Nomen::Currency.find(currency)).precision.or_else(2)
+      precision = Maybe(Onoma::Currency.find(currency)).precision.or_else(2)
       if compute_from_unit_pretax_amount?
         if credited_item
           self.unit_pretax_amount ||= credited_item.unit_pretax_amount

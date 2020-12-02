@@ -65,7 +65,12 @@ class InterventionParameterReading < Ekylibre::Record::Base
   delegate :started_at, :stopped_at, to: :intervention
 
   validate do
-    if product && indicator
+    # If intervention_parameter is an output, product is not yet created (as it is created in interventionOutput after_save), so we check the variant indicators
+    if intervention_parameter.is_a?(InterventionOutput)
+      if intervention_parameter.variant && indicator && intervention_parameter.variant.indicators.exclude?(indicator)
+        errors.add(:indicator_name, :invalid)
+      end
+    elsif product && indicator
       unless product.indicators.include?(indicator)
         errors.add(:indicator_name, :invalid)
       end

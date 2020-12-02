@@ -157,7 +157,7 @@ class PurchaseItem < Ekylibre::Record::Base
     end
 
     if tax && unit_pretax_amount
-      precision = Maybe(Nomen::Currency.find(currency)).precision.or_else(2)
+      precision = Maybe(Onoma::Currency.find(currency)).precision.or_else(2)
       self.unit_amount = tax.amount_of(unit_pretax_amount)
       raw_pretax_amount = nil
       if pretax_amount.nil? || pretax_amount.zero?
