@@ -65,16 +65,6 @@ module Backend
 
       respond_to do |format|
         format.html do
-
-          activity_crops = Plant
-                             .joins(:inspections)
-                             .where(activity_production_id: @activity.productions.map(&:id),
-                                    dead_at: nil)
-                             .where.not(inspections: { forecast_harvest_week: nil })
-                             .uniq
-
-          @crops = initialize_grid(activity_crops, decorate: true)
-
           t3e @activity
         end
 
