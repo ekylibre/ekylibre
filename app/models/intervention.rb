@@ -81,7 +81,7 @@ class Intervention < Ekylibre::Record::Base
   belongs_to :prescription
   belongs_to :journal_entry, dependent: :destroy
   belongs_to :purchase
-  belongs_to :costing, class_name: 'InterventionCosting'
+  belongs_to :costing, class_name: 'InterventionCosting', dependent: :destroy
   belongs_to :validator, class_name: 'User', foreign_key: :validator_id
   has_many :receptions, class_name: 'Reception', dependent: :destroy
   has_many :labellings, class_name: 'InterventionLabelling', dependent: :destroy, inverse_of: :intervention
