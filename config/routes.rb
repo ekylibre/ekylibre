@@ -160,6 +160,7 @@ Rails.application.routes.draw do
     namespace :cobbles do
       resource :production_cost_cobble, only: :show
       resource :stock_in_ground_cobble, only: :show
+      resource :inspections_cobble, only: :show
     end
 
     namespace :cells do
@@ -498,7 +499,12 @@ Rails.application.routes.draw do
 
     resources :entity_links
 
-    resources :equipments, concerns: :products
+    resources :equipments, concerns: :products do
+      member do
+        get :list_interventions_on_field
+        get :list_equipment_maintenance_interventions
+      end
+    end
 
     resource :entries_ledger, only: [:show], path: 'entries-ledger' do
       member do
@@ -1274,6 +1280,7 @@ Rails.application.routes.draw do
       resource :land_parcels_visualizations, only: :show
       resource :resources_visualizations, only: :show
       resource :non_treatment_areas_visualizations, only: :show
+      resource :inspections_visualizations, only: :show
     end
 
     resources :wine_tanks, only: [:index], concerns: [:list]

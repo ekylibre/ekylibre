@@ -24,7 +24,9 @@ module Providable
 
     # @param [Hash{Symbol => String, Hash}] value
     def provider=(value)
-      super(value&.slice(:vendor, :name, :id, :data))
+      if value.present?
+        super(value.slice(:vendor, :name, :id, :data))
+      end
     end
 
     def provider
