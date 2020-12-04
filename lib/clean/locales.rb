@@ -377,7 +377,7 @@ module Clean
             model.enumerized_attributes.each do |attr|
               next if attr.i18n_scope
               next unless attr.values.any?
-              next if model < Ekylibre::Record::Base &&
+              next if model < ApplicationRecord &&
                       model.nomenclature_reflections.detect { |_k, n| n.foreign_key.to_s == attr.name.to_s }
               attrs << attr
             end

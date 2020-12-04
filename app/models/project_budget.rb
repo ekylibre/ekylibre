@@ -32,7 +32,7 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
-class ProjectBudget < Ekylibre::Record::Base
+class ProjectBudget < ApplicationRecord
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :name, length: { maximum: 500 }, allow_blank: true

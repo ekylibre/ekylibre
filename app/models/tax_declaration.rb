@@ -44,7 +44,7 @@
 #  updater_id        :integer
 #
 
-class TaxDeclaration < Ekylibre::Record::Base
+class TaxDeclaration < ApplicationRecord
   include Attachable
   attr_readonly :currency
   refers_to :currency

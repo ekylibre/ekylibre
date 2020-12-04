@@ -35,7 +35,7 @@
 #  updated_at        :datetime         not null
 #  updater_id        :integer
 #
-class InterventionParticipation < Ekylibre::Record::Base
+class InterventionParticipation < ApplicationRecord
   enumerize :state, in: %i[in_progress done validated]
   enumerize :procedure_name, in: Procedo.procedure_names, i18n_scope: ['procedures']
   belongs_to :intervention
@@ -108,7 +108,7 @@ class InterventionParticipation < Ekylibre::Record::Base
 
   def convert!(options = {})
     intervention = nil
-    Ekylibre::Record::Base.transaction do
+    ApplicationRecord.transaction do
       options[:procedure_name] ||= procedure_name
       procedure = Procedo.find(options[:procedure_name])
 

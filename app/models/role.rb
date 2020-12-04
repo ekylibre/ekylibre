@@ -34,7 +34,7 @@
 #  updater_id     :integer
 #
 
-class Role < Ekylibre::Record::Base
+class Role < ApplicationRecord
   include Rightable
   has_many :users, dependent: :restrict_with_exception
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

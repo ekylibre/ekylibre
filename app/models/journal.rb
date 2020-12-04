@@ -44,7 +44,7 @@
 #  used_for_unbilled_payables         :boolean          default(FALSE), not null
 #
 
-class Journal < Ekylibre::Record::Base
+class Journal < ApplicationRecord
   include Customizable
   include Providable
   attr_readonly :currency

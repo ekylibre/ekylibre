@@ -72,7 +72,7 @@
 #  waiting_on                          :date
 #
 
-class FixedAsset < Ekylibre::Record::Base
+class FixedAsset < ApplicationRecord
   include Attachable
   include Customizable
   include Transitionable

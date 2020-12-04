@@ -31,6 +31,6 @@
 #  name             :jsonb
 #  nature           :string           not null
 #
-class RegisteredLegalPosition < ApplicationRecord
+class RegisteredLegalPosition < LexiconRecord
   include Lexiconable
 end

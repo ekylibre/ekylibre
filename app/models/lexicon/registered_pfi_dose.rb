@@ -33,7 +33,7 @@
 #  pesticide_name :string
 #  target_id      :integer
 #
-class RegisteredPfiDose < ApplicationRecord
+class RegisteredPfiDose < LexiconRecord
   include Lexiconable
   belongs_to :target, class_name: 'RegisteredPfiTarget'
   belongs_to :crop, class_name: 'RegisteredPfiCrop'

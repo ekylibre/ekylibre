@@ -34,7 +34,7 @@
 #  updated_at       :datetime
 #  updater_id       :integer
 #
-class NamingFormatField < Ekylibre::Record::Base
+class NamingFormatField < ApplicationRecord
   belongs_to :naming_format
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :field_name, presence: true, length: { maximum: 500 }

@@ -61,7 +61,7 @@ module Ekylibre
 
             def main_class
               klass = self
-              klass = superclass until [Ekylibre::Record::Base, ActiveRecord::Base].include? klass.superclass
+              klass = superclass until [ApplicationRecord, ActiveRecord::Base].include? klass.superclass
               klass
             end
 

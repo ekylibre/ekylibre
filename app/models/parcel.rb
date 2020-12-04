@@ -65,7 +65,7 @@
 #  with_delivery                        :boolean          default(FALSE), not null
 #
 
-class Parcel < Ekylibre::Record::Base
+class Parcel < ApplicationRecord
   include Attachable
   include Customizable
   attr_readonly :currency

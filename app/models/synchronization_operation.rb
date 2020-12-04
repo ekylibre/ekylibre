@@ -38,7 +38,7 @@
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #
-class SynchronizationOperation < Ekylibre::Record::Base
+class SynchronizationOperation < ApplicationRecord
   enumerize :state, in: %i[undone in_progress errored aborted finished], predicates: true, default: :undone
   enumerize :operation_name, in: %i[get_inventory authenticate get_urls], predicates: true
 

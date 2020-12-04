@@ -47,7 +47,7 @@
 #  updater_id           :integer
 #
 
-class Issue < Ekylibre::Record::Base
+class Issue < ApplicationRecord
   include Attachable
   include Commentable
   include Versionable

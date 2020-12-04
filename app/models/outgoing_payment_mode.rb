@@ -37,7 +37,7 @@
 #  with_accounting :boolean          default(FALSE), not null
 #
 
-class OutgoingPaymentMode < Ekylibre::Record::Base
+class OutgoingPaymentMode < ApplicationRecord
   acts_as_list
   belongs_to :cash
   has_many :payments, class_name: 'OutgoingPayment', foreign_key: :mode_id, inverse_of: :mode, dependent: :restrict_with_error

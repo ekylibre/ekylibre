@@ -43,7 +43,7 @@
 #  updater_id              :integer
 #
 
-class Delivery < Ekylibre::Record::Base
+class Delivery < ApplicationRecord
   include Attachable
   include Customizable
   acts_as_numbered

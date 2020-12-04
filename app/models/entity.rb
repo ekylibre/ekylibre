@@ -81,7 +81,7 @@
 
 require 'digest/sha2'
 
-class Entity < Ekylibre::Record::Base
+class Entity < ApplicationRecord
   include Attachable
   include Autocastable
   include Commentable
@@ -462,7 +462,7 @@ class Entity < Ekylibre::Record::Base
   def merge_with(other, options = {})
     raise StandardError.new('Company entity is not mergeable') if other.of_company?
     author = options[:author]
-    Ekylibre::Record::Base.transaction do
+    ApplicationRecord.transaction do
       # EntityAddress
       threads = EntityAddress.unscoped.where(entity_id: id).uniq.pluck(:thread).delete_if(&:blank?)
       other_threads = EntityAddress.unscoped.where(entity_id: other.id).uniq.pluck(:thread).delete_if(&:blank?)

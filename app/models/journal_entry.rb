@@ -60,7 +60,7 @@
 #  - *          in journal currency
 #  - real_*     in financial year currency
 #  - absolute_* in global currency (the same as current financial year's theoretically)
-class JournalEntry < Ekylibre::Record::Base
+class JournalEntry < ApplicationRecord
   class IncompatibleCurrencies < StandardError;
   end
   include Attachable

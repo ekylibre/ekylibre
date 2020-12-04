@@ -41,7 +41,7 @@
 #  updater_id   :integer
 #
 
-class EntityLink < Ekylibre::Record::Base
+class EntityLink < ApplicationRecord
   belongs_to :entity
   belongs_to :linked, class_name: 'Entity'
   refers_to :nature, class_name: 'EntityLinkNature'

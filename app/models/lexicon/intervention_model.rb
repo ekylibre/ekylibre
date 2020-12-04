@@ -31,6 +31,6 @@
 #  working_flow        :decimal(19, 4)
 #  working_flow_unit   :string
 #
-class InterventionModel < ApplicationRecord
+class InterventionModel < LexiconRecord
   include Lexiconable
 end

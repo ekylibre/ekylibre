@@ -6,7 +6,7 @@ class ShapeCorrector
   class << self
     def build
       new(
-        connection: Ekylibre::Record::Base.connection,
+        connection: ApplicationRecord.connection,
         change_threshold: DEFAULT_CHANGE_PERCENTAGE_THRESHOLD
       )
     end

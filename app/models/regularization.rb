@@ -34,7 +34,7 @@
 #  updater_id       :integer
 #
 
-class Regularization < Ekylibre::Record::Base
+class Regularization < ApplicationRecord
   belongs_to :affair
   belongs_to :journal_entry
   has_one :third, through: :affair

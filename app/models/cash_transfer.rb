@@ -45,7 +45,7 @@
 #  updater_id                 :integer
 #
 
-class CashTransfer < Ekylibre::Record::Base
+class CashTransfer < ApplicationRecord
   include Customizable
   include Attachable
   acts_as_numbered

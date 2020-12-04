@@ -36,7 +36,7 @@
 #  updater_id       :integer
 #
 
-class CapNeutralArea < Ekylibre::Record::Base
+class CapNeutralArea < ApplicationRecord
   belongs_to :cap_statement
   has_one :campaign, through: :cap_statement
   has_geometry :shape, type: :multi_polygon

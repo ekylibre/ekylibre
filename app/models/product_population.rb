@@ -35,7 +35,7 @@
 #
 
 # Sum of all the deltas in product movements up to and including a date.
-class ProductPopulation < Ekylibre::Record::Base
+class ProductPopulation < ApplicationRecord
   self.primary_key = 'id'
 
   belongs_to :product

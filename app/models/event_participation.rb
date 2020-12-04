@@ -34,7 +34,7 @@
 #  updater_id     :integer
 #
 
-class EventParticipation < Ekylibre::Record::Base
+class EventParticipation < ApplicationRecord
   belongs_to :event, inverse_of: :participations
   belongs_to :participant, class_name: 'Entity'
   enumerize :state, in: %i[waiting accepted refused informative]

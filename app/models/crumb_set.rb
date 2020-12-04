@@ -86,7 +86,7 @@ class CrumbSet
   #   related to
   def convert!(options = {})
     intervention = nil
-    Ekylibre::Record::Base.transaction do
+    ApplicationRecord.transaction do
       options[:procedure_name] ||= @procedure.name
       procedure = Procedo.find(options[:procedure_name])
 

@@ -35,7 +35,7 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
-class PurchaseNature < Ekylibre::Record::Base
+class PurchaseNature < ApplicationRecord
   belongs_to :journal
   has_many :purchases, foreign_key: :nature_id, dependent: :restrict_with_exception
 

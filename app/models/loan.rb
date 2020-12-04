@@ -58,7 +58,7 @@
 #  updater_id                        :integer
 #  use_bank_guarantee                :boolean
 #
-class Loan < Ekylibre::Record::Base
+class Loan < ApplicationRecord
   include Attachable
   include Customizable
   include Providable

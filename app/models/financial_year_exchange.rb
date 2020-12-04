@@ -40,7 +40,7 @@
 #  updated_at               :datetime         not null
 #  updater_id               :integer
 #
-class FinancialYearExchange < Ekylibre::Record::Base
+class FinancialYearExchange < ApplicationRecord
   belongs_to :financial_year
   has_many :journal_entries, dependent: :nullify
   has_one :accountant, through: :financial_year

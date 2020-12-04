@@ -33,7 +33,7 @@
 #  updater_id   :integer
 #
 
-class District < Ekylibre::Record::Base
+class District < ApplicationRecord
   has_many :postal_zones
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :code, length: { maximum: 500 }, allow_blank: true

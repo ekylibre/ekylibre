@@ -42,7 +42,7 @@
 #  updater_id       :integer
 #
 
-class Contract < Ekylibre::Record::Base
+class Contract < ApplicationRecord
   include Attachable
   include Customizable
   attr_readonly :currency

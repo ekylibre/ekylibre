@@ -45,7 +45,7 @@
 #  usages                    :text
 #
 
-class Account < Ekylibre::Record::Base
+class Account < ApplicationRecord
   include Customizable
   include Providable
   CENTRALIZING_NATURES = %i[client supplier employee].freeze
@@ -652,7 +652,7 @@ class Account < Ekylibre::Record::Base
   # Merge given account into self. Given account is destroyed at the end, self
   # remains.
   def merge_with(other)
-    Ekylibre::Record::Base.transaction do
+    ApplicationRecord.transaction do
       # Relations with DB approach to prevent missing reflection
       connection = self.class.connection
       base_class = self.class.base_class
@@ -813,7 +813,7 @@ class Account < Ekylibre::Record::Base
 
   private
 
-    # @param [Array<Ekylibre::Record::Base, nil>] resources
+    # @param [Array<ApplicationRecord, nil>] resources
     # @return [void]
     def attempt_panier_local_resources_merge!(resources)
       if resources.all?(&:present?) && resources.all? { |r| r.class.respond_to? :affairable? } && # Resources are present and affairable

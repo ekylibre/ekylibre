@@ -60,7 +60,7 @@
 #  updater_id                               :integer
 #
 
-class Purchase < Ekylibre::Record::Base
+class Purchase < ApplicationRecord
   include Attachable
   include Customizable
   attr_readonly :currency, :nature_id

@@ -39,7 +39,7 @@
 #  updater_id      :integer
 #  variant_id      :integer          not null
 #
-class ProductPhase < Ekylibre::Record::Base
+class ProductPhase < ApplicationRecord
   include TimeLineable
   include Taskable
   belongs_to :product

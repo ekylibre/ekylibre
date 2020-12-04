@@ -39,7 +39,7 @@
 #  updater_id      :integer
 #
 
-class ProductMembership < Ekylibre::Record::Base
+class ProductMembership < ApplicationRecord
   include TimeLineable
   include Taskable
   enumerize :nature, in: %i[interior exterior], default: :interior, predicates: true

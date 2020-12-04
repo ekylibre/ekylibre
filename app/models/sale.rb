@@ -73,7 +73,7 @@
 #
 require 'benchmark'
 
-class Sale < Ekylibre::Record::Base
+class Sale < ApplicationRecord
   include Attachable
   include Customizable
   include Providable
