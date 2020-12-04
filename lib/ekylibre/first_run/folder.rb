@@ -95,6 +95,16 @@ module Ekylibre
           mail.mail_line_6 = @company[:mail_line_6]
           mail.save!
         end
+
+        if @company[:activities].present?
+          @company[:activities].each do |activity|
+            Activity.find_or_create_by!(family: activity[:family],
+                                        cultivation_variety: activity[:variety],
+                                        name: activity[:name],
+                                        production_cycle: :annual)
+          end
+        end
+
         load_users(@company[:users]) if @company[:users]
       end
 
