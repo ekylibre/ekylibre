@@ -94,6 +94,7 @@ class Loan < ApplicationRecord
   validates :insurance_account, presence: { if: -> { updateable? && insurance_percentage.present? && insurance_percentage.nonzero? } }
   validates :amount, numericality: { greater_than: 0 }
   validates :currency, match: { with: :cash }
+  validates :started_on, ongoing_exchanges: true
 
   scope :drafts, -> { where(state: %w[draft]) }
   scope :start_before, ->(date) { where('loans.ongoing_at <= ?', date.to_time) }

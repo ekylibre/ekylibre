@@ -571,6 +571,8 @@ fra:
             ongoing_at: #?
               financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
               not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
+            started_on:
+              financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période"
         outgoing_parcel_item: #?
           greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})" #?
         parcel: #?

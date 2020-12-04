@@ -110,7 +110,7 @@ class Sale < ApplicationRecord
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :initial_number, :number, :state, length: { allow_nil: true, maximum: 60 }
   validates :client, :currency, :nature, presence: true
-  validates :invoiced_at, presence: { if: :invoice? }, financial_year_writeable: true, allow_blank: true
+  validates :invoiced_at, presence: { if: :invoice? }, financial_year_writeable: true, ongoing_exchanges: true, allow_blank: true
   validates_delay_format_of :payment_delay, :expiration_delay
 
   alias_attribute :third_id, :client_id
@@ -203,7 +203,6 @@ class Sale < ApplicationRecord
 
   validate do
     if invoiced_at
-      errors.add(:invoiced_at, :financial_year_exchange_on_this_period) if invoiced_during_financial_year_exchange?
       errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
 
       linked_fixed_asset_ids = items.map(&:fixed_asset_id).compact
@@ -379,10 +378,6 @@ class Sale < ApplicationRecord
   # Test if there is some items in the sale.
   def has_content?
     items.any?
-  end
-
-  def invoiced_during_financial_year_exchange?
-    FinancialYearExchange.opened.where('? BETWEEN started_on AND stopped_on', invoiced_at).any?
   end
 
   def opened_financial_year?

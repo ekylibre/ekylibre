@@ -144,6 +144,7 @@ class FixedAsset < ApplicationRecord
   validates :waiting_on, timeliness: { on_or_before: -> (fixed_asset) { fixed_asset.started_on }, type: :date }, if: -> { waiting_on }, allow_blank: true
   validates :waiting_on, presence: true, financial_year_writeable: true, on: :stand_by
   validates :depreciable_amount, numericality: { greater_than_or_equal_to: 0 }
+  validates :started_on, ongoing_exchanges: true
 
   scope :drafts, -> { where(state: %w[draft]) }
   scope :draft_or_waiting, -> { where(state: %w[draft waiting]) }
@@ -238,11 +239,8 @@ class FixedAsset < ApplicationRecord
   end
 
   validate do
-    if started_on
-      errors.add(:started_on, :financial_year_exchange_on_this_period) if started_during_financial_year_exchange?
-      if self.stopped_on && stopped_on < started_on
-        errors.add(:stopped_on, :posterior, to: started_on.l)
-      end
+    if started_on && stopped_on && stopped_on < started_on
+      errors.add(:stopped_on, :posterior, to: started_on.l)
     end
     true
   end
@@ -309,10 +307,6 @@ class FixedAsset < ApplicationRecord
 
   def round(amount)
     currency.to_currency.round amount
-  end
-
-  def started_during_financial_year_exchange?
-    FinancialYearExchange.opened.where('? BETWEEN started_on AND stopped_on', started_on).any?
   end
 
   def opened_financial_year?
