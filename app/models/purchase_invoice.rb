@@ -124,7 +124,7 @@ class PurchaseInvoice < Purchase
 
       item.update_fixed_asset if item.fixed_asset.present? && item.pretax_amount_changed?
     end
-    interventions.where(state: :done).each(&:update_costing)
+    UpdateInterventionCostingsJob.perform_later(interventions.pluck(:id))
   end
 
   # This callback permits to add journal entries corresponding to the purchase order/invoice
