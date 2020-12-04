@@ -9,7 +9,6 @@ module Api
       end
 
       test 'create and get all products' do
-
         create_list(:equipment, 10)
         create_list(:worker, 10)
         create_list(:land_parcel, 10)
@@ -23,7 +22,6 @@ module Api
       end
 
       test 'create and get product of a given type' do
-
         create_list(:worker, 10, updated_at: '15/12/2016')
         create_list(:equipment, 10, updated_at: '15/12/2016')
 
