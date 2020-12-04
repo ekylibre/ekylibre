@@ -263,7 +263,7 @@ module ActionController
           elsif mode == :show_sti_record
             test_code << "get :#{action}, #{sanitized_params[id: 'NaID', redirect: 'root_url'.c]}\n"
             test_code << "assert_redirected_to root_url\n"
-            test_code << "#{model}.limit(5).find_each do |record|\n"
+            test_code << "#{model}.limit(5).each do |record|\n"
             test_code << "  get :#{action}, #{sanitized_params[id: 'record.id'.c, redirect: 'root_url'.c]}\n"
             test_code << "  if record.type && record.type != '#{model.name}'\n"
             test_code << "    assert_redirected_to({controller: record.class.name.tableize, action: :show, id: record.id})\n" # , #{context}
@@ -276,7 +276,7 @@ module ActionController
             test_code << "get :#{action}, #{sanitized_params[id: 'NaID', redirect: 'root_url'.c]}\n"
             test_code << (strictness == :api ? "assert_response 404\n" : "assert_redirected_to root_url\n")
             if model
-              test_code << "#{model}.limit(5).find_each do |record|\n"
+              test_code << "#{model}.limit(5).each do |record|\n"
               test_code << "  get :#{action}, #{sanitized_params[id: 'record.id'.c]}\n"
               test_code << "  assert_response :success\n" # , #{context}
               test_code << "  assert_not_nil assigns(:#{record})\n"
