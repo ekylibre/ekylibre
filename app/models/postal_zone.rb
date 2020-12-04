@@ -38,7 +38,7 @@
 #  updater_id   :integer
 #
 
-class PostalZone < Ekylibre::Record::Base
+class PostalZone < ApplicationRecord
   refers_to :country
   belongs_to :district
   has_many :mail_addresses, class_name: 'EntityAddress', foreign_key: :mail_postal_zone_id

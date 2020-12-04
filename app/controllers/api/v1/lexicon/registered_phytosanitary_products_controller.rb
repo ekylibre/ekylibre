@@ -17,7 +17,7 @@ module Api
             return [] if elements.empty?
 
             ids = elements.map { |e| "(#{quote(e[:id])}::integer)" }.join(',')
-            Ekylibre::Record::Base.connection.execute("SELECT t.id FROM  (values #{ids}) as t(id) WHERE t.id not in (SELECT id from #{table_name})").to_a
+            ApplicationRecord.connection.execute("SELECT t.id FROM  (values #{ids}) as t(id) WHERE t.id not in (SELECT id from #{table_name})").to_a
           end
       end
     end

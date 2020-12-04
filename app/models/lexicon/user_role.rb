@@ -29,6 +29,6 @@
 #  name           :jsonb
 #  reference_name :string
 #
-class UserRole < ApplicationRecord
+class UserRole < LexiconRecord
   include Lexiconable
 end

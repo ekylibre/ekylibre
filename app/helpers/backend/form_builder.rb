@@ -506,7 +506,7 @@ module Backend
       model = object.class
       until @template.lookup_context.exists?("backend/#{model.name.tableize}/form", [], true)
         model = model.superclass
-        break if model == ActiveRecord::Base || model == Ekylibre::Record::Base
+        break if model == ActiveRecord::Base || model == ApplicationRecord
       end
       @template.render "backend/#{model.name.tableize}/form", f: self
     end

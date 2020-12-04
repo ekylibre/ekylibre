@@ -32,7 +32,7 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
-class ActivitySeason < Ekylibre::Record::Base
+class ActivitySeason < ApplicationRecord
   belongs_to :activity, class_name: 'Activity', inverse_of: :seasons
   has_many :productions, class_name: 'ActivityProduction', inverse_of: :season, foreign_key: :season_id
 

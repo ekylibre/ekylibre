@@ -43,7 +43,7 @@
 #  variant_unit       :string
 #
 
-class ActivityBudgetItem < Ekylibre::Record::Base
+class ActivityBudgetItem < ApplicationRecord
   refers_to :currency
   enumerize :direction, in: %i[revenue expense], predicates: true
   enumerize :computation_method, in: %i[per_campaign per_production per_working_unit], default: :per_working_unit, predicates: true

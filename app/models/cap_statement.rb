@@ -36,7 +36,7 @@
 #  updater_id    :integer
 #
 
-class CapStatement < Ekylibre::Record::Base
+class CapStatement < ApplicationRecord
   belongs_to :campaign
   belongs_to :declarant, class_name: 'Entity'
   has_many :islets, class_name: 'CapIslet', dependent: :destroy

@@ -33,7 +33,7 @@
 #  updater_id   :integer
 #
 
-class DeliveryTool < Ekylibre::Record::Base
+class DeliveryTool < ApplicationRecord
   belongs_to :delivery
   belongs_to :tool, class_name: 'Product'
 end

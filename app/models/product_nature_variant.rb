@@ -55,7 +55,7 @@
 #  work_number               :string
 #
 
-class ProductNatureVariant < Ekylibre::Record::Base
+class ProductNatureVariant < ApplicationRecord
   include Attachable
   include Autocastable
   include Customizable

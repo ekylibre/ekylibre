@@ -37,7 +37,7 @@
 #  updater_id                    :integer
 #
 
-class InterventionWorkingPeriod < Ekylibre::Record::Base
+class InterventionWorkingPeriod < ApplicationRecord
   include PeriodicCalculable
   belongs_to :intervention
   belongs_to :intervention_participation

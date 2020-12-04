@@ -2,7 +2,7 @@
   %table.list
     %thead
       %tr
-        %th.col= Ekylibre::Record::Base.human_attribute_name(:name)
+        %th.col= ApplicationRecord.human_attribute_name(:name)
         %th.act{data: {list_column: :refresh}}
           %i
         %th.spe

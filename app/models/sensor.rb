@@ -46,7 +46,7 @@
 #  vendor_euid          :string
 #
 
-class Sensor < Ekylibre::Record::Base
+class Sensor < ApplicationRecord
   include Attachable
   include Customizable
   enumerize :retrieval_mode, in: %i[requesting listening integration], default: :requesting, predicates: true

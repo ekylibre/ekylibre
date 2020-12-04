@@ -73,7 +73,7 @@
 #  updater_id                             :integer
 #
 
-class User < Ekylibre::Record::Base
+class User < ApplicationRecord
   # No point accepted in preference name
   PREFERENCE_SHOW_MAP_INTERVENTION_FORM = 'show_map_on_intervention_form'.freeze
   PREFERENCE_SHOW_EXPORT_PREVIEW = 'show_export_preview'.freeze

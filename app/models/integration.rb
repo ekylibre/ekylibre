@@ -37,7 +37,7 @@
 
 # Integration model is here to save connection parameters in (encrypted) store
 # to keep them reusable when necessary.
-class Integration < Ekylibre::Record::Base
+class Integration < ApplicationRecord
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :nature, presence: true, uniqueness: true, length: { maximum: 500 }
   # ]VALIDATORS]

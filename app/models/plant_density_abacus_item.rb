@@ -34,7 +34,7 @@
 #  updater_id              :integer
 #
 
-class PlantDensityAbacusItem < Ekylibre::Record::Base
+class PlantDensityAbacusItem < ApplicationRecord
   belongs_to :plant_density_abacus, inverse_of: :items
   has_many :plant_countings, dependent: :restrict_with_exception
 

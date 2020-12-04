@@ -203,7 +203,7 @@ namespace :tenant do
         first_name = "Support"
         last_name = "Ekylibre"
 
-        Ekylibre::Record::Base.transaction do
+        ApplicationRecord.transaction do
           person = Entity.find_by(first_name: first_name, last_name: last_name)
           person ||= Entity.create!(first_name: first_name, last_name: last_name, nature: :contact)
 

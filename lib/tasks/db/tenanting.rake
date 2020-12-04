@@ -19,14 +19,14 @@ namespace :db do
       Lexicon.disable!
 
       schema_whitelist = ['information_schema', 'postgis', Lexicon::DISABLED_SCHEMA].freeze
-      schemas = Ekylibre::Record::Base.connection
+      schemas = ApplicationRecord.connection
                   .execute("SELECT schema_name FROM information_schema.schemata")
                   .to_a
                   .map { |h| h['schema_name'] }
                   .reject {|schema| schema_whitelist.include?(schema) || schema =~ /^pg_/ }
 
       schemas.each do |schema|
-        Ekylibre::Record::Base.connection.execute("DROP SCHEMA \"#{schema}\" CASCADE")
+        ApplicationRecord.connection.execute("DROP SCHEMA \"#{schema}\" CASCADE")
       end
 
       Rake::Task['tenant:clear'].invoke

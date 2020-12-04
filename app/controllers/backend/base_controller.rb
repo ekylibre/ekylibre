@@ -99,7 +99,7 @@ module Backend
           notify_error(:unexpected_resource_type, type: model.inspect)
           return false
         end
-        unless klass < Ekylibre::Record::Base
+        unless klass < ApplicationRecord
           notify_error(:unexpected_resource_type, type: klass.model_name)
           return false
         end

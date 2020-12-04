@@ -64,7 +64,7 @@
 #  variety                  :string
 #  working_zone             :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
-class InterventionParameter < Ekylibre::Record::Base
+class InterventionParameter < ApplicationRecord
   attr_readonly :reference_name
   belongs_to :group, class_name: 'InterventionGroupParameter'
   belongs_to :parent, class_name: 'InterventionGroupParameter', foreign_key: :group_id, inverse_of: :children

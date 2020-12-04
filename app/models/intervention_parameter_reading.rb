@@ -46,7 +46,7 @@
 #  updater_id                   :integer
 #
 
-class InterventionParameterReading < Ekylibre::Record::Base
+class InterventionParameterReading < ApplicationRecord
   include ReadingStorable
   belongs_to :intervention_parameter, class_name: 'InterventionProductParameter', foreign_key: :parameter_id, inverse_of: :readings
   has_one :intervention, through: :intervention_parameter

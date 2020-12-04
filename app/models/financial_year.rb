@@ -45,7 +45,7 @@
 #  updater_id                :integer
 #
 
-class FinancialYear < Ekylibre::Record::Base
+class FinancialYear < ApplicationRecord
   include Attachable
   include Customizable
   attr_readonly :currency

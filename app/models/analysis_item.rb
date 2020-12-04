@@ -48,7 +48,7 @@
 #  updater_id                   :integer
 #
 
-class AnalysisItem < Ekylibre::Record::Base
+class AnalysisItem < ApplicationRecord
   include ReadingStorable
   belongs_to :analysis, inverse_of: :items
   belongs_to :product_reading, dependent: :destroy

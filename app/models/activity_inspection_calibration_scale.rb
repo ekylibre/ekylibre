@@ -33,7 +33,7 @@
 #  updated_at          :datetime         not null
 #  updater_id          :integer
 #
-class ActivityInspectionCalibrationScale < Ekylibre::Record::Base
+class ActivityInspectionCalibrationScale < ApplicationRecord
   belongs_to :activity
   has_many :natures, -> { order(:minimal_value, :maximal_value) },
            class_name: 'ActivityInspectionCalibrationNature',

@@ -59,7 +59,7 @@
 #  working_duration               :integer          not null
 #
 
-class Intervention < Ekylibre::Record::Base
+class Intervention < ApplicationRecord
   include CastGroupable
   include Customizable
   include PeriodicCalculable

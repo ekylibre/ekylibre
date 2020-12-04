@@ -31,6 +31,6 @@
 #  updated_at  :datetime
 #  url         :string
 #
-class DatasourceCredit < ApplicationRecord
+class DatasourceCredit < LexiconRecord
   include Lexiconable
 end

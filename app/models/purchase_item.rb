@@ -58,7 +58,7 @@
 #  variant_id             :integer
 #
 
-class PurchaseItem < Ekylibre::Record::Base
+class PurchaseItem < ApplicationRecord
   include PeriodicCalculable
   refers_to :currency
   belongs_to :account

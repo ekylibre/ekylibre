@@ -45,7 +45,7 @@
 #  updater_id                 :integer
 #
 
-class Inventory < Ekylibre::Record::Base
+class Inventory < ApplicationRecord
   include Attachable
   include Customizable
   attr_readonly :currency
@@ -124,7 +124,7 @@ class Inventory < Ekylibre::Record::Base
     self.reflected = true
     return false unless valid? && items.all?(&:valid?)
 
-    Ekylibre::Record::Base.transaction do
+    ApplicationRecord.transaction do
       save!
       items.find_each(&:save!)
     end

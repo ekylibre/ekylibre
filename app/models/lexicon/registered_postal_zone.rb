@@ -32,7 +32,7 @@
 #  id                   :string           not null, primary key
 #  postal_code          :string           not null
 #
-class RegisteredPostalZone < ApplicationRecord
+class RegisteredPostalZone < LexiconRecord
   include Lexiconable
   self.id_column = :code
 end

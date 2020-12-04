@@ -26,7 +26,7 @@
 #  id          :string           not null, primary key
 #  symbol_name :string
 #
-class RegisteredPhytosanitarySymbol < ApplicationRecord
+class RegisteredPhytosanitarySymbol < LexiconRecord
   include Lexiconable
   has_many :risks, class_name: 'RegisteredPhytosanitaryRisk', foreign_key: :risk_code
 end

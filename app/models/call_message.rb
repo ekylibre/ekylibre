@@ -44,7 +44,7 @@
 #
 
 # Class representing any message linked to APIs in DB, whether ours or others.
-class CallMessage < Ekylibre::Record::Base
+class CallMessage < ApplicationRecord
   belongs_to :operation, class_name: 'Call', foreign_key: :call_id
   enumerize :nature, in: %i[incoming outgoing], predicates: true
 

@@ -33,7 +33,7 @@
 #  updater_id                 :integer
 #  usage                      :string           not null
 #
-class ProductNatureCategoryTaxation < Ekylibre::Record::Base
+class ProductNatureCategoryTaxation < ApplicationRecord
   belongs_to :product_nature_category, inverse_of: :taxations
   belongs_to :tax
   enumerize :usage, in: %i[sale purchase]

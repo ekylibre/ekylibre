@@ -35,7 +35,7 @@
 #  updated_at    :datetime         not null
 #  updater_id    :integer
 #
-class GapItem < Ekylibre::Record::Base
+class GapItem < ApplicationRecord
   refers_to :currency
   belongs_to :gap, inverse_of: :items
   belongs_to :tax

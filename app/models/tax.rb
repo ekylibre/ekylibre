@@ -45,7 +45,7 @@
 #  updater_id                        :integer
 #
 
-class Tax < Ekylibre::Record::Base
+class Tax < ApplicationRecord
   include Providable
 
   refers_to :country

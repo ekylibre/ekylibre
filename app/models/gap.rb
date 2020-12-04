@@ -42,7 +42,7 @@
 #  updater_id       :integer
 #
 
-class Gap < Ekylibre::Record::Base
+class Gap < ApplicationRecord
   enumerize :direction, in: %i[profit loss], predicates: true
   refers_to :currency
   belongs_to :affair, inverse_of: :gaps

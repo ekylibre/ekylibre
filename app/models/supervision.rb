@@ -34,7 +34,7 @@
 #  updater_id      :integer
 #  view_parameters :json
 #
-class Supervision < Ekylibre::Record::Base
+class Supervision < ApplicationRecord
   include Customizable
   has_many :items, class_name: 'SupervisionItem', dependent: :destroy, inverse_of: :supervision
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

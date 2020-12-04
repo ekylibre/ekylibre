@@ -38,7 +38,7 @@
 #  updater_id               :integer
 #
 
-class InventoryItem < Ekylibre::Record::Base
+class InventoryItem < ApplicationRecord
   belongs_to :inventory, inverse_of: :items
   belongs_to :product
   belongs_to :product_movement, dependent: :destroy

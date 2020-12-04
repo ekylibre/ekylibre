@@ -30,7 +30,7 @@
 #  signature          :text             not null
 #  timing             :string           not null
 #
-class FinancialYearArchive < Ekylibre::Record::Base
+class FinancialYearArchive < ApplicationRecord
   enumerize :timing, in: %i[prior_to_closure post_closure]
   belongs_to :financial_year
 

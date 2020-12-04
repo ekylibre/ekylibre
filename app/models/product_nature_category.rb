@@ -56,7 +56,7 @@
 #  updated_at                          :datetime         not null
 #  updater_id                          :integer
 #
-class ProductNatureCategory < Ekylibre::Record::Base
+class ProductNatureCategory < ApplicationRecord
   include Autocastable
   include Customizable
   include Importable
