@@ -53,5 +53,46 @@ module Backend
       t.column :state, hidden: true
       t.column :container, url: true
     end
+
+    list(:interventions_on_field, model: :intervention_parameters, joins: :intervention, conditions: [
+      "(interventions.nature = ?
+        AND interventions.procedure_name != ?
+        AND intervention_parameters.product_id = ?
+       )
+      OR
+       (interventions.nature = ?
+        AND interventions.procedure_name = ?
+        AND intervention_parameters.product_id = ?
+        AND intervention_parameters.type = ?
+      )",
+      'record', Procedo::Procedure.find(:equipment_maintenance).name, 'params[:id]'.c,
+      'record', Procedo::Procedure.find(:equipment_maintenance).name, 'params[:id]'.c, 'InterventionTool'
+    ]) do |t|
+      t.column :intervention, url: true
+      t.column :reference, label_method: :name, sort: :reference_name
+      t.column :started_at, through: :intervention, datatype: :datetime
+      t.column :stopped_at, through: :intervention, datatype: :datetime, hidden: true
+      t.column :human_activities_names, through: :intervention
+      t.column :actions, label_method: :human_actions_names, through: :intervention
+      t.column :human_working_duration, through: :intervention
+      t.column :human_working_zone_area, through: :intervention
+    end
+
+    list(:equipment_maintenance_interventions, model: :intervention_parameters, joins: :intervention, conditions: [
+      "interventions.nature = ?
+       AND interventions.procedure_name = ?
+       AND intervention_parameters.product_id = ?
+       AND intervention_parameters.type = ?",
+      'record', Procedo::Procedure.find(:equipment_maintenance).name, 'params[:id]'.c, 'InterventionTarget'
+    ]) do |t|
+      t.column :intervention, url: true
+      t.column :reference, label_method: :name, sort: :reference_name
+      t.column :started_at, through: :intervention, datatype: :datetime
+      t.column :stopped_at, through: :intervention, datatype: :datetime, hidden: true
+      t.column :human_activities_names, through: :intervention
+      t.column :actions, label_method: :human_actions_names, through: :intervention
+      t.column :human_working_duration, through: :intervention
+      t.column :human_working_zone_area, through: :intervention
+    end
   end
 end

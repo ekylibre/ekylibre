@@ -35,7 +35,7 @@
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #
-class TargetDistribution < Ekylibre::Record::Base
+class TargetDistribution < ApplicationRecord
   belongs_to :activity
   belongs_to :activity_production
   belongs_to :target, class_name: 'Product', inverse_of: :distributions

@@ -48,7 +48,7 @@
 #  updater_id             :integer
 #
 
-class Analysis < Ekylibre::Record::Base
+class Analysis < ApplicationRecord
   include Attachable
   include Customizable
   enumerize :retrieval_status, in: %i[ok controller_error internal_error sensor_error error], predicates: true

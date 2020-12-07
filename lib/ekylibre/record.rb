@@ -14,8 +14,6 @@ module Ekylibre
 
     Scope = Struct.new(:name, :arity) { }
 
-    autoload :Base, 'ekylibre/record/base'
-
     def self.human_name(model)
       ::I18n.t("activerecord.models.#{model}")
     end

@@ -34,7 +34,7 @@
 #  updated_at           :datetime
 #  updater_id           :integer
 #
-class OutgoingPaymentList < Ekylibre::Record::Base
+class OutgoingPaymentList < ApplicationRecord
   belongs_to :mode, class_name: 'OutgoingPaymentMode'
   has_many :payments, class_name: 'PurchasePayment', foreign_key: :list_id, inverse_of: :list, dependent: :destroy
   has_one :cash, through: :mode

@@ -36,7 +36,7 @@
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #
-class ParcelItemStoring < Ekylibre::Record::Base
+class ParcelItemStoring < ApplicationRecord
   belongs_to :parcel_item, inverse_of: :storings
   belongs_to :storage, class_name: 'Product'
   belongs_to :product, class_name: 'Product', foreign_key: :product_id

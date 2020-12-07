@@ -29,7 +29,7 @@ module Backend
 
         popup_content = []
         popup_content << { label: Plant.human_attribute_name(:net_surface_area), value: plant.net_surface_area.round(3).l }
-        popup_content << render('popup', plant: plant, calibrations: popup_calibrations(dimension, plant), inspection_qualities_evolutions: quality_evolutions)
+        popup_content << render_to_string(partial: 'backend/activities/popup', locals: { plant: plant, calibrations: popup_calibrations(dimension, plant), inspection_qualities_evolutions: quality_evolutions })
 
         {
           name:       plant.name,

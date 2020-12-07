@@ -28,7 +28,7 @@
 #  number        :integer          not null, primary key
 #  specie        :string           not null
 #
-class RegisteredSeed < ApplicationRecord
+class RegisteredSeed < LexiconRecord
   include Lexiconable
   self.id_column = :number
   self.name_column = "name->>'fra'"

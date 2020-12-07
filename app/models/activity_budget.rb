@@ -34,7 +34,7 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
-class ActivityBudget < Ekylibre::Record::Base
+class ActivityBudget < ApplicationRecord
   belongs_to :activity
   belongs_to :campaign
   with_options class_name: 'ActivityBudgetItem', inverse_of: :activity_budget do

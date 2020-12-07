@@ -16,7 +16,7 @@ class FixedAssetDepreciator
   # @param [Array<FixedAssetDepreciation] depreciables
   # @return [Integer]
   def depreciate_each(depreciables)
-    Ekylibre::Record::Base.transaction do
+    ApplicationRecord.transaction do
       # trusting the bookkeep to take care of the accounting
       count = 0
       depreciables.find_each do |dep|

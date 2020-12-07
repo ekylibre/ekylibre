@@ -35,6 +35,17 @@
         $(this).val(val)
         $(this).closest('.storing-fields').find('.conditionning-quantity').trigger('change')
 
+  # Prevent having more than 2 digits on amount fields
+  $(document).on "keyup", "[data-trade-component=amount], [data-trade-component=pretax_amount], [data-trade-component=unit_pretax_amount]", ->
+    if this.value.includes('.')
+      amount_with_digits = this.value.split('.')
+      amount = amount_with_digits[0]
+      digits = amount_with_digits[1]
+      if digits.length > 2
+        digits_kept = digits.substring(0, 2)
+        amount_displayed = amount + '.' + digits_kept
+        this.value = parseFloat(amount_displayed)
+
   $(document).ready ->
     $('table.list').on 'cocoon:after-insert', ->
       $('*[data-iceberg]').on "iceberg:inserted", (element) ->

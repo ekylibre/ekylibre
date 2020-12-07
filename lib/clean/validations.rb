@@ -14,7 +14,7 @@ module Clean
       end
 
       def search_missing_validations(model)
-        return '' unless model.superclass == Ekylibre::Record::Base
+        return '' unless model.superclass == ApplicationRecord
 
         record = model.name.underscore
 

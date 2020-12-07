@@ -30,7 +30,7 @@
 #  production_nature_id   :integer          not null
 #  production_system_name :string           not null
 #
-class MasterProductionOutput < ApplicationRecord
+class MasterProductionOutput < LexiconRecord
   include Lexiconable
   self.id_column = :production_nature_id
   belongs_to :production_nature, class_name: 'MasterProductionNature'

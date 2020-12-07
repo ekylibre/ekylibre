@@ -56,7 +56,7 @@
 #  updater_id                        :integer
 #
 
-class Cash < Ekylibre::Record::Base
+class Cash < ApplicationRecord
   include Attachable
   include Customizable
   include Providable

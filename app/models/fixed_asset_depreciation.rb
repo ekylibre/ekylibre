@@ -42,7 +42,7 @@
 #  updated_at         :datetime         not null
 #  updater_id         :integer
 #
-class FixedAssetDepreciation < Ekylibre::Record::Base
+class FixedAssetDepreciation < ApplicationRecord
   acts_as_list scope: :fixed_asset
   belongs_to :fixed_asset
   belongs_to :financial_year

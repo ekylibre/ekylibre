@@ -5,7 +5,7 @@ module Ekylibre
       @@truc = {}
 
       def initialize(model, options = {}, fixture_options = nil)
-        if model && model < Ekylibre::Record::Base
+        if model && model < ApplicationRecord
           fixture_options ||= {}
           @model = fixture_options.delete(:model) || model
           @prefix = fixture_options.delete(:prefix) || @model.name.underscore.pluralize

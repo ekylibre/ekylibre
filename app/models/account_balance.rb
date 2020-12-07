@@ -42,7 +42,7 @@
 #  updater_id        :integer
 #
 
-class AccountBalance < Ekylibre::Record::Base
+class AccountBalance < ApplicationRecord
   refers_to :currency
   belongs_to :account
   belongs_to :financial_year

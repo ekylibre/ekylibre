@@ -61,7 +61,7 @@
 # Activity represents a type of work in the farm like common wheats, pigs,
 # fish etc.. Activities are expected to last in years. Activity productions are
 # production done inside the given activity with same work method.
-class Activity < Ekylibre::Record::Base
+class Activity < ApplicationRecord
   include Attachable
   include Customizable
   include Activities::LeftJoinable

@@ -56,7 +56,7 @@
 #  updater_id            :integer
 #
 
-class IncomingPayment < Ekylibre::Record::Base
+class IncomingPayment < ApplicationRecord
   include Letterable
   include Attachable
   include PeriodicCalculable

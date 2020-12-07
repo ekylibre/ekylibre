@@ -44,7 +44,7 @@
 #  with_deposit            :boolean          default(FALSE), not null
 #
 
-class IncomingPaymentMode < Ekylibre::Record::Base
+class IncomingPaymentMode < ApplicationRecord
   include Providable
 
   attr_readonly :cash_id, :cash

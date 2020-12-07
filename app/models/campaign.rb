@@ -35,7 +35,7 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
-class Campaign < Ekylibre::Record::Base
+class Campaign < ApplicationRecord
   has_many :cap_statements, dependent: :restrict_with_exception
   has_many :activity_budgets, inverse_of: :campaign, dependent: :restrict_with_exception
   has_one :selected_manure_management_plan, -> { selecteds }, class_name: 'ManureManagementPlan', foreign_key: :campaign_id, inverse_of: :campaign

@@ -38,7 +38,7 @@
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #
-class ProductOwnership < Ekylibre::Record::Base
+class ProductOwnership < ApplicationRecord
   include TimeLineable
   include Taskable
   belongs_to :owner, class_name: 'Entity'

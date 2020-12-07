@@ -65,7 +65,7 @@
 # IncomingPayment |         |    X    |
 # Regularization  |    ?    |    ?    |
 #
-class Affair < Ekylibre::Record::Base
+class Affair < ApplicationRecord
   include Attachable
   refers_to :currency
   belongs_to :cash_session
@@ -196,7 +196,7 @@ class Affair < Ekylibre::Record::Base
     if other.currency != currency
       raise ArgumentError.new("The currency (#{currency}) is different of the affair currency(#{other.currency})")
     end
-    Ekylibre::Record::Base.transaction do
+    ApplicationRecord.transaction do
       other.deals.each do |deal|
         deal.update_columns(affair_id: id)
         deal.reload
@@ -211,7 +211,7 @@ class Affair < Ekylibre::Record::Base
     unless deals.include?(deal)
       raise ArgumentError.new('Given deal is not one of the affair')
     end
-    Ekylibre::Record::Base.transaction do
+    ApplicationRecord.transaction do
       affair = self.class.create!(currency: deal.currency, third: deal.deal_third)
       update_column(:affair_id, affair.id)
       affair.refresh!

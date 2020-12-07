@@ -39,7 +39,7 @@
 #  updater_id      :integer
 #
 
-class ProductLocalization < Ekylibre::Record::Base
+class ProductLocalization < ApplicationRecord
   include TimeLineable
   include Taskable
   belongs_to :container, class_name: 'Product'

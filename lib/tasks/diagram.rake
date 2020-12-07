@@ -1,7 +1,7 @@
 namespace :diagrams do
   task all: :environment do
     models = YAML.load_file(Rails.root.join('db', 'models.yml')).map(&:classify).map(&:constantize).delete_if do |m|
-      m.superclass != Ekylibre::Record::Base
+      m.superclass != ApplicationRecord
     end
     graph = Diagram::Model.relational(*models, name: 'all')
     graph.write

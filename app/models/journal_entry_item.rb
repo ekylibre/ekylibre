@@ -77,7 +77,7 @@
 #   * (credit|debit|balance) are in currency of the journal
 #   * real_(credit|debit|balance) are in currency of the financial year
 #   * absolute_(credit|debit|balance) are in currency of the company
-class JournalEntryItem < Ekylibre::Record::Base
+class JournalEntryItem < ApplicationRecord
   attr_readonly :entry_id, :journal_id, :state
   refers_to :absolute_currency, class_name: 'Currency'
   refers_to :currency

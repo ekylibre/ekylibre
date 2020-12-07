@@ -42,7 +42,7 @@
 #  work_number            :string           not null
 #
 
-class CultivableZone < Ekylibre::Record::Base
+class CultivableZone < ApplicationRecord
   include Attachable
   include Customizable
   refers_to :production_system

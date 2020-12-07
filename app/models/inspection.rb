@@ -43,7 +43,7 @@
 #  updater_id                     :integer
 #
 
-class Inspection < Ekylibre::Record::Base
+class Inspection < ApplicationRecord
   include Attachable
   belongs_to :activity
   belongs_to :product

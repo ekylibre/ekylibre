@@ -35,7 +35,7 @@
 #  updated_at    :datetime         not null
 #  updater_id    :integer
 #
-class Attachment < Ekylibre::Record::Base
+class Attachment < ApplicationRecord
   belongs_to :document
   belongs_to :resource, polymorphic: true, inverse_of: :attachments
 

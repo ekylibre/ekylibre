@@ -33,7 +33,7 @@
 #  updater_id     :integer
 #  value          :string           not null
 #
-class Identifier < Ekylibre::Record::Base
+class Identifier < ApplicationRecord
   refers_to :nature, class_name: 'IdentifierNature'
   belongs_to :net_service
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
