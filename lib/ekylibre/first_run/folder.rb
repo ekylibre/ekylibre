@@ -98,10 +98,8 @@ module Ekylibre
 
         if @company[:activities].present?
           @company[:activities].each do |activity|
-            Activity.find_or_create_by!(family: activity[:family],
-                                        cultivation_variety: activity[:variety],
-                                        name: activity[:name],
-                                        production_cycle: :annual)
+            Activity.create_with(production_cycle: :annual)
+                    .find_or_create_by!(family: activity[:family], cultivation_variety: activity[:variety], name: activity[:label_fr])
           end
         end
 
