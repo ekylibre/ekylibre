@@ -2886,6 +2886,7 @@ deu:
       # journal_entries_csv_export: "Export CSV"
       journal_entries_export: "CSV-Datei herunterladen"
       journal_entries_import: "CSV-Import"
+      # kml_export: "KML export"
       list: "Liste"
       load: "Belastung"
       lock: "Sperren"

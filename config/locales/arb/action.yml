@@ -3665,6 +3665,7 @@ arb:
       # journal_entries_csv_export: "Export CSV"
       journal_entries_export: "تنزيل ملف CSV"
       journal_entries_import: "استيراد CSV"
+      # kml_export: "KML export"
       list: "قائمة"
       load: "حمل"
       lock: "قفل"

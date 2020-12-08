@@ -3179,6 +3179,7 @@ spa:
       # journal_entries_csv_export: "Export CSV"
       journal_entries_export: "Descargar CSV"
       journal_entries_import: "Importar CSV"
+      # kml_export: "KML export"
       list: "Lista"
       load: "Carga"
       lock: "Bloquear"

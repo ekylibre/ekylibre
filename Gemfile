@@ -173,6 +173,7 @@ gem 'fiddle'
 # Import/Export
 gem 'ekylibre-ofx-parser'
 gem 'rgeo-geojson'
+gem 'rgeo-kml'
 gem 'rgeo-shapefile'
 gem 'roo'
 gem 'rubyzip', '~> 1.2.2'

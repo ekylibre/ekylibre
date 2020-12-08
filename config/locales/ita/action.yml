@@ -2953,6 +2953,7 @@ ita:
       # journal_entries_csv_export: "Export CSV"
       journal_entries_export: "Scarica CSV"
       journal_entries_import: "Importa CSV"
+      # kml_export: "KML export"
       list: "Lista"
       load: "Caricare"
       lock: "Serratura"
