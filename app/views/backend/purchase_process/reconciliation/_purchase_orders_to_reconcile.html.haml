@@ -14,7 +14,7 @@
           .model
             = check_box_tag('', '1', false, class: 'model-checkbox', data: { id: model.id })
 
-            - reference_number = model.reference_number.present? ? reference_number : :not_informed.tl
+            - reference_number = model.reference_number.presence || :not_informed.tl
             %span.model-ref= :reference_supplier.tl(reference_number: reference_number)
 
             %ul.list-items
