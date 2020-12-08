@@ -232,9 +232,11 @@ Rails.application.routes.draw do
     resources :activities, concerns: %i[list unroll] do
       collection do
         get :family
+        get :kml_export
         post :duplicate
       end
       member do
+        get :kml_export
         get :list_distributions
         get :list_productions
       end

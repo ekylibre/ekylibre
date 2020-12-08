@@ -2966,6 +2966,7 @@ jpn:
       # journal_entries_csv_export: "Export CSV"
       journal_entries_export: "CSVをダウンロード"
       journal_entries_import: "CSVのインポート"
+      # kml_export: "KML export"
       list: "リスト"
       load: "負荷"
       lock: "ロック"

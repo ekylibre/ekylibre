@@ -3721,6 +3721,7 @@ fra:
       journal_entries_csv_export: "Exporter un CSV"
       journal_entries_export: "Télécharger le CSV"
       journal_entries_import: "Importer un CSV"
+      kml_export: "Export au format KML"
       list: "Lister"
       load: "Charger"
       lock: "Verrouiller"

@@ -2891,6 +2891,7 @@ cmn:
       # journal_entries_csv_export: "Export CSV"
       journal_entries_export: "下载CSV"
       journal_entries_import: "导入CSV"
+      # kml_export: "KML export"
       list: "名单"
       load: "加载"
       lock: "锁"
