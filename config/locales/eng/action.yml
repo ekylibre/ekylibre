@@ -2002,6 +2002,8 @@ eng:
     export_fixed_asset_registry: "Fixed assets"
     export_gain_and_loss_fixed_asset_registry: "Added values and capital losses"
     export_income_statement: "Export income statement"
+    export_intervention_traceability: "export_intervention_traceability"
+    export_purchase_order: "Purchase order"
     export_text_fec_all: "Export FEC corporate tax (Text)"
     export_text_fec_ba_bnc_ir_commercial_accountancy: "Export FEC for agriculture and professional operations income taxation commercial accountancy (Text)"
     export_text_fec_ba_ir_cash_accountancy: "Export FEC agriculture income taxation cash accountancy (Text)"

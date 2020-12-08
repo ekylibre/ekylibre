@@ -1815,6 +1815,8 @@ fra:
     export_fixed_assets_general: "État des immobilisations" #?
     export_gain_and_loss_fixed_asset_registry: "État des plus et moins values"
     export_income_statement: "Export compte de résultat"
+    export_intervention_traceability: "export_fiche_tracabilite"
+    export_purchase_order: "Bon de commande"
     export_sales_aborted: "Abandonné(e)" #?
     export_sales_estimate: "Devis" #?
     export_sales_invoice: "Facture" #?

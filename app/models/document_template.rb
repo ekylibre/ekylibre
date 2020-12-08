@@ -218,10 +218,10 @@ class DocumentTemplate < ApplicationRecord
       nil
     end
 
-    def find_active_template(name)
-      where(active: true)
-        .where(name.is_a?(Integer) ? { id: name.to_i } : { by_default: true, nature: name.to_s })
-        .first
+    def find_active_template(name, extension = nil)
+      attributes = name.is_a?(Integer) ? { id: name } : { by_default: true, nature: name.to_s }
+      attributes.merge!(file_extension: extension) if extension
+      find_by(active: true, **attributes)
     end
 
     # Returns the root directory for the document templates's sources
