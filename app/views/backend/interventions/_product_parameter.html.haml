@@ -19,7 +19,7 @@
         = lights('stop') if product_parameter.dead and product_parameter.product.dead_at
       %p= product_parameter.name
       %p= product_parameter.model_name.human
-      - if actor.is_a?(Product) && !actor.population_counting_unitary? && variant && product_parameter.quantity_unit_name && product_parameter.quantity
+      - if actor.is_a?(Product) && !actor.population_counting_unitary? && variant && product_parameter.quantity_value
         %p
           - if product_parameter.product.france_maaid.present? && product_parameter.is_a?(InterventionInput)
             %p
