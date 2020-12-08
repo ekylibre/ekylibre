@@ -246,7 +246,7 @@ module Procedo
       parameters.select(&:handled?)
     end
 
-    def required_parameters
+    def required_product_parameters
       parameters.select(&:required?)
                 .select {|p| p.is_a?(Procedo::Procedure::ProductParameter)}
     end
