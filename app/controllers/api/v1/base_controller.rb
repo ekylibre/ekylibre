@@ -64,23 +64,13 @@ module Api
 
       # Initialize locale with params[:locale] or HTTP_ACCEPT_LANGUAGE
       def set_locale
-        if current_user && I18n.available_locales.include?(current_user.language.to_sym)
-          I18n.locale = current_user.language
-        else
-          session[:locale] = params[:locale] if params[:locale]
-          if session[:locale].blank?
-            if locale = http_accept_language.compatible_language_from(Ekylibre.http_languages.keys)
-              session[:locale] = Ekylibre.http_languages[locale]
-            end
-          else
-            session[:locale] = nil unless ::I18n.available_locales.include?(session[:locale].to_sym)
-          end
-          if ::I18n.available_locales.include?(Preference[:language])
-            session[:locale] ||= Preference[:language]
-          end
-          session[:locale] ||= I18n.default_locale
-          I18n.locale = session[:locale]
-        end
+        locale = Maybe(valid_locale_or_nil(current_user&.language))
+                   .recover { valid_locale_or_nil(params.to_unsafe_hash.fetch(:locale, nil)) }
+                   .recover { http_accept_language.compatible_language_from(Ekylibre.http_languages.keys) }
+                   .recover { valid_locale_or_nil(Preference[:language]) }
+                   .recover { I18n.default_locale }
+
+        I18n.locale = session[:locale] = locale
       end
 
       hide_action :authenticate_user_from_simple_token!
@@ -138,6 +128,20 @@ module Api
           end
 
           permitted_params.merge(provider: provider_data)
+        end
+
+      private
+
+        # Like `presence` but for valid locale strings
+        #
+        # @param [String, nil] locale
+        # @return [String, nil]
+        def valid_locale_or_nil(locale)
+          if locale.present? && I18n.available_locales.include?(locale)
+            locale
+          else
+            nil
+          end
         end
     end
   end
