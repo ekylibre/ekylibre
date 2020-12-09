@@ -85,7 +85,7 @@ class Cash < ApplicationRecord
   has_many :unpointed_suspended_journal_entry_items, -> { unpointed.where.not(entry_id: BankStatement.where('journal_entry_id IS NOT NULL').select(:journal_entry_id)) },
            through: :suspense_account, source: :journal_entry_items
   has_many :unpointed_lines_suspended_journal_entry_items, -> { unpointed.where.not(entry_id: BankStatementItem.where('journal_entry_id IS NOT NULL').select(:journal_entry_id)) },
-                    through: :suspense_account, source: :journal_entry_items
+           through: :suspense_account, source: :journal_entry_items
   has_one :last_bank_statement, -> { order(stopped_on: :desc) }, class_name: 'BankStatement'
 
   enumerize :nature, in: %i[bank_account cash_box associate_account], default: :bank_account, predicates: true

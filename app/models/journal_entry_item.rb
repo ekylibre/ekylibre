@@ -146,7 +146,6 @@ class JournalEntryItem < ApplicationRecord
     state :closed
   end
 
-  #
   before_validation do
     self.name = name.to_s[0..254]
     self.letter = nil if letter.blank?
@@ -189,7 +188,6 @@ class JournalEntryItem < ApplicationRecord
     # end
   end
 
-  #
   validate do
     errors.add(:credit, :unvalid_amounts) if debit.nonzero? && credit.nonzero?
     errors.add(:real_credit, :unvalid_amounts) if real_debit.nonzero? && real_credit.nonzero?
@@ -372,7 +370,6 @@ class JournalEntryItem < ApplicationRecord
     mode
   end
 
-  #
   def resource
     if entry
       entry.resource_type

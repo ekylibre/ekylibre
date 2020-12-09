@@ -263,7 +263,6 @@ class JournalEntry < ApplicationRecord
     errors.add(:number, :entry_has_been_already_validated) if old.closed?
   end
 
-  #
   validate do
     # TODO: Validates number has journal's code as prefix
     if printed_on
@@ -430,7 +429,6 @@ class JournalEntry < ApplicationRecord
     add!(name, account, amount, options)
   end
 
-  #
   def add_credit(name, account, amount, options = {})
     add!(name, account, amount, options.merge(credit: true))
   end

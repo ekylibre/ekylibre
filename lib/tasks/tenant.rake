@@ -171,12 +171,12 @@ namespace :tenant do
     STDOUT.flush
     input = STDIN.gets.chomp
     case input.upcase
-      when 'Y'
-        return true
-      when 'N'
-        return false
-      else
-        return default
+    when 'Y'
+      return true
+    when 'N'
+      return false
+    else
+      return default
     end
   end
 

@@ -13,14 +13,17 @@ module Agroedi
           klass.new_without_cast(*args[0...-1]).tap do |param|
             param.procedure_parameter = param.matching_procedure_parameter
           end
-        rescue NameError
-          return raise $! unless $!.message =~ /^uninitialized constant Agroedi::DaplosExchanger::/
-          raise "Could not find #{klass_name}"
+        rescue NameError => e
+          if e.message =~ /^uninitialized constant Agroedi::DaplosExchanger::/
+            raise "Could not find #{klass_name}"
+          else
+            raise e
+          end
         end
       end
 
       delegate :output_specie_edicode, :output_nature_edicode, :output_name,
-                to: :daplos_output
+               to: :daplos_output
 
       def procedure_parameter=(parameter)
         clear_memoization!
@@ -41,10 +44,10 @@ module Agroedi
       end
 
       def daplos_unit
-        @daplos_unit ||= (RegisteredAgroediCode.of_reference_code(unit_edicode)
-                                               .first
-                                               &.ekylibre_value ||
-                          raise("No way to find unit of #{unit_edicode}"))
+        @daplos_unit ||= (
+          RegisteredAgroediCode.of_reference_code(unit_edicode).first&.ekylibre_value ||
+            raise("No way to find unit of #{unit_edicode}")
+        )
       end
 
       def nature

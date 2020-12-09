@@ -146,20 +146,20 @@ class ProductNatureCategory < ApplicationRecord
     return unless type.match /Article/
 
     case reference_name
-      when 'fertilizer'
+    when 'fertilizer'
         return 'Variants::Articles::FertilizerArticle'
-      when 'seed' || 'plant'
+    when 'seed' || 'plant'
         return 'Variants::Articles::SeedAndPlantArticle'
-      when 'plant_medicine'
+    when 'plant_medicine'
         return 'Variants::Articles::PlantMedicineArticle'
     end
 
     case charge_account&.usages
-      when 'fertilizer_expenses'
+    when 'fertilizer_expenses'
         'Variants::Articles::FertilizerArticle'
-      when 'seed_expenses'
+    when 'seed_expenses'
         'Variants::Articles::SeedAndPlantArticle'
-      when 'plant_medicine_matter_expenses'
+    when 'plant_medicine_matter_expenses'
         'Variants::Articles::PlantMedicineArticle'
     end
   end

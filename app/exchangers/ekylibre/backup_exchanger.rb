@@ -231,7 +231,6 @@ module Ekylibre
 
       w.check_point
 
-      #
       f = File.open(database)
       doc = Nokogiri::XML(f) do |config|
         config.strict.nonet.noblanks.noent

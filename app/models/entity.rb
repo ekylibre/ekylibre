@@ -357,7 +357,6 @@ class Entity < ApplicationRecord
     incoming_payments.last_updateds.first
   end
 
-  #
   def balance
     economic_situation[:trade_balance]
   end
