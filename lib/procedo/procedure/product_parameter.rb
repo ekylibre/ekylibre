@@ -113,7 +113,6 @@ module Procedo
         @procedure.parameters.reject { |v| v == self }
       end
 
-      #
       def handled?
         @handlers.any?
       end

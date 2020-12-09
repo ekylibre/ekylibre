@@ -119,12 +119,12 @@ class Import < ApplicationRecord
                   end
 
     case result.state
-      when :success
-        update(state: :finished, progression_percentage: 100, imported_at: Time.zone.now, importer_id: importer_id)
-      when :aborted
-        update(state: :aborted)
-      else # when :failure + other cases that should not happen
-        update(state: :errored)
+    when :success
+      update(state: :finished, progression_percentage: 100, imported_at: Time.zone.now, importer_id: importer_id)
+    when :aborted
+      update(state: :aborted)
+    else # when :failure + other cases that should not happen
+      update(state: :errored)
     end
 
     result

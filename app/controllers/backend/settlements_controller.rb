@@ -22,7 +22,6 @@ module Backend
       code = search_conditions(products: %i[name work_number number description uuid], product_nature_variants: [:name]) + " ||= []\n"
       code.c
     end
-    #
     list(conditions: list_conditions) do |t|
       t.action :edit
       t.action :destroy, if: :destroyable?

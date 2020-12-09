@@ -73,18 +73,18 @@ module Api
                    working_periods_attributes: [
                      { started_at: '01/01/2019 12:00'.to_datetime,
                        stopped_at: '01/01/2019 13:30'.to_datetime
-                   }],
+                     }],
                    targets_attributes: [
-                     { product_id: land_parcel.id, reference_name: 'land_parcel'}
+                     { product_id: land_parcel.id, reference_name: 'land_parcel' }
                    ],
                    doers_attributes: [
-                     { product_id: worker1.id, reference_name: 'doer'},
-                     { product_id: worker2.id, reference_name: 'doer'},
-                     { product_id: driver.id, reference_name: 'driver'}
+                     { product_id: worker1.id, reference_name: 'doer' },
+                     { product_id: worker2.id, reference_name: 'doer' },
+                     { product_id: driver.id, reference_name: 'driver' }
                    ],
                    tools_attributes: [
-                     { product_id: tractor.id, reference_name: 'tractor'},
-                     { product_id: hoe.id, reference_name: 'hoe'},
+                     { product_id: tractor.id, reference_name: 'tractor' },
+                     { product_id: hoe.id, reference_name: 'hoe' },
                    ]
         }
         post :create, params
@@ -106,7 +106,7 @@ module Api
                    working_periods_attributes: [
                      { started_at: '01/01/2019 12:00'.to_datetime,
                        stopped_at: '01/01/2019 13:30'.to_datetime
-                   }],
+                     }],
                    inputs_attributes: [
                      {
                        product_id: input_product.id,
@@ -134,11 +134,11 @@ module Api
                    working_periods_attributes: [
                      { started_at: '01/01/2019 12:00'.to_datetime,
                        stopped_at: '01/01/2019 13:30'.to_datetime
-                   }],
+                     }],
                    targets_attributes: [{
-                     product_id: plant.id,
-                     reference_name: 'plant'
-                   }],
+                                          product_id: plant.id,
+                                          reference_name: 'plant'
+                                        }],
                    outputs_attributes: [
                      {
                        variant_id: variant.id,
@@ -163,46 +163,59 @@ module Api
         variant = create(:product_nature_variant)
         product = create(:seed_product)
         product.variant.read!(:net_mass, '2000 kilogram')
-        params = { procedure_name: 'sowing',
-                   providers: { zero_id: 5 },
-                   working_periods_attributes: [
-                     {
-                       started_at: "2017-11-06 10:04:39",
-                       stopped_at: "2017-11-06 12:04:39"
-                     }
-                   ],
-                   group_parameters_attributes: [{
-                     reference_name: 'zone',
-                     targets_attributes: [{
-                       product_id: land_parcel1.id,
-                       reference_name: 'land_parcel'
-                     }],
-                     outputs_attributes: [{
-                       variant_id: variant.id,
-                       reference_name: 'plant',
-                       variety: 'test',
-                       batch_number: 'test2'
-                     }]
-                   },
-                   {
-                     reference_name: 'zone',
-                     targets_attributes: [{
-                       product_id: land_parcel2.id,
-                       reference_name: 'land_parcel'
-                     }],
-                     outputs_attributes: [{
-                       variant_id: variant.id,
-                       reference_name: 'plant',
-                       variety: 'test',
-                       batch_number: 'test2'
-                     }]
-                   }],
-                   inputs_attributes: [{
-                     product_id: product.id,
-                     quantity_value: 3,
-                     quantity_handler: 'net_mass',
-                     reference_name: 'seeds'
-                   }]
+        params = {
+          procedure_name: 'sowing',
+          providers: { zero_id: 5 },
+          working_periods_attributes: [
+            {
+              started_at: "2017-11-06 10:04:39",
+              stopped_at: "2017-11-06 12:04:39"
+            }
+          ],
+          group_parameters_attributes: [
+            {
+              reference_name: 'zone',
+              targets_attributes: [
+                {
+                  product_id: land_parcel1.id,
+                  reference_name: 'land_parcel'
+                }
+              ],
+              outputs_attributes: [
+                {
+                  variant_id: variant.id,
+                  reference_name: 'plant',
+                  variety: 'test',
+                  batch_number: 'test2'
+                }
+              ]
+            },
+            {
+              reference_name: 'zone',
+              targets_attributes: [
+                {
+                  product_id: land_parcel2.id,
+                  reference_name: 'land_parcel'
+                }
+              ],
+              outputs_attributes: [
+                {
+                  variant_id: variant.id,
+                  reference_name: 'plant',
+                  variety: 'test',
+                  batch_number: 'test2'
+                }
+              ]
+            }
+          ],
+          inputs_attributes: [
+            {
+              product_id: product.id,
+              quantity_value: 3,
+              quantity_handler: 'net_mass',
+              reference_name: 'seeds'
+            }
+          ]
         }
         post :create, params
         assert_response :created
@@ -221,41 +234,50 @@ module Api
         tractor1 = create(:tractor)
         tractor2 = create(:tractor)
         tractor3 = create(:tractor)
-        params = { procedure_name: 'fertilizing',
-                   providers: { zero_id: 5 },
-                   working_periods_attributes: [
-                     { started_at: '01/01/2019 12:00'.to_datetime,
-                       stopped_at: '01/01/2019 13:30'.to_datetime
-                   }],
-                   inputs_attributes: [
-                     {
-                       product_id: input_product.id,
-                       quantity_value: 5000,
-                       quantity_handler: 'net_mass',
-                       reference_name: 'fertilizer'
-                     }],
-                     tools_attributes: [{
-                       product_id: tractor1.id,
-                       reference_name: "tractor",
-                       readings_attributes: [{
-                         indicator_name: "hour_counter",
-                         measure_value_value: "8",
-                         measure_value_unit: "hour"
-                       }]
-                     },
-                     {
-                       product_id: tractor2.id,
-                       reference_name: "tractor"
-                     },
-                     {
-                       product_id: tractor3.id,
-                       reference_name: "tractor",
-                       readings_attributes: [{
-                         indicator_name: "hour_counter",
-                         measure_value_value: "5",
-                         measure_value_unit: "hour"
-                       }]
-                     }]
+        params = {
+          procedure_name: 'fertilizing',
+          providers: { zero_id: 5 },
+          working_periods_attributes: [
+            { started_at: '01/01/2019 12:00'.to_datetime,
+              stopped_at: '01/01/2019 13:30'.to_datetime
+            }
+          ],
+          inputs_attributes: [
+            {
+              product_id: input_product.id,
+              quantity_value: 5000,
+              quantity_handler: 'net_mass',
+              reference_name: 'fertilizer'
+            }
+          ],
+          tools_attributes: [
+            {
+              product_id: tractor1.id,
+              reference_name: "tractor",
+              readings_attributes: [
+                {
+                  indicator_name: "hour_counter",
+                  measure_value_value: "8",
+                  measure_value_unit: "hour"
+                }
+              ]
+            },
+            {
+              product_id: tractor2.id,
+              reference_name: "tractor"
+            },
+            {
+              product_id: tractor3.id,
+              reference_name: "tractor",
+              readings_attributes: [
+                {
+                  indicator_name: "hour_counter",
+                  measure_value_value: "5",
+                  measure_value_unit: "hour"
+                }
+              ]
+            }
+          ]
         }
 
         post :create, params
@@ -296,11 +318,13 @@ module Api
                 {
                   product_id: tractor1.id,
                   reference_name: "equipment",
-                  readings_attributes: [{
-                    indicator_name: "hour_counter",
-                    measure_value_value: 23,
-                    measure_value_unit: "hour"
-                  }]
+                  readings_attributes: [
+                    {
+                      indicator_name: "hour_counter",
+                      measure_value_value: 23,
+                      measure_value_unit: "hour"
+                    }
+                  ]
                 }
               ],
               inputs_attributes: [
@@ -327,11 +351,13 @@ module Api
                 {
                   product_id: tractor3,
                   reference_name: "equipment",
-                  readings_attributes: [{
-                    indicator_name: "hour_counter",
-                    measure_value_value: 15,
-                    measure_value_unit: "hour"
-                  }]
+                  readings_attributes: [
+                    {
+                      indicator_name: "hour_counter",
+                      measure_value_value: 15,
+                      measure_value_unit: "hour"
+                    }
+                  ]
                 }
               ]
             }

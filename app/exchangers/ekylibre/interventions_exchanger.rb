@@ -296,7 +296,6 @@ module Ekylibre
         end
         unit = unit.to_sym if unit
         nomen_unit = Onoma::Unit[unit] if unit
-        #
         w.debug value.inspect.yellow
         if value >= 0.0 && nomen_unit
           measure = Measure.new(value, unit)
