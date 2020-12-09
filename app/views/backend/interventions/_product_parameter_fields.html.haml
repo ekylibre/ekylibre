@@ -88,7 +88,7 @@
     = render 'intervention_usage_informations'
 
     .authorization-disclaimer.authorization-disclaimer--past{ class: f.object.new_record? ? 'hidden' : '' }
-      - updated_on = f.object.reference_data['updated_on']
+      - updated_on = f.object.reference_data['updated_on'].to_s
       = :based_on_regulation_at_date.tl(date: updated_on.present? ? Date.parse(updated_on).l : f.object.intervention.updated_at&.to_date&.l)
     .authorization-disclaimer.authorization-disclaimer--present{ class: f.object.new_record? ? '' : 'hidden' }
       = :based_on_current_regulation.tl

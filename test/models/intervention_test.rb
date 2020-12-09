@@ -114,9 +114,8 @@ class InterventionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'killing target' do
     plant = Plant.all.detect { |p| p.dead_first_at.nil? && p.dead_at.nil? }
     assert plant
-    now = Time.utc(2016, 07, 25, 20, 20, 20)
-
-    last_death_at = now + 1.year
+    now = Time.utc(2016, 04, 27, 20, 20, 20)
+    last_death_at = now + 3.months
     last_intervention = add_harvesting_intervention(plant, last_death_at)
     plant.reload
     assert_equal last_death_at, plant.dead_at, 'Dead_at of plant should be updated'
@@ -128,7 +127,7 @@ class InterventionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_equal first_death_at, plant.dead_at, 'Dead_at of plant should be updated'
     assert_equal plant.dead_first_at, plant.dead_at, 'Dead_at should be equal to dead_first_at'
 
-    middle_death_at = now + 6.months
+    middle_death_at = now + 2.months
     middle_issue = Issue.create!(target: plant, nature: :issue, observed_at: middle_death_at, dead: true)
     plant.reload
     assert_equal first_death_at, plant.dead_at, 'Dead_at of plant should not be updated'
