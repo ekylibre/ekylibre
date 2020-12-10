@@ -15,7 +15,7 @@
 
     # Additional data for quantity_handler
     additional_data = {}
-    if reference.name == 'plant_medicine'
+    if reference.name.to_s == 'plant_medicine'
       additional_data[:lights] = '.input-append'
     end
 
