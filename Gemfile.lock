@@ -8,17 +8,6 @@ GIT
       rails (>= 3.0.0)
 
 GIT
-  remote: https://gitlab.com/ekylibre/charta.git
-  revision: a7a51f12899df873d7a4d1fa5d9bb7d569ad3f8d
-  branch: rails-4
-  specs:
-    charta (0.1.16)
-      json (>= 1.8.0)
-      nokogiri (>= 1.7.0)
-      rgeo (~> 0.6.0)
-      rgeo-geojson (~> 0.4.3)
-
-GIT
   remote: https://gitlab.com/ekylibre/eky-possibly.git
   revision: 483d102852e2ab8fcbf695b9e25a40902302a593
   tag: v3.1.1
@@ -147,6 +136,11 @@ GEM
     burisu-docsplit (0.7.9)
     byebug (11.0.1)
     charlock_holmes (0.7.7)
+    charta (0.1.18)
+      json (>= 1.8.0)
+      nokogiri (>= 1.7.0)
+      rgeo (~> 0.6.0)
+      rgeo-geojson (~> 0.4.3)
     climate_control (0.2.0)
     cocoon (1.2.14)
     code_analyzer (0.5.1)
@@ -643,7 +637,7 @@ DEPENDENCIES
   browser
   bullet (< 5.6.0)
   charlock_holmes
-  charta!
+  charta (~> 0.1.18)
   cocoon
   code_string (>= 0.0.1)
   coffee-rails (~> 4.1)
