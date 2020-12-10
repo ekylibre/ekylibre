@@ -124,7 +124,7 @@ class PurchaseOrder < Purchase
   end
 
   def can_generate_parcel?
-    items.any? && delivery_address && opened?
+    items.any? && opened?
   end
 
   def taxes_amount
