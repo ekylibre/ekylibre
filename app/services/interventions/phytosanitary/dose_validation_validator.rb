@@ -31,27 +31,21 @@ module Interventions
       def validate_dose(product_usage)
         result = Models::ProductApplicationResult.new
 
-        zero_as_nil = ->(value) { value.zero? ? None() : value }
-        params = {
-          into: Onoma::Unit.find(product_usage.usage.dose_unit),
-          area: Maybe(shapes_area.in(:hectare)).fmap(&zero_as_nil),
-          net_mass: Maybe(product_usage.product.net_mass).fmap(&zero_as_nil),
-          net_volume: Maybe(product_usage.product.net_volume).fmap(&zero_as_nil),
-          spray_volume: Maybe(product_usage.spray_volume).fmap(&zero_as_nil).in(:liter_per_hectare)
-        }
+        params = build_params(product_usage)
 
         if product_usage.measure.dimension != 'none' || params.fetch(:"net_#{params[:into].base_dimension.to_sym}", None()).is_some?
-          unit_converter.convert(product_usage.measure, **params)
-                        .cata(
-                          none: ->{result.vote_unknown(product_usage.product)},
-                          some: ->(converted_dose){
-                            reference = product_usage.usage.max_dose_measure
+          params.delete(:into)
+            .fmap { |into| unit_converter.convert(product_usage.measure, into: into, **params) }
+            .cata(
+              none: -> { result.vote_unknown(product_usage.product) },
+              some: ->(converted_dose) {
+                reference = product_usage.usage.max_dose_measure
 
-                            if converted_dose > reference
-                              result.vote_forbidden(product_usage.product, :dose_bigger_than_max.tl, on: :quantity)
-                            end
-                          }
-                        )
+                if converted_dose > reference
+                  result.vote_forbidden(product_usage.product, :dose_bigger_than_max.tl, on: :quantity)
+                end
+              }
+            )
         else
           result.vote_unknown(product_usage.product)
         end
@@ -60,6 +54,19 @@ module Interventions
       end
 
       private
+
+        # @param [Models::ProductWithUsage] product_usage
+        def build_params(product_usage)
+          zero_as_nil = ->(value) { value.zero? ? None() : value }
+
+          {
+            into: Maybe(Onoma::Unit.find(product_usage.usage.dose_unit)),
+            area: Maybe(shapes_area.in(:hectare)).fmap(&zero_as_nil),
+            net_mass: Maybe(product_usage.product.net_mass).fmap(&zero_as_nil),
+            net_volume: Maybe(product_usage.product.net_volume).fmap(&zero_as_nil),
+            spray_volume: Maybe(product_usage.spray_volume).fmap(&zero_as_nil).in(:liter_per_hectare)
+          }
+        end
 
         def targets_data
           targets_and_shape.map.with_index { |e, i| [i.to_s, { shape: e.shape }] }.to_h
