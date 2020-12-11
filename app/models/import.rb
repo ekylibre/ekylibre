@@ -41,7 +41,7 @@
 #  updater_id             :integer
 #
 
-class Import < Ekylibre::Record::Base
+class Import < ApplicationRecord
   belongs_to :importer, class_name: 'User'
   enumerize :nature, in: ActiveExchanger::Base.importers.keys, i18n_scope: ['exchangers']
   enumerize :state, in: %i[undone in_progress errored aborted finished], predicates: true, default: :undone
@@ -119,12 +119,12 @@ class Import < Ekylibre::Record::Base
                   end
 
     case result.state
-      when :success
-        update(state: :finished, progression_percentage: 100, imported_at: Time.zone.now, importer_id: importer_id)
-      when :aborted
-        update(state: :aborted)
-      else # when :failure + other cases that should not happen
-        update(state: :errored)
+    when :success
+      update(state: :finished, progression_percentage: 100, imported_at: Time.zone.now, importer_id: importer_id)
+    when :aborted
+      update(state: :aborted)
+    else # when :failure + other cases that should not happen
+      update(state: :errored)
     end
 
     result

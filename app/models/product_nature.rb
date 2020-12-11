@@ -58,7 +58,7 @@
 #  variety                   :string           not null
 #
 
-class ProductNature < Ekylibre::Record::Base
+class ProductNature < ApplicationRecord
   include Autocastable
   include Customizable
   include Importable

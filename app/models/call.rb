@@ -38,7 +38,7 @@
 #
 
 # Class representing an API Call, executed or not.
-class Call < Ekylibre::Record::Base
+class Call < ApplicationRecord
   has_many :messages, class_name: 'CallMessage'
   has_many :requests, class_name: 'CallRequest'
   has_many :responses, class_name: 'CallResponse'

@@ -65,16 +65,6 @@ module Backend
 
       respond_to do |format|
         format.html do
-
-          activity_crops = Plant
-                             .joins(:inspections)
-                             .where(activity_production_id: @activity.productions.map(&:id),
-                                    dead_at: nil)
-                             .where.not(inspections: { forecast_harvest_week: nil })
-                             .uniq
-
-          @crops = initialize_grid(activity_crops, decorate: true)
-
           t3e @activity
         end
 
@@ -141,6 +131,25 @@ module Backend
         data[:support_varieties] = Onoma::Variety.selection_hash(family.support_variety)
       end
       render json: data
+    end
+
+    def kml_export
+      kml_exporter = Activities::KmlExporter.new
+      if params[:id]
+        activity = Activity.find(params[:id])
+        export = kml_exporter.build_activity_kml(activity, current_campaign)
+        filename = "#{activity.name}_#{current_campaign.harvest_year}.kml"
+      else
+        export = kml_exporter.build_campaign_zip(current_campaign)
+        filename = "kml_export_activities_#{current_campaign.harvest_year}.zip"
+      end
+
+      if export.nil?
+        notify_error :no_data
+        redirect_to_back
+      else
+        send_data export, filename: filename
+      end
     end
 
     # List of productions for one activity

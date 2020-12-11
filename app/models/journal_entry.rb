@@ -60,7 +60,7 @@
 #  - *          in journal currency
 #  - real_*     in financial year currency
 #  - absolute_* in global currency (the same as current financial year's theoretically)
-class JournalEntry < Ekylibre::Record::Base
+class JournalEntry < ApplicationRecord
   class IncompatibleCurrencies < StandardError;
   end
   include Attachable
@@ -263,7 +263,6 @@ class JournalEntry < Ekylibre::Record::Base
     errors.add(:number, :entry_has_been_already_validated) if old.closed?
   end
 
-  #
   validate do
     # TODO: Validates number has journal's code as prefix
     if printed_on
@@ -430,7 +429,6 @@ class JournalEntry < Ekylibre::Record::Base
     add!(name, account, amount, options)
   end
 
-  #
   def add_credit(name, account, amount, options = {})
     add!(name, account, amount, options.merge(credit: true))
   end

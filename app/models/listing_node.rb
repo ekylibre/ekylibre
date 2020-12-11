@@ -50,7 +50,7 @@
 #  updater_id           :integer
 #
 
-class ListingNode < Ekylibre::Record::Base
+class ListingNode < ApplicationRecord
   acts_as_list scope: :listing
   acts_as_nested_set scope: :listing
   attr_readonly :listing_id, :nature

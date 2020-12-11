@@ -72,7 +72,7 @@
 #  waiting_on                          :date
 #
 
-class FixedAsset < Ekylibre::Record::Base
+class FixedAsset < ApplicationRecord
   include Attachable
   include Customizable
   include Transitionable
@@ -144,6 +144,7 @@ class FixedAsset < Ekylibre::Record::Base
   validates :waiting_on, timeliness: { on_or_before: -> (fixed_asset) { fixed_asset.started_on }, type: :date }, if: -> { waiting_on }, allow_blank: true
   validates :waiting_on, presence: true, financial_year_writeable: true, on: :stand_by
   validates :depreciable_amount, numericality: { greater_than_or_equal_to: 0 }
+  validates :started_on, ongoing_exchanges: true
 
   scope :drafts, -> { where(state: %w[draft]) }
   scope :draft_or_waiting, -> { where(state: %w[draft waiting]) }
@@ -202,29 +203,44 @@ class FixedAsset < Ekylibre::Record::Base
   end
 
   validate on: :scrap do
-    if product && scrapped_on && product.born_at > scrapped_on
-      errors.add :scrapped_on, I18n.translate('errors.messages.on_or_after_field', attribute: I18n.translate('attributes.scrapped_on'),
-                                              restriction: product.born_at.to_date.l,
-                                              field: I18n.translate('activerecord.attributes.equipment.born_at'),
-                                              model: product.name)
+    if product && scrapped_on
+      if product.born_at > scrapped_on
+        errors.add(:scrapped_on, :on_or_after_field, attribute: I18n.translate('attributes.scrapped_on'),
+                                                     restriction: product.born_at.to_date.l,
+                                                     field: I18n.translate('activerecord.attributes.equipment.born_at'),
+                                                     model: product.name)
+      end
+
+      last_used_at = product.interventions.maximum(:stopped_at)
+      if last_used_at && last_used_at > scrapped_on
+        errors.add(:scrapped_on, :used_in_intervention, attribute: I18n.translate('attributes.scrapped_on'),
+                                                        restriction: last_used_at.to_date.l,
+                                                        model: product.name)
+      end
     end
   end
 
   validate on: :sell do
-    if product && sold_on && product.born_at > sold_on
-      errors.add :sold_on, I18n.translate('errors.messages.on_or_after_field', attribute: I18n.translate('attributes.sold_on'),
-                                          restriction: product.born_at.to_date.l,
-                                          field: I18n.translate('activerecord.attributes.equipment.born_at'),
-                                          model: product.name)
+    if product && sold_on
+      if product.born_at > sold_on
+        errors.add(:sold_on, :on_or_after_field, attribute: I18n.translate('attributes.sold_on'),
+                                                 restriction: product.born_at.to_date.l,
+                                                 field: I18n.translate('activerecord.attributes.equipment.born_at'),
+                                                 model: product.name)
+      end
+
+      last_used_at = product.interventions.maximum(:stopped_at)
+      if last_used_at && last_used_at > sold_on
+        errors.add(:sold_on, :used_in_intervention, attribute: I18n.translate('attributes.sold_on'),
+                                                    restriction: last_used_at.to_date.l,
+                                                    model: product.name)
+      end
     end
   end
 
   validate do
-    if started_on
-      errors.add(:started_on, :financial_year_exchange_on_this_period) if started_during_financial_year_exchange?
-      if self.stopped_on && stopped_on < started_on
-        errors.add(:stopped_on, :posterior, to: started_on.l)
-      end
+    if started_on && stopped_on && stopped_on < started_on
+      errors.add(:stopped_on, :posterior, to: started_on.l)
     end
     true
   end
@@ -291,10 +307,6 @@ class FixedAsset < Ekylibre::Record::Base
 
   def round(amount)
     currency.to_currency.round amount
-  end
-
-  def started_during_financial_year_exchange?
-    FinancialYearExchange.opened.where('? BETWEEN started_on AND stopped_on', started_on).any?
   end
 
   def opened_financial_year?

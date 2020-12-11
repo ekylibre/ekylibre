@@ -56,7 +56,7 @@
 #  updater_id                        :integer
 #
 
-class Cash < Ekylibre::Record::Base
+class Cash < ApplicationRecord
   include Attachable
   include Customizable
   include Providable
@@ -85,7 +85,7 @@ class Cash < Ekylibre::Record::Base
   has_many :unpointed_suspended_journal_entry_items, -> { unpointed.where.not(entry_id: BankStatement.where('journal_entry_id IS NOT NULL').select(:journal_entry_id)) },
            through: :suspense_account, source: :journal_entry_items
   has_many :unpointed_lines_suspended_journal_entry_items, -> { unpointed.where.not(entry_id: BankStatementItem.where('journal_entry_id IS NOT NULL').select(:journal_entry_id)) },
-                    through: :suspense_account, source: :journal_entry_items
+           through: :suspense_account, source: :journal_entry_items
   has_one :last_bank_statement, -> { order(stopped_on: :desc) }, class_name: 'BankStatement'
 
   enumerize :nature, in: %i[bank_account cash_box associate_account], default: :bank_account, predicates: true
@@ -324,9 +324,13 @@ class Cash < Ekylibre::Record::Base
     return false if (journal_entry_items + statement_items).length.zero?
 
     bank_statement_id = statement_items.map(&:bank_statement_id).uniq.first
-    statement_entries = JournalEntryItem.where(resource: statement_items)
-    to_letter = journal_entry_items + statement_entries
-    suspense_account.mark(to_letter) if suspend_until_reconciliation
+
+    # if suspend_until_reconciliation, we letter bsi_jei and jei on suspense_account
+    if suspend_until_reconciliation
+      statement_entries = JournalEntryItem.where(resource: statement_items)
+      to_letter = journal_entry_items + statement_entries
+      suspense_account.mark(to_letter)
+    end
 
     saved = true
     saved &&= statement_items.update_all(letter: new_letter)

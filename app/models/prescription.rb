@@ -35,7 +35,7 @@
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #
-class Prescription < Ekylibre::Record::Base
+class Prescription < ApplicationRecord
   include Attachable
   include Customizable
   belongs_to :prescriptor, class_name: 'Entity'

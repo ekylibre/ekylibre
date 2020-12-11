@@ -77,7 +77,7 @@
 #   * (credit|debit|balance) are in currency of the journal
 #   * real_(credit|debit|balance) are in currency of the financial year
 #   * absolute_(credit|debit|balance) are in currency of the company
-class JournalEntryItem < Ekylibre::Record::Base
+class JournalEntryItem < ApplicationRecord
   attr_readonly :entry_id, :journal_id, :state
   refers_to :absolute_currency, class_name: 'Currency'
   refers_to :currency
@@ -146,7 +146,6 @@ class JournalEntryItem < Ekylibre::Record::Base
     state :closed
   end
 
-  #
   before_validation do
     self.name = name.to_s[0..254]
     self.letter = nil if letter.blank?
@@ -189,7 +188,6 @@ class JournalEntryItem < Ekylibre::Record::Base
     # end
   end
 
-  #
   validate do
     errors.add(:credit, :unvalid_amounts) if debit.nonzero? && credit.nonzero?
     errors.add(:real_credit, :unvalid_amounts) if real_debit.nonzero? && real_credit.nonzero?
@@ -372,7 +370,6 @@ class JournalEntryItem < Ekylibre::Record::Base
     mode
   end
 
-  #
   def resource
     if entry
       entry.resource_type

@@ -2580,6 +2580,9 @@ jpn:
     x_entity_links:
       # one: "%{count} link"
       # other: "%{count} links"
+    x_equipment_maintenance_interventions:
+      # one: "%{count} equipment maintenance intervention"
+      # other: "%{count} equipment maintenance interventions"
     x_events:
       one: "1イベント"
       # other: "%{count} events"
@@ -2963,6 +2966,7 @@ jpn:
       # journal_entries_csv_export: "Export CSV"
       journal_entries_export: "CSVをダウンロード"
       journal_entries_import: "CSVのインポート"
+      # kml_export: "KML export"
       list: "リスト"
       load: "負荷"
       lock: "ロック"

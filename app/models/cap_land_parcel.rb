@@ -39,7 +39,7 @@
 #  updater_id                  :integer
 #
 
-class CapLandParcel < Ekylibre::Record::Base
+class CapLandParcel < ApplicationRecord
   belongs_to :activity_production, foreign_key: :support_id
   belongs_to :cap_islet
   belongs_to :islet, class_name: 'CapIslet', foreign_key: :cap_islet_id

@@ -35,6 +35,7 @@ eng:
       edit: "Edit activity: %{name}"
       family: "Family activity: %{name}"
       index: "Activities"
+      # kml_export: "Kml export activity: %{name}"
       new: "New activity"
       show: "Activity: %{name}"
     backend/activity_budgets:
@@ -2001,6 +2002,8 @@ eng:
     export_fixed_asset_registry: "Fixed assets"
     export_gain_and_loss_fixed_asset_registry: "Added values and capital losses"
     export_income_statement: "Export income statement"
+    export_intervention_traceability: "export_intervention_traceability"
+    export_purchase_order: "Purchase order"
     export_text_fec_all: "Export FEC corporate tax (Text)"
     export_text_fec_ba_bnc_ir_commercial_accountancy: "Export FEC for agriculture and professional operations income taxation commercial accountancy (Text)"
     export_text_fec_ba_ir_cash_accountancy: "Export FEC agriculture income taxation cash accountancy (Text)"
@@ -3067,6 +3070,9 @@ eng:
     x_entity_links:
       one: "%{count} link"
       other: "%{count} links"
+    x_equipment_maintenance_interventions:
+      one: "%{count} equipment maintenance intervention"
+      other: "%{count} equipment maintenance interventions"
     x_events:
       one: "%{count} event"
       other: "%{count} events"
@@ -3522,6 +3528,7 @@ eng:
       journal_entries_export: "Download CSV"
       journal_entries_import: "Import CSV"
       # keep: "Keep"
+      kml_export: "KML export"
       # last_locations: "Last locations"
       # lightness: "Lightness"
       # ligthen: "Ligthen"

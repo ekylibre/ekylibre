@@ -16,7 +16,7 @@
   = f.association :nature, as: :hidden
   = f.referenced_association :responsible, source: {scope: :users}, new: {employed: 1}
   = f.referenced_association :transporter, source: :transporters
-  = f.input :payment_delay, collection: SaleNature.payment_delay.options, disabled: true
+  = f.input :payment_delay, disabled: true
   = f.input :description
 
   - if f.object.credited_sale

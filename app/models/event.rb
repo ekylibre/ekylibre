@@ -41,7 +41,7 @@
 #  updater_id    :integer
 #
 
-class Event < Ekylibre::Record::Base
+class Event < ApplicationRecord
   include Attachable
   include Customizable
   belongs_to :affair

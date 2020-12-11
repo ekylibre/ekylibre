@@ -46,7 +46,7 @@
 #  variant_id                   :integer          not null
 #
 
-class ProductNatureVariantReading < Ekylibre::Record::Base
+class ProductNatureVariantReading < ApplicationRecord
   include ReadingStorable
   belongs_to :variant, class_name: 'ProductNatureVariant', inverse_of: :readings
 

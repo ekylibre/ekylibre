@@ -42,7 +42,7 @@
 #  updated_at         :datetime         not null
 #  updater_id         :integer
 #
-class BankStatementItem < Ekylibre::Record::Base
+class BankStatementItem < ApplicationRecord
   refers_to :currency
   belongs_to :bank_statement, inverse_of: :items
   has_one :cash, through: :bank_statement

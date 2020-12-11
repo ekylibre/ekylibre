@@ -45,7 +45,6 @@ class Indicatus
               if source_cast.shape
                 whole = Charta.new_geometry(source_cast.shape).area
               elsif whole = source_actor.shape_area(at: @operation.started_at)
-              #
               else
                 raise StandardError.new("Cannot compute superficial count if with a source product without shape reading (#{source_cast.shape.inspect})")
               end

@@ -1815,6 +1815,8 @@ fra:
     export_fixed_assets_general: "État des immobilisations" #?
     export_gain_and_loss_fixed_asset_registry: "État des plus et moins values"
     export_income_statement: "Export compte de résultat"
+    export_intervention_traceability: "export_fiche_tracabilite"
+    export_purchase_order: "Bon de commande"
     export_sales_aborted: "Abandonné(e)" #?
     export_sales_estimate: "Devis" #?
     export_sales_invoice: "Facture" #?
@@ -3246,6 +3248,9 @@ fra:
     x_entity_links:
       one: "%{count} lien"
       other: "%{count} liens"
+    x_equipment_maintenance_interventions:
+      one: "%{count} intervention de maintenance"
+      other: "%{count} interventions de maintenance"
     x_events:
       one: "%{count} évènement"
       other: "%{count} évènements"
@@ -3718,6 +3723,7 @@ fra:
       journal_entries_csv_export: "Exporter un CSV"
       journal_entries_export: "Télécharger le CSV"
       journal_entries_import: "Importer un CSV"
+      kml_export: "Export au format KML"
       list: "Lister"
       load: "Charger"
       lock: "Verrouiller"

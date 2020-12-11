@@ -67,6 +67,9 @@ class PurchaseInvoice < Purchase
   has_many :journal_entries, as: :resource
   has_many :reception_items, through: :items, source: :parcels_purchase_invoice_items
   has_many :receptions, through: :reception_items
+  has_many :storings, through: :reception_items
+  has_many :products, through: :storings
+  has_many :interventions, through: :products
   acts_as_affairable :supplier, class_name: 'PurchaseAffair'
 
   scope :invoiced_between, lambda { |started_at, stopped_at|
@@ -80,12 +83,8 @@ class PurchaseInvoice < Purchase
   scope :current_or_self, ->(purchase) { where(unpaid).or(where(id: (purchase.is_a?(Purchase) ? purchase.id : purchase))) }
   scope :with_nature, ->(id) { where(nature_id: id) }
 
-  protect on: :update, allow_update_on: %w[reference_number responsible_id invoiced_at payment_delay tax_payability description payment_at updated_at] do
-    items.any? && !PurchaseInvoice.unpaid_and_not_empty.include?(self)
-  end
-
-  protect on: :destroy do
-    items.any? && !PurchaseInvoice.unpaid_and_not_empty.include?(self)
+  protect allow_update_on: %w[reference_number responsible_id invoiced_at payment_delay tax_payability description payment_at updated_at] do
+    items.exists? && PurchaseInvoice.unpaid_and_not_empty.where(id: self.id).empty?
   end
 
   before_validation(on: :create) do
@@ -95,7 +94,7 @@ class PurchaseInvoice < Purchase
 
   before_validation do
     if reconciliation_state.to_s != 'accepted'
-      if self.items.reject(&:marked_for_destruction?).any?
+      if self.items.reject(&:marked_for_destruction?).any? { |i| i.parcels_purchase_invoice_items.present? }
         self.reconciliation_state = 'reconcile'
       else
         self.reconciliation_state = 'to_reconcile'
@@ -121,6 +120,7 @@ class PurchaseInvoice < Purchase
 
       item.update_fixed_asset if item.fixed_asset.present? && item.pretax_amount_changed?
     end
+    UpdateInterventionCostingsJob.perform_later(interventions.pluck(:id))
   end
 
   # This callback permits to add journal entries corresponding to the purchase order/invoice

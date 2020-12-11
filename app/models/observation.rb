@@ -37,7 +37,7 @@
 #  updater_id   :integer
 #
 
-class Observation < Ekylibre::Record::Base
+class Observation < ApplicationRecord
   enumerize :importance, in: %i[important normal notice], default: :notice, predicates: true
   belongs_to :subject, polymorphic: true
   belongs_to :author, class_name: 'User'

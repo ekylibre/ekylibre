@@ -42,7 +42,7 @@
 #  updater_id      :integer
 #
 
-class CustomField < Ekylibre::Record::Base
+class CustomField < ApplicationRecord
   attr_readonly :nature
   enumerize :nature, in: %i[text decimal boolean date datetime choice], predicates: true
   enumerize :customized_type, in: Ekylibre::Schema.model_names, i18n_scope: ['activerecord.models']

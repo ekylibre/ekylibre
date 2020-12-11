@@ -42,7 +42,7 @@
 #
 
 # Sources are stored in :private/reporting/:id/content.xml
-class DocumentTemplate < Ekylibre::Record::Base
+class DocumentTemplate < ApplicationRecord
   enumerize :archiving, in: %i[none_of_template first_of_template last_of_template none first last], default: :none, predicates: { prefix: true }
   enumerize :file_extension, in: %i[xml odt], default: :xml, predicates: true
   refers_to :language
@@ -218,10 +218,10 @@ class DocumentTemplate < Ekylibre::Record::Base
       nil
     end
 
-    def find_active_template(name)
-      where(active: true)
-        .where(name.is_a?(Integer) ? { id: name.to_i } : { by_default: true, nature: name.to_s })
-        .first
+    def find_active_template(name, extension = nil)
+      attributes = name.is_a?(Integer) ? { id: name } : { by_default: true, nature: name.to_s }
+      attributes.merge!(file_extension: extension) if extension
+      find_by(active: true, **attributes)
     end
 
     # Returns the root directory for the document templates's sources
@@ -258,7 +258,7 @@ class DocumentTemplate < Ekylibre::Record::Base
 
       file_provider = Ekylibre::DocumentManagement::TemplateFileProvider.build(locale: locale)
 
-      Ekylibre::Record::Base.transaction do
+      ApplicationRecord.transaction do
         manageds = where(managed: true).select(&:destroyable?)
         nature.values.each do |nature|
           template_path = file_provider.find_by_nature(nature)

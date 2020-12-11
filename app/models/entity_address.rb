@@ -48,7 +48,7 @@
 #  updater_id          :integer
 #
 
-class EntityAddress < Ekylibre::Record::Base
+class EntityAddress < ApplicationRecord
   attr_readonly :entity_id
   refers_to :mail_country, class_name: 'Country'
   belongs_to :mail_postal_zone, class_name: 'PostalZone'

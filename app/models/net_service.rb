@@ -31,7 +31,7 @@
 #  updated_at     :datetime         not null
 #  updater_id     :integer
 #
-class NetService < Ekylibre::Record::Base
+class NetService < ApplicationRecord
   refers_to :reference_name, class_name: 'NetService'
   has_many :identifiers, -> { order(:nature) }
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

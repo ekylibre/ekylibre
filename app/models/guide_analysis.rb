@@ -36,7 +36,7 @@
 #  updated_at        :datetime         not null
 #  updater_id        :integer
 #
-class GuideAnalysis < Ekylibre::Record::Base
+class GuideAnalysis < ApplicationRecord
   belongs_to :guide, inverse_of: :analyses
   has_many :points, class_name: 'GuideAnalysisPoint', inverse_of: :analysis, foreign_key: :analysis_id, dependent: :destroy
   enumerize :acceptance_status, in: %i[passed passed_with_warnings failed errored], predicates: true

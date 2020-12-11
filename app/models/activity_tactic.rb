@@ -35,7 +35,7 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
-class ActivityTactic < Ekylibre::Record::Base
+class ActivityTactic < ApplicationRecord
   enumerize :mode, in: %i[sowed harvested], default: :sowed
 
   belongs_to :activity, class_name: 'Activity', inverse_of: :tactics

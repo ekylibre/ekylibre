@@ -39,7 +39,7 @@
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #
-class ProductLinkage < Ekylibre::Record::Base
+class ProductLinkage < ApplicationRecord
   include TimeLineable
   include Taskable
   belongs_to :carrier, class_name: 'Product'

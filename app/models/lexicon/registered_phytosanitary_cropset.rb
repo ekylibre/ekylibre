@@ -30,6 +30,6 @@
 #  name            :string           not null
 #  record_checksum :integer
 #
-class RegisteredPhytosanitaryCropset < ApplicationRecord
+class RegisteredPhytosanitaryCropset < LexiconRecord
   include Lexiconable
 end

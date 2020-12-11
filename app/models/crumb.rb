@@ -40,7 +40,7 @@
 #  user_id                       :integer
 #
 
-class Crumb < Ekylibre::Record::Base
+class Crumb < ApplicationRecord
   enumerize :nature, in: %i[point start stop pause resume scan hard_start hard_stop], predicates: true
   belongs_to :user
   belongs_to :intervention_participation

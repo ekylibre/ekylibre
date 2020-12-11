@@ -34,7 +34,7 @@
 #  value        :text
 #
 
-class ListingNodeItem < Ekylibre::Record::Base
+class ListingNodeItem < ApplicationRecord
   belongs_to :node, class_name: 'ListingNode'
   attr_readonly :node_id
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

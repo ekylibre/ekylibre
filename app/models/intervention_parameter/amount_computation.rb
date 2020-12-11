@@ -1,4 +1,4 @@
-class InterventionParameter < Ekylibre::Record::Base
+class InterventionParameter < ApplicationRecord
   # Amount computation represents how a amount is computed for a cost or an earn
   # in an intervention
   class AmountComputation

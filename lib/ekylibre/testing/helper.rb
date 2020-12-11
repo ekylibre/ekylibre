@@ -21,7 +21,7 @@ module Ekylibre
         def setup_timestamp_format
           db_config = Rails.application.config.database_configuration[Rails.env.to_s]
 
-          Ekylibre::Record::Base.connection.execute <<~SQL
+          ApplicationRecord.connection.execute <<~SQL
             ALTER DATABASE "#{db_config['database']}" SET intervalstyle='iso_8601';
           SQL
         end

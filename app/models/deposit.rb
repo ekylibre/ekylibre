@@ -42,7 +42,7 @@
 #  updater_id       :integer
 #
 
-class Deposit < Ekylibre::Record::Base
+class Deposit < ApplicationRecord
   include Customizable
   acts_as_numbered
   belongs_to :cash

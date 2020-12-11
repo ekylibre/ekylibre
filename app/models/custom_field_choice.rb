@@ -35,7 +35,7 @@
 #  value           :string
 #
 
-class CustomFieldChoice < Ekylibre::Record::Base
+class CustomFieldChoice < ApplicationRecord
   belongs_to :custom_field, inverse_of: :choices
   acts_as_list scope: :custom_field
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

@@ -38,7 +38,7 @@
 #  with_accounting :boolean          default(FALSE), not null
 #
 
-class PayslipNature < Ekylibre::Record::Base
+class PayslipNature < ApplicationRecord
   refers_to :currency
   belongs_to :account
   belongs_to :journal

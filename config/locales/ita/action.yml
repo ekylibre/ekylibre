@@ -2573,6 +2573,9 @@ ita:
     x_entity_links:
       # one: "%{count} link"
       # other: "%{count} links"
+    x_equipment_maintenance_interventions:
+      # one: "%{count} equipment maintenance intervention"
+      # other: "%{count} equipment maintenance interventions"
     x_events:
       one: "%{count} evento"
       other: "%{count} eventi"
@@ -2953,6 +2956,7 @@ ita:
       # journal_entries_csv_export: "Export CSV"
       journal_entries_export: "Scarica CSV"
       journal_entries_import: "Importa CSV"
+      # kml_export: "KML export"
       list: "Lista"
       load: "Caricare"
       lock: "Serratura"

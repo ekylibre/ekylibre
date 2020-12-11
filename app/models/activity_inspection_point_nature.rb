@@ -34,7 +34,7 @@
 #  updater_id   :integer
 #
 
-class ActivityInspectionPointNature < Ekylibre::Record::Base
+class ActivityInspectionPointNature < ApplicationRecord
   belongs_to :activity
   enumerize :category, in: %i[disease deformity none], default: :none, predicates: true
   has_many :inspection_points, inverse_of: :nature, foreign_key: :nature_id, dependent: :restrict_with_exception

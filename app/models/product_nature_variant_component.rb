@@ -35,7 +35,7 @@
 #  updated_at                     :datetime         not null
 #  updater_id                     :integer
 #
-class ProductNatureVariantComponent < Ekylibre::Record::Base
+class ProductNatureVariantComponent < ApplicationRecord
   belongs_to :product_nature_variant, class_name: 'ProductNatureVariant', inverse_of: :components
   belongs_to :part_product_nature_variant, class_name: 'ProductNatureVariant'
   belongs_to :parent, class_name: 'ProductNatureVariantComponent', inverse_of: :children

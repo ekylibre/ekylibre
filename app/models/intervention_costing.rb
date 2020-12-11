@@ -34,7 +34,7 @@
 #  updated_at      :datetime
 #  updater_id      :integer
 #
-class InterventionCosting < Ekylibre::Record::Base
+class InterventionCosting < ApplicationRecord
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :doers_cost, :inputs_cost, :receptions_cost, :tools_cost, numericality: true, allow_blank: true
   # ]VALIDATORS]

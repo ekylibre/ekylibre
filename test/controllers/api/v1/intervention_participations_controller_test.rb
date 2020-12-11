@@ -74,7 +74,7 @@ module Api
                                         procedure_name: :plant_watering,
                                         actions: [:irrigation],
                                         nature: :request
-                                       )
+          )
           payload = {
             intervention_id: request_intervention.id,
             request_compliant: 1,
@@ -83,28 +83,28 @@ module Api
             procedure_name: 'plant_watering',
             device_uid: 'android:dd60319e524d3d24',
             working_periods:
-            [
-              {
-                started_at: '2016-09-30T11:59:49.320+0200',
-                stopped_at: '2016-09-30T11:59:50.770+0200',
-                nature:     'preparation'
-              },
-              {
-                started_at: '2016-09-30T11:59:49.320+0200',
-                stopped_at: '2016-09-30T11:59:50.770+0200',
-                nature:     'preparation'
-              },
-              {
-                started_at: '2016-09-30T11:59:49.320+0200',
-                stopped_at: '2016-09-30T11:59:50.770+0200',
-                nature:     'preparation'
-              },
-              {
-                started_at: '2016-09-30T11:59:52.620+0200',
-                stopped_at: '2016-09-30T11:59:55.903+0200',
-                nature:     'travel'
-              }
-            ]
+              [
+                {
+                  started_at: '2016-09-30T11:59:49.320+0200',
+                  stopped_at: '2016-09-30T11:59:50.770+0200',
+                  nature: 'preparation'
+                },
+                {
+                  started_at: '2016-09-30T11:59:49.320+0200',
+                  stopped_at: '2016-09-30T11:59:50.770+0200',
+                  nature: 'preparation'
+                },
+                {
+                  started_at: '2016-09-30T11:59:49.320+0200',
+                  stopped_at: '2016-09-30T11:59:50.770+0200',
+                  nature: 'preparation'
+                },
+                {
+                  started_at: '2016-09-30T11:59:52.620+0200',
+                  stopped_at: '2016-09-30T11:59:55.903+0200',
+                  nature: 'travel'
+                }
+              ]
           }
           response = JSON(post(:create, payload).body)
           part_id = response['id']
@@ -147,23 +147,23 @@ module Api
                                           procedure_name: :plant_watering,
                                           actions: [:irrigation],
                                           nature: :request
-                                         )
+            )
             overlapping = {
               started_at: '2016-09-30T10:30:00.836+0200',
               stopped_at: '2016-09-30T11:30:00.620+0200',
-              nature:     'intervention'
+              nature: 'intervention'
             }
 
             working_periods = [
               {
                 started_at: '2016-09-30T11:00:00.320+0200',
                 stopped_at: '2016-09-30T12:00:00.770+0200',
-                nature:     'preparation'
+                nature: 'preparation'
               },
               {
                 started_at: '2016-09-30T11:30:00.770+0200',
                 stopped_at: '2016-09-30T12:30:00.836+0200',
-                nature:     'travel'
+                nature: 'travel'
               }
             ]
 
@@ -424,10 +424,11 @@ module Api
         private
 
           def default_setup
-            @request_intervention = create(:intervention,
-                                          :with_tractor_tool,
-                                          nature: :request
-                                         )
+            @request_intervention = create(
+              :intervention,
+              :with_tractor_tool,
+              nature: :request
+            )
             @tractor_ids = @request_intervention.tools.map(&:product_id)
             assert_equal 2, @tractor_ids.count
           end
@@ -450,7 +451,7 @@ module Api
                                         procedure_name: :plant_watering,
                                         actions: [:irrigation],
                                         nature: :request
-                                       )
+          )
           {
             intervention_id: request_intervention.id,
             request_compliant: 1,
@@ -459,53 +460,53 @@ module Api
             procedure_name: procedure.to_s,
             device_uid: 'android:dd60319e524d3d24',
             working_periods:
-            [
-              {
-                started_at: '2016-09-30T11:59:49.320+0200',
-                stopped_at: '2016-09-30T11:59:50.770+0200',
-                nature:     'preparation'
-              },
-              {
-                started_at: '2016-09-30T11:59:50.770+0200',
-                stopped_at: '2016-09-30T11:59:51.836+0200',
-                nature:     'travel'
-              },
-              {
-                started_at: '2016-09-30T11:59:51.836+0200',
-                stopped_at: '2016-09-30T11:59:52.620+0200',
-                nature:     'intervention'
-              },
-              {
-                started_at: '2016-09-30T11:59:52.620+0200',
-                stopped_at: '2016-09-30T11:59:55.903+0200',
-                nature:     'travel'
-              },
-              {
-                started_at: '2016-09-30T11:59:55.903+0200',
-                stopped_at: '2016-09-30T11:59:56.320+0200',
-                nature:     'preparation'
-              },
-              {
-                started_at: '2016-09-30T11:59:56.320+0200',
-                stopped_at: '2016-09-30T11:59:56.669+0200',
-                nature:     'travel'
-              },
-              {
-                started_at: '2016-09-30T11:59:56.669+0200',
-                stopped_at: '2016-09-30T11:59:56.969+0200',
-                nature:     'intervention'
-              },
-              {
-                started_at: '2016-09-30T11:59:56.969+0200',
-                stopped_at: '2016-09-30T11:59:57.353+0200',
-                nature:     'travel'
-              },
-              {
-                started_at: '2016-09-30T11:59:57.353+0200',
-                stopped_at: '2016-09-30T11:59:58.603+0200',
-                nature:     'preparation'
-              }
-            ]
+              [
+                {
+                  started_at: '2016-09-30T11:59:49.320+0200',
+                  stopped_at: '2016-09-30T11:59:50.770+0200',
+                  nature: 'preparation'
+                },
+                {
+                  started_at: '2016-09-30T11:59:50.770+0200',
+                  stopped_at: '2016-09-30T11:59:51.836+0200',
+                  nature: 'travel'
+                },
+                {
+                  started_at: '2016-09-30T11:59:51.836+0200',
+                  stopped_at: '2016-09-30T11:59:52.620+0200',
+                  nature: 'intervention'
+                },
+                {
+                  started_at: '2016-09-30T11:59:52.620+0200',
+                  stopped_at: '2016-09-30T11:59:55.903+0200',
+                  nature: 'travel'
+                },
+                {
+                  started_at: '2016-09-30T11:59:55.903+0200',
+                  stopped_at: '2016-09-30T11:59:56.320+0200',
+                  nature: 'preparation'
+                },
+                {
+                  started_at: '2016-09-30T11:59:56.320+0200',
+                  stopped_at: '2016-09-30T11:59:56.669+0200',
+                  nature: 'travel'
+                },
+                {
+                  started_at: '2016-09-30T11:59:56.669+0200',
+                  stopped_at: '2016-09-30T11:59:56.969+0200',
+                  nature: 'intervention'
+                },
+                {
+                  started_at: '2016-09-30T11:59:56.969+0200',
+                  stopped_at: '2016-09-30T11:59:57.353+0200',
+                  nature: 'travel'
+                },
+                {
+                  started_at: '2016-09-30T11:59:57.353+0200',
+                  stopped_at: '2016-09-30T11:59:58.603+0200',
+                  nature: 'preparation'
+                }
+              ]
           }
         end
     end

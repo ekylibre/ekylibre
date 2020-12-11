@@ -56,7 +56,7 @@
 #  variant_id             :integer          not null
 #
 
-class SaleItem < Ekylibre::Record::Base
+class SaleItem < ApplicationRecord
   include PeriodicCalculable
   attr_readonly :sale_id
   enumerize :compute_from, in: %i[unit_pretax_amount pretax_amount amount],

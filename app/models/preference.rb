@@ -40,7 +40,7 @@
 #  user_id           :integer
 #
 
-class Preference < Ekylibre::Record::Base
+class Preference < ApplicationRecord
   # attr_accessible :nature, :name, :value
   enumerize :nature, in: %i[accounting_system country currency boolean
                             decimal language integer record fiscal_position

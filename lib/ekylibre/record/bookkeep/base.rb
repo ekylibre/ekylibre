@@ -57,7 +57,7 @@ module Ekylibre
             attributes[:journal_id] = journal.id
           end
 
-          Ekylibre::Record::Base.transaction do
+          ApplicationRecord.transaction do
             journal_entry = JournalEntry.find_by(id: @resource.send(column))
             list = record(&block)
 

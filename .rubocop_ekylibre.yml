@@ -1,0 +1,353 @@
+# This file describes cops for the oficial Ekylibre code Style.
+
+Layout/IndentationConsistency:
+  EnforcedStyle: indented_internal_methods
+
+# Disabling metrics by default as this can only be decided by a human being in a code review.
+Metrics:
+  Enabled: false
+
+# Disabling this rune as requiring guard clauses makes the control flow harder to follow
+Style/GuardClause:
+  Enabled: false
+
+# Do not consider a else block with nil inside as it adds clarity on what the if-expression value is for all cases.
+Style/EmptyElse:
+  EnforcedStyle: empty
+
+# What year is it? UTF-8 is the way to go!
+Style/AsciiComments:
+  Enabled: false
+
+# Disabled as it can be clearer to say when to do something instead of skipping when nothing has to be done.
+Style/Next:
+  Enabled: false
+
+# Double negation is the way to go for type coercion to Boolean
+Style/DoubleNegation:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
+Style/YodaCondition:
+  Enabled: false
+
+# This rule is just bullshit. Naming a parameter 'e' over 'error' by default when we are advised to use at least 3 characters for parameter naming?
+Naming/RescuedExceptionsVariableName:
+  Enabled: false
+
+# No, just no.
+Naming/BinaryOperatorParameterName:
+  Enabled: false
+
+# We enforce _compact_ for the sake of uniformity. No need to ask yourself if you should instanciate or not your error: ALWAYS do it.
+Style/RaiseArgs:
+  EnforcedStyle: compact
+
+# Disabling this because there is no good style that can be enforced
+# require_no_parentheses is just bad because it disallows adding parenthesis for clarification.
+# require_parentheses is just forcing us to add bload and think we program in Lisp
+# require_parentheses_when_complex is considering the use of a comparison operator as complex and is forcing us to add bloat.
+Style/TernaryParentheses:
+  Enabled: false
+
+# Enforceable styles have different semantics, so we allow the use of both
+Style/AccessModifierDeclarations:
+  Enabled: false
+
+# Safe navigations encourages chaining too much and this is a code smell and a clear violation of the law of Demeter.
+Style/SafeNavigation:
+  Enabled: false
+
+# Disabling this because there is no good style that can be enforced.
+# indented_relative_to_receiver don't allow to align calls if the first one is in the same line as the receiver
+#   Example:
+#     if receiver.method1
+#                .method2
+#   would be flagged as invalid and the proposed correction would be:
+#     if receiver.method1
+#          .method2
+#
+# indented is just bad because it enforces:
+#      if receiver.method1
+#        .method2
+#
+# aligned is no better as it just enforces a style that does not let the reader understand the context
+#   Example:
+#     if receiver.method1
+#                .method2
+#   Is enforced to:
+#     if receiver.method1
+#        .method2
+#   Even worse, without the if it enforces:
+#     def m
+#       receiver.method1
+#       .method2
+#     end
+#   ... which is just garbage
+Layout/MultilineMethodCallIndentation:
+  Enabled: false
+
+# We don't want to encourage the use of `unless`
+Style/NegatedIf:
+  Enabled: false
+
+# How can you guess if `child?` meant 'I _am_ a child' or 'I have a child' ?
+Naming/PredicateName:
+  Enabled: false
+
+Style/FloatDivision:
+  Enabled: false
+
+# Disabling this as, sometimes, Hash.new is clearer than {}, especially in short block notation like for `proc { {} }`
+Style/EmptyLiteral:
+  Enabled: false
+
+# Loop control-flow with break is just a crutch for when you are not able to correctly design your stop condition
+Lint/Loop:
+  Enabled: false
+
+# TODO: Enable when merged
+Style/RedundantParentheses:
+  Enabled: false
+Layout/LeadingCommentSpace:
+  Enabled: false
+
+# TODO: Enable this after investigating how to replace the call to escape
+Lint/UriEscapeUnescape:
+  Enabled: false
+# TODO: enable this
+Style/ParenthesesAroundCondition:
+  Enabled: false
+Style/MultipleComparison:
+  Enabled: false
+Style/ClassVars:
+  Enabled: false
+Layout/SpaceBeforeBlockBraces:
+  Enabled: false
+Style/BlockDelimiters:
+  Enabled: false
+Layout/MultilineBlockLayout:
+  Enabled: false
+Layout/BlockEndNewline:
+  Enabled: false
+Lint/RedundantStringCoercion:
+  Enabled: false
+Style/RescueModifier:
+  Enabled: false
+Layout/EmptyLinesAroundMethodBody:
+  Enabled: false
+Naming/MemoizedInstanceVariableName:
+  Enabled: false
+Style/IdenticalConditionalBranches:
+  Enabled: false
+Layout/MultilineOperationIndentation:
+  Enabled: false
+Style/TrailingCommaInArguments:
+  Enabled: false
+Layout/RescueEnsureAlignment:
+  Enabled: false
+Layout/ExtraSpacing:
+  Enabled: false
+Style/RedundantSelf:
+  Enabled: false
+Lint/UriRegexp:
+  Enabled: false
+Layout/AssignmentIndentation:
+  Enabled: false
+Style/RedundantReturn:
+  Enabled: false
+Layout/SpaceInsideParens:
+  Enabled: false
+Layout/EmptyLinesAroundModuleBody:
+  Enabled: false
+Layout/SpaceInsideBlockBraces:
+  Enabled: false
+Style/InverseMethods:
+  Enabled: false
+Lint/AssignmentInCondition:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Layout/SpaceAroundOperators:
+  Enabled: false
+Style/NumericPredicate:
+  Enabled: false
+Style/RescueStandardError:
+  Enabled: false
+Lint/SendWithMixinArgument:
+  Enabled: false
+Style/TrailingCommaInHashLiteral:
+  Enabled: false
+Naming/MethodParameterName:
+  Enabled: false
+Layout/EmptyLinesAroundAccessModifier:
+  Enabled: false
+Style/TrailingCommaInArrayLiteral:
+  Enabled: false
+Layout/FirstHashElementIndentation:
+  Enabled: false
+Style/ConditionalAssignment:
+  Enabled: false
+Layout/FirstArrayElementIndentation:
+  Enabled: false
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: false
+Lint/UselessAssignment:
+  Enabled: false
+Style/NonNilCheck:
+  Enabled: false
+Style/ColonMethodCall:
+  Enabled: false
+# And maybe this
+
+Layout/LineLength:
+  Enabled: false
+  Max: 140
+
+Lint/ShadowingOuterLocalVariable:
+  Enabled: false
+Style/Lambda:
+  Enabled: false
+Layout/HashAlignment:
+  Enabled: false
+Layout/EmptyLinesAroundClassBody:
+  Enabled: false
+Lint/UnusedMethodArgument:
+  Enabled: false
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: false
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: false
+Lint/BinaryOperatorWithIdenticalOperands:
+  Enabled: false
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: false
+Lint/DuplicateElsifCondition:
+  Enabled: false
+Lint/DuplicateRescueException:
+  Enabled: false
+Lint/EmptyConditionalBody:
+  Enabled: false
+Lint/FloatComparison:
+  Enabled: false
+Lint/MissingSuper:
+  Enabled: false
+Lint/MixedRegexpCaptureTypes:
+  Enabled: false
+Lint/OutOfRangeRegexpRef:
+  Enabled: false
+Lint/RaiseException:
+  Enabled: false
+Lint/SelfAssignment:
+  Enabled: false
+Lint/StructNewOverride:
+  Enabled: false
+Lint/TopLevelReturnWithArgument:
+  Enabled: false
+Lint/UnreachableLoop:
+  Enabled: false
+Style/AccessorGrouping:
+  Enabled: false
+Style/ArrayCoercion:
+  Enabled: false
+Style/BisectedAttrAccessor:
+  Enabled: false
+Style/CaseLikeIf:
+  Enabled: false
+Style/ExplicitBlockArgument:
+  Enabled: false
+Style/ExponentialNotation:
+  Enabled: false
+Style/GlobalStdStream:
+  Enabled: false
+Style/HashAsLastArrayItem:
+  Enabled: false
+Style/HashEachMethods:
+  Enabled: false
+Style/HashLikeCase:
+  Enabled: false
+Style/HashTransformKeys:
+  Enabled: false
+Style/HashTransformValues:
+  Enabled: false
+Style/OptionalBooleanParameter:
+  Enabled: false
+Style/RedundantAssignment:
+  Enabled: false
+Style/RedundantBegin:
+  Enabled: false
+Style/RedundantFetchBlock:
+  Enabled: false
+Style/RedundantFileExtensionInRequire:
+  Enabled: false
+Style/RedundantRegexpCharacterClass:
+  Enabled: false
+Style/RedundantRegexpEscape:
+  Enabled: false
+Style/SingleArgumentDig:
+  Enabled: false
+Style/SlicingWithRange:
+  Enabled: false
+Style/StringConcatenation:
+  Enabled: false
+Layout/BeginEndAlignment: # (new in 0.91)
+  Enabled: false
+Lint/ConstantDefinitionInBlock: # (new in 0.91)
+  Enabled: false
+Lint/DuplicateRequire: # (new in 0.90)
+  Enabled: false
+Lint/EmptyFile: # (new in 0.90)
+  Enabled: false
+Lint/HashCompareByIdentity: # (new in 0.93)
+  Enabled: false
+Lint/IdentityComparison: # (new in 0.91)
+  Enabled: false
+Lint/RedundantSafeNavigation: # (new in 0.93)
+  Enabled: false
+Lint/TrailingCommaInAttributeDeclaration: # (new in 0.90)
+  Enabled: false
+Lint/UselessMethodDefinition: # (new in 0.90)
+  Enabled: false
+Lint/UselessTimes: # (new in 0.91)
+  Enabled: false
+Style/ClassEqualityComparison: # (new in 0.93)
+  Enabled: false
+Style/CombinableLoops: # (new in 0.90)
+  Enabled: false
+Style/KeywordParametersOrder: # (new in 0.90)
+  Enabled: false
+Style/RedundantSelfAssignment: # (new in 0.90)
+  Enabled: false
+Style/SoleNestedConditional: # (new in 0.89)
+  Enabled: false
+Lint/DuplicateBranch: # (new in 1.3)
+  Enabled: false
+Lint/DuplicateRegexpCharacterClassElement: # (new in 1.1)
+  Enabled: false
+Lint/EmptyBlock: # (new in 1.1)
+  Enabled: false
+Lint/EmptyClass: # (new in 1.3)
+  Enabled: false
+Lint/NoReturnInBeginEndBlocks: # (new in 1.2)
+  Enabled: false
+Lint/ToEnumArguments: # (new in 1.1)
+  Enabled: false
+Lint/UnmodifiedReduceAccumulator: # (new in 1.1)
+  Enabled: false
+Style/ArgumentsForwarding: # (new in 1.1)
+  Enabled: false
+Style/CollectionCompact: # (new in 1.2)
+  Enabled: false
+Style/DocumentDynamicEvalDefinition: # (new in 1.1)
+  Enabled: false
+Style/NegatedIfElseCondition: # (new in 1.2)
+  Enabled: false
+Style/NilLambda: # (new in 1.3)
+  Enabled: false
+Style/SwapValues: # (new in 1.1)
+  Enabled: false
+Naming/VariableNumber:
+  Enabled: false
+Lint/DuplicateCaseCondition:
+  Enabled: false

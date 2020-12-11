@@ -33,7 +33,7 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
-class Dashboard < Ekylibre::Record::Base
+class Dashboard < ApplicationRecord
   belongs_to :owner, class_name: 'User'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :description, length: { maximum: 500_000 }, allow_blank: true

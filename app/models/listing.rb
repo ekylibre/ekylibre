@@ -39,7 +39,7 @@
 #  updater_id   :integer
 #
 
-class Listing < Ekylibre::Record::Base
+class Listing < ApplicationRecord
   attr_readonly :root_model
   enumerize :root_model, in: Ekylibre::Schema.models, i18n_scope: ['activerecord.models']
   has_many :columns, -> { where('nature = ?', 'column') }, class_name: 'ListingNode'

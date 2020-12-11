@@ -479,6 +479,9 @@ module Backend
                 new_participation.working_periods.build(wp.dup.attributes)
               end
             end
+            intervention.receptions.each do |reception|
+              new_intervention.receptions << reception
+            end
             new_intervention.request_intervention_id = intervention.id
           end
 

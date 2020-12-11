@@ -52,7 +52,7 @@
 #  untreated_buffer_plants    :integer
 #  usage_conditions           :string
 #
-class RegisteredPhytosanitaryUsage < ApplicationRecord
+class RegisteredPhytosanitaryUsage < LexiconRecord
   include Lexiconable
   extend Enumerize
   include HasInterval

@@ -35,7 +35,7 @@
 #  updater_id    :integer
 #
 
-class ActivityInspectionCalibrationNature < Ekylibre::Record::Base
+class ActivityInspectionCalibrationNature < ApplicationRecord
   belongs_to :scale, class_name: 'ActivityInspectionCalibrationScale', inverse_of: :natures
   has_one :activity, through: :scale
   has_many :inspection_calibrations, class_name: 'InspectionCalibration', inverse_of: :nature, foreign_key: :nature_id, dependent: :restrict_with_exception

@@ -528,7 +528,7 @@ div.nested-fields {
     }
   }
 
-  input {
+  & > div > input {
     border-radius: 0;
     margin: 1px -5px 1px -4px !important;
     padding: 3px !important;

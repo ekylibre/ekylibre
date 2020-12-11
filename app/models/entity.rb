@@ -81,7 +81,7 @@
 
 require 'digest/sha2'
 
-class Entity < Ekylibre::Record::Base
+class Entity < ApplicationRecord
   include Attachable
   include Autocastable
   include Commentable
@@ -178,7 +178,6 @@ class Entity < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :country, length: { allow_nil: true, maximum: 2 }
   validates :language, length: { allow_nil: true, maximum: 3 }
-  validates :siret_number, length: { allow_nil: true, maximum: 14 }
   validates :vat_number, length: { allow_nil: true, maximum: 20 }
   validates :activity_code, length: { allow_nil: true, maximum: 30 }
   validates :deliveries_conditions, :number, length: { allow_nil: true, maximum: 60 }
@@ -358,7 +357,6 @@ class Entity < Ekylibre::Record::Base
     incoming_payments.last_updateds.first
   end
 
-  #
   def balance
     economic_situation[:trade_balance]
   end
@@ -463,7 +461,7 @@ class Entity < Ekylibre::Record::Base
   def merge_with(other, options = {})
     raise StandardError.new('Company entity is not mergeable') if other.of_company?
     author = options[:author]
-    Ekylibre::Record::Base.transaction do
+    ApplicationRecord.transaction do
       # EntityAddress
       threads = EntityAddress.unscoped.where(entity_id: id).uniq.pluck(:thread).delete_if(&:blank?)
       other_threads = EntityAddress.unscoped.where(entity_id: other.id).uniq.pluck(:thread).delete_if(&:blank?)

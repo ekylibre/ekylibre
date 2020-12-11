@@ -42,7 +42,7 @@
 #  state                        :string           not null
 #  stopped_on                   :date
 #
-class RegisteredPhytosanitaryProduct < ApplicationRecord
+class RegisteredPhytosanitaryProduct < LexiconRecord
   include Lexiconable
   extend Enumerize
   include HasInterval

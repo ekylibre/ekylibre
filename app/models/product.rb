@@ -89,7 +89,7 @@
 
 require 'ffaker'
 
-class Product < Ekylibre::Record::Base
+class Product < ApplicationRecord
   include Attachable
   include Autocastable
   include Indicateable
