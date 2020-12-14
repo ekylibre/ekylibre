@@ -157,7 +157,7 @@ balance_sheet:
   capitals_risk_and_charges_provisions: '151 153 155 156 157 158 C'
   capitals_risk_and_charges_provisions_total: '14 15 C'
   debts_land_parcel_loans: '1640 1641 C'
-  debts_others_loans: '1642 1643 1644 1645 1646 1647 1648 1649 C'
+  debts_others_loans: '1642 1643 C'
   debts_associate_locked_debts: '4553 4554 C' #
   others_debts_associate_debts: '4551 E, 4552 E, 4558 E' #
   debts_cashe_debts: '519 C, 512 E, 514 E, 517 E, 5186 C'
