@@ -324,13 +324,9 @@ class Cash < ApplicationRecord
     return false if (journal_entry_items + statement_items).length.zero?
 
     bank_statement_id = statement_items.map(&:bank_statement_id).uniq.first
-
-    # if suspend_until_reconciliation, we letter bsi_jei and jei on suspense_account
-    if suspend_until_reconciliation
-      statement_entries = JournalEntryItem.where(resource: statement_items)
-      to_letter = journal_entry_items + statement_entries
-      suspense_account.mark(to_letter)
-    end
+    statement_entries = JournalEntryItem.where(resource: statement_items)
+    to_letter = journal_entry_items + statement_entries
+    suspense_account.mark(to_letter) if suspend_until_reconciliation
 
     saved = true
     saved &&= statement_items.update_all(letter: new_letter)
