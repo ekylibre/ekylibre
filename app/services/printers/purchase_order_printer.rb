@@ -19,7 +19,7 @@ module Printers
       report[:supplier_phone] = @purchase_order.supplier.phones.first.coordinate if @purchase_order.supplier.phones.any?
       report[:supplier_mobile_phone] = @purchase_order.supplier.mobiles.first.coordinate if @purchase_order.supplier.mobiles.any?
       report[:supplier_address] = @purchase_order.supplier_address if @purchase_order.supplier_address.present?
-      report[:supplier_email] = @purchase_order.supplier_email.first.coordinate if @purchase_order.supplier_email.any?
+      report[:supplier_email] = supplier_email.first.coordinate if supplier_email.any?
       report[:entity_picture] = Entity.of_company.picture.path
 
       report[:items] = []
@@ -66,7 +66,7 @@ module Printers
       r.add_field 'SUPPLIER_MOBILE_PHONE', dataset[:supplier_mobile_phone]
       r.add_field 'SUPPLIER_ADDRESS', dataset[:supplier_address]
       r.add_field 'SUPPLIER_EMAIL', dataset[:supplier_email]
-      r.add_image :company_logo, dataset[:entity_picture], keep_ratio: true
+      r.add_image :company_logo, dataset[:entity_picture], keep_ratio: true if dataset[:entity_picture]
 
       r.add_table('P_ITEMS', dataset[:items], header: true) do |t|
         t.add_column(:variant)
