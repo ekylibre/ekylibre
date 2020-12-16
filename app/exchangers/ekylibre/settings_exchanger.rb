@@ -198,6 +198,9 @@ module Ekylibre
       end
       @manifest[:cashes].each do |_n, v|
         v[:account] = find_record(:accounts, v[:account].to_s) if v[:account]
+        v[:suspense_account] = find_record(:accounts, v[:suspense_account].to_s) if v[:suspense_account]
+        v[:suspend_until_reconciliation] = true if v[:suspense_account]
+        v[:enable_bookkeep_bank_item_details] = true if v[:suspense_account]
       end
       create_records(:cashes)
       w.check_point
