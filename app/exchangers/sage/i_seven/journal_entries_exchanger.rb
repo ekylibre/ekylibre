@@ -314,6 +314,13 @@ module Sage
               account_number = sage_journal_entry_item.attribute('COMPTE').value
               sjei_account = find_or_create_account(account_number, sjei_label)
 
+              # if we have negative value, we change direction and value
+              # ex : -150 C => 150 D || -150 D => 150 C
+              if sjei_amount.to_f < 0.0
+                sjei_amount = sjei_amount.to_f * -1
+                sjei_direction = (sjei_direction.to_i * -1).to_s
+              end
+
               {
                 real_debit: (sjei_direction == '1' ? sjei_amount.to_f : 0.0),
                 real_credit: (sjei_direction == '-1' ? sjei_amount.to_f : 0.0),
