@@ -206,16 +206,16 @@ class FixedAsset < ApplicationRecord
     if product && scrapped_on
       if product.born_at > scrapped_on
         errors.add(:scrapped_on, :on_or_after_field, attribute: I18n.translate('attributes.scrapped_on'),
-                                                     restriction: product.born_at.to_date.l,
-                                                     field: I18n.translate('activerecord.attributes.equipment.born_at'),
-                                                     model: product.name)
+                   restriction: product.born_at.to_date.l,
+                   field: I18n.translate('activerecord.attributes.equipment.born_at'),
+                   model: product.name)
       end
 
       last_used_at = product.interventions.maximum(:stopped_at)
       if last_used_at && last_used_at > scrapped_on
         errors.add(:scrapped_on, :used_in_intervention, attribute: I18n.translate('attributes.scrapped_on'),
-                                                        restriction: last_used_at.to_date.l,
-                                                        model: product.name)
+                   restriction: last_used_at.to_date.l,
+                   model: product.name)
       end
     end
   end
@@ -224,16 +224,16 @@ class FixedAsset < ApplicationRecord
     if product && sold_on
       if product.born_at > sold_on
         errors.add(:sold_on, :on_or_after_field, attribute: I18n.translate('attributes.sold_on'),
-                                                 restriction: product.born_at.to_date.l,
-                                                 field: I18n.translate('activerecord.attributes.equipment.born_at'),
-                                                 model: product.name)
+                   restriction: product.born_at.to_date.l,
+                   field: I18n.translate('activerecord.attributes.equipment.born_at'),
+                   model: product.name)
       end
 
       last_used_at = product.interventions.maximum(:stopped_at)
       if last_used_at && last_used_at > sold_on
         errors.add(:sold_on, :used_in_intervention, attribute: I18n.translate('attributes.sold_on'),
-                                                    restriction: last_used_at.to_date.l,
-                                                    model: product.name)
+                   restriction: last_used_at.to_date.l,
+                   model: product.name)
       end
     end
   end
@@ -430,30 +430,46 @@ class FixedAsset < ApplicationRecord
     depreciations.none?
   end
 
+  # @param [Date] on
+  # @return [FixedAssetDepreciation, nil]
   def depreciation_on(on)
     depreciations.where('? BETWEEN started_on AND stopped_on', on).reorder(:position).last
   end
 
-  # return the current_depreciation at current date
+  # return the current_depreciation at current date, nil if after or before the first depreciation
+  #
+  # @param [Date] on
+  # @return [FixedAssetDepreciation, nil]
   def current_depreciation(on = Date.today)
-    # get active depreciation
-    asset_depreciation = depreciation_on(on)
-    # get last active depreciation
-    asset_depreciation ||= depreciations.reorder(:position).last
-    return nil unless asset_depreciation
-    asset_depreciation
+    depreciation_on(on)
   end
 
   # return the net book value at current date
+  #
+  # @param [Date] on
+  # @return [Numeric]
   def net_book_value(on = Date.today)
-    return nil unless current_depreciation(on)
-    current_depreciation(on).depreciable_amount
+    if on < started_on
+      depreciable_amount
+    elsif (depreciation = current_depreciation(on)).present?
+      depreciation.depreciated_amount
+    else
+      0
+    end
   end
 
   # return the global amount already depreciated
+  #
+  # @param [Date] on
+  # @return [Numeric]
   def already_depreciated_value(on = Date.today)
-    return nil unless current_depreciation(on)
-    current_depreciation(on).depreciated_amount
+    if on < started_on
+      0
+    elsif (depreciation = current_depreciation(on)).present?
+      depreciation.depreciated_amount
+    else
+      depreciable_amount
+    end
   end
 
   # Returns the duration in days of all the depreciations
