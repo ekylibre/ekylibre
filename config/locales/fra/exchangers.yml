@@ -80,7 +80,6 @@ fra:
     milklic_individual_production: "Production laitière individuelle - Milklic"
     odicom_fec_txt: "FEC import (TXT) - Odicom"
     quadra_fec_txt: "FEC import (TXT) - Quadra"
-    sage_i_seven_fec_txt: "FEC import (TXT) ‒ Sagei7"
     sage_i_seven_journal_entries: "Comptabilité (ECX) ‒ Sagei7"
     panier_local_incoming_payments: "Encaissements (CSV) ‒ Panier Local"
     panier_local_sales: "Ventes (CSV) ‒ Panier Local"
