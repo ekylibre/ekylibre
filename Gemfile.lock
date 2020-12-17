@@ -456,8 +456,6 @@ GEM
       rgeo (~> 0.3)
     rgeo-geojson (0.4.3)
       rgeo (~> 0.5)
-    rgeo-kml (0.0.1)
-      rgeo (>= 0.3.13)
     rgeo-shapefile (0.4.2)
       dbf (~> 3.0)
       rgeo (~> 0.3)
@@ -712,7 +710,6 @@ DEPENDENCIES
   remotipart (~> 1.2)
   rest-client
   rgeo-geojson
-  rgeo-kml
   rgeo-shapefile
   rodf
   roo
