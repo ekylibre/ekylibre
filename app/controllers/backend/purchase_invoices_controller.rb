@@ -174,7 +174,7 @@ module Backend
       url = if params[:create_and_continue]
               { action: :new, continue: true }
             else
-              params[:redirect] || { action: :show, id: 'id'.c }
+              { action: :show, id: 'id'.c }
             end
 
       if @purchase_invoice.items.blank?
