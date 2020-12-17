@@ -65,7 +65,7 @@
 #  with_delivery                        :boolean          default(FALSE), not null
 #
 
-class Parcel < Ekylibre::Record::Base
+class Parcel < ApplicationRecord
   include Attachable
   include Customizable
   attr_readonly :currency
@@ -132,7 +132,7 @@ class Parcel < Ekylibre::Record::Base
   end
 
   validate do
-    if given_at && Preference[:permanent_stock_inventory] && given_during_financial_year_exchange?
+    if given_during_financial_year_exchange?
       errors.add(:given_at, :financial_year_exchange_on_this_period)
     end
   end
@@ -233,7 +233,7 @@ class Parcel < Ekylibre::Record::Base
   end
 
   def given_during_financial_year_exchange?
-    FinancialYearExchange.opened.where('? BETWEEN started_on AND stopped_on', given_at).any?
+    given_at && Preference[:permanent_stock_inventory] && FinancialYearExchange.opened.where('? BETWEEN started_on AND stopped_on', given_at).exists?
   end
 
   def opened_financial_year?

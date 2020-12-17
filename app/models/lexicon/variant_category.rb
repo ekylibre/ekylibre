@@ -44,7 +44,7 @@
 #  stock_movement_account         :string
 #  storable                       :boolean
 #
-class VariantCategory < ApplicationRecord
+class VariantCategory < LexiconRecord
   include Lexiconable
   include ScopeIntrospection
 

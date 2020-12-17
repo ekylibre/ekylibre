@@ -48,7 +48,7 @@
 #  uploaded           :boolean          default(FALSE), not null
 #
 
-class Document < Ekylibre::Record::Base
+class Document < ApplicationRecord
   include Customizable
   belongs_to :template, class_name: 'DocumentTemplate'
   has_many :attachments, dependent: :destroy

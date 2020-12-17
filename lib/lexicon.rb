@@ -24,7 +24,7 @@ module Lexicon
     private
 
       def database
-        Ekylibre::Record::Base.connection.raw_connection
+        ApplicationRecord.connection.raw_connection
       end
 
       def version_table_present?

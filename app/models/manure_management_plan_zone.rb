@@ -50,7 +50,7 @@
 #  updated_at                                      :datetime         not null
 #  updater_id                                      :integer
 #
-class ManureManagementPlanZone < Ekylibre::Record::Base
+class ManureManagementPlanZone < ApplicationRecord
   belongs_to :plan, class_name: 'ManureManagementPlan', inverse_of: :zones
   belongs_to :activity_production
   has_one :activity, through: :activity_production

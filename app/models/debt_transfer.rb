@@ -44,7 +44,7 @@
 # credit.
 # Mirroring on credit record is managed by model, but some errors can happen
 # if the coder don't check everything. The destruction process is fragile.
-class DebtTransfer < Ekylibre::Record::Base
+class DebtTransfer < ApplicationRecord
   enumerize :nature, in: %i[sale_regularization purchase_regularization], predicates: true
 
   belongs_to :journal_entry, class_name: 'JournalEntry', dependent: :destroy

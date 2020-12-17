@@ -32,7 +32,7 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
-class ProductLabelling < Ekylibre::Record::Base
+class ProductLabelling < ApplicationRecord
   include Labellable
   belongs_to :product, inverse_of: :labellings
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

@@ -40,7 +40,7 @@
 #  updater_id          :integer
 #
 
-class Task < Ekylibre::Record::Base
+class Task < ApplicationRecord
   include Attachable
   include Commentable
   include Versionable

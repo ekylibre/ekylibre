@@ -26,7 +26,7 @@
 #  id                  :integer          not null, primary key
 #  reference_label_fra :string
 #
-class RegisteredPfiCrop < ApplicationRecord
+class RegisteredPfiCrop < LexiconRecord
   include Lexiconable
   has_many :doses,   class_name: 'RegisteredPfiDose',
                      foreign_key: :crop_id, dependent: :restrict_with_exception

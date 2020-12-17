@@ -42,7 +42,7 @@
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #
-class LoanRepayment < Ekylibre::Record::Base
+class LoanRepayment < ApplicationRecord
   belongs_to :journal_entry
   belongs_to :loan
   has_one :cash, through: :loan

@@ -49,7 +49,7 @@
 #  updater_id                   :integer
 #
 
-class ProductReading < Ekylibre::Record::Base
+class ProductReading < ApplicationRecord
   include PeriodicCalculable
   include ReadingStorable
   belongs_to :product, inverse_of: :readings

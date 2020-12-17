@@ -20,6 +20,8 @@ class RegisteredPhytosanitaryUsageDoseComputation
   def validate_dose(usage, product, measure, targets_data, spray_volume = nil)
     if measure.dimension == 'none' && !check_indicators(product, usage)
       { none: :provide_metrics_for_this_article.tl }
+    elsif usage.dose_quantity.nil? || usage.dose_unit.nil? || usage.dose_unit_factor.nil?
+      { none: '' }
     else
       reference_measure = Measure.new((usage.dose_quantity * usage.dose_unit_factor).to_f, usage.dose_unit)
       user_measure = compute_user_measure(measure, usage, product, targets_data, spray_volume)

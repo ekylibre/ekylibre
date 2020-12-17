@@ -41,7 +41,7 @@
 #  working_width_value          :decimal(19, 4)
 #
 
-class PlantCounting < Ekylibre::Record::Base
+class PlantCounting < ApplicationRecord
   belongs_to :plant
   belongs_to :plant_density_abacus
   belongs_to :plant_density_abacus_item

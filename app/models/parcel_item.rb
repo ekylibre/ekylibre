@@ -67,7 +67,7 @@
 #  updater_id                    :integer
 #  variant_id                    :integer
 #
-class ParcelItem < Ekylibre::Record::Base
+class ParcelItem < ApplicationRecord
   attr_readonly :parcel_id
   attr_accessor :product_nature_variant_id
   enumerize :delivery_mode, in: %i[transporter us third none], predicates: { prefix: true }, scope: true, default: :us

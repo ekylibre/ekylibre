@@ -44,7 +44,7 @@
 #  updater_id     :integer
 #
 
-class Subscription < Ekylibre::Record::Base
+class Subscription < ApplicationRecord
   include Customizable
   acts_as_numbered
   belongs_to :address, class_name: 'EntityAddress'

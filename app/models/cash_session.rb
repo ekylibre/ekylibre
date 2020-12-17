@@ -38,7 +38,7 @@
 #  updated_at           :datetime         not null
 #  updater_id           :integer
 #
-class CashSession < Ekylibre::Record::Base
+class CashSession < ApplicationRecord
   belongs_to :cash
   has_many :affairs
   refers_to :currency

@@ -33,7 +33,7 @@
 #  updater_id   :integer
 #
 
-class SubscriptionNature < Ekylibre::Record::Base
+class SubscriptionNature < ApplicationRecord
   has_many :product_natures, dependent: :restrict_with_exception
   has_many :subscriptions, foreign_key: :nature_id, inverse_of: :nature, dependent: :restrict_with_exception
 

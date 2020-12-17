@@ -120,7 +120,7 @@ class JournalTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       # centralize option should be removed after the update of Journal.trial_balance method with the fact that there is no centralizing account anymore in DB
       centralize: '301 302 310 320 330 340 374 401 411 421 467 603'
     }
-    balance = Accountancy::TrialBalanceCalculator.build(connection: Ekylibre::Record::Base.connection)
+    balance = Accountancy::TrialBalanceCalculator.build(connection: ApplicationRecord.connection)
                                                  .trial_balance(params)
 
     assert_equal BigDecimal(balance[0][2]), sale.amount

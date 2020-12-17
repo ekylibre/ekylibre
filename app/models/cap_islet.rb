@@ -35,7 +35,7 @@
 #  updater_id       :integer
 #
 
-class CapIslet < Ekylibre::Record::Base
+class CapIslet < ApplicationRecord
   belongs_to :cap_statement
   has_many :land_parcels, class_name: 'CapLandParcel', dependent: :destroy
   has_many :cap_land_parcels, dependent: :destroy

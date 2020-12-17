@@ -41,7 +41,7 @@
 #  usage            :string
 #
 
-class Sequence < Ekylibre::Record::Base
+class Sequence < ApplicationRecord
   enumerize :period, in: %i[cweek month number year]
   enumerize :usage, in: %i[affairs analyses animals campaigns cash_transfers contracts debt_transfers deliveries deposits documents entities fixed_assets gaps incoming_payments inspections interventions inventories opportunities outgoing_payments outgoing_payment_lists parcels payslips plants plant_countings products product_natures product_nature_categories product_nature_variants purchases sales sales_invoices subscriptions tax_declarations]
 

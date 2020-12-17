@@ -33,7 +33,7 @@
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #
-class ActivityDistribution < Ekylibre::Record::Base
+class ActivityDistribution < ApplicationRecord
   belongs_to :activity, inverse_of: :distributions
   belongs_to :main_activity, class_name: 'Activity'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

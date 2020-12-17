@@ -32,7 +32,7 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
-class Alert < Ekylibre::Record::Base
+class Alert < ApplicationRecord
   belongs_to :sensor
   has_many :phases, class_name: 'AlertPhase', dependent: :destroy
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

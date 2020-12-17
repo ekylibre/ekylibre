@@ -36,7 +36,7 @@
 #  updated_at                  :datetime
 #  updater_id                  :integer
 #
-class EconomicSituation < Ekylibre::Record::Base
+class EconomicSituation < ApplicationRecord
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounting_balance, :client_accounting_balance, :client_trade_balance, :supplier_accounting_balance, :supplier_trade_balance, :trade_balance, numericality: true, allow_blank: true
   # ]VALIDATORS]

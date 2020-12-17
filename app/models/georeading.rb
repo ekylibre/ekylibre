@@ -35,7 +35,7 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
-class Georeading < Ekylibre::Record::Base
+class Georeading < ApplicationRecord
   enumerize :nature, in: %i[point linestring polygon], predicates: true
   has_geometry :content
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

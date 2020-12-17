@@ -38,7 +38,7 @@
 #  updated_at              :datetime         not null
 #  updater_id              :integer
 #
-class TaxDeclarationItemPart < Ekylibre::Record::Base
+class TaxDeclarationItemPart < ApplicationRecord
   belongs_to :account
   belongs_to :tax_declaration_item
   belongs_to :journal_entry_item

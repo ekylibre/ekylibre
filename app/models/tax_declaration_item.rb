@@ -44,7 +44,7 @@
 #  updater_id                           :integer
 #
 
-class TaxDeclarationItem < Ekylibre::Record::Base
+class TaxDeclarationItem < ApplicationRecord
   refers_to :currency
   belongs_to :tax
   belongs_to :tax_declaration, class_name: 'TaxDeclaration'

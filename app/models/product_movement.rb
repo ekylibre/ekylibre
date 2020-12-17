@@ -41,7 +41,7 @@
 #
 
 # A product move is a movement of population
-class ProductMovement < Ekylibre::Record::Base
+class ProductMovement < ApplicationRecord
   include Taskable
   belongs_to :intervention
   belongs_to :product

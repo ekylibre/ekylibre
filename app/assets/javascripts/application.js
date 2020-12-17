@@ -62,7 +62,6 @@
 
 //= require sortablejs/Sortable.min.js
 
-
 // FIX Browser interoperability
 // href function seems to be ineffective
 $.rails.href = function (element) {

@@ -36,7 +36,7 @@
 #  updated_at         :datetime         not null
 #  updater_id         :integer
 #
-class InspectionCalibration < Ekylibre::Record::Base
+class InspectionCalibration < ApplicationRecord
   include Inspectable
   belongs_to :nature, class_name: 'ActivityInspectionCalibrationNature', inverse_of: :inspection_calibrations
   belongs_to :inspection, inverse_of: :calibrations

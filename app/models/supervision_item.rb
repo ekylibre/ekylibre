@@ -33,7 +33,7 @@
 #  updated_at     :datetime         not null
 #  updater_id     :integer
 #
-class SupervisionItem < Ekylibre::Record::Base
+class SupervisionItem < ApplicationRecord
   belongs_to :sensor
   belongs_to :supervision, inverse_of: :items
   has_many :analyses, through: :sensor

@@ -39,7 +39,7 @@
 #  updater_id      :integer
 #
 
-class ProductLink < Ekylibre::Record::Base
+class ProductLink < ApplicationRecord
   include TimeLineable
   include Taskable
   belongs_to :product

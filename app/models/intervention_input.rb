@@ -108,14 +108,22 @@ class InterventionInput < InterventionProductParameter
   end
 
   def input_quantity_per_area
-    if intervention.working_zone_area.to_d > 0.0 && (quantity.dimension == :mass || quantity.dimension == :volume)
-      unit = quantity.unit.to_s + '_per_hectare'
-      q = (quantity.value.to_f / intervention.working_zone_area.to_f).round(2)
-      q_per_hectare = Measure.new(q.to_f, unit.to_sym)
-    elsif quantity.dimension == :volume_area_density || quantity.dimension == :mass_area_density
-      q_per_hectare = quantity
+    if Onoma::Unit.find(quantity.unit).dimension == :none
+      quantity
+    else
+      converter = Interventions::ProductUnitConverter.new
+      quantity_base_unit = Onoma::Unit.find(quantity.unit).base_unit.to_s
+
+      params = {
+        into: Onoma::Unit.find(quantity_base_unit + '_per_hectare'),
+        area: Maybe(intervention.working_zone_area),
+        net_mass: Maybe(product.net_mass),
+        net_volume: Maybe(product.net_volume),
+        spray_volume: None()
+      }
+
+      converter.convert(quantity, **params).or_else(quantity)
     end
-    q_per_hectare
   end
 
   # return pfi dose according to Lexicon pfi dataset and maaid number

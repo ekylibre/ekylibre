@@ -36,7 +36,7 @@
 #  variant_id         :integer          not null
 #
 
-class ContractItem < Ekylibre::Record::Base
+class ContractItem < ApplicationRecord
   belongs_to :contract, inverse_of: :items
   belongs_to :variant, class_name: 'ProductNatureVariant', inverse_of: :contract_items
   has_one :product_nature_category, through: :variant, source: :category

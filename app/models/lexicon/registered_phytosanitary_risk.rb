@@ -28,7 +28,7 @@
 #  risk_code       :string           not null
 #  risk_phrase     :string           not null
 #
-class RegisteredPhytosanitaryRisk < ApplicationRecord
+class RegisteredPhytosanitaryRisk < LexiconRecord
   include Lexiconable
   MENTIONS_TYPE = { 'H2' => :physical_h2, 'H3' => :health_h3, 'H4' => :environment_h4 }.freeze
   SYMBOLS_DESCRIPTION = { 'SGH01' => :explosive_substances,

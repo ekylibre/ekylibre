@@ -44,7 +44,7 @@
 #  updater_id     :integer
 #  url            :string           not null
 #
-class MapLayer < Ekylibre::Record::Base
+class MapLayer < ApplicationRecord
   enumerize :nature, in: %i[background overlay], default: :background, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :attribution, :reference_name, :subdomains, length: { maximum: 500 }, allow_blank: true

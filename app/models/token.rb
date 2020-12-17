@@ -32,7 +32,7 @@
 #  updater_id   :integer
 #  value        :string           not null
 #
-class Token < Ekylibre::Record::Base
+class Token < ApplicationRecord
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :name, presence: true, uniqueness: true, length: { maximum: 500 }
   validates :value, presence: true, length: { maximum: 500 }

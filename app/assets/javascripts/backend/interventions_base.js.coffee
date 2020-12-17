@@ -349,6 +349,8 @@
     # Previous system was calling refresh method with each updater, we now use first updater because the returned values were all the same (except for a very specific case which we avoid by selecting first updater)
     updater = updaters[0]
     E.interventions.refresh $(updater)
+    # Stopped_at is not automaticaly updated to started_at + 1 hour if stopped_at is manually updated
+    E.interventionForm.setupStoppedAtInputBehaviour()
 
   $(document).on 'selector:change', '*[data-intervention-updater]', (event, _element, options) ->
       # Don't refresh values if selector is initializing
@@ -380,17 +382,6 @@
 
       E.interventions.refresh $(this), options
 
-  $(document).on "keyup change dp.change", ".nested-fields.working-period:first-child input.intervention-started-at", (e) ->
-    value = $(this).val()
-    $hiddenInput = $('#intervention_working_periods_attributes_0_stopped_at')
-    $displayedInput = $hiddenInput.next('.flatpickr-input')
-    $hiddenInput.val(moment(new Date(value)).add(1, 'hours').format('Y-MM-DD H:mm'))
-    $displayedInput.val(moment(new Date(value)).add(1, 'hours').format('DD-MM-Y H:mm'))
-    started_at = $('#intervention_working_periods_attributes_0_started_at').val()
-    $(this).each ->
-      E.interventions.updateAvailabilityInstant(started_at)
-
-
   $(document).on 'selector:change', '.intervention_tools_product .selector-search', (event) ->
     toolId = $(event.target).closest('.selector').find('.selector-value').val()
 
@@ -408,7 +399,6 @@
 
         hourCounterLinks = hourCounterBlock.find('.links')
         hourCounterBlock.find('.add-reading').trigger('click') if hourCounterLinks.is(':visible')
-
 
   $(document).on "selector:change", 'input[data-selector-id="intervention_doer_product_id"], input[data-selector-id="intervention_tool_product_id"]', (event) ->
     element = $(event.target)
@@ -621,6 +611,26 @@
            error = $("<span class='help-inline harvest-in-progress-error'>#{ unrollElement.attr('data-harvest-in-progress-error-message') }</span>")
            $(unrollBlock).append(error)
 
+    setupStoppedAtInputBehaviour: ->
+      startedAtInput = document.querySelector("#intervention_working_periods_attributes_0_started_at")
+      return unless startedAtInput
+
+      fp = startedAtInput._flatpickr
+      hiddenInput = $('#intervention_working_periods_attributes_0_stopped_at')
+      autoUpdateStoppedAt = ''
+      fp.set 'onOpen', (selectedDates) ->
+        oldDate = moment(selectedDates[0])
+        stopDate = moment(hiddenInput.val())
+        autoUpdateStoppedAt = stopDate.diff(oldDate, 'seconds') == 3600
+      fp.set 'onValueUpdate', (selectedDates) ->
+        if autoUpdateStoppedAt
+          newDate = moment(selectedDates[0])
+          displayedInput = hiddenInput.next('.flatpickr-input')
+          hiddenInput.val(moment(newDate).add(1, 'hours').format('Y-MM-DD H:mm'))
+          displayedInput.val(moment(newDate).add(1, 'hours').format('DD-MM-Y H:mm'))
+        started_at = $('#intervention_working_periods_attributes_0_started_at').val()
+        $(this).each ->
+          E.interventions.updateAvailabilityInstant(started_at)
 
   $(document).ready ->
 

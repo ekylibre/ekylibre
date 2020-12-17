@@ -43,7 +43,7 @@
 #  updater_id             :integer
 #
 
-class BankStatement < Ekylibre::Record::Base
+class BankStatement < ApplicationRecord
   include Attachable
   include Customizable
   belongs_to :cash

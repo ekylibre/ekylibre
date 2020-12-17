@@ -33,7 +33,7 @@
 #  value             :integer          not null
 #
 
-class PlantCountingItem < Ekylibre::Record::Base
+class PlantCountingItem < ApplicationRecord
   belongs_to :plant_counting, inverse_of: :items
 
   after_save :update_average_value

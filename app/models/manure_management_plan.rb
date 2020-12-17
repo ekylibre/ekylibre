@@ -38,7 +38,7 @@
 #  updated_at                 :datetime         not null
 #  updater_id                 :integer
 #
-class ManureManagementPlan < Ekylibre::Record::Base
+class ManureManagementPlan < ApplicationRecord
   include Attachable
   belongs_to :campaign
   belongs_to :recommender, class_name: 'Entity'

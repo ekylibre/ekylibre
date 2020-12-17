@@ -571,6 +571,8 @@ fra:
             ongoing_at: #?
               financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
               not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
+            started_on:
+              financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période"
         outgoing_parcel_item: #?
           greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})" #?
         parcel: #?
@@ -2387,6 +2389,7 @@ fra:
       too_long: "%{attribute} est trop long (%{count} caractères maximum)"
       too_short: "%{attribute} est trop court (%{count} caractères minimum)"
       unitary_in_parcel: "Articles unitaires ne peuvent être envoyés un par un"
+      used_in_intervention: "%{attribute} doit être le ou après le %{restriction} (date à laquelle %{model} est utilisé dans les interventions pour la dernière fois)"
       wrong_length: "%{attribute} n’est pas d’une bonne longueur (%{count} caractères)"
   models:
     account:

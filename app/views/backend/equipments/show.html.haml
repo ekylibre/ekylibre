@@ -59,9 +59,17 @@
 
 = cobbles do |c|
 
-  - if resource.intervention_product_parameters.any?
-    - c.cobble(:intervention_product_parameters, title: :x_interventions.tl(count: resource.interventions.count)) do
-      = cobble_list(:intervention_product_parameters)
+  - record_interventions_without_equipment_maintenance = resource.interventions.with_nature(:record).without_procedure_name(:equipment_maintenance)
+  - record_interventions_with_equipment_maintenance_as_tool = resource.interventions.with_nature(:record).with_procedure_name(:equipment_maintenance).where("intervention_parameters.type = 'InterventionTool'")
+  - interventions_on_field = record_interventions_without_equipment_maintenance + record_interventions_with_equipment_maintenance_as_tool
+  - if interventions_on_field.any?
+    - c.cobble(:interventions_on_field, title: :x_interventions.tl(count: interventions_on_field.count)) do
+      = cobble_list(:interventions_on_field)
+
+  - record_equipment_maintenance_interventions = resource.interventions.with_nature(:record).with_procedure_name(:equipment_maintenance).where("intervention_parameters.reference_name = 'equipment'")
+  - if record_equipment_maintenance_interventions.exists?
+    - c.cobble(:equipment_maintenance_interventions, title: :x_equipment_maintenance_interventions.tl(count: record_equipment_maintenance_interventions.count)) do
+      = cobble_list(:equipment_maintenance_interventions)
 
   - if resource.issues.any?
     - c.cobble(:issues, title: :x_issues.tl(count: resource.issues.count)) do

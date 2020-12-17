@@ -45,7 +45,7 @@
 #  updater_id       :integer
 #
 
-class Payslip < Ekylibre::Record::Base
+class Payslip < ApplicationRecord
   include Attachable
   include Customizable
   belongs_to :account

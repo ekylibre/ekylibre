@@ -50,7 +50,7 @@
 #  usage               :string           not null
 #
 
-class ActivityProduction < Ekylibre::Record::Base
+class ActivityProduction < ApplicationRecord
   include Attachable
   include Customizable
 

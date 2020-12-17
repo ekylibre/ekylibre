@@ -37,7 +37,7 @@
 #  updater_id         :integer
 #
 
-class InspectionPoint < Ekylibre::Record::Base
+class InspectionPoint < ApplicationRecord
   belongs_to :nature, class_name: 'ActivityInspectionPointNature'
   belongs_to :inspection, inverse_of: :points
 

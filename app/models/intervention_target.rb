@@ -87,11 +87,14 @@ class InterventionTarget < InterventionProductParameter
   validate do
     if product
       target_type = "the_#{reference_name}".tl
-      if product.dead_at && (product.dead_at < intervention.started_at)
-        errors.add(:product, :target_dont_exist_after, target: target_type, date: product.dead_at.l)
+      # Because in the fixtures, we have some Plant that don't have an activity_production
+      # TODO: Fix the fixtures!
+      filtered_product = (product.is_a?(Plant) && product.dead_at.nil? && product.activity_production&.support.present?) ? product.activity_production.support : product
+      if filtered_product.dead_at && (filtered_product.dead_at < intervention.started_at)
+        errors.add(:product, :target_dont_exist_after, target: target_type, date: filtered_product.dead_at.l)
       end
-      if product.born_at && (product.born_at > intervention.started_at)
-        errors.add(:product, :target_dont_exist_before, target: target_type, date: product.born_at.l)
+      if filtered_product.born_at && (filtered_product.born_at > intervention.started_at)
+        errors.add(:product, :target_dont_exist_before, target: target_type, date: filtered_product.born_at.l)
       end
     end
   end

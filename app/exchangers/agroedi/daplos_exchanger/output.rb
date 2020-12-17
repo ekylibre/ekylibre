@@ -15,6 +15,7 @@ module Agroedi
           quantity_value: value.to_f
         }
       end
+
       alias_method :to_attributes, :attributes
 
       def coherent?(with: @procedure_parameter)
@@ -46,7 +47,7 @@ module Agroedi
         ekylibre_edicode = match_record&.ekylibre_value&.to_sym
         unless ekylibre_edicode
           raise "Nature code #{daplos.output_nature_edicode.inspect}" +
-                " has no equivalent in Ekylibre reference"
+                  " has no equivalent in Ekylibre reference"
         end
         @nature_edicode = ekylibre_edicode
       end
@@ -59,7 +60,7 @@ module Agroedi
         ekylibre_edicode = match_record&.ekylibre_value&.to_sym
         unless ekylibre_edicode
           raise "Specie code #{daplos.output_specie_edicode.inspect}" +
-                " has no equivalent in Ekylibre reference"
+                  " has no equivalent in Ekylibre reference"
         end
         @specie_edicode = ekylibre_edicode
       end
@@ -77,8 +78,8 @@ module Agroedi
         def find_or_create_variant!
           varieties = [target_variety, *target_variety.parents]
           possible_variants = ProductNatureVariant.where(
-              variety: nature_edicode,
-              active: true
+            variety: nature_edicode,
+            active: true
           )
           variant = varieties.lazy.map do |variety|
             possible_variants.find_by(derivative_of: variety.name)
@@ -87,8 +88,7 @@ module Agroedi
           return variant if variant
 
           variant = ProductNatureVariant.find_or_import!(nature_edicode).first
-          variant ||= ProductNatureVariant.import_from_nomenclature(nature_edicode,
-            force: true)
+          variant ||= ProductNatureVariant.import_from_nomenclature(nature_edicode, force: true)
 
           variant.name = output_name
           variant.tap(&:save!)

@@ -45,7 +45,7 @@
 #  updater_id                :integer
 #
 
-class FinancialYear < Ekylibre::Record::Base
+class FinancialYear < ApplicationRecord
   include Attachable
   include Customizable
   attr_readonly :currency
@@ -457,13 +457,13 @@ class FinancialYear < Ekylibre::Record::Base
 
   def split_into_periods(interval)
     case interval
-      when 'year'
+    when 'year'
         [[started_on, stopped_on]]
-      when 'semesters'
+    when 'semesters'
         compute_ranges(6)
-      when 'trimesters'
+    when 'trimesters'
         compute_ranges(3)
-      when 'months'
+    when 'months'
         compute_ranges(1)
     end
   end

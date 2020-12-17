@@ -39,7 +39,7 @@
 #  usage              :string           not null
 #
 
-class Catalog < Ekylibre::Record::Base
+class Catalog < ApplicationRecord
   include Providable
   refers_to :currency
   enumerize :usage, in: %i[purchase sale stock cost travel_cost], default: :sale
