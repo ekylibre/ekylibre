@@ -9,7 +9,6 @@
       - menu.item :new_activity.tl, { controller: :activities, action: :new }, as: 'main'
   - else
     = tool_to :new_activity.tl, { controller: :activities, action: :new }
-  = t.action(:kml_export)
   - if @availables_activities.any?
     = t.export :land_parcel_register, key: Printers::LandParcelRegisterCampaignPrinter.build_key(campaign: current_campaign), label: :print_land_parcel_register
 

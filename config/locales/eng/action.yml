@@ -35,7 +35,6 @@ eng:
       edit: "Edit activity: %{name}"
       family: "Family activity: %{name}"
       index: "Activities"
-      # kml_export: "Kml export activity: %{name}"
       new: "New activity"
       show: "Activity: %{name}"
     backend/activity_budgets:
@@ -3528,7 +3527,6 @@ eng:
       journal_entries_export: "Download CSV"
       journal_entries_import: "Import CSV"
       # keep: "Keep"
-      kml_export: "KML export"
       # last_locations: "Last locations"
       # lightness: "Lightness"
       # ligthen: "Ligthen"

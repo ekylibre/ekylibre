@@ -1,7 +1,5 @@
 - main_toolbar do |t|
   = t.edit resource
-  - if current_campaign && resource.of_campaign?(current_campaign)
-    = t.action(:kml_export, id: resource.id)
   - budget = resource.budget_of(current_campaign)
   - if budget && budget.items.any?
     = tool_to(:edit_budget.tl, { controller: :activity_budgets, action: :edit, id: budget.id })
