@@ -141,7 +141,7 @@ module Backend
       t.column :state_label, hidden: true
       t.column :human_target_names
       t.column :human_working_zone_area, on_select: :sum, datatype: :decimal
-      t.column :total_cost, label_method: 'costing.decorate.human_total_cost', currency: true, datatype: :decimal
+      t.column :total_cost, label_method: 'costing&.decorate&.human_total_cost', currency: true, datatype: :decimal
       t.column :nature
       t.column :issue, url: true
       t.column :trouble_encountered, hidden: true
