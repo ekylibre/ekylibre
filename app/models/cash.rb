@@ -117,7 +117,6 @@ class Cash < ApplicationRecord
   scope :bank_accounts, -> { where(nature: 'bank_account') }
   scope :cash_boxes,    -> { where(nature: 'cash_box') }
   scope :associate_accounts, -> { where(nature: %w[associate_account owner_account]) }
-  scope :with_pointing_work, -> { where('(suspend_until_reconciliation AND suspense_account_id in (?)) OR (NOT suspend_until_reconciliation AND main_account_id IN (?))', JournalEntryItem.select(:suspense_account_id).unpointed, JournalEntryItem.select(:main_account_id).unpointed) }
   scope :pointables, -> { where(nature: %w[associate_account owner_account bank_account]) }
   scope :with_deposit, -> { where(id: IncomingPaymentMode.where(with_deposit: true).select(:cash_id)) }
 
