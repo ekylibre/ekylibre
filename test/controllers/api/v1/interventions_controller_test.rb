@@ -42,7 +42,6 @@ module Api
       end
 
       test 'Test user worker' do
-
         worker = create(:entity, :client, :transporter)
         user_with_worker = create(:user, :employed, person: worker)
         create(:worker, person: worker)
@@ -125,7 +124,6 @@ module Api
       end
 
       test 'create harvesting intervention (with outputs)' do
-
         variant = create(:harvest_variant)
         variant.read!(:net_mass, '2 kilogram')
         plant = create(:corn_plant, born_at: "2019-01-01T00:00:00Z")
@@ -157,7 +155,6 @@ module Api
       end
 
       test 'create sowing intervention (with group parameters)' do
-
         land_parcel1 = create(:land_parcel)
         land_parcel2 = create(:land_parcel)
         variant = create(:product_nature_variant)
@@ -228,7 +225,6 @@ module Api
       end
 
       test 'create fertilizing intervention (with readings on tools)' do
-
         input_product = create(:fertilizer_product)
         input_product.variant.read!(:net_mass, '4 kilogram')
         tractor1 = create(:tractor)
