@@ -32,25 +32,7 @@ Apartment.configure do |config|
   # config.append_environment = false
   # supply list of database names for migrations to run on
 
-  multi_database = ENV['MULTI_DATABASE'].to_i
-  if multi_database > 0
-    # puts "MultiDB mode...".yellow
-    config.with_multi_server_setup = true
-    config.tenant_names = -> {
-      configuration = Rails.configuration.database_configuration[Rails.env]
-      index = {}
-      conf = Ekylibre::Tenant.list.sort.each_with_object({}) do |tenant, hash|
-        database = Ekylibre::Tenant.database_for(tenant)
-        index[tenant] = database
-        hash[tenant] = configuration.merge('database' => database)
-        hash
-      end
-      File.write(Rails.root.join('config', 'tenant_databases.yml'), index.to_yaml)
-      conf
-    }
-  else
-    config.tenant_names = -> { Ekylibre::Tenant.list }
-  end
+  config.tenant_names = -> { Ekylibre::Tenant.list }
 end
 
 module Apartment
@@ -84,12 +66,6 @@ module Apartment
 
       def connect_to_new(tenant = nil)
         return reset if tenant.nil?
-
-        # no switching unless we are in another DATABASE
-        # unless Ekylibre::Tenant.database_for(tenant.to_s) == Ekylibre::Tenant.database_for(@current)
-        if Ekylibre::Tenant.multi_database > 0
-          Apartment.establish_connection multi_tenantify(tenant, false) # Allows us to use the multi-database setup
-        end
 
         raise ActiveRecord::StatementInvalid, "Could not establish connection to database for schema #{tenant}" unless Apartment.connection.active?
         # end
