@@ -45,13 +45,14 @@ module Api
             product: current_user.worker,
             intervention_id: intervention.id
           )
-          # This case is not relevant anymore for larrere API as crumbs are not used aymore but still usefull for Eky API(waiting for the crumbs to be reviewed and maybe removed in the future)
+
         else
           participation = InterventionParticipation.new(
             product: current_user.worker,
             procedure_name: Procedo.find(filtered_params[:procedure_name]) ? filtered_params[:procedure_name] : nil
           )
         end
+
         participation.request_compliant = !filtered_params[:request_compliant].to_i.zero?
         participation.state = filtered_params[:state]
         participation.save!
@@ -61,6 +62,53 @@ module Api
           period = participation.working_periods.find_or_initialize_by(**wp_params.to_h.deep_symbolize_keys)
           next if period.save
           period.destroy
+        end
+
+        if intervention
+          working_periods = intervention.participations
+                                        .flat_map(&:working_periods)
+                                        .map { |wp| wp.slice(:started_at, :stopped_at) }
+                                        .sort_by { |wp| wp[:started_at] }
+
+          if working_periods.any?
+            # Group consecutive periods (current period stopped_at equals next period started_at) before creating InterventionWorkingPeriod for each group
+            dates_groups = []
+            following_dates = []
+
+            working_periods.each_with_index do |wp_params, index|
+              previous_wp_params = working_periods[index - 1]
+              if index != 0 && (wp_params[:started_at] > previous_wp_params[:stopped_at])
+                dates_groups << following_dates
+                following_dates = []
+              end
+              following_dates << wp_params
+            end
+            dates_groups << following_dates
+
+            # Use a transaction to ensure there is always a working_period associated with the intervention in case there is a problem during the working_periods creation with dates_groups
+            ActiveRecord::Base.transaction do
+              intervention.working_periods.delete_all
+              dates_groups.each do |group|
+                started_at = group.map { |g| g[:started_at] }.min
+                stopped_at = group.map { |g| g[:stopped_at] }.max
+                InterventionWorkingPeriod.create!(intervention: intervention, started_at: started_at, stopped_at: stopped_at)
+              end
+              intervention.reload.save!
+            end
+          end
+        end
+
+        if filtered_params[:crumbs].present?
+          filtered_params[:crumbs].each do |crumb|
+            participation.crumbs.create!(
+              nature: crumb['nature'],
+              geolocation: crumb['geolocation'],
+              read_at: crumb['read_at'],
+              accuracy: crumb['accuracy'],
+              device_uid: filtered_params[:device_uid],
+              user_id: current_user
+            )
+          end
         end
 
         if filtered_params[:crumbs].present?
@@ -99,7 +147,6 @@ module Api
         def params_errors(filtered_params)
           errors = []
           errors << 'No state given' if filtered_params[:state].nil?
-          errors << 'No working periods given' if filtered_params.blank? || filtered_params[:working_periods].nil? || filtered_params[:working_periods].empty?
           errors << 'No current user' unless current_user && current_user.person
           errors << "Can't assign hour counter to equipment as the intervention state is not 'done'" if filtered_params[:state] != 'done' && filtered_params[:equipments]
           errors << "Need 'product_id' and 'hour_counter' fields on 'equipments' hash" if filtered_params[:equipments]&.any? { |eq| eq.exclude?(:hour_counter) || eq.exclude?(:product_id) }
