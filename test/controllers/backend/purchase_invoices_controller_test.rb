@@ -26,6 +26,7 @@ module Backend
       invoice = create :purchase_invoice, invoiced_at: Date.new(2017, 5, 10)
 
       create(:purchase_item, purchase: invoice, role: :fees)
+      invoice.save
 
       financial_year = FinancialYear.at Date.new(2017, 5, 10)
       create :tax_declaration, financial_year: financial_year, started_on: Date.new(2017, 5, 1), stopped_on: Date.new(2017, 5, 31)
