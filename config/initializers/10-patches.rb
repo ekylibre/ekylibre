@@ -257,24 +257,6 @@ module ActiveSupport
   class Duration
     ISO_INDEX_UNIT = { '1' => :year, '2' => :month, '3' => :day, '4' => :hour, '5' => :minute, '6' => :second }
 
-    # FROM ActiveSupport 6.0
-    SECONDS_PER_MINUTE = 60
-    SECONDS_PER_HOUR = 3600
-    SECONDS_PER_DAY = 86400
-    SECONDS_PER_WEEK = 604800
-    SECONDS_PER_MONTH = 2629746 # 1/12 of a gregorian year
-    SECONDS_PER_YEAR = 31556952 # length of a gregorian year (365.2425 days)
-
-    PARTS_IN_SECONDS = {
-      seconds: 1,
-      minutes: SECONDS_PER_MINUTE,
-      hours: SECONDS_PER_HOUR,
-      days: SECONDS_PER_DAY,
-      weeks: SECONDS_PER_WEEK,
-      months: SECONDS_PER_MONTH,
-      years: SECONDS_PER_YEAR
-    }.freeze
-    # /FROM
     class << self
       # FROM ActiveSupport 6.0
       def seconds(value) #:nodoc:
@@ -393,14 +375,5 @@ module ActiveSupport
         parts.key?(:weeks) && (parts.keys & DATE_COMPONENTS).any?
       end
     end unless constants.include?(:ISO8601Serializer)
-  end
-end
-
-module Charta
-  class Geometry
-    def buffer(radius)
-      buffer_text = ActiveRecord::Base.connection.execute("SELECT ST_AsText(ST_Buffer(ST_GeomFromText('#{feature.as_text}')::geography, #{radius})) AS buffer").first['buffer']
-      Charta.new_geometry(buffer_text)
-    end
   end
 end

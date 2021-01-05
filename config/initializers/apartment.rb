@@ -89,11 +89,11 @@ module Apartment
 end
 
 if ENV['TENANT']
-  Rails.application.config.middleware.use 'Apartment::Elevators::Generic', proc { |_request| ENV['TENANT'] }
+  Rails.application.config.middleware.use Apartment::Elevators::Generic, proc { |_request| ENV['TENANT'] }
 elsif Rails.env.test?
-  Rails.application.config.middleware.use 'Apartment::Elevators::Generic', proc { |_request| 'test' }
+  Rails.application.config.middleware.use Apartment::Elevators::Generic, proc { |_request| 'test' }
 elsif ENV['ELEVATOR'] == 'header'
-  Rails.application.config.middleware.use 'Apartment::Elevators::Header'
+  Rails.application.config.middleware.use Apartment::Elevators::Header
 else
-  Rails.application.config.middleware.use 'Apartment::Elevators::SecuredSubdomain'
+  Rails.application.config.middleware.use Apartment::Elevators::SecuredSubdomain
 end

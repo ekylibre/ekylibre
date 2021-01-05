@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :equipment do
+    initial_born_at {}
     sequence(:number) { |n| "E0000#{n}"}
     name { 'Equipment' }
     type { 'Equipment' }
@@ -8,6 +9,7 @@ FactoryBot.define do
   end
 
   factory :tractor, class: Equipment do
+    initial_born_at {}
     sequence(:number) { |n| "T0000#{n}"}
     name { 'Tractor' }
     type { 'Equipment' }

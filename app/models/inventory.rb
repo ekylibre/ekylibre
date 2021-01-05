@@ -52,7 +52,7 @@ class Inventory < ApplicationRecord
   refers_to :currency
   belongs_to :responsible, -> { contacts }, class_name: 'Entity'
   has_many :items, class_name: 'InventoryItem', dependent: :destroy, inverse_of: :inventory
-  has_many :item_variants, -> { uniq }, through: :items, source: :variant
+  has_many :item_variants, -> { distinct }, through: :items, source: :variant
   belongs_to :journal_entry, dependent: :destroy
   belongs_to :financial_year
   belongs_to :product_nature_category

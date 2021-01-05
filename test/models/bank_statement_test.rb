@@ -372,7 +372,7 @@ class BankStatementTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   def assert_lettered_by(operation, with_letters: ['A'])
     assert operation
     assert_equal with_letters,
-                 @payment.journal_entry.items.pluck(:bank_statement_letter).uniq.compact
+                 @payment.reload.journal_entry.items.pluck(:bank_statement_letter).uniq.compact
     assert_equal with_letters,
                  @tanks.each(&:reload).map(&:letter).uniq
   end

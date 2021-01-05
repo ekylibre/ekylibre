@@ -5,7 +5,7 @@ module Backend
 
     test 'destroy action' do
       attachment = attachments(:attachments_002)
-      delete :destroy, id: attachment.id
+      delete :destroy, params: { id: attachment.id }
       assert_response :ok
       assert_equal 'deleted', JSON.parse(response.body)['attachment']
     end

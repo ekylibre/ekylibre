@@ -403,7 +403,7 @@ module Ekylibre
           manifest = YAML.load_file(archive_path.join('manifest.yml')).symbolize_keys
 
           database_version = manifest[:database_version].to_i
-          if database_version > ActiveRecord::Migrator.last_version
+          if database_version > ActiveRecord::Migrator.last_migration.version
             raise 'Too recent archive'
           end
 

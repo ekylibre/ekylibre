@@ -141,26 +141,15 @@ module FinancialYearTest
       Inventory.delete_all
 
       # Generate financial years with no journal entries, no tax declarations and no inventory in order to make destroyable
-      start_date = '01-01-2001'
-      stop_date = '31-12-2001'
-      dates = Array.new(10) { Hash.new }
-
-      # Get array of hash containing dates, IE : [{started_on: '01-01-2001', stopped_on: '01-01-2001'}, {started_on: '01-01-2002', stopped_on: '01-01-2002'}]
-      dates.each_with_index do |d, i|
-        d[:started_on] = start_date.to_date + i.year
-        d[:stopped_on] = stop_date.to_date + i.year
-      end
-
-      # Create financial years
-      dates.each { |d| create(:financial_year, :skip_validate, started_on: d[:started_on], stopped_on: d[:stopped_on], state: :opened) }
+      (2001..2010).each { |y| create(:financial_year, :skip_validate, year: y, state: :opened) }
       assert_equal FinancialYear.count, 10
       assert_equal FinancialYear.consecutive_destroyables.count, FinancialYear.count
 
       # Add an entry to a financial year, not the first nor the last, in order to make it not destroyable
       printed_on = FinancialYear.order(:started_on)[7].started_on + 100.days
       create(:journal_entry, :with_items, printed_on: printed_on)
-      assert_equal FinancialYear.consecutive_destroyables.count, 7
-      assert FinancialYear.consecutive_destroyables.delete_all
+      assert_equal 7, FinancialYear.consecutive_destroyables.count
+      assert FinancialYear.where(id: FinancialYear.consecutive_destroyables.map(&:id)).delete_all
     end
 
     def create_accountant_elements_should_raise(accounting_date)

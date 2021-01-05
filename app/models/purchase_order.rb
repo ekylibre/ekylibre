@@ -62,7 +62,7 @@
 class PurchaseOrder < Purchase
   enumerize :command_mode, in: %i[letter fax mail oral sms market_place], default: :mail
 
-  has_many :receptions, class_name: Reception, foreign_key: :purchase_id
+  has_many :receptions, class_name: 'Reception', foreign_key: :purchase_id
 
   state_machine :state, initial: :opened do
     state :opened

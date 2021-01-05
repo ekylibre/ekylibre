@@ -22,14 +22,14 @@ module Backend
     test 'toggling activation' do
       m = MapLayer.available_backgrounds.first
       state = m.enabled
-      post :toggle, id: m.id, format: :json
+      post :toggle, params: { id: m.id, format: :json }
       assert_equal !state, m.reload.enabled
     end
 
     test 'toggling by_default' do
       m = MapLayer.available_backgrounds.second
       state = m.by_default
-      put :star, id: m.id
+      put :star, params: { id: m.id }
       assert_equal !state, m.reload.by_default
     end
 

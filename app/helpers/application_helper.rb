@@ -236,26 +236,10 @@ module ApplicationHelper
         return content_tag(:a, name, class: html_options[:class].to_s + ' invalid invalid-route', disabled: true)
       end
 
-      if html_options
-        html_options = html_options.stringify_keys
-        href = html_options['href']
-        tag_options = tag_options(html_options)
-      else
-        tag_options = nil
-      end
+      html_options ||= {}
+      html_options = html_options.symbolize_keys
 
-      href_attr = 'href="' + url + '"' unless href
-      "<a #{href_attr}#{tag_options}>".html_safe + (name || url) + '</a>'.html_safe
-    end
-  end
-
-  def li_link_to(*args)
-    options = args[1] || {}
-    # if authorized?({:controller => controller_name, :action => action_name}.merge(options))
-    if authorized?({ controller: controller_path, action: :index }.merge(options))
-      content_tag(:li, link_to(*args).html_safe)
-    else
-      ''
+      content_tag(:a, (name || url), { href: url, **html_options })
     end
   end
 

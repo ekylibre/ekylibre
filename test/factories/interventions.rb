@@ -41,7 +41,7 @@ FactoryBot.define do
       end
 
       after(:build) do |intervention, evaluator|
-        create_list :tractor_tool, evaluator.tractor_count , intervention: intervention
+        create_list :tractor_tool, evaluator.tractor_count , intervention: intervention, initial_born_at: intervention.started_at - 1.day
       end
     end
 

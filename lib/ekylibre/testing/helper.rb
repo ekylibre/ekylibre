@@ -13,7 +13,8 @@ module Ekylibre
         setup_timestamp_format
         reload_lexicon
 
-        setup_minitest_reporters
+        # TODO: reactivate this when we have a rails version compatible (5.2/6.0)
+        # setup_minitest_reporters
       end
 
       private
@@ -28,7 +29,8 @@ module Ekylibre
 
         def setup_minitest_reporters
           Minitest::Reporters.use!(
-            (ENV['CI'] ? Minitest::Reporters::DefaultReporter.new : Ekylibre::Testing::SpecReporter.new),
+            # Disable this as Rails uses its own reporter that does not handle well replacement ones
+            # (ENV['CI'] ? Minitest::Reporters::DefaultReporter.new : Ekylibre::Testing::SpecReporter.new),
             ENV,
             Minitest.backtrace_filter
           )

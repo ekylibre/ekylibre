@@ -32,7 +32,7 @@ module Api
               ]
             }
 
-          post :create, params
+          post :create, params: params
           json = JSON.parse response.body
 
           assert_equal({"id"=>"9878888"}, json["data"].detect {|a| a["id"] == "9878888" })

@@ -12,32 +12,32 @@ module Api
         assert_response :ok
         assert json.size <= 30
 
-        get :index, page: 2
+        get :index, params: { page: 2 }
         json = JSON.parse response.body
         assert_response :ok
         assert json.size <= 30
 
-        get :index, doer_email: 'admin@ekylibre.org'
+        get :index, params: { doer_email: 'admin@ekylibre.org' }
         json = JSON.parse response.body
         assert_response :ok
         assert json.size <= 30
 
-        get :index, user_email: 'admin@ekylibre.org'
+        get :index, params: { user_email: 'admin@ekylibre.org' }
         json = JSON.parse response.body
         assert_response :ok
         assert json.size <= 30
 
-        get :index, user_email: 'admin@ekylibre.org', nature: 'request', with_interventions: 'true'
+        get :index, params: { user_email: 'admin@ekylibre.org', nature: 'request', with_interventions: 'true' }
         json = JSON.parse response.body
         assert_response :ok
         assert json.size <= 30
 
-        get :index, user_email: 'admin@ekylibre.org', nature: 'request', with_interventions: 'false'
+        get :index, params: { user_email: 'admin@ekylibre.org', nature: 'request', with_interventions: 'false' }
         json = JSON.parse response.body
         assert_response :ok
         assert json.size <= 30
 
-        get :index, user_email: 'admin@ekylibre.org', nature: 'request', with_interventions: 'falsesd'
+        get :index, params: { user_email: 'admin@ekylibre.org', nature: 'request', with_interventions: 'falsesd' }
         assert_response :unprocessable_entity
       end
 
@@ -48,12 +48,12 @@ module Api
 
         user_without_worker = create(:user)
 
-        get :index, user_email: user_with_worker.email
+        get :index, params: { user_email: user_with_worker.email }
         json = JSON.parse response.body
         assert_response :ok
         assert json.size <= 30
 
-        get :index, user_email: user_without_worker.email
+        get :index, params: { user_email: user_without_worker.email }
         json = JSON.parse response.body
         assert_response :precondition_required
         assert json['message']
@@ -86,7 +86,7 @@ module Api
                      { product_id: hoe.id, reference_name: 'hoe' },
                    ]
         }
-        post :create, params
+        post :create, params: params
         assert_response :created
         id = JSON.parse(response.body)['id']
         intervention = Intervention.find(id)
@@ -116,7 +116,7 @@ module Api
                      }]
         }
 
-        post :create, params
+        post :create, params: params
         assert_response :created
         id = JSON.parse(response.body)['id']
         intervention = Intervention.find(id)
@@ -147,7 +147,7 @@ module Api
                      }]
         }
 
-        post :create, params
+        post :create, params: params
         assert_response :created
         id = JSON.parse(response.body)['id']
         intervention = Intervention.find(id)
@@ -214,7 +214,7 @@ module Api
             }
           ]
         }
-        post :create, params
+        post :create, params: params
         assert_response :created
         id = JSON.parse(response.body)['id']
         intervention = Intervention.find(id)
@@ -225,7 +225,7 @@ module Api
       end
 
       test 'create fertilizing intervention (with readings on tools)' do
-        input_product = create(:fertilizer_product)
+        input_product = create(:fertilizer_product, initial_born_at: "2019-01-01T00:00:00Z")
         input_product.variant.read!(:net_mass, '4 kilogram')
         tractor1 = create(:tractor)
         tractor2 = create(:tractor)
@@ -276,12 +276,14 @@ module Api
           ]
         }
 
-        post :create, params
+        post :create, params: params
         assert_response :created
+
         id = JSON.parse(response.body)['id']
         intervention = Intervention.find(id)
         assert_equal 3, intervention.tools.count
         assert_equal [], intervention.procedure.parameters.flat_map(&:readings)
+
         tool1_reading = intervention.tools.find_by(product_id: tractor1.id).readings.first
         tool2_reading = intervention.tools.find_by(product_id: tractor3.id).readings.first
         assert_equal tool1_reading.value, Measure.new(8, :hour)
@@ -359,7 +361,7 @@ module Api
             }
           ]
         }
-        post :create, params
+        post :create, params: params
         assert_response :created
         id = JSON.parse(response.body)['id']
         intervention = Intervention.find(id)
