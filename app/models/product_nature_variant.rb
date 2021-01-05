@@ -150,7 +150,7 @@ class ProductNatureVariant < ApplicationRecord
     joins(:nature).where(WorkingSet.to_sql(expression, default: :product_nature_variants, abilities: :product_natures, indicators: :product_natures))
   }
 
-  scope :of_natures, ->(*natures) { where(nature_id: natures) }
+  scope :of_natures, ->(natures) { where(nature: natures) }
 
   scope :of_categories, ->(*categories) { where(category_id: categories) }
 

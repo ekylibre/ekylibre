@@ -6,7 +6,7 @@ module Backend
 
     test "a reception can't be created without at least one item" do
       sender_one = create(:entity, :supplier)
-      post :create, reception: { sender_id: sender_one.id }
+      post :create, params: { reception: { sender_id: sender_one.id } }
 
       # assert_not
       assert_response 200

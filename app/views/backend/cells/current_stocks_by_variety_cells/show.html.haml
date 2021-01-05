@@ -1,8 +1,6 @@
 - if @variety and @indicator
   :ruby
-    #
     series = []
-    categories = {}
     unit = @unit
 
     product_natures = ProductNature.of_variety(@variety.to_s).reorder(:id)

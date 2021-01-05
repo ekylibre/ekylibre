@@ -27,6 +27,8 @@ class ShapeValidatorTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   test 'shape validation reject invalid shapes' do
+    skip 'Shapes are validated automatically in charta 0.3.0'
+
     obj = ShapeStrictValidatable.new
     obj.shape = INVALID_SHAPE
 

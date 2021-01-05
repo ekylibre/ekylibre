@@ -28,39 +28,33 @@ module Api
       before_action :force_json!
       after_action :add_generic_headers!
 
-      before_action :set_locale
+      protected
 
-      hide_action :add_generic_headers!
-
-      def add_generic_headers!
-        response.headers['X-Ekylibre-Media-Type'] = 'ekylibre.v1'
-        # response.headers['Access-Control-Allow-Origin'] = '*'
-      end
-
-      hide_action :force_json!
-
-      def force_json!
-        request.format = 'json'
-      end
-
-      hide_action :authenticate_api_user!
-
-      def authenticate_api_user!
-        user = nil
-        token = nil
-        if authorization = request.headers['Authorization']
-          keys = authorization.split(' ')
-          if keys.first == 'simple-token'
-            return authenticate_user_from_simple_token!(keys.second, keys.third)
-          end
-          render status: :bad_request, json: { message: 'Bad authorization.' }
-          return false
-        elsif params[:access_token] && params[:access_email]
-          return authenticate_user_from_simple_token!(params[:access_email], params[:access_token])
+        def add_generic_headers!
+          response.headers['X-Ekylibre-Media-Type'] = 'ekylibre.v1'
+          # response.headers['Access-Control-Allow-Origin'] = '*'
         end
-        render status: :unauthorized, json: { message: 'Unauthorized.' }
-        false
-      end
+
+        def force_json!
+          request.format = 'json'
+        end
+
+        def authenticate_api_user!
+          user = nil
+          token = nil
+          if authorization = request.headers['Authorization']
+            keys = authorization.split(' ')
+            if keys.first == 'simple-token'
+              return authenticate_user_from_simple_token!(keys.second, keys.third)
+            end
+            render status: :bad_request, json: { message: 'Bad authorization.' }
+            return false
+          elsif params[:access_token] && params[:access_email]
+            return authenticate_user_from_simple_token!(params[:access_email], params[:access_token])
+          end
+          render status: :unauthorized, json: { message: 'Unauthorized.' }
+          false
+        end
 
       # Initialize locale with params[:locale] or HTTP_ACCEPT_LANGUAGE
       def set_locale
@@ -73,33 +67,30 @@ module Api
         I18n.locale = session[:locale] = locale
       end
 
-      hide_action :authenticate_user_from_simple_token!
-      # Check given token match with the user one and
-      def authenticate_user_from_simple_token!(email, token)
-        user = User.find_by(email: email)
-        # Notice how we use Devise.secure_compare to compare the token
-        # in the database with the token given in the params, mitigating
-        # timing attacks.
-        if user && Devise.secure_compare(user.authentication_token, token)
-          # Sign in using token should not be tracked by Devise trackable
-          # See https://github.com/plataformatec/devise/issues/953
-          request.env['devise.skip_trackable'] = true
-          # Notice the store option defaults to false, so the entity
-          # is not actually stored in the session and a token is needed
-          # for every request. That behaviour can be configured through
-          # the sign_in_token option.
-          sign_in user, store: false
-          return true
+        # Check given token match with the user one and
+        def authenticate_user_from_simple_token!(email, token)
+          user = User.find_by(email: email)
+          # Notice how we use Devise.secure_compare to compare the token
+          # in the database with the token given in the params, mitigating
+          # timing attacks.
+          if user && Devise.secure_compare(user.authentication_token, token)
+            # Sign in using token should not be tracked by Devise trackable
+            # See https://github.com/plataformatec/devise/issues/953
+            request.env['devise.skip_trackable'] = true
+            # Notice the store option defaults to false, so the entity
+            # is not actually stored in the session and a token is needed
+            # for every request. That behaviour can be configured through
+            # the sign_in_token option.
+            sign_in user, store: false
+            return true
+          end
+          render status: :unauthorized, json: { message: 'Unauthorized.' }
+          false
         end
-        render status: :unauthorized, json: { message: 'Unauthorized.' }
-        false
-      end
 
-      def error_message(message, status: :bad_request)
-        render json: { message: message }, status: status
-      end
-
-      protected
+        def error_message(message, status: :bad_request)
+          render json: { message: message }, status: status
+        end
 
         def validate_provider(filtered_params)
           provider = filtered_params.fetch(:provider, {})

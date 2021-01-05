@@ -6,9 +6,16 @@ FactoryBot.define do
   end
 
   factory :tractor_tool, class: InterventionTool do
+    transient do
+      initial_born_at {}
+    end
+
     intervention
-    association :product, factory: :tractor
     reference_name { 'tractor' }
+
+    after(:build) do |tool, evaluator|
+      tool.product = build :tractor, initial_born_at: evaluator.initial_born_at
+    end
   end
 
   factory :sower_tool, class: InterventionTool do

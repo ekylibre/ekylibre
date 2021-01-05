@@ -38,7 +38,7 @@ class MapEditorManager
         layer_serie = "#{layer}_serie"
         layer_label = LAYERS[layer][:label]
         mapeditor[:show][:series][layer_serie] = send(layer_serie, options)
-        mapeditor[:show][:layers] << LAYERS[layer].merge(label: layer_label.first.send(:tl, layer_label.second))
+        mapeditor[:show][:layers] << LAYERS[layer].merge(label: layer_label.first.tl(**layer_label.second || {}))
       end
       mapeditor
     end

@@ -1,13 +1,13 @@
 require 'test_helper'
-  module Api
-	  module V1
-      class PlantsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
-	      connect_with_token
+module Api
+  module V1
+    class PlantsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
+      connect_with_token
 
-	      setup do
-	        Plant.delete_all
-	        create_list(:corn_plant, 10, updated_at: '01/01/2016')
-	      end
+      setup do
+        Plant.delete_all
+        create_list(:corn_plant, 10, updated_at: '01/01/2016')
+      end
 
 	      test 'get all records' do
 	        get :index

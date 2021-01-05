@@ -28,10 +28,12 @@ module Backend
         assert_nil bank_forty_two.letter
         assert_nil journal_forty_two.bank_statement_letter
 
-        post :create, format: :json,
-             cash_id: @bank_statement.cash_id,
-             bank_statement_items: [bank_forty_two],
-             journal_entry_items: [journal_forty_two]
+        post :create, params: {
+          format: :json,
+          cash_id: @bank_statement.cash_id,
+          bank_statement_items: [bank_forty_two],
+          journal_entry_items: [journal_forty_two]
+        }
 
         new_letter = LETTER.next
 
@@ -47,10 +49,12 @@ module Backend
         assert_equal LETTER, journal_leet.bank_statement_letter
         assert_equal @bank_statement, journal_leet.bank_statement
 
-        xhr :delete, :destroy, format: :json,
-            cash_id: @bank_statement.cash_id,
-            id: @bank_statement.id,
-            letter: LETTER
+        xhr :delete, :destroy, params: {
+          format: :json,
+          cash_id: @bank_statement.cash_id,
+          id: @bank_statement.id,
+          letter: LETTER
+        }
 
         assert_equal LETTER, JSON(@response.body)['letter']
 

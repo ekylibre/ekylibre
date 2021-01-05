@@ -438,7 +438,7 @@ class Intervention < ApplicationRecord
     if costing
       costing.update(attributes)
     else
-      update_columns(costing_id: InterventionCosting.create!(attributes))
+      update_columns(costing_id: InterventionCosting.create!(attributes).id)
     end
   end
 

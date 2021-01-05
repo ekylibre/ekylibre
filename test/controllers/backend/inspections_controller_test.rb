@@ -5,7 +5,7 @@ module Backend
     test_restfully_all_actions new: { params: { activity_id: 1 } }, except: %i[create export show]
 
     test 'export to ODS' do
-      get :export, id: Inspection.pluck(:id).join(','), format: :ods
+      get :export, params: { id: Inspection.pluck(:id).join(','), format: :ods }
     end
   end
 end

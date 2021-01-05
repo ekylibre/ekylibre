@@ -42,7 +42,7 @@ module Unrollable
 
         respond_to do |format|
           data_only_view = proc { items.map { |item| { label: UnrollHelper.label_item(item, filters, controller_path, action_name), id: item.id } } }
-          format.html { render partial: 'unrolled', locals: { max: options[:max], items: items, fill_in: fill_in, keys: keys, filters: filters, render_partial: options[:partial], search: search_term.capitalize, model_name: model_name, visible_items_count: options[:visible_items_count] }, layout: false }
+          format.html { render partial: 'application/unrolled', locals: { max: options[:max], items: items, fill_in: fill_in, keys: keys, filters: filters, render_partial: options[:partial], search: search_term.capitalize, model_name: model_name, visible_items_count: options[:visible_items_count] }, layout: false }
           format.json { render json: data_only_view.call }
           format.xml  { render xml:  data_only_view.call }
         end

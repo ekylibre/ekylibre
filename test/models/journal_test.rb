@@ -87,7 +87,7 @@ class JournalTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'cannot set an accountant which has opened exchanges in its financial year' do
     accountant = create(:entity, :accountant)
     financial_year = financial_years(:financial_years_025)
-    financial_year.update_column(:accountant_id, accountant)
+    financial_year.update_column(:accountant_id, accountant.id)
     create(:financial_year_exchange, :opened, financial_year: financial_year)
 
     journal = create(:journal, :various)
@@ -98,7 +98,7 @@ class JournalTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'cannot remove accountant which has opened exchanges in its financial year' do
     accountant = create(:entity, :accountant)
     financial_year = financial_years(:financial_years_025)
-    financial_year.update_column(:accountant_id, accountant)
+    financial_year.update_column(:accountant_id, accountant.id)
     journal = create(:journal, :various, accountant_id: accountant.id)
     create(:financial_year_exchange, :opened, financial_year: financial_year)
     journal.accountant = nil

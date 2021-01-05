@@ -12,7 +12,10 @@ module Api
         test 'receiving an appropriate payload creates an appropriate InterventionParticipation and returns its id' do
           payload = correct_payload
 
-          part_id = JSON(post(:create, payload).body)['id']
+          post :create, params: payload
+          assert_response :created
+
+          part_id = JSON(response.body)['id']
           assert_not_nil part_id
           assert_not_nil part = InterventionParticipation.find_by(id: part_id)
 
@@ -24,8 +27,13 @@ module Api
         test 'receiving a payload doesn\'t generate an InterventionParticipation if not needed' do
           payload = correct_payload
 
-          part_id_una = JSON(post(:create, payload).body)['id']
-          part_id_bis = JSON(post(:create, payload).body)['id']
+          r1 = post(:create, params: payload)
+          assert_response :created, response.body
+          r2 = post(:create, params: payload)
+          assert_response :created
+
+          part_id_una = JSON(r1.body)['id']
+          part_id_bis = JSON(r2.body)['id']
 
           assert_not_nil part_id_una
           assert_not_nil part_id_bis
@@ -93,7 +101,8 @@ module Api
 
           original_count = Intervention.where(nature: :record).count
           payload = correct_payload
-          post :create, payload
+          post :create, params: payload
+          assert_response :created
 
           assert_equal original_count + 1, Intervention.where(nature: :record).count
         end
@@ -101,10 +110,10 @@ module Api
         test 'doesn\'t instantiate an intervention if a fitting one exists' do
           payload = correct_payload
 
-          post :create, payload
+          post :create, params: payload
           original_count = Intervention.count
 
-          post :create, payload
+          post :create, params: payload
           new_count = Intervention.count
 
           assert_equal original_count, new_count
@@ -159,11 +168,18 @@ module Api
                 }
               ]
           }
-          response = JSON(post(:create, payload).body)
+
+          resp = post(:create, params: payload)
+          assert_response :created
+
+          response = JSON(resp.body)
           part_id = response['id']
           original_count = InterventionParticipation.find(part_id).working_periods.count
 
-          part_id = JSON(post(:create, payload).body)['id']
+          resp = post(:create, params: payload)
+          assert_response :created
+
+          part_id = JSON(resp.body)['id']
           new_count = InterventionParticipation.find(part_id).working_periods.count
 
           assert_equal original_count, new_count
@@ -172,13 +188,16 @@ module Api
         test 'ignores overlapping working periods' do
           payload = overlapping_payload
 
-          part_id = JSON(post(:create, payload).body)['id']
+          resp = post(:create, params: payload)
+          assert_response :created
+
+          part_id = JSON(resp.body)['id']
           original_count = InterventionParticipation.find(part_id).working_periods.count
 
           assert_equal 1, original_count
 
           payload = overlapping_payload(only_overlap: true)
-          part_id = JSON(post(:create, payload).body)['id']
+          part_id = JSON(post(:create, params: payload).body)['id']
           new_count = InterventionParticipation.find(part_id).working_periods.count
 
           assert_equal original_count, new_count
@@ -186,7 +205,10 @@ module Api
 
         test 'created working_periods have the correct nature' do
           payload = correct_payload
-          part_id = JSON(post(:create, payload).body)['id']
+          resp = post(:create, params: payload)
+          assert_response :created
+
+          part_id = JSON(resp.body)['id']
           natures = InterventionParticipation.find(part_id).working_periods.order(:started_at).pluck(:nature).map(&:to_sym)
 
           assert_equal %i[preparation travel intervention travel preparation travel intervention travel preparation], natures
@@ -397,7 +419,7 @@ module Api
             device_uid: "android:46b9fb83a04c19ff",
             intervention_id: @request_intervention.id
           }
-          post :create, payload
+          post :create, params: payload
           assert_response :created
           participation_id = JSON.parse(response.body)['id']
           intervention = InterventionParticipation.find(participation_id).intervention
@@ -435,7 +457,7 @@ module Api
             device_uid: "android:46b9fb83a04c19ff",
             intervention_id: @request_intervention.id
           }
-          post :create, payload
+          post :create, params: payload
           assert_response :created
           participation_id = JSON.parse(response.body)['id']
           intervention = InterventionParticipation.find(participation_id).intervention
@@ -473,7 +495,7 @@ module Api
             device_uid: "android:46b9fb83a04c19ff",
             intervention_id: @request_intervention.id
           }
-          post :create, payload
+          post :create, params: payload
           assert_response :created
           participation_id = JSON.parse(response.body)['id']
           intervention = InterventionParticipation.find(participation_id).intervention
@@ -520,7 +542,7 @@ module Api
             device_uid: "android:46b9fb83a04c19ff",
             intervention_id: @request_intervention.id
           }
-          post :create, payload
+          post :create, params: payload
           assert_response :bad_request
         end
 
@@ -558,7 +580,7 @@ module Api
             device_uid: "android:46b9fb83a04c19ff",
             intervention_id: @request_intervention.id
           }
-          post :create, payload
+          post :create, params: payload
           assert_response :bad_request
         end
 
@@ -597,7 +619,7 @@ module Api
             device_uid: "android:46b9fb83a04c19ff",
             intervention_id: @request_intervention.id
           }
-          post :create, payload
+          post :create, params: payload
           assert_response :bad_request
         end
 
@@ -626,11 +648,15 @@ module Api
       private
 
         def correct_payload(state: :done, procedure: :plant_watering)
+          intervention_started_at = DateTime.parse('2016-09-30T11:30:49.320+0200')
+          intervention_stopped_at = intervention_started_at + 1.hour
           request_intervention = create(:intervention,
                                         :with_working_period,
                                         procedure_name: :plant_watering,
                                         actions: [:irrigation],
-                                        nature: :request
+                                        nature: :request,
+                                        started_at: intervention_started_at,
+                                        stopped_at: intervention_stopped_at
           )
           {
             intervention_id: request_intervention.id,

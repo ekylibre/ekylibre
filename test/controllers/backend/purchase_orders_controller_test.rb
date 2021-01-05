@@ -6,7 +6,7 @@ module Backend
 
     test "an order can't be created without at least one item" do
       supplier_one = create(:entity, :supplier)
-      post :create, purchase_order: { supplier_id: supplier_one }
+      post :create, params: { purchase_order: { supplier_id: supplier_one } }
 
       # assert_not
       assert_response 200

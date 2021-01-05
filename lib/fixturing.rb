@@ -117,7 +117,7 @@ module Fixturing
     end
 
     def migrate(tenant, options = {})
-      target = ActiveRecord::Migrator.last_version
+      target = ActiveRecord::Migrator.last_migration.version
       origin = options[:origin] || current_version
       if target != origin
         say 'Migrate fixtures from ' + origin.inspect + ' to ' + target.inspect

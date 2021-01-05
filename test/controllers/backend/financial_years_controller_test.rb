@@ -27,7 +27,7 @@ module Backend
       fixed_asset = create(:fixed_asset, started_on: Date.today, stopped_on: Date.today + 1.day)
       fixed_asset_depreciation = create(:fixed_asset_depreciation, fixed_asset: fixed_asset, started_on: Date.today, stopped_on: Date.today + 1.day)
       assert !fixed_asset_depreciation.locked
-      post :lock, id: financial_year.id
+      post :lock, params: { id: financial_year.id }
       assert FixedAssetDepreciation.up_to(financial_year.stopped_on).where(locked: false).empty?
     end
 
@@ -37,16 +37,16 @@ module Backend
 
       @company.update!(legal_position_code: "SA")
 
-      get :close, id: @financial_year
+      get :close, params: { id: @financial_year }
       assert_template partial: '_capital_result_allocation'
 
       @company.update!(legal_position_code: "EI")
 
-      get :close, id: @financial_year
+      get :close, params: { id: @financial_year }
       assert_equal 1, (Nokogiri::HTML(response.body).css('div.amount_allocated--individual_capital #allocations_101')).count
 
       @company.update!(legal_position_code: "GAEC")
-      get :close, id: @financial_year
+      get :close, params: { id: @financial_year }
       assert_template partial: '_person_result_allocation'
 
     end
@@ -129,7 +129,7 @@ module Backend
       validate_fog
       @next_year.reload
 
-      get :close, id: @next_year
+      get :close, params: { id: @next_year }
       assert_template partial: '_negative_result_allocation_person'
 
       post :close, id: @next_year, financial_year: { stopped_on: @next_year.stopped_on },

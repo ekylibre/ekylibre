@@ -46,6 +46,17 @@ module Ekylibre
     # Confiure ActiveJob queue adapter
     config.active_job.queue_adapter = :sidekiq
 
+    # Do not swallow errors in after_commit/after_rollback callbacks.
+    # config.active_record.raise_in_transactional_callbacks = true
+
+    # Default starting from Rails 5
+    # TODO: enable this when all optional belongs_to have been edited with 'optional: true'
+    # config.active_record.belongs_to_required_by_default = true
+
+    # TODO: enable this when ready
+    # config.action_controller.per_form_csrf_tokens = true
+    # config.action_controller.forgery_protection_origin_check = true
+
     # Configure defaults for generators
     config.generators do |g|
       g.orm :active_record
@@ -62,7 +73,8 @@ module Ekylibre
     #   end
     # end
 
-    config.middleware.insert_after ActionDispatch::ParamsParser, ActionDispatch::XmlParamsParser
+    # TODO: Rails 5 upgrade: check if removing this is OK
+    # config.middleware.insert_after ActionDispatch::ParamsParser, ActiveSupport::XMLConverter
 
     initializer :register_core_plugin, before: :load_config_initializers do
       Ekylibre::Application.instance.plugins << Ekylibre::Core::Plugin.new
