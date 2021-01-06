@@ -881,7 +881,7 @@ product_natures_036:
   updated_at: 2014-11-07 16:33:48.598611000 Z
   updater_id: 1
   variable_indicators_list: certification, plant_life_state, plants_count, plants_interval,
-    rows_interval, shape, woodstock_variety
+    rows_interval, shape, rootstock_variety
   variety: vitis
   type: VariantTypes::CropType
 product_natures_037:
@@ -892,7 +892,7 @@ product_natures_037:
   derivative_of: vitis
   derivatives_list: ''
   evolvable: false
-  frozen_indicators_list: woodstock_variety
+  frozen_indicators_list: rootstock_variety
   id: 37
   linkage_points_list: ''
   lock_version: 0

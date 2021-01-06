@@ -6969,7 +6969,7 @@ versions_131:
     initial_father_id:
     initial_mother_id:
     variety: seedling
-    derivative_of: vitis_sauvignon_blanc
+    derivative_of: vitis
     tracking_id: 3
     financial_asset_id:
     born_at:
@@ -7195,7 +7195,7 @@ versions_135:
     initial_father_id:
     initial_mother_id:
     variety: seedling
-    derivative_of: vitis_sauvignon_blanc
+    derivative_of: vitis
     tracking_id: 3
     financial_asset_id:
     born_at: 2014-11-07 16:47:34.875169000 Z
