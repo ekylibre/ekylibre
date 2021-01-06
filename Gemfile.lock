@@ -369,7 +369,7 @@ GEM
     omniauth-oauth2 (1.7.0)
       oauth2 (~> 1.4)
       omniauth (~> 1.9)
-    onoma (0.4.2)
+    onoma (0.5.1)
       activesupport (>= 4.2)
       nokogiri (>= 1.10.4)
       zeitwerk (~> 2.4.0)
@@ -722,7 +722,7 @@ DEPENDENCIES
   odf-report!
   omniauth
   omniauth-oauth2
-  onoma (~> 0.4.2)
+  onoma (~> 0.5.0)
   paperclip
   paperclip-document
   paranoia (~> 2.2)
