@@ -104,6 +104,7 @@ class FixedAsset
           equipment = create :equipment_variant
           purchase = create :purchase_invoice, invoiced_at: Date.new(2019, 1, 1)
           purchase_item = create :purchase_item, purchase: purchase, variant: equipment, fixed: true
+          purchase_item.purchase.save
           purchase_item.reload
           purchase_item.fixed_asset
         end
