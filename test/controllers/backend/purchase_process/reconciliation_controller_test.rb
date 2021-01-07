@@ -37,7 +37,7 @@ module Backend
 
       test "if the supplier is set then only given receptions from this supplier appear in the purchase invoice form modal and could be reconciled" do
 
-        get :receptions_to_reconciliate, supplier: @supplier_one.id
+        get :receptions_to_reconciliate, params: { supplier: @supplier_one.id }
         assert_response 200
 
         parsing_response_reception = Nokogiri::HTML(response.body)
@@ -50,7 +50,7 @@ module Backend
 
       test "only reception items not reconciled could be reconciled" do
 
-        get :receptions_to_reconciliate, supplier: @supplier_two.id
+        get :receptions_to_reconciliate, params: { supplier: @supplier_two.id }
         assert_response 200
 
         parsing_response_reception = Nokogiri::HTML(response.body)
@@ -60,7 +60,7 @@ module Backend
       end
 
       test "if the supplier is set then only opened purchase_orders from this supplier appear in the reception form modal and could be reconciled" do
-        get :purchase_orders_to_reconciliate, supplier: @supplier_one.id
+        get :purchase_orders_to_reconciliate, params: { supplier: @supplier_one.id }
         assert_response 200
 
         parsing_response_purchase_order = Nokogiri::HTML(response.body)

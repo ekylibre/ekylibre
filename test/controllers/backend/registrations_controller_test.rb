@@ -31,14 +31,13 @@ module Backend
     end
 
     def update_request(user)
-      patch :update, id: user.id,
-                     user: {
-                       first_name: user.first_name,
-                       last_name: user.last_name,
-                       language: user.language,
-                       role_id: user.role.id,
-                       email: user.email
-                     }
+      patch :update, params: { id: user.id, user: {
+        first_name: user.first_name,
+        last_name: user.last_name,
+        language: user.language,
+        role_id: user.role.id,
+        email: user.email
+      } }
     end
 
     setup do
@@ -47,7 +46,7 @@ module Backend
 
     # TODO: Re-activate the following
 
-    # test 'approves user' do
+    # test 'approves user' doq
     #   unapproved_user = set_unapproved_user
 
     #   assert !unapproved_user.active_for_authentication?

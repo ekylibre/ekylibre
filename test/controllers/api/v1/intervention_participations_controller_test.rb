@@ -49,7 +49,7 @@ module Api
           payload = payload_without_working_periods
           request_intervention_id = payload[:intervention_id]
           request_intervention = Intervention.find(request_intervention_id)
-          post :create, payload
+          post :create, params: payload
 
           done_intervention = request_intervention.record_interventions.first
           assert_not_nil done_intervention
@@ -60,14 +60,14 @@ module Api
           in_progress_payload = payload_without_working_periods(state: :in_progress)
           request_intervention_id = in_progress_payload[:intervention_id]
           request_intervention = Intervention.find(request_intervention_id)
-          post :create, in_progress_payload
+          post :create, params: in_progress_payload
 
           in_progress_intervention = request_intervention.record_interventions.first
           assert_not_nil in_progress_intervention
           assert_equal 'in_progress', in_progress_intervention.state
 
           done_payload = in_progress_payload.merge(state: :done)
-          post :create, done_payload
+          post :create, params: done_payload
 
           done_intervention = request_intervention.record_interventions.first
           assert_equal in_progress_intervention, done_intervention
@@ -78,7 +78,7 @@ module Api
           payload = payload_without_working_periods
           request_intervention_id = payload[:intervention_id]
           request_intervention = Intervention.find(request_intervention_id)
-          post :create, payload
+          post :create, params: payload
 
           done_intervention = request_intervention.record_interventions.first
           assert_not_nil done_intervention
@@ -127,7 +127,7 @@ module Api
         test 'no error should be raised if no working_periods are provided' do
           payload = correct_payload.except(:working_periods)
 
-          assert_nothing_raised { post :create, payload }
+          assert_nothing_raised { post :create, params: payload }
         end
 
         test 'ignores working periods that already exist' do
@@ -237,7 +237,7 @@ module Api
           request_intervention = Intervention.find(payload[:intervention_id])
           started_at_before_action = request_intervention.started_at
           stopped_at_before_action = request_intervention.stopped_at
-          post :create, payload
+          post :create, params: payload
 
           record_intervention = request_intervention.record_interventions.first
           assert_not_equal record_intervention.started_at, started_at_before_action
@@ -262,7 +262,7 @@ module Api
             },
           ]
           in_progress_payload = default_payload.merge(state: :in_progress, working_periods: in_progress_working_periods)
-          post :create, in_progress_payload
+          post :create, params: in_progress_payload
 
           request_intervention = Intervention.find(in_progress_payload[:intervention_id])
           in_progress_intervention = request_intervention.record_interventions.first
@@ -278,7 +278,7 @@ module Api
             }
           ]
           done_payload = in_progress_payload.merge(state: :done, working_periods: done_working_periods)
-          post :create, done_payload
+          post :create, params: done_payload
 
           done_intervention = request_intervention.record_interventions.first
           assert_equal in_progress_intervention, done_intervention
@@ -296,7 +296,7 @@ module Api
             }
           ]
           payload = default_payload.merge(state: :in_progress, working_periods: working_period_1)
-          post :create, payload
+          post :create, params: payload
           user = create(:user)
           switch_user(user) do
             working_period_2 = [
@@ -307,7 +307,7 @@ module Api
             }
           ]
             payload.merge!(working_periods: working_period_2)
-            post :create, payload
+            post :create, params: payload
           end
           working_period_3 = [
             {
@@ -317,7 +317,7 @@ module Api
             }
           ]
           payload.merge!(working_periods: working_period_3)
-          post :create, payload
+          post :create, params: payload
           switch_user(user) do
             working_period_4 = [
             {
@@ -327,7 +327,7 @@ module Api
             }
           ]
             payload.merge!(working_periods: working_period_4)
-            post :create, payload
+            post :create, params: payload
           end
           request_intervention = Intervention.find(payload[:intervention_id])
           intervention = request_intervention.record_interventions.first

@@ -19,7 +19,7 @@ module Backend
                        Campaign.find(1).name,
                        custom_name,
                        "##{activity.productions_next_rank_number}"].join(' ')
-      get :build, { activity_id: 1, cultivable_zone_id: 1, campaign_id: 1, free_field: custom_name }
+      get :build, params: { activity_id: 1, cultivable_zone_id: 1, campaign_id: 1, free_field: custom_name }
       assert_response :success
       assert_equal "La Boutanche Blé tendre 2013 custom name #6", JSON.parse(response.body)["name"], 'should return the right name'
       assert JSON.parse(response.body)["has_free_field"], '#has_free_field? should return true'
