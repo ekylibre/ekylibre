@@ -1,4 +1,4 @@
-class UpdateGradingAttributes < ActiveRecord::Migration
+class UpdateGradingAttributes < ActiveRecord::Migration[4.2]
   def change
     rename_table :activity_grading_checks, :activity_inspection_point_natures
     add_column :activity_inspection_point_natures, :name, :string

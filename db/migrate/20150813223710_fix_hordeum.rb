@@ -1,5 +1,5 @@
 # Migration generated with nomenclature migration #3
-class FixHordeum < ActiveRecord::Migration
+class FixHordeum < ActiveRecord::Migration[4.2]
   def up
     # Change item varieties#hordeum_hibernum with new name hordeum_hexastichum and new parent hordeum_vulgare
     execute "UPDATE activities SET cultivation_variety='hordeum_hexastichum' WHERE cultivation_variety='hordeum_hibernum'"

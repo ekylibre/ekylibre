@@ -1,4 +1,4 @@
-class ForcePresenceOfPeriodOfInterventions < ActiveRecord::Migration
+class ForcePresenceOfPeriodOfInterventions < ActiveRecord::Migration[4.2]
   def change
     reversible do |r|
       r.up do

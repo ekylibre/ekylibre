@@ -1,4 +1,4 @@
-class RenameFinancialAssetsToFixedAssets < ActiveRecord::Migration
+class RenameFinancialAssetsToFixedAssets < ActiveRecord::Migration[4.2]
   def change
     rename_table :financial_assets, :fixed_assets
     # Polymorphic columns

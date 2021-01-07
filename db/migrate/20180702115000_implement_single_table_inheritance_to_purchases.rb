@@ -1,4 +1,4 @@
-class ImplementSingleTableInheritanceToPurchases < ActiveRecord::Migration
+class ImplementSingleTableInheritanceToPurchases < ActiveRecord::Migration[4.2]
   def change
     add_column :purchases, :type, :string
 

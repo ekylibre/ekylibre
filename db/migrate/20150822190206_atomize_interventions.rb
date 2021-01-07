@@ -1,4 +1,4 @@
-class AtomizeInterventions < ActiveRecord::Migration
+class AtomizeInterventions < ActiveRecord::Migration[4.2]
   TASK_TABLES = %i[product_enjoyments product_junctions product_links product_linkages product_localizations product_memberships product_ownerships product_phases product_reading_tasks].freeze
   POLYMORPHIC_REFERENCES = [
     %i[attachments resource],

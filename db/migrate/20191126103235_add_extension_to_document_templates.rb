@@ -1,4 +1,4 @@
-class AddExtensionToDocumentTemplates < ActiveRecord::Migration
+class AddExtensionToDocumentTemplates < ActiveRecord::Migration[4.2]
   def change
     add_column :document_templates, :file_extension, :string, default: :xml
 

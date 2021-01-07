@@ -1,4 +1,4 @@
-class CleanAndConstrainPreferences < ActiveRecord::Migration
+class CleanAndConstrainPreferences < ActiveRecord::Migration[4.2]
   def change
     execute <<-SQL
       DELETE FROM preferences

@@ -1,4 +1,4 @@
-class NormalizeTaskNatures < ActiveRecord::Migration
+class NormalizeTaskNatures < ActiveRecord::Migration[4.2]
   CHANGES = {
     outgoing_email: :email,
     incoming_email: :email,

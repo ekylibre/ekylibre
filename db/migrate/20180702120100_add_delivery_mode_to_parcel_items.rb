@@ -1,4 +1,4 @@
-class AddDeliveryModeToParcelItems < ActiveRecord::Migration
+class AddDeliveryModeToParcelItems < ActiveRecord::Migration[4.2]
   def change
     add_column :parcel_items, :delivery_mode, :string
     add_reference :parcel_items, :delivery, index: true

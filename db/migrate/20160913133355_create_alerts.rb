@@ -1,4 +1,4 @@
-class CreateAlerts < ActiveRecord::Migration
+class CreateAlerts < ActiveRecord::Migration[4.2]
   def change
     create_table :alerts do |t|
       t.references :sensor, index: true, foreign_key: true

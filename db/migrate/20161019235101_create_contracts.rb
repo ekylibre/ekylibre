@@ -1,4 +1,4 @@
-class CreateContracts < ActiveRecord::Migration
+class CreateContracts < ActiveRecord::Migration[4.2]
   def change
     create_table :contracts do |t|
       t.string :number

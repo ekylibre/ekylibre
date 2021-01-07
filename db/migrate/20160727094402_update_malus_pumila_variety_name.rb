@@ -1,5 +1,5 @@
 # Migration generated with nomenclature migration #20160727092830
-class UpdateMalusPumilaVarietyName < ActiveRecord::Migration
+class UpdateMalusPumilaVarietyName < ActiveRecord::Migration[4.2]
   def up
     # Merge item varieties#malus_pumila_belle-fille_de_la_creuse into malus_pumila_belle_fille_de_la_creuse
     execute "UPDATE activities SET cultivation_variety='malus_pumila_belle_fille_de_la_creuse' WHERE cultivation_variety='malus_pumila_belle-fille_de_la_creuse'"

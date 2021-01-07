@@ -1,4 +1,4 @@
-class AddCapStatements < ActiveRecord::Migration
+class AddCapStatements < ActiveRecord::Migration[4.2]
   def change
     # cap_statements
     create_table :cap_statements do |t|

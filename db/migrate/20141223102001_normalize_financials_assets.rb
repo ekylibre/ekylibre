@@ -1,4 +1,4 @@
-class NormalizeFinancialsAssets < ActiveRecord::Migration
+class NormalizeFinancialsAssets < ActiveRecord::Migration[4.2]
   def change
     # in product_nature_categories
     add_column :product_nature_categories, :financial_asset_depreciations_account_id, :integer

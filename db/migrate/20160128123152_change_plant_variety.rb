@@ -1,5 +1,5 @@
 # Migration generated with nomenclature migration #20160115090243
-class ChangePlantVariety < ActiveRecord::Migration
+class ChangePlantVariety < ActiveRecord::Migration[4.2]
   def up
     # Change item varieties#brassica_pringlea with {:name=>"pringlea_antiscorbutica", :parent=>"brassicaceae"}
     execute "UPDATE activities SET cultivation_variety='pringlea_antiscorbutica' WHERE cultivation_variety='brassica_pringlea'"

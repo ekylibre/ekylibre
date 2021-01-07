@@ -1,4 +1,4 @@
-class AddManureManagementPlanTables < ActiveRecord::Migration
+class AddManureManagementPlanTables < ActiveRecord::Migration[4.2]
   def change
     create_table :manure_management_plans do |t|
       t.string :name, null: false

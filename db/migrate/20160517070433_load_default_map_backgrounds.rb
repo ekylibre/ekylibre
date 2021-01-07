@@ -1,5 +1,5 @@
 # Load default set of map backgrounds
-class LoadDefaultMapBackgrounds < ActiveRecord::Migration
+class LoadDefaultMapBackgrounds < ActiveRecord::Migration[4.2]
   MAP_BACKGROUNDS = [
     { name: 'OpenStreetMap Mapnik', url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', reference_name: 'open_street_map.mapnik', attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>' },
     { name: 'OpenStreetMap Black and white', url: 'http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png', reference_name: 'open_street_map.black_and_white', attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>' },

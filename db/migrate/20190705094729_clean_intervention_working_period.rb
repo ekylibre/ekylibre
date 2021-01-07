@@ -1,4 +1,4 @@
-class CleanInterventionWorkingPeriod < ActiveRecord::Migration
+class CleanInterventionWorkingPeriod < ActiveRecord::Migration[4.2]
   def change
     reversible do |dir|
       dir.up do

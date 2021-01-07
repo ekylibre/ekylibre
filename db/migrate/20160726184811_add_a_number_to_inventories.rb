@@ -1,4 +1,4 @@
-class AddANumberToInventories < ActiveRecord::Migration
+class AddANumberToInventories < ActiveRecord::Migration[4.2]
   def up
     execute "UPDATE inventories SET number = 'I' || LPAD(id::VARCHAR, 8, '0') WHERE number IS NULL OR LENGTH(TRIM(number)) <= 0"
     change_column_null :inventories, :number, false

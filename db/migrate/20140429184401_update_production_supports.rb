@@ -1,4 +1,4 @@
-class UpdateProductionSupports < ActiveRecord::Migration
+class UpdateProductionSupports < ActiveRecord::Migration[4.2]
   def change
     add_column :production_supports, :nature, :string
     add_column :production_supports, :production_usage, :string

@@ -1,4 +1,4 @@
-class AddMissingDocumentTemplates < ActiveRecord::Migration
+class AddMissingDocumentTemplates < ActiveRecord::Migration[4.2]
 
   NATURES = { general_journal: 'Journal centralisateur',
               journal_ledger: 'Etat du journal',

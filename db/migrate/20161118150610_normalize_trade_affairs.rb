@@ -1,4 +1,4 @@
-class NormalizeTradeAffairs < ActiveRecord::Migration
+class NormalizeTradeAffairs < ActiveRecord::Migration[4.2]
   def change
     add_column :affairs, :letter, :string
     add_column :journals, :used_for_permanent_stock_inventory, :boolean, null: false, default: false

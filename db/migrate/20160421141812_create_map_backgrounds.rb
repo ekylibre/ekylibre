@@ -1,4 +1,4 @@
-class CreateMapBackgrounds < ActiveRecord::Migration
+class CreateMapBackgrounds < ActiveRecord::Migration[4.2]
   def change
     create_table :map_backgrounds do |t|
       t.string :name, null: false, index: true

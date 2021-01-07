@@ -1,4 +1,4 @@
-class AddJournalToInventory < ActiveRecord::Migration
+class AddJournalToInventory < ActiveRecord::Migration[4.2]
   def change
     add_reference :inventories, :journal, foreign_key: true
 

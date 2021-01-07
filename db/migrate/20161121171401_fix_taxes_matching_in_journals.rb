@@ -1,4 +1,4 @@
-class FixTaxesMatchingInJournals < ActiveRecord::Migration
+class FixTaxesMatchingInJournals < ActiveRecord::Migration[4.2]
   def change
     reversible do |d|
       d.up do

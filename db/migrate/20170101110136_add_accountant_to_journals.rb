@@ -1,4 +1,4 @@
-class AddAccountantToJournals < ActiveRecord::Migration
+class AddAccountantToJournals < ActiveRecord::Migration[4.2]
   def change
     change_table :journals do |t|
       t.references :accountant, index: true

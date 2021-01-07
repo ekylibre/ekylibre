@@ -1,4 +1,4 @@
-class AddPartialLetteringSupport < ActiveRecord::Migration
+class AddPartialLetteringSupport < ActiveRecord::Migration[4.2]
   def up
     execute <<-SQL.strip_heredoc
           CREATE OR REPLACE FUNCTION compute_partial_lettering() RETURNS TRIGGER AS $$

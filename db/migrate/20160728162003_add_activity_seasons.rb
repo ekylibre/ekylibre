@@ -1,4 +1,4 @@
-class AddActivitySeasons < ActiveRecord::Migration
+class AddActivitySeasons < ActiveRecord::Migration[4.2]
   def change
     create_table :activity_seasons do |t|
       t.references :activity, null: false, index: true

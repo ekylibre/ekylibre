@@ -1,4 +1,4 @@
-class AddAnalyticalFieldsJournalEntries < ActiveRecord::Migration
+class AddAnalyticalFieldsJournalEntries < ActiveRecord::Migration[4.2]
   def up
     add_reference :journal_entry_items, :project_budget, index: true, foreign_key: true
     add_column :journal_entry_items, :equipment_id, :integer

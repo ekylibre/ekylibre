@@ -1,4 +1,4 @@
-class RenameProcedures < ActiveRecord::Migration
+class RenameProcedures < ActiveRecord::Migration[4.2]
   def change
     # Rename procedure inter-row hoeing to inter_row_hoeing
     reversible do |d|

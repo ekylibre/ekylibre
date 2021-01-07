@@ -1,4 +1,4 @@
-class NormalizeCatalogPriceThreads < ActiveRecord::Migration
+class NormalizeCatalogPriceThreads < ActiveRecord::Migration[4.2]
   def up
     change_column :catalog_prices, :thread, :string, limit: 120
     for row in select_rows('SELECT DISTINCT variant_id, usage, catalog_id, indicator_name FROM catalog_prices JOIN catalogs ON (catalogs.id = catalog_id)')

@@ -1,4 +1,4 @@
-class ReviewProductTaxation < ActiveRecord::Migration
+class ReviewProductTaxation < ActiveRecord::Migration[4.2]
   def change
     create_table :product_nature_category_taxations do |t|
       t.references :product_nature_category,    null: false

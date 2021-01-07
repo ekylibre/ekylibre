@@ -1,5 +1,5 @@
 # Migration generated with nomenclature migration #2
-class FixZea < ActiveRecord::Migration
+class FixZea < ActiveRecord::Migration[4.2]
   def up
     # Change item varieties#zea_aallexia with new name zea_mays_aallexia, new parent zea_mays and new itis_tsn
     execute "UPDATE activities SET cultivation_variety='zea_mays_aallexia' WHERE cultivation_variety='zea_aallexia'"

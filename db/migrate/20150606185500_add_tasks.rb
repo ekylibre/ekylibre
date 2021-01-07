@@ -1,4 +1,4 @@
-class AddTasks < ActiveRecord::Migration
+class AddTasks < ActiveRecord::Migration[4.2]
   def change
     create_table :tasks do |t|
       t.string :name,        null: false

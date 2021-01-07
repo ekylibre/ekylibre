@@ -1,4 +1,4 @@
-class RenameHarrowToSoilLoosenerAndPlowToStubbleCultivatorInSomeInterventions < ActiveRecord::Migration
+class RenameHarrowToSoilLoosenerAndPlowToStubbleCultivatorInSomeInterventions < ActiveRecord::Migration[4.2]
   def change
     reversible do |dir|
       dir.up do

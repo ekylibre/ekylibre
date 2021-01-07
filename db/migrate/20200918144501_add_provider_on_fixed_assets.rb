@@ -1,4 +1,4 @@
-class AddProviderOnFixedAssets < ActiveRecord::Migration
+class AddProviderOnFixedAssets < ActiveRecord::Migration[4.2]
   def change
     add_provider_to :fixed_assets
   end

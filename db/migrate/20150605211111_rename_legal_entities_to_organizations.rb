@@ -1,4 +1,4 @@
-class RenameLegalEntitiesToOrganizations < ActiveRecord::Migration
+class RenameLegalEntitiesToOrganizations < ActiveRecord::Migration[4.2]
   def change
     # Polymorphic columns
     reversible do |dir|
