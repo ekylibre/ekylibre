@@ -1032,11 +1032,7 @@
 
   delay = (time, method) -> setTimeout method, time
 
-  $(document).ready ->
-    $("input[data-map-editor]").each ->
-      $(this).mapeditor()
-
-  $(document).on 'dialog:show', ->
+  $(document).behave "load", "input[data-map-editor]", (event) ->
     $("input[data-map-editor]").each ->
       $(this).mapeditor()
 
