@@ -172,19 +172,19 @@ eslint:
   image: $TEST_IMAGE
   variables: &test_task_variables
     # POSTGRES VARIABLES
-    POSTGRES_HOST: 127.0.0.1
-    REDIS_URL: redis://127.0.0.1:6379/
+    POSTGRES_HOST: postgres
+    REDIS_URL: redis://redis:6379/
     POSTGRES_USER: ekylibre
     POSTGRES_DB: ekylibre_test
     TZ: Europe/Paris
     GIT_STRATEGY: none
   services:
-    - mdillon/postgis:9.6-alpine
-    - redis:5.0-alpine
+    - name: mdillon/postgis:9.6-alpine
+      alias: postgres
+    - name: redis:5.0-alpine
+      alias: redis
   except:
     - tags
-  tags:
-    - kubernetes
   script:
     - bash /app/test/ci/run_tests ${TASK}
 
