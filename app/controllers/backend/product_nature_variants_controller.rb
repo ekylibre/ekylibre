@@ -326,7 +326,9 @@ module Backend
       nature_id = if params.key?(:nature_id)
                     params[:nature_id]
                   else
-                    pnv = params.fetch(:product_nature_variant, {})
+                    pnv = params.permit(product_nature_variant: [:nature_id])
+                                .to_h
+                                .fetch(:product_nature_variant, {})
 
                     pnv.is_a?(Hash) ? pnv.fetch(:nature_id, nil) : nil
                   end
