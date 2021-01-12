@@ -61,8 +61,8 @@
 #  - real_*     in financial year currency
 #  - absolute_* in global currency (the same as current financial year's theoretically)
 class JournalEntry < ApplicationRecord
-  class IncompatibleCurrencies < StandardError;
-  end
+  class IncompatibleCurrencies < StandardError; end
+
   include Attachable
   attr_readonly :journal_id
   refers_to :currency
@@ -143,6 +143,21 @@ class JournalEntry < ApplicationRecord
     # Build an SQL condition based on options which should contains acceptable states
     # @deprecated
     def state_condition(states = {}, table_name = nil)
+      if states.nil?
+        ActiveSupport::Deprecation.warn('Providing nil to `state_condition` is deprecated and will not work in the future, give an empty array instead')
+
+        states = []
+      end
+
+      if !states.is_a?(Array)
+        if states.respond_to?(:keys)
+          ActiveSupport::Deprecation.warn('Providing something else than an array of states to `state_condition` is deprecated.')
+          states = states.keys
+        else
+          raise StandardError.new("Unable to find any state in the variable provided (#{states})")
+        end
+      end
+
       condition_builder.state_condition(states, table_name: table_name || self.table_name)
     end
 

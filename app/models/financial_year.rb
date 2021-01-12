@@ -292,6 +292,8 @@ class FinancialYear < ApplicationRecord
 
   # When a financial year is closed,.all the matching journals are closed too.
   def close(closer, to_close_on = nil, options = {})
+    ActiveSupport::Deprecation.warn("FinancialYear#close is deprecated, use FinancialYearClose directly")
+
     FinancialYearClose.for_year(self, close_on: to_close_on, user: closer, **options).execute
   end
 

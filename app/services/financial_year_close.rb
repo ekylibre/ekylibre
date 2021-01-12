@@ -7,7 +7,7 @@ class FinancialYearClose
     # @param [Date] close_on
     # @return [FinancialYearClose]
     def for_year(year, user:, close_on:, **options)
-      new(year, close_on, user, options)
+      new(year, close_on, user, **options)
     end
   end
 
