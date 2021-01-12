@@ -28,7 +28,7 @@ module FinancialYearTest
 
       closer = FinancialYearClose.for_year(f, user: User.first, close_on: nil, **options)
       close_result = closer.execute
-      assert close_result, "Financial year #{f.code} should be closed (#{f.errors.messages.values.join ', '})"
+      assert close_result, "Financial year #{f.code} should be closed (#{f.errors.messages.values.join ', '}, closer said: #{closer.close_error})"
 
       assert f.prior_to_closure_archive.present?
       assert f.post_closure_archive.present?
