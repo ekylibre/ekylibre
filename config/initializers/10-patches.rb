@@ -377,3 +377,50 @@ module ActiveSupport
     end unless constants.include?(:ISO8601Serializer)
   end
 end
+
+# Because RGeo broke compatibility in their serialization model with `projector_class` becoming `projectorclass`
+module RGeo
+  module Geographic
+    class Factory
+      def init_with(coder)
+        # :nodoc:
+        if (proj4_data = coder["proj4"])
+          CoordSys.check!(:proj4)
+          if proj4_data.is_a?(Hash)
+            proj4 = CoordSys::Proj4.create(proj4_data["proj4"], radians: proj4_data["radians"])
+          else
+            proj4 = CoordSys::Proj4.create(proj4_data.to_s)
+          end
+        else
+          proj4 = nil
+        end
+        if (coord_sys_data = coder["cs"])
+          coord_sys = CoordSys::CS.create_from_wkt(coord_sys_data.to_s)
+        else
+          coord_sys = nil
+        end
+        initialize(coder["impl_prefix"],
+                   has_z_coordinate: coder["has_z_coordinate"],
+                   has_m_coordinate: coder["has_m_coordinate"],
+                   srid: coder["srid"],
+                   wkt_generator: symbolize_hash(coder["wkt_generator"]),
+                   wkb_generator: symbolize_hash(coder["wkb_generator"]),
+                   wkt_parser: symbolize_hash(coder["wkt_parser"]),
+                   wkb_parser: symbolize_hash(coder["wkb_parser"]),
+                   uses_lenient_assertions: coder["lenient_assertions"],
+                   buffer_resolution: coder["buffer_resolution"],
+                   proj4: proj4,
+                   coord_sys: coord_sys
+        )
+        if (proj_klass = coder["projectorclass"] || coder["projector_class"]) && (proj_factory = coder["projection_factory"])
+          klass_ = RGeo::Geographic.const_get(proj_klass)
+          if klass_
+            projector = klass_.allocate
+            projector.set_factories(self, proj_factory)
+            @projector = projector
+          end
+        end
+      end
+    end
+  end
+end
