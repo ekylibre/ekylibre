@@ -134,9 +134,9 @@ balance_sheet:
   entities_associate_receivables_depreciations: '4955'
   entities_associate_receivables_net: '4551 F, 4552 F, 4558 F, 4955' #
   entities_associate_receivables_raw: '4551 F, 4552 F, 4558 F'
-  entities_other_receivables: '4096 4097 4098 425 4287 4387, 441 !4419, 443 F, 444 F, 4487, 451 F, 452 F, 453 F, 454 F, 456 F, 458 F, 461 F, 462 465, 467 F, 4687, 478 F'
+  entities_other_receivables: '4096 4097 4098 425 4287 4387, 441 !4419, 443 F, 444 F, 4487, 451 F, 452 F, 453 F, 454 F, 456 F, 458 F, 461 F, 462, 463 F, 465, 467 F, 4687, 478 F'
   entities_other_receivables_depreciations: '4951 4952 4953 4954 4958 496'
-  entities_other_receivables_net: '4096 4097 4098 425 4287 4387, 441 !4419, 443 F, 444 F, 4487, 451 F, 452 F, 453 F, 454 F, 456 F, 458 F, 461 F, 462 465, 467 F, 4687, 478 F, 4951 4952 4953 4954 4958 496'
+  entities_other_receivables_net: '4096 4097 4098 425 4287 4387, 441 !4419, 443 F, 444 F, 4487, 451 F, 452 F, 453 F, 454 F, 456 F, 458 F, 461 F, 462, 463 F, 465, 467 F, 4687, 478 F, 4951 4952 4953 4954 4958 496'
   entities_other_receivables_raw: '4096 4097 4098 425 4287 4387, 441 !4419, 443 F, 444 F, 4487, 451 F, 452 F, 453 F, 454 F, 456 F, 458 F, 461 F, 462 465, 467 F, 4687, 478 F'
   entities_investment_security: '502 503 504 505 506 507 508'
   entities_investment_security_depreciations: '5903 5904 5906 5908'
@@ -152,7 +152,7 @@ balance_sheet:
   capitals_anew_reports: '- 11'
   capitals_profit_or_loss: '- 12'
   capitals_investment_subsidies: '13 C'
-  capitals_derogatory_depreciations: '145 C'
+  capitals_derogatory_depreciations: '- 145'
   capitals_mandatory_provisions: '142 143 144 146 147 148 C'
   capitals_risk_and_charges_provisions: '151 153 155 156 157 158 C'
   capitals_risk_and_charges_provisions_total: '14 15 C'
@@ -163,7 +163,7 @@ balance_sheet:
   debts_cashe_debts: '519 C, 512 E, 514 E, 517 E, 5186 C'
   debts_other_financial_debts: '161 163 165 1675 168 C, 17, 426, 451 E, 456 E, 458 E'
   others_debts_advance_receivables: '419 C' #
-  others_debts_supplier_receivables: '401 4031 402 4032 408 C, 472 E' #
+  others_debts_supplier_receivables: '401 4031 402 4032 408 C, 472 E, 463 E' #
   others_debts_state_debts: '445 E' #
   others_debts_social_debts: '- 421 422 424 427 4280 4282 4283 4284 4286 431 437 4382 4383 4386 442, 443 E, 444 E, 446, 447 4482 4486 457 C'
   others_debts_fixed_asset_debts: '269 279 404 405 C'
@@ -214,9 +214,9 @@ short_balance_sheet:
   entities_associate_receivables_depreciations: '4955'
   entities_associate_receivables_net: '4551 F, 4552 F, 4558 F, 4955' #
   entities_associate_receivables_raw: '4551 F, 4552 F, 4558 F'
-  entities_other_receivables: '4096 4097 4098 425 4287 4387, 441 !4419, 443 F, 444 F, 4487, 451 F, 452 F, 453 F, 454 F, 456 F, 458 F, 461 F, 462 465, 467 F, 4687, 478 F'
+  entities_other_receivables: '4096 4097 4098 425 4287 4387, 441 !4419, 443 F, 444 F, 4487, 451 F, 452 F, 453 F, 454 F, 456 F, 458 F, 461 F, 462, 463 F, 465, 467 F, 4687, 478 F'
   entities_other_receivables_depreciations: '4951 4952 4953 4954 4958 496'
-  entities_other_receivables_net: '4096 4097 4098 425 4287 4387, 441 !4419, 443 F, 444 F, 4487, 451 F, 452 F, 453 F, 454 F, 456 F, 458 F, 461 F, 462 465, 467 F, 4687, 478 F, 4951 4952 4953 4954 4958 496'
+  entities_other_receivables_net: '4096 4097 4098 425 4287 4387, 441 !4419, 443 F, 444 F, 4487, 451 F, 452 F, 453 F, 454 F, 456 F, 458 F, 461 F, 462,463 F, 465, 467 F, 4687, 478 F, 4951 4952 4953 4954 4958 496'
   entities_other_receivables_raw: '4096 4097 4098 425 4287 4387, 441 !4419, 443 F, 444 F, 4487, 451 F, 452 F, 453 F, 454 F, 456 F, 458 F, 461 F, 462 465, 467 F, 4687, 478 F'
   entities_investment_security: '502 503 504 505 506 507 508'
   entities_investment_security_depreciations: '5903 5904 5906 5908'
@@ -232,10 +232,10 @@ short_balance_sheet:
   capitals_anew_reports: '- 11'
   capitals_profit_or_loss: '- 12'
   capitals_investment_subsidies: '13 C'
-  capitals_risk_and_charges_provisions_total: '14 15 C'
+  capitals_risk_and_charges_provisions_total: '- 14 15'
   debts_loans_total: '16 17 C' #
   others_debts_advance_receivables: '419 C' #
-  others_debts_supplier_receivables: '401 4031 402 4032 408 C, 472 E'
+  others_debts_supplier_receivables: '401 4031 402 4032 408 C, 472 E, 463 E'
   others_debts_state_debts: '445 E'
   debts_associate_total: '4551 E, 4552 E, 4558 E, 4553 4554 C'
   others_debts_social_debts: '- 421 422 424 427 4280 4282 4283 4284 4286 431 437 4382 4383 4386 442, 443 E, 444 E, 446, 447 4482 4486 457 C'
