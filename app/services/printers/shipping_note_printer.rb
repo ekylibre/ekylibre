@@ -12,7 +12,6 @@ module Printers
     def generate(r)
       # Companies
       company = EntityDecorator.decorate(Entity.of_company)
-      receiver = EntityDecorator.decorate(shipment.recipient)
 
       # custom_fields
       custom_fields = if Shipment.customizable?
@@ -38,7 +37,7 @@ module Printers
       r.add_field :company_website, company.website
 
       # Receiver_address
-      r.add_field :receiver_address, receiver.address
+      r.add_field :receiver_address, shipment.address.mail_coordinate
 
       # Shipping_number
       r.add_field :shipping_number, shipment.number
