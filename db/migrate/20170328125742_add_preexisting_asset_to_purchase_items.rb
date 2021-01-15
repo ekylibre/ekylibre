@@ -1,4 +1,4 @@
-class AddPreexistingAssetToPurchaseItems < ActiveRecord::Migration
+class AddPreexistingAssetToPurchaseItems < ActiveRecord::Migration[4.2]
   def change
     add_column :purchase_items, :preexisting_asset, :boolean
 

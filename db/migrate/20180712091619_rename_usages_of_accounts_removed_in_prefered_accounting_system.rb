@@ -1,4 +1,4 @@
-class RenameUsagesOfAccountsRemovedInPreferedAccountingSystem < ActiveRecord::Migration
+class RenameUsagesOfAccountsRemovedInPreferedAccountingSystem < ActiveRecord::Migration[4.2]
   ACCOUNTS = [
     { name: 'long_time_animal_stock', fr_pcga: '31', fr_pcg82: 'NONE' },
     { name: 'raw_material_and_supplies', fr_pcga: 'NONE', fr_pcg82: '31' },

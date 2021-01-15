@@ -1,4 +1,4 @@
-class RepairsNullJournals < ActiveRecord::Migration
+class RepairsNullJournals < ActiveRecord::Migration[4.2]
   def up
     execute 'UPDATE sale_natures SET with_accounting = FALSE WHERE with_accounting = TRUE AND journal_id NOT IN (SELECT id FROM journals)'
     execute 'UPDATE purchase_natures SET with_accounting = FALSE WHERE with_accounting = TRUE AND journal_id NOT IN (SELECT id FROM journals)'

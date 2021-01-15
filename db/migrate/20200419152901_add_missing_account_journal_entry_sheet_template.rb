@@ -1,5 +1,4 @@
-class AddMissingAccountJournalEntrySheetTemplate < ActiveRecord::Migration
-
+class AddMissingAccountJournalEntrySheetTemplate < ActiveRecord::Migration[4.2]
   NATURES = { account_journal_entry_sheet: 'Extrait de compte' }
 
   def up

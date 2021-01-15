@@ -18,7 +18,7 @@ module Backend
         productions = ActivityProduction.of_campaign(@user.current_campaign)
         expected_productions_count = productions.count
 
-        get :show, campaigns: @user.current_campaign, visualization: 'grain_yield', xhr: true, format: :json
+        get :show, params: { campaigns: @user.current_campaign, visualization: 'grain_yield', format: :json }, xhr: true
         r = JSON.parse(@response.body)
 
         assert r.key? 'series'

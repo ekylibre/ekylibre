@@ -1,4 +1,4 @@
-class AddStateToFinancialYears < ActiveRecord::Migration
+class AddStateToFinancialYears < ActiveRecord::Migration[4.2]
   def change
     add_column :financial_years, :state, :string
     reversible do |d|

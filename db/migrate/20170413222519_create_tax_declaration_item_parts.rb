@@ -1,4 +1,4 @@
-class CreateTaxDeclarationItemParts < ActiveRecord::Migration
+class CreateTaxDeclarationItemParts < ActiveRecord::Migration[4.2]
   def change
     create_table :tax_declaration_item_parts do |t|
       t.references :tax_declaration_item, index: true, null: false, foreign_key: true

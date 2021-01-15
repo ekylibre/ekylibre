@@ -1,6 +1,4 @@
 # Selectors for unroll action
-#= require jquery.scrollTo
-
 
 ((E, $) ->
   "use strict"
@@ -326,12 +324,10 @@
           if code is 40 # Down
             unless selected.is(":last-child")
               selected.removeClass "selected"
-              # selected.closest("ul").scrollTo
               selected.next().addClass "selected"
           else if code is 38 # Up
             unless selected.is(":first-child")
               selected.removeClass "selected"
-              # selected.closest("ul").scrollTo
               selected.prev().addClass "selected"
       true
 

@@ -1,4 +1,4 @@
-class CreateExpirationPaymentDelayOnSupplier < ActiveRecord::Migration
+class CreateExpirationPaymentDelayOnSupplier < ActiveRecord::Migration[4.2]
   def change
     change_table :entities do |t|
       t.string :supplier_payment_delay

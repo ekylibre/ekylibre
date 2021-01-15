@@ -1,4 +1,4 @@
-class AddGeoreadings < ActiveRecord::Migration
+class AddGeoreadings < ActiveRecord::Migration[4.2]
   def change
     create_table :georeadings do |t|
       t.string :name,                    null: false

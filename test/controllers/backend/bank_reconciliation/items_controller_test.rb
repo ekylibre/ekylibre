@@ -6,7 +6,7 @@ module ReconciliationPeriodTest
 
   included do
     test 'period is set by default to ±20 days' do
-      get :index, bank_statement_id: @bank_statement.id
+      get :index, params: { bank_statement_id: @bank_statement.id }
       assert_equal @now.to_date - 25.days, ivar_value(:@period_start)
       assert_equal @now.to_date + 25.days, ivar_value(:@period_end)
     end
@@ -15,9 +15,11 @@ module ReconciliationPeriodTest
       start = Date.new(2016, 12, 20)
       stop = Date.new(2016, 12, 25)
 
-      get :index, bank_statement_id: @bank_statement.id,
-          period_start: start.strftime('%Y-%m-%d'),
-          period_end: stop.strftime('%Y-%m-%d')
+      get :index, params: {
+        bank_statement_id: @bank_statement.id,
+        period_start: start.strftime('%Y-%m-%d'),
+        period_end: stop.strftime('%Y-%m-%d')
+      }
 
       assert_equal start, ivar_value(:@period_start)
       assert_equal stop, ivar_value(:@period_end)
@@ -42,12 +44,12 @@ module ReconciliationRenderingTest
 
   included do
     test 'reconciliation renders properly' do
-      assert_nothing_raised { get :index, bank_statement_id: @bank_statement.id }
+      assert_nothing_raised { get :index, params: { bank_statement_id: @bank_statement.id } }
     end
 
     test 'we are redirected with a flash if we don\'t have any entry items' do
       JournalEntry.destroy_all
-      get :index, bank_statement_id: @bank_statement.id
+      get :index, params: { bank_statement_id: @bank_statement.id }
       assert_not_empty flash['notifications']
     end
   end
@@ -59,13 +61,13 @@ module AutoLetteringTest
 
   included do
     test 'autoreconciliation letters entries' do
-      get :index, bank_statement_id: @bank_statement.id
+      get :index, params: { bank_statement_id: @bank_statement.id }
       entries = ivar_value(:@items_grouped_by_date).sort.first.last.select { |item| item.is_a? JournalEntryItem }
       assert_equal 'A', entries.first.bank_statement_letter
     end
 
     test 'autoreconciliation doesn\'t letter entries that are on another date' do
-      get :index, bank_statement_id: @bank_statement.id
+      get :index, params: { bank_statement_id: @bank_statement.id }
       entries = ivar_value(:@items_grouped_by_date).sort.last.last.select { |item| item.is_a? JournalEntryItem }
       assert_nil entries.first.bank_statement_letter
     end

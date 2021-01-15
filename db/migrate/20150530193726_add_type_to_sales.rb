@@ -1,4 +1,4 @@
-class AddTypeToSales < ActiveRecord::Migration
+class AddTypeToSales < ActiveRecord::Migration[4.2]
   def up
     add_column :sales, :type, :string
     execute "UPDATE sales SET type = CASE WHEN credited_sale_id IN (SELECT id FROM sales) THEN 'SaleCredit' ELSE 'Sale' END"

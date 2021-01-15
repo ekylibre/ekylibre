@@ -1,4 +1,4 @@
-class ConvertJournalDatetimesToDates < ActiveRecord::Migration
+class ConvertJournalDatetimesToDates < ActiveRecord::Migration[4.2]
   def change
     for table, columns in { journals: [:closed_at], journal_entries: [:printed_at], journal_entry_items: [:printed_at] }
       for column_name in columns

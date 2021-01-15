@@ -200,6 +200,12 @@ class Activity < ApplicationRecord
   end
 
   validate do
+    # This is to prevent users to create an activity that has vine_farming as family
+    # TODO: This validation is temporary and WILL be handled differently once the plugin system V2 is released.
+    errors.add :family, :not_available_in_ekyagri, feature: Onoma::ActivityFamily.find(family).human_name if family.to_s == 'vine_farming'
+  end
+
+  validate do
     errors.add :use_gradings, :checked_off_with_inspections if inspections.any? && !use_gradings
     errors.add :use_gradings, :checked_without_measures if use_gradings && !measure_something?
 

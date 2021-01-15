@@ -1,4 +1,4 @@
-class AddAnimalColumns < ActiveRecord::Migration
+class AddAnimalColumns < ActiveRecord::Migration[4.2]
   def change
     add_column :products, :birth_date_completeness, :string
     add_column :products, :birth_farm_number, :string

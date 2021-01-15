@@ -96,13 +96,25 @@ module Backend
 
     def confirm
       return unless @loan = find_and_check
-      @loan.confirm
+
+      if @loan.journal_entry&.financial_year&.closing?
+        notify_error(:financial_year_matching_this_date_is_closing.tl(loan: @loan.name))
+      else
+        @loan.confirm
+      end
+
       redirect_to action: :show, id: @loan.id
     end
 
     def repay
       return unless @loan = find_and_check
-      @loan.repay
+
+      if @loan.journal_entry&.financial_year&.closing?
+        notify_error(:financial_year_matching_this_date_is_closing.tl(loan: @loan.name))
+      else
+        @loan.repay
+      end
+
       redirect_to action: :show, id: @loan.id
     end
 

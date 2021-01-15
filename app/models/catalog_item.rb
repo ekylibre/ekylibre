@@ -47,6 +47,8 @@ class CatalogItem < ApplicationRecord
   belongs_to :variant, class_name: 'ProductNatureVariant'
   belongs_to :reference_tax, class_name: 'Tax'
   belongs_to :catalog
+  has_many :products, through: :variant
+  has_many :interventions, through: :products
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :all_taxes_included, inclusion: { in: [true, false] }
   validates :amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
@@ -88,9 +90,7 @@ class CatalogItem < ApplicationRecord
   end
 
   after_save do
-    variant.products.each do |product|
-      product.interventions.tap(&:reload).map(&:save!)
-    end
+    UpdateInterventionCostingsJob.perform_later(interventions.pluck(:id))
   end
 
   # Compute a pre-tax amount

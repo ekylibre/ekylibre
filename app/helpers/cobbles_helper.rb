@@ -74,7 +74,7 @@ module CobblesHelper
 
     if cobbler.any?
       cobbler.sort!
-      render 'cobbles', cobbler: cobbler
+      render 'application/cobbles', cobbler: cobbler
     end
   end
 

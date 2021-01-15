@@ -1,4 +1,4 @@
-class CreateProductNatureVariantSuppliersInfosView < ActiveRecord::Migration
+class CreateProductNatureVariantSuppliersInfosView < ActiveRecord::Migration[4.2]
   def up
     execute <<-SQL.strip_heredoc
       CREATE VIEW product_nature_variant_suppliers_infos AS

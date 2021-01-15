@@ -463,8 +463,8 @@ class Entity < ApplicationRecord
     author = options[:author]
     ApplicationRecord.transaction do
       # EntityAddress
-      threads = EntityAddress.unscoped.where(entity_id: id).uniq.pluck(:thread).delete_if(&:blank?)
-      other_threads = EntityAddress.unscoped.where(entity_id: other.id).uniq.pluck(:thread).delete_if(&:blank?)
+      threads = EntityAddress.unscoped.where(entity_id: id).distinct.pluck(:thread).delete_if(&:blank?)
+      other_threads = EntityAddress.unscoped.where(entity_id: other.id).distinct.pluck(:thread).delete_if(&:blank?)
       other_threads.each do |thread|
         thread.succ! while threads.include?(thread)
         threads << thread
@@ -518,8 +518,8 @@ class Entity < ApplicationRecord
 
           if ["supplier_payment_delay", "nature"].include?(attr)
             value = "enumerize.entity.#{attr}.#{value}".t
-          elsif Entity.columns.detect { |column| column.name == attr }.cast_type.type == :boolean
-            value = value == true ? :y.tl : :n.tl
+          elsif value.is_a?(TrueClass) || value.is_a?(FalseClass)
+            value = value ? :y.tl : :n.tl
           else
             value = value.to_s
           end

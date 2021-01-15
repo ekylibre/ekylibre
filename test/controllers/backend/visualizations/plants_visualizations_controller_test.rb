@@ -19,7 +19,7 @@ module Backend
         plants = Plant.of_campaign(campaign).order(born_at: :asc)
         expected_plants_count = plants.count
 
-        get :show, current_campaign: campaign.harvest_year, xhr: true, format: :json
+        get :show, params: { current_campaign: campaign.harvest_year, format: :json }, xhr: true
         r = JSON.parse(@response.body)
 
         assert r.key? 'series'

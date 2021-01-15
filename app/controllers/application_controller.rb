@@ -17,6 +17,7 @@
 #
 
 class ApplicationController < ActionController::Base
+  abstract!
   include NotificationModule
 
   # Prevent CSRF attacks by raising an exception.
@@ -33,21 +34,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from PG::UndefinedTable, Apartment::TenantNotFound, with: :configure_application
 
-  hide_action :current_theme, :current_theme=, :human_action_name, :authorized?
-
   attr_accessor :current_theme
-
-  # Permits to redirect
-  hide_action :after_sign_in_path_for
-  def after_sign_in_path_for(resource)
-    Ekylibre::Hook.publish(:after_sign_in, resource)
-    @new_after_sign_in_path || super
-  end
-
-  hide_action :session_controller?
-  def session_controller?
-    controller_name == 'sessions' && action_name == 'create'
-  end
 
   def self.human_action_name(action, options = {})
     options = {} unless options.is_a?(Hash)
@@ -71,6 +58,7 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :human_action_name
+
   def human_action_name
     self.class.human_action_name(action_name.to_s, @title)
   end
@@ -94,16 +82,20 @@ class ApplicationController < ActionController::Base
     end
     if current_user
       return current_user.can_access?(url_options)
-    # if url_options[:controller].blank? or url_options[:action].blank?
-    #   raise ArgumentError, "Uncheckable URL: " + url_options.inspect
-    # end
-    # return current_user.authorization(url_options[:controller], url_options[:action], session[:rights]).nil?
+      # if url_options[:controller].blank? or url_options[:action].blank?
+      #   raise ArgumentError, "Uncheckable URL: " + url_options.inspect
+      # end
+      # return current_user.authorization(url_options[:controller], url_options[:action], session[:rights]).nil?
     else
       true
     end
   end
 
   protected
+
+    def session_controller?
+      controller_name == 'sessions' && action_name == 'create'
+    end
 
     def set_theme
       @current_theme = 'tekyla'
@@ -143,17 +135,12 @@ class ApplicationController < ActionController::Base
     end
 
     def check_browser
-      browser = Browser.new(ua: request.headers['HTTP_USER_AGENT'], accept_language: request.headers['HTTP_ACCEPT_LANGUAGE'])
+      browser = Browser.new(request.headers['HTTP_USER_AGENT'], accept_language: request.headers['HTTP_ACCEPT_LANGUAGE'])
       notify_warning_now :incompatible_browser if browser.ie?
     end
 
     def configure_application(exception)
       title = exception.class.name.underscore.t(scope: 'exceptions')
       render '/public/configure_application', layout: 'exception', locals: { title: title, message: exception.message, class_name: exception.class.name }, status: 500
-    end
-
-    # TODO: remove for Rails 5
-    def helpers
-      view_context
     end
 end

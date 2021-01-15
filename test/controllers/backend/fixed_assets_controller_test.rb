@@ -25,7 +25,7 @@ module Backend
     test "update action should not modify depreciation_percentage if not in parameters" do
       manual_setup
 
-      patch :update, id: @fixed_asset.id, fixed_asset: { sold_on: "2017-05-08" }
+      patch :update, params: { id: @fixed_asset.id, fixed_asset: { sold_on: "2017-05-08" } }
       @fixed_asset.reload
       assert_equal 10, @fixed_asset.depreciation_percentage.to_i
     end
@@ -48,7 +48,7 @@ module Backend
         create :sale_item, :fixed, variant: @variant, fixed_asset: @fixed_asset
         @fixed_asset.reload
 
-        patch :update, id: @fixed_asset.id, fixed_asset: @fixed_asset.attributes, mode: mode
+        patch :update, params: { id: @fixed_asset.id, fixed_asset: @fixed_asset.attributes, mode: mode }
         noko = Nokogiri::HTML(response.body)
         assert_equal 1, noko.css('.fixed_asset_product.error').size
         assert_equal 1, noko.css(".fixed_asset_#{attribute}.error").size
@@ -56,13 +56,13 @@ module Backend
         @fixed_asset.update!(product: @product)
 
         # Case where attribute < @fixed_asset.started_on
-        patch :update, id: @fixed_asset.id, fixed_asset: { attribute => Date.new(2007, 12, 31) }, mode: mode
+        patch :update, params: { id: @fixed_asset.id, fixed_asset: { attribute => Date.new(2007, 12, 31) }, mode: mode }
         noko = Nokogiri::HTML(response.body)
         assert_equal 0, noko.css('.fixed_asset_product.error').size
         assert_equal 1, noko.css(".fixed_asset_#{attribute}.error").size
 
         # Case where attribute is outside an opened financial year
-        patch :update, id: @fixed_asset.id, fixed_asset: { attribute => Date.new(2018, 1, 1) }, mode: mode
+        patch :update, params: { id: @fixed_asset.id, fixed_asset: { attribute => Date.new(2018, 1, 1) }, mode: mode }
         noko = Nokogiri::HTML(response.body)
         assert_equal 0, noko.css('.fixed_asset_product.error').size
         assert_equal 1, noko.css(".fixed_asset_#{attribute}.error").size
@@ -71,7 +71,7 @@ module Backend
         equipment = create :asset_fixable_product, born_at: DateTime.new(2018, 6, 1)
         @fixed_asset.update!(product: equipment)
 
-        patch :update, id: @fixed_asset.id, fixed_asset: { attribute => Date.new(2018, 1, 1) }, mode: mode
+        patch :update, params: { id: @fixed_asset.id, fixed_asset: { attribute => Date.new(2018, 1, 1) }, mode: mode }
         noko = Nokogiri::HTML(response.body)
         assert_equal 0, noko.css('.fixed_asset_product.error').size
         assert_equal 1, noko.css(".fixed_asset_#{attribute}.error").size
@@ -82,12 +82,12 @@ module Backend
       fixed_asset = create :fixed_asset, started_on: Date.new(2008, 1, 1)
 
       # Case where no waiting_on is provided
-      patch :update, id: fixed_asset.id, fixed_asset: fixed_asset.attributes, mode: 'stand_by'
+      patch :update, params: { id: fixed_asset.id, fixed_asset: fixed_asset.attributes, mode: 'stand_by' }
       noko = Nokogiri::HTML(response.body)
       assert_equal 1, noko.css('.fixed_asset_waiting_on.error').size
 
       # Case where waiting_on > fixed_asset.started_on
-      patch :update, id: fixed_asset.id, fixed_asset: { waiting_on: Date.new(2008, 12, 31) }, mode: 'stand_by'
+      patch :update, params: { id: fixed_asset.id, fixed_asset: { waiting_on: Date.new(2008, 12, 31) }, mode: 'stand_by' }
       noko = Nokogiri::HTML(response.body)
       assert_equal 1, noko.css(".fixed_asset_waiting_on.error").size
     end
@@ -104,10 +104,10 @@ module Backend
         )
 
         @product = create :asset_fixable_product, born_at: DateTime.new(2008, 1, 1),
-                                                  variant: @variant,
-                                                  initial_container: @storage,
-                                                  initial_population: 1,
-                                                  name: 'JD 5201'
+                          variant: @variant,
+                          initial_container: @storage,
+                          initial_population: 1,
+                          name: 'JD 5201'
 
         currency = 'EUR'
         @journal = Journal.where(nature: 'various', currency: currency).first

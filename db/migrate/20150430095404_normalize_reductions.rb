@@ -1,4 +1,4 @@
-class NormalizeReductions < ActiveRecord::Migration
+class NormalizeReductions < ActiveRecord::Migration[4.2]
   def change
     remove_column :sale_items, :reduced_unit_amount,        :decimal, precision: 19, scale: 4, null: false, default: 0.0
     remove_column :sale_items, :reduced_unit_pretax_amount, :decimal, precision: 19, scale: 4, null: false, default: 0.0

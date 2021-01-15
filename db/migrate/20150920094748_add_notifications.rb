@@ -1,4 +1,4 @@
-class AddNotifications < ActiveRecord::Migration
+class AddNotifications < ActiveRecord::Migration[4.2]
   def change
     create_table :notifications do |t|
       t.references :recipient, null: false, index: true

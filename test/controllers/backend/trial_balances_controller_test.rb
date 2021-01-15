@@ -4,7 +4,7 @@ module Backend
     test_restfully_all_actions except: :show
 
     test 'with period' do
-      get :show, { period: '2007-01-01_2015-12-31', states: %i[draft confirmed closed] }
+      get :show, { period: '2007-01-01_2015-12-31', states: %i[draft confirmed closed].map { |e| [e, "1"] }.to_h }
     end
 
     test 'export to ODS' do

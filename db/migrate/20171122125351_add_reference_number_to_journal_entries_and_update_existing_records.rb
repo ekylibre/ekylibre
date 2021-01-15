@@ -1,4 +1,4 @@
-class AddReferenceNumberToJournalEntriesAndUpdateExistingRecords < ActiveRecord::Migration
+class AddReferenceNumberToJournalEntriesAndUpdateExistingRecords < ActiveRecord::Migration[4.2]
   def change
     add_column :journal_entries, :reference_number, :string
     reversible do |d|

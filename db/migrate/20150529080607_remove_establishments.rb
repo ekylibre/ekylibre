@@ -1,4 +1,4 @@
-class RemoveEstablishments < ActiveRecord::Migration
+class RemoveEstablishments < ActiveRecord::Migration[4.2]
   def up
     drop_table :establishments
     remove_column :users, :establishment_id

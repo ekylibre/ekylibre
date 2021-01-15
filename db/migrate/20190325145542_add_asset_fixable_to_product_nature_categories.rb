@@ -1,4 +1,4 @@
-class AddAssetFixableToProductNatureCategories < ActiveRecord::Migration
+class AddAssetFixableToProductNatureCategories < ActiveRecord::Migration[4.2]
   def change
     add_column :product_nature_categories, :asset_fixable, :boolean, default: false
 

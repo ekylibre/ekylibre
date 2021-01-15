@@ -1,4 +1,4 @@
-class AddTaxDeclarations < ActiveRecord::Migration
+class AddTaxDeclarations < ActiveRecord::Migration[4.2]
   def change
     create_table :tax_declarations do |t|
       t.references :financial_year, null: false, index: true

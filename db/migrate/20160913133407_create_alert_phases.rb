@@ -1,4 +1,4 @@
-class CreateAlertPhases < ActiveRecord::Migration
+class CreateAlertPhases < ActiveRecord::Migration[4.2]
   def change
     create_table :alert_phases do |t|
       t.references :alert, index: true, foreign_key: true, null: false

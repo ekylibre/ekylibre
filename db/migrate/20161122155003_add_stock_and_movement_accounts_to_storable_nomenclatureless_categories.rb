@@ -1,4 +1,4 @@
-class AddStockAndMovementAccountsToStorableNomenclaturelessCategories < ActiveRecord::Migration
+class AddStockAndMovementAccountsToStorableNomenclaturelessCategories < ActiveRecord::Migration[4.2]
   ACCOUNT_LABELS = (YAML.safe_load <<-YAML
     pt_snc:
       stock:

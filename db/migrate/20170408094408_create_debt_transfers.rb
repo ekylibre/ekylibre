@@ -1,4 +1,4 @@
-class CreateDebtTransfers < ActiveRecord::Migration
+class CreateDebtTransfers < ActiveRecord::Migration[4.2]
   def change
     create_table :debt_transfers do |t|
       t.integer :affair_id, index: true, null: false

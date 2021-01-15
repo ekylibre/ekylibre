@@ -1,4 +1,4 @@
-class AddComputeFromToSaleItems < ActiveRecord::Migration
+class AddComputeFromToSaleItems < ActiveRecord::Migration[4.2]
   def change
     add_column :sale_items, :compute_from, :string
     reversible do |r|

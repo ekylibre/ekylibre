@@ -1,4 +1,4 @@
-class AddActivityTactics < ActiveRecord::Migration
+class AddActivityTactics < ActiveRecord::Migration[4.2]
   def change
     create_table :activity_tactics do |t|
       t.references :activity, null: false, index: true

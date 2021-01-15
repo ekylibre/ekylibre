@@ -1,4 +1,4 @@
-class AddTypeToProductNatureCategories < ActiveRecord::Migration
+class AddTypeToProductNatureCategories < ActiveRecord::Migration[4.2]
   def change
     add_column :product_nature_categories, :type, :string
     add_column :product_nature_categories, :imported_from, :string

@@ -1,4 +1,4 @@
-class ChangeProcedures < ActiveRecord::Migration
+class ChangeProcedures < ActiveRecord::Migration[4.2]
   def replace_items_in_array(table, column, options = {})
     conditions = '1=1'
     if options[:reference_name]

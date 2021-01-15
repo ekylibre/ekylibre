@@ -1,4 +1,4 @@
-class RenameHarvestingIntervention < ActiveRecord::Migration
+class RenameHarvestingIntervention < ActiveRecord::Migration[4.2]
   def change
     reversible do |dir|
       # change procedure name harvesting to harvesting_with_plant_or_land_parcel

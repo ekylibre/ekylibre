@@ -1,4 +1,4 @@
-class CreateBase < ActiveRecord::Migration
+class CreateBase < ActiveRecord::Migration[4.2]
   def up
     create_table :account_balances do |t|
       t.references :account,                                                null: false, index: true

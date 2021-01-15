@@ -1,4 +1,4 @@
-class AddPlantCountings < ActiveRecord::Migration
+class AddPlantCountings < ActiveRecord::Migration[4.2]
   def change
     add_column :activities, :use_countings, :boolean, null: false, default: false
 

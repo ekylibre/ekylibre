@@ -14,7 +14,12 @@ module Backend
     end
 
     test 'get_usage_infos returns correct data according to the usage provided' do
-      post :get_usage_infos, id: @usage.id, product_id: @product.id, targets_data: { '0' => { id: @land_parcel.id, shape: @land_parcel.shape.to_json_feature_collection.to_json } }
+      post :get_usage_infos, params: {
+        id: @usage.id,
+        product_id: @product.id,
+        targets_data: { '0' => { id: @land_parcel.id, shape: @land_parcel.shape.to_json_feature_collection.to_json } }
+      }
+
       json = JSON.parse(response.body)
 
       assert_equal json['usage_infos']['applications_count'], @usage.applications_count
@@ -29,7 +34,13 @@ module Backend
 
     test 'get_usage_infos warns the user when selecting a usage if its maximum amount of applications has been reached' do
       create_intervention(2)
-      post :get_usage_infos, id: @usage.id, product_id: @product.id, intervention_stopped_at: "2018-02-17T00:00:00Z", targets_data: { '0' => { id: @land_parcel.id, shape: @land_parcel.shape.to_json_feature_collection.to_json } }
+      post :get_usage_infos, params: {
+        id: @usage.id,
+        product_id: @product.id,
+        intervention_stopped_at: "2018-02-17T00:00:00Z",
+        targets_data: { '0' => { id: @land_parcel.id, shape: @land_parcel.shape.to_json_feature_collection.to_json } }
+      }
+
       json = JSON.parse(response.body)
 
       assert_includes json['usage_application'].keys, 'caution'
@@ -38,7 +49,13 @@ module Backend
     test 'get_usage_infos warns the user when selecting a usage if its maximum amount of applications has been exceeded' do
       [2, 3].each { |i| create_intervention(i) }
 
-      post :get_usage_infos, id: @usage.id, product_id: @product.id, intervention_stopped_at: "2018-02-17T00:00:00Z", targets_data: { '0' => { id: @land_parcel.id, shape: @land_parcel.shape.to_json_feature_collection.to_json } }
+      post :get_usage_infos, params: {
+        id: @usage.id,
+        product_id: @product.id,
+        intervention_stopped_at: "2018-02-17T00:00:00Z",
+        targets_data: { '0' => { id: @land_parcel.id, shape: @land_parcel.shape.to_json_feature_collection.to_json } }
+      }
+
       json = JSON.parse(response.body)
 
       assert_includes json['usage_application'].keys, 'stop'

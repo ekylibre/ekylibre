@@ -1,6 +1,6 @@
 = field_set do
   = f.referenced_association :nature
-  = f.referenced_association :employee, source: :employees, new: { employee: 1 }, label: Payslip.human_attribute_name(:employee)
+  = f.referenced_association :employee, source: :employees, new: { employee: 1, nature: 'contact' }, label: Payslip.human_attribute_name(:employee)
   = f.input :started_on
   = f.input :stopped_on
   = f.input :amount

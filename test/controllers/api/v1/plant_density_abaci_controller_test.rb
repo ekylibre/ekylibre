@@ -10,7 +10,7 @@ module Api
       end
 
       test 'show' do
-        get :show, id: 1
+        get :show, params: { id: 1 }
         assert_response :ok
         json = JSON.parse response.body
         assert json['germination_percentage']

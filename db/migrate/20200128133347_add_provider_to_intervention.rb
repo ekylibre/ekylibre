@@ -1,4 +1,4 @@
-class AddProviderToIntervention < ActiveRecord::Migration
+class AddProviderToIntervention < ActiveRecord::Migration[4.2]
   def change
     add_column :interventions, :provider, :jsonb
 

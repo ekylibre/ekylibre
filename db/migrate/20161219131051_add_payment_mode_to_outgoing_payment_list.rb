@@ -1,4 +1,4 @@
-class AddPaymentModeToOutgoingPaymentList < ActiveRecord::Migration
+class AddPaymentModeToOutgoingPaymentList < ActiveRecord::Migration[4.2]
   def up
     add_reference :outgoing_payment_lists, :mode, index: true
     reversible do |r|

@@ -79,6 +79,7 @@ class DebtTransferTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       purchase_nature = PurchaseNature.first
       purchase = PurchaseInvoice.create!(nature: purchase_nature, supplier: Entity.normal.first, invoiced_at: DateTime.new(2018, 1, 1))
       purchase.items.create!(variant: variants.first, quantity: 1, unit_pretax_amount: purchase_amount, tax: tax)
+      purchase.save
 
       # just to avoid false negative
       assert_equal purchase.items.first.amount, purchase_amount, "can't run debt transfer test without a valid purchase"

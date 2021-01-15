@@ -31,7 +31,7 @@ module Backend
       template = DocumentTemplate.create!(nature: :sales_invoice, language: I18n.locale, name: 'sales_invoice', active: true, source: File.open(fixture_file('sales_invoice.jrxml')))
       assert template, 'No template found for sales_invoice'
       assert_nothing_raised do # "Template #{template.inspect} doesn't seems to work"
-        get :show, id: sale.id, format: :pdf, key: sale.number, template: template.id
+        get :show, params: { id: sale.id, format: :pdf, key: sale.number, template: template.id }
       end
       assert_response :success
     end
@@ -43,7 +43,7 @@ module Backend
       sale_item_attrs = attributes_for(:sale_item, :fixed).merge(fixed_asset_id: fixed_asset.id, variant_id: variant.id)
       sale_attrs[:items_attributes] = { '0' => sale_item_attrs }
 
-      post :create, sale: sale_attrs
+      post :create, params: { sale: sale_attrs }
       noko = Nokogiri::HTML(response.body)
       assert_equal 1, noko.css('.sale_invoiced_at.error').size
     end

@@ -1,4 +1,4 @@
-class RemoveNatureAndWithAccountingFromPurchaseNature < ActiveRecord::Migration
+class RemoveNatureAndWithAccountingFromPurchaseNature < ActiveRecord::Migration[4.2]
   def change
     res = execute <<-SQL
       SELECT count(*) as journal_count FROM journals WHERE nature = 'purchases'

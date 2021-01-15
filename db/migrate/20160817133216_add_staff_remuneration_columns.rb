@@ -1,4 +1,4 @@
-class AddStaffRemunerationColumns < ActiveRecord::Migration
+class AddStaffRemunerationColumns < ActiveRecord::Migration[4.2]
   def change
     add_column :purchase_natures, :nature, :string
     reversible do |dir|

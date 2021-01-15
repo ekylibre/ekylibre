@@ -1,4 +1,4 @@
-class NormalizeVariousMistakes < ActiveRecord::Migration
+class NormalizeVariousMistakes < ActiveRecord::Migration[4.2]
   def change
     # Removes unique index
     revert { add_index :documents, %i[nature key], unique: true }

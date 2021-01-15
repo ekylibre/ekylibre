@@ -1,4 +1,4 @@
-class UpdateFixedAssets < ActiveRecord::Migration
+class UpdateFixedAssets < ActiveRecord::Migration[4.2]
   ACCOUNT = (YAML.safe_load <<-YAML).deep_symbolize_keys.freeze
       name:
         fra: Immobilisations en cours

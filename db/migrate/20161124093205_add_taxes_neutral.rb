@@ -1,4 +1,4 @@
-class AddTaxesNeutral < ActiveRecord::Migration
+class AddTaxesNeutral < ActiveRecord::Migration[4.2]
   def change
     add_column :taxes, :intracommunity, :boolean, null: false, default: false
     add_reference :taxes, :intracommunity_payable_account, index: true

@@ -18,9 +18,10 @@ class PrinterJob < ApplicationJob
 
         pdf_data
       rescue StandardError => error
-        Rails.logger.error $!
-        Rails.logger.error $!.backtrace.join("\n")
-        ExceptionNotifier.notify_exception($!, data: { message: error })
+        Rails.logger.error error
+        Rails.logger.error error.backtrace.join("\n")
+        ExceptionNotifier.notify_exception(error, data: { message: error })
+        ElasticAPM.report(error)
         perform_as.notifications.create!(error_notification_params(template.nature, error.message))
       end
     end

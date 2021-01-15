@@ -95,6 +95,7 @@ class Product < ApplicationRecord
   include Indicateable
   include Versionable
   include Customizable
+
   refers_to :variety
   refers_to :derivative_of, class_name: 'Variety'
   belongs_to :address, class_name: 'EntityAddress'

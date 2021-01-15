@@ -1,4 +1,4 @@
-class RenameCaregiverToDoerInMilkingProcedure < ActiveRecord::Migration
+class RenameCaregiverToDoerInMilkingProcedure < ActiveRecord::Migration[4.2]
   def change
     reversible do |dir|
       dir.up do

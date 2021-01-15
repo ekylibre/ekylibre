@@ -1,4 +1,4 @@
-class AddProviderToTaxAndIncomingPaymentMode < ActiveRecord::Migration
+class AddProviderToTaxAndIncomingPaymentMode < ActiveRecord::Migration[4.2]
   def change
     %i[incoming_payment_modes taxes].each { |name| add_provider_to(name) }
   end

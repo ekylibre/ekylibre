@@ -108,7 +108,7 @@ class JournalEntryItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixture
 
   test 'should be valid when the name doesn\'t contain a translation error' do
     jei = JournalEntryItem.new(account: Account.first, real_debit: 125, real_credit: 0, name: "Tout va bien").tap(&:valid?)
-    assert_not jei.errors.messages[:name]
+    assert_not jei.errors.messages[:name].present?
   end
 
   test 'should not be valid when the name contains a translation error' do

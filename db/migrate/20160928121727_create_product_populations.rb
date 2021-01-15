@@ -1,4 +1,4 @@
-class CreateProductPopulations < ActiveRecord::Migration
+class CreateProductPopulations < ActiveRecord::Migration[4.2]
   def up
     execute <<-SQL
       CREATE VIEW product_populations AS

@@ -1,4 +1,4 @@
-class AddImputationPercentageToInterventionParameters < ActiveRecord::Migration
+class AddImputationPercentageToInterventionParameters < ActiveRecord::Migration[4.2]
   def change
     add_column :intervention_parameters, :imputation_ratio, :decimal, precision: 19, scale: 4
 

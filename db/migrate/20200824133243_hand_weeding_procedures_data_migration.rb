@@ -1,4 +1,4 @@
-class HandWeedingProceduresDataMigration < ActiveRecord::Migration
+class HandWeedingProceduresDataMigration < ActiveRecord::Migration[4.2]
   def change
     execute <<-SQL
       UPDATE intervention_parameters AS ipd

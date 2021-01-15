@@ -13,4 +13,4 @@
       %tr
         - week.each do |day|
           %td{ class: calendar.td_classes_for(day) }
-            = capture(day, sorted_events.fetch(day, []), &block)
+            = capture(day, sorted_events.fetch(day, []), &passed_block)

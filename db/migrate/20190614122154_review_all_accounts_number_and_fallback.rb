@@ -1,5 +1,5 @@
 # Migration generated with nomenclature migration #20180711093131
-class ReviewAllAccountsNumberAndFallback < ActiveRecord::Migration
+class ReviewAllAccountsNumberAndFallback < ActiveRecord::Migration[4.2]
   def up
     # Change item accounts#exceptionnal_charge_transfer_revenues with {:fr_pcga=>"797", :fr_pcg82=>"797", :name=>"exceptional_charge_transfer_revenues"}
     execute "UPDATE accounts SET centralizing_account_name='exceptional_charge_transfer_revenues' WHERE centralizing_account_name='exceptionnal_charge_transfer_revenues'"

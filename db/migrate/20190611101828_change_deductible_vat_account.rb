@@ -1,5 +1,5 @@
 # Migration generated with nomenclature migration #20190611101014
-class ChangeDeductibleVatAccount < ActiveRecord::Migration
+class ChangeDeductibleVatAccount < ActiveRecord::Migration[4.2]
   def up
     execute "UPDATE accounts SET centralizing_account_name='deductible_products_and_services_vat' WHERE centralizing_account_name='deductible_vat'"
     execute "UPDATE accounts SET centralizing_account_name='deductible_vat' WHERE centralizing_account_name='enterprise_deductible_vat'"

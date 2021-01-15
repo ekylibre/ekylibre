@@ -1,4 +1,4 @@
-class RemovePlantWateringInterventionParameters < ActiveRecord::Migration
+class RemovePlantWateringInterventionParameters < ActiveRecord::Migration[4.2]
   # remove old target parameter 'land_parcel' in plant_watering intervention
   def up
     execute "DELETE FROM intervention_parameters i WHERE i.reference_name = 'land_parcel' and i.type = 'InterventionTarget' and i.intervention_id IN (SELECT id FROM interventions WHERE procedure_name = 'plant_watering')"

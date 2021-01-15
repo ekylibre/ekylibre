@@ -15,16 +15,16 @@ module Backend
     test 'change state action with no params should return error' do
       params = {}
       assert_raises ActionController::ParameterMissing do
-        post :change_state, params
+        post :change_state, params: params
       end
     end
 
     test 'change state action from request intervention to in_progress intervention should create new intervention with same parameters' do
       # Following intervention gets 1 group parameter (containing 1 target + 1 output) and 1 input
       request_intervention = create(:sowing_intervention_with_all_parameters, nature: :request)
-      params = { intervention: { interventions_ids: [request_intervention.id].to_json, state: :in_progress }}
+      params = { intervention: { interventions_ids: [request_intervention.id].to_json, state: :in_progress } }
       assert_empty request_intervention.record_interventions
-      post :change_state, params
+      post :change_state, params: params
       record_intervention = request_intervention.record_interventions.last
       assert_not_nil record_intervention
 

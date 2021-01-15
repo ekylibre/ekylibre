@@ -138,7 +138,7 @@ module Procedo
               product = product.variant
             end
 
-            value = product.get(indicator.name.to_sym, @env['READ_AT'])
+            value = product.get(indicator.name.to_sym, { at: @env['READ_AT'], gathering: false })
             if unit && value.respond_to?(:to_f)
               value = value.method(:to_f).arity.nonzero? ? value.to_f(unit) : value.to_f
             end

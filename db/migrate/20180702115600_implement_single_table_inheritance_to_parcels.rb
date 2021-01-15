@@ -1,4 +1,4 @@
-class ImplementSingleTableInheritanceToParcels < ActiveRecord::Migration
+class ImplementSingleTableInheritanceToParcels < ActiveRecord::Migration[4.2]
   def change
     add_column :parcels, :type, :string unless column_exists? :parcels, :type
 
