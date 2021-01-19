@@ -79,6 +79,10 @@ eng:
       account:
         cumulated_absolute_credit_balance: "Credit balance"
         cumulated_absolute_debit_balance: "Debit balance"
+      activity:
+        start_state_of_production: "Start state of production"
+        life_duration: "life duration"
+        production_campaign_period: "Production campaign period"
       activity_budget:
         expenses_amount: "Expenses amount"
         revenues_amount: "Revenues amount"

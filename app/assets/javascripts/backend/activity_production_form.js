@@ -1,7 +1,6 @@
-(function (E) {
+(function (E, $) {
     const onKeyUpDelay = 1000;
     const namingFromatUrl = '/backend/naming_format_land_parcels/build.json';
-    const namingFromatDetailsUrl = '/backend/naming_format_land_parcels/details.json';
 
     class SupportNamePreview {
         constructor(formElement) {
@@ -103,6 +102,20 @@
             if (previewElement !== null) {
                 new SupportNamePreview(formElement).init();
             }
+
+            const cultivableZoneSelector = formElement.querySelector('#activity_production_cultivable_zone_id');
+            cultivableZoneSelector.addEventListener('unroll:selector:change', function(_event, _value, is_initialization) {
+                if (is_initialization) {
+                    return;
+                } else {
+                    const element = $(this);
+                    const id = element.selector('value');
+                    const map = $('#activity_production_support_shape');
+                    new E.cultivableZoneService().get(id).then((cultivable_zone, _status, _request) => {
+                        map.mapeditor('edit', cultivable_zone.shape, true);
+                    });
+                }
+            });
         }
     });
-})(ekylibre);
+})(ekylibre, jQuery);
