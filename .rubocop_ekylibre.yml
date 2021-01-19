@@ -19,6 +19,10 @@ Style/EmptyElse:
 Style/AsciiComments:
   Enabled: false
 
+# Even in a fantasy land, its not a good idea. It forces either to put :nodoc: everywhere or write useless comments.
+Style/Documentation:
+  Enabled: false
+
 # Disabled as it can be clearer to say when to do something instead of skipping when nothing has to be done.
 Style/Next:
   Enabled: false
