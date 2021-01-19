@@ -1032,8 +1032,14 @@
 
   delay = (time, method) -> setTimeout method, time
 
-  $(document).behave "load", "input[data-map-editor]", (event) ->
+  detectNewComponents = ->
     $("input[data-map-editor]").each ->
       $(this).mapeditor()
+
+  $(document).ready ->
+    detectNewComponents()
+
+  $(document).on 'dialog:show', ->
+    detectNewComponents()
 
 ) mapeditor, jQuery
