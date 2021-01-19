@@ -28,9 +28,11 @@ module ReconciliationPeriodTest
     test 'period is used to filter out entries' do
       start = @now - 5.days
       stop = @now - 2.days
-      get :index, bank_statement_id: @bank_statement.id,
-          period_start: start.strftime('%Y-%m-%d'),
-          period_end: stop.strftime('%Y-%m-%d')
+      get :index, params: {
+        bank_statement_id: @bank_statement.id,
+        period_start: start.strftime('%Y-%m-%d'),
+        period_end: stop.strftime('%Y-%m-%d')
+      }
       assert_equal 1, ivar_value(:@items_grouped_by_date)
                         .values.flatten
                         .select { |item| item.is_a? JournalEntryItem }.count
