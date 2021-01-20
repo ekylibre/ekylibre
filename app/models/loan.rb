@@ -98,7 +98,7 @@ class Loan < ApplicationRecord
   validates :started_on, ongoing_exchanges: true
 
   scope :drafts, -> { where(state: %w[draft]) }
-  scope :start_before, ->(date) { where('loans.ongoing_at <= ?', date.to_time) }
+  scope :ongoing_within, ->(start_date, stop_date) { where('loans.ongoing_at BETWEEN ? and ?', start_date.to_time, stop_date.to_time) }
 
   state_machine :state, initial: :draft do
     state :draft
