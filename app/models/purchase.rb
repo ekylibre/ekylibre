@@ -235,4 +235,8 @@ class Purchase < ApplicationRecord
   def invoice?
     state == 'invoice'
   end
+
+  def taxes_amount
+    amount - pretax_amount
+  end
 end

@@ -127,10 +127,6 @@ class PurchaseOrder < Purchase
     items.any? && opened?
   end
 
-  def taxes_amount
-    amount - pretax_amount
-  end
-
   def has_content?
     items.any?
   end
