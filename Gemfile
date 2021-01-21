@@ -16,7 +16,7 @@ gem 'elastic-apm', '~> 3.4.0'
 gem 'piwik_analytics', github: 'ekylibre/piwik-ruby-tracking'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.11.1'
+gem 'rails', '5.0.7.2'
 
 gem 'webpacker', '~> 4.x'
 
@@ -25,7 +25,8 @@ gem 'mail', '~> 2.6'
 
 # Database adapters
 gem 'activerecord-postgis-adapter', '>= 3.0.0'
-gem 'pg', '~> 0.20.0' # Needed for some tasks
+gem 'pg', '~> 1.0'
+gem 'activemodel-serializers-xml'
 
 # Multi-tenancy
 gem 'apartment', '~> 2.2.1'
@@ -38,7 +39,7 @@ gem 'possibly', gitlab: 'ekylibre/eky-possibly', tag: 'v3.1.1'
 gem 'charlock_holmes'
 gem 'code_string', '>= 0.0.1'
 
-gem 'browser'
+gem 'browser', '~> 5.2'
 
 gem 'actionpack-xml_parser'
 
@@ -66,8 +67,7 @@ gem 'turbolinks', '~> 2.0'
 
 # jQuery UI Javascript framework
 gem 'jquery-ui-rails'
-# gem 'jquery_mobile_rails'
-gem 'jquery-scrollto-rails'
+gem 'momentjs-rails', '>= 2.9.0'
 
 # Forms helper
 gem 'formize', '~> 2.1.0'
@@ -79,13 +79,13 @@ gem 'jbuilder', '~> 2.0'
 gem 'rake', '~>12.0'
 
 # Manipulate map data
-gem 'charta', '~> 0.1.18'
+gem 'charta', gitlab: 'ekylibre/charta', branch: 'master'
 gem 'geocoder'
 
 # active_list alternative
 gem 'font-awesome-sass'
-gem 'kaminari', '~> 0.16.0'
-gem 'wice_grid' # , github: "leikind/wice_grid", branch: "rails3"
+gem 'kaminari'
+gem 'wice_grid', "~> 4.0"
 
 # Background jobs
 gem 'sidekiq', '~> 4.0'
@@ -93,7 +93,7 @@ gem 'sidekiq-cron', '~> 1.1'
 gem 'sidekiq-unique-jobs', '~> 4.0'
 
 # Decorator pattern
-gem 'draper'
+gem 'draper', "~> 3.0"
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -101,12 +101,12 @@ gem 'draper'
 # Exception management
 gem 'exception_notification'
 
-gem 'onoma', "~> 0.4.2"
+gem 'onoma', "~> 0.5.0"
 
 # Views helpers
 gem 'active_list', "~> 8.0"
 gem 'haml'
-gem 'simple_calendar', '~> 2.3.0'
+gem 'simple_calendar', '~> 2.4.0'
 
 # Models helpers
 gem 'acts_as_list'
@@ -129,7 +129,7 @@ gem 'omniauth-oauth2'
 
 # Attachments
 gem 'paperclip'
-gem 'paperclip-document', '> 0.0.8'
+gem 'paperclip-document'
 
 # Forms
 gem 'cocoon'
@@ -182,7 +182,7 @@ gem 'sepa_king'
 gem 'quandl'
 gem 'odf-report', gitlab: 'ekylibre/odf-report', tag: 'v0.6.0-2'
 gem 'combine_pdf'
-gem 'rodf'
+gem 'rodf', '~> 1.0'
 
 # Demo data
 gem 'ffaker', '>= 2.0.0'
@@ -227,7 +227,6 @@ end
 group :development do
   gem 'bullet', '< 5.6.0'
 
-  gem 'quiet_assets'
   # gem 'rack-mini-profiler'
 
   # Get the time of a process
@@ -247,7 +246,7 @@ group :development do
   gem 'web-console', '~> 3.0'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
+  # gem 'spring'
 
   gem 'letter_opener'
 end
@@ -255,15 +254,15 @@ end
 group :development, :test do
   gem 'pry', '~> 0.12.0'
   gem 'pry-byebug'
-  # gem 'pry-inline'
   gem 'pry-rails'
+
   gem 'teaspoon-jasmine'
 
   # For git manipulation in test:git task
   gem 'git'
 
   # Parallelize tests
-  gem 'parallel_tests'
+  # gem 'parallel_tests'
 
   # Exception message tips
   gem 'did_you_mean', '~> 0.9', platforms: [:ruby_22]
@@ -277,17 +276,19 @@ group :test do
   # Freeze time for demo and/or tests
   gem 'timecop'
 
-  gem 'puma'
   gem 'shoulda-context'
 
   gem 'database_cleaner'
 
-  gem 'minitest-reporters'
+  gem 'minitest', "~> 5.14"
+  # gem 'minitest-reporters'
   gem 'ruby-terminfo'
 
   gem 'factory_bot', '< 5'
 
   gem 'pdf-reader'
+
+  gem 'rails-controller-testing'
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles

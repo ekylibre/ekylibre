@@ -1,4 +1,4 @@
-class RenameTypeNameReception < ActiveRecord::Migration
+class RenameTypeNameReception < ActiveRecord::Migration[4.2]
   def change
     reversible do |dir|
       dir.up do

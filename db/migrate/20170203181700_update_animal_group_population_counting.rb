@@ -1,4 +1,4 @@
-class UpdateAnimalGroupPopulationCounting < ActiveRecord::Migration
+class UpdateAnimalGroupPopulationCounting < ActiveRecord::Migration[4.2]
   PRODUCT_NATURES = %w[
     bee_band
     bumblebee_band

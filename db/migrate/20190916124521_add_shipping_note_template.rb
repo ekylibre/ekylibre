@@ -1,4 +1,4 @@
-class AddShippingNoteTemplate < ActiveRecord::Migration
+class AddShippingNoteTemplate < ActiveRecord::Migration[4.2]
   def up
     res = execute "SELECT COUNT(*) FROM document_templates WHERE nature = 'shipping_note' AND managed = 't'"
     if res.to_a.first['count'].to_i.zero?

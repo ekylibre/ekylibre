@@ -1,4 +1,4 @@
-class FixPlantVariantIndicator < ActiveRecord::Migration
+class FixPlantVariantIndicator < ActiveRecord::Migration[4.2]
   # ------------ VARIANTS ------------ 
   # Fix variants with nature name having 'Culture' on its name, they are retrieved with 'nature_ids' and 'variant_ids'
   # The given variants should have a surface indicator set at 1 hectare (as a ProductNatureVariantReading)

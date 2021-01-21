@@ -1,4 +1,4 @@
-class SetReconcilableForAuxiliaryAccounts < ActiveRecord::Migration
+class SetReconcilableForAuxiliaryAccounts < ActiveRecord::Migration[4.2]
   def up
     execute <<-SQL
       UPDATE accounts

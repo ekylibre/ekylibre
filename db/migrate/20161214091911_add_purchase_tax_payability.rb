@@ -1,4 +1,4 @@
-class AddPurchaseTaxPayability < ActiveRecord::Migration
+class AddPurchaseTaxPayability < ActiveRecord::Migration[4.2]
   def change
     add_column :purchases, :tax_payability, :string
     reversible do |r|

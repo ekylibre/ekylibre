@@ -5,7 +5,7 @@
     text-align: left;
     vertical-align: middle;
     .modal-content {
-      overflow: hidden;
+      overflow: visible;
       .modal-header {
         .close[data-dismiss='modal'] {
           @include float(right);

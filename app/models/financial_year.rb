@@ -125,10 +125,9 @@ class FinancialYear < ApplicationRecord
 
     def consecutive_destroyables(from = Date.new(1, 1, 1), upto = FinancialYear.current&.started_on)
       upto ||= FinancialYear.where('started_on < ?', Date.today).order(started_on: :desc).first.started_on
-      years = FinancialYear.where("started_on BETWEEN ? AND ?", from, upto)
-                .order(:started_on)
-      years.to_a.select!.with_index { |year, index| years[0..index].all?(&:destroyable?) }
-      FinancialYear.where(id: years.map(&:id))
+      years = FinancialYear.where("started_on BETWEEN ? AND ?", from, upto).order(:started_on)
+
+      years.take_while(&:destroyable?)
     end
 
     # Returns the date of the last closure if any
@@ -293,6 +292,8 @@ class FinancialYear < ApplicationRecord
 
   # When a financial year is closed,.all the matching journals are closed too.
   def close(closer, to_close_on = nil, options = {})
+    ActiveSupport::Deprecation.warn("FinancialYear#close is deprecated, use FinancialYearClose directly")
+
     FinancialYearClose.for_year(self, close_on: to_close_on, user: closer, **options).execute
   end
 

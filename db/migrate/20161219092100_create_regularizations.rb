@@ -1,4 +1,4 @@
-class CreateRegularizations < ActiveRecord::Migration
+class CreateRegularizations < ActiveRecord::Migration[4.2]
   def change
     reversible do |r|
       r.up do

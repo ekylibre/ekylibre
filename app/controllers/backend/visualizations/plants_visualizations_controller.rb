@@ -13,11 +13,6 @@ module Backend
           popup_content << { label: Plant.human_attribute_name(:net_surface_area), value: p.net_surface_area.in_hectare.round(2).l }
           popup_content << { label: Onoma::Variety.find(p.nature.variety).human_name, value: Onoma::Variety.find(p.variety).human_name }
 
-          # for vine plant
-          # if p.woodstock_variety
-          # popup_content << {label: Onoma::Indicator.find(:woodstock_variety).human_name, value: Onoma::Variety.find(p.woodstock_variety).human_name}
-          # end
-
           # for indicators in list
           indicators = %i[tiller_count plants_count rows_interval plants_interval rows_orientation]
           indicators.each do |indicator|

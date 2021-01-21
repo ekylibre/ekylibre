@@ -1,4 +1,4 @@
-class AddEntitySiret < ActiveRecord::Migration
+class AddEntitySiret < ActiveRecord::Migration[4.2]
   def change
     rename_column :entities, :siren, :siret_number
     reversible do |d|

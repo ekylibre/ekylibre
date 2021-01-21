@@ -97,6 +97,7 @@ export class Modal {
 
         this.titleElement.textContent = this.title;
         this.setBody(this.content);
+
         this.on(('unroll:menu-opened' as any) as keyof HTMLElementEventMap, 'input', (e) => {
             const element = (e as any).detail.unroll.dropDownMenu.get(0);
             if (this.getBodyElement().clientHeight < element.clientHeight) {

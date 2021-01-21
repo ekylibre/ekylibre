@@ -1,4 +1,4 @@
-class AddProviderToCashes < ActiveRecord::Migration
+class AddProviderToCashes < ActiveRecord::Migration[4.2]
   def change
     add_provider_to :cashes
   end

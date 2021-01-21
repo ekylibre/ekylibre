@@ -1,4 +1,4 @@
-class NormalizeDeliveries < ActiveRecord::Migration
+class NormalizeDeliveries < ActiveRecord::Migration[4.2]
   POLYMORPHIC_REFERENCES = [
     %i[attachments resource],
     %i[issues target],

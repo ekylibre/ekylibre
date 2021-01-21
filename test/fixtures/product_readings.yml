@@ -1872,32 +1872,32 @@ product_readings_120:
   read_at: 2008-06-17 23:00:00.000000000 Z
   updated_at: 2014-11-07 16:26:53.233581000 Z
   updater_id: 1
-#product_readings_121:
-#  boolean_value: false
-#  choice_value: vitis_cinerea_x_vitis_riparia_SO4
-#  created_at: 2014-11-07 16:47:34.907912000 Z
-#  creator_id: 1
-#  id: 196
-#  indicator_datatype: choice
-#  indicator_name: woodstock_variety
-#  lock_version: 0
-#  product_id: 107
-#  read_at: 2014-11-07 16:47:34.907912000 Z
-#  updated_at: 2014-11-07 16:47:34.907912000 Z
-#  updater_id: 1
-#product_readings_122:
-#  boolean_value: false
-#  choice_value: vitis_cinerea_x_vitis_riparia_SO4
-#  created_at: 2014-11-07 16:50:07.275975000 Z
-#  creator_id: 1
-#  id: 199
-#  indicator_datatype: choice
-#  indicator_name: woodstock_variety
-#  lock_version: 0
-#  product_id: 109
-#  read_at: 2008-03-15 15:39:00.000000000 Z
-#  updated_at: 2014-11-07 16:50:07.275975000 Z
-#  updater_id: 1
+product_readings_121:
+  boolean_value: false
+  string_value: vitis_cinerea_x_vitis_riparia_SO4
+  created_at: 2014-11-07 16:47:34.907912000 Z
+  creator_id: 1
+  id: 196
+  indicator_datatype: string
+  indicator_name: rootstock_variety
+  lock_version: 0
+  product_id: 107
+  read_at: 2014-11-07 16:47:34.907912000 Z
+  updated_at: 2014-11-07 16:47:34.907912000 Z
+  updater_id: 1
+product_readings_122:
+  boolean_value: false
+  string_value: vitis_cinerea_x_vitis_riparia_SO4
+  created_at: 2014-11-07 16:50:07.275975000 Z
+  creator_id: 1
+  id: 199
+  indicator_datatype: string
+  indicator_name: rootstock_variety
+  lock_version: 0
+  product_id: 109
+  read_at: 2008-03-15 15:39:00.000000000 Z
+  updated_at: 2014-11-07 16:50:07.275975000 Z
+  updater_id: 1
 product_readings_123:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0

@@ -1,4 +1,4 @@
-class AddCapNeutralArea < ActiveRecord::Migration
+class AddCapNeutralArea < ActiveRecord::Migration[4.2]
   def change
     create_table :cap_neutral_areas do |t|
       t.references :cap_statement, index: true, null: false, foreign_key: true

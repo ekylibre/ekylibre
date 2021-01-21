@@ -1,4 +1,4 @@
-class RenameVariousProductReceptionsToProductReceptions < ActiveRecord::Migration
+class RenameVariousProductReceptionsToProductReceptions < ActiveRecord::Migration[4.2]
   def change
     # Polymorphic columns
     reversible do |dir|

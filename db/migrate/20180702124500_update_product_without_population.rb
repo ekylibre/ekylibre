@@ -1,4 +1,4 @@
-class UpdateProductWithoutPopulation < ActiveRecord::Migration
+class UpdateProductWithoutPopulation < ActiveRecord::Migration[4.2]
   def change
     products_to_change = Product
                          .joins(:nature)

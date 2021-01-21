@@ -1,4 +1,4 @@
-class AddPurchaseOrdersDocumentTemplate < ActiveRecord::Migration
+class AddPurchaseOrdersDocumentTemplate < ActiveRecord::Migration[4.2]
   def change
     res = execute "SELECT COUNT(*) FROM document_templates WHERE nature = 'purchases_order' AND managed = 't'"
     return unless res.to_a.first['count'].to_i.zero?

@@ -1,4 +1,4 @@
-class AddMissingStampColumns < ActiveRecord::Migration
+class AddMissingStampColumns < ActiveRecord::Migration[4.2]
   def change
     # add_reference :master_production_natures, :creator, index: true
     # add_column :master_production_natures, :created_at, :datetime

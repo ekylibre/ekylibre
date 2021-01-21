@@ -1,4 +1,4 @@
-class AddResourceOnJournalEntryItems < ActiveRecord::Migration
+class AddResourceOnJournalEntryItems < ActiveRecord::Migration[4.2]
   def change
     add_column :journal_entries, :resource_prism, :string
     add_reference :journal_entry_items, :resource, polymorphic: true, index: true

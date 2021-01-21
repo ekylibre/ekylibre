@@ -1,4 +1,4 @@
-class AddIndexesToImproveFixedAssets < ActiveRecord::Migration
+class AddIndexesToImproveFixedAssets < ActiveRecord::Migration[4.2]
   def up
     add_index :fixed_assets, :number
     add_index :fixed_asset_depreciations, :locked

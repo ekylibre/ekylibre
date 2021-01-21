@@ -1,4 +1,4 @@
-class NormalizeAccountNumber < ActiveRecord::Migration
+class NormalizeAccountNumber < ActiveRecord::Migration[4.2]
   CENTRALIZING_ACCOUNTS = { 'suppliers': '401', 'clients': '411' }.freeze
   def change
     add_column :accounts, :auxiliary_number, :string

@@ -664,18 +664,18 @@ product_nature_variant_readings_043:
   updated_at: 2014-11-07 16:33:48.643273000 Z
   updater_id: 1
   variant_id: 44
-#product_nature_variant_readings_044:
-#  boolean_value: false
-#  choice_value: vitis_cinerea_x_vitis_riparia_SO4
-#  created_at: 2014-11-07 16:33:59.271644000 Z
-#  creator_id: 1
-#  id: 61
-#  indicator_datatype: choice
-#  indicator_name: woodstock_variety
-#  lock_version: 0
-#  updated_at: 2014-11-07 16:33:59.271644000 Z
-#  updater_id: 1
-#  variant_id: 45
+product_nature_variant_readings_044:
+  boolean_value: false
+  string_value: vitis_cinerea_x_vitis_riparia_SO4
+  created_at: 2014-11-07 16:33:59.271644000 Z
+  creator_id: 1
+  id: 61
+  indicator_datatype: string
+  indicator_name: rootstock_variety
+  lock_version: 0
+  updated_at: 2014-11-07 16:33:59.271644000 Z
+  updater_id: 1
+  variant_id: 45
 product_nature_variant_readings_045:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1.0

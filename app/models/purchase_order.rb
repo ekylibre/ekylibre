@@ -62,7 +62,7 @@
 class PurchaseOrder < Purchase
   enumerize :command_mode, in: %i[letter fax mail oral sms market_place], default: :mail
 
-  has_many :receptions, class_name: Reception, foreign_key: :purchase_id
+  has_many :receptions, class_name: 'Reception', foreign_key: :purchase_id
 
   state_machine :state, initial: :opened do
     state :opened
@@ -125,10 +125,6 @@ class PurchaseOrder < Purchase
 
   def can_generate_parcel?
     items.any? && opened?
-  end
-
-  def taxes_amount
-    amount - pretax_amount
   end
 
   def has_content?

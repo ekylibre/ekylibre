@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class MigrateOutgoingPaymentListDocumentNature < ActiveRecord::Migration
+class MigrateOutgoingPaymentListDocumentNature < ActiveRecord::Migration[4.2]
   CHECK_LETTER_NAME = 'Lot de décaissement : Lettre chèque'
   STANDARD_NAME = 'Lot de décaissement'
 

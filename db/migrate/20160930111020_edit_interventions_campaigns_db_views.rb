@@ -1,4 +1,4 @@
-class EditInterventionsCampaignsDbViews < ActiveRecord::Migration
+class EditInterventionsCampaignsDbViews < ActiveRecord::Migration[4.2]
   def up
     execute '
       CREATE OR REPLACE VIEW activities_interventions AS

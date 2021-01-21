@@ -1,4 +1,4 @@
-class ReplaceCampaignsInterventionsView < ActiveRecord::Migration
+class ReplaceCampaignsInterventionsView < ActiveRecord::Migration[4.2]
   def change
     execute <<-SQL
       DROP VIEW IF EXISTS campaigns_interventions;

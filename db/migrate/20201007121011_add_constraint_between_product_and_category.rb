@@ -1,4 +1,4 @@
-class AddConstraintBetweenProductAndCategory < ActiveRecord::Migration
+class AddConstraintBetweenProductAndCategory < ActiveRecord::Migration[4.2]
   def change
 
     execute <<-SQL

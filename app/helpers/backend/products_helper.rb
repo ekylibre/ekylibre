@@ -28,7 +28,8 @@ module Backend
 
       # data for bar chart times by activities and by month
       Activity.find_each do |activity|
-        act_interventions = Intervention::HABTM_Activities
+        act_interventions = Intervention
+                              .habtm_activities
                               .where(intervention_id: working_periods.pluck(:intervention_id), activity_id: activity.id)
                               .reorder(:intervention_started_at)
                               .group_by { |m| m.intervention_started_at.year.to_s + m.intervention_started_at.month.to_s.rjust(3, '0') }

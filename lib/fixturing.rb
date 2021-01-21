@@ -35,8 +35,6 @@ module Fixturing
       path = options[:path] || directory
       version = options[:version] || current_version
       verbose = !options[:verbose].is_a?(FalseClass)
-      Ekylibre::Tenant.create_database_for!(tenant)
-      Ekylibre::Tenant.switch_to_database_for(tenant)
       Apartment.connection.execute("DROP SCHEMA IF EXISTS \"#{tenant}\" CASCADE")
       Apartment.connection.execute("CREATE SCHEMA \"#{tenant}\"")
       Ekylibre::Tenant.add(tenant)
@@ -119,7 +117,7 @@ module Fixturing
     end
 
     def migrate(tenant, options = {})
-      target = ActiveRecord::Migrator.last_version
+      target = ActiveRecord::Migrator.last_migration.version
       origin = options[:origin] || current_version
       if target != origin
         say 'Migrate fixtures from ' + origin.inspect + ' to ' + target.inspect

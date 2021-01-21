@@ -1,4 +1,4 @@
-class AddPayslips < ActiveRecord::Migration
+class AddPayslips < ActiveRecord::Migration[4.2]
   POLYMORPHIC_KEYS = [
     %i[attachments resource],
     %i[calls source],

@@ -1,4 +1,4 @@
-class ChangePurchaseOrderTemplateExtension < ActiveRecord::Migration
+class ChangePurchaseOrderTemplateExtension < ActiveRecord::Migration[4.2]
   def change
     execute <<-SQL
       UPDATE document_templates

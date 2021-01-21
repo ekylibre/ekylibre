@@ -1,4 +1,4 @@
-class RenameBudgetsToProductionBudgets < ActiveRecord::Migration
+class RenameBudgetsToProductionBudgets < ActiveRecord::Migration[4.2]
   PRODUCTION_STATES = {
     draft: :opened,
     validated: :closed

@@ -35,6 +35,29 @@
         $(this).val(val)
         $(this).closest('.storing-fields').find('.conditionning-quantity').trigger('change')
 
+  fields =
+    _stripDecimals: (digitString, wantedDecimals) ->
+      if digitString.includes('.')
+        amountWithDigits = digitString.split('.')
+        amount = amountWithDigits[0]
+        digits = amountWithDigits[1]
+        if digits.length > wantedDecimals
+          digitsKept = digits.substring(0, wantedDecimals)
+          amountDisplayed = amount + '.' + digitsKept
+          newDigitString = parseFloat(amountDisplayed)
+
+    changeDecimalNumber: (element, wantedDecimals) ->
+      newValue = @_stripDecimals(element.value, wantedDecimals)
+      element.value = newValue if newValue
+
+  # Prevent having more than 2 decimals on amount fields
+  $(document).on "keyup", "[data-trade-component=amount], [data-trade-component=pretax_amount]", ->
+    fields.changeDecimalNumber(this, 2)
+
+  # Allow unit pretax amount to have 4 decimals because database stores only 4
+  $(document).on "keyup", "[data-trade-component=unit_pretax_amount]", ->
+    fields.changeDecimalNumber(this, 4)
+
   $(document).ready ->
     $('table.list').on 'cocoon:after-insert', ->
       $('*[data-iceberg]').on "iceberg:inserted", (element) ->

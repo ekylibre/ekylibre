@@ -1,4 +1,4 @@
-class UpdateProducts < ActiveRecord::Migration
+class UpdateProducts < ActiveRecord::Migration[4.2]
   def replace_items_in_array(table, column, options = {})
     conditions = '1=1'
     if options[:reference_name]

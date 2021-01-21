@@ -23,8 +23,8 @@
   = kujaku actions: false do |k|
     - k.helper :subledger_crit
     - k.hidden :current_financial_year
-    - k.previous_navigation :previous_ledger, class: "btn btn-previous icn icn-before", params: params.slice(:current_financial_year, :ledger)
-    - k.next_navigation :next_ledger, class: "btn btn-next icn icn-after", params: params.slice(:current_financial_year, :ledger)
+    - k.previous_navigation :previous_ledger, class: "btn btn-previous icn icn-before", params: params.permit(:current_financial_year, :ledger).to_h
+    - k.next_navigation :next_ledger, class: "btn btn-next icn icn-after", params: params.permit(:current_financial_year, :ledger).to_h
 
 
   = main_list(:subledger_journal_entry_items)

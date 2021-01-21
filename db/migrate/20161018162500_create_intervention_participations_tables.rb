@@ -1,4 +1,4 @@
-class CreateInterventionParticipationsTables < ActiveRecord::Migration
+class CreateInterventionParticipationsTables < ActiveRecord::Migration[4.2]
   def change
     create_table :intervention_participations do |t|
       t.references :intervention, index: true, foreign_key: true

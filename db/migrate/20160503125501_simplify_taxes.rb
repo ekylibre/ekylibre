@@ -1,4 +1,4 @@
-class SimplifyTaxes < ActiveRecord::Migration
+class SimplifyTaxes < ActiveRecord::Migration[4.2]
   ASSET_TAXES = {
     french_vat_normal_asset_1966: :french_vat_normal_1966,
     french_vat_normal_asset_1982: :french_vat_normal_1982,

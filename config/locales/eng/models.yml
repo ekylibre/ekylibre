@@ -44,6 +44,7 @@ eng:
       not_a_number: "%{attribute} is not a number"
       not_an_end_of_month: "%{attribute} must be an end of month"
       not_an_integer: "%{attribute} must be an integer"
+      not_available_in_ekyagri: "\"%{feature}\" is not available in EkyAgri."
       not_enough: "not enough %{resource} to complete task"
       not_found: "not found"
       not_locked: "was not locked"

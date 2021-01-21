@@ -1,4 +1,4 @@
-class CreateFinancialYearArchivesAndAddSignatureAndFingerprintToDocuments < ActiveRecord::Migration
+class CreateFinancialYearArchivesAndAddSignatureAndFingerprintToDocuments < ActiveRecord::Migration[4.2]
   def change
     add_column :documents, :sha256_fingerprint, :string
     add_column :documents, :signature, :text

@@ -1,4 +1,4 @@
-class AddForeignKeyToPurchaseInvoiceItemIdOnPurchaseItems < ActiveRecord::Migration
+class AddForeignKeyToPurchaseInvoiceItemIdOnPurchaseItems < ActiveRecord::Migration[4.2]
   def change
     reversible do |change|
       change.up do

@@ -1,4 +1,4 @@
-class ReviewTransports < ActiveRecord::Migration
+class ReviewTransports < ActiveRecord::Migration[4.2]
   def change
     remove_column :transports, :amount
     remove_column :transports, :pretax_amount

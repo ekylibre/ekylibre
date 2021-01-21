@@ -4,7 +4,7 @@
   %tr{ class: tableRowClassName }
     %td= f.input :name, wrapper: :nested
     %td= f.input :memo, wrapper: :nested
-    %td= f.input :transfered_on, wrapper: :nested
+    %td.transfered_on= f.input :transfered_on, wrapper: :nested
     %td.decimal= f.input :debit, wrapper: :nested, input_html: { data: { exclusive_nullify: (item.persisted? ? ".#{tableRowClassName} .credit" : 'filledbyjs') }, class: 'debit lg-numeric' }
     %td.currency= item.cash_currency
     %td.decimal= f.input(:credit, wrapper: :nested, input_html: { data: { exclusive_nullify: (item.persisted? ? ".e#{tableRowClassName} .debit" : 'filledbyjs') }, class: 'credit lg-numeric' })

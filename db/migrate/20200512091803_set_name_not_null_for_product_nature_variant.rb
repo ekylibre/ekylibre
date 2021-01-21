@@ -1,4 +1,4 @@
-class SetNameNotNullForProductNatureVariant < ActiveRecord::Migration
+class SetNameNotNullForProductNatureVariant < ActiveRecord::Migration[4.2]
   def change
     reversible do |dir|
       dir.up do

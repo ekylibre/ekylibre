@@ -10,7 +10,7 @@ module Backend
 
     test "an invoice can't be created without at least one item" do
       supplier_one = create(:entity, :supplier)
-      post :create, purchase_invoice: { supplier_id: supplier_one }
+      post :create, params: { purchase_invoice: { supplier_id: supplier_one } }
 
       assert_response 200
 
@@ -26,6 +26,7 @@ module Backend
       invoice = create :purchase_invoice, invoiced_at: Date.new(2017, 5, 10)
 
       create(:purchase_item, purchase: invoice, role: :fees)
+      invoice.save
 
       financial_year = FinancialYear.at Date.new(2017, 5, 10)
       create :tax_declaration, financial_year: financial_year, started_on: Date.new(2017, 5, 1), stopped_on: Date.new(2017, 5, 31)
@@ -34,13 +35,13 @@ module Backend
 
       assert invoice.linked_to_tax_declaration?
 
-      delete :destroy, id: invoice.id
+      delete :destroy, params: { id: invoice.id }
       assert flash['notifications']['error'].present?
 
-      patch :update, id: invoice.id
+      patch :update, params: { id: invoice.id }
       assert flash['notifications']['error'].present?
 
-      get :edit, id: invoice.id
+      get :edit, params: { id: invoice.id }
       assert flash['notifications']['warning'].present?
     end
   end

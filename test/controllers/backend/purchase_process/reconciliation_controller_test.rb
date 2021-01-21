@@ -60,7 +60,6 @@ module Backend
       end
 
       test "if the supplier is set then only opened purchase_orders from this supplier appear in the reception form modal and could be reconciled" do
-
         get :purchase_orders_to_reconciliate, supplier: @supplier_one.id
         assert_response 200
 

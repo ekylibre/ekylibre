@@ -1,4 +1,4 @@
-class AddProviderOnJournalEntries < ActiveRecord::Migration
+class AddProviderOnJournalEntries < ActiveRecord::Migration[4.2]
   def change
     add_provider_to :journal_entries
   end

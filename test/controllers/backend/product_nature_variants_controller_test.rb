@@ -12,7 +12,11 @@ module Backend
       assert_nil variant.reference_name
       assert_nil variant.imported_from
 
-      patch :update, id: variant.id, phyto_product_id: phyto.id, product_nature_variant: variant.attributes
+      patch :update, params: {
+        id: variant.id,
+        phyto_product_id: phyto.id,
+        product_nature_variant: variant.attributes.crush
+      }
 
       variant.reload
       assert_equal phyto.france_maaid, variant.france_maaid

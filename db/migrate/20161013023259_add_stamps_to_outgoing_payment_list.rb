@@ -1,4 +1,4 @@
-class AddStampsToOutgoingPaymentList < ActiveRecord::Migration
+class AddStampsToOutgoingPaymentList < ActiveRecord::Migration[4.2]
   def change
     change_table :outgoing_payment_lists do |t|
       t.references(:creator, index: true)

@@ -1,4 +1,4 @@
-class AddProviderToPanierLocalModels < ActiveRecord::Migration
+class AddProviderToPanierLocalModels < ActiveRecord::Migration[4.2]
   def change
     %i[sales catalogs journals sale_natures product_natures product_nature_categories accounts product_nature_variants entities incoming_payments].each{|table_name| add_provider_to_(table_name)}
   end

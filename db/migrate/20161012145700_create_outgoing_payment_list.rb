@@ -1,4 +1,4 @@
-class CreateOutgoingPaymentList < ActiveRecord::Migration
+class CreateOutgoingPaymentList < ActiveRecord::Migration[4.2]
   def change
     create_table :outgoing_payment_lists do |t|
       t.string :number

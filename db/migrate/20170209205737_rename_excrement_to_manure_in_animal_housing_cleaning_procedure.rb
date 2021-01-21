@@ -1,4 +1,4 @@
-class RenameExcrementToManureInAnimalHousingCleaningProcedure < ActiveRecord::Migration
+class RenameExcrementToManureInAnimalHousingCleaningProcedure < ActiveRecord::Migration[4.2]
   def change
     reversible do |dir|
       dir.up do

@@ -19,7 +19,7 @@ module Backend
       current_land_parcels = LandParcel.at(started_at).count
       current_layer = :land_parcels
 
-      get :index, layers: [current_layer], started_at: started_at, xhr: true, format: :json
+      get :index, params: { layers: [current_layer], started_at: started_at, format: :json }, xhr: true
       r = JSON.parse(@response.body)['show']
 
       # Checks if land parcels layers is loaded
@@ -39,7 +39,7 @@ module Backend
       current_plants = Plant.at(started_at).count
       current_layer = :plants
 
-      get :index, layers: [current_layer], started_at: started_at, xhr: true, format: :json
+      get :index, params: { layers: [current_layer], started_at: started_at, format: :json }, xhr: true
       r = JSON.parse(@response.body)['show']
 
       # Checks if plant layers is loaded

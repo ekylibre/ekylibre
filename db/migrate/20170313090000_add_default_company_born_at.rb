@@ -1,4 +1,4 @@
-class AddDefaultCompanyBornAt < ActiveRecord::Migration
+class AddDefaultCompanyBornAt < ActiveRecord::Migration[4.2]
   def up
     started_on = select_value("SELECT LEAST(COALESCE(started_on, '2008-01-01'), COALESCE(entities.born_at, '2008-01-01')::DATE) FROM (SELECT MIN(started_on) AS started_on
  FROM financial_years

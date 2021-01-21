@@ -18,7 +18,7 @@ module Backend
 
         expected_cultivable_zones_count = resource_model.count
 
-        get :show, resource_name: resource_name, xhr: true, format: :json
+        get :show, params: { resource_name: resource_name, format: :json }, xhr: true
         r = JSON.parse(@response.body)
 
         assert r.key? 'series'

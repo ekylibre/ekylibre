@@ -1,4 +1,4 @@
-class AddActivityProductionToProduct < ActiveRecord::Migration
+class AddActivityProductionToProduct < ActiveRecord::Migration[4.2]
   def change
     add_reference :products, :activity_production, index: true, foreign_key: true
 

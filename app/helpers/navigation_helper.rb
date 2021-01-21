@@ -36,7 +36,7 @@ module NavigationHelper
         name:   name_for(collection.first, naming_method)
       }
     rescue ActiveRecord::StatementInvalid => e
-      raise e unless (pg_error = e.original_exception).is_a?(PG::UndefinedColumn)
+      raise e unless (pg_error = e.cause).is_a?(PG::UndefinedColumn)
       raise OrderingCriterionNotFound.new(pg_error)
     end
 

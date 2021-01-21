@@ -1,4 +1,4 @@
-class AddDetailBookkeepOptionForBankStatementItems < ActiveRecord::Migration
+class AddDetailBookkeepOptionForBankStatementItems < ActiveRecord::Migration[4.2]
   def change
     add_column :cashes, :enable_bookkeep_bank_item_details, :boolean, default: false
     add_column :bank_statement_items, :accounted_at, :datetime

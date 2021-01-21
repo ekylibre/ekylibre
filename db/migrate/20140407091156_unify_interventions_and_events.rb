@@ -1,4 +1,4 @@
-class UnifyInterventionsAndEvents < ActiveRecord::Migration
+class UnifyInterventionsAndEvents < ActiveRecord::Migration[4.2]
   def change
     add_reference :analysis_items, :product_reading
 

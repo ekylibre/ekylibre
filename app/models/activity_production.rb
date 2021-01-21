@@ -207,6 +207,8 @@ class ActivityProduction < ApplicationRecord
 
   after_destroy do
     Ekylibre::Hook.publish(:activity_production_destroy, activity_production_id: id)
+    items = activity.budgets.of_campaign(campaign).first&.items
+    items.each(&:save!) if items.present?
   end
 
   protect(on: :destroy) do

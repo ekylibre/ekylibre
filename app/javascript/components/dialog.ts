@@ -26,9 +26,15 @@ interface DataOrParams {
     data?: FormData;
 }
 
+function sendDialogShowEvent(modal: Modal) {
+    modal.getBodyElement().dispatchEvent(new Event('dialog:show', { bubbles: true }));
+}
+
 export async function openDialog(url: string, options: DialogOptions): Promise<Modal> {
     const { modal } = await openRemote(url, { size: 'lg', requestConfig: { ...requestConfigDefaults, params: { dialog: '1' } } });
     handleTitle(modal);
+
+    sendDialogShowEvent(modal);
 
     modal.on('submit', 'form', (e) => {
         e.preventDefault();
@@ -60,6 +66,8 @@ export async function openDialog(url: string, options: DialogOptions): Promise<M
 
                     modal.setBodyString(response.data);
                     handleTitle(modal);
+
+                    sendDialogShowEvent(modal);
                 } else {
                     options.success && options.success(response);
                     modal.close();

@@ -26,7 +26,7 @@ module Accountancy
 
       # Build an SQL condition based on options which should contains acceptable states
       def journal_condition(journals, table_name:)
-        if journals.nil? || !journals.is_a?(Hash) || journals.empty?
+        if journals.blank?
           connection.quoted_false
         else
           "#{table_name}.journal_id IN (#{journals.keys.map { |journal_id| quote(journal_id.to_i) }.join(',')})"
@@ -34,11 +34,13 @@ module Accountancy
       end
 
       # Build an SQL condition based on options which should contains acceptable states
+      # @param [Array<String, Symbol>] states
+      # @param [String] table_name
       def state_condition(states, table_name:)
-        if states.nil? || !states.is_a?(Hash) || states.empty?
+        if states.blank?
           JournalEntry.connection.quoted_false
         else
-          "#{table_name}.state IN (#{states.keys.map { |state| quote(state) }.join(',')})"
+          "#{table_name}.state IN (#{states.map { |state| quote(state) }.join(',')})"
         end
       end
     end

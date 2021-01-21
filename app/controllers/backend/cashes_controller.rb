@@ -22,14 +22,6 @@ module Backend
 
     unroll
 
-    # Displays the main page with the list of bank statements
-    before_action only: [:index] do
-      cashes = Cash.bank_accounts.with_pointing_work
-      if cashes.any?
-        notify_now(:x_unpointed_journal_entry_items, count: JournalEntryItem.where(account_id: cashes.select(:account_id)).unpointed.count)
-      end
-    end
-
     list(order: :name) do |t|
       t.action :edit
       t.action :destroy

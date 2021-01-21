@@ -1,4 +1,4 @@
-class AddComputationMethodOnSalesAndPurchases < ActiveRecord::Migration
+class AddComputationMethodOnSalesAndPurchases < ActiveRecord::Migration[4.2]
   def change
     %i[sales purchases].each do |table|
       add_column table, :computation_method, :string

@@ -1,4 +1,4 @@
-class SetWithAccountingValueInSaleNatures < ActiveRecord::Migration
+class SetWithAccountingValueInSaleNatures < ActiveRecord::Migration[4.2]
   def up
     execute <<-SQL
       UPDATE sale_natures

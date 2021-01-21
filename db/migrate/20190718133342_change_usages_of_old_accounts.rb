@@ -1,4 +1,4 @@
-class ChangeUsagesOfOldAccounts < ActiveRecord::Migration
+class ChangeUsagesOfOldAccounts < ActiveRecord::Migration[4.2]
   def up
     execute <<-SQL
       UPDATE accounts
