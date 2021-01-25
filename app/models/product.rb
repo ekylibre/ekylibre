@@ -271,6 +271,8 @@ class Product < ApplicationRecord
   scope :supporters, -> { where(id: ActivityProduction.pluck(:support_id)) }
   scope :available, -> {}
   scope :availables, ->(**args) {
+    ActiveSupport::Deprecation.warn("Product#availables and Product#available are deprecated, use Product#at instead")
+
     at = args[:at]
     return available if at.blank?
     if at.is_a?(String)
