@@ -157,14 +157,15 @@ class InterventionWorkingPeriod < ApplicationRecord
     return if first?
 
     previous_index = index - 1
-    intervention_participation.working_periods.fetch(previous_index)
+
+    intervention_participation.working_periods[previous_index]
   end
 
   def next_period
     return if last?
 
     next_index = index + 1
-    intervention_participation.working_periods.fetch(next_index)
+    intervention_participation.working_periods[next_index]
   end
 
   def pause_next?
