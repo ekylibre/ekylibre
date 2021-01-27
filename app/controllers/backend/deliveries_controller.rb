@@ -86,7 +86,7 @@ module Backend
     def show
       @entity_of_company_picture_path = Entity.of_company.picture_path
       return unless @delivery = find_and_check
-      respond_with(@delivery, methods: %i[all_parcels_prepared human_delivery_mode],
+      respond_with(@delivery, methods: %i[human_delivery_mode],
                               include: {
                                 parcels: {
                                   methods: %i[human_delivery_mode human_delivery_nature],
