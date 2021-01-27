@@ -26,18 +26,20 @@ module Backend
     def show
       set_period_params
 
+      unsafe_params = params.to_unsafe_h
+
       dataset_params = {
-        states: params[:states],
-        natures: params[:natures],
-        balance: params[:balance],
-        accounts: params[:accounts],
-        centralize: params[:centralize],
-        period: params[:period],
-        started_on: params[:started_on],
-        stopped_on: params[:stopped_on],
-        vat_details: params[:vat_details],
-        previous_year: params[:previous_year],
-        levels: params.to_unsafe_h.select{|k, v| k =~ /\Alevel_/ && v.to_s == "1"}.map{|k, _v| k.sub('level_', '').to_i}
+        states: unsafe_params[:states],
+        natures: unsafe_params[:natures],
+        balance: unsafe_params[:balance],
+        accounts: unsafe_params[:accounts],
+        centralize: unsafe_params[:centralize],
+        period: unsafe_params[:period],
+        started_on: unsafe_params[:started_on],
+        stopped_on: unsafe_params[:stopped_on],
+        vat_details: unsafe_params[:vat_details],
+        previous_year: unsafe_params[:previous_year],
+        levels: unsafe_params.select{|k, v| k =~ /\Alevel_/ && v.to_s == "1"}.map{|k, _v| k.sub('level_', '').to_i}
       }
 
       respond_to do |format|

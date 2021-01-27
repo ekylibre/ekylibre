@@ -114,13 +114,17 @@ module Printers
             I18n.translate('labels.centralized_account', name: item[:ids][0])
           end
         end
-        t.add_column(:debit) { |item| item[:n].any? ? item[:n][2].to_f : '' }
-        t.add_column(:credit) { |item| item[:n].any? ? item[:n][3].to_f : '' }
-        t.add_column(:debit_n) { |item| item[:n_1].any? ? item[:n_1][2].to_f : '' }
-        t.add_column(:credit_n) { |item| item[:n_1].any? ? item[:n_1][3].to_f : '' }
-        t.add_column(:balance) { |item| item[:n].any? ? item[:n][4].to_f : '' }
-        t.add_column(:balance_n) { |item| item[:n_1].any? ? item[:n_1][4].to_f : '' }
+        t.add_column(:debit) { |item| currency_format(item[:n].any? ? item[:n][2].to_f : 0.0) }
+        t.add_column(:credit) { |item| currency_format(item[:n].any? ? item[:n][3].to_f : 0.0) }
+        t.add_column(:debit_n) { |item| currency_format(item[:n_1].any? ? item[:n_1][2].to_f : 0.0) }
+        t.add_column(:credit_n) { |item| currency_format(item[:n_1].any? ? item[:n_1][3].to_f : 0.0) }
+        t.add_column(:balance) { |item| currency_format(item[:n].any? ? item[:n][4].to_f : 0.0) }
+        t.add_column(:balance_n) { |item| currency_format(item[:n_1].any? ? item[:n_1][4].to_f : 0.0) }
       end
+    end
+
+    def currency_format(value)
+      value.round_l(currency: Preference[:currency])
     end
 
     def run_ods
