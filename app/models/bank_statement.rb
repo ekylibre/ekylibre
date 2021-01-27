@@ -70,14 +70,10 @@ class BankStatement < ApplicationRecord
     find_by('started_on <= ? AND stopped_on >= ? AND cash_id = ?', started_on, stopped_on, cash_id)
   }
 
-  scope :for_cash, ->(cash){ where(cash: cash) }
+  scope :for_cash, ->(cash) { where(cash: cash) }
 
-  scope :between, lambda { |started_on, stopped_on|
-    start_range = where(started_on: started_on..stopped_on)
-    stop_range = where(stopped_on: started_on..stopped_on)
-    start_range = start_range.where_values.reduce(:and)
-    stop_range = stop_range.where_values.reduce(:and)
-    where(start_range.or(stop_range)).distinct
+  scope :between, ->(started_on, stopped_on) {
+    where("started_on BETWEEN :start AND :stop OR stopped_on BETWEEN :start AND :stop", start: started_on, stop: stopped_on)
   }
 
   scope :on, ->(date) {
