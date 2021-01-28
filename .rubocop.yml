@@ -24,7 +24,3 @@ Bundler/OrderedGems:
 # Too many offenses to enable this for now.
 Style/StringLiterals:
   Enabled: false
-
-# In a fantasy land, its a good idea. In practice, we have too many classes without comments to enable this.
-Style/Documentation:
-  Enabled: false

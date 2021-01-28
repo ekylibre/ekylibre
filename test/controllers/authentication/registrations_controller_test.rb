@@ -9,14 +9,14 @@ module Authentication
     end
 
     def sign_up_request
-      post :create, user: {
+      post :create, params: { user: {
         first_name: 'Robert',
         last_name: 'Tee',
         email: 'robert.tee@gmail.com',
         password: 'robert00',
         password_confirmation: 'robert00',
         language: 'eng'
-      }
+      } }
     end
 
     # TODO: Reactivate the two following tests

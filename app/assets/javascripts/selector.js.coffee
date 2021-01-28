@@ -274,7 +274,7 @@
 
           E.Dialog.open @element.data("selector-new-item"),
             success: (response) =>
-              @_set(response.headers['x-saved-record-id'])
+              @_set(response.headers['x-saved-record-id'], true)
             error: (response) =>
               console.error('Selector dialog error', response)
 

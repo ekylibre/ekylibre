@@ -9,4 +9,3 @@ if product.category.reference_name == "plant_medicine"
 end
 
 json.variant_unit_name product.variant.unit_name
-

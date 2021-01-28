@@ -50,5 +50,3 @@ module Interventions
     end
   end
 end
-
-
