@@ -17,7 +17,7 @@
    ```
      module Backend
        module Cells
-         class RevenuesByProductNatureCellsController < Backend::Cells::BaseController
+         class NewNameCellsController < Backend::Cells::BaseController
            def show
              // Your code logic here
            end
