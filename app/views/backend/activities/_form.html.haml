@@ -1,83 +1,55 @@
 = f.object.errors.inspect if Rails.env.development? && f.object.errors.any?
-- if f.object.family.nil?
-  .fieldset
-    .fieldset-fields
-      = f.referenced_nomenclature :family, input_html: {data: {activity_family: true}}
-  - f.clear_actions!
-  - f.add(:link, :valid.tl, new_backend_activity_path, data: {disable_with: :please_wait.tl}, class: 'btn primary', disabled:true, id:"activity_family_submit")
-- else 
-  - form_config = ::Activities::FormConfigBuilder.build.config_for(f.object.family)
-  = field_set do
-    = f.input :name
-    = f.input :nature, as: :radio_buttons, show: '.{{value}}-nature-options'
-    = f.referenced_nomenclature :family, input_html: { data: { activity_family: true }, disabled: true }
-    = f.referenced_nomenclature :family, as: :hidden
-    = f.referenced_nomenclature :production_system
-    - family = Onoma::ActivityFamily[f.object.family]
-    - hint = content_tag :span, class: 'hint-warning' do
-      %i.icon.icon-warning
-      = :warning_could_not_use_ift.tl
-    = f.referenced_association :production_nature, new: false, label: :production_nature.tl, wrapper_html: {style: "display: #{form_config.production_nature.display_style}"} , hint: (hint if f.object.production_nature.nil?) 
-    = f.input :with_cultivation, as: :hidden, checked: (family.cultivation_variety.present?)
-    = f.referenced_nomenclature :cultivation_variety, required: true, input_html: { data: { family_cultivation_variety: family.cultivation_variety}}, collection: ((family.cultivation_variety.present?) ? Onoma::Variety.selection(family.cultivation_variety) : []), wrapper_html: {style: "display: #{(family.cultivation_variety.present?) ? 'block' : 'none'}"}
-    = f.input :production_cycle, as: :radio_buttons, show: '.{{value}}-production-cycle-options'
-    = f.input(:production_campaign_period, label: :production_campaign_period.tl, wrapper: :append) do
-      = content_tag(:span, :from_current_year.tl, class: 'add-on')
-      = f.input(:production_started_on,  input_html: { data: {flatpickr_alt_format: 'd-F',flatpickr_calendar_class: 'day-names-hidden year-hidden' }}, wrapper: :simplest)
-      = content_tag(:span, :year_long.tl, class: 'add-on')
-      = f.input(:production_campaign, collection: [['N-1', :at_cycle_end], ['N', :at_cycle_start]], wrapper: :simplest, selected: f.object.production_campaign || :at_cycle_start)
-      = content_tag(:span,  :to_next_year.tl, class: 'add-on')
-      = f.input(:production_stopped_on, input_html: { data: {flatpickr_alt_format: 'd-F', flatpickr_calendar_class: 'day-names-hidden year-hidden' }}, wrapper: :simplest)
-      = content_tag(:span, :year_long.tl, class: 'add-on')
-      = content_tag(:span, 'N', class: 'add-on')
-    .perennial-production-cycle-options
-      = f.input :start_state_of_production_year, label: :start_state_of_production.tl,
-                                                 collection: f.object.production_nature && f.object.production_nature.start_state_of_production.values || (1..5).map{|year| MasterProductionNature::StartStateOfProduction.new(year: year, key: "n_#{year}")}, 
-                                                 label_method: lambda { |ssop| ssop.label(locale: locale) }, value_method: :year, 
-                                                 required: form_config.start_state_of_production.required , 
-                                                 wrapper_html: {style: "display: #{form_config.start_state_of_production.display_style}"}
-      = f.input :life_duration, required: form_config.life_duration.required , wrapper_html: {style: "display: #{form_config.life_duration.display_style}"}, wrapper: :append do
-        = f.input_field :life_duration
-        %span.add-on= :year.tl.pluralize
-    = f.input :description
-    = f.custom_fields
+= field_set do
+  = f.input :name
+  = f.input :nature, as: :radio_buttons, show: '.{{value}}-nature-options'
+  = f.referenced_nomenclature :production_system
+  = f.referenced_association :production_nature, new: false, label: :production_nature.tl
+  = f.referenced_nomenclature :family, input_html: {data: {activity_family: true}}
+  - family = Onoma::ActivityFamily[f.object.family]
+  = f.input :with_cultivation, as: :hidden
+  = f.referenced_nomenclature :cultivation_variety, collection: ((family and family.cultivation_variety.present?) ? Onoma::Variety.selection(family.cultivation_variety) : []), wrapper_html: {style: "display: #{(family and family.cultivation_variety.present?) ? 'block' : 'none'}"}
+  -#= f.input :with_supports, as: :hidden
+  -# = f.input :support_variety, collection: ((family and family.support_variety) ? Onoma::Variety.selection(family.support_variety) : []), wrapper_html: {style: "display: #{(family and family.support_variety) ? 'block' : 'none'}"}
+  = f.input :production_cycle, as: :radio_buttons, show: '.{{value}}-production-cycle-options'
+  .perennial-production-cycle-options
+    = f.input :production_campaign, as: :radio_buttons
+  -#.main-nature-options
+    = f.input :size_indicator_name
+    = f.input :size_unit_name
+  = f.input :description
+  = f.custom_fields
 
-  - if form_config.inspections
-    = field_set(:inspections, title: Activity.human_attribute_name(:inspections)) do
-      = f.input :use_gradings, show: '#inspections-fields'
-      #inspections-fields
-        = f.input :measure_grading_items_count
-        = f.input :measure_grading_net_mass, show: '#grading_net_mass'
-        #grading_net_mass
-          - unit_collection = Onoma::Unit.where(dimension: :mass).sort { |one, two| one.a <=> two.a }
-          = f.referenced_nomenclature :grading_net_mass_unit, collection: unit_collection.selection(false), include_blanks: false
-        = f.input :measure_grading_sizes, show: '#grading_sizes'
-        #grading_sizes
-          = f.referenced_nomenclature :grading_sizes_indicator, collection: Onoma::Indicator.where(unit: Onoma::Unit.where(dimension: :distance)).selection, include_blanks: false
-          = f.referenced_nomenclature :grading_sizes_unit, collection: Onoma::Unit.where(dimension: :distance).selection, include_blanks: false
+= field_set(:inspections, title: Activity.human_attribute_name(:inspections)) do
+  = f.input :use_gradings, show: '#inspections-fields'
+  #inspections-fields
+    = f.input :measure_grading_items_count
+    = f.input :measure_grading_net_mass, show: '#grading_net_mass'
+    #grading_net_mass
+      - unit_collection = Onoma::Unit.where(dimension: :mass).sort { |one, two| one.a <=> two.a }
+      = f.referenced_nomenclature :grading_net_mass_unit, collection: unit_collection.selection(false), include_blanks: false
+    = f.input :measure_grading_sizes, show: '#grading_sizes'
+    #grading_sizes
+      = f.referenced_nomenclature :grading_sizes_indicator, collection: Onoma::Indicator.where(unit: Onoma::Unit.where(dimension: :distance)).selection, include_blanks: false
+      = f.referenced_nomenclature :grading_sizes_unit, collection: Onoma::Unit.where(dimension: :distance).selection, include_blanks: false
 
-        = f.nested_association(:inspection_calibration_scales)
-        = f.nested_association(:inspection_point_natures)
+    = f.nested_association(:inspection_calibration_scales)
+    = f.nested_association(:inspection_point_natures)
 
-  - if form_config.countings
-    = field_set(:countings, title: Activity.human_attribute_name(:countings)) do
-      = f.input :use_countings, show: '#countings-fields'
-      #countings-fields
-        = f.nested_association :plant_density_abaci
+= field_set(:countings, title: Activity.human_attribute_name(:countings)) do
+  = f.input :use_countings, show: '#countings-fields'
+  #countings-fields
+    = f.nested_association :plant_density_abaci
 
-  - if form_config.distributions
-    .auxiliary-nature-options
-      = field_set(Activity.human_attribute_name(:distributions)) do
-        = f.nested_association(:distributions)
+.auxiliary-nature-options
+  = field_set(Activity.human_attribute_name(:distributions)) do
+    = f.nested_association(:distributions)
 
-  - if form_config.seasons
-    = field_set(:seasons, title: Activity.human_attribute_name(:seasons)) do
-      = f.input :use_seasons, show: '#seasons-fields'
-      #seasons-fields
-        = f.nested_association(:seasons)
+= field_set(:seasons, title: Activity.human_attribute_name(:seasons)) do
+  = f.input :use_seasons, show: '#seasons-fields'
+  #seasons-fields
+    = f.nested_association(:seasons)
 
-  - if form_config.tactics
-    = field_set(:tactics, title: Activity.human_attribute_name(:tactics)) do
-      = f.input :use_tactics, show: '#tactics-fields'
-      #tactics-fields
-        = f.nested_association(:tactics, maximum: 1)
+= field_set(:tactics, title: Activity.human_attribute_name(:tactics)) do
+  = f.input :use_tactics, show: '#tactics-fields'
+  #tactics-fields
+    = f.nested_association(:tactics, maximum: 1)

@@ -104,22 +104,16 @@ class Activity < ApplicationRecord
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :family, :nature, :production_cycle, presence: true
-  validates :life_duration, numericality: { greater_than: -1_000, less_than: 1_000 }, allow_blank: true
   validates :measure_grading_net_mass, :measure_grading_sizes, :suspended, :use_countings, :use_gradings, :with_cultivation, :with_supports, inclusion: { in: [true, false] }
   validates :name, presence: true, length: { maximum: 500 }
-  validates :production_started_on, :production_stopped_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years }, type: :date }, allow_blank: true
   validates :use_seasons, :use_tactics, inclusion: { in: [true, false] }, allow_blank: true
   # ]VALIDATORS]
-  validates :cultivation_variety, presence: true, if: -> { Onoma::ActivityFamily[family] && Onoma::ActivityFamily[family].cultivation_variety.present? }
   validates :family, inclusion: { in: family.values }
   validates :cultivation_variety, presence: { if: :with_cultivation }
   validates :support_variety, presence: { if: :with_supports }
   validates :name, uniqueness: true
   # validates_associated :productions
-  validates :production_campaign, presence: true
-  validates :start_state_of_production_year, presence: { if: ->(activity) { activity.perennial? && activity.production_nature.present?  } }
-  # TODO: this condition about vine_farming has to be modified to be more generic over the production cycle (perenial ?)
-  validates :life_duration, presence: { if: :vine_farming? }
+  validates :production_campaign, presence: { if: :perennial? }
   validates :grading_net_mass_unit, presence: { if: :measure_grading_net_mass }
   validates :grading_sizes_indicator, :grading_sizes_unit, presence: { if: :measure_grading_sizes }
 
@@ -158,64 +152,51 @@ class Activity < ApplicationRecord
   accepts_nested_attributes_for :seasons, update_only: true, reject_if: ->(par) { par[:name].blank? }
   accepts_nested_attributes_for :tactics, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :plant_density_abaci, allow_destroy: true, reject_if: :all_blank
-
   # protect(on: :update) do
   #   productions.any?
   # end
-
-  def start_state_of_production
-    production_nature.start_state_of_production.fetch(start_state_of_production_year) if perennial? && activity.production_nature.present?
-  end
 
   protect(on: :destroy) do
     productions.any?
   end
 
-  after_initialize :set_default
-
-  def set_default
-    case family
-    when 'vine_farming'
-      vine_default_production = MasterProductionNature.find_by(specie: 'vitis')
-
-      self.production_nature_id ||= vine_default_production.id
-      self.cultivation_variety ||= 'vitis'
-      self.start_state_of_production_year ||= 3
-      self.life_duration ||= vine_default_production.life_duration
-      self.production_started_on ||= vine_default_production.started_on
-      self.production_stopped_on ||= vine_default_production.stopped_on
-      self.production_cycle = 'perennial'
-      self.production_campaign = "at_cycle_end"
-    when 'animal_farming'
-      self.production_cycle = 'perennial'
-    end
-  end
-
   before_validation do
-    item = Onoma::ActivityFamily.find(family)
-    if item
-      if plant_farming? || vine_farming?
+    if Onoma::ActivityFamily.find(family)
+      # FIXME: Need to use nomenclatures to set that data!
+      if plant_farming?
         self.with_supports ||= true
-        self.support_variety ||= item.support_variety
+        self.support_variety ||= :land_parcel
         self.with_cultivation ||= true
-        self.cultivation_variety ||= item.cultivation_variety
+        self.cultivation_variety ||= :plant
         self.size_indicator_name = 'net_surface_area' if size_indicator_name.blank?
         self.size_unit_name = 'hectare' if size_unit_name.blank?
       elsif animal_farming?
         self.with_supports = true
-        self.support_variety = item.support_variety
+        self.support_variety = :animal_group
         self.with_cultivation = true
-        self.cultivation_variety ||= item.cultivation_variety
+        self.cultivation_variety ||= :animal
         self.size_indicator_name = 'members_population' if size_indicator_name.blank?
         self.size_unit_name = 'unity' if size_unit_name.blank?
       elsif tool_maintaining?
         self.with_supports = true
-        self.support_variety = 'equipment_fleet'
+        self.support_variety = :equipment_fleet
         self.with_cultivation = true
-        self.cultivation_variety ||= 'equipment'
+        self.cultivation_variety ||= :equipment
         self.size_indicator_name = 'members_population' if size_indicator_name.blank?
         self.size_unit_name = 'unity' if size_unit_name.blank?
       end
+      # if with_supports || family.support_variety
+      #   self.with_supports = true
+      #   self.support_variety = family.support_variety if family.support_variety
+      # else
+      #   self.with_supports = false
+      # end
+      # if with_cultivation || family.cultivation_variety
+      #   self.with_cultivation = true
+      #   self.cultivation_variety = family.cultivation_variety if family.cultivation_variety
+      # else
+      #   self.with_cultivation = false
+      # end
     end
     self.with_supports = false if with_supports.nil?
     self.with_cultivation = false if with_cultivation.nil?
