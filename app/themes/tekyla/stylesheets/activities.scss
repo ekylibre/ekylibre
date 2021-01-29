@@ -114,9 +114,6 @@ $activity_border_size: 5px;
   }
 
   .size {
-    &.animal_farming {
-      @include icon-before(people, $font-size: $fs-normal);
-    }
     @include icon-before(settings-ethernet, $font-size: $fs-normal);
   }
 

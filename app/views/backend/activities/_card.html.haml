@@ -6,11 +6,11 @@
   .activity-content
     .activity-name= link_to(activity.name, {controller: :activities, action: :show, id: activity.id }, title: activity.name)
     .activity-indicators
-      .activity-indicator.size{class: activity.family}
-        = activity.size_during(campaign).round(1).l(precision: activity.animal_farming? ? 0 : 1) rescue nil
+      .activity-indicator.size
+        = activity.size_during(campaign).round(1).l(precision: 1) rescue nil
       .activity-indicator.cumulated-time
         = activity.working_duration.to_d.in(:second).convert(:hour).round.l(precision: 0)
-      -# .activity-indicator.opened-issues
-      -#   = activity.opened_issues_count.to_s + '/' + activity.issues_count.to_s
+      .activity-indicator.opened-issues
+        = activity.opened_issues_count.to_s + '/' + activity.issues_count.to_s
       .activity-indicator.cash
         = activity.total_costs.to_i.l(currency: currency.name)

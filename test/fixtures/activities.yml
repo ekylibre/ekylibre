@@ -104,7 +104,6 @@ activities_002:
   nature: main
   production_cycle: annual
   size_indicator_name: members_population
-  size_unit_name: unity
   support_variety: animal_group
   suspended: false
   updated_at: 2015-03-08 16:28:50.905947000 Z
