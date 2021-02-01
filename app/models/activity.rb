@@ -152,9 +152,6 @@ class Activity < ApplicationRecord
   accepts_nested_attributes_for :seasons, update_only: true, reject_if: ->(par) { par[:name].blank? }
   accepts_nested_attributes_for :tactics, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :plant_density_abaci, allow_destroy: true, reject_if: :all_blank
-  # protect(on: :update) do
-  #   productions.any?
-  # end
 
   protect(on: :destroy) do
     productions.any?
@@ -164,9 +161,9 @@ class Activity < ApplicationRecord
     if Onoma::ActivityFamily.find(family)
       # FIXME: Need to use nomenclatures to set that data!
       if plant_farming?
-        self.with_supports ||= true
-        self.support_variety ||= :land_parcel
-        self.with_cultivation ||= true
+        self.with_supports = true
+        self.support_variety = :land_parcel
+        self.with_cultivation = true
         self.cultivation_variety ||= :plant
         self.size_indicator_name = 'net_surface_area' if size_indicator_name.blank?
         self.size_unit_name = 'hectare' if size_unit_name.blank?
@@ -184,23 +181,13 @@ class Activity < ApplicationRecord
         self.cultivation_variety ||= :equipment
         self.size_indicator_name = 'members_population' if size_indicator_name.blank?
         self.size_unit_name = 'unity' if size_unit_name.blank?
+      else
+        self.with_supports = false
+        self.support_variety = nil
+        self.with_cultivation = false
+        self.cultivation_variety = nil
       end
-      # if with_supports || family.support_variety
-      #   self.with_supports = true
-      #   self.support_variety = family.support_variety if family.support_variety
-      # else
-      #   self.with_supports = false
-      # end
-      # if with_cultivation || family.cultivation_variety
-      #   self.with_cultivation = true
-      #   self.cultivation_variety = family.cultivation_variety if family.cultivation_variety
-      # else
-      #   self.with_cultivation = false
-      # end
     end
-    self.with_supports = false if with_supports.nil?
-    self.with_cultivation = false if with_cultivation.nil?
-    true
   end
 
   validate do
@@ -212,6 +199,7 @@ class Activity < ApplicationRecord
   validate do
     errors.add :use_gradings, :checked_off_with_inspections if inspections.any? && !use_gradings
     errors.add :use_gradings, :checked_without_measures if use_gradings && !measure_something?
+    errors.add :family, :productions_present if changed.include?('family') && productions.exists?
 
     next unless family_item = Onoma::ActivityFamily[family]
 
