@@ -29,6 +29,7 @@ module Lexiconable
 
   def id
     return super if self.class.id_column == :id
+
     send(self.class.id_column)
   end
 end

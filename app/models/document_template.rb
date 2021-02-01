@@ -65,10 +65,12 @@ class DocumentTemplate < ApplicationRecord
     natures.flatten!
     natures.compact!
     return none unless natures.respond_to?(:any?) && natures.any?
+
     invalids = natures.select { |nature| Onoma::DocumentNature[nature].nil? }
     if invalids.any?
       raise ArgumentError.new("Unknown nature(s) for a DocumentTemplate: #{invalids.map(&:inspect).to_sentence}")
     end
+
     where(nature: natures, active: true).order(:name)
   }
 
@@ -77,7 +79,6 @@ class DocumentTemplate < ApplicationRecord
   end
 
   before_validation do
-
     # TODO: Change this when signed can be set with a form
     self.signed ||= DocumentTemplate.where(nature: nature, managed: true).any? { |e| e.signed }
     # Set file_extension to odt if source content type == odt
@@ -215,6 +216,7 @@ class DocumentTemplate < ApplicationRecord
       if template = find_by(nature: nature, by_default: true, active: true)
         return template.print(datasource, key, format, options)
       end
+
       nil
     end
 

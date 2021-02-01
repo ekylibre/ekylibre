@@ -197,12 +197,14 @@ class InterventionInput < InterventionProductParameter
         # for each usages matching variety, get data in reglementary_doses hash
         agent.usages.each_with_index do |usage, index|
           next unless usage.subject_variety && usage.dose
+
           # get variables
           activity_variety = target.product.variety
           activity_variety ||= target.best_activity_production.cultivation_variety if target.best_activity_production
           uv = Onoma::Variety[usage.subject_variety.to_sym]
 
           next unless activity_variety && (uv >= Onoma::Variety[activity_variety.to_sym])
+
           reglementary_doses[index] = {}
           reglementary_doses[index][:name] = usage.name.to_s.downcase
           reglementary_doses[index][:variety] = uv.l
@@ -235,6 +237,7 @@ class InterventionInput < InterventionProductParameter
 
   def cost_amount_computation(nature: nil, natures: {})
     return InterventionParameter::AmountComputation.failed unless product
+
     reception_item = product.incoming_parcel_item
     options = { quantity: quantity_population, unit_name: product.unit_name }
     if reception_item && reception_item.purchase_order_item

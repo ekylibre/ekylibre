@@ -15,6 +15,7 @@ module Diagram
           columns.each_with_index do |(_column, attributes), index|
             references = attributes['references']
             next unless references
+
             unless references =~ /\A~/
               graph.arrow(table_name + ':f' + index.to_s, references.pluralize + ':f999')
             end

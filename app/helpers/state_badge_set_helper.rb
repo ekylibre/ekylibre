@@ -1,5 +1,4 @@
 module StateBadgeSetHelper
-
   def state_badge_set(state, html: {}, states: {})
     if states.is_a? Array
       states = states.map { |e| [e, e] }.to_h
@@ -19,5 +18,4 @@ module StateBadgeSetHelper
     def state_badge(content, **html_options)
       content_tag :h2, content, **html_options
     end
-
 end

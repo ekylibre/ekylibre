@@ -33,6 +33,7 @@ module Ekylibre
         # Render all addons for a given context
         def render(context, template, options = {})
           return nil unless list[context]
+
           html = ''.html_safe
           list[context].each do |addon|
             if addon.usable?(options.merge(controller: template.controller_path, action: template.action_name, template: template).merge(addon.options.slice(:to)))

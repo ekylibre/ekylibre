@@ -40,6 +40,7 @@ module Backend
 
     def extract
       return unless @listing = find_and_check
+
       begin
         @listing.save unless @listing.query?
         query = @listing.query.to_s
@@ -81,32 +82,38 @@ module Backend
 
     def edit
       return unless @listing = find_and_check
+
       t3e @listing.attributes
       # render_restfully_form
     end
 
     def update
       return unless @listing = find_and_check
+
       @listing.attributes = permitted_params
       return if save_and_redirect(@listing, url: { action: :edit, id: 'id'.c })
+
       t3e @listing.attributes
       # render_restfully_form
     end
 
     def destroy
       return unless @listing = find_and_check
+
       Listing.destroy(@listing.id) if @listing
       redirect_to action: :index
     end
 
     def duplicate
       return unless @listing = find_and_check
+
       @listing.duplicate
       redirect_to action: :index
     end
 
     def mail
       return unless @listing = find_and_check
+
       if (query = @listing.query).blank?
         @listing.save
         query = @listing.query

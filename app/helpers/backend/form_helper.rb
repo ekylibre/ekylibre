@@ -53,6 +53,7 @@ module Backend
         unless unit = options[:unit] || (value ? value.unit : nil)
           raise StandardError.new('Need unit')
         end
+
         content_tag(:div, class: 'input-append') do
           text_field_tag("#{name}[value]", (value ? value.to_d : nil)) +
             select_tag("#{name}[unit]", options_for_select(Measure.siblings(unit).collect { |u| [Onoma::Unit[u].human_name, u] }, (value ? value.unit : unit)), html_options)

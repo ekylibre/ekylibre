@@ -131,6 +131,7 @@ module ActiveGuide
 
       def log_result(env, message, passed, depth = 0)
         return unless env.verbose
+
         if depth >= 0
           prefix = '  ' * depth
           puts "#{(prefix + ' - ' + message.to_s.humanize).ljust(70).white} [#{passed ? '  OK  '.green : 'FAILED'.red}]"
@@ -140,6 +141,7 @@ module ActiveGuide
 
       def log_group(env, message, depth = 0)
         return unless env.verbose
+
         if depth >= 0
           prefix = '  ' * depth
           puts (prefix + message.to_s.humanize).yellow.to_s

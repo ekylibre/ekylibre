@@ -57,7 +57,6 @@
 module Variants
   module Articles
     class FertilizerArticle < Variants::ArticleVariant
-
       def variant_type
         :article
       end

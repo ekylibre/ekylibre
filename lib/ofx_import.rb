@@ -50,6 +50,7 @@ class OfxImport
 
     def ensure_file_has_a_single_account
       return true if parsed.bank_accounts.length == 1
+
       message = I18n.translate('activerecord.errors.models.bank_statement.ofx_file_has_multiple_bank_accounts')
       @error = OfxFileHasMultipleAccounts.new(message)
       false

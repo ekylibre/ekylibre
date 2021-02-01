@@ -23,6 +23,7 @@ module Backend
       params['boxes'] ||= []
       boxes = params['boxes'].sort_by { |a| a[0] }.map do |box|
         next unless box.second['cells']
+
         cells = box.second['cells'].symbolize_keys.sort_by { |a| a[0] }.map do |cell|
           cell.second.symbolize_keys
         end.compact

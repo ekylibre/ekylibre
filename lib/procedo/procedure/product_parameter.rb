@@ -24,6 +24,7 @@ module Procedo
         unless ProductParameter::TYPES.include?(@type)
           raise ArgumentError.new("Unknown parameter type: #{@type.inspect}")
         end
+
         if options[:filter]
           @filter = options[:filter]
           # # Check filter syntax
@@ -56,6 +57,7 @@ module Procedo
         if @handlers.key?(handler.name)
           raise ArgumentError.new("Handler name already taken: #{name}")
         end
+
         @handlers[handler.name] = handler
       end
 
@@ -65,6 +67,7 @@ module Procedo
         if @attributes.key?(attribute.name)
           raise ArgumentError.new("Attribute name already taken: #{name}")
         end
+
         @attributes[attribute.name] = attribute
       end
 
@@ -74,6 +77,7 @@ module Procedo
         if @readings.key?(reading.name)
           raise ArgumentError.new("Reading name already taken: #{name}")
         end
+
         @readings[reading.name] = reading
       end
 
@@ -125,6 +129,7 @@ module Procedo
       # Returns an attribute by its name
       def attribute(name)
         raise 'Invalid attribute: ' + name.inspect unless Procedo::Procedure::Attribute::TYPES.include?(name)
+
         @attributes[name]
       end
 
@@ -141,15 +146,18 @@ module Procedo
           end
           return nil unless candidates.any?
           return candidates.first if candidates.count == 1
+
           best = candidates.find { |h| h.unit.name.to_s == quantity.unit.to_s }
           (best || candidates.first)
         elsif quantity.is_a?(Numeric)
           candidates = handlers.select { |h| h.indicator.datatype == :decimal }
           return nil unless candidates.any?
+
           candidates.first
         elsif quantity.is_a?(Charta::Geometry)
           candidates = handlers.select { |h| h.indicator.datatype == :multi_polygon }
           return nil unless candidates.any?
+
           candidates.first
         end
       end
@@ -168,6 +176,7 @@ module Procedo
       def components
         procedure.product_parameters(true).select do |p|
           next unless p.component_of?
+
           p.component_of? && p.component_of_with_parameter?(name, p == self)
         end
       end
@@ -188,11 +197,13 @@ module Procedo
         attribute = instance_variable_get(:"@#{attribute_name}")
         return nil unless attribute
         return attribute unless attribute =~ /\:/
+
         attr, other = attribute.split(/\:/)[0..1].map(&:strip)
         attr = attribute_name.to_s.underscore if attr.blank?
         unless parameter = @procedure.parameters[other]
           raise Procedo::Errors::MissingParameter.new("Parameter #{other.inspect} can not be found")
         end
+
         parameter.send("computed_#{attr}")
       end
 
@@ -231,6 +242,7 @@ module Procedo
           other = @variant[1..-1]
           return @procedure.parameters[other]
         end
+
         nil
       end
 
@@ -238,6 +250,7 @@ module Procedo
         if v = variant_parameter
           return 'same_variant_as_x'.tl(x: v.human_name)
         end
+
         'unknown_variant'.tl
       end
 
@@ -265,6 +278,7 @@ module Procedo
 
       def depend_on?(parameter_name)
         return false if parameter_name == name
+
         @attributes.values.any? { |a| a.depend_on? parameter_name } ||
           @readings.values.any? { |r| r.depend_on? parameter_name } ||
           @handlers.values.any? { |h| h.depend_on? parameter_name } ||
@@ -287,6 +301,7 @@ module Procedo
       def fulfilled_by?(actor)
         # do not test created parameters
         return false if new?
+
         expr = []
         expr << "is #{computed_variety}" if @variety.present?
         if @derivative_of.present? && actor.derivative_of.present?
@@ -296,6 +311,7 @@ module Procedo
           expr << @abilities.map { |a| "can #{a}" }.join(' and ')
         end
         return false if expr.empty?
+
         actor.of_expression(expr.join(' and '))
       end
 

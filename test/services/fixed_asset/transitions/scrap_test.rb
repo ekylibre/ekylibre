@@ -4,7 +4,6 @@ require_dependency Rails.root.join('app', 'models', 'fixed_asset')
 class FixedAsset
   module Transitions
     class ScrapTest < Ekylibre::Testing::ApplicationTestCase
-
       setup do
         @fy = create :financial_year, year: 2018
       end

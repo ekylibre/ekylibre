@@ -66,6 +66,7 @@ module Backend
 
     def show
       return unless @document = find_and_check
+
       @file_format = if @document.file_content_type == 'application/xml'
                        :xml
                      elsif @document.file_content_type == 'text/plain'

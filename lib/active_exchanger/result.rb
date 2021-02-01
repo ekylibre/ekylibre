@@ -45,6 +45,5 @@ module ActiveExchanger
         raise ActiveExchanger::Error.new(@message)
       end
     end
-
   end
 end

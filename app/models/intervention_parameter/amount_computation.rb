@@ -23,11 +23,13 @@ class InterventionParameter < ApplicationRecord
       unless NATURES.include?(nature)
         raise ArgumentError.new("Invalid nature. Got: #{nature.inspect}")
       end
+
       @nature = nature
       if quantity?
         unless ORIGINS.include?(origin)
           raise ArgumentError.new("Invalid origin. Got: #{origin.inspect}")
         end
+
         @origin = origin
       end
       @options = options

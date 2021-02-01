@@ -34,6 +34,7 @@ module Ekylibre
       def load
         Dir.glob(File.join(directory, '*')).sort.each do |directory|
           next unless File.directory?(directory)
+
           load_plugin(directory)
         end
       end
@@ -53,6 +54,7 @@ module Ekylibre
       def load_integrations
         Dir.glob(File.join(directory, '*')).sort.each do |directory|
           next unless File.directory?(directory)
+
           Dir.glob(File.join(directory, 'app', 'integrations', '**', '*.rb')).sort.each do |integration|
             require integration
           end
@@ -105,8 +107,10 @@ module Ekylibre
           each do |plugin|
             plugin.themes_assets.each do |name, addons|
               next unless name == theme || name == '*' || (name.respond_to?(:match) && theme.match(name))
+
               stylesheet << "// #{plugin.name}\n"
               next unless addons[:stylesheets]
+
               addons[:stylesheets].each do |file|
                 stylesheet << "@import \"#{file}\";\n"
               end
@@ -291,6 +295,7 @@ module Ekylibre
       unless Gem::Requirement.new(*requirements) =~ Gem::Version.create(version)
         raise PluginRequirementError.new("Plugin (#{@name}) is incompatible with current version of app (#{Ekylibre.version} not #{requirements.inspect})")
       end
+
       true
     end
 

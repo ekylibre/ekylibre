@@ -36,6 +36,7 @@ module CobblesHelper
         raise "Already taken. You already use #{name.inspect}"
       end
       raise "Need a block for #{name} in cobbler #{@name}" unless block_given?
+
       @items << Cobble.new(self, name, options, &block)
     end
 

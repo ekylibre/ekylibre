@@ -7,8 +7,10 @@ module Ekylibre
       Ekylibre::Schema.tables.each do |table, columns|
         columns.each do |n, column|
           next if column.references.nil?
+
           assert(column.references.present?, "#{table}.#{n} foreign key is not determined.")
           next if column.polymorphic?
+
           assert_nothing_raised do
             column.references.to_s.pluralize.classify.constantize
           end

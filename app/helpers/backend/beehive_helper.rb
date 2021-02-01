@@ -73,6 +73,7 @@ module Backend
           unless name.is_a?(Symbol)
             raise 'Only symbol for cell name. Use :title option to specify title.'
           end
+
           @name = name.to_sym
           @options = options
           @type = @options.delete(:type) || @name
@@ -120,6 +121,7 @@ module Backend
           if @cells.keys.include? name.to_s
             raise StandardError.new("A cell with a given name (#{name}) has already been given.")
           end
+
           c = Cell.new(name, options)
           @cells[name] = c
           @current_box << c
@@ -181,6 +183,7 @@ module Backend
 
         def box(&block)
           raise StandardError.new('Cannot define box in other box') if @current_box
+
           old_current_box = @current_box
           if block_given?
             @current_box = Box.new

@@ -2,9 +2,7 @@ require 'test_helper'
 
 module Interventions
   class ComputationServiceTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
-
     test 'computation of simple intervention' do
-
       input_product = create(:fertilizer_product)
       input_product.variant.read!(:net_volume, '1 liter')
 

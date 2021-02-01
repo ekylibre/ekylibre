@@ -279,7 +279,6 @@ module Printers
 
       dataset.each do |account|
         account[:items].each do |item|
-
           item_name = item[:name]
           account_name = account[:account_name]
           journal_name = item[:journal_name]

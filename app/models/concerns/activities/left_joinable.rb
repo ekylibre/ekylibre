@@ -3,7 +3,6 @@ module Activities
     extend ActiveSupport::Concern
 
     included do
-
       # This scope include in the Activity::ActiveRecord_Relation
       # issues_count and opened_issues_count for each activities
       scope :left_join_issues_count_of_campaign, lambda { |campaign|
@@ -145,7 +144,6 @@ module Activities
           SQL
         )
       }
-
     end
   end
 end

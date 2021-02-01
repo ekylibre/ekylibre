@@ -34,6 +34,7 @@ module Backend
 
     def journal_entries_export
       return unless (@exchange = find_and_check)
+
       export = FinancialYearExchangeExport.new(@exchange)
       export.export(params[:format]) do |file, name|
         send_data File.read(file), filename: name
@@ -42,6 +43,7 @@ module Backend
 
     def journal_entries_import
       return unless (@exchange = find_and_check)
+
       if request.post?
         file = params[:upload]
         @import = FinancialYearExchangeImport.new(file, @exchange)
@@ -55,6 +57,7 @@ module Backend
 
     def notify_accountant
       return unless (@exchange = find_and_check)
+
       if @exchange.accountant_email?
         @exchange.generate_public_token!
         FinancialYearExchangeExportMailer.notify_accountant(@exchange, current_user).deliver_now
@@ -67,6 +70,7 @@ module Backend
 
     def close
       return unless (@exchange = find_and_check)
+
       @exchange.close!
       notify_success :closed_financial_year_exchange
       redirect_to_back

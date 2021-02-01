@@ -61,6 +61,7 @@ module WorkingSet
           unless ability_item = Onoma::Ability.find(ability.ability_name.text_value)
             raise InvalidExpression.new("Unknown ability: #{ability.ability_name.text_value}")
           end
+
           parameters = []
           if ability.ability_parameters.present? && ability.ability_parameters.parameters.present?
             ps = ability.ability_parameters.parameters
@@ -119,6 +120,7 @@ module WorkingSet
         unless item = Onoma[nomenclature].find(name)
           raise InvalidExpression.new("Unknown item in #{nomenclature} nomenclature: #{name}")
         end
+
         item
       end
 
@@ -128,6 +130,7 @@ module WorkingSet
         elsif @tables[name].is_a?(String)
           return @tables[name]
         end
+
         name
       end
 

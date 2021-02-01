@@ -91,6 +91,7 @@ module CharentesAlliance
                       storage: building_division
                     )
         next unless reception.draft?
+
         previous_reception_number = r.reception_number
 
         # find a product_nature_variant by mapping current name of matter in coop file in coop reference_name

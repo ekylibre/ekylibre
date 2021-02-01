@@ -198,6 +198,7 @@ class PurchaseItem < ApplicationRecord
 
   validate do
     next unless fixed
+
     # Errors linked to fixed assets
 
     errors.add(:fixed, :asset_account) unless variant.fixed_asset_account
@@ -214,6 +215,7 @@ class PurchaseItem < ApplicationRecord
         catalog = Catalog.by_default!(usage)
         next if catalog.nil? || variant.catalog_items.of_usage(usage).any? ||
           unit_pretax_amount.blank? || unit_pretax_amount.zero?
+
         variant.catalog_items.create!(
           catalog: catalog,
           amount: unit_pretax_amount, currency: currency
@@ -277,6 +279,7 @@ class PurchaseItem < ApplicationRecord
     if preexisting_asset
       return errors.add(:fixed_asset, :fixed_asset_missing) unless fixed_asset
       return errors.add(:fixed_asset, :fixed_asset_cannot_be_modified) unless fixed_asset.draft?
+
       fixed_asset.reload
       fixed_asset.update_amounts
     else
@@ -318,6 +321,7 @@ class PurchaseItem < ApplicationRecord
   # know how many percentage of invoiced VAT to declare
   def payment_ratio
     return nil unless purchase.respond_to?(:affair)
+
     if purchase.affair.balanced?
       1.00
     elsif purchase.affair.debit != 0.0
@@ -329,6 +333,7 @@ class PurchaseItem < ApplicationRecord
     return nil if first_reception.nil?
 
     return first_reception.number.concat(" (#{receptions_count})") if receptions_count > 1
+
     first_reception.number if receptions_count == 1
   end
 

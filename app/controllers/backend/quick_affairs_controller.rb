@@ -3,6 +3,7 @@ module Backend
   class QuickAffairsController < Backend::BaseController
     def new
       return head :bad_request unless nature = params[:nature_id]
+
       @bank_statement_items = BankStatementItem.where(id: params[:bank_statement_item_ids]) if params[:bank_statement_item_ids]
 
       date     = Maybe(@bank_statement_items).minimum(:transfered_on).or_nil
@@ -64,12 +65,14 @@ module Backend
 
       def new_trade
         return self.class::Trade.find_by(id: affair_params[:trade_id]) if @mode_for[:trade] =~ /existing/
+
         third_param = { self.class::Trade.third_attribute => Entity.find_by(id: affair_params[:third_id]) }
         self.class::Trade.new(trade_params.merge(third_param))
       end
 
       def new_payment(third, at)
         return self.class::Payment.find_by(id: affair_params[:payment_id]) if @mode_for[:payment] =~ /existing/
+
         payment_attributes = payment_params
                              .except(:bank_statement_item_ids)
                              .merge(self.class::Payment.third_attribute => third)

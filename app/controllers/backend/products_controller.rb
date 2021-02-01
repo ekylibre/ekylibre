@@ -223,6 +223,7 @@ module Backend
     # Returns value of an indicator
     def take
       return unless @product = find_and_check
+
       indicator = Onoma::Indicator.find(params[:indicator])
       unless indicator
         head :unprocessable_entity

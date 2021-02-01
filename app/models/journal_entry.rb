@@ -330,6 +330,7 @@ class JournalEntry < ApplicationRecord
 
   def need_currency_change?
     return nil unless journal
+
     year_currency = if financial_year
                       financial_year.currency
                     elsif printed_on? && (year = FinancialYear.on(printed_on))
@@ -342,6 +343,7 @@ class JournalEntry < ApplicationRecord
 
   def expected_financial_year
     raise 'Missing printed_on' unless printed_on
+
     FinancialYear.on(printed_on)
   end
 
@@ -410,6 +412,7 @@ class JournalEntry < ApplicationRecord
   # Create counter-entry_items
   def cancel
     return nil unless useful_items.any?
+
     ApplicationRecord.transaction do
       reconcilable_accounts = []
       list = []
@@ -464,6 +467,7 @@ class JournalEntry < ApplicationRecord
 
     def in_opened_financial_year_exchange?
       return unless financial_year
+
       financial_year.exchanges.opened.any? { |e| (e.started_on..e.stopped_on).cover?(printed_on) }
     end
 end

@@ -37,6 +37,7 @@ module Procedo
           if steps.size != 1
             raise ArgumentError.new('Invalid steps: got ' + steps.inspect)
           end
+
           reassign steps.first
         end
       end

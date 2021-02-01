@@ -82,6 +82,7 @@ module Backend
 
     def show
       return unless @purchase_order = find_and_check
+
       respond_to do |format|
         format.html do
           t3e @purchase_order.attributes, supplier: @purchase_order.supplier.full_name, state: @purchase_order.state_label, label: @purchase_order.label
@@ -165,12 +166,14 @@ module Backend
 
     def open
       return unless @purchase_order = find_and_check
+
       @purchase_order.open
       redirect_to action: :show, id: @purchase_order.id
     end
 
     def close
       return unless @purchase_order = find_and_check
+
       @purchase_order.close
       redirect_to action: :show, id: @purchase_order.id
     end

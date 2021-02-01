@@ -70,6 +70,7 @@ module Ekylibre
       def invoke_task(task, with_output: false)
         task = ::Rake::Task[task]
         return task.invoke if with_output
+
         without_output { task.invoke }
       end
     end

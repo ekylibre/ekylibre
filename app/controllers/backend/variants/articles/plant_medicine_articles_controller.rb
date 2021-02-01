@@ -2,7 +2,6 @@ module Backend
   module Variants
     module Articles
       class PlantMedicineArticlesController < Backend::Variants::ArticleVariantsController
-
         importable_from_lexicon :registered_phytosanitary_products, model_name: "Variants::Articles::#{controller_name.classify}".constantize
 
         list(model: :product_nature_variants, conditions: variants_conditions, collection: true) do |t|

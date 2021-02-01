@@ -24,5 +24,4 @@ module Backend
       assert_equal 'Lexicon', variant.imported_from
     end
   end
-
 end

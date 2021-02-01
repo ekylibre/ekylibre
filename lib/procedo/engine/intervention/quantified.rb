@@ -42,12 +42,14 @@ module Procedo
         def quantity_handler=(handler)
           rh = reference.handler(handler)
           raise 'Invalid handler: ' + handler.inspect unless rh
+
           unless usable_handler?(rh)
             rh = reference.handlers.detect { |h| usable_handler?(h) }
             handler = rh.name.to_s if rh
           end
           @quantity_handler = handler
           return unless @quantity_population
+
           @quantity_value = compute_value if quantity_handler_reference.backward?
         end
 
@@ -57,6 +59,7 @@ module Procedo
           @quantity_population = population
           @quantity_handler ||= reference.handlers.first.name if reference.handlers.first
           return unless quantity_handler_reference
+
           @quantity_value = compute_value if quantity_handler_reference.backward?
           impact_dependencies! :population
         end
@@ -66,9 +69,11 @@ module Procedo
         def quantity_value=(value)
           @quantity_value = value
           return unless quantity_handler_reference
+
           if quantity_handler_reference.forward?
             population = compute_population
             return if @quantity_population == population
+
             @quantity_population = population
             impact_dependencies! :population
           end

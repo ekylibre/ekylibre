@@ -21,7 +21,6 @@ module Printers
       checks = []
 
       @outgoing_payment_list.payments.each do |payment|
-
         invoices = payment.affair.purchase_invoices.map do |invoice|
           { reference_number: invoice.reference_number,
             number: invoice.number,

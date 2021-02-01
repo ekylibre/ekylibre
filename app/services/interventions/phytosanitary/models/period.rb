@@ -45,7 +45,6 @@ module Interventions
         def duration
           (@end_date - @start_date).to_i.seconds
         end
-
       end
     end
   end

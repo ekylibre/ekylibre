@@ -2,6 +2,5 @@
 
 module Ekylibre
   module Core
-
   end
 end

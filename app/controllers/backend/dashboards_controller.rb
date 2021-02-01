@@ -138,11 +138,14 @@ module Backend
         queries = []
         for model_name in Ekylibre::Schema.models
           next if excluded.include?(model_name)
+
           model = model_name.to_s.camelcase.constantize
           next unless model.superclass == ApplicationRecord
+
           cols = model.columns_definition.keys
           title = %i[label name full_name reason code number].detect { |x| cols.include?(x.to_s) }
           next unless title
+
           main_model = nil
           reflection = nil
           if auxiliaries[model_name]
@@ -150,6 +153,7 @@ module Backend
             unless reflection.macro == :belongs_to
               raise 'Cannot use this auxiliary. Only works with belongs_to for now.'
             end
+
             main_model = reflection.class_name.constantize
           end
           columns = model.columns_definition.values.delete_if do |c|
@@ -169,6 +173,7 @@ module Backend
             end
           end
           next unless columns.any?
+
           query = if main_model
                     "SELECT #{ApplicationRecord.connection.quote(model.model_name.human)} || ' ' || " + columns.join(' || ') + " AS indexer, #{title} AS title, " + (main_model.columns_definition[:type] ? "CASE WHEN LENGTH(TRIM(#{main_model.table_name}.type)) > 0 THEN #{main_model.table_name}.type ELSE '#{main_model.table_name.to_s.classify}' END" : "'#{main_model.name}'") + " AS record_type, #{main_model.table_name}.id AS record_id FROM #{model.table_name} LEFT JOIN #{main_model.table_name} ON (#{model.table_name}.#{reflection.foreign_key} = #{main_model.table_name}.id)"
                   else

@@ -146,6 +146,7 @@ class PlantDecorator < ProductDecorator
 
   def human_net_volume_available(dimension, unit_name, unit_name_per_hectare)
     return nil if last_inspection.nil?
+
     unit_name ||= :items_count
 
     net_volume_available(dimension, unit_name_per_hectare)
@@ -352,6 +353,7 @@ class PlantDecorator < ProductDecorator
       product = intervention.targets.of_actor(object).first.product unless intervention.procedure.of_category?(:planting)
 
       return intervention.sum_products_working_zone_area(product) unless intervention.planting?
+
       intervention.sum_outputs_working_zone_area_of_product(product) if intervention.planting?
     end
 

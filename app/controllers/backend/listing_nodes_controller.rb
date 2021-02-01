@@ -20,6 +20,7 @@ module Backend
   class ListingNodesController < Backend::BaseController
     def new
       return unless @listing_node = find_and_check(id: params[:parent_id])
+
       if params[:nature]
         desc = params[:nature].split('-')
         # raise StandardError.new desc.inspect
@@ -45,6 +46,7 @@ module Backend
 
     def create
       return unless @listing_node = find_and_check(id: params[:parent_id])
+
       render text: '[UnfoundListingNode]' unless @listing_node
       desc = params[:nature].split('-')
       # raise StandardError.new desc.inspect
@@ -70,6 +72,7 @@ module Backend
 
     def edit
       return unless @listing_node = find_and_check
+
       if request.xhr?
         if params[:type] == 'hide' || params[:type] == 'show'
           @listing_node.exportable = !@listing_node.exportable
@@ -95,6 +98,7 @@ module Backend
 
     def update
       return unless @listing_node = find_and_check
+
       if request.xhr?
         if params[:type] == 'exportable' # "hide" or params[:type] == "show"
           @listing_node.exportable = !@listing_node.exportable
@@ -118,6 +122,7 @@ module Backend
 
     def destroy
       return unless @listing_node = find_and_check
+
       parent = @listing_node.parent
       @listing_node.reload.destroy
       if request.xhr?

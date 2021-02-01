@@ -1,7 +1,6 @@
 module Interventions
   module Phytosanitary
     class MixCategoryCodeValidator < ProductApplicationValidator
-
       # @param [RegisteredPhytosanitaryProduct, InterventionParameter::LoggedPhytosanitaryProduct] phyto
       # @return [Array<Integer>]
       def mix_codes(phyto)

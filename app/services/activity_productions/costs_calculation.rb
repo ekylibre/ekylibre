@@ -1,6 +1,5 @@
 module ActivityProductions
   class CostsCalculation
-
     def compute_costs(activity_production)
       activity_production_costs = ActiveRecord::Base.connection.execute <<~SQL
         SELECT

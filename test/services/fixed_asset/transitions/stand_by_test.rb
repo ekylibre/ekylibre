@@ -4,7 +4,6 @@ require_dependency Rails.root.join('app', 'models', 'fixed_asset')
 class FixedAsset
   module Transitions
     class StandByTest < Ekylibre::Testing::ApplicationTestCase
-
       setup do
         [2018, 2019].each { |year| create :financial_year, year: year }
         @fixed_asset = create :fixed_asset, started_on: Date.new(2019, 1, 1)
