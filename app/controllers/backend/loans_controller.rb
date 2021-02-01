@@ -95,10 +95,12 @@ module Backend
     end
 
     def confirm
-      return unless @loan = find_and_check
+      return unless (@loan = find_and_check)
 
-      if @loan.journal_entry&.financial_year&.closing? && @loan.journal_entry&.financial_year&.updater != current_user
-        notify_error(:financial_year_matching_this_date_is_closing_by_other_user.tl(user: @loan.updater.full_name))
+      financial_year = FinancialYear.at(@loan.ongoing_at)
+
+      if financial_year&.closure_in_preparation? && financial_year.updater != current_user
+        notify_error(:financial_year_matching_this_date_is_closing_by_other_user.tl(user: financial_year.updater.full_name))
       else
         @loan.confirm
       end
@@ -107,9 +109,11 @@ module Backend
     end
 
     def repay
-      return unless @loan = find_and_check
+      return unless (@loan = find_and_check)
 
-      if @loan.journal_entry&.financial_year&.closing && @loan.journal_entry&.financial_year&.updater != current_user
+      financial_year = @loan.journal_entry.financial_year
+
+      if financial_year.closing && financial_year.updater != current_user
         notify_error(:financial_year_matching_this_date_is_closing_by_other_user.tl(user: @loan.updater.full_name))
       else
         @loan.repay
