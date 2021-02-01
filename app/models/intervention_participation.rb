@@ -41,8 +41,10 @@ class InterventionParticipation < ApplicationRecord
   belongs_to :intervention
   belongs_to :product
 
-  has_many :working_periods, class_name: 'InterventionWorkingPeriod',
-                             inverse_of: :intervention_participation, dependent: :destroy
+  has_many :working_periods, -> { order(started_at: :asc) },
+           class_name: 'InterventionWorkingPeriod',
+           inverse_of: :intervention_participation,
+           dependent: :destroy
   has_many :crumbs, dependent: :destroy
 
   accepts_nested_attributes_for :working_periods
