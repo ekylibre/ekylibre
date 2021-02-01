@@ -207,20 +207,25 @@ module Backend
                    procs: proc { |options| options[:builder].tag!(:url, backend_intervention_url(@intervention)) })
     end
 
+    # TODO: Reimplement this with correct use of permitted params
     def new
+      # The use of unsafe_params is a crutch to have this code working fast.
+      # However, this whole method should be implemented using REAL permitted_params.
+      unsafe_params = params.to_unsafe_h
+
       options = {}
       %i[actions custom_fields description event_id issue_id
          nature number prescription_id procedure_name
          request_intervention_id started_at state
          stopped_at trouble_description trouble_encountered
          whole_duration working_duration].each do |param|
-        options[param] = params[param]
+        options[param] = unsafe_params[param]
       end
 
       # , :doers, :inputs, :outputs, :tools
       %i[group_parameters targets].each do |param|
-        next unless params.include? :intervention
-        options[:"#{param}_attributes"] = permitted_params["#{param}_attributes"] || []
+        next unless unsafe_params.include? :intervention
+        options[:"#{param}_attributes"] = unsafe_params["#{param}_attributes"] || []
 
         next unless options[:targets_attributes]
 
@@ -233,6 +238,7 @@ module Backend
         availables = Product.where(id: targets).at(Time.zone.now - 1.hour).collect(&:id)
 
         options[:targets_attributes].select! do |k, v|
+          # This does not work with Rails 5 without the unsafe_params trick
           obj = k.is_a?(Hash) ? k : v
           obj.include?(:product_id) && availables.include?(obj[:product_id].to_i)
         end
