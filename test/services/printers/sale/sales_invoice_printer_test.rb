@@ -42,4 +42,3 @@ module Printers
     end
   end
 end
-

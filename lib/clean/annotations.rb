@@ -6,6 +6,7 @@ module Clean
     FIXTURES_DIR = Rails.root.join('test', 'fixtures')
     MODEL_TESTS_DIR = Rails.root.join('test', 'models')
     PREFIX = '= Informations'.freeze
+    ROOT_MODELS = %w[lexicon].freeze
 
     class << self
       # Simple quoting for the default column value
@@ -110,7 +111,11 @@ module Clean
         info = get_schema_info(klass, header)
 
         if types.include?(:models)
-          model_file_name = MODELS_DIR.join(klass.name.underscore + '.rb')
+          possible_folders = ['', *ROOT_MODELS].map { |suffix| MODELS_DIR.join(suffix) }
+          possible_files = possible_folders.map { |folder| folder.join("#{klass.name.underscore}.rb") }
+
+          model_file_name = possible_files.detect(&:exist?)
+
           annotate_one_file(model_file_name, info)
         end
 
@@ -161,18 +166,17 @@ module Clean
         header << "\n\n== License\n\n"
         header << "Ekylibre - Simple agricultural ERP\nCopyright (C) 2008-2009 Brice Texier, Thibaud Merigon\nCopyright (C) 2010-2012 Brice Texier\nCopyright (C) 2012-2014 Brice Texier, David Joulin\nCopyright (C) 2015-#{Time.zone.today.year} Ekylibre SAS\n\nThis program is free software: you can redistribute it and/or modify\nit under the terms of the GNU Affero General Public License as published by\nthe Free Software Foundation, either version 3 of the License, or\nany later version.\n\nThis program is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\nGNU Affero General Public License for more details.\n\nYou should have received a copy of the GNU Affero General Public License\nalong with this program.  If not, see http://www.gnu.org/licenses.\n\n"
 
-        version = begin
-                    ActiveRecord::Migrator.current_version
-                  rescue
-                    0
-                  end
-
         errors = []
 
         model_names.each do |m|
           class_name = m.sub(/\.rb$/, '').camelize
           begin
-            klass = class_name.split('::').inject(Object) { |klass, part| klass.const_get(part) }
+            parts = class_name.split('::')
+            if ROOT_MODELS.include?(parts.first&.downcase)
+              parts.shift
+            end
+
+            klass = parts.inject(Object) { |klass, part| klass.const_get(part) }
             if klass < ActiveRecord::Base && !klass.abstract_class?
               annotate(klass, header, types)
             end
