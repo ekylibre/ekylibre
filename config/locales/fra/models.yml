@@ -467,6 +467,7 @@ fra:
         activity: #?
           checked_off_with_inspections: "Des agréages sont déjà présents pour cette activité" #?
           checked_without_measures: "Au moins un type de mesure doit être sélectionné lorsque l'utilisation des agréages est demandée" #?
+          productions_present: "Des productions sont présentes sur cette activité"
         bank_statement: #?
           initial_balance_credit: #?
             unvalid_amounts: "Le solde initial doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps." #?

@@ -3,6 +3,17 @@ FactoryBot.define do
     sequence(:name)  { |n| "Fake Activity #{n}" }
     family           { :plant_farming }
     production_cycle { :annual }
+
+    trait :with_productions do
+      transient do
+        production_count { 2 }
+      end
+
+      after(:create) do |activity, evaluator|
+        create_list :activity_production, evaluator.production_count, activity: activity
+        activity.reload
+      end
+    end
   end
 
   factory :corn_activity, class: Activity do

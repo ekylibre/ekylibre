@@ -195,4 +195,27 @@ class ActivityTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     activity = Activity.find(7).decorate
     assert_in_delta 0.0, activity.net_surface_area(Campaign.find(4)).to_d, 0.0005
   end
+
+  test "can't edit activity family if there is any production associated" do
+    activity = create(:activity, family: :plant_farming)
+    assert_nothing_raised do
+      activity.update!(family: :animal_farming, cultivation_variety: :animal)
+    end
+
+    activity = create(:activity, :with_productions, family: :plant_farming)
+    assert_raises ActiveRecord::RecordInvalid do
+      activity.update!(family: :animal_farming, cultivation_variety: :animal)
+    end
+  end
+
+  test "can't edit activity family if the cultivation_variety is not one of its children" do
+    activity = create(:activity, family: :plant_farming, cultivation_variety: :plant)
+    assert_raises ActiveRecord::RecordInvalid do
+      activity.update!(family: :animal_farming)
+    end
+
+    assert_nothing_raised do
+      activity.update!(family: :animal_farming, cultivation_variety: :animal)
+    end
+  end
 end
