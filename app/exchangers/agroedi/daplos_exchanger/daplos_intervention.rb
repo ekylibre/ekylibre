@@ -27,6 +27,7 @@ module Agroedi
       def initialize(*args)
         super
         return if self.class == DaplosIntervention
+
         DaplosExchanger::WorkingPeriod.new(self, daplos).register
         DaplosExchanger::Target.new(self, daplos).register
         register_parameters(self.inputs_to_register)
@@ -73,6 +74,7 @@ module Agroedi
       def procedure
         procedure = Procedo.find(agroedi_code)
         raise "No procedure for #{agroedi_code}" unless procedure
+
         procedure
       end
 
@@ -87,6 +89,7 @@ module Agroedi
         unless ekylibre_agroedi
           raise "Intervention nature #{code.inspect} has no equivalent in Ekylibre reference"
         end
+
         @memo_agroedi_code = ekylibre_agroedi
       end
 
@@ -100,8 +103,10 @@ module Agroedi
 
       def already_imported?
         return true if self.record
+
         records = guids.map { |g| ::Intervention.find_by(%(providers @> '{ "daplos_intervention_guid": ["#{g}"]}')) }
         return false unless records.all?(&:present?)
+
         self.record ||= records.first
       end
 

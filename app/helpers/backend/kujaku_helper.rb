@@ -31,6 +31,7 @@ module Backend
         k.text
       end
       return '' unless k.feathers.any?
+
       collapsed = current_user.preference("interface.kujakus.#{k.uid}.collapsed", (options.key?(:collapsed) ? !!options[:collapsed] : true), :boolean).value
       render('backend/shared/kujaku', kujaku: k, url: url, collapsed: collapsed, with_form: !options[:form].is_a?(FalseClass), with_actions: !options[:actions].is_a?(FalseClass))
     end
@@ -42,6 +43,7 @@ module Backend
           def inherited(subclass)
             class_name = subclass.name
             raise 'Invalid feather name' unless class_name =~ /Feather$/
+
             feather_name = class_name.gsub(/Feather$/, '').underscore.split('/').last.to_sym
             Kujaku.send(:define_method, feather_name) do |*args, &block|
               add_feather(subclass.new(self, "#{@uid}:#{@feathers.size}", *args, &block))

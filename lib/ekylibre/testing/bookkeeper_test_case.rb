@@ -20,6 +20,5 @@ module Ekylibre
           @recorder.entries
         end
     end
-
   end
 end

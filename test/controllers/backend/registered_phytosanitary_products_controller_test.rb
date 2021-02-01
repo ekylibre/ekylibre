@@ -2,7 +2,6 @@ require 'test_helper'
 
 module Backend
   class RegisteredPhytosanitaryProductsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
-
     setup do
       @land_parcel = create :lemon_land_parcel, :organic, born_at: DateTime.new(2018, 1, 1)
       phyto_references = { copless: '2000087_copless', award: '2190613_award', sultan: '2000003_sultan', zebra: '2000085_zebra' }

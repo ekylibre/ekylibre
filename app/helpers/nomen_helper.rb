@@ -8,6 +8,7 @@ module NomenHelper
   def item_avatar_path(item)
     nomenclature = AVATARS[item.nomenclature.table_name]
     return nil unless nomenclature
+
     item.rise { |i| nomenclature[i.name] }
   end
 
@@ -22,6 +23,7 @@ module NomenHelper
   def item_color(item)
     nomenclature = COLORS[item.nomenclature.table_name]
     return nil unless nomenclature
+
     item.rise { |i| nomenclature[i.name] }
   end
 

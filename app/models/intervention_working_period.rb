@@ -170,6 +170,7 @@ class InterventionWorkingPeriod < ApplicationRecord
 
   def pause_next?
     return false if last?
+
     gap_with_period?(next_period)
   end
 

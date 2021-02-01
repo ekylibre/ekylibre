@@ -28,6 +28,7 @@ module Searchable
   module ClassMethods
     def matching(query = '')
       raise "Can't perform a search without any column in searchable_columns. Set search by calling #search in #{self}" unless searchable_columns.any?
+
       query = Array(query)
 
       ordering = []

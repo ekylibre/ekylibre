@@ -238,6 +238,7 @@ class ListingNode < ApplicationRecord
   def available_nodes
     nodes = []
     return nodes unless reflection? && model = self.model
+
     # Columns
     column_nodes = model.content_columns.collect { |x| [model.human_attribute_name(x.name.to_s).to_s, 'column-' + x.name] }
     if model.customizable?

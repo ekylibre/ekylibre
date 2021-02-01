@@ -8,6 +8,7 @@ class IbanValidator < ActiveModel::EachValidator
     def valid_iban?(iban)
       iban = iban.to_s
       return false unless iban.length > 4 && iban.length <= 34
+
       str = iban[4..iban.length] + iban[0..1] + '00'
 
       # Test the iban key

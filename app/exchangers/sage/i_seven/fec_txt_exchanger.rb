@@ -78,7 +78,6 @@ module Sage
           end
 
           w.info "#{line_number} - #{valid}".green
-
         end
         w.info "End validation : #{valid}".yellow
         valid
@@ -282,7 +281,6 @@ module Sage
           end
 
           Entity.create!(attrs)
-
         end
 
         # @param [String] jou_code
@@ -351,7 +349,6 @@ module Sage
 
           parser.normalize(rows)
         end
-
     end
   end
 end

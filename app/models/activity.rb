@@ -214,11 +214,13 @@ class Activity < ApplicationRecord
     errors.add :use_gradings, :checked_without_measures if use_gradings && !measure_something?
 
     next unless family_item = Onoma::ActivityFamily[family]
+
     if with_supports && variety = Onoma::Variety[support_variety] && family_item.support_variety
       errors.add(:support_variety, :invalid) unless variety <= family_item.support_variety
     end
     next unless with_cultivation && variety = Onoma::Variety[cultivation_variety]
     next unless family_item.cultivation_variety.present?
+
     errors.add(:cultivation_variety, :invalid) unless variety <= family_item.cultivation_variety
     true
   end
@@ -281,6 +283,7 @@ class Activity < ApplicationRecord
 
   def budget_of(campaign)
     return nil unless campaign
+
     budgets.find_by(campaign: campaign)
   end
 
@@ -312,6 +315,7 @@ class Activity < ApplicationRecord
   def support_variety_name
     item = Onoma::Variety.find(support_variety)
     return nil unless item
+
     item.human_name
   end
 
@@ -319,6 +323,7 @@ class Activity < ApplicationRecord
   def cultivation_variety_name
     item = Onoma::Variety.find(cultivation_variety)
     return nil unless item
+
     item.human_name
   end
 
@@ -339,6 +344,7 @@ class Activity < ApplicationRecord
   def budget_expenses_amount(campaign)
     budget = budget_of(campaign)
     return 0.0 unless budget
+
     budget.expenses_amount
   end
 
@@ -368,9 +374,11 @@ class Activity < ApplicationRecord
       activity_family = Onoma::ActivityFamily.find(family)
       variety = Onoma::Variety.find(variety)
       return 'White' unless activity_family
+
       if activity_family <= :plant_farming
         list = COLORS['varieties']
         return 'Gray' unless list
+
         variety.rise { |i| list[i.name] } unless variety.nil?
       elsif activity_family <= :animal_farming
         'Brown'
@@ -386,16 +394,19 @@ class Activity < ApplicationRecord
     # Find nearest family on cultivation variety and support variety
     def best_for_cultivation(family, cultivation_variety)
       return nil unless any?
+
       searched = Onoma::Variety.find(cultivation_variety)
       activities = of_family(family).select do |activity|
         searched <= activity.cultivation_variety
       end
       return activities.first if activities.count == 1
+
       best = nil
       littlest_degree_of_kinship = nil
       activities.each do |a|
         degree = searched.degree_of_kinship_with(a.cultivation_variety)
         next unless degree
+
         if littlest_degree_of_kinship.nil? || littlest_degree_of_kinship > degree
           littlest_degree_of_kinship = degree
           best = a

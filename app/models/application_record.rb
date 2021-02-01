@@ -107,5 +107,4 @@ class ApplicationRecord < ActiveRecord::Base
       Ekylibre::Schema.tables[table_name] || {}.with_indifferent_access
     end
   end
-
 end

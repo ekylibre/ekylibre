@@ -58,6 +58,7 @@ module Backend
 
     def open
       return unless (@campaign = find_and_check)
+
       activity = Activity.find(params[:activity_id])
       activity.budgets.find_or_create_by!(campaign: @campaign)
       redirect_to params[:redirect] || { action: :show, id: @campaign.id }
@@ -65,8 +66,10 @@ module Backend
 
     def close
       return unless (@campaign = find_and_check)
+
       activity = Activity.find(params[:activity_id])
       raise 'Cannot close used activity' if activity.productions.of_campaign(@campaign).any?
+
       activity_budget = activity.budgets.find_by(campaign: @campaign)
       activity_budget.destroy if activity_budget
       redirect_to params[:redirect] || { action: :show, id: @campaign.id }

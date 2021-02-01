@@ -49,6 +49,7 @@ class Georeading < ApplicationRecord
 
   def net_surface_area
     return 0.0.in_square_meter unless polygon?
+
     content_area
   end
 end

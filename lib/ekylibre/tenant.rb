@@ -28,6 +28,7 @@ module Ekylibre
         unless name = Apartment::Tenant.current
           raise TenantError.new('No current tenant')
         end
+
         name
       end
 
@@ -46,6 +47,7 @@ module Ekylibre
         name = name.to_s
         check!(name)
         raise TenantError.new('Already existing tenant') if exist?(name)
+
         add(name)
         Apartment::Tenant.create(name)
         # byebug
@@ -70,6 +72,7 @@ module Ekylibre
       def drop(name, options = {})
         name = name.to_s
         raise TenantError.new("Unexistent tenant: #{name}") unless exist?(name)
+
         Apartment::Tenant.drop(name) if Apartment.connection.schema_exists? name
         FileUtils.rm_rf private_directory(name) unless options[:keep_files]
         @list[env].delete(name)
@@ -85,9 +88,11 @@ module Ekylibre
 
       def rename(old, new)
         return if old == new
+
         check!(old)
         raise TenantError.new("Unexistent tenant: #{old}") unless Apartment.connection.schema_exists?(old)
         raise TenantError.new("Tenant already exists: #{new}") if Apartment.connection.schema_exists?(new)
+
         ActiveRecord::Base.connection.execute("ALTER SCHEMA #{old.to_s.inspect} RENAME TO #{new.to_s.inspect};")
         if private_directory(old).exist?
           FileUtils.rm_rf(private_directory(new))
@@ -102,6 +107,7 @@ module Ekylibre
       # This archive is database independent
       def dump(name, options = {})
         raise "Tenant doesn't exist: #{name}" unless exist?(name)
+
         verbose = !options[:verbose].is_a?(FalseClass)
         start = Time.current
         dump_v3(name, options)
@@ -147,12 +153,14 @@ module Ekylibre
             raise "Cannot handle this version of archive: #{format_version.inspect}"
           end
         end
+
         FileUtils.rm_rf(archive_path)
       end
 
       # Change current tenant
       def switch(name, &block)
         raise 'Need block to use Ekylibre::Tenant.switch' unless block_given?
+
         Apartment::Tenant.switch(name, &block)
       end
 
@@ -218,6 +226,7 @@ module Ekylibre
 
       def create_aggregation_views_schema!
         raise 'No tenant to build an aggregation schema' if list.empty?
+
         name = AGGREGATION_NAME
         connection = ActiveRecord::Base.connection
         connection.execute("CREATE SCHEMA IF NOT EXISTS #{name};")
@@ -457,6 +466,7 @@ module Ekylibre
 
         def dump_files(files_path)
           return unless private_directory.exist?
+
           FileUtils.mkdir_p(files_path.dirname)
           FileUtils.cp_r(private_directory.to_s, files_path.to_s)
         end

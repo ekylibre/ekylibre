@@ -11,6 +11,7 @@ module Agroedi
 
     def import
       raise ActiveExchanger::NotWellFormedFileError unless daplos?
+
       crops = daplos&.interchange&.crops
       raise ActiveExchanger::NotWellFormedFileError unless crops
 

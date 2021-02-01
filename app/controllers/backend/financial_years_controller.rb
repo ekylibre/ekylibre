@@ -163,6 +163,7 @@ module Backend
       if request.get?
         only_closable = FinancialYear.closable_or_lockable
         return redirect_to backend_financial_years_path if @financial_year != only_closable
+
         return render
       end
 
@@ -239,6 +240,7 @@ module Backend
       if request.get?
         only_lockable = FinancialYear.closable_or_lockable
         return redirect_to backend_financial_years_path if @financial_year != only_lockable
+
         return render
       end
 

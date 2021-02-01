@@ -5,6 +5,7 @@ module Ekylibre
       def has_dependents?
         refs = self.class.reflect_on_all_associations.select { |r| r.macro.to_s.match(/^has_/) }
         return false if refs.empty?
+
         method_name = 'has_' + refs.collect { |r| r.name.to_s }.sort.join('_or_') + '?'
         unless respond_to?(method_name)
           code = ''

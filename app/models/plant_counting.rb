@@ -121,22 +121,26 @@ class PlantCounting < ApplicationRecord
 
   def implanter_working_width
     raise 'Cannot fetch indicators because we have neither sower nor in-table data.' unless working_width_value || plant_sower.present?
+
     width = (working_width_value && working_width_value.in(:meter)) || indicator_working_width
     width / rows_count
   end
 
   def indicator_working_width
     return nil if plant_sower.blank?
+
     plant_sower.product.variant.application_width(at: plant_last_sowing && plant_last_sowing.stopped_at)
   end
 
   def rows_count
     raise 'Cannot fetch indicators because we have neither sower nor in-table data.' unless rows_count_value || plant_sower.present?
+
     rows_count_value || indicator_rows_count
   end
 
   def indicator_rows_count
     return nil if plant_sower.blank?
+
     plant_sower.product.variant.rows_count(at: plant_last_sowing && plant_last_sowing.stopped_at)
   end
 

@@ -51,11 +51,13 @@ module Backend
     def create
       @inventory = resource_model.new(permitted_params)
       return if save_and_redirect(@inventory, url: (params[:create_and_continue] ? {:action=>:new, :continue=>true} : (params[:redirect] || {action: :show, id: "id".c})), notify: :record_x_created, identifier: :name)
+
       render(locals: { cancel_url: :back, with_continue: false })
     end
 
     def show
       return unless @inventory = find_and_check
+
       t3e @inventory
       respond_with(@inventory, include: [:responsible, { items: { methods: :unit_name, include: %i[product container] } }])
     end
@@ -71,6 +73,7 @@ module Backend
 
     def refresh
       return unless @inventory = find_and_check
+
       @inventory.refresh!
       redirect_to action: :edit, id: @inventory.id
     end
@@ -78,6 +81,7 @@ module Backend
     # Call a job wich change the number of all the different product
     def reflect
       return unless @inventory = find_and_check
+
       ReflectInventoryJob.perform_later(@inventory, current_user)
       notify_success(:inventory_reflection_in_progress)
       redirect_to action: :index

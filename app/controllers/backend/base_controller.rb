@@ -158,6 +158,7 @@ module Backend
           unless arg.is_a? Hash
             raise ArgumentError.new("Hash expected, got #{arg.class.name}:#{arg.inspect}")
           end
+
           arg.each do |k, v|
             @title[k.to_sym] = (v.respond_to?(:localize) ? v.localize : v.to_s)
           end
@@ -247,6 +248,7 @@ module Backend
         for locale in [I18n.locale, I18n.default_locale]
           for f, attrs in Ekylibre.helps
             next if attrs[:locale].to_s != locale.to_s
+
             file_name = [article, article.split('-')[0] + '-index'].detect { |name| attrs[:name] == name }
             (file = f) && break if file_name.present?
           end

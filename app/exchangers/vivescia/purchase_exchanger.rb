@@ -259,6 +259,7 @@ module Vivescia
                 pretax_amount: edi_sale_item.pretax_amount,
                 variant_id: product_nature_variant.id
               ).first
+
               sale.items.create!(
                 quantity: qty,
                 tax: tax,

@@ -1,5 +1,4 @@
 class FixedAssetDepreciator
-
   # @param [Array<FixedAsset>] fixed_assets
   # @option [Date] up_to
   # @return [Integer]

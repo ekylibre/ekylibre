@@ -158,6 +158,5 @@ module FinancialYearTest
       assert_raise(ActiveRecord::RecordInvalid) { create(:cash_transfer, transfered_at: accounting_date) }
       assert_raise(ActiveRecord::RecordInvalid) { create(:parcel, given_at: accounting_date) }
     end
-
   end
 end

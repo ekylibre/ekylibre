@@ -87,6 +87,7 @@ class Preference < ApplicationRecord
       unless self.nature.values.include?(nature.to_s)
         raise ArgumentError.new("Nature (#{nature.inspect}) is unacceptable. #{self.nature.values.to_sentence} are accepted.")
       end
+
       @@reference[name] = { name: name, nature: nature.to_sym, default: default_value }
     end
 

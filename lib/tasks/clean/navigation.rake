@@ -44,6 +44,7 @@ namespace :clean do
     undefined_group = Nokogiri::XML::Node.new('group', doc)
     for controller, actions in ref.sort
       next if actions.empty?
+
       item = Nokogiri::XML::Node.new('item', doc)
       item['name'] = controller.to_s.split(/[\/]+/).last
       if first = actions.delete('index')

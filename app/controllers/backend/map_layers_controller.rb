@@ -45,6 +45,7 @@ module Backend
 
     def star
       return unless m = MapLayer.backgrounds.find_by(id: params[:id])
+
       m.update(by_default: !m.by_default)
       head :no_content
     end
@@ -52,6 +53,7 @@ module Backend
     def destroy
       m = MapLayer.find_by(id: params[:id])
       return head :forbidden if m.nil? || m.managed
+
       m.destroy
       head :no_content
     end

@@ -97,6 +97,7 @@ class AnimalGroup < ProductGroup
     unless member.is_a?(Animal)
       raise ArgumentError.new("Animal expected, got #{member.class}:#{member.inspect}")
     end
+
     super(member, options)
   end
 
@@ -105,6 +106,7 @@ class AnimalGroup < ProductGroup
     unless member.is_a?(Animal)
       raise ArgumentError.new("Animal expected, got #{member.class}:#{member.inspect}")
     end
+
     super(member, options)
   end
 

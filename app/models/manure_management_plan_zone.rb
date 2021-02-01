@@ -126,6 +126,7 @@ class ManureManagementPlanZone < ApplicationRecord
     unless soil_nature && item = Onoma::SoilNature[soil_nature].human_name
       return nil
     end
+
     item
   end
 
@@ -133,6 +134,7 @@ class ManureManagementPlanZone < ApplicationRecord
     unless cultivation_variety && item = Onoma::Variety[cultivation_variety].human_name
       return nil
     end
+
     item
   end
 end

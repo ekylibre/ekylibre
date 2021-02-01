@@ -29,6 +29,7 @@ module SVF
 
     def numerous?
       return false unless @range
+
       (@range.first > 1) ||
         (@range.count > 1) ||
         @cardinality.in?(['*', '+'])

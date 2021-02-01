@@ -24,6 +24,7 @@ class Measure
       unless @@dimensions.all.include?(dimension.to_s)
         raise ArgumentError.new("Unknown dimension #{dimension.inspect}")
       end
+
       @@units.items.select do |_n, i|
         i.dimension.to_s == dimension.to_s
       end.keys.map(&:to_sym)
@@ -58,6 +59,7 @@ class Measure
       unless expr =~ /\A-?([\,\.]\d+|\d+([\,\.]\d+)?)\s*[^\s]+\z/
         raise InvalidExpression.new("#{expr} cannot be parsed.")
       end
+
       unit = expr.gsub(/\A-?([\,\.]\d+|\d+([\,\.]\d+)?)\s*/, '').strip
       value = expr[0...-unit.size].strip.to_d # expr.split(/[a-zA-Z\s]/).first.strip.gsub(/\,/, '.').to_d
     elsif args.size == 2
@@ -70,6 +72,7 @@ class Measure
     unless value.is_a? Numeric
       raise ArgumentError.new("Value can't be converted to float: #{value.inspect}")
     end
+
     @value = value.to_r
     unit = unit.name.to_s if unit.is_a?(Onoma::Item)
     @unit = unit.to_s
@@ -132,12 +135,14 @@ class Measure
   # Test if the other measure is equal to self
   def !=(other)
     return true unless other.is_a?(Measure)
+
     to_r != other.to_r(unit)
   end
 
   # Test if the other measure is equal to self
   def ==(other)
     return false unless other.is_a?(Measure)
+
     to_r == other.to_r(unit)
   end
 
@@ -146,6 +151,7 @@ class Measure
     unless other.is_a?(Measure)
       raise ArgumentError.new('Only measure can be compared to another measure')
     end
+
     to_r < other.to_r(unit)
   end
 
@@ -154,6 +160,7 @@ class Measure
     unless other.is_a?(Measure)
       raise ArgumentError.new('Only measure can be compared to another measure')
     end
+
     to_r > other.to_r(unit)
   end
 
@@ -162,6 +169,7 @@ class Measure
     unless other.is_a?(Measure)
       raise ArgumentError.new('Only measure can be compared to another measure')
     end
+
     to_r <= other.to_r(unit)
   end
 
@@ -170,6 +178,7 @@ class Measure
     unless other.is_a?(Measure)
       raise ArgumentError.new('Only measure can be compared to another measure')
     end
+
     to_r >= other.to_r(unit)
   end
 
@@ -178,6 +187,7 @@ class Measure
     unless other.is_a?(Measure)
       raise ArgumentError.new('Only measure can be compared to another measure')
     end
+
     to_r <=> other.to_r(unit)
   end
 
@@ -199,6 +209,7 @@ class Measure
     unless other.is_a?(Measure)
       raise ArgumentError.new('Only measure can be added to another measure')
     end
+
     self.class.new(@value + other.to_r(unit), unit)
   end
 
@@ -206,6 +217,7 @@ class Measure
     unless other.is_a?(Measure)
       raise ArgumentError.new('Only measure can be substracted to another measure')
     end
+
     self.class.new(@value - other.to_r(unit), unit)
   end
 
@@ -259,6 +271,7 @@ class Measure
         raise IncompatibleDimensions.new("Measure can't be converted from one dimension (#{@@units[unit].dimension}) to an other (#{@@units[other_unit].dimension})")
       end
       return value if unit.to_s == other_unit.to_s
+
       # Reduce to base
       ref = @@units[unit]
       reduced = ((ref.a * value.to_d(precision)) / ref.d) + ref.b
@@ -301,5 +314,4 @@ class Measure
   def has_repartition_dimension?(dimension)
     repartition_dimension == dimension
   end
-
 end

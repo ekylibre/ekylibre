@@ -19,6 +19,7 @@ namespace :clean do
     files.sort!
     files.each do |file|
       next if File.directory?(file) || File.symlink?(file)
+
       original = File.read(file)
       source = original.dup
 
@@ -31,6 +32,7 @@ namespace :clean do
       # source.gsub!(/\n+\n$/, "\n")
 
       next unless source != original
+
       log.write " - #{file}\n"
       File.write(file, source)
       count += 1

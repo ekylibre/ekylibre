@@ -2,7 +2,6 @@ module Api
   module V1
     module Lexicon
       class ApiPhytosanitaryDataController < Api::V1::BaseController
-
         private
 
           def quote(str)

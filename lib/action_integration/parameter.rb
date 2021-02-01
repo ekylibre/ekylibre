@@ -11,6 +11,7 @@ module ActionIntegration
 
     def default_value
       return nil if @default_value.blank?
+
       @default_value.call
     end
   end

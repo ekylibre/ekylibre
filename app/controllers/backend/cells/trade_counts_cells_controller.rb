@@ -4,7 +4,6 @@ module Backend
       def show
         @unpaid_sales_amount = sales_amount
         @unpaid_purchases_amount = purchases_amount
-
       end
 
       private

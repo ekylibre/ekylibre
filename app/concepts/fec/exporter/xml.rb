@@ -18,11 +18,13 @@ module FEC
                 journals.where.not(nature: 'closure').each do |journal|
                   entries = journal.entries.where.not(state: 'draft').between(@started_on, @stopped_on)
                   next unless entries.any?
+
                   xml.journal do
                     xml.JournalCode journal.code
                     xml.JournalLib journal.name
                     entries.includes(:incoming_payments, :purchase_payments, items: :account).references(items: :account).find_each do |entry|
                       next if entry.items.empty? || ((fiscal_position == 'ba_ir_cash_accountancy' || fiscal_position == 'bnc_ir_cash_accountancy') && !entry.first_payment)
+
                       resource = Maybe(entry.resource)
                       xml.ecriture do
                         xml.EcritureNum (entry.continuous_number? ? entry.continuous_number : '')

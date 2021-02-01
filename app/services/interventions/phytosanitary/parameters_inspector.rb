@@ -1,7 +1,6 @@
 module Interventions
   module Phytosanitary
     class ParametersInspector
-
       # @param [Boolean] live_data
       # @param [Intervention] intervention
       # @param [Array<Integer>] targets_ids

@@ -78,7 +78,6 @@ module Odicom
         end
 
         w.info "#{line_number} - #{valid}".green
-
       end
       w.info "End validation : #{valid}".yellow
       valid
@@ -284,7 +283,6 @@ module Odicom
         end
 
         Entity.create!(attrs)
-
       end
 
       # @param [String] jou_code
@@ -353,6 +351,5 @@ module Odicom
 
         parser.normalize(rows)
       end
-
   end
 end

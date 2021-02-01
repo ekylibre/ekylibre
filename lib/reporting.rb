@@ -6,6 +6,7 @@ Ekylibre::Reporting.formats.each do |format|
     unless template = DocumentTemplate.find_active_template(name)
       raise StandardError.new("Can not find template for #{name.inspect}")
     end
+
     if ENV['IN_PASSENGER'] == '1'
       logger.warn 'Using Jasper/Rjb with Passenger is not sure for now. Be careful.'
       #     logger.warn 'notifications.messages.printing_does_not_work_under_passenger_for_now'.l

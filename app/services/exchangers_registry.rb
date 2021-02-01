@@ -1,5 +1,4 @@
 class ExchangersRegistry
-
   # @return [Hash{Symbol=>Hash{Symbol=>Hash{Symbol=>Class}}}]
   def list_by_category_and_vendor
     list = ActiveExchanger::Base.exchangers.sort

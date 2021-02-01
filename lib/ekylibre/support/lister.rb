@@ -17,6 +17,7 @@ module Ekylibre
         @list = []
         types.each do |type|
           raise 'Cannot use "list" as type name' if type.to_s == 'list'
+
           define_singleton_method type do |*args, &block|
             @list << Item.new(type.to_sym, args, block)
           end
@@ -29,6 +30,7 @@ module Ekylibre
       def detect_and_extract!(&block)
         index = @list.find_index(&block)
         return nil unless index
+
         @list.delete_at(index)
       end
     end

@@ -268,6 +268,7 @@ class Parcel < ApplicationRecord
           unless journal = Journal.sales.opened_on(planned_at).first
             raise 'No sale journal'
           end
+
           nature = SaleNature.create!(
             active: true,
             currency: Preference[:currency],
@@ -288,6 +289,7 @@ class Parcel < ApplicationRecord
           parcel.items.order(:id).each do |item|
             # raise "#{item.variant.name} cannot be sold" unless item.variant.saleable?
             next unless item.variant.saleable? && item.population && item.population > 0
+
             catalog_item = Catalog.by_default!(:sale).items.find_by(variant: item.variant)
             # check all taxes included to build unit_pretax_amount and tax from catalog with all taxes included
             unit_pretax_amount = item.pretax_amount.zero? ? nil : item.pretax_amount
@@ -336,6 +338,7 @@ class Parcel < ApplicationRecord
           unless journal = Journal.purchases.opened_on(planned_at).first
             raise 'No purchase journal'
           end
+
           nature = PurchaseNature.create!(
             active: true,
             journal: journal,
@@ -354,6 +357,7 @@ class Parcel < ApplicationRecord
         parcels.each do |parcel|
           parcel.items.order(:id).each do |item|
             next unless item.variant.purchasable? && item.population && item.population > 0
+
             catalog_item = Catalog.by_default!(:purchase).items.find_by(variant: item.variant)
             unit_pretax_amount = item.unit_pretax_amount.zero? ? nil : item.unit_pretax_amount
             tax = Tax.current.first
@@ -391,6 +395,7 @@ class Parcel < ApplicationRecord
     def detect_third(parcels)
       thirds = parcels.map(&:third_id).uniq
       raise "Need unique third (#{thirds.inspect})" if thirds.count != 1
+
       Entity.find(thirds.first)
     end
   end

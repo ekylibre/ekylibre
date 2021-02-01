@@ -45,6 +45,7 @@ module ApplicationHelper
     if reflection.macro != :belongs_to
       raise ArgumentError.new("Reflection #{reflection.name} must be a belongs_to")
     end
+
     text_field(object_name, reflection.foreign_key, html_options.merge('data-selector' => url_for(choices)))
   end
 
@@ -88,6 +89,7 @@ module ApplicationHelper
   def human_age(born_at, options = {})
     options[:default] ||= '&ndash;'.html_safe
     return options[:default] if born_at.nil? || !born_at.is_a?(Time)
+
     at = options[:at] || Time.zone.now
     sign = ''
     if born_at > at
@@ -111,6 +113,7 @@ module ApplicationHelper
 
   def human_interval(seconds, options = {})
     return options[:default] || '&ndash;'.html_safe if seconds.nil?
+
     vals = []
     if (seconds.to_f / 1.year).floor > 0.0 && (!options[:display] || vals.size < options[:display])
       vals << :x_years.tl(count: (seconds / 1.year).floor)
@@ -133,6 +136,7 @@ module ApplicationHelper
 
   def human_duration(seconds, options = {})
     return options[:default] || '&ndash;'.html_safe if seconds.nil?
+
     vals = []
     vals << (seconds / 1.hour).floor
     seconds -= 1.hour * (seconds / 1.hour).floor
@@ -231,6 +235,7 @@ module ApplicationHelper
       rescue ActionController::UrlGenerationError => uge
         # Trying to fail gracefully in production
         raise uge unless Rails.env.production?
+
         ExceptionNotifier::Notifier.exception_notification(request.env, uge).deliver
         request.env['exception_notifier.delivered'] = true
         return content_tag(:a, name, class: html_options[:class].to_s + ' invalid invalid-route', disabled: true)
@@ -377,6 +382,7 @@ module ApplicationHelper
       unless block.arity == 1
         raise ArgumentError.new('One parameter needed for attribute_list block')
       end
+
       yield attribute_list
     end
     if resource.customizable? && !options[:custom_fields].is_a?(FalseClass) &&
@@ -393,6 +399,7 @@ module ApplicationHelper
     unless columns.empty?
       columns.each do |c|
         next unless record.respond_to? c
+
         attribute_list.attribute c
       end
     end
@@ -432,6 +439,7 @@ module ApplicationHelper
 
     def custom_fields
       raise 'Cannot show custom fields on ' + @object.class.name unless @object.customizable?
+
       @object.class.custom_fields.each do |custom_field|
         value = @object.custom_value(custom_field)
         if value && custom_field.nature == :boolean
@@ -493,6 +501,7 @@ module ApplicationHelper
       item.args[2].is_a?(Hash) && item.args[2][:by_default]
     end
     raise 'Need a name or a default item' unless name || default_item
+
     if name.is_a?(Symbol)
       options[:icon] ||= name unless options[:icon].is_a?(FalseClass)
       name = options[:label] || name.ta(default: ["labels.#{name}".to_sym])
@@ -538,6 +547,7 @@ module ApplicationHelper
     minimum = 0
     if args[0].nil?
       return nil unless l.any?
+
       minimum = 1
       args = l.first.args
     end
@@ -667,6 +677,7 @@ module ApplicationHelper
   def theme_link_tag(theme = nil)
     theme ||= current_theme
     return nil unless theme
+
     html = ''
     html << stylesheet_link_tag(theme_path('all.css', theme), media: :all, 'data-turbolinks-track' => true)
     html.html_safe
@@ -747,6 +758,7 @@ module ApplicationHelper
     if content_for?(:subheading) || title
       return content_tag(:h2, title || content_for(:subheading), id: :subtitle)
     end
+
     nil
   end
 
@@ -759,6 +771,7 @@ module ApplicationHelper
       item << content_tag(:td, capture(item, &block))
       size += 1
       next unless size >= coln
+
       html << content_tag(:tr, item).html_safe
       item = ''
       size = 0
@@ -771,6 +784,7 @@ module ApplicationHelper
 
   def menu_to(name, url, options = {})
     raise ArgumentError.new("##{__method__} cannot use blocks") if block_given?
+
     icon = (options.key?(:menu) ? options.delete(:menu) : url.is_a?(Hash) ? url[:action] : nil)
     sprite = options.delete(:sprite) || 'icons-16'
     options[:class] = (options[:class].blank? ? 'mn' : options[:class] + ' mn')
@@ -831,6 +845,7 @@ module ApplicationHelper
       noko = Nokogiri::HTML.fragment(html)
       wrapper = noko.children.select { |e| e.matches?(".toolbar-wrapper") }.first
       return toolbar_tag(name, wrap: true) if wrapper.nil? # If no wrapper element and wrap is false, thats an error, just wrap everything
+
       other_content = noko.children.select { |e| e.matches?(":not(.toolbar-wrapper)") }
       other_content.each { |node| wrapper.add_child node } if wrapper
       noko.to_html.html_safe
@@ -866,6 +881,7 @@ module ApplicationHelper
   def error_messages(object)
     object = instance_variable_get("@#{object}") unless object.respond_to?(:errors)
     return unless object.respond_to?(:errors)
+
     if (count = object.errors.size).zero?
       ''
     else

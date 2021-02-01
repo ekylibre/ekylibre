@@ -11,7 +11,6 @@ class TransitionableTest < Ekylibre::Testing::ApplicationTestCase
 
   test 'TransitionableShouldExtractOnlyTransitions' do
     class TransitionableShouldExtractOnlyTransitions
-
       module Transitions
         class TestTransition < Transitionable::Transition
           event :pouet
@@ -199,5 +198,4 @@ class TransitionableTest < Ekylibre::Testing::ApplicationTestCase
       assert_nil t4.error
     end
   end
-
 end

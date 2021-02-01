@@ -254,6 +254,7 @@ class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase
 
     def generate_entry(account, debit, letter: nil, printed_on: @beginning + 2.days, destination_account: @dumpster_account)
       return if debit.zero?
+
       side = debit > 0 ? :debit : :credit
       other_side = debit < 0 ? :debit : :credit
       amount = debit.abs

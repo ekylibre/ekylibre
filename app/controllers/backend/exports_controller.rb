@@ -38,6 +38,7 @@ module Backend
 
       klass.parameters.each do |parameter|
         next if parameter.record_list?
+
         value_preference = "exports.#{klass.name}.parameters.#{parameter.name}.value"
         value = current_user.preference(value_preference, parameter.default).value
         params[parameter.name] ||= value

@@ -8,6 +8,7 @@ module Userstamp
       def model_stamper
         # don't allow multiple calls
         return if included_modules.include?(Userstamp::Stamper::InstanceMethods)
+
         send(:extend, Userstamp::Stamper::InstanceMethods)
       end
     end

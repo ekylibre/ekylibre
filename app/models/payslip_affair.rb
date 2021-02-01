@@ -59,6 +59,7 @@ class PayslipAffair < Affair
     unless deal.deal_third == employee
       raise "Cannot deal with a different employee in this PayslipAffair (ID=#{id})"
     end
+
     deal.deal_with!(self)
   end
 

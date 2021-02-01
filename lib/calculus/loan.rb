@@ -33,6 +33,7 @@ module Calculus
       def compute_shift(&_block)
         amount = @amount.dup
         return amount unless @shift > 0
+
         @shift.times do
           repayment = { base_amount: 0 }
           # Interests

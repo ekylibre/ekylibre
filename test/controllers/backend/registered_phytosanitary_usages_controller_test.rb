@@ -2,7 +2,6 @@ require 'test_helper'
 
 module Backend
   class RegisteredPhytosanitaryUsagesControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
-
     setup do
       create :campaign, harvest_year: 2018
 

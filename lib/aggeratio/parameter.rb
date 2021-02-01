@@ -8,8 +8,10 @@ module Aggeratio
       @type = type
       @options = options
       raise ArgumentError.new("Type is unknown: #{@type.inspect}") unless TYPES.include?(@type)
+
       @default = @options[:default]
       raise ArgumentError.new("Default value must be given for #{@name}") unless @default
+
       @foreign_class = @options[:of].to_s.camelcase.constantize if @options[:of]
     end
 

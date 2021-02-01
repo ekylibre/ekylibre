@@ -30,6 +30,7 @@ class InterventionWorkingTimeDurationCalculationService
 
     if times > 0 && (!any_tractor? && !any_tool?)
       return 0 if @intervention.nil?
+
       return intervention_working_duration
     end
 

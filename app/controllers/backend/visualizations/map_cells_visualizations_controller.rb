@@ -22,9 +22,11 @@ module Backend
           Sensor.find_each.group_by(&:model_euid).each do |model, sensors|
             items = sensors.map do |sensor|
               next unless sensor.analyses.last && sensor.analyses.last.geolocation
+
               analysis = sensor.analyses.last
               popup_lines = analysis.items.map do |item|
                 next unless item.value.respond_to? :l
+
                 { label: item.human_indicator_name, content: item.value.l }
               end
 
@@ -54,6 +56,7 @@ module Backend
 
           activity_productions.of_campaign(campaigns).includes(:activity, :campaign, :cultivable_zone, interventions: [:outputs, :participations, tools: :product, inputs: :product]).find_each do |support|
             next unless support.support_shape
+
             popup_content = []
 
             # for support

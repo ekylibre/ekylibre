@@ -3,7 +3,6 @@
 # Compute sum of support_shape of all the activty_productions linked to an activity
 module Activities
   class NetSurfaceAreaCalculation
-
     def compute_net_surface_area(activity, campaign)
       activity_campaign_net_surface_area = ActiveRecord::Base.connection.execute <<~SQL
         SELECT

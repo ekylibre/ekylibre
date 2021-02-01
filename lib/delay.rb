@@ -62,6 +62,7 @@ class Delay
     unless expression.is_a?(Array)
       raise ArgumentError.new("String or Array expected (got #{expression.class.name}:#{expression.inspect})")
     end
+
     @expression = expression.collect do |step|
       # step = step.mb_chars.downcase
       if step =~ /\A(#{MONTH_KEYWORDS[:eom].values.flatten.join('|')})\z/
@@ -73,6 +74,7 @@ class Delay
         if ALL_TRANSLATIONS[words[1]].nil?
           raise InvalidDelayExpression.new("#{words[1].inspect} is an undefined period (#{step.inspect} of #{base.inspect})")
         end
+
         [ALL_TRANSLATIONS[words[1]], (words[2].blank? ? 1 : -1) * words[0].to_i]
       elsif step.present?
         raise InvalidDelayExpression.new("#{step.inspect} is an invalid step. (From #{base.inspect} => #{expression.inspect})")
@@ -82,6 +84,7 @@ class Delay
 
   def compute(started_at = Time.zone.now)
     return nil if started_at.nil?
+
     stopped_at = started_at.dup
     @expression.each do |step|
       case step[0]
@@ -99,6 +102,7 @@ class Delay
   def inspect
     @expression.collect do |step|
       next step.first.to_s.upcase if step.size == 1
+
       step[1].abs.to_s + ' ' + step[0].to_s + 's' + (step[1] < 0 ? ' ago' : '')
     end.join(', ')
   end
@@ -201,7 +205,7 @@ class DelayValidator < ActiveModel::EachValidator
       bom = Delay::MONTH_KEYWORDS[:bom][language]
       eom = Delay::MONTH_KEYWORDS[:eom][language]
       return nil unless bom || eom
+
       (bom || []) + (eom || [])
     end
-
 end

@@ -44,6 +44,7 @@ module Indicateable
       raise ArgumentError.new("Unknown indicator #{indicator.inspect}. Expecting one of them: #{Onoma::Indicator.all.sort.to_sentence}.")
     end
     raise ArgumentError.new('Value must be given') if value.nil?
+
     unless options[:force]
       if frozen_indicators.include?(indicator)
         raise ArgumentError.new("A frozen indicator (#{indicator.name}) cannot be read")
@@ -64,6 +65,7 @@ module Indicateable
     unless indicator.is_a?(Onoma::Item) || indicator = Onoma::Indicator[indicator]
       raise ArgumentError.new("Unknown indicator #{indicator.inspect}. Expecting one of them: #{Onoma::Indicator.all.sort.to_sentence}.")
     end
+
     read_at = options[:at] || Time.zone.now
     readings.where(indicator_name: indicator.name).where('read_at <= ?', read_at).order(read_at: :desc).first
   end
@@ -71,6 +73,7 @@ module Indicateable
   def first_reading(indicator_name)
     candidates = readings.where(indicator_name: indicator_name).order(:read_at)
     return candidates.first if candidates.any?
+
     nil
   end
 
@@ -81,6 +84,7 @@ module Indicateable
     unless indicator.is_a?(Onoma::Item) || indicator = Onoma::Indicator[indicator]
       raise ArgumentError.new("Unknown indicator #{indicator.inspect}. Expecting one of them: #{Onoma::Indicator.all.sort.to_sentence}.")
     end
+
     options = args.extract_options!
     cast_or_time = args.shift || options[:cast] || options[:at] || Time.zone.now
     value = nil
@@ -90,6 +94,7 @@ module Indicateable
         if %i[measure decimal integer].include?(indicator.datatype)
           raise NotImplementedError.new('Interpolation is not available for now')
         end
+
         raise StandardError.new("Can not use :interpolate option with #{indicator.datatype.inspect} datatype")
       elsif reading = self.reading(indicator.name, at: cast_or_time)
         value = reading.value
@@ -114,6 +119,7 @@ module Indicateable
         unless variant = cast_or_time.variant || cast_or_time.parameter.variant(cast_or_time.intervention)
           raise StandardError.new("Need variant to know how to read it (#{cast_or_time.intervention.procedure_name}##{cast_or_time.reference_name})")
         end
+
         if variant.frozen_indicators.include?(indicator)
           value = variant.get(indicator)
         else
@@ -143,6 +149,7 @@ module Indicateable
     unless value = get(indicator, *args)
       raise "Cannot get value of #{indicator.name} for product ##{id}"
     end
+
     value
   end
 
@@ -206,6 +213,7 @@ module Indicateable
       unless operand_value
         raise StandardError.new("No given #{indicator_name} value")
       end
+
       indicator = Onoma::Indicator.find(indicator_name)
       # Perform operation
       value = get(indicator, at: taken_at)
@@ -242,6 +250,7 @@ module Indicateable
     unless indicator.is_a?(Onoma::Item) || indicator = Onoma::Indicator[indicator]
       raise ArgumentError.new("Unknown indicator #{indicator.inspect}. Expecting one of them: #{Onoma::Indicator.all.sort.to_sentence}.")
     end
+
     data = readings.where(indicator_name: indicator.name)
     operation = options.delete(:operation)
     data = data.where('read_at <= ?', options[:before]) if options[:before]

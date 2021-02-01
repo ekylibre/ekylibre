@@ -20,7 +20,6 @@ module Printers
       def key
         sale.number
       end
-
     end
   end
 end

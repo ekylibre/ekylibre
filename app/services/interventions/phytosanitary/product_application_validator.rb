@@ -1,7 +1,6 @@
 module Interventions
   module Phytosanitary
     class ProductApplicationValidator
-
       # @param [Array<Models::ProductWithUsage>] products_usages
       # @return [Models::ProductApplicationResult]
       def validate(products_usages)

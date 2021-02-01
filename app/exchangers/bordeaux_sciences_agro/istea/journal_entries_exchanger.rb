@@ -52,7 +52,6 @@ module BordeauxSciencesAgro
           end
 
           w.info "#{line_number} - #{valid}".green
-
         end
         valid
       end
@@ -167,7 +166,6 @@ module BordeauxSciencesAgro
             pretax_base: (row[21].blank? ? 0.0 : row[21].tr(',', '.').to_d)
           }.to_struct
         end
-
     end
   end
 end

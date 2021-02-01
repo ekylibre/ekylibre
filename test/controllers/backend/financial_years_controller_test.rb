@@ -48,7 +48,6 @@ module Backend
       @company.update!(legal_position_code: "GAEC")
       get :close, params: { id: @financial_year }
       assert_template partial: '_person_result_allocation'
-
     end
 
     test 'amount allocated are balanced' do
@@ -168,6 +167,7 @@ module Backend
 
       def generate_entry(account, debit, letter: nil, printed_on: Date.new(2008, 1, 1) + 2.days, destination_account: @dumpster_account)
         return if debit.zero?
+
         side = debit > 0 ? :debit : :credit
         other_side = debit < 0 ? :debit : :credit
         amount = debit.abs
@@ -189,6 +189,5 @@ module Backend
       def validate_fog
         JournalEntry.find_each { |je| je.update(state: :confirmed) }
       end
-
   end
 end

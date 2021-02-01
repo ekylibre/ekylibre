@@ -68,7 +68,6 @@ require 'test_helper'
 
 module FixedAssetTest
   class FixedAssetTest < Ekylibre::Testing::ApplicationTestCase
-
     setup do
       [2017, 2018].each { |year| create :financial_year, year: year }
     end

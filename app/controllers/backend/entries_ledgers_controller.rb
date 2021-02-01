@@ -54,6 +54,5 @@ module Backend
     end
 
     def show; end
-
   end
 end

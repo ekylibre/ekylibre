@@ -55,7 +55,6 @@
 require 'test_helper'
 
 class RegisteredPhytosanitaryUsageTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
-
   setup do
     @trees_and_shrubs_usage = RegisteredPhytosanitaryUsage.find('20170220100309958136')
     @tropical_crops_usage = RegisteredPhytosanitaryUsage.find('20191105094833754529')

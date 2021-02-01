@@ -64,6 +64,7 @@ module TimeLineable
 
   def previous
     return nil unless self.started_at
+
     other_siblings.before(self.started_at).order(started_at: :desc).first
   end
 
@@ -73,6 +74,7 @@ module TimeLineable
 
   def followings
     return nil unless started_at
+
     other_siblings.after(self.started_at)
   end
 

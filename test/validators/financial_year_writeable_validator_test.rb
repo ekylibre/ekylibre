@@ -24,7 +24,6 @@
 require 'test_helper'
 
 class FinancialYearWriteableValidatorTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
-
   class ValidatableWithFinancialYear
     include ActiveModel::Validations
 
@@ -125,5 +124,4 @@ class FinancialYearWriteableValidatorTest < Ekylibre::Testing::ApplicationTestCa
 
     refute_empty @record.tap(&:valid?).errors
   end
-
 end

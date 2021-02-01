@@ -48,7 +48,6 @@ module BordeauxSciencesAgro
             # if (r.start_debit_amount + r.variation_debit_amount) - (r.start_credit_amount + r.variation_credit_amount)!= r.global_balance
             #  valid = false
             # end
-
           end
           valid
         end
@@ -66,7 +65,6 @@ module BordeauxSciencesAgro
           entries = {}
 
           rows.each_with_index do |row, index|
-
             line_number = index + 2
             prompt = "L#{line_number.to_s.yellow}"
             r = {
@@ -148,9 +146,7 @@ module BordeauxSciencesAgro
             w.info "JE created: #{j.number} | #{j.printed_on}".inspect.yellow
             w.check_point
           end
-
         end
-
       end
     end
   end
