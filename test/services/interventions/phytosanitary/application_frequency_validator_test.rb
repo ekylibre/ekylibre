@@ -15,7 +15,7 @@ module Interventions
 
       test "guess_vote" do
         cases = [
-          #[usage_params, maaid, phyto, interval_respected, expected_result]
+          # [usage_params, maaid, phyto, interval_respected, expected_result]
           [nil, nil, nil, nil, :unknown],
           [{}, "8548547", nil, nil, :unknown],
           [{}, "8548547", "", nil, :allowed],

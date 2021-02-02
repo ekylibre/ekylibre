@@ -159,7 +159,7 @@ module Interventions
         stub_many_with(cases)
       end
 
-      # volume_concentration => volume_area_density
+      #  volume_concentration => volume_area_density
       test 'convert volume_concentration into volume_area_density' do
         cases = [
           [1.in(:liter_per_hectoliter), UsageMock.new(:liter_per_hectare), ProductMock.new, @targets_area, 5.0, Measure.new(1.0 * 5.0 / 100.0, :liter_per_hectare)]
@@ -168,7 +168,7 @@ module Interventions
         stub_many_with(cases)
       end
 
-      # volume_concentration => mass_area_density
+      #  volume_concentration => mass_area_density
       test 'convert volume_concentration into mass_area_density' do
         cases = [
           [1.in(:liter_per_hectoliter), UsageMock.new(:liter_per_hectare), ProductMock.new, @targets_area, 5.0, Measure.new(1.0 * 5.0 / 100.0, :liter_per_hectare)]
