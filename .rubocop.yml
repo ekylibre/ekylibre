@@ -21,6 +21,10 @@ AllCops:
 Bundler/OrderedGems:
   Enabled: false
 
+# We disable this for now. 1500 offenses as of 01/02/2021
+Layout/LineLength:
+  Enabled: false
+
 # Too many offenses to enable this for now.
 Style/StringLiterals:
   Enabled: false

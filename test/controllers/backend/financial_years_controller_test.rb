@@ -43,7 +43,7 @@ module Backend
       @company.update!(legal_position_code: "EI")
 
       get :close, params: { id: @financial_year }
-      assert_equal 1, (Nokogiri::HTML(response.body).css('div.amount_allocated--individual_capital #allocations_101')).count
+      assert_equal 1, Nokogiri::HTML(response.body).css('div.amount_allocated--individual_capital #allocations_101').count
 
       @company.update!(legal_position_code: "GAEC")
       get :close, params: { id: @financial_year }
