@@ -10,16 +10,15 @@ module Ekylibre
     def check
       valid = true
       rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
-      w.count = rows.size
+
       rows.each do |row|
         r = {
           number: row[0].to_s,
           name: (row[1].blank? ? nil : row[1].to_s.strip),
           nature: (row[2].blank? ? nil : row[2].to_sym)
         }.to_struct
-
-        w.check_point
       end
+
       valid
     end
 
@@ -28,8 +27,7 @@ module Ekylibre
       rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
       w.count = rows.size
 
-      rows.each_with_index do |row, index|
-        line_number = index + 2
+      rows.each do |row|
         r = {
           number: row[0].to_s.strip,
           name: (row[1].blank? ? nil : row[1].to_s),
