@@ -145,11 +145,11 @@
         E.interventions.unserializeRecord(form, attributes, prefix + id + '_', updater_id)
 
     updateAvailabilityInstant: (newTime) ->
-      return unless newTime != ''
+      return if newTime == ''
       $("input.scoped-parameter").each (index, item) ->
         scopeUri = decodeURI($(item).data("selector"))
         re =  /(scope\[availables\]\[\]\[at\]=)(.*?)(&)/
-        scopeUri = scopeUri.replace(re, "$1" + newTime + "$3")
+        scopeUri = scopeUri.replace(re, "$1" + moment(newTime).format('YYYY-MM-DD HH:mm') + "$3")
         $(item).attr("data-selector", encodeURI(scopeUri))
 
     _setWaiting: (form, computing) ->

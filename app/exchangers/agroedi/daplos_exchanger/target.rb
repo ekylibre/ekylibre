@@ -28,4 +28,3 @@ module Agroedi
     end
   end
 end
-

@@ -27,7 +27,7 @@ module Backend
 
     test 'import_cfonb post works' do
       create :cash, iban: 'FR8314508000309837485442I87'
-      post(:import_cfonb, upload: uploaded_file("import_cfonb.csv"))
+      post(:import_cfonb, params: { upload: uploaded_file("import_cfonb.csv") })
       assert_redirected_to("/backend/bank-statements/#{assigns(:bank_statement).id}")
     end
 

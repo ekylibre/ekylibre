@@ -138,13 +138,21 @@ module Backend
       parcels = find_parcels
       return unless parcels
       parcel = parcels.first
-      if parcels.all? { |p| p.incoming? && p.third_id == parcel.third_id && p.invoiceable? }
-        purchase = Parcel.convert_to_purchase(parcels)
-        redirect_to backend_purchase_path(purchase)
-      elsif parcels.all? { |p| p.outgoing? && p.third_id == parcel.third_id && p.invoiceable? }
-        sale = Parcel.convert_to_sale(parcels)
-        redirect_to backend_sale_path(sale)
-      else
+      begin
+        if parcels.all? { |p| p.incoming? && p.third_id == parcel.third_id && p.invoiceable? }
+          purchase = Parcel.convert_to_purchase(parcels)
+          redirect_to backend_purchase_path(purchase)
+        elsif parcels.all? { |p| p.outgoing? && p.third_id == parcel.third_id && p.invoiceable? }
+          sale = Parcel.convert_to_sale(parcels)
+          redirect_to backend_sale_path(sale)
+        end
+      rescue ActiveRecord::RecordInvalid => error
+        notify_error(error.message)
+        redirect_to backend_shipments_path
+      rescue StandardError => error
+        Rails.logger.error error
+        Rails.logger.error error.backtrace.join("\n")
+        ElasticAPM.report(error)
         notify_error(:all_parcels_must_be_invoiceable_and_of_same_nature_and_third)
         redirect_to(params[:redirect] || { action: :index })
       end

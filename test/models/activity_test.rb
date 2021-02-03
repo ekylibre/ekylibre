@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,39 +23,43 @@
 #
 # == Table: activities
 #
-#  codes                        :jsonb
-#  created_at                   :datetime         not null
-#  creator_id                   :integer
-#  cultivation_variety          :string
-#  custom_fields                :jsonb
-#  description                  :text
-#  family                       :string           not null
-#  grading_net_mass_unit_name   :string
-#  grading_sizes_indicator_name :string
-#  grading_sizes_unit_name      :string
-#  id                           :integer          not null, primary key
-#  lock_version                 :integer          default(0), not null
-#  measure_grading_items_count  :boolean          default(FALSE), not null
-#  measure_grading_net_mass     :boolean          default(FALSE), not null
-#  measure_grading_sizes        :boolean          default(FALSE), not null
-#  name                         :string           not null
-#  nature                       :string           not null
-#  production_campaign          :string
-#  production_cycle             :string           not null
-#  production_nature_id         :integer
-#  production_system_name       :string
-#  size_indicator_name          :string
-#  size_unit_name               :string
-#  support_variety              :string
-#  suspended                    :boolean          default(FALSE), not null
-#  updated_at                   :datetime         not null
-#  updater_id                   :integer
-#  use_countings                :boolean          default(FALSE), not null
-#  use_gradings                 :boolean          default(FALSE), not null
-#  use_seasons                  :boolean          default(FALSE)
-#  use_tactics                  :boolean          default(FALSE)
-#  with_cultivation             :boolean          not null
-#  with_supports                :boolean          not null
+#  codes                          :jsonb
+#  created_at                     :datetime         not null
+#  creator_id                     :integer
+#  cultivation_variety            :string
+#  custom_fields                  :jsonb
+#  description                    :text
+#  family                         :string           not null
+#  grading_net_mass_unit_name     :string
+#  grading_sizes_indicator_name   :string
+#  grading_sizes_unit_name        :string
+#  id                             :integer          not null, primary key
+#  life_duration                  :decimal(5, 2)
+#  lock_version                   :integer          default(0), not null
+#  measure_grading_items_count    :boolean          default(FALSE), not null
+#  measure_grading_net_mass       :boolean          default(FALSE), not null
+#  measure_grading_sizes          :boolean          default(FALSE), not null
+#  name                           :string           not null
+#  nature                         :string           not null
+#  production_campaign            :string
+#  production_cycle               :string           not null
+#  production_nature_id           :integer
+#  production_started_on          :date
+#  production_stopped_on          :date
+#  production_system_name         :string
+#  size_indicator_name            :string
+#  size_unit_name                 :string
+#  start_state_of_production_year :integer
+#  support_variety                :string
+#  suspended                      :boolean          default(FALSE), not null
+#  updated_at                     :datetime         not null
+#  updater_id                     :integer
+#  use_countings                  :boolean          default(FALSE), not null
+#  use_gradings                   :boolean          default(FALSE), not null
+#  use_seasons                    :boolean          default(FALSE)
+#  use_tactics                    :boolean          default(FALSE)
+#  with_cultivation               :boolean          not null
+#  with_supports                  :boolean          not null
 #
 require 'test_helper'
 

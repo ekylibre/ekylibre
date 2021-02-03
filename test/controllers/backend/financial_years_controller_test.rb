@@ -96,11 +96,14 @@ module Backend
         '110' => 400
       }
 
-      post :close, id: @financial_year, financial_year: { stopped_on: @financial_year.stopped_on },
-           result_journal: result,
-           closure_journal: closing,
-           forward_journal: forward,
-           allocations: allocations
+      post :close, params: {
+        id: @financial_year,
+        financial_year: { stopped_on: @financial_year.stopped_on },
+        result_journal: result,
+        closure_journal: closing,
+        forward_journal: forward,
+        allocations: allocations
+      }
 
       assert_equal 1, flash[:notifications]['error'].count
 
@@ -114,11 +117,14 @@ module Backend
         '110' => 400
       }
 
-      post :close, id: @financial_year, financial_year: { stopped_on: @financial_year.stopped_on },
-           result_journal: result,
-           closure_journal: closing,
-           forward_journal: forward,
-           allocations: allocations
+      post :close, params: {
+        id: @financial_year,
+        financial_year: { stopped_on: @financial_year.stopped_on },
+        result_journal: result,
+        closure_journal: closing,
+        forward_journal: forward,
+        allocations: allocations
+      }
 
       assert_equal 1, flash[:notifications]['success'].count
       assert @financial_year.reload.close(User.first, nil, result_journal: result)
@@ -132,11 +138,14 @@ module Backend
       get :close, params: { id: @next_year }
       assert_template partial: '_negative_result_allocation_person'
 
-      post :close, id: @next_year, financial_year: { stopped_on: @next_year.stopped_on },
-           result_journal: result,
-           closure_journal: closing,
-           forward_journal: forward,
-           allocations: allocations
+      post :close, params: {
+        id: @next_year,
+        financial_year: { stopped_on: @next_year.stopped_on },
+        result_journal: result,
+        closure_journal: closing,
+        forward_journal: forward,
+        allocations: allocations
+      }
 
       assert_equal 1, flash[:notifications]['success'].count
     end

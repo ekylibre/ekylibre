@@ -6,9 +6,14 @@ module Ekylibre
     class DocumentGenerator
       class << self
         def build
+          converter = if Rails.env.test?
+                        Ekylibre::DocumentManagement::TestingPdfConverter.build
+                      else
+                        Ekylibre::DocumentManagement::PdfConverter.build
+                      end
           new(
             template_provider: Ekylibre::DocumentManagement::TemplateFileProvider.build,
-            pdf_converter: Ekylibre::DocumentManagement::PdfConverter.build
+            pdf_converter: converter
           )
         end
       end
