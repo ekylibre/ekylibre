@@ -74,37 +74,72 @@ class InterventionOutput < InterventionProductParameter
   validates :variant, :quantity_population, presence: true
   validates :identification_number, presence: true, if: ->(output) { output.reference.present? && output.reference.attribute(:identification_number).present? }
 
+  validate do
+    # Matter can be changed only if the output is not used elsewhere
+    #
+    # 'Product_id' can only be changed in 'after_save' callback, so we never see it in 'changed' method except for 2 cases : duplicating a request intervention and changing_state of a request_intervention where 'product_id' is directly duplicated
+    next if product.nil? || !variant_id_changed? || product_id_changed?
+
+    # Same protection as for product model but excepting the current intervention parameter
+    parameters_from_record_intervention = product
+                                            .intervention_product_parameters
+                                            .where.not(id: self.id)
+                                            .joins(:intervention)
+                                            .where("interventions.nature = 'record'")
+    protected_from_destroy = product.analyses.exists? || product.issues.exists? || product.parcel_items.exists? || parameters_from_record_intervention.exists?
+    errors.add(:variant_id, :already_used) if protected_from_destroy
+  end
+
   after_save do
-    unless destroyed?
-      output = product
-      output ||= variant.products.new unless output
-      output.type = variant.matching_model.name
-      output.born_at = intervention.started_at
-      output.initial_born_at = output.born_at
+    next if destroyed?
 
-      output.name = new_name if !procedure.of_category?(:planting) && new_name.present?
-      output.name = compute_output_planting_name if procedure.of_category?(:planting)
-
-      output.identification_number = identification_number if identification_number.present?
-      # output.attributes = product_attributes
-      reading = readings.find_by(indicator_name: :shape)
-      output.initial_shape = reading.value if reading
-      output.save!
-
-      if intervention.record?
-        movement = product_movement
-        movement ||= build_product_movement(product: output)
-        movement.delta = quantity_population
-        movement.started_at = intervention.started_at if intervention
-        movement.started_at ||= Time.zone.now - 1.hour
-        movement.stopped_at = intervention.stopped_at if intervention
-        movement.stopped_at ||= movement.started_at + 1.hour
-        movement.save!
+    is_not_created_from_change_state = id_was.present? || intervention.request_intervention.nil?
+    if is_not_created_from_change_state
+      output = variant.products.new
+      if variant_id_was
+        # The only case an output product can be linked to 2 interventions is when the product is linked to the self intervention and the request intervention linked (if there is one)
+        if product.intervention_product_parameters.count == 2
+          product_movement.destroy!
+          product.update!(dead_at: Time.zone.now)
+        else
+          # Remove link preventing product deletion before destroying it
+          product_to_destroy = product
+          update_columns(product_id: nil)
+          product_to_destroy.reload.destroy!
+        end
       end
-
-      update_columns(product_id: output.id) # , movement_id: movement.id)
-      true
+    else
+      output = product
     end
+
+    output.type = variant.matching_model.name
+    output.born_at = intervention.started_at
+    output.initial_born_at = output.born_at
+
+    if procedure.of_category?(:planting)
+      output.name = compute_output_planting_name
+    elsif new_name.present?
+      output.name = new_name
+    end
+
+    output.identification_number = identification_number if identification_number.present?
+    reading = readings.find_by(indicator_name: :shape)
+    output.initial_shape = reading.value if reading
+    output.save!
+
+    if intervention.record?
+      # movement is found this way because if the movement is destroyed in the condition above, 'product_movement' is still returning an object so it won't create a new one
+      movement = ProductMovement.find_by(id: product_movement&.id)
+      movement ||= build_product_movement(product: output)
+      movement.delta = quantity_population
+      movement.started_at = intervention.started_at if intervention
+      movement.started_at ||= Time.zone.now - 1.hour
+      movement.stopped_at = intervention.stopped_at if intervention
+      movement.stopped_at ||= movement.started_at + 1.hour
+      movement.save!
+    end
+
+    update_columns(product_id: output.id)
   end
 
   def stock_amount

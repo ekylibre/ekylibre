@@ -548,13 +548,17 @@ fra:
             stopped_at: #?
               inferior: "La date de fin d'intervention saisie doit être antérieure à la date de fin des cultures sélectionnées (%{to})" #?
               posterior: "La date de fin d'intervention saisie doit être postérieure à la date de début des cultures sélectionnées (%{to})" #?
-        journal: #?
-          attributes: #?
-            accountant: #?
-              entity_frozen: "Les journaux réservés au %{attribute} ne peuvent être modifiés lorsqu'un échange est ouvert pour ses exercices" #?
-              present: "Le comptable ne peut être précisé que pour les journaux de type opérations diverses" #?
-              previous_entity_frozen: "Les journaux réservés au précédent %{attribute} ne peuvent être modifiés lorsqu'un échange est ouvert pour ses exercices" #?
-            closed_on: #?
+        intervention_output:
+          attributes:
+            variant_id:
+              already_used: "Cet extrant ne peut pas être modifié car il a déjà été utilisé"
+        journal:
+          attributes:
+            accountant:
+              entity_frozen: "Les journaux réservés au %{attribute} ne peuvent être modifiés lorsqu'un échange est ouvert pour ses exercices"
+              present: "Le comptable ne peut être précisé que pour les journaux de type opérations diverses"
+              previous_entity_frozen: "Les journaux réservés au précédent %{attribute} ne peuvent être modifiés lorsqu'un échange est ouvert pour ses exercices"
+            closed_on:
               draft_entry_items: "Des écritures du brouillard sont encore présente avant le %{closed_on}" #?
               end_of_month: "%{attribute} doit correspondre à une date de fin de mois (%{closed_on})" #?
         journal_entry: #?

@@ -440,7 +440,7 @@ class Product < ApplicationRecord
   end
 
   protect(on: :destroy) do
-    analyses.any? || intervention_product_parameters.any? || issues.any? || parcel_items.any?
+    analyses.exists? || intervention_product_parameters.exists? || issues.exists? || parcel_items.exists?
   end
 
   class << self
