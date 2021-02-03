@@ -23,7 +23,6 @@
 require 'test_helper'
 
 class InventoryCreationTest < Ekylibre::Testing::ApplicationTestCase
-
   test 'Inventory build without a journal setup for it does not initialize it' do
     assert_nil Inventory.new.journal
   end
@@ -39,5 +38,4 @@ class InventoryCreationTest < Ekylibre::Testing::ApplicationTestCase
 
     assert_equal j, Inventory.new(journal: j).journal
   end
-
 end

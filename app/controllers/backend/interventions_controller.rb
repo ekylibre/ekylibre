@@ -188,6 +188,7 @@ module Backend
     # Show one intervention with params_id
     def show
       return unless @intervention = find_and_check
+
       t3e @intervention, procedure_name: @intervention.procedure.human_name, nature: @intervention.request? ? :planning_of.tl : nil
       respond_with(@intervention, methods: %i[cost earn status name duration human_working_zone_area human_actions_names],
                    include: [
@@ -225,11 +226,12 @@ module Backend
       # , :doers, :inputs, :outputs, :tools
       %i[group_parameters targets].each do |param|
         next unless unsafe_params.include? :intervention
-        options[:"#{param}_attributes"] = unsafe_params["#{param}_attributes"] || []
 
+        options[:"#{param}_attributes"] = unsafe_params["#{param}_attributes"] || []
         next unless options[:targets_attributes]
 
         next if permitted_params.include? :working_periods
+
         targets = if options[:targets_attributes].is_a? Array
                     options[:targets_attributes].collect { |k, _| k[:product_id] }
                   else
@@ -246,6 +248,7 @@ module Backend
 
       %i[doers inputs outputs tools participations working_periods].each do |param|
         next unless params.include? :intervention
+
         options[:"#{param}_attributes"] = permitted_params["#{param}_attributes"] || []
       end
 
@@ -259,6 +262,7 @@ module Backend
 
           if params[:reference_name]
             next unless params[:reference_name] == 'animal'
+
             hash[:reference_name] = params[:reference_name]
           end
 
@@ -306,6 +310,7 @@ module Backend
             end
 
       return if save_and_redirect(@intervention, url: url, notify: :record_x_created, identifier: :number)
+
       render(locals: { cancel_url: { action: :index }, with_continue: true })
     end
 
@@ -332,6 +337,7 @@ module Backend
     def sell
       interventions = params[:id].split(',')
       return unless interventions
+
       if interventions
         redirect_to new_backend_sale_path(intervention_ids: interventions)
       else
@@ -428,6 +434,7 @@ module Backend
       Intervention.transaction do
         @interventions.each do |intervention|
           next if intervention.request? && intervention.record_interventions.any?
+
           if intervention.nature == :record && new_state == :rejected
 
             unless intervention.request_intervention_id.nil?
@@ -449,6 +456,7 @@ module Backend
             intervention.state = new_state
 
             next unless intervention.valid?
+
             intervention.save!
 
             next
@@ -499,6 +507,7 @@ module Backend
           new_intervention.nature = :record
 
           next unless new_intervention.valid?
+
           new_intervention.save!
         end
       end
@@ -753,8 +762,10 @@ module Backend
         duplicate_parameter = parameter.dup
         %i[targets doers tools inputs outputs].each do |product_parameter|
           next unless "intervention_#{product_parameter}" == duplicate_parameter.class.name.underscore.pluralize
+
           attributes["#{product_parameter}_attributes"].each_value do |values|
             next unless parameter.id.to_s == values["id"]
+
             values.delete('id')
             duplicate_parameter.assign_attributes(values)
           end

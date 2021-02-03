@@ -1,7 +1,6 @@
 module Backend
   module ControllerHelpers
     class ActivityProductionCreationsController < Backend::BaseController
-
       def new
         model = FormObjects::Backend::ControllerHelpers::ActivityProductionCreations::CreationHelper.new(campaign: current_campaign.id, cultivable_zone: params[:cultivable_zone])
 

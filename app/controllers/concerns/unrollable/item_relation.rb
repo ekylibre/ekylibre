@@ -30,6 +30,7 @@ module Unrollable
       scopes.symbolize_keys.each do |scope, parameter|
         unless with_parameters?(scope, model)
           return bad_scope(scope, model) unless true?(parameter)
+
           next items = items.send(scope)
         end
 
@@ -43,11 +44,13 @@ module Unrollable
 
     def excluding(record_ids)
       return self unless record_ids
+
       self.class.new(@items.where.not(id: record_ids))
     end
 
     def keeping(id)
       return nil unless id
+
       self.class.new(@items.where(id: id))
     end
 
@@ -65,6 +68,7 @@ module Unrollable
     # Forwarding the unknown to the AR::Relation
     def method_missing(method, *args, &block)
       return super unless @items.respond_to?(method)
+
       result = @items.send(method, *args, &block)
       result.respond_to?(:to_sql) ? self.class.new(result) : result
     end

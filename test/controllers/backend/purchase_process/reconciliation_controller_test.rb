@@ -36,7 +36,6 @@ module Backend
       end
 
       test "if the supplier is set then only given receptions from this supplier appear in the purchase invoice form modal and could be reconciled" do
-
         get :receptions_to_reconciliate, params: { supplier: @supplier_one.id }
         assert_response 200
 
@@ -49,7 +48,6 @@ module Backend
       end
 
       test "only reception items not reconciled could be reconciled" do
-
         get :receptions_to_reconciliate, params: { supplier: @supplier_two.id }
         assert_response 200
 

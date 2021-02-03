@@ -1,7 +1,7 @@
 # coding: utf-8
+
 class FinancialYearClose
   class << self
-
     # @param [FinancialYear] year
     # @param [User] user
     # @param [Date] close_on
@@ -76,6 +76,7 @@ class FinancialYearClose
   def execute
     @start = Time.now
     return false unless @year.closable?
+
     ensure_closability!
 
     ApplicationRecord.transaction do
@@ -220,6 +221,7 @@ class FinancialYearClose
       items << loss_or_profit_item(@result_account, result) unless result.zero?
 
       return unless @result_journal
+
       @result_journal.entries.create!(
         printed_on: @to_close_on,
         currency: @result_journal.currency,
@@ -242,6 +244,7 @@ class FinancialYearClose
       usages = %i[debit_retained_earnings credit_retained_earnings]
       accounts = usages.map { |usage| Account.find_by_usage(usage) }.compact
       return if accounts.compact.blank?
+
       accounts.find { |account| account.totals[:balance].to_f.nonzero? }
     end
 
@@ -285,6 +288,7 @@ class FinancialYearClose
                        .between(@started_on, @to_close_on)
         balance = entry_items.where(letter: nil).sum('debit - credit')
         next if balance.zero?
+
         unlettered_items << {
           account_id: a.id,
           name: a.name,
@@ -355,6 +359,7 @@ class FinancialYearClose
 
     def generate_closing_and_opening_entry!(items, result, letter: nil)
       return unless items.any?
+
       # return unless result.nonzero?
 
       new_letter, items = reletter_items!(items, letter)
@@ -494,6 +499,7 @@ class FinancialYearClose
 
     def generate_closing_or_opening_entry!(journal, account_info, items, result, printed_on: @to_close_on)
       return unless journal
+
       account = Account.find_by(number: account_info[:number].ljust(Preference[:account_number_digits], '0'))
       account ||= Account.create!(number: account_info[:number].ljust(Preference[:account_number_digits], '0'), name: account_info[:name])
 

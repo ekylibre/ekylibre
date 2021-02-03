@@ -10,7 +10,6 @@ module ActiveExchanger
     end
 
     def read(filename, col_sep: @separator)
-
       source = File.read(filename)
       detection = CharlockHolmes::EncodingDetector.detect(source)
 

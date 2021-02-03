@@ -228,6 +228,7 @@ class Loan < ApplicationRecord
   def current_remaining_amount(on = Date.today)
     r = repayments.where('due_on <= ?', on).reorder(:position).last
     return nil unless r
+
     r.remaining_amount
   end
 
@@ -261,6 +262,7 @@ class Loan < ApplicationRecord
 
   def confirm(ongoing_at = nil)
     return false unless can_confirm?
+
     reload
     self.ongoing_at ||= ongoing_at || Time.zone.now
     save!
@@ -269,6 +271,7 @@ class Loan < ApplicationRecord
 
   def repay(repaid_at = nil)
     return false unless can_repay?
+
     reload
     self.repaid_at ||= repaid_at || Time.zone.now
     save!

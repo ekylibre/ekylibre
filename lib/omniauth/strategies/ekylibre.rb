@@ -27,6 +27,7 @@ module OmniAuth
 
       def invitation_token_param
         return '' unless request.params['invitation_token']
+
         "?invitation_token=#{request.params['invitation_token']}"
       end
     end

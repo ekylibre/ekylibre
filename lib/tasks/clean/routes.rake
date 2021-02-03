@@ -8,6 +8,7 @@ namespace :clean do
     Rails.application.routes.routes.each do |route|
       r = route.requirements
       next unless (controller = r[:controller]) && (action = r[:action])
+
       if ref[controller]
         unless ref[controller].include? r[:action]
           log.write "Missing action:     #{controller}##{action}\n"

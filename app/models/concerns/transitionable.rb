@@ -54,7 +54,6 @@ module Transitionable
     def initialize(resource:, transition:, original: nil)
       super "Error while running transition for #{resource}: #{original.message}", resource: resource, original: original, transition: transition
     end
-
   end
 
   ##
@@ -115,6 +114,7 @@ module Transitionable
       # states should be Symbols. When there are more than one, just separate them by a comma.
       def from(*states)
         return @from || [] if states.empty?
+
         @from = states
       end
 
@@ -122,6 +122,7 @@ module Transitionable
       # DSL to define (or get when no argument is provided) the destination state of the transition. Should be a Symbol.
       def to(state = nil)
         return @to unless state.present?
+
         @to = state
       end
 
@@ -129,6 +130,7 @@ module Transitionable
       # DSL to define (or get when no argument is provided) the name of the event that the Transition represents
       def event(name = nil)
         return @event unless name.present?
+
         @event = name
       end
     end

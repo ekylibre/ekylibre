@@ -15,6 +15,7 @@ class FinancialYearWriteableValidator < ActiveModel::EachValidator
 
   def financial_year(record, value)
     return record.financial_year if record.respond_to?(:financial_year)
+
     FinancialYear.on(value)
   end
 end

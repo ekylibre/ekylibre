@@ -110,6 +110,7 @@ module Backend
 
     def show
       return unless @purchase_invoice = find_and_check
+
       if @purchase_invoice.versions.find_by(event: :create).nil?
         Version.create!(event: :create, item: @purchase_invoice, created_at: @purchase_invoice.created_at, creator_id: @purchase_invoice.creator_id)
       end

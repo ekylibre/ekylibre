@@ -102,6 +102,7 @@ module Backend
                       cell calib.nature_name
                       dimensions.each do |dimension|
                         next cell('-') unless inspection.measure_grading(dimension)
+
                         cell calib.projected_total(dimension).round(0).l(precision: 0)
                       end
                     end

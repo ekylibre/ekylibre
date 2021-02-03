@@ -37,6 +37,7 @@ module NavigationHelper
       }
     rescue ActiveRecord::StatementInvalid => e
       raise e unless (pg_error = e.cause).is_a?(PG::UndefinedColumn)
+
       raise OrderingCriterionNotFound.new(pg_error)
     end
 
@@ -54,6 +55,7 @@ module NavigationHelper
 
     def name_for(record, method)
       return nil if method.blank?
+
       Maybe(record).send(method.to_sym).or_nil
     end
 

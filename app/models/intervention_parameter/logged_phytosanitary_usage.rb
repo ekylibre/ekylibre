@@ -21,6 +21,7 @@ class InterventionParameter
 
     def decorated_reentry_delay
       return unless in_field_reentry_delay
+
       if in_field_reentry_delay.in_full(:hour) == 6
         "#{in_field_reentry_delay.in_full(:hour)} h (8 h #{:if_closed_environment.tl})"
       else

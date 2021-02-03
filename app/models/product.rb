@@ -191,6 +191,7 @@ class Product < ApplicationRecord
   scope :of_working_set, lambda { |working_set|
     item = Onoma::WorkingSet.find(working_set)
     raise StandardError.new("#{working_set.inspect} is not in Onoma::WorkingSet nomenclature") unless item
+
     of_expression(item.expression)
   }
   scope :of_expression, lambda { |expression|
@@ -275,6 +276,7 @@ class Product < ApplicationRecord
 
     at = args[:at]
     return available if at.blank?
+
     if at.is_a?(String)
       if at =~ /\A\d\d\d\d\-\d\d\-\d\d \d\d\:\d\d/
         available.at(Time.strptime(at, '%Y-%m-%d %H:%M'))
@@ -345,6 +347,7 @@ class Product < ApplicationRecord
 
   def born_at_in_interventions
     return true unless first_intervention = interventions_used_in.order(started_at: :asc).first
+
     first_used_at = first_intervention.started_at
     errors.add(:born_at, :on_or_before, restriction: first_used_at.l) if born_at > first_used_at
   end
@@ -569,6 +572,7 @@ class Product < ApplicationRecord
   # Try to find the best name for the new products
   def choose_default_name
     return if name.present?
+
     ActiveSupport::Deprecation.warn "Product#choose_default_name is deprecated."
 
     if variant
@@ -607,6 +611,7 @@ class Product < ApplicationRecord
     if current_phase
       phase_variant = current_phase.variant
       return if phase_variant.nil?
+
       self.nature_id = phase_variant.nature_id
       self.variety ||= phase_variant.variety
       if derivative_of.blank? && !phase_variant.derivative_of.nil?
@@ -634,12 +639,14 @@ class Product < ApplicationRecord
   # Returns age in seconds of the product
   def age(at = Time.zone.now)
     return 0 if born_at.nil? || born_at >= at
+
     ((dead_at || at) - born_at)
   end
 
   # Returns item from default catalog for given usage
   def default_catalog_item(usage)
     return nil unless variant
+
     variant.default_catalog_item(usage)
   end
 
@@ -704,6 +711,7 @@ class Product < ApplicationRecord
   def population(options = {})
     pops = populations.last_before(options[:at] || Time.zone.now)
     return 0.0 if pops.none?
+
     pops.first.value
   end
 
@@ -717,6 +725,7 @@ class Product < ApplicationRecord
     if l = localizations.at(at).first
       return l.container
     end
+
     nil
   end
 
@@ -752,6 +761,7 @@ class Product < ApplicationRecord
     if o = current_ownership
       return o.owner
     end
+
     nil
   end
 
@@ -770,11 +780,13 @@ class Product < ApplicationRecord
 
     define_method indicator.to_sym do |*args|
       return get(indicator, *args) if args.present?
+
       send(:"cache_#{indicator}")
     end
 
     define_method :"#{indicator}!" do |*args|
       return get!(indicator, *args) if args.present?
+
       send(:"cache_#{indicator}")
     end
   end
@@ -827,6 +839,7 @@ class Product < ApplicationRecord
     derivative_of = Onoma::Variety[self.derivative_of]
     Procedo.each_variable do |variable|
       next if variable.new?
+
       if v = variable.computed_variety
         next unless variety <= v
       end
@@ -834,6 +847,7 @@ class Product < ApplicationRecord
         next unless derivative_of && derivative_of <= v
       end
       next if variable.abilities.detect { |a| !able_to?(a) }
+
       list << variable
     end
     list
@@ -842,6 +856,7 @@ class Product < ApplicationRecord
   def net_surface_area
     computed_surface = reading_cache[:net_surface_area] || reading_cache['net_surface_area']
     return computed_surface if computed_surface
+
     calculated = calculate_net_surface_area
     update(reading_cache: reading_cache.merge(net_surface_area: calculated))
     self.net_surface_area = calculated
@@ -871,8 +886,10 @@ class Product < ApplicationRecord
 
   def get(indicator, *args)
     return super if args.any?(&:present?)
+
     in_cache = reading_cache[indicator.to_s]
     return in_cache if in_cache
+
     indicator_value = super
     reading_cache[indicator.to_s] = indicator_value
     unless new_record?

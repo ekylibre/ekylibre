@@ -2,7 +2,6 @@ require 'test_helper'
 
 module Onoma
   class VarietyTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
-
     test 'parent_variety does not raise error when unknown variety reference is provided' do
       assert_nothing_raised { Onoma::Variety.parent_variety(:unknown_variety_name) }
       assert_nil Onoma::Variety.parent_variety(:unknown_variety_name)

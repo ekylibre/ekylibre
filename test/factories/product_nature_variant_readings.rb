@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :product_nature_variant_reading do
-
     trait :net_mass do
       indicator_name { :net_mass }
       measure_value_value { 0.5 }

@@ -47,6 +47,7 @@ class FixedAssetBookkeeper < Ekylibre::Bookkeeper
         purchase_items.each do |purchase_item|
           entry_item = purchase_item.journal_entry.items.detect { |i| i.resource_id == purchase_item.id && i.resource_prism == 'item_product' }
           next if waiting_asset_account_id == entry_item.account.id
+
           entry.add_credit(@label, entry_item.account.id, entry_item.real_balance, resource: resource, as: :fixed_asset)
           amounts << entry_item.real_balance
         end
@@ -62,6 +63,7 @@ class FixedAssetBookkeeper < Ekylibre::Bookkeeper
           # TODO: get entry item concerning
           jei = JournalEntryItem.find_by(resource_id: p_item.id, resource_type: p_item.class.name, account_id: @generic_waiting_asset_account.id)
           next unless jei && jei.real_balance.nonzero?
+
           account = if attribute_was(:state) == 'waiting' && waiting_asset_account
                       waiting_asset_account
                     else

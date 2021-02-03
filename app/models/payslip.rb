@@ -117,6 +117,7 @@ class Payslip < ApplicationRecord
 
   def status
     return affair.status if invoice?
+
     :stop
   end
 end

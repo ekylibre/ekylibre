@@ -2,7 +2,6 @@ require 'test_helper'
 
 module Printers
   class ShippingNotePrinterTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
-
     setup do
       @template = Minitest::Mock.new
       @template.expect :nature, :shipping_note

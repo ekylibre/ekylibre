@@ -108,6 +108,7 @@ module Userstamp
 
         def set_creator_attribute
           return unless record_userstamp
+
           if respond_to?(creator_attribute.to_sym) && has_stamper?
             send("#{creator_attribute}=".to_sym, self.class.stamper_class.stamper)
           end
@@ -115,6 +116,7 @@ module Userstamp
 
         def set_updater_attribute
           return unless record_userstamp
+
           if respond_to?(updater_attribute.to_sym) && has_stamper?
             send("#{updater_attribute}=".to_sym, self.class.stamper_class.stamper)
           end
@@ -122,6 +124,7 @@ module Userstamp
 
         def set_deleter_attribute
           return unless record_userstamp
+
           if respond_to?(deleter_attribute.to_sym) && has_stamper?
             send("#{deleter_attribute}=".to_sym, self.class.stamper_class.stamper)
             save

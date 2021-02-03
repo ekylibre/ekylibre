@@ -112,6 +112,7 @@ class IncomingPaymentMode < ApplicationRecord
       cash_nature = nature == 'cash' ? :cash_box : :bank_account
       cash = Cash.find_by(nature: cash_nature)
       next unless cash
+
       attributes = {
         name: IncomingPaymentMode.tc("default.#{nature}.name"),
         with_accounting: true,

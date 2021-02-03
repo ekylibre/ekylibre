@@ -1,5 +1,4 @@
 class FinancialYearLocker
-
   # @param [FinancialYear] year
   def lock!(year)
     ApplicationRecord.transaction do

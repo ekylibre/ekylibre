@@ -11,8 +11,10 @@ module Procedo
 
       def initialize(intervention, parameter, list = nil)
         raise 'Invalid intervention' unless intervention.is_a?(Procedo::Engine::Intervention)
+
         @intervention = intervention
         raise 'Invalid parameter reference' unless parameter.is_a?(Procedo::Procedure::Parameter)
+
         @parameter = parameter
         @list = list || @intervention.parameters_of_name(@parameter.name)
       end

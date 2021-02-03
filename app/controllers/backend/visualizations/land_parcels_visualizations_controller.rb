@@ -7,6 +7,7 @@ module Backend
         main_serie = LandParcel.supports_of_campaign(current_campaign).find_each.map do |p|
           land_parcel_shape = p.shape
           next if land_parcel_shape.nil? || land_parcel_shape.area.zero?
+
           popup_content = []
 
           # for all land_parcel

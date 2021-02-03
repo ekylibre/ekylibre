@@ -151,6 +151,5 @@ module Backend
       t.column :affectation_percentage, percentage: true
       t.column :main_activity, url: true
     end
-
   end
 end

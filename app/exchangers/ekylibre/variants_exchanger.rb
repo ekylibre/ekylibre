@@ -28,6 +28,7 @@ module Ekylibre
         # first line are headers
         2.upto(s.last_row) do |row|
           next if s.cell('A', row).blank?
+
           r = {
             name: s.cell('A', row).blank? ? nil : s.cell('A', row).to_s.strip,
             reference_name: s.cell('B', row).blank? ? nil : s.cell('B', row).downcase.to_sym,
@@ -106,6 +107,7 @@ module Ekylibre
               dimension = Measure.dimension(unit)
               indics = variant.indicators.select do |indicator|
                 next unless indicator.datatype == :measure
+
                 Measure.dimension(indicator.unit) == dimension
               end.map(&:name)
               if indics.count > 1

@@ -56,7 +56,6 @@
 #
 module Variants
   class EquipmentVariant < ProductNatureVariant
-
     def variant_type
       :equipment
     end

@@ -40,6 +40,7 @@ module Ekylibre
       # Find a given right by resource and interaction
       def find(resource, interaction)
         return @resources[resource][interaction] if @resources[resource]
+
         nil
       end
 

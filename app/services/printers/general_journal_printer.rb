@@ -1,6 +1,5 @@
 module Printers
   class GeneralJournalPrinter < PrinterBase
-
     class << self
       # TODO move this elsewhere when refactoring the Document Management System
       def build_key(financial_year:)
@@ -24,7 +23,6 @@ module Printers
 
     def compute_dataset
       monthly_data = (@financial_year.started_on..@financial_year.stopped_on).group_by { |d| [I18n.t('date.month_names')[d.month], d.year] }.map do |month, dates|
-
         journals_data = Journal.all.map do |journal|
           entries = journal.entries.where('printed_on BETWEEN ? AND ?', dates.first, dates.last).where.not(state: 'draft')
           next unless entries.any?

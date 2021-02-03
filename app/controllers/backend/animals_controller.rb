@@ -174,6 +174,7 @@ module Backend
     # Show one animal with params_id
     def show
       return unless @animal = find_and_check
+
       # TODO: remove it. On animal show dialog (Golumn), add issue. Break redirect on submit.
       params.delete('dialog')
 
@@ -197,6 +198,7 @@ module Backend
 
     def matching_interventions
       return head :unprocessable_entity unless params[:id].nil? || (params[:id] && find_all)
+
       varieties = Animal.where(id: @ids).pluck(:variety).uniq if @ids
 
       respond_to do |format|
@@ -206,6 +208,7 @@ module Backend
 
     def add_to_group
       return unless find_all
+
       targets = @ids.collect do |id|
         { product_id: id, reference_name: :animal }
       end
@@ -220,6 +223,7 @@ module Backend
 
     def add_to_variant
       return unless find_all
+
       if request.post?
         variant = ProductNatureVariant.find(params[:variant_id])
         activity_production = ActivityProduction.find(params[:activity_production_id])
@@ -233,6 +237,7 @@ module Backend
 
     def add_to_container
       return unless find_all
+
       if request.post?
         container = Product.find(params[:container_id])
         activity_production = ActivityProduction.find(params[:activity_production_id])
@@ -250,6 +255,7 @@ module Backend
         @ids = []
         params[:id].split(',').each do |id|
           return false unless find_and_check(id: id)
+
           @ids << id
         end
       end

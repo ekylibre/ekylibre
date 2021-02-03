@@ -27,6 +27,7 @@ module Calculus
       # Returns matching crop set for the given variety
       def crop_sets
         return [] unless @variety
+
         @crop_sets ||= Onoma::CropSet.list.select do |i|
           i.varieties.detect do |v|
             @variety <= v

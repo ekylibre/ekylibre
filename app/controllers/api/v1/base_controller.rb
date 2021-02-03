@@ -47,6 +47,7 @@ module Api
             if keys.first == 'simple-token'
               return authenticate_user_from_simple_token!(keys.second, keys.third)
             end
+
             render status: :bad_request, json: { message: 'Bad authorization.' }
             return false
           elsif params[:access_token] && params[:access_email]

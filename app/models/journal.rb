@@ -77,6 +77,7 @@ class Journal < ApplicationRecord
     unless Journal.nature.values.include?(nature.to_s)
       raise ArgumentError.new("Journal#used_for must be one of these: #{Journal.nature.values.join(', ')}")
     end
+
     where(nature: nature.to_s)
   }
   scope :opened_on, lambda { |at|
@@ -172,6 +173,7 @@ class Journal < ApplicationRecord
       name = name.to_s
       pref_name = "#{name}_journal"
       raise ArgumentError.new("Unvalid journal name: #{name.inspect}") unless self.class.preferences_reference.key? pref_name
+
       unless journal = preferred(pref_name)
         journal = journals.find_by(nature: name)
         journal ||= journals.create!(name: tc("default.journals.#{name}"), nature: name, currency: default_currency)
@@ -240,6 +242,7 @@ class Journal < ApplicationRecord
     def load_defaults(**_options)
       nature.values.each do |nature|
         next if find_by(nature: nature)
+
         financial_year = FinancialYear.first_of_all
         closed_on = financial_year ? (financial_year.started_on - 1) : Date.new(1899, 12, 31).end_of_month
         create!(
@@ -279,6 +282,7 @@ class Journal < ApplicationRecord
     new_closed_on ||= (Time.zone.today << 1).end_of_month
     return false if new_closed_on.end_of_month != new_closed_on
     return false if new_closed_on < self.closed_on
+
     true
   end
 
@@ -302,6 +306,7 @@ class Journal < ApplicationRecord
       errors.add(:closed_on, :draft_entry_items, closed_on: new_closed_on.l)
     end
     return false unless errors.empty?
+
     ApplicationRecord.transaction do
       entries.where(printed_on: (self.closed_on + 1)..new_closed_on).find_each(&:close)
       update_column(:closed_on, new_closed_on)

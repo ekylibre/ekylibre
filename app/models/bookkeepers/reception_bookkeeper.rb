@@ -1,5 +1,4 @@
 class ReceptionBookkeeper < ParcelBookkeeper
-
   def call
     return unless given?
 

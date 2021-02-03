@@ -25,6 +25,7 @@ module ActiveSensor
       #       indicators: ...
       def register_many(path, _options = {})
         raise "Cannot find #{path}" unless Pathname(path).exist?
+
         sensors = YAML.load_file(path).deep_symbolize_keys
         sensors.each do |vendor, models|
           models.each do |model, options|
@@ -51,6 +52,7 @@ module ActiveSensor
 
       def find(vendor, model)
         return nil unless vendor && model
+
         list.detect do |equipment|
           equipment.vendor == vendor.to_sym && equipment.model == model.to_sym
         end
@@ -61,6 +63,7 @@ module ActiveSensor
         unless equipment
           raise EquipmentNotFound.new("Cannot find vendor=#{vendor.inspect}, model=#{model.inspect}")
         end
+
         equipment
       end
 
@@ -83,11 +86,14 @@ module ActiveSensor
       # options.symbolize_keys!
       @vendor = vendor.to_sym
       raise 'Need vendor' unless @vendor
+
       @model = model.to_sym
       raise 'Need model' unless @model
+
       if options[:indicators]
         @indicators = options[:indicators].collect do |i|
           raise "Invalid indicator: #{i.inspect}" unless Onoma::Indicator.find(i)
+
           i.to_sym
         end
       end
@@ -96,6 +102,7 @@ module ActiveSensor
       if options[:image_path]
         path = Pathname.new(options[:image_path])
         raise "Cannot find image #{options[:image_path]}" unless path.exist?
+
         @image_path = path
       end
       @controller = options[:controller].constantize if options[:controller]

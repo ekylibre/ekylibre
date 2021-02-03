@@ -1,7 +1,6 @@
 class Reception
   module Transitions
     class Give < Transitionable::Transition
-
       event :give
       from :draft
       to :given
@@ -73,7 +72,6 @@ class Reception
             location == storing.storage && owner == Entity.of_company
           end
         end
-
     end
   end
 end

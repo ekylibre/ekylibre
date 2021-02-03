@@ -43,6 +43,7 @@ module Ekylibre
 
       def page(to, options = {}, &_block)
         raise 'No part/group/item given' unless current_node
+
         current_node.add_page(to, options)
       end
 

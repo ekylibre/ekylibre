@@ -123,6 +123,7 @@ module Backend
 
     def show
       return unless @entity = find_and_check
+
       respond_with(@entity, include: { default_mail_address: { methods: [:mail_coordinate] } }) do |format|
         format.html do
           t3e @entity.attributes, nature: @entity.nature.l
@@ -423,6 +424,7 @@ module Backend
       if request.post?
         return unless @master = find_and_check(id: params[:master])
         return unless @double = find_and_check(id: params[:double])
+
         if @master.id == @double.id
           notify_error_now(:cannot_merge_an_entity_with_itself)
           return

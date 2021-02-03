@@ -58,6 +58,7 @@ module Ekylibre
     @helps = nil
     def helps
       return @helps unless @helps.nil?
+
       @helps = HashWithIndifferentAccess.new
       for locale in ::I18n.available_locales
         @helps[locale] = HashWithIndifferentAccess.new

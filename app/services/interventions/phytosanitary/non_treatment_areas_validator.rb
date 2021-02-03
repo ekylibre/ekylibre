@@ -1,7 +1,6 @@
 module Interventions
   module Phytosanitary
     class NonTreatmentAreasValidator < ProductApplicationValidator
-
       attr_reader :targets_and_shape
 
       # @param [Array<Models::TargetAndShape>] targets_and_shape

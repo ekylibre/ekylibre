@@ -1,7 +1,6 @@
 module Interventions
   module Phytosanitary
     class PhytoHarvestAdvisor
-
       # @param [Plant, LandParcel] target
       # @param [DateTime] date
       # @option [DateTime] date_end

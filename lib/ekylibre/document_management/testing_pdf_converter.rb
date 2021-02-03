@@ -23,7 +23,6 @@ module Ekylibre
 
         # @return [Pathname]
         attr_reader :file
-
     end
   end
 end

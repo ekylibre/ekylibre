@@ -51,6 +51,7 @@ class Integration < ApplicationRecord
     next unless ciphered_parameters_changed?
     next unless integration_type
     next unless authentication_mode == :check
+
     check_connection attributes do |c|
       c.redirect do
         errors.add(:parameters, :check_redirected)

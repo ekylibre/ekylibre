@@ -35,6 +35,7 @@ module Ekylibre
         if options[:path] && options[:folder]
           raise ArgumentError.new(':path and :folder options are incompatible')
         end
+
         name = options.delete(:name)
         if path = options.delete(:path)
           path = Pathname.new(path)

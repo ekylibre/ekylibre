@@ -169,6 +169,7 @@ module Backend
 
     def destroy
       return unless @outgoing_payment_list = find_and_check
+
       @outgoing_payment_list.remove if @outgoing_payment_list
       redirect_to action: :index
     end

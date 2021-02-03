@@ -2,7 +2,6 @@ require 'test_helper'
 
 module Quadra
   class FecTxtExchangerTest < ActiveExchanger::TestCase
-
     setup do
       FinancialYear.delete_all
       FinancialYear.create! started_on: '2018-08-01', stopped_on: '2019-07-31'
@@ -21,6 +20,5 @@ module Quadra
       balance_sheet_balance = current_compute.active_balance_sheet_amount - current_compute.passive_balance_sheet_amount
       assert_equal true, balance_sheet_balance.zero?
     end
-
   end
 end

@@ -14,6 +14,7 @@ module Interventions
               @attributes["group_parameters_attributes"].each_with_index do |gp_attrs, index|
                 next if gp_attrs[param_key].blank?
                 next if gp_attrs[param_key].none? {|attrs| attrs.key?(:readings_attributes)}
+
                 readings["group_parameter"] ||= {}
                 readings["group_parameter"][index] = {}
                 readings["group_parameter"][index]["#{group_reading_param}"] = @attributes["group_parameters_attributes"][index][param_key].flat_map {|attrs| attrs.delete(:readings_attributes) }.first
@@ -23,6 +24,7 @@ module Interventions
             param_key = "#{reading_param.pluralize}_attributes"
             next if @attributes[param_key].blank?
             next if @attributes[param_key].none? {|attrs| attrs.key?(:readings_attributes)}
+
             readings["#{reading_param}"] = @attributes[param_key].flat_map {|attrs| attrs.delete(:readings_attributes) }.each_with_index.to_h.invert.compact
           end
         end

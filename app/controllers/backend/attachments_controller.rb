@@ -33,6 +33,7 @@ module Backend
 
     def show
       return unless (@attachment = find_and_check)
+
       if @attachment.document.file?
         render json: {
           document: {
@@ -47,6 +48,7 @@ module Backend
 
     def destroy
       return unless (@attachment = find_and_check)
+
       document = @attachment.document
       @attachment.destroy
       document.destroy

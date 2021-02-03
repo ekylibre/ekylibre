@@ -198,6 +198,7 @@ class ParcelItem < ApplicationRecord
 
   def purchase_invoice_number
     return nil if purchase_invoice_item.nil?
+
     purchase_invoice_item.purchase.number
   end
 
@@ -219,6 +220,7 @@ class ParcelItem < ApplicationRecord
       self.product.born_at = product_params[:initial_born_at]
 
       return false, self.product.errors if self.product.errors.any?
+
       true
     end
 

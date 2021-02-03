@@ -123,7 +123,6 @@ module Printers
       def should_display_affair
         false
       end
-
     end
   end
 end

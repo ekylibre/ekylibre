@@ -63,6 +63,7 @@ module Ekylibre
       def load_defaults(**options)
         default_datasets.each do |dataset|
           next if @defaults[dataset].is_a?(FalseClass)
+
           puts "Load default #{dataset}..."
           model = default_dataset_model(dataset)
           model.load_defaults(**options, preferences: @preferences)

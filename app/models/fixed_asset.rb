@@ -368,6 +368,7 @@ class FixedAsset < ApplicationRecord
     position = 1
     starts.each_with_index do |start, index|
       next if starts[index + 1].nil?
+
       depreciation = depreciations.find_by(started_on: start)
       unless depreciation
         depreciation = depreciations.new(started_on: start, stopped_on: starts[index + 1] - 1)
@@ -401,6 +402,7 @@ class FixedAsset < ApplicationRecord
 
     starts.each_with_index do |start, index|
       next if starts[index + 1].nil? || remaining_amount <= 0
+
       depreciation = depreciations.find_by(started_on: start)
       unless depreciation
         depreciation = depreciations.new(started_on: start.beginning_of_month, stopped_on: starts[index + 1] - 1)

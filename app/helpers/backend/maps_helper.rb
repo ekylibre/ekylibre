@@ -116,6 +116,7 @@ module Backend
     # the area unit could be given with options :area_unit
     def model_map(records, options = {}, &block)
       return nil unless records.any?
+
       klass = records.first.class
       controller = klass.model_name.plural
       label_method = options.delete(:label_method) || :name
@@ -174,6 +175,7 @@ module Backend
     def collection_map(data, options = {}, &_block)
       html_options = {}
       return nil unless data.any?
+
       backgrounds = options.delete(:backgrounds) || []
       options = {
         controls: {

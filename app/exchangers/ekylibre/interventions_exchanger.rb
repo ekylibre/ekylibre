@@ -604,6 +604,7 @@ module Ekylibre
 
         [r.first, r.second, r.third].each_with_index do |actor, index|
           next if actor.product.nil?
+
           procedure.parameters_of_type(:input).each do |input|
             # find measure from quantity
             product_measure = actor_measure_conversion(actor)
@@ -615,6 +616,7 @@ module Ekylibre
                         input.best_handler_for(product_measure).name
                       end
             next unless actor.product.of_expression(input.filter)
+
             attributes[:inputs_attributes] ||= {}
             attributes[:inputs_attributes][index.to_s] = {
               reference_name: input.name,
@@ -631,6 +633,7 @@ module Ekylibre
         r.equipments.each_with_index do |equipment, index|
           procedure.parameters_of_type(:tool).each do |tool|
             next unless equipment.of_expression(tool.filter)
+
             attributes[:tools_attributes] ||= {}
             attributes[:tools_attributes][index.to_s] = {
               reference_name: tool.name,
@@ -644,6 +647,7 @@ module Ekylibre
         r.workers.each_with_index do |worker, index|
           procedure.parameters_of_type(:doer).each do |doer|
             next unless worker.of_expression(doer.filter)
+
             attributes[:doers_attributes] ||= {}
             attributes[:doers_attributes][index.to_s] = {
               reference_name: doer.name,
@@ -680,6 +684,7 @@ module Ekylibre
 
           [r.first, r.second, r.third].each_with_index do |actor, index|
             next if actor.product.nil?
+
             procedure.parameters_of_type(:input).each do |input|
               # find measure from quantity
               product_measure = actor_measure_conversion(actor)
@@ -691,6 +696,7 @@ module Ekylibre
                           input.best_handler_for(product_measure).name
                         end
               next unless actor.product.of_expression(input.filter)
+
               attributes[:inputs_attributes] ||= {}
               attributes[:inputs_attributes][index.to_s] = { reference_name: input.name, product_id: actor.product.id, quantity_handler: handler, quantity_value: product_measure.to_f }
               updaters << "inputs[#{index}]quantity_value"
@@ -720,6 +726,7 @@ module Ekylibre
           r.equipments.each_with_index do |equipment, index|
             procedure.parameters_of_type(:tool).each do |tool|
               next unless equipment.of_expression(tool.filter)
+
               attributes[:tools_attributes] ||= {}
               attributes[:tools_attributes][index.to_s] = { reference_name: tool.name, product_id: equipment.id }
               break
@@ -730,6 +737,7 @@ module Ekylibre
           r.workers.each_with_index do |worker, index|
             procedure.parameters_of_type(:doer).each do |doer|
               next unless worker.of_expression(doer.filter)
+
               attributes[:doers_attributes] ||= {}
               attributes[:doers_attributes][index.to_s] = { reference_name: doer.name, product_id: worker.id }
               break
@@ -783,6 +791,7 @@ module Ekylibre
           [r.first, r.second, r.third].each_with_index do |actor, index|
             w.debug 'actor : #{actor}'.inspect.red
             next if actor.variant.nil?
+
             procedure.parameters_of_type(:output).each do |output|
               # find measure from quantity
               product_measure = actor_measure_conversion(actor)
@@ -794,6 +803,7 @@ module Ekylibre
                           output.best_handler_for(product_measure).name
                         end
               next unless actor.product.of_expression(output.filter)
+
               attributes[:outputs_attributes] ||= {}
               attributes[:outputs_attributes][index.to_s] = { reference_name: output.name, variant_id: actor.variant.id, new_name: actor.name, quantity_handler: handler, quantity_value: product_measure.to_f }
               updaters << "outputs[#{index}]quantity_value"
@@ -805,6 +815,7 @@ module Ekylibre
           r.equipments.each_with_index do |equipment, index|
             procedure.parameters_of_type(:tool).each do |tool|
               next unless equipment.of_expression(tool.filter)
+
               attributes[:tools_attributes] ||= {}
               attributes[:tools_attributes][index.to_s] = { reference_name: tool.name, product_id: equipment.id }
               break
@@ -815,6 +826,7 @@ module Ekylibre
           r.workers.each_with_index do |worker, index|
             procedure.parameters_of_type(:doer).each do |doer|
               next unless worker.of_expression(doer.filter)
+
               attributes[:doers_attributes] ||= {}
               attributes[:doers_attributes][index.to_s] = { reference_name: doer.name, product_id: worker.id }
               break

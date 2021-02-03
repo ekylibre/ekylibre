@@ -88,6 +88,7 @@ module Backend
 
           %i[start end].each do |boundary|
             next unless params[:"period_#{boundary}"].present?
+
             date = Date.strptime(params[:"period_#{boundary}"], '%Y-%m-%d')
             instance_variable_set("@period_#{boundary}", date)
           end

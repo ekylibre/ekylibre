@@ -64,6 +64,7 @@ module StateBarHelper
     def state_style
       return :current if current?
       return :disabled unless enabled?
+
       nil
     end
 
@@ -85,5 +86,4 @@ module StateBarHelper
   def main_state_bar_tag
     content_for(:main_statebar) if content_for?(:main_statebar)
   end
-
 end

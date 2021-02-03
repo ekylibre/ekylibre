@@ -1,7 +1,6 @@
 # This object allow printing the general ledger
 module Printers
   class PendingVatRegisterPrinter < PrinterBase
-
     class << self
       # TODO move this elsewhere when refactoring the Document Management System
       def build_key(tax_declaration:)
@@ -27,6 +26,7 @@ module Printers
       from, to = [@tax_declaration.started_on, @tax_declaration.stopped_on]
       financial_year = FinancialYear.find_by(started_on: from, stopped_on: to)
       return financial_year.code if financial_year
+
       I18n.translate('labels.from_to_date', from: from.l, to: to.l)
     end
 
@@ -49,7 +49,6 @@ module Printers
           tax_total_pretax = 0.0
 
           @tax_declaration.items.where(tax_id: t.id).includes(parts: { journal_entry_item: :entry }).each do |i|
-
             i.parts.where(direction: c).each do |p|
               jei = p.journal_entry_item
               e = jei.entry
@@ -114,6 +113,7 @@ module Printers
           @tax_declaration.items.where(tax_id: t.id).includes(parts: { journal_entry_item: :entry }).each do |i|
             i.parts.where(direction: c).each do |p|
               next if c == :collected && p.tax_amount > 0
+
               jei = p.journal_entry_item
               e = jei.entry
               intra_item = HashWithIndifferentAccess.new
@@ -229,7 +229,6 @@ module Printers
         ]
 
         tax_nature[:items].each do |tax|
-
           tax[:parts].each do |part|
             csv << [
               "#{part[:entry_printed_on]} #{part[:entry_item_name]}",
@@ -266,7 +265,6 @@ module Printers
         ]
 
         tax_nature[:items].each do |tax|
-
           tax[:parts].each do |part|
             csv << [
               "#{part[:entry_printed_on]} #{part[:entry_item_name]}",

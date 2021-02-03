@@ -29,5 +29,4 @@ module ScopeIntrospection
       super(name, body, &block)
     end
   end
-
 end

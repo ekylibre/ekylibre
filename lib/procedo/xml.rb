@@ -94,6 +94,7 @@ module Procedo
         elsif parameters_count < 1
           raise "No <parameters> markup in #{procedure.name}. One is needed."
         end
+
         parse_group_children(procedure, element.xpath('xmlns:parameters').first)
 
         # Check procedure validity
@@ -128,6 +129,7 @@ module Procedo
           type = element.attr('type').underscore.to_sym
         end
         raise "No type given for #{name} parameter" unless type
+
         %w[filter cardinality].each do |info|
           if element.has_attribute?(info)
             locals[info.underscore.to_sym] = element.attr(info).to_s
@@ -217,6 +219,7 @@ module Procedo
         unless element.has_attribute?('name')
           raise Procedo::Errors::MissingAttribute.new("Missing name for parameter-group in #{procedure.name} at line #{element.line}")
         end
+
         name = element.attr('name').to_sym
         options = {}
         if element.has_attribute?('cardinality')

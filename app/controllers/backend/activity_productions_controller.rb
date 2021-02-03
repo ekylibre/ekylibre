@@ -105,6 +105,5 @@ module Backend
       notify_error_now(:empty_shape.tl)
       render :new
     end
-
   end
 end

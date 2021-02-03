@@ -42,6 +42,7 @@ module Authentication
 
       def accept_invitation?
         return true if @user.accepted_or_not_invited?
+
         @user.password = Devise.friendly_token(20)
 
         @user == User.find_by_invitation_token(invitation_token, true) && @user.accept_invitation!

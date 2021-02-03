@@ -34,6 +34,7 @@ module Aggeratio
         if child.has_attribute?('name') && child.attr('name') !~ /^\w+(\_\w+)*$/
           raise InvalidDocument.new("#{child.name} element has invalid name attribute: #{child.attr('name')}")
         end
+
         array += properties(child)
       end
       array
@@ -51,6 +52,7 @@ module Aggeratio
       minimum_level ||= @minimum_level || :api
       level = (element.has_attribute?('level') ? element.attr('level').strip.to_sym : @minimum_level)
       return '' if LEVELS.index(minimum_level) > LEVELS.index(level)
+
       if element.has_attribute?('if')
         test = element.attr('if').strip.gsub(/[\r\n\t]+/, ' ')
         code = "if (#{test})\n" + code.dig + "end\n"
@@ -114,6 +116,7 @@ module Aggeratio
     def queries(options = {})
       @root.xpath('//node()[not(node())]').collect do |leaf|
         next if options[:strict].is_a?(FalseClass) && leaf.has_attribute?('if')
+
         xpath(leaf)
       end.compact
     end
@@ -122,6 +125,7 @@ module Aggeratio
 
       def xpath(element)
         return nil if %w[comment variable].include?(element.name)
+
         name = element.name.to_s.upcase
         if %w[matrix sections].include?(element.name)
           name = normalize_name(element.attr('for'))

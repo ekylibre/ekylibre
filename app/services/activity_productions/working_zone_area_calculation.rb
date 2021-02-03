@@ -2,7 +2,6 @@
 
 module ActivityProductions
   class WorkingZoneAreaCalculation
-
     PLANTING = Procedo::Procedure.of_category(:planting).map do |procedure|
       procedure.name.to_s.insert(0, "'").insert(-1, "'")
     end.join(', ')

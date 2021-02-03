@@ -30,6 +30,7 @@ namespace :nomen do
             attrs[:parent] = item.parent.name if item.parent
             item.properties.each do |pname, pvalue|
               next if pvalue.blank?
+
               if p = nomenclature.property_natures[pname.to_s]
                 if p.type == :decimal
                   pvalue = pvalue.to_s.to_f
@@ -131,6 +132,7 @@ namespace :nomen do
       folder = nomenclature.table_name
       dir = avatars_dir.join(folder)
       next unless dir.exist?
+
       cache[folder] = {}
       nomenclature.find_each do |i|
         %w[jpg png].each do |format|
@@ -182,6 +184,7 @@ namespace :nomen do
 
         properties.each do |p|
           next if systems.property(p[:name]).present?
+
           attrs = { property: "#{nomenclature_name}.#{p[:name]}", type: p[:type] }
           attrs[:required] = 'true' if p.key?(:required)
           xml.send('property-creation', attrs)

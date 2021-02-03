@@ -21,6 +21,7 @@ module Backend
             if preference.value.to_s != data[:value]
               rate = params[:currency_change_rate].to_i
               raise 'Cannot proceed with null rate' if rate.zero?
+
               gc.convert_to(data[:value], rate: rate)
             end
           end

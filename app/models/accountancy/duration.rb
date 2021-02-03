@@ -19,7 +19,6 @@ module Accountancy
 
           year_diff * 12 * 30 + months_diff * 30 + day_diff
         end
-
     end
   end
 end

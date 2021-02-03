@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class GeoJSONTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
-
   test 'parse json' do
     assert GeoJSON.parse('{"type": "FeatureCollection", "features": []}')
   end
