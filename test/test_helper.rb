@@ -1,4 +1,6 @@
 require 'minitest/mock'
+require "minitest/reporters"
+Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
 ENV['RAILS_ENV'] ||= 'test'
 

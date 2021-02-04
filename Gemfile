@@ -281,7 +281,7 @@ group :test do
   gem 'database_cleaner'
 
   gem 'minitest', "~> 5.14"
-  # gem 'minitest-reporters'
+  gem 'minitest-reporters'
   gem 'ruby-terminfo'
 
   gem 'factory_bot', '< 5'
