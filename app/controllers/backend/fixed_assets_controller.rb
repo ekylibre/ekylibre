@@ -158,6 +158,12 @@ module Backend
       t3e(@fixed_asset.attributes)
       @fixed_asset.attributes = parameters_with_processed_percentage
       record_valid = params[:mode] ? @fixed_asset.valid?(params[:mode]&.to_sym) : true
+
+      if !record_valid
+        notify_error_now :record_cannot_be_saved.tl
+        return false
+      end
+
       notification = if params[:mode] == 'sell'
                        :your_fixed_asset_is_now_ready_to_be_sold
                      elsif params[:mode] == 'scrap'
@@ -170,7 +176,7 @@ module Backend
                        false
                      end
 
-      return if record_valid && save_and_redirect(@fixed_asset, url: params[:redirect] || { action: :show, id: 'id'.c }, notify: notification, identifier: :name)
+      return if save_and_redirect(@fixed_asset, url: params[:redirect] || { action: :show, id: 'id'.c }, notify: notification, identifier: :name)
 
       render(locals: { cancel_url: {:action=>:index}, with_continue: false })
     end
