@@ -10,7 +10,8 @@
   = main_toolbar do |t|
     = t.export :general_ledger,
                item_label: :export_as_pdf.tl,
-               key: Printers::GeneralLedgerPrinter.build_key(financial_year: financial_year,
+               key: Printers::GeneralLedgerPrinter.build_key(started_on: financial_year.started_on.to_s,
+                                                             stopped_on: financial_year.stopped_on.to_s,
                                                              states: params[:states],
                                                              lettering_state: params[:lettering_state],
                                                              account_number: params[:account_number],

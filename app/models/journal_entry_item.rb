@@ -163,6 +163,16 @@ class JournalEntryItem < ApplicationRecord
       self.letter = letter_radix
       self.letter += '*' unless letter_balance.zero?
     end
+
+    # Erase lettered_at if letter is unlettered or partially lettered
+    # Remember trigger will attempt to keep consistency
+    unless completely_lettered?
+      self.lettered_at = nil
+    end
+
+    if lettered_at.nil? && completely_lettered?
+      self.lettered_at = Time.zone.now
+    end
     # END OF DANGER ZONE
 
     self.state = entry.state if entry

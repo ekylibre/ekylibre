@@ -28,8 +28,8 @@ module Backend
       code << journal_entries_states_crit('params')
       code << accounts_range_crit('params')
       code << journals_crit('params')
-      code << journal_letter_crit('params')
       code << amount_range_crit('params')
+      code << journal_letter_crit('params')
       code << "c\n"
       code.c
     end
@@ -53,6 +53,39 @@ module Backend
       t.column :vat_account, url: { controller: :accounts, action: :show, id: 'RECORD.vat_account'.c }, label_method: :vat_account_label
     end
 
-    def show; end
+    def show
+      if params[:period] == 'interval'
+        @started_on = params[:started_on]
+        @stopped_on = params[:stopped_on]
+      elsif params[:period].present? && params[:period] != 'all'
+        @started_on, @stopped_on = params[:period].split('_')
+      end
+
+      @started_on ||= FinancialYear.reorder(:started_on).first.started_on.to_s
+      @stopped_on ||= FinancialYear.reorder(:started_on).last.stopped_on.to_s
+
+      accounts = []
+      if params[:accounts]
+        accounts = Array(params[:accounts].split(' '))
+      end
+
+      dataset_params = { accounts: accounts,
+                         lettering_state: params[:lettering_state],
+                         states: params[:states],
+                         ledger: 'general_ledger',
+                         started_on: @started_on,
+                         stopped_on: @stopped_on }
+
+      respond_to do |format|
+        format.html
+        format.pdf do
+          return unless template = DocumentTemplate.find_by_nature(:general_ledger)
+
+          PrinterJob.perform_later('Printers::GeneralLedgerPrinter', template: template, perform_as: current_user, **dataset_params)
+          notify_success(:document_in_preparation)
+          redirect_to :back
+        end
+      end
+    end
   end
 end

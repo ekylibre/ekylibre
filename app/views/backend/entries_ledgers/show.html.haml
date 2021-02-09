@@ -1,3 +1,12 @@
+- if params[:period]
+  = main_toolbar do |t|
+    = t.export :general_ledger, item_label: :export_as_pdf.tl, key: Printers::GeneralLedgerPrinter.build_key(started_on: @started_on,
+                                                                                                             stopped_on: @stopped_on,
+                                                                                                             states: params[:states],
+                                                                                                             lettering_state: params[:lettering_state],
+                                                                                                             account_number: params[:accounts],
+                                                                                                             ledger: 'general_ledger')
+
 = kujaku do |k|
   - k.text
   - k.helper :journal_period_crit
@@ -5,6 +14,5 @@
   - k.helper :accounts_range_crit
   - k.helper :journals_crit
   - k.number :amount_range_crit
-  - k.multi_choice :lettering_state, [:lettered, :unlettered, :partially_lettered].map{ |s| [s.tl, s] }, label: :lettering_state.tl
-
+  - k.multi_choice :lettering_state, data: %i[lettered unlettered partially_lettered unlettered_at].map { |s| { label: s.tl, name: s } }, label: :lettering_state.tl
 = main_list(:journal_entry_items)
