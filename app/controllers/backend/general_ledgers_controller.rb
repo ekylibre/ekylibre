@@ -147,7 +147,8 @@ module Backend
                          lettering_state: params[:lettering_state],
                          states: params[:states],
                          ledger: params[:ledger],
-                         financial_year: financial_year }
+                         started_on: financial_year.started_on.to_s,
+                         stopped_on: financial_year.stopped_on.to_s }
 
       respond_to do |format|
         format.html
@@ -207,7 +208,8 @@ module Backend
                          states: params[:states],
                          ledger: params[:ledger],
                          account_number: params[:account_number],
-                         financial_year: financial_year }
+                         started_on: financial_year.started_on.to_s,
+                         stopped_on: financial_year.stopped_on.to_s }
 
       respond_to do |format|
         format.html

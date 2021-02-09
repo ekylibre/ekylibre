@@ -549,7 +549,7 @@ class FinancialYearClose
       generate_balance_documents(timing, { accounts: "411", centralize: "" })
       progress.increment!
 
-      ['general_ledger', '401', '411'].each { |ledger| generate_general_ledger_documents(timing, { financial_year: @year, ledger: ledger }) }
+      ['general_ledger', '401', '411'].each { |ledger| generate_general_ledger_documents(timing, { started_on: @year.started_on.to_s, stopped_on: @year.stopped_on.to_s, ledger: ledger }) }
       progress.increment!
 
       Journal.all.each { |journal| generate_journals_documents(timing, { journal: journal }) }
