@@ -1,7 +1,7 @@
 = kujaku do |k|
   - k.text
   - sm = Loan.state_machine.states
-  - k.multi_choice :state, [:draft, :ongoing, :repaid].map{|s| [sm[s].human_name, s] }, label: Loan.human_attribute_name(:state)
+  - k.multi_choice :state, Loan.state.values.map { |s| [s.human_name, s] }, label: Loan.human_attribute_name(:state)
   - k.helper :journal_period_crit
   - k.multi_choice :repayment_period, resource_model.repayment_period.values.map{ |s| [s.tl, s] }, label: :repayment_period.tl
   - cash_ids = Loan.all.pluck(:cash_id).compact.uniq
