@@ -45,6 +45,7 @@ class Georeading < ApplicationRecord
   validates :number, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   validates :number, presence: true
+  validates :content, shape: true
   validates :number, uniqueness: true
 
   def net_surface_area
