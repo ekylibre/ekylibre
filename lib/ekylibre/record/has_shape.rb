@@ -17,7 +17,7 @@ module Ekylibre
                   end
 
           fixed_value = correct_shape(value)
-          value = fixed_value.get unless fixed_value.is_none?
+          value = fixed_value.get if fixed_value.is_some?
 
           if options[:type] && options[:type] == :multi_polygon
             value = value.convert_to(:multi_polygon)
@@ -29,7 +29,7 @@ module Ekylibre
 
         def correct_shape(shape)
           corrector = ShapeCorrector.build
-          fixed_shape = corrector.try_fix(shape)
+          corrector.try_fix(shape)
         end
       end
 
