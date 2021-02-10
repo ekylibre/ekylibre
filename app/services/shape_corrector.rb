@@ -20,17 +20,8 @@ class ShapeCorrector
   # @param [Charta::Geometry] shape
   # @return [Maybe<Charta::Geometry>]
   def try_fix(shape)
-    new_shape = try_fix_ewkt(shape.to_ewkt)
-                  .fmap { |ewkt| Charta.new_geometry(ewkt) }
-                  .or_else { return None() }
-
-    area_ratio(shape, new_shape).fmap do |ratio|
-      if (ratio - 1).abs < @change_threshold
-        Some(new_shape)
-      else
-        None()
-      end
-    end
+    try_fix_ewkt(shape.to_ewkt)
+      .fmap { |ewkt| Charta.new_geometry(ewkt) }
   end
 
   # @param [String] ewkt
@@ -50,20 +41,6 @@ class ShapeCorrector
 
       if res.present?
         Maybe(res['valid_shape'])
-      else
-        None()
-      end
-    end
-
-    # @param [Charta::Geometry] original_shape
-    # @param [Charta::Geometry] new_shape
-    # @return [Maybe<Number>]
-    def area_ratio(original_shape, new_shape)
-      original_area = original_shape.area
-      new_area = new_shape.area
-
-      if original_area.positive?
-        Some(new_area / original_area)
       else
         None()
       end

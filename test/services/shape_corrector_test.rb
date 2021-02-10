@@ -15,23 +15,9 @@ class ShapeCorrectorTest < Ekylibre::Testing::ApplicationTestCase
     assert corrected.is_some?
   end
 
-  test "returns None if the change is not within the threshold" do
-    stub_many @corrector, area_ratio: Some(12) do
-      assert @corrector.try_fix(@shape).is_none?
-    end
-
-    stub_many @corrector, area_ratio: None() do
-      assert @corrector.try_fix(@shape).is_none?
-    end
-  end
-
   test "returns None if postgis fix fails" do
     stub_many @corrector, try_postgis_fix: None() do
       assert @corrector.try_fix(@shape).is_none?
     end
-  end
-
-  test "area_ratio returns None if the original area is 0" do
-    assert @corrector.send(:area_ratio, { area: 0 }.to_struct, { area: 42 }.to_struct).is_none?
   end
 end
