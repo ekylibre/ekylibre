@@ -45,6 +45,7 @@ module Backend
     # Sort.all choices by name
     def sort
       return unless @custom_field = find_and_check
+
       @custom_field.sort_choices!
       redirect_to params[:redirect] || { action: :index }
     end

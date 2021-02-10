@@ -1,6 +1,5 @@
 module Activities
   class CostsCalculation
-
     def compute_costs(activity, campaign)
       activity_costs = ActiveRecord::Base.connection.execute <<~SQL
         SELECT

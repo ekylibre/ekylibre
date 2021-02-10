@@ -244,9 +244,11 @@ class Cash < ApplicationRecord
       %i[cash_box cash cashes]
     ].each do |nature, journal_nature, account_usage|
       next if find_by(nature: nature)
+
       journal = Journal.find_by(nature: journal_nature)
       account = Account.find_or_import_from_nomenclature(account_usage)
       next unless journal && account
+
       create!(
         name: "enumerize.cash.nature.#{nature}".t,
         nature: nature.to_s,

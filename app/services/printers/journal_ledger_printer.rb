@@ -1,6 +1,5 @@
 module Printers
   class JournalLedgerPrinter < PrinterBase
-
     class << self
       # TODO move this elsewhere when refactoring the Document Management System
       def build_key(started_on:, stopped_on:, states:, journal:)
@@ -34,8 +33,10 @@ module Printers
 
     def humanized_period
       return :on_all_exercises.tl if @period == 'all'
+
       financial_year = FinancialYear.find_by(started_on: Date.parse(@started_on), stopped_on: Date.parse(@stopped_on))
       return financial_year.code if financial_year
+
       I18n.translate('labels.from_to_date', from: Date.parse(@started_on).l, to: Date.parse(@stopped_on).l)
     end
 
@@ -106,7 +107,6 @@ module Printers
         month[:entry_count] = month_entry_count
 
         ledger << month
-
       end
 
       total_balance = total_debit - total_credit
@@ -144,7 +144,6 @@ module Printers
       r.add_field 'DATA_FILTERS', data_filters * ' | '
 
       r.add_section('Section2', dataset[0...-1]) do |sm|
-
         sm.add_field(:month_name) { |month| month[:name] }
 
         sm.add_section('Section3', "items") do |s|
@@ -172,7 +171,6 @@ module Printers
         sm.add_field(:month_total_credit) { |month| month[:total_credit] }
         sm.add_field(:month_balance) { |month| month[:balance] }
         sm.add_field(:month_entry_count) { |month| month[:entry_count] }
-
       end
 
       r.add_field :entry_count, dataset.last[:entry_count]

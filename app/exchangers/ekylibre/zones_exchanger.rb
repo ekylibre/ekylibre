@@ -35,6 +35,7 @@ module Ekylibre
           unless zone_variant
             raise InvalidDataError.new("Invalid nature of zone: #{r.nature}")
           end
+
           zone = r.nature.to_s.camelcase.constantize.new(variant: zone_variant, work_number: r.code)
         end
 

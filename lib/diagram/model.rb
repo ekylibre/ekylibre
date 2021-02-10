@@ -27,6 +27,7 @@ module Diagram
           graph.node(model.name, href: "https://github.com/ekylibre/ekylibre/tree/master/app/models/#{model.name.underscore}.rb", font_color: '#002255', color: '#002255')
           model.reflections.values.each do |reflection|
             next if reflection.macro != :belongs_to || model.name == reflection.class_name || %w[updater creator].include?(reflection.name.to_s) || (!reflection.polymorphic? && !models.include?(reflection.class_name.constantize))
+
             arrow_options = {}
             arrow_options[:label] = reflection.name if reflection.polymorphic? || reflection.name.to_s != reflection.class_name.underscore
             if reflection.polymorphic?
@@ -59,6 +60,7 @@ module Diagram
             references = attributes['references']
             next unless references
             next if references =~ /\A~/
+
             if tables.keys.include?(references.pluralize)
               graph.arrow(table_name + ':f' + index.to_s, references.pluralize + ':f999')
             end

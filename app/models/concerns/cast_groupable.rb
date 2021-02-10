@@ -4,6 +4,7 @@ module CastGroupable
   # Adds a cast or a cast_group to current cast_groupable
   def add_parameter!(parameter_name, *args, &block)
     raise 'No procedure' unless procedure
+
     attributes = args.extract_options!
     parameter = procedure.find!(parameter_name)
     if parameter.is_a?(Procedo::Procedure::ProductParameter)
@@ -20,6 +21,7 @@ module CastGroupable
   # Add cast
   def add_product_parameter!(*args)
     raise 'No procedure' unless procedure
+
     attributes = args.extract_options!
     name = args.shift
     product = args.shift
@@ -32,6 +34,7 @@ module CastGroupable
   # Add cast group
   def add_group_parameter!(*args)
     raise 'No procedure' unless procedure
+
     attributes = args.extract_options!
     name = args.shift
     attributes[:reference_name] = name

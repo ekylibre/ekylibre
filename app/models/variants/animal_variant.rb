@@ -56,7 +56,6 @@
 #
 module Variants
   class AnimalVariant < ProductNatureVariant
-
     def variant_type
       :animal
     end

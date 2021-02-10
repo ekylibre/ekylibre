@@ -79,6 +79,7 @@ module Ekylibre
             unless %i[point multi_point line_string multi_line_string].include?(options[:type])
               define_method "#{col}_area" do |unit = nil|
                 return 0.in(unit || :square_meter) if send(col).nil?
+
                 if unit
                   send(col).area.in(:square_meter).in(unit)
                 else
@@ -144,6 +145,7 @@ module Ekylibre
           unless id = SRID[srname]
             raise ArgumentError.new("Unreferenced SRID: #{srname.inspect}")
           end
+
           id
         end
 

@@ -42,6 +42,7 @@ module Ekylibre
         # check if current cluster cover or overlap an existing cultivable zone
         shapes_over_zone = CultivableZone.shape_covering(shape, 0.02)
         return shapes_over_zone if shapes_over_zone.any?
+
         CultivableZone.shape_matching(shape, 0.02)
       end
   end

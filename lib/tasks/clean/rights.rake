@@ -44,6 +44,7 @@ namespace :clean do
       yaml << "#{resource}:\n"
       accesses.each do |access, details|
         next unless details[:dependencies].any? || details[:actions].any?
+
         yaml << "  #{access}:\n"
         yaml << "    deprecated: true\n" if details[:deprecated]
         if details[:dependencies].any?
@@ -53,6 +54,7 @@ namespace :clean do
           end
         end
         next unless details[:actions].any?
+
         yaml << "    actions:\n"
         details[:actions].sort.each do |action|
           yaml << "    - \"#{action}\""

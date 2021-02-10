@@ -134,7 +134,6 @@ module Ekylibre
 
         w.info "#{line_number} - #{valid}".green
         w.check_point
-
       end
       w.info "End validation : #{valid}".yellow
       valid
@@ -332,6 +331,5 @@ module Ekylibre
 
         parser.normalize(rows)
       end
-
   end
 end

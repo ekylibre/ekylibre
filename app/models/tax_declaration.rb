@@ -180,6 +180,7 @@ class TaxDeclaration < ApplicationRecord
   def status
     return :go if sent?
     return :caution if validated?
+
     :stop
   end
 

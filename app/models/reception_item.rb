@@ -145,6 +145,7 @@ class ReceptionItem < ParcelItem
   def check!
     state, msg = check_incoming
     return state, msg unless state
+
     save!
   end
 

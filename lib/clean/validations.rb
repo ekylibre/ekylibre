@@ -10,6 +10,7 @@ module Clean
       def validable_column?(column)
         return false if %i[created_at creator_id creator updated_at updater_id updater position lock_version].include?(column.name.to_sym)
         return false if column.name.to_s =~ /^\_/
+
         true
       end
 
@@ -66,6 +67,7 @@ module Clean
             list << 'allow_blank: true' # unless [:date, :datetime, :timestamp].include? type
           end
           next if list.empty?
+
           validation = list.join(', ')
           validations[validation] ||= []
           validations[validation] << column.name.to_sym
@@ -76,6 +78,7 @@ module Clean
           unless column
             raise StandardError.new("Column #{association.foreign_key} is missing. See #{association.active_record.name} at '#{association.macro} :#{association.name}'")
           end
+
           !column.null && validable_column?(column)
         end.each do |reflection|
           validation = 'presence: true'

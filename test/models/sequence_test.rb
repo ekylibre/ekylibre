@@ -118,7 +118,6 @@ class SequenceTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
     Ekylibre::Tenant.create :sequence_test
     Ekylibre::Tenant.switch :sequence_test do
-
       sequence_with_same_id = Sequence.find_by(usage: :affairs) ||
         Sequence.create!(name: 'PurchasesBis', usage: :affairs, number_format: 'YOLO[number|6]')
 

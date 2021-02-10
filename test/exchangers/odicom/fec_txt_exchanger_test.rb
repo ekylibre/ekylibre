@@ -2,7 +2,6 @@ require 'test_helper'
 
 module Odicom
   class FecTxtExchangerTest < ActiveExchanger::TestCase
-
     setup do
       # We want to keep tracking of import resource
       I18n.locale = :fra
@@ -20,6 +19,5 @@ module Odicom
     teardown do
       @import.destroy!
     end
-
   end
 end

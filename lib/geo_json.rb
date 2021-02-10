@@ -3,6 +3,7 @@ module GeoJSON
     def parse(str)
       json = JSON.parse str
       return json if ::Charta::GeoJSON.valid? json
+
       nil
     end
 

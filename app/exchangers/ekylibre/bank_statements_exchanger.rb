@@ -28,6 +28,7 @@ module Ekylibre
         if s.last_row
           4.upto(s.last_row) do |row_number|
             next if s.cell('A', row_number).blank?
+
             movements << {
               operation_date: Date.parse(s.cell('A', row_number)),
               value_date: Date.parse(s.cell('B', row_number)),

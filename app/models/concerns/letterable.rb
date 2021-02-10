@@ -47,6 +47,7 @@ module Letterable
       # items = BankStatementItem.where(id: bank_statement_items)
       bank_items_balance = bank_statement_items.map(&:credit).compact.sum - bank_statement_items.map(&:debit).compact.sum
       return false unless relative_amount == bank_items_balance
+
       bank_statement_items
     end
 end

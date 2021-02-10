@@ -48,6 +48,7 @@ module Procedo
             run(node.head) * run(node.operand)
           elsif node.is_a?(Procedo::Formula::Language::Division)
             raise "Cannot divide by zero: #{node.head.text_value} / #{node.operand.text_value} (#{run(node.head)} / #{run(node.operand)})" if run(node.operand).zero?
+
             result = run(node.head) / run(node.operand)
             result
           elsif node.is_a?(Procedo::Formula::Language::Addition)
@@ -129,6 +130,7 @@ module Procedo
             unless indicator = Onoma::Indicator[node.indicator.text_value]
               raise 'Invalid indicator: ' + node.indicator.text_value.inspect
             end
+
             product = run(node.object)
             unless product.is_a?(Product) || product.is_a?(ProductNatureVariant)
               Rails.logger.warn 'Invalid product. Got: ' + product.inspect + ' ' + node.text_value

@@ -13,6 +13,7 @@ fra:
         contains_blank_line: "%{attribute} contient une ligne vide" #?
         contains_blank_page: "%{attribute} contient une page vide" #?
         currency_does_not_match: "La devise de «\_%{attribute}\_» ne correspond pas celle attendue\_: %{currency}"
+        # default_error_message: "An error occured"
         empty: "%{attribute} ne peut pas être vide"
         empty_shape: "La forme de %{attribute} ne peut être vide"
         # end_of_month: "%{attribute} should be at the end of the month"
@@ -20,6 +21,7 @@ fra:
         equal_to: "%{attribute} doit être égal à %{count}"
         even: "%{attribute} doit être impair"
         exclusion: "%{attribute} est reservé"
+        # expecting_only_one: "Expecting only one %{model} but found %{count} for %{key} account number"
         # expired: "has expired, please request a new one"
         # financial_year_exchange_on_this_period: "There is an opened accounting exchange at this date"
         # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
@@ -40,6 +42,7 @@ fra:
         invalid_syntax: "%{attribute} comporte des erreurs de syntaxe : %{errors}" #?
         invalid_time: "%{attribute} est invalide"
         invalid_token: "%{attribute} est invalide. Symbole inconnu %{error}. Les symboles acceptés sont %{accepted}."
+        # invalid_uploaded_file: "Invalid uploaded file"
         is: "%{attribute} doit être un(e) %{thing}"
         is_at: "%{attribute} doit être le %{restriction}"
         less_than: "%{attribute} doit être inférieur à %{count}"
@@ -50,7 +53,10 @@ fra:
             attributes: #?
               amount: #?
                 greater_than: "Le montant à payer doit être supérieur à zéro" #?
+        # multiple_account_numbers: "Multiple account numbers"
         must_be_a_mail_address: "%{attribute} doit être une adresse e-mail"
+        # no_cash_found_for_account: "No cash found for %{account_number} account number, please create one before importing this file"
+        # no_matching_interbank_code: "'%{code}' interbank transaction code is unknown"
         no_opened_financial_year: "Aucun exercice comptable ouvert à cette date"
         not_a_number: "%{attribute} n’est pas un nombre"
         not_an_end_of_month: "%{attribute} doit être une fin de mois"
@@ -385,12 +391,14 @@ fra:
         contains_blank_line: "%{attribute} contient une ligne vide" #?
         contains_blank_page: "%{attribute} contient une page vide" #?
         currency_does_not_match: "La devise de «\_%{attribute}\_» ne correspond pas celle attendue\_: %{currency}"
+        # default_error_message: "An error occured"
         empty: "%{attribute} ne peut pas être vide"
         # end_of_month: "%{attribute} should be at the end of the month"
         entry_has_been_already_validated: "La pièce a été validée et ne peut plus être modifiée" #?
         equal_to: "%{attribute} doit être égal à %{count}"
         even: "%{attribute} doit être impair"
         exclusion: "%{attribute} est reservé"
+        # expecting_only_one: "Expecting only one %{model} but found %{count} for %{key} account number"
         # expired: "has expired, please request a new one"
         # financial_year_exchange_on_this_period: "There is an opened accounting exchange at this date"
         # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
@@ -411,6 +419,7 @@ fra:
         invalid_shape: "La forme géographique n'est pas valide"
         invalid_time: "%{attribute} est invalide"
         invalid_token: "%{attribute} est invalide. Symbole inconnu %{error}. Les symboles acceptés sont %{accepted}."
+        # invalid_uploaded_file: "Invalid uploaded file"
         is: "%{attribute} doit être un(e) %{thing}"
         is_at: "%{attribute} doit être le %{restriction}"
         less_than: "%{attribute} doit être inférieur à %{count}"
@@ -421,7 +430,10 @@ fra:
             attributes: #?
               amount: #?
                 greater_than: "Le montant à payer doit être supérieur à zéro" #?
+        # multiple_account_numbers: "Multiple account numbers"
         must_be_a_mail_address: "%{attribute} doit être une adresse e-mail"
+        # no_cash_found_for_account: "No cash found for %{account_number} account number, please create one before importing this file"
+        # no_matching_interbank_code: "'%{code}' interbank transaction code is unknown"
         no_opened_financial_year: "Aucun exercice comptable ouvert à cette date"
         not_a_number: "%{attribute} n’est pas un nombre"
         not_an_end_of_month: "%{attribute} doit être une fin de mois"
@@ -467,6 +479,7 @@ fra:
         activity: #?
           checked_off_with_inspections: "Des agréages sont déjà présents pour cette activité" #?
           checked_without_measures: "Au moins un type de mesure doit être sélectionné lorsque l'utilisation des agréages est demandée" #?
+          productions_present: "Des productions sont présentes sur cette activité"
         bank_statement: #?
           initial_balance_credit: #?
             unvalid_amounts: "Le solde initial doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps." #?
@@ -547,13 +560,17 @@ fra:
             stopped_at: #?
               inferior: "La date de fin d'intervention saisie doit être antérieure à la date de fin des cultures sélectionnées (%{to})" #?
               posterior: "La date de fin d'intervention saisie doit être postérieure à la date de début des cultures sélectionnées (%{to})" #?
-        journal: #?
-          attributes: #?
-            accountant: #?
-              entity_frozen: "Les journaux réservés au %{attribute} ne peuvent être modifiés lorsqu'un échange est ouvert pour ses exercices" #?
-              present: "Le comptable ne peut être précisé que pour les journaux de type opérations diverses" #?
-              previous_entity_frozen: "Les journaux réservés au précédent %{attribute} ne peuvent être modifiés lorsqu'un échange est ouvert pour ses exercices" #?
-            closed_on: #?
+        intervention_output:
+          attributes:
+            variant_id:
+              already_used: "Cet extrant ne peut pas être modifié car il a déjà été utilisé"
+        journal:
+          attributes:
+            accountant:
+              entity_frozen: "Les journaux réservés au %{attribute} ne peuvent être modifiés lorsqu'un échange est ouvert pour ses exercices"
+              present: "Le comptable ne peut être précisé que pour les journaux de type opérations diverses"
+              previous_entity_frozen: "Les journaux réservés au précédent %{attribute} ne peuvent être modifiés lorsqu'un échange est ouvert pour ses exercices"
+            closed_on:
               draft_entry_items: "Des écritures du brouillard sont encore présente avant le %{closed_on}" #?
               end_of_month: "%{attribute} doit correspondre à une date de fin de mois (%{closed_on})" #?
         journal_entry: #?
@@ -2326,12 +2343,14 @@ fra:
       contains_blank_line: "%{attribute} contient une ligne vide" #?
       contains_blank_page: "%{attribute} contient une page vide" #?
       currency_does_not_match: "La devise de «\_%{attribute}\_» ne correspond pas celle attendue\_: %{currency}"
+      # default_error_message: "An error occured"
       empty: "%{attribute} ne peut pas être vide"
       # end_of_month: "%{attribute} should be at the end of the month"
       entry_has_been_already_validated: "La pièce a été validée et ne peut plus être modifiée" #?
       equal_to: "%{attribute} doit être égal à %{count}"
       even: "%{attribute} doit être impair"
       exclusion: "%{attribute} est reservé"
+      # expecting_only_one: "Expecting only one %{model} but found %{count} for %{key} account number"
       # expired: "has expired, please request a new one"
       # financial_year_exchange_on_this_period: "There is an opened accounting exchange at this date"
       # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
@@ -2351,6 +2370,7 @@ fra:
       invalid_syntax: "%{attribute} comporte des erreurs de syntaxe : %{errors}" #?
       invalid_time: "%{attribute} est invalide"
       invalid_token: "%{attribute} est invalide. Symbole inconnu %{error}. Les symboles acceptés sont %{accepted}."
+      # invalid_uploaded_file: "Invalid uploaded file"
       is: "%{attribute} doit être un(e) %{thing}"
       is_at: "%{attribute} doit être le %{restriction}"
       less_than: "%{attribute} doit être inférieur à %{count}"
@@ -2361,7 +2381,10 @@ fra:
           attributes: #?
             amount: #?
               greater_than: "Le montant à payer doit être supérieur à zéro" #?
+      # multiple_account_numbers: "Multiple account numbers"
       must_be_a_mail_address: "%{attribute} doit être une adresse e-mail"
+      # no_cash_found_for_account: "No cash found for %{account_number} account number, please create one before importing this file"
+      # no_matching_interbank_code: "'%{code}' interbank transaction code is unknown"
       no_opened_financial_year: "Aucun exercice comptable ouvert à cette date"
       not_a_number: "%{attribute} n’est pas un nombre"
       not_an_end_of_month: "%{attribute} doit être une fin de mois"

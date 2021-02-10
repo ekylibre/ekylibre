@@ -20,7 +20,6 @@
 
 module Backend
   class TrialBalancesController < Backend::BaseController
-
     before_action :save_search_preference, only: :show
 
     def show
@@ -51,12 +50,14 @@ module Backend
 
         format.ods do
           return unless template = DocumentTemplate.find_by_nature(:trial_balance)
+
           printer = Printers::TrialBalancePrinter.new(template: template, **dataset_params)
           send_data printer.run_ods.bytes, filename: "#{printer.document_name}.ods"
         end
 
         format.csv do
           return unless template = DocumentTemplate.find_by_nature(:trial_balance)
+
           printer = Printers::TrialBalancePrinter.new(template: template, **dataset_params)
           csv_string = CSV.generate(headers: true) do |csv|
             printer.run_csv(csv)
@@ -66,6 +67,7 @@ module Backend
 
         format.xcsv do
           return unless template = DocumentTemplate.find_by_nature(:trial_balance)
+
           printer = Printers::TrialBalancePrinter.new(template: template, **dataset_params)
           csv_string = CSV.generate(headers: true, col_sep: ';', encoding: 'CP1252') do |csv|
             printer.run_csv(csv)
@@ -75,6 +77,7 @@ module Backend
 
         format.pdf do
           return unless template = find_and_check(:document_template, params[:template])
+
           PrinterJob.perform_later('Printers::TrialBalancePrinter', template: template, perform_as: current_user, **dataset_params)
           notify_success(:document_in_preparation)
           redirect_to :back

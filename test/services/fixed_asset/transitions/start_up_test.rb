@@ -4,7 +4,6 @@ require_dependency Rails.root.join('app', 'models', 'fixed_asset')
 class FixedAsset
   module Transitions
     class StartUpTest < Ekylibre::Testing::ApplicationTestCase
-
       setup do
         create :financial_year, year: 2016
       end

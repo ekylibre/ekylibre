@@ -2,7 +2,6 @@ require 'test_helper'
 
 module FixedAssetTest
   class FixedAssetImportTest < Ekylibre::Testing::ApplicationTestCase
-
     setup do
       @journal = create :journal
       (2010..2015).each { |year| create :financial_year, year: year, state: :locked }

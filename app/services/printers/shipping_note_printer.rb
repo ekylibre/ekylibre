@@ -1,6 +1,5 @@
 module Printers
   class ShippingNotePrinter < PrinterBase
-
     attr_reader :shipment
 
     def initialize(shipment:, template:)
@@ -17,6 +16,7 @@ module Printers
       custom_fields = if Shipment.customizable?
                         Shipment.custom_fields.map do |f|
                           next unless (value = shipment.custom_value(f))
+
                           if f.nature == :boolean
                             value = :y.tl if value == '1'
                             value = :n.tl if value == '0'

@@ -29,6 +29,7 @@ module Ekylibre
           relation = relation.of_variety(options[:variety]) if options[:variety]
           relation = relation.derivative_of(options[:derivative_of]) if options[:derivative_of]
           return relation.all.sample if relation.any?
+
           # Create product with given elements
           attributes = {}
           unless options[:default_storage].is_a?(FalseClass)
@@ -48,6 +49,7 @@ module Ekylibre
           unless attributes[:variant] = variants.first
             raise StandardError.new("Cannot find product variant with options #{options.inspect}")
           end
+
           model.create!(attributes)
         end
 
@@ -121,6 +123,7 @@ module Ekylibre
           for period in periods
             stopped_at = period[:started_at] + period[:duration]
             next unless stopped_at < Time.zone.now
+
             intervention = Intervention.create!(procedure_name: procedure_name, production: Booker.production, production_support: options[:support], started_at: period[:started_at], stopped_at: stopped_at)
             for cast in booker.product_parameters
               intervention.add_cast!(cast)
@@ -185,6 +188,7 @@ module Ekylibre
         unless procedure.parameter[options[:parameter_name]]
           raise "Invalid parameter: #{options[:parameter_name]} in procedure #{procedure.name}"
         end
+
         @product_parameters << options
       end
 

@@ -296,5 +296,6 @@ gemfiles = Dir.glob File.expand_path('../{Gemfile.local,Gemfile.plugins,plugins/
 gemfiles << ENV['CUSTOM_PLUGIN_GEMFILE'] unless ENV['CUSTOM_PLUGIN_GEMFILE'].nil?
 gemfiles.each do |file|
   next unless File.readable?(file)
+
   eval_gemfile(file)
 end

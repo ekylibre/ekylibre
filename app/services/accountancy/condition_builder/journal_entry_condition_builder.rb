@@ -1,7 +1,6 @@
 module Accountancy
   module ConditionBuilder
     class JournalEntryConditionBuilder < Base
-
       # Build a condition for filter journal entries on period
       def period_condition(period, started_on:, stopped_on:, table_name:)
         if period.to_s == 'all'

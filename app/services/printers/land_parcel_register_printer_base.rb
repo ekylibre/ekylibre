@@ -1,6 +1,5 @@
 module Printers
   class LandParcelRegisterPrinterBase < PrinterBase
-
     IMPLANTATION_PROCEDURE_NAMES = %w[sowing sowing_without_plant_output sowing_with_spraying mechanical_planting].freeze
     HARVESTING = %w[harvesting].freeze
 

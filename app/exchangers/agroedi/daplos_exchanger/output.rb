@@ -41,6 +41,7 @@ module Agroedi
 
       def nature_edicode
         return @nature_edicode if @nature_edicode
+
         match_record = RegisteredAgroediCode.find_by(
           repository_id: 15,
           reference_code: daplos.output_nature_edicode)
@@ -54,6 +55,7 @@ module Agroedi
 
       def specie_edicode
         return @specie_edicode if @specie_edicode
+
         match_record = RegisteredAgroediCode.find_by(
           repository_id: 18,
           reference_code: daplos.output_specie_edicode)

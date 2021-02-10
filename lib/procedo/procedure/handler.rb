@@ -20,6 +20,7 @@ module Procedo
           @datatype = options[:datatype]
           @datatype ||= Maybe(Onoma::Indicator.find(options[:indicator])).datatype.or_else(nil)
           raise 'Cant have handler without datatype or indicator' if @datatype.blank?
+
           self.unit_name = options[:unit] if measure?
           self.indicator_name = options[:indicator] if options[:indicator]
         end
@@ -36,6 +37,7 @@ module Procedo
         unless @indicator.respond_to?(:nomenclature) && @indicator.nomenclature.name == :indicators
           raise Procedo::Errors::InvalidHandler.new("Handler of #{@parameter.name} must have a valid 'indicator' attribute. Got: #{value.inspect}")
         end
+
         self.unit_name = indicator.unit if unit.nil? && measure?
       end
 
@@ -47,10 +49,12 @@ module Procedo
       # Sets the indicator name
       def unit_name=(value)
         raise 'Cant assign unit with indicator which is not a measure' unless measure?
+
         unit = Onoma::Unit.find(value)
         unless unit
           raise Procedo::Errors::InvalidHandler.new("Cannot find unit. Got: #{value.inspect}")
         end
+
         if @indicator
           indicator_dimension = Onoma::Unit.find(indicator.unit).dimension
           unless unit.dimension == indicator_dimension
@@ -70,6 +74,7 @@ module Procedo
 
       def measure?
         return false unless @datatype
+
         @datatype.to_sym == :measure
       end
 

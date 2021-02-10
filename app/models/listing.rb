@@ -109,6 +109,7 @@ class Listing < ApplicationRecord
     end
     #  No reflections => no columns => no conditions
     return c unless reflection_nodes.any?
+
     # Filter on columns
     if filtered_columns.any?
       c << ' AND ' if c.present?

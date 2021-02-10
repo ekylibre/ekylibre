@@ -3,6 +3,7 @@ json.ignore_nil!
 json.array! []
 @items.each do |type, items|
   next if items.empty?
+
   json.array! items do |contact|
     json.type type
     if contact.is_a?(Hash)
@@ -14,6 +15,7 @@ json.array! []
       json.call contact, :last_name, :first_name
       [contact.emails, contact.phones, contact.mobiles, contact.websites].each do |addresses|
         next if addresses.empty?
+
         json.set! addresses.first.canal.to_s, addresses.collect(&:coordinate).compact
       end
 

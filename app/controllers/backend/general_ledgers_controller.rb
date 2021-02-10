@@ -147,18 +147,21 @@ module Backend
                          lettering_state: params[:lettering_state],
                          states: params[:states],
                          ledger: params[:ledger],
-                         financial_year: financial_year }
+                         started_on: financial_year.started_on.to_s,
+                         stopped_on: financial_year.stopped_on.to_s }
 
       respond_to do |format|
         format.html
         format.ods do
           return unless (template = DocumentTemplate.find_by_nature(:general_ledger))
+
           printer = Printers::GeneralLedgerPrinter.new(template: template, **dataset_params)
           send_data printer.run_ods.bytes, filename: "#{printer.document_name}.ods"
         end
 
         format.csv do
           return unless (template = DocumentTemplate.find_by_nature(:general_ledger))
+
           printer = Printers::GeneralLedgerPrinter.new(template: template, **dataset_params)
           csv_string = CSV.generate(headers: true) do |csv|
                          printer.run_csv(csv)
@@ -168,6 +171,7 @@ module Backend
 
         format.xcsv do
           return unless (template = DocumentTemplate.find_by_nature(:general_ledger))
+
           printer = Printers::GeneralLedgerPrinter.new(template: template, **dataset_params)
           csv_string = CSV.generate(headers: true, col_sep: ';', encoding: 'CP1252') do |csv|
                          printer.run_csv(csv)
@@ -177,6 +181,7 @@ module Backend
 
         format.pdf do
           return unless (template = DocumentTemplate.find_by_nature(:general_ledger))
+
           PrinterJob.perform_later('Printers::GeneralLedgerPrinter', template: template, perform_as: current_user, **dataset_params)
           notify_success(:document_in_preparation)
           redirect_to :back
@@ -203,18 +208,21 @@ module Backend
                          states: params[:states],
                          ledger: params[:ledger],
                          account_number: params[:account_number],
-                         financial_year: financial_year }
+                         started_on: financial_year.started_on.to_s,
+                         stopped_on: financial_year.stopped_on.to_s }
 
       respond_to do |format|
         format.html
         format.ods do
           return unless (template = DocumentTemplate.find_by_nature(:general_ledger))
+
           printer = Printers::GeneralLedgerPrinter.new(template: template, **dataset_params)
           send_data printer.run_ods.bytes, filename: "#{printer.document_name}.ods"
         end
 
         format.csv do
           return unless (template = DocumentTemplate.find_by_nature(:general_ledger))
+
           printer = Printers::GeneralLedgerPrinter.new(template: template, **dataset_params)
           csv_string = CSV.generate(headers: true) do |csv|
                          printer.run_csv(csv)
@@ -224,6 +232,7 @@ module Backend
 
         format.xcsv do
           return unless (template = DocumentTemplate.find_by_nature(:general_ledger))
+
           printer = Printers::GeneralLedgerPrinter.new(template: template, **dataset_params)
           csv_string = CSV.generate(headers: true, col_sep: ';', encoding: 'CP1252') do |csv|
                          printer.run_csv(csv)
@@ -233,6 +242,7 @@ module Backend
 
         format.pdf do
           return unless (template = DocumentTemplate.find_by_nature(:general_ledger))
+
           PrinterJob.perform_later('Printers::GeneralLedgerPrinter', template: template, perform_as: current_user, **dataset_params)
           notify_success(:document_in_preparation)
           redirect_to :back

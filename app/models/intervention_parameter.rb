@@ -95,6 +95,7 @@ class InterventionParameter < ApplicationRecord
     unless %w[doer input output target tool].include?(role)
       raise ArgumentError.new("Invalid role: #{role}")
     end
+
     where(type: "Intervention#{role.camelize}")
   }
   scope :of_generic_roles, lambda { |roles|
@@ -103,6 +104,7 @@ class InterventionParameter < ApplicationRecord
       unless %w[doer input output target tool].include?(role)
         raise ArgumentError.new("Invalid role: #{role}")
       end
+
       "Intervention#{role.camelize}"
     end
 

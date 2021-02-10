@@ -56,7 +56,6 @@
 #
 module Variants
   class WorkerVariant < ProductNatureVariant
-
     def variant_type
       :worker
     end

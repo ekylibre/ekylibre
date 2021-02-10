@@ -2,7 +2,6 @@ require 'test_helper'
 
 module FixedAssetTest
   class CreationTest < Ekylibre::Testing::ApplicationTestCase
-
     test 'cannot create a FixedAsset when no opened FinancialYear present in database' do
       create :financial_year, state: :locked, year: 2018
 

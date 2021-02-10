@@ -55,6 +55,7 @@ module NotificationModule
 
     def has_notifications?(nature = nil)
       return false unless flash[:notifications].is_a? Hash
+
       if nature.nil?
         for nature, messages in flash[:notifications]
           return true if messages.any?
@@ -82,5 +83,4 @@ module NotificationModule
     def get_store(mode)
       mode == :now ? flash.now : flash
     end
-
 end

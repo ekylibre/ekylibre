@@ -56,7 +56,6 @@
 #
 module Variants
   class ZoneVariant < ProductNatureVariant
-
     def variant_type
       :zone
     end

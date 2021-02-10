@@ -95,6 +95,7 @@ module Backend
         format.json { render json: Journal.all }
         format.pdf do
           return unless (template = find_and_check(:document_template, params[:template]))
+
           PrinterJob.perform_later('Printers::GeneralJournalPrinter', template: template, financial_year: financial_year, perform_as: current_user)
           notify_success(:document_in_preparation)
           redirect_to :back
@@ -107,6 +108,7 @@ module Backend
       set_period_params
 
       return unless (@journal = find_and_check)
+
       journal_view = current_user.preference("interface.journal.#{@journal.code}.view")
       journal_view.value = journal_views[0] unless journal_views.include? journal_view.value
       if (view = JOURNAL_VIEWS.detect { |x| params[:view] == x })
@@ -123,6 +125,7 @@ module Backend
         format.html
         format.pdf do
           return unless (template = find_and_check(:document_template, params[:template]))
+
           PrinterJob.perform_later('Printers::JournalLedgerPrinter', template: template,
                                    journal: @journal,
                                    states: params[:states],
@@ -138,6 +141,7 @@ module Backend
 
     def close
       return unless (@journal = find_and_check)
+
       unless @journal.closable?
         notify(:no_closable_journal)
         redirect_to action: :index

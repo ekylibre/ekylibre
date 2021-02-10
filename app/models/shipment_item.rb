@@ -138,6 +138,7 @@ class ShipmentItem < ParcelItem
     state = true
     check_outgoing(checked_at)
     return state, msg unless state
+
     save!
   end
 

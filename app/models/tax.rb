@@ -129,6 +129,7 @@ class Tax < ApplicationRecord
         end
       end
       return nil if name.blank?
+
       Tax.import_from_nomenclature(name)
     end
 
@@ -137,6 +138,7 @@ class Tax < ApplicationRecord
       unless item = Onoma::Tax.find(reference_name)
         raise ArgumentError.new("The tax #{reference_name.inspect} is not known")
       end
+
       tax = Tax.find_by(amount: item.amount, nature: item.nature, country: item.country)
       tax ||= Tax.find_by(reference_name: reference_name)
 
@@ -148,6 +150,7 @@ class Tax < ApplicationRecord
       if nature.computation_method != :percentage
         raise StandardError.new('Can import only percentage computed taxes')
       end
+
       attributes = {
         amount: item.amount,
         name: item.human_name,
@@ -158,6 +161,7 @@ class Tax < ApplicationRecord
       }
       %i[deduction collect fixed_asset_deduction fixed_asset_collect].each do |account|
         next unless name = nature.send("#{account}_account")
+
         tax_radical = Account.find_or_import_from_nomenclature(name)
         # check account_number_digits to build correct account number
         account_number_digits = Preference[:account_number_digits] - 2

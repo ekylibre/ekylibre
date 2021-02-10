@@ -25,6 +25,7 @@ module ActiveExchanger
           @category || :none
         else
           raise ArgumentError.new("Invalid category #{value} for #{exchanger_name} exchanger, please provide one among #{CATEGORIES.join(', ')}") unless CATEGORIES.include?(value)
+
           @category = value
         end
       end
@@ -36,6 +37,7 @@ module ActiveExchanger
           @vendor || :none
         else
           raise ArgumentError.new("Invalid vendor #{value} for #{exchanger_name} exchanger, please provide one among #{VENDORS.join(', ')}") unless VENDORS.include?(value)
+
           @vendor = value
         end
       end
@@ -124,6 +126,7 @@ module ActiveExchanger
         unless klass
           raise "Unable to find exchanger #{nature.inspect}. (#{@@exchangers.keys.to_sentence(locale: :eng)})"
         end
+
         klass
       end
 

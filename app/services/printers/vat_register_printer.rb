@@ -1,7 +1,6 @@
 # This object allow printing the general ledger
 module Printers
   class VatRegisterPrinter < PrinterBase
-
     class << self
       # TODO move this elsewhere when refactoring the Document Management System
       def build_key(started_on:, stopped_on:, state:)
@@ -30,8 +29,10 @@ module Printers
 
     def humanized_period
       return :on_all_exercises.tl if @period == 'all'
+
       financial_year = FinancialYear.find_by(started_on: Date.parse(@started_on), stopped_on: Date.parse(@stopped_on))
       return financial_year.code if financial_year
+
       I18n.translate('labels.from_to_date', from: Date.parse(@started_on).l, to: Date.parse(@stopped_on).l)
     end
 

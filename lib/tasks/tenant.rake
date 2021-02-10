@@ -35,6 +35,7 @@ namespace :tenant do
   task init: :environment do
     tenant = ENV['TENANT']
     raise 'Need TENANT variable' unless tenant
+
     Ekylibre::Tenant.create(tenant) unless Ekylibre::Tenant.exist?(tenant)
     Ekylibre::Tenant.switch(tenant) do
       # Set basic preferences
@@ -86,6 +87,7 @@ namespace :tenant do
     archive = ENV['ARCHIVE'] || ENV['archive']
     tenant = ENV['TENANT'] || ENV['name']
     raise 'Need TENANT env variable to dump' unless tenant
+
     options = {}
     options[:path] = Pathname.new(archive) if archive
     options[:path] ||= Rails.root.join('tmp', 'archives') if tenant
@@ -152,6 +154,7 @@ namespace :tenant do
     if Rails.env.production? && !ENV['DANGEROUS_MODE']
       raise Ekylibre::ForbiddenImport.new('No restore is allowed on the production server.')
     end
+
     archive = ENV['ARCHIVE'] || ENV['archive']
     tenant = ENV['TENANT'] || ENV['name']
     options = {}
@@ -161,6 +164,7 @@ namespace :tenant do
     end
     archive = Pathname.new(archive) unless archive.is_a? Pathname
     raise 'Need ARCHIVE env variable to find archive' unless archive
+
     if Ekylibre::Tenant.exist?(tenant) && ENV['FORCE'].to_i.zero?
       warnings = ["Tenant \"#{tenant}\" already exists. Do you really want to erase it and restore archive?",
                   'Really sure?']

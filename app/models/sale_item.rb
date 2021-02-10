@@ -192,10 +192,12 @@ class SaleItem < ApplicationRecord
     link_fixed_asset(fixed_asset_id) if fixed_asset_id
 
     next unless Preference[:catalog_price_item_addition_if_blank]
+
     %i[stock sale].each do |usage|
       # set stock catalog price if blank
       next unless catalog = Catalog.by_default!(usage)
       next if variant.catalog_items.of_usage(usage).any? || unit_pretax_amount.blank? || unit_pretax_amount.zero?
+
       variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: unit_pretax_amount, currency: currency)
     end
   end
@@ -206,6 +208,7 @@ class SaleItem < ApplicationRecord
 
   protect(on: :update) do
     return false if sale.draft? || sale.order?
+
     authorized_columns = %w[fixed_asset_id depreciable_product_id updated_at]
     (changes.keys - authorized_columns).any?
   end

@@ -96,9 +96,11 @@ module Visualization
     # Add a serie of geo data
     def serie(name, data)
       raise StandardError.new('data must be an array. Got: ' + data.class.name) unless data.is_a? Array
+
       @config[:series] ||= {}.with_indifferent_access
       @config[:series][name] = data.compact.collect do |item|
         next unless item[:shape]
+
         item
           .merge(shape: Charta.new_geometry(item[:shape]).transform(:WGS84).to_json_object)
           .merge(item[:popup] ? { popup: compile_visualization_popup(item[:popup], item) } : {})

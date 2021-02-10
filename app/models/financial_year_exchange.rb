@@ -82,6 +82,7 @@ class FinancialYearExchange < ApplicationRecord
 
   def accountant_email
     return unless financial_year && financial_year.accountant
+
     address = financial_year.accountant.default_email_address
     address && address.coordinate
   end
@@ -135,6 +136,7 @@ class FinancialYearExchange < ApplicationRecord
 
     def compute_started_on
       return unless financial_year
+
       previous_exchange_stopped_on = financial_year.exchanges.limit(1).where('stopped_on < ?', stopped_on).reorder(stopped_on: :desc).pluck(:stopped_on).first
       previous_exchange_stopped_on || financial_year.started_on
     end

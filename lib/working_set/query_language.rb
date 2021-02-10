@@ -206,7 +206,6 @@ module WorkingSet
       def boolean_expression
         elements[1]
       end
-
     end
 
     def _nt_test
@@ -823,7 +822,6 @@ module WorkingSet
       def parameters
         elements[2]
       end
-
     end
 
     module Ability3
@@ -1116,7 +1114,6 @@ module WorkingSet
       def parameters
         elements[2]
       end
-
     end
 
     def _nt_ability_parameters
@@ -1765,7 +1762,6 @@ module WorkingSet
       def boolean_expression
         elements[1]
       end
-
     end
 
     def _nt_negated_test
@@ -1950,11 +1946,9 @@ module WorkingSet
 
       r0
     end
-
   end
 
   class QueryLanguageParser < Treetop::Runtime::CompiledParser
     include QueryLanguage
   end
-
 end

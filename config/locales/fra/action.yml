@@ -80,8 +80,9 @@ fra:
     backend/bank_statements:
       edit: "Modifier le relevé N°%{number}"
       edit_interval: "Périodes des relevés bancaires a rapprocher"
-      import_ofx: "Importer un fichier OFX"
-      import_cfonb: "Importer un fichier CFONB"
+      # import: "Import OFX file"
+      import_cfonb: "Importer un fichier CFONB" #?
+      import_ofx: "Importer un fichier OFX" #?
       index: "Relevés de compte bancaire"
       new: "Pointer un nouveau relevé de compte"
       show: "Relevé de compte N°%{number}"
@@ -908,9 +909,10 @@ fra:
       # invalid_date: "%{attribute} is not a valid date"
       # invalid_datetime: "%{attribute} is not a valid datetime"
       invalid_population_for_unitary_product: "L'équipement %{name} ne peut avoir une population de %{population} car il est unique."
-      invalid_uploaded_file: "Le fichier est invalide"
+      # invalid_shape: "The geographic shape is invalid"
       # invalid_time: "%{attribute} is not a valid time"
       # invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
+      invalid_uploaded_file: "Le fichier est invalide"
       # is: "%{attribute} must be a %{thing}"
       # is_at: "%{attribute} must be at %{restriction}"
       # less_than: "%{attribute} must be less than %{count}"
@@ -921,7 +923,7 @@ fra:
       no_cash_found_for_account: "Aucun compte de trésorerie trouvé pour le compte %{account_number}, veuillez préalablement en créer un avant d'importer ce fichier"
       no_matching_interbank_code: "Le code '%{code}' de transaction interbanquaire est inconnu"
       # no_opened_financial_year: "No financial year opened at this date"
-      no_valid_amount: "le montant %{amount} est invalide"
+      no_valid_amount: "le montant %{amount} est invalide" #?
       # not_a_number: "%{attribute} is not a number"
       # not_an_end_of_month: "%{attribute} must be an end of month"
       # not_an_integer: "%{attribute} must be an integer"
@@ -1091,6 +1093,7 @@ fra:
     activate_entry_autocompletion: "Autocompléter l’écriture"
     active: "Actif"
     active_balance_sheet: "Bilan actif" #?
+    active_compounds: "Matières actives"
     active_current_sum: "Total actifs circulants" #?
     active_finishing_after: "Actif dont l’abonnement se termine dans plus de"
     active_finishing_within: "Actif dont l’abonnement se termine dans moins de"
@@ -1556,6 +1559,7 @@ fra:
     cultivable_zone_abbreviation: "ZC" #?
     cultivable_zones: "Zones cultivables"
     cultivated_hectare_costs: "Coût par hectare cultivé"
+    cultivation: "Parcelle / Culture" #?
     cumul: "Cumul du total et du solde précédent N°%{number}"
     currency: "Devise"
     currency_conversion_rate: "Taux de conversion de la nouvelle monnaie"
@@ -1662,6 +1666,8 @@ fra:
     division: "Division"
     divisions: "Divisions"
     document: "Document joint"
+    document_global_costs: "Fiche Coût Global"
+    document_intervention_traceability: "Fiche Tracabilité"
     document_natures: "Types de documents"
     document_templates: "Modèles de documents"
     document_type: "Type de document"
@@ -1741,8 +1747,15 @@ fra:
     entry_resource_label: "Pièce"
     environment_h4: "Environnement H4"
     equipment: "Équipement"
+    equipment_is_active_from: "L'équipement est actif à partir du"
+    equipment_is_inactive_from: "L'équipement est inactif à partir du"
     equipment_name: "Nom de l’équipement"
-    equipment_natures: "Équipements"
+    equipment_natures: "Types d'équipement"
+    equipment_travel_unit_pretax_amount: "Coût horaire equipement (déplacement)"
+    equipment_unit_pretax_amount: "Coût horaire equipement"
+    equipment_used_in_intervention_warning:
+      # one: "Date must posterior to %{date}. Before, the equipment is used is %{count} intervention"
+      # other: "Date must posterior to %{date}. Before, the equipment is used is %{count} interventions"
     equipment_variants_specie_variety: "Marque / Modèle"
     equipments: "Équipements"
     equities: "Capitaux propres"
@@ -2034,6 +2047,7 @@ fra:
     intervention_message_miscibility: "Mélange autorisé"
     intervention_product_parameters: "Intervenants"
     interventions: "Interventions"
+    interventions_costs: "Coûts Interventions" #?
     interventions_count: "Nombre d’interventions"
     interventions_paths: "Chemins d’interventions"
     interventions_selections: #?
@@ -2095,6 +2109,7 @@ fra:
     journals: "Journaux"
     journals_closure: "Clôture des journaux"
     journals_natures: "Types de journaux"
+    kml_export: "Export Parcelles (KML)" #?
     label: "Libellé"
     label_value: "%{label}\_: %{value}"
     land_parcel_abbreviation: "P" #?
@@ -2387,6 +2402,7 @@ fra:
     number_options: "Options de numérotations" #?
     number_with_param: "N° %{number}"
     numbers: "Numéros"
+    objective_costs_per_hectare: "Objectif de coûts totaux (/ha)" #?
     on_account: "À remettre sur le compte"
     on_all_exercises: "sur tous les exercices"
     one_condition: "au moins une condition"
@@ -2671,6 +2687,7 @@ fra:
     record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement." #?
     record_has_not_been_removed: "L’enregistrement n’a pu être supprimé." #?
     record_maintenance: "Enregistrer une maintenance"
+    reentry_delay_in_hour: "DRE (h)"
     reevaluation_gaps: "Écart de réévaluation"
     reference: "Référence"
     reference_supplier: "Référence fournisseur : %{reference_number}"
@@ -3013,7 +3030,8 @@ fra:
     to_reconciliate: "À rapprocher"
     today: "Aujourd’hui"
     tool_cost: "Coût de matériel"
-    tool_cost_per_hectare: "Coût de matériel par hectare" #?
+    tool_cost_per_hectare: "Coût de matériel (/ha)" #?
+    tool_costs_xslx_export: "Fiche coûts matériel (XSLX)" #?
     tools: "Outils"
     tools_list: "Liste d’outils" #?
     total: "Total"
@@ -3028,6 +3046,7 @@ fra:
     total_earn_per_working_unit: "Gain total par unité d’œuvre" #?
     total_expenses: "Dépenses(TTC)"
     total_invoiced_amount: "Total montant facturé" #?
+    total_net_surface_area: "Surface totale" #?
     total_paid_amount: "Montant total payé" #?
     total_passif: "Montant Total (Passif)" #?
     total_pretax_expenses: "Dépenses (HT)"
@@ -3114,6 +3133,7 @@ fra:
     unknown_user: "Utilisateur inconnu"
     unknown_variant: "Variante de produit inconnue"
     unlettered: "Non lettré"
+    unlettered_at: "Non lettré à date"
     unlock: "Déverrouiller"
     unmark: "Délettrer"
     unmarketable_inspection_categories_evolution: "Évolution du pourcentage de maladies et malformations"
@@ -3792,6 +3812,7 @@ fra:
       update: "Modifier"
       update_password: "Modifier le mot de passe" #?
       win: "Gagner"
+      # xslx_export: "Traceability (XSLX)"
   simple_form:
     hints:
       purchase:

@@ -74,6 +74,7 @@ class Observation < ApplicationRecord
                                    end
       raise "Invalid class name: #{class_name.inspect}"
     end
+
     super(normalized_class_name)
   end
 end

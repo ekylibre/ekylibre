@@ -48,6 +48,7 @@ module Ekylibre
           configuration[:on] = [configuration[:on]].flatten
           Ekylibre::Record::Bookkeep::ACTIONS.each do |action|
             next unless configuration[:on].include? action
+
             send("after_#{action}") do
               if ::Preference[:bookkeep_automatically]
                 send(method_name, action, ::Preference[:bookkeep_in_draft])

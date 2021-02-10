@@ -108,6 +108,7 @@ module Backend
 
     def show
       return unless (shipment = find_and_check)
+
       respond_to do |format|
         format.pdf do
           next unless (template = find_and_check :document_template, params[:template])
@@ -137,6 +138,7 @@ module Backend
     def invoice
       parcels = find_parcels
       return unless parcels
+
       parcel = parcels.first
       begin
         if parcels.all? { |p| p.incoming? && p.third_id == parcel.third_id && p.invoiceable? }
@@ -157,12 +159,14 @@ module Backend
         redirect_to(params[:redirect] || { action: :index })
       end
     end
+
     #
     # Pre-fill delivery form with given parcels. Nothing else.
     # Only a shortcut now.
     def ship
       parcels = find_parcels
       return unless parcels
+
       parcel = parcels.detect(&:shippable?)
       options = { parcel_ids: parcels.map(&:id) }
       if !parcel
