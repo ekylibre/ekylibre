@@ -1,23 +1,18 @@
-class FinancialYearExchangeExport
+module FinancialYearExchanges
   class CsvExport
-    def initialize(exchange)
-      @exchange = exchange
-    end
 
-    def export
-      filename = 'journal-entries-export.csv'
-      tempfile = Tempfile.new(filename)
-      write_csv tempfile.path
-      yield tempfile, filename
-    ensure
-      tempfile.close!
-    end
+    HEADERS = ['Jour',
+               'Numéro de compte',
+               'Journal',
+               'Tiers',
+               'Numéro de pièce',
+               'Libellé écriture',
+               'Débit',
+               'Crédit',
+               'Lettrage'].freeze
 
-    private
-
-      attr_reader :exchange
-
-      def write_csv(filepath)
+    def generate_file(exchange)
+      Tempfile.open do |tempfile|
         query = <<~SQL
           SELECT
               journal_entries.printed_on AS printed_on,
@@ -43,8 +38,8 @@ class FinancialYearExchangeExport
           ORDER BY journal_entries.printed_on, journal_entries.id
         SQL
 
-        CSV.open(filepath, 'w+') do |csv|
-          csv << headers
+        CSV.open(tempfile, 'w+') do |csv|
+          csv << HEADERS
           ApplicationRecord.connection.execute(query).each do |row|
             csv << [
               row['printed_on'],
@@ -59,20 +54,13 @@ class FinancialYearExchangeExport
             ]
           end
         end
+        tempfile.close
+        yield tempfile
       end
+    end
 
-      def headers
-        [
-          'Jour',
-          'Numéro de compte',
-          'Journal',
-          'Tiers',
-          'Numéro de pièce',
-          'Libellé écriture',
-          'Débit',
-          'Crédit',
-          'Lettrage'
-        ]
-      end
+    def filename(_exchange)
+      'journal-entries-export.csv'
+    end
   end
 end

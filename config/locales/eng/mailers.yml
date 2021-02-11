@@ -4,7 +4,9 @@ eng:
       notify_accountant: |
         Hello,
 
-        New entries are available from %{name}. To download them : %{link}
+        New entries are available from %{name}.
+
+        You will find them in attachment of this mail.
 
         Regards,
 

@@ -206,6 +206,22 @@ class FinancialYear < ApplicationRecord
     code
   end
 
+  def fec_format
+    # return one of fec format depends on fiscal_position && commercial_accountancy_workflow
+    # all ba_bnc_ir_commercial_accountancy ba_ir_cash_accountancy bnc_ir_cash_accountancy
+    fiscal_position = Preference[:fiscal_position] # fr_ba_ir, ...
+    commercial_accountancy_workflow = Preference[:commercial_accountancy_workflow] # true (commercial_accountancy) / false (cash_accountancy)
+    if fiscal_position == "fr_ba_ir" && commercial_accountancy_workflow == false
+      "ba_ir_cash_accountancy"
+    elsif fiscal_position == "fr_bnc_ir" && commercial_accountancy_workflow == false
+      "bnc_ir_cash_accountancy"
+    elsif fiscal_position.in?(["fr_bnc_ir", "fr_ba_ir"]) && commercial_accountancy_workflow == true
+      "ba_bnc_ir_commercial_accountancy"
+    else
+      "all"
+    end
+  end
+
   def missing_tax_declaration?
     !tax_declaration_frequency_none? &&
       TaxDeclaration.where('? BETWEEN started_on AND stopped_on', stopped_on).empty?
