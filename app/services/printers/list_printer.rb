@@ -44,10 +44,10 @@ module Printers
       data.bytes
     end
 
-    def run_csv(options = {})
+    def run_csv(encoding: 'UTF-8', **options)
       records = compute_dataset
 
-      ::CSV.generate(options) do |csv|
+      ::CSV.generate(encoding: encoding, **options) do |csv|
         csv << @content.keys
         records.each do |record|
           csv << @content.values.map { |value_code| eval(value_code) }
@@ -56,7 +56,7 @@ module Printers
     end
 
     def run_xcsv
-      run_csv(col_sep: ';', encoding: 'CP1252')
+      run_csv(col_sep: ';')
     end
   end
 end
