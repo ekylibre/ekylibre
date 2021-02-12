@@ -34,6 +34,7 @@ module SVF
       end
       @length = definition.delete(:length)
       raise definition.inspect if @length.nil?
+
       @format = definition.delete(:format)
       @options = definition.delete(:options) || {}
       @default = definition.delete(:default)

@@ -60,6 +60,7 @@ class PurchaseAffair < Affair
     unless deal.deal_third == supplier
       raise "Cannot deal with a different supplier in this PurchaseAffair (ID=#{id})"
     end
+
     deal.deal_with!(self)
   end
 

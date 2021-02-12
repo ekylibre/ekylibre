@@ -107,6 +107,7 @@ class Equipment < Matter
   def status
     return :stop if dead_at?
     return :caution if issues.where(state: :opened).any?
+
     :go
   end
 
@@ -126,6 +127,7 @@ class Equipment < Matter
 
       return :stop if comp_status.include?(:stop) || worn_out
       return :caution if comp_status.include?(:caution) || almost_worn_out
+
       return :go
     end
 
@@ -135,6 +137,7 @@ class Equipment < Matter
     progresses = [life_progress, work_progress]
     return :stop if progresses.any? { |prog| prog >= 1 }
     return :caution if progresses.any? { |prog| prog >= 0.85 }
+
     :go
   end
 
@@ -165,11 +168,13 @@ class Equipment < Matter
 
   def remaining_lifespan
     return nil unless total_lifespan
+
     total_lifespan - current_life
   end
 
   def remaining_working_lifespan
     return nil unless total_working_lifespan
+
     total_working_lifespan - current_work_life
   end
 
@@ -180,11 +185,13 @@ class Equipment < Matter
 
   def lifespan_progress
     return 0 unless current_life && total_lifespan
+
     current_life / total_lifespan
   end
 
   def working_lifespan_progress
     return 0 unless current_work_life && total_working_lifespan
+
     current_work_life / total_working_lifespan
   end
 
@@ -225,6 +232,7 @@ class Equipment < Matter
   # time per day and the number of days worked.
   def working_duration_from_average(options = {})
     return nil unless has_indicator?(:daily_average_working_time)
+
     duration = (Time.zone.today - options[:since].to_date)
     average = variant.daily_average_working_time
     (average * duration.in_day).in_second
@@ -239,12 +247,14 @@ class Equipment < Matter
   # Returns the list of replacements
   def replacements_of(component)
     raise ArgumentError.new('Incompatible component') unless component.product_nature_variant == variant
+
     part_replacements.where(component: component.self_and_parents)
   end
 
   def replaced_at(component, since = nil)
     replacement = last_replacement(component)
     return replacement.intervention.stopped_at if replacement
+
     since
   end
 
@@ -258,12 +268,14 @@ class Equipment < Matter
   def total_lifespan_of(component)
     comp_variant = component.part_product_nature_variant
     return nil unless comp_variant && comp_variant.has_indicator?(:lifespan)
+
     comp_variant.lifespan
   end
 
   def total_working_lifespan_of(component)
     comp_variant = component.part_product_nature_variant
     return nil unless comp_variant && comp_variant.has_indicator?(:working_lifespan)
+
     comp_variant.working_lifespan
   end
 
@@ -283,11 +295,13 @@ class Equipment < Matter
 
   def remaining_lifespan_of(component)
     return nil unless total_lifespan_of(component)
+
     total_lifespan_of(component) - current_life_of(component)
   end
 
   def remaining_working_lifespan_life_of(component)
     return nil unless total_working_lifespan_of(component)
+
     total_working_life_of(component) - current_work_life_of(component)
   end
 
@@ -298,11 +312,13 @@ class Equipment < Matter
 
   def lifespan_progress_of(component)
     return 0 unless current_life_of(component) && total_lifespan_of(component)
+
     current_life_of(component) / total_lifespan_of(component)
   end
 
   def working_lifespan_progress_of(component)
     return 0 unless current_work_life_of(component) && total_working_lifespan_of(component)
+
     current_work_life_of(component) / total_working_lifespan_of(component)
   end
 
@@ -381,5 +397,4 @@ class Equipment < Matter
         remaining_time: lifespan.in(:hour).round(2).l(precision: 0)
       }
     end
-
 end

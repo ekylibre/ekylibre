@@ -72,5 +72,4 @@ class ActivityProductionDecorator < Draper::Decorator
     def human_costs(costs)
       costs.each { |key, _value| costs[key] = costs[key].to_i }
     end
-
 end

@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.19
--- Dumped by pg_dump version 9.6.19
+-- Dumped from database version 9.6.20
+-- Dumped by pg_dump version 9.6.20
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -112,6 +112,11 @@ CREATE FUNCTION public.compute_partial_lettering() RETURNS trigger
                   WHEN modified_letter_groups.balance <> 0
                   THEN modified_letter_groups.letter || '*'
                   ELSE modified_letter_groups.letter
+                END),
+      lettered_at = (CASE
+                  WHEN modified_letter_groups.balance <> 0
+                  THEN NULL
+                  ELSE NOW()
                 END)
   FROM (SELECT new_letter AS letter,
                account_id AS account_id,
@@ -469,7 +474,7 @@ CREATE TABLE public.intervention_parameters (
     usage_id character varying,
     allowed_entry_factor interval,
     allowed_harvest_factor interval,
-    imputation_ratio numeric(19,4),
+    imputation_ratio numeric(19,4) DEFAULT 1 NOT NULL,
     reference_data jsonb DEFAULT '{}'::jsonb,
     using_live_data boolean DEFAULT true,
     applications_frequency interval
@@ -1181,7 +1186,9 @@ CREATE TABLE public.attachments (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    deleted_at timestamp without time zone,
+    deleter_id integer
 );
 
 
@@ -2529,7 +2536,8 @@ CREATE TABLE public.journal_entry_items (
     tax_declaration_mode character varying,
     project_budget_id integer,
     equipment_id integer,
-    accounting_label character varying
+    accounting_label character varying,
+    lettered_at timestamp without time zone
 );
 
 
@@ -10544,6 +10552,13 @@ CREATE INDEX index_attachments_on_creator_id ON public.attachments USING btree (
 
 
 --
+-- Name: index_attachments_on_deleted_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_attachments_on_deleted_at ON public.attachments USING btree (deleted_at);
+
+
+--
 -- Name: index_attachments_on_document_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -18247,7 +18262,7 @@ ALTER TABLE ONLY public.tax_declaration_item_parts
 --
 
 ALTER TABLE ONLY public.products
-    ADD CONSTRAINT fk_rails_5e587cedec FOREIGN KEY (activity_production_id) REFERENCES public.activity_productions(id);
+    ADD CONSTRAINT fk_rails_5e587cedec FOREIGN KEY (activity_production_id) REFERENCES public.activity_productions(id) ON DELETE CASCADE;
 
 
 --
@@ -19286,7 +19301,11 @@ INSERT INTO schema_migrations (version) VALUES ('20200122100513');
 
 INSERT INTO schema_migrations (version) VALUES ('20200128133347');
 
+INSERT INTO schema_migrations (version) VALUES ('20200207105103');
+
 INSERT INTO schema_migrations (version) VALUES ('20200213102154');
+
+INSERT INTO schema_migrations (version) VALUES ('20200311100650');
 
 INSERT INTO schema_migrations (version) VALUES ('20200312163243');
 
@@ -19296,7 +19315,13 @@ INSERT INTO schema_migrations (version) VALUES ('20200317155452');
 
 INSERT INTO schema_migrations (version) VALUES ('20200317163950');
 
+INSERT INTO schema_migrations (version) VALUES ('20200320143401');
+
+INSERT INTO schema_migrations (version) VALUES ('20200323084937');
+
 INSERT INTO schema_migrations (version) VALUES ('20200330133607');
+
+INSERT INTO schema_migrations (version) VALUES ('20200412125000');
 
 INSERT INTO schema_migrations (version) VALUES ('20200415163115');
 
@@ -19324,9 +19349,13 @@ INSERT INTO schema_migrations (version) VALUES ('20200824133243');
 
 INSERT INTO schema_migrations (version) VALUES ('20200918144501');
 
+INSERT INTO schema_migrations (version) VALUES ('20200922144601');
+
 INSERT INTO schema_migrations (version) VALUES ('20200923130701');
 
 INSERT INTO schema_migrations (version) VALUES ('20200925170636');
 
 INSERT INTO schema_migrations (version) VALUES ('20200928073618');
+
+INSERT INTO schema_migrations (version) VALUES ('20201001095904');
 

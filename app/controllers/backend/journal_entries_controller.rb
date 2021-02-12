@@ -70,6 +70,7 @@ module Backend
 
     def show
       return unless @journal_entry = find_and_check
+
       t3e @journal_entry
       respond_with(@journal_entry, methods: %i[state_label bank_statement_number],
                                    include: [
@@ -175,11 +176,13 @@ module Backend
 
     def edit
       return unless find_and_check_updateability
+
       t3e @journal_entry.attributes
     end
 
     def update
       return unless find_and_check_updateability
+
       if @journal_entry.update_attributes(permitted_params)
         redirect_to params[:redirect] || { action: :show, id: @journal_entry.id }
         return
@@ -207,6 +210,7 @@ module Backend
     def toggle_autocompletion
       choice = (params[:autocompletion] == 'true')
       return unless Preference.set!(:entry_autocompletion, choice, :boolean)
+
       respond_to do |format|
         format.json { render json: { status: :success, preference: choice } }
       end
@@ -221,12 +225,14 @@ module Backend
       def notify_global_errors
         @journal_entry.errors.messages.except(:printed_on).each do |field, messages|
           next if /items\./ =~ field
+
           messages.each { |m| notify_error_now m }
         end
       end
 
       def find_and_check_updateability
         return false unless (@journal_entry = find_and_check)
+
         unless @journal_entry.updateable?
           notify_error(:journal_entry_already_validated)
           redirect_to_back

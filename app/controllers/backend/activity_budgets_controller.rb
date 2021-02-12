@@ -12,12 +12,14 @@ module Backend
     def show
       @activity_budget = find_and_check
       return unless @activity_budget
+
       redirect_to controller: :activities, action: :show, id: @activity_budget.activity_id
     end
 
     def duplicate
       @activity_budget = find_and_check
       return unless @activity_budget
+
       activity = Activity.find_by(id: params[:activity_id])
       campaign = Campaign.find_by(id: params[:campaign_id])
       new_activity_budget = @activity_budget.duplicate!(activity, campaign)

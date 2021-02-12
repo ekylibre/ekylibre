@@ -50,12 +50,13 @@ module Backend
     end
 
     list(:exchanges, model: :financial_year_exchanges, conditions: { financial_year_id: 'params[:id]'.c }) do |t|
-      t.action :journal_entries_export, format: :csv, label: :journal_entries_export.ta, class: 'export-action'
+      t.action :journal_entries_export, format: :fec_txt, label: :journal_entries_export.ta, class: 'export-action'
       t.action :journal_entries_import, label: :journal_entries_import.ta, if: :opened?, class: 'import-action'
-      t.action :notify_accountant, if: :opened?, class: 'email-action'
+      t.action :notify_accountant_modal, if: :opened?, class: 'notify-accountant-action'
       t.action :close, if: :opened?
-      t.column :started_on, url: true, class: 'center-align'
-      t.column :stopped_on, url: true, class: 'center-align'
+      t.column :name, url: true, class: 'center-align'
+      t.column :started_on, class: 'center-align'
+      t.column :stopped_on, class: 'center-align'
       t.column :closed_at, class: 'center-align'
     end
 
@@ -163,6 +164,7 @@ module Backend
       if request.get?
         only_closable = FinancialYear.closable_or_lockable
         return redirect_to backend_financial_years_path if @financial_year != only_closable
+
         return render
       end
 
@@ -239,6 +241,7 @@ module Backend
       if request.get?
         only_lockable = FinancialYear.closable_or_lockable
         return redirect_to backend_financial_years_path if @financial_year != only_lockable
+
         return render
       end
 

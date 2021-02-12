@@ -152,10 +152,12 @@ class PurchaseInvoice < Purchase
     b.journal_entry(journal, printed_on: invoiced_on, as: :undelivered_invoice) do |entry|
       parcels.includes(undelivered_invoice_journal_entry: :items).references(undelivered_invoice_journal_entry: :items).each do |parcel|
         next unless parcel.undelivered_invoice_journal_entry
+
         label = tc(:exchange_undelivered_invoice, resource: parcel.class.model_name.human, number: parcel.number, entity: supplier.full_name, mode: parcel.nature.l)
         undelivered_items = parcel.undelivered_invoice_journal_entry.items
         undelivered_items.each do |undelivered_item|
           next unless undelivered_item.real_balance.nonzero?
+
           entry.add_credit(label, undelivered_item.account.id, undelivered_item.real_balance, resource: undelivered_item, as: :undelivered_item, variant: undelivered_item.variant)
         end
       end
@@ -188,6 +190,7 @@ class PurchaseInvoice < Purchase
 
         gap_value = gap * quantity
         next if gap_value.zero?
+
         entry.add_debit(label, item.variant.stock_account_id, gap_value, resource: item, as: :stock, variant: item.variant)
         entry.add_credit(label, item.variant.stock_movement_account_id, gap_value, resource: item, as: :stock_movement, variant: item.variant)
       end

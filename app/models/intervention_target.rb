@@ -111,6 +111,7 @@ class InterventionTarget < InterventionProductParameter
 
   def best_activity_production
     return nil unless product
+
     product.best_activity_production(at: intervention.started_at)
   end
 

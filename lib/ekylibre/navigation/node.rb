@@ -45,6 +45,7 @@ module Ekylibre
       def get(*keys)
         key = keys.shift
         return @index[key].get(keys) if keys.any?
+
         @index[key]
       end
 

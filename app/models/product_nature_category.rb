@@ -178,6 +178,7 @@ class ProductNatureCategory < ApplicationRecord
       unless (item = Onoma::ProductNatureCategory.find(reference_name))
         raise ArgumentError.new("The product_nature_category #{reference_name.inspect} is unknown")
       end
+
       unless force
         category = ProductNatureCategory.find_by(reference_name: reference_name)
         return category if category
@@ -234,6 +235,7 @@ class ProductNatureCategory < ApplicationRecord
       if !force && (category = ProductNatureCategory.find_by(reference_name: reference_name))
         return category
       end
+
       attributes = {
         active: true,
         name: item.name[I18n.locale.to_s] || item.reference_name.humanize,

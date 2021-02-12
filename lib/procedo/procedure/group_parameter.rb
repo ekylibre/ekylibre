@@ -48,6 +48,7 @@ module Procedo
       def find!(name)
         parameter = find(name)
         raise "Cannot find parameter: #{name.inspect}" unless parameter
+
         parameter
       end
 
@@ -58,6 +59,7 @@ module Procedo
         index = 1
         browse_all do |i|
           return index if i == parameter
+
           index += 1
         end
         nil

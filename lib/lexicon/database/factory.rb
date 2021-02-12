@@ -34,7 +34,6 @@ module Lexicon
       def new_instance
         ::Lexicon::Database::Database.connect(url, verbose: @verbose)
       end
-
     end
   end
 end

@@ -3,7 +3,6 @@
 module Accountancy
   module Cfonb
     class InterbankTransactionCode
-
       # @return [String]
       attr_reader :code, :key
 

@@ -5,6 +5,7 @@ module Ekylibre
         key = keys.shift
         object = fetch(key)
         return (object.is_a?(Tree) ? object[*keys] : nil) if keys.any?
+
         object
       end
 

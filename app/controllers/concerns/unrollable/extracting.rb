@@ -22,8 +22,10 @@ module Unrollable
 
     def self.scopes_from(params)
       return {} unless params[:scope]
+
       scope_is_without_params = params[:scope].is_a?(String) || params[:scope].is_a?(Symbol)
       return { params[:scope] => true } if scope_is_without_params
+
       params[:scope]
     end
 

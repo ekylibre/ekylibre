@@ -172,6 +172,7 @@ module Backend
         unless reflection = @model.reflect_on_association(name)
           raise ArgumentError.new("Invalid reflection #{name.inspect} for #{@model.name}")
         end
+
         klass = reflection.class_name.constantize
         available_methods = klass.columns_hash.keys.map(&:to_sym)
         options[:label_method] ||= %i[label name number coordinates id].detect { |m| available_methods.include?(m) } || :id

@@ -56,7 +56,6 @@
 #
 module Variants
   class ServiceVariant < ProductNatureVariant
-
     def variant_type
       :service
     end

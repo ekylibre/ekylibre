@@ -40,6 +40,7 @@ module WorkingSet
       unless tree = @parser.parse(expression.to_s, options)
         raise SyntaxError.new(@parser.failure_reason + "\nExpression: " + expression.inspect)
       end
+
       tree
     end
 

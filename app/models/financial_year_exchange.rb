@@ -71,6 +71,10 @@ class FinancialYearExchange < ApplicationRecord
   before_create :close_journal_entries
   after_create :set_journal_entries_financial_year_exchange
 
+  def name
+    "#{id.to_s} - #{started_on.to_s} | #{stopped_on.to_s}"
+  end
+
   def opened?
     !closed_at
   end
@@ -82,6 +86,7 @@ class FinancialYearExchange < ApplicationRecord
 
   def accountant_email
     return unless financial_year && financial_year.accountant
+
     address = financial_year.accountant.default_email_address
     address && address.coordinate
   end
@@ -135,6 +140,7 @@ class FinancialYearExchange < ApplicationRecord
 
     def compute_started_on
       return unless financial_year
+
       previous_exchange_stopped_on = financial_year.exchanges.limit(1).where('stopped_on < ?', stopped_on).reorder(stopped_on: :desc).pluck(:stopped_on).first
       previous_exchange_stopped_on || financial_year.started_on
     end

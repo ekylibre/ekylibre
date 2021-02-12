@@ -58,6 +58,7 @@ module Backend
 
       def find_credited_sale
         return false unless @credited_sale = find_and_check(:sale, params[:credited_sale_id])
+
         unless @credited_sale.cancellable?
           notify_error :the_sales_invoice_is_not_cancellable
           redirect_to params[:redirect] || { action: :index }

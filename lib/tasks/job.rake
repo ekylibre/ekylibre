@@ -12,6 +12,7 @@ namespace :job do
 
   task running: :environment do
     next false if Sidekiq::Stats.new.enqueued.zero?
+
     job_class = ENV['JOB_CLASS']
     job_tenant = ENV['TENANT']
     running = false

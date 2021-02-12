@@ -97,6 +97,7 @@ class ActivityBudgetItem < ApplicationRecord
     elsif per_working_unit?
       return activity_budget.productions_size || 0
     end
+
     1
   end
 

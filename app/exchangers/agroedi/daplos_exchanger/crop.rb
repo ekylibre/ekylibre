@@ -14,6 +14,7 @@ module Agroedi
         return unless production_nature
 
         return unless activity_production
+
         align_activity_production_dates!
 
         return unless production_support &&
@@ -45,6 +46,7 @@ module Agroedi
 
       def production_nature
         return @production_nature if @production_nature
+
         specie_code = daplos.crop_specie_edicode
         potential_natures = MasterProductionNature.where(agroedi_crop_code: specie_code)
         if potential_natures.count > 1
@@ -58,6 +60,7 @@ module Agroedi
 
       def campaign
         return @campaign if @campaign
+
         campaign = Campaign.find_by(harvest_year: daplos.harvest_year.to_i)
         raise "No campaign for year #{daplos.harvest_year.inspect}" unless campaign
 
@@ -92,6 +95,7 @@ module Agroedi
         def align_activity_production_dates!
           return unless production
           return unless started_on && stopped_on
+
           # update started_on and stopped_on if present on crop in file
           production.started_on = started_on if started_on < production.started_on
           production.stopped_on = stopped_on+1 if stopped_on > production.stopped_on
@@ -102,6 +106,7 @@ module Agroedi
         def cap_support_ids
           islet_number = daplos.cap_islet_number
           return unless islet_number
+
           # Finding several islets in case of several Cap statements
           islets = CapIslet.of_campaign(campaign)
                           .where(islet_number: islet_number)

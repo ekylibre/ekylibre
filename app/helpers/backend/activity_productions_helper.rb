@@ -3,6 +3,7 @@ module Backend
     def production_chronologies(productions, campaign = nil)
       campaign ||= current_campaign
       return nil if productions.empty?
+
       productions = productions.includes(:activity)
       dates = (productions.map { |p| p.started_on_for(campaign) } +
                productions.map { |p| p.stopped_on_for(campaign) }).sort

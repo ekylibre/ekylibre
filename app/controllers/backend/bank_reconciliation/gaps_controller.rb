@@ -18,11 +18,13 @@ module Backend
         @cash = Cash.find_by(id: params[:cash_id])
 
         return head :bad_request unless @cash
+
         # return head :bad_request unless @bank_statement
 
         gap = sold(bank_statement_items, @journal_entry_items)
 
         return unless (accs = accounts(gap))
+
         new_entry = regul_entry_for(gap.abs, *accs)
         return head :bad_request unless new_entry
 
@@ -37,9 +39,11 @@ module Backend
           bank = @cash.account
           if gap > 0
             return (head(:bad_request) && nil) unless Account.of_usage(:other_usual_running_profits).count.nonzero?
+
             return [bank, credit_gap_account]
           end
           return (head(:bad_request) && nil) unless Account.of_usage(:other_usual_running_expenses).count.nonzero?
+
           [debit_gap_account, bank]
         end
 
@@ -54,6 +58,7 @@ module Backend
 
         def regul_entry_for(amount, debit, credit)
           return false unless debit && credit
+
           JournalEntry.create!(
             journal_entry_params.merge(
               currency: @cash.currency,

@@ -19,6 +19,7 @@ module Api
 
       def picture
         return unless contact = Entity.find_by(id: params[:contact_id])
+
         if contact.picture.file?
 
           unless File.exist?(contact.picture.path(:contact))

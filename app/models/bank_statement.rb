@@ -271,6 +271,7 @@ class BankStatement < ApplicationRecord
 
     def clear_reconciliation_with_letters(letters)
       return unless letters.any?
+
       JournalEntryItem.where(bank_statement_letter: letters).update_all(
         bank_statement_id: nil,
         bank_statement_letter: nil

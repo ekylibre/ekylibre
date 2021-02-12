@@ -113,6 +113,7 @@ class CrumbSet
 
   def worker
     return nil unless user
+
     @worker ||= user.worker
   end
 
@@ -149,6 +150,7 @@ class CrumbSet
               targets.each do |target|
                 intersection = zone.intersection(target.shape)
                 next unless intersection.area > DEFAULT_ACCURACY.in_square_meter
+
                 attributes[key] << {
                   reference_name: parameter.name,
                   targets_attributes: [
@@ -171,6 +173,7 @@ class CrumbSet
             targets.each do |target|
               intersection = zone.intersection(target.shape)
               next unless intersection.area > DEFAULT_ACCURACY.in_square_meter
+
               attributes[key] << {
                 reference_name: parameter.name,
                 # working_zone: target.shape,

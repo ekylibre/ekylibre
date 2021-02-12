@@ -21,6 +21,7 @@ module ActiveGuide
       if @validate_block.present?
         raise "Validation has been already defined in #{@name}"
       end
+
       options = args.extract_options!
       test = nil
       if block_given?
@@ -35,6 +36,7 @@ module ActiveGuide
 
     def validate(&block)
       raise "Sub-test has been already defined in #{@name}" if @subtests.any?
+
       @validate_block = block
     end
   end

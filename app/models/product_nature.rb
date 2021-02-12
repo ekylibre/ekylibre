@@ -380,6 +380,7 @@ class ProductNature < ApplicationRecord
       if !force && (nature = ProductNature.find_by(reference_name: reference_name))
         return nature
       end
+
       attributes = {
         variety: item.variety,
         derivative_of: item.derivative_of.to_s,
@@ -405,6 +406,7 @@ class ProductNature < ApplicationRecord
       if !force && (nature = ProductNature.find_by(reference_name: reference_name))
         return nature
       end
+
       attributes = {
         variety: item.variety,
         derivative_of: (item.derivative_of.present? ? item.derivative_of : nil),

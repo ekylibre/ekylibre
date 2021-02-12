@@ -66,6 +66,7 @@ class Sequence < ApplicationRecord
     def of(usage)
       sequence = find_by(usage: usage)
       return sequence if sequence
+
       sequence = new(usage: usage)
       sequence.name = begin
                         sequence.usage.to_s.classify.constantize.model_name.human

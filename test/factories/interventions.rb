@@ -29,6 +29,11 @@ FactoryBot.define do
       actions { [:harvest] }
     end
 
+    trait :packaging do
+      procedure_name { 'packaging' }
+      actions { [] }
+    end
+
     trait :with_working_period do
       after(:build) do |intervention|
         create_list :intervention_working_period, 1, intervention: intervention

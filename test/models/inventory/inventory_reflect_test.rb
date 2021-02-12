@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class InventoryReflectTest < Ekylibre::Testing::ApplicationTestCase
-
   setup do
     fix_preferences
     @variant = ProductNatureVariant.import_from_nomenclature :hay_round_bales
@@ -70,7 +69,6 @@ class InventoryReflectTest < Ekylibre::Testing::ApplicationTestCase
     assert_equal -10.to_d, inventory.items.first.reload.product_movement.delta
     # Entry item of stock account should be credit: 100 as we record a loss of stock
     assert_equal 100.to_d, inventory.journal_entry.items.where(account: @variant.stock_account).first.credit
-
   end
 
   test "Reflecting update and reflecting an inventory with initial stock and initial accountancy amount creates the correct movement and journal entry" do
@@ -112,7 +110,6 @@ class InventoryReflectTest < Ekylibre::Testing::ApplicationTestCase
     assert_equal 10.to_d, inventory.items.first.reload.product_movement.delta
     # Entry item of stock account should be credit: 100 as we record a loss of stock
     assert_equal 0.to_d, inventory.journal_entry.items.where(account: @variant.stock_account).first.credit
-
   end
 
   test "Reflecting two inventory at two different dates with initial stock and initial accountancy amount creates the correct movement and journal entry" do
@@ -174,7 +171,6 @@ class InventoryReflectTest < Ekylibre::Testing::ApplicationTestCase
     first_inventory.destroy!
     # must have the same value than before all inventories
     assert_equal 200.0.to_d, @variant.stock_account.journal_entry_items_calculate(:balance, @fy.started_on, @fy.stopped_on)
-
   end
 
   private

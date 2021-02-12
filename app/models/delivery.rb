@@ -125,6 +125,7 @@ class Delivery < ApplicationRecord
 
   def order
     return false unless can_order?
+
     parcels.each do |parcel|
       parcel.order if parcel.draft?
     end
@@ -133,6 +134,7 @@ class Delivery < ApplicationRecord
 
   def prepare
     return false unless can_prepare?
+
     parcels.each do |parcel|
       parcel.prepare if parcel.ordered?
     end
@@ -141,6 +143,7 @@ class Delivery < ApplicationRecord
 
   def check
     return false unless can_check?
+
     parcels.find_each do |parcel|
       # parcel.prepare if parcel.can_prepare?
       parcel.check if parcel.can_check?
@@ -156,6 +159,7 @@ class Delivery < ApplicationRecord
   def finish
     start if can_start?
     return false unless can_finish?
+
     update_column(:stopped_at, Time.zone.now)
     parcels.each do |parcel|
       parcel.check if parcel.in_preparation?

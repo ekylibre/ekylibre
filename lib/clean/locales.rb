@@ -25,6 +25,7 @@ module Clean
         key = keys.first
         if hash.is_a?(Hash)
           return rec(hash[key], *keys[1..-1]) if keys.count > 1
+
           return hash[key]
         end
         nil
@@ -129,6 +130,7 @@ module Clean
           translateable_actions = []
           translateable_actions += (actions.delete_if { |a| %i[update create picture destroy up down decrement increment duplicate reflect].include?(a.to_sym) || a.to_s.match(/^(list|unroll)(\_|$)/) } | existing_actions).sort
           next unless translateable_actions.any?
+
           translation << '    ' + controller_path + ":\n"
           translateable_actions.each do |action_name|
             name = ::I18n.translate_or_nil("actions.#{controller_path}.#{action_name}")
@@ -373,15 +375,18 @@ module Clean
           ref[:enumerize] ||= {}
           Clean::Support.models_in_file.each do |model|
             next unless model.respond_to? :enumerized_attributes
+
             attrs = []
             model.enumerized_attributes.each do |attr|
               next if attr.i18n_scope
               next unless attr.values.any?
               next if model < ApplicationRecord &&
                       model.nomenclature_reflections.detect { |_k, n| n.foreign_key.to_s == attr.name.to_s }
+
               attrs << attr
             end
             next unless attrs.any?
+
             translation << "    #{model.name.underscore}:\n"
             attrs.sort_by(&:name).each do |attr|
               translation << "      #{attr.name}:\n"
@@ -446,6 +451,7 @@ module Clean
         end
         attributes.each do |k, v|
           next if k.to_s =~ /^\_/
+
           to_translate += 1 # if v[1]!=:unused
           untranslated += 1 if v[1] == :undefined
         end
@@ -489,6 +495,7 @@ module Clean
         translation << "  models:\n"
         models.sort.each do |model, definition|
           next unless definition[2]
+
           to_translate += Clean::Support.hash_count(definition[2])
           translation << "    #{model}:" + Clean::Support.yaml_value(definition[2], 2).gsub(/\n/, (definition[1] == :unused ? " #?\n" : "\n")) + "\n"
         end
@@ -613,6 +620,7 @@ module Clean
         ]
         Procedo.each_product_parameter do |parameter|
           next unless parameter.attribute(:killable)
+
           key = "is_#{parameter.name}_completely_destroyed_by_#{parameter.procedure.name}".to_sym
           killables << key
           key = "is_#{parameter.name}_completely_destroyed_by_intervention".to_sym
@@ -715,6 +723,7 @@ module Clean
 
         def log(text)
           return unless @log
+
           @log.write(text)
           @log.flush
         end
@@ -754,6 +763,7 @@ module Clean
         def clean_file!(basename)
           yaml_file = locale_dir.join("#{basename}.yml")
           return unless yaml_file.exist?
+
           translation, total = Clean::Support.hash_sort_and_count(Clean::Support.yaml_to_hash(yaml_file))
           write(yaml_file, translation, total)
         end

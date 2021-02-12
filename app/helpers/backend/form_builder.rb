@@ -23,6 +23,7 @@ module Backend
       klass = @object.class
       reflection = klass.nomenclature_reflections[association]
       raise ArgumentError.new("Invalid nomenclature reflection: #{association}") unless reflection
+
       options[:collection] ||= reflection.klass.selection
       options[:label] ||= klass.human_attribute_name(association)
       input(reflection.foreign_key, options)
@@ -35,6 +36,7 @@ module Backend
     # Display a selector with "new" button
     def referenced_association(association, options = {})
       return self.association(association, options) if options[:as] == :hidden
+
       options = referenced_association_input_options(association, options)
       input(options[:reflection].foreign_key, options)
     end
@@ -42,6 +44,7 @@ module Backend
     # Display a selector with "new" button
     def referenced_association_field(association, options = {})
       return self.association(association, options) if options[:as] == :hidden
+
       options = referenced_association_input_options(association, options)
       html_options = options[:input_html].merge(options.slice(:as, :reflection))
       input_field(options[:reflection].foreign_key, html_options)
@@ -52,6 +55,7 @@ module Backend
       options = args.extract_options!
       reflection = find_association_reflection(association)
       raise "Association #{association.inspect} not found" unless reflection
+
       if block_given?
         ActiveSupport::Deprecation.warn "Nested association don't take code block anymore. Use partial '#{association.to_s.singularize}_fields' instead."
       end
@@ -83,8 +87,10 @@ module Backend
 
     def custom_fields
       return nil unless @object.customizable?
+
       custom_fields = @object.class.custom_fields
       return nil unless custom_fields.any?
+
       @template.content_tag(:div, class: 'custom-fields') do
         simple_fields_for(:custom_fields, @object.custom_fields_model) do |cff|
           custom_fields.map do |custom_field|
@@ -136,6 +142,7 @@ module Backend
       unless reflection = find_association_reflection(association)
         raise "Association #{association.inspect} not found"
       end
+
       indicator_column = options[:indicator_column] || "#{association}_indicator"
       unit_column = options[:unit_column] || "#{association}_unit"
       html_options = { data: { variant_quantifier: "#{@object.class.name.underscore}_#{reflection.foreign_key}" } }
@@ -721,6 +728,7 @@ module Backend
 
     def actions
       return nil unless @actions.any?
+
       @template.form_actions do
         html = ''.html_safe
         @actions.each do |action|
@@ -762,6 +770,7 @@ module Backend
       else
         return targets.to_json
       end
+
       targets
     end
 
@@ -802,6 +811,7 @@ module Backend
       if units_values.is_a?(Array)
         return input(unit_name_attribute, collection: units_values, include_blank: false, wrapper: :simplest)
       end
+
       @template.content_tag(:span, units_values.tl, class: 'add-on')
     end
 

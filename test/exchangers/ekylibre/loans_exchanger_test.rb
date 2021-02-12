@@ -2,7 +2,6 @@ require 'test_helper'
 
 module Ekylibre
   class LoansExchangerTest < ActiveExchanger::TestCase
-
     setup do
       # We want to keep tracking of import resource
       ::I18n.locale = :fra

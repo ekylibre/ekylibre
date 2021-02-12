@@ -46,7 +46,6 @@
 require 'test_helper'
 
 class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
-
   setup do
     j = Journal.find_or_create_by! nature: :various
     j.update! closed_on: Date.new(1996, 12, 31)

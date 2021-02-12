@@ -99,6 +99,7 @@ class PurchaseOrder < Purchase
   # Globalizes taxes into an array of hash
   def deal_taxes(mode = :debit)
     return [] if deal_mode_amount(mode).zero?
+
     taxes = {}
     coeff = 1.to_d # (self.send("deal_#{mode}?") ? 1 : -1)
     for item in items
@@ -110,6 +111,7 @@ class PurchaseOrder < Purchase
 
   def has_content_not_deliverable?
     return false unless has_content?
+
     deliverable = false
     for item in items
       deliverable = true if item.variant.deliverable?

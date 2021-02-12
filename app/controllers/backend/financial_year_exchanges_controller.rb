@@ -22,10 +22,13 @@ module Backend
 
     list(:journal_entries, conditions: { financial_year_exchange_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
       t.column :number, url: true
-      t.column :printed_on
+      t.column :continuous_number
+      t.column :printed_on, datatype: :date
       t.column :journal, url: true
       t.column :real_debit,  currency: :real_currency
       t.column :real_credit, currency: :real_currency
+      t.column :letter
+      t.column :bank_statement_number
       t.column :debit,  currency: true, hidden: true
       t.column :credit, currency: true, hidden: true
       t.column :absolute_debit,  currency: :absolute_currency, hidden: true
@@ -33,15 +36,16 @@ module Backend
     end
 
     def journal_entries_export
-      return unless (@exchange = find_and_check)
-      export = FinancialYearExchangeExport.new(@exchange)
-      export.export(params[:format]) do |file, name|
-        send_data File.read(file), filename: name
-      end
+      return unless (exchange = find_and_check)
+
+      FinancialYearExchangeExportJob.perform_later(exchange, params[:format], current_user)
+      notify_success(:document_in_preparation)
+      redirect_to_back
     end
 
     def journal_entries_import
       return unless (@exchange = find_and_check)
+
       if request.post?
         file = params[:upload]
         @import = FinancialYearExchangeImport.new(file, @exchange)
@@ -54,19 +58,25 @@ module Backend
     end
 
     def notify_accountant
-      return unless (@exchange = find_and_check)
-      if @exchange.accountant_email?
-        @exchange.generate_public_token!
-        FinancialYearExchangeExportMailer.notify_accountant(@exchange, current_user).deliver_now
-        notify_success :accountant_notified
+      return unless (exchange = find_and_check)
+
+      if exchange.accountant_email?
+        exchange.generate_public_token!
+        FinancialYearExchangeExportJob.perform_later(exchange, params[:format], current_user, notify_accountant: true)
+        notify_success :document_in_preparation
       else
         notify_error :accountant_without_email
       end
       redirect_to_back
     end
 
+    def notify_accountant_modal
+      render partial: 'backend/financial_year_exchanges/notify_accountant_modal', locals: { id: params[:id] }
+    end
+
     def close
       return unless (@exchange = find_and_check)
+
       @exchange.close!
       notify_success :closed_financial_year_exchange
       redirect_to_back

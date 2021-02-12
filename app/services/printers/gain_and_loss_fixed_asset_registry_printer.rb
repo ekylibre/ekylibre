@@ -1,6 +1,5 @@
 module Printers
   class GainAndLossFixedAssetRegistryPrinter < FixedAssetRegistryPrinter
-
     def compute_dataset
       fixed_assets = FixedAsset.sold_or_scrapped.start_before(@stopped_on)
 
@@ -43,7 +42,6 @@ module Printers
       r.add_field 'TOTAL_GAIN_AND_LOSS', dataset.last[:total_gain_and_loss]
 
       r.add_section('Section1', dataset[0...-1]) do |s|
-
         s.add_table('Table2', :assets) do |t|
           t.add_column(:fixed_asset_number) { |asset| asset[:number] }
           t.add_column(:label) { |asset| asset[:label] }

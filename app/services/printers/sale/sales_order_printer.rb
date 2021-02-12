@@ -20,7 +20,6 @@ module Printers
       def should_display_affair
         true
       end
-
     end
   end
 end

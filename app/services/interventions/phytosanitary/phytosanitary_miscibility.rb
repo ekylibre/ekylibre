@@ -5,6 +5,7 @@ module Interventions
       def initialize(products_and_variants)
         @variants = products_and_variants.map do |prod_or_var|
           next prod_or_var unless prod_or_var.respond_to?(:variant)
+
           product = prod_or_var
           product.variant
         end
@@ -30,6 +31,7 @@ module Interventions
 
         return :invalid unless valid
         return :incomplete if incomplete
+
         :valid
       end
 

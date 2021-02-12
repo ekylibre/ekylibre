@@ -448,7 +448,6 @@ module Procedo
         def expression
           elements[2]
         end
-
       end
 
       def _nt_primary
@@ -558,7 +557,6 @@ module Procedo
         def string_body
           elements[1]
         end
-
       end
 
       def _nt_string_expression
@@ -691,7 +689,6 @@ module Procedo
         def expression
           elements[2]
         end
-
       end
 
       def _nt_interpolation
@@ -851,7 +848,6 @@ module Procedo
         def unit
           elements[1]
         end
-
       end
 
       module Reading1
@@ -872,7 +868,6 @@ module Procedo
         def unit
           elements[1]
         end
-
       end
 
       module Reading3
@@ -1765,7 +1760,6 @@ module Procedo
         def args
           elements[3]
         end
-
       end
 
       def _nt_function_call
@@ -2418,7 +2412,6 @@ module Procedo
         def boolean_expression
           elements[1]
         end
-
       end
 
       def _nt_test
@@ -2890,14 +2883,12 @@ module Procedo
         def object
           elements[0]
         end
-
       end
 
       module Presence1
         def variable
           elements[0]
         end
-
       end
 
       def _nt_presence
@@ -2978,7 +2969,6 @@ module Procedo
         def indicator
           elements[2]
         end
-
       end
 
       module Indicative1
@@ -2989,7 +2979,6 @@ module Procedo
         def indicator
           elements[2]
         end
-
       end
 
       def _nt_indicative
@@ -3137,7 +3126,6 @@ module Procedo
         def boolean_expression
           elements[1]
         end
-
       end
 
       def _nt_negated_test
@@ -3206,12 +3194,10 @@ module Procedo
 
         r0
       end
-
     end
 
     class LanguageParser < Treetop::Runtime::CompiledParser
       include Language
     end
-
   end
 end

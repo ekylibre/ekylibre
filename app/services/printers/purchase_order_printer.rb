@@ -1,6 +1,5 @@
 module Printers
   class PurchaseOrderPrinter < PrinterBase
-
     def initialize(purchase_order:, template:)
       super(template: template)
       @purchase_order = purchase_order

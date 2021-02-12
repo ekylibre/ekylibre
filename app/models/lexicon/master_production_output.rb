@@ -33,7 +33,7 @@
 class MasterProductionOutput < LexiconRecord
   include Lexiconable
   self.id_column = :production_nature_id
-  belongs_to :production_nature, class_name: 'MasterProductionNature'
+  belongs_to :production_nature, class_name: 'MasterProductionNature', inverse_of: :outputs
 
   delegate :started_on, :stopped_on, to: :production_nature
 

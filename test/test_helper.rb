@@ -36,7 +36,6 @@ end
 ActionView::TestCase.send :include, FactoryBot::Syntax::Methods
 
 module ActiveSupport
-
   def omniauth_mock(uid: '123',
                     email: 'john.doe@ekylibre.org',
                     first_name: 'John',

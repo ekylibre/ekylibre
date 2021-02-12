@@ -109,3 +109,6 @@ yarn-debug.log*
 .yarn-integrity
 
 .env
+
+# Remote rubocop configurations
+/.rubocop-*

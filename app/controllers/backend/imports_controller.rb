@@ -59,6 +59,7 @@ module Backend
     def run
       import = find_and_check
       return unless import
+
       import.run_later
       redirect_to params[:redirect] || { action: :index }
     end
@@ -66,12 +67,14 @@ module Backend
     def progress
       @import = find_and_check
       return unless @import
+
       render partial: 'progress', locals: { import: @import }
     end
 
     def abort
       @import = find_and_check
       return unless @import
+
       @import.abort
       redirect_to params[:redirect] || { action: :index }
     end

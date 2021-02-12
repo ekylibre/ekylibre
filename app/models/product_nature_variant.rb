@@ -242,6 +242,7 @@ class ProductNatureVariant < ApplicationRecord
       # We want to notice => raise.
       raise "Account '#{account_key}' is not configured on category of #{self.name.inspect} variant. You have to check category first"
     end
+
     category_account
   end
 
@@ -280,6 +281,7 @@ class ProductNatureVariant < ApplicationRecord
     unless indicator.is_a?(Onoma::Item) || indicator = Onoma::Indicator[indicator]
       raise ArgumentError.new("Unknown indicator #{indicator.inspect}. Expecting one of them: #{Onoma::Indicator.all.sort.to_sentence}.")
     end
+
     readings.find_by(indicator_name: indicator.name)
   end
 
@@ -295,6 +297,7 @@ class ProductNatureVariant < ApplicationRecord
     elsif indicator.datatype == :decimal
       return 0.0
     end
+
     nil
   end
 
@@ -319,6 +322,7 @@ class ProductNatureVariant < ApplicationRecord
     list = []
     indicators.each do |indicator|
       next unless indicator.gathering == :proportional_to_population
+
       if indicator.datatype == :measure
         Measure.siblings(indicator.unit).each do |unit_name|
           list << "#{indicator.name}/#{unit_name}"
@@ -388,6 +392,7 @@ class ProductNatureVariant < ApplicationRecord
   # :interpolate and :reading options are incompatible
   def method_missing(method_name, *args)
     return super unless Onoma::Indicator.items[method_name]
+
     get(method_name)
   end
 
@@ -438,6 +443,7 @@ class ProductNatureVariant < ApplicationRecord
   # no purchase item matching criterias
   def last_purchase_item_for(supplier = nil)
     return purchase_items.last if supplier.blank?
+
     purchase_items
       .joins(:purchase)
       .where('purchases.supplier_id = ?', Entity.find(supplier).id)
@@ -527,6 +533,7 @@ class ProductNatureVariant < ApplicationRecord
 
   def human_status
     return unless status
+
     I18n.t("tooltips.models.product_nature_variant.#{status}")
   end
 
@@ -595,6 +602,7 @@ class ProductNatureVariant < ApplicationRecord
       unless Onoma::ProductNatureCategory[nature_item.category]
         raise ArgumentError.new("The category of the product_nature_variant #{nature_item.category.inspect} is not known")
       end
+
       unless !force && (variant = ProductNatureVariant.find_by(reference_name: reference_name.to_s))
         category = ProductNatureCategory.import_from_nomenclature(nature_item.category)
         nature = ProductNature.import_from_nomenclature(item.nature)
@@ -621,6 +629,7 @@ class ProductNatureVariant < ApplicationRecord
             .collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.each do |i|
           indicator_name = i.first.strip.downcase.to_sym
           next unless variant.has_indicator? indicator_name
+
           variant.read!(indicator_name, i.second)
         end
       end
@@ -641,6 +650,7 @@ class ProductNatureVariant < ApplicationRecord
       unless category_item = VariantCategory.find_by_reference_name(item.category)
         raise ArgumentError.new("The category of the product_nature_variant #{item.category.inspect} is not known")
       end
+
       unless !force && variant = ProductNatureVariant.find_by_reference_name(reference_name)
         category = ProductNatureCategory.import_from_lexicon(item.category)
         nature = ProductNature.import_from_lexicon(item.nature)
@@ -663,6 +673,7 @@ class ProductNatureVariant < ApplicationRecord
       if item.indicators.present?
         item.indicators.each do |indicator, value|
           next unless variant.has_indicator? indicator.to_sym
+
           variant.read!(indicator.to_sym, value)
         end
       end

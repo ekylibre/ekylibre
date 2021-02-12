@@ -65,6 +65,7 @@ class ApplicationController < ActionController::Base
 
   def authorized?(url_options = {})
     return true if url_options == '#' || current_user.administrator?
+
     if url_options.is_a?(Hash)
       url_options[:controller] ||= controller_path
       url_options[:action] ||= action_name

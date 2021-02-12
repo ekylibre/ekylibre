@@ -172,6 +172,5 @@ module PanierLocal
 
       parser.normalize(rows)
     end
-
   end
 end

@@ -128,6 +128,7 @@ class InterventionProductParameter < InterventionParameter
 
   validate do
     next unless intervention && intervention.procedure
+
     if reference
       if reference.handled? && quantity_handler? && !reference.handler(quantity_handler)
         errors.add(:quantity_handler, :invalid)

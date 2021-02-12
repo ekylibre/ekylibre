@@ -59,7 +59,6 @@ require 'test_helper'
 module Variants
   module Articles
     class PlantMedicineArticleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
-
       test "changing a record's reference to lexicon is not possible if a link to another plant medicine is already established" do
         copless_variant = ProductNatureVariant.find_by_reference_name('2000087_copless')
 

@@ -92,7 +92,6 @@ module Ekylibre
         private def register_filter_module!
           ::Minitest::Test.send(:include, ::Ekylibre::Testing::Minitest::Profile::FilterModule)
         end
-
       end
     end
   end

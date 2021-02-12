@@ -42,6 +42,7 @@ class FixedAsset
         # TODO: send a message instead
         def update_product_born_at!
           return unless resource.product
+
           resource.product.update!(born_at: resource.started_on.to_datetime)
         end
     end

@@ -6,6 +6,7 @@ module Backend
 
     def affair_deals(affair, options = {})
       return nil unless affair
+
       types = if affair.is_a?(SaleAffair)
                 %w[Sale IncomingPayment]
               elsif affair.is_a?(PurchaseAffair)

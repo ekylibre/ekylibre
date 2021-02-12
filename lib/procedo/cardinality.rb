@@ -36,17 +36,20 @@ module Procedo
     def include?(number)
       return false if minimum? && @minimum > number
       return false if maximum? && @maximum < number
+
       true
     end
 
     def minimum=(value)
       raise 'Invalid value' if value && (value < 0 || (maximum? && value > @maximum))
+
       @minimum = value
       @minimum = nil if @minimum && @minimum.zero?
     end
 
     def maximum=(value)
       raise 'Invalid value' if value && (value < 0 || (minimum? && value < @minimum))
+
       @maximum = value
       @maximum = nil if @maximum && @maximum == Float::INFINITY
     end

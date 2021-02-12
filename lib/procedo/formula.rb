@@ -6,6 +6,7 @@ module Procedo
         unless tree = @@parser.parse(text.to_s, options)
           raise Procedo::Formula::SyntaxError.new(@@parser)
         end
+
         tree
       end
 

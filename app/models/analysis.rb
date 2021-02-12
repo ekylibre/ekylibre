@@ -93,6 +93,7 @@ class Analysis < ApplicationRecord
       raise ArgumentError.new("Unknown indicator #{indicator.inspect}. Expecting one of them: #{Onoma::Indicator.all.sort.to_sentence}.")
     end
     raise ArgumentError.new('Value must be given') if value.nil?
+
     options[:indicator_name] = indicator.name
     unless item = items.find_by(indicator_name: indicator.name)
       item = items.build(indicator_name: indicator.name)
@@ -106,15 +107,18 @@ class Analysis < ApplicationRecord
     unless indicator.is_a?(Onoma::Item) || indicator = Onoma::Indicator[indicator]
       raise ArgumentError.new("Unknown indicator #{indicator.inspect}. Expecting one of them: #{Onoma::Indicator.all.sort.to_sentence}.")
     end
+
     options = args.extract_options!
     items = self.items.where(indicator_name: indicator.name.to_s)
     return items.first.value if items.any?
+
     nil
   end
 
   # Returns if status changed since previous call
   def status_changed?
     return true unless previous
+
     previous.retrieval_status != retrieval_status
   end
 
@@ -128,6 +132,7 @@ class Analysis < ApplicationRecord
     if Onoma::Indicator.all.include?(method_name.to_s)
       return get(method_name, *args)
     end
+
     super
   end
 end

@@ -3,7 +3,6 @@ require 'test_helper'
 module Interventions
   module Phytosanitary
     class MaxApplicationValidatorTest < Ekylibre::Testing::ApplicationTestCase
-
       class ProductMock
         def id
           1199
@@ -16,7 +15,6 @@ module Interventions
         def phytosanitary_product
           PhytoProductMock.new
         end
-
       end
 
       class UsageMock
@@ -73,7 +71,6 @@ module Interventions
           res = validator.validate([product_usage])
           assert_equal :forbidden, res.product_vote(product_usage.product)
         end
-
       end
 
       test 'behaves correctly on intervention update' do

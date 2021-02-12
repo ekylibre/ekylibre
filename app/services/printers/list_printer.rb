@@ -4,7 +4,6 @@ require 'rodf'
 
 module Printers
   class ListPrinter
-
     def initialize(file_name:, query:, content:)
       @file_name = file_name
       @query = query

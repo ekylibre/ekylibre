@@ -56,7 +56,6 @@
 #
 module Variants
   class CropVariant < ProductNatureVariant
-
     def variant_type
       :crop
     end

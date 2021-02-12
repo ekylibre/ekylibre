@@ -83,6 +83,7 @@ module Backend
       unless product.is_a?(Product)
         raise ArgumentError.new('Product expected, got ' + product.inspect)
       end
+
       mini_map(product) do |r|
         { name: r.name, shape: r.shape }
       end

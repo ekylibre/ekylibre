@@ -48,18 +48,21 @@ module Backend
 
     def close
       return unless @issue = find_and_check
+
       @issue.close if @issue.can_close?
       redirect_to_back
     end
 
     def abort
       return unless @issue = find_and_check
+
       @issue.abort if @issue.can_abort?
       redirect_to_back
     end
 
     def reopen
       return unless @issue = find_and_check
+
       @issue.reopen if @issue.can_reopen?
       redirect_to_back
     end

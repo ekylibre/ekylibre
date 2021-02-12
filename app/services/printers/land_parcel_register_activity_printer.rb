@@ -1,6 +1,5 @@
 module Printers
   class LandParcelRegisterActivityPrinter < LandParcelRegisterPrinterBase
-
     attr_accessor :campaign, :activity
 
     def initialize(*_args, campaign:, activity:, template:, **_options)

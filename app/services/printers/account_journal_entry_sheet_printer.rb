@@ -33,7 +33,6 @@ module Printers
         @started_on = period.split('_').first
         @stopped_on = period.split('_').last
       end
-
     end
 
     def key
@@ -49,7 +48,6 @@ module Printers
     end
 
     def compute_dataset
-
       h = {}
       h[:items] = []
 

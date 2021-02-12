@@ -51,6 +51,7 @@ module Backend
 
     def convert
       return unless @cap_islet = find_and_check
+
       if params[:to] == 'cultivable_zone'
         cultivable_zone = CultivableZone.create!(name: @cap_islet.campaign_name + '-' + @cap_islet.islet_number, shape: @cap_islet.shape)
         redirect_to params[:redirect] || { controller: :cultivable_zones, action: :show, id: cultivable_zone.id }

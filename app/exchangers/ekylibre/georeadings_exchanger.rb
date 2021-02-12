@@ -36,12 +36,14 @@ module Ekylibre
               number: record.attributes['number'].to_s.upcase,
               nature: nature
             }
-            unless georeading = Georeading.find_by(attributes.slice(:number))
-              georeading = Georeading.new(attributes)
-            end
-            georeading.content = record.geometry
+
+            georeading = Georeading.create_with(attributes)
+                                   .find_or_initialize_by(attributes.slice(:number))
+
+            georeading.content = Charta.new_geometry(record.geometry)
             georeading.save!
           end
+
           w.check_point
         end
       end

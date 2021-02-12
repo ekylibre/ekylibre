@@ -11,6 +11,7 @@ module ToolbarHelper
 
     def group(options = {}, &_block)
       raise 'Nested group are forbidden' unless @group.nil?
+
       options[:class] = options[:class].to_s + ' btn-group'
       @template.content_tag(:div, options) do
         yield(self)
@@ -63,10 +64,12 @@ module ToolbarHelper
     # controller. Option +:model+ permit to change it.
     def extract(options = {})
       return nil unless @template.current_user.can?(:execute, :listings)
+
       model = options[:model] || @template.controller_name.to_s.singularize
       unless Listing.root_model.values.include?(model.to_s)
         raise "Invalid model for listing: #{model}"
       end
+
       listings = Listing.where(root_model: model).order(:name)
       @template.dropdown_menu_button(:extract, force_menu: true) do |menu|
         listings.each do |listing|
@@ -139,6 +142,7 @@ module ToolbarHelper
 
     def method_missing(method_name, *args)
       raise ArgumentError.new('Block can not be accepted') if block_given?
+
       options = args.extract_options!
       name = method_name.to_s.gsub(/\_+$/, '').to_sym
       record = args.shift

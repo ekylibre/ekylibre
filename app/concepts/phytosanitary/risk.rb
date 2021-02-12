@@ -6,6 +6,7 @@ module Phytosanitary
 
     def self.get(risk_level)
       return Unknown if risk_level.blank?
+
       new(risk_level)
     end
 
@@ -16,6 +17,7 @@ module Phytosanitary
 
     def self.risks_of(variant)
       return [Unknown] unless maaid = variant&.france_maaid
+
       risks = Pesticide::Agent.find(maaid).risks
       risks.map { |risk| get(risk) }
     end

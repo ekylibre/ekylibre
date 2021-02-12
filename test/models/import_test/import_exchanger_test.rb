@@ -8,7 +8,6 @@ module ImportTest
   end
 
   class ImportExchangerTest < Ekylibre::Testing::ApplicationTestCase
-
     setup do
       Dir.mktmpdir do |dir|
         path = Pathname.new(dir).join('dummy.csv')
@@ -71,6 +70,5 @@ module ImportTest
 
       assert_equal :aborted, @import.state.to_sym
     end
-
   end
 end

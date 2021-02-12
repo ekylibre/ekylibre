@@ -19,7 +19,7 @@ module Backend
       end
     end
 
-    test 'change state action from request intervention to in_progress intervention should create new intervention with same parameters' do
+    test 'sowing intervention : change state action from request intervention to in_progress intervention should create new intervention with same parameters' do
       # Following intervention gets 1 group parameter (containing 1 target + 1 output) and 1 input
       request_intervention = create(:sowing_intervention_with_all_parameters, nature: :request)
       params = { intervention: { interventions_ids: [request_intervention.id].to_json, state: :in_progress } }
@@ -40,8 +40,8 @@ module Backend
 
       # Outputs
       assert_equal request_gp.outputs.count, record_gp.outputs.count
-      assert_equal request_gp.outputs.last.product_id, record_gp.outputs.last.product_id
       assert_equal request_gp.outputs.last.quantity_population, record_gp.outputs.last.quantity_population
+      assert_equal request_gp.outputs.last.product, record_gp.outputs.last.product
 
       # Inputs
       request_inputs = request_intervention.inputs

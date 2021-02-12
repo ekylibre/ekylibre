@@ -31,6 +31,7 @@ module Aggeratio
       code = ''
       for element in elements
         next if %w[property title].include?(element.name.to_s)
+
         code << build_element(element)
       end
       code << "# No elements\n" if code.blank?

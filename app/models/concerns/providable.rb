@@ -11,7 +11,6 @@ module Providable
   end
 
   module Prepended
-
     # @param [Hash{Symbol => Object}] data
     def provider_data=(data)
       self.provider = {**provider, data: data}

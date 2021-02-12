@@ -135,6 +135,7 @@ class FinancialYear < ApplicationRecord
       if year = closed.reorder(started_on: :desc).first
         return year.stopped_on
       end
+
       nil
     end
 
@@ -205,6 +206,22 @@ class FinancialYear < ApplicationRecord
     code
   end
 
+  def fec_format
+    # return one of fec format depends on fiscal_position && commercial_accountancy_workflow
+    # all ba_bnc_ir_commercial_accountancy ba_ir_cash_accountancy bnc_ir_cash_accountancy
+    fiscal_position = Preference[:fiscal_position] # fr_ba_ir, ...
+    commercial_accountancy_workflow = Preference[:commercial_accountancy_workflow] # true (commercial_accountancy) / false (cash_accountancy)
+    if fiscal_position == "fr_ba_ir" && commercial_accountancy_workflow == false
+      "ba_ir_cash_accountancy"
+    elsif fiscal_position == "fr_bnc_ir" && commercial_accountancy_workflow == false
+      "bnc_ir_cash_accountancy"
+    elsif fiscal_position.in?(["fr_bnc_ir", "fr_ba_ir"]) && commercial_accountancy_workflow == true
+      "ba_bnc_ir_commercial_accountancy"
+    else
+      "all"
+    end
+  end
+
   def missing_tax_declaration?
     !tax_declaration_frequency_none? &&
       TaxDeclaration.where('? BETWEEN started_on AND stopped_on', stopped_on).empty?
@@ -235,6 +252,7 @@ class FinancialYear < ApplicationRecord
 
   def tax_declaration_stopped_on(from_on)
     return nil if tax_declaration_frequency_none?
+
     end_on = (from_on + tax_declaration_frequency_duration).beginning_of_month - 1
     end_on = stopped_on if end_on > stopped_on
     end_on
@@ -316,6 +334,7 @@ class FinancialYear < ApplicationRecord
     all_fy = FinancialYear.order(:started_on)
     self_index = all_fy.index(self)
     return nil if self_index.zero?
+
     previous_record = all_fy[self_index - 1]
   end
 
@@ -387,6 +406,7 @@ class FinancialYear < ApplicationRecord
     if value = balance(accounts, false)
       return value.l(currency: self.currency)
     end
+
     nil
   end
 
@@ -396,6 +416,7 @@ class FinancialYear < ApplicationRecord
     if value = balance(accounts, true)
       return value.l(currency: self.currency)
     end
+
     nil
   end
 
@@ -504,6 +525,7 @@ class FinancialYear < ApplicationRecord
 
   def balanced_balance_sheet?(timing = :prior_to_closure)
     return Journal.sum_entry_items('1 2 3 4 5 6 7 8', started_on: started_on, stopped_on: stopped_on).zero? if timing == :prior_to_closure
+
     computation = AccountancyComputation.new(self)
     balance_sheet_balance = computation.active_balance_sheet_amount - computation.passive_balance_sheet_amount
     balance_sheet_balance.zero?
@@ -554,6 +576,7 @@ class FinancialYear < ApplicationRecord
       start_date = started_on
       stop_date = started_on + number_of_months.month - 1.day
       return [[started_on, stopped_on]] if stopped_on <= stop_date
+
       ranges = []
       i = 0
       while stopped_on >= stop_date do
@@ -569,5 +592,4 @@ class FinancialYear < ApplicationRecord
     def accountant_with_booked_journal?
       accountant && accountant.booked_journals.any?
     end
-
 end

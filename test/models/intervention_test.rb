@@ -156,6 +156,29 @@ class InterventionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_equal 0.0, intervention.cost_per_area(:target)
   end
 
+  test 'update variant of sowing intervention should create new product and destroy old one if the product is not used elsewhere' do
+    intervention = create(:sowing_intervention_with_all_parameters)
+    intervention.reload
+    output = intervention.outputs.last
+    product = output.product
+    new_variant = create(:corn_plant_variant)
+    output.update(variant_id: new_variant.id)
+    assert_nil Product.find_by(id: product.id)
+    assert output.product
+  end
+
+  test 'update variant of sowing intervention should return error if the product is used elsewhere' do
+    intervention = create(:sowing_intervention_with_all_parameters)
+    intervention.reload
+    output = intervention.outputs.last
+    product = output.product
+    packaging_intervention = create(:intervention, :packaging)
+    packaging_input = create(:intervention_input, product: product, intervention: packaging_intervention, reference_name: :product_to_prepare)
+    new_variant = create(:corn_plant_variant)
+    output.update(variant_id: new_variant.id)
+    assert !output.valid?
+  end
+
   def add_harvesting_intervention(target, stopped_at)
     Intervention.create!(
       procedure_name: :harvesting,

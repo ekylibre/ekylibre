@@ -5,10 +5,9 @@ FactoryBot.define do
 
     factory :sowing_group_parameter do
       after(:create) do |group|
-        target = create :intervention_target, group: group, intervention: group.intervention
-        group.targets << target
-        output = create :plant_output, group: group, intervention: group.intervention
-        group.outputs << output
+        create :intervention_target, group: group, intervention: group.intervention
+        create :plant_output, group: group, intervention: group.intervention
+        group.reload
       end
     end
   end

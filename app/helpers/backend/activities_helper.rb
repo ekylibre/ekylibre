@@ -8,6 +8,7 @@ module Backend
         .find_each
         .map do |production|
           next unless production.support_shape
+
           {
             name:         production.name,
             shape:        production.support_shape,
@@ -165,6 +166,7 @@ module Backend
             data = category_percentage_and_evolution(dimension, category, last_i, before_last_i)
             next unless data
             next [category, data] unless data[:evolution]
+
             data[:evolution] = {
               label: "#{category}_percentage_evolution".tl,
               value: data[:evolution].round(0)
@@ -179,6 +181,7 @@ module Backend
 
       def category_percentage_and_evolution(dimension, category, old_i, new_i)
         return unless new_i && old_i
+
         new_percentage = new_i.points_percentage(dimension, category)
         old_percentage = old_i.points_percentage(dimension, category)
         evolution = (new_percentage - old_percentage) if old_percentage.to_d.nonzero?

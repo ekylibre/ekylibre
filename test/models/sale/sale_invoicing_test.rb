@@ -34,5 +34,4 @@ class SaleInvoicingTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert @sale.update description: "A description with \nunix newline"
     assert @sale.invoice
   end
-
 end

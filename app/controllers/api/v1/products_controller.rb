@@ -22,6 +22,7 @@ module Api
         NESTED_INCLUDE_ASSOCIATION.each do |type, association|
           type_class = type.to_s.constantize
           next if products.none? { |p| p.is_a?(type_class) }
+
           products = products.includes(association)
         end
 

@@ -7,6 +7,7 @@ module Ekylibre
           factor = options[:factor] || 1
           Sale.where(id: sale.id).update_all(created_at: d)
           return if rand(factor * 20).zero?
+
           # Propose
           Timecop.travel(d) do
             sale.propose
@@ -21,6 +22,7 @@ module Ekylibre
           end
           # Confirmation
           return if rand(factor * 8).zero?
+
           d += rand(15).days
           Timecop.travel(d) do
             sale.confirm(d)
@@ -28,6 +30,7 @@ module Ekylibre
           end
           # Invoice
           return if rand(factor * 25).zero?
+
           d += rand(5).days
           Timecop.travel(d) do
             sale.invoice
@@ -35,6 +38,7 @@ module Ekylibre
           end
           # Payment
           return if rand(factor * 4).zero? || sale.amount <= 0
+
           d += rand(30).days
           Timecop.travel(d) do
             payment = sale.client.incoming_payments.create!(mode: IncomingPaymentMode.all.sample, amount: (sale.amount / (1.0 + rand(3))).to_s.to_f.round(2), to_bank_at: d)

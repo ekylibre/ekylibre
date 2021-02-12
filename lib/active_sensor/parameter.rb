@@ -22,6 +22,7 @@ module ActiveSensor
       if value.blank?
         return default if default
         raise MissingParameter.new("Parameter #{@name} cannot be blank") if required?
+
         return nil
       end
       value

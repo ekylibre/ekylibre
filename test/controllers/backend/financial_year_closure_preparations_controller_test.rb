@@ -1,7 +1,6 @@
 require 'test_helper'
 module Backend
   class FinancialYearClosurePreparationsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
-
     test 'the user in charge of a financial year closure is the only one who can keep adding entries for this period' do
       FinancialYear.delete_all
       financial_year = create(:financial_year, started_on: Date.today.beginning_of_year, stopped_on: Date.today.end_of_year)

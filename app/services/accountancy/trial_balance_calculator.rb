@@ -1,7 +1,6 @@
 module Accountancy
   class TrialBalanceCalculator
     class << self
-
       # @param [] connection
       # @return [TrialBalanceCalculator]
       def build(connection:)
