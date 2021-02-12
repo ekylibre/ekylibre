@@ -43,4 +43,5 @@
 class MasterProductionNature < LexiconRecord
   include Lexiconable
   belongs_to :pfi_crop, class_name: 'RegisteredPfiCrop', foreign_key: :pfi_crop_code
+  has_many :outputs, class_name: 'MasterProductionOutput', inverse_of: :production_nature, foreign_key: :production_nature_id
 end
