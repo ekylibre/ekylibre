@@ -630,7 +630,7 @@ class Account < ApplicationRecord
 
       # Merge affairs if all entry items selected belong to one AND same affair third
       resources = items.map(&:entry).map(&:resource)
-      attempt_panier_local_resources_merge!(resources)
+      attempt_socleo_resources_merge!(resources)
 
       letter
     end
@@ -828,9 +828,9 @@ class Account < ApplicationRecord
 
     # @param [Array<ApplicationRecord, nil>] resources
     # @return [void]
-    def attempt_panier_local_resources_merge!(resources)
+    def attempt_socleo_resources_merge!(resources)
       if resources.all?(&:present?) && resources.all? { |r| r.class.respond_to? :affairable? } && # Resources are present and affairable
-        resources.all? { |r| r.is_a?(Providable) && r.provider_vendor == "panier_local" } && # Only merge resources from panier_local
+        resources.all? { |r| r.is_a?(Providable) && r.provider_vendor == "socleo" } && # Only merge resources from socleo
         resources.map(&:deal_third).uniq.count == 1 # And with the same third
 
         first, *rest = resources

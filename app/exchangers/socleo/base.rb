@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-module PanierLocal
+module Socleo
   class Base < ActiveExchanger::Base
-    vendor :panier_local
+    vendor :socleo
 
     class UniqueResultExpectedError < StandardError; end
 
@@ -58,7 +58,7 @@ module PanierLocal
     # @return [Account, nil]
     def find_account_by_provider(account_number)
       unwrap_one('account') do
-        Account.of_provider_vendor(:panier_local)
+        Account.of_provider_vendor(:socleo)
                .of_provider_data(:account_number, account_number)
       end
     end
@@ -66,7 +66,7 @@ module PanierLocal
     # @param [String] code
     # @return [Entity, nil]
     def find_entity_by_provider(code)
-      unwrap_one('entity') { Entity.of_provider_vendor(:panier_local).of_provider_data(:entity_code, code) }
+      unwrap_one('entity') { Entity.of_provider_vendor(:socleo).of_provider_data(:entity_code, code) }
     end
 
     # @param [String] entity_name
@@ -94,7 +94,7 @@ module PanierLocal
           active: true,
           client: true,
           client_account_id: account.id,
-          codes: { 'panier_local' => entity_code },
+          codes: { 'socleo' => entity_code },
           last_name: entity_name.mb_chars.capitalize,
           nature: :organization,
           provider: provider_value(entity_code: entity_code)
@@ -142,7 +142,7 @@ module PanierLocal
       end
 
       def tl(*unit, **options)
-        I18n.t("exchanger.panier_local.#{provider_name}.#{unit.map(&:to_s).join('.')}", **options)
+        I18n.t("exchanger.socleo.#{provider_name}.#{unit.map(&:to_s).join('.')}", **options)
       end
   end
 end

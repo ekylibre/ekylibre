@@ -1785,7 +1785,7 @@ jpn:
     last_issues: "最後の問題"
     last_movements: "最終動き"
     last_outgoing_parcels: "最終発信小包"
-    # last_panier_local_import: "Last Panier Local import"
+    # last_socleo_import: "Last Socleo import"
     last_products: "最終製品"
     last_purchases: "最終購入"
     # last_purchases_invoices: "Last purchases"

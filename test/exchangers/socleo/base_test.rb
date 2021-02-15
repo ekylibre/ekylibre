@@ -1,9 +1,9 @@
 require 'test_helper'
 
-module PanierLocal
+module Socleo
   class BaseTest < Ekylibre::Testing::ApplicationTestCase
-    class MyExchanger < PanierLocal::Base
-      vendor :panier_local
+    class MyExchanger < Socleo::Base
+      vendor :socleo
 
       def provider_name
         :my_provider
@@ -11,25 +11,25 @@ module PanierLocal
     end
 
     setup do
-      @import = Import.create!(nature: :panier_local_sales)
+      @import = Import.create!(nature: :socleo_sales)
       @e = MyExchanger.new('', nil, import_id: @import.id)
     end
 
     test 'unwrap_one' do
       assert_equal 1, @e.unwrap_one('one') { [1] }
       assert_nil @e.unwrap_one('nil') { [] }
-      assert_raises(PanierLocal::Base::UniqueResultExpectedError) do
+      assert_raises(Socleo::Base::UniqueResultExpectedError) do
         @e.unwrap_one('multiple') { [1, 2] }
       end
 
-      assert_raises(PanierLocal::Base::UniqueResultExpectedError) do
+      assert_raises(Socleo::Base::UniqueResultExpectedError) do
         @e.unwrap_one('strict', exact: true) { [] }
       end
     end
 
     test 'entity provider find' do
       assert_nil @e.find_entity_by_provider("42")
-      e = create :entity, provider: { vendor: :panier_local, name: :myprovider, id: 42, data: { entity_code: '42' } }
+      e = create :entity, provider: { vendor: :socleo, name: :myprovider, id: 42, data: { entity_code: '42' } }
       assert_equal e, @e.find_entity_by_provider("42")
     end
 
@@ -47,13 +47,13 @@ module PanierLocal
     test 'Entity is created if provider find by_account fails' do
       e = @e.find_or_create_entity('toto', '411058', "42")
       assert e
-      assert e.is_provided_by?(vendor: 'panier_local', name: 'my_provider')
-      assert e.client_account.is_provided_by?(vendor: 'panier_local', name: 'my_provider')
+      assert e.is_provided_by?(vendor: 'socleo', name: 'my_provider')
+      assert e.client_account.is_provided_by?(vendor: 'socleo', name: 'my_provider')
     end
 
     test 'account provider find uses provider_data' do
       assert_nil @e.find_account_by_provider('706')
-      a = create :account, number: '7068', provider: { vendor: :panier_local, name: :my_provider, id: 42, data: { account_number: '706' } }
+      a = create :account, number: '7068', provider: { vendor: :socleo, name: :my_provider, id: 42, data: { account_number: '706' } }
       assert_equal a, @e.find_account_by_provider('706')
     end
   end

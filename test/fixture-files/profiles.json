@@ -136,7 +136,7 @@
     "duration": 5.7855
   },
   {
-    "name": "PanierLocal::IncomingPaymentsTest::IncomingPaymentsExchangerTest#test_import",
+    "name": "Socleo::IncomingPaymentsTest::IncomingPaymentsExchangerTest#test_import",
     "duration": 5.6998
   },
   {
@@ -1156,7 +1156,7 @@
     "duration": 0.6660
   },
   {
-    "name": "AccountTest#test_attempt_panier_local_resources_merge!_merges_panier_local_provided_affairs",
+    "name": "AccountTest#test_attempt_socleo_resources_merge!_merges_socleo_provided_affairs",
     "duration": 0.6620
   },
   {
@@ -1216,7 +1216,7 @@
     "duration": 0.6498
   },
   {
-    "name": "PanierLocal::SaleExchangerTest::SalesExchangerTest#test_import",
+    "name": "Socleo::SaleExchangerTest::SalesExchangerTest#test_import",
     "duration": 0.6496
   },
   {
@@ -1576,7 +1576,7 @@
     "duration": 0.4733
   },
   {
-    "name": "PanierLocal::SaleExchangerUnitTest::SalesExchangerTest#test_sale_is_not_created_if_found_by_provider",
+    "name": "Socleo::SaleExchangerUnitTest::SalesExchangerTest#test_sale_is_not_created_if_found_by_provider",
     "duration": 0.4729
   },
   {
@@ -1688,7 +1688,7 @@
     "duration": 0.4344
   },
   {
-    "name": "PanierLocal::SaleExchangerUnitTest::SalesExchangerTest#test_sale_is_created_if_nout_found_by_provider",
+    "name": "Socleo::SaleExchangerUnitTest::SalesExchangerTest#test_sale_is_created_if_nout_found_by_provider",
     "duration": 0.4326
   },
   {
@@ -1852,7 +1852,7 @@
     "duration": 0.3768
   },
   {
-    "name": "PanierLocal::IncomingPaymentsTest::IncomingPaymentsExchangerUnitTest#test_incoming_payment_provider_find",
+    "name": "Socleo::IncomingPaymentsTest::IncomingPaymentsExchangerUnitTest#test_incoming_payment_provider_find",
     "duration": 0.3767
   },
   {
@@ -2116,7 +2116,7 @@
     "duration": 0.3226
   },
   {
-    "name": "PanierLocal::SaleExchangerUnitTest::SalesExchangerTest#test_sale_provider_find",
+    "name": "Socleo::SaleExchangerUnitTest::SalesExchangerTest#test_sale_provider_find",
     "duration": 0.3221
   },
   {
@@ -2504,7 +2504,7 @@
     "duration": 0.2586
   },
   {
-    "name": "PanierLocal::IncomingPaymentsTest::IncomingPaymentsExchangerUnitTest#test_incoming_payment_is_created_if_not_found_by_provider",
+    "name": "Socleo::IncomingPaymentsTest::IncomingPaymentsExchangerUnitTest#test_incoming_payment_is_created_if_not_found_by_provider",
     "duration": 0.2580
   },
   {
@@ -4616,7 +4616,7 @@
     "duration": 0.1086
   },
   {
-    "name": "PanierLocal::IncomingPaymentsTest::IncomingPaymentsExchangerUnitTest#test_payment_mode_is_created_if_not_found_by_provider",
+    "name": "Socleo::IncomingPaymentsTest::IncomingPaymentsExchangerUnitTest#test_payment_mode_is_created_if_not_found_by_provider",
     "duration": 0.1085
   },
   {
@@ -5332,7 +5332,7 @@
     "duration": 0.0909
   },
   {
-    "name": "PanierLocal::SaleExchangerUnitTest::SalesExchangerTest#test_sales_with_only_one_client_line_and_amount_0_should_be_ignored",
+    "name": "Socleo::SaleExchangerUnitTest::SalesExchangerTest#test_sales_with_only_one_client_line_and_amount_0_should_be_ignored",
     "duration": 0.0908
   },
   {
@@ -5652,7 +5652,7 @@
     "duration": 0.0834
   },
   {
-    "name": "PanierLocal::IncomingPaymentsTest::IncomingPaymentsExchangerUnitTest#test_payment_mode_provider_find",
+    "name": "Socleo::IncomingPaymentsTest::IncomingPaymentsExchangerUnitTest#test_payment_mode_provider_find",
     "duration": 0.0833
   },
   {
@@ -5684,7 +5684,7 @@
     "duration": 0.0823
   },
   {
-    "name": "PanierLocal::SaleExchangerUnitTest::SalesExchangerTest#test_tax_is_created_if_provider_and_by_account_fails",
+    "name": "Socleo::SaleExchangerUnitTest::SalesExchangerTest#test_tax_is_created_if_provider_and_by_account_fails",
     "duration": 0.0822
   },
   {
@@ -5956,7 +5956,7 @@
     "duration": 0.0781
   },
   {
-    "name": "PanierLocal::SaleExchangerUnitTest::SalesExchangerTest#test_sale_nature_created_if_absent",
+    "name": "Socleo::SaleExchangerUnitTest::SalesExchangerTest#test_sale_nature_created_if_absent",
     "duration": 0.0781
   },
   {
@@ -6308,7 +6308,7 @@
     "duration": 0.0714
   },
   {
-    "name": "PanierLocal::BaseTest#test_Entity_is_created_if_provider_find_by_account_fails",
+    "name": "Socleo::BaseTest#test_Entity_is_created_if_provider_find_by_account_fails",
     "duration": 0.0709
   },
   {
@@ -6396,7 +6396,7 @@
     "duration": 0.0694
   },
   {
-    "name": "PanierLocal::SaleExchangerUnitTest::SalesExchangerTest#test_product_nature_variant_provider_find",
+    "name": "Socleo::SaleExchangerUnitTest::SalesExchangerTest#test_product_nature_variant_provider_find",
     "duration": 0.0691
   },
   {
@@ -6476,7 +6476,7 @@
     "duration": 0.0677
   },
   {
-    "name": "PanierLocal::BaseTest#test_client_is_searched_by_account_if_provider_fails",
+    "name": "Socleo::BaseTest#test_client_is_searched_by_account_if_provider_fails",
     "duration": 0.0676
   },
   {
@@ -6532,7 +6532,7 @@
     "duration": 0.0667
   },
   {
-    "name": "PanierLocal::SaleExchangerUnitTest::SalesExchangerTest#test_sale_nature_provider_find",
+    "name": "Socleo::SaleExchangerUnitTest::SalesExchangerTest#test_sale_nature_provider_find",
     "duration": 0.0664
   },
   {
@@ -6736,7 +6736,7 @@
     "duration": 0.0628
   },
   {
-    "name": "PanierLocal::SaleExchangerUnitTest::SalesExchangerTest#test_get_sale_nature_by_name_if_provider_does_not_find_id",
+    "name": "Socleo::SaleExchangerUnitTest::SalesExchangerTest#test_get_sale_nature_by_name_if_provider_does_not_find_id",
     "duration": 0.0628
   },
   {
@@ -6968,7 +6968,7 @@
     "duration": 0.0586
   },
   {
-    "name": "PanierLocal::SaleExchangerUnitTest::SalesExchangerTest#test_exchanger_stops_if_missing_VAT_information",
+    "name": "Socleo::SaleExchangerUnitTest::SalesExchangerTest#test_exchanger_stops_if_missing_VAT_information",
     "duration": 0.0585
   },
   {
@@ -7172,7 +7172,7 @@
     "duration": 0.0552
   },
   {
-    "name": "PanierLocal::SaleExchangerUnitTest::SalesExchangerTest#test_journal_provider_find",
+    "name": "Socleo::SaleExchangerUnitTest::SalesExchangerTest#test_journal_provider_find",
     "duration": 0.0552
   },
   {
@@ -7244,7 +7244,7 @@
     "duration": 0.0542
   },
   {
-    "name": "PanierLocal::SaleExchangerUnitTest::SalesExchangerTest#test_tax_provider_find",
+    "name": "Socleo::SaleExchangerUnitTest::SalesExchangerTest#test_tax_provider_find",
     "duration": 0.0541
   },
   {
@@ -7620,7 +7620,7 @@
     "duration": 0.0498
   },
   {
-    "name": "PanierLocal::SaleExchangerUnitTest::SalesExchangerTest#test_tax_is_found_by_account_if_provider_returns_nil",
+    "name": "Socleo::SaleExchangerUnitTest::SalesExchangerTest#test_tax_is_found_by_account_if_provider_returns_nil",
     "duration": 0.0497
   },
   {
@@ -7732,7 +7732,7 @@
     "duration": 0.0482
   },
   {
-    "name": "PanierLocal::SaleExchangerUnitTest::SalesExchangerTest#test_the_check_method_returns_false_when_no_responsible_is_linked",
+    "name": "Socleo::SaleExchangerUnitTest::SalesExchangerTest#test_the_check_method_returns_false_when_no_responsible_is_linked",
     "duration": 0.0480
   },
   {
@@ -7868,7 +7868,7 @@
     "duration": 0.0458
   },
   {
-    "name": "PanierLocal::SaleExchangerUnitTest::SalesExchangerTest#test_the_responsible_is_the_creator_of_the_import",
+    "name": "Socleo::SaleExchangerUnitTest::SalesExchangerTest#test_the_responsible_is_the_creator_of_the_import",
     "duration": 0.0458
   },
   {
@@ -7884,7 +7884,7 @@
     "duration": 0.0457
   },
   {
-    "name": "PanierLocal::SaleExchangerUnitTest::SalesExchangerTest#test_find_or_create_journal_creates_it_if_provider_does_not_find_it",
+    "name": "Socleo::SaleExchangerUnitTest::SalesExchangerTest#test_find_or_create_journal_creates_it_if_provider_does_not_find_it",
     "duration": 0.0456
   },
   {
@@ -8208,11 +8208,11 @@
     "duration": 0.0374
   },
   {
-    "name": "PanierLocal::BaseTest#test_entity_provider_find",
+    "name": "Socleo::BaseTest#test_entity_provider_find",
     "duration": 0.0373
   },
   {
-    "name": "PanierLocal::SaleExchangerUnitTest::SalesExchangerTest#test_find_or_create_product_account_creates_if_not_found",
+    "name": "Socleo::SaleExchangerUnitTest::SalesExchangerTest#test_find_or_create_product_account_creates_if_not_found",
     "duration": 0.0372
   },
   {
@@ -8236,7 +8236,7 @@
     "duration": 0.0366
   },
   {
-    "name": "PanierLocal::SaleExchangerUnitTest::SalesExchangerTest#test_find_or_create_product_account_find_by_number",
+    "name": "Socleo::SaleExchangerUnitTest::SalesExchangerTest#test_find_or_create_product_account_find_by_number",
     "duration": 0.0364
   },
   {
@@ -8300,7 +8300,7 @@
     "duration": 0.0350
   },
   {
-    "name": "PanierLocal::BaseTest#test_account_provider_find_uses_provider_data",
+    "name": "Socleo::BaseTest#test_account_provider_find_uses_provider_data",
     "duration": 0.0350
   },
   {
@@ -8904,7 +8904,7 @@
     "duration": 0.0196
   },
   {
-    "name": "PanierLocal::SaleExchangerUnitTest::SalesExchangerTest#test_catalog_provider_find",
+    "name": "Socleo::SaleExchangerUnitTest::SalesExchangerTest#test_catalog_provider_find",
     "duration": 0.0196
   },
   {
@@ -8992,7 +8992,7 @@
     "duration": 0.0176
   },
   {
-    "name": "PanierLocal::SaleExchangerUnitTest::SalesExchangerTest#test_find_or_create_catalog_creates_it_if_provider_does_not_find_it",
+    "name": "Socleo::SaleExchangerUnitTest::SalesExchangerTest#test_find_or_create_catalog_creates_it_if_provider_does_not_find_it",
     "duration": 0.0173
   },
   {
@@ -9188,7 +9188,7 @@
     "duration": 0.0124
   },
   {
-    "name": "PanierLocal::SaleExchangerUnitTest::SalesExchangerTest#test_create_pretax_amount_computation",
+    "name": "Socleo::SaleExchangerUnitTest::SalesExchangerTest#test_create_pretax_amount_computation",
     "duration": 0.0124
   },
   {
@@ -9420,7 +9420,7 @@
     "duration": 0.0083
   },
   {
-    "name": "PanierLocal::BaseTest#test_unwrap_one",
+    "name": "Socleo::BaseTest#test_unwrap_one",
     "duration": 0.0083
   },
   {

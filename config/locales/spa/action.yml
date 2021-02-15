@@ -1854,7 +1854,7 @@ spa:
     last_issues: "Últimos temas"
     last_movements: "Últimos movimientos"
     last_outgoing_parcels: "Últimos paquetes salientes"
-    # last_panier_local_import: "Last Panier Local import"
+    # last_socleo_import: "Last Socleo import"
     last_products: "Últimos productos"
     last_purchases: "Últimas compras"
     # last_purchases_invoices: "Last purchases"

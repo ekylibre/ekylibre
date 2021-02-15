@@ -1,17 +1,17 @@
 require 'test_helper'
 
-module PanierLocal
+module Socleo
   module IncomingPaymentsTest
     class IncomingPaymentsExchangerUnitTest < Ekylibre::Testing::ApplicationTestCase
       setup do
         # We wan't to keep tracking of import resource
-        @import = Import.create!(nature: :panier_local_incoming_payments)
-        @e = PanierLocal::IncomingPaymentsExchanger.new('', '', import_id: @import.id)
+        @import = Import.create!(nature: :socleo_incoming_payments)
+        @e = Socleo::IncomingPaymentsExchanger.new('', '', import_id: @import.id)
       end
 
       test 'payment_mode provider find' do
         assert_nil @e.find_payment_mode_by_provider
-        ipm = create :incoming_payment_mode, provider: { vendor: :panier_local, name: :incoming_payments, id: 42 }
+        ipm = create :incoming_payment_mode, provider: { vendor: :socleo, name: :incoming_payments, id: 42 }
         assert_equal ipm, @e.find_payment_mode_by_provider
       end
 
@@ -22,7 +22,7 @@ module PanierLocal
           ipm = @e.find_or_create_payment_mode
 
           assert ipm
-          assert ipm.is_provided_by?(vendor: 'panier_local', name: 'incoming_payments')
+          assert ipm.is_provided_by?(vendor: 'socleo', name: 'incoming_payments')
           assert_equal cash, ipm.cash
         end
       end
@@ -33,7 +33,7 @@ module PanierLocal
         assert_nil @e.find_incoming_payment_by_provider("42")
         ip = create :incoming_payment,
                     at: Date.new(2020, 1, 2),
-                    provider: { vendor: :panier_local, name: :incoming_payments, id: 42, data: { sale_reference_number: "42" } }
+                    provider: { vendor: :socleo, name: :incoming_payments, id: 42, data: { sale_reference_number: "42" } }
         assert_equal ip, @e.find_incoming_payment_by_provider("42")
       end
 
@@ -52,7 +52,7 @@ module PanierLocal
           ip = @e.find_or_create_incoming_payment(payment_info, payment_mode)
 
           assert ip
-          assert ip.is_provided_by?(vendor: 'panier_local', name: 'incoming_payments')
+          assert ip.is_provided_by?(vendor: 'socleo', name: 'incoming_payments')
           assert_equal "refnum", ip.provider_data.fetch(:sale_reference_number)
           assert_equal 456.0, ip.amount
         end

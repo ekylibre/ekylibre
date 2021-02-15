@@ -1783,7 +1783,7 @@ ita:
     last_issues: "ultimi problemi"
     last_movements: "ultimi movimenti"
     last_outgoing_parcels: "Ultimi pacchi in uscita"
-    # last_panier_local_import: "Last Panier Local import"
+    # last_socleo_import: "Last Socleo import"
     last_products: "ultimi prodotti"
     last_purchases: "ultimi acquisti"
     # last_purchases_invoices: "Last purchases"
