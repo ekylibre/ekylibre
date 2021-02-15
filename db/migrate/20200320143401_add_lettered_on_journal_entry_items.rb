@@ -1,4 +1,4 @@
-class AddLetteredOnJournalEntryItems < ActiveRecord::Migration
+class AddLetteredOnJournalEntryItems < ActiveRecord::Migration[4.2]
   def change
     add_column :journal_entry_items, :lettered_at, :datetime, index: true
     reversible do |dir|
