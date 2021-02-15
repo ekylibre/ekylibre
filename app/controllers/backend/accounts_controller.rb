@@ -80,7 +80,7 @@ module Backend
 
           PrinterJob.perform_later('Printers::AccountJournalEntrySheetPrinter', template: template, perform_as: current_user, **dataset_params)
           notify_success(:document_in_preparation)
-          redirect_to :back
+          redirect_back(fallback_location: { action: :index })
         end
       end
     end

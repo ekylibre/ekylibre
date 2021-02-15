@@ -139,7 +139,7 @@ module Backend
                 url[k] = (v.is_a?(CodeString) ? record.send(v) : v)
               end
             end
-            redirect_to(url)
+            url == :back ? redirect_back(fallback_location: root_path) : redirect_to(url)
             return true
           else
             raise ActiveRecord::Rollback

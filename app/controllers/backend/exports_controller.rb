@@ -51,7 +51,7 @@ module Backend
       if params[:format] == 'pdf'
         ExportJob.perform_later(JSON(params.to_unsafe_h), current_user.id)
         notify_success(:document_in_preparation)
-        redirect_to :back
+        redirect_back(fallback_location: { action: :index })
       else
         if (aggregator_parameters - params.keys).empty?
           notify(:information_success_print)
