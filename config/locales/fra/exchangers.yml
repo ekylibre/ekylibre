@@ -1,12 +1,12 @@
 fra:
   exchanger:
-    panier_local:
+    socleo:
       sales:
         errors:
           sale_data_missing_tax_information: "La vente ayant pour référence %{reference_number} est invalide car elle n'a pas d'information sur la TVA applicable."
-        sale_nature_name: "Vente en ligne - Panier Local"
+        sale_nature_name: "Vente en ligne - Socleo"
       incoming_payments:
-        incoming_payment_mode_name: "Panier Local"
+        incoming_payment_mode_name: "Socleo"
     sage:
       i_seven:
         errors:
@@ -17,7 +17,7 @@ fra:
   exchangers:
     agro_systemes_soil_analyses: "Analyses de sol ‒ AGRO Systèmes"
     agro_systemes_water_analyses: "Analyses d’eau ‒ AGRO Systèmes"
-    agroedi_daplos: "Production végétale"
+    agroedi_daplos: "Fiche parcellaire - Daplos Agro-EDI"
     bordeaux_sciences_agro_istea_balance: "Balance comptable ‒ ISTEA ‒ Bordeaux Sciences Agro"
     bordeaux_sciences_agro_istea_general_ledger: "Grand livre ‒ ISTEA ‒ Bordeaux Sciences Agro" #?
     bordeaux_sciences_agro_istea_journal_entries: "Ecritures comptables ‒ ISTEA ‒ Bordeaux Sciences Agro" #?
@@ -63,7 +63,7 @@ fra:
     ekylibre_variants: "Variants - Ekylibre"
     ekylibre_visuals: "Fond écran page de connexion - Ekylibre"
     ekylibre_workers: "Équipiers ‒ Ekylibre"
-    ekylibre_zones: "Zones de stockages - Ekylibre"
+    ekylibre_zones: "Zones de stockage - Ekylibre"
     fiea_galactea: "Analyses de lait par animal Galactea ‒ FIEA"
     galactea3_monthly_unitary_milk_analyses: "Analyses de lait par animal ‒ Galactea 3" #?
     isagri_isacompta_export: "Isacompta - Isagri"
@@ -82,8 +82,8 @@ fra:
     quadra_fec_txt: "FEC import (TXT) - Quadra"
     sage_i_seven_fec_txt: "FEC import (TXT) ‒ Sagei7"
     sage_i_seven_journal_entries: "Comptabilité (ECX) ‒ Sagei7"
-    panier_local_incoming_payments: "Encaissements (CSV) ‒ Panier Local"
-    panier_local_sales: "Ventes (CSV) ‒ Panier Local"
+    socleo_incoming_payments: "Encaissements (CSV) ‒ Socleo"
+    socleo_sales: "Ventes (CSV) ‒ Socleo"
     synel_animals: "Animaux ‒ Synel"
     synel_inventory: "Inventaire ‒ Synel"
     synest_inventory: "Inventaire ‒ Synest"
@@ -94,6 +94,10 @@ fra:
     telepac_v2018_cap_statements: "Déclaration TelePAC 2018 (XML)"
     telepac_v2019_cap_statements: "Déclaration TelePAC 2019 (XML)"
     telepac_v2020_cap_statements: "Déclaration TelePAC 2020 (XML)"
+    telepac_v2014_cap_land_parcels: "Îlots 2014 (SHP/ZIP) ‒ TéléPAC"
+    telepac_v2014_land_parcels: "Parcelles 2014 (SHP/ZIP) ‒ TéléPAC"
+    telepac_v2015_cap_land_parcels: "Îlots 2015 (SHP/ZIP) ‒ TéléPAC"
+    telepac_v2015_land_parcels: "Parcelles 2015 (SHP/ZIP) ‒ TéléPAC"
     unicoque_outgoing_deliveries: "Apports de récole ‒ Unicoque"
     unicoque_plant_zones: "Plantations (SHP/ZIP) ‒ Unicoque"
     upra_reproductors: "Liste des reproducteurs ‒ UPRA"
@@ -116,7 +120,7 @@ fra:
     milklic: "Mil'Klic"
     none: "None"
     odicom: "Odicom"
-    panier_local: "Panier Local"
+    socleo: "Socleo"
     quadra: "Quadra"
     sage: "Sage"
     synel: "Synel"

@@ -2275,7 +2275,7 @@ eng:
     last_issues: "Last issues"
     last_movements: "Last movements"
     last_outgoing_parcels: "Last outgoing parcels"
-    last_panier_local_import: "Last Panier Local import"
+    last_socleo_import: "Last Socleo import"
     last_products: "Last products"
     last_purchases: "Last purchases"
     last_purchases_invoices: "Last purchases"

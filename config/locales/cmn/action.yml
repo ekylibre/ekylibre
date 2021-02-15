@@ -1718,7 +1718,7 @@ cmn:
     last_issues: "最后的问题"
     last_movements: "最后动作"
     last_outgoing_parcels: "去年传出包裹"
-    # last_panier_local_import: "Last Panier Local import"
+    # last_socleo_import: "Last Socleo import"
     last_products: "最新产品"
     last_purchases: "上次购买"
     # last_purchases_invoices: "Last purchases"

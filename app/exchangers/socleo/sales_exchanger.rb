@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-module PanierLocal
+module Socleo
   class SalesExchanger < Base
     category :sales
-    vendor :panier_local
+    vendor :socleo
 
     # Imports sales entries into sales to make accountancy in CSV format
     # filename example : ECRITURES.CSV
@@ -35,7 +35,7 @@ module PanierLocal
       { col: 11, name: :sale_item_pretax_amount, type: :float },
       { col: 12, name: :vat_percentage, type: :float },
       { col: 13, name: :quantity, type: :integer },
-    ]
+    ].freeze
 
     def check
       data, errors = open_and_decode_file(file)
@@ -70,7 +70,7 @@ module PanierLocal
     def import
       data, _errors = open_and_decode_file(file)
 
-      sales_info = data.group_by { |d| d.sale_reference_number }
+      sales_info = data.group_by(&:sale_reference_number)
 
       sale_nature = find_or_create_sale_nature
       w.count = sales_info.size
@@ -80,7 +80,7 @@ module PanierLocal
         w.check_point
       end
     rescue Accountancy::AccountNumberNormalizer::NormalizationError => e
-      raise StandardError, "The account number length cant't be different from your own settings"
+      raise StandardError.new("The account number length cant't be different from your own settings")
     end
 
     # @param [Array<OpenStruct>] sale_info
@@ -116,7 +116,7 @@ module PanierLocal
 
         unknown_lines = grouped_lines.fetch(:unknown, [])
         if unknown_lines.any?
-          raise StandardError, "Found #{unknown_lines.size} unknown lines for sale #{reference_number}"
+          raise StandardError.new("Found #{unknown_lines.size} unknown lines for sale #{reference_number}")
         end
 
         client_info = unwrap_one("client info", exact: true) { grouped_lines.fetch(:client, []) }
@@ -165,7 +165,7 @@ module PanierLocal
     # @param [String] reference_number
     # @return [Sale, nil]
     def find_sale_by_provider(reference_number)
-      unwrap_one('sale') { Sale.of_provider_name(:panier_local, :sales).of_provider_data(:sale_reference_number, reference_number) }
+      unwrap_one('sale') { Sale.of_provider_name(:socleo, :sales).of_provider_data(:sale_reference_number, reference_number) }
     end
 
     # @param [OpenStruct] tax_info
@@ -181,7 +181,7 @@ module PanierLocal
     # @return [Tax, nil]
     def find_tax_by_provider(vat_percentage, account_number)
       unwrap_one('tax') do
-        Tax.of_provider_name(:panier_local, :sales)
+        Tax.of_provider_name(:socleo, :sales)
            .of_provider_data(:account_number, account_number)
            .of_provider_data(:vat_percentage, vat_percentage.to_s)
       end
@@ -212,7 +212,7 @@ module PanierLocal
       # BUG collect account is created and dropped if it doesn't match with the one from PALO
       tax = Tax.find_on(tax_info.invoiced_at.to_date, country: Preference[:country].to_sym, amount: tax_info.vat_percentage)
       if tax.nil?
-        raise StandardError, "Unable to create tax"
+        raise StandardError.new("Unable to create tax")
       end
 
       tax.provider = provider_value(account_number: tax_info.account_number, vat_percentage: tax_info.vat_percentage)
@@ -227,7 +227,7 @@ module PanierLocal
     # @return [ProductNatureVariant, nil]
     def find_variant_by_provider(account_number)
       unwrap_one('variant') do
-        ProductNatureVariant.of_provider_name(:panier_local, :sales)
+        ProductNatureVariant.of_provider_name(:socleo, :sales)
                             .of_provider_data(:account_number, account_number)
       end
     end
@@ -291,7 +291,7 @@ module PanierLocal
 
     # @return [SaleNature]
     def find_or_create_sale_nature
-      name = I18n.t('exchanger.panier_local.sales.sale_nature_name')
+      name = I18n.t('exchanger.socleo.sales.sale_nature_name')
 
       Maybe(find_sale_nature_by_provider)
         .recover { SaleNature.find_by(name: name) }
@@ -301,7 +301,7 @@ module PanierLocal
 
     # @return [SaleNature, nil]
     def find_sale_nature_by_provider
-      unwrap_one('sale nature') { SaleNature.of_provider_name(:panier_local, :sales) }
+      unwrap_one('sale nature') { SaleNature.of_provider_name(:socleo, :sales) }
     end
 
     # @param [String] name
@@ -316,40 +316,40 @@ module PanierLocal
         journal_id: journal.id,
         name: name,
         payment_delay: '30 days',
-        provider: { vendor: :panier_local, name: :sales, id: import_resource.id }
+        provider: { vendor: :socleo, name: :sales, id: import_resource.id }
       )
     end
 
     # @return [Journal]
     def find_or_create_journal
       Maybe(find_journal_by_provider)
-        .recover { Journal.create_with(provider: { vendor: :panier_local, name: :sales, id: import_resource.id })
-                          .find_or_create_by(code: 'PALO', nature: 'sales', name: 'Panier Local') }
+        .recover { Journal.create_with(provider: { vendor: :socleo, name: :sales, id: import_resource.id })
+                          .find_or_create_by(code: 'PALO', nature: 'sales', name: 'Socleo') }
         .or_raise
     end
 
     # @return [Journal, nil]
     def find_journal_by_provider
-      unwrap_one('journal') { Journal.of_provider_name(:panier_local, :sales) }
+      unwrap_one('journal') { Journal.of_provider_name(:socleo, :sales) }
     end
 
     # @return [Catalog]
     def find_or_create_catalog
       Maybe(find_catalog_by_provider)
-        .recover { Catalog.create_with(provider: { vendor: :panier_local, name: :sales, id: import_resource.id })
-                          .find_or_create_by(code: 'PALO', currency: 'EUR', usage: 'sale', name: 'Panier Local') }
+        .recover { Catalog.create_with(provider: { vendor: :socleo, name: :sales, id: import_resource.id })
+                          .find_or_create_by(code: 'PALO', currency: 'EUR', usage: 'sale', name: 'Socleo') }
         .or_raise
     end
 
     # @return [Catalog, nil]
     def find_catalog_by_provider
-      unwrap_one('catalog') { Catalog.of_provider_name(:panier_local, :sales) }
+      unwrap_one('catalog') { Catalog.of_provider_name(:socleo, :sales) }
     end
 
     protected
 
       def tl(*unit, **options)
-        I18n.t("exchanger.panier_local.sales.#{unit.map(&:to_s).join('.')}", **options)
+        I18n.t("exchanger.socleo.sales.#{unit.map(&:to_s).join('.')}", **options)
       end
 
       def provider_name

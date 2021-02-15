@@ -2121,7 +2121,7 @@ arb:
     last_issues: "مشاركة القضايا"
     last_movements: "مشاركة الحركات"
     last_outgoing_parcels: "مشاركة الطرود الصادرة"
-    # last_panier_local_import: "Last Panier Local import"
+    # last_socleo_import: "Last Socleo import"
     last_products: "آخر المنتجات"
     last_purchases: "مشاركة مشتريات"
     # last_purchases_invoices: "Last purchases"
