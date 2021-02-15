@@ -79,7 +79,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'rake', '~>12.0'
 
 # Manipulate map data
-gem 'charta', gitlab: 'ekylibre/charta', branch: 'master'
+gem 'charta', '~> 0.3.0'
 gem 'geocoder'
 
 # active_list alternative
