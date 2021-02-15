@@ -5,7 +5,7 @@ module Api
       extend ActiveSupport::Concern
       included do
         test 'receiving an empty payload doesn\'t blow up' do
-          assert_nothing_raised { post :create }
+          assert_nothing_raised { post :create, params: {} }
         end
 
         test 'receiving an appropriate payload creates an appropriate InterventionParticipation and returns its id' do

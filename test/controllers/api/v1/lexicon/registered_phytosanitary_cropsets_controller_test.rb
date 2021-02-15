@@ -7,7 +7,7 @@ module Api
         connect_with_token
 
         test 'index' do
-          get :index
+          get :index, params: {}
           json = JSON.parse response.body
 
           assert_equal RegisteredPhytosanitaryCropset.count, json["data"].count

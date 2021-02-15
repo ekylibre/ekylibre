@@ -7,7 +7,7 @@ module Backend
     end
 
     test 'action index' do
-      get :index
+      get :index, params: {}
       assert_response :success
     end
 
