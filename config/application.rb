@@ -44,9 +44,6 @@ module Ekylibre
     # Confiure ActiveJob queue adapter
     config.active_job.queue_adapter = :sidekiq
 
-    # Do not swallow errors in after_commit/after_rollback callbacks.
-    # config.active_record.raise_in_transactional_callbacks = true
-
     # Default starting from Rails 5
     # TODO: enable this when all optional belongs_to have been edited with 'optional: true'
     # config.active_record.belongs_to_required_by_default = true
