@@ -88,4 +88,17 @@ class IssueTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     plant.reload
     assert plant.dead_at.nil?, 'Dead_at of plant should be nil when no death registered'
   end
+
+  test 'add lat and lon on issue for equipment' do
+    now = Time.utc(2019, 10, 25, 20, 20, 20)
+    equipment = Equipment.last
+    lat = '44.81850'
+    lon = '-0.54426'
+    geolocation = ::Charta.new_point(lat, lon)
+
+    geo_issue = Issue.create!(target: equipment, nature: :issue, observed_at: now, geolocation: geolocation)
+
+    assert_equal lat.to_f, geo_issue.geolocation.lat
+    assert_equal lon.to_f, geo_issue.geolocation.lon
+  end
 end

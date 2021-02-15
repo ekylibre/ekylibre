@@ -46,6 +46,37 @@ module Backend
       t.status
     end
 
+    def new
+      # Taken almost-verbatim from manage_restully-generated code
+      options = {
+        custom_fields: params[:custom_fields],
+        dead: params[:dead],
+        description: params[:description],
+        geolocation: params[:geolocation],
+        gravity: params[:gravity],
+        name: params[:name],
+        nature: params[:nature],
+        observed_at: Time.zone.now,
+        picture_content_type: params[:picture_content_type],
+        picture_file_name: params[:picture_file_name],
+        picture_file_size: params[:picture_file_size],
+        picture_updated_at: params[:picture_updated_at],
+        priority: params[:priority],
+        state: params[:state],
+        target_id: params[:target_id],
+        target_type: params[:target_type]
+      }
+
+      if params[:lat].present? && params[:lon].present?
+        geolocation = ::Charta.new_point(params[:lat], params[:lon])
+        options[:geolocation] = geolocation
+      end
+
+      @issue = Issue.new(options)
+
+      render(locals: { cancel_url: { action: :index }, with_continue: false })
+    end
+
     def close
       return unless @issue = find_and_check
 

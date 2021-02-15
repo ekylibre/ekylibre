@@ -167,6 +167,7 @@ class Activity < ApplicationRecord
         self.cultivation_variety ||= :plant
         self.size_indicator_name = 'net_surface_area' if size_indicator_name.blank?
         self.size_unit_name = 'hectare' if size_unit_name.blank?
+        self.production_system_name = :intensive_farming if production_system_name.blank?
       elsif animal_farming?
         self.with_supports = true
         self.support_variety = :animal_group
@@ -174,6 +175,7 @@ class Activity < ApplicationRecord
         self.cultivation_variety ||= :animal
         self.size_indicator_name = 'members_population' if size_indicator_name.blank?
         self.size_unit_name = 'unity' if size_unit_name.blank?
+        self.production_system_name = :intensive_farming if production_system_name.blank?
       elsif tool_maintaining?
         self.with_supports = true
         self.support_variety = :equipment_fleet
