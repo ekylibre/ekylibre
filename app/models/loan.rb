@@ -18,7 +18,6 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
-
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
@@ -63,14 +62,11 @@
 class Loan < ApplicationRecord
   include Attachable
   include Customizable
-  include Transitionable
   include Providable
-
   enumerize :repayment_method, in: %i[constant_rate constant_amount], default: :constant_amount
   enumerize :shift_method, in: %i[immediate_payment anatocism], default: :immediate_payment
   enumerize :repayment_period, in: %i[month year trimester semester], default: :month, predicates: { prefix: true }
   enumerize :insurance_repayment_method, in: %i[initial to_repay], default: :to_repay, predicates: true
-  enumerize :state, in: %i[draft ongoing repaid], predicates: true, i18n_scope: "models.#{model_name.param_key}.states"
   refers_to :currency
   belongs_to :cash
   belongs_to :journal_entry
@@ -103,6 +99,19 @@ class Loan < ApplicationRecord
 
   scope :drafts, -> { where(state: %w[draft]) }
   scope :ongoing_within, ->(start_date, stop_date) { where('loans.ongoing_at BETWEEN ? and ?', start_date.to_time, stop_date.to_time) }
+
+  state_machine :state, initial: :draft do
+    state :draft
+    state :ongoing
+    state :repaid
+
+    event :confirm do
+      transition draft: :ongoing, if: :draft?
+    end
+    event :repay do
+      transition ongoing: :repaid, if: :ongoing?
+    end
+  end
 
   before_validation(on: :create) do
     self.state ||= :draft
@@ -236,6 +245,37 @@ class Loan < ApplicationRecord
   # Prints human name of current state
   def state_label
     self.class.state_machine.state(self.state.to_sym).human_name
+  end
+
+  # why ? we have state machine ?
+  def draft?
+    state.to_sym == :draft
+  end
+
+  def ongoing?
+    state.to_sym == :ongoing
+  end
+
+  def repaid?
+    state.to_sym == :repaid
+  end
+
+  def confirm(ongoing_at = nil)
+    return false unless can_confirm?
+
+    reload
+    self.ongoing_at ||= ongoing_at || Time.zone.now
+    save!
+    super
+  end
+
+  def repay(repaid_at = nil)
+    return false unless can_repay?
+
+    reload
+    self.repaid_at ||= repaid_at || Time.zone.now
+    save!
+    super
   end
 
   def editable?
