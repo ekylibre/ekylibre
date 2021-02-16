@@ -355,19 +355,9 @@ module Backend
         end
       end
       show = options.delete(:show)
-      unless show.is_a?(FalseClass)
-        show ||= @object.class.where.not(attribute_name => nil)
-        union = Charta.empty_geometry
-        if show.any?
-          if show.is_a?(Hash) && show.key?(:series)
-            editor[:show] = show
-          else
-            union = show.geom_union(attribute_name)
-            editor[:show] = union.to_json_object unless union.empty?
-          end
-        else
-          editor[:show] = {}
-          editor[:show][:series] = {}
+      if show.present?
+        if show.is_a?(Hash) && show.key?(:series)
+          editor[:show] = show
         end
         editor[:useFeatures] = true
       end
