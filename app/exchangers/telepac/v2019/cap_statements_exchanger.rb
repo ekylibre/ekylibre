@@ -1,6 +1,8 @@
 module Telepac
   module V2019
-    class CapStatementsExchanger < Telepac::Exchanger
+    class CapStatementsExchanger < ActiveExchanger::Base
+      include ExchangerMixin
+
       campaign 2019
     end
   end
