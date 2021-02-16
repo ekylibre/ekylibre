@@ -95,19 +95,31 @@ module Backend
     end
 
     def confirm
-      return unless (record = find_and_check)
+      return unless (@loan = find_and_check)
 
-      record.confirm(ongoing_at: Time.zone.now, current_user: current_user)
+      financial_year = FinancialYear.at(@loan.ongoing_at)
 
-      redirect_to action: :show, id: record.id
+      if financial_year&.closure_in_preparation? && financial_year.updater != current_user
+        notify_error(:financial_year_matching_this_date_is_closing_by_other_user.tl(user: financial_year.updater.full_name))
+      else
+        @loan.confirm
+      end
+
+      redirect_to action: :show, id: @loan.id
     end
 
     def repay
-      return unless (record = find_and_check)
+      return unless (@loan = find_and_check)
 
-      record.repay(repaid_at: Time.zone.now, current_user: current_user)
+      financial_year = @loan.journal_entry.financial_year
 
-      redirect_to action: :show, id: record.id
+      if financial_year.closing && financial_year.updater != current_user
+        notify_error(:financial_year_matching_this_date_is_closing_by_other_user.tl(user: @loan.updater.full_name))
+      else
+        @loan.repay
+      end
+
+      redirect_to action: :show, id: @loan.id
     end
 
     def bookkeep
