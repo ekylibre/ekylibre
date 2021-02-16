@@ -1,19 +1,11 @@
 module Telepac
-  class << self
-    def exchangers
-      ActiveExchanger::Base.exchangers.values
-                           .select { |e| e < Telepac::Exchanger }
-                           .map { |e| [e.campaign, e] }
-                           .sort_by(&:first)
-                           .to_h
-    end
-  end
+  module ExchangerMixin
+    extend ActiveSupport::Concern
 
-  class Exchanger < ActiveExchanger::Base
     IGNORED = %w[BFP BFS BOR BTA MRS SNE].freeze
     FALLOW_LAND = %w[J5M J6S J6P JNO].freeze
 
-    class << self
+    module ClassMethods
       def campaign(campaign = nil)
         if campaign.nil?
           @campaign
@@ -23,8 +15,10 @@ module Telepac
       end
     end
 
-    category :plant_farming
-    vendor :telepac
+    included do
+      category :plant_farming
+      vendor :telepac
+    end
 
     def check
       # check if file is a valid XML
@@ -359,5 +353,6 @@ module Telepac
           end
         end
       end
+
   end
 end
