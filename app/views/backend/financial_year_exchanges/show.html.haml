@@ -1,13 +1,8 @@
 - main_toolbar do |t|
-  - export_formats = %w(csv fec_txt fec_xml)
-  = dropdown_menu_button(:export.tl, { icon: :download }) do |d|
-    - export_formats.each do |format|
-      - d.item("#{format}_format".tl, action: :journal_entries_export, format: format)
+  = t.journal_entries_export resource, format: :csv, label: :journal_entries_export.ta, class: 'btn-download'
   - if resource.opened?
     = t.journal_entries_import resource, label: :journal_entries_import.ta, class: 'btn-upload'
-    = dropdown_menu_button(:notify_accountant.tl, { icon: :envelope }) do |d|
-      - export_formats.each do |format|
-        - d.item("#{format}_format".tl, action: :notify_accountant, format: format)
+    = t.notify_accountant resource, class: 'btn-envelope'
     = t.close(resource)
 
 = main_informations do

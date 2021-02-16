@@ -71,10 +71,6 @@ class FinancialYearExchange < ApplicationRecord
   before_create :close_journal_entries
   after_create :set_journal_entries_financial_year_exchange
 
-  def name
-    "#{id.to_s} - #{started_on.to_s} | #{stopped_on.to_s}"
-  end
-
   def opened?
     !closed_at
   end
