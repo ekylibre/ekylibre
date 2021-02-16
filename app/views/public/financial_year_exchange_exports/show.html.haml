@@ -1,0 +1,5 @@
+%h2
+  Échange du
+  = @exchange.stopped_on
+
+= link_to "Télécharger le CSV", csv_public_financial_year_exchange_export_path(id: @exchange.public_token)

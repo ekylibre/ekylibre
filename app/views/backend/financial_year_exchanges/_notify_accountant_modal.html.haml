@@ -1,5 +1,0 @@
-%h1= :choose_entries_format_for_accountant.tl
-#notify_accountant_modal
-  = link_to(:csv_format.tl, { action: :notify_accountant, format: :csv, id: id}, class: 'btn')
-  = link_to(:fec_txt_format.tl, { action: :notify_accountant, format: :fec_txt, id: id}, class: 'btn')
-  = link_to(:fec_xml_format.tl, { action: :notify_accountant, format: :fec_xml, id: id}, class: 'btn')

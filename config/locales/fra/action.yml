@@ -1046,16 +1046,6 @@ fra:
     unroll:
       server_error: "Erreur serveur"
   labels:
-    csv_format: "Format CSV"
-    fec_txt_format: "Format FEC TXT"
-    fec_xml_format: "Format FEC XML"
-    choose_entries_format_for_accountant: "Choisissez le format des écritures à envoyer au comptable"
-    notify_accountant: "Notifier le comptable"
-    journal_entries_export_file_generated: "Le fichier d'export des écritures comptables a été généré avec succès"
-    journal_entries_fec_txt_export: "Exporter un FEC au format TXT"
-    journal_entries_fec_xml_export: "Exporter un FEC au format XML"
-    journal_entries_csv_export: "Exporter un CSV"
-    accountant_notified: "Le comptable a bien été notifié"
     configure_naming_format: "Paramétrer le format de nommage"
     free_field_naming_format_hint: "Vous pouvez ajouter un champ libre personnalisé en paramétrant votre format de nommage"
     land_parcel_support_name: "Nom de la parcelle"
@@ -3471,6 +3461,7 @@ fra:
       accounts_cannot_be_truncated_to_preference:
         one: "Le compte comptable %{accounts} ne peut être tronqué à la préférence comptable sélectionnée (%{preference} caractères). Seul le zéro peut être automatiquement supprimé. Veuillez modifier ce compte comptable si vous souhaitez ajuster la préférence de la société à %{preference} caractères"
         other: "Les comptes comptables %{accounts} ne peuvent être tronqués à la préférence comptable sélectionnée (%{preference} caractères). Seul le zéro peut être automatiquement supprimé. Veuillez modifier ces comptes comptables si vous souhaitez ajuster la préférence de la société à %{preference} caractères"
+      accountant_notified: "Le comptable a bien été notifié"
       accountant_without_email: "Merci de renseigner l’email du comptable"
       # aggeratio_not_found: "The export requested was not found"
       all_fixed_assets_must_be_depreciable: "Tous les immobilisations doivent être amortissables"
@@ -3687,7 +3678,6 @@ fra:
     bookkeep_in_draft: "Enregistrer les pièces dans le brouillard lors de la bascule automatique"
     catalog_price_item_addition_if_blank: "Compléter le catalogue de prix pendant les achats et ventes"
     client_account_radix: "Radical comptable du compte client"
-    commercial_accountancy_workflow: "Utiliser la comptabilité d'engagement"
     country: "Pays"
     create_activities_from_telepac: "Créer automatiquement les activités lors de l’import TelePAC"
     currency: "Monnaie"
@@ -3752,6 +3742,7 @@ fra:
       index: "Index"
       interval_reconciliation: "Rapprocher" #?
       invoice: "Facturer"
+      journal_entries_csv_export: "Exporter un CSV"
       journal_entries_export: "Télécharger le CSV"
       journal_entries_import: "Importer un CSV"
       list: "Lister"
