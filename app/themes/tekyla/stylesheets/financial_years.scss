@@ -233,12 +233,8 @@ i {
     @include is-icon();
     @include use-icon(upload);
   }
-  #exchanges-list .list .notify-accountant-action & {
+  #exchanges-list .list .email-action & {
     @include is-icon();
     @include use-icon(envelope);
   }
-}
-#notify_accountant_modal {
-  display: flex;
-  justify-content: space-evenly;
 }

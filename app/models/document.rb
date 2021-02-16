@@ -73,8 +73,6 @@ class Document < ApplicationRecord
   # validates_attachment_presence :file
   validates_attachment_content_type :file, content_type: /(application|image|text)/
 
-  before_post_process :processable_attachment?
-
   delegate :name, to: :template, prefix: true
   acts_as_numbered
 
@@ -92,9 +90,5 @@ class Document < ApplicationRecord
     self.key ||= "#{Time.now.to_i}-#{file.original_filename}"
     # DB limitation
     self.file_content_text = file_content_text.truncate(500_000) if file_content_text
-  end
-
-  def processable_attachment?
-    processable_attachment
   end
 end

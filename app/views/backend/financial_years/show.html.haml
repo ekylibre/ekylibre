@@ -18,10 +18,8 @@
     = t.lock resource, label: :lock_financial_year.tl(code: resource.name), icon: false
 
   = dropdown_menu_button(:export_fec.ta, { icon: :download }) do |d|
-    - export_params = params.slice(:id)
-    - position = resource.fec_format
-    - if position
-      - %i[text xml].each do |format|
+    - %i[text xml].each do |format|
+      - %i[all ba_bnc_ir_commercial_accountancy ba_ir_cash_accountancy bnc_ir_cash_accountancy].each do |position|
         - d.item "export_#{format}_fec_#{position}".tl, action: :show, fiscal_position: position, format: format
 
   = t.export :income_statement, :balance_sheet, :short_balance_sheet, key: Printers::BalanceSheetPrinter.build_key(financial_year: resource)
@@ -54,7 +52,7 @@
 
 = cobbles do |c|
   - c.cobble(:exchanges) do
-    = cobble_list :exchanges, data: 'id'
+    = cobble_list :exchanges
 
 - if resource.closed? && resource.archives.any?
   = render "signature_modal", type: 'prior_to', fingerprint: resource.prior_to_closure_archive.sha256_fingerprint, signature: resource.prior_to_closure_archive.signature

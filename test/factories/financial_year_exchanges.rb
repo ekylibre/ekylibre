@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :financial_year_exchange do
-    financial_year
+    # needs financial_year
 
     after(:build) do |exchange|
       exchange.started_on = exchange.financial_year.started_on

@@ -1,19 +1,16 @@
 class FinancialYearExchangeExportMailer < ActionMailer::Base
-  def notify_accountant(exchange, current_user, file, zipname)
-    attachments[zipname] = File.read(file)
-
-    locales_values = {
+  def notify_accountant(exchange, current_user)
+    @resource = exchange
+    values = {
       name: Entity.of_company.full_name,
       current_user_name: current_user.full_name,
-      exchange_name: exchange.name,
-      accountant_full_name: exchange.accountant.full_name
+      link: public_financial_year_exchange_export_url(id: @resource.public_token)
     }
-
     mail(
       from: current_user.email,
-      to: exchange.accountant_email,
-      subject: I18n.t('mailers.financial_year_exchange_export.notify_accountant_subject', locales_values),
-      body: I18n.t('mailers.financial_year_exchange_export.notify_accountant', locales_values)
+      to: @resource.accountant_email,
+      subject: I18n.t('mailers.financial_year_exchange_export.notify_accountant_subject', values),
+      body: I18n.t('mailers.financial_year_exchange_export.notify_accountant', values)
     )
   end
 end
