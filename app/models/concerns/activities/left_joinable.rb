@@ -44,7 +44,7 @@ module Activities
               FROM (
                 SELECT DISTINCT
                   interventions.id AS id,
-                  interventions.working_duration AS working_duration,
+                  interventions.working_duration * intervention_targets.imputation_ratio AS working_duration,
                   activity_productions.activity_id AS activity_id
                 FROM activity_productions
                 INNER JOIN products
@@ -71,7 +71,7 @@ module Activities
               FROM (
                 SELECT DISTINCT
                   interventions.id AS id,
-                  interventions.working_duration AS working_duration,
+                  interventions.working_duration * intervention_targets.imputation_ratio AS working_duration,
                   activity_productions.activity_id AS activity_id
                 FROM interventions
                 INNER JOIN intervention_parameters AS intervention_targets
