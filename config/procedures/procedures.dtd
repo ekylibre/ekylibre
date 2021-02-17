@@ -55,7 +55,6 @@
         cardinality CDATA #IMPLIED
         component-of CDATA #IMPLIED
         default-actor CDATA #IMPLIED
-        display-status CDATA #IMPLIED <!-- DEPRECATED -->
 >
 
 <!ELEMENT output (attribute*, reading*, handler*)>
