@@ -270,7 +270,7 @@ module RestfullyManageable
       sort << "#{position}, #{conditions} = #{record_name}.position_column, #{record_name}.scope_condition\n"
       sort << "#{records} = #{model.name}.where(#{conditions}).order(#{position}+', #{order_by}')\n"
       sort << "#{records}_count = #{records}.count(#{position})\n"
-      sort << "unless #{records}_count == #{records}.uniq.count(#{position}) and #{records}.sum(#{position}) == #{records}_count*(#{records}_count+1)/2\n"
+      sort << "unless #{records}_count == #{records}.distinct.count(#{position}) and #{records}.sum(#{position}) == #{records}_count*(#{records}_count+1)/2\n"
       sort << "  #{records}.each_with_index do |#{record_name}, i|\n"
       sort << "    #{model.name}.where(id: #{record_name}.id).update_all(#{position} => i+1)\n"
       sort << "  end\n"
