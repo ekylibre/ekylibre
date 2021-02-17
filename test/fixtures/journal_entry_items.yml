@@ -48,6 +48,7 @@
 #  id                        :integer          not null, primary key
 #  journal_id                :integer          not null
 #  letter                    :string
+#  lettered_at               :datetime
 #  lock_version              :integer          default(0), not null
 #  name                      :string           not null
 #  position                  :integer
