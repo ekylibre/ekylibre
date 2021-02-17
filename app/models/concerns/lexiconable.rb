@@ -7,8 +7,8 @@ module Lexiconable
     before_save :forbid!
     before_destroy :forbid!
 
-    scope :including_references, -> (refs) { where(reference_name: refs) }
-    scope :excluding_references, -> (refs) { where.not(reference_name: refs) }
+    scope :including_references, ->(refs) { where(reference_name: refs) }
+    scope :excluding_references, ->(refs) { where.not(reference_name: refs) }
 
     class << self
       attr_accessor :id_column

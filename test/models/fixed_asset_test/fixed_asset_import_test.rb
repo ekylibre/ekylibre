@@ -12,7 +12,7 @@ module FixedAssetTest
       waiting_account = Account.find_or_import_from_nomenclature :suspense
 
       fa = create :fixed_asset, :in_use, :yearly, :linear,
-                  started_on: Date.new(2008,1,1),
+                  started_on: Date.new(2008, 1, 1),
                   amount: 50_000,
                   percentage: 10.00,
                   journal: @journal

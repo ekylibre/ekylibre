@@ -750,60 +750,60 @@ module Backend
 
     protected
 
-    def clean_targets(targets)
-      if targets.is_a?(String)
-        return targets
-      elsif targets.is_a?(Symbol)
-        return "##{targets}"
-      elsif targets.is_a?(Array)
-        return targets.collect { |t| clean_targets(t) }.join(', ')
-      else
-        return targets.to_json
+      def clean_targets(targets)
+        if targets.is_a?(String)
+          return targets
+        elsif targets.is_a?(Symbol)
+          return "##{targets}"
+        elsif targets.is_a?(Array)
+          return targets.collect { |t| clean_targets(t) }.join(', ')
+        else
+          return targets.to_json
+        end
+
+        targets
       end
 
-      targets
-    end
+      # Compute all needed options for referenced_association
+      def referenced_association_input_options(association, options = {})
+        options = options.dup
+        reflection = find_association_reflection(association)
+        raise "Association #{association.inspect} not found" unless reflection
+        if reflection.macro != :belongs_to
+          raise ArgumentError.new("Reflection #{reflection.name} must be a belongs_to")
+        end
 
-    # Compute all needed options for referenced_association
-    def referenced_association_input_options(association, options = {})
-      options = options.dup
-      reflection = find_association_reflection(association)
-      raise "Association #{association.inspect} not found" unless reflection
-      if reflection.macro != :belongs_to
-        raise ArgumentError.new("Reflection #{reflection.name} must be a belongs_to")
+        choices = options.delete(:source) || {}
+        choices = { scope: choices } if choices.is_a?(Symbol)
+        choices[:action] ||= :unroll
+        choices[:controller] ||= options.delete(:controller) || reflection.class_name.underscore.pluralize
+
+        model = @object.class
+
+        options[:input_html] ||= {}
+        options[:input_html][:data] ||= {}
+        options[:input_html][:data][:use_closest] = options[:closest] if options[:closest]
+        options[:input_html][:data][:selector] = @template.url_for(choices)
+        unless options[:new].is_a?(FalseClass)
+          new_url = options[:new].is_a?(Hash) ? options[:new] : {}
+          new_url[:controller] ||= choices[:controller]
+          new_url[:action] ||= :new
+          options[:input_html][:data][:selector_new_item] = @template.url_for(new_url)
+        end
+        # options[:input_html][:data][:value_parameter_name] = options[:value_parameter_name] || reflection.foreign_key
+        options[:input_html][:data][:selector_id] = model.name.underscore + '_' + reflection.foreign_key.to_s
+        options[:as] = :string
+        options[:reflection] = reflection
+        options
       end
 
-      choices = options.delete(:source) || {}
-      choices = { scope: choices } if choices.is_a?(Symbol)
-      choices[:action] ||= :unroll
-      choices[:controller] ||= options.delete(:controller) || reflection.class_name.underscore.pluralize
+      def unit_field(unit_name_attribute, units_values, *_args)
+        if units_values.is_a?(Array)
+          return input(unit_name_attribute, collection: units_values, include_blank: false, wrapper: :simplest)
+        end
 
-      model = @object.class
-
-      options[:input_html] ||= {}
-      options[:input_html][:data] ||= {}
-      options[:input_html][:data][:use_closest] = options[:closest] if options[:closest]
-      options[:input_html][:data][:selector] = @template.url_for(choices)
-      unless options[:new].is_a?(FalseClass)
-        new_url = options[:new].is_a?(Hash) ? options[:new] : {}
-        new_url[:controller] ||= choices[:controller]
-        new_url[:action] ||= :new
-        options[:input_html][:data][:selector_new_item] = @template.url_for(new_url)
+        @template.content_tag(:span, units_values.tl, class: 'add-on')
       end
-      # options[:input_html][:data][:value_parameter_name] = options[:value_parameter_name] || reflection.foreign_key
-      options[:input_html][:data][:selector_id] = model.name.underscore + '_' + reflection.foreign_key.to_s
-      options[:as] = :string
-      options[:reflection] = reflection
-      options
-    end
-
-    def unit_field(unit_name_attribute, units_values, *_args)
-      if units_values.is_a?(Array)
-        return input(unit_name_attribute, collection: units_values, include_blank: false, wrapper: :simplest)
-      end
-
-      @template.content_tag(:span, units_values.tl, class: 'add-on')
-    end
 
     private
 

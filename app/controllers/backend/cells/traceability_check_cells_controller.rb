@@ -6,7 +6,7 @@ module Backend
                       Campaign.find(params[:campaign_id])
                     else
                       current_campaign
-                     end
+                    end
       end
     end
   end

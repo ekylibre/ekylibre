@@ -17,7 +17,7 @@ class BooleanValidatorTest < Ekylibre::Testing::ApplicationTestCase::WithFixture
     assert @obj.valid?
 
     @obj.bool = false
-    assert@obj.valid?
+    assert @obj.valid?
   end
 
   test 'any other value is invalid' do

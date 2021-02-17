@@ -8,15 +8,15 @@ module GeoJSON
     end
 
     def feat_collection(*features)
-      {'type' => "FeatureCollection", 'features' => features.flatten}
+      { 'type' => "FeatureCollection", 'features' => features.flatten }
     end
 
     def feat(properties = {}, geometry = poly)
-      {'type' => "Feature", 'properties' => properties.deep_stringify_keys, 'geometry' => geometry}
+      { 'type' => "Feature", 'properties' => properties.deep_stringify_keys, 'geometry' => geometry }
     end
 
     def poly(coordinates = [[[]]])
-      {'type' => "Polygon", 'coordinates' => coordinates}
+      { 'type' => "Polygon", 'coordinates' => coordinates }
     end
   end
 end

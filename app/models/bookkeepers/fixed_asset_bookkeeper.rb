@@ -117,9 +117,9 @@ class FixedAssetBookkeeper < Ekylibre::Bookkeeper
 
       # set correct label for entry
       if sold?
-       label = :bookkeep_in_sold_assets
+        label = :bookkeep_in_sold_assets
       elsif scrapped?
-       label = :bookkeep_exit_assets
+        label = :bookkeep_exit_assets
       end
 
       # get last depreciation for date out_on

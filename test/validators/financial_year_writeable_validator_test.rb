@@ -114,7 +114,7 @@ class FinancialYearWriteableValidatorTest < Ekylibre::Testing::ApplicationTestCa
   end
 
   test 'query database if record does not responds to financial year' do
-    validator = FinancialYearWriteableValidator.new({:attributes => {:printed_on => true}})
+    validator = FinancialYearWriteableValidator.new({ :attributes => { :printed_on => true } })
 
     assert_equal 'EX1992-93', validator.financial_year(Class.new, Date.new(1993, 04, 30)).code
   end

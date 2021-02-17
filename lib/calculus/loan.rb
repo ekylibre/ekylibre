@@ -95,7 +95,7 @@ module Calculus
                              amount / @count
                            else
                              amount * global_rate / (1 - ((1 + global_rate)**-@count))
-        end
+                           end
 
         @count.times do |_index|
           repayment = {}

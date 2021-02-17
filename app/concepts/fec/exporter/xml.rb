@@ -31,7 +31,7 @@ module FEC
                         xml.EcritureDate entry.printed_on.strftime('%Y-%m-%d')
                         xml.EcritureLib entry.items.first.name
                         xml.PieceRef entry.number
-                        xml.PieceDate ( entry.printed_on > entry.created_at.to_date ? entry.created_at.strftime('%Y-%m-%d') : entry.printed_on.strftime('%Y-%m-%d'))# bug with resource.created_at.strftime('%Y-%m-%d')
+                        xml.PieceDate ( entry.printed_on > entry.created_at.to_date ? entry.created_at.strftime('%Y-%m-%d') : entry.printed_on.strftime('%Y-%m-%d')) # bug with resource.created_at.strftime('%Y-%m-%d')
                         xml.EcritureLet entry.letter if entry.letter
                         # xml.DateLet
                         xml.ValidDate (entry.validated_at? ? entry.validated_at.strftime('%Y-%m-%d') : entry.printed_on.strftime('%Y-%m-%d'))

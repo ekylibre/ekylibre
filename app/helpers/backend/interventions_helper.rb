@@ -11,10 +11,10 @@ module Backend
     def compare_with_planned(params)
       result = params.compare_with_planned
       image_path = if result
-        'interventions/calendar-v.svg'
-      else
-        'interventions/calendar-!.svg'
-      end
+                     'interventions/calendar-v.svg'
+                   else
+                     'interventions/calendar-!.svg'
+                   end
       image_tag(image_path, class: 'calendar-img')
     end
 
@@ -64,7 +64,7 @@ module Backend
                    'cow'
                  elsif product.is_a?(Equipment) || product.is_a?(EquipmentFleet)
                    'tractor'
-                end
+                 end
 
           task_datas << { icon: icon, text: displayed_name, style: "background-color: #{activity_color}; color: #{contrasted_color(activity_color)}", category: 'parameters' }
         end
