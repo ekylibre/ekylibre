@@ -67,6 +67,7 @@ fra:
     fiea_galactea: "Analyses de lait par animal Galactea ‒ FIEA"
     galactea3_monthly_unitary_milk_analyses: "Analyses de lait par animal ‒ Galactea 3" #?
     isagri_isacompta_export: "Isacompta - Isagri"
+    isagri_isacompta_fec_txt: "FEC import (TXT) - Isacompta - Isagri"
     isagri_isacompta_fixed_assets: "Immobilisation isacompta ‒ Isagri"
     isagri_isacompta_journal_entries: "Ecritures comptables (GL) isacompta ‒ Isagri"
     isagri_isaculture_csv_import: "Interventions isaculture (CSV/ZIP) ‒ Isagri"
