@@ -78,10 +78,10 @@ class FinancialYear < ApplicationRecord
 
   # This order must be the natural order
   # It permit to find the first and the last financial year
-  scope :with_state, -> (*states) { where(state: states).reorder(:started_on) }
+  scope :with_state, ->(*states) { where(state: states).reorder(:started_on) }
   scope :closed, -> { with_state :closed }
   scope :opened, -> { with_state :opened }
-  scope :started_after, -> (date) { where('? < started_on', date).order(:started_on) }
+  scope :started_after, ->(date) { where('? < started_on', date).order(:started_on) }
   scope :stopped_before, ->(date) { where('stopped_on < ?', date).order(:started_on) }
   scope :in_preparation, -> { where(state: 'closure_in_preparation').reorder(:started_on) }
   scope :closables_or_lockables, -> { where(state: %i[opened closure_in_preparation]).where('started_on <= ?', Time.zone.now).where.not('? BETWEEN started_on AND stopped_on', Time.zone.now).reorder(:started_on) }
@@ -464,13 +464,13 @@ class FinancialYear < ApplicationRecord
   def split_into_periods(interval)
     case interval
     when 'year'
-        [[started_on, stopped_on]]
+      [[started_on, stopped_on]]
     when 'semesters'
-        compute_ranges(6)
+      compute_ranges(6)
     when 'trimesters'
-        compute_ranges(3)
+      compute_ranges(3)
     when 'months'
-        compute_ranges(1)
+      compute_ranges(1)
     end
   end
 

@@ -7,12 +7,12 @@ module Api
         type = params[:product_type] && params[:product_type].to_s.singularize.camelize
 
         products = if type.blank?
-          Product.where(type: ACCEPTED_TYPES)
-        elsif ACCEPTED_TYPES.include?(type)
-          Product.where(type: type)
-        else
-          nil
-        end
+                     Product.where(type: ACCEPTED_TYPES)
+                   elsif ACCEPTED_TYPES.include?(type)
+                     Product.where(type: type)
+                   else
+                     nil
+                   end
         return error_message("Invalid type: #{type}, accepted types are: #{ACCEPTED_TYPES.join(',')}") if products.nil?
 
         if params[:modified_since]

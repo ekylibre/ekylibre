@@ -120,13 +120,13 @@ module Agroedi
 
       def to_attributes
         collection_attributes = children.map do |key, values|
-            keyed_values = values.map do |val|
-              [val.uid.to_s, val.to_attributes]
-            end
-            ["#{key}_attributes", keyed_values.to_h]
-          end.to_h.with_indifferent_access
+          keyed_values = values.map do |val|
+            [val.uid.to_s, val.to_attributes]
+          end
+          ["#{key}_attributes", keyed_values.to_h]
+        end.to_h.with_indifferent_access
 
-          procedo_consistent(collection_attributes.merge(general_attributes))
+        procedo_consistent(collection_attributes.merge(general_attributes))
       end
 
       private

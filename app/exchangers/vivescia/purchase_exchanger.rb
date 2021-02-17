@@ -136,13 +136,13 @@ module Vivescia
                         -1.0
                       else
                         1.0
-                            end
+                      end
                     else
                       if edi_purchase.header.purchase_code.include?('AFA') || edi_purchase.header.purchase_code.include?('ACF')
                         -edi_purchase_item.quantity
                       else
                         edi_purchase_item.quantity
-                            end
+                      end
                     end
 
               # set unit_pretax_amount to pretax_amount if 0
@@ -238,7 +238,7 @@ module Vivescia
               else
                 upta = edi_sale_item.price_unit
                 pta = edi_sale_item.pretax_amount
-                     end
+              end
 
               if edi_sale_item.quantity > 0.0
                 qty = edi_sale_item.quantity

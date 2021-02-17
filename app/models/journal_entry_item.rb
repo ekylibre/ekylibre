@@ -445,10 +445,10 @@ class JournalEntryItem < ApplicationRecord
 
   # fixed_assets, expenses and revenues are used into tax declaration
   def vat_account
-   prefixes = Account.tax_declarations.pluck(:number).join
-   return if prefixes.empty? || !(account_number =~ /^[#{prefixes}].*/)
+    prefixes = Account.tax_declarations.pluck(:number).join
+    return if prefixes.empty? || !(account_number =~ /^[#{prefixes}].*/)
 
-   entry.items.find_by(resource_prism: ["item_tax_reverse_charge", "item_tax"])&.account
+    entry.items.find_by(resource_prism: ["item_tax_reverse_charge", "item_tax"])&.account
   end
 
   def vat_account_label

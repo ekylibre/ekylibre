@@ -103,7 +103,7 @@ module Indicateable
                 when :measure then 0.0.in(indicator.unit)
                 when :decimal then 0.0
                 when :integer then 0
-        end
+                end
       end
       # Adjust value
       if value && indicator.gathering && !options[:gathering].is_a?(FalseClass)

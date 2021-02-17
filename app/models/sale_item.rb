@@ -125,7 +125,7 @@ class SaleItem < ApplicationRecord
   }
 
   scope :active, -> { includes(:sale).where.not(sales: { state: %i[refused aborted] }).order(created_at: :desc) }
-  scope :invoiced_on_or_after, -> (date) { includes(:sale).where("invoiced_at >= ? OR invoiced_at IS NULL", date) }
+  scope :invoiced_on_or_after, ->(date) { includes(:sale).where("invoiced_at >= ? OR invoiced_at IS NULL", date) }
   scope :fixed, -> { where(fixed: true) }
   scope :linkable_to_fixed_asset, -> { active.fixed.where(fixed_asset_id: nil) }
   scope :linked_to_fixed_asset, -> { active.where.not(fixed_asset_id: nil) }

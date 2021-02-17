@@ -36,10 +36,10 @@ class InterventionDecorator < Draper::Decorator
 
   def planned_by
     name = if object.request?
-      object.creator&.full_name
-    elsif object.request_intervention.present?
-      object.request_intervention.creator&.full_name
-    end
+             object.creator&.full_name
+           elsif object.request_intervention.present?
+             object.request_intervention.creator&.full_name
+           end
     if name.present?
       add_actionner_name(:planned_by, name)
     end
@@ -182,16 +182,16 @@ class InterventionDecorator < Draper::Decorator
 
   private
 
-  def parameter_cost(parameters)
-    parameters
-      .map(&:cost)
-      .compact
-      .sum
-  end
+    def parameter_cost(parameters)
+      parameters
+        .map(&:cost)
+        .compact
+        .sum
+    end
 
-  def human_parameter_cost(cost)
-    cost
-      .to_f
-      .round(2)
-  end
+    def human_parameter_cost(cost)
+      cost
+        .to_f
+        .round(2)
+    end
 end

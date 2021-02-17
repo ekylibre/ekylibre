@@ -147,20 +147,20 @@ class ProductNatureCategory < ApplicationRecord
 
     case reference_name
     when 'fertilizer'
-        return 'Variants::Articles::FertilizerArticle'
+      return 'Variants::Articles::FertilizerArticle'
     when 'seed' || 'plant'
-        return 'Variants::Articles::SeedAndPlantArticle'
+      return 'Variants::Articles::SeedAndPlantArticle'
     when 'plant_medicine'
-        return 'Variants::Articles::PlantMedicineArticle'
+      return 'Variants::Articles::PlantMedicineArticle'
     end
 
     case charge_account&.usages
     when 'fertilizer_expenses'
-        'Variants::Articles::FertilizerArticle'
+      'Variants::Articles::FertilizerArticle'
     when 'seed_expenses'
-        'Variants::Articles::SeedAndPlantArticle'
+      'Variants::Articles::SeedAndPlantArticle'
     when 'plant_medicine_matter_expenses'
-        'Variants::Articles::PlantMedicineArticle'
+      'Variants::Articles::PlantMedicineArticle'
     end
   end
 
