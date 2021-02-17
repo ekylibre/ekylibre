@@ -131,7 +131,7 @@ class Account < ApplicationRecord
   scope :insurances, -> { of_usages(:equipment_maintenance_expenses, :exploitation_risk_insurance_expenses, :infirmity_and_death_insurance_expenses, :insurance_expenses) }
   scope :payment_guarantees, -> { of_usage(:payment_guarantees) }
   scope :banks_or_cashes, -> { of_usages(:cashes, :banks) }
-  scope :banks_or_cashes_or_associates, -> { of_usages(:cashes, :banks, :principal_associates_current_accounts, :associates_current_accounts, :usual_associates_current_accounts, :associates_frozen_accounts) } # , :owner_account doesn't exist
+  scope :banks_or_cashes_or_associates, -> { of_usages(:cashes, :banks, :compensation_operations, :principal_associates_current_accounts, :associates_current_accounts, :usual_associates_current_accounts, :associates_frozen_accounts) } # , :owner_account doesn't exist
   scope :thirds, -> { of_usages(:suppliers, :clients, :social_agricultural_mutuality, :usual_associates_current_accounts, :attorneys, :compensation_operations) }
 
   scope :assets, -> {
