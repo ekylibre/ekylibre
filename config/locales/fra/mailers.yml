@@ -2,11 +2,13 @@ fra:
   mailers:
     financial_year_exchange_export:
       notify_accountant: |
-        Bonjour,
+        Bonjour %{accountant_full_name},
 
-        Des nouvelles écritures sont disponibles en provenance de %{name}. Pour les télécharger : %{link}
+        Un nouvel échange comptable %{exchange_name} est disponible en provenance de %{name}.
 
-        Cordialement,
+        Vous le retrouverez en pièce jointe de ce mail.
+
+        Cordialement
 
         %{current_user_name}
-      notify_accountant_subject: "Des nouvelles écritures sont disponibles en provenance de %{name}."
+      notify_accountant_subject: "%{name} | Echange comptable %{exchange_name} disponible."
