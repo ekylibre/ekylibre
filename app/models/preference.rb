@@ -188,6 +188,7 @@ class Preference < ApplicationRecord
   prefer :sales_conditions, :string, ''
   prefer :accounting_system, :accounting_system, Onoma::AccountingSystem.default('fr_pcga')
   prefer :fiscal_position, :fiscal_position, Onoma::FiscalPosition.default('fr_ba_ir')
+  prefer :commercial_accountancy_workflow, :boolean, true
   prefer :language, :language, Onoma::Language.default
   prefer :country,  :country, Onoma::Country.default
   prefer :currency, :currency, :EUR
