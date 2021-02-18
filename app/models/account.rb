@@ -131,7 +131,7 @@ class Account < ApplicationRecord
   scope :insurances, -> { of_usages(:equipment_maintenance_expenses, :exploitation_risk_insurance_expenses, :infirmity_and_death_insurance_expenses, :insurance_expenses) }
   scope :payment_guarantees, -> { of_usage(:payment_guarantees) }
   scope :banks_or_cashes, -> { of_usages(:cashes, :banks) }
-  scope :banks_or_cashes_or_associates, -> { of_usages(:cashes, :banks, :principal_associates_current_accounts, :associates_current_accounts, :usual_associates_current_accounts, :associates_frozen_accounts) } # , :owner_account doesn't exist
+  scope :banks_or_cashes_or_associates, -> { of_usages(:cashes, :banks, :compensation_operations, :principal_associates_current_accounts, :associates_current_accounts, :usual_associates_current_accounts, :associates_frozen_accounts) } # , :owner_account doesn't exist
   scope :thirds, -> { of_usages(:suppliers, :clients, :social_agricultural_mutuality, :usual_associates_current_accounts, :attorneys, :compensation_operations) }
 
   scope :assets, -> {
@@ -630,7 +630,7 @@ class Account < ApplicationRecord
 
       # Merge affairs if all entry items selected belong to one AND same affair third
       resources = items.map(&:entry).map(&:resource)
-      attempt_panier_local_resources_merge!(resources)
+      attempt_socleo_resources_merge!(resources)
 
       letter
     end
@@ -828,9 +828,9 @@ class Account < ApplicationRecord
 
     # @param [Array<ApplicationRecord, nil>] resources
     # @return [void]
-    def attempt_panier_local_resources_merge!(resources)
+    def attempt_socleo_resources_merge!(resources)
       if resources.all?(&:present?) && resources.all? { |r| r.class.respond_to? :affairable? } && # Resources are present and affairable
-        resources.all? { |r| r.is_a?(Providable) && r.provider_vendor == "panier_local" } && # Only merge resources from panier_local
+        resources.all? { |r| r.is_a?(Providable) && r.provider_vendor == "socleo" } && # Only merge resources from socleo
         resources.map(&:deal_third).uniq.count == 1 # And with the same third
 
         first, *rest = resources

@@ -1,7 +1,7 @@
-module PanierLocal
+module Socleo
   class IncomingPaymentsExchanger < Base
     category :sales
-    vendor :panier_local
+    vendor :socleo
 
     # Imports incoming_payment entries into incoming payment to make accountancy in CSV format
     # filename example : ECRITURES.CSV
@@ -27,7 +27,7 @@ module PanierLocal
       { col: 8, name: :payment_description, type: :string },
       { col: 9, name: :payment_item_amount, type: :float, constraint: :greater_or_equal_to_zero },
       { col: 10, name: :payment_item_direction, type: :string },
-    ]
+    ].freeze
 
     def check
       data, errors = open_and_decode_file(file)
@@ -56,7 +56,7 @@ module PanierLocal
 
       payment_mode = find_or_create_payment_mode
 
-      incoming_payments_info = data.group_by { |d| d.payment_reference_number }
+      incoming_payments_info = data.group_by(&:payment_reference_number)
 
       w.count = incoming_payments_info.size
 
@@ -110,7 +110,7 @@ module PanierLocal
     # @return [IncomingPayment, nil]
     def find_incoming_payment_by_provider(reference_number)
       unwrap_one('incoming payment') do
-        IncomingPayment.of_provider_name(:panier_local, :incoming_payments)
+        IncomingPayment.of_provider_name(:socleo, :incoming_payments)
                        .of_provider_data(:sale_reference_number, reference_number)
       end
     end

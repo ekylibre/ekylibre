@@ -180,15 +180,7 @@ module Clean
             line << missing_prompt
           end
           line << "#{key}:" + (trans.is_a?(Hash) ? '' : ' ') + Clean::Support.yaml_value((trans.blank? ? key.to_s.humanize : trans), 2)
-          if unknown_labels.include?(key)
-            if Clean::Support.text_found?(/#{key}/, watched_files)
-              # line.gsub!(/\ *$/, ' #?')
-            elsif Clean::Support.text_found?(/#{key.to_s.gsub('_', '.*')}/, watched_files)
-              # line.gsub!(/\ *$/, ' #??')
-            else
-              # line.gsub!(/\ *$/, ' #?!')
-            end
-          end
+
           translation << line + "\n"
         end
         warnings << "#{unknown_labels.size} unknown labels" if unknown_labels.any?

@@ -35,7 +35,7 @@ module Ekylibre
         }.to_struct
 
         # Exclude number dedicated to centralizing accounts
-        next if r.number.strip.gsub(/0+\z/, '').in?(['401','411'])
+        next if r.number.strip.gsub(/0+\z/, '').in?(['401', '411'])
 
         # get usage from parent account or import account from nomenclature
         usages = Account.find_parent_usage(r.number)

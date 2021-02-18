@@ -1,12 +1,12 @@
 eng:
   exchanger:
-    panier_local:
+    socleo:
       sales:
         errors:
           sale_data_missing_tax_information: "The sale with reference number %{reference_number} is invalid as it is missing VAT information."
-        sale_nature_name: "Online sale - Panier Local"
+        sale_nature_name: "Online sale - Socleo"
       incoming_payments:
-        incoming_payment_mode_name: "Panier Local"
+        incoming_payment_mode_name: "Socleo"
     sage:
       i_seven:
         errors:
@@ -83,9 +83,9 @@ eng:
     quadra_fec_txt: "FEC import (TXT) - Quadra"
     sage_i_seven_fec_txt: "Accountancy FEC (TXT) ‒ Sagei7"
     sage_i_seven_journal_entries: "Accountancy (ECX) ‒ Sagei7"
-    # panier_local_base: "Panier local base"
-    panier_local_incoming_payments: "Panier local incoming payments"
-    panier_local_sales: "Panier Local sales"
+    # socleo_base: "Socleo base"
+    socleo_incoming_payments: "Socleo incoming payments"
+    socleo_sales: "Socleo sales"
     synel_animals: "Synel animals"
     synel_inventory: "Synel inventory"
     synest_inventory: "Synest inventory"
@@ -116,7 +116,7 @@ eng:
     milklic: "Mil'Klic"
     none: "None"
     odicom: "Odicom"
-    panier_local: "Panier Local"
+    socleo: "Socleo"
     quadra: "Quadra"
     sage: "Sage"
     synel: "Synel"

@@ -40,7 +40,7 @@ class Identifier < ApplicationRecord
   validates :nature, presence: true
   validates :value, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
-  validates :nature, inclusion: { in: -> (i) { i.net_service_reference.identifiers.map(&:to_s) }, if: -> (i) { i.net_service&.reference } }
+  validates :nature, inclusion: { in: ->(i) { i.net_service_reference.identifiers.map(&:to_s) }, if: ->(i) { i.net_service&.reference } }
 
   delegate :reference, to: :net_service, prefix: true
 

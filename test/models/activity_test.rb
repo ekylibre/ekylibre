@@ -23,43 +23,39 @@
 #
 # == Table: activities
 #
-#  codes                          :jsonb
-#  created_at                     :datetime         not null
-#  creator_id                     :integer
-#  cultivation_variety            :string
-#  custom_fields                  :jsonb
-#  description                    :text
-#  family                         :string           not null
-#  grading_net_mass_unit_name     :string
-#  grading_sizes_indicator_name   :string
-#  grading_sizes_unit_name        :string
-#  id                             :integer          not null, primary key
-#  life_duration                  :decimal(5, 2)
-#  lock_version                   :integer          default(0), not null
-#  measure_grading_items_count    :boolean          default(FALSE), not null
-#  measure_grading_net_mass       :boolean          default(FALSE), not null
-#  measure_grading_sizes          :boolean          default(FALSE), not null
-#  name                           :string           not null
-#  nature                         :string           not null
-#  production_campaign            :string
-#  production_cycle               :string           not null
-#  production_nature_id           :integer
-#  production_started_on          :date
-#  production_stopped_on          :date
-#  production_system_name         :string
-#  size_indicator_name            :string
-#  size_unit_name                 :string
-#  start_state_of_production_year :integer
-#  support_variety                :string
-#  suspended                      :boolean          default(FALSE), not null
-#  updated_at                     :datetime         not null
-#  updater_id                     :integer
-#  use_countings                  :boolean          default(FALSE), not null
-#  use_gradings                   :boolean          default(FALSE), not null
-#  use_seasons                    :boolean          default(FALSE)
-#  use_tactics                    :boolean          default(FALSE)
-#  with_cultivation               :boolean          not null
-#  with_supports                  :boolean          not null
+#  codes                        :jsonb
+#  created_at                   :datetime         not null
+#  creator_id                   :integer
+#  cultivation_variety          :string
+#  custom_fields                :jsonb
+#  description                  :text
+#  family                       :string           not null
+#  grading_net_mass_unit_name   :string
+#  grading_sizes_indicator_name :string
+#  grading_sizes_unit_name      :string
+#  id                           :integer          not null, primary key
+#  lock_version                 :integer          default(0), not null
+#  measure_grading_items_count  :boolean          default(FALSE), not null
+#  measure_grading_net_mass     :boolean          default(FALSE), not null
+#  measure_grading_sizes        :boolean          default(FALSE), not null
+#  name                         :string           not null
+#  nature                       :string           not null
+#  production_campaign          :string
+#  production_cycle             :string           not null
+#  production_nature_id         :integer
+#  production_system_name       :string
+#  size_indicator_name          :string
+#  size_unit_name               :string
+#  support_variety              :string
+#  suspended                    :boolean          default(FALSE), not null
+#  updated_at                   :datetime         not null
+#  updater_id                   :integer
+#  use_countings                :boolean          default(FALSE), not null
+#  use_gradings                 :boolean          default(FALSE), not null
+#  use_seasons                  :boolean          default(FALSE)
+#  use_tactics                  :boolean          default(FALSE)
+#  with_cultivation             :boolean          not null
+#  with_supports                :boolean          not null
 #
 require 'test_helper'
 
@@ -217,5 +213,50 @@ class ActivityTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_nothing_raised do
       activity.update!(family: :animal_farming, cultivation_variety: :animal)
     end
+  end
+
+  test 'left_join_working_duration_of_campaign on multiple targets' do
+    production1 = create(
+      :corn_activity_production,
+      started_on: DateTime.new(2018, 1, 1)
+    )
+    production2 = create(
+      :lemon_activity_production,
+      started_on: DateTime.new(2018, 1, 1),
+      campaign: production1.campaign
+    )
+    intervention = create(:intervention, started_at: DateTime.new(2018, 1, 2), stopped_at: DateTime.new(2018, 1, 2) + 2.hours)
+    ratio1 = (production1.support_shape_area / (
+        production1.support_shape_area + production2.support_shape_area
+      )).to_f
+    target1 = create(
+      :intervention_target,
+      product: production1.products.first,
+      intervention: intervention,
+      imputation_ratio: ratio1
+    )
+    ratio2 = (production2.support_shape_area / (
+        production1.support_shape_area + production2.support_shape_area
+      )).to_f
+    target2 = create(
+      :intervention_target,
+      product: production2.products.first,
+      intervention: intervention,
+      imputation_ratio: ratio2
+    )
+    doer = create(
+      :driver,
+      product: Product.find(79),
+      intervention: intervention
+    )
+    input = create(
+      :intervention_input,
+      product: Matter.find(59),
+      intervention: intervention
+    )
+    intervention.save!
+    activities = Activity.left_join_working_duration_of_campaign(production1.campaign).where(id: [production1.activity_id, production2.activity_id])
+    assert_equal intervention.working_duration * target1.imputation_ratio, activities.find { |activity| activity.id == production1.activity_id }.working_duration
+    assert_equal intervention.working_duration * target2.imputation_ratio, activities.find { |activity| activity.id == production2.activity_id }.working_duration
   end
 end

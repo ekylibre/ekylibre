@@ -443,12 +443,6 @@ class Product < ApplicationRecord
     analyses.exists? || intervention_product_parameters.exists? || issues.exists? || parcel_items.exists?
   end
 
-  class << self
-    def miscibility_of(products_and_variants)
-      Intervention::Phytosanitary::PhytosanitaryMiscibility.new(products_and_variants).legality
-    end
-  end
-
   def production(_at = nil)
     activity_production
   end

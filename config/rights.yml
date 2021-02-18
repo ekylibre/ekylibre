@@ -114,7 +114,7 @@
 #     - "backend/cells/last_movements_cells#show"
 #     - "backend/cells/last_outgoing_parcels_cells#list"
 #     - "backend/cells/last_outgoing_parcels_cells#show"
-#     - "backend/cells/last_panier_local_import_cells#show"
+#     - "backend/cells/last_socleo_import_cells#show"
 #     - "backend/cells/last_products_cells#list"
 #     - "backend/cells/last_products_cells#show"
 #     - "backend/cells/last_purchases_invoices_cells#list"

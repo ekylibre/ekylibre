@@ -87,8 +87,8 @@ module Backend
 
           printer = Printers::VatRegisterPrinter.new(template: template, **dataset_params)
           csv_string = CSV.generate(headers: true) do |csv|
-                         printer.run_csv(csv)
-                       end
+            printer.run_csv(csv)
+          end
           send_data csv_string, filename: "#{printer.document_name}.csv"
         end
       end
@@ -114,8 +114,8 @@ module Backend
 
           printer = Printers::PendingVatRegisterPrinter.new(template: template, tax_declaration: @tax_declaration)
           csv_string = CSV.generate(headers: true) do |csv|
-                         printer.run_csv(csv)
-                       end
+            printer.run_csv(csv)
+          end
           send_data csv_string, filename: "#{printer.document_name}.csv"
         end
       end

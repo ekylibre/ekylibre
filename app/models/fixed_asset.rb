@@ -136,13 +136,13 @@ class FixedAsset < ApplicationRecord
   validates :tax_id, :selling_amount, :pretax_selling_amount, presence: { if: :sold? }
 
   validates :scrapped_on, financial_year_writeable: { if: -> { scrapped_on } }
-  validates :scrapped_on, timeliness: { on_or_after: -> (fixed_asset) { fixed_asset.started_on }, on_or_before: -> { Date.today }, type: :date }, if: -> { scrapped_on }
+  validates :scrapped_on, timeliness: { on_or_after: ->(fixed_asset) { fixed_asset.started_on }, on_or_before: -> { Date.today }, type: :date }, if: -> { scrapped_on }
   validates :scrapped_on, :product_id, presence: true, on: :scrap
   validates :sold_on, financial_year_writeable: { if: -> { sold_on } }
   validates :sold_on, :product_id, presence: true, on: :sell
-  validates :sold_on, timeliness: { on_or_after: -> (fixed_asset) { fixed_asset.started_on }, on_or_before: -> { Date.today }, type: :date }, if: -> { sold_on }
+  validates :sold_on, timeliness: { on_or_after: ->(fixed_asset) { fixed_asset.started_on }, on_or_before: -> { Date.today }, type: :date }, if: -> { sold_on }
   validates :stopped_on, :allocation_account, :expenses_account, presence: { unless: :depreciation_method_none? }
-  validates :waiting_on, timeliness: { on_or_before: -> (fixed_asset) { fixed_asset.started_on }, type: :date }, if: -> { waiting_on }, allow_blank: true
+  validates :waiting_on, timeliness: { on_or_before: ->(fixed_asset) { fixed_asset.started_on }, type: :date }, if: -> { waiting_on }, allow_blank: true
   validates :waiting_on, presence: true, financial_year_writeable: true, on: :stand_by
   validates :depreciable_amount, numericality: { greater_than_or_equal_to: 0 }
   validates :started_on, ongoing_exchanges: true

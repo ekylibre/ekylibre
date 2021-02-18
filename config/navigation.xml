@@ -2388,8 +2388,8 @@
         <page to="backend/cells/cash_variations_cells#tree_distribution_chart"/>
         <page to="backend/cells/cash_variations_cells#waterfall_highcharts"/>
       </item>
-      <item name="last_panier_local_import_cells">
-        <page to="backend/cells/last_panier_local_import_cells#show"/>
+      <item name="last_socleo_import_cells">
+        <page to="backend/cells/last_socleo_import_cells#show"/>
       </item>
       <item name="draft_journals">
         <page to="backend/draft_journals#confirm_all"/>

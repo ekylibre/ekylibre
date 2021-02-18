@@ -58,7 +58,7 @@ class ProductNatureVariantReading < ApplicationRecord
   validates :integer_value, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :string_value, length: { maximum: 500_000 }, allow_blank: true
   # ]VALIDATORS]
-  validates :indicator, inclusion: { in: -> (pnvr) { pnvr.variant.frozen_indicators }, if: :variant }
+  validates :indicator, inclusion: { in: ->(pnvr) { pnvr.variant.frozen_indicators }, if: :variant }
 
   def usable?
     variant.frozen_indicators.include?(indicator)

@@ -268,7 +268,7 @@ activity_budget_items:
     references: user
   variant_id:
     type: integer
-    references: variant
+    references: product_nature_variant
   variant_indicator:
     type: string
   variant_unit:
@@ -845,11 +845,28 @@ analysis_items:
   updater_id:
     type: integer
     references: user
+ar_internal_metadata:
+  created_at:
+    type: datetime
+    required: true
+  key:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  value:
+    type: string
 attachments:
   created_at:
     type: datetime
     required: true
   creator_id:
+    type: integer
+    references: user
+  deleted_at:
+    type: datetime
+  deleter_id:
     type: integer
     references: user
   document_id:
@@ -923,6 +940,8 @@ bank_statement_items:
   name:
     type: string
     required: true
+  transaction_nature:
+    type: string
   transaction_number:
     type: string
   transfered_on:
@@ -1460,6 +1479,8 @@ cashes:
   owner_id:
     type: integer
     references: entity
+  provider:
+    type: jsonb
   spaced_iban:
     type: string
   suspend_until_reconciliation:
@@ -1522,7 +1543,7 @@ catalog_items:
     references: user
   variant_id:
     type: integer
-    references: variant
+    references: product_nature_variant
     required: true
 catalogs:
   all_taxes_included:
@@ -1607,7 +1628,7 @@ contract_items:
     references: user
   variant_id:
     type: integer
-    references: variant
+    references: product_nature_variant
     required: true
 contracts:
   created_at:
@@ -2811,6 +2832,8 @@ fixed_assets:
   product_id:
     type: integer
     references: product
+  provider:
+    type: jsonb
   purchase_amount:
     type: decimal
     precision: 19
@@ -3234,6 +3257,8 @@ incoming_payment_modes:
     required: true
   position:
     type: integer
+  provider:
+    type: jsonb
   updated_at:
     type: datetime
     required: true
@@ -3710,6 +3735,7 @@ intervention_parameters:
     type: decimal
     precision: 19
     scale: 4
+    required: true
   intervention_id:
     type: integer
     references: intervention
@@ -3776,7 +3802,7 @@ intervention_parameters:
     default: true
   variant_id:
     type: integer
-    references: variant
+    references: product_nature_variant
   variety:
     type: string
   working_zone:
@@ -4172,6 +4198,8 @@ journal_entries:
   printed_on:
     type: date
     required: true
+  provider:
+    type: jsonb
   real_balance:
     type: decimal
     precision: 19
@@ -4307,6 +4335,8 @@ journal_entry_items:
     required: true
   letter:
     type: string
+  lettered_at:
+    type: datetime
   lock_version:
     type: integer
     required: true
@@ -4383,7 +4413,7 @@ journal_entry_items:
     references: user
   variant_id:
     type: integer
-    references: variant
+    references: product_nature_variant
 journals:
   accountant_id:
     type: integer
@@ -4743,6 +4773,8 @@ loans:
     required: true
   ongoing_at:
     type: datetime
+  provider:
+    type: jsonb
   repaid_at:
     type: datetime
   repayment_duration:
@@ -4976,6 +5008,8 @@ master_production_natures:
     type: string
   cap_2019_crop_code:
     type: string
+  cap_2020_crop_code:
+    type: string
   human_name:
     type: jsonb
   human_name_fra:
@@ -4988,6 +5022,8 @@ master_production_natures:
     type: decimal
     precision: 5
     scale: 2
+  main_input:
+    type: string
   pfi_crop_code:
     type: string
   season:
@@ -5507,7 +5543,7 @@ parcel_items:
     references: user
   variant_id:
     type: integer
-    references: variant
+    references: product_nature_variant
 parcels:
   accounted_at:
     type: datetime
@@ -6507,13 +6543,13 @@ product_nature_variant_readings:
     references: user
   variant_id:
     type: integer
-    references: variant
+    references: product_nature_variant
     required: true
 product_nature_variants:
   active:
     type: boolean
     required: true
-    default: false
+    default: true
   category_id:
     type: integer
     references: product_nature_category
@@ -6542,6 +6578,7 @@ product_nature_variants:
     required: true
   name:
     type: string
+    required: true
   nature_id:
     type: integer
     references: product_nature
@@ -6762,7 +6799,7 @@ product_phases:
     references: user
   variant_id:
     type: integer
-    references: variant
+    references: product_nature_variant
     required: true
 product_readings:
   absolute_measure_value_unit:
@@ -6999,7 +7036,7 @@ products:
     type: uuid
   variant_id:
     type: integer
-    references: variant
+    references: product_nature_variant
     required: true
   variety:
     type: string
@@ -7135,7 +7172,7 @@ purchase_items:
     references: user
   variant_id:
     type: integer
-    references: variant
+    references: product_nature_variant
 purchase_natures:
   active:
     type: boolean
@@ -7431,11 +7468,25 @@ registered_pfi_doses:
   target_id:
     type: integer
     references: registered_pfi_target
+registered_pfi_segments:
+  description:
+    type: string
+  id:
+    type: string
+    required: true
+  label_fra:
+    type: string
 registered_pfi_targets:
   id:
     type: integer
     required: true
   reference_label_fra:
+    type: string
+registered_pfi_treatment_types:
+  id:
+    type: string
+    required: true
+  label_fra:
     type: string
 registered_phytosanitary_cropsets:
   crop_labels:
@@ -7512,6 +7563,16 @@ registered_phytosanitary_symbols:
     type: string
     required: true
   symbol_name:
+    type: string
+registered_phytosanitary_target_name_to_pfi_targets:
+  default_pfi_treatment_type_id:
+    type: string
+  ephy_name:
+    type: string
+    required: true
+  pfi_id:
+    type: integer
+  pfi_name:
     type: string
 registered_phytosanitary_usages:
   applications_count:
@@ -7622,16 +7683,20 @@ registered_protected_designation_of_origins:
   reference_number:
     type: string
 registered_seeds:
-  complete_name:
-    type: jsonb
-  name:
-    type: jsonb
-  number:
-    type: integer
-    required: true
-  specie:
+  id:
     type: string
     required: true
+  id_specie:
+    type: string
+    required: true
+  registration_date:
+    type: date
+  specie_name:
+    type: jsonb
+  specie_name_fra:
+    type: string
+  variety_name:
+    type: string
 regularizations:
   affair_id:
     type: integer
@@ -7789,7 +7854,7 @@ sale_items:
     references: user
   variant_id:
     type: integer
-    references: variant
+    references: product_nature_variant
     required: true
 sale_natures:
   active:
@@ -8600,6 +8665,18 @@ taxes:
   updater_id:
     type: integer
     references: user
+taxonomy:
+  id:
+    type: string
+    required: true
+  name:
+    type: jsonb
+  parent:
+    type: string
+    required: true
+  taxonomic_rank:
+    type: string
+    required: true
 teams:
   created_at:
     type: datetime
@@ -9155,6 +9232,9 @@ variants:
   variant_nature_id:
     type: integer
     references: variant_nature
+version:
+  version:
+    type: string
 versions:
   created_at:
     type: datetime
