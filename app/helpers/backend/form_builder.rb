@@ -355,7 +355,7 @@ module Backend
         end
       end
       show = options.delete(:show)
-      if show.present?
+      if show != false
         if show.is_a?(Hash) && show.key?(:series)
           editor[:show] = show
         end
