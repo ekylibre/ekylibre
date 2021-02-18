@@ -1,0 +1,63 @@
+---
+encoding: 'ISO-8859-15'
+root:
+  - version: 1
+  - folder: 1
+
+lines:
+  version:
+    key: "VER   "
+    occurrence: 1
+    cells:
+      - windows_version:
+          type: string-7
+          default: '0200000'
+      - text_version:
+          type: string-4
+          default: '8700'
+      - remove_entry_lines: boolean
+      - label: string-30
+      - encoding:
+          type: integer-1
+          options:
+            0: ASCII
+            1: ANSI (ISO-8859)
+
+  folder:
+    key: "DOS   "
+    occurrence: 1
+    cells:
+      - number: string-8
+    children:
+      - entries: "*"
+
+  entry:
+    key: "ECR   "
+    occurrence: "*"
+    cells:
+      - journal: string-2
+      - printed_on: date
+      - number: string-8
+      - label: string-30
+      - invoiced_on: date
+      - site_code: string-7
+      - user_code: string-7
+      - emitter_code: integer-3
+      - position: integer-11
+      - extourned: boolean
+      - unupdateable: boolean
+      - created_on: date
+      - updated_on: date
+      - code: integer-11
+      - destroyed: boolean
+      - currency: string-3
+    children:
+      - lines: entry_lines-+
+
+  entry_line:
+    key: "MVT   "
+    cells:
+      - account: string-10
+      - label: string-30
+      - debit: float-10.2
+      - credit: float-10.2
