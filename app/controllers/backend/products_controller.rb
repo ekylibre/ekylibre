@@ -259,7 +259,7 @@ module Backend
       @activity_productions = @activity_productions.of_activity(activity) if activity
       saved = true
       @targets = if params[:target_distributions]
-                   params[:target_distributions].map do |_id, target_distribution|
+                   params[:target_distributions].to_unsafe_h.map do |_id, target_distribution|
                      product = Product.find(target_distribution[:target_id])
                      activity_production_id = target_distribution[:activity_production_id]
                      if activity_production_id.empty? && product.activity_production_id.present?

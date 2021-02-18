@@ -71,7 +71,7 @@ module Backend
       modified = inspector.relevant_parameters_modified?(
         live_data: params[:live_data].to_boolean,
         intervention: intervention,
-        targets_ids: targets_data.map { |_k, v| v[:id].to_i },
+        targets_ids: targets_data.to_unsafe_h.map { |_k, v| v[:id].to_i },
         inputs_data: [{ input: input, product_id: params[:product_id].to_i, usage_id: params[:id] }]
       )
 

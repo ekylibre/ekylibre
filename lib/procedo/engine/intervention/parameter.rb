@@ -20,7 +20,7 @@ module Procedo
           else
             raise "Invalid group: #{group.inspect}"
           end
-          @attributes = attributes.to_h.symbolize_keys
+          @attributes = attributes.symbolize_keys
           @id = id.to_s
           unless root?
             @name = @attributes[:reference_name].to_sym

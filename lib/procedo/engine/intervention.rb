@@ -11,7 +11,7 @@ module Procedo
       delegate :add, :add_group, :add_product, :to_hash, to: :root_group
 
       def initialize(attributes = {})
-        @attributes = attributes.to_h.deep_symbolize_keys
+        @attributes = attributes.deep_symbolize_keys
         @procedure = Procedo.find(@attributes[:procedure_name])
         unless @procedure
           raise "Cannot find procedure: #{@attributes[:procedure_name].inspect}"
