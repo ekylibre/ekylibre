@@ -62,6 +62,7 @@ eng:
     ekylibre_zones: "Ekylibre storage zones"
     fiea_galactea: "FIEA galactea"
     isagri_isacompta_export: "Isagri isacompta"
+    isagri_isacompta_fec_txt: "Isagri isacompta FEC import (TXT)"
     isagri_isacompta_fixed_assets: "Isagri isacompta fixed assets"
     isagri_isacompta_journal_entries: "Isagri isacompta journal entries"
     isagri_isaculture_csv_import: "Isagri isaculture csv import"
