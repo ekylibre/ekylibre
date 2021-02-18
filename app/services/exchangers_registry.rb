@@ -19,6 +19,7 @@ class ExchangersRegistry
                                 .group_by { |_k, v| v.category }
                                 .sort_by { |k, _v| ORDER[k] }
                                 .to_h
+
     list.transform_values do |v|
       v.group_by { |a| a.last.vendor }.sort_by { |a| a.first.to_s }.to_h.transform_values(&:to_h)
     end
