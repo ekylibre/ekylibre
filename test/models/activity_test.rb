@@ -192,29 +192,6 @@ class ActivityTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_in_delta 0.0, activity.net_surface_area(Campaign.find(4)).to_d, 0.0005
   end
 
-  test "can't edit activity family if there is any production associated" do
-    activity = create(:activity, family: :plant_farming)
-    assert_nothing_raised do
-      activity.update!(family: :animal_farming, cultivation_variety: :animal)
-    end
-
-    activity = create(:activity, :with_productions, family: :plant_farming)
-    assert_raises ActiveRecord::RecordInvalid do
-      activity.update!(family: :animal_farming, cultivation_variety: :animal)
-    end
-  end
-
-  test "can't edit activity family if the cultivation_variety is not one of its children" do
-    activity = create(:activity, family: :plant_farming, cultivation_variety: :plant)
-    assert_raises ActiveRecord::RecordInvalid do
-      activity.update!(family: :animal_farming)
-    end
-
-    assert_nothing_raised do
-      activity.update!(family: :animal_farming, cultivation_variety: :animal)
-    end
-  end
-
   test 'left_join_working_duration_of_campaign on multiple targets' do
     production1 = create(
       :corn_activity_production,
@@ -259,4 +236,89 @@ class ActivityTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_equal intervention.working_duration * target1.imputation_ratio, activities.find { |activity| activity.id == production1.activity_id }.working_duration
     assert_equal intervention.working_duration * target2.imputation_ratio, activities.find { |activity| activity.id == production2.activity_id }.working_duration
   end
+
+  class AnimalFarmingActivityTest < ActivityTest
+    setup do
+      @activity = Activity.create(attributes_for(:activity, family: 'animal_farming'))
+    end
+
+    test 'create new activity with defaults attributes' do
+      attributes = {
+        with_supports: true,
+        support_variety: 'animal_group',
+        with_cultivation: true,
+        cultivation_variety: 'animal',
+        size_indicator_name: 'members_population',
+        size_unit_name: 'unity',
+        production_cycle: 'perennial'
+      }
+      assert_attributes_equals(attributes, @activity)
+    end
+  end
+
+  class PlantFarmingActivityTest < ActivityTest
+    setup do
+      @activity = Activity.create(attributes_for(:activity, family: 'plant_farming'))
+    end
+
+    test 'create new activity with defaults attributes' do
+      attributes = {
+        with_supports: true,
+        support_variety: 'land_parcel',
+        with_cultivation: true,
+        cultivation_variety: 'plant',
+        size_indicator_name: 'net_surface_area',
+        size_unit_name: 'hectare',
+      }
+      assert_attributes_equals(attributes, @activity)
+    end
+  end
+
+  class ToolMaintainingActivityTest < ActivityTest
+    setup do
+      @activity = Activity.create(attributes_for(:activity, family: 'tool_maintaining'))
+    end
+
+    test 'create new activity with defaults attributes' do
+      attributes = {
+        with_supports: true,
+        support_variety: 'equipment_fleet',
+        with_cultivation: true,
+        cultivation_variety: 'equipment',
+        size_indicator_name: 'members_population',
+        size_unit_name: 'unity',
+      }
+      assert_attributes_equals(attributes, @activity)
+    end
+  end
+
+  class VineFarmingActivityTest < ActivityTest
+    setup do
+      @activity = Activity.create(attributes_for(:activity, family: 'vine_farming'))
+    end
+
+    test 'create new activity with defaults attributes' do
+      attributes = {
+        with_supports: true,
+        support_variety: 'land_parcel',
+        with_cultivation: true,
+        size_indicator_name: 'net_surface_area',
+        size_unit_name: 'hectare',
+        production_nature_id: 154,
+        cultivation_variety: 'vitis',
+        production_cycle: 'perennial',
+        start_state_of_production_year: 3,
+        life_duration: 30.00,
+        production_campaign: "at_cycle_end",
+      }
+      assert_attributes_equals(attributes, @activity)
+    end
+  end
+
+  private
+    def assert_attributes_equals(expected_attributes, activity)
+      expected_attributes.each do |attribute, value|
+        assert_equal( value, activity.send(attribute))
+      end
+    end
 end

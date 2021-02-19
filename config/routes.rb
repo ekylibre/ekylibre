@@ -231,7 +231,6 @@ Rails.application.routes.draw do
 
     resources :activities, concerns: %i[list unroll] do
       collection do
-        get :family
         post :duplicate
       end
       member do
@@ -802,7 +801,7 @@ Rails.application.routes.draw do
 
     resources :map_editor_shapes, only: :index
 
-    resources :master_production_natures, only: [], concerns: %i[unroll]
+    resources :master_production_natures, only: [:show], concerns: %i[unroll]
 
     resources :matters do
       concerns :products, :list
@@ -1299,6 +1298,12 @@ Rails.application.routes.draw do
 
     resources :registrations, only: %i[index edit update destroy], concerns: [:list]
     resources :gaps, only: %i[index show destroy]
+
+    resources :varieties, only: [] do
+      collection do
+        get :selection
+      end
+    end
   end
 
   root to: 'public#index'

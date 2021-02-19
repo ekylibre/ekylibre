@@ -1,0 +1,11 @@
+eng:
+  lexicon:
+    start_state_of_production:
+      n_2_3_leaf: "N+2 (3rd leaf)"
+      n_3_4_leaf: "N+3 (2nd leaf)"
+      n_4_5_leaf: "N+4 (5th leaf)"
+      n_1: 'N+1'
+      n_2: 'N+2'
+      n_3: 'N+3'
+      n_4: 'N+4'
+      n_5: 'N+5'
