@@ -41,7 +41,54 @@
 #  stopped_on                :date             not null
 #
 class MasterProductionNature < LexiconRecord
+  class StartStateOfProduction
+    # @return [Integer]
+    attr_reader :year
+    # @return [MasterProductionNature]
+    attr_reader :specie
+    # @return [Symbol]
+    attr_reader :key
+
+    def initialize(year:, key:, production_nature: nil, default: false)
+      @year = year
+      @key = key
+      @production_nature = production_nature
+      @default = default
+    end
+
+    # @return [Boolean]
+    def default?
+      @default
+    end
+
+    # @param [String] :locale
+    # @return [String]
+    def label(locale: I18n.default_locale)
+      I18n.t(key, scope: "lexicon.start_state_of_production", locale: locale)
+    end
+  end
+
   include Lexiconable
   belongs_to :pfi_crop, class_name: 'RegisteredPfiCrop', foreign_key: :pfi_crop_code
   has_many :outputs, class_name: 'MasterProductionOutput', inverse_of: :production_nature, foreign_key: :production_nature_id
+
+  # @return [Hash{Integer => StartStateOfProduction}]
+  def start_state_of_production
+    return {} if self[:start_state_of_production].nil?
+
+    value = self[:start_state_of_production]
+    value.map do |year, key|
+      [year.to_i, StartStateOfProduction.new(year: year.to_i, key: key,  production_nature: self )]
+    end.to_h
+  end
+
+  # @return [Symbol]
+  def start
+    cycle_length = stopped_on.year - started_on.year
+    if cycle_length == 1
+      :at_cycle_end
+    else
+      :at_cycle_start
+    end
+  end
 end

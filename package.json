@@ -2,7 +2,7 @@
   "dependencies": {
     "@rails/webpacker": "^4.0.7",
     "autosize": "^4.0.2",
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "flatpickr": "~4.5.0",
     "i18n-js": "^3.7.1",
     "leaflet": "1.2.0",

@@ -38,6 +38,10 @@ fra:
       new: "Nouvelle production"
       new_specified: "Nouvelle production de %{activity}"
       show: "Production\_: %{name}"
+    backend/activity_productions_of_plant:
+      edit_specified: "Modifier la parcelle de %{activity}"
+      new_specified: "Nouvelle parcelle de %{activity}"
+      show: "Parcelle\_: %{name}"
     backend/affairs:
       attach: "Associer une affaire"
       detach: "Dissocier une affaire"
@@ -1046,6 +1050,9 @@ fra:
     unroll:
       server_error: "Erreur serveur"
   labels:
+    number_of_animals: "Membres"
+    warning_could_not_use_ift: "Attention, si la production de référence n'est pas renseignée, les IFT ne pourront pas être calculés."
+    start_state_of_production: "1ère année de pleine production (plantation année N)"
     csv_format: "Format CSV"
     fec_txt_format: "Format FEC TXT"
     fec_xml_format: "Format FEC XML"
@@ -1929,6 +1936,9 @@ fra:
     forecast_harvest_week: "Semaine de récolte"
     france_maaid: "N° AMM" #?
     from: "À partir du"
+    from_current_year: "À partir du"
+    to_next_year: "Au"
+    production_campaign_period: "Campagne annuelle de production (année N)"
     from_to_date: "du %{from} au %{to}"
     fruit_yield: "Rendement fruit"
     full_name: "Client"
@@ -2299,7 +2309,7 @@ fra:
     net_margin: "Marge nette" #?
     net_mass: "Masse nette"
     net_production_sales: "Ventes nettes de production"
-    net_surface_area: "Surface nette"
+    net_surface_area: "Surface totale"
     net_vat_amount: "TVA nette due" #?
     net_volume: "Volume net" #?
     neutral_area_category: "Catégorie de zones non agricoles"
@@ -2601,7 +2611,7 @@ fra:
     production_cost: "Coût de production"
     production_costs: "Coûts de production"
     production_distribution: "Répartition de la production"
-    production_nature: "Type de production"
+    production_nature: "Production de référence"
     production_others_charges: "Autres charges"
     production_purchases: "Achats d'approvisionnements"
     production_support: "Support de production"
@@ -3446,7 +3456,8 @@ fra:
       one: "%{count} an"
       other: "%{count} ans"
     y: "Oui" #?
-    year: "Année"
+    year: "an"
+    year_long: "Année"
     year_end: "Fin d'exercice"
     year_start: "Début d'exercice"
     yearly: "Annuelle" #?
