@@ -21,7 +21,10 @@ class ExchangersRegistry
                                 .to_h
 
     list.transform_values do |v|
-      v.group_by { |a| a.last.vendor }.sort_by { |a| a.first.to_s }.to_h.transform_values(&:to_h)
+      v.group_by { |a| a.last.vendor }.sort_by do |a|
+        # this is just to send all ekylibre to the end of array
+        a.first == :ekylibre ? '~' : a.first.to_s
+      end.to_h.transform_values(&:to_h)
     end
   end
 end

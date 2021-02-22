@@ -1,6 +1,6 @@
 module Ekylibre
   class OutgoingPaymentsExchanger < ActiveExchanger::Base
-    category :sales
+    category :purchases
     vendor :ekylibre
 
     def check
