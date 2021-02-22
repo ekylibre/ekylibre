@@ -10,7 +10,7 @@ module Ekylibre
   #  - G: reference of document in DMS (optional)
   #  - H: description (optional)
   class IncomingPaymentsExchanger < ActiveExchanger::Base
-    category :stocks
+    category :sales
     vendor :ekylibre
 
     def check
