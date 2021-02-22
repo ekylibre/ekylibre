@@ -3,7 +3,7 @@ module Backend
     # Save golumn config in preferences
     def update
       unless params['positions'].nil?
-        positions = params['positions'].sort_by { |a| a[0] }.map do |group|
+        positions = params['positions'].to_unsafe_h.sort_by { |a| a[0] }.map do |group|
           next unless group.second['id'] && !group.second['id'].to_i.zero?
 
           g = { id: group.second['id'].to_i }
