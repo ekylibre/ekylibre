@@ -5,7 +5,7 @@ module Api
       connect_with_token
 
       test 'index' do
-        get :index
+        get :index, params: {}
         assert_response :ok
       end
 

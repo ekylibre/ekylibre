@@ -32,7 +32,7 @@ module Backend
 
     test "should display financial year index without any financial year and disable buttons and field" do
       FinancialYear.delete_all
-      get :index
+      get :index, params: {}
       assert_equal 200, response.status
       noko = Nokogiri::HTML(response.body)
       assert_equal 2, noko.css('a.disabled').size

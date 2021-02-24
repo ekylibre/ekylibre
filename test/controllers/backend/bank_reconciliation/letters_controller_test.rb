@@ -49,12 +49,12 @@ module Backend
         assert_equal LETTER, journal_leet.bank_statement_letter
         assert_equal @bank_statement, journal_leet.bank_statement
 
-        xhr :delete, :destroy, params: {
+        delete :destroy, params: {
           format: :json,
           cash_id: @bank_statement.cash_id,
           id: @bank_statement.id,
           letter: LETTER
-        }
+        }, xhr: true
 
         assert_equal LETTER, JSON(@response.body)['letter']
 

@@ -2,7 +2,7 @@ class AddProjectBudgetAndEquipmentToJournalEntriesItems < ActiveRecord::Migratio
   def up
     purchase_invoices = PurchaseInvoice
                         .where(id: PurchaseItem.where('equipment_id IS NOT NULL OR project_budget_id IS NOT NULL').map(&:purchase_id).uniq)
-                        .uniq
+                        .distinct
 
     purchase_invoices.each do |purchase_invoice|
       purchase_invoice_items = purchase_invoice

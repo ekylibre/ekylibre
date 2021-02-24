@@ -15,7 +15,7 @@ module Api
         create_list(:building_division, 10)
         # Corn plant create an additionnal land_parcel product so we count 2 products for each corn plant
         create_list(:corn_plant, 10)
-        get :index
+        get :index, params: {}
         products = JSON.parse response.body
         assert_equal 60, products.count
         assert_response :ok

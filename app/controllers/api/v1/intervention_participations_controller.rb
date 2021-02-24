@@ -140,7 +140,7 @@ module Api
           errors << 'No state given' if filtered_params[:state].nil?
           errors << 'No current user' unless current_user && current_user.person
           errors << "Can't assign hour counter to equipment as the intervention state is not 'done'" if filtered_params[:state] != 'done' && filtered_params[:equipments]
-          errors << "Need 'product_id' and 'hour_counter' fields on 'equipments' hash" if filtered_params[:equipments]&.any? { |eq| eq.exclude?(:hour_counter) || eq.exclude?(:product_id) }
+          errors << "Need 'product_id' and 'hour_counter' fields on 'equipments' hash" if filtered_params[:equipments]&.any? { |eq| !eq.include?(:hour_counter) || !eq.include?(:product_id) }
           errors
         end
     end

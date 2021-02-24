@@ -12,7 +12,7 @@ module Interventions
 
       tool_product = create(:tractor)
 
-      attributes = {
+      attributes = ActionController::Parameters.new({
         procedure_name: "spraying",
         working_periods_attributes: [
           {
@@ -41,7 +41,7 @@ module Interventions
             product_id: tool_product.id
           }
         ]
-      }.with_indifferent_access
+      }.with_indifferent_access)
 
       options = {
         auto_calculate_working_periods: true,
@@ -73,7 +73,7 @@ module Interventions
       ## plant
       output_variant = create(:corn_plant_variant)
 
-      attributes = {
+      attributes = ActionController::Parameters.new({
         procedure_name: "sowing",
         working_periods_attributes: [
           {
@@ -108,7 +108,7 @@ module Interventions
           }
         ]
 
-      }.with_indifferent_access
+      }.with_indifferent_access)
 
       options = {
         auto_calculate_working_periods: true,

@@ -25,7 +25,7 @@ module Backend
         orders = if params[:reception].present?
                    PurchaseOrder.joins('INNER JOIN purchase_items ON purchase_items.purchase_id = purchases.id LEFT JOIN parcel_items ON parcel_items.purchase_order_item_id = purchase_items.id')
                                 .where('purchases.state = ? AND purchases.supplier_id = ? OR parcel_items.parcel_id = ?', :opened, params[:supplier], params[:reception])
-                                .uniq
+                                .distinct
                  else
                    PurchaseOrder.with_state(:opened)
                                 .where(supplier: params[:supplier])
@@ -41,12 +41,12 @@ module Backend
                        Reception.with_state(:given)
                                 .joins('INNER JOIN parcel_items ON parcel_items.parcel_id = parcels.id LEFT JOIN purchase_items ON purchase_items.id = parcel_items.purchase_invoice_item_id')
                                 .where('parcel_items.purchase_invoice_item_id IS NULL AND parcels.sender_id = ? OR purchase_items.purchase_id = ?', params[:supplier], params[:purchase_invoice])
-                                .uniq
+                                .distinct
                      else
                        Reception.with_state(:given)
                                 .joins(:items)
                                 .where(parcel_items: { purchase_invoice_item_id: nil }, sender_id: params[:supplier])
-                                .uniq
+                                .distinct
                      end
 
         items_to_reconcile(:receptions, receptions.order(:given_at))

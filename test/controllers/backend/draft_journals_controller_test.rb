@@ -4,7 +4,7 @@ module Backend
     test_restfully_all_actions show: :index, confirm: :post_and_redirect, except: %i[confirm_all list list_journal_entry_items]
 
     test 'confirm all draft journal entries' do
-      get :show
+      get :show, params: {}
       assert_response :success
       post :confirm_all, params: { from: FinancialYear.first_of_all.started_on.strftime('%Y-%m-%d'), to: Date.today.strftime('%Y-%m-%d') }
       assert_equal 0, JournalEntry.where(state: :draft).count

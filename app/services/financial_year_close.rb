@@ -271,11 +271,11 @@ class FinancialYearClose
 
       letterable_accounts = accounts.joins(:journal_entry_items)
                                     .where('journal_entry_items.letter IS NOT NULL OR reconcilable')
-                                    .uniq
+                                    .distinct
 
       unletterable_accounts = accounts.joins(:journal_entry_items)
                                       .where('journal_entry_items.letter IS NULL AND NOT reconcilable')
-                                      .uniq
+                                      .distinct
 
       progress = Progress.new(:close_carry_forward, id: @year.id,
                               max: letterable_accounts.count + unletterable_accounts.count)

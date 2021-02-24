@@ -79,7 +79,7 @@ module Backend
 
           PrinterJob.perform_later('Printers::VatRegisterPrinter', template: template, perform_as: current_user, **dataset_params)
           notify_success(:document_in_preparation)
-          redirect_to :back
+          redirect_back(fallback_location: root_path)
         end
 
         format.csv do
@@ -107,7 +107,7 @@ module Backend
 
           PrinterJob.perform_later('Printers::PendingVatRegisterPrinter', template: template, tax_declaration: @tax_declaration, perform_as: current_user)
           notify_success(:document_in_preparation)
-          redirect_to :back
+          redirect_back(fallback_location: { action: :index })
         end
         format.csv do
           return unless template = DocumentTemplate.find_by_nature(:pending_vat_register)
@@ -131,7 +131,7 @@ module Backend
       elsif financial_year.missing_tax_declaration?
         TaxDeclarationJob.perform_later(financial_year, current_user)
         notify_success(:vat_declaration_in_preparation)
-        redirect_to :back
+        redirect_back(fallback_location: root_path)
       else
         notify_error :all_tax_declarations_have_already_existing
         redirect_to params[:redirect] || { action: :index }

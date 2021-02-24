@@ -36,8 +36,6 @@ module Ekylibre
 
     # We want to use the structure.sql file
     config.active_record.schema_format = :sql
-    # Do not swallow errors in after_commit/after_rollback callbacks.
-    config.active_record.raise_in_transactional_callbacks = true
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
@@ -45,9 +43,6 @@ module Ekylibre
 
     # Confiure ActiveJob queue adapter
     config.active_job.queue_adapter = :sidekiq
-
-    # Do not swallow errors in after_commit/after_rollback callbacks.
-    # config.active_record.raise_in_transactional_callbacks = true
 
     # Default starting from Rails 5
     # TODO: enable this when all optional belongs_to have been edited with 'optional: true'
