@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ekylibre
   class OutgoingPaymentsExchanger < ActiveExchanger::Base
     category :purchases

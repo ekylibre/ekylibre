@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module EBP
   class EDIExchanger < ActiveExchanger::Base
     category :accountancy

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Printers
   class ByAccountFixedAssetRegistryPrinter < FixedAssetRegistryPrinter
     def generate(r)

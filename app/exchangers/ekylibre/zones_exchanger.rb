@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ekylibre
   # Zones exchanger accepts CSV files with given columns:
   #  - Name

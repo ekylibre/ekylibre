@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SequenceManager
   def initialize(klass, options)
     options = { force: true }.merge(options)

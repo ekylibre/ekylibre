@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FixedAssetDepreciationBookkeeper < Ekylibre::Bookkeeper
   def call
     return unless accountable

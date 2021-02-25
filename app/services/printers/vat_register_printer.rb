@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This object allow printing the general ledger
 module Printers
   class VatRegisterPrinter < PrinterBase

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ExchangersRegistry
   ORDER = {
     accountancy: 0,

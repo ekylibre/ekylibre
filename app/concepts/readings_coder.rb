@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ReadingsCoder
   SERIALIZE = Hash.new { proc { |_, value| value } }
                   .tap { |h| h[Measure] = proc { |_, value| value.to_s } }

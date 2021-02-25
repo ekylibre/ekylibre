@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ekylibre
   # Import a GeoJSON file (as FeatureCollection) with `name` and `number`
   # properties for each feature.

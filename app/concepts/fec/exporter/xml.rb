@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FEC
   module Exporter
     class XML < FEC::Exporter::Base

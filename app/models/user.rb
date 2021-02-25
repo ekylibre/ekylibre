@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -75,9 +77,9 @@
 
 class User < ApplicationRecord
   # No point accepted in preference name
-  PREFERENCE_SHOW_MAP_INTERVENTION_FORM = 'show_map_on_intervention_form'.freeze
-  PREFERENCE_SHOW_EXPORT_PREVIEW = 'show_export_preview'.freeze
-  PREFERENCE_SHOW_COMPARE_REALISED_PLANNED = 'compare_planned_and_realised'.freeze
+  PREFERENCE_SHOW_MAP_INTERVENTION_FORM = 'show_map_on_intervention_form'
+  PREFERENCE_SHOW_EXPORT_PREVIEW = 'show_export_preview'
+  PREFERENCE_SHOW_COMPARE_REALISED_PLANNED = 'compare_planned_and_realised'
   PREFERENCES = {
     PREFERENCE_SHOW_MAP_INTERVENTION_FORM => :boolean,
     PREFERENCE_SHOW_EXPORT_PREVIEW => :boolean,

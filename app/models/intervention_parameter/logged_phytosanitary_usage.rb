@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class InterventionParameter
   class LoggedPhytosanitaryUsage
     include Dimensionable

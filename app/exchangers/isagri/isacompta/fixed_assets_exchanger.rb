@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Isagri
   module Isacompta
     class FixedAssetsExchanger < ActiveExchanger::Base

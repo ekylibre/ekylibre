@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Milklic
   class IndividualProductionExchanger < ActiveExchanger::Base
     category :animal_farming

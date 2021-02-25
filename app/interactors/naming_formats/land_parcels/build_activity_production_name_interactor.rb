@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module NamingFormats
   module LandParcels
     class BuildActivityProductionNameInteractor

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class IbanValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     record.errors.add(attribute, :invalid) unless valid_iban?(value)

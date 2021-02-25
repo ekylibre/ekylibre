@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DateFormatValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     unless value.split(/\D/).size == 3

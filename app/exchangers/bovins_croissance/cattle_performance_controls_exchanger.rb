@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BovinsCroissance
   class CattlePerformanceControlsExchanger < ActiveExchanger::Base
     category :animal_farming

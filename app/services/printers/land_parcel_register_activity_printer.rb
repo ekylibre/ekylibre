@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Printers
   class LandParcelRegisterActivityPrinter < LandParcelRegisterPrinterBase
     attr_accessor :campaign, :activity

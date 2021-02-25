@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ekylibre
   class EntitiesExchanger < ActiveExchanger::Base
     category :stocks

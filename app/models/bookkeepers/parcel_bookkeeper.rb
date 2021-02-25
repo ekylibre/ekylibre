@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ParcelBookkeeper < Ekylibre::Bookkeeper
   def call
     return unless given?

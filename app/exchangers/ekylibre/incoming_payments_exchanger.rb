@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ekylibre
   # Imports incoming payment in CSV format (with commas in UTF-8)
   # Columns are:

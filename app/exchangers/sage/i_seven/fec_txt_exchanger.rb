@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Sage
   module ISeven
     class FecTxtExchanger < ActiveExchanger::Base

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module UPRA
   class ReproductorsExchanger < ActiveExchanger::Base
     category :animal_farming

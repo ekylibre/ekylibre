@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FixedAssetBookkeeper < Ekylibre::Bookkeeper
   def call
     return unless changed.include?('state')

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class InvoiceableItemsFilter
   def filter(receptions)
     receptions.flat_map do |reception|

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Vivescia
   # Exchanger to import COFTW.isa files from IsaCompta software
   class PurchaseExchanger < ActiveExchanger::Base

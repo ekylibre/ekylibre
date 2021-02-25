@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ekylibre
   class AnimalsExchanger < ActiveExchanger::Base
     category :animal_farming

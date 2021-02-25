@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FIEA
   class GalacteaExchanger < ActiveExchanger::Base
     category :animal_farming

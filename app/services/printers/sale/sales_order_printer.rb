@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Printers
   module Sale
     class SalesOrderPrinter < SalesEstimateAndOrderPrinter

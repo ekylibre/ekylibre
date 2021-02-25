@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CollectionValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     if value.nil? || !value.kind_of?(Array)

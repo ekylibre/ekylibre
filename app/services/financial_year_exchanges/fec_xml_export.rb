@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FinancialYearExchanges
   class FecXmlExport
     def generate_file(exchange)

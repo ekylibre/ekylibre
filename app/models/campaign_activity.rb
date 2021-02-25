@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # A CampaignActivity design mainly a couple Campaign-Activity so it's not really
 # an Activity. This model permits to manipulate the couple and compute results
 # at its level

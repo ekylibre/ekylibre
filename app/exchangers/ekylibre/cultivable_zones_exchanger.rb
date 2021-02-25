@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ekylibre
   # Import a list of cultivable zone from georeadings
   # Prefer ekylibre/cultivable_zones_json to import directly cultivable zones

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Quadra
   class FecTxtExchanger < ActiveExchanger::Base
     category :accountancy

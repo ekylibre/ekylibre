@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Synel
   class InventoryExchanger < ActiveExchanger::Base
     category :stocks

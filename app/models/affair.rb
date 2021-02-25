@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -158,7 +160,7 @@ class Affair < ApplicationRecord
 
     # Removes empty affairs in the whole table
     def clean_deads
-      query = "journal_entry_id NOT IN (SELECT id FROM #{connection.quote_table_name(:journal_entries)})"
+      query = "journal_entry_id NOT IN (SELECT id FROM #{connection.quote_table_name(:journal_entries)})".dup
       query << self.class.affairable_types.collect do |type|
         model = type.constantize
         " AND id NOT IN (SELECT #{model.reflect_on_association(:affair).foreign_key} FROM #{connection.quote_table_name(model.table_name)})"
@@ -168,7 +170,7 @@ class Affair < ApplicationRecord
 
     # Returns heterogen list of deals of the affair
     def generate_deals_method
-      code  = "def deals\n"
+      code  = "def deals\n".dup
       array = affairable_types.collect do |class_name|
         "#{class_name}.where(affair_id: self.id).to_a"
       end.join(' + ')

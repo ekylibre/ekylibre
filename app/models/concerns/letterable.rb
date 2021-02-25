@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Provides methods to letter something from corresponding bank_statement_items.
 # Used by Incoming and Outgoing Payments.
 module Letterable

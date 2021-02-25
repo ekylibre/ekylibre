@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Isagri
   module Isacompta
     # Exchanger to import COFTW.isa files from IsaCompta software

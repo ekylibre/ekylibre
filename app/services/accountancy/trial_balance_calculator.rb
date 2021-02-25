@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Accountancy
   class TrialBalanceCalculator
     class << self
@@ -56,7 +58,7 @@ module Accountancy
 
       # Total - position in array -1
       items = []
-      query = "SELECT '', -1, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), '#{'Z' * 16}' AS skey"
+      query = "SELECT '', -1, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), '#{'Z' * 16}' AS skey".dup
       query << from_where
       query << journal_entries_states
       query << journals_natures
@@ -76,7 +78,7 @@ module Accountancy
       end
 
       # NOT centralized accounts (default)
-      query = "SELECT #{accounts}.number, #{accounts}.id AS account_id, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{accounts}.number AS skey"
+      query = "SELECT #{accounts}.number, #{accounts}.id AS account_id, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{accounts}.number AS skey".dup
       query << from_where
       query << journal_entries_states
       query << journals_natures
@@ -88,7 +90,7 @@ module Accountancy
 
       # Centralized accounts  - position in array -3
       for prefix in centralize
-        query = "SELECT SUBSTR(#{accounts}.number, 1, #{prefix.size}) AS centralize, -3, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{connection.quote(prefix)} AS skey"
+        query = "SELECT SUBSTR(#{accounts}.number, 1, #{prefix.size}) AS centralize, -3, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{connection.quote(prefix)} AS skey".dup
         query << from_where
         query << journal_entries_states
         query << journals_natures
@@ -105,7 +107,7 @@ module Accountancy
         from_where_vat += " JOIN #{Tax.table_name} AS #{tax_items} ON (#{vat_journal_entry_items}.tax_id=#{tax_items}.id)"
         from_where_vat += " JOIN #{Account.table_name} AS #{tax_accounts} ON (#{vat_journal_entry_items}.account_id=#{tax_accounts}.id)"
         from_where_vat += ' WHERE (' + journal_entry_condition_builder.period_condition(options[:period], started_on: options[:started_on], stopped_on: options[:stopped_on], table_name: journal_entries) + ')'
-        query = "SELECT COALESCE(#{tax_accounts}.id, 0) AS account_id, -4, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{accounts}.number AS skey"
+        query = "SELECT COALESCE(#{tax_accounts}.id, 0) AS account_id, -4, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{accounts}.number AS skey".dup
         query << from_where_vat
         query << journal_entries_states
         query << journals_natures

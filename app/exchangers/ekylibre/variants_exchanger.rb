@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # FIXME: Not absolute name. Rename to ProductNatureVariantsExchanger (don't forget nomenclature)
 module Ekylibre
   # Expected file is a OpenDocument spreadsheet.

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AccountancyComputation
   # see short balance for items active / passive definition
 
