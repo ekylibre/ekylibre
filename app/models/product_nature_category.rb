@@ -201,13 +201,13 @@ class ProductNatureCategory < ApplicationRecord
         imported_from: 'Nomenclature'
       }.with_indifferent_access
       accounts_usage_categories = {
-        :charge => :purchasable,
-        :product => :saleable,
-        :stock => :storable,
-        :stock_movement => :storable,
-        :fixed_asset => :depreciable,
-        :fixed_asset_allocation => :depreciable,
-        :fixed_asset_expenses => :depreciable
+        charge: :purchasable,
+        product: :saleable,
+        stock: :storable,
+        stock_movement: :storable,
+        fixed_asset: :depreciable,
+        fixed_asset_allocation: :depreciable,
+        fixed_asset_expenses: :depreciable
       }.with_indifferent_access
       %i[fixed_asset fixed_asset_allocation fixed_asset_expenses charge product stock stock_movement].each do |account|
         account_name = item.send("#{account}_account")
