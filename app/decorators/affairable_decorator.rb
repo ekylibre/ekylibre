@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AffairableDecorator < Draper::Decorator
   delegate_all
 

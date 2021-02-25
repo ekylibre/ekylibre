@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ekylibre
   class BankStatementsExchanger < ActiveExchanger::Base
     category :accountancy

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Permits to compute Intervention from a small set of parameters
 module Interventions
   module Computation

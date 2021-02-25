@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DepreciationCalculator
   def initialize(financial_year_reference, depreciation_period)
     @fy_reference = financial_year_reference

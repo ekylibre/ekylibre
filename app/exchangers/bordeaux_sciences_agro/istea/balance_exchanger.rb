@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BordeauxSciencesAgro
   module Istea
     class BalanceExchanger < ActiveExchanger::Base

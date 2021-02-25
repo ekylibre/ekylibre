@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AgroSystemes
   class WaterAnalysesExchanger < ActiveExchanger::Base
     category :plant_farming

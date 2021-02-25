@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ActivityProductions
   class CostsCalculation
     def compute_costs(activity_production)

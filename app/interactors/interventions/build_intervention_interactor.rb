@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Interventions
   class BuildInterventionInteractor
     attr_reader :intervention, :attributes, :error, :parameters, :options

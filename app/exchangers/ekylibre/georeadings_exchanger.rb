@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ekylibre
   # Georeadings exchanger permit to import georeadings in Shapefile
   # in WGS84 spatial reference system.

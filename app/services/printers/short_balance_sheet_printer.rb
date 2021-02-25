@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Printers
   class ShortBalanceSheetPrinter < BalanceSheetPrinter
     def compute_dataset

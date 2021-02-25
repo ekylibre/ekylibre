@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ekylibre
   class LoansExchanger < ActiveExchanger::Base
     # TODO: add this class in common class of Exchanger Errors

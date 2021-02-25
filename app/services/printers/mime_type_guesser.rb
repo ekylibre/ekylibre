@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'mimemagic'
 require 'mimemagic/overlay'
 

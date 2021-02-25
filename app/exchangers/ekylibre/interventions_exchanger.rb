@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ekylibre
   class InterventionsExchanger < ActiveExchanger::Base
     category :plant_farming

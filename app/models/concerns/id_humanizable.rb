@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module IdHumanizable
   extend ActiveSupport::Concern
   # Permits to consider something and something_id like the same

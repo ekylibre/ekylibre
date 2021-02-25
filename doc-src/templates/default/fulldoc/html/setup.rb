@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EkyTreeContext < TreeContext
   def nest
     @depth += 1

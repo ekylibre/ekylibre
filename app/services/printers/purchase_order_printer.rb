@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Printers
   class PurchaseOrderPrinter < PrinterBase
     def initialize(purchase_order:, template:)

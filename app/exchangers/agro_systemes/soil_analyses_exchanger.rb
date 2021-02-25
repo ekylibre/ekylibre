@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AgroSystemes
   class SoilAnalysesExchanger < ActiveExchanger::Base
     category :plant_farming

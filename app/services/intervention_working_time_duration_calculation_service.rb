@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Permits to compute working time by nature (doer, tool) in intervention
 # context.
 class InterventionWorkingTimeDurationCalculationService

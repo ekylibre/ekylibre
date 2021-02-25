@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Indicatus
   def initialize(variable_indicator, operation)
     @varicator = variable_indicator

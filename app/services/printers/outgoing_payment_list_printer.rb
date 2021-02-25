@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Printers
   class OutgoingPaymentListPrinter < PrinterBase
     AMOUNT_OF_ROWS_FITTING_IN_PAGE_ONE = 8

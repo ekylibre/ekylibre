@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -392,7 +394,7 @@ class Journal < ApplicationRecord
         journal_entries_states = ' AND ' + JournalEntry.state_condition(options[:states], journal_entries)
       end
 
-      from_where = " FROM #{JournalEntryItem.table_name} AS #{journal_entry_items} JOIN #{Account.table_name} AS #{accounts} ON (account_id=#{accounts}.id) JOIN #{JournalEntry.table_name} AS #{journal_entries} ON (entry_id=#{journal_entries}.id)"
+      from_where = " FROM #{JournalEntryItem.table_name} AS #{journal_entry_items} JOIN #{Account.table_name} AS #{accounts} ON (account_id=#{accounts}.id) JOIN #{JournalEntry.table_name} AS #{journal_entries} ON (entry_id=#{journal_entries}.id)".dup
       if options[:unwanted_journal_nature]
         from_where << " JOIN #{Journal.table_name} AS #{journals} ON (#{journal_entries}.journal_id=#{journals}.id)"
         from_where << " WHERE #{journals}.nature NOT IN (" + options[:unwanted_journal_nature].map { |c| "'#{c}'" }.join(', ') + ')'
@@ -430,7 +432,7 @@ class Journal < ApplicationRecord
               sum(COALESCE(jei.credit, 0)) as sum_credit,
               sum(COALESCE(jei.debit, 0)) - sum(COALESCE(jei.credit, 0)) as account_balance
         SQL
-
+        query = query.dup
         query << from_where
         query << journal_entries_states
         query << " AND (#{accounts_range[:include].join(' OR ')})" if accounts_range[:include]

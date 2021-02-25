@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -383,7 +385,7 @@ class Account < ApplicationRecord
         excepts << code if prefix =~ /^\^\d+$/
         normals << code if prefix =~ /^\-?\d+[CDX]?$/
       end
-      conditions = ''
+      conditions = ''.dup
       if normals.any?
         conditions << '(' + normals.sort.collect do |c|
           "#{table}.number LIKE '#{c}%'"
@@ -452,7 +454,7 @@ class Account < ApplicationRecord
       raise ArgumentError.new("The usage #{usage.inspect} is not implemented in #{accounting_system.inspect}") unless item.send(accounting_system)
 
       centralizing_number = item.send(accounting_system)
-      auxiliary_number = '1'
+      auxiliary_number = '1'.dup
       until Account.find_by('number LIKE ?', centralizing_number + auxiliary_number).nil?
         auxiliary_number.succ!
       end
@@ -525,7 +527,7 @@ class Account < ApplicationRecord
     # Clean ranges of accounts
     # Example : 1-3 41 43
     def clean_range_condition(range, _table_name = nil)
-      expression = ''
+      expression = ''.dup
 
       if range.present?
         valid_expr = /^\d(\d(\d[0-9A-Z]*)?)?$/

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Telepac
   module V2019
     class CapStatementsExchanger < ActiveExchanger::Base

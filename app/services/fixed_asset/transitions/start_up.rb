@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FixedAsset
   module Transitions
     class StartUp < Transitionable::Transition

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FinancialYearExchangeExportMailer < ActionMailer::Base
   def notify_accountant(exchange, current_user, file, zipname)
     attachments[zipname] = File.read(file)

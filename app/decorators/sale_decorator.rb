@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SaleDecorator < Draper::Decorator
   delegate_all
 

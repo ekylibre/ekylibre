@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ReceivableItemsFilter
   def filter(purchase_orders)
     purchase_orders.flat_map do |purchase_order|

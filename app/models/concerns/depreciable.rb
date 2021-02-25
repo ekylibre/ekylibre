@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Depreciable
   extend ActiveSupport::Concern
 

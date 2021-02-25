@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class OpenWeatherMapClient
-  DOMAIN = 'api.openweathermap.org'.freeze
+  DOMAIN = 'api.openweathermap.org'
 
   attr_accessor :apikey
 

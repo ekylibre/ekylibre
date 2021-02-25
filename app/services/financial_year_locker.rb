@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FinancialYearLocker
   # @param [FinancialYear] year
   def lock!(year)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Reception
   module Transitions
     class Give < Transitionable::Transition
