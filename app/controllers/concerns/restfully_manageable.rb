@@ -94,8 +94,9 @@ module RestfullyManageable
         while parents.last.superclass < ActionController::Base
           parents << parents.last.superclass
         end
-        lookup = Rails.root.join('app', 'views', "{#{parents.map(&:controller_path).join(',')}}")
-        if Dir.glob(lookup.join('show.*')).any?
+        lookup = Ekylibre::Application.config.x.restfully_manageable.view_paths
+                                      .map { |dir| dir.join("{#{parents.map(&:controller_path).join(',')}}") }
+        if Dir.glob(lookup.map { |lookup_path| lookup_path.join('show.*') }).any?
           if options[:subclass_inheritance]
             code << "  if @#{record_name}.type and @#{record_name}.type != '#{model_name}' && !request.xhr?\n"
             code << "    redirect_to controller: @#{record_name}.type.tableize, action: :show, id: @#{record_name}.id, format: params[:format]\n"
@@ -107,7 +108,7 @@ module RestfullyManageable
           code << "    format.xml  { render xml:  @#{record_name} }\n"
           code << "    format.json\n" #  { render json: @#{record_name} }
           code << "  end\n"
-        elsif Dir.glob(lookup.join('index.*')).any?
+        elsif Dir.glob(lookup.map { |lookup_path| lookup_path.join('index.*') }).any?
           code << "  redirect_to action: :index, '#{name}-id' => @#{record_name}.id\n"
         else
           raise StandardError.new("Cannot build a default show action without view for show or index actions in #{parents.map(&:controller_path).to_sentence(locale: :eng)} (#{lookup.join('show.*')}).")

@@ -57,16 +57,8 @@ module Backend
       class Cell
         attr_reader :content, :type, :options, :name
 
-        cattr_reader :controller_types
         def self.controller_types
-          unless @controller_types
-            Dir.chdir(Rails.root.join('app/controllers/backend/cells')) do
-              @controller_types = Dir['*_cells_controller.rb'].map do |path|
-                path.gsub(/_cells_controller.rb$/, '').to_sym
-              end.compact
-            end
-          end
-          @controller_types
+          Ekylibre::Application.config.x.beehive.cell_controller_types
         end
 
         def initialize(name, options = {})
