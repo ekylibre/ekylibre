@@ -266,12 +266,12 @@ class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase
             name: side.to_s.capitalize,
             account: account,
             letter: letter,
-            :"real_#{side}" => amount
+            "real_#{side}": amount
           },
           {
             name: other_side.to_s.capitalize,
             account: destination_account,
-            :"real_#{other_side}" => amount
+            "real_#{other_side}": amount
           }
         ]
       )

@@ -77,7 +77,7 @@ module Backend
 
       @form_url = backend_product_nature_category_path(@product_nature_category)
       @key = 'product_nature_category'
-      render(locals: { cancel_url: { :action=>:index }, with_continue: false })
+      render(locals: { cancel_url: { action: :index }, with_continue: false })
     end
   end
 end

@@ -401,7 +401,7 @@ class Intervention < ApplicationRecord
         end
         stock_journal = Journal.new(name: stock_journal_name, nature: :various, used_for_permanent_stock_inventory: true).tap(&:valid?)
 
-        [stock_journal.code, *%i(STOC IVNT)].each do |new_code|
+        [stock_journal.code, :STOC, :IVNT].each do |new_code|
           conflicting_journals = Journal.where(code: new_code)
           next if conflicting_journals.any?
 

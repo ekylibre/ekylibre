@@ -78,7 +78,7 @@ module Backend
 
       @form_url = backend_product_nature_path(@product_nature)
       @key = 'product_nature'
-      render(locals: { cancel_url: { :action=>:index }, with_continue: false })
+      render(locals: { cancel_url: { action: :index }, with_continue: false })
     end
 
     def compatible_varieties
