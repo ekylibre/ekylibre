@@ -71,7 +71,7 @@ fra:
     isagri_isacompta_fixed_assets: "Immobilisation isacompta ‒ Isagri"
     isagri_isacompta_journal_entries: "Ecritures comptables (GL) isacompta ‒ Isagri"
     isagri_isaculture_csv_import: "Interventions isaculture (CSV/ZIP) ‒ Isagri"
-    isagri_isapaye_ecx_journal_entries: "Ecritures comptables (ECX) isapaye ‒ Isagri"
+    isagri_isapaye_ecr_journal_entries: "Écritures comptables (ECR) Isapaye ‒ Isagri"
     la_graine_informatique_vinifera_entities: "Tiers vinifera - La graine informatique"
     la_graine_informatique_vinifera_products: "Produits vinifera - La graine informatique"
     la_graine_informatique_vinifera_sales: "Commandes vinifera - La graine informatique"
