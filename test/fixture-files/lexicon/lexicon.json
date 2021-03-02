@@ -145,7 +145,6 @@
     "productions": {
       "name": "productions",
       "structure": "productions__structure.sql",
-      "data": "productions.sql",
       "tables": [
         "master_production_natures",
         "master_production_outputs"
