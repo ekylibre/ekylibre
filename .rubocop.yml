@@ -19,10 +19,6 @@ AllCops:
     - 'tmp/**/*'
     - 'vendor/**/*'
 
-# TODO: Enable this on a next Gemfile update
-Bundler/OrderedGems:
-  Enabled: false
-
 # We disable this for now. 1500 offenses as of 01/02/2021
 Layout/LineLength:
   Enabled: false
