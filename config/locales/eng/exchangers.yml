@@ -66,7 +66,7 @@ eng:
     isagri_isacompta_fixed_assets: "Isagri isacompta fixed assets"
     isagri_isacompta_journal_entries: "Isagri isacompta journal entries"
     isagri_isaculture_csv_import: "Isagri isaculture csv import"
-    isagri_isapaye_ecx_journal_entries: "Isagri isapaye journal entries (ECX)"
+    isagri_isapaye_ecr_journal_entries: "Isagri Isapaye journal entries (ECR)"
     la_graine_informatique_vinifera_entities: "La graine informatique vinifera entities"
     la_graine_informatique_vinifera_products: "La graine informatique vinifera products"
     la_graine_informatique_vinifera_sales: "La graine informatique vinifera sales"

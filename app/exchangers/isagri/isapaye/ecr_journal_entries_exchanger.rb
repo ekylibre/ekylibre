@@ -3,7 +3,7 @@
 module Isagri
   module Isapaye
     # Exchanger to import COFTW.isa files from IsaCompta software
-    class EcxJournalEntriesExchanger < ActiveExchanger::Base
+    class EcrJournalEntriesExchanger < ActiveExchanger::Base
       category :accountancy
       vendor :isagri
 
