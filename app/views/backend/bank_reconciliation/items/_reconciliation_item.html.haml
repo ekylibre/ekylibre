@@ -3,6 +3,9 @@
 - classes = [:'reconciliation-item']
 - classes << :lettered if letter
 %div{ class: classes, data: { id: item.id, type: type, bank_statement_id: item.bank_statement_id, letter: letter } }
+  %a.locked
+    - if locked_item
+      %i
   %a#delete{ href: "#" }
     - unless type == 'journal_entry_item'
       %i

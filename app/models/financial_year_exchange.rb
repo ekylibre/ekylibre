@@ -61,6 +61,7 @@ class FinancialYearExchange < ApplicationRecord
 
   scope :opened, -> { where(closed_at: nil) }
   scope :closed, -> { where.not(closed_at: nil) }
+  scope :at, ->(date) { where('? BETWEEN started_on AND stopped_on', date) }
 
   class << self
     def for_public_token(public_token)

@@ -315,16 +315,16 @@ class Intervention < ApplicationRecord
       all_known = actions.all? { |action| procedure.has_action?(action) }
       errors.add(:actions, :invalid) unless all_known
     end
+
     if started_at && stopped_at && stopped_at <= started_at
       errors.add(:stopped_at, :posterior, to: started_at.l)
     end
-    true
-  end
 
-  validate do
     if printed_on
       errors.add(:printed_on, :not_opened_financial_year) if Preference[:permanent_stock_inventory] && !during_financial_year?
     end
+
+    errors.add(:base, :financial_year_exchange_on_this_period) if during_financial_year_exchange? && (inputs.any? || outputs.any?) && Preference[:permanent_stock_inventory]
   end
 
   before_save do
@@ -1046,6 +1046,10 @@ class Intervention < ApplicationRecord
     receptions.each do |reception|
       reception.update(reconciliation_state: 'reconcile') if reception.reconciliation_state != 'reconcile'
     end
+  end
+
+  private def during_financial_year_exchange?
+    FinancialYearExchange.opened.at(printed_at).exists?
   end
 
   class << self

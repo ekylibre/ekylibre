@@ -74,7 +74,7 @@ class OutgoingPayment < ApplicationRecord
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :amount, numericality: true
-  validates :to_bank_at, financial_year_writeable: true
+  validates :to_bank_at, financial_year_writeable: true, ongoing_exchanges: true
 
   delegate :full_name, to: :payee, prefix: true
 
