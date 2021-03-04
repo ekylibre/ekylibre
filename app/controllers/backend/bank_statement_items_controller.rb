@@ -25,6 +25,7 @@ module Backend
 
       safe_params = permitted_params
       @bank_statement_item = @bank_statement.items.new(safe_params)
+      @locked_item = FinancialYearExchange.opened.at(safe_params[:transfered_on]).exists?
 
       respond_to do |format|
         if @bank_statement_item.save

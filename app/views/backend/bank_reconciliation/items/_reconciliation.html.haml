@@ -51,11 +51,12 @@
         items = @items_grouped_by_date.fetch(date, [])
         bs = BankStatement.on(date).for_cash(cash_id).first
         should_create = items.any? || bs.present?
+        locked_item = FinancialYearExchange.opened.at(date).exists?
       - if should_create
         .date-section{ class: ('hidden' if items.empty?)}
           = render 'date_header', date: date, bank_statement: bs, cash_id: cash_id
           - items.uniq.each do |item|
-            = render 'reconciliation_item', item: item
+            = render 'reconciliation_item', item: item, locked_item: locked_item
 
   .totals
     #matching

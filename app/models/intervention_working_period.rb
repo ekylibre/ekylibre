@@ -185,7 +185,7 @@ class InterventionWorkingPeriod < ApplicationRecord
   end
 
   def during_financial_year_exchange?
-    FinancialYearExchange.opened.where('? BETWEEN started_on AND stopped_on', started_at).any?
+    FinancialYearExchange.opened.at(started_at).exists?
   end
 
   private

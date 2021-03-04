@@ -468,8 +468,6 @@ class JournalEntry < ApplicationRecord
     end
 
     def in_opened_financial_year_exchange?
-      return unless financial_year
-
-      financial_year.exchanges.opened.any? { |e| (e.started_on..e.stopped_on).cover?(printed_on) }
+      financial_year.present? && financial_year.exchanges.opened.at(printed_on).exists?
     end
 end
