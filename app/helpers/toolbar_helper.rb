@@ -34,8 +34,9 @@ module ToolbarHelper
     def export(*natures, label: :print, **options)
       record = options[:resource] || @template.resource
       options[:key] ||= (record ? :number : Time.zone.now.strftime('%Y%m%d%H%M%S'))
+      icon = options[:icon] || :print
       key = (options[:key].is_a?(Symbol) ? record.send(options[:key]) : options[:key]).to_s
-      @template.dropdown_menu_button(label, class: options[:class]) do |menu|
+      @template.dropdown_menu_button(label, icon: icon, class: options[:class]) do |menu|
         natures.each do |nature_name|
           nature = Onoma::DocumentNature.find(nature_name)
           modal_id = nature.name.to_s + '-exporting'

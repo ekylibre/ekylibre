@@ -101,6 +101,12 @@ module Backend
           redirect_back(fallback_location: { action: :index })
         end
 
+        format.zip do
+          PurchaseReceiptsExtractorJob.perform_later(financial_years: @financial_year, user: current_user)
+          notify_success(:document_in_preparation)
+          redirect_back(fallback_location: { action: :show, id: @financial_year })
+        end
+
         format.json
       end
     end
