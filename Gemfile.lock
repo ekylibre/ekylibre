@@ -377,6 +377,7 @@ GEM
       activerecord (>= 4.0, < 6.2)
     parser (2.7.1.5)
       ast (~> 2.4.1)
+    pdf-core (0.9.0)
     pdf-reader (2.4.2)
       Ascii85 (~> 1.0)
       afm (~> 0.2.1)
@@ -385,6 +386,9 @@ GEM
       ttfunk
     pg (1.2.3)
     polyglot (0.3.5)
+    prawn (2.4.0)
+      pdf-core (~> 0.9.0)
+      ttfunk (~> 1.7)
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -714,6 +718,7 @@ DEPENDENCIES
   pdf-reader (~> 2.4)
   pg (~> 1.0)
   possibly!
+  prawn (~> 2.4)
   pry (~> 0.12.0)
   pry-byebug (~> 3.8)
   pry-rails (~> 0.3.9)

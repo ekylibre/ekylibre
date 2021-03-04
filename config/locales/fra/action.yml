@@ -1326,6 +1326,7 @@ fra:
     backups: "Sauvegardes" #?
     balance: "Solde"
     balance_allocated_to_retained_earnings: "Affectation du budget - Solde du compte de reports à nouveau"
+    balance_sheet_and_income_statements: "Bilan/Compte de résultat"
     balance_of_selection: "Solde de la sélection"
     balance_of_the_income_statement: "Afectation du budget - Solde du compte de résultat"
     balanced: "Soldés"
@@ -2511,6 +2512,7 @@ fra:
     payments_count: "Nombre de %{mode}"
     payslip_number: "N° du salaire"
     payslips: "Salaires"
+    pdf_purchase_receipt_file_name: "jusificatifs_achats_%{month}_%{year}.pdf"
     people: "Personnes"
     percentage_by_calibration: "Pourcentage de stock en terre net par calibre"
     percentage_by_calibration_x: "Pourcentage de stock en terre net par calibre - %{x}" #?
@@ -2647,6 +2649,8 @@ fra:
     purchase_order: "Commande"
     purchase_order_items: "Commandes d'achats"
     purchase_payments: "Décaissements"
+    purchase_receipts: "Justificatifs achat"
+    purchase_receipts_file_name: "Justificatifs factures achats"
     purchase_steps: #?
       deliveries: "Livraisons" #?
       products: "Création de l’achat" #?
