@@ -28,8 +28,8 @@
 #  activity_budget_id     :integer
 #  amount                 :decimal(19, 4)   default(0.0), not null
 #  annotation             :text
-#  conditionning          :integer
-#  conditionning_quantity :integer
+#  conditionning          :decimal(19, 4)
+#  conditionning_quantity :decimal(19, 4)
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  currency               :string           not null
@@ -85,7 +85,7 @@ class PurchaseItem < ApplicationRecord
   validates :accounting_label, length: { maximum: 500 }, allow_blank: true
   validates :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :annotation, :label, length: { maximum: 500_000 }, allow_blank: true
-  validates :conditionning, :conditionning_quantity, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :conditionning, :conditionning_quantity, numericality: { greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :account, :currency, :purchase, :tax, presence: true
   validates :fixed, inclusion: { in: [true, false] }
   validates :fixed_asset_stopped_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years }, type: :date }, allow_blank: true
