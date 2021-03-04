@@ -966,7 +966,7 @@ module ApplicationHelper
   def field_set(*args, &block)
     options = args.extract_options!
     options[:fields_class] ||= 'fieldset-fields'
-    name = args.shift || 'general-informations'.to_sym
+    name = args.shift || :"general-informations"
     buttons = [options[:buttons] || []].flatten
     buttons << link_to('', '#', :class => 'toggle', 'data-toggle' => 'fields')
     classes = ['fieldset', name.to_s, options.fetch(:class, [])].flatten

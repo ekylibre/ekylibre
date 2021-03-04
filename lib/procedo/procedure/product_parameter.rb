@@ -103,7 +103,7 @@ module Procedo
           default: [
             "is_#{name}_completely_destroyed_by_intervention".to_sym,
             "is_this_completely_destroyed_by_#{procedure.name}".to_sym,
-            'is_this_completely_destroyed_by_this_intervention'.to_sym
+            :is_this_completely_destroyed_by_this_intervention
           ]
         )
       end

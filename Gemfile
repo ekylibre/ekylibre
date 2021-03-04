@@ -177,9 +177,8 @@ group :development do
   gem 'better_errors', '~> 2.9'
 
   # Code metrics
-  gem 'parser', '~> 2.7.1.5'
   gem 'rails_best_practices', '~> 1.20', require: false
-  gem 'rubocop', '~> 1.3.1', require: false
+  gem 'rubocop', '~> 1.11.0', require: false
 
   # Webservers
   gem 'thin', '~> 1.8'
