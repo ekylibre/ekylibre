@@ -53,6 +53,10 @@ eng:
       index: "Productions"
       new: "New production"
       show: "Production: %{name}"
+    backend/activity_productions_of_plant:
+      edit_specified: "Edit land parcel of %{activity}"
+      new_specified: "New land parcel of %{activity}"
+      show: "Land parcel\_: %{name}"
     backend/activity_seasons:
       # edit: "Edit activity season: %{name}"
       # index: "Activity seasons"
@@ -1381,6 +1385,9 @@ eng:
     unroll:
       server_error: "Server error"
   labels:
+    number_of_animals: "Number of animals"
+    warning_could_not_use_ift: "Warning, if production nature is not setted, treatment frequency index won't be calculated."
+    start_state_of_production: "Start state of production (year N)"
     configure_naming_format: "Configure Naming Format"
     free_field_naming_format_hint: "You can customize name by adding a free field to naming format"
     free_field: "Free field"
@@ -2097,8 +2104,9 @@ eng:
     forecast_harvest_week: "Forecast harvest week"
     # france_maaid: "France maaid"
     from: "From"
-    from_to_date: "from %{from} to %{to}"
-    fruit_yield: "Fruit yield"
+    from_current_year: "From"
+    to_next_year: "To"
+    production_campaign_period: "Production campaign period"
     full_name: "Full name"
     fullscreen: "Fullscreen"
     function: "Function"
@@ -3250,6 +3258,7 @@ eng:
       other: "%{count} years"
     # y: "Y"
     year: "Year"
+    year_long: "Year"
     year_end: "Year end"
     year_start: "Year start"
     yield: "Yield"

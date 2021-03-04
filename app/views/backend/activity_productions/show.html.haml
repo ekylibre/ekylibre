@@ -1,3 +1,7 @@
+- if resource.plant_farming?
+  - content_for :main_title do
+    = I18n.t(action_name, scope:'actions.backend/activity_productions_of_plant.', name: resource.name)
+
 - main_toolbar do |t|
   = t.edit resource
   = t.destroy show_disabled: true, disabled_tooltip_content: :cannot_delete_this_production.tl

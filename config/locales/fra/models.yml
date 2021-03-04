@@ -96,6 +96,9 @@ fra:
         net_margin: "Marge nette" #?
         parent: "Activité parente" #?
         work_unit: "Unité d’œuvre" #?
+        start_state_of_production_year: "1ère année de production"
+        life_duration: "Durée de vie après plantation"
+        production_campaign_period: "Campagne annuelle de production"
       activity_budget:
         expenses_amount: "Montant des dépenses"
         revenues_amount: "Montant des recettes"
@@ -459,6 +462,7 @@ fra:
         # record_is_not_valid: "The record is invalid"
         should_be_consecutive: "Les exercices fiscaux doivent être consécutifs, %{attribute} doit donc être %{expected}."
         should_be_the_last_day_of_month: "%{attribute} doit être le dernier jour du mois."
+        start_date_before_end_date: "La date de début doit être avant la date de fin."
         taken: "%{attribute} a déjà été pris"
         too_long: "%{attribute} est trop long (%{count} caractères maximum)"
         too_short: "%{attribute} est trop court (%{count} caractères minimum)"
@@ -1136,7 +1140,7 @@ fra:
     cultivable_zone: "Zone cultivable"
     cultivable_zones: "Zones cultivables"
     cultivation_variant: "Type de culture"
-    cultivation_variety: "Variété de la culture"
+    cultivation_variety: "Espèce"
     cumulated_absolute_credit: "Crédit absolu cumulé"
     cumulated_absolute_debit: "Débit absolu cumulé"
     cumulated_balance: "Balance cumulée"

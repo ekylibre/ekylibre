@@ -1,7 +1,6 @@
-(function (E) {
+(function (E, $) {
     const onKeyUpDelay = 1000;
     const namingFromatUrl = '/backend/naming_format_land_parcels/build.json';
-    const namingFromatDetailsUrl = '/backend/naming_format_land_parcels/details.json';
 
     class SupportNamePreview {
         constructor(formElement) {
@@ -54,7 +53,7 @@
                 ...this.namingBaseParams,
                 cultivable_zone_id: cultivableZoneId,
                 season_id: seasonId,
-                free_field: freeFieldValue,
+                free_field: freeFieldValue
             };
         }
 
@@ -63,19 +62,14 @@
                 url: namingFromatUrl,
                 data: this.getParams(),
                 context: this,
-                success: function (data, status, request) {
+                success: data => {
                     this.disableLoader();
                     this.setValue(data.name);
                     this.boundInput.setVisibility(data.has_free_field);
                 },
-                error: function (err) {
-                    _.delay(
-                        function () {
-                            this.previewElement.classList.add('loading-error');
-                        }.bind(this),
-                        1000
-                    );
-                },
+                error: () => {
+                    _.delay(() => this.previewElement.classList.add('loading-error'), 1000);
+                }
             });
         }
     }
@@ -103,6 +97,17 @@
             if (previewElement !== null) {
                 new SupportNamePreview(formElement).init();
             }
+
+            const cultivableZoneSelector = formElement.querySelector('#activity_production_cultivable_zone_id');
+            cultivableZoneSelector.addEventListener('unroll:selector:change', function (_event, _value, is_initialization) {
+                if (!is_initialization) {
+                    const element = $(this);
+                    const id = element.selector('value');
+                    const map = $('#activity_production_support_shape');
+                    new E.CultivableZoneService().get(id)
+                                                 .then(cultivable_zone => map.mapeditor('edit', cultivable_zone.shape, true));
+                }
+            });
         }
     });
-})(ekylibre);
+})(ekylibre, jQuery);
