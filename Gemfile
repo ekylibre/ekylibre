@@ -22,6 +22,7 @@ gem 'rake', '~> 12.0'
 # TO REMOVE ASAP
 gem 'browser', '~> 5.2' # Only used in ApplicationController to check for IE
 gem 'ffaker', '~> 2.0' # Should not be present in production. Is used to generate names for Products.
+gem 'rjb', '1.6.2' # Version 1.6.4 segfaults on test server, jasper repors should be trashed anyway....
 gem 'time_diff', '~> 0.3.0' # Only used in InterventionWorkingPeriod
 gem 'wannabe_bool', '~> 0.7.1' # This Gem is a JOKE
 
