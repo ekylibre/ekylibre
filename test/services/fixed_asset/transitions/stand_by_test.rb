@@ -95,7 +95,7 @@ class FixedAsset
       private
 
         def new_transition_for(fa, waiting_on, **options)
-          FixedAsset::Transitions::StandBy.new(fa, waiting_on, **options)
+          FixedAsset::Transitions::StandBy.new(fa, waiting_on: waiting_on, **options)
         end
 
         def create_fixed_asset_from_purchase

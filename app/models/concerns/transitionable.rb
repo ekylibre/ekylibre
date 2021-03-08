@@ -135,7 +135,7 @@ module Transitionable
       end
     end
 
-    def initialize(resource, attribute: :state)
+    def initialize(resource, attribute: :state, **)
       @resource = resource
       @attribute = attribute
     end

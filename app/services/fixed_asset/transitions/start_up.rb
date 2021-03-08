@@ -5,11 +5,14 @@ class FixedAsset
       from :draft, :waiting
       to :in_use
 
-      def initialize(fixed_asset, **_options)
-        super fixed_asset
+      def initialize(resource, started_on: nil, **)
+        super(resource)
+
+        @started_on = resource.started_on || started_on
       end
 
       def transition
+        resource.started_on = started_on
         resource.state = :in_use
         resource.transaction do
           resource.save!
@@ -17,17 +20,17 @@ class FixedAsset
           # TODO: reverse this method, send an information message with the born_at of the product
           # update_product_born_at!
         end
-        true
-      rescue
-        false
       end
 
       def can_run?
         super && resource.valid? &&
-          during_or_before_opened_financial_year?(resource.started_on)
+          during_or_before_opened_financial_year?(started_on)
       end
 
       private
+
+        # @return [Date]
+        attr_reader :started_on
 
         def during_or_before_opened_financial_year?(date)
           opened_fys = FinancialYear.opened
@@ -41,9 +44,9 @@ class FixedAsset
 
         # TODO: send a message instead
         def update_product_born_at!
-          return unless resource.product
-
-          resource.product.update!(born_at: resource.started_on.to_datetime)
+          if resource.product.present?
+            resource.product.update!(born_at: resource.started_on.to_datetime)
+          end
         end
     end
   end

@@ -131,7 +131,7 @@ class FixedAsset
       end
 
       def new_transition_for(fa, sold_on, **options)
-        FixedAsset::Transitions::Sell.new(fa, sold_on, **options)
+        FixedAsset::Transitions::Sell.new(fa, sold_on: sold_on, **options)
       end
 
       def t_err(t)
