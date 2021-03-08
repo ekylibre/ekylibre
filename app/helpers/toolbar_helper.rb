@@ -106,7 +106,7 @@ module ToolbarHelper
       controller_options = options[:controller] ? { controller: options[:controller] } : {}
       if @template.resource
         if @template.resource.updateable?
-          tool(options[:label] || :edit.ta, **controller_options, action: :edit, id: @template.resource.id, redirect: options[:redirect])
+          tool(options[:label] || :edit.ta, { **controller_options, action: :edit, id: @template.resource.id, redirect: options[:redirect] }, disabled: options[:disabled])
         end
       else
         tool(options[:label] || :edit.ta, { **controller_options, action: :edit, redirect: options[:redirect] }, options.except(:redirect, :label))

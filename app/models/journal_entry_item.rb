@@ -473,4 +473,8 @@ class JournalEntryItem < ApplicationRecord
   def displayed_label_in_accountancy
     accounting_label.present? ? accounting_label : name
   end
+
+  def currently_exchanged?
+    entry.financial_year_exchange_id.present?
+  end
 end

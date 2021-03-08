@@ -1,4 +1,18 @@
 GIT
+  remote: https://gitlab.com/ekylibre/active_list.git
+  revision: f7c9b224779dee88d4112a70e62946b0f26e0c1f
+  branch: master
+  specs:
+    active_list (8.1.0)
+      arel (>= 5.0.0)
+      code_string (>= 0.0.1)
+      i18n-complements
+      onoma (~> 0.4)
+      rails (>= 3.2, < 6)
+      rodf (~> 1.1)
+      rubyzip (>= 1.0)
+
+GIT
   remote: https://gitlab.com/ekylibre/eky-possibly.git
   revision: 483d102852e2ab8fcbf695b9e25a40902302a593
   tag: v3.1.1
@@ -45,14 +59,6 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
-    active_list (8.1.0)
-      arel (>= 5.0.0)
-      code_string (>= 0.0.1)
-      i18n-complements
-      onoma (~> 0.4)
-      rails (>= 3.2, < 6)
-      rodf (~> 1.1)
-      rubyzip (>= 1.0)
     activejob (5.0.7.2)
       activesupport (= 5.0.7.2)
       globalid (>= 0.3.6)
@@ -640,7 +646,7 @@ PLATFORMS
 
 DEPENDENCIES
   actionpack-xml_parser (~> 2.0)
-  active_list (~> 8.0)
+  active_list!
   activemodel-serializers-xml (~> 1.0)
   activerecord-postgis-adapter (~> 4.1)
   acts_as_list (~> 1.0)
