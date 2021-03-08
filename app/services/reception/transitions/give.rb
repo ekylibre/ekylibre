@@ -9,8 +9,8 @@ class Reception
 
       attr_reader :given_at
 
-      def initialize(reception, given_at: nil, **_options)
-        super reception
+      def initialize(reception, given_at: nil, **options)
+        super(reception, **options)
 
         @given_at = reception.given_at || given_at
       end
@@ -26,8 +26,6 @@ class Reception
           resource.state = :given
 
           resource.save!
-
-          true
         end
       end
 
