@@ -213,7 +213,6 @@ group :test do
 
   gem 'minitest', "~> 5.14"
   gem 'minitest-reporters', '~> 1.4'
-  gem 'ruby-terminfo', '~> 0.1'
 
   gem 'factory_bot', '< 5'
 
