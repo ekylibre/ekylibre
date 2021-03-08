@@ -42,6 +42,7 @@
 #  updated_at               :datetime         not null
 #  updater_id               :integer
 #
+
 class FinancialYearExchange < ApplicationRecord
   belongs_to :financial_year
   has_many :journal_entries, dependent: :nullify
