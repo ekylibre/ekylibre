@@ -85,5 +85,30 @@ module Backend
       fy = create(:financial_year, year: 2021, accountant: accountant)
       @exchange = create(:financial_year_exchange, financial_year: fy)
     end
+
+    test 'close should remove exchange id value from associated journal entries' do
+      empty_journal_entries
+      fy = create(:financial_year, year: 2021)
+      printed_on_dates = %w[2021-01-09 2021-01-11 2021-01-14 2021-01-16 2021-01-25]
+      printed_on_dates.each do |date|
+        create(:journal_entry, :with_items, printed_on: date)
+      end
+      exchange = create(:financial_year_exchange, :opened, financial_year: fy, started_on: '2021-01-10', stopped_on: '2021-01-20')
+      assert_equal 3, exchange.journal_entries.count
+
+      get :close, params: { id: exchange.id }
+      assert_equal 0, exchange.journal_entries.count
+    end
+
+    private
+
+      def empty_journal_entries
+        FinancialYear.delete_all
+        OutgoingPayment.delete_all
+        Regularization.delete_all
+        Payslip.delete_all
+        JournalEntryItem.delete_all
+        JournalEntry.delete_all
+      end
   end
 end
