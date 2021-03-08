@@ -34,7 +34,7 @@
 #  currency                          :string           not null
 #  custom_fields                     :jsonb
 #  id                                :integer          not null, primary key
-#  initial_releasing_amount          :boolean          default(FALSE), not null
+#  initial_releasing_amount          :boolean          default(TRUE), not null
 #  insurance_account_id              :integer
 #  insurance_percentage              :decimal(19, 4)   not null
 #  insurance_repayment_method        :string
