@@ -168,90 +168,6 @@ class FinancialYearExchangeTest < Ekylibre::Testing::ApplicationTestCase::WithFi
     assert_equal previous_exchange.stopped_on, get_computed_started_on(exchange), 'Expected start date of exchange is not encountered. Financial year started on ' + financial_year.started_on.l(locale: :eng) + ' and stopped on ' + financial_year.stopped_on.l(locale: :eng) + ' and previous exchange stopped on ' + exchange.stopped_on.l(locale: :eng)
   end
 
-  test 'create closes journal entries from non-booked journal between financial year start and exchange lock when the financial year has no other exchange' do
-    financial_year = financial_years(:financial_years_025)
-    stopped_on = financial_year.stopped_on - 2.days
-
-    journal = create(:journal, accountant_id: nil)
-    draft_entries = create_list(:journal_entry, 2, :with_items, journal: journal, printed_on: financial_year.started_on + 1.day)
-    confirmed_entries = create_list(:journal_entry, 2, :confirmed, :with_items, journal: journal, printed_on: financial_year.started_on + 1.day)
-
-    exchange = FinancialYearExchange.new(financial_year: financial_year, stopped_on: stopped_on)
-    assert exchange.save
-
-    draft_entries.each(&:reload)
-    confirmed_entries.each(&:reload)
-
-    assert draft_entries.all?(&:closed?)
-    assert confirmed_entries.all?(&:closed?)
-    assert draft_entries.all? { |e| e.financial_year_exchange_id == exchange.id }
-    assert confirmed_entries.all? { |e| e.financial_year_exchange_id == exchange.id }
-  end
-
-  test 'create does not close journal entries from journals booked by the financial year accountant' do
-    accountant = create(:entity, :accountant)
-    financial_year = financial_years(:financial_years_025)
-    assert financial_year.update_column(:accountant_id, accountant.id)
-
-    stopped_on = financial_year.stopped_on - 2.days
-
-    journal = create(:journal, accountant_id: accountant.id)
-    draft_entries = create_list(:journal_entry, 2, :with_items, journal: journal, printed_on: financial_year.started_on + 1.day)
-
-    exchange = FinancialYearExchange.new(financial_year: financial_year, stopped_on: stopped_on)
-    assert exchange.save
-    assert draft_entries.all? { |e| e.reload.draft? }
-  end
-
-  test 'create does not close journal entries not between financial year start and exchange lock when the financial year has no other exchange' do
-    financial_year = financial_years(:financial_years_025)
-    stopped_on = financial_year.stopped_on - 2.days
-
-    journal = create(:journal, accountant_id: nil)
-    draft_entries = create_list(:journal_entry, 2, :with_items, journal: journal, printed_on: stopped_on + 1.day)
-    confirmed_entries = create_list(:journal_entry, 2, :confirmed, :with_items, journal: journal, printed_on: stopped_on + 1.day)
-
-    exchange = FinancialYearExchange.new(financial_year: financial_year, stopped_on: stopped_on)
-    assert exchange.save
-    assert draft_entries.all? { |e| e.reload.draft? }
-    assert confirmed_entries.all? { |e| e.reload.confirmed? }
-  end
-
-  test 'create closes journal entries from non-booked journal between previous and actual exchanges lock' do
-    financial_year = financial_years(:financial_years_025)
-    previous_exchange = create(:financial_year_exchange, financial_year: financial_year)
-    stopped_on = financial_year.stopped_on - 2.days
-
-    journal = create(:journal, accountant_id: nil)
-    draft_entries = create_list(:journal_entry, 2, :with_items, journal: journal, printed_on: previous_exchange.stopped_on + 1.day)
-    confirmed_entries = create_list(:journal_entry, 2, :confirmed, :with_items, journal: journal, printed_on: previous_exchange.stopped_on + 1.day)
-
-    exchange = FinancialYearExchange.new(financial_year: financial_year, stopped_on: stopped_on)
-    assert exchange.save
-
-    draft_entries.each(&:reload)
-    confirmed_entries.each(&:reload)
-
-    assert draft_entries.all?(&:closed?)
-    assert confirmed_entries.all?(&:closed?)
-    assert draft_entries.all? { |e| e.financial_year_exchange_id == exchange.id }
-    assert confirmed_entries.all? { |e| e.financial_year_exchange_id == exchange.id }
-  end
-
-  test 'create does not close journal entries not between previous and actual exchanges lock' do
-    financial_year = financial_years(:financial_years_025)
-    stopped_on = financial_year.stopped_on - 2.days
-
-    journal = create(:journal, accountant_id: nil)
-    draft_entries = create_list(:journal_entry, 2, :with_items, journal: journal, printed_on: stopped_on + 1.day)
-    confirmed_entries = create_list(:journal_entry, 2, :confirmed, :with_items, journal: journal, printed_on: stopped_on + 1.day)
-
-    exchange = FinancialYearExchange.new(financial_year: financial_year, stopped_on: stopped_on)
-    assert exchange.save
-    assert draft_entries.all? { |e| e.reload.draft? }
-    assert confirmed_entries.all? { |e| e.reload.confirmed? }
-  end
-
   test 'accountant_email is the accountant default email' do
     accountant = create(:entity, :accountant, :with_email)
     financial_year = financial_years(:financial_years_025)
@@ -299,22 +215,5 @@ class FinancialYearExchangeTest < Ekylibre::Testing::ApplicationTestCase::WithFi
   def get_computed_started_on(exchange)
     exchange.valid?
     exchange.started_on
-  end
-
-  def opened_financial_year_exchange
-    exchange = FinancialYearExchange.joins(:financial_year).reorder(stopped_on: :desc).where(closed_at: nil)
-                                    .where('financial_years.stopped_on != financial_year_exchanges.stopped_on').first
-    unless exchange
-      financial_year = FinancialYear.where('stopped_on <= ?', Time.zone.today)
-                                    .where.not(stopped_on: FinancialYearExchange.where(closed_at: nil).select(:stopped_on))
-                                    .order(stopped_on: :desc).first
-      assert financial_year, 'Financial year is missing'
-      exchange = financial_year.exchanges.create!
-    end
-    unless exchange.accountant
-      exchange.financial_year.update_column(:accountant_id, Entity.normal.first.id)
-    end
-    assert exchange, 'An opened exchange is missing'
-    exchange
   end
 end

@@ -37,6 +37,7 @@ module Backend
     end
 
     list(:items, model: :journal_entry_items, conditions: journal_entries_conditions, joins: :entry, line_class: "(RECORD.position==1 ? 'first-item' : '') + (RECORD.entry_balanced? ? '' : ' error')".c, order: "entry_id DESC, #{JournalEntryItem.table_name}.position", export_class: ListExportJob) do |t|
+      t.icon :lock, if: :currently_exchanged?
       t.column :entry_number, url: true
       t.column :printed_on, through: :entry, datatype: :date
       t.column :account, url: true

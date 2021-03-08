@@ -1,0 +1,6 @@
+.icon-lock {
+  i {
+    @include is-icon;
+    @include use-icon(lock);
+  }
+}
