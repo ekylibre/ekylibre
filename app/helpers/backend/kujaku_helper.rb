@@ -293,7 +293,9 @@ module Backend
       end
 
       class NavigationFeather < HelperFeather; end
+
       class PreviousNavigationFeather < NavigationFeather; end
+
       class NextNavigationFeather < NavigationFeather; end
 
       attr_reader :feathers, :template, :uid

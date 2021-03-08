@@ -1,5 +1,6 @@
 class OfxImport
   class InvalidOfxFile < RuntimeError; end
+
   class OfxFileHasMultipleAccounts < RuntimeError; end
 
   attr_reader :error, :internal_error, :cash, :bank_statement

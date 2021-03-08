@@ -4,6 +4,7 @@ require 'shellwords'
 
 module Ekylibre
   class TenantError < StandardError; end
+
   class ForbiddenImport < StandardError; end
 
   class Tenant

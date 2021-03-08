@@ -175,7 +175,7 @@ module Ekylibre
           repayment_duration: row.repayment_duration,
           repayment_method: row.repayment_method,
           repayment_period: row.repayment_period,
-          initial_releasing_amount: ((row.initial_releasing_amount.present? && row.initial_releasing_amount == 1) ? true : false),
+          initial_releasing_amount: row.initial_releasing_amount.present? && row.initial_releasing_amount == 1,
           insurance_percentage: 0.0,
           use_bank_guarantee: false,
           shift_duration: 0,

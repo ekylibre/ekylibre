@@ -28,14 +28,14 @@ module Ekylibre
           link_entity_full_name: row[12].blank? ? nil : row[12].to_s,
           country: row[13].blank? ? country_preference : row[13].to_s.downcase,
           email: row[14].blank? ? nil : row[14].to_s,
-          active: row[15].blank? ? false : true,
-          prospect: row[16].blank? ? false : true,
-          transporter: row[17].blank? ? false : true,
+          active: row[15].present?,
+          prospect: row[16].present?,
+          transporter: row[17].present?,
           siren_number: row[18].blank? ? nil : row[18].to_s.strip,
           vat_number: row[19].blank? ? nil : row[19].to_s,
           ape_number: row[20].blank? ? nil : row[20].to_s,
           number: row[21].blank? ? nil : row[21].to_s,
-          supplier: row[22].blank? ? false : true
+          supplier: row[22].present?
         }.to_struct
 
         person = Entity.find_by(number: r.number) if r.number

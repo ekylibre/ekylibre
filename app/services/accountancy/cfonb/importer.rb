@@ -60,6 +60,7 @@ module Accountancy
       end
 
       class ValidationError < ImporterError; end
+
       class ModelValidationError < ImporterError
         attr_reader :bank_statement
 
