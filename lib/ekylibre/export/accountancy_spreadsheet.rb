@@ -35,7 +35,7 @@ module Ekylibre
         code = ''
         code += "JournalEntryLine.includes(:journal, {:entry => :currency}, :account, :bank_statement).where('NOT (#{JournalEntryLine.table_name}.debit = 0 AND #{JournalEntryLine.table_name}.credit = 0) AND printed_on BETWEEN ? AND ?', started_on, stopped_on).order('journals.name, journal_entries.number').find_each do |jel|\n"
         code += '      f.puts('
-        for column in @@format
+        @@format.each do |column|
           if column[1].blank?
             code += "'" + (' ' * column[0]) + "'+"
           else

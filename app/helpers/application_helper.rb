@@ -631,7 +631,7 @@ module ApplicationHelper
             pagination << link_to(content_tag(:i) + tl(:beginning), { q: params[:q], page: 1 }, class: :beginning)
             pagination << content_tag(:span, '&hellip;'.html_safe) if page_min >= gap
           end
-          for p in page_min..page_max
+          (page_min..page_max).each do |p|
             attrs = {}
             attrs[:class] = 'active' if p == params[:page]
             pagination << link_to(p.to_s, { q: params[:q], page: p }, attrs)
@@ -659,12 +659,12 @@ module ApplicationHelper
     # Apple touch icon
     icon_sizes = { iphone: '57x57', ipad: '72x72', 'iphone-retina' => '114x114', 'ipad-retina' => '144x144' }
     unless options[:app].is_a?(FalseClass)
-      for name, sizes in icon_sizes
+      icon_sizes.each do |name, sizes|
         html << "\n".html_safe + tag(:link, rel: 'apple-touch-icon', sizes: sizes, href: image_path("icon/#{name}.png"), 'data-turbolinks-track' => true)
       end
     end
     if options[:precomposed]
-      for name, sizes in icon_sizes
+      icon_sizes.each do |name, sizes|
         html << "\n".html_safe + tag(:link, rel: 'apple-touch-icon-precomposed', sizes: sizes, href: image_path("icon/precomposed-#{name}.png"), 'data-turbolinks-track' => true)
       end
     end
@@ -767,7 +767,7 @@ module ApplicationHelper
     html = ''
     item = ''
     size = 0
-    for item in array
+    array.each do |item|
       item << content_tag(:td, capture(item, &block))
       size += 1
       next unless size >= coln

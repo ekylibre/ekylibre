@@ -115,7 +115,7 @@ class Activity < ApplicationRecord
   validates :name, uniqueness: true
   # validates_associated :productions
   validates :production_campaign, presence: true
-  validates :start_state_of_production_year, presence: { if: ->(activity) { activity.perennial? && activity.production_nature.present?  } }
+  validates :start_state_of_production_year, presence: { if: ->(activity) { activity.perennial? && activity.production_nature.present? } }
   # TODO: this condition about vine_farming has to be modified to be more generic over the production cycle (perenial ?)
   validates :life_duration, presence: { if: :vine_farming? }
   validates :grading_net_mass_unit, presence: { if: :measure_grading_net_mass }
@@ -127,7 +127,7 @@ class Activity < ApplicationRecord
 
   scope :of_support_variety, ->(variety) { where(support_variety: variety) }
 
-  scope :of_campaign, lambda { |campaign|
+  scope :of_campaign, ->(campaign) {
     if campaign
       c = campaign.is_a?(Campaign) || campaign.is_a?(ActiveRecord::Relation) ? campaign : campaign.map { |c| c.is_a?(Campaign) ? c : Campaign.find(c) }
       where(id: HABTM_Campaigns.select(:activity_id).where(campaign: c))
@@ -143,12 +143,10 @@ class Activity < ApplicationRecord
   }
   scope :main_of_campaign, ->(campaign) { main.of_campaign(campaign) }
   scope :of_current_campaigns, -> { joins(:campaign).merge(Campaign.current) }
-  scope :of_families, proc { |*families|
+  scope :of_families, ->(*families) {
     where(family: families.flatten.collect { |f| Onoma::ActivityFamily.all(f.to_sym) }.flatten.uniq.map(&:to_s))
   }
-  scope :of_family, proc { |family|
-    where(family: Onoma::ActivityFamily.all(family))
-  }
+  scope :of_family, ->(family) { where(family: Onoma::ActivityFamily.all(family)) }
 
   accepts_nested_attributes_for :distributions, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :inspection_point_natures, allow_destroy: true
@@ -433,8 +431,8 @@ class Activity < ApplicationRecord
         family = :plant_farming if cultivation_variety <= :plant
         family = :animal_farming if cultivation_variety <= :animal
         family = :tool_maintaining if cultivation_variety <= :equipment ||
-                                      cultivation_variety <= :building ||
-                                      cultivation_variety <= :building_division
+          cultivation_variety <= :building ||
+          cultivation_variety <= :building_division
         family = :wine_making if cultivation_variety <= :wine
       end
       family ||= :administering

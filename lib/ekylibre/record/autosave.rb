@@ -12,12 +12,12 @@ module Ekylibre
           options.merge(reflections_list.delete_at(-1)) if reflections_list.last.is_a? Hash
 
           method_name = options[:method] || 'autosave_' + reflections_list.join('_and_')
-          for callback in options[:callbacks]
+          options[:callbacks].each do |callback|
             code << "#{callback} :#{method_name}\n"
           end
 
           code << "def #{method_name}\n"
-          for reflection in reflections_list
+          reflections_list.each do |reflection|
             unless ref = reflect_on_association(reflection)
               raise ArgumentError.new("Reflection #{reflection.inspect} unknown (#{reflect_on_all_associations.map(&:name).to_sentence} available)")
             end

@@ -190,7 +190,7 @@ module Clean
 
         if verbose
           print "#{errors.size.to_s.rjust(3)} errors\n"
-          for error in errors
+          errors.each do |error|
             puts error.gsub(/^/, '     ')
           end
         end

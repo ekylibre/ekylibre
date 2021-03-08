@@ -50,7 +50,7 @@ class JournalTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
   test 'presence of nature scopes' do
-    for nature in Journal.nature.values
+    Journal.nature.values.each do |nature|
       scope_name = nature.to_s.pluralize.to_sym
       assert Journal.respond_to?(scope_name), "Journal must have a scope #{scope_name}"
       # TODO: Check that scope works
@@ -67,7 +67,7 @@ class JournalTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     various_journal = create(:journal, :various)
     create_list(:journal_entry, 2, :with_items, :draft, journal: various_journal)
     various_journal.accountant = create(:entity, :accountant)
-    assert various_journal.entries.any? { |e| e.draft? || e.confirmed? }
+    assert(various_journal.entries.any? { |e| e.draft? || e.confirmed? })
     assert various_journal.save
     assert various_journal.entries.reload.all?(&:closed?), 'All journal entries should be closed after accountant assignment on journal'
   end

@@ -39,11 +39,11 @@ module Abaci
     def where(properties)
       @rows.select do |row|
         valid = true
-        for name, value in properties
+        properties.each do |name, value|
           property_value = row[name]
           if value.is_a?(Array)
             one_found = false
-            for val in value
+            value.each do |val|
               if val.is_a?(Onoma::Item)
                 one_found = true if property_value == val.name.to_sym
               else

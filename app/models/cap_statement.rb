@@ -57,7 +57,7 @@ class CapStatement < ApplicationRecord
 
   scope :of_campaign, lambda { |*campaigns|
     campaigns.flatten!
-    for campaign in campaigns
+    campaigns.each do |campaign|
       unless campaign.is_a?(Campaign)
         raise ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}")
       end

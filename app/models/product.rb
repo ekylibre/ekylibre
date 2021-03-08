@@ -741,7 +741,7 @@ class Product < ApplicationRecord
 
   def containeds(at = Time.zone.now)
     list = []
-    for localization in ProductLocalization.where(container_id: id).at(at)
+    ProductLocalization.where(container_id: id).at(at).each do |localization|
       list << localization.product
       list += localization.product.containeds(at)
     end

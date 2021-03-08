@@ -204,7 +204,7 @@ class JournalEntryItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixture
     assert associated_bank_statement_items.any?
     item.destroy
     associated_bank_statement_items.map(&:reload)
-    assert associated_bank_statement_items.all? { |bsi| bsi.letter.nil? }
+    assert(associated_bank_statement_items.all? { |bsi| bsi.letter.nil? })
   end
 
   test 'bank statement letter is set to nil on validations when blank' do

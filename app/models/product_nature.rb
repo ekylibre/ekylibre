@@ -67,19 +67,19 @@ class ProductNature < ApplicationRecord
   include Providable
 
   VARIETIES_NATURES = {
-                        animal: %w[animal animal_group],
-                        article: %w[bacteria bioproduct equipment_part fungus matter preparation product product_group virus water],
-                        crop: %w[land_parcel_group plant],
-                        equipment: %w[equipment equipment_fleet],
-                        service: %w[electricity immatter property_title service],
-                        worker: %w[worker],
-                        zone: %w[building zone]
-                      }.freeze
+    animal: %w[animal animal_group],
+    article: %w[bacteria bioproduct equipment_part fungus matter preparation product product_group virus water],
+    crop: %w[land_parcel_group plant],
+    equipment: %w[equipment equipment_fleet],
+    service: %w[electricity immatter property_title service],
+    worker: %w[worker],
+    zone: %w[building zone]
+  }.freeze
 
   VARIETIES_SUB_NATURES = {
-                            fertilizer: %w[compost guano liquid_slurry manure slurry],
-                            seed_and_plant: %w[seed seedling]
-                          }.freeze
+    fertilizer: %w[compost guano liquid_slurry manure slurry],
+    seed_and_plant: %w[seed seedling]
+  }.freeze
 
   refers_to :variety
   refers_to :derivative_of, class_name: 'Variety'
@@ -128,18 +128,12 @@ class ProductNature < ApplicationRecord
 
   # scope :producibles, -> { where(:variety => ["bos", "animal", "plant", "organic_matter"]).order(:name) }
   scope :of_type, ->(nature) { where(type: "VariantTypes::#{nature.to_s.capitalize}Type") }
+  scope :derivative_of, ->(*varieties) { of_derivative_of(*varieties) }
 
-  scope :derivative_of, proc { |*varieties| of_derivative_of(*varieties) }
+  scope :can, ->(*abilities) { of_expression(abilities.map { |a| "can #{a}" }.join(' or ')) }
+  scope :can_each, ->(*abilities) { of_expression(abilities.map { |a| "can #{a}" }.join(' and ')) }
 
-  scope :can, lambda { |*abilities|
-    of_expression(abilities.map { |a| "can #{a}" }.join(' or '))
-  }
-
-  scope :can_each, lambda { |*abilities|
-    of_expression(abilities.map { |a| "can #{a}" }.join(' and '))
-  }
-
-  scope :of_working_set, lambda { |working_set|
+  scope :of_working_set, ->(working_set) {
     if item = Onoma::WorkingSet.find(working_set)
       of_expression(item.expression)
     else
@@ -148,9 +142,7 @@ class ProductNature < ApplicationRecord
   }
 
   # Use working set query language to filter product nature
-  scope :of_expression, lambda { |expression|
-    where(WorkingSet.to_sql(expression))
-  }
+  scope :of_expression, ->(expression) { where(WorkingSet.to_sql(expression)) }
 
   protect(on: :destroy) do
     variants.any? || products.any?
@@ -217,7 +209,7 @@ class ProductNature < ApplicationRecord
   # Returns the closest matching model based on the given variety
   def self.matching_model(variety)
     if item = Onoma::Variety.find(variety)
-      for ancestor in item.self_and_parents
+      item.self_and_parents.each do |ancestor|
         next unless model = begin
                               ancestor.name.camelcase.constantize
                             rescue
