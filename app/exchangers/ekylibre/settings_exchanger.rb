@@ -107,10 +107,10 @@ module Ekylibre
       if can_load_default?(:users)
         @manifest[:users] = { 'admin@ekylibre.org' => { first_name: 'Admin', last_name: 'EKYLIBRE' } }
       end
-      for email, attributes in @manifest[:users]
+      @manifest[:users].each do |email, attributes|
         attributes[:administrator] = true unless attributes.key?(:administrator)
         attributes[:language] ||= language
-        for ref in %i[role team]
+        %i[role team].each do |ref|
           attributes[ref] ||= :default
           attributes[ref] = find_record(ref.to_s.pluralize, attributes[ref])
         end

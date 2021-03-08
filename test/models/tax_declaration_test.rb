@@ -992,7 +992,7 @@ class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
                      stopped_on: (stopped_on + 1.month).end_of_month)
     assert subject.save
 
-    assert_empty subject.items.select { |item| item.parts.any? }
+    assert_empty(subject.items.select { |item| item.parts.any? })
   end
 
   def financial_year_in_debit_mode

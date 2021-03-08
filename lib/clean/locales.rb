@@ -159,21 +159,21 @@ module Clean
         end
         unknown_labels = labels.keys
         new_labels = []
-        for regexp, string in needed_labels
+        needed_labels.values.each do |string|
           unless string =~ /\*/ || labels.key?(string.to_sym)
             labels[string.to_sym] = string.humanize
             new_labels << string.to_sym
           end
         end
-        for label in labels.keys
-          for regexp, string in needed_labels
+        labels.keys.each do |label|
+          needed_labels.keys.each do |regexp|
             unknown_labels.delete(label) if regexp.match(label)
           end
         end
         to_translate += Clean::Support.hash_count(labels)
         # /(#{labels.keys.join('|')})/
 
-        for key, trans in labels.sort { |a, b| a[0].to_s <=> b[0].to_s }
+        labels.sort { |a, b| a[0].to_s <=> b[0].to_s }.each do |key, trans|
           line = '    '
           if new_labels.include? key
             untranslated += 1
@@ -192,12 +192,12 @@ module Clean
         translation << "    messages:\n"
         notifications = ::I18n.t('notifications.messages')
         unknown_notifications = ::I18n.t('notifications.messages').keys
-        for key in Clean::Support.look_for_notifications(watched_files)
+        Clean::Support.look_for_notifications(watched_files).each do |key|
           unknown_notifications.delete(key)
           notifications[key] = '' if notifications[key].blank?
         end
         to_translate += Clean::Support.hash_count(notifications)
-        for key, trans in notifications.sort { |a, b| a[0].to_s <=> b[0].to_s }
+        notifications.sort { |a, b| a[0].to_s <=> b[0].to_s }.each do |key, trans|
           line = '      '
           if trans.blank?
             untranslated += 1
@@ -214,7 +214,7 @@ module Clean
         preferences = ::I18n.t('preferences')
         unknown_preferences = ::I18n.t('preferences').keys
         new_preferences = []
-        for preference in Preference.reference.keys.map(&:to_sym)
+        Preference.reference.keys.map(&:to_sym).each do |preference|
           if preferences[preference]
             unknown_preferences.delete(preference)
           else
@@ -223,7 +223,7 @@ module Clean
           end
         end
         to_translate += Clean::Support.hash_count(preferences)
-        for key, trans in preferences.sort { |a, b| a[0].to_s <=> b[0].to_s }
+        preferences.sort { |a, b| a[0].to_s <=> b[0].to_s }.each do |key, trans|
           line = '    '
           if new_preferences.include? key
             untranslated += 1
@@ -249,7 +249,7 @@ module Clean
           end
         end
         to_translate += Clean::Support.hash_count(actions)
-        for key, trans in actions.sort { |a, b| a[0].to_s <=> b[0].to_s }
+        actions.sort { |a, b| a[0].to_s <=> b[0].to_s }.each do |key, trans|
           line = '      '
           if trans.blank?
             untranslated += 1
@@ -270,11 +270,11 @@ module Clean
         unrolls = ::I18n.t('unrolls')
         unknown_unrolls = ::I18n.t('unrolls').keys
         controllers = Clean::Support.actions_hash.keys
-        for unroll in unrolls.keys.map(&:to_sym)
+        unrolls.keys.map(&:to_sym).each do |unroll|
           unknown_unrolls.delete(unroll) if controllers.include?(unroll.to_s)
         end
         to_translate += Clean::Support.hash_count(unrolls)
-        for key, trans in unrolls.sort { |a, b| a[0].to_s <=> b[0].to_s }
+        unrolls.sort { |a, b| a[0].to_s <=> b[0].to_s }.each do |key, trans|
           line = '    '
           line += "#{key}: " + Clean::Support.yaml_value((trans.blank? ? key.to_s.humanize : trans), 2)
           # line.gsub!(/$/, ' #?') if unknown_unrolls.include?(key)

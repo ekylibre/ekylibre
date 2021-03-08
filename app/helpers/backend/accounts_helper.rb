@@ -23,7 +23,7 @@ module Backend
       if radicals.count > 0
         html = content_tag(:dt, :accounts.tl)
         html << content_tag(:dd, link_to(:all_accounts.tl, params.merge(controller: :accounts, action: :index, prefix: nil)), (params[:prefix].blank? ? { class: :active } : nil))
-        for account in radicals
+        radicals.each do |account|
           number = account.send(Account.accounting_system)
           html << content_tag(:dd, link_to(account.human_name, params.merge(controller: :accounts, action: :index, prefix: number)), (params[:prefix] == number.to_s ? { class: :active } : nil))
         end

@@ -153,7 +153,7 @@ module Backend
       # For title I18n : t3e :)
       def t3e(*args)
         @title ||= {}
-        for arg in args
+        args.each do |arg|
           arg = arg.attributes if arg.respond_to?(:attributes)
           unless arg.is_a? Hash
             raise ArgumentError.new("Hash expected, got #{arg.class.name}:#{arg.inspect}")
@@ -245,8 +245,8 @@ module Backend
         # session[:help_history] = [] unless session[:help_history].is_a? [].class
         article ||= "#{controller_path}-#{action_name}"
         file = nil
-        for locale in [I18n.locale, I18n.default_locale]
-          for f, attrs in Ekylibre.helps
+        [I18n.locale, I18n.default_locale].each do |locale|
+          Ekylibre.helps.each do |f, attrs|
             next if attrs[:locale].to_s != locale.to_s
 
             file_name = [article, article.split('-')[0] + '-index'].detect { |name| attrs[:name] == name }
@@ -455,7 +455,7 @@ module Backend
           nh = {}
           keys = JournalEntry.state_machine.states.collect(&:name)
           keys += %i[period started_at stopped_at accounts centralize]
-          for k, v in hash
+          hash.keys.each do |k|
             nh[k] = hash[k] if k.to_s.match(/^(journal|level)_\d+$/) || keys.include?(k.to_sym)
           end
           nh

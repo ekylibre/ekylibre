@@ -31,7 +31,7 @@ module Aggeratio
 
     def build_elements(elements)
       code = ''
-      for element in elements
+      elements.each do |element|
         next if ['title'].include?(element.name.to_s)
 
         code << build_element(element)
@@ -148,7 +148,7 @@ module Aggeratio
     def build_table_serie(elements, vertical = false, &_block)
       code = ''
       if vertical
-        for element in elements
+        elements.each do |element|
           code << "xml.tr do\n"
           element_code = ''
           yield(element, element_code)
@@ -157,7 +157,7 @@ module Aggeratio
         end
       else
         code << "xml.tr do\n"
-        for element in elements
+        elements.each do |element|
           element_code = ''
           yield(element, element_code)
           code << element_code.dig

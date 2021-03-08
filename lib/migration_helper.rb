@@ -2,7 +2,7 @@ module MigrationHelper
   module Indexes
     # Renames index using the standard convention
     def normalize_indexes(table)
-      for index in indexes(table)
+      indexes(table).each do |index|
         expected_name = ("index_#{table}_on_" + index.columns.join('_and_')).to_sym
         if index.name.to_sym != expected_name
           rename_index table, index.name.to_sym, expected_name
@@ -21,15 +21,15 @@ module MigrationHelper
         Struct.new('ShortIndexName', :table, :name, :short_name)
 
         suppress_messages do
-          for table in tables
-            for index in indexes(table)
+          tables.each do |table|
+            indexes(table).each do |index|
               if index.name.length > 32
                 sqlite_indexes << Struct::ShortIndexName.new(index.table, index.name, "ndx#{root}_#{count}")
                 count.succ!
               end
             end
           end
-          for index in sqlite_indexes
+          sqlite_indexes.each do |index|
             rename_index index.table, index.name, index.short_name
           end
         end
@@ -39,7 +39,7 @@ module MigrationHelper
 
         # Re-add annoying indexes for SQLite
         suppress_messages do
-          for index in sqlite_indexes.reverse
+          sqlite_indexes.reverse.each do |index|
             rename_index index.table, index.short_name, index.name
           end
         end

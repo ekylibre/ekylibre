@@ -104,7 +104,7 @@ class PurchaseOrder < Purchase
 
     taxes = {}
     coeff = 1.to_d # (self.send("deal_#{mode}?") ? 1 : -1)
-    for item in items
+    items.each do |item|
       taxes[item.tax_id] ||= { amount: 0.0.to_d, tax: item.tax }
       taxes[item.tax_id][:amount] += coeff * item.amount
     end
@@ -115,7 +115,7 @@ class PurchaseOrder < Purchase
     return false unless has_content?
 
     deliverable = false
-    for item in items
+    items.each do |item|
       deliverable = true if item.variant.deliverable?
     end
     !deliverable

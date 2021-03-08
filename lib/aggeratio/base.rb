@@ -30,7 +30,7 @@ module Aggeratio
       element ||= @root
       array = []
       array << element if %w[section cell property title].include?(element.name)
-      for child in element.children
+      element.children.each do |child|
         if child.has_attribute?('name') && child.attr('name') !~ /^\w+(\_\w+)*$/
           raise InvalidDocument.new("#{child.name} element has invalid name attribute: #{child.attr('name')}")
         end
@@ -42,7 +42,7 @@ module Aggeratio
 
     def parameter_initialization
       code = ''
-      for parameter in parameters
+      parameters.each do |parameter|
         code << "#{parameter.name} = @#{parameter.name}\n"
       end
       code

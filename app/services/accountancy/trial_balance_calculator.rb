@@ -89,7 +89,7 @@ module Accountancy
       items += connection.select_rows(query)
 
       # Centralized accounts  - position in array -3
-      for prefix in centralize
+      centralize.each do |prefix|
         query = "SELECT SUBSTR(#{accounts}.number, 1, #{prefix.size}) AS centralize, -3, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{connection.quote(prefix)} AS skey".dup
         query << from_where
         query << journal_entries_states

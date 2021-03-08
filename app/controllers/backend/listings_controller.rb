@@ -56,7 +56,7 @@ module Backend
           format.xml { render xml: result.to_xml, filename: @listing.name.simpleize + '.xml' }
           format.csv do
             csv_string = Ekylibre::CSV.generate do |csv|
-              for item in result
+              result.each do |item|
                 csv << item
               end
             end
@@ -151,7 +151,7 @@ module Backend
             results = [results[0]]
             results[0][listing_coordinate_column.label] = params[:from]
           end
-          for result in results
+          results.each do |result|
             ts = texts.collect do |t|
               r = t.to_s.dup
               @columns.each { |c| r.gsub!(/\{\{#{c}\}\}/, result[c].to_s) }

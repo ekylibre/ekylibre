@@ -6,7 +6,7 @@ module Agroedi
       node_name :intervention
 
       def self.regroup(_ints)
-       # NOOP: These ones are not groupable
+        # NOOP: These ones are not groupable
       end
 
       def inputs_to_register

@@ -128,7 +128,7 @@ module Backend
       main_options[:icon] ||= main_name.to_s.parameterize.tr('_', '-')
 
       html = ''.html_safe
-      for name, url, options in menu.items
+      menu.items.each do |name, url, options|
         li_options = {}
         li_options[:class] = 'active' if options.delete(:active)
 

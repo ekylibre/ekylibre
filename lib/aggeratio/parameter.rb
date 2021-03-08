@@ -30,7 +30,7 @@ module Aggeratio
       ::I18n.t("aggregator_parameters.#{name}", default: [:"labels.#{name}", :"attributes.#{name}", name.to_s.humanize])
     end
 
-    for type in TYPES
+    TYPES.each do |type|
       class_eval "def #{type}?\n" \
                  "  !!(self.type == :#{type})\n" \
                  'end'

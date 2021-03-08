@@ -174,9 +174,9 @@ class BankStatementTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
     eligible_journal_entry_item_ids = bank_statement.eligible_journal_entry_items.to_a.map(&:id)
     assert eligible_journal_entry_item_ids.any?
-    assert pointed.all? { |jei| eligible_journal_entry_item_ids.include?(jei.id) }
-    assert unpointed_in_range.all? { |jei| eligible_journal_entry_item_ids.include?(jei.id) }
-    assert unpointed_around_range.all? { |jei| eligible_journal_entry_item_ids.include?(jei.id) }
+    assert(pointed.all? { |jei| eligible_journal_entry_item_ids.include?(jei.id) })
+    assert(unpointed_in_range.all? { |jei| eligible_journal_entry_item_ids.include?(jei.id) })
+    assert(unpointed_around_range.all? { |jei| eligible_journal_entry_item_ids.include?(jei.id) })
   end
 
   test 'suspense process' do

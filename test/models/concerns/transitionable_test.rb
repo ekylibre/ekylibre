@@ -53,7 +53,7 @@ class TransitionableTest < Ekylibre::Testing::ApplicationTestCase
       :pouet
     end
 
-    assert %i[can_pouet? can_tut?].all? { |pred| res.methods.include? pred }
+    assert(%i[can_pouet? can_tut?].all? { |pred| res.methods.include? pred })
 
     pouet = TransitionableForTestPredicatesMethod::Transitions::Pouet
     pouet.send :define_method, :can_run? do

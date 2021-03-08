@@ -25,11 +25,15 @@ module Printers
     end
 
     def humanized_period
-      from, to = [@tax_declaration.started_on, @tax_declaration.stopped_on]
+      from = @tax_declaration.started_on
+      to = @tax_declaration.stopped_on
       financial_year = FinancialYear.find_by(started_on: from, stopped_on: to)
-      return financial_year.code if financial_year
 
-      I18n.translate('labels.from_to_date', from: from.l, to: to.l)
+      if financial_year.present?
+        financial_year.code
+      else
+        I18n.translate('labels.from_to_date', from: from.l, to: to.l)
+      end
     end
 
     def compute_dataset

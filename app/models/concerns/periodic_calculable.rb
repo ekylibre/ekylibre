@@ -14,7 +14,7 @@ module PeriodicCalculable
 
   module ClassMethods
     def calculable(options = {})
-      for parameter in PeriodicCalculable::PARAMETERS
+      PeriodicCalculable::PARAMETERS.each do |parameter|
         if options[parameter]
           send("default_calculable_#{parameter}=", options[parameter])
         end

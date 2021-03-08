@@ -393,7 +393,7 @@ module Backend
           end
           cols = {}
           columns = all_columns
-          for prefix in columns.values.collect { |x| x.split(/\-/)[0] }.uniq
+          columns.values.collect { |x| x.split(/\-/)[0] }.uniq.each do |prefix|
             cols[prefix.to_sym] = {}
             columns.select { |_k, v| v.match(/^#{prefix}-/) }.each { |k, v| cols[prefix.to_sym][k.to_s] = v.split(/\-/)[1].to_sym }
           end

@@ -22,8 +22,8 @@ module FixedAssetTest
       dep, *other = fa.depreciations
       assert dep.journal_entry.present?
       assert dep.accountable?
-      assert other.all? { |d| d.journal_entry.nil? }
-      assert_not other.any? { |d| d.accountable? }
+      assert(other.all? { |d| d.journal_entry.nil? })
+      assert_not(other.any? { |d| d.accountable? })
 
       # Lock financial year
       FinancialYearLocker.new.lock!(FinancialYear.on(Date.new(2017, 1, 2)))

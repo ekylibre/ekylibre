@@ -67,7 +67,7 @@ module WorkingSet
             ps = ability.ability_parameters.parameters
             parameters << ps.first_parameter
             if ps.other_parameters
-              for other_parameter in ps.other_parameters.elements
+              ps.other_parameters.elements.each do |other_parameter|
                 parameters << other_parameter.parameter
               end
             end

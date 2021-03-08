@@ -136,7 +136,7 @@ class EntityAddress < ApplicationRecord
     # raise stamper.inspect unless stamper.nil?
     stamper_id = stamper.id if stamper.is_a? Entity
     nc = self.class.new
-    for attr, val in attributes.merge(created_at: current_time, updated_at: current_time, creator_id: stamper_id, updater_id: stamper_id).delete_if { |k, _v| k.to_s == 'id' }
+    attributes.merge(created_at: current_time, updated_at: current_time, creator_id: stamper_id, updater_id: stamper_id).delete_if { |k, _v| k.to_s == 'id' }.each do |attr, val|
       nc.send("#{attr}=", val)
     end
     nc.save!

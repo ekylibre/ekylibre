@@ -36,7 +36,7 @@ module Printers
         # Title
         r.add_field :title, I18n.t('labels.export_sales_invoice')
         r.add_field :invoiced_at, sale.invoiced_at.l(format: '%d %B %Y')
-        r.add_field :responsible, Maybe(sale).responsible.full_name.or_else { "Non renseigné" }
+        r.add_field :responsible, Maybe(sale).responsible.full_name.or_else('Non renseigné')
         r.add_field :client_reference, client_reference
 
         # Expired_at

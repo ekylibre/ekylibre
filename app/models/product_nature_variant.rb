@@ -114,7 +114,7 @@ class ProductNatureVariant < ApplicationRecord
 
   accepts_nested_attributes_for :products, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :components, reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :readings, reject_if: proc { |params| params['measure_value_value'].blank? && params['integer_value'].blank? && params['boolean_value'].blank? && params['decimal_value'].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :readings, reject_if: ->(params) { params['measure_value_value'].blank? && params['integer_value'].blank? && params['boolean_value'].blank? && params['decimal_value'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :catalog_items, reject_if: :all_blank, allow_destroy: true
   validates_associated :components
 
@@ -132,15 +132,11 @@ class ProductNatureVariant < ApplicationRecord
   scope :purchaseables_stockables_or_depreciables, -> { ProductNatureVariant.purchaseables.merge(ProductNatureVariant.stockables_or_depreciables) }
   scope :purchaseables_services, -> { ProductNatureVariant.purchaseables.merge(ProductNatureVariant.services) }
 
-  scope :derivative_of, proc { |*varieties| of_derivative_of(*varieties) }
+  scope :derivative_of, ->(*varieties) { of_derivative_of(*varieties) }
 
-  scope :can, proc { |*abilities|
-    of_expression(abilities.map { |a| "can #{a}" }.join(' or '))
-  }
-  scope :can_each, proc { |*abilities|
-    of_expression(abilities.map { |a| "can #{a}" }.join(' and '))
-  }
-  scope :of_working_set, lambda { |working_set|
+  scope :can, ->(*abilities) { of_expression(abilities.map { |a| "can #{a}" }.join(' or ')) }
+  scope :can_each, ->(*abilities) { of_expression(abilities.map { |a| "can #{a}" }.join(' and ')) }
+  scope :of_working_set, ->(working_set) {
     if item = Onoma::WorkingSet.find(working_set)
       of_expression(item.expression)
     else
@@ -148,7 +144,7 @@ class ProductNatureVariant < ApplicationRecord
     end
   }
 
-  scope :of_expression, lambda { |expression|
+  scope :of_expression, ->(expression) {
     joins(:nature).where(WorkingSet.to_sql(expression, default: :product_nature_variants, abilities: :product_natures, indicators: :product_natures))
   }
 
@@ -705,15 +701,15 @@ class ProductNatureVariant < ApplicationRecord
         default_unit_name = item.usages.any? ? get_phyto_unit(item) : :liter
 
         variant = new(
-            name: item.name.capitalize,
-            reference_name: item.reference_name,
-            active: true,
-            nature: nature,
-            france_maaid: item.france_maaid,
-            category: category,
-            unit_name: I18n.translate("nomenclatures.product_nature_variants.choices.unit_name.#{default_unit_name}"),
-            type: "Variants::Articles::PlantMedicineArticle",
-            imported_from: 'Lexicon'
+          name: item.name.capitalize,
+          reference_name: item.reference_name,
+          active: true,
+          nature: nature,
+          france_maaid: item.france_maaid,
+          category: category,
+          unit_name: I18n.translate("nomenclatures.product_nature_variants.choices.unit_name.#{default_unit_name}"),
+          type: "Variants::Articles::PlantMedicineArticle",
+          imported_from: 'Lexicon'
         )
 
         unless variant.save
