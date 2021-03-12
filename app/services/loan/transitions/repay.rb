@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Loan
   module Transitions
     class Repay < Transitionable::Transition
