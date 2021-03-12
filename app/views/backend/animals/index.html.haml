@@ -6,10 +6,10 @@
     - menu.separator
     - menu.item :add_animals.tl, { controller: :animals, action: :new }, data: { toggle: 'dialog', refresh: true }
 
-  #animals-interventions-menu.btn-group{data: {matching_interventions_path: matching_interventions_backend_animals_path}}
+  #animals-interventions-menu.btn-group{data: {matching_interventions_path: matching_interventions_backend_animals_path, hide_on_list: true}}
     = render partial: 'interventions_menu', locals: {t: t}
 
-  .btn-group
+  .btn-group{data: {hide_on_list: true}}
     = t.new icon: false, label: :all.tl, data: { toggle: 'item-scope', scoped_items: 'all' }, href: ''
     = t.new icon: false, label: :available.tl, data: { toggle: 'item-scope', scoped_items: 'now' }, href: '', class: 'active'
 
