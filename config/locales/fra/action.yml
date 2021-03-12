@@ -2376,6 +2376,7 @@ fra:
     no_filters: "— Pas de filtre —" #?
     no_financial_year_opened: "Aucun exercice ouvert à la date actuelle"
     no_intervention_participations_to_check: "Pas de participations d’intervention à vérifier"
+    no_invoice_receipts_for_financial_year: "Il n' y a pas de justificatifs pour cet exercice comptable"
     no_javascript: "Votre navigateur ne supporte pas le javascript. Vous devez l’activer pour pouvoir utiliser le logiciel. Merci de votre compréhension." #?
     no_new_notifications: "Aucune nouvelle notification"
     no_notifications: "Aucune notification"

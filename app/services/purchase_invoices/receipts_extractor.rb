@@ -42,6 +42,8 @@ module PurchaseInvoices
         pdf = CombinePDF.new
 
         purchase_invoices.each do |invoice|
+          next if invoice.attachments.empty?
+
           document = make_separator(invoice.number, tmp_path)
           pdf << CombinePDF.load(document)
 

@@ -102,9 +102,14 @@ module Backend
         end
 
         format.zip do
-          PurchaseReceiptsExtractorJob.perform_later(financial_years: @financial_year, user: current_user)
-          notify_success(:document_in_preparation)
-          redirect_back(fallback_location: { action: :show, id: @financial_year })
+          if has_invoice_receipts?(@financial_year)
+            PurchaseReceiptsExtractorJob.perform_later(financial_years: @financial_year, user: current_user)
+            notify_success(:document_in_preparation)
+            redirect_back(fallback_location: { action: :show, id: @financial_year })
+          else
+            notify_warning(:no_invoice_receipts_for_financial_year.tl)
+            redirect_back(fallback_location: { action: :show, id: @financial_year })
+          end
         end
 
         format.json
@@ -281,6 +286,10 @@ module Backend
     end
 
     private
+
+      def has_invoice_receipts?(financial_year)
+        PurchaseInvoice.invoiced_between(financial_year.started_on, financial_year.stopped_on).joins(:attachments).exists?
+      end
 
       def fetch_progress_values(id)
         progress = Progress.fetch('close_main', id: id)
