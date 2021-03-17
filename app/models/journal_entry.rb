@@ -167,6 +167,21 @@ class JournalEntry < ApplicationRecord
     # Build an SQL condition based on options which should contains acceptable states
     # @deprecated
     def journal_condition(journals = {}, table_name = nil)
+      if journals.nil?
+        ActiveSupport::Deprecation.warn('Providing nil to `state_condition` is deprecated and will not work in the future, give an empty array instead')
+
+        journals = []
+      end
+
+      if !journals.is_a?(Array)
+        if journals.respond_to?(:keys)
+          ActiveSupport::Deprecation.warn('Providing something else than an array of states to `state_condition` is deprecated.')
+          journals = journals.select { |_k, v| v == '1' }.keys
+        else
+          raise StandardError.new("Unable to find any state in the variable provided (#{journals})")
+        end
+      end
+
       condition_builder.journal_condition(journals, table_name: table_name || self.table_name)
     end
 
