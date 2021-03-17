@@ -18,7 +18,7 @@ Ekylibre::Reporting.formats.each do |format|
     key = options.delete(:key)
     # Export & send file
     path = template.export(object.to_xml(options), key, format, options)
-    send_file(path, filename: filename, type: Mime.const_get(format.to_s.upcase), disposition: 'inline')
+    send_file(path, filename: filename, type: Mime[format.to_s.downcase], disposition: 'inline')
   end
 end
 
