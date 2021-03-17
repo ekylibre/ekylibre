@@ -214,7 +214,7 @@ module Backend
         content_tag(:label, :journal_entries_states.tl)
       end
       states = JournalEntry.states
-      params[:states] = {} unless params[:states].is_a? Hash
+      params[:states] ||= ActionController::Parameters.new
       if options.present? && options[:use_search_preference]
         preference_name = "#{controller}##{action}.journal_entries_states"
         if params[:states].present?
@@ -257,7 +257,7 @@ module Backend
         content_tag(:label, :journals_natures.tl)
       end
       natures = Journal.nature.values.map(&:to_sym)
-      params[:natures] = {} unless params[:natures].is_a? Hash
+      params[:natures] ||= ActionController::Parameters.new
       no_nature = !natures.detect { |x| params[:natures].key?(x) }
 
       code << content_tag(:div, class: "value-container value-container--journal-nature-crit") do
@@ -289,7 +289,7 @@ module Backend
         content_tag(:label, Backend::JournalsController.human_action_name(:index))
       end
       journals = Journal.all
-      params[field] = {} unless params[field].is_a? Hash
+      params[field] ||= ActionController::Parameters.new
       no_journal = !journals.detect { |x| params[field].key?(x.id.to_s) }
 
       code << content_tag(:div, class: "value-container value-container--journal-nature-crit") do
