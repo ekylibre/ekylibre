@@ -18,7 +18,7 @@ module FEC
               xml.exercice do
                 xml.DateCloture @financial_year.stopped_on.strftime('%Y-%m-%d')
                 journals.where.not(nature: 'closure').each do |journal|
-                  entries = journal.entries.between(@started_on, @stopped_on)
+                  entries = journal.entries.where.not(state: 'draft').between(@started_on, @stopped_on)
                   next unless entries.any?
 
                   xml.journal do
