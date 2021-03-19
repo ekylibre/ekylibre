@@ -47,6 +47,7 @@ module FEC
           FROM journal_entry_items AS jei
             JOIN journal_entries AS je
               ON (jei.entry_id = je.id
+                  AND je.state <> 'draft'
                   AND je.printed_on BETWEEN '#{@started_on}' AND '#{@stopped_on}'
                   )
             JOIN journals AS j ON (je.journal_id = j.id)
