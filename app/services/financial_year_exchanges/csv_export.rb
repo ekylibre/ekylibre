@@ -4,11 +4,11 @@ module FinancialYearExchanges
   class CsvExport
 
     HEADERS = %w[jour
-                 numéro de compte
+                 numéro\ de\ compte
                  journal
                  tiers
-                 numéro de pièce
-                 libellé écriture
+                 numéro\ de\ pièce
+                 libellé\ écriture
                  débit
                  crédit
                  lettrage].freeze
