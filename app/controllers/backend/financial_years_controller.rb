@@ -50,7 +50,7 @@ module Backend
     end
 
     list(:exchanges, model: :financial_year_exchanges, conditions: { financial_year_id: 'params[:id]'.c }) do |t|
-      t.action :journal_entries_export, format: :fec_txt, label: :journal_entries_export.ta, class: 'export-action'
+      t.action :journal_entries_export, format: :csv, label: :journal_entries_export.ta, class: 'export-action'
       t.action :journal_entries_import, label: :journal_entries_import.ta, if: :opened?, class: 'import-action'
       t.action :notify_accountant_modal, if: :opened?, class: 'notify-accountant-action'
       t.action :close, if: :opened?
