@@ -16,18 +16,13 @@
 
 = main_informations attachment: true do
   .big-infos
-    - if resource.animal_farming?
-      .med-info.important
-        %span.title= :number_of_animals.tl
-        %span.value=  resource.size_during(current_campaign).value.to_i
-    - else
-      .med-info.important
-        %span.title= :net_surface_area.tl
-        %span.value= resource.decorate.human_net_surface_area(current_campaign)
+    .med-info.important
+      %span.title= :net_surface_area.tl
+      %span.value= resource.decorate.human_net_surface_area(current_campaign)
 
-      .med-info.important
-        %span.title= :working_area.tl
-        %span.value= resource.decorate.human_working_zone_area(current_campaign)
+    .med-info.important
+      %span.title= :working_area.tl
+      %span.value= resource.decorate.human_working_zone_area(current_campaign)
 
   = attributes_list do |l|
     - l.attribute :production_system
@@ -78,12 +73,11 @@
           - v.control :fullscreen
           - v.control :layer_selector
 
-  - unless resource.animal_farming?      
-    - c.cobble(:production_costs, title: :production_costs.tl) do
-      = render partial: 'backend/shared/production_costs', locals: { costs: resource.decorate.production_costs(current_campaign) }
+  - c.cobble(:production_costs, title: :production_costs.tl) do
+    = render partial: 'backend/shared/production_costs', locals: { costs: resource.decorate.production_costs(current_campaign) }
 
   - if resource.with_supports
-    - c.cobble(resource.plant_farming? ? :land_parcels : :productions) do
+    - c.cobble(:productions) do
       = render 'productions'
 
   - if resource.auxiliary? && resource.distributions.any?
