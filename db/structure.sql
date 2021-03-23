@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.21
--- Dumped by pg_dump version 9.6.21
+-- Dumped from database version 9.6.12
+-- Dumped by pg_dump version 13.2
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -28,6 +28,13 @@ CREATE SCHEMA lexicon;
 --
 
 CREATE SCHEMA postgis;
+
+
+--
+-- Name: public; Type: SCHEMA; Schema: -; Owner: -
+--
+
+CREATE SCHEMA public;
 
 
 --
@@ -214,8 +221,6 @@ $$;
 
 SET default_tablespace = '';
 
-SET default_with_oids = false;
-
 --
 -- Name: cadastral_land_parcel_zones; Type: TABLE; Schema: lexicon; Owner: -
 --
@@ -305,6 +310,7 @@ CREATE TABLE lexicon.master_production_natures (
     human_name_fra character varying NOT NULL,
     started_on date NOT NULL,
     stopped_on date NOT NULL,
+    main_input character varying,
     agroedi_crop_code character varying,
     season character varying,
     pfi_crop_code character varying,
@@ -663,10 +669,24 @@ CREATE TABLE lexicon.registered_protected_designation_of_origins (
 --
 
 CREATE TABLE lexicon.registered_seeds (
-    number integer NOT NULL,
-    specie character varying NOT NULL,
-    name jsonb,
-    complete_name jsonb
+    id character varying NOT NULL,
+    id_specie character varying NOT NULL,
+    specie_name jsonb,
+    specie_name_fra character varying,
+    variety_name character varying,
+    registration_date date
+);
+
+
+--
+-- Name: taxonomy; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.taxonomy (
+    id character varying NOT NULL,
+    parent character varying NOT NULL,
+    taxonomic_rank character varying NOT NULL,
+    name jsonb
 );
 
 
@@ -1020,11 +1040,7 @@ CREATE TABLE public.activities (
     use_seasons boolean DEFAULT false,
     use_tactics boolean DEFAULT false,
     codes jsonb,
-    production_nature_id integer,
-    production_started_on date,
-    production_stopped_on date,
-    start_state_of_production_year integer,
-    life_duration numeric(5,2)
+    production_nature_id integer
 );
 
 
@@ -1890,8 +1906,8 @@ CREATE TABLE public.ar_internal_metadata (
 
 CREATE TABLE public.attachments (
     id integer NOT NULL,
-    resource_id integer NOT NULL,
     resource_type character varying NOT NULL,
+    resource_id integer NOT NULL,
     document_id integer NOT NULL,
     nature character varying,
     expired_at timestamp without time zone,
@@ -2075,8 +2091,8 @@ CREATE TABLE public.calls (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    source_id integer,
-    source_type character varying
+    source_type character varying,
+    source_id integer
 );
 
 
@@ -3243,8 +3259,8 @@ CREATE TABLE public.journal_entry_items (
     real_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     absolute_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     tax_declaration_item_id integer,
-    resource_id integer,
     resource_type character varying,
+    resource_id integer,
     resource_prism character varying,
     variant_id integer,
     tax_declaration_mode character varying,
@@ -3322,8 +3338,8 @@ CREATE TABLE public.purchase_items (
     preexisting_asset boolean,
     equipment_id integer,
     role character varying,
-    conditionning_quantity integer,
-    conditionning integer,
+    conditionning_quantity numeric,
+    conditionning numeric,
     project_budget_id integer,
     fixed_asset_stopped_on date,
     accounting_label character varying
@@ -4830,8 +4846,8 @@ ALTER SEQUENCE public.inventory_items_id_seq OWNED BY public.inventory_items.id;
 
 CREATE TABLE public.issues (
     id integer NOT NULL,
-    target_id integer,
     target_type character varying,
+    target_id integer,
     nature character varying NOT NULL,
     observed_at timestamp without time zone NOT NULL,
     priority integer,
@@ -4882,8 +4898,8 @@ CREATE TABLE public.journal_entries (
     journal_id integer NOT NULL,
     financial_year_id integer,
     number character varying NOT NULL,
-    resource_id integer,
     resource_type character varying,
+    resource_id integer,
     state character varying NOT NULL,
     printed_on date NOT NULL,
     real_debit numeric(19,4) DEFAULT 0.0 NOT NULL,
@@ -5524,8 +5540,8 @@ CREATE TABLE public.notifications (
     message character varying NOT NULL,
     level character varying NOT NULL,
     read_at timestamp without time zone,
-    target_id integer,
     target_type character varying,
+    target_id integer,
     target_url character varying,
     interpolations json,
     created_at timestamp without time zone NOT NULL,
@@ -5561,8 +5577,8 @@ ALTER SEQUENCE public.notifications_id_seq OWNED BY public.notifications.id;
 
 CREATE TABLE public.observations (
     id integer NOT NULL,
-    subject_id integer NOT NULL,
     subject_type character varying NOT NULL,
+    subject_id integer NOT NULL,
     importance character varying NOT NULL,
     content text NOT NULL,
     observed_at timestamp without time zone NOT NULL,
@@ -5703,8 +5719,8 @@ CREATE TABLE public.parcel_item_storings (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    conditionning_quantity integer,
-    conditionning integer,
+    conditionning_quantity numeric,
+    conditionning numeric,
     product_id integer
 );
 
@@ -6156,8 +6172,8 @@ CREATE TABLE public.preferences (
     boolean_value boolean,
     integer_value integer,
     decimal_value numeric(19,4),
-    record_value_id integer,
     record_value_type character varying,
+    record_value_id integer,
     user_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
@@ -6230,8 +6246,8 @@ ALTER SEQUENCE public.prescriptions_id_seq OWNED BY public.prescriptions.id;
 
 CREATE TABLE public.product_enjoyments (
     id integer NOT NULL,
-    originator_id integer,
     originator_type character varying,
+    originator_id integer,
     product_id integer NOT NULL,
     nature character varying NOT NULL,
     enjoyer_id integer,
@@ -6306,8 +6322,8 @@ ALTER SEQUENCE public.product_labellings_id_seq OWNED BY public.product_labellin
 
 CREATE TABLE public.product_linkages (
     id integer NOT NULL,
-    originator_id integer,
     originator_type character varying,
+    originator_id integer,
     carrier_id integer NOT NULL,
     point character varying NOT NULL,
     nature character varying NOT NULL,
@@ -6348,8 +6364,8 @@ ALTER SEQUENCE public.product_linkages_id_seq OWNED BY public.product_linkages.i
 
 CREATE TABLE public.product_links (
     id integer NOT NULL,
-    originator_id integer,
     originator_type character varying,
+    originator_id integer,
     product_id integer NOT NULL,
     nature character varying NOT NULL,
     linked_id integer,
@@ -6389,8 +6405,8 @@ ALTER SEQUENCE public.product_links_id_seq OWNED BY public.product_links.id;
 
 CREATE TABLE public.product_localizations (
     id integer NOT NULL,
-    originator_id integer,
     originator_type character varying,
+    originator_id integer,
     product_id integer NOT NULL,
     nature character varying NOT NULL,
     container_id integer,
@@ -6430,8 +6446,8 @@ ALTER SEQUENCE public.product_localizations_id_seq OWNED BY public.product_local
 
 CREATE TABLE public.product_memberships (
     id integer NOT NULL,
-    originator_id integer,
     originator_type character varying,
+    originator_id integer,
     member_id integer NOT NULL,
     nature character varying NOT NULL,
     group_id integer NOT NULL,
@@ -6473,8 +6489,8 @@ CREATE TABLE public.product_movements (
     id integer NOT NULL,
     product_id integer NOT NULL,
     intervention_id integer,
-    originator_id integer,
     originator_type character varying,
+    originator_id integer,
     delta numeric(19,4) NOT NULL,
     population numeric(19,4) NOT NULL,
     started_at timestamp without time zone NOT NULL,
@@ -6843,8 +6859,8 @@ ALTER SEQUENCE public.product_natures_id_seq OWNED BY public.product_natures.id;
 
 CREATE TABLE public.product_ownerships (
     id integer NOT NULL,
-    originator_id integer,
     originator_type character varying,
+    originator_id integer,
     product_id integer NOT NULL,
     nature character varying NOT NULL,
     owner_id integer,
@@ -6884,8 +6900,8 @@ ALTER SEQUENCE public.product_ownerships_id_seq OWNED BY public.product_ownershi
 
 CREATE TABLE public.product_phases (
     id integer NOT NULL,
-    originator_id integer,
     originator_type character varying,
+    originator_id integer,
     product_id integer NOT NULL,
     variant_id integer NOT NULL,
     nature_id integer NOT NULL,
@@ -6943,8 +6959,8 @@ SELECT
 
 CREATE TABLE public.product_readings (
     id integer NOT NULL,
-    originator_id integer,
     originator_type character varying,
+    originator_id integer,
     product_id integer NOT NULL,
     read_at timestamp without time zone NOT NULL,
     indicator_name character varying NOT NULL,
@@ -7548,8 +7564,8 @@ CREATE TABLE public.synchronization_operations (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    originator_id integer,
-    originator_type character varying
+    originator_type character varying,
+    originator_id integer
 );
 
 
@@ -8029,8 +8045,8 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 CREATE TABLE public.versions (
     id integer NOT NULL,
     event character varying NOT NULL,
-    item_id integer,
     item_type character varying,
+    item_id integer,
     item_object text,
     item_changes text,
     created_at timestamp without time zone NOT NULL,
@@ -9239,6 +9255,14 @@ ALTER TABLE ONLY lexicon.master_production_outputs
 
 
 --
+-- Name: master_vine_varieties master_vine_varieties_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.master_vine_varieties
+    ADD CONSTRAINT master_vine_varieties_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: phenological_stages phenological_stages_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
 --
 
@@ -9387,7 +9411,15 @@ ALTER TABLE ONLY lexicon.registered_protected_designation_of_origins
 --
 
 ALTER TABLE ONLY lexicon.registered_seeds
-    ADD CONSTRAINT registered_seeds_pkey PRIMARY KEY (number);
+    ADD CONSTRAINT registered_seeds_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: taxonomy taxonomy_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.taxonomy
+    ADD CONSTRAINT taxonomy_pkey PRIMARY KEY (id);
 
 
 --
@@ -10591,6 +10623,14 @@ ALTER TABLE ONLY public.sales
 
 
 --
+-- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schema_migrations
+    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
 -- Name: sensors sensors_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -11135,10 +11175,24 @@ CREATE INDEX registered_postal_zones_postal_code ON lexicon.registered_postal_zo
 
 
 --
--- Name: registered_seeds_specie; Type: INDEX; Schema: lexicon; Owner: -
+-- Name: registered_seeds_id; Type: INDEX; Schema: lexicon; Owner: -
 --
 
-CREATE INDEX registered_seeds_specie ON lexicon.registered_seeds USING btree (specie);
+CREATE INDEX registered_seeds_id ON lexicon.registered_seeds USING btree (id);
+
+
+--
+-- Name: registered_seeds_id_specie; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_seeds_id_specie ON lexicon.registered_seeds USING btree (id_specie);
+
+
+--
+-- Name: taxonomy_id; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX taxonomy_id ON lexicon.taxonomy USING btree (id);
 
 
 --
@@ -19591,13 +19645,6 @@ CREATE INDEX tax_provider_index ON public.taxes USING gin (((provider -> 'vendor
 
 
 --
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING btree (version);
-
-
---
 -- Name: product_populations _RETURN; Type: RULE; Schema: public; Owner: -
 --
 
@@ -19876,6 +19923,13 @@ CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lex
 --
 
 CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_seeds FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: taxonomy deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.taxonomy FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
 
 
 --
@@ -20775,7 +20829,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200311100650'),
 ('20200312163243'),
 ('20200312163701'),
-('20200313161422'),
 ('20200317155452'),
 ('20200317163950'),
 ('20200320143401'),
@@ -20817,6 +20870,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20201202090824'),
 ('20201209161246'),
 ('20210209154545'),
-('20210222103208');
+('20210215114312'),
+('20210215133318'),
+('20210222103208'),
+('20210312110155'),
+('20210312110510');
 
 

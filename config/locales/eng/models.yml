@@ -70,7 +70,6 @@ eng:
       record_is_not_valid: "The record is invalid"
       should_be_consecutive: "Financial years must be consecutive, therefore %{attribute} should be %{expected}."
       should_be_the_last_day_of_month: "%{attribute} should be the last day of the month."
-      start_date_before_end_date: "Start date must be before end date."
       taken: "%{attribute} has already been taken"
       too_long: "%{attribute} is too long (maximum is %{count} characters)"
       too_short: "%{attribute} is too short (minimum is %{count} characters)"
@@ -86,10 +85,6 @@ eng:
       account:
         cumulated_absolute_credit_balance: "Credit balance"
         cumulated_absolute_debit_balance: "Debit balance"
-      activity:
-        start_state_of_production: "Start state of production"
-        life_duration: "life duration"
-        production_campaign_period: "Production campaign period"
       activity_budget:
         expenses_amount: "Expenses amount"
         revenues_amount: "Revenues amount"

@@ -114,6 +114,25 @@ module Backend
       redirect_to params[:redirect] || { action: :index }
     end
 
+    # Returns wanted varieties proposition for given family_name
+    def family
+      unless family = Onoma::ActivityFamily[params[:name]]
+        head :not_found
+        return
+      end
+      data = {
+        label: family.human_name,
+        name: family.name
+      }
+      if family.cultivation_variety.present?
+        data[:cultivation_varieties] = Onoma::Variety.selection_hash(family.cultivation_variety)
+      end
+      if family.support_variety.present?
+        data[:support_varieties] = Onoma::Variety.selection_hash(family.support_variety)
+      end
+      render json: data
+    end
+
     # List of productions for one activity
     list(:productions, model: :activity_production, conditions: { activity_id: 'params[:id]'.c, campaign_id: 'current_campaign'.c }, order: { started_on: :desc }) do |t|
       t.action :edit
