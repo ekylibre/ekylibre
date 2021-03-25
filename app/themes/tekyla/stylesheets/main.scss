@@ -794,6 +794,10 @@ form.search {
   @include text-align(center);
   margin: 0 $default-gap;
   padding: $default-gap;
+  & img.default-zip {
+    height: 4em;
+    margin: 1em;
+  }
   &.picture-identity {
     min-height: 180px;
     min-width: 180px;

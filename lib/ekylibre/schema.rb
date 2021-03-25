@@ -72,7 +72,7 @@ module Ekylibre
                    {}
                  end
           tables = {}.with_indifferent_access
-          for table, columns in hash
+          hash.each do |table, columns|
             tables[table] = columns.each_with_object({}.with_indifferent_access) do |pair, h|
               options = pair.second
               type = options.delete(:type)

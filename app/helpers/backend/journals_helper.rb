@@ -39,7 +39,7 @@ module Backend
     # Show the 3 modes of view for a journal
     def journal_view_tag
       code = content_tag(:dt, :view.tl)
-      for mode in controller.journal_views
+      controller.journal_views.each do |mode|
         code << content_tag(:dd, link_to(h("journal_view.#{mode}".tl(default: ["labels.#{mode}".to_sym, mode.to_s.humanize])), params.merge(view: mode)), (@journal_view == mode ? { class: :active } : nil)) # content_tag(:i) + " " +
       end
       content_tag(:dl, code, id: 'journal-views')
@@ -150,7 +150,7 @@ module Backend
         financial_years = financial_years.distinct.joins(:journal_entries).where(journal_entries: { state: :draft })
         financial_years = financial_years.where('journal_entries.printed_on BETWEEN financial_years.started_on AND financial_years.stopped_on') # TODO: remove once journal entries will always have its financial_year_id associated to the printed_on
       end
-      for year in financial_years
+      financial_years.each do |year|
         list << [year.code, year.started_on.to_s << '_' << year.stopped_on.to_s]
         list2 = []
         date = year.started_on
@@ -214,7 +214,7 @@ module Backend
         content_tag(:label, :journal_entries_states.tl)
       end
       states = JournalEntry.states
-      params[:states] = {} unless params[:states].is_a? Hash
+      params[:states] ||= ActionController::Parameters.new
       if options.present? && options[:use_search_preference]
         preference_name = "#{controller}##{action}.journal_entries_states"
         if params[:states].present?
@@ -257,7 +257,7 @@ module Backend
         content_tag(:label, :journals_natures.tl)
       end
       natures = Journal.nature.values.map(&:to_sym)
-      params[:natures] = {} unless params[:natures].is_a? Hash
+      params[:natures] ||= ActionController::Parameters.new
       no_nature = !natures.detect { |x| params[:natures].key?(x) }
 
       code << content_tag(:div, class: "value-container value-container--journal-nature-crit") do
@@ -289,7 +289,7 @@ module Backend
         content_tag(:label, Backend::JournalsController.human_action_name(:index))
       end
       journals = Journal.all
-      params[field] = {} unless params[field].is_a? Hash
+      params[field] ||= ActionController::Parameters.new
       no_journal = !journals.detect { |x| params[field].key?(x.id.to_s) }
 
       code << content_tag(:div, class: "value-container value-container--journal-nature-crit") do

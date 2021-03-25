@@ -59,10 +59,10 @@ module Backend
             data << line
           end
           conn.exec("DELETE FROM interventions WHERE company='#{company}'")
-          for line in data
+          data.each do |line|
             insert = []
             values = []
-            for name, value in line
+            line.each do |name, value|
               insert << name
               values << ApplicationRecord.connection.quote(value)
             end

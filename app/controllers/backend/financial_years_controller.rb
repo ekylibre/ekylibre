@@ -50,7 +50,7 @@ module Backend
     end
 
     list(:exchanges, model: :financial_year_exchanges, conditions: { financial_year_id: 'params[:id]'.c }) do |t|
-      t.action :journal_entries_export, format: :fec_txt, label: :journal_entries_export.ta, class: 'export-action'
+      t.action :journal_entries_export, format: :csv, label: :journal_entries_export.ta, class: 'export-action'
       t.action :journal_entries_import, label: :journal_entries_import.ta, if: :opened?, class: 'import-action'
       t.action :notify_accountant_modal, if: :opened?, class: 'notify-accountant-action'
       t.action :close, if: :opened?
@@ -99,6 +99,17 @@ module Backend
           PrinterJob.perform_later("Printers::#{template.nature.classify}Printer", template: template, financial_year: @financial_year, perform_as: current_user)
           notify_success(:document_in_preparation)
           redirect_back(fallback_location: { action: :index })
+        end
+
+        format.zip do
+          if has_invoice_receipts?(@financial_year)
+            PurchaseReceiptsExtractorJob.perform_later(financial_years: @financial_year, user: current_user)
+            notify_success(:document_in_preparation)
+            redirect_back(fallback_location: { action: :show, id: @financial_year })
+          else
+            notify_warning(:no_invoice_receipts_for_financial_year.tl)
+            redirect_back(fallback_location: { action: :show, id: @financial_year })
+          end
         end
 
         format.json
@@ -275,6 +286,10 @@ module Backend
     end
 
     private
+
+      def has_invoice_receipts?(financial_year)
+        PurchaseInvoice.invoiced_between(financial_year.started_on, financial_year.stopped_on).joins(:attachments).exists?
+      end
 
       def fetch_progress_values(id)
         progress = Progress.fetch('close_main', id: id)

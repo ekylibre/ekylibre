@@ -120,12 +120,12 @@ module Ekylibre
 
           # Run interventions
           intervention = nil
-          for period in periods
+          periods.each do |period|
             stopped_at = period[:started_at] + period[:duration]
             next unless stopped_at < Time.zone.now
 
             intervention = Intervention.create!(procedure_name: procedure_name, production: Booker.production, production_support: options[:support], started_at: period[:started_at], stopped_at: stopped_at)
-            for cast in booker.product_parameters
+            booker.product_parameters.each do |cast|
               intervention.add_cast!(cast)
             end
             intervention.run!(period, options[:parameters])

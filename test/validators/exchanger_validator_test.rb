@@ -6,6 +6,7 @@ class ExchangerValidatable
 
   validates :exchanger, exchanger: true
 end
+
 class ExchangerValidatableWithTransformMethod
   include ActiveModel::Validations
   attr_accessor :id
@@ -13,6 +14,7 @@ class ExchangerValidatableWithTransformMethod
 
   def exchanger_name; end
 end
+
 class ExchangerValidatableWithTransformCallable
   include ActiveModel::Validations
   attr_accessor :id

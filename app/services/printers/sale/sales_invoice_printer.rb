@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+using Ekylibre::Utils::NumericLocalization
+
 module Printers
   module Sale
     class SalesInvoicePrinter < SalePrinterBase
@@ -36,7 +38,7 @@ module Printers
         # Title
         r.add_field :title, I18n.t('labels.export_sales_invoice')
         r.add_field :invoiced_at, sale.invoiced_at.l(format: '%d %B %Y')
-        r.add_field :responsible, Maybe(sale).responsible.full_name.or_else { "Non renseigné" }
+        r.add_field :responsible, Maybe(sale).responsible.full_name.or_else('Non renseigné')
         r.add_field :client_reference, client_reference
 
         # Expired_at
@@ -71,7 +73,7 @@ module Printers
           t.add_field(:code) { |item| item.variant.number }
           t.add_field(:variant) { |item| item.variant.name }
           t.add_field(:quantity) { |item| item.quantity.round_l }
-          t.add_field(:unit_pretax_amount) { |item| item.unit_pretax_amount.round_l }
+          t.add_field(:unit_pretax_amount) { |item| item.unit_pretax_amount.round_l_auto }
           t.add_field(:discount) { |item| item.reduction_percentage.round_l || '0.00' }
           t.add_field(:pretax_amount) { |item| item.pretax_amount.round_l }
           t.add_field(:vat_amount) { |item| (item.pretax_amount * item.tax.amount / 100).abs.round_l }

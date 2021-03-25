@@ -543,10 +543,18 @@ fra:
               invalid_start_date: "La période d’amortissement doit débuter le %{start} ou en début de mois" #?
         incoming_parcel_item: #?
           greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})" #?
+        incoming_payment:
+          attributes:
+            to_bank_at:
+              financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période" #?
         integration: #?
           attributes: #?
             parameters: #?
               check_errored: "La connexion au partenaire a échoué. Veuillez vérifier les informations saisies ou réessayer plus tard." #?
+        intervention:
+          attributes:
+            base:
+              financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période et le mode gestion des stocks permanent est activé" #?
         intervention_target:
           attributes:
             product:
@@ -593,6 +601,10 @@ fra:
               financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période"
         outgoing_parcel_item: #?
           greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})" #?
+        outgoing_payment:
+          attributes:
+            to_bank_at:
+              financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période" #?
         parcel: #?
           financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période" #?
           financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?

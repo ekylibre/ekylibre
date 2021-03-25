@@ -49,7 +49,9 @@ module Backend
       @draft_entries = journal_entries.where(state: :draft).where('printed_on BETWEEN ? AND ?', @current_from_date, @current_to_date).order(:printed_on)
       @draft_entries_count = @draft_entries.count
       @draft_entries = @draft_entries.page(@current_page).per(20)
+      @entries_to_validate_count = @draft_entries.where(financial_year_exchange_id: nil).count
       @unbalanced_entries_count = journal_entries.where('printed_on BETWEEN ? AND ?', @current_from_date, @current_to_date).reject(&:balanced?).count
+      @can_validate = (@entries_to_validate_count > 0 && @unbalanced_entries_count == 0)
       notify_warning_now(:there_are_x_remaining_unbalanced_entries, count: @unbalanced_entries_count) unless @unbalanced_entries_count < 1
     end
 
@@ -63,7 +65,9 @@ module Backend
       @draft_entries = journal_entries.where(state: :draft).where('printed_on BETWEEN ? AND ?', @current_from_date, @current_to_date).order(:printed_on)
       @draft_entries_count = @draft_entries.count
       @draft_entries = @draft_entries.page(@current_page).per(20)
+      @entries_to_validate_count = @draft_entries.where(financial_year_exchange_id: nil).count
       @unbalanced_entries_count = journal_entries.where('printed_on BETWEEN ? AND ?', @current_from_date, @current_to_date).reject(&:balanced?).count
+      @can_validate = (@entries_to_validate_count > 0 && @unbalanced_entries_count == 0)
       notify_warning_now(:there_are_x_remaining_unbalanced_entries, count: @unbalanced_entries_count) unless @unbalanced_entries_count < 1
     end
 
@@ -91,7 +95,7 @@ module Backend
     def confirm_all
       journal_id = params[:journal_id].blank? ? params[:journal_id] : params[:journal_id].to_i
       journal_entries = journal_id.blank? ? JournalEntry.all : JournalEntry.where(journal_id: journal_id)
-      journal_entries_to_validate = journal_entries.where(state: :draft).where('printed_on BETWEEN ? AND ?', params[:from], params[:to]).order(:printed_on)
+      journal_entries_to_validate = journal_entries.where(state: :draft, financial_year_exchange_id: nil).where('printed_on BETWEEN ? AND ?', params[:from], params[:to]).order(:printed_on)
       journal_entries_to_validate_count = journal_entries_to_validate.count
 
       ValidateDraftJournalEntriesService.new(journal_entries_to_validate).validate_all

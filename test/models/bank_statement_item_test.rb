@@ -92,7 +92,7 @@ class BankStatementItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtur
     jeis = JournalEntryItem.pointed_by_with_letter(bsi.bank_statement, bsi.letter)
     assert jeis.any?
     bsi.destroy
-    assert jeis.all? { |jei| jei.bank_statement_letter.nil? && jei.bank_statement_id.nil? }
+    assert(jeis.all? { |jei| jei.bank_statement_letter.nil? && jei.bank_statement_id.nil? })
   end
 
   def inspect_errors(object)

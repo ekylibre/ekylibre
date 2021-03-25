@@ -3,15 +3,15 @@
 module FinancialYearExchanges
   class CsvExport
 
-    HEADERS = ['Jour',
-               'Numéro de compte',
-               'Journal',
-               'Tiers',
-               'Numéro de pièce',
-               'Libellé écriture',
-               'Débit',
-               'Crédit',
-               'Lettrage'].freeze
+    HEADERS = %w[jour
+                 numéro\ de\ compte
+                 journal
+                 tiers
+                 numéro\ de\ pièce
+                 libellé\ écriture
+                 débit
+                 crédit
+                 lettrage].freeze
 
     def generate_file(exchange)
       Tempfile.open do |tempfile|

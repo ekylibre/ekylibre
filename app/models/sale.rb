@@ -294,7 +294,7 @@ class Sale < ApplicationRecord
     b.journal_entry(journal, reference_number: number, printed_on: invoiced_on, as: :quantity_gap_on_invoice, if: (permanent_stock && invoice? && items.any?)) do |entry|
       label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: client.full_name)
 
-      for item in items
+      items.each do |item|
         next unless item.variant && item.variant.storable?
 
         shipment_items_quantity = item.shipment_items.map(&:population).compact.sum
@@ -354,7 +354,7 @@ class Sale < ApplicationRecord
     taxes = {}
     coeff = (credit? ? -1 : 1).to_d
     # coeff *= (self.send("deal_#{mode}?") ? 1 : -1)
-    for item in items
+    items.each do |item|
       taxes[item.tax_id] ||= { amount: 0.0.to_d, tax: item.tax }
       taxes[item.tax_id][:amount] += coeff * item.amount
     end

@@ -9,7 +9,7 @@ class FinancialYearCloseJob < ApplicationJob
                             result_journal_id: result_journal_id,
                             forward_journal_id: forward_journal_id,
                             closure_journal_id: closure_journal_id
-                            )
+                           )
     else
       financial_year.update_columns(state: 'opened')
       FileUtils.rm_rf Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{financial_year.id}")

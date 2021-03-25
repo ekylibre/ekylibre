@@ -216,16 +216,18 @@ class ActivityTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   test 'left_join_working_duration_of_campaign on multiple targets' do
+    campaign = Campaign.find_by(harvest_year: 2017)
     production1 = create(
       :corn_activity_production,
-      started_on: DateTime.new(2018, 1, 1)
+      started_on: DateTime.new(2017, 1, 1),
+      campaign: campaign
     )
     production2 = create(
       :lemon_activity_production,
-      started_on: DateTime.new(2018, 1, 1),
+      started_on: DateTime.new(2017, 1, 1),
       campaign: production1.campaign
     )
-    intervention = create(:intervention, started_at: DateTime.new(2018, 1, 2), stopped_at: DateTime.new(2018, 1, 2) + 2.hours)
+    intervention = create(:intervention, started_at: DateTime.new(2017, 1, 2), stopped_at: DateTime.new(2017, 1, 2) + 2.hours)
     ratio1 = (production1.support_shape_area / (
         production1.support_shape_area + production2.support_shape_area
       )).to_f
@@ -255,6 +257,7 @@ class ActivityTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       intervention: intervention
     )
     intervention.save!
+
     activities = Activity.left_join_working_duration_of_campaign(production1.campaign).where(id: [production1.activity_id, production2.activity_id])
     assert_equal intervention.working_duration * target1.imputation_ratio, activities.find { |activity| activity.id == production1.activity_id }.working_duration
     assert_equal intervention.working_duration * target2.imputation_ratio, activities.find { |activity| activity.id == production2.activity_id }.working_duration

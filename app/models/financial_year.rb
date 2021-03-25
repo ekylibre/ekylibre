@@ -459,7 +459,7 @@ class FinancialYear < ApplicationRecord
     last_journal_entry.items.clear
 
     if options[:fixed_assets_depreciations]
-      for depreciation in fixed_asset_depreciations.includes(:fixed_asset)
+      fixed_asset_depreciations.includes(:fixed_asset).each do |depreciation|
         name = tc(:bookkeep, resource: FixedAsset.model_name.human, number: depreciation.fixed_asset.number, name: depreciation.fixed_asset.name, position: depreciation.position, total: depreciation.fixed_asset.depreciations.count)
         # Charges
         last_journal_entry.add_debit(name, depreciation.fixed_asset.expenses_account, depreciation.amount)

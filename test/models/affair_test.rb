@@ -119,7 +119,7 @@ class AffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert subject.save
     assert subject.letter
 
-    assert deal_entry_items_in_third_account.all? { |item| item.letter.match '^' + subject.letter + '\*?$' }
+    assert(deal_entry_items_in_third_account.all? { |item| item.letter.match '^' + subject.letter + '\*?$' })
     assert deal_entry_items_out_third_account.none?(&:letter)
   end
 

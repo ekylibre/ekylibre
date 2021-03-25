@@ -380,7 +380,7 @@ class Account < ApplicationRecord
       table = options[:table] || table_name
       normals = ['(XD)']
       excepts = []
-      for prefix in expr.strip.split(/[\,\s]+/)
+      expr.strip.split(/[\,\s]+/).each do |prefix|
         code = prefix.gsub(/(^(\-|\^)|[CDX]+$)/, '')
         excepts << code if prefix =~ /^\^\d+$/
         normals << code if prefix =~ /^\-?\d+[CDX]?$/
@@ -531,7 +531,7 @@ class Account < ApplicationRecord
 
       if range.present?
         valid_expr = /^\d(\d(\d[0-9A-Z]*)?)?$/
-        for expr in range.split(/[^0-9A-Z\-\*]+/)
+        range.split(/[^0-9A-Z\-\*]+/).each do |expr|
           if expr =~ /\-/
             start, finish = expr.split(/\-+/)[0..1]
             next unless start < finish && start.match(valid_expr) && finish.match(valid_expr)

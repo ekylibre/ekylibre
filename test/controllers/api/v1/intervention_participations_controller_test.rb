@@ -133,7 +133,7 @@ module Api
                                         procedure_name: :plant_watering,
                                         actions: [:irrigation],
                                         nature: :request
-          )
+                                       )
           payload = {
             intervention_id: request_intervention.id,
             request_compliant: 1,
@@ -652,7 +652,7 @@ module Api
                                         nature: :request,
                                         started_at: intervention_started_at,
                                         stopped_at: intervention_stopped_at
-          )
+                                       )
           {
             intervention_id: request_intervention.id,
             request_compliant: 1,

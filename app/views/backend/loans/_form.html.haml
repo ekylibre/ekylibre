@@ -30,7 +30,7 @@
   = f.referenced_association :loan_account, :source => :loans
   = f.referenced_association :interest_account, :source => :interests
   = f.referenced_association :insurance_account, :source => :insurances
-  = f.input :initial_releasing_amount, input_html: { checked: true }
+  = f.input :initial_releasing_amount
   = f.input :accountable_repayments_started_on
 
 = field_set(:bank_guarantees) do

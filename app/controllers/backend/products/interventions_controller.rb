@@ -28,7 +28,7 @@ module Backend
                                .call(Intervention, product, intervention_started_at)
                                .count
 
-          render json: { has_harvesting: harvesting_count > 0 ? true : false }
+          render json: { has_harvesting: harvesting_count > 0 }
         else
           render json: { error: { message: "Cannot find product of id='#{params[:id]}'" } }, status: :not_found
         end

@@ -1319,6 +1319,7 @@ fra:
     backups: "Sauvegardes" #?
     balance: "Solde"
     balance_allocated_to_retained_earnings: "Affectation du budget - Solde du compte de reports à nouveau"
+    balance_sheet_and_income_statements: "Bilan/Compte de résultat"
     balance_of_selection: "Solde de la sélection"
     balance_of_the_income_statement: "Afectation du budget - Solde du compte de résultat"
     balanced: "Soldés"
@@ -2365,6 +2366,7 @@ fra:
     no_filters: "— Pas de filtre —" #?
     no_financial_year_opened: "Aucun exercice ouvert à la date actuelle"
     no_intervention_participations_to_check: "Pas de participations d’intervention à vérifier"
+    no_invoice_receipts_for_financial_year: "Il n' y a pas de justificatifs pour cet exercice comptable"
     no_javascript: "Votre navigateur ne supporte pas le javascript. Vous devez l’activer pour pouvoir utiliser le logiciel. Merci de votre compréhension." #?
     no_new_notifications: "Aucune nouvelle notification"
     no_notifications: "Aucune notification"
@@ -2501,6 +2503,7 @@ fra:
     payments_count: "Nombre de %{mode}"
     payslip_number: "N° du salaire"
     payslips: "Salaires"
+    pdf_purchase_receipt_file_name: "jusificatifs_achats_%{month}_%{year}.pdf"
     people: "Personnes"
     percentage_by_calibration: "Pourcentage de stock en terre net par calibre"
     percentage_by_calibration_x: "Pourcentage de stock en terre net par calibre - %{x}" #?
@@ -2637,6 +2640,8 @@ fra:
     purchase_order: "Commande"
     purchase_order_items: "Commandes d'achats"
     purchase_payments: "Décaissements"
+    purchase_receipts: "Justificatifs achat"
+    purchase_receipts_file_name: "Justificatifs factures achats"
     purchase_steps: #?
       deliveries: "Livraisons" #?
       products: "Création de l’achat" #?

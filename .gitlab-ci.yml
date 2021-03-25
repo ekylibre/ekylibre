@@ -147,7 +147,7 @@ deploy_doc:
 #########################################
 rubocop:
   stage: lint
-  image: registry.gitlab.com/ekylibre/tools/rubocop/rubocop:0.1.0
+  image: registry.gitlab.com/ekylibre/tools/rubocop/rubocop:0.2.0
   variables:
      GIT_DEPTH: 1
   script:

@@ -106,7 +106,7 @@ class ReceptionItem < ParcelItem
 
   after_save do
     if Preference[:catalog_price_item_addition_if_blank]
-      for usage in %i[stock purchase]
+      %i[stock purchase].each do |usage|
         # set stock catalog price if blank
         catalog = Catalog.by_default!(usage)
         unless variant.catalog_items.of_usage(usage).any? || unit_pretax_amount.blank? || unit_pretax_amount.zero?

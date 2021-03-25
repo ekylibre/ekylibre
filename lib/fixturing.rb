@@ -361,7 +361,7 @@ module Fixturing
               elsif type == :datetime
                 value.to_time(:utc)
               elsif type == :boolean
-                (%w[1 t T true yes TRUE].include?(value) ? true : false)
+                %w[1 t T true yes TRUE].include?(value)
               elsif type == :json || type == :jsonb
                 JSON.parse(value)
               else

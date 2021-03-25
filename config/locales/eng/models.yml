@@ -252,6 +252,18 @@ eng:
         loan:
           started_on:
             financial_year_exchange_on_this_period: "There is an opened accounting exchange at this date"
+        incoming_payment:
+          attributes:
+            to_bank_at:
+              financial_year_exchange_on_this_period: "There is an opened accounting exchange at this period"
+        intervention:
+          attributes:
+            base:
+              financial_year_exchange_on_this_period: "There is an opened accounting exchange at this period and permanent stock management mode is activated"
+        outgoing_payment:
+          attributes:
+            to_bank_at:
+              financial_year_exchange_on_this_period: "There is an opened accounting exchange at this period"
     models:
       account: "Account"
       account_balance: "Account balance"

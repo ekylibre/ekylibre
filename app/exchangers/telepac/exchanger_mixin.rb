@@ -295,9 +295,7 @@ module Telepac
           label = 'P' + '-' + cap_land_parcel.islet.cap_statement.pacage_number.to_s + '-' + cap_land_parcel.cap_islet.cap_statement.campaign.harvest_year.to_s + '-' + cap_land_parcel.islet_number.to_s + '-' + cap_land_parcel.land_parcel_number.to_s
           ensure_georeading(label, cap_land_parcel.shape)
 
-          if Preference[:create_activities_from_telepac]
-            create_activity_production(cap_land_parcel, cap_year: self.class.campaign)
-          end
+          create_activity_production(cap_land_parcel, cap_year: self.class.campaign)
 
           w.check_point
         end

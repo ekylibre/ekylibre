@@ -24,7 +24,10 @@
       - %i[text xml].each do |format|
         - d.item "export_#{format}_fec_#{position}".tl, action: :show, fiscal_position: position, format: format
 
-  = t.export :income_statement, :balance_sheet, :short_balance_sheet, key: Printers::BalanceSheetPrinter.build_key(financial_year: resource)
+  = t.export :income_statement, :balance_sheet, :short_balance_sheet, label: :balance_sheet_and_income_statements.tl, key: Printers::BalanceSheetPrinter.build_key(financial_year: resource)
+
+  = dropdown_menu_button(:purchase_receipts.tl, { icon: :download }) do |d|
+    - d.item '', action: :show, format: :zip
 
 = main_informations attachment: true do
   = infos do

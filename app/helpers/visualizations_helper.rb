@@ -128,7 +128,7 @@ module Visualization
       def compile_visualization_popup(object, item)
         if object.is_a?(TrueClass)
           hash = { header: item[:name] }
-          for key, value in item
+          item.each do |key, value|
             unless %i[header footer name shape].include?(key)
               hash[key] = value.to_s
             end
@@ -145,7 +145,7 @@ module Visualization
             if content.is_a? String
               blocks << { type: :content, content: content }
             elsif content.is_a? Array
-              for value in content
+              content.each do |value|
                 block = {}
                 if value.is_a? String
                   block[:content] = value
@@ -162,7 +162,7 @@ module Visualization
                 blocks << block.merge(type: :content)
               end
             elsif content.is_a? Hash
-              for attribute, value in content
+              content.each do |attribute, value|
                 block = {}
                 if value.is_a? String
                   block[:content] = value

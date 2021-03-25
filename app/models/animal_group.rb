@@ -134,7 +134,7 @@ class AnimalGroup < ProductGroup
 
   def daily_nitrogen_production(viewed_at = nil)
     quantity = []
-    for animal in members_at(viewed_at)
+    members_at(viewed_at).each do |animal|
       quantity << animal.daily_nitrogen_production.to_d
     end
     quantity.compact.sum.in_kilogram_per_day

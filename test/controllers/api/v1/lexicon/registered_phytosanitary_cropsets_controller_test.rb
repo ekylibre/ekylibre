@@ -16,18 +16,18 @@ module Api
 
         test 'create' do
           params = {
-            "data": [
+            data: [
                 {
-                    "id": "9878888",
-                    "record_checksum": -457845
+                    id: "9878888",
+                    record_checksum: -457845
                 },
                 {
-                    "id": "1",
-                    "record_checksum": -2113121812
+                    id: "1",
+                    record_checksum: -2113121812
                 },
                 {
-                    "id": "2",
-                    "record_checksum": -2126897566
+                    id: "2",
+                    record_checksum: -2126897566
                 }
               ]
             }
@@ -38,11 +38,11 @@ module Api
           assert_equal({ "id"=>"9878888" }, json["data"].detect {|a| a["id"] == "9878888" })
           assert_equal 1, json["data"].last.keys.count
 
-          assert json["data"].detect {|a| a["id"] == "2" }
+          assert(json["data"].detect {|a| a["id"] == "2" })
           assert_not_equal 1, json["data"].detect {|a| a["id"] == "2" }.keys.count
 
           assert_not_equal 1, json["data"].detect {|a| a["id"] == "3" }.keys.count
-          assert json["data"].detect {|a| a["id"] == "3" }
+          assert(json["data"].detect {|a| a["id"] == "3" })
           assert json["data"].detect {|a| a["id"] == "1" }.nil?
 
           assert_response :ok

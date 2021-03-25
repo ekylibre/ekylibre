@@ -42,6 +42,7 @@
 #  updated_at               :datetime         not null
 #  updater_id               :integer
 #
+
 class FinancialYearExchange < ApplicationRecord
   belongs_to :financial_year
   has_many :journal_entries, dependent: :nullify
@@ -61,6 +62,7 @@ class FinancialYearExchange < ApplicationRecord
 
   scope :opened, -> { where(closed_at: nil) }
   scope :closed, -> { where.not(closed_at: nil) }
+  scope :at, ->(date) { where('? BETWEEN started_on AND stopped_on', date) }
 
   class << self
     def for_public_token(public_token)
@@ -70,7 +72,6 @@ class FinancialYearExchange < ApplicationRecord
 
   after_initialize :set_initial_values, if: :initializeable?
   before_validation :set_started_on, on: :create
-  before_create :close_journal_entries
   after_create :set_journal_entries_financial_year_exchange
 
   def name
@@ -82,8 +83,11 @@ class FinancialYearExchange < ApplicationRecord
   end
 
   def close!
-    self.closed_at = Time.zone.now
-    save!
+    ApplicationRecord.transaction do
+      self.closed_at = Time.zone.now
+      journal_entries.update_all(financial_year_exchange_id: nil)
+      save!
+    end
   end
 
   def accountant_email
@@ -123,13 +127,6 @@ class FinancialYearExchange < ApplicationRecord
     def set_public_token_and_expiration
       self.public_token = SecureRandom.urlsafe_base64(32)
       self.public_token_expired_at = Time.zone.today + 1.month
-    end
-
-    def close_journal_entries
-      JournalEntryItem.where(entry: related_journal_entries).update_all(state: 'closed')
-      related_journal_entries.update_all(state: 'closed')
-      # related_journal_entries.where(state: :draft).find_each(&:confirm)
-      # related_journal_entries.where(state: :confirmed).find_each(&:close)
     end
 
     def set_journal_entries_financial_year_exchange

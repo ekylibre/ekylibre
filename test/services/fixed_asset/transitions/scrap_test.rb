@@ -87,7 +87,7 @@ class FixedAsset
       end
 
       def new_transition_for(fa, scrapped_on, **options)
-        FixedAsset::Transitions::Scrap.new(fa, scrapped_on, **options)
+        FixedAsset::Transitions::Scrap.new(fa, scrapped_on: scrapped_on, **options)
       end
 
       def t_err(t)

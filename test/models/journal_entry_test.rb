@@ -149,7 +149,7 @@ class JournalEntryTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'save with items' do
     journal_entry = JournalEntry.create!(
       journal: Journal.find_by(nature: :various, currency: 'EUR'),
-      printed_on: Date.today - 200,
+      printed_on: Date.new(2020, 8, 4),
       items_attributes: {
         '0' => {
           name: 'Insurance care',
@@ -180,7 +180,7 @@ class JournalEntryTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'items are updated with entry' do
     journal_entry = JournalEntry.create!(
       journal: Journal.find_by(nature: :various, currency: 'EUR'),
-      printed_on: Date.today - 200,
+      printed_on: Date.new(2020, 8, 4),
       items_attributes: {
         '0' => {
           name: 'Insurance care',

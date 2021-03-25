@@ -168,7 +168,7 @@
     # Select/deselect lines
 
     selectLine: (line) ->
-      return if @_isLineReconciliated(line) or isNaN(@_idForLine(line))
+      return if @_isLineReconciliated(line) or isNaN(@_idForLine(line)) or @_isLineLocked(line)
       line.addClass "selected"
       @_reconciliateSelectedLinesIfValid()
       @uiUpdate()
@@ -239,6 +239,9 @@
 
     _isLineReconciliated: (line) ->
       !!@_reconciliationLetter(line)
+
+    _isLineLocked: (line) ->
+      $(line).find('.locked i').length == 1
 
     _linesWithReconciliationLetter: (letter) ->
       @_lines().filter (i, e) => @_reconciliationLetter($(e)) is letter

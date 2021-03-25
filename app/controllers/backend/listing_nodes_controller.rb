@@ -27,7 +27,7 @@ module Backend
         if desc[0] == 'special'
           if desc[1] == 'all_columns'
             model = @listing_node.model
-            for column in model.content_columns.sort { |a, b| model.human_attribute_name(a.name.to_s) <=> model.human_attribute_name(b.name.to_s) }
+            model.content_columns.sort { |a, b| model.human_attribute_name(a.name.to_s) <=> model.human_attribute_name(b.name.to_s) }.each do |column|
               ln = @listing_node.children.new(nature: 'column', attribute_name: column.name, label: @listing_node.model.human_attribute_name(column.name))
               ln.save!
             end
@@ -54,7 +54,7 @@ module Backend
         case desc[1]
         when 'all_columns'
           model = @listing_node.model
-          for column in model.content_columns.sort { |a, b| model.human_attribute_name(a.name.to_s) <=> model.human_attribute_name(b.name.to_s) }
+          model.content_columns.sort { |a, b| model.human_attribute_name(a.name.to_s) <=> model.human_attribute_name(b.name.to_s) }.each do |column|
             ln = @listing_node.children.new(nature: 'column', attribute_name: column.name, label: @listing_node.model.human_attribute_name(column.name))
             ln.save!
           end

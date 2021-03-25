@@ -136,7 +136,7 @@ module Backend
         }
 
         queries = []
-        for model_name in Ekylibre::Schema.models
+        Ekylibre::Schema.models.each do |model_name|
           next if excluded.include?(model_name)
 
           model = model_name.to_s.camelcase.constantize
