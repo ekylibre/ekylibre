@@ -1,4 +1,6 @@
 module StateBarHelper
+  using Ekylibre::Utils::HashReverse
+
   COLORS = {
     intermediate: %i[draft],
     rejected: %i[aborted lost refused scrapped sold],

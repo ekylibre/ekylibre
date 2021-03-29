@@ -1,5 +1,7 @@
 require 'test_helper'
 
+using Ekylibre::Utils::DateSoftParse
+
 module Interventions
   module Phytosanitary
     class PhytoHarvestAdvisorTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures

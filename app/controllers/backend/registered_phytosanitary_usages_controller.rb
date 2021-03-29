@@ -1,3 +1,5 @@
+using Ekylibre::Utils::DateSoftParse
+
 module Backend
   class RegisteredPhytosanitaryUsagesController < Backend::BaseController
     DIMENSIONS_UNIT = { net_volume: :liter, net_mass: :kilogram, mass_area_density: :kilogram_per_hectare, volume_area_density: :liter_per_hectare }.freeze
