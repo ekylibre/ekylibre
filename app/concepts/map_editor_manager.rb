@@ -2,29 +2,31 @@
 
 class MapEditorManager
   class << self
-    LAYERS = {
-      land_parcels: {
-        label: [:land_parcels],
-        name: :land_parcels,
-        serie: :land_parcels_serie,
-        type: :simple
-      },
-      plants: {
-        label: [:plants],
-        name: :plants,
-        serie: :plants_serie,
-        reference: 'variety',
-        stroke: 2,
-        fillOpacity: 0.7,
-        type: :categories
-      }
-    }
+    LAYERS = begin
+               layers = {
+                 land_parcels: {
+                   label: [:land_parcels].freeze,
+                   name: :land_parcels,
+                   serie: :land_parcels_serie,
+                   type: :simple
+                 }.freeze,
+                 plants: {
+                   label: [:plants].freeze,
+                   name: :plants,
+                   serie: :plants_serie,
+                   reference: 'variety',
+                   stroke: 2,
+                   fillOpacity: 0.7,
+                   type: :categories
+                 }.freeze
+               }
 
-    RegisteredPhytosanitaryUsage::UNTREATED_BUFFER_AQUATIC_VALUES.each do |n|
-      LAYERS[:"aquatic_nta_#{n}"] = { label: [:aquatic_nta, distance: n], name: :"aquatic_nta_#{n}", serie: :"aquatic_nta_#{n}_serie", type: :optional, bounds_buffer: true }
-    end
+               RegisteredPhytosanitaryUsage::UNTREATED_BUFFER_AQUATIC_VALUES.each do |n|
+                 layers[:"aquatic_nta_#{n}"] = { label: [:aquatic_nta, distance: n], name: :"aquatic_nta_#{n}", serie: :"aquatic_nta_#{n}_serie", type: :optional, bounds_buffer: true }
+               end
 
-    LAYERS.freeze
+               layers
+             end.freeze
 
     def shapes(options = {})
       options[:layers] ||= []

@@ -1,4 +1,3 @@
-# coding: utf-8
 # frozen_string_literal: true
 
 class FinancialYearClose
@@ -16,12 +15,14 @@ class FinancialYearClose
 
   class UnbalancedBalanceSheet < StandardError; end
 
-  CLOSURE_STEPS = { 0 => 'generate_documents_prior_to_closure',
-                    1 => 'compute_balances',
-                    2 => 'close_result_entry',
-                    3 => 'close_carry_forward',
-                    4 => 'journals_closure',
-                    5 => 'generate_documents_post_closure' }
+  CLOSURE_STEPS = {
+    0 => 'generate_documents_prior_to_closure',
+    1 => 'compute_balances',
+    2 => 'close_result_entry',
+    3 => 'close_carry_forward',
+    4 => 'journals_closure',
+    5 => 'generate_documents_post_closure'
+  }.freeze
 
   def initialize(year, to_close_on, closer, disable_document_generation: false, **options)
     @year = year
@@ -132,7 +133,7 @@ class FinancialYearClose
     true
   rescue StandardError => error
     @year.update_columns(state: 'opened')
-    FileUtils.rm_rf Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}")
+    FileUtils.rm_rf Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', @year.id.to_s)
 
     Rails.logger.error $!
     Rails.logger.error $!.backtrace.join("\n")
@@ -618,16 +619,16 @@ class FinancialYearClose
     end
 
     def copy_generated_documents(timing, nature, key, file_path)
-      destination_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}", "#{timing}", "#{nature}", "#{key}.pdf")
-      signature_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}", "#{timing}", "#{nature}", "#{key}.asc")
+      destination_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', @year.id.to_s, timing.to_s, nature.to_s, "#{key}.pdf")
+      signature_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', @year.id.to_s, timing.to_s, nature.to_s, "#{key}.asc")
       FileUtils.mkdir_p destination_path.dirname
       FileUtils.ln file_path, destination_path
       FileUtils.ln file_path.gsub(/\.pdf/, '.asc'), signature_path
     end
 
     def generate_archive(timing)
-      zip_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}", "#{@year.id}_#{timing}.zip")
-      file_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}")
+      zip_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', @year.id.to_s, "#{@year.id}_#{timing}.zip")
+      file_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', @year.id.to_s)
       begin
         Zip::File.open(zip_path, Zip::File::CREATE) do |zip|
           Dir[File.join(file_path, "#{timing}/**/**")].each do |file|
@@ -639,7 +640,7 @@ class FinancialYearClose
       sha256 = Digest::SHA256.file zip_path
       crypto = GPGME::Crypto.new
       signature = crypto.clearsign(sha256.to_s, signer: ENV['GPG_EMAIL'])
-      signature_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}", "#{@year.id}_#{timing}.asc")
+      signature_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', @year.id.to_s, "#{@year.id}_#{timing}.asc")
       File.write(signature_path, signature)
       @year.archives.create!(timing: timing, sha256_fingerprint: sha256.to_s, signature: signature.to_s, path: zip_path)
     end

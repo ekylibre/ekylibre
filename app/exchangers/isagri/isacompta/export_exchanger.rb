@@ -30,7 +30,7 @@ module Isagri
           raise ActiveExchanger::NotWellFormedFileError
         end
         used_versions = [8550]
-        version = used_versions.select { |x| x <= version }.sort[-1]
+        version = used_versions.select { |x| x <= version }.max
 
         if version == 8550
           begin

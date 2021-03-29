@@ -82,7 +82,7 @@ class FixedAssetBookkeeper < Ekylibre::Bookkeeper
       if FinancialYear.at(started_on)&.opened?
         # puts "without purchase".inspect.green
         if waiting_journal_entry
-          waiting_account_id = waiting_asset_account_id ? waiting_asset_account_id : @generic_waiting_asset_account.id
+          waiting_account_id = waiting_asset_account_id || @generic_waiting_asset_account.id
           journal_entry(journal, printed_on: started_on, if: (in_use? && asset_account)) do |entry|
             entry.add_credit(@label, waiting_account_id, depreciable_amount, resource: resource, as: :fixed_asset)
             entry.add_debit(@label, asset_account.id, depreciable_amount, resource: resource, as: :fixed_asset)
