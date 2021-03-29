@@ -19,7 +19,7 @@ module Procedo
             @working_zone = @working_zone.convert_to(:multi_polygon)
           end
           if intervention && intervention.working_periods.present?
-            first_period_key = intervention.working_periods.keys.sort_by(&:to_i).first
+            first_period_key = intervention.working_periods.keys.min_by(&:to_i)
             @read_at = intervention.working_periods[first_period_key].started_at
           end
           @readings = {}.with_indifferent_access

@@ -1,8 +1,9 @@
 module Api
   module V1
     class ProductsController < Api::V1::BaseController
-      ACCEPTED_TYPES = %w(Worker Equipment LandParcel BuildingDivision Plant Matter)
-      NESTED_INCLUDE_ASSOCIATION = { LandParcel: { activity_production: :activity } }
+      ACCEPTED_TYPES = %w[Worker Equipment LandParcel BuildingDivision Plant Matter].freeze
+      NESTED_INCLUDE_ASSOCIATION = { LandParcel: { activity_production: :activity } }.freeze
+
       def index
         type = params[:product_type] && params[:product_type].to_s.singularize.camelize
 

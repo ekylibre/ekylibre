@@ -24,7 +24,7 @@ class Delay
       'minutes' => :minute,
       'seconde' => :second,
       'secondes' => :second
-    },
+    }.freeze,
     eng: {
       'year' => :year,
       'years' => :year,
@@ -40,18 +40,21 @@ class Delay
       'minutes' => :minute,
       'second' => :second,
       'seconds' => :second,
-    }
+    }.freeze
   }.freeze
+
   KEYS = TRANSLATIONS.values.reduce(&:merge).keys.join('|').freeze
-  ALL_TRANSLATIONS = TRANSLATIONS.values.reduce(&:merge)
+  ALL_TRANSLATIONS = TRANSLATIONS.values.reduce(&:merge).freeze
   MONTH_KEYWORDS = {
-      bom: {
-        eng: ['bom', 'beginning of month'],
-        fra: ['ddm', 'début du mois'] },
-      eom: {
-        eng: ['eom', 'end of month'],
-        fra: ['fdm', 'fin du mois'] }
-    }
+    bom: {
+      eng: ['bom', 'beginning of month'].freeze,
+      fra: ['ddm', 'début du mois'].freeze
+    }.freeze,
+    eom: {
+      eng: ['eom', 'end of month'].freeze,
+      fra: ['fdm', 'fin du mois'].freeze
+    }.freeze
+  }.freeze
 
   attr_reader :expression
 
@@ -204,8 +207,8 @@ class DelayValidator < ActiveModel::EachValidator
       language = language.to_sym
       bom = Delay::MONTH_KEYWORDS[:bom][language]
       eom = Delay::MONTH_KEYWORDS[:eom][language]
-      return nil unless bom || eom
+      return nil unless bom ||  eom
 
-      (bom || []) + (eom || [])
+      (bom || []) + (eom ||  [])
     end
 end

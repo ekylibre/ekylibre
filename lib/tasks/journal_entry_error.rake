@@ -23,7 +23,7 @@ namespace :journal_entry_error do
     def set_journal_parmeters
       puts 'Enter tenant name :'.blue
       @tenant = STDIN.gets.chomp
-      puts "#{Ekylibre::Tenant.switch!(@tenant)}".yellow
+      puts Ekylibre::Tenant.switch!(@tenant).to_s.yellow
     end
 
     def find_invalid_journal_entries

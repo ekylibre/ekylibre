@@ -581,7 +581,7 @@ class FinancialYear < ApplicationRecord
 
       ranges = []
       i = 0
-      while stopped_on >= stop_date do
+      while stopped_on >= stop_date
         i += 1
         ranges << [start_date, stop_date]
         start_date = started_on + (number_of_months * i).month
