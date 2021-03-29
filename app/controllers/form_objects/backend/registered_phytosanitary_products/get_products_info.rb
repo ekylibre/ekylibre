@@ -1,3 +1,5 @@
+using Ekylibre::Utils::DateSoftParse
+
 module FormObjects
   module Backend
     module RegisteredPhytosanitaryProducts

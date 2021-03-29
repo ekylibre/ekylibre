@@ -18,6 +18,8 @@
 
 require_dependency 'procedo'
 
+using Ekylibre::Utils::DateSoftParse
+
 module Backend
   class InterventionsController < Backend::BaseController
     manage_restfully t3e: { procedure_name: '(RECORD.procedure ? RECORD.procedure.human_name : nil)'.c },
