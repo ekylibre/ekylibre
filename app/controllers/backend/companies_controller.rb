@@ -3,6 +3,12 @@ module Backend
     def edit
       Preference.check!
       @company = Entity.of_company
+      @have_journal_entries = JournalEntry.any?
+      global_preferences = Preference.global
+      @lang_preference = global_preferences.find_by(name: "language")
+      @d_d_m_preference = global_preferences.find_by(name: "default_depreciation_period")
+      @a_n_preference = global_preferences.find_by(name: "account_number_digits")
+      @s_c_preference = global_preferences.find_by(name: "sales_conditions")
     end
 
     def update
