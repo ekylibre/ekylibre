@@ -28,11 +28,13 @@
 - [ ] Settings
 - [ ] First_run
 
-## Estimate quota time
+## Estimate quota time and elapsed time
 
 (How much time is affected to the issue)
 
-/estimate 7h
+`/estimate 7h`
+
+`/spend 7h`
 
 ## Estimate size difficulty (XS to XL)
 
@@ -52,12 +54,11 @@
 
 ## Relevant logs and/or urls and/or screenshots
 
-(Paste any relevant logs - please use code blocks (```) to format console output, logs, and code, as
-it's very hard to read otherwise.)
+(Paste any relevant logs - please use code blocks (```) to format console output, logs, and code, as it's very hard to read otherwise.)
 
 ## Possible fixes
 
 (If you can, link to the line of code that might be responsible for the problem)
 
-/label ~Bug ~'Shaping - A faire'
+/label ~Bug ~"Shaping - A faire"
 /cc me
