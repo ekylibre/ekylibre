@@ -225,9 +225,31 @@ module Backend
         options[param] = unsafe_params[param]
       end
 
+      if params['targets_attributes'].present?
+        id = params['targets_attributes'].first['product_id'].to_i
+      end
+
+      if params['procedure_name'].present?
+        procedure = Procedo::Procedure.find(params['procedure_name'])
+        # target_parameter = procedure.parameters_of_type(:target, true).first
+        target_parameter = procedure.parameters.first
+
+        if procedure.present? && target_parameter.present?
+
+          if Product.of_expression(target_parameter.filter).pluck(:id).include?(id)
+            nil
+          else
+            notify_warning_now(:no_land_parcel_error)
+            unsafe_params.delete('targets_attributes')
+            unsafe_params.delete('group_parameters_attributes')
+            # unsafe_params.slice!('targets_attributes', 'group_parameters_attributes')
+          end
+        end
+      end
+
       # , :doers, :inputs, :outputs, :tools
       %i[group_parameters targets].each do |param|
-        next unless unsafe_params.include? :intervention
+        next unless unsafe_params.include?(:intervention) || unsafe_params.include?("#{param}_attributes")
 
         options[:"#{param}_attributes"] = unsafe_params["#{param}_attributes"] || []
         next unless options[:targets_attributes]
@@ -253,7 +275,6 @@ module Backend
 
         options[:"#{param}_attributes"] = permitted_params["#{param}_attributes"] || []
       end
-
       # consume preference and erase
       if params[:keeper_id] && (p = current_user.preferences.get(params[:keeper_id])) && p.value.present?
 

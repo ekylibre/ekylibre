@@ -3597,6 +3597,7 @@ fra:
       no_inspections_given: "Aucune inspection donnée"
       no_interventions_given: "Aucune intervention donnée"
       no_items_found: "Aucun produit n’a été ajouté à la commande " #?
+      no_land_parcel_error: "Cette intervention ne peut contenir que des cultures. Cette parcelle ne peut pas être utilisée ici."
       no_parcels_given: "Aucun colis fournis"
       no_payment_to_deposit: "Aucun règlement à encaisser"
       no_production_defined_for_current_campaign: "Aucune production pour la campagne en cours"

@@ -36,5 +36,5 @@
     - disabled = LandParcel.count.zero? && (Matter.of_variety("seed").count.zero? || Matter.of_variety("plant").count.zero?)
     = dropdown_menu_button(:new.tl, main_class: "btn btn-default btn-default--parcel #{'disabled' if disabled}", title: "#{:before_add_a_plant.tl if disabled}") do |d|
       - %w[sowing mechanical_planting all_in_one_sowing sowing_with_spraying].each do |variety|
-        - d.item variety.tl, { controller: "/backend/interventions", action: :new, procedure_name: variety, intervention: { group_parameters_attributes: { '0' => { reference_name: :zone, targets_attributes: { '0' => { product_id: resource.id, reference_name: "land_parcel", working_zone: resource.shape.to_geojson } } } } } }
+        - d.item variety.tl, { controller: "/backend/interventions", action: :new, procedure_name: variety, targets_attributes: [ { product_id: resource.id, reference_name: "land_parcel", working_zone: resource.shape&.to_geojson } ], group_parameters_attributes: [ { reference_name: "zone", targets_attributes: [ { product_id: resource.id, reference_name: "land_parcel", working_zone: resource.shape&.to_geojson } ] } ] }
     = cobble_list(:plants)
