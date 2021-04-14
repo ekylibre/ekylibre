@@ -1,8 +1,11 @@
 module Backend
   class CompaniesController < Backend::BaseController
+    before_action :set_preferences, only: %I[edit]
+
     def edit
       Preference.check!
       @company = Entity.of_company
+      @have_journal_entries = JournalEntry.any?
     end
 
     def update
@@ -35,6 +38,7 @@ module Backend
           end
         end
       end
+      set_preferences
       render :edit
     end
 
@@ -49,6 +53,14 @@ module Backend
       # @param [Object] new_value
       def preference_changed(preference, new_value)
         account_number_digits_changed(new_value.to_i) if preference.name == "account_number_digits"
+      end
+
+      def set_preferences
+        global_preferences = Preference.global
+        @lang_preference = global_preferences.find_by(name: "language")
+        @d_d_m_preference = global_preferences.find_by(name: "default_depreciation_period")
+        @a_n_preference = global_preferences.find_by(name: "account_number_digits")
+        @s_c_preference = global_preferences.find_by(name: "sales_conditions")
       end
 
       # Called after each change of the preference :account_number:digits when updating the company
