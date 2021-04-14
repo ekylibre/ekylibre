@@ -1719,6 +1719,8 @@ eng:
     completed: "Completed"
     # components: "Components"
     compute_balances: "Computing balances"
+    compute_pfi_interventions: "Computing PFI on interventions"
+    compute_pfi_report: "Edit IFT report"
     conditions:
       filter_on_attribute_of_class: "Filter on attribute of class"
       special-subscriber: "Special-subscriber"
@@ -2555,7 +2557,9 @@ eng:
     permute: "Permute"
     personalized_mail: "Send a personalized mail"
     pertinence: "%{value}%"
+    pfi_activity: "Pfi activity"
     pfi_dose: "Pfi dose"
+    pfi_interventions: "Pfi"
     pfi_parcel_ratio: "Pfi parcel ratio"
     pfi_treatment_ratio: "Pfi treatment ratio"
     phosphorus_concentration: "Phosphorus concentration"

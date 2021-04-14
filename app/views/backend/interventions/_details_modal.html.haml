@@ -80,6 +80,10 @@
                     - elsif vote == :forbidden
                       %span.value= :forbidden.tl
                       %span.value= messages.uniq.join(', ')
+                -# For PFI check value
+                - if quantified_parameter.pfi_input
+                  %span.title= :pfi_treatment_ratio.tl
+                  %span.value= link_to(quantified_parameter.pfi_input.pfi_value.round(2), quantified_parameter.pfi_input.check_url)
 
     - if intervention.tools.any?
       .block

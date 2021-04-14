@@ -234,8 +234,7 @@ module Backend
         # target_parameter = procedure.parameters_of_type(:target, true).first
         target_parameter = procedure.parameters.first
 
-        if procedure.present? && target_parameter.present?
-
+        if procedure.present? && target_parameter.present? && target_parameter.is_a?(Procedo::Procedure::ProductParameter)
           if Product.of_expression(target_parameter.filter).pluck(:id).include?(id)
             nil
           else
@@ -244,6 +243,8 @@ module Backend
             unsafe_params.delete('group_parameters_attributes')
             # unsafe_params.slice!('targets_attributes', 'group_parameters_attributes')
           end
+        elsif procedure.present? && target_parameter.present? && target_parameter.is_a?(Procedo::Procedure::GroupParameter)
+          notify_warning_now(:no_sowing_intervention_for_the_moment)
         end
       end
 
