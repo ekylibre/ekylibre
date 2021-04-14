@@ -373,6 +373,13 @@ class Intervention < ApplicationRecord
     add_activity_production_to_output if procedure.of_category?(:planting)
 
     reconcile_receptions
+
+    # compute pfi
+    campaign = Campaign.find_by(harvest_year: started_at.year)
+    if campaign
+      pfi_computation = Interventions::Phytosanitary::PfiComputation.new(campaign: campaign, intervention: self)
+      pfi_computation.create_or_update_pfi
+    end
   end
 
   after_create do

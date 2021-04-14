@@ -75,6 +75,8 @@ class InterventionInput < InterventionProductParameter
   belongs_to :outcoming_product, class_name: 'Product'
   belongs_to :usage, class_name: 'RegisteredPhytosanitaryUsage'
   has_one :product_movement, as: :originator, dependent: :destroy
+  has_one :pfi_input, -> { where(nature: 'intervention') }, class_name: 'PfiInterventionParameter', foreign_key: :input_id, dependent: :destroy
+  has_many :pfi_inputs, -> { where(nature: 'crop') }, class_name: 'PfiInterventionParameter', foreign_key: :input_id, dependent: :destroy
   validates :quantity_population, :product, presence: true
   # validates :component, presence: true, if: -> { reference.component_of? }
 

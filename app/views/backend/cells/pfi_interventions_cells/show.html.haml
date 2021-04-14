@@ -1,0 +1,51 @@
+- phyto_interventions = Intervention.of_nature_using_phytosanitary.of_campaign(@campaign)
+- pfi_interventions = PfiInterventionParameter.of_campaign(@campaign).where(nature: 'intervention')
+- if @campaign && pfi_interventions.any?
+  :ruby
+    series = []
+    started_at = phyto_interventions.reorder(:started_at).first.started_at.to_date
+    stopped_at = phyto_interventions.reorder(:started_at).last.stopped_at.to_date
+    stopped_at = started_at + 1 if started_at >= stopped_at
+
+    categories = {}
+    comp_date = started_at
+    while comp_date.strftime("%Y0%m") <= stopped_at.strftime("%Y0%m")
+      categories[comp_date.strftime("%Y0%m")] = comp_date.l(format: "%b %Y")
+      comp_date = comp_date + 1.month
+    end
+
+    unit = Onoma::Unit[:percent]
+
+    segments = pfi_interventions.order(:segment_code).pluck(:segment_code).uniq
+
+    # data for bar chart by pfi segment and by month
+    segments.each do |segment|
+      # get all input in segment
+      pfi_in_segment = pfi_interventions.of_segment(segment).where(nature: 'intervention')
+      segment_name = "#{segment.to_s} - #{pfi_in_segment.first.segment_name.to_s}"
+      # get all phyto intervention ids with current input
+      intervention_ids = InterventionInput.where(id: pfi_in_segment.pluck(:input_id)).pluck(:intervention_id)
+      # get all phyto intervention
+      act_interventions = phyto_interventions.where(id: intervention_ids).reorder(:started_at).group_by { |m| m.started_at.year.to_s + m.started_at.month.to_s.rjust(3, '0') }
+      if act_interventions.any?
+        sums = {}
+        act_interventions.each do |act_int_by_month|
+          pfi_input_on_segment = pfi_interventions.where(input_id: InterventionInput.where(intervention_id: act_int_by_month[1].map{|i| i.id}.compact).pluck(:id))
+          pfi_average_on_month = pfi_input_on_segment.average(:pfi_value).to_f.round(2)
+          sums[act_int_by_month[0].to_i.to_s] = pfi_average_on_month.to_s.to_f
+        end
+        series << { name: segment_name, data: normalize_serie(sums, categories.keys), tooltip: {value_suffix: '' }, stack: 'time'}
+      end
+    end
+
+  - if series.any?
+    = column_highcharts(series, y_axis: {title: {text: :pfi_treatment_ratio.tl}, stack_labels: {enabled: true, format: "{total}"}, labels: { format: "{value}" }}, x_axis: { categories: categories.values}, legend: true, plot_options: { column: {stacking: 'normal'}})
+    = link_to(:compute_pfi_report.tl, compute_pfi_report_backend_cells_pfi_interventions_cell_path, remote: true, class: "btn btn-default")
+    = link_to(:compute_pfi_interventions.tl, compute_pfi_interventions_backend_cells_pfi_interventions_cell_path, remote: true, class: "btn btn-default")
+  - else
+    = no_data
+
+- elsif @campaign && phyto_interventions.any?
+  = link_to(:compute_pfi_interventions.tl, compute_pfi_interventions_backend_cells_pfi_interventions_cell_path, remote: true, class: "btn btn-default")
+- else
+  = no_data

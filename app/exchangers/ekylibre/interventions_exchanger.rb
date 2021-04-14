@@ -409,7 +409,10 @@ module Ekylibre
           indicators: row[24].blank? ? {} : row[24].to_s.strip.split(/[[:space:]]*\,[[:space:]]*/).collect { |i| i.split(/[[:space:]]*(\:|\=)[[:space:]]*/) }.each_with_object({}) do |i, h|
             h[i.first.strip.downcase.to_sym] = i.third
             h
-          end
+          end,
+          first_input_usage_id: row[25]&.to_s,
+          second_input_usage_id: row[26]&.to_s,
+          third_input_usage_id: row[27]&.to_s
         )
         # Get campaign
         unless r.campaign = Campaign.find_by(name: r.campaign_code)
@@ -604,12 +607,12 @@ module Ekylibre
         ## inputs
         updaters = []
 
-        [r.first, r.second, r.third].each_with_index do |actor, index|
-          next if actor.product.nil?
+        [[r.first, r.first_input_usage_id], [r.second, r.second_input_usage_id], [r.third, r.third_input_usage_id]].each_with_index do |actor, index|
+          next if actor[0].product.nil?
 
           procedure.parameters_of_type(:input).each do |input|
             # find measure from quantity
-            product_measure = actor_measure_conversion(actor)
+            product_measure = actor_measure_conversion(actor[0])
             # find best handler for product measure
             i = input.best_handler_for(product_measure)
             handler = if i.is_a?(Array)
@@ -617,14 +620,18 @@ module Ekylibre
                       else
                         input.best_handler_for(product_measure).name
                       end
-            next unless actor.product.of_expression(input.filter)
+            next unless actor[0].product.of_expression(input.filter)
+
+            # check usage_id presence in Lexicon
+            usage_id = RegisteredPhytosanitaryUsage.find_by(id: actor[1])
 
             attributes[:inputs_attributes] ||= {}
             attributes[:inputs_attributes][index.to_s] = {
               reference_name: input.name,
-              product_id: actor.product.id,
+              product_id: actor[0].product.id,
               quantity_handler: handler,
-              quantity_value: product_measure.to_f
+              quantity_value: product_measure.to_f,
+              usage_id: usage_id
             }
             updaters << "inputs[#{index}]quantity_value"
             break

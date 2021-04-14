@@ -192,6 +192,12 @@ Rails.application.routes.draw do
       resource :last_sales_cell, only: :show, concerns: :list
       resource :main_settings_cell, only: :show
       resource :map_cell, only: :show
+      resource :pfi_interventions_cell, only: :show do
+        member do
+          get :compute_pfi_interventions
+          get :compute_pfi_report
+        end
+      end
       resource :last_socleo_import_cell, only: :show
       resource :parts_cell, only: :show
       resource :profit_and_loss_cell, only: :show
@@ -237,6 +243,7 @@ Rails.application.routes.draw do
       member do
         get :list_distributions
         get :list_productions
+        get :compute_pfi_report
       end
     end
 
@@ -655,7 +662,6 @@ Rails.application.routes.draw do
         get :generate_buttons
         get :validate_harvest_delay
         get :validate_reentry_delay
-
         post :create_duplicate_intervention
         get :compare_realised_with_planned
       end
