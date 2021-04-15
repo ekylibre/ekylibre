@@ -4,7 +4,7 @@ class SaleInvoicingTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   setup do
     @sale = Sale.new(client: entities(:entities_003), nature: sale_natures(:sale_natures_001), invoiced_at: DateTime.parse('2019-02-02T00:00:00Z'))
     assert @sale.save, @sale.errors.inspect
-    assert_equal Date.today, @sale.created_at.to_date
+    assert_equal Time.zone.now.to_date, @sale.created_at.to_date
     assert !@sale.affair.nil?, 'A sale must be linked to an affair'
     assert_equal @sale.amount, @sale.affair_credit, "Affair amount is not the same as the sale amount (#{@sale.affair.inspect})"
 
