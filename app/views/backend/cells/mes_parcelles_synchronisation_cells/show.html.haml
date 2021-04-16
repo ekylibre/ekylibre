@@ -1,0 +1,22 @@
+- if @integration.present?
+  .synchro-date
+    %h1= :synchronisation_cell.tl
+    %span.value= @integration.last_sync_at.strftime("%e/%m/%Y - %T")
+
+    = backend_form_for @integration do |f|
+      = f.simple_fields_for :parameters do |p|
+        - @integration.parameter_keys.each do |parameter|
+          - if parameter.to_s == "harvest_year" 
+            - value = current_campaign.harvest_year
+          - else
+            - value   = f.object.parameters[parameter.to_s]
+            - value ||= parameter.default_value
+          = p.input parameter.to_s, input_html: { value: value }, as: :hidden
+      = hidden_field_tag :redirect, "/backend/dashboards/production"
+      .synchro-btn
+        - if @integration.state == 'in_progress'
+          = f.button :submit, :synchronize.tl, class: 'btn btn-primary btn-synchro', disabled: true
+        - else
+          = f.button :submit, :synchronize.tl, class: 'btn btn-primary btn-synchro', 'data-disable-with': tl(:synchronisation_on_going)
+- else
+  %span.value= :translation_not_realised.tl  

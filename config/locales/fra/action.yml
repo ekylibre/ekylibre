@@ -1415,6 +1415,7 @@ fra:
     check: "Vérifier"
     check_fields: "Vous devez cocher au moins une case pour effectuer la modification" #?
     check_letter: "Lettre-chèque"
+    check_redirected: "La redirection n'a pas réussi"
     check_usage_conditions: "Vérifiez les conditions d'usage"
     check_x_entries_to_balance:
       one: "Consulter l'écriture à équilibrer (%{count})"
@@ -2156,6 +2157,7 @@ fra:
     last_purchases_invoices: "Dernières factures"
     last_purchases_orders: "Dernières commandes"
     last_sales: "Dernières ventes"
+    last_synchronisation_at: "Dernière synchronisation le : %{sync_at}"
     late: "En retard"
     late_delivery: "Hors délai"
     left_balance_amount: "Report du crédit antérieur non imputé et non remboursé" #?
@@ -2264,6 +2266,7 @@ fra:
     merge: "Fusionner"
     merged_entity: |
       Entitées fusionnées (ID=%{other}):
+    mes_parcelles_synchronisation: "Mes parcelles - Synchronisation"
     method: "Méthode"
     milk_withdrawal_period: "Période d’attente avant remise en vente de lait" #?
     min_level: "Niveau minimum" #?
@@ -2991,6 +2994,10 @@ fra:
     supports_chart: "Graphique des supports" #?
     switch_accounting_plan: "Changer de plan de comptes"
     synthesis: "Synthèses"
+    synchronized_at: "Synchronisé le : %{sync_at}"
+    synchronize: "Synchroniser"
+    synchronisation_cell: "Dernière synchronisation effectuée le :"
+    synchronisation_on_going: "Synchronisation en cours"
     target: "Cible"
     target_name: "Nom de la cible" #?
     target_zone: "Zone cible" #?
@@ -3118,6 +3125,7 @@ fra:
     transfer: "Effectuer les transferts"
     transformations: "Transformations" #?
     transformed_products: "Produits transformés" #?
+    translation_not_realised: "La synchronisation n'a pas encore été effectuée. Veuillez la réaliser dans l'écran de la connexion partenaire afin d'avoir accès aux fonctionnalités." 
     transport: "Transport"
     transport_states: #?
       all: "Tous" #?
@@ -3195,6 +3203,7 @@ fra:
     use_incoming_payment: "Rattacher l’encaissement %{payment}" #?
     used_accounts: "Comptes utilisés seulement" #?
     user_name: "Nom d’utilisateur" #?
+    username: "Nom d’utilisateur"
     user_status: "État"
     users: "Utilisateurs"
     uses: "Matériel" #?
@@ -3259,6 +3268,7 @@ fra:
     working_times: "Temps de travaux de %{name}"
     working_zone: "Zone travaillée" #?
     working_zone_overlaps_nta: "La zone travaillée chevauche la ZNT"
+    wrong_identifiers: "La connexion n'a pas pu aboutir"
     workload: "Charge de travail"
     x_cashes:
       one: "1 compte bancaire"

@@ -60,8 +60,7 @@ module ActionIntegration
         Ekylibre::Hook.subscribe("every_#{every}", proc)
       end
 
-      # Check ##########
-
+      # Check
       def check_connection(account = nil, &block)
         calls :check
         check(account).execute(&block)
@@ -128,9 +127,9 @@ module ActionIntegration
         @parameters || []
       end
 
-      def parameter(name, &default_value)
+      def parameter(name, options = {}, &default_value)
         @parameters ||= []
-        @parameters << ActionIntegration::Parameter.new(name, &default_value)
+        @parameters << ActionIntegration::Parameter.new(name, options, &default_value)
       end
 
       # TODO: fetch shouldn't raise exceptions, fetch! does
