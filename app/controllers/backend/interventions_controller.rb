@@ -192,22 +192,17 @@ module Backend
       return unless @intervention = find_and_check
 
       t3e @intervention, procedure_name: @intervention.procedure.human_name, nature: @intervention.request? ? :planning_of.tl : nil
-      respond_with(@intervention, methods: %i[cost earn status name duration human_working_zone_area human_actions_names],
-                   include: [
-                     { leaves_parameters: {
-                       methods: %i[reference_name default_name working_zone_svg human_quantity human_working_zone_area],
-                       include: {
-                         product: {
-                           methods: %i[picture_path nature_name unit_name]
-                         }
-                       }
-                     } }, {
-                       prescription: {
-                         include: %i[prescriptor attachments]
-                       }
-                     }
-                   ],
-                   procs: proc { |options| options[:builder].tag!(:url, backend_intervention_url(@intervention)) })
+      respond_to do |format|
+        format.html
+        format.pdf {
+          return unless (template = find_and_check :document_template, params[:template])
+
+          PrinterJob.perform_later('Printers::InterventionSheetPrinter', id: params[:id], template: template, perform_as: current_user)
+          notify_success(:document_in_preparation)
+          redirect_to backend_interventions_path
+        }
+      end
+
     end
 
     # TODO: Reimplement this with correct use of permitted params
