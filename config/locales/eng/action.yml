@@ -1677,6 +1677,7 @@ eng:
     chart: "Chart"
     check: "Check"
     check_letter: "Check letter"
+    check_redirected: "The redirection didn't work out properly"
     check_usage_conditions: "Check usage conditions"
     check_x_entries_to_balance:
       one: "Check entry to balance (%{count})"

@@ -122,6 +122,7 @@ Rails.application.routes.draw do
 
   # Backend
   namespace :backend do
+
     resource :myself, path: 'me', only: %i[show update] do
       member do
         patch :change_password
@@ -192,6 +193,7 @@ Rails.application.routes.draw do
       resource :last_sales_cell, only: :show, concerns: :list
       resource :main_settings_cell, only: :show
       resource :map_cell, only: :show
+      resource :mes_parcelles_synchronisation_cell, only: :show
       resource :pfi_interventions_cell, only: :show do
         member do
           get :compute_pfi_interventions

@@ -47,6 +47,7 @@
 class CultivableZone < ApplicationRecord
   include Attachable
   include Customizable
+  include Providable
   refers_to :production_system
   refers_to :soil_nature
   belongs_to :farmer, class_name: 'Entity'

@@ -11,4 +11,18 @@
         %p
           = :website.tl
           = link_to(url_name, url)
+
+    %p
+      %i.icon.icon-cloud-download
+      ="#{resource.nature}_incoming_data_exchange".tl
+
+    %p
+      %i.icon.icon-cloud-upload
+      ="#{resource.nature}_outgoing_data_exchange".tl
+
+    - if resource.last_sync_at.present?
+      .integration-synchronisation
+        %p
+          %i.icon.icon-sync
+          =resource.last_sync_at.strftime("%e/%m/%Y - %T")
   = render resource.authentication_mode.to_s, f: f

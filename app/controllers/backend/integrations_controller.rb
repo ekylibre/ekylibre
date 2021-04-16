@@ -33,7 +33,7 @@ module Backend
     end
 
     def destroy
-      return unless existing = Integration.find_by(nature: params[:nature])
+      return unless existing = Integration.find_by(nature: params[:nature]) || Integration.find_by(nature: params[:id])
 
       redirect_to action: :index, controller: :integrations if existing.destroy!
     end
@@ -54,7 +54,8 @@ module Backend
 
       t3e(@integration.attributes.merge(name: @integration.name))
       @integration.attributes = permitted_params
-      return if save_and_redirect(@integration, url: :backend_integrations)
+      redirect_url = params[:redirect] ||= :backend_integrations
+      return if save_and_redirect(@integration, url: redirect_url)
 
       @integration.errors.full_messages.each do |message|
         notify_error message

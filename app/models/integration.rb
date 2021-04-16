@@ -35,12 +35,15 @@
 #  nature                 :string           not null
 #  updated_at             :datetime         not null
 #  updater_id             :integer
-#
+#  last_sync_at           :datetime
+#  state                  :string
 
 # Integration model is here to save connection parameters in (encrypted) store
 # to keep them reusable when necessary.
 class Integration < ApplicationRecord
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  enumerize :state, in: %i[undone in_progress finished], default: :undone
+
   validates :nature, presence: true, uniqueness: true, length: { maximum: 500 }
   # ]VALIDATORS]
   delegate :authentication_mode, :check_connection, :integration_name, to: :integration_type
