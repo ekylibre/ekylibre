@@ -1373,15 +1373,16 @@ html.backend {
     right: $default-gap;
     i {
       @include is-icon;
-      @include use-icon(minus-square-o);
+      @include use-icon(filter-list);
       color: $color;
       line-height: $line-height;
       vertical-align: middle;
+      transform:rotate(180deg);
     }
   }
   &.collapsed {
     a[data-toggle="kujaku"] i {
-      @include use-icon(plus-square-o);
+      transform:rotate(0deg);
     }
     .feathers {
       .feather {
