@@ -106,7 +106,7 @@ class Loan < ApplicationRecord
   scope :drafts, -> { where(state: %w[draft]) }
   scope :ongoing_within, ->(start_date, stop_date) { where('loans.ongoing_at BETWEEN ? and ?', start_date.to_time, stop_date.to_time) }
 
-  before_validation(on: :create) do
+  before_validation on: :create do
     self.state ||= :draft
     self.currency ||= cash.currency if cash
     self.shift_duration ||= 0
