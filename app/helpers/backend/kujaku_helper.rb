@@ -144,7 +144,6 @@ module Backend
           {
             label: @options[:label] || :state.tl,
             name: @name,
-            # This variable is not used in the associated partial
             default_value: @template.params[@name],
             choices: choices
           }
