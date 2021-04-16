@@ -90,7 +90,7 @@ fra:
       reset: "Ré-initialiser la cellule: %{name}"
     backend/building_divisions:
       edit: "Modifier la zone\_: %{name}"
-      index: "Zones de bâtiments"
+      index: "Zones de stockage"
       new: "Nouvelle zone"
       show: "Zone\_: %{name}"
     backend/buildings:

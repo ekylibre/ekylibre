@@ -826,7 +826,7 @@ fra:
       reception: "Réception"
       reception_item: "Élément de réception"
       registered_agroedi_code: "Code agroedi référencé"
-      registered_building_zone: "Zone de bâtiment référencée" #?
+      registered_building_zone: "Zone de stockage référencée" #?
       registered_pfi_crop: "Récolte pfi référencée"
       registered_pfi_dose: "Dose pfi référencée"
       registered_pfi_target: "Cible pfi référencée"
