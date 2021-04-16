@@ -111,16 +111,21 @@ class InterventionInput < InterventionProductParameter
     end
   end
 
-  def input_quantity_per_area
+  # @param [Onoma::Item<Unit>] target_unit
+  # @param [Measure<area>] area
+  def input_quantity_per_area(target_unit: nil, area: nil)
     if Onoma::Unit.find(quantity.unit).dimension == :none
       quantity
     else
       converter = Interventions::ProductUnitConverter.new
       quantity_base_unit = Onoma::Unit.find(quantity.unit).base_unit.to_s
 
+      target_unit_into = target_unit || Onoma::Unit.find(quantity_base_unit + '_per_hectare')
+      area_into = Maybe(area) || Maybe(intervention.working_zone_area)
+
       params = {
-        into: Onoma::Unit.find(quantity_base_unit + '_per_hectare'),
-        area: Maybe(intervention.working_zone_area),
+        into: target_unit_into,
+        area: area_into,
         net_mass: Maybe(product.net_mass),
         net_volume: Maybe(product.net_volume),
         spray_volume: None()
