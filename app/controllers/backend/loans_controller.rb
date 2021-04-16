@@ -91,7 +91,16 @@ module Backend
       @entity_of_company_full_name = Entity.of_company.full_name
       @entity_of_company_id = Entity.of_company.id
 
-      respond_with @loans, methods: [:current_remaining_amount], include: %i[lender loan_account interest_account insurance_account cash journal_entry]
+      respond_to do |format|
+        format.html
+        format.pdf {
+          return unless (template = find_and_check :document_template, params[:template])
+
+          PrinterJob.perform_later('Printers::LoanRegistryPrinter', stopped_on: Date.today.to_s, template: template, perform_as: current_user)
+          notify_success(:document_in_preparation)
+          redirect_to backend_loans_path
+        }
+      end
     end
 
     def confirm
