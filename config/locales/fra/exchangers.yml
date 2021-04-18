@@ -20,7 +20,7 @@ fra:
     agroedi_daplos: "Fiche parcellaire - Daplos Agro-EDI"
     bordeaux_sciences_agro_istea_balance: "Balance comptable ‒ ISTEA ‒ Bordeaux Sciences Agro"
     bordeaux_sciences_agro_istea_general_ledger: "Grand livre ‒ ISTEA ‒ Bordeaux Sciences Agro" #?
-    bordeaux_sciences_agro_istea_journal_entries: "Ecritures comptables ‒ ISTEA ‒ Bordeaux Sciences Agro" #?
+    bordeaux_sciences_agro_istea_journal_entries: "Écritures comptables ‒ ISTEA ‒ Bordeaux Sciences Agro" #?
     bordeaux_sciences_agro_istea_journals: "Journaux ‒ ISTEA ‒ Bordeaux Sciences Agro" #?
     bovins_croissance_cattle_performance_controls: "Contrôles de performance ‒ Bovins Croissance"
     caj_incoming_deliveries: "Approvisionnements (CSV) ‒ CAJ"
@@ -69,7 +69,7 @@ fra:
     isagri_isacompta_export: "Isacompta - Isagri"
     isagri_isacompta_fec_txt: "FEC import (TXT) - Isacompta - Isagri"
     isagri_isacompta_fixed_assets: "Immobilisation isacompta ‒ Isagri"
-    isagri_isacompta_journal_entries: "Ecritures comptables (GL) isacompta ‒ Isagri"
+    isagri_isacompta_journal_entries: "Écritures comptables (GL) isacompta ‒ Isagri"
     isagri_isaculture_csv_import: "Interventions isaculture (CSV/ZIP) ‒ Isagri"
     isagri_isapaye_ecr_journal_entries: "Écritures comptables (ECR) Isapaye ‒ Isagri"
     la_graine_informatique_vinifera_entities: "Tiers vinifera - La graine informatique"
