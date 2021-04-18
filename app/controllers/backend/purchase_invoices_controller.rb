@@ -59,6 +59,12 @@ module Backend
       code << "     c[0] << ' AND NOT #{PurchaseAffair.table_name}.closed'\n"
       code << " end\n"
       code << "end\n"
+      code << "if params[:purchases_attachments] == 'y'\n"
+      code << "    c[0] << ' AND #{PurchaseInvoice.table_name}.id IN (SELECT DISTINCT resource_id FROM #{Attachment.table_name} WHERE #{Attachment.table_name}.resource_type = \\'Purchase\\' AND #{Attachment.table_name}.deleted_at IS NULL)'\n"
+      code << "end\n"
+      code << "if params[:purchases_attachments] == 'n'\n"
+      code << "    c[0] << ' AND NOT #{PurchaseInvoice.table_name}.id IN (SELECT DISTINCT resource_id FROM #{Attachment.table_name} WHERE #{Attachment.table_name}.resource_type = \\'Purchase\\' AND #{Attachment.table_name}.deleted_at IS NULL)'\n"
+      code << "end\n"
       code << "c\n "
       code.c
     end
