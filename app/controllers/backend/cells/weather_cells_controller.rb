@@ -3,7 +3,7 @@ module Backend
     class WeatherCellsController < Backend::Cells::BaseController
       def show
         openweathermap_api_key = Identifier.find_by(nature: :openweathermap_api_key)
-        weather_client = OpenWeatherMapClient.from_identifier openweathermap_api_key
+        weather_client = OpenWeatherMapClient.from_identifier(openweathermap_api_key, current_user)
 
         coordinates = if params[:centroid]
                         params[:centroid]
@@ -38,7 +38,7 @@ module Backend
               {
                 at: Time.zone.at(day[:dt]),
                 temperatures: %i[temp temp_min temp_max].reduce({}) do |hash, key|
-                  { **hash, key => day[:main].fetch(key, 0).in_kelvin }
+                  { **hash, key => day[:main].fetch(key, 0).in_celsius }
                 end,
                 # pressure: day.fetch(:main, {})[:pressure].in_hectopascal,
                 humidity: day.fetch(:main, {}).fetch(:humidity, 0).in_percent,
