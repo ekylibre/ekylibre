@@ -5,9 +5,10 @@
     - b.cell :map, params: {visualization: :grain_yield}
   - if current_campaign
     - b.hbox do
-      - b.cell :cropping_plan
+      - b.cell :pfi_interventions
       - b.cell :elapsed_interventions_times_by_activities
-
+    - b.hbox do
+      - b.cell :cropping_plan
 
 - tour(:production) do |t|
   - t.step(:production, element: "#side #production", on: :right)

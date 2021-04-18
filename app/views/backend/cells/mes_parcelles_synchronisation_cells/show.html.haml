@@ -6,7 +6,7 @@
     = backend_form_for @integration do |f|
       = f.simple_fields_for :parameters do |p|
         - @integration.parameter_keys.each do |parameter|
-          - if parameter.to_s == "harvest_year" 
+          - if parameter.to_s == "harvest_year"
             - value = current_campaign.harvest_year
           - else
             - value   = f.object.parameters[parameter.to_s]
@@ -19,4 +19,4 @@
         - else
           = f.button :submit, :synchronize.tl, class: 'btn btn-primary btn-synchro', 'data-disable-with': tl(:synchronisation_on_going)
 - else
-  %span.value= :translation_not_realised.tl  
+  = no_data
