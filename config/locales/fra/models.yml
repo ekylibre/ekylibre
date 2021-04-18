@@ -287,6 +287,7 @@ fra:
         invoiced_at: "Date de facture" #?
         payment_delay: "Échéance" #?
         reference_number: "Référence fournisseur (n° facture)" #?
+        has_attachments: "Pièce(s) jointe(s)"
       purchase_item:
         amount: "Montant TTC" #?
         average_unit_pretax_amount: "PU moyen HT"
@@ -376,6 +377,8 @@ fra:
         locked: "Compte verrouillé" #?
         maximal_grantable_reduction_percentage: "Taux de réduction autorisé (%)" #?
         name: "Nom d’utilisateur" #?
+      variant_categories/zone_category: #?
+        asset_fixable: "Immobilisable"
       worker: #?
         variety: "Qualification" #?
     errors:
@@ -710,6 +713,7 @@ fra:
       event: "Évènement"
       event_participation: "Participation à un évènement"
       financial_year: "Exercice"
+      financial_year_archive: "Exercice comptable"
       financial_year_exchange: "Échange de l’exercice"
       fixed_asset: "Immobilisation"
       fixed_asset_depreciation: "Amortissement d’immobilisation"
@@ -826,7 +830,8 @@ fra:
       reception: "Réception"
       reception_item: "Élément de réception"
       registered_agroedi_code: "Code agroedi référencé"
-      registered_building_zone: "Zone de stockage référencée" #?
+      registered_building_zone: "Zone de bâtiment référencée" #?
+      registered_legal_position: "Forme juridique"
       registered_pfi_crop: "Récolte pfi référencée"
       registered_pfi_dose: "Dose pfi référencée"
       registered_pfi_target: "Cible pfi référencée"
@@ -1116,7 +1121,7 @@ fra:
     confirmed_at: "Confirmée le"
     consumer: "Consommateur"
     consumer_way: "Voie du consommateur" #?
-    container: "Contenant"
+    container: "Lieu de stockage"
     content: "Contenu"
     content_indicator: "Indicateur du contenu" #?
     content_indicator_name: "Nom d’indicateur du contenu" #?
@@ -1281,8 +1286,8 @@ fra:
     emission_journal_entry: "Écriture de l’émission"
     emitted_on: "Émis le"
     employed: "Travaillant pour la société"
-    employee: "Employé"
-    employee_account: "Compte employé"
+    employee: "Employé/Associé"
+    employee_account: "Compte employé/associé"
     employees: "Employés"
     employment: "Emploi/Rôle"
     enabled: "Activée"
@@ -1299,7 +1304,7 @@ fra:
     entries: "Écritures"
     entry: "Écriture"
     entry_items: "Lignes d’écritures"
-    entry_number: "N° Écriture"
+    entry_number: "N° écriture"
     entry_on: "Entrée le"
     entry_reason: "Raison de l'entrée"
     equipment: "Équipement"
@@ -1401,7 +1406,7 @@ fra:
     geolocation: "Géolocalisation"
     geometry_value: "Valeur géométrique"
     germination_percentage: "Pourcentage de germination attendu"
-    given_at: "Donné à"
+    given_at: "Donné le"
     global_amount: "Montant global" #?
     global_balance: "Solde global"
     global_count: "Population globale"
@@ -1792,7 +1797,7 @@ fra:
     participants: "Participants"
     participations: "Participations"
     partner_url: "Url partenaire"
-    password: "Mot de passe"
+    password: "Nouveau mot de passe"
     password_confirmation: "Confirmation du mot de passe"
     payee: "Bénéficiaire"
     payer: "Payeur"
@@ -2000,7 +2005,7 @@ fra:
     # reference_data: "Reference data"
     # reference_label_fra: "Reference label fra"
     reference_name: "Type d'intervention"
-    reference_number: "N°Référence"
+    reference_number: "N° référence"
     reference_source_content_type: "Référence type de contenu source"
     reference_source_file_name: "Référence Nom du fichier source"
     reference_source_file_size: "Taille Référence du fichier source"
@@ -2172,7 +2177,7 @@ fra:
     supplier_accounting_balance: "Solde comptable des fournisseurs"
     supplier_address: "Adresse du fournisseur"
     supplier_payment_delay: "Délai de paiement fournisseur"
-    supplier_payment_mode: "Mode de paiement du fournisseur"
+    supplier_payment_mode: "Mode de paiement"
     supplier_payment_modes: "Modes de paiement du fournisseur"
     supplier_trade_balance: "Balance commerciale des fournisseurs"
     suppliers: "Fournisseurs"
