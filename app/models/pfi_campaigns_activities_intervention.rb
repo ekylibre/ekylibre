@@ -42,4 +42,8 @@ class PfiCampaignsActivitiesIntervention < ApplicationRecord
     of_activity(activity).of_campaign(campaign).sum(:activity_pfi_value)
   end
 
+  def self.pfi_value_on_activity_production_campaign(activity_production, campaign)
+    of_activity_production(activity_production).of_campaign(campaign).sum(:activity_production_pfi_value)
+  end
+
 end
