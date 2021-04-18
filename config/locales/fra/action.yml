@@ -2311,7 +2311,7 @@ fra:
     net_surface_area: "Surface nette"
     net_vat_amount: "TVA nette due" #?
     net_volume: "Volume net" #?
-    neutral_area_category: "Catégorie de zones non agricoles"
+    neutral_area_category: "Catégorie de SNA"
     new: "Nouveau"
     new_activity: "Nouvelle activité"
     new_animal: "Nouvel animal"
@@ -2524,9 +2524,12 @@ fra:
     personalized_mail: "Envoyer un mail personnalisé"
     pertinence: "%{value}%"
     pfi_activity: "IFT activité"
+    pfi_activity_production: "IFT production (parcelle/culture)"
     pfi_dose: "Dose de référence (IFT)"
     pfi_interventions: "IFT"
+    pfi_land_parcel: "IFT parcelle"
     pfi_parcel_ratio: "IFT parcelle"
+    pfi_plant: "IFT culture"
     pfi_treatment_ratio: "IFT traitement"
     phone: "Tél." #?
     phosphorus_concentration: "Teneur en phosphore (P)"
@@ -3127,7 +3130,7 @@ fra:
     transfer: "Effectuer les transferts"
     transformations: "Transformations" #?
     transformed_products: "Produits transformés" #?
-    translation_not_realised: "La synchronisation n'a pas encore été effectuée. Veuillez la réaliser dans l'écran de la connexion partenaire afin d'avoir accès aux fonctionnalités." 
+    translation_not_realised: "La synchronisation n'a pas encore été effectuée. Veuillez la réaliser dans l'écran de la connexion partenaire afin d'avoir accès aux fonctionnalités."
     transport: "Transport"
     transport_states: #?
       all: "Tous" #?
