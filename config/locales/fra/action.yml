@@ -90,7 +90,7 @@ fra:
       reset: "Ré-initialiser la cellule: %{name}"
     backend/building_divisions:
       edit: "Modifier la zone\_: %{name}"
-      index: "Zones de bâtiments"
+      index: "Zones de stockage"
       new: "Nouvelle zone"
       show: "Zone\_: %{name}"
     backend/buildings:
@@ -231,7 +231,7 @@ fra:
       new: "Nouveau lien"
       show: "Lien" #?
     backend/entries_ledgers:
-      show: "Ecritures"
+      show: "Écritures"
     backend/equipments:
       edit: "Modifier l’équipement\_: %{name}"
       index: "Équipements"
@@ -281,7 +281,7 @@ fra:
       show: "Perte ou profit N°%{number}"
     backend/general_ledgers:
       index: "%{ledger}"
-      show: "Grand livre"
+      show: "Grand-livre"
     backend/georeadings:
       edit: "Modifier le relevé topographique\_: %{name}"
       index: "Relevés topographiques"
@@ -498,7 +498,7 @@ fra:
       ship: "Expédier les colis" #?
       show: "Colis à expédier\_: %{number}" #?
     backend/outgoing_payment_lists:
-      index: "Lots de décaissements"
+      index: "Lot de décaissements"
       new: "Nouveau lot de décaissement"
       show: "Lot de décaissements"
     backend/outgoing_payment_modes:
@@ -1049,6 +1049,7 @@ fra:
     csv_format: "Format CSV"
     fec_txt_format: "Format FEC TXT"
     fec_xml_format: "Format FEC XML"
+    cancel_with_voucher: "Annuler avec avoir"
     choose_entries_format_for_accountant: "Choisissez le format des écritures à envoyer au comptable"
     notify_accountant: "Notifier le comptable"
     journal_entries_export_file_generated: "Le fichier d'export des écritures comptables a été généré avec succès"
@@ -1161,6 +1162,7 @@ fra:
     add_merchandise: "Ajouter une marchandise"
     add_mobile: "Ajouter un n° de portable"
     add_new_record: "Ajouter un nouvel enregistrement"
+    add_new: "+ Nouveau"
     add_outgoing_payment: "Ajouter un décaissement"
     add_participation: "Ajouter une participation"
     add_payment: "Ajouter un encaissement"
@@ -1228,7 +1230,7 @@ fra:
     all_financial_years_not_closed_or_locked: "Tous les exercices précédents ne sont pas clôturés ou verrouillés."
     all_in_one_sowing: "Semis tout en un"
     all_periods: "Tous les exercices"
-    all_the_categories: "Toutes les categories" #?
+    all_the_categories: "Toutes les catégories" #?
     allocation_balance: "Affectation du budget - Allocation %{name}"
     allowed: "Autorisé"
     allowed_harvest_on: "RÉCOLTE POSSIBLE À PARTIR DU"
@@ -1948,7 +1950,7 @@ fra:
     general_account_number_length_automatically_truncated: "La longueur des numéros de compte comptables généraux est automatiquement ajustée selon la préférence de la société (%{length} caractères)."
     general_fixed_assets: "État des immobilisations au %{to}"
     general_informations: "Informations générales"
-    general_ledger: "Grand livre"
+    general_ledger: "Grand-livre"
     general_total: "Total général"
     generate: "Générer"
     generate_documents_post_closure: "Génération des documents obligatoires post-clôture"
@@ -2537,7 +2539,7 @@ fra:
     places: "Lieux"
     planned: #? String expected ("Planned")
       one: "Planifiée" #?
-      other: "Planifiées" #?
+      other: "Planifiée" #?
     planned_again_intervention_in: "Planifier de nouveau cette intervention le"
     planned_at: "Date prévisionnelle" #?
     planned_by: "Planifiée par" #?
@@ -2984,7 +2986,7 @@ fra:
     supplier: "Fournisseur"
     supplier_code: "Code fournisseur" #?
     supplier_informations: "Informations fournisseur"
-    supplier_payment_mode: "Mode de paiement du fournisseur"
+    supplier_payment_mode: "Mode de paiement"
     supplier_receivables: "Fournisseurs d'exploitations et comptes rattachés"
     supplier_reference: "Référence fournisseur"
     suppliers: "Fournisseurs"
@@ -3487,7 +3489,7 @@ fra:
     levels:
       error: "Erreur\_!"
       information: "Information\_!"
-      success: "Bien joué\_!"
+      success: "Opération réussie\_!"
       warning: "Attention\_!"
     messages:
       access_denied: "Vous n’avez pas le droit d’accéder à cette page."
@@ -3594,7 +3596,7 @@ fra:
       need_entries_to_reconciliate: "Aucune écriture à pointer sur la période du relevé de compte"
       need_financial_year_over_entire_period: "Le passage en comptabilité nécessite des exercices comptables sur toute la période."
       need_journal_to_manage_tax_declaration: "Vous devez avoir au moins un journal des opérations diverses et un journal de vente ou d’achat pour pouvoir enregistrer des déclarations de taxes." #?
-      need_payment_mode_to_create_deposit: "Vous devez spécifier un mode de réglement pour effectuer une remise en banque"
+      need_payment_mode_to_create_deposit: "Vous devez spécifier un mode de règlement pour effectuer une remise en banque"
       need_stocks_building_to_create_products: "Vous devez créer un lieu de stockage pour pouvoir créer un produit" #?
       need_stocks_to_create_inventories: "Vous devez gérer les stocks d’au moins un produit pour pouvoir faire un inventaire"
       need_to_create_activity: "Vous devez créer des activités pour pouvoir affecter vos écritures comptables" #?
@@ -3608,7 +3610,7 @@ fra:
       no_building: "Aucun lieu de stockage n’est défini. Veuillez en créer un pour pouvoir gérer vos stocks" #?
       no_closable_financial_year: "Vous n’avez aucun exercice à clôturer." #?
       no_closable_journal: "Vous ne pouvez pas clôturer ce journal."
-      no_depositable_payments: "Il n’y a pas de réglements à remettre en banque"
+      no_depositable_payments: "Il n’y a pas de règlements à remettre en banque"
       no_existing_mandates: "Il n’y a pas de responsabilités enregistrées pour l’instant" #?
       no_financial_year: "Aucun exercice enregistré" #?
       no_fixed_assets_given: "Pas d’immobilisations données"
@@ -3739,6 +3741,7 @@ fra:
       balance: "Balance" #?
       bookkeep: "Comptabiliser"
       cancel: "Annuler"
+      cancel_with_voucher: "Annuler avec avoir"
       category: "Categorie" #?
       check: "Vérifier"
       children: "Enfant" #?
@@ -3791,6 +3794,7 @@ fra:
       new_purchase: "Nouvel achat"
       new_sale: "Nouvelle vente"
       notify_accountant: "Notifier le comptable"
+      notify_accountant_modal: "Notifier le comptable"
       open: "Ouvrir"
       order: "Commander"
       order_again: "Commander à nouveau"
