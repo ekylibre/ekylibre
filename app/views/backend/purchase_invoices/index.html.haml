@@ -5,6 +5,7 @@
   - k.helper :journal_period_crit, label: :invoice_period.tl
   - k.choice :all, :to_reconcile, :accepted, :reconcile, name: :reconciliation_state
   - k.choice :all, :unpaid, name: :nature, label: :element_status.tl
+  - k.choice :all, :y, :n, name: :purchases_attachments, label: :attachments.tl
   - responsibles = User.where(id: PurchaseInvoice.select(:responsible_id).distinct)
   - supplier_payment_modes = OutgoingPaymentMode.where(id: Entity.select(:supplier_payment_mode_id).distinct)
   - if responsibles.any?
