@@ -286,7 +286,8 @@ fra:
         description: "Notes" #?
         invoiced_at: "Date de facture" #?
         payment_delay: "Échéance" #?
-        reference_number: "N° facture fournisseur" #?
+        reference_number: "Référence fournisseur (n° facture)" #?
+        has_attachments: "Pièce(s) jointe(s)"
       purchase_item:
         amount: "Montant TTC" #?
         average_unit_pretax_amount: "PU moyen HT"

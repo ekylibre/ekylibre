@@ -180,6 +180,7 @@ eng:
         affair_balance: "Balance"
       purchase_invoice:
         delivery_address: "Billing address"
+        has_attachments : "Attachments"
       purchase_item:
         average_unit_pretax_amount: "Average unit pretax amount"
         fixed_asset_stopped_on: "Fixed asset stopped on"

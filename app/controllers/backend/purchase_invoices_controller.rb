@@ -71,7 +71,8 @@ module Backend
       t.column :invoiced_at
       t.column :reference_number, url: true
       t.column :supplier, url: true
-      t.column :entity_payment_mode_name, through: :supplier, label: :supplier_payment_mode
+      t.column :has_attachments, datatype: :boolean, class: 'center'
+      t.column :entity_payment_mode_name, through: :supplier, label: :supplier_payment_mode, hidden: true
       t.column :created_at
       t.status
       t.column :human_status, label: :state, hidden: true
