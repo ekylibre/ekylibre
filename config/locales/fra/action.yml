@@ -207,7 +207,7 @@ fra:
       show: "Modèle de document: %{name}"
     backend/documents:
       edit: "Modifier le document"
-      index: "Gestion électronique des documents"
+      index: "Mes documents"
       new: "Nouveau document"
       show: "Document\_: %{name}"
     backend/draft_journals:
@@ -560,11 +560,11 @@ fra:
       edit: "Editer la localisation du produit:"
       new: "Nouvelle localisation du produit"
     backend/product_nature_categories:
-      edit: "Modifier la catégorie du produit\_: %{name}"
-      index: "Catégories de produits"
-      new: "Nouvelle catégorie"
-      pick: "Importer une catégorie de produits"
-      show: "Catégorie de produit\_: %{name}"
+      edit: "Modifier la catégorie comptable du produit\_: %{name}"
+      index: "Catégories comptables"
+      new: "Nouvelle catégorie comptable"
+      pick: "Importer une catégorie comptable"
+      show: "Catégorie comptable\_: %{name}"
     backend/product_nature_variants:
       create: "Nouvelle variante de produit"
       edit: "Modifier la variante de produit\_: %{name}"
@@ -1589,6 +1589,7 @@ fra:
     current_stock: "Stock actuel"
     current_stocks_by_variety: "État des stocks"
     currently_subscribed_to: "Actuellement abonné à"
+    customization: "Personnalisation"
     custom_fields: "Champs personnalisés"
     daily_nitrogen_production: "Excretion d’azote journalière" #?
     data_to_export: "Données à exporter" #?
