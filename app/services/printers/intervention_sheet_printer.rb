@@ -50,8 +50,13 @@ module Printers
 
     # @param [InterventionInput] input
     #  @returns [String] unit symbol
-    def input_unit(input)
-      if o_unit = Onoma::Unit.find(input.quantity_unit_name)
+    def input_unit(input, base = false)
+      o_unit = if base
+                 Onoma::Unit.find(input.input_quantity_per_area.base_unit)
+               else
+                 Onoma::Unit.find(input.quantity_unit_name)
+               end
+      if o_unit
         o_unit.symbol
       else
         input.product.unit_name
@@ -87,7 +92,7 @@ module Printers
       if target.working_zone.nil?
         "#{input.input_quantity_per_area.to_d} #{input_unit(input)}"
       elsif input.input_quantity_per_area.repartition_unit.present?
-        "#{worked_area(target).to_d * input.input_quantity_per_area.to_d} #{input_unit(input)}"
+        "#{worked_area(target).to_d * input.input_quantity_per_area.to_d} #{input_unit(input, base=true)}"
       else
         "#{(target_ratio(target) * input.input_quantity_per_area.to_d).round(2)} #{input_unit(input)}"
       end
