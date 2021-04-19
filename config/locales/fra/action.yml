@@ -1729,6 +1729,7 @@ fra:
     ekylibre: "www.ekylibre.org"
     ekylibre_version: "Version Ekylibre"
     elapsed_interventions_times_by_activities: "Temps passé par activité"
+    elapsed_interventions_times_by_workers: "Temps passé des équipiers par activité"
     electronic_signature: "Signature électronique"
     element_status: "Statut"
     email: "Email:"
@@ -2161,6 +2162,7 @@ fra:
     last_purchases_orders: "Dernières commandes"
     last_sales: "Dernières ventes"
     last_synchronisation_at: "Dernière synchronisation le : %{sync_at}"
+    last_workers: "Equipiers"
     late: "En retard"
     late_delivery: "Hors délai"
     left_balance_amount: "Report du crédit antérieur non imputé et non remboursé" #?
