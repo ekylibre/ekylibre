@@ -1729,7 +1729,7 @@ fra:
     ekylibre: "www.ekylibre.org"
     ekylibre_version: "Version Ekylibre"
     elapsed_interventions_times_by_activities: "Temps passé par activité"
-    elapsed_interventions_times_by_workers: "Temps passé des équipiers par activité"
+    elapsed_interventions_times_by_workers: "Temps passé par mois"
     electronic_signature: "Signature électronique"
     element_status: "Statut"
     email: "Email:"
