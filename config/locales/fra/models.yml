@@ -286,7 +286,7 @@ fra:
         description: "Notes" #?
         invoiced_at: "Date de facture" #?
         payment_delay: "Échéance" #?
-        reference_number: "Référence fournisseur (n° facture)" #?
+        reference_number: "N° facture fournisseur" #?
         has_attachments: "Pièce(s) jointe(s)"
       purchase_item:
         amount: "Montant TTC" #?
@@ -378,6 +378,8 @@ fra:
         maximal_grantable_reduction_percentage: "Taux de réduction autorisé (%)" #?
         name: "Nom d’utilisateur" #?
       variant_categories/zone_category: #?
+        asset_fixable: "Immobilisable"
+      variant_categories/service_category: #?
         asset_fixable: "Immobilisable"
       worker: #?
         variety: "Qualification" #?
@@ -675,6 +677,7 @@ fra:
       bioproduct: "Produit vivant"
       building: "Bâtiment"
       building_division: "Pièce"
+      cadastral_land_parcel_zone: "CVI - Zone de parcelle cadastrale"
       call: "Appel"
       call_message: "Un message d’appel"
       call_request: "Demande d’appel"
@@ -691,10 +694,13 @@ fra:
       catalog_item: "Prix"
       contract: "Contrat"
       contract_item: "Élément du contrat"
+      crop_group_item : "Groupement parcellaire - Élément"
+      crop_group_labeling : "Groupement parcellaire - Étiquetage"
       crumb: "Miette"
       cultivable_zone: "Zone cultivable"
       custom_field: "Champ complémentaire"
       custom_field_choice: "Choix de champ complémentaire"
+      cvi_cadastral_plant_cvi_land_parcel : "CVI - Lien parcelle culturale et parcelle cadastrale CVI"
       dashboard: "Tableau de bord"
       debt_transfer: "Transfert de dettes"
       delivery: "Livraison"
@@ -717,6 +723,9 @@ fra:
       financial_year_exchange: "Échange de l’exercice"
       fixed_asset: "Immobilisation"
       fixed_asset_depreciation: "Amortissement d’immobilisation"
+      formatted_cvi_cadastral_plant : "CVI - Parcelle cadastrale CVI formatée"
+      formatted_cvi_cultivable_zone : "CVI - Zone cultivable formatée"
+      formatted_cvi_land_parcel : "CVI - Parcelle culturale formatée"
       fungus: "Champignon"
       gap: "Perte ou profit"
       gap_item: "Élément de perte ou profit"
@@ -758,6 +767,7 @@ fra:
       journal_entry_item: "Ligne d’écriture"
       label: "Étiquette"
       land_parcel: "Parcelle"
+      land_parcel_rootstock : "CVI - Porte-greffe"
       listing: "Extraction"
       listing_node: "Nœud d’extraction"
       listing_node_item: "Élément de nœud d’extraction"
@@ -844,6 +854,8 @@ fra:
       registered_water_lake: "Eau de lac référencée" #?
       registered_water_river: "Eau de rivière référencée" #?
       regularization: "Régularisation"
+      ride : "Section de trajet géolocalisé"
+      ride_set : "Trajet géolocalisé"
       role: "Rôle"
       sale: "Vente"
       sale_affair: "Affaire de vente"
@@ -876,6 +888,9 @@ fra:
       vegetal_activity: "Activité végétale" #?
       version: "Version"
       wice_grid_serialized_query: "Requête de tableau en série" #?
+      wine_incoming_harvest_input : "Réception de vendange - Quantité réceptionnée"
+      wine_incoming_harvest_plant : "Réception de vendange - Cultures récoltées"
+      wine_incoming_harvest_storage : "Réception de vendange - Cuverie"
       worker: "Équipier"
       zone: "Zone"
   attributes:
