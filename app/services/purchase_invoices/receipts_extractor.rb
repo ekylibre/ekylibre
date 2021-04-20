@@ -82,7 +82,7 @@ module PurchaseInvoices
         move_down 30
         text :reference_supplier.tl(reference_number: invoice.reference_number), align: :center, size: 16, inline_format: true
         move_down 30
-        text :created_at_by.th(at: invoice.created_at.l, author: (invoice.creator.name || :unknown_user.tl)), align: :center, size: 16, inline_format: true
+        text :created_at_by.th(at: invoice.created_at.l, author: (invoice.creator&.name || :unknown_user.tl)), align: :center, size: 16, inline_format: true
         if attachments == false
           move_down 100
           text :no_invoice_receipts_for_purchase_invoice.tl, align: :center, size: 20, color: 'ff0000'
