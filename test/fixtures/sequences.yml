@@ -447,7 +447,7 @@ sequences_026:
   creator_id: 1
   id: 26
   lock_version: 0
-  name: Catégorie de type de produit
+  name: Catégorie comptable
   number_format: PNC[number|12]
   number_increment: 1
   number_start: 1

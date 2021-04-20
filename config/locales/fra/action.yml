@@ -560,7 +560,7 @@ fra:
       edit: "Editer la localisation du produit:"
       new: "Nouvelle localisation du produit"
     backend/product_nature_categories:
-      edit: "Modifier la catégorie comptable du produit\_: %{name}"
+      edit: "Modifier la catégorie comptable\_: %{name}"
       index: "Catégories comptables"
       new: "Nouvelle catégorie comptable"
       pick: "Importer une catégorie comptable"
@@ -795,8 +795,8 @@ fra:
       index: "Catégories d'animaux"
       pick: "Importer une catégorie d'animaux"
     backend/variant_categories/article_categories:
-      index: "Catégories d'articles"
-      pick: "Importer une catégorie d'articles"
+      index: "Catégories comptables d'articles"
+      pick: "Importer une catégorie comptable d'articles"
     backend/variant_categories/crop_categories:
       index: "Catégories de cultures"
       pick: "Importer une catégorie de cultures"
@@ -1230,7 +1230,7 @@ fra:
     all_financial_years_not_closed_or_locked: "Tous les exercices précédents ne sont pas clôturés ou verrouillés."
     all_in_one_sowing: "Semis tout en un"
     all_periods: "Tous les exercices"
-    all_the_categories: "Toutes les catégories" #?
+    all_the_categories: "Toutes les categories comptables" #?
     allocation_balance: "Affectation du budget - Allocation %{name}"
     allowed: "Autorisé"
     allowed_harvest_on: "RÉCOLTE POSSIBLE À PARTIR DU"
@@ -1398,7 +1398,7 @@ fra:
     category: "Catégorie"
     category_code: "Code catégorie" #?
     category_name: "Catégorie" #?
-    category_of_product: "Catégorie de produit" #?
+    category_of_product: "Catégorie comptable" #?
     cells_concentration: "Dénombrement des cellules somatiques" #?
     centralize: "Comptes comptables centralisateurs"
     centralized_account: "Compte centralisateur %{name}"
@@ -2610,7 +2610,7 @@ fra:
     product_category: "Produits"
     product_name: "Produit"
     product_nature: "Type de produit"
-    product_nature_category: "Catégorie de produit"
+    product_nature_category: "Catégorie comptable"
     product_nature_variants: "Variantes"
     product_natures: "Types de produit"
     product_price_listings: "Listes de prix" #?
