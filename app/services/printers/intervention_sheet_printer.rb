@@ -152,7 +152,7 @@ module Printers
       dataset = compute_dataset
       #  Outside Tables
       r.add_field 'INTERV_NAME', @intervention.name
-      r.add_field 'INTERV_STATUS', @intervention.status.tl
+      r.add_field 'INTERV_STATUS', @intervention.state.tl
       r.add_field 'STARTED_ON', @intervention.started_at.in_time_zone.strftime("%d/%m/%y %R")
       r.add_field 'STOPPED_ON', @intervention.stopped_at.in_time_zone.strftime("%d/%m/%y %R")
       r.add_field 'TOTAL_AREA', total_area.round_l
