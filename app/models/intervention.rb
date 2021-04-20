@@ -636,7 +636,7 @@ class Intervention < ApplicationRecord
   end
 
   def human_working_duration(unit = :hour)
-    working_duration.in(:second).convert(unit).round(2).l
+    working_duration.in(:second).convert(unit).round.l(precision: 2)
   end
 
   def working_duration_of_nature(nature = :intervention)

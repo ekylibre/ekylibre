@@ -105,6 +105,11 @@
         %span.value
           %i.picto.picto-calendar
           = resource.stopped_at.l
+      .med-info
+        %span.title= Intervention.human_attribute_name(:duration)
+        %span.value
+          %i.picto.picto-clock
+          = resource.human_working_duration
 
       .med-info.actionner-cobble
         = resource.decorate.planned_by
