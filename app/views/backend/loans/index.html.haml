@@ -14,7 +14,7 @@
 
 - main_toolbar do |t|
   = t.new params: { redirect: nil }
-  = t.export(:loan_registry, key: Printers::LoanRegistryPrinter.build_key(stopped_on: Time.zone.now.to_s))
+  = t.export(:loan_registry, key: Printers::LoanRegistryPrinter.build_key(stopped_on: Time.zone.now.to_s), )
 
   %span.btn-group.action-form
     - bookkeep_until = params[:until].to_s =~ /\A\d\d\d\d\-\d\d\-\d\d\z/ ? params[:until].to_date : (Time.zone.today - 1.month).end_of_month
