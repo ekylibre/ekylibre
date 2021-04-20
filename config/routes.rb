@@ -175,6 +175,7 @@ Rails.application.routes.draw do
       resource :cropping_plan_on_cultivable_zones_cell, only: :show
       resource :current_stocks_by_variety_cell, only: :show
       resource :elapsed_interventions_times_by_activities_cell, only: :show
+      resource :elapsed_interventions_times_by_workers_cell, only: :show
       resource :expenses_by_product_nature_category_cell, only: :show
       resource :events_cell, only: :show
       resource :guide_evolution_cell, only: :show
@@ -191,6 +192,7 @@ Rails.application.routes.draw do
       resource :last_purchases_invoices_cell, only: :show, concerns: :list
       resource :last_purchases_orders_cell, only: :show, concerns: :list
       resource :last_sales_cell, only: :show, concerns: :list
+      resource :last_workers_cell, only: :show, concerns: :list
       resource :main_settings_cell, only: :show
       resource :map_cell, only: :show
       resource :mes_parcelles_synchronisation_cell, only: :show

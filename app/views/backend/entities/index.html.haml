@@ -1,6 +1,6 @@
 = kujaku do |k|
   - k.text
-  - k.multi_choice :state, [:client, :supplier, :active].map{ |s| [s.tl, s] }
+  - k.choice [:all.tl, :all], *[:client, :supplier, :active].map{ |s| [s.tl, s] }, name: :state
   - k.choice [:all.tl, :all], *resource_model.nature.values.map{ |s| [s.l, s] }, name: :nature, label: Entity.human_attribute_name(:nature)
   - k.helper do
     %div.label-container

@@ -4,5 +4,5 @@
     - choices.each do |(label, value)|
         %span
             %label
-                = radio_button_tag name, value
+                = radio_button_tag name, value, default_value == value.to_s
                 = label
