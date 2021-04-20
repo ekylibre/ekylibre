@@ -229,8 +229,13 @@ module Backend
         # target_parameter = procedure.parameters_of_type(:target, true).first
         target_parameter = procedure.parameters.first
 
+        puts "target_parameter : #{target_parameter}".inspect.red
+
+        # if target_parameter is pass but don't match with filter, notify user and clean params
         if procedure.present? && target_parameter.present? && target_parameter.is_a?(Procedo::Procedure::ProductParameter)
+          puts "target_parameter : #{target_parameter}".inspect.yellow
           if Product.of_expression(target_parameter.filter).pluck(:id).include?(id)
+            puts "target_parameter filter : #{target_parameter.filter}".inspect.green
             nil
           else
             notify_warning_now(:no_land_parcel_error)
@@ -249,8 +254,6 @@ module Backend
 
         options[:"#{param}_attributes"] = unsafe_params["#{param}_attributes"] || []
         next unless options[:targets_attributes]
-
-        next if permitted_params.include? :working_periods
 
         targets = if options[:targets_attributes].is_a? Array
                     options[:targets_attributes].collect { |k, _| k[:product_id] }
