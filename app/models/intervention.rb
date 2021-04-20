@@ -802,7 +802,7 @@ class Intervention < ApplicationRecord
     options = args.extract_options!
     unit = args.shift || options[:unit] || :hectare
     if targets.any?
-      ap = ActivityProduction.where(support_id: targets.pluck(:product_id))
+      ap = ActivityProduction.where(id: targets.map{ |p| p.product.activity_production_id})
       area = ap.map(&:support_shape_area).sum.in(:square_meter).convert(unit)
     end
     area ||= 0.0.in(unit)
