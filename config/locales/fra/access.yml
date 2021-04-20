@@ -80,7 +80,7 @@ fra:
       postal_zones: "Zones postales"
       prescriptions: "Prescriptions"
       product_groups: "Groupes de produits"
-      product_nature_categories: "Catégories de types de produit"
+      product_nature_categories: "Catégories comptables"
       product_nature_variants: "Variantes de produits"
       product_natures: "Types de produit"
       productions: "Productions"

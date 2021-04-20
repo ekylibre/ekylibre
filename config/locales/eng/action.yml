@@ -668,12 +668,12 @@ eng:
       edit: "Edit product localization:"
       new: "New product localization"
     backend/product_nature_categories:
-      edit: "Edit product category: %{name}"
+      edit: "Edit accounting category: %{name}" 
       # incorporate: "Incorporate product nature category: %{name}"
-      index: "Product categories"
-      new: "New product category"
-      pick: "Pick product category"
-      show: "Product category: %{name}"
+      index: "Accounting categories"
+      new: "New accounting category"
+      pick: "Pick accounting category"
+      show: "Accounting category: %{name}"
     backend/product_nature_variant_components:
       # autocomplete: "Autocomplete product nature variant component: %{name}"
     backend/product_nature_variants:
@@ -966,9 +966,9 @@ eng:
     backend/variant_categories/article_categories:
       # edit: "Edit article category: %{name}"
       # incorporate: "Incorporate article category: %{name}"
-      index: "Articles categories"
+      index: "Articles accounting categories"
       # new: "New article category"
-      pick: "Import an articles category"
+      pick: "Import an articles accounting category"
       # show: "Article category: %{name}"
     backend/variant_categories/crop_categories:
       # edit: "Edit crop category: %{name}"
@@ -1523,7 +1523,7 @@ eng:
     all_financial_years_not_closed_or_locked: "All financial years are not closed or locked"
     all_in_one_sowing: "All in one sowing"
     all_periods: "All financial years"
-    # all_the_categories: "All the categories"
+    all_the_categories: "All accounting categories"
     allocation_balance: "Budget allocation - %{name} allocation"
     allowed: "Allowed"
     allowed_harvest_on: "Allowed harvest on"
@@ -1660,7 +1660,7 @@ eng:
     catalog: "Catalog"
     catalog_items: "Catalog items"
     category: "Category"
-    # category_of_product: "Category of product"
+    category_of_product: "Accounting category"
     # cell: "Cell"
     centralize: "Centralize account"
     centralized_account: "Centralized account %{name}"

@@ -573,7 +573,7 @@ fra:
         parcels: "Colis"
         plant_countings: "Comptage des plantes"
         plants: "Cultures"
-        product_nature_categories: "Catégories de produits"
+        product_nature_categories: "Catégories comptables"
         product_nature_variants: "Variantes de produits"
         product_natures: "Types de produits"
         products: "Produits"

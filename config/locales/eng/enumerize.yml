@@ -653,7 +653,7 @@ eng:
         # payslips: "Payslips"
         plant_countings: "Plant countings"
         plants: "Plants"
-        product_nature_categories: "Product nature categories"
+        product_nature_categories: "Accounting categories"
         product_nature_variants: "Product nature variants"
         product_natures: "Product natures"
         products: "Products"
