@@ -3618,6 +3618,7 @@ fra:
       no_land_parcel_error: "Cette intervention ne peut contenir que des cultures. Cette parcelle ne peut pas être utilisée ici."
       no_parcels_given: "Aucun colis fournis"
       no_payment_to_deposit: "Aucun règlement à encaisser"
+      no_product_matching_current_filter: "Aucun produit n'existe pour cette procédure. Veuillez en créer un"
       no_production_defined_for_current_campaign: "Aucune production pour la campagne en cours"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "Aucune activité pour l’instant. Vous pouvez en créer une nouvelle ou en copier depuis la campagne précédente."
       no_purchase_affair_found_on_given_period: "Aucune affaire d’achat indiquée sur la période donnée"
@@ -3626,6 +3627,7 @@ fra:
       no_replacements_since_beginning: "Aucun changement depuis le début"
       no_saved_a_x_html: "Vous n'avez pas encore enregistré un %{x}"
       no_stocks: "Vous n’avez aucun stock. Si vous désirez gérer le stock d’un produit, veuillez cocher l’option «\_Gérer les stocks\_» dans les caractéristiques de votre produit." #?
+      no_target_exist_on_procedure: "Aucune(s) cible(s) n'est présente dans cette procédure"
       no_template_journal: "Pas de modèle journal" #?
       no_template_journal_by_id: "Pas de modèle journal" #?
       no_unconfirmed_stock_transfers: "Aucun transfert de stocks non-confirmé" #?
