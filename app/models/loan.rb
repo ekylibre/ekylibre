@@ -104,15 +104,10 @@ class Loan < ApplicationRecord
   validates :started_on, ongoing_exchanges: true
 
   scope :drafts, -> { where(state: %w[draft]) }
-  scope :ongoing_within, ->(start_date, stop_date) { where('loans.ongoing_at BETWEEN ? and ?', start_date.to_time, stop_date.to_time) }
-
-  before_validation on: :create do
-    self.state ||= :draft
-    self.currency ||= cash.currency if cash
-    self.shift_duration ||= 0
-  end
+  scope :ongoing_within, ->(start_time, stop_time) { where('loans.ongoing_at BETWEEN ? and ?', start_time, stop_time) }
 
   before_validation do
+    self.state ||= :draft
     self.ongoing_at ||= started_on.to_time if started_on
     self.currency ||= cash.currency if cash
     self.shift_duration ||= 0
@@ -218,9 +213,10 @@ class Loan < ApplicationRecord
     reload
   end
 
+  # return Decimal
   def current_remaining_amount(on = Date.today)
     r = repayments.where('due_on <= ?', on).reorder(:position).last
-    return nil unless r
+    return 0.0 unless r
 
     r.remaining_amount
   end
