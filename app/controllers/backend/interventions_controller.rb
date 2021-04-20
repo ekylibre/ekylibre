@@ -226,20 +226,24 @@ module Backend
 
       if params['procedure_name'].present?
         procedure = Procedo::Procedure.find(params['procedure_name'])
-        # target_parameter = procedure.parameters_of_type(:target, true).first
-        target_parameter = procedure.parameters.first
+        target_parameter = procedure.parameters_of_type(:target, true).first if procedure
 
-        if procedure.present? && target_parameter.present? && target_parameter.is_a?(Procedo::Procedure::ProductParameter)
-          if Product.of_expression(target_parameter.filter).pluck(:id).include?(id)
-            nil
+        # if theres no products relatives to selected procedure (target && filter), notify user and clean params
+        if procedure.present? && target_parameter.present?
+          if target_parameter.is_a?(Procedo::Procedure::ProductParameter)
+            filter = target_parameter.filter
           else
-            notify_warning_now(:no_land_parcel_error)
+            notify_warning_now(:no_target_exist_on_procedure)
+          end
+          if Product.of_expression(filter).blank?
+            # notify user and remove unsafe_params concerning targets_attributes && group_parameters_attributes
+            notify_warning_now(:no_product_matching_current_filter)
             unsafe_params.delete('targets_attributes')
             unsafe_params.delete('group_parameters_attributes')
             # unsafe_params.slice!('targets_attributes', 'group_parameters_attributes')
+          else
+            nil
           end
-        elsif procedure.present? && target_parameter.present? && target_parameter.is_a?(Procedo::Procedure::GroupParameter)
-          notify_warning_now(:no_sowing_intervention_for_the_moment)
         end
       end
 
@@ -249,8 +253,6 @@ module Backend
 
         options[:"#{param}_attributes"] = unsafe_params["#{param}_attributes"] || []
         next unless options[:targets_attributes]
-
-        next if permitted_params.include? :working_periods
 
         targets = if options[:targets_attributes].is_a? Array
                     options[:targets_attributes].collect { |k, _| k[:product_id] }
