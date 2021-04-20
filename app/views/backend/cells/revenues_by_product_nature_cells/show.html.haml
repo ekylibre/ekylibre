@@ -1,63 +1,62 @@
 - if @started_at && @stopped_at
   :ruby
     series = []
+    pie_data = []
     categories = {}
     date = @started_at
     while date < @stopped_at
       categories[date.year.to_s + date.month.to_s.rjust(3, '0')] = date.l(format: "%b %Y")
-      date = date >> 1
+      date = date + 1.month
     end
 
-    # data for bar chart revenues by product_nature and by month
-    ProductNature.availables.find_each do |nature|
-      sale_items = SaleItem.of_product_nature(nature).between(@started_at, @stopped_at)
-      if sale_items.count > 0
-        item_h = sale_items.sums_of_periods.sort.inject({}) do |hash, pair|
-          hash[pair.expr.to_i.to_s] = pair.sum.to_d
-          hash
+    sale_items_datasource = SaleItem.between(@started_at, @stopped_at)
+    purchase_items_datasource = PurchaseItem.between(@started_at, @stopped_at)
+
+    if sale_items_datasource.any?
+      # data for bar chart revenues by product_nature and by month
+      ProductNature.availables.find_each do |nature|
+        sale_items = sale_items_datasource.of_product_nature(nature)
+        if sale_items.count > 0
+          item_h = sale_items.sums_of_periods.sort.inject({}) do |hash, pair|
+            hash[pair.expr.to_i.to_s] = pair.sum.to_d
+            hash
+          end
+          series << {type: 'column', name: nature.name, data: normalize_serie(item_h, categories.keys) }
         end
-        series << {type: 'column', name: nature.name, data: normalize_serie(item_h, categories.keys) }
       end
-    end
 
-    # data for bar chart draft revenues by product_nature and by month
-    #ProductNature.availables.find_each do |nature|
-    #  sale_items = SaleItem.of_product_nature(nature).estimate_between(@started_at, @stopped_at)
-    #  if sale_items.count > 0
-    #    item_h = sale_items.sums_of_periods( period: :month, column: :pretax_amount, at: "accounted_at",name: :sum).sort.inject({}) do |hash, pair|
-    #      hash[pair.expr.to_i.to_s] = pair.sum.to_d
-    #      hash
-    #   end
-    #    series << {type: 'column', name: nature.name, data: normalize_serie(item_h, categories.keys) }
-    #  end
-    #end
+      # data for spline sum revenues by month
+      item_h = sale_items_datasource.sums_of_periods.sort.inject({}) do |hash, pair|
+        hash[pair.expr.to_i.to_s] = pair.sum.to_d
+        hash
+      end
+      series << {type: 'spline', name: :total_pretax_revenues.tl, data: normalize_serie(item_h, categories.keys), marker: {line_width: 2}}
 
-    # data for spline sum revenues by month
-    all_sale_items = SaleItem.between(@started_at, @stopped_at)
-    item_h = all_sale_items.sums_of_periods.sort.inject({}) do |hash, pair|
-      hash[pair.expr.to_i.to_s] = pair.sum.to_d
-      hash
+      # data for pie
+      sale_items_pretax_amount = sale_items_datasource.sum(:pretax_amount)
+      pie_data << { name: :total_pretax_revenues.tl, y: sale_items_pretax_amount.to_s.to_f}
     end
-    series << {type: 'spline', name: :total_pretax_revenues.tl, data: normalize_serie(item_h, categories.keys), marker: {line_width: 2}}
 
     # data for spline sum expenses by month
-    all_purchase_items = PurchaseItem.between(@started_at, @stopped_at)
-    item_h = all_purchase_items.sums_of_periods.sort.inject({}) do |hash, pair|
-      hash[pair.expr.to_i.to_s] = pair.sum.to_d
-      hash
+    if purchase_items_datasource.any?
+      item_h = purchase_items_datasource.sums_of_periods.sort.inject({}) do |hash, pair|
+        hash[pair.expr.to_i.to_s] = pair.sum.to_d
+        hash
+      end
+      series << {type: 'spline', name: :total_pretax_expenses.tl, data: normalize_serie(item_h, categories.keys), marker: {line_width: 2}}
+      # data for pie
+      purchases_items_pretax_amount = purchase_items_datasource.sum(:pretax_amount)
+      pie_data << { name: :total_pretax_expenses.tl, y: purchases_items_pretax_amount.to_s.to_f}
     end
-    series << {type: 'spline', name: :total_pretax_expenses.tl, data: normalize_serie(item_h, categories.keys), marker: {line_width: 2}}
 
     # data for pie revenues by product_nature
-    data = []
-    sale_items_pretax_amount = SaleItem.between(@started_at, @stopped_at).sum(:pretax_amount)
-    data << { name: :total_pretax_revenues.tl, y: sale_items_pretax_amount.to_s.to_f}
-    purchases_items_pretax_amount = PurchaseItem.between(@started_at, @stopped_at).sum(:pretax_amount)
-    data << { name: :total_pretax_expenses.tl, y: purchases_items_pretax_amount.to_s.to_f}
-    unless purchases_items_pretax_amount.zero? && sale_items_pretax_amount.zero?
-      series << {type: 'pie', name: :total.tl, data: data, center: [50, 50], size: 100, show_in_legend: false, data_labels: { enabled: false }}
+    if pie_data.any?
+      series << {type: 'pie', name: :total.tl, data: pie_data, center: [50, 50], size: 100, show_in_legend: false, data_labels: { enabled: false }}
     end
-  = column_highcharts(series, y_axis: {title: {text: :pretax_amount.tl}}, x_axis: { categories: categories.values}, legend: true)
 
+  - if series.any?
+    = column_highcharts(series, y_axis: {title: {text: :pretax_amount.tl}}, x_axis: { categories: categories.values}, legend: true)
+  - else
+    = no_data
 - else
   = no_data

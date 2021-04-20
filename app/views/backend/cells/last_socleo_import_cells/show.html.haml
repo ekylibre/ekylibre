@@ -1,4 +1,4 @@
-- if Account.french_accounting_system?
+- if Account.french_accounting_system? && @last_sale_import.present?
   = infos class: 'big-infos--flex' do
     - if @last_sale_import.present?
       .big-info.big-info--flex

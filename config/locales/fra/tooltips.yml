@@ -11,6 +11,7 @@ fra:
       equipment:
         go:  "En service"
         stop: "Au rebut/vendu"
+        caution: "Incident"
       fixed_asset:
         draft: "Brouillon"
         in_use: "En service"

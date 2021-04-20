@@ -53,7 +53,7 @@ fra:
     grains_yield: "Rendement en grains" #?
     harvest_year: "Année de récolte"
     harvested_at: "Récolté à" #?
-    human_roles: "Roles" #?
+    human_roles: "Rôles" #?
     implanted_at: "Implanté à" #?
     intervention_durations: "Durées d'intervention" #?
     loss_balance: "Solde de perte" #?

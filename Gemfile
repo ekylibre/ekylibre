@@ -158,7 +158,6 @@ gem 'rubyzip', '~> 1.2.2'
 gem 'sepa_king', '~> 0.12.0'
 
 # Web services
-gem 'feedjira', '~> 3.1', require: false # Reading RSS feeds
 gem 'mechanize', '~> 2.7'
 gem 'rest-client', '~> 2.0', require: false
 gem 'rubyntlm', '>= 0.3.2'

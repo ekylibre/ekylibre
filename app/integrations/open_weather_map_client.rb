@@ -3,14 +3,15 @@
 class OpenWeatherMapClient
   DOMAIN = 'api.openweathermap.org'
 
-  attr_accessor :apikey
+  attr_accessor :apikey, :current_user
 
-  def self.from_identifier(identifier)
-    new(Maybe(identifier).value)
+  def self.from_identifier(identifier, current_user)
+    new(Maybe(identifier).value, current_user)
   end
 
-  def initialize(apikey)
+  def initialize(apikey, current_user)
     @apikey = apikey
+    @language = current_user.language[0..1] || 'en'
   end
 
   def client
@@ -42,11 +43,11 @@ class OpenWeatherMapClient
     end
 
     def url_for(lat, lng)
-      "/data/2.5/forecast?lat=#{lat}&lon=#{lng}&mode=json&APPID=#{apikey.get}"
+      "/data/2.5/forecast?lat=#{lat}&lon=#{lng}&mode=json&units=metric&lang=#{@language}&APPID=#{apikey.get}"
     end
 
     def build_client
-      client = Net::HTTP.new('api.openweathermap.org')
+      client = Net::HTTP.new(DOMAIN)
       client.open_timeout = 3
       client.read_timeout = 3
       client
