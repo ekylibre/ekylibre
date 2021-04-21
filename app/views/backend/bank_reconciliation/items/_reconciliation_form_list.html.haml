@@ -1,0 +1,20 @@
+.legend
+  %p= :initial_balance_of_bank_statement.tl
+  .amounts
+    .debit
+      %p.title= BankStatementItem.human_attribute_name(:debit)
+      .field= initial_balance_debit || 0.0
+    .credit
+      %p.title= BankStatementItem.human_attribute_name(:credit)
+      .field= initial_balance_credit || 0.0
+  .details
+
+- period_items.each do |period_item|
+  - if period_item[:should_create]
+    .date-section{ class: ('hidden' if period_item[:items_grouped_by_date].empty?)}
+      = render 'date_header',                                               |
+                date: period_item[:date],                                   |
+                bank_statement: period_item[:cash_bank_statetment_on_date], |
+                cash_id: cash_id                                            |
+      - period_item[:items_grouped_by_date].uniq.each do |item|
+        = render 'reconciliation_item', item: item, locked_item: period_item[:locked_item]
