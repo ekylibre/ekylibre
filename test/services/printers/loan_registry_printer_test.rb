@@ -15,7 +15,7 @@ module Printers
     end
 
     test 'should print a loan registry' do
-      printer = Printers::LoanRegistryPrinter.new(template: @template, stopped_on: Date.today.to_s)
+      printer = Printers::LoanRegistryPrinter.new(template: @template, started_on: (Date.today - 1.year).to_s, stopped_on: Date.today.to_s)
       generator = Ekylibre::DocumentManagement::DocumentGenerator.build
       pdf_data = generator.generate_pdf(template: @template, printer: printer)
       assert pdf_data

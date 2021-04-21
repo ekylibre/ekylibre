@@ -85,6 +85,7 @@ class FinancialYear < ApplicationRecord
   scope :opened, -> { with_state :opened }
   scope :started_after, ->(date) { where('? < started_on', date).order(:started_on) }
   scope :stopped_before, ->(date) { where('stopped_on < ?', date).order(:started_on) }
+  scope :out_of_date_range, ->(date) { where('stopped_on > ? AND started_on < ?', date, date).opened }
   scope :in_preparation, -> { where(state: 'closure_in_preparation').reorder(:started_on) }
   scope :closables_or_lockables, -> { where(state: %i[opened closure_in_preparation]).where('started_on <= ?', Time.zone.now).where.not('? BETWEEN started_on AND stopped_on', Time.zone.now).reorder(:started_on) }
   scope :with_tax_declaration, -> { where.not(tax_declaration_mode: :none) }

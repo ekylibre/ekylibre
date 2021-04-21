@@ -20,7 +20,7 @@ class Loan
       end
 
       def transition
-        resource.ongoing_at = ongoing_at
+        resource.ongoing_at = @ongoing_at
         resource.state = :ongoing
         resource.save!
       end

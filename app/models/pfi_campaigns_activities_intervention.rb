@@ -33,6 +33,7 @@ class PfiCampaignsActivitiesIntervention < ApplicationRecord
   scope :of_campaign, ->(campaign) { where(campaign: campaign) }
   scope :of_activity, ->(activity) { where(activity: activity) }
   scope :of_activity_production, ->(activity_production) { where(activity_production: activity_production) }
+  scope :of_segment, ->(segment_code) { where(segment_code: segment_code) }
 
   def readlonly?
     true
