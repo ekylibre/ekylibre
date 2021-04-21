@@ -2974,7 +2974,7 @@ fra:
     storage: "Zone de stockage"
     string_case: "Options pour le texte" #?
     subject: "Sujet"
-    subledger_of_accounts_x: "Grand livre auxiliaire des comptes %{account}"
+    subledger_of_accounts_x: "Grand-livre auxiliaire des comptes %{account}"
     submit: "Envoyer"
     subscribed_on: "Abonné au"
     subscriber_period: "Abonné(e) le %{subscribed_at}"
