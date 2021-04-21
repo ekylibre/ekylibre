@@ -9,9 +9,9 @@ module Printers
       end
     end
 
-    def initialize(*_args, stopped_on:, template:, **_options)
+    def initialize(*_args, started_on:, stopped_on:, template:, **_options)
       super(template: template)
-
+      @started_on = Date.parse started_on
       @stopped_on = Date.parse stopped_on
     end
 
@@ -24,7 +24,7 @@ module Printers
     end
 
     def compute_dataset
-      loans = Loan.all.reorder(:started_on)
+      loans = Loan.ongoing_within(@started_on.to_time, @stopped_on.to_time).reorder(:started_on)
       loans_data = loans.map do |loan|
         {
           name: loan.name,

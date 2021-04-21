@@ -102,12 +102,12 @@ module Backend
         end
 
         format.zip do
-          if has_invoice_receipts?(@financial_year)
+          if has_invoice?(@financial_year)
             PurchaseReceiptsExtractorJob.perform_later(financial_years: @financial_year, user: current_user)
             notify_success(:document_in_preparation)
             redirect_back(fallback_location: { action: :show, id: @financial_year })
           else
-            notify_warning(:no_invoice_receipts_for_financial_year.tl)
+            notify_warning(:no_invoice_for_financial_year.tl)
             redirect_back(fallback_location: { action: :show, id: @financial_year })
           end
         end
@@ -287,8 +287,8 @@ module Backend
 
     private
 
-      def has_invoice_receipts?(financial_year)
-        PurchaseInvoice.invoiced_between(financial_year.started_on, financial_year.stopped_on).joins(:attachments).exists?
+      def has_invoice?(financial_year)
+        PurchaseInvoice.invoiced_between(financial_year.started_on, financial_year.stopped_on).exists?
       end
 
       def fetch_progress_values(id)

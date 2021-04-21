@@ -2438,7 +2438,7 @@ eng:
     no_draft_entry: "No draft entry"
     no_financial_year_opened: "No financial year opened on current date"
     no_intervention_participations_to_check: "No intervention participations to check"
-    no_invoice_receipts_for_financial_year: "No invoice receipts for this financial year"
+    no_invoice_for_financial_year: "No invoice for this financial year"
     no_invoice_receipts_for_purchase_invoice: "No invoice receipts for this purchase invoice"
     no_new_notifications: "No new notifications"
     no_notifications: "No notifications"

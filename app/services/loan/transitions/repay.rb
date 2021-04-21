@@ -20,7 +20,7 @@ class Loan
       end
 
       def transition
-        resource.repaid_at = repaid_at
+        resource.repaid_at = @repaid_at
         resource.state = :repaid
         resource.save!
       end
