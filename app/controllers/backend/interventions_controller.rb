@@ -224,6 +224,7 @@ module Backend
         id = params['targets_attributes'].first['product_id'].to_i
       end
 
+      # check if a target product exist when selecting a procedure otherwise send a flash message
       if params['procedure_name'].present?
         procedure = Procedo::Procedure.find(params['procedure_name'])
         target_parameter = procedure.parameters_of_type(:target, true).first if procedure
@@ -260,6 +261,12 @@ module Backend
                     options[:targets_attributes].collect { |_, v| v[:product_id] }
                   end
         availables = Product.where(id: targets).at(Time.zone.now - 1.hour).collect(&:id)
+
+        if availables.any? && filter.present? && Product.where(id: availables).of_expression(filter).blank?
+          notify_warning_now(:no_availables_product_matching_current_filter)
+        elsif availables.blank?
+          notify_warning_now(:no_availables_product_on_current_campaign)
+        end
 
         options[:targets_attributes].select! do |k, v|
           # This does not work with Rails 5 without the unsafe_params trick
