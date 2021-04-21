@@ -5,6 +5,7 @@ module Interventions
     class PfiClientApi
       attr_reader :campaign, :activity, :intervention_parameter_input, :area_ratio, :activities
 
+      # set urls for accessing IFT-API
       # https://alim.agriculture.gouv.fr/ift-api/swagger-ui.html
       BASE_URL = "https://alim.agriculture.gouv.fr/ift-api"
       PFI_CAMPAIGN_URL = "/api/campagnes"
@@ -12,7 +13,7 @@ module Interventions
       PFI_COMPUTE_SIGN_URL = "/api/ift/traitement/certifie"
       PFI_REPORT_PDF_URL = "/api/ift/bilan/pdf"
 
-      # transcode unit
+      # transcode unit between IFT-API and Ekylibre
       TRANSCODE_UNIT = {
                         kilogram_per_hectare: "U1", # KG/HA
                         kilogram_per_hectoliter: "U2", # KG/HL
@@ -26,6 +27,8 @@ module Interventions
       # @param [Activity] activity
       # @param [InterventionInput] intervention_parameter_input
       # @param [Decimal] area_ratio
+      # @param [<<Array>> Activity] activities
+      # @param [String] report_title
       def initialize(campaign:, activity: nil, intervention_parameter_input: nil, area_ratio: 100, activities: nil, report_title: nil)
         @campaign = campaign
         @activity = activity
@@ -37,6 +40,8 @@ module Interventions
       end
 
       # Compute pfi for one input on intervention
+      # @param [Boolean] with_signature
+      # @return [JSON api_response, nil]
       def compute_pfi(with_signature: true)
         return nil if @activity.nil? || @intervention_parameter_input.nil?
 
@@ -68,6 +73,7 @@ module Interventions
       end
 
       # Compute pfi report for all input on all interventions in each activity production of a campaign
+      # @return [JSON {status: ,body: }]
       def compute_pfi_report
         return nil if @activities.nil?
 
@@ -88,6 +94,10 @@ module Interventions
 
       private
 
+        # Compute params for API
+        # call by compute_pfi
+        # @param [InterventionInput] intervention_parameter_input
+        # @return [JSON {}]
         def build_params(intervention_input)
           params = {}
           # mandatory params for API
@@ -117,12 +127,15 @@ module Interventions
           params
         end
 
+        # Compute crops params for API
+        # call by compute_pfi_report
+        # @return [JSON {}]
         def build_crops
           # compute crop
           crops = {}.with_indifferent_access
           crops["parcellesCultivees"] = []
           @activities.each do |activity|
-            ActivityProduction.where(activity_id: activity.id, campaign_id: @campaign.id).each do |ap|
+            ActivityProduction.of_activity(activity).of_campaign(@campaign).each do |ap|
               crop = {}.with_indifferent_access
               crop["type"] = 'parcelle'
               crop["campagne"] = { idMetier: @campaign.harvest_year, libelle: @campaign.name, active: true }
@@ -141,12 +154,26 @@ module Interventions
           crops
         end
 
+        # Compute crops params for API
+        # call by build_crops
+        # @param [ActivityProduction] ap
+        # @param [InterventionInput] intervention_input
+        # @return [JSON {}]
         def compute_crop_interventions_for_pfi_report(ap, intervention_input)
           product_ids = Product.where(activity_production_id: ap.id).pluck(:id)
           target_ids = InterventionTarget.where(product_id: product_ids).pluck(:id)
           pfi_data = PfiInterventionParameter.find_by(nature: 'crop', input_id: intervention_input.id, target_id: target_ids)
           if pfi_data.present?
+            # compute ratio because pfi_crop is relative to product area (plant or land_parcel)
+            # pfi_report is relative to activity_production area
+            target_area = pfi_data.target&.product&.get(:net_surface_area)
+            ap_area = ap.support_shape_area
+            target_ap_area_ratio = (target_area.convert(:square_meter).to_f / ap_area.in(:square_meter).to_f).round(2) if target_area && ap_area
+            # build body for build_crops
             traitement = pfi_data.response["iftTraitement"]
+            if target_ap_area_ratio
+              traitement["facteurDeCorrection"] = (traitement["facteurDeCorrection"].to_f * target_ap_area_ratio.to_f).round(2)
+            end
             traitement["id"] = pfi_data.response["id"]
             traitement["date"] = intervention_input.intervention.started_at.strftime("%FT%T.%LZ")
             traitement["dateTraitement"] = intervention_input.intervention.started_at.strftime("%Y-%m-%d")
