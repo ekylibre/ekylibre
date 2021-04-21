@@ -1230,7 +1230,7 @@ fra:
     all_financial_years_not_closed_or_locked: "Tous les exercices précédents ne sont pas clôturés ou verrouillés."
     all_in_one_sowing: "Semis tout en un"
     all_periods: "Tous les exercices"
-    all_the_categories: "Toutes les categories comptables" #?
+    all_the_categories: "Toutes les catégories comptables" #?
     allocation_balance: "Affectation du budget - Allocation %{name}"
     allowed: "Autorisé"
     allowed_harvest_on: "RÉCOLTE POSSIBLE À PARTIR DU"
