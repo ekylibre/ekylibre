@@ -24,13 +24,13 @@
   - if resource&.activity_production&.interventions&.any?
     - c.cobble(:production_costs, title: :production_costs.tl) do
       = render partial: 'backend/shared/production_costs', locals: { costs: resource.activity_production.decorate.production_costs }
-
-    - c.cobble(:interventions) do
-      = cobble_toolbar do |t|
-        = t.new(params: { controller: :interventions, intervention: { product_id: resource&.id }, targets_attributes: [{ product_id: resource&.id, reference_name: "cultivation", working_zone: resource&.shape&.to_geojson }], group_parameters_attributes: [ { reference_name: "zone", targets_attributes: [ { product_id: resource&.id, reference_name: "land_parcel", working_zone: resource&.shape&.to_geojson } ] } ] })
-        = cobble_list(:interventions)
   - else
     = no_data
+
+  - c.cobble(:interventions) do
+    = cobble_toolbar do |t|
+      = t.new(params: { controller: :interventions, intervention: { product_id: resource&.id }, targets_attributes: [{ product_id: resource&.id, reference_name: "cultivation", working_zone: resource&.shape&.to_geojson }], group_parameters_attributes: [ { reference_name: "zone", targets_attributes: [ { product_id: resource&.id, reference_name: "land_parcel", working_zone: resource&.shape&.to_geojson } ] } ] })
+      = cobble_list(:interventions)
 
   - c.cobble(:plants, title: :crops.tl) do
     - disabled = LandParcel.count.zero? && (Matter.of_variety("seed").count.zero? || Matter.of_variety("plant").count.zero?)
