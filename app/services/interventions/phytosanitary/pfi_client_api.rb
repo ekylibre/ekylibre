@@ -75,7 +75,7 @@ module Interventions
       # Compute pfi report for all input on all interventions in each activity production of a campaign
       # @return [JSON {status: ,body: }]
       def compute_pfi_report
-        return nil if @activities.nil?
+        return { status: false, body: :no_activities_found } if @activities.nil?
 
         url = BASE_URL + PFI_REPORT_PDF_URL
         params = "?campagneIdMetier=#{grab_harvest_year}&titre=#{@report_title}"
@@ -88,7 +88,7 @@ module Interventions
           { status: true, body: response.body }
           # RestClient::Request.execute(method: :post, url: url, payload: body, headers: params)
         rescue RestClient::ExceptionWithResponse => err
-          { status: false, body: err.response }
+          { status: false, body: err.message }
         end
       end
 
@@ -174,6 +174,9 @@ module Interventions
             if target_ap_area_ratio
               traitement["facteurDeCorrection"] = (traitement["facteurDeCorrection"].to_f * target_ap_area_ratio.to_f).round(2)
             end
+            # if traitement["avertissement"]
+            # traitement.delete!("avertissement")
+            # end
             traitement["id"] = pfi_data.response["id"]
             traitement["date"] = intervention_input.intervention.started_at.strftime("%FT%T.%LZ")
             traitement["dateTraitement"] = intervention_input.intervention.started_at.strftime("%Y-%m-%d")

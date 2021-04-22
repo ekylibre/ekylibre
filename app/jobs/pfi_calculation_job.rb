@@ -1,5 +1,6 @@
 class PfiCalculationJob < ApplicationJob
   queue_as :default
+  include Rails.application.routes.url_helpers
 
   # Compute and store(create or update) pfi for each intervention in a campaign
   def perform(campaign, intervention_ids, user)
@@ -11,9 +12,9 @@ class PfiCalculationJob < ApplicationJob
         result += 1
       end
     rescue => error
-      Rails.logger.error $ERROR_INFO
-      Rails.logger.error $ERROR_INFO.backtrace.join("\n")
-      ExceptionNotifier.notify_exception($ERROR_INFO, data: { message: error })
+      Rails.logger.error error
+      Rails.logger.error error.backtrace.join("\n")
+      ExceptionNotifier.notify_exception(error, data: { message: error })
     end
     notification = user.notifications.build(notification_params(result))
     notification.save
