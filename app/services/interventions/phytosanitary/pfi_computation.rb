@@ -13,7 +13,7 @@ module Interventions
 
       # return a Hash {code: ,body: }
       def create_pfi_report
-        return nil if @activities.nil?
+        return { status: false, body: :no_activities_found } if @activities.nil?
 
         pfi_call = Interventions::Phytosanitary::PfiClientApi.new(campaign: @campaign, activities: @activities)
         response = pfi_call.compute_pfi_report
