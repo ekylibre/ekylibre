@@ -20,15 +20,40 @@ class PfiReportJob < ApplicationJob
         # nature: 'pfi_land_parcel_register'
         document = Document.create!(nature: "phytosanitary_certification", key: "#{Time.now.to_i}-#{filename}", name: filename, file: File.open(file_path))
         notification = user.notifications.build(valid_generation_notification_params(file_path, filename, document.id))
-      else
-        notification = user.notifications.build(error_generation_notification_params(filename, 'pfi_report', $ERROR_INFO.backtrace.join("\n")))
+      elsif response[:status] == false
+        ExceptionNotifier.notify_exception(response[:body], data: { message: response[:body] })
+        notification = user.notifications.build(error_generation_notification_params(filename, 'pfi_report', response[:body]))
       end
     rescue => error
-      Rails.logger.error $ERROR_INFO
-      Rails.logger.error $ERROR_INFO.backtrace.join("\n")
-      ExceptionNotifier.notify_exception($ERROR_INFO, data: { message: error })
-      notification = user.notifications.build(error_generation_notification_params(filename, 'pfi_report', $ERROR_INFO.backtrace.join("\n")))
+      Rails.logger.error error
+      Rails.logger.error error.backtrace.join("\n")
+      ExceptionNotifier.notify_exception(error, data: { message: error })
+      ElasticAPM.report(error)
+      notification = user.notifications.build(error_generation_notification_params(filename, 'pfi_report', error.message))
     end
     notification.save
   end
+
+  private
+
+    def error_generation_notification_params(filename, id, error)
+      {
+        message: 'error_during_pfi_report_generation',
+        level: :error,
+        interpolations: {
+          error_message: error
+        }
+      }
+    end
+
+    def valid_generation_notification_params(_path, _filename, document_id)
+      {
+        message: 'file_generated',
+        level: :success,
+        target_type: 'Document',
+        target_url: backend_document_path(document_id),
+        interpolations: {}
+      }
+    end
+
 end

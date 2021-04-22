@@ -2529,6 +2529,8 @@ fra:
     pfi_activity: "IFT activité"
     pfi_activity_production: "IFT production (parcelle/culture)"
     pfi_dose: "Dose de référence (IFT)"
+    pfi_have_been_computed: "OK : les IFT ont été calculées"
+    pfi_have_not_been_computed: "Erreur : les IFT n'ont pas été calculées"
     pfi_interventions: "IFT"
     pfi_land_parcel: "IFT parcelle"
     pfi_parcel_ratio: "IFT parcelle"
@@ -3552,6 +3554,7 @@ fra:
       equipment_is_worn_out: "L’équipement %{name} est usé. Temps de travail restant: %{remaining_time}."
       error_client_account_empty: "Opération impossible, le compte client est vide"
       error_during_file_generation: "Une erreur est survenue durant la génération d'un fichier"
+      error_during_pfi_report_generation: "Erreur de génération rapport IFT : %{error_message}"
       error_during_vat_declaration_generation: "Une erreur est survenue durant la génération de la déclaration de TVA."
       error_on_field: "%{field} est invalide\_: %{message}"
       expired_session: "Session expirée. Veuillez vous reconnecter." #?
@@ -3643,6 +3646,8 @@ fra:
       no_unconfirmed_stock_transfers: "Aucun transfert de stocks non-confirmé" #?
       no_unvalidated_operations: "Aucun travail à réaliser" #?
       password_successfully_changed: "Votre mot de passe a été mis à jour avec succès" #?
+      pfi_have_been_computed: "IFT calculées"
+      pfi_have_not_been_computed: "Erreur : IFT non calculées"
       please_contact_support_for_further_information: "%{message} Veuillez contacter le support pour plus d'informations."
       please_select_a_period_containing_journal_entries: "Veuillez sélectionner une période comportant des écritures comptables puis cliquer sur le bouton de recherche afin de pouvoir afficher ou exporter la balance."
       previouos_financial_year_is_not_closed: "L’exercice précédent n’a pas été clôturé."

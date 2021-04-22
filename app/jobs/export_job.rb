@@ -34,26 +34,27 @@ class ExportJob < ApplicationJob
     end
     notification.save
   end
-end
 
-def error_generation_notification_params(_filename, id, error)
-  {
-    message: 'error_during_file_generation',
-    level: :error,
-    target_type: 'Document',
-    target_url: backend_export_path(id),
-    interpolations: {
-      error_message: error
+  def error_generation_notification_params(_filename, id, error)
+    {
+      message: 'error_during_file_generation',
+      level: :error,
+      target_type: 'Document',
+      target_url: backend_export_path(id),
+      interpolations: {
+        error_message: error
+      }
     }
-  }
-end
+  end
 
-def valid_generation_notification_params(_path, _filename, document_id)
-  {
-    message: 'file_generated',
-    level: :success,
-    target_type: 'Document',
-    target_url: backend_document_path(document_id),
-    interpolations: {}
-  }
+  def valid_generation_notification_params(_path, _filename, document_id)
+    {
+      message: 'file_generated',
+      level: :success,
+      target_type: 'Document',
+      target_url: backend_document_path(document_id),
+      interpolations: {}
+    }
+  end
+
 end
