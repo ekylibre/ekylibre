@@ -125,14 +125,15 @@ module Backend
       respond_to do |format|
         format.html
         format.pdf do
-          return unless (template = find_and_check(:document_template, permitted_params[:template]))
+          params.permit!
+          return unless (template = find_and_check(:document_template, params[:template]))
 
           PrinterJob.perform_later('Printers::JournalLedgerPrinter', template: template,
                                    journal: @journal,
-                                   states: permitted_params[:states].to_h,
-                                   period: permitted_params[:period],
-                                   started_on: permitted_params[:started_on],
-                                   stopped_on: permitted_params[:stopped_on],
+                                   states: params[:states].to_h,
+                                   period: params[:period],
+                                   started_on: params[:started_on],
+                                   stopped_on: params[:stopped_on],
                                    perform_as: current_user)
           notify_success(:document_in_preparation)
           redirect_back(fallback_location: { action: :index })
@@ -211,10 +212,5 @@ module Backend
         JOURNAL_VIEWS
       end
 
-    private
-
-      def permitted_params
-        params.permit(%I[template states period started_on stopped_on])
-      end
   end
 end
