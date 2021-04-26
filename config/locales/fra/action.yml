@@ -2127,6 +2127,10 @@ fra:
       mixed: "Écritures et lignes"
     journals: "Journaux"
     journals_closure: "Clôture des journaux"
+    journals_import:
+      warnings:
+        - "Les crédits et débits doivent être supérieurs à zéro et ne doivent pas comporter de symboles autres que des points '.'"
+        - "Les nombres décimaux des crédits et débits ne doivent pas contenir de virgules mais des points. Eg. 4.52 au lieu de 4,52"
     journals_natures: "Types de journaux"
     kml_export: "Export Parcelles (KML)" #?
     label: "Libellé"
@@ -3515,6 +3519,7 @@ fra:
       bad_file: "Le fichier ne semble pas correspondre." #?
       before_add_a_plant_add_a_x_html: "Avant d’ajouter une culture, vous devez d’abord ajouter\_: %{x}"
       before_add_a_land_parcel_add_a_x_html: "Avant d’ajouter une parcelle, vous devez d’abord ajouter\_: %{x}"
+      before_journal_import_assumed_format_x: "Avant l'import, vérifiez que votre fichier respecte bien ces règles\_: %{x}"
       bookkeeping_is_finished: "La bascule en comptabilité est finie."
       bookkeeping_works_only_with: "La bascule en comptabilité ne peut se faire actuellement que pour\_: %{list}."
       cannot_add_bank_statement_item: "Vous ne pouvez pas ajouter de nouvelle ligne parce que vous n’avez pas de relevé bancaire ce jour-là."

@@ -46,6 +46,7 @@ module Backend
     def journal_entries_import
       return unless (@exchange = find_and_check)
 
+      notify_import_warning
       if request.post?
         file = params[:upload]
         @import = FinancialYearExchangeImport.new(file, @exchange)
@@ -81,5 +82,25 @@ module Backend
       notify_success :closed_financial_year_exchange
       redirect_to_back
     end
+
+    private
+
+      def notify_import_warning
+        warnings = []
+        warnings = :journals_import.tl[:warnings]
+        return if warnings.empty?
+
+        notify_warning_now(:before_journal_import_assumed_format_x, x: as_list(warnings), html: true)
+      end
+
+      # @param [Array<String>] elements
+      # @return [String] HTML representation of a list that contains all the elements in `elements`
+      def as_list(elements)
+        helpers.content_tag(:ul) do
+          elements.map do |element|
+            helpers.content_tag(:li, element)
+          end.join.html_safe
+        end
+      end
   end
 end

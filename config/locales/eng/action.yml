@@ -2261,6 +2261,10 @@ eng:
       mixed: "Entries and items"
     journals: "Journals"
     journals_closure: "Closing journals"
+    journals_import:
+      warnings:
+        - "Credits and debits must be greater than zero and must not contain any symbols other than dots '.'"
+        - "Decimal numbers for credits and debits should not contain commas but points. Eg. 4.52 instead of 4,52"
     journals_natures: "Natures journals"
     # kml_export: "Kml export"
     label: "Label"
@@ -3300,6 +3304,7 @@ eng:
       all_tax_declarations_have_already_existing: "All tax declarations have already existing"
       an_error_was_raised_during_import: "An error was raised during import process."
       before_add_a_plant_add_a_x_html: "Before add a plant you should add\_: %{x}"
+      before_journal_import_assumed_format_x: "Before importing, check that your file respects these rules\_: %{x}"
       bookkeeping_is_finished: "The commercial data transfer is finished."
       bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
       cannot_add_bank_statement_item: "You can’t add a new line because there is no available bank statement on this day"
