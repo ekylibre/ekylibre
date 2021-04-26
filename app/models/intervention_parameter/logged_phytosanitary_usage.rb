@@ -50,5 +50,10 @@ class InterventionParameter
     def withdrawn?
       state == 'withdrawn'
     end
+
+    # @return [Measure]
+    def max_dose_measure
+      Measure.new(dose_quantity * dose_unit_factor, dose_unit)
+    end
   end
 end
