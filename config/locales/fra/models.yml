@@ -1064,7 +1064,7 @@ fra:
     casts: "Acteurs" #?
     catalog: "Catalogue de prix"
     catalog_items: "Entrées de catalogue"
-    category: "Catégorie"
+    category: "Catégorie comptable"
     ceded: "Cédé"
     ceded_on: "Cédé le"
     centralizing_account: "Compte centralisateur"
@@ -1744,6 +1744,8 @@ fra:
     net_service: "Service web"
     net_surface_area: "Surface" #?
     net_volume: "Volume net" #?
+    neutral_area_category: "Catégorie de SNA"
+    neutral_area_nature: "Type de SNA"
     new_container: "Nouvel emplacement"
     new_group: "Nouveau groupe"
     new_name: "Nouveau nom"

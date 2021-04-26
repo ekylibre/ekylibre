@@ -694,7 +694,7 @@ eng:
     cashes: "Bank accounts"
     catalog: "Catalog"
     catalog_items: "Catalog items"
-    category: "Category"
+    category: "Accounting category"
     # category_name: "Category name"
     ceded: "Ceded"
     ceded_on: "Ceded on"

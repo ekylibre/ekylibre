@@ -1395,9 +1395,9 @@ fra:
     casts: "Intervention"
     catalog: "Description pour catalogue"
     catalog_items: "Éléments de catalogue"
-    category: "Catégorie"
+    category: "Catégorie comptable"
     category_code: "Code catégorie" #?
-    category_name: "Catégorie" #?
+    category_name: "Catégorie comptable" #?
     category_of_product: "Catégorie comptable" #?
     cells_concentration: "Dénombrement des cellules somatiques" #?
     centralize: "Comptes comptables centralisateurs"
@@ -2315,6 +2315,7 @@ fra:
     net_vat_amount: "TVA nette due" #?
     net_volume: "Volume net" #?
     neutral_area_category: "Catégorie de SNA"
+    neutral_area_nature: "Type de SNA"
     new: "Nouveau"
     new_activity: "Nouvelle activité"
     new_animal: "Nouvel animal"
@@ -3757,7 +3758,7 @@ fra:
       bookkeep: "Comptabiliser"
       cancel: "Annuler"
       cancel_with_voucher: "Annuler avec avoir"
-      category: "Categorie" #?
+      category: "Catégorie comptable" #?
       check: "Vérifier"
       children: "Enfant" #?
       close: "Fermer"
