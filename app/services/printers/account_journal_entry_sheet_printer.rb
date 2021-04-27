@@ -28,8 +28,8 @@ module Printers
         @started_on = FinancialYear.first_of_all.started_on.to_s
         @stopped_on = FinancialYear.current.stopped_on.to_s
       elsif @period == 'interval'
-        @started_on = started_on
-        @stopped_on = stopped_on
+        @started_on = started_on || FinancialYear.current.started_on.to_s
+        @stopped_on = stopped_on || FinancialYear.current.stopped_on.to_s
       else
         # period=2019-01-01_2019-12-31
         @started_on = period.split('_').first
