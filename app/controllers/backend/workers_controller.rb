@@ -18,7 +18,19 @@
 
 module Backend
   class WorkersController < Backend::ProductsController
-    list do |t|
+
+    def self.list_conditions
+      code = search_conditions(workers: %i[name number work_number description], products: %i[variety]) + " ||= []\n"
+
+      code << "if params[:variant_id].present?\n"
+      code << " c[0] << ' AND #{Worker.table_name}.variant_id = ?'\n"
+      code << " c << params[:variant_id]\n"
+      code << "end\n"
+      code << "c\n "
+      code.c
+    end
+
+    list(conditions: list_conditions) do |t|
       t.action :edit
       t.action :destroy, if: :destroyable?
       t.column :number, url: true
