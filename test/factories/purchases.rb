@@ -4,6 +4,7 @@ FactoryBot.define do
     association :nature, factory: :purchase_nature
     sequence(:number) { |n| "P00#{n}" }
     amount { 1848.0 }
+    ordered_at { DateTime.new(2018, 1, 1) }
     pretax_amount { 1545.15 }
     currency { 'EUR' }
     tax_payability { 'at_invoicing' }

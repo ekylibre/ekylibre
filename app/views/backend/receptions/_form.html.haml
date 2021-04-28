@@ -18,7 +18,7 @@
       = f.referenced_association :address, source: :mails, input_html: {data: {"when-item": "address_id", "when-set-value": "RECORD_VALUE"}}, new: { canal: :mail }, label: :receiving_address.tl
       = f.input :reference_number, label: :reception_number.tl
     = f.referenced_association :responsible, source: :employees, new: { employed: 1 }, label: :receipt_responsible.tl
-    = f.input :given_at, as: :date, required: false, label: :receipt_date.tl
+    = f.input :given_at, as: :date, required: true, label: :receipt_date.tl
 
     = f.input :late_delivery do
       = f.check_box :late_delivery

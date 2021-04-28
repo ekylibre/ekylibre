@@ -124,16 +124,17 @@ module Backend
         purchase_orders = PurchaseOrder.where(id: params[:purchase_order_ids].split(','))
         supplier_ids = purchase_orders.pluck(:supplier_id).uniq
 
+        farest_date_from_today = purchase_orders.pluck(:ordered_at).compact&.min
         reception_attributes = {
           sender_id: supplier_ids.length > 1 ? nil : supplier_ids.first,
-          given_at: Date.today,
+          given_at: farest_date_from_today || Date.today,
           reconciliation_state: 'reconcile',
           items: ReceivableItemsFilter.new.filter(purchase_orders.includes(items: [parcels_purchase_orders_items: :reception]).references(items: [parcels_purchase_orders_items: :reception]))
         }
 
         @reception = Reception.new(reception_attributes)
       else
-        @reception = Reception.new
+        @reception = Reception.new(given_at: Date.today)
       end
 
       render locals: { with_continue: true }
