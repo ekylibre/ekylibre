@@ -35,7 +35,7 @@ module Interventions
         @intervention_parameter_input = intervention_parameter_input
         @area_ratio = area_ratio
         # for pdf pfi report only
-        @activities = activities
+        @activities = activities.of_families(%i[plant_farming vine_farming]) if activities
         @report_title = report_title || @campaign.name
       end
 
@@ -76,6 +76,12 @@ module Interventions
       # @return [JSON {status: ,body: }]
       def compute_pfi_report
         return { status: false, body: :no_activities_found } if @activities.nil?
+
+        # check if activity has production nature
+        activities_missing_pn = @activities.where(production_nature: nil)
+        if activities_missing_pn.any?
+          return { status: :e_activities_production_nature, body: activities_missing_pn.pluck(:name).to_sentence }
+        end
 
         url = BASE_URL + PFI_REPORT_PDF_URL
         params = "?campagneIdMetier=#{grab_harvest_year}&titre=#{@report_title}"
