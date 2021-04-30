@@ -2856,6 +2856,7 @@ eng:
     stock_in_ground_by_calibration: "Stocks in ground by calibration"
     # stock_in_ground_by_calibration_x: "Stock in ground by calibration x"
     stock_of_x: "Stock of %{x}"
+    stock_status : "Stock status"
     stocks: "Stocks"
     stocks_end_products: "Stocks end product"
     stocks_others_products: "Stocks other product"

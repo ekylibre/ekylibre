@@ -33,7 +33,14 @@
     = line_highcharts(series, legend: { layout: 'horizontal', align: 'bottom', vertical_align: 'bottom', border_width: 0, align: 'center' }, y_axis: { title: { text: :population.tl}, min: 0 }, x_axis: { type: 'datetime', title: { enabled: true, text: :months.tl }}, chart: { spacing_bottom: 40 }, tooltip: { value_decimals: 2, xDateFormat: '%Y-%m-%d, %H:%M' })
 
 - c.cobble(:products) do
-  = cobble_list(:products)
+  = cobble_toolbar do |t|
+
+    - controller_name = resource.variant_type == :article ? 'matter' : resource.variant_type
+    - if (controller_name != :crop) && (controller_name != :zone) && (controller_name != :service)
+      = t.new(params: {controller: "/backend/#{controller_name.to_s.pluralize}", :variant_id => resource.id, redirect: nil})
+      = cobble_list(:products)
+    - else
+      = cobble_list(:products)
 
 - if resource.saleable?
   - c.cobble(:sale_items) do

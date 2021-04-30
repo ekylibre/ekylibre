@@ -66,9 +66,9 @@ module Backend
       # t.column :name, through: :building, url: true
       t.column :product, url: true
       # t.column :serial_number, through: :product
-      t.column :expected_population, precision: 3
-      t.column :actual_population, precision: 3
-      t.column :unit_name, through: :product
+      t.column :expected_population, precision: 3, class: 'left-align'
+      t.column :actual_population, precision: 3, class: 'left-align'
+      t.column :unit_name, through: :product, class: 'left-align'
     end
 
     def refresh
