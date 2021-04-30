@@ -462,7 +462,7 @@ module ApplicationHelper
   end
 
   def dropdown_toggle_button(name = nil, options = {})
-    class_attribute = options[:main_class] ? options[:main_class] : 'btn btn-default'
+    class_attribute = options[:main_class] || 'btn btn-default'
     class_attribute << ' dropdown-toggle'
     class_attribute << ' ' + options[:class].to_s if options[:class].present?
     class_attribute << ' sr-only' if name.blank?

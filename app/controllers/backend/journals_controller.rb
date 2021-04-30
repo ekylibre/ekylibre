@@ -125,11 +125,12 @@ module Backend
       respond_to do |format|
         format.html
         format.pdf do
+          params.permit!
           return unless (template = find_and_check(:document_template, params[:template]))
 
           PrinterJob.perform_later('Printers::JournalLedgerPrinter', template: template,
                                    journal: @journal,
-                                   states: params[:states],
+                                   states: params[:states].to_h,
                                    period: params[:period],
                                    started_on: params[:started_on],
                                    stopped_on: params[:stopped_on],
@@ -210,5 +211,6 @@ module Backend
         ActiveSupport::Deprecation.warn "Journal::journal_views is deprecated, use the class constant JOURNAL_VIEWS"
         JOURNAL_VIEWS
       end
+
   end
 end

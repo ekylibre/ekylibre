@@ -229,6 +229,12 @@ class Sale < ApplicationRecord
     end
   end
 
+  after_update do
+    if self.aborted? && self.journal_entry.presence && self.journal_entry.destroyable?
+      self.journal_entry.destroy
+    end
+  end
+
   after_create do
     client.add_event(:sale_creation, updater.person) if updater && updater.person
     true

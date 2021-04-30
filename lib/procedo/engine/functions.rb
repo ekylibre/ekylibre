@@ -38,7 +38,7 @@ module Procedo
           list.compact!
           return 0.0 if list.empty?
 
-          list.sum.to_d(unit ? unit : indicator.unit)
+          list.sum.to_d(unit || indicator.unit)
         end
 
         def sum_working_zone_areas(set, unit = nil)

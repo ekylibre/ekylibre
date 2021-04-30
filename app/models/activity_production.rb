@@ -178,7 +178,7 @@ class ActivityProduction < ApplicationRecord
       self.stopped_on ||= self.started_on + 1.year - 1.day if annual?
       self.size_indicator_name ||= activity_size_indicator_name if activity_size_indicator_name
       self.size_unit_name = activity_size_unit_name
-      self.rank_number ||= (activity.productions.maximum(:rank_number) ? activity.productions.maximum(:rank_number) : 0) + 1
+      self.rank_number ||= (activity.productions.maximum(:rank_number) || 0) + 1
       if valid_period_for_support?
         if plant_farming?
           initialize_land_parcel_support!

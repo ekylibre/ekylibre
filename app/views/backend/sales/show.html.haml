@@ -11,7 +11,7 @@
       - { source_product_id: item_product, population: item.quantity }
     = t.new(resource, params: { controller: :shipments, shipment: { sale_id: resource.id, recipient_id: resource.client, items_attributes: shipment_items_attributes } }, label: :create_shipment.tl)
   - if resource.invoice?
-    = t.cancel(resource) if resource.cancellable?
+    = t.cancel(resource, label: :cancel_with_voucher.tl, title: :cancel_with_voucher.tl) if resource.cancellable?
   = t.edit resource if resource.updateable?
   = t.destroy if resource.destroyable?
 

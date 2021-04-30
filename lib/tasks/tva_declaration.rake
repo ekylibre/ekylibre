@@ -50,18 +50,18 @@ namespace :tva_declaration do
         puts 'Enter tenant name :'.blue
         @tenant = STDIN.gets.chomp
       end
-      puts "#{Ekylibre::Tenant.switch!(@tenant)}".yellow
+      puts Ekylibre::Tenant.switch!(@tenant).to_s.yellow
 
       until @started_on.present?
         puts 'Enter date of start (dd/mm/yyyy):'.blue
         @started_on = STDIN.gets.chomp.to_date
       end
-      puts "#{@started_on}".yellow
+      puts @started_on.to_s.yellow
 
       if end_date
         puts 'Enter date of end (empty if end of month) (dd/mm/yyyy):'.blue
         @stopped_on = STDIN.gets.chomp&.to_date || @started_on.end_of_month
-        puts "#{@stopped_on}".yellow
+        puts @stopped_on.to_s.yellow
       end
     end
 end

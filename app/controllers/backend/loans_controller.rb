@@ -91,7 +91,26 @@ module Backend
       @entity_of_company_full_name = Entity.of_company.full_name
       @entity_of_company_id = Entity.of_company.id
 
-      respond_with @loans, methods: [:current_remaining_amount], include: %i[lender loan_account interest_account insurance_account cash journal_entry]
+      if params[:period] == 'interval'
+        @started_on = params[:started_on]
+        @stopped_on = params[:stopped_on]
+      elsif params[:period].present? && params[:period] != 'all'
+        @started_on, @stopped_on = params[:period].split('_')
+      end
+
+      @started_on ||= FinancialYear.reorder(:started_on).first.started_on.to_s
+      @stopped_on ||= FinancialYear.reorder(:started_on).last.stopped_on.to_s
+
+      respond_to do |format|
+        format.html
+        format.pdf {
+          return unless (template = find_and_check :document_template, params[:template])
+
+          PrinterJob.perform_later('Printers::LoanRegistryPrinter', started_on: @started_on, stopped_on: @stopped_on, template: template, perform_as: current_user)
+          notify_success(:document_in_preparation)
+          redirect_to backend_loans_path
+        }
+      end
     end
 
     def confirm

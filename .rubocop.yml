@@ -26,3 +26,7 @@ Layout/LineLength:
 # Too many offenses to enable this for now.
 Style/StringLiterals:
   Enabled: false
+
+# Do not encourage the use of modifiers
+Style/WhileUntilModifier:
+  Enabled: false

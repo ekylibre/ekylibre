@@ -67,15 +67,24 @@
             { name: "#{p.land_parcel_number} - #{p.cap_islet.islet_number}", shape: p.shape, main_crop_code: p.main_crop_code, popup: {header: true, content: popup_content} }
           end
 
-          # neutral_areas = resource.cap_neutral_areas.collect do |p|
-          #   next unless p.shape
-          #
-          #   popup_content = []
-          #   popup_content << {label: CapLandParcel.human_attribute_name(:net_surface_area), value: p.human_shape_area}
-          #   popup_content << render('popup', plant: p)
-          #
-          #   { name: "#{p.number}", shape: p.shape, category_code: p.category, popup: {header: true, content: popup_content} }
-          # end
+          # SNA dataset
+          neutral_areas = resource.cap_neutral_areas.map do |p|
+            next if p.shape.nil?
+
+            popup_content = []
+            if p.shape_area > 0.0.in_square_meter
+              popup_content << {label: CapLandParcel.human_attribute_name(:net_surface_area), value: p.human_shape_area}
+            end
+            popup_content << {label: CapNeutralArea.human_attribute_name(:category), value: p.category}
+            popup_content << {label: CapNeutralArea.human_attribute_name(:nature), value: p.nature}
+
+            {
+              name: p.number,
+              neutral_area_category: p.category,
+              shape: p.shape,
+              popup: { content: popup_content }
+            }
+          end
 
           islets = resource.cap_islets.collect do |p|
             next unless p.shape
@@ -110,8 +119,8 @@
           - v.serie :islets, islets
           - v.serie :waters, water_hydro_items_zones
           - v.serie :building_zones, building_zones
-          -# v.serie :neutral_area_category, neutral_areas
-          -# v.categories :category_code, :neutral_areas
+          - v.serie :neutral_area_category, neutral_areas
+          - v.categories :neutral_area_category, :neutral_area_category, without_ghost_label: true
           - v.simple :cap_islets, :islets
           - v.simple :waters, :waters, fill_color: 'blue'
           -#- v.simple :water_lakes, :water_lakes, fill_color: 'blue' if water_lakes_shape

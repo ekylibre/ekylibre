@@ -3,7 +3,7 @@
     .picture
       = link_to(backend_document_path(@document, format: @file_format), target: '_blank') do
         - if @document.file_content_type == "application/zip"
-          = image_tag(image_path('documents/default-zip'), class: 'default-zip')
+          %i.icon.icon-file-archive-o.default-zip
         - else
           = image_tag(backend_document_path(@document, format: :jpg))
       .archived-at= @document.created_at.l

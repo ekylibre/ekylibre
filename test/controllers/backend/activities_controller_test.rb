@@ -4,7 +4,7 @@ module Backend
   class ActivitiesControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions family: { mode: :index, name: :animal_farming, format: :json },
                                duplicate: { params: { source_activity_id: 1 } },
-                               except: :show
+                               except: %i[show compute_pfi_report]
 
     test 'show action' do
       get :show, params: { id: 'NaID', redirect: root_url, locale: @locale }

@@ -7,8 +7,9 @@ class visualization.Simple
     group = []
     for zone in @data
       zoneLayer = new L.GeoJSON(zone.shape, globalStyle)
-      label = new L.GhostLabel(className: 'leaflet-ghost-label', toBack: false).setContent(zone.name).toCentroidOfBounds(zoneLayer.getLayers()[0].getLatLngs())
-      widget.ghostLabelCluster.bind label, zoneLayer.getLayers()[0]
+      unless @layer.withoutGhostLabel
+        label = new L.GhostLabel(className: 'leaflet-ghost-label', toBack: false).setContent(zone.name).toCentroidOfBounds(zoneLayer.getLayers()[0].getLatLngs())
+        widget.ghostLabelCluster.bind label, zoneLayer.getLayers()[0]
       widget._bindPopup(zoneLayer, zone)
       group.push(zoneLayer)
     group

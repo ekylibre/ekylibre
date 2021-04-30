@@ -95,7 +95,7 @@ class Sequence < ApplicationRecord
       keys.delete(:number)
       # Because period size correspond to alphabetical order
       # We use thaht to find the littlest period
-      keys.sort.first
+      keys.min
     end
 
     # Load defaults sequences

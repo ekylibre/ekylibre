@@ -6,6 +6,10 @@ module Ekylibre
       Ekylibre::Tenant.switch!('test')
     end
 
+    setup do
+      Rails.application.load_tasks
+    end
+
     test 'launch of default first run' do
       tenant = 'test_default'
       Ekylibre::Tenant.drop(tenant) if Ekylibre::Tenant.exist?(tenant)

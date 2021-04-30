@@ -40,12 +40,21 @@ module Clean
         @log = options[:log] if options[:log]
       end
 
+      private def locale_label
+        "#{I18n.locale} (" + ::I18n.t('i18n.name') + ')'
+      end
+
+      private def self.translate_or_nil(*args)
+        result = I18n.translate(*args)
+        (result.to_s =~ /(translation\ missing|\(\(\()/ ? nil : result)
+      end
+
       def clean!
         if Ekylibre::Plugin.registered_plugins.any?
           raise 'Cannot clean locales if plugins are activated'
         end
 
-        log("Locale #{::I18n.locale_label}:\n")
+        log("Locale #{locale_label}:\n")
 
         ::I18n.locale = @locale
         FileUtils.makedirs(locale_dir) unless File.exist?(locale_dir)
@@ -73,9 +82,9 @@ module Clean
         clean_procedures!
         clean_file! 'support'
 
-        # puts " - Locale: #{::I18n.locale_label} (Reference)"
+        # puts " - Locale: #{locale_label} (Reference)"
         log "  - Total:               #{(100 * @count / @total).round.to_s.rjust(3)}% (#{@count}/#{@total})\n"
-        puts " - Locale: #{(100 * @count / @total).round.to_s.rjust(3)}% of #{::I18n.locale_label} translated"
+        puts " - Locale: #{(100 * @count / @total).round.to_s.rjust(3)}% of #{locale_label} translated"
       end
 
       # def clean_access!
@@ -133,7 +142,7 @@ module Clean
 
           translation << '    ' + controller_path + ":\n"
           translateable_actions.each do |action_name|
-            name = ::I18n.translate_or_nil("actions.#{controller_path}.#{action_name}")
+            name = translate_or_nil("actions.#{controller_path}.#{action_name}")
             to_translate += 1
             untranslated += 1 if actions.include?(action_name) && name.blank?
             translation << "      #{missing_prompt if name.blank?}#{action_name}: " + Clean::Support.yaml_value(name.blank? ? Clean::Support.default_action_title(controller_path, action_name) : name, 3)
@@ -307,7 +316,7 @@ module Clean
           to_translate += 1
           if (name = ref[:aggregator_parameters][param_name]) && name.present?
             translation << "    #{param_name}: " + Clean::Support.yaml_value(name) + "\n"
-          elsif name = I18n.translate_or_nil("labels.#{param_name}") || I18n.translate_or_nil("attributes.#{param_name}")
+          elsif name = translate_or_nil("labels.#{param_name}") || translate_or_nil("attributes.#{param_name}")
             to_translate -= 1
             translation << "    #~ #{param_name}: " + Clean::Support.yaml_value(name) + "\n"
           else
@@ -331,7 +340,7 @@ module Clean
           elsif property_name.to_s.underscore != property_name.to_s
             to_translate -= 1
             translation << "    #~ #{property_name}: " + Clean::Support.yaml_value(property_name.to_s.underscore.humanize) + "\n"
-          elsif name = I18n.translate_or_nil("attributes.#{property_name}") || I18n.translate_or_nil("labels.#{property_name}") || I18n.translate_or_nil("activerecord.models.#{property_name}")
+          elsif name = translate_or_nil("attributes.#{property_name}") || translate_or_nil("labels.#{property_name}") || translate_or_nil("activerecord.models.#{property_name}")
             to_translate -= 1
             translation << "    #~ #{property_name}: " + Clean::Support.yaml_value(name) + "\n"
           else
@@ -668,7 +677,7 @@ module Clean
         ::I18n.locale = @locale
         FileUtils.makedirs(locale_dir) unless File.exist?(locale_dir)
         FileUtils.makedirs(locale_dir.join('help')) unless File.exist?(locale_dir.join('help'))
-        log "Locale #{::I18n.locale_label}:\n"
+        log "Locale #{locale_label}:\n"
         total = 0
         count = 0
         Dir.glob(Rails.root.join('config', 'locales', reference_locale.to_s, '*.yml')).sort.each do |reference_path|
@@ -704,7 +713,7 @@ module Clean
         #   end
         # end
 
-        puts " - Locale: #{(100 * (total - count) / total).round.to_s.rjust(3)}% of #{::I18n.locale_label} translated from #{'i18n.name'.t(locale: reference_locale)}" # reference
+        puts " - Locale: #{(100 * (total - count) / total).round.to_s.rjust(3)}% of #{locale_label} translated from #{'i18n.name'.t(locale: reference_locale)}" # reference
       end
 
       protected

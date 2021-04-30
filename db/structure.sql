@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.12
--- Dumped by pg_dump version 13.2
+-- Dumped from database version 9.6.21
+-- Dumped by pg_dump version 13.2 (Ubuntu 13.2-1.pgdg18.04+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -38,16 +38,10 @@ CREATE SCHEMA public;
 
 
 --
--- Name: deny_changes(); Type: FUNCTION; Schema: lexicon; Owner: -
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: -
 --
 
-CREATE FUNCTION lexicon.deny_changes() RETURNS trigger
-    LANGUAGE plpgsql
-    AS $$
-  BEGIN
-    RAISE EXCEPTION '% denied on % (master data)', TG_OP, TG_RELNAME;
-  END;
-$$;
+COMMENT ON SCHEMA public IS 'standard public schema';
 
 
 --
@@ -99,6 +93,43 @@ CREATE FUNCTION public.compute_outgoing_payment_list_cache() RETURNS trigger
                 RETURN NEW;
               END
             $$;
+
+
+--
+-- Name: compute_partial_isacompta_lettering(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.compute_partial_isacompta_lettering() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+  DECLARE
+    journal_entry_item_ids integer DEFAULT NULL;
+    new_letter varchar DEFAULT NULL;
+  BEGIN
+    IF NEW.letter <> OLD.letter THEN
+      journal_entry_item_ids := NEW.id;
+      new_letter := NEW.letter;
+    END IF;
+    
+    UPDATE journal_entry_items
+    SET isacompta_letter = (CASE
+      WHEN RIGHT(new_letter, 1) = '*'
+        THEN CASE
+          WHEN LEFT(journal_entry_items.isacompta_letter, 1) = '#'
+          THEN journal_entry_items.isacompta_letter
+          ELSE '#' || journal_entry_items.isacompta_letter
+        END
+        ELSE CASE
+          WHEN LEFT(journal_entry_items.isacompta_letter, 1) != '#'
+          THEN journal_entry_items.isacompta_letter
+          ELSE '#' || journal_entry_items.isacompta_letter
+        END
+      END)
+    WHERE id = journal_entry_item_ids;
+
+    RETURN NEW;
+  END;
+$$;
 
 
 --
@@ -1040,7 +1071,8 @@ CREATE TABLE public.activities (
     use_seasons boolean DEFAULT false,
     use_tactics boolean DEFAULT false,
     codes jsonb,
-    production_nature_id integer
+    production_nature_id integer,
+    isacompta_analytic_code smallint
 );
 
 
@@ -1199,6 +1231,26 @@ CREATE TABLE public.intervention_parameters (
 
 
 --
+-- Name: intervention_working_periods; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.intervention_working_periods (
+    id integer NOT NULL,
+    intervention_id integer,
+    started_at timestamp without time zone NOT NULL,
+    stopped_at timestamp without time zone NOT NULL,
+    duration integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL,
+    intervention_participation_id integer,
+    nature character varying
+);
+
+
+--
 -- Name: interventions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1306,7 +1358,8 @@ CREATE TABLE public.products (
     originator_id integer,
     codes jsonb,
     reading_cache jsonb DEFAULT '{}'::jsonb,
-    activity_production_id integer
+    activity_production_id integer,
+    isacompta_analytic_code smallint
 );
 
 
@@ -1317,17 +1370,18 @@ CREATE TABLE public.products (
 CREATE VIEW public.activities_interventions AS
  SELECT DISTINCT interventions.id AS intervention_id,
     activities.id AS activity_id,
-    interventions.started_at AS intervention_started_at,
-    interventions.working_duration AS intervention_working_duration,
-    sum(intervention_parameters.imputation_ratio) AS imputation_ratio,
-    ((interventions.working_duration)::numeric * sum(intervention_parameters.imputation_ratio)) AS intervention_activity_working_duration
-   FROM ((((public.activities
+    intervention_working_periods.started_at AS intervention_started_at,
+    intervention_working_periods.duration AS intervention_working_duration,
+    round(sum(intervention_parameters.imputation_ratio), 2) AS imputation_ratio,
+    ((intervention_working_periods.duration)::numeric * round(sum(intervention_parameters.imputation_ratio), 2)) AS intervention_activity_working_duration
+   FROM (((((public.activities
      JOIN public.activity_productions ON ((activity_productions.activity_id = activities.id)))
      JOIN public.products ON ((products.activity_production_id = activity_productions.id)))
      JOIN public.intervention_parameters ON ((products.id = intervention_parameters.product_id)))
      JOIN public.interventions ON ((intervention_parameters.intervention_id = interventions.id)))
-  GROUP BY interventions.id, activities.id, interventions.working_duration, interventions.started_at
-  ORDER BY interventions.id;
+     JOIN public.intervention_working_periods ON ((interventions.id = intervention_working_periods.intervention_id)))
+  GROUP BY interventions.id, activities.id, intervention_working_periods.started_at, intervention_working_periods.duration
+  ORDER BY interventions.id, activities.id, intervention_working_periods.started_at;
 
 
 --
@@ -1578,16 +1632,17 @@ ALTER SEQUENCE public.activity_productions_id_seq OWNED BY public.activity_produ
 CREATE VIEW public.activity_productions_interventions AS
  SELECT DISTINCT interventions.id AS intervention_id,
     products.activity_production_id,
-    interventions.started_at AS intervention_started_at,
-    interventions.working_duration AS intervention_working_duration,
-    sum(intervention_parameters.imputation_ratio) AS imputation_ratio,
-    ((interventions.working_duration)::numeric * sum(intervention_parameters.imputation_ratio)) AS intervention_activity_working_duration
-   FROM (((public.activity_productions
+    intervention_working_periods.started_at AS intervention_started_at,
+    intervention_working_periods.duration AS intervention_working_duration,
+    round(sum(intervention_parameters.imputation_ratio), 2) AS imputation_ratio,
+    ((intervention_working_periods.duration)::numeric * round(sum(intervention_parameters.imputation_ratio), 2)) AS intervention_activity_working_duration
+   FROM ((((public.activity_productions
      JOIN public.products ON ((products.activity_production_id = activity_productions.id)))
      JOIN public.intervention_parameters ON ((products.id = intervention_parameters.product_id)))
      JOIN public.interventions ON ((intervention_parameters.intervention_id = interventions.id)))
-  GROUP BY interventions.id, products.activity_production_id, interventions.working_duration, interventions.started_at
-  ORDER BY interventions.id;
+     JOIN public.intervention_working_periods ON ((interventions.id = intervention_working_periods.intervention_id)))
+  GROUP BY interventions.id, products.activity_production_id, intervention_working_periods.started_at, intervention_working_periods.duration
+  ORDER BY interventions.id, products.activity_production_id, intervention_working_periods.started_at;
 
 
 --
@@ -1886,6 +1941,69 @@ CREATE SEQUENCE public.analysis_items_id_seq
 --
 
 ALTER SEQUENCE public.analysis_items_id_seq OWNED BY public.analysis_items.id;
+
+
+--
+-- Name: analytic_segments; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.analytic_segments (
+    id integer NOT NULL,
+    analytic_sequence_id integer NOT NULL,
+    name character varying NOT NULL,
+    "position" integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: analytic_segments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.analytic_segments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: analytic_segments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.analytic_segments_id_seq OWNED BY public.analytic_segments.id;
+
+
+--
+-- Name: analytic_sequences; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.analytic_sequences (
+    id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: analytic_sequences_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.analytic_sequences_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: analytic_sequences_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.analytic_sequences_id_seq OWNED BY public.analytic_sequences.id;
 
 
 --
@@ -2679,7 +2797,8 @@ CREATE TABLE public.cultivable_zones (
     soil_nature character varying,
     owner_id integer,
     farmer_id integer,
-    codes jsonb
+    codes jsonb,
+    provider jsonb
 );
 
 
@@ -3267,7 +3386,8 @@ CREATE TABLE public.journal_entry_items (
     project_budget_id integer,
     equipment_id integer,
     accounting_label character varying,
-    lettered_at timestamp without time zone
+    lettered_at timestamp without time zone,
+    isacompta_letter character varying(4)
 );
 
 
@@ -3784,7 +3904,9 @@ CREATE TABLE public.financial_year_exchanges (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    format character varying DEFAULT 'ekyagri'::character varying NOT NULL,
+    transmit_isacompta_analytic_codes boolean DEFAULT false
 );
 
 
@@ -4495,7 +4617,9 @@ CREATE TABLE public.integrations (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    data jsonb
+    data jsonb DEFAULT '{}'::jsonb,
+    last_sync_at timestamp without time zone,
+    state character varying
 );
 
 
@@ -4693,26 +4817,6 @@ CREATE SEQUENCE public.intervention_participations_id_seq
 --
 
 ALTER SEQUENCE public.intervention_participations_id_seq OWNED BY public.intervention_participations.id;
-
-
---
--- Name: intervention_working_periods; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.intervention_working_periods (
-    id integer NOT NULL,
-    intervention_id integer,
-    started_at timestamp without time zone NOT NULL,
-    stopped_at timestamp without time zone NOT NULL,
-    duration integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL,
-    intervention_participation_id integer,
-    nature character varying
-);
 
 
 --
@@ -4989,7 +5093,10 @@ CREATE TABLE public.journals (
     used_for_unbilled_payables boolean DEFAULT false NOT NULL,
     used_for_tax_declarations boolean DEFAULT false NOT NULL,
     accountant_id integer,
-    provider jsonb
+    provider jsonb,
+    isacompta_code character varying(2),
+    isacompta_label character varying(30),
+    financial_year_exchange_id integer
 );
 
 
@@ -5966,6 +6073,62 @@ CREATE SEQUENCE public.payslips_id_seq
 --
 
 ALTER SEQUENCE public.payslips_id_seq OWNED BY public.payslips.id;
+
+
+--
+-- Name: pfi_campaigns_activities_interventions; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW public.pfi_campaigns_activities_interventions AS
+SELECT
+    NULL::integer AS campaign_id,
+    NULL::integer AS activity_id,
+    NULL::integer AS activity_production_id,
+    NULL::integer AS crop_id,
+    NULL::character varying AS segment_code,
+    NULL::numeric AS crop_pfi_value,
+    NULL::numeric(19,4) AS activity_production_surface_area,
+    NULL::numeric(19,4) AS crop_surface_area,
+    NULL::numeric AS activity_production_pfi_value,
+    NULL::numeric AS activity_pfi_value;
+
+
+--
+-- Name: pfi_intervention_parameters; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.pfi_intervention_parameters (
+    id integer NOT NULL,
+    pfi_value numeric(19,4) DEFAULT 1.0 NOT NULL,
+    nature character varying NOT NULL,
+    segment_code character varying,
+    signature text,
+    response jsonb NOT NULL,
+    campaign_id integer,
+    input_id integer,
+    target_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: pfi_intervention_parameters_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.pfi_intervention_parameters_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pfi_intervention_parameters_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.pfi_intervention_parameters_id_seq OWNED BY public.pfi_intervention_parameters.id;
 
 
 --
@@ -7035,7 +7198,8 @@ CREATE TABLE public.project_budgets (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    isacompta_analytic_code smallint
 );
 
 
@@ -7864,7 +8028,8 @@ CREATE TABLE public.teams (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    isacompta_analytic_code smallint
 );
 
 
@@ -8224,6 +8389,20 @@ ALTER TABLE ONLY public.analyses ALTER COLUMN id SET DEFAULT nextval('public.ana
 --
 
 ALTER TABLE ONLY public.analysis_items ALTER COLUMN id SET DEFAULT nextval('public.analysis_items_id_seq'::regclass);
+
+
+--
+-- Name: analytic_segments id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.analytic_segments ALTER COLUMN id SET DEFAULT nextval('public.analytic_segments_id_seq'::regclass);
+
+
+--
+-- Name: analytic_sequences id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.analytic_sequences ALTER COLUMN id SET DEFAULT nextval('public.analytic_sequences_id_seq'::regclass);
 
 
 --
@@ -8840,6 +9019,13 @@ ALTER TABLE ONLY public.payslip_natures ALTER COLUMN id SET DEFAULT nextval('pub
 --
 
 ALTER TABLE ONLY public.payslips ALTER COLUMN id SET DEFAULT nextval('public.payslips_id_seq'::regclass);
+
+
+--
+-- Name: pfi_intervention_parameters id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pfi_intervention_parameters ALTER COLUMN id SET DEFAULT nextval('public.pfi_intervention_parameters_id_seq'::regclass);
 
 
 --
@@ -9647,6 +9833,22 @@ ALTER TABLE ONLY public.analysis_items
 
 
 --
+-- Name: analytic_segments analytic_segments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.analytic_segments
+    ADD CONSTRAINT analytic_segments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: analytic_sequences analytic_sequences_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.analytic_sequences
+    ADD CONSTRAINT analytic_sequences_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -10356,6 +10558,14 @@ ALTER TABLE ONLY public.payslip_natures
 
 ALTER TABLE ONLY public.payslips
     ADD CONSTRAINT payslips_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pfi_intervention_parameters pfi_intervention_parameters_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pfi_intervention_parameters
+    ADD CONSTRAINT pfi_intervention_parameters_pkey PRIMARY KEY (id);
 
 
 --
@@ -11364,6 +11574,13 @@ CREATE INDEX catalog_provider_index ON public.catalogs USING gin (((provider -> 
 
 
 --
+-- Name: cultivable_zone_provider_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX cultivable_zone_provider_index ON public.cultivable_zones USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
 -- Name: entity_provider_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -12145,6 +12362,13 @@ CREATE INDEX index_analysis_items_on_updated_at ON public.analysis_items USING b
 --
 
 CREATE INDEX index_analysis_items_on_updater_id ON public.analysis_items USING btree (updater_id);
+
+
+--
+-- Name: index_analytic_segments_on_analytic_sequence_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_analytic_segments_on_analytic_sequence_id ON public.analytic_segments USING btree (analytic_sequence_id);
 
 
 --
@@ -15428,6 +15652,13 @@ CREATE INDEX index_journals_on_created_at ON public.journals USING btree (create
 --
 
 CREATE INDEX index_journals_on_creator_id ON public.journals USING btree (creator_id);
+
+
+--
+-- Name: index_journals_on_financial_year_exchange_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_journals_on_financial_year_exchange_id ON public.journals USING btree (financial_year_exchange_id);
 
 
 --
@@ -19603,6 +19834,27 @@ CREATE INDEX loan_provider_index ON public.loans USING gin (((provider -> 'vendo
 
 
 --
+-- Name: pfi_intervention_parameters_campaign_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX pfi_intervention_parameters_campaign_id ON public.pfi_intervention_parameters USING btree (campaign_id);
+
+
+--
+-- Name: pfi_intervention_parameters_input_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX pfi_intervention_parameters_input_id ON public.pfi_intervention_parameters USING btree (input_id);
+
+
+--
+-- Name: pfi_intervention_parameters_target_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX pfi_intervention_parameters_target_id ON public.pfi_intervention_parameters USING btree (target_id);
+
+
+--
 -- Name: product_nature_category_provider_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -19668,6 +19920,35 @@ CREATE OR REPLACE VIEW public.product_populations AS
 
 
 --
+-- Name: pfi_campaigns_activities_interventions _RETURN; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE OR REPLACE VIEW public.pfi_campaigns_activities_interventions AS
+ SELECT pip.campaign_id,
+    a.id AS activity_id,
+    ap.id AS activity_production_id,
+    p.id AS crop_id,
+    pip.segment_code,
+    sum(pip.pfi_value) AS crop_pfi_value,
+    ap.size_value AS activity_production_surface_area,
+    p.initial_population AS crop_surface_area,
+    round((sum(pip.pfi_value) * round((COALESCE(p.initial_population, (0)::numeric) / COALESCE(ap.size_value, (1)::numeric)), 2)), 2) AS activity_production_pfi_value,
+    round((sum(pip.pfi_value) * (ap.size_value / ( SELECT sum(aps.size_value) AS sum
+           FROM public.activity_productions aps
+          WHERE ((aps.activity_id = a.id) AND (aps.id IN ( SELECT activity_productions_campaigns.activity_production_id
+                   FROM public.activity_productions_campaigns
+                  WHERE (activity_productions_campaigns.campaign_id = pip.campaign_id))))))), 2) AS activity_pfi_value
+   FROM ((((public.pfi_intervention_parameters pip
+     JOIN public.intervention_parameters ip ON ((pip.target_id = ip.id)))
+     JOIN public.products p ON ((ip.product_id = p.id)))
+     JOIN public.activity_productions ap ON ((p.activity_production_id = ap.id)))
+     JOIN public.activities a ON ((ap.activity_id = a.id)))
+  WHERE ((pip.nature)::text = 'crop'::text)
+  GROUP BY pip.campaign_id, a.id, ap.id, ap.size_value, p.id, pip.segment_code
+  ORDER BY pip.campaign_id, a.id, ap.id, pip.segment_code;
+
+
+--
 -- Name: activities_campaigns delete_activities_campaigns; Type: RULE; Schema: public; Owner: -
 --
 
@@ -19716,300 +19997,6 @@ CREATE RULE delete_product_populations AS
 
 
 --
--- Name: cadastral_land_parcel_zones deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.cadastral_land_parcel_zones FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: datasource_credits deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.datasource_credits FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: eu_market_prices deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.eu_market_prices FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: intervention_model_items deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.intervention_model_items FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: intervention_models deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.intervention_models FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: master_production_natures deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.master_production_natures FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: master_production_outputs deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.master_production_outputs FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: master_vine_varieties deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.master_vine_varieties FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: phenological_stages deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.phenological_stages FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_agroedi_codes deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_agroedi_codes FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_building_zones deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_building_zones FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_chart_of_accounts deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_chart_of_accounts FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_crop_zones deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_crop_zones FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_enterprises deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_enterprises FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_hydro_items deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_hydro_items FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_legal_positions deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_legal_positions FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_pfi_crops deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_pfi_crops FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_pfi_doses deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_pfi_doses FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_pfi_segments deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_pfi_segments FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_pfi_targets deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_pfi_targets FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_pfi_treatment_types deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_pfi_treatment_types FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_phytosanitary_cropsets deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_phytosanitary_cropsets FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_phytosanitary_products deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_phytosanitary_products FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_phytosanitary_risks deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_phytosanitary_risks FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_phytosanitary_symbols deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_phytosanitary_symbols FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_phytosanitary_target_name_to_pfi_targets deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_phytosanitary_target_name_to_pfi_targets FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_phytosanitary_usages deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_phytosanitary_usages FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_postal_zones deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_postal_zones FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_protected_designation_of_origins deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_protected_designation_of_origins FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_seeds deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_seeds FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: taxonomy deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.taxonomy FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: technical_workflow_procedure_items deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.technical_workflow_procedure_items FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: technical_workflow_procedures deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.technical_workflow_procedures FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: technical_workflow_sequences deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.technical_workflow_sequences FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: technical_workflows deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.technical_workflows FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: user_roles deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.user_roles FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: variant_categories deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.variant_categories FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: variant_doer_contracts deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.variant_doer_contracts FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: variant_natures deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.variant_natures FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: variant_prices deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.variant_prices FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: variant_units deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.variant_units FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: variants deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.variants FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
 -- Name: journal_entries compute_journal_entries_continuous_number_on_insert; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -20042,6 +20029,13 @@ CREATE TRIGGER compute_partial_lettering_status_update AFTER UPDATE OF credit, d
 --
 
 CREATE TRIGGER outgoing_payment_list_cache AFTER INSERT OR DELETE OR UPDATE OF list_id, amount ON public.outgoing_payments FOR EACH ROW EXECUTE PROCEDURE public.compute_outgoing_payment_list_cache();
+
+
+--
+-- Name: journal_entry_items partial_isacompta_lettering; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER partial_isacompta_lettering AFTER UPDATE OF letter ON public.journal_entry_items FOR EACH ROW EXECUTE PROCEDURE public.compute_partial_isacompta_lettering();
 
 
 --
@@ -20163,6 +20157,14 @@ ALTER TABLE ONLY public.products
 
 
 --
+-- Name: pfi_intervention_parameters fk_rails_5f6f882536; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pfi_intervention_parameters
+    ADD CONSTRAINT fk_rails_5f6f882536 FOREIGN KEY (campaign_id) REFERENCES public.campaigns(id);
+
+
+--
 -- Name: purchase_items fk_rails_62e7d4b959; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -20179,6 +20181,14 @@ ALTER TABLE ONLY public.payslip_natures
 
 
 --
+-- Name: analytic_segments fk_rails_6f90f51e24; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.analytic_segments
+    ADD CONSTRAINT fk_rails_6f90f51e24 FOREIGN KEY (analytic_sequence_id) REFERENCES public.analytic_sequences(id);
+
+
+--
 -- Name: parcel_items fk_rails_7010820bb4; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -20192,6 +20202,14 @@ ALTER TABLE ONLY public.parcel_items
 
 ALTER TABLE ONLY public.interventions
     ADD CONSTRAINT fk_rails_76eca6ee87 FOREIGN KEY (purchase_id) REFERENCES public.purchases(id);
+
+
+--
+-- Name: journals fk_rails_790552b64c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.journals
+    ADD CONSTRAINT fk_rails_790552b64c FOREIGN KEY (financial_year_exchange_id) REFERENCES public.financial_year_exchanges(id);
 
 
 --
@@ -20291,6 +20309,14 @@ ALTER TABLE ONLY public.payslips
 
 
 --
+-- Name: pfi_intervention_parameters fk_rails_ac83b72aeb; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pfi_intervention_parameters
+    ADD CONSTRAINT fk_rails_ac83b72aeb FOREIGN KEY (target_id) REFERENCES public.intervention_parameters(id);
+
+
+--
 -- Name: tax_declaration_item_parts fk_rails_adb1cc875c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -20360,6 +20386,14 @@ ALTER TABLE ONLY public.parcels
 
 ALTER TABLE ONLY public.regularizations
     ADD CONSTRAINT fk_rails_ca9854019b FOREIGN KEY (journal_entry_id) REFERENCES public.journal_entries(id);
+
+
+--
+-- Name: pfi_intervention_parameters fk_rails_d40f37781b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pfi_intervention_parameters
+    ADD CONSTRAINT fk_rails_d40f37781b FOREIGN KEY (input_id) REFERENCES public.intervention_parameters(id);
 
 
 --
@@ -20859,6 +20893,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200925170636'),
 ('20200928073618'),
 ('20201001095904'),
+('20201001133625'),
 ('20201005090447'),
 ('20201005150456'),
 ('20201007121011'),
@@ -20867,13 +20902,26 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20201020100820'),
 ('20201030083414'),
 ('20201103092521'),
+('20201118153001'),
 ('20201202090824'),
 ('20201209161246'),
+('20201215085433'),
+('20210119103725'),
+('20210119151601'),
 ('20210209154545'),
 ('20210215114312'),
 ('20210215133318'),
+('20210216111920'),
+('20210217112010'),
+('20210219172016'),
 ('20210222103208'),
+('20210304154300'),
+('20210311143508'),
 ('20210312110155'),
-('20210312110510');
+('20210312110510'),
+('20210317102544'),
+('20210322143441'),
+('20210414100801'),
+('20210416084101');
 
 

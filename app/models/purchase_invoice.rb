@@ -247,4 +247,8 @@ class PurchaseInvoice < Purchase
   def unpaid?
     PurchaseInvoice.unpaid.include?(self)
   end
+
+  def has_attachments
+    self.attachments.present?
+  end
 end

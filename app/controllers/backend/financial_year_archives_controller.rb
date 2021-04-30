@@ -3,7 +3,7 @@ module Backend
     def create
       filename = "#{params[:id]}_#{params[:timing]}_unsigned.zip"
       temp_file = Tempfile.new(filename)
-      file_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{params[:id]}")
+      file_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', params[:id].to_s)
 
       begin
         Zip::OutputStream.open(temp_file) { |zos| }

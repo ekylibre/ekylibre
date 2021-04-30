@@ -37,22 +37,6 @@ class ::Symbol
   end
 end
 
-class ::DateTime
-  def self.soft_parse(*args, &block)
-    DateTime.parse(*args, &block)
-  rescue ArgumentError
-    nil
-  end
-end
-
-class ::Date
-  def self.soft_parse(*args, &block)
-    Date.parse(*args, &block)
-  rescue ArgumentError
-    nil
-  end
-end
-
 class ::Time
   def to_usec
     (utc.to_f * 1000).to_i
@@ -64,23 +48,6 @@ class ::Time
 end
 
 class ::Numeric
-  # Computes decimal count. Examples:
-  #  * 200 => -2
-  #  * 1.350 => 2
-  #  * 1.1 => 1
-  def decimal_count
-    return 0 if zero?
-    count = 0
-    value = dup
-    integers_count = Math.log10(value.floor).ceil
-    value /= 10 ** integers_count
-    while value != value.to_i
-      count += 1
-      value *= 10
-    end
-    count - integers_count
-  end
-
   # FROM ActiveSupport 6.0
   def minutes
     ActiveSupport::Duration.minutes(self)
@@ -144,26 +111,9 @@ class ::Hash
     end
   end
 
-  # Hash#crush is a deep compact
-  #
-  # @return [Hash]
-  def crush
-    compact.transform_values { |v| v.is_a?(Hash) ? v.crush : v }
-  end
-
   # Build a struct from the hash
   def to_struct
     OpenStruct.new(self)
-  end
-
-  def reverse
-    self.flat_map { |key, values| values.map { |v| [v, key] } }
-        .group_by(&:first)
-        .map do |key, values|
-          raise StandardError.new "Duplicate value for key #{key}: #{values.join(', ')}" if values.size > 1
-          [key, values.first.second]
-        end
-        .to_h
   end
 end
 
@@ -231,24 +181,6 @@ module ActiveModel
     # Including new module in the validators that use Clusivity
     InclusionValidator.include SymbolHandlingClusitivity
     ExclusionValidator.include SymbolHandlingClusitivity
-  end
-end
-
-module ::I18n
-  def self.locale_label(locale = nil)
-    locale ||= self.locale
-    "#{locale} (" + locale_name + ')'
-  end
-
-  def self.locale_name(locale = nil)
-    locale ||= self.locale
-    ::I18n.t('i18n.name')
-  end
-
-  # Returns translation if found else nil
-  def self.translate_or_nil(*args)
-    result = translate(*args)
-    (result.to_s =~ /(translation\ missing|\(\(\()/ ? nil : result)
   end
 end
 

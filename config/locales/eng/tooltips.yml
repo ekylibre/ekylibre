@@ -11,6 +11,7 @@ eng:
       equipment:
         go:  "In service"
         stop: "Dead at/Sold at"
+        caution: "Issue"
       fixed_asset:
         draft: "Draft"
         in_use: "In use"

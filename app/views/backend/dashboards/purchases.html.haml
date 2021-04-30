@@ -1,4 +1,9 @@
+- current_financial_year = params[:current_financial_year] || current_user.current_financial_year&.id
+- main_financial_year_selector(current_financial_year) if current_financial_year
+
 = beehive(:purchase) do
   - hbox do
     - cell :last_purchases_invoices
     - cell :last_purchases_orders
+  - hbox do
+    - cell :expenses_by_product_nature_category

@@ -260,7 +260,7 @@ fra:
         fixed_asset_allocation_account: "Compte d'amortissements" #?
         fixed_asset_expenses_account: "Compte de dotation aux amortissements" #?
         price: "Prix de revient" #?
-        subscribing: "Abonnement ?" #?
+        subscribing: "Abonnement" #?
         type: "Nature"
       product_nature_variant:
         contour: "Contour de la forme" #?
@@ -286,7 +286,8 @@ fra:
         description: "Notes" #?
         invoiced_at: "Date de facture" #?
         payment_delay: "Échéance" #?
-        reference_number: "Référence fournisseur (n° facture)" #?
+        reference_number: "N° facture fournisseur" #?
+        has_attachments: "Pièce(s) jointe(s)"
       purchase_item:
         amount: "Montant TTC" #?
         average_unit_pretax_amount: "PU moyen HT"
@@ -376,6 +377,10 @@ fra:
         locked: "Compte verrouillé" #?
         maximal_grantable_reduction_percentage: "Taux de réduction autorisé (%)" #?
         name: "Nom d’utilisateur" #?
+      variant_categories/zone_category: #?
+        asset_fixable: "Immobilisable"
+      variant_categories/service_category: #?
+        asset_fixable: "Immobilisable"
       worker: #?
         variety: "Qualification" #?
     errors:
@@ -672,6 +677,7 @@ fra:
       bioproduct: "Produit vivant"
       building: "Bâtiment"
       building_division: "Pièce"
+      cadastral_land_parcel_zone: "CVI - Zone de parcelle cadastrale"
       call: "Appel"
       call_message: "Un message d’appel"
       call_request: "Demande d’appel"
@@ -688,10 +694,13 @@ fra:
       catalog_item: "Prix"
       contract: "Contrat"
       contract_item: "Élément du contrat"
+      crop_group_item : "Groupement parcellaire - Élément"
+      crop_group_labeling : "Groupement parcellaire - Étiquetage"
       crumb: "Miette"
       cultivable_zone: "Zone cultivable"
       custom_field: "Champ complémentaire"
       custom_field_choice: "Choix de champ complémentaire"
+      cvi_cadastral_plant_cvi_land_parcel : "CVI - Lien parcelle culturale et parcelle cadastrale CVI"
       dashboard: "Tableau de bord"
       debt_transfer: "Transfert de dettes"
       delivery: "Livraison"
@@ -710,9 +719,13 @@ fra:
       event: "Évènement"
       event_participation: "Participation à un évènement"
       financial_year: "Exercice"
+      financial_year_archive: "Exercice comptable"
       financial_year_exchange: "Échange de l’exercice"
       fixed_asset: "Immobilisation"
       fixed_asset_depreciation: "Amortissement d’immobilisation"
+      formatted_cvi_cadastral_plant : "CVI - Parcelle cadastrale CVI formatée"
+      formatted_cvi_cultivable_zone : "CVI - Zone cultivable formatée"
+      formatted_cvi_land_parcel : "CVI - Parcelle culturale formatée"
       fungus: "Champignon"
       gap: "Perte ou profit"
       gap_item: "Élément de perte ou profit"
@@ -754,6 +767,7 @@ fra:
       journal_entry_item: "Ligne d’écriture"
       label: "Étiquette"
       land_parcel: "Parcelle"
+      land_parcel_rootstock : "CVI - Porte-greffe"
       listing: "Extraction"
       listing_node: "Nœud d’extraction"
       listing_node_item: "Élément de nœud d’extraction"
@@ -804,8 +818,8 @@ fra:
       product_membership: "Passage d’un produit dans un groupe"
       product_movement: "Mouvement de produit"
       product_nature: "Type de produit"
-      product_nature_category: "Catégorie de type de produit"
-      product_nature_category_taxation: "Taxation de catégorie de type de produit"
+      product_nature_category: "Catégorie comptable"
+      product_nature_category_taxation: "Taxation de catégorie comptable"
       product_nature_variant: "Variante de type de produit"
       product_nature_variant_component: "Produit Composant de variante de la nature"
       product_nature_variant_reading: "Valeur d’indicateur de variante"
@@ -827,6 +841,7 @@ fra:
       reception_item: "Élément de réception"
       registered_agroedi_code: "Code agroedi référencé"
       registered_building_zone: "Zone de bâtiment référencée" #?
+      registered_legal_position: "Forme juridique"
       registered_pfi_crop: "Récolte pfi référencée"
       registered_pfi_dose: "Dose pfi référencée"
       registered_pfi_target: "Cible pfi référencée"
@@ -839,6 +854,8 @@ fra:
       registered_water_lake: "Eau de lac référencée" #?
       registered_water_river: "Eau de rivière référencée" #?
       regularization: "Régularisation"
+      ride : "Section de trajet géolocalisé"
+      ride_set : "Trajet géolocalisé"
       role: "Rôle"
       sale: "Vente"
       sale_affair: "Affaire de vente"
@@ -871,6 +888,9 @@ fra:
       vegetal_activity: "Activité végétale" #?
       version: "Version"
       wice_grid_serialized_query: "Requête de tableau en série" #?
+      wine_incoming_harvest_input : "Réception de vendange - Quantité réceptionnée"
+      wine_incoming_harvest_plant : "Réception de vendange - Cultures récoltées"
+      wine_incoming_harvest_storage : "Réception de vendange - Cuverie"
       worker: "Équipier"
       zone: "Zone"
   attributes:
@@ -1044,14 +1064,14 @@ fra:
     casts: "Acteurs" #?
     catalog: "Catalogue de prix"
     catalog_items: "Entrées de catalogue"
-    category: "Catégorie"
+    category: "Catégorie comptable"
     ceded: "Cédé"
     ceded_on: "Cédé le"
     centralizing_account: "Compte centralisateur"
     # centralizing_account_name: "Centralizing account name"
     # centroid: "Centroid"
     charge_account: "Compte d’achat"
-    charges_categories: "Catégories de produits avec charge"
+    charges_categories: "Catégories comptables avec charge"
     check_state: "Vérifier l’état" #?
     checks: "Éléments"
     children: "Enfants"
@@ -1116,7 +1136,7 @@ fra:
     confirmed_at: "Confirmée le"
     consumer: "Consommateur"
     consumer_way: "Voie du consommateur" #?
-    container: "Contenant"
+    container: "Lieu de stockage"
     content: "Contenu"
     content_indicator: "Indicateur du contenu" #?
     content_indicator_name: "Nom d’indicateur du contenu" #?
@@ -1281,8 +1301,8 @@ fra:
     emission_journal_entry: "Écriture de l’émission"
     emitted_on: "Émis le"
     employed: "Travaillant pour la société"
-    employee: "Employé"
-    employee_account: "Compte employé"
+    employee: "Employé/Associé"
+    employee_account: "Compte employé/associé"
     employees: "Employés"
     employment: "Emploi/Rôle"
     enabled: "Activée"
@@ -1299,7 +1319,7 @@ fra:
     entries: "Écritures"
     entry: "Écriture"
     entry_items: "Lignes d’écritures"
-    entry_number: "N° Écriture"
+    entry_number: "N° écriture"
     entry_on: "Entrée le"
     entry_reason: "Raison de l'entrée"
     equipment: "Équipement"
@@ -1374,6 +1394,7 @@ fra:
     fixed_asset: "Immobilisation"
     fixed_asset_account: "Compte d’immobilisation"
     fixed_asset_allocation_account: "Compte des dépréciations d’immobilisation"
+    fixed_assets_categories: "Catégories comptables avec immobilisation" #?
     fixed_asset_collect_account: "TVA collectée sur les immobilisations"
     fixed_asset_deductible_pretax_amount: "Montant HT déductibles sur immobilisation"
     fixed_asset_deductible_tax_amount: "Montant taxes déductibles sur immobilisation"
@@ -1385,7 +1406,6 @@ fra:
     fixed_asset_depreciations_inputations_expenses_account: "Compte d’imputation des charges des dépréciations d’immobilisation" #?
     fixed_asset_expenses_account: "Compte d’imputation des charges des dépréciations d’immobilisation"
     fixed_assets: "Immobilisations"
-    fixed_assets_categories: "Catégories de produits avec immobilisation" #?
     following: "Suivant"
     # format: "Format"
     formats: "Formats"
@@ -1401,7 +1421,7 @@ fra:
     geolocation: "Géolocalisation"
     geometry_value: "Valeur géométrique"
     germination_percentage: "Pourcentage de germination attendu"
-    given_at: "Donné à"
+    given_at: "Donné le"
     global_amount: "Montant global" #?
     global_balance: "Solde global"
     global_count: "Population globale"
@@ -1724,6 +1744,8 @@ fra:
     net_service: "Service web"
     net_surface_area: "Surface" #?
     net_volume: "Volume net" #?
+    neutral_area_category: "Catégorie de SNA"
+    neutral_area_nature: "Type de SNA"
     new_container: "Nouvel emplacement"
     new_group: "Nouveau groupe"
     new_name: "Nouveau nom"
@@ -1792,7 +1814,7 @@ fra:
     participants: "Participants"
     participations: "Participations"
     partner_url: "Url partenaire"
-    password: "Mot de passe"
+    password: "Nouveau mot de passe"
     password_confirmation: "Confirmation du mot de passe"
     payee: "Bénéficiaire"
     payer: "Payeur"
@@ -1887,9 +1909,9 @@ fra:
     product_moves: "Mouvements de produit" #?
     product_name: "Produit"
     product_nature: "Type de produit"
-    product_nature_categories: "Catégories de type de produit"
-    product_nature_category: "Catégorie de type de produit"
-    product_nature_category_taxations: "Taxation de catégorie de type de produit"
+    product_nature_categories: "Catégories comptables"
+    product_nature_category: "Catégorie comptable"
+    product_nature_category_taxations: "Taxation de catégorie comptable"
     product_nature_variant: "Variante"
     product_nature_variant_id: "Variante"
     product_natures: "Types de produits"
@@ -1918,7 +1940,7 @@ fra:
     production_usage: "Usage de la production"
     productions: "Productions"
     products: "Produits"
-    products_categories: "Catégories de produits avec produit"
+    products_categories: "Catégories comptables avec produit"
     progression_percentage: "Progression (%)"
     project_budget: "Budget interne"
     proposer: "Parrain"
@@ -2000,7 +2022,7 @@ fra:
     # reference_data: "Reference data"
     # reference_label_fra: "Reference label fra"
     reference_name: "Type d'intervention"
-    reference_number: "N°Référence"
+    reference_number: "N° référence"
     reference_source_content_type: "Référence type de contenu source"
     reference_source_file_name: "Référence Nom du fichier source"
     reference_source_file_size: "Taille Référence du fichier source"
@@ -2143,7 +2165,7 @@ fra:
     status: "Statut"
     stock_account: "Compte de stock"
     stock_movement_account: "Compte mouvement de stock"
-    stocks_categories: "Catégories de produits avec stock"
+    stocks_categories: "Catégories comptables avec stock"
     stopped_at: "Arrêté le"
     stopped_on: "Arrêté le"
     storable: "Gérer les stocks"
@@ -2172,7 +2194,7 @@ fra:
     supplier_accounting_balance: "Solde comptable des fournisseurs"
     supplier_address: "Adresse du fournisseur"
     supplier_payment_delay: "Délai de paiement fournisseur"
-    supplier_payment_mode: "Mode de paiement du fournisseur"
+    supplier_payment_mode: "Mode de paiement"
     supplier_payment_modes: "Modes de paiement du fournisseur"
     supplier_trade_balance: "Balance commerciale des fournisseurs"
     suppliers: "Fournisseurs"

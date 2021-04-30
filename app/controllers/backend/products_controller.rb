@@ -35,7 +35,11 @@ module Backend
     #   :working_set
     def self.list_conditions
       code = search_conditions(products: %i[name work_number number description uuid], product_nature_variants: [:name]) + " ||= []\n"
-      code << "unless params[:working_set_id].blank?\n"
+
+      code << "if params[:working_set_id].blank?\n"
+      code << "  item = 'is preparation'\n"
+      code << "  c[0] << \" AND products.nature_id IN (SELECT id FROM product_natures WHERE \#{WorkingSet.to_sql(item)})\"\n"
+      code << "else \n"
       code << "  item = Onoma::WorkingSet.find(params[:working_set_id])\n"
       code << "  c[0] << \" AND products.nature_id IN (SELECT id FROM product_natures WHERE \#{WorkingSet.to_sql(item.expression)})\"\n"
       code << "end\n"
@@ -88,10 +92,12 @@ module Backend
     # Lists contained products of the current product
     list(:contained_products, model: :product_localizations, joins: { product: :variant }, conditions: { product_nature_variants: { active: true }, container_id: 'params[:id]'.c, stopped_at: nil }, order: { started_at: :desc }) do |t|
       t.column :product, url: true
+      t.column :population, through: :product
+      t.column :unit_name, through: :product
+      t.column :started_at, datatype: :datetime
+      t.column :stopped_at, datatype: :datetime
       t.column :nature, hidden: true
-      t.column :intervention, url: true
-      t.column :started_at
-      t.column :stopped_at, hidden: true
+      t.column :intervention, url: true, hidden: true
     end
 
     # Lists carried linkages of the current product

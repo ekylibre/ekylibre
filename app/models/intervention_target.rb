@@ -68,6 +68,7 @@
 #
 class InterventionTarget < InterventionProductParameter
   belongs_to :intervention, inverse_of: :targets
+  has_many :pfi_targets, -> { where(nature: 'crop') }, class_name: 'PfiInterventionParameter', foreign_key: :target_id, dependent: :destroy
   validates :product, presence: true
   scope :of_activity, ->(activity) { where(product_id: Product.where(activity_production_id: activity.productions.select(:id))) }
   scope :of_activities, ->(activities) { where(product_id: Product.where(activity_production_id: activities.map { |a| a.productions.select(:id) }.flatten.uniq)) }

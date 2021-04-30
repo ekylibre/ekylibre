@@ -1,6 +1,7 @@
 - if kujaku.visible_feathers.count > 1
-  = link_to(toggle_backend_kujaku_path(kujaku.uid), data: {toggle: "kujaku"}) do
+  = link_to(toggle_backend_kujaku_path(kujaku.uid), data: {toggle: "kujaku"}, class:"btn btn-default") do 
     %i
+    =:filter.tl
 .feathers
   - kujaku.feathers.each_with_index do |feather, index|
     .feather{class: "feather-#{feather.feather_name.to_s.dasherize}"}

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+using Ekylibre::Utils::DateSoftParse
+
 module Agroedi
   class DaplosExchanger < ActiveExchanger::Base
     class Crop < DaplosNode
