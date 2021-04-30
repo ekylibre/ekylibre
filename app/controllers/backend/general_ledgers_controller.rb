@@ -202,10 +202,10 @@ module Backend
 
       @calculations = JournalEntryItem.joins(%i[entry account journal]).where(obj).pluck("COALESCE(SUM(#{JournalEntryItem.table_name}.absolute_debit), 0) AS cumulated_absolute_debit, COALESCE(SUM(#{JournalEntryItem.table_name}.absolute_credit), 0) AS cumulated_absolute_credit").first
       @calculations << @calculations[0] - @calculations[1]
-
+      params.permit!
       dataset_params = { accounts: params[:accounts],
                          lettering_state: params[:lettering_state],
-                         states: params[:states],
+                         states: params[:states].to_h,
                          ledger: params[:ledger],
                          account_number: params[:account_number],
                          started_on: financial_year.started_on.to_s,
