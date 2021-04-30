@@ -498,9 +498,9 @@ fra:
       ship: "Expédier les colis" #?
       show: "Colis à expédier\_: %{number}" #?
     backend/outgoing_payment_lists:
-      index: "Lot de décaissements"
-      new: "Nouveau lot de décaissement"
-      show: "Lot de décaissements"
+      index: "Lots de décaissements"
+      new: "Nouveau lot de décaissements"
+      show: "Lots de décaissements"
     backend/outgoing_payment_modes:
       edit: "Modifier un mode de décaissement"
       index: "Modes de décaissement"
@@ -2957,6 +2957,7 @@ fra:
     stock_max: "Stock maximum" #?
     stock_min: "Stock minimum" #?
     stock_of_x: "Stock de %{x}"
+    stock_status: "État du stock"
     stocks: "Stocks"
     stocks_by_calibrations: "Stock en terre par calibre" #?
     stocks_end_products: "Produits finis"

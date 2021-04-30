@@ -937,7 +937,7 @@ fra:
     activity_season: "Saisonnalité" #?
     actor: "Acteur"
     actual_number: "Numéro en cours"
-    actual_population: "Population réelle"
+    actual_population: "Quantité après inventaire"
     actual_shape: "Forme réelle"
     address: "Adresse"
     addresses: "Adresses"
@@ -1336,7 +1336,7 @@ fra:
     executor: "Exécutant"
     exit_on: "Sortie le"
     exit_reason: "Raison de la sortie"
-    expected_population: "Population attendue"
+    expected_population: "Quantité avant inventaire"
     expected_shape: "Forme attendue"
     expected_stop_amount: "Montant final attendu"
     expected_yield: "Rendement évalué (y)"
