@@ -23,6 +23,9 @@ class PfiReportJob < ApplicationJob
       elsif response[:status] == false
         ExceptionNotifier.notify_exception(response[:body], data: { message: response[:body] })
         notification = user.notifications.build(error_generation_notification_params(filename, 'pfi_report', response[:body]))
+      elsif response[:status] == :e_activities_production_nature
+        ExceptionNotifier.notify_exception(response[:body], data: { message: response[:body] })
+        notification = user.notifications.build(error_production_nature_notification_params(response[:body]))
       end
     rescue => error
       Rails.logger.error error
@@ -42,6 +45,16 @@ class PfiReportJob < ApplicationJob
         level: :error,
         interpolations: {
           error_message: error
+        }
+      }
+    end
+
+    def error_production_nature_notification_params(activities_name)
+      {
+        message: 'missing_production_nature_on_activity',
+        level: :error,
+        interpolations: {
+          activities_name: activities_name
         }
       }
     end

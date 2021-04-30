@@ -2399,6 +2399,7 @@ eng:
     net_production_sales: "Net production sales"
     net_surface_area: "Net surface area"
     neutral_area_category: "Neutral area category"
+    neutral_area_nature: "Neutral area nature"
     new: "New"
     new_activity: "New activity"
     new_animal: "New animal"

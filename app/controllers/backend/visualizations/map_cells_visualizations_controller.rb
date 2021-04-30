@@ -64,8 +64,8 @@ module Backend
             if p.shape_area > 0.0.in_square_meter
               popup_content << { label: CapLandParcel.human_attribute_name(:net_surface_area), value: p.human_shape_area }
             end
-            popup_content << { label: CapNeutralArea.human_attribute_name(:category), value: p.category }
-            popup_content << { label: CapNeutralArea.human_attribute_name(:nature), value: p.nature }
+            popup_content << { label: CapNeutralArea.human_attribute_name(:neutral_area_category), value: p.category }
+            popup_content << { label: CapNeutralArea.human_attribute_name(:neutral_area_nature), value: p.nature }
 
             {
               name: p.number,

@@ -1395,9 +1395,9 @@ fra:
     casts: "Intervention"
     catalog: "Description pour catalogue"
     catalog_items: "Éléments de catalogue"
-    category: "Catégorie"
+    category: "Catégorie comptable"
     category_code: "Code catégorie" #?
-    category_name: "Catégorie" #?
+    category_name: "Catégorie comptable" #?
     category_of_product: "Catégorie comptable" #?
     cells_concentration: "Dénombrement des cellules somatiques" #?
     centralize: "Comptes comptables centralisateurs"
@@ -2319,6 +2319,7 @@ fra:
     net_vat_amount: "TVA nette due" #?
     net_volume: "Volume net" #?
     neutral_area_category: "Catégorie de SNA"
+    neutral_area_nature: "Type de SNA"
     new: "Nouveau"
     new_activity: "Nouvelle activité"
     new_animal: "Nouvel animal"
@@ -3560,7 +3561,7 @@ fra:
       equipment_is_worn_out: "L’équipement %{name} est usé. Temps de travail restant: %{remaining_time}."
       error_client_account_empty: "Opération impossible, le compte client est vide"
       error_during_file_generation: "Une erreur est survenue durant la génération d'un fichier"
-      error_during_pfi_report_generation: "Erreur de génération rapport IFT : %{error_message}"
+      error_during_pfi_report_generation: "Rapport IFT : %{error_message}"
       error_during_vat_declaration_generation: "Une erreur est survenue durant la génération de la déclaration de TVA."
       error_on_field: "%{field} est invalide\_: %{message}"
       expired_session: "Session expirée. Veuillez vous reconnecter." #?
@@ -3598,6 +3599,7 @@ fra:
       # locking_version_error: "Sorry, please retry in a moment, someone else is updating this record"
       mails_are_sent: "Les courriels ont été envoyés"
       merge_is_done: "La fusion est terminée"
+      missing_production_nature_on_activity: "Rapport IFT : le champ production_nature est manquant sur l(es) activité(s) : %{activities_name}"
       n: "Non" #?
       need_a_valid_payment_mode: "Besoin d’un mode de paiement valide"
       need_a_valid_purchase_nature_to_start_new_purchase: "Nécessite un type d’achat valide pour commencer un nouvel achat"
@@ -3618,6 +3620,7 @@ fra:
       need_to_edit_or_correct_entries_before_validating: "Il est nécessaire de corriger ou de supprimer ces écritures avant de réaliser une clôture ou une validation globale du brouillard."
       net_services_and_identifiers_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release: "Les services en ligne et les identifiants sont toujours disponibles mais sont deconseillés et seront remplacés dans la prochaine version majeure"
       new_values_are_calculated: "De nouvelles valeurs ont été calculées" #?
+      no_activities_found: "Aucunes activités végétales ou viticoles ouvertes"
       no_archived_prints: "Aucune impression déjà archivée"
       no_availables_product_matching_current_filter: "Votre cible (parcelle/culture) ne correspond pas à la selection attendue dans la procédure selectionnée"
       no_availables_product_on_current_campaign: "Votre cible (parcelle/culture) n'est pas disponnible pour la période mentionnée par défault dans l'intervention."
@@ -3763,7 +3766,7 @@ fra:
       bookkeep: "Comptabiliser"
       cancel: "Annuler"
       cancel_with_voucher: "Annuler avec avoir"
-      category: "Categorie" #?
+      category: "Catégorie comptable" #?
       check: "Vérifier"
       children: "Enfant" #?
       close: "Fermer"
