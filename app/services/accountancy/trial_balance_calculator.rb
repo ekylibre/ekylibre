@@ -59,44 +59,44 @@ module Accountancy
       # Total - position in array -1
       items = []
       query = "SELECT '', -1, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), '#{'Z' * 16}' AS skey".dup
-      query << from_where
-      query << journal_entries_states
-      query << journals_natures
-      query << account_range unless account_range.nil?
+      query += from_where
+      query += journal_entries_states
+      query += journals_natures
+      query += account_range unless account_range.nil?
       items += connection.select_rows(query)
 
       # Sub-totals  - position in array -2
       levels.each do |level|
         query = "SELECT SUBSTR(#{accounts}.number, 1, #{level}) AS subtotal, -2, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), SUBSTR(#{accounts}.number, 1, #{level})||'#{'Z' * (16 - level)}' AS skey"
-        query << from_where
-        query << journal_entries_states
-        query << journals_natures
-        query << account_range unless account_range.nil?
-        query << " AND LENGTH(#{accounts}.number) >= #{level}"
-        query << ' GROUP BY subtotal'
+        query += from_where
+        query += journal_entries_states
+        query += journals_natures
+        query += account_range unless account_range.nil?
+        query += " AND LENGTH(#{accounts}.number) >= #{level}"
+        query += ' GROUP BY subtotal'
         items += connection.select_rows(query)
       end
 
       # NOT centralized accounts (default)
       query = "SELECT #{accounts}.number, #{accounts}.id AS account_id, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{accounts}.number AS skey".dup
-      query << from_where
-      query << journal_entries_states
-      query << journals_natures
-      query << account_range unless account_range.nil?
-      query << " AND NOT #{centralized}" unless centralize.empty?
-      query << " GROUP BY #{accounts}.id, #{accounts}.number"
-      query << " ORDER BY #{accounts}.number"
+      query += from_where
+      query += journal_entries_states
+      query += journals_natures
+      query += account_range unless account_range.nil?
+      query += " AND NOT #{centralized}" unless centralize.empty?
+      query += " GROUP BY #{accounts}.id, #{accounts}.number"
+      query += " ORDER BY #{accounts}.number"
       items += connection.select_rows(query)
 
       # Centralized accounts  - position in array -3
       centralize.each do |prefix|
         query = "SELECT SUBSTR(#{accounts}.number, 1, #{prefix.size}) AS centralize, -3, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{connection.quote(prefix)} AS skey".dup
-        query << from_where
-        query << journal_entries_states
-        query << journals_natures
-        query << account_range unless account_range.nil?
-        query << " AND #{accounts}.number LIKE #{connection.quote(prefix + '%')}"
-        query << ' GROUP BY centralize'
+        query += from_where
+        query += journal_entries_states
+        query += journals_natures
+        query += account_range unless account_range.nil?
+        query += " AND #{accounts}.number LIKE #{connection.quote(prefix + '%')}"
+        query += ' GROUP BY centralize'
         items += connection.select_rows(query)
       end
 
@@ -108,13 +108,13 @@ module Accountancy
         from_where_vat += " JOIN #{Account.table_name} AS #{tax_accounts} ON (#{vat_journal_entry_items}.account_id=#{tax_accounts}.id)"
         from_where_vat += ' WHERE (' + journal_entry_condition_builder.period_condition(options[:period], started_on: options[:started_on], stopped_on: options[:stopped_on], table_name: journal_entries) + ')'
         query = "SELECT COALESCE(#{tax_accounts}.id, 0) AS account_id, -4, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{accounts}.number AS skey".dup
-        query << from_where_vat
-        query << journal_entries_states
-        query << journals_natures
-        query << account_range unless account_range.nil?
-        query << " AND NOT #{centralized}" unless centralize.empty?
-        query << " GROUP BY #{accounts}.id, #{accounts}.number, #{tax_accounts}.id, #{tax_accounts}.number"
-        query << " ORDER BY #{accounts}.number, #{tax_accounts}.number"
+        query += from_where_vat
+        query += journal_entries_states
+        query += journals_natures
+        query += account_range unless account_range.nil?
+        query += " AND NOT #{centralized}" unless centralize.empty?
+        query += " GROUP BY #{accounts}.id, #{accounts}.number, #{tax_accounts}.id, #{tax_accounts}.number"
+        query += " ORDER BY #{accounts}.number, #{tax_accounts}.number"
         items += connection.select_rows(query)
       end
 
