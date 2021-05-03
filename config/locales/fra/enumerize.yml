@@ -99,6 +99,10 @@ fra:
         sale: "Vente"
         stock: "Stock"
         travel_cost: "Déplacement"
+    crop_group:
+      target:
+        land_parcel: Parcelle
+        plant: Culture
     crumb:
       nature:
         hard_start: "Dur début"

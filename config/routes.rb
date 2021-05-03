@@ -411,6 +411,23 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :crops, concerns: %i[unroll]
+
+    resources :crop_groups, concerns: %i[list unroll] do
+      member do
+        post :duplicate
+      end
+      member do
+        get :list_plants
+        get :list_productions
+        get :list_interventions
+
+      end
+      collection do
+        get :unroll_list
+      end
+    end
+
     resources :cultivable_zones, concerns: %i[list unroll], path: 'cultivable-zones' do
       member do
         get :list_productions

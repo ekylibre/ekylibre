@@ -199,6 +199,11 @@ eng:
     backend/crumbs:
       # convert: "Convert crumb: %{name}"
       index: "Crumbs"
+    backend/crop_groups:
+      edit: "Edit crop group: %{name}"
+      index: "Crop groups"
+      new: "New crop group"
+      show: "Crop group: %{name}"
     backend/cultivable_zones:
       edit: "Edit cultivable zone: %{name}"
       index: "Cultivable zones"
@@ -1243,6 +1248,7 @@ eng:
       harvest_in_progress: "Be careful, this crop is being harvested"
       included_in: "The value of %{attribute} must be included between %{minimum} and %{maximum}"
       inclusion: "%{attribute} is not included in the list"
+      intervention_crops_rejected: "Following Land parcels/plants could not be defined as target, because they don't match intervention target filter\_: %{crops}" 
       invalid: "%{attribute} is invalid"
       invalid_at: "%{attribute} is_invalid. Error near %{error}"
       invalid_child: "At least one value of %{attribute} is invalid."
@@ -1382,9 +1388,16 @@ eng:
       server_error: "Server error"
   labels:
     configure_naming_format: "Configure Naming Format"
+    configure_label_format: "Configure label format"
     free_field_naming_format_hint: "You can customize name by adding a free field to naming format"
     free_field: "Free field"
     land_parcel_support_name: "Land parcel name"
+    use: "use"
+    land_parcel_plant: "Land parcel/plant"
+    land_parcels_plants: "Land parcels/plants"
+    add_crop: "Add crop"
+    add_use: "Add use"
+    total_area: "Total area"
     accepted: "Accepted"
     accepted_for_paiment: "Accepted for paiment"
     access: "Access"
@@ -3052,6 +3065,7 @@ eng:
     # usages: "Usages"
     user_status: "Status"
     users: "Users"
+    using_crop_groups: "Intervention using crop groups"
     valid: "Valid"
     validate: "Validate"
     validate_crumbs_for_x_interventions:
