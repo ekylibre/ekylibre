@@ -983,6 +983,16 @@
         <page to="backend/plants#update_many"/>
         <page to="backend/visualizations/plants_visualizations#show"/>
       </item>
+       <item name="crop_groups">
+        <page to="backend/crop_groups#index"/>
+        <page to="backend/crop_groups#show"/>
+        <page to="backend/crop_groups#create"/>
+        <page to="backend/crop_groups#destroy"/>
+        <page to="backend/crop_groups#edit"/>
+        <page to="backend/crop_groups#first_run_or_backend"/>
+        <page to="backend/crop_groups#new"/>
+        <page to="backend/crop_groups#update"/>
+      </item>
     </group>
     <group name="animal_management" icon="cow">
       <item name="animals">

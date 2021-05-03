@@ -23,26 +23,18 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: labels
+# == Table: intervention_crop_groups
 #
-#  color        :string           not null
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  name         :string           not null
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  created_at      :datetime         not null
+#  creator_id      :integer
+#  crop_group_id   :integer
+#  id              :integer          not null, primary key
+#  intervention_id :integer
+#  lock_version    :integer          default(0), not null
+#  updated_at      :datetime         not null
+#  updater_id      :integer
 #
-
-class Label < ApplicationRecord
-  has_many :intervention_labellings, dependent: :destroy
-  has_many :interventions, through: :intervention_labellings
-  has_many :crop_group_labellings, dependent: :destroy
-  has_many :product_labellings, dependent: :destroy
-  has_many :products, through: :product_labellings
-  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :color, presence: true, length: { maximum: 500 }
-  validates :name, presence: true, uniqueness: true, length: { maximum: 500 }
-  # ]VALIDATORS]
+class InterventionCropGroup < ApplicationRecord
+  belongs_to :crop_group
+  belongs_to :intervention
 end

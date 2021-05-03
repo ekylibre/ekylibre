@@ -18,6 +18,16 @@
 
 module Backend
   module BaseHelper
+
+    # @param [Array<String>] items
+    def as_unordered_list(items)
+      content_tag(:ul) do
+        items.map do |item|
+          content_tag(:li, item)
+        end.join.html_safe
+      end
+    end
+
     def resource
       instance_variable_get('@' + controller_name.singularize)
     end

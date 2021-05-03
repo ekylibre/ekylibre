@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # = Informations
 #
 # == License
@@ -23,26 +21,27 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: labels
+# == Table: crop_groups
 #
-#  color        :string           not null
 #  created_at   :datetime         not null
 #  creator_id   :integer
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  name         :string           not null
+#  target       :string           default("plant")
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
+require 'test_helper'
 
-class Label < ApplicationRecord
-  has_many :intervention_labellings, dependent: :destroy
-  has_many :interventions, through: :intervention_labellings
-  has_many :crop_group_labellings, dependent: :destroy
-  has_many :product_labellings, dependent: :destroy
-  has_many :products, through: :product_labellings
-  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :color, presence: true, length: { maximum: 500 }
-  validates :name, presence: true, uniqueness: true, length: { maximum: 500 }
-  # ]VALIDATORS]
+class CropGroupTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
+  setup do
+    @resource = create(:crop_group)
+  end
+
+  test 'is creatable' do
+    @resource = create(:crop_group)
+    last_resource = CropGroup.last
+    assert_equal @resource, last_resource
+  end
 end

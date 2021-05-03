@@ -99,6 +99,10 @@ eng:
         sale: "Sale"
         stock: "Stock"
         travel_cost: "Travel"
+    crop_group:
+      target:
+        land_parcel: Land parcel
+        plant: Plant
     crumb:
       nature:
         hard_start: "Hard start"

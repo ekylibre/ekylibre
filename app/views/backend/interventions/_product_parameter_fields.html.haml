@@ -22,9 +22,9 @@
         = label_tag :target.tl, nil, class: 'control-label'
 
         .controls
-          = radio_button_tag 'target', 'plant', f.object.decorate.plant?, class: 'plant-radio-button'
+          = radio_button_tag "target#{f.index}", 'plant', f.object.decorate.plant?, class: 'plant-radio-button'
           = label_tag :plant.tl
-          = radio_button_tag 'target', 'land_parcel', f.object.decorate.land_parcel?, class: 'land-parcel-radio-button'
+          = radio_button_tag "target#{f.index}", 'land_parcel', f.object.decorate.land_parcel?, class: 'land-parcel-radio-button'
           = label_tag :land_parcel_name.tl
 
     - product_data = {}

@@ -152,6 +152,11 @@ fra:
       show: "Contrat %{number}"
     backend/crumbs:
       index: "Miettes"
+    backend/crop_groups:
+      edit: "Modifier le groupement parcellaire\_: %{name}"
+      index: "Groupements de parcellaire"
+      new: "Nouveau groupement de parcellaire"
+      show: "Groupement de parcellaire\_: %{name}"
     backend/cultivable_zones:
       edit: "Modifier la zone cultivable\_: %{name}"
       index: "Zones cultivables"
@@ -1058,9 +1063,16 @@ fra:
     journal_entries_csv_export: "Exporter un CSV"
     accountant_notified: "Le comptable a bien été notifié"
     configure_naming_format: "Paramétrer le format de nommage"
+    configure_label_format: "Paramétrer le format de l’étiquette"
     free_field_naming_format_hint: "Vous pouvez ajouter un champ libre personnalisé en paramétrant votre format de nommage"
     land_parcel_support_name: "Nom de la parcelle"
     free_field: "Champ libre"
+    use: "Usage"
+    land_parcel_plant: "Parcelle / Culture"
+    land_parcels_plants: "Parcelles / Cultures"
+    add_crop: "Ajouter une Parcelle / Culture"
+    add_use: "Ajouter un usage"
+    total_area: "Superficie totale"
     abilities: "Compétences" #?
     accepted: "Acceptée"
     accepted_for_paiment: "Acceptée pour paiement"
@@ -3223,6 +3235,7 @@ fra:
     user_status: "État"
     users: "Utilisateurs"
     uses: "Matériel" #?
+    using_crop_groups: "Intervention faite sur un groupement parcellaire"
     valid: "Valider"
     validate: "Valider"
     validate_crumbs_for_x_interventions:
@@ -3522,6 +3535,7 @@ fra:
       before_add_a_plant_add_a_x_html: "Avant d’ajouter une culture, vous devez d’abord ajouter\_: %{x}"
       before_add_a_land_parcel_add_a_x_html: "Avant d’ajouter une parcelle, vous devez d’abord ajouter\_: %{x}"
       before_journal_import_assumed_format_x: "Avant l'import, vérifiez que votre fichier respecte bien ces règles\_: %{x}"
+      intervention_crops_rejected: "Les parcelles/Cultures suivantes n'ont pas pu être définies comme cible, car elle ne correspondent pas aux critères de l'intervention\_: %{crops}"
       bookkeeping_is_finished: "La bascule en comptabilité est finie."
       bookkeeping_works_only_with: "La bascule en comptabilité ne peut se faire actuellement que pour\_: %{list}."
       cannot_add_bank_statement_item: "Vous ne pouvez pas ajouter de nouvelle ligne parce que vous n’avez pas de relevé bancaire ce jour-là."

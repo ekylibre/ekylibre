@@ -1,0 +1,30 @@
+- main_toolbar do |t|
+  = t.edit
+  = t.destroy
+  = t.duplicate resource, method: :post, params: {redirect: nil}
+  = t.new(nature: :request, label: :add_intervention_request.tl, params: { controller: :interventions, crop_group_ids: [resource.id] })
+  = t.new(nature: :record, label: :add_intervention_record.tl, params: { controller: :interventions, crop_group_ids: [resource.id] })
+
+= main_informations do
+  = infos do
+    .med-info.important
+      %span.title= :total_area.tl
+      %span.value
+        = resource.total_area.in(:hectare)
+    .med-info.important
+      %span.title= :use.tl
+      = labels_info(resource.labels)
+
+= cobbles do |c|
+  - c.cobble(:map) do
+    = model_map(resource.crops, id: :land_parcels_plants.tl, layer_options: {fill_color: '#3171A9', fill_opacity:0.8 })
+  
+  - if resource.target == 'plant'
+    - c.cobble(:crops) do
+      = cobble_list(:plants)
+  - else
+    - c.cobble(:land_parcels) do
+      = cobble_list(:productions)
+  - c.cobble(:interventions) do
+    = cobble_list(:interventions)
+  
