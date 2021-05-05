@@ -3,5 +3,5 @@
 .integrations-container
   - unless ActionIntegration.config.cipher_key.blank?
     - @integration_types.each do |type|
-      = render 'integration', type: type, integration: Integration.find_by_nature(type.integration_name.underscore)
+      = render 'integration', type: type, exists: Integration.find_by_nature(type.integration_name.underscore)
 = render 'net_services_deprecation'
