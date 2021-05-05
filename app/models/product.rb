@@ -75,10 +75,12 @@
 #  picture_file_name            :string
 #  picture_file_size            :integer
 #  picture_updated_at           :datetime
+#  provider                     :jsonb            default("{}")
 #  reading_cache                :jsonb            default("{}")
 #  team_id                      :integer
 #  tracking_id                  :integer
 #  type                         :string
+#  type_of_occupancy            :string
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer
 #  uuid                         :uuid
@@ -165,6 +167,8 @@ class Product < ApplicationRecord
   has_picture
   has_geometry :initial_shape, type: :multi_polygon
   has_geometry :initial_geolocation, type: :point
+
+  enumerize :type_of_occupancy, in: %i[owner rent sharecropper], predicates: true
 
   # find Product by work_numbers (work_numbers must be an Array)
   scope :of_work_numbers, lambda { |work_numbers|
@@ -295,6 +299,7 @@ class Product < ApplicationRecord
   scope :support, -> { joins(:nature).merge(ProductNature.support) }
   scope :storage, -> { of_expression('is building_division or can store(product) or can store_liquid or can store_fluid or can store_gaz') }
   scope :plants, -> { where(type: 'Plant') }
+  scope :land_parcels, -> { where(type: 'LandParcel') }
 
   scope :mine, -> { of_owner(:own) }
   scope :mine_or_undefined, ->(at = nil) {

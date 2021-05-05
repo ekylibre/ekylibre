@@ -25,6 +25,7 @@
     "cadastre": {
       "name": "cadastre",
       "structure": "cadastre__structure.sql",
+      "data": "cadastres.sql",
       "tables": [
         "registered_building_zones",
         "cadastral_land_parcel_zones"
@@ -67,6 +68,7 @@
     "postal_codes": {
       "name": "postal_codes",
       "structure": "postal_codes__structure.sql",
+      "data": "postal_codes.sql",
       "tables": [
         "registered_postal_zones"
       ]
@@ -153,6 +155,7 @@
     "vine_variety": {
       "name": "vine_variety",
       "structure": "vine_variety__structure.sql",
+      "data": "vine_varieties.sql",
       "tables": [
         "master_vine_varieties"
       ]
@@ -160,6 +163,7 @@
     "protected_designation_of_origin": {
       "name": "protected_designation_of_origin",
       "structure": "protected_designation_of_origin__structure.sql",
+      "data": "protected_designation_of_origins.sql",
       "tables": [
         "registered_protected_designation_of_origins"
       ]

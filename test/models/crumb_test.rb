@@ -34,7 +34,9 @@
 #  lock_version                  :integer          default(0), not null
 #  metadata                      :text
 #  nature                        :string           not null
+#  provider                      :jsonb
 #  read_at                       :datetime         not null
+#  ride_id                       :integer
 #  updated_at                    :datetime         not null
 #  updater_id                    :integer
 #  user_id                       :integer

@@ -374,7 +374,52 @@ module ActiveSupport
       def week_mixed_with_date?(parts)
         parts.key?(:weeks) && (parts.keys & DATE_COMPONENTS).any?
       end
-    end unless constants.include?(:ISO8601Serializer)
+    end
+  end
+end
+
+module Charta
+  class Polygon
+    def without_hole_outside_shell
+      sql = <<-SQL
+        SELECT ST_AsText(
+                 ST_MakePolygon(
+                   ST_ExteriorRing(:feature)
+                 )
+               ) AS simplfied_shape
+      SQL
+      query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, feature: feature.as_text])
+      simplfied_shape_text = ActiveRecord::Base.connection.execute(query).first['simplfied_shape']
+      Charta.new_geometry(simplfied_shape_text)
+    end
+
+    def hole_outside_shell?
+      sql = <<-SQL
+        SELECT St_IsValidreason(:feature) AS reason
+      SQL
+      query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, feature: feature.as_text])
+      result = ActiveRecord::Base.connection.execute(query).first['reason']
+      result.start_with?("Hole lies outside shell")  
+    end
+
+  end
+
+  class Geometry
+    # Generates a simpler geometry.
+    # see ST_SimplifyPreserveTopology on http://revenant.ca/www/postgis/workshop/advanced.html#processing-functions
+
+    # @param [Float] tolerance
+    # @return [Charta::Geometry]
+    def simplify(tolerance)
+      sql = <<-SQL
+        SELECT ST_AsText(
+                 ST_SimplifyPreserveTopology(ST_GeomFromText(:feature), :tolerance )
+               ) AS simplfied_shape
+      SQL
+      query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, feature: feature.as_text, tolerance: tolerance ])
+      simplfied_shape_text = ActiveRecord::Base.connection.execute(query).first['simplfied_shape']
+      Charta.new_geometry(simplfied_shape_text)
+    end
   end
 end
 
