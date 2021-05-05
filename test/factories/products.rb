@@ -60,6 +60,13 @@ FactoryBot.define do
     end
   end
 
+  factory :storage, class: Product do
+    association :category, factory: :tank_category
+    association :nature, factory: :tank_nature
+    association :variant, factory: :tank_variant
+    variety { 'tank' }
+  end
+
   factory :asset_fixable_product, class: Product do
     association :category, factory: :equipment_category
     association :nature, factory: :equipment_nature

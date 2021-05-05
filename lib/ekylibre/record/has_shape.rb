@@ -135,6 +135,21 @@ module Ekylibre
               common = 1 - margin
               where('ST_Equals(' + col + ', ST_GeomFromEWKT(ST_MakeValid(?))) OR (ST_Overlaps(' + col + ', ST_GeomFromEWKT(ST_MakeValid(?))) AND ST_Area(ST_Intersection(' + col + ', ST_GeomFromEWKT(ST_MakeValid(?)))) / ST_Area(' + col + ') >= ? AND ST_Area(ST_Intersection(' + col + ', ST_GeomFromEWKT(ST_MakeValid(?)))) / ST_Area(ST_GeomFromEWKT(ST_MakeValid(?))) >= ?)', ewkt, ewkt, ewkt, common, ewkt, ewkt, common)
             }
+
+            scope col + '_near', lambda { |shape, max_distance_in_meter = 5000|
+              c = ::Charta.new_geometry(shape).buffer(max_distance_in_meter)
+              ewkt = ::Charta.new_geometry(c).to_ewkt
+              where('ST_Intersects(' + col + ', ST_GeomFromEWKT(ST_MakeValid(?)))', ewkt)
+            }
+
+            scope col + '_nearest_of_and_within', lambda { |shape, max_distance_in_meter = 5000|
+              c = ::Charta.new_geometry(shape).buffer(max_distance_in_meter)
+              ewkt = ::Charta.new_geometry(c).to_ewkt
+              where( col + ' IN (?)', select(col)
+                                      .where('ST_Intersects(' + col + ', ST_GeomFromEWKT(ST_MakeValid(?)))', ewkt)
+                                      .order('ST_Distance(' + col + ', ST_Centroid(\'' + ewkt + '\')) ASC')
+                                      .limit(1))
+            }
           end
         end
 

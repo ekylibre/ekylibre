@@ -59,6 +59,7 @@ class Analysis < ApplicationRecord
   belongs_to :sensor
   belongs_to :host, class_name: 'Product', foreign_key: :host_id
   has_many :items, class_name: 'AnalysisItem', foreign_key: :analysis_id, inverse_of: :analysis, dependent: :destroy
+  has_one :wine_incoming_harvest
 
   has_geometry :geolocation, type: :point
 
@@ -79,12 +80,20 @@ class Analysis < ApplicationRecord
     where(sampled_at: started_at..stopped_at)
   }
 
+  scope :with_indicator, lambda { |indicator|
+    where(id: AnalysisItem.where(indicator_name: indicator).select(:analysis_id))
+  }
+
   before_validation do
     self.sampled_at ||= Time.zone.now
   end
 
   after_save do
     reload.items.each(&:save!)
+  end
+
+  protect(on: :destroy) do
+    wine_incoming_harvest.present?
   end
 
   # Measure a product for a given indicator
@@ -129,5 +138,9 @@ class Analysis < ApplicationRecord
       return get(method_name, *args)
     end
     super
+  end
+
+  def has_attachments
+    self.attachments.present?
   end
 end

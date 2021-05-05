@@ -32,6 +32,11 @@ FactoryBot.define do
     association :product_account, factory: :account
   end
 
+  factory :tank_category, class: ProductNatureCategory do
+    sequence(:name) { |n| "Equipments category - TEST#{n.to_s.rjust(8, '0')}" }
+    type { 'VariantCategories::EquipmentCategory' }
+  end
+
   factory :building_division_category, class: ProductNatureCategory do
     sequence(:name) { |n| "Building divison category - #{n}" }
     type { 'VariantCategories::ZoneCategory' }

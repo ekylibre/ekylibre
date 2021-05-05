@@ -69,7 +69,11 @@ module Ekylibre
           #         "variant_natures",
           #         "variant_categories",
           #         "variants",
-          #         "registered_hydro_items"
+          #         "registered_hydro_items",
+          #         'master_vine_varieties',
+          #         'registered_protected_designation_of_origins',
+          #         'cadastral_land_parcel_zones',
+          #         'registered_postal_zones',
           #       ]
           #     }
           #   )

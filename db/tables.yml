@@ -268,7 +268,7 @@ activity_budget_items:
     references: user
   variant_id:
     type: integer
-    references: variant
+    references: product_nature_variant
   variant_indicator:
     type: string
   variant_unit:
@@ -465,6 +465,11 @@ activity_productions:
     type: boolean
     required: true
     default: false
+  planting_campaign_id:
+    type: integer
+    references: campaign
+  providers:
+    type: jsonb
   rank_number:
     type: integer
     required: true
@@ -845,11 +850,28 @@ analysis_items:
   updater_id:
     type: integer
     references: user
+ar_internal_metadata:
+  created_at:
+    type: datetime
+    required: true
+  key:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  value:
+    type: string
 attachments:
   created_at:
     type: datetime
     required: true
   creator_id:
+    type: integer
+    references: user
+  deleted_at:
+    type: datetime
+  deleter_id:
     type: integer
     references: user
   document_id:
@@ -923,6 +945,8 @@ bank_statement_items:
   name:
     type: string
     required: true
+  transaction_nature:
+    type: string
   transaction_number:
     type: string
   transfered_on:
@@ -1460,6 +1484,8 @@ cashes:
   owner_id:
     type: integer
     references: entity
+  provider:
+    type: jsonb
   spaced_iban:
     type: string
   suspend_until_reconciliation:
@@ -1522,7 +1548,7 @@ catalog_items:
     references: user
   variant_id:
     type: integer
-    references: variant
+    references: product_nature_variant
     required: true
 catalogs:
   all_taxes_included:
@@ -1607,7 +1633,7 @@ contract_items:
     references: user
   variant_id:
     type: integer
-    references: variant
+    references: product_nature_variant
     required: true
 contracts:
   created_at:
@@ -1834,6 +1860,270 @@ custom_fields:
     type: boolean
     required: true
     default: false
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+cvi_cadastral_plant_cvi_land_parcels:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  cvi_cadastral_plant_id:
+    type: integer
+    references: cvi_cadastral_plant
+  cvi_land_parcel_id:
+    type: integer
+    references: cvi_land_parcel
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  percentage:
+    type: decimal
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+cvi_cadastral_plants:
+  area_unit:
+    type: string
+  area_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  cadastral_ref_updated:
+    type: boolean
+    default: false
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  cvi_cultivable_zone_id:
+    type: integer
+    references: cvi_cultivable_zone
+  cvi_statement_id:
+    type: integer
+    references: cvi_statement
+  designation_of_origin_id:
+    type: integer
+    references: registered_protected_designation_of_origin
+  id:
+    type: integer
+    required: true
+  inter_row_distance_unit:
+    type: string
+  inter_row_distance_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  inter_vine_plant_distance_unit:
+    type: string
+  inter_vine_plant_distance_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  land_modification_date:
+    type: date
+  land_parcel_id:
+    type: string
+  land_parcel_number:
+    type: string
+  lock_version:
+    type: integer
+    required: true
+  planting_campaign:
+    type: string
+  rootstock_id:
+    type: string
+  section:
+    type: string
+    required: true
+  state:
+    type: string
+    required: true
+  type_of_occupancy:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  vine_variety_id:
+    type: string
+  work_number:
+    type: string
+    required: true
+cvi_cultivable_zones:
+  calculated_area_unit:
+    type: string
+  calculated_area_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  cvi_statement_id:
+    type: integer
+    references: cvi_statement
+  declared_area_unit:
+    type: string
+  declared_area_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  id:
+    type: integer
+    required: true
+  land_parcels_status:
+    type: string
+    default: not_started
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  shape:
+    type: geometry
+    limit:
+      srid: 4326
+      type: geometry
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+cvi_land_parcels:
+  activity_id:
+    type: integer
+    references: activity
+  calculated_area_unit:
+    type: string
+  calculated_area_value:
+    type: decimal
+    precision: 19
+    scale: 5
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  cvi_cultivable_zone_id:
+    type: integer
+    references: cvi_cultivable_zone
+  declared_area_unit:
+    type: string
+  declared_area_value:
+    type: decimal
+    precision: 19
+    scale: 5
+  designation_of_origin_id:
+    type: integer
+    references: registered_protected_designation_of_origin
+  id:
+    type: integer
+    required: true
+  inter_row_distance_unit:
+    type: string
+  inter_row_distance_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  inter_vine_plant_distance_unit:
+    type: string
+  inter_vine_plant_distance_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  land_modification_date:
+    type: date
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  planting_campaign:
+    type: string
+  rootstock_id:
+    type: string
+  shape:
+    type: geometry
+    limit:
+      srid: 4326
+      type: geometry
+  state:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  vine_variety_id:
+    type: string
+cvi_statements:
+  cadastral_plant_count:
+    type: integer
+  cadastral_sub_plant_count:
+    type: integer
+  campaign_id:
+    type: integer
+    references: campaign
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  cvi_number:
+    type: string
+    required: true
+  declarant:
+    type: string
+    required: true
+  extraction_date:
+    type: date
+    required: true
+  farm_name:
+    type: string
+    required: true
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  siret_number:
+    type: string
+    required: true
+  state:
+    type: string
+    required: true
+  total_area_unit:
+    type: string
+  total_area_value:
+    type: decimal
+    precision: 19
+    scale: 4
   updated_at:
     type: datetime
     required: true
@@ -2811,6 +3101,8 @@ fixed_assets:
   product_id:
     type: integer
     references: product
+  provider:
+    type: jsonb
   purchase_amount:
     type: decimal
     precision: 19
@@ -3234,6 +3526,8 @@ incoming_payment_modes:
     required: true
   position:
     type: integer
+  provider:
+    type: jsonb
   updated_at:
     type: datetime
     required: true
@@ -3710,6 +4004,7 @@ intervention_parameters:
     type: decimal
     precision: 19
     scale: 4
+    required: true
   intervention_id:
     type: integer
     references: intervention
@@ -3776,7 +4071,7 @@ intervention_parameters:
     default: true
   variant_id:
     type: integer
-    references: variant
+    references: product_nature_variant
   variety:
     type: string
   working_zone:
@@ -4172,6 +4467,8 @@ journal_entries:
   printed_on:
     type: date
     required: true
+  provider:
+    type: jsonb
   real_balance:
     type: decimal
     precision: 19
@@ -4383,7 +4680,7 @@ journal_entry_items:
     references: user
   variant_id:
     type: integer
-    references: variant
+    references: product_nature_variant
 journals:
   accountant_id:
     type: integer
@@ -4743,6 +5040,8 @@ loans:
     required: true
   ongoing_at:
     type: datetime
+  provider:
+    type: jsonb
   repaid_at:
     type: datetime
   repayment_duration:
@@ -4772,6 +5071,34 @@ loans:
     references: user
   use_bank_guarantee:
     type: boolean
+locations:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  locality:
+    type: string
+  localizable_id:
+    type: integer
+    references: "~localizable_type"
+  localizable_type:
+    type: string
+  lock_version:
+    type: integer
+    required: true
+  registered_postal_zone_id:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 manure_management_plan_zones:
   absorbed_nitrogen_at_opening:
     type: decimal
@@ -4976,6 +5303,8 @@ master_production_natures:
     type: string
   cap_2019_crop_code:
     type: string
+  cap_2020_crop_code:
+    type: string
   human_name:
     type: jsonb
   human_name_fra:
@@ -4988,6 +5317,8 @@ master_production_natures:
     type: decimal
     precision: 5
     scale: 2
+  main_input:
+    type: string
   pfi_crop_code:
     type: string
   season:
@@ -5507,7 +5838,7 @@ parcel_items:
     references: user
   variant_id:
     type: integer
-    references: variant
+    references: product_nature_variant
 parcels:
   accounted_at:
     type: datetime
@@ -6507,13 +6838,13 @@ product_nature_variant_readings:
     references: user
   variant_id:
     type: integer
-    references: variant
+    references: product_nature_variant
     required: true
 product_nature_variants:
   active:
     type: boolean
     required: true
-    default: false
+    default: true
   category_id:
     type: integer
     references: product_nature_category
@@ -6542,6 +6873,7 @@ product_nature_variants:
     required: true
   name:
     type: string
+    required: true
   nature_id:
     type: integer
     references: product_nature
@@ -6762,7 +7094,7 @@ product_phases:
     references: user
   variant_id:
     type: integer
-    references: variant
+    references: product_nature_variant
     required: true
 product_readings:
   absolute_measure_value_unit:
@@ -6979,6 +7311,8 @@ products:
     type: integer
   picture_updated_at:
     type: datetime
+  provider:
+    type: jsonb
   reading_cache:
     type: jsonb
   team_id:
@@ -6988,6 +7322,8 @@ products:
     type: integer
     references: tracking
   type:
+    type: string
+  type_of_occupancy:
     type: string
   updated_at:
     type: datetime
@@ -6999,7 +7335,7 @@ products:
     type: uuid
   variant_id:
     type: integer
-    references: variant
+    references: product_nature_variant
     required: true
   variety:
     type: string
@@ -7135,7 +7471,7 @@ purchase_items:
     references: user
   variant_id:
     type: integer
-    references: variant
+    references: product_nature_variant
 purchase_natures:
   active:
     type: boolean
@@ -7431,11 +7767,25 @@ registered_pfi_doses:
   target_id:
     type: integer
     references: registered_pfi_target
+registered_pfi_segments:
+  description:
+    type: string
+  id:
+    type: string
+    required: true
+  label_fra:
+    type: string
 registered_pfi_targets:
   id:
     type: integer
     required: true
   reference_label_fra:
+    type: string
+registered_pfi_treatment_types:
+  id:
+    type: string
+    required: true
+  label_fra:
     type: string
 registered_phytosanitary_cropsets:
   crop_labels:
@@ -7512,6 +7862,16 @@ registered_phytosanitary_symbols:
     type: string
     required: true
   symbol_name:
+    type: string
+registered_phytosanitary_target_name_to_pfi_targets:
+  default_pfi_treatment_type_id:
+    type: string
+  ephy_name:
+    type: string
+    required: true
+  pfi_id:
+    type: integer
+  pfi_name:
     type: string
 registered_phytosanitary_usages:
   applications_count:
@@ -7622,16 +7982,20 @@ registered_protected_designation_of_origins:
   reference_number:
     type: string
 registered_seeds:
-  complete_name:
-    type: jsonb
-  name:
-    type: jsonb
-  number:
-    type: integer
-    required: true
-  specie:
+  id:
     type: string
     required: true
+  id_specie:
+    type: string
+    required: true
+  registration_date:
+    type: date
+  specie_name:
+    type: jsonb
+  specie_name_fra:
+    type: string
+  variety_name:
+    type: string
 regularizations:
   affair_id:
     type: integer
@@ -7789,7 +8153,7 @@ sale_items:
     references: user
   variant_id:
     type: integer
-    references: variant
+    references: product_nature_variant
     required: true
 sale_natures:
   active:
@@ -8600,6 +8964,18 @@ taxes:
   updater_id:
     type: integer
     references: user
+taxonomy:
+  id:
+    type: string
+    required: true
+  name:
+    type: jsonb
+  parent:
+    type: string
+    required: true
+  taxonomic_rank:
+    type: string
+    required: true
 teams:
   created_at:
     type: datetime
@@ -9155,6 +9531,9 @@ variants:
   variant_nature_id:
     type: integer
     references: variant_nature
+version:
+  version:
+    type: string
 versions:
   created_at:
     type: datetime
@@ -9193,3 +9572,190 @@ wice_grid_serialized_queries:
     type: text
   updated_at:
     type: datetime
+wine_incoming_harvest_inputs:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  input_id:
+    type: integer
+    references: product
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  quantity_unit:
+    type: string
+    required: true
+  quantity_value:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  wine_incoming_harvest_id:
+    type: integer
+    references: wine_incoming_harvest
+    required: true
+wine_incoming_harvest_plants:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  harvest_percentage_received:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  plant_id:
+    type: integer
+    references: plant
+    required: true
+  rows_harvested:
+    type: integer
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  wine_incoming_harvest_id:
+    type: integer
+    references: wine_incoming_harvest
+    required: true
+wine_incoming_harvest_presses:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  press_id:
+    type: integer
+    references: product
+  pressing_schedule:
+    type: string
+  pressing_started_at:
+    type: time
+  quantity_unit:
+    type: string
+    required: true
+  quantity_value:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  wine_incoming_harvest_id:
+    type: integer
+    references: wine_incoming_harvest
+    required: true
+wine_incoming_harvest_storages:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  quantity_unit:
+    type: string
+    required: true
+  quantity_value:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  storage_id:
+    type: integer
+    references: product
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  wine_incoming_harvest_id:
+    type: integer
+    references: wine_incoming_harvest
+    required: true
+wine_incoming_harvests:
+  additional_informations:
+    type: jsonb
+  analysis_id:
+    type: integer
+    references: analysis
+  campaign_id:
+    type: integer
+    references: campaign
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  description:
+    type: text
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  number:
+    type: string
+  quantity_unit:
+    type: string
+    required: true
+  quantity_value:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  received_at:
+    type: datetime
+    required: true
+  ticket_number:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user

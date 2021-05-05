@@ -53,6 +53,7 @@ class Campaign < ApplicationRecord
   has_and_belongs_to_many :activities
   has_and_belongs_to_many :interventions
   has_and_belongs_to_many :activity_productions
+  has_many :cvi_statements
 
   scope :current, -> { where(closed: false).reorder(:harvest_year) }
   scope :at, ->(searched_at = Time.zone.now) {

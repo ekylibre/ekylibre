@@ -34,6 +34,7 @@ eng:
         border: "Border"
         buffer: "Buffer"
         cultivation: "Cultivation"
+        headland_cultivation: "Headland cultivation"
         fallow_land: "Fallow land"
         none: "None"
     activity_tactic:
@@ -117,6 +118,27 @@ eng:
         datetime: "Date and time"
         decimal: "Decimal"
         text: "Text"
+    cvi_cadastral_plant:
+      state:
+        planted: "Planted"
+        removed_with_authorization: "Removed with authorization"
+      type_of_occupancy:
+        owner: "Owner"
+        tenant_farming: "Tenant farming"
+    cvi_cultivable_zone:
+      land_parcels_status:
+        not_started: "Not Started"
+        started: "In progress"
+        completed: "Completed"
+    formatted_cvi_cultivable_zone:
+      land_parcels_status:
+          not_started: "Not Started"
+          started: "In progress"
+          completed: "Completed"
+    cvi_statement:
+      state:
+        converted: "Converted"
+        to_convert: "To convert"
     debt_transfer:
       nature:
         purchase_regularization: "Purchase regularization"
@@ -376,6 +398,11 @@ eng:
         record: "Record"
         spatial_reference_system: "Spatial reference system"
         string: "String"
+    product:
+      type_of_occupancy:
+        owner: "Owner"
+        rent: "Rent"
+        sharecropper: "Sharecropper"
     product_enjoyment:
       nature:
         other: "Other"

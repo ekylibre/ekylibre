@@ -18,6 +18,13 @@ FactoryBot.define do
     association :variant, factory: :tractor_variant
   end
 
+  factory :tank, class: Equipment do
+    sequence(:number) { |n| "T0000#{n}"}
+    name { 'Tank' }
+    type { 'Equipment' }
+    born_at { DateTime.new(2017, 6, 1) }
+  end
+
   factory :sower, class: Equipment do
     sequence(:number) { |n| "S0000#{n}"}
     name { 'Sower' }

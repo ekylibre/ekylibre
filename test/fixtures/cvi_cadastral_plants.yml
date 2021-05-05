@@ -1,0 +1,156 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2021 Ekylibre SAS
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: cvi_cadastral_plants
+#
+#  area_unit                       :string
+#  area_value                      :decimal(19, 4)
+#  cadastral_ref_updated           :boolean          default(FALSE)
+#  created_at                      :datetime         not null
+#  creator_id                      :integer
+#  cvi_cultivable_zone_id          :integer
+#  cvi_statement_id                :integer
+#  designation_of_origin_id        :integer
+#  id                              :integer          not null, primary key
+#  inter_row_distance_unit         :string
+#  inter_row_distance_value        :decimal(19, 4)
+#  inter_vine_plant_distance_unit  :string
+#  inter_vine_plant_distance_value :decimal(19, 4)
+#  land_modification_date          :date
+#  land_parcel_id                  :string
+#  land_parcel_number              :string
+#  lock_version                    :integer          default(0), not null
+#  planting_campaign               :string
+#  rootstock_id                    :string
+#  section                         :string           not null
+#  state                           :string           not null
+#  type_of_occupancy               :string
+#  updated_at                      :datetime         not null
+#  updater_id                      :integer
+#  vine_variety_id                 :string
+#  work_number                     :string           not null
+#
+
+cvi_cadastral_plants_001:
+  area_unit: hectare
+  area_value: 9.99
+  planting_campaign: String
+  created_at: 2014-11-05 09:36:48.608936000
+  cvi_statement_id: 1
+  designation_of_origin_id: 4184
+  id: 1
+  inter_row_distance_unit: meter
+  inter_row_distance_value: 9.9
+  inter_vine_plant_distance_unit: meter
+  inter_vine_plant_distance_value: 9.99
+  land_parcel_id: "401340000A0260"
+  land_parcel_number: String
+  rootstock_id: "017dfaf3f77d487f1da1acee8a7b782f5742458c"
+  section: String
+  state: planted
+  type_of_occupancy: String
+  updated_at: 2014-11-05 09:36:48.608936000
+  vine_variety_id: "017dfaf3f77d487f1da1acee8a7b782f5742458c"
+  work_number: 1
+  land_modification_date: 2019-11-27
+  creator_id: 1
+  lock_version: 0
+  updater_id: 1
+
+cvi_cadastral_plants_002:
+  area_unit: hectare
+  area_value: 9.99
+  planting_campaign: String
+  created_at: 2014-11-05 09:36:48.608936000
+  cvi_statement_id: 1
+  designation_of_origin_id: 4184
+  id: 2
+  inter_row_distance_unit: meter
+  inter_row_distance_value: 9.9
+  inter_vine_plant_distance_unit: meter
+  inter_vine_plant_distance_value: 9.99
+  land_parcel_id: "401340000A0260"
+  land_parcel_number: String
+  rootstock_id: "017dfaf3f77d487f1da1acee8a7b782f5742458c"
+  section: String
+  state: planted
+  type_of_occupancy: String
+  updated_at: 2014-11-05 09:36:48.608936000
+  vine_variety_id: "017dfaf3f77d487f1da1acee8a7b782f5742458c"
+  work_number: 1
+  land_modification_date: 2019-11-27
+  creator_id: 1
+  lock_version: 0
+  updater_id: 1
+
+cvi_cadastral_plants_003:
+  area_unit: hectare
+  area_value: 9.99
+  planting_campaign: String
+  created_at: 2014-11-05 09:36:48.608936000
+  cvi_statement_id: 2
+  designation_of_origin_id: 4184
+  id: 3
+  inter_row_distance_unit: meter
+  inter_row_distance_value: 9.9
+  inter_vine_plant_distance_unit: meter
+  inter_vine_plant_distance_value: 9.99
+  land_parcel_id: "401340000A0260"
+  land_parcel_number: String
+  rootstock_id: "017dfaf3f77d487f1da1acee8a7b782f5742458c"
+  section: String
+  state: planted
+  type_of_occupancy: String
+  updated_at: 2014-11-05 09:36:48.608936000
+  vine_variety_id: "017dfaf3f77d487f1da1acee8a7b782f5742458c"
+  work_number: 1
+  land_modification_date: 2019-11-27
+  creator_id: 1
+  lock_version: 0
+  updater_id: 1
+
+cvi_cadastral_plants_004:
+  area_unit: hectare
+  area_value: 9.99
+  planting_campaign: String
+  created_at: 2014-11-05 09:36:48.608936000
+  cvi_statement_id: 2
+  designation_of_origin_id: 4184
+  id: 4
+  inter_row_distance_unit: meter
+  inter_row_distance_value: 9.9
+  inter_vine_plant_distance_unit: meter
+  inter_vine_plant_distance_value: 9.99
+  land_parcel_id: "401340000A0260"
+  land_parcel_number: String
+  rootstock_id: "017dfaf3f77d487f1da1acee8a7b782f5742458c"
+  section: String
+  state: planted
+  type_of_occupancy: String
+  updated_at: 2014-11-05 09:36:48.608936000
+  vine_variety_id: "017dfaf3f77d487f1da1acee8a7b782f5742458c"
+  work_number: 1
+  land_modification_date: 2019-11-27
+  creator_id: 1
+  lock_version: 0
+  updater_id: 1
