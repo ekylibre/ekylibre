@@ -8026,6 +8026,106 @@ regularizations:
   updater_id:
     type: integer
     references: user
+ride_sets:
+  area_smart:
+    type: float
+  area_with_overlap:
+    type: float
+  area_without_overlap:
+    type: float
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  duration:
+    type: string
+  gasoline:
+    type: float
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  nature:
+    type: string
+  number:
+    type: string
+  provider:
+    type: jsonb
+  road:
+    type: integer
+  sleep_count:
+    type: integer
+  sleep_duration:
+    type: string
+  started_at:
+    type: datetime
+  stopped_at:
+    type: datetime
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+rides:
+  area_smart:
+    type: float
+  area_with_overlap:
+    type: float
+  area_without_overlap:
+    type: float
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  distance_km:
+    type: float
+  duration:
+    type: string
+  equipment_name:
+    type: string
+  gasoline:
+    type: float
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  nature:
+    type: string
+  number:
+    type: string
+  product_id:
+    type: integer
+    references: product
+  provider:
+    type: jsonb
+  ride_set_id:
+    type: integer
+    references: ride_set
+  sleep_count:
+    type: integer
+  sleep_duration:
+    type: string
+  started_at:
+    type: datetime
+  state:
+    type: string
+  stopped_at:
+    type: datetime
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 roles:
   created_at:
     type: datetime

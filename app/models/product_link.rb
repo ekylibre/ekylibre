@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -52,6 +54,8 @@ class ProductLink < ApplicationRecord
   validates :product, presence: true
   # ]VALIDATORS]
   validates :linked, presence: true
+
+  delegate :name, to: :linked, prefix: true
 
   scope :with, ->(nature) { where(nature: nature.to_s) }
 

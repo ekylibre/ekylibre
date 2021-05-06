@@ -128,7 +128,7 @@ module Backend
     private
 
       def self.build_centralizing_query
-        excluded = %i[account_balance cash_session custom_field_choice deposit_item fixed_asset_depreciation inventory_item listing_node_item preference]
+        excluded = %i[account_balance cash_session custom_field_choice deposit_item fixed_asset_depreciation inventory_item listing_node_item preference ride ride_set]
 
         auxiliaries = {
           purchase_item: :purchase,

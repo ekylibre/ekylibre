@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class EquipmentDecorator < ProductDecorator
   delegate_all
 
   def hour_counter_present?
-    !hour_counter.nil?
+    !hour_counter.nil? && !hour_counter.value.to_f.zero?
   end
 
   def human_hour_counter
