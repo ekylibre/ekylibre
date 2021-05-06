@@ -35,12 +35,12 @@ profit_and_loss_statement:
   financial_expenses_subtotal: '66 686 D'
   financial_result: '76 786 796 C, - 66 686'
   before_taxe_result: '70 71 72 74 75 781 791 76 786 796 C, - 60 61 62 63 64 65 681 66 686'
-  exceptional_products_on_management_operations: '771 C'
+  exceptional_products_on_management_operations: '771 772 C'
   exceptional_products_on_assets_cessions: '775 C'
   exceptional_products_on_capital_operations: '777 778 C'
   exceptional_products_on_provisions: '787 797 C'
   exceptional_products_subtotal: '77 787 797 C'
-  exceptional_expenses_on_management_operations: '671 673 D'
+  exceptional_expenses_on_management_operations: '671 672 673 D'
   exceptional_expenses_on_assets_cessions: '675 D'
   exceptional_expenses_on_capital_operations: '678 D'
   exceptional_expenses_on_provisions: '687 D'
@@ -156,8 +156,8 @@ balance_sheet:
   capitals_mandatory_provisions: '142 143 144 146 147 148 C'
   capitals_risk_and_charges_provisions: '151 153 155 156 157 158 C'
   capitals_risk_and_charges_provisions_total: '14 15 C'
-  debts_land_parcel_loans: '1640 1641 C'
-  debts_others_loans: '1642 1643 1644 1645 1646 1647 1648 1649 C'
+  debts_land_parcel_loans: '- 1640 1641'
+  debts_others_loans: '- 1642 1643 1644 1645 1646 1647 1648 1649'
   debts_associate_locked_debts: '4553 4554 C' #
   others_debts_associate_debts: '4551 E, 4552 E, 4558 E' #
   debts_cashe_debts: '519 C, 512 E, 514 E, 517 E, 5186 C'
@@ -233,7 +233,7 @@ short_balance_sheet:
   capitals_profit_or_loss: '- 12'
   capitals_investment_subsidies: '13 C'
   capitals_risk_and_charges_provisions_total: '- 14 15'
-  debts_loans_total: '16 17 C' #
+  debts_loans_total: '- 16 17' #
   others_debts_advance_receivables: '419 C' #
   others_debts_supplier_receivables: '401 4031 402 4032 408 C, 472 E, 463 E'
   others_debts_state_debts: '445 E'

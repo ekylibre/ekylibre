@@ -63,7 +63,7 @@ module Backend
             send_data(csv_string, filename: @listing.name.simpleize + '.csv', type: Mime::CSV)
           end
         end
-      rescue Exception => e
+      rescue StandardError => e
         notify_error(:fails_to_extract_listing, message: e.message)
         redirect_to_back
       end
@@ -91,7 +91,7 @@ module Backend
       return unless @listing = find_and_check
 
       @listing.attributes = permitted_params
-      return if save_and_redirect(@listing, url: { action: :edit, id: 'id'.c })
+      return if save_and_redirect(@listing, url: { action: :index })
 
       t3e @listing.attributes
       # render_restfully_form

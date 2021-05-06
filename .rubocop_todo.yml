@@ -205,7 +205,6 @@ Lint/RequireParentheses:
 # Offense count: 7
 Lint/RescueException:
   Exclude:
-    - 'app/controllers/backend/listings_controller.rb'
     - 'app/helpers/backend/base_helper.rb'
     - 'lib/ekylibre/first_run/base.rb'
     - 'lib/tasks/clean/code.rake'

@@ -498,9 +498,9 @@ fra:
       ship: "Expédier les colis" #?
       show: "Colis à expédier\_: %{number}" #?
     backend/outgoing_payment_lists:
-      index: "Lot de décaissements"
-      new: "Nouveau lot de décaissement"
-      show: "Lot de décaissements"
+      index: "Lots de décaissements"
+      new: "Nouveau lot de décaissements"
+      show: "Lots de décaissements"
     backend/outgoing_payment_modes:
       edit: "Modifier un mode de décaissement"
       index: "Modes de décaissement"
@@ -2127,6 +2127,10 @@ fra:
       mixed: "Écritures et lignes"
     journals: "Journaux"
     journals_closure: "Clôture des journaux"
+    journals_import:
+      warnings:
+        - "Les crédits et débits doivent être supérieurs à zéro et ne doivent pas comporter de symboles autres que des points '.'"
+        - "Les nombres décimaux des crédits et débits ne doivent pas contenir de virgules mais des points. Eg. 4.52 au lieu de 4,52"
     journals_natures: "Types de journaux"
     kml_export: "Export Parcelles (KML)" #?
     label: "Libellé"
@@ -2954,6 +2958,7 @@ fra:
     stock_max: "Stock maximum" #?
     stock_min: "Stock minimum" #?
     stock_of_x: "Stock de %{x}"
+    stock_status: "État du stock"
     stocks: "Stocks"
     stocks_by_calibrations: "Stock en terre par calibre" #?
     stocks_end_products: "Produits finis"
@@ -3516,6 +3521,7 @@ fra:
       bad_file: "Le fichier ne semble pas correspondre." #?
       before_add_a_plant_add_a_x_html: "Avant d’ajouter une culture, vous devez d’abord ajouter\_: %{x}"
       before_add_a_land_parcel_add_a_x_html: "Avant d’ajouter une parcelle, vous devez d’abord ajouter\_: %{x}"
+      before_journal_import_assumed_format_x: "Avant l'import, vérifiez que votre fichier respecte bien ces règles\_: %{x}"
       bookkeeping_is_finished: "La bascule en comptabilité est finie."
       bookkeeping_works_only_with: "La bascule en comptabilité ne peut se faire actuellement que pour\_: %{list}."
       cannot_add_bank_statement_item: "Vous ne pouvez pas ajouter de nouvelle ligne parce que vous n’avez pas de relevé bancaire ce jour-là."

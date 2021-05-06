@@ -38,10 +38,10 @@ module Backend
 
       code << "if params[:working_set_id].blank?\n"
       code << "  item = 'is preparation'\n"
-      code << "  c[0] << \" AND products.nature_id IN (SELECT id FROM product_natures WHERE \#{WorkingSet.to_sql(item)})\"\n"
+      code << "  c[0] << \" AND #{Product.table_name}.nature_id IN (SELECT id FROM product_natures WHERE \#{WorkingSet.to_sql(item)})\"\n"
       code << "else \n"
       code << "  item = Onoma::WorkingSet.find(params[:working_set_id])\n"
-      code << "  c[0] << \" AND products.nature_id IN (SELECT id FROM product_natures WHERE \#{WorkingSet.to_sql(item.expression)})\"\n"
+      code << "  c[0] << \" AND #{Product.table_name}.nature_id IN (SELECT id FROM product_natures WHERE \#{WorkingSet.to_sql(item.expression)})\"\n"
       code << "end\n"
 
       # State

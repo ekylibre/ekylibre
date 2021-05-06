@@ -4,4 +4,10 @@
 
 - main_period_selector(:year)
 
+= kujaku do |k|
+  - k.text
+  - if Worker.any?
+    - variant_list = ProductNatureVariant.where(id: Worker.select(:variant_id).uniq).pluck(:name, :id)
+    - k.list :variant, list_values: variant_list
+
 = main_list
