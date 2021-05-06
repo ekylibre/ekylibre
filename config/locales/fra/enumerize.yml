@@ -546,6 +546,14 @@ fra:
         authorized: "Autorisé"
         provisional: "Provisoire"
         withdrawn: "Retiré"
+    ride:
+      nature:
+        work: "Travail"
+        road: "Route"
+    ride_set:
+      nature:
+        work: "Travail"
+        road: "Route"
     sale: #?
       payment_delay: #?
         1 week: "à réception" #?

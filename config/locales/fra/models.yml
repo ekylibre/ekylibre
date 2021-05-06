@@ -360,6 +360,12 @@ fra:
         untreated_buffer_arthropod: "ZNT arthropodes" #?
         untreated_buffer_plants: "ZNT plantes" #?
         usage_conditions: "Conditions d'usage"
+      ride: 
+        sleep_duration: "Temps de pause"
+      ride_set:
+        provider_vendor: "Fournisseur"
+        road: "Distance totale (km)"
+        sleep_duration: "Temps de pause"
       sale:
         affair_balance: "Solde"
         amount: "Montant TTC" #?
@@ -2103,6 +2109,7 @@ fra:
     retrieval_status: "Statut de la récupération"
     revenues: "Produits"
     rgt: "Limite droite"
+    rides: "Sections du trajet géolocalisé"
     rights: "Droits"
     # risks: "Risks"
     road: "Route" #?
@@ -2180,6 +2187,8 @@ fra:
     soil_production: "Contribution en azote du sol (Po)"
     sold_journal_entry: "Écriture de cession"
     sold_on: "Date de cession"
+    sleep_count: "Nombre de pause"
+    sleep_duration: "Temps de pause"
     source: "Source"
     source_product: "Produit Source"
     # source_product_movement: "Source product movement"

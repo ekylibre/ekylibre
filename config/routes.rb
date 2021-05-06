@@ -503,6 +503,7 @@ Rails.application.routes.draw do
       member do
         get :list_interventions_on_field
         get :list_equipment_maintenance_interventions
+        get :list_links
       end
     end
 

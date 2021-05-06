@@ -224,6 +224,12 @@ eng:
         lib_court: "Number"
         status: "Allowed"
         usage_conditions: "Usage conditions"
+      ride: 
+        sleep_duration: "Break time"
+      ride_set:
+        provider_vendor: "Provider"
+        road: "Total distance (km)"
+        sleep_duration: "Break time"
       sale:
         affair_balance: "Balance"
         contact: "Address for the estimate"
@@ -1679,6 +1685,7 @@ eng:
     retrieval_status: "Retrieval status"
     revenues: "Revenues"
     rgt: "Right"
+    rides: "Sections of the geolocated ride"
     rights: "Rights"
     # risk_code: "Risk code"
     # risk_phrase: "Risk phrase"

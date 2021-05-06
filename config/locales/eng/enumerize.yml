@@ -643,6 +643,14 @@ eng:
         authorized: "Authorized"
         provisional: "Provisional"
         withdrawn: "Withdrawn"
+    ride:
+      nature:
+        work: "Work"
+        road: "Road"
+    ride_set:
+      nature:
+        work: "Work"
+        road: "Road"
     sale:
       payment_delay:
         # 1 week: "1 week"

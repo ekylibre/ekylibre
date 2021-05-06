@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -43,10 +45,13 @@
 #
 
 class Crumb < ApplicationRecord
+  include Providable
+
   enumerize :nature, in: %i[point start stop pause resume scan hard_start hard_stop], predicates: true
   belongs_to :user
   belongs_to :intervention_participation
   belongs_to :intervention_parameter, class_name: 'InterventionProductParameter'
+  belongs_to :ride
   has_one :worker, through: :user
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accuracy, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
