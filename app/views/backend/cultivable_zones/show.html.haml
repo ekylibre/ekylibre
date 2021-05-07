@@ -1,6 +1,6 @@
 - main_toolbar do |t|
   = t.edit resource
-  = t.export :cultivable_zone_sheet, key: :work_number
+  = t.export(:cultivable_zone_sheet, key: :work_number, target: "_blank")
   = t.destroy
 
 - main_period_selector(:year)
