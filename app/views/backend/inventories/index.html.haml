@@ -1,7 +1,8 @@
 = render 'backend/shared/financial_year_warning' if Preference.get(:permanent_stock_inventory, true).boolean_value
 
 - main_toolbar do |t|
-  = t.export :stocks
+  = t.export(:stocks, target:"_blank")
+  
   - if FinancialYear.any? && Product.any?
     = t.new params: { redirect: nil }
   - else

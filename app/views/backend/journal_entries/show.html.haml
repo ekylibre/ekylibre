@@ -1,7 +1,8 @@
 = journals_tag
 - main_toolbar do |t|
   = t.new label: :duplicate.tl, params: { duplicate_of: resource.id, redirect: nil }
-  = t.export :journal_entry_sheet
+  = t.export(:journal_entry_sheet, target:"_blank")
+
   - if resource.editable?
     = t.edit resource, disabled: resource.financial_year_exchange_id.present?
   = t.destroy

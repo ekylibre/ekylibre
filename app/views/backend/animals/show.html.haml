@@ -1,5 +1,5 @@
 - main_toolbar do |t|
-  = t.export :animal_sheet, key: :identification_number
+  = t.export(:animal_sheet, key: :identification_number, target: "_blank")
   = t.edit resource
   = t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name}, tool: 'new-issue')
   -# t.destroy
