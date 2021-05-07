@@ -168,6 +168,8 @@
     var element = $(this), frame;
     frame = $('#' + element.data("close-dialog"));
     frame.dialog("close");
+    frame.dialog("destroy");
+    frame.remove();
     return false;
   });
 

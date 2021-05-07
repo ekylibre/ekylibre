@@ -17,6 +17,7 @@ import _ from 'lodash';
 import L from 'leaflet';
 import 'leaflet-draw';
 import 'lib/leaflet/default-icon';
+import 'components/map/pause-icon.js';
 
 export let Ekylibre = {
     ajax,
