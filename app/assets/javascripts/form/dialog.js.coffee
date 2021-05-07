@@ -14,7 +14,7 @@
       defaultSettings =
         header: "X-Return-Code"
         width: 0.6
-        height: 0.8
+        height: 'auto'
 
       settings = {}  if settings is null or settings is `undefined`
       settings = $.extend({}, defaultSettings, settings)

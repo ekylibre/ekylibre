@@ -236,7 +236,7 @@ module RestfullyManageable
           code << "  notify_success(:record_has_been_correctly_removed)\n"
         end
         # code << "  redirect_to #{after_destroy_url ? after_destroy_url : model.name.underscore.pluralize+'_url'}\n"
-        code << "  redirect_to(params[:redirect] || #{after_destroy_url})\n"
+        code << "  redirect_to(params[:redirect] || #{after_destroy_url}) unless request.xhr?\n"
         code << "end\n"
       end
 

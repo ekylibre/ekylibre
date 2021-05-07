@@ -44,6 +44,7 @@ module Ekylibre
           LOADERS.each do |loader, imports|
             run_loader(loader, imports)
           end
+          load_defaults
           executed_preference.update!(value: true)
         end
       end
@@ -244,6 +245,20 @@ module Ekylibre
         end
         text
       end
+
+      private
+
+        def load_defaults
+          default_datasets.each do |dataset|
+            puts "Load default #{dataset}..."
+            model = dataset.to_s.classify.constantize
+            model.load_defaults
+          end
+        end
+
+        def default_datasets
+          %i[naming_format_land_parcels]
+        end
     end
   end
 end
