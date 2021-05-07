@@ -267,7 +267,7 @@ GEM
       rack
       socksify
     humanize (2.5.1)
-    i18n (1.8.9)
+    i18n (1.8.10)
       concurrent-ruby (~> 1.0)
     i18n-complements (1.1.0)
       i18n (>= 0.6)
@@ -332,7 +332,7 @@ GEM
       nokogiri (~> 1)
       rake
     mini_mime (1.0.2)
-    mini_portile2 (2.5.0)
+    mini_portile2 (2.5.1)
     minitest (5.14.4)
     momentjs-rails (2.20.1)
       railties (>= 3.1)
@@ -344,7 +344,7 @@ GEM
       connection_pool (~> 2.2)
     netrc (0.11.0)
     nio4r (2.5.5)
-    nokogiri (1.11.1)
+    nokogiri (1.11.3)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
     nori (2.6.0)
@@ -361,7 +361,7 @@ GEM
     omniauth-oauth2 (1.7.0)
       oauth2 (~> 1.4)
       omniauth (~> 1.9)
-    onoma (0.5.3)
+    onoma (0.5.4)
       activesupport (>= 4.2)
       nokogiri (>= 1.10.4)
       zeitwerk (~> 2.4.0)
@@ -714,7 +714,7 @@ DEPENDENCIES
   odf-report!
   omniauth
   omniauth-oauth2
-  onoma (~> 0.5.0)
+  onoma (~> 0.5.4)
   paperclip
   paperclip-document
   paranoia (~> 2.2)

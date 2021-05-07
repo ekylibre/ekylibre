@@ -6,7 +6,7 @@ module Procedo
   class Procedure
     ROOT_NAME = 'root_'.freeze
 
-    attr_reader :id, :name, :categories, :mandatory_actions, :optional_actions, :varieties, :hidden
+    attr_reader :id, :name, :categories, :mandatory_actions, :optional_actions, :varieties, :hidden, :position
     delegate :add_product_parameter, :add_group_parameter, :find, :find!,
              :each_product_parameter, :each_group_parameter, :each_parameter,
              :product_parameters, :group_parameters,
@@ -68,6 +68,7 @@ module Procedo
     def initialize(name, options = {})
       @name = name.to_sym
       @categories = []
+      @position = options[:position]
       @mandatory_actions = []
       @optional_actions = []
       @varieties = []

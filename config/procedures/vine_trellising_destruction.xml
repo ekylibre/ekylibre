@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="vine_trellising_destruction" categories="trellising" actions="land_parcel_clearing" position="60">
+    <parameters>
+      <target name="plant" filter="is vitis and has indicator shape">
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+      </target>
+      <doer name="driver" filter="is worker and can drive(equipment)" cardinality="*"/>
+      <tool name="tractor" filter="is equipment and can tow(equipment)" cardinality="*"/>
+    </parameters>
+  </procedure>
+</procedures>
