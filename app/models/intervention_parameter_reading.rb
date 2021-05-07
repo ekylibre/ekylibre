@@ -79,20 +79,36 @@ class InterventionParameterReading < ApplicationRecord
 
   after_save do
     if product
-      if indicator_name == :hour_counter
+      case indicator_name
+      when :hour_counter
         save_hour_counter
+      when 'cut_vine'
+        save_cut_vine
       else
-        product_reading ||= product.readings.new(indicator_name: indicator_name)
-        product_reading.originator = self
-
-        product_reading.value = value
-        product_reading.read_at = product.born_at || intervention.started_at || Time.now
-        product_reading.save!
+        create_product_reading
       end
     end
   end
 
+  def create_product_reading
+    product_reading ||= product.readings.new(indicator_name: indicator_name)
+    product_reading.originator = self
+
+    product_reading.value = value
+    product_reading.read_at = product.born_at || intervention.started_at || Time.now
+    product_reading.save!
+  end
+
   private
+
+    def save_cut_vine
+      product_reading ||= product.readings.find_by(indicator_name: indicator_name, originator: self)
+      product_reading ||= product.readings.new(indicator_name: indicator_name)
+      product_reading.originator = self
+      product_reading.value = value
+      product_reading.read_at = intervention.stopped_at
+      product_reading.save!
+    end
 
     def save_hour_counter
       self.product_reading ||= product.readings.find_by(indicator_name: indicator_name)

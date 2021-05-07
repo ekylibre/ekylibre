@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="earth_work" categories="vine_soil_working_and_maintenance, installations_modification" actions="land_parcel_clearing, soil_structure_stabilisation" position="90">
+    <parameters>
+      <target name="cultivation" filter="is land_parcel and has indicator shape">
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+      </target>
+      <doer name="driver" filter="can drive(equipment) and can move" cardinality="*"/>
+      <tool name="tractor" filter="is equipment and can move" cardinality="*"/>
+    </parameters>
+  </procedure>
+</procedures>

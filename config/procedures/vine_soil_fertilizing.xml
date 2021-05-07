@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="vine_soil_fertilizing" categories="vine_fertilizing" actions="fertilization" optional-actions="biostimulation, organic_fertilization, mineral_fertilization, micronutrient_fertilization, liming" position="10">
+    <parameters>
+      <target name="cultivation" filter="(is plant or is land_parcel) and has indicator shape">
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+      </target>
+      <input name="fertilizer" filter="can fertilize">
+        <handler name="population"/>
+        <handler indicator="net_mass" unit="kilogram"
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass?"
+                 backward="POPULATION * PRODUCT..net_mass(kilogram)"
+                 forward="VALUE / PRODUCT..net_mass(kilogram)"/>
+       <handler indicator="net_volume" unit="liter"
+                if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_volume?"
+                backward="POPULATION * PRODUCT..net_volume(liter)"
+                forward="VALUE / PRODUCT..net_volume(liter)"/>
+        <handler indicator="mass_area_density" unit="kilogram_per_hectare"
+                 if="PRODUCT..net_mass? and sum_working_zone_areas(cultivation) != 0"
+                 backward="(POPULATION * PRODUCT..net_mass(kilogram)) / sum_working_zone_areas(cultivation, :hectare)"
+                 forward="(VALUE * sum_working_zone_areas(cultivation, :hectare)) / PRODUCT..net_mass(kilogram)"/>
+       <handler indicator="volume_area_density" unit="liter_per_hectare"
+                if="PRODUCT..net_volume? and sum_working_zone_areas(cultivation) != 0"
+                 backward="(POPULATION * PRODUCT..net_volume(liter)) / sum_working_zone_areas(cultivation, :hectare)"
+                 forward="(VALUE * sum_working_zone_areas(cultivation, :hectare)) / PRODUCT..net_volume(liter)"/>
+        <handler name="ton" indicator="mass_area_density" unit="ton_per_hectare"
+                 if="PRODUCT..net_mass? and sum_working_zone_areas(cultivation) != 0"
+                 backward="(POPULATION * PRODUCT..net_mass(ton)) / sum_working_zone_areas(cultivation, :hectare)"
+                 forward="(VALUE * sum_working_zone_areas(cultivation, :hectare)) / PRODUCT..net_mass(ton)"/>
+        <handler name="nitrogen" indicator="mass_area_density" unit="kilogram_per_hectare"
+                 if="PRODUCT..net_mass? and PRODUCT..nitrogen_concentration? and sum_working_zone_areas(cultivation) != 0"
+                 backward="(POPULATION * PRODUCT..net_mass(kilogram) * (PRODUCT.nitrogen_concentration(percent) / 100)) / sum_working_zone_areas(cultivation, :hectare)"
+                 forward="(VALUE * sum_working_zone_areas(cultivation, :hectare)) / (PRODUCT..net_mass(kilogram) * PRODUCT.nitrogen_concentration(percent) / 100)"/>
+      </input>
+      <doer name="driver" filter="can drive(tractor) and can move" cardinality="*"/>
+      <tool name="tractor" filter="is equipment and can tow(equipment)" cardinality="*"/>
+      <tool name="spreader" filter="can spread(preparation)" cardinality="*"/>
+      <tool name="trailed_equipment" filter="is equipment and can plow_superficially" cardinality="*"/>
+    </parameters>
+  </procedure>
+</procedures>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="vine_shoot_grinding" categories="vineyard_maintenance" actions="residue_destruction, organic_matter_burying" position="40">
+    <parameters>
+      <target name="plant" filter="is vitis and has indicator shape">
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+      </target>
+      <doer name="driver" filter="is worker and can drive(equipment) and can move" cardinality="*"/>
+      <tool name="tractor" filter="is equipment and can tow(equipment) and can move" cardinality="*"/>
+      <tool name="shoot_grinder" filter="is equipment and can grind(plant)" cardinality="*"/>
+    </parameters>
+  </procedure>
+</procedures>

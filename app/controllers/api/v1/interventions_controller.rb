@@ -93,7 +93,7 @@ module Api
             group_parameters_attributes: [
               :reference_name,
               inputs_attributes: %i[product_id quantity_value quantity_handler reference_name quantity_population],
-              outputs_attributes: %i[variant_id quantity_value quantity_handler reference_name quantity_population batch_number variety],
+              outputs_attributes: %i[variant_id quantity_value quantity_handler reference_name quantity_population batch_number specie_variety_name],
               targets_attributes: [:product_id, :reference_name, readings_attributes: %i[indicator_name measure_value_value measure_value_unit]],
               tools_attributes: %i[product_id reference_name],
               doers_attributes: %i[product_id reference_name]

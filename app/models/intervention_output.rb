@@ -54,6 +54,7 @@
 #  quantity_value           :decimal(19, 4)
 #  reference_data           :jsonb            default("{}")
 #  reference_name           :string           not null
+#  specie_variety           :jsonb            default("{}")
 #  type                     :string
 #  unit_pretax_stock_amount :decimal(19, 4)   default(0.0), not null
 #  updated_at               :datetime         not null
@@ -61,7 +62,6 @@
 #  usage_id                 :string
 #  using_live_data          :boolean          default(TRUE)
 #  variant_id               :integer
-#  variety                  :string
 #  working_zone             :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
 
@@ -84,7 +84,7 @@ class InterventionOutput < InterventionProductParameter
 
       output.name = new_name if !procedure.of_category?(:planting) && new_name.present?
       output.name = compute_output_planting_name if procedure.of_category?(:planting)
-
+      output.specie_variety_name = specie_variety_name if procedure.of_category?(:planting) && specie_variety_name.present?
       output.identification_number = identification_number if identification_number.present?
       # output.attributes = product_attributes
       reading = readings.find_by(indicator_name: :shape)
@@ -103,6 +103,13 @@ class InterventionOutput < InterventionProductParameter
       end
 
       update_columns(product_id: output.id) # , movement_id: movement.id)
+
+      if procedure.of_category?(:planting) && readings.any?
+        readings.reject{ |r| r.indicator_name == "shape" }.map do |reading|
+          reading.reload.create_product_reading
+        end
+      end
+
       true
     end
   end
@@ -139,9 +146,9 @@ class InterventionOutput < InterventionProductParameter
       compute_name << land_parcel.product.name if land_parcel
     end
 
-    return output_name_without_params(compute_name) if variety.blank? && batch_number.blank?
+    return output_name_without_params(compute_name) if specie_variety_name.blank? && batch_number.blank?
 
-    compute_name << variety if variety.present?
+    compute_name << specie_variety_name if specie_variety_name.present?
     compute_name << batch_number if batch_number.present?
 
     output_duplicate_count = output_name_count(compute_name.join(' '))
