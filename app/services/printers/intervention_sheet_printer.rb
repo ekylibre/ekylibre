@@ -19,7 +19,7 @@ module Printers
 
     #  Generate document name
     def document_name
-      "#{template.nature.human_name}:#{@id}"
+      "#{template.nature.human_name} : #{@intervention.name}"
     end
 
     #  Create document key
