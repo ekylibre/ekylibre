@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CviCultivableZoneService
   class ShapeCalculator
     def self.calculate(cvi_cultivable_zone, shape)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ListSorter
   # @param [#to_s] reference name
   # @param [Array<#name>] array of object that responds to #read

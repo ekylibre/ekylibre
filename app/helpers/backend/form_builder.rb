@@ -214,7 +214,6 @@ module Backend
     end
 
     def find_input(attribute_name, options = {}, &block)
-      binding.pry if attribute_name == :specie_variety_name
       input = super
 
       if is_nomenclature_select?(attribute_name)
