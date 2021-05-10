@@ -56,7 +56,7 @@ module ToolbarHelper
     def import(*formats, label: :import, **options)
       @template.dropdown_menu_button(label) do |menu|
         formats.each do |format|
-          menu.item(format, controller: "/backend/#{options[:controller]}", action: "import_#{format}")
+          menu.item(format.tl, controller: "/backend/#{options[:controller]}", action: "import_#{format}")
         end
       end
     end

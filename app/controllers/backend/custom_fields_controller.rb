@@ -28,7 +28,7 @@ module Backend
       t.action :edit
       t.action :destroy, if: :destroyable?
       t.column :name, url: true
-      t.column :customized_type
+      t.column :customized_type, label_method: 'customized_type.to_s.underscore.tl'
       t.column :nature
       t.column :required
       t.column :active

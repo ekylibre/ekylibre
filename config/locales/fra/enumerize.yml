@@ -609,6 +609,7 @@ fra:
         outgoing_payment_lists: "Listes de paiement sortant"
         outgoing_payments: "Décaissements"
         parcels: "Colis"
+        payslips: "Salaires"
         plant_countings: "Comptage des plantes"
         plants: "Cultures"
         product_nature_categories: "Catégories comptables"
@@ -616,10 +617,14 @@ fra:
         product_natures: "Types de produits"
         products: "Produits"
         purchases: "Achats"
+        ride: "Sections d'un trajet"
+        ride_sets: "Trajets géolocalisés"
         sales: "Ventes"
-        sales_invoices: "Factures"
+        sales_invoices: "Factures de ventes"
         subscriptions: "Abonnements"
         tax_declarations: "Déclarations fiscales"
+        wine_incoming_harvest: "Réception de vendange"
+
     synchronization_operation:
       operation_name:
         authenticate: "Authentification"

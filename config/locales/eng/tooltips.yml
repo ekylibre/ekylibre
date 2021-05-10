@@ -23,6 +23,10 @@ eng:
         in_progress: "In progress"
         rejected: "Rejected"
         request: "Planned"
+      issue:
+        go: "Incident résolu"
+        caution: "Résolution de l'incident"
+        stop: "Incident en cours"
       loan:
         go: "In progress"
         caution: "Draft"

@@ -107,16 +107,6 @@ i.icon {
 
   #parts {
     overflow: hidden;
-    li#settings-part {
-      a {
-        font-size: 0;
-        i {
-          @include is-icon($topbar-icon-size);
-          @include use-icon(wrench);
-          line-height: $topbar-height;
-        }
-      }
-    }
   }
 
   @media only screen and (max-width: $mini-screen){

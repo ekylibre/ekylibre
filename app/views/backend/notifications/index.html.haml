@@ -10,7 +10,7 @@
           %td
           %th= Notification.human_attribute_name(:message)
           %th
-          %th= Notification.human_attribute_name(:age)
+          %th= Notification.human_attribute_name(:done)
       %tbody
         - @notifications.includes(:target).each do |notification|
           %tr{ data: { read_status: notification.read_at.present? ? 'read' : 'unread' } }
@@ -26,8 +26,7 @@
             %td.center.notification__state
               %i.icon{ class: notification_icon_class(notification) }
             %td{title: notification.created_at.l}
-              = distance_of_time_in_words_to_now(notification.created_at)
-
+              = :notification_time.tl(time: distance_of_time_in_words_to_now(notification.created_at))
 - else
   .placeholding-message
     %p= :no_notifications.tl
