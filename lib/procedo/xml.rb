@@ -79,6 +79,7 @@ module Procedo
         options[:maintenance] = (element.attr('maintenance').to_s == 'true')
         options[:deprecated] = (element.attr('deprecated').to_s == 'true')
         options[:hidden] = true if element.attr('hidden').to_s == 'true'
+        options[:position] = (element.has_attribute?('position') ? element.attr('position').to_i : 999)
 
         options[:varieties] = element.attr('varieties')
                                      .to_s

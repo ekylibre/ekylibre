@@ -89,6 +89,10 @@ module Visualization
       layer(name, serie, options.merge(type: :optional))
     end
 
+    def pause_group(name, serie, options = {})
+      layer(name, serie, options.merge(type: :pause_group))
+    end
+
     # def multi_points(name, serie, options = {})
     #   layer(name, serie, options.merge(type: :multi_points))
     # end

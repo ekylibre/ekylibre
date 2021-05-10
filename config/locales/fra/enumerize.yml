@@ -34,6 +34,7 @@ fra:
         border: "Bordure"
         buffer: "Zone tampon"
         cultivation: "Culture"
+        headland_cultivation: "Culture avec tournières"
         fallow_land: "Jachère"
         none: "Aucun"
     activity_tactic:
@@ -121,6 +122,26 @@ fra:
         datetime: "Date et heure"
         decimal: "Chiffre (décimal)"
         text: "Texte"
+    cvi_cadastral_plant:
+      state:
+        planted: "Plantées"
+        removed_with_authorization: "Arrachées avec autorisation"
+      type_of_occupancy:
+        owner: "Propriétaire"
+        tenant_farming: "Fermage"
+    cvi_land_parcel:
+      state:
+        planted: "Plantées"
+        removed_with_authorization: "Arrachées avec autorisation"
+    cvi_cultivable_zone:
+      land_parcels_status:
+        not_started: "Non commencé"
+        started: "En cours"
+        completed: "Terminé"
+    cvi_statement:
+      state:
+        converted: "Parcellaire converti"
+        to_convert: "Parcellaire à convertir"
     debt_transfer:
       nature:
         purchase_regularization: "Régularisation d'achat"
@@ -348,6 +369,11 @@ fra:
         record: "Enregistrement"
         spatial_reference_system: "Système de référence spatiale"
         string: "Chaîne"
+    product:
+      type_of_occupancy:
+        owner: "Propriétaire"
+        rent: "Fermage"
+        sharecropper: "Métayage"
     product_enjoyment:
       nature:
         other: "Autre"
@@ -524,6 +550,14 @@ fra:
         authorized: "Autorisé"
         provisional: "Provisoire"
         withdrawn: "Retiré"
+    ride:
+      nature:
+        work: "Travail"
+        road: "Route"
+    ride_set:
+      nature:
+        work: "Travail"
+        road: "Route"
     sale: #?
       payment_delay: #?
         1 week: "à réception" #?

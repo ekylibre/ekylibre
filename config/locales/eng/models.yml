@@ -96,6 +96,25 @@ eng:
         born_at: "Built at"
       cashes:
         main_account: "Main account"
+      cvi_cadastral_plant:
+        area: "Area"
+        cadastral_reference: "Cadastral reference"
+        land_parcel_id: "Cadastral reference id"
+        work_number: "Cadastral land parcel number"
+        rootstock_number: "Rootstock"
+        state: "State"
+      cvi_statement:
+        cadastral_plant_count: "Cadastral plant count"
+        cadastral_sub_plant_count: "Cadastral sub plant count"
+        created_at: "Date of import"
+        cvi_number: "Cvi number"
+        extraction_date: "Extraction date"
+        farm_name: "Wine estate"
+        state: "State"
+        total_area: "Total area"
+      cvi_land_parcel:
+        activity_id: Activity
+        land_modification_date: "Removed at"
       document:
         filename: "File"
       document_template:
@@ -212,6 +231,12 @@ eng:
         lib_court: "Number"
         status: "Allowed"
         usage_conditions: "Usage conditions"
+      ride: 
+        sleep_duration: "Break time"
+      ride_set:
+        provider_vendor: "Provider"
+        road: "Total distance (km)"
+        sleep_duration: "Break time"
       sale:
         affair_balance: "Balance"
         contact: "Address for the estimate"
@@ -235,6 +260,26 @@ eng:
         deductible: "Deductible"
         fixed_asset_deductible: "Deductible on assets"
         intracommunity_payable: "Intracommunity payable"
+      wine_incoming_harvest:
+        harvest_dock: "Harvest dock"
+        harvest_nature: "Harvest nature"
+        harvest_transportation_duration: "Harvest transportation duration"
+        last_load: "Last load"
+        pressing_schedule: "Pressing schedule"
+        pressing_started_at: "Pressing started at"
+        quantity_unit: "Unit"
+        quantity_value: "Quantity"
+        sedimentation_duration: "Sedimentation duration"
+        tavp: 'TAVP (%vol.)'
+        ticket_number: "Ticket"
+        vehicle_trailer: "Vehicle trailer"
+      wine_incoming_harvest_plant:
+        harvest_percentage_received: "Area harvested (%)"
+        net_harvest_area: "Area harvested (ha)"
+        plant: "Plant"
+        plant_specie_variety_name: "Specie"
+      wine_incoming_harvest_storage:
+        storage: "Storage tank"
     errors:
       messages:
         <<: *error_messages
@@ -315,7 +360,9 @@ eng:
       cultivable_zone: "Cultivable zone"
       custom_field: "Custom field"
       custom_field_choice: "Custom field choice"
-      custom_name: "Custom name"
+      cvi_cultivable_zone: "CVI cultivable zone"
+      cvi_land_parcel: "CVI land parcel"
+      custom_name: "custom name"
       cvi_cadastral_plant: "CVI cadastral plants"
       cvi_cadastral_plant_cvi_land_parcel: "CVI cadastral land parcels"
       cvi_statement: "CVI statement"
@@ -535,6 +582,11 @@ eng:
       wine_incoming_harvest_storage: "Wine incoming harvest storage"
       zone: "Zone"
   attributes:
+    declared_area: "Declared area"
+    calculated_area: "Calculated area"
+    rootstock_name: "Rootstock"
+    rootstock_names: "Rootstock(s)"
+    product_human_name_fra: "Product"
     abilities: "Abilities"
     abilities_list: "Abilities list"
     absolute_credit: "Absolute credit"
@@ -1668,6 +1720,7 @@ eng:
     retrieval_status: "Retrieval status"
     revenues: "Revenues"
     rgt: "Right"
+    rides: "Sections of the geolocated ride"
     rights: "Rights"
     # risk_code: "Risk code"
     # risk_phrase: "Risk phrase"

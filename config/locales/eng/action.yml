@@ -1392,6 +1392,8 @@ eng:
     free_field_naming_format_hint: "You can customize name by adding a free field to naming format"
     free_field: "Free field"
     land_parcel_support_name: "Land parcel name"
+    variety: "Variety"
+    variety_vine: "Vine variety"
     use: "use"
     land_parcel_plant: "Land parcel/plant"
     land_parcels_plants: "Land parcels/plants"

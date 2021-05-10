@@ -77,10 +77,13 @@
 #  picture_file_name            :string
 #  picture_file_size            :integer
 #  picture_updated_at           :datetime
+#  provider                     :jsonb            default("{}")
 #  reading_cache                :jsonb            default("{}")
+#  specie_variety               :jsonb            default("{}")
 #  team_id                      :integer
 #  tracking_id                  :integer
 #  type                         :string
+#  type_of_occupancy            :string
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer
 #  uuid                         :uuid
@@ -157,6 +160,8 @@ class Product < ApplicationRecord
   has_many :current_memberships, -> { current }, class_name: 'ProductMembership', foreign_key: :member_id
   has_one :container, through: :current_localization
   has_many :groups, through: :current_memberships
+  has_many :crop_group_items, foreign_key: :crop_id
+  has_many :crop_groups, through: :crop_group_items
   has_many :intervention_targets, inverse_of: :product
   has_many :crop_group_items, foreign_key: :crop_id
   has_many :crop_groups, through: :crop_group_items
@@ -167,11 +172,17 @@ class Product < ApplicationRecord
   has_one :incoming_parcel_item, -> { with_nature(:incoming) }, class_name: 'ReceptionItem', foreign_key: :product_id, inverse_of: :product
   has_one :outgoing_parcel_item, -> { with_nature(:outgoing) }, class_name: 'ShipmentItem', foreign_key: :product_id, inverse_of: :product
   has_one :last_intervention_target, -> { order(id: :desc).limit(1) }, class_name: 'InterventionTarget'
+
   belongs_to :member_variant, class_name: 'ProductNatureVariant'
 
   has_picture
   has_geometry :initial_shape, type: :multi_polygon
   has_geometry :initial_geolocation, type: :point
+
+  enumerize :type_of_occupancy, in: %i[owner rent sharecropper], predicates: true
+
+  serialize :specie_variety, HashSerializer
+  store_accessor :specie_variety, :specie_variety_name
 
   # find Product by work_numbers (work_numbers must be an Array)
   scope :of_work_numbers, lambda { |work_numbers|
@@ -663,8 +674,7 @@ class Product < ApplicationRecord
     }
     incoming_item = incoming_parcel_item
     incoming_purchase_item = incoming_item.purchase_item if incoming_item
-    outgoing_item = parcel_items.with_nature(:outgoing).first
-    outgoing_sale_item = outgoing_item.sale_item if outgoing_item
+    outgoing_sale_item = SaleItem.find(outgoing_parcel_item.sale_item_id) if outgoing_parcel_item && outgoing_parcel_item.sale_item_id
 
     price = if incoming_purchase_item
               # search a price in purchase item via incoming item price

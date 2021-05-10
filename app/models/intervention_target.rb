@@ -56,6 +56,7 @@
 #  quantity_value           :decimal(19, 4)
 #  reference_data           :jsonb            default("{}")
 #  reference_name           :string           not null
+#  specie_variety           :jsonb            default("{}")
 #  type                     :string
 #  unit_pretax_stock_amount :decimal(19, 4)   default(0.0), not null
 #  updated_at               :datetime         not null
@@ -63,7 +64,6 @@
 #  usage_id                 :string
 #  using_live_data          :boolean          default(TRUE)
 #  variant_id               :integer
-#  variety                  :string
 #  working_zone             :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
 class InterventionTarget < InterventionProductParameter
@@ -82,7 +82,7 @@ class InterventionTarget < InterventionProductParameter
       self.quantity_value = a
       self.quantity_unit_name = 'square_meter'
       self.quantity_indicator_name = 'net_surface_area'
-      b = self.intervention.targets.map{|t| t.working_zone.area }.compact.sum
+      b = self.intervention.targets.where.not(working_zone: nil).map{|t| t.working_zone.area }.compact.sum
       self.imputation_ratio = (a/b).to_f if a && b && (b != 0)
     end
   end

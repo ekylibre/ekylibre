@@ -1067,6 +1067,8 @@ fra:
     free_field_naming_format_hint: "Vous pouvez ajouter un champ libre personnalisé en paramétrant votre format de nommage"
     land_parcel_support_name: "Nom de la parcelle"
     free_field: "Champ libre"
+    variety: "Variété"
+    variety_vine: "Cépage"
     use: "Usage"
     land_parcel_plant: "Parcelle / Culture"
     land_parcels_plants: "Parcelles / Cultures"

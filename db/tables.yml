@@ -465,6 +465,11 @@ activity_productions:
     type: boolean
     required: true
     default: false
+  planting_campaign_id:
+    type: integer
+    references: campaign
+  providers:
+    type: jsonb
   rank_number:
     type: integer
     required: true
@@ -1905,6 +1910,270 @@ custom_fields:
     type: boolean
     required: true
     default: false
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+cvi_cadastral_plant_cvi_land_parcels:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  cvi_cadastral_plant_id:
+    type: integer
+    references: cvi_cadastral_plant
+  cvi_land_parcel_id:
+    type: integer
+    references: cvi_land_parcel
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  percentage:
+    type: decimal
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+cvi_cadastral_plants:
+  area_unit:
+    type: string
+  area_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  cadastral_ref_updated:
+    type: boolean
+    default: false
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  cvi_cultivable_zone_id:
+    type: integer
+    references: cvi_cultivable_zone
+  cvi_statement_id:
+    type: integer
+    references: cvi_statement
+  designation_of_origin_id:
+    type: integer
+    references: registered_protected_designation_of_origin
+  id:
+    type: integer
+    required: true
+  inter_row_distance_unit:
+    type: string
+  inter_row_distance_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  inter_vine_plant_distance_unit:
+    type: string
+  inter_vine_plant_distance_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  land_modification_date:
+    type: date
+  land_parcel_id:
+    type: string
+  land_parcel_number:
+    type: string
+  lock_version:
+    type: integer
+    required: true
+  planting_campaign:
+    type: string
+  rootstock_id:
+    type: string
+  section:
+    type: string
+    required: true
+  state:
+    type: string
+    required: true
+  type_of_occupancy:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  vine_variety_id:
+    type: string
+  work_number:
+    type: string
+    required: true
+cvi_cultivable_zones:
+  calculated_area_unit:
+    type: string
+  calculated_area_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  cvi_statement_id:
+    type: integer
+    references: cvi_statement
+  declared_area_unit:
+    type: string
+  declared_area_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  id:
+    type: integer
+    required: true
+  land_parcels_status:
+    type: string
+    default: not_started
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  shape:
+    type: geometry
+    limit:
+      srid: 4326
+      type: geometry
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+cvi_land_parcels:
+  activity_id:
+    type: integer
+    references: activity
+  calculated_area_unit:
+    type: string
+  calculated_area_value:
+    type: decimal
+    precision: 19
+    scale: 5
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  cvi_cultivable_zone_id:
+    type: integer
+    references: cvi_cultivable_zone
+  declared_area_unit:
+    type: string
+  declared_area_value:
+    type: decimal
+    precision: 19
+    scale: 5
+  designation_of_origin_id:
+    type: integer
+    references: registered_protected_designation_of_origin
+  id:
+    type: integer
+    required: true
+  inter_row_distance_unit:
+    type: string
+  inter_row_distance_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  inter_vine_plant_distance_unit:
+    type: string
+  inter_vine_plant_distance_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  land_modification_date:
+    type: date
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  planting_campaign:
+    type: string
+  rootstock_id:
+    type: string
+  shape:
+    type: geometry
+    limit:
+      srid: 4326
+      type: geometry
+  state:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  vine_variety_id:
+    type: string
+cvi_statements:
+  cadastral_plant_count:
+    type: integer
+  cadastral_sub_plant_count:
+    type: integer
+  campaign_id:
+    type: integer
+    references: campaign
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  cvi_number:
+    type: string
+    required: true
+  declarant:
+    type: string
+    required: true
+  extraction_date:
+    type: date
+    required: true
+  farm_name:
+    type: string
+    required: true
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  siret_number:
+    type: string
+    required: true
+  state:
+    type: string
+    required: true
+  total_area_unit:
+    type: string
+  total_area_value:
+    type: decimal
+    precision: 19
+    scale: 4
   updated_at:
     type: datetime
     required: true
@@ -4879,6 +5148,34 @@ loans:
     references: user
   use_bank_guarantee:
     type: boolean
+locations:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  locality:
+    type: string
+  localizable_id:
+    type: integer
+    references: "~localizable_type"
+  localizable_type:
+    type: string
+  lock_version:
+    type: integer
+    required: true
+  registered_postal_zone_id:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 manure_management_plan_zones:
   absorbed_nitrogen_at_opening:
     type: decimal
@@ -7091,6 +7388,8 @@ products:
     type: integer
   picture_updated_at:
     type: datetime
+  provider:
+    type: jsonb
   reading_cache:
     type: jsonb
   team_id:
@@ -7100,6 +7399,8 @@ products:
     type: integer
     references: tracking
   type:
+    type: string
+  type_of_occupancy:
     type: string
   updated_at:
     type: datetime
@@ -7796,6 +8097,106 @@ regularizations:
   lock_version:
     type: integer
     required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+ride_sets:
+  area_smart:
+    type: float
+  area_with_overlap:
+    type: float
+  area_without_overlap:
+    type: float
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  duration:
+    type: string
+  gasoline:
+    type: float
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  nature:
+    type: string
+  number:
+    type: string
+  provider:
+    type: jsonb
+  road:
+    type: integer
+  sleep_count:
+    type: integer
+  sleep_duration:
+    type: string
+  started_at:
+    type: datetime
+  stopped_at:
+    type: datetime
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+rides:
+  area_smart:
+    type: float
+  area_with_overlap:
+    type: float
+  area_without_overlap:
+    type: float
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  distance_km:
+    type: float
+  duration:
+    type: string
+  equipment_name:
+    type: string
+  gasoline:
+    type: float
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  nature:
+    type: string
+  number:
+    type: string
+  product_id:
+    type: integer
+    references: product
+  provider:
+    type: jsonb
+  ride_set_id:
+    type: integer
+    references: ride_set
+  sleep_count:
+    type: integer
+  sleep_duration:
+    type: string
+  started_at:
+    type: datetime
+  state:
+    type: string
+  stopped_at:
+    type: datetime
   updated_at:
     type: datetime
     required: true
@@ -9348,3 +9749,190 @@ wice_grid_serialized_queries:
     type: text
   updated_at:
     type: datetime
+wine_incoming_harvest_inputs:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  input_id:
+    type: integer
+    references: product
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  quantity_unit:
+    type: string
+    required: true
+  quantity_value:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  wine_incoming_harvest_id:
+    type: integer
+    references: wine_incoming_harvest
+    required: true
+wine_incoming_harvest_plants:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  harvest_percentage_received:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  plant_id:
+    type: integer
+    references: plant
+    required: true
+  rows_harvested:
+    type: integer
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  wine_incoming_harvest_id:
+    type: integer
+    references: wine_incoming_harvest
+    required: true
+wine_incoming_harvest_presses:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  press_id:
+    type: integer
+    references: product
+  pressing_schedule:
+    type: string
+  pressing_started_at:
+    type: time
+  quantity_unit:
+    type: string
+    required: true
+  quantity_value:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  wine_incoming_harvest_id:
+    type: integer
+    references: wine_incoming_harvest
+    required: true
+wine_incoming_harvest_storages:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  quantity_unit:
+    type: string
+    required: true
+  quantity_value:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  storage_id:
+    type: integer
+    references: product
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  wine_incoming_harvest_id:
+    type: integer
+    references: wine_incoming_harvest
+    required: true
+wine_incoming_harvests:
+  additional_informations:
+    type: jsonb
+  analysis_id:
+    type: integer
+    references: analysis
+  campaign_id:
+    type: integer
+    references: campaign
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  description:
+    type: text
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  number:
+    type: string
+  quantity_unit:
+    type: string
+    required: true
+  quantity_value:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  received_at:
+    type: datetime
+    required: true
+  ticket_number:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user

@@ -182,7 +182,7 @@ module Api
                 {
                   variant_id: variant.id,
                   reference_name: 'plant',
-                  variety: 'test',
+                  specie_variety_name: 'test',
                   batch_number: 'test2'
                 }
               ]
@@ -199,7 +199,7 @@ module Api
                 {
                   variant_id: variant.id,
                   reference_name: 'plant',
-                  variety: 'test',
+                  specie_variety_name: 'test',
                   batch_number: 'test2'
                 }
               ]
@@ -220,7 +220,7 @@ module Api
         intervention = Intervention.find(id)
         assert_equal 2, intervention.group_parameters.count
         assert_equal 2, intervention.outputs.count
-        assert_equal 'test', intervention.outputs.last.variety
+        assert_equal 'test', intervention.outputs.last.specie_variety_name
         assert_equal 'test2', intervention.outputs.last.batch_number
       end
 

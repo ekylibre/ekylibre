@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="vine_lifting" categories="vineyard_maintenance" optional-actions="first_lifting, second_lifting, finishing_rerun" position="60">
+    <parameters>
+      <target name="plant" filter="is vitis and has indicator shape">
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+      </target>
+      <doer name="driver" filter="is worker and can drive(equipment) and can move" cardinality="*"/>
+      <doer name="doer" filter="is worker and can move" cardinality="*"/>
+      <tool name="wire_lifter" filter="is equipment and can lift(plant)" cardinality="*"/>
+    </parameters>
+  </procedure>
+</procedures>

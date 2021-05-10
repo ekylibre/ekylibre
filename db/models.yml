@@ -47,6 +47,11 @@
 - cultivable_zone
 - custom_field
 - custom_field_choice
+- cvi_cadastral_plant
+- cvi_cadastral_plant_cvi_land_parcel
+- cvi_cultivable_zone
+- cvi_land_parcel
+- cvi_statement
 - dashboard
 - debt_transfer
 - delivery
@@ -113,6 +118,7 @@
 - listing_node_item
 - loan
 - loan_repayment
+- location
 - manure_management_plan
 - manure_management_plan_zone
 - map_layer
@@ -174,6 +180,8 @@
 - reception_item
 - registered_legal_position
 - regularization
+- ride
+- ride_set
 - role
 - sale
 - sale_affair
@@ -205,5 +213,10 @@
 - user
 - version
 - wice_grid_serialized_query
+- wine_incoming_harvest
+- wine_incoming_harvest_input
+- wine_incoming_harvest_plant
+- wine_incoming_harvest_press
+- wine_incoming_harvest_storage
 - worker
 - zone

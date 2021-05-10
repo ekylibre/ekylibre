@@ -36,5 +36,4 @@
 #
 class RegisteredPostalZone < LexiconRecord
   include Lexiconable
-  self.id_column = :code
 end

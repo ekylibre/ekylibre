@@ -77,10 +77,13 @@
 #  picture_file_name            :string
 #  picture_file_size            :integer
 #  picture_updated_at           :datetime
+#  provider                     :jsonb            default("{}")
 #  reading_cache                :jsonb            default("{}")
+#  specie_variety               :jsonb            default("{}")
 #  team_id                      :integer
 #  tracking_id                  :integer
 #  type                         :string
+#  type_of_occupancy            :string
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer
 #  uuid                         :uuid
@@ -91,8 +94,10 @@
 
 class Equipment < Matter
   include Attachable
+  include Providable
   has_many :components, class_name: 'ProductNatureVariantComponent', through: :variant
   has_many :part_replacements, class_name: 'InterventionInput', foreign_key: :assembly_id
+  has_many :rides, class_name: 'Ride', foreign_key: :product_id
   refers_to :variety, scope: :equipment
 
   def tractor?

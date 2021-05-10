@@ -503,6 +503,18 @@ def without_output(&block)
   main.stub :puts, Proc.new, &block
 end
 
+module FFaker
+  module Shape
+    module_function
+
+    SHAPES = File.readlines(Rails.root.join('test', 'fixture-files', "shapes")).freeze
+
+    def polygon
+      Charta.new_geometry(SHAPES.sample).to_rgeo
+    end
+  end
+end
+
 module ImportTest
   class ImportTestDummyExchanger < ActiveExchanger::Base
     mattr_accessor :check_block, :import_block
