@@ -32,7 +32,7 @@ eng:
       invalid_child: "At least one value of %{attribute} is invalid."
       invalid_date: "%{attribute} is not a valid date"
       invalid_datetime: "%{attribute} is not a valid datetime"
-      invalid_population_for_unitary_product: "The equipment %{name} cannot have a population of %{population} as it is supposed to be unique."
+      invalid_population_for_unitary_product: "The equipment %{name} cannot have a quantity of %{population} as it is supposed to be unique."
       invalid_shape: "The geographic shape is invalid"
       invalid_time: "%{attribute} is not a valid time"
       invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
@@ -90,8 +90,13 @@ eng:
         revenues_amount: "Revenues amount"
       activity_tactic:
         mode: "Planning type"
+      animal: #?
+        born_at: "Born on" #?
+        variety: "Breed" #?
+        dead_at: "Release date"
       animal_group:
         born_at: "Created at"
+        dead_at: "End date"
       building:
         born_at: "Built at"
       cashes:
@@ -154,13 +159,19 @@ eng:
         name: "Entry item label"
       land_parcel:
         born_at: "Created at"
+        dead_at: "End date"
       land_parcel_group:
         born_at: "Created at"
       loan:
         ongoing_at: "Fund raising at"
         started_on: "First repayment started on"
+      matter:
+        born_at: "In stock since"
+        dead_at: "Destroyed/consommed on" #?
       naming_format_field:
         field_name: "Field"
+      notification:
+        done: "Done"
       outgoing_payment:
         delivered: "Given to recipient"
         list: "Disbursement list"
@@ -179,6 +190,7 @@ eng:
         reception_planned_at: "Planned at"
       plant:
         born_at: "Planted at"
+        dead_at: "Destroyed/harvested on"
       plant_counting:
         plant: "Product"
         plant_activity: "Activity"
@@ -260,6 +272,11 @@ eng:
         deductible: "Deductible"
         fixed_asset_deductible: "Deductible on assets"
         intracommunity_payable: "Intracommunity payable"
+      worker: #?
+        variety: "Qualification" #?
+        born_at: "Created on"
+        dead_at: "Release date"
+        age: "Years in the company"
       wine_incoming_harvest:
         harvest_dock: "Harvest dock"
         harvest_nature: "Harvest nature"
@@ -487,7 +504,7 @@ eng:
       product_nature_variant_reading: "Product type variant reading"
       product_ownership: "Product ownership"
       product_phase: "Product phase"
-      product_population: "Product population"
+      product_population: "Product quantity"
       product_reading: "Product reading"
       # project_budget: "Project budget"
       purchase: "Purchase"
@@ -630,7 +647,7 @@ eng:
     activity_productions: "Activity productions"
     actor: "Actor"
     actual_number: "Actual number"
-    actual_population: "Actual population"
+    actual_population: "Actual quantity"
     actual_shape: "Actual shape"
     address: "Address"
     addresses: "Addresses"
@@ -1013,7 +1030,7 @@ eng:
     executor: "Executor"
     exit_on: "Exit on"
     exit_reason: "Exit reason"
-    expected_population: "Expected population"
+    expected_population: "Expected quantity"
     expected_shape: "Expected shape"
     expected_stop_amount: "Expected stop amount"
     expected_yield: "Expected yield"
@@ -1175,7 +1192,7 @@ eng:
     initial_movement: "Initial movement"
     initial_number: "Initial number"
     initial_owner: "Initial owner"
-    initial_population: "Initial population"
+    initial_population: "Initial quantity"
     initial_releasing_amount: "Initial releasing amount"
     initial_shape: "Initial shape"
     initialization_vectors: "Initialization vectors"
@@ -1524,9 +1541,9 @@ eng:
     point: "Point"
     point_value: "Point value"
     points: "Points"
-    population: "Population"
+    population: "Quantity"
     population_counting: "Population counting"
-    populations: "Populations"
+    populations: "Quantities"
     position: "Position"
     post: "Post"
     postal_code: "Postal code"

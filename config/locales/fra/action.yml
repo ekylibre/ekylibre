@@ -913,7 +913,7 @@ fra:
       # invalid_child: "At least one value of %{attribute} is invalid."
       # invalid_date: "%{attribute} is not a valid date"
       # invalid_datetime: "%{attribute} is not a valid datetime"
-      invalid_population_for_unitary_product: "L'équipement %{name} ne peut avoir une population de %{population} car il est unique."
+      invalid_population_for_unitary_product: "L'équipement %{name} ne peut avoir une quantité de %{population} car il est unique."
       # invalid_shape: "The geographic shape is invalid"
       # invalid_time: "%{attribute} is not a valid time"
       # invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
@@ -1419,6 +1419,7 @@ fra:
     centralizing_account: "Compte centralisateur"
     centralizing_accounts: "Comptes centralisateurs"
     centralizing_journal: "Journal centralisateur"
+    cfonb: "Format CFONB"
     change: "Changer"
     change_password: "Changer de mot de passe"
     change_price: "Changer le prix unitaire" #?
@@ -2421,6 +2422,7 @@ fra:
     non_compliant_with_request: "Non conforme par rapport à l'attente"
     none: "Aucun"
     normal: "Régime du réel normal"
+    notification_time: "Il y a %{time}"
     not_allowed_for_organic_farming: "Ce produit n'est pas utilisable en agriculture biologique"
     not_assessable_operations: "Opérations non imposables" #?
     not_begins: "Ne commence pas par" #?
@@ -2446,6 +2448,7 @@ fra:
     number_with_param: "N° %{number}"
     numbers: "Numéros"
     objective_costs_per_hectare: "Objectif de coûts totaux (/ha)" #?
+    ofx: "Format OFX"
     on_account: "À remettre sur le compte"
     on_all_exercises: "sur tous les exercices"
     one_condition: "au moins une condition"
@@ -2585,7 +2588,7 @@ fra:
     pluviometry: "Pluviométrie"
     point: "Point"
     points: "Points"
-    population: "Population"
+    population: "Quantité"
     postal_zone_x: "%{name} (%{postal_code})" #?
     potassium_concentration: "Teneur en potassium (K)"
     potassium_concentration_per_hectare: "Teneur en potassium par hectare" #?
@@ -2633,6 +2636,7 @@ fra:
     product_nature: "Type de produit"
     product_nature_category: "Catégorie comptable"
     product_nature_variants: "Variantes"
+    product_nature_variant: "Variante"
     product_natures: "Types de produit"
     product_price_listings: "Listes de prix" #?
     product_price_templates: "Types de prix" #?
@@ -3599,6 +3603,7 @@ fra:
       importation_finished: "L’importation est terminée."
       incompatible_browser: "Votre navigateur ne semble pas compatible. Le navigateur Firefox est recommandé pour utiliser Ekylibre."
       information_success_print: "Création réussie ! Vous pouvez maintenant lancer l'impression via le bouton 'Imprimer'."
+      information_success_download: "Création réussie ! Vous pouvez maintenant lancer le téléchargement via le bouton 'Télécharger'."
       informations_feed_is_unreachable: "Le flux d’informations (%{url}) est inaccessible. Message d’erreur\_: %{message}"
       integrate_tools_you_are_using_every_day: "Intégrez les outils que vous utilisez tous les jours"
       invalid_file_nature: "Type de fichier invalide" #?

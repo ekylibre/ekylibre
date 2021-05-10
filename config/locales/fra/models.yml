@@ -114,8 +114,10 @@ fra:
       animal: #?
         born_at: "Né(e) le" #?
         variety: "Race" #?
+        dead_at: "Date de sortie"
       animal_group:
         born_at: "Créé le"
+        dead_at: "Date de fin"
       building:
         born_at: "Construit le"
         content_maximal_quantity: "Quantité maximale supportée" #?
@@ -217,6 +219,7 @@ fra:
         children: "Sous-parcelle" #?
         number: "Numéro de parcelle" #?
         real_quantity: "Surface" #?
+        dead_at: "Date de fin"
       land_parcel_group:
         born_at: "Créé le"
         children: "Sous-îlots" #?
@@ -226,10 +229,12 @@ fra:
         ongoing_at: "Date de déblocage des fonds"
         started_on: "Date de la 1ère échéance"
       matter: #?
-        born_at: "Fabriqué le" #?
+        born_at: "En stock depuis le"
         dead_at: "Détruit/consommé le" #?
       naming_format_field:
         field_name: "Champ"
+      notification:
+        done: "Effectué"
       outgoing_parcel: #?
         items: "Lignes de colis à expédier" #?
       outgoing_payment:
@@ -257,6 +262,7 @@ fra:
         born_at: "Planté/semé le"
         nature: "Nature de la culture" #?
         reproductor: "Multiplication" #?
+        dead_at: "Détruit/récolté le"
         variety: "Espèce" #?
         specie_variety_name: "Variété / Cépage" #?
       plant_counting:
@@ -446,6 +452,9 @@ fra:
         asset_fixable: "Immobilisable"
       worker: #?
         variety: "Qualification" #?
+        born_at: "Date d'entrée"
+        dead_at: "Date de sortie"
+        age: "Ancienneté"
     errors:
       messages:
         accepted: "%{attribute} doit être accepté"
@@ -898,7 +907,7 @@ fra:
       product_nature_variant_reading: "Valeur d’indicateur de variante"
       product_ownership: "Propriété de produit"
       product_phase: "Phase de produits"
-      product_population: "Population de produit"
+      product_population: "Quantité de produit"
       product_reading: "Valeur d’indicateur"
       production: "Production" #?
       project_budget: "Budget interne" #?
@@ -1514,7 +1523,7 @@ fra:
     given_at: "Donné le"
     global_amount: "Montant global" #?
     global_balance: "Solde global"
-    global_count: "Population globale"
+    global_count: "Quantité globale"
     global_credit: "Crédit global"
     global_debit: "Débit global"
     godchildren: "Filleul"
@@ -1598,7 +1607,7 @@ fra:
     initial_movement: "Mouvement initial"
     initial_number: "Numéro initial"
     initial_owner: "Propriétaire initial"
-    initial_population: "Population initiale"
+    initial_population: "Quantité initiale"
     initial_releasing_amount: "Déblocage initial du montant emprunté"
     initial_shape: "Forme initiale"
     initialization_vectors: "Vecteurs d’initialisation"
@@ -1947,7 +1956,7 @@ fra:
     point: "Point"
     point_value: "Point value"
     points: "Points"
-    population: "Population"
+    population: "Quantité"
     population_counting: "Gestion quantitative"
     # populations: "Populations"
     position: "Position"

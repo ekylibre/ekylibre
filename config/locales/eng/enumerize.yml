@@ -689,7 +689,7 @@ eng:
         outgoing_payment_lists: "Outgoing payment lists"
         outgoing_payments: "Outgoing payments"
         parcels: "Parcels"
-        # payslips: "Payslips"
+        payslips: "Payslips"
         plant_countings: "Plant countings"
         plants: "Plants"
         product_nature_categories: "Accounting categories"
@@ -697,10 +697,13 @@ eng:
         product_natures: "Product natures"
         products: "Products"
         purchases: "Purchases"
+        ride: "Ride"
+        ride_sets: "Ride sets"
         sales: "Sales"
         sales_invoices: "Sales invoices"
         subscriptions: "Subscriptions"
         tax_declarations: "Tax declarations"
+        wine_incoming_harvests: "Wine incoming harvests"
     shipment:
       delivery_mode:
         # third: "Third"
