@@ -1,4 +1,6 @@
 require 'minitest/mock'
+require "minitest/reporters"
+Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
 ENV['RAILS_ENV'] ||= 'test'
 
@@ -36,7 +38,6 @@ end
 ActionView::TestCase.send :include, FactoryBot::Syntax::Methods
 
 module ActiveSupport
-
   def omniauth_mock(uid: '123',
                     email: 'john.doe@ekylibre.org',
                     first_name: 'John',
@@ -98,6 +99,10 @@ module ActionController
 
     def file_upload(path, mime_type = nil, binary = false)
       fixture_file_upload(fixture_files.join(path), mime_type, binary)
+    end
+
+    private def crush_hash(hash)
+      hash.compact.transform_values { |v| v.is_a?(Hash) ? crush_hash(v) : v }
     end
 
     class << self
@@ -251,9 +256,9 @@ module ActionController
              .gsub('RECORD', record)
           end
           if mode == :index
-            test_code << "get :#{action}, params: #{sanitized_params[]}.crush\n"
+            test_code << "get :#{action}, params: crush_hash(#{sanitized_params[]})\n"
             test_code << "assert_response :success, 'Try to get action: #{action} #{sanitized_params[]}. ' + #{context}\n"
-            test_code << "get :#{action}, params: #{sanitized_params[q: 'abc']}.crush\n"
+            test_code << "get :#{action}, params: crush_hash(#{sanitized_params[q: 'abc']})\n"
             test_code << "assert_response :success, 'Try to get action: #{action} #{sanitized_params[]}. ' + #{context}\n"
             if params[:format] == :json
               # TODO: JSON parsing test
@@ -261,17 +266,17 @@ module ActionController
               test_code << "assert_select('html body #main #content', 1, 'Cannot find #main #content element')\n"
             end
           elsif mode == :new_product
-            test_code << "get :#{action}, params: #{sanitized_params[]}.crush\n"
+            test_code << "get :#{action}, params: crush_hash(#{sanitized_params[]})\n"
             test_code << "if ProductNatureVariant.of_variety('#{model_name.underscore}').any?\n"
             test_code << "  assert_response :success, #{context}\n"
             test_code << "else\n"
             test_code << "  assert_response :redirect, #{context}\n"
             test_code << "end\n"
           elsif mode == :show_sti_record
-            test_code << "get :#{action}, params: #{sanitized_params[id: 'NaID', redirect: 'root_url'.c]}.crush\n"
+            test_code << "get :#{action}, params: crush_hash(#{sanitized_params[id: 'NaID', redirect: 'root_url'.c]})\n"
             test_code << "assert_redirected_to root_url\n"
             test_code << "#{model}.limit(5).each do |record|\n"
-            test_code << "  get :#{action}, params: #{sanitized_params[id: 'record.id'.c, redirect: 'root_url'.c]}.crush\n"
+            test_code << "  get :#{action}, params: crush_hash(#{sanitized_params[id: 'record.id'.c, redirect: 'root_url'.c]})\n"
             test_code << "  if record.type && record.type != '#{model.name}'\n"
             test_code << "    assert_redirected_to({controller: record.class.name.tableize, action: :show, id: record.id})\n" # , #{context}
             test_code << "  else\n"
@@ -280,11 +285,11 @@ module ActionController
             test_code << "  end\n"
             test_code << "end\n"
           elsif mode == :show
-            test_code << "get :#{action}, params: #{sanitized_params[id: 'NaID', redirect: 'root_url'.c]}.crush\n"
+            test_code << "get :#{action}, params: crush_hash(#{sanitized_params[id: 'NaID', redirect: 'root_url'.c]})\n"
             test_code << (strictness == :api ? "assert_response 404\n" : "assert_redirected_to root_url\n")
             if model
               test_code << "#{model}.limit(5).each do |record|\n"
-              test_code << "  get :#{action}, params: #{sanitized_params[id: 'record.id'.c]}.crush\n"
+              test_code << "  get :#{action}, params: crush_hash(#{sanitized_params[id: 'record.id'.c]})\n"
               test_code << "  assert_response :success\n" # , #{context}
               test_code << "  assert_not_nil assigns(:#{record})\n"
               test_code << "end\n"
@@ -292,7 +297,7 @@ module ActionController
           elsif mode == :picture
             test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
             test_code << "assert_equal 1, #{model_name}.where(id: #{record}.id).count\n"
-            test_code << "get :#{action}, params: #{sanitized_params[id: 'RECORD.id'.c]}.crush\n"
+            test_code << "get :#{action}, params: crush_hash(#{sanitized_params[id: 'RECORD.id'.c]})\n"
             test_code << "if #{record}.picture.file?\n"
             test_code << "  assert_response :success, #{context}\n"
             test_code << "  assert_not_nil assigns(:#{record})\n"
@@ -300,132 +305,132 @@ module ActionController
           elsif mode == :list_things
             test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
             test_code << "assert_equal 1, #{model_name}.where(id: #{record}.id).count\n"
-            test_code << "get :#{action}, params: #{sanitized_params[id: 'RECORD.id'.c]}.crush\n"
+            test_code << "get :#{action}, params: crush_hash(#{sanitized_params[id: 'RECORD.id'.c]})\n"
             test_code << "assert_response :success, #{context}\n"
-            %i[csv ods].each do |format| # :xcsv,
-              test_code << "get :#{action}, params: #{sanitized_params[id: 'RECORD.id'.c, format: format]}.crush\n"
+            %i[csv ods].each do |format|
+              test_code << "get :#{action}, params: crush_hash(#{sanitized_params[id: 'RECORD.id'.c, format: format]})\n"
               test_code << "assert_response :success, 'Action #{action} does not export in format #{format}'\n"
             end
           elsif mode == :create
             test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
-            test_code << "post :#{action}, params: #{sanitized_params[record => attributes]}.crush\n"
+            test_code << "post :#{action}, params: crush_hash(#{sanitized_params[record => attributes]})\n"
           elsif mode == :update
             test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
-            test_code << "patch :#{action}, params: #{sanitized_params[id: 'RECORD.id'.c, record => attributes]}.crush\n"
+            test_code << "patch :#{action}, params: crush_hash(#{sanitized_params[id: 'RECORD.id'.c, record => attributes]})\n"
             test_code << "assert_response :redirect, \"After update on record ID=\#{#{record}.id} we should be redirected to another page. \" + #{context}\n"
           elsif mode == :destroy
             test_code << "#{record} = #{fixtures_to_use.retrieve(:first, :second)}\n"
-            test_code << "delete :#{action}, params: #{sanitized_params[id: 'RECORD.id'.c]}.crush\n"
+            test_code << "delete :#{action}, params: crush_hash(#{sanitized_params[id: 'RECORD.id'.c]})\n"
             test_code << "assert_response :redirect, #{context}\n"
           elsif mode == :list
-            test_code << "get :#{action}, params: #{sanitized_params[]}.crush\n"
+            test_code << "get :#{action}, params: crush_hash(#{sanitized_params[]})\n"
             test_code << "assert_response :success, \"The action #{action.inspect} does not seem to support GET method \#{redirect_to_url} / \#{flash.inspect}\"\n"
-            %i[csv ods].each do |format| # , :xcsv
-              test_code << "get :#{action}, params: #{sanitized_params[format: format]}.crush\n"
+            %i[csv ods].each do |format|
+              test_code << "get :#{action}, params: crush_hash(#{sanitized_params[format: format]})\n"
               test_code << "assert_response :success, 'Action #{action} does not export in format #{format}'\n"
             end
           elsif mode == :touch
-            test_code << "post :#{action}, params: #{sanitized_params[id: 'NaID']}.crush\n"
+            test_code << "post :#{action}, params: crush_hash(#{sanitized_params[id: 'NaID']})\n"
             test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
-            test_code << "post :#{action}, params: #{sanitized_params[id: 'RECORD.id'.c]}.crush\n"
+            test_code << "post :#{action}, params: crush_hash(#{sanitized_params[id: 'RECORD.id'.c]})\n"
             test_code << "assert_response :redirect, #{context}\n"
           elsif mode == :poke
-            test_code << "post :#{action}, params: #{sanitized_params[id: 'NaID']}.crush\n"
+            test_code << "post :#{action}, params: crush_hash(#{sanitized_params[id: 'NaID']})\n"
             test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
-            test_code << "post :#{action}, params: #{sanitized_params[id: 'RECORD.id'.c]}.crush\n"
+            test_code << "post :#{action}, params: crush_hash(#{sanitized_params[id: 'RECORD.id'.c]})\n"
             test_code << "assert_response :success, #{context}\n"
           elsif mode == :evolve
             test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
             model.state_machine.states.each do |state|
-              test_code << "patch :#{action}, params: #{sanitized_params[id: 'RECORD.id'.c, state: state.name]}.crush\n"
+              test_code << "patch :#{action}, params: crush_hash(#{sanitized_params[id: 'RECORD.id'.c, state: state.name]})\n"
               test_code << "assert_response :redirect, #{context}\n"
             end
           elsif mode == :take
-            test_code << "post :#{action}, params: #{sanitized_params[id: 'NaID', format: :json]}.crush\n"
+            test_code << "post :#{action}, params: crush_hash(#{sanitized_params[id: 'NaID', format: :json]})\n"
             test_code << "assert_response :redirect, #{context}\n"
             test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
-            test_code << "post :#{action}, params: #{sanitized_params[id: 'RECORD.id'.c, format: :json]}.crush\n"
+            test_code << "post :#{action}, params: crush_hash(#{sanitized_params[id: 'RECORD.id'.c, format: :json]})\n"
             test_code << "assert_response :unprocessable_entity\n"
-            test_code << "post :#{action}, params: #{sanitized_params[id: 'RECORD.id'.c, format: :json, indicator: 'net_mass']}.crush\n"
+            test_code << "post :#{action}, params: crush_hash(#{sanitized_params[id: 'RECORD.id'.c, format: :json, indicator: 'net_mass']})\n"
             test_code << "assert_response :success, #{context}\n"
           elsif mode == :soft_touch
-            test_code << "post :#{action}, params: #{sanitized_params[]}.crush\n"
+            test_code << "post :#{action}, params: crush_hash(#{sanitized_params[]})\n"
             test_code << "assert_response :success, #{context}\n"
           elsif mode == :multi_touch
-            test_code << "post :#{action}, params: #{sanitized_params[id: 'NaID']}.crush\n"
+            test_code << "post :#{action}, params: crush_hash(#{sanitized_params[id: 'NaID']})\n"
             test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
-            test_code << "post :#{action}, params: #{sanitized_params[id: 'RECORD.id'.c]}.crush\n"
+            test_code << "post :#{action}, params: crush_hash(#{sanitized_params[id: 'RECORD.id'.c]})\n"
             test_code << "assert_response :redirect, #{context}\n"
             # Multi IDS
             test_code << "#{other_record} = #{fixtures_to_use.retrieve(:second)}\n"
-            test_code << "post :#{action}, params: #{sanitized_params[id: '[RECORD.id, OTHER_RECORD.id].join(", ")'.c]}.crush\n"
+            test_code << "post :#{action}, params: crush_hash(#{sanitized_params[id: '[RECORD.id, OTHER_RECORD.id].join(", ")'.c]})\n"
             test_code << "assert_response :redirect, #{context}\n"
           elsif mode == :redirected_get # with ID
             test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
-            test_code << "get :#{action}, params: #{sanitized_params[id: 'RECORD.id'.c]}.crush\n"
+            test_code << "get :#{action}, params: crush_hash(#{sanitized_params[id: 'RECORD.id'.c]})\n"
             test_code << "assert_response :redirect, #{context}\n"
           elsif mode == :get_and_post # with ID
-            test_code << "get :#{action}, params: #{sanitized_params[id: 'NaID']}.crush\n"
+            test_code << "get :#{action}, params: crush_hash(#{sanitized_params[id: 'NaID']})\n"
             test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
-            test_code << "get :#{action}, params: #{sanitized_params[id: 'RECORD.id'.c]}.crush\n"
+            test_code << "get :#{action}, params: crush_hash(#{sanitized_params[id: 'RECORD.id'.c]})\n"
             test_code << "assert_response :success, #{context}\n"
           elsif mode == :index_xhr
-            test_code << "get :#{action}, params: #{sanitized_params[]}.crush\n"
+            test_code << "get :#{action}, params: crush_hash(#{sanitized_params[]})\n"
             test_code << "assert_response :redirect, #{context}\n"
-            test_code << "get :#{action}, params: #{sanitized_params[]}.crush, xhr: true\n"
+            test_code << "get :#{action}, params: crush_hash(#{sanitized_params[]}), xhr: true\n"
             test_code << "assert_response :success, #{context}\n"
           elsif mode == :show_xhr
             test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
-            test_code << "get :#{action}, params: #{sanitized_params[id: 'RECORD.id'.c]}.crush\n"
+            test_code << "get :#{action}, params: crush_hash(#{sanitized_params[id: 'RECORD.id'.c]})\n"
             test_code << "assert_response :redirect, #{context}\n"
             test_code << "get :#{action}, params: #{sanitized_params[id: 'RECORD.id'.c]}, xhr: true\n"
             test_code << "assert_not_nil assigns(:#{record})\n"
           elsif mode == :resource
             # TODO: Adds test for resource
           elsif mode == :unroll
-            test_code << "get :#{action}, params: #{sanitized_params[]}.crush, xhr: true\n"
+            test_code << "get :#{action}, params: crush_hash(#{sanitized_params[]}), xhr: true\n"
             test_code << "assert_response :success, #{context}\n"
-            test_code << "get :#{action}, params: #{sanitized_params[q: 'foo)bar']}.crush, xhr: true\n"
+            test_code << "get :#{action}, params: crush_hash(#{sanitized_params[q: 'foo)bar']}), xhr: true\n"
             test_code << "assert_response :success, #{context}\n"
-            test_code << "get :#{action}, params: #{sanitized_params[q: 'foo(bar']}.crush, xhr: true\n"
+            test_code << "get :#{action}, params: crush_hash(#{sanitized_params[q: 'foo(bar']}), xhr: true\n"
             test_code << "assert_response :success, #{context}\n"
-            test_code << "get :#{action}, params: #{sanitized_params[q: 'foo"bar\'qux']}.crush, xhr: true\n"
+            test_code << "get :#{action}, params: crush_hash(#{sanitized_params[q: 'foo"bar\'qux']}), xhr: true\n"
             test_code << "assert_response :success, #{context}\n"
-            test_code << "get :#{action}, params: #{sanitized_params[q: '"; DROP TABLE ' + model.table_name + ';']}.crush, xhr: true\n"
+            test_code << "get :#{action}, params: crush_hash(#{sanitized_params[q: '"; DROP TABLE ' + model.table_name + ';']}), xhr: true\n"
             test_code << "assert_response :success, #{context}\n"
-            test_code << "get :#{action}, params: #{sanitized_params[q: 'foo bar qux']}.crush, xhr: true\n"
+            test_code << "get :#{action}, params: crush_hash(#{sanitized_params[q: 'foo bar qux']}), xhr: true\n"
             test_code << "assert_response :success, #{context}\n"
-            test_code << "get :#{action}, params: #{sanitized_params[format: :json]}.crush, xhr: true\n"
+            test_code << "get :#{action}, params: crush_hash(#{sanitized_params[format: :json]}), xhr: true\n"
             test_code << "assert_response :success, #{context}\n"
-            test_code << "get :#{action}, params: #{sanitized_params[format: :xml]}.crush, xhr: true\n"
+            test_code << "get :#{action}, params: crush_hash(#{sanitized_params[format: :xml]}), xhr: true\n"
             test_code << "assert_response :success, #{context}\n"
             if model
               test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
-              test_code << "get :#{action}, params: #{sanitized_params[id: 'RECORD.id'.c]}.crush, xhr: true\n"
+              test_code << "get :#{action}, params: crush_hash(#{sanitized_params[id: 'RECORD.id'.c]}), xhr: true\n"
               test_code << "assert_response :success, #{context}\n"
               model.simple_scopes.each do |scope|
-                test_code << "get :#{action}, params: #{sanitized_params[scopes: scope.name]}.crush, xhr: true\n"
+                test_code << "get :#{action}, params: crush_hash(#{sanitized_params[scopes: scope.name]}), xhr: true\n"
                 test_code << "assert_response :success, #{context}\n"
-                test_code << "get :#{action}, params: #{sanitized_params[scopes: scope.name, format: :json]}.crush, xhr: true\n"
+                test_code << "get :#{action}, params: crush_hash(#{sanitized_params[scopes: scope.name, format: :json]}), xhr: true\n"
                 test_code << "assert_response :success, #{context}\n"
-                test_code << "get :#{action}, params: #{sanitized_params[scopes: scope.name, format: :xml]}.crush, xhr: true\n"
+                test_code << "get :#{action}, params: crush_hash(#{sanitized_params[scopes: scope.name, format: :xml]}), xhr: true\n"
                 test_code << "assert_response :success, #{context}\n"
-                test_code << "get :#{action}, params: #{sanitized_params[scopes: scope.name, id: 'RECORD.id'.c]}.crush, xhr: true\n"
+                test_code << "get :#{action}, params: crush_hash(#{sanitized_params[scopes: scope.name, id: 'RECORD.id'.c]}), xhr: true\n"
                 test_code << "assert_response :success, #{context}\n"
               end
               # TODO: test complex scopes
             end
           elsif mode == :get
-            test_code << "get :#{action}, params: #{sanitized_params[]}.crush\n"
+            test_code << "get :#{action}, params: crush_hash(#{sanitized_params[]})\n"
             test_code << "assert_response :success, #{context}\n"
           elsif mode == :post
-            test_code << "post :#{action}, params: #{sanitized_params[]}.crush\n"
+            test_code << "post :#{action}, params: crush_hash(#{sanitized_params[]})\n"
             test_code << "assert_response :success, #{context}\n"
           elsif mode == :post_and_redirect
-            test_code << "post :#{action}, params: #{sanitized_params[]}.crush\n"
+            test_code << "post :#{action}, params: crush_hash(#{sanitized_params[]})\n"
             test_code << "assert_response :redirect, #{context}\n"
           elsif mode == :redirect
-            test_code << "get :#{action}, params: #{sanitized_params[]}.crush\n"
+            test_code << "get :#{action}, params: crush_hash(#{sanitized_params[]})\n"
             test_code << "assert_response :redirect, #{context}\n"
           else
             test_code << "raise StandardError, 'What is this mode? #{mode.inspect}'\n"

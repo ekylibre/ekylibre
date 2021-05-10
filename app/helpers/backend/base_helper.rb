@@ -18,6 +18,16 @@
 
 module Backend
   module BaseHelper
+
+    # @param [Array<String>] items
+    def as_unordered_list(items)
+      content_tag(:ul) do
+        items.map do |item|
+          content_tag(:li, item)
+        end.join.html_safe
+      end
+    end
+
     def resource
       instance_variable_get('@' + controller_name.singularize)
     end
@@ -119,6 +129,7 @@ module Backend
 
     def side_menu(*args, &_block)
       return '' unless block_given?
+
       main_options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
       menu = Menu.new
       yield menu
@@ -127,7 +138,7 @@ module Backend
       main_options[:icon] ||= main_name.to_s.parameterize.tr('_', '-')
 
       html = ''.html_safe
-      for name, url, options in menu.items
+      menu.items.each do |name, url, options|
         li_options = {}
         li_options[:class] = 'active' if options.delete(:active)
 
@@ -198,11 +209,12 @@ module Backend
       series = []
       now = (Time.zone.now + 7.days)
       window = 1.day
-      min = (resource.born_at ? resource.born_at : now - window)
+      min = resource.born_at || now - window
       min = now - window if (now - min) < window
       indicators.each do |indicator| # [:population, :nitrogen_concentration].collect{|i| Onoma::Indicator[i] }
         items = ProductReading.where(indicator_name: indicator.name, product: resource).where('? < read_at AND read_at < ?', min, now).order(:read_at)
         next unless items.any?
+
         data = []
         data << [min.to_usec, resource.get(indicator, at: min).to_d.to_s.to_f]
         data += items.each_with_object({}) do |pair, hash|
@@ -223,7 +235,7 @@ module Backend
       series = []
       now = Time.zone.now
       window = 1.day
-      min = (resource.born_at ? resource.born_at : now - window)
+      min = resource.born_at || now - window
       min = now - window if (now - min) < window
       if populations.any?
         data = []
@@ -237,6 +249,7 @@ module Backend
         series << { name: resource.name, data: data.sort_by(&:first) }
       end
       return no_data if series.empty?
+
       line_highcharts(series, legend: { layout: 'horizontal', vertical_align: 'bottom', border_width: 0, align: 'center' }, y_axis: { title: { text: :indicator.tl } }, chart: { spacing_bottom: 40 }, tooltip: { value_decimals: 2, xDateFormat: '%Y-%m-%d, %H:%M' }, x_axis: { type: 'datetime', title: { enabled: true, text: :months.tl }, min: min.to_usec })
     end
 
@@ -352,6 +365,7 @@ module Backend
         unless load_all_faces || active_face == face_name # load_all_faces toggle a few lines above
           next content_tag(:div, nil, id: "face-#{face_name}", data: { face: face_name }, class: classes)
         end
+
         content_tag(:div, id: "face-#{face_name}", data: { face: face_name }, class: classes, &face.block)
       end.join.html_safe
 
@@ -377,6 +391,7 @@ module Backend
     def resource_info(name, options = {}, &block)
       value = options[:value] || resource.send(name)
       return nil if value.blank? && !options[:force]
+
       nomenclature = options.delete(:nomenclature)
       if nomenclature.is_a?(TrueClass)
         value = Onoma.find(name.to_s.pluralize, value)
@@ -482,6 +497,7 @@ module Backend
     def tour(name, _options = {})
       preference = current_user.preference("interface.tours.#{name}.finished", false, :boolean)
       return if preference.value
+
       object = {}
       object[:defaults] ||= {}
       object[:defaults][:classes] ||= 'shepherd-theme-arrows'
@@ -498,6 +514,7 @@ module Backend
       lister = Ekylibre::Support::Lister.new(:step)
       yield lister
       return nil unless lister.any?
+
       steps = lister.steps.map do |step|
         id = step.args.first
         on = (step.options[:on] || 'center').to_s

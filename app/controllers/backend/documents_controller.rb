@@ -66,10 +66,14 @@ module Backend
 
     def show
       return unless @document = find_and_check
-      @file_format = if @document.file_content_type == 'application/xml'
+
+      @file_format = case @document.file_content_type
+                     when 'application/xml'
                        :xml
-                     elsif @document.file_content_type == 'text/plain'
+                     when 'text/plain'
                        :text
+                     when 'application/zip'
+                       :zip
                      else
                        :pdf
                      end
@@ -81,6 +85,7 @@ module Backend
         format.text { send_data(File.read(@document.file.path), type: 'text/plain', filename: @document.file_file_name) }
         format.pdf { send_file(@document.file.path(params[:format] != :default ? :original : :default), disposition: 'inline', filename: @document.file_file_name) }
         format.jpg { send_file(@document.file.path(:thumbnail), disposition: 'inline') }
+        format.zip { send_file(@document.file.path, type: 'application/zip', filename: @document.name) }
       end
     end
   end

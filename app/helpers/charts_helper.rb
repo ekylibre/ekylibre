@@ -217,10 +217,10 @@ module ChartsHelper
       options[:chart][:style][:font_size]   ||= theme_font_size
       options[:colors] ||= theme_colors
       if options[:title].is_a?(String)
-        options[:title] = {text: options[:title].dup}
+        options[:title] = { text: options[:title].dup }
       end
       if options[:subtitle].is_a?(String)
-        options[:subtitle] = {text: options[:subtitle].dup}
+        options[:subtitle] = { text: options[:subtitle].dup }
       end
       series = [series] unless series.is_a?(Array)
       options[:series] = series

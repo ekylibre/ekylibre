@@ -52,10 +52,11 @@ module Backend
     list(:exchanges, model: :financial_year_exchanges, conditions: { financial_year_id: 'params[:id]'.c }) do |t|
       t.action :journal_entries_export, format: :csv, label: :journal_entries_export.ta, class: 'export-action'
       t.action :journal_entries_import, label: :journal_entries_import.ta, if: :opened?, class: 'import-action'
-      t.action :notify_accountant, if: :opened?, class: 'email-action'
+      t.action :notify_accountant_modal, if: :opened?, class: 'notify-accountant-action'
       t.action :close, if: :opened?
-      t.column :started_on, url: true, class: 'center-align'
-      t.column :stopped_on, url: true, class: 'center-align'
+      t.column :name, url: true, class: 'center-align'
+      t.column :started_on, class: 'center-align'
+      t.column :stopped_on, class: 'center-align'
       t.column :closed_at, class: 'center-align'
     end
 
@@ -83,13 +84,13 @@ module Backend
         format.xml do
           FecExportJob.perform_later(@financial_year, params[:fiscal_position], params[:interval], current_user, 'xml')
           notify_success(:document_in_preparation)
-          redirect_to :back
+          redirect_back(fallback_location: { action: :index })
         end
 
         format.text do
           FecExportJob.perform_later(@financial_year, params[:fiscal_position], params[:interval], current_user, 'text')
           notify_success(:document_in_preparation)
-          redirect_to :back
+          redirect_back(fallback_location: { action: :index })
         end
 
         format.pdf do
@@ -97,7 +98,18 @@ module Backend
 
           PrinterJob.perform_later("Printers::#{template.nature.classify}Printer", template: template, financial_year: @financial_year, perform_as: current_user)
           notify_success(:document_in_preparation)
-          redirect_to :back
+          redirect_back(fallback_location: { action: :index })
+        end
+
+        format.zip do
+          if has_invoice?(@financial_year)
+            PurchaseReceiptsExtractorJob.perform_later(financial_years: @financial_year, user: current_user)
+            notify_success(:document_in_preparation)
+            redirect_back(fallback_location: { action: :show, id: @financial_year })
+          else
+            notify_warning(:no_invoice_for_financial_year.tl)
+            redirect_back(fallback_location: { action: :show, id: @financial_year })
+          end
         end
 
         format.json
@@ -163,6 +175,7 @@ module Backend
       if request.get?
         only_closable = FinancialYear.closable_or_lockable
         return redirect_to backend_financial_years_path if @financial_year != only_closable
+
         return render
       end
 
@@ -239,6 +252,7 @@ module Backend
       if request.get?
         only_lockable = FinancialYear.closable_or_lockable
         return redirect_to backend_financial_years_path if @financial_year != only_lockable
+
         return render
       end
 
@@ -272,6 +286,10 @@ module Backend
     end
 
     private
+
+      def has_invoice?(financial_year)
+        PurchaseInvoice.invoiced_between(financial_year.started_on, financial_year.stopped_on).exists?
+      end
 
       def fetch_progress_values(id)
         progress = Progress.fetch('close_main', id: id)

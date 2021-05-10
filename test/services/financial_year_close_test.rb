@@ -25,7 +25,7 @@ class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase
   end
 
   teardown do
-    FileUtils.rm_rf Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', "#{@year.id}")
+    FileUtils.rm_rf Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', @year.id.to_s)
     FileUtils.rm_rf Ekylibre::Tenant.private_directory.join('prior_to_closure_dump')
   end
 
@@ -254,6 +254,7 @@ class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase
 
     def generate_entry(account, debit, letter: nil, printed_on: @beginning + 2.days, destination_account: @dumpster_account)
       return if debit.zero?
+
       side = debit > 0 ? :debit : :credit
       other_side = debit < 0 ? :debit : :credit
       amount = debit.abs
@@ -265,12 +266,12 @@ class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase
             name: side.to_s.capitalize,
             account: account,
             letter: letter,
-            :"real_#{side}" => amount
+            "real_#{side}": amount
           },
           {
             name: other_side.to_s.capitalize,
             account: destination_account,
-            :"real_#{other_side}" => amount
+            "real_#{other_side}": amount
           }
         ]
       )

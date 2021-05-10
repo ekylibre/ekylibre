@@ -56,9 +56,10 @@ module Backend
 
     def show
       return unless @account = find_and_check
+
       t3e @account
       dataset_params = {
-        states: params[:states],
+        states: params[:states].to_h,
         lettering_state: params[:lettering_state],
         account: @account,
         period: params[:period],
@@ -69,15 +70,17 @@ module Backend
         format.html {}
         format.odt do
           return unless template = DocumentTemplate.find_by_nature(:account_journal_entry_sheet)
+
           printer = Printers::AccountJournalEntrySheetPrinter.new(template: template, **dataset_params)
           g = Ekylibre::DocumentManagement::DocumentGenerator.build
           send_data g.generate_odt(template: template, printer: printer), filename: "#{printer.document_name}.odt"
         end
         format.pdf do
           return unless template = find_and_check(:document_template, params[:template])
+
           PrinterJob.perform_later('Printers::AccountJournalEntrySheetPrinter', template: template, perform_as: current_user, **dataset_params)
           notify_success(:document_in_preparation)
-          redirect_to :back
+          redirect_back(fallback_location: { action: :index })
         end
       end
     end
@@ -141,6 +144,7 @@ module Backend
 
     def mark
       return unless @account = find_and_check
+
       if request.post?
         if params[:journal_entry_item]
           letter = @account.mark(params[:journal_entry_item].select { |_k, v| v[:to_mark].to_i == 1 }.collect { |k, _v| k.to_i })
@@ -158,6 +162,7 @@ module Backend
 
     def unmark
       return unless @account = find_and_check
+
       @account.unmark(params[:letter]) if params[:letter]
       redirect_to_back
     end
@@ -182,7 +187,6 @@ module Backend
       @account_id = @account.id
       @currency = Preference[:currency]
       @precision = Onoma::Currency[@currency].precision
-
     end
 
     def mask_lettered_items
@@ -198,6 +202,5 @@ module Backend
       @filtered_accounts = Onoma::Account.list.reject { |a| a.send(Account.accounting_system) == 'NONE' || !a.send(Account.accounting_system).match(regexp) }
       @filtered_accounts = @filtered_accounts.sort_by { |a| a.send(Account.accounting_system) }
     end
-
   end
 end

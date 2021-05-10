@@ -33,6 +33,7 @@ module Calculus
       def compute_shift(&_block)
         amount = @amount.dup
         return amount unless @shift > 0
+
         @shift.times do
           repayment = { base_amount: 0 }
           # Interests
@@ -94,7 +95,7 @@ module Calculus
                              amount / @count
                            else
                              amount * global_rate / (1 - ((1 + global_rate)**-@count))
-        end
+                           end
 
         @count.times do |_index|
           repayment = {}

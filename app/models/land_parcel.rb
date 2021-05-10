@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -116,6 +118,7 @@ class LandParcel < Easement
   def human_initial_shape_area_unit
     a = activity_productions.first.activity if activity_productions.first
     return nil unless a
+
     a.size_unit
   end
 

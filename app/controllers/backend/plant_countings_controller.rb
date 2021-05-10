@@ -23,6 +23,7 @@ module Backend
 
     def show
       return unless @plant_counting = find_and_check
+
       notify_now :density_is_not_computable_in_counting unless @plant_counting.density_computable?
       respond_to do |format|
         format.html { t3e(@plant_counting.attributes) }

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Interventions
   module Computation
     class ExtractReadings
@@ -14,16 +16,18 @@ module Interventions
               @attributes["group_parameters_attributes"].each_with_index do |gp_attrs, index|
                 next if gp_attrs[param_key].blank?
                 next if gp_attrs[param_key].none? {|attrs| attrs.key?(:readings_attributes)}
+
                 readings["group_parameter"] ||= {}
                 readings["group_parameter"][index] = {}
-                readings["group_parameter"][index]["#{group_reading_param}"] = @attributes["group_parameters_attributes"][index][param_key].flat_map {|attrs| attrs.delete(:readings_attributes) }.first
+                readings["group_parameter"][index][group_reading_param.to_s] = @attributes["group_parameters_attributes"][index][param_key].flat_map {|attrs| attrs.delete(:readings_attributes) }.first
               end
             end
           else
             param_key = "#{reading_param.pluralize}_attributes"
             next if @attributes[param_key].blank?
             next if @attributes[param_key].none? {|attrs| attrs.key?(:readings_attributes)}
-            readings["#{reading_param}"] = @attributes[param_key].flat_map {|attrs| attrs.delete(:readings_attributes) }.each_with_index.to_h.invert.compact
+
+            readings[reading_param.to_s] = @attributes[param_key].flat_map {|attrs| attrs.delete(:readings_attributes) }.each_with_index.to_h.invert.compact
           end
         end
         # IE : readings = {"tool"=>{0=>{"indicator_name"=>"hour_counter", "measure_value_value"=>"8", "measure_value_unit"=>"hour"}, 2=>{"indicator_name"=>"hour_counter", "measure_value_value"=>"5", "measure_value_unit"=>"hour"}}}

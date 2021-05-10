@@ -18,7 +18,7 @@ class FecExportJob < ApplicationJob
           fec = FEC::Exporter::XML.new(financial_year, fiscal_position, period.first, period.last)
         end
 
-        file_path = Ekylibre::Tenant.private_directory.join('tmp', "#{filename}")
+        file_path = Ekylibre::Tenant.private_directory.join('tmp', filename.to_s)
         FileUtils.mkdir_p(file_path.dirname)
 
         File.open(file_path, "wb:ISO-8859-15") do |fout|

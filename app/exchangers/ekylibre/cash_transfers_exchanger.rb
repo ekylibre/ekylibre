@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ekylibre
   class CashTransfersExchanger < ActiveExchanger::Base
     category :accountancy
@@ -47,10 +49,10 @@ module Ekylibre
                                                     reception_cash_id: reception_cash.id,
                                                     transfered_at: r.started_on.to_time)
           CashTransfer.create!(
-                        emission_amount: r.amount,
-                        emission_cash_id: emission_cash.id,
-                        reception_cash_id: reception_cash.id,
-                        transfered_at: r.started_on.to_time)
+            emission_amount: r.amount,
+            emission_cash_id: emission_cash.id,
+            reception_cash_id: reception_cash.id,
+            transfered_at: r.started_on.to_time)
         end
 
         w.check_point

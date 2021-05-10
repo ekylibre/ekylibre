@@ -58,11 +58,12 @@ module Ekylibre
     @helps = nil
     def helps
       return @helps unless @helps.nil?
+
       @helps = HashWithIndifferentAccess.new
-      for locale in ::I18n.available_locales
+      ::I18n.available_locales.each do |locale|
         @helps[locale] = HashWithIndifferentAccess.new
         locales_dir = root.join('config', 'locales', locale.to_s, 'help')
-        for file in Dir[locales_dir.join('**', '*.txt')].sort
+        Dir[locales_dir.join('**', '*.txt')].sort.each do |file|
           path = Pathname.new(file).relative_path_from(locales_dir)
           File.open(file, 'rb:UTF-8') do |f|
             help = { title: f.read[/^======\s*(.*)\s*======$/, 1].strip, name: path.to_s.gsub(/\.txt$/, ''), file: file }

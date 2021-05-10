@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Agroedi
   class DaplosExchanger < ActiveExchanger::Base
     class DaplosNode
@@ -38,6 +40,7 @@ module Agroedi
       class << self
         def node_name(name_if_writing = nil)
           return @node_name if name_if_writing.blank?
+
           @node_name = name_if_writing
         end
 

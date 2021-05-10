@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -291,16 +293,19 @@ class Entity < ApplicationRecord
 
   def of_capital?
     return false unless legal_position
+
     legal_position.nature == "capital"
   end
 
   def of_person?
     return false unless legal_position
+
     legal_position.nature == "person"
   end
 
   def of_individual?
     return false unless legal_position
+
     legal_position.nature == "individual"
   end
 
@@ -327,11 +332,13 @@ class Entity < ApplicationRecord
 
   def client_accounting_balance
     return 0.0 unless client?
+
     economic_situation[:client_accounting_balance]
   end
 
   def supplier_accounting_balance
     return 0.0 unless supplier?
+
     economic_situation[:supplier_accounting_balance]
   end
 
@@ -374,6 +381,7 @@ class Entity < ApplicationRecord
     unless natures.include?(nature)
       raise ArgumentError.new("Unknown nature #{nature.inspect} (#{natures.to_sentence} are accepted)")
     end
+
     valid_account = send("#{nature}_account")
     if valid_account.nil?
       prefix = Account.centalizing_account_prefix_for(nature)
@@ -460,6 +468,7 @@ class Entity < ApplicationRecord
   # self. Given entity is destroyed at the end, self remains.
   def merge_with(other, options = {})
     raise StandardError.new('Company entity is not mergeable') if other.of_company?
+
     author = options[:author]
     ApplicationRecord.transaction do
       # EntityAddress
@@ -482,6 +491,7 @@ class Entity < ApplicationRecord
       Ekylibre::Schema.tables.each do |table, columns|
         columns.each do |_name, column|
           next unless column.references
+
           if column.references.is_a?(String) # Polymorphic
             connection.execute("UPDATE #{table} SET #{column.name}=#{id} WHERE #{column.name}=#{other.id} AND #{column.references} IN #{models_group}")
           elsif column.references == base_model # Straight
@@ -545,6 +555,7 @@ class Entity < ApplicationRecord
 
   def financial_year_with_opened_exchange?
     return false unless persisted?
+
     financial_years.any?(&:opened_exchange?)
   end
 

@@ -23,6 +23,7 @@ module Backend
       klass = @object.class
       reflection = klass.nomenclature_reflections[association]
       raise ArgumentError.new("Invalid nomenclature reflection: #{association}") unless reflection
+
       options[:collection] ||= reflection.klass.selection
       options[:label] ||= klass.human_attribute_name(association)
       input(reflection.foreign_key, options)
@@ -35,6 +36,7 @@ module Backend
     # Display a selector with "new" button
     def referenced_association(association, options = {})
       return self.association(association, options) if options[:as] == :hidden
+
       options = referenced_association_input_options(association, options)
       input(options[:reflection].foreign_key, options)
     end
@@ -42,6 +44,7 @@ module Backend
     # Display a selector with "new" button
     def referenced_association_field(association, options = {})
       return self.association(association, options) if options[:as] == :hidden
+
       options = referenced_association_input_options(association, options)
       html_options = options[:input_html].merge(options.slice(:as, :reflection))
       input_field(options[:reflection].foreign_key, html_options)
@@ -52,6 +55,7 @@ module Backend
       options = args.extract_options!
       reflection = find_association_reflection(association)
       raise "Association #{association.inspect} not found" unless reflection
+
       if block_given?
         ActiveSupport::Deprecation.warn "Nested association don't take code block anymore. Use partial '#{association.to_s.singularize}_fields' instead."
       end
@@ -83,8 +87,10 @@ module Backend
 
     def custom_fields
       return nil unless @object.customizable?
+
       custom_fields = @object.class.custom_fields
       return nil unless custom_fields.any?
+
       @template.content_tag(:div, class: 'custom-fields') do
         simple_fields_for(:custom_fields, @object.custom_fields_model) do |cff|
           custom_fields.map do |custom_field|
@@ -136,6 +142,7 @@ module Backend
       unless reflection = find_association_reflection(association)
         raise "Association #{association.inspect} not found"
       end
+
       indicator_column = options[:indicator_column] || "#{association}_indicator"
       unit_column = options[:unit_column] || "#{association}_unit"
       html_options = { data: { variant_quantifier: "#{@object.class.name.underscore}_#{reflection.foreign_key}" } }
@@ -207,6 +214,7 @@ module Backend
     end
 
     def find_input(attribute_name, options = {}, &block)
+      binding.pry if attribute_name == :specie_variety_name
       input = super
 
       if is_nomenclature_select?(attribute_name)
@@ -348,19 +356,9 @@ module Backend
         end
       end
       show = options.delete(:show)
-      unless show.is_a?(FalseClass)
-        show ||= @object.class.where.not(attribute_name => nil)
-        union = Charta.empty_geometry
-        if show.any?
-          if show.is_a?(Hash) && show.key?(:series)
-            editor[:show] = show
-          else
-            union = show.geom_union(attribute_name)
-            editor[:show] = union.to_json_object unless union.empty?
-          end
-        else
-          editor[:show] = {}
-          editor[:show][:series] = {}
+      if show != false
+        if show.is_a?(Hash) && show.key?(:series)
+          editor[:show] = show
         end
         editor[:useFeatures] = true
       end
@@ -686,7 +684,7 @@ module Backend
       prefix = @lookup_model_names.first + @lookup_model_names[1..-1].collect { |x| "[#{x}]" }.join
       html = ''.html_safe
       reference = (@object.send(name) || {}).with_indifferent_access
-      for resource, rights in Ekylibre::Access.resources.sort { |a, b| Ekylibre::Access.human_resource_name(a.first).ascii <=> Ekylibre::Access.human_resource_name(b.first).ascii }
+      Ekylibre::Access.resources.sort { |a, b| Ekylibre::Access.human_resource_name(a.first).ascii <=> Ekylibre::Access.human_resource_name(b.first).ascii }.each do |resource, rights|
         resource_reference = reference[resource] || []
         html << @template.content_tag(:div, class: 'control-group booleans') do
           @template.content_tag(:label, class: 'control-label') do
@@ -721,6 +719,7 @@ module Backend
 
     def actions
       return nil unless @actions.any?
+
       @template.form_actions do
         html = ''.html_safe
         @actions.each do |action|
@@ -752,58 +751,60 @@ module Backend
 
     protected
 
-    def clean_targets(targets)
-      if targets.is_a?(String)
-        return targets
-      elsif targets.is_a?(Symbol)
-        return "##{targets}"
-      elsif targets.is_a?(Array)
-        return targets.collect { |t| clean_targets(t) }.join(', ')
-      else
-        return targets.to_json
-      end
-      targets
-    end
+      def clean_targets(targets)
+        if targets.is_a?(String)
+          return targets
+        elsif targets.is_a?(Symbol)
+          return "##{targets}"
+        elsif targets.is_a?(Array)
+          return targets.collect { |t| clean_targets(t) }.join(', ')
+        else
+          return targets.to_json
+        end
 
-    # Compute all needed options for referenced_association
-    def referenced_association_input_options(association, options = {})
-      options = options.dup
-      reflection = find_association_reflection(association)
-      raise "Association #{association.inspect} not found" unless reflection
-      if reflection.macro != :belongs_to
-        raise ArgumentError.new("Reflection #{reflection.name} must be a belongs_to")
+        targets
       end
 
-      choices = options.delete(:source) || {}
-      choices = { scope: choices } if choices.is_a?(Symbol)
-      choices[:action] ||= :unroll
-      choices[:controller] ||= options.delete(:controller) || reflection.class_name.underscore.pluralize
+      # Compute all needed options for referenced_association
+      def referenced_association_input_options(association, options = {})
+        options = options.dup
+        reflection = find_association_reflection(association)
+        raise "Association #{association.inspect} not found" unless reflection
+        if reflection.macro != :belongs_to
+          raise ArgumentError.new("Reflection #{reflection.name} must be a belongs_to")
+        end
 
-      model = @object.class
+        choices = options.delete(:source) || {}
+        choices = { scope: choices } if choices.is_a?(Symbol)
+        choices[:action] ||= :unroll
+        choices[:controller] ||= options.delete(:controller) || reflection.class_name.underscore.pluralize
 
-      options[:input_html] ||= {}
-      options[:input_html][:data] ||= {}
-      options[:input_html][:data][:use_closest] = options[:closest] if options[:closest]
-      options[:input_html][:data][:selector] = @template.url_for(choices)
-      unless options[:new].is_a?(FalseClass)
-        new_url = options[:new].is_a?(Hash) ? options[:new] : {}
-        new_url[:controller] ||= choices[:controller]
-        new_url[:action] ||= :new
-        options[:input_html][:data][:selector_new_item] = @template.url_for(new_url)
+        model = @object.class
+
+        options[:input_html] ||= {}
+        options[:input_html][:data] ||= {}
+        options[:input_html][:data][:use_closest] = options[:closest] if options[:closest]
+        options[:input_html][:data][:selector] = @template.url_for(choices)
+        unless options[:new].is_a?(FalseClass)
+          new_url = options[:new].is_a?(Hash) ? options[:new] : {}
+          new_url[:controller] ||= choices[:controller]
+          new_url[:action] ||= :new
+          options[:input_html][:data][:selector_new_item] = @template.url_for(new_url)
+        end
+        # options[:input_html][:data][:value_parameter_name] = options[:value_parameter_name] || reflection.foreign_key
+        options[:input_html][:data][:selector_id] = model.name.underscore + '_' + reflection.foreign_key.to_s
+        options[:as] = :string
+        options[:reflection] = reflection
+        options
       end
-      # options[:input_html][:data][:value_parameter_name] = options[:value_parameter_name] || reflection.foreign_key
-      options[:input_html][:data][:selector_id] = model.name.underscore + '_' + reflection.foreign_key.to_s
-      options[:as] = :string
-      options[:reflection] = reflection
-      options
-    end
 
-    def unit_field(unit_name_attribute, units_values, *_args)
-      if units_values.is_a?(Array)
-        return input(unit_name_attribute, collection: units_values, include_blank: false, wrapper: :simplest)
+      def unit_field(unit_name_attribute, units_values, *_args)
+        if units_values.is_a?(Array)
+          return input(unit_name_attribute, collection: units_values, include_blank: false, wrapper: :simplest)
+        end
+
+        @template.content_tag(:span, units_values.tl, class: 'add-on')
       end
-      @template.content_tag(:span, units_values.tl, class: 'add-on')
-    end
 
     private
 

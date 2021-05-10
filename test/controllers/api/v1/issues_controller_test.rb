@@ -5,7 +5,7 @@ module Api
       connect_with_token
 
       test 'index' do
-        get :index
+        get :index, params: {}
         json = JSON.parse response.body
         assert_response :ok
         assert json.size <= 25

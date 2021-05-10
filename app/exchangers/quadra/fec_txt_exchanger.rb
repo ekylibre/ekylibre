@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Quadra
   class FecTxtExchanger < ActiveExchanger::Base
     category :accountancy
@@ -38,7 +40,6 @@ module Quadra
         end
 
         w.info "#{line_number} - #{valid}".green
-
       end
       w.info "End validation : #{valid}".yellow
       valid
@@ -316,7 +317,6 @@ module Quadra
         end
 
         Entity.create!(attrs)
-
       end
 
       # @param [String] jou_code

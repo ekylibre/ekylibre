@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -100,6 +102,7 @@ class ProductGroup < Product
   scope :availables, ->(**args) {
     at = args[:at]
     return available if at.blank?
+
     if at.is_a?(String)
       if at =~ /\A\d\d\d\d\-\d\d\-\d\d \d\d\:\d\d/
         available.at(Time.strptime(at, '%Y-%m-%d %H:%M'))
@@ -132,6 +135,7 @@ class ProductGroup < Product
     unless member.is_a?(Product)
       raise ArgumentError.new("Product expected, got #{member.class}:#{member.inspect}")
     end
+
     Intervention.write(:group_inclusion, options) do |i|
       i.cast :group, self, as: 'group_inclusion-target'
       i.cast :member, member, as: 'group_inclusion-includer'
@@ -145,6 +149,7 @@ class ProductGroup < Product
     unless member.is_a?(Product)
       raise ArgumentError.new("Product expected, got #{member.class}:#{member.inspect}")
     end
+
     Intervention.write(:group_exclusion, at: started_at, production: production) do |i|
       i.cast :group, self, as: 'group_exclusion-target'
       i.cast :member, member, as: 'group_exclusion-includer'

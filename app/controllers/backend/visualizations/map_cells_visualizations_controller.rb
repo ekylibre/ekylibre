@@ -22,9 +22,11 @@ module Backend
           Sensor.find_each.group_by(&:model_euid).each do |model, sensors|
             items = sensors.map do |sensor|
               next unless sensor.analyses.last && sensor.analyses.last.geolocation
+
               analysis = sensor.analyses.last
               popup_lines = analysis.items.map do |item|
                 next unless item.value.respond_to? :l
+
                 { label: item.human_indicator_name, content: item.value.l }
               end
 
@@ -52,8 +54,32 @@ module Backend
             sensor_data += (items || []).compact
           end
 
+          # SNA dataset
+          cap_neutral_areas_data = []
+          arr_campaigns = Campaign.where(id: campaigns)
+          cna_items = CapNeutralArea.of_campaign(arr_campaigns).map do |p|
+            next if p.shape.nil?
+
+            popup_content = []
+            if p.shape_area > 0.0.in_square_meter
+              popup_content << { label: CapLandParcel.human_attribute_name(:net_surface_area), value: p.human_shape_area }
+            end
+            popup_content << { label: CapNeutralArea.human_attribute_name(:neutral_area_category), value: p.category }
+            popup_content << { label: CapNeutralArea.human_attribute_name(:neutral_area_nature), value: p.nature }
+
+            {
+              name: p.number,
+              neutral_area_category: p.category,
+              shape: p.shape,
+              popup: { content: popup_content }
+            }
+          end
+
+          cap_neutral_areas_data += (cna_items || []).compact
+
           activity_productions.of_campaign(campaigns).includes(:activity, :campaign, :cultivable_zone, interventions: [:outputs, :participations, tools: :product, inputs: :product]).find_each do |support|
             next unless support.support_shape
+
             popup_content = []
 
             # for support
@@ -61,16 +87,18 @@ module Backend
             # popup_content << {label: :campaign.tl, value: view_context.link_to(params[:campaigns.name, backend_campaign_path(params[:campaigns))}
             popup_content << { label: ActivityProduction.human_attribute_name(:net_surface_area), value: support.human_support_shape_area }
             popup_content << { label: ActivityProduction.human_attribute_name(:activity), value: view_context.link_to(support.activity_name, backend_activity_path(support.activity)) }
-            if (support_input_cost = support.input_cost) && support_input_cost.to_d > 0.0
-              popup_content << { label: :costs_per_hectare.tl }
-              popup_content << { value: "#{:inputs.tl} : #{support_input_cost.to_s.to_f.round(2)}" }
-            end
-            if (support_tool_cost = support.tool_cost) && support_tool_cost.to_d > 0.0
-              popup_content << { value: "#{:tools.tl} : #{support_tool_cost.to_s.to_f.round(2)}" }
-            end
-            if (support_time_cost = support.time_cost) && support_time_cost.to_d > 0.0
-              popup_content << { value: "#{:times.tl} : #{support_time_cost.to_s.to_f.round(2)}" }
-            end
+
+            # Remove Cost waiting good data for it
+            # if (support_input_cost = support.input_cost) && support_input_cost.to_d > 0.0
+            #  popup_content << { label: :costs_per_hectare.tl }
+            #  popup_content << { value: "#{:inputs.tl} : #{support_input_cost.to_s.to_f.round(2)}" }
+            # end
+            # if (support_tool_cost = support.tool_cost) && support_tool_cost.to_d > 0.0
+            #   popup_content << { value: "#{:tools.tl} : #{support_tool_cost.to_s.to_f.round(2)}" }
+            # end
+            # if (support_time_cost = support.time_cost) && support_time_cost.to_d > 0.0
+            #   popup_content << { value: "#{:times.tl} : #{support_time_cost.to_s.to_f.round(2)}" }
+            # end
 
             # nitrogen_concentration = support.soil_enrichment_indicator_content_per_area(:nitrogen_concentration)
             # phosphorus_concentration = support.soil_enrichment_indicator_content_per_area(:phosphorus_concentration)
@@ -96,32 +124,32 @@ module Backend
             # TODO: refactor
             # measure_unit = "#{mass_unit.to_s}_per_#{surface_unit.to_s}"
             # yield_symbol = Onoma::Unit[measure_unit.to_sym]
-            surface_unit_name = :hectare
 
+            # TODO: refactor yield informations adn reactivate it
             # case fodder (hay, grass) in ton per hectare
-            if support.usage == 'fodder' || support.usage == 'fiber'
-              label = :grass_yield
-              grass_yield = support.fodder_yield
-              popup_content << { label: label.tl, value: grass_yield.round(2).l }
+            # if support.usage == 'fodder' || support.usage == 'fiber'
+            #  label = :grass_yield
+            #  grass_yield = support.fodder_yield
+            #  popup_content << { label: label.tl, value: grass_yield.round(2).l }
 
             # case grain in quintal per hectare
-            elsif support.usage == 'grain' || support.usage == 'seed'
-              label = :grain_yield
-              grain_yield = support.grains_yield
-              popup_content << { label: label.tl, value: grain_yield.round(2).l }
+            # elsif support.usage == 'grain' || support.usage == 'seed'
+            #  label = :grain_yield
+            #  grain_yield = support.grains_yield
+            #  popup_content << { label: label.tl, value: grain_yield.round(2).l }
 
             # case vegetable
-            elsif support.usage == 'vegetable'
-              label = :vegetable_yield
-              vegetable_yield = support.vegetable_yield
-              popup_content << { label: label.tl, value: vegetable_yield.round(2).l }
+            # elsif support.usage == 'vegetable'
+            #  label = :vegetable_yield
+            #  vegetable_yield = support.vegetable_yield
+            #  popup_content << { label: label.tl, value: vegetable_yield.round(2).l }
 
             # grappe
-            elsif support.usage == 'fruit' || support.usage == 'grappe'
-              label = :fruit_yield
-              fruit_yield = support.fruit_yield
-              popup_content << { label: label.tl, value: fruit_yield.round(2).l }
-            end
+            # elsif support.usage == 'fruit' || support.usage == 'grappe'
+            #  label = :fruit_yield
+            #  fruit_yield = support.fruit_yield
+            #  popup_content << { label: label.tl, value: fruit_yield.round(2).l }
+            # end
 
             # if support.net_surface_area
             #  popup_content << {label: CultivableZone.human_attribute_name(:net_surface_area), value: support.net_surface_area.in_hectare.round(2).l}
@@ -129,6 +157,8 @@ module Backend
 
             # compute pfi parcel ratio from pfi treatment ratios
             # popup_content << { label: :pfi_parcel_ratio.tl, value: support.pfi_parcel_ratio.round(2) }
+
+            surface_unit_name = :hectare
 
             interventions = support.interventions.real
             if interventions.any?
@@ -140,6 +170,9 @@ module Backend
             end
 
             # build frequency indicator of spraying (IFT map)
+            # IFT activity production
+            pfi_activity_production = PfiCampaignsActivitiesIntervention.pfi_value_on_activity_production_campaign(support, campaigns)
+            popup_content << { label: :pfi_activity_production.tl, value: view_context.link_to(pfi_activity_production, backend_activity_production_path(support)) }
 
             popup_content << render_to_string(partial: 'popup', locals: { production: support })
 
@@ -148,18 +181,19 @@ module Backend
               shape: support.support_shape,
               shape_color: support.activity.color,
               activity: support.activity.name,
-              tool_cost: support.tool_cost.to_s.to_f.round(2),
-              input_cost: support.input_cost.to_s.to_f.round(2),
-              time_cost: support.time_cost.to_s.to_f.round(2),
+              pfi_activity_production: pfi_activity_production,
+              # tool_cost: support.tool_cost.to_s.to_f.round(2),
+              # input_cost: support.input_cost.to_s.to_f.round(2),
+              # time_cost: support.time_cost.to_s.to_f.round(2),
               # nitrogen_concentration:   nitrogen_concentration.to_s.to_f.round(2),
               # phosphorus_concentration: phosphorus_concentration.to_s.to_f.round(2),
               # potassium_concentration:  potassium_concentration.to_s.to_f.round(2),
-              interventions_count: interventions.count,
+              # interventions_count: interventions.count,
               # pfi_parcel_ratio:  support.pfi_parcel_ratio,
-              grain_yield: grain_yield.to_s.to_f.round(2),
-              grass_yield: grass_yield.to_s.to_f.round(2),
-              vegetable_yield: vegetable_yield.to_s.to_f.round(2),
-              fruit_yield: fruit_yield.to_s.to_f.round(2),
+              # grain_yield: grain_yield.to_s.to_f.round(2),
+              # grass_yield: grass_yield.to_s.to_f.round(2),
+              # vegetable_yield: vegetable_yield.to_s.to_f.round(2),
+              # fruit_yield: fruit_yield.to_s.to_f.round(2),
               popup: { header: true, content: popup_content }
             }
             data << item
@@ -167,29 +201,36 @@ module Backend
 
           config = view_context.configure_visualization do |v|
             v.serie :main, data
-
             if sensor_data.present?
               v.serie :sensor_data, sensor_data
               v.point_group :sensors, :sensor_data
             end
 
-            if visualization_face == 'nitrogen_footprint'
-              v.choropleth :interventions_count, :main
-              # v.choropleth :nitrogen_concentration, :main, stop_color: "#777777"
-              # v.choropleth :phosphorus_concentration, :main, stop_color: "#11BB99"
-              # v.choropleth :potassium_concentration, :main, stop_color: "#AA00AA"
-            elsif visualization_face == 'grain_yield'
-              v.choropleth :grain_yield, :main, stop_color: '#AA00AA'
-              v.choropleth :grass_yield, :main, stop_color: '#00AA00'
-              v.choropleth :vegetable_yield, :main, stop_color: '#11BB99'
-              v.choropleth :fruit_yield, :main, stop_color: '#1122DD'
-              # v.choropleth :pfi_parcel_ratio, :main, stop_color: '#E77000'
-            else
-              v.choropleth :tool_cost, :main, stop_color: '#00AA00'
-              v.choropleth :input_cost, :main, stop_color: '#1122DD'
-              v.choropleth :time_cost, :main, stop_color: '#E77000'
+            if cap_neutral_areas_data.present?
+              v.serie :cap_neutral_areas_data, cap_neutral_areas_data
+              v.categories :neutral_area_category, :cap_neutral_areas_data, without_ghost_label: true
             end
+
+            v.choropleth :pfi_activity_production, :main, stop_color: "#AA00AA"
             v.categories :activity, :main
+
+            # REMOVE yield and cost vizualisation WAIT FOR great data ready
+            # if visualization_face == 'nitrogen_footprint'
+            # v.choropleth :interventions_count, :main
+            # v.choropleth :nitrogen_concentration, :main, stop_color: "#777777"
+            # v.choropleth :phosphorus_concentration, :main, stop_color: "#11BB99"
+            # v.choropleth :potassium_concentration, :main, stop_color: "#AA00AA"
+            # elsif visualization_face == 'grain_yield'
+            # v.choropleth :grain_yield, :main, stop_color: '#AA00AA', add_to_map: true
+            # v.choropleth :grass_yield, :main, stop_color: '#00AA00', add_to_map: false
+            # v.choropleth :vegetable_yield, :main, stop_color: '#11BB99'
+            # v.choropleth :fruit_yield, :main, stop_color: '#1122DD'
+            # v.choropleth :pfi_parcel_ratio, :main, stop_color: '#E77000'
+            # else
+            # v.choropleth :tool_cost, :main, stop_color: '#00AA00'
+            # v.choropleth :input_cost, :main, stop_color: '#1122DD'
+            # v.choropleth :time_cost, :main, stop_color: '#E77000'
+            # end
           end
 
         end

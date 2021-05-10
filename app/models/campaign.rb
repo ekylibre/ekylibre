@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -81,6 +83,7 @@ class Campaign < ApplicationRecord
   class << self
     def of(year)
       raise 'Invalid year: ' + year.inspect unless year.to_s =~ /\A\d+\z/
+
       find_or_create_by!(harvest_year: year)
     end
 

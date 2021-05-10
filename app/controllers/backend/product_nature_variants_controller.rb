@@ -183,6 +183,7 @@ module Backend
 
     def detail
       return unless @product_nature_variant = find_and_check
+
       product_nature = @product_nature_variant.nature
       infos = {
         name: @product_nature_variant.name,
@@ -350,19 +351,22 @@ module Backend
       instance_variable_set("@#{controller_name.singularize}", controller_path.gsub('backend/', '').classify.constantize.new(permitted_params))
       @key = :product_nature_variant
       handle_maaid(instance_variable_get("@#{controller_name.singularize}"), params[:phyto_product_id])
-      return if save_and_redirect(instance_variable_get("@#{controller_name.singularize}"), url: (params[:create_and_continue] ? { :action => :new, :continue => true } : (params[:redirect] || { action: :show, id: 'id'.c })), notify: ((params[:create_and_continue] || params[:redirect]) ? :record_x_created : false), identifier: :name)
-      render(locals: { cancel_url: { :action => :index }, with_continue: false })
+      return if save_and_redirect(instance_variable_get("@#{controller_name.singularize}"), url: (params[:create_and_continue] ? { action: :new, continue: true } : (params[:redirect] || { action: :show, id: 'id'.c })), notify: ((params[:create_and_continue] || params[:redirect]) ? :record_x_created : false), identifier: :name)
+
+      render(locals: { cancel_url: { action: :index }, with_continue: false })
     end
 
     def update
       return unless @product_nature_variant = find_and_check(:product_nature_variant)
+
       t3e(@product_nature_variant.attributes)
       @product_nature_variant.attributes = permitted_params
       handle_maaid(@product_nature_variant, params[:phyto_product_id])
       return if save_and_redirect(@product_nature_variant, url: params[:redirect] || { action: :show, id: 'id'.c }, notify: (params[:redirect] ? :record_x_updated : false), identifier: :name)
+
       @form_url = backend_product_nature_variant_path(@product_nature_variant)
       @key = 'product_nature_variant'
-      render(locals: { cancel_url: { :action => :index }, with_continue: false })
+      render(locals: { cancel_url: { action: :index }, with_continue: false })
     end
 
     private

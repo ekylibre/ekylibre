@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ekylibre
   class LoansExchanger < ActiveExchanger::Base
     # TODO: add this class in common class of Exchanger Errors
@@ -134,7 +136,6 @@ module Ekylibre
 
         w.info "#{line_number} - #{valid}".green
         w.check_point
-
       end
       w.info "End validation : #{valid}".yellow
       valid
@@ -174,7 +175,7 @@ module Ekylibre
           repayment_duration: row.repayment_duration,
           repayment_method: row.repayment_method,
           repayment_period: row.repayment_period,
-          initial_releasing_amount: ((row.initial_releasing_amount.present? && row.initial_releasing_amount == 1) ? true : false),
+          initial_releasing_amount: row.initial_releasing_amount.present? && row.initial_releasing_amount == 1,
           insurance_percentage: 0.0,
           use_bank_guarantee: false,
           shift_duration: 0,
@@ -332,6 +333,5 @@ module Ekylibre
 
         parser.normalize(rows)
       end
-
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -216,6 +218,7 @@ class Purchase < ApplicationRecord
     if supplier.default_mail_address
       return supplier.default_mail_address.mail_coordinate
     end
+
     nil
   end
 

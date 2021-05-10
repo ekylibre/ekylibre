@@ -1,3 +1,4 @@
-module Interventions
+# frozen_string_literal: true
 
+module Interventions
 end

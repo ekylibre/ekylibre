@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -45,6 +47,7 @@
 class CultivableZone < ApplicationRecord
   include Attachable
   include Customizable
+  include Providable
   refers_to :production_system
   refers_to :soil_nature
   belongs_to :farmer, class_name: 'Entity'
@@ -90,12 +93,14 @@ class CultivableZone < ApplicationRecord
   def cap_number
     islets = CapIslet.shape_intersecting(shape).order(id: :desc)
     return islets.first.islet_number if islets.any?
+
     nil
   end
 
   def city_name
     islets = CapIslet.shape_intersecting(shape).order(id: :desc)
     return islets.first.city_name if islets.any?
+
     nil
   end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Agroedi
   class DaplosExchanger < ActiveExchanger::Base
     category :plant_farming
@@ -11,6 +13,7 @@ module Agroedi
 
     def import
       raise ActiveExchanger::NotWellFormedFileError unless daplos?
+
       crops = daplos&.interchange&.crops
       raise ActiveExchanger::NotWellFormedFileError unless crops
 

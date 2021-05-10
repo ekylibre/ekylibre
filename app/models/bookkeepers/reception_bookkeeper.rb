@@ -1,5 +1,6 @@
-class ReceptionBookkeeper < ParcelBookkeeper
+# frozen_string_literal: true
 
+class ReceptionBookkeeper < ParcelBookkeeper
   def call
     return unless given?
 

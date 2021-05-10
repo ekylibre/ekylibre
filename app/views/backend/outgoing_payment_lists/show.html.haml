@@ -1,6 +1,10 @@
 - main_toolbar do |t|
   = t.destroy resource
-  = t.export  :outgoing_payment_list__standard, :outgoing_payment_list__check_letter, key: :number
+  - exports = []
+  - exports << :outgoing_payment_list__standard
+  - exports << :outgoing_payment_list__check_letter
+  = t.export(*exports, key: :number, target:"_blank")
+  
   = t.export_to_sepa resource if resource.sepa_exportable?
 
 = main_informations do

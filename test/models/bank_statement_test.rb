@@ -174,9 +174,9 @@ class BankStatementTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
     eligible_journal_entry_item_ids = bank_statement.eligible_journal_entry_items.to_a.map(&:id)
     assert eligible_journal_entry_item_ids.any?
-    assert pointed.all? { |jei| eligible_journal_entry_item_ids.include?(jei.id) }
-    assert unpointed_in_range.all? { |jei| eligible_journal_entry_item_ids.include?(jei.id) }
-    assert unpointed_around_range.all? { |jei| eligible_journal_entry_item_ids.include?(jei.id) }
+    assert(pointed.all? { |jei| eligible_journal_entry_item_ids.include?(jei.id) })
+    assert(unpointed_in_range.all? { |jei| eligible_journal_entry_item_ids.include?(jei.id) })
+    assert(unpointed_around_range.all? { |jei| eligible_journal_entry_item_ids.include?(jei.id) })
   end
 
   test 'suspense process' do
@@ -257,6 +257,21 @@ class BankStatementTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_equal journal_entry, item.entry
 
     assert_equal bank_statement.balance_credit, cash.main_account.totals[:balance_debit]
+
+    ## test bank_statement_lettering add letter on each journal entry
+    bsi = BankStatementItem.where(name: 'Check #856124')
+    cash.letter_items(bsi, bank_statement.eligible_journal_entry_items)
+    bsi.reload
+    jei = journal_entry.items.where(account: suspense).first
+    bsi_jei = bank_statement.journal_entry.items.where(account: suspense).first
+    assert bsi_jei.present?
+    # ensure that bank_statement_id and bank_statement_letter is present on jei
+    assert_equal bank_statement.id, jei.bank_statement_id
+    assert_equal bsi.first.letter, jei.bank_statement_letter
+    # ensure that letter is present and equal on jei and bsi_jei
+    assert jei.letter.present?
+    assert bsi_jei.letter.present?
+    assert_equal bsi_jei.letter, jei.letter
   end
 
   test 'ensure sign of amount is different in Incoming and Outgoing payments' do

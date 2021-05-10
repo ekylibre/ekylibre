@@ -139,6 +139,7 @@ module Backend
                        .where(closed: false, currency: mode.cash.currency)
                        .where("purchases.#{params[:period_reference]} IS NOT NULL AND purchases.#{params[:period_reference]} BETWEEN ? AND ?", params[:started_at], params[:stopped_at])
                        .where.not(purchases: { id: nil })
+                       .where(entities: { supplier_payment_mode_id: mode.id })
                        .order('entities.full_name ASC')
                        .order("purchases.#{params[:period_reference]} ASC", :number)
 
@@ -169,6 +170,7 @@ module Backend
 
     def destroy
       return unless @outgoing_payment_list = find_and_check
+
       @outgoing_payment_list.remove if @outgoing_payment_list
       redirect_to action: :index
     end

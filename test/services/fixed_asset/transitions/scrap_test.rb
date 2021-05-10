@@ -4,7 +4,6 @@ require_dependency Rails.root.join('app', 'models', 'fixed_asset')
 class FixedAsset
   module Transitions
     class ScrapTest < Ekylibre::Testing::ApplicationTestCase
-
       setup do
         @fy = create :financial_year, year: 2018
       end
@@ -88,7 +87,7 @@ class FixedAsset
       end
 
       def new_transition_for(fa, scrapped_on, **options)
-        FixedAsset::Transitions::Scrap.new(fa, scrapped_on, **options)
+        FixedAsset::Transitions::Scrap.new(fa, scrapped_on: scrapped_on, **options)
       end
 
       def t_err(t)

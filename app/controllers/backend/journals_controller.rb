@@ -37,6 +37,7 @@ module Backend
     end
 
     list(:items, model: :journal_entry_items, conditions: journal_entries_conditions, joins: :entry, line_class: "(RECORD.position==1 ? 'first-item' : '') + (RECORD.entry_balanced? ? '' : ' error')".c, order: "entry_id DESC, #{JournalEntryItem.table_name}.position", export_class: ListExportJob) do |t|
+      t.icon :lock, if: :currently_exchanged?
       t.column :entry_number, url: true
       t.column :printed_on, through: :entry, datatype: :date
       t.column :account, url: true
@@ -95,9 +96,10 @@ module Backend
         format.json { render json: Journal.all }
         format.pdf do
           return unless (template = find_and_check(:document_template, params[:template]))
+
           PrinterJob.perform_later('Printers::GeneralJournalPrinter', template: template, financial_year: financial_year, perform_as: current_user)
           notify_success(:document_in_preparation)
-          redirect_to :back
+          redirect_back(fallback_location: root_path)
         end
       end
     end
@@ -107,6 +109,7 @@ module Backend
       set_period_params
 
       return unless (@journal = find_and_check)
+
       journal_view = current_user.preference("interface.journal.#{@journal.code}.view")
       journal_view.value = journal_views[0] unless journal_views.include? journal_view.value
       if (view = JOURNAL_VIEWS.detect { |x| params[:view] == x })
@@ -122,22 +125,25 @@ module Backend
       respond_to do |format|
         format.html
         format.pdf do
+          params.permit!
           return unless (template = find_and_check(:document_template, params[:template]))
+
           PrinterJob.perform_later('Printers::JournalLedgerPrinter', template: template,
                                    journal: @journal,
-                                   states: params[:states],
+                                   states: params[:states].to_h,
                                    period: params[:period],
                                    started_on: params[:started_on],
                                    stopped_on: params[:stopped_on],
                                    perform_as: current_user)
           notify_success(:document_in_preparation)
-          redirect_to :back
+          redirect_back(fallback_location: { action: :index })
         end
       end
     end
 
     def close
       return unless (@journal = find_and_check)
+
       unless @journal.closable?
         notify(:no_closable_journal)
         redirect_to action: :index
@@ -205,5 +211,6 @@ module Backend
         ActiveSupport::Deprecation.warn "Journal::journal_views is deprecated, use the class constant JOURNAL_VIEWS"
         JOURNAL_VIEWS
       end
+
   end
 end

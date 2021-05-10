@@ -89,6 +89,7 @@ module Backend
 
     def show
       return unless plant = find_and_check
+
       harvest_advisor = ::Interventions::Phytosanitary::PhytoHarvestAdvisor.new
       @harvest_possible = harvest_advisor.harvest_possible?(plant, Time.zone.now)
       @reentry_possible = harvest_advisor.reentry_possible?(plant, Time.zone.now)
@@ -121,6 +122,5 @@ module Backend
           end.join.html_safe
         end
       end
-
   end
 end

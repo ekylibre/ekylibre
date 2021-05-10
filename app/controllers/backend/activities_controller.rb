@@ -114,6 +114,16 @@ module Backend
       redirect_to params[:redirect] || { action: :index }
     end
 
+    def compute_pfi_report
+      return unless @activity = find_and_check
+
+      campaign = Campaign.find_by(id: params[:campaign_id]) || current_campaign
+      activity_ids = []
+      activity_ids << @activity.id
+      PfiReportJob.perform_later(campaign, activity_ids, current_user)
+      notify_success(:document_in_preparation)
+    end
+
     # Returns wanted varieties proposition for given family_name
     def family
       unless family = Onoma::ActivityFamily[params[:name]]
@@ -151,6 +161,5 @@ module Backend
       t.column :affectation_percentage, percentage: true
       t.column :main_activity, url: true
     end
-
   end
 end

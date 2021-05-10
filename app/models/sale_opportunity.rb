@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -137,6 +139,7 @@ class SaleOpportunity < SaleAffair
   # Returns timeleft in seconds of the sale opportunities
   def timeleft(at = Time.zone.now)
     return nil if dead_line_at.nil? || dead_line_at <= at
+
     (dead_line_at - at)
   end
 
@@ -152,6 +155,7 @@ class SaleOpportunity < SaleAffair
   # Returns age in seconds of the sale opportunities
   def age(at = Time.zone.now)
     return nil if created_at.nil?
+
     (at - created_at)
   end
 end

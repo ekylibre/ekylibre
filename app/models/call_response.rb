@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -62,6 +64,7 @@ class CallResponse < CallMessage
     r
   rescue ActiveRecord::RecordInvalid => e
     raise e if r.errors.messages[:body].blank?
+
     create!(
       nature: :outgoing, # Because we come from a controller here.
       status: response.status,
@@ -85,6 +88,7 @@ class CallResponse < CallMessage
     r
   rescue ActiveRecord::RecordInvalid => e
     raise e if r.errors.messages[:body].blank?
+
     create!(
       nature: :incoming, # Because we are receiving an answer.
       status: response.code,
@@ -108,6 +112,7 @@ class CallResponse < CallMessage
     r
   rescue ActiveRecord::RecordInvalid => e
     raise e if r.errors.messages[:body].blank?
+
     create!(
       nature: :incoming, # Receiving an answer in protocol.
       status: response.code,

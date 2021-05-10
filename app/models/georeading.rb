@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -37,7 +39,7 @@
 #
 class Georeading < ApplicationRecord
   enumerize :nature, in: %i[point linestring polygon], predicates: true
-  has_geometry :content
+  has_geometry :content, type: :any
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :content, :nature, presence: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
@@ -50,6 +52,7 @@ class Georeading < ApplicationRecord
 
   def net_surface_area
     return 0.0.in_square_meter unless polygon?
+
     content_area
   end
 end

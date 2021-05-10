@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Interventions
   module Computation
     class UpdateEngineIntervention
@@ -35,7 +37,6 @@ module Interventions
 
       def group_parameters_selector
         @parameters['group_parameters_attributes'].map do |i, group_parameters|
-
           %i[product_id quantity_value].map { |attr| group_parameter_selector(attr, group_parameters, i) }
         end
       end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -100,6 +102,7 @@ class Plant < Bioproduct
     unless campaign.is_a?(Campaign)
       raise ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}")
     end
+
     started_at = Date.new(campaign.harvest_year, 0o1, 0o1)
     stopped_at = Date.new(campaign.harvest_year, 12, 31)
     where('born_at <= ? AND (dead_at IS NULL OR dead_at <= ?)', stopped_at, stopped_at)
@@ -155,8 +158,10 @@ class Plant < Bioproduct
   def ready_to_harvest?
     analysis = analyses.where(nature: 'plant_analysis').reorder(sampled_at: :desc).first
     return false unless analysis
+
     item = analysis.items.find_by(indicator_name: 'ready_to_harvest')
     return false unless item
+
     item.value
   end
 

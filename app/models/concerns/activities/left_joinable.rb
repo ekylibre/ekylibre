@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 module Activities
   module LeftJoinable
     extend ActiveSupport::Concern
 
     included do
-
       # This scope include in the Activity::ActiveRecord_Relation
       # issues_count and opened_issues_count for each activities
       scope :left_join_issues_count_of_campaign, lambda { |campaign|
@@ -45,62 +46,31 @@ module Activities
               FROM (
                 SELECT DISTINCT
                   interventions.id AS id,
-                  interventions.working_duration AS working_duration,
+                  interventions.working_duration * intervention_targets.imputation_ratio AS working_duration,
                   activity_productions.activity_id AS activity_id
                 FROM activity_productions
                 INNER JOIN products
-                  ON products.id = activity_productions.support_id
+                  ON products.activity_production_id = activity_productions.id
                 INNER JOIN intervention_parameters AS intervention_targets
                   ON intervention_targets.type = 'InterventionTarget'
                   AND intervention_targets.product_id = products.id
                 INNER JOIN interventions
                   ON interventions.id = intervention_targets.intervention_id
+                INNER JOIN campaigns_interventions
+                   ON interventions.id = campaigns_interventions.intervention_id
                 WHERE interventions.state != 'rejected'
                 -- scope real
                 AND interventions.nature = 'record'
                 AND interventions.stopped_at <= '#{Time.zone.now}'
-                AND EXTRACT(YEAR FROM interventions.started_at) = #{campaign.harvest_year}
+                AND campaigns_interventions.campaign_id = #{campaign.id}
               ) interventions
               GROUP BY activity_id
             ) interventions_support ON interventions_support.activity_id = activities.id
           SQL
-        ).joins(
-          <<~SQL
-            LEFT JOIN (
-              SELECT interventions.activity_id AS activity_id,
-                     SUM(interventions.working_duration) AS working_duration
-              FROM (
-                SELECT DISTINCT
-                  interventions.id AS id,
-                  interventions.working_duration AS working_duration,
-                  activity_productions.activity_id AS activity_id
-                FROM interventions
-                INNER JOIN intervention_parameters AS intervention_targets
-                  ON intervention_targets.intervention_id = interventions.id
-                  AND intervention_targets.type = 'InterventionTarget'
-                INNER JOIN products
-                  ON products.id = intervention_targets.product_id
-                INNER JOIN activity_productions
-                  ON activity_productions.id = products.activity_production_id
-                INNER JOIN campaigns_interventions
-                  ON interventions.id = campaigns_interventions.intervention_id
-                WHERE campaigns_interventions.campaign_id = #{campaign.id}
-                AND interventions.state != 'rejected'
-                -- scope real
-                AND interventions.nature = 'record'
-                AND interventions.stopped_at <= '#{Time.zone.now}'
-              ) interventions
-              GROUP BY activity_id
-            ) interventions ON interventions.activity_id = activities.id
-          SQL
         ).select(
           <<~SQL
             activities.*,
-            CASE WHEN interventions.working_duration IS NULL THEN
-              COALESCE(interventions_support.working_duration, 0)
-            ELSE
-              interventions.working_duration
-            END AS working_duration
+            COALESCE(interventions_support.working_duration, 0.0) AS working_duration
           SQL
         )
       }
@@ -145,7 +115,6 @@ module Activities
           SQL
         )
       }
-
     end
   end
 end

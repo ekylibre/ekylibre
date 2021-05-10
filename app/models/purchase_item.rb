@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -28,8 +30,8 @@
 #  activity_budget_id     :integer
 #  amount                 :decimal(19, 4)   default(0.0), not null
 #  annotation             :text
-#  conditionning          :integer
-#  conditionning_quantity :integer
+#  conditionning          :decimal(19, 4)
+#  conditionning_quantity :decimal(19, 4)
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  currency               :string           not null
@@ -85,7 +87,7 @@ class PurchaseItem < ApplicationRecord
   validates :accounting_label, length: { maximum: 500 }, allow_blank: true
   validates :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :annotation, :label, length: { maximum: 500_000 }, allow_blank: true
-  validates :conditionning, :conditionning_quantity, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :conditionning, :conditionning_quantity, numericality: { greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :account, :currency, :purchase, :tax, presence: true
   validates :fixed, inclusion: { in: [true, false] }
   validates :fixed_asset_stopped_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years }, type: :date }, allow_blank: true
@@ -198,6 +200,7 @@ class PurchaseItem < ApplicationRecord
 
   validate do
     next unless fixed
+
     # Errors linked to fixed assets
 
     errors.add(:fixed, :asset_account) unless variant.fixed_asset_account
@@ -214,6 +217,7 @@ class PurchaseItem < ApplicationRecord
         catalog = Catalog.by_default!(usage)
         next if catalog.nil? || variant.catalog_items.of_usage(usage).any? ||
           unit_pretax_amount.blank? || unit_pretax_amount.zero?
+
         variant.catalog_items.create!(
           catalog: catalog,
           amount: unit_pretax_amount, currency: currency
@@ -277,6 +281,7 @@ class PurchaseItem < ApplicationRecord
     if preexisting_asset
       return errors.add(:fixed_asset, :fixed_asset_missing) unless fixed_asset
       return errors.add(:fixed_asset, :fixed_asset_cannot_be_modified) unless fixed_asset.draft?
+
       fixed_asset.reload
       fixed_asset.update_amounts
     else
@@ -318,6 +323,7 @@ class PurchaseItem < ApplicationRecord
   # know how many percentage of invoiced VAT to declare
   def payment_ratio
     return nil unless purchase.respond_to?(:affair)
+
     if purchase.affair.balanced?
       1.00
     elsif purchase.affair.debit != 0.0
@@ -329,6 +335,7 @@ class PurchaseItem < ApplicationRecord
     return nil if first_reception.nil?
 
     return first_reception.number.concat(" (#{receptions_count})") if receptions_count > 1
+
     first_reception.number if receptions_count == 1
   end
 

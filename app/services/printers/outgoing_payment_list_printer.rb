@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Printers
   class OutgoingPaymentListPrinter < PrinterBase
     AMOUNT_OF_ROWS_FITTING_IN_PAGE_ONE = 8
@@ -21,7 +23,6 @@ module Printers
       checks = []
 
       @outgoing_payment_list.payments.each do |payment|
-
         invoices = payment.affair.purchase_invoices.map do |invoice|
           { reference_number: invoice.reference_number,
             number: invoice.number,

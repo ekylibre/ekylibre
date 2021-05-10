@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -85,6 +87,7 @@ class Sensor < ApplicationRecord
   def alert_status
     return :go if alerts.joins(:phases).all? { |alert| alert.level.zero? }
     return :stop if alerts.joins(:phases).none? { |alert| alert.level.zero? }
+
     :caution
   end
 

@@ -26,6 +26,7 @@ class Progress
 
     def unregister(name, id: DEFAULT_ID)
       return true if @progresses.nil? || @progresses[name].nil?
+
       @progresses[name][id] = nil
       true
     end
@@ -58,6 +59,7 @@ class Progress
 
       def fetch!(name, id: DEFAULT_ID)
         return nil unless File.exist?(file_for(name, id))
+
         build(name, id: id).tap(&:read_only!)
       end
 
@@ -76,9 +78,11 @@ class Progress
 
   def value(percentage: true)
     return 0 unless counting?
+
     magnitude = 10**PRECISION
     value = File.read(progress_file).to_f
     return value.to_f / 100 * @max.to_f unless percentage && @max
+
     (value * magnitude).round / magnitude.to_f
   rescue
     0
@@ -86,6 +90,7 @@ class Progress
 
   def value=(value)
     return if read_only?
+
     self.class.register(self)
     @value = value.to_f
     percentage = value.to_f / @max.to_f * 100
@@ -97,6 +102,7 @@ class Progress
   def clear!
     return if read_only? && !completed?
     return true unless counting?
+
     FileUtils.rm_rf(progress_file)
     self.class.unregister(name, id: id)
     true
@@ -109,6 +115,7 @@ class Progress
 
   def progress_file
     return @progress_file if defined? @progress_file
+
     @progress_file = self.class.file_for(name, id)
   end
 

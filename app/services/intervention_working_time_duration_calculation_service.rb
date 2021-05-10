@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Permits to compute working time by nature (doer, tool) in intervention
 # context.
 class InterventionWorkingTimeDurationCalculationService
@@ -30,6 +32,7 @@ class InterventionWorkingTimeDurationCalculationService
 
     if times > 0 && (!any_tractor? && !any_tool?)
       return 0 if @intervention.nil?
+
       return intervention_working_duration
     end
 

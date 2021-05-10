@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -63,6 +65,7 @@ class InspectionPoint < ApplicationRecord
 
   def percentage(dimension)
     return 0 if inspection.quantity(dimension).zero?
+
     ratio = quantity_in_unit(dimension) / inspection.quantity(dimension)
     100 * (ratio.nan? ? 0 : ratio)
   end

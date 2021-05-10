@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ValidateDraftJournalEntriesService
   def initialize(entries)
     @entries = entries

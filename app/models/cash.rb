@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -244,9 +246,11 @@ class Cash < ApplicationRecord
       %i[cash_box cash cashes]
     ].each do |nature, journal_nature, account_usage|
       next if find_by(nature: nature)
+
       journal = Journal.find_by(nature: journal_nature)
       account = Account.find_or_import_from_nomenclature(account_usage)
       next unless journal && account
+
       create!(
         name: "enumerize.cash.nature.#{nature}".t,
         nature: nature.to_s,
@@ -324,9 +328,13 @@ class Cash < ApplicationRecord
     return false if (journal_entry_items + statement_items).length.zero?
 
     bank_statement_id = statement_items.map(&:bank_statement_id).uniq.first
-    statement_entries = JournalEntryItem.where(resource: statement_items)
-    to_letter = journal_entry_items + statement_entries
-    suspense_account.mark(to_letter) if suspend_until_reconciliation
+
+    # if suspend_until_reconciliation, we letter bsi_jei and jei on suspense_account
+    if suspend_until_reconciliation
+      statement_entries = JournalEntryItem.where(resource: statement_items)
+      to_letter = journal_entry_items + statement_entries
+      suspense_account.mark(to_letter)
+    end
 
     saved = true
     saved &&= statement_items.update_all(letter: new_letter)

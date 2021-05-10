@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module Printers
   class LandParcelRegisterCampaignPrinter < LandParcelRegisterPrinterBase
-
     attr_accessor :campaign
 
     def initialize(*_args, campaign:, template:, **_options)

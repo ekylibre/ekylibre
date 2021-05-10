@@ -20,6 +20,7 @@ module Unrollable
 
       def deep_compact(object)
         return nil if object.blank?
+
         case object
         when Array          then object.map { |o| deep_compact(o) }.compact
         when Hash           then object.map { |k, v| [k, deep_compact(v)] }.to_h

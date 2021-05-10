@@ -46,7 +46,6 @@
 require 'test_helper'
 
 class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
-
   setup do
     j = Journal.find_or_create_by! nature: :various
     j.update! closed_on: Date.new(1996, 12, 31)
@@ -993,7 +992,7 @@ class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
                      stopped_on: (stopped_on + 1.month).end_of_month)
     assert subject.save
 
-    assert_empty subject.items.select { |item| item.parts.any? }
+    assert_empty(subject.items.select { |item| item.parts.any? })
   end
 
   def financial_year_in_debit_mode

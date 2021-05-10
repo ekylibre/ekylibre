@@ -57,6 +57,7 @@ module Clean
         max_size = klass.column_names.collect(&:size).max
         klass.columns.sort_by(&:name).each do |col|
           next if col.name.to_s.start_with?('_') # Custom fields
+
           attrs = []
           if col.default
             attrs << 'default(' + (col.default.is_a?(Date) ? 'CURRENT_DATE' : quote_value(col.default, col.type)) + ')'
@@ -189,7 +190,7 @@ module Clean
 
         if verbose
           print "#{errors.size.to_s.rjust(3)} errors\n"
-          for error in errors
+          errors.each do |error|
             puts error.gsub(/^/, '     ')
           end
         end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -70,10 +72,12 @@ class ManureManagementPlan < ApplicationRecord
     active = false
     active = true if zones.empty?
     return false unless campaign
+
     campaign.activity_productions.includes(:support).order(:activity_id, 'products.name').each do |activity_production|
       # activity_production.active? return all activies except fallow_land
       next unless activity_production.support.is_a?(LandParcel) && activity_production.active?
       next if zones.find_by(activity_production: activity_production)
+
       zone = zones.build(
         activity_production: activity_production,
         computation_method: default_computation_method,

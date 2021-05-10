@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -80,17 +82,19 @@ class Listing < ApplicationRecord
     begin
       conn = self.class.connection
       root = self.root
-      columns_to_export = exportable_columns.collect { |n| [n.position, "#{n.name} AS " + conn.quote_column_name(n.label)] }
-      columns_to_export += custom_fields_columns.collect { |cf| [cf.position, "#{cf.name} AS #{conn.quote_column_name(cf.label)}"] }
-      columns_to_export = columns_to_export.sort_by(&:first).map(&:last)
-      query = 'SELECT ' + columns_to_export.join(', ')
-      query << " FROM #{root.model.table_name} AS #{root.name}" + root.compute_joins
-      query << ' WHERE ' + compute_where if compute_where.present?
+      selected_columns = exportable_columns.collect { |n| [n.position, "#{n.name} AS " + conn.quote_column_name(n.label)] }
+      selected_columns += custom_fields_columns.collect { |cf| [cf.position, "#{cf.name} AS #{conn.quote_column_name(cf.label)}"] }
+      columns_to_export = selected_columns.sort_by(&:first).map(&:last)
+      query += 'SELECT ' + columns_to_export.join(', ')
+      query += " FROM #{root.model.table_name} AS #{root.name}" + root.compute_joins
+      query += ' WHERE ' + compute_where if compute_where.present?
       unless columns_to_export.size.zero?
-        query << ' ORDER BY ' + exportable_fields.map { |n| conn.quote_column_name(n.label) }.join(', ')
+        query += ' ORDER BY ' + exportable_fields.map { |n| conn.quote_column_name(n.label) }.join(', ')
       end
-    rescue
-      query = ''
+    rescue StandardError => error
+      Rails.logger.error error
+      Rails.logger.error error.backtrace.join("\n")
+      query
     end
     query
   end
@@ -104,20 +108,21 @@ class Listing < ApplicationRecord
                  nil
                end
       if klass.columns_definition[:type] && klass.table_name != klass.name.tableize
-        c << "#{root.name}.type IN ('#{klass.name}'" + klass.descendants.map { |k| ", '#{k.name}'" }.join + ')'
+        c += "#{root.name}.type IN ('#{klass.name}'" + klass.descendants.map { |k| ", '#{k.name}'" }.join + ')'
       end
     end
     #  No reflections => no columns => no conditions
     return c unless reflection_nodes.any?
+
     # Filter on columns
     if filtered_columns.any?
-      c << ' AND ' if c.present?
-      c << filtered_columns.map(&:condition).join(' AND ')
+      c += ' AND ' if c.present?
+      c += filtered_columns.map(&:condition).join(' AND ')
     end
     # General conditions
     if conditions.present?
-      c << ' AND ' if c.present?
-      c << '(' + conditions + ')'
+      c += ' AND ' if c.present?
+      c += '(' + conditions + ')'
     end
     c
   end

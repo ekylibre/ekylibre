@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -129,12 +131,14 @@ class Contract < ApplicationRecord
   # Returns dayleft in day of the contract
   def dayleft(on = Date.today)
     return nil if started_on.nil? || stopped_on <= on
+
     (stopped_on - on)
   end
 
   def status
     return :go if won?
     return :stop if lost?
+
     :caution
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -212,6 +214,7 @@ class Sale < ApplicationRecord
     end
     %i[address delivery_address invoice_address].each do |mail_address|
       next unless send(mail_address)
+
       unless send(mail_address).mail?
         errors.add(mail_address, :must_be_a_mail_address)
       end
@@ -223,6 +226,12 @@ class Sale < ApplicationRecord
       self.class.columns_definition.keys.each do |attr|
         send(attr + '=', old_record.send(attr))
       end
+    end
+  end
+
+  after_update do
+    if self.aborted? && self.journal_entry.presence && self.journal_entry.destroyable?
+      self.journal_entry.destroy
     end
   end
 
@@ -273,10 +282,12 @@ class Sale < ApplicationRecord
     b.journal_entry(journal, reference_number: number, printed_on: invoiced_on, as: :undelivered_invoice, if: invoice?) do |entry|
       parcels.each do |parcel|
         next unless parcel.undelivered_invoice_journal_entry
+
         label = tc(:exchange_undelivered_invoice, resource: parcel.class.model_name.human, number: parcel.number, entity: supplier.full_name, mode: parcel.nature.tl)
         undelivered_items = parcel.undelivered_invoice_journal_entry.items
         undelivered_items.each do |undelivered_item|
           next unless undelivered_item.real_balance.nonzero?
+
           entry.add_credit(label, undelivered_item.account.id, undelivered_item.real_balance, resource: undelivered_item, as: :item_product, variant: undelivered_item.variant, accounting_label: undelivered_item.accounting_label)
         end
       end
@@ -289,14 +300,17 @@ class Sale < ApplicationRecord
     b.journal_entry(journal, reference_number: number, printed_on: invoiced_on, as: :quantity_gap_on_invoice, if: (permanent_stock && invoice? && items.any?)) do |entry|
       label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: client.full_name)
 
-      for item in items
+      items.each do |item|
         next unless item.variant && item.variant.storable?
+
         shipment_items_quantity = item.shipment_items.map(&:population).compact.sum
         gap = item.quantity - shipment_items_quantity
         next unless item.shipment_items.any? && item.shipment_items.first.unit_pretax_stock_amount
+
         quantity = item.shipment_items.first.unit_pretax_stock_amount
         gap_value = gap * quantity
         next if gap_value.zero?
+
         entry.add_credit(label, item.variant.stock_account_id, gap_value, resource: item, as: :stock, variant: item.variant, accounting_label: item.accounting_label)
         entry.add_debit(label, item.variant.stock_movement_account_id, gap_value, resource: item, as: :stock_movement, variant: item.variant, accounting_label: item.accounting_label)
       end
@@ -342,10 +356,11 @@ class Sale < ApplicationRecord
   # Globalizes taxes into an array of hash
   def deal_taxes(mode = :debit)
     return [] if deal_mode_amount(mode).zero?
+
     taxes = {}
     coeff = (credit? ? -1 : 1).to_d
     # coeff *= (self.send("deal_#{mode}?") ? 1 : -1)
-    for item in items
+    items.each do |item|
       taxes[item.tax_id] ||= { amount: 0.0.to_d, tax: item.tax }
       taxes[item.tax_id][:amount] += coeff * item.amount
     end
@@ -401,12 +416,14 @@ class Sale < ApplicationRecord
   # Return at draft state
   def correct
     return false unless can_correct?
+
     super
   end
 
   # Confirm the sale order. This permits to define parcels and assert validity of sale
   def confirm(confirmed_at = Time.zone.now)
     return false unless can_confirm?
+
     update!(confirmed_at: confirmed_at || Time.zone.now)
     super
   end
@@ -415,6 +432,7 @@ class Sale < ApplicationRecord
   # Changes number with an invoice number saving exiting number in +initial_number+.
   def invoice(invoiced_at = Time.zone.now)
     return false unless can_invoice?
+
     ApplicationRecord.transaction do
       # Set values for invoice
       self.invoiced_at ||= invoiced_at
@@ -446,6 +464,7 @@ class Sale < ApplicationRecord
   # subscriptions
   def duplicate(attributes = {})
     raise StandardError.new('Uncancelable sale') unless duplicatable?
+
     hash = %i[
       client_id nature_id letter_format annotation subject
       function_title introduction conclusion description custom_fields

@@ -2,6 +2,7 @@ module Backend
   class BankStatementItemsController < Backend::BaseController
     def new
       return head :bad_request unless @bank_statement = BankStatement.find(params[:bank_statement_id])
+
       @bank_statement_item = BankStatementItem.new(permitted_params)
       if request.xhr?
         render partial: 'bank_statement_item_row_form', locals: { item: @bank_statement_item, bank_statement: @bank_statement }
@@ -13,6 +14,7 @@ module Backend
     def show
       @bank_statement_item = BankStatementItem.find(params[:id])
       return head :bad_request unless @bank_statement_item
+
       t3e @bank_statement_item
       # redirect_to action: :show, controller: 'backend/bank_statements', id: @bank_statement_item.bank_statement_id
     end
@@ -20,8 +22,10 @@ module Backend
     def create
       @initiator_form = params[:bank_statement_item][:initiator_id]
       return head :bad_request unless @initiator_form && @bank_statement = BankStatement.find(params[:bank_statement_item][:bank_statement_id])
+
       safe_params = permitted_params
       @bank_statement_item = @bank_statement.items.new(safe_params)
+      @locked_item = FinancialYearExchange.opened.at(safe_params[:transfered_on]).exists?
 
       respond_to do |format|
         if @bank_statement_item.save
@@ -38,6 +42,7 @@ module Backend
       id = @bank_statement_item.id
       return head :bad_request unless @bank_statement_item
       return head :failed unless @bank_statement_item.destroy
+
       respond_to do |format|
         format.js { render json: { id: id } }
       end

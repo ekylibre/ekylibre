@@ -18,10 +18,12 @@
 
 require_dependency 'procedo'
 
+using Ekylibre::Utils::DateSoftParse
+
 module Backend
   class InterventionsController < Backend::BaseController
     manage_restfully t3e: { procedure_name: '(RECORD.procedure ? RECORD.procedure.human_name : nil)'.c },
-                     continue: %i[nature procedure_name]
+                     continue: %i[nature procedure_name crop_group_ids]
 
     respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
@@ -188,23 +190,19 @@ module Backend
     # Show one intervention with params_id
     def show
       return unless @intervention = find_and_check
+
       t3e @intervention, procedure_name: @intervention.procedure.human_name, nature: @intervention.request? ? :planning_of.tl : nil
-      respond_with(@intervention, methods: %i[cost earn status name duration human_working_zone_area human_actions_names],
-                   include: [
-                     { leaves_parameters: {
-                       methods: %i[reference_name default_name working_zone_svg human_quantity human_working_zone_area],
-                       include: {
-                         product: {
-                           methods: %i[picture_path nature_name unit_name]
-                         }
-                       }
-                     } }, {
-                       prescription: {
-                         include: %i[prescriptor attachments]
-                       }
-                     }
-                   ],
-                   procs: proc { |options| options[:builder].tag!(:url, backend_intervention_url(@intervention)) })
+      respond_to do |format|
+        format.html
+        format.pdf {
+          return unless (template = find_and_check :document_template, params[:template])
+
+          PrinterJob.perform_later('Printers::InterventionSheetPrinter', id: params[:id], template: template, perform_as: current_user)
+          notify_success(:document_in_preparation)
+          redirect_to backend_interventions_path
+        }
+      end
+
     end
 
     # TODO: Reimplement this with correct use of permitted params
@@ -222,20 +220,64 @@ module Backend
         options[param] = unsafe_params[param]
       end
 
+      if params['targets_attributes'].present?
+        id = params['targets_attributes'].first['product_id'].to_i
+      end
+
+      # check if a target product exist when selecting a procedure otherwise send a flash message
+      if params['procedure_name'].present?
+        procedure = Procedo::Procedure.find(params['procedure_name'])
+        target_parameter = procedure.parameters_of_type(:target, true).first if procedure
+
+        # if theres no products relatives to selected procedure (target && filter), notify user and clean params
+        if procedure.present? && target_parameter.present?
+          if target_parameter.is_a?(Procedo::Procedure::ProductParameter)
+            filter = target_parameter.filter
+          else
+            notify_warning_now(:no_target_exist_on_procedure)
+          end
+          if Product.of_expression(filter).blank?
+            # notify user and remove unsafe_params concerning targets_attributes && group_parameters_attributes
+            notify_warning_now(:no_product_matching_current_filter)
+            unsafe_params.delete('targets_attributes')
+            unsafe_params.delete('group_parameters_attributes')
+            # unsafe_params.slice!('targets_attributes', 'group_parameters_attributes')
+          else
+            nil
+          end
+        end
+      end
+
+      if params[:procedure_name].present? && params[:crop_group_ids].present?
+        crop_group_params_computation = ::Interventions::CropGroupParamsComputation.new(params[:procedure_name], params[:crop_group_ids])
+        options.merge!(crop_group_params_computation.options)
+        options[:intervention_crop_groups_attributes] = params[:crop_group_ids].map{ |id| { crop_group_id: id } }
+        if crop_group_params_computation.rejected_crops.any?
+          notify_warning_now(:intervention_crops_rejected,
+                             crops: helpers.as_unordered_list(crop_group_params_computation.rejected_crops.map(&:name)),
+                             html: true)
+        end
+      end
+
       # , :doers, :inputs, :outputs, :tools
       %i[group_parameters targets].each do |param|
-        next unless unsafe_params.include? :intervention
-        options[:"#{param}_attributes"] = unsafe_params["#{param}_attributes"] || []
+        next unless unsafe_params.include?(:intervention) || unsafe_params.include?("#{param}_attributes")
 
+        options[:"#{param}_attributes"] = unsafe_params["#{param}_attributes"] || []
         next unless options[:targets_attributes]
 
-        next if permitted_params.include? :working_periods
         targets = if options[:targets_attributes].is_a? Array
                     options[:targets_attributes].collect { |k, _| k[:product_id] }
                   else
                     options[:targets_attributes].collect { |_, v| v[:product_id] }
                   end
         availables = Product.where(id: targets).at(Time.zone.now - 1.hour).collect(&:id)
+
+        if availables.any? && filter.present? && Product.where(id: availables).of_expression(filter).blank?
+          notify_warning_now(:no_availables_product_matching_current_filter)
+        elsif availables.blank?
+          notify_warning_now(:no_availables_product_on_current_campaign)
+        end
 
         options[:targets_attributes].select! do |k, v|
           # This does not work with Rails 5 without the unsafe_params trick
@@ -244,11 +286,11 @@ module Backend
         end
       end
 
-      %i[doers inputs outputs tools participations working_periods].each do |param|
+      %i[doers inputs outputs tools participations working_periods intervention_crop_groups].each do |param|
         next unless params.include? :intervention
+
         options[:"#{param}_attributes"] = permitted_params["#{param}_attributes"] || []
       end
-
       # consume preference and erase
       if params[:keeper_id] && (p = current_user.preferences.get(params[:keeper_id])) && p.value.present?
 
@@ -259,6 +301,7 @@ module Backend
 
           if params[:reference_name]
             next unless params[:reference_name] == 'animal'
+
             hash[:reference_name] = params[:reference_name]
           end
 
@@ -274,6 +317,10 @@ module Backend
         end.compact
 
         p.set! nil
+      end
+
+      if options[:warning]
+        notify_warning_now(options[:warning], html: true)
       end
 
       @intervention = Intervention.new(options)
@@ -306,6 +353,7 @@ module Backend
             end
 
       return if save_and_redirect(@intervention, url: url, notify: :record_x_created, identifier: :number)
+
       render(locals: { cancel_url: { action: :index }, with_continue: true })
     end
 
@@ -332,6 +380,7 @@ module Backend
     def sell
       interventions = params[:id].split(',')
       return unless interventions
+
       if interventions
         redirect_to new_backend_sale_path(intervention_ids: interventions)
       else
@@ -428,6 +477,7 @@ module Backend
       Intervention.transaction do
         @interventions.each do |intervention|
           next if intervention.request? && intervention.record_interventions.any?
+
           if intervention.nature == :record && new_state == :rejected
 
             unless intervention.request_intervention_id.nil?
@@ -449,6 +499,7 @@ module Backend
             intervention.state = new_state
 
             next unless intervention.valid?
+
             intervention.save!
 
             next
@@ -499,6 +550,7 @@ module Backend
           new_intervention.nature = :record
 
           next unless new_intervention.valid?
+
           new_intervention.save!
         end
       end
@@ -601,7 +653,7 @@ module Backend
 
       date = DateTime.soft_parse(params_obj.date)
       date_end = DateTime.soft_parse(params_obj.date_end) || date
-      parcels = Product.find_by_id(params_obj.targets)
+      parcels = Product.find(params_obj.targets)
       ignore_intervention = params_obj.intervention
 
       harvest_advisor = ::Interventions::Phytosanitary::PhytoHarvestAdvisor.new
@@ -753,8 +805,10 @@ module Backend
         duplicate_parameter = parameter.dup
         %i[targets doers tools inputs outputs].each do |product_parameter|
           next unless "intervention_#{product_parameter}" == duplicate_parameter.class.name.underscore.pluralize
+
           attributes["#{product_parameter}_attributes"].each_value do |values|
             next unless parameter.id.to_s == values["id"]
+
             values.delete('id')
             duplicate_parameter.assign_attributes(values)
           end

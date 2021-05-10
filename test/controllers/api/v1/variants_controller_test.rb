@@ -10,7 +10,7 @@ module Api
       end
 
       test 'get all records' do
-        get :index
+        get :index, params: {}
         variants = JSON.parse response.body
         assert_equal 10, variants.count
         assert_response :ok

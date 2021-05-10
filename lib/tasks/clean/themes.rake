@@ -3,11 +3,12 @@ namespace :clean do
   task :themes do
     assets_dir = Rails.root.join('app', 'assets')
     themes_dir = Rails.root.join('app', 'themes')
-    for theme_path in Dir.glob(themes_dir.join('*'))
+    Dir.glob(themes_dir.join('*')).each do |theme_path|
       theme_dir = Pathname.new(theme_path)
       theme = theme_dir.basename.to_s
-      for dir in %w[fonts images stylesheets javascripts]
+      %w[fonts images stylesheets javascripts].each do |dir|
         next unless theme_dir.join(dir).exist?
+
         FileUtils.mkdir_p(assets_dir.join(dir, 'themes'))
         # raise [theme_dir.join(dir), assets_dir.join(dir, "themes", theme).relative_path_from(theme_dir.join(dir))].inspect
         Dir.chdir(assets_dir.join(dir, 'themes')) do

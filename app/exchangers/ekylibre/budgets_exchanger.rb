@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ekylibre
   class BudgetsExchanger < ActiveExchanger::Base
     category :accountancy
@@ -109,6 +111,7 @@ module Ekylibre
         # 3 first line are not budget items
         4.upto(s.last_row) do |row_number|
           next if s.cell('A', row_number).blank?
+
           computation_method = case s.cell('C', row_number).to_s.downcase
                                when 'uo' then :per_working_unit
                                when 'support' then :per_production
@@ -160,6 +163,7 @@ module Ekylibre
             dimension = Measure.dimension(unit)
             indics = item_variant.indicators.select do |indicator|
               next unless indicator.datatype == :measure
+
               Measure.dimension(indicator.unit) == dimension
             end.map(&:name)
             if indics.count > 1

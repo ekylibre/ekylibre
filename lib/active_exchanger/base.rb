@@ -6,7 +6,7 @@ module ActiveExchanger
 
     CATEGORIES = %i[accountancy animal_farming human_resources none plant_farming purchases sales settings stocks].freeze
     VENDORS = %i[agro_systemes agroedi bordeaux_sciences_agro bovins_croissance caj charentes_alliance ebp ekylibre fiea isagri
-                 lely_milk_robot lilco milklic none odicom panier_local quadra sage synel synest telepac upra vivescia].freeze
+                 lely_milk_robot lilco milklic none odicom socleo quadra sage synel synest telepac upra vivescia].freeze
 
     class << self
       def inherited(subclass)
@@ -25,6 +25,7 @@ module ActiveExchanger
           @category || :none
         else
           raise ArgumentError.new("Invalid category #{value} for #{exchanger_name} exchanger, please provide one among #{CATEGORIES.join(', ')}") unless CATEGORIES.include?(value)
+
           @category = value
         end
       end
@@ -36,6 +37,7 @@ module ActiveExchanger
           @vendor || :none
         else
           raise ArgumentError.new("Invalid vendor #{value} for #{exchanger_name} exchanger, please provide one among #{VENDORS.join(', ')}") unless VENDORS.include?(value)
+
           @vendor = value
         end
       end
@@ -124,6 +126,7 @@ module ActiveExchanger
         unless klass
           raise "Unable to find exchanger #{nature.inspect}. (#{@@exchangers.keys.to_sentence(locale: :eng)})"
         end
+
         klass
       end
 

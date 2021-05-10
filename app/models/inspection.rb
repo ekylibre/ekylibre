@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -139,6 +141,7 @@ class Inspection < ApplicationRecord
 
   def points_of_category(category = nil)
     return points if category.blank?
+
     points.of_category(category)
   end
 
@@ -177,6 +180,7 @@ class Inspection < ApplicationRecord
   def product_net_surface_area
     return nil if product_net_surface_area_value.blank? ||
                   product_net_surface_area_unit.blank?
+
     product_net_surface_area_value.in(product_net_surface_area_unit)
   end
 
@@ -225,30 +229,35 @@ class Inspection < ApplicationRecord
   def quantity_per_area_unit(dimension)
     possible_unit = "#{quantity_unit(dimension).name}_per_#{product_net_surface_area.unit}"
     return possible_unit if Onoma::Unit.find(possible_unit)
+
     default_per_area_unit(dimension)
   end
 
   def user_quantity_unit(dimension)
     return :thousand  if dimension.to_sym == :items_count
     return :ton       if dimension.to_sym == :net_mass
+
     unknown_dimension(dimension)
   end
 
   def user_per_area_unit(dimension)
     return :thousand_per_hectare      if dimension.to_sym == :items_count
     return :ton_per_hectare           if dimension.to_sym == :net_mass
+
     unknown_dimension(dimension)
   end
 
   def default_per_area_unit(dimension)
     return :unity_per_square_meter     if dimension.to_sym == :items_count
     return :kilogram_per_square_meter  if dimension.to_sym == :net_mass
+
     unknown_dimension(dimension)
   end
 
   def default_quantity_unit(dimension)
     return :unity     if dimension.to_sym == :items_count
     return :kilogram  if dimension.to_sym == :net_mass
+
     unknown_dimension(dimension)
   end
 
@@ -270,6 +279,7 @@ class Inspection < ApplicationRecord
       on_scales = [scale]
       on_scales = scales if scale.nil?
       return 0 if on_scales.empty?
+
       sum_per_calib = on_scales.map do |s|
         calib = calibrations.of_scale(s)
         calib = calib.marketable if marketable

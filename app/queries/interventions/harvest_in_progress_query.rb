@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Interventions
   class HarvestInProgressQuery
     class << self

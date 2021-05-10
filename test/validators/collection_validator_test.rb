@@ -48,5 +48,4 @@ class CollectionValidatorTest < Ekylibre::Testing::ApplicationTestCase::WithFixt
 
     refute @obj.valid?
   end
-
 end

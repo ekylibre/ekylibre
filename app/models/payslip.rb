@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -117,6 +119,7 @@ class Payslip < ApplicationRecord
 
   def status
     return affair.status if invoice?
+
     :stop
   end
 end

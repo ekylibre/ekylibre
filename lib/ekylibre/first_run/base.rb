@@ -15,6 +15,7 @@ module Ekylibre
         unless @path.exist?
           raise ArgumentError.new("Need a valid folder path. #{@path} doesn't exist.")
         end
+
         @term_width = begin
                         `/usr/bin/env tput cols`.to_i
                       rescue

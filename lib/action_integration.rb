@@ -9,5 +9,6 @@ module ActionIntegration
   self.config = ActionIntegration::Configuration.new
 
   class ServiceNotIntegrated < StandardError; end
+
   class IntegrationParameterEmpty < StandardError; end
 end

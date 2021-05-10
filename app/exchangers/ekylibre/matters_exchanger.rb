@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ekylibre
   class MattersExchanger < ActiveExchanger::Base
     category :stocks
@@ -18,6 +20,7 @@ module Ekylibre
         line_number = index + 2
         prompt = "L#{line_number.to_s.yellow}"
         next if row[0].blank?
+
         r = {
           name: row[0].blank? ? nil : row[0].to_s.strip,
           variant_reference_name: row[1].blank? ? nil : row[1].to_s,
@@ -46,6 +49,7 @@ module Ekylibre
 
         next unless r.variant_reference_name
         next if variant = ProductNatureVariant.find_by(work_number: r.variant_reference_name.downcase.to_sym)
+
         if Variant.find_by(reference_name: r.variant_reference_name.downcase.to_sym)
           valid = true
         elsif nomen = Onoma::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
@@ -67,6 +71,7 @@ module Ekylibre
 
       rows.each do |row|
         next if row[0].blank?
+
         r = {
           name: row[0].blank? ? nil : row[0].to_s.strip,
           variant_reference_name: row[1].blank? ? nil : row[1].to_s,
@@ -152,6 +157,7 @@ module Ekylibre
             # create indicators linked to matters
             r.indicators.each do |indicator, value|
               next unless indicator != :population
+
               matter.read!(indicator, value, at: r.born_at, force: true)
             end
           end

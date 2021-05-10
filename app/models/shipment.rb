@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -129,6 +131,7 @@ class Shipment < Parcel
 
   def order
     return false unless can_order?
+
     update_column(:ordered_at, Time.zone.now)
     super
   end
@@ -136,6 +139,7 @@ class Shipment < Parcel
   def prepare
     order if can_order?
     return false unless can_prepare?
+
     now = Time.zone.now
     values = { in_preparation_at: now }
     # values[:ordered_at] = now unless ordered_at
@@ -153,6 +157,7 @@ class Shipment < Parcel
     order if can_order?
     prepare if can_prepare?
     return false unless can_check?
+
     now = Time.zone.now
     values = { prepared_at: now }
     # values[:ordered_at] = now unless ordered_at
@@ -160,6 +165,7 @@ class Shipment < Parcel
     update_columns(values)
     state = items.collect(&:check)
     return false, state.collect(&:second) unless (state == true) || (state.is_a?(Array) && state.all? { |s| s.is_a?(Array) ? s.first : s })
+
     super
     true
   end
@@ -171,6 +177,7 @@ class Shipment < Parcel
     state, msg = check if can_check?
     return false, msg unless state
     return false unless can_give?
+
     update_column(:given_at, Time.zone.now) if given_at.blank?
     items.each(&:give)
     reload

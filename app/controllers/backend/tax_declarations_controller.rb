@@ -76,17 +76,19 @@ module Backend
 
         format.pdf do
           return unless template = find_and_check(:document_template, params[:template])
+
           PrinterJob.perform_later('Printers::VatRegisterPrinter', template: template, perform_as: current_user, **dataset_params)
           notify_success(:document_in_preparation)
-          redirect_to :back
+          redirect_back(fallback_location: root_path)
         end
 
         format.csv do
           return unless template = DocumentTemplate.find_by_nature(:vat_register)
+
           printer = Printers::VatRegisterPrinter.new(template: template, **dataset_params)
           csv_string = CSV.generate(headers: true) do |csv|
-                         printer.run_csv(csv)
-                       end
+            printer.run_csv(csv)
+          end
           send_data csv_string, filename: "#{printer.document_name}.csv"
         end
       end
@@ -102,16 +104,18 @@ module Backend
         end
         format.pdf do
           return unless template = find_and_check(:document_template, params[:template])
+
           PrinterJob.perform_later('Printers::PendingVatRegisterPrinter', template: template, tax_declaration: @tax_declaration, perform_as: current_user)
           notify_success(:document_in_preparation)
-          redirect_to :back
+          redirect_back(fallback_location: { action: :index })
         end
         format.csv do
           return unless template = DocumentTemplate.find_by_nature(:pending_vat_register)
+
           printer = Printers::PendingVatRegisterPrinter.new(template: template, tax_declaration: @tax_declaration)
           csv_string = CSV.generate(headers: true) do |csv|
-                         printer.run_csv(csv)
-                       end
+            printer.run_csv(csv)
+          end
           send_data csv_string, filename: "#{printer.document_name}.csv"
         end
       end
@@ -127,7 +131,7 @@ module Backend
       elsif financial_year.missing_tax_declaration?
         TaxDeclarationJob.perform_later(financial_year, current_user)
         notify_success(:vat_declaration_in_preparation)
-        redirect_to :back
+        redirect_back(fallback_location: root_path)
       else
         notify_error :all_tax_declarations_have_already_existing
         redirect_to params[:redirect] || { action: :index }
@@ -136,12 +140,14 @@ module Backend
 
     def propose
       return unless @tax_declaration = find_and_check
+
       @tax_declaration.propose
       redirect_to action: :show, id: @tax_declaration.id
     end
 
     def confirm
       return unless @tax_declaration = find_and_check
+
       @tax_declaration.confirm
       redirect_to action: :show, id: @tax_declaration.id
     end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # A CampaignProduction is a the same as an ActivityProduction for annual
 # production but it represents the "year" of campaign or perennial productions.
 class CampaignProduction

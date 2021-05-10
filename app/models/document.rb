@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -73,6 +75,8 @@ class Document < ApplicationRecord
   # validates_attachment_presence :file
   validates_attachment_content_type :file, content_type: /(application|image|text)/
 
+  before_post_process :processable_attachment?
+
   delegate :name, to: :template, prefix: true
   acts_as_numbered
 
@@ -90,5 +94,12 @@ class Document < ApplicationRecord
     self.key ||= "#{Time.now.to_i}-#{file.original_filename}"
     # DB limitation
     self.file_content_text = file_content_text.truncate(500_000) if file_content_text
+  end
+
+  # Caution: if you set processable_attachment to false when creating a zip document put it before the file
+  # like this => Document.create!(name: file_name, processable_attachment: false, file: File.open(file_path))
+  # not like this => Document.create!(name: file_name, file: File.open(file_path), processable_attachment: false)
+  def processable_attachment?
+    processable_attachment
   end
 end

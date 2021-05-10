@@ -1,109 +1,109 @@
 fra:
   interbank_transaction_codes:
-    paid_check: Chèque payé
-    check_deposit: Remise de chèque
-    unpaid_check: Chèque impayé
-    cash_payment: Versement en espèces
-    received_transfer: Virement reçu
-    issued_transfer: Virement émis
-    preauthorized_bill_of_exchange: LCR/BOR domicilié
-    direct_debit_and_domiciled_ipo: Prélèvement et TIP domicilié
-    issued_direct_debit_and_ipo: Prélèvements et TIP émis
-    rejected_direct_debit_and_ipo: Prélèvement et TIP rejeté/impayé
-    payment_card_invoices: Facture carte de paiement/DAB-GAB
-    transfer_reject: Rejet de virement
-    received_cash_transfer: Virement de trésorerie reçu
-    issued_cash_transfer: Virement de trésorerie émis
-    check_deposit_on_cash: Remise de chèque sur caisse
-    other_received_transfer: Autres virements reçus
-    other_issued_transfer: Autres virements émis
-    domiciled_ipo: TIP domiciliés
-    domiciled_direct_debit: Prélèvements domiciliés
-    issued_ipo: TIP émis
-    issued_direct_debit: Prélèvement émis
-    rejected_or_unpayed_ipo: TIP rejetés / impayés
-    rejected_or_unpayed_direct_debit: Prélèvements rejetés / impayés
-    paid_payment_card_invoices: Factures cartes payées
-    atm_withdrawal: Retrait DAB-GAB
-    payment_card_invoice_remittance: Factures cartes remises
-    bills_delivery_for_collection: Remises d'effets à l'encaissement
-    unpaid_trade_bill: Effets impayé
-    discounting: Remises à l'escompte (papier commercial / chèque)
-    incident_on_trade_bill: Incidents sur effets
-    bill_of_exchange_remittance_to_collection: Remises de LCR/BOR à l'encaissement
-    credit_card_invoice_remittance: Remise de facture CB crédit
-    bill_of_exchange_discounting: Remises de LCR/BOR à l'escompte
-    rejected_or_unpaid_card_invoice: Facture CB impayée / rejetée
-    received_external_transfer: Virements d'Origine Extérieur (VOE) reçus
-    received_edi_transfer: Virements EDI (VEDI) reçus
-    transfer_to_or_from_abroad: Transferts vers/en provenance de l'étranger
-    currencies_sales_or_purchases: Achats/Ventes de devises
-    other_foreign_operations: Autres opérations avec l'étranger
-    issued_transfers: Transferts émis
-    received_transfers: Transferts reçus
-    cash_currencies_purchases: Achats de devises au comptant
-    cash_currencies_sales: Ventes de devises au comptant
-    purchase_option_exercise: Levée sur achat à terme
-    forward_sale_delivery: Livraison sur vente à terme
-    issued_edi_transfer: Virements EDI (VEDI) émis
-    securities_purchase_or_sale: Achats et Ventes de titres
-    various_securities_operations: Diverses opérations sur titres
-    security_investments_purchases_or_subscriptions: Achats/Souscriptions VM/BF
-    security_investments_sales: Ventes de VM/BF
-    french_stock_exchange_liquidation_balance: Solde de liquidation - BF
-    ucits_purchases: Achats OPCVM
-    ucits_sales: Ventes OPCVM
-    negociable_debt_securities_purchases: Achats TCN
-    negociable_debt_securities_sales: Ventes TCN
-    reserved: Réservé
-    agios: Agios
-    various_commissions_and_fees: Commissions et frais divers
-    financial_products: Produits financiers
-    including_taxes_commissions: Commissions y compris taxes
-    excluding_taxes_commissions: Commissions hors taxes
-    non_taxable_commissions: Commissions non taxables
-    taxes: Taxes
-    other_foreign_operations_debit: Autres opérations avec l'étranger - Débit
-    other_foreign_operations_credit: Autres opérations avec l'étranger - Crédit
-    financial_costs: Charges financières
-    credit_draw: Tirage de crédits
-    credit_maturities: Échéance crédits
-    securities_issuances: Émission de valeurs mobilières
-    debt_securities_issuances: Émission de titres de créances
-    refund: Remboursement
-    term_deposit: Dépôt à terme
-    term_deposit_maturities: Échéance dépôt à terme
-    received_referenced_transfers: Virements Référencés (VR) reçus
-    issud_referenced_transfers: Virements Référencés (VR) émis
-    debt_securities_purchases: Achats autres TC
-    debt_securities_sales: Ventes autres TC
-    contracts: Contrats
-    stock_options: Options
-    foreign_stock_exchange_purchases: Achats Bourses Étrangères
-    foreign_stock_exchange_sales: Ventes Bourses Étrangères
-    securities_operations: Opérations sur titres
-    securities_income: Revenus sur titres
-    commissions_and_custody_fees: Commissions et droits de garde
-    foreign_tax_refund: Remboursement impôts étrangers
-    issued_commercial_transfer: VCOM émis
-    various_operations: Opérations diverses
-    revenue_centralization: Centralisation de recettes
-    expense_centralization: Centralisation de dépenses
-    credit_cash_centralization: Centralisation de trésorerie - Crédit
-    debit_cash_centralization: Centralisation de trésorerie - Débit
-    domiciled_electronic_payment: Télérèglements domiciliés
-    issued_electronic_payment: Télérèglements émis
-    rejected_or_unpaid_electronic_payment: Télérèglements rejetés/impayés
-    cancellations_and_adjustments: Annulations et régularisations
-    issued_sepa_direct_debits: Prélèvements SEPA émis
-    issued_b2b_sepa_direct_debits: Prélèvements SEPA interentreprises émis
-    rejected_or_unpaid_sepa_direct_debits: Prélèvements SEPA rejetés/impayés émis (par le débiteur ou sa banque - « R-transaction »)
-    rejected_or_unpaid_b2b_sepa_direct_debits: Prélèvements SEPA interentreprises rejetés/impayés émis (par le débiteur ou sa banque -« R-transaction »)
-    issued_remittance_sepa_direct_debits: Prélèvements SEPA – reversements émis (par le cier ou sa banque « R-transaction »)
-    issued_remittance_b2b_sepa_direct_debits: Prélèvements SEPA interentreprises – reversements émis (par le créancier ou sa banque « R-transaction »)
-    domiciled_sepa_direct_debits: Prélèvements SEPA domiciliés
-    domiciled_b2b_sepa_direct_debits: Prélèvements SEPA interentreprises domiciliés
-    received_rejected_or_unpaid_sepa_direct_debits: Prélèvements SEPA rejetés/impayés reçus (par le créancier - « R-transaction »)
-    received_rejected_or_unpaid_b2b_sepa_direct_debits: Prélèvements SEPA interentreprises rejetés/impayés reçus (par le créancier - « R-transaction »)
-    received_remittance_sepa_direct_debits: Prélèvements SEPA – reversements reçus (par le débiteur -« R-transaction »)
-    received_remittance_b2b_sepa_direct_debits: Prélèvements SEPA interentreprises – reversements reçus (par le débiteur - « R-transaction »)
+    agios: "Agios"
+    atm_withdrawal: "Retrait DAB-GAB"
+    bill_of_exchange_discounting: "Remises de LCR/BOR à l'escompte"
+    bill_of_exchange_remittance_to_collection: "Remises de LCR/BOR à l'encaissement"
+    bills_delivery_for_collection: "Remises d'effets à l'encaissement"
+    cancellations_and_adjustments: "Annulations et régularisations"
+    cash_currencies_purchases: "Achats de devises au comptant"
+    cash_currencies_sales: "Ventes de devises au comptant"
+    cash_payment: "Versement en espèces"
+    check_deposit: "Remise de chèque"
+    check_deposit_on_cash: "Remise de chèque sur caisse"
+    commissions_and_custody_fees: "Commissions et droits de garde"
+    contracts: "Contrats"
+    credit_card_invoice_remittance: "Remise de facture CB crédit"
+    credit_cash_centralization: "Centralisation de trésorerie - Crédit"
+    credit_draw: "Tirage de crédits"
+    credit_maturities: "Échéance crédits"
+    currencies_sales_or_purchases: "Achats/Ventes de devises"
+    debit_cash_centralization: "Centralisation de trésorerie - Débit"
+    debt_securities_issuances: "Émission de titres de créances"
+    debt_securities_purchases: "Achats autres TC"
+    debt_securities_sales: "Ventes autres TC"
+    direct_debit_and_domiciled_ipo: "Prélèvement et TIP domicilié"
+    discounting: "Remises à l'escompte (papier commercial / chèque)"
+    domiciled_b2b_sepa_direct_debits: "Prélèvements SEPA interentreprises domiciliés"
+    domiciled_direct_debit: "Prélèvements domiciliés"
+    domiciled_electronic_payment: "Télérèglements domiciliés"
+    domiciled_ipo: "TIP domiciliés"
+    domiciled_sepa_direct_debits: "Prélèvements SEPA domiciliés"
+    excluding_taxes_commissions: "Commissions hors taxes"
+    expense_centralization: "Centralisation de dépenses"
+    financial_costs: "Charges financières"
+    financial_products: "Produits financiers"
+    foreign_stock_exchange_purchases: "Achats Bourses Étrangères"
+    foreign_stock_exchange_sales: "Ventes Bourses Étrangères"
+    foreign_tax_refund: "Remboursement impôts étrangers"
+    forward_sale_delivery: "Livraison sur vente à terme"
+    french_stock_exchange_liquidation_balance: "Solde de liquidation - BF"
+    incident_on_trade_bill: "Incidents sur effets"
+    including_taxes_commissions: "Commissions y compris taxes"
+    issud_referenced_transfers: "Virements Référencés (VR) émis"
+    issued_b2b_sepa_direct_debits: "Prélèvements SEPA interentreprises émis"
+    issued_cash_transfer: "Virement de trésorerie émis"
+    issued_commercial_transfer: "VCOM émis"
+    issued_direct_debit: "Prélèvement émis"
+    issued_direct_debit_and_ipo: "Prélèvements et TIP émis"
+    issued_edi_transfer: "Virements EDI (VEDI) émis"
+    issued_electronic_payment: "Télérèglements émis"
+    issued_ipo: "TIP émis"
+    issued_remittance_b2b_sepa_direct_debits: "Prélèvements SEPA interentreprises – reversements émis (par le créancier ou sa banque « R-transaction »)"
+    issued_remittance_sepa_direct_debits: "Prélèvements SEPA – reversements émis (par le cier ou sa banque « R-transaction »)"
+    issued_sepa_direct_debits: "Prélèvements SEPA émis"
+    issued_transfer: "Virement émis"
+    issued_transfers: "Transferts émis"
+    negociable_debt_securities_purchases: "Achats TCN"
+    negociable_debt_securities_sales: "Ventes TCN"
+    non_taxable_commissions: "Commissions non taxables"
+    other_foreign_operations: "Autres opérations avec l'étranger"
+    other_foreign_operations_credit: "Autres opérations avec l'étranger - Crédit"
+    other_foreign_operations_debit: "Autres opérations avec l'étranger - Débit"
+    other_issued_transfer: "Autres virements émis"
+    other_received_transfer: "Autres virements reçus"
+    paid_check: "Chèque payé"
+    paid_payment_card_invoices: "Factures cartes payées"
+    payment_card_invoice_remittance: "Factures cartes remises"
+    payment_card_invoices: "Facture carte de paiement/DAB-GAB"
+    preauthorized_bill_of_exchange: "LCR/BOR domicilié"
+    purchase_option_exercise: "Levée sur achat à terme"
+    received_cash_transfer: "Virement de trésorerie reçu"
+    received_edi_transfer: "Virements EDI (VEDI) reçus"
+    received_external_transfer: "Virements d'Origine Extérieur (VOE) reçus"
+    received_referenced_transfers: "Virements Référencés (VR) reçus"
+    received_rejected_or_unpaid_b2b_sepa_direct_debits: "Prélèvements SEPA interentreprises rejetés/impayés reçus (par le créancier - « R-transaction »)"
+    received_rejected_or_unpaid_sepa_direct_debits: "Prélèvements SEPA rejetés/impayés reçus (par le créancier - « R-transaction »)"
+    received_remittance_b2b_sepa_direct_debits: "Prélèvements SEPA interentreprises – reversements reçus (par le débiteur - « R-transaction »)"
+    received_remittance_sepa_direct_debits: "Prélèvements SEPA – reversements reçus (par le débiteur -« R-transaction »)"
+    received_transfer: "Virement reçu"
+    received_transfers: "Transferts reçus"
+    refund: "Remboursement"
+    rejected_direct_debit_and_ipo: "Prélèvement et TIP rejeté/impayé"
+    rejected_or_unpaid_b2b_sepa_direct_debits: "Prélèvements SEPA interentreprises rejetés/impayés émis (par le débiteur ou sa banque -« R-transaction »)"
+    rejected_or_unpaid_card_invoice: "Facture CB impayée / rejetée"
+    rejected_or_unpaid_electronic_payment: "Télérèglements rejetés/impayés"
+    rejected_or_unpaid_sepa_direct_debits: "Prélèvements SEPA rejetés/impayés émis (par le débiteur ou sa banque - « R-transaction »)"
+    rejected_or_unpayed_direct_debit: "Prélèvements rejetés / impayés"
+    rejected_or_unpayed_ipo: "TIP rejetés / impayés"
+    reserved: "Réservé"
+    revenue_centralization: "Centralisation de recettes"
+    securities_income: "Revenus sur titres"
+    securities_issuances: "Émission de valeurs mobilières"
+    securities_operations: "Opérations sur titres"
+    securities_purchase_or_sale: "Achats et Ventes de titres"
+    security_investments_purchases_or_subscriptions: "Achats/Souscriptions VM/BF"
+    security_investments_sales: "Ventes de VM/BF"
+    stock_options: "Options"
+    taxes: "Taxes"
+    term_deposit: "Dépôt à terme"
+    term_deposit_maturities: "Échéance dépôt à terme"
+    transfer_reject: "Rejet de virement"
+    transfer_to_or_from_abroad: "Transferts vers/en provenance de l'étranger"
+    ucits_purchases: "Achats OPCVM"
+    ucits_sales: "Ventes OPCVM"
+    unpaid_check: "Chèque impayé"
+    unpaid_trade_bill: "Effets impayé"
+    various_commissions_and_fees: "Commissions et frais divers"
+    various_operations: "Opérations diverses"
+    various_securities_operations: "Diverses opérations sur titres"

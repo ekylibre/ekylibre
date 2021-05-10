@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -153,5 +155,4 @@ class Reception < Parcel
   def in_accident?
     late_delivery || items.any?(&:non_compliant)
   end
-
 end

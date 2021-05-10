@@ -4,9 +4,9 @@ module Backend
     test_restfully_all_actions except: %i[list delete_all]
 
     test 'delete all invalid journal entries' do
-      get :index
+      get :index, params: {}
       assert_response :success
-      post :delete_all
+      post :delete_all, params: {}
       assert_equal 0, JournalEntry.where.not(balance: 0.0).count
       assert_redirected_to backend_journals_path
     end

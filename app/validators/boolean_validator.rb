@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BooleanValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     unless value.kind_of?(TrueClass) || value.kind_of?(FalseClass)

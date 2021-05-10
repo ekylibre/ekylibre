@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 # = Informations
 #
@@ -84,6 +85,7 @@ class ActivityBudget < ApplicationRecord
 
   def productions
     return ActivityProduction.none if activity.nil?
+
     activity.productions.of_campaign(campaign)
   end
 
@@ -133,6 +135,7 @@ class ActivityBudget < ApplicationRecord
     r = []
     revenues.where(variant: ProductNatureVariant.of_variety(variety)).find_each do |item|
       next if item.variant_indicator == 'working_period'
+
       quantity_unit = item.variant_unit
       quantity = if item.variant_indicator == 'population' && item.variant.frozen_indicators.detect { |i| i <= :net_mass }
                    quantity_unit = :quintal
@@ -144,18 +147,22 @@ class ActivityBudget < ApplicationRecord
       item_unit = Onoma::Unit.find("#{quantity_unit}_per_#{activity.size_unit.name}")
       next unless item_unit
       next unless item_unit.dimension == yield_unit.dimension
+
       harvest_yield = if item.per_working_unit?
                         quantity
                       elsif item.per_production?
                         next if productions_size.zero?
+
                         quantity * productions_count / productions_size
                       else # per campaign
                         next if productions_size.zero?
+
                         quantity / productions_size
                       end
       r << harvest_yield.in(item_unit).convert(yield_unit)
     end
     return nil if r.empty?
+
     r.sum
   end
 end

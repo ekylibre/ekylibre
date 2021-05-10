@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Inspectable
   extend ActiveSupport::Concern
 
@@ -42,6 +44,7 @@ module Inspectable
 
   def extremum_size(type)
     raise 'Type must either be `min` or `max`' unless %w[min max].include?(type.to_s)
+
     value = send(:"#{type}imal_size_value")
     (value || 0).in(grading_sizes_unit)
   end
@@ -55,6 +58,7 @@ module Inspectable
   # Quantities
   def quantity_value(dimension)
     return (send(:"#{dimension}_value") || 0) if respond_to?(:"#{dimension}_value")
+
     unknown_dimension(dimension)
   end
 end

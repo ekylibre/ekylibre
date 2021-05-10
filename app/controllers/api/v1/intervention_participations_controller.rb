@@ -36,6 +36,7 @@ module Api
                 product_id = equipment[:product_id]
                 tool = intervention.tools.find_by(product_id: product_id)
                 return error_message("There is no intervention tool associated with product id #{product_id}") if tool.nil?
+
                 hour_value = equipment[:hour_counter]
                 reading = tool.readings.find_or_initialize_by(indicator_name: :hour_counter)
                 reading.update!(measure_value_unit: :hour, measure_value_value: hour_value)
@@ -60,6 +61,7 @@ module Api
           filtered_params[:working_periods].each do |wp_params|
             period = participation.working_periods.find_or_initialize_by(**wp_params.to_h.deep_symbolize_keys)
             next if period.save
+
             period.destroy
           end
 
@@ -138,7 +140,7 @@ module Api
           errors << 'No state given' if filtered_params[:state].nil?
           errors << 'No current user' unless current_user && current_user.person
           errors << "Can't assign hour counter to equipment as the intervention state is not 'done'" if filtered_params[:state] != 'done' && filtered_params[:equipments]
-          errors << "Need 'product_id' and 'hour_counter' fields on 'equipments' hash" if filtered_params[:equipments]&.any? { |eq| eq.exclude?(:hour_counter) || eq.exclude?(:product_id) }
+          errors << "Need 'product_id' and 'hour_counter' fields on 'equipments' hash" if filtered_params[:equipments]&.any? { |eq| !eq.include?(:hour_counter) || !eq.include?(:product_id) }
           errors
         end
     end

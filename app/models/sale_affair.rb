@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -59,6 +61,7 @@ class SaleAffair < Affair
     unless deal.deal_third == client
       raise "Cannot deal with a different client in this SaleAffair (ID=#{id})"
     end
+
     deal.deal_with!(self)
   end
 

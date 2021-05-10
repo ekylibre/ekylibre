@@ -1,12 +1,12 @@
 eng:
   exchanger:
-    panier_local:
+    socleo:
       sales:
         errors:
           sale_data_missing_tax_information: "The sale with reference number %{reference_number} is invalid as it is missing VAT information."
-        sale_nature_name: "Online sale - Panier Local"
+        sale_nature_name: "Online sale - Socleo"
       incoming_payments:
-        incoming_payment_mode_name: "Panier Local"
+        incoming_payment_mode_name: "Socleo"
     sage:
       i_seven:
         errors:
@@ -62,9 +62,11 @@ eng:
     ekylibre_zones: "Ekylibre storage zones"
     fiea_galactea: "FIEA galactea"
     isagri_isacompta_export: "Isagri isacompta"
+    isagri_isacompta_fec_txt: "Isagri isacompta FEC import (TXT)"
     isagri_isacompta_fixed_assets: "Isagri isacompta fixed assets"
     isagri_isacompta_journal_entries: "Isagri isacompta journal entries"
     isagri_isaculture_csv_import: "Isagri isaculture csv import"
+    isagri_isapaye_ecr_journal_entries: "Isagri Isapaye journal entries (ECR)"
     la_graine_informatique_vinifera_entities: "La graine informatique vinifera entities"
     la_graine_informatique_vinifera_products: "La graine informatique vinifera products"
     la_graine_informatique_vinifera_sales: "La graine informatique vinifera sales"
@@ -74,12 +76,18 @@ eng:
     lilco_milk_analyses: "Lilco milk analyses"
     milklic_individual_production: "Milklic individual production"
     odicom_fec_txt: "FEC import (TXT) - Odicom"
+    telepac_v2015_cap_statements: "TelePAC 2015 statement (XML)"
+    telepac_v2016_cap_statements: "TelePAC 2016 statement (XML)"
+    telepac_v2017_cap_statements: "TelePAC 2017 statement (XML)"
+    telepac_v2018_cap_statements: "TelePAC 2018 statement (XML)"
+    telepac_v2019_cap_statements: "TelePAC 2019 statement (XML)"
+    telepac_v2020_cap_statements: "TelePAC 2020 statement (XML)"
     quadra_fec_txt: "FEC import (TXT) - Quadra"
     sage_i_seven_fec_txt: "Accountancy FEC (TXT) ‒ Sagei7"
     sage_i_seven_journal_entries: "Accountancy (ECX) ‒ Sagei7"
-    # panier_local_base: "Panier local base"
-    panier_local_incoming_payments: "Panier local incoming payments"
-    panier_local_sales: "Panier Local sales"
+    # socleo_base: "Socleo base"
+    socleo_incoming_payments: "Socleo incoming payments"
+    socleo_sales: "Socleo sales"
     synel_animals: "Synel animals"
     synel_inventory: "Synel inventory"
     synest_inventory: "Synest inventory"
@@ -110,10 +118,11 @@ eng:
     milklic: "Mil'Klic"
     none: "None"
     odicom: "Odicom"
-    panier_local: "Panier Local"
+    socleo: "Socleo"
     quadra: "Quadra"
     sage: "Sage"
     synel: "Synel"
     synest: "Synest"
+    telepac: "TelePAC"
     upra: "Upra"
     vivescia: "Vivescia"

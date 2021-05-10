@@ -794,6 +794,11 @@ form.search {
   @include text-align(center);
   margin: 0 $default-gap;
   padding: $default-gap;
+  & i.default-zip {
+    font-size: 5em;
+    display: block;
+    margin: 0.5em;
+  }
   &.picture-identity {
     min-height: 180px;
     min-width: 180px;
@@ -888,6 +893,7 @@ form.search {
       // margin: 0 1% $default-gap;
       @include float(left);
     }
+    
     &--flex {
       display: inline-flex;
 
@@ -1367,15 +1373,16 @@ html.backend {
     right: $default-gap;
     i {
       @include is-icon;
-      @include use-icon(minus-square-o);
+      @include use-icon(filter-list);
       color: $color;
       line-height: $line-height;
       vertical-align: middle;
+      transform:rotate(180deg);
     }
   }
   &.collapsed {
     a[data-toggle="kujaku"] i {
-      @include use-icon(plus-square-o);
+      transform:rotate(0deg);
     }
     .feathers {
       .feather {

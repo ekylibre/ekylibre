@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Synest
   class InventoryExchanger < ActiveExchanger::Base
     category :stocks

@@ -3,7 +3,6 @@ require 'test_helper'
 module Interventions
   module Phytosanitary
     class NonTreatmentAreasValidatorTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
-
       test 'get_products_infos forbids a product if its selected usage has an untreated_buffer_aquatic and working zones overlap at least one buffered water zone' do
         target = create :lemon_land_parcel, :organic, born_at: DateTime.new(2018, 1, 1)
         shape = Charta.new_geometry("SRID=4326;Polygon ((-0.6183832883834839 44.49441607768577, -0.6183135509490966 44.49375790909347, -0.6172621250152588 44.49386122674773, -0.6172889471054077 44.49444668999765, -0.6183832883834839 44.49441607768577))")

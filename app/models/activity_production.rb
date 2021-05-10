@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -23,34 +25,32 @@
 #
 # == Table: activity_productions
 #
-#  activity_id          :integer          not null
-#  campaign_id          :integer
-#  created_at           :datetime         not null
-#  creator_id           :integer
-#  cultivable_zone_id   :integer
-#  custom_fields        :jsonb
-#  custom_name          :string
-#  headland_shape       :geometry({:srid=>4326, :type=>"geometry"})
-#  id                   :integer          not null, primary key
-#  irrigated            :boolean          default(FALSE), not null
-#  lock_version         :integer          default(0), not null
-#  nitrate_fixing       :boolean          default(FALSE), not null
-#  planting_campaign_id :integer
-#  rank_number          :integer          not null
-#  season_id            :integer
-#  size_indicator_name  :string           not null
-#  size_unit_name       :string
-#  size_value           :decimal(19, 4)   not null
-#  started_on           :date
-#  state                :string
-#  stopped_on           :date
-#  support_id           :integer          not null
-#  support_nature       :string
-#  support_shape        :geometry({:srid=>4326, :type=>"multi_polygon"})
-#  tactic_id            :integer
-#  updated_at           :datetime         not null
-#  updater_id           :integer
-#  usage                :string           not null
+#  activity_id         :integer          not null
+#  campaign_id         :integer
+#  created_at          :datetime         not null
+#  creator_id          :integer
+#  cultivable_zone_id  :integer
+#  custom_fields       :jsonb
+#  custom_name         :string
+#  id                  :integer          not null, primary key
+#  irrigated           :boolean          default(FALSE), not null
+#  lock_version        :integer          default(0), not null
+#  nitrate_fixing      :boolean          default(FALSE), not null
+#  rank_number         :integer          not null
+#  season_id           :integer
+#  size_indicator_name :string           not null
+#  size_unit_name      :string
+#  size_value          :decimal(19, 4)   not null
+#  started_on          :date
+#  state               :string
+#  stopped_on          :date
+#  support_id          :integer          not null
+#  support_nature      :string
+#  support_shape       :geometry({:srid=>4326, :type=>"multi_polygon"})
+#  tactic_id           :integer
+#  updated_at          :datetime         not null
+#  updater_id          :integer
+#  usage               :string           not null
 #
 
 class ActivityProduction < ApplicationRecord
@@ -178,7 +178,7 @@ class ActivityProduction < ApplicationRecord
       self.stopped_on ||= self.started_on + 1.year - 1.day if annual?
       self.size_indicator_name ||= activity_size_indicator_name if activity_size_indicator_name
       self.size_unit_name = activity_size_unit_name
-      self.rank_number ||= (activity.productions.maximum(:rank_number) ? activity.productions.maximum(:rank_number) : 0) + 1
+      self.rank_number ||= (activity.productions.maximum(:rank_number) || 0) + 1
       if valid_period_for_support?
         if plant_farming?
           initialize_land_parcel_support!
@@ -248,7 +248,7 @@ class ActivityProduction < ApplicationRecord
   # d : cultivable zone number (work number or cap number or id )
   # e : harvest year
   def computed_work_number
-    work_number = 'P'
+    work_number = 'P'.dup
     work_number << '_' << activity.cultivation_variety[0].upcase
     work_number << rank_number.to_s
     work_number << '_' << cultivable_zone.work_number || cultivable_zone.cap_number || cultivable_zone.id.to_s
@@ -409,6 +409,7 @@ class ActivityProduction < ApplicationRecord
 
   def started_on_for(campaign)
     return self.started_on if annual?
+
     on = begin
            Date.civil(campaign.harvest_year, self.started_on.month, self.started_on.day)
          rescue
@@ -420,6 +421,7 @@ class ActivityProduction < ApplicationRecord
 
   def stopped_on_for(campaign)
     return stopped_on if annual?
+
     on = Date.civil(campaign.harvest_year, self.started_on.month, self.started_on.day) - 1
     on += 1.year if at_cycle_start?
     on
@@ -513,6 +515,7 @@ class ActivityProduction < ApplicationRecord
     if surface_area.to_s.to_f > 0.0
       return cost(:tool) / surface_area.to_d(surface_unit_name).to_s.to_f
     end
+
     0.0
   end
 
@@ -521,6 +524,7 @@ class ActivityProduction < ApplicationRecord
     if surface_area.to_s.to_f > 0.0
       return cost(:input) / surface_area.to_d(surface_unit_name).to_s.to_f
     end
+
     0.0
   end
 
@@ -529,6 +533,7 @@ class ActivityProduction < ApplicationRecord
     if surface_area.to_s.to_f > 0.0
       return cost(:doer) / surface_area.to_d(surface_unit_name).to_s.to_f
     end
+
     0.0
   end
 
@@ -552,6 +557,7 @@ class ActivityProduction < ApplicationRecord
   def implanted_at
     intervention = interventions.real.of_category(:planting).first
     return intervention.started_at if intervention
+
     nil
   end
 
@@ -560,6 +566,7 @@ class ActivityProduction < ApplicationRecord
   def harvested_at
     intervention = interventions.real.of_category(:harvesting).first
     return intervention.started_at if intervention
+
     nil
   end
 
@@ -568,10 +575,12 @@ class ActivityProduction < ApplicationRecord
     size_indicator_name = options[:size_indicator_name] || :net_mass
     ind = Onoma::Indicator.find(size_indicator_name)
     raise "Invalid indicator: #{size_indicator_name}" unless ind
+
     size_unit_name = options[:size_unit_name] || ind.unit
     unless Onoma::Unit.find(size_unit_name)
       raise "Invalid indicator unit: #{size_unit_name.inspect}"
     end
+
     surface_unit_name = options[:surface_unit_name] || :hectare
     procedure_category = options[:procedure_category] || :harvesting
     surface = net_surface_area
@@ -584,6 +593,7 @@ class ActivityProduction < ApplicationRecord
     unless Onoma::Unit.find(harvest_yield_unit_name)
       raise "Harvest yield unit doesn't exist: #{harvest_yield_unit_name.inspect}"
     end
+
     total_quantity = 0.0.in(size_unit_name)
     # puts "total_quantity : #{total_quantity}".inspect.red
 
@@ -610,6 +620,7 @@ class ActivityProduction < ApplicationRecord
         harvest.outputs.each do |cast|
           actor = cast.product
           next unless actor && actor.variety
+
           variety = Onoma::Variety.find(actor.variety)
           if variety && variety <= harvest_variety
             quantity = cast.quantity_population.in(actor.variant.send(size_indicator_name).unit)
@@ -682,6 +693,7 @@ class ActivityProduction < ApplicationRecord
     # get current campaign
     budget = activity.budget_of(campaign)
     return nil unless budget
+
     budget.estimate_yield(variety, options)
   end
 
@@ -731,6 +743,7 @@ class ActivityProduction < ApplicationRecord
                  .call(activity_production: self)
 
     return interactor.build_name if interactor.success?
+
     if interactor.fail?
       list = []
       list << activity.name
@@ -747,6 +760,7 @@ class ActivityProduction < ApplicationRecord
     if support.blank?
       raise StandardError.new("No support defined. Got: #{support.inspect}")
     end
+
     support.get(*args)
   end
 

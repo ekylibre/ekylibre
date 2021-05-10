@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ekylibre
   class AnimalsExchanger < ActiveExchanger::Base
     category :animal_farming
@@ -38,6 +40,7 @@ module Ekylibre
           # create indicators linked to animal
           r.indicators.each do |indicator_name, value|
             next if indicator_name == :population
+
             animal.read!(indicator_name, value, at: r.born_at, force: true)
           end
           animal.initial_population = animal.population

@@ -24,7 +24,7 @@ module Pickable
           redirect_to params[:redirect] + '/' + instance_variable_get("@#{record_name}").id.to_s
         rescue => e
           notify_error :an_error_was_raised_during_import
-          redirect_to params[:redirect] || :back
+          params[:redirect].nil? ? redirect_back(fallback_location: root_path) : redirect_to(params[:redirect])
         end
       end
     end
@@ -50,7 +50,7 @@ module Pickable
           redirect_to params[:redirect] + '/' + instance_variable_get("@#{record_name}").id.to_s
         rescue => e
           notify_error :an_error_was_raised_during_import
-          redirect_to params[:redirect] || :back
+          params[:redirect].nil? ? redirect_back(fallback_location: root_path) : redirect_to(params[:redirect])
         end
       end
     end

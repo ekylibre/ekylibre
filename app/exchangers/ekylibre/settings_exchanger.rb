@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ekylibre
   class SettingsExchanger < ActiveExchanger::Base
     category :settings
@@ -105,10 +107,10 @@ module Ekylibre
       if can_load_default?(:users)
         @manifest[:users] = { 'admin@ekylibre.org' => { first_name: 'Admin', last_name: 'EKYLIBRE' } }
       end
-      for email, attributes in @manifest[:users]
+      @manifest[:users].each do |email, attributes|
         attributes[:administrator] = true unless attributes.key?(:administrator)
         attributes[:language] ||= language
-        for ref in %i[role team]
+        %i[role team].each do |ref|
           attributes[ref] ||= :default
           attributes[ref] = find_record(ref.to_s.pluralize, attributes[ref])
         end
@@ -188,6 +190,7 @@ module Ekylibre
           unless journal_nature = { bank_account: :bank, cash_box: :cash }[nature]
             raise StandardError.new('Need a valid journal nature to register a cash')
           end
+
           journal = Journal.find_by(nature: journal_nature)
           account = Account.find_by(name: "enumerize.cash.nature.#{nature}".t)
           hash[nature] = { name: "enumerize.cash.nature.#{nature}".t, nature: nature.to_s,
@@ -298,6 +301,7 @@ module Ekylibre
           unless data.is_a?(Hash)
             raise "Cannot load #{records}: Hash expected, got #{records.class.name} (#{records.inspect})"
           end
+
           data.each do |identifier, attributes|
             attributes = attributes.with_indifferent_access
             attributes[main_column] ||= identifier.to_s
@@ -323,6 +327,7 @@ module Ekylibre
       def find_record(records, identifier)
         @records ||= {}.with_indifferent_access
         return @records[records][identifier] if @records[records]
+
         nil
       end
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -78,11 +80,12 @@ class FinancialYear < ApplicationRecord
 
   # This order must be the natural order
   # It permit to find the first and the last financial year
-  scope :with_state, -> (*states) { where(state: states).reorder(:started_on) }
+  scope :with_state, ->(*states) { where(state: states).reorder(:started_on) }
   scope :closed, -> { with_state :closed }
   scope :opened, -> { with_state :opened }
-  scope :started_after, -> (date) { where('? < started_on', date).order(:started_on) }
+  scope :started_after, ->(date) { where('? < started_on', date).order(:started_on) }
   scope :stopped_before, ->(date) { where('stopped_on < ?', date).order(:started_on) }
+  scope :out_of_date_range, ->(date) { where('stopped_on > ? AND started_on < ?', date, date).opened }
   scope :in_preparation, -> { where(state: 'closure_in_preparation').reorder(:started_on) }
   scope :closables_or_lockables, -> { where(state: %i[opened closure_in_preparation]).where('started_on <= ?', Time.zone.now).where.not('? BETWEEN started_on AND stopped_on', Time.zone.now).reorder(:started_on) }
   scope :with_tax_declaration, -> { where.not(tax_declaration_mode: :none) }
@@ -135,6 +138,7 @@ class FinancialYear < ApplicationRecord
       if year = closed.reorder(started_on: :desc).first
         return year.stopped_on
       end
+
       nil
     end
 
@@ -205,6 +209,22 @@ class FinancialYear < ApplicationRecord
     code
   end
 
+  def fec_format
+    # return one of fec format depends on fiscal_position && commercial_accountancy_workflow
+    # all ba_bnc_ir_commercial_accountancy ba_ir_cash_accountancy bnc_ir_cash_accountancy
+    fiscal_position = Preference[:fiscal_position] # fr_ba_ir, ...
+    commercial_accountancy_workflow = Preference[:commercial_accountancy_workflow] # true (commercial_accountancy) / false (cash_accountancy)
+    if fiscal_position == "fr_ba_ir" && commercial_accountancy_workflow == false
+      "ba_ir_cash_accountancy"
+    elsif fiscal_position == "fr_bnc_ir" && commercial_accountancy_workflow == false
+      "bnc_ir_cash_accountancy"
+    elsif fiscal_position.in?(["fr_bnc_ir", "fr_ba_ir"]) && commercial_accountancy_workflow == true
+      "ba_bnc_ir_commercial_accountancy"
+    else
+      "all"
+    end
+  end
+
   def missing_tax_declaration?
     !tax_declaration_frequency_none? &&
       TaxDeclaration.where('? BETWEEN started_on AND stopped_on', stopped_on).empty?
@@ -235,6 +255,7 @@ class FinancialYear < ApplicationRecord
 
   def tax_declaration_stopped_on(from_on)
     return nil if tax_declaration_frequency_none?
+
     end_on = (from_on + tax_declaration_frequency_duration).beginning_of_month - 1
     end_on = stopped_on if end_on > stopped_on
     end_on
@@ -316,6 +337,7 @@ class FinancialYear < ApplicationRecord
     all_fy = FinancialYear.order(:started_on)
     self_index = all_fy.index(self)
     return nil if self_index.zero?
+
     previous_record = all_fy[self_index - 1]
   end
 
@@ -367,14 +389,14 @@ class FinancialYear < ApplicationRecord
     balance = FinancialYear.balance_expr(credit)
     if !forceds.empty? || !negatives.empty?
       forceds_and_negatives = forceds & negatives
-      balance = 'CASE'
+      balance = 'CASE'.dup
       balance << ' WHEN ' + forceds_and_negatives.sort.collect { |c| "a.number LIKE '#{c}%'" }.join(' OR ') + " THEN -#{FinancialYear.balance_expr(!credit, forced: true)}" unless forceds_and_negatives.empty?
       balance << ' WHEN ' + forceds.collect { |c| "a.number LIKE '#{c}%'" }.join(' OR ') + " THEN #{FinancialYear.balance_expr(credit, forced: true)}" unless forceds.empty?
       balance << ' WHEN ' + negatives.sort.collect { |c| "a.number LIKE '#{c}%'" }.join(' OR ') + " THEN -#{FinancialYear.balance_expr(!credit)}" unless negatives.empty?
       balance << " ELSE #{FinancialYear.balance_expr(credit)} END"
     end
 
-    query = "SELECT sum(#{balance}) AS balance FROM #{AccountBalance.table_name} AS ab JOIN #{Account.table_name} AS a ON (a.id=ab.account_id) WHERE ab.financial_year_id=#{id}"
+    query = "SELECT sum(#{balance}) AS balance FROM #{AccountBalance.table_name} AS ab JOIN #{Account.table_name} AS a ON (a.id=ab.account_id) WHERE ab.financial_year_id=#{id}".dup
     query << ' AND (' + normals.sort.collect { |c| "a.number LIKE '#{c}%'" }.join(' OR ') + ')'
     query << ' AND NOT (' + excepts.sort.collect { |c| "a.number LIKE '#{c}%'" }.join(' OR ') + ')' unless excepts.empty?
     balance = ApplicationRecord.connection.select_value(query)
@@ -387,6 +409,7 @@ class FinancialYear < ApplicationRecord
     if value = balance(accounts, false)
       return value.l(currency: self.currency)
     end
+
     nil
   end
 
@@ -396,6 +419,7 @@ class FinancialYear < ApplicationRecord
     if value = balance(accounts, true)
       return value.l(currency: self.currency)
     end
+
     nil
   end
 
@@ -436,7 +460,7 @@ class FinancialYear < ApplicationRecord
     last_journal_entry.items.clear
 
     if options[:fixed_assets_depreciations]
-      for depreciation in fixed_asset_depreciations.includes(:fixed_asset)
+      fixed_asset_depreciations.includes(:fixed_asset).each do |depreciation|
         name = tc(:bookkeep, resource: FixedAsset.model_name.human, number: depreciation.fixed_asset.number, name: depreciation.fixed_asset.name, position: depreciation.position, total: depreciation.fixed_asset.depreciations.count)
         # Charges
         last_journal_entry.add_debit(name, depreciation.fixed_asset.expenses_account, depreciation.amount)
@@ -459,13 +483,13 @@ class FinancialYear < ApplicationRecord
   def split_into_periods(interval)
     case interval
     when 'year'
-        [[started_on, stopped_on]]
+      [[started_on, stopped_on]]
     when 'semesters'
-        compute_ranges(6)
+      compute_ranges(6)
     when 'trimesters'
-        compute_ranges(3)
+      compute_ranges(3)
     when 'months'
-        compute_ranges(1)
+      compute_ranges(1)
     end
   end
 
@@ -504,6 +528,7 @@ class FinancialYear < ApplicationRecord
 
   def balanced_balance_sheet?(timing = :prior_to_closure)
     return Journal.sum_entry_items('1 2 3 4 5 6 7 8', started_on: started_on, stopped_on: stopped_on).zero? if timing == :prior_to_closure
+
     computation = AccountancyComputation.new(self)
     balance_sheet_balance = computation.active_balance_sheet_amount - computation.passive_balance_sheet_amount
     balance_sheet_balance.zero?
@@ -554,9 +579,10 @@ class FinancialYear < ApplicationRecord
       start_date = started_on
       stop_date = started_on + number_of_months.month - 1.day
       return [[started_on, stopped_on]] if stopped_on <= stop_date
+
       ranges = []
       i = 0
-      while stopped_on >= stop_date do
+      while stopped_on >= stop_date
         i += 1
         ranges << [start_date, stop_date]
         start_date = started_on + (number_of_months * i).month
@@ -569,5 +595,4 @@ class FinancialYear < ApplicationRecord
     def accountant_with_booked_journal?
       accountant && accountant.booked_journals.any?
     end
-
 end

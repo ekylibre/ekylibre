@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class InterventionParameter
   class LoggedPhytosanitaryUsage
     include Dimensionable
@@ -21,6 +23,7 @@ class InterventionParameter
 
     def decorated_reentry_delay
       return unless in_field_reentry_delay
+
       if in_field_reentry_delay.in_full(:hour) == 6
         "#{in_field_reentry_delay.in_full(:hour)} h (8 h #{:if_closed_environment.tl})"
       else
@@ -46,6 +49,11 @@ class InterventionParameter
 
     def withdrawn?
       state == 'withdrawn'
+    end
+
+    # @return [Measure]
+    def max_dose_measure
+      Measure.new(dose_quantity * dose_unit_factor, dose_unit)
     end
   end
 end

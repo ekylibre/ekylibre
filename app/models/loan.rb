@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -34,7 +36,7 @@
 #  currency                          :string           not null
 #  custom_fields                     :jsonb
 #  id                                :integer          not null, primary key
-#  initial_releasing_amount          :boolean          default(FALSE), not null
+#  initial_releasing_amount          :boolean          default(TRUE), not null
 #  insurance_account_id              :integer
 #  insurance_percentage              :decimal(19, 4)   not null
 #  insurance_repayment_method        :string
@@ -59,14 +61,18 @@
 #  updater_id                        :integer
 #  use_bank_guarantee                :boolean
 #
+
 class Loan < ApplicationRecord
   include Attachable
   include Customizable
+  include Transitionable
   include Providable
+
   enumerize :repayment_method, in: %i[constant_rate constant_amount], default: :constant_amount
   enumerize :shift_method, in: %i[immediate_payment anatocism], default: :immediate_payment
   enumerize :repayment_period, in: %i[month year trimester semester], default: :month, predicates: { prefix: true }
   enumerize :insurance_repayment_method, in: %i[initial to_repay], default: :to_repay, predicates: true
+  enumerize :state, in: %i[draft ongoing repaid], predicates: true, i18n_scope: "models.#{model_name.param_key}.states"
   refers_to :currency
   belongs_to :cash
   belongs_to :journal_entry
@@ -98,28 +104,10 @@ class Loan < ApplicationRecord
   validates :started_on, ongoing_exchanges: true
 
   scope :drafts, -> { where(state: %w[draft]) }
-  scope :ongoing_within, ->(start_date, stop_date) { where('loans.ongoing_at BETWEEN ? and ?', start_date.to_time, stop_date.to_time) }
-
-  state_machine :state, initial: :draft do
-    state :draft
-    state :ongoing
-    state :repaid
-
-    event :confirm do
-      transition draft: :ongoing, if: :draft?
-    end
-    event :repay do
-      transition ongoing: :repaid, if: :ongoing?
-    end
-  end
-
-  before_validation(on: :create) do
-    self.state ||= :draft
-    self.currency ||= cash.currency if cash
-    self.shift_duration ||= 0
-  end
+  scope :ongoing_within, ->(start_time, stop_time) { where('loans.ongoing_at BETWEEN ? and ?', start_time, stop_time) }
 
   before_validation do
+    self.state ||= :draft
     self.ongoing_at ||= started_on.to_time if started_on
     self.currency ||= cash.currency if cash
     self.shift_duration ||= 0
@@ -225,9 +213,11 @@ class Loan < ApplicationRecord
     reload
   end
 
+  # return Decimal
   def current_remaining_amount(on = Date.today)
     r = repayments.where('due_on <= ?', on).reorder(:position).last
-    return nil unless r
+    return 0.0 unless r
+
     r.remaining_amount
   end
 
@@ -244,35 +234,6 @@ class Loan < ApplicationRecord
   # Prints human name of current state
   def state_label
     self.class.state_machine.state(self.state.to_sym).human_name
-  end
-
-  # why ? we have state machine ?
-  def draft?
-    state.to_sym == :draft
-  end
-
-  def ongoing?
-    state.to_sym == :ongoing
-  end
-
-  def repaid?
-    state.to_sym == :repaid
-  end
-
-  def confirm(ongoing_at = nil)
-    return false unless can_confirm?
-    reload
-    self.ongoing_at ||= ongoing_at || Time.zone.now
-    save!
-    super
-  end
-
-  def repay(repaid_at = nil)
-    return false unless can_repay?
-    reload
-    self.repaid_at ||= repaid_at || Time.zone.now
-    save!
-    super
   end
 
   def editable?

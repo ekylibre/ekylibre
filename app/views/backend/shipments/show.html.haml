@@ -2,7 +2,7 @@
   = t.edit resource if resource.updateable?
   = t.ship resource, method: :post if resource.shippable?
   = t.destroy
-  = t.export(:shipping_note)
+  = t.export(:shipping_note, target:"_blank")
 
 - renamings = {}
 = main_state_bar(resource, renamings: renamings)

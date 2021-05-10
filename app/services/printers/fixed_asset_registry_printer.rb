@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module Printers
   class FixedAssetRegistryPrinter < PrinterBase
-
     class << self
       # TODO move this elsewhere when refactoring the Document Management System
       def build_key(stopped_on:)

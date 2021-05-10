@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 # This object allow printing the general ledger
 module Printers
   class IncomeStatementPrinter < BalanceSheetPrinter
-
     def compute_dataset
       dataset = []
       document_scope = :profit_and_loss_statement

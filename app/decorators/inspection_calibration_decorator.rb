@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class InspectionCalibrationDecorator < Draper::Decorator
   delegate_all
 

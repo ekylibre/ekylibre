@@ -100,6 +100,10 @@ eng:
         sale: "Sale"
         stock: "Stock"
         travel_cost: "Travel"
+    crop_group:
+      target:
+        land_parcel: Land parcel
+        plant: Plant
     crumb:
       nature:
         hard_start: "Hard start"
@@ -160,28 +164,6 @@ eng:
         # odt: "Odt"
         # xml: "Xml"
     entity:
-      legal_position_code:
-        # ASSO: "Asso"
-        # COOP: "Coop"
-        # CUMA: "Cuma"
-        # EARL: "Earl"
-        # EI: "Ei"
-        # EIRL: "Eirl"
-        # EURL: "Eurl"
-        # GAEC: "Gaec"
-        # GFA: "Gfa"
-        # GIE: "Gie"
-        # SA: "Sa"
-        # SARL: "Sarl"
-        # SAS: "Sas"
-        # SASU: "Sasu"
-        # SCA: "Sca"
-        # SCEA: "Scea"
-        # SCI: "Sci"
-        # SCS: "Scs"
-        # SEP: "Sep"
-        # SICA: "Sica"
-        # SNC: "Snc"
       nature:
         contact: "Contact"
         organization: "Organization"
@@ -710,7 +692,7 @@ eng:
         # payslips: "Payslips"
         plant_countings: "Plant countings"
         plants: "Plants"
-        product_nature_categories: "Product nature categories"
+        product_nature_categories: "Accounting categories"
         product_nature_variants: "Product nature variants"
         product_natures: "Product natures"
         products: "Products"

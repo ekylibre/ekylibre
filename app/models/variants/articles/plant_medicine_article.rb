@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -57,7 +59,6 @@
 module Variants
   module Articles
     class PlantMedicineArticle < Variants::ArticleVariant
-
       validate :check_lexicon_reference, on: :update
 
       def variant_type

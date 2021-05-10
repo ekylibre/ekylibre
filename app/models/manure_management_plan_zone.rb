@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -82,7 +84,7 @@ class ManureManagementPlanZone < ApplicationRecord
   end
 
   def compute
-    for name, value in Calculus::ManureManagementPlan.compute(parameters)
+    Calculus::ManureManagementPlan.compute(parameters).each do |name, value|
       if %w[absorbed_nitrogen_at_opening expected_yield humus_mineralization intermediate_cultivation_residue_mineralization irrigation_water_nitrogen maximum_nitrogen_input meadow_humus_mineralization mineral_nitrogen_at_opening nitrogen_at_closing nitrogen_input nitrogen_need organic_fertilizer_mineral_fraction previous_cultivation_residue_mineralization soil_production].include?(name.to_s)
         send("#{name}=", value.to_f(:kilogram_per_hectare))
       end
@@ -126,6 +128,7 @@ class ManureManagementPlanZone < ApplicationRecord
     unless soil_nature && item = Onoma::SoilNature[soil_nature].human_name
       return nil
     end
+
     item
   end
 
@@ -133,6 +136,7 @@ class ManureManagementPlanZone < ApplicationRecord
     unless cultivation_variety && item = Onoma::Variety[cultivation_variety].human_name
       return nil
     end
+
     item
   end
 end

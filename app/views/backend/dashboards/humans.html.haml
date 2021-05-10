@@ -1,1 +1,7 @@
-= beehive(:humans)
+- main_period_selector(:year)
+
+= beehive(:humans) do |b|
+  - b.cell :last_workers
+  - if current_campaign
+    - b.hbox do
+      - b.cell :elapsed_interventions_times_by_workers

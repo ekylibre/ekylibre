@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class StateBarBuilder
   attr_reader :attribute, :options, :resource
 
@@ -76,5 +78,4 @@ class StateBarBuilder
         .map { |t| [t.to.to_sym, t] }
         .to_h
     end
-
 end

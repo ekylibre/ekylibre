@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ekylibre
   # Permits to import activities from a CSV file with 3 columns:
   #  - Name

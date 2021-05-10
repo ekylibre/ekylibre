@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -101,6 +103,7 @@ class Building < ProductGroup
     unless member.is_a?(BuildingDivision)
       raise ArgumentError.new("BuildingDivision expected, got #{member.class}:#{member.inspect}")
     end
+
     super(member, started_at)
   end
 
@@ -109,6 +112,7 @@ class Building < ProductGroup
     unless member.is_a?(BuildingDivision)
       raise ArgumentError.new("BuildingDivision expected, got #{member.class}:#{member.inspect}")
     end
+
     super(member, stopped_at)
   end
 

@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class GeoJSONTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
-
   test 'parse json' do
     assert GeoJSON.parse('{"type": "FeatureCollection", "features": []}')
   end
@@ -21,7 +20,7 @@ class GeoJSONTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   test 'feat does strigify keys of properties' do
-    feat = GeoJSON.feat({name: 'blah'})
+    feat = GeoJSON.feat({ name: 'blah' })
     assert feat['properties'].key? 'name'
     refute feat['properties'].key? :name
   end

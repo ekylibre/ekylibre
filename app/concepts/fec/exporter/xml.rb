@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FEC
   module Exporter
     class XML < FEC::Exporter::Base
@@ -18,18 +20,20 @@ module FEC
                 journals.where.not(nature: 'closure').each do |journal|
                   entries = journal.entries.where.not(state: 'draft').between(@started_on, @stopped_on)
                   next unless entries.any?
+
                   xml.journal do
                     xml.JournalCode journal.code
                     xml.JournalLib journal.name
                     entries.includes(:incoming_payments, :purchase_payments, items: :account).references(items: :account).find_each do |entry|
                       next if entry.items.empty? || ((fiscal_position == 'ba_ir_cash_accountancy' || fiscal_position == 'bnc_ir_cash_accountancy') && !entry.first_payment)
+
                       resource = Maybe(entry.resource)
                       xml.ecriture do
                         xml.EcritureNum (entry.continuous_number? ? entry.continuous_number : '')
                         xml.EcritureDate entry.printed_on.strftime('%Y-%m-%d')
                         xml.EcritureLib entry.items.first.name
                         xml.PieceRef entry.number
-                        xml.PieceDate ( entry.printed_on > entry.created_at.to_date ? entry.created_at.strftime('%Y-%m-%d') : entry.printed_on.strftime('%Y-%m-%d'))# bug with resource.created_at.strftime('%Y-%m-%d')
+                        xml.PieceDate ( entry.printed_on > entry.created_at.to_date ? entry.created_at.strftime('%Y-%m-%d') : entry.printed_on.strftime('%Y-%m-%d')) # bug with resource.created_at.strftime('%Y-%m-%d')
                         xml.EcritureLet entry.letter if entry.letter
                         # xml.DateLet
                         xml.ValidDate (entry.validated_at? ? entry.validated_at.strftime('%Y-%m-%d') : entry.printed_on.strftime('%Y-%m-%d'))

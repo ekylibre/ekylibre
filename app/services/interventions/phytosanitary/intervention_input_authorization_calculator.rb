@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 module Interventions
   module Phytosanitary
     class InterventionInputAuthorizationCalculator
       class << self
-
         # @param [Intervention] intervention
         # @return [InterventionInputAuthorizationCalculator]
         def for_intervention(intervention)

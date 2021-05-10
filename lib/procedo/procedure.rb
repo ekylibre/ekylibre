@@ -99,6 +99,7 @@ module Procedo
     def add_category(name)
       category = Onoma::ProcedureCategory.find(name)
       raise "Invalid category: #{name.inspect}".red unless category
+
       @categories << category unless @categories.include?(category)
     end
 
@@ -116,6 +117,7 @@ module Procedo
     def add_action(name, optional = false)
       action = Onoma::ProcedureAction.find(name)
       raise "Invalid action: #{name.inspect}".red unless action
+
       actions = optional ? @optional_actions : @mandatory_actions
       actions << action unless actions.include?(action)
     end
@@ -159,6 +161,7 @@ module Procedo
         p.handlers.each do |handler|
           %w[condition forward backward].each do |tree|
             next unless handler.send("#{tree}?")
+
             parameters = handler.send("#{tree}_parameters")
             parameters.each do |parameter|
               unless find(parameter)
@@ -175,6 +178,7 @@ module Procedo
     def add_variety(name)
       variety = Onoma::Variety.find(name)
       raise "Invalid variety: #{name.inspect}".red unless variety
+
       @varieties << variety unless @varieties.include?(variety)
     end
 

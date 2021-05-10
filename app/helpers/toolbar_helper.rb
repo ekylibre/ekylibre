@@ -11,6 +11,7 @@ module ToolbarHelper
 
     def group(options = {}, &_block)
       raise 'Nested group are forbidden' unless @group.nil?
+
       options[:class] = options[:class].to_s + ' btn-group'
       @template.content_tag(:div, options) do
         yield(self)
@@ -33,17 +34,18 @@ module ToolbarHelper
     def export(*natures, label: :print, **options)
       record = options[:resource] || @template.resource
       options[:key] ||= (record ? :number : Time.zone.now.strftime('%Y%m%d%H%M%S'))
+      icon = options[:icon] || :print
       key = (options[:key].is_a?(Symbol) ? record.send(options[:key]) : options[:key]).to_s
-      @template.dropdown_menu_button(label, class: options[:class]) do |menu|
+      @template.dropdown_menu_button(label, icon: icon, class: options[:class]) do |menu|
         natures.each do |nature_name|
           nature = Onoma::DocumentNature.find(nature_name)
           modal_id = nature.name.to_s + '-exporting'
           if Document.of(nature.name, key).any?
-            @template.content_for :popover, @template.render('backend/shared/export', nature: nature, key: key, modal_id: modal_id, document_label: options[:document_label])
+            @template.content_for :popover, @template.render('backend/shared/export', nature: nature, key: key, modal_id: modal_id, document_label: options[:document_label], target: options[:target])
             menu.item options[:item_label] || nature.human_name, '#' + modal_id, data: { toggle: 'modal' }
           else
             DocumentTemplate.of_nature(nature.name).each do |template|
-              menu.item(options[:item_label] || template.name, @template.params.merge(format: :pdf, template: template.id, key: key))
+              menu.item(options[:item_label] || template.name, @template.params.merge(format: :pdf, template: template.id, key: key), target: options[:target])
             end
           end
         end
@@ -63,10 +65,12 @@ module ToolbarHelper
     # controller. Option +:model+ permit to change it.
     def extract(options = {})
       return nil unless @template.current_user.can?(:execute, :listings)
+
       model = options[:model] || @template.controller_name.to_s.singularize
       unless Listing.root_model.values.include?(model.to_s)
         raise "Invalid model for listing: #{model}"
       end
+
       listings = Listing.where(root_model: model).order(:name)
       @template.dropdown_menu_button(:extract, force_menu: true) do |menu|
         listings.each do |listing|
@@ -102,7 +106,7 @@ module ToolbarHelper
       controller_options = options[:controller] ? { controller: options[:controller] } : {}
       if @template.resource
         if @template.resource.updateable?
-          tool(options[:label] || :edit.ta, **controller_options, action: :edit, id: @template.resource.id, redirect: options[:redirect])
+          tool(options[:label] || :edit.ta, { **controller_options, action: :edit, id: @template.resource.id, redirect: options[:redirect] }, disabled: options[:disabled])
         end
       else
         tool(options[:label] || :edit.ta, { **controller_options, action: :edit, redirect: options[:redirect] }, options.except(:redirect, :label))
@@ -139,6 +143,7 @@ module ToolbarHelper
 
     def method_missing(method_name, *args)
       raise ArgumentError.new('Block can not be accepted') if block_given?
+
       options = args.extract_options!
       name = method_name.to_s.gsub(/\_+$/, '').to_sym
       record = args.shift

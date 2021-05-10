@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FEC
   module Exporter
     class Base
@@ -26,6 +28,7 @@ module FEC
           list = Journal.order(:name)
           list = list.where(id: ids) if ids.present?
           raise 'Needs at least one journal' unless list.any?
+
           list
         end
 

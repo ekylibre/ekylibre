@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -75,9 +77,9 @@
 
 class User < ApplicationRecord
   # No point accepted in preference name
-  PREFERENCE_SHOW_MAP_INTERVENTION_FORM = 'show_map_on_intervention_form'.freeze
-  PREFERENCE_SHOW_EXPORT_PREVIEW = 'show_export_preview'.freeze
-  PREFERENCE_SHOW_COMPARE_REALISED_PLANNED = 'compare_planned_and_realised'.freeze
+  PREFERENCE_SHOW_MAP_INTERVENTION_FORM = 'show_map_on_intervention_form'
+  PREFERENCE_SHOW_EXPORT_PREVIEW = 'show_export_preview'
+  PREFERENCE_SHOW_COMPARE_REALISED_PLANNED = 'compare_planned_and_realised'
   PREFERENCES = {
     PREFERENCE_SHOW_MAP_INTERVENTION_FORM => :boolean,
     PREFERENCE_SHOW_EXPORT_PREVIEW => :boolean,
@@ -278,10 +280,12 @@ class User < ApplicationRecord
 
   def can_access?(url)
     return true if administrator?
+
     if url.is_a?(Hash)
       unless url[:controller] && url[:action]
         raise "Invalid URL for accessibility test: #{url.inspect}"
       end
+
       key = "#{url[:controller].to_s.gsub(/^\//, '')}##{url[:action]}"
     else
       key = url.to_s
@@ -329,6 +333,7 @@ class User < ApplicationRecord
     default_financial_year = FinancialYear.on(Date.current)
     default_financial_year ||= FinancialYear.closest(Date.current)
     return nil unless default_financial_year
+
     preference = self.preference('current_financial_year', default_financial_year, :record)
     unless financial_year = preference.value
       financial_year = default_financial_year
@@ -403,6 +408,7 @@ class User < ApplicationRecord
 
     def self.generate_password(password_length = 8, mode = :normal)
       return '' if password_length.blank? || password_length < 1
+
       letters = case mode
                 when :dummy then
                   %w[a b c d e f g h j k m n o p q r s t u w x y 3 4 6 7 8 9]

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ColorInput < SimpleForm::Inputs::Base
   def input(wrapper_options = nil)
     input_html_classes.unshift('color')

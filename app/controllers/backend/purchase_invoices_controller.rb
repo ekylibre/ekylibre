@@ -59,6 +59,12 @@ module Backend
       code << "     c[0] << ' AND NOT #{PurchaseAffair.table_name}.closed'\n"
       code << " end\n"
       code << "end\n"
+      code << "if params[:purchases_attachments] == 'y'\n"
+      code << "    c[0] << ' AND #{PurchaseInvoice.table_name}.id IN (SELECT DISTINCT resource_id FROM #{Attachment.table_name} WHERE #{Attachment.table_name}.resource_type = \\'Purchase\\' AND #{Attachment.table_name}.deleted_at IS NULL)'\n"
+      code << "end\n"
+      code << "if params[:purchases_attachments] == 'n'\n"
+      code << "    c[0] << ' AND NOT #{PurchaseInvoice.table_name}.id IN (SELECT DISTINCT resource_id FROM #{Attachment.table_name} WHERE #{Attachment.table_name}.resource_type = \\'Purchase\\' AND #{Attachment.table_name}.deleted_at IS NULL)'\n"
+      code << "end\n"
       code << "c\n "
       code.c
     end
@@ -71,7 +77,8 @@ module Backend
       t.column :invoiced_at
       t.column :reference_number, url: true
       t.column :supplier, url: true
-      t.column :entity_payment_mode_name, through: :supplier, label: :supplier_payment_mode
+      t.column :has_attachments, datatype: :boolean, class: 'center'
+      t.column :entity_payment_mode_name, through: :supplier, label: :supplier_payment_mode, hidden: true
       t.column :created_at
       t.status
       t.column :human_status, label: :state, hidden: true
@@ -110,6 +117,7 @@ module Backend
 
     def show
       return unless @purchase_invoice = find_and_check
+
       if @purchase_invoice.versions.find_by(event: :create).nil?
         Version.create!(event: :create, item: @purchase_invoice, created_at: @purchase_invoice.created_at, creator_id: @purchase_invoice.creator_id)
       end

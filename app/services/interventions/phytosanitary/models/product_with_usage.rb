@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Interventions
   module Phytosanitary
     module Models
@@ -9,7 +11,7 @@ module Interventions
             phyto = RegisteredPhytosanitaryProduct.find_by(france_maaid: intervention_input.variant.france_maaid)
             usage = RegisteredPhytosanitaryUsage.find(intervention_input.usage_id)
             measure = Measure.new(intervention_input.quantity_value, intervention_input.quantity_unit_name)
-            spray_volume = nil #intervention_input.spray_volume
+            spray_volume = nil # intervention_input.spray_volume
 
             new(product, phyto, usage, measure, spray_volume)
           end

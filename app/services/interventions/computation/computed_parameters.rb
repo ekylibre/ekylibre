@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Interventions
   module Computation
     class ComputedParameters
@@ -9,7 +11,6 @@ module Interventions
         # handle group
         if @parameters.key? 'group_parameters_attributes'
           @parameters['group_parameters_attributes'] = @parameters['group_parameters_attributes'].map do |group_parameters|
-
             Constants::PRODUCT_PARAMETERS.each do |collection_name|
               next if group_parameters["#{collection_name}_attributes"].blank?
 

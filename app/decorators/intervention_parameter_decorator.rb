@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class InterventionParameterDecorator < Draper::Decorator
   delegate_all
 

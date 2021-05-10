@@ -45,6 +45,7 @@ module Backend
     def show
       notification = find_and_check
       return unless notification
+
       notification.read!
       if notification.target_url
         redirect_to notification.target_url
@@ -60,6 +61,7 @@ module Backend
       if params[:id]
         notification = find_and_check
         return unless notification
+
         notification.read!
       else
         current_user.unread_notifications.find_each(&:read!)

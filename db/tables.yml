@@ -1684,6 +1684,56 @@ contracts:
   updater_id:
     type: integer
     references: user
+crop_group_items:
+  created_at:
+    type: datetime
+    required: true
+  crop_group_id:
+    type: integer
+    references: crop_group
+  crop_id:
+    type: integer
+    references: "~crop_type"
+  crop_type:
+    type: string
+  id:
+    type: integer
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+crop_group_labellings:
+  created_at:
+    type: datetime
+    required: true
+  crop_group_id:
+    type: integer
+    references: crop_group
+  id:
+    type: integer
+    required: true
+  label_id:
+    type: integer
+    references: label
+  updated_at:
+    type: datetime
+    required: true
+crop_groups:
+  created_at:
+    type: datetime
+    required: true
+  id:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  target:
+    type: string
+    default: plant
+  updated_at:
+    type: datetime
+    required: true
 crumbs:
   accuracy:
     type: decimal
@@ -3827,6 +3877,31 @@ intervention_costings:
   updater_id:
     type: integer
     references: user
+intervention_crop_groups:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  crop_group_id:
+    type: integer
+    references: crop_group
+  id:
+    type: integer
+    required: true
+  intervention_id:
+    type: integer
+    references: intervention
+  lock_version:
+    type: integer
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 intervention_labellings:
   created_at:
     type: datetime
@@ -4604,6 +4679,8 @@ journal_entry_items:
     required: true
   letter:
     type: string
+  lettered_at:
+    type: datetime
   lock_version:
     type: integer
     required: true

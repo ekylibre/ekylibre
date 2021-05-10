@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ekylibre
   class BuildingsJsonExchanger < ActiveExchanger::Base
     category :stocks
@@ -23,6 +25,7 @@ module Ekylibre
           building = Building.create!(properties.slice('name').merge(initial_shape: shape, variant: variant))
           divisions = properties['divisions']
           next unless divisions && divisions.any?
+
           divisions['features'].each do |division|
             properties = division['properties']
             shape = ::Charta.from_geojson(division).convert_to(:multi_polygon)

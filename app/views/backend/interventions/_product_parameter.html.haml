@@ -40,6 +40,11 @@
                   %span.value= :forbidden.tl
                   %span.value= messages.compact.uniq.join(', ')
 
+              -# For PFI check value
+              - if product_parameter.pfi_input
+                %span.title= :pfi_treatment_ratio.tl
+                %span.value= link_to(product_parameter.pfi_input.pfi_value.round(2), product_parameter.pfi_input.check_url, target: :_blank)
+
               - if frequency = usage.applications_frequency
                 %p
                   %span.title= :next_application_possible_on.tl

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -119,6 +121,7 @@ class OutgoingPaymentList < ApplicationRecord
   def self.build_from_purchase_affairs(affairs, mode, responsible, initial_check_number = nil)
     purchase_payments = affairs.collect.with_index do |affair, index|
       next if affair.third_credit_balance <= 0
+
       PurchasePayment.new(
         affair: affair,
         amount: affair.third_credit_balance,

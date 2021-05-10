@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -100,6 +102,7 @@ class AnimalGroup < ProductGroup
     unless member.is_a?(Animal)
       raise ArgumentError.new("Animal expected, got #{member.class}:#{member.inspect}")
     end
+
     super(member, options)
   end
 
@@ -108,6 +111,7 @@ class AnimalGroup < ProductGroup
     unless member.is_a?(Animal)
       raise ArgumentError.new("Animal expected, got #{member.class}:#{member.inspect}")
     end
+
     super(member, options)
   end
 
@@ -133,7 +137,7 @@ class AnimalGroup < ProductGroup
 
   def daily_nitrogen_production(viewed_at = nil)
     quantity = []
-    for animal in members_at(viewed_at)
+    members_at(viewed_at).each do |animal|
       quantity << animal.daily_nitrogen_production.to_d
     end
     quantity.compact.sum.in_kilogram_per_day

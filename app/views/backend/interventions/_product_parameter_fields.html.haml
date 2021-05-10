@@ -32,7 +32,6 @@
       - product_data[:filter_unroll] = "[data-selector-id='intervention_input_usage_id']"
       - product_data[:parent] = '.nested-fields'
       - product_data[:retrieve_unroll] = "[data-selector-id='intervention_target_product_id']"
-
     = f.referenced_association :product, label: reference.human_name, source: { scope: reference.scope_hash.merge(availables: [at: started_at.strftime("%Y-%m-%d %H:%M")], of_variant_active: true), keep: true, partial_unroll: reference.input? }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'product_id', harvest_in_progress_error_message: t('errors.messages.harvest_in_progress') }.merge(product_data) }, new: false
 
     - if f.object.reference_name.to_sym == :plant_medicine
@@ -79,12 +78,14 @@
     = modal(id: "working_times", class: "working-times", size: :large) do
       .modal-body
       .modal-footer
-  - if reference.quantified?
-    = render '/backend/interventions/quantifier_field', f: f, reference: reference, prefix: prefix
 
-  - if f.object.reference_name.to_sym == :plant_medicine
+  - if f.object.reference_name.to_sym == :plant_medicine  # Usage selector
     = f.referenced_association :usage, label: :usage_phyto.tl, input_html: { disabled: true, data: { filters_url: filter_usages_backend_registered_phytosanitary_usages_path, msg_container: ".intervention_inputs_usage .lights-message", lights: '.controls' } }, new: false
 
+  - if reference.quantified?
+    = render '/backend/interventions/quantifier_field', f: f, reference: reference, prefix: prefix
+  
+  - if f.object.reference_name.to_sym == :plant_medicine # Display usage informations of product
     = render 'intervention_usage_informations'
 
     .authorization-disclaimer.authorization-disclaimer--past{ class: f.object.new_record? ? 'hidden' : '' }

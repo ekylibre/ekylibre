@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ekylibre
   class SalesExchanger < ActiveExchanger::Base
     category :sales
@@ -8,6 +10,7 @@ module Ekylibre
       @attachments_dir = options['attachments_path']
       @attachments_dir &&= Pathname.new(@attachments_dir)
     end
+
     def import
       rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
       w.count = rows.size

@@ -29,6 +29,11 @@ FactoryBot.define do
       actions { [:harvest] }
     end
 
+    trait :packaging do
+      procedure_name { 'packaging' }
+      actions { [] }
+    end
+
     trait :with_working_period do
       after(:build) do |intervention|
         create_list :intervention_working_period, 1, intervention: intervention
@@ -41,7 +46,7 @@ FactoryBot.define do
       end
 
       after(:build) do |intervention, evaluator|
-        create_list :tractor_tool, evaluator.tractor_count , intervention: intervention, initial_born_at: intervention.started_at - 1.day
+        create_list :tractor_tool, evaluator.tractor_count, intervention: intervention, initial_born_at: intervention.started_at - 1.day
       end
     end
 

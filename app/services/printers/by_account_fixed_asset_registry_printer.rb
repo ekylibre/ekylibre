@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module Printers
   class ByAccountFixedAssetRegistryPrinter < FixedAssetRegistryPrinter
-
     def generate(r)
       dataset = compute_dataset
       totals = dataset.totals

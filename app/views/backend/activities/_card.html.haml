@@ -12,5 +12,8 @@
         = activity.working_duration.to_d.in(:second).convert(:hour).round.l(precision: 0)
       .activity-indicator.opened-issues
         = activity.opened_issues_count.to_s + '/' + activity.issues_count.to_s
+      .activity-indicator.ift
+        = :pfi_interventions.tl
+        = PfiCampaignsActivitiesIntervention.pfi_value_on_activity_campaign(activity, current_campaign)
       .activity-indicator.cash
         = activity.total_costs.to_i.l(currency: currency.name)

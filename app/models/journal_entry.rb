@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -165,6 +167,21 @@ class JournalEntry < ApplicationRecord
     # Build an SQL condition based on options which should contains acceptable states
     # @deprecated
     def journal_condition(journals = {}, table_name = nil)
+      if journals.nil?
+        ActiveSupport::Deprecation.warn('Providing nil to `state_condition` is deprecated and will not work in the future, give an empty array instead')
+
+        journals = []
+      end
+
+      if !journals.is_a?(Array)
+        if journals.respond_to?(:keys)
+          ActiveSupport::Deprecation.warn('Providing something else than an array of states to `state_condition` is deprecated.')
+          journals = journals.select { |_k, v| v == '1' }.keys
+        else
+          raise StandardError.new("Unable to find any state in the variable provided (#{journals})")
+        end
+      end
+
       condition_builder.journal_condition(journals, table_name: table_name || self.table_name)
     end
 
@@ -330,6 +347,7 @@ class JournalEntry < ApplicationRecord
 
   def need_currency_change?
     return nil unless journal
+
     year_currency = if financial_year
                       financial_year.currency
                     elsif printed_on? && (year = FinancialYear.on(printed_on))
@@ -342,6 +360,7 @@ class JournalEntry < ApplicationRecord
 
   def expected_financial_year
     raise 'Missing printed_on' unless printed_on
+
     FinancialYear.on(printed_on)
   end
 
@@ -410,6 +429,7 @@ class JournalEntry < ApplicationRecord
   # Create counter-entry_items
   def cancel
     return nil unless useful_items.any?
+
     ApplicationRecord.transaction do
       reconcilable_accounts = []
       list = []
@@ -463,7 +483,6 @@ class JournalEntry < ApplicationRecord
     end
 
     def in_opened_financial_year_exchange?
-      return unless financial_year
-      financial_year.exchanges.opened.any? { |e| (e.started_on..e.stopped_on).cover?(printed_on) }
+      financial_year.present? && financial_year.exchanges.opened.at(printed_on).exists?
     end
 end

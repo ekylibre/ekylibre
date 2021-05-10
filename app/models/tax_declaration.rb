@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -180,6 +182,7 @@ class TaxDeclaration < ApplicationRecord
   def status
     return :go if sent?
     return :caution if validated?
+
     :stop
   end
 

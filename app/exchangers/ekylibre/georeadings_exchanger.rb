@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ekylibre
   # Georeadings exchanger permit to import georeadings in Shapefile
   # in WGS84 spatial reference system.
@@ -36,12 +38,14 @@ module Ekylibre
               number: record.attributes['number'].to_s.upcase,
               nature: nature
             }
-            unless georeading = Georeading.find_by(attributes.slice(:number))
-              georeading = Georeading.new(attributes)
-            end
-            georeading.content = record.geometry
+
+            georeading = Georeading.create_with(attributes)
+                                   .find_or_initialize_by(attributes.slice(:number))
+
+            georeading.content = Charta.new_geometry(record.geometry)
             georeading.save!
           end
+
           w.check_point
         end
       end

@@ -117,7 +117,6 @@ module Backend
         record.attributes = options[:attributes] if options[:attributes]
         ApplicationRecord.transaction do
           can_be_saved =  record.new_record? ? record.createable? : record.updateable?
-
           if can_be_saved && (options[:saved] || record.save(context: options[:context]))
             response.headers['X-Return-Code'] = 'success'
             response.headers['X-Saved-Record-Id'] = record.id.to_s
@@ -139,12 +138,13 @@ module Backend
                 url[k] = (v.is_a?(CodeString) ? record.send(v) : v)
               end
             end
-            redirect_to(url)
+            url == :back ? redirect_back(fallback_location: root_path) : redirect_to(url)
             return true
           else
             raise ActiveRecord::Rollback
           end
         end
+
         notify_error_now :record_cannot_be_saved.tl
         response.headers['X-Return-Code'] = 'invalid'
         false
@@ -153,11 +153,12 @@ module Backend
       # For title I18n : t3e :)
       def t3e(*args)
         @title ||= {}
-        for arg in args
+        args.each do |arg|
           arg = arg.attributes if arg.respond_to?(:attributes)
           unless arg.is_a? Hash
             raise ArgumentError.new("Hash expected, got #{arg.class.name}:#{arg.inspect}")
           end
+
           arg.each do |k, v|
             @title[k.to_sym] = (v.respond_to?(:localize) ? v.localize : v.to_s)
           end
@@ -244,9 +245,10 @@ module Backend
         # session[:help_history] = [] unless session[:help_history].is_a? [].class
         article ||= "#{controller_path}-#{action_name}"
         file = nil
-        for locale in [I18n.locale, I18n.default_locale]
-          for f, attrs in Ekylibre.helps
+        [I18n.locale, I18n.default_locale].each do |locale|
+          Ekylibre.helps.each do |f, attrs|
             next if attrs[:locale].to_s != locale.to_s
+
             file_name = [article, article.split('-')[0] + '-index'].detect { |name| attrs[:name] == name }
             (file = f) && break if file_name.present?
           end
@@ -372,6 +374,22 @@ module Backend
           code << "        conditions[0] << '(#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter ILIKE ?)'\n"
           code << "        conditions << '%*'\n"
           code << "      end\n"
+
+          code << "      if current_lettering_state == 'unlettered_at'\n"
+          code << "        if #{variable}[:period] && #{variable}[:period] == 'interval' && #{variable}[:stopped_on].present?\n"
+          code << "          c[0] << '(#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter NOT ILIKE ? AND #{JournalEntryItem.table_name}.lettered_at > ?)'\n"
+          code << "          c << '%*'\n"
+          code << "          c << Time.zone.parse(#{variable}[:stopped_on].to_s) + 1.day\n"
+          code << "        elsif #{variable}[:period] && #{variable}[:period] != 'all'\n"
+          code << "          c[0] << '(#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter NOT ILIKE ? AND #{JournalEntryItem.table_name}.lettered_at > ?)'\n"
+          code << "          c << '%*'\n"
+          code << "          c << Time.zone.parse(#{variable}[:period].split('_').last) + 1.day\n"
+          code << "        else\n"
+          code << "          c[0] << '(#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter NOT ILIKE ?)'\n"
+          code << "          c << '%*'\n"
+          code << "        end\n"
+          code << "      end\n"
+
           code << "    else\n"
           code << "      if current_lettering_state == 'lettered'\n"
           code << "        conditions[0] << ' OR (#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter NOT ILIKE ?)'\n"
@@ -386,6 +404,22 @@ module Backend
           code << "        conditions[0] << ' OR (#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter ILIKE ?)'\n"
           code << "        conditions << '%*'\n"
           code << "      end\n"
+
+          code << "      if current_lettering_state == 'unlettered_at'\n"
+          code << "        if #{variable}[:period] && #{variable}[:period] == 'interval' && #{variable}[:stopped_on].present?\n"
+          code << "          c[0] << ' OR (#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter NOT ILIKE ? AND #{JournalEntryItem.table_name}.lettered_at > ?)'\n"
+          code << "          c << '%*'\n"
+          code << "          c << Time.zone.parse(#{variable}[:stopped_on].to_s)  + 1.day\n"
+          code << "        elsif #{variable}[:period] && #{variable}[:period] != 'all'\n"
+          code << "          c[0] << ' OR (#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter NOT ILIKE ? AND #{JournalEntryItem.table_name}.lettered_at > ?)'\n"
+          code << "          c << '%*'\n"
+          code << "          c << Time.zone.parse(#{variable}[:period].split('_').last) + 1.day\n"
+          code << "        else\n"
+          code << "          c[0] << ' OR (#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter NOT ILIKE ?)'\n"
+          code << "          c << '%*'\n"
+          code << "        end\n"
+          code << "      end\n"
+
           code << "    end\n"
           code << "  end\n"
           code << "  conditions[0] << ')'\n"
@@ -421,7 +455,7 @@ module Backend
           nh = {}
           keys = JournalEntry.state_machine.states.collect(&:name)
           keys += %i[period started_at stopped_at accounts centralize]
-          for k, v in hash
+          hash.keys.each do |k|
             nh[k] = hash[k] if k.to_s.match(/^(journal|level)_\d+$/) || keys.include?(k.to_sym)
           end
           nh
@@ -508,6 +542,22 @@ module Backend
           code << "        c[0] << '(#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter ILIKE ?)'\n"
           code << "        c << '%*'\n"
           code << "      end\n"
+
+          code << "      if current_lettering_state == 'unlettered_at'\n"
+          code << "        if #{variable}[:period] && #{variable}[:period] == 'interval' && #{variable}[:stopped_on].present?\n"
+          code << "          c[0] << '(#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter NOT ILIKE ? AND #{JournalEntryItem.table_name}.lettered_at > ?)'\n"
+          code << "          c << '%*'\n"
+          code << "          c << Time.zone.parse(#{variable}[:stopped_on].to_s) + 1.day\n"
+          code << "        elsif #{variable}[:period] && #{variable}[:period] != 'all'\n"
+          code << "          c[0] << '(#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter NOT ILIKE ? AND #{JournalEntryItem.table_name}.lettered_at > ?)'\n"
+          code << "          c << '%*'\n"
+          code << "          c << Time.zone.parse(#{variable}[:period].split('_').last) + 1.day\n"
+          code << "        else\n"
+          code << "          c[0] << '(#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter NOT ILIKE ?)'\n"
+          code << "          c << '%*'\n"
+          code << "        end\n"
+          code << "      end\n"
+
           code << "    else\n"
           code << "      if current_lettering_state == 'lettered'\n"
           code << "        c[0] << ' OR (#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter NOT ILIKE ?)'\n"
@@ -522,6 +572,22 @@ module Backend
           code << "        c[0] << ' OR (#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter ILIKE ?)'\n"
           code << "        c << '%*'\n"
           code << "      end\n"
+
+          code << "      if current_lettering_state == 'unlettered_at'\n"
+          code << "        if #{variable}[:period] && #{variable}[:period] == 'interval' && #{variable}[:stopped_on].present?\n"
+          code << "          c[0] << ' OR (#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter NOT ILIKE ? AND #{JournalEntryItem.table_name}.lettered_at > ?)'\n"
+          code << "          c << '%*'\n"
+          code << "          c << Time.zone.parse(#{variable}[:stopped_on].to_s) + 1.day\n"
+          code << "        elsif #{variable}[:period] && #{variable}[:period] != 'all'\n"
+          code << "          c[0] << ' OR (#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter NOT ILIKE ? AND #{JournalEntryItem.table_name}.lettered_at > ?)'\n"
+          code << "          c << '%*'\n"
+          code << "          c << Time.zone.parse(#{variable}[:period].split('_').last) + 1.day\n"
+          code << "        else\n"
+          code << "          c[0] << ' OR (#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter NOT ILIKE ?)'\n"
+          code << "          c << '%*'\n"
+          code << "        end\n"
+          code << "      end\n"
+
           code << "    end\n"
           code << "  end\n"
           code << "  c[0] << ')'\n"

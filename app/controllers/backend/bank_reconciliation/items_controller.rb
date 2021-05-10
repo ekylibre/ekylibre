@@ -7,10 +7,12 @@ module Backend
 
         set_period!
         reconciliate_one(@bank_statement)
-
         @items_grouped_by_date = group_by_date(@items)
-
-        t3e @bank_statement, cash: @bank_statement.cash_name, started_on: @bank_statement.started_on.l, stopped_on: @bank_statement.stopped_on.l
+        @options = build_form_options
+        t3e @bank_statement,
+            cash: @bank_statement.cash_name,
+            started_on: @bank_statement.started_on.l,
+            stopped_on: @bank_statement.stopped_on.l
       end
 
       def reconciliate
@@ -19,15 +21,12 @@ module Backend
 
         cash = cash.first if cash.is_a?(Array)
         set_period!
-
         @items = cash.unpointed_journal_entry_items.between(@period_start, @period_end)
-
         @bank_statements.each do |bank_statement|
           reconciliate_one(bank_statement)
         end
-
         @items_grouped_by_date = group_by_date(@items)
-
+        @options = build_form_options
         t3e cash: cash.name, started_on: @period_start.l, stopped_on: @period_end.l
       end
 
@@ -88,6 +87,7 @@ module Backend
 
           %i[start end].each do |boundary|
             next unless params[:"period_#{boundary}"].present?
+
             date = Date.strptime(params[:"period_#{boundary}"], '%Y-%m-%d')
             instance_variable_set("@period_#{boundary}", date)
           end
@@ -132,6 +132,18 @@ module Backend
             attributes = item.attributes
             attributes['transfered_on'] || attributes['printed_on']
           end.sort.to_h
+        end
+
+        def build_form_options
+          @bank_statements ||= BankStatement.where(id: @bank_statement.id)
+          CommonService::Controllers::Backend::BankReconciliations::Items::FormOptions.new(
+            bank_statements: @bank_statements,
+            bank_statement: @bank_statement,
+            period_start: @period_start,
+            period_end: @period_end,
+            items_grouped_by_date: @items_grouped_by_date,
+            params: params,
+          ).call
         end
     end
   end

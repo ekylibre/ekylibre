@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -48,6 +50,7 @@
 #  id                        :integer          not null, primary key
 #  journal_id                :integer          not null
 #  letter                    :string
+#  lettered_at               :datetime
 #  lock_version              :integer          default(0), not null
 #  name                      :string           not null
 #  position                  :integer
@@ -163,6 +166,16 @@ class JournalEntryItem < ApplicationRecord
       self.letter = letter_radix
       self.letter += '*' unless letter_balance.zero?
     end
+
+    # Erase lettered_at if letter is unlettered or partially lettered
+    # Remember trigger will attempt to keep consistency
+    unless completely_lettered?
+      self.lettered_at = nil
+    end
+
+    if lettered_at.nil? && completely_lettered?
+      self.lettered_at = Time.zone.now
+    end
     # END OF DANGER ZONE
 
     self.state = entry.state if entry
@@ -214,11 +227,13 @@ class JournalEntryItem < ApplicationRecord
 
   def letter_radix
     return nil unless letter
+
     letter.delete('*')
   end
 
   def letter_group
     return JournalEntryItem.none unless letter
+
     account.journal_entry_items.where('letter = ? OR letter = ?', letter_radix, letter_radix + '*')
   end
 
@@ -268,6 +283,7 @@ class JournalEntryItem < ApplicationRecord
 
   def clear_bank_statement_reconciliation
     return unless bank_statement && bank_statement_letter
+
     bank_statement.items.where(letter: bank_statement_letter).update_all(letter: nil)
   end
 
@@ -326,6 +342,7 @@ class JournalEntryItem < ApplicationRecord
   # Returns the previous item
   def previous
     return nil unless account
+
     if new_record?
       account.journal_entry_items.order(printed_on: :desc, id: :desc).where('printed_on <= ?', printed_on).limit(1).first
     else
@@ -360,6 +377,7 @@ class JournalEntryItem < ApplicationRecord
   # Check if the current letter is balanced with all entry items with the same letter
   def balanced_letter?
     return true if letter.blank?
+
     account.balanced_letter?(letter)
   end
 
@@ -423,15 +441,17 @@ class JournalEntryItem < ApplicationRecord
 
   def third_party
     return unless account
+
     third_parties = Entity.distinct.where('client_account_id = ? OR supplier_account_id = ? OR employee_account_id = ?', account.id, account.id, account.id)
     third_parties.take if third_parties.count == 1
   end
 
   # fixed_assets, expenses and revenues are used into tax declaration
   def vat_account
-   prefixes = Account.tax_declarations.pluck(:number).join
-   return if prefixes.empty? || !(account_number =~ /^[#{prefixes}].*/)
-   entry.items.find_by(resource_prism: ["item_tax_reverse_charge", "item_tax"])&.account
+    prefixes = Account.tax_declarations.pluck(:number).join
+    return if prefixes.empty? || !(account_number =~ /^[#{prefixes}].*/)
+
+    entry.items.find_by(resource_prism: ["item_tax_reverse_charge", "item_tax"])&.account
   end
 
   def vat_account_label
@@ -440,15 +460,21 @@ class JournalEntryItem < ApplicationRecord
 
   def associated_journal_entry_items_on_bank_reconciliation
     return [] unless bank_statement_letter
+
     JournalEntryItem.where(bank_statement_letter: bank_statement_letter, account: account).not.where(id: self)
   end
 
   def associated_bank_statement_items
     return [] unless bank_statement_letter
+
     BankStatementItem.joins(cash: :suspense_account).where('letter = ? AND cashes.suspense_account_id = ?', bank_statement_letter, account_id)
   end
 
   def displayed_label_in_accountancy
     accounting_label.present? ? accounting_label : name
+  end
+
+  def currently_exchanged?
+    entry.financial_year_exchange_id.present?
   end
 end

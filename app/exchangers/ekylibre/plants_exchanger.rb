@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ekylibre
   class PlantsExchanger < ActiveExchanger::Base
     category :plant_farming
@@ -43,7 +45,7 @@ module Ekylibre
         )
 
         # Create indicators linked to plant
-        for indicator, value in r.indicators
+        r.indicators.each do |indicator, value|
           product.read!(indicator, value, at: r.born_at, force: true)
         end
 

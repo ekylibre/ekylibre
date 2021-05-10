@@ -82,6 +82,7 @@ module Backend
 
     def show
       return unless @purchase_order = find_and_check
+
       respond_to do |format|
         format.html do
           t3e @purchase_order.attributes, supplier: @purchase_order.supplier.full_name, state: @purchase_order.state_label, label: @purchase_order.label
@@ -140,10 +141,10 @@ module Backend
         notify_error_now :purchase_order_need_at_least_one_item
       else
         return if save_and_redirect(@purchase_order,
-                                    url: (params[:create_and_continue] ? {:action=>:new, :continue=>true, :nature_id=>@purchase_order.nature_id} : (params[:redirect] || {action: :show, id: "id".c})),
+                                    url: (params[:create_and_continue] ? { action: :new, continue: true, nature_id: @purchase_order.nature_id } : (params[:redirect] || { action: :show, id: "id".c })),
                                     notify: :record_x_created, identifier: :number)
       end
-      render(locals: { cancel_url: {:action=>:index}, with_continue: true })
+      render(locals: { cancel_url: { action: :index }, with_continue: true })
     end
 
     def update
@@ -165,12 +166,14 @@ module Backend
 
     def open
       return unless @purchase_order = find_and_check
+
       @purchase_order.open
       redirect_to action: :show, id: @purchase_order.id
     end
 
     def close
       return unless @purchase_order = find_and_check
+
       @purchase_order.close
       redirect_to action: :show, id: @purchase_order.id
     end

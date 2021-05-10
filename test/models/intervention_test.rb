@@ -156,6 +156,41 @@ class InterventionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_equal 0.0, intervention.cost_per_area(:target)
   end
 
+  test 'update variant of sowing intervention should create new product and destroy old one if the product is not used elsewhere' do
+    intervention = create(:sowing_intervention_with_all_parameters)
+    intervention.reload
+    output = intervention.outputs.last
+    product = output.product
+    new_variant = create(:corn_plant_variant)
+    output.update(variant_id: new_variant.id)
+    assert_nil Product.find_by(id: product.id)
+    assert output.product
+  end
+
+  test 'update variant of sowing intervention should return error if the product is used elsewhere' do
+    intervention = create(:sowing_intervention_with_all_parameters)
+    intervention.reload
+    output = intervention.outputs.last
+    product = output.product
+    packaging_intervention = create(:intervention, :packaging)
+    packaging_input = create(:intervention_input, product: product, intervention: packaging_intervention, reference_name: :product_to_prepare)
+    new_variant = create(:corn_plant_variant)
+    output.update(variant_id: new_variant.id)
+    assert !output.valid?
+  end
+
+  test "can't create or edit an intervention if any of the working periods is during a period of an opened financial year exchange AND there is inputs or outputs AND permanent stock inventory is activated" do
+    Preference.set!(:permanent_stock_inventory, true)
+    FinancialYear.delete_all
+    fy = create(:financial_year, year: 2021)
+    create(:financial_year_exchange, :opened, financial_year: fy, started_on: '2021-01-01', stopped_on: '2021-02-01')
+    int = build(:intervention, :spraying, started_at: '2021-01-15 15:00', stopped_at: '2021-01-15 16:00')
+    assert_not int.valid?
+
+    Preference.set!(:permanent_stock_inventory, false)
+    assert int.valid?
+  end
+
   def add_harvesting_intervention(target, stopped_at)
     Intervention.create!(
       procedure_name: :harvesting,

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GlobalCurrency
   def initialize(currency)
     @currency = currency

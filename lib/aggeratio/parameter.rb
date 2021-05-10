@@ -8,8 +8,10 @@ module Aggeratio
       @type = type
       @options = options
       raise ArgumentError.new("Type is unknown: #{@type.inspect}") unless TYPES.include?(@type)
+
       @default = @options[:default]
       raise ArgumentError.new("Default value must be given for #{@name}") unless @default
+
       @foreign_class = @options[:of].to_s.camelcase.constantize if @options[:of]
     end
 
@@ -28,7 +30,7 @@ module Aggeratio
       ::I18n.t("aggregator_parameters.#{name}", default: [:"labels.#{name}", :"attributes.#{name}", name.to_s.humanize])
     end
 
-    for type in TYPES
+    TYPES.each do |type|
       class_eval "def #{type}?\n" \
                  "  !!(self.type == :#{type})\n" \
                  'end'

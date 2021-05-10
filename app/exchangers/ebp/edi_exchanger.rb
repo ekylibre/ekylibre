@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module EBP
   class EDIExchanger < ActiveExchanger::Base
     category :accountancy
@@ -15,6 +17,7 @@ module EBP
         unless header == 'EBP.EDI'
           raise ActiveExchanger::NotWellFormedFileError.new("Start is not valid. Got #{header.inspect}.")
         end
+
         encoding = f.readline
         f.readline
         f.readline # => owner

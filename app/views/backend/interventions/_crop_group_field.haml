@@ -1,0 +1,9 @@
+- crop_groups = f.object.intervention_crop_groups.collect(&:crop_group)
+-if crop_groups.any?
+  .control-group
+    = label_tag :using_crop_groups.tl, nil, class: 'control-label'
+    .controls
+      %div.list
+        = render partial: 'backend/interventions/crop_group_list', locals: { crop_groups: crop_groups }
+      #intervention_crop_groups{style: "display:none;"}
+        = f.nested_association(:intervention_crop_groups)

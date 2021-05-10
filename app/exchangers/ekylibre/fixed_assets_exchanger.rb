@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ekylibre
   class FixedAssetsExchanger < ActiveExchanger::Base
     category :accountancy
@@ -168,7 +170,6 @@ module Ekylibre
         end
 
         w.info "#{line_number} - #{valid}".green
-
       end
       w.info "End validation : #{valid}".yellow
       valid
@@ -368,6 +369,5 @@ module Ekylibre
 
         parser.normalize(rows)
       end
-
   end
 end

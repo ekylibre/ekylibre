@@ -1,7 +1,6 @@
 #= require bootstrap/modal
 
 ((E, G, $) ->
-
   $(document).ajaxSend (e, xhr, options) ->
     token = $('meta[name=\'csrf-token\']').attr('content')
     xhr.setRequestHeader 'X-CSRF-Token', token
@@ -185,7 +184,6 @@
       ko.unapplyBindings($(document.body))
 
       scope = $('[data-scoped-items].active').data('scoped-items')
-
       window.app = new golumn(golumn_id)
       window.loadData(golumn_id, scope, $(this))
 
@@ -219,5 +217,12 @@
       ko.removeNode $node[0]
     else
       ko.cleanNode $node[0]
+
+  E.onElementDetected 'animals-interventions-menu', (e) =>
+    $listBtn = $('[data-janus-href="list"]')
+    $targetBtns = $('[data-hide-on-list]')
+
+    if $listBtn.hasClass('active')
+      $targetBtns.hide()
 
 ) ekylibre, golumn, jQuery

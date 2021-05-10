@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -40,6 +42,7 @@
 #  updated_at               :datetime         not null
 #  updater_id               :integer
 #
+
 class FinancialYearExchange < ApplicationRecord
   belongs_to :financial_year
   has_many :journal_entries, dependent: :nullify
@@ -59,6 +62,7 @@ class FinancialYearExchange < ApplicationRecord
 
   scope :opened, -> { where(closed_at: nil) }
   scope :closed, -> { where.not(closed_at: nil) }
+  scope :at, ->(date) { where('? BETWEEN started_on AND stopped_on', date) }
 
   class << self
     def for_public_token(public_token)
@@ -68,20 +72,27 @@ class FinancialYearExchange < ApplicationRecord
 
   after_initialize :set_initial_values, if: :initializeable?
   before_validation :set_started_on, on: :create
-  before_create :close_journal_entries
   after_create :set_journal_entries_financial_year_exchange
+
+  def name
+    "#{id.to_s} - #{started_on.to_s} | #{stopped_on.to_s}"
+  end
 
   def opened?
     !closed_at
   end
 
   def close!
-    self.closed_at = Time.zone.now
-    save!
+    ApplicationRecord.transaction do
+      self.closed_at = Time.zone.now
+      journal_entries.update_all(financial_year_exchange_id: nil)
+      save!
+    end
   end
 
   def accountant_email
     return unless financial_year && financial_year.accountant
+
     address = financial_year.accountant.default_email_address
     address && address.coordinate
   end
@@ -118,13 +129,6 @@ class FinancialYearExchange < ApplicationRecord
       self.public_token_expired_at = Time.zone.today + 1.month
     end
 
-    def close_journal_entries
-      JournalEntryItem.where(entry: related_journal_entries).update_all(state: 'closed')
-      related_journal_entries.update_all(state: 'closed')
-      # related_journal_entries.where(state: :draft).find_each(&:confirm)
-      # related_journal_entries.where(state: :confirmed).find_each(&:close)
-    end
-
     def set_journal_entries_financial_year_exchange
       related_journal_entries.update_all financial_year_exchange_id: id
     end
@@ -135,6 +139,7 @@ class FinancialYearExchange < ApplicationRecord
 
     def compute_started_on
       return unless financial_year
+
       previous_exchange_stopped_on = financial_year.exchanges.limit(1).where('stopped_on < ?', stopped_on).reorder(stopped_on: :desc).pluck(:stopped_on).first
       previous_exchange_stopped_on || financial_year.started_on
     end

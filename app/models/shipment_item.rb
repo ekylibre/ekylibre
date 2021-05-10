@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -138,6 +140,7 @@ class ShipmentItem < ParcelItem
     state = true
     check_outgoing(checked_at)
     return state, msg unless state
+
     save!
   end
 

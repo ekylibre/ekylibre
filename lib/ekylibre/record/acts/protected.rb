@@ -23,7 +23,7 @@ module Ekylibre
           def protect(options = {}, &block)
             options[:on] = %i[update destroy] unless options[:on]
             code = ''.c
-            for callback in [options[:on]].flatten
+            [options[:on]].flatten.each do |callback|
               method_name = "protected_on_#{callback}?".to_sym
 
               code << "before_#{callback} :raise_exception_unless_#{callback}able?\n"
@@ -52,7 +52,7 @@ module Ekylibre
           def secure(options = {}, &block)
             options[:on] = %i[update destroy] unless options[:on]
             code = ''.c
-            for callback in [options[:on]].flatten
+            [options[:on]].flatten.each do |callback|
               method_name = "secured_on_#{callback}?".to_sym
 
               code << "before_#{callback} :secure_#{callback}ability!\n"

@@ -15,7 +15,7 @@ module Backend
       patch :update, params: {
         id: variant.id,
         phyto_product_id: phyto.id,
-        product_nature_variant: variant.attributes.crush
+        product_nature_variant: crush_hash(variant.attributes)
       }
 
       variant.reload
@@ -23,6 +23,9 @@ module Backend
       assert_equal phyto.reference_name, variant.reference_name
       assert_equal 'Lexicon', variant.imported_from
     end
-  end
 
+    private def crush_hash(hash)
+      hash.compact.transform_values { |v| v.is_a?(Hash) ? crush_hash(v) : v }
+    end
+  end
 end

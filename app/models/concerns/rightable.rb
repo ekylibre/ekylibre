@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Rightable
   extend ActiveSupport::Concern
 
@@ -30,6 +32,7 @@ module Rightable
   # Browse all resource/action pair
   def each_right
     return unless rights
+
     rights.each do |resource, actions|
       actions.each do |action|
         yield resource, action
@@ -39,6 +42,7 @@ module Rightable
 
   def right_exist?(action, resource)
     return false unless rights && rights[resource.to_s]
+
     rights[resource.to_s].include?(action.to_s)
   end
 end

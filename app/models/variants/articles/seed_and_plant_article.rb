@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -57,7 +59,6 @@
 module Variants
   module Articles
     class SeedAndPlantArticle < Variants::ArticleVariant
-
       def variant_type
         :article
       end

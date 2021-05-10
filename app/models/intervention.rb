@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -85,6 +87,8 @@ class Intervention < ApplicationRecord
   has_many :labellings, class_name: 'InterventionLabelling', dependent: :destroy, inverse_of: :intervention
   has_many :labels, through: :labellings
   has_many :record_interventions, -> { where(nature: :record) }, class_name: 'Intervention', inverse_of: 'request_intervention', foreign_key: :request_intervention_id
+  has_many :intervention_crop_groups, dependent: :destroy
+  has_many :crop_groups, through: :intervention_crop_groups
 
   has_and_belongs_to_many :activities
   has_and_belongs_to_many :activity_productions
@@ -142,7 +146,7 @@ class Intervention < ApplicationRecord
     HABTM_Activities
   end
 
-  accepts_nested_attributes_for :group_parameters, :participations, :doers, :inputs, :outputs, :targets, :tools, :working_periods, :labellings, allow_destroy: true
+  accepts_nested_attributes_for :group_parameters, :participations, :doers, :inputs, :outputs, :targets, :tools, :working_periods, :labellings, :intervention_crop_groups, allow_destroy: true
   accepts_nested_attributes_for :receptions, reject_if: :all_blank, allow_destroy: true
 
   scope :between, lambda { |started_at, stopped_at|
@@ -276,9 +280,9 @@ class Intervention < ApplicationRecord
     { total_count: request.count, interventions: request.page(page) }
   }
 
-  scope :with_targets, -> (*targets) { where(id: InterventionTarget.of_actors(targets).select(:intervention_id)) }
-  scope :with_outputs, -> (*outputs) { where(id: InterventionOutput.of_actors(outputs).select(:intervention_id)) }
-  scope :with_doers, -> (*doers) { where(id: InterventionDoer.of_actors(doers).select(:intervention_id)) }
+  scope :with_targets, ->(*targets) { where(id: InterventionTarget.of_actors(targets).select(:intervention_id)) }
+  scope :with_outputs, ->(*outputs) { where(id: InterventionOutput.of_actors(outputs).select(:intervention_id)) }
+  scope :with_doers, ->(*doers) { where(id: InterventionDoer.of_actors(doers).select(:intervention_id)) }
   scope :with_input_of_maaids, ->(*maaids) { where(id: InterventionInput.of_maaids(*maaids).pluck(:intervention_id)) }
   scope :done, -> {}
 
@@ -311,16 +315,16 @@ class Intervention < ApplicationRecord
       all_known = actions.all? { |action| procedure.has_action?(action) }
       errors.add(:actions, :invalid) unless all_known
     end
+
     if started_at && stopped_at && stopped_at <= started_at
       errors.add(:stopped_at, :posterior, to: started_at.l)
     end
-    true
-  end
 
-  validate do
     if printed_on
       errors.add(:printed_on, :not_opened_financial_year) if Preference[:permanent_stock_inventory] && !during_financial_year?
     end
+
+    errors.add(:base, :financial_year_exchange_on_this_period) if during_financial_year_exchange? && (inputs.any? || outputs.any?) && Preference[:permanent_stock_inventory]
   end
 
   before_save do
@@ -369,6 +373,13 @@ class Intervention < ApplicationRecord
     add_activity_production_to_output if procedure.of_category?(:planting)
 
     reconcile_receptions
+
+    # compute pfi
+    campaign = Campaign.find_by(harvest_year: started_at.year)
+    if campaign
+      pfi_computation = Interventions::Phytosanitary::PfiComputation.new(campaign: campaign, intervention: self)
+      pfi_computation.create_or_update_pfi
+    end
   end
 
   after_create do
@@ -399,9 +410,10 @@ class Intervention < ApplicationRecord
         end
         stock_journal = Journal.new(name: stock_journal_name, nature: :various, used_for_permanent_stock_inventory: true).tap(&:valid?)
 
-        [stock_journal.code, *%i(STOC IVNT)].each do |new_code|
+        [stock_journal.code, :STOC, :IVNT].each do |new_code|
           conflicting_journals = Journal.where(code: new_code)
           next if conflicting_journals.any?
+
           stock_journal.code = new_code
           break if stock_journal.save
         end
@@ -414,6 +426,7 @@ class Intervention < ApplicationRecord
         variant = parameter.variant
         stock_amount = parameter.stock_amount.round(2) if parameter.stock_amount
         next unless parameter.product_movement && stock_amount.nonzero? && variant.storable?
+
         label = tc(:bookkeep, resource: name, name: parameter.product.name)
         debit_account = input ? variant.stock_movement_account_id : variant.stock_account_id
         credit_account = input ? variant.stock_account_id : variant.stock_movement_account_id
@@ -443,6 +456,7 @@ class Intervention < ApplicationRecord
   def compare_planned_and_realised
     return :no_request if request_intervention.nil? || request_intervention.parameters.blank?
     return false if request_intervention.duration != self.duration
+
     accepted_error = PLANNED_REALISED_ACCEPTED_GAP
     params_result = true
 
@@ -518,6 +532,7 @@ class Intervention < ApplicationRecord
   def initialize_record(state: :done)
     raise 'Can only generate record for an intervention request' unless request?
     return record_interventions.first if record_interventions.any?
+
     new_record = deep_clone(
       only: %i[auto_calculate_working_periods actions custom_fields description event_id issue_id
                nature number prescription_id procedure_name
@@ -555,6 +570,7 @@ class Intervention < ApplicationRecord
   def with_undestroyable_products?
     outputs.includes(:product).map(&:product).detect do |product|
       next unless product
+
       InterventionProductParameter.of_actor(product).where.not(type: 'InterventionOutput').any?
     end
   end
@@ -620,7 +636,7 @@ class Intervention < ApplicationRecord
   end
 
   def human_working_duration(unit = :hour)
-    working_duration.in(:second).convert(unit).round(2).l
+    working_duration.in(:second).convert(unit).round.l(precision: 2)
   end
 
   def working_duration_of_nature(nature = :intervention)
@@ -661,6 +677,7 @@ class Intervention < ApplicationRecord
     outputs.find_each do |output|
       product = output.product
       next unless product
+
       product.born_at = self.started_at
       product.initial_born_at = product.born_at
       product.save!
@@ -673,6 +690,7 @@ class Intervention < ApplicationRecord
 
       movement = output.product_movement
       next unless movement
+
       movement.started_at = self.started_at
       movement.stopped_at = self.stopped_at
       movement.save!
@@ -684,6 +702,7 @@ class Intervention < ApplicationRecord
 
       movement = input.product_movement
       next unless movement
+
       movement.started_at = self.started_at
       movement.stopped_at = self.stopped_at
       movement.save!
@@ -721,6 +740,7 @@ class Intervention < ApplicationRecord
       params = product_parameters.of_generic_role(role)
       costs = params.map(&:cost).compact
       return (costs.sum / zone_area) * area_cost_coefficient if costs.any?
+
       nil
     end
     nil
@@ -761,6 +781,7 @@ class Intervention < ApplicationRecord
   def earn(role = :output)
     params = product_parameters.of_generic_role(role)
     return params.map(&:earn).compact.sum if params.any?
+
     nil
   end
 
@@ -781,7 +802,7 @@ class Intervention < ApplicationRecord
     options = args.extract_options!
     unit = args.shift || options[:unit] || :hectare
     if targets.any?
-      ap = ActivityProduction.where(support_id: targets.pluck(:product_id))
+      ap = ActivityProduction.where(id: targets.map{ |p| p.product.activity_production_id})
       area = ap.map(&:support_shape_area).sum.in(:square_meter).convert(unit)
     end
     area ||= 0.0.in(unit)
@@ -808,6 +829,7 @@ class Intervention < ApplicationRecord
         at = targets.of_activity(activity).with_working_zone.map(&:working_zone_area).sum.in(unit)
         coeff = (at.to_d / working_zone_area.to_d) if working_zone_area.to_d != 0.0
         return nil unless coeff
+
         coeff.round(precision)
       end
     end
@@ -841,6 +863,7 @@ class Intervention < ApplicationRecord
 
   def runnable?
     return false unless record? && procedure
+
     valid = true
     # Check cardinality and runnability
     procedure.parameters.each do |parameter|
@@ -881,6 +904,7 @@ class Intervention < ApplicationRecord
 
   def receptions_is_given?
     return receptions.first.given? if receptions.any?
+
     false
   end
 
@@ -890,6 +914,7 @@ class Intervention < ApplicationRecord
   def run!
     ActiveSupport::Deprecation.warn 'Intervention#run! is deprecated, because it never works. Use classical AR methods instead to create interventions'
     raise 'Cannot run intervention without procedure' unless runnable?
+
     update_attributes(state: :done)
     self
   end
@@ -900,6 +925,7 @@ class Intervention < ApplicationRecord
 
   def update_state(modifier = {})
     return unless participations.any? || modifier.present?
+
     states = participations.pluck(:id, :state).to_h
     states[modifier.keys.first] = modifier.values.first
     update(state: :in_progress) if states.values.map(&:to_sym).index(:in_progress)
@@ -908,6 +934,7 @@ class Intervention < ApplicationRecord
 
   def update_compliance(modifier = {})
     return unless participations.any? || !modifier.nil?
+
     compliances = participations.pluck(:id, :request_compliant).to_h
     compliances[modifier.keys.first] = modifier.values.first
     update(request_compliant: false) if compliances.values.index(false)
@@ -960,6 +987,7 @@ class Intervention < ApplicationRecord
     associations_parameters = { intervention: {} }
     %w[targets tools inputs doers outputs participations working_periods].each do |product_parameter|
       next unless self.send(product_parameter).any?
+
       key = (product_parameter + '_attributes').to_sym
       associations_parameters[:intervention][key] = {}
       self.send(product_parameter).each_with_index do |parameter, parameter_index|
@@ -974,6 +1002,7 @@ class Intervention < ApplicationRecord
         associations_group_parameters[:intervention][:group_parameters_attributes][gp_index] = { reference_name: gp.reference_name }
         %w[targets tools inputs doers outputs].each do |product_parameter|
           next unless gp.send(product_parameter).any?
+
           key = (product_parameter + '_attributes').to_sym
           associations_group_parameters[:intervention][:group_parameters_attributes][gp_index][key] = {}
           gp.send(product_parameter).each_with_index do |parameter, parameter_index|
@@ -1024,6 +1053,10 @@ class Intervention < ApplicationRecord
     receptions.each do |reception|
       reception.update(reconciliation_state: 'reconcile') if reception.reconciliation_state != 'reconcile'
     end
+  end
+
+  private def during_financial_year_exchange?
+    FinancialYearExchange.opened.at(printed_at).exists?
   end
 
   class << self
@@ -1168,6 +1201,7 @@ class Intervention < ApplicationRecord
           unless journal = Journal.purchases.opened_at(planned_at).first
             raise 'No purchase journal'
           end
+
           nature = PurchaseNature.new(
             active: true,
             journal: journal,
@@ -1243,6 +1277,7 @@ class Intervention < ApplicationRecord
           unless journal = Journal.sales.opened_at(planned_at).first
             raise 'No sale journal'
           end
+
           nature = SaleNature.new(
             active: true,
             currency: Preference[:currency],

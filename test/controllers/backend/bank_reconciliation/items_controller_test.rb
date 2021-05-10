@@ -64,13 +64,13 @@ module AutoLetteringTest
   included do
     test 'autoreconciliation letters entries' do
       get :index, params: { bank_statement_id: @bank_statement.id }
-      entries = ivar_value(:@items_grouped_by_date).sort.first.last.select { |item| item.is_a? JournalEntryItem }
+      entries = ivar_value(:@items_grouped_by_date).min.last.select { |item| item.is_a? JournalEntryItem }
       assert_equal 'A', entries.first.bank_statement_letter
     end
 
     test 'autoreconciliation doesn\'t letter entries that are on another date' do
       get :index, params: { bank_statement_id: @bank_statement.id }
-      entries = ivar_value(:@items_grouped_by_date).sort.last.last.select { |item| item.is_a? JournalEntryItem }
+      entries = ivar_value(:@items_grouped_by_date).max.last.select { |item| item.is_a? JournalEntryItem }
       assert_nil entries.first.bank_statement_letter
     end
   end

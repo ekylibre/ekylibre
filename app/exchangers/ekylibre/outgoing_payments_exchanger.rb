@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module Ekylibre
   class OutgoingPaymentsExchanger < ActiveExchanger::Base
-    category :sales
+    category :purchases
     vendor :ekylibre
 
     def check
@@ -62,6 +64,7 @@ module Ekylibre
 
         # Check affair presence
         next unless r.reference_number && entity
+
         if purchase = Purchase.where(supplier_id: entity.id, invoiced_at: r.invoiced_at, reference_number: r.reference_number).first
           w.info "Purchase found with ID : #{purchase.id}"
         else

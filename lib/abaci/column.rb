@@ -25,6 +25,7 @@ module Abaci
     # Cast value from string
     def cast(value)
       return nil if value.blank?
+
       if @type == :decimal
         value.to_d
       elsif @type == :integer

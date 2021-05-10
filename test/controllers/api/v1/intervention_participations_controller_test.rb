@@ -5,8 +5,7 @@ module Api
       extend ActiveSupport::Concern
       included do
         test 'receiving an empty payload doesn\'t blow up' do
-
-          assert_nothing_raised { post :create }
+          assert_nothing_raised { post :create, params: {} }
         end
 
         test 'receiving an appropriate payload creates an appropriate InterventionParticipation and returns its id' do
@@ -41,7 +40,6 @@ module Api
         end
 
         test 'handles completely wrong payload graciously' do
-
           assert_nothing_raised { post :create, params: { yolo: :swag, test: [:bidouille, 'le malin', 1_543_545], 54 => 1_014_441 } }
         end
 
@@ -98,7 +96,6 @@ module Api
       extend ActiveSupport::Concern
       included do
         test 'instantiate an intervention if it doesn\'t exist' do
-
           original_count = Intervention.where(nature: :record).count
           payload = correct_payload
           post :create, params: payload
@@ -136,7 +133,7 @@ module Api
                                         procedure_name: :plant_watering,
                                         actions: [:irrigation],
                                         nature: :request
-          )
+                                       )
           payload = {
             intervention_id: request_intervention.id,
             request_compliant: 1,
@@ -215,7 +212,6 @@ module Api
         end
 
         test 'working periods without pause of participation override intervention working periods' do
-
           working_periods = [
             {
               started_at: Time.new(2020, 2, 1, 11, 15),
@@ -248,7 +244,6 @@ module Api
         end
 
         test 'working periods with pause of participation override intervention working periods' do
-
           in_progress_working_periods = [
             {
               started_at: Time.new(2020, 2, 1, 11, 15),
@@ -657,7 +652,7 @@ module Api
                                         nature: :request,
                                         started_at: intervention_started_at,
                                         stopped_at: intervention_stopped_at
-          )
+                                       )
           {
             intervention_id: request_intervention.id,
             request_compliant: 1,

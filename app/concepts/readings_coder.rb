@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ReadingsCoder
   SERIALIZE = Hash.new { proc { |_, value| value } }
                   .tap { |h| h[Measure] = proc { |_, value| value.to_s } }
@@ -11,8 +13,8 @@ class ReadingsCoder
                     .tap { |h| h[TrueClass] = proc { |_, _| true } }
                     .tap { |h| h[Integer] = proc { |_, value| value.to_i } }
                     .tap { |h| h[String] = proc { |_, value| value } }
-                    .tap { |h| h[Bignum] = proc { |_, value| value.to_i } }
-                    .tap { |h| h[Fixnum] = proc { |_, value| value.to_i } }
+                    .tap { |h| h[Integer] = proc { |_, value| value.to_i } }
+                    .tap { |h| h[Integer] = proc { |_, value| value.to_i } }
                     .tap { |h| h[Float] = proc { |_, value| value.to_f } }
                     .tap { |h| h[BigDecimal] = proc { |_, value| BigDecimal(value) } }
                     .freeze

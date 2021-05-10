@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class InventoryBookkeeper < Ekylibre::Bookkeeper
   class NegativeStockValueError < StandardError
     attr_reader :account, :start, :stop, :amount

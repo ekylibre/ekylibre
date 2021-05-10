@@ -1,7 +1,7 @@
-#intervention-form
+- procedure = f.object.procedure
+%div{id: 'intervention-form', data: {procedure_set: procedure.present?}}
   - if f.object.errors.any? && Rails.env.development?
     = f.object.errors.inspect
-  - procedure = f.object.procedure
   - content_for :main_title do
     - interpolations = { number: f.object.number, nature: f.object.nature.l }
     - action_title_key = ['new', 'create'].include?(action_name) ? 'new' : 'edit'
@@ -53,6 +53,8 @@
 
     = field_set :parameters do
       - procedure.each_parameter do |parameter|
+        - if [:zone, :plant,:land_parcel, :cultivation].include? parameter.name
+          = render '/backend/interventions/crop_group_field', f: f
         = render '/backend/interventions/parameter_form', reference: parameter, f: f, namespace: ''
 
       -# - if procedure.parameters.any?{|p| p.is_a?(Procedo::Procedure::ProductParameter) and p.beta?}

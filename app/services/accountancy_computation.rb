@@ -1,5 +1,6 @@
-class AccountancyComputation
+# frozen_string_literal: true
 
+class AccountancyComputation
   # see short balance for items active / passive definition
 
   PCGA_ACTIVE_LINES = %i[unsubcribed_capital incorporeal_assets_total_net corporeal_assets_total_net
@@ -71,5 +72,4 @@ class AccountancyComputation
     source = Rails.root.join('config', "accountancy_mandatory_documents_#{ac.to_s}.yml")
     data = YAML.load_file(source).deep_symbolize_keys.stringify_keys if source.file?
   end
-
 end

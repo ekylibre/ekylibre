@@ -8,19 +8,25 @@ AllCops:
     - 'bin/**/*'
     - 'config/**/*'
     - 'db/first_runs/**/*'
-    - 'db/schema.rb'
     - 'db/migrate/**/*'
+    - 'db/schema.rb'
     - 'lib/generators/**/*'
+    - 'lib/procedo/formula/language.rb'
+    - 'lib/working_set/query_language.rb'
     - 'node_modules/**/*'
     - 'plugins/**/*'
+    - 'plugins-disabled/**/*'
     - 'tmp/**/*'
     - 'vendor/**/*'
-    - 'plugins-disabled/**/*'
 
-# TODO: Enable this on a next Gemfile update
-Bundler/OrderedGems:
+# We disable this for now. 1500 offenses as of 01/02/2021
+Layout/LineLength:
   Enabled: false
 
 # Too many offenses to enable this for now.
 Style/StringLiterals:
+  Enabled: false
+
+# Do not encourage the use of modifiers
+Style/WhileUntilModifier:
   Enabled: false

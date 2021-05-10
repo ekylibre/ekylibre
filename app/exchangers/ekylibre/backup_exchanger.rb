@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ekylibre
   class BackupExchanger < ActiveExchanger::Base
     vendor :ekylibre
@@ -136,6 +138,7 @@ module Ekylibre
                 undoubler_value = prefix + separator + counter.to_s
                 unique_code = keys.collect { |k| k == undoubler ? undoubler_value : item.send(k) }.join('-')
                 break unless dones.include?(unique_code)
+
                 counter += 1
               end
               item.send("#{undoubler}=", undoubler_value)
@@ -166,6 +169,7 @@ module Ekylibre
         if options[:rename]
           options[:rename].each do |old_column, new_column|
             raise "What is #{old_column}? #{columns.keys.sort.to_sentence} only are accepted." unless columns.keys.include?(old_column)
+
             renamings[old_column] = new_column
           end
         end
@@ -243,6 +247,7 @@ module Ekylibre
       unless root.attr(:version).to_s == '20120806083148' # Ekylibre v0.4
         raise NotSupportedFormatError
       end
+
       data = Backup.load(root.children.first)
 
       w.check_point

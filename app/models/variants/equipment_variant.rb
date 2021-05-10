@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -56,7 +58,6 @@
 #
 module Variants
   class EquipmentVariant < ProductNatureVariant
-
     def variant_type
       :equipment
     end

@@ -179,6 +179,10 @@
   a#delete > i {
     @include use-icon(clear);
   }
+
+  a.locked > i {
+    @include use-icon(lock);
+  }
 }
 
 .amounts {
@@ -216,6 +220,11 @@
   }
 
   i, #delete {
+    text-align: center;
+    width: 3rem;
+  }
+
+  i, .locked {
     text-align: center;
     width: 3rem;
   }

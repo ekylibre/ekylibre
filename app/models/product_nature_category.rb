@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -147,20 +149,20 @@ class ProductNatureCategory < ApplicationRecord
 
     case reference_name
     when 'fertilizer'
-        return 'Variants::Articles::FertilizerArticle'
+      return 'Variants::Articles::FertilizerArticle'
     when 'seed' || 'plant'
-        return 'Variants::Articles::SeedAndPlantArticle'
+      return 'Variants::Articles::SeedAndPlantArticle'
     when 'plant_medicine'
-        return 'Variants::Articles::PlantMedicineArticle'
+      return 'Variants::Articles::PlantMedicineArticle'
     end
 
     case charge_account&.usages
     when 'fertilizer_expenses'
-        'Variants::Articles::FertilizerArticle'
+      'Variants::Articles::FertilizerArticle'
     when 'seed_expenses'
-        'Variants::Articles::SeedAndPlantArticle'
+      'Variants::Articles::SeedAndPlantArticle'
     when 'plant_medicine_matter_expenses'
-        'Variants::Articles::PlantMedicineArticle'
+      'Variants::Articles::PlantMedicineArticle'
     end
   end
 
@@ -178,6 +180,7 @@ class ProductNatureCategory < ApplicationRecord
       unless (item = Onoma::ProductNatureCategory.find(reference_name))
         raise ArgumentError.new("The product_nature_category #{reference_name.inspect} is unknown")
       end
+
       unless force
         category = ProductNatureCategory.find_by(reference_name: reference_name)
         return category if category
@@ -200,13 +203,13 @@ class ProductNatureCategory < ApplicationRecord
         imported_from: 'Nomenclature'
       }.with_indifferent_access
       accounts_usage_categories = {
-        :charge => :purchasable,
-        :product => :saleable,
-        :stock => :storable,
-        :stock_movement => :storable,
-        :fixed_asset => :depreciable,
-        :fixed_asset_allocation => :depreciable,
-        :fixed_asset_expenses => :depreciable
+        charge: :purchasable,
+        product: :saleable,
+        stock: :storable,
+        stock_movement: :storable,
+        fixed_asset: :depreciable,
+        fixed_asset_allocation: :depreciable,
+        fixed_asset_expenses: :depreciable
       }.with_indifferent_access
       %i[fixed_asset fixed_asset_allocation fixed_asset_expenses charge product stock stock_movement].each do |account|
         account_name = item.send("#{account}_account")
@@ -234,6 +237,7 @@ class ProductNatureCategory < ApplicationRecord
       if !force && (category = ProductNatureCategory.find_by(reference_name: reference_name))
         return category
       end
+
       attributes = {
         active: true,
         name: item.name[I18n.locale.to_s] || item.reference_name.humanize,

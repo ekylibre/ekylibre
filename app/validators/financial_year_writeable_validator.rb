@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FinancialYearWriteableValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     financial_year = financial_year(record, value)
@@ -15,6 +17,7 @@ class FinancialYearWriteableValidator < ActiveModel::EachValidator
 
   def financial_year(record, value)
     return record.financial_year if record.respond_to?(:financial_year)
+
     FinancialYear.on(value)
   end
 end

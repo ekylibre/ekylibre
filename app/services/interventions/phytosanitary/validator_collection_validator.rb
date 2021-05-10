@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 module Interventions
   module Phytosanitary
     class ValidatorCollectionValidator
       class << self
-
         # @param [Array<Models::TargetAndShape>] targets_and_shape
         # @option [Intervention, nil] intervention_to_ignore
         # @option [DateTime, nil] intervention_started_at

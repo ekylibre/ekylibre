@@ -26,8 +26,9 @@ namespace :clean do
               rescue
                 nil
               end
-      for column in columns
+      columns.each do |column|
         next if column.name.start_with?('_')
+
         column_hash = { type: column.type.to_s }
         schema_yaml << "  #{column.name}: {type: #{column.type}"
 

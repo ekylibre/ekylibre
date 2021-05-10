@@ -147,12 +147,11 @@ deploy_doc:
 #########################################
 rubocop:
   stage: lint
-  image: ruby:2.6-alpine
+  image: registry.gitlab.com/ekylibre/tools/rubocop/rubocop:0.2.0
   variables:
      GIT_DEPTH: 1
   script:
-    - gem install rubocop --version=1.3.1
-    - rubocop
+    - rubocop --parallel
 
 eslint:
   stage: lint
@@ -167,10 +166,10 @@ eslint:
 #########################################
 #               TEMPLATES               #
 #########################################
-.test_tpl: &test_task
+test:
   stage: test
   image: $TEST_IMAGE
-  variables: &test_task_variables
+  variables:
     # POSTGRES VARIABLES
     POSTGRES_HOST: postgres
     REDIS_URL: redis://redis:6379/
@@ -186,18 +185,18 @@ eslint:
   except:
     - tags
   script:
-    - bash /app/test/ci/run_tests ${TASK}
+    - bash /app/test/ci/run_tests
 
 #########################################
 #                 TESTS                 #
 #########################################
-test_fast:
-  <<: *test_task
-  variables:
-    <<: *test_task_variables
-    SELECT: lower
-test_long:
-  <<: *test_task
-  variables:
-    <<: *test_task_variables
-    SELECT: higher
+#test_fast:
+#  <<: *test_task
+#  variables:
+#    <<: *test_task_variables
+#    SELECT: lower
+#test_long:
+#  <<: *test_task
+#  variables:
+#    <<: *test_task_variables
+#    SELECT: higher

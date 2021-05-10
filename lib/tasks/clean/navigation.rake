@@ -24,7 +24,7 @@ namespace :clean do
 
     deleted = 0
     unused_actions = []
-    for page in doc.xpath('//page')
+    doc.xpath('//page').each do |page|
       to = page.attr('to')
       url = to.to_s.strip.split('#')
       if ref[url[0]] && ref[url[0]].include?(url[1])
@@ -42,8 +42,9 @@ namespace :clean do
 
     undefined = Nokogiri::XML::Node.new('untreated-actions', doc)
     undefined_group = Nokogiri::XML::Node.new('group', doc)
-    for controller, actions in ref.sort
+    ref.sort.each do |controller, actions|
       next if actions.empty?
+
       item = Nokogiri::XML::Node.new('item', doc)
       item['name'] = controller.to_s.split(/[\/]+/).last
       if first = actions.delete('index')
@@ -52,7 +53,7 @@ namespace :clean do
         item.add_child(page)
         unused_actions << page['to']
       end
-      for action in actions.sort
+      actions.sort.each do |action|
         page = Nokogiri::XML::Node.new('page', doc)
         page['to'] = "#{controller}##{action}"
         item.add_child(page)

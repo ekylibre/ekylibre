@@ -25,7 +25,7 @@ module Ekylibre
           code = ''
 
           callbacks = options.delete(:callbacks) || %i[after_save after_destroy]
-          for callback in callbacks
+          callbacks.each do |callback|
             code << "#{callback} :#{method_name}\n"
           end
 

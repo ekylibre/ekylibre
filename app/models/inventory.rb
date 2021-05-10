@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -136,6 +138,7 @@ class Inventory < ApplicationRecord
     self.achieved_at ||= Time.zone.now
     Matter.at(achieved_at).mine_or_undefined(achieved_at).of_category(product_nature_category).includes(:populations).find_each do |product|
       next if items.detect { |i| i.product_id == product.id }
+
       population = product.population(at: self.achieved_at)
       # shape = product.shape(at: self.achieved_at)
       items.build(product_id: product.id, actual_population: population, expected_population: population)
@@ -144,6 +147,7 @@ class Inventory < ApplicationRecord
 
   def refresh!
     raise StandardError.new('Cannot refresh uneditable inventory') unless editable?
+
     items.clear
     build_missing_items
     save!

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Lexiconable
   class ReferenceDataNotUpdateable < StandardError; end
 
@@ -7,8 +9,8 @@ module Lexiconable
     before_save :forbid!
     before_destroy :forbid!
 
-    scope :including_references, -> (refs) { where(reference_name: refs) }
-    scope :excluding_references, -> (refs) { where.not(reference_name: refs) }
+    scope :including_references, ->(refs) { where(reference_name: refs) }
+    scope :excluding_references, ->(refs) { where.not(reference_name: refs) }
 
     class << self
       attr_accessor :id_column
@@ -29,6 +31,7 @@ module Lexiconable
 
   def id
     return super if self.class.id_column == :id
+
     send(self.class.id_column)
   end
 end

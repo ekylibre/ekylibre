@@ -112,5 +112,35 @@ module Backend
       get :currency_state, params: { on: '01/06/1900', from: 'EUR' }
       assert_empty JSON.parse(@response.body)
     end
+
+    test 'the reference_number field is taken into account' do
+      post :create, params: {
+        journal_entry: {
+          journal_id: Journal.last.id,
+          printed_on: Date.new(2018, 1, 1),
+          real_currency_rate: 1,
+          real_currency: 'EUR',
+          number: 'HA0010',
+          reference_number: "Refnumber",
+          items_attributes: {
+            '1491818768866' => {
+              name: 'Test',
+              account_id: Account.last.id,
+              real_debit: 10,
+              real_credit: 0.0,
+            },
+            '1491818830695' => {
+              name: 'Hallo',
+              account_id: Account.last.id,
+              real_debit: 0.0,
+              real_credit: 10,
+            }
+          }
+
+        }
+      }
+
+      assert_equal "Refnumber", JournalEntry.last.reference_number
+    end
   end
 end

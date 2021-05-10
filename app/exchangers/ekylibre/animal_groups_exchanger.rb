@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ekylibre
   class AnimalGroupsExchanger < ActiveExchanger::Base
     category :animal_farming
@@ -18,6 +20,7 @@ module Ekylibre
         line_number = index + 2
         prompt = "L#{line_number.to_s.yellow}"
         next if row[0].blank?
+
         r = OpenStruct.new(
           name: row[0],
           nature: row[1].to_s,
@@ -60,6 +63,7 @@ module Ekylibre
 
         next unless r.variant_reference_name
         next if variant = ProductNatureVariant.find_by(work_number: r.variant_reference_name)
+
         unless nomen = Onoma::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
           w.error "No variant exist in NOMENCLATURE for #{r.variant_reference_name.inspect}"
           valid = false

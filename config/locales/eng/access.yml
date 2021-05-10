@@ -79,7 +79,7 @@ eng:
       postal_zones: "Postal zones"
       prescriptions: "Prescriptions"
       product_groups: "Product groups"
-      product_nature_categories: "Product nature categories"
+      product_nature_categories: "Accounting categories"
       product_nature_variants: "Product nature variants"
       product_natures: "Product natures"
       productions: "Productions"

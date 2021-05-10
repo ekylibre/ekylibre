@@ -122,6 +122,7 @@ Rails.application.routes.draw do
 
   # Backend
   namespace :backend do
+
     resource :myself, path: 'me', only: %i[show update] do
       member do
         patch :change_password
@@ -174,6 +175,7 @@ Rails.application.routes.draw do
       resource :cropping_plan_on_cultivable_zones_cell, only: :show
       resource :current_stocks_by_variety_cell, only: :show
       resource :elapsed_interventions_times_by_activities_cell, only: :show
+      resource :elapsed_interventions_times_by_workers_cell, only: :show
       resource :expenses_by_product_nature_category_cell, only: :show
       resource :events_cell, only: :show
       resource :guide_evolution_cell, only: :show
@@ -190,9 +192,17 @@ Rails.application.routes.draw do
       resource :last_purchases_invoices_cell, only: :show, concerns: :list
       resource :last_purchases_orders_cell, only: :show, concerns: :list
       resource :last_sales_cell, only: :show, concerns: :list
+      resource :last_workers_cell, only: :show, concerns: :list
       resource :main_settings_cell, only: :show
       resource :map_cell, only: :show
-      resource :last_panier_local_import_cell, only: :show
+      resource :mes_parcelles_synchronisation_cell, only: :show
+      resource :pfi_interventions_cell, only: :show do
+        member do
+          get :compute_pfi_interventions
+          get :compute_pfi_report
+        end
+      end
+      resource :last_socleo_import_cell, only: :show
       resource :parts_cell, only: :show
       resource :profit_and_loss_cell, only: :show
       resource :quandl_cell, only: :show
@@ -237,6 +247,7 @@ Rails.application.routes.draw do
       member do
         get :list_distributions
         get :list_productions
+        get :compute_pfi_report
       end
     end
 
@@ -397,6 +408,23 @@ Rails.application.routes.draw do
         post :prospect
         post :quote
         post :win
+      end
+    end
+
+    resources :crops, concerns: %i[unroll]
+
+    resources :crop_groups, concerns: %i[list unroll] do
+      member do
+        post :duplicate
+      end
+      member do
+        get :list_plants
+        get :list_productions
+        get :list_interventions
+
+      end
+      collection do
+        get :unroll_list
       end
     end
 
@@ -567,6 +595,7 @@ Rails.application.routes.draw do
         get :journal_entries_import
         post :journal_entries_import
         get :notify_accountant
+        get :notify_accountant_modal
         get :close
       end
     end
@@ -655,7 +684,6 @@ Rails.application.routes.draw do
         get :generate_buttons
         get :validate_harvest_delay
         get :validate_reentry_delay
-
         post :create_duplicate_intervention
         get :compare_realised_with_planned
       end
@@ -1278,6 +1306,7 @@ Rails.application.routes.draw do
     namespace :visualizations do
       resource :plants_visualizations, only: :show
       resource :map_cells_visualizations, only: :show
+      resource :stock_container_map_cells_visualizations, only: :show
       resource :land_parcels_visualizations, only: :show
       resource :resources_visualizations, only: :show
       resource :non_treatment_areas_visualizations, only: :show
@@ -1299,12 +1328,6 @@ Rails.application.routes.draw do
 
     resources :registrations, only: %i[index edit update destroy], concerns: [:list]
     resources :gaps, only: %i[index show destroy]
-  end
-
-  namespace :public do
-    resources :financial_year_exchange_exports, path: 'financial-year-exchange-exports', only: [:show] do
-      get :csv, on: :member
-    end
   end
 
   root to: 'public#index'

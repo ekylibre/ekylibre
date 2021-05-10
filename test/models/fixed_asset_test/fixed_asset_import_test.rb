@@ -2,7 +2,6 @@ require 'test_helper'
 
 module FixedAssetTest
   class FixedAssetImportTest < Ekylibre::Testing::ApplicationTestCase
-
     setup do
       @journal = create :journal
       (2010..2015).each { |year| create :financial_year, year: year, state: :locked }
@@ -13,7 +12,7 @@ module FixedAssetTest
       waiting_account = Account.find_or_import_from_nomenclature :suspense
 
       fa = create :fixed_asset, :in_use, :yearly, :linear,
-                  started_on: Date.new(2008,1,1),
+                  started_on: Date.new(2008, 1, 1),
                   amount: 50_000,
                   percentage: 10.00,
                   journal: @journal

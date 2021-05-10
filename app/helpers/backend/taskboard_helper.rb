@@ -77,10 +77,10 @@ module Backend
     def display_task_data(data)
       html = []
 
-      html << content_tag(:div, nil, :class => "task-data #{data[:class]}", style: data[:style]) do
-        concat(content_tag(:i, nil, :class => "picto picto-#{data[:icon]} #{data[:icon_class]}")) unless data[:icon].blank?
+      html << content_tag(:div, nil, class: "task-data #{data[:class]}", style: data[:style]) do
+        concat(content_tag(:i, nil, class: "picto picto-#{data[:icon]} #{data[:icon_class]}")) unless data[:icon].blank?
         concat(image_tag(data[:image], class: 'calendar-img')) unless data[:image].blank?
-        concat(content_tag(:span, data[:text], :class => "data-text #{data[:text_class]}")) unless data[:text].blank?
+        concat(content_tag(:span, data[:text], class: "data-text #{data[:text_class]}")) unless data[:text].blank?
       end
       html.join.html_safe
     end

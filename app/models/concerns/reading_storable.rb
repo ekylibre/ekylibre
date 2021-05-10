@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ReadingStorable
   extend ActiveSupport::Concern
 
@@ -35,6 +37,7 @@ module ReadingStorable
 
   def set_datatype
     return unless indicator
+
     self.indicator_datatype = indicator.datatype
   end
 
@@ -93,6 +96,7 @@ module ReadingStorable
       unless indicator = Onoma::Indicator[indicator_name]
         raise ArgumentError.new("Expecting an indicator name. Got #{indicator_name.inspect}.")
       end
+
       { measure: :measure_value_value }[indicator.datatype] || "#{indicator.datatype}_value".to_sym
     end
 

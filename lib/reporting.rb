@@ -6,6 +6,7 @@ Ekylibre::Reporting.formats.each do |format|
     unless template = DocumentTemplate.find_active_template(name)
       raise StandardError.new("Can not find template for #{name.inspect}")
     end
+
     if ENV['IN_PASSENGER'] == '1'
       logger.warn 'Using Jasper/Rjb with Passenger is not sure for now. Be careful.'
       #     logger.warn 'notifications.messages.printing_does_not_work_under_passenger_for_now'.l
@@ -17,7 +18,7 @@ Ekylibre::Reporting.formats.each do |format|
     key = options.delete(:key)
     # Export & send file
     path = template.export(object.to_xml(options), key, format, options)
-    send_file(path, filename: filename, type: Mime.const_get(format.to_s.upcase), disposition: 'inline')
+    send_file(path, filename: filename, type: Mime[format.to_s.downcase], disposition: 'inline')
   end
 end
 

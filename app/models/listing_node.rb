@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -134,7 +136,7 @@ class ListingNode < ApplicationRecord
 
   before_validation(on: :create) do
     if reflection?
-      for node in listing.nodes
+      listing.nodes.each do |node|
         if node = listing.nodes.find_by(name: name)
           self.name = node.name.succ
         end
@@ -238,6 +240,7 @@ class ListingNode < ApplicationRecord
   def available_nodes
     nodes = []
     return nodes unless reflection? && model = self.model
+
     # Columns
     column_nodes = model.content_columns.collect { |x| [model.human_attribute_name(x.name.to_s).to_s, 'column-' + x.name] }
     if model.customizable?
@@ -299,7 +302,7 @@ class ListingNode < ApplicationRecord
     attributes[:listing_id] = listing_clone.id
     attributes[:parent_id]  = (parent ? parent.id : nil)
     node = self.class.create!(attributes)
-    for child in children.order(:position)
+    children.order(:position).each do |child|
       child.duplicate(listing_clone, node)
     end
   end

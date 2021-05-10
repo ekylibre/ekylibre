@@ -404,5 +404,4 @@ class Equipment < Matter
         remaining_time: lifespan.in(:hour).round(2).l(precision: 0)
       }
     end
-
 end

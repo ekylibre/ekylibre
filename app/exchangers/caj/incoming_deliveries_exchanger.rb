@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Caj
   # Incoming deliveries extracted from Charentes Alliance extranet
   class IncomingDeliveriesExchanger < ActiveExchanger::Base

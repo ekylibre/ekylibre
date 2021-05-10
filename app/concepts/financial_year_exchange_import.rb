@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FinancialYearExchangeImport
   class InvalidFile < RuntimeError; end
 
@@ -38,6 +40,7 @@ class FinancialYearExchangeImport
     def ensure_headers_are_valid
       expected = %i[jour numero_de_compte journal tiers numero_de_piece libelle_ecriture debit credit lettrage]
       return true if parsed.headers.to_set == expected.to_set
+
       message = I18n.translate('activerecord.errors.models.financial_year_exchange.csv_file_headers_invalid')
       @error = InvalidFile.new(message)
       false
@@ -47,6 +50,7 @@ class FinancialYearExchangeImport
       journal_codes = parsed.map { |row| row[:journal] }.uniq
       existing_journal_codes = Journal.where(code: journal_codes).pluck(:code)
       return true if existing_journal_codes.length == journal_codes.length
+
       message = I18n.translate('activerecord.errors.models.financial_year_exchange.csv_file_journals_invalid', codes: (journal_codes - existing_journal_codes).join(', '))
       @error = InvalidFile.new(message)
       false
@@ -62,6 +66,7 @@ class FinancialYearExchangeImport
                    end
         row_date && range.cover?(row_date)
       end
+
       message = I18n.translate('activerecord.errors.models.financial_year_exchange.csv_file_entry_dates_invalid')
       @error = InvalidFile.new(message)
       false
@@ -94,6 +99,7 @@ class FinancialYearExchangeImport
         printed_on = sample_row[:jour]
         journal = Journal.find_by(accountant_id: exchange.financial_year.accountant_id, code: journal_code)
         next unless journal
+
         items = rows.each_with_object([]) do |row, array|
           array << {
             name: row[:libelle_ecriture],
@@ -112,6 +118,7 @@ class FinancialYearExchangeImport
 
     def save_entry!(entry)
       return true if entry.save && entry.confirm && entry.close
+
       message = I18n.translate('activerecord.errors.models.financial_year_exchange.csv_file_entry_invalid', entry_number: entry.number)
       @error = InvalidFile.new(message)
       @internal_error = ActiveRecord::RecordInvalid.new(entry)

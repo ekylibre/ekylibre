@@ -221,6 +221,7 @@ module Backend
 
     def duplicate
       return unless @sale = find_and_check
+
       unless @sale.duplicatable?
         notify_error :sale_is_not_duplicatable
         redirect_to params[:redirect] || { action: :index }
@@ -232,6 +233,7 @@ module Backend
 
     def cancel
       return unless @sale = find_and_check
+
       url = { controller: :sale_credits, action: :new, credited_sale_id: @sale.id }
       url[:redirect] = params[:redirect] if params[:redirect]
       redirect_to url
@@ -239,6 +241,7 @@ module Backend
 
     def confirm
       return unless @sale = find_and_check
+
       @sale.confirm
       redirect_to action: :show, id: @sale.id
     end
@@ -264,18 +267,21 @@ module Backend
 
     def abort
       return unless @sale = find_and_check
+
       @sale.abort
       redirect_to action: :show, id: @sale.id
     end
 
     def correct
       return unless @sale = find_and_check
+
       @sale.correct
       redirect_to action: :show, id: @sale.id
     end
 
     def invoice
       return unless @sale = find_and_check
+
       if @sale.client.client_account.present?
         ApplicationRecord.transaction do
           raise ActiveRecord::Rollback unless @sale.invoice
@@ -288,12 +294,14 @@ module Backend
 
     def propose
       return unless @sale = find_and_check
+
       @sale.propose
       redirect_to action: :show, id: @sale.id
     end
 
     def propose_and_invoice
       return unless @sale = find_and_check
+
       ApplicationRecord.transaction do
         raise ActiveRecord::Rollback unless @sale.propose
         raise ActiveRecord::Rollback unless @sale.confirm
@@ -305,6 +313,7 @@ module Backend
 
     def refuse
       return unless @sale = find_and_check
+
       @sale.refuse
       redirect_to action: :show, id: @sale.id
     end

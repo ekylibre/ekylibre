@@ -69,6 +69,7 @@ module Customizable
   # Returns the value of given custom_field
   def custom_value(field)
     return nil unless custom_fields
+
     custom_fields[field.column_name]
   end
 

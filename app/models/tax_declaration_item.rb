@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -69,6 +71,7 @@ class TaxDeclarationItem < ApplicationRecord
 
   def compute!
     raise 'Cannot compute item without its tax' unless tax
+
     ApplicationRecord.transaction do
       generate_parts
       compute_amounts
@@ -231,6 +234,7 @@ class TaxDeclarationItem < ApplicationRecord
 
     def tax_account_ids_by_direction
       return unless tax
+
       { deductible: tax.deduction_account_id,
         collected: tax.collect_account_id,
         fixed_asset_deductible: tax.fixed_asset_deduction_account_id,
@@ -239,6 +243,7 @@ class TaxDeclarationItem < ApplicationRecord
 
     def directions
       return unless tax
+
       tax_account_ids_by_direction.keys
     end
 end

@@ -10,6 +10,7 @@
     = tool_to(:distribute_unaffected_products.tl, { controller: :products, action: :edit_many, activity_id: resource.id }, icon: false)
 
   = t.export :land_parcel_register, key: Printers::LandParcelRegisterActivityPrinter.build_key(campaign: current_campaign, activity: @activity), label: :print_land_parcel_register
+  = tool_to(:compute_pfi_report.tl, { controller: :activities, action: :compute_pfi_report}, remote: true, icon: false)
 
 - main_period_selector(:year)
 
@@ -23,6 +24,10 @@
     .med-info.important
       %span.title= :working_area.tl
       %span.value= resource.decorate.human_working_zone_area(current_campaign)
+
+    .med-info.important
+      %span.title= :pfi_activity.tl
+      %span.value= PfiCampaignsActivitiesIntervention.pfi_value_on_activity_campaign(resource, current_campaign)
 
   = attributes_list do |l|
     - l.attribute :production_system

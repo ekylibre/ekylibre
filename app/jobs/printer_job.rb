@@ -49,5 +49,4 @@ class PrinterJob < ApplicationJob
         interpolations: {}
       }
     end
-
 end

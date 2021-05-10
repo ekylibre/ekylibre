@@ -1,0 +1,10 @@
+.crop-group-list {
+    display: flex;
+    flex-direction: row;
+    .info-labels {
+        padding: 0px;
+    }
+    .label{
+        color: #FFFFFF; margin:3px
+    }
+}

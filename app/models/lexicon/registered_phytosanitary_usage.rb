@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -126,5 +128,9 @@ class RegisteredPhytosanitaryUsage < LexiconRecord
   # @return [Measure]
   def max_dose_measure
     Measure.new(dose_quantity * dose_unit_factor, dose_unit)
+  end
+
+  def pfi_target
+    RegisteredPhytosanitaryTargetNameToPfiTarget.find_by(ephy_name: target_name_label_fra)
   end
 end

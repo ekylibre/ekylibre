@@ -1,7 +1,6 @@
 module Ekylibre
   module Testing
     module Concerns
-
       module FixturesCleanerModule
         extend ActiveSupport::Concern
 
@@ -25,7 +24,6 @@ module Ekylibre
           end
         end
       end
-
     end
   end
 end

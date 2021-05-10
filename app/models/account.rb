@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -107,6 +109,7 @@ class Account < ApplicationRecord
     unless Onoma::Account.find(usage)
       raise ArgumentError.new("Unknown usage #{usage.inspect}")
     end
+
     where('usages ~ E?', "\\\\m#{usage}\\\\M")
   }
   # return Account which contains usages mentionned (OR)
@@ -130,7 +133,7 @@ class Account < ApplicationRecord
   scope :insurances, -> { of_usages(:equipment_maintenance_expenses, :exploitation_risk_insurance_expenses, :infirmity_and_death_insurance_expenses, :insurance_expenses) }
   scope :payment_guarantees, -> { of_usage(:payment_guarantees) }
   scope :banks_or_cashes, -> { of_usages(:cashes, :banks) }
-  scope :banks_or_cashes_or_associates, -> { of_usages(:cashes, :banks, :principal_associates_current_accounts, :associates_current_accounts, :usual_associates_current_accounts, :associates_frozen_accounts) } # , :owner_account doesn't exist
+  scope :banks_or_cashes_or_associates, -> { of_usages(:cashes, :banks, :compensation_operations, :principal_associates_current_accounts, :associates_current_accounts, :usual_associates_current_accounts, :associates_frozen_accounts) } # , :owner_account doesn't exist
   scope :thirds, -> { of_usages(:suppliers, :clients, :social_agricultural_mutuality, :usual_associates_current_accounts, :attorneys, :compensation_operations) }
 
   scope :assets, -> {
@@ -295,6 +298,7 @@ class Account < ApplicationRecord
       options[:name] ||= args.shift
       account = find_by(number: number)
       return account if account.present?
+
       numbers = Onoma::Account.items.values.collect { |i| i.send(accounting_system) }
       padded_number = Accountancy::AccountNumberNormalizer.build_deprecated_for_account_creation.normalize!(number)
       number = padded_number unless numbers.include?(number) || options[:already_existing]
@@ -329,14 +333,17 @@ class Account < ApplicationRecord
         key = criterion = criterion_or_key
         next accs.where.not(key => value) if value
         next accs.where.not(id: Account.send(criterion)) if criterion_or_key.is_a? Symbol
+
         accounts.where.not(id: except)
       end
       accounts = Array(sort_by).reduce(accounts) do |accs, (criterion_or_key, desc_or_asc)|
         key = criterion = criterion_or_key
         next accs.order(key => desc_or_asc) if desc_or_asc
+
         accs.order(criterion)
       end
       return accounts.first if accounts.any?
+
       item = Onoma::Account[usage]
       find_by(number: item.send(accounting_system)) if item
     end
@@ -373,12 +380,12 @@ class Account < ApplicationRecord
       table = options[:table] || table_name
       normals = ['(XD)']
       excepts = []
-      for prefix in expr.strip.split(/[\,\s]+/)
+      expr.strip.split(/[\,\s]+/).each do |prefix|
         code = prefix.gsub(/(^(\-|\^)|[CDX]+$)/, '')
         excepts << code if prefix =~ /^\^\d+$/
         normals << code if prefix =~ /^\-?\d+[CDX]?$/
       end
-      conditions = ''
+      conditions = ''.dup
       if normals.any?
         conditions << '(' + normals.sort.collect do |c|
           "#{table}.number LIKE '#{c}%'"
@@ -408,6 +415,7 @@ class Account < ApplicationRecord
     def valid_item?(item)
       item_number = item.send(accounting_system)
       return false unless item_number != 'NONE' && number_unique?(item_number.ljust(Preference[:account_number_digits], '0'))
+
       Onoma::Account.find_each do |compared_account|
         compared_account_number = compared_account.send(accounting_system)
         return false if item_number == compared_account_number.sub(/0*$/, '') && item_number != compared_account_number
@@ -425,6 +433,7 @@ class Account < ApplicationRecord
       account = find_by_usage(usage, except: { nature: :auxiliary })
       unless account
         return unless valid_item?(item) && acc_number.match(/\A[1-9]0*\z|\A0/).nil?
+
         account = new(
           name: item.human_name(scope: accounting_system),
           number: acc_number,
@@ -443,8 +452,9 @@ class Account < ApplicationRecord
       item = Onoma::Account.select { |a| a.name == usage.to_s && a.centralizing }.first
       raise ArgumentError.new("The usage #{usage.inspect} is unknown") unless item
       raise ArgumentError.new("The usage #{usage.inspect} is not implemented in #{accounting_system.inspect}") unless item.send(accounting_system)
+
       centralizing_number = item.send(accounting_system)
-      auxiliary_number = '1'
+      auxiliary_number = '1'.dup
       until Account.find_by('number LIKE ?', centralizing_number + auxiliary_number).nil?
         auxiliary_number.succ!
       end
@@ -517,14 +527,15 @@ class Account < ApplicationRecord
     # Clean ranges of accounts
     # Example : 1-3 41 43
     def clean_range_condition(range, _table_name = nil)
-      expression = ''
+      expression = ''.dup
 
       if range.present?
         valid_expr = /^\d(\d(\d[0-9A-Z]*)?)?$/
-        for expr in range.split(/[^0-9A-Z\-\*]+/)
+        range.split(/[^0-9A-Z\-\*]+/).each do |expr|
           if expr =~ /\-/
             start, finish = expr.split(/\-+/)[0..1]
             next unless start < finish && start.match(valid_expr) && finish.match(valid_expr)
+
             expression << " #{start}-#{finish}"
           elsif expr.match(valid_expr)
             expression << " #{expr}"
@@ -621,7 +632,7 @@ class Account < ApplicationRecord
 
       # Merge affairs if all entry items selected belong to one AND same affair third
       resources = items.map(&:entry).map(&:resource)
-      attempt_panier_local_resources_merge!(resources)
+      attempt_socleo_resources_merge!(resources)
 
       letter
     end
@@ -631,6 +642,7 @@ class Account < ApplicationRecord
   # If no +letter+ given, it uses a new letter.
   def mark!(item_ids, letter = nil)
     return nil unless item_ids.is_a?(Array) && item_ids.any?
+
     letter ||= new_letter
     conditions = ['id IN (?) AND (letter IS NULL OR LENGTH(TRIM(COALESCE(letter, \'\'))) <= 0 OR letter SIMILAR TO \'[A-z]+\\*\')', item_ids]
     journal_entry_items.where(conditions).update_all(letter: letter)
@@ -646,6 +658,7 @@ class Account < ApplicationRecord
   def balanced_letter?(letter)
     items = journal_entry_items.where('letter = ?', letter.to_s)
     return true if items.count.zero?
+
     items.sum('debit - credit').to_f.zero?
   end
 
@@ -664,6 +677,7 @@ class Account < ApplicationRecord
       Ekylibre::Schema.tables.each do |table, columns|
         columns.each do |_name, column|
           next unless column.references
+
           if column.references.is_a?(String) # Polymorphic
             connection.execute("UPDATE #{table} SET #{column.name}=#{id} WHERE #{column.name}=#{other.id} AND #{column.references} IN #{models_group}")
           elsif column.references == base_model # Straight
@@ -675,6 +689,7 @@ class Account < ApplicationRecord
       # Update attributes
       self.class.columns_definition.each do |attr, column|
         next if column.references
+
         send("#{attr}=", other.send(attr)) if send(attr).blank?
       end
 
@@ -815,9 +830,9 @@ class Account < ApplicationRecord
 
     # @param [Array<ApplicationRecord, nil>] resources
     # @return [void]
-    def attempt_panier_local_resources_merge!(resources)
+    def attempt_socleo_resources_merge!(resources)
       if resources.all?(&:present?) && resources.all? { |r| r.class.respond_to? :affairable? } && # Resources are present and affairable
-        resources.all? { |r| r.is_a?(Providable) && r.provider_vendor == "panier_local" } && # Only merge resources from panier_local
+        resources.all? { |r| r.is_a?(Providable) && r.provider_vendor == "socleo" } && # Only merge resources from socleo
         resources.map(&:deal_third).uniq.count == 1 # And with the same third
 
         first, *rest = resources

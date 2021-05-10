@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProductNatureVariantDecorator < Draper::Decorator
   delegate_all
 

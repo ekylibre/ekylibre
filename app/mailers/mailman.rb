@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Mailman < ActionMailer::Base
   def mailing(expedier, recipient, subject, text, piece = nil)
     # from       expedier

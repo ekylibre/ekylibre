@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Isagri
   module Isacompta
     # Exchanger to import COFTW.isa files from IsaCompta software
@@ -28,7 +30,7 @@ module Isagri
           raise ActiveExchanger::NotWellFormedFileError
         end
         used_versions = [8550]
-        version = used_versions.select { |x| x <= version }.sort[-1]
+        version = used_versions.select { |x| x <= version }.max
 
         if version == 8550
           begin
@@ -49,6 +51,7 @@ module Isagri
               if isa_fy.currency != 'EUR'
                 raise ActiveExchanger::IncompatibleDataError.new("Accountancy must be in Euro (EUR) not in '#{isa_fy.currency}'")
               end
+
               fy = FinancialYear.create!(started_on: isa_fy.started_on, stopped_on: isa_fy.stopped_on)
             end
 
@@ -201,6 +204,7 @@ module Isagri
             if found != expected
               raise StandardError.new("The count of entries is different: #{found} in database and #{expected} in file")
             end
+
             found = JournalEntryItem.between(fy.started_on, fy.stopped_on).count
             expected = isa_fy.entries.inject(0) { |s, e| s += e.lines.size }
             if found != expected

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -80,7 +82,6 @@ class Import < ApplicationRecord
     def launch!(nature, file, options = {}, &block)
       launch_result!(nature, file, options, &block)
     end
-
   end
 
   def name
@@ -94,6 +95,7 @@ class Import < ApplicationRecord
   def run(&block)
     run_result(&block).to_bool
   end
+
   # Run an import.
   # The optional code block allows have access to progression on each check point
   def run_result(&block)

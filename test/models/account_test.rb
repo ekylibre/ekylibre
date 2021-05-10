@@ -116,15 +116,15 @@ class AccountTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     end
   end
 
-  test "attempt_panier_local_resources_merge! merges panier_local provided affairs" do
+  test "attempt_socleo_resources_merge! merges socleo provided affairs" do
     at = DateTime.parse("2018-01-01T00:00:00Z")
 
-    sale = create(:sale, provider: { vendor: :panier_local, name: :sales, id: 31 }, invoiced_at: at)
+    sale = create(:sale, provider: { vendor: :socleo, name: :sales, id: 31 }, invoiced_at: at)
     incoming_payment = create(:incoming_payment,
                               at: at,
                               payer: sale.affair.client,
                               amount: sale.amount,
-                              provider: { vendor: :panier_local, name: :sales, id: 32 })
+                              provider: { vendor: :socleo, name: :sales, id: 32 })
     sale.invoice!
 
     account = sale.affair.client.client_account

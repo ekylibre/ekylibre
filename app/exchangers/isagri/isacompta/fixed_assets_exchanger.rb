@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Isagri
   module Isacompta
     class FixedAssetsExchanger < ActiveExchanger::Base
@@ -81,6 +83,7 @@ module Isagri
 
           # check asset account must exist in DB
           next unless r.asset_account && r.name
+
           exchange_asset_account_name = r.number + ' | ' + r.name
           exchange_asset_account = Account.find_or_create_by_number(r.asset_account, name: exchange_asset_account_name)
           unless exchange_asset_account
@@ -208,7 +211,6 @@ module Isagri
           number
         end
       end
-
     end
   end
 end

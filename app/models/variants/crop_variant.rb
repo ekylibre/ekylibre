@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -56,7 +58,6 @@
 #
 module Variants
   class CropVariant < ProductNatureVariant
-
     def variant_type
       :crop
     end

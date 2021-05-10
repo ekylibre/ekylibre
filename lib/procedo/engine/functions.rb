@@ -3,14 +3,6 @@ module Procedo
     # This module all functions accessible through formula language
     module Functions
       class << self
-        def miscibility(set)
-          products = set.map do |parameter|
-            next parameter.variant if parameter.respond_to? :variant
-            parameter.product
-          end
-          Interventions::Phytosanitary::PhytosanitaryMiscibility.new(products.compact).validity
-        end
-
         # Test if population counting is as specified for given product
         def population_counting_is(product, expected)
           ((product && product.population_counting.to_sym) == expected ? 1 : 0)
@@ -22,10 +14,12 @@ module Procedo
             unless parameter.is_a?(Procedo::Engine::Intervention::ProductParameter)
               raise 'Invalid parameter. Only product_parameter wanted. Got: ' + parameter.class.name
             end
+
             (parameter.product ? parameter.product.population : nil)
           end
           list.compact!
           return 0.0 if list.empty?
+
           list.sum
         end
 
@@ -33,15 +27,18 @@ module Procedo
         def sum(set, indicator_name, unit = nil)
           indicator = Onoma::Indicator.find!(indicator_name)
           raise 'Only measure indicator can use this function' unless indicator.datatype == :measure
+
           list = set.map do |parameter|
             unless parameter.is_a?(Procedo::Engine::Intervention::ProductParameter)
               raise 'Invalid parameter. Only product_parameter wanted. Got: ' + parameter.class.name
             end
+
             (parameter.product ? parameter.product.get(indicator.name) : nil)
           end
           list.compact!
           return 0.0 if list.empty?
-          list.sum.to_d(unit ? unit : indicator.unit)
+
+          list.sum.to_d(unit || indicator.unit)
         end
 
         def sum_working_zone_areas(set, unit = nil)
@@ -49,10 +46,12 @@ module Procedo
             unless parameter.is_a?(Procedo::Engine::Intervention::ProductParameter)
               raise 'Invalid parameter. Only product_parameter wanted. Got: ' + parameter.class.name
             end
+
             parameter.working_zone ? parameter.working_zone.area : nil
           end
           list.compact!
           return 0.0 if list.empty?
+
           list.sum.in(:square_meter).to_d(unit || :square_meter)
         end
 
@@ -62,6 +61,7 @@ module Procedo
             unless parameter.is_a?(Procedo::Engine::Intervention::ProductParameter)
               raise 'Invalid parameter. Only product_parameter wanted. Got: ' + parameter.class.name
             end
+
             zone = zone.nil? ? parameter.working_zone : zone.merge(parameter.working_zone)
           end
           zone
@@ -171,6 +171,7 @@ module Procedo
 
         def variant_of(product)
           return product.member_variant unless product.nil?
+
           nil
         rescue
           raise Procedo::Errors::FailedFunctionCall.new(:variant_of, product)

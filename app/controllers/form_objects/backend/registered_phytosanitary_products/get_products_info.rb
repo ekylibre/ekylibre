@@ -1,3 +1,5 @@
+using Ekylibre::Utils::DateSoftParse
+
 module FormObjects
   module Backend
     module RegisteredPhytosanitaryProducts
@@ -6,12 +8,12 @@ module FormObjects
           # @return [GetProductsInfo]
           def from_params(params)
             new(params.permit(
-              :intervention_id,
-              :intervention_started_at,
-              :intervention_stopped_at,
-              targets_data: %i[id shape],
-              products_data: %i[product_id usage_id quantity unit_name input_id live_data spray_volume]
-            ))
+                  :intervention_id,
+                  :intervention_started_at,
+                  :intervention_stopped_at,
+                  targets_data: %i[id shape],
+                  products_data: %i[product_id usage_id quantity unit_name input_id live_data spray_volume]
+                ))
           end
         end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -134,6 +136,7 @@ class Affair < ApplicationRecord
   def deal_work_name
     d = deals_of_type(self.class.deal_class).first
     return d.number if d
+
     nil
   end
 
@@ -157,7 +160,7 @@ class Affair < ApplicationRecord
 
     # Removes empty affairs in the whole table
     def clean_deads
-      query = "journal_entry_id NOT IN (SELECT id FROM #{connection.quote_table_name(:journal_entries)})"
+      query = "journal_entry_id NOT IN (SELECT id FROM #{connection.quote_table_name(:journal_entries)})".dup
       query << self.class.affairable_types.collect do |type|
         model = type.constantize
         " AND id NOT IN (SELECT #{model.reflect_on_association(:affair).foreign_key} FROM #{connection.quote_table_name(model.table_name)})"
@@ -167,7 +170,7 @@ class Affair < ApplicationRecord
 
     # Returns heterogen list of deals of the affair
     def generate_deals_method
-      code  = "def deals\n"
+      code  = "def deals\n".dup
       array = affairable_types.collect do |class_name|
         "#{class_name}.where(affair_id: self.id).to_a"
       end.join(' + ')
@@ -196,6 +199,7 @@ class Affair < ApplicationRecord
     if other.currency != currency
       raise ArgumentError.new("The currency (#{currency}) is different of the affair currency(#{other.currency})")
     end
+
     ApplicationRecord.transaction do
       other.deals.each do |deal|
         deal.update_columns(affair_id: id)
@@ -211,6 +215,7 @@ class Affair < ApplicationRecord
     unless deals.include?(deal)
       raise ArgumentError.new('Given deal is not one of the affair')
     end
+
     ApplicationRecord.transaction do
       affair = self.class.create!(currency: deal.currency, third: deal.deal_third)
       update_column(:affair_id, affair.id)
@@ -290,6 +295,7 @@ class Affair < ApplicationRecord
   def finish(at: nil)
     return false if balance.zero?
     raise 'Cannot finish anymore multi-thirds affairs' if multi_thirds?
+
     precision = Onoma::Currency.find(currency).precision
     self.class.transaction do
       # Get all VAT-specified deals
@@ -411,6 +417,7 @@ class Affair < ApplicationRecord
 
   def reload_gaps
     return if gaps.none?
+
     gaps.each { |g| g.undeal! self }
     finish
   end
@@ -456,6 +463,7 @@ class Affair < ApplicationRecord
        (!letter? && letters.detect(&:present?))
       return true
     end
+
     false
   end
 

@@ -117,6 +117,7 @@ module Ekylibre
       def current_financial_year
         other = FinancialYear.at
         return other if other
+
         other = FinancialYear.where('stopped_on < ?', on).reorder(stopped_on: :desc).first
         other = other.find_or_create_next! while on > other.stopped_on if other
         other ||= FinancialYear.create!(started_on: on)
@@ -191,6 +192,7 @@ module Ekylibre
       def find_currency!(name)
         currency = Onoma::Currency.find(name || @currency)
         raise "What? #{name.inspect}" unless currency
+
         currency
       end
 
@@ -328,6 +330,7 @@ module Ekylibre
         (1 + rand(4)).times do
           next unless (variant = Variant.saleables.sample)
           next if variants.include? variant
+
           variants << variant
           sale.items.create!(
             compute_from: :unit_pretax_amount,
@@ -351,6 +354,7 @@ module Ekylibre
         currency = options[:currency] || @currency
         c = Onoma::Currency.find(currency)
         raise "What? #{currency.inspect}" unless c
+
         journal = Journal.find_or_create_by!(
           currency: currency,
           name: "#{c.human_name(locale: :eng)} purchases",
@@ -369,6 +373,7 @@ module Ekylibre
         (2 + rand(4)).times do |_i|
           next unless (variant = Variant.purchaseables(supplier_type).sample)
           next if variants.include? variant
+
           variants << variant
           purchase.items.create!(
             unit_pretax_amount: variant.unit_pretax_amount,
@@ -390,6 +395,7 @@ module Ekylibre
 
       def create_outgoing_parcel(options = {})
         return nil unless options[:sale]
+
         sale = options[:sale]
 
         attributes = {
@@ -407,6 +413,7 @@ module Ekylibre
             )
             v = Variant.find(item.variant.reference_name)
             next if v && !v.deliverable?
+
             set_storable(product.category)
             product.variant.reload
             product.reload
@@ -432,6 +439,7 @@ module Ekylibre
 
       def create_incoming_parcel(options = {})
         return nil unless options[:purchase]
+
         purchase = options[:purchase]
         attributes = {
           purchase_id: purchase.id,
@@ -442,8 +450,10 @@ module Ekylibre
           with_delivery: rand > 0.7,
           items_attributes: purchase.items.each_with_object({}) do |item, h|
             next unless item.variant.of_variety?(:matter)
+
             v = Variant.find(item.variant.reference_name)
             next if v && !v.deliverable?
+
             set_storable(item.variant.category)
             item.variant.reload
             item.reload
@@ -472,8 +482,10 @@ module Ekylibre
 
       def create_delivery
         return nil if rand > 0.95
+
         delivery = Delivery.new(mode: :us)
         return nil if delivery.available_parcels.count < 3
+
         delivery.save!
         delivery.available_parcels.find_each do |p|
           p.update!(delivery: delivery)
@@ -509,6 +521,7 @@ module Ekylibre
       def create_inventory
         financial_year = current_financial_year
         return nil if financial_year.inventories.any?
+
         inventory = Inventory.new(
           name: financial_year.name,
           financial_year: financial_year,
@@ -517,6 +530,7 @@ module Ekylibre
         inventory.build_missing_items
         inventory.items.each do |item|
           next if rand > 0.17
+
           item.actual_population = (item.actual_population * (5 + rand) / 6).round(1)
         end
         inventory.save!
@@ -596,9 +610,11 @@ module Ekylibre
           # Add sales
           5.times do
             next unless rand > 0.7
+
             client = find_or_create_entity(client: true)
             sale = create_sale(client: client)
             next unless sale
+
             print 's'.yellow
             if sale.invoice? && rand > 0.2
               print 'k'.yellow if create_outgoing_parcel(sale: sale)
@@ -629,6 +645,7 @@ module Ekylibre
           # Check old sale
           Sale.where.not(state: :invoice).where('updated_at >= ?', Time.zone.now - 30.days).find_each do |sale|
             next if rand > 0.8 || sale.items.empty?
+
             if sale.estimate? && rand > 0.75
               sale.abort!
               print 'a'.cyan
@@ -652,6 +669,7 @@ module Ekylibre
               print 'k'.cyan if create_outgoing_parcel(sale: sale)
             end
             next if sale.affair.credit >= sale.affair.debit # sale.affair.closed?
+
             if rand > 0.5
               create_incoming_payment(payer: sale.client, affair: sale.affair, amount: sale.amount)
               print 'w'.cyan
@@ -660,6 +678,7 @@ module Ekylibre
 
           Purchase.where.not(state: :invoice).where('updated_at >= ?', Time.zone.now - 30.days).find_each do |purchase|
             next unless rand > 0.5
+
             if purchase.can_abort? && rand > 0.5
               purchase.abort!
               print 'x'.cyan
@@ -678,6 +697,7 @@ module Ekylibre
               print 'q'.cyan if create_incoming_parcel(purchase: purchase)
             end
             next if purchase.affair.credit <= purchase.affair.debit # purchase.affair.closed?
+
             if rand > 0.5
               create_purchase_payment(payee: purchase.supplier, affair: purchase.affair, amount: purchase.amount)
               print 'o'.cyan
@@ -699,9 +719,11 @@ module Ekylibre
           # Add purchase
           5.times do
             next unless rand > 0.95
+
             supplier = find_or_create_entity(supplier: true)
             purchase = create_purchase(supplier: supplier)
             next unless purchase
+
             print 'p'.red
             if (purchase.order? || purchase.invoice?) && rand > 0.1
               print 'q'.red if create_incoming_parcel(purchase: purchase)

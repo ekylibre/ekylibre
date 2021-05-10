@@ -1,8 +1,13 @@
+# frozen_string_literal: true
+
 module Printers
   class LandParcelRegisterPrinterBase < PrinterBase
-
-    IMPLANTATION_PROCEDURE_NAMES = %w[sowing sowing_without_plant_output sowing_with_spraying mechanical_planting].freeze
     HARVESTING = %w[harvesting].freeze
+    IMPLANTATION_PROCEDURE_NAMES = %w[sowing sowing_without_plant_output sowing_with_spraying mechanical_planting].freeze
+    UNITS_AUTOSIZE = {
+      hectoliter: %i[cubic_meter liter].freeze,
+      quintal: %i[ton kilogram].freeze,
+    }.freeze
 
     class << self
       # TODO move this elsewhere when refactoring the Document Management System
@@ -202,10 +207,6 @@ module Printers
       end.sort_by { |v| v[:product] }
     end
 
-    UNITS_AUTOSIZE = {
-      quintal: %i[ton kilogram],
-      hectoliter: %i[cubic_meter liter]
-    }
     # Autimatically converts quintal/hectoliters up to tonnes or down to kilograms if the values is above or below a certain threshold
     def auto_size_quantity_unit(quantity)
       base_unit = quantity.base_unit.to_sym

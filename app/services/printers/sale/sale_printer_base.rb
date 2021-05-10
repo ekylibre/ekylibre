@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Printers
   module Sale
     class SalePrinterBase < PrinterBase
@@ -20,7 +22,6 @@ module Printers
       def key
         sale.number
       end
-
     end
   end
 end

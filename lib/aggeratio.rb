@@ -78,12 +78,12 @@ module Aggeratio
 
     def clean(element)
       # Merge <within>s
-      for within in element.xpath('//xmlns:within')
+      element.xpath('//xmlns:within').each do |within|
         name = within.attr('name')
         of = within.attr('of')
         of_type = within.attr('of-type')
         of ||= name
-        for child in within.children
+        within.children.each do |child|
           unless child.has_attribute?('value')
             child['value'] = child.attr('name').to_s
           end
@@ -106,11 +106,11 @@ module Aggeratio
       end
 
       # Flatten <section> and <sections>
-      for section in element.xpath('//*[self::xmlns:section or self::xmlns:sections]')
+      element.xpath('//*[self::xmlns:section or self::xmlns:sections]').each do |section|
         of = section.attr('of')
         of_type = section.attr('of-type')
         section['if'] = of if section.name == 'section' && of.present?
-        for child in section.children
+        section.children.each do |child|
           if of.present?
             child['of'] = if child.has_attribute?('of')
                             of + '.' + child.attr('of').to_s
@@ -157,7 +157,7 @@ module Aggeratio
       params = 'options'
       code << "  def initialize(#{params} = nil)\n"
       code << "    #{params} ||= {}\n"
-      for p in parameters
+      parameters.each do |p|
         if p.record_list?
           # campaigns
           code << "    if #{params}['#{p.name}'].is_a?(String)\n"

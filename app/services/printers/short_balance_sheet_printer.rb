@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module Printers
   class ShortBalanceSheetPrinter < BalanceSheetPrinter
-
     def compute_dataset
       dataset = []
       document_scope = :short_balance_sheet

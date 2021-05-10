@@ -1722,7 +1722,7 @@ por:
     last_issues: "Últimos problemas"
     last_movements: "Últimos movimentos"
     last_outgoing_parcels: "Parcelas últimos saída"
-    # last_panier_local_import: "Last Panier Local import"
+    # last_socleo_import: "Last Socleo import"
     last_products: "Últimos produtos"
     last_purchases: "Últimas compras"
     # last_purchases_invoices: "Last purchases"

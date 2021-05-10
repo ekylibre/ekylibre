@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Agroedi
   class DaplosExchanger < ActiveExchanger::Base
     class Input < DaplosInterventionParameter
@@ -92,6 +94,7 @@ module Agroedi
                        Onoma::Unit.find(edi_unit.ekylibre_value.to_sym)
                      end
         return nomen_unit if nomen_unit
+
         # BUG: What if the unit isn't in the lexicon or not in Nomen?
         raise "No unit for #{unit_edicode}"
       end
@@ -106,6 +109,7 @@ module Agroedi
                        Onoma::Unit.find(unit_name.to_sym)
                      end
         return nomen_unit if nomen_unit
+
         raise "No unit for #{area_unit_edicode}"
       end
 

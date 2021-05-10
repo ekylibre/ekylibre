@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -170,6 +172,7 @@ class InterventionWorkingPeriod < ApplicationRecord
 
   def pause_next?
     return false if last?
+
     gap_with_period?(next_period)
   end
 
@@ -182,7 +185,7 @@ class InterventionWorkingPeriod < ApplicationRecord
   end
 
   def during_financial_year_exchange?
-    FinancialYearExchange.opened.where('? BETWEEN started_on AND stopped_on', started_at).any?
+    FinancialYearExchange.opened.at(started_at).exists?
   end
 
   private
