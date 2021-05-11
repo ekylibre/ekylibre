@@ -1520,7 +1520,7 @@ fra:
     geolocation: "Géolocalisation"
     geometry_value: "Valeur géométrique"
     germination_percentage: "Pourcentage de germination attendu"
-    given_at: "Donné le"
+    given_at: "Date de réception"
     global_amount: "Montant global" #?
     global_balance: "Solde global"
     global_count: "Quantité globale"

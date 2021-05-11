@@ -66,6 +66,8 @@ class PurchaseOrder < Purchase
 
   has_many :receptions, class_name: 'Reception', foreign_key: :purchase_id
 
+  validates :ordered_at, presence: true
+
   state_machine :state, initial: :opened do
     state :opened
     state :closed

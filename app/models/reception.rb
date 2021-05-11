@@ -76,6 +76,8 @@ class Reception < Parcel
   has_many :items, class_name: 'ReceptionItem', inverse_of: :reception, foreign_key: :parcel_id, dependent: :destroy
   has_many :storings, through: :items, class_name: 'ParcelItemStoring'
 
+  validates :given_at, presence: true
+
   accepts_nested_attributes_for :items, allow_destroy: true
 
   def self.state_machine(*)
