@@ -250,6 +250,9 @@ class FixedAsset < ApplicationRecord
 
   before_update do
     @auto_depreciate = false
+    # if no depreciations present, then generate it
+    @auto_depreciate = true if self.depreciations.count == 0
+    # if important attr change,regenerate depreciation
     old = self.class.find(id)
     %i[depreciable_amount started_on stopped_on depreciation_method
        depreciation_period depreciation_percentage currency].each do |attr|
@@ -320,14 +323,6 @@ class FixedAsset < ApplicationRecord
     FinancialYear.on(started_on)&.closure_in_preparation?
   end
 
-  # Depreciate active fixe²d assets
-  # @deprecated
-  def self.depreciate(options = {})
-    ActiveSupport::Deprecation.warn 'FixedAsset::depreciate is deprecated, use FixedAssetDepreciator instead.'
-
-    FixedAssetDepreciator.new.depreciate(FixedAsset.all, up_to: options[:until])
-  end
-
   def depreciate!
     planned_depreciations.clear
 
@@ -340,14 +335,13 @@ class FixedAsset < ApplicationRecord
 
       periods = DepreciationCalculator.new(fy_reference, depreciation_period.to_sym).depreciation_period(depreciation_start, depreciation_percentage)
 
-      starts = periods.map(&:first) << (periods.last.second + 1.day)
       total_duration = periods.sum(&:last)
 
       case depreciation_method
       when 'linear'
-        depreciate_with_linear_method(starts, total_duration)
+        depreciate_with_linear_method(periods, total_duration)
       when 'regressive'
-        depreciate_with_regressive_method(starts, total_duration)
+        depreciate_with_regressive_method(periods, total_duration)
       else
         raise StandardError.new("Invalid depreciation method: #{depreciation_method}")
       end
@@ -358,36 +352,54 @@ class FixedAsset < ApplicationRecord
 
   # Depreciate using linear method
   # Years have 12 months with 30 days
-  def depreciate_with_linear_method(starts, depreciable_days)
+  def depreciate_with_linear_method(periods, depreciable_days)
     depreciable_amount = self.depreciable_amount
-    reload.depreciations.each do |depreciation|
-      depreciable_days -= depreciation.duration
-      depreciable_amount -= depreciation.amount
+    # case of depreciations (locked or accounted) exists.
+    # recompute depreciable_days and depreciable_amount
+    depreciations.each do |dep|
+      depreciable_days -= dep.duration
+      depreciable_amount -= dep.amount
     end
 
-    # Create it if not exists?
+    # remaining amount to distribute into depreciations
     remaining_amount = depreciable_amount.to_d
     position = 1
-    starts.each_with_index do |start, index|
-      next if starts[index + 1].nil?
+    # for each period, check if theres a depreciations (locked or accounted) or create it
+    periods.each_with_index do |period, index|
+      next if remaining_amount <= 0
 
-      depreciation = depreciations.find_by(started_on: start)
+      start = period[0]
+      # take end of month for clean and bookkeeped depreciations
+      # take last date if > fixed asset stopped_on
+      if period[1] > stopped_on
+        stop = stopped_on
+      elsif period[1].end_of_month > stopped_on
+        stop = period[1]
+      else
+        stop = period[1].end_of_month
+      end
+
+      depreciation = depreciations.on(start).first
       unless depreciation
-        depreciation = depreciations.new(started_on: start, stopped_on: starts[index + 1] - 1)
+        depreciation = depreciations.new(started_on: start, stopped_on: stop)
         duration = depreciation.duration
-        depreciation.amount = [remaining_amount, currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
+        # round cents for the last depreciation by getting the previous depreciable_amount
+        if periods[index + 1].nil?
+          depreciation.amount = depreciations.up_to(start).reorder(:started_on).last.depreciable_amount
+        else
+          depreciation.amount = [remaining_amount, currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
+        end
         remaining_amount -= depreciation.amount
       end
-      # depreciation.financial_year = FinancialYear.at(depreciation.started_on)
-
       depreciation.position = position
       position += 1
       depreciation.save!
+      # depreciation.financial_year = FinancialYear.at(depreciation.started_on)
     end
   end
 
   # Depreciate using regressive method
-  def depreciate_with_regressive_method(starts, _depreciable_days)
+  def depreciate_with_regressive_method(periods, _depreciable_days)
     depreciable_days = duration
     depreciable_amount = self.depreciable_amount
     reload.depreciations.each do |depreciation|
@@ -402,12 +414,15 @@ class FixedAsset < ApplicationRecord
     remaining_amount = depreciable_amount.to_d
     position = 1
 
-    starts.each_with_index do |start, index|
-      next if starts[index + 1].nil? || remaining_amount <= 0
+    periods.each_with_index do |period, index|
+      next if periods[index + 1].nil? || remaining_amount <= 0
 
-      depreciation = depreciations.find_by(started_on: start)
+      start = period[0]
+      stop = period[1]
+
+      depreciation = depreciations.on(start).first
       unless depreciation
-        depreciation = depreciations.new(started_on: start.beginning_of_month, stopped_on: starts[index + 1] - 1)
+        depreciation = depreciations.new(started_on: start.beginning_of_month, stopped_on: stop.end_of_month)
 
         current_year = index
         if depreciation_period == :quarterly

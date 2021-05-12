@@ -147,7 +147,7 @@ module FixedAssetTest
 
     test 'depreciate class method returns the amount of depreciations according to until option provided' do
       fixed_asset = create :fixed_asset, :yearly, :in_use, percentage: 100.0 / 3, started_on: Date.new(2017, 1, 1)
-      count = FixedAsset.depreciate(until: Date.civil(2018, 12, 31))
+      count = FixedAssetDepreciator.new.depreciate(FixedAsset.all, up_to: Date.new(2018, 12, 31))
       assert_equal 2, count, 'Count of depreciations is invalid' + fixed_asset.depreciations.pluck(:started_on, :amount).to_yaml.yellow
     end
 
@@ -192,6 +192,7 @@ module FixedAssetTest
       assert_equal 5, fa.depreciations.count
       assert_equal 50_000, fa.depreciations.map(&:amount).reduce(&:+)
 
+      fa.reload
       fa.depreciation_percentage = 10.00
       fa.depreciable_amount = 100_000
       assert fa.save
