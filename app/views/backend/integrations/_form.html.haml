@@ -13,12 +13,16 @@
           = link_to(url_name, url)
 
     %p
-      %i.icon.icon-cloud-download
-      ="#{resource.nature}_incoming_data_exchange".tl
+      - incoming_data_label = "#{resource.nature}_incoming_data_exchange"
+      - if I18n.exists? "labels.#{incoming_data_label}"
+        %i.icon.icon-cloud-download
+        = incoming_data_label.tl
 
     %p
-      %i.icon.icon-cloud-upload
-      ="#{resource.nature}_outgoing_data_exchange".tl
+      - outgoing_data_label = "#{resource.nature}_outgoing_data_exchange"
+      - if I18n.exists? "labels.#{outgoing_data_label}"
+        %i.icon.icon-cloud-upload
+        = outgoing_data_label.tl
 
     - if resource.last_sync_at.present?
       .integration-synchronisation
