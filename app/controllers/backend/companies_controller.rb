@@ -3,6 +3,7 @@ module Backend
     before_action :set_preferences, only: %I[edit]
 
     def edit
+      notify_mandatory_informations
       Preference.check!
       @company = Entity.of_company
       @have_journal_entries = JournalEntry.any?
@@ -43,6 +44,15 @@ module Backend
     end
 
     protected
+
+      def notify_mandatory_informations
+        @company = Entity.of_company
+        return if @company.siren_number.empty?
+
+        url = "https://societe.ninja/data.php?siren=#{@company.siren_number.to_s}"
+
+        notify_now(:check_mandatory_company_informations_x, x: helpers.link_to(@company.siren_number.to_s, url, target: :_blank), html: true)
+      end
 
       def permitted_params
         params.permit!
