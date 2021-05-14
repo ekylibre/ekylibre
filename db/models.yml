@@ -81,6 +81,10 @@
 - guide
 - guide_analysis
 - guide_analysis_point
+- idea_diagnostic
+- idea_diagnostic_item
+- idea_diagnostic_item_value
+- idea_diagnostic_result
 - identifier
 - import
 - incoming_payment
@@ -140,6 +144,8 @@
 - payslip_affair
 - payslip_nature
 - payslip_payment
+- pfi_campaigns_activities_intervention
+- pfi_intervention_parameter
 - plant
 - plant_counting
 - plant_counting_item
