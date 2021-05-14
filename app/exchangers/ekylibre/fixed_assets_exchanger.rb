@@ -35,7 +35,7 @@ module Ekylibre
     #  23 - X : waiting_account_number # when state is waiting
     #  24 - Y - waiting_account_name # when state is waiting
     #  25 - Z - ceded_on #  when scrap or sold
-    #  26 - AA - purchase_id # when scrap or sold
+    #  26 - AA - product_work_number
 
     NORMALIZATION_CONFIG = [
       { col: 0, name: :number, type: :string, constraint: :not_nil },

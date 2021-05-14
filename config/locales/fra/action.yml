@@ -3557,6 +3557,7 @@ fra:
       cannot_merge_entities: "Une erreur est survenue. Il n’est pas possible de fusionner ces fiches."
       changes_have_been_reflected: "Les changements ont été correctement répercutés sur l’état des stocks actuel"
       changes_have_not_been_reflected: "Les changements n’ont pas pu être correctement répercutés sur l’état des stocks actuel"
+      check_mandatory_company_informations_x: "Vous pouvez vérifier les informations légales de votre société (BODACC, SIRENE, RNCS) en cliquant sur votre numéro de SIREN\_: %{x}"
       closed_financial_periods: "L'immobilisation se déroule sur des périodes comptables clôturée."
       closed_financial_year_exchange: "L’échange a été correctement clôturé"
       closed_financial_years: "L’exercice a été correctement clôturé"
