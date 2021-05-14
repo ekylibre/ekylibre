@@ -3457,6 +3457,109 @@ guides:
   updater_id:
     type: integer
     references: user
+idea_diagnostic_item_values:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  idea_diagnostic_item_id:
+    type: integer
+    references: idea_diagnostic_item
+  lock_version:
+    type: integer
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+idea_diagnostic_items:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  idea_diagnostic_id:
+    type: integer
+    references: idea_diagnostic
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+idea_diagnostic_results:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  idea_diagnostic_id:
+    type: integer
+    references: idea_diagnostic
+  lock_version:
+    type: integer
+    required: true
+  normal_result:
+    type: string
+  overlap_resut:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+idea_diagnostics:
+  campaign_id:
+    type: integer
+    references: campaign
+    required: true
+  code:
+    type: string
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  state:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 identifiers:
   created_at:
     type: datetime

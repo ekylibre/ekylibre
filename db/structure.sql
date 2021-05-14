@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 9.6.21
--- Dumped by pg_dump version 13.2 (Ubuntu 13.2-1.pgdg18.04+1)
+-- Dumped by pg_dump version 9.6.21
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -31,17 +31,16 @@ CREATE SCHEMA postgis;
 
 
 --
--- Name: public; Type: SCHEMA; Schema: -; Owner: -
+-- Name: deny_changes(); Type: FUNCTION; Schema: lexicon; Owner: -
 --
 
-CREATE SCHEMA public;
-
-
---
--- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON SCHEMA public IS 'standard public schema';
+CREATE FUNCTION lexicon.deny_changes() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+  BEGIN
+    RAISE EXCEPTION '% denied on % (master data)', TG_OP, TG_RELNAME;
+  END;
+$$;
 
 
 --
@@ -93,43 +92,6 @@ CREATE FUNCTION public.compute_outgoing_payment_list_cache() RETURNS trigger
                 RETURN NEW;
               END
             $$;
-
-
---
--- Name: compute_partial_isacompta_lettering(); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.compute_partial_isacompta_lettering() RETURNS trigger
-    LANGUAGE plpgsql
-    AS $$
-  DECLARE
-    journal_entry_item_ids integer DEFAULT NULL;
-    new_letter varchar DEFAULT NULL;
-  BEGIN
-    IF NEW.letter <> OLD.letter THEN
-      journal_entry_item_ids := NEW.id;
-      new_letter := NEW.letter;
-    END IF;
-    
-    UPDATE journal_entry_items
-    SET isacompta_letter = (CASE
-      WHEN RIGHT(new_letter, 1) = '*'
-        THEN CASE
-          WHEN LEFT(journal_entry_items.isacompta_letter, 1) = '#'
-          THEN journal_entry_items.isacompta_letter
-          ELSE '#' || journal_entry_items.isacompta_letter
-        END
-        ELSE CASE
-          WHEN LEFT(journal_entry_items.isacompta_letter, 1) != '#'
-          THEN journal_entry_items.isacompta_letter
-          ELSE '#' || journal_entry_items.isacompta_letter
-        END
-      END)
-    WHERE id = journal_entry_item_ids;
-
-    RETURN NEW;
-  END;
-$$;
 
 
 --
@@ -252,6 +214,8 @@ $$;
 
 SET default_tablespace = '';
 
+SET default_with_oids = false;
+
 --
 -- Name: cadastral_land_parcel_zones; Type: TABLE; Schema: lexicon; Owner: -
 --
@@ -341,7 +305,6 @@ CREATE TABLE lexicon.master_production_natures (
     human_name_fra character varying NOT NULL,
     started_on date NOT NULL,
     stopped_on date NOT NULL,
-    main_input character varying,
     agroedi_crop_code character varying,
     season character varying,
     pfi_crop_code character varying,
@@ -700,24 +663,10 @@ CREATE TABLE lexicon.registered_protected_designation_of_origins (
 --
 
 CREATE TABLE lexicon.registered_seeds (
-    id character varying NOT NULL,
-    id_specie character varying NOT NULL,
-    specie_name jsonb,
-    specie_name_fra character varying,
-    variety_name character varying,
-    registration_date date
-);
-
-
---
--- Name: taxonomy; Type: TABLE; Schema: lexicon; Owner: -
---
-
-CREATE TABLE lexicon.taxonomy (
-    id character varying NOT NULL,
-    parent character varying NOT NULL,
-    taxonomic_rank character varying NOT NULL,
-    name jsonb
+    number integer NOT NULL,
+    specie character varying NOT NULL,
+    name jsonb,
+    complete_name jsonb
 );
 
 
@@ -1071,8 +1020,7 @@ CREATE TABLE public.activities (
     use_seasons boolean DEFAULT false,
     use_tactics boolean DEFAULT false,
     codes jsonb,
-    production_nature_id integer,
-    isacompta_analytic_code smallint
+    production_nature_id integer
 );
 
 
@@ -1218,7 +1166,6 @@ CREATE TABLE public.intervention_parameters (
     unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     dead boolean DEFAULT false NOT NULL,
     identification_number character varying,
-    variety character varying,
     batch_number character varying,
     usage_id character varying,
     allowed_entry_factor interval,
@@ -1226,7 +1173,8 @@ CREATE TABLE public.intervention_parameters (
     imputation_ratio numeric(19,4) DEFAULT 1 NOT NULL,
     reference_data jsonb DEFAULT '{}'::jsonb,
     using_live_data boolean DEFAULT true,
-    applications_frequency interval
+    applications_frequency interval,
+    specie_variety jsonb DEFAULT '{}'::jsonb
 );
 
 
@@ -1359,7 +1307,9 @@ CREATE TABLE public.products (
     codes jsonb,
     reading_cache jsonb DEFAULT '{}'::jsonb,
     activity_production_id integer,
-    isacompta_analytic_code smallint
+    type_of_occupancy character varying,
+    specie_variety jsonb DEFAULT '{}'::jsonb,
+    provider jsonb DEFAULT '{}'::jsonb
 );
 
 
@@ -1941,69 +1891,6 @@ CREATE SEQUENCE public.analysis_items_id_seq
 --
 
 ALTER SEQUENCE public.analysis_items_id_seq OWNED BY public.analysis_items.id;
-
-
---
--- Name: analytic_segments; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.analytic_segments (
-    id integer NOT NULL,
-    analytic_sequence_id integer NOT NULL,
-    name character varying NOT NULL,
-    "position" integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: analytic_segments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.analytic_segments_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: analytic_segments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.analytic_segments_id_seq OWNED BY public.analytic_segments.id;
-
-
---
--- Name: analytic_sequences; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.analytic_sequences (
-    id integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: analytic_sequences_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.analytic_sequences_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: analytic_sequences_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.analytic_sequences_id_seq OWNED BY public.analytic_sequences.id;
 
 
 --
@@ -2735,6 +2622,112 @@ ALTER SEQUENCE public.contracts_id_seq OWNED BY public.contracts.id;
 
 
 --
+-- Name: crop_group_items; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.crop_group_items (
+    id integer NOT NULL,
+    crop_group_id integer,
+    crop_type character varying,
+    crop_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: crop_group_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.crop_group_items_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: crop_group_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.crop_group_items_id_seq OWNED BY public.crop_group_items.id;
+
+
+--
+-- Name: crop_group_labellings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.crop_group_labellings (
+    id integer NOT NULL,
+    crop_group_id integer,
+    label_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: crop_group_labellings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.crop_group_labellings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: crop_group_labellings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.crop_group_labellings_id_seq OWNED BY public.crop_group_labellings.id;
+
+
+--
+-- Name: crop_groups; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.crop_groups (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    target character varying DEFAULT 'plant'::character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: crop_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.crop_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: crop_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.crop_groups_id_seq OWNED BY public.crop_groups.id;
+
+
+--
 -- Name: crumbs; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2753,7 +2746,9 @@ CREATE TABLE public.crumbs (
     lock_version integer DEFAULT 0 NOT NULL,
     intervention_parameter_id integer,
     device_uid character varying NOT NULL,
-    intervention_participation_id integer
+    intervention_participation_id integer,
+    provider jsonb,
+    ride_id integer
 );
 
 
@@ -2900,6 +2895,231 @@ CREATE SEQUENCE public.custom_fields_id_seq
 --
 
 ALTER SEQUENCE public.custom_fields_id_seq OWNED BY public.custom_fields.id;
+
+
+--
+-- Name: cvi_cadastral_plant_cvi_land_parcels; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.cvi_cadastral_plant_cvi_land_parcels (
+    id integer NOT NULL,
+    percentage numeric DEFAULT 1.0,
+    cvi_land_parcel_id integer,
+    cvi_cadastral_plant_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    lock_version integer DEFAULT 0 NOT NULL,
+    creator_id integer,
+    updater_id integer
+);
+
+
+--
+-- Name: cvi_cadastral_plant_cvi_land_parcels_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.cvi_cadastral_plant_cvi_land_parcels_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: cvi_cadastral_plant_cvi_land_parcels_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.cvi_cadastral_plant_cvi_land_parcels_id_seq OWNED BY public.cvi_cadastral_plant_cvi_land_parcels.id;
+
+
+--
+-- Name: cvi_cadastral_plants; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.cvi_cadastral_plants (
+    id integer NOT NULL,
+    section character varying NOT NULL,
+    work_number character varying NOT NULL,
+    land_parcel_number character varying,
+    designation_of_origin_id integer,
+    vine_variety_id character varying,
+    area_value numeric(19,4),
+    area_unit character varying,
+    planting_campaign character varying,
+    rootstock_id character varying,
+    inter_vine_plant_distance_value numeric(19,4),
+    inter_vine_plant_distance_unit character varying,
+    inter_row_distance_value numeric(19,4),
+    inter_row_distance_unit character varying,
+    state character varying NOT NULL,
+    cvi_statement_id integer,
+    land_parcel_id character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    type_of_occupancy character varying,
+    cvi_cultivable_zone_id integer,
+    cadastral_ref_updated boolean DEFAULT false,
+    land_modification_date date,
+    lock_version integer DEFAULT 0 NOT NULL,
+    creator_id integer,
+    updater_id integer
+);
+
+
+--
+-- Name: cvi_cadastral_plants_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.cvi_cadastral_plants_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: cvi_cadastral_plants_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.cvi_cadastral_plants_id_seq OWNED BY public.cvi_cadastral_plants.id;
+
+
+--
+-- Name: cvi_cultivable_zones; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.cvi_cultivable_zones (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    declared_area_unit character varying,
+    declared_area_value numeric(19,4),
+    calculated_area_unit character varying,
+    calculated_area_value numeric(19,4),
+    land_parcels_status character varying DEFAULT 'not_started'::character varying,
+    shape postgis.geometry(Geometry,4326),
+    cvi_statement_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    lock_version integer DEFAULT 0 NOT NULL,
+    creator_id integer,
+    updater_id integer
+);
+
+
+--
+-- Name: cvi_cultivable_zones_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.cvi_cultivable_zones_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: cvi_cultivable_zones_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.cvi_cultivable_zones_id_seq OWNED BY public.cvi_cultivable_zones.id;
+
+
+--
+-- Name: cvi_land_parcels; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.cvi_land_parcels (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    designation_of_origin_id integer,
+    vine_variety_id character varying,
+    calculated_area_unit character varying,
+    calculated_area_value numeric(19,5),
+    declared_area_unit character varying,
+    declared_area_value numeric(19,5),
+    shape postgis.geometry(Geometry,4326),
+    inter_vine_plant_distance_value numeric(19,4),
+    inter_vine_plant_distance_unit character varying,
+    inter_row_distance_value numeric(19,4),
+    inter_row_distance_unit character varying,
+    state character varying,
+    cvi_cultivable_zone_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    planting_campaign character varying,
+    land_modification_date date,
+    activity_id integer,
+    rootstock_id character varying,
+    lock_version integer DEFAULT 0 NOT NULL,
+    creator_id integer,
+    updater_id integer
+);
+
+
+--
+-- Name: cvi_land_parcels_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.cvi_land_parcels_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: cvi_land_parcels_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.cvi_land_parcels_id_seq OWNED BY public.cvi_land_parcels.id;
+
+
+--
+-- Name: cvi_statements; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.cvi_statements (
+    id integer NOT NULL,
+    cvi_number character varying NOT NULL,
+    extraction_date date NOT NULL,
+    siret_number character varying NOT NULL,
+    farm_name character varying NOT NULL,
+    declarant character varying NOT NULL,
+    total_area_value numeric(19,4),
+    total_area_unit character varying,
+    cadastral_plant_count integer DEFAULT 0,
+    cadastral_sub_plant_count integer DEFAULT 0,
+    state character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    campaign_id integer,
+    lock_version integer DEFAULT 0 NOT NULL,
+    creator_id integer,
+    updater_id integer
+);
+
+
+--
+-- Name: cvi_statements_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.cvi_statements_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: cvi_statements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.cvi_statements_id_seq OWNED BY public.cvi_statements.id;
 
 
 --
@@ -3386,8 +3606,7 @@ CREATE TABLE public.journal_entry_items (
     project_budget_id integer,
     equipment_id integer,
     accounting_label character varying,
-    lettered_at timestamp without time zone,
-    isacompta_letter character varying(4)
+    lettered_at timestamp without time zone
 );
 
 
@@ -3904,9 +4123,7 @@ CREATE TABLE public.financial_year_exchanges (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL,
-    format character varying DEFAULT 'ekyagri'::character varying NOT NULL,
-    transmit_isacompta_analytic_codes boolean DEFAULT false
+    lock_version integer DEFAULT 0 NOT NULL
 );
 
 
@@ -4336,6 +4553,148 @@ ALTER SEQUENCE public.guides_id_seq OWNED BY public.guides.id;
 
 
 --
+-- Name: idea_diagnostic_item_values; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.idea_diagnostic_item_values (
+    id integer NOT NULL,
+    idea_diagnostic_item_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: idea_diagnostic_item_values_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.idea_diagnostic_item_values_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: idea_diagnostic_item_values_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.idea_diagnostic_item_values_id_seq OWNED BY public.idea_diagnostic_item_values.id;
+
+
+--
+-- Name: idea_diagnostic_items; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.idea_diagnostic_items (
+    id integer NOT NULL,
+    idea_diagnostic_id integer,
+    name character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: idea_diagnostic_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.idea_diagnostic_items_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: idea_diagnostic_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.idea_diagnostic_items_id_seq OWNED BY public.idea_diagnostic_items.id;
+
+
+--
+-- Name: idea_diagnostic_results; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.idea_diagnostic_results (
+    id integer NOT NULL,
+    overlap_resut character varying,
+    normal_result character varying,
+    idea_diagnostic_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: idea_diagnostic_results_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.idea_diagnostic_results_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: idea_diagnostic_results_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.idea_diagnostic_results_id_seq OWNED BY public.idea_diagnostic_results.id;
+
+
+--
+-- Name: idea_diagnostics; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.idea_diagnostics (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    code character varying NOT NULL,
+    state character varying,
+    campaign_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: idea_diagnostics_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.idea_diagnostics_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: idea_diagnostics_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.idea_diagnostics_id_seq OWNED BY public.idea_diagnostics.id;
+
+
+--
 -- Name: identifiers; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4677,6 +5036,41 @@ CREATE SEQUENCE public.intervention_costings_id_seq
 --
 
 ALTER SEQUENCE public.intervention_costings_id_seq OWNED BY public.intervention_costings.id;
+
+
+--
+-- Name: intervention_crop_groups; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.intervention_crop_groups (
+    id integer NOT NULL,
+    crop_group_id integer,
+    intervention_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: intervention_crop_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.intervention_crop_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: intervention_crop_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.intervention_crop_groups_id_seq OWNED BY public.intervention_crop_groups.id;
 
 
 --
@@ -5093,10 +5487,7 @@ CREATE TABLE public.journals (
     used_for_unbilled_payables boolean DEFAULT false NOT NULL,
     used_for_tax_declarations boolean DEFAULT false NOT NULL,
     accountant_id integer,
-    provider jsonb,
-    isacompta_code character varying(2),
-    isacompta_label character varying(30),
-    financial_year_exchange_id integer
+    provider jsonb
 );
 
 
@@ -5388,6 +5779,43 @@ CREATE SEQUENCE public.loans_id_seq
 --
 
 ALTER SEQUENCE public.loans_id_seq OWNED BY public.loans.id;
+
+
+--
+-- Name: locations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.locations (
+    id integer NOT NULL,
+    registered_postal_zone_id character varying,
+    locality character varying,
+    localizable_type character varying,
+    localizable_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    lock_version integer DEFAULT 0 NOT NULL,
+    creator_id integer,
+    updater_id integer
+);
+
+
+--
+-- Name: locations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.locations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: locations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.locations_id_seq OWNED BY public.locations.id;
 
 
 --
@@ -7198,8 +7626,7 @@ CREATE TABLE public.project_budgets (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL,
-    isacompta_analytic_code smallint
+    lock_version integer DEFAULT 0 NOT NULL
 );
 
 
@@ -7332,6 +7759,102 @@ CREATE SEQUENCE public.regularizations_id_seq
 --
 
 ALTER SEQUENCE public.regularizations_id_seq OWNED BY public.regularizations.id;
+
+
+--
+-- Name: ride_sets; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.ride_sets (
+    id integer NOT NULL,
+    started_at timestamp without time zone,
+    stopped_at timestamp without time zone,
+    road integer,
+    nature character varying,
+    sleep_count integer,
+    provider jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    number character varying,
+    duration interval,
+    sleep_duration interval,
+    area_without_overlap double precision,
+    area_with_overlap double precision,
+    area_smart double precision,
+    gasoline double precision,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: ride_sets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.ride_sets_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: ride_sets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.ride_sets_id_seq OWNED BY public.ride_sets.id;
+
+
+--
+-- Name: rides; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.rides (
+    id integer NOT NULL,
+    number character varying,
+    started_at timestamp without time zone,
+    stopped_at timestamp without time zone,
+    sleep_count integer,
+    equipment_name character varying,
+    provider jsonb,
+    state character varying,
+    product_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    duration interval,
+    sleep_duration interval,
+    distance_km double precision,
+    area_without_overlap double precision,
+    area_with_overlap double precision,
+    area_smart double precision,
+    gasoline double precision,
+    nature character varying,
+    ride_set_id integer,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: rides_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.rides_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rides_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.rides_id_seq OWNED BY public.rides.id;
 
 
 --
@@ -8028,8 +8551,7 @@ CREATE TABLE public.teams (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL,
-    isacompta_analytic_code smallint
+    lock_version integer DEFAULT 0 NOT NULL
 );
 
 
@@ -8273,6 +8795,198 @@ ALTER SEQUENCE public.wice_grid_serialized_queries_id_seq OWNED BY public.wice_g
 
 
 --
+-- Name: wine_incoming_harvest_inputs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.wine_incoming_harvest_inputs (
+    id integer NOT NULL,
+    wine_incoming_harvest_id integer NOT NULL,
+    input_id integer NOT NULL,
+    quantity_value numeric(19,4) NOT NULL,
+    quantity_unit character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: wine_incoming_harvest_inputs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.wine_incoming_harvest_inputs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: wine_incoming_harvest_inputs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.wine_incoming_harvest_inputs_id_seq OWNED BY public.wine_incoming_harvest_inputs.id;
+
+
+--
+-- Name: wine_incoming_harvest_plants; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.wine_incoming_harvest_plants (
+    id integer NOT NULL,
+    wine_incoming_harvest_id integer NOT NULL,
+    plant_id integer NOT NULL,
+    harvest_percentage_received numeric(19,4) NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL,
+    rows_harvested character varying
+);
+
+
+--
+-- Name: wine_incoming_harvest_plants_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.wine_incoming_harvest_plants_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: wine_incoming_harvest_plants_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.wine_incoming_harvest_plants_id_seq OWNED BY public.wine_incoming_harvest_plants.id;
+
+
+--
+-- Name: wine_incoming_harvest_presses; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.wine_incoming_harvest_presses (
+    id integer NOT NULL,
+    wine_incoming_harvest_id integer NOT NULL,
+    press_id integer,
+    quantity_value numeric(19,4) NOT NULL,
+    quantity_unit character varying NOT NULL,
+    pressing_started_at time without time zone,
+    pressing_schedule character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: wine_incoming_harvest_presses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.wine_incoming_harvest_presses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: wine_incoming_harvest_presses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.wine_incoming_harvest_presses_id_seq OWNED BY public.wine_incoming_harvest_presses.id;
+
+
+--
+-- Name: wine_incoming_harvest_storages; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.wine_incoming_harvest_storages (
+    id integer NOT NULL,
+    wine_incoming_harvest_id integer NOT NULL,
+    storage_id integer NOT NULL,
+    quantity_value numeric(19,4) NOT NULL,
+    quantity_unit character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: wine_incoming_harvest_storages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.wine_incoming_harvest_storages_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: wine_incoming_harvest_storages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.wine_incoming_harvest_storages_id_seq OWNED BY public.wine_incoming_harvest_storages.id;
+
+
+--
+-- Name: wine_incoming_harvests; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.wine_incoming_harvests (
+    id integer NOT NULL,
+    number character varying,
+    ticket_number character varying,
+    description text,
+    campaign_id integer NOT NULL,
+    analysis_id integer,
+    received_at timestamp without time zone NOT NULL,
+    quantity_value numeric(19,4) NOT NULL,
+    quantity_unit character varying NOT NULL,
+    additional_informations jsonb DEFAULT '{}'::jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: wine_incoming_harvests_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.wine_incoming_harvests_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: wine_incoming_harvests_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.wine_incoming_harvests_id_seq OWNED BY public.wine_incoming_harvests.id;
+
+
+--
 -- Name: account_balances id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -8389,20 +9103,6 @@ ALTER TABLE ONLY public.analyses ALTER COLUMN id SET DEFAULT nextval('public.ana
 --
 
 ALTER TABLE ONLY public.analysis_items ALTER COLUMN id SET DEFAULT nextval('public.analysis_items_id_seq'::regclass);
-
-
---
--- Name: analytic_segments id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.analytic_segments ALTER COLUMN id SET DEFAULT nextval('public.analytic_segments_id_seq'::regclass);
-
-
---
--- Name: analytic_sequences id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.analytic_sequences ALTER COLUMN id SET DEFAULT nextval('public.analytic_sequences_id_seq'::regclass);
 
 
 --
@@ -8525,6 +9225,27 @@ ALTER TABLE ONLY public.contracts ALTER COLUMN id SET DEFAULT nextval('public.co
 
 
 --
+-- Name: crop_group_items id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.crop_group_items ALTER COLUMN id SET DEFAULT nextval('public.crop_group_items_id_seq'::regclass);
+
+
+--
+-- Name: crop_group_labellings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.crop_group_labellings ALTER COLUMN id SET DEFAULT nextval('public.crop_group_labellings_id_seq'::regclass);
+
+
+--
+-- Name: crop_groups id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.crop_groups ALTER COLUMN id SET DEFAULT nextval('public.crop_groups_id_seq'::regclass);
+
+
+--
 -- Name: crumbs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -8550,6 +9271,41 @@ ALTER TABLE ONLY public.custom_field_choices ALTER COLUMN id SET DEFAULT nextval
 --
 
 ALTER TABLE ONLY public.custom_fields ALTER COLUMN id SET DEFAULT nextval('public.custom_fields_id_seq'::regclass);
+
+
+--
+-- Name: cvi_cadastral_plant_cvi_land_parcels id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cvi_cadastral_plant_cvi_land_parcels ALTER COLUMN id SET DEFAULT nextval('public.cvi_cadastral_plant_cvi_land_parcels_id_seq'::regclass);
+
+
+--
+-- Name: cvi_cadastral_plants id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cvi_cadastral_plants ALTER COLUMN id SET DEFAULT nextval('public.cvi_cadastral_plants_id_seq'::regclass);
+
+
+--
+-- Name: cvi_cultivable_zones id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cvi_cultivable_zones ALTER COLUMN id SET DEFAULT nextval('public.cvi_cultivable_zones_id_seq'::regclass);
+
+
+--
+-- Name: cvi_land_parcels id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cvi_land_parcels ALTER COLUMN id SET DEFAULT nextval('public.cvi_land_parcels_id_seq'::regclass);
+
+
+--
+-- Name: cvi_statements id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cvi_statements ALTER COLUMN id SET DEFAULT nextval('public.cvi_statements_id_seq'::regclass);
 
 
 --
@@ -8721,6 +9477,34 @@ ALTER TABLE ONLY public.guides ALTER COLUMN id SET DEFAULT nextval('public.guide
 
 
 --
+-- Name: idea_diagnostic_item_values id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.idea_diagnostic_item_values ALTER COLUMN id SET DEFAULT nextval('public.idea_diagnostic_item_values_id_seq'::regclass);
+
+
+--
+-- Name: idea_diagnostic_items id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.idea_diagnostic_items ALTER COLUMN id SET DEFAULT nextval('public.idea_diagnostic_items_id_seq'::regclass);
+
+
+--
+-- Name: idea_diagnostic_results id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.idea_diagnostic_results ALTER COLUMN id SET DEFAULT nextval('public.idea_diagnostic_results_id_seq'::regclass);
+
+
+--
+-- Name: idea_diagnostics id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.idea_diagnostics ALTER COLUMN id SET DEFAULT nextval('public.idea_diagnostics_id_seq'::regclass);
+
+
+--
 -- Name: identifiers id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -8781,6 +9565,13 @@ ALTER TABLE ONLY public.integrations ALTER COLUMN id SET DEFAULT nextval('public
 --
 
 ALTER TABLE ONLY public.intervention_costings ALTER COLUMN id SET DEFAULT nextval('public.intervention_costings_id_seq'::regclass);
+
+
+--
+-- Name: intervention_crop_groups id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_crop_groups ALTER COLUMN id SET DEFAULT nextval('public.intervention_crop_groups_id_seq'::regclass);
 
 
 --
@@ -8907,6 +9698,13 @@ ALTER TABLE ONLY public.loan_repayments ALTER COLUMN id SET DEFAULT nextval('pub
 --
 
 ALTER TABLE ONLY public.loans ALTER COLUMN id SET DEFAULT nextval('public.loans_id_seq'::regclass);
+
+
+--
+-- Name: locations id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.locations ALTER COLUMN id SET DEFAULT nextval('public.locations_id_seq'::regclass);
 
 
 --
@@ -9232,6 +10030,20 @@ ALTER TABLE ONLY public.regularizations ALTER COLUMN id SET DEFAULT nextval('pub
 
 
 --
+-- Name: ride_sets id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ride_sets ALTER COLUMN id SET DEFAULT nextval('public.ride_sets_id_seq'::regclass);
+
+
+--
+-- Name: rides id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rides ALTER COLUMN id SET DEFAULT nextval('public.rides_id_seq'::regclass);
+
+
+--
 -- Name: roles id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -9393,6 +10205,41 @@ ALTER TABLE ONLY public.wice_grid_serialized_queries ALTER COLUMN id SET DEFAULT
 
 
 --
+-- Name: wine_incoming_harvest_inputs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.wine_incoming_harvest_inputs ALTER COLUMN id SET DEFAULT nextval('public.wine_incoming_harvest_inputs_id_seq'::regclass);
+
+
+--
+-- Name: wine_incoming_harvest_plants id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.wine_incoming_harvest_plants ALTER COLUMN id SET DEFAULT nextval('public.wine_incoming_harvest_plants_id_seq'::regclass);
+
+
+--
+-- Name: wine_incoming_harvest_presses id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.wine_incoming_harvest_presses ALTER COLUMN id SET DEFAULT nextval('public.wine_incoming_harvest_presses_id_seq'::regclass);
+
+
+--
+-- Name: wine_incoming_harvest_storages id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.wine_incoming_harvest_storages ALTER COLUMN id SET DEFAULT nextval('public.wine_incoming_harvest_storages_id_seq'::regclass);
+
+
+--
+-- Name: wine_incoming_harvests id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.wine_incoming_harvests ALTER COLUMN id SET DEFAULT nextval('public.wine_incoming_harvests_id_seq'::regclass);
+
+
+--
 -- Name: cadastral_land_parcel_zones cadastral_land_parcel_zones_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
 --
 
@@ -9438,14 +10285,6 @@ ALTER TABLE ONLY lexicon.master_production_natures
 
 ALTER TABLE ONLY lexicon.master_production_outputs
     ADD CONSTRAINT master_production_outputs_pkey PRIMARY KEY (production_nature_id, production_system_name, name);
-
-
---
--- Name: master_vine_varieties master_vine_varieties_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
---
-
-ALTER TABLE ONLY lexicon.master_vine_varieties
-    ADD CONSTRAINT master_vine_varieties_pkey PRIMARY KEY (id);
 
 
 --
@@ -9597,15 +10436,7 @@ ALTER TABLE ONLY lexicon.registered_protected_designation_of_origins
 --
 
 ALTER TABLE ONLY lexicon.registered_seeds
-    ADD CONSTRAINT registered_seeds_pkey PRIMARY KEY (id);
-
-
---
--- Name: taxonomy taxonomy_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
---
-
-ALTER TABLE ONLY lexicon.taxonomy
-    ADD CONSTRAINT taxonomy_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT registered_seeds_pkey PRIMARY KEY (number);
 
 
 --
@@ -9833,22 +10664,6 @@ ALTER TABLE ONLY public.analysis_items
 
 
 --
--- Name: analytic_segments analytic_segments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.analytic_segments
-    ADD CONSTRAINT analytic_segments_pkey PRIMARY KEY (id);
-
-
---
--- Name: analytic_sequences analytic_sequences_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.analytic_sequences
-    ADD CONSTRAINT analytic_sequences_pkey PRIMARY KEY (id);
-
-
---
 -- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9993,6 +10808,30 @@ ALTER TABLE ONLY public.contracts
 
 
 --
+-- Name: crop_group_items crop_group_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.crop_group_items
+    ADD CONSTRAINT crop_group_items_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: crop_group_labellings crop_group_labellings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.crop_group_labellings
+    ADD CONSTRAINT crop_group_labellings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: crop_groups crop_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.crop_groups
+    ADD CONSTRAINT crop_groups_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: crumbs crumbs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -10022,6 +10861,46 @@ ALTER TABLE ONLY public.custom_field_choices
 
 ALTER TABLE ONLY public.custom_fields
     ADD CONSTRAINT custom_fields_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cvi_cadastral_plant_cvi_land_parcels cvi_cadastral_plant_cvi_land_parcels_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cvi_cadastral_plant_cvi_land_parcels
+    ADD CONSTRAINT cvi_cadastral_plant_cvi_land_parcels_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cvi_cadastral_plants cvi_cadastral_plants_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cvi_cadastral_plants
+    ADD CONSTRAINT cvi_cadastral_plants_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cvi_cultivable_zones cvi_cultivable_zones_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cvi_cultivable_zones
+    ADD CONSTRAINT cvi_cultivable_zones_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cvi_land_parcels cvi_land_parcels_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cvi_land_parcels
+    ADD CONSTRAINT cvi_land_parcels_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cvi_statements cvi_statements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cvi_statements
+    ADD CONSTRAINT cvi_statements_pkey PRIMARY KEY (id);
 
 
 --
@@ -10217,6 +11096,38 @@ ALTER TABLE ONLY public.guides
 
 
 --
+-- Name: idea_diagnostic_item_values idea_diagnostic_item_values_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.idea_diagnostic_item_values
+    ADD CONSTRAINT idea_diagnostic_item_values_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: idea_diagnostic_items idea_diagnostic_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.idea_diagnostic_items
+    ADD CONSTRAINT idea_diagnostic_items_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: idea_diagnostic_results idea_diagnostic_results_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.idea_diagnostic_results
+    ADD CONSTRAINT idea_diagnostic_results_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: idea_diagnostics idea_diagnostics_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.idea_diagnostics
+    ADD CONSTRAINT idea_diagnostics_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: identifiers identifiers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -10286,6 +11197,14 @@ ALTER TABLE ONLY public.integrations
 
 ALTER TABLE ONLY public.intervention_costings
     ADD CONSTRAINT intervention_costings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: intervention_crop_groups intervention_crop_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_crop_groups
+    ADD CONSTRAINT intervention_crop_groups_pkey PRIMARY KEY (id);
 
 
 --
@@ -10430,6 +11349,14 @@ ALTER TABLE ONLY public.loan_repayments
 
 ALTER TABLE ONLY public.loans
     ADD CONSTRAINT loans_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: locations locations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.locations
+    ADD CONSTRAINT locations_pkey PRIMARY KEY (id);
 
 
 --
@@ -10801,6 +11728,22 @@ ALTER TABLE ONLY public.regularizations
 
 
 --
+-- Name: ride_sets ride_sets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ride_sets
+    ADD CONSTRAINT ride_sets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: rides rides_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rides
+    ADD CONSTRAINT rides_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: roles roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -10990,6 +11933,46 @@ ALTER TABLE ONLY public.versions
 
 ALTER TABLE ONLY public.wice_grid_serialized_queries
     ADD CONSTRAINT wice_grid_serialized_queries_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: wine_incoming_harvest_inputs wine_incoming_harvest_inputs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.wine_incoming_harvest_inputs
+    ADD CONSTRAINT wine_incoming_harvest_inputs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: wine_incoming_harvest_plants wine_incoming_harvest_plants_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.wine_incoming_harvest_plants
+    ADD CONSTRAINT wine_incoming_harvest_plants_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: wine_incoming_harvest_presses wine_incoming_harvest_presses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.wine_incoming_harvest_presses
+    ADD CONSTRAINT wine_incoming_harvest_presses_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: wine_incoming_harvest_storages wine_incoming_harvest_storages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.wine_incoming_harvest_storages
+    ADD CONSTRAINT wine_incoming_harvest_storages_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: wine_incoming_harvests wine_incoming_harvests_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.wine_incoming_harvests
+    ADD CONSTRAINT wine_incoming_harvests_pkey PRIMARY KEY (id);
 
 
 --
@@ -11385,24 +12368,10 @@ CREATE INDEX registered_postal_zones_postal_code ON lexicon.registered_postal_zo
 
 
 --
--- Name: registered_seeds_id; Type: INDEX; Schema: lexicon; Owner: -
+-- Name: registered_seeds_specie; Type: INDEX; Schema: lexicon; Owner: -
 --
 
-CREATE INDEX registered_seeds_id ON lexicon.registered_seeds USING btree (id);
-
-
---
--- Name: registered_seeds_id_specie; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX registered_seeds_id_specie ON lexicon.registered_seeds USING btree (id_specie);
-
-
---
--- Name: taxonomy_id; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX taxonomy_id ON lexicon.taxonomy USING btree (id);
+CREATE INDEX registered_seeds_specie ON lexicon.registered_seeds USING btree (specie);
 
 
 --
@@ -11592,6 +12561,27 @@ CREATE INDEX entity_provider_index ON public.entities USING gin (((provider -> '
 --
 
 CREATE INDEX fixed_asset_provider_index ON public.fixed_assets USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
+-- Name: idx_wine_incoming_harvest_inputs_incoming_harvests; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX idx_wine_incoming_harvest_inputs_incoming_harvests ON public.wine_incoming_harvest_inputs USING btree (wine_incoming_harvest_id);
+
+
+--
+-- Name: idx_wine_incoming_harvest_plants_incoming_harvests; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX idx_wine_incoming_harvest_plants_incoming_harvests ON public.wine_incoming_harvest_plants USING btree (wine_incoming_harvest_id);
+
+
+--
+-- Name: idx_wine_incoming_harvest_storages_incoming_harvests; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX idx_wine_incoming_harvest_storages_incoming_harvests ON public.wine_incoming_harvest_storages USING btree (wine_incoming_harvest_id);
 
 
 --
@@ -12365,13 +13355,6 @@ CREATE INDEX index_analysis_items_on_updater_id ON public.analysis_items USING b
 
 
 --
--- Name: index_analytic_segments_on_analytic_sequence_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_analytic_segments_on_analytic_sequence_id ON public.analytic_segments USING btree (analytic_sequence_id);
-
-
---
 -- Name: index_attachments_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -13121,6 +14104,118 @@ CREATE INDEX index_contracts_on_updater_id ON public.contracts USING btree (upda
 
 
 --
+-- Name: index_crop_group_items_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_crop_group_items_on_created_at ON public.crop_group_items USING btree (created_at);
+
+
+--
+-- Name: index_crop_group_items_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_crop_group_items_on_creator_id ON public.crop_group_items USING btree (creator_id);
+
+
+--
+-- Name: index_crop_group_items_on_crop_group_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_crop_group_items_on_crop_group_id ON public.crop_group_items USING btree (crop_group_id);
+
+
+--
+-- Name: index_crop_group_items_on_crop_type_and_crop_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_crop_group_items_on_crop_type_and_crop_id ON public.crop_group_items USING btree (crop_type, crop_id);
+
+
+--
+-- Name: index_crop_group_items_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_crop_group_items_on_updated_at ON public.crop_group_items USING btree (updated_at);
+
+
+--
+-- Name: index_crop_group_items_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_crop_group_items_on_updater_id ON public.crop_group_items USING btree (updater_id);
+
+
+--
+-- Name: index_crop_group_labellings_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_crop_group_labellings_on_created_at ON public.crop_group_labellings USING btree (created_at);
+
+
+--
+-- Name: index_crop_group_labellings_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_crop_group_labellings_on_creator_id ON public.crop_group_labellings USING btree (creator_id);
+
+
+--
+-- Name: index_crop_group_labellings_on_crop_group_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_crop_group_labellings_on_crop_group_id ON public.crop_group_labellings USING btree (crop_group_id);
+
+
+--
+-- Name: index_crop_group_labellings_on_label_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_crop_group_labellings_on_label_id ON public.crop_group_labellings USING btree (label_id);
+
+
+--
+-- Name: index_crop_group_labellings_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_crop_group_labellings_on_updated_at ON public.crop_group_labellings USING btree (updated_at);
+
+
+--
+-- Name: index_crop_group_labellings_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_crop_group_labellings_on_updater_id ON public.crop_group_labellings USING btree (updater_id);
+
+
+--
+-- Name: index_crop_groups_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_crop_groups_on_created_at ON public.crop_groups USING btree (created_at);
+
+
+--
+-- Name: index_crop_groups_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_crop_groups_on_creator_id ON public.crop_groups USING btree (creator_id);
+
+
+--
+-- Name: index_crop_groups_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_crop_groups_on_updated_at ON public.crop_groups USING btree (updated_at);
+
+
+--
+-- Name: index_crop_groups_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_crop_groups_on_updater_id ON public.crop_groups USING btree (updater_id);
+
+
+--
 -- Name: index_crumbs_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -13160,6 +14255,13 @@ CREATE INDEX index_crumbs_on_nature ON public.crumbs USING btree (nature);
 --
 
 CREATE INDEX index_crumbs_on_read_at ON public.crumbs USING btree (read_at);
+
+
+--
+-- Name: index_crumbs_on_ride_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_crumbs_on_ride_id ON public.crumbs USING btree (ride_id);
 
 
 --
@@ -13286,6 +14388,118 @@ CREATE INDEX index_custom_fields_on_updated_at ON public.custom_fields USING btr
 --
 
 CREATE INDEX index_custom_fields_on_updater_id ON public.custom_fields USING btree (updater_id);
+
+
+--
+-- Name: index_cvi_cadastral_plant_cvi_land_parcels_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cvi_cadastral_plant_cvi_land_parcels_on_creator_id ON public.cvi_cadastral_plant_cvi_land_parcels USING btree (creator_id);
+
+
+--
+-- Name: index_cvi_cadastral_plant_cvi_land_parcels_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cvi_cadastral_plant_cvi_land_parcels_on_updater_id ON public.cvi_cadastral_plant_cvi_land_parcels USING btree (updater_id);
+
+
+--
+-- Name: index_cvi_cadastral_plants_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cvi_cadastral_plants_on_creator_id ON public.cvi_cadastral_plants USING btree (creator_id);
+
+
+--
+-- Name: index_cvi_cadastral_plants_on_cvi_cultivable_zone_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cvi_cadastral_plants_on_cvi_cultivable_zone_id ON public.cvi_cadastral_plants USING btree (cvi_cultivable_zone_id);
+
+
+--
+-- Name: index_cvi_cadastral_plants_on_cvi_statement_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cvi_cadastral_plants_on_cvi_statement_id ON public.cvi_cadastral_plants USING btree (cvi_statement_id);
+
+
+--
+-- Name: index_cvi_cadastral_plants_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cvi_cadastral_plants_on_updater_id ON public.cvi_cadastral_plants USING btree (updater_id);
+
+
+--
+-- Name: index_cvi_cultivable_zones_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cvi_cultivable_zones_on_creator_id ON public.cvi_cultivable_zones USING btree (creator_id);
+
+
+--
+-- Name: index_cvi_cultivable_zones_on_cvi_statement_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cvi_cultivable_zones_on_cvi_statement_id ON public.cvi_cultivable_zones USING btree (cvi_statement_id);
+
+
+--
+-- Name: index_cvi_cultivable_zones_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cvi_cultivable_zones_on_updater_id ON public.cvi_cultivable_zones USING btree (updater_id);
+
+
+--
+-- Name: index_cvi_land_parcels_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cvi_land_parcels_on_activity_id ON public.cvi_land_parcels USING btree (activity_id);
+
+
+--
+-- Name: index_cvi_land_parcels_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cvi_land_parcels_on_creator_id ON public.cvi_land_parcels USING btree (creator_id);
+
+
+--
+-- Name: index_cvi_land_parcels_on_cvi_cultivable_zone_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cvi_land_parcels_on_cvi_cultivable_zone_id ON public.cvi_land_parcels USING btree (cvi_cultivable_zone_id);
+
+
+--
+-- Name: index_cvi_land_parcels_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cvi_land_parcels_on_updater_id ON public.cvi_land_parcels USING btree (updater_id);
+
+
+--
+-- Name: index_cvi_statements_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cvi_statements_on_campaign_id ON public.cvi_statements USING btree (campaign_id);
+
+
+--
+-- Name: index_cvi_statements_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cvi_statements_on_creator_id ON public.cvi_statements USING btree (creator_id);
+
+
+--
+-- Name: index_cvi_statements_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cvi_statements_on_updater_id ON public.cvi_statements USING btree (updater_id);
 
 
 --
@@ -14465,6 +15679,146 @@ CREATE INDEX index_guides_on_updater_id ON public.guides USING btree (updater_id
 
 
 --
+-- Name: index_idea_diagnostic_item_values_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_idea_diagnostic_item_values_on_created_at ON public.idea_diagnostic_item_values USING btree (created_at);
+
+
+--
+-- Name: index_idea_diagnostic_item_values_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_idea_diagnostic_item_values_on_creator_id ON public.idea_diagnostic_item_values USING btree (creator_id);
+
+
+--
+-- Name: index_idea_diagnostic_item_values_on_idea_diagnostic_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_idea_diagnostic_item_values_on_idea_diagnostic_item_id ON public.idea_diagnostic_item_values USING btree (idea_diagnostic_item_id);
+
+
+--
+-- Name: index_idea_diagnostic_item_values_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_idea_diagnostic_item_values_on_updated_at ON public.idea_diagnostic_item_values USING btree (updated_at);
+
+
+--
+-- Name: index_idea_diagnostic_item_values_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_idea_diagnostic_item_values_on_updater_id ON public.idea_diagnostic_item_values USING btree (updater_id);
+
+
+--
+-- Name: index_idea_diagnostic_items_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_idea_diagnostic_items_on_created_at ON public.idea_diagnostic_items USING btree (created_at);
+
+
+--
+-- Name: index_idea_diagnostic_items_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_idea_diagnostic_items_on_creator_id ON public.idea_diagnostic_items USING btree (creator_id);
+
+
+--
+-- Name: index_idea_diagnostic_items_on_idea_diagnostic_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_idea_diagnostic_items_on_idea_diagnostic_id ON public.idea_diagnostic_items USING btree (idea_diagnostic_id);
+
+
+--
+-- Name: index_idea_diagnostic_items_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_idea_diagnostic_items_on_updated_at ON public.idea_diagnostic_items USING btree (updated_at);
+
+
+--
+-- Name: index_idea_diagnostic_items_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_idea_diagnostic_items_on_updater_id ON public.idea_diagnostic_items USING btree (updater_id);
+
+
+--
+-- Name: index_idea_diagnostic_results_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_idea_diagnostic_results_on_created_at ON public.idea_diagnostic_results USING btree (created_at);
+
+
+--
+-- Name: index_idea_diagnostic_results_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_idea_diagnostic_results_on_creator_id ON public.idea_diagnostic_results USING btree (creator_id);
+
+
+--
+-- Name: index_idea_diagnostic_results_on_idea_diagnostic_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_idea_diagnostic_results_on_idea_diagnostic_id ON public.idea_diagnostic_results USING btree (idea_diagnostic_id);
+
+
+--
+-- Name: index_idea_diagnostic_results_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_idea_diagnostic_results_on_updated_at ON public.idea_diagnostic_results USING btree (updated_at);
+
+
+--
+-- Name: index_idea_diagnostic_results_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_idea_diagnostic_results_on_updater_id ON public.idea_diagnostic_results USING btree (updater_id);
+
+
+--
+-- Name: index_idea_diagnostics_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_idea_diagnostics_on_campaign_id ON public.idea_diagnostics USING btree (campaign_id);
+
+
+--
+-- Name: index_idea_diagnostics_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_idea_diagnostics_on_created_at ON public.idea_diagnostics USING btree (created_at);
+
+
+--
+-- Name: index_idea_diagnostics_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_idea_diagnostics_on_creator_id ON public.idea_diagnostics USING btree (creator_id);
+
+
+--
+-- Name: index_idea_diagnostics_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_idea_diagnostics_on_updated_at ON public.idea_diagnostics USING btree (updated_at);
+
+
+--
+-- Name: index_idea_diagnostics_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_idea_diagnostics_on_updater_id ON public.idea_diagnostics USING btree (updater_id);
+
+
+--
 -- Name: index_identifiers_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -14861,6 +16215,48 @@ CREATE INDEX index_intervention_costings_on_creator_id ON public.intervention_co
 --
 
 CREATE INDEX index_intervention_costings_on_updater_id ON public.intervention_costings USING btree (updater_id);
+
+
+--
+-- Name: index_intervention_crop_groups_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_crop_groups_on_created_at ON public.intervention_crop_groups USING btree (created_at);
+
+
+--
+-- Name: index_intervention_crop_groups_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_crop_groups_on_creator_id ON public.intervention_crop_groups USING btree (creator_id);
+
+
+--
+-- Name: index_intervention_crop_groups_on_crop_group_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_crop_groups_on_crop_group_id ON public.intervention_crop_groups USING btree (crop_group_id);
+
+
+--
+-- Name: index_intervention_crop_groups_on_intervention_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_crop_groups_on_intervention_id ON public.intervention_crop_groups USING btree (intervention_id);
+
+
+--
+-- Name: index_intervention_crop_groups_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_crop_groups_on_updated_at ON public.intervention_crop_groups USING btree (updated_at);
+
+
+--
+-- Name: index_intervention_crop_groups_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_crop_groups_on_updater_id ON public.intervention_crop_groups USING btree (updater_id);
 
 
 --
@@ -15655,13 +17051,6 @@ CREATE INDEX index_journals_on_creator_id ON public.journals USING btree (creato
 
 
 --
--- Name: index_journals_on_financial_year_exchange_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_journals_on_financial_year_exchange_id ON public.journals USING btree (financial_year_exchange_id);
-
-
---
 -- Name: index_journals_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -15956,6 +17345,27 @@ CREATE INDEX index_loans_on_updater_id ON public.loans USING btree (updater_id);
 
 
 --
+-- Name: index_locations_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_locations_on_creator_id ON public.locations USING btree (creator_id);
+
+
+--
+-- Name: index_locations_on_registered_postal_zone_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_locations_on_registered_postal_zone_id ON public.locations USING btree (registered_postal_zone_id);
+
+
+--
+-- Name: index_locations_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_locations_on_updater_id ON public.locations USING btree (updater_id);
+
+
+--
 -- Name: index_manure_management_plan_zones_on_activity_production_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -16240,6 +17650,20 @@ CREATE INDEX index_observations_on_updated_at ON public.observations USING btree
 --
 
 CREATE INDEX index_observations_on_updater_id ON public.observations USING btree (updater_id);
+
+
+--
+-- Name: index_on_cvi_cadastral_plant_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_on_cvi_cadastral_plant_id ON public.cvi_cadastral_plant_cvi_land_parcels USING btree (cvi_cadastral_plant_id);
+
+
+--
+-- Name: index_on_cvi_land_parcel_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_on_cvi_land_parcel_id ON public.cvi_cadastral_plant_cvi_land_parcels USING btree (cvi_land_parcel_id);
 
 
 --
@@ -18623,6 +20047,48 @@ CREATE INDEX index_regularizations_on_updater_id ON public.regularizations USING
 
 
 --
+-- Name: index_ride_sets_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_ride_sets_on_creator_id ON public.ride_sets USING btree (creator_id);
+
+
+--
+-- Name: index_ride_sets_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_ride_sets_on_updater_id ON public.ride_sets USING btree (updater_id);
+
+
+--
+-- Name: index_rides_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_rides_on_creator_id ON public.rides USING btree (creator_id);
+
+
+--
+-- Name: index_rides_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_rides_on_product_id ON public.rides USING btree (product_id);
+
+
+--
+-- Name: index_rides_on_ride_set_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_rides_on_ride_set_id ON public.rides USING btree (ride_set_id);
+
+
+--
+-- Name: index_rides_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_rides_on_updater_id ON public.rides USING btree (updater_id);
+
+
+--
 -- Name: index_roles_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -19806,6 +21272,209 @@ CREATE INDEX index_wice_grid_serialized_queries_on_grid_name_and_id ON public.wi
 
 
 --
+-- Name: index_wine_incoming_harvest_inputs_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wine_incoming_harvest_inputs_on_created_at ON public.wine_incoming_harvest_inputs USING btree (created_at);
+
+
+--
+-- Name: index_wine_incoming_harvest_inputs_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wine_incoming_harvest_inputs_on_creator_id ON public.wine_incoming_harvest_inputs USING btree (creator_id);
+
+
+--
+-- Name: index_wine_incoming_harvest_inputs_on_input_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wine_incoming_harvest_inputs_on_input_id ON public.wine_incoming_harvest_inputs USING btree (input_id);
+
+
+--
+-- Name: index_wine_incoming_harvest_inputs_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wine_incoming_harvest_inputs_on_updated_at ON public.wine_incoming_harvest_inputs USING btree (updated_at);
+
+
+--
+-- Name: index_wine_incoming_harvest_inputs_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wine_incoming_harvest_inputs_on_updater_id ON public.wine_incoming_harvest_inputs USING btree (updater_id);
+
+
+--
+-- Name: index_wine_incoming_harvest_plants_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wine_incoming_harvest_plants_on_created_at ON public.wine_incoming_harvest_plants USING btree (created_at);
+
+
+--
+-- Name: index_wine_incoming_harvest_plants_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wine_incoming_harvest_plants_on_creator_id ON public.wine_incoming_harvest_plants USING btree (creator_id);
+
+
+--
+-- Name: index_wine_incoming_harvest_plants_on_plant_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wine_incoming_harvest_plants_on_plant_id ON public.wine_incoming_harvest_plants USING btree (plant_id);
+
+
+--
+-- Name: index_wine_incoming_harvest_plants_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wine_incoming_harvest_plants_on_updated_at ON public.wine_incoming_harvest_plants USING btree (updated_at);
+
+
+--
+-- Name: index_wine_incoming_harvest_plants_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wine_incoming_harvest_plants_on_updater_id ON public.wine_incoming_harvest_plants USING btree (updater_id);
+
+
+--
+-- Name: index_wine_incoming_harvest_presses_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wine_incoming_harvest_presses_on_created_at ON public.wine_incoming_harvest_presses USING btree (created_at);
+
+
+--
+-- Name: index_wine_incoming_harvest_presses_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wine_incoming_harvest_presses_on_creator_id ON public.wine_incoming_harvest_presses USING btree (creator_id);
+
+
+--
+-- Name: index_wine_incoming_harvest_presses_on_press_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wine_incoming_harvest_presses_on_press_id ON public.wine_incoming_harvest_presses USING btree (press_id);
+
+
+--
+-- Name: index_wine_incoming_harvest_presses_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wine_incoming_harvest_presses_on_updated_at ON public.wine_incoming_harvest_presses USING btree (updated_at);
+
+
+--
+-- Name: index_wine_incoming_harvest_presses_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wine_incoming_harvest_presses_on_updater_id ON public.wine_incoming_harvest_presses USING btree (updater_id);
+
+
+--
+-- Name: index_wine_incoming_harvest_presses_on_wine_incoming_harvest_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wine_incoming_harvest_presses_on_wine_incoming_harvest_id ON public.wine_incoming_harvest_presses USING btree (wine_incoming_harvest_id);
+
+
+--
+-- Name: index_wine_incoming_harvest_storages_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wine_incoming_harvest_storages_on_created_at ON public.wine_incoming_harvest_storages USING btree (created_at);
+
+
+--
+-- Name: index_wine_incoming_harvest_storages_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wine_incoming_harvest_storages_on_creator_id ON public.wine_incoming_harvest_storages USING btree (creator_id);
+
+
+--
+-- Name: index_wine_incoming_harvest_storages_on_storage_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wine_incoming_harvest_storages_on_storage_id ON public.wine_incoming_harvest_storages USING btree (storage_id);
+
+
+--
+-- Name: index_wine_incoming_harvest_storages_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wine_incoming_harvest_storages_on_updated_at ON public.wine_incoming_harvest_storages USING btree (updated_at);
+
+
+--
+-- Name: index_wine_incoming_harvest_storages_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wine_incoming_harvest_storages_on_updater_id ON public.wine_incoming_harvest_storages USING btree (updater_id);
+
+
+--
+-- Name: index_wine_incoming_harvests_on_analysis_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wine_incoming_harvests_on_analysis_id ON public.wine_incoming_harvests USING btree (analysis_id);
+
+
+--
+-- Name: index_wine_incoming_harvests_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wine_incoming_harvests_on_campaign_id ON public.wine_incoming_harvests USING btree (campaign_id);
+
+
+--
+-- Name: index_wine_incoming_harvests_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wine_incoming_harvests_on_created_at ON public.wine_incoming_harvests USING btree (created_at);
+
+
+--
+-- Name: index_wine_incoming_harvests_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wine_incoming_harvests_on_creator_id ON public.wine_incoming_harvests USING btree (creator_id);
+
+
+--
+-- Name: index_wine_incoming_harvests_on_number; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wine_incoming_harvests_on_number ON public.wine_incoming_harvests USING btree (number);
+
+
+--
+-- Name: index_wine_incoming_harvests_on_ticket_number; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wine_incoming_harvests_on_ticket_number ON public.wine_incoming_harvests USING btree (ticket_number);
+
+
+--
+-- Name: index_wine_incoming_harvests_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wine_incoming_harvests_on_updated_at ON public.wine_incoming_harvests USING btree (updated_at);
+
+
+--
+-- Name: index_wine_incoming_harvests_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_wine_incoming_harvests_on_updater_id ON public.wine_incoming_harvests USING btree (updater_id);
+
+
+--
 -- Name: intervention_provider_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -19933,7 +21602,7 @@ CREATE OR REPLACE VIEW public.pfi_campaigns_activities_interventions AS
     ap.size_value AS activity_production_surface_area,
     p.initial_population AS crop_surface_area,
     round((sum(pip.pfi_value) * round((COALESCE(p.initial_population, (0)::numeric) / COALESCE(ap.size_value, (1)::numeric)), 2)), 2) AS activity_production_pfi_value,
-    round((sum(pip.pfi_value) * (ap.size_value / ( SELECT sum(aps.size_value) AS sum
+    round((round((sum(pip.pfi_value) * round((COALESCE(p.initial_population, (0)::numeric) / COALESCE(ap.size_value, (1)::numeric)), 2)), 2) * (ap.size_value / ( SELECT sum(aps.size_value) AS sum
            FROM public.activity_productions aps
           WHERE ((aps.activity_id = a.id) AND (aps.id IN ( SELECT activity_productions_campaigns.activity_production_id
                    FROM public.activity_productions_campaigns
@@ -19997,6 +21666,293 @@ CREATE RULE delete_product_populations AS
 
 
 --
+-- Name: cadastral_land_parcel_zones deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.cadastral_land_parcel_zones FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: datasource_credits deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.datasource_credits FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: eu_market_prices deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.eu_market_prices FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: intervention_model_items deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.intervention_model_items FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: intervention_models deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.intervention_models FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: master_production_natures deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.master_production_natures FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: master_production_outputs deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.master_production_outputs FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: master_vine_varieties deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.master_vine_varieties FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: phenological_stages deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.phenological_stages FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: registered_agroedi_codes deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_agroedi_codes FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: registered_building_zones deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_building_zones FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: registered_chart_of_accounts deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_chart_of_accounts FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: registered_crop_zones deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_crop_zones FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: registered_enterprises deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_enterprises FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: registered_hydro_items deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_hydro_items FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: registered_legal_positions deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_legal_positions FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: registered_pfi_crops deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_pfi_crops FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: registered_pfi_doses deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_pfi_doses FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: registered_pfi_segments deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_pfi_segments FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: registered_pfi_targets deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_pfi_targets FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: registered_pfi_treatment_types deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_pfi_treatment_types FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: registered_phytosanitary_cropsets deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_phytosanitary_cropsets FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: registered_phytosanitary_products deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_phytosanitary_products FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: registered_phytosanitary_risks deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_phytosanitary_risks FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: registered_phytosanitary_symbols deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_phytosanitary_symbols FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: registered_phytosanitary_target_name_to_pfi_targets deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_phytosanitary_target_name_to_pfi_targets FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: registered_phytosanitary_usages deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_phytosanitary_usages FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: registered_postal_zones deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_postal_zones FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: registered_protected_designation_of_origins deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_protected_designation_of_origins FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: registered_seeds deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_seeds FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: technical_workflow_procedure_items deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.technical_workflow_procedure_items FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: technical_workflow_procedures deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.technical_workflow_procedures FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: technical_workflow_sequences deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.technical_workflow_sequences FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: technical_workflows deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.technical_workflows FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: user_roles deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.user_roles FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: variant_categories deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.variant_categories FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: variant_doer_contracts deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.variant_doer_contracts FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: variant_natures deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.variant_natures FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: variant_prices deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.variant_prices FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: variant_units deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.variant_units FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
+-- Name: variants deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
+--
+
+CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.variants FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
+
+
+--
 -- Name: journal_entries compute_journal_entries_continuous_number_on_insert; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -20032,13 +21988,6 @@ CREATE TRIGGER outgoing_payment_list_cache AFTER INSERT OR DELETE OR UPDATE OF l
 
 
 --
--- Name: journal_entry_items partial_isacompta_lettering; Type: TRIGGER; Schema: public; Owner: -
---
-
-CREATE TRIGGER partial_isacompta_lettering AFTER UPDATE OF letter ON public.journal_entry_items FOR EACH ROW EXECUTE PROCEDURE public.compute_partial_isacompta_lettering();
-
-
---
 -- Name: journal_entry_items synchronize_jei_with_entry; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -20058,6 +22007,30 @@ CREATE TRIGGER synchronize_jeis_of_entry AFTER INSERT OR UPDATE ON public.journa
 
 ALTER TABLE ONLY public.payslips
     ADD CONSTRAINT fk_rails_02f6ec2213 FOREIGN KEY (nature_id) REFERENCES public.payslip_natures(id);
+
+
+--
+-- Name: crop_group_labellings fk_rails_07865fc029; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.crop_group_labellings
+    ADD CONSTRAINT fk_rails_07865fc029 FOREIGN KEY (label_id) REFERENCES public.labels(id);
+
+
+--
+-- Name: cvi_cadastral_plant_cvi_land_parcels fk_rails_0e970be37a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cvi_cadastral_plant_cvi_land_parcels
+    ADD CONSTRAINT fk_rails_0e970be37a FOREIGN KEY (cvi_land_parcel_id) REFERENCES public.cvi_land_parcels(id);
+
+
+--
+-- Name: wine_incoming_harvests fk_rails_10884b32e0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.wine_incoming_harvests
+    ADD CONSTRAINT fk_rails_10884b32e0 FOREIGN KEY (campaign_id) REFERENCES public.campaigns(id);
 
 
 --
@@ -20101,11 +22074,35 @@ ALTER TABLE ONLY public.outgoing_payments
 
 
 --
+-- Name: cvi_statements fk_rails_2b0908cb44; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cvi_statements
+    ADD CONSTRAINT fk_rails_2b0908cb44 FOREIGN KEY (campaign_id) REFERENCES public.campaigns(id);
+
+
+--
 -- Name: journal_entry_items fk_rails_3143e6e260; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.journal_entry_items
     ADD CONSTRAINT fk_rails_3143e6e260 FOREIGN KEY (variant_id) REFERENCES public.product_nature_variants(id);
+
+
+--
+-- Name: crop_group_labellings fk_rails_36924e7b4a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.crop_group_labellings
+    ADD CONSTRAINT fk_rails_36924e7b4a FOREIGN KEY (crop_group_id) REFERENCES public.crop_groups(id);
+
+
+--
+-- Name: intervention_crop_groups fk_rails_396140bcc0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_crop_groups
+    ADD CONSTRAINT fk_rails_396140bcc0 FOREIGN KEY (crop_group_id) REFERENCES public.crop_groups(id);
 
 
 --
@@ -20133,11 +22130,35 @@ ALTER TABLE ONLY public.crumbs
 
 
 --
+-- Name: wine_incoming_harvest_presses fk_rails_45a09dccce; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.wine_incoming_harvest_presses
+    ADD CONSTRAINT fk_rails_45a09dccce FOREIGN KEY (press_id) REFERENCES public.products(id);
+
+
+--
+-- Name: wine_incoming_harvest_inputs fk_rails_4ba0624d55; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.wine_incoming_harvest_inputs
+    ADD CONSTRAINT fk_rails_4ba0624d55 FOREIGN KEY (wine_incoming_harvest_id) REFERENCES public.wine_incoming_harvests(id);
+
+
+--
 -- Name: journal_entries fk_rails_5076105ec1; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.journal_entries
     ADD CONSTRAINT fk_rails_5076105ec1 FOREIGN KEY (financial_year_exchange_id) REFERENCES public.financial_year_exchanges(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: cvi_cadastral_plants fk_rails_5a05077b24; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cvi_cadastral_plants
+    ADD CONSTRAINT fk_rails_5a05077b24 FOREIGN KEY (cvi_statement_id) REFERENCES public.cvi_statements(id);
 
 
 --
@@ -20173,6 +22194,14 @@ ALTER TABLE ONLY public.purchase_items
 
 
 --
+-- Name: cvi_cadastral_plants fk_rails_65b7099078; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cvi_cadastral_plants
+    ADD CONSTRAINT fk_rails_65b7099078 FOREIGN KEY (cvi_cultivable_zone_id) REFERENCES public.cvi_cultivable_zones(id);
+
+
+--
 -- Name: payslip_natures fk_rails_6835dfa420; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -20181,11 +22210,11 @@ ALTER TABLE ONLY public.payslip_natures
 
 
 --
--- Name: analytic_segments fk_rails_6f90f51e24; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: crumbs fk_rails_6b230b689c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.analytic_segments
-    ADD CONSTRAINT fk_rails_6f90f51e24 FOREIGN KEY (analytic_sequence_id) REFERENCES public.analytic_sequences(id);
+ALTER TABLE ONLY public.crumbs
+    ADD CONSTRAINT fk_rails_6b230b689c FOREIGN KEY (ride_id) REFERENCES public.rides(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -20197,19 +22226,19 @@ ALTER TABLE ONLY public.parcel_items
 
 
 --
+-- Name: cvi_land_parcels fk_rails_71a1e59459; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cvi_land_parcels
+    ADD CONSTRAINT fk_rails_71a1e59459 FOREIGN KEY (activity_id) REFERENCES public.activities(id);
+
+
+--
 -- Name: interventions fk_rails_76eca6ee87; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.interventions
     ADD CONSTRAINT fk_rails_76eca6ee87 FOREIGN KEY (purchase_id) REFERENCES public.purchases(id);
-
-
---
--- Name: journals fk_rails_790552b64c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.journals
-    ADD CONSTRAINT fk_rails_790552b64c FOREIGN KEY (financial_year_exchange_id) REFERENCES public.financial_year_exchanges(id);
 
 
 --
@@ -20221,11 +22250,35 @@ ALTER TABLE ONLY public.alert_phases
 
 
 --
+-- Name: cvi_cultivable_zones fk_rails_7b06059434; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cvi_cultivable_zones
+    ADD CONSTRAINT fk_rails_7b06059434 FOREIGN KEY (cvi_statement_id) REFERENCES public.cvi_statements(id);
+
+
+--
 -- Name: regularizations fk_rails_8043b7d279; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.regularizations
     ADD CONSTRAINT fk_rails_8043b7d279 FOREIGN KEY (affair_id) REFERENCES public.affairs(id);
+
+
+--
+-- Name: crop_group_items fk_rails_819f6e41b9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.crop_group_items
+    ADD CONSTRAINT fk_rails_819f6e41b9 FOREIGN KEY (crop_group_id) REFERENCES public.crop_groups(id);
+
+
+--
+-- Name: rides fk_rails_81dbf669e7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rides
+    ADD CONSTRAINT fk_rails_81dbf669e7 FOREIGN KEY (ride_set_id) REFERENCES public.ride_sets(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -20253,6 +22306,22 @@ ALTER TABLE ONLY public.intervention_working_periods
 
 
 --
+-- Name: cvi_land_parcels fk_rails_8fb9a09c07; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cvi_land_parcels
+    ADD CONSTRAINT fk_rails_8fb9a09c07 FOREIGN KEY (cvi_cultivable_zone_id) REFERENCES public.cvi_cultivable_zones(id);
+
+
+--
+-- Name: wine_incoming_harvest_presses fk_rails_90e5ef87c9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.wine_incoming_harvest_presses
+    ADD CONSTRAINT fk_rails_90e5ef87c9 FOREIGN KEY (wine_incoming_harvest_id) REFERENCES public.wine_incoming_harvests(id);
+
+
+--
 -- Name: intervention_participations fk_rails_930f08f448; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -20266,6 +22335,14 @@ ALTER TABLE ONLY public.intervention_participations
 
 ALTER TABLE ONLY public.parcel_items
     ADD CONSTRAINT fk_rails_995fb20943 FOREIGN KEY (activity_budget_id) REFERENCES public.activity_budgets(id);
+
+
+--
+-- Name: cvi_cadastral_plant_cvi_land_parcels fk_rails_9a5a14882f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cvi_cadastral_plant_cvi_land_parcels
+    ADD CONSTRAINT fk_rails_9a5a14882f FOREIGN KEY (cvi_cadastral_plant_id) REFERENCES public.cvi_cadastral_plants(id);
 
 
 --
@@ -20285,6 +22362,14 @@ ALTER TABLE ONLY public.alerts
 
 
 --
+-- Name: intervention_crop_groups fk_rails_a38943f4fc; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_crop_groups
+    ADD CONSTRAINT fk_rails_a38943f4fc FOREIGN KEY (intervention_id) REFERENCES public.interventions(id);
+
+
+--
 -- Name: parcel_items fk_rails_a6cf16ef60; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -20298,6 +22383,14 @@ ALTER TABLE ONLY public.parcel_items
 
 ALTER TABLE ONLY public.intervention_working_periods
     ADD CONSTRAINT fk_rails_a9b45798a3 FOREIGN KEY (intervention_participation_id) REFERENCES public.intervention_participations(id);
+
+
+--
+-- Name: rides fk_rails_abdfefd04a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rides
+    ADD CONSTRAINT fk_rails_abdfefd04a FOREIGN KEY (product_id) REFERENCES public.products(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -20397,6 +22490,22 @@ ALTER TABLE ONLY public.pfi_intervention_parameters
 
 
 --
+-- Name: wine_incoming_harvest_storages fk_rails_daff0b6d0c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.wine_incoming_harvest_storages
+    ADD CONSTRAINT fk_rails_daff0b6d0c FOREIGN KEY (wine_incoming_harvest_id) REFERENCES public.wine_incoming_harvests(id);
+
+
+--
+-- Name: wine_incoming_harvest_plants fk_rails_e2e8a6aba3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.wine_incoming_harvest_plants
+    ADD CONSTRAINT fk_rails_e2e8a6aba3 FOREIGN KEY (wine_incoming_harvest_id) REFERENCES public.wine_incoming_harvests(id);
+
+
+--
 -- Name: payslips fk_rails_e319c31e6b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -20410,6 +22519,14 @@ ALTER TABLE ONLY public.payslips
 
 ALTER TABLE ONLY public.intervention_participations
     ADD CONSTRAINT fk_rails_e81467e70f FOREIGN KEY (product_id) REFERENCES public.products(id);
+
+
+--
+-- Name: wine_incoming_harvests fk_rails_eb0e85e775; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.wine_incoming_harvests
+    ADD CONSTRAINT fk_rails_eb0e85e775 FOREIGN KEY (analysis_id) REFERENCES public.analyses(id);
 
 
 --
@@ -20846,31 +22963,53 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190808123912'),
 ('20190808152235'),
 ('20190911153350'),
+('20190912144103'),
 ('20190916124521'),
+('20190917120742'),
+('20190917120743'),
 ('20190929224101'),
 ('20191002104944'),
 ('20191007122201'),
 ('20191010151901'),
 ('20191011155512'),
+('20191023172248'),
+('20191025074617'),
+('20191025074824'),
 ('20191029083202'),
 ('20191101162901'),
 ('20191126103235'),
+('20191127162609'),
+('20191204160657'),
+('20191205085059'),
+('20191205123841'),
+('20191206080450'),
+('20191223092535'),
 ('20200107092243'),
+('20200108090053'),
+('20200110142108'),
+('20200115164203'),
 ('20200122100513'),
 ('20200128133347'),
 ('20200207105103'),
 ('20200213102154'),
+('20200225093814'),
 ('20200311100650'),
 ('20200312163243'),
 ('20200312163701'),
+('20200316151202'),
 ('20200317155452'),
 ('20200317163950'),
+('20200317174840'),
 ('20200320143401'),
+('20200320154251'),
 ('20200323084937'),
 ('20200330133607'),
+('20200403123414'),
 ('20200406105101'),
+('20200407090249'),
 ('20200407172801'),
 ('20200409094501'),
+('20200410183701'),
 ('20200412125000'),
 ('20200415162701'),
 ('20200415163115'),
@@ -20878,16 +23017,29 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200419152901'),
 ('20200422084439'),
 ('20200428152738'),
+('20200428162128'),
+('20200428162212'),
+('20200428162256'),
 ('20200505114024'),
 ('20200507094001'),
 ('20200512091803'),
 ('20200515092158'),
 ('20200611090747'),
 ('20200622101923'),
+('20200730114601'),
+('20200805080622'),
 ('20200807065809'),
 ('20200807083737'),
+('20200811133320'),
+('20200817101012'),
+('20200819083947'),
+('20200819085052'),
+('20200820094522'),
+('20200820095810'),
 ('20200824133243'),
+('20200902094919'),
 ('20200918144501'),
+('20200922092535'),
 ('20200922144601'),
 ('20200923130701'),
 ('20200925170636'),
@@ -20895,13 +23047,17 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20201001095904'),
 ('20201001133625'),
 ('20201005090447'),
+('20201005093406'),
 ('20201005150456'),
 ('20201007121011'),
 ('20201008122920'),
 ('20201009073905'),
+('20201015095353'),
 ('20201020100820'),
+('20201027103331'),
 ('20201030083414'),
 ('20201103092521'),
+('20201112132347'),
 ('20201118153001'),
 ('20201202090824'),
 ('20201209161246'),
@@ -20909,19 +23065,23 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210119103725'),
 ('20210119151601'),
 ('20210209154545'),
+('20210211162023'),
 ('20210215114312'),
 ('20210215133318'),
-('20210216111920'),
-('20210217112010'),
-('20210219172016'),
+('20210215153434'),
+('20210217082925'),
 ('20210222103208'),
+('20210302081408'),
+('20210304145448'),
 ('20210304154300'),
-('20210311143508'),
 ('20210312110155'),
 ('20210312110510'),
-('20210317102544'),
-('20210322143441'),
 ('20210414100801'),
-('20210416084101');
+('20210416084101'),
+('20210421171901'),
+('20210510075720'),
+('20210511132348'),
+('20210511133034'),
+('20210514142217');
 
 
