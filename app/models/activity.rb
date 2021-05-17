@@ -114,6 +114,7 @@ class Activity < ApplicationRecord
   validates :production_campaign, presence: { if: :perennial? }
   validates :grading_net_mass_unit, presence: { if: :measure_grading_net_mass }
   validates :grading_sizes_indicator, :grading_sizes_unit, presence: { if: :measure_grading_sizes }
+  validates_length_of :isacompta_analytic_code, is: 2, if: :isacompta_analytic_code?
 
   scope :actives, -> { availables.where(id: ActivityProduction.where(state: :opened).select(:activity_id)) }
   scope :availables, -> { where.not('suspended') }

@@ -1799,6 +1799,15 @@
         <page to="backend/taxes#unroll"/>
         <page to="backend/taxes#update"/>
       </item>
+      <item name="analytic_sequences">
+        <page to="backend/analytic_sequences#index"/>
+        <page to="backend/analytic_sequences#show"/>
+        <page to="backend/analytic_sequences#new"/>
+        <page to="backend/analytic_sequences#create"/>
+        <page to="backend/analytic_sequences#edit"/>
+        <page to="backend/analytic_sequences#update"/>
+        <page to="backend/analytic_sequences#destroy"/>
+      </item>
     </group>
     <group name="people" icon="group">
       <item name="teams">

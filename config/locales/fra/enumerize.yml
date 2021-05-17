@@ -320,6 +320,12 @@ fra:
       nature:
         background: "Fond"
         overlay: "Calque"
+    analytic_segment:
+      name:
+        activities: "Activités"
+        project_budgets: "Budgets internes"
+        teams: "Équipes"
+        equipments: "Équipements"
     naming_format_field_land_parcel:
       field_name:
         activity: "Activité"

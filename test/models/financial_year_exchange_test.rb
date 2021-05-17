@@ -23,22 +23,25 @@
 #
 # == Table: financial_year_exchanges
 #
-#  closed_at                :datetime
-#  created_at               :datetime         not null
-#  creator_id               :integer
-#  financial_year_id        :integer          not null
-#  id                       :integer          not null, primary key
-#  import_file_content_type :string
-#  import_file_file_name    :string
-#  import_file_file_size    :integer
-#  import_file_updated_at   :datetime
-#  lock_version             :integer          default(0), not null
-#  public_token             :string
-#  public_token_expired_at  :datetime
-#  started_on               :date             not null
-#  stopped_on               :date             not null
-#  updated_at               :datetime         not null
-#  updater_id               :integer
+#  analytical_codes                  :boolean          default(FALSE), not null
+#  closed_at                         :datetime
+#  created_at                        :datetime         not null
+#  creator_id                        :integer
+#  financial_year_id                 :integer          not null
+#  format                            :string           default("ekyagri"), not null
+#  id                                :integer          not null, primary key
+#  import_file_content_type          :string
+#  import_file_file_name             :string
+#  import_file_file_size             :integer
+#  import_file_updated_at            :datetime
+#  lock_version                      :integer          default(0), not null
+#  public_token                      :string
+#  public_token_expired_at           :datetime
+#  started_on                        :date             not null
+#  stopped_on                        :date             not null
+#  transmit_isacompta_analytic_codes :boolean          default(FALSE)
+#  updated_at                        :datetime         not null
+#  updater_id                        :integer
 #
 require 'test_helper'
 
@@ -122,14 +125,6 @@ class FinancialYearExchangeTest < Ekylibre::Testing::ApplicationTestCase::WithFi
     refute exchange.valid?
   end
 
-  test 'started on is set before create validations' do
-    financial_year = financial_years(:financial_years_025)
-    exchange = FinancialYearExchange.new(financial_year: financial_year)
-    refute exchange.started_on.present?
-    exchange.valid?
-    assert exchange.started_on.present?
-  end
-
   test 'generates public token' do
     financial_year = financial_years(:financial_years_025)
     exchange = build(:financial_year_exchange, financial_year: financial_year)
@@ -153,19 +148,6 @@ class FinancialYearExchangeTest < Ekylibre::Testing::ApplicationTestCase::WithFi
     exchange.closed_at = Time.zone.now
     assert exchange.save
     assert_equal initial_started_on, exchange.started_on
-  end
-
-  test 'started on is the financial year started on when the financial year has no other exchange' do
-    financial_year = financial_years(:financial_years_025)
-    exchange = FinancialYearExchange.new(financial_year: financial_year)
-    assert_equal financial_year.started_on, get_computed_started_on(exchange)
-  end
-
-  test 'started on is the latest financial year exchange stopped on when the financial year has other exchanges' do
-    financial_year = financial_years(:financial_years_025)
-    previous_exchange = create(:financial_year_exchange, financial_year: financial_year)
-    exchange = FinancialYearExchange.new(financial_year: financial_year)
-    assert_equal previous_exchange.stopped_on, get_computed_started_on(exchange), 'Expected start date of exchange is not encountered. Financial year started on ' + financial_year.started_on.l(locale: :eng) + ' and stopped on ' + financial_year.stopped_on.l(locale: :eng) + ' and previous exchange stopped on ' + exchange.stopped_on.l(locale: :eng)
   end
 
   test 'accountant_email is the accountant default email' do
@@ -210,6 +192,15 @@ class FinancialYearExchangeTest < Ekylibre::Testing::ApplicationTestCase::WithFi
     exchange = create(:financial_year_exchange, :opened, financial_year: financial_year)
     assert exchange.close!
     assert_equal exchange.reload.closed_at.to_date, Time.zone.today
+  end
+
+  test 'started_on should be after financial year started_on' do
+    FinancialYear.delete_all
+    fy = create(:financial_year, year: 2021)
+    exchange = build(:financial_year_exchange, :opened, financial_year: fy, started_on: '15/12/2020', stopped_on: '01/02/2021')
+    assert_not exchange.valid?
+    exchange.started_on = '15/01/2021'
+    assert exchange.valid?
   end
 
   def get_computed_started_on(exchange)

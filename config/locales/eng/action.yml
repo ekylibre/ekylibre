@@ -71,6 +71,10 @@ eng:
       index: "Analyses"
       new: "New analysis"
       show: "Analysis #%{number}"
+    backend/analytic_sequences:
+      index: "Analytic sequences"
+      new: "New analytic sequence"
+      edit: "Edit analytic sequence"
     backend/analysis_items:
       new: "New analysis item"
     backend/animal_groups:
@@ -673,7 +677,7 @@ eng:
       edit: "Edit product localization:"
       new: "New product localization"
     backend/product_nature_categories:
-      edit: "Edit accounting category: %{name}" 
+      edit: "Edit accounting category: %{name}"
       # incorporate: "Incorporate product nature category: %{name}"
       index: "Accounting categories"
       new: "New accounting category"
@@ -1248,7 +1252,7 @@ eng:
       harvest_in_progress: "Be careful, this crop is being harvested"
       included_in: "The value of %{attribute} must be included between %{minimum} and %{maximum}"
       inclusion: "%{attribute} is not included in the list"
-      intervention_crops_rejected: "Following Land parcels/plants could not be defined as target, because they don't match intervention target filter\_: %{crops}" 
+      intervention_crops_rejected: "Following Land parcels/plants could not be defined as target, because they don't match intervention target filter\_: %{crops}"
       invalid: "%{attribute} is invalid"
       invalid_at: "%{attribute} is_invalid. Error near %{error}"
       invalid_child: "At least one value of %{attribute} is invalid."
@@ -1387,6 +1391,13 @@ eng:
     unroll:
       server_error: "Server error"
   labels:
+    activate_transmit_analytic_codes: "Analytic sequence is available on option select 'Transmit analytic codes'"
+    number_of_animals: "Number of animals"
+    warning_could_not_use_ift: "Warning, if production nature is not setted, treatment frequency index won't be calculated."
+    start_state_of_production: "Start state of production (year N)"
+    isacompta_format_exchanges: "Exchanges in Isacompta format"
+    ekyagri_format_exchanges: "Exchanges in Ekyagri format"
+    complete_isacompta_journal_code_html: "Complete the codes of the Isacompta journals selected in your accounting exchange : %{journals_link}"
     configure_naming_format: "Configure Naming Format"
     configure_label_format: "Configure label format"
     free_field_naming_format_hint: "You can customize name by adding a free field to naming format"
@@ -1398,6 +1409,7 @@ eng:
     land_parcel_plant: "Land parcel/plant"
     land_parcels_plants: "Land parcels/plants"
     add_crop: "Add crop"
+    add_segment: "Add segment"
     add_use: "Add use"
     total_area: "Total area"
     accepted: "Accepted"
@@ -2071,6 +2083,8 @@ eng:
     file_preview: "Preview"
     file_to_upload: "File to upload"
     file_trimming: "File trimming :"
+    fill_analytic_codes_of_your_segments: "Fill your analytics codes of your %{segment}"
+    fill_analytic_codes_of_your_activities: "Fill your analytics codes ISACOMPTA | %{missing_code_count} miising on %{segment}"
     filter: "Filter"
     filter_on: "Filter on"
     final_balance: "Final balance"
@@ -2822,6 +2836,7 @@ eng:
     sensors: "Sensors"
     sent: "Sent"
     sent_vat_declaration: "Definitive VAT declaration"
+    sequence: "Séquence %{counter}"
     service: "Service"
     service_deliveries: "Service deliveries"
     service_delivering: "Service delivering"

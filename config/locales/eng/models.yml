@@ -82,9 +82,13 @@ eng:
         <<: *error_messages
   activerecord:
     attributes:
+      financial_year_exchange:
+        transmit_isacompta_analytic_codes: 'Transmit the Isacompta analytical codes'
       account:
         cumulated_absolute_credit_balance: "Credit balance"
         cumulated_absolute_debit_balance: "Debit balance"
+      activity:
+        isacompta_analytic_code: "isacompta analytic code"
       activity_budget:
         expenses_amount: "Expenses amount"
         revenues_amount: "Revenues amount"
@@ -243,7 +247,7 @@ eng:
         lib_court: "Number"
         status: "Allowed"
         usage_conditions: "Usage conditions"
-      ride: 
+      ride:
         sleep_duration: "Break time"
       ride_set:
         provider_vendor: "Provider"
@@ -599,6 +603,8 @@ eng:
       wine_incoming_harvest_storage: "Wine incoming harvest storage"
       zone: "Zone"
   attributes:
+    isacompta_code: "Isacompta code"
+    isacompta_label: "Isacompta label"
     declared_area: "Declared area"
     calculated_area: "Calculated area"
     rootstock_name: "Rootstock"
@@ -1255,6 +1261,7 @@ eng:
     irregular_batch: "Irregular batch"
     irrigated: "Irrigated"
     irrigation_water_nitrogen: "Irrigation water nitrogen"
+    isacompta_letter: "Isacompta Letter"
     islet: "Islet"
     islet_number: "Islet number"
     islets: "Islets"

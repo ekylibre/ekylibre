@@ -214,11 +214,11 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
   test 'Cannot create a sale during a financial year exchange' do
     FinancialYear.delete_all
-    financial_year = create(:financial_year, started_on: Date.today.beginning_of_year, stopped_on: Date.today.end_of_year)
-    exchange = FinancialYearExchange.create(financial_year: financial_year, stopped_on: Date.today - 2.day)
-    assert create(:sale, invoiced_at: Date.today - 1.day)
+    financial_year = create(:financial_year, started_on: Date.new(2021, 1, 1).beginning_of_year, stopped_on: Date.new(2021, 1, 1).end_of_year)
+    exchange = FinancialYearExchange.create(financial_year: financial_year, started_on: Date.new(2021, 3, 11) - 4.day, stopped_on: Date.new(2021, 3, 11) - 2.day)
+    assert create(:sale, invoiced_at: Date.new(2021, 3, 11) - 1.day)
     assert_raises ActiveRecord::RecordInvalid do
-      create(:sale, invoiced_at: Date.today - 3.day)
+      create(:sale, invoiced_at: Date.new(2021, 3, 11) - 3.day)
     end
   end
 

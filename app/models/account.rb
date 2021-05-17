@@ -618,6 +618,18 @@ class Account < ApplicationRecord
     mark(journal_entry_items.where(entry_id: ids).map(&:id))
   end
 
+  def next_isacompta_letter(last_isacompta_letter)
+    if last_isacompta_letter == 'ZZZ'
+      raise 'ZZZ is the max value of isacompta_letter'
+    elsif last_isacompta_letter == '999'
+      '00A'
+    elsif last_isacompta_letter.nil?
+      '000'
+    else
+      last_isacompta_letter.succ
+    end
+  end
+
   # Mark entry items with the given +letter+. If no +letter+ given, it uses a new letter.
   # Don't mark unless.all the marked items will be balanced together
   def mark(item_ids, letter = nil)
@@ -628,7 +640,11 @@ class Account < ApplicationRecord
     Account.transaction do
       letter ||= new_letter
       items = journal_entry_items.where(conditions)
-      items.update_all(letter: letter)
+      financial_years = items.select(:financial_year_id).distinct.pluck(:financial_year_id)
+      financial_years.each do |financial_year_id|
+        last_isacompta_letter = FinancialYear.find(financial_year_id).journal_entry_items.order('isacompta_letter DESC').first&.isacompta_letter
+        items.where(financial_year_id: financial_year_id).update_all(isacompta_letter: next_isacompta_letter(last_isacompta_letter), letter: letter)
+      end
 
       # Merge affairs if all entry items selected belong to one AND same affair third
       resources = items.map(&:entry).map(&:resource)

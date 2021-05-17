@@ -224,20 +224,21 @@
   opacity: 0.5;
 }
 
-i {
-  #exchanges-list .list .export-action & {
+#exchanges-list {
+   .export-action i {
     @include is-icon();
     @include use-icon(download);
   }
-  #exchanges-list .list .import-action & {
+  .import-action i {
     @include is-icon();
     @include use-icon(upload);
   }
-  #exchanges-list .list .notify-accountant-action & {
+  .notify-accountant-action i {
     @include is-icon();
     @include use-icon(envelope);
   }
 }
+
 #notify_accountant_modal {
   display: flex;
   justify-content: space-evenly;

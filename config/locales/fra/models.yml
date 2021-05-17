@@ -1,5 +1,6 @@
 fra:
   activemodel:
+
     errors:
       messages:
         accepted: "%{attribute} doit être accepté"
@@ -88,6 +89,8 @@ fra:
         wrong_length: "%{attribute} n’est pas d’une bonne longueur (%{count} caractères)"
   activerecord:
     attributes:
+      financial_year_exchange:
+        transmit_isacompta_analytic_codes: 'Transmettre les codes analytiques Isacompta'
       account:
         cumulated_absolute_credit_balance: "Solde crédit"
         cumulated_absolute_debit_balance: "Solde débit"
@@ -96,6 +99,7 @@ fra:
         net_margin: "Marge nette" #?
         parent: "Activité parente" #?
         work_unit: "Unité d’œuvre" #?
+        isacompta_analytic_code: "Code analytique ISACOMPTA"
         start_state_of_production: "1ère année de production"
         life_duration: "Durée de vie après plantation"
         production_campaign_period: "Campagne annuelle de production"
@@ -235,6 +239,8 @@ fra:
         field_name: "Champ"
       notification:
         done: "Effectué"
+      analytic_segment:
+        name: "Segment"
       outgoing_parcel: #?
         items: "Lignes de colis à expédier" #?
       outgoing_payment:
@@ -373,7 +379,7 @@ fra:
         untreated_buffer_arthropod: "ZNT arthropodes" #?
         untreated_buffer_plants: "ZNT plantes" #?
         usage_conditions: "Conditions d'usage"
-      ride: 
+      ride:
         sleep_duration: "Temps de pause"
       ride_set:
         provider_vendor: "Fournisseur"
@@ -987,6 +993,8 @@ fra:
     rootstock_name: "Porte-greffe"
     rootstock_names: "Porte-greffe(s)"
     vine_variety_name: "Cépage" #?
+    isacompta_code: "Code isacompta"
+    isacompta_label: "Libellé isacompta"
     abilities: "Compétences"
     abilities_list: "Liste des compétences"
     absolute_credit: "Crédit (absolu)"
@@ -1667,6 +1675,7 @@ fra:
     # irregular_batch: "Irregular batch"
     irrigated: "Irrigué"
     irrigation_water_nitrogen: "Azote apporté par l’eau d’irrigation (Nirr)"
+    isacompta_letter: "Lettre Isacompta"
     islet: "Ilôt"
     islet_number: "Numéro de l’ilot PAC"
     islets: "Ilôts"

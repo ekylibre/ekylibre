@@ -49,7 +49,18 @@ module Backend
       t.column :amount, currency: true
     end
 
-    list(:exchanges, model: :financial_year_exchanges, conditions: { financial_year_id: 'params[:id]'.c }) do |t|
+    list(:ekyagri_format_exchanges, model: :financial_year_exchanges, conditions: { financial_year_id: 'params[:id]'.c, format: 'ekyagri' }) do |t|
+      t.action :journal_entries_export, format: :csv, label: :journal_entries_export.ta, class: 'export-action'
+      t.action :journal_entries_import, label: :journal_entries_import.ta, if: :opened?, class: 'import-action'
+      t.action :notify_accountant_modal, if: :opened?, class: 'notify-accountant-action'
+      t.action :close, if: :opened?
+      t.column :name, url: true, class: 'center-align'
+      t.column :started_on, class: 'center-align'
+      t.column :stopped_on, class: 'center-align'
+      t.column :closed_at, class: 'center-align'
+    end
+
+    list(:isacompta_format_exchanges, model: :financial_year_exchanges, conditions: { financial_year_id: 'params[:id]'.c, format: 'isacompta' }) do |t|
       t.action :journal_entries_export, format: :csv, label: :journal_entries_export.ta, class: 'export-action'
       t.action :journal_entries_import, label: :journal_entries_import.ta, if: :opened?, class: 'import-action'
       t.action :notify_accountant_modal, if: :opened?, class: 'notify-accountant-action'
@@ -76,6 +87,14 @@ module Backend
             @closer = @financial_year.closer
             @closer == current_user ? notify_now(:financial_year_closure_in_preparation_initiated_by_you.tl(code: @financial_year.code)) : notify_now(:financial_year_closure_in_preparation_initiated_by_someone_else.tl(code: @financial_year.code))
           end
+
+          journals_link = @financial_year.exchanges.opened.with_format(:isacompta).flat_map do |exchange|
+            exchange.journals.map do |journal|
+              view_context.link_to(journal.name, edit_backend_journal_url(journal))
+            end
+          end.compact.join(', ')
+          notify(:complete_isacompta_journal_code_html.tl(journals_link: journals_link), html: true) if journals_link != ""
+
           notify_now(:locked_exercice_info) if @financial_year.locked?
           t3e @financial_year.attributes
           @progress_status = fetch_progress_values(params[:id])

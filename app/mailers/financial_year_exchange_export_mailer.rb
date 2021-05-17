@@ -8,7 +8,12 @@ class FinancialYearExchangeExportMailer < ActionMailer::Base
       name: Entity.of_company.full_name,
       current_user_name: current_user.full_name,
       exchange_name: exchange.name,
-      accountant_full_name: exchange.accountant.full_name
+      accountant_full_name: exchange.accountant.full_name,
+      exchange_format: exchange.format,
+      financial_year_name: exchange.financial_year.name,
+      started_on: exchange.started_on.l,
+      stopped_on: exchange.stopped_on.l,
+      help_doc_url: "https://doc.ekylibre.com/v2/fr/chapitre5/#echanges"
     }
 
     mail(

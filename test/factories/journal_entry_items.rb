@@ -22,5 +22,6 @@ FactoryBot.define do
     state { 'confirmed' }
     sequence(:name) { |i| "JEI #{i}" }
     printed_on { Date.parse('2016-12-01') }
+    letter { '' }
   end
 end
