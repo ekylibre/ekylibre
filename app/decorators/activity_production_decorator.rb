@@ -10,25 +10,25 @@ class ActivityProductionDecorator < Draper::Decorator
       .any?
   end
 
-  def production_costs
+  def production_costs(current_campaign)
     {
-      global_costs: human_global_costs,
-      cultivated_hectare_costs: human_cultivated_hectare_costs,
-      working_hectare_costs: human_working_hectare_costs
+      global_costs: human_global_costs(current_campaign),
+      cultivated_hectare_costs: human_cultivated_hectare_costs(current_campaign),
+      working_hectare_costs: human_working_hectare_costs(current_campaign)
     }
   end
 
-  def global_costs
-    @global_costs ||= ActivityProductions::CostsCalculation.new.compute_costs(self)
+  def global_costs(current_campaign)
+    @global_costs ||= ActivityProductions::CostsCalculation.new.compute_costs(self, current_campaign)
   end
 
-  def human_global_costs
-    human_costs(global_costs)
+  def human_global_costs(current_campaign)
+    human_costs(global_costs(current_campaign))
   end
 
-  def cultivated_hectare_costs
+  def cultivated_hectare_costs(current_campaign)
     if @cultivated_hectare_costs.nil?
-      costs = global_costs.clone
+      costs = global_costs(current_campaign).clone
       divider_costs(costs, object.net_surface_area.in(:hectare).round(2).to_d)
       total_costs(costs)
     end
@@ -36,27 +36,27 @@ class ActivityProductionDecorator < Draper::Decorator
     @cultivated_hectare_costs ||= costs
   end
 
-  def human_cultivated_hectare_costs
-    human_costs(cultivated_hectare_costs)
+  def human_cultivated_hectare_costs(current_campaign)
+    human_costs(cultivated_hectare_costs(current_campaign))
   end
 
-  def working_hectare_costs
-    @working_hectare_costs ||= divider_costs(global_costs.clone, working_zone_area.to_f)
+  def working_hectare_costs(current_campaign)
+    @working_hectare_costs ||= divider_costs(global_costs(current_campaign).clone, working_zone_area(current_campaign).to_f)
   end
 
-  def human_working_hectare_costs
-    human_costs(working_hectare_costs)
+  def human_working_hectare_costs(current_campaign)
+    human_costs(working_hectare_costs(current_campaign))
   end
 
-  def working_zone_area
-    @working_zone_area ||= ActivityProductions::WorkingZoneAreaCalculation.new.compute_working_zone_area(self)
+  def working_zone_area(current_campaign)
+    @working_zone_area ||= ActivityProductions::WorkingZoneAreaCalculation.new.compute_working_zone_area(self, current_campaign)
   end
 
-  def human_working_zone_area
-    working_zone_area
+  def human_working_zone_area(current_campaign)
+    working_zone_area(current_campaign)
       .in(:hectare)
-      .round(3)
-      .l
+      .round(2)
+      .l(precision: 2)
   end
 
   private

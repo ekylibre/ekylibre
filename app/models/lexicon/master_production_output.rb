@@ -34,10 +34,11 @@
 #
 class MasterProductionOutput < LexiconRecord
   include Lexiconable
-  self.id_column = :production_nature_id
   belongs_to :production_nature, class_name: 'MasterProductionNature', inverse_of: :outputs
 
   delegate :started_on, :stopped_on, to: :production_nature
+
+  scope :main, -> { where(main: true) }
 
   def started_on_with_current_year
     DateTime.new(DateTime.now.year, started_on.month, started_on.day).to_date

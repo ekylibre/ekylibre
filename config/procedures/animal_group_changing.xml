@@ -4,8 +4,8 @@
     <parameters>
       <target name="animal" filter="is animal">
         <attribute name="new_container" filter="is building_division and can store(animal)"/>
-        <attribute name="new_group" compute-filter="'is animal_group and includes %{variety_of(PRODUCT)}'"/>
-        <attribute name="new_variant" value="variant_of(NEW_GROUP)"/>
+        <attribute name="new_group" filter="is animal_group"/>
+        <attribute name="new_variant" default-value="variant_of(NEW_GROUP)" filter="is animal"/>
       </target>
       <doer name="driver" filter="can drive(tractor) and can move" cardinality="*"/>
       <doer name="doer" filter="is worker" cardinality="*"/>

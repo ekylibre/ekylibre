@@ -1,0 +1,2 @@
+json.name @production_usage.name
+json.production_support_nature @production_usage.production_support_nature

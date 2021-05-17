@@ -1494,7 +1494,6 @@ spa:
     # product_type: "Product type"
     # product_work_number: "Product work number"
     production: "Producción"
-    production_campaign: "Campaña de producción"
     production_cycle: "Ciclo productivo"
     # production_nature: "Production nature"
     production_support: "Soporte de producción"

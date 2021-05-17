@@ -666,21 +666,26 @@ class Product < ApplicationRecord
   # Returns an evaluated price (without taxes) for the product in an intervention context
   # options could contains a parameter :at for the datetime of a catalog price
   # unit_price in a purchase context
+  # unit price in incoming item
   # or unit_price in a sale context
   # or unit_price in catalog price
   def evaluated_price(_options = {})
     filter = {
       variant_id: variant_id
     }
-    incoming_item = incoming_parcel_item
-    incoming_purchase_item = incoming_item.purchase_item if incoming_item
-    outgoing_sale_item = SaleItem.find(outgoing_parcel_item.sale_item_id) if outgoing_parcel_item && outgoing_parcel_item.sale_item_id
+    incoming_item = parcel_item_storings.last.parcel_item if parcel_item_storings.any?
+    incoming_purchase_item = incoming_item.purchase_invoice_item if incoming_item
+    outgoing_item = outgoing_parcel_item
+    outgoing_sale_item = outgoing_item.sale_item if outgoing_item
 
     price = if incoming_purchase_item
               # search a price in purchase item via incoming item price
               incoming_purchase_item.unit_pretax_amount
+            # search a price in incoming item price
+            elsif incoming_item && incoming_item.unit_pretax_amount != 0.0
+              incoming_item.unit_pretax_amount
+            # search a price in sale item via outgoing item price
             elsif outgoing_sale_item
-              # search a price in sale item via outgoing item price
               outgoing_sale_item.unit_pretax_amount
             elsif catalog_item = variant.catalog_items.limit(1).first
               # search a price in catalog price

@@ -37,7 +37,7 @@ module Backend
       code << "      started_on = interval.first\n"
       code << "      stopped_on = interval.last\n"
       code << "    end \n"
-      code << "    c[0] << \" AND #{Animal.table_name}.born_at::DATE BETWEEN ? AND ?\"\n"
+      code << "    c[0] << \" AND #{Animal.table_name}.born_at::DATE >= ? AND (#{Animal.table_name}.dead_at::DATE IS NULL OR #{Animal.table_name}.dead_at::DATE >= ?)\"\n"
       code << "    c << started_on\n"
       code << "    c << stopped_on\n"
       code << "  end\n "
@@ -53,7 +53,7 @@ module Backend
       # code << "  end\n "
       # code << "end\n "
       code << "  if params[:variant_id].to_i > 0\n"
-      code << "    c[0] << \" AND \#{ProductNatureVariant.table_name}.id = ?\"\n"
+      code << "    c[0] << \" AND #{Animal.table_name}.variant_id = ?\"\n"
       code << "    c << params[:variant_id].to_i\n"
       code << "  end\n"
       code << "c\n"
@@ -73,7 +73,6 @@ module Backend
       t.column :born_at
       t.column :sex, label_method: :sex_text, label: :sex
       t.status
-      t.column :state, hidden: true
       t.column :net_mass, datatype: :measure
       t.column :container, url: true
       # t.column :groups, url: true
@@ -206,6 +205,7 @@ module Backend
       end
     end
 
+    # add animals to a group in intervention/new
     def add_to_group
       return unless find_all
 
@@ -214,9 +214,7 @@ module Backend
       end
       parameters = {
         procedure_name: :animal_group_changing,
-        intervention: {
-          targets_attributes: targets
-        }
+        targets_attributes: targets
       }
       redirect_to new_backend_intervention_path(parameters)
     end

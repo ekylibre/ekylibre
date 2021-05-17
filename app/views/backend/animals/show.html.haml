@@ -31,6 +31,20 @@
       %span.value
         %i.picto{class: "picto-clock-o"}
         = human_age(resource.born_at, display: 3)
+
+  - if resource.outgoing_parcel_item
+    .med-info
+      %span.title= :outgoing_parcels.tl + " #{resource.outgoing_parcel_item.shipment.given_at.l}"
+      %span.value
+        %i.picto{class: "picto-truck-loading"}
+        = link_to(resource.outgoing_parcel_item.shipment.number, {controller: :shipments, action: :show, id: resource.outgoing_parcel_item.shipment.id})
+
+  - if resource.evaluated_price
+    .med-info
+      %span.title= :sales.tl
+      %span.value
+        = resource.evaluated_price.l(ccurrency: :EUR)
+
   = labels_info(resource.labels)
 
 = cobbles do |c|

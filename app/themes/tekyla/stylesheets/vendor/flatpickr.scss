@@ -91,3 +91,16 @@ span.flatpickr-weekday {
 .flatpickr-wrapper > input {
   max-width: 100% !important;
 }
+
+.flatpickr-calendar {
+  &.year-hidden {
+    .numInputWrapper {
+      display: none;
+    }
+  }
+  &.day-names-hidden {
+    .flatpickr-weekdaycontainer {
+      display: none;
+    }
+  }
+}

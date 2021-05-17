@@ -31,7 +31,8 @@ function baseDateOptions(element) {
         dateFormat: 'Y-m-d',
         altInput: true,
         allowInput: true,
-        altFormat: 'd-m-Y',
+        altFormat: element.dataset.flatpickrAltFormat || 'd-m-Y',
+        calendarClass: element.dataset.flatpickrCalendarClass,
         static: true,
     };
 }
@@ -73,6 +74,9 @@ export function enableDatePicker(element) {
 
     const options = baseDateOptions(element);
     const flatInstance = flatpickr(element, options);
+    if (options.calendarClass !== undefined) {
+        flatInstance.calendarContainer.classList.add(...options.calendarClass.split(' '));
+    }
 
     setupBlurListener(flatInstance);
 

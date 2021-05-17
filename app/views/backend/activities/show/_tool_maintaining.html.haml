@@ -1,0 +1,43 @@
+- main_toolbar do |t|
+  = t.edit resource
+  - budget = resource.budget_of(current_campaign)
+  - if budget && budget.items.any?
+    = tool_to(:edit_budget.tl, { controller: :activity_budgets, action: :edit, id: budget.id })
+  - if current_campaign && resource.productions.of_campaign(current_campaign).empty?
+    = tool_to(:close.ta, { controller: :campaigns, action: :close, id: current_campaign.id, activity_id: resource.id, redirect: url_for(controller: :campaigns, action: :show, id: current_campaign.id) }, method: :delete, data: { confirm: :are_you_sure.tl }, tool: :remove)
+
+- main_period_selector(:year)
+
+= main_informations attachment: true do
+  .big-infos
+    .med-info.important
+      %span.title= :number_of_tools.tl
+      %span.value=  resource.size_during(current_campaign).to_f
+
+  = attributes_list do |l|
+    - l.attribute :production_system
+    - l.attribute :production_cycle
+    - l.attribute :size_indicator_name
+    - l.attribute :size_unit_name
+
+= cobbles do |c|
+
+  - if current_campaign
+    - c.cobble :budget do
+      = render 'budget'
+
+  - if resource.with_supports
+    - c.cobble(:productions) do
+      = render 'productions'
+
+  - if resource.auxiliary? && resource.distributions.any?
+    - c.cobble(:distributions, title: Activity.human_attribute_name(:distributions)) do
+      :ruby
+        data = resource.distributions.reorder(:affectation_percentage).find_each.map do |distribution|
+          percentage = distribution.affectation_percentage.to_s.to_f
+
+          { name: :label_value.th(label: distribution.main_activity_name, value: number_to_percentage(percentage, precision: 2)), y: percentage }
+        end
+        series = [{type: 'pie', name: Activity.human_attribute_name(:distributions), data: data}]
+
+      = pie_highcharts(series, legend: true)

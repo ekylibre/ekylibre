@@ -29,6 +29,16 @@ GIT
       nokogiri (>= 1.5.0)
       rubyzip (~> 1.2.0)
 
+GIT
+  remote: https://gitlab.com/ekylibre/onoma.git
+  revision: f897f0febbe23b3a9f4fd2d885a9654e37c20579
+  branch: feature/redesign-activities-and-productions
+  specs:
+    onoma (0.5.3)
+      activesupport (>= 4.2)
+      nokogiri (>= 1.10.4)
+      zeitwerk (~> 2.4.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -359,10 +369,6 @@ GEM
     omniauth-oauth2 (1.7.1)
       oauth2 (~> 1.4)
       omniauth (>= 1.9, < 3)
-    onoma (0.5.4)
-      activesupport (>= 4.2)
-      nokogiri (>= 1.10.4)
-      zeitwerk (~> 2.4.0)
     orm_adapter (0.5.0)
     paperclip (5.3.0)
       activemodel (>= 4.2.0)
@@ -708,7 +714,7 @@ DEPENDENCIES
   odf-report!
   omniauth (~> 1.9)
   omniauth-oauth2 (~> 1.7)
-  onoma (~> 0.5.4)
+  onoma!
   paperclip (~> 5.3)
   paperclip-document (~> 0.0.11)
   paranoia (~> 2.2)

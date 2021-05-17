@@ -77,8 +77,8 @@ class InterventionTarget < InterventionProductParameter
 
   before_validation do
     # compute quantity_value & quantity_unit_name for imputation_ratio
-    if working_zone
-      a = working_zone.area
+    if self.working_zone?
+      a = self.working_zone.area
       self.quantity_value = a
       self.quantity_unit_name = 'square_meter'
       self.quantity_indicator_name = 'net_surface_area'

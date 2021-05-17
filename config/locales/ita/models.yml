@@ -1521,7 +1521,6 @@ ita:
     # product_type: "Product type"
     # product_work_number: "Product work number"
     production: "Produzione"
-    production_campaign: "campagna di produzione"
     production_cycle: "ciclo produttivo"
     # production_nature: "Production nature"
     production_support: "supporto alla produzione"

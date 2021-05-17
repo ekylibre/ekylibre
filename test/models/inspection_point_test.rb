@@ -68,8 +68,9 @@ class InspectionPointTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       size_indicator_name: 'net_surface_area',
 
       suspended: false,
+      production_started_on: Date.new(2000, 3, 1),
+      production_stopped_on: Date.new(2001, 7, 1),
       production_cycle: 'annual',
-      production_campaign: 'at_cycle_end',
       production_system_name: 'intensive_farming',
 
       use_countings: true,

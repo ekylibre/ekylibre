@@ -23,32 +23,35 @@
 #
 # == Table: activity_productions
 #
-#  activity_id         :integer          not null
-#  campaign_id         :integer
-#  created_at          :datetime         not null
-#  creator_id          :integer
-#  cultivable_zone_id  :integer
-#  custom_fields       :jsonb
-#  custom_name         :string
-#  id                  :integer          not null, primary key
-#  irrigated           :boolean          default(FALSE), not null
-#  lock_version        :integer          default(0), not null
-#  nitrate_fixing      :boolean          default(FALSE), not null
-#  rank_number         :integer          not null
-#  season_id           :integer
-#  size_indicator_name :string           not null
-#  size_unit_name      :string
-#  size_value          :decimal(19, 4)   not null
-#  started_on          :date
-#  state               :string
-#  stopped_on          :date
-#  support_id          :integer          not null
-#  support_nature      :string
-#  support_shape       :geometry({:srid=>4326, :type=>"multi_polygon"})
-#  tactic_id           :integer
-#  updated_at          :datetime         not null
-#  updater_id          :integer
-#  usage               :string           not null
+#  activity_id          :integer          not null
+#  campaign_id          :integer
+#  created_at           :datetime         not null
+#  creator_id           :integer
+#  cultivable_zone_id   :integer
+#  custom_fields        :jsonb
+#  custom_name          :string
+#  id                   :integer          not null, primary key
+#  irrigated            :boolean          default(FALSE), not null
+#  lock_version         :integer          default(0), not null
+#  nitrate_fixing       :boolean          default(FALSE), not null
+#  production_nature_id :integer
+#  provider             :jsonb            default("{}")
+#  rank_number          :integer          not null
+#  season_id            :integer
+#  size_indicator_name  :string           not null
+#  size_unit_name       :string
+#  size_value           :decimal(19, 4)   not null
+#  started_on           :date
+#  starting_year        :integer
+#  state                :string
+#  stopped_on           :date
+#  support_id           :integer          not null
+#  support_nature       :string
+#  support_shape        :geometry({:srid=>4326, :type=>"multi_polygon"})
+#  tactic_id            :integer
+#  updated_at           :datetime         not null
+#  updater_id           :integer
+#  usage                :string           not null
 #
 require 'test_helper'
 
@@ -57,13 +60,14 @@ class ActivityProductionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtu
 
   test 'create' do
     activity = Activity.find_by(production_cycle: :annual, family: 'plant_farming')
-    p = activity.productions.new(started_on: '2015-07-01', stopped_on: '2016-01-15', campaign: Campaign.of(2016), cultivable_zone: CultivableZone.first)
+    campaign = Campaign.of(2016)
+    p = activity.productions.new(started_on: '2015-07-01', stopped_on: '2016-01-15', campaign: campaign, cultivable_zone: CultivableZone.first)
     assert p.save, p.errors.inspect
-    p = activity.productions.new(started_on: '2015-07-01', stopped_on: '72016-01-15', campaign: Campaign.of(2016), cultivable_zone: CultivableZone.first)
+    p = activity.productions.new(started_on: '2015-07-01', stopped_on: '72016-01-15', campaign: campaign, cultivable_zone: CultivableZone.first)
     assert !p.save, p.errors.inspect
-    p = activity.productions.new(started_on: '15-07-01', stopped_on: '2016-01-15', campaign: Campaign.of(2016), cultivable_zone: CultivableZone.first)
+    p = activity.productions.new(started_on: '15-07-01', stopped_on: '2016-01-15', campaign: campaign, cultivable_zone: CultivableZone.first)
     assert p.save, p.errors.inspect
-    p = activity.productions.new(started_on: '2017-07-01', stopped_on: '2016-01-15', campaign: Campaign.of(2016), cultivable_zone: CultivableZone.first)
+    p = activity.productions.new(started_on: '2017-07-01', stopped_on: '2016-01-15', campaign: campaign, cultivable_zone: CultivableZone.first)
     assert !p.save, p.errors.inspect
   end
 
@@ -80,27 +84,28 @@ class ActivityProductionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtu
   # assert_in_delta cause psql ST_Area([...]) ~= Charta::MultiPolygon.area
   test 'working zone area 8' do
     production = ActivityProduction.find(8).decorate
-    assert_in_delta 21.56007722495018, production.working_zone_area.to_d, 0.0005
+    assert_in_delta 21.56007722495018, production.working_zone_area(production.campaign).to_d, 0.0005
   end
 
   test 'working zone area 6' do
     production = ActivityProduction.find(6).decorate
-    assert_in_delta 0.0, production.working_zone_area.to_d, 0.0005
+    assert_in_delta 0.0, production.working_zone_area(production.campaign).to_d, 0.0005
   end
 
   test 'working zone area 9' do
     production = ActivityProduction.find(9).decorate
-    assert_in_delta 33.454308011622075, production.working_zone_area.to_d, 0.0005
+    assert_in_delta 33.454308011622075, production.working_zone_area(production.campaign).to_d, 0.0005
   end
 
   test 'working zone area 49' do
     production = ActivityProduction.find(49).decorate
-    assert_in_delta 1.958770832919594, production.working_zone_area.to_d, 0.0005
+    assert_in_delta 1.958770832919594, production.working_zone_area(production.campaign).to_d, 0.0005
   end
 
   test 'costs' do
-    production = create(:corn_activity_production, started_on: DateTime.new(2018, 1, 1))
-    intervention1 = create(:intervention, started_at: DateTime.new(2018, 1, 2), stopped_at: DateTime.new(2018, 1, 2) + 2.hours)
+    campaign = Campaign.of(2018)
+    production = create(:corn_activity_production, campaign: campaign, started_on: Date.new(2018, 0o4, 0o1), stopped_on: Date.new(2018, 10, 15))
+    intervention1 = create(:intervention, started_at: DateTime.new(2018, 4, 2), stopped_at: DateTime.new(2018, 4, 2) + 2.hours)
     target = create(
       :intervention_target,
       product: production.products.first,
@@ -118,7 +123,7 @@ class ActivityProductionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtu
       intervention: intervention1
     )
     intervention1.save
-    intervention2 = create(:intervention, started_at: DateTime.new(2018, 1, 2), stopped_at: DateTime.new(2018, 1, 2) + 2.hours)
+    intervention2 = create(:intervention, started_at: DateTime.new(2018, 5, 2), stopped_at: DateTime.new(2018, 5, 2) + 2.hours)
     target = create(
       :intervention_target,
       product: production.products.first,
@@ -138,18 +143,19 @@ class ActivityProductionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtu
     intervention2.save
     assert_equal(
       (intervention1.costing.doers_cost + intervention2.costing.doers_cost),
-      production.decorate.global_costs[:doers]
+      production.decorate.global_costs(campaign)[:doers]
     )
     assert_equal(
       (intervention1.costing.inputs_cost + intervention2.costing.inputs_cost),
-      production.decorate.global_costs[:inputs]
+      production.decorate.global_costs(campaign)[:inputs]
     )
   end
 
   test 'costs intervention on multiple productions' do
-    production1 = create(:corn_activity_production, started_on: DateTime.new(2018, 1, 1))
-    production2 = create(:lemon_activity_production, started_on: DateTime.new(2018, 1, 1))
-    intervention = create(:intervention, started_at: DateTime.new(2018, 1, 2), stopped_at: DateTime.new(2018, 1, 2) + 2.hours)
+    campaign = Campaign.of(2018)
+    production1 = create(:corn_activity_production, campaign: campaign, started_on: DateTime.new(2018, 1, 1), stopped_on: Date.new(2018, 10, 15))
+    production2 = create(:lemon_activity_production, campaign: campaign, started_on: DateTime.new(2018, 1, 1), stopped_on: Date.new(2018, 10, 15))
+    intervention = create(:intervention, started_at: DateTime.new(2018, 3, 2), stopped_at: DateTime.new(2018, 3, 2) + 2.hours)
     ratio1 = (production1.support_shape_area / (
         production1.support_shape_area + production2.support_shape_area
       )).to_f
@@ -179,21 +185,22 @@ class ActivityProductionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtu
       intervention: intervention
     )
     intervention.save
+
     assert_equal(
       (intervention.costing.doers_cost * ratio1).to_i,
-      production1.decorate.global_costs[:doers]
+      production1.decorate.global_costs(campaign)[:doers]
     )
     assert_equal(
       (intervention.costing.inputs_cost * ratio1).to_i,
-      production1.decorate.global_costs[:inputs]
+      production1.decorate.global_costs(campaign)[:inputs]
     )
     assert_equal(
       (intervention.costing.doers_cost * ratio2).to_i,
-      production2.decorate.global_costs[:doers]
+      production2.decorate.global_costs(campaign)[:doers]
     )
     assert_equal(
       (intervention.costing.inputs_cost * ratio2).to_i,
-      production2.decorate.global_costs[:inputs]
+      production2.decorate.global_costs(campaign)[:inputs]
     )
   end
 end

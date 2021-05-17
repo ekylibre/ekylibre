@@ -1,32 +1,12 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="pasturing" categories="animal_feeding" actions="animal_feeding" deprecated="true">
+  <procedure name="pasturing" categories="animal_feeding" actions="animal_feeding" deprecated="false">
     <parameters>
-      <parameter name="herd" type="tool" filter="is animal_group and derives from animal"/>
-      <parameter name="cultivation" type="target" filter="is plant">
-        <handler indicator="shape">
-          <compute to="shape" expr="intersection(VALUE, cultivation.shape)"/>
-          <compute to="population" expr="area(VALUE) / cultivation..net_surface_area(square_meter)"/>
-        </handler>
-      </parameter>
-      <parameter name="grass" type="output" variety="grass" derivative-of="variety: cultivation" filter="is grass and derives from plant" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
-        <handler indicator="net_mass" unit="ton"
-                 if="PRODUCT..net_mass? and PRODUCT..net_mass != 0"
-                 backward="POPULATION * PRODUCT..net_mass(ton)"
-                 forward="VALUE / PRODUCT..net_mass(ton)"/>
-        <handler name="food_mass_per_animal" indicator="net_mass" unit="kilogram"
-                 if="members_count(herd) > 0 and PRODUCT..net_mass? and PRODUCT..net_mass != 0"
-                 backward="POPULATION * (PRODUCT..net_mass(kilogram) / members_count(herd))"
-                 forward="VALUE * (members_count(herd) / PRODUCT..net_mass(kilogram))"/>
-        <handler indicator="net_volume" unit="cubic_meter"
-                 if="PRODUCT..net_volume? and PRODUCT..net_volume != 0"
-                 backward="POPULATION * PRODUCT..net_volume(cubic_meter)"
-                 forward="VALUE / PRODUCT..net_volume(cubic_meter)"/>
-        <handler name="dry_matter_mass_area_density" indicator="mass_area_density" unit="ton_per_hectare"
-                 if= "PRODUCT..net_mass? and PRODUCT..net_mass != 0 and sum(cultivation, :net_surface_area, :hectare) != 0"
-                 backward="(POPULATION * PRODUCT..net_mass(ton)) / sum(cultivation, :net_surface_area, :hectare)"
-                 forward="(VALUE * sum(cultivation, :net_surface_area, :hectare)) / PRODUCT..net_mass(ton)"/>
-      </parameter>
+      <target name="cultivation" filter="(is plant or is land_parcel) and has indicator shape" cardinality="1">
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+      </target>
+      <target name="herd" filter="is animal_group and derives from animal" />
+      <doer name="doer" filter="is worker" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

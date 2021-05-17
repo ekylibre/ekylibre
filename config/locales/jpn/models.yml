@@ -1446,7 +1446,6 @@ jpn:
     # product_type: "Product type"
     # product_work_number: "Product work number"
     production: "製造"
-    production_campaign: "プロダクションキャンペーン"
     production_cycle: "生産サイクル"
     # production_nature: "Production nature"
     production_support: "生産支援"

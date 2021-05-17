@@ -17,6 +17,10 @@ import _ from 'lodash';
 import L from 'leaflet';
 import 'leaflet-draw';
 import 'lib/leaflet/default-icon';
+import { MasterProductionNatureService } from 'services/masterProductionNatureService';
+import { MasterProductionOutputService } from 'services/masterProductionOutputService';
+import { VarietyService } from 'services/varietyService';
+import { CultivableZoneService } from 'services/cultivableZoneService';
 import 'components/map/pause-icon.js';
 
 export let Ekylibre = {
@@ -30,6 +34,10 @@ export let Ekylibre = {
     notification: { setup, notify },
     onElementDetected,
     onDomReady,
+    MasterProductionNatureService,
+    MasterProductionOutputService,
+    VarietyService,
+    CultivableZoneService,
 };
 
 export let globals = {

@@ -43,9 +43,49 @@
 #  stopped_on                :date             not null
 #
 class MasterProductionNature < LexiconRecord
+  class StartStateOfProduction
+    # @return [Integer]
+    attr_reader :year
+    # @return [MasterProductionNature]
+    attr_reader :specie
+    # @return [Symbol]
+    attr_reader :key
+
+    def initialize(year:, key:, production_nature: nil, default: false)
+      @year = year
+      @key = key
+      @production_nature = production_nature
+      @default = default
+    end
+
+    # @return [Boolean]
+    def default?
+      @default
+    end
+
+    # @param [String] :locale
+    # @return [String]
+    def label(locale: I18n.default_locale)
+      I18n.t(key, scope: "lexicon.start_state_of_production", locale: locale)
+    end
+  end
+
+  ARBITRARY_CHOOSEN_YEAR = 2000
+
   include Lexiconable
+  include ScopeIntrospection
+
   belongs_to :pfi_crop, class_name: 'RegisteredPfiCrop', foreign_key: :pfi_crop_code
   has_many :outputs, class_name: 'MasterProductionOutput', inverse_of: :production_nature, foreign_key: :production_nature_id
+
+  scope :of_species, ->(*species) { where(specie: species) }
+
+  # @return [String] Name of the main associated output
+  def main_output_name
+    if outputs.any?
+      outputs.main.first.name
+    end
+  end
 
   # Compute start date for a production nature (DD-MM)  and a harvest year (YYYY)
   #
@@ -79,13 +119,32 @@ class MasterProductionNature < LexiconRecord
     end.to_h
   end
 
-  # @return [Symbol]
-  def start
-    cycle_length = stopped_on.year - started_on.year
-    if cycle_length == 1
-      :at_cycle_end
+  # @return [String]
+  def cycle
+    start_state_of_production.any? ? 'perennial' : 'annual'
+  end
+
+  # @return [Boolean]
+  def perennial?
+    cycle == 'perennial'
+  end
+
+  # TODO: Must be corrected in lexicon to avoid if statement
+  # @return [Integer]
+  def started_on_year
+    if perennial?
+      started_on.year - ARBITRARY_CHOOSEN_YEAR - 1
     else
-      :at_cycle_start
+      started_on.year - ARBITRARY_CHOOSEN_YEAR
+    end
+  end
+
+  # @return [Integer]
+  def stopped_on_year
+    if perennial?
+      stopped_on.year - ARBITRARY_CHOOSEN_YEAR - 1
+    else
+      stopped_on.year - ARBITRARY_CHOOSEN_YEAR
     end
   end
 end
