@@ -1,0 +1,5 @@
+.activity-indicators
+  .activity-indicator.cumulated-time
+    = activity.working_duration.to_d.in(:second).convert(:hour).round.l(precision: 0)
+  .activity-indicator.cash
+    = activity.total_costs.to_i.l(currency: currency.name)

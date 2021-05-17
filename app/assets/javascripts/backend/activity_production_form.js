@@ -1,7 +1,6 @@
-(function (E) {
+(function (E, $) {
     const onKeyUpDelay = 1000;
     const namingFromatUrl = '/backend/naming_format_land_parcels/build.json';
-    const namingFromatDetailsUrl = '/backend/naming_format_land_parcels/details.json';
 
     class SupportNamePreview {
         constructor(formElement) {
@@ -63,18 +62,13 @@
                 url: namingFromatUrl,
                 data: this.getParams(),
                 context: this,
-                success: function (data, status, request) {
+                success: (data) => {
                     this.disableLoader();
                     this.setValue(data.name);
                     this.boundInput.setVisibility(data.has_free_field);
                 },
-                error: function (err) {
-                    _.delay(
-                        function () {
-                            this.previewElement.classList.add('loading-error');
-                        }.bind(this),
-                        1000
-                    );
+                error: () => {
+                    _.delay(() => this.previewElement.classList.add('loading-error'), 1000);
                 },
             });
         }
@@ -96,13 +90,84 @@
         }
     }
 
+    class ActivityProductionForm {
+        constructor(formElement) {
+            this.formElement = formElement;
+            this.cultivableZoneSelector = formElement.querySelector('#activity_production_cultivable_zone_id');
+            this.productionNatureSelector = formElement.querySelector('#activity_production_production_nature_id');
+            this.$map = $(formElement.querySelector('#activity_production_support_shape'));
+            this.usageSelect = formElement.querySelector('#activity_production_usage');
+            this.campaignSelector = formElement.querySelector('#activity_production_campaign_id');
+            this.fpStartedOn = formElement.querySelector('#activity_production_started_on')._flatpickr;
+            this.fpStoppedOn = formElement.querySelector('#activity_production_stopped_on')._flatpickr;
+        }
+
+        init() {
+            this.cultivableZoneSelector.addEventListener('unroll:selector:change', (event) => {
+                if (!event.detail.wasInitializing) {
+                    const cultivableZoneId = $(this.cultivableZoneSelector).selector('value');
+                    this.editOnMap(cultivableZoneId);
+                }
+            });
+
+            this.productionNatureSelector.addEventListener('unroll:selector:change', (event) => {
+                if (!event.detail.wasInitializing) {
+                    const productionId = $(this.productionNatureSelector).selector('value');
+                    this.setUsageFromProduction(productionId);
+                }
+            });
+            if (this.campaignSelector !== null) {
+                this.campaignSelector.addEventListener('unroll:selector:change', (event) => {
+                    if (!event.detail.wasInitializing) {
+                        const campaignHarvestYear = parseInt(this.campaignSelector.value);
+                        this.updateProductionPeriod(campaignHarvestYear);
+                    }
+                });
+            }
+        }
+
+        setUsageFromProduction(productionId) {
+            new E.MasterProductionOutputService()
+                .getAll({ production_nature_id: productionId, main: true })
+                .then((mainProductionOutputs) => {
+                    if (mainProductionOutputs[0] != undefined) {
+                        this.usageSelect.value = mainProductionOutputs[0].name;
+                    }
+                });
+        }
+
+        updateProductionPeriod(campaignHarvestYear) {
+            const startedOnInputValue = this.fpStartedOn.input.value;
+            const stoppedOnInputValue = this.fpStoppedOn.input.value;
+            const startedOnYearRelative = parseInt(this.fpStartedOn.input.dataset.startedOnYearRelative);
+            const stoppedOnYearRelative = parseInt(this.fpStartedOn.input.dataset.stoppedOnYearRelative);
+            if (startedOnInputValue != '') {
+                const startedOnDate = new Date(startedOnInputValue);
+                startedOnDate.setFullYear(campaignHarvestYear + startedOnYearRelative);
+                this.fpStartedOn.setDate(startedOnDate);
+            }
+            if (stoppedOnInputValue != '') {
+                const stoppedOnDate = new Date(stoppedOnInputValue);
+                stoppedOnDate.setFullYear(campaignHarvestYear + stoppedOnYearRelative);
+                this.fpStoppedOn.setDate(stoppedOnDate);
+            }
+        }
+
+        editOnMap(cultivableZoneId) {
+            new E.CultivableZoneService()
+                .get(cultivableZoneId)
+                .then((cultivableZone) => this.$map.mapeditor('edit', cultivableZone.shape, true));
+        }
+    }
+
     E.onDomReady(function () {
         const formElement = document.querySelector('form#new_activity_production,form[id^=edit_activity_production]');
         if (formElement !== null) {
+            new ActivityProductionForm(formElement).init();
             const previewElement = formElement.querySelector('[data-support-name-preview]');
             if (previewElement !== null) {
                 new SupportNamePreview(formElement).init();
             }
         }
     });
-})(ekylibre);
+})(ekylibre, jQuery);

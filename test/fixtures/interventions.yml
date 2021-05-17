@@ -243,46 +243,6 @@ interventions_009:
   updater_id: 1
   whole_duration: 20400
   working_duration: 20400
-interventions_010:
-  actions: animal_feeding
-  auto_calculate_working_periods: false
-  costing_id: 10
-  created_at: 2014-11-07 15:47:46.996499000 Z
-  creator_id: 1
-  event_id: 26
-  id: 18
-  lock_version: 4
-  nature: record
-  number: '17'
-  procedure_name: pasturing
-  started_at: 2014-07-01 12:35:00.000000000 Z
-  state: done
-  stopped_at: 2014-08-31 11:45:00.000000000 Z
-  trouble_encountered: false
-  updated_at: 2014-11-07 15:55:52.246355000 Z
-  updater_id: 1
-  whole_duration: 5267400
-  working_duration: 5267400
-interventions_011:
-  actions: animal_feeding
-  auto_calculate_working_periods: false
-  costing_id: 11
-  created_at: 2014-11-07 16:16:21.819333000 Z
-  creator_id: 1
-  event_id: 27
-  id: 19
-  lock_version: 0
-  nature: record
-  number: '18'
-  procedure_name: pasturing
-  started_at: 2014-09-01 15:15:00.000000000 Z
-  state: done
-  stopped_at: 2014-10-31 09:35:00.000000000 Z
-  trouble_encountered: false
-  updated_at: 2014-11-07 16:16:21.819333000 Z
-  updater_id: 1
-  whole_duration: 5163600
-  working_duration: 5163600
 interventions_012:
   actions: fertilization
   auto_calculate_working_periods: false

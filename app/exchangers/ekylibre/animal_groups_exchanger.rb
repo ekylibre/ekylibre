@@ -127,6 +127,7 @@ module Ekylibre
             initial_born_at: r.indicators_at,
             initial_population: 1.0,
             variant: variant,
+            member_variant: animal_variant,
             initial_container: animal_container,
             default_storage: animal_container
           )
@@ -142,24 +143,31 @@ module Ekylibre
           animal_group.save!
         end
 
-        # check campaign
-        campaign = Campaign.find_or_create_by(harvest_year: r.campaign_year)
-
         # check activity
         family = Onoma::ActivityFamily.find(:animal_farming)
+        unless family
+          w.error 'Cannot determine activity'
+          raise ActiveExchanger::Error.new("Cannot determine activity with support #{support_variant ? support_variant.variety.inspect : '?'} and cultivation #{cultivation_variant ? cultivation_variant.variety.inspect : '?'} in production #{sheet_name}")
+        end
         r.activity_name = family.human_name if r.activity_name.blank?
-        unless activity = Activity.find_by(name: r.activity_name)
+        unless activity = Activity.find_by(name: r.activity_name, family: 'animal_farming')
           # family = Activity.find_best_family(animal_group.derivative_of, animal_group.variety)
-          unless family
-            w.error 'Cannot determine activity'
-            raise ActiveExchanger::Error.new("Cannot determine activity with support #{support_variant ? support_variant.variety.inspect : '?'} and cultivation #{cultivation_variant ? cultivation_variant.variety.inspect : '?'} in production #{sheet_name}")
-          end
           activity = Activity.create!(
             name: r.activity_name,
             family: family.name,
             nature: family.nature,
-            production_cycle: :annual
+            production_cycle: :perennial,
+            production_started_on_year: -1,
+            production_stopped_on_year: 0,
+            life_duration: 20,
+            production_started_on: Date.new(2000, r.started_on.month, r.started_on.day),
+            production_stopped_on: Date.new(2000, r.stopped_on.month, r.stopped_on.day)
           )
+        end
+
+        # create budget for each existing campaign
+        Campaign.current.each do |c|
+          activity.budgets.find_or_create_by!(campaign: c)
         end
 
         # Check if animals exist with given sex and age
@@ -169,22 +177,27 @@ module Ekylibre
           animals = Animal.indicate(sex: r.sex.to_s).where(born_at: min_born_at..max_born_at).reorder(:name)
 
           # find support for intervention changing or create it
-          unless ap = ActivityProduction.find_by(support_id: animal_group.id, campaign_id: campaign.id, activity_id: activity.id)
+          unless ap = ActivityProduction.find_by(support_id: animal_group.id, activity_id: activity.id)
             ap = ActivityProduction.create!(
               activity: activity,
-              campaign: campaign,
               support_id: animal_group.id,
               size_value: (animals.count > 0 ? animals.count : r.population_in_production),
               support_nature: :animal_group,
               started_on: r.started_on,
-              stopped_on: r.stopped_on
+              stopped_on: r.stopped_on,
+              starting_year: r.campaign_year
             )
           end
+
+          # update animal_group with current ap
+          # animal_group = AnimalGroup.find_by(work_number: r.code)
+          animal_group.reload
+          animal_group.activity_production = ap
+          animal_group.save!
 
           # if animals and production_support, add animals to the target distribution
           if animals.any? && ap.present?
             animals.each do |animal|
-              animal.update(activity_production: ap)
               animal.memberships.where(group: animal_group, started_at: animal.born_at + r.minimum_age, nature: :interior).first_or_create!
               animal.localizations.where(started_at: animal.born_at + r.minimum_age, nature: :interior, container: animal_container).first_or_create!
             end

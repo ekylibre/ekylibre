@@ -569,3 +569,10 @@ td.with-details {
     }
   }
 }
+
+select.disabled{
+  background: #EEE;
+  color: #777;
+  cursor: not-allowed;
+  pointer-events: none;
+}

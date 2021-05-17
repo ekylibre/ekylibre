@@ -73,7 +73,8 @@ class PlantCountingTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
       suspended: false,
       production_cycle: 'annual',
-      production_campaign: 'at_cycle_end',
+      production_started_on: Date.new(2000, 3, 1),
+      production_stopped_on: Date.new(2001, 7, 1),
       production_system_name: 'intensive_farming',
 
       use_countings: true

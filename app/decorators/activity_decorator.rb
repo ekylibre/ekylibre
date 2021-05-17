@@ -18,8 +18,8 @@ class ActivityDecorator < Draper::Decorator
   def human_working_zone_area(current_campaign)
     working_zone_area(current_campaign)
       .in(:hectare)
-      .round(3)
-      .l
+      .round(2)
+      .l(precision: 2)
   end
 
   def net_surface_area(current_campaign)
@@ -29,8 +29,8 @@ class ActivityDecorator < Draper::Decorator
   def human_net_surface_area(current_campaign)
     net_surface_area(current_campaign)
       .in(:hectare)
-      .round(3)
-      .l
+      .round(2)
+      .l(precision: 2)
   end
 
   private

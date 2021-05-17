@@ -5,9 +5,6 @@ jpn:
         auxiliary: "補助"
         main: "メイン"
         standalone: "スタンドアロン"
-      production_campaign:
-        at_cycle_end: "サイクルの終わりに"
-        at_cycle_start: "サイクル開始時"
       production_cycle:
         annual: "年次"
         perennial: "多年生の"

@@ -148,6 +148,10 @@ activities:
   id:
     type: integer
     required: true
+  life_duration:
+    type: decimal
+    precision: 5
+    scale: 2
   isacompta_analytic_code:
     type: string
   lock_version:
@@ -171,20 +175,28 @@ activities:
   nature:
     type: string
     required: true
-  production_campaign:
-    type: string
   production_cycle:
     type: string
     required: true
   production_nature_id:
     type: integer
     references: master_production_nature
+  production_started_on:
+    type: date
+  production_started_on_year:
+    type: integer
+  production_stopped_on:
+    type: date
+  production_stopped_on_year:
+    type: integer
   production_system_name:
     type: string
   size_indicator_name:
     type: string
   size_unit_name:
     type: string
+  start_state_of_production_year:
+    type: integer
   support_variety:
     type: string
   suspended:
@@ -467,10 +479,10 @@ activity_productions:
     type: boolean
     required: true
     default: false
-  planting_campaign_id:
+  production_nature_id:
     type: integer
-    references: campaign
-  providers:
+    references: master_production_nature
+  provider:
     type: jsonb
   rank_number:
     type: integer
@@ -490,6 +502,8 @@ activity_productions:
     required: true
   started_on:
     type: date
+  starting_year:
+    type: integer
   state:
     type: string
   stopped_on:

@@ -1,2 +1,2 @@
-web: bundle exec unicorn_rails
+web: bundle exec rails s -p 3000
 job: bundle exec sidekiq

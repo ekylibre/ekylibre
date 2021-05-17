@@ -1,3 +1,5 @@
+- main_period_selector(:year)
+
 = cobbles do |c|
   - c.cobble :general_informations do
     = product_mini_map
@@ -8,7 +10,7 @@
           %span.value= resource.activity_production.human_support_shape_area
         .med-info.important
           %span.title= :working_area.tl
-          %span.value= resource.activity_production.decorate.human_working_zone_area
+          %span.value= resource.activity_production.decorate.human_working_zone_area(current_campaign)
         - unless @reentry_possible.possible
           .med-info.delay
             %span.title= :re_entry_delay.tl
@@ -23,7 +25,7 @@
 
   - if resource&.activity_production&.interventions&.any?
     - c.cobble(:production_costs, title: :production_costs.tl) do
-      = render partial: 'backend/shared/production_costs', locals: { costs: resource.activity_production.decorate.production_costs }
+      = render partial: 'backend/shared/production_costs', locals: { costs: resource.activity_production.decorate.production_costs(current_campaign) }
   - else
     = no_data
 

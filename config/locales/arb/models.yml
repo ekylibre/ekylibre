@@ -2345,7 +2345,6 @@ arb:
     # product_work_number: "Product work number"
     productable_products: "المنتجات الممكن انتاجها" #?
     production: "الإنتاج"
-    production_campaign: "حملة إنتاج"
     production_cycle: "دورة الإنتاج"
     # production_nature: "Production nature"
     production_support: "دعم الإنتاج"

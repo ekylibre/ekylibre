@@ -84,7 +84,7 @@
 
   - if reference.quantified?
     = render '/backend/interventions/quantifier_field', f: f, reference: reference, prefix: prefix
-  
+
   - if f.object.reference_name.to_sym == :plant_medicine # Display usage informations of product
     = render 'intervention_usage_informations'
 
@@ -122,7 +122,8 @@
     - if attr.hidden?
       = f.input :new_variant_id, as: :hidden, input_html: { data: { intervention_updater: prefix + 'new_variant_id' }}
     - else
-      = f.input :new_variant_id, input_html: { data: { intervention_updater: prefix + 'new_variant_id' }}
+      -#= f.input :new_variant_id, input_html: { data: { intervention_updater: prefix + 'new_variant_id' }}
+      = f.referenced_association :new_variant, source: { scope: reference.attribute(:new_variant).scope_hash.merge(availables: true), keep: true }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'new_variant_id' } }, new: false
 
   - if reference.attribute(:working_zone)
     - if user_preference_value(User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM, true)

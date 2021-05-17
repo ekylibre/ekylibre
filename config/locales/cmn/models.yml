@@ -1490,7 +1490,6 @@ cmn:
     # product_type: "Product type"
     # product_work_number: "Product work number"
     production: "生产"
-    production_campaign: "生产运动"
     production_cycle: "生产周期"
     # production_nature: "Production nature"
     production_support: "生产支持"

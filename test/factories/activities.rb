@@ -3,16 +3,29 @@ FactoryBot.define do
     sequence(:name)  { |n| "Fake Activity #{n}" }
     family           { :plant_farming }
     production_cycle { :annual }
+    production_started_on { Date.new(2020, 2, 3) - rand(10_000) }
+    production_stopped_on { Date.new(2020, 2, 3) + rand(10_000) }
+    cultivation_variety { Onoma::ActivityFamily.find(family).cultivation_variety }
+  end
 
-    trait :with_productions do
-      transient do
-        production_count { 2 }
-      end
+  trait :perennial do
+    production_cycle { :perennial }
+    start_state_of_production_year { 3 }
+    production_started_on { between(Date.new(1, 1, 2000), Date.new(30, 6, 2000)) }
+    production_stopped_on { between(Date.new(1, 7, 2000), Date.new(31, 12, 2000)) }
+    production_started_on_year { [-1, 0].sample }
+    production_stopped_on_year { [0, 1].sample }
+    life_duration { 30 }
+  end
 
-      after(:create) do |activity, evaluator|
-        create_list :activity_production, evaluator.production_count, activity: activity
-        activity.reload
-      end
+  trait :with_productions do
+    transient do
+      production_count { 2 }
+    end
+
+    after(:create) do |activity, evaluator|
+      create_list :activity_production, evaluator.production_count, activity: activity
+      activity.reload
     end
   end
 
@@ -20,6 +33,9 @@ FactoryBot.define do
     sequence(:name)  { |n| "Corn - TEST#{n.to_s.rjust(8, '0')}" }
     family           { :plant_farming }
     production_cycle { :annual }
+    cultivation_variety { :plant }
+    production_started_on { Date.new(2000, 3, 1) }
+    production_stopped_on { Date.new(2000, 11, 30) }
 
     trait :fully_inspectable do
       use_gradings { true }
@@ -47,6 +63,8 @@ FactoryBot.define do
     family           { :plant_farming }
     production_cycle { :annual }
     cultivation_variety { :poncirus }
+    production_started_on { Date.new(2000, 3, 1) }
+    production_stopped_on { Date.new(2000, 11, 30) }
 
     trait :organic do
       production_system_name { :organic_farming }

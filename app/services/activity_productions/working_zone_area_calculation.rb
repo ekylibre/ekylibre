@@ -6,7 +6,7 @@ module ActivityProductions
       procedure.name.to_s.insert(0, "'").insert(-1, "'")
     end.join(', ')
 
-    def compute_working_zone_area(activity_production)
+    def compute_working_zone_area(activity_production, campaign)
       activity_production_working_zone_area = ActiveRecord::Base.connection.execute <<~SQL
         SELECT
           activity_production_id,
@@ -36,9 +36,12 @@ module ActivityProductions
             ON products.id = intervention_parameters.product_id
           INNER JOIN activity_productions
             ON activity_productions.id = products.activity_production_id
+          INNER JOIN campaigns_interventions
+  	        ON campaigns_interventions.intervention_id = interventions.id
           -- only with interventions with nature record and state is not rejected
           WHERE interventions.state != 'rejected'
           AND interventions.nature = 'record'
+          AND campaigns_interventions.campaign_id = #{campaign.id}
         ) subquery
         WHERE activity_production_id = #{activity_production.id}
         GROUP BY activity_production_id;

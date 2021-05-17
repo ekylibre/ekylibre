@@ -5,9 +5,6 @@ arb:
         auxiliary: "مساعد"
         main: "رئيسي"
         standalone: "مستقل"
-      production_campaign:
-        at_cycle_end: "في نهاية دورة"
-        at_cycle_start: "في بداية دورة"
       production_cycle:
         annual: "سنوي"
         perennial: "نبتة معمرة"

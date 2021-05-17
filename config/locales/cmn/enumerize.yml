@@ -5,9 +5,6 @@ cmn:
         auxiliary: "辅"
         main: "主要"
         standalone: "独立"
-      production_campaign:
-        at_cycle_end: "在周期结束"
-        at_cycle_start: "在周期开始"
       production_cycle:
         annual: "全年"
         perennial: "多年生"

@@ -1,57 +1,12 @@
 = f.object.errors.inspect if Rails.env.development? && f.object.errors.any?
-= field_set do
-  = f.input :name
-  = f.input :nature, as: :radio_buttons, show: '.{{value}}-nature-options'
-  = f.referenced_nomenclature :production_system
-  = f.referenced_association :production_nature, new: false, label: :production_nature.tl
-  = f.referenced_nomenclature :family, input_html: { data: { activity_family: true }, disabled: f.object.productions.exists? }
-  - family = Onoma::ActivityFamily[f.object.family]
-  = f.input :with_cultivation, as: :hidden
-  = f.referenced_nomenclature :cultivation_variety, collection: ((family and family.cultivation_variety.present?) ? Onoma::Variety.selection(family.cultivation_variety) : []), wrapper_html: {style: "display: #{(family and family.cultivation_variety.present?) ? 'block' : 'none'}"}
-  -#= f.input :with_supports, as: :hidden
-  -# = f.input :support_variety, collection: ((family and family.support_variety) ? Onoma::Variety.selection(family.support_variety) : []), wrapper_html: {style: "display: #{(family and family.support_variety) ? 'block' : 'none'}"}
-  = f.input :production_cycle, as: :radio_buttons, show: '.{{value}}-production-cycle-options'
-  .perennial-production-cycle-options
-    = f.input :production_campaign, as: :radio_buttons
-  -#.main-nature-options
-    = f.input :size_indicator_name
-    = f.input :size_unit_name
-  = f.input :description
-  - if AnalyticSegment.where(name: 'activities').exists?
-    = f.input :isacompta_analytic_code
-  = f.custom_fields
-  
-= field_set(:inspections, title: Activity.human_attribute_name(:inspections)) do
-  = f.input :use_gradings, show: '#inspections-fields'
-  #inspections-fields
-    = f.input :measure_grading_items_count
-    = f.input :measure_grading_net_mass, show: '#grading_net_mass'
-    #grading_net_mass
-      - unit_collection = Onoma::Unit.where(dimension: :mass).sort { |one, two| one.a <=> two.a }
-      = f.referenced_nomenclature :grading_net_mass_unit, collection: unit_collection.selection(false), include_blanks: false
-    = f.input :measure_grading_sizes, show: '#grading_sizes'
-    #grading_sizes
-      = f.referenced_nomenclature :grading_sizes_indicator, collection: Onoma::Indicator.where(unit: Onoma::Unit.where(dimension: :distance)).selection, include_blanks: false
-      = f.referenced_nomenclature :grading_sizes_unit, collection: Onoma::Unit.where(dimension: :distance).selection, include_blanks: false
-
-    = f.nested_association(:inspection_calibration_scales)
-    = f.nested_association(:inspection_point_natures)
-
-= field_set(:countings, title: Activity.human_attribute_name(:countings)) do
-  = f.input :use_countings, show: '#countings-fields'
-  #countings-fields
-    = f.nested_association :plant_density_abaci
-
-.auxiliary-nature-options
-  = field_set(Activity.human_attribute_name(:distributions)) do
-    = f.nested_association(:distributions)
-
-= field_set(:seasons, title: Activity.human_attribute_name(:seasons)) do
-  = f.input :use_seasons, show: '#seasons-fields'
-  #seasons-fields
-    = f.nested_association(:seasons)
-
-= field_set(:tactics, title: Activity.human_attribute_name(:tactics)) do
-  = f.input :use_tactics, show: '#tactics-fields'
-  #tactics-fields
-    = f.nested_association(:tactics, maximum: 1)
+- if f.object.family.nil?
+  .fieldset
+    .fieldset-fields
+      = f.referenced_nomenclature :family, input_html: { data: { activity_family: true }}
+  - f.clear_actions!
+  - f.add(:link, :valid.tl, new_backend_activity_path, class: 'btn primary', disabled:true, id:"activity_family_submit")
+- else
+  - if %w[administering tool_maintaining animal_farming plant_farming vine_farming].include?(f.object.family)
+    = render "backend/activities/form/#{f.object.family}", f: f
+  - else 
+    = render "backend/activities/form/default", f: f

@@ -5,9 +5,6 @@ spa:
         auxiliary: "Auxiliar"
         main: "Principal"
         standalone: "Autónomo"
-      production_campaign:
-        at_cycle_end: "Al final del ciclo"
-        at_cycle_start: "Al inicio del ciclo"
       production_cycle:
         annual: "Anual"
         perennial: "Perenne"
