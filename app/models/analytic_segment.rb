@@ -23,25 +23,24 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: project_budgets
+# == Table: analytic_segments
 #
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  description  :text
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  name         :string
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  analytic_sequence_id :integer          not null
+#  created_at           :datetime         not null
+#  id                   :integer          not null, primary key
+#  name                 :string           not null
+#  position             :integer          not null
+#  updated_at           :datetime         not null
 #
-class ProjectBudget < ApplicationRecord
-  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :description, length: { maximum: 500_000 }, allow_blank: true
-  validates :name, length: { maximum: 500 }, allow_blank: true
-  # ]VALIDATORS]
-  validates :name, presence: true
-  validates_length_of :isacompta_analytic_code, is: 2, if: :isacompta_analytic_code?
 
-  has_many :purchase_items
-  has_many :reception_items, class_name: 'ParcelItem', foreign_key: :project_budget_id
+class AnalyticSegment < ApplicationRecord
+  belongs_to :analytic_sequence
+
+  enumerize :name, in: %i[activities project_budgets teams equipments]
+
+  before_create do
+    last_segment = analytic_sequence.segments.last
+    self.position = 0 unless analytic_sequence.segments.any?
+    self.position = last_segment.position + 1 if analytic_sequence.segments.any?
+  end
 end

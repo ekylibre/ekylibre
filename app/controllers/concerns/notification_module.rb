@@ -21,6 +21,8 @@ module NotificationModule
       notification_message = translate_message_if_necessary(message, options)
 
       notistore = get_store(mode)
+      return if notistore[:notifications]&.[](nature.to_s)&.find { |n| n == notification_message }&.present?
+
       notifications = (notistore[:notifications] || {}).symbolize_keys
       notistore[:notifications] = { **notifications, nature => [*notifications.fetch(nature, []), notification_message] }.stringify_keys
     end

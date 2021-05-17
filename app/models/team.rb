@@ -48,6 +48,7 @@ class Team < ApplicationRecord
   validates :name, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
   validates :name, uniqueness: true
+  validates_length_of :isacompta_analytic_code, is: 2, if: :isacompta_analytic_code?
 
   acts_as_nested_set
 end

@@ -284,6 +284,8 @@ Rails.application.routes.draw do
 
     resources :analysis_items, only: [:new]
 
+    resources :analytic_sequences, except: %i[show]
+
     resources :animal_groups, concerns: :products do
       member do
         get :list_animals
@@ -582,7 +584,8 @@ Rails.application.routes.draw do
         post :compute_balances
         get :list_account_balances
         get :list_fixed_asset_depreciations
-        get :list_exchanges
+        get :list_ekyagri_format_exchanges
+        get :list_isacompta_format_exchanges
         get :run_progress
         match 'lock', via: %i[get post]
       end

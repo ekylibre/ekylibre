@@ -148,6 +148,8 @@ activities:
   id:
     type: integer
     required: true
+  isacompta_analytic_code:
+    type: string
   lock_version:
     type: integer
     required: true
@@ -850,6 +852,36 @@ analysis_items:
   updater_id:
     type: integer
     references: user
+analytic_segments:
+  analytic_sequence_id:
+    type: integer
+    references: analytic_sequence
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  id:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  position:
+    type: integer
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+analytic_sequences:
+  created_at:
+    type: datetime
+    required: true
+  id:
+    type: integer
+    required: true
+  updated_at:
+    type: datetime
+    required: true
 ar_internal_metadata:
   created_at:
     type: datetime
@@ -2513,6 +2545,10 @@ documents:
   number:
     type: string
     required: true
+  processable_attachment:
+    type: boolean
+    required: true
+    default: true
   sha256_fingerprint:
     type: string
   signature:
@@ -2918,9 +2954,14 @@ financial_year_exchanges:
   creator_id:
     type: integer
     references: user
+  exported_journal_ids:
+    type: string
   financial_year_id:
     type: integer
     references: financial_year
+    required: true
+  format:
+    type: string
     required: true
   id:
     type: integer
@@ -2946,6 +2987,9 @@ financial_year_exchanges:
   stopped_on:
     type: date
     required: true
+  transmit_isacompta_analytic_codes:
+    type: boolean
+    default: false
   updated_at:
     type: datetime
     required: true
@@ -4882,9 +4926,16 @@ journals:
     required: true
   custom_fields:
     type: jsonb
+  financial_year_exchange_id:
+    type: integer
+    references: financial_year_exchange
   id:
     type: integer
     required: true
+  isacompta_code:
+    type: string
+  isacompta_label:
+    type: string
   lock_version:
     type: integer
     required: true
@@ -5497,8 +5548,6 @@ master_production_natures:
     type: decimal
     precision: 5
     scale: 2
-  main_input:
-    type: string
   pfi_crop_code:
     type: string
   season:
@@ -7448,6 +7497,8 @@ products:
     limit:
       srid: 4326
       type: multi_polygon
+  isacompta_analytic_code:
+    type: string
   lock_version:
     type: integer
     required: true
@@ -7534,6 +7585,8 @@ project_budgets:
   id:
     type: integer
     required: true
+  isacompta_analytic_code:
+    type: string
   lock_version:
     type: integer
     required: true
@@ -8162,20 +8215,16 @@ registered_protected_designation_of_origins:
   reference_number:
     type: string
 registered_seeds:
-  id:
-    type: string
-    required: true
-  id_specie:
-    type: string
-    required: true
-  registration_date:
-    type: date
-  specie_name:
+  complete_name:
     type: jsonb
-  specie_name_fra:
+  name:
+    type: jsonb
+  number:
+    type: integer
+    required: true
+  specie:
     type: string
-  variety_name:
-    type: string
+    required: true
 regularizations:
   affair_id:
     type: integer
@@ -9244,18 +9293,6 @@ taxes:
   updater_id:
     type: integer
     references: user
-taxonomy:
-  id:
-    type: string
-    required: true
-  name:
-    type: jsonb
-  parent:
-    type: string
-    required: true
-  taxonomic_rank:
-    type: string
-    required: true
 teams:
   created_at:
     type: datetime
@@ -9271,6 +9308,8 @@ teams:
   id:
     type: integer
     required: true
+  isacompta_analytic_code:
+    type: string
   lft:
     type: integer
   lock_version:

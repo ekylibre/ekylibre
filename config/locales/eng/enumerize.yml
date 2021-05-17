@@ -326,6 +326,12 @@ eng:
       nature:
         background: "Background"
         overlay: "Overlay"
+    analytic_segment:
+      name:
+        activities: "Activities"
+        project_budgets: "Budgets"
+        teams: "Teams"
+        equipments: "Equipments"
     naming_format_field_land_parcel:
       field_name:
         activity: "Activity"

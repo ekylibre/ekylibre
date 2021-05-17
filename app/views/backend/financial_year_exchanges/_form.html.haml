@@ -1,3 +1,12 @@
 = field_set do
   = f.referenced_association :financial_year, disabled: true
+  = f.input :started_on
   = f.input :stopped_on
+  = f.input :format, as: :radio_buttons, show: '.{{value}}-options'
+  .isacompta-options
+    = f.input :transmit_isacompta_analytic_codes
+  .control-group
+    = label_tag 'Journaux à échanger', nil, class: "control-label"
+    .controls.journal_ids
+      = f.collection_check_boxes :exported_journal_ids, Journal.all.sort_by(&:name), :id, :name, include_hidden: false do |b|
+        = b.label(class: "journal_check_box") { b.check_box + " " + b.label }

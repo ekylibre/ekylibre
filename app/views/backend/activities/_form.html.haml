@@ -17,8 +17,10 @@
     = f.input :size_indicator_name
     = f.input :size_unit_name
   = f.input :description
+  - if AnalyticSegment.where(name: 'activities').exists?
+    = f.input :isacompta_analytic_code
   = f.custom_fields
-
+  
 = field_set(:inspections, title: Activity.human_attribute_name(:inspections)) do
   = f.input :use_gradings, show: '#inspections-fields'
   #inspections-fields

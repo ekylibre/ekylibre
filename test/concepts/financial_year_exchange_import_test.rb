@@ -106,7 +106,8 @@ class FinancialYearExchangeImportTest < Ekylibre::Testing::ApplicationTestCase::
     assert import.run, "Error during import: #{import.error.inspect}"
     created_entry = booked_journal.entries.detect { |e| e.number == '12345' }
     assert created_entry.present?
-    assert created_entry.closed?
+    # now imported entries are store in draft state to be updated if needed by the accountant
+    assert created_entry.draft?
     assert_equal Date.parse('2015-09-02'), created_entry.printed_on
     assert_equal 2, created_entry.items.length
 

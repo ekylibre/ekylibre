@@ -100,6 +100,8 @@ class Equipment < Matter
   has_many :rides, class_name: 'Ride', foreign_key: :product_id
   refers_to :variety, scope: :equipment
 
+  validates_length_of :isacompta_analytic_code, is: 2, if: :isacompta_analytic_code?
+
   def tractor?
     variety == :tractor
   end

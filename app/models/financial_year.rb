@@ -64,6 +64,7 @@ class FinancialYear < ApplicationRecord
   has_many :fixed_asset_depreciations, dependent: :destroy
   has_many :inventories, dependent: :restrict_with_exception
   has_many :journal_entries, dependent: :restrict_with_exception
+  has_many :journal_entry_items
   has_many :tax_declarations, dependent: :restrict_with_exception
   has_many :archives, class_name: 'FinancialYearArchive', dependent: :destroy
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -473,7 +474,7 @@ class FinancialYear < ApplicationRecord
   end
 
   def can_create_exchange?
-    accountant_with_booked_journal? && !opened_exchange?
+    accountant_with_booked_journal? && FinancialYearExchange.opened.none?
   end
 
   def opened_exchange?

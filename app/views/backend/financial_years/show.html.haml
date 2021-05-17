@@ -55,9 +55,13 @@
  
   = render 'progress', value: @progress_status[:value], resource: resource, refresh: false, current_step: @progress_status[:step], steps_count: @progress_status[:total], step_label: @progress_status[:label]
 
-= cobbles do |c|
-  - c.cobble(:exchanges) do
-    = cobble_list :exchanges, data: 'id'
+#exchanges-list
+  = cobbles do |c|
+    - c.cobble(:ekyagri_format_exchanges) do
+      = cobble_list :ekyagri_format_exchanges, data: 'id'
+
+    - c.cobble(:isacompta_format_exchanges) do
+      = cobble_list :isacompta_format_exchanges, data: 'id'
 
 - if resource.closed? && resource.archives.any?
   = render "signature_modal", type: 'prior_to', fingerprint: resource.prior_to_closure_archive.sha256_fingerprint, signature: resource.prior_to_closure_archive.signature

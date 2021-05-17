@@ -28,12 +28,15 @@ module Backend
 
     list(order: :name) do |t|
       # t.action :document_print, url: {:code => :JOURNAL, :journal => "RECORD.id"}
+      t.icon :lock, if: :exchanged_with_format_isacompta?
       t.action :edit
       t.action :destroy
       t.column :name, url: true
       t.column :code, url: true
       t.column :nature
       t.column :currency
+      t.column :isacompta_code, condition: 'FinancialYearExchange.any_opened_with_isacompta_format?'
+      t.column :isacompta_label, condition: 'FinancialYearExchange.any_opened_with_isacompta_format?'
     end
 
     list(:items, model: :journal_entry_items, conditions: journal_entries_conditions, joins: :entry, line_class: "(RECORD.position==1 ? 'first-item' : '') + (RECORD.entry_balanced? ? '' : ' error')".c, order: "entry_id DESC, #{JournalEntryItem.table_name}.position", export_class: ListExportJob) do |t|
@@ -90,6 +93,13 @@ module Backend
       financial_year = FinancialYear.find_by(id: params[:current_financial_year]) || FinancialYear.current
       @draft_entries_count = financial_year ? financial_year.journal_entries.where(state: :draft).count : 0
       @unbalanced_entries_count = financial_year ? financial_year.journal_entries.reject(&:balanced?).count : 0
+      currently_exchanged = Journal.currently_exchanged
+      if currently_exchanged.any?
+        journals_link = currently_exchanged.map do |journal|
+          view_context.link_to(journal.name, edit_backend_journal_url(journal))
+        end.join(', ')
+        notify(:complete_isacompta_journal_code_html.tl(journals_link: journals_link), html: true)
+      end
       respond_to do |format|
         format.html
         format.xml { render xml: Journal.all }

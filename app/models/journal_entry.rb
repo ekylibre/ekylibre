@@ -74,7 +74,7 @@ class JournalEntry < ApplicationRecord
   belongs_to :financial_year
   belongs_to :journal, inverse_of: :entries
   belongs_to :resource, polymorphic: true
-  belongs_to :financial_year_exchange
+  belongs_to :financial_year_exchange, inverse_of: :journal_entries
   has_many :affairs, dependent: :nullify
   has_many :fixed_asset_depreciations, dependent: :nullify
   has_many :useful_items, -> { where('balance != ?', 0.0) }, foreign_key: :entry_id, class_name: 'JournalEntryItem'
@@ -207,7 +207,12 @@ class JournalEntry < ApplicationRecord
 
   # return the letter if any on items
   def letter
-    items.pluck(:letter).compact.uniq.first
+    items.distinct.pluck(:letter).compact.first
+  end
+
+  # return the isacompta_letter if any on items
+  def isacompta_letter
+    items.distinct.pluck(:isacompta_letter).compact.first
   end
 
   # return the date of the first payment (incomming or outgoing)
@@ -472,6 +477,10 @@ class JournalEntry < ApplicationRecord
   # Flag the entry updatable and destroyable, used during financial year exchange import
   def mark_for_exchange_import!
     self.importing_from_exchange = true
+  end
+
+  def currently_exchanged?
+    financial_year_exchange_id.present?
   end
 
   private

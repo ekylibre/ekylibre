@@ -18,7 +18,7 @@
 
 module Backend
   class FinancialYearExchangesController < Backend::BaseController
-    manage_restfully only: %i[new create show]
+    manage_restfully only: %i[new show]
 
     list(:journal_entries, conditions: { financial_year_exchange_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
       t.column :number, url: true
@@ -28,11 +28,33 @@ module Backend
       t.column :real_debit,  currency: :real_currency
       t.column :real_credit, currency: :real_currency
       t.column :letter
+      t.column :isacompta_letter
       t.column :bank_statement_number
       t.column :debit,  currency: true, hidden: true
       t.column :credit, currency: true, hidden: true
       t.column :absolute_debit,  currency: :absolute_currency, hidden: true
       t.column :absolute_credit, currency: :absolute_currency, hidden: true
+    end
+
+    def create
+      ActiveRecord::Base.transaction do
+        @financial_year_exchange = FinancialYearExchange.new(permitted_params)
+        if @financial_year_exchange.save
+          notify_success(:record_x_created, record: 'activerecord.models.financial_year_exchange'.t, name: @financial_year_exchange.id)
+
+          journal_ids = params[:exported_journal_ids]
+          new_exchanged_journals = Journal.where(id: journal_ids)
+          if @financial_year_exchange.isacompta? && new_exchanged_journals.any?
+            journals_link = new_exchanged_journals.map do |journal|
+              view_context.link_to(journal.name, edit_backend_journal_url(journal))
+            end.join(', ')
+            notify(:complete_isacompta_journal_code_html.tl(journals_link: journals_link), html: true)
+          end
+          redirect_to(backend_financial_year_url(@financial_year_exchange.financial_year))
+        else
+          render(:new)
+        end
+      end
     end
 
     def journal_entries_export

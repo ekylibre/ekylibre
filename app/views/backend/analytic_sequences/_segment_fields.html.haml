@@ -1,0 +1,8 @@
+.nested-fields
+  .plus-sign
+    %span.sign +
+
+  = link_to_remove_nested_association(:segment, f)
+
+  = f.input :name do
+    = f.select :name, AnalyticSegment.enumerized_attributes[:name].options, {}, data: { label: t('activerecord.attributes.analytic_segment.name') }

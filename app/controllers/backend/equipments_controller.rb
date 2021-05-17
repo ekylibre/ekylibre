@@ -52,6 +52,7 @@ module Backend
       t.status
       t.column :state, hidden: true
       t.column :container, url: true
+      t.column :isacompta_analytic_code, hidden: AnalyticSegment.where(name: 'equipments').none?
     end
 
     list(:links, model: :product_link, conditions: { product_id: 'params[:id]'.c }) do |t|
@@ -98,6 +99,17 @@ module Backend
       t.column :actions, label_method: :human_actions_names, through: :intervention
       t.column :human_working_duration, through: :intervention
       t.column :human_working_zone_area, through: :intervention
+    end
+
+    def index
+      if segment = AnalyticSegment.find_by(name: 'equipments')
+        notify_warning(:fill_analytic_codes_of_your_segments.tl(segment: segment.name.text.downcase))
+      end
+      respond_to do |format|
+        format.html
+        format.xml  { render xml:  resource_model.all }
+        format.json { render json: resource_model.all }
+      end
     end
   end
 end

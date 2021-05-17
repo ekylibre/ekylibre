@@ -30,7 +30,10 @@
 #  creator_id                         :integer
 #  currency                           :string           not null
 #  custom_fields                      :jsonb
+#  financial_year_exchange_id         :integer
 #  id                                 :integer          not null, primary key
+#  isacompta_code                     :string
+#  isacompta_label                    :string
 #  lock_version                       :integer          default(0), not null
 #  name                               :string           not null
 #  nature                             :string           not null
