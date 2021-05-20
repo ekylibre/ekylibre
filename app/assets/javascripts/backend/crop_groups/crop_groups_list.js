@@ -12,7 +12,7 @@
         init() {
             this.listSelectorInputs.forEach((input) => {
                 input.addEventListener('change', () => {
-                    const selectedIds = this.selectedIds;
+                    const selectedIds = this.selectedIds(event.target.dataset.listSelector == "all");
                     this.handleBtnsDisabling(selectedIds);
                     this.updateBtnsHref(selectedIds);
                 });
@@ -34,9 +34,9 @@
             this.interventionRecordBtn.setAttribute('href', url);
         }
 
-        get selectedIds() {
+        selectedIds(all = false) {
             return [...this.listSelectorInputs]
-                .filter((input) => input.checked && input.dataset.listSelector != 'all')
+                .filter((input) => ( all || input.checked ) && input.dataset.listSelector != 'all')
                 .map((input) => input.dataset.listSelector);
         }
     }

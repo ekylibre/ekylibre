@@ -4,7 +4,7 @@ module Backend
     test_restfully_all_actions except: %i[kujaku_options unroll_list duplicate]
 
     setup do
-      @crop_group = create(:crop_group)
+      @crop_group = create(:crop_group, :with_items, :with_labelings)
     end
 
     attr_reader :crop_group

@@ -35,13 +35,15 @@
 require 'test_helper'
 
 class CropGroupTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
-  setup do
-    @resource = create(:crop_group)
+
+  test 'can\'t be associated to the same label or crop twice' do
+    labellings_attributes = { label_id: 1 }
+    items_attributes = { crop_type: "Product", crop_id: 1 }
+    resource = create(:crop_group,
+                      labellings_attributes: [labellings_attributes, labellings_attributes],
+                      items_attributes: [items_attributes, items_attributes])
+    assert_equal(1, resource.reload.items.length)
+    assert_equal(1, resource.reload.labellings.length)
   end
 
-  test 'is creatable' do
-    @resource = create(:crop_group)
-    last_resource = CropGroup.last
-    assert_equal @resource, last_resource
-  end
 end

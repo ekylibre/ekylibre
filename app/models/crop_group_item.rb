@@ -38,6 +38,4 @@
 class CropGroupItem < ApplicationRecord
   belongs_to :crop_group
   belongs_to :crop, polymorphic: true
-
-  validates :crop_group_id, uniqueness: { scope: %i[crop_id crop_type] }
 end

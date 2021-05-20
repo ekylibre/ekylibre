@@ -37,6 +37,4 @@
 class CropGroupLabelling < ApplicationRecord
   include Labellable
   belongs_to :crop_group
-
-  validates_uniqueness_of :label_id, scope: :crop_group_id
 end

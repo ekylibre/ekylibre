@@ -46,8 +46,8 @@ class CropGroup < ApplicationRecord
 
   validates :name, presence: true
 
-  accepts_nested_attributes_for :labellings, allow_destroy: true
-  accepts_nested_attributes_for :items, allow_destroy: true
+  accepts_nested_attributes_for :labellings, allow_destroy: true, reject_if: :label_already_present
+  accepts_nested_attributes_for :items, allow_destroy: true, reject_if: :crop_already_present
 
   scope :available_crops, ->(ids, expression) { Product.joins(:crop_groups).where('crop_groups.id IN (?) ', Array(ids)).of_expression(expression).distinct }
   scope :collection_labels, ->(ids, type = %w[plant land_parcel]) { where(id: ids, target: type).collect(&:labels).flatten.uniq }
@@ -68,4 +68,14 @@ class CropGroup < ApplicationRecord
   def total_area
     crops.collect(&:net_surface_area).sum.in(:hectare)
   end
+
+  private
+
+    def label_already_present(attributes)
+      labellings.reject(&:marked_for_destruction?).map(&:label_id).include?(attributes[:label_id].to_i)
+    end
+
+    def crop_already_present(attributes)
+      items.reject(&:marked_for_destruction?).map(&:crop_id).include?(attributes[:crop_id].to_i)
+    end
 end
