@@ -1395,6 +1395,12 @@ eng:
     unroll:
       server_error: "Server error"
   labels:
+    vine_area: "Vine area"
+    vine_certification: "Vine certification"
+    vine_plants_interval: "Vine plants interval"
+    vine_rows_interval: "Vine rows interval"
+    vine_variety_name: "Vine variety name"
+    planting_campaign: "Planting campaign"
     activate_transmit_analytic_codes: "Analytic sequence is available on option select 'Transmit analytic codes'"
     number_of_animals: "Number of animals"
     warning_could_not_use_ift: "Warning, if production nature is not setted, treatment frequency index won't be calculated."
