@@ -9,5 +9,5 @@
     = f.input :description
 
   = field_set(:genealogy) do
-    = f.referenced_association :initial_mother, :source => :mothers
-    = f.referenced_association :initial_father, :source => :fathers
+    = f.referenced_association :initial_mother, source: :mothers
+    = f.referenced_association :initial_father, source: :fathers

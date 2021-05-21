@@ -101,9 +101,6 @@ class Animal < Bioproduct
   validates :identification_number, presence: true
   validates :identification_number, uniqueness: true
 
-  scope :fathers, -> { indicate(sex: 'male', reproductor: true).order(:name) }
-  scope :mothers, -> { indicate(sex: 'female', reproductor: true).order(:name) }
-
   enumerize :birth_date_completeness, in: %i[year month_year full_date]
   enumerize :filiation_status, in: %i[unknown certified uncertified]
   enumerize :end_of_life_reason, in: %i[death slaughter cutting_up calculated_date]

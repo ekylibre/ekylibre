@@ -316,6 +316,10 @@ class Product < ApplicationRecord
   scope :storage, -> { of_expression('is building_division or can store(product) or can store_liquid or can store_fluid or can store_gaz') }
   scope :plants, -> { where(type: 'Plant') }
   scope :land_parcels, -> { where(type: 'LandParcel') }
+  scope :animals, -> { where(type: 'Animal') }
+
+  scope :fathers, -> { animals.indicate(sex: 'male', reproductor: true).order(:name) }
+  scope :mothers, -> { animals.indicate(sex: 'female', reproductor: true).order(:name) }
 
   scope :mine, -> { of_owner(:own) }
   scope :mine_or_undefined, ->(at = nil) {
