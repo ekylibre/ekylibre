@@ -1059,6 +1059,12 @@ fra:
     unroll:
       server_error: "Erreur serveur"
   labels:
+    vine_area: "Superficie encépagée"
+    vine_certification: "Appellation / AOP / IGP"
+    vine_plants_interval: "Inter-pied"
+    vine_rows_interval: "Inter-rang"
+    vine_variety_name: "Cépage"
+    planting_campaign: "Campagne de plantation"
     activate_transmit_analytic_codes: "La séquence analytique est disponible en sélectionnant l’option 'Transmettre les codes analytiques' de l’échange comptable au format Isacompta dans un exercice comptable"
     isacompta_format_exchanges: "Échanges au format Isacompta"
     ekyagri_format_exchanges: "Échanges au format Ekyagri"
