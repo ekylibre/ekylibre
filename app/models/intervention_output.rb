@@ -73,6 +73,9 @@ class InterventionOutput < InterventionProductParameter
   belongs_to :intervention, inverse_of: :outputs
   belongs_to :product, dependent: :destroy
   has_one :product_movement, as: :originator, dependent: :destroy
+
+  alias_attribute :variety, :specie_variety_name
+
   validates :variant, :quantity_population, presence: true
   validates :identification_number, presence: true, if: ->(output) { output.reference.present? && output.reference.attribute(:identification_number).present? }
 

@@ -160,6 +160,7 @@ module Api
         variant = create(:product_nature_variant)
         product = create(:seed_product)
         product.variant.read!(:net_mass, '2000 kilogram')
+        ActiveSupport::Deprecation.warn('variety param is deprecated, should be replaced by specie_variety_name')
         params = {
           procedure_name: 'sowing',
           providers: { zero_id: 5 },
@@ -182,7 +183,7 @@ module Api
                 {
                   variant_id: variant.id,
                   reference_name: 'plant',
-                  specie_variety_name: 'test',
+                  variety: 'test',
                   batch_number: 'test2'
                 }
               ]
@@ -199,7 +200,7 @@ module Api
                 {
                   variant_id: variant.id,
                   reference_name: 'plant',
-                  specie_variety_name: 'test',
+                  variety: 'test',
                   batch_number: 'test2'
                 }
               ]
