@@ -75,6 +75,8 @@ class CviLandParcel < CviShapedRecord
   validates :shape, shape: true
   before_validation :remove_hole_outside_shell, on: :update, if: -> { shape.hole_outside_shell? }
 
+  delegate :cvi_statement, to: :cvi_cultivable_zone, allow_nil: false
+
   def remove_hole_outside_shell
     self.shape = shape.without_hole_outside_shell.to_rgeo
   end
