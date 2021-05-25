@@ -11,10 +11,10 @@ FactoryBot.define do
   trait :perennial do
     production_cycle { :perennial }
     start_state_of_production_year { 3 }
-    production_started_on { between(Date.new(1, 1, 2000), Date.new(30, 6, 2000)) }
-    production_stopped_on { between(Date.new(1, 7, 2000), Date.new(31, 12, 2000)) }
+    production_started_on { FFaker::Time.between(Date.new(2000, 3, 1), Date.new(2000, 6, 30)) }
+    production_stopped_on { FFaker::Time.between(Date.new(2000, 7, 1), Date.new(2000, 12, 31)) }
     production_started_on_year { [-1, 0].sample }
-    production_stopped_on_year { [0, 1].sample }
+    production_stopped_on_year { 0 }
     life_duration { 30 }
   end
 

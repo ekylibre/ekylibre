@@ -39,7 +39,7 @@ FactoryBot.define do
     end
 
     trait :with_activity do
-      activity
+      association :activity, :perennial
     end
 
     trait :with_cvi_cadastral_plant do

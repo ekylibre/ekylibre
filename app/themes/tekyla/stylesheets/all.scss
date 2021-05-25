@@ -15,7 +15,6 @@
 @import 'bootstrap-sprockets';
 
 // Plugins
-@import "themes/tekyla/plugins";
 @import "vendor/flatpickr";
 @import "bootstrap-slider";
 @import "wice_grid";
@@ -81,3 +80,6 @@
 
 // Optimization
 @import "symbolic_icons";
+
+// Ekylibre plugins
+@import "themes/tekyla/plugins";

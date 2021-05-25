@@ -92,6 +92,8 @@
 #  work_number                  :string
 #
 class Plant < Bioproduct
+  include Providable
+
   has_many :plant_countings
   refers_to :variety, scope: :plant
 
