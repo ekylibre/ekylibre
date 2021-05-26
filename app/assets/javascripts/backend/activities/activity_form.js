@@ -15,9 +15,6 @@
         }
 
         init() {
-            if (this.$productionNatureInput.val() !== '') {
-                this.setProductionCycleDisabling(true);
-            }
 
             this.$productionCycleInput.on('change', event => {
                 if (event.target.value === 'annual') {
@@ -29,7 +26,7 @@
                 }
             });
 
-            this.$productionNatureInput.on('selector:change', (_event, _selectedElement, was_initializing) => {
+            this.$productionNatureInput.on('selector:change selector:cleared' , (_event, _selectedElement, was_initializing) => {
                 this.hideHint();
                 if (!was_initializing) {
                     this.onProductionNatureChange();
@@ -38,14 +35,26 @@
         }
 
         onProductionNatureChange() {
-            this.reset();
 
             const productionNaturesId = this.$productionNatureInput.selector('value');
-            masterProductionService
-                .get(productionNaturesId)
-                .then(productionNature => {
-                    if (productionNature.started_on_year != null && productionNature.stopped_on_year != null && productionNature.started_on && productionNature.stopped_on) {
-                        this.setProductionPeriod(productionNature.started_on, productionNature.stopped_on, productionNature.started_on_year, productionNature.stopped_on_year);
+            if (productionNaturesId == null) {
+                this.resetVarieties()
+                this.showHint()
+            } else {
+                this.reset();
+                masterProductionService.get(productionNaturesId).then((productionNature) => {
+                    if (
+                        productionNature.started_on_year != null &&
+                        productionNature.stopped_on_year != null &&
+                        productionNature.started_on &&
+                        productionNature.stopped_on
+                    ) {
+                        this.setProductionPeriod(
+                            productionNature.started_on,
+                            productionNature.stopped_on,
+                            productionNature.started_on_year,
+                            productionNature.stopped_on_year
+                        );
                     }
 
                     if (productionNature.specie) {
@@ -54,35 +63,33 @@
                         this.resetVarieties();
                     }
 
-                    if (productionNature.cycle){
+                    if (productionNature.cycle) {
                         this.setProductionCycle(productionNature.cycle);
                     }
 
-                    if (productionNature.start_state_of_production && productionNature.start_state_of_production.length > 0) {
+                    if (productionNature.cycle == "perennial" && productionNature.start_state_of_production && productionNature.start_state_of_production.length > 0) {
                         this.setSelectOptions(
                             'select#activity_start_state_of_production_year',
                             optionsForSelect(productionNature.start_state_of_production, {
-                                label: e => e.label,
-                                value: e => e.year,
-                                selected: e => e['default']
+                                label: (e) => e.label,
+                                value: (e) => e.year,
+                                selected: (e) => e['default'],
                             })
                         );
-                    } else {
-                        $('select#activity_start_state_of_production_year').empty();
                     }
 
-                    if (productionNature.life_duration) {
+                    if (productionNature.cycle == "perennial" && productionNature.life_duration) {
                         this.setLifeDuration(productionNature.life_duration);
                     }
                 });
+            }
         }
 
         reset() {
             this.resetPerenialInputs();
             this.setProductionPeriod();
             this.setLifeDuration();
-            this.setSelectOptions('select#activity_start_state_of_production_year');
-            this.setProductionCycleDisabling(false);
+            this.resetVarieties()
         }
 
         resetVarieties() {
@@ -119,6 +126,11 @@
             $hint.hide();
         }
 
+        showHint() {
+            const $hint = this.$productionNatureControl.find('p.help-block');
+            $hint.show();
+        }
+
         setProductionPeriod(startedOn, stoppedOn, startedOnYear, stoppedOnYear) {
             this.fpStartedOn.setDate(startedOn);
             this.fpStoppedOn.setDate(stoppedOn);
@@ -131,20 +143,6 @@
             if (!$radioButton.prop('checked')) {
                 $radioButton.prop('checked', true).trigger('change');
             }
-
-            this.setProductionCycleDisabling(true);
-        }
-
-        setProductionCycleDisabling(value) {
-            let $radioButton;
-
-            if (value) {
-                $radioButton = $('[id^=activity_production_cycle]:not(:checked)');
-            } else {
-                $radioButton = $('[id^=activity_production_cycle]');
-            }
-
-            $radioButton.attr('disabled', value);
         }
 
         setLifeDuration(value) {

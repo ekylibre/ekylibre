@@ -132,19 +132,19 @@ class MasterProductionNature < LexiconRecord
   # TODO: Must be corrected in lexicon to avoid if statement
   # @return [Integer]
   def started_on_year
-    if perennial?
-      started_on.year - ARBITRARY_CHOOSEN_YEAR - 1
-    else
+    if started_on.year == stopped_on.year
       started_on.year - ARBITRARY_CHOOSEN_YEAR
+    else
+      started_on.year - ARBITRARY_CHOOSEN_YEAR - 1
     end
   end
 
   # @return [Integer]
   def stopped_on_year
-    if perennial?
-      stopped_on.year - ARBITRARY_CHOOSEN_YEAR - 1
-    else
+    if started_on.year == stopped_on.year
       stopped_on.year - ARBITRARY_CHOOSEN_YEAR
+    else
+      stopped_on.year - ARBITRARY_CHOOSEN_YEAR - 1
     end
   end
 end

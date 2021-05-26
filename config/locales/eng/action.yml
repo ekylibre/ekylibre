@@ -1395,6 +1395,9 @@ eng:
     unroll:
       server_error: "Server error"
   labels:
+    vineyard_area: "Vineyard area"
+    productive_plants_yield: "Productive plant yield"
+    young_plants_yield: "Young plant yield"
     vine_area: "Vine area"
     vine_certification: "Vine certification"
     vine_plants_interval: "Vine plants interval"

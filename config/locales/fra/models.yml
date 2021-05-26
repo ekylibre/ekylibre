@@ -101,7 +101,7 @@ fra:
         work_unit: "Unité d’œuvre" #?
         start_state_of_production_year: "1ère année de production"
         isacompta_analytic_code: "Code analytique ISACOMPTA"
-        life_duration: "Durée de vie après plantation"
+        life_duration: "Durée de vie"
         production_cycle_period: "Campagne annuelle de production"
       activity_budget:
         expenses_amount: "Montant des dépenses"
@@ -983,6 +983,7 @@ fra:
       worker: "Équipier"
       zone: "Zone"
   attributes:
+    starting_year: "L’année de début"
     declared_area: "Superficie déclarée"
     calculated_area: "Superficie calculée"
     product_human_name_fra: "Produit"
@@ -2043,7 +2044,7 @@ fra:
     product_work_number: "N° de travail"
     production: "Production"
     production_cycle: "Cycle de production"
-    production_nature: "Production nature"
+    production_nature: "Production de référence"
     production_support: "Support de production"
     production_supports: "Supports de production"
     production_system: "Système de production"

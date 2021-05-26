@@ -198,19 +198,19 @@ class ActivityTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   test "can't edit activity family if there is any production associated" do
-    activity = create(:activity, family: :plant_farming)
+    activity = create(:activity, :perennial, family: :plant_farming)
     assert_nothing_raised do
       activity.update!(family: :animal_farming, cultivation_variety: :animal)
     end
 
-    activity = create(:activity, :with_productions, family: :plant_farming)
+    activity = create(:activity, :with_productions, :perennial, family: :plant_farming)
     assert_raises ActiveRecord::RecordInvalid do
       activity.update!(family: :animal_farming, cultivation_variety: :animal)
     end
   end
 
   test "can't edit activity family if the cultivation_variety is not one of its children" do
-    activity = create(:activity, family: :plant_farming, cultivation_variety: :plant)
+    activity = create(:activity, :perennial, family: :plant_farming, cultivation_variety: :plant)
     assert_raises ActiveRecord::RecordInvalid do
       activity.update!(family: :animal_farming)
     end
@@ -281,7 +281,8 @@ class ActivityTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
         cultivation_variety: 'animal',
         size_indicator_name: 'members_population',
         size_unit_name: 'unity',
-        production_cycle: 'perennial'
+        production_cycle: 'perennial',
+        life_duration: 20
       }
       assert_attributes_equals(attributes, @activity)
     end

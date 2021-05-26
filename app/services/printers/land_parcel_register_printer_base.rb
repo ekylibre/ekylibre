@@ -21,7 +21,7 @@ module Printers
     end
 
     def compute_dataset
-      productions = get_productions_for_dataset.select { |production| production.plant_farming? }
+      productions = get_productions_for_dataset.select { |production| production.plant_farming? || production.vine_farming? }
 
       compute_productions_dataset(productions)
     end

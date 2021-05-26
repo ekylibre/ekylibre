@@ -18,7 +18,7 @@
         }
 
         updateSubmitButton(family) {
-            this.$submitButton.attr('href', this.submitButtonHref + ('?family=' + family));
+            this.$submitButton.attr('href', this.submitButtonHref + ('&family=' + family));
             this.enableSubmitButton();
         }
 

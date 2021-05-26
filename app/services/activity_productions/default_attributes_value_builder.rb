@@ -44,6 +44,8 @@ module ActivityProductions
           activity.production_stopped_on.change(year: started_on.year + activity.life_duration )
         elsif activity.production_stopped_on.present? && activity.production_stopped_on_year.present?
           activity.production_stopped_on.change(year: campaign.harvest_year + activity.production_stopped_on_year)
+        elsif activity.life_duration.present?
+          (Date.today - 1.day).change(year: campaign.harvest_year + activity.life_duration)
         else
           (Date.today - 1.day).change(year: campaign.harvest_year + 1)
         end
