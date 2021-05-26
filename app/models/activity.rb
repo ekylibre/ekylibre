@@ -129,7 +129,7 @@ class Activity < ApplicationRecord
     validate :validate_production_cycle_period_presence
   end
 
-  validates :production_stopped_on_year, inclusion: { in: [0], message: :invalid }, if: :perennial?
+  validates :life_duration, presence: true, if: -> { animal_farming? }
   validates :start_state_of_production_year, :life_duration, absence: true, if: -> { annual? && !plant_farming? && !vine_farming? }
   validates :production_nature_id, absence: true, if: -> { !vine_farming? && !plant_farming? }
 
@@ -192,9 +192,13 @@ class Activity < ApplicationRecord
       self.life_duration ||= vine_default_production.life_duration
       self.production_started_on ||= vine_default_production.started_on
       self.production_stopped_on ||= vine_default_production.stopped_on
+      self.production_started_on_year ||= -1
+      self.production_stopped_on_year ||= 0
       self.production_cycle = 'perennial'
     when 'animal_farming'
       self.production_cycle = 'perennial'
+      self.life_duration ||= 20
+      self.production_stopped_on_year ||= 0
     end
   end
 
@@ -235,7 +239,7 @@ class Activity < ApplicationRecord
 
   def production_cycle_length
     if production_started_on.present? && production_stopped_on.present? && production_started_on_year.present? && production_stopped_on_year.present?
-      production_stopped_on.change(year: production_stopped_on_year ) - production_started_on.change(year: production_started_on_year )
+      production_stopped_on.change(year: production_stopped_on.year + production_stopped_on_year ) - production_started_on.change(year: production_started_on.year + production_started_on_year )
     end
   end
 
@@ -418,7 +422,7 @@ class Activity < ApplicationRecord
       variety = Onoma::Variety.find(variety)
       return 'White' unless activity_family
 
-      if activity_family <= :plant_farming
+      if activity_family <= :plant_farming || activity_family <= :vine_farming
         list = COLORS['varieties']
         return 'Gray' unless list
 

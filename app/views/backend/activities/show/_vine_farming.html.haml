@@ -18,6 +18,11 @@
       %span.value= resource.decorate.human_net_surface_area(current_campaign)
 
     .med-info.important
+      %span.title= :vineyard_area.tl
+      %span.value
+        \-
+
+    .med-info.important
       %span.title= :working_area.tl
       %span.value= resource.decorate.human_working_zone_area(current_campaign)
 
@@ -25,11 +30,20 @@
       %span.title= :pfi_activity.tl
       %span.value= PfiCampaignsActivitiesIntervention.pfi_value_on_activity_campaign(resource, current_campaign)
 
+    .med-info.important
+      %span.title= :productive_plants_yield.tl
+      %span.value
+        \-
+
+    .med-info.important
+      %span.title= :young_plants_yield.tl
+      %span.value
+        \-
+
+
   = attributes_list do |l|
     - l.attribute :production_system
     - l.attribute :production_cycle
-    - l.attribute :size_indicator_name
-    - l.attribute :size_unit_name
     - l.attribute :use_countings
     - l.attribute :use_gradings
     - l.attribute :use_seasons

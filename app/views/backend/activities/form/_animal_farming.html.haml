@@ -19,5 +19,9 @@
     = f.input(:production_stopped_on, input_html: { data: { flatpickr_alt_format: 'd-F', flatpickr_calendar_class: 'day-names-hidden year-hidden' }}, wrapper: :simplest)
     = content_tag(:span, :year_long.tl, class: 'add-on')
     = f.input(:production_stopped_on_year, collection: [["N", 0],["N+1", 1]], input_html: {class: f.object.production_stopped_on_year == 0 ? 'disabled' : ''}, wrapper: :simplest)
+  .perennial-production-cycle-options
+    = f.input :life_duration, required: true, wrapper: :append do
+      = f.input_field :life_duration
+      %span.add-on= :year.tl.pluralize
   = f.input :description
   = f.custom_fields

@@ -608,6 +608,7 @@ eng:
       wine_incoming_harvest_storage: "Wine incoming harvest storage"
       zone: "Zone"
   attributes:
+    starting_year: "Starting year"
     isacompta_code: "Isacompta code"
     isacompta_label: "Isacompta label"
     declared_area: "Declared area"

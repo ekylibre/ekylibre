@@ -329,6 +329,11 @@
             unless selected.is(":first-child")
               selected.removeClass "selected"
               selected.prev().addClass "selected"
+      if code is 46 or code is 8 # backspace or delete
+        if @element.val().length == 0
+          @valueField.val ""
+          @valueField.trigger "selector:cleared"
+          @element.trigger "selector:cleared",
       true
 
     _focusOut: (event) ->

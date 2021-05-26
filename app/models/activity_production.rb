@@ -113,7 +113,7 @@ class ActivityProduction < ApplicationRecord
   delegate :animal_farming?, :plant_farming?, :tool_maintaining?, :vine_farming?, :use_seasons?, :use_tactics?,
            :with_cultivation, :cultivation_variety, :with_supports, :support_variety,
            :color, :annual?, :perennial?, :production_started_on_year,
-           :production_stopped_on_year,  to: :activity, allow_nil: true
+           :production_stopped_on_year, :life_duration, :production_started_on, :production_stopped_on, to: :activity, allow_nil: true
 
   scope :of_campaign, lambda { |campaign|
     where(id: HABTM_Campaigns.select(:activity_production_id).where(campaign: campaign))
@@ -182,6 +182,7 @@ class ActivityProduction < ApplicationRecord
     self.support_nature ||= :cultivation
     if activity
       self.stopped_on ||= self.started_on + 1.year - 1.day if annual?
+      self.stopped_on ||= self.started_on + life_duration.to_i.year if perennial?
       self.size_indicator_name ||= activity_size_indicator_name if activity_size_indicator_name
       self.size_unit_name = activity_size_unit_name
       self.rank_number ||= (activity.productions.maximum(:rank_number) || 0) + 1
@@ -408,19 +409,23 @@ class ActivityProduction < ApplicationRecord
   end
 
   def started_on_for(campaign)
-    return self.started_on if production_started_on_year.blank?
+    return started_on if annual?
 
     begin
-      Date.civil(campaign.harvest_year + production_started_on_year, self.started_on.month, self.started_on.day)
+      Date.civil(campaign.harvest_year + production_started_on_year, production_started_on.month, production_started_on.day)
     rescue
-      Date.civil(campaign.harvest_year + production_started_on_year, self.started_on.month, self.started_on.day - 1)
+      Date.civil(campaign.harvest_year, 1, 1)
     end
   end
 
   def stopped_on_for(campaign)
-    return stopped_on if production_stopped_on_year.blank?
+    return stopped_on if annual?
 
-    Date.civil(campaign.harvest_year + production_stopped_on_year, self.started_on.month, self.started_on.day) - 1
+    begin
+      Date.civil(campaign.harvest_year + production_stopped_on_year, production_stopped_on.month, production_stopped_on.day)
+    rescue
+      Date.civil(campaign.harvest_year, 12, 31)
+    end
   end
 
   # Used for find current campaign for given production
@@ -751,7 +756,7 @@ class ActivityProduction < ApplicationRecord
       list = []
       list << cultivable_zone.name if cultivable_zone && (plant_farming? || vine_farming?)
       list << activity.name
-      list << campaign.harvest_year.to_s if activity.annual? && started_on
+      list << campaign.harvest_year.to_s if activity.annual? && started_on && campaign_id
       # list << started_on.to_date.l(format: :month) if activity.annual? && started_on
       list << :rank.t(number: rank_number)
       list = list.reverse! if 'i18n.dir'.t == 'rtl'

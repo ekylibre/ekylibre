@@ -241,9 +241,6 @@ module Backend
             notify_warning_now(:no_product_matching_current_filter)
             unsafe_params.delete('targets_attributes')
             unsafe_params.delete('group_parameters_attributes')
-            # unsafe_params.slice!('targets_attributes', 'group_parameters_attributes')
-          else
-            nil
           end
         end
       end

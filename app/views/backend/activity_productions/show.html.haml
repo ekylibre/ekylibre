@@ -18,6 +18,22 @@
       .med-info.important
         %span.title= :working_area.tl
         %span.value= resource.decorate.human_working_zone_area(current_campaign)
+
+      - if resource.vine_farming?
+        .med-info.important
+          %span.title= :working_area.tl
+          %span.value= resource.decorate.human_working_zone_area(current_campaign)
+
+        .med-info.important
+          %span.title= :productive_plants_yield.tl
+          %span.value
+            \-
+
+        .med-info.important
+          %span.title= :young_plants_yield.tl
+          %span.value
+            \-
+
       - unless @reentry_possible.possible
         .med-info.delay
           %span.title= :re_entry_delay.tl

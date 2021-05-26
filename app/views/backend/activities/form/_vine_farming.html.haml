@@ -8,7 +8,7 @@
     %i.icon.icon-warning
     = :warning_could_not_use_ift.tl
   - is_vegetal_farming = f.object.plant_farming? || f.object.vine_farming?
-  = f.referenced_association :production_nature, new: false, wrapper_html: { style: "display: #{is_vegetal_farming ? 'block' : 'none'}" }, hint: (hint if f.object.production_nature.nil?)
+  = f.referenced_association :production_nature, new: false, wrapper_html: { style: "display: #{is_vegetal_farming ? 'block' : 'none'}" }, hint: hint
   - with_cultivation = family.cultivation_variety.present?
   = f.referenced_nomenclature :cultivation_variety, required: with_cultivation,
                                                       input_html: { data: { family_cultivation_variety: family.cultivation_variety }},
