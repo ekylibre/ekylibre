@@ -31,10 +31,10 @@ GIT
 
 GIT
   remote: https://gitlab.com/ekylibre/onoma.git
-  revision: f897f0febbe23b3a9f4fd2d885a9654e37c20579
-  branch: feature/redesign-activities-and-productions
+  revision: c4c3af35c8d2ed45d60d4bb2271717a6f84a957c
+  branch: master
   specs:
-    onoma (0.5.3)
+    onoma (0.5.5)
       activesupport (>= 4.2)
       nokogiri (>= 1.10.4)
       zeitwerk (~> 2.4.0)
@@ -352,7 +352,7 @@ GEM
       connection_pool (~> 2.2)
     netrc (0.11.0)
     nio4r (2.5.5)
-    nokogiri (1.11.3)
+    nokogiri (1.11.4)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
     nori (2.6.0)
