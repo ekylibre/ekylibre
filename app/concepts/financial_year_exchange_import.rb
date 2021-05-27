@@ -16,7 +16,8 @@ class FinancialYearExchangeImport
       ensure_headers_are_valid || rollback!
       ensure_all_journals_exists || rollback!
       ensure_entries_included_in_financial_year_date_range || rollback!
-      destroy_previous_journal_entries
+      # don t destroy entries in accountant journal anymore
+      # destroy_previous_journal_entries
       import_journal_entries || rollback!
       save_file
     end
@@ -38,7 +39,11 @@ class FinancialYearExchangeImport
     end
 
     def ensure_headers_are_valid
-      expected = %i[jour numero_de_compte journal tiers numero_de_piece libelle_ecriture debit credit lettrage]
+      if exchange.format == 'isacompta'
+        expected = %i[id jour numero_compte journal libelle_journal type_compte numero_piece libelle_ecriture debit credit lettrage date_echeance sequence_analytique]
+      else
+        expected = %i[jour numero_compte journal tiers numero_piece libelle_ecriture debit credit lettrage]
+      end
       return true if parsed.headers.to_set == expected.to_set
 
       message = I18n.translate('activerecord.errors.models.financial_year_exchange.csv_file_headers_invalid')
@@ -60,7 +65,11 @@ class FinancialYearExchangeImport
       range = (exchange.financial_year.started_on..exchange.financial_year.stopped_on)
       return true if parsed.all? do |row|
         row_date = begin
-                     Date.parse(row[:jour])
+                     if exchange.format == 'isacompta'
+                       Date.strptime(row[:jour], "%d%m%Y")
+                     else
+                       Date.parse(row[:jour])
+                     end
                    rescue
                      nil
                    end
@@ -72,6 +81,7 @@ class FinancialYearExchangeImport
       false
     end
 
+    # don t use this method for the moment
     def destroy_previous_journal_entries
       financial_year = exchange.financial_year
       accountant = financial_year.accountant
@@ -93,21 +103,37 @@ class FinancialYearExchangeImport
     end
 
     def import_journal_entries!
-      parsed.group_by { |row| row[:numero_de_piece] }.each do |entry_number, rows|
+      parsed.group_by { |row| row[:numero_piece] }.each do |entry_number, rows|
         sample_row = rows.first
         journal_code = sample_row[:journal]
         printed_on = sample_row[:jour]
         journal = Journal.find_by(accountant_id: exchange.financial_year.accountant_id, code: journal_code)
+        # in case of isacompta code journal in CSV and date format 'JJMMAAAA'
+        if exchange.format == 'isacompta'
+          journal ||= Journal.find_by(accountant_id: exchange.financial_year.accountant_id, isacompta_code: journal_code)
+          printed_on = Date.strptime(printed_on, "%d%m%Y")
+        end
+        # we take only entry link to accountant journal
         next unless journal
 
         items = rows.each_with_object([]) do |row, array|
-          array << {
-            name: row[:libelle_ecriture],
-            real_debit: row[:debit],
-            real_credit: row[:credit],
-            letter: row[:lettrage],
-            account: Account.find_by(number: row[:numero_de_compte])
-          }
+          if exchange.format == 'isacompta'
+            array << {
+              name: row[:libelle_ecriture],
+              real_debit: row[:debit],
+              real_credit: row[:credit],
+              isacompta_letter: row[:lettrage],
+              account: Account.find_by(number: row[:numero_compte])
+            }
+          else
+            array << {
+              name: row[:libelle_ecriture],
+              real_debit: row[:debit],
+              real_credit: row[:credit],
+              letter: row[:lettrage],
+              account: Account.find_by(number: row[:numero_compte])
+            }
+          end
         end
         entry = journal.entries.build(number: entry_number, printed_on: printed_on)
         entry.mark_for_exchange_import!

@@ -24,4 +24,6 @@
       = f.input_field :life_duration
       %span.add-on= :year.tl.pluralize
   = f.input :description
+  - if AnalyticSegment.where(name: 'activities').exists?
+    = f.input :isacompta_analytic_code
   = f.custom_fields

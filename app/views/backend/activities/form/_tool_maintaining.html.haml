@@ -20,4 +20,6 @@
     = content_tag(:span, :year_long.tl, class: 'add-on')
     = f.input(:production_stopped_on_year, collection: [["N", 0],["N+1", 1]], input_html: {class: f.object.production_stopped_on_year == 0 ? 'disabled' : ''}, wrapper: :simplest)
   = f.input :description
+  - if AnalyticSegment.where(name: 'activities').exists?
+    = f.input :isacompta_analytic_code
   = f.custom_fields
