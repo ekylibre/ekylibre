@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class FinancialYearExchangeImportTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
+class FinancialYearExchangeImportIsacomptaTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   attr_reader :account, :financial_year, :financial_year_exchange, :booked_journal
 
   setup do
@@ -9,19 +9,19 @@ class FinancialYearExchangeImportTest < Ekylibre::Testing::ApplicationTestCase::
     @financial_year = financial_years(:financial_years_025)
     assert financial_year.update_attribute(:accountant_id, accountant.id)
 
-    @booked_journal = create(:journal, :various, code: 'JCR', accountant_id: accountant.id)
+    @booked_journal = create(:journal, :various, code: 'JCR', isacompta_code: 'JC', accountant_id: accountant.id)
     create(:account)
 
     create(:journal_entry, :confirmed, :with_items, journal: booked_journal, printed_on: financial_year.started_on + 1.day)
     create(:journal_entry, :confirmed, :with_items, journal: booked_journal, printed_on: financial_year.stopped_on + 1.day)
 
-    @financial_year_exchange = create(:financial_year_exchange, :opened, financial_year: financial_year)
+    @financial_year_exchange = create(:financial_year_exchange, :opened, financial_year: financial_year, format: :isacompta)
 
     @account = create(:account, number: '80010001')
   end
 
   test 'run fails when the file is invalid' do
-    invalid_file = File.open(fixture_file('financial_year_exchange_import_invalid.csv'))
+    invalid_file = File.open(fixture_file('financial_year_exchange_import_isacompta_invalid.csv'))
     import = FinancialYearExchangeImport.new(invalid_file, financial_year_exchange)
     refute import.run
     assert import.error.present?
@@ -29,7 +29,7 @@ class FinancialYearExchangeImportTest < Ekylibre::Testing::ApplicationTestCase::
   end
 
   test 'run fails when the file headers does not match the expected ones' do
-    invalid_file = File.open(fixture_file('financial_year_exchange_import_invalid_headers.csv'))
+    invalid_file = File.open(fixture_file('financial_year_exchange_import_isacompta_invalid_headers.csv'))
     import = FinancialYearExchangeImport.new(invalid_file, financial_year_exchange)
     refute import.run
     assert import.error.present?
@@ -37,7 +37,7 @@ class FinancialYearExchangeImportTest < Ekylibre::Testing::ApplicationTestCase::
   end
 
   test 'run fails when the file contains a nonexistant journal' do
-    invalid_file = File.open(fixture_file('financial_year_exchange_import_nonexistant_journal.csv'))
+    invalid_file = File.open(fixture_file('financial_year_exchange_import_isacompta_nonexistant_journal.csv'))
     import = FinancialYearExchangeImport.new(invalid_file, financial_year_exchange)
     refute import.run
     assert import.error.present?
@@ -45,7 +45,7 @@ class FinancialYearExchangeImportTest < Ekylibre::Testing::ApplicationTestCase::
   end
 
   test 'run fails when the file contains entries with printed on out of financial year range' do
-    invalid_file = File.open(fixture_file('financial_year_exchange_import_entry_date_invalid.csv'))
+    invalid_file = File.open(fixture_file('financial_year_exchange_import_isacompta_entry_date_invalid.csv'))
     import = FinancialYearExchangeImport.new(invalid_file, financial_year_exchange)
     refute import.run
     assert import.error.present?
@@ -53,7 +53,7 @@ class FinancialYearExchangeImportTest < Ekylibre::Testing::ApplicationTestCase::
   end
 
   test 'run fails when the file contains entries with printed on unparsable' do
-    invalid_file = File.open(fixture_file('financial_year_exchange_import_entry_date_unparsable.csv'))
+    invalid_file = File.open(fixture_file('financial_year_exchange_import_isacompta_entry_date_unparsable.csv'))
     import = FinancialYearExchangeImport.new(invalid_file, financial_year_exchange)
     refute import.run
     assert import.error.present?
@@ -62,21 +62,21 @@ class FinancialYearExchangeImportTest < Ekylibre::Testing::ApplicationTestCase::
 
   test 'does not create journal entries when run fails due to invalid balance on a specific entry' do
     journal_entry_ids = booked_journal.entries.map(&:id)
-    file = File.open(fixture_file('financial_year_exchange_import_balance_invalid.csv'))
+    file = File.open(fixture_file('financial_year_exchange_import_isacompta_balance_invalid.csv'))
     import = FinancialYearExchangeImport.new(file, financial_year_exchange)
     refute import.run
     assert_equal journal_entry_ids.length, JournalEntry.where(id: journal_entry_ids).count
   end
 
   test 'does not store the file when run fails due to invalid balance on a specific entry' do
-    file = File.open(fixture_file('financial_year_exchange_import_balance_invalid.csv'))
+    file = File.open(fixture_file('financial_year_exchange_import_isacompta_balance_invalid.csv'))
     import = FinancialYearExchangeImport.new(file, financial_year_exchange)
     refute import.run
     refute financial_year_exchange.reload.import_file.exists?
   end
 
   test 'creates journal entries in journal booked by the accountant' do
-    file = File.open(fixture_file('financial_year_exchange_import.csv'))
+    file = File.open(fixture_file('financial_year_exchange_import_isacompta.csv'))
     import = FinancialYearExchangeImport.new(file, financial_year_exchange)
 
     assert import.run, "Error during import: #{import.error.inspect}"
@@ -103,7 +103,7 @@ class FinancialYearExchangeImportTest < Ekylibre::Testing::ApplicationTestCase::
   end
 
   test 'store the file' do
-    file = File.open(fixture_file('financial_year_exchange_import.csv'))
+    file = File.open(fixture_file('financial_year_exchange_import_isacompta.csv'))
     assert financial_year_exchange.import_file.blank?
     import = FinancialYearExchangeImport.new(file, financial_year_exchange)
     assert import.run, "Error during import: #{import.error.inspect}"

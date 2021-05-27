@@ -15,13 +15,13 @@ module FinancialYearExchanges
     end
 
     HEADERS = %w[jour
-                 numéro\ de\ compte
+                 numero_compte
                  journal
                  tiers
-                 numéro\ de\ pièce
-                 libellé\ écriture
-                 débit
-                 crédit
+                 numero_piece
+                 libelle_ecriture
+                 debit
+                 credit
                  lettrage].freeze
 
     def generate_ekyagri(exchange)
@@ -72,19 +72,19 @@ module FinancialYearExchanges
       end
     end
 
-    ISACOMPTA_HEADERS = %w[id\ de\ l'ecriture
+    ISACOMPTA_HEADERS = %w[id
                            jour
-                           numéro\ de\ compte
+                           numero_compte
                            journal
-                           libellé\ journal
-                           type\ de\ compte
-                           numéro\ de\ pièce
-                           libellé\ écriture
-                           débit
-                           crédit
+                           libelle_journal
+                           type_compte
+                           numero_piece
+                           libelle_ecriture
+                           debit
+                           credit
                            lettrage
-                           date\ d'échéance
-                           séquence\ analytique].freeze
+                           date_echeance
+                           sequence_analytique].freeze
 
     def generate_isacompta(exchange)
       Tempfile.open do |tempfile|
