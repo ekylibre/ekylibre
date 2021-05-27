@@ -1,2 +1,3 @@
 Jour,Numéro de compte,Journal,Tiers,Numéro de pièce,Libellé écriture,Débit,Crédit,Lettrage
-2015-09-02,80010001,NONEXISTANT,,12345,Une écriture,12.5,0.0
+2015-09-02,80010001,NONEXISTANT,,12345,Une écriture,12.5,0.0,
+2015-09-02,80010001,NONEXISTANT2,,12345,Ecriture2,0.0,12.5,

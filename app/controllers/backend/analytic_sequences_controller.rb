@@ -24,8 +24,8 @@ module Backend
 
     def index
       @analytic_sequences = AnalyticSequence.all.includes(:segments).references(:segments)
+      @analytic_sequences_grid = initialize_grid(@analytic_sequences)
       if FinancialYearExchange.where(transmit_isacompta_analytic_codes: true).exists?
-        @analytic_sequences_grid = initialize_grid(@analytic_sequences)
         empty_analytic_codes.each do |segment|
           notify_warning(:fill_analytic_codes_of_your_segments.tl(segment: segment))
         end

@@ -91,6 +91,8 @@ accounts:
   id:
     type: integer
     required: true
+  last_isacompta_letter:
+    type: jsonb
   label:
     type: string
     required: true

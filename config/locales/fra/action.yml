@@ -1917,7 +1917,7 @@ fra:
     fertilizers: "Engrais"
     field: "Champ %{counter}"
     sequence: "Séquence %{counter}"
-    fill_analytic_codes_of_your_segments: "Attention ! Pour transmettre les codes analytiques lors de l’échange comptable Isacompta, il est nécessaire de renseigner les codes analytiques de vos %{segment}"
+    fill_analytic_codes_of_your_segments: "Pour transmettre les codes analytiques lors de l’échange comptable Isacompta, vous devez renseigner les codes analytiques de vos %{segment}"
     field_distribution: "Parcellaire"
     file_nature: "Type de fichier"
     file_pages_count: "Nombre de pages" #?
@@ -2145,6 +2145,7 @@ fra:
     irreversible_operation: "Cette opération est irréversible"
     irritating_by_skin_contact_and_inhalation_severe_eyes_irritation: "Irritant par contact cutané et inhalation, irritation sévère des yeux"
     is: "Est"
+    isacompta_analytic_code: "Code analytique ISACOMPTA"
     # is_equipment_set_as_inactive_by_intervention: "This intervention set the equipment as inactive ?"
     issue: "Incident"
     issues: "Incidents"
