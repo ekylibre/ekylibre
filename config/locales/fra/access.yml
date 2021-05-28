@@ -28,6 +28,7 @@ fra:
       contracts: "Contrats"
       cultivable_zones: "Zones cultivables"
       custom_fields: "Champs personnalisés"
+      crop_groups: "Groupements de parcellaire"
       deposits: "Remises en banque"
       districts: "Districts"
       document_templates: "Modèles de document"
