@@ -71,6 +71,10 @@ class Sensor < ApplicationRecord
 
   # TODO: Check parameters presence
 
+  scope :nearest_of_and_within, lambda { |shape, max_distance_in_meter = 5000|
+    where(id: Analysis.geolocation_nearest_of_and_within(shape, max_distance_in_meter).pluck(:sensor_id))
+  }
+
   before_validation do
     if token.blank?
       self.token = User.give_password(16, :normal)

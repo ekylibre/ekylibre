@@ -32,6 +32,7 @@
             "order": ["month", "day", "year"]
         },
         "front-end": {
+            "active_list": { "labels": { "edit": "Edit", "manage_land_parcels": "Manage land parcels", "not_defined": "To define" } },
             "bank_reconciliation": { "remove": "Remove" },
             "intervention": {
                 "nature": {
@@ -40,6 +41,7 @@
                     "reentry": "Reentry:"
                 }
             },
+            "labels": { "cadastral_land_parcel_zones": "Cadastral land parcels" },
             "land_parcel": { "create_modal": { "title": "Choose an activity" } },
             "leaflet": {
                 "draw": {
@@ -105,6 +107,29 @@
                 "zoomInTitle": "Zoom in",
                 "zoomOutTitle": "Zoom out"
             },
+            "notifications": {
+                "levels": { "error": "Error!" },
+                "messages": {
+                    "unvalid_cvi_cadastral_plant": "One or more land parcel zones in list have not been found. Please delete/correct the element shown in red in list below."
+                }
+            },
+            "production": {
+                "start_state_of_production": {
+                    "n_2_3_leaf": "N+2 (3rd leaf)",
+                    "n_3_4_leaf": "N+3 (2nd leaf)",
+                    "n_4_5_leaf": "N+4 (5th leaf)"
+                }
+            },
+            "templates": {
+                "actions": { "edit": "Edit", "regroup": "Group", "split": "Split" },
+                "form": {
+                    "calculated_area": "Calculated area",
+                    "land_parcel": "Land parcel",
+                    "name": "Name",
+                    "required": "required",
+                    "vine_variety_name": "Variety of vine"
+                }
+            },
             "unroll": { "server_error": "Server error" }
         },
         "time": {
@@ -154,6 +179,7 @@
             "order": ["day", "month", "year"]
         },
         "front-end": {
+            "active_list": { "labels": { "edit": "Modifier", "manage_land_parcels": "Gérer le parcellaire", "not_defined": "A définir" } },
             "bank_reconciliation": { "remove": "Effacer" },
             "intervention": {
                 "nature": {
@@ -162,6 +188,7 @@
                     "reentry": "Ré-entrée :"
                 }
             },
+            "labels": { "cadastral_land_parcel_zones": "Parcelles cadastrales" },
             "land_parcel": { "create_modal": { "title": "Choisir une activité" } },
             "leaflet": {
                 "draw": {
@@ -225,11 +252,35 @@
                     }
                 },
                 "fullscreenTitle": "Plein écran",
+                "home": { "toolbar": { "buttons": { "home": "Centrer" } } },
                 "importerButtonTitle": "Importer",
                 "interactive_maps": "Une librairie JavaScript pour des cartes interactives",
                 "zoomGuidance": "Niveau de zoom insuffisant",
                 "zoomInTitle": "Zoomer",
                 "zoomOutTitle": "Dézoomer"
+            },
+            "notifications": {
+                "levels": { "error": "Erreur !" },
+                "messages": {
+                    "unvalid_cvi_cadastral_plant": "Au moins une référence de parcelle cadastrale n'a pas été reconnue. Veuillez corriger ou supprimer la/les référence(s) identifiée(s) en rouge."
+                }
+            },
+            "production": {
+                "start_state_of_production": {
+                    "n_2_3_leaf": "N+2 (3ème feuille)",
+                    "n_3_4_leaf": "N+3 (4ème feuille)",
+                    "n_4_5_leaf": "N+4 (5ème feuille"
+                }
+            },
+            "templates": {
+                "actions": { "edit": "Modifier", "regroup": "Regrouper", "split": "Dissocier" },
+                "form": {
+                    "calculated_area": "Superficie calculée",
+                    "land_parcel": "Parcelle",
+                    "name": "Nom",
+                    "required": "Obligatoire",
+                    "vine_variety_name": "Cépage"
+                }
             },
             "unroll": { "server_error": "Erreur serveur" }
         },
