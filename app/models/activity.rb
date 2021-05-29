@@ -353,7 +353,13 @@ class Activity < ApplicationRecord
   end
 
   def size_during(campaign)
-    total = productions.of_campaign(campaign).map(&:size).sum
+    if animal_farming?
+      total = productions.of_campaign(campaign).map do |production|
+        production.support.try(:members_at)&.count.to_i
+      end.sum
+    else
+      total = productions.of_campaign(campaign).map(&:size).sum
+    end
     total = total.in(size_unit) if size_unit
     total
   end
