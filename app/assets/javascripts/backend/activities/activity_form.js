@@ -1,6 +1,14 @@
 (function (E, $) {
     const varietyService = new E.VarietyService();
     const masterProductionService = new E.MasterProductionNatureService();
+    const defaultStateStateOfProduction = [
+        { label: '', year: null, default: true },
+        { label: 'N+1', year: 1, default: false },
+        { label: 'N+2', year: 2, default: false },
+        { label: 'N+3', year: 3, default: false },
+        { label: 'N+4', year: 4, default: false },
+        { label: 'N+5', year: 5, default: false },
+    ];
 
     class ActivityForm {
         constructor($formElement) {
@@ -15,18 +23,17 @@
         }
 
         init() {
-
-            this.$productionCycleInput.on('change', event => {
+            this.$productionCycleInput.on('change', (event) => {
                 if (event.target.value === 'annual') {
                     this.resetPerenialInputs();
                 } else {
-                    const $productionStoppedOnYear = $('select#activity_production_stopped_on_year')
+                    const $productionStoppedOnYear = $('select#activity_production_stopped_on_year');
                     $productionStoppedOnYear.val(0);
                     $productionStoppedOnYear.addClass('disabled');
                 }
             });
 
-            this.$productionNatureInput.on('selector:change selector:cleared' , (_event, _selectedElement, was_initializing) => {
+            this.$productionNatureInput.on('selector:change selector:cleared', (_event, _selectedElement, was_initializing) => {
                 this.hideHint();
                 if (!was_initializing) {
                     this.onProductionNatureChange();
@@ -35,11 +42,10 @@
         }
 
         onProductionNatureChange() {
-
             const productionNaturesId = this.$productionNatureInput.selector('value');
             if (productionNaturesId == null) {
-                this.resetVarieties()
-                this.showHint()
+                this.resetVarieties();
+                this.showHint();
             } else {
                 this.reset();
                 masterProductionService.get(productionNaturesId).then((productionNature) => {
@@ -67,18 +73,22 @@
                         this.setProductionCycle(productionNature.cycle);
                     }
 
-                    if (productionNature.cycle == "perennial" && productionNature.start_state_of_production && productionNature.start_state_of_production.length > 0) {
-                        this.setSelectOptions(
-                            'select#activity_start_state_of_production_year',
-                            optionsForSelect(productionNature.start_state_of_production, {
-                                label: (e) => e.label,
-                                value: (e) => e.year,
-                                selected: (e) => e['default'],
-                            })
-                        );
+                    let startStateOfProduction
+                    if (productionNature.start_state_of_production && productionNature.start_state_of_production.length > 0) {
+                        startStateOfProduction = productionNature.start_state_of_production;
+                    } else {
+                        startStateOfProduction = defaultStateStateOfProduction;
                     }
+                    this.setSelectOptions(
+                        'select#activity_start_state_of_production_year',
+                        optionsForSelect(startStateOfProduction, {
+                            label: (e) => e.label,
+                            value: (e) => e.year,
+                            selected: (e) => e['default'],
+                        })
+                    );
 
-                    if (productionNature.cycle == "perennial" && productionNature.life_duration) {
+                    if (productionNature.cycle == 'perennial' && productionNature.life_duration) {
                         this.setLifeDuration(productionNature.life_duration);
                     }
                 });
@@ -89,7 +99,6 @@
             this.resetPerenialInputs();
             this.setProductionPeriod();
             this.setLifeDuration();
-            this.resetVarieties()
         }
 
         resetVarieties() {
@@ -98,25 +107,24 @@
         }
 
         _updateSelectWithFamilyVarieties(familyCultivationVariety) {
-            varietyService.selection(familyCultivationVariety)
-                          .then(varietySelection => {
-                              if (varietySelection.length >= 1) {
-                                  this.setSelectOptions(
-                                      'select#activity_cultivation_variety',
-                                      optionsForSelect(varietySelection, {
-                                          label: e => e.label,
-                                          value: e => e.referenceName
-                                      })
-                                  );
-                              }
-                          });
+            varietyService.selection(familyCultivationVariety).then((varietySelection) => {
+                if (varietySelection.length >= 1) {
+                    this.setSelectOptions(
+                        'select#activity_cultivation_variety',
+                        optionsForSelect(varietySelection, {
+                            label: (e) => e.label,
+                            value: (e) => e.referenceName,
+                        })
+                    );
+                }
+            });
         }
 
         resetPerenialInputs() {
             $('input#activity_life_duration').val(null);
             $('select#activity_start_state_of_production_year').val(null);
-            const $productionStoppedOnYear = $('select#activity_production_stopped_on_year')
-            if ($productionStoppedOnYear.hasClass('disabled')){
+            const $productionStoppedOnYear = $('select#activity_production_stopped_on_year');
+            if ($productionStoppedOnYear.hasClass('disabled')) {
                 $productionStoppedOnYear.removeClass('disabled');
             }
         }
@@ -160,12 +168,10 @@
     }
 
     function optionsForSelect(options, config) {
-        const {label, value, selected = () => false} = config;
+        const { label, value, selected = () => false } = config;
 
-        return options.map(option => {
-            return $('<option>').html(label(option))
-                                .attr('value', value(option))
-                                .attr('selected', selected(option));
+        return options.map((option) => {
+            return $('<option>').html(label(option)).attr('value', value(option)).attr('selected', selected(option));
         });
     }
 

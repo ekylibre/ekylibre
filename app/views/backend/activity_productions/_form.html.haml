@@ -17,7 +17,7 @@
     = f.date_range(:started_on, :stopped_on, required: true, input_html: { data: { started_on_year_relative: f.object.activity.production_started_on_year || 0,  stopped_on_year_relative: f.object.activity.production_stopped_on_year || 1 } })
 
   - if activity.perennial?
-    = f.input :started_on, label: :started_on_before_planting.tl
+    = f.input :started_on, label: (activity.plant_farming? || activity.vine_farming?) ? :work_start_on_support_vegetal.tl : :work_start_on_support_animal.tl
     = f.input(:production_cycle_period, label: :full_production_period.tl, required: true, wrapper: :append) do
       = content_tag(:span, :from_year.tl, class: 'add-on')
       = f.input :starting_year, collection: config.fetch(:starting_year_collection), include_blank:false, error: false, wrapper: :simplest
