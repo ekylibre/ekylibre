@@ -144,6 +144,8 @@ class InterventionProductParameter < InterventionParameter
   after_save do
     if product && dead && (!product.dead_at || product.dead_at > stopped_at)
       product.update_columns(dead_at: stopped_at)
+    elsif product && !dead && product.dead_at
+      product.update_columns(dead_at: nil)
     end
   end
 
