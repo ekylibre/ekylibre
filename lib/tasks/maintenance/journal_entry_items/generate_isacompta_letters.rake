@@ -6,7 +6,7 @@ namespace :maintenance do
       Ekylibre::Tenant.switch_each do
         puts "Updating #{Ekylibre::Tenant.current} tenant"
         FinancialYear.find_each do |financial_year|
-          isacompta_letter = '000'
+          isacompta_letter = 'AAA'
           letters = financial_year.journal_entry_items.where.not(letter: nil)
             .select(:letter).distinct
             .pluck(:letter).map { |letter| letter.remove('*') }.uniq.sort
@@ -26,11 +26,11 @@ end
 
 def next_isacompta_letter(last_isacompta_letter)
   if last_isacompta_letter == 'ZZZ'
-    raise 'ZZZ is the max value of isacompta_letter'
-  elsif last_isacompta_letter == '999'
-    '00A'
+    'AA1'
+  elsif last_isacompta_letter == 'ZZ9'
+    raise StandardError.new("Isacompta letter is full.")
   elsif last_isacompta_letter.nil?
-    '000'
+    'AAA'
   else
     last_isacompta_letter.succ
   end
