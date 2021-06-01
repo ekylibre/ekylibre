@@ -13,8 +13,10 @@ module Backend
     end
 
     def index
-      if segment = AnalyticSegment.find_by(name: 'project_budgets')
-        notify_warning(:fill_analytic_codes_of_your_segments.tl(segment: segment.name.text.downcase))
+      missing_code_count = ProjectBudget.where("isacompta_analytic_code IS NULL OR isacompta_analytic_code = ''").count
+      segment = AnalyticSegment.find_by(name: 'project_budgets')
+      if segment.presence && missing_code_count > 0
+        notify_warning :fill_analytic_codes_of_your_activities.tl(segment: segment.name.text.downcase, missing_code_count: missing_code_count)
       end
       respond_to do |format|
         format.html
