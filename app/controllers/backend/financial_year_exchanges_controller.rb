@@ -43,7 +43,7 @@ module Backend
           notify_success(:record_x_created, record: 'activerecord.models.financial_year_exchange'.t, name: @financial_year_exchange.id)
 
           journal_ids = params[:exported_journal_ids]
-          new_exchanged_journals = Journal.where(id: journal_ids)
+          new_exchanged_journals = Journal.where(id: journal_ids).where("isacompta_code IS NULL OR isacompta_code = ''")
           if @financial_year_exchange.isacompta? && new_exchanged_journals.any?
             journals_link = new_exchanged_journals.map do |journal|
               view_context.link_to(journal.name, edit_backend_journal_url(journal))
@@ -60,6 +60,22 @@ module Backend
     def journal_entries_export
       return unless (exchange = find_and_check)
 
+      # check if a isacompta code is missing on a Model linkt to a segment
+      if exchange.transmit_isacompta_analytic_codes
+        missing_segment = 0
+        AnalyticSegment.all.each do |segment|
+          missing_code_count = segment.name.classify.constantize.where("isacompta_analytic_code IS NULL OR isacompta_analytic_code = ''").count
+          if missing_code_count > 0
+            missing_segment += missing_code_count
+            notify_warning :fill_analytic_codes_of_your_activities.tl(segment: segment.name.text.downcase, missing_code_count: missing_code_count)
+          end
+        end
+        if missing_segment > 0
+          redirect_to_back
+          return
+        end
+      end
+      # generate export
       FinancialYearExchangeExportJob.perform_later(exchange, params[:format], current_user)
       notify_success(:document_in_preparation)
       redirect_to_back
