@@ -67,13 +67,20 @@ module Backend
           missing_code_count = segment.name.classify.constantize.where("isacompta_analytic_code IS NULL OR isacompta_analytic_code = ''").count
           if missing_code_count > 0
             missing_segment += missing_code_count
-            notify_warning :fill_analytic_codes_of_your_activities.tl(segment: segment.name.text.downcase, missing_code_count: missing_code_count)
+            notify_error :fill_analytic_codes_of_your_activities.tl(segment: segment.name.text.downcase, missing_code_count: missing_code_count)
           end
         end
         if missing_segment > 0
           redirect_to_back
           return
         end
+      end
+      # redirect to back if no isacompta journal code exist
+      missing_journal_isacompta = Journal.where("isacompta_code IS NULL OR isacompta_code = '' OR isacompta_label IS NULL OR isacompta_label = ''")
+      if exchange.format == 'isacompta' && missing_journal_isacompta.count > 0
+        notify_error(:complete_isacompta_journal_code_html.tl(journals_link: view_context.link_to(missing_journal_isacompta.count, { controller: "/backend/journals", action: :index })), html: true)
+        redirect_to_back
+        return
       end
       # generate export
       FinancialYearExchangeExportJob.perform_later(exchange, params[:format], current_user)
